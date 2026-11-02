@@ -364,3 +364,13 @@ Play with it, correct what reads wrong, and open a pull request that also
 sets its `status` to `"reviewed"` with your name in `translators`
 (`rust/crates/forge-guide/src/locales.rs` and `tools/lib/i18n/locales.js`) and removes it from `ns.AI_LOCALES`
 (`addon/Polestar/Core/Init.lua`).
+
+## Polestar Client
+
+The desktop app (`apps/client`) has its own texts in the same nine
+languages, one JSON file per language in `apps/client/src/locales/`, keyed
+by the English text like the addon's files; every one of them is
+machine-made (`"status": "ai"` in its `@meta`) until a native speaker
+reviews it. Use the addon's words for the game's terms there too. The
+client's README, "Translating", says how the files work and how to check
+them (`pnpm i18n` in `apps/client`).

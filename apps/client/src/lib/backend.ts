@@ -45,6 +45,8 @@ export const api = {
 	finishSetup: () => call<void>('finish_setup'),
 	setSharing: (enabled: boolean) => call<void>('set_sharing', { enabled }),
 	setPaused: (paused: boolean) => call<void>('set_paused', { paused }),
+	/** The choice ('auto' or a locale) and what it means on this system (i18n.svelte.ts resolve). */
+	setLanguage: (language: string, locale: string) => call<void>('set_language', { language, locale }),
 	getAutostart: () => call<boolean>('get_autostart'),
 	setAutostart: (enabled: boolean) => call<void>('set_autostart', { enabled }),
 	setServerUrl: (url: string) => call<string>('set_server_url', { url }),

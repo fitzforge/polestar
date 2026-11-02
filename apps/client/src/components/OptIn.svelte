@@ -4,6 +4,7 @@
 	import { go } from '../lib/app.svelte';
 	import { api, message } from '../lib/backend';
 	import { COLLECTED, CONTRACT_URL, NEVER, NEVER_NOTE } from '../lib/copy';
+	import { t, parts } from '../lib/i18n.svelte';
 	import PageHeader from './PageHeader.svelte';
 	import Glyph from './Glyph.svelte';
 	import type { Snapshot } from '../lib/types';
@@ -28,41 +29,40 @@
 	}
 </script>
 
-<PageHeader title="Help improve Polestar's guides" subtitle="Optional. Share what the Polestar Recorder notes as you play, and the guides, routes and data get better for everyone." />
+<PageHeader title={t("Help improve Polestar's guides")} subtitle={`${t('Optional.')} ${t('Share what the Polestar Recorder notes as you play, and the guides, routes and data get better for everyone.')}`} />
 
 <div class="body">
 	<div class="column">
 		<div class="columns">
 			<section>
-				<h2>What is shared</h2>
+				<h2>{t('What is shared')}</h2>
 				<ul>
 					{#each COLLECTED as item, i (item.text)}
-						<li style:--i={i}><Glyph name={item.glyph} size={14} color="var(--textDim)" /><span>{item.text}</span></li>
+						<li style:--i={i}><Glyph name={item.glyph} size={14} color="var(--textDim)" /><span>{t(item.text)}</span></li>
 					{/each}
 				</ul>
 			</section>
 			<section>
-				<h2>What never is</h2>
+				<h2>{t('What never is')}</h2>
 				<ul>
 					{#each NEVER as item, i (item)}
-						<li style:--i={i + 1}><Glyph name="close" size={12} color="var(--textMuted)" /><span>{item}</span></li>
+						<li style:--i={i + 1}><Glyph name="close" size={12} color="var(--textMuted)" /><span>{t(item)}</span></li>
 					{/each}
 				</ul>
 			</section>
 		</div>
-		<p class="note fine">{NEVER_NOTE} <button class="link" onclick={() => api.openLink(CONTRACT_URL)}>Read the full list and the code</button></p>
+		<p class="note fine">{t(NEVER_NOTE)} <button class="link" onclick={() => api.openLink(CONTRACT_URL)}>{t('Read the full list and the code')}</button></p>
 		<div class="act">
 			<button class="btn primary start" disabled={busy} onclick={start}>
-				{#if busy}<span class="spinner"></span>{/if}Start sharing
+				{#if busy}<span class="spinner"></span>{/if}{t('Start sharing')}
 			</button>
 			<p class="small muted">
 				{#if recorder?.installed}
-					Uses the Recorder {recorder.installed} you have installed; it starts recording at your next login (or /reload).
+					{t('Uses the Recorder {version} you have installed; it starts recording at your next login (or /reload).', { version: recorder.installed })}
 				{:else}
-					Needs the Polestar Recorder addon:
-					<button class="link small-link" onclick={() => go('addons')}>install it from Addons</button>; it starts recording at your next login.
+					{#each parts(t('Needs the Polestar Recorder addon: {link}; it starts recording at your next login.'), ['link']) as p}{#if p.slot === 'link'}<button class="link small-link" onclick={() => go('addons')}>{t('install it from Addons')}</button>{:else}{p.text}{/if}{/each}
 				{/if}
-				Stop any time in Settings.
+				{t('Stop any time in Settings.')}
 			</p>
 		</div>
 		{#if error}<p class="note bad selectable">{error}</p>{/if}

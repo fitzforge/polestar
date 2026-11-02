@@ -156,7 +156,7 @@ fn game(state: &State) -> (Option<u32>, Option<String>) {
 /// Why `entry` can't go in: the site pulled that version, or the game or Polestar don't fit.
 fn why_blocked(index: &Index, entry: &Entry, site: &str, interface: Option<u32>, polestar: Option<&str>) -> Option<String> {
 	match index.revocation(&entry.id, entry.uid.as_deref(), Some(&entry.version)) {
-		Some((r, _)) => Some(format!("{site} pulled this version: {}", r.reason)),
+		Some((r, _)) => Some(t!("{site} pulled this version: {reason}", site = site, reason = r.reason)),
 		None => packs::blocked(entry, interface, polestar),
 	}
 }
@@ -359,7 +359,7 @@ impl Engine {
 		let result = match packs::fetch_index(&self.packs_http, &base, etag.as_deref()).await {
 			Ok(Fetched::NotModified) => Ok(None),
 			Ok(Fetched::New { body, sig, etag }) => packs::verify_index(&body, &sig, &packs::keys(), &base, now_ms(), last).and_then(|index| {
-				let saved = SavedIndex { generated: index.generated, etag: etag.clone(), body: String::from_utf8(body).map_err(|_| "The community index is not text.".to_owned())?, sig: String::from_utf8_lossy(&sig).into_owned() };
+				let saved = SavedIndex { generated: index.generated, etag: etag.clone(), body: String::from_utf8(body).map_err(|_| t!("The community index is not text."))?, sig: String::from_utf8_lossy(&sig).into_owned() };
 				if let Err(e) = self.store.save_pack_index(&base, saved) {
 					eprintln!("Could not keep the community index: {e}");
 				}
@@ -380,7 +380,7 @@ impl Engine {
 						packs.checked_at = Some(now_ms());
 					}
 					Ok(None) => {
-						packs.error = packs.index.as_ref().filter(|i| now_ms() >= i.expires).map(|_| "The community index has expired: polestar.guide hasn't renewed it. Try again later.".to_owned());
+						packs.error = packs.index.as_ref().filter(|i| now_ms() >= i.expires).map(|_| t!("The community index has expired: polestar.guide hasn't renewed it. Try again later."));
 						if packs.error.is_some() {
 							packs.index = None;
 						}
@@ -413,7 +413,7 @@ impl Engine {
 			announce.iter().filter(|(id, _, v)| state.notified.insert(format!("pack:{id} {v}"))).map(|(_, title, v)| format!("{title} {v}")).collect()
 		};
 		if !fresh.is_empty() {
-			let _ = self.app().notification().builder().title("Community Guide updates").body(format!("{} ready to install. Open Polestar Client to update.", fresh.join(", "))).show();
+			let _ = self.app().notification().builder().title(t!("Community Guide updates")).body(t!("{updates} ready to install. Open Polestar Client to update.", updates = fresh.join(", "))).show();
 		}
 	}
 
@@ -482,22 +482,26 @@ impl Engine {
 				}
 			}
 			let version = pulled.version.clone().unwrap_or_default();
-			let (verb, kind) = match action {
-				RevokeAction::Disable => ("turned off", ActivityKind::Disabled),
-				RevokeAction::Remove => ("removed", ActivityKind::Removed),
+			let kind = match action {
+				RevokeAction::Disable => ActivityKind::Disabled,
+				RevokeAction::Remove => ActivityKind::Removed,
 			};
 			let message = match &result {
 				Ok(_) => pulled.reason.clone(),
-				Err(e) => format!("{} Polestar Client could not do it: {e} It tries again at the next check.", pulled.reason),
+				Err(e) => t!("{reason} Polestar Client could not do it: {error} It tries again at the next check.", reason = pulled.reason, error = e),
 			};
 			let _ = self.store.push_activity(ActivityEntry { kind, at: now_ms(), product: Some(pulled.title.clone()), version: pulled.version.clone(), message: Some(message), ..Default::default() });
 			let first = self.lock().notified.insert(format!("pulled:{id} {version}"));
 			if result.is_ok() || first {
 				let body = match &result {
-					Ok(_) => format!("{} {version}: {} Restart the game (or /reload) if it is running.", pulled.title, pulled.reason),
-					Err(_) => format!("{} {version}: {} Polestar Client could not take it out of AddOns yet; see Activity.", pulled.title, pulled.reason),
+					Ok(_) => t!("{title} {version}: {reason} Restart the game (or /reload) if it is running.", title = pulled.title, version = version, reason = pulled.reason),
+					Err(_) => t!("{title} {version}: {reason} Polestar Client could not take it out of AddOns yet; see Activity.", title = pulled.title, version = version, reason = pulled.reason),
 				};
-				let _ = self.app().notification().builder().title(format!("{site} {verb} a Community Guide")).body(body).show();
+				let title = match action {
+					RevokeAction::Disable => t!("{site} turned off a Community Guide", site = site),
+					RevokeAction::Remove => t!("{site} removed a Community Guide", site = site),
+				};
+				let _ = self.app().notification().builder().title(title).body(body).show();
 			}
 		}
 		self.refresh_packs();
@@ -508,16 +512,16 @@ impl Engine {
 	/// pack, its publisher or its folders goes ahead only with `confirm`. Returns what was done.
 	pub async fn pack_action(self: &Arc<Self>, id: &str, action: &'static str, confirm: bool) -> Result<String, String> {
 		if !packs::valid_id(id) {
-			return Err("No such guide.".to_owned());
+			return Err(t!("No such guide."));
 		}
 		if matches!(action, "restore" | "discard") {
 			return self.pulled_action(id, action).await;
 		}
 		let (dir, entry, title, before) = {
 			let mut state = self.lock();
-			let dir = state.install.as_ref().map(|i| i.addons_dir()).ok_or("Find the game folder first (Settings > Game).")?;
+			let dir = state.install.as_ref().map(|i| i.addons_dir()).ok_or_else(|| t!("Find the game folder first (Settings > Game)."))?;
 			if state.packs.busy.contains_key(id) {
-				return Err("That guide is busy already.".to_owned());
+				return Err(t!("That guide is busy already."));
 			}
 			let have = state.packs.installed.iter().find(|p| p.id == id).cloned();
 			let entry = match action {
@@ -525,10 +529,10 @@ impl Engine {
 				_ => {
 					let site = packs::host(&state.settings.packs_url);
 					let index = state.packs.index_for(&state.settings.packs_url);
-					let entry = index.and_then(|i| i.get(id)).cloned().ok_or_else(|| format!("{id} isn't in the community index. Check for updates, or look for it on {site}."))?;
+					let entry = index.and_then(|i| i.get(id)).cloned().ok_or_else(|| t!("{id} isn't in the community index. Check for updates, or look for it on {site}.", id = id, site = site))?;
 					let (interface, polestar) = game(&state);
 					if let Some(why) = index.and_then(|i| why_blocked(i, &entry, &site, interface, polestar.as_deref())) {
-						return Err(format!("{} can't be installed: {why}", entry.title));
+						return Err(t!("{title} can't be installed: {reason}", title = entry.title, reason = why));
 					}
 					if let (Some(_), Some(pin)) = (&have, state.packs.local.pins.get(id)) {
 						let changes = packs::changes(pin, &entry);
@@ -540,7 +544,7 @@ impl Engine {
 				}
 			};
 			if action == "uninstall" && have.is_none() {
-				return Err("That guide isn't installed.".to_owned());
+				return Err(t!("That guide isn't installed."));
 			}
 			let title = entry.as_ref().map(|e| e.title.clone()).or_else(|| have.as_ref().and_then(|h| h.title.clone())).unwrap_or_else(|| id.to_owned());
 			state.packs.busy.insert(id.to_owned(), action);
@@ -615,8 +619,8 @@ impl Engine {
 		}
 		self.publish();
 		result.map(|_| match &entry {
-			None => format!("{title} removed."),
-			Some(e) => format!("{title} {} installed. Restart the game (or /reload) to load it.", e.version),
+			None => t!("{title} removed.", title = title),
+			Some(e) => t!("{title} {version} installed. Restart the game (or /reload) to load it.", title = title, version = e.version),
 		})
 	}
 
@@ -625,18 +629,18 @@ impl Engine {
 	async fn pulled_action(self: &Arc<Self>, id: &str, action: &'static str) -> Result<String, String> {
 		let (dir, pulled) = {
 			let state = self.lock();
-			let pulled = state.packs.local.pulled.get(id).cloned().ok_or("That guide wasn't pulled by the site.")?;
+			let pulled = state.packs.local.pulled.get(id).cloned().ok_or_else(|| t!("That guide wasn't pulled by the site."))?;
 			if state.packs.busy.contains_key(id) {
-				return Err("That guide is busy already.".to_owned());
+				return Err(t!("That guide is busy already."));
 			}
 			if action == "restore" {
 				if pulled.action != RevokeAction::Disable {
-					return Err(format!("{} was removed, so there is no copy to restore.", pulled.title));
+					return Err(t!("{title} was removed, so there is no copy to restore.", title = pulled.title));
 				}
 				let site = packs::host(&state.settings.packs_url);
-				let index = state.packs.index_for(&state.settings.packs_url).ok_or_else(|| format!("Check for updates first: a guide {site} pulled comes back only once the site no longer pulls it."))?;
+				let index = state.packs.index_for(&state.settings.packs_url).ok_or_else(|| t!("Check for updates first: a guide {site} pulled comes back only once the site no longer pulls it.", site = site))?;
 				if let Some((r, _)) = index.revocation(id, pulled.uid.as_deref(), pulled.version.as_deref()) {
-					return Err(format!("{site} still pulls {} {}: {}", pulled.title, pulled.version.as_deref().unwrap_or(""), r.reason));
+					return Err(t!("{site} still pulls {title} {version}: {reason}", site = site, title = pulled.title, version = pulled.version.as_deref().unwrap_or(""), reason = r.reason));
 				}
 			}
 			(state.install.as_ref().map(|i| i.addons_dir()), pulled)
@@ -644,7 +648,7 @@ impl Engine {
 		let kept = self.store.disabled_dir(id);
 		if action == "discard" {
 			if kept.exists() {
-				std::fs::remove_dir_all(&kept).map_err(|e| format!("Could not delete {}: {e}", kept.display()))?;
+				std::fs::remove_dir_all(&kept).map_err(|e| t!("Could not delete {folder}: {error}", folder = kept.display(), error = e))?;
 			}
 			{
 				let mut state = self.lock();
@@ -656,11 +660,11 @@ impl Engine {
 			}
 			self.publish();
 			return Ok(match pulled.action {
-				RevokeAction::Disable => format!("The copy kept of {} is deleted.", pulled.title),
-				RevokeAction::Remove => format!("{} is off the list.", pulled.title),
+				RevokeAction::Disable => t!("The copy kept of {title} is deleted.", title = pulled.title),
+				RevokeAction::Remove => t!("{title} is off the list.", title = pulled.title),
 			});
 		}
-		let dir = dir.ok_or("Find the game folder first (Settings > Game).")?;
+		let dir = dir.ok_or_else(|| t!("Find the game folder first (Settings > Game)."))?;
 		let (pack, addons, from) = (id.to_owned(), dir, kept);
 		let result = tauri::async_runtime::spawn_blocking(move || packs::restore(&pack, &addons, &from)).await.map_err(|e| e.to_string()).and_then(|r| r);
 		if result.is_ok() {
@@ -672,7 +676,7 @@ impl Engine {
 		let _ = self.store.push_activity(ActivityEntry { kind: ActivityKind::Restored, at: now_ms(), product: Some(pulled.title.clone()), version: pulled.version.clone(), message: result.as_ref().err().cloned(), ..Default::default() });
 		self.refresh_packs();
 		self.publish();
-		result.map(|_| format!("{} {} is back. Restart the game (or /reload) to load it.", pulled.title, pulled.version.as_deref().unwrap_or("")))
+		result.map(|_| t!("{title} {version} is back. Restart the game (or /reload) to load it.", title = pulled.title, version = pulled.version.as_deref().unwrap_or("")))
 	}
 
 	/// A `polestar://` link (from the browser, through the system): the page opens it on the

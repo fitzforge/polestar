@@ -5,17 +5,18 @@
 	import { dismiss, hold, toasts } from '../lib/toast.svelte';
 	import { rise } from '../lib/motion';
 	import Glyph from './Glyph.svelte';
+	import { t } from '../lib/i18n.svelte';
 
 	const GLYPH = { success: 'check', warning: 'info', info: 'info' } as const;
 	const COLOR = { success: 'var(--success)', warning: 'var(--warning)', info: 'var(--textDim)' } as const;
 </script>
 
 <div class="toaster" role="status" aria-live="polite" onpointerenter={() => hold(true)} onpointerleave={() => hold(false)}>
-	{#each toasts as t (t.id)}
-		<div class="toast" class:warning={t.kind === 'warning'} in:rise={{ y: 12, duration: 280 }} out:rise={{ y: 8, duration: 160 }} animate:flip={{ duration: 220 }}>
-			<span class="mark"><Glyph name={GLYPH[t.kind]} size={14} color={COLOR[t.kind]} /></span>
-			<p class="selectable">{t.text}</p>
-			<button class="icon-btn" aria-label="Dismiss" onclick={() => dismiss(t.id)}><Glyph name="close" size={12} /></button>
+	{#each toasts as item (item.id)}
+		<div class="toast" class:warning={item.kind === 'warning'} in:rise={{ y: 12, duration: 280 }} out:rise={{ y: 8, duration: 160 }} animate:flip={{ duration: 220 }}>
+			<span class="mark"><Glyph name={GLYPH[item.kind]} size={14} color={COLOR[item.kind]} /></span>
+			<p class="selectable">{item.text}</p>
+			<button class="icon-btn" aria-label={t('Dismiss')} onclick={() => dismiss(item.id)}><Glyph name="close" size={12} /></button>
 		</div>
 	{/each}
 </div>

@@ -2,6 +2,7 @@
 	import { app, go } from '../lib/app.svelte';
 	import { api, message } from '../lib/backend';
 	import { ago, ltr } from '../lib/format';
+	import { t, msg } from '../lib/i18n.svelte';
 	import { rise, swap } from '../lib/motion';
 	import { toast } from '../lib/toast.svelte';
 	import type { Snapshot } from '../lib/types';
@@ -21,19 +22,19 @@
 	const retryIn = $derived(status.nextRetry ? Math.max(0, Math.ceil((status.nextRetry - app.now) / 1000)) : null);
 	const facts = $derived(
 		[
-			status.lastUpload ? `Last sent ${ago(status.lastUpload, app.now)}` : 'Nothing sent yet',
-			snapshot.pending > 0 && status.kind !== 'uploading' ? 'New play waiting to send' : null,
-			addon?.installed ? `Recorder ${addon.version ?? ''}`.trim() : null,
+			status.lastUpload ? t('Last sent {when}', { when: ago(status.lastUpload, app.now) }) : t('Nothing sent yet'),
+			snapshot.pending > 0 && status.kind !== 'uploading' ? t('New play waiting to send') : null,
+			addon?.installed ? (addon.version ? t('Recorder {version}', { version: addon.version }) : t('Recorder')) : null,
 		].filter(Boolean) as string[],
 	);
 
 	const actions: Record<string, { label: string; run: () => Promise<unknown> }> = {
-		retry: { label: 'Try again now', run: () => api.retryNow() },
-		resume: { label: 'Resume uploads', run: () => api.setPaused(false) },
-		install: { label: 'Install the Recorder', run: () => api.addonAction('recorder', 'install').then((t) => toast(t)) },
-		update: { label: 'Update the Recorder', run: () => api.addonAction('recorder', 'update').then((t) => toast(t)) },
+		retry: { label: msg('Try again now'), run: () => api.retryNow() },
+		resume: { label: msg('Resume uploads'), run: () => api.setPaused(false) },
+		install: { label: msg('Install the Recorder'), run: () => api.addonAction('recorder', 'install').then((text) => toast(text)) },
+		update: { label: msg('Update the Recorder'), run: () => api.addonAction('recorder', 'update').then((text) => toast(text)) },
 		locate: {
-			label: 'Locate the game',
+			label: msg('Locate the game'),
 			run: async () => {
 				const check = await api.pickFolder();
 				if (check?.problem) throw check.problem;
@@ -62,7 +63,7 @@
 		<p class="note detail" in:swap>
 			{status.detail}
 			{#if retryIn !== null && status.kind === 'offline'}
-				<span class="muted">{retryIn > 0 ? `Trying again in ${retryIn} s.` : 'Trying again now.'}</span>
+				<span class="muted">{retryIn > 0 ? t('Trying again in {seconds} s.', { seconds: retryIn }) : t('Trying again now.')}</span>
 			{/if}
 		</p>
 	{/key}
@@ -78,60 +79,60 @@
 			<div class="banner" class:warn={status.kind !== 'paused'} in:rise>
 				<Glyph name={status.kind === 'paused' ? 'pause' : 'info'} color={status.kind === 'paused' ? 'var(--textDim)' : 'var(--warning)'} />
 				<div class="text">
-					<p class="note">{status.kind === 'paused' ? 'Nothing is sent while uploads are paused.' : status.kind === 'offline' ? 'Your play is kept on this PC and sent once the server answers.' : 'This needs you before anything can be sent.'}</p>
+					<p class="note">{status.kind === 'paused' ? t('Nothing is sent while uploads are paused.') : status.kind === 'offline' ? t('Your play is kept on this PC and sent once the server answers.') : t('This needs you before anything can be sent.')}</p>
 					{#if error}<p class="note error selectable">{error}</p>{/if}
 				</div>
 				{#if action}
 					<button class="btn" class:primary={status.kind === 'attention'} disabled={busy} onclick={act}>
-						{#if busy}<span class="spinner"></span>{/if}{action.label}
+						{#if busy}<span class="spinner"></span>{/if}{t(action.label)}
 					</button>
 				{/if}
 			</div>
 		{/if}
 
 		<section class="section">
-			<h2>This week <span class="aside small muted">What reached the server in the last 7 days</span></h2>
+			<h2>{t('This week')} <span class="aside small muted">{t('What reached the server in the last 7 days')}</span></h2>
 			{#if snapshot.week}
 				<Facts summary={snapshot.week} />
 			{:else}
-				<p class="note empty-line">Nothing has reached the server this week yet. Play with the Recorder on; after you log out or type /reload, what you shared adds up here.</p>
+				<p class="note empty-line">{t('Nothing has reached the server this week yet.')} {t('Play with the Recorder on; after you log out or type /reload, what you shared adds up here.')}</p>
 			{/if}
 		</section>
 
 		{#if snapshot.week && snapshot.week.characters.length > 0}
 			<section class="section">
-				<h2>Characters <span class="aside small muted">Class, race and level only, never names</span></h2>
+				<h2>{t('Characters')} <span class="aside small muted">{t('Class, race and level only, never names')}</span></h2>
 				<Characters characters={snapshot.week.characters} />
 			</section>
 		{/if}
 
 		<section class="section">
-			<h2>On this PC</h2>
+			<h2>{t('On this PC')}</h2>
 			<div class="rows one">
 				<div class="row">
 					<Glyph name="folder" color="var(--textDim)" />
 					<span class="label">World of Warcraft: Forever</span>
-					<span class="value path dim" title={snapshot.game.dir ?? ''}>{snapshot.game.root ? ltr(snapshot.game.root) : 'Not found'}</span>
+					<span class="value path dim" title={snapshot.game.dir ?? ''}>{snapshot.game.root ? ltr(snapshot.game.root) : t('Not found')}</span>
 				</div>
 				<div class="row">
 					<Glyph name="record" color="var(--textDim)" />
 					<span class="label">Polestar Recorder</span>
-					{#if addon?.updateAvailable && addon.latest}<button class="chip accent" onclick={() => go('addons')}>{addon.latest} available</button>{/if}
-					<span class="value num">{addon?.installed ? (addon.version ?? 'Installed') : 'Not installed'}</span>
+					{#if addon?.updateAvailable && addon.latest}<button class="chip accent" onclick={() => go('addons')}>{t('{version} available', { version: addon.latest })}</button>{/if}
+					<span class="value num">{addon?.installed ? (addon.version ?? t('Installed')) : t('Not installed')}</span>
 				</div>
 				{#each snapshot.game.accounts as account (account.name)}
 					<div class="row">
 						<Glyph name="lock" color="var(--textDim)" />
-						<span class="label">{account.name} <span class="small muted">· this name stays on your PC</span></span>
-						{#if account.pending > 0}<span class="small muted">New play waiting</span>{/if}
+						<span class="label">{account.name} <span class="small muted">· {t('this name stays on your PC')}</span></span>
+						{#if account.pending > 0}<span class="small muted">{t('New play waiting')}</span>{/if}
 						{#if account.problem}
-							<span class="chip warning" title={account.problem}>Can't read its file</span>
+							<span class="chip warning" title={account.problem}>{t("Can't read its file")}</span>
 						{:else if account.recording === true}
-							<span class="chip success">Recording</span>
+							<span class="chip success">{t('Recording')}</span>
 						{:else if account.recording === false}
-							<span class="chip warning" title="Type /psrec on in the game">Off in the game</span>
+							<span class="chip warning" title={t('Type /psrec on in the game')}>{t('Off in the game')}</span>
 						{:else}
-							<span class="chip">Nothing recorded yet</span>
+							<span class="chip">{t('Nothing recorded yet')}</span>
 						{/if}
 					</div>
 				{/each}

@@ -229,6 +229,10 @@ export interface Snapshot {
 	/** The player opted in to the recording program. */
 	consent: boolean;
 	paused: boolean;
+	/** Settings > Language: 'auto' (the system's) or a locale code. */
+	language: string;
+	/** The language the backend writes its texts in, as the window last set it. */
+	locale: string;
 	serverUrl: string;
 	defaultServerUrl: string;
 	dataDir: string;

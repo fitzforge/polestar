@@ -7,11 +7,18 @@
 	import { toast } from '../lib/toast.svelte';
 	import { diagnostics, showFrames } from '../lib/diagnostics.svelte';
 	import { intro, setFullIntro } from '../lib/intro.svelte';
+	import { chooseLanguage } from '../lib/app.svelte';
+	import { LANGUAGES, meta, msg, parts, resolve, t } from '../lib/i18n.svelte';
 	import type { Channel, Snapshot } from '../lib/types';
 	import PageHeader from '../components/PageHeader.svelte';
 	import Glyph from '../components/Glyph.svelte';
 
+	const DISCORD_URL = 'https://discord.gg/polestar';
+
 	let { snapshot }: { snapshot: Snapshot } = $props();
+
+	/** What Automatic means on this system, in that language's own name. */
+	const automatic = () => LANGUAGES.find((l) => l.code === resolve('auto'))?.name ?? 'English';
 
 	let autostart = $state<boolean | null>(null);
 	let server = $state('');
@@ -56,7 +63,7 @@
 		clearTimeout(armTimer);
 		run('delete', async () => {
 			await api.deleteServerData();
-			return 'Deleted. Uploads are paused; when you resume, this PC is set up again as new.';
+			return t('Deleted. Uploads are paused; when you resume, this PC is set up again as new.');
 		});
 	}
 
@@ -72,8 +79,8 @@
 
 	// The update channel's selected segment glides (transform only).
 	const channels: [Channel, string][] = [
-		['stable', 'Stable'],
-		['beta', 'Beta'],
+		['stable', msg('Stable')],
+		['beta', msg('Beta')],
 	];
 	const segEls: Partial<Record<Channel, HTMLElement>> = {};
 	let thumb = $state<{ x: number; w: number } | null>(null);
@@ -92,41 +99,41 @@
 	});
 </script>
 
-<PageHeader title="Settings" subtitle="How Polestar Client runs on this PC." />
+<PageHeader title={t('Settings')} subtitle={t('How Polestar Client runs on this PC.')} />
 
 <div class="body">
 	<div class="column">
 		<section class="section">
-			<h2>Recording</h2>
+			<h2>{t('Recording')}</h2>
 			<div class="rows">
-				<div class="row" title="Off: nothing is sent, and the Recording pages offer to opt in again. What was already sent stays until you delete it below.">
-					<span class="label">Share my play</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.consent} aria-label="Share my play" onclick={() => run('sharing', () => api.setSharing(!snapshot.consent))}></button>
+				<div class="row" title={t('Off: nothing is sent, and the Recording pages offer to opt in again. What was already sent stays until you delete it below.')}>
+					<span class="label">{t('Share my play')}</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.consent} aria-label={t('Share my play')} onclick={() => run('sharing', () => api.setSharing(!snapshot.consent))}></button>
 				</div>
-				<div class="row" class:off={!snapshot.consent} title="Stops sending until you resume. The Recorder keeps recording in the game.">
-					<span class="label">Pause uploads</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.paused} aria-label="Pause uploads" disabled={!snapshot.consent} onclick={() => run('pause', () => api.setPaused(!snapshot.paused))}></button>
+				<div class="row" class:off={!snapshot.consent} title={t('Stops sending until you resume. The Recorder keeps recording in the game.')}>
+					<span class="label">{t('Pause uploads')}</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.paused} aria-label={t('Pause uploads')} disabled={!snapshot.consent} onclick={() => run('pause', () => api.setPaused(!snapshot.paused))}></button>
 				</div>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>Addons</h2>
+			<h2>{t('Addons')}</h2>
 			<div class="rows">
-				<div class="row" title="Looks for new releases every 6 hours and says so in the tray.">
-					<span class="label">Check for updates automatically</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoCheck} aria-label="Check for updates automatically" onclick={() => run('autoCheck', () => api.setAddonPrefs({ autoCheck: !snapshot.addons.autoCheck }))}></button>
+				<div class="row" title={t('Looks for new releases every 6 hours and says so in the tray.')}>
+					<span class="label">{t('Check for updates automatically')}</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoCheck} aria-label={t('Check for updates automatically')} onclick={() => run('autoCheck', () => api.setAddonPrefs({ autoCheck: !snapshot.addons.autoCheck }))}></button>
 				</div>
-				<div class="row" title="Installs updates to Polestar's own addons as soon as they are found, while the game is closed. Community Guides have their own setting below.">
-					<span class="label">Install addon updates automatically</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoInstall} aria-label="Install addon updates automatically" onclick={() => run('autoInstall', () => api.setAddonPrefs({ autoInstall: !snapshot.addons.autoInstall }))}></button>
+				<div class="row" title={t("Installs updates to Polestar's own addons as soon as they are found, while the game is closed. Community Guides have their own setting below.")}>
+					<span class="label">{t('Install addon updates automatically')}</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.addons.autoInstall} aria-label={t('Install addon updates automatically')} onclick={() => run('autoInstall', () => api.setAddonPrefs({ autoInstall: !snapshot.addons.autoInstall }))}></button>
 				</div>
-				<div class="row" title="Beta also offers pre-releases: newer, less tested.">
-					<span class="label">Update channel</span>
-					<div class="segments" role="radiogroup" aria-label="Update channel">
+				<div class="row" title={t('Beta also offers pre-releases: newer, less tested.')}>
+					<span class="label">{t('Update channel')}</span>
+					<div class="segments" role="radiogroup" aria-label={t('Update channel')}>
 						{#if thumb}<span class="thumb" class:glide style:transform="translateX({thumb.x}px)" style:width="{thumb.w}px" aria-hidden="true"></span>{/if}
 						{#each channels as [id, label] (id)}
-							<button role="radio" class="segment" aria-checked={snapshot.addons.channel === id} bind:this={segEls[id]} onclick={() => run('channel', () => api.setAddonPrefs({ channel: id }))}>{label}</button>
+							<button role="radio" class="segment" aria-checked={snapshot.addons.channel === id} bind:this={segEls[id]} onclick={() => run('channel', () => api.setAddonPrefs({ channel: id }))}>{t(label)}</button>
 						{/each}
 					</div>
 				</div>
@@ -134,29 +141,45 @@
 		</section>
 
 		<section class="section">
-			<h2>Community Guides</h2>
+			<h2>{t('Community Guides')}</h2>
 			<div class="rows">
-				<div class="row" title="Only routine updates, a day after they're published, while the game is closed. A new publisher or changed folders always asks first.">
-					<span class="label">Update guides automatically</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.community.autoUpdate} aria-label="Update guides automatically" onclick={() => run('packAutoUpdate', () => api.setPackAutoUpdate(!snapshot.community.autoUpdate))}></button>
+				<div class="row" title={t("Only routine updates, a day after they're published, while the game is closed. A new publisher or changed folders always asks first.")}>
+					<span class="label">{t('Update guides automatically')}</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.community.autoUpdate} aria-label={t('Update guides automatically')} onclick={() => run('packAutoUpdate', () => api.setPackAutoUpdate(!snapshot.community.autoUpdate))}></button>
 				</div>
-				<div class="row" title="After a guide installs, tells {snapshot.community.site} which guide and version, nothing else, so its author sees how many players use it. Off: nothing is sent.">
-					<span class="label">Count my guide installs</span>
-					<button class="toggle" role="switch" aria-checked={snapshot.community.telemetry} aria-label="Count my guide installs" onclick={() => run('telemetry', () => api.setPackTelemetry(!snapshot.community.telemetry))}></button>
+				<div class="row" title={t('After a guide installs, tells {site} which guide and version, nothing else, so its author sees how many players use it. Off: nothing is sent.', { site: snapshot.community.site })}>
+					<span class="label">{t('Count my guide installs')}</span>
+					<button class="toggle" role="switch" aria-checked={snapshot.community.telemetry} aria-label={t('Count my guide installs')} onclick={() => run('telemetry', () => api.setPackTelemetry(!snapshot.community.telemetry))}></button>
 				</div>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>General</h2>
+			<h2>{t('General')}</h2>
+			<div class="rows one">
+				<div class="row" title={t('The language of Polestar Client. Automatic follows your system.')}>
+					<label class="label" for="language">{t('Language')}</label>
+					<select id="language" class="field" onchange={(e) => { const choice = e.currentTarget.value; run('language', () => chooseLanguage(choice)); }}>
+						<option value="auto" selected={(snapshot.language || 'auto') === 'auto'}>{t('Automatic ({language})', { language: automatic() })}</option>
+						{#each LANGUAGES as l (l.code)}
+							<option value={l.code} selected={snapshot.language === l.code}>{l.name}</option>
+						{/each}
+					</select>
+				</div>
+			</div>
+			{#if meta()?.status === 'ai'}
+				<p class="out note">
+					{#each parts(t('Translated by machine. Corrections are welcome on {discord}.'), ['discord']) as p}{#if p.slot === 'discord'}<button class="link" onclick={() => api.openLink(DISCORD_URL)}>Discord</button>{:else}{p.text}{/if}{/each}
+				</p>
+			{/if}
 			<div class="rows">
-				<div class="row" title="Starts Polestar Client in the tray when you log in to your computer.">
-					<span class="label">Start with my computer</span>
+				<div class="row" title={t('Starts Polestar Client in the tray when you log in to your computer.')}>
+					<span class="label">{t('Start with my computer')}</span>
 					<button
 						class="toggle"
 						role="switch"
 						aria-checked={!!autostart}
-						aria-label="Start with my computer"
+						aria-label={t('Start with my computer')}
 						disabled={autostart === null}
 						onclick={() =>
 							run('autostart', async () => {
@@ -165,19 +188,19 @@
 							})}
 					></button>
 				</div>
-				<div class="row" title="On: the intro plays in full every time Polestar Client opens, from the tray too. Off: in full only on the first launch after an install or update, a short one on other launches. A click or any key skips it.">
-					<span class="label">Play the full intro every launch</span>
-					<button class="toggle" role="switch" aria-checked={intro.full} aria-label="Play the full intro every launch" onclick={() => setFullIntro(!intro.full)}></button>
+				<div class="row" title={t('On: the intro plays in full every time Polestar Client opens, from the tray too. Off: in full only on the first launch after an install or update, a short one on other launches. A click or any key skips it.')}>
+					<span class="label">{t('Play the full intro every launch')}</span>
+					<button class="toggle" role="switch" aria-checked={intro.full} aria-label={t('Play the full intro every launch')} onclick={() => setFullIntro(!intro.full)}></button>
 				</div>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>Game</h2>
+			<h2>{t('Game')}</h2>
 			<div class="rows one">
 				<div class="row">
-					<span class="label short">WoW: Forever folder</span>
-					<span class="path dim" title={snapshot.game.dir ?? ''}>{snapshot.game.dir ? ltr(snapshot.game.dir) : 'Not found'}</span>
+					<span class="label short">{t('WoW: Forever folder')}</span>
+					<span class="path dim" title={snapshot.game.dir ?? ''}>{snapshot.game.dir ? ltr(snapshot.game.dir) : t('Not found')}</span>
 					<button
 						class="btn"
 						disabled={busy === 'folder'}
@@ -185,52 +208,52 @@
 							run('folder', async () => {
 								const check = await api.pickFolder();
 								if (check?.problem) throw `${check.path}: ${check.problem}`;
-								return check ? `Using ${check.path}.` : undefined;
-							})}>Change…</button
+								return check ? t('Using {path}.', { path: check.path }) : undefined;
+							})}>{t('Change…')}</button
 					>
 				</div>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>Your data</h2>
+			<h2>{t('Your data')}</h2>
 			<div class="tiles">
 				<button class="tile" class:armed onclick={deleteData} disabled={busy === 'delete'}>
 					{#if busy === 'delete'}<span class="spinner tile-mark" style:color="var(--danger)"></span>{:else}<span class="tile-mark"><Glyph name="close" size={18} color="var(--danger)" /></span>{/if}
-					{#key armed}<span class="tile-title" in:swap>{armed ? 'Click again to delete' : 'Delete my data from the server'}</span>{/key}
-					<span class="small muted">Removes everything this PC sent, then starts afresh.</span>
+					{#key armed}<span class="tile-title" in:swap>{armed ? t('Click again to delete') : t('Delete my data from the server')}</span>{/key}
+					<span class="small muted">{t('Removes everything this PC sent, then starts afresh.')}</span>
 				</button>
 				<button class="tile" onclick={() => run('folder-open', () => api.openDataFolder())}>
 					<span class="tile-mark"><Glyph name="folder" size={18} color="var(--accent)" /></span>
-					<span class="tile-title">Open the data folder</span>
+					<span class="tile-title">{t('Open the data folder')}</span>
 					<span class="small muted path-line" title={snapshot.dataDir}>{snapshot.dataDir}</span>
 				</button>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>About</h2>
+			<h2>{t('About')}</h2>
 			<div class="rows one">
 				<div class="row">
 					<span class="label">Polestar Client <span class="num muted">{snapshot.version}</span></span>
 					{#if snapshot.update}
 						<button class="btn primary" disabled={busy === 'update'} onclick={() => run('update', () => api.installUpdate())}>
-							{#if busy === 'update'}<span class="spinner"></span>Updating…{:else}Update to {snapshot.update}{/if}
+							{#if busy === 'update'}<span class="spinner"></span>{t('Updating…')}{:else}{t('Update to {version}', { version: snapshot.update })}{/if}
 						</button>
 					{:else}
 						<button class="btn" disabled={busy === 'check'} onclick={checkClient}>
-							{#if busy === 'check'}<span class="spinner"></span>Checking…{:else if checkedClient}<span class="ok" in:swap><Glyph name="check" size={12} color="var(--success)" />Up to date</span>{:else}Check for client updates{/if}
+							{#if busy === 'check'}<span class="spinner"></span>{t('Checking…')}{:else if checkedClient}<span class="ok" in:swap><Glyph name="check" size={12} color="var(--success)" />{t('Up to date')}</span>{:else}{t('Check for client updates')}{/if}
 						</button>
 					{/if}
 				</div>
-				<div class="row" title="A small overlay with the frame rate and how the window is drawn, for reporting stutter. Ctrl+Shift+F shows and hides it anywhere.">
-					<span class="label">Show the frame rate <span class="small muted">· Ctrl+Shift+F</span></span>
-					<button class="toggle" role="switch" aria-checked={diagnostics.frames} aria-label="Show the frame rate" onclick={() => showFrames(!diagnostics.frames)}></button>
+				<div class="row" title={t('A small overlay with the frame rate and how the window is drawn, for reporting stutter. Ctrl+Shift+F shows and hides it anywhere.')}>
+					<span class="label">{t('Show the frame rate')} <span class="small muted">· Ctrl+Shift+F</span></span>
+					<button class="toggle" role="switch" aria-checked={diagnostics.frames} aria-label={t('Show the frame rate')} onclick={() => showFrames(!diagnostics.frames)}></button>
 				</div>
 				<div class="row links">
-					<button class="link" onclick={() => api.openLink(CONTRACT_URL)}>What is collected, and why</button>
-					<button class="link" onclick={() => api.openLink(CLIENT_URL)}>The client's source</button>
-					<button class="link" onclick={() => api.openLink(SOURCE_URL)}>Polestar on GitHub</button>
+					<button class="link" onclick={() => api.openLink(CONTRACT_URL)}>{t('What is collected, and why')}</button>
+					<button class="link" onclick={() => api.openLink(CLIENT_URL)}>{t("The client's source")}</button>
+					<button class="link" onclick={() => api.openLink(SOURCE_URL)}>{t('Polestar on GitHub')}</button>
 				</div>
 			</div>
 		</section>

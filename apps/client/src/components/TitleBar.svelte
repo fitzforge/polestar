@@ -10,6 +10,7 @@
 
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { t } from '../lib/i18n.svelte';
 
 	type Win = import('@tauri-apps/api/window').Window;
 	const tauri = typeof window !== 'undefined' && '__TAURI_INTERNALS__' in window;
@@ -28,10 +29,10 @@
 <div class="titlebar" class:mac={MAC} data-tauri-drag-region>
 	{#if !MAC}
 		<div class="controls">
-			<button class="control" aria-label="Minimize" onclick={() => win?.minimize()}>
+			<button class="control" aria-label={t('Minimize')} onclick={() => win?.minimize()}>
 				<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1 5.5h8" /></svg>
 			</button>
-			<button class="control close" aria-label="Close to the tray" title="Close (Polestar Client keeps running in the tray)" onclick={() => win?.close()}>
+			<button class="control close" aria-label={t('Close to the tray')} title={t('Close (Polestar Client keeps running in the tray)')} onclick={() => win?.close()}>
 				<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M1.5 1.5l7 7M8.5 1.5l-7 7" /></svg>
 			</button>
 		</div>

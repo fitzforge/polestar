@@ -158,6 +158,7 @@ impl Engine {
 		let last_upload = activity.iter().find(|a| matches!(a.kind, ActivityKind::Upload)).map(|a| a.at);
 		let rejected = activity.first().filter(|a| matches!(a.kind, ActivityKind::Upload) && !a.rejected.is_empty()).map(|a| (a.at, a.rejected.clone()));
 		let settings = store.settings();
+		crate::i18n::set_locale(&settings.locale);
 		let packs = crate::community::Packs::load(&store, &settings.packs_url);
 		let state = State {
 			settings,
@@ -218,7 +219,7 @@ impl Engine {
 	pub fn save_settings(&self, change: impl FnOnce(&mut Settings)) -> Result<(), String> {
 		let mut state = self.lock();
 		change(&mut state.settings);
-		self.store.save_settings(&state.settings).map_err(|e| format!("Could not save settings: {e}"))?;
+		self.store.save_settings(&state.settings).map_err(|e| t!("Could not save settings: {error}", error = e))?;
 		drop(state);
 		self.sync_share();
 		self.wake();
@@ -475,14 +476,14 @@ impl Engine {
 				Err(f) => return self.record(f),
 			};
 			if !hex(&challenge.challenge, 32) || challenge.difficulty > register::MAX_DIFFICULTY {
-				self.refuse(format!("The server asked for a setup this client does not do (a {}-bit proof of work).", challenge.difficulty));
+				self.refuse(t!("The server asked for a setup this client does not do (a {bits}-bit proof of work).", bits = challenge.difficulty));
 				return None;
 			}
 			let (text, bits) = (challenge.challenge.clone(), challenge.difficulty);
 			let solution = match tauri::async_runtime::spawn_blocking(move || register::solve(&text, bits)).await {
 				Ok(n) => n,
 				Err(e) => {
-					self.refuse(format!("Setting up failed: {e}"));
+					self.refuse(t!("Setting up failed: {error}", error = e));
 					return None;
 				}
 			};
@@ -493,11 +494,11 @@ impl Engine {
 			}
 		};
 		if !hex(&answer.token, 64) {
-			self.refuse("The server's token could not be read.".to_owned());
+			self.refuse(t!("The server's token could not be read."));
 			return None;
 		}
 		if let Err(e) = self.store.save_token(server, &answer.token) {
-			self.refuse(format!("Could not keep the token in {}: {e}", self.store.dir.display()));
+			self.refuse(t!("Could not keep the token in {folder}: {error}", folder = self.store.dir.display(), error = e));
 			return None;
 		}
 		Some(answer.token)
@@ -509,7 +510,7 @@ impl Engine {
 		let status = response.status();
 		if !status.is_success() {
 			let retry_after = retry_after(&response);
-			let message = server_message(response).await.unwrap_or_else(|| format!("The server answered {status}."));
+			let message = server_message(response).await.unwrap_or_else(|| t!("The server answered {status}.", status = status));
 			return Err(Failed::Status(status, retry_after, message));
 		}
 		read_answer(response).await.map_err(Failed::Offline)
@@ -560,7 +561,7 @@ impl Engine {
 				self.wake();
 				return false;
 			}
-			let message = message.unwrap_or_else(|| format!("The server answered {status}."));
+			let message = message.unwrap_or_else(|| t!("The server answered {status}.", status = status));
 			if self.fail_status(status, retry_after, message.clone()) {
 				let _ = self.store.push_activity(ActivityEntry {
 					kind: ActivityKind::Failed,
@@ -697,7 +698,7 @@ impl Engine {
 	/// next upload registers anew), no week cache, uploads paused. Progress
 	/// stays, so chunks the server held are never sent again.
 	pub fn forget_server_data(&self, server: &str) -> Result<(), String> {
-		self.store.drop_token(server).map_err(|e| format!("Could not forget the token: {e}"))?;
+		self.store.drop_token(server).map_err(|e| t!("Could not forget the token: {error}", error = e))?;
 		let _ = self.store.clear_sent();
 		let _ = self.store.push_activity(ActivityEntry { kind: ActivityKind::Deleted, at: now_ms(), ..Default::default() });
 		{
@@ -751,7 +752,7 @@ impl Engine {
 					recording: vars.map(|v| v.enabled),
 					pending: vars.map(|v| v.chunks.range(done + 1..).count() as u64).unwrap_or(0),
 					characters: a.char_names.len(),
-					problem: a.error.as_ref().filter(|e| !matches!(e, sv::Error::Missing)).map(|e| e.to_string()),
+					problem: a.error.as_ref().filter(|e| !matches!(e, sv::Error::Missing)).map(file_problem),
 				}
 			})
 			.collect();
@@ -762,7 +763,7 @@ impl Engine {
 			dir: state.install.as_ref().map(|i| i.flavor_dir.display().to_string()),
 			game_version: state.install.as_ref().and_then(|i| i.version.clone()),
 			chosen: state.settings.wow_folder.as_ref().map(|p| p.display().to_string()),
-			problem: state.problem.as_ref().map(|(path, p)| FolderProblemView { path: path.display().to_string(), message: p.to_string() }),
+			problem: state.problem.as_ref().map(|(path, p)| FolderProblemView { path: path.display().to_string(), message: folder_problem(p) }),
 			candidates: state
 				.candidates
 				.iter()
@@ -786,6 +787,8 @@ impl Engine {
 			setup_done: state.settings.setup_done || state.settings.consent,
 			consent: state.settings.consent,
 			paused: state.settings.paused,
+			language: state.settings.language.clone(),
+			locale: crate::i18n::locale().to_owned(),
 			server_url: state.settings.server_url.clone(),
 			default_server_url: crate::store::DEFAULT_SERVER.to_owned(),
 			custom: CustomSites {
@@ -823,7 +826,7 @@ impl Engine {
 						}
 						chunks.push(decoded);
 					}
-					Err(e) => problems.push(format!("Chunk {} would be turned away: {e}", chunk.seq)),
+					Err(e) => problems.push(t!("Chunk {seq} would be turned away: {error}", seq = chunk.seq, error = e)),
 				}
 			}
 			requests.push(api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: batch.install.clone(), chunks: batch.chunks.clone() });
@@ -865,11 +868,11 @@ impl Batch {
 
 fn describe_reqwest(e: &reqwest::Error) -> String {
 	if e.is_timeout() {
-		"The server took too long to answer.".to_owned()
+		t!("The server took too long to answer.")
 	} else if e.is_connect() {
-		"Can't reach the recording server. Check your internet connection.".to_owned()
+		t!("Can't reach the recording server. Check your internet connection.")
 	} else {
-		format!("The upload did not get through: {e}")
+		t!("The upload did not get through: {error}", error = e)
 	}
 }
 
@@ -881,8 +884,8 @@ pub(crate) async fn server_message(response: reqwest::Response) -> Option<String
 
 /// A JSON answer, from at most [`MAX_ANSWER`] bytes.
 async fn read_answer<T: serde::de::DeserializeOwned>(response: reqwest::Response) -> Result<T, String> {
-	let body = crate::packs::read_capped(response, MAX_ANSWER).await.map_err(|e| format!("The server's answer could not be read: {e}"))?;
-	serde_json::from_slice(&body).map_err(|e| format!("The server's answer could not be read: {e}"))
+	let body = crate::packs::read_capped(response, MAX_ANSWER).await.map_err(|e| t!("The server's answer could not be read: {error}", error = e))?;
+	serde_json::from_slice(&body).map_err(|e| t!("The server's answer could not be read: {error}", error = e))
 }
 
 /// The `Retry-After` of a 429 or 503, in seconds, at most [`BACKOFF_MAX`] (a day for a 503).
@@ -921,13 +924,57 @@ const LAST_SCHEMA1_RECORDER: &str = "0.2.6";
 /// What Status says (kind, title, detail, action) while an account's file is still schema 1,
 /// given the Recorder installed and the latest one published (`None`: not known yet). It offers
 /// an update only when the published one records schema 2 and is newer than the one installed.
-fn old_recorder(installed: Option<&str>, latest: Option<&str>) -> (&'static str, &'static str, &'static str, Option<&'static str>) {
+fn old_recorder(installed: Option<&str>, latest: Option<&str>) -> (&'static str, String, String, Option<&'static str>) {
 	let records_schema2 = |v: &str| addons::newer(v, LAST_SCHEMA1_RECORDER);
 	match latest {
-		Some(l) if records_schema2(l) && installed.is_none_or(|have| addons::newer(l, have)) => ("attention", "The Recorder is out of date", "Update it so it records in the format the server reads.", Some("update")),
-		_ if installed.is_some_and(records_schema2) => ("waiting", "Waiting for the new Recorder to run", "Log in (or /reload) with the Recorder on to start recording in the new format.", None),
-		Some(_) => ("attention", "The Recorder is out of date", "It records in an older format the server no longer reads. The new Recorder comes with the next Polestar update.", None),
-		None => ("attention", "The Recorder is out of date", "It records in an older format the server no longer reads. Check for addon updates to get the new one.", None),
+		Some(l) if records_schema2(l) && installed.is_none_or(|have| addons::newer(l, have)) => ("attention", t!("The Recorder is out of date"), t!("Update it so it records in the format the server reads."), Some("update")),
+		_ if installed.is_some_and(records_schema2) => ("waiting", t!("Waiting for the new Recorder to run"), t!("Log in (or /reload) with the Recorder on to start recording in the new format."), None),
+		Some(_) => ("attention", t!("The Recorder is out of date"), t!("It records in an older format the server no longer reads. The new Recorder comes with the next Polestar update."), None),
+		None => ("attention", t!("The Recorder is out of date"), t!("It records in an older format the server no longer reads. Check for addon updates to get the new one."), None),
+	}
+}
+
+/// [`install::FolderProblem`] in the player's language (its Display stays English for forge).
+pub fn folder_problem(problem: &install::FolderProblem) -> String {
+	use install::FolderProblem as P;
+	match problem {
+		P::NotFound(p) => t!("{path} does not exist", path = p.display()),
+		P::NotAFolder(p) => t!("{path} is a file, not a folder", path = p.display()),
+		P::NotWow(p) => t!("{path} is not a World of Warcraft folder (no _forever_ or other game version folder in it)", path = p.display()),
+		P::NoForever { root, found } if found.is_empty() => t!("{path} has no WoW: Forever client; install Forever with the Battle.net app, then pick that folder", path = root.display()),
+		P::NoForever { root, found } => {
+			let names: Vec<String> = found.iter().map(|n| version_name(n)).collect();
+			t!("{path} has no WoW: Forever client (it has {found}); install Forever with the Battle.net app, then pick that folder", path = root.display(), found = names.join(", "))
+		}
+		P::OtherVersion { dir, flavor } => t!("{path} is {version} ({flavor}), not WoW: Forever", path = dir.display(), version = version_name(dir.file_name().and_then(|n| n.to_str()).unwrap_or("")), flavor = flavor),
+		P::NeverLoggedIn(p) => t!("{path} has no WTF folder yet: start WoW: Forever and log in with a character once", path = p.display()),
+		P::NoAccounts(p) => t!("{path} has no account folder yet: log in with a character once", path = p.join("WTF").join("Account").display()),
+	}
+}
+
+/// A game client folder's version, as polestar-recording's `install::version_name` names it.
+fn version_name(folder: &str) -> String {
+	match folder {
+		"_retail_" => "Retail".to_owned(),
+		"_classic_era_" => "Classic Era".to_owned(),
+		"_classic_" => "Cataclysm/Mists Classic".to_owned(),
+		"_ptr_" | "_xptr_" => t!("the Retail test realm"),
+		"_classic_ptr_" | "_classic_era_ptr_" => t!("a Classic test realm"),
+		"_beta_" => t!("the Retail beta"),
+		"_classic_beta_" => t!("the old WoW: Forever beta, which has ended"),
+		"_anniversary_" => "Anniversary".to_owned(),
+		_ => folder.to_owned(),
+	}
+}
+
+/// [`sv::Error`] in the player's language (its Display stays English for forge).
+fn file_problem(error: &sv::Error) -> String {
+	match error {
+		sv::Error::Syntax(e) => t!("not a readable SavedVariables file ({error})", error = e),
+		sv::Error::Missing => t!("the Recorder has saved nothing in this file yet"),
+		sv::Error::OldSchema => t!("this file is from an older Recorder (schema 1); update the Recorder and play to record in the new format"),
+		sv::Error::NewSchema(n) => t!("this file is from a newer Recorder (schema {schema}); update this program", schema = n),
+		sv::Error::Field(name) => t!("PolestarRecorderDB.{name} has an unexpected value", name = name),
 	}
 }
 
@@ -942,80 +989,77 @@ fn game_running(system: &mut sysinfo::System) -> bool {
 }
 
 fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView {
-	let make = |kind: &str, title: &str, detail: String, action: Option<&str>| StatusView {
+	let make = |kind: &str, title: String, detail: String, action: Option<&str>| StatusView {
 		kind: kind.to_owned(),
-		title: title.to_owned(),
+		title,
 		detail,
 		action: action.map(str::to_owned),
 		last_upload: state.last_upload,
 		next_retry: None,
 	};
 	if !state.settings.consent {
-		return make("off", "Sharing is off", "Nothing is sent. Opt in under Recording to help improve Polestar's guides.".into(), None);
+		return make("off", t!("Sharing is off"), t!("Nothing is sent. Opt in under Recording to help improve Polestar's guides."), None);
 	}
 	if state.settings.paused {
-		let detail = if pending > 0 { "Your new play waits on this PC until you resume. The Recorder keeps recording in the game." } else { "Nothing is sent until you resume. The Recorder keeps recording in the game." };
-		return make("paused", "Uploads paused", detail.into(), Some("resume"));
+		let detail = if pending > 0 { t!("Your new play waits on this PC until you resume. The Recorder keeps recording in the game.") } else { t!("Nothing is sent until you resume. The Recorder keeps recording in the game.") };
+		return make("paused", t!("Uploads paused"), detail, Some("resume"));
 	}
 	if let Some((path, problem)) = &state.problem {
-		return make("attention", "Your WoW folder needs a look", format!("{}: {problem}", path.display()), Some("locate"));
+		return make("attention", t!("Your WoW folder needs a look"), t!("{path}: {problem}", path = path.display(), problem = folder_problem(problem)), Some("locate"));
 	}
 	let Some(addon) = &game.addon else {
-		return make("attention", "World of Warcraft: Forever not found", "Show Polestar Client where the game is installed.".into(), Some("locate"));
+		return make("attention", t!("World of Warcraft: Forever not found"), t!("Show Polestar Client where the game is installed."), Some("locate"));
 	};
 	if !addon.installed {
-		return make("attention", "The Recorder addon is not installed", "Install it, then log in to the game. While sharing is on, the Recorder records by itself.".into(), Some("install"));
+		return make("attention", t!("The Recorder addon is not installed"), t!("Install it, then log in to the game. While sharing is on, the Recorder records by itself."), Some("install"));
 	}
 	if state.accounts.iter().any(|a| matches!(a.error, Some(sv::Error::OldSchema))) {
 		let (kind, title, detail, action) = old_recorder(addon.version.as_deref(), addon.latest.as_deref());
-		return make(kind, title, detail.into(), action);
+		return make(kind, title, detail, action);
 	}
-	if let Some(a) = state.accounts.iter().find(|a| a.error.as_ref().is_some_and(|e| !matches!(e, sv::Error::Missing))) {
-		return make("attention", "The Recorder's file can't be read", format!("{}: {}", a.folder_name, a.error.as_ref().map(|e| e.to_string()).unwrap_or_default()), None);
+	if let Some((a, e)) = state.accounts.iter().find_map(|a| a.error.as_ref().filter(|e| !matches!(e, sv::Error::Missing)).map(|e| (a, e))) {
+		return make("attention", t!("The Recorder's file can't be read"), t!("{account}: {problem}", account = a.folder_name, problem = file_problem(e)), None);
 	}
 	if let Some(Failure::Refused { message, .. }) = &state.failure {
-		return make("attention", "The server turned the upload away", message.clone(), Some("retry"));
+		return make("attention", t!("The server turned the upload away"), message.clone(), Some("retry"));
 	}
 	if state.registering {
-		return make("uploading", "Setting up", "Setting up this PC with the Polestar server. It takes a few seconds, once.".into(), None);
+		return make("uploading", t!("Setting up"), t!("Setting up this PC with the Polestar server. It takes a few seconds, once."), None);
 	}
 	if let Some(n) = state.uploading {
-		return make("uploading", "Sending", format!("Sending your latest play ({n} {}).", plural(n as u64, "part", "parts")), None);
+		return make("uploading", t!("Sending"), tn!("Sending your latest play ({count} part).", "Sending your latest play ({count} parts).", n), None);
 	}
 	if let Some(Failure::Offline { message, retry_at, .. }) = &state.failure {
-		let mut view = make("offline", "Can't reach the server", message.clone(), Some("retry"));
+		let mut view = make("offline", t!("Can't reach the server"), message.clone(), Some("retry"));
 		view.next_retry = Some(*retry_at);
 		return view;
 	}
 	let files: Vec<&sv::SavedVars> = state.accounts.iter().filter_map(|a| a.sv.as_deref()).collect();
 	if game.accounts.is_empty() {
-		return make("waiting", "Waiting for your first login", "Log in to WoW: Forever once so the game makes your account folder.".into(), None);
+		return make("waiting", t!("Waiting for your first login"), t!("Log in to WoW: Forever once so the game makes your account folder."), None);
 	}
 	if files.is_empty() {
-		return make("waiting", "Waiting for the first recording", "Log in to the game: the Recorder records while sharing is on. The game saves the recording when you log out or type /reload.".into(), None);
+		return make("waiting", t!("Waiting for the first recording"), t!("Log in to the game: the Recorder records while sharing is on. The game saves the recording when you log out or type /reload."), None);
 	}
 	if files.iter().all(|f| !f.enabled) && pending == 0 {
-		return make("attention", "Recording is off in the game", "It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on.".into(), None);
+		return make("attention", t!("Recording is off in the game"), t!("It turns on at your next login (or /reload) while sharing is on, unless you turned it off with /psrec off: then type /psrec on."), None);
 	}
 	if let Some((at, rejected)) = &state.rejected {
 		if now - at < REJECTED_SHOWN_MS {
 			let reason = rejected.first().map(|r| r.reason.clone()).unwrap_or_default();
-			let n = rejected.len() as u64;
-			return make("rejected", "Some data was skipped", format!("The server couldn't read {n} {} of your last upload and skipped {} ({reason}). Everything else arrived; there is nothing for you to do.", plural(n, "part", "parts"), if n == 1 { "it" } else { "them" }), None);
+			let detail = tn!(
+				"The server couldn't read {count} part of your last upload and skipped it ({reason}). Everything else arrived; there is nothing for you to do.",
+				"The server couldn't read {count} parts of your last upload and skipped them ({reason}). Everything else arrived; there is nothing for you to do.",
+				rejected.len(),
+				reason = reason
+			);
+			return make("rejected", t!("Some data was skipped"), detail, None);
 		}
 	}
 	if state.game_running {
-		return make("waiting", "Waiting for the game to save", "WoW writes the recording only when you log out or type /reload. It is sent a few seconds after that.".into(), None);
+		return make("waiting", t!("Waiting for the game to save"), t!("WoW writes the recording only when you log out or type /reload. It is sent a few seconds after that."), None);
 	}
-	make("watching", "Sharing on", "New play is sent a few seconds after you log out or type /reload.".into(), None)
-}
-
-fn plural<'a>(n: u64, one: &'a str, many: &'a str) -> &'a str {
-	if n == 1 {
-		one
-	} else {
-		many
-	}
+	make("watching", t!("Sharing on"), t!("New play is sent a few seconds after you log out or type /reload."), None)
 }
 
 #[derive(Serialize, Clone)]
@@ -1027,6 +1071,10 @@ pub struct Snapshot {
 	/// The player opted in to the recording program.
 	pub consent: bool,
 	pub paused: bool,
+	/// Settings > Language: `auto` or a locale code.
+	pub language: String,
+	/// The language the backend writes in (i18n.rs), as the window last set it.
+	pub locale: String,
 	pub server_url: String,
 	pub default_server_url: String,
 	pub data_dir: String,
@@ -1261,7 +1309,7 @@ mod tests {
 		assert_eq!(action(Some("0.2.6"), Some("0.3.0")), Some("update"));
 		assert_eq!(action(None, Some("0.3.0")), Some("update"));
 		// The latest is installed already: play with it, nothing to install.
-		assert_eq!(old_recorder(Some("0.3.0"), Some("0.3.0")), ("waiting", "Waiting for the new Recorder to run", "Log in (or /reload) with the Recorder on to start recording in the new format.", None));
+		assert_eq!(old_recorder(Some("0.3.0"), Some("0.3.0")), ("waiting", "Waiting for the new Recorder to run".to_owned(), "Log in (or /reload) with the Recorder on to start recording in the new format.".to_owned(), None));
 		assert_eq!(action(Some("0.3.1"), Some("0.3.0")), None);
 		// No published release records schema 2 yet: never reinstall the same old one.
 		let (_, _, detail, action) = old_recorder(Some("0.2.6"), Some("0.2.6"));

@@ -4,6 +4,7 @@
 	import { app } from '../lib/app.svelte';
 	import { api, message } from '../lib/backend';
 	import { ago, bytes } from '../lib/format';
+	import { msg, t } from '../lib/i18n.svelte';
 	import { drop, ease, reduced, rise, swap } from '../lib/motion';
 	import { toast } from '../lib/toast.svelte';
 	import type { Changelog as Notes, Pack, PackAction, Snapshot } from '../lib/types';
@@ -15,8 +16,8 @@
 
 	let { snapshot }: { snapshot: Snapshot } = $props();
 
-	const DONE: Record<PackAction, string> = { install: 'Installed', update: 'Updated', uninstall: 'Removed', restore: 'Restored', discard: 'Cleared' };
-	const PHASE: Record<string, string> = { download: 'Downloading', verify: 'Checking', install: 'Installing', remove: 'Removing' };
+	const DONE: Record<PackAction, string> = { install: msg('Installed'), update: msg('Updated'), uninstall: msg('Removed'), restore: msg('Restored'), discard: msg('Cleared') };
+	const PHASE: Record<string, string> = { download: msg('Downloading'), verify: msg('Checking'), install: msg('Installing'), remove: msg('Removing') };
 
 	const community = $derived(snapshot.community);
 	let query = $state('');
@@ -30,8 +31,8 @@
 	let done = $state<Record<string, PackAction>>({});
 	let entered = $state(false);
 	$effect(() => {
-		const t = setTimeout(() => (entered = true), 1000);
-		return () => clearTimeout(t);
+		const timer = setTimeout(() => (entered = true), 1000);
+		return () => clearTimeout(timer);
 	});
 
 	// The page asks for a fresh index once when it opens, unless one came in the last few minutes.
@@ -119,7 +120,7 @@
 			publishedAt: null,
 			body: p.changelog ?? '',
 			pageUrl: pageOf(p),
-			pageLabel: p.homepage ? "Open the guide's homepage" : `Open it on ${community.site}`,
+			pageLabel: p.homepage ? t("Open the guide's homepage") : t('Open it on {site}', { site: community.site }),
 		};
 	}
 
@@ -155,12 +156,12 @@
 
 <svelte:window onclick={() => (menu = null)} onkeydown={menuKeys} />
 
-<PageHeader title="Community Guides" subtitle="Guides players publish on {community.site}, installed beside Polestar and kept up to date.">
+<PageHeader title={t('Community Guides')} subtitle={t('Guides players publish on {site}, installed beside Polestar and kept up to date.', { site: community.site })}>
 	{#snippet aside()}
 		{#if community.available}
 			<button class="btn" onclick={() => check()} disabled={spinning}>
 				<span class="turn" class:spinning><Glyph name="reload" size={13} color="var(--textDim)" /></span>
-				Check for updates
+				{t('Check for updates')}
 			</button>
 		{/if}
 	{/snippet}
@@ -172,8 +173,8 @@
 			<div class="empty" in:rise>
 				<div class="watermark" aria-hidden="true"><Emblem size={168} /></div>
 				<span class="halo"><Glyph name="star" size={36} color="var(--accent)" /></span>
-				<h3>Community Guides aren't available yet</h3>
-				<p class="note">This version of Polestar Client can't check guides from {community.site} yet, so it doesn't offer any. They arrive with a client update.</p>
+				<h3>{t("Community Guides aren't available yet")}</h3>
+				<p class="note">{t("This version of Polestar Client can't check guides from {site} yet, so it doesn't offer any.", { site: community.site })} {t('They arrive with a client update.')}</p>
 			</div>
 		{:else}
 			<div class="tools">
@@ -183,11 +184,11 @@
 							{#if community.error}
 								<span class="bad">{community.error}</span>
 							{:else if spinning}
-								Looking for guides…
+								{t('Looking for guides…')}
 							{:else if community.checkedAt}
-								Checked {ago(community.checkedAt, app.now)}
+								{t('Checked {ago}', { ago: ago(community.checkedAt, app.now) })}
 							{:else}
-								Not checked yet
+								{t('Not checked yet')}
 							{/if}
 						</span>
 					{/key}
@@ -197,7 +198,7 @@
 				{#if community.packs.length > 0}
 					<label class="search">
 						<Glyph name="search" size={13} color="var(--textMuted)" />
-						<input class="field" type="search" placeholder="Search by title or author" bind:value={query} spellcheck="false" autocomplete="off" aria-label="Search guides by title or author" />
+						<input class="field" type="search" placeholder={t('Search by title or author')} bind:value={query} spellcheck="false" autocomplete="off" aria-label={t('Search guides by title or author')} />
 					</label>
 				{/if}
 			</div>
@@ -205,13 +206,13 @@
 			{#if !community.gameFound}
 				<div class="banner" in:rise>
 					<Glyph name="info" color="var(--warning)" />
-					<p class="note">Polestar Client hasn't found WoW: Forever yet, so it can't install guides.</p>
-					<button class="btn primary" onclick={() => api.pickFolder()}>Locate the game</button>
+					<p class="note">{t("Polestar Client hasn't found WoW: Forever yet, so it can't install guides.")}</p>
+					<button class="btn primary" onclick={() => api.pickFolder()}>{t('Locate the game')}</button>
 				</div>
 			{:else if community.gameRunning}
 				<div class="banner" in:rise>
 					<Glyph name="info" color="var(--warning)" />
-					<p class="note">World of Warcraft is running. A guide you install or update loads after /reload or the next start.</p>
+					<p class="note">{t('World of Warcraft is running. A guide you install or update loads after /reload or the next start.')}</p>
 				</div>
 			{/if}
 
@@ -224,13 +225,13 @@
 					<span class="names">
 						<span class="name">
 							<span class="title" title={p.title}>{p.title}</span>
-							{#if p.official}<span class="chip accent">Official</span>{:else if p.reviewed}<span class="chip">Reviewed</span>{/if}
-							{#if p.status === 'unlisted'}<span class="chip">No longer listed</span>{/if}
-							{#if p.status === 'replaced'}<span class="chip warning">Replaced</span>{/if}
-							{#if p.status === 'disabled'}<span class="chip warning">Turned off</span>{/if}
-							{#if p.status === 'removed'}<span class="chip danger">Removed by {community.site}</span>{/if}
+							{#if p.official}<span class="chip accent">{t('Official')}</span>{:else if p.reviewed}<span class="chip">{t('Reviewed')}</span>{/if}
+							{#if p.status === 'unlisted'}<span class="chip">{t('No longer listed')}</span>{/if}
+							{#if p.status === 'replaced'}<span class="chip warning">{t('Replaced')}</span>{/if}
+							{#if p.status === 'disabled'}<span class="chip warning">{t('Turned off')}</span>{/if}
+							{#if p.status === 'removed'}<span class="chip danger">{t('Removed by {site}', { site: community.site })}</span>{/if}
 						</span>
-						<span class="small muted author">by {p.author || 'an unknown author'}{#if p.publisher && p.publisher !== p.author}&nbsp;· shared by {p.publisher}{/if}</span>
+						<span class="small muted author">{p.author ? t('by {author}', { author: p.author }) : t('by an unknown author')}{#if p.publisher && p.publisher !== p.author}&nbsp;· {t('shared by {publisher}', { publisher: p.publisher })}{/if}</span>
 						<span class="small versions">
 							{#if (p.status === 'update' || p.status === 'replaced') && p.installed && p.version}
 								<span class="num muted">{p.installed}</span><span class="arrow">→</span><span class="num">{p.version}</span>
@@ -238,16 +239,16 @@
 								<span class="num dim">{p.installed ?? p.version}</span>
 							{/if}
 							{#if p.size && p.status !== 'upToDate'}<span class="sep">·</span><span class="muted num">{bytes(p.size)}</span>{/if}
-							{#if p.changelog !== null}<span class="sep">·</span><button class="link small-link" onclick={(e) => openNotes(p, e)}>What's new</button>{/if}
-							{#if p.homepage}<span class="sep">·</span><button class="link small-link" onclick={() => api.openLink(p.homepage!)}>Homepage</button>{/if}
+							{#if p.changelog !== null}<span class="sep">·</span><button class="link small-link" onclick={(e) => openNotes(p, e)}>{t("What's new")}</button>{/if}
+							{#if p.homepage}<span class="sep">·</span><button class="link small-link" onclick={() => api.openLink(p.homepage!)}>{t('Homepage')}</button>{/if}
 						</span>
 						{#if p.revoked && (p.status === 'disabled' || p.status === 'removed')}
 							<span class="small why">{p.revoked.reason}</span>
 							{#if p.status === 'disabled'}
-								<span class="small muted said">Turned off by {community.site}. Its files were moved out of AddOns; /reload or restart the game.</span>
+								<span class="small muted said">{t('Turned off by {site}.', { site: community.site })} {t('Its files were moved out of AddOns; /reload or restart the game.')}</span>
 							{/if}
 						{:else if p.status === 'replaced' && !busy}
-							<span class="small why">{community.site} now lists a different guide under this name.</span>
+							<span class="small why">{t('{site} now lists a different guide under this name.', { site: community.site })}</span>
 						{/if}
 						{#if p.blocked && !busy}<span class="small why">{p.blocked}</span>{/if}
 					</span>
@@ -255,54 +256,54 @@
 						{#if busy}
 							{#key progress?.phase ?? busy}
 								<span class="phase small" in:swap>
-									<span class="spinner"></span>{progress ? PHASE[progress.phase] : PHASE[busy === 'uninstall' || busy === 'discard' ? 'remove' : busy === 'restore' ? 'install' : 'download']}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}
+									<span class="spinner"></span>{t(progress ? PHASE[progress.phase] : PHASE[busy === 'uninstall' || busy === 'discard' ? 'remove' : busy === 'restore' ? 'install' : 'download'])}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}
 								</span>
 							{/key}
 						{:else if done[p.id]}
-							<span class="chip success settled" in:swap><Glyph name="check" size={11} color="var(--success)" />{DONE[done[p.id]]}</span>
+							<span class="chip success settled" in:swap><Glyph name="check" size={11} color="var(--success)" />{t(DONE[done[p.id]])}</span>
 						{:else if p.status === 'noGame'}
-							<span class="small muted">Game not found</span>
+							<span class="small muted">{t('Game not found')}</span>
 						{:else if p.status === 'upToDate'}
-							<span class="chip success" in:swap>Up to date</span>
+							<span class="chip success" in:swap>{t('Up to date')}</span>
 						{:else if p.status === 'unlisted'}
-							<span class="small muted">Removed from {community.site}</span>
+							<span class="small muted">{t('Removed from {site}', { site: community.site })}</span>
 						{:else if p.status === 'disabled' || p.status === 'removed'}
 							<span class="buttons" in:swap>
 								{#if p.status === 'disabled'}
-									<button class="btn" onclick={() => act(p, 'restore')}>Restore</button>
+									<button class="btn" onclick={() => act(p, 'restore')}>{t('Restore')}</button>
 								{:else}
-									<button class="btn" onclick={() => act(p, 'discard')}>Dismiss</button>
+									<button class="btn" onclick={() => act(p, 'discard')}>{t('Dismiss')}</button>
 								{/if}
 								{#if p.version}
-									<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => act(p, 'install')}>Install {p.version}</button>
+									<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => act(p, 'install')}>{t('Install {version}', { version: p.version })}</button>
 								{/if}
 							</span>
 						{:else if p.status === 'replaced'}
-							<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => update(p)} in:swap>Replace…</button>
+							<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => update(p)} in:swap>{t('Replace…')}</button>
 						{:else}
 							<button class="btn" disabled={!!p.blocked} title={p.blocked ?? undefined} onclick={() => (p.status === 'update' ? update(p) : act(p, 'install'))} in:swap>
-								{p.status === 'update' ? (p.changes ? 'Update…' : 'Update') : 'Install'}
+								{p.status === 'update' ? (p.changes ? t('Update…') : t('Update')) : t('Install')}
 							</button>
 						{/if}
 					</span>
 					<span class="more">
 						{#if kept(p) && !busy}
-							<button class="icon-btn" aria-label="More for {p.title}" aria-haspopup="menu" aria-expanded={menu === p.id} onclick={(e) => openMenu(p.id, e)}><Glyph name="menu" size={14} /></button>
+							<button class="icon-btn" aria-label={t('More for {name}', { name: p.title })} aria-haspopup="menu" aria-expanded={menu === p.id} onclick={(e) => openMenu(p.id, e)}><Glyph name="menu" size={14} /></button>
 							{#if menu === p.id}
 								<!-- svelte-ignore a11y_click_events_have_key_events -->
 								<div class="menu" role="menu" tabindex="-1" bind:this={menuEl} onclick={(e) => e.stopPropagation()} transition:drop>
 									<button role="menuitem" onclick={() => api.openLink(pageOf(p))}>
-										<Glyph name="search" size={14} color="var(--textDim)" /><span>{p.homepage ? 'Open the homepage' : `Open on ${community.site}`}</span>
+										<Glyph name="search" size={14} color="var(--textDim)" /><span>{p.homepage ? t('Open the homepage') : t('Open on {site}', { site: community.site })}</span>
 									</button>
 									{#if p.status === 'disabled'}
 										<button role="menuitem" class="danger" onclick={() => confirm(`${p.id}:discard`, () => act(p, 'discard'))}>
-											<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:discard` ? 'Click again to delete' : 'Delete the kept copy'}</span>
-											<span class="small muted hint">Deletes the turned-off files Polestar kept</span>
+											<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:discard` ? t('Click again to delete') : t('Delete the kept copy')}</span>
+											<span class="small muted hint">{t('Deletes the turned-off files Polestar kept')}</span>
 										</button>
 									{:else if p.status !== 'removed'}
 										<button role="menuitem" class="danger" onclick={() => confirm(`${p.id}:uninstall`, () => act(p, 'uninstall'))}>
-											<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:uninstall` ? 'Click again to remove' : 'Remove'}</span>
-											<span class="small muted hint">Removes only {p.folders.join(', ')}</span>
+											<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:uninstall` ? t('Click again to remove') : t('Remove')}</span>
+											<span class="small muted hint">{t('Removes only {folders}', { folders: p.folders.join(', ') })}</span>
 										</button>
 									{/if}
 								</div>
@@ -322,20 +323,20 @@
 					<div class="watermark" aria-hidden="true"><Emblem size={168} /></div>
 					<span class="halo"><Glyph name="star" size={36} color="var(--accent)" /></span>
 					{#if community.error && !spinning}
-						<h3>The guide list couldn't be loaded</h3>
+						<h3>{t("The guide list couldn't be loaded")}</h3>
 						<p class="note">{community.error}</p>
 					{:else if spinning || !community.checkedAt}
-						<h3>Looking for guides…</h3>
-						<p class="note">Reading the guide list from {community.site}.</p>
+						<h3>{t('Looking for guides…')}</h3>
+						<p class="note">{t('Reading the guide list from {site}.', { site: community.site })}</p>
 					{:else}
-						<h3>No Community Guides yet</h3>
-						<p class="note">When players publish guides on {community.site}, they show up here to install in one click.</p>
+						<h3>{t('No Community Guides yet')}</h3>
+						<p class="note">{t('When players publish guides on {site}, they show up here to install in one click.', { site: community.site })}</p>
 					{/if}
 				</div>
 			{:else}
 				{#if installed.length > 0}
 					<section class="section" in:rise>
-						<h2>Installed <span class="count num">{installed.length}</span></h2>
+						<h2>{t('Installed')} <span class="count num">{installed.length}</span></h2>
 						<div class="list" class:entered>
 							{#each installed as p, i (p.id)}
 								<div in:receive={{ key: p.id }} out:send={{ key: p.id }} animate:flip={{ duration: 320, easing: ease }}>{@render row(p, i)}</div>
@@ -345,7 +346,7 @@
 				{/if}
 				{#if available.length > 0}
 					<section class="section" in:rise>
-						<h2>Available <span class="count num">{available.length}</span></h2>
+						<h2>{t('Available')} <span class="count num">{available.length}</span></h2>
 						<div class="list" class:entered>
 							{#each available as p, i (p.id)}
 								<div in:receive={{ key: p.id }} out:send={{ key: p.id }} animate:flip={{ duration: 320, easing: ease }}>{@render row(p, i + installed.length)}</div>
@@ -354,11 +355,11 @@
 					</section>
 				{/if}
 				{#if shown.length === 0}
-					<p class="note none" in:rise>No guide's title or author matches “{query.trim()}”.</p>
+					<p class="note none" in:rise>{t("No guide's title or author matches “{query}”.", { query: query.trim() })}</p>
 				{/if}
 			{/if}
 
-			<p class="small muted foot">Guides are made by players, not by Polestar. Each one is checked against {community.site}'s signed list before anything in your AddOns folder changes, and a guide only ever writes its own PolestarPack folders.</p>
+			<p class="small muted foot">{t('Guides are made by players, not by Polestar.')} {t("Each one is checked against {site}'s signed list before anything in your AddOns folder changes, and a guide only ever writes its own PolestarPack folders.", { site: community.site })}</p>
 		{/if}
 	</div>
 </div>
@@ -506,10 +507,13 @@
 		gap: 3px;
 		min-width: 0;
 	}
+	/* The chips go under the title when both don't fit (a long title, or a chip in German or
+	   Russian), so the title keeps its words. */
 	.name {
 		display: flex;
+		flex-wrap: wrap;
 		align-items: center;
-		gap: 8px;
+		gap: 4px 8px;
 		min-width: 0;
 		font-size: 14px;
 		font-weight: 600;

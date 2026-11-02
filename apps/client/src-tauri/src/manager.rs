@@ -35,7 +35,7 @@ pub struct AddonsView {
 pub struct ProductView {
 	pub id: &'static str,
 	pub name: &'static str,
-	pub blurb: &'static str,
+	pub blurb: String,
 	pub installed: Option<String>,
 	pub latest: Option<Release>,
 	/// `noGame`, `unknown` (not checked yet), `unavailable` (no release
@@ -73,7 +73,7 @@ pub fn view(state: &State) -> AddonsView {
 				(_, _, Some(l), Some(have)) if addons::newer(&l.version, have) => "update",
 				_ => "upToDate",
 			};
-			ProductView { id: p.id, name: p.name, blurb: p.blurb, installed, latest, status, busy: state.busy.get(p.id).copied(), progress: state.addon_progress.get(p.id).copied() }
+			ProductView { id: p.id, name: p.name, blurb: (p.blurb)(), installed, latest, status, busy: state.busy.get(p.id).copied(), progress: state.addon_progress.get(p.id).copied() }
 		})
 		.collect();
 	AddonsView {
@@ -117,7 +117,7 @@ impl Engine {
 			updates.iter().map(|(_, name, v)| format!("{name} {v}")).filter(|key| state.notified.insert(key.clone())).collect()
 		};
 		if !fresh.is_empty() {
-			let _ = self.app().notification().builder().title("Polestar addon updates").body(format!("{} ready to install. Open Polestar Client to update.", fresh.join(", "))).show();
+			let _ = self.app().notification().builder().title(t!("Polestar addon updates")).body(t!("{updates} ready to install. Open Polestar Client to update.", updates = fresh.join(", "))).show();
 		}
 	}
 
@@ -149,21 +149,21 @@ impl Engine {
 
 	/// Installs, updates, repairs or removes one product. Returns what was done.
 	pub async fn addon_action(self: &Arc<Self>, id: &str, action: &'static str) -> Result<String, String> {
-		let product: &'static Product = addons::product(id).ok_or("No such addon.")?;
+		let product: &'static Product = addons::product(id).ok_or_else(|| t!("No such addon."))?;
 		if self.lock().catalog.is_none() && action != "uninstall" {
 			self.fetch_catalog().await;
 		}
 		let (dir, release) = {
 			let mut state = self.lock();
-			let dir = state.install.as_ref().map(|i| i.addons_dir()).ok_or("Find the game folder first (Settings > Game).")?;
+			let dir = state.install.as_ref().map(|i| i.addons_dir()).ok_or_else(|| t!("Find the game folder first (Settings > Game)."))?;
 			if state.busy.contains_key(product.id) {
-				return Err(format!("{} is busy already.", product.name));
+				return Err(t!("{name} is busy already.", name = product.name));
 			}
 			let release = match action {
 				"uninstall" => None,
 				_ => {
-					let catalog = state.catalog.as_ref().ok_or_else(|| state.catalog_error.clone().unwrap_or_else(|| "Could not check GitHub.".to_owned()))?;
-					let releases = catalog.releases.get(product.id).ok_or_else(|| format!("No {} release has been published yet.", product.name))?;
+					let catalog = state.catalog.as_ref().ok_or_else(|| state.catalog_error.clone().unwrap_or_else(|| t!("Could not check GitHub.")))?;
+					let releases = catalog.releases.get(product.id).ok_or_else(|| t!("No {name} release has been published yet.", name = product.name))?;
 					// Repair re-installs the version that is there, when it is still published.
 					let installed = addons::installed_version(&dir, product);
 					let chosen = (action == "repair").then(|| releases.iter().find(|r| Some(&r.version) == installed.as_ref())).flatten();
@@ -220,9 +220,9 @@ impl Engine {
 		self.rescan();
 		self.publish();
 		result.map(|version| match action {
-			"uninstall" => format!("{} removed.", product.name),
-			"repair" => format!("{} {version} re-installed.", product.name),
-			_ => format!("{} {version} installed. Restart the game (or /reload) to load it.", product.name),
+			"uninstall" => t!("{title} removed.", title = product.name),
+			"repair" => t!("{title} {version} re-installed.", title = product.name, version = version),
+			_ => t!("{title} {version} installed. Restart the game (or /reload) to load it.", title = product.name, version = version),
 		})
 	}
 
@@ -235,7 +235,7 @@ impl Engine {
 			(ids, crate::community::updates(&state))
 		};
 		if ids.is_empty() && packs.is_empty() {
-			return Ok("Everything is up to date.".to_owned());
+			return Ok(t!("Everything is up to date."));
 		}
 		let mut done = Vec::new();
 		let mut failed = Vec::new();
@@ -260,9 +260,9 @@ impl Engine {
 
 	/// The release notes of a product's newest release.
 	pub fn changelog(&self, id: &str) -> Result<Changelog, String> {
-		let product = addons::product(id).ok_or("No such addon.")?;
+		let product = addons::product(id).ok_or_else(|| t!("No such addon."))?;
 		let state = self.lock();
-		let release = state.catalog.as_ref().and_then(|c| c.latest(id)).ok_or("Check for updates first.")?;
+		let release = state.catalog.as_ref().and_then(|c| c.latest(id)).ok_or_else(|| t!("Check for updates first."))?;
 		Ok(Changelog {
 			name: product.name,
 			title: release.title.clone(),

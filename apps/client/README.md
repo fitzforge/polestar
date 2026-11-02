@@ -155,12 +155,23 @@ the upload API, and the public list of what is never collected.
   with the next Polestar update. **Activity** lists every upload and every
   addon change; **What we send** shows the next upload as a summary, event
   by event, and as the raw JSON.
-- **Settings** has sharing and pause, the addon update options, start with
-  your computer, the game folder, "Delete my data from the server", the
-  frame-rate overlay (Ctrl+Shift+F anywhere, or `POLESTAR_FRAME_METER=1`
-  from launch, with the last intro's numbers), counting guide installs and,
-  in a debug build only, folded away under Advanced, the recording server
-  and community site addresses.
+- **Settings** has sharing and pause, the addon update options, the
+  language, start with your computer, the game folder, "Delete my data from
+  the server", the frame-rate overlay (Ctrl+Shift+F anywhere, or
+  `POLESTAR_FRAME_METER=1` from launch, with the last intro's numbers),
+  counting guide installs and, in a debug build only, folded away under
+  Advanced, the recording server and community site addresses.
+- **Languages.** The client speaks the nine languages the addon does
+  (Translating, below) and English. Settings > General > Language is
+  Automatic (the default: the system's languages, `navigator.languages`, the
+  first one the client has; Spanish of the Americas reads `esMX`, of Spain
+  `esES`; Chinese of Taiwan, Hong Kong and Macau or written Hant `zhTW`) or
+  one language, each named in itself. `settings.json` keeps the choice and
+  what it last meant (`language`, `locale`), so the tray and notifications
+  speak it before the window has opened. A machine-made language says so
+  under the menu. Release notes and
+  changelogs from GitHub and the community site, guide titles and the site's
+  reasons stay as they were written.
 - Closing the window keeps it running in the tray (Open, Pause/Resume, Quit).
 - **The intro.** The window opens on a starlit intro (`index.html` holds
   its first frame, `src/lib/intro.svelte.ts` plays it) that ends with the
@@ -193,7 +204,7 @@ Everything lives in the app's data folder (Settings > Open data folder):
 | File | What |
 |---|---|
 | `tokens.json` | Per server address, the token that server gave this PC when it registered (64 hex digits), readable only by you. It is sent only to the server that made it; the server stores only its SHA-256. |
-| `settings.json` | Consent, pause, the game folder, the server address. |
+| `settings.json` | Consent, pause, the game folder, the server address, the language. |
 | `progress.json` | Per Recorder install id: the last chunk sent and the last one the server confirmed. |
 | `activity.json` | The last 500 uploads. |
 | `sent.jsonl` | The chunks the server accepted in the last 8 days, for the Home page's week. |
@@ -220,8 +231,9 @@ In a plain browser `pnpm dev` answers the backend's commands from
 `src/lib/mock.ts`; pick a state with `?state=` (`setup`, `setup-two`,
 `setup-none`, `setup-problem`, `setup-saved`, `setup-scanning`, `optin`,
 `home`, `running`, `registering`, `uploading`, `offline`, `paused`,
-`attention`, `empty`); addon installs there run through their phases with
-made-up timing. The mock is imported only behind `import.meta.env.DEV`, so it is
+`attention`, `empty`) and a language with `?lang=` (`deDE`, `ruRU`,
+`koKR`...); addon installs there run through their phases with made-up
+timing. The mock is imported only behind `import.meta.env.DEV`, so it is
 not in production builds.
 
 The backend (`src-tauri/`) is its own Cargo project with its own
@@ -246,6 +258,57 @@ pnpm tauri icon src-tauri/icons/app-icon.svg -o /tmp/icons            # then cop
 pnpm tauri icon src-tauri/icons/app-icon-macos.svg -o /tmp/icons-mac  # then copy icon.icns
 rsvg-convert -w 64 -h 64 ../../docs/assets/emblem.svg -o src-tauri/icons/tray.png
 ```
+
+## Translating
+
+Every text the client shows is written in US English where it is used, and
+that English is the key into one file per language,
+`src/locales/<locale>.json`, with the addon's locale codes. The window and
+the backend read the same files: the window through `t('…')`,
+`tn('{count} file', '{count} files', n)` and `msg('…')` for a text kept in a
+table (`src/lib/i18n.svelte.ts`), the backend through `t!("…")` and
+`tn!(…)` (`src-tauri/src/i18n.rs`, which compiles the files in). Logs stay
+English. A text a file leaves out or has as `""` shows in English.
+
+```json
+"Update all ({count})": "Alle aktualisieren ({count})",
+"{count} accounts": { "one": "{count} Konto", "other": "{count} Konten" }
+```
+
+- Keep every `{name}` of the English (move them where the sentence needs
+  them). Numbers in them are written the language's way.
+- A plural is keyed by its English `other` and has a form per plural
+  category of the language: Russian `one`, `few`, `many` and `other`;
+  Korean and Chinese only `other`; the others `one` and `other` (in French
+  and Portuguese, `one` is also 0).
+- `@meta` says who made the file: `status` is `ai` (made by a machine, as
+  every file is today) or `reviewed` (checked by a native speaker, named in
+  `translators`). To review one, correct it, set `reviewed` with your name
+  and open a pull request (docs/TRANSLATING.md has the addon's side).
+- `pnpm i18n` adds every text the code gained to each file (as `""`) and
+  moves translations of texts it lost to the file's `@unused`;
+  `pnpm i18n status` prints the table below, `pnpm i18n check` what is wrong
+  with the files. `tests/client-i18n.test.js` (in `npm test`) fails on a
+  key the code doesn't have, a `{name}` that differs from the English, a
+  plural missing a form, a text the extractor can't read (the English must
+  be a string literal in the call) and a language list that differs between
+  `src/lib/languages.ts`, `src-tauri/src/i18n.rs` and the files.
+
+Korean and Chinese take the system's fonts (Inter has no Hangul or Han): the
+Windows, macOS and Linux (Noto, Source Han) ones are listed in
+`src/styles/app.css`, per language.
+
+| Language | Code | Status | Translated | Translators |
+|---|---|---|---|---|
+| German | deDE | ai | 683 / 683 (100%) | - |
+| Spanish (Spain) | esES | ai | 683 / 683 (100%) | - |
+| Spanish (Latin America) | esMX | ai | 683 / 683 (100%) | - |
+| French | frFR | ai | 683 / 683 (100%) | - |
+| Korean | koKR | ai | 683 / 683 (100%) | - |
+| Portuguese (Brazil) | ptBR | ai | 683 / 683 (100%) | - |
+| Russian | ruRU | ai | 683 / 683 (100%) | - |
+| Chinese (simplified) | zhCN | ai | 683 / 683 (100%) | - |
+| Chinese (traditional) | zhTW | ai | 683 / 683 (100%) | - |
 
 ## Releasing
 

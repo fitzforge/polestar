@@ -10,6 +10,7 @@
 	import { onMount } from 'svelte';
 	import { api, message } from '../lib/backend';
 	import { bytes } from '../lib/format';
+	import { msg, t } from '../lib/i18n.svelte';
 	import { fade, rise, swap } from '../lib/motion';
 	import { toast } from '../lib/toast.svelte';
 	import type { Community, Pack, PackLink } from '../lib/types';
@@ -24,7 +25,7 @@
 		ondone,
 	}: { link: PackLink; community: Community; page?: boolean; onclose: () => void; ondone?: (action: 'install' | 'update') => void } = $props();
 
-	const PHASE: Record<string, string> = { download: 'Downloading', verify: 'Checking', install: 'Installing' };
+	const PHASE: Record<string, string> = { download: msg('Downloading'), verify: msg('Checking'), install: msg('Installing') };
 
 	const pack = $derived(link.pack ? community.packs.find((p) => p.id === link.pack) ?? null : null);
 	const looking = $derived(!pack && !link.error && community.available && (community.checking || !community.checkedAt));
@@ -35,14 +36,14 @@
 
 	const heading = $derived(
 		link.error
-			? "This link can't be used"
+			? t("This link can't be used")
 			: !community.available
-				? "Community Guides aren't available yet"
+				? t("Community Guides aren't available yet")
 				: pack
 					? pack.title
 					: looking
-						? 'Looking up the guide…'
-						: `${link.pack} isn't on ${community.site}`,
+						? t('Looking up the guide…')
+						: t("{pack} isn't on {site}", { pack: link.pack ?? '', site: community.site }),
 	);
 
 	/** What the main button does here, or null when there is nothing to do. */
@@ -65,12 +66,12 @@
 	const confirming = $derived(verb === 'update' && (pack?.status === 'replaced' || !!pack?.changes));
 	const kind = $derived(
 		link.error
-			? 'Install link'
+			? t('Install link')
 			: pack?.status === 'replaced'
-				? `Replaced on ${community.site}`
+				? t('Replaced on {site}', { site: community.site })
 				: page && verb === 'update'
-					? `Update from ${community.site}`
-					: `Install from ${community.site}`,
+					? t('Update from {site}', { site: community.site })
+					: t('Install from {site}', { site: community.site }),
 	);
 
 	/** The changes an update makes, one line each. */
@@ -78,9 +79,9 @@
 		const c = p.changes;
 		if (!c) return [];
 		const lines: string[] = [];
-		if (c.publisher && !c.replaced) lines.push(`New publisher: ${c.publisher.from ?? 'unknown'} → ${c.publisher.to ?? 'unknown'}`);
-		if (c.added.length) lines.push(`New folders: ${c.added.join(', ')}`);
-		if (c.removed.length) lines.push(`Folders it no longer has: ${c.removed.join(', ')}`);
+		if (c.publisher && !c.replaced) lines.push(t('New publisher: {from} → {to}', { from: c.publisher.from ?? t('unknown'), to: c.publisher.to ?? t('unknown') }));
+		if (c.added.length) lines.push(t('New folders: {folders}', { folders: c.added.join(', ') }));
+		if (c.removed.length) lines.push(t('Folders it no longer has: {folders}', { folders: c.removed.join(', ') }));
 		return lines;
 	}
 
@@ -144,33 +145,35 @@
 		{#if link.error}
 			<p class="note">{link.error}</p>
 		{:else if !community.available}
-			<p class="note">This version of Polestar Client can't check guides from {community.site} yet, so it can't install {link.pack}. Guides arrive with a client update.</p>
+			<p class="note">{t("This version of Polestar Client can't check guides from {site} yet, so it can't install {pack}.", { site: community.site, pack: link.pack ?? '' })} {t('Guides arrive with a client update.')}</p>
 		{:else if !pack}
 			{#if looking}
-				<p class="note looking"><span class="spinner"></span>Reading the guide list from {community.site}…</p>
+				<p class="note looking"><span class="spinner"></span>{t('Reading the guide list from {site}…', { site: community.site })}</p>
 			{:else}
-				<p class="note">{community.error ?? `No guide named ${link.pack} is listed there. It may have been taken down; look for it on the site again.`}</p>
+				<p class="note">{community.error ?? `${t('No guide named {pack} is listed there.', { pack: link.pack ?? '' })} ${t('It may have been taken down; look for it on the site again.')}`}</p>
 			{/if}
 		{:else}
 			<p class="note by">
-				by {pack.author}{#if pack.publisher && pack.publisher !== pack.author}<span class="muted">· shared by {pack.publisher}</span>{/if}
-				{#if pack.official}<span class="chip accent">Official</span>{:else if pack.reviewed}<span class="chip">Reviewed</span>{/if}
+				{t('by {author}', { author: pack.author })}{#if pack.publisher && pack.publisher !== pack.author}<span class="muted">· {t('shared by {publisher}', { publisher: pack.publisher })}</span>{/if}
+				{#if pack.official}<span class="chip accent">{t('Official')}</span>{:else if pack.reviewed}<span class="chip">{t('Reviewed')}</span>{/if}
 			</p>
 			<dl class="facts">
-				<div><dt class="small muted">Version</dt><dd class="num">{#if pack.installed && (pack.status === 'update' || pack.status === 'replaced')}{pack.installed} <span class="arrow">→</span> {/if}{pack.version ?? pack.installed}</dd></div>
-				{#if pack.size}<div><dt class="small muted">Download</dt><dd class="num">{bytes(pack.size)}</dd></div>{/if}
+				<div><dt class="small muted">{t('Version')}</dt><dd class="num">{#if pack.installed && (pack.status === 'update' || pack.status === 'replaced')}{pack.installed} <span class="arrow">→</span> {/if}{pack.version ?? pack.installed}</dd></div>
+				{#if pack.size}<div><dt class="small muted">{t('Download')}</dt><dd class="num">{bytes(pack.size)}</dd></div>{/if}
 				<div class="wide">
-					<dt class="small muted">{pack.installed ? 'Its folders in AddOns' : 'It will create in AddOns'}</dt>
+					<dt class="small muted">{pack.installed ? t('Its folders in AddOns') : t('It will create in AddOns')}</dt>
 					<dd>{#each pack.folders as folder (folder)}<span class="folder path">{folder}</span>{/each}</dd>
 				</div>
 			</dl>
 			{#if pack.status === 'replaced'}
 				<p class="out bad">
-					The guide you installed as ‘{pack.title}’ was replaced on {community.site} by a different guide{#if pack.changes?.publisher?.to}, from a new publisher: {pack.changes.publisher.to}{/if}. Installing puts the new one in its place. Cancel keeps yours.
+					{#if pack.changes?.publisher?.to}{t('The guide you installed as ‘{title}’ was replaced on {site} by a different guide, from a new publisher: {publisher}.', { title: pack.title, site: community.site, publisher: pack.changes.publisher.to })}{:else}{t('The guide you installed as ‘{title}’ was replaced on {site} by a different guide.', { title: pack.title, site: community.site })}{/if}
+					{t('Installing puts the new one in its place.')}
+					{t('Cancel keeps yours.')}
 				</p>
 			{:else if verb === 'update' && pack.changes}
 				<div class="changes">
-					<p class="small muted">This update isn't routine, so it asks first:</p>
+					<p class="small muted">{t("This update isn't routine, so it asks first:")}</p>
 					<ul>
 						{#each changeLines(pack) as line (line)}<li>{line}</li>{/each}
 					</ul>
@@ -178,20 +181,20 @@
 			{:else if pack.revoked && (pack.status === 'disabled' || pack.status === 'removed')}
 				<p class="out bad">{pack.revoked.reason}</p>
 				<p class="out">
-					{pack.status === 'disabled' ? `Turned off by ${community.site}. Its files were moved out of AddOns.` : `Removed by ${community.site}.`}
-					{#if pack.version}Version {pack.version} is still offered.{/if}
+					{pack.status === 'disabled' ? `${t('Turned off by {site}.', { site: community.site })} ${t('Its files were moved out of AddOns.')}` : t('Removed by {site}.', { site: community.site })}
+					{#if pack.version}{t('Version {version} is still offered.', { version: pack.version })}{/if}
 				</p>
 			{/if}
 			{#if pack.status === 'upToDate'}
-				<p class="out">{pack.title} {pack.installed} is installed and up to date.</p>
+				<p class="out">{t('{title} {version} is installed and up to date.', { title: pack.title, version: pack.installed ?? '' })}</p>
 			{:else if pack.status === 'noGame'}
-				<p class="out bad">Polestar Client hasn't found WoW: Forever yet. Locate the game in Settings, then open the link again.</p>
+				<p class="out bad">{t("Polestar Client hasn't found WoW: Forever yet.")} {t('Locate the game in Settings, then open the link again.')}</p>
 			{:else if pack.blocked}
 				<p class="out bad">{pack.blocked}</p>
 			{:else if failed}
 				<p class="out bad" in:swap>{failed}</p>
 			{:else if verb}
-				<p class="out">Checked against {community.site}'s signed list before anything changes. Nothing else in AddOns is touched.</p>
+				<p class="out">{t("Checked against {site}'s signed list before anything changes.", { site: community.site })} {t('Nothing else in AddOns is touched.')}</p>
 			{/if}
 		{/if}
 	</div>
@@ -199,15 +202,15 @@
 	<footer>
 		{#if busy || started}
 			{#key pack?.progress?.phase ?? 'start'}
-				<span class="phase small" in:swap><span class="spinner"></span>{pack?.progress ? PHASE[pack.progress.phase] ?? 'Installing' : 'Starting'}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}</span>
+				<span class="phase small" in:swap><span class="spinner"></span>{pack?.progress ? t(PHASE[pack.progress.phase] ?? msg('Installing')) : t('Starting')}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}</span>
 			{/key}
 			<span class="bar" class:indeterminate={pct === null} aria-hidden="true"><span class="fill" style:transform={pct === null ? undefined : `scaleX(${pct})`}></span></span>
 		{/if}
 		<span class="spacer"></span>
-		<button class="btn quiet" bind:this={cancel} disabled={!!busy || started} onclick={close}>{verb ? 'Cancel' : 'Close'}</button>
+		<button class="btn quiet" bind:this={cancel} disabled={!!busy || started} onclick={close}>{verb ? t('Cancel') : t('Close')}</button>
 		{#if verb}
 			<button class="btn primary" disabled={!!pack?.blocked || !!busy || started} title={pack?.blocked ?? undefined} onclick={install}>
-				{pack?.status === 'replaced' ? 'Replace' : verb === 'update' ? `Update to ${pack?.version}` : pack?.installed ? `Install ${pack.version}` : 'Install'}
+				{pack?.status === 'replaced' ? t('Replace') : verb === 'update' ? t('Update to {version}', { version: pack?.version ?? '' }) : pack?.installed ? t('Install {version}', { version: pack.version ?? '' }) : t('Install')}
 			</button>
 		{/if}
 	</footer>

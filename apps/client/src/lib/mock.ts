@@ -12,7 +12,7 @@
 //   recorder-reload (an old-format file; the latest Recorder is installed but
 //   hasn't run yet), recorder-next (an old-format file; no published Recorder
 //   records the new format yet)
-
+import { t, tn } from './i18n.svelte';
 import type { ActivityEntry, Pack, Preview, Product, Snapshot, Summary } from './types';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -49,11 +49,14 @@ const week: Summary = {
 	],
 };
 
-const base: Snapshot = {
+/** The snapshot every scene starts from; built on each call, so its texts are in the current language. */
+const base = (): Snapshot => ({
 	version: '0.1.0',
 	setupDone: true,
 	consent: true,
 	paused: false,
+	language: params.get('lang') ?? 'auto',
+	locale: 'enUS',
 	serverUrl: MOCK_SERVER,
 	defaultServerUrl: MOCK_SERVER,
 	dataDir: '/home/player/.local/share/gg.polestar.client',
@@ -73,7 +76,7 @@ const base: Snapshot = {
 		],
 		running: false,
 	},
-	status: { kind: 'watching', title: 'Sharing on', detail: 'New play is sent a few seconds after you log out or type /reload.', action: null, lastUpload: now - 4 * MIN, nextRetry: null },
+	status: { kind: 'watching', title: t('Sharing on'), detail: t('New play is sent a few seconds after you log out or type /reload.'), action: null, lastUpload: now - 4 * MIN, nextRetry: null },
 	pending: 0,
 	week,
 	addons: {
@@ -89,7 +92,7 @@ const base: Snapshot = {
 			{
 				id: 'polestar',
 				name: 'Polestar',
-				blurb: 'Leveling guides, the arrow, Lookup, Dungeons and Rares',
+				blurb: t('Leveling guides, the arrow, Lookup, Dungeons and Rares'),
 				installed: '0.2.6',
 				latest: { version: '0.2.7', tag: 'v0.2.7', title: 'Polestar 0.2.7', pageUrl: 'https://github.com/fitzforge/polestar/releases/tag/v0.2.7', publishedAt: new Date(now - 2 * 86_400_000).toISOString(), prerelease: false },
 				status: 'update',
@@ -99,7 +102,7 @@ const base: Snapshot = {
 			{
 				id: 'recorder',
 				name: 'Polestar Recorder',
-				blurb: 'Records your play for the recording program (off until you turn it on)',
+				blurb: t('Records your play for the recording program (off until you turn it on)'),
 				installed: '0.3.0',
 				latest: { version: '0.3.0', tag: 'v0.2.7', title: 'Polestar 0.2.7', pageUrl: 'https://github.com/fitzforge/polestar/releases/tag/v0.2.7', publishedAt: new Date(now - 2 * 86_400_000).toISOString(), prerelease: false },
 				status: 'upToDate',
@@ -109,7 +112,7 @@ const base: Snapshot = {
 			{
 				id: 'libforeverdata',
 				name: 'LibForeverData',
-				blurb: "WoW: Forever's quests, NPCs and items as a library for other addons",
+				blurb: t("WoW: Forever's quests, NPCs and items as a library for other addons"),
 				installed: null,
 				latest: { version: '1.2026.10.1', tag: 'lib-v1.2026.10.1', title: 'LibForeverData 1.2026.10.1', pageUrl: 'https://github.com/fitzforge/polestar/releases/tag/lib-v1.2026.10.1', publishedAt: new Date(now - 9 * 86_400_000).toISOString(), prerelease: false },
 				status: 'install',
@@ -131,11 +134,27 @@ const base: Snapshot = {
 		gameFound: true,
 		gameRunning: scene === 'running',
 		packs: scene === 'community-off' ? [] : mockPacks(),
-		link: scene === 'community-link' ? { seq: 1, pack: 'emberway', error: null } : scene === 'community-bad-link' ? { seq: 1, pack: null, error: '"Ember_Way" isn\'t a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide\'s page on polestar.guide again.' } : null,
+		link:
+			scene === 'community-link'
+				? { seq: 1, pack: 'emberway', error: null }
+				: scene === 'community-bad-link'
+					? { seq: 1, pack: null, error: t('"{name}" isn\'t a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide\'s page on polestar.guide again.', { name: 'Ember_Way' }) }
+					: null,
 	},
 	update: null,
 	custom: { community: null, server: null },
-};
+});
+
+/** The confirm an update that changes the pack asks for (packs.rs `Changes::describe`). */
+function describe(title: string, changes: NonNullable<Pack['changes']>): string {
+	if (changes.replaced) return t('{title} was replaced by a different guide under the same name. Confirm to install the new one in its place.', { title });
+	const what: string[] = [];
+	if (changes.publisher) what.push(t('a new publisher ({new} instead of {old})', { new: changes.publisher.to ?? t('unknown'), old: changes.publisher.from ?? t('unknown') }));
+	if (changes.added.length) what.push(t('new folders ({folders})', { folders: changes.added.join(', ') }));
+	if (changes.removed.length) what.push(t('fewer folders (no {folders})', { folders: changes.removed.join(', ') }));
+	const list = what.reduce((first, second) => t('{first} and {second}', { first, second }));
+	return t('This update of {title} has {changes}. Confirm to install it.', { title, changes: list });
+}
 
 function mockPacks(): Pack[] {
 	const pack = (id: string, title: string, author: string, version: string | null, size: number, extra: Partial<Pack> = {}): Pack => ({
@@ -190,13 +209,13 @@ function mockPacks(): Pack[] {
 		}),
 		pack('durotar-dash', 'Durotar Dash', 'Tester', '1.0.0', 10_311),
 		pack('emberway', 'Emberway Routes', 'Ashka', '1.0.0', 10_251, { official: true, reviewed: true }),
-		pack('hearthside', 'Hearthside Professions', 'Mira', '1.0.0', 12_169, { blocked: 'Needs Polestar 0.2.8 or newer; you have 0.2.6. Update it on the Addons page.' }),
+		pack('hearthside', 'Hearthside Professions', 'Mira', '1.0.0', 12_169, { blocked: t('Needs Polestar {need} or newer; you have {have}. Update it on the Addons page.', { need: '0.2.8', have: '0.2.6' }) }),
 		pack('ironvault', 'Ironvault Dungeons', 'Kel', '1.0.0', 6958),
 	];
 }
 
 function initial(): Snapshot {
-	const s: Snapshot = structuredClone(base);
+	const s: Snapshot = base();
 	switch (scene) {
 		case 'setup':
 		case 'setup-none':
@@ -207,7 +226,7 @@ function initial(): Snapshot {
 		case 'optin':
 			s.consent = false;
 			s.setupDone = scene === 'optin';
-			s.status = { ...s.status, kind: 'off', title: 'Sharing is off', detail: "Nothing is sent. Opt in under Recording to help improve Polestar's guides.", lastUpload: null };
+			s.status = { ...s.status, kind: 'off', title: t('Sharing is off'), detail: t("Nothing is sent. Opt in under Recording to help improve Polestar's guides."), lastUpload: null };
 			s.week = null;
 			if (scene === 'optin') {
 				s.addons.products[1] = { ...s.addons.products[1], installed: null, status: 'install' };
@@ -224,47 +243,47 @@ function initial(): Snapshot {
 			if (scene === 'setup-problem') {
 				s.game.problem = {
 					path: 'C:\\Program Files (x86)\\World of Warcraft\\_classic_era_',
-					message: 'This is the Classic Era client (_classic_era_), not WoW: Forever. Pick the World of Warcraft folder that holds _forever_, or its _forever_ folder.',
+					message: t('{path} is {version} ({flavor}), not WoW: Forever', { path: 'C:\\Program Files (x86)\\World of Warcraft\\_classic_era_', version: 'Classic Era', flavor: 'wow_classic_era' }),
 				};
 			}
 			if (scene === 'setup-saved') {
-				s.game.problem = { path: '/home/player/Old Games/World of Warcraft', message: 'This folder no longer exists.' };
+				s.game.problem = { path: '/home/player/Old Games/World of Warcraft', message: t('{path} does not exist', { path: '/home/player/Old Games/World of Warcraft' }) };
 			}
 			break;
 		case 'uploading':
-			s.status = { ...s.status, kind: 'uploading', title: 'Sending', detail: 'Sending your latest play.' };
+			s.status = { ...s.status, kind: 'uploading', title: t('Sending'), detail: tn('Sending your latest play ({count} part).', 'Sending your latest play ({count} parts).', 12) };
 			s.pending = 12;
 			break;
 		case 'registering':
-			s.status = { ...s.status, kind: 'uploading', title: 'Setting up', detail: 'Setting up this PC with the Polestar server. It takes a few seconds, once.', lastUpload: null };
+			s.status = { ...s.status, kind: 'uploading', title: t('Setting up'), detail: t('Setting up this PC with the Polestar server. It takes a few seconds, once.'), lastUpload: null };
 			s.week = null;
 			s.pending = 12;
 			break;
 		case 'offline':
-			s.status = { ...s.status, kind: 'offline', title: "Can't reach the server", detail: "Can't reach the recording server. Check your internet connection.", action: 'retry', nextRetry: now + 40_000, lastUpload: now - 3 * 60 * MIN };
+			s.status = { ...s.status, kind: 'offline', title: t("Can't reach the server"), detail: t("Can't reach the recording server. Check your internet connection."), action: 'retry', nextRetry: now + 40_000, lastUpload: now - 3 * 60 * MIN };
 			s.pending = 12;
 			s.game.accounts[0].pending = 12;
 			break;
 		case 'paused':
 			s.paused = true;
-			s.status = { ...s.status, kind: 'paused', title: 'Uploads paused', detail: 'Your play waits on this PC until you resume. The Recorder keeps recording in the game.', action: 'resume' };
+			s.status = { ...s.status, kind: 'paused', title: t('Uploads paused'), detail: t('Your new play waits on this PC until you resume. The Recorder keeps recording in the game.'), action: 'resume' };
 			s.pending = 12;
 			s.game.accounts[0].pending = 12;
 			break;
 		case 'attention':
 			s.game.addon = { installed: false, version: null, latest: '0.3.0', updateAvailable: false };
-			s.status = { ...s.status, kind: 'attention', title: 'The Recorder addon is not installed', detail: 'Install it, then log in to the game. While sharing is on, the Recorder records by itself.', action: 'install' };
+			s.status = { ...s.status, kind: 'attention', title: t('The Recorder addon is not installed'), detail: t('Install it, then log in to the game. While sharing is on, the Recorder records by itself.'), action: 'install' };
 			break;
 		case 'recorder-update':
 			s.game.addon = { installed: true, version: '0.2.6', latest: '0.3.0', updateAvailable: true };
-			s.status = { ...s.status, kind: 'attention', title: 'The Recorder is out of date', detail: 'Update it so it records in the format the server reads.', action: 'update' };
+			s.status = { ...s.status, kind: 'attention', title: t('The Recorder is out of date'), detail: t('Update it so it records in the format the server reads.'), action: 'update' };
 			break;
 		case 'recorder-reload':
-			s.status = { ...s.status, kind: 'waiting', title: 'Waiting for the new Recorder to run', detail: 'Log in (or /reload) with the Recorder on to start recording in the new format.', action: null };
+			s.status = { ...s.status, kind: 'waiting', title: t('Waiting for the new Recorder to run'), detail: t('Log in (or /reload) with the Recorder on to start recording in the new format.'), action: null };
 			break;
 		case 'recorder-next':
 			s.game.addon = { installed: true, version: '0.2.6', latest: '0.2.6', updateAvailable: false };
-			s.status = { ...s.status, kind: 'attention', title: 'The Recorder is out of date', detail: 'It records in an older format the server no longer reads. The new Recorder comes with the next Polestar update.', action: null };
+			s.status = { ...s.status, kind: 'attention', title: t('The Recorder is out of date'), detail: t('It records in an older format the server no longer reads. The new Recorder comes with the next Polestar update.'), action: null };
 			break;
 		case 'empty':
 			s.week = null;
@@ -288,17 +307,18 @@ let snapshot = initial();
 const listeners = new Set<(s: Snapshot) => void>();
 const emit = () => listeners.forEach((l) => l(structuredClone(snapshot)));
 
-const activity: ActivityEntry[] =
+/** The Activity log; built on each call, so the client's own messages are in the current language. */
+const activity = (): ActivityEntry[] =>
 	scene === 'empty'
 		? []
 		: [
 				{ kind: 'upload', at: now - 4 * MIN, account: 'WOW1', chunks: 9, records: 1043, bytes: 61_420, accepted: [31, 32, 33, 34, 35, 36, 37, 38, 39], duplicate: [], rejected: [], message: null },
 				{ kind: 'upload', at: now - 3 * 60 * MIN, account: 'WOW1', chunks: 6, records: 702, bytes: 40_210, accepted: [25, 26, 27, 28, 29], duplicate: [], rejected: [{ seq: 30, reason: 'record 14 (loot): items is not a list of itemId:count' }], message: null },
-				{ kind: 'failed', at: now - 3 * 60 * MIN - 9 * MIN, account: 'WOW1', chunks: 6, records: 702, bytes: 40_210, accepted: [], duplicate: [], rejected: [], message: 'Can\'t reach the recording server. Check your internet connection.' },
+				{ kind: 'failed', at: now - 3 * 60 * MIN - 9 * MIN, account: 'WOW1', chunks: 6, records: 702, bytes: 40_210, accepted: [], duplicate: [], rejected: [], message: t("Can't reach the recording server. Check your internet connection.") },
 				{ kind: 'update', at: now - 20 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: null, product: 'Polestar Recorder', version: '0.3.0' },
-				{ kind: 'install', at: now - 22 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'Downloading Polestar-0.2.7.zip failed: connection reset by peer', product: 'Polestar', version: '0.2.7' },
+				{ kind: 'install', at: now - 22 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: t('Downloading {file} failed: {error}', { file: 'Polestar-0.2.7.zip', error: 'connection reset by peer' }), product: 'Polestar', version: '0.2.7' },
 				{ kind: 'disabled', at: now - 2 * 60 * MIN, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'This version sends players into an unwinnable escort loop.', product: 'Moonrise Questing', version: '0.9.0' },
-				{ kind: 'restored', at: now - 2 * 60 * MIN + 30_000, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'Moonrise Questing 0.9.0 is still turned off by polestar.guide, so it stays off.', product: 'Moonrise Questing', version: '0.9.0' },
+				{ kind: 'restored', at: now - 2 * 60 * MIN + 30_000, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: t('AddOns already has a {folder}; remove it first to restore the kept copy.', { folder: 'PolestarPack_moonrise' }), product: 'Moonrise Questing', version: '0.9.0' },
 				{ kind: 'removed', at: now - 26 * 60 * MIN + 60_000, account: '', chunks: 0, records: 0, bytes: 0, accepted: [], duplicate: [], rejected: [], message: 'Taken down: it copied another guide without permission.', product: 'Ashfall Dailies', version: '1.0.0' },
 				{ kind: 'upload', at: now - 26 * 60 * MIN, account: 'WOW1', chunks: 14, records: 1820, bytes: 98_011, accepted: [11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22], duplicate: [23, 24], rejected: [], message: null },
 				{ kind: 'upload', at: now - 3 * 24 * 60 * MIN, account: 'WOW1', chunks: 10, records: 1647, bytes: 84_930, accepted: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10], duplicate: [], rejected: [], message: null },
@@ -344,7 +364,7 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 	choose_folder: (a) => ({ path: a.path, problem: null }),
 	pick_folder: () =>
 		scene === 'setup-problem'
-			? { path: 'C:\\Games\\Downloads', problem: "This folder isn't World of Warcraft: there is no Wow.exe, _forever_ or _classic_ folder in it." }
+			? { path: 'C:\\Games\\Downloads', problem: t('{path} is not a World of Warcraft folder (no _forever_ or other game version folder in it)', { path: 'C:\\Games\\Downloads' }) }
 			: null,
 	check_addons: async () => {
 		snapshot.addons.checking = true;
@@ -384,7 +404,7 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 			p.status = 'upToDate';
 		}
 		emit();
-		return a.action === 'uninstall' ? `${p.name} removed.` : `${p.name} ${p.installed} installed. Restart the game (or /reload) to load it.`;
+		return a.action === 'uninstall' ? t('{title} removed.', { title: p.name }) : t('{title} {version} installed. Restart the game (or /reload) to load it.', { title: p.name, version: p.installed! });
 	},
 	update_all: () => commands.addon_action({ id: 'polestar', action: 'update' }),
 	check_packs: async () => {
@@ -398,14 +418,14 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 	pack_action: async (a) => {
 		const p = snapshot.community.packs.find((x) => x.id === a.id)!;
 		if (a.action === 'update' && p.changes && !a.confirm) {
-			throw `${p.title} ${p.version} isn't a routine update; confirm it first.`;
+			throw describe(p.title, p.changes);
 		}
 		if (a.action === 'discard') {
 			snapshot.community.packs = snapshot.community.packs
 				.map((x) => (x.id === p.id ? { ...x, installed: null, status: 'install' as const, revoked: null } : x))
 				.filter((x) => x.id !== p.id || x.version !== null);
 			emit();
-			return p.status === 'removed' ? `Dismissed the notice for ${p.title}.` : `Deleted the kept copy of ${p.title}.`;
+			return p.status === 'removed' ? t('{title} is off the list.', { title: p.title }) : t('The copy kept of {title} is deleted.', { title: p.title });
 		}
 		p.busy = a.action as Pack['busy'];
 		if (a.action === 'uninstall' || a.action === 'restore') {
@@ -431,14 +451,14 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 			p.status = p.version && p.version !== p.installed ? 'update' : 'upToDate';
 			p.revoked = null;
 			emit();
-			return `${p.title} ${p.installed} restored. Restart the game (or /reload) to load it.`;
+			return t('{title} {version} is back. Restart the game (or /reload) to load it.', { title: p.title, version: p.installed ?? '' });
 		}
 		p.installed = a.action === 'uninstall' ? null : p.version;
 		p.status = a.action === 'uninstall' ? 'install' : 'upToDate';
 		p.revoked = null;
 		p.changes = null;
 		emit();
-		return a.action === 'uninstall' ? `${p.title} removed.` : `${p.title} ${p.version} installed. Restart the game (or /reload) to load it.`;
+		return a.action === 'uninstall' ? t('{title} removed.', { title: p.title }) : t('{title} {version} installed. Restart the game (or /reload) to load it.', { title: p.title, version: p.version ?? '' });
 	},
 	set_pack_auto_update: (a) => {
 		snapshot.community.autoUpdate = a.enabled as boolean;
@@ -470,21 +490,26 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 		emit();
 	},
 	set_sharing: (a) => {
-		snapshot = a.enabled ? { ...structuredClone(base), pending: 0 } : { ...snapshot, consent: false, status: { ...snapshot.status, kind: 'off', title: 'Sharing is off', detail: '', action: null } };
+		snapshot = a.enabled ? { ...base(), pending: 0 } : { ...snapshot, consent: false, status: { ...snapshot.status, kind: 'off', title: t('Sharing is off'), detail: t("Nothing is sent. Opt in under Recording to help improve Polestar's guides."), action: null } };
+		emit();
+	},
+	set_language: (a) => {
+		// Built again, so the backend's texts come in the new language (as the real one writes them).
+		snapshot = { ...initial(), language: a.language as string, locale: a.locale as string };
 		emit();
 	},
 	set_paused: (a) => {
 		snapshot.paused = a.paused as boolean;
 		snapshot.status = a.paused
-			? { ...snapshot.status, kind: 'paused', title: 'Uploads paused', detail: 'Your play waits on this PC until you resume. The Recorder keeps recording in the game.', action: 'resume' }
-			: structuredClone(base.status);
+			? { ...snapshot.status, kind: 'paused', title: t('Uploads paused'), detail: t('Your new play waits on this PC until you resume. The Recorder keeps recording in the game.'), action: 'resume' }
+			: base().status;
 		emit();
 	},
 	get_autostart: () => false,
 	set_autostart: () => undefined,
 	set_server_url: (a) => a.url,
 	delete_server_data: () => undefined,
-	activity: () => activity,
+	activity,
 	preview: () => preview(),
 	retry_now: () => undefined,
 	open_data_folder: () => undefined,

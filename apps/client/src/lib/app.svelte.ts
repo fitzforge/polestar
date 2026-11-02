@@ -5,6 +5,7 @@
 import { api } from './backend';
 import { fault } from './fault';
 import { afterIntro, appIsReady } from './intro.svelte';
+import { locale, resolve, show, t } from './i18n.svelte';
 import { tick } from 'svelte';
 import type { PackLink, Snapshot } from './types';
 
@@ -49,14 +50,38 @@ async function takeLink(s: Snapshot): Promise<void> {
 	await api.packLinkDone(link.seq).catch(() => {});
 }
 
+/** Where the window keeps the language choice for its next first frame (main.ts). */
+export const LANGUAGE_KEY = 'polestar.language';
+
+/** Follows settings.json's language (the first snapshot, or another window's change), and tells
+ * the backend what it means here when that differs from what the backend writes in. */
+async function followLanguage(s: Snapshot): Promise<void> {
+	const code = resolve(s.language);
+	localStorage.setItem(LANGUAGE_KEY, s.language);
+	if (code !== locale()) await show(code);
+	if (s.locale !== code) await api.setLanguage(s.language, code).catch((e) => console.error('language', e));
+}
+
+/** Settings > Language. */
+export async function chooseLanguage(choice: string): Promise<void> {
+	const code = resolve(choice);
+	localStorage.setItem(LANGUAGE_KEY, choice);
+	await show(code);
+	await api.setLanguage(choice, code);
+}
+
 function receive(s: Snapshot): void {
+	const languageChanged = s.language !== app.snapshot?.language || s.locale !== app.snapshot?.locale;
 	app.snapshot = s;
+	if (languageChanged) void followLanguage(s);
 	void takeLink(s);
 }
 
 export async function start(): Promise<void> {
 	const late = setTimeout(
-		() => app.snapshot || fault('Polestar Client is not answering', `The window asked the background service for its state ${FIRST_ANSWER_MS / 1000} seconds ago and has had no answer.`),
+		() =>
+			app.snapshot ||
+			fault(t('Polestar Client is not answering'), t('The window asked the background service for its state {seconds} seconds ago and has had no answer.', { seconds: FIRST_ANSWER_MS / 1000 })),
 		FIRST_ANSWER_MS,
 	);
 	await api.onSnapshot(receive);

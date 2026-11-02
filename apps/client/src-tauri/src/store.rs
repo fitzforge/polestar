@@ -63,6 +63,11 @@ pub struct Settings {
 	pub packs_url: String,
 	/// Tell the packs site which pack was installed (opt-in): the pack and version, nothing else.
 	pub pack_telemetry: bool,
+	/// Settings > Language: `auto` (the system's) or a locale code (`deDE`, `enUS`).
+	pub language: String,
+	/// The language the window last showed (`language` resolved): the tray's and notifications'
+	/// until the window says again (i18n.rs).
+	pub locale: String,
 }
 
 #[derive(Serialize, Deserialize, Clone, Copy, Debug, Default, PartialEq, Eq)]
@@ -124,6 +129,8 @@ impl Default for Settings {
 			auto_update_packs: false,
 			packs_url: crate::packs::DEFAULT_BASE.to_owned(),
 			pack_telemetry: false,
+			language: "auto".to_owned(),
+			locale: crate::i18n::ENGLISH.to_owned(),
 		}
 	}
 }

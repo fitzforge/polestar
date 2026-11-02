@@ -10,7 +10,8 @@
     "dev": "vite",
     "build": "svelte-check --tsconfig ./tsconfig.json && vite build",
     "check": "svelte-check --tsconfig ./tsconfig.json",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "i18n": "node scripts/i18n.js"
   },
   "dependencies": {
     "@tauri-apps/api": "^2.12.4"
