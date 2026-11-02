@@ -10,7 +10,7 @@
 //     refreshes it schedules: under 4 ms;
 //   - a frame while the player walks (OnUpdate scripts and tickers): under 1 ms;
 //   - SetGuide, and every step change while a leveling guide plays, with what
-//     they schedule: under 8 ms;
+//     they schedule: under 12.5 ms and 10.5 ms;
 //   - a gathering guide plays to the end in under 15 s of wall time.
 //
 // Budgets are steady-state: the data packs are loaded first (each is a single
@@ -60,7 +60,12 @@ const skip = needs('quests.json')
 // route to every trainer/vendor candidate once (Engine pickFor -> Travel.PlanRoute,
 // cached after), 8.4-9.2 ms since Oct 19; a second open costs ~3.5 ms. Under a 60 fps
 // frame (16.7 ms) and paid once, so 10 ms; a real slowdown still fails it.
-const BUDGET = { burst: 4, tick: 1, setGuide: 10, stepChange: 8, gatherSeconds: 15 };
+// 0.3.0 (Nov 2): 10.5-11.2 ms for setGuide and 9.1-9.4 ms for a step change on a quiet
+// machine (were ~9 and 6.4), with the 0.3.0 guides or the 0.2 ones alike: the cost is the
+// addon's new work on every step (the engine's confirm, kept-item and start rules, the
+// guide window's banner checks for quest-log room and bag space, the party and XP lines),
+// spread over many functions, not one slow path. So 12.5 and 10.5 ms.
+const BUDGET = { burst: 4, tick: 1, setGuide: 12.5, stepChange: 10.5, gatherSeconds: 15 };
 const ROUNDS = 5;
 // The reference's fastest timing: 5.3 ms (Intel i7-10700K, 16 threads, Linux,
 // lua5.1 5.1.5; the same with other work on the machine).
