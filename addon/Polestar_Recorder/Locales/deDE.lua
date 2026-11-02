@@ -20,14 +20,14 @@ L["trail on: %s (stops by itself after %d min; /psrec trail off to end)"] = "Spu
 L["trail off: %s, %d points"] = "Spur aus: %s, %d Punkte"
 L["no trail running"] = "keine Spur aktiv"
 L["usage: /psrec trail on [label] | trail off"] = "Verwendung: /psrec trail on [Name] | trail off"
--- L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = ""
--- L["last chunk the uploader confirmed: %d (newest: %d)"] = ""
--- L["the uploader has not confirmed a chunk yet (newest: %d)"] = ""
--- L["install id: %s"] = ""
--- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = ""
--- L["mark not recorded (not in the world yet)"] = ""
--- L["every recording not yet uploaded was deleted"] = ""
--- L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = ""
+L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = "%d Datenpakete warten auf den Uploader (etwa %d KiB von %d KiB)"
+L["last chunk the uploader confirmed: %d (newest: %d)"] = "letztes vom Uploader bestätigtes Datenpaket: %d (neuestes: %d)"
+L["the uploader has not confirmed a chunk yet (newest: %d)"] = "der Uploader hat noch kein Datenpaket bestätigt (neuestes: %d)"
+L["install id: %s"] = "Installations-ID: %s"
+L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = "Befehle: /psrec on | off | ui | mark <Text> | trail on [Name] | trail off | clear"
+L["mark not recorded (not in the world yet)"] = "Markierung nicht aufgezeichnet (noch nicht in der Welt)"
+L["every recording not yet uploaded was deleted"] = "alle noch nicht hochgeladenen Aufzeichnungen wurden gelöscht"
+L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "Das löscht alle noch nicht hochgeladenen Aufzeichnungen. Gib innerhalb von %d Sekunden |cffffd100/psrec clear confirm|r ein, um fortzufahren."
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "Spur nach %d Min. beendet: %s, %d Punkte"
@@ -63,8 +63,8 @@ L["Recorder: start or stop the position trail"] = "Recorder: Positionsspur start
 L["Recorder: show or hide the window"] = "Recorder: Fenster ein- oder ausblenden"
 
 -- Recorder.lua
--- L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = ""
--- L["on, because sharing is on in Polestar Client. /psrec off to stop."] = ""
+L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "Aufzeichnungen des vorherigen Recorders (Schema 1) wurden entfernt; die Aufzeichnung verwendet jetzt Schema 2"
+L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "an, weil das Teilen im Polestar Client eingeschaltet ist. /psrec off zum Beenden."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "dieser Client bietet keine Talentbaum-API"
