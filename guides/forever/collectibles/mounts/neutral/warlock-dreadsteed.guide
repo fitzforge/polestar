@@ -167,6 +167,7 @@ step Xorothian Stardust
 step Imp Delivery
   zone Burning Steppes
   tip Back to Gorzeeki with the stardust; with the Arcanite also done he gives you the Imp in a Jar for the Scholomance. Put a group of five together now: a party, not a raid group.
+  buy 18687 npc 14522                 -- Xorothian Stardust, from Ur'dan
   turnin 7625                         -- Gorzeeki Wildeyes
   accept 7629
 

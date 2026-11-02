@@ -130,7 +130,7 @@ step Grimand Elmore
 
 step Grimand's materials
   tip Runecloth drops from humanoids of level 50 and up (Everlook's Bruisers, the Scarlet Crusade in the Plaguelands, the Dire Maul ogres). Arthas' Tears is a Plaguelands herb (Herbalism 220), common around Chillwind Camp. An Arcanite Bar is an alchemist's transmute from a Thorium Bar and an Arcane Crystal, once every two days per alchemist: ask a guild alchemist early, or buy the bars. The Auction House sells all three.
-  collect 14047 quest 7642.3          -- Runecloth x40
+  collect 14047 quest 7642.3 @61.2,71.3 live -- Runecloth x40
   collect 8836 quest 7642.2           -- Arthas' Tears x10
   collect 12360 quest 7642.4 @61.2,71.3 live -- Arcanite Bars x6: an alchemist, or the Trade District Auction House
 
@@ -165,6 +165,7 @@ step Merideth Carlson
   tip Merideth Carlson breeds horses in Southshore's stable. She makes the Manna-Enriched Horse Feed from the 20 biscuits and 50 gold, taken at the hand-in.
   money 50g
   accept 7645                         -- Merideth Carlson
+  buy 13724 x20 npc 10857             -- Enriched Manna Biscuits: Argent Quartermaster Lightspark, Chillwind Camp
   turnin 7645 reward 18775            -- Manna-Enriched Horse Feed
 
 step Dire Maul: Tendris Warpwood
