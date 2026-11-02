@@ -539,7 +539,8 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 		// (Zarrin's Camping 101: Cooking is now done by training Cooking from him: #743.)
 		['forever/horde/03-silverpine-forest.guide', 93739, 1, 'Nazgrel'],
 		['forever/horde/03-silverpine-forest.guide', 93739, 2, "Vol'jin"],
-		[STONETALON, 93739, 4, 'Lady Sylvanas Windrunner'],
+		// (Sylvanas is talked to on the Undercity trip of the Hillsbrad guide.)
+		['forever/horde/06-hillsbrad-foothills.guide', 93739, 4, 'Lady Sylvanas Windrunner'],
 		[ASHENVALE_HORDE, 93739, 3, 'Cairne Bloodhoof'],
 	];
 	for (const [guide, quest, oi, name] of talks) {
@@ -815,7 +816,7 @@ function stepView(guide, who, s, before = '') {
 			local out = { groups = {}, goals = {} }
 			for k, grp in ipairs(v.groups) do out.groups[k] = grp.goals end
 			for k, g in ipairs(v.goals) do
-				out.goals[k] = { t = g.t, quest = g.quest or 0, status = g.status, text = g.text or "", optional = g.optional }
+				out.goals[k] = { t = g.t, quest = g.quest or 0, oi = g.oi or 0, status = g.status, text = g.text or "", optional = g.optional }
 			end
 			emit(out)`,
 	});
@@ -1267,7 +1268,8 @@ test(`${ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its o
 	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk').map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
 	const objectives = (illaya, coriella) => stepView(ZEPHRAS_HORDE, SKYBORNE_HORDE, step, `w.complete({ 92595 })
 		w.onQuest(92514, { { required = 1, fulfilled = ${illaya} }, { required = 1, fulfilled = ${coriella} } })`)
-		.goals.filter((g) => g.quest === 92514 && g.t !== 'turnin').map((g) => g.status);
+		.goals.filter((g) => g.quest === 92514 && g.t !== 'turnin').sort((a, b) => a.oi - b.oi).map((g) => g.status);
+	// Objective 1 is Illaya, 2 Coriella, whichever line the step lists first.
 	assert.deepEqual(objectives(1, 0).map((st) => st === 'done'), [true, false], 'Illaya done earlier, Coriella still to do');
 	assert.ok(objectives(1, 1).every((st) => st === 'done'), 'both done: only the turn-in is left');
 });
@@ -1626,13 +1628,17 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 	const offenders = [];
 	for (const guide of allGuides()) {
 		const bound = new Set();
+		// The characters a goal is for (its own `only`, else its step's): a bind under `only` covers a
+		// hearth for the same characters.
+		const whose = ({ step, goal }) => JSON.stringify(goal.only || step.only || null);
 		for (const { step, goal } of goals(guide)) {
-			if (goal.t === 'sethome' && everyone({ step, goal })) bound.add(goal.location);
+			if (goal.t === 'sethome') bound.add(everyone({ step, goal }) ? goal.location : `${goal.location} ${whose({ step, goal })}`);
 			const key = `${guide} ${goal.location}`;
 			// A hearth only a player bound there sees (`when bound "<inn>"`, the walk there for the others
 			// after it) is the guide's own guard for a bind made in an earlier guide.
 			const guarded = (step.when || []).some((p) => p.k === 'bound' && !p.neg && p.name === goal.location);
-			if (goal.t === 'hearth' && !guarded && !bound.has(goal.location) && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
+			const isBound = bound.has(goal.location) || bound.has(`${goal.location} ${whose({ step, goal })}`);
+			if (goal.t === 'hearth' && !guarded && !isBound && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
 		}
 	}
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
@@ -1927,7 +1933,8 @@ test('forever/horde/04-the-barrens.guide: Fitz\'s report (#273): the Savannah Li
 
 test('forever/horde/04-the-barrens.guide: Fitz\'s report (#274): the Dry Hills step also collects the Raptor Horns, in the Dry Hills, before the Ratchet turn-in', { skip }, () => {
 	const list = goals('forever/horde/04-the-barrens.guide');
-	const hills = list.findIndex(({ step, goal }) => step.title === 'The Dry Hills' && is('collect', 95494)(goal));
+	// The step where Vrang's harpy quest is worked in the Dry Hills (its title is the route's own).
+	const hills = list.findIndex(({ goal }) => is('collect', 95494)(goal));
 	assert.ok(hills >= 0, 'the Dry Hills step is in the guide');
 	const horns = list.findIndex(({ s, goal }) => s === list[hills].s && is('collect', 865)(goal));
 	assert.ok(horns >= 0, 'the Dry Hills step collects the Raptor Horns');
@@ -2137,9 +2144,10 @@ test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the
 // --- "Ride through SW? (I am lvl 12)" (Pynte, #404): riding comes at level
 // 40 (tools/lib/nav/move.js MOUNT_LEVEL), so a guide that starts below it
 // never tells the player to ride somewhere. Riding a boat, zeppelin, tram,
-// lift, airship or flight is fine ("ride it" names the transport just before).
+// lift, airship, flight or Zephras Isle's wind currents is fine ("ride it"
+// names the transport just before).
 const RIDING_LEVEL = 40;
-const RIDE_TRANSPORT = /\bride (?:it\b|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|bat|taxi))/gi;
+const RIDE_TRANSPORT = /\bride (?:it\b|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|wind current|bat|taxi))/gi;
 test("Pynte's report (#404): guides played below riding level never tell you to ride somewhere", { skip }, () => {
 	const offenders = [];
 	for (const guide of allGuides()) {
@@ -2193,8 +2201,6 @@ const BY_LEVEL = [
 	[DARKSHORE, 5385, 983],
 	[DARKSHORE, 5412, 1001],
 	['forever/horde/02-the-barrens.guide', 5087, 844],
-	['forever/horde/orc/02-the-barrens.guide', 5087, 844],
-	['forever/horde/troll/02-the-barrens.guide', 5087, 844],
 	[SILVERPINE, 3164, 429],
 	[SILVERPINE, 730, 91920],
 	[HILLSBRAD_HORDE, 3476, 496],
