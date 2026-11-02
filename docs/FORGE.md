@@ -473,7 +473,9 @@ before the bare `complete`, which goes once every objective has one.
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
-step's tip, `level` puts a `level N` gate right before the goal. A place or guide fix with
+step's tip, `level` puts a `level N` gate right before the goal (with `"after": true`, right after
+it, so the hand-ins up to it count towards the level). A place with the same numbers as a goal's
+typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
 
 Each record says why, in our own words, and names its issue (`#647`) or pull request; a correction,

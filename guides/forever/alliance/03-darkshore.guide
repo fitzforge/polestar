@@ -145,7 +145,7 @@ step The skeletal turtle
 
 step Plagued bears
   tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
-  complete 2118 @38.21,52.59 only Dwarf,Gnome,Human,Skyborne -- the Rabid Thistle Bears nearest Tharnariun
+  complete 2118 @38.21,52.59 map 1439 era only Dwarf,Gnome,Human,Skyborne -- the Rabid Thistle Bears nearest Tharnariun
   turnin 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
   accept 2138
 

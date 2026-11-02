@@ -364,6 +364,7 @@ step Dolanaar
   turnin 2459                                 -- Tallonkai Swiftroot, back in Dolanaar; upstairs
 
 step Dolanaar again
+  tip Byancie takes a Refreshing Spring Water with the fronds and the vial: if you drank yours, buy another from Innkeeper Keldamyr in this inn before you hand in.
   turnin 99050                                -- Byancie, inside
   accept 99073
 

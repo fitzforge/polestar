@@ -327,6 +327,7 @@ step Taskmaster Fizzule
   only Rogue
   zone The Barrens
   turnin 2458 only Rogue
+  tip Fizzule is by the Venture Co. tower north of the Sludge Fen. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first.
   accept 2478 optional
 
 step Mission: Possible But Not Probable
@@ -429,6 +430,7 @@ step Ken'zigla
 step Ken'zigla
   only Warlock
   zone Stonetalon Mountains
+  tip Ken'zigla lives in Malaka'jin, the troll village just inside Stonetalon at the end of the road west from Regthar.
   level 20 only Warlock
   accept 1511
 

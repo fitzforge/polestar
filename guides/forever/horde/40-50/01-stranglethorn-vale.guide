@@ -225,7 +225,7 @@ step Fly to Grom'gol
 
 step Nesingwary's camp
   turnin 195                          -- Hemet Nesingwary
-  tip Ride north up the road; the hunters camp on the hill above the river.
+  tip Head north up the road; the hunters camp on the hill above the river.
   accept 196                            -- Hemet Nesingwary
   turnin 192                          -- Sir S. J. Erlgadin
   turnin 339 optional                 -- Barnil Stonepot
@@ -265,7 +265,7 @@ step The Cape of Stranglethorn: kill these as you meet them
   collect 737 quest 573.2 @29.0,61.9
 
 step Booty Bay
-  tip Ride south to Booty Bay. Shaky Phillipe waits on the docks.
+  tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   turnin 606                            -- "Shaky" Phillipe
   accept 607
   sethome "Booty Bay" npc 6807          -- Innkeeper Skindle, upstairs
@@ -292,7 +292,7 @@ step Pirate ghosts
   collect 3925 quest 609.2
 
 step Zul'Mamwe
-  tip Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
+  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
   goto 45.4,36.2 "Skullsplitter warriors"
   collect 1524 quest 209.1
   kill 669 quest 586.1                -- Skullsplitter Hunter walks around here: look inside the circle on the map
@@ -310,7 +310,7 @@ step Balia'mah Ruins: kill these as you meet them
   collect 3907 quest 585.2
 
 step Grom'gol Base Camp
-  tip Ride west to Grom'gol.
+  tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
@@ -336,7 +336,7 @@ step Stranglethorn Vale
   goto 35.7,10.8 "Stranglethorn Vale"
 
 step Nesingwary's Expedition
-  tip Ride north up the road to the hunters' camp.
+  tip Head north up the road to the hunters' camp.
   turnin 196                            -- Hemet Nesingwary
 
 step Nesingwary's Expedition
@@ -404,11 +404,11 @@ step Swamp of Sorrows
 
 step Into the Swamp of Sorrows
   zone Swamp of Sorrows
-  tip Keep riding north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
+  tip Keep going north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
   accept 1389                           -- Magtoor
 
 step Stonard
-  tip Ride east to Stonard, in the reeds south of the road.
+  tip Head east to Stonard, in the reeds south of the road.
   accept 698                            -- Dar, inside
 # ---------------------------------------------------------------- Stonard
 

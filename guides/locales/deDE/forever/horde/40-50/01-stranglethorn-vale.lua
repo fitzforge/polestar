@@ -96,7 +96,7 @@ return {
 
 	-- Step 23: Nesingwary's camp
 	["Nesingwary's camp"] = "",
-	["Ride north up the road; the hunters camp on the hill above the river."] = "",
+	["Head north up the road; the hunters camp on the hill above the river."] = "",
 
 	-- Step 25: Zul'Kunda
 	["Zul'Kunda"] = "Ruinen von Zul'Kunda",
@@ -124,7 +124,7 @@ return {
 
 	-- Step 30: Booty Bay
 	-- {area:35} Booty Bay
-	["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Reite nach Süden nach {area:35}. Der zittrige Phillipe wartet an den Docks.",
+	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 
@@ -140,7 +140,7 @@ return {
 	-- Step 33: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruinen von Zul'Mamwe",
 	-- {npc:1059} Ana'thek the Cruel
-	["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Reite nach Norden zu den Ruinen der Skullsplitter östlich der Mine der Venture Co.; zieh die Kopfjäger und Berserker einzeln. {npc:1059} bewacht die südwestlichen Ruinen, und ein Haufen Trophäenschädel steht auf der Nordseite der Ruinen. Jeder Skullsplitter kann einen Hauer oder eine Halskette fallen lassen: Die Halsketten dauern am längsten, also töte im Kriegerlager nördlich der Ruinen weiter, bis du alle hast.",
+	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "",
 	["Skullsplitter warriors"] = "Krieger der Skullsplitter",
 	-- {npc:669} Skullsplitter Hunter
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
@@ -154,7 +154,7 @@ return {
 
 	-- Step 35: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Ride west to {object:3202}."] = "Reite nach Westen nach {object:3202}.",
+	["Head west to {object:3202}."] = "",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 
@@ -163,7 +163,7 @@ return {
 	["{npc:2498}, inside"] = "",
 
 	-- Step 40: Nesingwary's Expedition
-	["Ride north up the road to the hunters' camp."] = "Reite die Straße nach Norden hinauf zum Lager der Jäger.",
+	["Head north up the road to the hunters' camp."] = "",
 
 	-- Step 42: Raptor Mastery
 	-- {npc:730} Tethis
@@ -193,11 +193,11 @@ return {
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "",
 	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Keep riding north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
+	["Keep going north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
 
 	-- Step 55: Stonard
 	-- {area:75} Stonard
-	["Ride east to {area:75}, in the reeds south of the road."] = "Reite nach Osten nach {area:75}, im Schilf südlich der Straße.",
+	["Head east to {area:75}, in the reeds south of the road."] = "",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 
@@ -272,8 +272,13 @@ return {
 	-- ["Into the {zone:1435}"] = "In die {zone:1435}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Reite weiter nach Norden in den {zone:1431}, dann auf der Straße nach Osten durch den {zone:1430} in den Sumpf. {npc:1776} wartet bei {area:657}, dem Draeneilager nahe dem Weg vom {zone:1430} herein.",
 	-- ["Naga shore and the {object:759}"] = "Nagaufer und {object:759}",
+	-- ["Ride east to {area:75}, in the reeds south of the road."] = "Reite nach Osten nach {area:75}, im Schilf südlich der Straße.",
+	-- ["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Reite nach Norden zu den Ruinen der Skullsplitter östlich der Mine der Venture Co.; zieh die Kopfjäger und Berserker einzeln. {npc:1059} bewacht die südwestlichen Ruinen, und ein Haufen Trophäenschädel steht auf der Nordseite der Ruinen. Jeder Skullsplitter kann einen Hauer oder eine Halskette fallen lassen: Die Halsketten dauern am längsten, also töte im Kriegerlager nördlich der Ruinen weiter, bis du alle hast.",
+	-- ["Ride north up the road to the hunters' camp."] = "Reite die Straße nach Norden hinauf zum Lager der Jäger.",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "Reite die Straße nach Norden hinauf; die Jäger lagern auf dem Hügel über dem Fluss.",
 	-- ["Ride north-west to {object:3202}."] = "Reite nach Nordwesten nach {object:3202}.",
+	-- ["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Reite nach Süden nach {area:35}. Der zittrige Phillipe wartet an den Docks.",
+	-- ["Ride west to {object:3202}."] = "Reite nach Westen nach {object:3202}.",
 	-- ["Sawtooth snappers"] = "Sägezahnschnapper",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Südlich von Booty Bay lagern die Schwadroneure der Blutsegelbukaniere an der {area:43}; die Karten und Befehle liegen in ihren Zelten. Jeder Blutsegelbukanier kann Schnupftabak und {npc:2493}s Auge tragen, also töte weiter, bis du beides hast.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "Das Schiff nach {area:35} legt am Ende des Piers von {area:392} an.",

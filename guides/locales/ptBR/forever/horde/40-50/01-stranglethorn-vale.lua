@@ -96,7 +96,7 @@ return {
 
 	-- Step 23: Nesingwary's camp
 	["Nesingwary's camp"] = "",
-	["Ride north up the road; the hunters camp on the hill above the river."] = "",
+	["Head north up the road; the hunters camp on the hill above the river."] = "",
 
 	-- Step 25: Zul'Kunda
 	["Zul'Kunda"] = "Ruínas de Zul'Kanda",
@@ -124,7 +124,7 @@ return {
 
 	-- Step 30: Booty Bay
 	-- {area:35} Booty Bay
-	["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Cavalgue para o sul até {area:35}. Phillipe \"Sacode\" espera nas docas.",
+	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 
@@ -140,7 +140,7 @@ return {
 	-- Step 33: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruínas de Zul'Mamwe",
 	-- {npc:1059} Ana'thek the Cruel
-	["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Cavalgue para o norte até as ruínas Rachacrânio, a leste da mina da Empreendimentos S.A.; puxe os caçadores de cabeças e os berserkers um de cada vez. {npc:1059} guarda as ruínas do sudoeste, e uma pilha de crânios-troféu fica no lado norte das ruínas. Todo Rachacrânio pode deixar cair uma presa ou um colar: os colares são a parte demorada, então continue matando no acampamento dos guerreiros ao norte das ruínas até ter todos.",
+	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "",
 	["Skullsplitter warriors"] = "Guerreiros Rachacrânio",
 	-- {npc:669} Skullsplitter Hunter
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
@@ -154,7 +154,7 @@ return {
 
 	-- Step 35: Grom'gol Base Camp
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["Ride west to {object:3202}."] = "Cavalgue para o oeste até {object:3202}.",
+	["Head west to {object:3202}."] = "",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "o {object:2076}",
 
@@ -163,7 +163,7 @@ return {
 	["{npc:2498}, inside"] = "",
 
 	-- Step 40: Nesingwary's Expedition
-	["Ride north up the road to the hunters' camp."] = "Cavalgue para o norte pela estrada até o acampamento dos caçadores.",
+	["Head north up the road to the hunters' camp."] = "",
 
 	-- Step 42: Raptor Mastery
 	-- {npc:730} Tethis
@@ -193,11 +193,11 @@ return {
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "",
 	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Keep riding north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
+	["Keep going north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
 
 	-- Step 55: Stonard
 	-- {area:75} Stonard
-	["Ride east to {area:75}, in the reeds south of the road."] = "Cavalgue para o leste até {area:75}, nos juncos ao sul da estrada.",
+	["Head east to {area:75}, in the reeds south of the road."] = "",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 
@@ -272,8 +272,13 @@ return {
 	-- ["Into the {zone:1435}"] = "Rumo a {zone:1435}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Continue cavalgando para o norte até {zone:1431}, depois para o leste pela estrada através de {zone:1430} até o pântano. {npc:1776} espera em {area:657}, o acampamento draenei perto da entrada vinda de {zone:1430}.",
 	-- ["Naga shore and the {object:759}"] = "Costa das nagas e {object:759}",
+	-- ["Ride east to {area:75}, in the reeds south of the road."] = "Cavalgue para o leste até {area:75}, nos juncos ao sul da estrada.",
+	-- ["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Cavalgue para o norte até as ruínas Rachacrânio, a leste da mina da Empreendimentos S.A.; puxe os caçadores de cabeças e os berserkers um de cada vez. {npc:1059} guarda as ruínas do sudoeste, e uma pilha de crânios-troféu fica no lado norte das ruínas. Todo Rachacrânio pode deixar cair uma presa ou um colar: os colares são a parte demorada, então continue matando no acampamento dos guerreiros ao norte das ruínas até ter todos.",
+	-- ["Ride north up the road to the hunters' camp."] = "Cavalgue para o norte pela estrada até o acampamento dos caçadores.",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "Cavalgue para o norte pela estrada; os caçadores acampam na colina acima do rio.",
 	-- ["Ride north-west to {object:3202}."] = "Cavalgue para noroeste até {object:3202}.",
+	-- ["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Cavalgue para o sul até {area:35}. Phillipe \"Sacode\" espera nas docas.",
+	-- ["Ride west to {object:3202}."] = "Cavalgue para o oeste até {object:3202}.",
 	-- ["Sawtooth snappers"] = "Tartaliscas Dentesserra",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "Ao sul de Angra do Butim, os Espadachins da Vela Sangrenta acampam em {area:43}; os mapas e as ordens ficam nas barracas deles. Qualquer pirata da Vela Sangrenta pode levar rapé e o olho do {npc:2493}, então continue matando até ter os dois.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "O barco para {area:35} atraca no fim do píer de {area:392}.",

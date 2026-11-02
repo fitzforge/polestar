@@ -96,7 +96,7 @@ return {
 
 	-- Step 23: Nesingwary's camp
 	["Nesingwary's camp"] = "",
-	["Ride north up the road; the hunters camp on the hill above the river."] = "",
+	["Head north up the road; the hunters camp on the hill above the river."] = "",
 
 	-- Step 25: Zul'Kunda
 	["Zul'Kunda"] = "Зул'Кунда",
@@ -124,7 +124,7 @@ return {
 
 	-- Step 30: Booty Bay
 	-- {area:35} Booty Bay
-	["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Езжайте на юг сюда: {area:35}. Филипп «Трусишка» ждет на пристани.",
+	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 
@@ -140,7 +140,7 @@ return {
 	-- Step 33: Zul'Mamwe
 	["Zul'Mamwe"] = "Зул'Мамбве",
 	-- {npc:1059} Ana'thek the Cruel
-	["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Езжайте на север к руинам племени Дробителей Черепов к востоку от рудника Торговой компании; выманивайте охотников за головами и берсерков по одному. {npc:1059} охраняет юго-западные руины, а одна груда трофейных черепов стоит в северной части руин. С любого тролля Дробителей Черепов может упасть клык или ожерелье: ожерелья падают медленнее, поэтому бейте воинов в лагере к северу от руин, пока не соберете все.",
+	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "",
 	["Skullsplitter warriors"] = "Воины из племени Дробителей Черепов",
 	-- {npc:669} Skullsplitter Hunter
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
@@ -154,7 +154,7 @@ return {
 
 	-- Step 35: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
-	["Ride west to {object:3202}."] = "Езжайте на запад сюда: {object:3202}.",
+	["Head west to {object:3202}."] = "",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 
@@ -163,7 +163,7 @@ return {
 	["{npc:2498}, inside"] = "",
 
 	-- Step 40: Nesingwary's Expedition
-	["Ride north up the road to the hunters' camp."] = "Езжайте на север по дороге к лагерю охотников.",
+	["Head north up the road to the hunters' camp."] = "",
 
 	-- Step 42: Raptor Mastery
 	-- {npc:730} Tethis
@@ -193,11 +193,11 @@ return {
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "",
 	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Keep riding north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
+	["Keep going north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
 
 	-- Step 55: Stonard
 	-- {area:75} Stonard
-	["Ride east to {area:75}, in the reeds south of the road."] = "Езжайте на восток сюда: {area:75}, в камышах к югу от дороги.",
+	["Head east to {area:75}, in the reeds south of the road."] = "",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 
@@ -272,8 +272,13 @@ return {
 	-- ["Into the {zone:1435}"] = "В край {zone:1435}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "Езжайте дальше на север в край {zone:1431}, затем на восток по дороге через край {zone:1430} в болото. {npc:1776} ждет здесь: {area:657} – лагерь дренеев у въезда со стороны края {zone:1430}.",
 	-- ["Naga shore and the {object:759}"] = "Берег наг и {object:759}",
+	-- ["Ride east to {area:75}, in the reeds south of the road."] = "Езжайте на восток сюда: {area:75}, в камышах к югу от дороги.",
+	-- ["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "Езжайте на север к руинам племени Дробителей Черепов к востоку от рудника Торговой компании; выманивайте охотников за головами и берсерков по одному. {npc:1059} охраняет юго-западные руины, а одна груда трофейных черепов стоит в северной части руин. С любого тролля Дробителей Черепов может упасть клык или ожерелье: ожерелья падают медленнее, поэтому бейте воинов в лагере к северу от руин, пока не соберете все.",
+	-- ["Ride north up the road to the hunters' camp."] = "Езжайте на север по дороге к лагерю охотников.",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "Езжайте на север по дороге; лагерь охотников – на холме над рекой.",
 	-- ["Ride north-west to {object:3202}."] = "Езжайте на северо-запад сюда: {object:3202}.",
+	-- ["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "Езжайте на юг сюда: {area:35}. Филипп «Трусишка» ждет на пристани.",
+	-- ["Ride west to {object:3202}."] = "Езжайте на запад сюда: {object:3202}.",
 	-- ["Sawtooth snappers"] = "Острозубые крепкохваты",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "К югу от Пиратской бухты висельники из шайки Кровавого Паруса стоят лагерем здесь: {area:43}; карты и приказы лежат в их палатках. Нюхательный табак и глаз {npc:2493} может нести любой пират Кровавого Паруса: убивайте, пока не получите оба.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "Корабль ({area:35}) причаливает в конце пирса ({area:392}).",

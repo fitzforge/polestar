@@ -5526,8 +5526,8 @@ do
 			next = "forever/horde/05-stonetalon-mountains",
 			author = "Polestar",
 			version = 1,
-			names = { ["item:10338"] = "Fresh Zhevra Carcass", ["item:15826"] = "Curative Animal Salve", ["item:15842"] = "Empty Dreadmist Peak Sampler", ["item:15852"] = "Kodo Horn", ["item:15883"] = "Half Pendant of Aquatic Agility", ["item:15885"] = "Pendant of the Sea Lion", ["item:2449"] = "Earthroot", ["item:277277"] = "Olgra's Adornments", ["item:280680"] = "Relic of the Silent Shadow", ["item:5055"] = "Intact Raptor Horn", ["item:5075"] = "Blood Shard", ["item:5097"] = "Cats Eye Emerald", ["item:7766"] = "Empty Brown Waterskin", ["npc:11798"] = "Bunthen Plainswind", ["npc:11802"] = "Dendrite Starblaze", ["npc:11957"] = "Great Cat Spirit", ["npc:12296"] = "Sickly Gazelle", ["npc:12696"] = "Senani Thunderheart", ["npc:14242"] = "Sulhasa", ["npc:209797"] = "Bruuz", ["npc:246344"] = "Alodan the Hopeful", ["npc:261366"] = "Walton", ["npc:261367"] = "Terry Longdrink", ["npc:262119"] = "Corporal Adamore", ["npc:268624"] = "Razormane Raider", ["npc:272054"] = "Avatar of Saeyleenan", ["npc:2995"] = "Tal", ["npc:3033"] = "Turak Runetotem", ["npc:3234"] = "Lost Barrens Kodo", ["npc:3238"] = "Stormhide", ["npc:3239"] = "Thunderhead", ["npc:3241"] = "Savannah Patriarch", ["npc:3250"] = "Silithid Creeper", ["npc:3252"] = "Silithid Swarmer", ["npc:3253"] = "Silithid Harvester", ["npc:3256"] = "Sunscale Scytheclaw", ["npc:3286"] = "Venture Co. Overseer", ["npc:3341"] = "Gann Stonespire", ["npc:3354"] = "Sorek", ["npc:3375"] = "Bael'dun Foreman", ["npc:3376"] = "Bael'dun Soldier", ["npc:3385"] = "Theramore Marine", ["npc:3387"] = "Jorn Skyseer", ["npc:3389"] = "Regthar Deathgate", ["npc:3392"] = "Prospector Khazgorm", ["npc:3393"] = "Captain Fairmount", ["npc:3394"] = "Barak Kodobane", ["npc:3395"] = "Verog the Dervish", ["npc:3396"] = "Hezrul Bloodmark", ["npc:3401"] = "Shenthul", ["npc:3424"] = "Thunderhawk Cloudscraper", ["npc:3426"] = "Zhevra Charger", ["npc:3428"] = "Korran", ["npc:3429"] = "Thork", ["npc:3430"] = "Mangletooth", ["npc:3432"] = "Mankrik", ["npc:3433"] = "Tatternack Steelforge", ["npc:3434"] = "Nak", ["npc:3435"] = "Lok Orcbane", ["npc:3436"] = "Kuz", ["npc:3442"] = "Sputtervalve", ["npc:3448"] = "Tonga Runetotem", ["npc:3457"] = "Razormane Stalker", ["npc:3464"] = "Gazrog", ["npc:3465"] = "Gilthares Firebough", ["npc:3490"] = "Hula'mahi", ["npc:3682"] = "Vrang Wildgore", ["npc:4128"] = "Hecklefang Stalker", ["npc:4196"] = "Silithid Swarm", ["npc:4197"] = "Ken'zigla", ["npc:4606"] = "Aelthalyste", ["npc:5781"] = "Silithid Creeper Egg", ["npc:5859"] = "Hagg Taurenbane", ["npc:5875"] = "Gan'rul Bloodeye", ["npc:5878"] = "Thun'grim Firegaze", ["npc:5892"] = "Searn Firewarder", ["npc:5899"] = "Brine", ["npc:5901"] = "Islen Waterseer", ["npc:5908"] = "Grunt Dogran", ["npc:5909"] = "Cazul", ["npc:5910"] = "Zankaja", ["npc:6018"] = "Ur'kyo", ["npc:6394"] = "Ruga Ragetotem", ["npc:7233"] = "Taskmaster Fizzule", ["npc:7287"] = "Foreman Silixiz", ["object:107045"] = "Spring Well", ["object:147538"] = "Dead Tree", ["object:172957"] = "Valley of Wisdom", ["object:172958"] = "Valley of Honor", ["object:172960"] = "Cleft of Shadow", ["object:172961"] = "Valley of Spirits", ["object:172982"] = "Valley of Strength", ["object:177116"] = "Stormrage Barrow Dens", ["object:177117"] = "Shrine of Remulos", ["object:1772"] = "Tarren Mill", ["object:177792"] = "Strange Lockbox", ["object:19464"] = "Dreadmist Peak Pool", ["object:3685"] = "Silithid Mound", ["object:3972"] = "WANTED", ["object:4102"] = "The Crossroads", ["object:50507"] = "Elder Rise", ["object:640104"] = "Sprung Trap", ["quest:1483"] = "Ziz Fizziks", ["quest:1838"] = "Brutal Armor", ["quest:2458"] = "Deep Cover", ["quest:2478"] = "Mission: Possible But Not Probable", ["quest:30"] = "Trial of the Sea Lion", ["quest:31"] = "Aquatic Form", ["quest:4921"] = "Lost in Battle", ["quest:5642"] = "Shadowguard", ["quest:5654"] = "Hex of Weakness", ["quest:851"] = "Verog the Dervish", ["quest:852"] = "Hezrul Bloodmark", ["quest:858"] = "Ignition", ["quest:863"] = "The Escape", ["quest:865"] = "Raptor Horns", ["quest:876"] = "Serena Bloodfeather", ["quest:882"] = "Ishamuhale", ["quest:883"] = "Lakota'mani", ["quest:884"] = "Owatanka", ["quest:885"] = "Washte Pawne", ["quest:898"] = "Free From the Hold", ["quest:907"] = "Enraged Thunder Lizards", ["quest:913"] = "Cry of the Thunderhawk", ["quest:92706"] = "WANTED: Bruuz", ["quest:94913"] = "Moonglade", ["quest:95621"] = "Trouble in the Valley", ["quest:95774"] = "Her Name Is Olgra", ["quest:98340"] = "The Great Cat Spirit", ["skill:182"] = "Herbalism", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1440"] = "Ashenvale", ["zone:1442"] = "Stonetalon Mountains", ["zone:1450"] = "Moonglade", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity" },
-			written = { ["Keep it: {npc:5875} in {zone:1454}, at the end of this guide"] = "Keep it: Gan'rul in Orgrimmar, at the end of this guide", ["North to the Dry Hills. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "North to the Dry Hills. Vrang Wildgore camps below the hills; Walton, the hermit on the ridge behind him, has work for you only once Vrang sends you up.", ["Southern {zone:1413}"] = "Southern Barrens", ["West of Gann, the Razormane hold Blackthorn Ridge. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with Sinister Strike, so they can join a fight without warning."] = "West of Gann, the Razormane hold Blackthorn Ridge. Kuz is on the east side, Nak to the south, Lok Orcbane at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; Hagg Taurenbane, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. Stormhide lizards and Hecklefang Stalkers roam the plain between Gann and the ridge. Washte Pawne, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with Sinister Strike, so they can join a fight without warning.", ["{npc:11802}: the welcome from {npc:3033}"] = "Dendrite Starblaze: the welcome from Turak", ["{npc:14242}, up in the tree just east of {npc:3341}"] = "Sulhasa, up in the tree just east of Gann", ["{npc:3341} waits in a small camp further south, on the road toward Bael Modan."] = "Gann waits in a small camp further south, on the road toward Bael Modan.", ["{npc:3389} stands at the Kolkar watch post just west of the Crossroads."] = "Regthar stands at the Kolkar watch post just west of the Crossroads.", ["{npc:3394} stands in the Kolkar camp north-west of {npc:3389}."] = "Barak stands in the Kolkar camp north-west of Regthar.", ["{npc:3395} walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads."] = "Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads.", ["{npc:3396} leads the Kolkar on the west shore of Lushwater Oasis, south of {npc:3389}. Hand his head to {npc:3389} on your last Crossroads stop."] = "Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. Hand his head to Regthar on your last Crossroads stop.", ["{npc:5878} camps beside the road east of the Crossroads."] = "Thun'grim camps beside the road east of the Crossroads.", ["{npc:5899}, just west of {npc:3341}"] = "Brine, just west of Gann", ["{npc:5901} waits on the hill south of Ratchet, on your way north."] = "Islen waits on the hill south of Ratchet, on your way north." },
+			names = { ["item:10338"] = "Fresh Zhevra Carcass", ["item:15826"] = "Curative Animal Salve", ["item:15842"] = "Empty Dreadmist Peak Sampler", ["item:15852"] = "Kodo Horn", ["item:15883"] = "Half Pendant of Aquatic Agility", ["item:15885"] = "Pendant of the Sea Lion", ["item:2449"] = "Earthroot", ["item:277277"] = "Olgra's Adornments", ["item:280680"] = "Relic of the Silent Shadow", ["item:5055"] = "Intact Raptor Horn", ["item:5075"] = "Blood Shard", ["item:5097"] = "Cats Eye Emerald", ["item:7766"] = "Empty Brown Waterskin", ["item:8051"] = "Flare Gun", ["npc:11798"] = "Bunthen Plainswind", ["npc:11802"] = "Dendrite Starblaze", ["npc:11957"] = "Great Cat Spirit", ["npc:12296"] = "Sickly Gazelle", ["npc:12696"] = "Senani Thunderheart", ["npc:14242"] = "Sulhasa", ["npc:209797"] = "Bruuz", ["npc:246344"] = "Alodan the Hopeful", ["npc:261366"] = "Walton", ["npc:261367"] = "Terry Longdrink", ["npc:262119"] = "Corporal Adamore", ["npc:268624"] = "Razormane Raider", ["npc:272054"] = "Avatar of Saeyleenan", ["npc:2995"] = "Tal", ["npc:3033"] = "Turak Runetotem", ["npc:3234"] = "Lost Barrens Kodo", ["npc:3238"] = "Stormhide", ["npc:3239"] = "Thunderhead", ["npc:3241"] = "Savannah Patriarch", ["npc:3250"] = "Silithid Creeper", ["npc:3252"] = "Silithid Swarmer", ["npc:3253"] = "Silithid Harvester", ["npc:3256"] = "Sunscale Scytheclaw", ["npc:3286"] = "Venture Co. Overseer", ["npc:3341"] = "Gann Stonespire", ["npc:3354"] = "Sorek", ["npc:3375"] = "Bael'dun Foreman", ["npc:3376"] = "Bael'dun Soldier", ["npc:3385"] = "Theramore Marine", ["npc:3387"] = "Jorn Skyseer", ["npc:3389"] = "Regthar Deathgate", ["npc:3392"] = "Prospector Khazgorm", ["npc:3393"] = "Captain Fairmount", ["npc:3394"] = "Barak Kodobane", ["npc:3395"] = "Verog the Dervish", ["npc:3396"] = "Hezrul Bloodmark", ["npc:3401"] = "Shenthul", ["npc:3424"] = "Thunderhawk Cloudscraper", ["npc:3426"] = "Zhevra Charger", ["npc:3428"] = "Korran", ["npc:3429"] = "Thork", ["npc:3430"] = "Mangletooth", ["npc:3432"] = "Mankrik", ["npc:3433"] = "Tatternack Steelforge", ["npc:3434"] = "Nak", ["npc:3435"] = "Lok Orcbane", ["npc:3436"] = "Kuz", ["npc:3442"] = "Sputtervalve", ["npc:3448"] = "Tonga Runetotem", ["npc:3457"] = "Razormane Stalker", ["npc:3464"] = "Gazrog", ["npc:3465"] = "Gilthares Firebough", ["npc:3490"] = "Hula'mahi", ["npc:3682"] = "Vrang Wildgore", ["npc:4128"] = "Hecklefang Stalker", ["npc:4196"] = "Silithid Swarm", ["npc:4197"] = "Ken'zigla", ["npc:4606"] = "Aelthalyste", ["npc:5781"] = "Silithid Creeper Egg", ["npc:5859"] = "Hagg Taurenbane", ["npc:5875"] = "Gan'rul Bloodeye", ["npc:5878"] = "Thun'grim Firegaze", ["npc:5892"] = "Searn Firewarder", ["npc:5899"] = "Brine", ["npc:5901"] = "Islen Waterseer", ["npc:5908"] = "Grunt Dogran", ["npc:5909"] = "Cazul", ["npc:5910"] = "Zankaja", ["npc:6018"] = "Ur'kyo", ["npc:6394"] = "Ruga Ragetotem", ["npc:7233"] = "Taskmaster Fizzule", ["npc:7287"] = "Foreman Silixiz", ["object:107045"] = "Spring Well", ["object:147538"] = "Dead Tree", ["object:172957"] = "Valley of Wisdom", ["object:172958"] = "Valley of Honor", ["object:172960"] = "Cleft of Shadow", ["object:172961"] = "Valley of Spirits", ["object:172982"] = "Valley of Strength", ["object:177116"] = "Stormrage Barrow Dens", ["object:177117"] = "Shrine of Remulos", ["object:1772"] = "Tarren Mill", ["object:177792"] = "Strange Lockbox", ["object:19464"] = "Dreadmist Peak Pool", ["object:3685"] = "Silithid Mound", ["object:3972"] = "WANTED", ["object:4102"] = "The Crossroads", ["object:50507"] = "Elder Rise", ["object:640104"] = "Sprung Trap", ["quest:1483"] = "Ziz Fizziks", ["quest:1838"] = "Brutal Armor", ["quest:2458"] = "Deep Cover", ["quest:2478"] = "Mission: Possible But Not Probable", ["quest:30"] = "Trial of the Sea Lion", ["quest:31"] = "Aquatic Form", ["quest:4921"] = "Lost in Battle", ["quest:5642"] = "Shadowguard", ["quest:5654"] = "Hex of Weakness", ["quest:851"] = "Verog the Dervish", ["quest:852"] = "Hezrul Bloodmark", ["quest:858"] = "Ignition", ["quest:863"] = "The Escape", ["quest:865"] = "Raptor Horns", ["quest:876"] = "Serena Bloodfeather", ["quest:882"] = "Ishamuhale", ["quest:883"] = "Lakota'mani", ["quest:884"] = "Owatanka", ["quest:885"] = "Washte Pawne", ["quest:898"] = "Free From the Hold", ["quest:907"] = "Enraged Thunder Lizards", ["quest:913"] = "Cry of the Thunderhawk", ["quest:92706"] = "WANTED: Bruuz", ["quest:94913"] = "Moonglade", ["quest:95621"] = "Trouble in the Valley", ["quest:95774"] = "Her Name Is Olgra", ["quest:98340"] = "The Great Cat Spirit", ["skill:182"] = "Herbalism", ["zone:1412"] = "Mulgore", ["zone:1413"] = "The Barrens", ["zone:1440"] = "Ashenvale", ["zone:1442"] = "Stonetalon Mountains", ["zone:1450"] = "Moonglade", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity" },
+			written = { ["Keep it: {npc:5875} in {zone:1454}, at the end of this guide"] = "Keep it: Gan'rul in Orgrimmar, at the end of this guide", ["North to the Dry Hills. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "North to the Dry Hills. Vrang Wildgore camps below the hills; Walton, the hermit on the ridge behind him, has work for you only once Vrang sends you up.", ["Southern {zone:1413}"] = "Southern Barrens", ["West of Gann, the Razormane hold Blackthorn Ridge. {npc:3436} is on the east side, {npc:3434} to the south, {npc:3435} at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; {npc:5859}, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. {npc:3238} lizards and Hecklefang Stalkers roam the plain between {npc:3341} and the ridge. {quest:885}, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with Sinister Strike, so they can join a fight without warning."] = "West of Gann, the Razormane hold Blackthorn Ridge. Kuz is on the east side, Nak to the south, Lok Orcbane at the west end. Lok (25) and the Warfrenzies (24-25) are a few levels above you; Hagg Taurenbane, a rare elite, sometimes walks the ridge: leave him. Pathfinders and Stalkers drop the Backstabber, Seers the Wand, Warfrenzies the War Shield. Stormhide lizards and Hecklefang Stalkers roam the plain between Gann and the ridge. Washte Pawne, a rare red wind serpent, flies over the ridge: its feather starts a quest.\nCareful: Razormane Stalkers move around in stealth and hit with Sinister Strike, so they can join a fight without warning.", ["{npc:11802}: the welcome from {npc:3033}"] = "Dendrite Starblaze: the welcome from Turak", ["{npc:14242}, up in the tree just east of {npc:3341}"] = "Sulhasa, up in the tree just east of Gann", ["{npc:3341} waits in a small camp further south, on the road toward Bael Modan."] = "Gann waits in a small camp further south, on the road toward Bael Modan.", ["{npc:3389} stands at the Kolkar watch post just west of the Crossroads."] = "Regthar stands at the Kolkar watch post just west of the Crossroads.", ["{npc:3394} stands in the Kolkar camp north-west of {npc:3389}."] = "Barak stands in the Kolkar camp north-west of Regthar.", ["{npc:3395} walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads."] = "Verog walks among the Kolkar at the Stagnant Oasis south-east of the Crossroads.", ["{npc:3396} leads the Kolkar on the west shore of Lushwater Oasis, south of {npc:3389}. Hand his head to {npc:3389} on your last Crossroads stop."] = "Hezrul leads the Kolkar on the west shore of Lushwater Oasis, south of Regthar. Hand his head to Regthar on your last Crossroads stop.", ["{npc:4197} lives in Malaka'jin, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "Ken'zigla lives in Malaka'jin, the troll village just inside Stonetalon at the end of the road west from Regthar.", ["{npc:5878} camps beside the road east of the Crossroads."] = "Thun'grim camps beside the road east of the Crossroads.", ["{npc:5899}, just west of {npc:3341}"] = "Brine, just west of Gann", ["{npc:5901} waits on the hill south of Ratchet, on your way north."] = "Islen waits on the hill south of Ratchet, on your way north." },
 			steps = {
 				{
 					title = "Fly to Ratchet",
@@ -5823,6 +5823,7 @@ do
 				},
 				{
 					title = "{npc:7233}",
+					note = "Fizzule is by the Venture Co. tower north of the Sludge Fen. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first.",
 					only = { classes = { "ROGUE" } },
 					goals = {
 						{ t = "turnin", quest = 2458, title = "Deep Cover", npc = 7233, npcName = "Taskmaster Fizzule", map = 1413, x = 55.44, y = 5.56, z = 91.8, f = "e", only = { classes = { "ROGUE" } } },
@@ -5956,6 +5957,7 @@ do
 				},
 				{
 					title = "{npc:4197}",
+					note = "{npc:4197} lives in Malaka'jin, the troll village just inside Stonetalon at the end of the road west from {npc:3389}.",
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "level", level = 20, only = { classes = { "WARLOCK" } } },
@@ -7965,7 +7967,7 @@ do
 				{
 					title = "Whitereach Post",
 					goals = {
-						{ t = "complete", quest = 4966, title = "Protect Kanati Greycloud", note = "Kill the {npc:10720} that comes for {npc:10638}" },
+						{ t = "complete", quest = 4966, title = "Protect Kanati Greycloud", map = 1441, x = 21.25, y = 32.06, f = "e", note = "Kill the {npc:10720} that comes for {npc:10638}" },
 					},
 				},
 				{
@@ -10435,7 +10437,7 @@ do
 				},
 				{
 					title = "Nesingwary's camp",
-					note = "Ride north up the road; the hunters camp on the hill above the river.",
+					note = "Head north up the road; the hunters camp on the hill above the river.",
 					goals = {
 						{ t = "turnin", quest = 195, title = "Raptor Mastery", npc = 715, npcName = "Hemet Nesingwary", map = 1434, x = 35.66, y = 10.81, z = 11, f = "e" },
 						{ t = "accept", quest = 196, title = "Raptor Mastery", npc = 715, npcName = "Hemet Nesingwary", minLevel = 28, qlvl = 41, pre = { 195 }, preTitles = { [195] = "Raptor Mastery" }, map = 1434, x = 35.66, y = 10.81, z = 11, f = "e" },
@@ -10494,7 +10496,7 @@ do
 				},
 				{
 					title = "{object:3204}",
-					note = "Ride south to {object:3204}. Shaky Phillipe waits on the docks.",
+					note = "Head south to {object:3204}. Shaky Phillipe waits on the docks.",
 					goals = {
 						{ t = "turnin", quest = 606, title = "Scaring Shaky", npc = 2502, npcName = "\"Shaky\" Phillipe", map = 1434, x = 26.9, y = 73.59, z = 9.1, f = "e" },
 						{ t = "accept", quest = 607, title = "Return to MacKinley", npc = 2502, npcName = "\"Shaky\" Phillipe", minLevel = 30, qlvl = 41, pre = { 606 }, preTitles = { [606] = "Scaring Shaky" }, map = 1434, x = 26.9, y = 73.59, z = 9.1, f = "e" },
@@ -10528,7 +10530,7 @@ do
 				},
 				{
 					title = "Zul'Mamwe",
-					note = "Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.",
+					note = "Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.",
 					goals = {
 						{ t = "goto", text = "Skullsplitter warriors", map = 1434, x = 45.4, y = 36.2, f = "e" },
 						{ t = "collect", quest = 209, title = "Skullsplitter Tusks", item = 1524, itemName = "Skullsplitter Tusk", count = 18, oi = 1, map = 1434, x = 45.92, y = 38, f = "e", spotsPacked = "45.8,38.3,,53,10;43.6,37.2,,40,9;42.2,35.7,,41,18;43,33.1,,40,6;45.1,34.1,,40,3;47.2,33.3,,40,9;46.8,30.4,,40,6;48.7,37.5,,40,3;48.4,40.3,,40,10;47.7,43.5,,84,14;44.8,41.8,,64,11;44.2,44.6,,64,7;45.8,40.3,,58,10,1;47.4,39.4,,40,19,1;43.8,39.7,,40,15,1;47.7,41.6,,44,11,1;43.8,34.7,,40,9,1;46,43.2,,75,9,1;45.9,32,,48,18,1", spread = true, fromNpcs = { { npc = 667, npcName = "Skullsplitter Warrior" }, { npc = 669, npcName = "Skullsplitter Hunter" }, { npc = 670, npcName = "Skullsplitter Witch Doctor" }, { npc = 672, npcName = "Skullsplitter Spiritchaser" }, { npc = 696, npcName = "Skullsplitter Axe Thrower" } } },
@@ -10550,7 +10552,7 @@ do
 				},
 				{
 					title = "Grom'gol Base Camp",
-					note = "Ride west to {object:3202}.",
+					note = "Head west to {object:3202}.",
 					goals = {
 						{ t = "turnin", quest = 598, title = "Split Bone Necklace", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.27, y = 27.71, z = 3.2, f = "e" },
 						{ t = "turnin", quest = 586, title = "Speaking with Gan'zulah", object = 2076, objName = "Bubbling Cauldron", map = 1434, x = 32.22, y = 27.6, z = 2.9, f = "e", note = "the {object:2076}" },
@@ -10588,7 +10590,7 @@ do
 				},
 				{
 					title = "Nesingwary's Expedition",
-					note = "Ride north up the road to the hunters' camp.",
+					note = "Head north up the road to the hunters' camp.",
 					goals = {
 						{ t = "turnin", quest = 196, title = "Raptor Mastery", npc = 715, npcName = "Hemet Nesingwary", map = 1434, x = 35.66, y = 10.81, z = 11, f = "e" },
 					},
@@ -10691,14 +10693,14 @@ do
 				},
 				{
 					title = "Into the {zone:1435}",
-					note = "Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the Harborage, the draenei camp near the way in from {zone:1430}.",
+					note = "Keep going north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the Harborage, the draenei camp near the way in from {zone:1430}.",
 					goals = {
 						{ t = "accept", quest = 1389, title = "Draenethyst Crystals", npc = 1776, npcName = "Magtoor", minLevel = 30, qlvl = 35, map = 1435, x = 25.98, y = 31.4, z = 22.1, f = "e" },
 					},
 				},
 				{
 					title = "Stonard",
-					note = "Ride east to Stonard, in the reeds south of the road.",
+					note = "Head east to Stonard, in the reeds south of the road.",
 					goals = {
 						{ t = "accept", quest = 698, title = "Lack of Surplus", npc = 5591, npcName = "Dar", minLevel = 35, qlvl = 40, map = 1435, x = 44.7, y = 57.21, z = 21.1, f = "e", note = "{npc:5591}, inside" },
 					},
@@ -19934,6 +19936,7 @@ do
 				},
 				{
 					title = "{npc:3171}",
+					note = "Armored Scorpids crawl over the plains west of {object:3224}. Tame one, then return to {npc:3171}.",
 					only = { classes = { "HUNTER" } },
 					goals = {
 						{ t = "accept", quest = 6081, title = "Training the Beast", npc = 3171, npcName = "Thotar", minLevel = 10, qlvl = 10, pre = { 6082 }, preTitles = { [6082] = "Taming the Beast" }, map = 1411, x = 51.85, y = 43.49, z = 11.7, f = "e", note = "{npc:3171}: {npc:3352} in {zone:1454} teaches Beast Training" },
@@ -19941,6 +19944,7 @@ do
 				},
 				{
 					title = "{npc:3352}",
+					note = "Follow the road north from {object:3224} to {zone:1454}'s main gate, just west of {quest:827}. {npc:3352} stands with the hunter trainers in the {object:172958}.",
 					only = { classes = { "HUNTER" } },
 					goals = {
 						{ t = "turnin", quest = 6081, title = "Training the Beast", npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.05, y = 18.53, z = 58.8, f = "e", note = "{npc:3352}: Beast Training" },
@@ -19957,12 +19961,15 @@ do
 				},
 				{
 					title = "{object:3224}",
+					when = { { k = "group", q = 99052 } },
 					goals = {
 						{ t = "accept", quest = 99052, title = "Threat from Below", npc = 3142, npcName = "Orgnil Soulscar", minLevel = 10, qlvl = 12, pre = { 99051 }, preTitles = { [99051] = "Threat from Below" }, map = 1411, x = 52.24, y = 43.15, z = 13.2, f = "e", optional = true, note = "{npc:3142}: {npc:275666}, an elite sea giant" },
 					},
 				},
 				{
 					title = "{npc:275666}",
+					note = "{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised.",
+					when = { { k = "group", q = 99052 } },
 					goals = {
 						{ t = "collect", quest = 99052, title = "Threat from Below", item = 286009, itemName = "Aggor's Belt", oi = 1, map = 1411, x = 59.22, y = 17.6, f = "e", optional = true, from = "Aggor the Young", fromKind = "npc", fromRank = 1, fromId = 275666, fromNpcs = { { npc = 275666, npcName = "Aggor the Young" } }, group = { kind = "elite", rank = 1 } },
 						{ t = "turnin", quest = 99052, title = "Threat from Below", npc = 3142, npcName = "Orgnil Soulscar", map = 1411, x = 52.24, y = 43.15, z = 13.2, f = "e", optional = true, note = "{npc:3142}, back in {object:3224}" },

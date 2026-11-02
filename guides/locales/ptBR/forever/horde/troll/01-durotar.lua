@@ -312,8 +312,15 @@ return {
 	["Back to {area:362}."] = "",
 
 	-- Step 85: Thotar
+	-- {area:362} Razor Hill · {npc:3171} Thotar
+	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
+	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
+
+	-- Step 86: Ormak Grimshot
+	-- {area:362} Razor Hill · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor (no name in this language: may be words)
+	["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "",
 
 	-- Step 87: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
@@ -324,6 +331,8 @@ return {
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "",
 
 	-- Step 89: Aggor the Young
+	-- {npc:275666} Aggor the Young · {area:14} Durotar
+	["{npc:275666}, a young sea giant, walks {area:14}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "",
 }

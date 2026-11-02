@@ -96,7 +96,7 @@ return {
 
 	-- Step 23: Nesingwary's camp
 	["Nesingwary's camp"] = "",
-	["Ride north up the road; the hunters camp on the hill above the river."] = "",
+	["Head north up the road; the hunters camp on the hill above the river."] = "",
 
 	-- Step 25: Zul'Kunda
 	["Zul'Kunda"] = "祖昆達廢墟",
@@ -124,7 +124,7 @@ return {
 
 	-- Step 30: Booty Bay
 	-- {area:35} Booty Bay
-	["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "向南騎到{area:35}。「病鬼」菲力浦在碼頭上等著。",
+	["Head south to {area:35}. Shaky Phillipe waits on the docks."] = "",
 	-- {npc:6807} Innkeeper Skindle
 	["{npc:6807}, upstairs"] = "",
 
@@ -140,7 +140,7 @@ return {
 	-- Step 33: Zul'Mamwe
 	["Zul'Mamwe"] = "祖瑪維廢墟",
 	-- {npc:1059} Ana'thek the Cruel
-	["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "向北騎到風險投資公司礦坑東邊的劈顱食人妖廢墟；一次只拉一隻劈顱獵頭者或劈顱狂戰士。{npc:1059}守在西南方的廢墟，一堆祖瑪維顱骨堆在廢墟北側。每個劈顱食人妖都可能掉落獠牙或項鍊：項鍊最花時間，所以在廢墟北邊的劈顱戰士營地持續擊殺，直到收集完畢。",
+	["Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "",
 	["Skullsplitter warriors"] = "劈顱戰士",
 	-- {npc:669} Skullsplitter Hunter
 	["{npc:669} walks around here: look inside the circle on the map"] = "",
@@ -154,7 +154,7 @@ return {
 
 	-- Step 35: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
-	["Ride west to {object:3202}."] = "向西騎到{object:3202}。",
+	["Head west to {object:3202}."] = "",
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 
@@ -163,7 +163,7 @@ return {
 	["{npc:2498}, inside"] = "",
 
 	-- Step 40: Nesingwary's Expedition
-	["Ride north up the road to the hunters' camp."] = "沿道路向北騎到獵人營地。",
+	["Head north up the road to the hunters' camp."] = "",
 
 	-- Step 42: Raptor Mastery
 	-- {npc:730} Tethis
@@ -193,11 +193,11 @@ return {
 	-- {area:8} Swamp of Sorrows
 	["Into the {area:8}"] = "",
 	-- {area:10} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
-	["Keep riding north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
+	["Keep going north into {area:10}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "",
 
 	-- Step 55: Stonard
 	-- {area:75} Stonard
-	["Ride east to {area:75}, in the reeds south of the road."] = "向東騎到道路南邊蘆葦叢中的{area:75}。",
+	["Head east to {area:75}, in the reeds south of the road."] = "",
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 
@@ -272,8 +272,13 @@ return {
 	-- ["Into the {zone:1435}"] = "進入{zone:1435}",
 	-- ["Keep riding north into {zone:1431}, then east along the road through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp near the way in from {zone:1430}."] = "繼續向北騎進{zone:1431}，再沿道路向東穿過{zone:1430}進入沼澤。{npc:1776}在{area:657}等著，那是靠近{zone:1430}入口的德萊尼營地。",
 	-- ["Naga shore and the {object:759}"] = "納迦海岸與{object:759}",
+	-- ["Ride east to {area:75}, in the reeds south of the road."] = "向東騎到道路南邊蘆葦叢中的{area:75}。",
+	-- ["Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. {npc:1059} guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all."] = "向北騎到風險投資公司礦坑東邊的劈顱食人妖廢墟；一次只拉一隻劈顱獵頭者或劈顱狂戰士。{npc:1059}守在西南方的廢墟，一堆祖瑪維顱骨堆在廢墟北側。每個劈顱食人妖都可能掉落獠牙或項鍊：項鍊最花時間，所以在廢墟北邊的劈顱戰士營地持續擊殺，直到收集完畢。",
+	-- ["Ride north up the road to the hunters' camp."] = "沿道路向北騎到獵人營地。",
 	-- ["Ride north up the road; the hunters camp on the hill above the river."] = "沿道路向北騎；獵人在河流上方的山丘上紮營。",
 	-- ["Ride north-west to {object:3202}."] = "向西北騎到{object:3202}。",
+	-- ["Ride south to {area:35}. Shaky Phillipe waits on the docks."] = "向南騎到{area:35}。「病鬼」菲力浦在碼頭上等著。",
+	-- ["Ride west to {object:3202}."] = "向西騎到{object:3202}。",
 	-- ["Sawtooth snappers"] = "鹽齒鉗嘴鱷",
 	-- ["South of Booty Bay the Bloodsail swashbucklers camp on the {area:43}; the charts and the orders lie in their tents. Any Bloodsail can carry snuff and {npc:2493}'s eye, so keep killing until you have both."] = "在藏寶海灣南邊，血帆流氓在{area:43}紮營；海圖和命令在他們的帳篷裡。任何血帆海盜都可能帶著鼻煙和{npc:2493}的眼睛，所以持續擊殺直到兩樣都拿到。",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "前往{area:35}的船停靠在{area:392}碼頭的盡頭。",

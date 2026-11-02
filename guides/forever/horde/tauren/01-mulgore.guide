@@ -158,7 +158,7 @@ step Well Stone on the way
 
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
-  complete 96661 @44.92,61.67 live
+  complete 96661 @44.92,61.67 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
 

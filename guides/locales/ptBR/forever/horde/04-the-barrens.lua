@@ -137,6 +137,10 @@ return {
 	-- {quest:2458} Deep Cover · {npc:7233} Taskmaster Fizzule · {area:382} Sludge Fen
 	["{quest:2458}: {npc:7233}, by the {area:382}"] = "{quest:2458}: {npc:7233}, junto a {area:382}",
 
+	-- Step 38: Taskmaster Fizzule
+	-- {area:382} Sludge Fen · {item:8051} Flare Gun
+	["Fizzule is by the Venture Co. tower north of the {area:382}. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
+
 	-- Step 41: Orgrimmar
 	-- {area:1637} Orgrimmar · {npc:3354} Sorek · {object:172958} Valley of Honor (no name in this language: may be words) · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom (no name in this language: may be words)
 	["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "Voe para {area:1637} para treinar as habilidades de nível 20. {npc:3354} fica em {object:172958}, {npc:5892} em {object:172957}.",
@@ -176,6 +180,10 @@ return {
 	["the {area:380}"] = "",
 	-- {item:15826} Curative Animal Salve
 	["He gives you the {item:15826}"] = "Ele dá a você {item:15826}",
+
+	-- Step 53: Ken'zigla
+	-- {npc:4197} Ken'zigla · {area:2539} Malaka'jin · {npc:3389} Regthar Deathgate
+	["{npc:4197} lives in {area:2539}, the troll village just inside Stonetalon at the end of the road west from {npc:3389}."] = "",
 
 	-- Step 55: Verog the Dervish
 	-- {npc:3395} Verog the Dervish · {area:388} Stagnant Oasis · {area:380} Crossroads

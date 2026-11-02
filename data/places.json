@@ -540,6 +540,23 @@
 					"ref": "npcs.json 250874 spawns 61.95,68.98, 61.31,72.39, 58.18,71.97 (83-188 yd from Quel'ana)"
 				}
 			]
+		},
+		{
+			"id": "ashenvale-kanati-whitereach-post",
+			"quest": 4966,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1441,
+				"x": 21.25,
+				"y": 32.06,
+				"frame": "era"
+			},
+			"note": "Protect Kanati Greycloud: the bare complete had no place, so a player back from the Hypercapacitor Gizmo group step got no arrow to Kanati at Whitereach Post, where the Galak Assassin comes for him.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npc 10638 (Kanati Greycloud) spawn, Thousand Needles 21.25,32.06"
+			}
 		}
 	]
 }

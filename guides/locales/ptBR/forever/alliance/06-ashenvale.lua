@@ -273,6 +273,8 @@ return {
 
 	-- Step 71: Menethil
 	["Menethil"] = "",
+	-- {npc:2092} Pilot Longbeard · {zone:1455} Ironforge · {area:836} Dun Algaz
+	["{npc:2092}'s quest in {zone:1455} needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to {area:836} before you go on."] = "",
 	["For the giant crocolisks of the north coast, on your next visit"] = "Para os crocoliscos gigantes da costa norte, na sua próxima visita",
 
 	-- Step 72: Into Loch Modan

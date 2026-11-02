@@ -1229,8 +1229,9 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level | along: false, note, source, issue, pr }] }`. `along: false` (an
-/// objective goal only): the writer never lists the objective "on the way" before its step.
+/// objective, objective? }, tip | level (after?) | along: false, note, source, issue, pr }] }`. `along: false` (an
+/// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
+/// (a level gate only): the gate goes right after the anchor goal, not before it.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1242,7 +1243,11 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "along", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "faction", "note", "source", "issue", "pr"]);
+		let after = r.get("after");
+		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
+			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
+		}
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
 		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective"]);
@@ -1435,7 +1440,7 @@ mod tests {
 			{ "id": "x", "quest": 10, "objective": 1, "write": true, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "y", "quest": 10, "objective": 1, "at": { "map": 1429, "x": 1, "y": 1 }, "path": { "map": 1429, "points": [] }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "w", "quest": 10, "objective": 2, "faction": "Both", "at": { "map": 2521, "x": 1, "y": 1, "frame": "era" }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" } ] }"#;
-		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 } ] }"#;
+		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true } ] }"#;
 		let f = record_findings(Some(bad_p), Some(bad_g));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		for s in [
@@ -1452,6 +1457,7 @@ mod tests {
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
 			"fixes[0]: a guide fix sets a `tip`, a `level` gate or `along: false`",
+			"fixes[1].after: `after` is true, on a level gate",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}

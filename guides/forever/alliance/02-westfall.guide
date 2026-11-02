@@ -101,7 +101,7 @@ step Furlbrow's Pumpkin Farm: kill these as you meet them
   collect 829 quest 153                       -- Red Leather Bandanas: every Defias drops them
   collect 725 quest 102 @44.7,14.6            -- Gnoll Paws
   collect 841 quest 64                        -- Furlbrow's Wardrobe; inside
-  collect 254548 quest 92744 @43.5,9.2 only Dwarf,Gnome,NightElf,Skyborne -- Longshore Murloc Gills
+  collect 254548 quest 92744 only Dwarf,Gnome,NightElf,Skyborne @43.5,9.2 map 1436 live -- Longshore Murloc Gills
   collect 730 quest 38.2 @43.5,9.2            -- Murloc Eye
 
 step Handful of Oats

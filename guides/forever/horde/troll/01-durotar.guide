@@ -574,11 +574,13 @@ step Razor Hill
 step Thotar
   only Hunter
   zone Durotar
+  tip Armored Scorpids crawl over the plains west of Razor Hill. Tame one, then return to Thotar.
   accept 6081                         -- Thotar: Ormak Grimshot in Orgrimmar teaches Beast Training
 
 step Ormak Grimshot
   only Hunter
   zone Orgrimmar
+  tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
 
 step Hanashi
@@ -591,9 +593,12 @@ step Hanashi
 
 step Razor Hill
   zone Durotar
+  when group 99052
   accept 99052 optional               -- Orgnil Soulscar: Aggor the Young, an elite sea giant
 
 step Aggor the Young
   zone Durotar
+  when group 99052
+  tip Aggor the Young, a young sea giant, walks Durotar's north coast, north of the naga beach. Aggor the Young is elite: grouping up is advised.
   collect 286009 quest 99052.1 optional -- Aggor's Belt
   turnin 99052 optional               -- Orgnil Soulscar, back in Razor Hill

@@ -299,6 +299,10 @@ return {
 	-- {npc:3567} Tallonkai Swiftroot · {area:186} Dolanaar
 	["{npc:3567}, back in {area:186}; upstairs"] = "",
 
+	-- Step 53: Dolanaar again
+	-- {npc:6094} Byancie · {item:159} Refreshing Spring Water · {npc:6736} Innkeeper Keldamyr
+	["{npc:6094} takes a {item:159} with the fronds and the vial: if you drank yours, buy another from {npc:6736} in this inn before you hand in."] = "",
+
 	-- Step 54: Taming the Beast
 	-- {item:15908} Taming Rod · {area:186} Dolanaar
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker · Nightsaber Stalkers = {npc:2043} Nightsaber Stalker · Strigid Screechers = {npc:1996} Strigid Screecher

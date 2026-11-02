@@ -439,6 +439,8 @@ return {
 	["Use the {item:6866} on {npc:6177}"] = "",
 
 	-- Step 95: Narm Faulk
+	-- {zone:1455} Ironforge · {area:212} Helm's Bed Lake · {npc:6177} Narm Faulk · {item:6866} Symbol of Life
+	["Head back out of {zone:1455} and east along the road to {area:212}. {npc:6177} lies dead by its shore: use the {item:6866} on him. The Dark Iron Spies sneaking around the lake carry the script."] = "",
 	-- {item:6847} Dark Iron Script
 	["{item:6847}: Dark Iron Spies"] = "",
 

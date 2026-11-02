@@ -409,6 +409,74 @@
 					"ref": "quests.json 95349 objective text: take the skycutter ship from Zephras Isle to Mulgore and speak with Alana Stormwalker when you arrive; npcs.json 259119 Alaana Stormwalker at Mulgore 33.4,22.5"
 				}
 			]
+		},
+		{
+			"id": "barrens-fizzule-flares-and-salute",
+			"faction": "Horde",
+			"at": {
+				"quest": 2458,
+				"goal": "turnin"
+			},
+			"tip": "Fizzule is by the Venture Co. tower north of the Sludge Fen. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first.",
+			"note": "Deep Cover: the step was a bare turn-in, so a Rogue reached Fizzule never told to fire the Flare Gun twice and /salute him; he is hostile until then. The seed step's tip (guides/forever/horde/04-the-barrens.guide, Taskmaster Fizzule) was lost in the re-cut.",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "quest 2458 (Deep Cover): Flare Gun (8051) given on accept; Taskmaster Fizzule turns friendly after two flares and a /salute"
+				}
+			]
+		},
+		{
+			"id": "617-menethil-grind-to-28",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98282,
+				"goal": "turnin"
+			},
+			"level": 28,
+			"after": true,
+			"note": "Pilot Longbeard's The Brassbolts Brothers (1179) needs level 28. The route's XP model reaches 28 on the way to Ironforge, so no grind is written; a player behind it hit 'Requires level 28' in Ironforge. The gate comes after the Menethil hand-ins (they count towards it), before the walk east.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#617"
+				}
+			],
+			"issue": 617
+		},
+		{
+			"id": "617-menethil-grind-to-28-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98282,
+				"goal": "turnin"
+			},
+			"tip": "Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.",
+			"note": "The level-28 gate after the Menethil hand-ins (617-menethil-grind-to-28) says where to grind: the Dragonmaw Raiders, Swamprunners and Bonewarders (levels 26-28) camp along the road the route walks next.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#617"
+				}
+			],
+			"issue": 617
+		},
+		{
+			"id": "365-teldrassil-byancie-water",
+			"faction": "Alliance",
+			"at": {
+				"quest": 99050,
+				"goal": "turnin"
+			},
+			"tip": "Byancie takes a Refreshing Spring Water with the fronds and the vial: if you drank yours, buy another from Innkeeper Keldamyr in this inn before you hand in.",
+			"note": "The Great Tree Provides: the water (159) is an objective; the route asks for it before the Ferocitas trip, and a player who drinks it there reached Byancie without it and was not told to buy more (the #365 pattern).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "quest 99050 objectives: 6 Dewy Lasher Fronds, an Empty Vial (3371), a Refreshing Spring Water (159)"
+				}
+			],
+			"issue": 365
 		}
 	]
 }

@@ -97,7 +97,7 @@ step Thalassian Base Camp
 step Magus Rimtori's camp
   tip Rimtori's camp is at the east end of the base camp. Read the Kaldorei Tome of Summoning there, then kill the Magus.
   tip Careful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.
-  complete 3505 @59.53,31.47 era
+  complete 3505 @59.53,31.47 map 1447 era
   turnin 3505                         -- Kaldorei Tome of Summoning
   accept 3506
   collect 10597 quest 3506            -- Magus Rimtori

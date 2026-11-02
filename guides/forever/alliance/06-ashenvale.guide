@@ -442,11 +442,13 @@ step Karl Boran
   turnin 286
 
 step Menethil
+  tip Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.
   turnin 484
   accept 471                              -- For the giant crocolisks of the north coast, on your next visit
   turnin 306                              -- Tarrel Rockweaver
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman, inside
+  level 28
   vendor nearest
 
 step Into Loch Modan

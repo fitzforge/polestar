@@ -13,7 +13,8 @@
 //!   places a written objective from the data.
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
-//!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal.
+//!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
+//!   `after: true`, right after it: the hand-ins at the anchor count towards the level).
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -192,6 +193,13 @@ fn close(a: (f64, f64), b: (f64, f64)) -> bool {
 	(a.0 - b.0).abs() < 0.005 && (a.1 - b.1).abs() < 0.005
 }
 
+/// The map typed on a line's code (`map M`), outside quoted text.
+fn typed_map(line: &str) -> Option<u64> {
+	let code = split_comment(line).0;
+	let outside: String = code.split('"').step_by(2).collect::<Vec<_>>().join(" ");
+	re!(r"\smap\s+(\d+)\b").captures(&outside).and_then(|m| m[1].parse().ok())
+}
+
 /// The line with `at` as its typed place.
 fn placed(line: &str, at: &At) -> String {
 	let (code, rest) = split_comment(line);
@@ -269,7 +277,9 @@ fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option
 				Some(p) if typed_point(&lines[i]).is_none() && re!(r"^\s+goto\s").is_match(&lines[p]) => p,
 				_ => i,
 			};
-			if typed_point(&lines[target]).is_some_and(|p| close(p, (at.x, at.y))) {
+			// (Redundant only with the record's map typed too: the same numbers on the step's zone map
+			// are another place, Narm Faulk's 78.32,58.09 read in Ironforge's Tinker Town, #303.)
+			if typed_point(&lines[target]).is_some_and(|p| close(p, (at.x, at.y))) && typed_map(&lines[target]) == Some(at.map) {
 				continue;
 			}
 			lines[target] = placed(&lines[target], &at);
@@ -309,8 +319,9 @@ fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option
 
 fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let mut changed = Vec::new();
-	for &i in found.iter().rev() {
-		let Some(step) = step_of(lines, i) else { continue };
+	for &i0 in found.iter().rev() {
+		let mut i = i0;
+		let Some(mut step) = step_of(lines, i) else { continue };
 		let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
 		if let Some(tip) = r["tip"].as_str() {
 			// (The fix's tip is the step's: it replaces the first, and the step's other tips go, a
@@ -337,11 +348,24 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 					}
 					lines.insert(k, line);
 					changed.push(k);
+					// (The anchor and the step's end move down with it: a level gate of the same record.)
+					i += 1;
+					step.1 += 1;
 				}
 			}
 		}
 		if let Some(lv) = r["level"].as_u64() {
 			let gate = format!("{ind}level {lv}");
+			if r["after"] == true {
+				// Right after the anchor goal (the hand-ins before it count towards the level).
+				let next = (i + 1..step.1).find(|&k| !trim(&lines[k]).is_empty() && !trim(&lines[k]).starts_with('#'));
+				if next.is_some_and(|n| trim(split_comment(&lines[n]).0) == trim(&gate)) {
+					continue;
+				}
+				lines.insert(i + 1, gate);
+				changed.push(i + 1);
+				continue;
+			}
 			let prev = prev_goal(lines, step, i);
 			if prev.is_some_and(|p| trim(split_comment(&lines[p]).0) == trim(&gate)) {
 				continue;
@@ -525,6 +549,36 @@ mod tests {
 		let (again, rows) = run(&out, json!({}), fixes, &[]);
 		assert_eq!(again, out);
 		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_level_gate_after_its_anchor_lets_the_hand_ins_count() {
+		// #617: the grind to 28 for Pilot Longbeard comes after the Menethil hand-ins, in their step.
+		let seed = "step Menethil\n  turnin 484\n  turnin 98282                 -- Caitlin\n  vendor nearest\n\nstep Ironforge\n  accept 1179\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "gate", "at": { "quest": 98282, "goal": "turnin" }, "level": 28, "after": true },
+			{ "id": "tip", "at": { "quest": 98282, "goal": "turnin" }, "tip": "Level 28 first." }
+		] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+		assert_eq!(out, "step Menethil\n  tip Level 28 first.\n  turnin 484\n  turnin 98282                 -- Caitlin\n  level 28\n  vendor nearest\n\nstep Ironforge\n  accept 1179\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_place_with_the_same_numbers_on_another_map_is_still_applied() {
+		// #303: Narm Faulk's 78.32,58.09 is on Dun Morogh's map; typed bare in an Ironforge step it read
+		// as Tinker Town, and the record counted as already written.
+		let seed = "step The Tome of Divinity\n  zone Ironforge\n  complete 1783 @78.32,58.09 only Paladin -- Narm Faulk\n";
+		let places = json!({ "places": [{ "id": "narm", "quest": 1783, "objective": 1, "at": { "map": 1426, "x": 78.32, "y": 58.09, "frame": "era" } }] });
+		let (out, rows) = run(seed, places.clone(), json!({}), &[]);
+		assert!(out.contains("  complete 1783 only Paladin @78.32,58.09 map 1426 era -- Narm Faulk\n"), "{out}");
+		assert_eq!(rows[0].state, "applied");
+		let (again, rows) = run(&out, places, json!({}), &[]);
+		assert_eq!(again, out);
+		assert_eq!(rows[0].state, "redundant");
 	}
 
 	#[test]

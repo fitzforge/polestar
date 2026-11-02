@@ -173,7 +173,7 @@ step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest
   tip On the road east, past the Tower of Azora, head north from the bridge to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
-  complete 1786 @72.6,51.41 only Human -- Use the Symbol of Life on Henze Faulk
+  complete 1786 @72.6,51.41 map 1429 era only Human -- Use the Symbol of Life on Henze Faulk
   turnin 1786 only Human -- Henze Faulk
   accept 1787 only Human
   collect 6846 quest 1787.1 only Human -- Defias Script: Defias Rogue Wizards

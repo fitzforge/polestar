@@ -1993,6 +1993,13 @@ pub fn prereq_order(files: &mut [String], data: &Data, route_q: &FxHashSet<u32>,
 				if let Some(z) = z {
 					ins.push(format!("  zone {z}"));
 				}
+				// (A step every goal of which moves keeps its `when` lines and tips: the Troll's Aggor the
+				// Young (99052) after Orgnil's 99051, moved past the Hunter's Orgrimmar trip, lost `when group
+				// 99052` and its elite tip, so a player alone was never asked, #639.)
+				let whole = !(a + 1..*b).any(|x| !take.contains(&x) && is_goal(&lines[x]));
+				if whole {
+					ins.extend(lines[a + 1..*b].iter().filter(|l| matches!(head_ws(l), Some("when" | "tip" | "image"))).cloned());
+				}
 				ins.extend(take.iter().filter(|&&x| x > *a && x < *b).map(|&x| lines[x].clone()));
 			}
 			// (After the hand-in's step and the steps right after it at its NPCs, everyone's accepts and
@@ -2553,6 +2560,23 @@ mod tests {
 		assert!(!files[0].contains("1511") && files[1].find("accept 1511").unwrap() > files[1].find("turnin 1510").unwrap(), "{files:#?}");
 		// (Its hand-in already in that guide before the prerequisite's goes after its accept, with its step's `when`.)
 		assert!(files[1].find("step Far\n  when onquest 1511\n  turnin 1511").unwrap() > files[1].find("accept 1511").unwrap(), "{files:#?}");
+	}
+
+	#[test]
+	fn a_whole_step_moved_after_its_prerequisite_keeps_its_when_and_tip() {
+		// #639: the Troll's Aggor the Young (99052, pre 99051) moved past the Hunter's Orgrimmar trip
+		// lost `when group 99052` and its elite tip.
+		let mut data = Data::default();
+		data.quests.insert(99052, serde_json::from_value(serde_json::json!({ "pre": [99051] })).unwrap());
+		let mut files = vec![
+			"step Razor Hill\n  when group 99052\n  accept 99052 optional\n\nstep Aggor the Young\n  when group 99052\n  tip Aggor is elite.\n  collect 286009 quest 99052.1 optional\n  turnin 99052 optional\n\nstep Razor Hill\n  zone Durotar\n  turnin 99051\n\nstep On\n  accept 2"
+				.to_string(),
+		];
+		prereq_order(&mut files, &data, &FxHashSet::default(), &|_, _| true);
+		let f = &files[0];
+		assert!(f.find("turnin 99051").unwrap() < f.find("accept 99052").unwrap(), "{f}");
+		assert!(f.contains("step Razor Hill\n  when group 99052\n  accept 99052 optional"), "{f}");
+		assert!(f.contains("step Aggor the Young\n  when group 99052\n  tip Aggor is elite.\n  collect 286009"), "{f}");
 	}
 
 	#[test]

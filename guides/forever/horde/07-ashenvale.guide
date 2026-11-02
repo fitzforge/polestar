@@ -389,7 +389,7 @@ step Hypercapacitor Gizmo
   collect 12946 quest 5151.1 @22.8,24.6 map 1441
 
 step Whitereach Post
-  complete 4966                       -- Kill the Galak Assassin that comes for Kanati
+  complete 4966 @21.25,32.06 map 1441 era -- Kill the Galak Assassin that comes for Kanati
 
 step Whitereach Post
   when onquest 4966

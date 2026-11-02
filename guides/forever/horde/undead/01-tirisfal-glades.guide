@@ -53,7 +53,7 @@ step Shadow Priest Sarvis
 step Injured Deathguard
   only Paladin
   tip Rediscovering the Light: the Injured Deathguard lie around the church. Heal five of them with Holy Light.
-  goto 31.6,65.8 "Injured Deathguard"
+  goto 31.6,65.8 map 1420 era "Injured Deathguard"
   complete 90902
 
 step On the way
