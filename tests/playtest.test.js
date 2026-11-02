@@ -124,11 +124,11 @@ test('a hand-over in the middle of the last act stops the simulator on the pack 
 	assert.deepEqual(lines(out), ['ok  handover/northshire (Human Warrior)', 'playtest ok: 1 guide, 1 play: 0 stuck, 0 failed']);
 });
 
-test('a hand-over must land on a guide the character can follow: a Human handed to a Dwarf and Gnome guide is stuck', { skip }, async () => {
+test('a hand-over must land on a guide the character can follow: a Human handed to the Dwarf guide is stuck', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'misfit')]));
 	assert.equal(result, 1, out);
 	assert.deepEqual(lines(out).filter((l) => /^(ok|stuck) /.test(l)), [
-		'stuck misfit/northshire (Human Warrior) at hand-over to forever/alliance/dwarf-gnome/01-dun-morogh: no Human can follow it',
+		'stuck misfit/northshire (Human Warrior) at hand-over to forever/alliance/dwarf/01-dun-morogh: no Human can follow it',
 		'ok  misfit/northshire (Dwarf Warrior)',
 	]);
 });

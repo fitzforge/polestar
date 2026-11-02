@@ -13,7 +13,7 @@ const { needs } = require('./helpers/data');
 const skip = needs('quests.json');
 
 test('a play on a reused process emits what a fresh process does, whatever ran before', { skip }, async () => {
-	const pack = buildSimPack(['forever/horde/orc-troll/01-durotar.guide', 'forever/alliance/human/01-elwynn-forest.guide']);
+	const pack = buildSimPack(['forever/horde/orc/01-durotar.guide', 'forever/alliance/human/01-elwynn-forest.guide']);
 	const pool = new LuaPool({ size: 1 });
 	try {
 		assert.ok(pack.guides.length >= 1);

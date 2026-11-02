@@ -394,7 +394,7 @@ test('the Dwarf chain plays from Dun Morogh to level 55 or more', { skip: needs(
 	const character = { race: 'Dwarf', cls: 'WARRIOR', faction: 'Alliance' };
 	const tl = buildTimeline({
 		guides, data, geo: new Geo(data.mapFrames, data.zones), params: loadParams({ cls: 'WARRIOR' }), travel: data.travel,
-		start: 'forever/alliance/dwarf-gnome/01-dun-morogh', character,
+		start: 'forever/alliance/dwarf/01-dun-morogh', character,
 	});
 	const json = JSON.stringify(tl);
 	assert.ok(!/NaN|Infinity/.test(json), 'no NaN or Infinity');

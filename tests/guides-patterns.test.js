@@ -68,9 +68,11 @@ const located = (p) => p && p.map != null && p.x != null && p.y != null;
 // continent, wx north, wy west.
 const STARTS = [
 	{ guide: 'forever/alliance/human/01-elwynn-forest', races: [['Human', 'Alliance']], spawn: { c: 0, wx: -8949.95, wy: -132.493 } },
-	{ guide: 'forever/alliance/dwarf-gnome/01-dun-morogh', races: [['Dwarf', 'Alliance'], ['Gnome', 'Alliance']], spawn: { c: 0, wx: -6240.32, wy: 331.033 } },
+	{ guide: 'forever/alliance/dwarf/01-dun-morogh', races: [['Dwarf', 'Alliance']], spawn: { c: 0, wx: -6240.32, wy: 331.033 } },
+	{ guide: 'forever/alliance/gnome/01-dun-morogh', races: [['Gnome', 'Alliance']], spawn: { c: 0, wx: -6240.32, wy: 331.033 } },
 	{ guide: 'forever/alliance/nightelf/01-teldrassil', races: [['NightElf', 'Alliance']], spawn: { c: 1, wx: 10311.3, wy: 832.463 } },
-	{ guide: 'forever/horde/orc-troll/01-durotar', races: [['Orc', 'Horde'], ['Troll', 'Horde']], spawn: { c: 1, wx: -618.518, wy: -4251.67 } },
+	{ guide: 'forever/horde/orc/01-durotar', races: [['Orc', 'Horde']], spawn: { c: 1, wx: -618.518, wy: -4251.67 } },
+	{ guide: 'forever/horde/troll/01-durotar', races: [['Troll', 'Horde']], spawn: { c: 1, wx: -618.518, wy: -4251.67 } },
 	{ guide: 'forever/horde/tauren/01-mulgore', races: [['Tauren', 'Horde']], spawn: { c: 1, wx: -2917.58, wy: -257.98 } },
 	{ guide: 'forever/horde/undead/01-tirisfal-glades', races: [['Scourge', 'Horde']], spawn: { c: 0, wx: 1676.35, wy: 1677.45 } },
 ];
