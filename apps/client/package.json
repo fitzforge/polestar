@@ -1,6 +1,6 @@
 {
   "name": "polestar-client",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "private": true,
   "description": "Polestar Client: sends the Polestar Recorder's data from your PC to the Polestar project",
   "license": "GPL-3.0-only",
