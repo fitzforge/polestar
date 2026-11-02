@@ -7,9 +7,18 @@
 //!   Along lists are per guide: a quest carried into another guide gets its along step there, `when
 //!   onquest`.
 //! - R2 `use <item>`: a quest done by using an item (quest mechanics, high confidence) gets its `use`.
-//! - R3 `when` guards: travel steps for quests carried from an earlier guide are `when onquest`; a hearth
-//!   to an inn bound in an earlier guide is `when bound`, with the walk there `when !bound`.
+//! - R3 `when` guards: travel steps for quests carried from an earlier guide are `when onquest`; so are
+//!   the hand-ins of quests the player may not have picked up (an `optional` or item-started accept, one
+//!   listed along the way, and the quests that follow on from them), split from a step's other work; a
+//!   hearth to an inn bound in an earlier guide is `when bound`, with the walk there `when !bound`.
 //! - R4 fractional `level` (apply.rs: the route's grind items keep their fraction).
+//! - R9 where a goal's NPC or object is ("upstairs", "below ground", "inside <cave>", "underwater") and
+//!   who walks around, on the goal's note; R10 warnings from the quest notes (ambushes, stealthed mobs,
+//!   adds, attacked when you loot) as a step tip (tips.rs).
+//!
+//! - Route groups: the elite and group quest families the route takes (its `groups`, each order event's
+//!   `group`) are asked: every non-along step of the family's work is `when group <root>`, its first
+//!   elite work step says how hard it is, and its kills and collections say the group size.
 //!
 //! Pack format 5 (Polestar 0.3.0) rules, off unless `format_0_3`: R5 `when group`, R6 `task`/`cast`,
 //! R7 `abandon` when the log would pass 40, R8 `skipto` over blocks for one carried quest.
@@ -17,7 +26,7 @@
 //! Positions are world yards (the compiler's resolved goals and spots); a passing leg is first found by
 //! the straight line (the prefilter), then confirmed by walking yards where the walk store has them.
 
-use crate::jsre::{split_comment, starts_nonspace, trim, trim_end};
+use crate::jsre::{is_step, split_comment, starts_nonspace, trim, trim_end};
 use crate::post::no_empty_steps;
 use crate::re;
 use crate::travel::{component, walk_order, Travel};
@@ -31,8 +40,12 @@ use rustc_hash::{FxHashMap, FxHashSet};
 use serde_json::Value;
 use std::collections::BTreeMap;
 
-/// Yards from a walk leg within which an objective's spawn area is passed (edge distance).
+/// Yards from a walk leg within which an objective's spawn area is passed (edge distance): pattern 2's
+/// share of spawns lining the walk, and the walk check's detour.
 pub const PASS_ALONG_YD: f64 = 150.0;
+/// An `along` line needs one of the objective's own spawn points within this many yards of a leg walked
+/// while it is listed (#737: the pumpkin field's wide spot edge was "passed" 130 yd from any pumpkin).
+pub const ALONG_SPAWN_YD: f64 = 60.0;
 /// Steps the work must lie ahead of the first pass for an along step.
 const STEPS_AHEAD: usize = 2;
 /// Open along goals the addon lists at once.
@@ -58,19 +71,29 @@ pub struct Opts {
 	pub along: bool,
 	pub use_items: bool,
 	pub when: bool,
+	/// R9: where a goal's NPC or object is, and who walks around.
+	pub tips: bool,
+	/// R10: warnings from the quest notes.
+	pub warnings: bool,
 	/// Pack format 5 rules (R5-R8).
 	pub format_0_3: bool,
+	/// The route's group families asked (`when group`), with their tip and group size.
+	pub groups: bool,
 }
 
 impl Default for Opts {
 	fn default() -> Self {
-		Opts { along: true, use_items: true, when: true, format_0_3: false }
+		Opts { along: true, use_items: true, when: true, tips: true, warnings: true, format_0_3: false, groups: true }
 	}
 }
 
 /// Routed walking yards between two world points, where the walk store has them.
 pub trait WalkYards {
 	fn yards(&self, a: Wpt, b: Wpt) -> Option<f64>;
+	/// The world's zone crossings the walks are under (None: not known).
+	fn borders(&self) -> Option<&crate::borders::Borders> {
+		None
+	}
 }
 
 /// What the rules read besides the tree.
@@ -85,6 +108,18 @@ pub struct Inputs<'a> {
 	pub walks: Option<&'a dyn WalkYards>,
 	/// The route's character level at each quest's accept (route order `lvl`).
 	pub accept_lvl: &'a FxHashMap<u32, f64>,
+	/// Objectives (quest, objective) never listed on the way (guide-fixes.json `along: false`).
+	pub no_along: &'a FxHashSet<(u32, u32)>,
+	/// R9: the walking grid's floors and client areas, and spawn heights beyond spawnz.json (the Forever
+	/// server data's own spawns: { npc, object } -> id -> [[map, x, y, z, ...]]).
+	pub floors: Option<&'a dyn crate::tips::Floors>,
+	pub area_at: Option<&'a dyn forge_world::atlas::SubzoneOf>,
+	pub heights: Option<&'a V>,
+	/// R10: data/local/mechanics/quest-notes.json (`quests`), when present.
+	pub notes: Option<&'a Value>,
+	/// The route's group families (route `groups`), and each quest of one -> its root quest.
+	pub groups: &'a [crate::input::Group],
+	pub group_of: &'a FxHashMap<u32, u32>,
 }
 
 /// Lines written, per rule.
@@ -99,7 +134,7 @@ pub struct Report {
 }
 
 impl Report {
-	fn add(&mut self, rule: &'static str, n: usize) {
+	pub(crate) fn add(&mut self, rule: &'static str, n: usize) {
 		*self.counts.entry(rule).or_default() += n;
 	}
 }
@@ -107,45 +142,52 @@ impl Report {
 // ---- the chain as the route's character plays it ----
 
 #[derive(Clone, Copy, Debug)]
-struct Spot {
-	w: Wpt,
-	r: f64,
+pub(crate) struct Spot {
+	pub(crate) w: Wpt,
+	pub(crate) r: f64,
 	n: f64,
 }
 
 #[derive(Clone, Debug)]
-struct G {
+pub(crate) struct G {
 	/// Chain guide, its file's text index.
-	gi: usize,
+	pub(crate) gi: usize,
 	/// Step index in the guide, and its 1-based line.
-	si: usize,
-	step_line: u32,
-	line: u32,
-	verb: String,
-	quest: Option<u32>,
+	pub(crate) si: usize,
+	pub(crate) step_line: u32,
+	pub(crate) line: u32,
+	pub(crate) verb: String,
+	pub(crate) quest: Option<u32>,
 	oi: Option<u32>,
-	w: Option<Wpt>,
-	map: f64,
-	spots: Vec<Spot>,
-	item: Option<u32>,
+	pub(crate) w: Option<Wpt>,
+	pub(crate) map: f64,
+	pub(crate) spots: Vec<Spot>,
+	/// The objective's own spawn points inside its spots (the spot centres when the data has none).
+	spawns: Vec<Wpt>,
+	pub(crate) item: Option<u32>,
 	location: Option<String>,
 	/// The compiler's map percent and frame for the goal.
 	xy: Option<(f64, f64, bool)>,
+	/// The NPC or object the compiler placed the goal at.
+	pub(crate) npc: Option<u32>,
+	pub(crate) object: Option<u32>,
+	/// The walk of the NPC the goal is at (forge_guide::walks): centre wx, wy and radius, world yards.
+	pub(crate) walk: Option<(f64, f64, f64)>,
 }
 
-struct Chain {
-	files: Vec<String>,
-	seq: Vec<G>,
+pub(crate) struct Chain {
+	pub(crate) files: Vec<String>,
+	pub(crate) seq: Vec<G>,
 	/// Per guide: (step line, has `when`, has `label` value, has `along`, `only` V) by step index.
-	steps: Vec<Vec<StepMeta>>,
+	pub(crate) steps: Vec<Vec<StepMeta>>,
 }
 
 #[derive(Clone, Debug)]
-struct StepMeta {
-	line: u32,
-	when: bool,
+pub(crate) struct StepMeta {
+	pub(crate) line: u32,
+	pub(crate) when: bool,
 	label: Option<String>,
-	along: bool,
+	pub(crate) along: bool,
 }
 
 fn num(v: &V) -> Option<f64> {
@@ -155,6 +197,50 @@ fn num(v: &V) -> Option<f64> {
 
 fn id(v: &V) -> Option<u32> {
 	num(v).filter(|n| *n >= 0.0 && n.fract() == 0.0).map(|n| n as u32)
+}
+
+/// A field goal's own spawn points on `map` inside its spots: the target NPC's or object's spawns, or
+/// for an item those of its droppers (at least [`DROP_MIN`] percent, or of unknown odds) and of the
+/// objects that hold it. The spot centres when the data places none there.
+fn spawn_points(data: &Data, goal: &V, map: f64, spots: &[Spot], world: &dyn Fn(f64, f64, f64, &V) -> Option<Wpt>) -> Vec<Wpt> {
+	let mut sources: Vec<(&str, V)> = Vec::new();
+	for kind in ["npc", "object"] {
+		if num(&goal.get(kind)).is_some() {
+			sources.push((kind, goal.get(kind)));
+		}
+	}
+	if let Some(item) = num(&goal.get("item")) {
+		let drops = data.item(&V::Num(item)).get("drops");
+		for kind in ["npc", "object"] {
+			let by = drops.get(kind);
+			for k in by.keys() {
+				let chance = num(&by.get(&k)).unwrap_or(0.0);
+				if chance <= 0.0 || chance >= DROP_MIN {
+					sources.push((kind, V::Num(forge_guide::js::str_to_num(&k))));
+				}
+			}
+		}
+	}
+	let mut out = Vec::new();
+	for (kind, id) in &sources {
+		for s in data.spawns(kind, id) {
+			if s.get("map").num() != map {
+				continue;
+			}
+			let f = s.get("f");
+			for p in s.get("pts").items().into_iter().chain(s.get("more").items()) {
+				if let Some(w) = world(map, p.at(0).num(), p.at(1).num(), &f) {
+					if spots.iter().any(|sp| dist(sp.w, w) <= sp.r + 1.0) {
+						out.push(w);
+					}
+				}
+			}
+		}
+	}
+	if out.is_empty() {
+		out = spots.iter().map(|s| s.w).collect();
+	}
+	out
 }
 
 fn play_chain(tree: &BTreeMap<String, String>, data: &Data, t: &Travel) -> Chain {
@@ -195,16 +281,21 @@ fn play_chain(tree: &BTreeMap<String, String>, data: &Data, t: &Travel) -> Chain
 					(Some(m), Some(xx), Some(yy)) => world(m, xx, yy, &f),
 					_ => None,
 				};
-				let spots = match map {
+				// (Every spot, the alternatives too, holds spawns the player kills or loots in passing; the
+				// arrow walks only the others.)
+				let all_spots: Vec<(bool, Spot)> = match map {
 					Some(m) => x
 						.get("spots")
 						.items()
 						.iter()
-						.filter(|p| !p.get("alt").truthy())
-						.filter_map(|p| Some(Spot { w: world(m, num(&p.get("x"))?, num(&p.get("y"))?, &f)?, r: num(&p.get("r")).unwrap_or(0.0), n: num(&p.get("n")).unwrap_or(1.0) }))
+						.filter_map(|p| {
+							Some((p.get("alt").truthy(), Spot { w: world(m, num(&p.get("x"))?, num(&p.get("y"))?, &f)?, r: num(&p.get("r")).unwrap_or(0.0), n: num(&p.get("n")).unwrap_or(1.0) }))
+						})
 						.collect(),
 					None => Vec::new(),
 				};
+				let spawns = map.map(|m| spawn_points(data, x, m, &all_spots.iter().map(|s| s.1).collect::<Vec<_>>(), &world)).unwrap_or_default();
+				let spots: Vec<Spot> = all_spots.into_iter().filter(|s| !s.0).map(|s| s.1).collect();
 				out.seq.push(G {
 					gi,
 					si,
@@ -216,9 +307,13 @@ fn play_chain(tree: &BTreeMap<String, String>, data: &Data, t: &Travel) -> Chain
 					w,
 					map: map.unwrap_or(f64::NAN),
 					spots,
+					spawns,
 					item: id(&x.get("item")),
 					location: x.get("location").as_str().map(str::to_string),
 					xy: num(&x.get("x")).zip(num(&x.get("y"))).map(|(a, b)| (a, b, f.as_str() != Some("e"))),
+					npc: id(&x.get("npc")),
+					object: id(&x.get("object")),
+					walk: forge_guide::walks::npc_walk(data, x).map(|w| (w.1, w.2, w.3)),
 				});
 			}
 		}
@@ -247,16 +342,27 @@ fn seg_dist(p: Wpt, a: Wpt, b: Wpt) -> f64 {
 // ---- text edits on the chain's files ----
 
 #[derive(Default)]
-struct Edits {
+pub(crate) struct Edits {
 	/// line index (0-based) -> lines before it.
-	before: BTreeMap<usize, Vec<String>>,
+	pub(crate) before: BTreeMap<usize, Vec<String>>,
 	/// line index -> lines after it.
-	after: BTreeMap<usize, Vec<String>>,
-	removed: FxHashSet<usize>,
-	replaced: FxHashMap<usize, String>,
+	pub(crate) after: BTreeMap<usize, Vec<String>>,
+	pub(crate) removed: FxHashSet<usize>,
+	pub(crate) replaced: FxHashMap<usize, String>,
+	/// line index -> a word the goal gains (` group 3`), before its comment.
+	pub(crate) suffix: FxHashMap<usize, String>,
 }
 
 impl Edits {
+	/// Line `l` of `lines` as written: replaced, with its suffix.
+	fn line(&self, lines: &[String], l: usize) -> String {
+		let s = self.replaced.get(&l).cloned().unwrap_or_else(|| lines[l].clone());
+		match self.suffix.get(&l) {
+			Some(w) => with_word(&s, w),
+			None => s,
+		}
+	}
+
 	fn apply(&self, text: &str) -> String {
 		let lines: Vec<&str> = text.split('\n').collect();
 		let mut out: Vec<String> = Vec::with_capacity(lines.len() + 16);
@@ -265,7 +371,11 @@ impl Edits {
 				out.extend(b.iter().cloned());
 			}
 			if !self.removed.contains(&i) {
-				out.push(self.replaced.get(&i).cloned().unwrap_or_else(|| l.to_string()));
+				let s = self.replaced.get(&i).cloned().unwrap_or_else(|| l.to_string());
+				out.push(match self.suffix.get(&i) {
+					Some(w) => with_word(&s, w),
+					None => s,
+				});
 			}
 			if let Some(a) = self.after.get(&i) {
 				out.extend(a.iter().cloned());
@@ -276,7 +386,7 @@ impl Edits {
 }
 
 /// The last line of the step starting at 0-based `s` (its last indented line).
-fn step_last(lines: &[&str], s: usize) -> usize {
+pub(crate) fn step_last(lines: &[&str], s: usize) -> usize {
 	let mut e = s;
 	let mut j = s + 1;
 	while j < lines.len() {
@@ -290,6 +400,199 @@ fn step_last(lines: &[&str], s: usize) -> usize {
 		j += 1;
 	}
 	e
+}
+
+/// The goal lines (0-based) of the step whose header is line `s`.
+fn step_goal_lines(lines: &[String], s: usize) -> Vec<usize> {
+	let refs: Vec<&str> = lines.iter().map(String::as_str).collect();
+	(s + 1..=step_last(&refs, s)).filter(|&l| crate::guide::is_goal(&lines[l])).collect()
+}
+
+/// Splits the guarded goal lines `hand` ((0-based line, quest)) of the step whose header is line `s` into
+/// steps of their own, in place: each run of them becomes a step with the step's title, its `only`,
+/// `zone` and `when` lines and `when onquest <their quests>`; the step's other work after a run, another
+/// step with that title. A run that opens the step goes before it, with the step's tip and picture (the
+/// step keeps them, and its label, for the player who has no such quest). -> the guarded steps written
+/// (none when a line of the step is already edited).
+fn split_guarded(lines: &[String], s: usize, hand: &[(usize, u32)], pre_of: &dyn Fn(u32) -> Vec<u32>, e: &mut Edits) -> usize {
+	let refs: Vec<&str> = lines.iter().map(String::as_str).collect();
+	let end = step_last(&refs, s);
+	if (s + 1..=end).any(|l| e.removed.contains(&l) || e.replaced.contains_key(&l) || e.before.contains_key(&l) || e.after.contains_key(&l)) {
+		return 0;
+	}
+	let every: Vec<String> = (s + 1..=end).filter(|&l| matches!(crate::jsre::head(&lines[l]), Some("only" | "zone" | "when"))).map(|l| lines[l].clone()).collect();
+	let guarded = |l: usize| hand.iter().find(|h| h.0 == l).map(|h| h.1);
+	// (A guarded hand-in that opens an accept written before it in the step goes first: the chain's order,
+	// Thrall's 95350 hand-in before his follow-ups 98024 and 93739, c14 Skyborne.)
+	let mut goal_lines = step_goal_lines(lines, s);
+	let accept_q = |l: usize| re!(r"^\s+accept\s+(\d+)\b").captures(&lines[l]).and_then(|m| m[1].parse::<u32>().ok());
+	let opens = |l: usize| guarded(l).is_some_and(|q| goal_lines.iter().take_while(|&&m| m != l).any(|&m| accept_q(m).is_some_and(|a| pre_of(a).contains(&q))));
+	let first: Vec<usize> = goal_lines.iter().copied().filter(|&l| opens(l)).collect();
+	if !first.is_empty() {
+		goal_lines.retain(|l| !first.contains(l));
+		goal_lines.splice(0..0, first);
+	}
+	let mut runs: Vec<(bool, Vec<usize>)> = Vec::new();
+	for l in goal_lines {
+		let g = guarded(l).is_some();
+		match runs.last_mut() {
+			Some(r) if r.0 == g => r.1.push(l),
+			_ => runs.push((g, vec![l])),
+		}
+	}
+	if runs.len() < 2 {
+		return 0;
+	}
+	let header = |run: &[usize], guard: bool| -> Vec<String> {
+		let mut v = vec![lines[s].clone()];
+		v.extend(every.iter().cloned());
+		if guard {
+			let mut qs: Vec<u32> = Vec::new();
+			for q in run.iter().filter_map(|&l| guarded(l)) {
+				if !qs.contains(&q) {
+					qs.push(q);
+				}
+			}
+			v.push(format!("  when onquest {}", qs.iter().map(u32::to_string).collect::<Vec<_>>().join(",")));
+		}
+		v
+	};
+	let mut n = 0;
+	for (k, (guard, run)) in runs.iter().enumerate() {
+		if k == 0 && *guard {
+			let mut b = header(run, true);
+			b.extend((s + 1..=end).filter(|&l| matches!(crate::jsre::head(&lines[l]), Some("tip" | "image"))).map(|l| lines[l].clone()));
+			for &l in run {
+				b.push(lines[l].clone());
+				e.removed.insert(l);
+			}
+			b.push(String::new());
+			e.before.entry(s).or_default().extend(b);
+		} else if k > 0 && !(k == 1 && runs[0].0) {
+			let mut b = vec![String::new()];
+			b.extend(header(run, *guard));
+			e.before.entry(run[0]).or_default().extend(b);
+		}
+		n += usize::from(*guard);
+	}
+	n
+}
+
+/// `line` with `word` after its code, before its comment (`kill 1234 quest 5 group 3 -- ...`).
+fn with_word(line: &str, word: &str) -> String {
+	let (c, rest) = split_comment(line);
+	format!("{} {word}{rest}", c.trim_end())
+}
+
+/// Asked group work (R5, the route's group families): every non-along step holding a goal of a family
+/// (`fam`: quest -> the root quest asked about) gets `when group <root>`: in place when the step holds
+/// only that family's goals and no `when`, else the family's goals move to a copy of the step right
+/// after it, headed `when group <root>` (with the step's `only`). `tips`: the lines a family's step
+/// gains after its `when`, by step.
+#[allow(clippy::too_many_arguments)]
+fn ask_group(
+	ch: &Chain,
+	texts: &[Vec<String>],
+	by_step: &BTreeMap<(usize, usize), Vec<usize>>,
+	fam: &dyn Fn(u32) -> Option<u32>,
+	tips: &FxHashMap<(usize, usize), Vec<(u32, String)>>,
+	step_only: &dyn Fn(usize, u32) -> Option<String>,
+	edits: &mut [Edits],
+	touched: &mut FxHashSet<(usize, usize)>,
+	rep: &mut Report,
+	rule: &'static str,
+) {
+	let seq = &ch.seq;
+	for (&(gi, si), idx) in by_step {
+		let meta = &ch.steps[gi][si];
+		let mut roots: Vec<u32> = Vec::new();
+		for r in idx.iter().filter_map(|&i| seq[i].quest.and_then(fam)) {
+			if !roots.contains(&r) {
+				roots.push(r);
+			}
+		}
+		if roots.is_empty() || meta.along {
+			continue;
+		}
+		let tip = |r: u32| tips.get(&(gi, si)).into_iter().flatten().filter(move |t| t.0 == r).map(|t| t.1.clone());
+		let all: Vec<usize> = idx.iter().copied().filter(|&i| seq[i].quest.is_some()).collect();
+		if roots.len() == 1 && !meta.when && !touched.contains(&(gi, si)) && all.iter().all(|&i| seq[i].quest.and_then(fam) == Some(roots[0])) {
+			let at = edits[gi].after.entry(meta.line as usize - 1).or_default();
+			at.push(format!("  when group {}", roots[0]));
+			at.extend(tip(roots[0]));
+			touched.insert((gi, si));
+			rep.add(rule, 1);
+			continue;
+		}
+		// Its lines in a step of their own after the step, asked for.
+		let lines_ = texts[gi].iter().map(String::as_str).collect::<Vec<_>>();
+		let s0 = meta.line as usize - 1;
+		let e = step_last(&lines_, s0);
+		// (Each family's step after the one before: Sprogger's hand-in of 8553 (8552's family), then
+		// his accept of 8554 (its own), not the other way round, c17 not-ready.)
+		let mut k = None;
+		for r in roots {
+			let mut b = vec![String::new(), texts[gi][s0].clone(), format!("  when group {r}")];
+			if let Some(o) = step_only(gi, meta.line) {
+				b.push(o);
+			}
+			b.extend(tip(r));
+			for &i in all.iter().filter(|&&i| seq[i].quest.and_then(fam) == Some(r)) {
+				let l = seq[i].line as usize - 1;
+				if edits[gi].removed.insert(l) {
+					b.push(edits[gi].line(&texts[gi], l));
+				}
+			}
+			// Before the along steps that follow the step (their goals come after the accept).
+			let at = edits[gi].after.entry(e).or_default();
+			let k0 = *k.get_or_insert_with(|| at.iter().position(|l| l.starts_with("step ")).map_or(at.len(), |k| k.saturating_sub(1)));
+			let n = b.len();
+			at.splice(k0..k0, b);
+			k = Some(k0 + n);
+			rep.add(rule, 1);
+		}
+	}
+}
+
+/// A group family's tip, in plain words: grouping is encouraged, how hard its elites are (`size` 1: one
+/// most classes solo two levels above it), and that a player alone may skip it (the route's solo
+/// fallback gives the XP back). A family with no mobs placed (its work an event): the quest is named.
+fn group_tip(g: Option<&crate::input::Group>) -> String {
+	let num = |x: f64| if x.fract() == 0.0 { format!("{}", x as i64) } else { format!("{x}") };
+	let mut s = String::from("These are elite mobs: grouping up is encouraged, look for people to do it with.");
+	let hard = g.and_then(|g| {
+		let names: Vec<&str> = g.mobs.iter().filter_map(|m| m.name.as_deref()).filter(|n| !n.is_empty()).collect();
+		let level = g.level.or_else(|| g.mobs.iter().filter_map(|m| m.level).reduce(f64::max));
+		let size = g.size.unwrap_or(1);
+		let who = match names.as_slice() {
+			[] => {
+				let title = g.title.as_deref().filter(|t| !t.is_empty())?;
+				return Some(match (size, level) {
+					(0 | 1, Some(l)) => format!("{title} has level {} elites: most classes solo it at level {}, but you may need help.", num(l), num(l + 2.0)),
+					(0 | 1, None) => return None,
+					(n, _) => format!("{title} needs a group of {n}."),
+				});
+			}
+			[a] => a.to_string(),
+			[a, b] => format!("{a} and {b}"),
+			[a, b, ..] => format!("{a}, {b} and others"),
+		};
+		let level = level?;
+		let many = names.len() > 1;
+		Some(match size {
+			0 | 1 if many => format!("{who} are level {} elites: most classes solo them at level {}, but you may need help.", num(level), num(level + 2.0)),
+			0 | 1 => format!("{who} is a level {} elite: most classes solo it at level {}, but you may need help.", num(level), num(level + 2.0)),
+			n if many => format!("{who} (level {} elites) need a group of {n}.", num(level)),
+			n => format!("{who} (level {} elite) needs a group of {n}.", num(level)),
+		})
+	});
+	if let Some(h) = hard {
+		s.push(' ');
+		s.push_str(&h);
+	}
+	s.push_str(" Skip it if you are alone: the route has you grind the XP back.");
+	// (A title's or name's double quotes would end the tip's text early: Wanted:  "Hogger".)
+	s.replace('"', "'")
 }
 
 fn strip_place(code: &str) -> String {
@@ -350,6 +653,15 @@ fn along_source(data: &Data, mech: Option<&Value>, q: u32, oi: u32, passes: usiz
 				return None;
 			}
 			let drops = it.get("drops");
+			// A drop from droppers of several level bands is worked at the low ones' camp, never
+			// "on the way" over the whole zone (Bashidian Twotao, #385).
+			let qlvl = num(&quest_v(data, q).get("level")).unwrap_or(0.0);
+			if drops.get("npc").keys().iter().any(|n| {
+				let npc = data.npcs.get(n);
+				pts("npc", n.parse().unwrap_or(0)) > 0 && num(&npc.get("level")).is_some_and(|l| l > qlvl + 2.0)
+			}) {
+				return None;
+			}
 			let objs = drops.get("object").keys();
 			let best = drops.get("npc").entries().iter().filter(|(n, _)| pts("npc", n.parse().unwrap_or(0)) > SINGLE_NPC_PTS).map(|(_, c)| num(c).unwrap_or(0.0)).fold(f64::NEG_INFINITY, f64::max);
 			let ok = !objs.is_empty() || best >= DROP_MIN || (best > 0.0 && count <= 1.0 && passes >= 5);
@@ -398,6 +710,14 @@ struct AlongStep {
 	lines: Vec<String>,
 	rank: usize,
 	from_si: usize,
+	/// The goals' zone when it is not the zone in effect where the step goes (Crushridge ogres for
+	/// the Recovered Tome in Alterac, the step after Southshore's accept, #246).
+	zone: Option<String>,
+}
+
+/// The zone in effect at 0-based line `at`: the last `zone` line at or before it.
+fn zone_at(lines: &[String], at: usize) -> Option<String> {
+	lines[..=at.min(lines.len().saturating_sub(1))].iter().rev().find_map(|l| re!(r"^\s*zone\s+(.+)$").captures(l).map(|m| trim(&m[1]).to_string()))
 }
 
 /// The rules on the written chain (`tree` holds every guide; the chain's are edited in place).
@@ -442,12 +762,30 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		let qv = quest_v(data, q);
 		matches!(num(&qv.get("web").get("type")).map(|t| t as i64), Some(1) | Some(81)) && !qv.get("objectives").is_empty()
 	};
+	// A quest the player is asked about (`when group`): R5's, or one of the route's group families.
+	let asked = |q: u32| (opts.format_0_3 && group(q)) || (opts.groups && inp.group_of.contains_key(&q));
 	// Steps the rules below edit (one rule per step line).
 	let mut touched: FxHashSet<(usize, usize)> = FxHashSet::default();
 
 	// ---- R1: along ----
 	if opts.along {
+		// The route fixes' orders (a before b), which a merge or an along line must not break.
+		let pairs = crate::hub::fix_pairs(t.faction.as_deref());
+		let first_of = |t: crate::input::OrderT, qa: u32| -> Option<usize> {
+			match t {
+				crate::input::OrderT::Accept => first_accept.get(&qa).copied(),
+				crate::input::OrderT::Turnin => first_turnin.get(&qa).copied(),
+				_ => seq.iter().position(|x| x.quest == Some(qa) && matches!(x.verb.as_str(), "kill" | "collect" | "interact" | "use" | "complete")),
+			}
+		};
+		// (Quest q's work at walk index i is ahead of an event the route fixes put before it: Shaky's
+		// giblets listed along the way before Unbagwa's accept, overrides.pairs[54].)
+		let held_at = |q: u32, i: usize| pairs.iter().any(|(pa, pb)| *pb == (crate::input::OrderT::Task, q) && first_of(pa.0, pa.1).is_none_or(|ai| ai > i));
 		let mut work: BTreeMap<(u32, u32), Vec<usize>> = BTreeMap::new();
+		// (A step searched as one circuit, `loop`, keeps its work: made an onward along step (pattern
+		// 2), it would leave the circuit with nothing to search for. Listed on the way before it
+		// (pattern 1) it stays.)
+		let in_loop = |gi: usize, step_line: u32| texts[gi].iter().skip(step_line as usize).take_while(|l| !is_step(l) && !l.trim().is_empty()).any(|l| l.trim() == "loop");
 		for (i, g) in seq.iter().enumerate() {
 			if matches!(g.verb.as_str(), "kill" | "collect" | "interact") && !g.spots.is_empty() {
 				if let (Some(q), Some(oi)) = (g.quest, g.oi) {
@@ -460,7 +798,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		let mut done_p2: FxHashSet<(u32, u32)> = FxHashSet::default();
 		// Pattern 2: the one stop for an objective whose spawns line the walk on to the turn-in.
 		for (&(q, oi), idx) in &work {
-			if idx.len() != 1 {
+			if idx.len() != 1 || in_loop(seq[idx[0]].gi, seq[idx[0]].step_line) {
 				continue;
 			}
 			let i = idx[0];
@@ -520,7 +858,14 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			if tot <= 0.0 || on / tot < ONWARD_SHARE || hi - lo < ONWARD_SPREAD * len {
 				continue;
 			}
-			if opts.format_0_3 && group(q) {
+			// (And the walk comes by the work itself, not only by its spots' edges.)
+			if !wg.spawns.iter().any(|s| pts.windows(2).any(|ab| seg_dist(*s, ab[0], ab[1]) <= ALONG_SPAWN_YD)) {
+				continue;
+			}
+			if asked(q) {
+				continue;
+			}
+			if inp.no_along.contains(&(q, oi)) || held_at(q, i) {
 				continue;
 			}
 			let Some(src) = along_source(data, inp.mechanics, q, oi, 0) else { continue };
@@ -532,9 +877,24 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			let stop = wg.line as usize - 1;
 			edits[wg.gi].removed.insert(stop);
 			let lines_ = texts[wg.gi].iter().map(String::as_str).collect::<Vec<_>>();
-			let at = step_last(&lines_, wg.step_line as usize - 1);
+			// Listed from the stop's step on: before it when the quest was taken earlier, so its walk's
+			// own end (a cave's mouth, LD-22) stays the last place before the turn-in; after it when the
+			// step takes the quest (Gordo).
+			let after = first_accept.get(&q).is_some_and(|&a| pos(a) == pos(i));
+			let mut at = if after { step_last(&lines_, wg.step_line as usize - 1) } else { wg.step_line as usize - 1 };
+			// (Nor between a waypoint step and the stop it leads into: before the way there too, the
+			// mouth of Shadowthread Cave before the Webwood Eggs.)
+			if !after {
+				while let Some(prev) = (0..at).rev().find(|&j| crate::jsre::is_step(lines_[j])) {
+					let goals: Vec<&str> = lines_[prev + 1..=step_last(&lines_, prev)].iter().copied().filter(|l| crate::guide::is_goal(l)).collect();
+					if goals.is_empty() || !goals.iter().all(|l| re!(r"^\s+goto\s").is_match(l)) {
+						break;
+					}
+					at = prev;
+				}
+			}
 			let line = format!("{}{}", strip_place(code), if place.is_empty() { String::new() } else { format!(" -- {src} along the way to {place}") });
-			if let Some(x) = along.iter_mut().find(|x| x.gi == wg.gi && x.at == at && x.until == until) {
+			if let Some(x) = along.iter_mut().find(|x| x.gi == wg.gi && x.at == at && x.after == after && x.until == until) {
 				x.lines.push(line);
 				x.title = "On the way".into();
 				done_p2.insert((q, oi));
@@ -543,7 +903,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			along.push(AlongStep {
 				gi: wg.gi,
 				at,
-				after: true,
+				after,
 				until,
 				until_si,
 				when: None,
@@ -552,6 +912,8 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				lines: vec![line],
 				rank: usize::MAX,
 				from_si: wg.si,
+				// (Beside the goal's own step: its zone.)
+				zone: None,
 			});
 			done_p2.insert((q, oi));
 			rep.log.push(format!("R1 along (onward to the turn-in): {} quest {q}.{oi} {src}", ch.files[wg.gi]));
@@ -587,11 +949,10 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						if idx.iter().any(|&j| pos(j) == pos(i) || pos(j) == pos(pi)) || seq[w].map != g.map {
 							continue;
 						}
-						let best = seq[w].spots.iter().map(|s| (seg_dist(s.w, a, p) - s.r).max(0.0)).fold(f64::INFINITY, f64::min);
-						if best > PASS_ALONG_YD {
+						let near: Vec<Wpt> = seq[w].spawns.iter().copied().filter(|s| seg_dist(*s, a, p) <= ALONG_SPAWN_YD).collect();
+						if near.is_empty() {
 							continue;
 						}
-						let near: Vec<Wpt> = seq[w].spots.iter().filter(|s| seg_dist(s.w, a, p) - s.r <= PASS_ALONG_YD).map(|s| s.w).collect();
 						if !near.iter().any(|s| walk_ok(inp.walks, *s, &[a, p], &mut rep)) {
 							continue;
 						}
@@ -611,14 +972,28 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			let wg = &seq[p.work];
 			let cur = &seq[p.first_cur];
 			let ahead = if wg.gi == gi { wg.si.saturating_sub(cur.si) } else { usize::MAX };
+			// (Every pass not listed is counted by its reason: what the on-the-way lists miss.)
 			if ahead < STEPS_AHEAD {
+				rep.add("R1 passed, not listed: worked within two steps", 1);
 				continue;
 			}
 			// (A group quest the player is asked about is not listed before they answer.)
-			if opts.format_0_3 && group(q) {
+			if asked(q) {
+				rep.add("R1 passed, not listed: group quest", 1);
 				continue;
 			}
-			let Some(src) = along_source(data, inp.mechanics, q, oi, p.n) else { continue };
+			if inp.no_along.contains(&(q, oi)) {
+				rep.add("R1 passed, not listed: guide-fixes along false", 1);
+				continue;
+			}
+			if held_at(q, p.first_cur) {
+				rep.add("R1 passed, not listed: a route fix orders its work later", 1);
+				continue;
+			}
+			let Some(src) = along_source(data, inp.mechanics, q, oi, p.n) else {
+				rep.add("R1 passed, not listed: source (named mob, rare drop, used item)", 1);
+				continue;
+			};
 			let acc = first_accept[&q];
 			let carried = seq[acc].gi != gi;
 			let lines_ = texts[gi].iter().map(String::as_str).collect::<Vec<_>>();
@@ -629,11 +1004,53 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				let s = if pv.gi == gi { pv } else { cur };
 				(s.step_line as usize - 1, false, s.si.saturating_sub(1))
 			};
-			let (until, until_si) = if wg.gi == gi { (Some(labels.of(&ch, gi, wg.si, q)), Some(wg.si)) } else { (None, None) };
+			// (Its spawns on the ground of a step the list would run past, the work there: done in that
+			// step, and listed along only up to it. The Graverobbers and their ichor on top of Brill's Doom Weed, Fitz
+			// in game c14. The judge's `merge` overlap, so the two agree.)
+			let mut host_si: Option<usize> = None;
+			if wg.gi == gi && !carried {
+				// (The judge's overlap: the nearest spot centres of the two areas.)
+				let gap = |a: &G, b: &G| a.spots.iter().flat_map(|s| b.spots.iter().filter(move |t| s.w.c == t.w.c).map(move |t| dist(s.w, t.w))).fold(f64::INFINITY, f64::min);
+				let own_only = step_only(wg.gi, wg.step_line);
+				let ok = |h: &G| {
+					h.gi == gi
+						&& h.si > from_si && h.si < wg.si
+						&& matches!(h.verb.as_str(), "kill" | "collect" | "interact")
+						&& (h.quest, h.oi) != (Some(q), Some(oi))
+						&& !re!(r"\boptional\b").is_match(line_text(h))
+						&& !ch.steps[gi][h.si].when
+						&& !ch.steps[gi][h.si].along
+						&& !in_loop(gi, h.step_line)
+						&& step_only(gi, h.step_line) == own_only
+						&& gap(h, wg) <= forge_judge::check::OVERLAP_YD
+				};
+				// The first such step, beside its goal nearest the objective's spawns.
+				let host = seq.iter().find(|h| ok(h)).and_then(|f| seq.iter().filter(|h| h.si == f.si && ok(h)).min_by(|a, b| gap(a, wg).total_cmp(&gap(b, wg))));
+				// (Not ahead of an event the route fixes put before this objective's work: Gold Dust in
+				// the Fargodeep Mine after Kobold Candles' accept, pairs[21].)
+				let hi = host.and_then(|h| seq.iter().position(|x| std::ptr::eq(x, h)));
+				let held = hi.is_some_and(|hi| held_at(q, hi));
+				if let Some(h) = host.filter(|_| !held) {
+					let line = strip_place(split_comment(line_text(wg)).0);
+					let at_line = h.line as usize - 1;
+					let e = edits[gi].after.entry(at_line).or_default();
+					if !e.contains(&line) {
+						e.push(line);
+					}
+					rep.add("R1 merged into the step on its ground", 1);
+					rep.log.push(format!("R1 merged: {} quest {q}.{oi} into the step at line {}", ch.files[gi], h.step_line));
+					host_si = Some(h.si);
+				}
+			}
+			let end_si = host_si.unwrap_or(wg.si);
+			let (until, until_si) = if wg.gi == gi { (Some(labels.of(&ch, gi, end_si, q)), Some(end_si)) } else { (None, None) };
 			let text = line_text(wg).to_string();
 			let line = strip_place(split_comment(&text).0);
 			let only = step_only(wg.gi, wg.step_line);
-			match by_guide[gi].iter_mut().find(|x| x.at == at && x.after == after && x.until == until && x.when == carried.then_some(q) && x.only == only) {
+			let here = zone_at(&texts[gi], if after { at } else { at.saturating_sub(1) });
+			let own = data.zones.get(&(wg.map as u32).to_string()).get("name");
+			let zone = (own.truthy() && Some(own.to_js_string()) != here).then(|| own.to_js_string());
+			match by_guide[gi].iter_mut().find(|x| x.at == at && x.after == after && x.until == until && x.when == carried.then_some(q) && x.only == only && x.zone == zone) {
 				Some(x) => {
 					if !x.lines.contains(&line) {
 						x.lines.push(line);
@@ -641,7 +1058,9 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						x.rank = x.rank.max(p.n);
 					}
 				}
-				None => by_guide[gi].push(AlongStep { gi, at, after, until, until_si, when: carried.then_some(q), only, title: format!("{src} on the way"), lines: vec![line], rank: p.n, from_si }),
+				None => {
+					by_guide[gi].push(AlongStep { gi, at, after, until, until_si, when: carried.then_some(q), only, title: format!("{src} on the way"), lines: vec![line], rank: p.n, from_si, zone })
+				}
 			}
 		}
 		// At most ALONG_CAP open along goals at once, the most-passed first.
@@ -653,6 +1072,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				let open: usize = kept.iter().filter(|(f, t, _)| *f <= to && a.from_si <= *t).map(|x| x.2).sum();
 				if open + a.lines.len() > ALONG_CAP {
 					rep.log.push(format!("R1 along over the cap of {ALONG_CAP}: {} {}", ch.files[gi], a.title));
+					rep.add("R1 passed, not listed: over the cap of open along goals", a.lines.len());
 					continue;
 				}
 				kept.push((a.from_si, to, a.lines.len()));
@@ -667,7 +1087,20 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				if let Some(o) = &a.only {
 					block.push(o.clone());
 				}
+				if let Some(z) = &a.zone {
+					block.push(format!("  zone {z}"));
+				}
 				block.extend(a.lines.iter().cloned());
+				// The step after it reads its own zone again.
+				if a.zone.is_some() {
+					let lines_ = texts[gi].iter().map(String::as_str).collect::<Vec<_>>();
+					let next = if a.after { (a.at + 1..lines_.len()).find(|&j| crate::jsre::is_step(lines_[j])) } else { Some(a.at) };
+					if let (Some(n), Some(back)) = (next, zone_at(&texts[gi], if a.after { a.at } else { a.at.saturating_sub(1) })) {
+						if !lines_[n + 1..step_last(&lines_, n) + 1].iter().any(|l| re!(r"^\s+zone\s").is_match(l)) {
+							edits[gi].after.entry(n).or_default().push(format!("  zone {back}"));
+						}
+					}
+				}
 				if a.after {
 					edits[gi].after.entry(a.at).or_default().extend(block);
 				} else {
@@ -712,13 +1145,54 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						continue;
 					}
 					let work: Vec<usize> = (first_accept[&q]..ti).filter(|&i| seq[i].quest == Some(q) && matches!(seq[i].verb.as_str(), "kill" | "collect" | "interact")).collect();
-					let pos0 = p
-						.get("place")
-						.and_then(|pl| pl.get("positions"))
-						.and_then(Value::as_array)
-						.and_then(|a| a.first())
-						.cloned()
-						.or_else(|| p.get("place").filter(|pl| pl.get("x").is_some()).cloned());
+					// (Before the quest's first use too: the bowl is filled at the moonwell before the filled
+					// bowl is used at the bonfire, The Blackwood Corrupted.)
+					let first_use = (first_accept[&q]..ti).find(|&i| seq[i].quest == Some(q) && seq[i].verb == "use");
+					let before_at = match (work.first(), first_use) {
+						(Some(&w), Some(u)) => Some(w.min(u)),
+						(w, u) => w.copied().or(u),
+					};
+					// (An item the use makes, collected by a line of its own first: the use goes right before
+					// that line, where it is made. The empty bowl at the Auberdine moonwell before v1's
+					// "collect 12347", not at the furbolg camp after the filled bowl is in the bags, #302.)
+					let produces: Vec<u32> = p.get("produces").and_then(Value::as_array).map(|a| a.iter().filter_map(|v| v.as_u64().map(|x| x as u32)).collect()).unwrap_or_default();
+					let made_at = (first_accept[&q]..ti).find(|&i| seq[i].verb == "collect" && seq[i].item.is_some_and(|it| produces.contains(&it)));
+					let before_at = made_at.filter(|&m| before_at.is_none_or(|b| m < b)).or(before_at);
+					// The place nearest where the route works it (or hands it in): an object with spawns in
+					// two zones (the Corrupt Jaedenar Moonwell's Darkshore twin) is used at the route's one.
+					let positions: Vec<Value> = match p.get("place") {
+						Some(pl) => match pl.get("positions").and_then(Value::as_array) {
+							Some(a) => a.clone(),
+							None if pl.get("x").is_some() => vec![pl.clone()],
+							None => Vec::new(),
+						},
+						None => Vec::new(),
+					};
+					let near = seq.get(before_at.or(work.first().copied()).unwrap_or(ti));
+					let geo = Geo::new(&data.map_frames);
+					let yd = |v: &Value| -> f64 {
+						let (Some(map), Some(x), Some(y)) = (v.get("map").and_then(Value::as_f64), v.get("x").and_then(Value::as_f64), v.get("y").and_then(Value::as_f64)) else {
+							return f64::INFINITY;
+						};
+						match (near.and_then(|g| g.w), geo.to_world(map as i64, x, y, true)) {
+							(Some(a), Some(b)) => dist(a, b),
+							_ if near.is_some_and(|g| g.map == map) => 0.0,
+							_ => f64::INFINITY,
+						}
+					};
+					let pos0 = positions.iter().min_by(|a, b| yd(a).total_cmp(&yd(b))).filter(|v| yd(v).is_finite()).or(positions.first()).cloned();
+					// (One spot read in two maps' frames, an object by a border: the frame of the map the route is
+					// on there. The Jadefire moonwell's focus is Felwood 32.3,66.6 and Darkshore 48.2,85.9 too, and
+					// the Darkshore reading, a yard nearer Winna, sent a Felwood step to Darkshore's map, c18.)
+					let world_of = |v: &Value| -> Option<Wpt> { geo.to_world(v.get("map")?.as_f64()? as i64, v.get("x")?.as_f64()?, v.get("y")?.as_f64()?, true) };
+					let pos0 = pos0.map(|p| {
+						let on_map = |v: &Value| near.is_some_and(|g| v.get("map").and_then(Value::as_f64) == Some(g.map));
+						if on_map(&p) {
+							return p;
+						}
+						let same_spot = |v: &Value| matches!((world_of(&p), world_of(v)), (Some(a), Some(b)) if dist(a, b) <= 30.0);
+						positions.iter().find(|&v| on_map(v) && same_spot(v)).cloned().unwrap_or(p)
+					});
 					let at = pos0
 						.as_ref()
 						.and_then(|v| Some(format!(" @{},{} map {}", js_to_fixed(v.get("x")?.as_f64()?, 1), js_to_fixed(v.get("y")?.as_f64()?, 1), v.get("map")?.as_u64()?)))
@@ -734,9 +1208,12 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						}
 						_ if !work.is_empty() && !at.is_empty() => {
 							// At the place, before the stand-in (kill/collect/interact), which stays: its kill or
-							// loot is the objective's credit and the knowledge base's step.
-							let g = &seq[work[0]];
-							let r = if kind == "summon-by-item" { format!("  use {item}{at}") } else { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) };
+							// loot is the objective's credit and the knowledge base's step. A use that gives no
+							// credit itself (the bowl filled at the moonwell, PR542) is not the objective's line:
+							// bound to it, it would hold its step until the objective is done.
+							let g = &seq[before_at.unwrap_or(work[0])];
+							let credit = p.get("credit") != Some(&Value::Bool(false));
+							let r = if kind == "summon-by-item" || !credit { format!("  use {item}{at}") } else { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) };
 							edits[g.gi].before.entry(g.line as usize - 1).or_default().push(r);
 							rep.add("R2 use", 1);
 						}
@@ -772,7 +1249,33 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 	// ---- R3: when guards ----
 	if opts.when {
 		let skip_blocks: FxHashSet<(usize, usize)> = if opts.format_0_3 { skipto_steps(&ch, seq, &first_accept, &texts) } else { FxHashSet::default() };
-		// Travel steps for quests carried from an earlier guide (or accepted optionally).
+		let code = |g: &G| -> &str { split_comment(line_text(g)).0 };
+		// Quests the player may not have picked up: an `optional` or item-started accept, one listed along
+		// the way, and the quests that need one of them first.
+		let mut maybe: FxHashSet<u32> = FxHashSet::default();
+		for g in seq.iter().filter(|g| g.verb == "accept") {
+			let Some(q) = g.quest else { continue };
+			let start = quest_v(data, q).get("start");
+			let from_item = re!(r"\bitem\s+\d").is_match(code(g)) || (!start.get("item").items().is_empty() && start.get("npc").items().is_empty() && start.get("object").items().is_empty());
+			if from_item || re!(r"\boptional\b").is_match(code(g)) || ch.steps[g.gi][g.si].along {
+				maybe.insert(q);
+			}
+		}
+		loop {
+			let before = maybe.len();
+			for &q in first_accept.keys() {
+				let qv = quest_v(data, q);
+				let ids = |k: &str| qv.get(k).items().iter().filter_map(id).collect::<Vec<u32>>();
+				let any = ids("preAny");
+				if !maybe.contains(&q) && (if any.is_empty() { ids("pre").iter().any(|p| maybe.contains(p)) } else { any.iter().all(|p| maybe.contains(p)) }) {
+					maybe.insert(q);
+				}
+			}
+			if maybe.len() == before {
+				break;
+			}
+		}
+		// Travel steps for quests carried from an earlier guide (or ones the player may not have).
 		let mut by_step: BTreeMap<(usize, usize), Vec<usize>> = BTreeMap::new();
 		for (i, g) in seq.iter().enumerate() {
 			by_step.entry((g.gi, g.si)).or_default().push(i);
@@ -782,15 +1285,21 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			if meta.when || meta.along || skip_blocks.contains(&(gi, si)) {
 				continue;
 			}
-			let travel = idx.iter().any(|&i| matches!(seq[i].verb.as_str(), "goto" | "hearth" | "fly" | "vendor" | "train" | "getfp" | "sethome"));
+			// (Never a step that also trains, learns a flight path or binds, nor one with lines for some
+			// races or classes only: the Ironforge training at 28 behind a 5% book's quest.)
+			let service = idx.iter().any(|&i| matches!(seq[i].verb.as_str(), "train" | "getfp" | "sethome"));
+			let some_only = idx.iter().any(|&i| re!(r"\sonly\s").is_match(split_comment(line_text(&seq[i])).0));
+			let travel = idx.iter().any(|&i| matches!(seq[i].verb.as_str(), "goto" | "hearth" | "fly" | "vendor"));
 			let qg: Vec<usize> = idx.iter().copied().filter(|&i| seq[i].quest.is_some() && seq[i].verb != "goto").collect();
-			if !travel || qg.is_empty() {
+			// (Nor one with a ride everyone takes: a travel line never lives only in a gated step.)
+			let rides = idx.iter().any(|&i| seq[i].verb == "goto" && ride_goto(line_text(&seq[i])));
+			if !travel || service || some_only || rides || qg.is_empty() {
 				continue;
 			}
 			let carried = qg.iter().all(|&i| {
 				let g = &seq[i];
 				let q = g.quest.unwrap();
-				g.verb != "accept" && first_accept.get(&q).is_some_and(|&a| a < i && (seq[a].gi < gi || re!(r"\boptional\b").is_match(split_comment(line_text(&seq[a])).0)))
+				g.verb != "accept" && first_accept.get(&q).is_some_and(|&a| a < i && (seq[a].gi < gi || maybe.contains(&q)))
 			});
 			if !carried {
 				continue;
@@ -809,6 +1318,81 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				.map(u32::to_string)
 				.collect();
 			edits[gi].after.entry(meta.line as usize - 1).or_default().push(format!("  when onquest {}", qs.join(",")));
+			touched.insert((gi, si));
+			rep.add("R3 when onquest", 1);
+		}
+		// Hand-ins of quests the player may not have, accepted in an earlier step: their step is `when
+		// onquest`, or (beside other work) their lines become a step of their own `when onquest`, in place,
+		// so a player who passed the quest by is never sent to hand it in. (A hand-in already `optional`
+		// beside other work never holds the step.)
+		for (&(gi, si), idx) in &by_step {
+			let meta = &ch.steps[gi][si];
+			if meta.when || meta.along || touched.contains(&(gi, si)) || skip_blocks.contains(&(gi, si)) {
+				continue;
+			}
+			let hand: Vec<usize> = idx
+				.iter()
+				.copied()
+				.filter(|&i| {
+					let g = &seq[i];
+					g.verb == "turnin"
+						&& !re!(r"\bdirect\b").is_match(code(g))
+						&& g.quest.is_some_and(|q| maybe.contains(&q) && first_accept.get(&q).is_some_and(|&a| a < i && (seq[a].gi, seq[a].si) != (gi, si)))
+				})
+				.collect();
+			if hand.is_empty() {
+				continue;
+			}
+			let quests = |list: &[usize]| -> String {
+				let mut qs: Vec<u32> = Vec::new();
+				for &i in list {
+					let q = seq[i].quest.unwrap();
+					if !qs.contains(&q) {
+						qs.push(q);
+					}
+				}
+				qs.iter().map(u32::to_string).collect::<Vec<_>>().join(",")
+			};
+			let s = meta.line as usize - 1;
+			let hand_lines: FxHashSet<usize> = hand.iter().map(|&i| seq[i].line as usize - 1).collect();
+			// (A step whose other goals are only waypoints is the hand-ins' alone; not one with a ride for
+			// everyone, the Deeprun Tram after an optional errand's hand-in, Gnome c14.)
+			let goals = step_goal_lines(&texts[gi], s);
+			if !goals.iter().any(|&l| ride_goto(&texts[gi][l])) && goals.into_iter().all(|l| hand_lines.contains(&l) || matches!(crate::jsre::head(&texts[gi][l]), Some("goto" | "note"))) {
+				edits[gi].after.entry(s).or_default().push(format!("  when onquest {}", quests(&hand)));
+				touched.insert((gi, si));
+				rep.add("R3 when onquest", 1);
+				continue;
+			}
+			let hand: Vec<usize> = hand.into_iter().filter(|&i| !re!(r"\boptional\b").is_match(code(&seq[i]))).collect();
+			// (A hand-in at the NPC another of the step's goals is at stays in the step, optional: the
+			// player stands there anyway, Tarshaw's step not split in two at Tarshaw, T7.)
+			// (All of them or none: a step split for one is split for all.)
+			let at_npc = |i: usize| {
+				seq[i]
+					.npc
+					.is_some_and(|n| idx.iter().any(|&j| j != i && matches!(seq[j].verb.as_str(), "accept" | "turnin") && !hand_lines.contains(&(seq[j].line as usize - 1)) && seq[j].npc == Some(n)))
+			};
+			if !hand.is_empty() && hand.iter().all(|&i| at_npc(i)) {
+				for &i in &hand {
+					let l = seq[i].line as usize - 1;
+					if edits[gi].replaced.contains_key(&l) || edits[gi].removed.contains(&l) {
+						continue;
+					}
+					let (c, rest) = crate::jsre::split_comment(&texts[gi][l]);
+					edits[gi].replaced.insert(l, format!("{} optional{rest}", c.trim_end()));
+					touched.insert((gi, si));
+					rep.add("R3 optional at its NPC", 1);
+				}
+				continue;
+			}
+			let pre_of = |q: u32| -> Vec<u32> {
+				let v = quest_v(data, q);
+				v.get("pre").items().into_iter().chain(v.get("preAny").items()).map(|x| x.num()).filter(|x| x.is_finite()).map(|x| x as u32).collect()
+			};
+			if hand.is_empty() || split_guarded(&texts[gi], s, &hand.iter().map(|&i| (seq[i].line as usize - 1, seq[i].quest.unwrap())).collect::<Vec<_>>(), &pre_of, &mut edits[gi]) == 0 {
+				continue;
+			}
 			touched.insert((gi, si));
 			rep.add("R3 when onquest", 1);
 		}
@@ -870,57 +1454,48 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		}
 	}
 
-	// ---- pack format 5 (Polestar 0.3.0) ----
-	if opts.format_0_3 {
-		// R5: group and dungeon quests' work, asked once.
-		let mut by_step: BTreeMap<(usize, usize), Vec<usize>> = BTreeMap::new();
+	// Steps by their goals (the group rules below).
+	let mut by_step: BTreeMap<(usize, usize), Vec<usize>> = BTreeMap::new();
+	if opts.groups || opts.format_0_3 {
 		for (i, g) in seq.iter().enumerate() {
 			by_step.entry((g.gi, g.si)).or_default().push(i);
 		}
-		// Every goal of a group quest the route takes is asked for: the accept, the work and the turn-in
-		// (the player who skips it skips all of it).
-		let mut groups: Vec<u32> = first_accept.keys().copied().filter(|q| first_turnin.contains_key(q) && group(*q)).collect();
-		groups.sort();
-		for (&(gi, si), idx) in &by_step {
-			let meta = &ch.steps[gi][si];
-			let qs: Vec<u32> = idx.iter().filter_map(|&i| seq[i].quest).filter(|q| groups.contains(q)).fold(Vec::new(), |mut v, q| {
-				if !v.contains(&q) {
-					v.push(q);
-				}
-				v
-			});
-			if qs.is_empty() || meta.along {
-				continue;
+	}
+
+	// ---- the route's group families: asked, how hard, the group size ----
+	if opts.groups && !inp.group_of.is_empty() {
+		let fam = |q: u32| inp.group_of.get(&q).copied();
+		let mut roots: Vec<u32> = inp.group_of.values().copied().collect();
+		roots.sort();
+		roots.dedup();
+		let mut tips: FxHashMap<(usize, usize), Vec<(u32, String)>> = FxHashMap::default();
+		for &root in &roots {
+			let info = inp.groups.iter().find(|g| g.q == Some(root));
+			// The tip: on the family's first step that does the root's work, else its accept's.
+			let first = |verbs: &[&str]| seq.iter().find(|g| g.quest == Some(root) && verbs.contains(&g.verb.as_str()) && !ch.steps[g.gi][g.si].along).map(|g| (g.gi, g.si));
+			if let Some(at) = first(&["kill", "collect", "interact", "use", "complete"]).or_else(|| first(&["accept"])) {
+				tips.entry(at).or_default().push((root, format!("  tip {}", group_tip(info))));
+				rep.add("groups tip", 1);
 			}
-			let all: Vec<usize> = idx.iter().copied().filter(|&i| seq[i].quest.is_some()).collect();
-			if qs.len() == 1 && !meta.when && !touched.contains(&(gi, si)) && all.iter().all(|&i| seq[i].quest == Some(qs[0])) {
-				edits[gi].after.entry(meta.line as usize - 1).or_default().push(format!("  when group {}", qs[0]));
-				touched.insert((gi, si));
-				rep.add("R5 when group", 1);
-				continue;
-			}
-			// Its lines in a step of their own after the step, asked for.
-			let lines_ = texts[gi].iter().map(String::as_str).collect::<Vec<_>>();
-			let s0 = meta.line as usize - 1;
-			let e = step_last(&lines_, s0);
-			for q in qs {
-				let mut b = vec![String::new(), texts[gi][s0].clone(), format!("  when group {q}")];
-				if let Some(o) = step_only(gi, meta.line) {
-					b.push(o);
+			// The group size on its kills and collections.
+			let Some(n) = info.and_then(|g| g.size).filter(|&n| n >= 2) else { continue };
+			for g in seq.iter().filter(|g| g.quest.and_then(fam) == Some(root) && matches!(g.verb.as_str(), "kill" | "collect")) {
+				let l = g.line as usize - 1;
+				if !re!(r"\sgroup\b").is_match(split_comment(&texts[g.gi][l]).0) && edits[g.gi].suffix.insert(l, format!("group {n}")).is_none() {
+					rep.add("groups size", 1);
 				}
-				for &i in all.iter().filter(|&&i| seq[i].quest == Some(q)) {
-					let l = seq[i].line as usize - 1;
-					if edits[gi].removed.insert(l) {
-						b.push(edits[gi].replaced.get(&l).cloned().unwrap_or_else(|| texts[gi][l].clone()));
-					}
-				}
-				// Before the along steps that follow the step (their goals come after the accept).
-				let at = edits[gi].after.entry(e).or_default();
-				let k = at.iter().position(|l| l.starts_with("step ")).map_or(at.len(), |k| k.saturating_sub(1));
-				at.splice(k..k, b);
-				rep.add("R5 when group", 1);
 			}
 		}
+		ask_group(&ch, &texts, &by_step, &fam, &tips, &step_only, &mut edits, &mut touched, &mut rep, "groups when group");
+	}
+
+	// ---- pack format 5 (Polestar 0.3.0) ----
+	if opts.format_0_3 {
+		// R5: group and dungeon quests' work, asked once. Every goal of a group quest the route takes is
+		// asked for: the accept, the work and the turn-in (the player who skips it skips all of it). (A
+		// quest of the route's group families is theirs.)
+		let groups: FxHashSet<u32> = first_accept.keys().copied().filter(|q| first_turnin.contains_key(q) && group(*q) && !(opts.groups && inp.group_of.contains_key(q))).collect();
+		ask_group(&ch, &texts, &by_step, &|q| groups.contains(&q).then_some(q), &FxHashMap::default(), &step_only, &mut edits, &mut touched, &mut rep, "R5 when group");
 		// R6: emotes and waits as tasks, class spells as casts, before a turn-in nothing else tracks.
 		if let Some(steps) = inp.steps {
 			for (&q, &ti) in &first_turnin {
@@ -997,6 +1572,14 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			}
 			rep.add("R8 skipto", 1);
 		}
+	}
+
+	// ---- R9: where; R10: warnings ----
+	if opts.tips {
+		crate::tips::place_notes(&ch, &texts, &mut edits, inp, &mut rep);
+	}
+	if opts.warnings {
+		crate::tips::warnings(&ch, &texts, &mut edits, inp, &mut rep);
 	}
 
 	for (gi, e) in edits.iter().enumerate() {
@@ -1086,4 +1669,23 @@ fn walk_ok(walks: Option<&dyn WalkYards>, s: Wpt, pts: &[Wpt], rep: &mut Report)
 		return true;
 	}
 	false
+}
+
+/// A goto to a boat, zeppelin, ship or tram (`goto 78.0,51.4 "Deeprun Tram"`, `"Boat to Auberdine"`).
+fn ride_goto(text: &str) -> bool {
+	re!(r#"(?i)^\s+goto\s.*"(?:[^"]*\b(?:Boat|Zeppelin|Ship|Tram)\b[^"]*)""#).is_match(split_comment(text).0)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::group_tip;
+
+	#[test]
+	fn a_family_whose_work_places_no_mob_names_its_quest() {
+		let g: crate::input::Group = serde_json::from_value(serde_json::json!({ "q": 1173, "title": "Challenge Overlord Mok'Morokk", "size": 3, "level": 43, "mobs": [], "quests": [1173] })).unwrap();
+		assert_eq!(
+			group_tip(Some(&g)),
+			"These are elite mobs: grouping up is encouraged, look for people to do it with. Challenge Overlord Mok'Morokk needs a group of 3. Skip it if you are alone: the route has you grind the XP back."
+		);
+	}
 }

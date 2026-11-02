@@ -219,7 +219,7 @@ local function questSteps(g)
 	local player = C.GetPlayerInfo()
 	local found = {}
 	questContext.steps[g.id] = found
-	if not full or (G.GuideMatches and not G.GuideMatches(g, player)) then return found end
+	if not full or (G.GuideMatches and not G.GuideMatches(g, player) and not (G.OtherStart and G.OtherStart(g, player))) then return found end
 	local function applies(only) return not G.Matches or G.Matches(only, player) end
 	for i, step in ipairs(full.steps or {}) do
 		if applies(step.only) then
@@ -282,8 +282,10 @@ end
 
 -- filter: faction ("Alliance" | "Horde" | "All"); q: search text; cat: a
 -- category, "Favorites" or "All". On the player's own faction only the
--- guides this character can follow are listed (none for other races or
--- classes); the other faction and "All" list every guide.
+-- guides this character can follow are listed (none for other classes, nor
+-- other races' but their starting zones: those, Guides.OtherStart, go in an
+-- "Other starting zones" folder after the player's own levels 1-30); the
+-- other faction and "All" list every guide.
 -- -> entries { kind = "folder"|"guide", text, count, guide },
 --    number of guides listed, { [category] = matching guides, Favorites = n }
 --    (before the category filter)
@@ -299,7 +301,7 @@ function P.Entries(filter, q, cat)
 		if ok and type(info) == "table" then player = info end
 	end
 	local favs = uiState().favoriteGuides
-	local counts, picked = { Favorites = 0 }, {}
+	local counts, picked, other = { Favorites = 0 }, {}, {}
 	for _, g in ipairs(list) do
 		local hit = matches(g, q)
 		if hit and favs[g.id] then
@@ -307,7 +309,9 @@ function P.Entries(filter, q, cat)
 			if cat == "Favorites" then picked[#picked + 1] = g end
 		end
 		local okFaction = filter == "All" or g.faction == nil or g.faction == filter
-		if okFaction and player and not G.GuideMatches(g, player) then okFaction = false end
+		if okFaction and player and not G.GuideMatches(g, player) then
+			if G.OtherStart and G.OtherStart(g, player) then other[g] = true else okFaction = false end
+		end
 		if okFaction and hit then
 			local c = bucketOf(g)
 			counts[c] = (counts[c] or 0) + 1
@@ -315,7 +319,13 @@ function P.Entries(filter, q, cat)
 		end
 	end
 	local key, label = {}, {}
-	for _, g in ipairs(picked) do label[g], key[g] = folderOf(g, mine) end
+	for _, g in ipairs(picked) do
+		if other[g] then
+			label[g], key[g] = L["Other starting zones"], string.format("%02d0001~", CATEGORY_RANK.Leveling)
+		else
+			label[g], key[g] = folderOf(g, mine)
+		end
+	end
 	table.sort(picked, function(a, b)
 		if key[a] ~= key[b] then return key[a] < key[b] end
 		local fa, fb = rankOfFaction(a.faction, mine), rankOfFaction(b.faction, mine)

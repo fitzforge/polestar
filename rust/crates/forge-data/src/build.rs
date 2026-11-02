@@ -42,6 +42,9 @@ pub struct Options {
 	pub forever: bool,
 	pub forever_build: Option<String>,
 	pub forever_source: Source,
+	/// Stop when the Forever tables cannot be read, instead of taking Classic Era's zones and frames
+	/// (forge build: its tables are pinned to the grid's build).
+	pub forever_required: bool,
 	pub web_xp: bool,
 	/// Read the source cache only (the library default). Not offline, the web quest XP the build
 	/// wants is looked up first (`sources::web_xp`); the CLI fetches the other sources before the build.
@@ -79,7 +82,7 @@ pub struct KbOptions {
 impl KbOptions {
 	pub fn new(root: &Path, out_dir: &Path) -> KbOptions {
 		let local = root.join("data").join("local");
-		let tdb_db = std::env::var_os("FOREVER_TDB").map(PathBuf::from).unwrap_or_else(|| local.join("forever-tdb").join("world.sqlite"));
+		let tdb_db = tdb_db_default(root);
 		KbOptions {
 			tdb_db,
 			trainers_file: out_dir.join("trainers.json"),
@@ -93,11 +96,17 @@ impl KbOptions {
 	}
 }
 
+/// The Forever TDB's database: `$FOREVER_TDB`, else <root>/data/local/forever-tdb/world.sqlite. Without
+/// it the cached extract (<sources>/forever-tdb/extract.json) is read as it is.
+pub fn tdb_db_default(root: &Path) -> PathBuf {
+	std::env::var_os("FOREVER_TDB").map(PathBuf::from).unwrap_or_else(|| root.join("data").join("local").join("forever-tdb").join("world.sqlite"))
+}
+
 fn tdb_source(revision: String) -> V {
 	obj_of(vec![
-		("name", s("Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class trainers)")),
+		("name", s("Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class and profession trainers)")),
 		("url", s("https://github.com/advocaite/TrinityCore/tree/forever")),
-		("license", s("GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions, sniffed drop rates, class trainer lists and costs")),
+		("license", s("GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions (gathering nodes too), sniffed drop rates, class trainer lists and costs, profession trainers' learn ranks and costs")),
 		("copyright", s("TrinityCore (https://www.trinitycore.org) and the advocaite/TrinityCore `forever` branch")),
 		("revision", V::from(revision)),
 	])
@@ -188,6 +197,7 @@ impl Options {
 			forever: true,
 			forever_build: None,
 			forever_source: Source::Wago,
+			forever_required: false,
 			web_xp: true,
 			offline: true,
 			web_zones: true,
@@ -382,6 +392,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 				fmaps = Some(m);
 				fwago = Some(f);
 			}
+			Err(e) if o.forever_required => return Err(format!("Forever client tables unavailable: {e}")),
 			Err(e) => warnings.push(format!("Forever map tables unavailable ({e}); zones and frames from Classic Era, changed frames from QuestieDB's eraToForever list")),
 		}
 	}
@@ -587,12 +598,43 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		sim,
 	);
 	let durations = extras::item_durations(fwago.as_ref().and_then(|f| f.get("ItemSparse")).map(Vec::as_slice).unwrap_or(&[]), &norm.items);
+	// Camp bots a player summons (Reagent Bot, Repair Bot) are vendors with sniffed spawns of camps long
+	// gone: they sell nothing a guide can send a player to (Forever's SpellEffect names them).
+	if let Some(effects) = fwago.as_ref().and_then(|f| f.get("SpellEffect")) {
+		let gone = extras::drop_summoned_vendors(&extras::summoned_creatures(effects), &norm.npcs, &norm.items);
+		if !gone.is_empty() {
+			log(&format!("summoned vendors: {} dropped as sellers ({})", gone.len(), gone.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")));
+		}
+	}
 
 	lap("recordings");
+	// Forever's gathering nodes from the TDB's sniffs that our sources lack (Zephras Isle, nodes Forever
+	// moved): a normal input, so the public data has them; the knowledge base reads the same extract.
+	let tdb_db = o.kb.as_ref().map(|k| k.tdb_db.clone()).unwrap_or_else(|| tdb_db_default(&o.root));
+	let tdb = crate::tdb::load(&o.sources, &tdb_db, log)?;
+	let mut nodes_added = 0usize;
+	if let Some(t) = &tdb {
+		let frames = Obj::new();
+		frames.set("era", maps.frames_v());
+		if let Some(fm) = &fmaps {
+			frames.set("forever", fm.frames_v());
+		}
+		let placer = crate::place::Placer::new(&V::Obj(frames), &zones, &changed_set);
+		nodes_added = crate::place::add_gathering_nodes(&norm.objects, t, &placer);
+		log(&format!("gathering nodes: {nodes_added} sniffed spawns added from the Forever TDB"));
+	}
+	let tdb_meta: Option<V> = tdb.as_ref().map(|t| t.get("meta"));
 	let mut heights = match crate::cmangos::load_spawn_heights(&o.sources, true) {
 		Ok(h) => Some(h),
 		Err(e) => {
 			warnings.push(format!("CMaNGOS classic-db spawn heights unavailable ({e}); spawnz.json not written, so compiled goals carry no z"));
+			None
+		}
+	};
+	let moves = match crate::cmangos::load_moves(&o.sources) {
+		Ok(m) => Some(m),
+		Err(e) => {
+			warnings.push(format!("CMaNGOS classic-db creature walks unavailable ({e}); moves.json not written, so walking NPCs get no walk area"));
 			None
 		}
 	};
@@ -601,13 +643,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let mut training_doc: Option<V> = None;
 	let mut trainers_doc: Option<V> = None;
 	let mut kb: Option<crate::kb::KbOut> = None;
-	let mut tdb_meta: Option<V> = None;
+	let mut tdb_used = nodes_added > 0;
 	match crate::cmangos::load_training(&o.sources) {
 		Ok(t) => training_doc = Some(obj_of(vec![("schema", V::Num(1.0)), ("source", s(&format!("cmangos classic-db {}", &crate::cmangos::DB_REV[..12]))), ("classes", t.get("classes"))])),
 		Err(e) => warnings.push(format!("CMaNGOS classic-db training costs unavailable ({e}); training.json not written")),
 	}
 	if let Some(ko) = &o.kb {
-		let tdb = crate::tdb::load(&o.sources, &ko.tdb_db, log)?;
 		let quest_xp = match crate::players::load_quest_xp(&o.sources) {
 			Ok(q) => Some(q),
 			Err(e) => {
@@ -694,7 +735,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			verify_file: Some(ko.verify_file.clone().unwrap_or_else(|| local.join("kb").join("verify-in-game.json"))),
 		};
 		let out = crate::kb::build_kb(&inputs, log)?;
-		tdb_meta = tdb.as_ref().map(|t| t.get("meta"));
+		tdb_used |= out.tdb_used;
 		training_doc = out.training.clone();
 		let ft = |n: &str| fwago.as_ref().and_then(|f| f.get(n)).map(Vec::as_slice);
 		if let Some(td) = training_doc.as_ref() {
@@ -793,9 +834,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			if has("Map") { ", Map" } else { "" },
 			if has("ItemSparse") { ", ItemSparse" } else { "" },
 			if has("QuestV2") { ", QuestV2" } else { "" },
-		) + if has("SpellName") { ", SpellName" } else { "" };
+		) + if has("SpellName") { ", SpellName" } else { "" }
+			+ if has("SpellEffect") { ", SpellEffect" } else { "" };
 		let license = format!("Blizzard Entertainment game client data; factual map geometry, names{} and race/class combinations only", if has("ItemSparse") { ", item durations" } else { "" });
-		let (name, url) = if f.from_client {
+		let (name, url) = if f.saved {
+			(format!("World of Warcraft: Forever client tables ({list}) read from the client (a saved copy of build {})", f.build), V::Null)
+		} else if f.from_client {
 			(format!("World of Warcraft: Forever client tables ({list}) read from the installed client"), V::Null)
 		} else {
 			(format!("World of Warcraft: Forever client tables ({list}) via wago.tools"), s(&format!("https://wago.tools/db2?build={}", f.build)))
@@ -822,14 +866,17 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	if heights.is_some() {
 		sources.push(crate::cmangos::heights_source());
 	}
+	if moves.is_some() {
+		sources.push(crate::cmangos::moves_source());
+	}
 	if qstats.as_ref().is_some_and(|q| q.objective_counts_from_classic_db > 0) {
 		sources.push(crate::cmangos::counts_source());
 	}
+	if let (true, Some(m)) = (tdb_used, &tdb_meta) {
+		let head = m.get("branchHead").to_js_string();
+		sources.push(tdb_source(format!("{} + {}", m.get("release").to_js_string(), head.chars().take(12).collect::<String>())));
+	}
 	if let Some(k) = &kb {
-		if let (true, Some(m)) = (k.tdb_used, &tdb_meta) {
-			let head = m.get("branchHead").to_js_string();
-			sources.push(tdb_source(format!("{} + {}", m.get("release").to_js_string(), head.chars().take(12).collect::<String>())));
-		}
 		sources.extend(k.credits.iter().cloned());
 		if !k.mechanics.keys().is_empty() {
 			sources.push(crate::kb::mechanics_source());
@@ -860,6 +907,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	}
 	if let Some(h) = &heights {
 		files.push(("spawnz".into(), h.text.clone()));
+	}
+	if let Some(m) = &moves {
+		files.push(("moves".into(), m.clone()));
 	}
 	if let Some(t) = &training_doc {
 		files.push(("training".into(), pretty(t)));
@@ -1000,6 +1050,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	if heights.is_none() {
 		stale.push("spawnz");
 	}
+	if moves.is_none() {
+		stale.push("moves");
+	}
 	if training_doc.is_none() {
 		stale.push("training");
 	}
@@ -1020,4 +1073,39 @@ pub fn write(out_dir: &Path, out: &Output) -> Result<(), String> {
 		let _ = std::fs::remove_file(out_dir.join(format!("{name}.json")));
 	}
 	Ok(())
+}
+
+/// The largest share of a reference build's quests a new build may lose before [`quest_drop`] stops
+/// it (a source gone missing, QuestieDB's 975 Forever-only quests in October 2026, loses about 17%).
+pub const MAX_QUEST_DROP: f64 = 0.05;
+
+/// The data build's sanity guard: `new` (a quests.json text) against `reference` (an earlier build's).
+/// Err, naming what is missing, when the quest count falls by more than `max_drop` of the reference's:
+/// how many quests went, and per source they came from its count and its first quests by id and title.
+pub fn quest_drop(reference: &str, new: &str, max_drop: f64) -> Result<(), String> {
+	let parse = |t: &str, what: &str| serde_json::from_str::<serde_json::Map<String, serde_json::Value>>(t).map_err(|e| format!("{what} quests.json: {e}"));
+	let (old, new) = (parse(reference, "the reference")?, parse(new, "the new")?);
+	if old.is_empty() || (new.len() as f64) >= old.len() as f64 * (1.0 - max_drop) {
+		return Ok(());
+	}
+	let mut gone: Vec<(i64, &serde_json::Value)> = old.iter().filter(|(k, _)| !new.contains_key(*k)).map(|(k, q)| (k.parse().unwrap_or(0), q)).collect();
+	gone.sort_by_key(|g| g.0);
+	let mut by_source: std::collections::BTreeMap<&str, Vec<String>> = std::collections::BTreeMap::new();
+	for (id, q) in &gone {
+		let title = q.get("title").and_then(|t| t.as_str()).unwrap_or("?");
+		for s in q.get("source").and_then(|s| s.as_array()).into_iter().flatten().filter_map(|s| s.as_str()) {
+			by_source.entry(s).or_default().push(format!("{id} {title}"));
+		}
+	}
+	let mut sources: Vec<(&str, Vec<String>)> = by_source.into_iter().collect();
+	sources.sort_by(|a, b| b.1.len().cmp(&a.1.len()).then(a.0.cmp(b.0)));
+	let pct = 100.0 * (old.len() - new.len().min(old.len())) as f64 / old.len() as f64;
+	Err(format!(
+		"the quest count fell from {} to {} ({pct:.1}%, more than {:.0}% allowed): {} quests are missing; by source: {}",
+		old.len(),
+		new.len(),
+		max_drop * 100.0,
+		gone.len(),
+		sources.iter().map(|(s, qs)| format!("{s} {} ({})", qs.len(), qs.iter().take(3).cloned().collect::<Vec<_>>().join(", "))).collect::<Vec<_>>().join("; ")
+	))
 }

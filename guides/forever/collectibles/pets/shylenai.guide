@@ -2,19 +2,19 @@ guide forever/collectibles/pets/shylenai
 title Shylenai's Owls
 category Collectibles
 folder Companion pets · Vendors
-keywords Great Horned Owl, Hawk Owl, Eagle Owl, owl
+keywords Great Horned Owl, Hawk Owl, Eagle Owl, owl, Craftsmen's Terrace
 collects 8500, 8501, 280803
 faction Alliance
 levels 1-60
 zone Darnassus
 
 # Shylenai's owls in Darnassus.
-# Sources: items.json / npcs.json (vendor, two owls; the new Eagle Owl); Forever client
-# 1.60.1.70338 via wago.tools (ItemSparse prices; every pet item teaches its
-# companion when used).
+# Sources: items.json / npcs.json (vendor, two owls; the new Eagle Owl; a beta
+# sighting at 69.8,45.6); Forever's client data (ItemSparse prices; every pet
+# item teaches its companion when used).
 
 step Shylenai
-  tip Shylenai sells three owls in Darnassus (50s each); the Eagle Owl is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Shylenai, the owl trainer, stands on the Craftsmen's Terrace in Darnassus, beside the food and general goods vendors. She sells three owls (50s each); the Eagle Owl is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 8665                         -- Shylenai
   buy 8500 npc 8665 optional          -- Great Horned Owl, 50s
   buy 8501 npc 8665 optional          -- Hawk Owl, 50s

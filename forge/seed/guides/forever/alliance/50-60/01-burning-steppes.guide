@@ -1,0 +1,261 @@
+# Azshara, Burning Steppes and Blasted Lands, Alliance ~51 to ~53 (consensus visits 59-62).
+# Flow: Ironforge -> Menethil Harbor -> Auberdine -> Astranaar -> Talrendis Point (flight path) -> Shadowsong Shrine ->
+# Kim'jael at the Legashi Encampment -> the Ruins of Eldarath -> Kim'jael -> Pilot Xiggs on the southern island ->
+# hearth Ironforge -> Lakeshire -> Morgan's Vigil (flight path) -> Dreadmaul Rock -> the Vigil -> Flame Crest and the
+# Ruins of Thaurissan -> Blackrock Stronghold -> Flame Crest -> the Vigil -> Dreadmaul Rock -> the Vigil ->
+# Nethergarde Keep -> the Rise of the Defiler -> fly to Aerie Peak (Wildkin Feathers) -> hearth Ironforge (training) ->
+# Menethil Harbor -> Auberdine -> Rut'theran Village (Druids train in Darnassus: Ironforge has no druid trainer).
+# Forever's 30-60 content (Riverglades, Shen'dralas, Mount Hyjal, the rest of the Wetlands expansion) is not in
+# the data yet: this guide follows Era + known Forever quests.
+# Optional extras: A Meeting with the Master (3381: Sanath Lim-yo's hippogryph feathers, no experience in the data)
+# and Dark Iron Legacy (3801: Franclorn Forgewright is a ghost only the dead can see, at Blackrock Mountain).
+# Deviations from the export:
+# - The Talrendis Point flight path is taken on arrival in Azshara (the export lists it with its Rut'theran stop at
+#   51.4, which 40-50/05 already covers at 47).
+# - Loh'atu's two quests are handed in before riding on to Kim'jael, instead of after the Sanath Lim-yo detour.
+# - Kim'jael's "Missing" Equipment and Arcane Runes share the Ruins of Eldarath: both are done in one pass.
+# - Return to Tymor (3461) is handed in when the hearth lands in Ironforge, instead of at the Ironforge stop at 57.
+# - FIFTY! YEP!'s medallions drop all through the Blackrock camps, so they are collected with Gor'tesh.
+# - Restored: Tablet of the Seven (4296), taken and handed in at Flame Crest, which the route already visits twice; the
+#   tablet stands in the Ruins of Thaurissan, walked through for the relics anyway.
+# - Added: the Wildkin Feathers for Favored of Elune? (3661, taken at Rut'theran in 40-50/05) are picked up in the
+#   Hinterlands after Nethergarde Keep, and 3661 is handed in at Rut'theran, which opens Moontouched Wildkin (978)
+#   and the Ranshalla chain after it (979, 4901, 4902). Measured with sim compare against dropping the chain: about
+#   0.6 h faster to 60 for every start, despite the flight to Aerie Peak and the boat to Rut'theran.
+# - Added: the Priest chain Cenarion Aid, Of Coursers We Know and The Ichor of Undeath (8254, 8255, 8256) runs on the
+#   Azshara stop the route already makes. Cenarion Aid is taken from High Priest Rohan at the Ironforge stop that ends
+#   40-50/07; Ogtinc camps at the Bear's Head, on the cliffs above the Ruins of Eldarath, between Shadowsong Shrine
+#   and Kim'jael. The Ichor of Undeath (about 10% from the Lingering Highborne) is looted in the Eldarath pass the
+#   route already makes for Kim'jael and Tymor. Blood of Morphaz (8257) is left out: its item lies inside the Sunken
+#   Temple. Measured with the simulator scored for a Priest (sim compare scores no class) against leaving the chain
+#   off: about 0.5 h faster to 60 and 0.7 h less grinding for every Alliance Priest start, with Cenarion Aid scored at
+#   Rohan, the giver the guide names (Brother Joshua in Stormwind is the first one the data lists).
+# Carried on: Felnok Steelspring (4808) for Everlook, Moontouched Wildkin (978) for Winterspring, The Smoldering
+# Ruins of Thaurissan (3701) for Ironforge at 57.
+# Left out: Ragnar Thunderbrew (4128: the export never turns it in).
+# Dropped: Petty Squabbles (2783): its Swamp of Sorrows turn-in is not on the route.
+guide forever/alliance/50-60/01-burning-steppes
+title Burning Steppes, Azshara & Blasted Lands
+faction Alliance
+levels 51-53
+zone Burning Steppes
+next forever/alliance/50-60/02-felwood
+
+# ---------------------------------------------------------------- Ironforge
+
+step Ironforge
+  zone Ironforge
+  sethome "Ironforge" npc 5111        -- Innkeeper Firebrew: the last guide binds here, so this usually ticks at once
+
+# ---------------------------------------------------------------- Azshara
+
+step Menethil Harbor
+  zone Wetlands
+  tip Fly from Ironforge to Menethil Harbor and take the boat to Auberdine.
+  fly "Menethil Harbor"
+
+step Auberdine
+  zone Darkshore
+  tip From the Auberdine dock, fly to Astranaar.
+  fly "Astranaar"
+
+step Talrendis Point
+  zone Azshara
+  tip Ride east along the road out of Ashenvale into Azshara to the Sentinels' camp at Talrendis Point.
+  getfp "Talrendis Point"
+
+step Shadowsong Shrine
+  tip The shrine lies in the south-west corner of Azshara, south of Talrendis Point.
+  accept 5535                         -- Loh'atu
+  accept 5536
+
+step Haldarr Encampment
+  tip The Highborne ghosts haunt the ruins around the shrine; the Haldarr satyrs hold the camp just north of it.
+  kill 6116 quest 5535.1              -- Highborne Apparition
+  kill 6117 quest 5535.2              -- Highborne Lichling
+  kill 6125 quest 5536.1              -- Haldarr Satyr
+  kill 6126 quest 5536.2              -- Haldarr Trickster
+  kill 6127 quest 5536.3              -- Haldarr Felsworn
+
+step Shadowsong Shrine
+  turnin 5535                         -- Loh'atu
+  turnin 5536
+
+step Ogtinc
+  only Priest
+  tip Ride north-east from the shrine: Ogtinc camps at the Bear's Head, in the hills above the road.
+  turnin 8254                         -- Ogtinc
+  accept 8255
+
+step Mosshoof Coursers
+  only Priest
+  tip The nearest Mosshoof Coursers graze the hills north-east of the Bear's Head, toward the Legashi Encampment; a larger herd roams the open ground to the south.
+  collect 20027 quest 8255.1          -- Healthy Courser Gland
+
+step Ogtinc
+  only Priest
+  turnin 8255                         -- Ogtinc
+  accept 8256
+
+step Sanath Lim-yo
+  tip Optional: Sanath Lim-yo wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it.
+  accept 3381 optional
+  collect 10450 quest 3381.1 optional
+  turnin 3381 optional
+
+step Kim'jael
+  tip Kim'jael camps at the Legashi Encampment in the north; his equipment lies all over the Thalassian Base Camp just south-east of him.
+  accept 3601
+  collect 10717 quest 3601.1          -- Kim'Jael's Compass
+  collect 10715 quest 3601.2          -- Kim'Jael's Scope
+  collect 10718 quest 3601.4          -- Kim'Jael's Wizzlegoober
+  collect 10722 quest 3601.3          -- Kim'Jael's Stuffed Chicken
+  turnin 3601
+  accept 5534
+
+step The Ruins of Eldarath
+  tip The Spitelash naga of the Ruins of Eldarath carry Some Rune. Tymor's four runes stand among the ruins: use his Drawing Kit on each.
+  collect 13815 quest 5534.1
+  collect 10563 quest 3449.1          -- Rune of Beth'Amara
+  collect 10564 quest 3449.2          -- Rune of Jin'yael
+  collect 10565 quest 3449.3          -- Rune of Markri
+  collect 10566 quest 3449.4          -- Rune of Sael'hai
+  collect 7972 quest 8256.1 only Priest -- Ichor of Undeath: the Lingering Highborne, about 10%
+
+step Ogtinc
+  only Priest
+  tip Climb back to Ogtinc at the Bear's Head, above the ruins.
+  turnin 8256                         -- Ogtinc
+
+step Kim'jael
+  turnin 5534
+
+step Ravencrest Monument
+  tip Swim to the small island off the southern tip of Azshara: Pilot Xiggs Fuselighter waits by the monument.
+  turnin 3449
+  accept 3461
+
+# ---------------------------------------------------------------- Ironforge
+
+step Ironforge
+  zone Ironforge
+  hearth "Ironforge"
+  turnin 3461                         -- Tymor, Mystic Ward
+
+# ---------------------------------------------------------------- Morgan's Vigil
+
+step Lakeshire
+  zone Redridge Mountains
+  tip Fly from Ironforge to Lakeshire.
+  fly "Lakeshire"
+
+step Morgan's Vigil
+  zone Burning Steppes
+  tip Morgan's Vigil sits in the south-east of the Steppes, at the top of the pass up from Redridge.
+  getfp "Morgan's Vigil"
+  accept 4283                         -- Oralius: the Blackrock orcs drop the medallions, keep it open all through the Steppes
+  accept 3823
+
+step Dreadmaul Rock
+  tip The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.
+  kill 7033 quest 3823.2              -- Firegut Ogre
+  kill 7034 quest 3823.1              -- Firegut Ogre Mage
+  kill 7035 quest 3823.3              -- Firegut Brute
+
+step Morgan's Vigil
+  turnin 3823                         -- Oralius
+  accept 3824
+
+# ---------------------------------------------------------------- Flame Crest and the Ruins of Thaurissan
+
+step Flame Crest
+  tip Follow the road west, then climb north to the goblin camp on Flame Crest.
+  accept 4726                         -- Tinkee Steamboil
+  accept 4296                         -- Maxwort Uberglint
+
+step Thaurissan Relics
+  tip The relics are the carved stones scattered through the Ruins of Thaurissan around Flame Crest: click them until the information is recovered.
+  interact 153556 quest 3701.1        -- Thaurissan Relic
+
+step The Tablet of the Seven
+  tip Read the tablet in the Dark Iron camp among the ruins, south-west of Flame Crest, to copy the transcript.
+  collect 11470 quest 4296.1
+
+step Broodling Essence
+  tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
+  collect 12283 quest 4726.1
+
+step Flame Crest
+  turnin 4726                         -- Tinkee Steamboil
+  accept 4808                         -- Ends with Felnok Steelspring in Everlook, Winterspring: keep it
+  turnin 4296                         -- Maxwort Uberglint
+
+# ---------------------------------------------------------------- Blackrock Stronghold
+
+step Blackrock Stronghold
+  tip Gor'tesh and the Blackrock orcs hold the camps and the stronghold at the foot of Blackrock Mountain, west of Flame Crest. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.
+  collect 11080 quest 3824.1          -- Gor'tesh
+  collect 11467 quest 4283.1          -- Blackrock Medallion
+
+step Franclorn Forgewright
+  tip Optional: Franclorn's ghost stands on his tomb on the great chain inside Blackrock Mountain, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting.
+  accept 3801 optional
+  turnin 3801 optional
+
+# ---------------------------------------------------------------- Back to the Vigil
+
+step Morgan's Vigil
+  tip Ride back east along the road to the Vigil.
+  turnin 4283                         -- Oralius
+  turnin 3824
+  accept 3825
+
+step Dreadmaul Rock
+  tip Climb to the top of Dreadmaul Rock and plant the head in the soft dirt mound.
+  interact 160840 quest 3825.1        -- Soft Dirt Mound
+
+step Morgan's Vigil
+  turnin 3825                         -- Oralius
+  vendor nearest
+
+# ---------------------------------------------------------------- Blasted Lands
+
+step Nethergarde Keep
+  zone Blasted Lands
+  tip Fly to Nethergarde Keep.
+  fly "Nethergarde Keep"
+
+step Kum'isha the Collector
+  tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.
+  accept 3501
+  collect 10593 quest 3501.1
+  turnin 3501
+
+# ---------------------------------------------------------------- The Hinterlands, Ironforge and Rut'theran
+
+step Wildkin feathers
+  zone The Hinterlands
+  tip Ride back to Nethergarde Keep and fly to Aerie Peak. The Wildkin Feathers lie on the ground across the Hinterlands, south and east of Aerie Peak, where the owlbeasts roam; the mobs here are well below you now.
+  fly "Aerie Peak"
+  collect 10819 quest 3661                    -- Wildkin Feather
+
+step Ironforge
+  zone Ironforge
+  hearth "Ironforge"
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Menethil Harbor
+  zone Wetlands
+  tip Fly to Menethil Harbor and take the boat to Auberdine, then the boat on to Rut'theran Village.
+  fly "Menethil Harbor"
+
+step Rut'theran Village
+  zone Teldrassil
+  turnin 3661                         -- Erelas Ambersky
+  accept 978                          -- The wildkin are in Winterspring: keep it
+
+step Druid training
+  only Druid
+  zone Darnassus
+  tip Ironforge has no druid trainer: take the portal up to Darnassus and train in the Cenarion Enclave, then come back down to Rut'theran Village.
+  train class

@@ -756,10 +756,69 @@ fn read_flavor(dir: &Path) -> Option<String> {
 	t.lines().map(str::trim).rfind(|l| !l.is_empty()).map(str::to_string)
 }
 
-/// QuestieDB in the first AddOns folder holding it: `$WOW_FOREVER_ADDONS`, then every detected
-/// Forever client's (live `_forever_` ones first), as tools/lib/addons.js searches.
+/// QuestieDB's Forever store (a baked `QuestieDB_Forever.toc` of flavor Forever) in the first of
+/// [`questie_search_dirs`] holding one.
 pub fn detect_questie() -> Option<PathBuf> {
-	search_addons_dirs().iter().find_map(|d| questie_db_dir(d))
+	questie_search_dirs().iter().find_map(|d| forever_store(d))
+}
+
+/// `dir` or `<dir>/QuestieDB` when it holds a baked Forever store.
+fn forever_store(dir: &Path) -> Option<PathBuf> {
+	let q = questie_db_dir(dir)?;
+	let meta = parse_toc(&std::fs::read_to_string(q.join(TOC)).ok()?);
+	(meta.get("X-Flavor").map(String::as_str) == Some("Forever") && meta.get("X-Mode").map(String::as_str) == Some("baked")).then_some(q)
+}
+
+/// Where QuestieDB is looked for: `$WOW_FOREVER_ADDONS`, then every client's AddOns folder, a live
+/// Forever client's first (flavor wowf, or `_forever_`), then a `_classic_beta_` one (a leftover
+/// beta has no .flavor.info), then the clients of a test server install (`~/Games/*/World of
+/// Warcraft`, Fitz's forever-test), then any other client's.
+pub fn questie_search_dirs() -> Vec<PathBuf> {
+	let env = std::env::var_os("WOW_FOREVER_ADDONS").map(PathBuf::from);
+	questie_search_dirs_in(std::env::var_os("HOME").map(PathBuf::from).as_deref(), env)
+}
+
+fn questie_search_dirs_in(home: Option<&Path>, env: Option<PathBuf>) -> Vec<PathBuf> {
+	let mut dirs: Vec<PathBuf> = env.into_iter().filter(|p| p.is_dir()).collect();
+	let Some(home) = home else { return dirs };
+	let installs = std::fs::read_dir(home.join("Games")).map(|rd| rd.flatten().map(|e| e.path().join("World of Warcraft")).filter(|p| p.is_dir()).collect::<Vec<_>>()).unwrap_or_default();
+	let mut installs: Vec<(bool, PathBuf)> = installs.into_iter().map(|p| (true, p)).collect();
+	installs.sort();
+	let mut found: Vec<(u8, PathBuf)> = Vec::new();
+	let mut seen = FxHashSet::default();
+	for (test, wow) in wow_dirs(home).into_iter().map(|w| (false, w)).chain(installs) {
+		let mut names: Vec<String> = std::fs::read_dir(&wow).map(|rd| rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).collect()).unwrap_or_default();
+		names.sort();
+		for name in names {
+			if !(name.len() > 2 && name.starts_with('_') && name.ends_with('_')) {
+				continue;
+			}
+			let client = wow.join(&name);
+			let addons = client.join("Interface").join("AddOns");
+			let Ok(real) = std::fs::canonicalize(&client) else { continue };
+			if !addons.is_dir() || !seen.insert(real) {
+				continue;
+			}
+			let flavor = read_flavor(&client).unwrap_or_default();
+			let rank = if test {
+				2
+			} else if flavor == "wowf" || flavor.to_lowercase().contains("forever") || name == "_forever_" {
+				0
+			} else if name == "_classic_beta_" {
+				1
+			} else {
+				3
+			};
+			found.push((rank, addons));
+		}
+	}
+	found.sort_by_key(|f| f.0);
+	for (_, a) in found {
+		if !dirs.contains(&a) {
+			dirs.push(a);
+		}
+	}
+	dirs
 }
 
 /// <AddOns>/<folder> in the first of `search_addons_dirs` holding it (tools/lib/addons.js findInstalledAddon).
@@ -821,5 +880,77 @@ mod tests {
 		let t = parse_toc("## X-Flavor: Forever\n## Title :  A b  \r\n");
 		assert_eq!(t["X-Flavor"], "Forever");
 		assert_eq!(t["Title"], "A b");
+	}
+
+	/// A fake home: a wine prefix with the clients `(name, flavor, store)` (flavor None: no
+	/// .flavor.info; store: a baked Forever QuestieDB in its AddOns), and a test install under Games.
+	fn home(tag: &str, clients: &[(&str, Option<&str>, bool)], test_install: bool) -> PathBuf {
+		let h = std::env::temp_dir().join(format!("forge-questie-home-{tag}-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&h);
+		let store = |addons: &Path| {
+			let q = addons.join("QuestieDB");
+			std::fs::create_dir_all(&q).unwrap();
+			std::fs::write(q.join(TOC), "## X-Flavor: Forever\n## X-Mode: baked\n").unwrap();
+		};
+		let wow = h.join("Games/drive_c/Program Files (x86)/World of Warcraft");
+		for (name, flavor, has) in clients {
+			let c = wow.join(name);
+			let addons = c.join("Interface/AddOns");
+			std::fs::create_dir_all(&addons).unwrap();
+			if let Some(f) = flavor {
+				std::fs::write(c.join(".flavor.info"), format!("{f}\n")).unwrap();
+			}
+			if *has {
+				store(&addons);
+			}
+		}
+		if test_install {
+			let addons = h.join("Games/forever-test/World of Warcraft/_classic_beta_/Interface/AddOns");
+			std::fs::create_dir_all(&addons).unwrap();
+			store(&addons);
+		}
+		h
+	}
+
+	fn detect_in(h: &Path) -> Option<PathBuf> {
+		questie_search_dirs_in(Some(h), None).iter().find_map(|d| forever_store(d))
+	}
+
+	#[test]
+	fn questie_found_in_a_leftover_beta_without_flavor_info() {
+		// October 2026: the beta client was uninstalled; its folder kept QuestieDB but lost .flavor.info,
+		// and the live client has no QuestieDB. The old search found nothing and the data was built
+		// without it (975 quests fewer).
+		let h = home("leftover", &[("_classic_beta_", None, true), ("_forever_", Some("wowf"), false), ("_retail_", Some("wow"), false)], false);
+		assert!(detect_in(&h).is_some_and(|q| q.to_string_lossy().contains("_classic_beta_")), "{:?}", questie_search_dirs_in(Some(&h), None));
+		let _ = std::fs::remove_dir_all(&h);
+	}
+
+	#[test]
+	fn questie_in_the_live_client_first_then_beta_then_a_test_install() {
+		let h = home("order", &[("_classic_beta_", Some("wow_classic_beta"), true), ("_forever_", Some("wowf"), true)], true);
+		assert!(detect_in(&h).is_some_and(|q| q.to_string_lossy().contains("_forever_")));
+		let h2 = home("test", &[("_forever_", Some("wowf"), false), ("_classic_era_", Some("wow_classic_era"), false)], true);
+		assert!(detect_in(&h2).is_some_and(|q| q.to_string_lossy().contains("forever-test")));
+		let h3 = home("none", &[("_forever_", Some("wowf"), false)], false);
+		assert_eq!(detect_in(&h3), None);
+		for d in [h, h2, h3] {
+			let _ = std::fs::remove_dir_all(d);
+		}
+	}
+
+	#[test]
+	fn quest_drop_names_whats_missing() {
+		let q = |n: usize, extra: &str| -> String {
+			let mut v: Vec<String> = (1..=n).map(|i| format!("\"{i}\": {{\"title\": \"Q{i}\", \"source\": [\"pfquest\"]}}")).collect();
+			if !extra.is_empty() {
+				v.push(extra.into());
+			}
+			format!("{{{}}}", v.join(","))
+		};
+		let old = q(100, "\"9001\": {\"title\": \"Sticks and Bones\", \"source\": [\"questie-forever\"]}");
+		assert!(crate::build::quest_drop(&old, &q(100, ""), crate::build::MAX_QUEST_DROP).is_ok(), "1 of 101 gone is within 5%");
+		let e = crate::build::quest_drop(&old, &q(80, ""), crate::build::MAX_QUEST_DROP).unwrap_err();
+		assert!(e.contains("from 101 to 80") && e.contains("21 quests are missing") && e.contains("pfquest 20 (81 Q81, 82 Q82, 83 Q83); questie-forever 1 (9001 Sticks and Bones)"), "{e}");
 	}
 }

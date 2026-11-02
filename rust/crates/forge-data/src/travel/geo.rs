@@ -66,6 +66,23 @@ impl Frames {
 		Frames { list, by_id, zones: if zones.is_object() { zones.clone() } else { V::obj() } }
 	}
 
+	/// These frames and, for a map with no frame here, its frame in `forever` (map-frames.json
+	/// `forever`: the maps Forever added, the Riverglades), ids ascending.
+	pub fn with_forever(&self, forever: &V) -> Frames {
+		let mut list = self.list.clone();
+		if let Some(o) = forever.as_obj() {
+			for (k, v) in o.entries() {
+				let id = forge_guide::js::str_to_num(&k) as i64;
+				if !self.by_id.contains_key(&id) {
+					list.push((id, Frame::of(&v)));
+				}
+			}
+		}
+		list.sort_by_key(|e| e.0);
+		let by_id = list.iter().copied().collect();
+		Frames { list, by_id, zones: self.zones.clone() }
+	}
+
 	pub fn frame(&self, map: i64) -> Option<Frame> {
 		self.by_id.get(&map).copied()
 	}

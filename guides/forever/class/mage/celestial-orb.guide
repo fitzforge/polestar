@@ -24,53 +24,76 @@ why An off-hand orb or a staff for the late 30s, your pick.
 # 2026-10-14) for the givers, the elite Exorcism, the timers (3 minutes for the
 # demon, 10 for the surges) and the reward choice (Celestial Orb or Celestial
 # Stave); the quest texts for the Mannoroc Coven and the Obsidian Sentinel.
+# The KB drops table (Infernal Orb 100% from the Burning Blade Summoners, level
+# 38-39; npcs.json: twelve at the Mannoroc Coven, one in western Mulgore);
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20): the
+# Exorcism's timer running on after the kill, pulling the demon from the dock,
+# its resistances, abandon-and-retake on failure; the Sentinel (level 42
+# elite, 2 hour respawn) behind the first door of Uldaman's rear entrance, its
+# shards and the spell reflect, the zone-line trick; the surges arriving four
+# at a time and the tree south-west of the field.
 # Power in Uldaman is dungeon work (Uldaman, a group of five).
+# Optional extra: Tabetha's Task (2861) and Tiara of the Deep (2846), open to
+# every class (Forever's quest data: no class or race limit) but handed out by
+# the same mage trainers (quests.json: Jennea Cannon, Bink, Anastasia
+# Hartwell, Deino) from 40; the tiara drops every time from Hydromancer
+# Velratha (level 46 elite) in Zul'Farrak (KB drops; the entrance is the
+# point the 40-50 routes use, Tanaris 38.7,20.0); rewards from quests.json.
 
 step Return to the Marsh (Stormwind)
   only Alliance
   zone Stormwind City
-  tip Jennea Cannon in the Wizard's Sanctum, Stormwind's Mage Quarter, sends you back to Tabetha; Bink in Ironforge gives the same quest.
+  tip Jennea Cannon at the top of the Wizard's Sanctum, Stormwind's Mage Quarter, sends you back to Tabetha; Bink in Ironforge gives the same quest.
   level 35
   accept 1953 npc 5497                        -- Jennea Cannon
 
 step Return to the Marsh (Orgrimmar)
   only Horde
   zone Orgrimmar
-  tip Deino, one of Orgrimmar's mage trainers, sends you back to Tabetha; Anastasia Hartwell in the Undercity and Ursyn Ghull in Thunder Bluff give the same quest.
+  tip Deino, one of Orgrimmar's mage trainers in Darkbriar Lodge, sends you back to Tabetha; Anastasia Hartwell in the Undercity and Ursyn Ghull in Thunder Bluff give the same quest.
   level 35
   accept 1953 npc 5885                        -- Deino
 
 step Tabetha
   zone Dustwallow Marsh
-  tip Tabetha's cottage is deep in the marsh west of Theramore, just north of the Stonemaul Ruins.
+  tip Tabetha's cottage is deep in the marsh west of Theramore, just north of the Stonemaul Ruins; come in from the west road, the elites roam its east side.
   turnin 1953                                 -- Tabetha
   accept 1954
 
 step The Infernal Orb
   zone Desolace
-  tip The Burning Blade Summoners work the Mannoroc Coven in southern Desolace; any of them carries an Infernal Orb.
+  tip The Burning Blade Summoners (level 38-39, not elite) work the Mannoroc Coven in southern Desolace, east of Shadowprey Village, and every one carries an Infernal Orb. They cast Shadow Bolt from 40 yards, keep an imp at their side and run for help at low health; Nether Maidens patrol the pillared ruin beside them, so pull with care. Horde mages: one more summoner stands alone in western Mulgore, south-west of Thunder Bluff.
   collect 7291 quest 1954.1                   -- Infernal Orb: Burning Blade Summoner
 
 step The Exorcism
   zone Dustwallow Marsh
-  tip Tabetha draws the demon out of the orb beside her cottage. The Demon of the Orb is elite: grouping up is advised. You have three minutes before it slips back into the orb.
+  tip Back at Tabetha's. Kill the critters around the cottage first: they join the fight. Accepting The Exorcism starts a 3 minute timer, and Tabetha calls the Demon of the Orb out in her garden: a level 40 elite that resists many spells, roots and slows. Grouping up is encouraged: a mage of 40 may need help or potions, at about 45 it is soloable. You can pull it from range from the dock. The timer keeps running after it dies, so hand the quest in straight away. If time runs out, abandon the quest and take it again; she calls the demon again.
   turnin 1954                                 -- Tabetha
   accept 1955
-  kill 6549 quest 1955.1                      -- Demon of the Orb
+  kill 6549 quest 1955.1                      -- Demon of the Orb (elite, 40)
   turnin 1955                                 -- Tabetha
   accept 1956
 
 step Power in Uldaman
   zone Badlands
-  tip Uldaman is a dungeon in the northern Badlands, by the Meeting Stone: a group of five. Defeat the Obsidian Sentinel inside for its power source.
+  tip Uldaman is a dungeon in the northern Badlands: a group of five. Go in by the rear entrance, a cave in Dustwind Gulch south-east of the main entrance (elite dragons fly nearby): the Obsidian Sentinel (level 42 elite) stands just past the first door. At 80, 60, 40 and 20 percent it breaks off an Obsidian Shard, an elite too; while a shard lives, both reflect targeted spells, so use area spells and your wand on them. A solo trick: step out through the nearby zone line each time a shard appears; the Sentinel heals but keeps shrinking. It always drops the power source, and takes 2 hours to come back.
   collect 8053 quest 1956.1 @49.1,13.7        -- Obsidian Power Source: Obsidian Sentinel
 
 step Mana Surges
   zone Dustwallow Marsh
-  tip Back to Tabetha. She opens a mana rift beside her cottage: kill twelve Mana Surges within ten minutes.
+  tip Back to Tabetha. Accepting Mana Surges opens a rift beside her cottage and starts a 10 minute timer: twelve Mana Surges (level 40, Shock and Lightning Bolt) come out about four at a time. Attacking one does not pull the rest. Standing at the edge of the field draws them all; the tree south-west of it is out of their reach but in your spell range. Kill twelve and hand in before the timer runs out.
   turnin 1956                                 -- Tabetha
   accept 1957
-  kill 6550 quest 1957.1                      -- Mana Surge
+  kill 6550 x12 quest 1957.1                  -- Mana Surge
   turnin 1957                                 -- Tabetha
   accept 1958
-  turnin 1958 choose 7515 9517                -- Celestial Power
+  turnin 1958 choose 7515 9517                -- Celestial Power: the Celestial Orb (off-hand) or the Celestial Stave
+
+step Tabetha's Task (optional)
+  tip At 40 the mage trainers who send you to Tabetha (Jennea Cannon, Bink, Anastasia Hartwell, Deino) also have Tabetha's Task, a quest any class can do. Tabetha then wants the Tiara of the Deep from Hydromancer Velratha, a level 46 elite naga in Zul'Farrak, the troll dungeon in north-western Tanaris: a group of five, level 44-54. She is one of the bosses by the sacred pool, and the tiara always drops. The reward window shows the Spellshifter Rod and the Gemshale Pauldrons.
+  level 40
+  accept 2861 optional
+  turnin 2861 optional                        -- Tabetha
+  accept 2846 optional
+  collect 9234 quest 2846.1 @38.7,20.0 optional -- Tiara of the Deep: Hydromancer Velratha, Zul'Farrak
+  turnin 2846 optional                        -- Tabetha

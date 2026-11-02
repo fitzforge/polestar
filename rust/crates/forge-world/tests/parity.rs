@@ -235,3 +235,13 @@ fn partial_floors_cache_fails() {
 	let err = World::load_with(&golden_root(), Faction::Horde, &empty).err().expect("an error");
 	assert!(err.to_string().contains("floors source lacks"), "{err}");
 }
+
+#[test]
+#[ignore = "writes the slice worlds to $WORLD_OUT for a field diff"]
+fn dump_slice_worlds() {
+	let out = PathBuf::from(std::env::var("WORLD_OUT").unwrap());
+	for f in Faction::BOTH {
+		let (w, _) = slice_world(f);
+		std::fs::write(out.join(format!("world-{}.json", f.lower())), w.to_json()).unwrap();
+	}
+}

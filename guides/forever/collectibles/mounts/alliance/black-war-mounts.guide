@@ -5,26 +5,33 @@ folder Mounts · PvP
 keywords Black War Steed Bridle, Reins of the Black War Tiger, Black Battlestrider, Black War Ram, Lieutenant Karter, Commander, PvP rank 11, Champions' Hall
 collects 18241, 18242, 18243, 18244
 faction Alliance
-levels 40-60
+levels 60-60
 zone Stormwind City
 
 # The Alliance rank 11 PvP mounts from Lieutenant Karter in Stormwind.
 # Rank 11 (Commander / Lieutenant General) unlocks the Black War mounts;
 # vendors in Stormwind and Orgrimmar.
-# Sources: Forever client 1.60.1.70338 via wago.tools (ItemSparse: level 40,
-# 100g, racial riding spell, no rank in the item itself). Our data has no spawn
-# for the vendor, so the waypoint is the honor hall next to its quartermasters
-# (npcs.json).
+# Sources: Forever client 1.60.1.70532 via wago.tools (ItemSparse: level 40,
+# 100g, no rank in the item itself; MountCapability: each needs Riding 150 and
+# its kind's riding: Horse Riding, Tiger Riding, Mechanostrider Piloting, Ram
+# Riding; CurrencyTypes: Rank Points come from battlegrounds and tasks given in
+# Gadgetzan). Blizzard's PvP article (October 2026): Rank Points from
+# battlegrounds, PvP quests and the season's weekly tasks, a weekly cap, rank 11
+# Mounts, and the Player vs. Player tab of the character pane.
+# Lieutenant Karter's place: Forever's world data spawn (build 70425), in the
+# open city now rather than an instanced hall.
+# ASSUMED: they cost 100g (client price); beta player guides say PvP rewards are
+# bought with Honor. In-game check: Lieutenant Karter's price.
 
 step PvP rank 11
-  tip Forever's PvP ranks come from Rank Points earned in battlegrounds and world PvP, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. Polestar cannot read your rank, so this step waits for level 40 and the riding skill.
-  level 40
-  skill Riding 75
+  tip Rank Points come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Commander (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. Riding one at full speed needs Journeyman Riding (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman Riding.
+  level 60
+  skill Riding 150
 
 step Lieutenant Karter
-  tip Lieutenant Karter sells the mounts in the Champions' Hall in Stormwind's Old Town, beside the other honor quartermasters such as Officer Areyn. The Forever client lists each at 100g; choose one.
-  vendor 12783 @73.8,53.6             -- Lieutenant Karter
-  buy 18241 npc 12783 @73.8,53.6 optional -- 100g
-  buy 18242 npc 12783 @73.8,53.6 optional -- 100g
-  buy 18243 npc 12783 @73.8,53.6 optional -- 100g
-  buy 18244 npc 12783 @73.8,53.6 optional -- 100g
+  tip Lieutenant Karter sells the mounts in Stormwind's Old Town by the Champions' Hall, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Humans ride the steed, Night Elves the tiger, Gnomes the battlestrider, Dwarves the ram. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city).
+  vendor 12783 @70.6,55.9             -- Lieutenant Karter
+  buy 18241 npc 12783 @70.6,55.9 optional -- Black War Steed, Horse Riding, 100g
+  buy 18242 npc 12783 @70.6,55.9 optional -- Black War Tiger, Tiger Riding, 100g
+  buy 18243 npc 12783 @70.6,55.9 optional -- Black Battlestrider, Mechanostrider Piloting, 100g
+  buy 18244 npc 12783 @70.6,55.9 optional -- Black War Ram, Ram Riding, 100g

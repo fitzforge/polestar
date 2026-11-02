@@ -11,7 +11,7 @@
 use std::path::Path;
 
 use forge_guide::js::str_to_num;
-use rustc_hash::FxHashSet;
+use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::math_round;
 
@@ -370,6 +370,9 @@ pub struct Loaded {
 	pub tables: Tables,
 	/// `Number(Spell)` of Era's SkillLineAbility rows from SOD_SPELL_MIN (nk keys).
 	pub season: FxHashSet<u64>,
+	/// Era's SkillLineAbility: spell -> TrivialSkillLineRankLow (yellow), for the Classic learn-skill
+	/// estimate (extract.rs).
+	pub era_yellow: FxHashMap<i64, i64>,
 	pub warnings: Vec<String>,
 }
 
@@ -494,6 +497,7 @@ pub fn load(sources: &Path, build: Option<&str>) -> Result<Loaded, String> {
 	let era_item_effect = read::<ItemEffect>(&root, &eb, "ItemEffect")?;
 
 	let season = era_abilities.iter().filter(|r| r.spell_n >= super::extract::SOD_SPELL_MIN as f64).map(|r| nk(r.spell_n)).collect();
+	let era_yellow = era_abilities.iter().filter(|r| r.low > 0).map(|r| (r.spell, r.low)).collect();
 
 	// fillFromEra: per spell (a spell Forever's SpellEffect has is wholly Forever's) and per id.
 	let spells: FxHashSet<u64> = effects.iter().map(|r| nk(r.spell_n)).collect();
@@ -523,7 +527,14 @@ pub fn load(sources: &Path, build: Option<&str>) -> Result<Loaded, String> {
 	let linked: FxHashSet<u64> = item_x.iter().map(|r| nk(r.item_n)).collect();
 	let item_effect = fill(item_effect, era_item_effect, |r| r.parent_n > 0.0 && !linked.contains(&nk(r.parent_n)));
 
-	Ok(Loaded { build: fb, era_build: eb, tables: Tables { skill_line, abilities, spell_name, effects, reagents, totems, casting, focus, sparse, item, item_effect, item_x }, season, warnings })
+	Ok(Loaded {
+		build: fb,
+		era_build: eb,
+		tables: Tables { skill_line, abilities, spell_name, effects, reagents, totems, casting, focus, sparse, item, item_effect, item_x },
+		season,
+		era_yellow,
+		warnings,
+	})
 }
 
 #[cfg(test)]

@@ -18,8 +18,8 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 
 **The guide window.** The step's goals with their counters, who comes next, XP per hour and the time to level.
 
-- **One person at a time.** In a quest hub the window shows only who to talk to now and their quests, then who comes next ("Person 2 of 8"), and the arrow points at that person.
-- **Goals check themselves off** as you play: quests accepted and turned in, kills, loot, places reached, trainers visited, skills and reputation. Your place is worked out from your quest log, so it survives lost saved variables.
+- **One person at a time.** In a quest hub the window names who to talk to now, then who comes next ("Person 2 of 8"), and the arrow points at that person. The whole hub's quests stay listed under it, each with its person: what you took or handed in stays checked, and a quest its giver did not offer stays on the list, the arrow on that giver, asking you to report it.
+- **Goals check themselves off** from what the game says: quests in your quest log or handed in, kills, loot, places reached, spells learned at a trainer, skills and reputation. Opening a chat or a trainer's window alone checks nothing off. Your place is worked out from your quest log, so it survives lost saved variables.
 - **A guide for where you are.** The window opens with a guide for your race, class, level and zone, and each guide hands over to the next one in its chain when you finish it.
 - **Solo by design.** The leveling routes use only quests one player can do alone; a quest that needs an elite appears as an extra marked "optional". Class quests come at the level each class gets them.
 - **Tabs.** Up to six guides open at once: a leveling route and a profession, say.

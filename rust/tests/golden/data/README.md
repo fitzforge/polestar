@@ -4,7 +4,7 @@ JS: the release `data build` as it last stood before its deletion (rust-nojs at 
 Command: `node regen.js $POLESTAR_V1` (buildData: offline, no QuestieDB, no web XP, no web zone lists, forever tables via wago CSVs, builtAt 2026-10-22T00:00:00.000Z). The input folder's absolute path in meta.json warnings is written as `<input>`.
 Inputs (input/, cut by `node slice.js <data/sources> input`; zones Durotar 14, Elwynn 12, Ragefire Chasm 2437):
 - pfQuest/ (MIT, shagu/pfQuest; LICENSE kept): units/objects spawning there, quests they start/end, their objective items/refloot, areatriggers, meta, enUS names; entries verbatim.
-- sources/wago/1.15.9.70003, 1.60.1.70450: Blizzard client table rows (UiMap, UiMapAssignment, Faction, ChrRaces/ChrClasses/CharBaseInfo, Map whole; AreaTable top-level + the zones' areas; ItemSparse cut to the items; Item and SpellName cut to the ItemSparse ids).
+- sources/wago/1.15.9.70003, 1.60.1.70450: Blizzard client table rows (UiMap, UiMapAssignment, Faction, ChrRaces/ChrClasses/CharBaseInfo, Map whole; AreaTable top-level + the zones' areas; ItemSparse cut to the items; Item and SpellName cut to the ItemSparse ids; SpellEffect cut to the two camp-bot summons, Reagent Bot and Repair Bot, which the slice's NPCs do not include).
 - sources/cmangos/22b51464f162/spawnz.json, spawnz.2.json, training.json: CMaNGOS classic-db (GPL facts) extracts of ../extracts' dump slice (copies of ../extracts/expected).
 - recordings/: Polestar's own synthetic sessions (a-d from tests/fixtures/data, e/f written for this golden).
 - forever-db/corrections/<section>.json: synthetic entries in the corrections schema (values made up for the test); mechanics.json holds the mechanics correction (read by ../kb).

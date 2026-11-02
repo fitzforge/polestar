@@ -1,0 +1,149 @@
+# The Badlands and the Hinterlands, Alliance ~42.8 to ~43.3 (consensus visits
+# 43-45). Flow: fly to Thelsamar > the Badlands (Sigrun, Garek, Murdaloc,
+# Rigglefuzz, Camp Boff, the Scalding Whelps) > back to Thelsamar, fly to
+# Southshore > ride to Aerie Peak > the Witherbark villages > fly to Menethil,
+# boat to Theramore > fly to Nijel's Point, on the way to Feathermoon
+# Stronghold, where the next guide starts.
+#
+# Grind: the previous guides dropped long detours (the Shimmering Flats stop,
+# Teldrassil, Searing Gorge); to keep the level, this guide grinds to 43 on
+# the Scalding Whelps while hunting Sigrun's Black Drake's Heart (a 2% drop,
+# so the heart is optional).
+#
+# Deviations from the export:
+# - Pearl Diving (705), carried from 30-40/06-badlands with its pearls from
+#   Stranglethorn's north-west coast, is handed in to Rigglefuzz on the ride
+#   west to Camp Boff. Caught! (4449) is taken by a later guide at the
+#   Searing Gorge outhouse.
+# - The Southshore turn-in of Down the Scarlet Path (1052) is made here, on
+#   the way from Thelsamar to Aerie Peak; there is no hearth to Southshore
+#   (no bind there any more), so the guide flies from Thelsamar.
+# - Aerie Peak and Feathermoon binds: Aerie Peak's is dropped (never used
+#   before the next bind); the flight path and bind at Feathermoon belong to
+#   the next guide, which starts there.
+# - Cortello's Riddle part 2 (625, the Musty Scroll in western Dustwallow) is
+#   not taken: a detour for one quest. Theramore stays for Akiris by the
+#   Bundle (623): the boat lands next to Privateer Groy.
+# - Troll Necklace Bounty's repeat (2881) is optional: hand in spare
+#   necklaces only.
+# - Aerie Peak: Fraggar (2880) on the way up, then Talonaxe beside the
+#   flight master at the top.
+# Left out: Rhapsody's Kalimdor Kocktail (1452): never handed in on the route.
+# Murdaloc (739) and Ironband Wants You! (707) are handed in by a later guide
+# in Loch Modan. Class quests: Warlocks hand in Summon Felsteed (4488) at
+# Ratchet, one flight from Theramore, before leaving.
+guide forever/alliance/40-50/02-badlands
+title Badlands & The Hinterlands
+faction Alliance
+levels 43-44
+zone Badlands
+next forever/alliance/40-50/03-feralas
+
+# ---------------------------------------------------------------- The Badlands
+
+step Thelsamar
+  zone Loch Modan
+  fly "Thelsamar"                     -- Gryth Thurden, the Great Forge
+
+step Hammertoe's Digsite
+  zone Badlands
+  tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
+  accept 706                          -- Sigrun Ironhew
+
+step Garek
+  tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
+  accept 732
+
+step Agmond's End
+  tip The battered skeleton lies at the edge of the Stonevault trogg camp; Murdaloc, Agmond's killer, walks among the Bonesnappers.
+  accept 739                          -- Battered Dwarven Skeleton
+  kill 2945 quest 739                 -- Murdaloc
+  kill 2893 quest 739                 -- Stonevault Bonesnapper
+
+step Rigglefuzz
+  tip Ride west to the Valley of Fangs in the middle of the Badlands; Rigglefuzz camps beside Martek.
+  turnin 705                          -- Blue Pearls from Stranglethorn
+  note Rigglefuzz's next quest pays no experience: skip it.
+
+step Boss Tho'grun
+  tip Ride west across the Badlands to the Dustbelcher camp at Camp Boff. Boss Tho'grun stands in its middle with Wyrmhunters and Maulers around him.
+  collect 4640 quest 732              -- Sign of the Earth
+
+step Garek
+  tip Ride back east to Dustwind Gulch.
+  turnin 732
+  note Garek's next task is an elite hunt: skip it.
+
+step Lethlor Ravine
+  tip The Scalding Whelps nest in the ravine east of Garek; leave the Scorched Guardians (elite) alone. The Black Drake's Heart drops rarely: take it if it comes while you grind.
+  level 43                            -- grind on Scalding Whelp at Lethlor Ravine, Badlands
+  collect 4612 quest 706 optional     -- Black Drake's Heart
+
+step Hammertoe's Digsite
+  turnin 706 optional                 -- Sigrun Ironhew
+
+# ---------------------------------------------------------------- Southshore and Aerie Peak
+
+step Southshore
+  zone Hillsbrad Foothills
+  tip Ride north to Thelsamar and fly to Southshore. Raleigh the Devout preaches by the inn.
+  fly "Southshore"
+  turnin 1052                         -- Raleigh the Devout
+  note Raleigh's next errand is in the Scarlet Monastery: skip it.
+
+step Aerie Peak
+  zone The Hinterlands
+  tip Ride north-east out of Southshore on the road into the Hinterlands; Aerie Peak sits just past the border. Falstad holds court at the top, Gryphon Master Talonaxe tends the aviary and Fraggar Thundermantle stands by the inn.
+  getfp "Aerie Peak"
+  turnin 1449                         -- Falstad Wildhammer
+  accept 1450
+  turnin 1450                         -- Gryphon Master Talonaxe
+  accept 1451
+  accept 2988
+  accept 2880                         -- Fraggar Thundermantle
+
+step Rhapsody Shindigger
+  tip Rhapsody camps on the road east of Aerie Peak.
+  turnin 1451
+  note Rhapsody's cocktail needs parts from Kalimdor: skip it.
+
+step Witherbark villages
+  tip The first two cages stand together in the Witherbark village south of Rhapsody; the third is in the next village to the east. Every Witherbark troll can drop a necklace.
+  interact 144066 quest 2988          -- First Witherbark Cage
+  interact 144067 quest 2988          -- Second Witherbark Cage
+  interact 144068 quest 2988          -- Third Witherbark Cage
+  collect 9259 quest 2880             -- Troll Tribal Necklace
+
+step Aerie Peak
+  turnin 2880                         -- Fraggar Thundermantle
+  accept 2881 optional                -- Fraggar keeps paying for necklaces: hand in any extras
+  turnin 2881 optional
+  turnin 2988                         -- Gryphon Master Talonaxe, beside the flight master at the top
+  note Talonaxe's next task waits for a later Hinterlands guide.
+
+# ---------------------------------------------------------------- Theramore
+
+step Menethil Harbor
+  zone Wetlands
+  tip Take the boat to Theramore from the far pier.
+  fly "Menethil Harbor"
+  goto 5.13,63.61 "Boat to Theramore"
+
+step Theramore
+  zone Dustwallow Marsh
+  tip Privateer Groy stands on the docks where the boat lands.
+  turnin 623                          -- Privateer Groy
+
+step Warlock: Summon Felsteed
+  only Warlock
+  zone The Barrens
+  tip Fly to Ratchet; Strahad Farsan teaches in the house by the bank. Fly back to Theramore afterwards.
+  fly "Ratchet"
+  turnin 4488                         -- Strahad Farsan
+  accept 4490
+  turnin 4490
+
+step On to Feathermoon
+  zone Desolace
+  tip Fly to Nijel's Point, ride south through Desolace into Feralas and follow the road to the dock on the Forgotten Coast; the boat crosses to Feathermoon Stronghold, where the next guide starts.
+  fly "Nijel's Point"

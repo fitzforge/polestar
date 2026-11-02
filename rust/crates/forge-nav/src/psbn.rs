@@ -86,6 +86,35 @@ pub fn header_of(bytes: &[u8]) -> Option<Map<String, Value>> {
 	serde_json::from_slice(bytes.get(12..12 + n)?).ok()
 }
 
+/// Whether a file is laid out as `encode` writes it, its sections `names` in this order: the header compact JSON
+/// with `contentId` first and `sections` last, each section where encode puts it, zero padding, nothing after the
+/// last. (Its contentId is not hashed again: taken as written.)
+pub fn as_encoded(bytes: &[u8], names: &[&str]) -> bool {
+	let Some(head) = header_of(bytes) else { return false };
+	let n = u32_at(bytes, 8) as usize;
+	let keys: Vec<&str> = head.keys().map(String::as_str).collect();
+	if keys.first() != Some(&"contentId") || keys.last() != Some(&"sections") || !head["contentId"].is_string() {
+		return false;
+	}
+	if serde_json::to_vec(&head).ok().as_deref() != bytes.get(12..12 + n) {
+		return false;
+	}
+	let Some(Value::Object(sections)) = head.get("sections") else { return false };
+	if sections.len() != names.len() || sections.keys().zip(names).any(|(k, n)| k != n) {
+		return false;
+	}
+	let mut end = 12 + n;
+	for v in sections.values() {
+		let (Some(kind), Some(at), Some(len)) = (v.get(0).and_then(Value::as_str).and_then(Kind::of), v.get(1).and_then(Value::as_u64), v.get(2).and_then(Value::as_u64)) else { return false };
+		let at = at as usize;
+		if v.as_array().map_or(0, Vec::len) != 3 || at != align8(end) || bytes.get(end..at).is_none_or(|pad| pad.iter().any(|&b| b != 0)) {
+			return false;
+		}
+		end = at + len as usize * kind.size();
+	}
+	bytes.len() == end
+}
+
 impl<B: AsRef<[u8]>> Bin<B> {
 	pub fn parse(bytes: B) -> Result<Self, Error> {
 		let b = bytes.as_ref();
@@ -147,22 +176,31 @@ pub struct Section {
 	pub bytes: Vec<u8>,
 }
 
+/// The values' little-endian bytes, end to end.
+fn le<T: Copy, const N: usize>(v: &[T], f: impl Fn(T) -> [u8; N]) -> Vec<u8> {
+	let mut out = vec![0u8; v.len() * N];
+	for (o, &x) in out.chunks_exact_mut(N).zip(v) {
+		o.copy_from_slice(&f(x));
+	}
+	out
+}
+
 impl Section {
 	pub fn f64s(name: &str, v: &[f64]) -> Self {
-		Section { name: name.into(), kind: Kind::F64, len: v.len(), bytes: v.iter().flat_map(|x| x.to_le_bytes()).collect() }
+		Section { name: name.into(), kind: Kind::F64, len: v.len(), bytes: le(v, f64::to_le_bytes) }
 	}
 	pub fn f32s(name: &str, v: &[f32]) -> Self {
-		Section { name: name.into(), kind: Kind::F32, len: v.len(), bytes: v.iter().flat_map(|x| x.to_le_bytes()).collect() }
+		Section { name: name.into(), kind: Kind::F32, len: v.len(), bytes: le(v, f32::to_le_bytes) }
 	}
 	pub fn u32s(name: &str, v: &[u32]) -> Self {
-		Section { name: name.into(), kind: Kind::U32, len: v.len(), bytes: v.iter().flat_map(|x| x.to_le_bytes()).collect() }
+		Section { name: name.into(), kind: Kind::U32, len: v.len(), bytes: le(v, u32::to_le_bytes) }
 	}
 	pub fn i32s(name: &str, v: &[i32]) -> Self {
-		Section { name: name.into(), kind: Kind::I32, len: v.len(), bytes: v.iter().flat_map(|x| x.to_le_bytes()).collect() }
+		Section { name: name.into(), kind: Kind::I32, len: v.len(), bytes: le(v, i32::to_le_bytes) }
 	}
 	pub fn u64s_as_f64(name: &str, v: &[u64]) -> Self {
 		// u64 has no typed array in binfile.js: stored as two u32 words each (lo, hi).
-		Section { name: name.into(), kind: Kind::U32, len: v.len() * 2, bytes: v.iter().flat_map(|x| x.to_le_bytes()).collect() }
+		Section { name: name.into(), kind: Kind::U32, len: v.len() * 2, bytes: le(v, u64::to_le_bytes) }
 	}
 	pub fn u8s(name: &str, v: &[u8]) -> Self {
 		Section { name: name.into(), kind: Kind::U8, len: v.len(), bytes: v.to_vec() }
@@ -210,7 +248,8 @@ pub fn encode(header: &Map<String, Value>, sections: &[Section]) -> (Vec<u8>, St
 		layout = next;
 	}
 	let head = head_of(&layout);
-	let mut out = Vec::new();
+	let size = sections.iter().map(|s| layout[&s.name][1].as_u64().unwrap() as usize + s.bytes.len()).max().unwrap_or(0).max(12 + head.len());
+	let mut out = Vec::with_capacity(size);
 	out.extend_from_slice(&MAGIC.to_le_bytes());
 	out.extend_from_slice(&VERSION.to_le_bytes());
 	out.extend_from_slice(&(head.len() as u32).to_le_bytes());

@@ -8,7 +8,7 @@ zone map 1414
 next forever/exploration/kalimdor-45-60
 
 # Every discoverable area of Desolace, Shen'dralas, Feralas, Dustwallow Marsh
-# (45 map overlays), for both factions. Each `explore` point is the centre of
+# (42 map overlays), for both factions. Each `explore` point is the centre of
 # the area's map overlay hit rect in the Forever client's tables
 # (WorldMapOverlay, UiMapXMapArt, UiMap, AreaTable via wago.tools, build
 # 1.60.1.70338), in the map's live frame (written `live` where Forever moved the
@@ -21,14 +21,14 @@ step Desolace (1/2)
   zone Desolace
   tip Picks up west of the Barrens, in Desolace, and ends in Dustwallow Marsh. 15 areas to discover here, levels 30-39.
   note "Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."
-  note "Take the road south-west out of the Stonetalon Mountains into Desolace; Nijel's Point in the north is the Alliance town." only Alliance
+  note "Fly to Stonetalon Peak (or to Nijel's Point if you have it) and take the road south-west out of the Stonetalon Mountains into Desolace; Nijel's Point in the north is the Alliance town." only Alliance
   note "Fly to Sun Rock Retreat and take the road south-west into Desolace; Shadowprey Village on the west coast is the Horde town." only Horde
   note "Flight path here: Nijel's Point (Baritanas Skyriver)." only Alliance
   note "Flight path here: Shadowprey Village (Thalon)." only Horde
-  explore 54.4,28.1 "Thunder Axe Fortress"
   explore 54.4,12.4 "Tethris Aran"
   explore 64.9,9.4 "Nijel's Point" -- Alliance town: Horde characters only need to touch its edge (guards)
   explore 75.8,22.8 "Sargeron"
+  explore 54.4,28.1 "Thunder Axe Fortress"
   explore 64.4,40.4 "Kormek's Hut"
   explore 74.4,48.7 "Kolkar Village"
   explore 80.3,79.3 "Shadowbreak Ravine"
@@ -64,18 +64,16 @@ step Feralas (1/2)
   note "Camp Mojache in the east is the Horde town." only Horde
   note "Flight paths here: Thalanaar (Thyssiana), Feathermoon (Fyldren Moonfeather)." only Alliance
   note "Flight path here: Camp Mojache (Shyn)." only Horde
-  explore 54.6,16.8 "Oneiros" -- level 60 area, well above this guide's range
-  explore 51.4,10.1 "Dream Bough" -- level 60 area, well above this guide's range
-  explore 39.7,10.9 "Ruins of Ravenwind"
   explore 47.2,25.4 "The Twin Colossals"
+  explore 39.7,10.9 "Ruins of Ravenwind"
   explore 30.2,50.1 "Sardor Isle" -- Alliance town: Horde characters only need to touch its edge (guards)
   explore 29.7,79 "Isle of Dread"
   explore 46.4,62.1 "The Forgotten Coast"
   explore 54.4,56.9 "Feral Scar Vale"
+  explore 53.6,71.1 "Frayfeather Highlands"
 
 step Feralas (2/2)
   zone Feralas
-  explore 53.6,71.1 "Frayfeather Highlands"
   explore 61.4,67 "Ruins of Isildien"
   explore 72.9,61 "The Writhing Deep"
   explore 58.9,41.9 "Dire Maul"
@@ -83,6 +81,12 @@ step Feralas (2/2)
   explore 75.3,42.3 "Camp Mojache" -- Horde town: Alliance characters only need to touch its edge (guards)
   explore 77.3,31.1 "Gordunni Outpost"
   explore 86.1,43 "Lower Wilds"
+
+step Feralas: level 60+ areas
+  zone Feralas
+  tip Oneiros and Dream Bough are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them.
+  explore 54.6,16.8 "Oneiros" -- level 60 area, well above this guide's range
+  explore 51.4,10.1 "Dream Bough" -- level 60 area, well above this guide's range
 
 step Dustwallow Marsh
   zone Dustwallow Marsh
@@ -95,6 +99,10 @@ step Dustwallow Marsh
   explore 44.4,48.7 "The Quagmire / Beezil's Wreck / Tidefury Cove" -- any one of these names counts
   explore 36.9,22.8 "Brackenwall Village / Darkmist Cavern / Bluefen" -- Horde town: Alliance characters only need to touch its edge (guards); any one of these names counts
   explore 53.9,22.8 "Witch Hill / Dreadmurk Shore / North Point Tower / Dustwallow Bay" -- any one of these names counts
-  explore 75.6,17.6 "Alcaz Island" -- level 61 area, well above this guide's range
   explore 68.1,51.3 "Theramore Isle / Sentry Point" -- Alliance town: Horde characters only need to touch its edge (guards); any one of these names counts
   explore 52.6,75.2 "Wyrmbog / Tidefury Cove" -- any one of these names counts
+
+step Dustwallow Marsh: level 61+ area
+  zone Dustwallow Marsh
+  tip Alcaz Island is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it.
+  explore 75.6,17.6 "Alcaz Island" -- level 61 area, well above this guide's range

@@ -60,6 +60,8 @@ pub struct WalksIn<'a> {
 	pub threads: usize,
 	pub nav: Nav,
 	pub log: &'a (dyn Fn(&str) + Sync),
+	/// Extra pairs (world point ids) to walk beyond the radius rules (WalkWorld::extra).
+	pub extra: &'a [(usize, usize)],
 }
 
 pub struct WalksOut {
@@ -120,27 +122,46 @@ pub fn save_store(store: &WalkStore, file: &Path) -> Result<usize, String> {
 }
 
 pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
+	let t0 = Instant::now();
+	let pool = pool(i.threads)?;
+	// The world once for every pass: its points, places and each band's asks (the same on every backend).
+	let (world, walks_key) = pool.install(|| rayon::join(|| WalkWorld::from_json(i.world_json, i.maps), || forge_world::World::from_json(i.world_json).map(|w| w.walks_key())));
+	let mut world = world?;
+	world.extra = i.extra.to_vec();
+	world.walks_key = walks_key?;
+	pool.install(|| world.ask_bands(i.bands));
 	let leffe_pass = match &i.nav {
 		Nav::Hybrid { pack, cache_mb, leffe_store } => Some((Nav::Leffe { pack: pack.clone(), cache_mb: *cache_mb }, leffe_store)),
 		Nav::HybridSaved { leffe_store } => Some((Nav::LeffeSaved, leffe_store)),
 		_ => None,
 	};
-	if let Some((leffe_nav, leffe_store)) = leffe_pass {
-		let t0 = Instant::now();
-		// Each backend's own pass: its "not walkable" counts are its own, before the merge falls back to the grid.
-		let (glog, llog) = (|m: &str| (i.log)(&format!("grid: {m}")), |m: &str| (i.log)(&format!("Leffe's maps: {m}")));
-		let g = walks(&WalksIn { nav: Nav::Grid, log: &glog, ..*i })?;
-		let l = walks(&WalksIn { nav: leffe_nav, store: leffe_store, log: &llog, ..*i })?;
-		let (bin, h) = hybrid_bin(&g.bin, &l.bin, crate::hybrid::SLACK)?;
-		for line in crate::hybrid::summary(&h) {
-			(i.log)(&line);
-		}
-		let stats = serde_json::json!({ "nav": i.nav.source(), "grid": g.stats, "leffe": l.stats, "hybrid": h, "bytes": bin.len(), "wallS": t0.elapsed().as_secs_f64() });
-		return Ok(WalksOut { bin, stats });
+	let Some((leffe_nav, leffe_store)) = leffe_pass else { return pass(i, &world, &pool) };
+	// Each backend's own pass: its "not walkable" counts are its own, before the merge falls back to the grid.
+	let (glog, llog) = (|m: &str| (i.log)(&format!("grid: {m}")), |m: &str| (i.log)(&format!("Leffe's maps: {m}")));
+	// Side by side, each on threads of its own: while one reads its store, assembles or writes it (one core),
+	// the other routes. (One pool for both starves the grid's fine-grained steps, its CCH customization among
+	// them, behind Leffe's searches of seconds each.)
+	let (g, l) = std::thread::scope(|s| {
+		let g = s.spawn(|| pass(&WalksIn { nav: Nav::Grid, log: &glog, ..*i }, &world, &self::pool(i.threads)?));
+		let l = pass(&WalksIn { nav: leffe_nav, store: leffe_store, log: &llog, ..*i }, &world, &pool);
+		(g.join().unwrap_or_else(|e| std::panic::resume_unwind(e)), l)
+	});
+	let (g, l) = (g?, l?);
+	let (bin, h) = pool.install(|| hybrid_bin(&g.bin, &l.bin, crate::hybrid::SLACK))?;
+	for line in crate::hybrid::summary(&h) {
+		(i.log)(&line);
 	}
+	let stats = serde_json::json!({ "nav": i.nav.source(), "grid": g.stats, "leffe": l.stats, "hybrid": h, "bytes": bin.len(), "wallS": t0.elapsed().as_secs_f64() });
+	Ok(WalksOut { bin, stats })
+}
+
+fn pool(threads: usize) -> Result<rayon::ThreadPool, String> {
+	rayon::ThreadPoolBuilder::new().num_threads(threads).build().map_err(|e| e.to_string())
+}
+
+/// One backend's walks of the world (`i.nav` is no hybrid) on `pool`.
+fn pass(i: &WalksIn, world: &WalkWorld, pool: &rayon::ThreadPool) -> Result<WalksOut, String> {
 	let t_all = Instant::now();
-	let world = WalkWorld::from_json(i.world_json, i.maps)?;
-	let pool = rayon::ThreadPoolBuilder::new().num_threads(i.threads).build().map_err(|e| e.to_string())?;
 	let mut store = open_store(i.store)?;
 	let n0 = store.len();
 	let (doc, stats, smooth) = match &i.nav {
@@ -150,8 +171,8 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 			let walker = crate::walker::Walker::new(grid);
 			let be = GridBackend { walker: &walker, pricing: pr };
 			pool.install(|| {
-				let ends = be.ends(&world);
-				let (d, s) = build_doc(&world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
+				let ends = be.ends(world);
+				let (d, s) = build_doc(world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
 				(d, s, be.smooth())
 			})
 		}
@@ -173,7 +194,7 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 				ends.len()
 			));
 			pool.install(|| {
-				let (d, s) = build_doc(&world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
+				let (d, s) = build_doc(world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
 				(d, s, be.smooth())
 			})
 		}
@@ -186,19 +207,24 @@ pub fn walks(i: &WalksIn) -> Result<WalksOut, String> {
 			};
 			let be = crate::f4walks::F4Backend { f4: crate::f4::F4::open(&nav_dir, *cache_mb)?, pack_id: crate::f4walks::F4Backend::pack_id(&nav_dir).map_err(|e| e.to_string())?, faction };
 			pool.install(|| {
-				let ends = be.ends(&world);
+				let ends = be.ends(world);
 				// Each end's zone on his maps, kept so a build without them prices the danger bands alike.
 				for e in &ends {
 					store.set_zone(e, be.zone_at(e));
 				}
-				let (d, s) = build_doc(&world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
+				let (d, s) = build_doc(world, &ends, &mut store, &be, i.nav_fp, i.log, i.bands);
 				(d, s, be.smooth())
 			})
 		}
 	};
-	let bin = encode(&doc, smooth);
-	// Leffe's saved walks are read only: the pairs they lack were not asked of his maps, so keep no answer for them.
-	let saved = if matches!(i.nav, Nav::LeffeSaved) { 0 } else { save_store(&store, i.store)? };
+	let bin = pool.install(|| encode(&doc, smooth));
+	// Leffe's saved walks are read only: the pairs they lack were not asked of his maps, so keep no answer for
+	// them. A store that gained nothing is left as it is: its file holds it.
+	let saved = match &i.nav {
+		Nav::LeffeSaved => 0,
+		_ if store.changed() || !i.store.exists() => save_store(&store, i.store)?,
+		_ => std::fs::metadata(i.store).map_or(0, |m| m.len() as usize),
+	};
 	let (asked, stored, routed, straight) = stats.iter().fold((0, 0, 0, 0), |s, b| (s.0 + b.pairs, s.1 + b.stored, s.2 + b.routed, s.3 + b.straight));
 	let stats = serde_json::json!({
 		"nav": i.nav.source(),

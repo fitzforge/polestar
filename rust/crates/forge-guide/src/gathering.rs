@@ -133,6 +133,7 @@ const ZONE_ROWS: &[(u32, &str, u32, u32, &str)] = &[
 	(1411, "Durotar", 1, 10, "H"),
 	(1412, "Mulgore", 1, 10, "H"),
 	(1420, "Tirisfal Glades", 1, 10, "H"),
+	(2521, "Zephras Isle", 1, 15, "AH"),
 	(1436, "Westfall", 10, 20, "A"),
 	(1432, "Loch Modan", 10, 20, "A"),
 	(1439, "Darkshore", 10, 20, "A"),

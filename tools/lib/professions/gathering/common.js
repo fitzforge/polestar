@@ -25,8 +25,30 @@ function fmt(v) {
 	return (Math.round(v * 10) / 10).toFixed(1);
 }
 
+// Copper as the game writes money: 12500 -> "1g 25s", 0 -> "free".
+function money(copper) {
+	const c = Math.round(copper || 0);
+	if (c <= 0) return 'free';
+	const parts = [];
+	if (c >= 10000) parts.push(`${Math.floor(c / 10000)}g`);
+	if (c % 10000 >= 100) parts.push(`${Math.floor((c % 10000) / 100)}s`);
+	if (c % 100) parts.push(`${c % 100}c`);
+	return parts.join(' ');
+}
+
+// ` live` after typed coordinates of a point on a map with no Era frame (Zephras
+// Isle): the guides are `coords era`, and such a point stays in Forever's frame.
+function liveMark(pt) {
+	return pt && pt.f === 'l' ? ' live' : '';
+}
+
 function zoneName(ctx, map) {
 	return (ctx.data.zone(map) || {}).name || `map ${map}`;
+}
+
+function foreverFrame(ctx, map) {
+	const frames = ctx.data.mapFrames || ctx.data['map-frames'] || {};
+	return (frames.forever && frames.forever[String(map)]) || null;
 }
 
 // An NPC's spawn as { id, name, map, pt } or null: on `prefer` (the zone the
@@ -36,7 +58,7 @@ function zoneName(ctx, map) {
 function npcSpawn(ctx, id, prefer = null) {
 	let best = null;
 	for (const s of ctx.data.spawns('npc', id)) {
-		if (!ctx.data.eraFrame(s.map)) continue;
+		if (!ctx.data.eraFrame(s.map) && !foreverFrame(ctx, s.map)) continue; // Zephras Isle has a Forever frame only
 		const [x, y] = s.pts[0];
 		const score = (s.map === prefer ? 2000 : 0) + (CITY_MAPS.has(s.map) ? 1000 : 0) + Math.min(x, 100 - x, y, 100 - y);
 		if (!best || score > best.score) best = { s, score };
@@ -111,6 +133,8 @@ module.exports = {
 	FACTIONS,
 	context,
 	fmt,
+	liveMark,
+	money,
 	zoneName,
 	npcSpawn,
 	nearest,

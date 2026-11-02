@@ -247,7 +247,7 @@ impl Flights {
 
 pub fn flights(data: &Data, side: i32) -> Flights {
 	let taxi = data.travel.get("taxi");
-	let nodes: Vec<V> = taxi.get("nodes").items().into_iter().filter(|n| side == 0 || to_int32(n.get("faction").num()) & side != 0).collect();
+	let nodes: Vec<V> = taxi.get("nodes").items().into_iter().filter(|n| (side == 0 || to_int32(n.get("faction").num()) & side != 0) && !n.get("class").truthy()).collect();
 	let ids: rustc_hash::FxHashSet<Key> = nodes.iter().map(|n| key(&n.get("id"))).collect();
 	let mut out: FxHashMap<Key, Vec<(V, f64)>> = FxHashMap::default();
 	for l in taxi.get("legs").items() {

@@ -20,8 +20,9 @@ const path = require('node:path');
 const { runAddon, ADDONS } = require('./helpers/lua');
 const { RACE_FILES, RACE_BY_FILE } = require('../tools/lib/game/races');
 
-// KiB (Lua 5.1, 64-bit).
-const BUDGET = { resident: 1024, peak: 1536 };
+// KiB (Lua 5.1, 64-bit). Peak raised from 1536 to 1670 (measured 1,619 + ~3%, 2026-10-31, c19p): the
+// routes now ship 1-60 for all ten starts, and Skyborne's part holds the legs of both factions.
+const BUDGET = { resident: 1024, peak: 1670 };
 
 const parts = RACE_FILES.map((race) => ({ race, file: path.join(ADDONS, `Polestar_Guides_${race}`, 'Legs.lua') })).filter((p) => fs.existsSync(p.file));
 

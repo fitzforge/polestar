@@ -5,31 +5,36 @@ class Hunter
 folder Hunter
 levels 50-52
 zone Azshara
-keywords Ogtinc, Courser Antlers, Wavethrashing, The Green Drake, Morphaz, Sunken Temple, Temple of Atal'Hakkar, Azshara, class quest
+keywords Ogtinc, Courser Antlers, Wavethrashing, The Green Drake, Morphaz, Mosshoof Courser, Wavethrasher, Sunken Temple, Temple of Atal'Hakkar, Azshara, class quest
 reward text Experience
-why Experience at 50 through Azshara and the Sunken Temple; Forever removed the Classic item choice.
+why Experience at 50 through Azshara and the Sunken Temple; Classic's item choice may be gone on Forever.
 
 # The level 52 Hunter class chain: The Hunter's Charm (8151) from your class
 # trainer to Ogtinc in Azshara, then Courser Antlers (8153), Wavethrashing
 # (8231) and The Green Drake (8232).
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
 # Questie-Forever) for the givers, drops and spawns; travel.json for the
-# flight points; Forever's Hunter class quest list
-# (data/local/quest-audit/) for titles, levels
-# and rewards.
-# Forever status (that page): 8151, 8153 and 8231 "unchanged"; 8232
-# "updated": The Green Drake no longer offers its reward choices (Devilsaur
-# Eye, Devilsaur Tooth, Hunting Spear). The page lists no other reward for
-# the chain, so it pays experience only (510 + 5100 + 5100 + 6350, the
-# page's values).
-# The Tooth of Morphaz drops from Morphaz, an elite boss in the Sunken
+# flight points; the knowledge base's drop table (Perfect Courser Antler 8%,
+# Wavethrasher Scales 32/29/15%, Tooth of Morphaz 100%); quest-notes for the
+# levels, respawns, the coursers' shared spawns and Morphaz's wake-up;
+# Forever's Hunter class quest list (data/local/quest-audit/) for titles,
+# levels and rewards.
+# Forever status (that list): 8151, 8153 and 8231 "unchanged"; 8232
+# "updated": its change note says The Green Drake no longer offers its
+# reward choices (Devilsaur Eye, Devilsaur Tooth, Hunting Spear), but the
+# same list and Forever's quest page still list three choices, as unnamed
+# items 20083, 19991 and 19992 (the page cannot name them; other rewards
+# of the same patch, such as the Warlock's Trolls of a Feather, are named).
+# So the reward is unconfirmed; the guide promises experience only (510 +
+# 5100 + 5100 + 6350).
+# INGAME: does The Green Drake (8232) still offer Devilsaur Eye, Devilsaur Tooth or Hunting Spear on Forever, or experience only?
+# The Tooth of Morphaz drops from Morphaz, an elite drake in the Sunken
 # Temple: this chain needs a dungeon group. The data has no position for
 # Morphaz or the dungeon entrance; the entrance point (69,54, the temple in
 # the middle of the Pool of Tears) is from players' reports on the retail
-# Sunken Temple zone (zone 1477), a non-Forever
-# source used only for that point.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, so nothing here has been checked in game.
+# Sunken Temple zone (zone 1477), a non-Forever source used only for that
+# point.
+# ASSUMED: the chain, Ogtinc's place and the Sunken Temple order (the six balcony trolls open the way to Jammal'an; his death brings Weaver and Dreamscythe; theirs brings Morphaz and Hazzas, who cannot be pulled apart; public Classic dungeon guides) are as in Classic (Classic flow; Forever's data has nothing above 30 beyond the quest rows). In-game check: Ogtinc on the cliff above the Ruins of Eldarath, and the drakes' order in the Pit of Sacrifice.
 
 step The Hunter's Charm (Alliance)
   only Alliance
@@ -47,23 +52,23 @@ step The Hunter's Charm (Horde)
 
 step Ogtinc
   zone Azshara
-  tip Ogtinc lives atop the cliffs north-east of the Ruins of Eldarath. Alliance: fly to Talrendis Point; Horde: fly to Valormok.
+  tip Ogtinc lives on a raised spot on the cliffs at the north-east rim of the Ruins of Eldarath, west-central Azshara. Keep to the high ridges around the ruins: the pit below does not lead up to him. Alliance: fly to Talrendis Point; Horde: fly to Valormok, a short ride west of him.
   getfp "Talrendis Point" only Alliance
   getfp "Valormok" only Horde
   turnin 8151                         -- Ogtinc
   accept 8153
 
 step Courser Antlers
-  tip Mosshoof Coursers graze all over Azshara; one in a dozen or so drops a pair of Perfect Courser Antlers.
-  collect 20017 quest 8153.1          -- Perfect Courser Antler
+  tip You need two Perfect Courser Antlers. Mosshoof Coursers (level 52-53, deer) graze all over Azshara and drop one about one kill in twelve, so expect two dozen kills. Good herds: north of the Thalassian Base Camp in the north, and the hills north-east and south-east of Valormok; the Lake Mennar area also has elite giants and dragonkin. They Enrage at 30% health. Coursers share spawn points with the Thunderhead hippogryphs: if none are around, kill the hippogryphs and coursers may spawn instead. Respawn is about five and a half minutes.
+  collect 20017 x2 quest 8153.1       -- Perfect Courser Antler, from Mosshoof Coursers
 
 step Ogtinc
   turnin 8153                         -- Ogtinc
   accept 8231
 
 step Wavethrashing
-  tip Wavethrashers crawl along Azshara's coasts: Young Wavethrashers on the north-east shore and Wavethrashers on the east coast drop the scales about twice as often as the Great Wavethrashers of the south shore.
-  collect 20087 quest 8231.1          -- Wavethrasher Scales
+  tip You need six Wavethrasher Scales. Wavethrashers (three-headed sea beasts) live along Azshara's coasts, mostly underwater: the Young Wavethrashers (level 51-52) of the north-east shore drop a scale about one kill in three, the Wavethrashers (52-53) of the east coast by the Tower of Eldara about as often (a few walk the beach there), the Great Wavethrashers (53-54) of the south-east shore about one in seven. Track Beasts does not show them; fight them where you can breathe, and bring water breathing if you can. Elite sharks swim the deeper water.
+  collect 20087 x6 quest 8231.1       -- Wavethrasher Scales
 
 step Ogtinc
   turnin 8231                         -- Ogtinc
@@ -71,9 +76,10 @@ step Ogtinc
 
 step Morphaz in the Sunken Temple
   zone Swamp of Sorrows
-  tip Morphaz is an elite dragon boss inside the Sunken Temple, a five-player dungeon: bring a group. The temple stands in the middle of the Pool of Tears; swim down into it to reach the entrance. Horde: fly to Stonard; Alliance: fly to Darkshire or Nethergarde Keep and ride on.
+  tip Morphaz is an elite green drake (level 52) inside the Sunken Temple, a five-player dungeon: needs a group of five. The temple stands in the Pool of Tears in eastern Swamp of Sorrows: climb its outer steps, dive into the flooded hall and follow the stairs down to the entrance. Horde: fly to Stonard; Alliance: fly to Nethergarde Keep or Darkshire and ride on. He is not there when you arrive: first kill the six troll guardians on the platforms around the upper ring, which opens the way down to Jammal'an the Prophet in the Pit of Sacrifice. Jammal'an's death brings out two drakes, Weaver and Dreamscythe (pull them one at a time); when both are dead, Morphaz and Hazzas appear together and cannot be split. Clear the dragonkin around the pit first, because they call for help. Morphaz uses Acid Breath and Wing Flap. The tooth always drops. Warriors in the group may want the same run for the voodoo feathers of the balcony trolls.
   collect 20019 quest 8232.1 @69.0,54.0 -- Tooth of Morphaz, inside the Sunken Temple
 
 step The Green Drake
   zone Azshara
+  tip In Classic Ogtinc let you choose the Devilsaur Eye, the Devilsaur Tooth or the Hunting Spear here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in.
   turnin 8232                         -- Ogtinc

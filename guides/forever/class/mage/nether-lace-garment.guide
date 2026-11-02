@@ -4,12 +4,12 @@ category Class
 class Mage
 folder Mage
 faction Horde
-race Undead,Troll
+race Orc,Undead,Troll
 levels 26-30
 zone Orgrimmar
 keywords Anastasia Hartwell, Speak with Deino, Waters of Xavian, Laughing Sisters, Raynewood Retreat, Ashenvale, Kil'hala, Crossroads, Nether-lace Robe, Nether-lace Tunic, Mage, class robe
 reward item 7512 9515
-why A robe or a tunic for Undead and Troll mages in their late 20s.
+why A robe or a tunic for Horde mages in their late 20s.
 
 # The Horde mage robe at 26: Speak with Deino (1943), Waters of Xavian (1944),
 # Laughing Sisters (1945) and Nether-lace Garment (1946).
@@ -17,28 +17,36 @@ why A robe or a tunic for Undead and Troll mages in their late 20s.
 # the Xavian Waterfall and the Laughing Sisters; Forever's Mage class
 # quest list (data/local/quest-audit/, all four unchanged)
 # and quest data (quests 1943, 1944, 1945 and
-# 1946, checked 2026-10-14) for the races (Undead and Troll only: Orc mages
-# have no level 26 robe quest) and the reward choice; the quest texts for the
-# waterfall and Raynewood Retreat.
+# 1946, checked 2026-10-14) for the reward choice; the races: Forever's
+# server (EG Link raceMask, builds 70205-70450) sets no race limit on
+# 1943-1946, so Orc mages take the chain too (forever-db corrections; the
+# quest page's Undead and Troll is Classic's list, from before Orc mages);
+# the quest texts for the
+# waterfall and Raynewood Retreat; the KB drops table (Laughing Sister's Hair
+# 100%) and npcs.json (24 Laughing Sisters, level 24); data/local/mechanics
+# (quest-steps and quest-notes, checked 2026-10-20) for the flask's spot under
+# the northern falls against the rock, the western-fork falls that do not
+# work, the sisters' resistances and the Raynewood guards.
 # Waters of Xavian needs Speak with Deino first (quests.json), and only
 # Anastasia Hartwell in the Undercity gives it. Laughing Sisters opens only
 # after Waters of Xavian, so Ashenvale is visited twice.
 
 step Anastasia Hartwell
   zone Undercity
-  tip Anastasia Hartwell stands in the Undercity's Magic Quarter. Trolls take the zeppelin from Orgrimmar to Tirisfal Glades for her.
+  tip Anastasia Hartwell stands in the Undercity's Magic Quarter. Orcs and Trolls use Teleport: Undercity or take the zeppelin from Orgrimmar to Tirisfal Glades for her.
   level 26
   accept 1943                                 -- Anastasia Hartwell
 
 step Deino
   zone Orgrimmar
-  tip Take the zeppelin to Orgrimmar. Deino is one of Orgrimmar's mage trainers.
+  tip Take the zeppelin to Orgrimmar (or use Teleport: Orgrimmar, which lands you on the upper floor of Darkbriar Lodge). Deino stands with the mage trainers on the lower floor of Darkbriar Lodge in the Valley of Spirits. She hands you Deino's Flask.
   turnin 1943                                 -- Deino
   accept 1944
 
 step The Xavian Waterfall
   zone Ashenvale
-  tip Satyrs hold the ruins of Xavian in eastern Ashenvale. Fill Deino's Flask at the bottom of the highest waterfall.
+  tip Fly to Splintertree Post and swim north up the river past the big lake to its far northern end, where the zone text reads Xavian; satyrs hold the ruins around it and a few river beasts are in the way. Swim right in under the highest waterfall until you touch the rock wall, then use the flask (you can stay in the water). The waterfalls on the western Falfarren fork do not work.
+  use 7269 @76.29,41.49                       -- Deino's Flask, under the falls
   collect 7268 quest 1944.1                   -- Xavian Water Sample
 
 step Back to Deino
@@ -48,12 +56,12 @@ step Back to Deino
 
 step The Laughing Sisters
   zone Ashenvale
-  tip The Laughing Sisters, dryads, gather near the Raynewood Retreat in central Ashenvale.
-  collect 7270 quest 1945.1                   -- Laughing Sister's Hair
+  tip The Laughing Sisters, dryads of level 24-25, roam around the Raynewood Retreat in central Ashenvale; every one drops a hair and they come back after 5 minutes. They often resist fire (and some frost and shadow): arcane spells land best. Each runs for help at low health. Keep clear of the guards by the white tower of the retreat, who hit hard.
+  collect 7270 x12 quest 1945.1               -- Laughing Sister's Hair
 
 step Kil'hala
   zone The Barrens
-  tip Kil'hala, a troll tailor, works at the Crossroads.
+  tip Kil'hala, a troll tailor, works at the Crossroads. The robe gives intellect, stamina and spirit; the tunic more intellect and stamina but no spirit.
   turnin 1945                                 -- Kil'hala
   accept 1946
   turnin 1946 choose 7512 9515                -- Nether-lace Garment

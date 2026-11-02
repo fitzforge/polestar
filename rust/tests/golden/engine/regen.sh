@@ -26,7 +26,10 @@ for (const [f, ls] of Object.entries(d.lines)) {
 unset POLESTAR_GRID NAV4_PACK POLESTAR_CHECKOUT
 node "$JS/engine-chain.js" "$T/slice" forever/horde/orc-troll/01-durotar.guide Orc Horde WARRIOR "$T/forever" "$G/engine/orc.json" skip
 node "$JS/engine-chain.js" "$T/slice" forever/alliance/human/01-elwynn-forest.guide Human Alliance WARRIOR "$T/forever" "$G/engine/human.json" skip
-(cd rust && cargo test -q --release -p forge-judge --test engine_parity -- --exact fixtures_warrior fixtures_mage >/dev/null)
+# (The slice_fixtures_* tests write the fixture guides first, then compare with the goldens this script
+# is about to replace: that comparison may fail here, so only the written guides are checked.)
+(cd rust && cargo test -q --profile quick -p forge-judge --test judge -- --exact engine_parity::slice_fixtures_warrior engine_parity::slice_fixtures_mage >/dev/null 2>&1 || true)
+test -f "$REPO/rust/target/judge-ref/engine-fixtures/forever/alliance/fx/01-a.guide"
 FX=$REPO/rust/target/judge-ref/engine-fixtures
 node "$JS/engine-chain.js" "$FX" forever/alliance/fx/01-a.guide Human Alliance WARRIOR "$T/forever" "$G/engine/fx-warrior.json" skip
 node "$JS/engine-chain.js" "$FX" forever/alliance/fx/01-a.guide Human Alliance MAGE "$T/forever" "$G/engine/fx-mage.json" skip

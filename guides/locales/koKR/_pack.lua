@@ -1,5 +1,5 @@
 -- Korean (koKR): the pack's own texts (its title and notes, its guides' folders).
--- Written by `node tools/polestar.js i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Korean (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -21,4 +21,9 @@ return {
 	["Mounts · Level 60"] = "탈것 · 레벨 60",
 	["Mounts · PvP"] = "탈것 · PvP",
 	["Mounts · Reputation"] = "탈것 · 평판",
+	["Raid"] = "",
+	["Reputation · Battlegrounds"] = "",
+	["Reputation · Cities"] = "",
+	["Reputation · Raids and dungeons"] = "",
+	["Reputation · World"] = "",
 }

@@ -13,13 +13,17 @@
 pub mod chain;
 pub mod eval;
 pub mod fixes;
+pub mod flow;
+pub mod group;
 pub mod guards;
+pub mod hubs;
 pub mod insertable;
 pub mod ledger;
 pub mod needs;
 pub mod order;
 pub mod params;
 pub mod profile;
+pub mod resume;
 pub mod rng;
 pub mod route;
 pub mod run;
@@ -59,6 +63,51 @@ impl Model {
 	pub fn evaluator<'a>(&'a self, walks: &'a dyn Walks) -> Evaluator<'a> {
 		Evaluator::new(&self.run, &self.tables, walks, self.travel.clone())
 	}
+}
+
+/// f(i) for i in 0..n, on the threads when built with them (native), in order of i.
+#[cfg(feature = "native")]
+pub(crate) fn par_map<T: Send, F: Fn(usize) -> T + Sync + Send>(n: usize, f: F) -> Vec<T> {
+	use rayon::prelude::*;
+	(0..n).into_par_iter().map(f).collect()
+}
+
+#[cfg(not(feature = "native"))]
+pub(crate) fn par_map<T, F: Fn(usize) -> T>(n: usize, f: F) -> Vec<T> {
+	(0..n).map(f).collect()
+}
+
+/// par_map with scratch state `init()` per thread's run of items.
+#[cfg(feature = "native")]
+pub(crate) fn par_map_with<S, T: Send, I: Fn() -> S + Sync + Send, F: Fn(&mut S, usize) -> T + Sync + Send>(n: usize, init: I, f: F) -> Vec<T> {
+	use rayon::prelude::*;
+	(0..n).into_par_iter().map_init(init, f).collect()
+}
+
+#[cfg(not(feature = "native"))]
+pub(crate) fn par_map_with<S, T, I: Fn() -> S, F: Fn(&mut S, usize) -> T>(n: usize, init: I, f: F) -> Vec<T> {
+	let mut s = init();
+	(0..n).map(|i| f(&mut s, i)).collect()
+}
+
+/// f(&mut items[i], i) for i in 0..n (n at most items.len()), on the threads, in order of i.
+#[cfg(feature = "native")]
+pub(crate) fn par_each_mut<S: Send, T: Send, F: Fn(&mut S, usize) -> T + Sync + Send>(items: &mut [S], n: usize, f: F) -> Vec<T> {
+	use rayon::prelude::*;
+	items[..n].par_iter_mut().with_max_len(1).enumerate().map(|(i, s)| f(s, i)).collect()
+}
+
+#[cfg(not(feature = "native"))]
+pub(crate) fn par_each_mut<S, T, F: Fn(&mut S, usize) -> T>(items: &mut [S], n: usize, f: F) -> Vec<T> {
+	items[..n].iter_mut().enumerate().map(|(i, s)| f(s, i)).collect()
+}
+
+/// The threads par_map and its kin run on.
+pub(crate) fn threads() -> usize {
+	#[cfg(feature = "native")]
+	return rayon::current_num_threads();
+	#[cfg(not(feature = "native"))]
+	1
 }
 
 /// The world a sim dir's walks were built on: `<sim_dir>/world-<faction>.json` (the world file

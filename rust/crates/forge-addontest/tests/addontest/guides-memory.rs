@@ -37,8 +37,12 @@ fn pack_files(name: &str) -> String {
 /// resident 10,499, peak 22,119, read 15,833; Horde resident 10,249, peak 21,665, read 16,146. The format-4
 /// pack (every guide in Polestar_Guides, spots as tables) cost 24,378 resident and 47,362 at the peak for
 /// either faction (the same harness, the same runtime).
+/// 0.3.0 (2026-11-02, Fitz accepted the rise for 0.3.0): the generated 1-60 routes for all ten starts (each
+/// faction's shared route once) and the new class, profession, reputation and collectible guides measure
+/// Alliance resident 15,199, peak 31,641, read 22,598; Horde resident 14,153, peak 29,782, read 21,861.
+/// Budgets are those plus ~3%. Loading the side shelves on demand (0.3.x) should bring them back down.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 10950.0), ("peak", 23000.0), ("read", 16500.0)]), ("Horde", "Orc", [("resident", 10700.0), ("peak", 22550.0), ("read", 16800.0)])];
+	[("Alliance", "Human", [("resident", 15650.0), ("peak", 32600.0), ("read", 23300.0)]), ("Horde", "Orc", [("resident", 14600.0), ("peak", 30700.0), ("read", 22500.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

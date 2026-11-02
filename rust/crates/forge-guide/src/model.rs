@@ -63,9 +63,10 @@ pub enum Verb {
 	Rep,
 	Explore,
 	Achieve,
+	Wait,
 }
 
-pub const VERBS: [(Verb, &str); 31] = [
+pub const VERBS: [(Verb, &str); 32] = [
 	(Verb::Accept, "accept"),
 	(Verb::Turnin, "turnin"),
 	(Verb::Complete, "complete"),
@@ -97,6 +98,7 @@ pub const VERBS: [(Verb, &str); 31] = [
 	(Verb::Rep, "rep"),
 	(Verb::Explore, "explore"),
 	(Verb::Achieve, "achieve"),
+	(Verb::Wait, "wait"),
 ];
 
 impl Verb {
@@ -263,6 +265,10 @@ pub struct Goal {
 	pub only: Option<Only>,
 	pub group: Option<u32>,
 	pub direct: bool,
+	/// talk/vendor/train `gossip`: the gossip option the step key's automation picks.
+	pub gossip: Option<u32>,
+	/// wait goals: seconds.
+	pub seconds: Option<u32>,
 	pub xp: Option<u32>,
 	/// money goals and turnin `money`: copper.
 	pub money: Option<u64>,
@@ -306,6 +312,8 @@ impl Goal {
 			only: None,
 			group: None,
 			direct: false,
+			gossip: None,
+			seconds: None,
 			xp: None,
 			money: None,
 			rewards: Vec::new(),
@@ -356,6 +364,7 @@ impl Goal {
 				});
 			}
 			Verb::Money => w.push(self.money.unwrap_or(0).to_string()),
+			Verb::Wait => w.push(self.seconds.unwrap_or(1).to_string()),
 			Verb::Task => w.push(q(self.text.as_deref().unwrap_or(""))),
 			Verb::Note => w.push(self.text.clone().unwrap_or_default()),
 			Verb::Skill => {
@@ -433,6 +442,9 @@ impl Goal {
 		}
 		if self.direct {
 			w.push("direct".into());
+		}
+		if let Some(g) = self.gossip {
+			w.push(format!("gossip {g}"));
 		}
 		if self.optional {
 			w.push("optional".into());
@@ -715,6 +727,8 @@ fn goal_from_compiled(c: &V) -> Option<Goal> {
 	g.only = Only::from_v(&c.get("only"));
 	g.group = num_u32(c.get("group"));
 	g.direct = c.get("direct").truthy();
+	g.gossip = num_u32(c.get("gossip"));
+	g.seconds = num_u32(c.get("seconds"));
 	g.money = n("money").map(|m| m as u64);
 	g.until = num_u32(c.get("untilSkill"));
 	g.criteria = num_u32(c.get("criteria"));

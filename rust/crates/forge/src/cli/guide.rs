@@ -113,7 +113,7 @@ fn generated(cmd: &str, args: &[String]) -> i32 {
 		eprintln!("forge guide: {m}");
 		1
 	};
-	if let Err(e) = super::check_args(args, &["--checkout", "--from"], &["--force"], 0) {
+	if let Err(e) = super::check_args(args, &["--checkout", "--from", "--data"], &["--force"], 0) {
 		return usage(&e);
 	}
 	let opt = |k: &str| args.iter().position(|a| a == k).and_then(|i| args.get(i + 1)).cloned().or_else(|| args.iter().find_map(|a| a.strip_prefix(k)?.strip_prefix('=').map(String::from)));
@@ -139,10 +139,21 @@ fn generated(cmd: &str, args: &[String]) -> i32 {
 			Err(e) => fail(&e),
 		},
 		"publish" => {
-			let Some(from) = opt("--from").map(abs) else { return usage("publish needs --from <a written guides folder>") };
-			match generated::publish(&checkout, &from) {
-				Ok(n) => {
-					eprintln!("forge guide publish: {n} generated guides from {} into {}/guides ({}); compile them with forge guide compile", from.display(), checkout.display(), generated::GENERATED);
+			let Some(from) = opt("--from").map(abs) else { return usage("publish needs --from <out>/guides (a build's written trees, one per start)") };
+			let data = opt("--data").map(abs).unwrap_or_else(|| checkout.join("data/forever"));
+			match generated::publish(&checkout, &from, &data) {
+				Ok(p) => {
+					for (id, ids) in &p.split {
+						eprintln!("  {id} -> {} (one per race; the old id retired)", ids.join(", "));
+					}
+					eprintln!(
+						"forge guide publish: {} generated guides ({} with baked legs) from {} into {}/guides ({}); compile them with forge guide compile",
+						p.guides,
+						p.legs,
+						from.display(),
+						checkout.display(),
+						generated::GENERATED
+					);
 					0
 				}
 				Err(e) => fail(&e),

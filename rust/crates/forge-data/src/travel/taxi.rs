@@ -160,7 +160,14 @@ pub struct Node {
 	pub y: f64,
 	pub faction: i32,
 	pub npc: Option<(f64, String)>,
+	/// The class alone that may fly from it (client file name: "DRUID"), None: every class.
+	pub class: Option<&'static str>,
 }
+
+/// Taxi nodes the client lists with no character bit, for one class (TaxiNodes 62 and 63, Nighthaven:
+/// Silva Fil'naveth and Bunthen Plainswind fly Druids out of Moonglade to Rut'theran Village and
+/// Thunder Bluff; never a destination, the client's TaxiPath has those two flights out only).
+const CLASS_NODES: [(i64, &str); 2] = [(62, "DRUID"), (63, "DRUID")];
 
 pub struct Leg {
 	pub path: f64,
@@ -209,7 +216,8 @@ pub fn build_taxi(nodes_rows: &Rows, paths_rows: &Rows, path_node_rows: &Rows, f
 		let Some(id) = num(r, "ID").filter(|&n| n != 0.0) else { continue };
 		let flags = num(r, "Flags").unwrap_or(0.0);
 		let faction = crate::jsv::to_int32(flags) & 3;
-		if faction == 0 || !(num(r, "CharacterBitNumber").is_some_and(|n| n > 0.0)) {
+		let class = CLASS_NODES.iter().find(|(n, _)| *n == id as i64).map(|(_, c)| *c);
+		if faction == 0 || !(num(r, "CharacterBitNumber").is_some_and(|n| n > 0.0) || class.is_some()) {
 			continue;
 		}
 		let c = num(r, "ContinentID").unwrap_or(f64::NAN);
@@ -264,6 +272,7 @@ pub fn build_taxi(nodes_rows: &Rows, paths_rows: &Rows, path_node_rows: &Rows, f
 			y: place.y,
 			faction,
 			npc: matched.map(|(npc, _)| (npc.get("id").num(), npc.get("name").to_js_string())),
+			class,
 		});
 	}
 
@@ -322,4 +331,29 @@ fn npc_maps_at(npc: &V, frames: &Frames, live: &LiveFrames, c: f64, wx: f64, wy:
 	}
 	maps.sort();
 	maps
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn the_druids_nighthaven_nodes_are_kept_for_druids_alone() {
+		// TaxiNodes 62/63 have no character bit; the client's paths fly Druids out of Moonglade only.
+		let row = |kv: &[(&str, &str)]| -> Row { kv.iter().map(|(k, v)| (k.to_string(), v.to_string())).collect() };
+		let node = |id: &str, name: &str, x: &str, bit: &str, flags: &str| {
+			row(&[("ID", id), ("Name_lang", name), ("Pos_0", x), ("Pos_1", "0"), ("ContinentID", "1"), ("Flags", flags), ("CharacterBitNumber", bit)])
+		};
+		let nodes = vec![node("63", "Nighthaven, Moonglade", "100", "0", "2"), node("22", "Thunder Bluff, Mulgore", "-100", "22", "2"), node("99", "Hidden, Nowhere", "50", "0", "2")];
+		let paths = vec![row(&[("ID", "316"), ("FromTaxiNode", "63"), ("ToTaxiNode", "22"), ("Cost", "0")])];
+		let era = forge_guide::js::parse_json(r#"{"1414":{"c":1,"left":5000,"right":-5000,"top":5000,"bottom":-5000},"1450":{"c":1,"left":1000,"right":-1000,"top":1000,"bottom":-1000}}"#).unwrap();
+		let zones = forge_guide::js::parse_json(r#"{"1414":{"id":1414,"name":"Kalimdor","type":2},"1450":{"id":1450,"name":"Moonglade","type":3}}"#).unwrap();
+		let frames = Frames::new(&era, &zones);
+		let taxi = build_taxi(&nodes, &paths, &Vec::new(), &frames, &V::obj(), &LiveFrames::default());
+		let class_of = |id: f64| taxi.nodes.iter().find(|n| n.id == id).map(|n| n.class);
+		assert_eq!(class_of(63.0), Some(Some("DRUID")), "{:?}", taxi.warnings);
+		assert_eq!(class_of(22.0), Some(None));
+		assert_eq!(class_of(99.0), None, "another node with no character bit stays out");
+		assert!(taxi.legs.iter().any(|l| l.from == 63.0 && l.to == 22.0));
+	}
 }

@@ -7,32 +7,141 @@ faction Horde
 race Undead
 levels 10-20
 zone Undercity
-keywords Touch of Weakness, Dark Sacrifice, Devouring Plague, Aelthalyste, War Quarter, Undead, Forsaken, racial, Priest
+keywords Touch of Weakness, Dark Sacrifice, Devouring Plague, Aelthalyste, Tai'jin, Var'jun, Ur'kyo, Miles Welsh, War Quarter, Undead, Forsaken, racial, Priest
 reward spell 2652 "Touch of Weakness"
 reward spell 1277324 "Dark Sacrifice"
-why The Undead priest spells: Touch of Weakness at 10, Dark Sacrifice at 20.
+why The Undead priest spells: Touch of Weakness at 10, Dark Sacrifice (new in Forever) at 20. Free, no objectives.
 
-# The Undead Priest spell quests: Touch of Weakness at 10 (5658) and Dark
-# Sacrifice at 20 (5679), both from Aelthalyste in the Undercity.
-# Sources: quests.json and npcs.json for the givers; Forever's
-# Priest class quest list (data/local/quest-audit/):
-# Dark Sacrifice (5644, 5646, 5679) is Devouring Plague renamed and teaches
-# Dark Sacrifice instead (every Priest now trains Devouring Plague at 20:
-# classicwowforever.com/racials); Touch of Weakness is unchanged.
-# horde/undead/01-tirisfal-glades carries Touch of Weakness on the route
-# and horde/04-the-barrens and 05-stonetalon-mountains carry Dark Sacrifice
-# (5646, from Ur'kyo in Orgrimmar); this guide repeats them for anyone off
-# the route. The game offers one quest of each set.
-# Not checked in game: written from the sources above.
+# The Undead Priest spell quests. Each spell has one quest at the teacher,
+# Aelthalyste (War Quarter, Undercity), and letters from priest trainers in
+# other towns; any one teaches the spell and the game offers only one of a
+# set:
+#   Touch of Weakness (level 10):
+#     5658 Aelthalyste (Undercity), her own quest
+#     5660 Tai'jin (Razor Hill, Durotar)
+#     5661 Var'jun (by Bloodhoof Village, Mulgore)
+#     5662 Ur'kyo (Valley of Spirits, Orgrimmar)
+#     5663 Miles Welsh (Spirit Rise, Thunder Bluff)
+#   Dark Sacrifice (level 20; Devouring Plague renamed, teaches Dark
+#   Sacrifice, and every priest trains Devouring Plague in Forever):
+#     5679 Aelthalyste (Undercity), her own quest
+#     5644 Miles Welsh (Thunder Bluff)
+#     5646 Ur'kyo (Orgrimmar)
+# Left out: 5659 Touch of Weakness has no giver in any source and its
+# Forever quest page is titled "<NYI>"; the "<NYI>" placeholders 5691-5693
+# (In the Dark It was Created) and 5704-5706 (Undead Priest Robe, No Longer a
+# Shadow) were never put in the game.
+# The guide sends you to the giver in the zone you stand in when it gets
+# there (`when zone`), else straight to Aelthalyste; a letter you carry from
+# anywhere is handed in on its own step (`when onquest`). Pickups are `talk`
+# goals, not accepts: one guide accepting two quests of one exclusive set
+# warns in lint, which does not follow `when`.
+# Sources: quests.json and npcs.json for the givers; Forever's quest pages
+# (snapshot) agree on every giver; Forever's Priest class quest list
+# (data/local/quest-audit/): Dark Sacrifice (5644, 5646, 5679) is Devouring
+# Plague renamed; Touch of Weakness unchanged (now lowers the attacker's
+# melee attack power). Dark Sacrifice trades 440 of your health over 15 sec
+# for mana, 10-minute cooldown (Forever web guides to the priest racials).
+# horde/undead/01-tirisfal-glades carries Touch of Weakness 5658 on the
+# route; horde/04-the-barrens and 05-stonetalon-mountains carry 5646.
+# Based on data, not play: written from the sources above.
 
-step Touch of Weakness
-  tip At 10, go to Aelthalyste in the Undercity's War Quarter. Priest trainers elsewhere (Ur'kyo in Orgrimmar, Tai'jin in Razor Hill, Miles Welsh in Thunder Bluff) send you to her with a quest of the same name.
+step Touch of Weakness: Tai'jin
+  when zone "Durotar"
+  when !onquest 5658,5660,5661,5662,5663
+  zone Durotar
+  tip At 10 in Durotar, Tai'jin, the priest trainer inside the barracks of Razor Hill, hands you a Touch of Weakness letter for Aelthalyste in the Undercity.
+  level 10
+  talk 3706                                   -- Tai'jin: take his Touch of Weakness letter
+
+step Touch of Weakness: Ur'kyo
+  when zone "Orgrimmar"
+  when !onquest 5658,5660,5661,5662,5663
+  zone Orgrimmar
+  tip At 10 in Orgrimmar, Ur'kyo in the Valley of Spirits hands you a Touch of Weakness letter for Aelthalyste in the Undercity. The zeppelin to Tirisfal Glades leaves from the tower outside Orgrimmar's front gate.
+  level 10
+  talk 6018                                   -- Ur'kyo: take his Touch of Weakness letter
+
+step Touch of Weakness: Var'jun
+  when zone "Mulgore"
+  when !onquest 5658,5660,5661,5662,5663
+  zone Mulgore
+  tip At 10 in Mulgore, Var'jun, just south-west of Bloodhoof Village, hands you a Touch of Weakness letter for Aelthalyste in the Undercity.
+  level 10
+  talk 11407                                  -- Var'jun: take the Touch of Weakness letter
+
+step Touch of Weakness: Miles Welsh
+  when zone "Thunder Bluff"
+  when !onquest 5658,5660,5661,5662,5663
+  zone Thunder Bluff
+  tip At 10 in Thunder Bluff, Miles Welsh, the priest trainer in the cave under Spirit Rise, hands you a Touch of Weakness letter for Aelthalyste in the Undercity.
+  level 10
+  talk 3044                                   -- Miles Welsh: take his Touch of Weakness letter
+
+step Touch of Weakness: Aelthalyste
+  when !onquest 5658,5660,5661,5662,5663
+  zone Undercity
+  tip At 10, go to Aelthalyste, the priest trainer in the Undercity's War Quarter: she gives Touch of Weakness and takes it back at once. No letter needed. From Brill, follow the road south to the ruined city of Lordaeron; the Undercity's lifts are at the back of the throne room. Touch of Weakness strikes the next melee attacker for Shadow damage and lowers its melee attack power for 2 minutes.
   level 10
   accept 5658                                 -- Aelthalyste
   turnin 5658                                 -- Aelthalyste: Touch of Weakness
 
-step Dark Sacrifice
-  tip At 20, Aelthalyste teaches Dark Sacrifice. Ur'kyo in Orgrimmar and Miles Welsh in Thunder Bluff send you to her with a quest of the same name.
+step Touch of Weakness: Tai'jin's letter
+  when onquest 5660
+  zone Undercity
+  tip Hand the letter to Aelthalyste in the Undercity's War Quarter: the zeppelin from the tower outside Orgrimmar lands in Tirisfal Glades, a short walk from the Undercity.
+  turnin 5660                                 -- Aelthalyste: Touch of Weakness
+
+step Touch of Weakness: Var'jun's letter
+  when onquest 5661
+  zone Undercity
+  tip Hand the letter to Aelthalyste in the Undercity's War Quarter: travel to Orgrimmar and take the zeppelin to Tirisfal Glades.
+  turnin 5661                                 -- Aelthalyste: Touch of Weakness
+
+step Touch of Weakness: Ur'kyo's letter
+  when onquest 5662
+  zone Undercity
+  tip Hand the letter to Aelthalyste in the Undercity's War Quarter: the zeppelin from the tower outside Orgrimmar lands in Tirisfal Glades.
+  turnin 5662                                 -- Aelthalyste: Touch of Weakness
+
+step Touch of Weakness: Miles Welsh's letter
+  when onquest 5663
+  zone Undercity
+  tip Hand the letter to Aelthalyste in the Undercity's War Quarter: travel to Orgrimmar and take the zeppelin to Tirisfal Glades.
+  turnin 5663                                 -- Aelthalyste: Touch of Weakness
+
+step Dark Sacrifice: Ur'kyo
+  when zone "Orgrimmar"
+  when !onquest 5679,5644,5646
+  zone Orgrimmar
+  tip At 20 in Orgrimmar, Ur'kyo in the Valley of Spirits hands you a Dark Sacrifice letter for Aelthalyste in the Undercity.
+  level 20
+  talk 6018                                   -- Ur'kyo: take his Dark Sacrifice letter
+
+step Dark Sacrifice: Miles Welsh
+  when zone "Thunder Bluff"
+  when !onquest 5679,5644,5646
+  zone Thunder Bluff
+  tip At 20 in Thunder Bluff, Miles Welsh in the cave under Spirit Rise hands you a Dark Sacrifice letter for Aelthalyste in the Undercity.
+  level 20
+  talk 3044                                   -- Miles Welsh: take his Dark Sacrifice letter
+
+step Dark Sacrifice: Aelthalyste
+  when !onquest 5679,5644,5646
+  zone Undercity
+  tip At 20, Aelthalyste in the War Quarter teaches Dark Sacrifice with a quest she gives and takes back at once (its text still speaks of Devouring Plague, which every priest now learns from the trainer).
   level 20
   accept 5679                                 -- Aelthalyste
   turnin 5679                                 -- Aelthalyste: Dark Sacrifice
+
+step Dark Sacrifice: Ur'kyo's letter
+  when onquest 5646
+  zone Undercity
+  tip Hand the letter to Aelthalyste in the Undercity's War Quarter: the zeppelin from the tower outside Orgrimmar lands in Tirisfal Glades.
+  turnin 5646                                 -- Aelthalyste: Dark Sacrifice
+
+step Dark Sacrifice: Miles Welsh's letter
+  when onquest 5644
+  zone Undercity
+  tip Hand the letter to Aelthalyste in the Undercity's War Quarter: travel to Orgrimmar and take the zeppelin to Tirisfal Glades.
+  turnin 5644                                 -- Aelthalyste: Dark Sacrifice

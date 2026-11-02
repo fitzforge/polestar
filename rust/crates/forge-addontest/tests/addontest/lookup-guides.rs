@@ -139,7 +139,7 @@ fn world(c: &Ctx, tail: &str) -> String {
 const PLAY: &str = r#"
 stub.login()
 Polestar.Set("behavior.autoNextGuide", false)
-local id, why = Polestar.Lookup.Guide(@KIND@, @ID@)
+local id, why = Polestar.Lookup.Guide(@KIND@, @ID@, @INDEX@)
 local g = id and Polestar.Guides.Get(id)
 local steps = {}
 if g then
@@ -153,13 +153,15 @@ emit({ id = id or false, why = why or false, active = Polestar.Engine.GetGuide()
 stub.advance(0.6)
 "#;
 
-// Builds and opens the guide, describes it, then plays it to the end.
+// Builds and opens the guide, describes it, then plays it to the end. A mount is built only from a
+// source picked on its Lookup page (Lookup.Guide builds none from its best source): its first, ranked.
 fn play(c: &Ctx, kind: &str, id: &Value, level: i64, setup: &str) -> (Value, Value) {
+	let index = if kind == "mount" { "1" } else { "nil" };
 	let mut out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: world(c, &format!("w.level = {level}\nw.moveTo({}, 50, 50)\n{setup}", c.home)),
 		addons: vec!["Polestar".into()],
-		script: PLAY.replace("@KIND@", &lua_value(&json!(kind))).replace("@ID@", &lua_value(id)) + SIMULATE,
+		script: PLAY.replace("@KIND@", &lua_value(&json!(kind))).replace("@ID@", &lua_value(id)).replace("@INDEX@", index) + SIMULATE,
 		..Default::default()
 	});
 	let built = out.remove(0);

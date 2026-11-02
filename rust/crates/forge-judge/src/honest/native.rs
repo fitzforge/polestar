@@ -3,8 +3,7 @@
 
 use super::{arriving, honest_play, kb_from_rows, personas, Finding, HonestOpts, Kb, KbStep, Persona};
 use forge_guide::data::Data;
-use forge_guide::diag::Diagnostics;
-use forge_guide::project::{compile_sources, find_guide_files, CompileOpts, Source};
+use forge_guide::project::{compile_checked, find_guide_files, CompileOpts, Source};
 use std::path::Path;
 
 /// loadKb: `steps where drives = 1 and n is not null order by quest, n` from `file`; None when the file
@@ -136,13 +135,7 @@ pub fn play_pack(pack_dir: &Path, data: &Data, kb: Option<&Kb>, run: &PackRun, o
 	let by_rel: rustc_hash::FxHashMap<&str, &str> = texts.iter().map(|(r, t)| (r.as_str(), t.as_str())).collect();
 	let sources: Vec<Source> =
 		with_chain(&texts, &wanted).into_iter().map(|rel| Source { file: format!("{shown}/{rel}"), text: by_rel.get(rel.as_str()).copied().unwrap_or("").to_string(), source: rel }).collect();
-	let mut diag = Diagnostics::new();
-	let compiled = compile_sources(&sources, data, &mut diag, &CompileOpts { pack: None, author: None, context: None, pack_dir: None });
-	if diag.has_errors() {
-		let first: Vec<String> = diag.list.iter().filter(|d| d.severity == "error").take(5).map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect();
-		return Err(format!("the pack has errors:\n{}", first.join("\n")));
-	}
-	let guides = compiled.guides;
+	let guides = compile_checked(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None })?.guides;
 	let play: Vec<String> = guides.iter().filter(|g| wanted.iter().any(|w| g.hidden("_ast").get("source").as_str() == Some(w.as_str()))).map(|g| g.get("id").to_js_string()).collect();
 	let arr = arriving(&guides);
 	let race = run.race.as_deref().map(race_file);

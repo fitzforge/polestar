@@ -27,6 +27,21 @@ pub struct Goal {
 	/// Where the goal is (world yards), when located.
 	#[serde(default)]
 	pub w: Option<GoalW>,
+	/// The NPC the goal names (`train 4752`: a trainer by id, not `train class`).
+	#[serde(default)]
+	pub npc: Option<u32>,
+	/// A `train` goal: whether it is `train class` (None: not recorded, as before: a `train` goal
+	/// without an npc is). `train Cooking` is not (RevNightElf: it became a class training at
+	/// Dolanaar).
+	#[serde(default)]
+	pub class: Option<bool>,
+	/// The line of the guide step the goal is in (the goals of one step share it).
+	#[serde(default)]
+	pub step: Option<u32>,
+	/// The compiled goal's spawn spots (cluster centres), world points: the judge's walk goals'
+	/// own (`forge judge check` reads the same), for what one camp is (search::passby::camp_gathers).
+	#[serde(default)]
+	pub spots: Vec<GoalW>,
 }
 
 #[derive(Clone, Debug, Default, serde::Deserialize, serde::Serialize, PartialEq)]
@@ -40,10 +55,27 @@ pub struct GoalW {
 /// goal naming a quest completes it; goals naming no quest are left out.
 pub fn goal_event(g: &Goal) -> Option<Event> {
 	if g.t == "level" {
-		return Some(Event { t: Ev::Level, q: None, level: g.level, xp: None, src: g.i as i64, oi: None });
+		// A fractional target (`level 18.6`, as the routes write their grinds) is that far into the
+		// level, not its start (c15 Horde Silverpine: the judge's clock, reading 18.6 as 18, put the
+		// Sepulcher hearths 54 minutes apart where the route had 79).
+		let (level, xp) = match g.level {
+			Some(l) if l.fract() > 0.0 && (1.0..60.0).contains(&l) => (Some(l.floor()), Some(l.fract() * crate::xp::level_xp(l as usize))),
+			l => (l, None),
+		};
+		return Some(Event { t: Ev::Level, q: None, level, xp, src: g.i as i64, oi: None, npc: None });
 	}
+	// (`train class` only is a class training stop: a trainer named by id, a riding trainer of one
+	// race, Kildar in Orgrimmar, is a line of its race's guide the route may not move to the nearest
+	// town: it was placed at another race's hub. A riding trainer's line is a riding step at that
+	// trainer, Ev::Ride.)
 	if g.t == "train" {
-		return Some(Event { t: Ev::Train, q: None, level: None, xp: None, src: g.i as i64, oi: None });
+		if let Some(npc) = g.npc {
+			return Some(Event { t: Ev::Ride, q: None, level: None, xp: None, src: g.i as i64, oi: None, npc: Some(npc) });
+		}
+		if g.class == Some(false) {
+			return None;
+		}
+		return Some(Event { t: Ev::Train, q: None, level: None, xp: None, src: g.i as i64, oi: None, npc: None });
 	}
 	let q = g.q?;
 	let t = match g.t.as_str() {
@@ -51,7 +83,7 @@ pub fn goal_event(g: &Goal) -> Option<Event> {
 		"turnin" => Ev::Turnin,
 		_ => Ev::Complete,
 	};
-	Some(Event { t, q: Some(q), level: None, xp: None, src: g.i as i64, oi: g.oi })
+	Some(Event { t, q: Some(q), level: None, xp: None, src: g.i as i64, oi: g.oi, npc: None })
 }
 
 /// Goals from a JSON document's `goals` array (the JS reference driver's output, or a seed).
@@ -79,6 +111,7 @@ pub fn events_from(doc: &Value) -> Vec<Event> {
 					xp: e.get("xp").and_then(Value::as_f64),
 					src: e.get("a").and_then(Value::as_i64).unwrap_or(k as i64),
 					oi: None,
+					npc: None,
 				})
 			})
 			.collect();
@@ -176,4 +209,61 @@ pub fn compare_reference(doc: &Value, events: &[Event], rep: &Replay) -> Compare
 		c.compared += 1;
 	}
 	c
+}
+
+#[cfg(test)]
+mod train_tests {
+	use super::*;
+
+	#[test]
+	fn only_train_class_is_a_class_training_stop() {
+		// c4 Troll and an Orc free search moved v1's `train 4752 optional -- Kildar` (the Orc riding
+		// trainer, horde/40-50/02-feralas:90) to the Undercity and Bloodhoof trainer hubs.
+		let g = |npc: Option<u32>| Goal {
+			i: 3,
+			guide: String::new(),
+			file: String::new(),
+			line: None,
+			t: "train".into(),
+			q: None,
+			oi: None,
+			level: None,
+			w: None,
+			npc,
+			class: None,
+			step: None,
+			spots: Vec::new(),
+		};
+		assert!(goal_event(&g(Some(4752))).is_some_and(|e| e.t == Ev::Ride && e.npc == Some(4752)), "a named trainer is the guide's own line (a riding step when it is a riding trainer)");
+		assert!(goal_event(&g(None)).is_some_and(|e| e.t == Ev::Train), "train class");
+		let cooking = Goal { class: Some(false), ..g(None) };
+		assert!(goal_event(&cooking).is_none(), "a profession's training is not a class training");
+		assert!(goal_event(&Goal { class: Some(true), ..g(None) }).is_some_and(|e| e.t == Ev::Train));
+	}
+
+	#[test]
+	fn a_fractional_level_line_is_that_far_into_the_level() {
+		// c15 Horde Silverpine: the route's `level 18.6` (Beren's Peril) read as 18 left the judge's
+		// clock 25 minutes short between the Sepulcher hearths.
+		let g = |l: f64| Goal {
+			i: 0,
+			guide: String::new(),
+			file: String::new(),
+			line: None,
+			t: "level".into(),
+			q: None,
+			oi: None,
+			level: Some(l),
+			w: None,
+			npc: None,
+			class: None,
+			step: None,
+			spots: Vec::new(),
+		};
+		let e = goal_event(&g(18.6)).unwrap();
+		assert_eq!(e.level, Some(18.0));
+		assert!((e.xp.unwrap() - 0.6 * crate::xp::LEVEL_XP[18]).abs() < 1e-6, "{:?}", e.xp);
+		let e = goal_event(&g(19.0)).unwrap();
+		assert_eq!((e.level, e.xp), (Some(19.0), None), "a whole level is the level's start");
+	}
 }

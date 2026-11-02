@@ -1,5 +1,5 @@
 -- French (frFR): the guide forever/class/rogue/the-eye-of-bhossca (forever/class/rogue/the-eye-of-bhossca.guide).
--- Written by `node tools/polestar.js i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in French (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -18,8 +18,8 @@ return {
 	-- Step 2: The Scarlet Monastery
 	-- {area:796} Scarlet Monastery
 	["The {area:796}"] = "Le {area:796}",
-	-- {zone:1420} Tirisfal Glades · {npc:4293} Scarlet Scryer · {item:210963} Scryer's Key · {item:210968} Reliquary Key
-	["The monastery stands in the far north-east of {zone:1420}. Go in alone. Before entering, find the disguise in the chest by the outside stables. Recheck it after changing wings: stealth and suspicious actions can remove it. In the Graveyard, pickpocket a {npc:4293} for the {item:210963}; use it on the Personal Letterbox in the Library and read the message. It sends you back to sit at both benches between the statues in the graveyard. Watch for the mechanism's messages, take the {item:210968} from the stone coffer, then return to the Library for the locked reliquary. Avoid fighting through the instance."] = "",
+	-- {zone:1420} Tirisfal Glades · {npc:1507} Scarlet Initiate · {npc:4293} Scarlet Scryer · {item:210963} Scryer's Key · {item:210968} Reliquary Key
+	["The monastery stands in the far north-east of {zone:1420}. Go in alone, out of any group. Before entering, take the {npc:1507}'s Uniform from the Supply Locker in the stables behind the monastery and wear it; stealth and suspicious actions remove it, so put it back on after each wing change. In the Graveyard, in the Chamber of Atonement (the first big room), Pick Pocket a {npc:4293} or Scarlet Crier for the {item:210963}. In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message. It sends you back to sit on both benches between the two statues in the Graveyard. Watch for the mechanism's messages, then take the {item:210968} from the stone coffer: an elite stands by the coffer with a patrol behind it, but from beside the northern mausoleum you can turn the camera until the box shows and click it through the wall (an interact key works too). An elite ghost walks near the mausoleum; the broken piece at its edge keeps you out of its path. Then return to the Library for the locked reliquary and the eye. Avoid fighting through the instance."] = "",
 	["Solo route: Graveyard key, Library letter, Graveyard benches and coffer, then Library reliquary for the eye. Read the letter before the bench puzzle; check the disguise each time you change wings."] = "",
 
 	-- Step 3: Back to the dead drop

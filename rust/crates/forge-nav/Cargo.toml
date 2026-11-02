@@ -34,3 +34,7 @@ sha2 = { version = "0.10", optional = true }
 
 [lints]
 workspace = true
+
+[[example]]
+name = "trail_walks"
+required-features = ["world"]

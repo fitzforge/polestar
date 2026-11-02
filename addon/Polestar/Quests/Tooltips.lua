@@ -414,7 +414,7 @@ local function updatePlate(unit)
 		-- Replacement plates are often built in the same event after this
 		-- handler, or a frame later: look again once on the next frame.
 		if not replaced and C_Timer and C_Timer.After then
-			C_Timer.After(0, function()
+			ns.After(0, function()
 				if icons[unit] ~= f then return end
 				local now = plateFor(unit)
 				if now then place(f, now, unit) end
@@ -445,7 +445,7 @@ local function updatePlate(unit)
 	-- Re-run once on the next frame so the walk sees it.
 	if not f._countChecked and C_Timer and C_Timer.After then
 		f._countChecked = true
-		C_Timer.After(0, function()
+		ns.After(0, function()
 			if icons[unit] == f then updatePlate(unit) end
 		end)
 	end

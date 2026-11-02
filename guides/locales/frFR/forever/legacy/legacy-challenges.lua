@@ -1,5 +1,5 @@
 -- French (frFR): the guide forever/legacy/legacy-challenges (forever/legacy/legacy-challenges.guide).
--- Written by `node tools/polestar.js i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in French (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -59,9 +59,7 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "JcJ : réputations des champs de bataille (Alliance)",
-	["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "Exalté auprès de chaque faction de champ de bataille vaut un point (4 en tout ; cette page en montre trois, voir la note). Suivez les guides de réputation Polestar Réputation : Goulet des Chanteguerres, Réputation : Bassin Arathi et Réputation : Vallée d'Alterac. L'atout Diplomate de l'Héritage augmente les gains de réputation.",
-	-- {zone:1460} Warsong Gulch · {zone:1461} Arathi Basin · {zone:1459} Alterac Valley
-	["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "Blizzard compte quatre réputations de champ de bataille, mais nos données de factions en ont trois par camp ({zone:1460}, {zone:1461}, {zone:1459}). La quatrième est sans doute liée au nouveau contenu JcJ de Forever ; vérifiez le panneau d'Héritage en jeu.",
+	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "JcJ : réputations des champs de bataille (Horde)",
@@ -84,47 +82,55 @@ return {
 
 	-- Step 14: Adventure: explore the world map
 	["Adventure: explore the world map"] = "Aventure : explorer la carte du monde",
-	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "Explorer toute la carte du monde avec un personnage vaut un point, et peut aussi débloquer le système d'Héritage. Tout doit être fait avec le même personnage.",
-	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "Suivez les guides d'exploration Polestar : Exploration : Royaumes de l'Est 1-30, 30-45 et 45-60, et Exploration : Kalimdor 1-30, 30-45 et 45-60. Ils suivent chaque zone à mesure que vous la découvrez.",
+	-- {zone:2548} Riverglades · {zone:2652} Shen'dralas · {zone:2482} Mount Hyjal
+	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "",
+	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "",
 	["This step cannot check the whole map by itself yet; it becomes a tracked goal once the Legacy achievement ids are recorded."] = "Cette étape ne peut pas encore vérifier toute la carte d'elle-même ; elle deviendra un objectif suivi une fois les identifiants des hauts faits d'Héritage enregistrés.",
 
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "Aventure : {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "La suite de quêtes de {npc:16042} vaut un point. C'est la chaîne de l'ensemble de donjon de niveau 60 : {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) vous envoient, par À la recherche d'Anthion et Les adieux d'Anthion, à {npc:16033} au {area:254}, dont Les trois rois des flammes, les morceaux gauche et droit de l'amulette du seigneur Valthalak, Derniers préparatifs et {quest:8995} se terminent par {quest:8996}. {quest:8997} mène ensuite aux quêtes de classe Garder le meilleur pour la fin.",
+	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}, dans le haut du Pic Rochenoire après Mea culpa (aucun point d'apparition dans les données : la flèche mène à {npc:16033}, au {area:254})",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{npc:16033} la propose une fois {quest:8996} rendue",
-	-- {quest:8996} Return to Bodley
-	["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "La quête que Blizzard compte comme fin de la suite ({quest:8996} ou Garder le meilleur pour la fin de votre classe) n'est pas confirmée tant que les données d'Héritage ne sont pas enregistrées.",
 
-	-- Step 16: Adventure: Back to the Beginning (Alliance)
-	-- {quest:8997} Back to the Beginning
-	["Adventure: {quest:8997} (Alliance)"] = "Aventure : {quest:8997} (Alliance)",
-	-- {npc:16013} Deliana
-	["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16013} propose ensuite Garder le meilleur pour la fin de votre classe, l'amélioration finale de l'ensemble de donjon.",
+	-- Step 16: Adventure: Saving the Best for Last (Alliance)
+	-- {quest:8999} Saving the Best for Last
+	["Adventure: {quest:8999} (Alliance)"] = "",
+	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
+	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
-	-- Step 17: Adventure: Back to the Beginning (Horde)
-	-- {quest:8998} Back to the Beginning
-	["Adventure: {quest:8998} (Horde)"] = "Aventure : {quest:8998} (Horde)",
-	-- {npc:16012} Mokvar
-	["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16012} propose ensuite Garder le meilleur pour la fin de votre classe, l'amélioration finale de l'ensemble de donjon.",
+	-- Step 17: Adventure: Saving the Best for Last (Horde)
+	-- {quest:9007} Saving the Best for Last
+	["Adventure: {quest:9007} (Horde)"] = "",
+	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
+	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Donjons : niveau 15-25",
-	["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "Le boss final de chaque donjon de niveau 15-25 rapporte ensemble un point. Cochez chaque boss quand vous le tuez ; le regroupement suit les tranches de niveau habituelles de Classic, vérifiez donc la liste exacte dans le panneau d'Héritage en jeu.",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718} (apparaît après l'événement du {npc:3678})",
-	-- {area:717} The Stockade
-	["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717} : le dernier boss habituel ; la {area:717} n'a pas de boss final fixe",
-	-- {area:16919} Hall of Thanes · {area:153} Ruins of Lordaeron
-	["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever ajoute les donjons {area:16919} et {area:153} ; leurs boss et tranches ne sont pas encore dans nos données.",
+	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
+	["{area:17732} (Forever's): {npc:260326}"] = "",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Donjons : niveau 26-45",
-	["The final boss of every level 26-45 dungeon earns one point together."] = "Le boss final de chaque donjon de niveau 26-45 rapporte ensemble un point.",
+	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
+	["the final boss of the Drowned City"] = "",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796} : cimetière",
 	-- {area:796} Scarlet Monastery
@@ -133,51 +139,72 @@ return {
 	["{area:796}: Armory"] = "{area:796} : armurerie",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Cathedral"] = "{area:796} : cathédrale",
-	-- {area:1517} Uldaman
-	["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517} (niveau 41-51 ; peut compter dans la tranche 46-60)",
+	-- {area:17780} Krol'dok Stronghold
+	["the final boss of {area:17780}"] = "",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Donjons : niveau 46-60",
-	["The final boss of every level 46-60 dungeon earns one point together."] = "Le boss final de chaque donjon de niveau 46-60 rapporte ensemble un point.",
+	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
+	["the final boss of Alcaz Prison"] = "",
+	-- {area:1216} Blackmaw Hold
+	["the final boss of {area:1216}"] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "Bas du {area:1583}",
 	-- {area:1583} Blackrock Spire
 	["Upper {area:1583}"] = "Haut du {area:1583}",
-	["Dire Maul East"] = "Hache-tripes Est",
-	["Dire Maul West"] = "Hache-tripes Ouest",
-	["Dire Maul North"] = "Hache-tripes Nord",
 	-- {area:2279} Stratholme
 	["{area:2279}, Live side"] = "{area:2279}, côté vivant",
 	-- {area:2279} Stratholme
 	["{area:2279}, Undead side"] = "{area:2279}, côté mort-vivant",
+	["Dire Maul East"] = "Hache-tripes Est",
+	["Dire Maul North"] = "Hache-tripes Nord",
+	["Dire Maul West"] = "Hache-tripes Ouest",
+	-- {area:16985} Shaper's Terrace
+	["the final boss of the {area:16985}"] = "",
 
-	-- Step 21: Forever's new dungeons
-	["Forever's new dungeons"] = "Les nouveaux donjons de Forever",
-	-- {area:16919} Hall of Thanes · {area:153} Ruins of Lordaeron
-	["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919} et {area:153} sont nouveaux dans Forever. Leurs boss, niveaux et tranche d'Héritage ne sont pas dans nos données : cochez-les vous-même.",
-	-- {area:16919} Hall of Thanes
-	["the final boss of {area:16919}"] = "le boss final de {area:16919}",
-	-- {area:153} Ruins of Lordaeron
-	["the final boss of {area:153}"] = "le boss final de {area:153}",
-
-	-- Step 22: Raids: Onyxia
+	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "Raids : {npc:10184}",
-	-- {npc:10184} Onyxia · {item:16309} Drakefire Amulet · {item:16663} Blood of the Black Dragon Champion
-	["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "Tuer {npc:10184} vaut un point. Dans Classic, son repaire demande une harmonisation : {item:16309} pour l'Alliance, {item:16663} pour la Horde.",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
 
-	-- Step 23: Raids: Hyjal Summit
+	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "Raids : Hyjal Summit",
-	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "Les 13 boss de Hyjal Summit valent un point. Hyjal Summit est un nouveau raid de Forever ; ses boss ne sont pas dans nos données : cochez-le une fois les 13 vaincus.",
+	-- {zone:2482} Mount Hyjal
+	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "",
 	["all 13 Hyjal Summit bosses"] = "les 13 boss du Sommet d’Hyjal",
 
-	-- Step 24: Raids: Barrow Deeps
+	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "Raids : Barrow Deeps",
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "Les 8 boss de Barrow Deeps valent un point. Barrow Deeps est un nouveau raid de Forever ; ses boss ne sont pas dans nos données : cochez-le une fois les 8 vaincus.",
+	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
 	["all 8 Barrow Deeps bosses"] = "les 8 boss des Profondeurs des Tertres",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Adventure: {quest:8997} (Alliance)"] = "Aventure : {quest:8997} (Alliance)",
+	-- ["Adventure: {quest:8998} (Horde)"] = "Aventure : {quest:8998} (Horde)",
+	-- ["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "Les 13 boss de Hyjal Summit valent un point. Hyjal Summit est un nouveau raid de Forever ; ses boss ne sont pas dans nos données : cochez-le une fois les 13 vaincus.",
+	-- ["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "Les 8 boss de Barrow Deeps valent un point. Barrow Deeps est un nouveau raid de Forever ; ses boss ne sont pas dans nos données : cochez-le une fois les 8 vaincus.",
+	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "Blizzard compte quatre réputations de champ de bataille, mais nos données de factions en ont trois par camp ({zone:1460}, {zone:1461}, {zone:1459}). La quatrième est sans doute liée au nouveau contenu JcJ de Forever ; vérifiez le panneau d'Héritage en jeu.",
+	-- ["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "Exalté auprès de chaque faction de champ de bataille vaut un point (4 en tout ; cette page en montre trois, voir la note). Suivez les guides de réputation Polestar Réputation : Goulet des Chanteguerres, Réputation : Bassin Arathi et Réputation : Vallée d'Alterac. L'atout Diplomate de l'Héritage augmente les gains de réputation.",
+	-- ["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "Explorer toute la carte du monde avec un personnage vaut un point, et peut aussi débloquer le système d'Héritage. Tout doit être fait avec le même personnage.",
+	-- ["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "Suivez les guides d'exploration Polestar : Exploration : Royaumes de l'Est 1-30, 30-45 et 45-60, et Exploration : Kalimdor 1-30, 30-45 et 45-60. Ils suivent chaque zone à mesure que vous la découvrez.",
+	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever ajoute les donjons {area:16919} et {area:153} ; leurs boss et tranches ne sont pas encore dans nos données.",
+	-- ["Forever's new dungeons"] = "Les nouveaux donjons de Forever",
+	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "Tuer {npc:10184} vaut un point. Dans Classic, son repaire demande une harmonisation : {item:16309} pour l'Alliance, {item:16663} pour la Horde.",
+	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "Le boss final de chaque donjon de niveau 15-25 rapporte ensemble un point. Cochez chaque boss quand vous le tuez ; le regroupement suit les tranches de niveau habituelles de Classic, vérifiez donc la liste exacte dans le panneau d'Héritage en jeu.",
+	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "Le boss final de chaque donjon de niveau 26-45 rapporte ensemble un point.",
+	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "Le boss final de chaque donjon de niveau 46-60 rapporte ensemble un point.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "La suite de quêtes de {npc:16042} vaut un point. C'est la chaîne de l'ensemble de donjon de niveau 60 : {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) vous envoient, par À la recherche d'Anthion et Les adieux d'Anthion, à {npc:16033} au {area:254}, dont Les trois rois des flammes, les morceaux gauche et droit de l'Amulette du seigneur Valthalak, Derniers préparatifs et Mea culpa, {npc:16042} se terminent par {quest:8996}. {quest:8997} mène ensuite aux quêtes de classe Garder le meilleur pour la fin.",
+	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "La suite de quêtes de {npc:16042} vaut un point. C'est la chaîne de l'ensemble de donjon de niveau 60 : {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) vous envoient, par À la recherche d'Anthion et Les adieux d'Anthion, à {npc:16033} au {area:254}, dont Les trois rois des flammes, les morceaux gauche et droit de l'amulette du seigneur Valthalak, Derniers préparatifs et {quest:8995} se terminent par {quest:8996}. {quest:8997} mène ensuite aux quêtes de classe Garder le meilleur pour la fin.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "La suite de quêtes de {npc:16042} vaut un point. C'est la chaîne de l'ensemble de donjon de niveau 60 : {npc:16013} ({zone:1455}) ou {npc:16012} ({zone:1454}) vous envoient, par À la recherche d'Anthion et Les adieux d'Anthion, à {npc:16033} au {area:254}, dont Les trois rois des flammes, les morceaux gauche et droit de {item:22048}, Derniers préparatifs et Mea culpa, {npc:16042} se terminent par {quest:8996}. {quest:8997} mène ensuite aux quêtes de classe Garder le meilleur pour la fin.",
-	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717} : le dernier boss habituel ; {area:717} n'a pas de boss final fixe",
+	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "La quête que Blizzard compte comme fin de la suite ({quest:8996} ou Garder le meilleur pour la fin de votre classe) n'est pas confirmée tant que les données d'Héritage ne sont pas enregistrées.",
+	-- ["the final boss of {area:153}"] = "le boss final de {area:153}",
+	-- ["the final boss of {area:16919}"] = "le boss final de {area:16919}",
+	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517} (niveau 41-51 ; peut compter dans la tranche 46-60)",
+	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919} et {area:153} sont nouveaux dans Forever. Leurs boss, niveaux et tranche d'Héritage ne sont pas dans nos données : cochez-les vous-même.",
+	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717} : le dernier boss habituel ; la {area:717} n'a pas de boss final fixe",
+	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16012} propose ensuite Garder le meilleur pour la fin de votre classe, l'amélioration finale de l'ensemble de donjon.",
+	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16013} propose ensuite Garder le meilleur pour la fin de votre classe, l'amélioration finale de l'ensemble de donjon.",
 }

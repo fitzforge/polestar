@@ -8,21 +8,34 @@ zone Ironforge
 
 # Fishing 1-300 for both factions. Every catch can raise the skill wherever you
 # fish; low skill only makes fish get away in harder waters, so each band sends
-# you to water near where you level (fishing-pool clusters from objects.json,
-# or the shore where water creatures live). Expert Fishing is a book sold by
-# Old Man Heming in Booty Bay; Artisan Fishing is Nat Pagle's quest in
-# Dustwallow Marsh (four rare fish).
+# you to water near where you level: the shore beside your starting area's
+# fishing trainer, then fishing-pool clusters from objects.json. Expert Fishing
+# is a book sold by Old Man Heming in Booty Bay; Artisan Fishing is Nat Pagle's
+# quest in Dustwallow Marsh (four rare fish). About 1,300 catches in all.
 #
-# Spawns, trainers and vendors come from the Era baseline (pfQuest); recipes and
-# their skill colours from the Forever client tables (`profession build`).
-# Nothing confirms the spawns' 10-60 placement on Forever yet: refine with
-# Polestar_Recorder sessions. Waypoints are Era-frame (`coords era`); the engine
-# converts them where Forever changed a map frame.
+# Spawns come from the reference data: the Era baseline (pfQuest) plus the
+# node spawns Forever's beta sniffs add (Zephras Isle, the starting-area Poor
+# Copper Veins and herbs: the Forever TrinityCore world DB); trainer learn skills
+# and prices from Forever's sniffed trainer lists; recipes and their skill colours
+# from the Forever client tables (`forge data professions`).
+# ASSUMED: past level 30 (the beta's cap) Forever's spawns are Classic's; nothing
+# confirms them yet. In-game check: refine with Polestar_Recorder sessions.
+# ASSUMED: rank level gates are Classic's (Journeyman 10, Expert 20, Artisan 35);
+# Forever's sniffed trainer lists show none (the gate sits on the rank spell, a
+# table we lack); only Journeyman Fishing is sniffed at level 10. In-game check:
+# the level a trainer asks for each rank.
+# Waypoints are Era-frame (`coords era`); the engine converts them where Forever
+# changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
+# ASSUMED: catches per point follow Classic's rate (every catch below 75, then
+# one in (skill - 50) / 25) and a zone loses no fish from its Classic base skill
+# + 95 (25 starting areas, 75 their neighbours, 150, 225 Stranglethorn, 300
+# Feralas); Forever's notes say fishing is unchanged. In-game check: catches
+# from 150 to 160, and fish lost at skill 1 in a starting area.
 
 # ---------------------------------------------------------------- Apprentice
 
 step Learn Fishing
-  tip Any Fishing trainer of your faction teaches Apprentice Fishing (character level 5); the arrow picks the nearest. Buy a Fishing Pole from a trade goods or fishing vendor and equip it.
+  tip Any Fishing trainer of your faction teaches Apprentice Fishing (character level 5, 1s); the arrow picks the nearest, and every starting area has one on its lake or shore. Buy a Fishing Pole (23c) from a trade goods or fishing vendor and equip it (you can only fish with a pole in your hands), and two or three Shiny Baubles (+25, 50c each): a lure adds its bonus to your skill for ten minutes, so fewer fish get away at the start. If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Fishing, handed in to the fishing trainer it names at skill 20 for the Fish Bowl recipe.
   level 5
   train Fishing Apprentice
   buy 6256 x1 nearest
@@ -32,121 +45,136 @@ step Learn Fishing
 step Fishing: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
-  tip Fish here until skill 50. Click the bobber when it splashes; every catch can raise the skill.
-  goto 51.2,66.7 "Crystal Lake" r 25
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 47.6,62.3 "Crystal Lake" r 25
   skill Fishing 50
 
-step Fishing: Loch Modan (1-50)
+step Fishing: Dun Morogh (1-50)
   only Dwarf,Gnome
-  zone Loch Modan
-  tip Fish here until skill 50. Click the bobber when it splashes; every catch can raise the skill.
-  goto 52.6,66.9 "The Loch" r 25
+  zone Dun Morogh
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 35.5,40.2 "Iceflow Lake" r 25
   skill Fishing 50
 
-step Fishing: Darkshore (1-50)
+step Fishing: Teldrassil (1-50)
   only NightElf
-  zone Darkshore
-  tip Fish here until skill 50. Click the bobber when it splashes; every catch can raise the skill.
-  goto 35.9,46.7 "Auberdine shore" r 25
+  zone Teldrassil
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 55.9,93.5 "Rut'theran Village" r 25
+  skill Fishing 50
+
+step Fishing: Zephras Isle (1-50)
+  only Skyborne,Alliance
+  zone Zephras Isle
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.
+  goto 62.5,75.5 live "Valanaar shore" r 25
   skill Fishing 50
 
 step Fishing: Durotar (1-50)
   only Orc,Troll
   zone Durotar
-  tip Fish here until skill 50. Click the bobber when it splashes; every catch can raise the skill.
-  goto 60.6,45.1 "Durotar coast" r 25
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 53.3,81.6 "Sen'jin coast" r 25
   skill Fishing 50
 
-step Fishing: The Barrens (1-50)
+step Fishing: Mulgore (1-50)
   only Tauren
-  zone The Barrens
-  tip Fish here until skill 50. Click the bobber when it splashes; every catch can raise the skill.
-  goto 46.3,37.9 "Barrens oasis" r 25
+  zone Mulgore
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 44.5,60.7 "Stonebull Lake" r 25
   skill Fishing 50
 
 step Fishing: Tirisfal Glades (1-50)
   only Undead
   zone Tirisfal Glades
-  tip Fish here until skill 50. Click the bobber when it splashes; every catch can raise the skill.
-  goto 35.6,42.7 "Vile Fin shore" r 25
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients. Fish get away here below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 67.2,51.0 "Brightwater Lake" r 25
+  skill Fishing 50
+
+step Fishing: Zephras Isle (1-50)
+  only Skyborne,Horde
+  zone Zephras Isle
+  tip Fish here until skill 50, about 50 catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.
+  goto 62.5,75.5 live "Valanaar shore" r 25
   skill Fishing 50
 
 step Journeyman Fishing
-  tip Journeyman Fishing raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest Fishing trainer of your faction.
+  tip Journeyman Fishing raises the cap to 150; it needs skill 50 and character level 10 (Forever's sniffed trainer lists ask for that level), and costs 5s. The arrow picks the nearest Fishing trainer of your faction. Fish Bowl, Forever's camping item for Fishing (from skill 20, 1s or free from Camping 101: Fishing), is a Raw Brilliant Smallfish in an Empty Vial: it gives no skill, but placed beside a campfire it gives everyone at the camp a buff for an hour.
   level 10
   train Fishing Journeyman
+  learn 1229745
 
 # ---------------------------------------------------------------- Fishing 50-125
 
 step Fishing: Westfall (50-125)
-  only Human
+  only Human,Skyborne,Alliance
   zone Westfall
-  tip Fish the pools and open water here until skill 125. Pools (floating debris, schools of fish) also drop extra loot.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
   goto 34.6,18.5 "Westfall coast" r 25
   skill Fishing 125
 
 step Fishing: Loch Modan (50-125)
   only Dwarf,Gnome
   zone Loch Modan
-  tip Fish the pools and open water here until skill 125. Pools (floating debris, schools of fish) also drop extra loot.
-  goto 52.6,66.9 "The Loch" r 25
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 41.6,37.8 "The Loch" r 25
   skill Fishing 125
 
 step Fishing: Darkshore (50-125)
   only NightElf
   zone Darkshore
-  tip Fish the pools and open water here until skill 125. Pools (floating debris, schools of fish) also drop extra loot.
-  goto 35.9,46.7 "Darkshore coast" r 25
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 34.6,42.9 "Darkshore coast" r 25
   skill Fishing 125
 
 step Fishing: The Barrens (50-125)
-  only Orc,Troll,Tauren
+  only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip Fish the pools and open water here until skill 125. Pools (floating debris, schools of fish) also drop extra loot.
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
   goto 46.3,37.9 "Barrens oasis" r 25
   skill Fishing 125
 
 step Fishing: Silverpine Forest (50-125)
   only Undead
   zone Silverpine Forest
-  tip Fish the pools and open water here until skill 125. Pools (floating debris, schools of fish) also drop extra loot.
-  goto 37.8,32.1 "Lordamere Lake" r 25
+  tip Fish the pools and open water here until skill 125, about 120 catches: from 75 a catch raises the skill less often (about one in two by 100, one in three by 125). Pools (floating wreckage, schools of fish) also give extra loot. Nightcrawlers (+50 from skill 50, 1s each) are twice as strong as a Shiny Bauble. The Strong Fishing Pole (+5 from skill 10, 9s 1c) is in limited stock at fishing vendors: buy it when you see it. Fish get away here below skill 75; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 59.6,34.6 "Lordamere Lake" r 25
   skill Fishing 125
 
 # ---------------------------------------------------------------- Expert Fishing
 
 step Expert Fishing
-  tip Expert Fishing (cap 225) is a book, not a trainer rank: Old Man Heming sells Expert Fishing - The Bass and You in Booty Bay, at the south tip of Stranglethorn Vale, to both factions. Buy it and read it; it needs skill 125 and level 20.
+  tip Expert Fishing (cap 225) is a book, not a trainer rank: Old Man Heming sells Expert Fishing - The Bass and You (1g) on the lowest dock of Booty Bay, at the south tip of Stranglethorn Vale, to both factions. Buy it and read it; it needs skill 125 and level 20. At level 20 the safe way in is the boat from Ratchet in The Barrens, not the road through Stranglethorn. He also sells Bright Baubles (+75 from skill 100, 2s 50c each), the lure for the rest of the way.
   level 20
   train Fishing Expert "Buy and read Expert Fishing - The Bass and You (Expert Fishing)"
 
 # ---------------------------------------------------------------- Fishing 125-225
 
 step Fishing: Wetlands (125-225)
-  only Human,Dwarf,Gnome
+  only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Wetlands
-  tip Fish the pools here until skill 225. If fish keep getting away, fish easier water until your skill catches up.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
   goto 10.8,63.1 "Wetlands coast" r 25
   skill Fishing 225
 
 step Fishing: Ashenvale (125-225)
   only NightElf
   zone Ashenvale
-  tip Fish the pools here until skill 225. If fish keep getting away, fish easier water until your skill catches up.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
   goto 35.8,53.7 "Ashenvale waters" r 25
   skill Fishing 225
 
-step Fishing: Ashenvale (125-225)
-  only Orc,Troll,Tauren
-  zone Ashenvale
-  tip Fish the pools here until skill 225. If fish keep getting away, fish easier water until your skill catches up.
-  goto 47.0,69.7 "Ashenvale waters" r 25
+step Fishing: Stonetalon Mountains (125-225)
+  only Orc,Troll,Tauren,Skyborne,Horde
+  zone Stonetalon Mountains
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
+  goto 47.4,40.0 "Mirkfallon Lake" r 25
   skill Fishing 225
 
 step Fishing: Hillsbrad Foothills (125-225)
   only Undead
   zone Hillsbrad Foothills
-  tip Fish the pools here until skill 225. If fish keep getting away, fish easier water until your skill catches up.
+  tip Fish the pools here until skill 225, about 500 catches: one in three raises the skill at 125, one in seven by 225, so this is the long stretch. Forever's second camping item, the Fishing Rack (from skill 140), is a blueprint that drops from Gelihast in Blackfathom Deeps. Fish get away here below skill 150; a lure on the pole adds to your skill for ten minutes and closes the gap.
   goto 60.8,32.1 "Hillsbrad coast" r 25
   skill Fishing 225
 
@@ -170,30 +198,45 @@ step Nat Pagle, Angler Extreme
 
 step Nat Pagle
   zone Dustwallow Marsh
-  tip Nat Pagle fishes from the shore of a small island off the east coast, south of Theramore.
+  tip Nat Pagle fishes from the shore of a small island off the east coast, south of Theramore; swim over from the coast.
   turnin 6609 only Alliance
   turnin 6608 only Horde
   accept 6607
 
 step Sar'theris Striker
+  only Alliance
   zone Desolace
-  tip Fish in Sar'theris Strand, the north-west coast of Desolace (Slitherblade naga shore) until you catch a Sar'theris Striker; it only bites there.
-  collect 16968 quest 6607 @33.0,22.4
+  tip Fish along the coast of Desolace (Sar'theris Strand in the north-west, or the shore west of Shadowprey Village) until you catch a Sar'theris Striker: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here.
+  collect 16968 quest 6607 @39.5,22.7
+
+step Sar'theris Striker
+  only Horde
+  zone Desolace
+  tip Fish along the coast of Desolace (Sar'theris Strand in the north-west, or the shore west of Shadowprey Village) until you catch a Sar'theris Striker: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here.
+  collect 16968 quest 6607 @22.8,76.8
 
 step Feralas Ahi
   zone Feralas
-  tip Fish in the Verdantis River in Feralas until you catch a Feralas Ahi; it only bites there.
-  collect 16967 quest 6607
+  tip Fish along the Verdantis River in Feralas (south-east of Dire Maul) until you catch a Feralas Ahi: about one catch in five there brings it up, and it bites nowhere else. This water loses fish below skill 300: at 225 most get away, so put Bright Baubles (+75) on the pole first.
+  buy 6532 x2 nearest
+  collect 16967 quest 6607 @63.7,53.1
 
 step Savage Coast Blue Sailfin
+  only Alliance
   zone Stranglethorn Vale
-  tip Fish in the Savage Coast, the north-west shore of Stranglethorn Vale until you catch a Savage Coast Blue Sailfin; it only bites there.
-  collect 16969 quest 6607 @22.0,17.3
+  tip Fish along Stranglethorn Vale's Savage Coast (the west shore) until you catch a Savage Coast Blue Sailfin: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here.
+  collect 16969 quest 6607 @27.4,68.9
+
+step Savage Coast Blue Sailfin
+  only Horde
+  zone Stranglethorn Vale
+  tip Fish along Stranglethorn Vale's Savage Coast (the west shore) until you catch a Savage Coast Blue Sailfin: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here.
+  collect 16969 quest 6607 @33.0,32.1
 
 step Misty Reed Mahi Mahi
   zone Swamp of Sorrows
-  tip Fish in the Misty Reed Strand, the south-east shore of Swamp of Sorrows until you catch a Misty Reed Mahi Mahi; it only bites there.
-  collect 16970 quest 6607 @86.5,84.0
+  tip Fish along the Misty Reed Strand (the east shore of Swamp of Sorrows) until you catch a Misty Reed Mahi Mahi: about one catch in five there brings it up, and it bites nowhere else. At skill 225 nothing gets away here.
+  collect 16970 quest 6607 @76.2,95.6
 
 step Nat Pagle
   zone Dustwallow Marsh
@@ -203,6 +246,6 @@ step Nat Pagle
 
 step Fishing: Stranglethorn Vale (225-300)
   zone Stranglethorn Vale
-  tip Fish the pools along the coast here (eels, snappers, wreckage) until skill 300. Booty Bay sells bait and Nightcrawlers for a small fishing bonus.
-  goto 27.5,76.5 "Booty Bay coast" r 25
+  tip Fish the pools along the coast here (eels, snappers, wreckage) until skill 300, about 650 catches (one in seven raises the skill at 225, one in ten by 300). Harder water levels no faster: a catch counts the same anywhere. From skill 225 this water loses no fish, so no lure is needed. The Aquadynamic Fish Attractor (+100 from skill 100, 2s 50c) and Bright Baubles are for harder water and rare fish, not for skill.
+  goto 27.3,75.3 "Booty Bay coast" r 25
   skill Fishing 300

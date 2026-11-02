@@ -1,5 +1,5 @@
 -- Portuguese (Brazil) (ptBR): the guide forever/collectibles/mounts/horde/wolf (forever/collectibles/mounts/horde/wolf.guide).
--- Written by `node tools/polestar.js i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Portuguese (Brazil) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -11,12 +11,20 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprenda a montar",
-	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {zone:1454} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:4752} e o canil de {npc:3362} ficam no {object:172958} de {zone:1454}. No nível 40, {npc:4752} ensina {skill:762} (100g segundo os designers da Blizzard), e aprender lhe dá uma montaria. O cliente Forever permite que toda raça da Horda os monte.",
+	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor (no name in this language: may be words) · {skill:762} Riding
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, instrutor de montaria",
 
-	-- Step 2: Pick a colour
+	-- Step 2: Wolf Riding for other races
+	-- {skill:762} Riding
+	["Wolf {skill:762} for other races"] = "",
+	-- {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
+	["Any Horde race can buy these wolves, but riding one also takes Wolf Riding, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	-- {npc:4752} Kildar
+	["{npc:4752}, Wolf Riding"] = "",
+
+	-- Step 3: Pick a colour
 	["Pick a colour"] = "Escolha uma cor",
 	-- {npc:3362} Ogunaro Wolfrunner
 	["{npc:3362} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:3362} vende as outras cores (20g cada no cliente Forever). Compre as que quiser, ou nenhuma se gostar da montaria que ganhou.",
@@ -28,4 +36,7 @@ return {
 	["{item:5668}, 20g"] = "{item:5668}, 20g",
 	-- {item:1041} Horn of the Black Wolf
 	["{item:1041} is in the client (20g) but our data has no vendor selling it."] = "A {item:1041} está no cliente (20g), mas nossos dados não têm mercador que a venda.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:4752} e o canil de {npc:3362} ficam no {object:172958} de {zone:1454}. No nível 40, {npc:4752} ensina {skill:762} (100g segundo os designers da Blizzard), e aprender lhe dá uma montaria. O cliente Forever permite que toda raça da Horda os monte.",
 }

@@ -1,5 +1,5 @@
 -- Spanish (Latin America) (esMX): the guide forever/collectibles/mounts/horde/skeletal-horse (forever/collectibles/mounts/horde/skeletal-horse.guide).
--- Written by `node tools/polestar.js i18n guides sync esMX`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync esMX`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Spanish (Latin America) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -8,12 +8,19 @@
 return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
-	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding
-	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:4773} y el establo de {npc:4731} están en {area:159}, {zone:1420}. A nivel 40, {npc:4773} enseña {skill:762} (100g según los diseñadores de Blizzard), y aprenderla te da una montura. El cliente de Forever deja que todas las razas de la Horda los monten.",
+	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
+	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} to Undead for 100g (10% less at Honored with {faction:68}), and it comes with a skeletal horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 
-	-- Step 2: Pick a colour
+	-- Step 2: Undead Horsemanship for other races
+	["Undead Horsemanship for other races"] = "",
+	-- {skill:762} Riding · {npc:4773} Velma Warnam · {faction:68} Undercity
+	["Any Horde race can buy these skeletal horses, but riding one also takes Undead Horsemanship, which only Undead get with {skill:762}. {npc:4773} teaches it to other races once they are Exalted with {faction:68} (the Undercity Reputation guide shows the way). Until then, don't buy a skeletal horse for this character."] = "",
+	-- {npc:4773} Velma Warnam
+	["{npc:4773}, Undead Horsemanship"] = "",
+
+	-- Step 3: Pick a colour
 	["Pick a colour"] = "Elige un color",
 	-- {npc:4731} Zachariah Post
 	["{npc:4731} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:4731} vende los demás colores (20g cada uno en el cliente de Forever). Compra los que quieras, o ninguno si te gusta la montura que te dieron.",
@@ -23,6 +30,9 @@ return {
 	["{item:13332}, 20g"] = "{item:13332}, 20g",
 	-- {item:13333} Brown Skeletal Horse
 	["{item:13333}, 20g"] = "{item:13333}, 20g",
-	-- {npc:267354} Black Skeletal Horse
-	["{npc:267354} is a new Forever horse (level 40) whose source is not known yet."] = "{npc:267354} es un caballo nuevo de Forever (nivel 40) cuyo origen aún no se conoce.",
+	["new in Forever, 20g; beta players found it here"] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:267354} is a new Forever horse (level 40) whose source is not known yet."] = "{npc:267354} es un caballo nuevo de Forever (nivel 40) cuyo origen aún no se conoce.",
+	-- ["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:4773} y el establo de {npc:4731} están en {area:159}, {zone:1420}. A nivel 40, {npc:4773} enseña {skill:762} (100g según los diseñadores de Blizzard), y aprenderla te da una montura. El cliente de Forever deja que todas las razas de la Horda los monten.",
 }

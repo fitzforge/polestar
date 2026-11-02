@@ -224,6 +224,7 @@ Without `--kb`, `data/forever/` gets:
 | `zones.json`, `map-frames.json` | zone names and levels; how map percentages convert to world coordinates |
 | `factions.json`, `races.json`, `instances.json` | factions and reactions, races and classes, dungeon and raid areas |
 | `spawnz.json` | spawn heights (z) for NPCs and objects |
+| `moves.json` | the ground each walking NPC's spawn covers (classic-db's random and waypoint movement): its centre and radius |
 | `meta.json` | the sources, their versions and licences, counts, and the build time |
 
 `--built-at ISO` (or `SOURCE_DATE_EPOCH`) fixes the timestamp in `meta.json`, so two builds of the same
@@ -256,11 +257,23 @@ forge data build --help
 
 ### Choosing the table source
 
-By default Forge reads the Forever tables from the installed client when it finds both a client and
-the table definitions. Otherwise it says so on stderr and uses the cached copies under
-`data/sources`. `--forever-tables client` insists on the client and fails when there is none.
+By default `forge data build` reads the Forever tables from the installed client when it finds both a
+client and the table definitions. Otherwise it says so on stderr and uses the cached copies under
+`data/sources`. `--forever-tables client` insists on the client and fails when there is none;
+`--forever-tables saved` reads the copy `forge build` saved under `data/sources/client-tables/<build>/`.
 `--wow`, `--product` and `--defs` work as in `forge gamedata`. `--no-forever` builds without the Forever
 tables.
+
+`forge build`'s data stage never reads whatever client happens to be installed: it reads the tables of
+the build the walking grid was built from (the grid's `index.json`), saved under
+`data/sources/client-tables/<build>/` (`<Table>.csv` as wago.tools writes them, and `source.json`
+naming the product, build and folder they were read from). `forge build --forever-tables client`
+refreshes that copy from the installed client (`wow_classic_beta` or `wowf` at the grid's build; each
+table is checked to read back as the client's rows, and an unchanged copy is left as it is);
+`--forever-tables wago` reads the wago.tools cache at the grid's build. The log names the source and
+build; tables of another build than the grid's stop the build unless `--allow-build-mismatch`, and so
+does a source that cannot be read (no silent fallback to Classic Era's zones). `forge doctor` says
+whether the grid's build is saved.
 
 ## The other builders
 
@@ -766,6 +779,12 @@ release's tables; `cargo test -p forge-data --test publish` runs it.
 
 Some local evidence is read only when `forge-data` is built with the `local-sources` feature, which is
 off by default.
+
+`forge build`'s data stage keys on the private overlay (`data/local/corrections-private.json`) when its
+forge reads it, and logs `data: WARNING: ... built without forge-data's local-sources feature` when the
+overlay is there but its forge cannot read it: that data has the public corrections only, unlike the data
+`forge judge check` reads in the same checkout (c16's routes were searched on it, 172 fixes short). Build
+the forge for a maintainer's round with `--features forge-data/local-sources`.
 
 ## What can go wrong
 

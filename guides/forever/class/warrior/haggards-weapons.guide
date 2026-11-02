@@ -1,55 +1,204 @@
 guide forever/class/warrior/haggards-weapons
-title Haggard's Weapons
+title Defensive Stance and a Weapon (Alliance)
 category Class
 class Warrior
 folder Warrior
 faction Alliance
 levels 10-11
-zone Stormwind City
-keywords Defensive Stance, Bartleby, Harry Burlguard, Marshal Haggard, Dead-tooth Jack, Haggard's Axe, Haggard's Hammer, Haggard's Dagger, Haggard's Sword, Warrior, class weapon
-reward item 6979 6983 6980 6985
+zone Elwynn Forest
+keywords Defensive Stance, A Warrior's Training, Bartleby, Harry Burlguard, Marshal Haggard, Dead-tooth Jack, Haggard's Axe, Haggard's Hammer, Haggard's Dagger, Haggard's Sword, Muren Stormpike, Vejrek, Tormus Deepforge, Ironband's Compound, Umbral Ore, Grey Iron Weapons, Elanaria, Vorlus Vilehoof, The Shade of Elura, Elunite, Smith Mathiel, Weapons of Elunite, The Skybreaker Bulwark, Seena Skybreaker, Stormforged Protector, Warrior, class weapon
 reward spell 71 "Defensive Stance"
-why Defensive Stance and a one-hand weapon of your choice at 10.
+reward item 6979 6983 6980 6985
+reward item 6978 6982 6981 6984
+reward item 6966 6968 6969 6967
+reward item 275290
+why Defensive Stance at 10 and a one-hand weapon of your choice from Stormwind, Ironforge or Darnassus.
 
-# Marshal Haggard and Dead-tooth Jack (1666, 1667): the weapon at the end of
-# the Alliance Defensive Stance quests (1638, 1639, 1640, 1665).
-# Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# places and the key (Dead-tooth's Key, item 6783, drops from Dead-Tooth Jack
-# and opens his strongbox); Forever's Warrior class quest list
-# (data/local/quest-audit/) for the rewards: Bartleby's
-# Mug (1665) teaches Defensive Stance, Dead-tooth Jack lets you choose Haggard's
-# Axe, Hammer, Dagger or Sword.
-# The leveling guides do the Defensive Stance quests for every Alliance race in
-# Stormwind (02-westfall, dwarf-gnome/01-dun-morogh, nightelf/01-teldrassil);
-# this guide repeats them for anyone off the route, then adds the weapon.
-# Vejrek (1678, Ironforge) and Vorlus Vilehoof (1683, Darnassus) are the other
-# Defensive Stance quests; the game offers only one of the three, and the
-# routes take Bartleby's.
+# The Alliance Defensive Stance quests at level 10, every race in one guide:
+# - Human: A Warrior's Training (1638) from Lyria Du Lac in Goldshire or Ilsa
+#   Corbin in Stormwind, Bartleby the Drunk, Beat Bartleby, Bartleby's Mug
+#   (1639, 1640, 1665: Defensive Stance), Marshal Haggard and Dead-tooth Jack
+#   (1666, 1667: Haggard's Axe, Hammer, Dagger or Sword).
+# - Dwarf and Gnome: Muren Stormpike (1679) from Granis Swiftaxe in Kharanos,
+#   Vejrek (1678: Defensive Stance), Tormus Deepforge, Ironband's Compound and
+#   Grey Iron Weapons (1680-1682: Umbral Axe, Mace, Dagger or Sword).
+# - Night Elf: Elanaria (1684) from Moon Priestess Amara or Kyra Windblade at
+#   Dolanaar, Vorlus Vilehoof (1683: Defensive Stance), The Shade of Elura,
+#   Smith Mathiel and Weapons of Elunite (1686, 1692, 1693: Elunite Axe,
+#   Hammer, Dagger or Sword).
+# - Skyborne: The Skybreaker Bulwark (94003, Forever-new) from Seena
+#   Skybreaker in Valanaar on Zephras Isle (Defensive Stance and the
+#   Stormforged Protector shield); Forever's quest data also opens the city
+#   roads to them, so Bartleby's road is offered for a weapon afterwards.
+# The three city roads exclude each other (TDB exclusive groups: A Warrior's
+# Training, Muren Stormpike and Elanaria; Bartleby the Drunk, Vejrek and
+# Vorlus Vilehoof): any Alliance warrior may take any one. Holding one blocks
+# the others (Harry or Bartleby will not talk to you): abandon it first. The
+# guide offers each race its home road first and the Stormwind road last; its
+# steps after the first accept carry no race filter but `when !turnedin 1679`
+# and `when !turnedin 1684`, so a Dwarf, Gnome or Night Elf who took A
+# Warrior's Training from Ilsa Corbin is led through it (their home steps pass
+# once those quests are closed to them). Lint warns that 1639 is
+# closed after the home roads earlier in the chain: it reads the chain straight
+# through and does not apply those `when` lines.
+# Sources: quests.json, npcs.json, objects.json and items.json for the
+# chains, givers, mobs, key, chests and crates; quest-notes for levels,
+# respawns, the hidden trails and huts, the wreck and the guards; Forever's
+# Warrior class quest list (data/local/quest-audit/): Bartleby's Mug, Vejrek
+# and Vorlus Vilehoof now teach Defensive Stance; the weapon choices are
+# unchanged; The Skybreaker Bulwark is new. The leveling routes do the
+# Defensive Stance part on the way; this guide is for anyone off the route
+# and adds each race's weapon.
 
-step Defensive Stance
+# ---------------------------------------------------------------- Skyborne: The Skybreaker Bulwark
+
+step Seena Skybreaker in Valanaar
+  only Skyborne
+  zone Zephras Isle
+  tip At 10, Seena Skybreaker stands with the trainers by Valanaar's west gate. A cultist, Zaal Stormshield, holds her family's shield at the Shrine of Akir.
+  level 10
+  accept 94003                                -- Seena Skybreaker
+
+step Zaal Stormshield
+  only Skyborne
+  tip Head north-west from Valanaar to the Shrine of Akir. Zaal Stormshield stands west of the shrine's approach, among the cult's Guardians, Spiritcallers and Blademasters: pull them one at a time before you take him. He drops the Skybreaker Bulwark.
+  kill 257196                                 -- Zaal Stormshield
+  collect 263993 quest 94003.1                -- Skybreaker Bulwark, from Zaal Stormshield
+
+step The Skybreaker Bulwark
+  only Skyborne
+  tip Back to Seena in Valanaar. She teaches Defensive Stance and gives you the Stormforged Protector, a shield to use it with. Bartleby's road below still gives a weapon, once you reach Stormwind.
+  turnin 94003 reward 275290                  -- Seena Skybreaker: Defensive Stance
+
+# ---------------------------------------------------------------- Dwarf and Gnome: Vejrek and Tormus Deepforge
+
+step Muren Stormpike
+  only Dwarf,Gnome
+  zone Dun Morogh
+  tip At 10, Granis Swiftaxe, the warrior trainer in Kharanos, sends you to Muren Stormpike in Ironforge. Any Alliance warrior may take one of the three roads, never two: in Stormwind at 10 anyway? Ilsa Corbin's A Warrior's Training is the quickest stance (one fight in a tavern), with a Haggard's weapon after it.
+  level 10
+  accept 1679                                 -- Granis Swiftaxe
+
+step Muren Stormpike in Ironforge
+  only Dwarf,Gnome
+  zone Ironforge
+  tip Muren Stormpike stands in the Hall of Arms in the Military Ward.
+  turnin 1679                                 -- Muren Stormpike
+  accept 1678
+
+step Vejrek
+  only Dwarf,Gnome
+  zone Dun Morogh
+  tip Vejrek (level 11, a lone troll) waits at his hut on a hill south of Frostmane Hold, near the mountains at the top of a short ramp, with no other trolls around; the hut at the front of Frostmane Hold is the wrong one. He fights in Defensive Stance and sunders your armor; Thunder Clap slows him. His head always drops; he returns about 8 minutes after dying.
+  collect 6799 quest 1678.1                   -- Vejrek's Head
+
+step Tormus Deepforge
+  only Dwarf,Gnome
+  zone Ironforge
+  tip Back to Muren for Defensive Stance, then to Tormus Deepforge at the Great Forge in the middle of Ironforge.
+  turnin 1678                                 -- Muren Stormpike: Defensive Stance
+  accept 1680
+  turnin 1680                                 -- Tormus Deepforge
+  accept 1681
+
+step Ironband's Compound
+  only Dwarf,Gnome
+  zone Dun Morogh
+  tip Ironband's Compound lies in eastern Dun Morogh, below Helm's Bed Lake on its south side. Dark Iron Spies (level 8-10) stand along the way, far enough apart to pull one at a time. Ironband's Strongbox is in the basement of the southernmost house; Captain Beld (level 11) stands by it and charges on sight. The box always holds the ore and refills 15 minutes after opening.
+  collect 6800 quest 1681.1                   -- Umbral Ore, from Ironband's Strongbox
+
+step Grey Iron Weapons
+  only Dwarf,Gnome
+  zone Ironforge
+  turnin 1681                                 -- Tormus Deepforge
+  accept 1682
+  turnin 1682 choose 6978 6982 6981 6984      -- Tormus Deepforge
+
+# ---------------------------------------------------------------- Night Elf: Vorlus and the Shade of Elura
+
+step Elanaria
+  only NightElf
+  zone Teldrassil
+  tip At 10, Kyra Windblade, the warrior trainer in Dolanaar, or Moon Priestess Amara, who patrols the road west of Dolanaar, sends you to Elanaria on the Warrior's Terrace in Darnassus. Any Alliance warrior may take one of the three roads, never two: in Stormwind at 10 anyway? Ilsa Corbin's A Warrior's Training teaches the same stance after one fight in a tavern.
+  level 10
+  accept 1684 npc 3598                        -- Kyra Windblade
+
+step Elanaria in Darnassus
+  only NightElf
+  zone Darnassus
+  tip Elanaria stands on the Warrior's Terrace.
+  turnin 1684                                 -- Elanaria
+  accept 1683
+
+step Vorlus Vilehoof
+  only NightElf
+  zone Teldrassil
+  tip Vorlus Vilehoof (level 10, a satyr) stands at a hidden moonwell up a hillside west of Dolanaar. The trail is hard to spot: it starts behind a Gnarlpine camp and climbs in switchbacks lined with lamp posts. The furbolgs below can come in groups. His horn always drops; he returns 5 minutes after dying.
+  collect 6805 quest 1683.1                   -- Horn of Vorlus
+
+step The Shade of Elura
+  only NightElf
+  zone Darnassus
+  turnin 1683                                 -- Elanaria: Defensive Stance
+  accept 1686
+
+step Elunite under Auberdine
+  only NightElf
+  zone Darkshore
+  tip Take the boat from Rut'theran Village to Auberdine. The wreck lies underwater just south of Auberdine's southern pier, where the Menethil boat docks. Open Crates of Elunite on the sea floor around the wreck, by a huge sunken turtle, toward the beach and under the pier until you have eight; every crate holds ore and comes back in 3-5 minutes. The grey Shade of Elura (level 11) drifts around the middle of the wreck and always drops the medallion: target it when you see it, so you can find it after surfacing for air. Watch your breath; Threshers can join in.
+  collect 6808 x8 quest 1686.1                -- Elunite Ore, from Crates of Elunite
+  collect 6809 quest 1686.2                   -- Elura's Medallion, from the Shade of Elura
+
+step Smith Mathiel
+  only NightElf
+  zone Darnassus
+  tip Back on the Warrior's Terrace: Elanaria hands you the Case of Elunite; Mathiel works on the far, south side of the same terrace, easy to miss.
+  turnin 1686                                 -- Elanaria
+  accept 1692
+  turnin 1692                                 -- Mathiel
+  accept 1693
+  turnin 1693 choose 6966 6968 6969 6967      -- Mathiel
+
+# ---------------------------------------------------------------- Stormwind (Human, Skyborne, or anyone who took this road): Bartleby and Marshal Haggard
+
+step A Warrior's Training
+  only Human,Skyborne
+  zone Elwynn Forest
+  tip At 10, Lyria Du Lac, the warrior trainer by the inn in Goldshire, sends you to Harry Burlguard in Stormwind; Ilsa Corbin, the warrior trainer in Stormwind's Old Town, offers it too.
+  level 10
+  accept 1638 npc 913                         -- Lyria Du Lac
+
+step Bartleby
+  when !turnedin 1679
+  when !turnedin 1684
   zone Stormwind City
-  tip Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug.
-  accept 1638 npc 5480                        -- Ilsa Corbin
+  tip Harry Burlguard and Bartleby are in the Pig and Whistle tavern in Old Town; Bartleby is the drunk at the far end of the bar. Bartleby (level 10) hits harder than his level, so start at full health; he gives up at low health instead of dying. If he wins, he disappears for about three minutes: keep the quest and talk to him again when he is back. A Dwarf, Gnome or Night Elf who took A Warrior's Training from Ilsa Corbin instead of their home road is led through Stormwind from here.
   turnin 1638                                 -- Harry Burlguard
   accept 1639
   turnin 1639                                 -- Bartleby
   accept 1640
   kill 6090 quest 1640.1                      -- Beat Bartleby
-  turnin 1640
+  turnin 1640                                 -- Bartleby
   accept 1665
   turnin 1665                                 -- Harry Burlguard: Defensive Stance
   accept 1666
 
 step Marshal Haggard
+  when !turnedin 1679
+  when !turnedin 1684
   zone Elwynn Forest
-  tip Marshal Haggard's house is in eastern Elwynn Forest, south of the road from Stormwind to Redridge.
+  tip Marshal Haggard's manor stands at the south-east edge of the Eastvale Logging Camp in eastern Elwynn, at the end of a short road that does not join the main one.
   turnin 1666                                 -- Marshal Haggard
   accept 1667
 
 step Dead-tooth Jack
-  tip Dead-Tooth Jack camps in the far south-east of Elwynn Forest, south-east of Marshal Haggard. He carries the key to the strongbox in his camp.
-  kill 6093                                   -- Dead-Tooth Jack: his key opens the strongbox
-  collect 6782 quest 1667.1                   -- Dead-tooth's Strongbox
+  when !turnedin 1679
+  when !turnedin 1684
+  tip Dead-Tooth Jack (level 11) camps in the far south-east of Elwynn. A guard stands beside him and Defias and wolves are spread around the camp (now and then a rarer guard too): clear them one at a time, then kill Jack. He always drops Dead-tooth's Key; open Dead-tooth's Strongbox in the crates by him for Marshal Haggard's Badge. Jack returns 3 minutes after dying, the box 1 minute after opening.
+  collect 6783 "Dead-tooth's Key"             -- from Dead-Tooth Jack
+  collect 6782 quest 1667.1                   -- Marshal Haggard's Badge, from Dead-tooth's Strongbox
 
 step Back to Marshal Haggard
+  when !turnedin 1679
+  when !turnedin 1684
   turnin 1667 choose 6979 6983 6980 6985      -- Marshal Haggard

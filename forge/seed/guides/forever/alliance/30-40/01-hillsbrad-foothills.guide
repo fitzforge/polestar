@@ -1,0 +1,326 @@
+# The Wetlands, Hillsbrad Foothills, then Stormwind and Ironforge, Alliance
+# 30 to ~33: the first guide of the 30-40 band.
+#
+# Forever above level 30 cannot be checked in game until launch on 4
+# November: the Wetlands quests below (all new in Forever) and the other
+# Forever additions come from the data (Questie Forever, Forever's quest data),
+# not from play.
+#
+# Flow: Menethil Harbor (where 07-thousand-needles ends, on its hearth) ->
+# Whelgar's Excavation Site -> the Green Belt (Howin Kindfeather, Rethiel) ->
+# the Angerfang Encampment -> Golm in the south-east -> the Dragonmaw Gates
+# -> the whelps, raptors and Neru in the north-east -> the Green Belt -> Dun
+# Modr and the Villards by the Thandol Span -> Whelgar -> Menethil -> boat to
+# Southshore (Farren's murlocs and naga, the turtles, the Syndicate camp on
+# the Alterac border, the yeti cave, Hillsbrad's town hall) -> fly to
+# Stormwind for a round of turn-ins and the Missing Diplomat chain (Druids
+# train there) -> Deeprun Tram to Ironforge for Stormpike, the Reclaimers,
+# King Magni, Historian Karnik and class training -> next guide: Desolace.
+#
+# The Wetlands (consensus visit 14, 30.1-31.4, all Alliance starts): added in
+# this refresh at the start of this guide, one loop out of Menethil and back.
+# 07-thousand-needles keeps the classic Wetlands quests (the Third Fleet, the
+# dig, the Dragonmaw banners) and now ends on its hearth to Menethil; the
+# boat to Southshore, its flight path, bind and The Shamed Lieutenant (98219)
+# turn-in moved here.
+# - Added: This Land Was Their Land (98230), Crocs of
+#   the Sky (98072), Understanding Our Present (98216), Gleaning Our Future
+#   (98310), For Further Study (98313, to Historian Karnik), Razormaw Needling
+#   (98245), Word to Ironforge (98300, to King Magni), Old Habits (98223),
+#   Spark of Freedom (87491) and Hearts of the Lost (87318).
+# - Carnage (98283) is optional: Forever's quest data lists it as an elite quest.
+# - Apart from Stopping the Cycle (below), the data has no prerequisites
+#   inside these chains; For Further Study and Word to Ironforge are taken
+#   on the way back, after the quests they most likely follow, so either
+#   order works. Word to Ironforge is optional: one list puts it after a
+#   quest the route leaves out, and no second source settles it, so the
+#   turn-in holds only players who took it.
+# - Left out, as each is the last part of a chain whose earlier part the
+#   route cannot place (Forever's quest chain data, checked 2026-10-17; the data has no
+#   prerequisite, and no spawns for the objects the earlier part asks for):
+#   Bloom of the Heavens (98209, Sylessa Duskwhisper's
+#   delivery to Auberdine) comes after Bloom of the Heavens (98208, recover
+#   Nord'el from the Flying Osprey wreck south of Menethil), and Sentiments of
+#   the Lost (88758, Essene's note to Corma) after Accessories of the Lost
+#   (88757, an elite quest for Essene's necklace, spellbook and waterskin).
+# - Left out: Crimson Crate Delivery (98240): by its text it comes after Crocs
+#   of the Sky, which is handed in back in Menethil, and it ends at Howin in
+#   the Green Belt: a second ride across the zone for 1200 XP. Horrors in the
+#   Highland (95646): its Highland Horror lives in the Excavation Site:
+#   Wetlands dungeon (dungeon journal). Stopping the Cycle (98297): Howin
+#   offers it only after Death to the Dragonmaw (98291, players' reports,
+#   #51), whose Dragonmaw Retreat orcs are elite (Forever's quest data,
+#   in corrections.json), so the simulator leaves 98291 out.
+# - Nek'rosh's Gambit (465) comes from 07-thousand-needles, which takes it
+#   after From the Ashes (98221, Forever puts it between War Banners and
+#   465; issue #225): the Dragonmaw catapult is lit on the way from Howin to
+#   the Angerfang Encampment.
+# Hillsbrad (consensus visit 15): added Hillsbrad's Hoard (98059, Forever): the
+# data has no bookkeeping table, so the step points at the town hall where
+# Magistrate Burnside and the councilmen stand; it is walked on the way back
+# from the yeti cave. Talk of the Town (98463, Forever) is a breadcrumb from
+# Barkeep Kelly to Booty Bay, handed in at 04-stranglethorn-vale.
+#
+# Deviations from the simulator route (consensus, Alliance Human):
+# - Every Southshore quest is picked up on arrival instead of after Farren's
+#   chain: same hub, no extra walk.
+# - Stormwind: the turn-ins run as one loop (Trade District, Old Town, the
+#   Keep, the Cathedral, the Mage Quarter, back through the Trade District to
+#   the tram). The route's Stormwind bind and its hearth back into the same
+#   city are dropped: the next bind (Nijel's Point) replaces it before use.
+# - The route binds at Nijel's Point while still in Ironforge (a model
+#   shortcut): the bind is in the next guide, on arrival.
+# - Southshore on arrival, in walking order from the boat: McManus, the
+#   flight master, Micha, Bartolo, Darren, the inn (Farren, Kelly, Jessen),
+#   Phin, Maleb, Jacques.
+# Carried on to later guides: Costly Menace (564), Bartolo's Yeti Fur Cloak
+# (565), Hints of a New Plague? (659), An Alarming Request (92432), Noble
+# Deaths (512), Further Mysteries (525), Malin's Request (690), James Hyal
+# (1301), The Doomed Fleet (270) and The Missing Diplomat (1248), all turned
+# in later on the route.
+# Class quests: Warriors take The Islander (1718) from Wu Shen in Stormwind;
+# Fray Island lies on the ride to Ratchet in 40-50/01-stranglethorn-vale,
+# where Big Will (level 33) is no longer a risk. Warlocks: Seeking Strahad
+# and the Felhunter's Tome of the Cabal (1798 onwards) are not taken here:
+# forever/class/warlock/felhunter-alliance has the chain.
+# Left out: A Noble Brew (335, 336): a cellar stop and a walk to the Keep's
+# far side for little XP; dropped for flow.
+# Not here: Return to Milton (542), Dark Council (537) and Stormpike's
+# Deciphering (554) cannot be taken in this guide: their prerequisites (540,
+# 525, 551) are turned in later, in 05-arathi-highlands, which carries all
+# three.
+guide forever/alliance/30-40/01-hillsbrad-foothills
+title Wetlands, Hillsbrad Foothills, Ironforge & Stormwind City
+faction Alliance
+levels 30-33
+zone Wetlands
+next forever/alliance/30-40/02-desolace
+
+# ---------------------------------------------------------------- Menethil Harbor
+
+step Menethil Harbor
+  tip Captain Stoutfist stands in Menethil Keep; James Halloran stands by the north gate.
+  accept 98230                        -- Captain Stoutfist: for Howin Kindfeather
+  accept 98072                        -- James Halloran
+
+# ---------------------------------------------------------------- Whelgar's Excavation Site
+
+step Prospector Whelgar
+  tip Follow the road east to Whelgar's Excavation Site.
+  accept 98216
+
+step Goaz Warder
+  tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
+  collect 279993 quest 98216.1        -- Titanic Keystone
+
+step Prospector Whelgar
+  turnin 98216
+  accept 98310                        -- A new Goaz Stone, for the four titan watchers around the Wetlands
+
+# ---------------------------------------------------------------- The Green Belt
+
+step The Green Belt
+  tip Follow the road north-east into the Green Belt: Howin Kindfeather camps beside it, Rethiel the Greenwarden a short way east.
+  turnin 98230                        -- Howin Kindfeather
+  accept 98245
+  accept 98283 optional               -- Rethiel the Greenwarden: Carnage, an elite raptor
+
+step Angerfang Encampment
+  tip South to the Dragonmaw's Angerfang Encampment: the first catapult stands on the way, and the Tattered Spellbook lies in the camp.
+  turnin 465                          -- Dragonmaw Catapult
+  note The next step, Defeat Nek'rosh, pits you against an elite chieftain: skip it.
+  accept 98223 object 671518          -- Tattered Spellbook: for Captain Stoutfist
+
+step Golm
+  tip Golm stands in the south-eastern hills: use the Goaz Stone beside it.
+  collect 280397 quest 98310.3        -- Heart of Golm
+
+step Dragonmaw Gates
+  tip North-east to the Dragonmaw Gates: Ados stands at the gates (use the Goaz Stone).
+  collect 280395 quest 98310.1        -- Heart of Ados
+
+step Whelps, raptors and Neru
+  tip Red whelps fill the hills west of the gates, Maddened Rotclaws the Green Belt, Razormaws the northern slopes; Neru stands in the north-east (use the Goaz Stone).
+  tip Carnage is elite: grouping up is advised.
+  collect 279385 quest 98072.1        -- Pristine Crimson Scale
+  collect 280103 quest 98245.1        -- Razormaw Incisor
+  collect 280398 quest 98310.4        -- Heart of Neru
+  collect 280331 quest 98283.1 optional -- Malignant Rotclaw Flesh
+  collect 280330 quest 98283.2 optional -- Carnage's Head
+
+step The Green Belt
+  turnin 98245                        -- Howin Kindfeather
+  accept 98300 optional               -- For King Magni in Ironforge, at the end of this guide
+  turnin 98283 optional               -- Rethiel the Greenwarden
+
+# ---------------------------------------------------------------- Dun Modr
+
+step Dun Modr
+  tip North along the road to Dun Modr. Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo Harlbarrow.
+  collect 280396 quest 98310.2        -- Heart of Modr
+  accept 87491                        -- Captive Fire Elemental
+  turnin 87491                        -- Roggo Harlbarrow
+
+step The Villards
+  tip Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.
+  accept 87318                        -- Comar Villard
+  turnin 87318                        -- Essene Villard
+
+step Prospector Whelgar
+  tip Back south down the road to the excavation site.
+  turnin 98310
+  accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
+
+step Menethil Harbor
+  tip West along the road to Menethil.
+  turnin 98223
+  turnin 98072                        -- James Halloran
+
+step Boat to Southshore
+  goto 4.78,57.02 "Boat to Southshore"
+
+# ---------------------------------------------------------------- Southshore
+
+step Southshore
+  zone Hillsbrad Foothills
+  tip Pick up everything in town before heading out. Off the boat, Captain McManus is the first you meet, north-west of the flight master; Micha Yance and Bartolo Ginsetti stand between the flight master and the inn, Farren and Barkeep Kelly at the inn, Maleb in the town hall.
+  accept 98059                        -- Captain McManus
+  getfp "Southshore" npc 2432         -- Darla Harris
+  buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
+  accept 565                          -- Bartolo Ginsetti
+  accept 564                          -- Darren Malvew: the lions come later
+  sethome "Southshore" npc 2352       -- Innkeeper Anderson
+  turnin 98219 npc 2228               -- Lieutenant Farren Orinelle
+  accept 536                          -- Lieutenant Farren Orinelle
+  accept 98463                        -- Barkeep Kelly, in the inn: for Booty Bay (04-stranglethorn-vale)
+  accept 555                          -- Chef Jessen
+  accept 659                          -- Phin Odelic: his trail leads to Arathi
+  accept 505                          -- Magistrate Henry Maleb
+  # An Alarming Request requires level 30 (Forever's quest data, quest 92432, checked 2026-10-14).
+  accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
+
+# ---------------------------------------------------------------- The coast
+
+step Torn Fin murlocs
+  tip The Torn Fin murlocs crowd the Western Strand, south-west of Southshore.
+  kill 2377 quest 536.1               -- Torn Fin Tidehunter
+  kill 2376 quest 536.2               -- Torn Fin Oracle
+
+step Farren
+  turnin 536
+  accept 559
+
+step Murloc heads
+  tip Back to the same murlocs; not every one drops a head.
+  collect 3716 quest 559              -- Murloc Head
+
+step Farren's Proof
+  turnin 559                          -- Lieutenant Farren Orinelle
+  accept 560
+  turnin 560                          -- Marshal Redpath
+  accept 561
+  turnin 561                          -- Lieutenant Farren Orinelle
+  accept 562
+
+step Daggerspine naga
+  tip The naga hold the shore south-east of Southshore.
+  kill 2369 quest 562.1               -- Daggerspine Shorehunter
+  kill 2371 quest 562.2               -- Daggerspine Siren
+
+step Farren
+  turnin 562
+  accept 563                          -- A report for Stormwind Keep
+
+# ---------------------------------------------------------------- North of Southshore
+
+step Snapjaws
+  tip The Snapjaw turtles bask along the river east of Southshore, south of Tarren Mill (Horde).
+  collect 3712 quest 555              -- Turtle Meat
+
+step Syndicate camp
+  zone Alterac Mountains
+  tip The Syndicate camp sits on the Alterac border in northern Hillsbrad, west of Tarren Mill (Horde); the documents lie in the camp.
+  kill 2241 quest 505.2               -- Syndicate Thief
+  kill 2240 quest 505.1               -- Syndicate Footpad
+  accept 510 object 1738              -- Syndicate Documents
+  accept 511 object 1738
+
+step Yeti cave
+  zone Hillsbrad Foothills
+  tip The yetis live in the cave in the hills north of Southshore, on your way back south.
+  collect 3720 quest 565.4            -- Yeti Fur
+  note Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.
+
+step Hillsbrad's town hall
+  tip West to the farms of Hillsbrad: place the Sealed Company Request on the bookkeeping table in the town hall, where Magistrate Burnside and the councilmen stand.
+  goto 29.7,41.6 "Hillsbrad town hall"
+
+step Southshore
+  turnin 98059                        -- Captain McManus
+  buy 3713 x1 npc 2381                -- Soothing Spices, from Micha Yance
+  turnin 555                          -- Chef Jessen
+  turnin 511                          -- Loremaster Dibbs
+  accept 514
+  turnin 505                          -- Magistrate Henry Maleb
+  turnin 510
+  accept 512
+
+# ---------------------------------------------------------------- Stormwind
+
+step Fly to Stormwind
+  zone Stormwind City
+  fly "Stormwind"                     -- From Darla Harris in Southshore
+
+step Elling Trias
+  tip The cheese shop in the Trade District.
+  turnin 1245
+  accept 1246
+
+step Dashel Stonefist
+  tip Dashel waits in the Pig and Whistle tavern in Old Town; he and his two thugs fight you, but stop once beaten.
+  turnin 1246
+  accept 1447
+  complete 1447
+  turnin 1447
+  accept 1247
+
+step The Islander
+  only Warrior
+  tip Wu Shen trains warriors in Old Town, beside the Pig and Whistle. Klannoc Macleod waits on Fray Island in the Barrens, on the way to Ratchet much later (40-50/01).
+  accept 1718 npc 5479                -- Wu Shen
+
+step Stormwind Keep
+  turnin 563                          -- Major Samuelson
+
+step Cathedral of Light
+  turnin 293                          -- Archbishop Benedictus
+  turnin 269                          -- Bishop Farthing
+  accept 270
+
+step Mage Quarter
+  tip Archmage Malin is in the Slaughtered Lamb; Garion Wendell near the canal; Connor Rivers south of the Mage Quarter.
+  accept 690                          -- Archmage Malin
+  accept 79536 optional               -- Garion Wendell: only offered once you have handed in library books (the Library Books guide)
+  turnin 79536 optional
+  accept 1301                         -- Connor Rivers
+
+step Elling Trias
+  turnin 1247
+  accept 1248
+
+step Druid training
+  only Druid
+  tip Ironforge has no druid trainer: train with Sheldras Moontree in Stormwind before the tram.
+  train class
+
+# ---------------------------------------------------------------- Ironforge
+
+step Deeprun Tram
+  zone Ironforge
+  tip Take the Deeprun Tram from the Dwarven District to Ironforge.
+  turnin 514                          -- Prospector Stormpike, Hall of Explorers
+  accept 525
+  turnin 98313                        -- Historian Karnik, Hall of Explorers
+  turnin 98300                        -- King Magni Bronzebeard, the High Seat
+  accept 1453                         -- Roetten Stonehammer
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells

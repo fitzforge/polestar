@@ -35,18 +35,18 @@ why The Pyrewood Signet Ring, C's payment for a solo job inside Shadowfang Keep.
 # (checked 2026-10-20); item 210212/210213 Forever tooltips confirm
 # combining the half-keys. Reports are not an in-game test of this guide.
 
-# Follow-up, 2026-10-21: Gaunerh on Forever quest 78261 describes Vanish
-# as help at the door, not a proven second-key method; Forever spell
+# Follow-up, 2026-10-21: a player's report on Forever quest 78261 describes
+# Vanish as help at the door, not a proven second-key method; Forever spell
 # 1856 lists Flash Powder. Prepare it only if Vanish is learned.
 
 step C's dead drop
-  tip The Dead Drop is a chest near Pyrewood Village in southern Silverpine, just south of Shadowfang Keep. Read C's note.
+  tip The Dead Drop is a chest in a house just outside Pyrewood Village in southern Silverpine, south of Shadowfang Keep. Open it and read C's note: the job has to be done alone, out of any group.
   level 23
   accept 78261 object 410369                  -- Dead Drop
 
 step Veenix
   zone Stonetalon Mountains
-  tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers around him carry them.
+  tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon, a short way north-east of Sun Rock Retreat. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them.
   talk 4086                                   -- Veenix
   accept 78270
   collect 210187 x1                           -- Venture Co. Work Order: Venture Co. Logger
@@ -54,7 +54,7 @@ step Veenix
 
 step Shadowfang Keep
   zone Silverpine Forest
-  tip Go in alone and use the Breaching Charge at the courtyard gate. If you know Vanish, bring Flash Powder and check its cooldown before entering; keep it ready for a failed approach. Pickpocket the sister in the dining hall for the Sister's Half-Key, then the brother in the room reached by turning right at the top of the stairs for the Brother's Half-Key. Combine them somewhere safe: this breaks stealth. Return to the courtyard stables and use the combined key on the chest for the horn. Stay clear of the nearby elites; the minimum quest level does not guarantee a safe approach.
+  tip Go in alone and use the Breaching Charge at the courtyard gate. Players also report a freed prisoner opening the courtyard door for you: if you die while he is opening it, stay dead until it is open; it stays open once you release. If you know Vanish, bring Flash Powder and check its cooldown before entering; keep it ready for a failed approach. Pickpocket the sister in the dining hall for the Sister's Half-Key, then the brother in the room reached by turning right at the top of the stairs for the Brother's Half-Key (a level 20 rogue without Vanish may need ranks in Master of Deception to reach the second one unseen). Combine them somewhere safe: this breaks stealth. Free a bag slot first: opening the chest with full bags can use up the key without giving the horn. Return to the courtyard stables and use the combined key on the chest for the horn. Stay clear of the nearby elites; the minimum quest level does not guarantee a safe approach.
   collect 210183 quest 78261.1 @44.8,67.8 live -- Horn of Xelthos, inside Shadowfang Keep
 
 step Back to the dead drop

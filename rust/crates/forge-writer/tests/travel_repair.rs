@@ -25,15 +25,20 @@ fn text(lines: &[String]) -> String {
 }
 
 fn run(start: &[String], v1: &[String], written: &[String]) -> (forge_writer::travel::Report, Vec<String>) {
+	run_as(start, v1, written, &["Orc", "Troll"], None)
+}
+
+fn run_as(start: &[String], v1: &[String], written: &[String], races: &[&str], cls: Option<&str>) -> (forge_writer::travel::Report, Vec<String>) {
 	let data = common::travel_ref().data;
 	let v1t: BTreeMap<String, String> = [("forever/t/start.guide".to_string(), text(start)), ("forever/t/shared.guide".to_string(), text(v1))].into();
 	let mut out: BTreeMap<String, String> = [("forever/t/start.guide".to_string(), text(start)), ("forever/t/shared.guide".to_string(), text(written))].into();
 	let t = Travel {
 		chain: vec!["forever/t/start.guide".into(), "forever/t/shared.guide".into()],
-		route_races: vec!["Orc".into(), "Troll".into()],
-		other_races: vec!["Tauren".into(), "Undead".into(), "Skyborne".into()],
+		route_races: races.iter().map(|r| r.to_string()).collect(),
+		other_races: ["Orc", "Troll", "Tauren", "Undead", "Skyborne"].iter().filter(|r| !races.contains(r)).map(|r| r.to_string()).collect(),
 		shared: vec!["forever/t/shared.guide".into()],
 		faction: Some("Horde".into()),
+		cls: cls.map(str::to_string),
 	};
 	let r = repair_travel(&mut out, &v1t, &t, &data, None);
 	let g = out["forever/t/shared.guide"].split('\n').map(str::to_string).collect();
@@ -134,9 +139,104 @@ fn gate_keeps_other_races() {
 	use forge_writer::travel::gate;
 	let rr = vec!["Orc".to_string(), "Troll".to_string()];
 	let or = vec!["Tauren".to_string()];
-	assert_eq!(gate("  fly \"X\"", &rr, &or, true).as_deref(), Some("  fly \"X\" only Tauren"));
-	assert_eq!(gate("  fly \"X\"", &rr, &or, false), None);
-	assert_eq!(gate("  fly \"X\" only Orc,Tauren -- c", &rr, &or, true).as_deref(), Some("  fly \"X\" only Tauren -- c"));
-	assert_eq!(gate("  fly \"X\" only Orc", &rr, &or, true), None);
-	assert_eq!(gate("  fly \"X\" only !Orc", &rr, &or, true).as_deref(), Some("  fly \"X\" only !Orc"));
+	let g = |l: &str, sh: bool| gate(&[l.to_string()], 0, &rr, &or, sh);
+	assert_eq!(g("  fly \"X\"", true).as_deref(), Some("  fly \"X\" only Tauren"));
+	assert_eq!(g("  fly \"X\"", false), None);
+	assert_eq!(g("  fly \"X\" only Orc,Tauren -- c", true).as_deref(), Some("  fly \"X\" only Tauren -- c"));
+	assert_eq!(g("  fly \"X\" only Orc", true), None);
+	// (A class negation stays with the other races.)
+	assert_eq!(g("  fly \"X\" only !Warlock", true).as_deref(), Some("  fly \"X\" only Tauren,!Warlock"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn a_druids_way_to_moonglade_is_its_teleport() {
+	// RevSkyH3 S6: the Skyborne Druids' way from Thunder Bluff to Moonglade was a flight to Orgrimmar
+	// and a 6,551 yd walk; they teleport, as v1's Moonglade steps say.
+	let st = start(&["zone Thunder Bluff", "", "step Elder Rise", "  goto 76.5,27.3 \"Elder Rise\"", ""]);
+	let v1 = shared(&["zone Thunder Bluff", "", "step Elder Rise", "  talk 3033 @76.5,27.3", ""]);
+	let mut written = v1.clone();
+	written.extend(["step Moonglade", "  only Druid", "  zone Moonglade", "  talk 11802 @52.5,40.6", ""].map(String::from));
+	let (r, g) = run_as(&st, &v1, &written, &["Tauren"], Some("DRUID"));
+	assert!(g.iter().any(|l| l.contains("\"Cast Teleport: Moonglade\"")), "{}\n{:?}\n{:?}", g.join("\n"), r.log, r.left);
+	assert!(!g.iter().any(|l| l.starts_with("  fly ")), "{}", g.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn v1s_flight_back_with_only_other_classes_work_sends_no_one_walking_there() {
+	// Rev14H1 12c: v1's "Back to the Crossroads" flight (everyone back from Orgrimmar training), placed
+	// by the route at Regthar with only the Warlocks' hand-in left: the repair walked everyone to the
+	// Crossroads and back to Barak.
+	let st = start(&["", "step Crossroads", "  zone The Barrens", "  accept 852", ""]);
+	let v1 = shared(&["", "step Regthar", "  zone The Barrens", "  goto 45.3,28.4 \"Regthar Deathgate\"", "", "step Barak", "  goto 43.0,23.0 \"Barak\"", ""]);
+	let written = shared(&[
+		"",
+		"step Regthar",
+		"  zone The Barrens",
+		"  goto 45.3,28.4 \"Regthar Deathgate\"",
+		"",
+		"step Back to the Crossroads",
+		"  fly \"Crossroads\"",
+		"  turnin 1509 only Warlock",
+		"",
+		"step Barak",
+		"  goto 43.0,23.0 \"Barak\"",
+		"",
+	]);
+	let (_, g) = run(&st, &v1, &written);
+	assert!(!g.iter().any(|l| l.contains("\"Crossroads\"") && l.trim_start().starts_with("goto")), "{}", g.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn a_flight_from_no_flight_master_on_a_shared_guide_is_repaired_where_v1_has_it_too() {
+	// c17 30-40/03-ashenvale:81: `fly "Astranaar" -- From Nijel's Point` at Maestra's Post, after the
+	// route's own flight there; every start's repair replaced it but the Dwarves', whose v1 breaks on
+	// the same line, so the Dwarves were sent flying from no flight master.
+	let st = start(&[
+		"",
+		"step Orgrimmar",
+		"  zone Orgrimmar",
+		"  goto 45.3,63.8 \"Orgrimmar flight master\"",
+		"  getfp \"Orgrimmar\"",
+		"",
+		"step Crossroads",
+		"  zone The Barrens",
+		"  goto 51.5,30.4 \"Crossroads\"",
+		"  getfp \"Crossroads\"",
+		"",
+	]);
+	let v1 = shared(&["", "step Regthar", "  zone The Barrens", "  goto 45.3,28.4 \"Regthar Deathgate\"", "", "step Crossroads", "  fly \"Crossroads\"", "  accept 852", ""]);
+	let (_, g) = run(&st, &v1, &v1);
+	assert!(others_only(&g, "  fly \"Crossroads\""), "{}", g.join("\n"));
+}
+
+fn fly_away(then: &[&'static str]) -> Vec<String> {
+	let st = start(&["", "step Orgrimmar", "  zone Orgrimmar", "  goto 45.3,63.8 \"Orgrimmar flight master\"", "  getfp \"Orgrimmar\"", ""]);
+	let head = ["", "step Crossroads", "  zone The Barrens", "  goto 51.5,30.4 \"Crossroads\"", "  getfp \"Crossroads\"", ""];
+	let tail = ["step Boars", "  zone The Barrens", "  kill 3098 @45.0,23.0", ""];
+	let v1 = shared(&[&head[..], &tail[..]].concat());
+	let mut w: Vec<&str> = head.to_vec();
+	w.extend(["step Fly to Orgrimmar", "  only Orc,Troll", "  zone The Barrens", "  goto 51.5,30.4 \"Crossroads flight master\"", "  fly \"Orgrimmar\"", "  zone Orgrimmar", ""]);
+	w.extend(then);
+	w.extend(tail);
+	run(&st, &v1, &shared(&w)).1
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn a_flight_away_from_the_next_goal_goes_whole_but_one_to_training_or_a_ride_stays() {
+	// c17 05-duskwood:13: the repair took the flight out of "Fly to Sentinel Hill" and left the step,
+	// a walk to the Lakeshire flight master that flew nowhere.
+	let g = fly_away(&[]);
+	assert!(!g.iter().any(|l| l == "step Fly to Orgrimmar" || l.contains("\"Crossroads flight master\"")), "{}", g.join("\n"));
+	// c17 40-50/06-searing-gorge:221: the flight from Thorium Point to Ironforge's trainers is for the
+	// training, not away from the next goal.
+	let g = fly_away(&["step Class trainer", "  only Orc,Troll", "  train class", ""]);
+	assert!(g.iter().any(|l| l == "  fly \"Orgrimmar\""), "{}", g.join("\n"));
+	// c17 50-60/04-western-plaguelands:385: nor is one to a boat, tram or portal (Rut'theran Village's
+	// to Darnassus).
+	let g = fly_away(&["step Zeppelin to Undercity", "  only Orc,Troll", "  zone Durotar", "  goto 50.8,13.5 \"Zeppelin to Undercity\"", ""]);
+	assert!(g.iter().any(|l| l == "  fly \"Orgrimmar\""), "{}", g.join("\n"));
 }

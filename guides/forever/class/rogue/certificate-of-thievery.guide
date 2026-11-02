@@ -4,31 +4,44 @@ category Class
 class Rogue
 folder Rogue
 faction Alliance
-levels 16-20
+levels 16-22
 zone Stormwind City
-keywords Certificate of Thievery, Lockpicking, Renzik The Shiv, Redridge Rendezvous, Lucius, Alther's Mill, Lucius's Lockbox, Token of Thievery, Erion Shadewhisper, Erion's Behest, To Hulfdan!, Kingly Shakedown, SI:7, Lakeshire, Rogue, lockpicking quest
+keywords Certificate of Thievery, Lockpicking, Pick Lock, Thieves' Tools, Renzik The Shiv, Redridge Rendezvous, Lucius, Alther's Mill, Lucius's Lockbox, Practice Lockbox, Token of Thievery, Erion Shadewhisper, Erion's Behest, To Hulfdan!, Kingly Shakedown, SI:7, Lakeshire, Horns of Nez'ra, Arantir, Blackrock, Thistle Tea, Rogue, lockpicking quest
 reward item 7907
-why Your first lockpicking job at 16: Lucius's lockbox at Alther's Mill, for SI:7.
+reward item 7676
+why Your first lockpicking job at 16: Lucius's lockbox at Alther's Mill, for SI:7, then Thistle Tea from Arantir.
 
 # The Alliance Rogue level 16 lockpicking chain: one breadcrumb per home town
 # to Renzik "The Shiv" at SI:7 in Stormwind (SI:7 2300 from Keryn Sylvius in
 # Goldshire; To Hulfdan! and Kingly Shakedown 2299, 2298 from Hogral Bakkan
 # in Kharanos; Erion Shadewhisper and Erion's Behest 2259, 2260 from Jannok
 # Breezesong in Dolanaar), then Redridge Rendezvous (2281) and Alther's Mill
-# (2282, the Certificate of Thievery) with Lucius in Lakeshire.
+# (2282, the Certificate of Thievery) with Lucius in Lakeshire, and Horns of
+# Nez'ra (2358) for Arantir beside him.
 # Sources: Forever's Rogue class quest list
 # (data/local/quest-audit/) for which quests Forever
 # has, the rewards and Forever's changes (none for this chain);
 # quests.json, npcs.json, objects.json and items.json for the givers, drops
 # and places.
-# Not confirmed in Forever: Horns of Nez'ra (2358), Arantir's follow-up in
-# Lakeshire, is in the Classic data but not on Forever's Rogue class quest list,
-# so it is left out.
+# Horns of Nez'ra (2358): not on Forever's Rogue class quest list, but in
+# quests.json (pre 2282, Arantir 7009), in the client (KB in_client yes),
+# on a Forever quest site built from the beta client (build 70658, checked
+# 2026-10-29) and in Forever's server data with ten Thistle Tea (7676) as
+# reward. The KB drops table: the Horns drop 100% from the Blackrock orcs of
+# Redridge (npcs.json: Grunts 19 and Outrunners 20 east of Lakeshire,
+# Renegades 21, Champions 24; Shadowcasters 22 and Gath'Ilzogg 26 elite).
+# Forever's server data (gameobject_template): Lucius's Lockbox uses the
+# same lock as the Horde's Jewel of the Southsea (about 25 Lockpicking by
+# players' notes); the Practice Lockboxes the lowest lock.
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20):
+# Lucius on a crate on a Lakeshire dock, his Thieves' Tools on accepting,
+# the practice lockboxes in the mill (some trapped), level 20 spiders near
+# them on Forever, orcs roaming near the mill, Lockpicking's cap rising 5 per
+# level; Pick Lock from Lord Tony Romano at SI:7, Thieves' Tools from Gerald
+# Crawley in Lakeshire.
 # The three breadcrumbs exclude one another: take the one of your town. Their
 # race masks take any Alliance race; Skyborne, in Stormwind by about 15,
 # take Keryn Sylvius's in Goldshire.
-# Alther's Mill gives you Thieves' Tools for Lucius's Lockbox.
-# Learn Lockpicking on the shared Stormwind visit before travelling east.
 # Forever quest=2282 reports spiders near the practice boxes; use the
 # current lock's requirement, not old comments' conflicting skill thresholds.
 # The leveling guides leave these out: they teach no spell.
@@ -38,39 +51,41 @@ why Your first lockpicking job at 16: Lucius's lockbox at Alther's Mill, for SI:
 step SI:7 (Goldshire)
   only Human,Skyborne
   zone Elwynn Forest
-  tip At 16 Keryn Sylvius, the rogue trainer in the Lion's Pride Inn in Goldshire, sends you to Renzik "The Shiv" in Stormwind.
+  tip At 16 Keryn Sylvius, the rogue trainer upstairs in the Lion's Pride Inn in Goldshire, sends you to Renzik "The Shiv" in Stormwind. Taking it shuts out the other towns' breadcrumbs.
   level 16
   accept 2300                                 -- Keryn Sylvius
 
 step To Hulfdan! (Kharanos)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip At 16 Hogral Bakkan in the Thunderbrew Distillery in Kharanos sends you to Hulfdan Blackbeard, in the north of Ironforge.
+  tip At 16 Hogral Bakkan in the Thunderbrew Distillery in Kharanos sends you to Hulfdan Blackbeard in Ironforge's Forlorn Cavern.
   level 16
   accept 2299                                 -- Hogral Bakkan
 
 step Hulfdan Blackbeard
   only Dwarf,Gnome
   zone Ironforge
+  tip Hulfdan is in the house with a shady dealer outside, in the Forlorn Cavern, down the stairs. Then fly or take the Deeprun Tram to Stormwind.
   turnin 2299                                 -- Hulfdan Blackbeard
   accept 2298
 
 step Erion Shadewhisper (Dolanaar)
   only NightElf
   zone Teldrassil
-  tip At 16 Jannok Breezesong in Dolanaar sends you to Erion Shadewhisper in Darnassus.
+  tip At 16 Jannok Breezesong in the Dolanaar inn sends you to Erion Shadewhisper in Darnassus.
   level 16
   accept 2259                                 -- Jannok Breezesong
 
 step Erion Shadewhisper
   only NightElf
   zone Darnassus
+  tip Erion stands in the Cenarion Enclave. Then the boat from Rut'theran Village to Auberdine, and the boat from Auberdine to Stormwind Harbor.
   turnin 2259                                 -- Erion Shadewhisper, Darnassus
   accept 2260
 
 step Renzik "The Shiv"
   zone Stormwind City
-  tip Renzik stands beside Master Mathias Shaw at SI:7 in Old Town. Dwarves and Gnomes take the Deeprun Tram from Ironforge; Night Elves take the boat from Auberdine to Stormwind Harbor. Learn Lockpicking from a rogue trainer before leaving for Redridge.
+  tip Renzik stands upstairs in the SI:7 building in Old Town, behind the rogue trainers. Before you leave: if you lack Pick Lock, Lord Tony Romano in the SI:7 building teaches it; Lockpicking is the test of the next quest.
   turnin 2300 only Human,Skyborne             -- Renzik "The Shiv"
   turnin 2298 only Dwarf,Gnome
   turnin 2260 only NightElf
@@ -80,13 +95,19 @@ step Renzik "The Shiv"
 
 step Lucius
   zone Redridge Mountains
-  tip Head east through Elwynn Forest into Redridge, or fly to Lakeshire. Lucius waits on the west side of Lakeshire and gives you Thieves' Tools.
+  tip Head east through Elwynn Forest into Redridge, or fly to Lakeshire. Lucius stands on a crate on one of the Lakeshire docks, south of town; he gives you Thieves' Tools with the job (Gerald Crawley in Lakeshire sells more). Pick Lock does not work without the tools in your bags.
   turnin 2281                                 -- Lucius
   accept 2282
 
 step Alther's Mill
-  tip Alther's Mill stands east of Lakeshire, up off the road. Open Lucius's Lockbox there. Keep the {item:5060} supplied by {npc:6966} in your bags. Clear nearby spiders before practicing; lower-level rogues should bring help if the boxes are guarded. Use the practice locks until the quest lock is within your current skill, then recover the token. If useful practice remains, do it before returning to town; stop when the locks no longer improve your skill.
+  tip Alther's Mill stands east of Lakeshire, up off the road; Blackrock orcs roam near it. Inside, the Practice Lockboxes come back almost at once: pick them until Lucius's Lockbox opens for you (about 25 Lockpicking). Your Lockpicking cap rises 5 per level, so a low character may stall. Some boxes are trapped (a frost trap, for one); the skill still goes up. On Forever level 20 spiders wander near the boxes: clear them first or bring a friend. The lockbox always holds the token and is back two seconds after use. Practise on while it still gives skill: the next class quest needs about 75.
   collect 7871 quest 2282.1                   -- Token of Thievery: Lucius's Lockbox
 
 step Back to Lucius
   turnin 2282 reward 7907                     -- Lucius: Certificate of Thievery
+
+step Horns of Nez'ra
+  tip Arantir, beside Lucius, wants the Horns of Nez'ra, which the Blackrock orcs of Redridge carry: the first one you kill drops them. The easiest are the Blackrock Grunts (level 19) and Outrunners (20) east of Lakeshire; the Shadowcasters (22) and Gath'Ilzogg (26) are elite.
+  accept 2358                                 -- Arantir
+  collect 7906 quest 2358.1                   -- Horns of Nez'ra: any Blackrock orc
+  turnin 2358 reward 7676                     -- Arantir: ten Thistle Tea

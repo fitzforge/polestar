@@ -46,6 +46,11 @@ pub struct WalkGoal {
 	pub time: f64,
 	pub lvl_after: f64,
 	pub time_after: f64,
+	/// Seconds the level model spent grinding during the goal (its evaluator's `grind_sec`): the grind a
+	/// `level` goal writes, and the unwritten grind any other goal's event needs (an accept or a field
+	/// under its level). NaN: the model gives none (a recorded JS walk). Not in walk.js's goal shape.
+	#[serde(skip)]
+	pub grind: f64,
 	/// `w`, else the last known point.
 	pub pos: Option<WPt>,
 	/// The goal's step is `along` (Some(label) for `along until <label>`, Some("") for a bare `along`);
@@ -55,6 +60,25 @@ pub struct WalkGoal {
 	/// The goal's step's `label` (not in walk.js's goal shape).
 	#[serde(skip)]
 	pub label: Option<String>,
+	/// The goal's item (`collect`, `use`, `buy`; not in walk.js's goal shape).
+	#[serde(skip)]
+	pub item: Option<u32>,
+	/// A `train class` goal (the compiled goal's `class`), not a named or profession trainer's line
+	/// (not in walk.js's goal shape).
+	#[serde(skip)]
+	pub class: bool,
+	/// The compiled goal's spawn spots (cluster centres; a `loop` step's search points) as world
+	/// points (not in walk.js's goal shape).
+	#[serde(skip)]
+	pub spots: Vec<WPt>,
+	/// A `fly`, `hearth` or `enter` goal's place as written (`fly "Gadgetzan"`; not in walk.js's goal
+	/// shape).
+	#[serde(skip)]
+	pub location: Option<String>,
+	/// Where a `fly` goal lands: its flight master (check.rs `land_flights`; not in walk.js's goal
+	/// shape).
+	#[serde(skip)]
+	pub land: Option<WPt>,
 }
 
 /// Levels and time along a walk: fills `lvl`, `time`, `lvl_after`, `time_after` and returns where the walk
@@ -288,6 +312,19 @@ pub fn resolve_chain(guides: &[V], chain: Chain, ctx: &Ctx) -> Result<Vec<String
 	Ok(chain)
 }
 
+/// A goal's level: a `level` line's level with its fraction (`level 12.5`, halfway through 12) or
+/// XP into it (`level 12+2500`), which the compiled goal keeps apart (`frac`, `levelXp`); chain's
+/// goal_event takes the fraction as the XP into the level (c15 Horde Silverpine: `level 18.6` read
+/// as 18 put the judge's Sepulcher hearths 54 minutes apart, the route's 79).
+fn level_of(goal: &V) -> Option<f64> {
+	let level = opt_num(&goal.get("level"))?;
+	let frac = opt_num(&goal.get("frac")).or_else(|| opt_num(&goal.get("levelXp")).map(|x| x / forge_sim::xp::level_xp(level as usize)));
+	Some(match frac {
+		Some(f) if f > 0.0 && f < 1.0 => level.floor() + f,
+		_ => level,
+	})
+}
+
 /// walkChain over compiled guides: the chain's goals in order (for this character's `only`
 /// clauses; a quest's goals after its turn-in, and its accepts after the first, skipped), levels from
 /// `levels`, cut at the first goal begun at level `to` or above. `file_of` names a guide's source file.
@@ -425,15 +462,21 @@ pub fn chain_goals(guides: &[V], file_of: &dyn Fn(&V) -> String, chain: &[String
 					map: opt_num(&goal.get("map")).map(|m| m as u32),
 					w: wpt(proj, &goal.get("map"), &goal.get("x"), &goal.get("y"), &goal.get("f")),
 					npc: opt_u32(&goal.get("npc")),
-					level: opt_num(&goal.get("level")),
+					level: level_of(&goal),
 					title,
 					lvl: 0.0,
 					time: 0.0,
 					lvl_after: 0.0,
 					time_after: 0.0,
+					grind: f64::NAN,
 					pos: None,
 					along: along.clone(),
 					label: label.clone(),
+					item: opt_u32(&goal.get("item")),
+					class: goal.get("class").truthy(),
+					spots: goal.get("spots").items().iter().filter_map(|s| wpt(proj, &goal.get("map"), &s.get("x"), &s.get("y"), &goal.get("f"))).collect(),
+					location: goal.get("location").as_str().map(str::to_string),
+					land: None,
 				});
 			}
 		}
@@ -494,7 +537,7 @@ pub fn background(goals: &[WalkGoal]) -> Background {
 }
 
 #[cfg(feature = "native")]
-pub use native::{judge_walk, JudgeOpts, Judged};
+pub use native::{judge_walk, JudgeEnv, JudgeOpts, Judged};
 
 #[cfg(feature = "native")]
 mod native {
@@ -555,6 +598,73 @@ mod native {
 		pub returns: Returns,
 	}
 
+	/// What judging a walk reads beside the walk: the game data, the simulator's rules (quest set,
+	/// prerequisites, solo set), the grid's subzones and the map projector. Built once, it judges any
+	/// number of goal lists of one character (the written walk, v1's, the model order's stream).
+	pub struct JudgeEnv {
+		pub faction: Faction,
+		pub cls: Option<String>,
+		pub d: GameData,
+		pub rules: Rules,
+		pub sub: GridSubzones,
+		pub proj: Projector,
+		pub radius: f64,
+		pub examples: usize,
+	}
+
+	impl JudgeEnv {
+		/// From judgeWalk's options (`root`, `data_dir`, `grid`, `radius`, `examples`).
+		pub fn new(o: &JudgeOpts) -> Result<JudgeEnv, String> {
+			let faction = Faction::parse(&o.faction).ok_or_else(|| format!("judge: unknown faction {}", o.faction))?;
+			let ctx = Ctx::new(faction.name(), &o.race, o.cls.as_deref())?;
+			let frames = MapFrames::from_json(&std::fs::read(o.data_dir.join("map-frames.json")).map_err(|e| format!("map-frames.json: {e}"))?).map_err(|e| e.to_string())?;
+			// Heights only place points; the rules read the quest set, so no floors source is needed.
+			let world = build_world(&GameData::from_source(&DirSource::repo(&o.root)).map_err(|e| e.to_string())?, &BuildOptions::new(faction), &NoFloors).map_err(|e| e.to_string())?.0;
+			let src = DirSource { data: o.data_dir.clone(), sources: Some(o.root.join("data/sources")), rules: Some(o.root.join("data/rules.json")) };
+			let d = GameData::from_source(&src).map_err(|e| e.to_string())?;
+			let rules = Rules::new(&world, race_label(&ctx.race), None, false);
+			let sub = GridSubzones::open(&o.grid, &o.root.join("data/sources"));
+			Ok(JudgeEnv { faction, cls: ctx.cls, d, rules, sub, proj: Projector::new(&frames), radius: o.radius, examples: o.examples })
+		}
+
+		/// The maps of a goal list's located goals, in first-seen order.
+		pub fn maps(goals: &[WalkGoal]) -> Vec<u32> {
+			let mut maps: Vec<u32> = Vec::new();
+			for w in goals.iter().filter_map(|g| g.w) {
+				if !maps.contains(&w.map) {
+					maps.push(w.map);
+				}
+			}
+			maps
+		}
+
+		/// Avoidable returns of a goal list, on the quest atlas of `maps` (None: the goals' own).
+		pub fn returns(&self, goals: &[WalkGoal], maps: Option<&[u32]>) -> Returns {
+			let solo = solo_filter(&self.rules, &self.d.quests, self.cls.as_deref());
+			let pre_of = |rec: &forge_world::data::Quest| self.rules.prereqs_of(rec);
+			let own;
+			let maps = match maps {
+				Some(m) => m,
+				None => {
+					own = Self::maps(goals);
+					&own
+				}
+			};
+			let atlas = Atlas::build_for(self.faction, &self.d, Some(&self.sub), Some(maps));
+			avoidable_returns(goals, &atlas, &self.d, &solo, Some(&pre_of), self.examples)
+		}
+
+		/// A walk judged: passed by and avoidable returns (on `maps`, None: the walk's own).
+		pub fn judge(&self, walk: Walk, maps: Option<&[u32]>) -> Judged {
+			let solo = solo_filter(&self.rules, &self.d.quests, self.cls.as_deref());
+			let pre_of = |rec: &forge_world::data::Quest| self.rules.prereqs_of(rec);
+			let popts = crate::passedby::Opts { radius: self.radius, ..Default::default() };
+			let pb = passed_by(&walk.goals, &self.d, &self.proj, &solo, Some(&pre_of), Some(&self.sub), popts);
+			let returns = self.returns(&walk.goals, maps);
+			Judged { background: background(&walk.goals), walk, passed_by: pb, returns }
+		}
+	}
+
 	/// judgeWalk: the walk (levels from `levels`), passed by and avoidable returns. Goal files are
 	/// absolute.
 	pub fn judge_walk(o: &JudgeOpts, levels: &dyn LevelModel) -> Result<Judged, String> {
@@ -573,35 +683,15 @@ mod native {
 		} else {
 			forge_guide::project::compile_project(&o.guides, &V::Undef, &data, forge_guide::diag::Diagnostics::new(), false, None).guides
 		};
-		let frames = MapFrames::from_json(&std::fs::read(o.data_dir.join("map-frames.json")).map_err(|e| format!("map-frames.json: {e}"))?).map_err(|e| e.to_string())?;
-		let proj = Projector::new(&frames);
+		let env = JudgeEnv::new(o)?;
 		let chain = match &o.chain {
 			Some(ids) => Chain::Ids(ids.clone()),
 			None if single => Chain::Next,
 			None => Chain::Routes,
 		};
 		let file_of = |g: &V| abs_file(g).to_string_lossy().into_owned();
-		let walk = walk_chain(&guides, &file_of, chain, &ctx, &proj, levels, o.to)?;
-
-		// Heights only place points; the rules read the quest set, so no floors source is needed.
-		let world = build_world(&GameData::from_source(&DirSource::repo(&o.root)).map_err(|e| e.to_string())?, &BuildOptions::new(faction), &NoFloors).map_err(|e| e.to_string())?.0;
-		let src = DirSource { data: o.data_dir.clone(), sources: Some(o.root.join("data/sources")), rules: Some(o.root.join("data/rules.json")) };
-		let d = GameData::from_source(&src).map_err(|e| e.to_string())?;
-		let rules = Rules::new(&world, race_label(&ctx.race), None, false);
-		let solo = solo_filter(&rules, &d.quests, ctx.cls.as_deref());
-		let pre_of = |rec: &forge_world::data::Quest| rules.prereqs_of(rec);
-		let sub = GridSubzones::open(&o.grid, &o.root.join("data/sources"));
-		let popts = crate::passedby::Opts { radius: o.radius, ..Default::default() };
-		let pb = passed_by(&walk.goals, &d, &proj, &solo, Some(&pre_of), Some(&sub), popts);
-		let mut maps: Vec<u32> = Vec::new();
-		for w in walk.goals.iter().filter_map(|g| g.w) {
-			if !maps.contains(&w.map) {
-				maps.push(w.map);
-			}
-		}
-		let atlas = Atlas::build_for(faction, &d, Some(&sub), Some(&maps));
-		let returns = avoidable_returns(&walk.goals, &atlas, &d, &solo, Some(&pre_of), o.examples);
-		Ok(Judged { background: background(&walk.goals), walk, passed_by: pb, returns })
+		let walk = walk_chain(&guides, &file_of, chain, &ctx, &env.proj, levels, o.to)?;
+		Ok(env.judge(walk, None))
 	}
 
 	/// A compiled guide's source file, absolute (`_ast.file` is shown relative to the working directory).
@@ -612,5 +702,32 @@ mod native {
 		} else {
 			std::env::current_dir().unwrap_or_default().join(f)
 		}
+	}
+}
+
+#[cfg(test)]
+mod level_tests {
+	use super::*;
+
+	#[test]
+	fn a_level_line_keeps_its_fraction() {
+		// c15 Horde Silverpine: `level 18.6` compiles to level 18 and frac 0.6; read as 18, the judge's
+		// clock left the Sepulcher hearths 54 minutes apart where the route had 79.
+		let goal = |level: f64, frac: Option<f64>, xp: Option<f64>| {
+			let g = V::obj();
+			g.set("t", "level");
+			g.set("level", level);
+			if let Some(f) = frac {
+				g.set("frac", f);
+			}
+			if let Some(x) = xp {
+				g.set("levelXp", x);
+			}
+			g
+		};
+		assert_eq!(level_of(&goal(18.0, Some(0.6), None)), Some(18.6));
+		assert_eq!(level_of(&goal(19.0, None, None)), Some(19.0));
+		let x = level_of(&goal(12.0, None, Some(2500.0))).unwrap();
+		assert!((x - (12.0 + 2500.0 / forge_sim::xp::LEVEL_XP[12])).abs() < 1e-9, "{x}");
 	}
 }

@@ -1,0 +1,273 @@
+guide forever/horde/40-50/05-the-hinterlands
+title The Hinterlands & Blasted Lands
+faction Horde
+levels 47-50
+zone The Hinterlands
+next forever/horde/40-50/06-azshara
+# Route from the Polestar route simulator's Horde consensus (Tauren export),
+# visits 49-53, levels 47.6-49.5. Checked by lint, not play-tested on
+# Forever yet. Era + known Forever quests only.
+#
+# Flow: Thorium Point (where the previous guide ends) -> fly Stonard -> the
+# bloodmages in the Blasted Lands -> the northern beasts and the eastern
+# slopes -> the bloodmages -> Stonard, fly Undercity (training) -> fly
+# Tarren Mill -> Gilveradin's camp -> Highvale and Rin'ji -> the Witherbark
+# village (Grim Message) -> the Violet Tragan -> the Atal'ai Exile ->
+# Revantusk Village (flight path, bind) -> the north coast -> the Vilebranch
+# temples -> the central hills -> Skulk Rock -> the Silvermane Howlers ->
+# Highvale -> Gilveradin -> Jintha'Alor -> Revantusk -> Aerie Peak -> hearth
+# Revantusk Village, where the next guide starts.
+#
+# Deviations from the export:
+# - The Booty Bay stop (visit 49) is dropped: a flight and a zeppelin for
+#   one accept, Whiskey Slim's Lost Grog (580), and the optional OOX-17/TN
+#   turn-in (648, carried on to the next Booty Bay visit).
+# - The Swamp of Sorrows return (visit 51) is gone: Threat From the Sea and
+#   Continued Threat (1426-1428) are finished in forever/horde/40-50/03-feralas.
+# - The Blasted Lands come first, straight from Thorium Point by way of
+#   Stonard, then the Undercity on the way to Tarren Mill: no Undercity
+#   bind, no hearth back to it, no zeppelin.
+# - Hinterlands: Gilveradin, the Highvale records, Rin'ji, the Grim Message,
+#   the Violet Tragan and the Atal'ai Exile are done on the way in from
+#   Tarren Mill; Elder Torntusk is visited with the rest of Jintha'Alor. The
+#   Long Elegant Feathers for Another Message to the Wildhammer (7842) drop
+#   from the Razorbeak Skylords in the central hills before the quest is in
+#   your log, so it is handed in the moment you take it.
+# - A short grind check after the bloodmages (level 48) covers the
+#   experience lost with the dropped stops here and in the previous guide.
+# - Highvale: the report, the notes and the records nearest first, then
+#   Rin'ji. Revantusk Village: round the village from the west side, where
+#   you ride in; Gorkas, the flight master at the far east end, last.
+#
+# Class training: the Undercity for Warriors, Paladins, Rogues, Priests,
+# Mages and Warlocks; Hunters, Shamans and Druids trained at the end of the
+# previous guide and train next in Orgrimmar and Thunder Bluff in the next
+# guide.
+#
+# Optional: Find and Rescue OOX-09/HL! (485, 836): the beacon is a rare drop.
+#
+# Accepted here, finished later on the route: Rin'ji's Secret (2782),
+# Ripple Delivery (81), Lines of Communication
+# (2995), Assisting Arch Druid Runetotem (3784); Grim Message (2932),
+# Sprinkle's Secret Ingredient (2641) and Testing the Vessel (3123) leave
+# here with their objectives done.
+#
+# Left out: Tabetha's Task (2861) and Venom Bottles (2933): the export never
+# hands them in. Whiskey Slim's Lost Grog (580), see above. Return to
+# Fel'Zerul (1444): its turn-in stop in Stonard is dropped from the next
+# guide (a zeppelin and a flight for one quest), so it is not taken.
+
+# ---------------------------------------------------------------- The Blasted Lands
+
+step Fly to Stonard
+  zone Searing Gorge
+  tip From Thorium Point's flight master.
+  fly "Stonard"
+
+step The bloodmages
+  zone Blasted Lands
+  tip Ride west out of Stonard and south through the canyon into the Blasted Lands; the two bloodmages stand by the road just inside.
+  accept 2581                           -- Bloodmage Drazial
+  accept 2583
+  accept 2585
+  accept 2601                           -- Bloodmage Lynnore
+  accept 2603
+
+step The northern beasts
+  tip The five quests share the same parts: gather them all in one sweep. West of the road the Black Slayer vultures, Starving Snickerfangs, Scorpok Stingers and Deatheye basilisks share the hills.
+  collect 8396 x10 quest 2603.1
+  collect 8396 x2 quest 2601.2
+  collect 8396 x2 quest 2585.2
+  collect 8391 x3 quest 2581.1
+  collect 8391 x2 quest 2603.2
+  collect 8393 x3 quest 2585.1
+  collect 8393 x2 quest 2583.2
+  collect 8393 x1 quest 2581.3
+  collect 8394 x10 quest 2601.1
+  collect 8394 x1 quest 2583.3
+
+step The eastern slopes
+  tip East of the road the Ashmane boars and Grunters root on the slopes beside the Redstone basilisks. Stay away from the level 52 Helboars further south.
+  collect 8392 x3 quest 2583.1
+  collect 8392 x2 quest 2581.2
+  collect 8392 x1 quest 2585.3
+
+step The bloodmages
+  tip Ride back north to the bloodmages.
+  turnin 2581                           -- Bloodmage Drazial
+  turnin 2583
+  turnin 2585
+  turnin 2601                           -- Bloodmage Lynnore
+  turnin 2603
+  note Their follow-ups ask for the same parts again for a buff item and pay no experience: leave them.
+
+step Grind to 48
+  tip Only if you are not level 48 yet.
+  goto 54.1,30.5 "Vulture hills"
+  level 48 -- grind on Black Slayer at the northern hills, Blasted Lands
+
+# ---------------------------------------------------------------- The Undercity
+
+step Fly to the Undercity
+  zone Swamp of Sorrows
+  tip Ride north back to Stonard and fly to the Undercity.
+  fly "Undercity"
+
+step Undercity
+  zone Undercity
+  accept 2995                           -- Oran Snakewrithe, the Royal Quarter
+  accept 3784                           -- Innkeeper Norman: for Thunder Bluff, around level 50
+  train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+
+step Fly to Tarren Mill
+  fly "Tarren Mill"
+
+# ---------------------------------------------------------------- Into the Hinterlands
+
+step Gilveradin's camp
+  zone The Hinterlands
+  tip Ride north-east from Tarren Mill into the Hinterlands and east along the road; Gilveradin Sunchaser camps on the hill south of the elves' Quel'Danil Lodge.
+  turnin 650                            -- Gilveradin Sunchaser
+  accept 77
+
+step Highvale
+  tip The Highvale elves camp around Quel'Danil Lodge. Burn the report, the notes and the records in their camps. Rin'ji is held inside the lodge: lead him out and fight off the ambush on the way.
+  interact 144073 quest 2995.3          -- Highvale Report
+  interact 144072 quest 2995.2          -- Highvale Notes
+  interact 144071 quest 2995.1          -- Highvale Records
+  accept 2742                           -- Rin'ji
+  complete 2742
+
+step Grim Message
+  tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
+  collect 9320 x20 "Witherbark Skull"
+  use 15002 "Nimboya's Pike" @29.5,58.5
+  use 9319 "Nimboya's Laden Pike" @29.5,58.5
+  complete 2932
+
+step Violet Tragan
+  tip East of the village, the violet flower grows in the hills.
+  collect 8526 quest 2641.1 @40.6,59.7
+
+step The Atal'ai Exile
+  tip South-west again, the exile hides by the ruins of Shadra'Alor.
+  turnin 1429                           -- Atal'ai Exile
+
+# ---------------------------------------------------------------- Revantusk Village
+
+step Revantusk Village
+  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast.
+  accept 7839                           -- Smith Slagtree
+  sethome "Revantusk Village" npc 14731 -- Lard
+  accept 7840
+  accept 7850                           -- Primal Torntusk
+  accept 7845
+  accept 7844                           -- Mystic Yayo'jin
+  accept 7841                           -- Otho Moji'ko
+  accept 7828                           -- Huntsman Markhor
+  accept 7829
+  accept 7830
+  accept 7849
+  accept 7815                           -- Katoom the Angler
+  getfp "Revantusk Village" npc 4314    -- Gorkas
+
+# ---------------------------------------------------------------- The north coast
+
+step Saltwater Snapjaws
+  tip The big turtles crawl along the beaches north of the village. Whiskey Slim's port bottles lie on these beaches too, but his quest is not on this route. A snapjaw can drop OOX-09/HL's distress beacon, rarely: keep it.
+  kill 2505 quest 7815.1
+  collect 8704 optional                 -- OOX-09/HL Distress Beacon, a rare drop
+
+step Rin'ji's Secret
+  tip The secret lies on the Overlook Cliffs, above the beach.
+  turnin 2742 object 142127
+  accept 2782 object 142127             -- for Oran Snakewrithe in the Undercity, around level 50
+
+step Lard's lunch
+  tip North along the coast, Lard's picnic basket is on the small island; a Vilebranch Kidnapper guards it.
+  collect 19034 quest 7840.1 @84.5,41.2
+
+# ---------------------------------------------------------------- The temples and the central hills
+
+step The Vilebranch temples
+  tip West of the island, the Vilebranch scalpers hold the temples of Agol'watha and Shaol'watha. Slagtree's tools lie at one of the temples.
+  kill 4466 quest 7844.1
+  collect 19033 quest 7839.1
+
+step The central hills
+  tip The Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and Skulk Rock. Use the Wildkin Muisek Vessel on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for Otho's second message.
+  kill 2926 quest 7828.1
+  kill 2929 quest 7829.1
+  collect 19025 quest 7830.1
+  collect 9594 quest 3123.1
+  collect 4589 x10 "Long Elegant Feather"
+
+step Skulk Rock
+  tip The crates of Hinterlands Honey Ripple lie around the abandoned Horde camp at Skulk Rock, among the oozes.
+  collect 8684 quest 77.1
+
+step OOX-09/HL
+  tip Only with the distress beacon: the robot sits at the head of the river west of Skulk Rock. Escort it east to the shore beyond the Overlook Cliffs; its reward waits with Oglethorpe in Booty Bay.
+  accept 485 optional
+  turnin 485 optional                   -- Homing Robot OOX-09/HL
+  accept 836 optional
+  complete 836 optional
+
+# ---------------------------------------------------------------- The west
+
+step Silvermane Howlers
+  tip South-west, the Silvermane Howlers roam the hills east of the Witherbark villages.
+  kill 2925 quest 7828.2
+
+step Highvale
+  tip Back west to Quel'Danil Lodge; rangers and marksmen stay near the lodge, scouts and outrunners on the slopes south of it.
+  kill 2691 quest 7841.2
+  kill 2692 quest 7841.1
+  kill 2693 quest 7841.4
+  kill 2694 quest 7841.3
+
+step Gilveradin's camp
+  turnin 77                             -- Gilveradin Sunchaser
+  accept 81                             -- for Dran Droffers in Orgrimmar, around level 50
+
+# ---------------------------------------------------------------- Jintha'Alor
+
+step Vilebranch soothsayers
+  tip On the way back east, the Vilebranch soothsayers hold the Altar of Zul, the troll temple south of the central hills. Qiaga and Morta'gya the Keeper (elite, 50) stand at its top: take the soothsayers on the lower steps.
+  kill 4467 quest 7844.2
+  kill 4466 quest 7844.1
+
+step Jintha'Alor
+  tip Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of Jintha'Alor. The Vessels of Tainted Blood sit on the lower terraces, and Elder Torntusk is held at the top. Keep to the paths: the trolls inside are elite.
+  collect 19069 quest 7849.1 @58.6,64.8
+  collect 19070 quest 7849.2 @62.1,75.3
+  collect 19071 quest 7850.1
+  turnin 7845                           -- Elder Torntusk, at the top of Jintha'Alor
+  note His next request, going on to the Altar of Zul, is for a group.
+
+step Revantusk Village
+  turnin 7815                           -- Katoom the Angler
+  turnin 7840                           -- Lard
+  turnin 7839                           -- Smith Slagtree
+  turnin 7844                           -- Mystic Yayo'jin
+  turnin 7841                           -- Otho Moji'ko
+  accept 7842
+  turnin 7842
+  accept 7843
+  turnin 7828                           -- Huntsman Markhor
+  turnin 7829
+  turnin 7830
+  turnin 7849
+  turnin 7850                           -- Primal Torntusk
+
+# ---------------------------------------------------------------- Aerie Peak
+
+step Aerie Peak
+  tip Ride all the way west to the Wildhammer town of Aerie Peak and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out.
+  goto 14.3,48.1 "Aerie Peak well"
+  complete 7843
+
+step Revantusk Village
+  tip The next guide starts here, at Revantusk Village.
+  hearth "Revantusk Village"
+  turnin 7843                           -- Otho Moji'ko

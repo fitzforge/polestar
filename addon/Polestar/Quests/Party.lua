@@ -16,6 +16,13 @@
 -- theirs and carries nothing (showing without sharing). "33:-" is a quest
 -- that left the log; "33:" one without objectives. Split by whole quests
 -- under 255 bytes.
+--
+-- Where you are: "1P|<live step>|<Polestar version>|<pack id>|<pack
+-- version>|<guide id>" (step 0: none), sent with sharing on when the live
+-- step or guide changes (debounced) and with every snapshot. Clients that
+-- predate it drop it as malformed. It gives the "N steps ahead/behind" line
+-- on the same guide and pack version, and a once-a-session notice when a
+-- member runs a newer Polestar or guide pack.
 
 local ADDON, ns = ...
 
@@ -111,6 +118,39 @@ end
 -- The request for the party's snapshots that shares nothing of ours.
 Party.ASK = VERSION .. "Q|"
 
+-- pos = { step, addon, pack, packVersion, guide } -> the "1P|" message, cut to
+-- MAX_BYTES; nil without a guide.
+function Party.EncodePos(pos)
+	if type(pos) ~= "table" or type(pos.guide) ~= "string" or pos.guide == "" then return nil end
+	local function field(v) return (tostring(v or ""):gsub("|", "")) end
+	local text = VERSION .. "P|" .. (tonumber(pos.step) or 0) .. "|" .. field(pos.addon) .. "|" .. field(pos.pack) .. "|"
+		.. field(pos.packVersion) .. "|" .. pos.guide
+	return #text <= Party.MAX_BYTES and text or nil
+end
+
+-- The "1P|" message -> pos (step nil for 0), or nil when it is none.
+function Party.DecodePos(text)
+	if type(text) ~= "string" then return nil end
+	local step, addon, pack, packVersion, guide = text:match("^" .. VERSION .. "P|(%d+)|([^|]*)|([^|]*)|([^|]*)|(.+)$")
+	if not step then return nil end
+	step = tonumber(step)
+	return { step = step > 0 and step or nil, addon = addon, pack = pack, packVersion = packVersion, guide = guide }
+end
+
+-- Whether version a is newer than b, both dotted numbers ("0.3.10" > "0.3.9");
+-- false when either is not (a dev build).
+function Party.Newer(a, b)
+	if type(a) ~= "string" or type(b) ~= "string" or not a:match("^%d+[%.%d]*$") or not b:match("^%d+[%.%d]*$") then return false end
+	local pa, pb = {}, {}
+	for n in a:gmatch("%d+") do pa[#pa + 1] = tonumber(n) end
+	for n in b:gmatch("%d+") do pb[#pb + 1] = tonumber(n) end
+	for i = 1, math.max(#pa, #pb) do
+		local x, y = pa[i] or 0, pb[i] or 0
+		if x ~= y then return x > y end
+	end
+	return false
+end
+
 ---------------------------------------------------------------------------
 -- Your quest log
 ---------------------------------------------------------------------------
@@ -202,6 +242,37 @@ local function sendQuests(ids, now, snapshot, asks)
 	return true
 end
 
+-- Where you are: the active guide, its live step and the versions (pos as
+-- Party.EncodePos takes it), or nil without a guide.
+function Party.MyPos()
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	if not g then return nil end
+	local G = ns.Guides
+	local pack = g.pack and G and G.Pack and G.Pack(g.pack)
+	return { step = E.GetLiveStep and E.GetLiveStep() or nil, addon = ns.version, pack = g.pack or "",
+		packVersion = pack and pack.version and tostring(pack.version) or "", guide = g.id }
+end
+
+local posSent -- the "1P|" text the party last got from us
+local posPending = false
+
+-- Our position to the party, unless it already has this one (`force`: with
+-- a snapshot, which a member who just joined needs).
+local function sendPos(force)
+	posPending = false
+	if not sharing() then return end
+	local text = Party.EncodePos(Party.MyPos())
+	if not text or (text == posSent and not force) then return end
+	if send({ text }) == 1 then posSent = text end
+end
+
+local function onStep()
+	if posPending or not sharing() or not C_Timer then return end
+	posPending = true
+	ns.After(DEBOUNCE, function() sendPos(false) end)
+end
+
 -- The whole log, replacing what the party knows of us; `asks`: and asking
 -- for theirs.
 local function snapshot(asks)
@@ -218,6 +289,7 @@ local function snapshot(asks)
 	table.sort(ids)
 	if sendQuests(ids, now, true, asks) then
 		owed, lastSnapshotAt = nil, GetTime()
+		sendPos(true)
 	else
 		owed = { asks = (owed and owed.asks) or asks }
 	end
@@ -227,7 +299,7 @@ local function scheduleSnapshot(asks)
 	if asks then pendingAsks = true end
 	if snapPending or not C_Timer then return end
 	snapPending = true
-	C_Timer.After(JOIN_MIN + math.random() * JOIN_SPREAD, function() snapshot(pendingAsks) end)
+	ns.After(JOIN_MIN + math.random() * JOIN_SPREAD, function() snapshot(pendingAsks) end)
 end
 
 local function flush()
@@ -251,7 +323,7 @@ end
 local function onLog()
 	if flushPending or not sharing() or not C_Timer then return end
 	flushPending = true
-	C_Timer.After(DEBOUNCE, flush)
+	ns.After(DEBOUNCE, flush)
 end
 
 ---------------------------------------------------------------------------
@@ -266,7 +338,7 @@ local function progressChanged()
 	if progressPending then return end
 	if not C_Timer then return ns.Fire("PARTY_PROGRESS") end
 	progressPending = true
-	C_Timer.After(PROGRESS_DELAY, function()
+	ns.After(PROGRESS_DELAY, function()
 		progressPending = false
 		ns.Fire("PARTY_PROGRESS")
 	end)
@@ -274,7 +346,7 @@ end
 
 local function forgetAll()
 	local had = next(members) ~= nil or next(roster) ~= nil
-	roster, lastSent, members, owed, shared, askOwed = {}, {}, {}, nil, false, false
+	roster, lastSent, members, owed, shared, askOwed, posSent = {}, {}, {}, nil, false, false, nil
 	if had then progressChanged() end
 end
 
@@ -349,11 +421,45 @@ local function apply(m, entries, snap)
 	end
 end
 
+-- Once a session each: a member runs a newer Polestar, or a newer version of
+-- a guide pack you have.
+local toldNewer = {}
+local function noticeNewer(name, pos)
+	local L = ns.L
+	if not toldNewer[""] and Party.Newer(pos.addon, ns.version) then
+		toldNewer[""] = true
+		ns.Print(L["%s has Polestar %s; you have %s. A newer version is out."]:format(name, pos.addon, tostring(ns.version)))
+	end
+	local G = ns.Guides
+	local mine = pos.pack ~= "" and G and G.Pack and G.Pack(pos.pack)
+	if mine and not toldNewer[pos.pack] and Party.Newer(pos.packVersion, tostring(mine.version or "")) then
+		toldNewer[pos.pack] = true
+		ns.Print(L["%s has a newer %s guide pack (%s; yours is %s)."]:format(name, mine.title or pos.pack, pos.packVersion, tostring(mine.version)))
+	end
+end
+
+local function memberFor(key, short)
+	local m = members[key]
+	if not m then
+		m = { name = short, quests = {}, n = 0 }
+		members[key] = m
+	end
+	return m
+end
+
 local function onAddonMessage(_, prefix, text, channel, sender)
 	if prefix ~= Party.PREFIX or channel ~= "PARTY" or type(sender) ~= "string" then return end
 	local key = Ambiguate and Ambiguate(sender, "none") or sender
 	local short = roster[key]
 	if not short then return end
+	local pos = Party.DecodePos(text)
+	if pos then
+		if not ns.Get("party.show") then return end
+		memberFor(key, short).pos = pos
+		noticeNewer(short, pos)
+		progressChanged()
+		return
+	end
 	local snap, entries, asks = Party.Decode(text)
 	if snap == nil then return end
 	if asks and sharing() and not snapPending and not (lastSnapshotAt and GetTime() - lastSnapshotAt < REPLY_GAP) then
@@ -361,11 +467,7 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	end
 	-- A bare request (showing without sharing) is no member's progress.
 	if not ns.Get("party.show") or (not snap and #entries == 0) then return end
-	local m = members[key]
-	if not m then
-		m = { name = short, quests = {}, n = 0 }
-		members[key] = m
-	end
+	local m = memberFor(key, short)
 	apply(m, entries, snap)
 	progressChanged()
 end
@@ -435,6 +537,8 @@ ns.On("SETTING_CHANGED", function(path)
 		Party.Apply()
 	end
 end)
+-- Our live step or guide changed: tell the party (debounced, only a change).
+for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do ns.On(msg, onStep) end
 
 ---------------------------------------------------------------------------
 -- What the guide shows
@@ -489,6 +593,52 @@ function Party.Line(goal, noMissing)
 	end
 	if #parts == 0 then return nil end
 	return concat(parts, DOT)
+end
+
+-- The guide window's party line for the live step, and the quest a click on
+-- it shares, or nil. Where members on the same guide and pack version are
+-- ("Ana: 3 steps ahead"); a soft hint when you are done with the step's
+-- objectives and a member is not ("Still at it: Ben"); and the first quest
+-- of the step you have that a member lacks ("Share Kobold Camp Cleanup with
+-- Ben"). Never holds the step.
+function Party.StepLine()
+	if not ns.Get("party.show") or not grouped() then return nil end
+	local mine = Party.MyPos()
+	if not (mine and mine.step) then return nil end
+	local parts, members = {}, Party.Members()
+	for _, m in ipairs(members) do
+		local p = m.pos
+		if p and p.step and p.guide == mine.guide and p.packVersion == mine.packVersion then
+			local d = p.step - mine.step
+			if d == 1 then parts[#parts + 1] = L["%s: 1 step ahead"]:format(m.name)
+			elseif d > 1 then parts[#parts + 1] = L["%s: %d steps ahead"]:format(m.name, d)
+			elseif d == -1 then parts[#parts + 1] = L["%s: 1 step behind"]:format(m.name)
+			elseif d < -1 then parts[#parts + 1] = L["%s: %d steps behind"]:format(m.name, -d)
+			else parts[#parts + 1] = L["%s: on this step"]:format(m.name) end
+		end
+	end
+	local view = ns.Engine.GetStepView(mine.step)
+	local waiting, seen, share = {}, {}, nil
+	for _, goal in ipairs(view and view.goals or {}) do
+		local q = goal.quest
+		if q and goal.oi and goal.status == "done" then
+			for _, m in ipairs(members) do
+				local c = m.quests[q] and m.quests[q][ns.Engine.ObjectiveLine(goal)]
+				if c and c[1] < c[2] and not seen[m.name] then
+					seen[m.name] = true
+					waiting[#waiting + 1] = m.name
+				end
+			end
+		end
+		if not share and q and goal.status ~= "skipped" and ns.Compat.IsOnQuest(q) then
+			local missing = Party.Missing(q)
+			if #missing > 0 then share = { quest = q, title = ns.Compat.GetQuestTitle(q), names = missing } end
+		end
+	end
+	if #waiting > 0 then parts[#parts + 1] = L["Still at it: %s"]:format(concat(waiting, ", ")) end
+	if share then parts[#parts + 1] = L["Share %s with %s"]:format(share.title or ("#" .. share.quest), concat(share.names, ", ")) end
+	if #parts == 0 then return nil end
+	return concat(parts, DOT), share and share.quest or nil
 end
 
 -- The Party section of the Questing page (its Quests tab), after the quest

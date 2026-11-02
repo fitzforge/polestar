@@ -4,13 +4,15 @@
 //! - CMaNGOS classic-db spawn heights and objective counts (tools/lib/travel/cmangos.js): the
 //!   cached extracts, rebuilt from the cached dump when missing.
 //! - ItemSparse durations (corrections: corrections.rs).
+//! - Summoned vendors (SpellEffect): camp bots a player places sell nothing a guide can send to.
 
 use std::path::{Path, PathBuf};
 
 use forge_guide::js::{parse_json, Obj, V};
 use indexmap::IndexMap;
+use rustc_hash::FxHashSet;
 
-use crate::jsv::{arr, Row};
+use crate::jsv::{arr, col_num, Row};
 
 pub fn read_json(file: &Path) -> Result<Option<V>, String> {
 	if !file.exists() {
@@ -226,4 +228,79 @@ pub fn item_durations(rows: &[Row], items: &Obj) -> usize {
 		n += 1;
 	}
 	n
+}
+
+// ---------------------------------------------------------------- summoned vendors
+
+/// SpellEffect's SUMMON effect (28): EffectMiscValue_0 is the creature it summons.
+const SUMMON: f64 = 28.0;
+/// Service roles a summoned NPC loses: what `buy … nearest` and repair stops look for.
+const SUMMONED_ROLES: [&str; 2] = ["vendor", "repair"];
+
+/// The creatures a client spell summons (SpellEffect rows with Effect 28).
+pub fn summoned_creatures(effects: &[Row]) -> FxHashSet<i64> {
+	effects.iter().filter(|r| col_num(r, "Effect") == SUMMON).map(|r| col_num(r, "EffectMiscValue_0")).filter(|c| *c > 0.0 && c.fract() == 0.0).map(|c| c as i64).collect()
+}
+
+/// Vendors a player summons (Forever's camp Reagent Bot and Repair Bot, an engineer's Field Repair
+/// Bot 74A): their sniffed spawns are someone's camp that has since gone, so a guide must never send a
+/// player there to buy or repair. They lose the vendor and repair roles and leave every item's vendor
+/// list. -> the NPC ids changed, ascending.
+pub fn drop_summoned_vendors(summoned: &FxHashSet<i64>, npcs: &Obj, items: &Obj) -> Vec<i64> {
+	let mut changed = Vec::new();
+	for (id, n) in npcs.entries() {
+		let Ok(nid) = id.parse::<i64>() else { continue };
+		if !summoned.contains(&nid) {
+			continue;
+		}
+		let roles = n.get("roles").items();
+		if !roles.iter().any(|r| r.as_str().is_some_and(|r| SUMMONED_ROLES.contains(&r))) {
+			continue;
+		}
+		let keep: Vec<V> = roles.into_iter().filter(|r| !r.as_str().is_some_and(|r| SUMMONED_ROLES.contains(&r))).collect();
+		if keep.is_empty() {
+			n.as_obj().map(|o| o.delete("roles"));
+		} else {
+			n.set("roles", arr(keep));
+		}
+		changed.push(nid);
+	}
+	changed.sort_unstable();
+	if changed.is_empty() {
+		return changed;
+	}
+	for it in items.values() {
+		let vendors = it.get("vendors").items();
+		if vendors.iter().any(|v| changed.contains(&(v.num() as i64))) {
+			it.set("vendors", arr(vendors.into_iter().filter(|v| !changed.contains(&(v.num() as i64))).collect()));
+		}
+	}
+	changed
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use forge_guide::js::stringify;
+
+	fn row(effect: &str, misc: &str) -> Row {
+		[("Effect", effect), ("EffectMiscValue_0", misc)].iter().map(|(k, v)| (k.to_string(), v.to_string())).collect()
+	}
+
+	#[test]
+	fn summoned_camp_bots_sell_nothing() {
+		// Spell 1307266 summons the Reagent Bot (242498); effect 24 (create item) names no creature.
+		let summoned = summoned_creatures(&[row("28", "242498"), row("24", "5956"), row("28", "0")]);
+		assert_eq!(summoned.into_iter().collect::<Vec<_>>(), vec![242498]);
+		let npcs = parse_json(r#"{"242498":{"id":242498,"name":"Reagent Bot","roles":["vendor"],"spawns":{"1429":{"pts":[[42.2,66]]}}},"66":{"id":66,"name":"Tharynn Bouden","roles":["repair","vendor"]},"14337":{"id":14337,"name":"Field Repair Bot 74A","roles":["repair","vendor","questgiver"]}}"#).unwrap();
+		let items = parse_json(r#"{"2880":{"id":2880,"name":"Weak Flux","vendors":[66,242498]},"2901":{"id":2901,"name":"Mining Pick","vendors":[66]}}"#).unwrap();
+		let summoned: FxHashSet<i64> = [242498, 14337].into_iter().collect();
+		let changed = drop_summoned_vendors(&summoned, npcs.as_obj().unwrap(), items.as_obj().unwrap());
+		assert_eq!(changed, vec![14337, 242498]);
+		assert!(!npcs.get("242498").has("roles"));
+		assert_eq!(stringify(&npcs.get("14337").get("roles"), None), r#"["questgiver"]"#);
+		assert_eq!(stringify(&npcs.get("66").get("roles"), None), r#"["repair","vendor"]"#);
+		assert_eq!(stringify(&items.get("2880").get("vendors"), None), "[66]");
+		assert_eq!(stringify(&items.get("2901").get("vendors"), None), "[66]");
+	}
 }

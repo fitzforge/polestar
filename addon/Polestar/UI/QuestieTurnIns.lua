@@ -143,7 +143,7 @@ local function rebuild(retry)
 	tracker:Update()
 	if retry or queued or not stale() then return end
 	queued = true
-	C_Timer.After(RETRY, function() rebuild(true) end)
+	ns.After(RETRY, function() rebuild(true) end)
 end
 
 function Integration.Refresh()
@@ -151,7 +151,7 @@ function Integration.Refresh()
 	pending = true
 	if queued or combat() then return end
 	queued = true
-	C_Timer.After(0.2, function() rebuild(false) end)
+	ns.After(0.2, function() rebuild(false) end)
 end
 
 for _, event in ipairs({ "GUIDE_CHANGED", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_COMPLETED", "GUIDES_REGISTERED", "PACKS_CHANGED", "ROUTE_CHOSEN", "STEP_SKIPPED" }) do

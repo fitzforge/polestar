@@ -435,6 +435,14 @@ test(`${TIRISFAL}: an3vilmonk3y's report (#345) and Onrevax's (#120): A Light in
 	}
 });
 
+test(`${TIRISFAL}: Fitz's report (#736): A Light in the Darkness is handed to Aramis in Deathknell before the Scarlet farm, for every class`, { skip }, () => {
+	for (const cls of ['WARRIOR', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'PALADIN']) {
+		const list = goals(TIRISFAL).filter(forClass(cls));
+		const farm = at(list, `collect 3266 for a ${cls}`, (g) => g.t === 'collect' && g.quest === 381);
+		assert.ok(at(list, `turnin 98389 for a ${cls}`, is('turnin', 98389)) < farm, `a ${cls} hands it in before the Scarlet Armbands`);
+	}
+});
+
 // --- Coldridge Valley (thmastin, PR #16): the valley is never walked back to.
 
 test(`${DUN_MOROGH}: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit`, { skip }, () => {
@@ -1043,14 +1051,18 @@ const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
 const TANARIS_ALLIANCE = 'forever/alliance/40-50/04-tanaris.guide';
 
 test('#213: quests whose giver the route already stands at are taken there, not on a walk back', { skip }, () => {
-	for (const [guide, quest, withGoal, what] of [
-		[TIRISFAL, 365, is('accept', 590), "Calvin's duel at Solliden"],
-		[TANARIS_ALLIANCE, 2781, is('accept', 2875), "Andre Firebeard's poster at Steamwheedle Port"],
-		[STRANGLETHORN_HORDE, 192, is('turnin', 191), "Panther Mastery's second turn-in"],
+	// Each case: the quest, and the goals of a step at its giver the route stands at, any one of which may
+	// hold its accept. Simmer stands beside Calvin at Solliden: Fields of Grief at either pass by him.
+	for (const [guide, quest, withGoals, what] of [
+		[TIRISFAL, 365, [is('accept', 590), is('accept', 8)], "Calvin's duel at Solliden or Calvin's letter on the walk in from Deathknell"],
+		[TANARIS_ALLIANCE, 2781, [is('accept', 2875)], "Andre Firebeard's poster at Steamwheedle Port"],
+		[STRANGLETHORN_HORDE, 192, [is('turnin', 191)], "Panther Mastery's second turn-in"],
 	]) {
 		const list = goals(guide);
 		const take = at(list, `${guide}: accept ${quest}`, is('accept', quest));
-		assert.equal(list[take].step, list[at(list, `${guide}: ${what}`, withGoal)].step, `${guide}: ${quest} is taken at ${what}`);
+		const steps = withGoals.map((p) => list.findIndex(({ goal }) => p(goal))).filter((i) => i >= 0).map((i) => list[i].step);
+		assert.ok(steps.length > 0, `${guide}: ${what} is in the guide`);
+		assert.ok(steps.includes(list[take].step), `${guide}: ${quest} is taken at ${what}`);
 	}
 });
 
@@ -1297,7 +1309,7 @@ test('Phear\'s report: a kill or collect leads to the camp that holds its mobs, 
 // leads to the Auction House, not to the guards and mobs that happen to drop it.
 
 test('forever/alliance/03-darkshore.guide: the Grizzled Scalps are collected in the step at the Grove, where the bears are and Buzzbox 525 takes them', { skip }, () => {
-	const list = goals('forever/alliance/03-darkshore.guide');
+	const list = goals(DARKSHORE);
 	const i = at(list, 'Grizzled Scalp', (g) => g.t === 'collect' && g.item === 5414);
 	const turnin = at(list, 'turnin 1003', is('turnin', 1003));
 	assert.equal(list[i].step, list[turnin].step, 'one step: the bears and Buzzbox 525');
@@ -1614,12 +1626,12 @@ test(`${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from
 });
 
 // --- Croaky's Head (Syfin, #221): Croaky, a named elite, roams the murloc
-// shore south of the Eastvale bridge, where the second east loop collects the
-// Torn Murloc Fins. Its head starts Croaky's Head for Merell Ross at
-// Ridgepoint Tower, a short way east. The loot and the accept are optional
-// goals of the murloc step; the turn-in is a plain goal of a Ridgepoint Tower
-// step, which holds only a player who took the quest (an optional accept
-// vouches for nobody who did not).
+// shore south of the Eastvale bridge, along the river where the first east
+// loop searches for Ormin Pelford's Waterlogged tools. Its head starts Croaky's
+// Head for Merell Ross at Ridgepoint Tower, a short way east. The loot and the
+// accept are optional goals of that river step; the turn-in is a plain goal of
+// a Ridgepoint Tower step, which holds only a player who took the quest (an
+// optional accept vouches for nobody who did not).
 
 test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head`, { skip }, () => {
 	const pack = buildSimPack([ELWYNN]);
@@ -1628,7 +1640,7 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 		data = data || loadData(DATA);
 		const [x, y] = data.npcs[248277].spawns[1429].pts[0];
 		// Recorded from the simulated player's own actions, once the engine has
-		// settled: the first Torn Murloc Fin (the murloc step is live; with the
+		// settled: the first Waterlogged tool (the river step is live; with the
 		// head, it is looted and right-clicked there), and any hand-in of
 		// Croaky's Head (the step it is handed in from, and where the arrow
 		// leads). The game takes no turn-in for a quest the player does not hold.
@@ -1637,7 +1649,7 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 			local murlocs, ridge = false, false
 			local progress, turnIn = w.progress, w.turnIn
 			w.progress = function(q, ...)
-				if q == 46 and not murlocs then
+				if q == 91733 and not murlocs then
 					murlocs = {}
 					if ${head} then
 						w.addItem(247826, 1)
@@ -1686,27 +1698,16 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 
 // --- Elwynn (zeike, #553): the Gold Pickup Schedule that starts The Collector
 // (123) drops from Gruff Swiftbite, a rare (86%; the Runts and Outrunners of
-// Riverpaw Gnoll Bounty 3%). The step waits for the armbands, not for him.
-// Without The Collector taken, its turn-in is not the player's, and the
-// Manhunt (147) step after it (`when turnedin 123`) takes Manhunt's ring and
-// turn-in with it. With 123, Dughan holds for both, and Manhunt's own
-// turn-in step (`when onquest 147`) applies once it is taken.
-test(`${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt follow only the Schedule`, { skip }, () => {
+// Riverpaw Gnoll Bounty 3%), at Forest's Edge, the last stop before Westfall.
+// The step waits for the armbands, not for him. The Collector's turn-in
+// (Marshal Dughan, Goldshire) and Manhunt (147, Morgan the Collector in the
+// east) would each be a trip back across Elwynn, so both are left out
+// (Rev17 AS: c17 wrote 123's turn-in into Westfall with no way back).
+test(`${ELWYNN}: zeike's report (#553): Forest's Edge does not wait for the rare Gruff Swiftbite; The Collector and Manhunt are left out`, { skip }, () => {
 	const list = goals(ELWYNN);
-	const edge = list.filter(({ goal }) => goal.item === 1307 || (goal.t === 'accept' && goal.quest === 123));
-	assert.deepEqual(edge.map(({ goal }) => [goal.t, goal.optional]), [['collect', true], ['accept', true]]);
-	const s = edge[0].s;
+	const s = list[at(list, 'the armbands (782)', (g) => g.t === 'collect' && g.item === 782)].s;
 	assert.ok(list.some(({ s: n, goal }) => n === s && goal.t === 'collect' && goal.quest === 11 && !goal.optional), 'the armbands hold the step');
-	const human = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'MAGE', className: 'Mage', level: 11 };
-	assert.deepEqual(questGoalStatus(ELWYNN, 123, human), ['accept pending', 'turnin na']);
-	assert.deepEqual(questGoalStatus(ELWYNN, 147, human), ['accept na', 'collect na', 'turnin na']);
-	const took = { after: 'stub.world.accept(123, {})' };
-	assert.deepEqual(questGoalStatus(ELWYNN, 123, human, took), ['accept done', 'turnin pending']);
-	assert.deepEqual(questGoalStatus(ELWYNN, 147, human, took), ['accept na', 'collect na', 'turnin na']);
-	const handed = { after: 'stub.world.accept(123, {}); stub.world.turnIn(123)' };
-	assert.deepEqual(questGoalStatus(ELWYNN, 147, human, handed), ['accept pending', 'collect pending', 'turnin na']);
-	const manhunt = { after: 'stub.world.accept(123, {}); stub.world.turnIn(123); stub.world.accept(147, {})' };
-	assert.deepEqual(questGoalStatus(ELWYNN, 147, human, manhunt), ['accept done', 'collect pending', 'turnin pending']);
+	assert.deepEqual(list.filter(({ goal }) => goal.item === 1307 || goal.item === 2239 || [123, 147].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest || goal.item}`), [], 'no Schedule, Collector or Manhunt goal');
 });
 
 // --- A goal on a neighbour's map (#246): Kadrak stands at the Mor'shan
@@ -2489,7 +2490,7 @@ test('#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Sou
 // at that camp (39.9,53.9; pfQuest's area trigger 232).
 
 test('forever/alliance/03-darkshore.guide: Deadshot\'s report (#560): How Big a Threat? points at the furbolg camp by the bears, not the one north-east of Auberdine', { skip }, () => {
-	const list = goals('forever/alliance/03-darkshore.guide');
+	const list = goals(DARKSHORE);
 	const { goal } = list[at(list, 'complete 984', is('complete', 984))];
 	const completed = { map: 1439, x: 39.77, y: 57.07 };
 	assert.equal(goal.map, 1439, 'the goal is on Darkshore');
@@ -2643,7 +2644,7 @@ test('Alliance: a quest objective that opens its step leads the arrow to the obj
 		['forever/alliance/03-darkshore.guide', 2118, { npc: 2164 }], // Plagued Lands: Rabid Thistle Bears
 		['forever/alliance/40-50/03-feralas.guide', 2845, { event: 2845 }], // Wandering Shay: Rockbiter's camp
 		['forever/alliance/dwarf-gnome/01-dun-morogh.guide', 1783, { npc: 6177 }], // The Tome of Divinity: Narm Faulk
-		['forever/alliance/human/01-elwynn-forest.guide', 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk
+		['forever/alliance/04-redridge-mountains.guide', 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
 	]) {
 		const list = goals(file);
 		const { goal } = list[at(list, `complete ${quest}`, is('complete', quest))];
@@ -2676,4 +2677,64 @@ test(`Hotline's report (#698): the Cozy Sleeping Bag chain waits for level 14 be
 		assert.ok(accepts > 0, `${faction}: the chain is offered`);
 		assert.ok(reached >= 14, `${faction}: the chain's level 14 is reached before it starts`);
 	}
+});
+
+// --- The Quarry's Smith (TP1186, #727): Frast Dokner asks for 12 Copper
+// Bars, then 4 Toughened Boar Hides. The merged data kept only the hides,
+// so `quest 95217.1` tracked the hides against the Copper Bars line
+// (corrections.json 95217 restores both, as `data build` applies it).
+test(`${DUN_MOROGH}: TP1186's report (#727): the Toughened Boar Hides read their own line of The Quarry's Smith, not the Copper Bars`, { skip }, () => {
+	const corrected = loadData(DATA);
+	const fix = loadCorrections().quests['95217'];
+	assert.ok(fix, 'the corrections correct 95217');
+	Object.assign(corrected.quest(95217), fix.set);
+	const file = path.join(OFFICIAL_DIR, DUN_MOROGH);
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], corrected);
+	const hides = guides[0].steps.flatMap((step) => step.goals).find((g) => g.t === 'collect' && g.item === 267416);
+	assert.deepEqual(corrected.quest(95217).objectives.map((o) => o.id), [2840, 267416], 'Copper Bars first, the hides second');
+	assert.equal(hides.quest, 95217);
+	assert.equal(hides.oi, 2, 'the hides read line 2');
+});
+
+// --- TP1186's route report (#727). The Westfall and Darkshore seeds carry
+// the order into the built routes: Sentinel Hill's tower before Thor's
+// flight path and the inn at its foot, and no boat goto in Darkshore before
+// the Druids' Cat Form trip (the route's own boat step follows it).
+test("TP1186's report (#727): Sentinel Hill's tower before its flight path and inn; no boat to Stormwind before Darkshore's Druid trip", { skip }, () => {
+	const westfall = goals(WESTFALL);
+	const danuvin = at(westfall, 'accept 102', is('accept', 102));
+	for (const t of ['getfp', 'sethome']) {
+		assert.ok(at(westfall, `${t} Sentinel Hill`, (g) => g.t === t && g.location === 'Sentinel Hill') > danuvin, `${t} after the tower quests`);
+	}
+	const darkshore = goals(DARKSHORE);
+	const cat = at(darkshore, 'turnin 98397', is('turnin', 98397));
+	assert.ok(!darkshore.slice(0, cat).some(({ goal }) => goal.t === 'goto' && /Boat to Stormwind/.test(goal.text)), 'no boat to Stormwind before Cat Form');
+});
+
+// --- mariusch's elite blocks (#639): the optional elites of the start zones
+// and the Barrens are asked (`when group`), accept to turn-in, not offered
+// to a solo player as bare optional goals.
+test("mariusch's report (#639): Vulgara, Aggor the Young and Bruuz are asked as group quests, every goal of them", { skip }, () => {
+	for (const [guide, quest] of [
+		[ZEPHRAS_ALLIANCE, 93318],
+		[ZEPHRAS_HORDE, 93318],
+		[DUROTAR, 99052],
+		[BARRENS, 92706],
+	]) {
+		const mine = goals(guide).filter(({ goal }) => goal.quest === quest);
+		assert.deepEqual([...new Set(mine.map(({ goal }) => goal.t))].sort(), ['accept', 'collect', 'turnin'], `${guide}: ${quest} accepted, done and handed in`);
+		for (const { step, goal } of mine) {
+			assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === quest && !p.neg), `${guide}: ${goal.t} ${quest} is under when group ${quest}`);
+		}
+	}
+});
+
+test(`Hotline's report (#718): the Undead's Silverpine fishing step leads to Lordamere Lake, not the Great Sea coast`, { skip }, () => {
+	const list = goals('forever/professions/fishing.guide');
+	const arrow = list.find(({ step, goal }) => step.title === 'Fishing: Silverpine Forest (50-125)' && goal.t === 'goto');
+	assert.ok(arrow, 'the Silverpine step has a waypoint');
+	const { point } = makeProjector(data.mapFrames);
+	const [x, y] = data.npcs[6570].spawns[1421].pts[0];
+	const ferry = point(1421, x, y, data.npcs[6570].spawns[1421].f);
+	assert.ok(dist(point(arrow.goal.map, arrow.goal.x, arrow.goal.y, arrow.goal.f || 'l'), ferry) < 80, 'within 80 yards of Fenwick Thatros at the Decrepit Ferry on the lake');
 });

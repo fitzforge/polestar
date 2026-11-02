@@ -1,0 +1,156 @@
+guide forever/class/shaman/call-of-earth-horde
+title Call of Earth (Horde)
+category Class
+class Shaman
+folder Shaman
+faction Horde
+levels 4-5
+zone Durotar
+keywords Earth Totem, Stoneskin Totem, Earth Sapta, Call of Earth, Canaga Earthcaller, Seer Ravenfeather, Windshaper Boro, Spirit Rock, Kodo Rock, Rise of Spirits, Minor Manifestation of Earth, Felstalker Hoof, Ritual Salve, Signet of Akir, Rough Quartz, Shaman, class quest, totem
+reward item 5175
+reward spell 8071 "Stoneskin Totem"
+why Your Earth Totem: without it no earth totem can be cast. Stoneskin Totem comes with it at level 4.
+
+# Call of Earth at level 4, the first shaman totem quest, one start per home:
+# - Orcs and Trolls (Valley of Trials): Canaga Earthcaller (1516: two
+#   Felstalker Hooves) -> Spirit Rock up the Hidden Path (1517) -> Canaga
+#   (1518).
+# - Tauren (Camp Narache): Seer Ravenfeather (1519: two Ritual Salves from
+#   the Bristleback Shamans) -> Kodo Rock east of the camp (1520) -> the Seer
+#   (1521).
+# - Skyborne (Zephras Isle): Windshaper Boro in Thendal Village (92466: a
+#   Signet of Akir from the Al'Aketh) -> the Rise of Spirits north-east of the
+#   village (92467) -> Boro (92468).
+# The three openers exclude one another (quests.json `excl`). Each middle
+# quest hands you an Earth Sapta: it works only beside the shrine stone, where
+# it lets you see the Minor Manifestation of Earth. Earth Sapta (1463 Canaga,
+# 1462 the Seer) replaces a lost one while the shrine quest is open.
+# Rewards (quests.json): the Earth Totem (5175) on 1518 and 1521; Forever's
+# quest data lists none for 92468, the Skyborne leveling guide's hand-in gives
+# the same totem and spell. Stoneskin Totem: the spell the chain unlocks
+# (classrewards chain reward).
+# Lint: "quest 1463 needs 1517 turned in first" (and 1462 / 1520) is the
+# data reading the server's "while on quest" prerequisite (PrevQuestID -1517
+# and -1520 in the TDB) as "turned in": the steps ask for the quest to be in
+# the log, as the server does.
+# Drops and timers from Forever's quest notes: Felstalker Hoof and Ritual Salve
+# 80% per kill; 16 Felstalkers (3 min 20 s respawn), Bristleback Shamans
+# 4 min 10 s. The Signet of Akir has no drop rate in the data.
+# The leveling guides carry this chain inline (orc-troll/01-durotar,
+# tauren/01-mulgore, horde/skyborne/01-zephras-isle): this guide is for
+# shamans off our route or coming back for it.
+
+# ---------------------------------------------------------------- Orcs and Trolls: Valley of Trials
+
+step Canaga Earthcaller
+  only Orc,Troll
+  zone Durotar
+  tip Canaga Earthcaller stands just outside the Den, the cave in the middle of the Valley of Trials. The quest opens at level 4.
+  level 4
+  accept 1516                                 -- Canaga Earthcaller
+
+step Felstalker Hooves
+  only Orc,Troll
+  tip Felstalkers (level 3-4) prowl the slope below the Burning Blade Coven, the cave in the north of the valley, and just inside its mouth among the Vile Familiars. Nearly every Felstalker drops a hoof (four kills in five); they respawn in a little over three minutes.
+  collect 6640 x2 quest 1516.1                -- Felstalker Hoof
+
+step Canaga Earthcaller
+  only Orc,Troll
+  tip Back to Canaga outside the Den. She hands you the Earth Sapta: do not drink it yet.
+  turnin 1516                                 -- Canaga Earthcaller
+  accept 1517
+
+step Lost the Earth Sapta?
+  only Orc,Troll
+  when onquest 1517
+  when !has 6635
+  tip Only if the Earth Sapta is gone from your bags (drunk away from the rock, or sold): Canaga gives you another.
+  accept 1463
+  turnin 1463                                 -- Canaga Earthcaller: a new Earth Sapta
+
+step Spirit Rock
+  only Orc,Troll
+  tip Spirit Rock sits on a ledge in the hills just south of the Den. The Hidden Path up starts at the foot of the hills south-west of the Den, between two idle peons; it climbs south-west into the hills, then bends back east to the rock. Stand right beside the stone and drink the Earth Sapta: the Minor Manifestation of Earth appears for a short while, so speak to it at once (walk almost under it if it does not answer). Coming back, you can drop down the ledge towards the Den instead of walking the path.
+  use 6635 @44.1,76.4                         -- Earth Sapta, beside Spirit Rock
+  turnin 1517                                 -- Minor Manifestation of Earth
+  accept 1518                                 -- it hands you the Rough Quartz: keep it
+
+step Canaga Earthcaller
+  only Orc,Troll
+  tip Bring the Rough Quartz back to Canaga outside the Den. Keep the Earth Totem she gives you in your bags for good: every earth totem needs it.
+  turnin 1518 reward 5175                     -- Canaga Earthcaller: Stoneskin Totem and your Earth Totem
+  train class                                 -- the level 4 shaman spells
+
+# ---------------------------------------------------------------- Tauren: Camp Narache
+
+step Seer Ravenfeather
+  only Tauren
+  zone Mulgore
+  tip Seer Ravenfeather stands in Camp Narache. She may show no quest mark over her head: speak to her anyway. The quest opens at level 4.
+  level 4
+  accept 1519                                 -- Seer Ravenfeather
+
+step Ritual Salve
+  only Tauren
+  tip The Bristleback Shamans (level 3-4) stand among the quilboar huts of Brambleblade Ravine, east of the camp, and throw the odd Lightning Bolt. Four kills in five drop a salve; they respawn in about four minutes.
+  collect 6634 x2 quest 1519.1                -- Ritual Salve
+
+step Seer Ravenfeather
+  only Tauren
+  tip Back to the Seer in Camp Narache. She hands you the Earth Sapta: do not drink it yet.
+  turnin 1519                                 -- Seer Ravenfeather
+  accept 1520
+
+step Lost the Earth Sapta?
+  only Tauren
+  when onquest 1520
+  when !has 6635
+  tip Only if the Earth Sapta is gone from your bags: the Seer gives you another.
+  accept 1462
+  turnin 1462                                 -- Seer Ravenfeather: a new Earth Sapta
+
+step Kodo Rock
+  only Tauren
+  tip Kodo Rock is a small pillar on a low mound due east of Greatmother Hawkwind's well, east of the camp; it only shows from about fifteen yards away, and hostile boars graze around it. Stand beside it and drink the Earth Sapta, then speak to the Minor Manifestation of Earth before it fades (drink again if it does).
+  use 6635 @52.0,80.1                         -- Earth Sapta, beside Kodo Rock
+  turnin 1520                                 -- Minor Manifestation of Earth
+  accept 1521                                 -- it hands you the Rough Quartz: keep it
+
+step Seer Ravenfeather
+  only Tauren
+  tip Bring the Rough Quartz back to the Seer. Keep the Earth Totem in your bags for good: every earth totem needs it.
+  turnin 1521 reward 5175                     -- Seer Ravenfeather: Stoneskin Totem and your Earth Totem
+  train class                                 -- the level 4 shaman spells
+
+# ---------------------------------------------------------------- Skyborne: Zephras Isle
+
+step Windshaper Boro
+  only Skyborne
+  zone Zephras Isle
+  tip Windshaper Boro, the shaman trainer, stands in Thendal Village. The quest opens at level 3.
+  level 3
+  accept 92466                                -- Windshaper Boro
+
+step Signet of Akir
+  only Skyborne
+  tip Any Al'Aketh cultist can carry the Signet of Akir: the Converts (level 2-3) around the standing stones just east of the village, or the Brutes and Neophytes (level 4) in the camp beyond Hanaa Nightwind, south-west of the village. Keep killing until one drops it.
+  collect 251924 quest 92466.1                -- Signet of Akir
+
+step Windshaper Boro
+  only Skyborne
+  tip Back to Boro in Thendal Village. He hands you the Earth Sapta: do not drink it yet.
+  turnin 92466                                -- Windshaper Boro
+  accept 92467
+
+step The Rise of Spirits
+  only Skyborne
+  tip The Rise of Spirits is the hilltop shrine north-east of Boro: the path up starts on the hill just above the clearing where the flies were. Drink the Earth Sapta beside the shrine and speak to the Minor Manifestation of Earth before it fades.
+  use 6635 @49.7,23.8                         -- Earth Sapta, beside the shrine
+  turnin 92467                                -- Minor Manifestation of Earth
+  accept 92468                                -- it hands you the Rough Quartz: keep it
+
+step Windshaper Boro
+  only Skyborne
+  tip Bring the Rough Quartz back to Boro. Keep the Earth Totem in your bags for good: every earth totem needs it.
+  turnin 92468                                -- Windshaper Boro: Stoneskin Totem and your Earth Totem
+  train class

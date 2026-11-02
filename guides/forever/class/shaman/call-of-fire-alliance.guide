@@ -1,0 +1,83 @@
+guide forever/class/shaman/call-of-fire-alliance
+title Call of Fire (Alliance)
+category Class
+class Shaman
+folder Shaman
+faction Alliance
+levels 10-14
+zone Dun Morogh
+keywords Fire Totem, Searing Totem, Totem of Charged Flames, Fire Sapta, Call of Fire, Ingrid Dunwald, Eldrun Stormbreaker, Bruegs Kindleborn, Braldir Ashmantle, Fire Tar, Reagent Pouch, Tunnel Rat Geomancer, Stonesplinter Seer, Silver Stream Mine, Glowing Ember, Brazier of the Dormant Flame, Shrine of Eternal Flame, Torch of Eternal Flame, South Gate Outpost, Loch Modan, Shaman, class quest, totem
+reward item 5176
+reward spell 3599 "Searing Totem"
+reward item 263412
+why Your Fire Totem for every fire totem, Searing Totem with it, and Forever's Totem of Charged Flames.
+
+# Forever's Alliance (Dwarf) Call of Fire: Ingrid Dunwald in Kharanos or
+# Eldrun Stormbreaker in Ironforge (94449) -> Bruegs Kindleborn in his cave
+# above South Gate Outpost (94465: the Torch of the Dormant Flame) -> Braldir
+# Ashmantle on the peak south of Thelsamar in Loch Modan (94466: Fire Tar from
+# the Tunnel Rat Geomancers, a Reagent Pouch from the Stonesplinter Seers) ->
+# the Fire Sapta and the Minor Manifestation of Fire on the Shrine of Eternal
+# Flame (94467, the Brazier of the Dormant Flame) -> the lit Torch of Eternal
+# Flame back to Bruegs (94468: the Fire Totem and the Totem of Charged Flames).
+# Sources: quests.json, npcs.json, objects.json and items.json (givers,
+# enders, droppers, the brazier); Forever's quest notes for the trails, the
+# casters' spells, the respawns and the manifestation (level 12, immune to
+# fire, single spawn, 3 min respawn, Glowing Ember every kill). The Fire Tar
+# and Reagent Pouch have no drop rate for these two droppers in the data.
+# Fire Sapta 94473 (Braldir) replaces a lost sapta.
+# The leveling guide forever/alliance/dwarf-gnome/01-dun-morogh carries the
+# chain inline; this guide does it in one go.
+
+step Call of Fire
+  zone Dun Morogh
+  tip At 10 Ingrid Dunwald, the shaman trainer in Kharanos, or Eldrun Stormbreaker, the shaman trainer in Ironforge, sends you to Bruegs Kindleborn.
+  level 10
+  accept 94449                                -- Ingrid Dunwald, Kharanos; or Eldrun Stormbreaker, Ironforge
+
+step Bruegs Kindleborn
+  tip Follow the road east to the tunnel towards South Gate Outpost. Out of the first tunnel, keep left past Mountaineer Barleybrew and the tower: a slim trail, hard to see but shown on the minimap, winds up the mountain to Bruegs' cave above the farm. He hands you the Torch of the Dormant Flame: keep it until the end of the chain.
+  turnin 94449                                -- Bruegs Kindleborn
+  accept 94465
+
+step Braldir Ashmantle
+  zone Loch Modan
+  tip From Bruegs' ledge you can drop carefully down the mountain into Loch Modan, or walk back through the tunnel. Braldir Ashmantle keeps the shrine on the peak just south of Thelsamar: a hidden trail along a cliff ledge, marked by stone totems, climbs to it from the road north of the peak.
+  turnin 94465                                -- Braldir Ashmantle
+  accept 94466
+
+step Reagent Pouch
+  tip The Stonesplinter Seers (level 13-14) stand among the troggs of Stonesplinter Valley in the south of the loch, and in the trogg camps north-east of Thelsamar. They throw Lightning Bolts from 40 yards and run for help when hurt: pull one at a time. Respawn about five minutes.
+  collect 6652 quest 94466.2                  -- Reagent Pouch
+
+step Fire Tar
+  tip The Tunnel Rat Geomancers (level 12-13) work only inside the Silver Stream Mine at the north end of the loch, past Thelsamar. They cast Fire Blast behind a Fire Shield and run for help at low health.
+  collect 5026 quest 94466.1                  -- Fire Tar
+
+step Braldir Ashmantle
+  tip Back up the trail to Braldir. He makes the Fire Sapta from the tar and the pouch: keep it with the torch.
+  turnin 94466                                -- Braldir Ashmantle
+  accept 94467
+
+step Lost the Fire Sapta?
+  when onquest 94467
+  when !has 6636
+  tip Only if the Fire Sapta is gone from your bags: Braldir gives you another.
+  accept 94473
+  turnin 94473                                -- Braldir Ashmantle: a new Fire Sapta
+
+step The Shrine of Eternal Flame
+  tip Climb on past Braldir to the peak. Drink the Fire Sapta beside the rock statue there to see the Minor Manifestation of Fire (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with Rockbiter Weapon and Earth Shock. Its Glowing Ember drops every time.
+  use 6636 @31.9,64.5                         -- Fire Sapta, beside the statue
+  collect 6655 quest 94467.1                  -- Glowing Ember: Minor Manifestation of Fire
+
+step The Brazier of the Dormant Flame
+  tip Click the Brazier of the Dormant Flame atop the shrine with the torch in your bags to place the ember, then click it again for the next quest: the lit Torch of Eternal Flame.
+  turnin 94467                                -- Brazier of the Dormant Flame
+  accept 94468
+
+step Bruegs Kindleborn
+  zone Dun Morogh
+  tip Back through the South Gate tunnel and up the trail to Bruegs' cave. Keep the Fire Totem in your bags for good: every fire totem needs it.
+  turnin 94468 reward 5176 263412             -- Bruegs Kindleborn: Searing Totem, your Fire Totem and the Totem of Charged Flames
+  train class

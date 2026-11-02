@@ -13,7 +13,8 @@
 --       curated when one collects it (index nil), else built from source
 --       `index` (default: the best available guideable one), registered
 --       unsaved (pack "lookup", category "Lookup", id "lookup/<kind>/<id>")
---       and opened in a tab
+--       and opened in a tab. A mount (Lookup.IsMount) without a curated guide
+--       is not built from its best source (index nil): nil, "mount"
 --   Lookup.Show(query, kind, id)   -- fires SHOW_LOOKUP(query, kind, id) for the UI
 --   Lookup.RegisterPlanner(kind, build)
 --       another module's guide kind: build(id) -> def | nil, reason, where def
@@ -32,7 +33,8 @@
 -- "lookup/..." tab id is rebuilt from the Codex and registered again.
 --
 -- Alt-click on an item link, bag item or loot item (Hooks.ItemClick) opens
--- its guide, or the Lookup window when no source can be guided.
+-- its guide, or the Lookup window when no source can be guided (a mount
+-- without a curated guide among them).
 
 local ADDON, ns = ...
 
@@ -761,6 +763,10 @@ function Lookup.Guide(kind, id, index)
 	if index == nil and not planned then
 		local curated = Lookup.CuratedGuide(kind, id)
 		if curated then return openTab(curated, false) end
+		-- A guide built from a mount's best source would leave out level 40,
+		-- riding and the gold: the Lookup page says what it takes instead.
+		local record = (kind == "spell" and C.Spell(id)) or (ITEM_KINDS[kind] and C.Item(id)) or nil
+		if Lookup.IsMount(record) then return nil, "mount" end
 	end
 	if kind == "spell" then
 		local spell = C.Spell(id)

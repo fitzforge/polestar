@@ -802,7 +802,7 @@ the level the block starts at), in `data/sim/zoneplan-<faction>-<race>-<class>.j
   97/115 (bar 117/124), returns within 3 levels 16/17 (23/23), quests per
   visit 11.2/11.3 (10.5/11.1) and same-mob splits 73/88 (52/97) against the
   greedy's 261/254, 89/81, 6.0/6.4 and 124/124. Continent changes 28/34 stay
-  over the bar (20/26). A seed merged from the shipped start and another guide's
+  over the bar (20/26). A seed merged from the shipped start and an external
   order after L12 (`--stream`) had 22/27 continent changes but failed more
   rows (returns 28, quests per visit 9.7, Alliance zone changes 131).
 - `sim zoneplan --stream FILE` merges: the race's start from the shipped

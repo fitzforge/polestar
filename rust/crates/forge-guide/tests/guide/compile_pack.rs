@@ -4,7 +4,7 @@
 
 use crate::common;
 use common::*;
-use forge_guide::project::{core_interface, find_guide_files, pack_dir_refusal, write_pack_dir, FileContent};
+use forge_guide::project::{check_tree, core_interface, find_guide_files, pack_dir_refusal, write_pack_dir, FileContent};
 use std::collections::BTreeMap;
 use std::path::Path;
 
@@ -35,6 +35,27 @@ fn the_mini_pack_builds_exactly_the_fixed_file_set() {
 	let (manifest, files) = build();
 	assert_eq!(manifest.get("folder").to_js_string(), "PolestarPack_MiniPack");
 	assert_eq!(files.keys().collect::<Vec<_>>(), ["Guides.lua", "LICENSE-DATA.txt", "MapFrames.lua", "Pack.lua", "PolestarPack_MiniPack.toc"]);
+}
+
+/// The pack check on a folder, as `playtest --honest` and the report compile a whole pack (forge
+/// build's writer runs it on every tree it writes): its errors with their file and line.
+#[test]
+fn check_tree_names_a_bare_tip_as_the_pack_check_does() {
+	let dir = std::env::temp_dir().join(format!("forge-guide-check-tree-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	std::fs::create_dir_all(&dir).unwrap();
+	for f in ["a.guide", "b.guide"] {
+		std::fs::copy(pack_fixture("mini").join("guides").join(f), dir.join(f)).unwrap();
+	}
+	let data = fixture_data();
+	check_tree(&dir, &data).expect("the mini pack compiles");
+	let text = std::fs::read_to_string(dir.join("a.guide")).unwrap().replacen("  turnin 783\n", "  turnin 783\n  tip\n", 1);
+	let line = text.lines().position(|l| l == "  tip").unwrap() + 1;
+	std::fs::write(dir.join("a.guide"), text).unwrap();
+	let e = check_tree(&dir, &data).unwrap_err();
+	assert!(e.starts_with("the pack has errors:\n"), "{e}");
+	assert!(e.contains(&format!("a.guide:{line} `tip` needs text")), "{e}");
+	std::fs::remove_dir_all(&dir).unwrap();
 }
 
 #[test]

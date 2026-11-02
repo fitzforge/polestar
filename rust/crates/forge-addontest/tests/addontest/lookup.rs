@@ -411,6 +411,53 @@ fn generated_guides_no_guide_for_sources_without_a_place_disabled_module() {
 	assert_eq!(disabled, json!({ "id": false, "why": "disabled" }));
 }
 
+// A guide built from a mount's best source would leave out level 40, riding and the gold: only a
+// curated mount guide (by `collects`, or a class mount's spell by `keywords`) is offered.
+const MOUNT_GUIDE_LUA: &str = r#"
+	local function try(...) local id, why = Polestar.Lookup.Guide(...); return { id = id or false, why = why or false } end
+	local function tip(id)
+		GameTooltip:SetOwner(UIParent)
+		lookuprt.showItem(GameTooltip, id, "|cffffffff|Hitem:" .. id .. "::::::::20:::::|h[x]|h|r")
+		local lines = GameTooltip.lines
+		return lines[#lines] == "Alt-click: guide me"
+	end
+"#;
+
+#[test]
+fn guide_me_builds_no_guide_to_a_mount_without_a_curated_one_an_ordinary_item_still_builds() {
+	let [vendor, spell, tooltip, shows, chosen, item, item_tip] = first::<7>(run(&(MOUNT_GUIDE_LUA.to_string()
+		+ r#"
+		local shows = {}
+		Polestar.On("SHOW_LOOKUP", function(q, kind, id) shows[#shows + 1] = { q or false, kind or false, id or false } end)
+		emit(try("mount", 8000)); emit(try("spell", 9500)); emit(tip(8000))
+		stub.keys.alt = true
+		lookuprt.clickItem("|cffffffff|Hitem:8000::::::::20:::::|h[x]|h|r")
+		stub.keys.alt = false
+		emit(shows)
+		emit(try("mount", 8000, 1))
+		emit(try("item", 8004)); emit(tip(8004))
+	"#)));
+	assert_eq!(vendor, json!({ "id": false, "why": "mount" }));
+	assert_eq!(spell, json!({ "id": false, "why": "mount" }), "the mount's spell resolves to the same mount");
+	assert_eq!(tooltip, false, "the tooltip promises no guide");
+	assert_eq!(shows, json!([[false, "mount", 8000]]), "Alt-click opens its Lookup page");
+	assert_eq!(chosen, json!({ "id": "lookup/mount/8000", "why": false }), "a source picked on the page still leads there");
+	assert_eq!(item, json!({ "id": "lookup/item/8004", "why": false }));
+	assert_eq!(item_tip, true);
+}
+
+#[test]
+fn guide_me_opens_a_curated_mount_guide_a_class_mount_by_keyword_a_vendor_mount_by_collects() {
+	let [class_mount, collected, tooltip] = first::<3>(run(&(guides()
+		+ MOUNT_GUIDE_LUA
+		+ r#"
+		emit(try("spell", 9503)); emit(try("mount", 8000)); emit(tip(8000))
+	"#)));
+	assert_eq!(class_mount, json!({ "id": "test/shadowsteed", "why": false }));
+	assert_eq!(collected, json!({ "id": "test/alliance-strider", "why": false }));
+	assert_eq!(tooltip, true);
+}
+
 #[test]
 fn generated_guides_a_saved_lookup_tab_is_rebuilt_before_the_engine_reopens_tabs() {
 	let [tabs, active] = first::<2>(run_with(
@@ -552,7 +599,8 @@ fn search_and_sources_obtainable_before_retired_curated_guide_backed_before_name
 		])
 	);
 	assert_eq!(rows, json!({ "available": false, "why": "retired", "whyText": "No longer obtainable", "guideable": false }));
-	assert_eq!(guide, json!({ "id": false, "why": "noguide" }));
+	// Never guided: a mount without a curated guide is not built at all.
+	assert_eq!(guide, json!({ "id": false, "why": "mount" }));
 	drop(own);
 }
 
@@ -1187,7 +1235,7 @@ fn item_tooltips_the_best_sources_the_alt_click_hint_and_the_settings() {
 		Polestar.Set("lookup.tooltip", false); emit(#show(8000)); Polestar.Set("lookup.tooltip", true)
 		Polestar.Set("lookup.enabled", false); emit(#show(8000))
 	"#));
-	assert_eq!(strider, json!(["From Mira Saddler | Vendor \u{b7} Amber Vale", "Alt-click: guide me"]));
+	assert_eq!(strider, json!(["From Mira Saddler | Vendor \u{b7} Amber Vale"]), "a mount without a curated guide: no Alt-click promise");
 	assert_eq!(peril, json!(["From Bristle Boar | Drop \u{b7} Amber Vale", "From High Peril | Requires level 30", "Alt-click: guide me"]));
 	assert_eq!(world, json!(["From World drop | World drop \u{b7} Level 10-30"]));
 	assert_eq!(no_tip, 0);

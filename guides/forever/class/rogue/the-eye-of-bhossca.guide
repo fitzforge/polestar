@@ -28,11 +28,11 @@ why The Ruby-Adorned Blade, C's payment for a solo job inside the Scarlet Monast
 
 # Mechanics: Forever players' reports on quests 78676
 # and 78699 (checked 2026-10-20), compared
-# with ForG's Forever rogue-quests walkthrough. Item 210955's Forever
+# with a Forever rogue-quests walkthrough (web). Item 210955's Forever
 # tooltip confirms suspicious activity breaks the disguise. Letter timing
 # differs from the datamined minimum; no exact mail level is asserted.
 
-# Follow-up, 2026-10-21: Gaunerh (78676) and Kimeera (78699) report
+# Follow-up, 2026-10-21: two players' reports (78676, 78699) put
 # the invitation at 30 after the horn job and a city visit. This is
 # player evidence, not a guaranteed mail level or a level-gate change.
 
@@ -43,7 +43,7 @@ step C's dead drop
 
 step The Scarlet Monastery
   zone Tirisfal Glades
-  tip The monastery stands in the far north-east of Tirisfal Glades. Go in alone. Before entering, find the disguise in the chest by the outside stables. Recheck it after changing wings: stealth and suspicious actions can remove it. In the Graveyard, pickpocket a Scarlet Scryer for the Scryer's Key; use it on the Personal Letterbox in the Library and read the message. It sends you back to sit at both benches between the statues in the graveyard. Watch for the mechanism's messages, take the Reliquary Key from the stone coffer, then return to the Library for the locked reliquary. Avoid fighting through the instance.
+  tip The monastery stands in the far north-east of Tirisfal Glades. Go in alone, out of any group. Before entering, take the Scarlet Initiate's Uniform from the Supply Locker in the stables behind the monastery and wear it; stealth and suspicious actions remove it, so put it back on after each wing change. In the Graveyard, in the Chamber of Atonement (the first big room), Pick Pocket a Scarlet Scryer or Scarlet Crier for the Scryer's Key. In the Library, open the Personal Letterbox in the Athenaeum with it and read the Confidential Message. It sends you back to sit on both benches between the two statues in the Graveyard. Watch for the mechanism's messages, then take the Reliquary Key from the stone coffer: an elite stands by the coffer with a patrol behind it, but from beside the northern mausoleum you can turn the camera until the box shows and click it through the wall (an interact key works too). An elite ghost walks near the mausoleum; the broken piece at its edge keeps you out of its path. Then return to the Library for the locked reliquary and the eye. Avoid fighting through the instance.
   goto 82.6,33.8 live "Scarlet Monastery"
   note Solo route: Graveyard key, Library letter, Graveyard benches and coffer, then Library reliquary for the eye. Read the letter before the bench puzzle; check the disguise each time you change wings.
 

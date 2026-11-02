@@ -78,7 +78,7 @@ end
 local gamepadUI = ns.GamepadUI
 
 local function nextFrame(fn)
-	if C_Timer and C_Timer.After then C_Timer.After(0, fn) else fn() end
+	if C_Timer and C_Timer.After then ns.After(0, fn) else fn() end
 end
 
 local closePopup = QoL.ClosePopup
@@ -157,7 +157,7 @@ function Social.OnResurrect(_, caster)
 	if type(delay) ~= "number" then return end
 	local gen = resurrectionGeneration
 	if delay > 0 and C_Timer and C_Timer.After then
-		C_Timer.After(delay + 0.1, function() acceptResurrect(caster, gen) end)
+		ns.After(delay + 0.1, function() acceptResurrect(caster, gen) end)
 	else
 		acceptResurrect(caster, gen)
 	end
