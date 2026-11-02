@@ -275,18 +275,37 @@ pub fn wow_dirs(home: Option<&Path>, native_roots: &[PathBuf]) -> Vec<PathBuf> {
 	out
 }
 
+/// A folder's one spelling, so an install found by the scan and the same install picked by the
+/// player compare equal (the setup screen ticks the card whose folder is the one in use):
+/// symlinks resolved, and without the `\\?\` prefix `canonicalize` puts on Windows paths.
+pub fn real_path(p: &Path) -> PathBuf {
+	plain(&std::fs::canonicalize(p).unwrap_or_else(|_| p.to_path_buf()))
+}
+
+/// `\\?\C:\x` → `C:\x`, `\\?\UNC\server\share` → `\\server\share`; anything else as it is.
+fn plain(p: &Path) -> PathBuf {
+	let Some(s) = p.to_str() else { return p.to_path_buf() };
+	if let Some(rest) = s.strip_prefix(r"\\?\UNC\") {
+		return PathBuf::from(format!(r"\\{rest}"));
+	}
+	match s.strip_prefix(r"\\?\") {
+		Some(rest) if rest.as_bytes().get(1) == Some(&b':') => PathBuf::from(rest),
+		_ => p.to_path_buf(),
+	}
+}
+
 /// The Forever installs under the given places (see [`wow_dirs`]), each client folder once.
 pub fn find_installs_in(home: Option<&Path>, native_roots: &[PathBuf]) -> Vec<Install> {
 	let mut seen = Vec::new();
 	let mut out = Vec::new();
 	for root in wow_dirs(home, native_roots) {
 		for (dir, flavor) in forever_clients(&root) {
-			let real = std::fs::canonicalize(&dir).unwrap_or_else(|_| dir.clone());
+			let real = real_path(&dir);
 			if seen.contains(&real) {
 				continue;
 			}
+			out.push(install_of(&real, flavor));
 			seen.push(real);
-			out.push(install_of(&dir, flavor));
 		}
 	}
 	out
@@ -324,7 +343,7 @@ pub fn check_folder(path: &Path) -> Result<Install, FolderProblem> {
 	if !path.is_dir() {
 		return Err(FolderProblem::NotAFolder(path.to_path_buf()));
 	}
-	let path = std::fs::canonicalize(path).unwrap_or_else(|_| path.to_path_buf());
+	let path = real_path(path);
 	// Inside (or at) a client folder: the nearest ancestor that is one.
 	for dir in path.ancestors() {
 		let name = dir.file_name().and_then(|n| n.to_str()).unwrap_or("");
@@ -458,5 +477,34 @@ mod tests {
 		assert_eq!(found[0].flavor_dir, f);
 		assert_eq!(found[0].addon_dir, None);
 		std::fs::remove_dir_all(&home).unwrap();
+	}
+
+	#[test]
+	fn a_picked_install_is_the_same_folder_as_the_found_one() {
+		// The setup screen ticks the card whose folder is the one in use: picking a found install
+		// must give back that exact folder, also when the game sits behind a symlink.
+		let home = tmp("link");
+		let real = home.join("disk/World of Warcraft");
+		let f = client(&real, "_forever_", "wowf");
+		std::fs::create_dir_all(f.join("WTF/Account/A")).unwrap();
+		let prefix = home.join(".wine/drive_c/Program Files (x86)");
+		std::fs::create_dir_all(&prefix).unwrap();
+		#[cfg(unix)]
+		std::os::unix::fs::symlink(&real, prefix.join("World of Warcraft")).unwrap();
+		#[cfg(unix)]
+		{
+			let found = find_installs_in(Some(&home), &[]);
+			assert_eq!(found.len(), 1);
+			assert_eq!(check_folder(&found[0].flavor_dir).unwrap().flavor_dir, found[0].flavor_dir);
+		}
+		std::fs::remove_dir_all(&home).unwrap();
+	}
+
+	#[test]
+	fn windows_paths_lose_the_verbatim_prefix() {
+		assert_eq!(plain(Path::new(r"\\?\C:\Program Files (x86)\World of Warcraft\_forever_")), PathBuf::from(r"C:\Program Files (x86)\World of Warcraft\_forever_"));
+		assert_eq!(plain(Path::new(r"\\?\UNC\nas\games\World of Warcraft")), PathBuf::from(r"\\nas\games\World of Warcraft"));
+		assert_eq!(plain(Path::new(r"\\?\Volume{1234}\x")), PathBuf::from(r"\\?\Volume{1234}\x"));
+		assert_eq!(plain(Path::new("/home/player/Games/wow")), PathBuf::from("/home/player/Games/wow"));
 	}
 }
