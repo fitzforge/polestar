@@ -22,6 +22,7 @@
 {"kind":"group/elite","params":{"drives_route":true},"quest":99}
 {"kind":"group/elite","params":{"drives_route":true},"quest":105}
 {"kind":"object-click","params":{"drives_route":true},"quest":105}
+{"kind":"delayed-offer","params":{"drives_route":true},"quest":114}
 {"kind":"group/elite","params":{"drives_route":true},"quest":115}
 {"kind":"other","params":{"drives_route":false},"quest":116}
 {"kind":"vendor-buy","params":{"drives_route":true},"quest":116}
@@ -128,6 +129,7 @@
 {"kind":"group/elite","params":{"drives_route":true},"quest":591}
 {"kind":"use-item-on-mob","params":{"drives_route":true},"quest":592}
 {"kind":"item-from-other-quest","params":{"drives_route":true},"quest":593}
+{"kind":"delayed-offer","params":{"drives_route":true},"quest":603}
 {"kind":"object-click","params":{"drives_route":true},"quest":604}
 {"kind":"group/elite","params":{"drives_route":true},"quest":611}
 {"kind":"use-item-at-place","params":{"drives_route":true},"quest":611}
@@ -314,6 +316,7 @@
 {"kind":"object-click","params":{"drives_route":true},"quest":1050}
 {"kind":"group/elite","params":{"drives_route":true},"quest":1051}
 {"kind":"group/elite","params":{"drives_route":true},"quest":1053}
+{"kind":"delayed-offer","params":{"drives_route":true},"quest":1064}
 {"kind":"object-click","params":{"drives_route":true},"quest":1069}
 {"kind":"crafted","params":{"drives_route":true},"quest":1073}
 {"kind":"object-click","params":{"drives_route":true},"quest":1079}

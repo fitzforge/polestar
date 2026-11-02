@@ -4324,9 +4324,9 @@
 {"classes":256,"id":65603,"level":20,"min_level":20,"races":65,"side":1,"title":"The Binding","xp":1150}
 {"classes":256,"id":65604,"level":20,"min_level":20,"races":146,"side":2,"title":"The Binding","xp":1150}
 {"classes":256,"id":65610,"level":27,"min_level":20,"races":146,"side":2,"title":"Wish You Were Here","xp":2200}
-{"classes":1089,"id":76156,"level":10,"min_level":4,"races":32,"side":2,"title":"Stalk With The Earthmother","xp":625,"zone_area":215}
+{"id":76156,"level":10,"min_level":4,"races":32,"side":2,"title":"Stalk With The Earthmother","xp":625,"zone_area":215}
 {"classes":0,"id":76160,"level":11,"min_level":4,"races":32,"side":2,"title":"Stalk With The Earthmother","xp":650,"zone_area":215}
-{"classes":64,"id":76240,"level":11,"min_level":4,"races":32,"side":2,"title":"Stalk With The Earthmother","xp":875,"zone_area":215}
+{"id":76240,"level":11,"min_level":4,"races":32,"side":2,"title":"Stalk With The Earthmother","xp":875,"zone_area":215}
 {"classes":2,"id":78088,"level":30,"min_level":22,"races":5,"side":1,"title":"A Strange Artifact","xp":2450}
 {"classes":2,"id":78089,"level":30,"min_level":22,"races":5,"side":1,"title":"Advice From Stormwind","xp":1850}
 {"classes":2,"id":78090,"level":30,"min_level":22,"races":5,"side":1,"title":"A Second Opinion"}
@@ -4936,7 +4936,7 @@
 {"classes":0,"id":96102,"level":6,"min_level":4,"races":8589934770,"side":2,"title":"Camping 101: Tailoring","type":0,"xp":270}
 {"classes":0,"id":96130,"level":5,"min_level":4,"races":8589934770,"side":2,"title":"Chakuyak","xp":230,"zone_area":215}
 {"classes":64,"id":96135,"level":40,"min_level":30,"races":4,"side":1,"title":"Heed My Call","xp":3150}
-{"classes":0,"id":96136,"level":35,"min_level":30,"races":8589934592,"side":2,"title":"Call of Air","xp":2750}
+{"id":96136,"level":35,"min_level":30,"races":8589934592,"side":2,"title":"Call of Air","xp":2750}
 {"classes":0,"id":96137,"level":25,"min_level":18,"races":4294967373,"side":1,"title":"Ira's Dagger","xp":2000,"zone_area":10}
 {"classes":0,"id":96138,"level":30,"min_level":18,"races":4294967373,"side":1,"title":"Merrick's Bow","xp":2450,"zone_area":10}
 {"classes":0,"id":96139,"level":23,"min_level":18,"races":4294967373,"side":1,"title":"The Valor Family","xp":1750,"zone_area":10}
@@ -5270,8 +5270,8 @@
 {"classes":0,"id":99142,"level":11,"min_level":5,"races":8589934770,"side":2,"title":"Tomb Weed","type":0,"xp":875,"zone_area":85}
 {"classes":0,"id":99143,"level":7,"min_level":4,"races":4294967373,"side":1,"title":"Bottles and Baubles","type":0,"xp":625,"zone_area":12}
 {"classes":0,"id":99144,"level":7,"min_level":5,"races":8589934770,"side":2,"title":"Seeking Refuge","type":0,"xp":625,"zone_area":85}
-{"id":99152,"level":12,"min_level":10,"races":16,"side":2,"title":"As Above, So Below","xp":900,"zone_area":85}
-{"id":99153,"level":12,"min_level":10,"races":16,"side":2,"title":"The One That Got Away","xp":900,"zone_area":85}
+{"classes":0,"id":99152,"level":12,"min_level":10,"races":8589934770,"side":2,"title":"As Above, So Below","xp":900,"zone_area":85}
+{"classes":0,"id":99153,"level":12,"min_level":10,"races":8589934770,"side":2,"title":"The One That Got Away","xp":900,"zone_area":85}
 {"classes":0,"id":99156,"level":13,"min_level":6,"races":8589934770,"side":2,"title":"Rear Guard Patrol","type":1,"xp":900,"zone_area":85}
 {"classes":0,"id":99158,"level":8,"min_level":5,"races":4294967373,"side":1,"title":"Dawn in the Mountains","type":0,"xp":70,"zone_area":1}
 {"classes":0,"id":99159,"level":8,"min_level":5,"races":4294967373,"side":1,"title":"Finding Warmth","type":0,"xp":700,"zone_area":1}

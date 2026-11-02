@@ -2,22 +2,22 @@
   "dataset": "polestar-data-forever",
   "clientBuild": "1.60.1.70532",
   "schemaVersion": 1,
-  "version": "2026.10.1",
-  "producerCommit": "9b385df597d2425d8c86cfad8c95d4565e1b3e0f",
+  "version": "2026.11.1",
+  "producerCommit": "6d0de256e66674512e453a2990076d84f7e979bb",
   "counts": {
     "quest": 5287,
-    "quest_start": 5367,
-    "quest_end": 5099,
-    "quest_objective": 6340,
+    "quest_start": 5407,
+    "quest_end": 5134,
+    "quest_objective": 6338,
     "quest_prereq": 3811,
     "quest_reward": 6200,
     "npc": 13239,
     "object": 10437,
-    "spawn": 88645,
+    "spawn": 88761,
     "item": 23344,
     "item_source": 38105,
     "ui_map": 59,
-    "mechanic": 3398,
+    "mechanic": 3401,
     "step": 2409,
     "note": 0
   },
@@ -30,17 +30,17 @@
     {
       "of": 5408,
       "what": "quests with giver",
-      "with": 5147
+      "with": 5184
     },
     {
       "of": 5408,
       "what": "quests with turn-in",
-      "with": 5033
+      "with": 5066
     },
     {
       "of": 5408,
       "what": "quests with objectives",
-      "with": 4186
+      "with": 4184
     },
     {
       "of": 5408,
@@ -65,7 +65,7 @@
     {
       "of": 5408,
       "what": "quest classes",
-      "with": 5284
+      "with": 5283
     },
     {
       "of": 5408,
@@ -110,7 +110,7 @@
     {
       "of": 13660,
       "what": "npc level",
-      "with": 11126
+      "with": 11212
     },
     {
       "of": 8602,

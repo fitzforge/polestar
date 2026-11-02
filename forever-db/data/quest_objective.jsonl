@@ -2251,7 +2251,6 @@
 {"count":4,"kind":"item","n":3,"quest":4484,"target":11951}
 {"count":4,"kind":"item","n":4,"quest":4484,"target":11563}
 {"kind":"event","n":1,"quest":4491}
-{"count":1,"kind":"item","n":1,"quest":4492,"target":15722}
 {"count":1,"kind":"item","n":1,"quest":4496,"target":11837}
 {"count":5,"kind":"item","n":2,"quest":4496,"target":11018}
 {"count":10,"kind":"kill","n":1,"quest":4501,"target":9166}
@@ -2822,7 +2821,7 @@
 {"count":1,"kind":"item","n":2,"quest":6185,"target":16001}
 {"count":1,"kind":"item","n":3,"quest":6185,"target":16002}
 {"kind":"kill","n":4,"quest":6185,"target":11878}
-{"kind":"event","n":5,"quest":6185,"target":2726}
+{"kind":"event","n":5,"quest":6185}
 {"count":1,"kind":"kill","n":1,"quest":6187,"target":11878}
 {"count":5,"kind":"kill","n":1,"quest":6221,"target":7156}
 {"count":5,"kind":"kill","n":2,"quest":6221,"target":7157}
@@ -2976,7 +2975,6 @@
 {"count":1,"kind":"item","n":1,"quest":6943,"target":17504}
 {"count":5,"kind":"item","n":1,"quest":6962,"target":17197}
 {"count":1,"kind":"item","n":2,"quest":6962,"target":1179}
-{"kind":"kill","n":1,"quest":6981,"target":3442}
 {"count":10,"kind":"item","n":1,"quest":6982,"target":17542}
 {"count":1,"kind":"item","n":1,"quest":6983,"target":17662}
 {"count":10,"kind":"item","n":1,"quest":6985,"target":17522}
@@ -6278,12 +6276,12 @@
 {"count":1,"kind":"item","n":1,"quest":98823,"target":287958}
 {"count":1,"kind":"item","n":1,"quest":98824,"target":287959}
 {"count":3,"kind":"item","n":1,"quest":98887,"target":274895}
-{"kind":"item","n":1,"quest":98888,"target":274895}
+{"count":3,"kind":"item","n":1,"quest":98888,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98889,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98891,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98893,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98895,"target":274895}
-{"kind":"item","n":1,"quest":98896,"target":274895}
+{"count":3,"kind":"item","n":1,"quest":98896,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98897,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98899,"target":274895}
 {"count":3,"kind":"item","n":1,"quest":98901,"target":274895}

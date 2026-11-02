@@ -10056,23 +10056,23 @@
 {"id":29512,"name":"Ainderu Summerleaf"}
 {"id":29534,"name":"\"Baroness\" Llana"}
 {"id":29537,"level_max":35,"level_min":35,"name":"Darahir","subname":"Reagents & Magical Goods"}
-{"id":29538,"name":"Hexil Garrot"}
+{"id":29538,"level_max":35,"level_min":35,"name":"Hexil Garrot"}
 {"id":29547,"level_max":35,"level_min":35,"name":"Applebough","subname":"Fruit Vendor"}
 {"id":29568,"level_max":55,"level_min":55,"name":"\"Techs\" Rickard Rustbolt","subname":"Warsong Gulch Battlemaster"}
-{"id":29660,"name":"Sai","subname":"Alterac Valley Battlemaster"}
+{"id":29660,"level_max":35,"level_min":35,"name":"Sai","subname":"Alterac Valley Battlemaster"}
 {"id":30104,"level_max":35,"level_min":35,"name":"Adamman the Trader"}
-{"id":30137,"name":"Shifty Vickers"}
+{"id":30137,"level_max":35,"level_min":35,"name":"Shifty Vickers"}
 {"id":30726,"name":"Archivist Betha","subname":"Kirin Tor Historian"}
 {"id":30885,"level_max":35,"level_min":35,"name":"Blazik Fireclaw","subname":"Armor Quartermaster"}
 {"id":31439,"name":"Archmage Timear"}
 {"id":32216,"name":"Mei Francis","subname":"Exotic Mounts"}
 {"id":32287,"level_max":55,"level_min":55,"name":"Archmage Alvareaux","subname":"Quartermaster"}
-{"id":32330,"name":"Minzi the Minx","subname":"Arathi Basin Battlemaster"}
+{"id":32330,"level_max":35,"level_min":35,"name":"Minzi the Minx","subname":"Arathi Basin Battlemaster"}
 {"id":32333,"level_max":35,"level_min":35,"name":"\"Dapper\" Danik Blackshaft","subname":"Officer Accessories Quartermaster"}
 {"id":32334,"level_max":35,"level_min":35,"name":"Nixi Fireclaw","subname":"Weapons Quartermaster"}
 {"id":32337,"level_max":35,"level_min":35,"name":"Christi Stockton","subname":"Wine Vendor"}
 {"id":32403,"level_max":35,"level_min":35,"name":"Sandra Bartan","subname":"Barmaid"}
-{"id":32411,"name":"Afsaneh Asrar","subname":"Assistant Innkeeper"}
+{"id":32411,"level_max":35,"level_min":35,"name":"Afsaneh Asrar","subname":"Assistant Innkeeper"}
 {"id":32413,"level_max":35,"level_min":35,"name":"Isirami Fairwind","subname":"Innkeeper"}
 {"id":32424,"level_max":35,"level_min":35,"name":"Laire Brewgold","subname":"Brewmaiden"}
 {"id":32425,"name":"Galkara the Assassin"}
@@ -10101,10 +10101,10 @@
 {"id":32744,"name":"Bakor the Gangly"}
 {"id":32745,"name":"Amera Sky"}
 {"id":32746,"level_max":35,"level_min":35,"name":"Geffon the Unruly"}
-{"id":32747,"name":"Mendez Nightshadow"}
-{"id":32748,"name":"Bimble Sparkfingers","subname":"Darkspear Islands Battlemaster"}
+{"id":32747,"level_max":35,"level_min":35,"name":"Mendez Nightshadow"}
+{"id":32748,"level_max":35,"level_min":35,"name":"Bimble Sparkfingers","subname":"Darkspear Islands Battlemaster"}
 {"id":34365,"level_max":45,"level_min":45,"name":"Orphan Matron Aria"}
-{"id":35826,"name":"Kaye Toogie"}
+{"id":35826,"level_max":35,"level_min":35,"name":"Kaye Toogie"}
 {"id":36856,"name":"Shandy Glossgleam"}
 {"id":40833,"level_max":60,"level_min":60,"name":"Tiala Whitemane"}
 {"id":41861,"level_max":60,"level_min":60,"name":"Fayran Elthas","subname":"Flight Master"}
@@ -10117,15 +10117,15 @@
 {"id":49808,"level_max":25,"level_min":25,"name":"Grenhild Darktalon"}
 {"id":55571,"name":"Lunar Lantern"}
 {"id":55574,"name":"Festival Lantern"}
-{"id":165189,"name":"Cat"}
+{"id":165189,"level_max":30,"level_min":7,"name":"Cat"}
 {"id":167875,"name":"RTC Player Dummy"}
 {"id":184157,"level_max":60,"level_min":60,"name":"Apprentice Watcher"}
-{"faction_template":5,"id":185317,"name":"Baruzen","rank":0}
+{"faction_template":5,"id":185317,"level_max":30,"level_min":20,"name":"Baruzen","rank":0}
 {"id":185333,"level_max":22,"level_min":22,"name":"Avelina Lilly"}
 {"faction_template":534,"id":185334,"level_max":22,"level_min":22,"name":"Isaac Pearson","rank":0}
 {"faction_template":14,"id":185335,"level_max":20,"level_min":20,"name":"Summoned Incubus","rank":0}
-{"id":185403,"name":"Cyriden Farseeker"}
-{"id":185404,"name":"Relathor Moonsong"}
+{"id":185403,"level_max":27,"level_min":27,"name":"Cyriden Farseeker"}
+{"id":185404,"level_max":27,"level_min":27,"name":"Relathor Moonsong"}
 {"id":202093,"level_max":1,"level_min":1,"name":"Polymorphed Apprentice"}
 {"id":202116,"level_max":10,"level_min":10,"name":"Cut-throat Mugger"}
 {"id":203079,"level_max":7,"level_min":7,"name":"Wandering Swordsman"}
@@ -10135,7 +10135,7 @@
 {"id":204070,"level_max":8,"level_min":8,"name":"Soboz"}
 {"id":204827,"level_max":1,"level_min":1,"name":"Adventurer's Remains"}
 {"id":204937,"level_max":1,"level_min":1,"name":"Adventurer's Spirit"}
-{"id":205153,"name":"Ada Gelhardt"}
+{"id":205153,"level_max":10,"level_min":10,"name":"Ada Gelhardt"}
 {"id":205700,"level_max":7,"level_min":6,"name":"Venture Co. Poacher"}
 {"faction_template":104,"id":205729,"level_max":30,"level_min":4,"name":"Boarton Shadetotem","rank":0,"subname":"Rogue Trainer?"}
 {"id":208023,"level_max":10,"level_min":10,"name":"Gru'ark"}
@@ -10196,12 +10196,12 @@
 {"id":214129,"level_max":21,"level_min":20,"name":"Venture Co. Light Shredder"}
 {"id":214519,"level_max":23,"level_min":23,"name":"Incinerator Gar'im"}
 {"id":214529,"level_max":50,"level_min":50,"name":"Brave Stonetorch"}
-{"id":214530,"name":"Ardelle Dralta"}
-{"id":214954,"name":"Rix Xizzix"}
+{"id":214530,"level_max":25,"level_min":25,"name":"Ardelle Dralta"}
+{"id":214954,"level_max":45,"level_min":45,"name":"Rix Xizzix"}
 {"id":215072,"level_max":1,"level_min":1,"name":"Loa Altar"}
 {"id":215643,"name":"Tokal"}
 {"id":215974,"level_max":40,"level_min":40,"name":"Des'Altek"}
-{"faction_template":635,"id":216289,"name":"Orokai","rank":0}
+{"faction_template":635,"id":216289,"level_max":62,"level_min":62,"name":"Orokai","rank":0}
 {"id":216463,"name":"Ailgrha Splittusk"}
 {"id":216474,"name":"Ravaging Tempest"}
 {"id":216659,"level_max":25,"level_min":25,"name":"Fallenroot Satyr"}
@@ -10228,7 +10228,7 @@
 {"id":218029,"level_max":35,"level_min":34,"name":"Witherbark Champion"}
 {"id":218032,"level_max":35,"level_min":35,"name":"Witherbark Goliath"}
 {"id":218115,"level_max":40,"level_min":40,"name":"Mai'zin","subname":"Gurubashi Bloodchanger"}
-{"id":218229,"name":"Captain Aransas"}
+{"id":218229,"level_max":40,"level_min":40,"name":"Captain Aransas"}
 {"id":218236,"level_max":60,"level_min":60,"name":"Red Bag"}
 {"id":218246,"name":"Gurgthock","subname":"PTR Enthusiast"}
 {"id":218249,"level_max":34,"level_min":33,"name":"Slitherblade Tide Priestess"}
@@ -10335,7 +10335,7 @@
 {"id":226982,"level_max":60,"level_min":60,"name":"Frijidar"}
 {"id":227519,"level_max":60,"level_min":60,"name":"Fallen Knight"}
 {"id":227533,"level_max":58,"level_min":56,"name":"Astral Wraith"}
-{"id":227853,"name":"Pix Xizzix"}
+{"id":227853,"level_max":60,"level_min":60,"name":"Pix Xizzix"}
 {"id":227985,"level_max":60,"level_min":60,"name":"Arkonos the Cursed"}
 {"id":227996,"level_max":61,"level_min":61,"name":"Sebastian Jurgens","subname":"Mad Doctor"}
 {"id":228142,"level_max":62,"level_min":62,"name":"Techbot","subname":"D.E.L.T.A"}
@@ -10444,7 +10444,7 @@
 {"id":239599,"name":"Captive Druid"}
 {"id":239817,"name":"Dummy Quest Kill Credit"}
 {"id":239820,"name":"Dummy Quest Kill Credit"}
-{"id":239822,"name":"Commander Truesong"}
+{"id":239822,"level_max":45,"level_min":45,"name":"Commander Truesong"}
 {"id":239831,"name":"Saria Fairmoon"}
 {"id":239855,"name":"Dummy Quest Kill Credit"}
 {"id":239939,"name":"Lord Sarthiss"}
@@ -10457,7 +10457,7 @@
 {"id":239971,"name":"Razorgill"}
 {"id":240247,"level_max":62,"level_min":61,"name":"Scarlet Bloodhound"}
 {"id":240352,"level_max":63,"level_min":63,"name":"Mana Elemental"}
-{"id":240482,"name":"Berdun Cliffbrew","subname":"Innkeeper"}
+{"id":240482,"level_max":45,"level_min":45,"name":"Berdun Cliffbrew","subname":"Innkeeper"}
 {"id":240527,"name":"Enraged Tempest"}
 {"id":240604,"level_max":60,"level_min":60,"name":"Carrie Hearthfire","subname":"Head Chef"}
 {"id":240607,"level_max":60,"level_min":60,"name":"Devon Woods","subname":"Security"}
@@ -10663,7 +10663,7 @@
 {"id":248755,"level_max":20,"level_min":20,"name":"Lumina Windsinger"}
 {"id":248764,"name":"High Magistrate Vel"}
 {"id":248779,"level_max":30,"level_min":30,"name":"Garreth Stills"}
-{"id":248809,"name":"Jenna","subname":"Mustard Queen"}
+{"id":248809,"level_max":42,"level_min":42,"name":"Jenna","subname":"Mustard Queen"}
 {"id":248813,"name":"Biggs Gearwedge"}
 {"id":248821,"name":"Trade Authority"}
 {"id":248822,"name":"Some Guy"}
@@ -10924,7 +10924,7 @@
 {"id":251783,"name":"Korben"}
 {"id":251784,"name":"Dallas"}
 {"id":251785,"name":"Josie"}
-{"id":251787,"name":"Lilly"}
+{"id":251787,"level_max":1,"level_min":1,"name":"Lilly"}
 {"id":251816,"name":"Stalker"}
 {"id":251829,"name":"(DNT) Dice Manager Stalker"}
 {"id":251862,"name":"Stalker"}
@@ -10944,7 +10944,7 @@
 {"id":251926,"name":"Sania"}
 {"id":251952,"name":"Pirate"}
 {"id":251953,"level_max":27,"level_min":26,"name":"Talia Softglen","subname":"Stable Master"}
-{"id":251955,"name":"Lucian Trias","subname":"Bread & Cheese Vendor"}
+{"id":251955,"level_max":28,"level_min":28,"name":"Lucian Trias","subname":"Bread & Cheese Vendor"}
 {"id":251956,"level_max":28,"level_min":28,"name":"Lizi Silverstone"}
 {"id":251960,"name":"Glaive Thrower"}
 {"id":251961,"name":"Lift"}
@@ -11256,7 +11256,7 @@
 {"id":254644,"name":"Personal Survival Pack"}
 {"id":254656,"name":"Magister Kirandis"}
 {"id":254674,"name":"Woodwyrd"}
-{"id":254695,"name":"Repair Bot"}
+{"id":254695,"level_max":25,"level_min":25,"name":"Repair Bot"}
 {"id":254717,"name":"Vindael","subname":"Blacksmith"}
 {"id":254762,"name":"Ball and Chain"}
 {"id":254770,"name":"Pelluk"}
@@ -11395,7 +11395,7 @@
 {"id":255898,"name":"Murloc Oracle"}
 {"id":255899,"name":"Murloc Tideskimmer"}
 {"id":255900,"name":"Murloc Raider"}
-{"id":255901,"name":"Sand Crawler"}
+{"id":255901,"level_max":37,"level_min":37,"name":"Sand Crawler"}
 {"id":255903,"name":"Murloc Hunter"}
 {"id":255904,"name":"Murloc Tidebringer"}
 {"id":255906,"name":"Snargl"}
@@ -11504,11 +11504,11 @@
 {"id":256660,"name":"Thobon Sapclaw"}
 {"faction_template":3388,"id":256672,"level_max":30,"level_min":30,"name":"Kurvelk Shadowhoof","rank":0,"subname":"Uncertified Scribe"}
 {"id":256673,"name":"Grik","subname":"Stable Master"}
-{"id":256675,"name":"Innkeeper Toka","subname":"Innkeeper"}
+{"id":256675,"level_max":38,"level_min":38,"name":"Innkeeper Toka","subname":"Innkeeper"}
 {"id":256678,"name":"Tainted Vilethorn"}
 {"id":256710,"name":"Tran'gul"}
 {"id":256714,"name":"Burrow Beetle"}
-{"id":256728,"name":"Na'zok"}
+{"id":256728,"level_max":40,"level_min":40,"name":"Na'zok"}
 {"id":256729,"level_max":60,"level_min":60,"name":"Nina Surefire","subname":"Alchemist"}
 {"id":256730,"level_max":60,"level_min":60,"name":"Stondry Darkhammer","subname":"Blacksmith"}
 {"id":256731,"level_max":60,"level_min":60,"name":"Kalsey Sanden","subname":"Chef"}
@@ -11518,7 +11518,7 @@
 {"id":256735,"level_max":60,"level_min":60,"name":"Mivin Shadowweave","subname":"Tailor"}
 {"id":256736,"level_max":30,"level_min":30,"name":"Huey Sunnydale","subname":"Mule Handler"}
 {"id":256738,"name":"Basket of Alchemy Goods"}
-{"id":256739,"name":"Crate of Blacksmithing Goods"}
+{"id":256739,"level_max":60,"level_min":60,"name":"Crate of Blacksmithing Goods"}
 {"id":256740,"name":"Crate of Enchanting Supplies"}
 {"id":256741,"name":"Basket of Textile Supplies"}
 {"id":256742,"level_max":30,"level_min":30,"name":"Dianne Softstep","subname":"Uncertified Scribe"}
@@ -11526,7 +11526,7 @@
 {"id":256795,"name":"Twilight Fanatic"}
 {"id":256797,"level_max":42,"level_min":42,"name":"Twilight Corrupter"}
 {"id":256798,"level_max":38,"level_min":37,"name":"Twilight Neophyte"}
-{"id":256799,"name":"Twilight Champion"}
+{"id":256799,"level_max":44,"level_min":44,"name":"Twilight Champion"}
 {"id":256800,"name":"Twilight Enforcer"}
 {"id":256801,"name":"Murloc Warrior"}
 {"id":256807,"name":"Shore Crawler"}
@@ -11593,7 +11593,7 @@
 {"id":257315,"name":"Ash'alari"}
 {"id":257316,"name":"Cowardly Peon","subname":"Self-Proclaimed Brave Peon"}
 {"id":257317,"name":"Grembly"}
-{"id":257322,"name":"Murache"}
+{"id":257322,"level_max":22,"level_min":22,"name":"Murache"}
 {"id":257327,"name":"Brother Aandril","subname":"Stormrunner of Zephras Isle"}
 {"id":257328,"name":"Brother Anaan","subname":"Stormrunner of Zephras Isle"}
 {"faction_template":35,"id":257421,"level_max":7,"level_min":7,"name":"Tephri Thriceforged","rank":0,"subname":"Weapon Merchant"}
@@ -11657,7 +11657,7 @@
 {"faction_template":3585,"id":258136,"level_max":10,"level_min":10,"name":"Hyneena Fiercefang","rank":0,"subname":"Nightclaw Druid"}
 {"faction_template":3585,"id":258137,"level_max":10,"level_min":10,"name":"Telenos Leafwhisper","rank":0,"subname":"Nightclaw Druid"}
 {"faction_template":3585,"id":258138,"level_max":10,"level_min":10,"name":"Nayeela Snarlfang","rank":0,"subname":"Nightclaw Druid"}
-{"id":258139,"name":"Frothrik Saegrund"}
+{"id":258139,"level_max":40,"level_min":40,"name":"Frothrik Saegrund"}
 {"id":258203,"level_max":30,"level_min":30,"name":"Hervdana Saegrund"}
 {"faction_template":3585,"id":258239,"level_max":10,"level_min":10,"name":"Maelgwyn Shadowtale","rank":0,"subname":"Nightclaw Druid"}
 {"faction_template":3585,"id":258253,"level_max":10,"level_min":10,"name":"Kaena Swiftpaw","rank":0,"subname":"Nightclaw Druid"}
@@ -11715,7 +11715,7 @@
 {"id":258570,"name":"Da'grosh"}
 {"id":258571,"name":"Therbor Deepforge","subname":"Blacksmithing Recipes"}
 {"id":258572,"level_max":35,"level_min":35,"name":"Dani'ill","subname":"Tailoring Recipes"}
-{"id":258573,"name":"Mudfin Oracle"}
+{"id":258573,"level_max":36,"level_min":36,"name":"Mudfin Oracle"}
 {"id":258574,"name":"Mudfin Warrior"}
 {"id":258576,"name":"Dolgan Steelhand","subname":"Blacksmithing Recipes"}
 {"id":258588,"level_max":40,"level_min":40,"name":"Jumbo Crawfish"}
@@ -11733,7 +11733,7 @@
 {"faction_template":120,"id":258879,"level_max":32,"level_min":32,"name":"Steamwheedle Courier","rank":0}
 {"id":258880,"level_max":60,"level_min":60,"name":"Uninspected Shipment"}
 {"id":258908,"name":"Noruu","subname":"Cenarion Druid"}
-{"id":258912,"name":"Elaren Stargrove"}
+{"id":258912,"level_max":60,"level_min":60,"name":"Elaren Stargrove"}
 {"id":258921,"name":"Volunteer Lumberjack"}
 {"id":258922,"name":"Hungry Crocolisk"}
 {"faction_template":12,"id":258930,"level_max":40,"level_min":40,"name":"Isaac Chan","rank":0,"subname":"Pet Trainer"}
@@ -11832,7 +11832,7 @@
 {"id":259782,"name":"Trip Vine"}
 {"id":259801,"name":"Mosh'gra"}
 {"faction_template":35,"id":259818,"level_max":2,"level_min":1,"name":"Ivory Galestrider","rank":0}
-{"faction_template":3628,"id":259842,"name":"Musical Gustjumper","rank":0}
+{"faction_template":3628,"id":259842,"level_max":30,"level_min":1,"name":"Musical Gustjumper","rank":0}
 {"faction_template":35,"id":259843,"level_max":1,"level_min":1,"name":"Musical Gustjumper","rank":0}
 {"id":259852,"name":"Nightmare Fiend"}
 {"id":259857,"name":"Farholde Sentry"}
@@ -11864,7 +11864,7 @@
 {"id":260021,"name":"Greenhouse"}
 {"id":260023,"name":"Farholde Ambusher"}
 {"id":260026,"name":"Scout Bolain"}
-{"id":260045,"name":"Sentry Woods"}
+{"id":260045,"level_max":40,"level_min":40,"name":"Sentry Woods"}
 {"id":260046,"name":"Sentry Mayberry"}
 {"id":260047,"name":"Sentry Albright"}
 {"id":260048,"name":"Sentry Larsen"}
@@ -12081,7 +12081,7 @@
 {"id":262016,"name":"Fallen Adventurer"}
 {"id":262024,"name":"Kirala Fairgrass","subname":"The Argent Dawn"}
 {"id":262031,"name":"Sister Rowland"}
-{"id":262033,"name":"Suspicious Adventurer"}
+{"id":262033,"level_max":60,"level_min":60,"name":"Suspicious Adventurer"}
 {"id":262036,"name":"Ruined Ballista"}
 {"id":262037,"level_max":38,"level_min":37,"name":"Roosting Duskbat"}
 {"id":262041,"name":"Bor'dorc"}
@@ -12233,7 +12233,7 @@
 {"id":264473,"name":"Highfeather Maverick"}
 {"id":264508,"name":"Blackthorne Courier","subname":"Messenger of the Wild King"}
 {"id":264521,"name":"Daythor Brellan"}
-{"id":264551,"name":"Disturbed Ghoul"}
+{"id":264551,"level_max":30,"level_min":30,"name":"Disturbed Ghoul"}
 {"id":264570,"level_max":60,"level_min":60,"name":"Blackthorne Adept","subname":"Blackthorne Pact"}
 {"id":264632,"name":"Sister"}
 {"id":264634,"name":"Leo"}
@@ -12261,8 +12261,8 @@
 {"id":265208,"name":"Tent"}
 {"id":265220,"name":"Ward of Zum'rah"}
 {"id":265223,"name":"Zombie Troll of Zum'rah"}
-{"id":265346,"name":"Aurian Highgrove","subname":"Bartender"}
-{"id":265347,"name":"Bhalir Firebrew","subname":"Chef"}
+{"id":265346,"level_max":50,"level_min":50,"name":"Aurian Highgrove","subname":"Bartender"}
+{"id":265347,"level_max":50,"level_min":50,"name":"Bhalir Firebrew","subname":"Chef"}
 {"id":265348,"level_max":50,"level_min":50,"name":"Agriel Firebrew"}
 {"id":265375,"name":"Veteran of the Third War"}
 {"id":265472,"level_max":40,"level_min":40,"name":"Riding Striped Dawnsaber"}
@@ -12280,7 +12280,7 @@
 {"id":265697,"name":"Sergeant Tobin Wheeldon"}
 {"faction_template":12,"id":265701,"name":"Captain Truman","rank":0}
 {"id":265724,"name":"Shimmering Outline"}
-{"faction_template":35,"id":265727,"name":"Seasoned Adventurer","rank":0}
+{"faction_template":35,"id":265727,"level_max":28,"level_min":28,"name":"Seasoned Adventurer","rank":0}
 {"faction_template":3562,"id":265730,"name":"Ajay Green","rank":0,"subname":"Bartender"}
 {"id":265747,"name":"Parachute-Priest","subname":"Steamwheedle Emergency Services"}
 {"faction_template":35,"id":265756,"level_max":20,"level_min":20,"name":"Genn Fairweather","rank":0,"subname":"Stablemaster and Riding Trainer"}
@@ -12310,7 +12310,7 @@
 {"faction_template":68,"id":265944,"level_max":9,"level_min":9,"name":"William Pickman","rank":0,"subname":"Cooking Trainer"}
 {"id":265962,"name":"Escaped Sheep"}
 {"id":265987,"name":"Spell Resistant Dummy"}
-{"faction_template":5,"id":266025,"name":"Rat Familiar","rank":0}
+{"faction_template":5,"id":266025,"level_max":21,"level_min":7,"name":"Rat Familiar","rank":0}
 {"id":266216,"name":"Lord Tomas"}
 {"id":266310,"name":"Falric Fellhollow"}
 {"id":266345,"name":"Spider"}
@@ -12321,7 +12321,7 @@
 {"id":266508,"name":"Sergeant Danneth"}
 {"id":266524,"name":"Lieutenant Connar"}
 {"id":266593,"name":"Sergeant Danneth"}
-{"faction_template":5,"id":266735,"name":"Excitable Slime","rank":0}
+{"faction_template":5,"id":266735,"level_max":30,"level_min":1,"name":"Excitable Slime","rank":0}
 {"id":266802,"level_max":57,"level_min":57,"name":"Thark Gorax"}
 {"id":266803,"level_max":54,"level_min":54,"name":"Quintus Wainworth"}
 {"id":266847,"name":"Anastasia Miller"}
@@ -12368,7 +12368,7 @@
 {"id":267197,"name":"Onyxian Lair Guard"}
 {"id":267214,"name":"Va'xug Firefure"}
 {"id":267216,"name":"White Riding Kodo"}
-{"id":267226,"name":"Grey Riding Kodo"}
+{"id":267226,"level_max":1,"level_min":1,"name":"Grey Riding Kodo"}
 {"id":267227,"level_max":1,"level_min":1,"name":"Brown Riding Kodo"}
 {"faction_template":55,"id":267279,"level_max":5,"level_min":5,"name":"Cadoc Winterheart","rank":0,"subname":"Mountaineer's Assistant"}
 {"id":267287,"level_max":8,"level_min":8,"name":"Sylassa Moonglow"}
@@ -12431,7 +12431,7 @@
 {"id":267963,"name":"Quadcopter","subname":"D.E.L.T.A"}
 {"id":268044,"level_max":60,"level_min":60,"name":"Loren Ravenlock"}
 {"faction_template":3666,"id":268047,"name":"Theramore Emissary","rank":0}
-{"faction_template":3667,"id":268048,"name":"Darkspear Emissary","rank":0}
+{"faction_template":3667,"id":268048,"level_max":30,"level_min":30,"name":"Darkspear Emissary","rank":0}
 {"id":268079,"name":"Dummy Beast"}
 {"id":268080,"name":"Dummy Demon"}
 {"id":268081,"name":"Dummy Dragonkin"}
@@ -12465,7 +12465,7 @@
 {"faction_template":3578,"id":268602,"level_max":10,"level_min":10,"name":"Skypriest Faladiel","rank":0}
 {"id":268605,"level_max":10,"level_min":10,"name":"Kuramaa","subname":"Spirit of Mischief"}
 {"id":268606,"name":"Thera Duskwhisper"}
-{"id":268614,"name":"Ghost of Olgra"}
+{"id":268614,"level_max":16,"level_min":16,"name":"Ghost of Olgra"}
 {"faction_template":35,"id":268622,"level_max":23,"level_min":22,"name":"Encroaching Soldier","rank":0}
 {"faction_template":35,"id":268623,"level_max":23,"level_min":23,"name":"Outraged Pillager","rank":1}
 {"id":268624,"level_max":19,"level_min":16,"name":"Razormane Raider"}
@@ -12481,10 +12481,10 @@
 {"faction_template":190,"id":268700,"name":"Tycho","rank":0}
 {"faction_template":29,"id":268701,"level_max":25,"level_min":25,"name":"Thatog","rank":0}
 {"id":268705,"name":"Aka'rai"}
-{"faction_template":5,"id":268707,"name":"Prairie Wolf Pup","rank":0}
+{"faction_template":5,"id":268707,"level_max":20,"level_min":1,"name":"Prairie Wolf Pup","rank":0}
 {"id":268731,"name":"Jacko Boie"}
 {"id":268743,"name":"Rexxie Copperclutch"}
-{"faction_template":116,"id":268744,"name":"Frog Familiar","rank":0}
+{"faction_template":116,"id":268744,"level_max":28,"level_min":20,"name":"Frog Familiar","rank":0}
 {"faction_template":104,"id":268745,"level_max":5,"level_min":5,"name":"Mayhoa Skyhoof","rank":0,"subname":"Girl with Puppies"}
 {"id":268761,"name":"Randal"}
 {"faction_template":35,"id":268762,"level_max":1,"level_min":1,"name":"Brazier of Offering","rank":0}
@@ -12507,10 +12507,10 @@
 {"id":269127,"level_max":60,"level_min":60,"name":"Image of Archmage Modera"}
 {"id":269133,"name":"Skeleton"}
 {"id":269134,"name":"Kirin Tor Necromancer"}
-{"id":269138,"name":"White Riding Kodo"}
+{"id":269138,"level_max":1,"level_min":1,"name":"White Riding Kodo"}
 {"id":269139,"name":"Grey Riding Kodo"}
-{"id":269140,"name":"Brown Riding Kodo"}
-{"id":269141,"name":"Lavender Riding Kodo"}
+{"id":269140,"level_max":1,"level_min":1,"name":"Brown Riding Kodo"}
+{"id":269141,"level_max":1,"level_min":1,"name":"Lavender Riding Kodo"}
 {"id":269152,"level_max":30,"level_min":30,"name":"Tylana Clawhoof","subname":"Kodo Mounts"}
 {"id":269153,"level_max":17,"level_min":10,"name":"Mountaineer Ylva"}
 {"id":269166,"name":"Gemmil"}
@@ -12653,7 +12653,7 @@
 {"id":271346,"name":"Dragonmaw Infiltrator"}
 {"id":271348,"name":"Dragonmaw Soulbinder"}
 {"id":271351,"level_max":30,"level_min":30,"name":"Dragonmaw Reclaimer"}
-{"faction_template":188,"id":271368,"name":"Shadowgale Squirrel","rank":0}
+{"faction_template":188,"id":271368,"level_max":22,"level_min":1,"name":"Shadowgale Squirrel","rank":0}
 {"faction_template":35,"id":271373,"name":"Subdued Dragonspawn","rank":1}
 {"id":271437,"name":"Portal"}
 {"id":271446,"name":"Red Drake"}
@@ -12671,7 +12671,7 @@
 {"faction_template":55,"id":271546,"level_max":7,"level_min":7,"name":"Mountaineer Gretchen","rank":0}
 {"id":271587,"level_max":9,"level_min":9,"name":"Frosthowl"}
 {"faction_template":68,"id":271613,"level_max":35,"level_min":35,"name":"Unfinished Abomination","rank":0}
-{"faction_template":188,"id":271636,"name":"Weevil K. Neevil","rank":0}
+{"faction_template":188,"id":271636,"level_max":1,"level_min":1,"name":"Weevil K. Neevil","rank":0}
 {"id":271637,"name":"Vigilantes Active"}
 {"id":271638,"name":"Here!"}
 {"id":271639,"name":"Watchful Eyes"}
@@ -12729,9 +12729,9 @@
 {"id":271903,"level_max":19,"level_min":19,"name":"Stormscale Beastmistress"}
 {"id":271904,"name":"Skeleton"}
 {"id":271912,"name":"[DNT] Kill Credit: Tarantula Egg"}
-{"faction_template":188,"id":271913,"name":"Plagued Cockroach","rank":0}
-{"faction_template":188,"id":271914,"name":"Undercity Cockroach","rank":0}
-{"faction_template":188,"id":271915,"name":"Jungle Boa","rank":0}
+{"faction_template":188,"id":271913,"level_max":1,"level_min":1,"name":"Plagued Cockroach","rank":0}
+{"faction_template":188,"id":271914,"level_max":30,"level_min":30,"name":"Undercity Cockroach","rank":0}
+{"faction_template":188,"id":271915,"level_max":1,"level_min":1,"name":"Jungle Boa","rank":0}
 {"faction_template":3600,"id":271918,"level_max":50,"level_min":50,"name":"Valaquenia","rank":0}
 {"faction_template":3599,"id":271919,"level_max":50,"level_min":50,"name":"Aeigelyges","rank":0}
 {"id":271929,"name":"Shen'dorei Windwell"}
@@ -12748,7 +12748,7 @@
 {"id":272044,"level_max":10,"level_min":10,"name":"Windmistress Gaedress"}
 {"faction_template":35,"id":272045,"level_max":10,"level_min":10,"name":"Brother Zendraas","rank":0}
 {"id":272046,"level_max":12,"level_min":12,"name":"Witchmother Arysa"}
-{"faction_template":3585,"id":272049,"name":"Saeyleenan","rank":0,"subname":"Great Windborne Cat Spirit"}
+{"faction_template":3585,"id":272049,"level_max":60,"level_min":60,"name":"Saeyleenan","rank":0,"subname":"Great Windborne Cat Spirit"}
 {"id":272051,"name":"Aana"}
 {"faction_template":35,"id":272054,"level_max":60,"level_min":60,"name":"Avatar of Saeyleenan","rank":0,"subname":"Great Windborne Cat Spirit"}
 {"id":272096,"level_max":11,"level_min":10,"name":"Befouled Webwood"}
@@ -12783,10 +12783,10 @@
 {"id":272279,"name":"Swiftwind"}
 {"id":272280,"name":"Keenclaw"}
 {"id":272282,"name":"Sharpbeak"}
-{"id":272284,"name":"Lost Defender"}
+{"id":272284,"level_max":24,"level_min":24,"name":"Lost Defender"}
 {"id":272291,"level_max":25,"level_min":25,"name":"Lost Knight"}
 {"id":272309,"name":"Tux"}
-{"id":272310,"name":"Mocha"}
+{"id":272310,"level_max":1,"level_min":1,"name":"Mocha"}
 {"id":272313,"level_max":40,"level_min":39,"name":"Brineshell Clacker"}
 {"id":272315,"name":"Brineshell Snapper"}
 {"faction_template":188,"id":272328,"name":"Mini Diablo","rank":0,"subname":"Lord of Terror"}
@@ -12799,9 +12799,9 @@
 {"id":272386,"name":"Snickerfang Matriarch"}
 {"id":272387,"name":"Darkshore Owl"}
 {"id":272388,"name":"Duskwood Owl"}
-{"faction_template":189,"id":272389,"name":"Marsh Owl","rank":0}
+{"faction_template":189,"id":272389,"level_max":34,"level_min":34,"name":"Marsh Owl","rank":0}
 {"id":272390,"name":"Greenhouse"}
-{"faction_template":189,"id":272391,"name":"Moonstrider","rank":0}
+{"faction_template":189,"id":272391,"level_max":57,"level_min":56,"name":"Moonstrider","rank":0}
 {"id":272392,"name":"Giant Moonstrider"}
 {"id":272396,"name":"Durotar Windviper"}
 {"id":272401,"name":"Vale Screamer"}
@@ -12832,7 +12832,7 @@
 {"id":272609,"name":"Tavern Regular"}
 {"id":272610,"name":"Hungry Patron"}
 {"id":272612,"name":"Performer","subname":"The Daring Dancers"}
-{"id":272614,"name":"Cappy"}
+{"id":272614,"level_max":1,"level_min":1,"name":"Cappy"}
 {"faction_template":3630,"id":272633,"level_max":60,"level_min":60,"name":"Nuara Tremorhoof","rank":1,"subname":"Elder Farseer"}
 {"id":272641,"name":"Samantha Wheeler"}
 {"id":272646,"level_max":36,"level_min":36,"name":"Miranda Turner","subname":"Cooking Supplier"}
@@ -12840,8 +12840,8 @@
 {"id":272691,"name":"Tavern Regular"}
 {"id":272692,"name":"Tavern Regular"}
 {"id":272693,"name":"Traveling Adventurer"}
-{"id":272914,"name":"Cat"}
-{"id":272944,"name":"Dog"}
+{"id":272914,"level_max":1,"level_min":1,"name":"Cat"}
+{"id":272944,"level_max":1,"level_min":1,"name":"Dog"}
 {"id":272945,"name":"Traveling Adventurer"}
 {"id":272957,"name":"Adelbert Edmunds"}
 {"id":272958,"name":"Rickard Hardee"}
@@ -12863,7 +12863,7 @@
 {"id":273214,"name":"Blizzard Customer Service"}
 {"id":273256,"name":"Arrgrah Stonewall"}
 {"faction_template":68,"id":273258,"name":"Faith Duggins","rank":0}
-{"id":273264,"name":"Talisara Valewind"}
+{"id":273264,"level_max":12,"level_min":12,"name":"Talisara Valewind"}
 {"id":273286,"name":"Crimeon"}
 {"id":273287,"name":"Tyler Samuels"}
 {"faction_template":188,"id":273391,"name":"Baby Crocolisk","rank":0}
@@ -12893,7 +12893,7 @@
 {"faction_template":3600,"id":273968,"level_max":10,"level_min":10,"name":"High Order Messenger","rank":0}
 {"id":273972,"name":"Credit"}
 {"id":274028,"name":"Spider Swarmling"}
-{"id":274081,"name":"Princess"}
+{"id":274081,"level_max":1,"level_min":1,"name":"Princess"}
 {"id":274144,"name":"Tavern Regular"}
 {"id":274257,"name":"Ice Elemental"}
 {"id":274258,"name":"Deepscar Brute"}
@@ -12934,9 +12934,9 @@
 {"faction_template":68,"id":274845,"level_max":20,"level_min":20,"name":"Pallwick Boneset","rank":0}
 {"faction_template":68,"id":274852,"name":"Zeglo Kruptorr","rank":0}
 {"faction_template":68,"id":274853,"level_max":35,"level_min":35,"name":"Barrelmaker Ishtar","rank":0}
-{"faction_template":68,"id":274854,"name":"Bub","rank":0}
-{"faction_template":68,"id":274855,"name":"Nyx","rank":0}
-{"faction_template":68,"id":274856,"name":"Poe","rank":0}
+{"faction_template":68,"id":274854,"level_max":1,"level_min":1,"name":"Bub","rank":0}
+{"faction_template":68,"id":274855,"level_max":1,"level_min":1,"name":"Nyx","rank":0}
+{"faction_template":68,"id":274856,"level_max":1,"level_min":1,"name":"Poe","rank":0}
 {"faction_template":29,"id":274861,"name":"Relogrim Goreaxe","rank":0}
 {"faction_template":104,"id":274864,"level_max":55,"level_min":55,"name":"Kihea Ragetotem","rank":0}
 {"faction_template":3600,"id":274868,"level_max":10,"level_min":10,"name":"Gabbel Shattergale","rank":0}
@@ -12959,15 +12959,15 @@
 {"faction_template":875,"id":274917,"name":"Boborus Overvolt","rank":0}
 {"faction_template":80,"id":274921,"name":"Caretaker Kalvan","rank":0}
 {"faction_template":35,"id":274926,"name":"Buddy","rank":0}
-{"id":274927,"name":"Faluris"}
+{"id":274927,"level_max":20,"level_min":20,"name":"Faluris"}
 {"faction_template":3600,"id":274930,"level_max":12,"level_min":12,"name":"Lyvia Stormsinger","rank":0}
-{"id":274931,"name":"Elril Everlight"}
+{"id":274931,"level_max":55,"level_min":55,"name":"Elril Everlight"}
 {"faction_template":3600,"id":274934,"level_max":12,"level_min":12,"name":"Amandriel","rank":0}
 {"id":274935,"level_max":55,"level_min":55,"name":"Ironforge Protector"}
 {"id":274938,"name":"Waylaid Supply Guy","subname":"PTR - Crate Turn-In Reagents"}
 {"id":274940,"name":"Annabella Junelight"}
 {"faction_template":69,"id":274941,"name":"Rayla","rank":0}
-{"id":274942,"name":"Bob McNaught"}
+{"id":274942,"level_max":40,"level_min":40,"name":"Bob McNaught"}
 {"id":274944,"name":"Zeth Darkleaf"}
 {"faction_template":188,"id":274947,"name":"Minimule","rank":0}
 {"faction_template":994,"id":274960,"name":"Cordy","rank":0}
@@ -13016,8 +13016,8 @@
 {"id":275080,"name":"Enraged Rog'mar Grunt"}
 {"id":275086,"name":"Southshore Defender"}
 {"id":275087,"name":"Steamwheedle Enforcer"}
-{"id":275088,"name":"Enraged Stonard Grunt"}
-{"id":275089,"name":"Tarren Mill Elite"}
+{"id":275088,"level_max":55,"level_min":55,"name":"Enraged Stonard Grunt"}
+{"id":275089,"level_max":55,"level_min":55,"name":"Tarren Mill Elite"}
 {"id":275090,"name":"Theramore Defender"}
 {"id":275095,"name":"Tavern Regular"}
 {"id":275097,"name":"Vigilant Deathguard"}
@@ -13039,7 +13039,7 @@
 {"id":275216,"name":"Paymaster Alstein","subname":"Banker"}
 {"id":275240,"name":"Teller Almeida","subname":"Banker"}
 {"id":275243,"level_max":40,"level_min":40,"name":"Teller Gee","subname":"Banker"}
-{"id":275251,"name":"Paymaster Chang","subname":"Banker"}
+{"id":275251,"level_max":40,"level_min":40,"name":"Paymaster Chang","subname":"Banker"}
 {"id":275252,"name":"Paymaster Amadi","subname":"Banker"}
 {"id":275253,"name":"Teller Plushner","subname":"Banker"}
 {"id":275258,"name":"KC Creature"}
@@ -13124,22 +13124,22 @@
 {"id":276249,"name":"Credit"}
 {"id":276250,"name":"Credit"}
 {"id":276316,"name":"Raul Sweete","subname":"Dockmaster"}
-{"id":276318,"name":"Idrieth Mossgrove"}
+{"id":276318,"level_max":12,"level_min":12,"name":"Idrieth Mossgrove"}
 {"faction_template":188,"id":276331,"name":"Spawn of Grubthor","rank":0}
 {"id":276401,"name":"Nascent Pylon Protector"}
-{"faction_template":3672,"id":276415,"name":"Windshaper Guardian","rank":0}
-{"faction_template":3672,"id":276416,"name":"Windshaper Elementalist","rank":0}
+{"faction_template":3672,"id":276415,"level_max":10,"level_min":9,"name":"Windshaper Guardian","rank":0}
+{"faction_template":3672,"id":276416,"level_max":10,"level_min":9,"name":"Windshaper Elementalist","rank":0}
 {"id":276530,"name":"Spirit Wolf"}
 {"faction_template":875,"id":276591,"name":"Spoogledorf","rank":0}
 {"id":276595,"name":"Dominik Eno"}
 {"id":276730,"name":"Swift Stormsaber"}
-{"id":276731,"name":"Swift Mistsaber"}
-{"id":276732,"name":"Swift Frostsaber"}
+{"id":276731,"level_max":1,"level_min":1,"name":"Swift Mistsaber"}
+{"id":276732,"level_max":2,"level_min":1,"name":"Swift Frostsaber"}
 {"id":276734,"name":"Swift White Mechanostrider"}
 {"id":276735,"name":"Swift Yellow Mechanostrider"}
 {"id":276736,"name":"Swift Green Mechanostrider"}
 {"id":276737,"name":"Swift Gray Ram"}
-{"faction_template":55,"id":276740,"name":"Cedrik Stonequest","rank":0}
+{"faction_template":55,"id":276740,"level_max":20,"level_min":20,"name":"Cedrik Stonequest","rank":0}
 {"id":276752,"name":"Animated Hammer"}
 {"id":276756,"name":"Solluna"}
 {"id":276779,"name":"Swift Brown Ram"}
@@ -13153,13 +13153,13 @@
 {"id":276789,"name":"Pinto"}
 {"id":276790,"name":"Chestnut Mare"}
 {"faction_template":35,"id":276793,"name":"Ochre Skeletal Warhorse","rank":0}
-{"faction_template":68,"id":276795,"name":"Anya Rince","rank":0}
+{"faction_template":68,"id":276795,"level_max":52,"level_min":52,"name":"Anya Rince","rank":0}
 {"faction_template":35,"id":276796,"name":"Green Skeletal Warhorse","rank":0}
 {"faction_template":35,"id":276797,"name":"Purple Skeletal Warhorse","rank":0}
-{"faction_template":68,"id":276798,"name":"Malus","rank":0}
+{"faction_template":68,"id":276798,"level_max":29,"level_min":29,"name":"Malus","rank":0}
 {"id":276799,"name":"Gabrandal Matters"}
 {"faction_template":35,"id":276800,"name":"Swift Olive Raptor","rank":0}
-{"faction_template":35,"id":276801,"name":"Swift Orange Raptor","rank":0}
+{"faction_template":35,"id":276801,"level_max":2,"level_min":1,"name":"Swift Orange Raptor","rank":0}
 {"faction_template":875,"id":276802,"name":"Shiro Hobblespark","rank":0}
 {"faction_template":35,"id":276803,"name":"Swift Blue Raptor","rank":0}
 {"faction_template":68,"id":276804,"name":"Deelio","rank":0}
@@ -13186,7 +13186,7 @@
 {"faction_template":3618,"id":277055,"level_max":35,"level_min":35,"name":"Axle Smoothslice","rank":0,"subname":"Barber"}
 {"id":277059,"name":"Je'lu"}
 {"faction_template":12,"id":277062,"name":"Ancelina","rank":0}
-{"faction_template":3599,"id":277067,"name":"Vela El'wyth","rank":0}
+{"faction_template":3599,"id":277067,"level_max":11,"level_min":11,"name":"Vela El'wyth","rank":0}
 {"id":277132,"name":"Dummy"}
 {"id":277151,"name":"Kyle the Friendly"}
 {"id":277154,"level_max":12,"level_min":12,"name":"Kyle the Frenzied"}
@@ -13204,7 +13204,7 @@
 {"id":277369,"name":"Brenth Arder"}
 {"id":277396,"name":"Griss Rizzlefizz"}
 {"faction_template":3600,"id":277402,"name":"Xephos Lehparsi","rank":0}
-{"id":277410,"name":"Cereza Galeforce"}
+{"id":277410,"level_max":10,"level_min":10,"name":"Cereza Galeforce"}
 {"id":277474,"name":"Blackmaw Devotee"}
 {"faction_template":190,"id":277510,"name":"Oliver","rank":0}
 {"id":277601,"name":"Armor Debuffed Dummy Boss"}
@@ -13225,7 +13225,7 @@
 {"id":277727,"name":"Deyrek Duke"}
 {"faction_template":3600,"id":277728,"name":"Gelia Shardsong","rank":0}
 {"id":277729,"name":"Arcane Elemental"}
-{"id":277730,"name":"Rabid Forest Wolf"}
+{"id":277730,"level_max":9,"level_min":8,"name":"Rabid Forest Wolf"}
 {"faction_template":12,"id":277765,"name":"Botika Montes","rank":0}
 {"id":277766,"name":"Angie Cilas"}
 {"id":277769,"name":"Rown Leaftender"}
