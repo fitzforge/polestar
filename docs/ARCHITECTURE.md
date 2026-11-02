@@ -2298,6 +2298,19 @@ rim, the edge pointer on its side toward the target. A city group of services
 (`Maps/ServiceClusters.lua`) is one 30 px medallion with up to three glyphs at
 0.4 of it and a badge with its count.
 
+A pin's size (`size`, `minimapSize`, times the layer's `scale`) is its own;
+the surfaces draw it smaller as the view widens, so a mark matches the game's
+own at the default zoom (`PIN_ZOOM` in `Nav/Pins.lua`).
+On the world map the frame's scale is `view:PinScale(0.7, 0.9)`, a map pin
+under `SetScalingLimits(1, 0.7, 0.9)` (a 16 px mark's 22 px medallion at 15.4
+on screen zoomed out, the game's 16 px POI icons; 19.8 zoomed in); on the
+minimap the size is 0.7 of it at zoom 0 (the widest, the default: a 14 px
+mark's medallion at 14) up to all of it at the closest zoom
+(`Minimap:GetZoom()` of `GetZoomLevels()`), the look laid out again when the
+zoom changes. A medallion is held to 28 on the world map's screen and 24 px on
+the minimap, and a pin takes the mouse over its medallion and at least 20
+(world map, on screen) or 14 px (minimap), through `SetHitRectInsets`.
+
 Pins are drawn on the world map for the map being viewed (converted through Compat
 for other maps). Optional `worldLayout(projected, view)` receives this layer's
 `{ pin, x, y }` entries in viewed-map percentages and returns its world-map
@@ -2316,8 +2329,8 @@ tooltip). Rebuilt on step, guide and tab changes and the two settings.
 Pins are projected on the minimap; `edge = true` clamps that layer's
 out-of-range pins to the minimap rim. On the world map they are Polestar's own
 frames on the canvas, at the frame levels the map gives its own pins (MapCanvas,
-below): pins at `PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST`, counter-scaled as a map
-pin with `SetScalingLimits(1, 1, 1.25)` is, tooltip and click, the right button
+below): pins at `PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST`, scaled as a map pin
+with `SetScalingLimits(1, 0.7, 0.9)` is (above), tooltip and click, the right button
 passed through to the map (`SetPassThroughButtons`, restricted in combat: set
 once per frame, for frames made in combat once it ends). The gamepad
 interface's map cursor (`SoftCursor`, no mouse) hovers them as the map hovers

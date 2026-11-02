@@ -201,7 +201,7 @@ fn check(style: &str) {
 	if gamepad {
 		assert_eq!(json!([r["padTip"], r["padClicked"]]), json!(["A mark", "LeftButton"]), "the gamepad's map cursor and A");
 	}
-	assert!((r["markScale"].as_f64().unwrap() - 1.25 / 2.0).abs() < 1e-9, "zoomed in: counter-scaled, a quarter larger on screen");
+	assert!((r["markScale"].as_f64().unwrap() - 0.9 / 2.0).abs() < 1e-9, "zoomed in: counter-scaled, at 0.9 of its size on screen");
 	assert_eq!(r["later"]["pins"], 4, "pins drawn in combat");
 	assert_eq!(r["battlefield"], 3, "the battlefield map shows the unexplored tiles too");
 	let mut reopened = r["reopened"].clone();

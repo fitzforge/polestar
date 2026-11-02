@@ -25,6 +25,10 @@
 --   master), state ("focus": 1.3 times the size in an accent ring; "dim": at 60%),
 --   medalSize (the medallion's own size, a cluster's). A map mark clamped to the minimap's
 --   rim keeps medallion and glyph, the edge pointer on its side toward the target.
+--   Sizes (size, minimapSize, times the layer's scale) are drawn smaller as the view
+--   widens (PIN_ZOOM below), so a medallion matches the game's own marks at the
+--   default zoom; a pin's hit area stays at least its medallion and PIN_ZOOM's hit
+--   across.
 --   Pins.SetTrail(runs, opts)          the travel route's dots; runs = { { live = true, point, ... }, ... },
 --                                      point = { c, wx, wy }; opts = { world = true, minimap = true, color }
 --   Pins.ClearTrail()
@@ -89,6 +93,18 @@ local AREA_ALPHA = 0.32 -- area disc opacity, times the pin colour's alpha
 local HULL_FILL, HULL_RIM, HULL_RIM_WIDTH = 0.2, 0.7, 1.5
 local WHITE = "Interface\\Buttons\\WHITE8X8"
 local WORLD_SIZE, MINIMAP_SIZE = 16, 14
+-- Zoom (Fitz, 0.3.0: the marks were far larger than the game's): on each
+-- surface a pin is drawn at `wide` of its size at the widest zoom (the
+-- default) up to `close` at the closest; no medallion grows past `max` (on
+-- screen), and a pin takes the mouse over at least its medallion and `hit`
+-- across. World map: a 16 px mark's 22 px medallion at 15.4 zoomed out (the
+-- game's 16 px POI icons), 19.8 zoomed in (the game's grow 1.2 times).
+-- Minimap: a 14 px mark's medallion at 14 at zoom 0 (as the game's blips), 20
+-- at zoom 5.
+local PIN_ZOOM = {
+	world = { wide = 0.7, close = 0.9, max = 28, hit = 20 },
+	minimap = { wide = 0.7, close = 1, max = 24, hit = 14 },
+}
 local WATCH_INTERVAL = 0.1
 local DRIVE_INTERVAL = 1 / 30
 local IDLE_AFTER = 0.3
@@ -474,7 +490,7 @@ local function applyMark(f, p, size, path)
 	local pack = Pins.IconPack()
 	f.bare = p.medal == false or pack == "bare"
 	if p.medal == false then medal = size end
-	f.medalPx = medal
+	f.medalPx, f.sizePx, f.footPx = medal, size, medal
 	f.medal:SetTexture(MEDALS[pack] or MEDALS.polestar)
 	f.medal:SetSize(medal, medal)
 	f.medal:SetVertexColor(1, 1, 1, a)
@@ -527,6 +543,7 @@ local function applyLook(f, p, size)
 		f.edge:SetPoint("CENTER")
 	end
 	f:SetSize(size, size)
+	f.sizePx, f.footPx = size, size
 	local r, g, b, a = pinColor(p)
 	if path then
 		f.icon:SetTexture(path)
@@ -541,6 +558,7 @@ local function applyLook(f, p, size)
 	if p.backdrop or (path and skinDisc()) then
 		local br, bg, bb = backdropColor()
 		f.back:SetSize(disc, disc)
+		f.footPx = disc
 		f.back:SetVertexColor(br, bg, bb, BACKDROP_ALPHA * a)
 	end
 	local ring = p.ring
@@ -561,6 +579,17 @@ local function applyLook(f, p, size)
 		f.text:SetTextColor(1, 1, 1, a)
 	end
 	showParts(f, p, false)
+end
+
+-- The mouse takes f over its medallion (its footprint) and at least `hit`
+-- across, in f's own units: SetHitRectInsets past its edges where it is smaller.
+local function setHit(f, hit)
+	local inset = (f.sizePx - max(hit, f.footPx)) / 2
+	if inset > 0 then inset = 0 end
+	if inset ~= f.hitInset then
+		f.hitInset = inset
+		f:SetHitRectInsets(inset, inset, inset, inset)
+	end
 end
 
 local function showTooltip(owner, p)
@@ -899,15 +928,16 @@ end
 -- header of Core/MapCanvas.lua). Each kind sits at the frame level the map
 -- gives Blizzard's own pins of that sort:
 --   pins        PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST, counter-scaled as a
---               map pin with SetScalingLimits(1, 1, 1.25) is (the same size
---               on screen zoomed out, a quarter larger zoomed in); tooltip
---               and click, with the mouse and with the gamepad's map cursor
---               and A (below), the right button passed through to the map
---               (zoom out)
+--               map pin with SetScalingLimits(1, 0.7, 0.9) is (PIN_ZOOM:
+--               smaller than its size zoomed out, growing as the map
+--               zooms in, a medallion held to its max on screen); tooltip
+--               and click over at least its hit size on screen, with the mouse
+--               and with the gamepad's map cursor and A (below), the right
+--               button passed through to the map (zoom out)
 --   areas, hulls, trail dots
 --               PIN_FRAME_LEVEL_QUEST_BLOB, under every pin, no mouse; areas
 --               and hulls in canvas units (they scale with the terrain),
---               dots counter-scaled like the pins
+--               dots counter-scaled with SetScalingLimits(1, 1, 1.25)
 -- A kind's frames are used in order, made in that order: the i-th pin of a
 -- draw is always the i-th frame, so a redraw hands every frame back the pin
 -- it showed, and higher priorities, drawn last, sit on top. Layer changes
@@ -920,7 +950,7 @@ local world = { pins = { n = 0 }, areas = { n = 0 }, hulls = { n = 0 } }
 
 do
 	local PIN_LEVEL, BLOB_LEVEL = "PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST", "PIN_FRAME_LEVEL_QUEST_BLOB"
-	local PIN_ZOOMED = 1.25 -- pin scale zoomed in (1 zoomed out)
+	local PIN_ZOOMED = 1.25 -- trail dot scale zoomed in (1 zoomed out)
 
 	local wView              -- the world map's view, once Blizzard_WorldMap is loaded
 	local wDirty = false     -- something to draw on the map's next frame
@@ -938,6 +968,18 @@ do
 		f:SetScale(s)
 		f:ClearAllPoints()
 		f:SetPoint("CENTER", v.canvas, "TOPLEFT", v.width * x / 100 / s, -v.height * y / 100 / s)
+	end
+
+	-- Place pin frame f for view v at its scale on screen (PIN_ZOOM.world:
+	-- from the zoom, its medallion held to the max), the mouse taking it over
+	-- the hit size at least.
+	local function placePin(f, v)
+		local z = PIN_ZOOM.world
+		local k = z.wide + (z.close - z.wide) * (v.zoom or 0)
+		if f.footPx * k > z.max then k = z.max / f.footPx end
+		setHit(f, z.hit / k)
+		local d = f.data
+		placeAt(f, d.x, d.y, v:PinScale(k, k))
 	end
 
 	-- SetPassThroughButtons is restricted in combat on Forever
@@ -1230,7 +1272,6 @@ do
 			end
 			for i = #queue, n + 1, -1 do queue[i] = nil end
 			table.sort(queue, byPriority)
-			local scale = v:PinScale(1, PIN_ZOOMED)
 			for k = 1, n do
 				local i = queue[k]
 				local f = worldPin(k)
@@ -1239,7 +1280,7 @@ do
 				applyLook(f, d.pin, (tonumber(d.pin.size) or WORLD_SIZE) * d.layer.scale)
 				stackLook(f, d.pin)
 				f:SetFrameLevel(pinLevel)
-				placeAt(f, d.x, d.y, scale)
+				placePin(f, v)
 				f:Show()
 			end
 			for i = 1, n do qPin[i], qLayer[i] = nil, nil end
@@ -1254,14 +1295,12 @@ do
 		updateTrailDriver()
 	end
 
-	-- Zooming: pins and dots keep their size on screen, hull rims their width
-	-- (within a quarter); areas and hulls scale with the terrain.
+	-- Zooming: pins grow with the zoom (PIN_ZOOM), dots keep their size on
+	-- screen, hull rims their width (within a quarter); areas and hulls scale
+	-- with the terrain.
 	local function rescaleWorld()
+		for i = 1, wPins.n do placePin(wPins[i], wView) end
 		local scale = wView:PinScale(1, PIN_ZOOMED)
-		for i = 1, wPins.n do
-			local f = wPins[i]
-			placeAt(f, f.data.x, f.data.y, scale)
-		end
 		local rim = rimWidth()
 		for i = 1, wHulls.n do
 			local f = wHulls[i]
@@ -1654,7 +1693,7 @@ local mmFree = {}     -- released frames
 local assigned = {}   -- pin table -> frame
 local gen = 0
 local driver, watcher
-local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare -- last drawn state
+local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK -- last drawn state
 local dirty = true
 
 local function viewRadius()
@@ -2026,7 +2065,8 @@ local function drawMinimap()
 				if not layer.resolved then resolveLayer(layer) end
 				local pins, lx, ly = layer.pins, layer.wx, layer.wy
 				local edge = layer.edge
-				local size = MINIMAP_SIZE * layer.scale
+				-- A pin's size at this zoom, its medallion held to the max.
+				local scale, most = layer.scale * sZoomK, PIN_ZOOM.minimap.max / MEDAL_SCALE
 				local maxArea = layer.maxArea or 0
 				local list, n = nearPins(layer, maxArea > 0 and max(reach, view + maxArea) or reach)
 				stats.visited = stats.visited + n
@@ -2047,22 +2087,24 @@ local function drawMinimap()
 					end
 					if not p.areaOnly and (edge or d2 <= reach2) then
 						local f = assigned[p]
-						local own = tonumber(p.minimapSize) or tonumber(p.size)
-						local psize = (own or MINIMAP_SIZE) * layer.scale
-						if not f or f.layer ~= layer or f.version ~= layer.version then
+						local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
+						local cap = p.state == "focus" and most / FOCUS_SCALE or most
+						if size > cap then size = cap end
+						if not f or f.layer ~= layer or f.version ~= layer.version or f.zoomK ~= sZoomK then
 							if not f then
 								f = acquireMinimap()
 								assigned[p] = f
 							end
-							f.pin, f.layer, f.version = p, layer, layer.version
-							applyLook(f, p, own and psize or size)
+							f.pin, f.layer, f.version, f.zoomK = p, layer, layer.version, sZoomK
+							applyLook(f, p, size)
+							setHit(f, PIN_ZOOM.minimap.hit)
 							f:SetFrameLevel(base + max(0, tonumber(p.priority) or 0))
 							f:EnableMouse(p.tooltip ~= nil or p.onClick ~= nil)
 							f:Show()
 						end
 						f.gen = gen
 						-- A map mark stops its medallion at the rim, the pointer over it.
-						local inset = (own and psize or size) * (f.mapMark and MEDAL_SCALE * 0.5 or 0.35)
+						local inset = size * (f.mapMark and MEDAL_SCALE * 0.5 or 0.35)
 						local x, y, clamped = Pins.Project(dn, dw, sFacing, sRadius, half, sRotate, sSquare,
 							edge and (half - inset) or nil)
 						f:ClearAllPoints()
@@ -2105,11 +2147,17 @@ local function sample(force)
 	local rotate = isRotating()
 	local facing = rotate and C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 	local radius, half, square = viewRadius(), Minimap:GetWidth() / 2, isSquare()
+	-- The zoom's factor on pin sizes: `wide` at the widest zoom (0) to `close` at the closest.
+	local zoom, levels = Minimap.GetZoom and Minimap:GetZoom() or 0, Minimap.GetZoomLevels and Minimap:GetZoomLevels() or 6
+	local t = levels > 1 and zoom / (levels - 1) or 0
+	if t > 1 then t = 1 elseif t < 0 then t = 0 end
+	local z = PIN_ZOOM.minimap
+	local zoomK = z.wide + (z.close - z.wide) * t
 	if not force and not dirty and pc == sPc and px == sPx and py == sPy and facing == sFacing
-		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare then
+		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare and zoomK == sZoomK then
 		return false
 	end
-	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare = pc, px, py, facing, radius, rotate, half, square
+	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK = pc, px, py, facing, radius, rotate, half, square, zoomK
 	dirty = false
 	drawMinimap()
 	return true

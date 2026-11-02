@@ -187,7 +187,7 @@ fn edge_clamping_is_per_layer_an_edge_layer_pins_far_targets_to_the_rim_others_d
 		emit({ near = #Pins.GetMinimapFrames("near"), x = x, y = y, edge = f.edge:IsShown(), fill = f.fill:IsShown(),
 			rot = f.edge:GetRotation(), ix = ix, iy = iy, insideEdge = g.edge:IsShown() })"#);
 	assert_eq!(out["near"], 0);
-	let limit = 70.0 - 14.0 * 0.35;
+	let limit = 70.0 - 14.0 * 0.7 * 0.35; // a 14 px pin at 0.7 at zoom 0
 	let (x, y) = (num(&out["x"]), num(&out["y"]));
 	assert!((x - limit).abs() < 1e-6 && y.abs() < 1e-6, "clamped to the rim: {x},{y}");
 	assert_eq!(json!([out["edge"], out["fill"]]), json!([true, false]));
@@ -518,9 +518,10 @@ fn parts(v: &Value) -> Value {
 fn icon_pins_may_sit_on_a_dark_disc_carry_a_ring_and_take_their_own_minimap_size() {
 	let out = run(r#"
 		nav.viewRadius = 200
+		stub.minimapZoom = 5                                    -- closest zoom: sizes as given
 		Pins.SetLayer("quests.objectives", {
-			at(20, 20, { icon = "Interface\\Icons\\kill", size = 20, minimapSize = 12, backdrop = true, ring = { 1, 0.8, 0.3, 1 } }),
-			at(-20, -20, { icon = "Interface\\Icons\\kill", size = 20 }),
+			at(20, 20, { icon = "Interface\\Icons\\kill", size = 16, minimapSize = 12, backdrop = true, ring = { 1, 0.8, 0.3, 1 } }),
+			at(-20, -20, { icon = "Interface\\Icons\\kill", size = 16 }),
 		})
 		stub.advance(0.3)
 		local r = {}
@@ -533,15 +534,16 @@ fn icon_pins_may_sit_on_a_dark_disc_carry_a_ring_and_take_their_own_minimap_size
 		for _, pin in ipairs(nav.pins()) do world[#world + 1] = { w = pin.width, back = pin.back:IsShown(), mark = pin.mark:IsShown() } end
 		table.sort(world, function(a, b) return (a.back and 1 or 0) < (b.back and 1 or 0) end)
 		emit({ minimap = r, world = world })"#);
-	assert_eq!(parts(&out["minimap"]), json!([[12, true, true], [20, false, false]]), "minimapSize on the minimap; parts only where asked");
+	assert_eq!(parts(&out["minimap"]), json!([[12, true, true], [16, false, false]]), "minimapSize on the minimap; parts only where asked");
 	assert!((num(&out["minimap"][0]["backW"]) - 14.4).abs() < 1e-9, "the disc is a little wider than the glyph");
-	assert_eq!(parts(&out["world"]), json!([[20, false, false], [20, true, true]]), "size on the world map");
+	assert_eq!(parts(&out["world"]), json!([[16, false, false], [16, true, true]]), "size on the world map");
 }
 
 #[test]
 fn map_marks_sit_in_the_icon_pack_s_medallion_with_their_ring_dashed_ring_badge_and_states() {
 	let out = run(r#"
 		nav.viewRadius = 200
+		stub.minimapZoom = 5                                    -- closest zoom: sizes as given
 		local function look(f)
 			local m = f.medal:IsShown() and f.medal.texture:match("medallion%-(%a+)$") or false
 			return { w = f.width, medal = m, medalW = f.medal.width, glyph = f.icon.texture:match("icon%-[%a-]+$"),
@@ -561,7 +563,7 @@ fn map_marks_sit_in_the_icon_pack_s_medallion_with_their_ring_dashed_ring_badge_
 		local r = {}
 		r.plain = draw({ at(20, 20, { icon = "map:kill", size = 16, backdrop = true }) })[1]
 		r.kit = draw({ at(20, 20, { icon = "map:rare", size = 15, ring = { 1, 0.5, 0.3, 1 }, ring2 = { 1, 0.5, 0.3, 1 }, glow = true, badge = "?" }) })[1]
-		r.focus = draw({ at(20, 20, { icon = "map:quest-turnin", size = 20, state = "focus" }) })[1]
+		r.focus = draw({ at(20, 20, { icon = "map:quest-turnin", size = 12, state = "focus" }) })[1]
 		r.dim = draw({ at(20, 20, { icon = "map:quest-available", size = 16, state = "dim" }) })[1]
 		r.spot = draw({ at(20, 20, { icon = "map:pin-small", size = 9, medal = false }) })[1]
 		Polestar.Set("nav.mapIcons", "halo")
@@ -581,8 +583,8 @@ fn map_marks_sit_in_the_icon_pack_s_medallion_with_their_ring_dashed_ring_badge_
 	let kit = &out["kit"];
 	assert_eq!(json!([kit["medalW"], kit["ring"], kit["ring2"], kit["badge"]]), json!([22, 27, 33, "?"]), "ring 5 px and dashed ring 11 px wider than the medallion, the badge");
 	assert!((num(&kit["glow"]) - 50.6).abs() < 1e-9, "glow 2.3 times the medallion");
-	let focus_ring = 2.0 * (26.0_f64 * 1.4 / 2.0).round() + 5.0;
-	assert_eq!(num(&out["focus"]["w"]), 26.0, "focus: 1.3 times the size");
+	let focus_ring = 2.0 * (15.6_f64 * 1.4 / 2.0).round() + 5.0;
+	assert!((num(&out["focus"]["w"]) - 15.6).abs() < 1e-9, "focus: 1.3 times the size");
 	assert_eq!(num(&out["focus"]["ring"]), focus_ring, "focus: in an accent ring");
 	assert!((num(&out["dim"]["a"]) - 0.6).abs() < 1e-9, "dim: the whole mark at 60%");
 	assert_eq!(out["spot"]["medal"], false, "medal = false: the glyph alone");
@@ -594,6 +596,77 @@ fn map_marks_sit_in_the_icon_pack_s_medallion_with_their_ring_dashed_ring_badge_
 		json!(["polestar", "icon-kill", true, false, false]),
 		"clamped to the rim: medallion, glyph and pointer; no ring or badge"
 	);
+}
+
+// Fitz (0.3.0): the marks were far larger than the game's and kept their size at every zoom. A pin is drawn
+// at 0.7 of its size zoomed out (a 16 px mark's 22 px medallion at 15.4 on screen, as the game's 16 px POI
+// icons) and grows with the zoom, to 0.9 on the world map and its size on the minimap; no medallion passes
+// 28 on the world map's screen or 24 px on the minimap, and the mouse takes a pin over at least its
+// medallion and 20 (world map) or 14 px (minimap).
+#[test]
+fn map_and_minimap_pins_are_smaller_zoomed_out_and_grow_with_the_zoom_within_bounds() {
+	let out = run(r#"
+		nav.viewRadius = 200
+		Pins.SetLayer("marks", {
+			at(20, 20, { icon = "map:kill", size = 16, minimapSize = 14, tooltip = "Kill" }),
+			at(-20, 20, { icon = "map:quest-turnin", size = 23.4, minimapSize = 20, tooltip = "Turn in" }),
+			at(20, -20, { icon = "map:pin-small", size = 9, medal = false, tooltip = "Spot" }),
+		})
+		local scroll = WorldMapFrame.ScrollContainer
+		local function world()
+			local r = {}
+			for _, f in ipairs(nav.pins()) do
+				local on = f.scale * (scroll.currentScale or 1)          -- the pin's scale on the map's screen
+				local inset = f.hitInsets and f.hitInsets[1] or 0
+				r[f.data.pin.tooltip] = { medal = f.medal.width * on, hit = (f.width - 2 * inset) * on }
+			end
+			return r
+		end
+		local function minimap()
+			local r = {}
+			for _, f in ipairs(Pins.GetMinimapFrames("marks")) do
+				local inset = f.hitInsets and f.hitInsets[1] or 0
+				r[f.pin.tooltip] = { w = f.width, medal = f.medal.width, hit = f.width - 2 * inset }
+			end
+			return r
+		end
+		local r = {}
+		nav.showWorldMap(9000)
+		r.out = world()
+		scroll.currentScale, scroll.zoomPercent = 4, 0.5; stub.runMapFrame(WorldMapFrame, 0)
+		r.half = world()
+		scroll.currentScale, scroll.zoomPercent = 8, 1; stub.runMapFrame(WorldMapFrame, 0)
+		r.zin = world()
+		stub.advance(0.3)
+		r.mmOut = minimap()
+		stub.minimapZoom = 5
+		stub.advance(0.3)
+		r.mmIn = minimap()
+		emit(r)"#);
+	let near = |v: &Value, want: f64, what: &str| assert!((num(v) - want).abs() < 1e-6, "{what}: {v}, want {want}");
+	// World map: a 16 px mark's 22 px medallion; a 23.4 px one's 32; a bare 9 px spot.
+	near(&out["out"]["Kill"]["medal"], 22.0 * 0.7, "zoomed out: 0.7 of the medallion");
+	near(&out["half"]["Kill"]["medal"], 22.0 * 0.8, "half way in: 0.8");
+	near(&out["zin"]["Kill"]["medal"], 22.0 * 0.9, "zoomed in: 0.9, whatever the canvas scale");
+	near(&out["out"]["Turn in"]["medal"], 32.0 * 0.7, "a larger mark zoomed out");
+	near(&out["zin"]["Turn in"]["medal"], 28.0, "zoomed in, held to 28");
+	near(&out["out"]["Spot"]["medal"], 9.0 * 0.7, "a bare spot shrinks too");
+	for zoom in ["out", "half", "zin"] {
+		for pin in ["Kill", "Turn in", "Spot"] {
+			let (hit, medal) = (num(&out[zoom][pin]["hit"]), num(&out[zoom][pin]["medal"]));
+			assert!(hit >= 20.0 - 1e-6 && hit >= medal - 1e-6, "{zoom} {pin}: the mouse takes {hit}, medallion {medal}");
+		}
+	}
+	// Minimap: zoom 0 (the widest, the default) at 0.7, zoom 5 (the closest) at the size given.
+	assert_eq!(json!([out["mmOut"]["Kill"]["medal"], out["mmIn"]["Kill"]["medal"]]), json!([14, 20]), "a 14 px mark's medallion: 14 zoomed out, 20 in");
+	near(&out["mmOut"]["Kill"]["w"], 14.0 * 0.7, "the mark at 0.7 zoomed out");
+	assert_eq!(json!([out["mmOut"]["Turn in"]["medal"], out["mmIn"]["Turn in"]["medal"]]), json!([20, 24]), "a 20 px mark: 20, then held to 24");
+	for zoom in ["mmOut", "mmIn"] {
+		for pin in ["Kill", "Turn in"] {
+			let (hit, medal) = (num(&out[zoom][pin]["hit"]), num(&out[zoom][pin]["medal"]));
+			assert!(hit >= 14.0 - 1e-6 && hit >= medal - 1e-6, "{zoom} {pin}: the mouse takes {hit}, medallion {medal}");
+		}
+	}
 }
 
 #[test]

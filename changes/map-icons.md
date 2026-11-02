@@ -8,7 +8,8 @@ section: players
   share the banker's). Boats, zeppelins and the tram, and dungeons and raids,
   are told apart; a flight master you have not learned carries a "?"; the inn
   your Hearthstone is bound to is circled; a rare seen lately sits in a dashed
-  ring; a city's services show how many they are. A mark held at the
-  minimap's edge keeps its icon, with a pointer toward it. Appearance › Arrow
-  › Map icons picks the medallion: the skin's (the default), Polestar's,
-  Halo's, Hearth's, or glyphs alone.
+  ring; a city's services show how many they are. The icons sit at the size
+  of the game's own map marks and grow as the map or the minimap zooms in
+  (thanks Fitz). A mark held at the minimap's edge keeps its icon, with a
+  pointer toward it. Appearance › Arrow › Map icons picks the medallion: the
+  skin's (the default), Polestar's, Halo's, Hearth's, or glyphs alone.
