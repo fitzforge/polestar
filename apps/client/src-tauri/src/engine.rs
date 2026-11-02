@@ -1079,7 +1079,7 @@ pub struct CandidateView {
 	pub root: String,
 	/// The client folder, unique per candidate: what choosing it saves.
 	pub dir: String,
-	/// The client folder's name (`_forever_`, `_classic_beta_`).
+	/// The client folder's name (`_forever_`).
 	pub client: String,
 	pub version: Option<String>,
 	pub accounts: usize,

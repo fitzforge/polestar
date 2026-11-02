@@ -33,7 +33,7 @@ export interface Candidate {
 	root: string;
 	/** The client folder (`<root>/_forever_`): unique per candidate, what choosing it saves. */
 	dir: string;
-	/** The client folder's name (`_forever_`, `_classic_beta_`). */
+	/** The client folder's name (`_forever_`). */
 	client: string;
 	version: string | null;
 	accounts: number;
