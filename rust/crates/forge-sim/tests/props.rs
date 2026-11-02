@@ -3,7 +3,7 @@
 //! move equals a replay from scratch (fg's FG_VERIFY oracle), for every move kind.
 
 mod common;
-use forge_sim::order::{action_hash, deliberate_pairs, play_order, Order};
+use forge_sim::order::{action_hash, play_order, Order};
 use forge_sim::search::{pool, runs, Member, Problem, MOVES};
 use forge_sim::Model;
 use proptest::prelude::*;
@@ -82,7 +82,7 @@ proptest! {
 		let mut ev = f.m.evaluator(&f.o.walks);
 		let rules = forge_world::Rules::new(&f.o.world, "Orc", None, false);
 		let _ = &mut ev;
-		let p = Problem::single(&f.m, &f.o.walks, deliberate_pairs(&f.m.run), pool(&f.m.run, &rules, &f.seed, &f.m.tables));
+		let p = Problem::single(&f.m, &f.o.walks, common::pairs(&f.m.run, &f.seed), pool(&f.m.run, &rules, &f.seed, &f.m.tables));
 		let start = runs(&p, &f.seed);
 		let mut mem = Member::new(&p, f.seed.clone(), &start, rng);
 		for _ in 0..20 {

@@ -4,16 +4,21 @@
 //! data (it builds for wasm); the `forge-writer` binary reads and writes the files.
 
 pub mod apply;
+pub mod borders;
 pub mod engine;
 pub mod fixes;
 pub mod guide;
+pub mod hub;
 pub mod input;
 pub mod jsre;
 #[cfg(feature = "native")]
 pub mod native;
 pub mod post;
 pub mod run;
+pub mod shared;
+pub mod tips;
 pub mod travel;
+pub mod weapons;
 
 pub use apply::{apply_route, Inputs, Output};
 pub use input::{Data, Route, World};

@@ -4,7 +4,9 @@
 //! A recipe is a SkillLineAbility row of a profession skill line whose spell creates an item
 //! (SpellEffect 24) or enchants one (53). yellow/grey are the trivial ranks, green their floored
 //! mean. The orange threshold comes from the recipe item (RequiredSkillRank), 1 for recipes known
-//! with the skill, else MinSkillLineRank, else yellow (learnedAtEstimated). AcquireMethod 3
+//! with the skill, else the skill a sniffed Forever trainer list asks for it (with its cost), else
+//! MinSkillLineRank, else Classic's trainer skill moved as far as Forever moved the yellow rank
+//! (learnedAtEstimated, learnedAtFrom "classic"), else yellow (learnedAtEstimated). AcquireMethod 3
 //! (retired) and Season of Discovery recipes are left out.
 
 use forge_guide::js::{Arr, Obj, V};
@@ -136,6 +138,18 @@ pub struct Ctx<'a> {
 	pub objects: &'a Obj,
 	pub stock: &'a Stock,
 	pub season: &'a FxHashSet<u64>,
+	/// The Forever TDB's sniffed profession trainer lists: spell -> (skill to learn it, copper).
+	pub trained: &'a FxHashMap<i64, (f64, f64)>,
+	/// The TDB's older (Classic) profession trainer lists: spell -> (skill to learn it, copper).
+	pub trained_classic: &'a FxHashMap<i64, (f64, f64)>,
+	/// Era's yellow rank per spell (tables.rs `era_yellow`).
+	pub era_yellow: &'a FxHashMap<i64, i64>,
+	/// The TDB's sniffed vendor rows with an extended cost (a currency such as Merchant's Favor,
+	/// not gold): (npc, item); (0, item) when no sniffed row sells the item for gold, so every vendor
+	/// of it sells it for the currency.
+	pub currency: &'a FxHashSet<(i64, i64)>,
+	/// The sniffed profession trainer lists by creature: creature -> the spells it teaches.
+	pub trainer_lists: &'a FxHashMap<i64, Vec<i64>>,
 }
 
 impl Ctx<'_> {
@@ -173,6 +187,33 @@ fn source_of(it: &V) -> Option<&'static str> {
 
 fn num(n: i64) -> V {
 	V::Num(n as f64)
+}
+
+/// Adds a trainer to { Alliance, Horde } trainer lists (a rank's and the profession's; ascending, once
+/// each) on the sides its npcs.json faction serves; an NPC of no side, without spawns (Vaelan, linked
+/// to the mining list in Blackrock Spire) or not in npcs.json is left out.
+fn add_trainer(rank: &V, prof: &V, ctx: &Ctx, creature: i64) {
+	let npc = ctx.npcs.get(&creature.to_string());
+	if npc.get("spawns").keys().is_empty() {
+		return;
+	}
+	let sides: &[&str] = match npc.get("faction").as_str() {
+		Some("A") => &["Alliance"],
+		Some("H") => &["Horde"],
+		Some("AH") => &["Alliance", "Horde"],
+		_ => return,
+	};
+	for lists in [rank, prof] {
+		for side in sides {
+			let mut ids: Vec<f64> = lists.get(side).items().iter().map(|v| v.num()).collect();
+			if ids.contains(&(creature as f64)) {
+				continue;
+			}
+			ids.push(creature as f64);
+			ids.sort_by(|a, b| a.partial_cmp(b).unwrap());
+			lists.set(side, crate::jsv::nums(&ids));
+		}
+	}
 }
 
 /// A recipe: its JSON object, and what sorting and the materials read.
@@ -250,14 +291,22 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 		Some("drop") => 1,
 		_ => 2,
 	};
-	let recipe_item = recipe_items.iter().copied().min_by(|&a, &b| rank(a).cmp(&rank(b)).then(a.cmp(&b)));
+	// A recipe the client teaches with the skill (AcquireMethod 1) is known from 1 even when a recipe
+	// item for it exists (Herb Baked Egg and Recipe: Herb Baked Egg); one a sniffed Forever trainer
+	// list teaches is a trainer recipe even when a recipe item exists (Elixir of Minor Fortitude and
+	// its deprecated recipe; the copper boots and the school belts and slippers).
+	let recipe_item = recipe_items.iter().copied().filter(|_| row.acquire != 1 && !ctx.trained.contains_key(&spell)).min_by(|&a, &b| rank(a).cmp(&rank(b)).then(a.cmp(&b)));
 	let learned_at;
 	if let Some(ri) = recipe_item {
 		let s = ix.sparse.get(&ri);
 		let req = s.map_or(0, |s| s.req_rank);
 		learned_at = req.max(1);
 		r.set("learnedAt", num(learned_at));
-		let source = source_of(&ctx.item(ri));
+		let mut source = source_of(&ctx.item(ri));
+		// Every vendor of the recipe item sells it for a currency (Merchant's Favor): no gold price.
+		if source == Some("vendor") && ctx.item(ri).get("vendors").items().iter().all(|v| ctx.currency.contains(&(v.num() as i64, ri)) || ctx.currency.contains(&(0, ri))) {
+			source = Some("currency");
+		}
 		r.set("source", source.map(V::str).unwrap_or(V::Null));
 		r.set("recipeItem", num(ri));
 		materials.push(ri);
@@ -282,9 +331,22 @@ fn extract_recipe(ix: &Ix, row: &Ability, ctx: &Ctx) -> Result<Recipe, &'static 
 			learned_at = 1;
 			r.set("learnedAt", 1.0);
 			r.set("cost", 0.0);
+		} else if let Some(&(rank, cost)) = ctx.trained.get(&spell) {
+			learned_at = (rank as i64).max(1);
+			r.set("learnedAt", num(learned_at));
+			r.set("cost", num(cost as i64));
 		} else if row.min_rank > 1 {
 			learned_at = row.min_rank;
 			r.set("learnedAt", num(learned_at));
+		} else if let (Some(&(rank, _)), Some(&era_low), true) = (ctx.trained_classic.get(&spell), ctx.era_yellow.get(&spell), yellow > 0) {
+			// No sniffed Forever list teaches it: Classic's learn skill, moved by as much as Forever
+			// moved the yellow rank (the sniffed lists keep Classic's learn-to-yellow distance on 126
+			// of 129 recipes they share with the Classic lists). Classic's price is no guide to
+			// Forever's (Forever's lists charge from the same to a tenth of it): no cost.
+			learned_at = (yellow - (era_low - rank as i64).max(0)).clamp(1, yellow);
+			r.set("learnedAt", num(learned_at));
+			r.set("learnedAtEstimated", true);
+			r.set("learnedAtFrom", "classic");
 		} else if yellow > 0 {
 			learned_at = (yellow - ESTIMATE_GAP).max(1);
 			r.set("learnedAt", num(learned_at));
@@ -414,6 +476,7 @@ fn material_info(ix: &Ix, id: i64, ctx: &Ctx, made_by: &FxHashMap<i64, Arr>) -> 
 	}
 	let mut vendors: [Vec<V>; 2] = [Vec::new(), Vec::new()];
 	let mut limited: [Vec<V>; 2] = [Vec::new(), Vec::new()];
+	let mut currency: [Vec<V>; 2] = [Vec::new(), Vec::new()];
 	let limits = ctx.stock.get(&nk(id as f64));
 	let iv = if it.truthy() { it.get("vendors") } else { V::Undef };
 	if iv.truthy() {
@@ -438,7 +501,14 @@ fn material_info(ix: &Ix, id: i64, ctx: &Ctx, made_by: &FxHashMap<i64, Arr>) -> 
 				if !(f.contains(code) || f == "AH") {
 					continue;
 				}
-				let list = if lim > 0.0 { &mut limited } else { &mut vendors };
+				// A sniffed row with an extended cost sells for a currency (Merchant's Favor), not gold.
+				let list = if ctx.currency.contains(&(v.num() as i64, id)) || ctx.currency.contains(&(0, id)) {
+					&mut currency
+				} else if lim > 0.0 {
+					&mut limited
+				} else {
+					&mut vendors
+				};
 				list[side].push(v.clone());
 			}
 		}
@@ -446,6 +516,7 @@ fn material_info(ix: &Ix, id: i64, ctx: &Ctx, made_by: &FxHashMap<i64, Arr>) -> 
 	for s in 0..2 {
 		sort_ids(&mut vendors[s]);
 		sort_ids(&mut limited[s]);
+		sort_ids(&mut currency[s]);
 	}
 	let sides = |l: [Vec<V>; 2]| {
 		let o = Obj::new();
@@ -459,6 +530,9 @@ fn material_info(ix: &Ix, id: i64, ctx: &Ctx, made_by: &FxHashMap<i64, Arr>) -> 
 	}
 	if !limited[0].is_empty() || !limited[1].is_empty() {
 		m.set("limitedVendors", sides(limited));
+	}
+	if !currency[0].is_empty() || !currency[1].is_empty() {
+		m.set("currencyVendors", sides(currency));
 	}
 	if let Some(made) = made_by.get(&id) {
 		if !made.is_empty() {
@@ -585,6 +659,21 @@ pub fn extract(t: &Tables, ctx: &Ctx) -> Extracted {
 			if let Some(&s) = spells.get(&nk(i as f64)) {
 				if s != 0 {
 					rk.set("spell", num(s));
+					// The training cost: the sniffed trainer lists' price of the spell that teaches it.
+					let teaches = |t: &i64| ix.effects.get(t).is_some_and(|l| l.iter().any(|e| e.effect == 36 && e.trigger == s));
+					let cost = ctx.trained.iter().filter(|(t, _)| teaches(t)).map(|(_, &(_, c))| c).reduce(f64::min);
+					if let Some(c) = cost {
+						rk.set("cost", num(c as i64));
+					}
+					// Who teaches it: every creature whose sniffed list has a spell that teaches the rank,
+					// on the sides its faction serves (Zephras Isle's trainers are in no curated list).
+					if rk.get("trainers").truthy() {
+						for (creature, spells) in ctx.trainer_lists {
+							if spells.iter().any(teaches) {
+								add_trainer(&rk.get("trainers"), &tr.trainers, ctx, *creature);
+							}
+						}
+					}
 				}
 			}
 			let book = rk.get("book");

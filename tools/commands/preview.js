@@ -865,6 +865,83 @@ local INCUBUS = uistub.guides["forever/class/warlock/incubus-horde"]
 INCUBUS.minLevel, INCUBUS.maxLevel, INCUBUS.faction, INCUBUS.zone, INCUBUS.zoneName = 20, 28, "Horde", 1454, "Orgrimmar"
 INCUBUS.reward = { { spell = 713, spellName = "Summon Incubus" }, { item = 22243, itemName = "Small Soul Pouch", quality = 2 } }
 INCUBUS.why = "A second seducer demon, the male sayaad, and a soul shard bag to carry your shards."`;
+// The class-quest card (UI/ClassCard.lua): a Night Elf Druid at the start of
+// the Cat Form chain as the Darkshore guide carries it, and a Warrior at
+// Bath'rah the Windwatcher, the Whirlwind weapon's chain. Quest ids, NPCs and
+// maps are the game's; rewards come from UI/ClassRewards.lua.
+const CLASS_CARD = `local function G(t, f) f.t = t; return f end
+local MAPS = { [1457] = "Darnassus", [1450] = "Moonglade", [1416] = "Alterac Mountains" }
+local mapName = Polestar.Compat.GetMapName
+Polestar.Compat.GetMapName = function(id) return MAPS[id] or mapName(id) end
+local DRUID, WARRIOR = { classes = { "DRUID" } }, { classes = { "WARRIOR" } }
+local function leveling(id, title, zone, zoneName, steps)
+	uistub.guides[id] = { id = id, pack = "guides", title = title, faction = "Alliance", minLevel = 16, maxLevel = 40, category = "Leveling",
+		zone = zone, zoneName = zoneName, author = "Polestar", version = 1, steps = steps }
+	table.insert(uistub.order, id)
+end
+leveling("preview/darkshore-druid", "Darkshore", 1439, "Darkshore", {
+	{ title = "Mathrengyl Bearwalker", only = DRUID, note = "Night Elves fly from Auberdine to Rut'theran Village. Take the portal up to Mathrengyl Bearwalker in the Cenarion Enclave.", goals = {
+		G("accept", { verb = "Accept", subject = "The Great Cat Spirit", subjectKind = "quest", quest = 98393, npc = 4217, npcName = "Mathrengyl Bearwalker", minLevel = 20, map = 1457, x = 35.4, y = 8.4, status = "active" }),
+	} },
+	{ title = "Dendrite Starblaze", only = DRUID, goals = {
+		G("turnin", { verb = "Turn in", subject = "The Great Cat Spirit", subjectKind = "quest", quest = 98393, npc = 11802, npcName = "Dendrite Starblaze", map = 1450, x = 56.2, y = 30.6, status = "pending" }),
+		G("accept", { verb = "Accept", subject = "The Great Cat Spirit", subjectKind = "quest", quest = 98394, npc = 11802, npcName = "Dendrite Starblaze", minLevel = 20, map = 1450, x = 56.2, y = 30.6, status = "pending" }),
+	} },
+	{ title = "The relics of the Barrow Dens", only = DRUID, goals = {
+		G("turnin", { verb = "Turn in", subject = "The Great Cat Spirit", subjectKind = "quest", quest = 98394, npc = 11957, npcName = "Great Cat Spirit", map = 1450, x = 58.4, y = 73.5, status = "pending" }),
+	} },
+	{ title = "Back to Dendrite", only = DRUID, goals = {
+		G("accept", { verb = "Accept", subject = "To Darnassus", subjectKind = "quest", quest = 98397, npc = 11802, npcName = "Dendrite Starblaze", map = 1450, x = 56.2, y = 30.6, status = "pending" }),
+	} },
+	{ title = "To Darnassus", only = DRUID, goals = {
+		G("turnin", { verb = "Turn in", subject = "To Darnassus", subjectKind = "quest", quest = 98397, npc = 4217, npcName = "Mathrengyl Bearwalker", map = 1457, x = 35.4, y = 8.4, status = "pending" }),
+	} },
+})
+leveling("preview/whirlwind", "Alterac Mountains", 1416, "Alterac Mountains", {
+	{ title = "Bath'rah the Windwatcher", only = WARRIOR, goals = {
+		G("accept", { verb = "Accept", subject = "Cyclonian", subjectKind = "quest", quest = 1712, npc = 6176, npcName = "Bath'rah the Windwatcher", minLevel = 30, map = 1416, x = 80.6, y = 66.8, status = "active" }),
+	} },
+	{ title = "Cyclonian", only = WARRIOR, goals = {
+		G("turnin", { verb = "Turn in", subject = "Cyclonian", subjectKind = "quest", quest = 1712, npc = 6176, npcName = "Bath'rah the Windwatcher", map = 1416, x = 80.6, y = 66.8, status = "pending" }),
+		G("accept", { verb = "Accept", subject = "The Summoning", subjectKind = "quest", quest = 1713, npc = 6176, npcName = "Bath'rah the Windwatcher", map = 1416, x = 80.6, y = 66.8, status = "pending" }),
+	} },
+	{ title = "Whirlwind Weapon", only = WARRIOR, goals = {
+		G("accept", { verb = "Accept", subject = "Whirlwind Weapon", subjectKind = "quest", quest = 1792, npc = 6176, npcName = "Bath'rah the Windwatcher", map = 1416, x = 80.6, y = 66.8, status = "pending" }),
+	} },
+})
+uistub.player.race, uistub.player.level = "NightElf", 20`;
+// The class quest heads-up (UI/ClassToast.lua) on the guide window: an Orc
+// Warlock levelling in Durotar reaches 10 (the Voidwalker; a class guide for
+// it opens in a tab), and an Undead one in Tirisfal (no class guide: "Show
+// me" points the arrow at Ageron Kargal). Steps written for the preview.
+const CLASS_TOAST = `local function G(t, f) f.t = t; return f end
+local MAPS = { [1411] = "Durotar", [1420] = "Tirisfal Glades" }
+local mapName = Polestar.Compat.GetMapName
+Polestar.Compat.GetMapName = function(id) return MAPS[id] or mapName(id) end
+local function add(g) uistub.guides[g.id] = g; table.insert(uistub.order, g.id) end
+add({ id = "preview/durotar", pack = "guides", title = "Durotar", faction = "Horde", minLevel = 1, maxLevel = 12, category = "Leveling",
+	zone = 1411, zoneName = "Durotar", author = "Polestar", version = 1, steps = {
+	{ title = "Thunder Ridge", goals = {
+		G("kill", { verb = "Kill", subject = "Thunder Lizard", subjectKind = "npc", npc = 3130, progress = { cur = 6, max = 8 }, map = 1411, x = 39.6, y = 26.4, status = "active" }),
+		G("collect", { verb = "Collect", subject = "Thunder Lizard Horn", subjectKind = "item", item = 5143, progress = { cur = 3, max = 6 }, map = 1411, x = 39.6, y = 26.4, status = "active" }),
+	} },
+	{ title = "Razor Hill", goals = { G("turnin", { verb = "Turn in", subject = "Lizard Horns", subjectKind = "quest", quest = 815, npc = 3139, npcName = "Gar'Thok", map = 1411, x = 51.9, y = 43.5, status = "pending" }) } },
+	{ title = "Orgrimmar", only = { classes = { "WARLOCK" } }, goals = { G("accept", { verb = "Accept", subject = "Gan'rul's Summons", subjectKind = "quest", quest = 1506, npc = 3294, npcName = "Ophek", map = 1411, x = 54.4, y = 41.3, status = "pending" }) } },
+} })
+add({ id = "preview/class/warlock-voidwalker", pack = "guides", title = "Warlock: Voidwalker", category = "Class", classes = { "WARLOCK" }, faction = "Horde", minLevel = 10, maxLevel = 12,
+	zone = 1411, zoneName = "Durotar", author = "Polestar", version = 1, steps = {
+	{ title = "Ophek", goals = { G("accept", { verb = "Accept", subject = "Gan'rul's Summons", subjectKind = "quest", quest = 1506, npcName = "Ophek", status = "active" }) } },
+} })
+add({ id = "preview/tirisfal", pack = "guides", title = "Tirisfal Glades", faction = "Horde", races = { "Scourge" }, minLevel = 1, maxLevel = 13, category = "Leveling",
+	zone = 1420, zoneName = "Tirisfal Glades", author = "Polestar", version = 1, steps = {
+	{ title = "Calvin Montague", goals = { G("turnin", { verb = "Turn in", subject = "A Rogue's Deal", subjectKind = "quest", quest = 590, npc = 6784, npcName = "Calvin Montague", map = 1420, x = 38.4, y = 56.4, status = "active" }) } },
+	{ title = "Brill", goals = { G("goto", { verb = "Go to", subject = "Brill", subjectKind = "place", map = 1420, x = 61.0, y = 52.0, status = "pending" }) } },
+} })
+uistub.player.class, uistub.player.level, uistub.player.faction = "WARLOCK", 10, "Horde"`;
+const ORC_TOAST = `${CLASS_TOAST}; uistub.player.race = "Orc"; uistub.openTabs({ { "preview/durotar", 1 } }, 1); Polestar.UI.ClassToast.Show(1506)`;
+const UNDEAD_TOAST = `${CLASS_TOAST}; uistub.player.race = "Scourge"; uistub.openTabs({ { "preview/tirisfal", 1 } }, 1); Polestar.UI.ClassToast.Show(1478)`;
+const DRUID_CARD = `${CLASS_CARD}; uistub.player.class = "DRUID"; uistub.openTabs({ { "preview/darkshore-druid", 1 } }, 1)`;
+const WARRIOR_CARD = `${CLASS_CARD}; uistub.player.class, uistub.player.race, uistub.player.level = "WARRIOR", "Human", 30; uistub.openTabs({ { "preview/whirlwind", 1 } }, 1)`;
 const SCENES = [
 	{
 		file: 'guide.svg',
@@ -1047,6 +1124,26 @@ Polestar.UI.Picker.Select(DREADSTEED)`),
 Polestar.UI.Picker.Select("forever/class/shaman/call-of-earth-horde")`),
 			},
 		],
+	},
+	{
+		file: 'guide-class-card.svg',
+		title: 'A class quest\'s step: the class card in the class colour with the chain\'s reward (Cat Form for a Druid; the Whirlwind weapon, a choice, for a Warrior), in Night, transparent and compact',
+		panels: [
+			{ roots: GUIDE, script: DRUID_CARD },
+			{ roots: GUIDE, script: `Polestar.Set("ui.scheme", "night"); ${WARRIOR_CARD}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.style", "transparent"); ${DRUID_CARD}; ${HOVER}` },
+			{ roots: GUIDE, script: `Polestar.Set("ui.compact", true); ${WARRIOR_CARD}` },
+		],
+		backdrop: 'terrain',
+	},
+	{
+		file: 'guide-class-toast.svg',
+		title: 'The class quest heads-up on the guide window: an Orc Warlock reaching 10 (its class guide opens in a new tab), and an Undead one in Night (no class guide: Show me)',
+		panels: [
+			{ roots: [...GUIDE, 'PolestarClassToast'], script: ORC_TOAST },
+			{ roots: [...GUIDE, 'PolestarClassToast'], script: `Polestar.Set("ui.scheme", "night"); ${UNDEAD_TOAST}` },
+		],
+		backdrop: 'terrain',
 	},
 	{
 		file: 'picker-class.svg',

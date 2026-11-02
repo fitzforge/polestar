@@ -16,11 +16,12 @@ use crate::obj;
 use crate::re;
 use crate::xp::level_point;
 
-pub const KINDS: [&str; 16] = ["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group"];
+pub const KINDS: [&str; 17] =
+	["level", "money", "onquest", "complete", "turnedin", "available", "has", "upgrade", "zone", "subzone", "bound", "dungeon", "done", "skill", "cooldown", "group", "knows"];
 const QUEST_ONE: [&str; 4] = ["complete", "turnedin", "available", "group"];
 /// The predicates that name a place.
 pub const PLACE: [&str; 3] = ["zone", "subzone", "bound"];
-const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>";
+const USAGE: &str = "predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone \"<Name>\", [!]subzone \"<Name>\", [!]bound \"<Location>\", [!]dungeon \"<Name>\", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>";
 
 #[derive(Clone, Debug, PartialEq)]
 pub struct WhenError {
@@ -203,6 +204,13 @@ pub fn parse_when(rest: &str) -> Result<V, WhenError> {
 			return fail("`cooldown` needs an item or spell id: cooldown item <item> or cooldown spell <spell>");
 		};
 		value.set(&c[1].to_ascii_lowercase(), str_to_num(&c[2]));
+		return Ok(V::Obj(value));
+	}
+	if kind == "knows" {
+		if !is_int(args) || str_to_num(args) <= 0.0 {
+			return fail("`knows` needs a spell id: knows <spell>");
+		}
+		value.set("spell", str_to_num(args));
 		return Ok(V::Obj(value));
 	}
 	// zone, subzone, bound, dungeon

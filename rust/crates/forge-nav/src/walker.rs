@@ -1333,7 +1333,7 @@ impl<'w> StoreRouter<'w> {
 		SnapAsk { c: e.c as u32, wx: e.x, wy: e.y, z: if z.is_nan() { None } else { Some(z) }, radius: 20.0, under: true, stand: true }
 	}
 
-	fn answer(&self, w: &Walk, run: f64) -> crate::store::Answer {
+	fn answer_of(&self, w: &Walk, run: f64) -> crate::store::Answer {
 		if w.seconds >= 0.0 && w.yards >= 0.0 {
 			crate::store::Answer { yd: forge_core::jsnum::round1(w.yards) * self.smooth, cost: forge_core::jsnum::round1(w.seconds * run) }
 		} else {
@@ -1341,7 +1341,7 @@ impl<'w> StoreRouter<'w> {
 		}
 	}
 
-	fn run_rows(&mut self, pairs: &[(crate::store::End, crate::store::End)], idx: &[usize], p: &Profile, zones_tag: &str, full: bool) -> Result<Vec<Walk>, String> {
+	fn run_rows(&self, pairs: &[(crate::store::End, crate::store::End)], idx: &[usize], p: &Profile, zones_tag: &str, full: bool, cells: bool, stats: &mut Vec<Stats>) -> Result<Vec<Walk>, String> {
 		// Rows by source end, in first-seen order.
 		let mut rows: Vec<Row> = Vec::new();
 		let mut at: Vec<(usize, usize)> = Vec::with_capacity(idx.len());
@@ -1356,9 +1356,72 @@ impl<'w> StoreRouter<'w> {
 			at.push((r, rows[r].targets.len()));
 			rows[r].targets.push(Self::ask(&pairs[i].1, full));
 		}
-		let (out, st) = self.walker.rows(&rows, p, zones_tag, self.cells)?;
-		self.stats.push(st);
+		let (out, st) = self.walker.rows(&rows, p, zones_tag, cells)?;
+		stats.push(st);
 		Ok(at.iter().map(|&(r, j)| out[r][j].clone()).collect())
+	}
+
+	/// One model's answers (`walks`), with what answered them: (answers, by the line, by the walker, the
+	/// walker's stats).
+	fn answer(&self, model: &crate::store::Model, pairs: &[(crate::store::End, crate::store::End)], cells: bool) -> (crate::store::Answers, usize, usize, Vec<Stats>) {
+		let Some((p, zones_tag)) = self.models.get(model).cloned() else {
+			panic!("walk store: no profile registered for model {} {}", model.grid, model.params);
+		};
+		let mut out = vec![(crate::store::Answer::NONE, None); pairs.len()];
+		let (mut by_line, mut stats) = (0, Vec::new());
+		let mut rest = Vec::new();
+		for (i, (a, b)) in pairs.iter().enumerate() {
+			if self.straight {
+				if let (Some(sa), Some(sb)) = (self.walker.snap(&Self::ask(a, false)), self.walker.snap(&Self::ask(b, false))) {
+					if let Some(w) = self.walker.straight(&sa, &sb, &p, cells) {
+						out[i] = (self.answer_of(&w, p.run), zone_cells(&w.cells));
+						by_line += 1;
+						continue;
+					}
+				}
+			}
+			rest.push(i);
+		}
+		if rest.is_empty() {
+			return (out, by_line, 0, stats);
+		}
+		let rest: Vec<usize> = rest;
+		// In runs of rows (each run's walks and cells held at once, then dropped).
+		let mut got: Vec<Walk> = Vec::with_capacity(rest.len());
+		for part in rest.chunks(ROUTER_CHUNK) {
+			let g = self.run_rows(pairs, part, &p, &zones_tag, false, cells, &mut stats).unwrap_or_else(|e| panic!("{e}"));
+			if let Some(log) = &self.log {
+				log(got.len() + part.len(), rest.len());
+			}
+			got.extend(g);
+		}
+		let mut again = Vec::new();
+		for (&i, w) in rest.iter().zip(&got) {
+			out[i] = (self.answer_of(w, p.run), zone_cells(&w.cells));
+			let (a, b) = &pairs[i];
+			let differs = |e: &crate::store::End| e.z.to_bits() != e.zf.to_bits() && !(e.z.is_nan() && e.zf.is_nan());
+			if out[i].0.yd < 0.0 && (differs(a) || differs(b)) {
+				again.push(i);
+			}
+		}
+		if !again.is_empty() {
+			let got = self.run_rows(pairs, &again, &p, &zones_tag, true, cells, &mut stats).unwrap_or_else(|e| panic!("{e}"));
+			for (&i, w) in again.iter().zip(&got) {
+				let x = self.answer_of(w, p.run);
+				if x.yd >= 0.0 {
+					out[i] = (x, zone_cells(&w.cells));
+				}
+			}
+		}
+		(out, by_line, rest.len(), stats)
+	}
+
+	fn tally(&mut self, cells: bool, (out, by_line, by_router, stats): (crate::store::Answers, usize, usize, Vec<Stats>)) -> crate::store::Answers {
+		self.cells = cells;
+		self.by_line += by_line;
+		self.by_router += by_router;
+		self.stats.extend(stats);
+		out
 	}
 }
 
@@ -1367,57 +1430,14 @@ fn zone_cells(c: &Option<Cells>) -> Option<crate::store::ZoneCells> {
 }
 
 impl crate::store::Router for StoreRouter<'_> {
-	fn walks(&mut self, model: &crate::store::Model, pairs: &[(crate::store::End, crate::store::End)], cells: bool) -> Vec<(crate::store::Answer, Option<crate::store::ZoneCells>)> {
-		let Some((p, zones_tag)) = self.models.get(model).cloned() else {
-			panic!("walk store: no profile registered for model {} {}", model.grid, model.params);
-		};
-		self.cells = cells;
-		let mut out = vec![(crate::store::Answer::NONE, None); pairs.len()];
-		let mut rest = Vec::new();
-		for (i, (a, b)) in pairs.iter().enumerate() {
-			if self.straight {
-				if let (Some(sa), Some(sb)) = (self.walker.snap(&Self::ask(a, false)), self.walker.snap(&Self::ask(b, false))) {
-					if let Some(w) = self.walker.straight(&sa, &sb, &p, self.cells) {
-						out[i] = (self.answer(&w, p.run), zone_cells(&w.cells));
-						self.by_line += 1;
-						continue;
-					}
-				}
-			}
-			rest.push(i);
-		}
-		if rest.is_empty() {
-			return out;
-		}
-		let rest: Vec<usize> = rest;
-		self.by_router += rest.len();
-		// In runs of rows (each run's walks and cells held at once, then dropped).
-		let mut got: Vec<Walk> = Vec::with_capacity(rest.len());
-		for part in rest.chunks(ROUTER_CHUNK) {
-			let g = self.run_rows(pairs, part, &p, &zones_tag, false).unwrap_or_else(|e| panic!("{e}"));
-			if let Some(log) = &self.log {
-				log(got.len() + part.len(), rest.len());
-			}
-			got.extend(g);
-		}
-		let mut again = Vec::new();
-		for (&i, w) in rest.iter().zip(&got) {
-			out[i] = (self.answer(w, p.run), zone_cells(&w.cells));
-			let (a, b) = &pairs[i];
-			let differs = |e: &crate::store::End| e.z.to_bits() != e.zf.to_bits() && !(e.z.is_nan() && e.zf.is_nan());
-			if out[i].0.yd < 0.0 && (differs(a) || differs(b)) {
-				again.push(i);
-			}
-		}
-		if !again.is_empty() {
-			let got = self.run_rows(pairs, &again, &p, &zones_tag, true).unwrap_or_else(|e| panic!("{e}"));
-			for (&i, w) in again.iter().zip(&got) {
-				let x = self.answer(w, p.run);
-				if x.yd >= 0.0 {
-					out[i] = (x, zone_cells(&w.cells));
-				}
-			}
-		}
-		out
+	fn walks(&mut self, model: &crate::store::Model, pairs: &[(crate::store::End, crate::store::End)], cells: bool) -> crate::store::Answers {
+		let r = self.answer(model, pairs, cells);
+		self.tally(cells, r)
+	}
+
+	/// The models on threads at once (each model's rows on threads too).
+	fn walks_many(&mut self, jobs: &[crate::store::Job], cells: bool) -> Vec<crate::store::Answers> {
+		let got: Vec<_> = jobs.par_iter().with_max_len(1).map(|(m, pairs)| self.answer(m, pairs, cells)).collect();
+		got.into_iter().map(|r| self.tally(cells, r)).collect()
 	}
 }

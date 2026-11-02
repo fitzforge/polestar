@@ -61,7 +61,7 @@ command and exit 2.
 |---|---|
 | `data build`, `data check` | Moved to forge: `forge data build` builds the reference data, `data/forever/*.json` (`forge data sources` fills `data/sources` first), behind the statistics gate `forge data check` reruns |
 | `dungeons build` | Moved to forge: `forge data dungeons` imports dungeon data into `data/forever/dungeons.json` |
-| `profession build` / `draft` / `gathering` | `profession build` moved to forge (`forge data professions`: `data/forever/professions.json`); `profession draft <Profession>` drafts a 1-300 crafting guide; `profession gathering build` / `check` writes or checks the six generated gathering and secondary guides |
+| `profession build` / `draft` / `gathering` | `profession build` moved to forge (`forge data professions`: `data/forever/professions.json`); `profession draft <Profession>` drafts a 1-300 crafting guide; `profession gathering build` / `check` writes or checks the six generated gathering and secondary guides; `profession gathering abundance` rewrites `tools/lib/professions/gathering/node-abundance.json` (nodes of each kind a zone keeps up at once, from the Forever TrinityCore world DB's spawn pools) |
 | `exploration build` / `exploration check` | Writes or checks the exploration guides in `guides/forever/exploration` |
 | `trainers build` | Moved to forge: `forge data trainers` builds `data/forever/trainers.json` and `Core/ClassTrainers.lua` |
 | `talents build` / `talents check` | Moved to forge: `forge data talents build` / `check` writes or checks `Talents/Builds.lua`: the plans in `talents/forever/` (one file per class) resolved by name on the Forever trait tree and replayed under its rules |
@@ -71,6 +71,7 @@ command and exit 2.
 | `nav layers roads` / `nav layers hubs` | Moved to forge: `forge nav layers roads` (the roads layer in `data/local/nav-layers/roads`, from the client's tex0 ADTs and the allowlist `data/road-textures.json`) / `forge nav layers hubs` (the hostile hubs layer `data/local/nav-layers/hubs.json`); see [docs/forge/nav.md](../docs/forge/nav.md#the-ground-layers-forge-nav-layers) |
 | `maps build` / `maps overlays` | Moved to forge: `forge data maps build` / `overlays`: zone level ranges (`Maps/ZoneLevels.lua`) / zone art overlays (`UI/ZoneArtOverlays.lua`) |
 | `qol build` | Spirit healers, flight masters and reagent vendors (`QoL/Data.lua`) |
+| `classrewards build` | What each class quest chain teaches or gives, for the guide window's class-quest card (`UI/ClassRewards.lua`) |
 | `itemdb build` | Moved to forge: `forge data itemdb` writes the `Polestar_ItemDB` item stats (`Items.lua`) |
 | `gear fetch` | Refreshes the cached sims; `gear build` moved to forge (`forge data gear`: Forever item stats, reward choices and stat weight bands) |
 | `questdb build` | Retired: `forge data questdb` writes the `Polestar_QuestDB` data addon |
@@ -79,7 +80,7 @@ command and exit 2.
 | `nav pack` / `nav check` | Moved to forge: `forge nav pack` writes Polestar's walking maps into `addon/Polestar_Nav`, `forge nav check` holds them to `PACK.json`; see [docs/forge/nav.md](../docs/forge/nav.md#the-walking-maps-forge-nav-pack-forge-nav-check) |
 | `nav eval` | The walking router run standalone on a folder's maps (`--nav`, default `addon/Polestar_Nav`): the route corpus with each route's metrics and expectations, `--sweep` the guide goals per zone and side, `--baseline` another folder or report with the acceptance checks A1-A8, `--style fastest\|balanced\|roads` (default balanced) the route style every search is priced in (the summary line names it), `--out` the whole report |
 | `media` | Regenerates the addon's textures from `tools/media/*.js` |
-| `readme brand` / `readme charts` | Redraws the README's art: the banners, emblem, logo, download, CurseForge and Polestar Client buttons and the CurseForge avatar / the route charts (needs `data/sim`); both also export the CurseForge listing's PNGs when `rsvg-convert` is installed |
+| `readme brand` / `readme charts` | Redraws the README's art: the banners, emblem, logo, download, CurseForge and Polestar Client buttons and the CurseForge avatar / the route chart (from two `forge judge check` results); both also export the CurseForge listing's PNGs when `rsvg-convert` is installed |
 
 ### Translating
 
@@ -137,7 +138,7 @@ The release steps are in [docs/RELEASING.md](../docs/RELEASING.md).
 | `questdb/` | The spawn clustering the route tools use (`cluster.js`); the database is `forge data questdb` |
 | `recording/` | `record`: draft, trail, report |
 | `route/` | `draft`: the first-draft route planner and its geometry and tour helpers |
-| `sim/` | The earlier route model behind `sim compare`, `readme charts` and `lint`'s solo filter: world model, walks reader, evaluation, baselines |
+| `sim/` | The earlier route model behind `sim compare`, the planner's clock and `lint`'s solo filter: world model, walks reader, evaluation, baselines |
 | `tga.js` | Draws textures in code and writes TGA files |
 | `travel/` | `travel build`, `travel route` and `travel chain`: flights, transports, inns, paths, crossings |
 
@@ -171,13 +172,15 @@ or `` Generated by `forge <command>` `` for the files forge writes.
 | `addon/Polestar/Maps/ZoneLevels.lua` | `forge data maps build` | `data/forever` npcs, zones, map-frames | yes | forge-data's zonelevels tests ("up to date", with the data) |
 | `addon/Polestar/UI/ZoneArtOverlays.lua` | `forge data maps overlays` | Forever client tables (wago.tools) | yes | rerun |
 | `addon/Polestar/QoL/Data.lua` | `qol build` | `data/forever` npcs, map-frames | yes | rerun |
+| `addon/Polestar/UI/ClassRewards.lua` | `classrewards build` | `data/forever` quests, the TrinityCore extract `data/sources/forever-tdb` (RewardSpell), client SpellEffect, SpellName, SpellMisc, SkillLineAbility, Item and ItemSparse (`data/sources/client-tables`, `data/sources/wago`), the `reward` lines of guides with a `class` header | yes | rerun; forge-addontest `class-quests` loads it |
 | `addon/Polestar_ItemDB/Items.lua`, its TOC | `forge data itemdb` | Classic Era client item tables | yes | rerun; forge-addontest's data-addons test loads it within its size budget |
 | `addon/Polestar_ItemDB/Forever.lua` and `LICENSE-DATA.txt`, `addon/Polestar/Gear/SpecData.lua` and `LICENSE-DATA.txt`; `data/forever/gear/report.json` | `forge data gear`, after `forge data itemdb` | the installed ForeverLevelingBiS, the sims cached in `data/sources/wowsims` (`gear fetch`) | yes; the report is local | rerun |
 | `addon/Polestar_QuestDB/` | `forge data questdb` | `data/forever` quests, npcs, objects, items, map-frames | local; ships in the release zip when built | forge-addontest `questdb-memory` loads it within its budget |
 | `data/forever/codex/*.json`, `addon/Polestar_Codex/` (with `LICENSE-DATA.txt`) | `forge data codex` (`--local-extras` for the local extras) | the installed ForeverLevelingBiS; `data/forever` including instances, trainers and professions; Forever and Era client tables; our guides. `--local-extras` adds AtlasLoot, RareScanner and `dungeons.json` (local-only) | local; always in the release zip (`pack` fails without a release-safe one) | `rust/crates/forge-addontest/tests/addontest/lookup-codex.rs` loads it in game |
 | `addon/Polestar_Nav/Nav/Nav0*.lua`, `Nav1*.lua`, `Nav2991*.lua`, `Chokepoints.lua`, `PACK.json`, `Nav/Nav.xml` | `forge nav pack` | the navigation grid (`data/local/nav4`, tile version 4 for the slope classes), its `aids.json` and `lifts.json`, the roads and hubs layers (`data/local/nav-layers`), `data/forever` map-frames and zones, the newest cached AreaTable | yes (always in the release zip) | `nav check` / `nav pack --check` (sha256 in `PACK.json`); its headers name the grid's client build and the date; rerun after `nav build`, `nav aids` or `nav layers` |
 | `guides/forever/exploration/*.guide` (7) | `exploration build` | client map tables, `data/forever` zones, map-frames, travel | yes | `exploration check`; `tests/exploration.test.js` |
-| `guides/forever/professions/` mining, herbalism, skinning, cooking, first-aid, fishing | `profession gathering build` | `data/forever` professions, items, npcs, objects | yes | `profession gathering check`; `tests/profession-gathering.test.js` |
+| `guides/forever/professions/` mining, herbalism, skinning, cooking, first-aid, fishing | `profession gathering build` | `data/forever` professions, items, npcs, objects, quests; `tools/lib/professions/gathering/node-abundance.json` | yes | `profession gathering check`; `tests/profession-gathering.test.js` |
+| `tools/lib/professions/gathering/node-abundance.json` | `profession gathering abundance` | `data/local/forever-tdb/world.sqlite` (pools), `data/forever` objects, map-frames | yes | rerun after a TDB refresh |
 | `guides/forever/professions/` alchemy, blacksmithing, enchanting, engineering, leatherworking, tailoring | `profession draft <Profession> --out` | `data/forever` including professions | yes | rerun |
 | `addon/Polestar_Guides/`, `addon/Polestar_<locale>/Texts.lua` (9) | `forge guide compile` | `guides/**/*.guide`, `guides/pack.json`, `guides/locales/`, `data/forever` (including trainers, travel, professions, factions, races; never `dungeons.json`), the newest cached Forever AreaTable in `data/sources/wago/` (place areas) | yes | rerun; `tests/guides-parse.test.js` fails when a guide is added, renamed or removed without `forge guide compile` |
 | `addon/Polestar_<locale>/Names.lua` (9, with `LICENSE-DATA.txt`, `CREDITS.md`; the folder's TOC is written alike by both commands) | `forge data names` | DingDB pinned in `rust/crates/forge-data/src/names_sources.rs` (cloned into `data/sources/ding`), pfQuest's `db/<locale>` (`data/sources/pfQuest`), the ids of `addon/Polestar_Guides/Guides.lua`, `addon/Polestar_QuestDB/` and `data/forever/codex/` | yes (always in the release zip) | rerun after `compile`, `forge data questdb` or `forge data codex` add ids; forge-data's `names` test |
@@ -185,8 +188,8 @@ or `` Generated by `forge <command>` `` for the files forge writes.
 | `docs/preview/*.svg` | `preview` | the addon's Lua (Core, Theme, Nav, Quests, Gear, Maps, QoL, Lookup, Dungeons, Rares, UI), its generated files included; `tests/lua` (the client stubs, `stub_ui.lua`'s sample guides), `tests/fixtures`, among them six compiled Horde guides frozen in `tests/fixtures/preview/guides.lua`; no reference data and not the shipped `addon/Polestar_Guides`, so a guide recompile never changes the renders. `POLESTAR_CLIENT_ART` (with `POLESTAR_DUNGEONS_PACK`) renders local art and data into its own folder, never here | yes | rerun: the output is byte-identical; CI checks that it builds; a full run removes the renders of scenes that are gone |
 | `addon/Polestar/Core/Credits.lua` | `forge release credits` | `data/credits.json`, the repository's merged pull requests (GitHub, `gh` logged in) | yes | rerun before a release |
 | `docs/assets/{banner-dark,banner-light,emblem,logo,download,curseforge,client,avatar}.svg` | `readme brand` | the emblem geometry, the wordmark fonts, the CurseForge mark | yes | rerun |
-| `docs/curseforge/images/{logo-1024,logo-400,banner,starts,levels}.png` | `readme brand` (all five), `readme charts` (the charts), with `rsvg-convert` (librsvg) installed; without it they print the `rsvg-convert` commands to run | `docs/assets/avatar.svg`, `banner-dark.svg`, `charts/{starts,levels}.svg` | yes | rerun |
-| `docs/assets/charts/{levels,starts}.svg` | `readme charts --draft v0.1.0` | `data/sim`, `guides/`, the guides of the first release (tag `v0.1.0`) | yes | rerun |
+| `docs/curseforge/images/{logo-1024,logo-400,banner,starts}.png` | `readme brand` (all four), `readme charts` (the chart), with `rsvg-convert` (librsvg) installed; without it they print the `rsvg-convert` commands to run | `docs/assets/avatar.svg`, `banner-dark.svg`, `charts/starts.svg` | yes | rerun |
+| `docs/assets/charts/starts.svg` | `readme charts --check <dir> --base <dir>` | two `forge judge check` results (`check.json`): the shipped guides' and the last release's, played by the same checker | yes | rerun |
 | `data/sim/` | `forge walks world` / `forge walks walks` (world, walks) and `forge sim calibrate` (params.json) | `data/forever` | local | `lint` notes a cached world built from other data and skips its check |
 | `data/rules.json` | none: hand-maintained data, not generated | game facts players reported (timers, gates, purchases, patrols, rides), each with its source refs and credit ([docs/legacy/SIMULATION-js.md](../docs/legacy/SIMULATION-js.md) "Rules") | yes | `tests/sim-rules.test.js` checks every rule's shape, and checks the rules against each faction's world when built; forge reads the file |
 | `tests/fixtures/sim/cases/reported.json` | none: hand-maintained data, not generated | every reported route problem as a property of a route, with its source refs and credit ([docs/legacy/SIMULATION-js.md](../docs/legacy/SIMULATION-js.md) "Acceptance cases") | yes | `rust/crates/forge-judge/tests/cases_parity.rs` loads it and runs every case |
@@ -212,6 +215,7 @@ build, new recordings or a change to an installed source addon:
 5. `node tools/polestar.js travel build`
 6. `forge data maps build` and `forge data maps overlays`
 7. `node tools/polestar.js qol build`
+   and `node tools/polestar.js classrewards build`
 8. `forge data itemdb`, then `forge data gear`
 9. `forge data questdb`
 10. `forge data codex` (`forge data codex --local-extras` for this machine; reads `professions.json`, `trainers.json` and the recorded `instances.json`; `dungeons.json` only with `--local-extras`)

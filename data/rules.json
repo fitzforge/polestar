@@ -198,6 +198,11 @@
 			"id": "H31c", "kind": "handover", "quest": 99141, "objective": 2, "item": 286202, "npc": 10666,
 			"fact": "Gordo's Report for Patience (99141) is handed over by Gordo when asked (gossip); the data has no source for it.",
 			"source": { "refs": ["#337", "PR #457"], "credit": ["Onrevax", "XrayAlpha"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:298" }
+		},
+		{
+			"id": "H32", "kind": "giver", "quest": 109, "npc": 963,
+			"fact": "Report to Gryan Stoutmantle (109) is offered by Deputy Rainer at the Westbrook Garrison, on the road from Elwynn into Westfall, before the farms: it is taken there, then the farm quests on the road south (Farmer Saldean is one of its other givers, deeper in).",
+			"source": { "refs": ["#416"], "credit": ["Pynte"], "guide": "guides/forever/alliance/human/01-elwynn-forest.guide:644" }
 		}
 	]
 }

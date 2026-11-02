@@ -22,31 +22,40 @@ why A new look for Polymorph: it turns the target into a pig rather than a sheep
 # the Temple of Zin-Malor and the clones. A Classic mage class quest guide
 # (2023-11-09) places Krellian in the biggest building in the middle of
 # the Ruins of Eldarath.
+# quests.json: Fragmented Magic wants 50 Polymorph Clones and hands back the
+# Prismatic Shell on accepting (sourceItem 23250). data/local/mechanics
+# (quest-steps and quest-notes, checked 2026-10-20): Krellian is level 55, not
+# elite, with guards, one spawn back in 5 1/2 minutes, the shell always drops;
+# no credit in a raid group (a party is fine); 2 to 6 clones of about 150
+# health per sheep, which flee fast; the turtle Polymorph makes none.
 # Left out, not class quest chains: the raid and dungeon set quests Forever's
 # quest data has for mages (Zul'Gurub 8060, 8068, 8069, 8101-8104, 8189; Ahn'Qiraj
-# 8625, 8631-8634, 8691, 8699, 8707; Naxxramas 9095-9102, 9238-9240 and the
-# Atiesh quests 9250, 9251, 9270; the Magister's set upgrade 8907, 8915, 8932,
-# 8939, 8953, 9001, 9014, 9018). Magma or Lava? (84396, Jennea Cannon) wants a
-# book none of our data drops; Research Access (97286, Garion Wendell) has no
-# objective, reward or XP.
+# 8625, 8631-8634, 8691, 8699, 8707; Naxxramas 9095-9102, 9238-9240; the
+# Magister's set upgrade 8907, 8915, 8932, 8939, 8953, 9001, 9014, 9018); the
+# Atiesh quests 9250, 9251, 9270 are in class/mage/atiesh. Magma or Lava?
+# (84396, Jennea Cannon or Oran Snakewrithe) and Research Access (97286,
+# Garion Wendell, the Stormwind librarian) belong to Forever's library book
+# turn-ins (with 78124-82208: bring a found book to a librarian for a
+# Comprehension Charm); they teach no spell and give no class item, and
+# Magma or Lava?'s book (228133) comes from an object our data cannot place.
 
 step Sanath Lim-yo
-  tip Fly to Talrendis Point (Alliance) or Valormok (Horde). Sanath Lim-yo camps below Archmage Xylem's tower: from the fork of Azshara's main road at the Ruins of Eldarath, head straight north to the cliffs. He teleports you up to the Archmage.
+  tip Fly to Talrendis Point (Alliance) or Valormok (Horde). Sanath Lim-yo camps below Archmage Xylem's tower, a short way east of Valormok: from the fork of Azshara's main road at the Ruins of Eldarath, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower.
   level 60
   accept 9362                                 -- Archmage Xylem
 
 step Warlord Krellian
-  tip Krellian hides behind his Spitelash guards in the Temple of Zin-Malor, the biggest building in the middle of the Ruins of Eldarath. He drops the Prismatic Shell.
+  tip Warlord Krellian (level 55, not elite, Strike and Demoralizing Roar) hides behind his Spitelash guards in the Temple of Zin-Malor, the biggest building in the middle of the Ruins of Eldarath. He always drops the Prismatic Shell and is back 5 1/2 minutes after a kill. Leave any raid group first: a raid gets no credit, a party is fine.
   collect 23250 quest 9362.1                  -- Prismatic Shell: Warlord Krellian
 
 step Archmage Xylem
-  tip Back to Sanath Lim-yo and up to the tower.
+  tip Back to Sanath Lim-yo and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags.
   turnin 9362                                 -- Archmage Xylem
   accept 9364
 
 step Polymorph Clones
-  tip Carry the Prismatic Shell back to the Ruins of Eldarath. Polymorph a Spitelash naga and wait a few seconds: it splits into small Polymorph Clones. Kill the clones quickly; the shell collects their essence.
-  kill 16479 quest 9364.1                     -- Polymorph Clone
+  tip Back to the Ruins of Eldarath, full of Spitelash naga. Cast your sheep Polymorph (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with Frost Nova and Arcane Explosion. Fifty clones are needed, so it takes a while; not in a raid group.
+  kill 16479 x50 quest 9364.1                 -- Polymorph Clone
 
 step Fragmented Magic
   tip Back to Sanath Lim-yo and up to the tower.

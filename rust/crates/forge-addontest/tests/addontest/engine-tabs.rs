@@ -262,3 +262,34 @@ fn slash_commands_list_switch_and_close_tabs_guide_state_for_the_picker() {
 	assert_eq!(out["after"], json!({ "tabs": ["test/lvl"], "active": 1 }));
 	assert_eq!(out["states"], json!(["started", "started", "new"]));
 }
+
+// The class quest heads-up (UI/ClassToast.lua) opens a Class guide in a tab of its own; once its quests
+// are handed in there, the leveling tab's step for the same quests counts done from the quest log.
+#[test]
+fn a_class_chain_finished_in_its_own_tab_passes_the_leveling_route_s_class_step() {
+	let out = run(
+		"",
+		None,
+		r#"
+			Polestar.RegisterGuide({ id = "test/lvl-class", pack = "test", title = "Elwynn with Elanaria", faction = "Alliance", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "accept", quest = 783, title = "A Threat Within", map = 1429, x = 48, y = 42 } } },
+				{ goals = { { t = "accept", quest = 1684, title = "Elanaria", map = 1429, x = 60, y = 60 } } },
+				{ goals = { { t = "turnin", quest = 1684, title = "Elanaria", map = 1429, x = 60, y = 60 } } },
+				{ goals = { { t = "turnin", quest = 783, title = "A Threat Within", map = 1429, x = 49, y = 41 } } },
+			} })
+			E.SetGuide("test/lvl-class")
+			local w = stub.world
+			w.questDetail(913, 783); flush()
+			local before = E.GetStepIndex()
+			E.OpenTab("test/warrior")
+			w.questDetail(914, 1684); flush()
+			w.turnIn(1684); flush()
+			local warrior = E.GetStepIndex()
+			E.SelectTab(1); flush()
+			emit({ before = before, warrior = warrior or "done", leveling = E.GetStepIndex(), guide = E.GetGuide().id })
+		"#,
+	);
+	// The leveling tab stood at the class accept (2); the class tab finished (no step left), and the
+	// leveling tab's accept and turn-in of the same quest count done: it is on 4.
+	assert_eq!(out, json!({ "before": 2, "warrior": "done", "leveling": 4, "guide": "test/lvl-class" }));
+}

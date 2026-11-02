@@ -20,10 +20,11 @@ const CAPTION: usize = 160;
 const OFF_MAP: [f64; 2] = [-50.0, 150.0];
 
 const KEYS_TOP: &[&str] = &["schema", "frame", "source", "build", "crossings", "open", "chains"];
-const KEYS_CROSSING: &[&str] = &["id", "a", "b", "ab", "ba", "oneWay"];
+/// (`source`: where a crossing the top-level source does not cover comes from.)
+const KEYS_CROSSING: &[&str] = &["id", "a", "b", "ab", "ba", "oneWay", "source"];
 /// (`z`: the end's height, for ends on a ramp or a ledge: the crossings baked-legs measured.)
 const KEYS_END: &[&str] = &["map", "x", "y", "z", "radius", "offMap"];
-const KEYS_OPEN: &[&str] = &["a", "b", "oneWay"];
+const KEYS_OPEN: &[&str] = &["a", "b", "oneWay", "source"];
 const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
 const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "offMap"];
 

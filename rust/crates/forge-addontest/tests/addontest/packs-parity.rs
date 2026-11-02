@@ -86,6 +86,7 @@ const CASES: &[Case] = &[
 	goal("buy-itemname", "buy needs itemName", r"item 999999 is not in data", r#"{ t = "buy", item = 999999 }"#),
 	goal("level-level", "level needs level", r#"malformed level """#, r#"{ t = "level" }"#),
 	goal("money-money", "money needs money", r#"malformed amount """#, r#"{ t = "money" }"#),
+	goal("wait-seconds", "wait needs seconds", r#"malformed seconds """#, r#"{ t = "wait" }"#),
 	goal("task-text", "task needs text", r"`task` needs text", r#"{ t = "task" }"#),
 	goal("note-text", "note needs text", r"`note` needs text", r#"{ t = "note" }"#),
 	goal("skill-skill", "skill needs skill", r"`skill` needs a profession and a rank", r#"{ t = "skill", level = 75 }"#),

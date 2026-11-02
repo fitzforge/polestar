@@ -7,23 +7,35 @@ levels 50-54
 zone Azshara
 keywords Magecraft, Archmage Xylem, Sanath Lim-yo, Magic Dust, Glittering Dust, Blood Elf, The Siren's Coral, Enchanted Coral, Spitelash Siren, Destroy Morphaz, Arcane Shard, Sunken Temple, Temple of Atal'Hakkar, Mage
 reward text Experience
-why Experience at 50 through Azshara and the Sunken Temple; Forever removed the Classic item choice.
+why Experience at 50 through Azshara and the Sunken Temple; Classic's item choice may be gone on Forever.
 
 # Archmage Xylem's chain, both factions: Magecraft (8250), Magic Dust (8251),
 # The Siren's Coral (8252) and Destroy Morphaz (8253).
 # Levels 50-54: the Forever beta stops at 30 until launch on 4 November, so
 # this guide is based on data, not play.
-# Forever change (Forever's Mage class quest list,
-# data/local/quest-audit/): Destroy Morphaz no longer
-# offers the Arcane Crystal Pendant, Fire Ruby or Glacial Spike; Forever's
-# quest data (quest 8253, checked 2026-10-14) does not name what it gives instead, so the guide names no reward. 8250-8252 are
-# unchanged.
+# Forever change? Forever's Mage class quest list (data/local/quest-audit/)
+# says Destroy Morphaz no longer offers the Arcane Crystal Pendant, Fire Ruby
+# or Glacial Spike, but the same list's row and Forever's quest data (quest
+# 8253, checked 2026-10-29) still list three choices (20035, 20036, 20037), so
+# the guide names no reward and says to look. 8250-8252 are unchanged.
+# INGAME: does Destroy Morphaz (8253) still offer the Arcane Crystal Pendant, Fire Ruby or Glacial Spike on Forever, or experience only?
 # Sources: quests.json, npcs.json and items.json for the givers, Sanath Lim-yo,
 # Archmage Xylem and the blood elves and sirens that drop the dust and coral;
 # travel.json for the Azshara flight points; codex/instances.json for Morphaz as
 # a boss of the Temple of Atal'Hakkar; the Sunken Temple entrance (Swamp of
 # Sorrows 69.9,53.6) as forever/alliance/40-50/07-un-goro-crater has it; the
 # quest texts for Sanath's teleport, the cliffs and the green drake.
+# The KB drops table: Glittering Dust 25% from Blood Elf Surveyors (51) and
+# Reclaimers (52), Enchanted Coral 25% from Spitelash Sirens (50).
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20):
+# dismount for Sanath's teleport and the way back down, the blood elves'
+# spells and long aggro, the Screamers that look like Sirens but never drop
+# coral, the Lingering Highborne, Morphaz linked with Hazzas, his 24 hour respawn.
+# Morphaz's spawn order (the six balcony trolls open Jammal'an; his death
+# brings Weaver and Dreamscythe; theirs brings Morphaz and Hazzas, who cannot
+# be pulled apart): public Classic dungeon guides (2024); Forever's data has
+# no spawns inside the temple.
+# ASSUMED: Morphaz and Hazzas appear only after Weaver and Dreamscythe die, and those two only after Jammal'an (Classic flow; Forever's data has no spawns or events inside the Sunken Temple). In-game check: the drakes' order in the Pit of Sacrifice.
 # Destroy Morphaz is dungeon work (the Sunken Temple, a group of five).
 
 step Magecraft (Stormwind)
@@ -36,19 +48,19 @@ step Magecraft (Stormwind)
 step Magecraft (Orgrimmar)
   only Horde
   zone Orgrimmar
-  tip Uthel'nay, one of Orgrimmar's mage trainers, gives it; so do Pierce Shackleton in the Undercity and Archmage Shymm in Thunder Bluff.
+  tip Uthel'nay, one of Orgrimmar's mage trainers in Darkbriar Lodge, gives it; so do Pierce Shackleton in the Undercity and Archmage Shymm in Thunder Bluff.
   level 50
   accept 8250 npc 7311                        -- Uthel'nay
 
 step Sanath Lim-yo
   zone Azshara
-  tip Fly to Talrendis Point (Alliance) or Valormok (Horde). Sanath Lim-yo camps below his master's tower: from the fork of Azshara's main road at the Ruins of Eldarath, head straight north to the cliffs. He teleports you up to Archmage Xylem.
+  tip Fly to Talrendis Point (Alliance) or Valormok (Horde). Sanath Lim-yo camps below his master's tower, a short way east of Valormok: from the fork of Azshara's main road at the Ruins of Eldarath, head straight north to the cliffs. Get off your mount before he teleports you up, or the teleport may not take you. A trail with no enemies climbs to Archmage Xylem at the top of the tower; an attendant at the top sends you back down, as often as you like.
   turnin 8250                                 -- Sanath Lim-yo
   accept 8251                                 -- Archmage Xylem, in the tower
 
 step Glittering Dust
-  tip The blood elves camp along the cliffs of north-eastern Azshara; Blood Elf Surveyors and Reclaimers drop the dust.
-  collect 20028 quest 8251.1                  -- Glittering Dust
+  tip The blood elves hold the Thalassian Base Camp on the hills of north-eastern Azshara. Blood Elf Surveyors (51-52, Fire Nova up close) and Reclaimers (52-53, Fireball, and they heal and Renew each other) each drop the dust about one time in four; they spot you from far off, so pull at the edges. They come back after 5 1/2 minutes.
+  collect 20028 x10 quest 8251.1              -- Glittering Dust
 
 step Archmage Xylem
   tip Back to Sanath Lim-yo, who teleports you up to the tower.
@@ -56,8 +68,8 @@ step Archmage Xylem
   accept 8252
 
 step Enchanted Coral
-  tip The Spitelash Sirens walk the ruins and beaches around the Ruins of Eldarath and the bay; they carry the coral.
-  collect 20029 quest 8252.1                  -- Enchanted Coral: Spitelash Siren
+  tip The Spitelash Sirens (level 50-52) walk the ruins and beaches around the Ruins of Eldarath and the bay east of Valormok, often three together, and a few stand inside the Temple of Zin-Malor; each drops a coral about one time in four. The Spitelash Screamers look almost the same but never drop it. Killing the other naga there makes more Sirens appear in their spots. Lingering Highborne ghosts wander the ruins: watch your back.
+  collect 20029 x6 quest 8252.1               -- Enchanted Coral: Spitelash Siren
 
 step Archmage Xylem again
   tip Back to Sanath Lim-yo and up to the tower.
@@ -66,10 +78,10 @@ step Archmage Xylem again
 
 step Morphaz
   zone Swamp of Sorrows
-  tip Morphaz, a green drake, waits deep in the Temple of Atal'Hakkar, the Sunken Temple in the Pool of Tears: a group of five, level 50-54. Kill him for the Arcane Shard.
+  tip The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears: climb the steps into the sunken building, swim down through it and follow the passage down to the portal. A group of five, level 50-54. Morphaz is not waiting when you arrive. First kill the six troll guardians (elites of 50-52) on the platforms around the upper ring; that opens the way down (the left-hand ramp from the entrance) to Jammal'an the Prophet and Ogom the Wretched in the Pit of Sacrifice. Once Jammal'an dies, two green drakes, Weaver and Dreamscythe, come out and patrol the pit: pull them one at a time. When both are dead, Morphaz (level 52 elite, Acid Breath and Wing Flap) and Hazzas appear together and cannot be split, so fight both. The shard always drops. Hunters, Priests and Rogues of 50 need Morphaz too: a group of them shares one clear.
   collect 20085 quest 8253.1 @69.9,53.6       -- Arcane Shard: Morphaz
 
 step The Arcane Shard
   zone Azshara
-  tip Back to Azshara, Sanath Lim-yo and the tower.
+  tip Back to Azshara, Sanath Lim-yo and the tower. Look at the reward window before you hand in: Classic offered the Arcane Crystal Pendant, the Fire Ruby or the Glacial Spike, and Forever's notes say the choice may be gone.
   turnin 8253                                 -- Archmage Xylem

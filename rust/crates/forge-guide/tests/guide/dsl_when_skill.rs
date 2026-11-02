@@ -48,6 +48,20 @@ fn the_resolver_gives_the_profession_its_skill_line_and_data_name_case_aside_an_
 }
 
 #[test]
+fn a_weapon_skill_reads_its_skill_line_by_either_spelling_with_no_warning() {
+	// (The weapon master steps' gate: `when !skill "Two-Handed Axes" 1` while the character has not
+	// learned the skill; the trainer's "One-Handed Swords" is the Swords line.)
+	let text = guide_text(&["step One", "  when !skill \"Two-Handed Axes\" 1", "  when !skill \"one-handed swords\" 1", "  accept 783"]);
+	let r = compile(&text);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert_eq!(
+		r.steps()[0]["when"],
+		json!([{ "k": "skill", "neg": true, "name": "Two-Handed Axes", "n": 1, "skillLine": 172 }, { "k": "skill", "neg": true, "name": "Swords", "n": 1, "skillLine": 43 }])
+	);
+	assert!(r.warned("profession").is_empty(), "{}", r.text);
+}
+
+#[test]
 fn a_step_that_asks_for_a_skill_rank_and_its_bang_warns_that_no_character_sees_it() {
 	let text = guide_text(&["step One", "  when skill Mining 50", "  when !skill Mining 50", "  accept 783"]);
 	let r = compile(&text);

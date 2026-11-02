@@ -1,5 +1,5 @@
 -- Korean (koKR): the guide forever/exploration/eastern-kingdoms-1-30 (forever/exploration/eastern-kingdoms-1-30.guide).
--- Written by `node tools/polestar.js i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Korean (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -20,43 +20,43 @@ return {
 	-- Step 2: Elwynn Forest (2/2)
 	["any one of these names counts"] = "이 이름 중 하나만 발견해도 됩니다",
 
-	-- Step 3: Westfall (1/2)
-	["14 areas to discover here, levels 9-18."] = "이곳에서 발견할 지역은 14곳, 레벨 9-18입니다.",
-	-- {zone:1436} Westfall · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison
-	["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436}은(는) {zone:1429}의 서쪽에 붙어 있습니다. {area:120}을(를) 지나 길을 따라 나가세요.",
-	-- {area:108} Sentinel Hill
-	["Flight path here: {area:108} (Thor)."] = "이곳의 비행 경로: {area:108} (토르).",
-
-	-- Step 5: Duskwood (1/2)
-	["13 areas to discover here, levels 10-30."] = "이곳에서 발견할 지역은 13곳, 레벨 10-30입니다.",
-	-- {zone:1431} Duskwood · {zone:1436} Westfall · {zone:1429} Elwynn Forest · {area:42} Darkshire
-	["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431}은(는) {zone:1436}의 동쪽, {zone:1429}의 남쪽에 있습니다. 길이 동쪽으로 {area:42}까지 이어집니다.",
-	-- {area:42} Darkshire · {npc:2409} Felicia Maline
-	["Flight path here: {area:42} ({npc:2409})."] = "이곳의 비행 경로: {area:42} ({npc:2409}).",
-
-	-- Step 7: Redridge Mountains (1/2)
-	["11 areas to discover here, levels 15-24."] = "이곳에서 발견할 지역은 11곳, 레벨 15-24입니다.",
-	-- {area:1002} Three Corners · {zone:1429} Elwynn Forest · {zone:1431} Duskwood
-	["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "붉은마루 산맥은 {zone:1429}와(과) {zone:1431}에서 오는 길이 만나는 {area:1002}에서 시작됩니다.",
-	-- {area:69} Lakeshire · {npc:931} Ariena Stormfeather
-	["Flight path here: {area:69} ({npc:931})."] = "이곳의 비행 경로: {area:69} ({npc:931}).",
-
-	-- Step 9: Dun Morogh (1/3)
+	-- Step 3: Dun Morogh (1/3)
 	["18 areas to discover here, levels 4-12."] = "이곳에서 발견할 지역은 18곳, 레벨 4-12입니다.",
 	-- {area:2257} Deeprun Tram · {zone:1453} Stormwind City · {object:28027} Dwarven District · {zone:1455} Ironforge
-	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "{zone:1453}의 {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가세요(또는 {zone:1455}(으)로 날아가세요). 그런 다음 성문을 통해 도시를 나가세요.",
+	["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455}, then leave the city through its gates."] = "",
 
-	-- Step 12: Loch Modan (1/2)
+	-- Step 6: Loch Modan (1/2)
 	["11 areas to discover here, levels 10-18."] = "이곳에서 발견할 지역은 11곳, 레벨 10-18입니다.",
-	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:925} Algaz Station
-	["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "동쪽 관문 터널을 지나 {zone:1426}을(를) 떠나세요. 터널은 {area:925}에서 {zone:1432}(으)로 이어집니다.",
+	-- {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:924} Valley of Kings
+	["Leave {zone:1426} east through the South Gate tunnel; it opens into {zone:1432} by the dwarf king statues of the {area:924}."] = "",
 	-- {area:144} Thelsamar · {npc:1572} Thorgrum Borrelson
 	["Flight path here: {area:144} ({npc:1572})."] = "이곳의 비행 경로: {area:144} ({npc:1572}).",
 
+	-- Step 8: Westfall (1/2)
+	["14 areas to discover here, levels 9-18."] = "이곳에서 발견할 지역은 14곳, 레벨 9-18입니다.",
+	-- {area:144} Thelsamar · {zone:1453} Stormwind City · {zone:1455} Ironforge · {area:2257} Deeprun Tram · {zone:1429} Elwynn Forest · {area:120} Westbrook Garrison · {zone:1436} Westfall
+	["Fly from {area:144} to {zone:1453} if you have its flight path; otherwise ride back to {zone:1455} and take the {area:2257}. Walk west out of {zone:1429} past the {area:120} into {zone:1436}."] = "",
+	-- {area:108} Sentinel Hill
+	["Flight path here: {area:108} (Thor)."] = "이곳의 비행 경로: {area:108} (토르).",
+
+	-- Step 10: Redridge Mountains (1/2)
+	["11 areas to discover here, levels 15-24."] = "이곳에서 발견할 지역은 11곳, 레벨 15-24입니다.",
+	-- {zone:1429} Elwynn Forest · {area:88} Eastvale Logging Camp · {area:1002} Three Corners · {zone:1431} Duskwood
+	["Go back east through {zone:1429}: the road past the {area:88} enters Redridge at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "",
+	-- {area:69} Lakeshire · {npc:931} Ariena Stormfeather
+	["Flight path here: {area:69} ({npc:931})."] = "이곳의 비행 경로: {area:69} ({npc:931}).",
+
+	-- Step 12: Duskwood (1/2)
+	["13 areas to discover here, levels 10-30."] = "이곳에서 발견할 지역은 13곳, 레벨 10-30입니다.",
+	-- {area:1002} Three Corners · {zone:1431} Duskwood · {area:42} Darkshire
+	["From {area:1002} take the road south into {zone:1431}; {area:42} is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."] = "",
+	-- {area:42} Darkshire · {npc:2409} Felicia Maline
+	["Flight path here: {area:42} ({npc:2409})."] = "이곳의 비행 경로: {area:42} ({npc:2409}).",
+
 	-- Step 14: Wetlands (1/2)
 	["15 areas to discover here, levels 20-30."] = "이곳에서 발견할 지역은 15곳, 레벨 20-30입니다.",
-	-- {area:925} Algaz Station · {area:836} Dun Algaz · {zone:1437} Wetlands
-	["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "{area:925}에서 {area:836} 고개를 지나 북쪽으로 가는 길이 {zone:1437}(으)로 이어집니다.",
+	-- {area:42} Darkshire · {area:144} Thelsamar · {zone:1432} Loch Modan · {area:836} Dun Algaz · {zone:1437} Wetlands
+	["Fly from {area:42} to {area:144} in {zone:1432} and ride north through the {area:836} pass into the {zone:1437}."] = "",
 	-- {area:150} Menethil Harbor · {npc:1571} Shellei Brondir
 	["Flight path here: {area:150} ({npc:1571})."] = "이곳의 비행 경로: {area:150} ({npc:1571}).",
 	-- {area:1038} Dragonmaw Gates · {area:1037} Grim Batol
@@ -64,8 +64,8 @@ return {
 
 	-- Step 16: Hillsbrad Foothills (1/2)
 	["12 areas to discover here, levels 20-31."] = "이곳에서 발견할 지역은 12곳, 레벨 20-31입니다.",
-	-- {area:881} Thandol Span · {zone:1437} Wetlands · {zone:1417} Arathi Highlands · {area:320} Refuge Pointe · {zone:1424} Hillsbrad Foothills
-	["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "{zone:1437} 북쪽의 {area:881}을(를) 건너 {zone:1417}(으)로 가세요(길 밖에는 레벨 30 이상 몬스터). 길을 따라 서쪽으로 {area:320}을(를) 지나 {zone:1424}(으)로 가세요.",
+	-- {area:150} Menethil Harbor · {area:271} Southshore
+	["Take the boat from {area:150} to {area:271}."] = "",
 	-- {area:271} Southshore · {npc:2432} Darla Harris
 	["Flight path here: {area:271} ({npc:2432})."] = "이곳의 비행 경로: {area:271} ({npc:2432}).",
 	-- {area:272} Tarren Mill
@@ -110,16 +110,12 @@ return {
 	["At the south end of Silverpine the road turns east into {zone:1424} by {area:285}. {area:272} in the north-east is the Horde town; {area:271} is Alliance."] = "은빛소나무 숲 남쪽 끝에서 길은 {area:285} 옆에서 동쪽으로 꺾여 {zone:1424}(으)로 이어집니다. 북동쪽의 {area:272}은(는) 호드 마을이고, {area:271}은(는) 얼라이언스 마을입니다.",
 	-- {area:272} Tarren Mill
 	["Flight path here: {area:272} (Zarise)."] = "이곳의 비행 경로: {area:272} (자라이즈).",
-
-	-- Step 29: Hillsbrad Foothills (2/2)
 	-- {area:271} Southshore
 	["Alliance guards: touch the edge of {area:271} and move on"] = "얼라이언스 경비병: {area:271}의 가장자리만 밟고 지나가세요",
 
 	-- Step 30: Wetlands (1/2)
 	-- {area:287} Hillsbrad · {zone:1417} Arathi Highlands · {area:881} Thandol Span · {zone:1437} Wetlands · {area:150} Menethil Harbor
 	["Walk east from {area:287} into the {zone:1417} (level 30+ creatures off the road), south to the {area:881} bridge, and across it into the {zone:1437}. {area:150} is an Alliance town."] = "{area:287}에서 동쪽으로 걸어 {zone:1417}(으)로 가세요(길 밖에는 레벨 30 이상 몬스터). 남쪽의 {area:881} 다리로 가서 건너면 {zone:1437}입니다. {area:150}은(는) 얼라이언스 마을입니다.",
-
-	-- Step 31: Wetlands (2/2)
 	-- {area:150} Menethil Harbor
 	["Alliance guards: touch the edge of {area:150} and move on"] = "얼라이언스 경비병: {area:150}의 가장자리만 밟고 지나가세요",
 
@@ -132,8 +128,8 @@ return {
 	["Alliance guards: touch the edge of {area:144} and move on"] = "얼라이언스 경비병: {area:144}의 가장자리만 밟고 지나가세요",
 
 	-- Step 34: Dun Morogh (1/3)
-	-- {area:925} Algaz Station · {zone:1426} Dun Morogh · {area:131} Kharanos · {zone:1455} Ironforge
-	["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "{area:925}에서 서쪽 터널을 지나 {zone:1426}(으)로 가세요. {area:131}와(과) {zone:1455} 성문은 얼라이언스 지역입니다.",
+	-- {area:925} Algaz Station · {area:807} North Gate Pass · {zone:1426} Dun Morogh · {area:131} Kharanos · {zone:1455} Ironforge
+	["From {area:925} take the {area:807} tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "",
 
 	-- Step 35: Dun Morogh (2/3)
 	-- {area:809} Gates of Ironforge
@@ -177,9 +173,16 @@ return {
 	["Alliance guards: touch the edge of {area:69} and move on"] = "얼라이언스 경비병: {area:69}의 가장자리만 밟고 지나가세요",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cross the {area:881} in northern {zone:1437} into the {zone:1417} (level 30+ creatures off the road), follow the road west past {area:320} and on into {zone:1424}."] = "{zone:1437} 북쪽의 {area:881}을(를) 건너 {zone:1417}(으)로 가세요(길 밖에는 레벨 30 이상 몬스터). 길을 따라 서쪽으로 {area:320}을(를) 지나 {zone:1424}(으)로 가세요.",
 	-- ["Flight path here: {area:228} ({npc:2226})."] = "이곳의 비행 경로: {area:228} ({npc:2226}).",
+	-- ["From {area:925} take the tunnel west into {zone:1426}. {area:131} and {zone:1455}'s gates are Alliance ground."] = "{area:925}에서 서쪽 터널을 지나 {zone:1426}(으)로 가세요. {area:131}와(과) {zone:1455} 성문은 얼라이언스 지역입니다.",
+	-- ["From {area:925}, the road north through the {area:836} pass leads into the {zone:1437}."] = "{area:925}에서 {area:836} 고개를 지나 북쪽으로 가는 길이 {zone:1437}(으)로 이어집니다.",
 	-- ["Horde guards: touch the edge of {area:228} and move on"] = "호드 경비병: {area:228}의 가장자리만 밟고 지나가세요",
+	-- ["Leave {zone:1426} east through the gate tunnel; it opens into {zone:1432} at {area:925}."] = "동쪽 관문 터널을 지나 {zone:1426}을(를) 떠나세요. 터널은 {area:925}에서 {zone:1432}(으)로 이어집니다.",
+	-- ["Redridge starts at {area:1002}, where the roads from {zone:1429} and {zone:1431} meet."] = "붉은마루 산맥은 {zone:1429}와(과) {zone:1431}에서 오는 길이 만나는 {area:1002}에서 시작됩니다.",
 	-- ["Take the {area:2257} from {zone:1453}'s {object:28027} to {zone:1455} (or fly to {zone:1455}), then leave the city through its gates."] = "{zone:1453}의 {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가세요(또는 {zone:1455}(으)로 날아가세요). 그런 다음 성문을 통해 도시를 나가세요.",
 	-- ["The {area:228}"] = "{area:228}",
 	-- ["{zone:1429} is north of {zone:1436} and {zone:1431}. {area:87}, {area:9} and {zone:1453}'s gates are Alliance ground with guards."] = "{zone:1429}은(는) {zone:1436}와(과) {zone:1431}의 북쪽에 있습니다. {area:87}, {area:9}, {zone:1453} 성문은 경비병이 있는 얼라이언스 지역입니다.",
+	-- ["{zone:1431} is east of {zone:1436} and south of {zone:1429}. Its road runs east to {area:42}."] = "{zone:1431}은(는) {zone:1436}의 동쪽, {zone:1429}의 남쪽에 있습니다. 길이 동쪽으로 {area:42}까지 이어집니다.",
+	-- ["{zone:1436} borders {zone:1429} to the west: follow the road out past the {area:120}."] = "{zone:1436}은(는) {zone:1429}의 서쪽에 붙어 있습니다. {area:120}을(를) 지나 길을 따라 나가세요.",
 }

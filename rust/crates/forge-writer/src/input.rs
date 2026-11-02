@@ -3,6 +3,7 @@
 //! Every field is optional as the JS writer reads it (`(x || {}).y || []`), so small worlds and
 //! data sets (the tests') parse too.
 
+use serde::de::DeserializeOwned;
 use serde::{Deserialize, Deserializer};
 use serde_json::Value;
 use std::collections::BTreeMap;
@@ -19,6 +20,14 @@ fn lenient_usize<'de, D: Deserializer<'de>>(d: D) -> Result<Option<usize>, D::Er
 	Ok(Value::deserialize(d)?.as_u64().map(|x| x as usize))
 }
 
+/// An array whose elements parse (others, and a value that is no array: left out).
+fn lenient_vec<'de, D: Deserializer<'de>, T: DeserializeOwned>(d: D) -> Result<Vec<T>, D::Error> {
+	Ok(match Value::deserialize(d)? {
+		Value::Array(a) => a.into_iter().filter_map(|x| serde_json::from_value(x).ok()).collect(),
+		_ => Vec::new(),
+	})
+}
+
 fn lenient_str<'de, D: Deserializer<'de>>(d: D) -> Result<Option<String>, D::Error> {
 	Ok(match Value::deserialize(d)? {
 		Value::String(s) => Some(s),
@@ -26,13 +35,24 @@ fn lenient_str<'de, D: Deserializer<'de>>(d: D) -> Result<Option<String>, D::Err
 	})
 }
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+/// The route's order, each event knowing its index (`Order::ix`).
+fn indexed_order<'de, D: Deserializer<'de>>(d: D) -> Result<Vec<Order>, D::Error> {
+	let mut order = Vec::<Order>::deserialize(d)?;
+	for (i, o) in order.iter_mut().enumerate() {
+		o.ix = Some(i);
+	}
+	Ok(order)
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash)]
 pub enum OrderT {
 	Accept,
 	Turnin,
 	Task,
 	Train,
 	Level,
+	/// Riding training at a riding trainer (`npc`), placed by the planner at 40 or later.
+	Ride,
 	Other,
 }
 
@@ -44,6 +64,7 @@ impl<'de> Deserialize<'de> for OrderT {
 			Some("task") => OrderT::Task,
 			Some("train") => OrderT::Train,
 			Some("level") => OrderT::Level,
+			Some("ride") => OrderT::Ride,
 			_ => OrderT::Other,
 		})
 	}
@@ -55,6 +76,10 @@ pub enum ItemT {
 	Hearth,
 	Network,
 	Getfp,
+	/// A deathskip (`die` at a graveyard's Spirit Healer).
+	Deathskip,
+	/// A quest item bought at a stop on the way (`q`'s item objective, at the vendor at `pt`).
+	Buy,
 	Other,
 }
 
@@ -65,12 +90,14 @@ impl<'de> Deserialize<'de> for ItemT {
 			Some("hearth") => ItemT::Hearth,
 			Some("network") => ItemT::Network,
 			Some("getfp") => ItemT::Getfp,
+			Some("deathskip") => ItemT::Deathskip,
+			Some("buy") => ItemT::Buy,
 			_ => ItemT::Other,
 		})
 	}
 }
 
-/// A route item: a bind, hearth, flight leg (`network`) or flight path learned (`getfp`).
+/// A route item: a bind, hearth, flight leg (`network`), flight path learned (`getfp`), deathskip or buy.
 #[derive(Clone, Debug, Deserialize, PartialEq)]
 pub struct Item {
 	pub t: ItemT,
@@ -93,6 +120,17 @@ pub struct Item {
 	/// The sim's own path for a travel item (walks, flights between nodes, rides), when it gives it.
 	#[serde(default)]
 	pub legs: Option<Vec<Leg>>,
+	/// A deathskip's graveyard (world.graveyards index), the spot died at (world point) and one of
+	/// its mobs (npc id).
+	#[serde(default, deserialize_with = "lenient_usize")]
+	pub gy: Option<usize>,
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub spot: Option<u32>,
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub npc: Option<u32>,
+	/// A buy's quest.
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub q: Option<u32>,
 }
 
 /// One part of a travel item's path: `walk` to a point, `fly` between taxi nodes, `ride` a boat or
@@ -126,15 +164,36 @@ pub struct Order {
 	pub from: Option<String>,
 	#[serde(default)]
 	pub items: Option<Vec<Item>>,
-	/// The character's level at the event; for a `level` item, the route's grind target (15.91).
+	/// The character's level before the event (routes before the `target` field: for a `level` item,
+	/// the grind target).
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub lvl: Option<f64>,
+	/// A `level` item's fractional grind target (15.91).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub target: Option<f64>,
+	/// A `level` item's minutes of grinding in the route's model (routes before the field: none).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub min: Option<f64>,
+	/// A `ride` item's riding trainer.
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub npc: Option<u32>,
+	/// The group family (its root quest, a `groups` entry) a quest's event belongs to.
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub group: Option<u32>,
 	/// The v1 line an event written as an added quest's came from.
 	#[serde(skip)]
 	pub v1from: Option<String>,
 	/// `from` as a chain line (file index, line), when it is one.
 	#[serde(skip)]
 	pub key: Option<crate::guide::Key>,
+	/// The event's index in the route's order (the events written from it keep it through the
+	/// writer's reordering: a `soloFallback`'s `after`).
+	#[serde(skip)]
+	pub ix: Option<usize>,
+	/// Another start's event in the faction's shared order (shared.rs faction_tail), not the canonical
+	/// start's: a stop some starts alone make.
+	#[serde(default)]
+	pub extra: bool,
 }
 
 impl Order {
@@ -157,6 +216,54 @@ pub struct Diff {
 	pub dropped: Vec<u32>,
 }
 
+/// A mob of a group family's elite work.
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct GroupMob {
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub npc: Option<u32>,
+	#[serde(default, deserialize_with = "lenient_str")]
+	pub name: Option<String>,
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub level: Option<f64>,
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub rank: Option<u32>,
+}
+
+/// An elite or group quest family the route takes (forge-sim): its root quest `q` (the one the player's
+/// answer is about), the group `size` advised (1: a soloable elite), the highest elite `level`, the
+/// elite mobs, the quests of the family the route takes, and why it takes them.
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct Group {
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub q: Option<u32>,
+	#[serde(default, deserialize_with = "lenient_str")]
+	pub title: Option<String>,
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub size: Option<u32>,
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub level: Option<f64>,
+	#[serde(default, deserialize_with = "lenient_vec")]
+	pub mobs: Vec<GroupMob>,
+	#[serde(default, deserialize_with = "lenient_vec")]
+	pub quests: Vec<u32>,
+	#[serde(default, deserialize_with = "lenient_str")]
+	pub why: Option<String>,
+}
+
+/// The grind that gives a player who skips a group family its XP back: right after the guide step
+/// holding the order entry `after`, to level `target` (`min` minutes for a solo player).
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct SoloFallback {
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub root: Option<u32>,
+	#[serde(default, deserialize_with = "lenient_usize")]
+	pub after: Option<usize>,
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub target: Option<f64>,
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub min: Option<f64>,
+}
+
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct Route {
 	/// The data the route's world was built from (its point ids are that world's).
@@ -174,8 +281,24 @@ pub struct Route {
 	pub improved: Option<Hours>,
 	#[serde(default)]
 	pub diff: Option<Diff>,
-	#[serde(default)]
+	#[serde(default, deserialize_with = "indexed_order")]
 	pub order: Vec<Order>,
+	/// The faction's shared route (forge-sim's shared_faction): `joinAt`, the guide stem (in any
+	/// folder) from whose first step on every start of the faction plays the same order (older
+	/// routes: `joinAfter`, the guide after which).
+	#[serde(default)]
+	pub shared: Option<Value>,
+	/// The elite and group quest families the route takes (none: the route takes none).
+	#[serde(default, deserialize_with = "lenient_vec")]
+	pub groups: Vec<Group>,
+	/// Per family, the grind a player who skips it makes instead.
+	#[serde(default, rename = "soloFallback", deserialize_with = "lenient_vec")]
+	pub solo_fallback: Vec<SoloFallback>,
+	/// The quests the planner left out for their value or a chain the route does not open (the skip
+	/// ledger beside the route, `<start>.skips.json`, reasons `low-value` and `chain-not-open`): v1's
+	/// lines of one no route event takes are not written (native.rs reads them).
+	#[serde(default, rename = "leftOut")]
+	pub left_out: Vec<u32>,
 }
 
 /// A world point: `[c, region, wx, wy, map, z?]`.
@@ -205,6 +328,9 @@ pub struct WObj {
 	pub id: Option<f64>,
 	#[serde(default, deserialize_with = "lenient_u32")]
 	pub task: Option<u32>,
+	/// How many the objective wants (one Matriarch's claw: a named mob's, no camp).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub count: Option<f64>,
 }
 
 impl WObj {
@@ -216,6 +342,9 @@ impl WObj {
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct WQuest {
 	pub id: u32,
+	/// How long the item a delivery starts from lasts, seconds (Scalding Mornbrew Delivery: 300).
+	#[serde(default, rename = "sourceDur", deserialize_with = "lenient_num")]
+	pub source_dur: Option<f64>,
 	#[serde(default)]
 	pub objs: Vec<WObj>,
 	/// The points of its quest giver and ender.
@@ -223,6 +352,29 @@ pub struct WQuest {
 	pub giver: Option<u32>,
 	#[serde(default, deserialize_with = "lenient_u32")]
 	pub ender: Option<u32>,
+	/// The quests that close it once taken (its exclusive partners, and for a breadcrumb the quest it
+	/// leads to).
+	#[serde(default)]
+	pub excl: Vec<i64>,
+	/// Its tasks (the route's `task` index is a position here): the hand-in is ready once each is done.
+	#[serde(default)]
+	pub tasks: Option<Vec<WTask>>,
+	/// The quests before it, as the world has them (a negative id: any one of them).
+	#[serde(default)]
+	pub pre: Option<Vec<i64>>,
+}
+
+/// One task of a world quest: its work, `[kind, ...]` each (`["buy"]`, `["kill", n, ...]`).
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct WTask {
+	#[serde(default)]
+	pub work: Vec<Vec<Value>>,
+}
+
+impl WTask {
+	pub fn is(&self, kind: &str) -> bool {
+		self.work.iter().any(|w| w.first().and_then(Value::as_str) == Some(kind))
+	}
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
@@ -250,6 +402,8 @@ pub struct Ride {
 	pub b: Option<usize>,
 	/// Its kind, from the id's head: `boat`, `zeppelin`, `tram`, `portal`, `lift`.
 	pub kind: Option<&'static str>,
+	/// Its seconds aboard and its wait for departure, together.
+	pub secs: f64,
 }
 
 impl<'de> Deserialize<'de> for Ride {
@@ -257,8 +411,10 @@ impl<'de> Deserialize<'de> for Ride {
 		let v: Vec<Value> = Vec::deserialize(d)?;
 		let f = |i: usize| v.get(i).and_then(Value::as_u64).map(|x| x as usize);
 		let id = v.get(4).and_then(Value::as_str).unwrap_or("");
-		let kind = ["boat", "zeppelin", "tram", "portal", "lift"].into_iter().find(|k| id.starts_with(k));
-		Ok(Ride { a: f(0), b: f(1), kind })
+		// (Zephras Isle's way off, the airship or the zeppelin and Skyborne portal: `exit`.)
+		let kind = ["boat", "zeppelin", "tram", "portal", "lift"].into_iter().find(|k| id.starts_with(k)).or_else(|| id.starts_with("Zephras Isle").then_some("exit"));
+		let s = |i: usize| v.get(i).and_then(Value::as_f64).unwrap_or(0.0);
+		Ok(Ride { a: f(0), b: f(1), kind, secs: s(2) + s(3) })
 	}
 }
 
@@ -277,9 +433,21 @@ pub struct World {
 	pub nodes: Vec<Node>,
 	#[serde(default)]
 	pub rides: Vec<Ride>,
+	/// The faction's graveyards (forge-world World::graveyards): name and Spirit Healer's point.
+	#[serde(default)]
+	pub graveyards: Vec<Graveyard>,
 	/// The data the world was built from (the walk store must be built on the same).
 	#[serde(default, rename = "dataHash", deserialize_with = "lenient_str")]
 	pub data_hash: Option<String>,
+}
+
+/// A graveyard of the world (the parts the writer reads).
+#[derive(Clone, Debug, Default, Deserialize)]
+pub struct Graveyard {
+	#[serde(default, deserialize_with = "lenient_str")]
+	pub name: Option<String>,
+	#[serde(default, deserialize_with = "lenient_u32")]
+	pub pt: Option<u32>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
@@ -322,6 +490,29 @@ pub struct Quest {
 	pub repeatable: Option<Value>,
 	#[serde(default, rename = "minLevel", deserialize_with = "lenient_num")]
 	pub min_level: Option<f64>,
+	/// The races that may take it (race bits; Skyborne past 32 bits), None or 0: any.
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub races: Option<f64>,
+	/// The classes that may take it (class bits), None or 0: any.
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub classes: Option<f64>,
+	/// The quests before it (ids; a negative one: any of them).
+	#[serde(default)]
+	pub pre: Option<Vec<Value>>,
+	/// The quests one of which comes before it (ids).
+	#[serde(default, rename = "preAny")]
+	pub pre_any: Option<Vec<Value>>,
+	/// The quest that must be in the log, not handed in, for this one to be offered (Chapter I-IV
+	/// 339-342 inside The Green Hills of Stranglethorn 338); the data lists it in `pre` too.
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub parent: Option<f64>,
+	/// Items the quest needs that are not among its objectives (the halves of the Pendant of the Sea
+	/// Lion for Trial of the Sea Lion).
+	#[serde(default, rename = "requiredItems")]
+	pub required_items: Option<Vec<Value>>,
+	/// The item the quest gives when taken (Dogran's Pendant for The Binding).
+	#[serde(default, rename = "sourceItem", deserialize_with = "lenient_num")]
+	pub source_item: Option<f64>,
 }
 
 impl Quest {
@@ -363,14 +554,27 @@ pub struct Spawn {
 pub struct Entity {
 	#[serde(default, deserialize_with = "lenient_str")]
 	pub name: Option<String>,
+	/// "Mage Trainer" and the like.
+	#[serde(default, rename = "subName", deserialize_with = "lenient_str")]
+	pub sub_name: Option<String>,
+	/// "A", "H", or both.
+	#[serde(default, deserialize_with = "lenient_str")]
+	pub faction: Option<String>,
 	#[serde(default)]
 	pub spawns: BTreeMap<u32, Spawn>,
+	/// An npc's level (its lowest).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub level: Option<f64>,
+	/// An npc's rank: 1 elite, 2 rare elite, 3 boss, 4 rare.
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub rank: Option<f64>,
 }
 
 #[derive(Clone, Debug, Default, Deserialize)]
 pub struct Drops {
 	#[serde(default)]
-	pub npc: BTreeMap<u32, serde::de::IgnoredAny>,
+	/// Droppers -> their drop chance in percent (null: unknown).
+	pub npc: BTreeMap<u32, Value>,
 	#[serde(default)]
 	pub object: BTreeMap<u32, serde::de::IgnoredAny>,
 }
@@ -382,9 +586,13 @@ pub struct GameItem {
 	#[serde(default)]
 	pub drops: Option<Drops>,
 	#[serde(default)]
-	pub vendors: Option<Vec<serde::de::IgnoredAny>>,
+	/// The NPCs that sell it (ids).
+	pub vendors: Option<Vec<serde_json::Value>>,
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub duration: Option<f64>,
+	/// A quest item: it drops only for a player on the quest that needs it.
+	#[serde(default, rename = "questItem")]
+	pub quest_item: Option<bool>,
 }
 
 impl GameItem {

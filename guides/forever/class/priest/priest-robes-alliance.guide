@@ -1,0 +1,112 @@
+guide forever/class/priest/priest-robes-alliance
+title Priest Robes at 5 (Alliance)
+category Class
+class Priest
+folder Priest
+faction Alliance
+race Human,Dwarf,Gnome,NightElf
+levels 5-6
+zone Elwynn Forest
+keywords Garments of the Light, Garments of the Moon, In Favor of the Light, In Favor of Elune, Friar's Robes of the Light, Moon Robes of Elune, Guard Roberts, Mountaineer Dolf, Sentinel Shaya, Lesser Heal, Power Word: Fortitude, robe, Priest
+reward item 16605
+reward item 16604
+why A free uncommon robe at 5: heal and fortify a wounded guard near your first town.
+
+# The level 5 Priest robe quests, one pair per race; the first quest is a
+# letter from the start-area priest trainer to the trainer in the first town,
+# who sends you to heal a wounded guard nearby:
+#   Human: In Favor of the Light 5623 (Priestess Anetta, Northshire Abbey) to
+#     Priestess Josetta (Goldshire), then Garments of the Light 5624: Guard
+#     Roberts by the lake east of Goldshire. Friar's Robes of the Light.
+#   Dwarf and Gnome: In Favor of the Light 5626 (Branstock Khalder, Anvilmar
+#     in Coldridge Valley) to Maxan Anvol (Kharanos), then Garments of the
+#     Light 5625: Mountaineer Dolf south of Kharanos. Friar's Robes of the
+#     Light.
+#   Night Elf: In Favor of Elune 5622 (Shanda, Aldrassil in Shadowglen) to
+#     Laurna Morninglight (Dolanaar), then Garments of the Moon 5621: Sentinel
+#     Shaya by Lake Al'Ameth south of Dolanaar. Moon Robes of Elune.
+# The objective counts only Lesser Heal Rank 2 (level 4, 1 silver at any
+# priest trainer: the trainer tables) followed by Power Word: Fortitude
+# (rank 1 at level 1, 10 copper). The robes: uncommon cloth chest, +1
+# Spirit, bind on pickup (Friar's Robes item level 5, 10 armor; Moon Robes
+# item level 10, 19 armor), from a Forever web database of the class quests.
+# Sources: quests.json, npcs.json (every giver, ender and wounded NPC) and
+# Forever's quest data (KB: level 4, needs 5, 270 XP each Garments quest);
+# quest notes (data/local/mechanics/quest-notes.json) for the spots, the
+# respawns (Roberts 3 minutes, Shaya and Dolf about 5) and the cast order;
+# Forever's quest pages (snapshot) agree on every giver and objective.
+# The leveling routes leave these quests out (a robe, not a spell); this
+# guide is the only place they are.
+# Based on data, not play: written from the sources above.
+
+step In Favor of the Light
+  only Human
+  zone Elwynn Forest
+  tip At 5, Priestess Anetta, the priest trainer inside Northshire Abbey, sends you to Priestess Josetta in Goldshire. Train Lesser Heal (Rank 2) from Anetta while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank.
+  level 5
+  accept 5623                                 -- Priestess Anetta
+
+step Priestess Josetta
+  only Human
+  tip Follow the road south out of Northshire Valley to Goldshire. Priestess Josetta is upstairs in the Lion's Pride Inn.
+  turnin 5623                                 -- Priestess Josetta
+  accept 5624
+  train class                                 -- Lesser Heal (Rank 2), if Anetta did not teach it yet
+
+step Guard Roberts
+  only Human
+  tip Guard Roberts kneels by a tree on the lake shore east of Goldshire, off the road: walk along the shore, the minimap misses him from the road. Cast Lesser Heal (Rank 2) on him first, then Power Word: Fortitude. Rank 1 of Lesser Heal does not count; drag Rank 2 onto your bar from the spellbook (or cast both from the spellbook if an action bar addon gets in the way). He walks off once both land and is back in about 3 minutes.
+  kill 12423 quest 5624.1 "Heal and fortify Guard Roberts"
+
+step Priestess Josetta
+  only Human
+  tip Back upstairs in the Lion's Pride Inn: Josetta gives you Friar's Robes of the Light.
+  turnin 5624 reward 16605                    -- Priestess Josetta
+
+step In Favor of the Light
+  only Dwarf,Gnome
+  zone Dun Morogh
+  tip At 5, Branstock Khalder, the priest trainer inside Anvilmar in Coldridge Valley, sends you to Maxan Anvol in Kharanos. Train Lesser Heal (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank.
+  level 5
+  accept 5626                                 -- Branstock Khalder
+
+step Maxan Anvol
+  only Dwarf,Gnome
+  tip Take the tunnel north-east out of Coldridge Valley and follow the road east to Kharanos. Maxan Anvol is inside the Thunderbrew Distillery.
+  turnin 5626                                 -- Maxan Anvol
+  accept 5625
+  train class                                 -- Lesser Heal (Rank 2), if Branstock did not teach it yet
+
+step Mountaineer Dolf
+  only Dwarf,Gnome
+  tip Mountaineer Dolf kneels on a ridge between two low walls just south of Kharanos, across the road from the hunter pet trainer: if the road starts going downhill, you have passed him. Cast Lesser Heal (Rank 2) on him first, then Power Word: Fortitude; he speaks after each spell. Rank 1 of Lesser Heal does not count.
+  kill 12427 quest 5625.1 "Heal and fortify Mountaineer Dolf"
+
+step Maxan Anvol
+  only Dwarf,Gnome
+  tip Back inside the Thunderbrew Distillery: Maxan gives you Friar's Robes of the Light.
+  turnin 5625 reward 16605                    -- Maxan Anvol
+
+step In Favor of Elune
+  only NightElf
+  zone Teldrassil
+  tip At 5, Shanda, the priest trainer on the second level of Aldrassil, the great tree in Shadowglen, sends you to Laurna Morninglight in Dolanaar. Train Lesser Heal (Rank 2) from her while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank.
+  level 5
+  accept 5622                                 -- Shanda
+
+step Laurna Morninglight
+  only NightElf
+  tip Leave Shadowglen by the ramp and follow the road south-west to Dolanaar. Laurna Morninglight is in the building at the north edge of the village.
+  turnin 5622                                 -- Laurna Morninglight
+  accept 5621
+  train class                                 -- Lesser Heal (Rank 2), if Shanda did not teach it yet
+
+step Sentinel Shaya
+  only NightElf
+  tip Sentinel Shaya kneels on the rocks at the edge of Lake Al'Ameth, about 100 yards south of Dolanaar, with no quest mark over her. Cast Lesser Heal (Rank 2) on her first, then Power Word: Fortitude; she runs off toward the lake once both land and is back in about 5 minutes. Rank 1 of Lesser Heal does not count.
+  kill 12429 quest 5621.1 "Heal and fortify Sentinel Shaya"
+
+step Laurna Morninglight
+  only NightElf
+  tip Back at the north edge of Dolanaar: Laurna gives you the Moon Robes of Elune.
+  turnin 5621 reward 16604                    -- Laurna Morninglight

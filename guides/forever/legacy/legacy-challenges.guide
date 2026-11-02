@@ -11,12 +11,17 @@ zone Burning Steppes
 #   Tradeskills (18) Alchemy, Blacksmithing, Enchanting, Engineering,
 #                    Leatherworking, Tailoring reaching 150, 225 and 300
 #   PvP (12)         ranks 3, 7, 10, 13, 14; Exalted with the four
-#                    battleground factions; Field of Honor weeks 4, 7, 10
+#                    battleground factions (Warsong Gulch, Arathi Basin,
+#                    Alterac Valley and Forever's Darkspear Islands); Field of
+#                    Honor weeks 4, 7, 10
 #   Adventure (2)    explore the entire world map on one character; the Lord
 #                    Valthalak dungeon-set questline
 #   Dungeons (3)     final boss of every level 15-25, 26-45, 46-60 dungeon
 #   Raids (3)        Onyxia; all 13 Hyjal Summit bosses; all 8 Barrow Deeps
 #                    bosses
+# Blizzard's raid overview (October 2026): Barrow Deeps (10 players), Hyjal
+# Summit (20) and Onyxia's Lair (40) open on 9 December; every Onyxia raider
+# carries the Drakefire Amulet.
 #
 # Tracking today: what this character can prove is tracked automatically
 # (level, skill rank, battleground reputation, the Valthalak quests). Everything
@@ -31,11 +36,21 @@ zone Burning Steppes
 # an `achieve <id> "Name"` goal (with `criteria <n>` for per-boss and
 # per-dungeon parts) and is tracked automatically, account-wide.
 #
-# Dungeon brackets: Blizzard has not published which dungeon falls in which
-# bracket. The grouping below follows each dungeon's usual Classic level range;
-# boss names and ids are from npcs.json. Forever's new instances (Hall of
-# Thanes, Ruins of Lordaeron, Hyjal Summit, Barrow Deeps) are not in our data,
-# so they are named-only checkboxes.
+# ASSUMED: the dungeons of each bracket are the Legacy panel's lists as two
+# independent beta write-ups copy them (Novice, Experienced and Master
+# Spelunker: Ragefire Chasm or Hall of Thanes; Blackfathom Deeps in 26-45; the
+# Stockade in none; Razorfen Downs and Uldaman in 46-60; Forever's Drowned City,
+# Krol'dok Stronghold, Alcaz Prison, Blackmaw Hold and Shaper's Terrace). Blizzard
+# published only the level bands. The final boss is the last of the dungeon's
+# bosses in Forever's dungeon journal (Bazzalan in Ragefire Chasm, Viktor the
+# Vile in the Ruins of Lordaeron). In-game check: the Legacy panel's three
+# dungeon challenges.
+# ASSUMED: the Valthalak challenge runs from An Earnest Proposition to your
+# class's Saving the Best for Last (the challenge text as two beta write-ups
+# copy it). In-game check: the Legacy panel.
+# The Drowned City, Krol'dok Stronghold, Alcaz Prison, Blackmaw Hold and the
+# Shaper's Terrace are not in our dungeon data yet, so they are named-only
+# checkboxes.
 
 # ---------------------------------------------------------------- Classes
 
@@ -93,19 +108,19 @@ step Tradeskills: Tailoring
 
 step PvP: battleground reputations (Alliance)
   only Alliance
-  tip Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains.
+  tip Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains.
   rep 890 Exalted             -- Warsong Gulch
   rep 509 Exalted             -- Arathi Basin
   rep 730 Exalted             -- Alterac Valley
-  note Blizzard counts four battleground reputations, but our faction data has three per side (Warsong Gulch, Arathi Basin, Alterac Valley). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel.
+  rep 2799 Exalted            -- Darkspear Islands: Theramore Expeditionary Force
 
 step PvP: battleground reputations (Horde)
   only Horde
-  tip Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains.
+  tip Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains.
   rep 889 Exalted             -- Warsong Gulch
   rep 510 Exalted             -- Arathi Basin
   rep 729 Exalted             -- Alterac Valley
-  note Blizzard counts four battleground reputations, but our faction data has three per side (Warsong Gulch, Arathi Basin, Alterac Valley). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel.
+  rep 2798 Exalted            -- Darkspear Islands: Darkspear Raiders
 
 step PvP: honor ranks
   tip Ranks 3, 7, 10, 13 and 14 are a point each. Polestar cannot read your highest rank yet, so tick each one off yourself. Forever's honor rules for reaching a rank have not been published in detail; in Classic, ranks come from your weekly honor standing, and 13-14 take many weeks of top standing.
@@ -124,84 +139,149 @@ step PvP: Field of Honor
 # ---------------------------------------------------------------- Adventure
 
 step Adventure: explore the world map
-  tip Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character.
-  note Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it.
+  tip Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the Riverglades, Shen'dralas and Mount Hyjal, a level 60 zone.
+  note Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet.
   note This step cannot check the whole map by itself yet; it becomes a tracked goal once the Legacy achievement ids are recorded.
 
 step Adventure: Lord Valthalak
   zone Burning Steppes
-  tip The Lord Valthalak questline is a point. It is the level 60 dungeon-set chain: Deliana (Ironforge) or Mokvar (Orgrimmar) send you through In Search of Anthion and Anthion's Parting Words to Bodley at Blackrock Mountain, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, Lord Valthalak end with Return to Bodley. Back to the Beginning then leads to the class Saving the Best for Last quests.
+  tip The Lord Valthalak questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's Saving the Best for Last: Deliana (Ironforge) or Mokvar (Orgrimmar) send you through In Search of Anthion and Anthion's Parting Words to Bodley at Blackrock Mountain, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, Lord Valthalak end with Return to Bodley. Back to the Beginning then leads to Saving the Best for Last.
   accept 8996 optional @32.2,25.8    -- Spirit of Lord Valthalak, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to Bodley's Blackrock Mountain)
   turnin 8996 optional               -- Bodley: Return to Bodley
   accept 8997 only Alliance optional -- Bodley offers it once Return to Bodley is turned in
   accept 8998 only Horde optional    -- Bodley offers it once Return to Bodley is turned in
-  note Which quest Blizzard counts as the end of the questline (Return to Bodley or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded.
 
-step Adventure: Back to the Beginning (Alliance)
+step Adventure: Saving the Best for Last (Alliance)
   only Alliance
   zone Ironforge
-  tip Deliana then offers your class's Saving the Best for Last, the final upgrade of the dungeon set.
-  turnin 8997 optional        -- Deliana, Ironforge
+  tip Deliana then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
+  turnin 8997 optional        -- Deliana, Ironforge: Back to the Beginning
+  accept 8999 only Druid optional
+  collect 16720 quest 8999.1 only Druid optional  -- Wildheart Cowl
+  collect 16706 quest 8999.2 only Druid optional  -- Wildheart Vest
+  turnin 8999 only Druid optional
+  accept 9000 only Hunter optional
+  collect 16677 quest 9000.1 only Hunter optional  -- Beaststalker's Cap
+  collect 16674 quest 9000.2 only Hunter optional  -- Beaststalker's Tunic
+  turnin 9000 only Hunter optional
+  accept 9001 only Mage optional
+  collect 16686 quest 9001.1 only Mage optional  -- Magister's Crown
+  collect 16688 quest 9001.2 only Mage optional  -- Magister's Robes
+  turnin 9001 only Mage optional
+  accept 9002 only Paladin optional
+  collect 16727 quest 9002.1 only Paladin optional  -- Lightforge Helm
+  collect 16726 quest 9002.2 only Paladin optional  -- Lightforge Breastplate
+  turnin 9002 only Paladin optional
+  accept 9003 only Priest optional
+  collect 16693 quest 9003.1 only Priest optional  -- Devout Crown
+  collect 16690 quest 9003.2 only Priest optional  -- Devout Robe
+  turnin 9003 only Priest optional
+  accept 9004 only Rogue optional
+  collect 16707 quest 9004.1 only Rogue optional  -- Shadowcraft Cap
+  collect 16721 quest 9004.2 only Rogue optional  -- Shadowcraft Tunic
+  turnin 9004 only Rogue optional
+  accept 9005 only Warlock optional
+  collect 16698 quest 9005.1 only Warlock optional  -- Dreadmist Mask
+  collect 16700 quest 9005.2 only Warlock optional  -- Dreadmist Robe
+  turnin 9005 only Warlock optional
+  accept 9006 only Warrior optional
+  collect 16731 quest 9006.1 only Warrior optional  -- Helm of Valor
+  collect 16730 quest 9006.2 only Warrior optional  -- Breastplate of Valor
+  turnin 9006 only Warrior optional
 
-step Adventure: Back to the Beginning (Horde)
+step Adventure: Saving the Best for Last (Horde)
   only Horde
   zone Orgrimmar
-  tip Mokvar then offers your class's Saving the Best for Last, the final upgrade of the dungeon set.
-  turnin 8998 optional        -- Mokvar, Orgrimmar
+  tip Mokvar then offers your class's Saving the Best for Last, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them.
+  turnin 8998 optional        -- Mokvar, Orgrimmar: Back to the Beginning
+  accept 9007 only Druid optional
+  collect 16720 quest 9007.1 only Druid optional  -- Wildheart Cowl
+  collect 16706 quest 9007.2 only Druid optional  -- Wildheart Vest
+  turnin 9007 only Druid optional
+  accept 9008 only Hunter optional
+  collect 16677 quest 9008.1 only Hunter optional  -- Beaststalker's Cap
+  collect 16674 quest 9008.2 only Hunter optional  -- Beaststalker's Tunic
+  turnin 9008 only Hunter optional
+  accept 9014 only Mage optional
+  collect 16686 quest 9014.1 only Mage optional  -- Magister's Crown
+  collect 16688 quest 9014.2 only Mage optional  -- Magister's Robes
+  turnin 9014 only Mage optional
+  accept 9009 only Priest optional
+  collect 16693 quest 9009.1 only Priest optional  -- Devout Crown
+  collect 16690 quest 9009.2 only Priest optional  -- Devout Robe
+  turnin 9009 only Priest optional
+  accept 9010 only Rogue optional
+  collect 16707 quest 9010.1 only Rogue optional  -- Shadowcraft Cap
+  collect 16721 quest 9010.2 only Rogue optional  -- Shadowcraft Tunic
+  turnin 9010 only Rogue optional
+  accept 9011 only Shaman optional
+  collect 16667 quest 9011.1 only Shaman optional  -- Coif of Elements
+  collect 16666 quest 9011.2 only Shaman optional  -- Vest of Elements
+  turnin 9011 only Shaman optional
+  accept 9012 only Warlock optional
+  collect 16698 quest 9012.1 only Warlock optional  -- Dreadmist Mask
+  collect 16700 quest 9012.2 only Warlock optional  -- Dreadmist Robe
+  turnin 9012 only Warlock optional
+  accept 9013 only Warrior optional
+  collect 16731 quest 9013.1 only Warrior optional  -- Helm of Valor
+  collect 16730 quest 9013.2 only Warrior optional  -- Breastplate of Valor
+  turnin 9013 only Warrior optional
 
 # ---------------------------------------------------------------- Dungeons
 
 step Dungeons: level 15-25
-  tip The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list.
-  kill 11520                  -- Ragefire Chasm
+  tip The final boss of every level 15-25 dungeon earns one point together. Ragefire Chasm and Forever's Hall of Thanes (in Ironforge) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list.
+  kill 11519 optional         -- Ragefire Chasm: Bazzalan (or Hall of Thanes)
+  kill 261319 optional        -- Hall of Thanes: Durgen Dirgehammer (or Ragefire Chasm)
+  kill 256035                 -- Ruins of Lordaeron (Forever's, Tirisfal Glades): Viktor the Vile
   kill 3654                   -- Wailing Caverns (appears after the Disciple of Naralex's event)
   kill 639                    -- The Deadmines
   kill 4275                   -- Shadowfang Keep
-  kill 4829                   -- Blackfathom Deeps
-  kill 1716                   -- The Stockade: the usual last kill; the Stockade has no fixed final boss
-  note Forever adds the dungeons Hall of Thanes and Ruins of Lordaeron; their bosses and brackets are not in our data yet.
+  kill 260326                 -- Excavation Site: Wetlands (Forever's): Relic Guardian
 
 step Dungeons: level 26-45
-  tip The final boss of every level 26-45 dungeon earns one point together.
+  tip The final boss of every level 26-45 dungeon earns one point together. The Drowned City and Krol'dok Stronghold (in the Riverglades) are new in Forever and not in our data: tick them off yourself.
+  kill 246020                 -- City of Dalaran (Forever's, Alterac Mountains): Shade of the Archmage
+  kill 4829                   -- Blackfathom Deeps
   kill 7800                   -- Gnomeregan
-  kill 4421                   -- Razorfen Kraul
+  kill "the final boss of the Drowned City"
   kill 4543                   -- Scarlet Monastery: Graveyard
   kill 6487                   -- Scarlet Monastery: Library
   kill 3975                   -- Scarlet Monastery: Armory
   kill 3977                   -- Scarlet Monastery: Cathedral
-  kill 7358                   -- Razorfen Downs
-  kill 2748                   -- Uldaman (level 41-51; may count in the 46-60 bracket)
+  kill 4421                   -- Razorfen Kraul
+  kill "the final boss of Krol'dok Stronghold"
 
 step Dungeons: level 46-60
-  tip The final boss of every level 46-60 dungeon earns one point together.
+  tip The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, Blackmaw Hold and the Shaper's Terrace are new in Forever and not in our data: tick them off yourself.
+  kill 7358                   -- Razorfen Downs
+  kill 2748                   -- Uldaman
   kill 7267                   -- Zul'Farrak
   kill 12201                  -- Maraudon
+  kill "the final boss of Alcaz Prison"
   kill 5709                   -- Sunken Temple
   kill 9019                   -- Blackrock Depths
+  kill "the final boss of Blackmaw Hold"
   kill 9568                   -- Lower Blackrock Spire
   kill 10363                  -- Upper Blackrock Spire
-  kill 11492                  -- Dire Maul East
-  kill 11486                  -- Dire Maul West
-  kill 11501                  -- Dire Maul North
   kill 1853                   -- Scholomance
   kill 10813                  -- Stratholme, Live side
   kill 10440                  -- Stratholme, Undead side
-
-step Forever's new dungeons
-  tip Hall of Thanes and Ruins of Lordaeron are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself.
-  kill "the final boss of Hall of Thanes"
-  kill "the final boss of Ruins of Lordaeron"
+  kill 11492                  -- Dire Maul East
+  kill 11501                  -- Dire Maul North
+  kill 11486                  -- Dire Maul West
+  kill "the final boss of the Shaper's Terrace"
 
 # ---------------------------------------------------------------- Raids
 
 step Raids: Onyxia
-  tip Killing Onyxia is a point. In Classic her lair needs an attunement: Drakefire Amulet for the Alliance, Blood of the Black Dragon Champion for the Horde.
+  tip Killing Onyxia is a point. Onyxia's Lair is a 40-player raid in Dustwallow Marsh, open from 9 December. Every raider needs the Drakefire Amulet in the bags: the Alliance chain starts with Dragonkin Menace in the Burning Steppes, the Horde chain with Blood and Thunder in Kargath (Badlands); both end in Upper Blackrock Spire with General Drakkisath.
   kill 10184                  -- Onyxia's Lair, Dustwallow Marsh
 
 step Raids: Hyjal Summit
-  tip All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down.
+  tip All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of Mount Hyjal, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down.
   kill "all 13 Hyjal Summit bosses"
 
 step Raids: Barrow Deeps
-  tip All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down.
+  tip All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath Mount Hyjal, entered from Mount Hyjal, Winterspring or Blackmaw Hold and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down.
   kill "all 8 Barrow Deeps bosses"

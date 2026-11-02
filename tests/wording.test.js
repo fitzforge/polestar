@@ -27,6 +27,12 @@ const NAME_HASHES = new Set([
 // "import your existing guides", "converting paid guides", "bring your paid guides"...
 // (\b: "report other guides" or "support other guides" is not an invitation).
 const INVITE = /\b(import|convert|port|bring)(ing)? (your )?(existing|paid|other)[^\n]{0,40}guides?/i;
+// Wording that says a route was built by comparing it with other guides
+// ("the speedrun benchmark", "as the benchmark order does", "benchmark
+// addon"): banned in every tracked file, code and data included, since the
+// routes come from the game's facts and our own simulation. A performance
+// benchmark ("criterion benchmarks") is not matched.
+const COMPARED = /\bspeed-?runs?\b|\b(route )?benchmark('s)? (orders?|addons?|guides?|routes?|speedruns?)\b|\b(as|than|like|and|in) (the|a|both|neither|either) (\w+ )?benchmarks?\b|\bthe benchmark('s)? (order|does|did|has|had|takes|plays|marks|gives|leaves|skips|hands|keeps)\b|\broute benchmark\b/i;
 
 const sha256 = (s) => crypto.createHash('sha256').update(s).digest('hex');
 
@@ -105,6 +111,27 @@ test('nothing invites bringing or converting other guides', () => {
 	assert.deepEqual(hits, []);
 });
 
+// Every tracked text file (and new ones git would add): this file spells the
+// phrases it bans, and the Nav packs are random-looking packed data.
+function trackedFiles() {
+	const git = spawnSync('git', ['ls-files', '-z', '--cached', '--others', '--exclude-standard'], { cwd: ROOT, encoding: 'utf8', maxBuffer: 1 << 28 });
+	assert.equal(git.status, 0, 'the guide-comparison check runs in a git checkout');
+	const self = path.relative(ROOT, __filename);
+	return git.stdout.split('\0').filter((rel) => rel && rel !== self && !/^addon\/Polestar_Nav/.test(rel))
+		.map((rel) => path.join(ROOT, rel)).filter((f) => fs.existsSync(f) && fs.statSync(f).isFile()).map(textFile).filter(Boolean);
+}
+
+test('no tracked file says a route was compared with other guides', () => {
+	const files = trackedFiles();
+	assert.ok(files.length > 500, `expected the whole tree, got ${files.length}`);
+	const hits = [];
+	for (const { file, text } of files) {
+		const re = new RegExp(COMPARED.source, 'gi');
+		for (const m of text.matchAll(re)) hits.push(`${where(file, text, m.index)}: ${m[0]}`);
+	}
+	assert.deepEqual(hits, []);
+});
+
 test('the checks catch what they are for, and the game\'s rested XP passes', () => {
 	assert.equal(NAME_HASHES.size, 5);
 	for (const h of NAME_HASHES) assert.match(h, /^[0-9a-f]{64}$/);
@@ -117,4 +144,6 @@ test('the checks catch what they are for, and the game\'s rested XP passes', () 
 	assert.match('Bring your paid guides into Polestar', INVITE);
 	assert.doesNotMatch('Guide packs are addons made by other players.', INVITE);
 	assert.doesNotMatch('Report other guides\' problems to their authors', INVITE);
+	for (const s of ['as both speedrun benchmarks play it', 'the benchmark order marks it a group of 3', 'a benchmark addon does this', 'as the benchmark does', 'the route benchmark\'s rule 2', 'in a benchmark guide', 'start-zone speed-run order']) assert.match(s, COMPARED, s);
+	for (const s of ['| benchmarks, property tests | `criterion` |', 'cargo bench runs the benchmarks', 'a benchmark of the evaluator']) assert.doesNotMatch(s, COMPARED, s);
 });

@@ -2,34 +2,67 @@ guide forever/collectibles/mounts/alliance/paladin-warhorse
 title Paladin Warhorse
 category Class
 folder Paladin
-keywords Summon Warhorse, Tome of Nobility, Paladin, Duthorian Rall, class mount
+keywords Summon Warhorse, Tome of Nobility, The Tome of Nobility, Paladin, Duthorian Rall, Tiza Battleforge, Brandur Ironhammer, class mount
 reward spell 13819 "Summon Warhorse"
 why Your first mount at 40, summoned at will: a paladin buys no horse.
 faction Alliance
+race Human, Dwarf
 class Paladin
 levels 40-60
 zone Stormwind City
 
-# Summon Warhorse for Alliance Paladins: The Tome of Nobility.
-# Sources: Forever client 1.60.1.70338 tables via wago.tools (Mount: the spell
-# is still a Forever mount; ItemSparse); quests.json and npcs.json for the
-# chain.
-# Forever's Forsaken Paladins have their own warhorse quest (A Trusty Steed, in
-# the beta client); its giver and steps are not
-# published or in our data yet, so this guide covers Humans and Dwarves only.
+# Summon Warhorse for Alliance Paladins: The Tome of Nobility (1661) from
+# Duthorian Rall in Stormwind's Cathedral of Light teaches it (spell 13820,
+# learning Summon Warhorse 13819). Two breadcrumbs send Ironforge paladins to
+# him: The Tome of Nobility 4485 from Tiza Battleforge and 4486 from Brandur
+# Ironhammer (either race may take them; one closes the other).
+# Sources: Forever client 1.60.1.70450 tables (Mount: Summon
+# Warhorse, spell 13819, is still a Forever mount; SpellName); Forever's quest
+# data for the givers (4485's giver is Tiza on Forever's quest page, a
+# correction in forever-db/corrections/quests.json) and the Forever server
+# tables (TDB) for the order: 1661 has no prerequisite and teaches the
+# spell, 4485 and 4486 teach nothing and form their own exclusive group;
+# Warcraft Wiki ("The Tome of Nobility (Ironforge)") puts 1661 after them.
+# quests.json also lists 1661 as closed by 4485/4486 (Questie); the TDB and
+# the wiki do not, and without 1661 the breadcrumbs would teach nothing, so
+# the guide takes 1661 after either. Lint warns that 1661 is not offered once
+# 4485 or 4486 is taken: that is the Questie exclusion; the correction in
+# forever-db/corrections/quests.json (1661, 4485, 4486) removes it with the
+# next data build.
+# Riding: Summon Warhorse comes with the riding it needs. In Forever's client
+# spell data (1.60.1.70450) the spell that teaches it (13820) teaches Apprentice
+# Riding (33388) too, as in Classic, and so does the Forsaken version's
+# (1279400); the riding trainers' 90-100 gold Apprentice Riding is not needed.
+# A Forever class-quest database lists Apprentice Riding as a reward of The
+# Tome of Nobility as well. The client's MountCapability for its mount type asks
+# for Riding 0 (60% speed), and PlayerCondition 151683 only for the quest (1661).
+# Horde paladins: the Forever client has a Forsaken Summon Warhorse (spell
+# 1279399, Mount 2923) and a Summon Forsaken Charger (1296534, Mount 3001);
+# news reports name their quests "A Trusty Steed" and "Justice and
+# Retribution", but Forever's quest data has no quest, giver or step for
+# either yet (searched 2026-10-29), so there is no Horde guide.
 
 step The Tome of Nobility (Ironforge)
   only Dwarf
   zone Ironforge
-  tip At 40 Brandur Ironhammer in the Mystic Ward sends you to Duthorian Rall in Stormwind's Cathedral of Light. Take the tram from Ironforge to Stormwind.
+  when available 4485
+  tip At 40 Tiza Battleforge, upstairs in the Hall of Mysteries, sends you to Duthorian Rall in Stormwind (Brandur Ironhammer downstairs gives the same errand; take one). Take the Deeprun Tram to Stormwind.
   level 40
-  accept 4486
+  accept 4485                         -- Tiza Battleforge
+
+step Duthorian Rall
+  zone Stormwind City
+  when onquest 4485
+  turnin 4485                         -- Duthorian Rall
+
+step Duthorian Rall
+  zone Stormwind City
+  when onquest 4486
+  turnin 4486                         -- Duthorian Rall
 
 step Summon Warhorse
   zone Stormwind City
-  tip Duthorian Rall stands in the Cathedral of Light. Turning in the Tome of Nobility teaches Summon Warhorse; Paladins do not buy a mount.
+  tip Duthorian Rall stands in the Cathedral of Light. At 40 he offers The Tome of Nobility: accept it and hand it straight back to learn Summon Warhorse. Paladins do not buy a horse.
   level 40
-  accept 1661 only Human
-  turnin 1661 only Human
-  turnin 4486 only Dwarf
-  learn 13819 "Summon Warhorse"
+  accept 1661                         -- Duthorian Rall
+  turnin 1661                         -- Duthorian Rall: Summon Warhorse

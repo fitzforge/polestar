@@ -47,8 +47,42 @@ reads the world and writes, per faction:
 | `store-leffe-<faction>.psbn` | the same for Leffe's maps (hybrid and `--nav leffe` only), with each place's zone on his maps; without his maps, the data pack's copy is read and never written |
 
 Like every stage, it is skipped when its inputs have not changed (the stage's key is in
-`<out>/.forge/walks.key`). The key includes the world, the backend, the grid's files and, when
-used, Leffe's maps or the saved Leffe stores (their size and time).
+`<out>/.forge/walks.key`). The key holds what the walks are made of, not the data at large:
+
+- each world's **walk inputs** (`World::walks_key`): its points (continent, region, x, y, zone,
+  height, in order), the places walked to (quest givers, enders and their alternatives, accept
+  places, tasks, objective camps, packages, inns, nodes, starts, services, camps, the graveyards'
+  Spirit Healers) and the zones' danger (`zoneMin`, `danger`);
+- the walkers' answer versions (`MODEL_VERSION` in `walker.rs` and `f4walks.rs`) and the nav
+  fingerprint (`POLESTAR_NAV_FP`);
+- the backend, the grid's files and the prepare stage's key, the maps list (`PACK.json`), the
+  AreaTable and `zones.json`, the extra pairs and, when used, Leffe's maps, his lift layer or the
+  saved Leffe stores (their size and time).
+
+So a data fix that moves and adds no place (a quest's text, xp, prerequisites, a rule) skips the
+stage. One that adds places (#735: an objective made a kill adds its camp) reruns it, and the walk
+stores answer every pair they already hold by its ends: only the pairs of the new places are routed
+(a few hundred, seconds, where the whole world is about 2 M pairs per faction and an hour and a half).
+A changed walker version, grid, map or danger table still walks again.
+
+A rerun that routes few pairs costs little more than reading and writing the stores, and the stage
+keeps that small:
+
+- a store is read as its file lays the answers out (by model, then by ends, looked up by binary
+  search; no table is built), and written back only when it gained answers, by merging the new
+  answers into the file's order;
+- the hybrid's two passes (our grid's and Leffe's maps') run side by side, each on `--threads`
+  threads of its own;
+- a band's routes for all of its danger tables are asked at once, on every thread; the walks
+  document's bands are assembled, merged and written on threads too.
+
+`walks-<faction>.bin` is indexed by the world's point ids, so its header carries both the world's
+`dataHash` and its `walksKey`. Its readers (the routes stage, the writer, `--walks-from`) check the
+walks against the world by `walksKey` (files without one: by `dataHash`).
+
+A world whose places all moved (a rebuilt data set: new map frames or spawn sources shift nearly
+every place by a few yards) has new ends everywhere, and the stores have no walk for them: that
+build walks everything again.
 
 ## Our walking grid
 
@@ -255,18 +289,27 @@ faction, the danger table, the smoothing factor and `MODEL_VERSION` in `f4walks.
 
 Answers are never keyed by source code or by a place's number. So:
 
-- a quest fix or a new place asks only the pairs that are new;
+- a quest fix or a new place asks only the pairs that are new (the walks stage above);
 - a comment change costs nothing;
 - a new danger level for a zone re-asks only that band's pairs that cross it;
 - a rebuilt grid has a new `builtAt`, so every answer for it is asked again.
 
-The store is one binary file (PSBN: a small JSON header and typed sections), read whole and
-written back after the stage (to a temporary file, then renamed). It holds the answers' zone cells
-too. A faction's store is a few hundred MB.
+An end is matched exactly: the world file's coordinates (rounded to 0.1 yd as the world writes
+them), our grid's snapped column for our walks. A place moved by 0.1 yd is a new end.
 
-When you build from the public data pack, Forge copies the pack's stores into `<out>/walks/` first,
-but only when your grid has the same content hash as the grid the pack's stores were built on.
-Otherwise it says so and routes the walks again.
+The store is one binary file (PSBN: a small JSON header and typed sections; `STORE_SCHEMA` 2 in
+`store.rs`), read whole, and written back after the stage when it gained answers (to a temporary
+file, then renamed); a store that gained none is left as it is. It holds the answers' zone cells
+too. A faction's store is a few hundred MB to about 1.4 GB.
+
+The routes stage's walk misses (`walks/extra-pairs.json`, [routes.md](routes.md)) are kept by their
+ends' places too (`schema` 2: each pair as two `[continent, x, y, height]`), and read back as the
+point ids of the world at hand; a file of point ids (no `schema`) is of an unknown world and is read
+as empty.
+
+When you build from the public data pack with Leffe's maps, Forge copies the pack's Leffe stores
+into `<out>/walks/` first (his walks are kept by his maps' content); our grid's stores are built by
+each contributor on their own grid.
 
 Warm, a stored walk is answered in about a tenth of a microsecond.
 
@@ -431,15 +474,16 @@ Approximate, on 8 threads; yours will differ.
 |---|---|
 | grid tiles held in memory | 640 tiles (LRU) during walks; 2,048 when reading floors for the world |
 | one customized CCH metric | about 0.7 GB per continent, base walks only |
-| Leffe's decoded map pieces | a byte-bounded cache: 2,048 MB in `forge build` and on the hybrid; `POLESTAR_LEFFE_NAV_CACHE_MB` for `forge walks walks` with `POLESTAR_NAV=leffe` (default 1,024) |
+| Leffe's decoded map pieces | a byte-bounded cache: 4,096 MB in `forge build`'s walks stage (a faction's walks read about 3.5 GB of them; with 2,048 MB each piece was decoded about nine times), 2,048 MB for its legs and on `forge walks walks`' hybrid; `POLESTAR_LEFFE_NAV_CACHE_MB` for `forge walks walks` with `POLESTAR_NAV=leffe` (default 1,024) |
 | pairs sent to the walker at once | 150,000 |
-| peak memory, one faction | about 5-6 GB |
+| peak memory, one faction | about 5-6 GB on one backend; 13-15 GB on the hybrid, whose two passes run at once |
 | a faction from an empty store | tens of minutes on our grid, longer on Leffe's maps or the hybrid |
 | a faction after a quest fix | a few minutes: only the new pairs are routed |
 
-`forge build --threads N` (default 8) sets the threads; `forge walks walks` uses 8. If a machine
-runs out of memory, lower `--threads` first. With `forge walks walks` on Leffe's maps alone you can
-also lower `POLESTAR_LEFFE_NAV_CACHE_MB`; `forge build` keeps the cache at 2,048 MB.
+`forge build --threads N` (default 8) sets the threads; on the hybrid each of its two passes has N
+of its own. `forge walks walks` uses 8. If a machine runs out of memory, lower `--threads` first.
+With `forge walks walks` on Leffe's maps alone you can also lower `POLESTAR_LEFFE_NAV_CACHE_MB`;
+`forge build` keeps the walks stage's cache at 4,096 MB.
 
 ## Running it
 
@@ -709,9 +753,12 @@ If it is a grid gap, fix the grid. If it is a bad place, fix the place in the da
 **Out of memory.** Lower `--threads`. With `forge walks walks` on Leffe's maps alone, also lower
 `POLESTAR_LEFFE_NAV_CACHE_MB`.
 
-**The walks stage runs every time.** Its key covers the grid's files by path, size and modification
-time. Something that touches the grid folder (a copy, a sync tool) changes the key. The store still
-answers every pair, so the rerun is fast, but it does run.
+**The walks stage runs every time.** It is skipped when its key is unchanged. Its key covers the
+grid's files by path, size and modification time: something that touches the grid folder (a copy, a
+sync tool) changes the key. A build also walks again after a routes stage that added walk pairs
+(the routes priced walks the stores lack, [routes.md](routes.md)): the extra pairs are part of the
+key. Either way the stores answer every pair they hold, so the rerun routes only what is new and
+writes only the stores that gained answers.
 
 ## Changing it
 

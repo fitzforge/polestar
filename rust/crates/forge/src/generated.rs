@@ -5,10 +5,11 @@
 //!   (`guides/forever/horde/**`, `guides/forever/alliance/**`) as they were when Forge took them
 //!   over, with `forge/seed/SEED.json` (the commit they were cut from and every file's SHA-256).
 //!   From then on a build reads its text and order from the seed, never from its own output.
-//! - **The generated guides** (`forge guide publish --from <written tree>`): the seed's files, as a
-//!   build wrote them, copied into `guides/` with [`HEADER`] on top and listed in
-//!   `guides/GENERATED.json` (SHA-256 of each). Every other file under `guides/` (class,
-//!   professions, ... and the translations) stays hand-written.
+//! - **The generated guides** (`forge guide publish --from <out>/guides`, [`publish`]): the
+//!   leveling guides of every start's written tree, copied into `guides/` with [`HEADER`] on top
+//!   and listed in `guides/GENERATED.json` (SHA-256 of each): the shared route once per faction,
+//!   each start guide from its own start, one copy per race where two starts share a folder. Every
+//!   other file under `guides/` (class, professions, ... and the translations) stays hand-written.
 //! - **The check** ([`check`]; `forge guide check-generated`, and `tests/generated-guides.test.js`
 //!   in CI): every listed file still has its hash, so a hand edit fails and says where the fix goes.
 //!
@@ -161,41 +162,400 @@ pub fn input_guides(checkout: &Path, guides: &Path, stage: &Path) -> Result<(Pat
 		let src = checkout.join(SEED_DIR).join(f);
 		write(&stage.join(f), &read(&src)?)?;
 	}
-	// A generated guide the seed does not have (a guide added after the cut) stays as written.
+	// A guide only publish wrote (a race's own copy of a start guide, a guide the writer added) is
+	// output, never input: it goes. A guide added by hand after the cut stays as written.
+	for f in generated_files(checkout)? {
+		if f.ends_with(".guide") && !seed.contains_key(&f) {
+			let _ = std::fs::remove_file(stage.join(&f));
+		}
+	}
 	Ok((stage.to_path_buf(), Some(seed.len())))
 }
 
-/// `forge guide publish`: the seed's files as `from` (a written guides tree) has them, into the
-/// checkout's `guides/` with the header, and `guides/GENERATED.json`; with them the tree's baked
-/// legs (`legs.json`, forge build's legs stage), or none when the tree has none.
-pub fn publish(checkout: &Path, from: &Path) -> Result<usize, String> {
-	let seed = seed_files(checkout)?.ok_or_else(|| format!("{} has no seed ({SEED_MANIFEST}): run `forge guide seed` first", checkout.display()))?;
-	let guides = checkout.join("guides");
-	let mut hashes = BTreeMap::new();
-	for f in seed.keys() {
-		let src = from.join(f);
-		let body = read(&src).map_err(|e| format!("{e} (the written tree lacks a guide of the seed)"))?;
-		let mut out = Vec::with_capacity(HEADER.len() + 1 + body.len());
-		out.extend_from_slice(HEADER.as_bytes());
-		out.push(b'\n');
-		out.extend_from_slice(without_header(&body));
-		write(&guides.join(f), &out)?;
-		hashes.insert(f.clone(), sha256(&out));
+/// The files `guides/GENERATED.json` lists (empty: none published yet).
+fn generated_files(checkout: &Path) -> Result<Vec<String>, String> {
+	let m = checkout.join(GENERATED);
+	if !m.is_file() {
+		return Ok(Vec::new());
 	}
-	let legs = from.join(crate::bake::LEGS_FILE);
-	if legs.is_file() {
-		let b = read(&legs)?;
-		write(&guides.join(crate::bake::LEGS_FILE), &b)?;
-		hashes.insert(crate::bake::LEGS_FILE.to_string(), sha256(&b));
-	} else {
-		let _ = std::fs::remove_file(guides.join(crate::bake::LEGS_FILE));
+	let v: Value = serde_json::from_slice(&read(&m)?).map_err(|e| format!("{}: {e}", m.display()))?;
+	Ok(v["files"].as_object().into_iter().flatten().map(|(k, _)| k.clone()).collect())
+}
+
+/// What [`publish`] wrote.
+#[derive(Debug, Default)]
+pub struct Published {
+	/// Guides written into `guides/`.
+	pub guides: usize,
+	/// Start guides several starts wrote, published once per race: (the written id, the races' ids).
+	pub split: Vec<(String, Vec<String>)>,
+	/// Guides with baked legs in the merged `legs.json`.
+	pub legs: usize,
+}
+
+/// One start's written tree, its faction's leveling guides (path -> text without the header).
+struct Tree {
+	start: &'static str,
+	race: &'static str,
+	files: BTreeMap<String, Vec<u8>>,
+	legs: Option<Value>,
+}
+
+/// Who publishes a written guide.
+enum Owner {
+	/// No `race` header naming a start of the faction: the shared route, the same in every tree.
+	Shared,
+	/// The guide of one start (index into the faction's trees).
+	One(usize),
+	/// A start guide two or more starts wrote (Orc and Troll's Durotar): one copy per race.
+	Split(Vec<usize>),
+}
+
+/// The races a guide's `race` header names (empty: none).
+fn header_races(text: &[u8]) -> Vec<String> {
+	let text = String::from_utf8_lossy(text);
+	for l in text.lines() {
+		if l.starts_with("step") {
+			break;
+		}
+		if let Some(r) = l.strip_prefix("race ") {
+			return r.split(',').map(|r| r.trim().to_string()).filter(|r| !r.is_empty()).collect();
+		}
+	}
+	Vec::new()
+}
+
+/// Where a race's copy of a split start guide goes: its folder named for the race
+/// (`forever/horde/orc-troll/01-durotar.guide` -> `forever/horde/orc/01-durotar.guide`).
+fn split_rel(rel: &str, race: &str) -> String {
+	let p = Path::new(rel);
+	let file = p.file_name().map(|f| f.to_string_lossy().into_owned()).unwrap_or_default();
+	let folder = p.parent().and_then(Path::parent).map(|d| d.to_string_lossy().into_owned()).unwrap_or_default();
+	format!("{folder}/{}/{file}", race.to_lowercase())
+}
+
+fn guide_id(rel: &str) -> &str {
+	rel.strip_suffix(".guide").unwrap_or(rel)
+}
+
+/// `text` with every whole guide id of `ids` (old -> new) replaced.
+fn replace_ids(text: &str, ids: &[(String, String)]) -> String {
+	let id_char = |c: char| c.is_alphanumeric() || matches!(c, '_' | '-' | '/');
+	let mut out = text.to_string();
+	for (old, new) in ids {
+		let mut s = String::with_capacity(out.len());
+		let mut last = 0;
+		for (i, _) in out.match_indices(old.as_str()) {
+			let before = out[..i].chars().next_back();
+			let after = out[i + old.len()..].chars().next();
+			if before.is_some_and(id_char) || after.is_some_and(id_char) {
+				continue;
+			}
+			s.push_str(&out[last..i]);
+			s.push_str(new);
+			last = i + old.len();
+		}
+		s.push_str(&out[last..]);
+		out = s;
+	}
+	out
+}
+
+/// Quest id -> (race mask, 0 for any race; whether Forever's own quest store gave it).
+type QuestRaces = BTreeMap<u32, (f64, bool)>;
+
+fn quest_races(data: &Path) -> Result<QuestRaces, String> {
+	let p = data.join("quests.json");
+	let v: Value = serde_json::from_slice(&read(&p)?).map_err(|e| format!("{}: {e}", p.display()))?;
+	let mut out = QuestRaces::new();
+	for (k, q) in v.as_object().into_iter().flatten() {
+		let Ok(id) = k.parse::<u32>() else { continue };
+		let forever = q["source"].as_array().is_some_and(|s| s.iter().any(|s| s.as_str().is_some_and(|s| s.starts_with("questie"))));
+		out.insert(id, (q["races"].as_f64().unwrap_or(0.0), forever));
+	}
+	Ok(out)
+}
+
+/// Whether a quest of that race mask is for the race on that side, as the compiler reads masks
+/// (forge_guide::conditions::mask_excludes: a Skyborne bit only from Forever's own store).
+fn mask_admits((mask, forever): (f64, bool), race: &str, side: &str) -> bool {
+	use forge_guide::races::{has_bit, RACES};
+	if mask == 0.0 {
+		return true;
+	}
+	RACES
+		.iter()
+		.filter(|r| r.name.eq_ignore_ascii_case(race) || r.file.eq_ignore_ascii_case(race))
+		.flat_map(|r| r.sides)
+		.any(|&(s, bit)| s == side && (has_bit(mask, bit) || (bit >= 4294967296.0 && !forever)))
+}
+
+/// A race's copy of a start guide written for `races` (`Dwarf,Gnome`): its header says `race
+/// <race>`, and a goal for a quest the race cannot take, which the shared header left to the
+/// other race (`accept 3114 only Mage`, a Gnome's), names that race (`only Gnome,Mage`), so the
+/// copy compiles under its own race and shows the player the same steps. Lines and steps stay
+/// where they are: the baked legs count steps.
+fn race_copy(text: &str, race: &str, races: &[String], side: &str, quests: &QuestRaces) -> String {
+	use forge_guide::conditions::{same_race, Audience};
+	use forge_guide::lexer::lex_line;
+	let byte_at = |s: &str, unit: usize| {
+		let mut n = 0;
+		for (b, c) in s.char_indices() {
+			if n >= unit {
+				return b;
+			}
+			n += c.len_utf16();
+		}
+		s.len()
+	};
+	let mut out = String::with_capacity(text.len() + 256);
+	let mut in_steps = false;
+	for raw in text.split_inclusive('\n') {
+		let body = raw.trim_end_matches(['\n', '\r']);
+		let eol = &raw[body.len()..];
+		in_steps |= body.starts_with("step");
+		if !in_steps {
+			if body.starts_with("race ") {
+				out.push_str(&format!("race {race}{eol}"));
+			} else {
+				out.push_str(raw);
+			}
+			continue;
+		}
+		let lex = lex_line(body);
+		let t = &lex.tokens;
+		let is_goal = body.starts_with([' ', '\t']) && t.first().is_some_and(|v| !v.quoted && forge_guide::parse::VERBS.contains(&v.text.as_str()));
+		if !is_goal {
+			out.push_str(raw);
+			continue;
+		}
+		let mut ids: Vec<u32> = Vec::new();
+		if matches!(t[0].text.as_str(), "accept" | "turnin" | "complete" | "abandon") {
+			ids.extend(t.get(1).and_then(|v| v.text.parse::<u32>().ok()));
+		}
+		for w in t.windows(2) {
+			if w[0].text == "quest" && !w[0].quoted {
+				ids.extend(w[1].text.split('.').next().and_then(|q| q.parse::<u32>().ok()));
+			}
+		}
+		let masks: Vec<(f64, bool)> = ids.iter().filter_map(|q| quests.get(q).copied()).collect();
+		let to: Vec<&str> = if masks.iter().any(|&m| !mask_admits(m, race, side)) {
+			races.iter().map(String::as_str).filter(|r| !same_race(r, race) && masks.iter().all(|&m| mask_admits(m, r, side))).collect()
+		} else {
+			Vec::new()
+		};
+		if to.is_empty() {
+			out.push_str(raw);
+			continue;
+		}
+		let only = t.iter().enumerate().skip(1).find(|(_, v)| v.text == "only" && !v.quoted).and_then(|(i, _)| t.get(i + 1));
+		let line = match only {
+			Some(list) if Audience::parse(&list.text).races.is_some() => body.to_string(),
+			Some(list) => {
+				let (a, b) = (byte_at(body, list.start), byte_at(body, list.end));
+				format!("{}{},{}{}", &body[..a], to.join(","), &body[a..b], &body[b..])
+			}
+			None => {
+				let end = byte_at(body, lex.end);
+				let code = body[..end].trim_end();
+				format!("{code} only {}{}", to.join(","), &body[code.len()..])
+			}
+		};
+		out.push_str(&line);
+		out.push_str(eol);
+	}
+	out
+}
+
+/// `forge guide publish --from <out>/guides`: the leveling guides of a build's written trees, one
+/// per start (`<from>/<Start>/`, as forge build writes them; every start is needed), into the
+/// checkout's `guides/` with the header, `guides/GENERATED.json` listing them:
+///
+/// - a guide without a `race` header for one of the faction's starts (the shared route from the
+///   Barrens and Westfall on) once per faction; every start must have written it byte for byte the
+///   same, else nothing is written;
+/// - a start guide from its own start's tree (the other trees carry the seed's copy);
+/// - a start guide two starts share (`orc-troll/`, `dwarf-gnome/`) once per race, from each race's
+///   tree, in a folder named for the race (`orc/`, `troll/`) with `race <Race>` and the ids
+///   between those guides rewritten ([`race_copy`]); the shared ids go into `guides/retired.json`,
+///   so a saved tab on one opens the race's leveling guide.
+///
+/// The trees' baked legs (`legs.json`) become one `guides/legs.json`, per published guide id:
+/// the shared route's must agree between the starts, and all trees must be baked on one grid.
+/// Every seed guide must be among the written ones; files an earlier publish wrote and this one
+/// does not are removed.
+pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, String> {
+	use forge_guide::conditions::same_race;
+	let seed = seed_files(checkout)?.ok_or_else(|| format!("{} has no seed ({SEED_MANIFEST}): run `forge guide seed` first", checkout.display()))?;
+	let missing: Vec<&str> = crate::ALL_STARTS.iter().map(|s| s.0).filter(|s| !from.join(s).join("forever").is_dir()).collect();
+	if !missing.is_empty() {
+		return Err(format!("{} has no written tree for {} (<Start>/forever, as forge build writes them): publish takes every start", from.display(), missing.join(", ")));
+	}
+	let mut out: BTreeMap<String, Vec<u8>> = BTreeMap::new();
+	let mut legs_out = serde_json::Map::new();
+	let mut grid: Option<(Value, &str)> = None;
+	let mut errors: Vec<String> = Vec::new();
+	let mut published = Published::default();
+	let mut quests: Option<QuestRaces> = None;
+	let mut seen_seed: std::collections::BTreeSet<String> = Default::default();
+	for faction in [forge_core::Faction::Horde, forge_core::Faction::Alliance] {
+		let sub = format!("forever/{}", faction.lower());
+		let mut trees = Vec::new();
+		for &(start, race, _) in crate::ALL_STARTS.iter().filter(|s| s.2 == faction) {
+			let root = from.join(start);
+			let mut files_of = BTreeMap::new();
+			for p in files(&root.join(&sub)) {
+				files_of.insert(rel(&p, &root), without_header(&read(&p)?).to_vec());
+			}
+			let l = root.join(crate::bake::LEGS_FILE);
+			let legs: Option<Value> = if l.is_file() { Some(serde_json::from_slice(&read(&l)?).map_err(|e| format!("{}: {e}", l.display()))?) } else { None };
+			if let Some(g) = legs.as_ref().map(|l| l["grid"].clone()) {
+				match &grid {
+					Some((g0, s0)) if *g0 != g => errors.push(format!("{start}'s legs are baked on {g}, {s0}'s on {g0}: bake every start on one grid")),
+					Some(_) => {}
+					None => grid = Some((g, start)),
+				}
+			}
+			trees.push(Tree { start, race, files: files_of, legs });
+		}
+		let leg = |t: &Tree, id: &str| t.legs.as_ref().and_then(|l| l["legs"].get(id)).cloned();
+		let rels: std::collections::BTreeSet<&String> = trees.iter().flat_map(|t| t.files.keys()).collect();
+		let mut owners: Vec<(&String, Owner)> = Vec::new();
+		for r in rels {
+			let any = trees.iter().find_map(|t| t.files.get(r)).expect("a tree has it");
+			let races = header_races(any);
+			let own: Vec<usize> = (0..trees.len()).filter(|&i| races.iter().any(|x| same_race(x, trees[i].race))).collect();
+			owners.push((
+				r,
+				match own.len() {
+					0 => Owner::Shared,
+					1 => Owner::One(own[0]),
+					_ => Owner::Split(own),
+				},
+			));
+		}
+		// Per race, its split guides' ids (written -> its own).
+		let renames = |i: usize| -> Vec<(String, String)> {
+			let mut v: Vec<(String, String)> =
+				owners.iter().filter(|(_, o)| matches!(o, Owner::Split(s) if s.contains(&i))).map(|(r, _)| (guide_id(r).to_string(), guide_id(&split_rel(r, trees[i].race)).to_string())).collect();
+			v.sort_by_key(|(old, _)| std::cmp::Reverse(old.len()));
+			v
+		};
+		for (r, owner) in &owners {
+			let id = guide_id(r);
+			match owner {
+				Owner::Shared => {
+					// The starts grouped by what they wrote, in start order.
+					let mut by: Vec<(Option<&Vec<u8>>, Vec<&str>)> = Vec::new();
+					for t in &trees {
+						let b = t.files.get(*r);
+						match by.iter_mut().find(|(x, _)| *x == b) {
+							Some((_, s)) => s.push(t.start),
+							None => by.push((b, vec![t.start])),
+						}
+					}
+					if by.len() > 1 {
+						let groups: Vec<String> = by.iter().map(|(b, s)| format!("{}{}", s.join(", "), if b.is_none() { " (missing)" } else { "" })).collect();
+						errors.push(format!("{r}: the shared route differs between starts ({})", groups.join(" | ")));
+						continue;
+					}
+					let legs: Vec<Value> = trees.iter().filter_map(|t| leg(t, id)).collect();
+					if legs.iter().any(|l| *l != legs[0]) {
+						errors.push(format!("{r}: its baked legs differ between starts (bake them again)"));
+					}
+					if let Some(l) = legs.into_iter().next() {
+						legs_out.insert(id.to_string(), l);
+					}
+					out.insert((*r).clone(), trees[0].files[*r].clone());
+					seen_seed.insert((*r).clone());
+				}
+				Owner::One(i) => {
+					let t = &trees[*i];
+					if let Some(b) = t.files.get(*r) {
+						out.insert((*r).clone(), b.clone());
+						seen_seed.insert((*r).clone());
+						if let Some(l) = leg(t, id) {
+							legs_out.insert(id.to_string(), l);
+						}
+					}
+				}
+				Owner::Split(own) => {
+					if quests.is_none() {
+						quests = Some(quest_races(data)?);
+					}
+					let mut ids = Vec::new();
+					for &i in own {
+						let t = &trees[i];
+						let Some(b) = t.files.get(*r) else { continue };
+						let to = split_rel(r, t.race);
+						let text = replace_ids(&String::from_utf8_lossy(b), &renames(i));
+						let text = race_copy(&text, t.race, &header_races(b), faction.name(), quests.as_ref().expect("loaded"));
+						if let Some(l) = leg(t, id) {
+							legs_out.insert(guide_id(&to).to_string(), l);
+						}
+						ids.push(guide_id(&to).to_string());
+						out.insert(to, text.into_bytes());
+					}
+					if !ids.is_empty() {
+						seen_seed.insert((*r).clone());
+						published.split.push((id.to_string(), ids));
+					}
+				}
+			}
+		}
+	}
+	for f in seed.keys().filter(|f| !seen_seed.contains(*f)) {
+		errors.push(format!("{f}: a seed guide no start's tree has"));
+	}
+	if !errors.is_empty() {
+		return Err(format!("nothing published:\n  {}", errors.join("\n  ")));
+	}
+	let guides = checkout.join("guides");
+	// What an earlier publish wrote, or the seed left in guides/, and this one does not write.
+	let old: std::collections::BTreeSet<String> = generated_files(checkout)?.into_iter().chain(seed.keys().cloned()).filter(|f| f.ends_with(".guide")).collect();
+	for f in old.iter().filter(|f| !out.contains_key(*f)) {
+		let p = guides.join(f);
+		if std::fs::remove_file(&p).is_ok() {
+			let _ = p.parent().map(std::fs::remove_dir);
+		}
+	}
+	let mut hashes = BTreeMap::new();
+	for (f, body) in &out {
+		let mut b = Vec::with_capacity(HEADER.len() + 1 + body.len());
+		b.extend_from_slice(HEADER.as_bytes());
+		b.push(b'\n');
+		b.extend_from_slice(body);
+		write(&guides.join(f), &b)?;
+		hashes.insert(f.clone(), sha256(&b));
+	}
+	published.guides = out.len();
+	published.legs = legs_out.len();
+	let legs = guides.join(crate::bake::LEGS_FILE);
+	match grid {
+		Some((g, _)) if !legs_out.is_empty() => {
+			let b = serde_json::to_string_pretty(&json!({ "schema": 1, "grid": g, "legs": legs_out })).map_err(|e| e.to_string())?;
+			write(&legs, b.as_bytes())?;
+			hashes.insert(crate::bake::LEGS_FILE.to_string(), sha256(b.as_bytes()));
+		}
+		_ => {
+			let _ = std::fs::remove_file(&legs);
+		}
+	}
+	// The ids the races' copies replaced, for saved tabs (docs/PACK_FORMAT.md, "Retired guides").
+	let retired_file = guides.join("retired.json");
+	let mut retired: std::collections::BTreeSet<String> =
+		if retired_file.is_file() { serde_json::from_slice(&read(&retired_file)?).map_err(|e| format!("{}: {e}", retired_file.display()))? } else { Default::default() };
+	retired.extend(published.split.iter().map(|(id, _)| id.clone()));
+	retired.retain(|id| !out.contains_key(&format!("{id}.guide")));
+	if !retired.is_empty() {
+		write(&retired_file, (serde_json::to_string_pretty(&retired).map_err(|e| e.to_string())? + "\n").as_bytes())?;
 	}
 	let doc = json!({
 		"about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
 		"files": hashes,
 	});
 	write(&checkout.join(GENERATED), (serde_json::to_string_pretty(&doc).map_err(|e| e.to_string())? + "\n").as_bytes())?;
-	Ok(seed.len())
+	Ok(published)
 }
 
 /// Every generated guide or seed file whose bytes no longer match its manifest, as
@@ -230,35 +590,175 @@ mod tests {
 		d
 	}
 
+	/// The start folder of a race and the races its guides name (the seed's layout).
+	fn folder(race: &str) -> (&'static str, &'static str) {
+		match race {
+			"Orc" | "Troll" => ("orc-troll", "Orc,Troll"),
+			"Dwarf" | "Gnome" => ("dwarf-gnome", "Dwarf,Gnome"),
+			"Tauren" => ("tauren", "Tauren"),
+			"Undead" => ("undead", "Undead"),
+			"Human" => ("human", "Human"),
+			"NightElf" => ("nightelf", "NightElf"),
+			_ => ("skyborne", "Skyborne"),
+		}
+	}
+
+	/// The seed's guides of a faction: the shared one, each start folder's (orc-troll has two).
+	fn seed_guides(f: &str) -> Vec<(String, String)> {
+		let mut v = vec![(format!("forever/{f}/02-shared.guide"), format!("guide forever/{f}/02-shared\n\nstep seed\n  accept 1\n"))];
+		let mut folders: Vec<(&str, &str)> = crate::ALL_STARTS.iter().filter(|s| s.2.lower() == f).map(|s| folder(s.1)).collect();
+		folders.dedup();
+		for (dir, races) in folders {
+			let next = if dir == "orc-troll" { format!("forever/{f}/orc-troll/02-b") } else { format!("forever/{f}/02-shared") };
+			v.push((format!("forever/{f}/{dir}/01-a.guide"), format!("guide forever/{f}/{dir}/01-a\nrace {races}\nnext {next}\n\nstep seed\n")));
+		}
+		if f == "horde" {
+			v.push(("forever/horde/orc-troll/02-b.guide".into(), "guide forever/horde/orc-troll/02-b\nrace Orc,Troll\nnext forever/horde/02-shared\n\nstep seed\n".into()));
+		}
+		v
+	}
+
+	/// A checkout with a seed, and `out/<Start>/` written trees: each start's own folder written
+	/// for it, the other folders the seed's copy, the shared guide `shared(start)`.
+	fn round(name: &str, shared: impl Fn(&str) -> String) -> (PathBuf, PathBuf) {
+		let co = tmp(name);
+		for f in ["horde", "alliance"] {
+			for (p, text) in seed_guides(f) {
+				write(&co.join("guides").join(p), text.as_bytes()).unwrap();
+			}
+		}
+		cut_seed(&co, false).unwrap();
+		let out = co.join("out");
+		for &(start, race, faction) in crate::ALL_STARTS.iter() {
+			let f = faction.lower();
+			let tree = out.join(start);
+			for (p, text) in seed_guides(f) {
+				let own = p.contains(&format!("/{}/", folder(race).0));
+				let text = if p.ends_with("02-shared.guide") {
+					shared(start)
+				} else if own && race == "Dwarf" {
+					// Goals the folder's header left to the other race (Gnome mages, a Human-and-Gnome quest).
+					text.replace("step seed\n", "step Anvilmar\n  accept 3114 only Mage            -- Glyphic Memorandum\n  accept 3106 only Dwarf,Warrior\n  accept 1861\n")
+				} else if own && race == "Gnome" {
+					text.replace("step seed\n", "step Anvilmar\n  accept 3114 only Mage\n  turnin 3107 only Paladin  -- Consecrated Rune\n")
+				} else if own {
+					text.replace("step seed\n", &format!("step {start}\n"))
+				} else {
+					text
+				};
+				write(&tree.join(p), text.as_bytes()).unwrap();
+			}
+			if f == "horde" {
+				let mine = |id: &str| json!({ "hash": "h", "steps": { "2": format!("{start} {id}") } });
+				let legs = json!({ "schema": 1, "grid": "g1", "legs": {
+					"forever/horde/02-shared": { "hash": "s", "steps": { "3": "shared" } },
+					"forever/horde/orc-troll/01-a": mine("orc-troll/01-a"),
+					"forever/horde/tauren/01-a": mine("tauren/01-a"),
+				}});
+				write(&tree.join(crate::bake::LEGS_FILE), legs.to_string().as_bytes()).unwrap();
+			}
+		}
+		let quests = json!({
+			"3114": { "races": 64, "source": ["questie"] },
+			"3106": { "races": 4 },
+			"1861": { "races": 65 },
+			"3107": { "races": 5 },
+		});
+		write(&co.join("data/quests.json"), quests.to_string().as_bytes()).unwrap();
+		(co, out)
+	}
+
+	fn read_s(p: &Path) -> String {
+		std::fs::read_to_string(p).unwrap_or_else(|e| panic!("{}: {e}", p.display()))
+	}
+
 	#[test]
 	fn seed_publish_and_check() {
-		let co = tmp("cycle");
+		let (co, out) = round("cycle", |s| {
+			let body = format!("guide forever/{}/02-shared\n\nstep shared\n", if s.contains("lliance") || ["Human", "Dwarf", "Gnome", "NightElf"].contains(&s) { "alliance" } else { "horde" });
+			// A tree that carries a published guide (header on top) is still the same guide.
+			if s == "Orc" {
+				format!("{HEADER}\n{body}")
+			} else {
+				body
+			}
+		});
 		let g = co.join("guides");
-		write(&g.join("forever/horde/01-a.guide"), b"guide forever/horde/01-a\nstep A\n").unwrap();
 		write(&g.join("forever/class/mage/01.guide"), b"guide forever/class/mage/01\n").unwrap();
-		assert_eq!(cut_seed(&co, false).unwrap(), 1, "only the leveling guide is seeded");
 		assert!(cut_seed(&co, false).is_err(), "a second cut needs --force");
-		// A build's input: the seed in place of the generated file.
-		write(&g.join("forever/horde/01-a.guide"), b"edited by hand\n").unwrap();
-		let (input, n) = input_guides(&co, &g, &co.join("stage")).unwrap();
-		assert_eq!(n, Some(1));
-		assert_eq!(std::fs::read(input.join("forever/horde/01-a.guide")).unwrap(), b"guide forever/horde/01-a\nstep A\n");
-		assert!(input.join("forever/class/mage/01.guide").is_file(), "hand-written guides come along");
-		// Publish a written tree: header on top, hashes listed, the check passes.
-		let written = co.join("written");
-		write(&written.join("forever/horde/01-a.guide"), b"guide forever/horde/01-a\nstep B\n").unwrap();
-		assert_eq!(publish(&co, &written).unwrap(), 1);
-		let text = std::fs::read_to_string(g.join("forever/horde/01-a.guide")).unwrap();
-		assert!(text.starts_with(HEADER) && text.ends_with("step B\n"), "{text}");
+		let p = publish(&co, &out, &co.join("data")).unwrap();
+		assert_eq!(p.guides, 14, "per faction the shared guide once, each start folder's guides, Orc/Troll's and Dwarf/Gnome's once per race");
+		let text = read_s(&g.join("forever/horde/02-shared.guide"));
+		assert_eq!(text.matches("# Generated by").count(), 1, "{text}");
+		assert!(text.starts_with(HEADER) && text.ends_with("step shared\n"), "{text}");
+		assert!(read_s(&g.join("forever/horde/tauren/01-a.guide")).ends_with("step Tauren\n"), "a start guide comes from its own start");
 		assert_eq!(check(&co).unwrap(), Vec::<String>::new());
-		// Published again from its own output: one header.
-		publish(&co, &g).unwrap();
-		assert_eq!(std::fs::read_to_string(g.join("forever/horde/01-a.guide")).unwrap().matches("# Generated by").count(), 1);
+		// A build's input: the seed, never a published guide (not the races' copies either).
+		let (input, n) = input_guides(&co, &g, &co.join("stage")).unwrap();
+		assert_eq!(n, Some(11));
+		assert!(read_s(&input.join("forever/horde/02-shared.guide")).ends_with("step seed\n  accept 1\n"));
+		assert!(input.join("forever/horde/orc-troll/01-a.guide").is_file() && !input.join("forever/horde/orc/01-a.guide").exists());
+		assert!(input.join("forever/class/mage/01.guide").is_file(), "hand-written guides come along");
+		// Published again: the same files.
+		let before = read_s(&co.join(GENERATED));
+		publish(&co, &out, &co.join("data")).unwrap();
+		assert_eq!(read_s(&co.join(GENERATED)), before);
 		// A hand edit, to a generated guide or the seed, fails the check; a hand-written guide does not.
-		write(&g.join("forever/horde/01-a.guide"), b"# hand edit\n").unwrap();
-		write(&co.join(SEED_DIR).join("forever/horde/01-a.guide"), b"x").unwrap();
+		write(&g.join("forever/horde/02-shared.guide"), b"# hand edit\n").unwrap();
+		write(&co.join(SEED_DIR).join("forever/horde/02-shared.guide"), b"x").unwrap();
 		write(&g.join("forever/class/mage/01.guide"), b"edited, and fine\n").unwrap();
-		assert_eq!(check(&co).unwrap(), vec!["guides/forever/horde/01-a.guide: edited".to_string(), "forge/seed/guides/forever/horde/01-a.guide: edited".to_string()]);
+		assert_eq!(check(&co).unwrap(), vec!["guides/forever/horde/02-shared.guide: edited".to_string(), "forge/seed/guides/forever/horde/02-shared.guide: edited".to_string()]);
+		std::fs::remove_dir_all(&co).unwrap();
+	}
+
+	#[test]
+	fn publish_refuses_a_shared_route_the_starts_wrote_differently() {
+		let (co, out) = round("diverge", |s| if s == "Tauren" { "guide forever/horde/02-shared\n\nstep Tauren's own\n".into() } else { "guide forever/horde/02-shared\n\nstep shared\n".into() });
+		let e = publish(&co, &out, &co.join("data")).unwrap_err();
+		assert!(e.contains("forever/horde/02-shared.guide: the shared route differs between starts (Orc, Troll, Undead, Skyborne-horde | Tauren)"), "{e}");
+		assert!(!co.join(GENERATED).exists() && co.join("guides/forever/horde/orc-troll/01-a.guide").is_file(), "nothing written");
+		// Every start's tree is needed.
+		std::fs::remove_dir_all(out.join("Gnome")).unwrap();
+		assert!(publish(&co, &out, &co.join("data")).unwrap_err().contains("no written tree for Gnome"));
+		std::fs::remove_dir_all(&co).unwrap();
+	}
+
+	#[test]
+	fn publish_writes_a_shared_start_folder_once_per_race() {
+		let (co, out) =
+			round("split", |s| format!("guide forever/{}/02-shared\n\nstep shared\n", if ["Human", "Dwarf", "Gnome", "NightElf", "Skyborne-alliance"].contains(&s) { "alliance" } else { "horde" }));
+		let g = co.join("guides");
+		let p = publish(&co, &out, &co.join("data")).unwrap();
+		assert_eq!(
+			p.split,
+			vec![
+				("forever/horde/orc-troll/01-a".to_string(), vec!["forever/horde/orc/01-a".to_string(), "forever/horde/troll/01-a".to_string()]),
+				("forever/horde/orc-troll/02-b".to_string(), vec!["forever/horde/orc/02-b".to_string(), "forever/horde/troll/02-b".to_string()]),
+				("forever/alliance/dwarf-gnome/01-a".to_string(), vec!["forever/alliance/dwarf/01-a".to_string(), "forever/alliance/gnome/01-a".to_string()]),
+			]
+		);
+		// Each race's copy from its own start, its race in the header, its ids its own.
+		let orc = read_s(&g.join("forever/horde/orc/01-a.guide"));
+		assert!(orc.contains("\nguide forever/horde/orc/01-a\nrace Orc\nnext forever/horde/orc/02-b\n\nstep Orc\n"), "{orc}");
+		assert!(read_s(&g.join("forever/horde/troll/01-a.guide")).ends_with("race Troll\nnext forever/horde/troll/02-b\n\nstep Troll\n"));
+		assert!(read_s(&g.join("forever/horde/troll/02-b.guide")).contains("guide forever/horde/troll/02-b\nrace Troll\nnext forever/horde/02-shared\n"));
+		assert!(!g.join("forever/horde/orc-troll").exists(), "the shared folder goes");
+		// A goal the shared header left to the other race names it; the race's own goals stay.
+		let dwarf = read_s(&g.join("forever/alliance/dwarf/01-a.guide"));
+		assert!(dwarf.ends_with("race Dwarf\nnext forever/alliance/02-shared\n\nstep Anvilmar\n  accept 3114 only Gnome,Mage            -- Glyphic Memorandum\n  accept 3106 only Dwarf,Warrior\n  accept 1861 only Gnome\n"), "{dwarf}");
+		let gnome = read_s(&g.join("forever/alliance/gnome/01-a.guide"));
+		assert!(gnome.ends_with("race Gnome\nnext forever/alliance/02-shared\n\nstep Anvilmar\n  accept 3114 only Mage\n  turnin 3107 only Dwarf,Paladin  -- Consecrated Rune\n"), "{gnome}");
+		// One legs file: the shared route's once, each race's own under its id.
+		let legs: Value = serde_json::from_slice(&std::fs::read(g.join(crate::bake::LEGS_FILE)).unwrap()).unwrap();
+		assert_eq!(legs["grid"], "g1");
+		assert_eq!(legs["legs"]["forever/horde/02-shared"]["steps"]["3"], "shared");
+		assert_eq!(legs["legs"]["forever/horde/orc/01-a"]["steps"]["2"], "Orc orc-troll/01-a");
+		assert_eq!(legs["legs"]["forever/horde/troll/01-a"]["steps"]["2"], "Troll orc-troll/01-a");
+		assert_eq!(legs["legs"]["forever/horde/tauren/01-a"]["steps"]["2"], "Tauren tauren/01-a");
+		assert!(legs["legs"].get("forever/horde/orc-troll/01-a").is_none());
+		// The old ids are retired (a saved tab opens the race's guide).
+		let retired: Vec<String> = serde_json::from_slice(&std::fs::read(g.join("retired.json")).unwrap()).unwrap();
+		assert_eq!(retired, ["forever/alliance/dwarf-gnome/01-a", "forever/horde/orc-troll/01-a", "forever/horde/orc-troll/02-b"]);
 		std::fs::remove_dir_all(&co).unwrap();
 	}
 }

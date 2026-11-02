@@ -2538,6 +2538,18 @@ fn verify_counts(list: &[V]) -> Obj {
 	c
 }
 
+/// A TDB loot row (`[rate, provenance, flags, ...]`) gives its own rate to a dropper the item lists
+/// without one, when the item's rates are on the server's scale (`dropScale` server, or no table
+/// chosen): the merge keeps one rate table per item, and the world leaves a dropper that table does
+/// not rate out whenever a rated one stands nearer (Red Leather Bandana 829: QuestieDB's server table
+/// rates the Highwaymen at 80 and none of the Trappers, Smugglers, Pillagers or Looters, which the
+/// TDB has at 40, so the world sent Red Leather Bandanas to the level 17 Highwaymen of Moonbrook,
+/// past the Defias the Militia quests kill: RevA1, c13). A sniffed row fills any table (above).
+fn tdb_rate_fills_unrated(item: &V, row: &V) -> bool {
+	let scale = item.get("dropScale");
+	(scale.is_nullish() || scale.as_str() == Some("server")) && row.num_at(0) > 0.0
+}
+
 /// The TDB's sniffed spawns, drop rates and droppers (kb.js applyTdbWorld).
 fn apply_tdb_world(kb: &mut Kb, tdb: &V, spawnz: Option<&mut (V, V)>) -> Obj {
 	let inp = kb.inp;
@@ -2548,116 +2560,10 @@ fn apply_tdb_world(kb: &mut Kb, tdb: &V, spawnz: Option<&mut (V, V)>) -> Obj {
 	}
 	r.set("vendors", tdb.get("vendors").keys().len());
 	let bump = |k: &str, by: f64| r.set(k, r.get(k).num() + by);
-	let era = inp.frames.get("era");
-	let fv = inp.frames.get("forever");
-	let frame_of = |map: &str, f: &str| -> Option<V> {
-		let x = fv.get(map);
-		if f == "l" && x.truthy() {
-			return Some(x);
-		}
-		let e = era.get(map);
-		if e.truthy() {
-			return Some(e);
-		}
-		x.truthy().then_some(x)
-	};
-	let to_world = |map: &str, x: f64, y: f64, f: &str| -> Option<(f64, f64, f64)> {
-		let b = frame_of(map, f)?;
-		let (top, bottom, left, right) = (b.get("top").num(), b.get("bottom").num(), b.get("left").num(), b.get("right").num());
-		Some((b.get("c").num(), top + ((bottom - top) * y) / 100.0, left + ((right - left) * x) / 100.0))
-	};
-	let to_pct = |b: &V, wx: f64, wy: f64| -> [f64; 2] {
-		let (top, bottom, left, right) = (b.get("top").num(), b.get("bottom").num(), b.get("left").num(), b.get("right").num());
-		[math_round(((wy - left) / (right - left)) * 1e4) / 100.0, math_round(((wx - top) / (bottom - top)) * 1e4) / 100.0]
-	};
-	let inside = |p: &[f64; 2]| (0.0..=100.0).contains(&p[0]) && (0.0..=100.0).contains(&p[1]);
-	let mut zone_maps: Vec<(String, &str, V, f64)> = Vec::new();
-	for (set, f) in [("era", "e"), ("forever", "l")] {
-		for (id, b) in inp.frames.get(set).entries() {
-			let z = inp.zones.get(&id);
-			let (dl, dt) = ((b.get("right").num() - b.get("left").num()).abs(), (b.get("bottom").num() - b.get("top").num()).abs());
-			if !z.truthy() || z.get("type").num() != 3.0 || dl < 1.0 || dt < 1.0 {
-				continue;
-			}
-			let live = inp.live.contains(&(forge_guide::js::str_to_num(&id) as i64));
-			if f == "l" && era.get(&id).truthy() && !live {
-				continue;
-			}
-			if f == "e" && live && fv.get(&id).truthy() {
-				continue;
-			}
-			let area = ((b.get("right").num() - b.get("left").num()) * (b.get("bottom").num() - b.get("top").num())).abs();
-			zone_maps.push((id.to_string(), f, b, area));
-		}
-	}
-	zone_maps.sort_by(|a, b| a.3.partial_cmp(&b.3).unwrap().then(forge_guide::js::str_to_num(&a.0).partial_cmp(&forge_guide::js::str_to_num(&b.0)).unwrap()));
-	let our_points = |ent: &V| -> Vec<(f64, f64, f64)> {
-		let mut out = Vec::new();
-		for (map, sp) in ent.get("spawns").entries() {
-			let f = sp.get("f").to_js_string();
-			for p in sp.get("pts").items().into_iter().chain(sp.get("more").items()) {
-				if let Some(w) = to_world(&map, p.num_at(0), p.num_at(1), &f) {
-					out.push(w);
-				}
-			}
-		}
-		out
-	};
-	let place = |ent: &V, row: &V| -> f64 {
-		let (c, wx, wy) = (row.num_at(0), row.num_at(1), row.num_at(2));
-		for (map, sp) in ent.get("spawns").entries() {
-			let Some(b) = frame_of(&map, &sp.get("f").to_js_string()) else { continue };
-			if b.get("c").num() != c {
-				continue;
-			}
-			let p = to_pct(&b, wx, wy);
-			if inside(&p) {
-				if sp.get("pts").len() < 24 {
-					sp.get("pts").push(nums(&p));
-				} else {
-					if !sp.get("more").truthy() {
-						sp.set("more", V::arr());
-					}
-					sp.get("more").push(nums(&p));
-				}
-				return 1.0;
-			}
-		}
-		for (zid, zf, zb, _) in &zone_maps {
-			if zb.get("c").num() != c {
-				continue;
-			}
-			let p = to_pct(zb, wx, wy);
-			if !inside(&p) {
-				continue;
-			}
-			let cur = ent.get("spawns");
-			let mut recs: Vec<f64> = cur.keys().iter().map(|k| forge_guide::js::str_to_num(k)).collect();
-			recs.push(forge_guide::js::str_to_num(zid));
-			recs.sort_by(|a, b| a.partial_cmp(b).unwrap());
-			let spawns = Obj::new();
-			for k in recs {
-				let ks = num_str(k);
-				let e = cur.get(&ks);
-				spawns.set(
-					&ks,
-					if e.truthy() {
-						e
-					} else {
-						let o = Obj::new();
-						o.set("f", *zf);
-						o.set("pts", V::arr());
-						V::Obj(o)
-					},
-				);
-			}
-			ent.set("spawns", spawns);
-			ent.get("spawns").get(zid).get("pts").push(nums(&p));
-			return 1.0;
-		}
-		0.0
-	};
-	let near = |pts: &[(f64, f64, f64)], row: &V, yd: f64| pts.iter().any(|w| w.0 == row.num_at(0) && hypot(w.1 - row.num_at(1), w.2 - row.num_at(2)) <= yd);
+	let placer = crate::place::Placer::new(&inp.frames, inp.zones, &inp.live);
+	let our_points = |ent: &V| placer.our_points(ent);
+	let place = |ent: &V, row: &V| placer.place(ent, row);
+	let near = crate::place::near;
 	let forever_only = |ent: &V| !(ent.get("source").is_arr() && src_tags(ent).iter().any(|t| t == "pfquest"));
 
 	let mut named: [FxHashSet<i64>; 2] = Default::default();
@@ -2720,6 +2626,11 @@ fn apply_tdb_world(kb: &mut Kb, tdb: &V, spawnz: Option<&mut (V, V)>) -> Obj {
 						let v = rate(mult);
 						drops.set(&ent, v);
 						kb.change("items", iid, &format!("drop {kind}"), V::Null, V::Num(v), "tdb");
+						bump("ratesFilled", 1.0);
+					} else if drops.get(&ent).is_nullish() && tdb_rate_fills_unrated(&it, &e) {
+						let v = rate(mult);
+						drops.set(&ent, v);
+						kb.change("items", iid, &format!("drop {kind}"), V::Null, V::Num(v), "tdb.inherited");
 						bump("ratesFilled", 1.0);
 					}
 				} else if it.get("questItem").truthy() && (to_int32(e.num_at(2)) & 1) != 0 && !e.at(1).to_js_string().contains("placeholder") && e.num_at(0) >= 1.0 {
@@ -3616,6 +3527,23 @@ mod tests {
 		assert_eq!(steps[0].get("action").as_str(), Some("interact"));
 		assert!(steps[0].get("drives").truthy());
 		assert!(!steps[1].get("drives").truthy());
+	}
+
+	#[test]
+	fn tdb_rates_fill_droppers_the_server_table_leaves_unrated() {
+		// Red Leather Bandana 829 (RevA1, c13): the server table rates the Highwaymen, not the
+		// Trappers; the TDB has the Trappers at 40 (a placeholder row).
+		let item = parse_json(r#"{ "id": 829, "drops": { "npc": { "122": 80, "504": null } }, "dropScale": "server", "questItem": true }"#).unwrap();
+		let row = parse_json(r#"[40, "placeholder", 5, null, null, 1]"#).unwrap();
+		assert!(tdb_rate_fills_unrated(&item, &row));
+		// No table chosen: the TDB's rate too.
+		let bare = parse_json(r#"{ "drops": { "npc": { "504": null } }, "dropScale": null }"#).unwrap();
+		assert!(tdb_rate_fills_unrated(&bare, &row));
+		// An observed or pfQuest table keeps its scale: no server rates mixed in.
+		let observed = parse_json(r#"{ "drops": { "npc": { "504": null } }, "dropScale": "observed" }"#).unwrap();
+		assert!(!tdb_rate_fills_unrated(&observed, &row));
+		// A zero row fills nothing.
+		assert!(!tdb_rate_fills_unrated(&item, &parse_json(r#"[0, "vmangos", 5, null, null, 1]"#).unwrap()));
 	}
 
 	fn fact_of(alt: &Alt, key: &str, field: &str, source: &str) -> Option<String> {

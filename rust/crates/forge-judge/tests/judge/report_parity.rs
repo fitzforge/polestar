@@ -20,10 +20,11 @@ fn report_equals_the_js_scripts_on_the_slice() {
 	let _ = std::fs::remove_dir_all(&tmp);
 	let sim = tmp.join("sim");
 	std::fs::create_dir_all(&sim).unwrap();
-	for f in ["horde", "alliance"] {
-		std::fs::write(sim.join(format!("world-{f}.json")), common::gunzip(&common::golden().join(format!("world/expected/world-{f}.json.gz")))).unwrap();
+	// v1's sim world and flight pricing, as the JS scripts ran (common::params).
+	for f in forge_core::Faction::BOTH {
+		std::fs::write(sim.join(format!("world-{}.json", f.lower())), common::gunzip(&common::v1_world_file(f))).unwrap();
 	}
-	std::fs::copy(common::golden().join("sim/params.json"), sim.join("params.json")).unwrap();
+	std::fs::write(sim.join("params.json"), serde_json::to_vec(&common::params()).unwrap()).unwrap();
 	let v1 = common::clean_slice("report-v1");
 	let mut starts = Vec::new();
 	for race in ["Orc", "Human"] {
@@ -46,7 +47,7 @@ fn report_equals_the_js_scripts_on_the_slice() {
 		starts.push(StartInput { route: tmp.join(format!("{race}.json")), stream: None, guides: written });
 	}
 	// the root: the data slice's mini repository, no knowledge base (the JS ran on an empty one)
-	let inp = Inputs { starts, v1, root: common::root(), data_dir: common::data(), sim_dir: sim, along_walked: true, checks: false };
+	let inp = Inputs { starts, v1, root: common::root(), data_dir: common::data(), sim_dir: sim, along_walked: true, checks: false, route_model: false };
 	let o = run(&inp).unwrap();
 	let mut bad = Vec::new();
 	for s in &o.starts {
@@ -152,6 +153,7 @@ fn report_equals_the_js_scripts_on_r8() {
 		sim_dir: scratch.join("simdir"),
 		along_walked: true,
 		checks: false,
+		route_model: false,
 	};
 	let o = run(&inp).unwrap();
 	for (s, want, honest, stream) in

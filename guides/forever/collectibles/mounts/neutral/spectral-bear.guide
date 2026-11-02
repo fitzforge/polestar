@@ -2,21 +2,27 @@ guide forever/collectibles/mounts/neutral/spectral-bear
 title Spectral Bear
 category Collectibles
 folder Mounts · Legacy
-keywords Reins of the Spectral Bear, Legacy, Legacy Points, Legacy Progress Track, bear
+keywords Reins of the Spectral Bear, Legacy, Legacy Points, Legacy Progress Track, Legacy Reward, Innkeeper Wiley, Ratchet, bear
 collects 277718
 levels 60-60
-zone Stormwind City
+zone The Barrens
 
 # Reins of the Spectral Bear: the 55-point reward of the Legacy Progress Track.
-# The reins are the 55 Legacy Points reward.
-# Sources: Forever client 1.60.1.70338 via
-# wago.tools (ItemSparse 277718: level 60, Journeyman Riding, account-wide).
-
-step Journeyman Riding
-  tip The reins need level 60 and Journeyman Riding (Forever client). Train it at your race's riding trainer; see the Level 60 mount guides.
-  level 60
-  skill Riding 150
+# Sources: Forever client 1.60.1.70532 via wago.tools (ItemSparse 277718: level
+# 60; MountCapability: Riding 150, any race). Forever's world data: Innkeeper
+# Wiley (6791, Ratchet) gives and takes the "Legacy Reward" quests, the Air Rifle
+# one seen in game (96339, build 70291); the reins' quest (96342 "Legacy Reward:
+# Reins of the Spectral Bear", reward 277718) is a row not yet seen in game, so
+# the guide counts the reins in the bags rather than a quest id. Beta player
+# guides from datamined tooltips also name Wiley, and count the points the
+# account has earned, not the ones spent.
 
 step 55 Legacy Points
-  tip Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one. The Progress Track gives the Replica Ironforge Air Rifle at 15, the Spectral Bear Cub at 25, the Spectral Bear Tabard at 40 and the reins at 55. How rewards are delivered is not known yet (perhaps by mail); this goal ticks once the reins are in your bags.
-  collect 277718 "Reins of the Spectral Bear"
+  tip Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one, and every point the account earns counts here, spent or not. The Legacy Challenges guide plans them. The Progress Track gives the Replica Ironforge Air Rifle at 15, the Spectral Bear Cub at 25, the Spectral Bear Tabard at 40 and the reins at 55. Claim each one from Innkeeper Wiley at the inn in Ratchet, on the Barrens coast: he offers a "Legacy Reward" quest once you have the points.
+  talk 6791                           -- Innkeeper Wiley, Ratchet
+  collect 277718 "Reins of the Spectral Bear" @62.0,39.4 -- from Innkeeper Wiley
+
+step Journeyman Riding
+  tip The bear runs at full speed: riding it needs level 60 and Journeyman Riding (Forever client), from your race's riding trainer; see the Level 60 mount guides.
+  level 60
+  skill Riding 150

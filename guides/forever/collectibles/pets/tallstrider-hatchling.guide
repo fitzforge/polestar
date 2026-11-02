@@ -2,7 +2,7 @@ guide forever/collectibles/pets/tallstrider-hatchling
 title Tallstrider Hatchling
 category Collectibles
 folder Companion pets · Drops
-keywords Strider Clutchmother, Darkshore, tallstrider, rare
+keywords Strider Clutchmother, Darkshore, tallstrider, rare, Master's Glaive
 collects 284176
 levels 18-60
 zone Darkshore
@@ -10,8 +10,12 @@ zone Darkshore
 # Tallstrider Hatchling from the Strider Clutchmother in Darkshore (new in
 # Forever).
 # Sources: Forever's drop data, item 284176 (Strider Clutchmother, 0.6% in 886
-# kills); npcs.json (her spawn); Forever client 1.60.1.70338.
+# kills); npcs.json (her spawn, rare, level 20); beta item data (binds when
+# picked up).
+# ASSUMED: she respawns after about five and a half hours (the world
+# database's Classic timer; Forever's is not known). In-game check: time
+# between two of her spawns.
 
 step Strider Clutchmother
-  tip The Strider Clutchmother is a rare level 20 tallstrider in southern Darkshore; early kill counts give about 0.6% per kill, so expect many respawns.
+  tip The Strider Clutchmother is a rare level 20 tallstrider in southern Darkshore, near the Master's Glaive. Kill counts so far give her about 0.6% per kill, roughly one in 170, and in Classic she comes back only every few hours: check her spot whenever you pass, rather than camping. The hatchling binds when you loot it, so it never reaches the Auction House.
   collect 284176 "Tallstrider Hatchling" @34.8,87.3 -- Strider Clutchmother

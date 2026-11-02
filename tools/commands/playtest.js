@@ -24,7 +24,7 @@ One line per guide, race and class (only pairs that exist in the game):
   ok  joe/elwynn (Human Warrior)
   stuck joe/elwynn (Human Paladin) at step 3 "Kobolds": goal 1 (kill "Kobold Vermin") stays active
   stuck joe/elwynn (Human Mage) at hand-over to forever/alliance/02-westfall: <why>
-  stuck joe/elwynn (Human Mage) at hand-over to forever/alliance/dwarf-gnome/01-dun-morogh: no Human can follow it
+  stuck joe/elwynn (Human Mage) at hand-over to forever/alliance/dwarf/01-dun-morogh: no Human can follow it
   fail joe/elwynn (Human Warrior): no location for step 2 goal 1: accept 33
 
 Exit code 1 when any guide is stuck or fails, nothing was played, or the

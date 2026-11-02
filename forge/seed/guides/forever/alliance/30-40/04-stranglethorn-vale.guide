@@ -1,0 +1,266 @@
+# Stranglethorn Vale, Alliance ~34 to ~38: the consensus Stranglethorn visit
+# (34.2-37.8). Flow: Menethil Harbor > fly to Ironforge for class training
+# (Druids take the tram to Stormwind) > fly to Darkshire and ride south >
+# Nesingwary's Expedition (the first hunting tiers) >
+# Rebel Camp and Kurzen's Compound (Bookie Herod) > Nesingwary again > Booty
+# Bay (flight path, bind) > the west coast (Bloodscalp trolls, crocolisks,
+# the Crystalvein Mine) > back north to pick up the Green Hills of
+# Stranglethorn and the Rebel Camp's Kurzen quests > Kurzen's Compound
+# (Special Forces) > the jungle ruins and Lake Nazferiti (Shadowmaw
+# panthers, Venture Co. crystals, the four troll legends, the Green Hills
+# pages) > Rebel Camp and Nesingwary turn-ins > Skullsplitter fetishes >
+# hearth to Booty Bay (Water Elementals). Then on to the Swamp of Sorrows
+# (05-arathi-highlands).
+#
+# Forever above level 30 cannot be checked in game until launch on 4
+# November: the Forever addition here comes from the data, not from play.
+# Added: Talk of the Town (98463, Forever), Barkeep Kelly's breadcrumb from
+# Southshore (30-40/01-hillsbrad-foothills), handed to Nixxrax Fillamug in
+# the Salty Sailor Tavern on arrival in Booty Bay, as the consensus does.
+#
+# Optional: Crystal in the Mountains starts from the Pendant of Myzrael, a
+# drop of Gluggle, a rare murloc: take it if he drops it.
+# Deviations: none in the quest set. Hemet Nesingwary (5762) is carried from
+# Thousand Needles; characters without it skip the turn-in. Favor for Krazek
+# (627) and Magical Analysis (602) are carried on: the ore drops in Arathi,
+# the analysis is turned in at Dalaran's camp in Alterac (next guide).
+guide forever/alliance/30-40/04-stranglethorn-vale
+title Stranglethorn Vale
+faction Alliance
+levels 34-38
+zone Stranglethorn Vale
+next forever/alliance/30-40/05-arathi-highlands
+
+# ---------------------------------------------------------------- Getting there
+
+step Ironforge
+  zone Ironforge
+  tip Fly from Menethil Harbor to Ironforge and train.
+  fly "Ironforge"                     -- Shellei Brondir, Menethil Harbor
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Druid training
+  only Druid
+  zone Stormwind City
+  tip Ironforge has no druid trainer: take the Deeprun Tram from Tinker Town to Stormwind and train with Sheldras Moontree.
+  train class
+
+step Darkshire
+  zone Duskwood
+  tip Fly to Darkshire: Gryth Thurden in Ironforge's Great Forge, or Dungar Longdrink in Stormwind's Trade District.
+  fly "Darkshire"
+
+# ---------------------------------------------------------------- Nesingwary's Expedition
+
+step Nesingwary's Expedition
+  zone Stranglethorn Vale
+  tip From Duskwood take the road south into Stranglethorn; the hunters' tents stand just west of the road past the Rebel Camp turn-off.
+  accept 583                          -- Barnil Stonepot
+  turnin 583                          -- Hemet Nesingwary
+  turnin 5762                         -- Hemet Nesingwary, from Thousand Needles
+  accept 194
+  accept 185                          -- Ajeck Rouack
+  accept 190                          -- Sir S. J. Erlgadin
+
+step Young tigers and panthers
+  tip Both roam the grass around the camp and along the road north.
+  kill 681 quest 185                  -- Young Stranglethorn Tiger
+  kill 683 quest 190                  -- Young Panther
+
+step Nesingwary's Expedition
+  turnin 185                          -- Ajeck Rouack
+  accept 186
+  turnin 190                          -- Sir S. J. Erlgadin
+  accept 191
+
+step Stranglethorn Tigers
+  tip The adult tigers prowl the hills just south and west of the camp.
+  kill 682 quest 186                  -- Stranglethorn Tiger
+
+step Ajeck Rouack
+  turnin 186
+  accept 187                          -- The elder tigers come later, on the way back from the Rebel Camp
+
+# ---------------------------------------------------------------- Rebel Camp
+
+step Rebel Camp
+  tip Take the road north; Private Thorsen patrols it, the camp sits in the hills to the west.
+  accept 215                          -- Private Thorsen
+  turnin 215                          -- Lieutenant Doren, in the hut
+  accept 200
+  accept 203                          -- Sergeant Yohwa
+  accept 204
+
+step Kurzen's Compound
+  tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents.
+  kill 937 quest 203                  -- Kurzen Jungle Fighter
+  collect 2633 quest 204.1            -- Jungle Remedy
+  collect 2634 quest 204.2            -- Venom Fern Extract, from a Kurzen Supplies crate
+
+step Bookie Herod
+  tip Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth.
+  turnin 200                          -- Bookie Herod's Records
+  accept 328
+  turnin 328                          -- Bookie Herod's Strongbox
+  accept 329
+
+step Rebel Camp
+  turnin 203                          -- Sergeant Yohwa
+  turnin 204
+  turnin 329                          -- Lieutenant Doren
+  accept 330
+  turnin 330                          -- Corporal Sethman
+  accept 331
+  turnin 331                          -- Lieutenant Doren
+
+# ---------------------------------------------------------------- Nesingwary's hunts
+
+step Panthers, raptors and elder tigers
+  tip Back south past Nesingwary: Panthers and Stranglethorn Raptors run in the clearings west of the camp toward the coast; the elder tigers hold the hills south-west.
+  kill 736 quest 191                  -- Panther
+  kill 685 quest 194                  -- Stranglethorn Raptor
+  kill 1085 quest 187                 -- Elder Stranglethorn Tiger
+  accept 635 optional                 -- Gluggle, a rare murloc on the coast west of camp, drops the Pendant of Myzrael: take it if you meet him
+
+step Nesingwary's Expedition
+  turnin 194                          -- Hemet Nesingwary
+  accept 195
+  turnin 187                          -- Ajeck Rouack
+  accept 188
+  turnin 191                          -- Sir S. J. Erlgadin
+
+step Sin'Dall and the Lashtail raptors
+  tip Sin'Dall, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to Booty Bay.
+  collect 3879 quest 188              -- Paw of Sin'Dall
+  kill 686 quest 195                  -- Lashtail Raptor
+
+# ---------------------------------------------------------------- Booty Bay
+
+step Down to Booty Bay
+  tip Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape.
+  getfp "Booty Bay"                   -- Gyll, on the top floor by the docks
+  sethome "Booty Bay"                 -- Innkeeper Skindle, The Salty Sailor Tavern
+  turnin 98463                        -- Nixxrax Fillamug, in the Salty Sailor Tavern
+  accept 575                          -- Drizzlik, by the bank
+  accept 605                          -- Crank Fizzlebub
+  accept 198                          -- Krazek, in the tavern
+  accept 201
+  accept 189                          -- Kebok, in the tavern
+  vendor nearest
+
+# ---------------------------------------------------------------- The jungle loop
+
+step Crystalvein Mine
+  tip Walk back north; the Crystalvein Mine lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.
+  collect 3918 quest 605              -- Singing Crystal Shard
+
+step Bloodscalp trolls
+  tip The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp.
+  collect 1519 quest 189              -- Bloodscalp Ear
+
+step Nesingwary's Expedition
+  turnin 195                          -- Hemet Nesingwary
+  turnin 188                          -- Ajeck Rouack
+  complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
+
+step Private Thorsen
+  tip Thorsen patrols the road north of camp, toward the Rebel Camp.
+  turnin 198
+
+step River crocolisks
+  tip River Crocolisks swim the river by the Rebel Camp.
+  collect 4053 quest 575              -- Large River Crocolisk Skin
+
+step Booty Bay
+  hearth "Booty Bay"
+  turnin 575                          -- Drizzlik
+  accept 577
+  turnin 605                          -- Crank Fizzlebub
+  turnin 201                          -- Krazek
+  turnin 189                          -- Kebok
+
+step Snapjaw Crocolisks
+  tip Snapjaw Crocolisks bask on the shore and islands along the coast north of Booty Bay.
+  collect 4104 quest 577              -- Snapjaw Crocolisk Skin
+
+step Booty Bay
+  turnin 577                          -- Drizzlik
+  accept 213                          -- Kebok
+  accept 616                          -- Krazek
+  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
+  accept 578
+
+# ---------------------------------------------------------------- North again
+
+step The haunted island
+  tip Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it.
+  complete 578 @20.8,23.2
+
+step Nesingwary's Expedition
+  tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
+  accept 192                          -- Sir S. J. Erlgadin
+  accept 338                          -- Barnil Stonepot
+  accept 339
+  accept 340
+  accept 341
+  accept 342
+
+step Rebel Camp
+  accept 207                          -- Brother Nimetz
+  accept 574                          -- Sergeant Yohwa
+
+step Kurzen's Compound
+  tip Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.
+  kill 941 quest 574.2                -- Kurzen Headshrinker
+  kill 938 quest 574.1                -- Kurzen Commando
+
+step The jungle ruins
+  tip Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on Lake Nazferiti carries the Tumbled Crystals.
+  collect 2005 quest 207.1            -- The First Troll Legend: Moon Over the Vale
+  collect 2006 quest 207.2            -- The Second Troll Legend: Gri'lek the Wanderer
+  collect 2007 quest 207.3            -- The Third Troll Legend: Fall of Gurubashi
+  collect 2008 quest 207.4            -- The Fourth Troll Legend: The Emperor's Tomb
+  kill 684 quest 192                  -- Shadowmaw Panther
+  collect 4106 quest 213              -- Tumbled Crystal
+  complete 339                        -- Chapter I
+  complete 340                        -- Chapter II
+  complete 341                        -- Chapter III
+  complete 342                        -- Chapter IV
+
+step Rebel Camp
+  turnin 574                          -- Lieutenant Doren
+  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
+  turnin 207                          -- Brother Nimetz
+  accept 205
+
+step Nesingwary's Expedition
+  turnin 339                          -- Barnil Stonepot
+  turnin 340
+  turnin 341
+  turnin 342
+  turnin 338
+  turnin 192                          -- Sir S. J. Erlgadin
+
+step Skullsplitter trolls
+  tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
+  collect 2466 quest 205              -- Skullsplitter Fetish
+
+step Brother Nimetz
+  turnin 205
+
+# ---------------------------------------------------------------- Booty Bay
+
+step Booty Bay
+  hearth "Booty Bay"
+  turnin 578                          -- Baron Revilgaz
+  accept 601
+  turnin 213                          -- Kebok
+  turnin 210                          -- Krazek
+  accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
+
+step Water Elementals
+  collect 3923 quest 601              -- Water Elemental Bracers
+
+step Baron Revilgaz
+  turnin 601
+  accept 602                          -- For Archmage Ansirem in Alterac Mountains

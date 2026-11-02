@@ -9,13 +9,12 @@ levels 1-60
 zone Thunder Bluff
 
 # Halpa's whistles in Thunder Bluff.
-# Sources: items.json / npcs.json (vendor, Prairie Dog; the new ground squirrels);
-# Forever
-# client 1.60.1.70338 via wago.tools (ItemSparse prices; every pet item teaches
-# its companion when used).
+# Sources: items.json / npcs.json (vendor, Prairie Dog; the new ground
+# squirrels); Forever's client data 1.60.1.70532 (ItemSparse prices: 50s each;
+# every pet item teaches its companion when used).
 
 step Halpa
-  tip Halpa sells three whistles in Thunder Bluff (50s each); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Halpa sells three whistles in Thunder Bluff (50s each, 1g 50s for all three); the two ground squirrels are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 8401                         -- Halpa
   buy 10394 npc 8401 optional         -- Prairie Dog Whistle, 50s
   buy 280794 "Brown Ground Squirrel Whistle" npc 8401 optional -- 50s

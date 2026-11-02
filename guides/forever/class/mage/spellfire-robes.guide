@@ -19,9 +19,17 @@ why A robe at 15 for Horde mages, from the Undercity and Silverpine Forest.
 # (data/local/quest-audit/, all four unchanged) and
 # quest data (quests 1959, 1960, 1961 and 1962,
 # checked 2026-10-14) for the races, givers and the reward (Lesser Spellfire
-# Robes); the quest texts for the Apothecarium and the tailor's shop.
+# Robes); the quest texts for the Apothecarium and the tailor's shop; the KB
+# drops table for the Dalaran Mana Gem (80% from every Dalaran apprentice,
+# mage, protector, warder, conjuror, watcher and wizard); data/local/mechanics
+# (quest-steps and quest-notes, checked 2026-10-20) for the up-to-four Rift
+# Spawns, pulling one over the bridge, the half-bridge limit on the coffer,
+# the 5 minute table respawn and the Dalaran mobs' levels and spells.
 # Forever's quest data lists Orc, Undead and Troll mages for 1959-1961;
 # corrections.json adds Orcs to 1959 and 1960, which the merged data left out.
+# Spellfire Robes (1962) is Undead and Troll in quests.json; Forever's quest
+# page names Orcs too (check.py quest 1962: page=Orc/Undead/Troll;
+# corrections-private sets it).
 # Investigate the Alchemist Shop needs Report
 # to Anastasia first (quests.json): Cain Firesong in Brill, Uthel'nay in
 # Orgrimmar, Thurston Xane in Thunder Bluff and Un'Thuwa in Sen'jin give it.
@@ -31,47 +39,45 @@ why A robe at 15 for Horde mages, from the Undercity and Silverpine Forest.
 step Uthel'nay (Orgrimmar)
   only Orc,Troll
   zone Orgrimmar
-  tip Uthel'nay is one of Orgrimmar's mage trainers. Then take the zeppelin to Tirisfal Glades from the tower outside Orgrimmar's main gate.
+  tip Uthel'nay is one of Orgrimmar's mage trainers, in Darkbriar Lodge in the Valley of Spirits. Then take the zeppelin to Tirisfal Glades from the tower outside Orgrimmar's main gate.
   level 15
   accept 1959 npc 7311                        -- Uthel'nay
 
 step Cain Firesong (Brill)
   only Undead
   zone Tirisfal Glades
-  tip Cain Firesong is the Brill mage trainer.
+  tip Cain Firesong is the Brill mage trainer, in the Gallows' End Tavern.
   level 15
   accept 1959 npc 2128                        -- Cain Firesong
 
 step Anastasia Hartwell
   zone Undercity
-  tip Anastasia Hartwell stands in the Magic Quarter. The Chest of Containment Coffers and the Cantation of Manifestation lie behind her.
+  tip Anastasia Hartwell stands in the Magic Quarter. The Chest of Containment Coffers and the Cantation of Manifestation lie on the ledge behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them.
   turnin 1959                                 -- Anastasia Hartwell
   accept 1960
   collect 7247 quest 1960.2                   -- Chest of Containment Coffers
   collect 7308 quest 1960.3                   -- Cantation of Manifestation
 
 step The alchemist shop
-  tip Algernon's alchemist shop is in the Apothecarium. Use the Cantation of Manifestation there to make the Rift Spawn visible, subdue one with your spells, then use the Chest of Containment Coffers to throw down a coffer and capture it.
+  tip Algernon's alchemist shop is in the Apothecarium. Stand on the steps or the bridge outside the shop and read the Cantation of Manifestation: up to four invisible Rift Spawns (level 16-17) appear and attack at once, and the city guards do not help. Hit one with a single-target spell and back off over the bridge: the others give up and fade, the one you hit follows. Beat it down on the shop's half of the bridge (past halfway the coffer will not work on it) until it stops fighting and sits stunned under a spiral, use the Chest of Containment Coffers on it, then click the Filled Containment Coffer once it appears on the floor (clicking too early wastes a charge). Three are needed.
   use 7308 optional @53.2,74.5                -- Cantation of Manifestation
-  kill 6492 optional                          -- Rift Spawn
-  collect 7292 quest 1960.1 @53.2,74.5        -- Filled Containment Coffer
+  kill 6492 optional                          -- Rift Spawn, down to the stun
+  use 7247 optional @53.2,74.5                -- Chest of Containment Coffers, on the stunned Rift Spawn
+  collect 7292 x3 quest 1960.1 @53.2,74.5     -- Filled Containment Coffer
 
 step Back to Anastasia Hartwell
   turnin 1960                                 -- Anastasia Hartwell
   accept 1961
 
-step Linen Cloth
-  tip Humanoids drop Linen Cloth; the Undercity Auction House sells it.
-  collect 2589 quest 1961.1                   -- Linen Cloth
-
 step Ambermill
   zone Silverpine Forest
-  tip Leave the Undercity and follow the road south through Silverpine Forest. The Dalaran mages hold Ambermill, south-east of the Sepulcher; every Dalaran Apprentice, Mage, Protector, Warder, Conjuror, Watcher and Wizard can drop a Dalaran Mana Gem.
-  collect 7293 quest 1961.2                   -- Dalaran Mana Gem
+  tip Leave the Undercity and follow the road south through Silverpine Forest. Every Dalaran human drops a Dalaran Mana Gem four times in five, and Linen Cloth too: the easiest are the Dalaran Apprentices (level 13-14, Frostbolt) on the hills south-east of the Sepulcher, either side of the road south; deeper in, the walled town of Ambermill in south-east Silverpine has Watchers (18-19, Fire Shield and Flamestrike) and Wizards (19-20, Frost Nova) that come back every 4 1/2 minutes and run for help at low health, so pull at the edge. Ten Linen Cloth also come from any humanoid or the Undercity Auction House.
+  collect 7293 x6 quest 1961.2                -- Dalaran Mana Gem
+  collect 2589 x10 quest 1961.1               -- Linen Cloth
 
 step Josef Gregorian
   zone Undercity
-  tip Back to the Undercity. Josef Gregorian, Victor Ward and Rhiannon Davis keep the tailor's shop.
+  tip Back to the Undercity. Josef Gregorian, Victor Ward and Rhiannon Davis keep the tailor's shop in the Magic Quarter. Hand the gems and cloth to Josef and let the three of them talk for a moment; then take Spellfire Robes (Forever's quest data has Rhiannon offering it; if the "!" shows over Josef instead, take it from him) and hand it to Josef for the robe.
   turnin 1961                                 -- Josef Gregorian
   accept 1962 npc 11049                       -- Rhiannon Davis
   turnin 1962                                 -- Lesser Spellfire Robes

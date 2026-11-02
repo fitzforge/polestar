@@ -12,7 +12,7 @@ use rustc_hash::{FxHashMap, FxHashSet};
 
 use crate::jsv::{arr, math_round, nums};
 
-pub const SCHEMA: f64 = 7.0;
+pub const SCHEMA: f64 = 9.0;
 pub const SNIFFED: i64 = 70000;
 const REPO_URL: &str = "https://github.com/advocaite/TrinityCore/tree/forever";
 const SPAWN_MAPS: &str = "0,1,2991,2997";
@@ -472,6 +472,24 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		}
 		vendors.get(&k).push(r.js("item"));
 	}
+	// npc -> the items it sells for a currency (ExtendedCost: Merchant's Favor, honor...), not gold.
+	let currency = Obj::new();
+	for r in all(&db, "select entry, item from npc_vendor where VerifiedBuild >= ? and type = 1 and ExtendedCost > 0 order by entry, item", &[sn])? {
+		let k = r.i("entry").to_string();
+		if !currency.has(&k) {
+			currency.set(&k, V::arr());
+		}
+		currency.get(&k).push(r.js("item"));
+	}
+	// npc -> { item: stock } for the sniffed rows that sell a limited stock (maxcount).
+	let limits = Obj::new();
+	for r in all(&db, "select entry, item, maxcount from npc_vendor where VerifiedBuild >= ? and type = 1 and maxcount > 0 order by entry, item", &[sn])? {
+		let k = r.i("entry").to_string();
+		if !limits.has(&k) {
+			limits.set(&k, V::obj());
+		}
+		limits.get(&k).set(&r.i("item").to_string(), r.js("maxcount"));
+	}
 
 	// ---- class trainers and training ----
 	let tclass: FxHashMap<i64, Option<&str>> =
@@ -602,6 +620,52 @@ pub fn extract(file: &Path) -> Result<V, String> {
 		ro.set(&c.to_string(), nums(row));
 	}
 
+	// ---- profession trainers (Type 2): the sniffed lists' recipes and ranks, spell -> [skill to learn,
+	// copper] (the lowest of each over every sniffed list that teaches it).
+	let mut prof: IndexMap<i64, (f64, f64)> = IndexMap::new();
+	for r in all(
+		&db,
+		"select ts.SpellId s, ts.MoneyCost m, ts.ReqSkillRank k from trainer_spell ts join trainer t on t.Id = ts.TrainerId where ts.VerifiedBuild >= ? and t.Type = 2 order by ts.SpellId",
+		&[sn],
+	)? {
+		let (k, m) = (r.n0("k"), r.n0("m"));
+		let e = prof.entry(r.i("s")).or_insert((k, m));
+		e.0 = e.0.min(k);
+		e.1 = e.1.min(m);
+	}
+	let po = Obj::new();
+	for (s, (k, m)) in &prof {
+		po.set(&s.to_string(), nums(&[*k, *m]));
+	}
+	// The same for the older (Classic) lists, VerifiedBuild below SNIFFED: Forever kept each recipe's
+	// distance from learn skill to yellow when it moved thresholds, so these place the recipes no
+	// sniffed list reaches (professions extract.rs, `learnedAtFrom: "classic"`).
+	let mut classic: IndexMap<i64, (f64, f64)> = IndexMap::new();
+	for r in all(
+		&db,
+		"select ts.SpellId s, ts.MoneyCost m, ts.ReqSkillRank k from trainer_spell ts join trainer t on t.Id = ts.TrainerId where ts.VerifiedBuild < ? and t.Type = 2 order by ts.SpellId",
+		&[sn],
+	)? {
+		let (k, m) = (r.n0("k"), r.n0("m"));
+		let e = classic.entry(r.i("s")).or_insert((k, m));
+		e.0 = e.0.min(k);
+		e.1 = e.1.min(m);
+	}
+	let pc = Obj::new();
+	for (s, (k, m)) in &classic {
+		pc.set(&s.to_string(), nums(&[*k, *m]));
+	}
+	// creature -> the spells its sniffed profession list teaches (who trains which rank: Zephras Isle's
+	// trainers teach every rank and are in no other source).
+	let mut by_creature: IndexMap<i64, IndexSet<i64>> = IndexMap::new();
+	for r in all(&db, "select ct.CreatureID c, ts.SpellId s from creature_trainer ct join trainer t on t.Id = ct.TrainerID join trainer_spell ts on ts.TrainerId = t.Id where ts.VerifiedBuild >= ? and t.Type = 2 order by ct.CreatureID, ts.SpellId", &[sn])? {
+		by_creature.entry(r.i("c")).or_default().insert(r.i("s"));
+	}
+	let pt = Obj::new();
+	for (c, spells) in &by_creature {
+		pt.set(&c.to_string(), nums(&spells.iter().map(|&s| s as f64).collect::<Vec<_>>()));
+	}
+
 	let out = Obj::new();
 	out.set("schema", SCHEMA);
 	out.set("meta", meta);
@@ -610,11 +674,16 @@ pub fn extract(file: &Path) -> Result<V, String> {
 	out.set("names", names);
 	out.set("loot", loot);
 	out.set("vendors", sort_num_keys(&vendors));
+	out.set("currencyVendors", sort_num_keys(&currency));
+	out.set("vendorLimits", sort_num_keys(&limits));
 	out.set("trainers", sort_num_keys(&trainers));
 	out.set("training", training);
 	out.set("trainingSpells", training_spells);
 	out.set("trainingDropped", dropped);
 	out.set("riding", sort_num_keys(&ro));
+	out.set("professionSpells", po);
+	out.set("professionSpellsClassic", pc);
+	out.set("professionTrainers", pt);
 	Ok(V::Obj(out))
 }
 
@@ -647,9 +716,9 @@ pub fn load(sources: &Path, db_file: &Path, log: &dyn Fn(&str)) -> Result<Option
 
 pub fn source_v() -> Obj {
 	let o = Obj::new();
-	o.set("name", "Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class trainers)");
+	o.set("name", "Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class and profession trainers)");
 	o.set("url", REPO_URL);
-	o.set("license", "GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions, sniffed drop rates, class trainer lists and costs");
+	o.set("license", "GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions (gathering nodes too), sniffed drop rates, class trainer lists and costs, profession trainers' learn ranks and costs");
 	o.set("copyright", "TrinityCore (https://www.trinitycore.org) and the advocaite/TrinityCore `forever` branch");
 	o
 }

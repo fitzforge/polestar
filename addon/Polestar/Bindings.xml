@@ -20,10 +20,17 @@
 	<Binding name="POLESTAR_REPORT" category="ADDONS">
 		Polestar.Bindings.Report()
 	</Binding>
+	<Binding name="POLESTAR_NEXT_WAYPOINT" category="ADDONS">
+		Polestar.Bindings.NextWaypoint()
+	</Binding>
+	<Binding name="POLESTAR_PREV_WAYPOINT" category="ADDONS">
+		Polestar.Bindings.PrevWaypoint()
+	</Binding>
 	<Binding name="CLICK PolestarQuestItemButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarTargetButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarRareButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarHearthButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarStepButton:LeftButton" category="ADDONS"/>
 	<Binding name="CLICK PolestarTravelButton:LeftButton" category="ADDONS"/>
+	<Binding name="CLICK PolestarBagButton:LeftButton" category="ADDONS"/>
 </Bindings>

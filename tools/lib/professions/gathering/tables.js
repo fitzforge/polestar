@@ -6,9 +6,11 @@
 // - A node needs `req` skill. Gathering it raises the skill always while the
 //   skill is below req+25 (orange), usually below req+50 (yellow), rarely below
 //   req+100 (green), never after (grey).
-// - Ranks: Apprentice (max 75), Journeyman (learn at 50, level 10, max 150),
-//   Expert (learn at 125, level 20, max 225), Artisan (learn at 200, level 35,
-//   max 300).
+// - Ranks: Apprentice (max 75), Journeyman (learn at 50, max 150), Expert
+//   (learn at 125, max 225), Artisan (learn at 200, max 300). Forever asks no
+//   character level for a gathering rank: its sniffed trainer lists carry
+//   ReqLevel 0 for every Herbalism, Mining and Skinning rank, against 10 for
+//   Journeyman Blacksmithing, Leatherworking, Tailoring and Fishing.
 // - Skinning: a beast of level L needs skill 1 (L <= 10), (L - 10) * 10
 //   (L 11-20) or L * 5 (L > 20).
 
@@ -39,6 +41,8 @@ function bandWeight(req, from, to) {
 // Obsidian: Ahn'Qiraj) and Alterac Valley are left out of routes.
 const MINING_NODES = {
 	'Copper Vein': 1,
+	// Forever's starting-area vein (Copper Ore and Rough Stone, the Copper Vein's lock).
+	'Poor Copper Vein': 1,
 	'Tin Vein': 65,
 	'Incendicite Mineral Vein': 65,
 	'Silver Vein': 75,
@@ -56,6 +60,9 @@ const MINING_NODES = {
 const HERB_NODES = {
 	Peacebloom: 1,
 	Silverleaf: 1,
+	// Forever's starting-area herbs (the Peacebloom and Silverleaf lock and loot).
+	'Wilted Peacebloom': 1,
+	'Stunted Silverleaf': 1,
 	Earthroot: 15,
 	Mageroyal: 50,
 	Briarthorn: 70,
@@ -84,6 +91,9 @@ const HERB_NODES = {
 	'Black Lotus': 300,
 };
 
+// Forever's starting-area nodes (sniffed on Forever's beta; no role in objects.json).
+const FOREVER_NODES = new Set(['Poor Copper Vein', 'Wilted Peacebloom', 'Stunted Silverleaf']);
+
 function skinningReq(level) {
 	if (level <= 10) return 1;
 	if (level <= 20) return (level - 10) * 10;
@@ -91,10 +101,10 @@ function skinningReq(level) {
 }
 
 const RANKS = [
-	{ name: 'Apprentice', learnAt: 0, level: 5, max: 75 },
-	{ name: 'Journeyman', learnAt: 50, level: 10, max: 150 },
-	{ name: 'Expert', learnAt: 125, level: 20, max: 225 },
-	{ name: 'Artisan', learnAt: 200, level: 35, max: 300 },
+	{ name: 'Apprentice', learnAt: 0, max: 75 },
+	{ name: 'Journeyman', learnAt: 50, max: 150 },
+	{ name: 'Expert', learnAt: 125, max: 225 },
+	{ name: 'Artisan', learnAt: 200, max: 300 },
 ];
 
 // Open-world zones a gathering route may use. side: which factions can work
@@ -109,6 +119,7 @@ const ZONES = {
 	1411: { name: 'Durotar', min: 1, max: 10, side: 'H' },
 	1412: { name: 'Mulgore', min: 1, max: 10, side: 'H' },
 	1420: { name: 'Tirisfal Glades', min: 1, max: 10, side: 'H' },
+	2521: { name: 'Zephras Isle', min: 1, max: 15, side: 'AH' },
 	1436: { name: 'Westfall', min: 10, max: 20, side: 'A' },
 	1432: { name: 'Loch Modan', min: 10, max: 20, side: 'A' },
 	1439: { name: 'Darkshore', min: 10, max: 20, side: 'A' },
@@ -149,6 +160,7 @@ module.exports = {
 	bandWeight,
 	MINING_NODES,
 	HERB_NODES,
+	FOREVER_NODES,
 	skinningReq,
 	RANKS,
 	ZONES,

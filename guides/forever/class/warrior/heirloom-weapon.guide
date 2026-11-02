@@ -1,50 +1,161 @@
 guide forever/class/warrior/heirloom-weapon
-title Heirloom Weapon
+title Defensive Stance and a Weapon (Horde)
 category Class
 class Warrior
 folder Warrior
 faction Horde
-race Undead
 levels 10-11
-zone Tirisfal Glades
-keywords Defensive Stance, Ulag the Cleaver, Deathguard Dillinger, Coleman Farthing, Agamand Heirlooms, Agamand Mills, Heirloom Axe, Heirloom Hammer, Heirloom Dagger, Heirloom Sword, Warrior, class weapon
-reward item 7115 7117 7116 7118
+zone The Barrens
+keywords Defensive Stance, Veteran Uzzek, Path of Defense, Singed Scale, Thun'grim Firegaze, Forged Steel, Thun'grim's Axe, Thun'grim's Mace, Thun'grim's Dagger, Thun'grim's Sword, Speak with Dillinger, Ulag the Cleaver, Deathguard Dillinger, Coleman Farthing, Agamand Heirlooms, Agamand Mills, Heirloom Axe, Heirloom Hammer, Heirloom Dagger, Heirloom Sword, The Skybreaker Bulwark, Seena Skybreaker, Zaal Stormshield, Stormforged Protector, Warrior, class weapon
 reward spell 71 "Defensive Stance"
-why Defensive Stance and a one-hand weapon of your choice at 10.
+reward item 7326 7328 7327 7329
+reward item 7115 7117 7116 7118
+reward item 275290
+why Defensive Stance at 10 and a one-hand weapon of your choice: Uzzek's road, Brill's crypt, or the Skybreaker shield.
 
-# Speak with Coleman, Agamand Heirlooms and Heirloom Weapon (1820, 1821,
-# 1822): the weapon after Ulag the Cleaver (1819), the Undead Defensive
-# Stance quest in Brill.
-# Sources: quests.json, npcs.json and objects.json for the chain, Ulag and the
-# four Agamand Weapon Racks; Forever's Warrior class quest list
-# (data/local/quest-audit/) for the rewards: Ulag the
-# Cleaver teaches Defensive Stance, Heirloom Weapon lets you choose the
-# Heirloom Axe, Hammer, Dagger or Sword.
-# horde/undead/01-tirisfal-glades does Ulag the Cleaver on the route; this
-# guide repeats it for anyone off the route. Orc, Troll and Tauren Warriors
-# take Path of Defense (1498) instead, which the game does not offer together
-# with Ulag, and get their weapon from Forged Steel (1503) on the route.
+# The Horde Defensive Stance quests at level 10, every race in one guide:
+# - Orc, Troll, Tauren (and Skyborne): Veteran Uzzek (1505) from the warrior
+#   trainers of Razor Hill, Bloodhoof Village, Thunder Bluff or Orgrimmar,
+#   Path of Defense (1498: Defensive Stance), then Thun'grim Firegaze and
+#   Forged Steel (1502, 1503: a choice of Thun'grim's Axe, Mace, Dagger or
+#   Sword).
+# - Undead: Speak with Dillinger (1818) from Austil de Mon in Brill, Ulag the
+#   Cleaver (1819: Defensive Stance), then Speak with Coleman, Agamand
+#   Heirlooms and Heirloom Weapon (1820-1822: a choice of the Heirloom Axe,
+#   Hammer, Dagger or Sword).
+# - Skyborne: The Skybreaker Bulwark (94003, Forever-new) from Seena
+#   Skybreaker in Valanaar on Zephras Isle (Defensive Stance and the
+#   Stormforged Protector shield).
+# The two Classic roads exclude each other (TDB exclusive groups: Veteran
+# Uzzek with Speak with Dillinger, Path of Defense with Ulag the Cleaver);
+# any Horde warrior may take either. The guide offers each race its home road
+# first; the Brill steps carry no race filter, so an Orc, Troll, Tauren or
+# Skyborne who takes Speak with Dillinger instead is led through it (Uzzek's
+# steps pass once his quests are closed to them; the Brill steps carry
+# `when !turnedin 1505`, so an Uzzek-road player never sees them). Lint warns
+# that 1819 is closed after 1498 earlier in the chain: it reads
+# the chain straight through and does not apply that `when`.
+# Forever's quest data opens both to Skyborne-Horde; a Skyborne who already
+# has the Bulwark's Defensive Stance can take Uzzek's road later for
+# Thun'grim's weapon.
+# Sources: quests.json, npcs.json, objects.json and items.json for the
+# chains, givers, Ulag, the chest and the four Agamand Weapon Racks;
+# quest-notes for the drop rates (Singed Scale 80%), levels, respawns, the
+# skull plaque, the crypt's rooms and the chest's guards; Forever's Warrior
+# class quest list (data/local/quest-audit/): Path of Defense and Ulag the
+# Cleaver now teach Defensive Stance, Veteran Uzzek also starts at Torm
+# Ragetotem, The Skybreaker Bulwark is new (Defensive Stance, Stormforged
+# Protector). The leveling routes do these quests on the way (orc-troll
+# 01-durotar and 03-the-barrens, tauren 01-mulgore, undead 01-tirisfal-glades,
+# skyborne 01-zephras-isle); this guide is for anyone off the route.
+
+# ---------------------------------------------------------------- Skyborne: The Skybreaker Bulwark
+
+step Seena Skybreaker in Valanaar
+  only Skyborne
+  zone Zephras Isle
+  tip At 10, Seena Skybreaker stands with the trainers by Valanaar's west gate. A cultist, Zaal Stormshield, holds her family's shield at the Shrine of Akir.
+  level 10
+  accept 94003                                -- Seena Skybreaker
+
+step Zaal Stormshield
+  only Skyborne
+  tip Head north-west from Valanaar to the Shrine of Akir. Zaal Stormshield stands west of the shrine's approach, among the cult's Guardians, Spiritcallers and Blademasters: pull them one at a time before you take him. He drops the Skybreaker Bulwark.
+  kill 257196                                 -- Zaal Stormshield
+  collect 263993 quest 94003.1                -- Skybreaker Bulwark, from Zaal Stormshield
+
+step The Skybreaker Bulwark
+  only Skyborne
+  tip Back to Seena in Valanaar. She teaches Defensive Stance and gives you the Stormforged Protector, a shield to use it with. Uzzek's road below still gives a weapon later, once you reach Kalimdor.
+  turnin 94003 reward 275290                  -- Seena Skybreaker: Defensive Stance
+
+# ---------------------------------------------------------------- Orc, Troll, Tauren: Uzzek and Thun'grim
+
+step Veteran Uzzek (Razor Hill)
+  only Orc,Troll,Skyborne
+  zone Durotar
+  tip At 10, Tarshaw Jaggedscar, the warrior trainer in the barracks of Razor Hill, sends you to Uzzek in the Barrens. Sorek in Orgrimmar's Valley of Honor offers it too. Any Horde warrior may take one of the two roads, never both: heading to Tirisfal Glades at 10 anyway? Austil de Mon in Brill's inn offers the other: one fight by Brill's graveyard for the same stance, then the Agamand crypt for an heirloom weapon.
+  level 10
+  accept 1505 npc 3169                        -- Tarshaw Jaggedscar
+
+step Veteran Uzzek (Mulgore)
+  only Tauren
+  zone Mulgore
+  tip At 10, Krang Stonehoof, the warrior trainer of Bloodhoof Village, sends you to Uzzek in the Barrens. Torm Ragetotem in Thunder Bluff offers it too.
+  level 10
+  accept 1505 npc 3063                        -- Krang Stonehoof
+
+step Uzzek at Far Watch Post
+  only Orc,Troll,Tauren,Skyborne
+  zone The Barrens
+  tip Uzzek is easy to miss: he stands under a small canopy by a large tree just west of Far Watch Post, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From Durotar cross the bridge west; from Mulgore ride north past the Crossroads.
+  turnin 1505                                 -- Uzzek
+  accept 1498
+
+step Singed Scales in Thunder Ridge
+  only Orc,Troll,Tauren,Skyborne
+  zone Durotar
+  tip You need five Singed Scales. Thunder Lizards (level 9-10) and Lightning Hides (10-11) live down in the Thunder Ridge crevasse in north-west Durotar, south of Orgrimmar: from the Barrens bridge turn left and follow the river north into it. Both drop a scale about four kills in five; both cast Lizard Bolt.
+  collect 6486 x5 quest 1498.1                -- Singed Scale, from the lizards
+
+step Path of Defense
+  only Orc,Troll,Tauren,Skyborne
+  zone The Barrens
+  tip Back to Uzzek under his tree west of Far Watch Post.
+  turnin 1498                                 -- Uzzek: Defensive Stance
+  accept 1502
+
+step Thun'grim Firegaze
+  only Orc,Troll,Tauren,Skyborne
+  tip Thun'grim's hut sits on top of Thorn Hill, east of the Crossroads. Most slopes are too steep: climb the broad ridge on the north or east side.
+  turnin 1502                                 -- Thun'grim Firegaze
+  accept 1503
+
+step Forged Steel
+  only Orc,Troll,Tauren,Skyborne
+  tip The Stolen Iron Chest stands by a broken wagon in the Razormane camp north-west of Thun'grim, north-east of the Crossroads. Two Razormanes guard it and their hunters pull more quilboar: clear them one at a time, then open the chest (it refills within seconds, so a friend can loot it too).
+  collect 6534 quest 1503.1                   -- Forged Steel Bars, from the Stolen Iron Chest
+  turnin 1503 choose 7326 7328 7327 7329      -- Thun'grim Firegaze
+
+# ---------------------------------------------------------------- Brill (Undead, or anyone who took this road): Ulag and the Agamand heirlooms
+
+step Speak with Dillinger
+  only Undead
+  zone Tirisfal Glades
+  tip At 10, Austil de Mon, the warrior trainer inside the inn of Brill, sends you to Deathguard Dillinger by the graveyard on Brill's west edge. This road and Uzzek's exclude each other: drop Veteran Uzzek or Path of Defense from your log if you hold one.
+  level 10
+  accept 1818                                 -- Austil de Mon
+
+step Deathguard Dillinger
+  when !turnedin 1505
+  zone Tirisfal Glades
+  tip Dillinger stands by the graveyard on Brill's west edge. An Orc, Troll, Tauren or Skyborne who took Speak with Dillinger from Austil de Mon instead of Uzzek's road is led through Brill from here.
+  turnin 1818                                 -- Deathguard Dillinger
+  accept 1819
 
 step Ulag the Cleaver
-  tip Deathguard Dillinger stands in Brill. Ulag waits in the mausoleum on the hill just north of town: open the gate and fight him.
-  accept 1819                                 -- Deathguard Dillinger
-  kill 6390 quest 1819.1
+  when !turnedin 1505
+  tip Ulag sleeps in the mausoleum in the graveyard just north of Dillinger. To wake him, click the flat skull plaque on the ground, left of the path to the mausoleum door; the seal lifts and Ulag (level 11, not elite) walks out. Start at full health.
+  kill 6390 quest 1819.1                      -- Ulag the Cleaver
   turnin 1819                                 -- Deathguard Dillinger: Defensive Stance
   accept 1820
 
 step Coleman Farthing
-  tip Coleman Farthing is in the inn, the Gallows' End Tavern, in Brill.
+  when !turnedin 1505
+  tip Coleman Farthing is in the Gallows' End Tavern, the inn on Brill's east side.
   turnin 1820                                 -- Coleman Farthing
   accept 1821
 
-step Agamand Mills
-  tip The four Agamand Weapon Racks stand among the buildings of Agamand Mills, north of Brill. The mills' undead attack on sight.
+step The Agamand Family Crypt
+  when !turnedin 1505
+  tip The four Agamand Weapon Racks are inside the Agamand Family Crypt at the north end of Agamand Mills, north of Brill, one rack per room: one in the lowest room, two in the pair of rooms up the stairs, one in the room above those. The axe rack stands in a dark corner. The crypt's undead come in packs of three or more and return quickly; the ones in the top room are not linked. The axe, dagger and mace racks take 15 minutes to refill after someone loots them.
   collect 7567 quest 1821.1                   -- Agamand Family Axe
   collect 7568 quest 1821.2                   -- Agamand Family Dagger
   collect 7569 quest 1821.3                   -- Agamand Family Mace
   collect 7566 quest 1821.4                   -- Agamand Family Sword
 
 step Back to Coleman Farthing
+  when !turnedin 1505
   turnin 1821                                 -- Coleman Farthing
   accept 1822
   turnin 1822 choose 7115 7117 7116 7118      -- Coleman Farthing

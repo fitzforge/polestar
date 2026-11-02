@@ -6,6 +6,10 @@ use forge_guide::diag::Diagnostics;
 use forge_guide::project::{compile_sources, CompileOpts, Source};
 
 fn data() -> Data {
+	Data::from_texts(&data_texts(), V::obj(), V::obj(), None).expect("data")
+}
+
+fn data_texts() -> rustc_hash::FxHashMap<String, String> {
 	let mut quests = serde_json::Map::new();
 	let quest = |id: u32, title: &str, races: Option<u64>, classes: Option<u32>, objectives: serde_json::Value| {
 		serde_json::json!({
@@ -19,6 +23,10 @@ fn data() -> Data {
 	quests.insert("502".into(), quest(502, "Fox Pelts", None, None, serde_json::json!([{ "type": "item", "id": 100, "count": 5 }])));
 	quests.insert("503".into(), quest(503, "Warrior Calling", None, Some(1), serde_json::json!([])));
 	quests.insert("504".into(), quest(504, "Orcish Pride", Some(2), None, serde_json::json!([])));
+	// (Started by an item: the Empty Powder Keg pattern, R2.)
+	let mut keg = quest(540, "Powder Keg", None, None, serde_json::json!([{ "type": "item", "id": 101, "count": 1 }]));
+	keg["start"] = serde_json::json!({ "npc": [], "object": [], "item": [101] });
+	quests.insert("540".into(), keg);
 	for id in 510..535 {
 		quests.insert(id.to_string(), quest(id, &format!("Errand {id}"), None, None, serde_json::json!([])));
 	}
@@ -27,7 +35,7 @@ fn data() -> Data {
 		"10": { "id": 10, "name": "Burrow Rat", "level": 2, "faction": null, "spawns": { "99101": { "f": "e", "pts": [[20, 20], [21, 21]] } } },
 		"11": { "id": 11, "name": "Red Fox", "level": 3, "faction": null, "spawns": { "99101": { "f": "e", "pts": [[30, 30]] } } }
 	});
-	let items = serde_json::json!({ "100": { "id": 100, "name": "Fox Pelt", "questItem": true, "drops": { "npc": { "11": 60 } } } });
+	let items = serde_json::json!({ "100": { "id": 100, "name": "Fox Pelt", "questItem": true, "drops": { "npc": { "11": 60 } } }, "101": { "id": 101, "name": "Empty Powder Keg", "drops": { "npc": { "11": 2 } } } });
 	let texts: rustc_hash::FxHashMap<String, String> = [
 		("quests", serde_json::Value::Object(quests).to_string()),
 		("npcs", npcs.to_string()),
@@ -40,6 +48,20 @@ fn data() -> Data {
 	.into_iter()
 	.map(|(k, v)| (k.to_string(), v))
 	.collect();
+	texts
+}
+
+/// `data()` with a taxi: Nighthaven (a Druid's own node, faction 2) and Thunder Bluff, in Testvale.
+fn data_with_taxi() -> Data {
+	let mut texts = data_texts();
+	texts.insert(
+		"travel".into(),
+		serde_json::json!({ "taxi": { "nodes": [
+			{ "id": 63, "name": "Nighthaven, Moonglade", "short": "Nighthaven", "c": 1, "wx": 0, "wy": 0, "map": 99101, "x": 50, "y": 50, "faction": 2, "npc": null, "class": "DRUID" },
+			{ "id": 22, "name": "Thunder Bluff, Mulgore", "short": "Thunder Bluff", "c": 1, "wx": 0, "wy": 0, "map": 99101, "x": 90, "y": 90, "faction": 2, "npc": null }
+		], "legs": [{ "from": 63, "to": 22, "yards": 900 }] } })
+		.to_string(),
+	);
 	Data::from_texts(&texts, V::obj(), V::obj(), None).expect("data")
 }
 
@@ -64,6 +86,24 @@ fn play(body: &str, who: &[Persona], legacy: bool) -> Vec<Finding> {
 
 fn rules_of(fs: &[Finding], rule: &str) -> Vec<Finding> {
 	fs.iter().filter(|f| f.rule == rule).cloned().collect()
+}
+
+#[test]
+fn r1_a_druids_own_flight_master_flies_druids_alone_with_no_path_learnt() {
+	// Rev14H1 (12b): Bunthen Plainswind flies Horde Druids from Nighthaven to Thunder Bluff; the seed's
+	// `fly "Thunder Bluff"` there read as a flight from no flight master, and the repair dropped it.
+	let data = data_with_taxi();
+	let body = "step Thunder Bluff\n  getfp \"Thunder Bluff\"\n\nstep Nighthaven\n  goto 50,50\n  fly \"Thunder Bluff\"\n";
+	let src = Source { source: "forever/test/01-vale.guide".into(), file: "01-vale.guide".into(), text: guide(body) };
+	let mut diag = Diagnostics::new();
+	let guides = compile_sources(&[src], &data, &mut diag, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).guides;
+	let opts = HonestOpts { legacy: false, groups: Groups::Skip, walk_far: true };
+	let r1 = |cls: &str| -> Vec<Finding> {
+		let who = vec![persona("Tauren", cls)];
+		honest_play(&guides, &data, &move |_| who.clone(), None, None, &opts).into_iter().filter(|f| f.rule == "R1" && f.reason.starts_with("fly")).collect()
+	};
+	assert!(r1("DRUID").is_empty(), "{:#?}", r1("DRUID"));
+	assert!(!r1("WARRIOR").is_empty());
 }
 
 #[test]
@@ -248,4 +288,44 @@ fn r1_dock_is_walked_to() {
 	assert!(rules_of(&walk, "R1").iter().any(|f| f.reason.contains("walk far into another zone: Durotar to Thousand Needles")), "{walk:?}");
 	// R1 findings carry where the guide left the player.
 	assert!(rules_of(&far, "R1")[0].state.as_ref().is_some_and(|s| s.at.is_some()));
+}
+
+#[cfg(feature = "native")]
+#[test]
+#[ignore = "needs the built reference data in data/forever"]
+fn r1_a_class_teleport_goto_is_no_walk() {
+	// RevSkyH3 S6: a Druid's Teleport: Moonglade, written as the goto to where it lands, is not a walk
+	// from Durotar to Moonglade; the same goto without the teleport is.
+	let cast = play_real("step Boars\n  kill 3098 @52.0,10.0\n\nstep Moonglade\n  zone Moonglade\n  goto 56.3,32.5 \"Cast Teleport: Moonglade\"\n");
+	assert!(rules_of(&cast, "R1").is_empty(), "{cast:?}");
+	let walk = play_real("step Boars\n  kill 3098 @52.0,10.0\n\nstep Moonglade\n  zone Moonglade\n  goto 56.3,32.5 \"Moonglade\"\n");
+	assert!(!rules_of(&walk, "R1").is_empty(), "{walk:?}");
+}
+
+#[cfg(feature = "native")]
+#[test]
+#[ignore = "needs the built reference data in data/forever"]
+fn r1_a_portal_the_guide_works_is_no_walk() {
+	// c17 Skyborne-alliance zephras-isle:702: `interact 631299` (the Skyborne Portal to Stormwind, by
+	// Dalaran) takes the player to Stormwind; read as standing in Alterac, the repair wrote a walk
+	// through Arathi, the Wetlands, Loch Modan, the Badlands and Redridge to Stormwind.
+	let portal = play_real("step Portal\n  zone Alterac Mountains\n  interact 631299\n\nstep Stormwind\n  zone Stormwind City\n  kill 3098 @71.0,72.5\n");
+	assert!(rules_of(&portal, "R1").is_empty(), "{portal:?}");
+	let herb = play_real("step Herb\n  zone Alterac Mountains\n  interact 1622\n\nstep Stormwind\n  zone Stormwind City\n  kill 3098 @71.0,72.5\n");
+	assert!(rules_of(&herb, "R1").iter().any(|f| f.reason.contains("zone change with no travel line: Alterac Mountains to Stormwind City")), "{herb:?}");
+}
+
+#[test]
+fn r2_an_optional_accept_from_an_item_an_optional_collect_asks_for_is_that_players() {
+	// Rev15 R2 (Dun Morogh): `collect 268548 optional` (the Empty Powder Keg) then `accept 95213
+	// optional`: the player who loots the keg takes the quest, one who does not skips both.
+	let who = [persona("Orc", "WARRIOR")];
+	let fs = play("step Quarry\n  collect 101 optional @80,80\n  accept 540 optional\n", &who, false);
+	assert!(rules_of(&fs, "R2").is_empty(), "{fs:#?}");
+	// (Its hand-in, optional too, has the keg it asks for.)
+	let fs = play("step Quarry\n  collect 101 optional @80,80\n  accept 540 optional\n\nstep Thesten\n  turnin 540 optional\n", &who, false);
+	assert!(rules_of(&fs, "R2").is_empty() && rules_of(&fs, "R5").is_empty(), "{fs:#?}");
+	// (No optional collect for it: the optional accept still has no keg.)
+	let fs = play("step Quarry\n  accept 540 optional\n", &who, false);
+	assert!(!rules_of(&fs, "R2").is_empty(), "{fs:#?}");
 }

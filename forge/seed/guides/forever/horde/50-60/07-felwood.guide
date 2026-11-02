@@ -1,0 +1,161 @@
+guide forever/horde/50-60/07-felwood
+title Felwood, Moonglade & Winterspring
+faction Horde
+levels 58-60
+zone Felwood
+# Built from the simulator's consensus route (Horde, visits 102-116) and
+# machine-checked with lint; not play-tested on Forever yet. The end of the
+# Horde leveling chain.
+#
+# Optional here: Toxic Horrors and Winterfall Runners (5086, 5087), which
+# follow a rare Winterspring drop, and Runecloth (6031), which Meilosh takes
+# only at Neutral with the Timbermaw.
+#
+# Flow: the Undercity -> zeppelin to Orgrimmar (cloth donations) -> fly to
+# Splintertree Post -> ride north into Felwood: the Emerald Sanctuary (Greta,
+# Eridan) -> Jaedenar's braziers -> the Sanctuary -> Shadow Hold -> the
+# Sanctuary -> north past Jaedenar to Bloodvenom Post (Winna, Trull) ->
+# Irontree Woods -> Timbermaw Hold (Meilosh) -> through the tunnel to
+# Moonglade (Umber, Rabine) -> back through Timbermaw Hold into Winterspring
+# (Donova Snowden) -> Everlook (Umi) -> grind to 60 at Frostwhisper Gorge.
+#
+# Deviations from the export, for a smooth finish:
+# - Felwood is one pass from south to north. Greta Mosshoof's chain (5159,
+#   5165, 5242) and Linken's Memory (3942) are done at the Emerald Sanctuary
+#   on the way in; Jaedenar is only a couple of minutes north of it, so the
+#   two short returns to Greta stay in. Dropped: Silver Heart and Aquementas
+#   (4084, 4005: the Irontree Heart is in northern Felwood, a second ride
+#   south to hand in). Trull's Wild Guardians turn-in (4741) and the Toxic
+#   Horrors (5086) come on the way north; the export's second Felwood visit
+#   is folded in.
+# - Dropped trips that cost a long flight or ride for a few quests: the
+#   Blasted Lands, Swamp of Sorrows and Burning Steppes stops (3501, 2623,
+#   2801, 2681, 2702, 2701, 4810; the Fallen Hero's chain is worth well under
+#   a third of a level behind a flight from the Undercity and a zeppelin
+#   back), Stranglethorn (1036, 4621: Bloodsail reputation and elite targets;
+#   8240: a Zul'Gurub raid item), the Burning Steppes' Mother's Milk (4866:
+#   Blackrock Spire), Alterac Mountains (7241: a battleground quest, dropped
+#   with its accept), Ratchet and Duke Hydraxis after 60 (4502, 6804, 6805).
+# - The Undercity stop moved first (the route starts next to it) and holds no
+#   quests any more: Champion of the Banshee Queen (5961) and the Eastern
+#   Plaguelands stop (6030, 5142) went to 06; ... and a Batch of Ooze (4294)
+#   needs Un'Goro slime samples the route never collects.
+# - The two Orgrimmar stops are one, on the way to Felwood: the runecloth
+#   donations (7836, 7824). Calm Before the Storm (4509, 4511) went with Pawn
+#   Captures Queen in 06; Betrayed (3507) is turned in by 04.
+# - No hearth binds: the guide ends where it grinds. The export's binds (the
+#   Undercity, Booty Bay, Orgrimmar, Everlook, Light's Hope) served the
+#   dropped trips.
+# - With the dropped trips the route ends on a grind (about 59.2 to 60):
+#   Rabid Shardtooths at Frostwhisper Gorge, the export's own final camp. A
+#   group dungeon is the optional alternative.
+#
+# Left out (besides the above): the Undercity's cloth donations (7813, 7814,
+# 7817), Camp Mojache (7492) and Vivian Lagrave (4769), never turned in;
+# Shards of the Felvine (5526: Dire Maul); Wild Guardians' last part and
+# Guarding Secrets (4721, 4882: turned in back at Bloodvenom Post).
+
+# ---------------------------------------------------------------- Orgrimmar
+
+step Zeppelin to Orgrimmar
+  zone Orgrimmar
+  tip From the Undercity, take the zeppelin from the tower outside the city to Orgrimmar.
+  turnin 7836 optional                -- sixty Runecloth, if you carry them
+  turnin 7824 optional
+
+# ---------------------------------------------------------------- Southern Felwood
+
+step The Emerald Sanctuary
+  zone Felwood
+  tip Fly to Splintertree Post and ride north-west along the road out of Ashenvale into Felwood. The Emerald Sanctuary is the druids' camp just past the border.
+  fly "Splintertree Post"
+  turnin 5159                         -- Greta Mosshoof
+  accept 5165
+  turnin 3942                         -- Eridan Bluewind
+  note Eridan's Silver Heart needs an Irontree Heart from northern Felwood and a ride back here. Skip it.
+
+step Dousing the Flames of Protection
+  tip Ride north-west to Jaedenar. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.
+  interact 176158 quest 5165.1
+  interact 176159 quest 5165.2
+  interact 176160 quest 5165.3
+  interact 176161 quest 5165.4
+
+step Greta Mosshoof
+  tip Back south to the Sanctuary, a short ride.
+  turnin 5165
+  accept 5242
+
+step A Final Blow
+  tip Moora, Salia and Shadow Lord Fel'dan wait at the back of Shadow Hold, the cave in Jaedenar's north. Clear the tunnel as you go.
+  kill 9861 quest 5242.1
+  kill 9860 quest 5242.2
+  collect 13207 quest 5242.3
+
+step Greta Mosshoof
+  tip South to the Sanctuary once more.
+  turnin 5242
+
+# ---------------------------------------------------------------- Northern Felwood
+
+step Bloodvenom Post
+  tip Ride north along the road, past Jaedenar, to Bloodvenom Post.
+  turnin 6605                         -- Winna Hazzard
+  turnin 4741                         -- Trull Failbane
+  note Trull's next Wild Guardians would bring you back here from Winterspring. Skip it.
+
+step Toxic Horrors
+  tip Only if Donova gave you Toxic Horrors: ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees.
+  collect 12822 quest 5086.1 optional
+
+step Meilosh
+  tip Only with 30 Runecloth, and only at Neutral with the Timbermaw: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
+  turnin 6031 optional
+
+# ---------------------------------------------------------------- Moonglade
+
+step Umber
+  zone Moonglade
+  tip Through the Timbermaw tunnel to Moonglade. Umber reads in a house in Nighthaven.
+  turnin 6844
+  accept 6845
+
+step Rabine Saturna
+  turnin 5527
+  turnin 6845
+  note Rabine's Shards of the Felvine needs Dire Maul. Skip it.
+
+step Umber
+  accept 1185
+  turnin 1185
+
+# ---------------------------------------------------------------- Winterspring
+
+step Donova Snowden
+  zone Winterspring
+  tip Back into the Timbermaw tunnel and take the Winterspring exit; Donova camps by the hot springs just outside.
+  turnin 5086 optional
+  accept 5087 optional
+
+step Winterfall Runners
+  tip Only if you carry Winterfall Runners: the runners walk the road from Timbermaw Hold toward Winterfall Village in small groups; wait by the road near Donova and kill them as they pass. Each one carries a crate.
+  collect 12829 quest 5087.1 optional
+  turnin 5087 optional                -- Donova Snowden
+  note Donova next sends you after High Chief Winterfall, an elite in his cave. Skip it.
+
+step Everlook
+  tip Ride east along the road to Everlook.
+  turnin 5163                         -- Umi Rumplesnicker
+
+# ---------------------------------------------------------------- Level 60
+
+step Dungeon instead of grinding
+  tip Optional. Running Stratholme, Scholomance, Lower Blackrock Spire or Blackrock Depths with a group instead of grinding gets you there faster.
+  note Optional: with a group, a 55-60 dungeon replaces the grind below.
+
+step Grind to 60
+  tip The quests run out here. Rabid Shardtooths prowl Frostwhisper Gorge in southern Winterspring, south of the road from Everlook.
+  goto 60.1,71.2 "Frostwhisper Gorge"
+  level 60 -- grind on Rabid Shardtooth at Frostwhisper Gorge, Winterspring
+  train class optional only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- In Orgrimmar: fly from Everlook
+  train class optional only Druid,Paladin -- In Thunder Bluff: fly from Everlook

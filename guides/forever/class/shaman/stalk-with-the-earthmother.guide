@@ -1,0 +1,84 @@
+guide forever/class/shaman/stalk-with-the-earthmother
+title Stalk With The Earthmother
+category Class
+class Warrior, Hunter, Shaman, Druid
+folder Shaman
+faction Horde
+race Tauren
+levels 8-12
+zone Thunder Bluff
+keywords Stalk With The Earthmother, Boarton Shadetotem, Hoof-Holstered Blade, Valley Cosh, Venture Co Disguise, Seaforium Mining Charge, Blasting Supplies, Windfury Cone, Mortar and Pestle, Raw Brilliant Smallfish, Knife Set, Fish Chunks, Venture Co. Mine, Windfury Ridge, Thunder Bluff, Shaman, weapon
+reward item 277988 278002
+why A one-hand blade or mace at 11 from Boarton Shadetotem's three tests in and around Thunder Bluff.
+
+# Forever's Stalk With The Earthmother, three quests from Boarton Shadetotem in
+# Thunder Bluff (Season of Discovery's Dual Wield chain, reworked):
+# 76156 (five Seaforium Mining Charges from the Venture Co. Mine, in the
+# disguise he gives you) -> 76160 (eight Windfury Cones ground with his
+# Mortar and Pestle) -> 76240 (fillet a Raw Brilliant Smallfish in front of
+# him with his Knife Set: a choice of the Hoof-Holstered Blade or the Valley
+# Cosh). quests.json gives the three no prerequisites; the quest texts run in
+# this order ("one last idea" on 76240).
+# Who can take them: the server's own quest answers (players' quest caches,
+# build 70450, two sources each) give all three the race mask of Tauren only
+# (0x20), and so does the knowledge base; quests.json had Orc, Tauren and
+# Troll (76240: every Horde race), from Classic-era data. Following Forever's
+# data first, the guide is Tauren only (forever-db/corrections/quests.json on
+# this branch sets the three to Tauren). Classes: every Tauren class gets all
+# three. Forever's change notes drop the old class limits (76156 and 76160
+# "Classes none", 76240 "no longer Dual Wield"), and Tauren players' dialog
+# captures show a Warrior and a Druid on 76156, a Druid and a Hunter on 76160
+# and a Druid, a Hunter and a Shaman on 76240. quests.json limited 76240 to Shamans
+# (corrected on this branch).
+# INGAME: are Orc and Troll characters turned away by Boarton (server race mask Tauren only; Forever's quest page: Orc, Tauren, Troll)?
+# Lint: 206170, 206176 and 206344 (cones, mortar, knife set) are not in the
+# item data (Forever-new; ids from Forever's quest data); 76156 and 76160
+# have no objectives in quests.json, so the mine is a `task` and the turn-ins
+# check the rest.
+# Places: the data has no spawns for the Blasting Supplies carts or the
+# Windfury Cones. The mine is Supervisor Fizsprocket's (npc 3051, the
+# Venture Co. Mine south-east of Thunder Bluff); the cones lie under the
+# harpy nest trees of Windfury Ridge north-west of Thunder Bluff (the
+# Windfury Sorceresses' and Matriarchs' spawns, npcs 2964, 2965). Boarton
+# is stealthed (player notes).
+# The pool: Thunder Bluff's main mesa (Forever's quest notes: "from a vendor
+# or by fishing"); no vendor in the data sells the smallfish.
+# The leveling guide tauren/01-mulgore does not take this chain.
+
+step Boarton Shadetotem
+  zone Thunder Bluff
+  tip Boarton Shadetotem hides in stealth on the main mesa of Thunder Bluff, south of its pool: walk to where the arrow points until his outline shows. He hands you the Venture Co Disguise. The quest opens at level 4, but the mine holds Venture Co. Workers (level 8-9), Supervisors (9-10) and Supervisor Fizsprocket (12): go at 9 or 10.
+  accept 76156                                -- Boarton Shadetotem
+
+step The Venture Co. Mine
+  zone Mulgore
+  tip Ride down the lift and south-east across Mulgore to the Venture Co. Mine. Put on the disguise, then open the carts of Blasting Supplies inside the mine and on the slope outside its far side; stay on the upper levels where you can, the lower tunnels are packed. Five charges.
+  goto 61.2,49.3 "Venture Co. Mine"
+  task "Loot 5 Seaforium Mining Charges from the Blasting Supplies"
+
+step Boarton Shadetotem
+  zone Thunder Bluff
+  tip Back to Boarton in Thunder Bluff. He gives you the Mortar and Pestle for his next test.
+  turnin 76156                                -- Boarton Shadetotem
+  accept 76160
+
+step Windfury Cones
+  zone Mulgore
+  tip Windfury Cones lie on the ground under the harpies' nest trees on Windfury Ridge, north-west of Thunder Bluff; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the Mortar and Pestle to grind them.
+  collect 206170 "Windfury Cone" x8 @31.9,32.0
+  use 206176 "Mortar and Pestle" @31.9,32.0   -- grind the eight cones
+
+step Boarton Shadetotem
+  zone Thunder Bluff
+  tip Back to Boarton. He hands you the Knife Set: the fish must be filleted in front of him.
+  turnin 76160                                -- Boarton Shadetotem
+  accept 76240
+
+step Raw Brilliant Smallfish
+  tip Buy a Raw Brilliant Smallfish at the Auction House (Auctioneer Stampi, north of the pool), or fish one yourself: Kah Mistrunner trains Fishing and Sewa Mistrunner beside him sells the Fishing Pole and a Shiny Bauble; the pool on the main mesa gives smallfish at any skill.
+  collect 6291 x1 @40.4,51.8                   -- Raw Brilliant Smallfish: the Auction House, or the pool
+
+step Fish Chunks
+  tip Stand beside Boarton and use the Knife Set on the smallfish: it only counts next to him. Then take your weapon: the Hoof-Holstered Blade or the Valley Cosh.
+  use 206344 "Knife Set" @39.4,65.7           -- in front of Boarton
+  turnin 76240 choose 277988 278002           -- Boarton Shadetotem

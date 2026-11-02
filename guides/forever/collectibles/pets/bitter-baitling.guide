@@ -2,21 +2,49 @@ guide forever/collectibles/pets/bitter-baitling
 title Bitter Baitling
 category Collectibles
 folder Companion pets · Vendors
-keywords Jang, Extravagant Extravaganza Coin, fishing, Booty Bay, Stranglethorn Fishing Extravaganza
+keywords Jang, Riggle Bassbait, Extravagant Extravaganza Coin, Master Angler, Speckled Tastyfish, fishing, Booty Bay, Stranglethorn Fishing Extravaganza
 collects 276275
 levels 1-60
 zone Stranglethorn Vale
 
-# Bitter Baitling from Jang in Booty Bay for one Extravagant Extravaganza Coin.
-# Sources: npcs.json (Jang); Forever client 1.60.1.70338 via wago.tools.
-# How the coin is earned is not in what we have; Jang runs Booty Bay's fishing
-# contest in Era.
+# Bitter Baitling from Jang in Booty Bay for one Extravagant Extravaganza Coin,
+# the prize for winning the Stranglethorn Fishing Extravaganza.
+# Sources: npcs.json (Jang, Riggle Bassbait); quests.json (Master Angler 8193:
+# 40 Speckled Tastyfish, repeatable, event 15); Forever's quest page for 8193
+# (Arcanite Fishing Pole or Hook of the Master Angler, and the new spell
+# "Master Angler!" 1299323, numbered beside Summon Bitter Baitling 1299341 in
+# Forever's client data); items.json (Jang's stock; the Tastyfish keep 4
+# hours).
+# ASSUMED: Winning Master Angler gives the Extravagant Extravaganza Coin, and
+# the first 50 players to hand in win, not only the first (a Forever fishing
+# guide and a beta video; our data has no source for the coin). In-game check:
+# hand in 40 Tastyfish to Riggle during the contest and look for the coin.
+# ASSUMED: The contest runs on Sundays from 2 to 4 pm server time, with the
+# Tastyfish schools along the coast, as in Classic (Riggle's quest text says
+# "between 2pm and 4pm"; the weekday is Classic flow). In-game check: the
+# first Sunday after launch.
 
-step Extravagant Extravaganza Coin
-  tip The Bitter Baitling is a fishing reward: Jang trades it for one Extravagant Extravaganza Coin, a reward of the fishing contest Jang runs in Booty Bay. The coin's exact source is not published yet.
-  collect 274026 "Extravagant Extravaganza Coin" @27.4,76.8 -- Jang, Booty Bay
+step Riggle Bassbait
+  tip The Bitter Baitling costs one Extravagant Extravaganza Coin, the prize for winning the Stranglethorn Fishing Extravaganza. The contest runs on Sundays from 2 to 4 pm server time: be on the Booty Bay docks when it starts and take Master Angler from Riggle Bassbait. Bring your best Fishing skill and lures so no fish gets away, a mount and empty bags, and bind your hearthstone in Booty Bay.
+  accept 8193                         -- Riggle Bassbait, during the contest
+
+step Schools of Tastyfish
+  tip While the contest runs, schools of Speckled Tastyfish appear along the Stranglethorn coast, none inside Booty Bay. Fish 40 Speckled Tastyfish from them; each school lasts only a few casts, so ride on to the next as soon as one is gone. The arrow takes you up the west coast north of Booty Bay; more schools lie further north and just south of Booty Bay.
+  loop
+  goto 24.9,66.2
+  goto 23.8,62.5
+  goto 26.2,58.3
+  goto 22.9,56.4
+  goto 26.0,48.8
+  goto 27.0,44.3
+  collect 19807 x40 quest 8193.1      -- Speckled Tastyfish
+
+step Back to Riggle
+  tip Hurry back and hand the 40 Tastyfish to Riggle: the first players to do so win, and the winners get the coin with their prize. If you are too late to win, Jang still pays a little gold for every 5 Tastyfish.
+  turnin 8193
+  collect 274026 "Extravagant Extravaganza Coin" @27.4,76.9 -- The winner's coin, from Riggle
 
 step Jang
-  tip Jang stands on the Booty Bay docks.
+  tip Jang, Riggle's apprentice, stands beside him on the Booty Bay docks and trades the Bitter Baitling for the coin.
   vendor 15078                        -- Jang
   buy 276275 "Bitter Baitling" npc 15078 -- 1 Extravagant Extravaganza Coin

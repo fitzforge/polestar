@@ -17,7 +17,7 @@ local ADDON, ns = ...
 local L = ns.L
 
 local type, tonumber, pcall, error = type, tonumber, pcall, error
-local sqrt, atan2, pi, max = math.sqrt, math.atan2, math.pi, math.max
+local sqrt, atan2, pi, max, abs = math.sqrt, math.atan2, math.pi, math.max, math.abs
 local TWO_PI = 2 * pi
 
 local Nav = {}
@@ -25,6 +25,10 @@ ns.Nav = Nav
 
 Nav.MEDIA = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Nav\\"
 Nav.DEFAULT_RADIUS = 8 -- yards, matches the guide format's goto default
+-- Yards of height between the player's floor and the target's beyond which
+-- they stand on different floors (an Undercity level, a tower storey), more
+-- than a slope gives within arrival range.
+local FLOOR_GAP = 8
 
 ns.RegisterDefaults("nav", {
 	arrow = true,
@@ -170,6 +174,7 @@ local target      -- what we guide to: override, else engine waypoint
 local tC, tX, tY  -- target in world space (nil until resolvable)
 local tZ         -- its height: the target's `z` (a guide goal, candidate or spawn area at an NPC or object), else nil
 local arrived = false
+local floorHint  -- "up" | "down": near the target, a floor below or above it (Nav.Sample)
 local firing = false
 local ticker
 
@@ -192,7 +197,7 @@ end
 -- ride, a boat to another continent or leaving an instance.
 local function updateTicker()
 	if target and not ticker and C_Timer and C_Timer.NewTicker then
-		ticker = C_Timer.NewTicker(1, Nav.Refresh)
+		ticker = ns.NewTicker(1, Nav.Refresh)
 	elseif not target and ticker then
 		ticker:Cancel()
 		ticker = nil
@@ -331,6 +336,7 @@ local function toward(C, px, py, ax, ay)
 end
 
 function Nav.Sample()
+	floorHint = nil
 	if not target then return "none" end
 	local C = ns.Compat
 	if not C then return "unknown" end
@@ -370,9 +376,17 @@ function Nav.Sample()
 	local area = tonumber(target.area)
 	if area and area > 0 then dist = dist > area and dist - area or 0 end
 	local r = target.r or Nav.DEFAULT_RADIUS
+	-- Near the target, the player's floor against its height: not arrived
+	-- while a floor apart (Undercity's levels, caves, towers), and the arrow
+	-- says up or down (Nav.FloorHint).
+	if tZ and dist <= max(r * 2, 20) then
+		local W = Nav.walk
+		local z = W and W.Floor and W.Floor(pc, px, py)
+		if z and abs(z - tZ) > FLOOR_GAP then floorHint = z < tZ and "up" or "down" end
+	end
 	if arrived then
-		if dist > r + max(5, r * 0.5) then arrived = false end
-	elseif dist <= r then
+		if dist > r + max(5, r * 0.5) or floorHint then arrived = false end
+	elseif dist <= r and not floorHint then
 		arrived = true
 		playArrival()
 		-- NAV_ARRIVED(target): once per arrival (Nav/Nearby.lua ends its trip).
@@ -394,6 +408,10 @@ function Nav.Sample()
 	end
 	return "travel", dist, angle, dn, dw
 end
+
+-- "up" or "down" while the player is near the target but a floor below or
+-- above it (the last Nav.Sample), else nil; the arrow shows it.
+function Nav.FloorHint() return floorHint end
 
 -- States in which nothing is drawn at all.
 function Nav.IsHiddenState(state)
@@ -478,7 +496,7 @@ local function stepMoved()
 	if pendingStep then return end
 	pendingStep = true
 	if C_Timer and C_Timer.After then
-		C_Timer.After(0, settleStep)
+		ns.After(0, settleStep)
 	else
 		settleStep()
 	end

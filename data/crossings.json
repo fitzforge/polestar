@@ -807,6 +807,153 @@
 				"z": 142,
 				"radius": 30
 			}
+		},
+		{
+			"id": "redridge-mountains--riverglades",
+			"source": "Forever's Riverglades (no Era frame: its end is in the Forever client's map frame). Warcraft Wiki's Riverglades, adjacent regions (on foot through Blackrock Pass, west of the Bristle Hills); the place is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge (world -8790,-2585 to -8723,-2652)",
+			"a": {
+				"map": 1433,
+				"x": 46.74,
+				"y": 14.82,
+				"radius": 30
+			},
+			"b": {
+				"map": 2548,
+				"x": 15.68,
+				"y": 69.78,
+				"radius": 30
+			}
+		},
+		{
+			"id": "riverglades--badlands",
+			"source": "Forever's Riverglades (no Era frame: its end is in the Forever client's map frame). Warcraft Wiki's Riverglades, adjacent regions (on foot north of Twilight's Shroud); the place is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge (world -7615,-3369 to -7573,-3365)",
+			"a": {
+				"map": 2548,
+				"x": 30.46,
+				"y": 35.5,
+				"radius": 30
+			},
+			"b": {
+				"map": 1418,
+				"x": 51.68,
+				"y": 101.51,
+				"offMap": true,
+				"radius": 30
+			}
+		},
+		{
+			"id": "riverglades--swamp-of-sorrows",
+			"source": "Forever's Riverglades (no Era frame: its end is in the Forever client's map frame). Warcraft Wiki's Riverglades, adjacent regions (on foot through Redridge Pass, or swimming south of Wheeler's Grange); the place is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge (world -9385,-4519 to -9435,-4469)",
+			"a": {
+				"map": 2548,
+				"x": 54.17,
+				"y": 90.27,
+				"radius": 30
+			},
+			"b": {
+				"map": 1435,
+				"x": 97.91,
+				"y": -12.13,
+				"offMap": true,
+				"radius": 30
+			}
+		},
+		{
+			"id": "dustwallow-marsh--the-barrens-north",
+			"source": "Warcraft Wiki's Dustwallow Marsh (Classic), adjacent regions: the Barrens by foot north or west; the north road's place is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge",
+			"a": {
+				"map": 1445,
+				"x": 55.43,
+				"y": 4.93,
+				"radius": 30
+			},
+			"b": {
+				"map": 1413,
+				"x": 63.25,
+				"y": 59.37,
+				"radius": 30
+			}
+		},
+		{
+			"id": "western-plaguelands--eastern-plaguelands-north",
+			"source": "Warcraft Wiki's Western and Eastern Plaguelands (Classic), adjacent regions: by foot; this crossing of the Thondroril is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge",
+			"a": {
+				"map": 1422,
+				"x": 69.99,
+				"y": 16.98,
+				"radius": 30
+			},
+			"b": {
+				"map": 1423,
+				"x": 11.33,
+				"y": 34.6,
+				"radius": 30
+			}
+		},
+		{
+			"id": "orgrimmar--ashenvale-west-gate",
+			"source": "Orgrimmar's west gate onto the Southfury River (Warcraft Wiki's Durotar (Classic): Azshara along the river); the place is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge",
+			"a": {
+				"map": 1454,
+				"x": -5.03,
+				"y": 29.49,
+				"offMap": true,
+				"radius": 30
+			},
+			"b": {
+				"map": 1440,
+				"x": 91.58,
+				"y": 66.24,
+				"radius": 30
+			}
+		},
+		{
+			"id": "stranglethorn-vale--duskwood-west",
+			"source": "Warcraft Wiki's Stranglethorn Vale (Classic), adjacent regions: Duskwood by foot; this western way is where Leffe's navigation maps and the walking grid from the client's geometry cross the edge",
+			"a": {
+				"map": 1434,
+				"x": 30.79,
+				"y": 0.88,
+				"radius": 30
+			},
+			"b": {
+				"map": 1431,
+				"x": 20.9,
+				"y": 82.07,
+				"radius": 30
+			}
+		},
+		{
+			"id": "westfall--stranglethorn-vale-river",
+			"source": "Warcraft Wiki's Stranglethorn Vale (Classic), adjacent regions: Westfall by swimming upriver or along the coast; the place is where the walking grid from the client's geometry crosses the edge",
+			"a": {
+				"map": 1436,
+				"x": 72.99,
+				"y": 77.1,
+				"radius": 30
+			},
+			"b": {
+				"map": 1434,
+				"x": 28.06,
+				"y": 0.85,
+				"radius": 30
+			}
+		},
+		{
+			"id": "alterac-mountains--silverpine-forest-lake",
+			"source": "Warcraft Wiki's Alterac Mountains (Classic), adjacent regions: Silverpine Forest by swimming (Lordamere Lake); the place is where the walking grid from the client's geometry crosses the edge",
+			"a": {
+				"map": 1416,
+				"x": 28.01,
+				"y": 42.91,
+				"radius": 30
+			},
+			"b": {
+				"map": 1421,
+				"x": 80.88,
+				"y": 36.35,
+				"radius": 30
+			}
 		}
 	],
 	"open": [
@@ -817,6 +964,16 @@
 		{
 			"a": 1431,
 			"b": 1436
+		},
+		{
+			"a": 1411,
+			"b": 1413,
+			"source": "Warcraft Wiki's Durotar (Classic), adjacent regions: the Barrens by foot across the river (the Southfury: Leffe's navigation maps and the walking grid cross it at more than one place)"
+		},
+		{
+			"a": 1416,
+			"b": 1424,
+			"source": "Warcraft Wiki's Alterac Mountains (Classic): the outer green zone has no clear-cut border, smoothly transiting into the Hillsbrad Foothills"
 		}
 	],
 	"chains": [

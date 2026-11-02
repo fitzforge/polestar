@@ -2,19 +2,22 @@ guide forever/collectibles/pets/disgusting-oozeling
 title Disgusting Oozeling
 category Collectibles
 folder Companion pets · Drops
-keywords Oozing Bag, ooze, slime, Vile Slime, Devouring Ooze, Western Plaguelands, Felwood, Un'Goro Crater
+keywords Oozing Bag, ooze, slime, Vile Slime, Large Vile Slime, Devouring Ooze, Western Plaguelands, Eastern Plaguelands, Felwood, Un'Goro Crater
 collects 20768, 20769
-levels 45-60
+levels 54-60
 zone Western Plaguelands
 
-# Oozing Bag (holds the Disgusting Oozeling) from oozes across the world.
-# Sources: items.json (droppers, 0.07-0.24% per kill, pfQuest); Forever client
-# 1.60.1.70338.
+# Disgusting Oozeling from the Oozing Bags that oozes drop.
+# Sources: the TDB's loot (Classic drop data): the Oozing Bag drops from the
+# Vile Slimes and Devouring Oozes of Western Plaguelands 3.5%, the Large Vile
+# Slime 4.8%, the Living Decay and Rotting Sludge of Eastern Plaguelands 3%,
+# Felwood's Tainted Ooze 2.5% and Vile Ooze 1.5% (the rare The Ongar 10.5%),
+# Un'Goro's oozes 1-2%; the bag holds the Disgusting Oozeling 1.9% of the time,
+# otherwise potions, herbs, gems or a rare pattern. items.json's per-kill
+# figures (0.02-0.24%) are these two chances multiplied. npcs.json (the ooze
+# field in eastern Western Plaguelands: 12 Vile Slimes, 9 Devouring Oozes, a
+# Large Vile Slime). Forever client 1.60.1.70532 (bag and pet can be traded).
 
-step Oozing Bag
-  tip Oozes drop the Oozing Bag: the Vile Slimes, Large Vile Slimes and Devouring Oozes of Western Plaguelands, and the oozes of Felwood, Un'Goro Crater and Eastern Plaguelands, at about 0.07-0.09% per kill in our data. The waypoint is a Vile Slime spawn in eastern Western Plaguelands.
-  collect 20768 @64.9,38.7          -- Vile Slimes, Western Plaguelands
-
-step Open the Oozing Bag
-  tip Open the Oozing Bag from your bags.
-  collect 20769 @64.9,38.7          -- Disgusting Oozeling
+step Oozes
+  tip Oozes drop the Oozing Bag about once in 20-30 kills; the best are the Vile Slimes, Devouring Oozes and the Large Vile Slime in the ooze field of eastern Western Plaguelands (level 54-57). Open every bag: most hold potions or herbs, and only about one bag in 50 holds the Disgusting Oozeling, so expect over a thousand kills. Both the bags and the pet can be traded: unopened bags on the Auction House are lottery tickets, the pet itself the sure buy.
+  collect 20769 "Disgusting Oozeling" @64.9,38.7 -- Open your Oozing Bags

@@ -93,6 +93,7 @@ local function goalLine(gv, raw, isCurrent, wp)
 		parts[#parts + 1] = ("spot %d of %d"):format(wp.spot, #wp.spots)
 	end
 	if gv.unavailableText then parts[#parts + 1] = plain(gv.unavailableText) end
+	if gv.noticeText then parts[#parts + 1] = plain(gv.noticeText) end
 	return cut(table.concat(parts, SEP))
 end
 
@@ -320,6 +321,56 @@ local function errorLines(out)
 	end
 end
 
+-- The quest log, compact: "Quest log 12/40: 783 1/3, 7 0/1, ..." (each
+-- quest's id, then its objectives done out of all; "done" when ready to hand
+-- in), cut to two lines' worth; nil with an empty log.
+local function questLogLine()
+	local C = ns.Compat
+	local ids = C.GetLogQuests and C.GetLogQuests() or {}
+	local parts = {}
+	for i, q in ipairs(ids) do
+		if C.IsQuestReadyForTurnIn(q) then
+			parts[i] = q .. " done"
+		else
+			local objs, met = C.GetQuestObjectives(q) or {}, 0
+			for _, o in ipairs(objs) do if o.finished then met = met + 1 end end
+			parts[i] = q .. " " .. met .. "/" .. #objs
+		end
+	end
+	local cap = C.GetLogCap and C.GetLogCap() or 40
+	if #ids == 0 then return nil end
+	return cut(L["Quest log %d/%d: %s"]:format(#ids, cap, table.concat(parts, ", ")), LINE_MAX * 2)
+end
+
+-- The settings the player changed from their defaults, path=value, cut to
+-- two lines' worth; nil when none is.
+local function settingsLine()
+	local changed = {}
+	local function walk(node, path)
+		for k, v in pairs(node) do
+			local p = path and (path .. "." .. tostring(k)) or tostring(k)
+			if type(v) == "table" then
+				walk(v, p)
+			elseif v ~= ns.GetDefault(p) then
+				changed[#changed + 1] = p .. "=" .. tostring(v)
+			end
+		end
+	end
+	local db = ns.DB and ns.DB()
+	if type(db) == "table" and type(db.settings) == "table" then walk(db.settings, nil) end
+	table.sort(changed)
+	if #changed == 0 then return nil end
+	return cut(L["Settings: %s"]:format(table.concat(changed, ", ")), LINE_MAX * 2)
+end
+
+-- The rolling debug log's last lines (ns.DebugLog), each cut to a line.
+local LOG_LINES = 5
+local function logTail()
+	local out = {}
+	for i, line in ipairs(ns.DebugLog and ns.DebugLog(LOG_LINES) or {}) do out[i] = cut(line) end
+	return out
+end
+
 -- The report's details, taken once when the window opens: the issue link
 -- and the report for Discord are made from them alone, so they say the
 -- same whatever the guide does while the window is open.
@@ -344,6 +395,9 @@ function R.Details()
 	out[#out + 1] = routesLine()
 	out[#out + 1] = packsLine()
 	errorLines(out)
+	out[#out + 1] = questLogLine()
+	out[#out + 1] = settingsLine()
+	d.tail = logTail()
 	if on.view then
 		d.issue = { guide = oneLine(on.title), index = on.index, step = oneLine(plain(on.view.title or "")), character = who }
 	end
@@ -380,13 +434,18 @@ end
 -- block (Discord keeps their lines and spacing). The bug bot reads this
 -- layout back (tools/discord-bot/lib/report.js): everything above the code
 -- block is the description it quotes in the issue; in the block, the first
--- line's shape, the guide line's "(id)", the order of the lines.
-local function text(description, lines, spot, names)
+-- line's shape, the guide line's "(id)", the order of the lines. The
+-- rolling log's tail (`tail`) closes the block, under "Log:".
+local function text(description, lines, spot, names, tail)
 	local out = { bold(L["What went wrong:"], described(description)) }
 	if spot then out[#out + 1] = bold(L["Right spot:"], cut(table.concat(spot, SEP))) end
 	if names then out[#out + 1] = bold(L["Addons:"], names) end
 	out[#out + 1] = "```"
 	for _, line in ipairs(lines) do out[#out + 1] = line end
+	if tail and #tail > 0 then
+		out[#out + 1] = L["Log:"]
+		for _, line in ipairs(tail) do out[#out + 1] = "> " .. line end
+	end
 	out[#out + 1] = "```"
 	return table.concat(out, "\n")
 end
@@ -400,10 +459,17 @@ local function length(s)
 end
 
 -- With no other addons there is no Addons line. The line names every addon
--- while the report fits one Discord message; only then is it shortened.
+-- while the report fits one Discord message; past it the log's oldest lines
+-- go first, then the Addons line is shortened.
 function R.Text(description, details, spot)
 	local names = #details.names > 0 and table.concat(details.names, ", ") or nil
-	local report = text(description, details.lines, spot, names)
+	local tail = {}
+	for i, line in ipairs(details.tail or {}) do tail[i] = line end
+	local report = text(description, details.lines, spot, names, tail)
+	while length(report) > R.TEXT_MAX and #tail > 0 do
+		table.remove(tail, 1)
+		report = text(description, details.lines, spot, names, tail)
+	end
 	local n = names and #names or 0
 	while length(report) > R.TEXT_MAX and n > 0 do
 		n = n - (length(report) - R.TEXT_MAX)

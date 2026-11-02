@@ -10,14 +10,20 @@ zone Alterac Mountains
 
 # Stormpike Battle Charger for Exalted Stormpike Guard (Era rule; the reputation
 # comes from Alterac Valley, one of Forever's four battlegrounds).
-# Sources: Forever client 1.60.1.70338 tables via wago.tools (ItemSparse: level
-# 60, 200g, no riding rank asked); items.json / npcs.json for the vendors.
+# Sources: Forever client 1.60.1.70532 via wago.tools (ItemSparse: level 60,
+# 200g, no reputation on the item; MountCapability: Riding 150 and no kind's
+# riding, so any race of the side rides it once it has Journeyman Riding);
+# items.json / npcs.json for the vendors.
+# ASSUMED: the vendor sells it at Exalted (Classic rule; the client item has no
+# standing, but its PlayerCondition 3887 "Requires Stormpike Guard - Exalted" is there for
+# a vendor row). In-game check: the vendor's list below Exalted.
 
 step Stormpike Guard
-  tip Alterac Valley (level 51+) raises Stormpike Guard: win, capture towers and graveyards, and hand in the battleground's turn-ins. Thanthaldis Snowgleam waits outside the battleground on the Alterac Mountains border above Hillsbrad; Gaelden Hammersmith inside Alterac Valley sells the same mount.
+  tip Alterac Valley (level 51+) raises Stormpike Guard: win, capture towers and graveyards, and hand in the battleground's turn-ins; the Alterac Valley Reputation guide shows the fastest way. Thanthaldis Snowgleam waits outside the battleground on the Alterac Mountains border above Hillsbrad; Gaelden Hammersmith inside Alterac Valley sells the same mount.
   rep "Stormpike Guard" Exalted
 
 step Stormpike Battle Charger
-  tip The Forever client lists it at 200g and level 60, and asks for no riding rank.
+  tip The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman Riding; any Alliance race can ride it.
   level 60
+  skill Riding 150
   buy 19030 npc 13217                 -- Thanthaldis Snowgleam, 200g

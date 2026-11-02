@@ -1,0 +1,193 @@
+guide forever/class/shaman/call-of-fire-horde
+title Call of Fire (Horde)
+category Class
+class Shaman
+folder Shaman
+faction Horde
+levels 10-13
+zone The Barrens
+keywords Fire Totem, Searing Totem, Totem of Charged Flames, Fire Sapta, Call of Fire, Swart, Searn Firewarder, Narm Skychaser, Xanis Flameweaver, Kranal Fiss, Telf Joolam, Fire Tar, Reagent Pouch, Glowing Ember, Brazier of the Dormant Flame, Torch of Eternal Flame, Sessaria Skystride, Olariaan Swiftburn, Skypriest Faladiel, Kuramaa, Shrine of Flames, Shaman, class quest, totem
+reward item 5176
+reward spell 3599 "Searing Totem"
+reward item 263412
+why Your Fire Totem for every fire totem, Searing Totem with it, and Forever's Totem of Charged Flames.
+
+# Call of Fire at level 10.
+# - Orcs, Trolls and Tauren: one of four letters (2983 Swart in Razor Hill,
+#   1522 Searn Firewarder in Orgrimmar, 2984 Narm Skychaser in Bloodhoof
+#   Village, 1523 Xanis Flameweaver in Thunder Bluff; they exclude one
+#   another) -> Kranal Fiss north of the Crossroads (1524: the Torch of the
+#   Dormant Flame) -> Telf Joolam on the mountain across the river in Durotar
+#   (1525: Fire Tar and a Reagent Pouch) -> the Fire Sapta and the Minor
+#   Manifestation of Fire on Telf's peak (1526, the Brazier of the Dormant
+#   Flame) -> the lit Torch of Eternal Flame back to Kranal (1527).
+# - Skyborne: Forever's own chain on Zephras Isle (97243-97257): Sessaria
+#   Skystride in Valanaar (or Aarnor Galestrike) -> Olariaan Swiftburn at the
+#   Shrine of Flames -> Skypriest Faladiel's heart -> Kuramaa's mask -> the
+#   timed ritual run with the Eternal Flame back to Valanaar. Forever's server
+#   race mask takes Skyborne off the Barrens letters (1522, 1523, 1524, 2983,
+#   2984; corrections/quests.json).
+# A Skyborne who reaches 10 off the isle gets Call of Fire 98517 (Forever's
+# server answer: "report to Sessaria Skystride or Aarnor Galestrike ... the
+# skycutter that docks in Mulgore at Skywatcher Plateau"); no data names its
+# giver, so it is a tip on the first Skyborne step, not a goal.
+# Rewards: the Fire Totem and Forever's Totem of Charged Flames (1527 and
+# 97257, quests.json; the Forever page of 97257 lists Searing Totem too).
+# Drops, levels and timers from Forever's quest notes: Fire Tar 75% from the
+# four Razormane casters (respawn 4 min 35 s), Reagent Pouch 75% from the
+# seven Burning Blade Cultists (5 min); the Minor Manifestation of Fire is
+# level 12, immune to fire, single spawn (3 min), Glowing Ember every kill;
+# 97257 runs on a six-minute timer.
+# Fire Sapta 1464 (Telf) replaces a lost sapta while 1526 is open (PrevQuestID
+# -1526 in the TDB: "while on quest").
+# The leveling guides carry these inline (orc-troll/01-durotar and
+# 02-the-barrens, tauren/01-mulgore and horde/02-the-barrens,
+# horde/skyborne/01-zephras-isle): this guide does the chain in one go.
+
+# ---------------------------------------------------------------- Orcs and Trolls
+
+step Swart
+  only Orc,Troll
+  zone Durotar
+  tip At 10 Swart, the shaman trainer on the east side of Razor Hill, sends you to Kranal Fiss in the Barrens. Already carry Searn Firewarder's letter from Orgrimmar? It goes to Kranal too: skip Swart.
+  level 10
+  accept 2983 optional                        -- Swart, Razor Hill
+
+# ---------------------------------------------------------------- Tauren
+
+step Narm Skychaser
+  only Tauren
+  zone Mulgore
+  tip At 10 Narm Skychaser, the shaman trainer in Bloodhoof Village, sends you to Kranal Fiss in the Barrens. Already carry Xanis Flameweaver's letter from Thunder Bluff? It goes to Kranal too: skip Narm.
+  level 10
+  accept 2984 optional                        -- Narm Skychaser, Bloodhoof Village
+
+# ---------------------------------------------------------------- Kranal Fiss and Telf Joolam
+
+step Kranal Fiss
+  only Orc,Troll,Tauren
+  zone The Barrens
+  tip Kranal Fiss is not in the Crossroads: take the road north from the Crossroads and fork east towards Durotar; past Grol'dom Farm he paces by a tall tower east of the road (from Durotar: over the Southfury bridge, past Far Watch Post). If you reach Ashenvale you went too far.
+  goto 56.0,19.9 "Kranal Fiss"
+
+step
+  only Orc,Troll,Tauren
+  when onquest 2983
+  turnin 2983                                 -- Kranal Fiss: Swart's letter
+
+step
+  only Orc,Troll,Tauren
+  when onquest 1522
+  turnin 1522                                 -- Kranal Fiss: Searn Firewarder's letter
+
+step
+  only Orc,Troll,Tauren
+  when onquest 2984
+  turnin 2984                                 -- Kranal Fiss: Narm Skychaser's letter
+
+step
+  only Orc,Troll,Tauren
+  when onquest 1523
+  turnin 1523                                 -- Kranal Fiss: Xanis Flameweaver's letter
+
+step Kranal Fiss
+  only Orc,Troll,Tauren
+  tip Kranal hands you the Torch of the Dormant Flame: keep it until the end of the chain.
+  accept 1524
+
+step Telf Joolam
+  only Orc,Troll,Tauren
+  zone Durotar
+  tip Back east over the bridge, then south along the Durotar bank of the river to where the mountains meet the water. The trail up starts at the foot of the mountain beside a small dark stone carved with symbols, near the quilboar camp; it is narrow, and a slip costs fall damage. Telf Joolam keeps the shrine at the top.
+  turnin 1524                                 -- Telf Joolam
+  accept 1525
+
+step Fire Tar
+  only Orc,Troll,Tauren
+  zone The Barrens
+  tip The Razormane casters north-east of the Crossroads drop the Fire Tar three times in four: Water Seekers and Thornweavers (level 10-11), Geomancers (level 12-13, they throw Fireballs and run for help when hurt) and Mystics (level 13-14, they heal themselves at low health). Pull them one at a time.
+  collect 5026 quest 1525.1                   -- Fire Tar
+
+step Reagent Pouch
+  only Orc,Troll,Tauren
+  zone Durotar
+  tip The Burning Blade Cultists (level 10-11, they call imps and cast Immolate) live deep in Dustwind Cave north of Razor Hill: climb the ramp just north-east of town and stay on the high ground above the ravines. The orcs at the cave mouth are not cultists; the cultists are further in, off to the left. Three kills in four drop a pouch. Skull Rock by Orgrimmar is the wrong cave.
+  collect 6652 quest 1525.2                   -- Reagent Pouch
+
+step Telf Joolam
+  only Orc,Troll,Tauren
+  tip Back up the trail to Telf. He makes the Fire Sapta from the tar and the pouch and hands it to you with the torch: keep both.
+  turnin 1525                                 -- Telf Joolam
+  accept 1526
+
+step Lost the Fire Sapta?
+  only Orc,Troll,Tauren
+  when onquest 1526
+  when !has 6636
+  tip Only if the Fire Sapta is gone from your bags: Telf gives you another.
+  accept 1464
+  turnin 1464                                 -- Telf Joolam: a new Fire Sapta
+
+step The Minor Manifestation of Fire
+  only Orc,Troll,Tauren
+  tip Drink the Fire Sapta beside the Shaman Shrine, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with Rockbiter Weapon and Earth Shock and leave the others alone. Its Glowing Ember drops every time.
+  use 6636 @38.1,58.5                         -- Fire Sapta, beside the Shaman Shrine
+  collect 6655 quest 1526.1                   -- Glowing Ember: Minor Manifestation of Fire
+
+step The Brazier of the Dormant Flame
+  only Orc,Troll,Tauren
+  tip Click the Brazier of the Dormant Flame on the plateau with the torch in your bags to place the ember, then click it a second time: the next quest does not open by itself. It gives you the lit Torch of Eternal Flame.
+  turnin 1526                                 -- Brazier of the Dormant Flame
+  accept 1527
+
+step Kranal Fiss
+  only Orc,Troll,Tauren
+  zone The Barrens
+  tip Down the trail, back over the bridge to Kranal Fiss by his tower. Keep the Fire Totem in your bags for good: every fire totem needs it.
+  turnin 1527 reward 5176 263412              -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
+
+# ---------------------------------------------------------------- Skyborne: Zephras Isle
+
+step Sessaria Skystride
+  only Skyborne
+  zone Zephras Isle
+  tip At 10 Sessaria Skystride, the shaman trainer beside Ayessa Dawnsinger in Valanaar, hands you the Torch of the Dormant Flame (Aarnor Galestrike offers the same quest). Already left the isle? A Call of Fire sends you back to them: take the skycutter from the cliffs south of Skywatcher Plateau, north of Thunder Bluff. Learn Flame Shock from her now: Kuramaa, later in the chain, only takes fire damage.
+  level 10
+  accept 97243                                -- Sessaria Skystride
+  train class
+
+step Olariaan Swiftburn
+  only Skyborne
+  tip The Shrine of Flames hides on the island's outer rim south-west of Valanaar, just south-east of Windfield Orchard: Olariaan Swiftburn keeps it.
+  turnin 97243                                -- Olariaan Swiftburn
+  accept 97244
+
+step Skypriest Faladiel
+  only Skyborne
+  tip Skypriest Faladiel (level 10, a turncoat Windshaper with a single spawn) holds the farm north-east past Valanaar, just south of the Shrine of Akir, on the hill west of the falls north of the East Pylon Watchtower. Kill him and take his heart.
+  collect 277267 quest 97244.1                -- Faladiel's Heart
+
+step Olariaan Swiftburn
+  only Skyborne
+  tip Back to Olariaan at the Shrine of Flames.
+  turnin 97244                                -- Olariaan Swiftburn
+  accept 97245
+
+step Kuramaa
+  only Skyborne
+  tip Kuramaa's Stump is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of Valanaar, in the hills south of the Windsong Crawlers' lakes. Knock on it to call Kuramaa (level 10). The spirit shrugs off most magic: only fire hurts it, so keep Flame Shock on it. Take its wooden mask.
+  interact 660848                             -- Kuramaa's Stump: knock on the bark
+  collect 277269 quest 97245.1                -- Kuramaa's Mask
+
+step The Eternal Flame
+  only Skyborne
+  tip Back to Olariaan. Accept the last quest, then wait by the Brazier of Offering while he performs the ritual; when the fire spirits light the Eternal Flame, hold the torch to it. From then you have six minutes: carry the flame straight to the Brazier of Eternal Flame beside Sessaria in Valanaar, with no detours or fights. Timer out? Abandon the quest and take it again from Olariaan.
+  turnin 97245                                -- Olariaan Swiftburn
+  accept 97257
+  goto 51.2,85.9 "Brazier of Offering"
+  complete 97257 @58.4,78.8                   -- the ritual, then the Brazier of Eternal Flame in Valanaar
+
+step Sessaria Skystride
+  only Skyborne
+  tip Keep the Fire Totem in your bags for good: every fire totem needs it.
+  turnin 97257 reward 5176 263412             -- Sessaria Skystride: Searing Totem, your Fire Totem and the Totem of Charged Flames

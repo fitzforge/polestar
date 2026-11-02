@@ -27,6 +27,26 @@
 		},
 		"note": "Stormwind Royal Guard is Elite on Forever; the merged Era data has rank 0 (Normal)."
 	},
+	"10181": {
+		"set": {
+			"spawns": {
+				"1458": {
+					"f": "e",
+					"pts": [
+						[
+							58.05,
+							91.79
+						]
+					]
+				}
+			}
+		},
+		"source": {
+			"kind": "cmangos",
+			"ref": "creature guid 32039: map 0 1290.4,316.2,-57.2, the Undercity's Royal Quarter (her only spawn)"
+		},
+		"note": "Lady Sylvanas Windrunner stands only in the Undercity's Royal Quarter. The Silverpine Forest point 74.6,13.4 (map 1421) is the same spot read in Silverpine's map frame (the city lies under that corner of the map), so the written guide titled her step Lordamere Lake and called it underwater (Skyborne's Exploring the Horde, c15 writer-only, Rev15SkyH)."
+	},
 	"209797": {
 		"set": {
 			"rank": 1
@@ -216,6 +236,24 @@
 			"ref": "creature_template Classification"
 		},
 		"note": "Fallen Necromancer is Elite on Forever; QuestieDB's Forever store gives every Forever npc rank 0."
+	},
+	"257196": {
+		"addSpawns": {
+			"2521": {
+				"f": "l",
+				"pts": [
+					[
+						56.66,
+						50.4
+					]
+				]
+			}
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "creature guid 21101604, map 2991 (3088.4, 1084.6)"
+		},
+		"note": "Zaal Stormshield (npc 257196), who drops the Skybreaker Bulwark for the Skyborne Warrior quest (94003), stands on the west side of the Shrine of Akir at Zephras Isle 56.66,50.4 (map 2521): the world database spawn converted with Seena Skybreaker and Sessaria Skystride as reference points. Our merged data had 36.05,33.53, far to the north-west. Replaces the map's points."
 	},
 	"259385": {
 		"set": {

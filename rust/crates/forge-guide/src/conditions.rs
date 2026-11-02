@@ -6,7 +6,7 @@
 use crate::js::V;
 use crate::lexer::js_trim;
 use crate::obj;
-use crate::races::{class, class_by_file, class_label, has_bit, race, race_by_file_ref, race_label, CLASS_FILES, RACE_FILES, SIDES};
+use crate::races::{class, class_by_file, class_label, has_bit, race, race_by_file_ref, race_label, CLASSES, CLASS_FILES, RACES, RACE_FILES, SIDES};
 use rustc_hash::FxHashSet;
 
 /// The factions a race file can be played on (both for an unknown race).
@@ -103,25 +103,154 @@ pub fn parse_conditions(list: &str, allow: &str) -> Conditions {
 			races.push(raw.to_string());
 		}
 	}
-	let mut classes = V::Null;
-	if !pos.is_empty() || !neg.is_empty() {
-		// Classes OR together: a negation contributes every class but itself.
-		let mut set: Vec<&str> = pos.clone();
-		for n in &neg {
-			for f in CLASS_FILES {
-				if f != *n && !set.contains(&f) {
-					set.push(f);
-				}
-			}
-		}
-		classes = arr_of(&CLASS_FILES.iter().filter(|f| set.contains(f)).copied().collect::<Vec<_>>());
-	}
+	let classes = match class_set(&pos, &neg) {
+		Some(set) => arr_of(&set),
+		None => V::Null,
+	};
 	let value = obj! {
 		"classes" => classes,
 		"races" => if races.is_empty() { V::Null } else { arr_of(&races) },
 		"factions" => if factions.is_empty() { V::Null } else { arr_of(&factions) },
 	};
 	Conditions { value: V::Obj(value), errors, warnings }
+}
+
+/// The classes a list's class names and negations stand for, in CLASS_FILES order (None: none
+/// named). Classes OR together: a negation contributes every class but itself, so `!Mage,!Druid`
+/// is every class.
+fn class_set(pos: &[&str], neg: &[&str]) -> Option<Vec<&'static str>> {
+	if pos.is_empty() && neg.is_empty() {
+		return None;
+	}
+	Some(CLASS_FILES.iter().copied().filter(|f| pos.contains(f) || neg.iter().any(|n| n != f)).collect())
+}
+
+/// A race name (`Undead`, `Scourge`, `NightElf`, any case) as its race file.
+fn race_file_of(name: &str) -> Option<&'static str> {
+	RACES.iter().find(|r| r.name.eq_ignore_ascii_case(name) || r.file.eq_ignore_ascii_case(name)).map(|r| r.file)
+}
+
+/// A class name (`Shaman`, `SHAMAN`) as its class file.
+pub fn class_file_of(name: &str) -> Option<&'static str> {
+	CLASSES.iter().find(|c| c.name.eq_ignore_ascii_case(name) || c.file.eq_ignore_ascii_case(name)).map(|c| c.file)
+}
+
+/// Whether two race names are one race (Undead and Scourge are).
+pub fn same_race(a: &str, b: &str) -> bool {
+	match (race_file_of(a), race_file_of(b)) {
+		(Some(x), Some(y)) => x == y,
+		_ => a.eq_ignore_ascii_case(b),
+	}
+}
+
+/// Who an `only` list lets in, read as the compiler reads it (parse_conditions): races, classes and
+/// factions are each a set one of which the character must match (None: anyone), and all three must
+/// hold; `!Warlock` stands for every class but the Warlock. The writer reads the lists it writes and
+/// the judge the compiled ones through this one reading.
+#[derive(Clone, Debug, Default, PartialEq, Eq)]
+pub struct Audience {
+	/// Race names as written (compared as race files: Undead is Scourge).
+	pub races: Option<Vec<String>>,
+	/// Class files, in CLASS_FILES order.
+	pub classes: Option<Vec<&'static str>>,
+	pub factions: Option<Vec<String>>,
+}
+
+impl Audience {
+	/// An `only` list as written (`Orc,Troll,!Shaman`). Names the compiler refuses (a negated race)
+	/// are left out.
+	pub fn parse(list: &str) -> Audience {
+		let (mut pos, mut neg, mut races, mut factions) = (Vec::new(), Vec::new(), Vec::<String>::new(), Vec::<String>::new());
+		for raw in list.split(',').map(js_trim).filter(|r| name_ok(r)) {
+			let (negated, name) = match raw.strip_prefix('!') {
+				Some(n) => (true, n),
+				None => (false, raw),
+			};
+			if let Some(c) = class_file_of(name) {
+				if negated {
+					neg.push(c)
+				} else {
+					pos.push(c)
+				}
+			} else if negated {
+			} else if let Some(f) = faction(&name.to_lowercase()) {
+				if !factions.iter().any(|x| x == f) {
+					factions.push(f.to_string());
+				}
+			} else if !races.iter().any(|x| same_race(x, name)) {
+				races.push(name.to_string());
+			}
+		}
+		Audience { races: (!races.is_empty()).then_some(races), classes: class_set(&pos, &neg), factions: (!factions.is_empty()).then_some(factions) }
+	}
+
+	/// A compiled `only` (`{ classes, races, factions }`, null or empty: anyone).
+	pub fn of_compiled(only: &V) -> Audience {
+		if !only.truthy() {
+			return Audience::default();
+		}
+		let group = |k: &str| -> Option<Vec<String>> {
+			let v: Vec<String> = only.get(k).items().iter().map(V::to_js_string).collect();
+			(!v.is_empty()).then_some(v)
+		};
+		let classes = group("classes").and_then(|cs| {
+			let pos: Vec<&str> = cs.iter().filter_map(|c| class_file_of(c)).collect();
+			let neg: Vec<&str> = cs.iter().filter_map(|c| c.strip_prefix('!').and_then(class_file_of)).collect();
+			class_set(&pos, &neg)
+		});
+		let keep = |v: Option<Vec<String>>| v.map(|v| v.into_iter().filter(|x| !x.starts_with('!')).collect::<Vec<_>>()).filter(|v| !v.is_empty());
+		Audience { races: keep(group("races")), classes, factions: keep(group("factions")) }
+	}
+
+	/// Whether characters of this race can be in it.
+	pub fn race_in(&self, race: &str) -> bool {
+		self.races.as_ref().is_none_or(|rs| rs.iter().any(|r| same_race(r, race)))
+	}
+
+	/// Whether characters of this class can be in it.
+	pub fn class_in(&self, class: &str) -> bool {
+		self.classes.as_ref().is_none_or(|cs| class_file_of(class).is_some_and(|c| cs.contains(&c)))
+	}
+
+	/// Whether it lets every class in.
+	pub fn every_class(&self) -> bool {
+		self.classes.as_ref().is_none_or(|cs| cs.len() == CLASS_FILES.len())
+	}
+
+	/// Whether it lets in a character of this race, class and faction.
+	pub fn admits(&self, race: &str, class: &str, faction: &str) -> bool {
+		self.race_in(race) && self.class_in(class) && self.factions.as_ref().is_none_or(|fs| fs.iter().any(|f| f.eq_ignore_ascii_case(faction)))
+	}
+
+	/// Those both let in (a step's `only` and its line's).
+	pub fn and(&self, o: &Audience) -> Audience {
+		fn both<T: Clone>(a: &Option<Vec<T>>, b: &Option<Vec<T>>, eq: impl Fn(&T, &T) -> bool) -> Option<Vec<T>> {
+			match (a, b) {
+				(None, x) | (x, None) => x.clone(),
+				(Some(a), Some(b)) => Some(a.iter().filter(|x| b.iter().any(|y| eq(x, y))).cloned().collect()),
+			}
+		}
+		Audience {
+			races: both(&self.races, &o.races, |a: &String, b: &String| same_race(a, b)),
+			classes: both(&self.classes, &o.classes, |a: &&str, b: &&str| a == b),
+			factions: both(&self.factions, &o.factions, |a: &String, b: &String| a.eq_ignore_ascii_case(b)),
+		}
+	}
+
+	/// The list as guides write it (None: anyone): races as written, factions, then classes, every
+	/// class but one as its negation (`Orc,!Shaman`).
+	pub fn render(&self) -> Option<String> {
+		let mut out: Vec<String> = self.races.clone().unwrap_or_default();
+		out.extend(self.factions.clone().unwrap_or_default());
+		if let Some(cs) = self.classes.as_ref().filter(|_| !self.every_class()) {
+			let left: Vec<&str> = CLASS_FILES.iter().copied().filter(|c| !cs.contains(c)).collect();
+			match left.as_slice() {
+				[one] => out.push(format!("!{}", class_label(one))),
+				_ => out.extend(cs.iter().map(|c| class_label(c))),
+			}
+		}
+		(!out.is_empty()).then(|| out.join(","))
+	}
 }
 
 /// Intersection of optional lists (null = unrestricted). Case-sensitive on
@@ -258,5 +387,26 @@ pub fn who_label(layer: &V) -> String {
 		"both factions".to_string()
 	} else {
 		s
+	}
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	#[test]
+	fn an_audience_reads_races_classes_and_a_class_negation_together() {
+		let a = Audience::parse("Orc,!Shaman");
+		assert!(a.admits("Orc", "WARRIOR", "Horde") && a.admits("orc", "Hunter", "Horde"));
+		assert!(!a.admits("Orc", "Shaman", "Horde") && !a.admits("Troll", "Warrior", "Horde"));
+		let u = Audience::parse("Undead,Mage");
+		assert!(u.admits("Scourge", "MAGE", "Horde") && !u.admits("Undead", "Priest", "Horde"));
+		// (Negations OR together: two are every class.)
+		assert!(Audience::parse("!Mage,!Druid").every_class());
+		assert_eq!(a.render().as_deref(), Some("Orc,!Shaman"));
+		assert_eq!(Audience::parse("Orc").and(&Audience::parse("Hunter,Rogue")).render().as_deref(), Some("Orc,Hunter,Rogue"));
+		// The compiled list reads the same.
+		let c = parse_conditions("Orc,!Shaman", "any").value;
+		assert_eq!(Audience::of_compiled(&c).classes, a.classes);
 	}
 }

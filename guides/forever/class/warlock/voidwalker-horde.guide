@@ -1,0 +1,98 @@
+guide forever/class/warlock/voidwalker-horde
+title Voidwalker (Horde)
+category Class
+class Warlock
+folder Warlock
+faction Horde
+levels 10-12
+zone Durotar
+keywords Summon Voidwalker, Gan'rul's Summons, Halgar's Summons, Creature of the Void, The Binding, Ophek, Gan'rul Bloodeye, Ageron Kargal, Carendin Halgar, Tablet of Verga, Burning Blade Stash, Skull Rock, Egalin's Grimoire, Perrine's Chest, Glyphs of Summoning, Runes of Summoning, Neeru Fireblade, Summoning Circle, Warlock, class pet
+reward spell 697 "Summon Voidwalker"
+why Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle.
+
+# The voidwalker for Horde warlocks, two versions that exclude each other
+# (quests.json `excl`: Gan'rul's Summons 1506 / Halgar's Summons 1478, and
+# Creature of the Void 1501 / 1473):
+# - Orcs and Trolls: Gan'rul's Summons (1506) from Ophek in Razor Hill to
+#   Gan'rul Bloodeye in Orgrimmar, Creature of the Void (1501, the Tablet of
+#   Verga in the Burning Blade Stash at Skull Rock) and The Binding (1504, the
+#   Glyphs of Summoning at the circle in Neeru Fireblade's tent).
+# - Undead: Halgar's Summons (1478) from Ageron Kargal in Brill to Carendin
+#   Halgar in the Undercity, Creature of the Void (1473, Egalin's Grimoire in
+#   Perrine's Chest at the Scarlet tower) and The Binding (1471, the Runes of
+#   Summoning at the circle below Carendin).
+# The steps split by race (`only`): Orcs and Trolls see Gan'rul's version
+# first, the Undead see only Carendin's. Forever's server sets no race limit
+# on either chain (EG Link quest answers, raceMask ffffffffffffffff for 1478,
+# 1473, 1471, 1506, 1501 and 1504, every build; the level-1 letters carry
+# their race, 3090 Orc, 98575 Troll). Forever's quest pages list
+# only Orcs and the Undead for Halgar's chain (races 2 and 5), but they list
+# the same two for Zevrost's Summon Felsteed (3631), which every Troll
+# warlock takes: Classic-era race lists, not a lock. So Halgar's steps are
+# `only Orc,Troll,Undead` (every Horde warlock; named so playtest plays each):
+# an Orc or Troll who takes Halgar's Summons in Brill follows them, and
+# Gan'rul's steps show "No longer offered" (lint warns about the exclusion,
+# as in incubus-horde). forever-db/corrections/quests.json sets all three to
+# Orc, Undead and Troll (146; the merged data had 1473 and 1471 Undead only,
+# 1478 Tauren and Skyborne too).
+# INGAME: Can a Troll warlock take Halgar's Summons (1478) from Ageron Kargal? Forever's quest pages list Orc and Undead only (Trolls are new warlocks); the server's race mask lets every race take it.
+# The fight: the Summoned Voidwalker is level 10 and not elite; at 30%
+# health it casts Consuming Rage. It has no fixed spawn: it appears only when
+# the quest item is used on the circle and despawns after a few minutes (3 in
+# Orgrimmar, 6 in the Undercity, the quest notes). The item is not used up,
+# so a lost fight is retried by using it again.
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json,
+# items.json) for the givers, the stash, the chest and the circles; the quest
+# notes (data/local/mechanics) for the cave's layout and guards, the chest
+# under the tower's stairs, and the fight; the level-10 reference steps for
+# the order. The Durotar route (forever/horde/orc-troll/01-durotar) routes
+# Gan'rul's chain too: what you did there ticks off here.
+
+step Gan'rul's Summons (Orcs and Trolls)
+  only Orc,Troll
+  zone Durotar
+  tip At 10 Ophek sends you to Gan'rul Bloodeye. He stands outside at the back of Razor Hill's barracks, the big building on the east side of town (not the inn), a few steps from Dhugru Gorelust, the warlock trainer. Gan'rul stands with the senior warlocks in the Cleft of Shadow, the cavern under Orgrimmar's Valley of Strength. An Orc or Troll leveling in Tirisfal Glades can take the Undercity version from Ageron Kargal in Brill instead (the Undercity steps below): you can do only one of the two.
+  level 10
+  accept 1506                         -- Ophek
+  turnin 1506                         -- Gan'rul Bloodeye, Cleft of Shadow
+  accept 1501
+
+step Skull Rock
+  only Orc,Troll
+  tip Skull Rock is the cave in the cliffs just east of Orgrimmar's gate. Inside, take the right-hand ramp up and follow it to the top: the Burning Blade Stash sits on that upper ledge, which cannot be reached from the lower floor. The cave is packed with Burning Blade Apprentices and Fanatics (level 9-11, many with voidwalkers) that respawn quickly, and Gazz'uz, a level 14 Burning Blade warlock, stands near the stash. Old notes call him elite; Forever's data lists him as normal. At 10 it is hard alone: pull one pack at a time and Fear the extra, wait for 11, or go with a friend. The stash always holds the tablet.
+  collect 6535 quest 1501.1           -- Tablet of Verga, in the Burning Blade Stash
+
+step The Binding (Orgrimmar)
+  only Orc,Troll
+  zone Orgrimmar
+  tip Back to Gan'rul. He hands you the Glyphs of Summoning: take them across the Cleft of Shadow to Neeru Fireblade's tent, stand on the purple circle on its floor and use them. The voidwalker (level 10, not elite) hits hard at 30% health and leaves after three minutes, so start at once: Curse of Agony, Corruption and Immolate, send your imp in, and Fear it when you need a breather. If it beats you or leaves, the glyphs are not used up: use them again on the circle. Keep the glyphs: Gan'rul takes them back.
+  turnin 1501                         -- Gan'rul Bloodeye
+  accept 1504
+  use 7464 @49.4,50.0                 -- Glyphs of Summoning, on the circle in Neeru's tent
+  kill 5676 quest 1504.1              -- Summoned Voidwalker
+  turnin 1504                         -- Gan'rul Bloodeye: Summon Voidwalker
+
+step Halgar's Summons (Undercity)
+  only Orc,Troll,Undead
+  zone Tirisfal Glades
+  tip At 10 Ageron Kargal, upstairs in the Gallows' End Tavern in Brill, sends you to Carendin Halgar: the version for the Undead, and for Orcs and Trolls who level in Tirisfal Glades instead of taking Gan'rul's. Carendin stands in the Undercity's Magic Quarter, by the Temple of the Damned.
+  level 10
+  accept 1478                         -- Ageron Kargal, upstairs in the Brill inn
+  turnin 1478                         -- Carendin Halgar, Magic Quarter
+  accept 1473
+
+step Perrine's Chest
+  only Orc,Troll,Undead
+  zone Tirisfal Glades
+  tip The Scarlet tower stands in the fields west of the Undercity's ruins (not the tower near Deathknell). The grimoire is in the small chest on the ground floor, under the stairs; ignore the chest upstairs. Captain Perrine (level 9) and a Scarlet Zealot guard it: kill them, or Fear the zealot while you deal with Perrine. Scarlet Missionaries and Zealots (level 7-9) walk the fields around the tower. The chest is back three seconds after anyone opens it.
+  collect 6285 quest 1473.1           -- Egalin's Grimoire, in Perrine's Chest
+
+step The Binding (Undercity)
+  only Orc,Troll,Undead
+  zone Undercity
+  tip Back to Carendin. He hands you the Runes of Summoning: go down the stairs from him to the summoning circle and use them while standing on it. Fight the voidwalker (level 10, not elite) on the circle: if it wanders off, the city guards may kill it and the kill does not count. Curse of Agony, Corruption and Immolate with your imp tanking bring it down; it hits harder below 30%. If you lose, use the runes again. Keep the runes: Carendin takes them back.
+  turnin 1473                         -- Carendin Halgar
+  accept 1471
+  use 6284 @86.6,27.1                 -- Runes of Summoning, on the circle below Carendin
+  kill 5676 quest 1471.1              -- Summoned Voidwalker
+  turnin 1471                         -- Carendin Halgar: Summon Voidwalker

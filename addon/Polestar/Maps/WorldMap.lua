@@ -258,12 +258,12 @@ local function buildBar()
 	bar.Coords = W.Text(bar, "small", "textDim")
 	bar.Coords:SetPoint("RIGHT", bar, "RIGHT", -10, 0)
 	bar.Coords:SetJustifyH("RIGHT")
-	bar:SetScript("OnUpdate", function(_, dt)
+	bar:SetScript("OnUpdate", ns.Safe(function(_, dt)
 		acc = acc + dt
 		if acc < TICK then return end
 		acc = 0
 		update(false)
-	end)
+	end))
 end
 
 local function refreshBar()

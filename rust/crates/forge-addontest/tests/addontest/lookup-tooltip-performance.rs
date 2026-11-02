@@ -89,6 +89,7 @@ fn source_tooltips_never_invoke_route_planning_and_do_not_fill_the_routed_cache(
 	assert_eq!(out["unitTooltipCalls"], 0, "unit mount tooltip must not invoke Nav.EstimateTravel");
 	assert!(out["itemLookupCalls"].as_f64().unwrap() > 0.0, "normal item lookup must still route after the tooltip");
 	assert!(out["unitLookupCalls"].as_f64().unwrap() > 0.0, "normal mount lookup must still route after the unit tooltip");
-	assert_eq!(out["itemLines"], json!(["From Mira Saddler | Vendor · Amber Vale", "Alt-click: guide me"]));
+	// Item 8000 is a mount without a curated guide: no Alt-click promise.
+	assert_eq!(out["itemLines"], json!(["From Mira Saddler | Vendor · Amber Vale"]));
 	assert_eq!(out["unitLines"], json!(["Mount: Ember Wolf | Horde only", "/pole mount: how to get it"]));
 }

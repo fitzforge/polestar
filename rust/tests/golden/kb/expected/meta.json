@@ -23,7 +23,7 @@
 			]
 		},
 		{
-			"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName) via wago.tools",
+			"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName, SpellEffect) via wago.tools",
 			"url": "https://wago.tools/db2?build=1.60.1.70450",
 			"revision": "wow_classic_beta 1.60.1.70450",
 			"license": "Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only",
@@ -39,7 +39,8 @@
 				"https://wago.tools/db2/Map/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/Item/csv?build=1.60.1.70450",
-				"https://wago.tools/db2/SpellName/csv?build=1.60.1.70450"
+				"https://wago.tools/db2/SpellName/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/SpellEffect/csv?build=1.60.1.70450"
 			]
 		},
 		{
@@ -65,9 +66,16 @@
 			"copyright": "CMaNGOS (https://github.com/cmangos/classic-db)"
 		},
 		{
-			"name": "Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class trainers)",
+			"name": "CMaNGOS classic-db: creature walks",
+			"url": "https://raw.githubusercontent.com/cmangos/classic-db/22b51464f1625f6ef6275771de1f5466c6f5d19e/Full_DB/ClassicDB_1_12_1_z2815.sql.gz",
+			"revision": "22b51464f1625f6ef6275771de1f5466c6f5d19e",
+			"license": "GPL-3.0; the extent of a creature's walk (its spawn, the centre and radius of the ground its random or waypoint movement covers) only, used as facts: a goal at an NPC who walks around gets that ground as its spawn area, and the guides say so",
+			"copyright": "CMaNGOS (https://github.com/cmangos/classic-db)"
+		},
+		{
+			"name": "Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class and profession trainers)",
 			"url": "https://github.com/advocaite/TrinityCore/tree/forever",
-			"license": "GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions, sniffed drop rates, class trainer lists and costs",
+			"license": "GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions (gathering nodes too), sniffed drop rates, class trainer lists and costs, profession trainers' learn ranks and costs",
 			"copyright": "TrinityCore (https://www.trinitycore.org) and the advocaite/TrinityCore `forever` branch",
 			"revision": "forever-tdb-2026-10-14 + 367ac384fa20"
 		},
@@ -99,7 +107,7 @@
 		"spawnHeightNpcs": 415,
 		"spawnHeightObjects": 450,
 		"recorderOnlyFactions": 4,
-		"eraSpawnPoints": 11662,
+		"eraSpawnPoints": 13250,
 		"liveSpawnPoints": 148,
 		"unmappedSpawnPoints": 0,
 		"untitledQuestsSkipped": 0,
@@ -118,7 +126,7 @@
 		"correctionsPrivate": 0,
 		"corrections": 6,
 		"knowledgeBase": {
-			"changes": 326,
+			"changes": 321,
 			"byClass": {
 				"quests.xp": {
 					"eg": 178,
@@ -148,7 +156,7 @@
 					"tdb": 2
 				},
 				"objects.spawns (replaced: misplaced)": {
-					"tdb": 7
+					"tdb": 2
 				},
 				"trainers.trainer": {
 					"tdb": 2
@@ -164,7 +172,7 @@
 				"preFilled": 0,
 				"limits": 1,
 				"spawnIds": 11,
-				"spawnsReplaced": 9,
+				"spawnsReplaced": 4,
 				"spawnsAdded": 0,
 				"entitiesAdded": 0,
 				"ratesFilled": 0,
@@ -206,7 +214,7 @@
 	"files": {
 		"quests.json": 115383,
 		"npcs.json": 119667,
-		"objects.json": 194715,
+		"objects.json": 240531,
 		"items.json": 59047,
 		"zones.json": 4786,
 		"map-frames.json": 12533,
@@ -214,6 +222,7 @@
 		"instances.json": 214,
 		"races.json": 1016,
 		"spawnz.json": 502390,
+		"moves.json": 13516,
 		"training.json": 91048,
 		"mechanics.json": 2587,
 		"trainers.json": 4156

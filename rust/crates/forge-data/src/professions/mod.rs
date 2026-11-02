@@ -1,6 +1,7 @@
 //! `profession build` (port of tools/lib/professions/build.js, byte for byte, offline): the
 //! Forever client's tables (cached wago.tools CSVs; Classic Era fills their gaps, [`tables`]) +
-//! data/forever/{items,npcs,objects}.json + pfQuest's vendor stock limits -> professions.json.
+//! data/forever/{items,npcs,objects}.json + pfQuest's vendor stock limits + the Forever TDB's sniffed
+//! profession trainer lists (the skill each recipe is learned at and its cost) -> professions.json.
 //! Trainers come from a curated name list checked against npcs.json ([`trainers`]).
 
 pub mod extract;
@@ -18,15 +19,18 @@ use tables::nk;
 pub struct Options {
 	/// Reference data (data/forever): items.json, npcs.json, objects.json.
 	pub data: PathBuf,
-	/// Source cache (data/sources): wago/<build>/*.csv, pfQuest/db/items.lua.
+	/// Source cache (data/sources): wago/<build>/*.csv, pfQuest/db/items.lua, forever-tdb/extract.json.
 	pub sources: PathBuf,
+	/// The Forever TDB's database (re-extracted into the source cache when it changed; without it the
+	/// cached extract is read as it is).
+	pub tdb: PathBuf,
 	/// Forever wago.tools build (default: the newest cached one holding its tables).
 	pub build: Option<String>,
 }
 
 impl Options {
 	pub fn new(root: &Path) -> Options {
-		Options { data: root.join("data").join("forever"), sources: root.join("data").join("sources"), build: None }
+		Options { data: root.join("data").join("forever"), sources: root.join("data").join("sources"), tdb: crate::build::tdb_db_default(root), build: None }
 	}
 }
 
@@ -131,7 +135,7 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 	let objects = as_obj(read_json(&opts.data.join("objects.json"))?);
 	let mut warnings = Vec::new();
 	let stock_file = opts.sources.join("pfQuest").join("db").join("items.lua");
-	let stock = if stock_file.exists() {
+	let mut stock = if stock_file.exists() {
 		parse_vendor_stock(&std::fs::read_to_string(&stock_file).map_err(|e| format!("{}: {e}", stock_file.display()))?)
 	} else {
 		warnings.push(format!("{} missing: vendor stock limits unknown, every vendor counts as unlimited", absolute(&stock_file).display()));
@@ -139,7 +143,64 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 	};
 	let loaded = tables::load(&opts.sources, opts.build.as_deref())?;
 	warnings.extend(loaded.warnings);
-	let ctx = Ctx { items: &items, npcs: &npcs, objects: &objects, stock: &stock, season: &loaded.season };
+	// The Forever TDB's sniffed profession trainer lists: spell -> (skill to learn it, copper). Without
+	// the TDB (no database, no extract) trainer recipes keep the estimate.
+	let mut trained: rustc_hash::FxHashMap<i64, (f64, f64)> = rustc_hash::FxHashMap::default();
+	let mut trained_classic: rustc_hash::FxHashMap<i64, (f64, f64)> = rustc_hash::FxHashMap::default();
+	let mut trainer_lists: rustc_hash::FxHashMap<i64, Vec<i64>> = rustc_hash::FxHashMap::default();
+	let mut currency: rustc_hash::FxHashSet<(i64, i64)> = rustc_hash::FxHashSet::default();
+	match crate::tdb::load(&opts.sources, &opts.tdb, &|_| {})? {
+		Some(t) if t.get("professionSpells").is_obj() => {
+			for (k, v) in t.get("professionSpells").entries() {
+				trained.insert(forge_guide::js::str_to_num(&k) as i64, (v.num_at(0), v.num_at(1)));
+			}
+			for (k, v) in t.get("professionSpellsClassic").entries() {
+				trained_classic.insert(forge_guide::js::str_to_num(&k) as i64, (v.num_at(0), v.num_at(1)));
+			}
+			for (k, v) in t.get("professionTrainers").entries() {
+				trainer_lists.insert(forge_guide::js::str_to_num(&k) as i64, v.items().iter().map(|x| x.num() as i64).collect());
+			}
+			for (k, v) in t.get("currencyVendors").entries() {
+				let npc = forge_guide::js::str_to_num(&k) as i64;
+				currency.extend(v.items().iter().map(|x| (npc, x.num() as i64)));
+			}
+			// An item every sniffed row sells for a currency is a currency item at every vendor of it,
+			// sniffed or not (the other faction's Merchant's Favor quartermaster): (0, item).
+			let mut gold: rustc_hash::FxHashSet<i64> = rustc_hash::FxHashSet::default();
+			for (k, v) in t.get("vendors").entries() {
+				let npc = forge_guide::js::str_to_num(&k) as i64;
+				gold.extend(v.items().iter().map(|x| x.num() as i64).filter(|&item| !currency.contains(&(npc, item))));
+			}
+			let only: Vec<(i64, i64)> = currency.iter().filter(|&&(_, item)| !gold.contains(&item)).map(|&(_, item)| (0, item)).collect();
+			currency.extend(only);
+			// The sniffed rows' stock limits (npc_vendor maxcount) join pfQuest's: Forever's enchanting
+			// supply vendors keep 1-4 Strange Dust and Lesser Magic Essence at a time.
+			for (k, v) in t.get("vendorLimits").entries() {
+				let npc = forge_guide::js::str_to_num(&k);
+				for (item, n) in v.entries() {
+					stock.entry(nk(forge_guide::js::str_to_num(&item))).or_default().insert(nk(npc), n.num());
+				}
+			}
+		}
+		Some(_) => warnings.push(format!(
+			"{}: an extract older than schema {} has no profession trainer lists: trainer recipes' learn skill is estimated",
+			absolute(&opts.sources.join("forever-tdb").join("extract.json")).display(),
+			crate::tdb::SCHEMA
+		)),
+		None => {}
+	}
+	let ctx = Ctx {
+		items: &items,
+		npcs: &npcs,
+		objects: &objects,
+		stock: &stock,
+		season: &loaded.season,
+		trained: &trained,
+		trained_classic: &trained_classic,
+		era_yellow: &loaded.era_yellow,
+		currency: &currency,
+		trainer_lists: &trainer_lists,
+	};
 	let res = extract::extract(&loaded.tables, &ctx);
 	warnings.extend(res.warnings);
 	// One profession per line, like the other data/forever files.

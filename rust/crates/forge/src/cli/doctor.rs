@@ -95,7 +95,7 @@ pub fn main() -> ExitCode {
 			match forge_gamedata::casc::read_build_info(dir) {
 				Ok(rows) => {
 					for r in &rows {
-						let reads = if r.product == PRODUCT { "  <- Forge reads this one" } else { "" };
+						let reads = if r.product == PRODUCT { "  <- Forge builds the grid from this one" } else { "" };
 						println!("     {:<22} {} {}{}{reads}", "", r.product, r.version, if r.active { "" } else { " (inactive)" });
 					}
 					if !rows.iter().any(|r| r.product == PRODUCT) {
@@ -178,6 +178,20 @@ pub fn main() -> ExitCode {
 		if !defs.is_dir() {
 			fix("check out the table definitions (WoWDBDefs) into data/sources/wowdbdefs");
 			ready = false;
+		}
+		// forge build reads the Forever tables saved at the grid's build, not the installed client.
+		let sources = r.join("data/sources");
+		let saved = forge_data::tables::saved_builds(&sources);
+		let saved_text = if saved.is_empty() { "none saved".to_string() } else { format!("saved: {}", saved.join(", ")) };
+		let grid = val("--grid").map(abs).or_else(|| std::env::var_os("POLESTAR_GRID").map(PathBuf::from)).unwrap_or_else(|| forge::grid_dir(None, r));
+		match forge::grid_build(&grid) {
+			Ok((_, b)) if saved.contains(&b) => line(true, "Forever tables", &format!("saved for the grid's build {b} ({})", forge_data::tables::saved_root(&sources).join(&b).display())),
+			Ok((p, b)) => {
+				line(false, "Forever tables", &format!("none saved for the grid's build {b} ({saved_text})"));
+				fix(&format!("forge build --forever-tables client with a Forever client at {b} installed ({p} or wowf), or --forever-tables wago with the wago.tools tables of {b} cached"));
+				ready = false;
+			}
+			Err(_) => note("Forever tables", &format!("{saved_text} (forge build reads the grid's build)")),
 		}
 	}
 

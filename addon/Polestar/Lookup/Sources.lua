@@ -8,6 +8,7 @@
 --           "quest", "instance" (key), "object" | "treasure", "zone" (no rows)
 --     list[i] = { type, src, label, detail, zone, map, x, y, f, travel, effort, cost,
 --                 available, why, whyText, chance, price, standing, guideable }
+--   Lookup.IsMount(record) -> bool   -- a Codex item or spell record is a mount
 --
 -- Ranking: available rows first (faction, race, class, level, professions,
 -- reputation), then cost = travel + effort in seconds. Travel is
@@ -40,6 +41,15 @@ local floor = math.floor
 
 local ITEM_KINDS = { item = true, mount = true, pet = true, recipe = true, tabard = true }
 Lookup.ITEM_KINDS = ITEM_KINDS
+
+-- The one test of "is this a mount" for Lookup: the Codex lists the item (or
+-- spell) under its "mount" kind (items that teach a spell of the client's Mount
+-- table; `forge data codex`). Lookup.Guide builds no guide to a mount from its
+-- best source (level 40, riding and the gold would be left out): only a
+-- curated mount guide (Lookup.CuratedGuide) is offered for one.
+function Lookup.IsMount(record)
+	return type(record) == "table" and record.kind == "mount"
+end
 
 local SEP = " \194\183 " -- " · "
 

@@ -23,41 +23,57 @@ why Forever teaches Poisons through this chain, not the trainer; the Thistle Tea
 # Recipe: Thistle Tea (Klaven's Tower), Eau de Mixilpixil (The Touch of
 # Zanzil, 2609). Forever's quest data files Klaven's Tower as a group quest.
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
-# drops, vendors and places.
+# drops, vendors and places. The KB drops table: the Defias Tower Key 100%
+# from the Malformed Defias Drone (level 23, one spawn). Forever's server data
+# (gameobject_template): the Duskwood Chest has the same lock as Gallywix's
+# Lockbox on the Horde side (about 70-75 Lockpicking by players' notes).
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20):
+# Kearnen's tree, the sparkling drone and its loop, the chest's poison that
+# lets the drone see you, the chest's 1 second respawn, the /lay emote, the
+# reagents' shops, the spool's two spawns and the Bronze Tube's small stock.
+# Klaven Mortwake (level 26 elite) on the top floor, Sap: npcs.json and
+# players' notes; the jump onto the bookshelf by the chest: a Forever
+# leveling guide (2026).
 # alliance/04-redridge-mountains and alliance/05-duskwood do 2360 and 2359 on
 # the route; this guide repeats them for anyone off it and adds The Touch of
 # Zanzil.
 
 step Mathias and the Defias
   zone Stormwind City
-  tip At 20 Master Mathias Shaw at SI:7 in Old Town sends you to Agent Kearnen in Westfall.
+  tip At 20 Master Mathias Shaw, upstairs in the SI:7 building in Old Town, sends you to Agent Kearnen in Westfall. This chain is how you learn Poisons on Forever, so do not skip it.
   level 20
   accept 2360                                 -- Master Mathias Shaw
 
 step Agent Kearnen
   zone Westfall
-  tip Agent Kearnen watches Klaven Mortwake's tower from the hills in the far east of Westfall, by the Duskwood border. The Malformed Defias Drone (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top.
+  tip Kearnen hides stealthed against the west side of a big tree with two small trees in front of it, just north of Klaven Mortwake's Defias tower in the far east of Westfall, by the Duskwood border. Read Kearnen's Journal for the tower's layout if you like.
   turnin 2360                                 -- Agent Kearnen
   accept 2359
-  collect 7923 quest 2359.2                   -- Defias Tower Key: Malformed Defias Drone
-  collect 7908 quest 2359.1                   -- Klaven Mortwake's Journal, in the Duskwood Chest
+
+step The Defias Tower Key
+  tip Get the key first. The Malformed Defias Drone (level 23, not elite) starts at the tower entrance and walks a loop around the outside; it is the spiky-haired one trailing yellow sparkles. Stealth up and Pick Pocket it from behind: it always has the key. It hits hard: if stealth breaks, Sprint away. Watch for the pair of Defias Drones that also patrol.
+  collect 7923 quest 2359.2                   -- Defias Tower Key: Pick Pocket the Malformed Defias Drone
+
+step Klaven's journal
+  tip Sneak up the tower. Defias Tower Patrollers (23) and Sentries (24) guard the floors; an Ambush with a dagger kills them outright if you would rather clear them. Klaven Mortwake, a level 26 elite, waits on the top floor: Sap him, or bring a friend. The Duskwood Chest beside his desk needs Lockpicking of about 70-75 (practise on the boxes at Alther's Mill in Redridge first). A trick: while the Sentries are away, jump from the chair to the lamp to the bookshelf above the chest, step out of stealth and open the chest from there. Opening it poisons you with the Touch of Zanzil, which stops your stealth for a while and lets the drone see you; that is why the key comes first. Then get out.
+  collect 7908 quest 2359.1 @70.4,74.0        -- Klaven Mortwake's Journal: the Duskwood Chest, top floor
 
 step Master Mathias Shaw
   zone Stormwind City
-  tip Head north through Elwynn to Stormwind; Mathias Shaw is at SI:7 in Old Town.
+  tip Head north through Elwynn to Stormwind; Mathias Shaw is upstairs in SI:7. He teaches Poisons and gives you the Thistle Tea recipe. Poisons are made, not bought: each batch of Instant Poison takes a Dust of Decay and an Empty Vial, which Jasper Fel and Sloan McCoy sell in Old Town next to SI:7. Buy a stack of each, open Poisons from your spellbook to make them, then use a poison on your weapon.
   turnin 2359 reward 18160                    -- Master Mathias Shaw: Poisons
   accept 2607
 
 step Doc Mixilpixil
-  tip Doc Mixilpixil works in the cellar of SI:7, the Barracks. Type /lay down beside him to be examined.
+  tip The Touch of Zanzil still sits on you. Doc Mixilpixil works in the cellar of the SI:7 building: the stairs down are under the stairs to the upper floor, behind Jasper Fel. Target him and type /lay (nothing after it) to be examined, then wait. If he does nothing, abandon the quest, take it again and wait until he asks you to lie down.
   turnin 2607                                 -- Doc Mixilpixil
   accept 2608
-  complete 2608                               -- /lay down
+  complete 2608 @80.06,69.9 live              -- /lay with the Doc targeted
   turnin 2608
   accept 2609
 
 step The cure's ingredients
-  tip Everything is in Stormwind: the Gumps sell Simple Wildflowers, the Spool of Light Chartreuse Silk Thread lies in the city, and the nearest vendors sell a Leaded Vial and a Bronze Tube.
+  tip All four are in Stormwind. Simple Wildflowers: Bernard or Felicia Gump's flower shop by the Trade District canal. A Leaded Vial: many general goods and alchemy vendors (Keldric Boucher, Jasper Fel and others). A Bronze Tube: an engineering supplier, who keeps only a few (or an engineer or the Auction House). The Spool of Light Chartreuse Silk Thread lies on the floor beside the left end of the counter in The Finest Thread, the tailor's shop on the canals; you can only pick it up with this quest. If you skip the cure, an Anti-Venom (First Aid) or a druid's Cure Poison also clears the Touch of Zanzil.
   buy 3421 x1 nearest                         -- Simple Wildflowers
   buy 3372 x1 nearest                         -- Leaded Vial
   buy 4371 x1 nearest                         -- Bronze Tube

@@ -1,0 +1,118 @@
+# Searing Gorge from Thorium Point, Alliance 47 to 49 (consensus visit 55).
+# Flow: Thelsamar -> the Badlands -> Thorium Point (flight path, hub) -> Zamael and Kalaran -> the Cauldron
+# (golems and elementals, then the Dark Iron dwarves) -> the Greater Lava Spiders in the south-west -> Kalaran
+# -> the Slag Pit -> Thorium Point -> the Grimesilt Dig Site -> Dorius' escort to Dustfire Valley -> hearth to
+# Thelsamar.
+# Order changes against the simulator, same quest set:
+# - Prayer to Elune (3377) is taken on the way out of Thorium Point instead of after the turn-ins.
+# - The Smithing Tuyere and the Spyglass (7728) are hunted with the other Dark Iron dwarves and turned in at
+#   Thorium Point before riding east, instead of a walk back after the escort.
+# - The Key to Freedom (4451) is optional: the Grimesilt Outhouse Key is a 4% drop.
+# - Added: Caught! (4449) in full at the Grimesilt outhouse. The export accepts it at 43 (visit 42) and turns it
+#   in at 46.5 (visit 48); both of those Searing Gorge stops were dropped from the earlier guides, and this
+#   visit passes the outhouse anyway.
+# Carried on: Suntara Stones (3368) for Curator Thorius in Ironforge.
+# Class quests: none in this visit.
+# Left out (not in the route): Ledger from Tanaris (4450: Swamp of Sorrows and Dustwallow Marsh),
+# WANTED: Overseer Maltorius (7701, elite), Prayer to Elune's follow-up (3378, elite Twilight cultists), The
+# Flame's Casing and the rest of Kalaran's chain (3452 on, elite cultists), The Horn of the Beast (3181, elite).
+guide forever/alliance/40-50/06-searing-gorge
+title Searing Gorge
+faction Alliance
+levels 47-49
+zone Searing Gorge
+next forever/alliance/40-50/07-un-goro-crater
+
+# ---------------------------------------------------------------- Thelsamar
+
+step Thelsamar
+  zone Loch Modan
+  sethome "Stoutlager Inn" npc 6734   -- Innkeeper Hearthstove: the last guide hearths you here, so this usually ticks at once
+
+# ---------------------------------------------------------------- Thorium Point
+
+step Thorium Point
+  zone Searing Gorge
+  tip From Thelsamar ride south into the Badlands, then west past the Horde town of Kargath (give it room) and up the trail into Searing Gorge. Thorium Point is the scaffolded camp on the north-west rim.
+  getfp "Thorium Point" npc 2941      -- Lanie Reed
+  accept 7728 object 179827           -- The Wanted/Missing/Lost & Found board
+  accept 7729 object 179827
+  accept 7723                         -- Hansel Heavyhands
+  accept 7724
+  accept 7727
+  accept 7722                         -- Master Smith Burninate
+
+step Zamael Lunthistle
+  tip The night elf stands alone west of Thorium Point. Hear his story.
+  accept 3377
+  turnin 3377
+
+step Kalaran Windblade
+  tip Kalaran stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
+  accept 3441
+  turnin 3441
+  accept 3442
+
+# ---------------------------------------------------------------- The Cauldron
+
+step Golems and elementals
+  tip Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
+  kill 5854 quest 7723                -- Heavy War Golem
+  collect 10511 quest 3442            -- Golem Oil
+  collect 10509 quest 3442            -- Heart of Flame
+
+step Kalaran Windblade
+  turnin 3442
+  accept 3443
+
+step Dark Iron dwarves
+  tip Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a Thorium Plated Dagger. The Steamsmiths work at the furnaces in the middle (the Smithing Tuyere), the Lookouts stand on the southern ridges (the Spyglass). Any Dark Iron may drop the Grimesilt Outhouse Key: keep it.
+  kill 5846 quest 7729                -- Dark Iron Taskmaster
+  kill 5844 quest 7729                -- Dark Iron Slaver
+  collect 10551 quest 3443            -- Thorium Plated Dagger
+  collect 18959 quest 7728            -- Smithing Tuyere
+  collect 18960 quest 7728            -- Lookout's Spyglass
+  collect 11818 x1 optional           -- Grimesilt Outhouse Key
+  accept 4451 optional
+
+step Greater Lava Spiders
+  tip The spiders roam the plateaus and lava pools in the south-west of the gorge.
+  kill 5858 quest 7724                -- Greater Lava Spider
+
+step Kalaran Windblade
+  turnin 3443
+
+step The Slag Pit
+  tip The Slag Pit opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of Overseer Maltorius and his elite guards deep inside.
+  collect 18922 quest 7722            -- Secret Plans: Fiery Flux
+  kill 9318 quest 7727                -- Incendosaur
+
+step Thorium Point
+  turnin 7728                         -- Taskmaster Scrange
+  turnin 7729
+  turnin 7723                         -- Hansel Heavyhands
+  turnin 7724
+  turnin 7727
+  turnin 7722                         -- Master Smith Burninate
+
+# ---------------------------------------------------------------- The east
+
+step The Grimesilt outhouse
+  tip Ride east across the Cauldron to the Grimesilt Dig Site in the south-east. The prisoner in the wooden outhouse wants 15 Silk Cloth and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.
+  turnin 4451 optional
+  accept 4449
+  kill 5839 quest 4449                -- Dark Iron Geologist
+  collect 4306 x15 quest 4449         -- Silk Cloth
+  turnin 4449
+  note The prisoner's next task, Ledger from Tanaris, sends you to the Swamp of Sorrows and Dustwallow Marsh: skip it.
+
+step Dorius Stonetender
+  tip The dwarf stands by the road at the dig site. Follow him north along the road and fight off the Dark Iron ambushes. When it is over, read the Singed Letter he leaves on the road in Dustfire Valley.
+  accept 3367
+  complete 3367
+  turnin 3367                         -- Singed Letter
+  accept 3368                         -- For Curator Thorius in Ironforge, later
+
+step Thelsamar
+  zone Loch Modan
+  hearth "Stoutlager Inn"

@@ -925,7 +925,7 @@ fn check_mechanics_corrections(ck: &mut Ck, c: &V) {
 
 /// v1's deliberate orders: the keys the routes stage reads, and the quests each rule names.
 fn check_deliberate(ck: &mut Ck, d: &V) {
-	ck.keys("", d, &["about", "pairs", "notes", "never", "keep", "southward", "together", "after", "stay", "optional"]);
+	ck.keys("", d, &["about", "pairs", "notes", "never", "keep", "southward", "together", "after", "stay", "optional", "group"]);
 	for sec in ["pairs", "together", "after"] {
 		for (i, p) in d.get(sec).items().iter().enumerate() {
 			for side in ["a", "b"] {
@@ -937,11 +937,29 @@ fn check_deliberate(ck: &mut Ck, d: &V) {
 					ck.err(a, format!("{} is not [accept|task|turnin, quest, ...]", show(&s)));
 				}
 			}
+			// (An optional side: the record holds for that faction's routes only.)
+			let f = p.get("faction");
+			if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
+				ck.err(format!("{sec}[{i}].faction"), format!("{} is not Alliance or Horde", show(&f)));
+			}
 		}
 	}
 	for sec in ["never", "keep", "optional"] {
 		for (i, e) in d.get(sec).items().iter().enumerate() {
 			ck.refers(&format!("{sec}[{i}].q"), "quests", &e.get("q"));
+		}
+	}
+	// Group records (forge-sim group.rs): {q, size 1-5, why}.
+	for (i, e) in d.get("group").items().iter().enumerate() {
+		let a = format!("group[{i}]");
+		ck.keys(&a, e, &["q", "size", "why"]);
+		ck.refers(&format!("{a}.q"), "quests", &e.get("q"));
+		let size = e.get("size").num();
+		if !(size.fract() == 0.0 && (1.0..=5.0).contains(&size)) {
+			ck.err(format!("{a}.size"), "size is the group the quest wants, a whole number from 1 (soloable elite) to 5 (never taken)");
+		}
+		if !has_text(&e.get("why")) {
+			ck.err(format!("{a}.why"), "why is required: the facts behind the size, with their source");
 		}
 	}
 }
@@ -959,7 +977,7 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 	};
 	let mut included: Vec<(String, String)> = Vec::new();
 	let mut skipped: Vec<(String, String)> = Vec::new();
-	for (sec, allowed) in [("include", &["q", "after", "reason", "issue"][..]), ("skip", &["q", "reason", "issue"][..])] {
+	for (sec, allowed) in [("include", &["q", "after", "reason", "issue"][..]), ("skip", &["q", "reason", "issue", "faction"][..])] {
 		let list = o.get(sec);
 		if !list.is_undef() && !list.is_arr() {
 			ck.err(sec, "must be a list");
@@ -974,6 +992,11 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 			}
 			if e.has("after") {
 				step(ck, &format!("{a}.after"), &e.get("after"), false);
+			}
+			// (A skip may hold for one side's routes only.)
+			let f = e.get("faction");
+			if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
+				ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
 			}
 			let q = num_str(e.get("q").num());
 			let mine = if sec == "include" { &mut included } else { &mut skipped };
@@ -1016,9 +1039,14 @@ fn check_overrides(ck: &mut Ck, o: &V) {
 	}
 	for (i, p) in o.get("pairs").items().iter().enumerate() {
 		let a = format!("pairs[{i}]");
-		ck.keys(&a, p, &["a", "b", "why", "source", "applied"]);
+		ck.keys(&a, p, &["a", "b", "why", "source", "applied", "faction"]);
 		step(ck, &format!("{a}.a"), &p.get("a"), false);
 		step(ck, &format!("{a}.b"), &p.get("b"), false);
+		// (A pair may hold for one side's routes only: the planner, the writer and the judge read it.)
+		let f = p.get("faction");
+		if !(f.is_undef() || matches!(f.as_str(), Some("Alliance" | "Horde"))) {
+			ck.err(format!("{a}.faction"), format!("{} is not Alliance or Horde", show(&f)));
+		}
 	}
 }
 
@@ -1201,7 +1229,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level, note, source, issue, pr }] }`.
+/// objective, objective? }, tip | level | along: false, note, source, issue, pr }] }`. `along: false` (an
+/// objective goal only): the writer never lists the objective "on the way" before its step.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1213,7 +1242,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "along", "faction", "note", "source", "issue", "pr"]);
 		check_record(ck, &at, r, &mut ids);
 		let a = r.get("at");
 		ck.keys(&format!("{at}.at"), &a, &["quest", "goal", "objective"]);
@@ -1232,8 +1261,17 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			}
 			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete or objective", show(&a.get("goal")))),
 		}
-		let (tip, level) = (r.get("tip"), r.get("level"));
+		let (tip, level, along) = (r.get("tip"), r.get("level"), r.get("along"));
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !along.is_undef() => {
+				if !matches!(along, V::Bool(false)) {
+					ck.err(format!("{at}.along"), "`along` is false (the objective is never listed on the way)");
+				}
+				if a.get("goal").as_str() != Some("objective") {
+					ck.err(format!("{at}.at.goal"), "an `along` fix is on an objective goal");
+				}
+				"along"
+			}
 			(false, true) => {
 				if !has_text(&tip) || tip.as_str().is_some_and(|t| t.contains('\n')) {
 					ck.err(format!("{at}.tip"), "a tip is one line of text");
@@ -1247,7 +1285,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets either a `tip` or a `level` gate");
+				ck.err(&at, "a guide fix sets a `tip`, a `level` gate or `along: false`");
 				"?"
 			}
 		};
@@ -1413,7 +1451,7 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets either",
+			"fixes[0]: a guide fix sets a `tip`, a `level` gate or `along: false`",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}
@@ -1453,6 +1491,18 @@ mod tests {
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		assert!(has("warning m quests.10.kinds[0].kind: teleport is not a kind"), "{f:#?}");
 		assert!(has("error m quests.10.steps[0].fact"), "{f:#?}");
+	}
+
+	#[test]
+	fn a_skip_or_an_override_pair_may_hold_for_one_side() {
+		// (c18: Silver Heart is skipped on the Horde's routes only; Donova's New Springs waits for the
+		// Horde's last Felwood leg.)
+		let o = r#"{ "overrides": { "skip": [{ "q": 10, "reason": "y", "faction": "Horde" }, { "q": 10, "reason": "z", "faction": "Orcs" }],
+			"pairs": [{ "a": ["turnin", 10], "b": ["accept", 10], "faction": "Alliance" }, { "a": ["turnin", 10], "b": ["accept", 10], "faction": "both" }] } }"#;
+		let f = findings(None, None, Some(o));
+		assert!(!f.iter().any(|x| x.contains("skip[0]") || x.contains("pairs[0]")), "{f:#?}");
+		assert!(f.iter().any(|x| x.contains("overrides.skip[1].faction") && x.contains("is not Alliance or Horde")), "{f:#?}");
+		assert!(f.iter().any(|x| x.contains("overrides.pairs[1].faction") && x.contains("is not Alliance or Horde")), "{f:#?}");
 	}
 
 	#[test]

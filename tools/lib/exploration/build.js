@@ -60,12 +60,29 @@ function sideLines(lines, side) {
 }
 
 function zoneTip(v) {
-	const n = v.steps.reduce((s, c) => s + c.length, 0);
+	const n = v.steps.reduce((s, c) => s + c.length, 0) + v.later.length;
 	const parts = [`${n} ${n === 1 ? 'area' : 'areas'} to discover here`];
 	if (v.levels) parts[0] += v.levels[0] === v.levels[1] ? `, level ${v.levels[0]}.` : `, levels ${v.levels[0]}-${v.levels[1]}.`;
 	else parts[0] += '.';
 	if (v.tip) parts.push(v.tip);
 	return parts.join(' ');
+}
+
+// The tip of a zone's last step, the areas far above the guide (plan.js
+// isLater): skip it now, come back later.
+function laterTip(goals) {
+	const lv = goals.map((o) => P.overlayLevel(o));
+	const lo = Math.min(...lv);
+	const hi = Math.max(...lv);
+	const names = goals.map((o) => P.areaLabel(o));
+	const list = names.length > 1 ? `${names.slice(0, -1).join(', ')} and ${names[names.length - 1]}` : names[0];
+	const one = names.length === 1;
+	return `${list} ${one ? 'is a' : 'are'} level ${lo === hi ? lo : `${lo}-${hi}`} ${one ? 'area' : 'areas'}, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs ${one ? 'it' : 'them'}.`;
+}
+
+function exploreLine(ctx, v, o) {
+	const note = o.notes.length ? ` -- ${o.notes.join('; ')}` : '';
+	return `  explore ${o.x},${o.y} ${quote(P.areaLabel(o))}${ctx.live.has(v.map) ? ' live' : ''}${note}`;
 }
 
 function renderGuide(ctx, guide, blocks) {
@@ -90,6 +107,10 @@ function renderGuide(ctx, guide, blocks) {
 		'tools/lib/exploration/spec.js; inside a zone the areas are a shortest tour from where you arrive towards the next zone.',
 	].join(' ');
 	for (const line of wrap(intro, 78)) L.push(`# ${line}`);
+	if (guide.comments && guide.comments.length) {
+		L.push('#');
+		for (const line of guide.comments) L.push(`# ${line}`);
+	}
 	for (const b of blocks) {
 		if (b.side) {
 			L.push('');
@@ -106,7 +127,7 @@ function renderGuide(ctx, guide, blocks) {
 				if (si === 0) {
 					const intro = vi === 0 ? [guide.intro.both, b.side && guide.intro[b.side]].filter(Boolean).join(' ') : '';
 					L.push(`  tip ${intro ? `${intro} ` : ''}${zoneTip(v)}`);
-					if (vi === 0) L.push(`  note ${quote(LEGACY_NOTE)}`);
+					if (vi === 0 && guide.legacy !== false) L.push(`  note ${quote(LEGACY_NOTE)}`);
 					for (const t of sideLines(v.travel, b.side)) L.push(`  note ${quote(t.text)}${t.only ? ` only ${t.only}` : ''}`);
 					const fpLists = b.side ? [{ list: [...v.fps.both, ...v.fps[b.side]], only: null }] : [{ list: v.fps.both, only: null }, ...FACTIONS.map((f) => ({ list: v.fps[f], only: f }))];
 					for (const { list, only } of fpLists) {
@@ -114,11 +135,18 @@ function renderGuide(ctx, guide, blocks) {
 						L.push(`  note ${quote(`Flight ${list.length > 1 ? 'paths' : 'path'} here: ${list.join(', ')}.`)}${only ? ` only ${only}` : ''}`);
 					}
 				}
-				for (const o of goals) {
-					const note = o.notes.length ? ` -- ${o.notes.join('; ')}` : '';
-					L.push(`  explore ${o.x},${o.y} ${quote(P.areaLabel(o))}${ctx.live.has(v.map) ? ' live' : ''}${note}`);
-				}
+				for (const o of goals) L.push(exploreLine(ctx, v, o));
 			});
+			if (v.later.length) {
+				const lv = v.later.map((o) => P.overlayLevel(o));
+				L.push('');
+				L.push(`step ${v.zone}: level ${Math.min(...lv)}+ ${v.later.length === 1 ? 'area' : 'areas'}`);
+				if (b.side) L.push(`  only ${b.side}`);
+				const shared = Object.values(ctx.zones).filter((z) => z.name === v.zone).length > 1;
+				L.push(`  zone ${shared ? `map ${v.map}` : v.zone}`);
+				L.push(`  tip ${laterTip(v.later)}`);
+				for (const o of v.later) L.push(exploreLine(ctx, v, o));
+			}
 		});
 	}
 	return `${L.join('\n')}\n`;

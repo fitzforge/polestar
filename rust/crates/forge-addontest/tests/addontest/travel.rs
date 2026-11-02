@@ -532,3 +532,27 @@ fn estimatetravel_takes_a_live_frame_start_and_an_era_frame_destination_on_a_re_
 	assert!(live <= 1.0, "live estimate {live}");
 	assert_eq!(json!([out["ok"], out["bad"]]), json!([true, true]));
 }
+
+#[test]
+fn a_class_flight_node_flies_that_class_alone_with_no_path_learnt() {
+	// Nighthaven (TaxiNodes 62/63): Bunthen Plainswind and Silva Fil'naveth fly Druids out of Moonglade.
+	// A Warrior is never routed through it; a Druid flies from it without learning it.
+	let out = run(r#"
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 2, 0, 0, -800, 9000, 90, 50, 1, "East Hold, Testshire" },
+				{ 4, 0, 0, 590, 9000, 12, 50, 3, "Nighthaven, Testshire", "DRUID" },
+			},
+			flights = { 4, 2, 1400 }, inns = {} }, true)
+		nav.place(0, 600)
+		known(2)
+		local C = Polestar.Compat
+		C.GetPlayerInfo = function() return { faction = "Alliance", class = "WARRIOR" } end
+		target(0, -780, "Kobolds")
+		local warrior = route()
+		C.GetPlayerInfo = function() return { faction = "Alliance", class = "DRUID" } end
+		target(0, -780, "Kobolds")
+		emit({ warrior = warrior, druid = route() })"#);
+	assert_eq!(out["warrior"], json!(["walk|Kobolds"]));
+	assert!(out["druid"].as_array().unwrap().iter().any(|l| l.as_str().is_some_and(|s| s.starts_with("fly|"))), "{}", out["druid"]);
+}

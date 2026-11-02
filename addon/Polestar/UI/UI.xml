@@ -4,6 +4,9 @@
 	<Script file="ZoneArt.lua"/>
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="ClassRewards.lua"/>
+	<Script file="ClassCard.lua"/>
+	<Script file="ClassToast.lua"/>
 	<Script file="JourneyPanel.lua"/>
 	<Script file="GamepadGuide.lua"/>
 	<Script file="GearPick.lua"/>
@@ -15,6 +18,7 @@
 	<Script file="RouteChoice.lua"/>
 	<Script file="Welcome.lua"/>
 	<Script file="Copy.lua"/>
+	<Script file="QuestRoom.lua"/>
 	<Script file="GearScales.lua"/>
 	<Script file="Report.lua"/>
 	<Script file="Packs.lua"/>

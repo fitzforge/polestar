@@ -10,7 +10,7 @@ use crate::js::V;
 // adds `group` (docs/PACK_FORMAT.md, "Format 2"); format 4 adds a step's
 // `when`, `label` and `along`, a level goal's `frac` and a `next` option's
 // `when` (`nextWhen`); format 5 adds the `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the
-// `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown` and `group` when predicates and a step's `skipto`; a pack is written in the first format its guides
+// `money`, `dungeon`, `upgrade`, `done`, `skill`, `cooldown`, `group` and `knows` when predicates and a step's `skipto`; a pack is written in the first format its guides
 // need (format_for): a pack without any stays readable by Polestar 0.2.5.
 pub const FORMAT: u32 = 3;
 pub const WHEN_FORMAT: u32 = 4;
@@ -21,6 +21,9 @@ pub const LEGS_FORMAT: u32 = 7;
 /// Format 8: Polestar's own pack written for memory (project.rs build_pack_files): a goal's spawn
 /// spots as one string (`spotsPacked`) and the guides of each faction in a part of their own.
 pub const PACKED_FORMAT: u32 = 8;
+/// Format 9: the `wait` goal (a countdown in the step). An older Polestar refuses the pack as too new
+/// instead of refusing each guide with "unknown verb".
+pub const WAIT_FORMAT: u32 = 9;
 
 /// NEEDS[format]: the first Polestar version that reads it (`undefined` -> None).
 pub fn needs(format: u32) -> Option<&'static str> {
@@ -29,7 +32,7 @@ pub fn needs(format: u32) -> Option<&'static str> {
 		2 => "0.2.4",
 		3 => "0.2.5",
 		4 => "0.2.6",
-		5..=8 => "0.3.0",
+		5..=9 => "0.3.0",
 		_ => return None,
 	})
 }
@@ -46,12 +49,12 @@ fn uses_level_frac(g: &V) -> bool {
 }
 
 // The `money`, `task`, `enter`, `cast`, `abandon`, `destroy` and `die` goals, the `money`, `dungeon`, `upgrade`, `done`,
-// `skill`, `cooldown` and `group` when predicates (on a step or a `next` option) and a
+// `skill`, `cooldown`, `group` and `knows` when predicates (on a step or a `next` option) and a
 // step's `skipto` need format 5: a 0.2.6 client would accept a format-4 pack
 // but refuse these with "unknown verb" or "bad when" rather than "needs
 // Polestar 0.3.0", and would never take a `skipto` jump.
 const MONEY_TASK_VERBS: [&str; 7] = ["money", "task", "enter", "cast", "abandon", "destroy", "die"];
-const FORMAT5_WHEN: [&str; 7] = ["money", "dungeon", "upgrade", "done", "skill", "cooldown", "group"];
+const FORMAT5_WHEN: [&str; 8] = ["money", "dungeon", "upgrade", "done", "skill", "cooldown", "group", "knows"];
 
 fn in_set(set: &[&str], v: &V) -> bool {
 	v.as_str().is_some_and(|s| set.contains(&s))
@@ -69,17 +72,26 @@ fn uses_money_task(g: &V) -> bool {
 		|| g.get("nextWhen").values().iter().any(needs5)
 }
 
+/// A `wait` goal needs format 9 (WAIT_FORMAT).
+fn uses_wait(g: &V) -> bool {
+	g.get("steps").items().iter().any(|s| s.get("goals").items().iter().any(|goal| goal.get("t").as_str() == Some("wait")))
+}
+
 fn has_keys(v: &V) -> bool {
 	v.truthy() && !v.keys().is_empty()
 }
 
-/// The format a pack's compiled guides need: MONEY_TASK_FORMAT when a guide
-/// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown or group when predicate or a
+/// The format a pack's compiled guides need: WAIT_FORMAT when a guide has a `wait` goal,
+/// MONEY_TASK_FORMAT when a guide
+/// uses money/task/enter/cast/abandon/destroy goals, a money, dungeon, upgrade, done, skill, cooldown, group or knows when predicate or a
 /// `skipto`, WHEN_FORMAT when a step
 /// has `when`, `label` or `along`, a level goal has `frac`, or a `next`
 /// option has `when` (`nextWhen`), else FORMAT. A pack with baked legs is
 /// LEGS_FORMAT (project.rs build_pack_files).
 pub fn format_for(guides: &[V]) -> u32 {
+	if guides.iter().any(uses_wait) {
+		return WAIT_FORMAT;
+	}
 	if guides.iter().any(uses_money_task) {
 		return MONEY_TASK_FORMAT;
 	}

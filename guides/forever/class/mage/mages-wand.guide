@@ -22,33 +22,40 @@ why A wand of your school for the 30s: frost, arcane or fire.
 # 2026-10-14) for the givers and the reward choice (Icefury, Nether Force or
 # Ragefire Wand); the quest texts for Tabetha's cottage and the Scarlet
 # Monastery; codex/instances.json for the Scarlet Monastery Library entrance.
-# Details Forever's data lacks come from a Classic guide to the mage class
-# quests (2023-11-09): the /beckon for "Plucky" Johnson, the book's place in
-# the Library, and the ten Witherbark Totem Sticks that become the Bolt Charged
-# Bramble. Items of Power is taken after Rituals of Power, in the order that
-# guide gives (our data would let Tabetha offer it at once).
+# The KB drops table: Witherbark Totem Stick 40% from every Witherbark troll
+# (level 30-36), Jade 20% from the Torn Fin Coastrunners (level 29) south-west
+# of Southshore. data/local/mechanics (quest-steps and quest-notes, checked
+# 2026-10-20): the /beckon and the phrase, Plucky's 5 minute respawn, the
+# Outer (not Inner) Binding circle and its three elementals, the bramble's
+# 10 second wait and its loss on death, the book beside Compendium of the
+# Fallen in the Library's last hallway, the level 38-41 elites on the east
+# side of Tabetha's farm.
+# Items of Power opens with Journey to the Marsh (quests.json pre 1947), so it
+# is taken on the first visit to Tabetha and the Arathi part fits the trip
+# east for the Scarlet Monastery. Mage's Wand needs both 1948 and 1951.
 # Rituals of Power is dungeon work: the book lies in the Scarlet Monastery
-# Library (a group of five, level 29-39).
+# Library (a group of five, level 33-41).
 
 step Journey to the Marsh (Stormwind)
   only Alliance
   zone Stormwind City
-  tip Jennea Cannon in the Wizard's Sanctum, Stormwind's Mage Quarter, sends you to Tabetha; Bink in Ironforge gives the same quest.
+  tip Jennea Cannon at the top of the Wizard's Sanctum, Stormwind's Mage Quarter, sends you to Tabetha; Bink in Ironforge gives the same quest.
   level 30
   accept 1947 npc 5497                        -- Jennea Cannon
 
 step Journey to the Marsh (Orgrimmar)
   only Horde
   zone Orgrimmar
-  tip Deino, one of Orgrimmar's mage trainers, sends you to Tabetha; Anastasia Hartwell in the Undercity and Ursyn Ghull in Thunder Bluff give the same quest.
+  tip Deino, one of Orgrimmar's mage trainers in Darkbriar Lodge, sends you to Tabetha; Anastasia Hartwell in the Undercity and Ursyn Ghull in Thunder Bluff give the same quest.
   level 30
   accept 1947 npc 5885                        -- Deino
 
 step Tabetha
   zone Dustwallow Marsh
-  tip Tabetha, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the Stonemaul Ruins.
+  tip Tabetha, a hermit, lives in a cottage deep in the marsh west of Theramore, just north of the Stonemaul Ruins. Level 38-41 elites roam the east side of her farm, and swimming in passes level 42 Muckshells: come in from the west along the road from the Barrens. Her cottage is no refuge: mobs follow you inside. Take both her quests.
   turnin 1947                                 -- Tabetha
   accept 1949
+  accept 1948
 
 step Magus Tirth
   zone Thousand Needles
@@ -57,30 +64,31 @@ step Magus Tirth
   accept 1950
 
 step "Plucky" Johnson
-  tip Tirth's apprentice is "Plucky" Johnson, a small grey chicken by the race track. Target him and type /beckon: he turns human for a moment, long enough to talk to him.
+  tip Tirth's apprentice is "Plucky" Johnson, a small grey chicken pecking around the foot of the race track's lookout tower; at night type /target plucky. Target him and type /beckon (not /chicken or /wave): he turns human for a moment. Talk to him and ask for the phrase. Do not attack him. If he is gone, he is back within 5 minutes.
   complete 1950 @79.6,75.6                    -- "Plucky" Johnson
   turnin 1950                                 -- Magus Tirth
   accept 1951
 
+step Witherbark trolls and the Bolt Charged Bramble
+  zone Arathi Highlands
+  tip The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of Hammerfall; every kind of them drops a Witherbark Totem Stick about two times in five: you need ten. Then go to the Circle of Outer Binding (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the Bolt Charged Bramble forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more.
+  collect 7273 x10                            -- Witherbark Totem Stick
+  use 7273 @52.04,50.74                       -- at the middle stone of the Circle of Outer Binding
+  collect 7272 quest 1948.2 @52.04,50.74      -- Bolt Charged Bramble
+
+step Jade
+  tip Tabetha also wants one Jade, a green gem. Miners sometimes find one in ore veins; the Auction House sells it; the Torn Fin Coastrunners on the coast south-west of Southshore drop one about every fifth kill. Do not sell it to a vendor by mistake.
+  collect 1529 quest 1948.1                   -- Jade
+
 step Rituals of Power
   zone Tirisfal Glades
-  tip Tirth sold the book to the Scarlet Brotherhood. The Scarlet Monastery stands in north-eastern Tirisfal Glades; take the Library wing. The book juts out of the wall on the left as you enter the Athenaeum, before Arcanist Doan.
+  tip Tirth sold the book to the Scarlet Crusade. The Scarlet Monastery stands in north-eastern Tirisfal Glades; take the Library wing with a group of five. The book is in the last long hallway, the one that ends in Arcanist Doan's round room: on the left-hand shelf as you face his room, next to the Compendium of the Fallen. Take the thick, highlighted blue book sticking out of the shelf; a magnifying-glass cursor means a book you can only read.
   collect 7274 quest 1951.1 @82.6,33.8        -- Rituals of Power: Scarlet Monastery Library
-
-step Back to Tabetha
-  zone Dustwallow Marsh
-  turnin 1951                                 -- Tabetha
-  accept 1948
-
-step Witherbark trolls
-  zone Arathi Highlands
-  tip The Witherbark trolls hold south-eastern Arathi Highlands; every one of them can drop a Witherbark Totem Stick. Then take the ten sticks north-west to the binding circle where they become the Bolt Charged Bramble. Tabetha also wants a Jade: buy one at an Auction House on the way; miners sometimes find one in Tin Veins.
-  collect 7273 x10                            -- Witherbark Totem Stick
-  collect 7272 quest 1948.2                   -- Bolt Charged Bramble
-  collect 1529 quest 1948.1                   -- Jade
 
 step Tabetha's ritual
   zone Dustwallow Marsh
-  turnin 1948                                 -- Tabetha
+  tip Back to Tabetha. With both quests handed in she starts the ritual: wait a few seconds, then talk to her again and pick your wand: Icefury (frost), Nether Force (arcane) or Ragefire (fire).
+  turnin 1951                                 -- Tabetha
+  turnin 1948
   accept 1952
   turnin 1952 choose 7514 11263 7513          -- Mage's Wand

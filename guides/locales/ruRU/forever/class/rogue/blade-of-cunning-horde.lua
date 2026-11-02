@@ -1,5 +1,5 @@
 -- Russian (ruRU): the guide forever/class/rogue/blade-of-cunning-horde (forever/class/rogue/blade-of-cunning-horde.guide).
--- Written by `node tools/polestar.js i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Russian (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -12,24 +12,26 @@ return {
 	["A dagger at 10 from your home town's rogue quests."] = "Кинжал на 10-м уровне за задания разбойников в вашем родном городе.",
 
 	-- Step 1: Therzok
-	-- {npc:3170} Kaplak · {area:362} Razor Hill · {quest:1859} Therzok · {zone:1454} Orgrimmar
-	["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}."] = "На 10-м уровне {npc:3170}, учитель разбойников ({area:362}), отправит вас сюда: {quest:1859} ({zone:1454}).",
+	-- {npc:3170} Kaplak · {area:362} Razor Hill · {quest:1859} Therzok · {zone:1454} Orgrimmar · {quest:1963} The Shattered Hand
+	["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}. It is only a pointer: an Orc already in {zone:1454} can skip it and take {quest:1963} from {quest:1859} straight away."] = "",
 
 	-- Step 2: The Shattered Hand
 	-- {quest:1859} Therzok · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {quest:1963} The Shattered Hand
 	["{quest:1859} stands in the {object:172960}, the canyon under the {object:172982}. Trolls: take {quest:1963} from him at 10."] = "{quest:1859} стоит здесь: {object:172960} – ущелье под районом {object:172982}. Тролли: на 10-м уровне возьмите у него задание {quest:1963}.",
 
 	-- Step 3: Tazan
-	-- {npc:6494} Tazan · {zone:1413} Barrens · {area:392} Ratchet
-	["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494} стоит на побережье зоны {zone:1413} к югу от места {area:392}. Убейте его и заберите сумку.",
+	-- {npc:6494} Tazan · {area:391} Merchant Coast · {area:392} Ratchet
+	["{npc:6494} (level 13, not elite) is a troll pirate on the {area:391} south of {area:392}: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again."] = "",
 
 	-- Step 4: Back to Therzok
 	-- {npc:6446} Therzok
 	["Back to {npc:6446}"] = "Назад: {npc:6446}",
 
 	-- Step 5: Tazan's Key
-	-- {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel
-	["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466} пьет в таверне ({object:172982}). Обчистите его карманы и добудьте {item:7208}, затем откройте {item:7209}.",
+	-- {quest:1859} Therzok · {npc:6466} Gamon · {object:172982} Valley of Strength · {item:7208} Tazan's Key · {item:7209} Tazan's Satchel
+	["{quest:1859} hands the satchel back: now open it. {npc:6466} (level 12) kneels by the innkeeper in the inn in the {object:172982}; stealth up and pick his pocket for {item:7208} (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on {item:7209} in your bags. If you have trained Pick Lock, you can pick the satchel's lock instead."] = "",
+	-- {item:7208} Tazan's Key
+	["{item:7208}: Pick Pocket Gamon"] = "",
 	-- {item:7209} Tazan's Satchel
 	["{item:7209}, once you have the key"] = "{item:7209}, когда добудете ключ",
 	-- {item:7295} Tazan's Logbook
@@ -41,7 +43,7 @@ return {
 
 	-- Step 7: Mennet Carkad
 	-- {npc:2130} Marion Call · {area:2119} Gallows' End Tavern · {area:159} Brill · {quest:1885} Mennet Carkad · {zone:1458} Undercity
-	["At 10 {npc:2130}, the rogue trainer in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "На 10-м уровне {npc:2130}, учитель разбойников ({area:2119}, {area:159}), отправит вас сюда: {quest:1885} ({zone:1458}).",
+	["At 10 {npc:2130}, the rogue trainer upstairs in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "",
 
 	-- Step 8: The Rogues' Quarter
 	-- {object:36073} Rogues' Quarter
@@ -50,8 +52,8 @@ return {
 	["{quest:1885} stands in the {object:36073}."] = "{quest:1885} стоит здесь: {object:36073}.",
 
 	-- Step 9: Astor Hadren
-	-- {npc:6497} Astor Hadren · {area:228} Sepulcher
-	["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497} стоит к северо-востоку (ориентир: {area:228}). Возьмите у него рекомендательное письмо.",
+	-- {npc:6497} Astor Hadren · {area:228} Sepulcher · {zone:1458} Undercity
+	["{npc:6497} (level 13) walks the road between the {area:228} and the {zone:1458}, north of the {area:228}. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death."] = "",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad
@@ -59,16 +61,23 @@ return {
 
 	-- Step 11: Andron Gant
 	-- {npc:6522} Andron Gant
-	["{npc:6522}'s ledger sits on the bookshelf beside him."] = "Гроссбух (владелец: {npc:6522}) лежит на книжной полке рядом с ним.",
+	["{npc:6522} is in the Apothecarium, in its biggest room, where two huge guards watch a small bridge. His ledger is on the bookshelf in the back room behind him, not the shelf on the wall next to him."] = "",
 
 	-- Step 12: Mennet Carkad and Varimathras
 	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras
 	["{npc:6467} and {npc:2425}"] = "{npc:6467} и {npc:2425}",
-	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras · {object:36126} Royal Quarter
-	["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467} передаст гроссбух дальше. Цель: {npc:2425}, Чертог Темной госпожи ({object:36126}).",
+	-- {npc:6467} Mennet Carkad · {npc:2425} Varimathras · {object:36126} Royal Quarter · {npc:6522} Andron Gant
+	["{npc:6467} sends the ledger on to {npc:2425}, the big demon in the middle of the Hall of the Dark Lady in the {object:36126}, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from {npc:6522}'s bookshelf."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["At 10 {npc:2130}, the rogue trainer in the {area:2119} in {area:159}, sends you to {quest:1885} in the {zone:1458}."] = "На 10-м уровне {npc:2130}, учитель разбойников ({area:2119}, {area:159}), отправит вас сюда: {quest:1885} ({zone:1458}).",
+	-- ["At 10 {npc:3170}, the rogue trainer in {area:362}, sends you to {quest:1859} in {zone:1454}."] = "На 10-м уровне {npc:3170}, учитель разбойников ({area:362}), отправит вас сюда: {quest:1859} ({zone:1454}).",
 	-- ["Tazan"] = "Тазан",
 	-- ["{item:7208}: Gamon"] = "{item:7208}: Гамон",
 	-- ["{item:7209}: Tazan"] = "{item:7209}: Тазан",
+	-- ["{npc:6466} drinks in the inn in the {object:172982}. Pick his pocket for {item:7208}, then open {item:7209}."] = "{npc:6466} пьет в таверне ({object:172982}). Обчистите его карманы и добудьте {item:7208}, затем откройте {item:7209}.",
+	-- ["{npc:6467} sends the ledger on to {npc:2425} in the Hall of the Dark Lady, the {object:36126}."] = "{npc:6467} передаст гроссбух дальше. Цель: {npc:2425}, Чертог Темной госпожи ({object:36126}).",
+	-- ["{npc:6494} stands on the {zone:1413} coast south of {area:392}. Kill him for his satchel."] = "{npc:6494} стоит на побережье зоны {zone:1413} к югу от места {area:392}. Убейте его и заберите сумку.",
+	-- ["{npc:6497} stands north-east of the {area:228}. Take his Letter of Introduction from him."] = "{npc:6497} стоит к северо-востоку (ориентир: {area:228}). Возьмите у него рекомендательное письмо.",
+	-- ["{npc:6522}'s ledger sits on the bookshelf beside him."] = "Гроссбух (владелец: {npc:6522}) лежит на книжной полке рядом с ним.",
 }

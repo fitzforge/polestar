@@ -465,6 +465,36 @@
 		],
 		"note": "Rizzle's Schematics: starts with Rizzle's Unguarded Plans (object 20805); as its giver the merged data also listed Rizzle's Guarded Plans (object 179888)."
 	},
+	"1471": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "The Binding (Undercity voidwalker, Carendin Halgar) is open to every Horde Warlock: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, every build), the same as Gan'rul's version 1504. The merged data had Undead only, so an Orc or Troll who took Halgar's Summons in Brill stopped halfway."
+	},
+	"1473": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Creature of the Void (Undercity voidwalker, Carendin Halgar) is open to every Horde Warlock: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, every build), the same as Gan'rul's version 1501. The merged data had Undead only."
+	},
+	"1478": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Halgar's Summons (Ageron Kargal, Brill) is open to every Horde Warlock: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, every build), the same as Gan'rul's Summons 1506. The merged data also listed Tauren and Skyborne, who cannot be Warlocks."
+	},
 	"1486": {
 		"set": {
 			"start": {
@@ -590,6 +620,16 @@
 		},
 		"note": "Tooga's Quest (Tanaris; Tooga gives it, Torta takes it) is an escort: you lead Tooga back to Torta within 30 minutes (the world DB's quest text, timer and PARTY_ACCEPT flag). Its objective is a kill objective in quests.json and no text says escort, so the guide compiler's escort rule misses it. Both Tanaris guides route it."
 	},
+	"1661": {
+		"set": {
+			"excl": []
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon: 1661 ExclusiveGroup 0; 4485 and 4486 ExclusiveGroup 4485"
+		},
+		"note": "The Tome of Nobility (Duthorian Rall, teaches Summon Warhorse, RewardSpell 13820) is not closed by the Ironforge breadcrumbs 4485 (Tiza Battleforge) and 4486 (Brandur Ironhammer): the world DB puts only 4485 and 4486 in one exclusive group, neither teaches the spell, and Warcraft Wiki's progression ('The Tome of Nobility (Ironforge)') has 1661 after them. The merged data (Questie) listed 4485 and 4486 as closing it, which would leave a Dwarf who took a breadcrumb without the Warhorse."
+	},
 	"1684": {
 		"set": {
 			"start": {
@@ -645,6 +685,46 @@
 			}
 		],
 		"note": "Speak with Dillinger: starts with Austil de Mon (npc 2131); as its giver the merged data also listed Baltus Fowler (npc 4595)."
+	},
+	"1943": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Speak with Deino (Horde mage robe at 26, Anastasia Hartwell) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450); the merged data and Forever's quest page keep Classic's Undead and Troll (Classic had no Orc mages), the same Classic leftover the server overrules on Report to Anastasia 1959 and Spellfire Robes 1962. A Forever quest site lists all Horde races for the chain."
+	},
+	"1944": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Waters of Xavian (Deino, after 1943) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450); the merged data had Classic's Undead and Troll."
+	},
+	"1945": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Laughing Sisters (Deino, after 1944) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450); the merged data had Classic's Undead and Troll."
+	},
+	"1946": {
+		"set": {
+			"races": 146
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Nether-lace Garment (Kil'hala, after 1945) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450) and Forever's quest page sets none (reqrace 0); the merged data had Classic's Undead and Troll."
 	},
 	"2523": {
 		"set": {
@@ -1180,17 +1260,38 @@
 				],
 				"object": [],
 				"item": []
+			},
+			"excl": [
+				4486
+			]
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon: 4485 and 4486 ExclusiveGroup 4485; 1661 ExclusiveGroup 0"
 			}
+		],
+		"note": "The Tome of Nobility: starts with Tiza Battleforge (npc 6179); as its giver the merged data also listed Arthur the Faithful (npc 5491). It closes only the other breadcrumb, 4486, not Duthorian Rall's 1661 (see 1661)."
+	},
+	"4486": {
+		"set": {
+			"excl": [
+				4485
+			]
 		},
 		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
+			"kind": "tdb",
+			"ref": "quest_template_addon: 4485 and 4486 ExclusiveGroup 4485; 1661 ExclusiveGroup 0"
 		},
-		"note": "The Tome of Nobility: starts with Tiza Battleforge (npc 6179); as its giver the merged data also listed Arthur the Faithful (npc 5491)."
+		"note": "The Tome of Nobility (Brandur Ironhammer) closes only the other breadcrumb, 4485 (Tiza Battleforge), not Duthorian Rall's 1661, which teaches Summon Warhorse after either (see 1661)."
 	},
 	"4492": {
 		"set": {
-			"escort": false
+			"objectives": []
 		},
 		"source": [
 			{
@@ -1200,9 +1301,13 @@
 			{
 				"kind": "tdb",
 				"ref": "quest_template LogDescription and Flags"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: no objectives for 4492"
 			}
 		],
-		"note": "Lost! (Un'Goro Crater; Spraggle Frock gives it, Ringo takes it) is not an escort: you only find Ringo at Fire Plume Ridge (its quest text; no PARTY_ACCEPT flag in QuestieDB or the world DB). Its event objective belongs to the next quest, A Little Help From My Friends (4491), the real escort, so the guide compiler's escort rule would label it."
+		"note": "Lost! (Un'Goro Crater; Spraggle Frock gives it, Ringo takes it) is not an escort: you only find Ringo at Fire Plume Ridge (its quest text; no PARTY_ACCEPT flag in QuestieDB or the world DB). Its event objective (\"Escort Ringo to Spraggle Frock at Marshal's Refuge\", placed at the refuge) belongs to the next quest, A Little Help From My Friends (4491), the real escort, so the guide compiler's escort rule would label it; it is dropped (the classic world DB has no objective). With it the route had a task for Lost! at Marshal's Refuge, so the c15 writer split Ringo's hand-in from the escort's accept and walked back to Ringo (Rev15H2: dup-trip blocker at horde 50-60/05-eastern-plaguelands:519)."
 	},
 	"4742": {
 		"set": {
@@ -1431,6 +1536,31 @@
 			"ref": "players' caches (EG Link): races"
 		},
 		"note": "Power over Poison (Druid Cure Poison, Alliance) is open to Night Elf and Skyborne Druids. The merged data had Night Elf only, while 6121 and 6122 before it already allow Skyborne."
+	},
+	"6185": {
+		"set": {
+			"objectives": [
+				{ "type": "item", "id": 16003, "count": 1, "text": "SI:7 Insignia (Rutger)" },
+				{ "type": "item", "id": 16001, "count": 1, "text": "SI:7 Insignia (Fredo)" },
+				{ "type": "item", "id": 16002, "count": 1, "text": "SI:7 Insignia (Turyen)" },
+				{ "type": "event", "id": 2726, "count": null, "text": "The Blightcaller Uncovered", "map": 1423, "f": "l", "x": 22.49, "y": 63.58 }
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives: the three SI:7 Insignias, no kill"
+			},
+			{
+				"kind": "cmangos",
+				"ref": "classic-db: objectives i:16003, i:16001, i:16002"
+			},
+			{
+				"kind": "client",
+				"ref": "objective trigger 2726 at 22.48,63.58 (Eastern Plaguelands)"
+			}
+		],
+		"note": "The Eastern Plagues (Alliance, 60): find the three SI:7 Insignias and the Blightcaller's place. The merged data also listed Nathanos Blightcaller (npc 11878, a level 62 elite) as a kill, a credit only one source has; the world then made it an elite kill and the planner a group quest. It is done alone at 57-59; Nathanos is the next quest's story (The Blightcaller Cometh tells Bolvar of him)."
 	},
 	"6641": {
 		"set": {
@@ -1983,6 +2113,79 @@
 		},
 		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
 	},
+	"79192": {
+		"set": {
+			"pre": [
+				79007,
+				79008
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template 79007 RewardNextQuest 79192"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): ... and that note you found (79008) next quest Stepping Stones (79192)"
+			},
+			{
+				"kind": "questie",
+				"ref": "79192 starts at objects 415106, 415107, 417072 and 424010, the objects 79007 and 79008 end at"
+			}
+		],
+		"note": "Stepping Stones (Cozy Sleeping Bag chain) is offered at the second Burned-Out Remains, once ... and that note you found is handed in there: Horde 79007 (the Barrens remains, then Westfall), Alliance 79008 (Westfall, then the Barrens). The merged data had no prerequisite, so the c15 Horde route accepted it at the Barrens remains south of Camp Taurajo (horde/04-the-barrens:659), a step no player could do (Rev15-H1)."
+	},
+	"79980": {
+		"set": {
+			"pre": [
+				79192
+			]
+		},
+		"source": [
+			{
+				"kind": "questie",
+				"ref": "79980 starts at object 424005, the object 79192 ends at"
+			}
+		],
+		"note": "Scramble (Cozy Sleeping Bag chain, Stonetalon) is offered by the Pocket Litter where Stepping Stones (79192) is handed in, only after it. The merged data had no prerequisite (c15 horde/05-stonetalon-mountains:245-248 took and handed it in before Stepping Stones; Rev15-H1)."
+	},
+	"79974": {
+		"set": {
+			"pre": [
+				79980
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): Scramble (79980) next quest Wet Job (79974)"
+			},
+			{
+				"kind": "questie",
+				"ref": "79974 starts at object 424012, the object 79980 ends at"
+			}
+		],
+		"note": "Wet Job (Cozy Sleeping Bag chain, Loch Modan) is offered by the Mound of Dirt where Scramble (79980) is handed in, only after it; the merged data had no prerequisite (Rev15-H1)."
+	},
+	"79975": {
+		"set": {
+			"pre": [
+				79974
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): Wet Job (79974) next quest Eagle's Fist (79975)"
+			},
+			{
+				"kind": "questie",
+				"ref": "79975 starts at object 424007, the object 79974 ends at"
+			}
+		],
+		"note": "Eagle's Fist (Cozy Sleeping Bag chain, Thoradin's Wall) is offered by the Carved Figurine where Wet Job (79974) is handed in, only after it; the merged data had no prerequisite (Rev15-H1)."
+	},
 	"79950": {
 		"set": {
 			"end": {
@@ -2124,6 +2327,186 @@
 		},
 		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
 	},
+	"92742": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template AllowableRaces 6130900294268439629 (the same Alliance mask), sniffed"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Testing the Wells (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92744": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Murloc Gills (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92745": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "The State of the Mines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92747": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Moonbrook Espionage (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92748": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Explosive Consultation (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92749": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "A Dynamite Plan (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92750": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92751": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Detonation at a Distance (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92752": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Explosive Consultation (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92753": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"92819": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): raceMask 0x55155555b1354c4d (every Alliance race, Human included), builds 1.60.1.70170-70450"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			}
+		],
+		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
 	"92850": {
 		"set": {
 			"end": {
@@ -2193,6 +2576,31 @@
 			}
 		],
 		"note": "Third step of the Dwarf Shaman Call of Earth chain 94373 -> 94374 -> 94375. It starts with Minor Manifestation of Earth (npc 5891); as its giver the merged data also listed Teo Hammerstorm (npc 257446)."
+	},
+	"94449": {
+		"set": {
+			"next": 94465
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon 94465 PrevQuestID 94449 (BreadcrumbForQuestId 0)"
+		},
+		"note": "Call of Fire (Kharanos, Dwarf Shaman) leads on to Bruegs Kindleborn's Call of Fire 94465."
+	},
+	"94465": {
+		"set": {
+			"pre": [
+				94449
+			],
+			"preAny": [
+				94449
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID 94449, BreadcrumbForQuestId 0 (a required step, not an optional breadcrumb)"
+		},
+		"note": "Bruegs Kindleborn's Call of Fire (Dwarf Shaman) follows Ingrid Dunwald's Call of Fire 94449 from Kharanos, as the seed guide plays it (turn in 94449 at Bruegs, then take 94465). The merged data had no prerequisite, so the c14 Dwarf Shaman reached Bruegs (01-dun-morogh.guide:529-532) without 94449 and was sent back to Kharanos for it after the hearth (:584-585, with its turn-in in the Kharanos step)."
 	},
 	"94466": {
 		"set": {
@@ -2333,6 +2741,29 @@
 		},
 		"note": "Call of Earth: starts with Eldrun Stormbreaker (npc 258098) and Ingrid Dunwald (npc 258113); as its giver the merged data lacked Ingrid Dunwald (npc 258113)."
 	},
+	"96390": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 6123,
+					"count": 10,
+					"text": "Dark Iron Spy"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives c:6123:10"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives 96390: one row, type 0 (monster) 6123 x10"
+			}
+		],
+		"note": "Nip 'Em in the Bud (Earthseer Farsen) asks for ten Dark Iron Spies only. QuestieDB's Forever store adds a Rockjaw Bonesnapper objective with no count; the players' caches and the world DB list only the spies. With it the c14 check held Farsen's turn-in for a Bonesnapper (R5 at 01-dun-morogh.guide:660) once The Public Servant's Bonesnappers had moved to the first quarry visit."
+	},
 	"96395": {
 		"set": {
 			"start": {
@@ -2360,6 +2791,21 @@
 			}
 		],
 		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
+	},
+	"96607": {
+		"set": {
+			"pre": [
+				96656
+			],
+			"preAny": [
+				96656
+			]
+		},
+		"source": {
+			"kind": "tdb",
+			"ref": "quest_template_addon PrevQuestID"
+		},
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in."
 	},
 	"96655": {
 		"set": {
@@ -2499,6 +2945,42 @@
 		},
 		"note": "Camping 101: First Aid: the objective is to raise First Aid to 20, not a kill."
 	},
+	"97926": {
+		"set": {
+			"pre": [
+				97914
+			],
+			"preAny": [
+				97914
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #453"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all 97914"
+			}
+		],
+		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
+	},
+	"98221": {
+		"set": {
+			"pre": [
+				464
+			],
+			"preAny": [
+				464
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #225"
+		},
+		"note": "From the Ashes (Wetlands, Captain Stoutfist) is the Forever step between War Banners 464 and Nek'rosh's Gambit 465: the player in issue #225 reported it in game as the next quest in the chain after War Banners. The merged data had no prerequisite, so only route-fixes pairs held it after 464, and the writer's hub tour, which reads the data, moved its accept before the War Banners hand-in (c13 07-thousand-needles:224)."
+	},
 	"98094": {
 		"set": {
 			"pre": [
@@ -2518,13 +3000,27 @@
 		"set": {
 			"pre": [
 				376
+			],
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 271961,
+					"count": 6,
+					"text": "Webbed Forsaken freed"
+				}
 			]
 		},
-		"source": {
-			"kind": "in-game-check",
-			"ref": "maintainer in game, Scourge Warlock"
-		},
-		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in."
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer in game, Scourge Warlock; issue #735"
+			},
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): objectives"
+			}
+		],
+		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
 	},
 	"98815": {
 		"set": {
@@ -2735,6 +3231,69 @@
 		},
 		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
 	},
+	"92519": {
+		"set": {
+			"start": {
+				"npc": [
+					12920
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					12920
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "server data: quest giver and ender seen as Doctor Gregory Victor (npc 12920)"
+			}
+		],
+		"note": "Ward Restocking: given and taken by Doctor Gregory Victor at Hammerfall (Arathi 73.41,36.89); the merged data had no giver or ender, so the world left it out (RouteAudit B2)."
+	},
+	"97539": {
+		"set": {
+			"end": {
+				"npc": [
+					12920
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "server data: quest ender seen as Doctor Gregory Victor (npc 12920)"
+			},
+			{
+				"kind": "questie",
+				"ref": "starter npc 12920"
+			}
+		],
+		"note": "Silky Sutures: handed in to Doctor Gregory Victor at Hammerfall, who gives it; the merged data had no ender (RouteAudit B2)."
+	},
+	"79976": {
+		"set": {
+			"pre": [
+				79975
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): Eagle's Fist (79975) next quest This Must Be The Place (79976)"
+			},
+			{
+				"kind": "questie",
+				"ref": "79976 starts at object 406918, the object 79975 ends at"
+			}
+		],
+		"note": "This Must Be The Place (Cozy Sleeping Bag chain, Arathi) is offered by the bag where Eagle's Fist (79975) is handed in, only after it: the chain is Scramble 79980, Wet Job 79974, Eagle's Fist 79975, This Must Be The Place 79976. The merged data had no prerequisite, so the Horde route took it alone in Arathi (c14 horde/30-40/03-arathi-highlands:269-271), a step no player could do (Rev14-H2)."
+	},
 	"99191": {
 		"set": {
 			"objectives": [
@@ -2768,5 +3327,342 @@
 			"ref": "quest_objectives (sniffed): item 2592 x60"
 		},
 		"note": "A Donation of Wool (Windshapers, Oura Stormspinner by Thunder Bluff) asks for 60 Wool Cloth, like the capitals' donations; the merged data had no count."
+	},
+	"1522": {
+		"set": {
+			"races": 162
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Call of Fire (Searn Firewarder's letter, Shaman, Horde) is open to Orc, Tauren and Troll Shamans. The merged data also offered it to Skyborne, who have their own Call of Fire on Zephras Isle (97243-97257); the server's race mask leaves Skyborne out."
+	},
+	"1523": {
+		"set": {
+			"races": 162
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Call of Fire (Xanis Flameweaver's letter, Shaman, Horde) is open to Orc, Tauren and Troll Shamans. The merged data also offered it to Skyborne, who have their own Call of Fire on Zephras Isle (97243-97257); the server's race mask leaves Skyborne out."
+	},
+	"2983": {
+		"set": {
+			"races": 162
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Call of Fire (Swart's letter, Shaman, Horde) is open to Orc, Tauren and Troll Shamans. The merged data also offered it to Skyborne, who have their own Call of Fire on Zephras Isle (97243-97257); the server's race mask leaves Skyborne out."
+	},
+	"2984": {
+		"set": {
+			"races": 162
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Call of Fire (Narm Skychaser's letter, Shaman, Horde) is open to Orc, Tauren and Troll Shamans. The merged data also offered it to Skyborne, who have their own Call of Fire on Zephras Isle (97243-97257); the server's race mask leaves Skyborne out."
+	},
+	"1524": {
+		"set": {
+			"races": 162
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Call of Fire (Kranal Fiss to Telf Joolam, Shaman, Horde) is open to Orc, Tauren and Troll Shamans, like the four letters before it. The merged data also offered it to Skyborne, who have their own Call of Fire on Zephras Isle (97243-97257)."
+	},
+	"27": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "A Lesson to Learn (Druid Aquatic Form, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"28": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Trial of the Lake (Druid Aquatic Form, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"30": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Trial of the Sea Lion (Druid Aquatic Form, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"31": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Aquatic Form (Druid Aquatic Form, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"6126": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Lessons Anew (Druid Cure Poison, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"6127": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "The Principal Source (Druid Cure Poison, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"6128": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Gathering the Cure (Druid Cure Poison, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"6129": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Curing the Sick (Druid Cure Poison, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"6130": {
+		"set": {
+			"races": 8589934624
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Power over Poison (Druid Cure Poison, Horde) is open to Tauren and Skyborne Druids. The merged data had Tauren only, while Forever's Lessons Anew giver Hana Lighthoof waits where the Skyborne airship lands in Mulgore; the server's race mask includes Skyborne."
+	},
+	"76156": {
+		"set": {
+			"races": 32,
+			"classes": 1503
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures (community): a Tauren Warrior accepting and a Tauren Druid handing in Stalk With The Earthmother 76156 at Boarton Shadetotem, client 1.60.1.70205-70338"
+			}
+		],
+		"note": "Stalk With The Earthmother (Boarton Shadetotem's first test, the Venture Co. Mine, Thunder Bluff) is for Tauren of every class on Forever. Races: the server's race mask is Tauren only (0x20, build 1.60.1.70450, two sources) and the knowledge base agrees; the merged data had Orc, Tauren and Troll from Classic-era data, which made the class heads-up offer the chain to Orc and Troll shamans. Classes: Tauren players' dialog captures show a Warrior taking it and a Druid handing it in, and Forever dropped the old Warrior/Shaman limit; the merged data limited it to Warrior, Shaman and Druid (QuestieDB). Checked 2026-10-29."
+	},
+	"76160": {
+		"set": {
+			"races": 32
+		},
+		"source": {
+			"kind": "eg",
+			"ref": "players' caches (EG Link): races"
+		},
+		"note": "Stalk With The Earthmother (Boarton's second test, the Windfury Cones, Thunder Bluff) is open to Tauren only on Forever: the server's race mask (0x20, build 1.60.1.70450, two sources) and the knowledge base agree. The merged data had Orc, Tauren and Troll from Classic-era data, which made the class heads-up offer the chain to Orc and Troll shamans. Checked 2026-10-29."
+	},
+	"76240": {
+		"set": {
+			"races": 32,
+			"classes": 1503
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures (community): a Tauren Druid accepting, a Tauren Shaman on the progress window and a Tauren Hunter handing in Stalk With The Earthmother 76240 at Boarton Shadetotem, client 1.60.1.70205-70338"
+			}
+		],
+		"note": "Stalk With The Earthmother (Boarton's last test, the smallfish, a choice of the Hoof-Holstered Blade or the Valley Cosh, Thunder Bluff) is for Tauren of every class on Forever. Races: the server's race mask is Tauren only (0x20, build 1.60.1.70450, two sources) and the knowledge base agrees; the merged data had every Horde race from Classic-era data. Classes: Tauren players' dialog captures show a Druid taking it, a Shaman carrying it and a Hunter handing it in, and Forever replaced its old Dual Wield reward with weapons for anyone; the merged data limited it to Shamans (QuestieDB). Checked 2026-10-29."
+	},
+	"96136": {
+		"set": {
+			"classes": 64,
+			"start": {
+				"npc": [
+					259119
+				],
+				"object": [],
+				"item": []
+			},
+			"end": {
+				"npc": [
+					5905
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "Forever dialog captures: a Windshaper Skyborne shaman taking Call of Air from Alaana Stormwalker (npc 259119) in Mulgore and handing it in to Prate Cloudseer, client 1.60.1.70450"
+			}
+		],
+		"note": "Call of Air (Windshaper Skyborne Shamans, level 30, the Air Totem) is a Shaman quest (reqclass 64). Alaana Stormwalker (npc 259119), where the Zephras Isle airship lands in Mulgore, offers it: a Skyborne shaman's dialog captures show her giving it and Prate Cloudseer (npc 5905) in Thousand Needles taking it, and the giver's text speaks of Zephras from \"down here\". Factoruide also listed the Zephras Isle shaman trainers Sessaria Skystride (252382) and Aarnor Galestrike (254082), but no Forever source ties them to Call of Air (they give Call of Fire), so they are left out. The merged data had neither giver nor ender, so no guide could hand it out. Checked 2026-10-29."
+	},
+	"5634": {
+		"set": {
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; objectivesText \"Speak to High Priest Rohan in Ironforge.\""
+			}
+		],
+		"note": "Desperate Prayer (no giver in Forever (High Priestess Laurena no longer offers it)) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"5635": {
+		"set": {
+			"races": 4,
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; objectivesText \"Speak to High Priest Rohan in Ironforge.\""
+			}
+		],
+		"note": "Desperate Prayer (Priestess Josetta's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"5636": {
+		"set": {
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; objectivesText \"Speak to High Priest Rohan in Ironforge.\""
+			}
+		],
+		"note": "Desperate Prayer (Laurna Morninglight's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"5637": {
+		"set": {
+			"races": 4,
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; objectivesText \"Speak to High Priest Rohan in Ironforge.\""
+			}
+		],
+		"note": "Desperate Prayer (Maxan Anvol's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"5638": {
+		"set": {
+			"races": 4,
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; objectivesText \"Speak to High Priest Rohan in Ironforge.\""
+			}
+		],
+		"note": "Desperate Prayer (Nara Meideros's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"5639": {
+		"set": {
+			"races": 4,
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; no objective text (the teacher's own quest, like 5627, 5652 and 94817)"
+			}
+		],
+		"note": "Desperate Prayer (High Priest Rohan's own quest) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
+	},
+	"5640": {
+		"set": {
+			"races": 4,
+			"end": {
+				"npc": [
+					11406
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): races; objectivesText \"Speak to High Priest Rohan in Ironforge.\""
+			}
+		],
+		"note": "Desperate Prayer (Priestess Alathea's letter) is a Dwarf priest spell in Forever and High Priest Rohan in Ironforge's Hall of Mysteries teaches it: the server's race mask is Dwarf only and every letter's objective now names Rohan. The merged data kept the Classic Human and Dwarf races and High Priestess Laurena in Stormwind as the ender; Humans learn Divine Grace from Laurena instead (94773-94779)."
 	}
 }

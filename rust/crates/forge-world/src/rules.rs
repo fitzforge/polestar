@@ -266,6 +266,12 @@ impl Rules {
 		self.open.contains_key(&q) && !self.group.contains(&q)
 	}
 
+	/// In the character's set and group work: elite, or needing an elite quest (the complement of
+	/// `solo_ok` within the set).
+	pub fn is_group(&self, q: u32) -> bool {
+		self.open.contains_key(&q) && self.group.contains(&q)
+	}
+
 	/// The character's prerequisites of a quest (simRules prereqsOf); the data's for a quest
 	/// outside the set.
 	pub fn prereqs_of(&self, rec: &Quest) -> Prereqs {

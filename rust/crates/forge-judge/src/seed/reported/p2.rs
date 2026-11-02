@@ -24,6 +24,9 @@ const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
 const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/02-stranglethorn-vale.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const UN_GORO_ALLIANCE: &str = "forever/alliance/40-50/07-un-goro-crater.guide";
+const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
+const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
+const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
 
 /// `at(...)`, returning from the test when absent (the JS assertion throws).
@@ -79,12 +82,46 @@ fn argent_emissary(ctx: &Ctx, c: &mut Check) {
 }
 
 fn priest_event(ctx: &Ctx, c: &mut Check) {
-	for (guide, quest) in [(TIRISFAL, 99134), (TIRISFAL, 98389), (TIRISFAL, 99144), (DUROTAR, 99123), (TELDRASSIL, 99053)] {
+	for (guide, quest) in [(TIRISFAL, 99134), (TIRISFAL, 99144), (DUROTAR, 99123), (TELDRASSIL, 99053)] {
 		let list = ctx.goals(guide);
 		let a = at!(c, list, format!("{guide}: accept {quest}"), is("accept", quest));
 		let k = at!(c, list, format!("{guide}: complete {quest}"), is("complete", quest));
 		let t = at!(c, list, format!("{guide}: turnin {quest}"), is("turnin", quest));
 		c.ok(a < k && k < t, &format!("{guide}: {quest} is completed between its accept and its turn-in"));
+	}
+}
+
+/// #735: the Webbed Forsaken are freed by attacking their cocoons: a kill goal of the cocoon NPC named for
+/// what the game counts, not a bare `complete`.
+fn webbed_forsaken(ctx: &Ctx, c: &mut Check) {
+	let list = ctx.goals(TIRISFAL);
+	let a = at!(c, list, "accept 98389", is("accept", 98389));
+	let k = at!(c, list, "kill 271961 quest 98389.1", |g: &V| g.get("t").as_str() == Some("kill") && num(g, "quest") == Some(98389.0) && num(g, "npc") == Some(271961.0));
+	let t = at!(c, list, "turnin 98389", is("turnin", 98389));
+	c.ok(a < k && k < t, "freed between the accept and the turn-in");
+	c.eq(list[k].goal.get("text").as_str(), Some("Free the Webbed Forsaken"), "the goal says what to do");
+	c.ok(!list.iter().any(|r| is("complete", 98389)(&r.goal)), "no bare complete");
+}
+
+/// #743: every Camping 101: Cooking is done by learning Cooking from the quest's own trainer, before the
+/// hand-in: a `train Cooking` there, never "ask him about cooking".
+fn camping_cooking(ctx: &Ctx, c: &mut Check) {
+	for (guide, quest, trainer) in [
+		(DUN_MOROGH, 96629, 1699.0),
+		(ELWYNN, 96626, 1430.0),
+		(TELDRASSIL, 96634, 6286.0),
+		(ZEPHRAS_ALLIANCE, 96646, 251905.0),
+		(ZEPHRAS_HORDE, 96646, 251905.0),
+		(DUROTAR, 96655, 3191.0),
+		(MULGORE, 96661, 3067.0),
+		(TIRISFAL, 96658, 265944.0),
+	] {
+		let list = ctx.goals(guide);
+		let a = at!(c, list, format!("{guide}: accept {quest}"), is("accept", quest));
+		let tr = at!(c, list, format!("{guide}: train Cooking at npc {trainer}"), |g: &V| g.get("t").as_str() == Some("train") && num(g, "skillLine") == Some(185.0) && num(g, "npc") == Some(trainer));
+		let t = at!(c, list, format!("{guide}: turnin {quest}"), is("turnin", quest));
+		c.ok(a < tr && tr < t, &format!("{guide}: Cooking is learnt between the accept of {quest} and its turn-in"));
+		c.ok(!list.iter().any(|r| r.goal.get("t").as_str() == Some("kill") && num(&r.goal, "quest") == Some(quest as f64)), &format!("{guide}: {quest} has no kill or talk goal"));
 	}
 }
 
@@ -265,15 +302,22 @@ fn badlands(ctx: &Ctx, c: &mut Check) {
 }
 
 fn giver_already(ctx: &Ctx, c: &mut Check) {
-	for (guide, quest, (wt, wq), what) in [
-		(TIRISFAL, 365, ("accept", 590), "Calvin's duel at Solliden"),
-		(TANARIS_ALLIANCE, 2781, ("accept", 2875), "Andre Firebeard's poster at Steamwheedle Port"),
-		(STRANGLETHORN_HORDE, 192, ("turnin", 191), "Panther Mastery's second turn-in"),
+	// (Each case: the quest, and the goals of a step at its giver the route stands at, any one of which
+	// may hold its accept. Simmer stands beside Calvin at Solliden, so Fields of Grief is taken at
+	// either pass by him: Calvin's duel, or the letter on the walk in from Deathknell, RevUndead c13.)
+	for (guide, quest, with) in [
+		(TIRISFAL, 365, &[("accept", 590, "Calvin's duel at Solliden"), ("accept", 8, "Calvin's letter on the walk in from Deathknell")][..]),
+		(TANARIS_ALLIANCE, 2781, &[("accept", 2875, "Andre Firebeard's poster at Steamwheedle Port")][..]),
+		(STRANGLETHORN_HORDE, 192, &[("turnin", 191, "Panther Mastery's second turn-in")][..]),
 	] {
 		let list = ctx.goals(guide);
 		let take = at!(c, list, format!("{guide}: accept {quest}"), is("accept", quest));
-		let w = at!(c, list, format!("{guide}: {what}"), quest_goal(wt, wq));
-		c.eq(list[take].s, list[w].s, &format!("{guide}: {quest} is taken at {what}"));
+		let at_steps: Vec<usize> = with.iter().filter_map(|&(wt, wq, _)| list.iter().position(|r| quest_goal(wt, wq)(&r.goal)).map(|w| list[w].s)).collect();
+		let what = with.iter().map(|w| w.2).collect::<Vec<_>>().join(" or ");
+		if !c.ok(!at_steps.is_empty(), &format!("{guide}: {what} is in the guide")) {
+			return;
+		}
+		c.ok(at_steps.contains(&list[take].s), &format!("{guide}: {quest} is taken at {what}"));
 	}
 }
 
@@ -361,6 +405,8 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{DUN_MOROGH}: thmastin's report: at Brewnall Gretta's dock comes first, and the village before Frostmane Hold"), brewnall),
 		t(format!("{TIRISFAL}: Pledge-Resupply's report: The Argent Emissary points to Deathguard Terrence at 61.4,53.4"), argent_emissary),
 		t("a Priest's report: an event or escort objective holds its step until the quest is complete".into(), priest_event),
+		t(format!("{TIRISFAL}: Fitz's report (#735): A Light in the Darkness says to free the Webbed Forsaken, a kill goal of the cocoons"), webbed_forsaken),
+		t("Fitz's report (#743): every Camping 101: Cooking trains Cooking at the quest's trainer before the hand-in".into(), camping_cooking),
 		t("Hotline's report: a Paladin heals the Injured Deathguard before turning in Rediscovering the Light".into(), hotline_paladin),
 		t(format!("{TELDRASSIL}: Recipe of the Kaldorei is taken after the guide teaches Cooking"), recipe_kaldorei),
 		t("Hotline's report: Walton and Vrang's quests come in the order the game offers them".into(), walton_vrang),

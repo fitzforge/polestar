@@ -2,173 +2,196 @@ guide forever/collectibles/mounts/neutral/warlock-dreadsteed
 title Warlock Dreadsteed
 category Class
 folder Warlock
-keywords Summon Dreadsteed, Mor'zul Bloodbringer, Rage of Blood, Raging Beast's Blood, Wildeyes, Gorzeeki Wildeyes, Lord Banehollow, Shadowy Potion, Jaedenar, Shadow Hold, Ulathek the Traitor, Xorothian Stardust, Ur'dan, Bell of Dethmoora, Wheel of the Black March, Doomsday Candle, Arcanite, Imp Delivery, J'eevee, Imp in a Jar, Scholomance, Dreadsteed of Xoroth, Xorothian Dreadsteed, Dire Maul, Warlock, class mount
+keywords Summon Dreadsteed, Mor'zul Bloodbringer, Rage of Blood, Raging Beast's Blood, Wildeyes, Gorzeeki Wildeyes, Case of Blood, Lord Banehollow, Shadowy Potion, Taint of Shadow, Jaedenar, Shadow Hold, Ulathek the Traitor, The Traitor's Heart, Xorothian Stardust, Ur'dan, Bell of Dethmoora, Wheel of the Black March, Doomsday Candle, Arcanite, Imp Delivery, J'eevee, Imp in a Jar, Scholomance, Ras Frostwhisper, Dreadsteed of Xoroth, J'eevee's Jar, Black Lodestone, Xorothian Glyphs, Circle of Greater Summoning, Dread Guard, Xorothian Dreadsteed, Lord Hel'nurath, Immol'thar, Dire Maul, Crescent Key, Warlock, class mount
 reward spell 23161 "Summon Dreadsteed"
-why Your epic mount at 60: summoned anywhere, with no gold spent on an epic horse.
+why Your epic mount at 60, summoned anywhere: no epic horse to buy and no 1,000g Journeyman Riding needed.
 class Warlock
 levels 60-60
 zone Burning Steppes
 
 # Summon Dreadsteed: the twelve quests of the Dreadsteed chain, routed in
-# full. Your trainer's hand-off to Mor'zul Bloodbringer (7562; Greshka in
-# Stonard offers it too), Rage of Blood (7563, 30 Raging Beast's Blood from
-# the Winterspring owlbeasts) and Wildeyes (7564, the Case of Blood to
-# Gorzeeki Wildeyes beside Mor'zul). Then two branches: Mor'zul's Bell of
-# Dethmoora (7626, 10 Elixir of Shadow Power), Wheel of the Black March
-# (7627, 6 Large Brilliant Shard and 25 Dark Iron Ore) and Doomsday Candle
-# (7628, 35 Black Dragonscale), then Gorzeeki's Arcanite (7630, 3 Arcanite
-# Bar); and Gorzeeki's Lord Banehollow (7623, Shadowy Potions through
-# Jaedenar in Felwood), Ulathek the Traitor (7624, The Traitor's Heart) and
-# Xorothian Stardust (7625, bought from Ur'dan). Both join at Imp Delivery
-# (7629, pre 7625 and 7630: the Imp in a Jar at the alchemy lab in the
-# Scholomance, J'eevee), then Dreadsteed of Xoroth (7631, Mor'zul's
-# Instructions: the ritual in Dire Maul with J'eevee's Jar, the Black
-# Lodestone and the Xorothian Glyphs, all three sold by Gorzeeki), and the
-# Dreadsteed Spirit binds the horse to you.
-# An Imp's Request (Impsy, forever/class/warlock/impsys-request), Niby's Shard
-# of the Green Flame and Daio's Tome of Sacrifice are not part of this chain.
-# Sources: Forever client 1.60.1.70338 tables via wago.tools (Mount: the spell
-# is still a Forever mount; ItemSparse); quests.json for the chain (pre,
-# preAll, next, objectives, sourceItem, requiredItems), npcs.json for Mor'zul,
-# Gorzeeki, Lord Banehollow (its Felwood spawn; the data's second, Darkshore
-# point is not where he stands), Ulathek, Ur'dan, J'eevee (Scholomance) and
-# the Xorothian Dreadsteed and Dreadsteed Spirit (Dire Maul), items.json for
-# the owlbeast droppers of the blood (Ragged, Raging, Crazed, Moontouched and
-# Berserk Owlbeasts, about one in three), The Traitor's Heart (Ulathek) and
-# Gorzeeki's and Ur'dan's wares; the codex's spell data
-# (data/forever/codex/spells.json) for Summon Dreadsteed as a Warlock
-# mount, the `reward` line. Warcraft Tavern's Dreadsteed guide
-# (warcrafttavern.com/tbc/guides/warlock-epic-mount-quest, written for TBC
-# Classic, with lower material counts than the data's) for the order, the
-# Shadowy Potion (the Jaedenar cultists turn friendly, the demons do not),
-# Ulathek and Ur'dan inside Shadow Hold, the Scholomance alchemy lab past
-# Rattlegore, the ritual in Dire Maul West past Immol'thar, and the Soul
-# Shards the ritual burns. The counts here are quests.json's.
+# full. Your demon trainer's hand-off to Mor'zul Bloodbringer (7562: Spackle
+# Thornberry, Stormwind; Jubahl Corpseseeker, Ironforge; Kurgul, Orgrimmar;
+# Martha Strain, Undercity), Rage of Blood (7563, 30 Raging Beast's Blood from
+# the Winterspring owlbeasts) and Wildeyes (7564, the Case of Blood to Gorzeeki
+# Wildeyes beside Mor'zul). Then two branches: Mor'zul's Bell of Dethmoora
+# (7626, 10 Elixirs of Shadow Power), Wheel of the Black March (7627, 6 Large
+# Brilliant Shards and 25 Dark Iron Ore) and Doomsday Candle (7628, 35 Black
+# Dragonscales), then Gorzeeki's Arcanite (7630, 3 Arcanite Bars); and
+# Gorzeeki's Lord Banehollow (7623, Shadowy Potions through Jaedenar in
+# Felwood), Ulathek the Traitor (7624, The Traitor's Heart) and Xorothian
+# Stardust (7625, bought from Ur'dan). Both join at Imp Delivery (7629, pre
+# 7625 and 7630: the Imp in a Jar at the alchemy lab in the Scholomance), then
+# Dreadsteed of Xoroth (7631, Mor'zul's Instructions: the ritual in Dire Maul
+# West with J'eevee's Jar, the Black Lodestone and the Xorothian Glyphs), and
+# the Dreadsteed Spirit binds the horse to you.
+# An Imp's Request (Impsy), Niby's Shard of the Green Flame and Daio's Tome of
+# Sacrifice are not part of this chain.
+# Material counts are Forever's (quests.json and Forever's quest pages: 10
+# elixirs, 6 shards and 25 ore, 35 scales, 3 bars), the same as the Classic
+# era reference class guide asks for.
+# Prices (Forever's item data, Gorzeeki's and Ur'dan's goods): Shadowy Potion
+# 6 gold, Xorothian Stardust 150, J'eevee's Jar 150, Black Lodestone 50,
+# Xorothian Glyphs 50: about 420 gold with three potions, before materials.
+# Three potions, not two: one to walk in, one after Ulathek (the fight trick
+# clicks the first off), and a spare for the 20-minute limit; one reference
+# buys six. The jar, lodestone and glyphs are not used up: a warlock who owns
+# them can run your ritual and save you 250 gold.
+# Drops: the owlbeasts (53-58, all five kinds, none elite) drop the blood
+# about one time in three and respawn in five and a half minutes (items.json,
+# quest notes): about ninety kills. Black Dragonscales are skinned from the
+# black dragonkin of the Burning Steppes at a few percent each (Flamescale
+# Wyrmkin about 7%). Dark Iron Ore: Dark Iron Deposits (Mining 230) in the
+# Burning Steppes and Blackrock Depths, or the golems there (about 13%).
+# The ritual (Classic wiki, quest notes): kill Immol'thar first, his dais is
+# the circle. J'eevee sets out the Bell (heals and restores mana of warlocks
+# in the party), the Wheel (absorbs damage on the party) and the Candle (burns
+# anyone outside the party, so the imps die fast). Imps come in waves with
+# about ten Dread Guards (elite felguards); the nodes sag, tilt and sound when
+# they fail, and the Black Lodestone recharges one in a 3-second cast that any
+# damage interrupts, for a Soul Shard each: 10-15 shards. Any warlock in the
+# party with a Lodestone can recharge. All three down ends the ritual; one
+# still up keeps it going even through a wipe. About six minutes and nine
+# symbols later a red vortex closes the circle. The Glyphs then call the
+# Xorothian Dreadsteed (62, elite); at half health Lord Hel'nurath (62) joins.
+# Any warlock who finished the chain up to here can bind the spirit while it
+# lasts. No source sets a minimum of three players: the ritual needs a party
+# of five (the Imp Delivery fails in a raid group, player reports) with
+# someone free to watch each of the three nodes.
 # Places inside the dungeons have no spawns in our data: their goals point at
-# the Scholomance (Caer Darrow 69.7,73.2) and Dire Maul (the gate, 59.2,45.1)
-# entrances of data/codex/entrances.json (QuestieDB Forever), as the
-# Paladin Charger guide does.
-# The materials have no place in the data to fetch them: alchemists make the
-# elixirs and transmute the Arcanite, enchanters the shards, miners dig the
-# Dark Iron Ore, skinners take the scales; everyone else buys them at the
-# Auction House. Lint warns that the Elixirs of Shadow Power, the Large
-# Brilliant Shards and the Arcanite Bars have no coordinates: none drop.
-# Dungeon work: the Scholomance (Imp Delivery) and Dire Maul (the ritual)
-# need a group.
-# Lint warns that spell 23161 is not in the guide data; the explicit name is
-# the codex's.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, so nothing here has been checked in game.
+# the Scholomance entrance (Caer Darrow 69.7,73.2, Forever's dungeon data) and
+# at Dire Maul West's door (60.3,30.2: one reference guide's door step and a Forever
+# dungeon guide's 60.3,31.8 agree; our data has only the Dire Maul gate,
+# 59.2,45.1, at the foot of the ruins, a long walk south of the wing).
+# Materials nothing drops (elixirs, shards, bars) point at the auctioneers of
+# Stormwind and Orgrimmar.
+# ASSUMED: The ritual and fights run as in Classic (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: node recharging, the Dread Guard waves and Hel'nurath at half health.
+# Riding: Summon Dreadsteed needs no Journeyman Riding. Forever client
+# 1.60.1.70532 (wago.tools): its mount type's MountCapability asks for Riding 0
+# and gives 100% speed; PlayerCondition 31504 asks only for the Warlock quest
+# "Dreadsteed of Xoroth" (7631).
+# Sources: Forever's quest data (quests.json, npcs.json, items.json, the
+# codex's item costs); Forever's client tables for the spell; the quest notes
+# (data/local/mechanics); the Classic wiki's Dreadsteed questline page for
+# the ritual; the reference class guides for the order.
 
 step Mor'zul Bloodbringer (Stormwind)
   only Human
   zone Stormwind City
-  tip At 60 Spackle Thornberry in the Slaughtered Lamb sends you to Mor'zul Bloodbringer in the Burning Steppes.
+  tip At 60 Spackle Thornberry, the demon trainer in the Slaughtered Lamb, sends you to Mor'zul Bloodbringer in the Burning Steppes.
   level 60
-  accept 7562 npc 5520
+  accept 7562 npc 5520                -- Spackle Thornberry
 
 step Mor'zul Bloodbringer (Ironforge)
   only Gnome
   zone Ironforge
-  tip At 60 Jubahl Corpseseeker in Ironforge sends you to Mor'zul Bloodbringer in the Burning Steppes.
+  tip At 60 Jubahl Corpseseeker, the demon trainer in Ironforge, sends you to Mor'zul Bloodbringer in the Burning Steppes.
   level 60
-  accept 7562 npc 6382
+  accept 7562 npc 6382                -- Jubahl Corpseseeker
 
 step Mor'zul Bloodbringer (Orgrimmar)
   only Orc,Troll
   zone Orgrimmar
-  tip At 60 Kurgul in the Cleft of Shadow sends you to Mor'zul Bloodbringer in the Burning Steppes.
+  tip At 60 Kurgul, the demon trainer in the Cleft of Shadow, sends you to Mor'zul Bloodbringer in the Burning Steppes.
   level 60
-  accept 7562 npc 5815
+  accept 7562 npc 5815                -- Kurgul
 
 step Mor'zul Bloodbringer (Undercity)
   only Undead
   zone Undercity
-  tip At 60 Martha Strain in the Magic Quarter sends you to Mor'zul Bloodbringer in the Burning Steppes.
+  tip At 60 Martha Strain, the demon trainer in the Magic Quarter, sends you to Mor'zul Bloodbringer in the Burning Steppes.
   level 60
-  accept 7562 npc 5753
+  accept 7562 npc 5753                -- Martha Strain
 
 step Mor'zul Bloodbringer
   zone Burning Steppes
-  tip Mor'zul Bloodbringer and his goblin Gorzeeki Wildeyes camp at the Altar of Storms, in the north-west of the Burning Steppes, west of Blackrock Mountain. The chain is long, costs gold at Gorzeeki's and ends in two dungeons.
+  tip Mor'zul Bloodbringer and his goblin Gorzeeki Wildeyes camp on the hill across the road from the Altar of Storms, in the far north-west of the Burning Steppes, west of Blackrock Mountain. The chain is long: about 420 gold in Gorzeeki's and Ur'dan's goods, a pile of crafted materials, the Scholomance and Dire Maul. Start buying or gathering the materials of the next steps now.
   turnin 7562                         -- Mor'zul Bloodbringer
   accept 7563
 
 step Raging Beast's Blood
   zone Winterspring
-  tip The owlbeasts of Winterspring drop the blood, about one in three: the Ragged and Raging Owlbeasts west of and around Everlook, the Crazed, Moontouched and Berserk ones in the east. While you hunt, start on the materials of the next step: the Auction House has them all.
+  tip Every owlbeast of Winterspring (level 53-58, none elite) drops the blood about one time in three: about ninety kills for thirty. Owl Wing Thicket, in the north-east, and the Hidden Grove's surroundings are packed with them, and they respawn in five and a half minutes.
   collect 18590 x30 quest 7563.1      -- Raging Beast's Blood
 
 step Wildeyes
   zone Burning Steppes
-  tip Back to Mor'zul, then hand his Case of Blood to Gorzeeki Wildeyes beside him. Mor'zul then asks for three ritual pieces and Gorzeeki sends you to Felwood: buy two Shadowy Potions from Gorzeeki for that trip.
+  tip Back to Mor'zul: he gives you the Case of Blood for Gorzeeki beside him. Then Mor'zul asks for the bell, the wheel and the candle, and Gorzeeki sends you to Lord Banehollow in Jaedenar: buy three Shadowy Potions from him for that trip (6 gold each: one to walk in, one after Ulathek, and a spare in case one runs out) and bring 150 gold for the stardust.
   turnin 7563                         -- Mor'zul Bloodbringer
   accept 7564                         -- he gives you the Case of Blood
   turnin 7564                         -- Gorzeeki Wildeyes
-  accept 7626                         -- Mor'zul Bloodbringer
-  accept 7627                         -- Mor'zul Bloodbringer
-  accept 7628                         -- Mor'zul Bloodbringer
-  accept 7623                         -- Gorzeeki Wildeyes
-  buy 18802 x2 npc 14437              -- Shadowy Potion, from Gorzeeki
+  accept 7626                         -- Mor'zul Bloodbringer: Bell of Dethmoora
+  accept 7627                         -- Mor'zul Bloodbringer: Wheel of the Black March
+  accept 7628                         -- Mor'zul Bloodbringer: Doomsday Candle
+  accept 7623                         -- Gorzeeki Wildeyes: Lord Banehollow
+  buy 18802 x3 npc 14437              -- Shadowy Potion, from Gorzeeki
 
 step The ritual pieces
-  tip Gorzeeki wants 10 Elixirs of Shadow Power (Alchemy), 6 Large Brilliant Shards (Enchanting), 25 Dark Iron Ore (Mining, in Blackrock Depths and the Searing Gorge) and 35 Black Dragonscales (Skinning, black dragonkin of the Burning Steppes). Make or gather what your professions allow; buy the rest at the Auction House.
-  collect 9264 x10 quest 7626.1       -- Elixir of Shadow Power
-  collect 14344 x6 quest 7627.1       -- Large Brilliant Shard
+  tip Gorzeeki wants 10 Elixirs of Shadow Power (Alchemy: 3 Ghost Mushrooms and a Crystal Vial each), 6 Large Brilliant Shards (Enchanting: disenchant level 51+ blue items), 25 Dark Iron Ore (Mining 230: the Dark Iron Deposits of the Burning Steppes and Blackrock Depths) and 35 Black Dragonscales (Skinning: the black dragonkin of the Burning Steppes, a few percent a kill, best from the Flamescale Wyrmkin). Make or gather what your professions allow and buy the rest at the Auction House; it can take a while to find 35 scales.
+  collect 9264 x10 quest 7626.1 @61.2,71.3 map 1453 live only Alliance -- Elixir of Shadow Power: the Auction House
+  collect 9264 x10 quest 7626.1 @55.9,62.7 map 1454 only Horde -- Elixir of Shadow Power: the Auction House
+  collect 14344 x6 quest 7627.1 @61.2,71.3 map 1453 live only Alliance -- Large Brilliant Shard: the Auction House
+  collect 14344 x6 quest 7627.1 @55.9,62.7 map 1454 only Horde -- Large Brilliant Shard: the Auction House
   collect 11370 x25 quest 7627.2      -- Dark Iron Ore
   collect 15416 x35 quest 7628.1      -- Black Dragonscale
 
 step Arcanite
   zone Burning Steppes
-  tip Hand the three pieces to Gorzeeki. He then wants 3 Arcanite Bars: alchemists transmute them, everyone else buys them at the Auction House.
+  tip Hand the three pieces to Gorzeeki. He then wants 3 Arcanite Bars for the Black Lodestone: alchemists transmute them (an Arcane Crystal and a Thorium Bar each, on a long cooldown); everyone else buys them.
   turnin 7626                         -- Gorzeeki Wildeyes
   turnin 7627                         -- Gorzeeki Wildeyes
   turnin 7628                         -- Gorzeeki Wildeyes
   accept 7630
-  collect 12360 x3 quest 7630.1       -- Arcanite Bar
+  collect 12360 x3 quest 7630.1 @61.2,71.3 map 1453 live only Alliance -- Arcanite Bar: the Auction House
+  collect 12360 x3 quest 7630.1 @55.9,62.7 map 1454 only Horde -- Arcanite Bar: the Auction House
   turnin 7630                         -- Gorzeeki Wildeyes
 
 step Lord Banehollow
   zone Felwood
-  tip Jaedenar is in western Felwood. Drink a Shadowy Potion before you go in: the Shadow Council cultists turn friendly for a while, the demons do not. Lord Banehollow waits deep inside Shadow Hold, the cave above Jaedenar, across a bridge in the great root chamber.
+  tip Jaedenar lies just south of Bloodvenom Post in western Felwood, west of the road; of its two caves, Shadow Hold is the northern one, further up the hill. Drink a Shadowy Potion at its mouth: for 20 minutes the Shadow Council there treat you as one of their own (Taint of Shadow). The oozes in the red pool and the succubus Rakaiah beyond them still attack: hug the wall past them. Go down past the second, red pool, up the ramp and across two bridges to Lord Banehollow, a great winged dreadlord at the back. He talks to you only while the potion lasts.
+  goto 35.4,58.6 "Shadow Hold"
   turnin 7623 @35.9,44.4              -- Lord Banehollow
   accept 7624
 
 step Ulathek the Traitor
-  tip Ulathek waits in a side chamber by a bridge on the way back up. Speak to him and he and his four guards attack; none are elite. Take his heart back to Lord Banehollow, drinking another potion if the first wore off.
+  tip Ulathek waits in a small side room up a bridge you passed on the way down. Speak to him and he and four guards attack (all level 57, none elite): let your voidwalker hold the guards and burn Ulathek, sacrificing it if you must. Or click off your Taint of Shadow aura to start the fight, kill Ulathek, then drink another potion: the guards stop at once. Take his heart back to Lord Banehollow with a potion active.
   kill 14523 optional                 -- Ulathek
   collect 18719 quest 7624.1          -- The Traitor's Heart
   turnin 7624 @35.9,44.4              -- Lord Banehollow
   accept 7625
 
 step Xorothian Stardust
-  tip Ur'dan, beside Lord Banehollow, sells the Xorothian Stardust; he only deals with you while a Shadowy Potion is active. Bring plenty of gold.
+  tip Ur'dan, beside Lord Banehollow, sells the Xorothian Stardust for 150 gold. He deals with you only while a Shadowy Potion is active.
   buy 18687 npc 14522                 -- Xorothian Stardust, from Ur'dan
 
 step Imp Delivery
   zone Burning Steppes
-  tip Back to Gorzeeki with the stardust. He gives you the Imp in a Jar for the Scholomance.
-  buy 18687 npc 14522                 -- Xorothian Stardust, from Ur'dan
+  tip Back to Gorzeeki with the stardust; with the Arcanite also done he gives you the Imp in a Jar for the Scholomance. Put a group of five together now: a party, not a raid group.
   turnin 7625                         -- Gorzeeki Wildeyes
   accept 7629
 
 step The Scholomance
   zone Western Plaguelands
-  tip The Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands: you need its key or a rogue to open the door, and Rattlegore's Viewing Room Key to go deeper. Use the Imp in a Jar at the alchemy lab in Ras Frostwhisper's room; J'eevee makes the parchment. Bring a group.
-  complete 7629 @69.7,73.2            -- Use the Imp in a Jar at the alchemy lab
+  tip The Scholomance (level 58-60, a group of five) lies under Caer Darrow, the island town in the south-east of the Western Plaguelands: someone needs the Skeleton Key or a rogue to open the door. Fight down to Ras Frostwhisper's room and use the Imp in a Jar at the alchemy lab tables to the right: J'eevee makes the parchment. You need not kill Ras, but it only counts at this lab and only in a party.
+  complete 7629 @69.7,73.2 group 5    -- Use the Imp in a Jar at the alchemy lab inside
 
 step Dreadsteed of Xoroth
   zone Burning Steppes
-  tip Back to Gorzeeki, then Mor'zul hands you his instructions for the ritual. Buy J'eevee's Jar, the Black Lodestone and the Xorothian Glyphs from Gorzeeki, and carry ten or more Soul Shards.
+  tip Back to Gorzeeki, then Mor'zul hands you his instructions. Buy J'eevee's Jar (150 gold), the Black Lodestone (50) and the Xorothian Glyphs (50) from Gorzeeki; a warlock friend who owns them can bring theirs instead. Every other warlock who will recharge the nodes needs a Lodestone of their own. Carry 15 or more Soul Shards.
   turnin 7629                         -- Gorzeeki Wildeyes
   accept 7631                         -- Mor'zul Bloodbringer
-  buy 18663 npc 14437                 -- J'eevee's Jar
-  buy 18629 npc 14437                 -- Black Lodestone
-  buy 18670 npc 14437                 -- Xorothian Glyphs
+  buy 18663 npc 14437                 -- J'eevee's Jar, 150 gold
+  buy 18629 npc 14437                 -- Black Lodestone, 50 gold
+  buy 18670 npc 14437                 -- Xorothian Glyphs, 50 gold
 
-step The ritual in Dire Maul
+step Into Dire Maul West
   zone Feralas
-  tip Dire Maul stands in the ruins of central Feralas; the ritual circle is in its west wing, past Immol'thar, and the door needs the Crescent Key or a rogue. Use J'eevee's Jar to start; when the bell, the wheel or the candle fades, click it with the Black Lodestone (a Soul Shard each). When the demons stop coming, use the Xorothian Glyphs, defeat the Xorothian Dreadsteed and its dreadlord master, and speak to the Dreadsteed Spirit. Bring a group.
-  kill 14502 quest 7631.1 @59.2,45.1  -- Xorothian Dreadsteed
-  turnin 7631 @59.2,45.1              -- Dreadsteed Spirit: it binds itself to you
-  learn 23161 "Summon Dreadsteed"
+  tip Dire Maul stands in the ruins of central Feralas: from the gate at the foot of the ruins, walk up through the outer courtyards to the west wing's door at the north end. That door and an inner door need the Crescent Key (it drops from Pusillin in Dire Maul East) or a rogue with 300 Lockpicking. Bring a party of five. Lower Immol'thar's shield by killing the guardians of the five pylons (two stand in his own room), then kill Immol'thar: his dais is the summoning circle. Rest and rebuff before you start.
+  kill 11496 @60.3,30.2 group 5       -- Immol'thar, inside the west wing
+
+step The ritual
+  tip Stand on the dais and use J'eevee's Jar: J'eevee sets out the Bell, the Wheel and the Candle. The Bell heals warlocks, the Wheel shields the party, the Candle burns the imps: ignore the imps and kill the Dread Guards (elite felguards, about ten, sometimes two at once); Banish or Enslave helps. Give one player each node to watch: when one sags, tilts and sounds, a warlock with a Lodestone recharges it, a 3-second cast that any hit breaks (a Soul Shard each), so keep attackers off them. If all three fail, the ritual ends and you start again; while one stands it survives even a wipe. After about six minutes nine symbols glow and a red vortex closes the circle: walk out and the remaining demons vanish at its edge. Rest, then use the Xorothian Glyphs. Kill the Xorothian Dreadsteed (level 62, elite); at half health Lord Hel'nurath joins, a hard hitter who knocks you back. Speak to the Dreadsteed Spirit: every warlock in the party who is on this quest can bind it.
+  use 18663 @60.3,30.2                -- J'eevee's Jar, on Immol'thar's dais
+  use 18670 @60.3,30.2                -- Xorothian Glyphs, once the circle is complete
+  kill 14502 quest 7631.1 @60.3,30.2 group 5 -- Xorothian Dreadsteed
+  turnin 7631 @60.3,30.2              -- Dreadsteed Spirit: Summon Dreadsteed

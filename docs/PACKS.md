@@ -17,7 +17,7 @@ built from a pack: a folder with a `pack.json` and `.guide` files.
 | On this page | |
 |---|---|
 | **Get going** | [Setup](#setup) · [A first pack in 15 minutes](#a-first-pack-in-15-minutes) |
-| **Write guides** | [By playing](#by-playing) · [From the simulator](#from-the-simulator) · [By hand](#by-hand) · [With an AI assistant](#with-an-ai-assistant) |
+| **Write guides** | [By playing](#by-playing) · [By hand](#by-hand) · [With an AI assistant](#with-an-ai-assistant) |
 | **Ship it** | [Testing](#testing) · [Publishing](#publishing) · [One guide as an import string](#one-guide-as-an-import-string) · [Updating](#updating) |
 | **Fix a problem** | [In game: statuses and problems](#in-game-statuses-and-problems) · [Import strings that are turned down](#import-strings-that-are-turned-down) · [Lint messages](#lint-messages) |
 | **Reference** | [Where things are](#where-things-are) |
@@ -135,7 +135,7 @@ polestar dev --play               # lint and build on every save, with the playg
    addon; after that, `/reload` shows every change. Open the guide menu
    (`/polestar guides`) and pick your guide under "Community guides".
 
-## Four ways to write guides
+## Three ways to write guides
 
 [GUIDE_FORMAT.md](GUIDE_FORMAT.md) is the language, with a cookbook of
 examples; [GUIDE_CHEATSHEET.md](GUIDE_CHEATSHEET.md) puts every line of it on

@@ -5,8 +5,8 @@ keywords Library, books, Friend of the Library, Greater Friend of the Library, G
 reward item 277203 277204
 reward item 281634 281635
 reward item 277254 277258 277260
-why Lost books and scrolls all over the world: each pays experience at the library, and enough of them earn a Friend of the Library reward.
-levels 20-50
+why Lost books and scrolls all over the world: each pays experience at the library, and 10, 20 and 25 of them earn a necklace, a ring and an off-hand.
+levels 15-60
 zone Stormwind City
 
 # The library book quests Forever kept from Season of Discovery. Each book is
@@ -18,8 +18,10 @@ zone Stormwind City
 # for the Horde. The quests are taken and handed in one at a time, so the
 # quest log never fills: there are more books than it holds.
 #
-# Order: Eastern Kingdoms from Elwynn south, then north, then Kalimdor from
-# Darkshore south. Alliance-only: Antonidas and Rumi (the wiki names only
+# Order: four parts by the books' zone levels (10-25, 25-45, 40-55, 60), each
+# Eastern Kingdoms then Kalimdor and ending at the library, so the first
+# milestone reward (Friend of the Library, a level 23 necklace) comes after
+# the low-level books instead of after Tanaris. Alliance-only: Antonidas and Rumi (the wiki names only
 # Garion Wendell for them), Theocritus, Runes of the Sorcerer-Kings and both
 # Greater Friend of the Library quests (their race masks in data/forever).
 # Horde-only: Ta'zo (the wiki) and the Apothecary's Primer (race mask).
@@ -45,11 +47,36 @@ zone Stormwind City
 #   Wendell for all four. The steps keep both; needs an in-game check.
 # - The milestone quests (Friend of the Library 78150, Greater Friend of the
 #   Library 79536 and 82208) are offered by the librarian once enough books are
-#   handed in; their levels are the data's. How many books each takes is not in
-#   any source we use, so the steps do not count them.
+#   handed in. Forever's quest pages and players' caches give 82208 "Requires
+#   level 35" where data/forever still has 30; the step waits for 35.
+# ASSUMED: Friend of the Library comes with the 10th different book, the first
+#   Greater Friend with the 20th, the second with the 25th (books handed in
+#   earlier count towards each; three beta write-ups agree on 10 and 20, one
+#   gives 25). Forever's data has no count. In-game check: the librarian.
+# INGAME: does Owen Thadd offer the two Greater Friend of the Library quests to
+#   the Horde? Forever's quest pages list them for both sides (ending at Owen
+#   Thadd too), and the knowledge base saw 82208 handed in to him;
+#   data/forever's race masks are Alliance-only.
+# INGAME: where does Ataeric: On Arcane Curiosities (item 210177, quest 79096,
+#   Horde, Owen Thadd; on Forever's quest pages, not in data/forever) lie on
+#   Forever? In Season of Discovery it was in the Sepulcher's main building in
+#   Silverpine; beta write-ups have not found it there yet.
+# ASSUMED: the level 60 books (Jennea Cannon and Oran Snakewrithe, the mage
+#   trainers beside the librarians, take them: Forever's quest pages and
+#   data/forever) lie where one beta write-up placed them on the live map;
+#   Forever's data has no spawn for them. Undead Potatoes, The Knight and the
+#   Lady and Scourge: Undead Menace or Misunderstood? (84395, 84400, 84401) are
+#   on Forever's quest pages but not in data/forever, so the guide collects
+#   their books and names the hand-in in a tip. Magma or Lava? (84396) is for
+#   mages only in Forever's quest data. In-game check: each spot.
+# INGAME: does Oran Snakewrithe take the level 60 books from the Horde?
+#   Forever's quest pages list them for both sides and end them at him too;
+#   data/forever gives them Alliance race masks, so the Horde step is a `talk`.
 # - The Mo'grosh ogres guarding Runes of the Sorcerer-Kings are elite
 #   (npcs 1178-1181, 1183: rank 1, level 18-19).
 # Not play-tested on Forever yet.
+
+# ---------------------------------------------------------------- Part 1: books in level 10-25 zones
 
 step Elwynn Forest
   only Alliance
@@ -68,34 +95,10 @@ step Duskwood
   tip The spellbook lies in the Dawning Wood Catacombs, the crypt in north-western Duskwood. Undead fill it; a corpse run works if you are low.
   collect 209849 @16.7,28.4                  -- Crimes Against Anatomy
 
-step Stranglethorn Vale
-  zone Stranglethorn Vale
-  tip On a bench beside the Crystalvein Mine entrance, in the middle of the zone.
-  collect 213165 @41.5,50.9                  -- Basilisks: Should Petrification be Feared?
-
-step Swamp of Sorrows
-  zone Swamp of Sorrows
-  tip On the top walkway of the Temple of Atal'Hakkar, outside the dungeon.
-  collect 220345 @70,51                      -- Sanguine Sorcery
-
-step Blasted Lands
-  zone Blasted Lands
-  collect 220353 @55.4,32.2                  -- Conjurer's Codex
-
-step Blackrock Mountain
-  zone Burning Steppes
-  tip Inside Blackrock Mountain, not in a dungeon: the book lies on the altar in Franclorn Forgewright's tomb, near Lothos Riftwaker. The waypoint marks the mountain.
-  collect 220349 @28.96,28.93                -- Stonewrought Design
-
-step Searing Gorge
-  zone Searing Gorge
-  tip On a table inside a tent near the middle of the zone.
-  collect 220352 @37.8,49.3                  -- A Mind of Metal
-
-step Badlands
-  zone Badlands
-  tip Inside a crypt near the middle of the zone, reached from the path to its south.
-  collect 215820 @56.7,39.9                  -- Mummies: A Guide to the Unsavory Undead
+step Ironforge
+  only Alliance
+  zone Ironforge
+  collect 203754 @76,10.4                    -- Archmage Antonidas: The Unabridged Autobiography
 
 step Loch Modan
   only Alliance
@@ -103,30 +106,14 @@ step Loch Modan
   tip Scrolls in the Mo'grosh ogre cave in the north-east. The ogres in the cave are level 18-19 elites: grouping up is advised. (Rumi of Gnomeregan also lies in Thelsamar, if you missed it at Sentinel Hill.)
   collect 209850 @77.4,14 group              -- Runes of the Sorcerer-Kings
 
-step Ironforge
-  only Alliance
-  zone Ironforge
-  collect 203754 @76,10.4                    -- Archmage Antonidas: The Unabridged Autobiography
-
 step Wetlands
   zone Wetlands
+  tip At Whelgar's Excavation Site, the dig in the middle of the Wetlands.
   collect 209848 @33.6,47.9                  -- Goaz Scrolls
-
-step Arathi Highlands
-  zone Arathi Highlands
-  tip Beside a tent entrance in the troll village in south-eastern Arathi.
-  collect 215816 @73.6,65.2                  -- A Web of Lies: Debunking Myths and Legends
-
-step The Hinterlands
-  zone The Hinterlands
-  collect 220350 @36,72.8                    -- Venomous Journeys
-
-step Alterac Mountains
-  zone Alterac Mountains
-  collect 215815 @48.4,57.6                  -- Defensive Magics 101
 
 step Silverpine Forest
   zone Silverpine Forest
+  tip At Ambermill, the mage village in south-eastern Silverpine.
   collect 209844 @63.5,63.2                  -- The Dalaran Digest
 
 step Tirisfal Glades
@@ -140,10 +127,22 @@ step Darkshore
   tip Down the stairs at the Ruins of Mathystra in northern Darkshore.
   collect 209843 @59.6,22.2                  -- Nar'thalas Almanac
 
-step Azshara
-  zone Azshara
-  tip On a crate in the Haldarr Encampment, in the far west of Azshara.
-  collect 220348 @20.7,62                    -- Everyday Etiquette
+step Stonetalon Mountains
+  zone Stonetalon Mountains
+  tip On a barrel in a tent at Grimtotem Post, in the far south-east of the zone.
+  collect 209851 @74.4,85.7                  -- Fury of the Land
+
+step The Barrens
+  zone The Barrens
+  tip Two books: the manual in the control room at the top of the oil rig at the Sludge Fen, and the Goblin Tome beside Gazlowe in Ratchet.
+  collect 209847 @56.3,8.8                   -- Arcanic Systems Manual
+  collect 208800 @62.7,36.3                  -- Baxtan: On Destructive Magics
+
+step The Wailing Caverns' cave
+  zone The Barrens
+  tip The scrolls lie underground, in the cave below Lushwater Oasis by the Wailing Caverns entrance, not inside the dungeon. Go in at the cave mouth in the oasis and follow the cave down; the arrow points at the scrolls from the surface.
+  goto 46,36.4 "Cave mouth at Lushwater Oasis"
+  collect 209846 @49.3,32.9                  -- Secrets of the Dreamers
 
 step Orgrimmar
   only Horde
@@ -151,17 +150,97 @@ step Orgrimmar
   tip The Mural of Ta'zo is the stone tablet leaning against the wall in the Valley of Spirits, on the way to the mage trainers. Use it to take the book.
   collect 207972 "The Lessons of Ta'zo" @38.7,78.4
 
-step The Barrens
-  zone The Barrens
-  tip Three books: scrolls outside the Wailing Caverns entrance, the manual in the control room at the top of the oil rig at the Sludge Fen, and the Goblin Tome beside Gazlowe in Ratchet.
-  collect 209846 @49.3,32.9                  -- Secrets of the Dreamers
-  collect 209847 @56.3,8.8                   -- Arcanic Systems Manual
-  collect 208800 @62.7,36.3                  -- Baxtan: On Destructive Magics
+step The library: first books
+  zone Stormwind City
+  only Alliance
+  tip Hand in the books so far. Garion Wendell keeps the library at the top of the Wizard's Sanctum in the Mage Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
+  accept 79092 npc 211033
+  turnin 79092 npc 211033
+  accept 78142 npc 211033
+  turnin 78142 npc 211033
+  accept 79093 npc 211033
+  turnin 79093 npc 211033
+  accept 78147 npc 211033
+  turnin 78147 npc 211033
+  accept 78148 npc 211033
+  turnin 78148 npc 211033
+  accept 79091 npc 211033
+  turnin 79091 npc 211033
+  accept 78146 npc 211033
+  turnin 78146 npc 211033
+  accept 78127 npc 211033
+  turnin 78127 npc 211033
+  accept 78124 npc 211033
+  turnin 78124 npc 211033
+  accept 78143 npc 211033
+  turnin 78143 npc 211033
+  accept 78145 npc 211033
+  turnin 78145 npc 211033
+  accept 79097 npc 211033
+  turnin 79097 npc 211033
+  accept 78149 npc 211033
+  turnin 78149 npc 211033
 
-step Stonetalon Mountains
-  zone Stonetalon Mountains
-  tip On a barrel in a tent at Grimtotem Post, in the far south-east of the zone.
-  collect 209851 @74.4,85.7                  -- Fury of the Land
+step The library: first books (Horde)
+  zone Undercity
+  only Horde
+  tip Hand in the books so far. Owen Thadd keeps the library in the Magic Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
+  accept 78142 npc 211022
+  turnin 78142 npc 211022
+  accept 78147 npc 211022
+  turnin 78147 npc 211022
+  accept 78146 npc 211022
+  turnin 78146 npc 211022
+  accept 78127 npc 211022
+  turnin 78127 npc 211022
+  accept 79095 npc 211022
+  turnin 79095 npc 211022
+  accept 78124 npc 211022
+  turnin 78124 npc 211022
+  accept 79094 npc 211022
+  turnin 79094 npc 211022
+  accept 78143 npc 211022
+  turnin 78143 npc 211022
+  accept 78145 npc 211022
+  turnin 78145 npc 211022
+  accept 79097 npc 211022
+  turnin 79097 npc 211022
+  accept 78149 npc 211022
+  turnin 78149 npc 211022
+
+step Friend of the Library
+  tip With 10 different books handed in, the librarian offers Friend of the Library: a choice of two necklaces (Scholarly Pendant or Erudite's Amulet). Take it when it appears.
+  accept 78150 npc 211033 optional only Alliance
+  turnin 78150 npc 211033 optional only Alliance
+  accept 78150 npc 211022 optional only Horde
+  turnin 78150 npc 211022 optional only Horde
+
+# ---------------------------------------------------------------- Part 2: books in level 25-45 zones
+
+step Alterac Mountains
+  zone Alterac Mountains
+  tip Inside the first tower of the ogre fort at Gallows' Corner, in the middle of the zone.
+  collect 215815 @48.4,57.6                  -- Defensive Magics 101
+
+step Arathi Highlands
+  zone Arathi Highlands
+  tip Beside a tent entrance in the troll village in south-eastern Arathi.
+  collect 215816 @73.6,65.2                  -- A Web of Lies: Debunking Myths and Legends
+
+step Stranglethorn Vale
+  zone Stranglethorn Vale
+  tip On a bench beside the Crystalvein Mine entrance, in the middle of the zone.
+  collect 213165 @41.5,50.9                  -- Basilisks: Should Petrification be Feared?
+
+step Badlands
+  zone Badlands
+  tip Inside a crypt near the middle of the zone, reached from the path to its south.
+  collect 215820 @56.7,39.9                  -- Mummies: A Guide to the Unsavory Undead
+
+step Swamp of Sorrows
+  zone Swamp of Sorrows
+  tip On the top walkway of the Temple of Atal'Hakkar, outside the dungeon.
+  collect 220345 @70,51                      -- Sanguine Sorcery
 
 step Desolace
   zone Desolace
@@ -177,142 +256,176 @@ step Dustwallow Marsh
   tip On the ground at the eastern side of the murloc camp in north-eastern Dustwallow.
   collect 215822 @57.2,20.8                  -- RwlRwlRwlRwl!
 
-step Tanaris
-  zone Tanaris
-  tip On a bookshelf in the middle building of the pirate camp on the eastern coast.
-  collect 220346 "Legends of the Tidesages" @72.6,47.8
-
-step Garion Wendell
-  only Alliance
+step The library: second books
   zone Stormwind City
-  tip Garion Wendell keeps the library in the Mage Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
-  accept 79092 npc 211033
-  turnin 79092 npc 211033
-  accept 78142 npc 211033
-  turnin 78142 npc 211033
-  accept 79093 npc 211033
-  turnin 79093 npc 211033
-  accept 78147 npc 211033
-  turnin 78147 npc 211033
-  accept 79535 npc 211033
-  turnin 79535 npc 211033
-  accept 81947 npc 211033
-  turnin 81947 npc 211033
-  accept 81956 npc 211033
-  turnin 81956 npc 211033
-  accept 81953 npc 211033
-  turnin 81953 npc 211033
-  accept 81955 npc 211033
-  turnin 81955 npc 211033
-  accept 79951 npc 211033
-  turnin 79951 npc 211033
-  accept 78148 npc 211033
-  turnin 78148 npc 211033
-  accept 79091 npc 211033
-  turnin 79091 npc 211033
-  accept 78146 npc 211033
-  turnin 78146 npc 211033
-  accept 79949 npc 211033
-  turnin 79949 npc 211033
-  accept 81954 npc 211033
-  turnin 81954 npc 211033
+  only Alliance
+  tip Hand in this part's books. Garion Wendell keeps the library at the top of the Wizard's Sanctum in the Mage Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
   accept 79948 npc 211033
   turnin 79948 npc 211033
-  accept 78127 npc 211033
-  turnin 78127 npc 211033
-  accept 78124 npc 211033
-  turnin 78124 npc 211033
-  accept 81952 npc 211033
-  turnin 81952 npc 211033
-  accept 78143 npc 211033
-  turnin 78143 npc 211033
-  accept 78145 npc 211033
-  turnin 78145 npc 211033
-  accept 79097 npc 211033
-  turnin 79097 npc 211033
-  accept 78149 npc 211033
-  turnin 78149 npc 211033
+  accept 79949 npc 211033
+  turnin 79949 npc 211033
+  accept 79535 npc 211033
+  turnin 79535 npc 211033
+  accept 79951 npc 211033
+  turnin 79951 npc 211033
+  accept 81947 npc 211033
+  turnin 81947 npc 211033
   accept 79950 npc 211033
   turnin 79950 npc 211033
   accept 79947 npc 211033
   turnin 79947 npc 211033
   accept 79952 npc 211033
   turnin 79952 npc 211033
-  accept 81949 npc 211033
-  turnin 81949 npc 211033
 
-step Owen Thadd
-  only Horde
+step The library: second books (Horde)
   zone Undercity
-  tip Owen Thadd keeps the library in the Magic Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
-  accept 78142 npc 211022
-  turnin 78142 npc 211022
-  accept 78147 npc 211022
-  turnin 78147 npc 211022
-  accept 79535 npc 211022
-  turnin 79535 npc 211022
-  accept 81947 npc 211022
-  turnin 81947 npc 211022
-  accept 81956 npc 211022
-  turnin 81956 npc 211022
-  accept 81953 npc 211022
-  turnin 81953 npc 211022
-  accept 81955 npc 211022
-  turnin 81955 npc 211022
-  accept 79951 npc 211022
-  turnin 79951 npc 211022
-  accept 78146 npc 211022
-  turnin 78146 npc 211022
-  accept 79949 npc 211022
-  turnin 79949 npc 211022
-  accept 81954 npc 211022
-  turnin 81954 npc 211022
+  only Horde
+  tip Hand in this part's books. Owen Thadd keeps the library in the Magic Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
   accept 79948 npc 211022
   turnin 79948 npc 211022
-  accept 78127 npc 211022
-  turnin 78127 npc 211022
-  accept 79095 npc 211022
-  turnin 79095 npc 211022
-  accept 78124 npc 211022
-  turnin 78124 npc 211022
-  accept 81952 npc 211022
-  turnin 81952 npc 211022
-  accept 79094 npc 211022
-  turnin 79094 npc 211022
-  accept 78143 npc 211022
-  turnin 78143 npc 211022
-  accept 78145 npc 211022
-  turnin 78145 npc 211022
-  accept 79097 npc 211022
-  turnin 79097 npc 211022
-  accept 78149 npc 211022
-  turnin 78149 npc 211022
+  accept 79949 npc 211022
+  turnin 79949 npc 211022
+  accept 79535 npc 211022
+  turnin 79535 npc 211022
+  accept 79951 npc 211022
+  turnin 79951 npc 211022
+  accept 81947 npc 211022
+  turnin 81947 npc 211022
   accept 79950 npc 211022
   turnin 79950 npc 211022
   accept 79947 npc 211022
   turnin 79947 npc 211022
   accept 79952 npc 211022
   turnin 79952 npc 211022
-  accept 81949 npc 211022
-  turnin 81949 npc 211022
-
-step Friend of the Library
-  tip Once enough books are in, the librarian offers Friend of the Library. Take it when it appears.
-  accept 78150 npc 211033 optional only Alliance
-  turnin 78150 npc 211033 optional only Alliance
-  accept 78150 npc 211022 optional only Horde
-  turnin 78150 npc 211022 optional only Horde
 
 step Greater Friend of the Library
   only Alliance
-  tip From level 20, with more books handed in, Garion Wendell offers Greater Friend of the Library.
+  tip From level 20, with 20 different books handed in, Garion Wendell offers Greater Friend of the Library: Field Researcher's Loop or Philanthropist's Ring.
   level 20
   accept 79536 npc 211033 optional
   turnin 79536 npc 211033 optional
 
+# ---------------------------------------------------------------- Part 3: books in level 40-55 zones
+
+step The Hinterlands
+  zone The Hinterlands
+  tip In the troll ruins of Shadra'Alor, in the south of the Hinterlands.
+  collect 220350 @36,72.8                    -- Venomous Journeys
+
+step Searing Gorge
+  zone Searing Gorge
+  tip On a table inside a tent near the middle of the zone.
+  collect 220352 @37.8,49.3                  -- A Mind of Metal
+
+step Blackrock Mountain
+  zone Burning Steppes
+  tip Inside Blackrock Mountain, not in a dungeon: the book lies on the altar in Franclorn Forgewright's tomb, near Lothos Riftwaker. The waypoint marks the mountain.
+  collect 220349 @28.96,28.93                -- Stonewrought Design
+
+step Blasted Lands
+  zone Blasted Lands
+  collect 220353 @55.4,32.2                  -- Conjurer's Codex
+
+step Azshara
+  zone Azshara
+  tip On a crate in the Haldarr Encampment, in the far west of Azshara.
+  collect 220348 @20.7,62                    -- Everyday Etiquette
+
+step Tanaris
+  zone Tanaris
+  tip On a bookshelf in the middle building of the pirate camp on the eastern coast.
+  collect 220346 "Legends of the Tidesages" @72.6,47.8
+
+step The library: third books
+  zone Stormwind City
+  only Alliance
+  tip Hand in this part's books. Garion Wendell keeps the library at the top of the Wizard's Sanctum in the Mage Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
+  accept 81954 npc 211033
+  turnin 81954 npc 211033
+  accept 81955 npc 211033
+  turnin 81955 npc 211033
+  accept 81953 npc 211033
+  turnin 81953 npc 211033
+  accept 81956 npc 211033
+  turnin 81956 npc 211033
+  accept 81952 npc 211033
+  turnin 81952 npc 211033
+  accept 81949 npc 211033
+  turnin 81949 npc 211033
+
+step The library: third books (Horde)
+  zone Undercity
+  only Horde
+  tip Hand in this part's books. Owen Thadd keeps the library in the Magic Quarter. He offers each book's quest while the book is in your bags: take it and hand it in, one at a time, so your quest log stays free. Skip the books you did not find.
+  accept 81954 npc 211022
+  turnin 81954 npc 211022
+  accept 81955 npc 211022
+  turnin 81955 npc 211022
+  accept 81953 npc 211022
+  turnin 81953 npc 211022
+  accept 81956 npc 211022
+  turnin 81956 npc 211022
+  accept 81952 npc 211022
+  turnin 81952 npc 211022
+  accept 81949 npc 211022
+  turnin 81949 npc 211022
+
 step The second Greater Friend of the Library
   only Alliance
-  tip From level 30, with more books still, Garion Wendell offers the second Greater Friend of the Library.
-  level 30
+  tip From level 35, with 25 different books handed in, Garion Wendell offers the second Greater Friend of the Library: Truthseeker's Bow, Crest of Elucidation or Researcher's Night Light (level 40 to equip).
+  level 35
   accept 82208 npc 211033 optional
   turnin 82208 npc 211033 optional
+
+# ---------------------------------------------------------------- Part 4: level 60 books
+
+step Level 60 books: Western Plaguelands
+  zone Western Plaguelands
+  tip Eight more books lie in level 55-60 zones; the mage trainers beside the librarians take them, not the librarians. Necromancy 101 lies on a table in the ruined keep on Caer Darrow, above Scholomance (outside the dungeon); Undead Potatoes at Felstone Field.
+  level 55
+  collect 228141 @69.4,72.8                  -- Necromancy 101
+  collect 228132 @38.2,54.6                  -- Undead Potatoes
+
+step Level 60 books: Eastern Plaguelands
+  zone Eastern Plaguelands
+  tip A Study of the Light is inside Light's Hope Chapel. The Knight and the Lady lies at Corin's Crossing; other copies lie elsewhere in the zone (one by the Stratholme gates), and you can take only one. Scourge: Undead Menace or Misunderstood? is on a table in Plaguewood: wait for the patrolling elite to clear the creatures beside it and walk on.
+  collect 228135 @71.8,48.2 live             -- A Study of the Light
+  collect 228138 "The Knight and the Lady" @54.4,51.1 live
+  collect 228140 "Scourge: Undead Menace or Misunderstood?" @31.2,21 live
+
+step Level 60 books: Timbermaw Hold
+  zone Felwood
+  tip Northern Kalimdor - A Comprehensive Guide lies inside the Timbermaw Hold tunnel between Felwood and Winterspring.
+  collect 228134 @65.2,3.3                   -- Northern Kalimdor - A Comprehensive Guide
+
+step Level 60 books: Everlook
+  zone Winterspring
+  tip Ka-Boom! sits on a shelf behind the alchemy supplier in Everlook.
+  collect 228136 @60.7,37.7                  -- Ka-Boom!
+
+step Level 60 books: Blackrock Mountain
+  only Mage
+  zone Burning Steppes
+  tip Magma or Lava? lies inside Blackrock Mountain, in the mine passage towards Blackrock Depths beyond the Molten Core quest giver; its quest is for mages only. The waypoint marks the mountain.
+  collect 228133 @28.96,28.93                -- Magma or Lava?
+
+step The level 60 books: Jennea Cannon
+  only Alliance
+  zone Stormwind City
+  tip Jennea Cannon, the mage trainer beside Garion Wendell in the Wizard's Sanctum, takes the level 60 books: she offers each book's quest while the book is in your bags. Hand in Undead Potatoes, The Knight and the Lady and Scourge: Undead Menace or Misunderstood? the same way (their quests are not in Polestar's data yet).
+  accept 84402 npc 5497
+  turnin 84402 npc 5497
+  accept 84398 npc 5497
+  turnin 84398 npc 5497
+  accept 84397 npc 5497
+  turnin 84397 npc 5497
+  accept 84399 npc 5497
+  turnin 84399 npc 5497
+  accept 84396 npc 5497 only Mage
+  turnin 84396 npc 5497 only Mage
+
+step The level 60 books: Oran Snakewrithe
+  only Horde
+  zone Undercity
+  tip Oran Snakewrithe, beside Owen Thadd in the Magic Quarter, takes the level 60 books: each book's quest is offered while the book is in your bags. Take and hand them in one at a time (Polestar cannot track these quests for the Horde yet).
+  talk 7825

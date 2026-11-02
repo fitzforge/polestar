@@ -21,7 +21,6 @@ const BRAND = [
 ];
 const CHARTS = [
 	['docs/assets/charts/starts.svg', `${DIR}/starts.png`, 2400],
-	['docs/assets/charts/levels.svg', `${DIR}/levels.png`, 2400],
 ];
 
 const args = (svg, png, width) => ['-w', String(width), '-o', png, svg];

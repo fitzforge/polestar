@@ -177,7 +177,7 @@ fn a_reload_keeps_the_position_a_skipped_step_stays_skipped_even_with_its_quest_
 }
 
 #[test]
-fn a_reload_or_a_relog_at_a_new_level_keeps_the_position_quests_their_giver_did_not_offer_stay_passed_until_the_giver_offers_them_161() {
+fn a_quest_its_giver_did_not_list_is_never_skipped_nor_kept_across_a_reload_161_741() {
 	const GUIDE: &str = r#"
 		Polestar.RegisterGuide({ id = "test/xr", pack = "test", title = "Crossroads", minLevel = 10, maxLevel = 20, steps = {
 			{ title = "Thork", goals = {
@@ -197,37 +197,26 @@ fn a_reload_or_a_relog_at_a_new_level_keeps_the_position_quests_their_giver_did_
 			local w = stub.world
 			w.gossip(3429, { available = {} }); w.close(); flush()
 			w.gossip(3464, { available = { { questID = 869 } } }); w.close(); w.accept(869, { 12 }); flush()
+			local g = E.GetStepView(1).goals[1]
 			local at = E.GetStepIndex()
 			stub.fire("PLAYER_LOGOUT")
-			emit({ at = at, db = PolestarCharDB })
+			emit({ at = at, status = g.status, notice = g.noticeText, db = PolestarCharDB })
 		"#,
 	);
-	assert_eq!(first["at"], 2);
-	let script = r#"emit({ at = E.GetStepIndex(), status = E.GetStepView(1).goals[1].status, why = E.GetStepView(1).goals[1].unavailable or false })"#;
+	assert_eq!(first["at"], 1, "the guide stays at Thork");
+	assert_eq!(first["status"], "active");
+	assert_eq!(first["notice"], "Not offered by Thork? Report it with /polestar");
+	assert_eq!(first["db"]["offers"], Value::Null, "nothing saved");
+	let script = r#"local g = E.GetStepView(1).goals[1]; emit({ at = E.GetStepIndex(), status = g.status, why = g.unavailable or false, notice = g.noticeText or false })"#;
 	let reload = run(GUIDE, &format!("{before}; w.onQuest(869, {{ 12 }})"), Some(&reload_of(&first["db"])), script);
-	assert_eq!(reload, json!({ "at": 2, "status": "skipped", "why": "offer" }), "the reload keeps the player at the raptors");
-	let asked = r#"
-		local w = stub.world
-		local r = { at = E.GetStepIndex(), why = E.GetStepView(1).goals[1].unavailable or false }
-		w.gossip(3429, { available = { { questID = 870 } } }); flush()
-		r.offered = E.GetStepIndex()
-		emit(r)
-	"#;
-	let levelled = run(GUIDE, "w.level = 13; w.onQuest(869, { 12 })", Some(&reload_of(&first["db"])), asked);
-	assert_eq!(levelled, json!({ "at": 2, "why": "offer", "offered": 1 }), "a level later the guide stays at the raptors; Thork offering it takes it back");
-	// Saves from before kept the level the quest was refused at.
-	let mut older_db = first["db"].clone();
-	older_db["offers"] = json!({ "870": 12 });
-	let older = reload_of(&older_db);
-	let old = run(GUIDE, "w.level = 13; w.onQuest(869, { 12 })", Some(&older), asked);
-	assert_eq!(old, json!({ "at": 2, "why": "offer", "offered": 1 }));
+	assert_eq!(reload, json!({ "at": 1, "status": "active", "why": false, "notice": false }), "a reload asks Thork afresh");
 }
 
 #[test]
 fn a_pack_update_that_moves_steps_keeps_check_offs_skips_and_the_place_the_player_was_looking_at() {
 	const V1: &str = r#"
 		Polestar.RegisterGuide({ id = "test/mv", pack = "test", title = "Moves", minLevel = 1, maxLevel = 60, steps = {
-			{ goals = { { t = "accept", quest = 901, title = "One", npc = 1 } } },
+			{ goals = { { t = "talk", npc = 1, npcName = "One" } } },
 			{ goals = { { t = "accept", quest = 902, title = "Two", npc = 2 } } },
 			{ goals = { { t = "accept", quest = 903, title = "Three", npc = 3 } } },
 			{ goals = { { t = "accept", quest = 904, title = "Four", npc = 4 } } },
@@ -272,7 +261,7 @@ fn a_look_ahead_survives_a_reload_and_a_step_left_behind_by_the_guide_releases_i
 		r#"
 			local w = stub.world
 			w.progress(7, 1, 10); flush()
-			w.trainer(911); w.close(); flush()
+			w.trainer(911); w.learnSpell(100); w.close(); flush()
 			emit({ E.GetStepIndex(), E.GetLiveStep() })
 		"#,
 	);
@@ -319,7 +308,7 @@ fn every_goal_ticks_done_and_back_ticks_are_saved_place_the_guide_after_a_reload
 }
 
 #[test]
-fn an_accept_ticked_without_taking_the_quest_drops_its_later_goals_taking_it_brings_them_back() {
+fn an_accept_ticked_without_taking_the_quest_stays_open_and_keeps_its_later_goals_taking_it_moves_on() {
 	let out = run(
 		ROUTE,
 		"",
@@ -327,13 +316,13 @@ fn an_accept_ticked_without_taking_the_quest_drops_its_later_goals_taking_it_bri
 		r#"
 			local r = {}
 			E.ToggleGoal(1, 1); flush()
-			r.ticked = { E.GetStepView(2).goals[1].status, E.GetStepView(2).goals[2].status, E.GetStepIndex() }
+			r.ticked = { E.GetStepView(1).goals[1].status, E.GetStepView(2).goals[1].status, E.GetStepIndex() }
 			stub.world.accept(783, {}, "A Threat Within"); flush()
 			r.taken = { E.GetStepView(2).goals[1].status, E.GetStepIndex() }
 			emit(r)
 		"#,
 	);
-	assert_eq!(out["ticked"], json!(["na", "active", 2]), "the turn-in of a quest never taken is not work; the step's other accept is");
+	assert_eq!(out["ticked"], json!(["active", "pending", 1]), "a tick never stands for the quest log (#739): the accept stays, its turn-in too");
 	assert_eq!(out["taken"], json!(["active", 2]));
 }
 

@@ -1,0 +1,258 @@
+guide forever/horde/05-stonetalon-mountains
+title Stonetalon Mountains & Ashenvale
+faction Horde
+levels 23-25
+zone Stonetalon Mountains
+next forever/horde/06-hillsbrad-foothills
+
+# Built from the simulator's consensus Horde route (export
+# consensus-horde-tauren, visits 8 and 9) and Era-baseline reference data;
+# not yet play-tested on Forever.
+#
+# Flow: north from the Crossroads to Kadrak at the Mor'shan Rampart (Warsong
+# Reports) -> Splintertree Post (flight path, bind) -> Night Run (Ashenvale
+# Hunt) -> the Warsong Scout and Outrider -> west across Ashenvale, Va'xug
+# Firefure's ravine on the way -> Zoram'gar Outpost (flight path, Warsong
+# Runner, naga heads) -> fly to Splintertree, back to Kadrak -> south to the
+# Crossroads and west into Stonetalon: Malaka'jin -> Ziz Fizziks and
+# Windshear Crag -> Sun Rock Retreat (flight path, bind) -> Mirkfallon Lake ->
+# Stonetalon Peak (Jin'Zil's reagents, Cenarion grove) -> hearth to Sun Rock
+# -> the Charred Vale -> Sun Rock -> down the Webwinder Path to Malaka'jin ->
+# fly from the Crossroads to Orgrimmar, zeppelin to the Undercity, fly to the
+# Sepulcher, Beren's Peril (the Offering Stone), ride on to Tarren Mill (bind)
+# for forever/horde/06-hillsbrad-foothills.
+#
+# Deviations from the export (same quest set):
+# - The export turns in Report to Kadrak after the Night Run stop; the walk
+#   north from the Crossroads passes Kadrak first, so this guide starts there.
+#   The Warsong Scout is visited on the way north instead of after a hearth.
+# - The export hearths from Kadrak to Splintertree; Kadrak is passed on foot
+#   here, so that hearth is not used.
+# - Stonetalon: the export does Jin'Zil's Forest Magic (1058) and Cenarius'
+#   Legacy (1087) on two separate trips to Stonetalon Peak; both are done in
+#   one trip here. Ziz Fizziks and Windshear Crag are done on the way up the
+#   Webwinder Path instead of on a trip back down from Sun Rock, and Jin'Zil
+#   is picked up when you pass Malaka'jin on the way in and handed in on the
+#   way out. One hearth to Sun Rock instead of two.
+# - The Undercity flight path is picked up on the way through to Tarren Mill
+#   (the export takes it at the end of the Hillsbrad stop). Without the
+#   Tarren Mill flight path the way there is the road through Silverpine,
+#   which passes Deathstalker Lesh: Time To Strike (494, export visit 10) is
+#   picked up there (optional: players who fly in never meet him) and handed
+#   to Darthalia on arrival in the next guide.
+# - Sun Rock: Maggran on the lower level before Tsunaman and Mor'rogal, who
+#   stand together on the upper ledge.
+#
+# Carried on: Calling in the Reserves (5881) and Further Instructions (1094)
+# are turned in in the Barrens and Trouble in the Deeps (6562) at Zoram'gar
+# in the next two guides.
+#
+# Left out: Bloodfury Bloodline (6283, an elite harpy matriarch), Ordanus
+# (1088, Alliance side of Ashenvale), Arachnophobia (6284, Besseleth is
+# elite and the export leaves it out).
+#
+# Class quests: Undead Priests hand Dark Sacrifice (5646, from Ur'kyo at
+# 20; Forever renamed Devouring Plague) to Aelthalyste on the Undercity stop.
+#
+# Added: Bloodfury Trinkets (86576, Forever): the sunstones drop from the
+# Charred Vale harpies the route kills for Harpies Threaten (6282).
+# Never Coming Back and A Void Path (98251, 98252, Forever, new consensus
+# route): Va'xug Firefure's ravine lies just south of the road the route
+# rides west to Zoram'gar, and his stags and bears (21-22) suit the level
+# here (the export does them at about 26 on the later Ashenvale visit,
+# where they would be five levels below you).
+# The Offering Stone, The Tortured Soul and The Offering of Blood (95884,
+# 95883, 95885, Forever, new consensus route): all three start and end at
+# the Offering Stone in Beren's Peril, a short ride off the road to Tarren
+# Mill (the export does them on a second Silverpine visit at about 21). The
+# Offering of Blood is optional: Forever's quest data lists it as elite.
+# Skyborne: Lady Sylvanas Windrunner in the Undercity is one of the leaders
+# for Exploring the Horde (93739, from Thrall in
+# forever/horde/03-silverpine-forest); talk to her on the Undercity stop.
+#
+# Dropped: Stepping Stones (79192) and Scramble (79980): they follow ... and
+# that note you found (79007), which no Horde guide takes.
+
+# ---------------------------------------------------------------- Mor'shan Rampart
+
+step Kadrak
+  # The Mor'shan Rampart is in the Barrens (Forever's quest data; AreaTable 1703):
+  # on Ashenvale's map the route sent you through the zone crossing past him (#246).
+  zone The Barrens
+  tip From the Crossroads follow the road north. Kadrak stands on the watch tower of the Mor'shan Rampart where the road enters Ashenvale. Open the Bundle of Reports he gives you.
+  turnin 6541                         -- Kadrak
+  accept 6543
+  collect 16746                       -- Warsong Report, from the Bundle of Reports
+
+step Warsong Scout
+  zone Ashenvale
+  tip Keep north on the road. The Warsong Scout waits at the Warsong lumber camp, south of Splintertree.
+  collect 16764 quest 6543.1 @71.05,68.36 -- Warsong Scout
+
+step Splintertree Post
+  tip Splintertree Post is just north up the road.
+  getfp "Splintertree Post"
+  sethome "Splintertree Post"
+  vendor nearest
+
+step Night Run
+  tip Senani Thunderheart stands at Night Run, the Warsong camp just north-east of Splintertree, beside the hunt board.
+  turnin 6382                         -- Senani Thunderheart
+  accept 6383
+  turnin 6383
+  note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 27.
+
+step Warsong Outrider
+  tip The Warsong Outrider patrols the road east of Night Run toward the Satyrnaar.
+  collect 16765 quest 6543.3 @81.83,53.51 -- Warsong Outrider
+
+step Va'xug Firefure
+  tip On the way west, Va'xug Firefure is stuck in a ravine south of the main road, south-east of Astranaar. Shadowhorn Stags and Ashenvale Bears roam the woods all around it.
+  accept 98251 @40.4,61.5             -- Va'xug Firefure
+  kill 3817 quest 98251.1
+  kill 3809 quest 98251.2
+  turnin 98251
+  accept 98252
+
+step A Void Path
+  tip Steer Va'xug's Eye of Kilrogg out of the ravine to the main road within four minutes; if the channel breaks, ask Va'xug again.
+  turnin 98252 @38.2,58.1             -- Eye of Kilrogg, on the road
+
+# ---------------------------------------------------------------- Zoram'gar Outpost
+
+step Zoram'gar Outpost
+  tip Head west along the main road across Ashenvale, past Astranaar (Alliance: keep to the road), to the coast. Zoram'gar Outpost is on the Zoram Strand in the north-west. Its other quests are for the next visit, at 27.
+  getfp "Zoram'gar Outpost"
+  collect 16763 quest 6543.2 @12.22,34.22 -- Warsong Runner
+  accept 6442                         -- Marukai
+
+step Naga heads
+  tip Every Wrathtail naga along the strand north of the outpost drops heads.
+  collect 5490 quest 6442
+
+step Zoram'gar Outpost
+  turnin 6442                         -- Marukai
+
+step Back to Kadrak
+  zone The Barrens
+  tip Fly to Splintertree Post and head south down the road to the Mor'shan Rampart.
+  fly "Splintertree Post"
+  turnin 6543                         -- Kadrak
+
+# ---------------------------------------------------------------- Stonetalon Mountains
+
+step Malaka'jin
+  zone Stonetalon Mountains
+  tip Head south to the Crossroads, then west along the road out of the Barrens into Stonetalon. The troll village of Malaka'jin sits at the entrance of the canyon.
+  accept 1058                         -- Witch Doctor Jin'Zil
+
+step Ziz Fizziks
+  tip The road climbs north as the Webwinder Path. Ziz Fizziks has a hut where the road forks east to Windshear Crag.
+  turnin 1483                         -- Ziz Fizziks
+  accept 1093
+
+step Windshear Crag
+  tip East of Ziz, the Venture Company is clear-cutting Windshear Crag; one of the Operators carries the blueprints. Piznik mines in the small mine on the east side: stay with him while he mines, Venture Co. thugs come for him.
+  collect 5734 quest 1093
+  accept 1090                         -- Piznik
+  complete 1090
+  turnin 1090
+  accept 1092
+
+step Ziz Fizziks
+  turnin 1092                         -- Ziz Fizziks
+  turnin 1093
+  accept 1094                         -- Sputtervalve in Ratchet: the next guide passes there
+
+step Sun Rock Retreat
+  tip Follow the road west to Sun Rock Retreat.
+  getfp "Sun Rock Retreat"
+  sethome "Sun Rock Retreat"
+  accept 5881                         -- Maggran Earthbinder: Grish is at the Great Lift, in the next guide
+  accept 6282
+  accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
+  accept 1087                         -- Braelyn Firehand, outside the gate
+  accept 6393                         -- Tsunaman
+  accept 6562                         -- Je'neu Sancrea at Zoram'gar, at 27
+  accept 6301                         -- Tammra Windfield
+  vendor nearest
+
+step Gaea Seeds
+  tip The Gaea Seeds lie in the grass around the southern shore of Mirkfallon Lake, north of Sun Rock.
+  collect 16205 quest 6301
+
+step Stonetalon Peak
+  tip Follow the road north toward Stonetalon Peak. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there.
+  collect 5585 quest 1058
+  collect 5582 quest 1058
+  collect 5584 quest 1058
+  collect 5583 quest 1058
+  kill 4057 quest 1087.1
+  kill 4053 quest 1087.2
+  kill 4051 quest 1087.3
+
+step Sun Rock Retreat
+  hearth "Sun Rock Retreat"
+  turnin 6301                         -- Tammra Windfield
+  accept 6381
+  turnin 1087                         -- Braelyn Firehand
+  note Braelyn's next quest, Ordanus, is on the Alliance side of Ashenvale. Skip it.
+
+step The Charred Vale
+  tip South-west of Sun Rock lies the burned Charred Vale. Plant the Gaea Seeds in the dirt mounds on the valley floor; the fire elementals drop Incendrites. Bloodfury Harpies and Ambushers nest on the north side, Slayers and Roguefeathers to the south.
+  interact 177929 quest 6381          -- Gaea Dirt Mounds
+  collect 16312 quest 6393
+  kill 4022 quest 6282.1
+  kill 4025 quest 6282.2
+  kill 4024 quest 6282.3
+  kill 4023 quest 6282.4
+  collect 277936 quest 86576.1        -- Glittering Sunstone, from any Bloodfury harpy
+
+step Sun Rock Retreat
+  turnin 6381                         -- Tammra Windfield
+  turnin 6282                         -- Maggran Earthbinder
+  turnin 6393                         -- Tsunaman, up on the ledge
+  turnin 86576 npc 11861              -- Mor'rogal, beside Tsunaman
+
+step Malaka'jin
+  tip Head back down the Webwinder Path to Malaka'jin.
+  turnin 1058                         -- Witch Doctor Jin'Zil
+
+# ---------------------------------------------------------------- To Tarren Mill
+
+step To the Undercity
+  zone Undercity
+  tip Head east to the Crossroads and fly to Orgrimmar. Take the zeppelin from the towers outside Orgrimmar to Tirisfal Glades; the Undercity lies below the Ruins of Lordaeron. The bat handler is in the Trade Quarter.
+  getfp "Undercity"
+  kill 10181 quest 93739.4 "Talk to Lady Sylvanas Windrunner" only Skyborne optional -- Speak with Lady Sylvanas Windrunner, in the Royal Quarter: Exploring the Horde
+
+step Aelthalyste
+  only Undead,Priest
+  tip Aelthalyste stands in the War Quarter.
+  turnin 5646                         -- Aelthalyste: Dark Sacrifice
+
+step Beren's Peril
+  zone Silverpine Forest
+  tip If you already know the Tarren Mill flight path, fly there and skip to Tarren Mill. Otherwise fly from the Undercity to the Sepulcher and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
+  accept 95884 item 271343            -- Note Scrap, from a Ravenclaw Guardian
+  turnin 95884 @58.1,69.8             -- Offering Stone
+  accept 95883
+  collect 271350 quest 95883.1        -- Tortured Soul, from the Tortured Souls among the ruins
+  turnin 95883
+
+step The Offering of Blood
+  tip Use the Tortured Soul at the Offering Stone for a willing sacrifice and kill the Tortured Soul that answers. The Tortured Soul is elite: grouping up is advised.
+  goto 58.1,69.8 "Offering Stone"
+  accept 95885 optional
+  kill 212753 quest 95885.1 optional
+  turnin 95885 optional
+
+step Southpoint Tower
+  zone Hillsbrad Foothills
+  tip Back on the road south. Where it turns east into Hillsbrad, Deathstalker Lesh waits at Southpoint Tower.
+  accept 494 optional                 -- Deathstalker Lesh: Darthalia in Tarren Mill
+
+step Tarren Mill
+  tip Follow the road east along the river, then north-east up into the hills to Tarren Mill.
+  getfp "Tarren Mill"
+  sethome "Tarren Mill"

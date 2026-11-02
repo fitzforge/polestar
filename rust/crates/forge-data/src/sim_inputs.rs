@@ -59,6 +59,14 @@ pub fn build(sources: &Path, forever: &Source) -> Result<Output, String> {
 			files.push((format!("wago/{QUESTXP_BUILD}/QuestXP.csv"), forge_gamedata::csv::write_table(&c.table("QuestXP", "enUS")?)));
 			b
 		}
+		Source::Saved => {
+			let b = crate::tables::newest_saved_build(sources, &crate::tables::FOREVER).ok_or_else(|| format!("no client tables saved under {}", crate::tables::saved_root(sources).display()))?;
+			for t in ["Map", "AreaTable"] {
+				files.push((format!("wago/{b}/{t}.csv"), read(&crate::tables::saved_root(sources).join(&b).join(format!("{t}.csv")))?));
+			}
+			files.push((format!("wago/{QUESTXP_BUILD}/QuestXP.csv"), read(&sources.join("wago").join(QUESTXP_BUILD).join("QuestXP.csv"))?));
+			b
+		}
 		Source::Wago => {
 			let b = cached_forever_build(sources).ok_or_else(|| format!("no cached Forever build with Map.csv and AreaTable.csv under {}", sources.join("wago").display()))?;
 			for t in ["Map", "AreaTable"] {

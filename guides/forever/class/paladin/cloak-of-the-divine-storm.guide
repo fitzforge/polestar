@@ -24,22 +24,31 @@ why A rare cloak at 30 from the old Divine Storm story; for now only Alliance pa
 # the Cloak of the Divine Storm. The Strange Orb is not in our data: its place
 # (Darkshore 56.2,26.5, the top of the Tower of Althalaxx) and the mobs that
 # drop the salt are from a news report
-# "New Paladin-Exclusive Cloak Currently Alliance Only" (10 October 2026,
-# mirrored by seramate.com), which also says only Alliance Paladins can finish the chain
-# for now.
+# "New Paladin-Exclusive Cloak Currently Alliance Only" (10 October 2026),
+# which also says only Alliance Paladins can finish the chain for now.
+# The tower's mobs from Forever's data: Dark Strand Fanatics (16-17) around
+# it, four Dark Strand Voidcallers (28-29) in the tower itself;
+# their Summon Voidwalker and Shadow Bolt from the Forever server tables.
 # The chain is level 30 with level 22 to start: inside the beta's level cap.
+# Mob levels, elites and respawns from Forever's quest data (the knowledge
+# base): the north-west Redridge camp (Summoners, Champions, Trackers,
+# level 22-25) is not elite, the camps east of Lakeshire are; the Demon Fall
+# Canyon demons are level 29-30, not elite, five-minute respawn. Counts: 14
+# Summoner's Salt, 12 Motes of Mannoroth. The data gives no drop rates for
+# either.
 
 # ---------------------------------------------------------------- Darkshore
 
 step The Strange Orb
-  tip Climb to the top of the Tower of Althalaxx in northern Darkshore. Loot the Strange Orb up there: it gives you the Althalaxx Orb, which starts the quest.
+  tip Climb to the top of the Tower of Althalaxx in northern Darkshore. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts Shadow Bolt from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the Strange Orb at the top: it gives you the Althalaxx Orb; right-click it to start the quest. Keep the orb in your bags until the Spear of Mannoroth: three later quests need it.
+  level 22
   accept 78088 @56.2,26.5             -- Strange Orb atop the Tower of Althalaxx: right-click the Althalaxx Orb it gives
 
 # ---------------------------------------------------------------- Ashenvale
 
 step Delgren the Purifier
   zone Ashenvale
-  tip Delgren the Purifier stands at Maestra's Post in western Ashenvale.
+  tip Delgren the Purifier stands at Maestra's Post in western Ashenvale, south of the Darkshore road. He sends you to Stormwind with the orb.
   turnin 78088                        -- Delgren the Purifier
   accept 78089
 
@@ -47,12 +56,12 @@ step Delgren the Purifier
 
 step Katherine the Pure
   zone Stormwind City
-  tip Katherine the Pure is in the Cathedral of Light.
+  tip Katherine the Pure stands in the Cathedral of Light; she sends you to a warlock for a second opinion.
   turnin 78089                        -- Katherine the Pure
   accept 78090
 
 step Ursula Deline
-  tip Katherine sends you to the warlocks in the Mage Quarter; Ursula Deline speaks for them.
+  tip Ursula Deline, the warlock trainer, is in the Mage Quarter's warlock sanctum, down in the Slaughtered Lamb's cellar. She wants 14 Summoner's Salt to read the orb.
   turnin 78090                        -- Ursula Deline
   accept 78091
 
@@ -60,7 +69,7 @@ step Ursula Deline
 
 step Summoner's Salt
   zone Redridge Mountains
-  tip Blackrock Summoners, Champions and Trackers camp in the north-west of Redridge; they drop the Summoner's Salt.
+  tip The Blackrock Summoners, Champions and Trackers (level 22-25, not elite) camp in the north-west of Redridge and drop the Summoner's Salt; you need 14. Two elite Blackrock Shadowcasters (22-23) stand at the cave mouth at the camp's east end: pull around them. The Blackrock camps east of Lakeshire drop the salt too, but their Shadowcasters, Sentries and Hunters are elite (level 21-24), and so is Gath'Ilzogg (26): stay in the north-west.
   collect 209778 quest 78091.1 @23.5,12.0 live
 
 step Back to Ursula
@@ -72,14 +81,14 @@ step Back to Ursula
 
 step Motes of Mannoroth
   zone Ashenvale
-  tip Demon Fall Canyon is in south-east Ashenvale. The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds in it drop the Motes of Mannoroth.
+  tip Demon Fall Canyon is in south-east Ashenvale, east of Splintertree Post (a Horde camp: go round it). The Mannoroc Lashers, Searing Infernals, Felguards and Legion Hounds (level 29-30, not elite) drop the Motes of Mannoroth; you need 12. Below about 27 they are hard alone: come with a second player or later. Felguards knock you down, Lashers cast Shadow Bolt and Immolate, Infernals keep a fire shield up. They respawn in five minutes.
   collect 209779 quest 78092.1
 
 step The Spear of Mannoroth
-  tip The Spear of Mannoroth stands at the east end of Demon Fall Canyon. Shatter the orb on it; the Shattered Orb appears beside it.
+  tip The Spear of Mannoroth stands at the east end of Demon Fall Canyon. Hand in the motes at the spear with the Althalaxx Orb in your bags: the orb shatters, and the Shattered Orb beside it starts the last quest.
   turnin 78092                        -- Spear of Mannoroth
   accept 78093                        -- from the Shattered Orb
 
 step Return to Delgren
-  tip Back to Maestra's Post.
+  tip Back to Delgren at Maestra's Post in western Ashenvale, across the whole zone.
   turnin 78093                        -- Delgren the Purifier: Cloak of the Divine Storm

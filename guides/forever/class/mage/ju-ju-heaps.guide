@@ -1,36 +1,94 @@
 guide forever/class/mage/ju-ju-heaps
-title Ju-Ju Heaps
+title Ley or Arcane Staff or Orb (Horde)
 category Class
 class Mage
 folder Mage
 faction Horde
 levels 10-12
 zone Durotar
-keywords Un'thuwa, Uthel'nay, Thurston Xane, Sen'jin Village, Echo Isles, Zalazane, Ley Staff, Ley Orb, Mage, class weapon
-reward item 9513 7508
-why A staff or an orb at 10 for Horde mages, worth a short trip back to the Echo Isles.
+keywords Speak with Un'thuwa, Ju-Ju Heaps, Un'thuwa, Uthel'nay, Thurston Xane, Sen'jin Village, Echo Isles, Zalazane, Speak with Anastasia, The Balnir Farmstead, Balnir Snapdragons, Anastasia Hartwell, Cain Firesong, Brill, Ley Staff, Ley Orb, Arcane Staff, Arcane Orb, Mage, class weapon
+reward item 7508 9513
+reward item 7507 9514
+why A staff or an off-hand orb at 10: Orcs and Trolls on the Echo Isles, the Undead at a Tirisfal farm.
 
-# Ju-Ju Heaps (1884): the level 10 Horde mage quest from Un'thuwa in Sen'jin
-# Village, for a Ley Staff or Ley Orb.
-# Sources: quests.json, npcs.json and objects.json (Un'Thuwa, the Ju-Ju Heaps on
-# the Echo Isles); Forever's quest data (quest 1884,
-# checked 2026-10-14) for the races (Orc, Undead, Troll) and the reward choice;
-# the quest text for Zalazane's huts.
-# Why a Class guide: the Durotar route (horde/orc-troll/01-durotar) crosses the
-# Echo Isles at about level 8, before the quest opens, and leaves for the
-# Barrens from Razor Hill at 12; going back south for it costs a separate trip.
-# Undead mages take their own level 10 quest, The Balnir Farmstead (1882), in
-# Tirisfal. The breadcrumb Speak with Un'thuwa (1883, Uthel'nay in Orgrimmar or
-# Thurston Xane in Thunder Bluff) is not needed: Un'thuwa offers Ju-Ju Heaps
-# without it.
+# The Horde mage weapon quests at level 10, two chains that shut each other
+# out (quests.json `excl`: 1881 and 1883 exclude each other's chain, 1882 and
+# 1884 each other), so every Horde mage gets one:
+# - Orcs and Trolls: Ju-Ju Heaps (1884) from Un'thuwa in Sen'jin Village: Ley
+#   Orb (7508) or Ley Staff (9513). The breadcrumb Speak with Un'thuwa (1883,
+#   Uthel'nay in Orgrimmar or Thurston Xane in Thunder Bluff) is not needed:
+#   Ju-Ju Heaps has no prerequisite and Un'thuwa offers it on sight.
+# - Undead: Speak with Anastasia (1881, Cain Firesong in Brill) and The Balnir
+#   Farmstead (1882, Anastasia Hartwell in the Undercity): Arcane Orb (7507) or
+#   Arcane Staff (9514). Trolls may take this one too (race mask Undead,
+#   Troll), but the Echo Isles are next door to their start.
+# Sources: quests.json, npcs.json, objects.json and items.json (Un'thuwa, the
+# seven Ju-Ju Heaps 102986 on the Echo Isles, the Balnir Snapdragons 102985);
+# quest_template in Forever's server data for the reward choices;
+# data/local/mechanics (quest-steps, quest-notes, checked 2026-10-20) for the
+# heaps inside the raised huts and their 30 second respawn, and the six
+# snapdragon plants with a 3 second respawn that need no Herbalism.
+# Why a Class guide: the Durotar route crosses the Echo Isles at about level 8,
+# before the quest opens, and leaves for the Barrens from Razor Hill at 12; the
+# Undead route (horde/undead/01-tirisfal-glades) carries 1881 and 1882.
+# Each race takes its home town's quest; the steps after the pick-up follow
+# whichever quest is in the log (`when onquest`), so a Troll who took Cain's
+# quest or an Undead who took Un'thuwa's is guided too.
+# Lint warns that The Balnir Farmstead is shut out once Ju-Ju Heaps is taken:
+# true, and why the Balnir steps only run `when onquest` 1881/1882; no
+# character plays both.
+
+# ---------------------------------------------------------------- Pick up: Sen'jin or Brill
 
 step Un'thuwa
-  tip Un'thuwa stands in Sen'jin Village, on the Durotar coast south of Razor Hill.
-  accept 1884                                 -- Un'Thuwa
+  only Orc,Troll
+  zone Durotar
+  tip Un'thuwa, the troll mage trainer, stands in Sen'jin Village on the Durotar coast south of Razor Hill. Orcs coming from Orgrimmar can take Speak with Un'thuwa from Uthel'nay in the Valley of Spirits first; it is only a pointer and Un'thuwa gives Ju-Ju Heaps without it. Taking it shuts out the Undercity's Balnir Farmstead.
+  level 10
+  accept 1884 npc 5880                        -- Un'thuwa
+
+step Cain Firesong (Brill)
+  only Undead
+  zone Tirisfal Glades
+  tip At 10 Cain Firesong, the Brill mage trainer in the Gallows' End Tavern, sends you to Anastasia Hartwell in the Undercity. Taking it shuts out Ju-Ju Heaps; if Speak with Un'thuwa (from Orgrimmar or Thunder Bluff) is in your log, abandon it first or Cain cannot give you this one. (A Troll who took this one in Brill follows the Balnir steps; an Undead who took Ju-Ju Heaps in Sen'jin, the Echo Isles steps.)
+  level 10
+  accept 1881 npc 2128                        -- Cain Firesong
+
+# ---------------------------------------------------------------- The Echo Isles
 
 step The Ju-Ju Heaps
-  tip Wade across to the Echo Isles, south-east of Sen'jin. Zalazane placed the heaps among his huts on the main isle: click a heap to destroy it.
-  interact 102986 quest 1884.1                -- Ju-Ju Heap
+  only Orc,Troll,Undead
+  when onquest 1884
+  zone Durotar
+  tip Wade across the shallows south-east of Sen'jin to the main Echo Isle, where Zalazane (level 10) holds his camp with Hexed and Voodoo Trolls (level 8). The heaps you can click are the skull piles inside the raised huts around his camp, one hut holding two, more in the huts to the north; the skulls lying on the ground outside cannot be clicked. Destroy four. There are seven and each comes back 30 seconds after it is destroyed.
+  interact 102986 quest 1884.1                -- Ju-Ju Heap, four of them
 
 step Back to Un'thuwa
-  turnin 1884 choose 9513 7508                -- Un'Thuwa
+  only Orc,Troll,Undead
+  when onquest 1884
+  zone Durotar
+  tip The orb is an off-hand for a one-hand weapon; the staff is a two-hander.
+  turnin 1884 choose 7508 9513                -- Un'thuwa: Ley Orb or Ley Staff
+
+# ---------------------------------------------------------------- The Balnir Farmstead
+
+step Anastasia Hartwell
+  only Undead,Troll
+  when onquest 1881
+  zone Undercity
+  tip Walk south from Brill to the Ruins of Lordaeron and take the lift down into the Undercity. Anastasia stands in the Magic Quarter, the north-east ring of the city.
+  turnin 1881                                 -- Anastasia Hartwell
+  accept 1882
+
+step The Balnir Farmstead
+  only Undead,Troll
+  when onquest 1882
+  zone Tirisfal Glades
+  tip The Balnir Farmstead lies south-east of Brill, south of the road east to the Bulwark. The snapdragons grow in the farm's garden and look more like bushes than flowers; any of them will do and you need no Herbalism. They come back within seconds.
+  collect 7227 quest 1882.1                   -- Balnir Snapdragons
+
+step Back to Anastasia
+  only Undead,Troll
+  when onquest 1882
+  zone Undercity
+  turnin 1882 choose 7507 9514                -- Anastasia Hartwell: Arcane Orb or Arcane Staff

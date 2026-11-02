@@ -1,8 +1,8 @@
 //! What a world is built from, one digest per input (port of world.js worldInputs,
 //! gridFingerprint, handoverKey and inputsHash): the builder version, the walking grid, every
 //! data/forever file the builder reads (by content; never meta.json), the handover rules, the
-//! gameobject facts and the client instance tables. Digests are SHA-1 hex like the JS ones, so
-//! `dataHash` equals the JS world's.
+//! gameobject facts, the graveyards and the client instance tables. Digests are SHA-1 hex like the
+//! JS ones (the graveyards' is Forge's own).
 
 use crate::json::{num, stringify};
 use forge_core::ContentHasher;
@@ -20,6 +20,21 @@ pub fn handover_key(rules: &[Value]) -> String {
 			let id = crate::json::js_str(r.get("id"));
 			let n = |k: &str| crate::json::jnum(num(r.get(k)));
 			(id.clone(), json!([id, n("quest"), n("objective"), n("item"), n("npc")]))
+		})
+		.collect();
+	rows.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
+	stringify(&Value::Array(rows.into_iter().map(|r| r.1).collect()))
+}
+
+/// The giver rules' [id, quest, npc], sorted by id.
+pub fn giver_key(rules: &[Value]) -> String {
+	let mut rows: Vec<(String, Value)> = rules
+		.iter()
+		.filter(|r| r.get("kind").and_then(Value::as_str) == Some("giver"))
+		.map(|r| {
+			let id = crate::json::js_str(r.get("id"));
+			let n = |k: &str| crate::json::jnum(num(r.get(k)));
+			(id.clone(), json!([id, n("quest"), n("npc")]))
 		})
 		.collect();
 	rows.sort_by(|a, b| a.0.encode_utf16().cmp(b.0.encode_utf16()));
@@ -96,8 +111,11 @@ mod native {
 		let rules_doc: Value = serde_json::from_slice(&std::fs::read(root.join("data/rules.json"))?)?;
 		let rules = rules_doc.get("rules").and_then(Value::as_array).cloned().unwrap_or_default();
 		out.push(("handover".into(), content_key(handover_key(&rules).as_bytes())));
+		out.push(("givers".into(), content_key(giver_key(&rules).as_bytes())));
 		let facts = sources.join(format!("cmangos/{}/gameobject_facts.json", crate::data::CMANGOS_REV12));
 		out.push(("objects".into(), file_hash(&facts).unwrap_or_else(|| "-".into())));
+		let graves = sources.join(format!("cmangos/{}/graveyards.json", crate::data::CMANGOS_REV12));
+		out.push(("graveyards".into(), file_hash(&graves).unwrap_or_else(|| "-".into())));
 		let src = crate::data::DirSource::repo(root);
 		let areas = match crate::data::forever_build(&src) {
 			Some(b) => {

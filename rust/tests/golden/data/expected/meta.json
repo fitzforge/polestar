@@ -23,7 +23,7 @@
 			]
 		},
 		{
-			"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName) via wago.tools",
+			"name": "World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName, SpellEffect) via wago.tools",
 			"url": "https://wago.tools/db2?build=1.60.1.70450",
 			"revision": "wow_classic_beta 1.60.1.70450",
 			"license": "Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only",
@@ -39,7 +39,8 @@
 				"https://wago.tools/db2/Map/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70450",
 				"https://wago.tools/db2/Item/csv?build=1.60.1.70450",
-				"https://wago.tools/db2/SpellName/csv?build=1.60.1.70450"
+				"https://wago.tools/db2/SpellName/csv?build=1.60.1.70450",
+				"https://wago.tools/db2/SpellEffect/csv?build=1.60.1.70450"
 			]
 		},
 		{
@@ -120,6 +121,7 @@
 	"warnings": [
 		"pfQuest: <input>/pfQuest is not a git checkout; revision unknown",
 		"uiMap 947: spans 2 continents (0, 1); no single Era frame",
-		"forever uiMap 947: spans 2 continents (0, 1); no single Era frame"
+		"forever uiMap 947: spans 2 continents (0, 1); no single Era frame",
+		"CMaNGOS classic-db creature walks unavailable (--offline: missing cached <input>/sources/cmangos/22b51464f162/moves.json); moves.json not written, so walking NPCs get no walk area"
 	]
 }

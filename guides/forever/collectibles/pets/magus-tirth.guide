@@ -2,17 +2,17 @@ guide forever/collectibles/pets/magus-tirth
 title Ancona Chicken
 category Collectibles
 folder Companion pets · Vendors
-keywords Magus Tirth, Ancona Chicken, chicken, Mirage Raceway
+keywords Magus Tirth, Ancona Chicken, chicken, Mirage Raceway, Shimmering Flats
 collects 11023
 levels 1-60
 zone Thousand Needles
 
 # Magus Tirth's Ancona Chicken at the Mirage Raceway.
-# Sources: items.json / npcs.json (vendor); Forever client 1.60.1.70338 via
-# wago.tools (ItemSparse prices; every pet item teaches its companion when
-# used).
+# Sources: items.json / npcs.json (vendor; Magus Tirth is friendly to both
+# sides); Forever's client data 1.60.1.70532 (ItemSparse price: 1g; every pet
+# item teaches its companion when used).
 
 step Magus Tirth
-  tip Magus Tirth at the Mirage Raceway, in the Shimmering Flats of south-eastern Thousand Needles, sells the Ancona Chicken (1g). Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Magus Tirth at the Mirage Raceway, the goblin and gnome racetrack in the Shimmering Flats of south-eastern Thousand Needles, sells the Ancona Chicken (1g) to both sides. The nearest flight paths are Freewind Post (Horde) and Gadgetzan in Tanaris (both sides); from Gadgetzan, ride north into the Shimmering Flats. Each pet item teaches its companion when you use it; the goal stays ticked afterwards.
   vendor 6548                         -- Magus Tirth
   buy 11023 npc 6548 optional         -- Ancona Chicken, 1g
