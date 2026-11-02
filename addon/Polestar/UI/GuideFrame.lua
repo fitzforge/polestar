@@ -3121,8 +3121,12 @@ local function build()
 	xp.Icon:SetPoint("LEFT", xp, "LEFT", PAD, -1)
 	xp.Text = T(xp, "small", "textDim")
 	xp.Text:SetPoint("LEFT", xp.Icon, "RIGHT", 7, 0)
+	-- (A narrow window cuts the line with "..."; the hover shows all of it.)
+	xp.Text:SetPoint("RIGHT", xp, "RIGHT", -PAD, 0)
+	xp.Text:SetJustifyH("LEFT")
+	xp.Text:SetWordWrap(false)
 	xp:SetScript("OnEnter", function(self)
-		if self.psSummary then W.Tooltip(self, tooltipAnchor(), L["Experience"], { self.psSummary }) end
+		if self.psSummary or self.psLine then W.Tooltip(self, tooltipAnchor(), L["Experience"], { self.psLine, self.psSummary }) end
 		GF.HoverIn()
 	end)
 	xp:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -3340,7 +3344,9 @@ function GF.UpdateXP(stats)
 	local had = GF.xp.psHas
 	GF.xp.psHas = #parts > 0
 	if GF.xp.psHas then
-		GF.xp.Text:SetText(table.concat(parts, "  \194\183  "))
+		local line = table.concat(parts, "  \194\183  ")
+		GF.xp.Text:SetText(line)
+		GF.xp.psLine = line
 		local ok, summary = pcall(function() return Q.XP and Q.XP.Summary and Q.XP.Summary(stats) end)
 		GF.xp.psSummary = ok and summary or nil
 	end

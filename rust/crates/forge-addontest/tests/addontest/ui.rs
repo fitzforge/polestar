@@ -1256,7 +1256,8 @@ fn xp_pace_from_the_qol_tracker_rate_and_time_to_level_hidden_when_off_or_maxed(
 		emit({ on = on, tip = tip, compact = compact, back = back, maxed = maxed, off = xp:IsShown(), h = F:GetHeight() == h0 })"#)
 	.remove(0);
 	assert_eq!(out["on"], json!({ "shown": true, "text": "3.4k XP/h  \u{b7}  1h 05m to level", "taller": true }));
-	assert_eq!(out["tip"], json!(["Experience", "Level 12 45.3%"]));
+	// The hover repeats the whole line (a narrow window cuts it with "...") above the summary.
+	assert_eq!(out["tip"], json!(["Experience", "3.4k XP/h  \u{b7}  1h 05m to level", "Level 12 45.3%"]));
 	assert_eq!(out["compact"], false);
 	assert_eq!(out["back"], true);
 	assert_eq!(out["maxed"], false);

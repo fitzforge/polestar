@@ -1967,6 +1967,14 @@ end)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "ui.pickerFaction" or path == "" or path == "ui" then P.Render() end
 end)
+-- The filter is account-wide: a character of the other faction logging in
+-- after "Horde" or "Alliance" was picked would open on the wrong side's
+-- guides. Back to "auto" (this character's faction) at login; "All" stays.
+ns.OnLogin(function()
+	local f = ns.Get("ui.pickerFaction")
+	local mine = UI.PlayerFaction()
+	if mine and (f == "Alliance" or f == "Horde") and f ~= mine then ns.Set("ui.pickerFaction", "auto") end
+end)
 local function guidesChanged()
 	factCache = {}
 	if questContext then questContext.steps = {} end
