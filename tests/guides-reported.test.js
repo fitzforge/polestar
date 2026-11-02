@@ -137,8 +137,11 @@ emit({points=out,done=done})`,
 				assert.ok(p, `${cls}: the active gnoll objective has an arrow`);
 				assert.equal(p.map, 1412);
 				assert.equal(p.quest, 745);
-				assert.equal(p.npc, [2949, 2949, 2950, 2950, 2951, 2951][i]);
-				assert.equal(p.oi, [1, 1, 2, 2, 3, 3][i]);
+				// The objectives finished by snapshot i: 2949 (oi 1) after the second, 2950 (oi 2) after the fourth.
+				// The arrow leads to an unfinished one, never a finished one (PR #632), in whichever order.
+				const open = [[2949, 2950, 2951], [2949, 2950, 2951], [2950, 2951], [2950, 2951], [2951], [2951]][i];
+				assert.ok(open.includes(p.npc), `${cls}: arrow ${i} leads to an unfinished objective ${open}, not ${p.npc}`);
+				assert.equal(p.oi, [2949, 2950, 2951].indexOf(p.npc) + 1, `${cls}: arrow ${i}'s objective is ${p.npc}'s`);
 				assert.equal(typeof p.x, 'number');
 				assert.equal(typeof p.y, 'number');
 			}
@@ -264,8 +267,8 @@ const CAVES = [
 	// Pynte (#328): both mouths where the walk in reaches the cave's floor on the navigation grid, not a Classic comment's point beside it.
 	{ cave: 'Shadowthread Cave', guide: TELDRASSIL, target: (g) => g.t === 'collect' && g.item === 5167, mouth: { map: 1438, x: 56.69, y: 31.29 } },
 	{ cave: 'Fel Rock', guide: TELDRASSIL, target: (g) => g.t === 'collect' && g.item === 5221, mouth: { map: 1438, x: 54.59, y: 52.12 } },
-	// The Webbed Victims are freed inside the cave.
-	{ cave: "Night Web's Hollow", guide: TIRISFAL, target: (g) => g.t === 'goto' && g.x === 24.8 && g.y === 59.6, mouth: { map: 1420, x: 26, y: 60 } },
+	// The Webbed Forsaken are freed inside the cave: the cocoons' kill goal (#735).
+	{ cave: "Night Web's Hollow", guide: TIRISFAL, target: (g) => g.t === 'kill' && g.npc === 271961, mouth: { map: 1420, x: 26, y: 60 } },
 ];
 
 for (const c of CAVES) {
@@ -390,8 +393,12 @@ test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker a
 	const list = goals(TIRISFAL);
 	const keep = [246389, 259190]; // Hilda the Breaker, Ephram Barbaro
 	const mage = list.filter(forClass('MAGE'));
-	assert.deepEqual(mage.filter(({ goal }) => keep.includes(goal.npc)).map(({ goal }) => `${goal.t} ${goal.quest} (${goal.npcName})`), [], 'a Mage meets neither giver');
-	assert.deepEqual(mage.filter(({ goal }) => goal.quest === 99152 || goal.quest === 99153).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nor any goal of their quests');
+	// Only required goals: Hilda's and Ephram's optional accepts after A Righteous Cause are open to
+	// every class, and a Mage is never required to meet them (5e6b42b2a).
+	assert.deepEqual(mage.filter(({ goal }) => keep.includes(goal.npc) && !goal.optional).map(({ goal }) => `${goal.t} ${goal.quest} (${goal.npcName})`), [], 'a Mage meets neither giver');
+	// Their bones and crystal are quest-tagged collects in Shadowvale's step for everyone: they count only
+	// for a player holding the quest, so with no required accept or hand-in a Mage never does them.
+	assert.deepEqual(mage.filter(({ goal }) => (goal.quest === 99152 || goal.quest === 99153) && !goal.optional && ['accept', 'turnin'].includes(goal.t)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nor any required goal of their quests');
 	// The Shadowvale elixir bottles stay for everyone (at asserts the goal is there).
 	at(mage, 'collect 268801 (Bottle of Whispering Elixir)', (g) => g.t === 'collect' && g.quest === 95314);
 	const paladin = list.filter(forClass('PALADIN'));
@@ -522,11 +529,11 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Ca
 	assert.equal(list[camping].step, list[at(list, 'turnin 384 (Beer Basted Boar Ribs)', is('turnin', 384))].step, 'on the same visit as the ribs');
 });
 
-test(`EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": Zarrin in Teldrassil and the Skyborne visits to the Horde leaders`, { skip }, () => {
+test(`EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": the Skyborne visits to the Horde leaders`, { skip }, () => {
 	// The data counts these as kill credit on the NPC, so the goal stays a
 	// `kill` tracking the objective; its text is what the guide window shows.
 	const talks = [
-		[TELDRASSIL, 96634, 1, 'Zarrin'],
+		// (Zarrin's Camping 101: Cooking is now done by training Cooking from him: #743.)
 		['forever/horde/03-silverpine-forest.guide', 93739, 1, 'Nazgrel'],
 		['forever/horde/03-silverpine-forest.guide', 93739, 2, "Vol'jin"],
 		[STONETALON, 93739, 4, 'Lady Sylvanas Windrunner'],
@@ -703,7 +710,8 @@ test(`${TIRISFAL}: Pledge-Resupply's report: The Argent Emissary points to Death
 });
 
 test(`a Priest's report: an event or escort objective holds its step until the quest is complete`, { skip }, () => {
-	for (const [guide, quest] of [[TIRISFAL, 99134], [TIRISFAL, 98389], [TIRISFAL, 99144], ...DUROTARS.map((guide) => [guide, 99123]), [TELDRASSIL, 99053]]) {
+	// (A Light in the Darkness, 98389, frees the Webbed Forsaken with a kill goal of the cocoons: #735.)
+	for (const [guide, quest] of [[TIRISFAL, 99134], [TIRISFAL, 99144], ...DUROTARS.map((guide) => [guide, 99123]), [TELDRASSIL, 99053]]) {
 		const list = goals(guide);
 		const accept = at(list, `${guide}: accept ${quest}`, is('accept', quest));
 		const complete = at(list, `${guide}: complete ${quest}`, is('complete', quest));
@@ -1618,7 +1626,10 @@ test('#171: every hearth is to an inn the guide binds at first', { skip }, () =>
 		for (const { step, goal } of goals(guide)) {
 			if (goal.t === 'sethome' && everyone({ step, goal })) bound.add(goal.location);
 			const key = `${guide} ${goal.location}`;
-			if (goal.t === 'hearth' && !bound.has(goal.location) && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
+			// A hearth only a player bound there sees (`when bound "<inn>"`, the walk there for the others
+			// after it) is the guide's own guard for a bind made in an earlier guide.
+			const guarded = (step.when || []).some((p) => p.k === 'bound' && !p.neg && p.name === goal.location);
+			if (goal.t === 'hearth' && !guarded && !bound.has(goal.location) && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
 		}
 	}
 	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
