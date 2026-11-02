@@ -213,8 +213,27 @@ fn conditions_classes_races_factions_negation_and_unknown_races() {
 	assert_eq!(g[1]["only"], json!({ "classes": null, "races": ["Scourge"], "factions": ["Horde"] }));
 	assert_eq!(g[2]["only"]["races"], json!(["Skyborne"]));
 	assert_eq!(g[3]["only"]["races"], json!(["Haranir"]));
-	assert_eq!(warnings.len(), 1);
-	assert!(warnings[0].starts_with(&format!("{}: unknown race \"Haranir\"", line_of(&text, "  train only Haranir"))), "{}", warnings[0]);
+	assert_eq!(warnings.len(), 2);
+	assert!(warnings[0].starts_with(&format!("{}: \"!Hunter,!Mage\" admits every class", line_of(&text, "  train only !Hunter,!Mage"))), "{}", warnings[0]);
+	assert!(warnings[1].starts_with(&format!("{}: unknown race \"Haranir\"", line_of(&text, "  train only Haranir"))), "{}", warnings[1]);
+}
+
+#[test]
+fn a_class_list_warns_only_when_its_negations_admit_every_class() {
+	let text = guide_text(&[
+		"step One",
+		"  only !Hunter, !Mage,Dwarf",
+		"  train only Hunter,!Hunter",
+		"  train only !Hunter",
+		"  train only !Hunter,!Hunter",
+		"  train only !Hunter,Warrior",
+		"  train only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid",
+	]);
+	let (_, errors, warnings) = parse3(&text);
+	assert!(errors.is_empty(), "{errors:?}");
+	assert_eq!(warnings.len(), 2, "{warnings:?}");
+	assert!(warnings[0].starts_with(&format!("{}: \"!Hunter,!Mage,Dwarf\" admits every class", line_of(&text, "  only !Hunter, !Mage,Dwarf"))), "{}", warnings[0]);
+	assert!(warnings[1].starts_with(&format!("{}: \"Hunter,!Hunter\" admits every class", line_of(&text, "  train only Hunter,!Hunter"))), "{}", warnings[1]);
 }
 
 #[test]

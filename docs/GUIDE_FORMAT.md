@@ -216,7 +216,9 @@ Modifiers, in any order after the positional arguments:
 Comma-separated names, case-insensitive:
 
 - Classes: `Warrior Paladin Hunter Rogue Priest Shaman Mage Warlock Druid`.
-  A class may be negated with `!` (`only !Hunter`).
+  A class may be negated with `!` (`only !Hunter`). Classes OR together, so
+  `only !Hunter,!Mage` admits every class and lint warns: to leave several
+  classes out, list the classes the step is for.
 - Races: `Human Dwarf Gnome NightElf Orc Troll Tauren Undead Skyborne` (compiled
   to the client's race file names, UnitRace's second return; `Undead` →
   `Scourge`). Skyborne plays on both sides: a guide's `faction` or an `only`

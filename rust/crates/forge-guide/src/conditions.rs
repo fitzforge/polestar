@@ -104,7 +104,13 @@ pub fn parse_conditions(list: &str, allow: &str) -> Conditions {
 		}
 	}
 	let classes = match class_set(&pos, &neg) {
-		Some(set) => arr_of(&set),
+		Some(set) => {
+			// Classes OR together: a negation contributes every class but itself.
+			if !neg.is_empty() && set.len() == CLASS_FILES.len() {
+				warnings.push(format!("\"{list}\" admits every class: classes OR together, so to leave several out, list the classes it is for"));
+			}
+			arr_of(&set)
+		}
 		None => V::Null,
 	};
 	let value = obj! {
