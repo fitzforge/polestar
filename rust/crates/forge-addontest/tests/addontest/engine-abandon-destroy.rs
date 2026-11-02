@@ -120,3 +120,47 @@ fn a_destroy_goal_is_done_once_the_item_is_out_of_the_bags_and_stays_done_for_it
 	assert_eq!(out[1]["goals"][0], "done:Destroy Hearthstone");
 	assert_eq!(out[2]["goals"][0], "done:Destroy Hearthstone");
 }
+
+// Steps of one goal each: accept, abandon and turnin of A Threat Within (#657).
+fn route(kinds: &[&str]) -> String {
+	let goal = |k: &str| match k {
+		"accept" => r#"{ t = "accept", quest = 783, title = "A Threat Within", npc = 823, npcName = "Deputy Willem", map = 1429, x = 48.2, y = 42.0 }"#,
+		"abandon" => r#"{ t = "abandon", quest = 783, title = "A Threat Within" }"#,
+		_ => r#"{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 }"#,
+	};
+	let steps = kinds.iter().enumerate().map(|(i, k)| format!("{{ title = \"Step {}\", goals = {{ {} }} }}", i + 1, goal(k))).collect::<Vec<_>>().join(",\n\t\t");
+	format!("\nPolestar.RegisterGuide({{\n\tid = \"test/abandon\", pack = \"test\", title = \"Abandon\", minLevel = 1, maxLevel = 10,\n\tsteps = {{\n\t\t{steps}\n\t}},\n}})\n")
+}
+
+#[test]
+fn a_passed_abandon_stays_done_when_the_guide_takes_the_quest_again() {
+	// The guide drops the quest, then takes it again and hands it in.
+	let out = run(Run {
+		shape: |_| route(&["accept", "abandon", "accept", "turnin"]),
+		on_quest: false,
+		script: r#"
+			stub.world.accept(783, {}); flush()
+			stub.world.abandon(783); flush()
+			stub.world.accept(783, {}); flush()
+			emit({ live = E.GetLiveStep(), s2 = E.GetStepView(2).status })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "live": 4, "s2": "done" }));
+}
+
+#[test]
+fn an_abandon_of_a_quest_the_character_never_had_is_done_at_once_and_stays_done_once_the_guide_takes_it() {
+	let out = run(Run {
+		shape: |_| route(&["abandon", "accept", "turnin"]),
+		on_quest: false,
+		script: r#"
+			emit({ live = E.GetLiveStep(), s1 = E.GetStepView(1).goals[1].status })
+			stub.world.accept(783, {}); flush()
+			emit({ live = E.GetLiveStep(), s1 = E.GetStepView(1).status })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "live": 2, "s1": "done" }));
+	assert_eq!(out[1], json!({ "live": 3, "s1": "done" }));
+}

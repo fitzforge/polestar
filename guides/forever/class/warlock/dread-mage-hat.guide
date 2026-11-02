@@ -1,0 +1,55 @@
+guide forever/class/warlock/dread-mage-hat
+title Dread Mage Hat
+category Class
+class Warlock
+folder Warlock
+faction Alliance
+race Human, Gnome
+levels 25-30
+zone Stormwind City
+keywords A Noble Brew, You Have Served Us Well, Zardeth of the Black Claw, Zggi, Lord Baurles K. Wishock, Tear of Tilloa, Musquash Root, Black Claw Stout, Dread Mage Hat, Slaughtered Lamb, Duskwood, Wetlands, Warlock, class armor
+reward item 3556
+why A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays warlocks this extra.
+
+# You Have Served Us Well (397) is the warlocks' follow-up to Zardeth of the
+# Black Claw's A Noble Brew (335, 336), an errand any Alliance player can do:
+# Zardeth, in the cellar of the Slaughtered Lamb, wants a Tear of Tilloa from
+# Stalvan's garden in Duskwood and a Musquash Root from the falls below the
+# Stonewrought Dam in the Wetlands (335), then sends the Black Claw Stout to
+# Lord Baurles K. Wishock in Stormwind Keep (336). Only then does he offer
+# warlocks 397: his imp Zggi hands over the Dread Mage Hat. 335 and 336 have
+# no class, so this is a warlock class chain only through 397 (quests.json:
+# 397 classes Warlock, races Human and Gnome, pre 336; reward 3556).
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json) for the
+# givers, the flower (Duskwood 78.4,36.0) and the root (Wetlands 64.8,75.3),
+# one spawn each, back within seconds; Forever's quest pages for 335 and 397;
+# the quest notes (data/local/mechanics) for where they lie; no leveling route
+# takes A Noble Brew.
+# INGAME: Is the Tear of Tilloa still reachable in Stalvan's garden at Manor Mistmantle (Duskwood 78.4,36.0)? Player notes on Forever say it may lie under the floor of the rebuilt house; no web source settles it.
+
+step Zardeth of the Black Claw
+  tip At 25 Zardeth of the Black Claw, in the cellar of the Slaughtered Lamb in the Mage Quarter (beside the warlock trainers), wants two ingredients for a brew. Do it when your leveling takes you to Duskwood and the Wetlands.
+  level 25
+  accept 335                          -- Zardeth of the Black Claw
+
+step Tear of Tilloa
+  zone Duskwood
+  tip Manor Mistmantle stands in the north-east of Duskwood, north of Darkshire. The Tear of Tilloa is a small white flower low in the grass of the fenced garden beside Stalvan's house: hard to see, so sweep the garden with your mouse. Fetid Corpses (level 29) wander the grounds and come quickly: at 25, send your voidwalker at the nearest one, grab the flower and leave. Stalvan Mistmantle (32) is inside the house; leave him alone.
+  collect 2779 quest 335.1            -- Tear of Tilloa
+
+step Musquash Root
+  zone Wetlands
+  tip The root grows at the water's edge in the pool below the small falls east of Dun Algaz, beside the Dark Iron cave below the Stonewrought Dam: a tall, spiky wooden root, not at the foot of the dam itself.
+  collect 2784 quest 335.2            -- Musquash Root
+
+step A Noble Brew
+  zone Stormwind City
+  tip Back to Zardeth. He brews the Black Claw Stout and gives it to you for Lord Baurles K. Wishock in the Hall of Petitioners, the first hall on the right inside Stormwind Keep.
+  turnin 335                          -- Zardeth of the Black Claw
+  accept 336
+  turnin 336                          -- Lord Baurles K. Wishock, Stormwind Keep
+
+step You Have Served Us Well
+  tip Back to Zardeth once more: he offers warlocks a reward, which his imp Zggi, standing beside him, hands over.
+  accept 397                          -- Zardeth of the Black Claw
+  turnin 397                          -- Zggi: Dread Mage Hat

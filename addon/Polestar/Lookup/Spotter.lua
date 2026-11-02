@@ -29,7 +29,8 @@
 --     PLAYER_TARGET_CHANGED and UPDATE_MOUSEOVER_UNIT (UnitDocumentation.lua).
 --
 -- Item tooltips (Hooks.ItemLines) get the best one or two ranked sources and
--- "Alt-click: guide me" when lookup.tooltip is on. The Codex pack is loaded
+-- "Alt-click: guide me" when lookup.tooltip is on and Alt-click would guide
+-- (a mount: only with a curated guide). The Codex pack is loaded
 -- on the first tooltip that needs it out of combat (Data.Pack never loads in
 -- combat). Everything here is off with lookup.enabled.
 
@@ -173,7 +174,8 @@ function Lookup.ItemTooltip(tooltip, link, itemID)
 		ns.Hooks.AddLine(tooltip, L["No longer obtainable"], nil, rr, rg, rb)
 		return
 	end
-	local list = Lookup.Sources(item.kind or "item", itemID, true)
+	local kind = item.kind or "item"
+	local list = Lookup.Sources(kind, itemID, true)
 	if #list == 0 then return end
 	local H = ns.Hooks
 	local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
@@ -182,7 +184,9 @@ function Lookup.ItemTooltip(tooltip, link, itemID)
 		local right = sourceText(row)
 		H.AddLine(tooltip, L["From"] .. " " .. (row.label or ""), right, lr, lg, lb, rr, rg, rb)
 	end
-	if ns.Get("lookup.altClick") and (guideable(list) or Lookup.CuratedGuide(item.kind or "item", itemID)) then
+	-- A mount is guided to only by a curated guide (Lookup.Guide); Alt-click
+	-- opens its Lookup page otherwise, so the line promises nothing.
+	if ns.Get("lookup.altClick") and ((guideable(list) and not Lookup.IsMount(item)) or Lookup.CuratedGuide(kind, itemID)) then
 		H.AddLine(tooltip, L["Alt-click: guide me"], nil, rr, rg, rb)
 	end
 end

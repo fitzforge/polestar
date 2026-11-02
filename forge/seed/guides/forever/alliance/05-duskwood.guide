@@ -1,0 +1,265 @@
+guide forever/alliance/05-duskwood
+title Duskwood
+faction Alliance
+levels 22-26
+zone Duskwood
+next forever/alliance/06-ashenvale
+
+# Duskwood, Alliance ~22.7 to ~25.4.
+#
+# Route from the simulator's consensus Alliance route (Human export, visit 5:
+# Duskwood 22.7-25.4), written out as a playable guide; not play-tested on
+# Forever yet.
+#
+# Flow: Darkshire (every quest giver, the Bronze Tube from Herble) -> the
+# Tranquil Gardens Cemetery -> Darkshire -> west along the road: Watcher
+# Dodds, Raven Hill (Memory of Valor, Skeletal Horrors and Fiends), Sven's
+# camp, the Raven Hill Cemetery and Abercrombie (wolves, spiders, ghouls) ->
+# back east: Watcher Dodds, the Yorgen Farmstead -> hearth to Darkshire, Blind
+# Mary -> west: Abercrombie, Sven -> Darkshire -> the
+# Skeletal Horrors south-east of town (Rot Blossoms) -> Darkshire -> west: Abercrombie, the
+# ghouls, Jitters, Sven (the end: ride north through Elwynn to Stormwind for
+# training, Shamans in Ironforge by the Deeprun Tram, and the Auberdine boat
+# from Stormwind Harbor, where the next guide starts).
+#
+# Deviations from the export:
+# - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
+#   machines in Stonetalon (a 1-2% drop). Herble Baubbletump sells it in
+#   Darkshire, next to Viktori; the turn-in stays where the export has it, in
+#   the Duskwood return (07-thousand-needles).
+# - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
+#   (Lars stands beside Sven) instead of walking back west for it.
+# - Hearthstone: the export hearths twice on the first loop (23.7 and 24.4);
+#   here once from the Yorgen Farmstead and once after the second western loop,
+#   so the cooldown allows both.
+# - The Darkshire flight path and hearth bind belong to the export's Redridge
+#   visit (it arrives here bound); repeated in the first step in case you come
+#   in without them.
+# - Dropped Awaiting Word (236): a no-XP breadcrumb to Watcher Callahan at
+#   Manor Mistmantle, a detour north the route never passes otherwise.
+#
+# Class quests: Rogues finish Mathias and the Defias with Klaven's Tower
+# (2360, 2359, Poisons) at the end: Agent Kearnen and the tower stand just
+# over the Westfall border from Raven Hill, and Mathias Shaw is in Stormwind
+# on the way to the boat. Optional for Rogues there: The Touch of Zanzil
+# (2607-2609, Doc Mixilpixil in the Barracks cellar; Wildflowers, a Leaded
+# Vial and a Bronze Tube from Stormwind vendors, the thread in the city),
+# 1,305 XP without leaving Stormwind.
+# Human Paladins hand the Defias Script (1787, from Henze Faulk in
+# 04-redridge-mountains) to Gazin Tenorm at the Stormwind stop and learn
+# Redemption from Duthorian Rall (1788).
+#
+# Left out (not in the export): Jitters' Growling Gut and Dusky Crab Cakes
+# (163, 5, 93), Seasoned Wolf Kabobs (90: Cooking), The Weathered Grave chain
+# (225: ends at the elite Mor'Ladim), Ira's Dagger (96137: it starts from a
+# drop of the Lost Stalkers, Forever's new Duskwood mobs, at an unknown rate,
+# and is not in the new consensus either).
+# Refresh (2026): Merrick's Bow (96138) now has a known start, a drop of the
+# Lost Watchers; the new consensus does it at 28 with the ogres of Vul'Gol,
+# so it is an optional extra in 07-thousand-needles' Duskwood return. The
+# Valor Family (98447, a Forever quest listed for Duskwood, level 27)
+# is not in our data: no giver, objective or ender we can place, so it is
+# not added. The Valor Family 96139 (Sirra Von'Indi) stays as it is.
+# Checked and skipped: The Legend of Stalvan (98) needs 97 (the Stalvan
+# chain through Westfall and Elwynn, not on this route) and ends at Stalvan
+# Mistmantle, an elite.
+
+# ---------------------------------------------------------------- Darkshire
+
+step Darkshire
+  tip Follow the road south from Three Corners into Duskwood; Darkshire lies on the east side of the forest.
+  getfp "Darkshire" npc 2409              -- Felicia Maline, at the north end of town
+  sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
+  accept 101                              -- Madame Eva, in her house by the tavern
+  accept 56                               -- Commander Althea Ebonlocke, in the town hall
+  accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
+  accept 164                              -- Elaine Carevin, at the south end of town
+  accept 165
+
+step Viktori Prism'Antras
+  tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
+  accept 174                              -- Viktori Prism'Antras
+  buy 4371 x1 npc 3133                    -- Bronze Tube, from Herble Baubbletump: limited stock. Sold out? Neal Allen in Menethil Harbor sells it too.
+
+# ---------------------------------------------------------------- Tranquil Gardens
+
+step Tranquil Gardens Cemetery
+  tip Skeletal Warriors and Skeletal Mages walk among the graves south-east of Darkshire, below Blind Mary's house on the hill. Every skeleton in Duskwood can drop a Skeleton Finger.
+  kill 48 quest 56                        -- Skeletal Warrior
+  kill 203 quest 56                       -- Skeletal Mage
+  collect 2378 quest 101                  -- Skeleton Finger
+  collect 2794 optional                   -- An Old History Book: a rare drop from Duskwood's mobs
+  accept 337 optional
+
+step Darkshire
+  turnin 56                               -- Commander Althea Ebonlocke
+  accept 57
+  vendor nearest
+
+# ---------------------------------------------------------------- West
+
+step Watcher Dodds
+  tip Watcher Dodds stands south of the road, at the Yorgen Farmstead.
+  accept 245
+
+step Raven Hill
+  tip Continue west to Raven Hill. The Memory of Valor glows by the ruined house south of the road.
+  collect 281046 quest 96139              -- Raven Hill Tome, from the Memory of Valor
+
+step Raven Hill Cemetery, south
+  tip The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. Mor'Ladim, an elite, wanders the graves: keep away from him.
+  kill 202 quest 57                       -- Skeletal Horror
+  kill 531 quest 57                       -- Skeletal Fiend
+  collect 2378 quest 101                  -- Skeleton Finger
+
+step Sven's Camp
+  tip Follow the road north-west past the cemetery to Sven's camp on the far west edge of the forest. Lars stands beside Sven.
+  turnin 164                              -- Sven Yorgen
+  accept 95
+  accept 226                              -- Lars
+
+step Abercrombie
+  tip The hermit's shack stands in the woods north-east of the Raven Hill Cemetery.
+  turnin 165
+  accept 148
+
+step Wolves, spiders and ghouls
+  tip Rabid Dire Wolves roam the woods around the cemetery and Abercrombie, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.
+  kill 565 quest 226                      -- Rabid Dire Wolf
+  kill 213 quest 226                      -- Starving Dire Wolf
+  kill 539 quest 245                      -- Pygmy Venom Web Spider
+  collect 1130 quest 101                  -- Vial of Spider Venom
+  collect 1129 quest 101                  -- Ghoul Fang
+
+# ---------------------------------------------------------------- Back east
+
+step Watcher Dodds
+  tip Head back east along the road to the Yorgen Farmstead.
+  turnin 245
+
+step Yorgen Farmstead
+  tip The mound of loose dirt lies south of the farmhouse, by the old stump.
+  turnin 95                               -- Mound of loose dirt
+  accept 230
+
+step Darkshire
+  hearth "Darkshire"
+  turnin 96139                            -- Sirra Von'Indi
+  turnin 57                               -- Commander Althea Ebonlocke
+  turnin 101                              -- Madame Eva
+  turnin 148
+  accept 149
+  vendor nearest
+
+step Blind Mary
+  tip Her house stands on the hill south-east of Darkshire, above the Tranquil Gardens Cemetery.
+  turnin 149
+  accept 154
+
+step Madame Eva
+  turnin 154
+  accept 157
+
+# ---------------------------------------------------------------- West again
+
+step Abercrombie
+  tip Head west along the road once more.
+  turnin 157
+  accept 158
+
+step Sven's Camp
+  turnin 230                              -- Sven Yorgen
+  accept 262
+  turnin 226                              -- Lars
+
+step Back to Darkshire
+  tip Head back east to Darkshire.
+  turnin 262                              -- Madame Eva
+  accept 265
+  turnin 265                              -- Clerk Daltry, in the town hall
+  accept 266
+  turnin 266                              -- Tavernkeep Smitts, in the tavern
+  accept 453
+  turnin 158                              -- Tavernkeep Smitts
+  accept 156
+
+step Rot Blossoms
+  tip Skeletal Horrors walk the hillside between Darkshire and the Tranquil Gardens Cemetery, south-east of town; they drop the Rot Blossoms.
+  collect 1598 quest 156
+
+step Tavernkeep Smitts
+  turnin 156
+  accept 159
+  vendor nearest
+
+# ---------------------------------------------------------------- Raven Hill
+
+step Abercrombie
+  tip Head west to the hermit once more.
+  turnin 159
+  accept 133
+
+step Ghoul Ribs
+  tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.
+  collect 884 quest 133
+
+step Abercrombie
+  turnin 133
+
+step Jitters
+  tip Jitters hides in the house at the west end of Raven Hill.
+  turnin 453
+  accept 268
+
+step Sven's Camp
+  turnin 268                              -- Sven Yorgen
+  note Next: Stormwind for training, then the boat from Stormwind Harbor to Auberdine for Ashenvale.
+
+# ---------------------------------------------------------------- Rogues: Klaven's Tower
+
+step Agent Kearnen
+  only Rogue
+  zone Westfall
+  tip Head west along the road out of Raven Hill into Westfall. Agent Kearnen watches Klaven Mortwake's tower from the hills just inside the border. The Malformed Defias Drone (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top.
+  turnin 2360                                 -- Agent Kearnen
+  accept 2359
+  collect 7923 quest 2359.2                   -- Defias Tower Key: Malformed Defias Drone
+  collect 7908 quest 2359.1                   -- Klaven Mortwake's Journal, in the chest
+
+step Master Mathias Shaw
+  only Rogue
+  zone Stormwind City
+  tip Head north through Elwynn to Stormwind; Mathias Shaw is at SI:7 in Old Town.
+  turnin 2359 reward 18160                    -- Master Mathias Shaw: Poisons, and Recipe: Thistle Tea
+  accept 2607 optional                        -- The Touch of Zanzil: Doc Mixilpixil, in the cellar of the Barracks
+  turnin 2607 optional
+  accept 2608 optional
+  complete 2608 optional                      -- /lay down beside Doc Mixilpixil
+  turnin 2608 optional
+  accept 2609 optional
+  buy 3421 x1 npc 1302 optional               -- Simple Wildflowers: Bernard Gump
+  buy 3372 x1 npc 1313 optional               -- Leaded Vial: Maria Lumere, Alchemy Supplies
+  buy 4371 x1 npc 5519 optional               -- Bronze Tube: Billibub Cogspinner, Dwarven District
+  collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
+  turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
+
+# ---------------------------------------------------------------- Stormwind and the boat
+
+step Stormwind
+  zone Stormwind City
+  tip Train in Stormwind, north through Elwynn Forest. Then take the boat from Stormwind Harbor to Auberdine.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
+
+step Gazin Tenorm
+  only Human,Paladin
+  zone Stormwind City
+  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light.
+  turnin 1787                                 -- Gazin Tenorm
+  accept 1788
+  turnin 1788                                 -- Duthorian Rall: Redemption
+
+step Shaman training
+  only Shaman
+  zone Ironforge
+  tip Stormwind has no shaman trainer: take the Deeprun Tram from the Dwarven District to Ironforge, train with Eldrun Stormbreaker, then ride the tram back for the Auberdine boat.
+  train class

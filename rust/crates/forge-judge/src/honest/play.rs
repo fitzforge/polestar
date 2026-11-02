@@ -7,26 +7,9 @@ use forge_core::{js_round, js_to_string};
 use forge_guide::js::V;
 use Severity::{Fail, Info, Warn};
 
-/// Whether an `only` ({ classes, races, factions }, "!x" excludes) lets the persona in.
+/// Whether an `only` ({ classes, races, factions }) lets the persona in.
 pub fn fits(only: &V, p: &Persona) -> bool {
-	if !only.truthy() {
-		return true;
-	}
-	let group = |list: V, v: &str| -> bool {
-		let items = list.items();
-		if items.is_empty() {
-			return true;
-		}
-		let up = v.to_uppercase();
-		let strs: Vec<String> = items.iter().map(V::to_js_string).collect();
-		let neg: Vec<String> = strs.iter().filter(|x| x.starts_with('!')).map(|x| x[1..].to_uppercase()).collect();
-		let pos: Vec<&String> = strs.iter().filter(|x| !x.starts_with('!')).collect();
-		if neg.contains(&up) {
-			return false;
-		}
-		pos.is_empty() || pos.iter().any(|x| x.to_uppercase() == up || (up == "SCOURGE" && x.to_uppercase() == "UNDEAD"))
-	};
-	group(only.get("classes"), &p.cls) && group(only.get("races"), &p.race) && group(only.get("factions"), &p.faction)
+	!only.truthy() || forge_guide::conditions::Audience::of_compiled(only).admits(&p.race, &p.cls, &p.faction)
 }
 
 fn nn(a: V, b: impl FnOnce() -> V) -> V {
@@ -308,7 +291,9 @@ fn round(d: f64) -> String {
 /// R1 before a goal moves the character to `to`.
 fn arrive(w: &mut World, x: &V, t: &str, gi: usize, h: &Here, to: Pos) {
 	let is_travel = matches!(t, "goto" | "enter" | "explore" | "fly" | "hearth" | "die");
-	if let (Some(from), Some(tw)) = (w.pos.clone(), to.w) {
+	// (A goto labelled as a class teleport, "Cast Teleport: Moonglade", is the teleport itself: no walk.)
+	let teleport = t == "goto" && words_re(&if x.get("text").truthy() { x.get("text").to_js_string() } else { String::new() }, &["teleport"]);
+	if let (Some(from), Some(tw), false) = (w.pos.clone(), to.w, teleport) {
 		if let Some(fw) = from.w {
 			let label = format!("{} to {}", w.ctx.zone_name(&from.map), w.ctx.zone_name(&to.map));
 			let moved = Move { from: place_of(&from), to: place_of(&to), in_step: w.pos_step == w.step };
@@ -607,6 +592,11 @@ pub fn play_goal(w: &mut World, x: &V, t: &str, gi: usize, h: &Here, explicit_np
 						w.give_id(i, 1.0);
 					}
 				}
+				// (A portal the goal works, the Skyborne Portal to Stormwind in Alterac, takes the player
+				// where it leads: the next place is no walk from the portal, c17 Skyborne-alliance.)
+				if words_re(&w.ctx.object_name(&o), &["portal to"]) {
+					w.travelled = Some("world");
+				}
 			}
 			w.worked.push(Worked::of(x));
 		}
@@ -661,7 +651,13 @@ fn accept(w: &mut World, x: &V, gi: usize, h: &Here, explicit_npc: bool, prior: 
 	let by_item = !s_item.is_empty() && (has(&item) || (s_npc.is_empty() && s_obj.is_empty()));
 	if by_item {
 		let items: Vec<V> = if has(&item) { vec![item.clone()] } else { s_item.clone() };
-		if !items.iter().any(|i| w.has(id_of(i), 1.0)) {
+		// (An optional accept from an item an earlier optional collect asks for: the player who loots it
+		// takes the quest, one who does not skips both, the Empty Powder Keg in Dun Morogh.)
+		let opt_pair = x.get("optional").truthy() && items.iter().any(|i| w.opt_collected.contains(&id_of(i)));
+		if opt_pair && !items.iter().any(|i| w.has(id_of(i), 1.0)) {
+			// (Played as the player who looted it: the item is theirs, for the quest's own turn-in too.)
+			w.give(&items[0], 1.0);
+		} else if !items.iter().any(|i| w.has(id_of(i), 1.0)) {
 			let it = w.ctx.data.items.get(&items[0].to_js_string());
 			let drops = it.get("drops");
 			let mut srcs: Vec<String> = drops.get("npc").keys().iter().take(3).map(|n| format!("kill {}", w.ctx.npc_name(&V::Num(forge_guide::js::str_to_num(n))))).collect();
@@ -908,6 +904,9 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 	let name = w.ctx.item_name(&item);
 	let optional = x.get("optional").truthy();
 	let sev = if optional { Warn } else { Fail };
+	if optional {
+		w.opt_collected.insert(iid);
+	}
 	if !w.has(iid, n) {
 		let at = match p {
 			Some(p) if p.w.is_some() => Some(p.clone()),
@@ -931,7 +930,13 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 				"write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal".into(),
 			);
 		} else if let (Some(at), false) = (&at, has_vendors) {
-			let near = npcs.iter().any(|m| w.ctx.npc_dist(*m, at.w) <= SOURCE_YD) || objs.iter().any(|o| w.ctx.obj_dist(*o, at.w) <= SOURCE_YD);
+			let near_at = |wp: Option<super::world::Wpt>, r: f64| npcs.iter().any(|m| w.ctx.npc_dist(*m, wp) <= SOURCE_YD + r) || objs.iter().any(|o| w.ctx.obj_dist(*o, wp) <= SOURCE_YD + r);
+			// (A goal searched over spots, a `loop` circuit's: sourced at any of them, not only the first.)
+			let near = near_at(at.w, 0.0)
+				|| x.get("spots").items().iter().any(|s| {
+					let r = s.get("r");
+					near_at(w.ctx.world(&at.map, &s.get("x"), &s.get("y"), &at.f), if r.truthy() { r.num() } else { 0.0 })
+				});
 			if !near {
 				sourced = false;
 				let mut cands: Vec<(f64, String)> = npcs.iter().map(|m| (w.ctx.npc_dist(*m, at.w), w.ctx.npc_name(&V::Num(*m as f64)))).collect();

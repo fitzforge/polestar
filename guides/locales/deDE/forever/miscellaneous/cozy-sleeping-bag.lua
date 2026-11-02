@@ -1,5 +1,5 @@
 -- German (deDE): the guide forever/miscellaneous/cozy-sleeping-bag (forever/miscellaneous/cozy-sleeping-bag.guide).
--- Written by `node tools/polestar.js i18n guides sync deDE`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync deDE`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in German (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -14,7 +14,7 @@ return {
 	-- {zone:1436} Westfall
 	["The note in {zone:1436}"] = "Die Notiz in {zone:1436}",
 	-- {zone:1436} Westfall
-	["A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "Ein ausgebranntes Lagerfeuer im Westen von {zone:1436}, daneben ein festgenagelter Balken.",
+	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "",
 
 	-- Step 2: Its twin in the Barrens
 	-- {zone:1413} Barrens
@@ -26,7 +26,7 @@ return {
 	-- {zone:1413} Barrens
 	["The note in the {zone:1413}"] = "Die Notiz in der {zone:1413}",
 	-- {zone:1413} Barrens
-	["A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "Ein ausgebranntes Lagerfeuer in der südlichen {zone:1413}, daneben ein festgenagelter Balken.",
+	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "",
 
 	-- Step 4: Its twin in Westfall
 	-- {zone:1436} Westfall
@@ -35,8 +35,8 @@ return {
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "Das „Zwillingsland“ der Notiz ist {zone:1436}: Dasselbe ausgebrannte Lagerfeuer steht im Westen von {zone:1436}.",
 
 	-- Step 5: Stonetalon Mountains
-	-- {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "Das nächste Versteck ist ein kleines Lager in den Hügeln im Osten des Steinkrallengebirges. Verlasse die Straße dort, wo ein Pfad in die Hügel steigt, und folge ihm zum Lager; {object:424005} liegt auf einer Kiste neben dem Zelt.",
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
 	-- {area:1702} Honor's Stand
 	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "Die Straße nach Westen führt durch {area:1702}, einen Posten der Horde; dieser Weg führt darum herum.",
 	["North of Honor's Stand"] = "Nördlich von Honor's Stand",
@@ -60,4 +60,9 @@ return {
 
 	-- Step 9: The hidden camp
 	["The hidden camp"] = "Das versteckte Lager",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "Ein ausgebranntes Lagerfeuer in der südlichen {zone:1413}, daneben ein festgenagelter Balken.",
+	-- ["A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "Ein ausgebranntes Lagerfeuer im Westen von {zone:1436}, daneben ein festgenagelter Balken.",
+	-- ["The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "Das nächste Versteck ist ein kleines Lager in den Hügeln im Osten des Steinkrallengebirges. Verlasse die Straße dort, wo ein Pfad in die Hügel steigt, und folge ihm zum Lager; {object:424005} liegt auf einer Kiste neben dem Zelt.",
 }

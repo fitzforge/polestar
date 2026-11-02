@@ -138,7 +138,7 @@ fn a_profession_train_completes_from_the_skill_cap_at_any_trainer_a_trainer_wind
 }
 
 #[test]
-fn train_class_completes_on_any_candidate_trainer_window_during_the_step_sethome_nearest_on_binding() {
+fn train_class_completes_on_a_spell_learned_at_any_candidate_trainer_during_the_step_sethome_nearest_on_binding() {
 	let out = run(
 		r#"stub.world.learnSkill(129, "First Aid", 75, 150)"#,
 		&guide(),
@@ -147,9 +147,11 @@ fn train_class_completes_on_any_candidate_trainer_window_during_the_step_sethome
 			local w = stub.world
 			E.SetGuide("test/fa")
 			local r = { start = E.GetStepIndex(), classNpc = E.GetStepView(2).goals[1].npcName, alts = E.GetStepView(2).goals[1].alternatives }
-			w.trainer(1234); w.close(); flush()   -- some other trainer
+			w.trainer(1234); w.learnSpell(100); w.close(); flush()   -- some other trainer
 			r.other = E.GetStepIndex()
-			w.trainer(5885); w.close(); flush()   -- a mage trainer, not the chosen one
+			w.trainer(5885); w.close(); flush()   -- a mage trainer, not the chosen one: the window alone
+			r.window = E.GetStepIndex()
+			w.trainer(5885); w.learnSpell(101); w.close(); flush()   -- teaching a spell
 			r.mage = E.GetStepIndex()
 			r.inn = { E.GetStepView(3).goals[1].npcName, E.GetStepView(3).goals[1].text }
 			w.bind("The Crossroads"); flush()
@@ -165,6 +167,7 @@ fn train_class_completes_on_any_candidate_trainer_window_during_the_step_sethome
 			"classNpc": "Archmage Shymm",
 			"alts": 2,
 			"other": 2,
+			"window": 2,
 			"mage": 3,
 			"inn": ["Innkeeper Boorand", "Set your home at Innkeeper Boorand"],
 			"bound": 4,

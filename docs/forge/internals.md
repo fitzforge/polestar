@@ -78,7 +78,7 @@ live there; `forge doctor` and every other command is a module in `crates/forge/
 | `forge judge ...` | `cli/judge.rs` | one guide pack, the report, seed tests ([judge](judge.md)) |
 | `forge sim ...` | `cli/sim.rs` | route cuts, the shared route, guards, `why`, `skips` ([routes](routes.md)) |
 | `forge walks ...` | `cli/walks.rs` | the world and walks stages on their own ([nav](nav.md)) |
-| `forge writer apply-route` | `cli/writer.rs` | write one route into the guides ([writer](writer.md)) |
+| `forge writer apply-route`, `apply-routes`, `gate-diff` | `cli/writer.rs`, `src/gate.rs` | write one route into the guides, every start of a build's routes, the writer gate's comparison ([writer](writer.md)) |
 
 Every command prints its usage with `--help` and exits 0. Developer-only tools stay separate
 binaries in the `forge-devtools` crate (`travel-parity`, `navcch`, `landing_diff`); build one with
@@ -113,12 +113,22 @@ one and the stage's outputs are in place, the stage is skipped. Large external t
 grid, `data/sources`) are keyed by a manifest of their files' paths, sizes and modification times
 instead of their bytes. A key never hashes source text that does not change the output.
 
+**The routes stage has two keys.** Its stage key also hashes the forge binary itself, so any code
+change reruns routes and everything after it (the stage writes and checks guides, `forge_sim::flow`).
+Its search has its own key (`routes_search_key`), which hashes the planner's code instead: build.rs
+hashes the sources (`Cargo.toml`, `build.rs`, `src/`) of forge-sim and the workspace crates it
+depends on into `FORGE_PLANNER_HASH` (`src/planner_src.rs`), beside the search's inputs and each
+start's v1 goal stream. The finished searches stay in `<out>/.forge/routes-search/` under that key,
+so a writer or judge change reruns only the written check and the stages after it
+([routes.md](routes.md#the-search-cache-and-resuming-a-killed-run)).
+
 **Bump a stage's version** when your change alters what it writes for the same inputs; otherwise
-old outputs survive. Nothing else invalidates a stage.
+old outputs survive. Nothing else invalidates a stage but the routes stage's code keys above.
 
 **Staging root.** Every stage reads a repository-shaped folder, `<out>/.forge/root`: its
-`data/forever` is the data stage's output; `data/sources`, `data/local`, `tools` and `addon` link to
-the checkout's (or the data pack's); `guides` to the input guides. The sim stages also read
+`data/forever` is the data stage's output; `data/sources`, `data/local`, `tools`, `addon` and
+`forever-db` (the corrections the seed tests read) link to the checkout's (or the data pack's);
+`guides` to the input guides. The sim stages also read
 `<out>/.forge/sim` (`world-*.json`, `walks-*.bin`, `params.json`). This is why a stage's library
 code can take "a checkout" and work the same inside a build.
 
@@ -209,6 +219,7 @@ Every variable Forge reads. Command-line options win over them where both exist.
 | `POLESTAR_V1_SEEDS` | `forge sim route`, `widen`, `shared` | a folder of saved seed chains (`v1-<faction>-<race>-on.json`) used instead of reading the guides | unset: the seed comes from the current guides |
 | `POLESTAR_DATA_TIMES` | `forge data build` | set: print the time of each step | unset |
 | `POLESTAR_TIME` | `forge guide compile` | set: print the time of each step | unset |
+| `POLESTAR_BUILD_TIMES` | `forge build` (routes, guides), `forge writer` | set (not `0`): a `timing: <scope> <phase> <s> s` line per phase (each start's search, post passes, written-check rounds; the writer's load, runs and shared guides; the free search's hours after 1, 2, 4, ... rounds), and `<out>/.forge/timings-<stage>.json` per stage built | unset |
 | `FOREVER_TDB` | `forge data build --kb` | a TrinityCore world database (SQLite), local evidence | `forever-tdb/world.sqlite` under the local folder (`data/local`, or `--local`) |
 | `WOW_FOREVER_ADDONS` | `forge data build` | the AddOns folder to look in first for Forever's quest data | the AddOns folders of the installs Forge finds |
 | `SOURCE_DATE_EPOCH` | `forge data build` | the build time the data builders record (reproducible builds) | now |

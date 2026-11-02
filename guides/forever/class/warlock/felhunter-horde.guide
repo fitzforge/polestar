@@ -6,24 +6,31 @@ folder Warlock
 faction Horde
 levels 30-33
 zone The Barrens
-keywords Summon Felhunter, Tome of the Cabal, Seeking Strahad, Strahad Farsan, Jorah Annison, Moldy Tome, Tattered Manuscript, Rod of Channeling, The Binding, Warlock, class pet
+keywords Summon Felhunter, Tome of the Cabal, Seeking Strahad, Strahad Farsan, Jorah Annison, Moldy Tome, Tattered Manuscript, Damaged Chest, Rod of Channeling, Reconstructed Tome, Dragonmaw Bonewarder, Dragonmaw Shadowwarder, Angerfang Encampment, The Binding, Box of Souls, Warlock, class pet
 reward spell 691 "Summon Felhunter"
 reward item 22244
 why The felhunter, the demon to bring against spellcasters, and a Box of Souls for your shards.
 
 # The felhunter for Horde warlocks: Seeking Strahad (2996 from Gan'rul
 # Bloodeye, or 3001 from Carendin Halgar) to Strahad Farsan in Ratchet, Tome
-# of the Cabal (1801, 1803, 1805) with Jorah Annison in the Undercity, and The
-# Binding (1795) back in Ratchet.
-# Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
-# and Questie-Forever) for the givers, the tome, the chest, the rods and the
-# summoning circle; Forever's Warlock class quest list
-# (data/local/quest-audit/): the chain is unchanged in
-# Forever and The Binding pays a Box of Souls.
+# of the Cabal (1801 to Jorah Annison in the Undercity; 1803, the Moldy Tome
+# on the Hillsbrad shore and the Tattered Manuscript in a Thousand Needles
+# cave; 1805, three Rods of Channeling from the Wetlands Dragonmaw casters)
+# and The Binding (1795) at Strahad's circle in Ratchet.
 # Gan'rul's and Carendin's Seeking Strahad exclude each other; the guide sends
 # Orcs and Trolls to Gan'rul and the Undead to Carendin.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, and the chain starts at 30, so it has not been checked in game.
+# Drops: the rods from Dragonmaw Bonewarders (27) and Shadowwarders (28) at
+# 80% (items.json); the raiders and other Dragonmaw drop none. The tome and
+# the chest give their item every time. The Binding pays a Box of Souls.
+# The fight: the Summoned Felhunter is level 30 and not elite; it appears only
+# when the Tome of the Cabal is read at the circle, after Strahad and his
+# acolytes finish drawing it. Lost fight: abandon The Binding and take it again
+# from Strahad (quest notes, player reports).
+# ASSUMED: The chain runs as in Classic above 30 (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: the cave chest, the murloc camp and Strahad's circle event.
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json,
+# items.json) for the givers, the tome, the chest, the rods and the circle;
+# the quest notes (data/local/mechanics) for the murloc camp, the cave path,
+# the casters and the circle event; the reference class guides for the order.
 
 step Seeking Strahad (Orgrimmar)
   only Orc,Troll
@@ -35,48 +42,49 @@ step Seeking Strahad (Orgrimmar)
 step Seeking Strahad (Undercity)
   only Undead
   zone Undercity
-  tip At 30 Carendin Halgar, in the Magic Quarter, sends you to Strahad Farsan in Ratchet. The zeppelin from Tirisfal Glades flies to Durotar.
+  tip At 30 Carendin Halgar, in the Magic Quarter, sends you to Strahad Farsan in Ratchet. The zeppelin from Tirisfal Glades flies to Durotar. Take only one Seeking Strahad: if Strahad offers nothing, drop the duplicate from your log.
   level 30
   accept 3001                         -- Carendin Halgar
 
 step Strahad Farsan
   zone The Barrens
-  tip Fly to Ratchet; Strahad Farsan stands on the hill in town.
+  tip Ratchet's flight point is a short ride from Orgrimmar's. Strahad Farsan stands on the hill above the town, behind the engineers' hut, by his little tower; Menara Voidrender and two acolytes are with him. He sends you to Jorah Annison in the Undercity.
   turnin 2996 only Orc,Troll          -- Strahad Farsan
   turnin 3001 only Undead             -- Strahad Farsan
   accept 1801
 
 step Jorah Annison
   zone Undercity
-  tip Jorah Annison stands in the Magic Quarter.
+  tip Jorah Annison is in the Magic Quarter of the Undercity. He wants two lost pieces of the Tome of the Cabal: one on the Hillsbrad coast, one in Thousand Needles.
   turnin 1801                         -- Jorah Annison
   accept 1803
 
 step Moldy Tome
   zone Hillsbrad Foothills
-  tip The Moldy Tome lies on the shore west of Southshore, past the Torn Fin murloc camps.
-  collect 6931 quest 1803.1           -- Moldy Tome
+  tip The tome is a small grey-blue book lying in the sand of a murloc camp on the shore south-west of Southshore, near the water's edge. Six or seven murlocs guard it and more lurk underwater: they come in groups, so Fear one and keep your voidwalker on the rest. Walk down to the water to click it; from the hillside the crates block the cursor.
+  collect 6931 quest 1803.1           -- Moldy Tome, from the Tome of the Cabal on the sand
 
 step Tattered Manuscript
   zone Thousand Needles
-  tip The Damaged Chest lies in the canyon north of Freewind Post.
+  tip The centaur cave opens in the cliffs north of Freewind Post. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out.
   collect 6997 quest 1803.2           -- Tattered Manuscript, in the Damaged Chest
 
-step Jorah Annison
+step Back to Jorah
   zone Undercity
+  tip Jorah pieces the tome together and gives you the Reconstructed Tome: keep it, Strahad takes it with the rods.
   turnin 1803                         -- Jorah Annison
   accept 1805
 
 step Rods of Channeling
   zone Wetlands
-  tip The Dragonmaw Bonewarders and Shadowwarders hold the hills east of the road through the Wetlands: the rods drop from them.
-  collect 6930 quest 1805.1           -- Rods of Channeling
+  tip The Dragonmaw hold Angerfang Encampment in the hills east of the road through the Wetlands, south of the Thandol Span you cross from Arathi Highlands. Only the casters drop the rods, four kills in five: the Bonewarders (level 27, with skeleton pets) and Shadowwarders (28). A steep path north of the central spirit healer leads up into the camp past most of the warriors.
+  collect 6930 x3 quest 1805.1        -- Rods of Channeling, from the Dragonmaw casters
 
 step The Binding
   zone The Barrens
-  tip Back to Strahad Farsan in Ratchet. Use the Tome of the Cabal on the summoning circle beside him and defeat the felhunter to bind it.
+  tip Back to Strahad in Ratchet. When you accept, he draws the summoning circle and his acolytes channel a greater circle over it: wait inside the tower until both are done. Then use the Tome of the Cabal on the circle. The felhunter (level 30, not elite) silences and eats mana, and it vanishes after two minutes: have your voidwalker out, open with your damage over time at once and let the voidwalker tank. If you die or it wins, abandon The Binding and take it again from Strahad. Keep the tome: Strahad takes it back.
   turnin 1805                         -- Strahad Farsan
   accept 1795
-  use 6999 @62.6,35.3                 -- Tome of the Cabal
+  use 6999 @62.6,35.3                 -- Tome of the Cabal, on the circle
   kill 6268 quest 1795.1              -- Summoned Felhunter
-  turnin 1795                         -- Strahad Farsan: he binds the felhunter to you
+  turnin 1795                         -- Strahad Farsan: Summon Felhunter

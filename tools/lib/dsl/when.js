@@ -24,18 +24,19 @@
 //   [!]cooldown spell <spell>                 cooldown aside
 //   [!]group <quest>                          the player chose to do that group quest (! to skip it);
 //                                             the route waits at the step until they answer
+//   [!]knows <spell>                          the character knows the spell (spellbook or recipe)
 // value = { k, neg?, op?, n?, frac?, q?, item?, spell?, name?, label? }; `q` is a list for onquest.
 
 const { levelPoint } = require('../game/xp');
 const { readMoney } = require('./money');
 
 const INT_RE = /^\d+$/;
-const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group'];
+const KINDS = ['level', 'money', 'onquest', 'complete', 'turnedin', 'available', 'has', 'upgrade', 'zone', 'subzone', 'bound', 'dungeon', 'done', 'skill', 'cooldown', 'group', 'knows'];
 // A step label, as parse.js reads `label <name>`.
 const LABEL_RE = /^[A-Za-z0-9_-]+$/;
 const QUEST_ONE = new Set(['complete', 'turnedin', 'available', 'group']);
 const PLACE = new Set(['zone', 'subzone', 'bound']);
-const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>`;
+const USAGE = `predicates: level<N, level>=N, money>=1s, [!]onquest <quest>, [!]complete <quest>, [!]turnedin <quest>, [!]available <quest>, [!]has <item> [xN], [!]upgrade <item>, [!]zone "<Name>", [!]subzone "<Name>", [!]bound "<Location>", [!]dungeon "<Name>", [!]done <label>, [!]skill <Profession> <N>, [!]cooldown item <item>, [!]cooldown spell <spell>, [!]group <quest>, [!]knows <spell>`;
 
 // A name written quoted or bare: `"Razor Hill"` or `Razor Hill`.
 function nameOf(text) {
@@ -116,6 +117,11 @@ function parseWhen(rest) {
 		const c = /^(item|spell)\s+(\d+)$/i.exec(args);
 		if (!c || Number(c[2]) <= 0) return { error: '`cooldown` needs an item or spell id: cooldown item <item> or cooldown spell <spell>' };
 		value[c[1].toLowerCase()] = Number(c[2]);
+		return { value };
+	}
+	if (kind === 'knows') {
+		if (!INT_RE.test(args) || Number(args) <= 0) return { error: '`knows` needs a spell id: knows <spell>' };
+		value.spell = Number(args);
 		return { value };
 	}
 	// zone, subzone, bound, dungeon

@@ -6,6 +6,7 @@ pub mod jsnum;
 pub mod key;
 pub mod luachunks;
 pub mod races;
+pub mod timing;
 
 pub use cells::{cell_key, cell_xy, ZONE_CELL};
 pub use frames::{dist, seg_dist, Bounds, Frame, MapFrames, Projector, RoutePoint, FAR};

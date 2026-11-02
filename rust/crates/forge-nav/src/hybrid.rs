@@ -40,70 +40,30 @@ fn directed(p: &[f64]) -> FxHashMap<(u32, u32), W> {
 /// those his maps had no way for (`leffeNone`: unreachable or failed there) or a way over the slack (`leffeDetour`);
 /// among his, those the grid had no way for (`gridNone`).
 pub fn merge(grid: &WalksDoc, leffe: &WalksDoc, slack: f64) -> Result<(Doc, serde_json::Value), String> {
-	if grid.header.get("dataHash") != leffe.header.get("dataHash") || grid.header.get("nw") != leffe.header.get("nw") {
+	if ["dataHash", "walksKey", "nw"].iter().any(|k| grid.header.get(*k) != leffe.header.get(*k)) {
 		return Err("hybrid: the two walks documents are of different worlds".into());
 	}
 	let mut header = grid.header.clone();
 	header.insert("router".into(), json!("hybrid"));
 	header.insert("hybridSlack".into(), json!(slack));
+	// Each band merged on its own (on threads), then put together in band order.
+	let merged: Vec<Result<Merged, String>> = {
+		use rayon::prelude::*;
+		grid.bands.par_iter().enumerate().map(|(bi, band)| merge_band(grid, leffe, bi, *band, slack)).collect()
+	};
 	let mut pairs_out = Vec::new();
 	let mut stats = Vec::new();
 	let mut zones = (vec![0u32], Vec::new(), Vec::new());
 	let mut walkable: FxHashSet<(u32, u32)> = FxHashSet::default();
-	for (bi, band) in grid.bands.iter().enumerate() {
-		let li = leffe.bands.iter().position(|b| b == band).ok_or(format!("hybrid: Leffe's document has no band {band}"))?;
-		let (g, l) = (directed(&grid.pairs[bi]), directed(&leffe.pairs[li]));
-		// Each directed walk: (from Leffe?, the walk).
-		let mut keys: Vec<(u32, u32)> = g.keys().chain(l.keys()).copied().collect::<FxHashSet<_>>().into_iter().collect();
-		keys.sort_unstable();
-		let mut pick: FxHashMap<(u32, u32), (bool, W)> = FxHashMap::default();
-		let (mut n_g, mut n_l, mut none, mut detour, mut grid_none) = (0usize, 0usize, 0usize, 0usize, 0usize);
-		for k in &keys {
-			let c = match (g.get(k), l.get(k)) {
-				(Some(gw), Some(lw)) if lw.cost <= slack * gw.cost => (true, *lw),
-				(Some(gw), Some(_)) => {
-					detour += 1;
-					(false, *gw)
-				}
-				(Some(gw), None) => {
-					none += 1;
-					(false, *gw)
-				}
-				(None, Some(lw)) => {
-					grid_none += 1;
-					(true, *lw)
-				}
-				(None, None) => unreachable!(),
-			};
-			if c.0 {
-				n_l += 1;
-			} else {
-				n_g += 1;
-			}
-			pick.insert(*k, c);
-		}
-		// Emit: a pair both ways when both directions took the same both-ways walk, else each direction one-way.
-		let mut out: Vec<f64> = Vec::new();
-		let mut src: Vec<(bool, usize)> = Vec::new();
-		for &(a, b) in &keys {
-			let (fl, w) = pick[&(a, b)];
-			if a > b {
-				if let Some(&(rl, rw)) = pick.get(&(b, a)) {
-					if rl == fl && rw.k == w.k && w.both {
-						continue; // emitted from (b, a)
-					}
-				}
-			}
-			let same_back = pick.get(&(b, a)).is_some_and(|&(rl, rw)| rl == fl && rw.k == w.k && w.both);
-			out.extend([a as f64, b as f64, w.yd, w.cost, if same_back { 0.0 } else { 1.0 }]);
-			src.push((fl, w.k));
-			if *band == 0 {
+	for (band, m) in grid.bands.iter().zip(merged) {
+		let m = m?;
+		if *band == 0 {
+			for p in m.out.chunks_exact(5) {
+				let (a, b) = (p[0] as u32, p[1] as u32);
 				walkable.insert((a, b));
 				walkable.insert((b, a));
 			}
-		}
-		if *band == 0 {
-			for &(fl, k) in &src {
+			for &(fl, k) in &m.src {
 				let z = if fl { leffe.zones.as_ref() } else { grid.zones.as_ref() };
 				if let Some((off, val, has)) = z {
 					if has[k] != 0 {
@@ -118,8 +78,8 @@ pub fn merge(grid: &WalksDoc, leffe: &WalksDoc, slack: f64) -> Result<(Doc, serd
 				zones.0.push(zones.1.len() as u32);
 			}
 		}
-		stats.push(json!({"band": band, "walks": keys.len(), "grid": n_g, "leffe": n_l, "leffeNone": none, "leffeDetour": detour, "gridNone": grid_none}));
-		pairs_out.push((*band, out));
+		stats.push(m.stats);
+		pairs_out.push((*band, m.out));
 	}
 	// Unwalkable: either document's, where the merged base holds no walk.
 	let mut unwalkable = Vec::new();
@@ -131,6 +91,65 @@ pub fn merge(grid: &WalksDoc, leffe: &WalksDoc, slack: f64) -> Result<(Doc, serd
 		}
 	}
 	Ok((Doc { header, pairs: pairs_out, unwalkable, zones }, json!({ "slack": slack, "bands": stats })))
+}
+
+/// A band's merge: its pairs, each emitted walk's (from Leffe?, index in its document), its stats.
+struct Merged {
+	out: Vec<f64>,
+	src: Vec<(bool, usize)>,
+	stats: serde_json::Value,
+}
+
+fn merge_band(grid: &WalksDoc, leffe: &WalksDoc, bi: usize, band: i64, slack: f64) -> Result<Merged, String> {
+	let li = leffe.bands.iter().position(|b| *b == band).ok_or(format!("hybrid: Leffe's document has no band {band}"))?;
+	let (g, l) = (directed(&grid.pairs[bi]), directed(&leffe.pairs[li]));
+	// Each directed walk: (from Leffe?, the walk).
+	let mut keys: Vec<(u32, u32)> = g.keys().chain(l.keys()).copied().collect::<FxHashSet<_>>().into_iter().collect();
+	keys.sort_unstable();
+	let mut pick: FxHashMap<(u32, u32), (bool, W)> = FxHashMap::default();
+	let (mut n_g, mut n_l, mut none, mut detour, mut grid_none) = (0usize, 0usize, 0usize, 0usize, 0usize);
+	for k in &keys {
+		let c = match (g.get(k), l.get(k)) {
+			(Some(gw), Some(lw)) if lw.cost <= slack * gw.cost => (true, *lw),
+			(Some(gw), Some(_)) => {
+				detour += 1;
+				(false, *gw)
+			}
+			(Some(gw), None) => {
+				none += 1;
+				(false, *gw)
+			}
+			(None, Some(lw)) => {
+				grid_none += 1;
+				(true, *lw)
+			}
+			(None, None) => unreachable!(),
+		};
+		if c.0 {
+			n_l += 1;
+		} else {
+			n_g += 1;
+		}
+		pick.insert(*k, c);
+	}
+	// Emit: a pair both ways when both directions took the same both-ways walk, else each direction one-way.
+	let mut out: Vec<f64> = Vec::new();
+	let mut src: Vec<(bool, usize)> = Vec::new();
+	for &(a, b) in &keys {
+		let (fl, w) = pick[&(a, b)];
+		if a > b {
+			if let Some(&(rl, rw)) = pick.get(&(b, a)) {
+				if rl == fl && rw.k == w.k && w.both {
+					continue; // emitted from (b, a)
+				}
+			}
+		}
+		let same_back = pick.get(&(b, a)).is_some_and(|&(rl, rw)| rl == fl && rw.k == w.k && w.both);
+		out.extend([a as f64, b as f64, w.yd, w.cost, if same_back { 0.0 } else { 1.0 }]);
+		src.push((fl, w.k));
+	}
+	let stats = json!({"band": band, "walks": keys.len(), "grid": n_g, "leffe": n_l, "leffeNone": none, "leffeDetour": detour, "gridNone": grid_none});
+	Ok(Merged { out, src, stats })
 }
 
 /// One log line per band of merge's stats: where the merged walks came from and how many fell back to the grid.

@@ -7,39 +7,148 @@ faction Alliance
 race Human
 levels 10-20
 zone Stormwind City
-keywords Divine Grace, Feedback, Arcane Feedback, High Priestess Laurena, Cathedral of Light, Human, racial, Priest
+keywords Divine Grace, Feedback, Arcane Feedback, High Priestess Laurena, Priestess Josetta, Laurna Morninglight, High Priest Rohan, Priestess Alathea, Cathedral of Light, Human, racial, Priest
 reward spell 1277370 "Divine Grace"
 reward spell 13896 "Feedback"
-why The Human priest spells: Divine Grace at 10, Feedback at 20.
+why The Human priest spells: Divine Grace at 10 (new in Forever), Feedback at 20. Free, no objectives.
 
-# The Human Priest spell quests: Divine Grace at 10 (94773, new in Forever)
-# and Arcane Feedback at 20 (5676), both from High Priestess Laurena in
-# Stormwind's Cathedral of Light.
-# Sources: quests.json and npcs.json for the givers; Forever's
-# Priest class quest list (data/local/quest-audit/):
-# Divine Grace (94773-94779) is new, Arcane Feedback unchanged; Forever's
-# quest data for Laurena (npc 376, checked
-# 2026-10-14) lists both as starting and ending with her.
-# Desperate Prayer is not in this guide: Forever's quest data lists Humans as
-# well as Dwarves for some of its quests (5635, 5637, 5639), so it is in
-# desperate-prayer-and-chastise, which is for both races. Third-party
-# Forever sites (classicwowforever.com/racials) say Humans no longer learn
-# the spell; the quest data does not confirm that either way.
-# alliance/human/01-elwynn-forest and 02-westfall carry Divine Grace on the
-# route (94774, from Priestess Josetta in Goldshire) and
-# alliance/04-redridge-mountains carries Arcane Feedback; this guide repeats
-# them for anyone off the route. Priest trainers in other cities send you to
-# Laurena with a quest of the same name; the game offers one of each set.
-# Not checked in game: written from the sources above.
+# The Human Priest spell quests. Each spell has one quest at the teacher and
+# letters ("go and see the High Priestess") from priest trainers in other
+# towns; any one of them teaches the spell, and the game offers only one:
+#   Divine Grace (level 10, new in Forever), taught by High Priestess Laurena
+#   in Stormwind's Cathedral of Light:
+#     94773 High Priestess Laurena (Stormwind), her own quest
+#     94774 Priestess Josetta (Goldshire, Elwynn Forest)
+#     94775 Laurna Morninglight (Dolanaar, Teldrassil)
+#     94776-94779: no giver in Forever's quest data.
+#   Feedback (level 20), also from Laurena:
+#     5676 High Priestess Laurena (Stormwind), her own quest
+#     5677 High Priest Rohan (Hall of Mysteries, Ironforge)
+#     5678 Priestess Alathea (Temple of the Moon, Darnassus)
+# The guide sends you to the giver in the zone you stand in when it gets
+# there (`when zone`), else straight to Laurena; a letter you carry from
+# anywhere is handed in on its own step (`when onquest`). Pickups are `talk`
+# goals, not accepts: one guide accepting two quests of one exclusive set
+# warns in lint, which does not follow `when`.
+# Sources: quests.json and npcs.json for the givers; Forever's quest pages
+# (snapshot) and the Forever dialog captures for 94775 (Laurna Morninglight
+# gives it, Laurena takes it); Forever's Priest class quest list
+# (data/local/quest-audit/): Divine Grace 94773-94779 new, Arcane Feedback
+# unchanged. A Forever web guide to the priest racials (forg.gg, 2026-10-07):
+# Divine Grace instantly heals a friendly target below 50% health and
+# removes Weakened Soul, not on yourself, and replaces Desperate Prayer for
+# Humans. The server agrees: its quest answers in players' caches (EG Link)
+# give every Desperate Prayer quest the Dwarf race mask only, and Laurena's
+# old Desperate Prayer completion text now closes 94773 (dialog captures).
+# Human priests' dialog captures show Josetta (94774) and Laurna Morninglight
+# (94775) handing out Divine Grace letters at 10. So no guide sends a Human
+# priest after Desperate Prayer.
+# ASSUMED: 94776-94779 are the letters from Maxan Anvol (Kharanos), Nara
+# Meideros (Stormwind's Park), High Priest Rohan (Ironforge) and Priestess
+# Alathea (Darnassus): their server texts match those trainers' Classic
+# Desperate Prayer letters (5637, 5638, 5639, 5640) word for word, with
+# Laurena's name put in (Forever's data has no giver for them). In-game
+# check: who offers them. The guide hands them in at Laurena without naming
+# a giver.
+# ASSUMED: one Divine Grace quest closes the others, like the Classic sets
+# (Forever's data has no exclusive links for 94773-94779). In-game check:
+# after one, Laurena offers no second.
+# alliance/human/01-elwynn-forest and 02-westfall carry 94774 on the route,
+# alliance/04-redridge-mountains carries Arcane Feedback (5676).
+# Based on data, not play: written from the sources above.
 
-step Divine Grace
-  tip At 10, go to High Priestess Laurena in the Cathedral of Light. Priestess Josetta in Goldshire sends you to her with a quest of the same name.
+step Divine Grace: Priestess Josetta
+  when zone "Elwynn Forest"
+  when !onquest 94773,94774,94775,94776,94777,94778,94779
+  zone Elwynn Forest
+  tip At 10, Priestess Josetta, upstairs in the Lion's Pride Inn in Goldshire, hands you a letter for High Priestess Laurena. Goldshire is on the road north to Stormwind, so it costs no detour.
+  level 10
+  talk 377                                    -- Priestess Josetta: take her Divine Grace letter
+
+step Divine Grace: Laurna Morninglight
+  when zone "Teldrassil"
+  when !onquest 94773,94774,94775,94776,94777,94778,94779
+  zone Teldrassil
+  tip A Human priest in Teldrassil at 10: Laurna Morninglight, in the building at the north edge of Dolanaar, hands you a letter for High Priestess Laurena in Stormwind.
+  level 10
+  talk 3600                                   -- Laurna Morninglight: take her Divine Grace letter
+
+step Divine Grace: High Priestess Laurena
+  when !onquest 94773,94774,94775,94776,94777,94778,94779
+  zone Stormwind City
+  tip At 10, go to High Priestess Laurena at the altar of the Cathedral of Light, in Stormwind's Cathedral Square, and take her quest: she teaches Divine Grace on the spot. No letter needed; one from another trainer works too (next steps). Divine Grace instantly heals a friend below half health and clears Weakened Soul, so you can shield them again (5-minute cooldown); it does not work on yourself. Human priests do not get Desperate Prayer in Forever: this is their spell instead.
   level 10
   accept 94773                                -- High Priestess Laurena
   turnin 94773                                -- High Priestess Laurena: Divine Grace
 
-step Arcane Feedback
-  tip At 20, High Priestess Laurena teaches Feedback. High Priest Rohan in Ironforge and Priestess Alathea in Darnassus send you to her with a quest of the same name.
+step Divine Grace: Josetta's letter
+  when onquest 94774
+  zone Stormwind City
+  tip Hand Josetta's letter to High Priestess Laurena at the altar of the Cathedral of Light: she teaches Divine Grace.
+  turnin 94774                                -- High Priestess Laurena: Divine Grace
+
+step Divine Grace: Laurna's letter
+  when onquest 94775
+  zone Stormwind City
+  tip Hand Laurna's letter to High Priestess Laurena at the altar of Stormwind's Cathedral of Light (from Teldrassil: the boat from Rut'theran Village to Auberdine, then the boat to Stormwind Harbor): she teaches Divine Grace.
+  turnin 94775 npc 376                        -- High Priestess Laurena: Divine Grace
+
+step Divine Grace: a letter from another trainer
+  when onquest 94776
+  zone Stormwind City
+  tip Any Divine Grace letter goes to High Priestess Laurena at the altar of the Cathedral of Light.
+  turnin 94776 npc 376                        -- High Priestess Laurena: Divine Grace
+
+step Divine Grace: a letter from another trainer
+  when onquest 94777
+  zone Stormwind City
+  tip Any Divine Grace letter goes to High Priestess Laurena at the altar of the Cathedral of Light.
+  turnin 94777 npc 376                        -- High Priestess Laurena: Divine Grace
+
+step Divine Grace: a letter from another trainer
+  when onquest 94778
+  zone Stormwind City
+  tip Any Divine Grace letter goes to High Priestess Laurena at the altar of the Cathedral of Light.
+  turnin 94778 npc 376                        -- High Priestess Laurena: Divine Grace
+
+step Divine Grace: a letter from another trainer
+  when onquest 94779
+  zone Stormwind City
+  tip Any Divine Grace letter goes to High Priestess Laurena at the altar of the Cathedral of Light.
+  turnin 94779 npc 376                        -- High Priestess Laurena: Divine Grace
+
+step Feedback: High Priest Rohan
+  when zone "Ironforge"
+  when !onquest 5676,5677,5678
+  zone Ironforge
+  tip At 20 in Ironforge, High Priest Rohan in the Hall of Mysteries (Mystic Ward) hands you a letter for High Priestess Laurena in Stormwind. The Deeprun Tram from Tinker Town takes you there.
+  level 20
+  talk 11406                                  -- High Priest Rohan: take his Arcane Feedback letter
+
+step Feedback: Priestess Alathea
+  when zone "Darnassus"
+  when !onquest 5676,5677,5678
+  zone Darnassus
+  tip At 20 in Darnassus, Priestess Alathea, on the upper balcony of the Temple of the Moon beside Tyrande Whisperwind, hands you a letter for High Priestess Laurena in Stormwind.
+  level 20
+  talk 11401                                  -- Priestess Alathea: take her Arcane Feedback letter
+
+step Feedback: High Priestess Laurena
+  when !onquest 5676,5677,5678
+  zone Stormwind City
+  tip At 20, High Priestess Laurena at the altar of the Cathedral of Light teaches Feedback with a quest she gives and takes back at once.
   level 20
   accept 5676                                 -- High Priestess Laurena
   turnin 5676                                 -- High Priestess Laurena: Feedback
+
+step Feedback: Rohan's letter
+  when onquest 5677
+  zone Stormwind City
+  tip Hand Rohan's letter to High Priestess Laurena at the altar of Stormwind's Cathedral of Light (the Deeprun Tram from Tinker Town in Ironforge): she teaches Feedback.
+  turnin 5677                                 -- High Priestess Laurena: Feedback
+
+step Feedback: Alathea's letter
+  when onquest 5678
+  zone Stormwind City
+  tip Hand Alathea's letter to High Priestess Laurena at the altar of Stormwind's Cathedral of Light (from Darnassus: the portal down to Rut'theran Village, the boat to Auberdine, then the boat to Stormwind Harbor): she teaches Feedback.
+  turnin 5678                                 -- High Priestess Laurena: Feedback

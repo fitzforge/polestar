@@ -23,21 +23,27 @@ why The level 60 Conjure Water, from a Dire Maul library: drink for you and your
 # (57.97,44.48), the point the arrow uses for Dire Maul (our data has no spawns
 # for Lydros or Hydrospawn); travel.json for the Feralas flight points; the
 # quest text for the Warpwood Quarter. A Classic mage class quest guide
-# (Sh3rro, 2023-11-09) fills in the way to the library (the West wing, or the
+# (2023-11-09) fills in the way to the library (the West wing, or the
 # North wing with a Crescent Key) and Hydrospawn's pool (below the satyr room
 # where Pusillin turns to fight).
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20):
+# Hydrospawn (level 57 elite) casts Riptide on everyone within 10 yards,
+# Submersion and Massive Geyser, calls Hydrolings at 25%, takes no frost
+# damage, and is gone until the instance resets; the North doors need the
+# Crescent Key or a Powerful Seaforium Charge (Blink no longer gets past);
+# the quest can be shared between mages.
 # Dungeon work: Dire Maul, groups of five, level 55-60.
 # Left out: The Arcanist's Cookbook (7500) starts from a book that drops in
 # Dire Maul and its reward is an item Forever's quest data cannot name (#18468).
 
 step Lorekeeper Lydros
-  tip Fly to Feathermoon (Alliance) or Camp Mojache (Horde) and ride to Dire Maul in central Feralas. Lorekeeper Lydros waits in the Athenaeum, the library, reached through the West wing (or the North wing with a Crescent Key).
+  tip Fly to Feathermoon (Alliance) or Camp Mojache (Horde) and ride to Dire Maul in central Feralas. Lorekeeper Lydros waits in the Athenaeum, the library, reached through the West wing, or through the North wing's courtyard doors with a Crescent Key (it drops from the imp Pusillin in the East wing; a Powerful Seaforium Charge also opens them; Blink no longer gets past). Other mages in your group can take it too: share it.
   level 60
   accept 7463 @58.0,44.5                      -- Lorekeeper Lydros
 
 step Hydrospawn
-  tip Hydrospawn, a water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool.
-  collect 18299 quest 7463.1 @58.0,44.5       -- Hydrospawn Essence: Hydrospawn
+  tip Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. Riptide hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets.
+  collect 18299 quest 7463.1 @58.0,44.5 group 5 -- Hydrospawn Essence: Hydrospawn
 
 step Back to Lydros
-  turnin 7463 @58.0,44.5                      -- Lorekeeper Lydros: Conjure Water
+  turnin 7463 @58.0,44.5                      -- Lorekeeper Lydros: Conjure Water, and 200 Shen'dralar reputation

@@ -37,9 +37,15 @@ zone Moonglade
 # Left out: Stalk With The Earthmother (76156, 76160, 76240, Boarton
 # Shadetotem in Thunder Bluff). Forever's change notes open 76156 and
 # 76160 to every class (not druid quests) and 76240 to Hunters, Shamans and
-# Druids, but the data cannot place their objectives (no source for the
-# Seaforium Mining Charges, Windfury Cones or Raw Brilliant Smallfish) and
-# still gives 76240 to Shamans only.
+# Druids; quests.json gives 76240 to Shamans only, so the chain is guided in
+# forever/class/shaman/stalk-with-the-earthmother (its INGAME note asks
+# whether Druids get it).
+# Places and gotchas from Forever's quest notes: the Great Bear Spirit
+# (no quest mark, three trees, the talk is the objective), the right moonkin
+# cave by Auberdine (the northern of two small caves; moonkin 11-13 outside,
+# empty inside), Lunaclaw (level 12-13, three minutes, the spirit only after
+# the kill; another druid's Lunaclaw counts too), the Barrens stone's level
+# 20 Thunderheads, Ur'endra's unmarked cliff cave.
 # The leveling guides carry all of this inline (nightelf/01-teldrassil,
 # tauren/01-mulgore, both skyborne/01-zephras-isle; the Alliance Skyborne
 # Moonglade welcome is proposed for them): this guide is for druids off our
@@ -47,6 +53,12 @@ zone Moonglade
 # Sources: quests.json and npcs.json (Questie 12.1.0, Forever); Forever's
 # quest data for 94911-94914; the skyboat points are the ones of
 # collectibles/pets/shadowgale-squirrel.
+# Druid flights out of Nighthaven: Silva Fil'naveth (npcs.json: Darnassus
+# Flight Master, 44.2,45.2) flies druids to Rut'theran Village and Bunthen
+# Plainswind beside her to Thunder Bluff, with no flight path needed (the
+# Classic druid flights; another Forever 1-20 leveling route takes Silva's).
+# The Night Elf and Alliance Skyborne steps of the druid guides send you to
+# her instead of Sindrayl's two-leg flight by way of Auberdine.
 
 # ---------------------------------------------------------------- Night Elves
 
@@ -60,14 +72,14 @@ step Heeding the Call
 step Mathrengyl Bearwalker
   only NightElf
   zone Darnassus
-  tip Mathrengyl Bearwalker stands in the Cenarion Enclave.
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
   turnin 5925 optional                  -- or whichever of the three letters you carry
   accept 5921
 
 step Moonglade
   only NightElf
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Learn the Moonglade flight path, then fly to Rut'theran Village (by way of Auberdine) and take the portal up to Darnassus.
+  tip Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs, past the armor vendor. The Great Bear Spirit sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from Nighthaven go west along the foot of the northern mountains, through the gap between the trees and the hills. If Dendrite is missing when you return, step outside and cast Teleport: Moonglade again. Learn the Moonglade flight path (Sindrayl, south of the lake) for later, then take Silva Fil'naveth's flight from the middle of Nighthaven: she flies druids straight to Rut'theran Village, no flight path needed. Take the portal up to Darnassus.
   turnin 5921                           -- Dendrite Starblaze
   accept 5929
   complete 5929 @39.1,27.5              -- Speak with the Great Bear Spirit
@@ -85,7 +97,7 @@ step Back to Darnassus
 step The Moonkin Stone
   only NightElf
   zone Darkshore
-  tip Fly from Rut'theran Village to Auberdine. The Moonkin Stone stands in the hills just east of the village: use the Cenarion Moondust there, defeat Lunaclaw and speak to the Lunaclaw Spirit.
+  tip Fly from Rut'theran Village to Auberdine. The Moonkin Stone stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the Auberdine road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the Cenarion Moondust by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the Lunaclaw Spirit that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too.
   fly "Auberdine"
   use 15208 @43.5,46.0                  -- Cenarion Moondust
   complete 6001
@@ -109,14 +121,14 @@ step Heeding the Call
 step Turak Runetotem
   only Tauren
   zone Thunder Bluff
-  tip Turak Runetotem stands on Elder Rise.
+  tip Turak Runetotem stands in the druids' hut on Elder Rise, over the rope bridges east of the lifts. He teaches you Teleport: Moonglade with the quest (it stays in your spellbook, Balance tab).
   turnin 5928 optional                  -- or whichever of the three letters you carry
   accept 5922
 
 step Moonglade
   only Tauren
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Bunthen Plainswind in Nighthaven flies druids to Thunder Bluff.
+  tip Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs. The Great Bear Spirit sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from Nighthaven go west along the foot of the northern mountains, through the gap between the trees and the hills. If Dendrite is missing when you return, step outside and cast Teleport: Moonglade again. Learn the Moonglade flight path (Faustron, south-west of the lake); Bunthen Plainswind in Nighthaven flies druids to Thunder Bluff.
   turnin 5922                           -- Dendrite Starblaze
   accept 5930
   complete 5930 @39.1,27.5              -- Speak with the Great Bear Spirit
@@ -132,9 +144,9 @@ step Back to Thunder Bluff
 
 step The Moonkin Stone
   only Tauren
-  zone Mulgore
-  tip The Moonkin Stone stands in the pass from Mulgore into the Barrens. Use the Cenarion Lunardust there, defeat Lunaclaw and speak to the Lunaclaw Spirit.
-  use 15710 @71.7,65.0                  -- Cenarion Lunardust
+  zone The Barrens
+  tip The Moonkin Stone stands in the Barrens just south-west of Camp Taurajo, by the road out of Mulgore. Level 20 Thunderheads roam close by: clear the way first. Use the Cenarion Lunardust by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the Lunaclaw Spirit that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her.
+  use 15710 @42.0,60.9                  -- Cenarion Lunardust
   complete 6002
 
 step Body and Heart
@@ -166,7 +178,7 @@ step Lotheluum Starbreeze
 
 step Urs'endris and Ur'endra
   only Skyborne
-  tip Urs'endris waits by the falls north-east of Valanaar. Ur'endra prowls the Shen'dar Highlands, west of Valanaar.
+  tip Urs'endris waits by the waterfall below the Shrine of Akir, north-east of Valanaar. Ur'endra (the bear you must defeat) lairs in an unmarked cave high on the cliff face west of him, where the Shen'dar Highlands meet the Gustberry Lowlands: take the path west out of Valanaar (not north), cross the river on the log bridge and reach the cave from the cliff's upper, northern side. The cave at the foot of the cliffs and the foggy cave are the wrong ones.
   turnin 94006                          -- Urs'endris
   accept 94638
   kill 258443 quest 94638.1             -- Ur'endra
@@ -188,7 +200,7 @@ step Child of Nature
 step Turak Runetotem
   only Skyborne,Horde
   zone Thunder Bluff
-  tip Turak Runetotem trains druids on Elder Rise.
+  tip Turak Runetotem trains druids in the druids' hut on Elder Rise, over the rope bridges east of the lifts. He teaches you Teleport: Moonglade with the next quest (it stays in your spellbook, Balance tab).
   turnin 94911
   accept 94913
 
@@ -202,14 +214,14 @@ step Child of Nature
 step Sheldras Moontree
   only Skyborne,Alliance
   zone Stormwind City
-  tip The Skyborne Portal takes you to Stormwind. Sheldras Moontree is the city's druid trainer.
+  tip The Skyborne Portal takes you to Stormwind. Sheldras Moontree is the city's druid trainer (the arrow points at him); he teaches you Teleport: Moonglade with the next quest (it stays in your spellbook, Balance tab).
   turnin 94912
   accept 94914
 
 step Dendrite Starblaze
   only Skyborne
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven. Learn the Moonglade flight path while you are here.
+  tip Cast Teleport: Moonglade: it lands you beside the building where Dendrite Starblaze stands upstairs, in Nighthaven. Learn the Moonglade flight path while you are here (Faustron for the Horde, south-west of the lake; Sindrayl for the Alliance, south of it).
   turnin 94913 only Horde               -- Dendrite Starblaze
   turnin 94914 only Alliance
   getfp "Moonglade"

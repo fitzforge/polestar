@@ -85,7 +85,7 @@ fn work(v: &Value) -> R<Work> {
 
 fn task(v: &Value) -> R<Task> {
 	let m = obj(v, "task")?;
-	Ok(Task { pt: u(get(m, "pt"), "task.pt")?, work: arr(get(m, "work"), "task.work")?.iter().map(work).collect::<R<_>>()? })
+	Ok(Task { pt: u(get(m, "pt"), "task.pt")?, work: arr(get(m, "work"), "task.work")?.iter().map(work).collect::<R<_>>()?, alts: u32s(m.get("alts"), "task.alts")? })
 }
 
 fn pos(v: &Value) -> R<Option<Pos>> {
@@ -442,6 +442,57 @@ impl World {
 				})
 			})
 			.collect::<R<_>>()?;
+		let graveyards = match w.get("graveyards") {
+			None | Some(Value::Null) => Vec::new(),
+			Some(x) => arr(x, "graveyards")?
+				.iter()
+				.map(|x| {
+					let x = obj(x, "graveyard")?;
+					let l = arr(get(x, "loc"), "graveyard.loc")?;
+					let lf = |k: usize| l.get(k).and_then(Value::as_f64).unwrap_or(f64::NAN);
+					Ok(Graveyard {
+						id: u(get(x, "id"), "graveyard.id")?,
+						name: s(get(x, "name"), "graveyard.name")?,
+						pt: u(get(x, "pt"), "graveyard.pt")?,
+						loc: (i(l.first().unwrap_or(&Value::Null), "graveyard.loc")?, lf(1), lf(2), lf(3)),
+						maps: u32s(x.get("maps"), "graveyard.maps")?,
+					})
+				})
+				.collect::<R<_>>()?,
+		};
+		let crossings = match w.get("crossings") {
+			None | Some(Value::Null) => Crossings::default(),
+			Some(x) => {
+				let x = obj(x, "crossings")?;
+				let end = |v: &Value| -> R<(u32, f64, f64, f64)> {
+					let l = arr(v, "crossing end")?;
+					let lf = |k: usize| l.get(k).and_then(Value::as_f64).unwrap_or(f64::NAN);
+					Ok((u(l.first().unwrap_or(&Value::Null), "crossing end map")?, lf(1), lf(2), lf(3)))
+				};
+				Crossings {
+					ways: arr(get(x, "ways"), "crossings.ways")?
+						.iter()
+						.map(|y| {
+							let y = obj(y, "crossing")?;
+							Ok(Crossing {
+								id: s(get(y, "id"), "crossing.id")?,
+								c: i(get(y, "c"), "crossing.c")?,
+								a: end(get(y, "a"))?,
+								b: end(get(y, "b"))?,
+								one_way: get(y, "oneWay").as_bool().unwrap_or(false),
+							})
+						})
+						.collect::<R<_>>()?,
+					open: arr(get(x, "open"), "crossings.open")?
+						.iter()
+						.map(|o| {
+							let l = arr(o, "crossings.open")?;
+							Ok((u(l.first().unwrap_or(&Value::Null), "open")?, u(l.get(1).unwrap_or(&Value::Null), "open")?))
+						})
+						.collect::<R<_>>()?,
+				}
+			}
+		};
 		let starts = obj(get(w, "starts"), "starts")?
 			.iter()
 			.map(|(race, x)| {
@@ -481,6 +532,8 @@ impl World {
 			grind_spacing,
 			zone_min,
 			danger,
+			graveyards,
+			crossings,
 			starts,
 			zones,
 			warnings: arr(get(w, "warnings"), "warnings")?.iter().map(|x| s(x, "warnings")).collect::<R<_>>()?,

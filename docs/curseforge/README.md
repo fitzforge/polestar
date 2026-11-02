@@ -7,7 +7,7 @@ Everything the Polestar project on CurseForge needs, in one folder:
 | [description.md](description.md) | The project description, ready to paste whole into CurseForge's description editor in Markdown mode |
 | `images/logo-1024.png`, `images/logo-400.png` | The project avatar: the gold emblem on a night tile, no text |
 | `images/banner.png` | The banner at the top of the description (the README's dark banner at 2x) |
-| `images/starts.png`, `images/levels.png` | The route charts at 2x; the description shows `starts.png` |
+| `images/starts.png` | The route chart at 2x, shown in the description |
 
 The description's images and links point at `main` on GitHub
 (`https://raw.githubusercontent.com/fitzforge/polestar/main/...` and
@@ -20,16 +20,16 @@ and the docs on GitHub, never to the releases page.
 
 The images are drawn in code: `node tools/polestar.js readme brand` writes
 `docs/assets/avatar.svg` and, with `rsvg-convert` (librsvg) installed, every
-PNG here; `readme charts` re-exports the two charts when it redraws them
+PNG here; `readme charts` re-exports the chart when it redraws it
 (tools/README.md, "Generated files").
 
 ## Summary
 
 For the project's summary field (plain text, at most 150 characters; this one
-is 145):
+is 146):
 
 ```text
-Free, open-source guides for World of Warcraft: Forever: leveling routes for every start, found by simulation, plus professions, mounts and pets.
+Free, open-source guides for World of Warcraft: Forever: leveling routes for every start, built from game data, plus professions, mounts and pets.
 ```
 
 ## Project settings
@@ -97,11 +97,11 @@ The in-game screenshots, from `docs/assets/screenshots/`, each with its title
 
 1. Upload the new zip as above, with its changelog.
 2. Read [description.md](description.md) against the release: the guide
-   counts in "What it is" (README.md, "What it is"), the hours in "How the
-   routes are made" (README.md, "The numbers"; always as the simulator's
-   estimates), the "Beta" section, and any feature the release adds or
+   counts in "What it is" (README.md, "What it is"), the numbers in "How the
+   routes are made" (README.md, "What changed in 0.3.0" or its successor;
+   always as model estimates), the "Beta" section, and any feature the release adds or
    changes. Keep each paragraph and list item on one line, as now.
-3. If the charts were redrawn (`readme charts`) or the brand art changed
+3. If the chart was redrawn (`readme charts`) or the brand art changed
    (`readme brand`), commit the new PNGs too.
 4. Push to `main` first: the description's images load from there.
 5. Paste description.md whole over the old description (Markdown mode) and

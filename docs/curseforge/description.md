@@ -1,12 +1,12 @@
 ![Polestar: leveling guides for World of Warcraft: Forever](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/images/banner.png)
 
-**A free, open-source guide addon for World of Warcraft: Forever: leveling routes for every start, found by simulation and written step by step.**
+**A free, open-source guide addon for World of Warcraft: Forever: leveling routes for every start, built from the game's data and checked step by step.**
 
 ---
 
 ## What it is
 
-Polestar is one addon for the whole of WoW: Forever. It carries 220 guides: 57 leveling guides that take both factions from 1 to 60 from every race's starting zone (Zephras Isle for the Skyborne included), 62 class guides for every class's quest chains, the twelve professions from 1 to 300, 17 reputations, 7 exploration guides, the Legacy challenges and 64 collectible guides, one per mount and per pet.
+Polestar is one addon for the whole of WoW: Forever. It carries 256 guides: 61 leveling guides that take both factions from 1 to 60 from every race's starting zone (Zephras Isle for the Skyborne included), 82 class guides for every class's quest chains and class mounts, the twelve professions from 1 to 300, 27 reputations, 7 exploration guides, the Legacy challenges, 64 collectible guides (mounts and pets) and 2 miscellaneous guides.
 
 Around the guides it adds a 3D waypoint arrow that walks real paths and a travel planner, quest markers on the map, an upgrade indicator on item tooltips, a dungeon quest journal, rare alerts and the quality-of-life helpers a long leveling session needs, and every window works with a gamepad. Its interface and its guides read in English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it. It is free, open source under the GPL-3.0, and made in the open on GitHub.
 
@@ -18,10 +18,10 @@ Around the guides it adds a 3D waypoint arrow that walks real paths and a travel
 
 **The guide window.** The step's goals with their counters, who comes next, XP per hour and the time to level.
 
-- **One person at a time.** In a quest hub the window shows only who to talk to now and their quests, then who comes next ("Person 2 of 8"), and the arrow points at that person.
-- **Goals check themselves off** as you play: quests accepted and turned in, kills, loot, places reached, trainers visited, skills and reputation. Your place is worked out from your quest log, so it survives lost saved variables.
+- **One person at a time.** In a quest hub the window names who to talk to now, then who comes next ("Person 2 of 8"), and the arrow points at that person. The whole hub's quests stay listed under it, each with its person: what you took or handed in stays checked, and a quest its giver did not offer stays on the list, the arrow on that giver, asking you to report it.
+- **Goals check themselves off** from what the game says: quests in your quest log or handed in, kills, loot, places reached, spells learned at a trainer, skills and reputation. Opening a chat or a trainer's window alone checks nothing off. Your place is worked out from your quest log, so it survives lost saved variables.
 - **A guide for where you are.** The window opens with a guide for your race, class, level and zone, and each guide hands over to the next one in its chain when you finish it.
-- **Solo by design.** The leveling routes use only quests one player can do alone; a quest that needs an elite appears as an extra marked "optional". Class quests come at the level each class gets them.
+- **Elite quests with a solo way past.** The leveling routes take elite and group quests where they pay, with the group each one wants; skip one and the guide has you grind to the route's level there instead. Quests that start from a rare drop are optional extras. Class quests come at the level each class gets them.
 - **Tabs.** Up to six guides open at once: a leveling route and a profession, say.
 - **Gamepad.** Every Polestar window answers the D-pad, A, B, Y and LB / RB, with a bar of button hints. Options, Gamepad names the buttons (Xbox letters or PlayStation shapes) and binds any Polestar action to a key, a button or two buttons held together; nothing is bound until you choose.
 
@@ -85,11 +85,9 @@ Quest item, target and Hearthstone buttons; XP per hour and time to level; selli
 
 ## How the routes are made
 
-The leveling routes are not hand-picked. A simulator models every quest Forever offers a faction (solo quests only, with their levels, prerequisites, givers and the kills and drops their objectives take), plays millions of complete 1-60 routes for each start, and keeps the one that reaches 60 soonest under its model. From level 12 one shared route per faction is searched, so the guides join into one chain; the guides are written by hand from it and scored under the same model. Four independent searches land within five hours of each other, and under the model the guides reach 60 in about 130-132 hours played for the Horde and 132-134 for the Alliance, counting only what they require (their optional extras can save up to about 8 hours).
+The leveling routes are not hand-picked. Every race plays its own starting zone, then all the Horde races share one route from the Barrens to 60 and all the Alliance races one from Westfall. Polestar Forge builds them from the game's data and Forever's quest data (elite and group quests included, each with a solo way past), searches the order, writes the guides, and plays them the way a player follows them, refusing any step that can't be done as written: a quest before it is available, a flight path not learnt, a hearth on cooldown, a trip made twice. Every round is read step by step, and a fix from a player's report becomes a permanent record the next build keeps. Towns are swept in one visit, class training comes on the way, rare drops are optional extras, and the hearthstone is never asked for while it cools down.
 
-![Chart: hours to 60 and hours of grinding per start, for the guides, the best route found, the consensus route and Polestar 0.1.0](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/images/starts.png)
-
-*These hours are the simulator's estimates, not measured play: nobody has played a route end to end on Forever yet. The method, the four searches and every number are in the [README](https://github.com/fitzforge/polestar/blob/main/README.md#how-the-routes-are-made) and [docs/SIMULATION.md](https://github.com/fitzforge/polestar/blob/main/docs/SIMULATION.md).*
+*How the routes are made is in the [README](https://github.com/fitzforge/polestar/blob/main/README.md#how-the-routes-are-made) and [docs/FORGE.md](https://github.com/fitzforge/polestar/blob/main/docs/FORGE.md).*
 
 ---
 
@@ -126,7 +124,7 @@ Write leveling guides of your own? Polestar's guide format, compiler, checks, pl
 
 ## Beta
 
-Polestar is in beta. Every guide compiles, lints and plays to the end in a simulator for every race and class it serves, but nothing has been play-tested end to end on Forever yet. Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not in any data yet; the routes will take it in once it is.
+Polestar is in beta. Every guide compiles, lints and plays to the end in a simulator for every race and class it serves, and the route checker plays every leveling guide to 60 the way a player follows it. The 0.3.0 routes have been tested in the developer's own game client, not yet by players on Forever. Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not in any data yet; the routes will take it in once it is.
 
 A step in the wrong order, or a quest that is not where the guide says? Please tell us on the [Polestar Discord](https://discord.gg/polestar) or [open an issue on GitHub](https://github.com/fitzforge/polestar/issues), with the guide, the step and what you saw. `/console scriptErrors 1` shows Lua errors.
 

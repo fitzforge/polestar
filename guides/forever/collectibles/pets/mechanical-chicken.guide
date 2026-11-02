@@ -9,16 +9,17 @@ zone Feralas
 
 # Mechanical Chicken from An OOX of Your Own: rescue Oglethorpe Obnoticus's
 # three homing robots, then visit him in Booty Bay.
-# Sources: quests.json (the OOX chain, its givers and turn-ins); items.json (the
-# beacons' droppers, pfQuest rates); Forever client 1.60.1.70338. The reward is
-# general Era knowledge (not in quests.json).
+# Sources: quests.json (the OOX chain, its givers and turn-ins, levels); the
+# world database (An OOX of Your Own rewards item 10398; the beacons' droppers
+# and rates, Classic drop data); Forever's client data (the beacons need level
+# 40 and 43); the knowledge base's quest notes (ambushes, robot positions).
 
 step OOX-22/FE Distress Beacon in Feralas
-  tip Each robot starts with a distress beacon that mobs in its zone drop (about 1-2.5% per kill in our data). Start in Feralas.
+  tip Each robot starts with a distress beacon that mobs in its zone drop, about one kill in 40 to 100 in Classic's data. In Feralas the best are the Coast Crawl Snapclaws and Deepseers (levels 43-45) on the Forgotten Coast and the Sprite Dragons (47-48), about 2.5%; ogres, harpies, naga and Grimtotems drop it about 1%. You can loot it from level 40.
   collect 8705 x1 nearest
 
 step Rescue OOX-22/FE
-  tip Take the beacon to OOX-22/FE in a cave near Feral Scar Vale, then escort it to the dock on the Forgotten Coast. Its turn-in is in Booty Bay; keep it for later.
+  tip Right-click the beacon. OOX-22/FE sits in a cave near Feral Scar Vale, among yetis and apes. Its escort runs west along the road to the dock on the Forgotten Coast with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in Booty Bay; keep the quest for later.
   accept 2766
   turnin 2766
   accept 2767
@@ -26,12 +27,12 @@ step Rescue OOX-22/FE
 
 step OOX-17/TN Distress Beacon in Tanaris
   zone Tanaris
-  tip Most Tanaris mobs can drop OOX-17/TN's beacon (about 0.5-3% per kill in our data).
+  tip Tanaris mobs drop OOX-17/TN's beacon about one kill in 50 to 150. Best: the Treasure Hunting Pirates and Buccaneers on the south shore (44-45) and the Ground Pounders in the north (41-43), about 2%. You can loot it from level 43.
   collect 8623 x1 nearest
 
 step Rescue OOX-17/TN
   zone Tanaris
-  tip Take the beacon to OOX-17/TN in Tanaris, then escort it to Steamwheedle Port. Its turn-in is in Booty Bay too.
+  tip OOX-17/TN stands in the hills near the Gaping Chasm in south-east Tanaris. Its escort to Steamwheedle Port has two ambushes: three scorpids near the start, three Wastewander bandits near the end. The robot has about 3,000 health and stops to fight what you attack, so it can tank for a moment while you recover. Its turn-in is in Booty Bay too.
   accept 351
   turnin 351
   accept 648
@@ -39,12 +40,12 @@ step Rescue OOX-17/TN
 
 step OOX-09/HL Distress Beacon in the Hinterlands
   zone The Hinterlands
-  tip Most Hinterlands mobs can drop OOX-09/HL's beacon (about 1-2.5% per kill in our data).
+  tip Most Hinterlands mobs drop OOX-09/HL's beacon about once in 100 kills: Silvermane wolves, owlbeasts, Highvale elves, Witherbark and Vilebranch trolls. You can loot it from level 43.
   collect 8704 x1 nearest
 
 step Rescue OOX-09/HL
   zone The Hinterlands
-  tip Take the beacon to OOX-09/HL at the head of the river near Skulk Rock, then escort it to the shore beyond Overlook Cliff.
+  tip OOX-09/HL waits on the largest island of the lake west of Skulk Rock. Its escort to the shore beyond Overlook Cliff has two ambushes of three: Marauding Owlbeasts, then Vilebranch Ambushers; the robot warns you just before each.
   accept 485
   turnin 485
   accept 836
@@ -52,7 +53,7 @@ step Rescue OOX-09/HL
 
 step Oglethorpe Obnoticus in Booty Bay
   zone Stranglethorn Vale
-  tip Oglethorpe Obnoticus is in Booty Bay. With all three robots home he offers An OOX of Your Own, whose reward is the Mechanical Chicken; it needs level 45.
+  tip Oglethorpe Obnoticus is in Booty Bay, upstairs in the building north of the inn, above First Mate Crazz. Hand in all three rescues; at level 45 he then offers An OOX of Your Own, which you turn straight back in for the Mechanical Chicken.
   turnin 2767
   turnin 648
   turnin 836

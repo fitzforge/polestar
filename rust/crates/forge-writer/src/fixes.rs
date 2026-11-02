@@ -313,12 +313,21 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 		let Some(step) = step_of(lines, i) else { continue };
 		let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
 		if let Some(tip) = r["tip"].as_str() {
+			// (The fix's tip is the step's: it replaces the first, and the step's other tips go, a
+			// stale second tip a merged step brought from v1, RevSkyH3 S4.)
 			let line = format!("{ind}tip {tip}");
-			match (step.0 + 1..step.1).find(|&k| re!(r"^\s+tip\s").is_match(&lines[k])) {
-				Some(k) if lines[k] == line => {}
-				Some(k) => {
-					lines[k] = line;
-					changed.push(k);
+			let tips: Vec<usize> = (step.0 + 1..step.1).filter(|&k| re!(r"^\s+tip\s").is_match(&lines[k])).collect();
+			match tips.first() {
+				Some(&k) => {
+					let extra = &tips[1..];
+					if lines[k] != line || !extra.is_empty() {
+						// (Marked here, dropped at the end: the found lines' indices hold till then.)
+						for &x in extra {
+							lines[x] = GONE.to_string();
+						}
+						lines[k] = line;
+						changed.push(k);
+					}
 				}
 				None => {
 					// After the title and the step's own `only`/`zone` lines.
@@ -341,7 +350,24 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 			changed.push(i);
 		}
 	}
+	lines.retain(|l| l != GONE);
 	changed
+}
+
+/// A line apply_fix drops once every found line is done.
+const GONE: &str = "\u{0}";
+
+/// The objectives (quest, objective number) guide-fixes.json never lets the engine list on the way
+/// (`along: false`), for this start's side.
+pub fn no_along(rec: &Records, faction: Option<&str>) -> rustc_hash::FxHashSet<(u32, u32)> {
+	rec.guide_fixes
+		.and_then(|d| d["fixes"].as_array())
+		.into_iter()
+		.flatten()
+		.filter(|r| r["along"] == serde_json::Value::Bool(false))
+		.filter(|r| !r["faction"].as_str().zip(faction).is_some_and(|(a, b)| !a.eq_ignore_ascii_case(b)))
+		.filter_map(|r| Some((r["at"]["quest"].as_u64()? as u32, r["at"]["objective"].as_u64()? as u32)))
+		.collect()
 }
 
 /// Applies the records to `files` of `tree` (the guides the route was written into); `quests`: the
@@ -362,8 +388,14 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 	}
 	for r in rec.guide_fixes.and_then(|d| d["fixes"].as_array()).into_iter().flatten() {
 		let anchor = fix_anchor(r);
-		let kind = if r.get("tip").is_some() { "tip" } else { "level" };
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}", r["tip"], r["level"]), anchor });
+		let kind = if r.get("tip").is_some() {
+			"tip"
+		} else if r.get("along").is_some() {
+			"along"
+		} else {
+			"level"
+		};
+		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}", r["tip"], r["level"], r["along"]), anchor });
 	}
 	let mut rows = Vec::new();
 	for (k, x) in recs.iter().enumerate() {
@@ -397,6 +429,11 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				continue;
 			}
 			found_any = true;
+			// `along: false` changes no line here: the engine reads it (no_along).
+			if x.r.get("along").is_some() {
+				changed_any = true;
+				continue;
+			}
 			let changed = if x.file == "places" { apply_place(&mut lines, &found, x.r, data) } else { apply_fix(&mut lines, &found, x.r) };
 			if !changed.is_empty() {
 				changed_any = true;
@@ -491,6 +528,19 @@ mod tests {
 	}
 
 	#[test]
+	fn a_fix_tip_replaces_every_tip_of_its_step() {
+		// RevSkyH3 S4: a step merged from two of v1's kept its second (stale) tip beside the fix's.
+		let seed = "step Shen'dar\n  tip Old first tip.\n  accept 3505\n  tip Old second tip.\n  complete 3505\n";
+		let fixes = json!({ "fixes": [{ "id": "tip", "at": { "quest": 3505, "goal": "complete" }, "tip": "New tip." }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+		assert_eq!(out, "step Shen'dar\n  tip New tip.\n  accept 3505\n  complete 3505\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
 	fn an_objective_gets_its_own_line_and_the_bare_complete_goes() {
 		let seed = "step Shen'dar\n  accept 93461\n  complete 93461                 -- Speak with both\n  turnin 93461\n";
 		let places = json!({ "places": [
@@ -514,5 +564,19 @@ mod tests {
 		let (out, rows) = run(SEED, places, json!({}), &[]);
 		assert_eq!(out, SEED);
 		assert!(rows.iter().all(|r| r.state == "conflicting"), "{rows:?}");
+	}
+
+	#[test]
+	fn along_false_is_applied_and_listed_for_the_engine() {
+		let fixes = json!({ "fixes": [
+			{ "id": "621-oats", "at": { "quest": 99141, "goal": "objective", "objective": 3 }, "along": false, "issue": 621 },
+			{ "id": "other-side", "at": { "quest": 3505, "goal": "objective", "objective": 1 }, "along": false, "faction": "Alliance" }
+		] });
+		let (out, rows) = run(SEED, json!({}), fixes.clone(), &[3505, 99141]);
+		assert_eq!(out, SEED, "no line changes");
+		let st: Vec<(&str, &str)> = rows.iter().map(|r| (r.id.as_str(), r.state.as_str())).collect();
+		assert_eq!(st, vec![("621-oats", "applied"), ("other-side", "not for this start")]);
+		let recs = Records { places: None, guide_fixes: Some(&fixes) };
+		assert_eq!(no_along(&recs, Some("Horde")).into_iter().collect::<Vec<_>>(), vec![(99141, 3)]);
 	}
 }

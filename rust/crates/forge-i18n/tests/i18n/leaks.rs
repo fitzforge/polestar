@@ -135,7 +135,7 @@ end)"#,
 }
 
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest";
-const DROPPED: [&str; 2] = ["Young Wolves and Timber Wolves roam the fields right around the Abbey.", "Back to the Cathedral of Light."];
+const DROPPED: [&str; 2] = ["Young Wolves and Timber Wolves roam the fields right around the Abbey.", "The Fishing Traps sit along the west shore of the lake."];
 
 /// English a Russian or Chinese client must never see, each found with its scene: an interface string
 /// "translated" as its English, English the code writes in words a translation elsewhere also uses, a

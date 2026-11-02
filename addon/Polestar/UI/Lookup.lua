@@ -366,6 +366,8 @@ local STATUS_NOTE = {
 	retired = L["Not obtainable any more; shown for reference."],
 	nosource = L["No source is known for this; shown for reference."],
 }
+-- A mount without a curated guide: nothing is built from its best source.
+local MOUNT_NOTE = L["No guide to this mount yet: the sources above say where it comes from and what it takes. Guide on one leads you there."]
 LK.STATUS_TEXT = STATUS_TEXT
 
 -- A muted chip saying so.
@@ -501,6 +503,8 @@ function LK.Guide(i)
 	end
 	if reason == "tabs" then
 		setStatus(L["Six tabs is the limit. Close one to open another."])
+	elseif reason == "mount" then
+		setStatus(MOUNT_NOTE)
 	else
 		setStatus(format(L["No guide could be made for this (%s)."], tostring(reason or "no source")))
 	end
@@ -957,6 +961,10 @@ local function renderDetails(loaded, reason)
 		note = format(L["A guide covers this: %s."], cg and cg.title or curated)
 	elseif not (Lk and Lk.Guide) then
 		note = L["Guides from the Codex need the Lookup module."]
+	elseif Lk.IsMount and Lk.IsMount(entity) then
+		-- Only a curated guide leads to a mount (Lookup.Guide): its sources
+		-- above, with their cost and requirements, and each row's Guide.
+		note = MOUNT_NOTE
 	elseif best then
 		primary = L["Guide me"]
 		note = format(L["Builds a guide to %s, the best source for you, and opens it in a new tab."], list[best].label or "?")
@@ -1430,7 +1438,7 @@ local function onSearch(text)
 		setQuery(text)
 		return
 	end
-	pending = C_Timer.NewTimer(DEBOUNCE, function()
+	pending = ns.NewTimer(DEBOUNCE, function()
 		pending = nil
 		setQuery(text)
 	end)

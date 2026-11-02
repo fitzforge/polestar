@@ -15,7 +15,7 @@ if not (N and N.RegisterTravelData) then return end
 
 N.RegisterTravelData({
 	build = "1.15.9.70003",
-	-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name
+	-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name[, the one class that flies from it]
 	taxi = {
 		{2,0,-8840.6,489.7,1429,30.13,38.93,1,"Stormwind, Elwynn"},
 		{4,0,-10628.9,1036.7,1436,56.57,52.67,1,"Sentinel Hill, Westfall"},
@@ -62,6 +62,8 @@ N.RegisterTravelData({
 		{56,0,-10457,-3279.2,1435,46.05,54.68,2,"Stonard, Swamp of Sorrows"},
 		{58,1,3374.7,997,1440,12.19,33.77,2,"Zoram'gar Outpost, Ashenvale"},
 		{61,1,2302.4,-2524.6,1440,73.26,61.67,2,"Splintertree Post, Ashenvale"},
+		{62,1,7793.6,-2403.5,1450,44.28,45.34,1,"Nighthaven, Moonglade","DRUID"},
+		{63,1,7787.7,-2404.1,1450,44.31,45.72,2,"Nighthaven, Moonglade","DRUID"},
 		{64,1,2722,-3880.6,1447,11.9,77.48,1,"Talrendis Point, Azshara"},
 		{65,1,6205.9,-1949.6,1448,62.46,24.19,1,"Talonbranch Glade, Felwood"},
 		{66,0,931.3,-1430.1,1422,42.95,84.95,1,"Chillwind Camp, Western Plaguelands"},

@@ -472,3 +472,53 @@ fn a_next_option_with_when_is_decided_at_the_hand_off_the_plan_waits_unless_the_
 	);
 	assert_eq!(out, json!({ "alone": "choice", "unchosen": "choice", "chosen": "later", "conditional": "choice" }));
 }
+
+// The quest log's room: quests 1 (hand-in passed), 3 (ahead), 5 (next guide) and 77 (no hand-in on the
+// route) fill a log of 4; the live step takes quests 10 and 11.
+const ROOM: &str = r#"
+    local w = stub.world
+    w.onQuest(1, {}, "One"); w.onQuest(3, {}, "Three"); w.onQuest(5, {}, "Five"); w.onQuest(77, {}, "Stray")
+    local cap = 4
+    C_QuestLog.GetMaxNumQuestsCanAccept = function() return cap end
+    local accepts = { { t="accept", quest=10, status="active" }, { t="accept", quest=11, status="active" } }
+    P.Engine.GetStepView = function(i) if i == live then return { goals = accepts } end end
+    local function titles(list) local out = {} for i, d in ipairs(list or {}) do out[i] = d.title end return out end
+"#;
+
+#[test]
+fn the_route_s_unneeded_quests_are_the_ones_it_never_hands_in_and_none_while_a_choice_is_open() {
+	let out = run(
+		&format!(
+			"{ROOM}{}",
+			r#"
+    local list = R.Unneeded()
+    local open = { titles(list), list[1].status, list[2].status }
+    guideA.nextChoices={guideB.id,"route/c"}; guides["route/c"]={id="route/c",title="Other",steps={}}; P.Fire("ROUTE_CHOSEN")
+    emit({ open = open, undecided = R.Unneeded() == nil })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out, json!({ "open": [["One", "Stray"], "missed", "unplanned"], "undecided": true }));
+}
+
+#[test]
+fn an_accept_step_past_the_log_s_cap_names_what_to_drop_unneeded_first_then_the_latest_hand_in() {
+	let out = run(
+		&format!(
+			"{ROOM}{}",
+			r#"
+    local full = R.LogOverflow()
+    cap = 5
+    local one = R.LogOverflow()
+    w.abandon(1); w.abandon(77); cap = 3
+    local later = R.LogOverflow()
+    cap = 6
+    local fits = R.LogOverflow()
+    emit({ full = { full.take, full.free, titles(full.drop) }, one = titles(one.drop), later = titles(later.drop), fits = fits == nil })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out, json!({ "full": [2, 0, ["One", "Stray"]], "one": ["One"], "later": ["Five"], "fits": true }));
+}

@@ -4,8 +4,7 @@
 use super::pack::{self, Cluster, Graph, Meta, Span, R};
 use super::PackSource;
 use rustc_hash::FxHashMap;
-use std::collections::BTreeMap;
-use std::sync::atomic::{AtomicU64, Ordering};
+use std::sync::atomic::{AtomicU64, AtomicUsize, Ordering};
 use std::sync::{Arc, Mutex, OnceLock};
 
 /// The store's counters.
@@ -29,26 +28,36 @@ enum Entry {
 	Graph(Arc<Graph>),
 }
 
+/// A part of the cache: (entry, its bytes, its last use) by key, and the part's hits.
 #[derive(Default)]
-struct Lru {
+struct Shard {
 	map: FxHashMap<u64, (Entry, usize, u64)>,
-	order: BTreeMap<u64, u64>,
-	tick: u64,
-	bytes: usize,
-	peak: usize,
+	hits: u64,
 }
 
+/// The cache's parts: a key's part by its hash, so threads looking up different clusters rarely wait on each other.
+const SHARDS: usize = 64;
+
 type MetaCell = Arc<OnceLock<R<Option<Arc<Meta>>>>>;
+/// A decode in flight: (the entry, its bytes) once decoded.
+type Pending = Arc<OnceLock<R<(Entry, usize)>>>;
 
 pub(crate) struct Store {
 	pub(crate) source: Box<dyn PackSource>,
 	metas: Mutex<FxHashMap<u32, MetaCell>>,
-	lru: Mutex<Lru>,
+	shards: Vec<Mutex<Shard>>,
+	/// Keys being decoded: a thread asking for one waits for its decode rather than decoding it again.
+	pending: Mutex<FxHashMap<u64, Pending>>,
+	/// The use clock: one tick per entry kept (a hit is stamped with the clock as it stands).
+	tick: AtomicU64,
+	bytes: AtomicUsize,
+	peak: AtomicUsize,
+	/// One thread evicts at a time.
+	evicting: Mutex<()>,
 	limit: usize,
 	decodes: AtomicU64,
 	graph_decodes: AtomicU64,
 	decode_us: AtomicU64,
-	hits: AtomicU64,
 	evictions: AtomicU64,
 }
 
@@ -57,17 +66,24 @@ impl Store {
 		Store {
 			source,
 			metas: Mutex::default(),
-			lru: Mutex::default(),
+			shards: (0..SHARDS).map(|_| Mutex::default()).collect(),
+			pending: Mutex::default(),
+			tick: AtomicU64::new(0),
+			bytes: AtomicUsize::new(0),
+			peak: AtomicUsize::new(0),
+			evicting: Mutex::default(),
 			limit: cache_mb.saturating_mul(1_048_576),
 			decodes: AtomicU64::new(0),
 			graph_decodes: AtomicU64::new(0),
 			decode_us: AtomicU64::new(0),
-			hits: AtomicU64::new(0),
 			evictions: AtomicU64::new(0),
 		}
 	}
 
-	/// The map's metadata and part index (scanned once; None: no such map in the pack).
+	fn shard(&self, key: u64) -> &Mutex<Shard> {
+		&self.shards[(key.wrapping_mul(0x9E37_79B9_7F4A_7C15) >> 58) as usize % SHARDS]
+	}
+
 	pub(crate) fn meta(&self, map: u32) -> R<Option<Arc<Meta>>> {
 		let cell = self.metas.lock().unwrap().entry(map).or_default().clone();
 		cell.get_or_init(|| self.load_meta(map)).clone()
@@ -104,35 +120,48 @@ impl Store {
 	}
 
 	fn lookup(&self, key: u64) -> Option<Entry> {
-		let mut lru = self.lru.lock().unwrap();
-		let lru = &mut *lru;
-		lru.tick += 1;
-		let tick = lru.tick;
-		let e = lru.map.get_mut(&key)?;
-		lru.order.remove(&e.2);
+		let tick = self.tick.load(Ordering::Relaxed);
+		let mut shard = self.shard(key).lock().unwrap();
+		let e = shard.map.get_mut(&key)?;
 		e.2 = tick;
-		lru.order.insert(tick, key);
-		self.hits.fetch_add(1, Ordering::Relaxed);
-		Some(e.0.clone())
+		let entry = e.0.clone();
+		shard.hits += 1;
+		Some(entry)
 	}
 
 	fn remember(&self, key: u64, value: Entry, bytes: usize) {
-		let mut lru = self.lru.lock().unwrap();
-		let lru = &mut *lru;
-		lru.tick += 1;
-		let tick = lru.tick;
-		if let Some(old) = lru.map.insert(key, (value, bytes, tick)) {
-			lru.order.remove(&old.2);
-			lru.bytes -= old.1;
+		let tick = self.tick.fetch_add(1, Ordering::Relaxed) + 1;
+		if let Some(old) = self.shard(key).lock().unwrap().map.insert(key, (value, bytes, tick)) {
+			self.bytes.fetch_sub(old.1, Ordering::Relaxed);
 		}
-		lru.order.insert(tick, key);
-		lru.bytes += bytes;
-		lru.peak = lru.peak.max(lru.bytes);
-		while lru.bytes > self.limit && lru.map.len() > 4 {
-			let (_, old) = lru.order.pop_first().unwrap();
-			let e = lru.map.remove(&old).unwrap();
-			lru.bytes -= e.1;
-			self.evictions.fetch_add(1, Ordering::Relaxed);
+		let now = self.bytes.fetch_add(bytes, Ordering::Relaxed) + bytes;
+		self.peak.fetch_max(now, Ordering::Relaxed);
+		if now > self.limit {
+			self.evict();
+		}
+	}
+
+	/// Over the limit: the least recently used entries dropped down to 7/8 of it (at least 4 kept).
+	fn evict(&self) {
+		let Ok(_one) = self.evicting.try_lock() else { return };
+		if self.bytes.load(Ordering::Relaxed) <= self.limit {
+			return;
+		}
+		let mut all: Vec<(u64, u64)> = Vec::new();
+		for s in &self.shards {
+			all.extend(s.lock().unwrap().map.iter().map(|(&k, e)| (e.2, k)));
+		}
+		all.sort_unstable();
+		let (target, mut left) = (self.limit / 8 * 7, all.len());
+		for (_, k) in all {
+			if self.bytes.load(Ordering::Relaxed) <= target || left <= 4 {
+				break;
+			}
+			if let Some(e) = self.shard(k).lock().unwrap().map.remove(&k) {
+				self.bytes.fetch_sub(e.1, Ordering::Relaxed);
+				self.evictions.fetch_add(1, Ordering::Relaxed);
+				left -= 1;
+			}
 		}
 	}
 
@@ -146,46 +175,77 @@ impl Store {
 		v
 	}
 
+	/// The entry under `key`: the cache's, else decoded once (threads asking for a key being decoded wait for it).
+	fn get_or_decode(&self, key: u64, decode: impl FnOnce() -> R<(Entry, usize)>) -> R<Entry> {
+		if let Some(e) = self.lookup(key) {
+			return Ok(e);
+		}
+		let cell = self.pending.lock().unwrap().entry(key).or_default().clone();
+		let got = cell.get_or_init(decode).clone();
+		// The first thread through keeps it (the others asked while it decoded).
+		let mut pending = self.pending.lock().unwrap();
+		if pending.get(&key).is_some_and(|c| Arc::ptr_eq(c, &cell)) {
+			pending.remove(&key);
+			drop(pending);
+			if let Ok((e, bytes)) = &got {
+				self.remember(key, e.clone(), *bytes);
+			}
+		}
+		got.map(|x| x.0)
+	}
+
 	pub(crate) fn cluster(&self, meta: &Meta, k: u32) -> R<Option<Arc<Cluster>>> {
 		let key = (meta.map as u64 * 4096 + k as u64) * 2;
-		if let Some(Entry::Cluster(c)) = self.lookup(key) {
-			return Ok(c);
+		let e = self.get_or_decode(key, || {
+			let c = self.timed(&self.decodes, || pack::decode_cluster(meta, k, &mut |f, k| self.read_field(meta, f, k)))?.map(Arc::new);
+			let bytes = c.as_ref().map_or(64, |c| c.bytes());
+			Ok((Entry::Cluster(c), bytes))
+		})?;
+		match e {
+			Entry::Cluster(c) => Ok(c),
+			Entry::Graph(_) => unreachable!("f4 store: a cluster key holds a graph"),
 		}
-		let c = self.timed(&self.decodes, || pack::decode_cluster(meta, k, &mut |f, k| self.read_field(meta, f, k)))?.map(Arc::new);
-		let bytes = c.as_ref().map_or(64, |c| c.bytes());
-		self.remember(key, Entry::Cluster(c.clone()), bytes);
-		Ok(c)
 	}
 
 	pub(crate) fn graph(&self, meta: &Meta, k: u32) -> R<Arc<Graph>> {
 		let key = (meta.map as u64 * 4096 + k as u64) * 2 + 1;
-		if let Some(Entry::Graph(g)) = self.lookup(key) {
-			return Ok(g);
+		let e = self.get_or_decode(key, || {
+			let c = self.cluster(meta, k)?;
+			let g = Arc::new(self.timed(&self.graph_decodes, || pack::decode_graph(k, &mut |f, k| self.read_field(meta, f, k), c.as_deref()))?);
+			let bytes = g.bytes();
+			Ok((Entry::Graph(g), bytes))
+		})?;
+		match e {
+			Entry::Graph(g) => Ok(g),
+			Entry::Cluster(_) => unreachable!("f4 store: a graph key holds a cluster"),
 		}
-		let c = self.cluster(meta, k)?;
-		let g = Arc::new(self.timed(&self.graph_decodes, || pack::decode_graph(k, &mut |f, k| self.read_field(meta, f, k), c.as_deref()))?);
-		self.remember(key, Entry::Graph(g.clone()), g.bytes());
-		Ok(g)
 	}
 
 	pub(crate) fn stats(&self) -> Stats {
-		let lru = self.lru.lock().unwrap();
+		let (mut hits, mut cached) = (0, 0);
+		for s in &self.shards {
+			let s = s.lock().unwrap();
+			hits += s.hits;
+			cached += s.map.len();
+		}
 		Stats {
 			decodes: self.decodes.load(Ordering::Relaxed),
 			graph_decodes: self.graph_decodes.load(Ordering::Relaxed),
 			decode_ms: self.decode_us.load(Ordering::Relaxed) / 1000,
-			hits: self.hits.load(Ordering::Relaxed),
+			hits,
 			evictions: self.evictions.load(Ordering::Relaxed),
-			cached: lru.map.len(),
-			cached_mb: lru.bytes as f64 / 1_048_576.0,
-			peak_mb: lru.peak as f64 / 1_048_576.0,
+			cached,
+			cached_mb: self.bytes.load(Ordering::Relaxed) as f64 / 1_048_576.0,
+			peak_mb: self.peak.load(Ordering::Relaxed) as f64 / 1_048_576.0,
 		}
 	}
 
 	pub(crate) fn clear(&self) {
-		let mut lru = self.lru.lock().unwrap();
-		lru.map.clear();
-		lru.order.clear();
-		lru.bytes = 0;
+		for s in &self.shards {
+			let mut s = s.lock().unwrap();
+			for (_, (_, b, _)) in s.map.drain() {
+				self.bytes.fetch_sub(b, Ordering::Relaxed);
+			}
+		}
 	}
 }

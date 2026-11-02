@@ -1,0 +1,76 @@
+guide forever/class/mage/teleports-alliance
+title Teleports and Portals (Alliance)
+category Class
+class Mage
+folder Mage
+faction Alliance
+levels 20-50
+zone Stormwind City
+keywords Teleport, Portal, Teleport: Stormwind, Teleport: Ironforge, Teleport: Darnassus, Portal: Stormwind, Portal: Ironforge, Portal: Darnassus, Larimaine Purdue, Milstaff Stormeye, Elissa Dumas, Portal Trainer, Rune of Teleportation, Rune of Portals, reagent vendor, Mage, class spell
+reward spell 3561 "Teleport: Stormwind"
+reward spell 3562 "Teleport: Ironforge"
+reward spell 3565 "Teleport: Darnassus"
+reward spell 10059 "Portal: Stormwind"
+reward spell 11416 "Portal: Ironforge"
+reward spell 11419 "Portal: Darnassus"
+why Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer.
+
+# No quest: the Alliance mage teleports and portals are trained, each city's
+# from that city's Portal Trainer (Forever's trainer data, forever-tdb
+# trainer_spell/creature_trainer: trainers 1002485 Larimaine Purdue,
+# 1002489 Milstaff Stormeye, 1004165 Elissa Dumas teach only their own city's
+# two spells; the class trainers teach none of them):
+# - Teleport: Stormwind (3561) and Teleport: Ironforge (3562): level 20, 20s each.
+# - Teleport: Darnassus (3565): level 30, 80s.
+# - Portal: Stormwind (10059) and Portal: Ironforge (11416): level 40, 1g50s each.
+# - Portal: Darnassus (11419): level 50, 3g20s.
+# Reagents (client item data, BuyPrice): Rune of Teleportation (17031) 10s,
+# Rune of Portals (17032) 20s, from every capital's reagent vendor (items.json
+# vendors: Owen Vaughn in Stormwind's Mage Quarter, Ginny Longberry and Barim
+# Jurgenstaad in Ironforge, Alaindia and Cyroen in Darnassus).
+# Forever's client spell book also has Teleport: Dalaran (1297659, level 50,
+# Rune of Teleportation, "Teleports the caster to Dalaran"): a mage spell in
+# the client's skill-line table (Arcane, mage class, the Alliance race mask:
+# Human, Gnome, Skyborne). No trainer in Forever's trainer data (the beta
+# sniffs to 1.60.1.70374) teaches it and no quest gives it; it lies above the
+# beta's level cap. Portal: Valanaar (1269466) is no mage spell: it has no
+# skill-line row and casts a portal event, the town portal to the Skyborne
+# capital on Zephras Isle (Forever web databases list no such mage spell).
+# INGAME: who teaches Teleport: Dalaran at 50 (an Alliance mage of 50 at Larimaine Purdue or the mage trainers)?
+
+step Teleport: Stormwind
+  zone Stormwind City
+  tip At 20 go to the Wizard's Sanctum, the violet tower of Stormwind's Mage Quarter. Larimaine Purdue, the portal trainer, stands at the very top: climb the spiral ramp and take the portal near the top. She teaches Teleport: Stormwind for 20 silver. Every teleport burns one Rune of Teleportation (10 silver at any reagent vendor; Owen Vaughn sells them at the foot of the tower), so carry a few.
+  level 20
+  money 30s
+  train 2485                                  -- Larimaine Purdue: Teleport: Stormwind
+  buy 17031 x5 nearest                        -- Rune of Teleportation, 10s each
+
+step Teleport: Ironforge
+  zone Ironforge
+  tip Take the Deeprun Tram from Stormwind's Dwarven District to Ironforge. Milstaff Stormeye, the portal trainer, stands with the mage trainers in the Mystic Ward at the back of the city: Teleport: Ironforge, 20 silver.
+  money 20s
+  train 2489                                  -- Milstaff Stormeye: Teleport: Ironforge
+
+step Teleport: Darnassus
+  zone Darnassus
+  tip At 30. Take the boat from Stormwind Harbor to Auberdine in Darkshore, then the boat to Rut'theran Village and the pink portal up into Darnassus. Elissa Dumas, the portal trainer, teaches Teleport: Darnassus for 80 silver.
+  level 30
+  money 80s
+  train 4165                                  -- Elissa Dumas: Teleport: Darnassus
+
+step Portals to Stormwind and Ironforge
+  zone Stormwind City
+  tip At 40 the portal trainers teach the portals: a gateway your whole group can step through, for 1 gold 50 silver each. Each portal burns one Rune of Portals (20 silver at any reagent vendor). Larimaine Purdue has Portal: Stormwind at the top of the Wizard's Sanctum; then the tram to Milstaff Stormeye in Ironforge's Mystic Ward for Portal: Ironforge.
+  level 40
+  money 3g
+  train 2485                                  -- Larimaine Purdue: Portal: Stormwind
+  buy 17032 x5 nearest                        -- Rune of Portals, 20s each
+  train 2489                                  -- Milstaff Stormeye, Ironforge: Portal: Ironforge
+
+step Portal: Darnassus
+  zone Darnassus
+  tip At 50 Elissa Dumas in Darnassus teaches the last one, Portal: Darnassus, for 3 gold 20 silver. Use your Teleport: Darnassus to get there.
+  level 50
+  money 3g20s
+  train 4165                                  -- Elissa Dumas: Portal: Darnassus

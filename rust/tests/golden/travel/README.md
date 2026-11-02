@@ -10,4 +10,6 @@ Inputs (`node slice.js <data/sources> input` plus hand-written files):
 
 When the shipped crossings file moved out of tools/ to data/crossings.json, expected/travel.json's Carbonite source `use` (which names that path) was updated by hand to the new path, in the Rust and the JS builders alike; nothing else changed.
 
+When the Rust builder's inn list gained Zephras Isle's two inns (Shen'dar Village, Valanaar; 2026-10-27), expected/travel.json's warnings gained their two "not in npcs.json" lines by hand (the slice has neither innkeeper); nothing else changed.
+
 Test: rust/crates/forge-data/tests/travel.rs (byte compare of every file in expected/). Regenerate only when the JS is the reference; CI never runs the generator.

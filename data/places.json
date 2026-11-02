@@ -2,6 +2,30 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "610-wetlands-fen-creepers",
+			"quest": 275,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1437,
+				"x": 24.46,
+				"y": 33.18,
+				"frame": "era"
+			},
+			"note": "Blisters on the Land: the Fen Creepers are hunted in the Sundown Marsh waterways, not the few by Rethiel the Greenwarden. In game the reporter ran out of creepers at the spot by the giver and found enough at 24.46,33.18; 8 of the 19 Fen Creeper spawns lie within 300 yd of it (18.5-27.4, 27.7-39.2), against 6 scattered over the east of the zone.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#610: the reporter's spot, 24.46,33.18"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1040 spawns on map 1437"
+				}
+			],
+			"issue": 610
+		},
+		{
 			"id": "646-azshara-rimtori-camp",
 			"quest": 3505,
 			"objective": 3,
@@ -426,6 +450,96 @@
 			],
 			"issue": 703,
 			"pr": 704
+		},
+		{
+			"id": "340-redridge-battleworn-axes",
+			"quest": 20,
+			"objective": 1,
+			"at": {
+				"map": 1433,
+				"x": 71.0,
+				"y": 70.5,
+				"frame": "live"
+			},
+			"note": "Blackrock Menace: the Battleworn Axes drop from the Blackrock camps east of Stonewatch Keep; the elite axe carriers at Alther's Mill are not where to go.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#340"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json Blackrock Outrunner/Grunt spawns east of Stonewatch Keep"
+				}
+			],
+			"issue": 340
+		},
+		{
+			"id": "385-westfall-murloc-gills",
+			"quest": 92744,
+			"objective": 1,
+			"at": {
+				"map": 1436,
+				"x": 43.5,
+				"y": 9.2,
+				"frame": "live"
+			},
+			"note": "Murloc Gills: the murlocs of the north coast are the quest's level; the warriors and hunters further south are three or four levels above it.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#385"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json Murloc Coastrunner/Raider spawns on the north coast"
+				}
+			],
+			"issue": 385
+		},
+		{
+			"id": "zephras-taming-galestrider",
+			"quest": 94979,
+			"objective": 1,
+			"at": {
+				"map": 2521,
+				"x": 59.9,
+				"y": 69.8,
+				"frame": "live"
+			},
+			"note": "Taming the Beast (Hunter, Ornery Galestrider): Quel'ana Quickgale (59.61,72.65) wants the rod back after each tame, so the Galestrider is tamed in the field just north of her, about 110 yd, not around the Windfield farm 800 yd south-west.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 251707 spawns on map 2991 at (2368, 902), (2382, 894), (2384, 907): 106-122 yd from Quel'ana (252389, 2263, 918)"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 251707 spawns 58.38,72.49, 60.89,70.42, 58.95,68.2 (69-169 yd from Quel'ana)"
+				}
+			]
+		},
+		{
+			"id": "zephras-taming-vuldren-alpha",
+			"quest": 94013,
+			"objective": 1,
+			"at": {
+				"map": 2521,
+				"x": 61.6,
+				"y": 68.8,
+				"frame": "live"
+			},
+			"note": "Taming the Beast (Hunter, Vuldren Alpha): the Alpha is tamed north of Quel'ana Quickgale, about 180 yd, before the rod goes back to her, not around the Windfield farm 800 yd south-west.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 250874 spawn on map 2991 at (2409, 810): 182 yd from Quel'ana (252389, 2263, 918)"
+				},
+				{
+					"kind": "questie",
+					"ref": "npcs.json 250874 spawns 61.95,68.98, 61.31,72.39, 58.18,71.97 (83-188 yd from Quel'ana)"
+				}
+			]
 		}
 	]
 }

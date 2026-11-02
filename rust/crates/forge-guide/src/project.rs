@@ -128,6 +128,19 @@ pub fn lint_sources(sources: &[Source], data: &Data, excluded: &V) -> Vec<crate:
 	diag.sorted()
 }
 
+/// The pack check (`playtest --honest`, forge judge's report and route check, forge build's writer):
+/// `sources` compiled, or their errors as `the pack has errors:` and the first five, one
+/// `<file>:<line> <message>` a line.
+pub fn compile_checked(sources: &[Source], data: &Data, opts: &CompileOpts) -> Result<Compiled, String> {
+	let mut diag = Diagnostics::new();
+	let compiled = compile_sources(sources, data, &mut diag, opts);
+	if diag.has_errors() {
+		let first: Vec<String> = diag.errors().iter().take(5).map(|d| format!("{}:{} {}", d.file.as_deref().unwrap_or(""), d.line, d.message)).collect();
+		return Err(format!("the pack has errors:\n{}", first.join("\n")));
+	}
+	Ok(compiled)
+}
+
 /// localise: gives each guide `_localised` (its prose with name tokens); -> tokens.js's stats.
 pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 	let r = crate::tokens::tokenise_guides(guides, data);
@@ -537,6 +550,14 @@ mod native {
 				Source { source: rel.clone(), file: rel_to_cwd(&abs), text: std::fs::read_to_string(&abs).unwrap_or_default() }
 			})
 			.collect()
+	}
+
+	/// The pack check ([`compile_checked`]) on every guide of a folder, as `playtest --honest` and the
+	/// report compile a whole pack.
+	pub fn check_tree(dir: &Path, data: &Data) -> Result<(), String> {
+		let shown = shown(dir);
+		let sources: Vec<Source> = read_sources(dir, &find_guide_files(dir, false)).into_iter().map(|s| Source { file: format!("{shown}/{}", s.source), ..s }).collect();
+		compile_checked(&sources, data, &CompileOpts { pack: None, author: None, context: None, pack_dir: None }).map(|_| ())
 	}
 
 	/// loadProjectData: a missing folder or core file is a warning.

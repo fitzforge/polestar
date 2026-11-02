@@ -156,39 +156,49 @@ struct F4Router<'a> {
 
 impl BackendRouter for F4Router<'_> {}
 
-impl crate::store::Router for F4Router<'_> {
-	fn walks(&mut self, model: &Model, pairs: &[(End, End)], cells: bool) -> Vec<(Answer, Option<ZoneCells>)> {
-		let danger = self.models.get(model).unwrap_or_else(|| panic!("f4: no danger table for model {}", model.params)).clone();
+impl F4Router<'_> {
+	/// The jobs' answers: one FindMany per job and source end (first-seen order within a job, its targets in
+	/// pair order), every job's on threads at once.
+	fn answer(&self, jobs: &[(&Model, &[(End, End)])], cells: bool) -> Vec<crate::store::Answers> {
 		let cells = cells && self.cells;
-		// One FindMany per source end (first-seen order), its targets in pair order.
-		let mut rows: Vec<(End, Vec<usize>)> = Vec::new();
-		let mut by: FxHashMap<[u64; 4], usize> = FxHashMap::default();
-		for (i, (a, _)) in pairs.iter().enumerate() {
-			let k = [a.c as u64, a.x.to_bits(), a.y.to_bits(), a.z.to_bits()];
-			let r = *by.entry(k).or_insert_with(|| {
-				rows.push((*a, Vec::new()));
-				rows.len() - 1
-			});
-			rows[r].1.push(i);
+		let opts: Vec<Opts> = jobs
+			.iter()
+			.map(|(model, _)| {
+				let danger = self.models.get(*model).unwrap_or_else(|| panic!("f4: no danger table for model {}", model.params));
+				self.be.opts(danger, cells)
+			})
+			.collect();
+		let mut rows: Vec<(usize, End, Vec<usize>)> = Vec::new();
+		for (j, (_, pairs)) in jobs.iter().enumerate() {
+			let mut by: FxHashMap<[u64; 4], usize> = FxHashMap::default();
+			for (i, (a, _)) in pairs.iter().enumerate() {
+				let k = [a.c as u64, a.x.to_bits(), a.y.to_bits(), a.z.to_bits()];
+				let r = *by.entry(k).or_insert_with(|| {
+					rows.push((j, *a, Vec::new()));
+					rows.len() - 1
+				});
+				rows[r].2.push(i);
+			}
 		}
-		let o = self.be.opts(&danger, cells);
-		let all = pairs.len();
+		let all: usize = jobs.iter().map(|(_, p)| p.len()).sum();
 		let answers: Vec<Vec<(usize, Answer, Option<ZoneCells>)>> = rows
 			.par_iter()
-			.map(|(a, idx)| {
+			.with_max_len(1)
+			.map(|(j, a, idx)| {
+				let pairs = jobs[*j].1;
 				let p = |e: &End| P { x: e.x, y: e.y, z: if e.z.is_nan() { None } else { Some(e.z) } };
 				let targets: Vec<P> = idx.iter().map(|&i| p(&pairs[i].1)).collect();
-				let m = self.be.f4.route_many(a.c as u32, p(a), &targets, &o);
+				let m = self.be.f4.route_many(a.c as u32, p(a), &targets, &opts[*j]);
 				let out = idx
 					.iter()
 					.enumerate()
-					.map(|(j, &i)| {
-						if m.costs[j] < 0.0 {
+					.map(|(t, &i)| {
+						if m.costs[t] < 0.0 {
 							return (i, Answer::NONE, None);
 						}
-						let y = forge_core::jsnum::round1(m.yards[j]);
-						let cl = if cells { m.chains.as_ref().and_then(|c| c[j].as_ref()).map(|ch| self.be.chain_cells(a.c as u32, a, &pairs[i].1, ch, m.yards[j])) } else { None };
-						(i, Answer { yd: y * SMOOTH, cost: forge_core::jsnum::round1(m.costs[j]) }, cl)
+						let y = forge_core::jsnum::round1(m.yards[t]);
+						let cl = if cells { m.chains.as_ref().and_then(|c| c[t].as_ref()).map(|ch| self.be.chain_cells(a.c as u32, a, &pairs[i].1, ch, m.yards[t])) } else { None };
+						(i, Answer { yd: y * SMOOTH, cost: forge_core::jsnum::round1(m.costs[t]) }, cl)
 					})
 					.collect();
 				let d = self.done.fetch_add(idx.len(), Ordering::Relaxed) + idx.len();
@@ -198,11 +208,23 @@ impl crate::store::Router for F4Router<'_> {
 				out
 			})
 			.collect();
-		let mut out = vec![(Answer::NONE, None); pairs.len()];
-		for (i, a, c) in answers.into_iter().flatten() {
-			out[i] = (a, c);
+		let mut out: Vec<crate::store::Answers> = jobs.iter().map(|(_, p)| vec![(Answer::NONE, None); p.len()]).collect();
+		for ((j, _, _), got) in rows.iter().zip(answers) {
+			for (i, a, c) in got {
+				out[*j][i] = (a, c);
+			}
 		}
 		out
+	}
+}
+
+impl crate::store::Router for F4Router<'_> {
+	fn walks(&mut self, model: &Model, pairs: &[(End, End)], cells: bool) -> crate::store::Answers {
+		self.answer(&[(model, pairs)], cells).pop().unwrap_or_default()
+	}
+
+	fn walks_many(&mut self, jobs: &[crate::store::Job], cells: bool) -> Vec<crate::store::Answers> {
+		self.answer(&jobs.iter().map(|(m, p)| (*m, p.as_slice())).collect::<Vec<_>>(), cells)
 	}
 }
 

@@ -1019,7 +1019,7 @@ end
 local function schedule()
 	if pending or not running then return end
 	pending = true
-	C_Timer.After(THROTTLE, flush)
+	ns.After(THROTTLE, flush)
 end
 
 local function onLogEvent(event, arg)
@@ -1030,7 +1030,7 @@ local function onLogEvent(event, arg)
 	elseif event == "QUEST_TURNED_IN" and type(arg) == "number" then
 		turnedIn[arg] = GetTime() + TURNIN_BRIDGE
 		-- Recheck once the window has passed, in case the client never lists it.
-		C_Timer.After(TURNIN_BRIDGE, function()
+		ns.After(TURNIN_BRIDGE, function()
 			if not running then return end
 			dirtyAvailable = true
 			schedule()

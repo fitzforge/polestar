@@ -19,6 +19,7 @@ rusqlite = { version = "0.37", features = ["bundled"] }
 tar = "0.4"
 ureq = "3"
 rayon = "1"
+regex = "1"
 rustc-hash.workspace = true
 forge-core = { path = "../forge-core" }
 forge-data = { path = "../forge-data" }
@@ -38,8 +39,9 @@ polestar-recording = { path = "../polestar-recording" }
 name = "forge"
 path = "src/main.rs"
 
-[dev-dependencies]
-regex = "1"
+[build-dependencies]
+# The route planner's source hash (build.rs, src/planner_src.rs).
+blake3 = "1"
 
 [lints]
 workspace = true

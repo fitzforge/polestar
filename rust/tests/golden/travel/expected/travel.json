@@ -101,7 +101,7 @@
 		}
 	],
 	"counts": {
-		"taxiNodes": 61,
+		"taxiNodes": 63,
 		"flights": 14,
 		"transports": 6,
 		"inns": 2,
@@ -744,6 +744,36 @@
 				"faction": 2,
 				"npc": null,
 				"npcName": null
+			},
+			{
+				"id": 62,
+				"name": "Nighthaven, Moonglade",
+				"short": "Nighthaven",
+				"c": 1,
+				"wx": 7793.6,
+				"wy": -2403.5,
+				"map": 1450,
+				"x": 44.28,
+				"y": 45.34,
+				"faction": 1,
+				"npc": null,
+				"npcName": null,
+				"class": "DRUID"
+			},
+			{
+				"id": 63,
+				"name": "Nighthaven, Moonglade",
+				"short": "Nighthaven",
+				"c": 1,
+				"wx": 7787.7,
+				"wy": -2404.1,
+				"map": 1450,
+				"x": 44.31,
+				"y": 45.72,
+				"faction": 2,
+				"npc": null,
+				"npcName": null,
+				"class": "DRUID"
 			},
 			{
 				"id": 64,
@@ -6445,6 +6475,8 @@
 		"taxi node 56 \"Stonard, Swamp of Sorrows\": no flight master NPC within 60 yd",
 		"taxi node 58 \"Zoram'gar Outpost, Ashenvale\": no flight master NPC within 60 yd",
 		"taxi node 61 \"Splintertree Post, Ashenvale\": no flight master NPC within 60 yd",
+		"taxi node 62 \"Nighthaven, Moonglade\": no flight master NPC within 60 yd",
+		"taxi node 63 \"Nighthaven, Moonglade\": no flight master NPC within 60 yd",
 		"taxi node 64 \"Talrendis Point, Azshara\": no flight master NPC within 60 yd",
 		"taxi node 65 \"Talonbranch Glade, Felwood\": no flight master NPC within 60 yd",
 		"taxi node 66 \"Chillwind Camp, Western Plaguelands\": no flight master NPC within 60 yd",
@@ -6516,6 +6548,8 @@
 		"inn Revantusk Village: innkeeper 14731 not in npcs.json",
 		"inn Cenarion Hold: innkeeper 15174 not in npcs.json",
 		"inn Light's Hope Chapel: innkeeper 16256 not in npcs.json",
-		"inn Stonetalon Peak: innkeeper 16458 not in npcs.json"
+		"inn Stonetalon Peak: innkeeper 16458 not in npcs.json",
+		"inn Shen'dar Village: innkeeper 254089 not in npcs.json",
+		"inn Valanaar: innkeeper 255940 not in npcs.json"
 	]
 }

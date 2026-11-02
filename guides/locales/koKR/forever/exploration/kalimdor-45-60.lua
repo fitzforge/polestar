@@ -1,5 +1,5 @@
 -- Korean (koKR): the guide forever/exploration/kalimdor-45-60 (forever/exploration/kalimdor-45-60.guide).
--- Written by `node tools/polestar.js i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Korean (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -31,7 +31,7 @@ return {
 	-- Step 5: Silithus
 	["7 areas to discover here, level 55."] = "이곳에서 발견할 지역 7곳, 레벨 55.",
 	-- {zone:1451} Silithus · {zone:1449} Un'Goro Crater · {area:3425} Cenarion Hold
-	["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451}은(는) {zone:1449} 서쪽에 있습니다. {area:3425}은(는) 중립입니다.",
+	["{zone:1451} is west of {zone:1449}, through the pass in its north-west. {area:3425} is neutral."] = "",
 	-- {area:3425} Cenarion Hold · {npc:15177} Cloud Skydancer
 	["Flight path here: {area:3425} ({npc:15177})."] = "이곳의 비행 경로: {area:3425}({npc:15177}).",
 	-- {area:3425} Cenarion Hold · {npc:15178} Runk Windtamer
@@ -63,8 +63,8 @@ return {
 
 	-- Step 11: Moonglade
 	["1 area to discover here, level 15."] = "이곳에서 발견할 지역 1곳, 레벨 15.",
-	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {spell:18960} Teleport: Moonglade · {area:2361} Nighthaven
-	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "{zone:1448} 북부의 {area:1769} 굴을 지나 {zone:1450}(으)로 가세요(드루이드: {spell:18960}). {area:2361}은(는) 중립 지역입니다.",
+	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {zone:1450} Moonglade · {area:2361} Nighthaven
+	["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: Teleport: {zone:1450}). {area:2361} is neutral."] = "",
 	-- {zone:1450} Moonglade
 	["Flight path here: {zone:1450} (Sindrayl)."] = "이곳의 비행 경로: {zone:1450}(신드라일).",
 	-- {zone:1450} Moonglade
@@ -81,7 +81,12 @@ return {
 	["Flight path here: {area:2255} (Yugrek)."] = "이곳의 비행 경로: {area:2255}(유그렉).",
 
 	-- Step 14: Mount Hyjal (1/2)
-	["9 areas to discover here."] = "이곳에서 발견할 지역 9곳.",
+	["9 areas to discover here. Its creatures are level 54-60."] = "",
 	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:2256} Darkwhisper Gorge
 	["{zone:2482} is reached from {zone:1452} through {area:2256} in the south. It is Forever's endgame leveling zone."] = "{zone:2482}은(는) {zone:1452} 남쪽의 {area:2256}을(를) 지나 갈 수 있습니다. Forever의 최종 레벨업 지역입니다.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["9 areas to discover here."] = "이곳에서 발견할 지역 9곳.",
+	-- ["Take the {area:1769} tunnel in northern {zone:1448} through to {zone:1450} (druids: {spell:18960}). {area:2361} is neutral."] = "{zone:1448} 북부의 {area:1769} 굴을 지나 {zone:1450}(으)로 가세요(드루이드: {spell:18960}). {area:2361}은(는) 중립 지역입니다.",
+	-- ["{zone:1451} is west of {zone:1449}. {area:3425} is neutral."] = "{zone:1451}은(는) {zone:1449} 서쪽에 있습니다. {area:3425}은(는) 중립입니다.",
 }

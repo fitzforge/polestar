@@ -124,7 +124,7 @@ fn a_task_holds_its_step_until_the_player_ticks_it_an_optional_task_never_holds_
 		None,
 		"",
 		r#"
-			stub.world.trainer(911); flush(); stub.world.close(); flush()
+			stub.world.trainer(911); stub.world.learnSpell(100); flush(); stub.world.close(); flush()
 			emit(state())
 		"#,
 	)[0];

@@ -8,7 +8,7 @@ levels 50-52
 zone Orgrimmar
 keywords Elemental Mastery, Mastering the Elements, Spirit Totem, Da Voodoo, Bath'rah the Windwatcher, Elemental Air, Elemental Fire, Elemental Earth, Elemental Water, Bloodshot Spider Eye, Thick Black Claw, Voodoo Feather, Sunken Temple, Temple of Atal'Hakkar, Shaman, class quest
 reward text Experience and gold
-why Experience and gold at 50, ending in the Sunken Temple; Forever removed the Classic item choice.
+why Experience and gold at 50, ending in the Sunken Temple; the Classic item choice may be gone in Forever.
 
 # The level 52 Shaman chain: Elemental Mastery (8410, from Sagorne
 # Creststrider in Orgrimmar or Beram Skychaser in Thunder Bluff: one of each
@@ -17,11 +17,13 @@ why Experience and gold at 50, ending in the Sunken Temple; Forever removed the 
 # spiders and bears of the Plaguelands) -> Da Voodoo (8413: three voodoo
 # feathers from the troll minibosses of the Sunken Temple).
 # Sources: quests.json, npcs.json and items.json (givers, objectives,
-# droppers); Forever's Shaman class quest list
-# (data/local/quest-audit/): Forever no longer
-# rewards Da Voodoo's choice of Azurite Fists, Enamored Water Spirit or
-# Wildstaff, and names nothing in their place, so the chain pays experience
-# and Da Voodoo's money only (Forever's quest data: 3,800 + 5,100 + 6,350 XP and 1g 55s).
+# droppers); Forever's Shaman class quest list (data/local/quest-audit/):
+# its change notes say Da Voodoo no longer rewards the choice of Azurite
+# Fists, Enamored Water Spirit or Wildstaff, but the same quest page still
+# lists three unnamed choice items (20369, 20503, 20556), so the choice may or
+# may not be gone; the card counts on experience and Da Voodoo's money only
+# (Forever's quest data: 3,800 + 5,100 + 6,350 XP and 1g 55s).
+# INGAME: does Da Voodoo (8413) still offer Azurite Fists, Enamored Water Spirit or Wildstaff on Forever? The change notes say no; the quest page still lists the three item ids.
 # The Sunken Temple's entrance point is the one in
 # forever/alliance/40-50/07-un-goro-crater.guide.
 # Mastering the Elements (8411) is the same quest started at Bath'rah
@@ -29,42 +31,60 @@ why Experience and gold at 50, ending in the Sunken Temple; Forever removed the 
 # Horde only: the Questie data and Forever's quest data list no Alliance version of these quests.
 # Dungeon work: the voodoo feathers drop only inside the Sunken Temple, a
 # dungeon of the 50s; bring a group.
-# Beta capped at 30: not played; it follows the data above.
+# Who: the server's own quest answers (players' quest caches) have no row for
+# 8410-8413 (the beta stopped at 30). Forever's quest pages give Elemental
+# Mastery (8410) and Spirit Totem (8412) the race mask of Orc, Tauren and
+# Troll (reqrace 162) and Mastering the Elements (8411) and Da Voodoo (8413)
+# every Horde race; quests.json extends all four to Skyborne. For Storm,
+# Earth, and Fire (79361) the same page mask (162) was wrong against the
+# server's answer, so Skyborne are kept in the steps with a warning.
+# ASSUMED: the chain, its givers and the Sunken Temple layout are as in Classic (Classic flow; Forever's data has no server answer or play report above 30 for 8410-8413). In-game check: Sagorne's and Beram's offer at 50 and the six troll guardians.
+# INGAME: can a Skyborne shaman take Elemental Mastery (8410) and Spirit Totem (8412)? Forever's quest pages say Orc, Tauren and Troll only.
 
 # Collection: Forever quest 8412 requires eight eyes and eight claws; its
 # own text names carrion birds as sources of either, alongside bears/spiders.
+# Drop rates (Forever's quest notes, KB `drops`): Elemental Air 12.9%
+# (Thundering Exiles), Fire 11.1% (Burning Exiles), Earth 9.9% (Rumbling
+# Exiles), Water 13.6% (the Summoned Guardian) in Arathi; 40% from the
+# Patches of Elemental Water in Azshara; Seeker Aqualon by Lakeshire 36.7%.
+# 8412: Diseased Black Bears, Venom Mist Lurkers and the two Carrion Vultures
+# 20% each, the Diseased Grizzlies and Plague Lurkers further east 2%.
+# 8413: two feathers of each colour, one from each of the six elite trolls
+# (level 51-52), every kill.
 
 step Sagorne Creststrider
   only Orc,Troll
   zone Orgrimmar
-  tip At 50 Sagorne Creststrider, the shaman trainer in the Valley of Wisdom, sends you to Bath'rah the Windwatcher.
+  tip At 50 Sagorne Creststrider, the shaman trainer in the Valley of Wisdom, asks for the four elements for Bath'rah the Windwatcher.
+  level 50
   accept 8410 npc 13417                       -- Sagorne Creststrider
 
 step Beram Skychaser
   only Tauren,Skyborne
   zone Thunder Bluff
-  tip At 50 Beram Skychaser, a shaman trainer in Thunder Bluff, sends you to Bath'rah the Windwatcher.
+  tip At 50 Beram Skychaser, a shaman trainer on Spirit Rise in Thunder Bluff, asks for the four elements for Bath'rah the Windwatcher. Skyborne: Forever's quest page lists Elemental Mastery and Spirit Totem for Orcs, Tauren and Trolls only; if Beram has nothing for you, Bath'rah's own Mastering the Elements is open to every Horde race, but Spirit Totem after it may still turn you away.
+  level 50
   accept 8410 npc 3032                        -- Beram Skychaser
 
 step The four elements
   zone Arathi Highlands
-  tip One each of Elemental Air, Fire, Earth and Water. The Exiles of Arathi Highlands drop them, one element each, about one kill in ten: Thundering (air), Burning (fire), Rumbling (earth) and Cresting (water). Or buy them at the auction house.
+  tip One each of Elemental Air, Fire, Earth and Water; all four trade, so the auction house is quickest. To farm them, Arathi Highlands has the exiles near Refuge Pointe (level 38-39, about one kill in eight to ten, respawn under seven minutes): Thundering Exiles south-east of it (air), Rumbling Exiles south-west (earth), Burning Exiles far to the north-west (fire), and the Summoned Guardian far to the south-west (water, about one in seven). Water comes easier from the Patches of Elemental Water in Azshara (two in five) or Seeker Aqualon by Lakeshire in Redridge.
   collect 7069 quest 8410.1                   -- Elemental Air: Thundering Exiles
   collect 7068 quest 8410.2                   -- Elemental Fire: Burning Exiles
   collect 7067 quest 8410.3                   -- Elemental Earth: Rumbling Exiles
-  collect 7070 quest 8410.4                   -- Elemental Water: Cresting Exiles
+  collect 7070 quest 8410.4                   -- Elemental Water: the Summoned Guardian, or Azshara's water patches
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
-  tip Bath'rah camps in the east of Alterac Mountains, north-east of Tarren Mill.
+  tip Bath'rah camps in the ruins of the east of Alterac Mountains: from Tarren Mill follow the river east of town north into the hills.
   turnin 8410                                 -- Bath'rah the Windwatcher
   accept 8412
 
 step Spider eye and bear claw
   zone Western Plaguelands
-  tip In the Western Plaguelands, the Venom Mist Lurkers drop the Bloodshot Spider Eye and the Diseased Black Bears the Thick Black Claw (about one kill in five each). Carrion birds can drop either, so keep what they give you on the way.
-  collect 20610 quest 8412.1                  -- Bloodshot Spider Eye
-  collect 20611 quest 8412.2                  -- Thick Black Claw
+  tip Eight of each. Fly or ride to the Bulwark and on to the west edge of the Western Plaguelands, north-west of Chillwind Camp: the Venom Mist Lurkers (level 50-51, they poison) give the Bloodshot Spider Eye and the Diseased Black Bears (level 51-52, Infected Wound) the Thick Black Claw, one kill in five each; the two Carrion Vultures there drop either. The bigger Diseased Grizzlies and Plague Lurkers further east almost never drop them. A few bears and lurkers also roam south-east of Brill in Tirisfal.
+  collect 20610 x8 quest 8412.1               -- Bloodshot Spider Eye
+  collect 20611 x8 quest 8412.2               -- Thick Black Claw
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
@@ -73,11 +93,11 @@ step Bath'rah the Windwatcher
 
 step The Sunken Temple
   zone Swamp of Sorrows
-  tip The Sunken Temple (Temple of Atal'Hakkar) lies under the Pool of Tears; the arrow points at its entrance. Gasher or Zul'Lor drop the Amber Voodoo Feather, Hukku or Mijan the Blue, Zolo or Loro the Green: all six are elite trolls inside. Bring a group.
-  collect 20606 quest 8413.1 @69.9,53.6       -- Amber Voodoo Feather
-  collect 20607 quest 8413.2 @69.9,53.6       -- Blue Voodoo Feather
-  collect 20608 quest 8413.3 @69.9,53.6       -- Green Voodoo Feather
+  tip A five-player dungeon: needs a group of five, about level 50-55. Fly to Stonard and ride east. The Sunken Temple (Temple of Atal'Hakkar) stands in the middle of the Pool of Tears: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. Two feathers of each colour, one from each of six elite troll mini-bosses (level 51-52) on the balconies around the temple's great round room, every kill, and each player on the quest loots their own: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Mijan heals the others (Renew, a Healing Ward): kill him first; Hukku summons guardians and throws Shadow Bolt Volleys.
+  collect 20606 x2 quest 8413.1 @69.9,53.6    -- Amber Voodoo Feather: Gasher, Zul'Lor
+  collect 20607 x2 quest 8413.2 @69.9,53.6    -- Blue Voodoo Feather: Hukku, Mijan
+  collect 20608 x2 quest 8413.3 @69.9,53.6    -- Green Voodoo Feather: Zolo, Loro
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
-  turnin 8413                                 -- Bath'rah the Windwatcher
+  turnin 8413                                 -- Bath'rah the Windwatcher: the old item choice may be gone, count on the experience

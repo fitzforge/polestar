@@ -6,10 +6,11 @@
 use forge_guide::js::{Arr, Obj, V};
 use rustc_hash::FxHashMap;
 
-/// Classic rank requirements: name, max skill, character level and skill a trainer asks for.
-const RANKS: [(&str, f64, f64, f64); 4] = [("Apprentice", 75.0, 5.0, 0.0), ("Journeyman", 150.0, 10.0, 50.0), ("Expert", 225.0, 20.0, 125.0), ("Artisan", 300.0, 35.0, 200.0)];
-/// Forever teaches Apprentice gathering skills from level 1.
-const GATHERING_APPRENTICE_LEVEL: f64 = 1.0;
+/// Rank requirements: name, max skill, character level and skill a trainer asks for. Classic's,
+/// except Apprentice: Forever's sniffed trainer lists (VB 70124) ask level 1 for every crafting
+/// Apprentice rank (Alchemy, Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring)
+/// and 0 or 1 for the gathering and secondary ones; Classic asked 5.
+const RANKS: [(&str, f64, f64, f64); 4] = [("Apprentice", 75.0, 1.0, 0.0), ("Journeyman", 150.0, 10.0, 50.0), ("Expert", 225.0, 20.0, 125.0), ("Artisan", 300.0, 35.0, 200.0)];
 
 type Names = &'static [&'static str];
 
@@ -29,13 +30,18 @@ impl Sides {
 	}
 }
 
-/// train: Apprentice and Journeyman; expert: city trainers that also teach Expert; artisan;
-/// junior: Forever's starting-zone trainers (Apprentice only); book / quest: secondary skills'
-/// Expert book (item, vendors) and Artisan quest; main: the trainer a guide sends the player to.
+/// train: Apprentice and Journeyman; novice: crafting trainers that teach Apprentice only (the
+/// Forever TrinityCore world DB's Classic trainer lists give the Journeyman rank spell to none of
+/// them, and Forever's sniffed lists for them stop at skill 50); expert: the trainers that also
+/// teach Expert (the same lists: a capital's one or two, plus the Artisan trainers who teach it
+/// too); artisan; junior: Forever's starting-zone trainers (Apprentice only); book / quest:
+/// secondary skills' Expert book (item, vendors) and Artisan quest; main: the trainer a guide
+/// sends the player to.
 struct Curated {
 	id: i64,
 	name: &'static str,
 	train: Sides,
+	novice: Option<Sides>,
 	expert: Option<Sides>,
 	artisan: Option<Sides>,
 	junior: Option<Sides>,
@@ -53,22 +59,14 @@ const CURATED: [Curated; 12] = [
 		id: 171,
 		name: "Alchemy",
 		train: s(
-			&[
-				"Alchemist Mallory",
-				"Tel'Athir",
-				"Lilyssia Nightbreeze",
-				"Tally Berryfizz",
-				"Vosur Brakthel",
-				"Ghak Healtouch",
-				"Cyndra Kindwhisper",
-				"Ainethil",
-				"Milla Fairancora",
-				"Sylvanna Forestmoon",
-				"Kylanna",
-			],
-			&["Miao'zan", "Yelmak", "Whuut", "Bena Winterhoof", "Kray", "Carolai Anise", "Doctor Herbert Halsey", "Doctor Marsh", "Doctor Martin Felben", "Serge Hinott"],
+			&["Lilyssia Nightbreeze", "Tally Berryfizz", "Ainethil", "Sylvanna Forestmoon", "Kylanna", "Alchemist Narett", "Jaxin Chong"],
+			&["Yelmak", "Bena Winterhoof", "Doctor Herbert Halsey", "Doctor Marsh", "Serge Hinott", "Jaxin Chong"],
 		),
-		expert: Some(s(&["Lilyssia Nightbreeze", "Vosur Brakthel", "Ainethil"], &["Yelmak", "Bena Winterhoof", "Doctor Herbert Halsey"])),
+		novice: Some(s(
+			&["Alchemist Mallory", "Tel'Athir", "Vosur Brakthel", "Ghak Healtouch", "Cyndra Kindwhisper", "Milla Fairancora"],
+			&["Miao'zan", "Whuut", "Kray", "Carolai Anise", "Doctor Martin Felben"],
+		)),
+		expert: Some(s(&["Ainethil", "Kylanna Windwhisper"], &["Doctor Herbert Halsey", "Rogvar"])),
 		artisan: Some(s(&["Kylanna Windwhisper"], &["Rogvar"])),
 		junior: None,
 		book: None,
@@ -79,10 +77,11 @@ const CURATED: [Curated; 12] = [
 		id: 164,
 		name: "Blacksmithing",
 		train: s(
-			&["Smith Argus", "Therum Deepforge", "Ironus Coldsteel", "Bengus Deepforge", "Groum Stonebeard", "Tognus Flintfire"],
-			&["Dwukk", "Saru Steelfury", "Thrag Stonehoof", "Karn Stonehoof", "James Van Brunt", "Basil Frye"],
+			&["Therum Deepforge", "Bengus Deepforge", "Rotgath Stonebeard", "Clarise Gnarltree", "Brikk Keencraft"],
+			&["Saru Steelfury", "Karn Stonehoof", "James Van Brunt", "Snarl", "Traugh", "Brikk Keencraft"],
 		),
-		expert: Some(s(&["Therum Deepforge", "Bengus Deepforge"], &["Saru Steelfury", "Karn Stonehoof", "James Van Brunt"])),
+		novice: Some(s(&["Smith Argus", "Ironus Coldsteel", "Groum Stonebeard", "Tognus Flintfire"], &["Dwukk", "Thrag Stonehoof", "Basil Frye"])),
+		expert: Some(s(&["Bengus Deepforge", "Brikk Keencraft"], &["Saru Steelfury", "Brikk Keencraft"])),
 		artisan: Some(s(&["Brikk Keencraft"], &["Brikk Keencraft"])),
 		junior: None,
 		book: None,
@@ -92,11 +91,9 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 333,
 		name: "Enchanting",
-		train: s(
-			&["Lucan Cordell", "Betty Quin", "Kitta Firewind", "Gimble Thistlefuzz", "Tilli Thistlefuzz", "Thonys Pillarstone", "Taladan", "Lalina Summermoon", "Alanna Raveneye"],
-			&["Godan", "Jhag", "Mot Dawnstrider", "Teg Dawnstrider", "Lavinia Crowe", "Malcomb Wynn", "Vance Undergloom", "Hgarth"],
-		),
-		expert: Some(s(&["Lucan Cordell", "Gimble Thistlefuzz", "Taladan"], &["Godan", "Teg Dawnstrider", "Lavinia Crowe"])),
+		train: s(&["Lucan Cordell", "Kitta Firewind", "Gimble Thistlefuzz", "Taladan", "Xylinnia Starshine"], &["Godan", "Teg Dawnstrider", "Lavinia Crowe", "Hgarth"]),
+		novice: Some(s(&["Betty Quin", "Tilli Thistlefuzz", "Thonys Pillarstone", "Lalina Summermoon", "Alanna Raveneye"], &["Jhag", "Mot Dawnstrider", "Malcomb Wynn", "Vance Undergloom"])),
+		expert: Some(s(&["Kitta Firewind"], &["Hgarth"])),
 		// Annora teaches inside Uldaman; the reference data has no spawn for her, so she is kept by name only.
 		artisan: Some(s(&["Annora"], &["Annora"])),
 		junior: None,
@@ -107,11 +104,9 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 202,
 		name: "Engineering",
-		train: s(
-			&["Lilliam Sparkspindle", "Sprite Jumpsprocket", "Springspindle Fizzlegear", "Jemma Quikswitch", "Trixie Quikswitch", "Bronk Guzzlegear", "Jenna Lemkenilli"],
-			&["Nogg", "Roxxik", "Mukdrak", "Graham Van Talen", "Franklin Lloyd"],
-		),
-		expert: Some(s(&["Lilliam Sparkspindle", "Springspindle Fizzlegear"], &["Nogg", "Graham Van Talen"])),
+		train: s(&["Lilliam Sparkspindle", "Springspindle Fizzlegear", "Trixie Quikswitch", "Finbus Geargrind", "Buzzek Bracketswing"], &["Nogg", "Roxxik", "Franklin Lloyd", "Buzzek Bracketswing"]),
+		novice: Some(s(&["Sprite Jumpsprocket", "Jemma Quikswitch", "Bronk Guzzlegear", "Jenna Lemkenilli", "Twizwick Sprocketgrind"], &["Mukdrak", "Graham Van Talen", "Twizwick Sprocketgrind"])),
+		expert: Some(s(&["Springspindle Fizzlegear", "Buzzek Bracketswing"], &["Roxxik", "Buzzek Bracketswing"])),
 		artisan: Some(s(&["Buzzek Bracketswing"], &["Buzzek Bracketswing"])),
 		junior: None,
 		book: None,
@@ -121,11 +116,9 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 165,
 		name: "Leatherworking",
-		train: s(
-			&["Adele Fielder", "Simon Tanner", "Randal Worth", "Fimble Finespindle", "Telonis", "Darianna", "Faldron", "Trianna"],
-			&["Karolek", "Chaw Stronghide", "Una", "Tarn", "Arthur Moore", "Brawn", "Krulmoo Fullmoon"],
-		),
-		expert: Some(s(&["Simon Tanner", "Fimble Finespindle", "Telonis"], &["Karolek", "Una", "Arthur Moore"])),
+		train: s(&["Simon Tanner", "Fimble Finespindle", "Telonis", "Faldron", "Aayndia Floralwind"], &["Karolek", "Una", "Tarn", "Arthur Moore", "Brawn", "Krulmoo Fullmoon", "Narv Hidecrafter"]),
+		novice: Some(s(&["Adele Fielder", "Randal Worth", "Darianna"], &["Chaw Stronghide"])),
+		expert: Some(s(&["Telonis", "Drakk Stonehand"], &["Una", "Hahrana Ironhide"])),
 		artisan: Some(s(&["Drakk Stonehand"], &["Hahrana Ironhide"])),
 		junior: None,
 		book: None,
@@ -135,25 +128,41 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 197,
 		name: "Tailoring",
-		train: s(
-			&["Eldrin", "Sellandus", "Georgio Bolero", "Lawrence Schneider", "Jormund Stonebrow", "Uthrar Threx", "Me'lynn", "Sinda", "Nadyia Maneweaver"],
-			&["Magar", "Snang", "Josephine Lister", "Victor Ward", "Rhiannon Davis", "Bowen Brisboise", "Vhan", "Mahani"],
-		),
-		expert: Some(s(&["Georgio Bolero", "Jormund Stonebrow", "Me'lynn"], &["Magar", "Josephine Lister"])),
+		train: s(&["Georgio Bolero", "Sellandus", "Jormund Stonebrow", "Me'lynn", "Grarnik Goodstitch"], &["Magar", "Rhiannon Davis", "Mahani", "Josef Gregorian", "Tepa", "Grarnik Goodstitch"]),
+		novice: Some(s(&["Eldrin", "Lawrence Schneider", "Uthrar Threx", "Sinda", "Nadyia Maneweaver"], &["Snang", "Josephine Lister", "Victor Ward", "Bowen Brisboise", "Vhan"])),
+		expert: Some(s(&["Georgio Bolero", "Timothy Worthington"], &["Josef Gregorian", "Daryl Stack"])),
 		artisan: Some(s(&["Timothy Worthington"], &["Daryl Stack"])),
 		junior: None,
 		book: None,
 		quest: None,
 		main: ["Georgio Bolero", "Magar"],
 	},
-	// Gathering skills: every `train` trainer teaches all four ranks.
+	// Gathering skills: every `train` trainer teaches all four ranks. The outpost trainers
+	// (Herbalist Pomeroy ... Malux) are the Forever TrinityCore world DB's creature_trainer
+	// rows that list all four rank spells (2366/2368/3570/11993, 2575/2576/3564/10248,
+	// 8613/8617/8618/10768), Classic's field trainers.
 	Curated {
 		id: 182,
 		name: "Herbalism",
 		train: s(
-			&["Tannysa", "Shylamiir", "Reyna Stonebranch", "Firodren Mooncaller", "Malorne Bladeleaf", "Alma Jainrose", "Kali Healtouch"],
-			&["Jandi", "Komin Winterhoof", "Martha Alliestar", "Faruza", "Aranae Venomblood"],
+			&[
+				"Tannysa",
+				"Shylamiir",
+				"Reyna Stonebranch",
+				"Firodren Mooncaller",
+				"Malorne Bladeleaf",
+				"Alma Jainrose",
+				"Kali Healtouch",
+				"Herbalist Pomeroy",
+				"Telurinon Moonshadow",
+				"Cylania Rootstalker",
+				"Brant Jasperbloom",
+				"Flora Silverwind",
+				"Malvor",
+			],
+			&["Jandi", "Komin Winterhoof", "Martha Alliestar", "Faruza", "Aranae Venomblood", "Mishiki", "Angrun", "Ruw", "Flora Silverwind", "Malvor"],
 		),
+		novice: None,
 		expert: None,
 		artisan: None,
 		junior: Some(s(&["Nancy Songflower", "Emrys Flintbeard", "Eleyna Duskbreeze"], &["Zor'la", "Garan Sunstrider", "Florence Nightshade"])),
@@ -164,7 +173,11 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 186,
 		name: "Mining",
-		train: s(&["Gelman Stonehand", "Geofram Bouldertoe", "Yarr Hammerstone", "Brock Stoneseeker", "Kurdram Stonehammer"], &["Makaru", "Krunn", "Brek Stonehoof", "Brom Killian", "Johan Focht"]),
+		train: s(
+			&["Gelman Stonehand", "Geofram Bouldertoe", "Yarr Hammerstone", "Brock Stoneseeker", "Kurdram Stonehammer", "Dank Drizzlecut", "Matt Johnson", "Pikkle"],
+			&["Makaru", "Krunn", "Brek Stonehoof", "Brom Killian", "Johan Focht", "Pikkle"],
+		),
+		novice: None,
 		expert: None,
 		artisan: None,
 		junior: Some(s(&["Kelsey Fargo", "Sally Swiftwrench", "Fanorran Stilloak"], &["Norzsh", "Vartha Rockmane", "Walter Mason"])),
@@ -175,7 +188,11 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 393,
 		name: "Skinning",
-		train: s(&["Maris Granger", "Helene Peltskinner", "Balthus Stoneflayer", "Radnaal Maneweaver"], &["Thuwd", "Mooranta", "Rand Rhobart", "Killian Sanatha"]),
+		train: s(
+			&["Maris Granger", "Helene Peltskinner", "Balthus Stoneflayer", "Radnaal Maneweaver", "Jayla", "Eladriel", "Wilma Ranthal"],
+			&["Thuwd", "Mooranta", "Rand Rhobart", "Killian Sanatha", "Yonn Deepcut", "Dranh", "Kulleg Stonehorn", "Malux"],
+		),
+		novice: None,
 		expert: None,
 		artisan: None,
 		junior: Some(s(&["Riley Peltskinner", "Brighid Stormflayer", "Terunne Bearshaper"], &["Kagil", "Nawka Wildsong", "Margaret Weaver"])),
@@ -188,6 +205,7 @@ const CURATED: [Curated; 12] = [
 		id: 185,
 		name: "Cooking",
 		train: s(&["Stephen Ryback", "Tomas", "Daryl Riknussun", "Gremlock Pilsnor", "Alegorn", "Zarrin"], &["Zamja", "Aska Mistrunner", "Eunice Burch", "Duhng"]),
+		novice: None,
 		expert: None,
 		artisan: None,
 		junior: None,
@@ -199,6 +217,7 @@ const CURATED: [Curated; 12] = [
 		id: 129,
 		name: "First Aid",
 		train: s(&["Shaina Fuller", "Michelle Belle", "Nissa Firestone", "Thamner Pol", "Byancie"], &["Arnok", "Rawrk", "Pand Stonebinder", "Mary Edras", "Nurse Neela"]),
+		novice: None,
 		expert: None,
 		artisan: None,
 		junior: None,
@@ -209,7 +228,27 @@ const CURATED: [Curated; 12] = [
 	Curated {
 		id: 356,
 		name: "Fishing",
-		train: s(&["Arnold Leland", "Lee Brown", "Grimnur Stonebrand", "Paxton Ganter", "Astaia"], &["Lumak", "Kah Mistrunner", "Armand Cromwell", "Clyde Kellen"]),
+		// Every Fishing trainer stands by water and teaches Apprentice and Journeyman: the capitals', the
+		// starting areas' (Lee Brown, Paxton Ganter, Androl Oakhand, Lau'Tiki, Uthan Stillwater, Clyde Kellen)
+		// and the outposts'. The TDB has their trainer rows (7620, 7731); Forever's beta guides name the same.
+		train: s(
+			&[
+				"Arnold Leland",
+				"Lee Brown",
+				"Grimnur Stonebrand",
+				"Paxton Ganter",
+				"Astaia",
+				"Androl Oakhand",
+				"Warg Deepwater",
+				"Harold Riggs",
+				"Matthew Hooper",
+				"Donald Rabonne",
+				"Brannock",
+				"Myizz Luckycatch",
+			],
+			&["Lumak", "Kah Mistrunner", "Armand Cromwell", "Clyde Kellen", "Lau'Tiki", "Uthan Stillwater", "Lui'Mala", "Kil'Hiwana", "Katoom the Angler", "Myizz Luckycatch"],
+		),
+		novice: None,
 		expert: None,
 		artisan: None,
 		junior: None,
@@ -363,18 +402,16 @@ pub fn resolve(skill_line: i64, finder: &Finder, kind: &str) -> Resolved {
 	let expert = per(c.expert, false, &mut warnings);
 	let artisan = per(c.artisan, true, &mut warnings);
 	let junior = per(c.junior, false, &mut warnings);
+	let novice = per(c.novice, false, &mut warnings);
 	let empty: Vec<f64> = Vec::new();
 	let pick = |g: &Option<[Vec<f64>; 2]>, s: usize| -> Vec<f64> { g.as_ref().map(|g| g[s].clone()).unwrap_or_default() };
-	let trainers = sides_obj(&std::array::from_fn(|s| merge(&[&train[s], expert.as_ref().map_or(&empty, |e| &e[s]), artisan.as_ref().map_or(&empty, |e| &e[s])])));
+	let trainers = sides_obj(&std::array::from_fn(|s| merge(&[&train[s], &pick(&novice, s), expert.as_ref().map_or(&empty, |e| &e[s]), artisan.as_ref().map_or(&empty, |e| &e[s])])));
 	let mut ranks = Vec::with_capacity(RANKS.len());
 	for r in &RANKS {
 		let rank = plain_rank(r);
-		if r.0 == "Apprentice" && kind == "gathering" {
-			rank.set("minLevel", GATHERING_APPRENTICE_LEVEL);
-		}
-		if r.0 == "Apprentice" && junior.is_some() {
-			rank.set("trainers", sides_obj(&std::array::from_fn(|s| merge(&[&train[s], &pick(&expert, s), &pick(&junior, s)]))));
-		} else if r.0 == "Apprentice" || r.0 == "Journeyman" || kind == "gathering" {
+		if r.0 == "Apprentice" {
+			rank.set("trainers", sides_obj(&std::array::from_fn(|s| merge(&[&train[s], &pick(&expert, s), &pick(&novice, s), &pick(&junior, s)]))));
+		} else if r.0 == "Journeyman" || kind == "gathering" {
 			rank.set("trainers", sides_obj(&std::array::from_fn(|s| merge(&[&train[s], &pick(&expert, s)]))));
 		} else if r.0 == "Expert" {
 			if let Some(e) = &expert {
@@ -427,5 +464,34 @@ mod tests {
 		assert_eq!(stringify(&V::Obj(r.ranks[3].clone()), None), r#"{"name":"Artisan","max":300,"minLevel":35,"minSkill":225,"quest":{"npcs":{"Alliance":[3],"Horde":[3]}}}"#);
 		assert!(r.warnings.iter().any(|w| w == "Fishing Horde trainer \"Lumak\" (2) has no spawns"));
 		assert_eq!(r.main.len(), 2);
+	}
+
+	// A neutral trainer (Booty Bay's) serves both sides; the starting areas' lakeside trainers are listed,
+	// so `train Fishing` sends a new character to the water it fishes first.
+	#[test]
+	fn fishing_lists_lakeside_and_neutral_trainers() {
+		let npcs = parse_json(r#"{"1":{"id":1,"name":"Uthan Stillwater","faction":"H","spawns":{"1412":{"pts":[[44,63]]}}},"2":{"id":2,"name":"Androl Oakhand","faction":"A","spawns":{"1438":{"pts":[[55,93]]}}},"3":{"id":3,"name":"Myizz Luckycatch","faction":"AH","spawns":{"1434":{"pts":[[27,77]]}}}}"#).unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let r = resolve(356, &f, "secondary");
+		assert_eq!(stringify(&r.trainers, None), r#"{"Alliance":[2,3],"Horde":[1,3]}"#);
+		assert_eq!(stringify(&r.ranks[0].get("trainers"), None), r#"{"Alliance":[2,3],"Horde":[1,3]}"#);
+	}
+
+	// Alchemist Mallory (Elwynn) teaches Apprentice only; Ainethil (Darnassus) all three ranks up to
+	// Expert; Lilyssia Nightbreeze (Stormwind) Apprentice and Journeyman, never Expert.
+	#[test]
+	fn crafting_ranks_follow_who_teaches_them() {
+		let npcs = parse_json(r#"{"1":{"id":1,"name":"Alchemist Mallory","faction":"A","spawns":{"1429":{"pts":[[40,48]]}}},"2":{"id":2,"name":"Ainethil","faction":"A","spawns":{"1457":{"pts":[[55,24]]}}},"3":{"id":3,"name":"Lilyssia Nightbreeze","faction":"A","spawns":{"1453":{"pts":[[46,79]]}}}}"#).unwrap();
+		let f = Finder::new(npcs.as_obj().unwrap());
+		let r = resolve(171, &f, "primary");
+		let side = |i: usize| stringify(&r.ranks[i].get("trainers").get("Alliance"), None);
+		assert_eq!(side(0), "[1,2,3]");
+		assert_eq!(side(1), "[2,3]");
+		assert_eq!(side(2), "[2]");
+		// Forever's sniffed lists teach every Apprentice rank from level 1 (Classic: 5); the later
+		// ranks keep Classic's gates.
+		let level = |i: usize| r.ranks[i].get("minLevel").num();
+		assert_eq!([level(0), level(1), level(2), level(3)], [1.0, 10.0, 20.0, 35.0]);
+		assert_eq!(resolve(186, &f, "gathering").ranks[0].get("minLevel").num(), 1.0);
 	}
 }

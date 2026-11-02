@@ -4,12 +4,11 @@ category Class
 class Mage
 folder Mage
 faction Alliance
-race Human,Gnome
 levels 26-30
 zone Stormwind City
 keywords High Sorcerer Andromath, Ur's Treatise on Shadow Magic, Tower of Ilgalar, Redridge Mountains, Pristine Spider Silk, Carrion Recluse, Duskwood, Wynne Larson, Astral Knot Robe, Astral Knot Blouse, Mage, class robe
 reward item 7511 9516
-why A robe or a blouse for Human and Gnome mages in their late 20s.
+why A robe or a blouse for Alliance mages in their late 20s.
 
 # The Alliance mage robe at 26: High Sorcerer Andromath (1939), Ur's Treatise
 # on Shadow Magic (1938), Pristine Spider Silk (1940) and Astral Knot Garment
@@ -19,10 +18,26 @@ why A robe or a blouse for Human and Gnome mages in their late 20s.
 # Forever's Mage class quest list
 # (data/local/quest-audit/, all four unchanged) and
 # quest data (quests 1939, 1938, 1940 and 1942,
-# checked 2026-10-14) for the races (Human and Gnome only: Skyborne mages have
-# no level 26 robe quest) and the reward choice; the quest texts for the
-# tower's library and the carrion recluses.
+# checked 2026-10-14 and 2026-10-29) for the races and the reward choice:
+# Forever opened Ur's Treatise (1938) and Pristine Spider Silk (1940) to
+# Skyborne mages too (reqrace 4294967361; corrections-private), while the
+# breadcrumb High Sorcerer Andromath (1939) is Human and Gnome in quests.json
+# and the quest page (the server sets no race limit on it, so Jennea may
+# offer it to Skyborne too); Skyborne mages go to Andromath directly
+# (Forever's page and the Classic database show no hard prerequisite on
+# 1938); the quest texts for the
+# tower's library and the carrion recluses; the KB drops table for the silk
+# (Carrion Recluse 100%, Black Widow Hatchling 18%) and npcs.json for their
+# spawns (6 recluses in Raven Hill Cemetery, 24 hatchlings to the east);
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20) for
+# Morganth on the tower's top floor, the dogs' Mana Burn, the book's 2 second
+# respawn, the recluses' 5 minute respawn and Mor'Ladim in the cemetery.
 # Bink in Ironforge and Jennea Cannon in Stormwind give the breadcrumb.
+# Skyborne without the breadcrumb: the server's own quest answers in players'
+# caches (EG Link, builds 1.60.1.70205-70450) set no race limit on 1938, and
+# the Forever TrinityCore world data (quest_template_addon) gives it no
+# previous quest, like the Classic database: Andromath offers it at 26 to any
+# Alliance mage.
 
 step Bink (Ironforge)
   only Gnome
@@ -34,19 +49,27 @@ step Bink (Ironforge)
 step Jennea Cannon (Stormwind)
   only Human
   zone Stormwind City
-  tip Jennea Cannon stands in the Wizard's Sanctum, the tower of the Mage Quarter.
+  tip Jennea Cannon stands at the top of the Wizard's Sanctum, the violet tower of the Mage Quarter; the portal near the top of the spiral ramp takes you to her.
   level 26
   accept 1939 npc 5497                        -- Jennea Cannon
 
-step High Sorcerer Andromath
+step High Sorcerer Andromath (Skyborne)
+  only Skyborne
   zone Stormwind City
-  tip High Sorcerer Andromath is in the Wizard's Sanctum too.
+  tip You do not need a letter: at 26 climb the Wizard's Sanctum, the violet tower of Stormwind's Mage Quarter. High Sorcerer Andromath waits on the spiral walkway, just past the door of the portal room near the top, and has the quest for you. (Jennea Cannon may also offer you High Sorcerer Andromath, the pointer quest; it is only a pointer and you can skip it.)
+  level 26
+  accept 1938 npc 5694                        -- High Sorcerer Andromath
+
+step High Sorcerer Andromath
+  only Human,Gnome
+  zone Stormwind City
+  tip High Sorcerer Andromath waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers.
   turnin 1939                                 -- High Sorcerer Andromath
   accept 1938
 
 step The Tower of Ilgalar
   zone Redridge Mountains
-  tip Head east through Elwynn Forest into Redridge. The fallen mage's tower of Ilgalar stands in the east of the zone; the treatise is in his library.
+  tip Head east through Elwynn Forest into Redridge, or fly to Lakeshire. The Tower of Ilgalar stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' Mana Burn interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it.
   collect 7266 quest 1938.1                   -- Ur's Treatise on Shadow Magic
 
 step Back to Andromath
@@ -56,12 +79,12 @@ step Back to Andromath
 
 step Carrion Recluses
   zone Duskwood
-  tip Carrion Recluses lurk in the woods of western Duskwood and each one drops the silk. The Black Widow Hatchlings further east drop it now and then.
-  collect 7267 quest 1940.1                   -- Pristine Spider Silk
+  tip Raven Hill Cemetery in western Duskwood: the six Carrion Recluses (level 25-26, green, Paralyzing Poison) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. Mor'Ladim, a level 35 elite skeleton, walks the cemetery: watch for him.
+  collect 7267 x8 quest 1940.1                -- Pristine Spider Silk
 
 step Wynne Larson
   zone Stormwind City
-  tip Wynne Larson works at Larson Clothiers in the Mage Quarter.
+  tip Wynne Larson works at Larson Clothiers in the Mage Quarter. The robe gives intellect, stamina and spirit; the blouse more intellect and stamina but no spirit.
   turnin 1940                                 -- Wynne Larson
   accept 1942
   turnin 1942 choose 7511 9516                -- Astral Knot Garment

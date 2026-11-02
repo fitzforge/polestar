@@ -1,5 +1,5 @@
 -- Portuguese (Brazil) (ptBR): the guide forever/class/druid/bear-form (forever/class/druid/bear-form.guide).
--- Written by `node tools/polestar.js i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Portuguese (Brazil) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -19,13 +19,13 @@ return {
 	["{npc:3602}, {area:186}; Denatharion's and Theridran's letters lead to the same place"] = "{npc:3602}, {area:186}; as cartas de Denatharion e Theridran levam ao mesmo lugar",
 
 	-- Step 2: Mathrengyl Bearwalker
-	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["{npc:4217} stands in the {area:1658}."] = "{npc:4217} fica no {area:1658}.",
+	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {quest:5921} Moonglade
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. He teaches you Teleport: {quest:5921} with the quest (it stays in your spellbook, Balance tab)."] = "",
 	["or whichever of the three letters you carry"] = "ou qualquer uma das três cartas que você tiver",
 
 	-- Step 3: Moonglade
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {area:702} Rut'theran Village · {area:442} Auberdine · {zone:1457} Darnassus
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path, then fly to {area:702} (by way of {area:442}) and take the portal up to {zone:1457}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; {quest:5929} fica na mata a noroeste. Aprenda a rota de voo de {area:493}, depois voe até {area:702} (passando por {area:442}) e pegue o portal até {zone:1457}.",
+	-- {area:493} Moonglade · {npc:11802} Dendrite Starblaze · {quest:5929} Great Bear Spirit · {area:2361} Nighthaven · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village · {zone:1457} Darnassus
+	["Cast Teleport: {area:493}: it lands you beside the building where {npc:11802} stands upstairs, past the armor vendor. The {quest:5929} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast Teleport: {area:493} again. Learn the {area:493} flight path ({npc:10897}, south of the lake) for later, then take {npc:11800}'s flight from the middle of {area:2361}: she flies druids straight to {area:702}, no flight path needed. Take the portal up to {zone:1457}."] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "Fale com o {quest:5929}",
 
@@ -33,7 +33,7 @@ return {
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "A {object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
-	["Fly from {area:702} to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Voe de {area:702} até {area:442}. A {object:177525} fica nas colinas logo a leste da vila: use a {item:15208} lá, derrote Lunagarra e fale com o {npc:12144}.",
+	["Fly from {area:702} to {area:442}. The {object:177525} stands inside the nearest moonkin cave east of the village: the northern of two small rock-pile caves where the {area:442} road meets the main north-south road. Moonkin (level 11-13) stand outside, the cave is empty: slip past them. Use the {item:15208} by the stone: Lunaclaw (level 12-13) walks in towards you and stays three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Another druid's Lunaclaw gives you the spirit too."] = "",
 
 	-- Step 6: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker
@@ -46,18 +46,18 @@ return {
 	["{npc:3064}, {area:222}; Pala's and Gryshka's letters lead to the same place"] = "{npc:3064}, {area:222}; as cartas de Pala e Gryshka levam ao mesmo lugar",
 
 	-- Step 8: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} stands on {area:1639}."] = "{npc:3033} fica no {area:1639}.",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {quest:5922} Moonglade
+	["{npc:3033} stands in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you Teleport: {quest:5922} with the quest (it stays in your spellbook, Balance tab)."] = "",
 
 	-- Step 9: Moonglade
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5930} Great Bear Spirit · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the woods to the north-west. {npc:11798} in {area:2361} flies druids to {area:1638}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; {quest:5930} fica na mata a noroeste. {npc:11798}, em {area:2361}, leva druidas voando até {area:1638}.",
+	-- {quest:5922} Moonglade · {npc:11802} Dendrite Starblaze · {quest:5930} Great Bear Spirit · {area:2361} Nighthaven · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["Cast Teleport: {quest:5922}: it lands you beside the building where {npc:11802} stands upstairs. The {quest:5930} sits in the woods to the north-west. Speak to it and go through all of its words (what it represents, the strength of the body, the strength of the heart, then ask for its blessing): the talk is the objective, there is no fight. It blends into the ground, has no quest mark and gives off a faint blue-grey glow by a group of three trees: from {area:2361} go west along the foot of the northern mountains, through the gap between the trees and the hills. If {npc:11802} is missing when you return, step outside and cast Teleport: {quest:5922} again. Learn the {quest:5922} flight path (Faustron, south-west of the lake); {npc:11798} in {area:2361} flies druids to {area:1638}."] = "",
 	-- {quest:5930} Great Bear Spirit
 	["Speak with the {quest:5930}"] = "Fale com o {quest:5930}",
 
 	-- Step 11: The Moonkin Stone
-	-- {object:177525} Moonkin Stone · {zone:1412} Mulgore · {zone:1413} Barrens · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
-	["The {object:177525} stands in the pass from {zone:1412} into the {zone:1413}. Use the {item:15710} there, defeat Lunaclaw and speak to the {npc:12144}."] = "A {object:177525} fica na passagem de {zone:1412} para {zone:1413}. Use a {item:15710} lá, derrote Lunagarra e fale com o {npc:12144}.",
+	-- {object:177525} Moonkin Stone · {zone:1413} Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {item:15710} Cenarion Lunardust · {npc:12144} Lunaclaw Spirit
+	["The {object:177525} stands in the {zone:1413} just south-west of {area:378}, by the road out of {zone:1412}. Level 20 Thunderheads roam close by: clear the way first. Use the {item:15710} by the stone: Lunaclaw (level 12-13) appears for three minutes. Kill her, then speak to the {npc:12144} that appears and ask for the strength of her body and heart: the talk is the credit. Die in the fight? Lunaclaw stays by the stone: run back and finish her."] = "",
 
 	-- Step 12: Body and Heart
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -84,8 +84,8 @@ return {
 	-- Step 16: Urs'endris and Ur'endra
 	-- {npc:255853} Urs'endris · {npc:258443} Ur'endra
 	["{npc:255853} and {npc:258443}"] = "{npc:255853} e {npc:258443}",
-	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands
-	["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623}, west of {area:16638}."] = "{npc:255853} espera junto às cachoeiras a nordeste de {area:16638}. {npc:258443} ronda {area:16623}, a oeste de {area:16638}.",
+	-- {npc:255853} Urs'endris · {area:16629} Shrine of Akir · {area:16638} Valanaar · {npc:258443} Ur'endra · {area:16623} Shen'dar Highlands · {area:16626} Gustberry Lowlands
+	["{npc:255853} waits by the waterfall below the {area:16629}, north-east of {area:16638}. {npc:258443} (the bear you must defeat) lairs in an unmarked cave high on the cliff face west of him, where the {area:16623} meet the {area:16626}: take the path west out of {area:16638} (not north), cross the river on the log bridge and reach the cave from the cliff's upper, northern side. The cave at the foot of the cliffs and the foggy cave are the wrong ones."] = "",
 
 	-- Step 17: Strength and Mercy
 	-- {npc:255853} Urs'endris
@@ -96,18 +96,30 @@ return {
 	["{npc:259118} waits where the airship from {zone:2521} lands, in northern {zone:1412} beside {zone:1456}."] = "{npc:259118} espera onde a aeronave vinda da {zone:2521} pousa, no norte de {zone:1412}, junto a {zone:1456}.",
 
 	-- Step 19: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["{npc:3033} trains druids on {area:1639}."] = "{npc:3033} treina druidas no {area:1639}.",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {quest:94913} Moonglade
+	["{npc:3033} trains druids in the druids' hut on {area:1639}, over the rope bridges east of the lifts. He teaches you Teleport: {quest:94913} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
 	-- Step 20: Child of Nature
 	-- {npc:270459} Alfina Nightgaze · {npc:259084} Denaaris Stargale · {area:279} Dalaran · {zone:2521} Zephras Isle · {npc:2543} Archmage Ansirem Runeweaver
 	["{npc:270459} stands beside {npc:259084} and the Skyborne Portal, west of {area:279}, where the skycutter from {zone:2521} lands. {npc:2543} offers the same quest."] = "{npc:270459} fica ao lado de {npc:259084} e do Portal Celonato, a oeste de {area:279}, onde pousa a nave celeste vinda da {zone:2521}. {npc:2543} oferece a mesma missão.",
 
 	-- Step 21: Sheldras Moontree
-	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree
-	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer."] = "O Portal Celonato leva você a {zone:1453}. {npc:5504} é o instrutor de druidas da cidade.",
+	-- {zone:1453} Stormwind · {npc:5504} Sheldras Moontree · {quest:94914} Moonglade
+	["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer (the arrow points at him); he teaches you Teleport: {quest:94914} with the next quest (it stays in your spellbook, Balance tab)."] = "",
 
 	-- Step 22: Dendrite Starblaze
-	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:493} Moonglade
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}. Learn the {area:493} flight path while you are here."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}. Aprenda a rota de voo de {area:493} enquanto estiver lá.",
+	-- {area:493} Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:10897} Sindrayl
+	["Cast Teleport: {area:493}: it lands you beside the building where {npc:11802} stands upstairs, in {area:2361}. Learn the {area:493} flight path while you are here (Faustron for the Horde, south-west of the lake; {npc:10897} for the Alliance, south of it)."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}. Learn the {area:493} flight path while you are here."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}. Aprenda a rota de voo de {area:493} enquanto estiver lá.",
+	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path, then fly to {area:702} (by way of {area:442}) and take the portal up to {zone:1457}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; {quest:5929} fica na mata a noroeste. Aprenda a rota de voo de {area:493}, depois voe até {area:702} (passando por {area:442}) e pegue o portal até {zone:1457}.",
+	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5930} sits in the woods to the north-west. {npc:11798} in {area:2361} flies druids to {area:1638}."] = "Lance {spell:18960}. {npc:11802} está em {area:2361}; {quest:5930} fica na mata a noroeste. {npc:11798}, em {area:2361}, leva druidas voando até {area:1638}.",
+	-- ["Fly from {area:702} to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "Voe de {area:702} até {area:442}. A {object:177525} fica nas colinas logo a leste da vila: use a {item:15208} lá, derrote Lunagarra e fale com o {npc:12144}.",
+	-- ["The Skyborne Portal takes you to {zone:1453}. {npc:5504} is the city's druid trainer."] = "O Portal Celonato leva você a {zone:1453}. {npc:5504} é o instrutor de druidas da cidade.",
+	-- ["The {object:177525} stands in the pass from {zone:1412} into the {zone:1413}. Use the {item:15710} there, defeat Lunaclaw and speak to the {npc:12144}."] = "A {object:177525} fica na passagem de {zone:1412} para {zone:1413}. Use a {item:15710} lá, derrote Lunagarra e fale com o {npc:12144}.",
+	-- ["{npc:255853} waits by the falls north-east of {area:16638}. {npc:258443} prowls the {area:16623}, west of {area:16638}."] = "{npc:255853} espera junto às cachoeiras a nordeste de {area:16638}. {npc:258443} ronda {area:16623}, a oeste de {area:16638}.",
+	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} fica no {area:1639}.",
+	-- ["{npc:3033} trains druids on {area:1639}."] = "{npc:3033} treina druidas no {area:1639}.",
+	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217} fica no {area:1658}.",
 }

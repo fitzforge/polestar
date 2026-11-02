@@ -13,15 +13,16 @@ const DEFAULT_PORT = 8078;
 const DEFAULT_ART = path.join(ROOT, 'data', 'local', 'planner', 'art');
 const DEFAULT_NAV = path.join(ROOT, 'data', 'local', 'nav');
 
-const usage = `usage: node tools/polestar.js planner [<pack dir>...] [--port ${DEFAULT_PORT}] [--art <dir>] [--nav <dir>] [--open]
+const usage = `usage: node tools/polestar.js planner [<pack dir>...] [--port ${DEFAULT_PORT}] [--art <dir>] [--nav <dir>] [--guides <dir>] [--open]
        node tools/polestar.js planner art [--continents 0,1] [--no-zones] [--force] [--offline] [--concurrency N] [--out <dir>]
        node tools/polestar.js planner mcp [<pack dir>...] [--port ${DEFAULT_PORT}] [--art <dir>] [--nav <dir>]
 
 The route planner: a local page (http://127.0.0.1:${DEFAULT_PORT}) that plays a
 guide on the real map, step by step, with the clock, the XP and the quest
 log, and edits the .guide files (fields, steps, dragged waypoints): every
-edit is written to the file at once. Our guides/ are always loaded; other
-packs (a folder holding pack.json, as arguments or --pack) come after them.
+edit is written to the file at once. Our guides/ are always loaded (or the
+--guides folder in their place); other packs (a folder holding pack.json, as
+arguments or --pack) come after them.
 Inspired by Nivek_Gaming (@Nivek_Gaming on X): thank you, Nivek.
 
   --port <n>          port on 127.0.0.1 (default ${DEFAULT_PORT}; 0 picks a free one)
@@ -30,6 +31,9 @@ Inspired by Nivek_Gaming (@Nivek_Gaming on X): thank you, Nivek.
                       built by node tools/polestar.js nav build; without it walks are straight lines)
   --data <dir>        reference data (default data/forever/)
   --pack <dir>        one more pack folder
+  --guides <dir>      play and edit this guide tree instead of our guides/ (a route
+                      writer's output, e.g. scratch/Routes/c12w/guides/Undead; without
+                      a pack.json of its own it reads as ours)
   --open              open the page in the browser
 
 planner art: fetch the Forever client's minimap blocks and zone maps from
@@ -48,7 +52,7 @@ planner mcp: the planner's commands as an MCP server on stdin/stdout
 (JSON-RPC, one message per line). It uses the planner running on --port, so
 an agent's edits show live in the open page, else starts one itself.`;
 
-const SERVE_OPTIONS = { flags: ['--open'], options: ['--port', '--art', '--nav', '--data', '--pack'] };
+const SERVE_OPTIONS = { flags: ['--open'], options: ['--port', '--art', '--nav', '--data', '--pack', '--guides'] };
 const ART_OPTIONS = { flags: ['--no-zones', '--force', '--offline'], options: ['--continents', '--concurrency', '--out', '--product'] };
 
 function portOf(o) {
@@ -70,8 +74,10 @@ function makeWorkspace(o, positional, log) {
 	const { Workspace } = require('../planner/workspace');
 	const artDir = o.art ? path.resolve(o.art) : DEFAULT_ART;
 	const navDir = o.nav ? path.resolve(o.nav) : DEFAULT_NAV;
+	const officialDir = o.guides ? path.resolve(o.guides) : undefined;
+	if (officialDir && !fs.statSync(officialDir, { throwIfNoEntry: false })?.isDirectory()) throw Object.assign(new Error(`no folder ${officialDir}`), { exit: 2 });
 	try {
-		return new Workspace({ dataDir, packs: packDirs(o, positional), artDir, navDir, log });
+		return new Workspace({ dataDir, packs: packDirs(o, positional), artDir, navDir, officialDir, log });
 	} catch (err) {
 		if (!err.exit) err.exit = 1;
 		throw err;

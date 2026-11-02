@@ -78,6 +78,21 @@ local function guideMatches(g, player)
 end
 Guides.GuideMatches = guideMatches
 
+-- Another race's starting zone on the character's own side (Fitz,
+-- 2026-10-30): a leveling guide from level 1 locked to races the character
+-- is not, for their faction and class. GuideMatches turns it away like any
+-- other race's guide; it is the one exception a character may still follow:
+-- the guide menu lists it under "Other starting zones" and the Engine runs it
+-- (Engine.AwayStart: no guidance there, the guide picks up on arrival).
+-- Every other guide a character does not match stays out of reach.
+function Guides.OtherStart(g, player)
+	if type(g) ~= "table" or type(player) ~= "table" then return false end
+	if g.category ~= nil and g.category ~= "Leveling" then return false end
+	if (g.minLevel or 1) > 1 or type(g.races) ~= "table" or #g.races == 0 then return false end
+	if not (g.faction and player.faction and g.faction:lower() == player.faction:lower()) then return false end
+	return not listMatches(g.races, player.race, normRace) and listMatches(g.classes, player.class)
+end
+
 -- Candidate NPCs (`candidates` on a goal): faction "A" | "H" | "AH" (nil:
 -- anyone), optional races/classes lists.
 local FACTION_CODE = { Alliance = "A", Horde = "H" }
@@ -168,6 +183,7 @@ local REQUIRED = {
 	rep = { faction = isNum, factionName = isStr, standing = isNum },
 	explore = { map = isNum, x = isNum, y = isNum },
 	achieve = { achievement = isNum, achievementName = isStr },
+	wait = { seconds = isNum },
 }
 Guides.VERBS = REQUIRED
 
@@ -248,6 +264,9 @@ local function checkWhen(list)
 		elseif k == "cooldown" then
 			-- One item or one spell (format 5).
 			if not ((isNum(p.item) and p.spell == nil) or (isNum(p.spell) and p.item == nil)) then return false end
+		elseif k == "knows" then
+			-- A spell id (format 5).
+			if not isNum(p.spell) then return false end
 		elseif not (WHEN_PLACE[k] and isStr(p.name)) then
 			return false
 		end
@@ -576,7 +595,7 @@ Guides.Validate = validate
 ---------------------------------------------------------------------------
 
 -- Every format Polestar has shipped (docs/PACK_FORMAT.md, "Versioning").
-Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true }
+Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [6] = true, [7] = true, [8] = true, [9] = true }
 Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
 local REQUIRED_META = { "addon", "title", "author", "version", "license" }

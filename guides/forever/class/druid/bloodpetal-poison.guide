@@ -4,7 +4,7 @@ category Class
 folder Druid
 keywords Torwa Pathfinder, Bloodpetal Poison, Toxic Test, A Better Ingredient, Putrid Vine, Atal'alarion, Sunken Temple, Devilsaur, Gorishi Sting, Bloodcap, Un'Goro Crater, Loganaar, class quest
 reward item 13446
-why Experience in Un'Goro at 50 and two healing potions; Forever removed the Classic item choice.
+why Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever.
 class Druid
 levels 50-54
 zone Un'Goro Crater
@@ -15,17 +15,24 @@ zone Un'Goro Crater
 # Bloodcap) -> Toxic Test (9051: stab a Devilsaur with the Devilsaur Barb) ->
 # A Better Ingredient (9053: the Putrid Vine from Atal'alarion, the guardian
 # at the bottom of the Sunken Temple).
-# Forever removed A Better Ingredient's reward choices (Forest's Embrace,
-# Grizzled Pelt, Moonshadow Stave; Forever's druid class quest list), so
-# the chain now pays experience and Bloodpetal Poison's two Major Healing
-# Potions. Devilsaurs are elite and Atal'alarion is a dungeon boss: bring a
-# group for both.
+# Forever's druid class quest list says A Better Ingredient no longer gives
+# its choice (Forest's Embrace, Grizzled Pelt, Moonshadow Stave), but the
+# same quest page still lists three unnamed choice items (22274, 22272,
+# 22458): the card counts on the experience and Bloodpetal Poison's two Major
+# Healing Potions. Devilsaurs are elite and Atal'alarion is a dungeon boss:
+# bring a group for both.
+# INGAME: does A Better Ingredient (9053) still offer Forest's Embrace, Grizzled Pelt or Moonshadow Stave on Forever? The change notes say no; the quest page still lists the three item ids.
+# ASSUMED: the chain, Torwa's camp and Atal'alarion's statue puzzle are as in Classic (Classic flow; Forever's data has no server answer or play report above 30 for 9051-9063). In-game check: Torwa at the foot of the ramp and the statue order.
+# Drops and gotchas from Forever's quest notes: Gorishi Sting 15% (wasps and
+# stingers), Bloodcap 50% per sprout, three Devilsaur spawns (10 min), the
+# barb leaves the Devilsaur hostile; the Sunken Temple statue order.
 # Based on data, not play: the beta stops at level 30, so none of this could
 # be checked in game before launch (4 November).
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie
 # 12.1.0, Forever); the Sunken Temple entrance is the point
-# forever/alliance/40-50/07-un-goro-crater uses (Epiccarry's Sunken Temple
-# guide gives 69,53 in the Swamp of Sorrows).
+# forever/alliance/40-50/07-un-goro-crater uses (a public Sunken Temple
+# dungeon guide gives 69,53 in the Swamp of Sorrows; the way in from several
+# walkthroughs).
 # Left out, though Forever's quest data has them (tooltip found) and the
 # data marks them questie-forever: The Emerald Dream (7506: a Dire Maul book
 # drop; its ender, Lorekeeper Javon, has no position in the data) and the
@@ -38,7 +45,7 @@ zone Un'Goro Crater
 
 step Loganaar
   zone Moonglade
-  tip Cast Teleport: Moonglade. Loganaar stands in Nighthaven; your class trainer offers the same quest.
+  tip Cast Teleport: Moonglade. Loganaar stands in Nighthaven; your class trainer (Turak Runetotem, Mathrengyl Bearwalker or Theridran in Stormwind) offers the same quest.
   level 50
   accept 9063 npc 12042                 -- Loganaar
 
@@ -49,7 +56,7 @@ step Torwa Pathfinder
   accept 9052
 
 step Gorishi Stings and Bloodcap
-  tip The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the Bloodcap grow all over the crater's western half.
+  tip Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the Slithering Scar, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' Silithid Pox makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around Marshal's Refuge and the western half): open them, about every other one gives a Bloodcap, back in three to five minutes.
   collect 22435 x8 quest 9052.1         -- Gorishi Sting
   collect 22434 x8 quest 9052.2         -- Bloodcap
 
@@ -58,7 +65,7 @@ step Torwa Pathfinder
   accept 9051
 
 step Toxic Test
-  tip Use the Devilsaur Barb on a Devilsaur. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised.
+  tip Use the Devilsaur Barb on a living Devilsaur (an Ironhide or Tyrant Devilsaur, or King Mosh, counts too): they are elite (level 54-55), hit with Mighty Blow and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or Entangling Roots it from range, stab it (the barb does not break Hibernate), then leave. The credit counts the moment the barb lands, even if you die after. The nearest roams south-west of Marshal's Refuge.
   kill 6498 quest 9051.1                -- Devilsaur: stab it with the Devilsaur Barb
 
 step Torwa Pathfinder
@@ -67,11 +74,11 @@ step Torwa Pathfinder
 
 step The Sunken Temple
   zone Swamp of Sorrows
-  tip The Temple of Atal'Hakkar lies in the Pool of Tears in the Swamp of Sorrows. Atal'alarion guards the bottom of the temple: a dungeon boss, so bring a group.
+  tip A five-player dungeon: needs a group of five, about level 50-55. Horde: fly to Stonard; Alliance: fly to Nethergarde Keep in the Blasted Lands and ride north. The Temple of Atal'Hakkar stands in the middle of the Pool of Tears in the Swamp of Sorrows: climb the stairs on the ruin's south side, dive into the flooded hall, swim down through it and follow the stairs and passages down to the portal. Atal'alarion (level 50 elite, Sweeping Slam and Ground Tremor) only appears when the six serpent statues on the balcony ring above the altar pit are clicked in order: South, North, South-west, South-east, North-west, North-east (each turns green when right; a wrong order fails). Clear the trash by each statue and the pit below first; jumping down into the water is the quick way down, but a knockback near the edge can kill. The Putrid Vine always drops.
   goto 69.9,53.6 "The Temple of Atal'Hakkar"
-  collect 22444 quest 9053.1 @69.9,53.6 -- Putrid Vine: Atal'alarion
+  collect 22444 quest 9053.1 @69.9,53.6 group 5 -- Putrid Vine: Atal'alarion
 
 step A Better Ingredient
   zone Un'Goro Crater
   tip Back to Torwa in the south-east corner of Un'Goro Crater.
-  turnin 9053                           -- Torwa Pathfinder
+  turnin 9053                           -- Torwa Pathfinder: the old item choice may be gone, count on the experience

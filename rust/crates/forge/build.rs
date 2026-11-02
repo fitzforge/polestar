@@ -1,6 +1,11 @@
 //! FORGE_GIT_HASH for `forge --version`: $FORGE_GIT_HASH when set (release builds), else the
 //! checkout's short commit, else empty (a source tree without git).
+//!
+//! FORGE_PLANNER_HASH for the routes stage's search key: a hash of the route planner's sources
+//! (forge-sim and the workspace crates it is built from; src/planner_src.rs).
 use std::process::Command;
+
+include!("src/planner_src.rs");
 
 fn git(args: &[&str]) -> Option<String> {
 	let out = Command::new("git").args(args).output().ok()?;
@@ -17,4 +22,12 @@ fn main() {
 	}
 	let hash = std::env::var("FORGE_GIT_HASH").ok().filter(|h| !h.is_empty()).or_else(|| git(&["rev-parse", "--short=9", "HEAD"])).unwrap_or_default();
 	println!("cargo:rustc-env=FORGE_GIT_HASH={hash}");
+	let sim = std::path::Path::new(&std::env::var("CARGO_MANIFEST_DIR").unwrap_or_default()).join("../forge-sim");
+	let crates = path_closure(&sim);
+	for c in &crates {
+		for f in ["Cargo.toml", "build.rs", "src"] {
+			println!("cargo:rerun-if-changed={}", c.join(f).display());
+		}
+	}
+	println!("cargo:rustc-env=FORGE_PLANNER_HASH={}", sources_hash(&crates));
 }

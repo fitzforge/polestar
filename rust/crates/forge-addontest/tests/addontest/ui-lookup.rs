@@ -197,8 +197,30 @@ fn a_vendor_mount_facts_ranked_sources_with_travel_and_price_the_closed_one_dimm
 		cols(&out["d"]["sources"], &["label", "travel", "facts", "why", "available"]),
 		json!([["Lelanai", "4 min", "80g", null, true], ["Zachariah Post", "32 min", "80g  \u{b7}  Limited stock", "Horde only", false],])
 	);
-	assert_eq!(out["d"]["primary"], "Guide me");
-	assert!(is_match(text(&out["d"]["note"]), r"Builds a guide to Lelanai"));
+}
+
+#[test]
+fn a_mount_without_a_curated_guide_has_no_guide_me_an_ordinary_item_still_builds_one() {
+	let out = run(r#"
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local mount = { d = LK.detail, shown = LK.details.Primary:IsShown() }
+		stub.RunScript(Polestar.UI.Picker.search, "OnEnterPressed")
+		mount.enter = lookupstub.calls[1]
+		mount.status = LK.details.Note:GetText()
+		mount.still = lookupShown()
+		LK.details.Rows[1]:Click()
+		mount.rowGuide = LK.details.Rows[1].Guide:IsShown()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		emit({ mount = mount, item = LK.detail })"#);
+	assert_eq!(out["mount"]["d"]["primary"], Value::Null);
+	assert_eq!(out["mount"]["shown"], false);
+	assert!(is_match(text(&out["mount"]["d"]["note"]), r"^No guide to this mount yet: the sources above say where it comes from"));
+	assert_eq!(out["mount"]["rowGuide"], true, "a source's own Guide still leads to it");
+	assert_eq!(out["mount"]["enter"], json!(["mount", 8631, false]));
+	assert!(is_match(text(&out["mount"]["status"]), r"^No guide to this mount yet"));
+	assert_eq!(out["mount"]["still"], true);
+	assert_eq!(out["item"]["primary"], "Guide me");
+	assert!(is_match(text(&out["item"]["note"]), r"Builds a guide to Stranglethorn Tiger"));
 }
 
 #[test]
@@ -210,22 +232,22 @@ fn guide_me_and_a_source_s_own_guide_call_lookup_guide_and_open_the_guide_window
 		LK.details.Rows[2].Guide:Click()
 		local afterSource = { call = lookupstub.calls[1], shown = lookupShown(), ui = Polestar.Get("ui.shown") }
 		Polestar.Set("ui.shown", false)
-		Polestar.Lookup.Show(nil, "mount", 8631)
+		Polestar.Lookup.Show(nil, "item", 4386)
 		LK.details.Primary:Click()
 		local primary = lookupstub.calls[2]
-		Polestar.Lookup.Show(nil, "mount", 8631)
+		Polestar.Lookup.Show(nil, "item", 4386)
 		stub.RunScript(Polestar.UI.Picker.search, "OnEnterPressed")
 		emit({ pick = pick, afterSource = afterSource, primary = primary, enter = lookupstub.calls[3], shown = lookupShown(), ui = Polestar.Get("ui.shown") })"#);
 	assert_eq!(out["pick"], json!({ "sel": true, "other": false }));
 	assert_eq!(out["afterSource"], json!({ "call": ["mount", 8631, 2], "shown": false, "ui": true }));
-	assert_eq!(out["primary"], json!(["mount", 8631, false]));
-	assert_eq!(out["enter"], json!(["mount", 8631, false]));
+	assert_eq!(out["primary"], json!(["item", 4386, false]));
+	assert_eq!(out["enter"], json!(["item", 4386, false]));
 	assert_eq!(out["shown"], false);
 	assert_eq!(out["ui"], true);
 }
 
 #[test]
-fn a_rare_drop_out_of_reach_chance_the_reason_guide_me_off_a_curated_guide_says_open_guide() {
+fn a_rare_drop_mount_out_of_reach_chance_the_reason_no_guide_me_a_curated_guide_says_open_guide() {
 	let out = run(r#"
 		Polestar.Lookup.Show("deathcharger")
 		local drop = LK.detail
@@ -243,9 +265,9 @@ fn a_rare_drop_out_of_reach_chance_the_reason_guide_me_off_a_curated_guide_says_
 		cols(&out["drop"]["sources"], &["label", "facts", "why", "available"]),
 		json!([["Baron Rivendare", "0.1% drop chance", "Needs level 58", false], ["Ramstein's Reward", null, "Needs level 60", false],])
 	);
-	assert_eq!(out["drop"]["primary"], "Guide me");
-	assert_eq!(out["drop"]["enabled"], false);
-	assert!(is_match(text(&out["drop"]["note"]), r"No source is open"));
+	// A rare drop is no "kill it" guide: no Guide me for a mount without a curated guide.
+	assert_eq!(out["drop"]["primary"], Value::Null);
+	assert!(is_match(text(&out["drop"]["note"]), r"^No guide to this mount yet"));
 	assert_eq!(out["curated"]["primary"], "Open guide");
 	// Neutral wording: the curated guide may come from a guide pack.
 	assert!(is_match(text(&out["curated"]["note"]), r"^A guide covers this: .*Westfall.*\.$"));
@@ -372,7 +394,7 @@ local LK = Polestar.UI.Lookup
 Polestar.Lookup.Show("saber")
 local search = { groups = LK.shown.groups, sel = LK.Selected().kind, codex = LK.root.CodexLine:GetText() }
 Polestar.Lookup.Show(nil, "mount", 13335)
-emit({ search = search, title = LK.detail.title, query = LK.Query(), sources = LK.detail.sources, primary = LK.detail.primary })"#
+emit({ search = search, title = LK.detail.title, query = LK.Query(), sources = LK.detail.sources, primary = LK.detail.primary, note = LK.detail.note })"#
 			.into(),
 		..Default::default()
 	});
@@ -386,7 +408,8 @@ emit({ search = search, title = LK.detail.title, query = LK.Query(), sources = L
 	assert_eq!(out["sources"][0]["facts"], "0.1% drop chance");
 	assert_eq!(out["sources"][0]["available"], false);
 	assert!(truthy(&out["sources"][0]["why"]), "says why it is out of reach");
-	assert_eq!(out["primary"], "Guide me");
+	assert_eq!(out["primary"], Value::Null, "the real runtime builds no guide to a mount");
+	assert!(is_match(text(&out["note"]), r"^No guide to this mount yet"));
 	drop(pack);
 }
 

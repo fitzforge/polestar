@@ -101,11 +101,25 @@ fn browse_folders_by_faction_and_band_then_by_category_faction_filter_and_band_d
 		uistub.player.race, uistub.player.faction = "Scourge", "Horde"
 		emit({ alliance = alliance, all = all, horde = horde, undeadHorde = kinds(P.Entries("Horde", "", "Leveling")),
 			bands = { { P.Band({ id = "forever/horde/30-40/01-desolace", minLevel = 12 }) }, { P.Band({ id = "a/b", minLevel = 44 }) }, { P.Band({ id = "a/b", minLevel = 29 }) } } })"#);
-	// Within a folder: faction, then minimum level, then id. On the player's own faction, a Human sees no other
-	// race's start (Dun Morogh, Teldrassil, Zephras Isle).
+	// Within a folder: faction, then minimum level, then id. On the player's own faction, a Human sees the other
+	// races' starts (Dun Morogh, Teldrassil, Zephras Isle) in their own folder after their levels 1-30.
 	assert_eq!(
 		out["alliance"],
-		json!(["[Alliance 1\u{2013}30 3]", "Elwynn Forest", "Westfall", "Darkshore", "[Alliance 30\u{2013}40 1]", "Desolace", "[Alliance 40\u{2013}50 2]", "Badlands & The Hinterlands", "Feralas"])
+		json!([
+			"[Alliance 1\u{2013}30 3]",
+			"Elwynn Forest",
+			"Westfall",
+			"Darkshore",
+			"[Other starting zones 3]",
+			"Dun Morogh",
+			"Teldrassil",
+			"Zephras Isle",
+			"[Alliance 30\u{2013}40 1]",
+			"Desolace",
+			"[Alliance 40\u{2013}50 2]",
+			"Badlands & The Hinterlands",
+			"Feralas"
+		])
 	);
 	// The player's faction first; every faction and every race's guides when all are listed.
 	assert_eq!(starting_with_bracket(&out["all"]), json!(["[Alliance 1\u{2013}30 6]", "[Alliance 30\u{2013}40 1]", "[Alliance 40\u{2013}50 2]", "[Horde 1\u{2013}30 3]", "[Horde 30\u{2013}40 1]"]));
@@ -113,9 +127,45 @@ fn browse_folders_by_faction_and_band_then_by_category_faction_filter_and_band_d
 	assert_eq!(starting_with_bracket(&out["horde"]), json!(["[Horde 1\u{2013}30 3]", "[Horde 30\u{2013}40 1]", "[Professions 3]", "[Reputation 1]", "[Exploration 1]", "[Legacy 1]"]));
 	assert!(includes(&out["horde"], "Durotar"));
 	assert!(includes(&out["horde"], "Orgrimmar Reputation") && !includes(&out["horde"], "Stormwind Reputation"));
-	// An Undead on the Horde list: the Orc and Troll start is left out, the shared guides stay.
-	assert!(!includes(&out["undeadHorde"], "Durotar") && includes(&out["undeadHorde"], "The Barrens"));
+	// An Undead on the Horde list: the Orc and Troll start is listed apart, the shared guides stay.
+	let undead = starting_with_bracket(&out["undeadHorde"]);
+	assert_eq!(undead, json!(["[Horde 1\u{2013}30 2]", "[Other starting zones 1]", "[Horde 30\u{2013}40 1]"]));
+	assert!(includes(&out["undeadHorde"], "Durotar") && includes(&out["undeadHorde"], "The Barrens"));
 	assert_eq!(out["bands"], json!([[30, 40], [40, 50], [1, 30]]));
+}
+
+#[test]
+fn a_night_elf_sees_the_other_alliance_starts_under_other_starting_zones_but_no_other_race_locked_guide() {
+	let out = run(r#"
+		uistub.player.race, uistub.player.class = "NightElf", "DRUID"
+		-- A race-locked guide that is no starting zone (a later part) stays hidden.
+		uistub.guides["forever/alliance/human/02-later"] = { id = "forever/alliance/human/02-later", title = "Human Later", faction = "Alliance", races = { "Human" },
+			minLevel = 12, maxLevel = 15, category = "Leveling", zone = 0, zoneName = "Westfall", steps = { { title = "One", goals = { { t = "note", text = "One", status = "pending" } } } } }
+		table.insert(uistub.order, "forever/alliance/human/02-later")
+		local G = uistub.realGuides
+		emit({ alliance = kinds(P.Entries("Alliance", "", "Leveling")),
+			other = { G.OtherStart(uistub.guides[uistub.elwynn], uistub.player), G.OtherStart(uistub.guides["forever/alliance/nightelf/01-teldrassil"], uistub.player),
+				G.OtherStart(uistub.guides["forever/horde/orc-troll/01-durotar"], uistub.player), G.OtherStart(uistub.guides["forever/alliance/human/02-later"], uistub.player) } })"#);
+	assert_eq!(
+		out["alliance"],
+		json!([
+			"[Alliance 1\u{2013}30 3]",
+			"Teldrassil",
+			"Westfall",
+			"Darkshore",
+			"[Other starting zones 3]",
+			"Dun Morogh",
+			"Elwynn Forest",
+			"Zephras Isle",
+			"[Alliance 30\u{2013}40 1]",
+			"Desolace",
+			"[Alliance 40\u{2013}50 2]",
+			"Badlands & The Hinterlands",
+			"Feralas"
+		])
+	);
+	// Own race's start, the other faction's start and a later race part are no other starting zone.
+	assert_eq!(out["other"], json!([true, false, false, false]));
 }
 
 #[test]
@@ -181,7 +231,8 @@ fn left_pane_the_rail_holds_the_sections_and_options_the_sidebar_holds_the_categ
 	let mut rail = vec![json!("Options"), json!("Import"), json!("Guides*")];
 	rail.extend(out["sections"].as_array().unwrap()[1..].iter().filter(|s| s.as_str() != Some("Import")).cloned());
 	assert_eq!(out["rail"], Value::Array(rail));
-	assert_eq!(out["labels"], json!(["All guides 13", "Leveling 6", "Professions 3", "Reputation 1", "Exploration 1", "Legacy 1", "Collectibles 1", "Favourites 0"]));
+	// Leveling counts the other races' starting zones (Dun Morogh, Teldrassil, Zephras Isle) too.
+	assert_eq!(out["labels"], json!(["All guides 16", "Leveling 9", "Professions 3", "Reputation 1", "Exploration 1", "Legacy 1", "Collectibles 1", "Favourites 0"]));
 	assert!(is_match_icon(text(&out["icon"])));
 	assert_eq!(
 		out["r"],

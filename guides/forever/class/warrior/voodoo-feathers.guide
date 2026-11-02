@@ -7,7 +7,7 @@ levels 50-52
 zone Swamp of Sorrows
 keywords A Troubled Spirit, Fallen Hero of the Horde, Warrior Kinship, War on the Shadowsworn, Voodoo Feathers, Sunken Temple, Temple of Atal'Hakkar, Blasted Lands, Helboar, Warrior, class quest
 reward text Experience
-why Experience at 50, ending in the Sunken Temple; Forever removed the Classic item choice.
+why Experience at 50, ending in the Sunken Temple; Classic's item choice may be gone on Forever.
 
 # The level 50-52 Warrior quests: A Troubled Spirit (8417) from any warrior
 # trainer of the capitals, then Warrior Kinship, War on the Shadowsworn and
@@ -15,9 +15,14 @@ why Experience at 50, ending in the Sunken Temple; Forever removed the Classic i
 # entrance to the Blasted Lands.
 # Sources: quests.json, npcs.json and items.json for the chain, objectives,
 # drops and places; Forever's Warrior class quest list
-# (data/local/quest-audit/): Voodoo Feathers no longer
+# (data/local/quest-audit/): its change note says Voodoo Feathers no longer
 # offers its Classic choice of Diamond Flask, Fury Visor or Razorsteel
-# Shoulders, and the list does not say what replaces it. The voodoo feathers
+# Shoulders, but the same list and Forever's quest page still list three
+# choices as unnamed items 20521, 20130 and 20517 (other rewards of that
+# patch, such as the Warlock's Trolls of a Feather, are named): unconfirmed,
+# so the guide promises experience only.
+# INGAME: does Voodoo Feathers (8425) still offer the Diamond Flask, Fury Visor or Razorsteel Shoulders on Forever, or experience only?
+# The voodoo feathers
 # drop from the Atal'ai minibosses on the Sunken Temple's balcony, which have
 # no spawns in the data (Forever's dungeon data,
 # "Balcony Minibosses"); the temple entrance, Swamp of Sorrows 69.9,53.6, is
@@ -25,11 +30,17 @@ why Experience at 50, ending in the Sunken Temple; Forever removed the Classic i
 # No leveling guide takes the chain: Voodoo Feathers needs the Sunken Temple.
 # Level 50 and up is above the beta's level cap: this guide is written from
 # the data, not from play.
+# Counts, levels and fight notes: quest objectives (7 Helboar; 20 Adepts, 10
+# Cultists, 20 Thugs; 2 feathers of each colour) and quest-notes (Helboars
+# sharing spawns with Felbeasts, the Serpent's Coil camp, the six guardians'
+# feathers at 100%, a set per player, the way to the balcony, Hukku's and
+# Mijan's spells). Any capital's warrior trainer offers A Troubled Spirit.
+# ASSUMED: the six balcony guardians stand and drop as in Classic (Classic flow; Forever's data has no spawns for them). In-game check: the guardians on the Sunken Temple's balcony in front of Jammal'an.
 
 step A Troubled Spirit (Stormwind)
   only Human,Skyborne,Alliance
   zone Stormwind City
-  tip At 50, Wu Shen in Old Town, beside the Pig and Whistle, sends you to the Fallen Hero of the Horde in the Swamp of Sorrows.
+  tip At 50, Wu Shen, beside Ilsa Corbin in the warrior trainers' building of Old Town, sends you to the Fallen Hero of the Horde in the Swamp of Sorrows.
   level 50
   accept 8417 npc 5479                        -- Wu Shen
 
@@ -70,14 +81,14 @@ step A Troubled Spirit (Undercity)
 
 step The Fallen Hero of the Horde
   zone Swamp of Sorrows
-  tip The Fallen Hero of the Horde stands in the south-west of the Swamp of Sorrows, at the entrance to the Blasted Lands.
+  tip The Fallen Hero of the Horde, a ghost, stands in the south-west of the Swamp of Sorrows, at the pass into the Blasted Lands, a short ride south-west of Stonard. Horde: fly to Stonard. Alliance: fly to Nethergarde Keep in the Blasted Lands and ride north through the pass. High-level beasts roam the way.
   turnin 8417                                 -- Fallen Hero of the Horde
   accept 8423
 
 step Helboars
   zone Blasted Lands
-  tip The Helboars roam the north of the Blasted Lands, south of the Fallen Hero.
-  kill 5993 quest 8423.1                      -- Helboar
+  tip Seven Helboars (level 52-53, not elite) roam the north-west of the Blasted Lands, south-west of Nethergarde Keep; some stand near the ogres on the mountainside by the road. They charge from 25 yards and cast Fire Nova. They share spawn points with the Felbeasts and scorpids: if no boars are around, kill those and boars may appear instead. Back in 5 minutes.
+  kill 5993 x7 quest 8423.1                   -- Helboar
 
 step War on the Shadowsworn
   zone Swamp of Sorrows
@@ -86,10 +97,10 @@ step War on the Shadowsworn
 
 step Shadowsworn camps
   zone Blasted Lands
-  tip The Shadowsworn cultists hold the east of the Blasted Lands.
-  kill 6006 quest 8424.1                      -- Shadowsworn Adept
-  kill 6004 quest 8424.2                      -- Shadowsworn Cultist
-  kill 6005 quest 8424.3                      -- Shadowsworn Thug
+  tip The Shadowsworn camp around the mouth of the Serpent's Coil cave, south of Nethergarde Keep on the way to the Dark Portal. You need 20 Adepts (level 52-53, they leech blood and heal hurt allies: kill them first), 10 Cultists (51-52, they throw from range, so close in) and 20 Thugs (52-53, Thrash and Kick). Thugs can run short before the others: kill every Shadowsworn you pass.
+  kill 6006 x20 quest 8424.1                  -- Shadowsworn Adept
+  kill 6004 x10 quest 8424.2                  -- Shadowsworn Cultist
+  kill 6005 x20 quest 8424.3                  -- Shadowsworn Thug
 
 step Voodoo Feathers
   zone Swamp of Sorrows
@@ -97,10 +108,11 @@ step Voodoo Feathers
   accept 8425
 
 step The Sunken Temple
-  tip The Sunken Temple lies under the Pool of Tears in the east of the Swamp of Sorrows. Each of the six Atal'ai trolls on the balcony drops a voodoo feather: Gasher or Zul'Lor the amber, Hukku or Mijan the blue, Zolo or Loro the green. The Sunken Temple is a dungeon and the trolls are elite: grouping up is advised.
-  collect 20606 quest 8425.1 @69.9,53.6       -- Amber Voodoo Feather
-  collect 20607 quest 8425.2 @69.9,53.6       -- Blue Voodoo Feather
-  collect 20608 quest 8425.3 @69.9,53.6       -- Green Voodoo Feather
+  tip You need two feathers of each colour from the six Atal'ai troll guardians (level 51-52, elite) on the Sunken Temple's balcony, who hold the barrier in front of Jammal'an the Prophet: Gasher and Zul'Lor drop the amber, Hukku and Mijan the blue, Zolo and Loro the green, every kill; each player on the quest loots their own set. The Sunken Temple is a five-player dungeon: needs a group of five. It lies in the Pool of Tears in eastern Swamp of Sorrows: climb the temple's outer steps, dive into the flooded hall and follow the stairs down to the entrance. Inside, reach the balcony by the stairs or the path on the right, not the spiral stairs. Hukku calls guardians and casts Shadow Bolt Volley and Curse of Blood; Mijan heals the others (Renew, a Healing Ward, Healing Wave below half health): kill her or her ward fast; Zul'Lor cleaves.
+  collect 20606 x2 quest 8425.1 @69.9,53.6    -- Amber Voodoo Feather, from Gasher and Zul'Lor
+  collect 20607 x2 quest 8425.2 @69.9,53.6    -- Blue Voodoo Feather, from Hukku and Mijan
+  collect 20608 x2 quest 8425.3 @69.9,53.6    -- Green Voodoo Feather, from Zolo and Loro
 
 step Back to the Fallen Hero
   turnin 8425                                 -- Fallen Hero of the Horde
+  tip In Classic the Fallen Hero let you choose the Diamond Flask, the Fury Visor or the Razorsteel Shoulders here. Forever's change notes say the choice is gone, though its quest page still lists three unnamed rewards: look at the reward window before you hand in.

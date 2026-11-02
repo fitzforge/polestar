@@ -5,70 +5,93 @@ class Priest
 folder Priest
 levels 50-52
 zone Azshara
-keywords Cenarion Aid, Of Coursers We Know, The Ichor of Undeath, Blood of Morphaz, Ogtinc, Greta Mosshoof, Morphaz, Sunken Temple, Temple of Atal'Hakkar, Blessed Prayer Beads, Circle of Hope, Woestave, class quest
-reward text Experience and gold
-why Experience and gold at 50 through Azshara and the Sunken Temple; Forever removed the Classic item choice.
+keywords Cenarion Aid, Of Coursers We Know, The Ichor of Undeath, Blood of Morphaz, Ogtinc, Greta Mosshoof, Morphaz, Hazzas, Sunken Temple, Temple of Atal'Hakkar, Healthy Courser Gland, Ichor of Undeath, Blessed Prayer Beads, Circle of Hope, Woestave, class quest
+reward text 17,060 experience and 1 gold 55 silver
+why 17,060 XP and 1g55s at 50: Azshara, then Morphaz in the Sunken Temple (group of 5). The item choice may be gone.
 
-# The level 52 Priest class chain: Cenarion Aid (8254) from your class
-# trainer to Ogtinc in Azshara, then Of Coursers We Know (8255), The Ichor
-# of Undeath (8256) and Blood of Morphaz (8257), handed in to Greta
+# The level 52 Priest class chain: Cenarion Aid (8254) from a capital's
+# priest trainer to Ogtinc in Azshara, then Of Coursers We Know (8255), The
+# Ichor of Undeath (8256) and Blood of Morphaz (8257), handed in to Greta
 # Mosshoof in Felwood.
-# Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for the givers, drops and spawns; travel.json for the
-# flight points. Forever's quest data (quest 8254, checked
-# 2026-10-14) lists Brother Joshua (Stormwind), High Priest Rohan
-# (Ironforge) and Ur'kyo (Orgrimmar) as the givers of Cenarion Aid.
-# Rewards: Forever's change notes for Blood of Morphaz
-# (data/local/quest-audit/: "Rewards: no longer
-# Choice of Blessed Prayer Beads, Choice of Circle of Hope, Choice of
-# Woestave") remove the item choice, and they list no new reward: the chain
-# pays experience and money only (6350 XP and 1g55s for 8257).
-# The Blood of Morphaz drops from Morphaz, an elite boss in the Sunken
-# Temple: this chain needs a dungeon group. The data has no position for
-# Morphaz or the dungeon entrance; the entrance point (69,54, the temple in
-# the middle of the Pool of Tears) is from players' reports.
-# The Ichor of Undeath drops from undead all over the world (4-13%): in
-# Azshara, the Lingering Highborne (levels 48-50, about 10%) haunt the Ruins
-# of Eldarath below Ogtinc's cliffs, and Highborne Apparitions and Lichlings
-# (45-47, about 8%) the ruins near Talrendis Point.
+# Givers of Cenarion Aid: Forever's quest data (quest 8254) lists Brother
+# Joshua (Stormwind), High Priest Rohan (Ironforge) and Ur'kyo (Orgrimmar);
+# the guide uses Rohan when you are in Ironforge, else Joshua (Alliance).
+# Rewards: Forever's change notes for Blood of Morphaz (data/local/
+# quest-audit/: "Rewards: no longer Choice of Blessed Prayer Beads, Choice of
+# Circle of Hope, Choice of Woestave") say the item choice is gone, but the
+# same quest page and another Forever database still list the three items
+# (unnamed on the page; Forever's client has no names for them yet), so the
+# guide promises only what is sure: 510 + 5100 + 5100 + 6350 = 17,060 XP and
+# 1g55s (15500 copper on 8257, Forever's Priest class quest list), and says
+# to look at the reward window. The reference data's reward spell on 8257
+# (9884, a Mark of the Wild rank) is most likely a buff Greta casts on you,
+# not a spell you learn: the card shows the experience and gold instead.
+# INGAME: does Blood of Morphaz (8257) still offer Blessed Prayer Beads, Circle of Hope or Woestave on Forever, or experience and gold only?
+# Drops (items.json, KB drops): Healthy Courser Gland 33% from Mosshoof
+# Coursers (level 52-53, not elite, enrage at 30% health, respawn about 5.5
+# minutes); Ichor of Undeath from undead everywhere, best Anguished and
+# Suffering Highborne in Winterspring (level 54-55, about 13%), Lingering
+# Highborne in Azshara's Ruins of Eldarath (level 48, about 10%), Highborne
+# Apparitions and Lichlings on the Ashenvale border of Azshara (level 45-46,
+# about 8-9%); Blood of Morphaz 100% from Morphaz.
+# Morphaz: a level 52 elite green dragon with Hazzas (53) in the Sunken
+# Temple's Pit of Sacrifice. The order (Classic dungeon guides, Warcraft
+# Tavern's Temple of Atal'hakkar guide): six troll minibosses, Jammal'an,
+# Weaver and Dreamscythe, then Morphaz and Hazzas appear together and cannot
+# be pulled apart. The data has no position for
+# Morphaz or the entrance; the entrance point (69,54, the temple ruins in
+# the middle of the Pool of Tears) is from players' reports, the path in
+# (south steps, under the water, down the stairs) from several walkthroughs.
+# Players' reports on 8257: loot him in a party, not a raid group, or the
+# blood may not drop.
+# Ogtinc's cliff: quest notes (leave the road at the fork before the ruins
+# and follow the north cliff edge; the naga ruins and the beach below have
+# no way up).
 # Based on data, not play: the beta caps at level 30 until launch on
 # 4 November, so nothing here has been checked in game.
 
-# Preparation: Forever quest 8256 asks for one Ichor of Undeath after
-# 8255. Existing items can be kept; the stages are still handed in in order.
-
-step Cenarion Aid (Alliance)
+step Cenarion Aid: High Priest Rohan
   only Alliance
+  when zone "Ironforge"
+  when !onquest 8254
+  zone Ironforge
+  tip At 50 in Ironforge, High Priest Rohan in the Hall of Mysteries (Mystic Ward) offers Cenarion Aid. Before you leave a city, buy an Ichor of Undeath at the Auction House (a few silver): the third quest asks for one and it drops rarely.
+  level 50
+  accept 8254 npc 11406                       -- High Priest Rohan
+
+step Cenarion Aid: Brother Joshua
+  only Alliance
+  when !onquest 8254
   zone Stormwind City
-  tip At 50 Brother Joshua in Stormwind's Cathedral of Light or High Priest Rohan in Ironforge's Hall of Mysteries offers it.
+  tip At 50, Brother Joshua at the altar of Stormwind's Cathedral of Light offers Cenarion Aid (High Priest Rohan in Ironforge has it too). Before you leave, buy an Ichor of Undeath at the Auction House in the Trade District (a few silver): the third quest asks for one and it drops rarely.
   level 50
   accept 8254 npc 5489                        -- Brother Joshua
 
-step Cenarion Aid (Horde)
+step Cenarion Aid: Ur'kyo
   only Horde
   zone Orgrimmar
-  tip At 50 Ur'kyo in Orgrimmar's Valley of Spirits offers it.
+  tip At 50, Ur'kyo in Orgrimmar's Valley of Spirits offers Cenarion Aid. Before you leave, buy an Ichor of Undeath at the Auction House (a few silver): the third quest asks for one and it drops rarely.
   level 50
   accept 8254 npc 6018                        -- Ur'kyo
 
 step Ogtinc
   zone Azshara
-  tip Ogtinc lives atop the cliffs north-east of the Ruins of Eldarath. Alliance: fly to Talrendis Point; Horde: fly to Valormok.
+  tip Ogtinc, a furbolg, lives on the clifftop north-east of the Ruins of Eldarath. Alliance: fly to Talrendis Point; Horde: fly to Valormok. Ride east and leave the road at the fork before the ruins, then follow the northern cliff edge east to him: the naga ruins and the beach below are walled in by cliffs with no way up.
   getfp "Talrendis Point" only Alliance
   getfp "Valormok" only Horde
   turnin 8254                                 -- Ogtinc
   accept 8255
 
 step Of Coursers We Know
-  tip Mosshoof Coursers graze all over Azshara; about one in three drops a Healthy Courser Gland. Keep any Ichor of Undeath you loot: Ogtinc's next stage asks for one.
-  collect 20027 quest 8255.1                  -- Healthy Courser Gland
+  tip Mosshoof Coursers (level 52-53, not elite) graze all over Azshara, thickest north-east of Ogtinc and south of the mountains; about one in three drops a Healthy Courser Gland, so plan on a dozen kills for four. They enrage at 30% health: finish them fast. Killing them costs no Cenarion Circle reputation. Keep any Ichor of Undeath you loot.
+  collect 20027 x4 quest 8255.1               -- Healthy Courser Gland
 
 step Ogtinc
   turnin 8255                                 -- Ogtinc
   accept 8256
 
 step The Ichor of Undeath
-  tip Already carrying an Ichor of Undeath? It counts as soon as you take this stage. Otherwise any undead can drop it. The Lingering Highborne in the Ruins of Eldarath, below Ogtinc's cliffs, are the nearest; Highborne Apparitions and Lichlings haunt the ruins near Talrendis Point.
+  tip Carrying an Ichor of Undeath already? It counts at once. Otherwise any undead may drop one, rarely: the Lingering Highborne (level 48) in the Ruins of Eldarath below Ogtinc's cliff drop it about one kill in ten, the highborne ghosts on Azshara's border with Ashenvale (level 45-46) a little less, the Anguished and Suffering Highborne in Winterspring (54-55) about one in eight. The Auction House is usually quicker.
   collect 7972 quest 8256.1                   -- Ichor of Undeath
 
 step Ogtinc
@@ -77,10 +100,10 @@ step Ogtinc
 
 step Morphaz in the Sunken Temple
   zone Swamp of Sorrows
-  tip Morphaz is an elite dragon boss inside the Sunken Temple, a level 50 dungeon: bring a group of five. The temple stands in the middle of the Pool of Tears; swim down into it to reach the entrance. Horde: fly to Stonard; Alliance: fly to Darkshire or Nethergarde Keep and ride on.
-  collect 20025 quest 8257.1 @69.0,54.0       -- Blood of Morphaz: the Sunken Temple entrance
+  tip Morphaz is a level 52 elite green dragon inside the Sunken Temple, a five-player dungeon: bring a group of five (a level 60 group clears it with ease). Horde: fly to Stonard; Alliance: fly to Nethergarde Keep in the Blasted Lands and ride north. The temple stands in the middle of the Pool of Tears: climb the steps on its south side, swim down through the flooded hall and take the stairs to the portal. Inside, Morphaz only appears late: kill the six troll minibosses on the upper balconies, then Jammal'an the Prophet below them; that wakes the drakes Weaver and Dreamscythe in the Pit of Sacrifice, and killing both brings Morphaz and Hazzas. The pair patrols together and cannot be split: pull them into a hallway and have the tank face them away from the group (breath and a knockback). Loot him in a party, not a raid group: the blood always drops.
+  collect 20025 quest 8257.1 @69.0,54.0 group 5 -- Blood of Morphaz: the Sunken Temple entrance
 
 step Greta Mosshoof
   zone Felwood
-  tip Greta Mosshoof is at the Emerald Sanctuary in southern Felwood.
+  tip Greta Mosshoof is at the Emerald Sanctuary in southern Felwood. Horde: fly to Bloodvenom Post and ride south-east; Alliance: fly to Astranaar in Ashenvale and ride north into Felwood. She takes the blood for experience and gold. Look at the reward window before you hand in: Classic let you pick Blessed Prayer Beads, Circle of Hope or Woestave, and Forever's notes say that choice may be gone.
   turnin 8257                                 -- Greta Mosshoof

@@ -70,7 +70,9 @@ for (const c of CASES) {
 		const goals = compiled(c.guide).steps.flatMap((step) => step.goals.map((goal) => ({ step, goal })));
 		const at = goals.findIndex(({ goal }) => c.target(goal));
 		assert.ok(at > 0, 'the target goal is in the guide');
-		const before = goals.slice(0, at).reverse().find(({ goal }) => goal.map != null && goal.x != null);
+		// (Other work of the target's own step, done in the same basement after the mouth's goto, is
+		// not a waypoint on the way in: the Shadowvale step's bottles before a Paladin's bones.)
+		const before = goals.slice(0, at).reverse().find(({ step, goal }) => goal.map != null && goal.x != null && (step !== goals[at].step || goal.t === 'goto'));
 		assert.ok(before, 'a located goal comes before the target');
 		const { t, map, x, y } = before.goal;
 		assert.deepEqual({ t, map, x, y }, { t: 'goto', ...c.mouth }, `the waypoint before "${goals[at].step.title}" is the mouth`);

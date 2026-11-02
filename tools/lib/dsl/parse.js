@@ -59,7 +59,7 @@ const MODS = {
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
 	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
-	talk: [...COMMON, ...COORDS],
+	talk: [...COMMON, ...COORDS, 'gossip'],
 	interact: [...COMMON, ...COORDS, 'quest'],
 	use: [...COMMON, ...COORDS, 'quest'],
 	sethome: [...COMMON, ...COORDS, 'npc'],
@@ -70,9 +70,9 @@ const MODS = {
 	fly: [...COMMON],
 	// `enter "<Place>"`: be in that zone or area (the zone or subzone text); coordinates only point the arrow.
 	enter: [...COMMON, ...COORDS],
-	train: [...COMMON, ...COORDS, 'npc'],
+	train: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	buy: [...COMMON, ...COORDS, 'npc', 'count', 'nearest'],
-	vendor: [...COMMON, ...COORDS, 'npc'],
+	vendor: [...COMMON, ...COORDS, 'npc', 'gossip'],
 	level: [...COMMON],
 	// `money <amount>`: hold that much; `task "<text>"`: done when the player ticks it.
 	money: ['text', 'optional', 'only'],
@@ -86,10 +86,12 @@ const MODS = {
 	rep: [...COMMON, ...COORDS],
 	explore: [...COMMON, 'map', 'r', 'frame'],
 	achieve: [...COMMON, ...COORDS, 'criteria'],
+	// `wait <seconds> ["text"]`: done that long after the goals before it in the step are.
+	wait: ['text', 'optional', 'only'],
 };
 const VERBS = Object.keys(MODS);
 const MOD_LABEL = { at: '@x,y', count: 'xN', text: '"text"', until: 'until <N>', criteria: 'criteria <n>', frame: 'era`/`live', xp: 'xp <N>', money: 'money <amount>', group: 'group [N]' };
-const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct'];
+const MOD_WORDS = ['map', 'npc', 'object', 'item', 'quest', 'r', 'lvl', 'optional', 'only', 'until', 'criteria', 'era', 'live', 'nearest', 'reward', 'choose', 'xp', 'money', 'group', 'direct', 'gossip'];
 // A party or raid: 2 to 40 players.
 const GROUP_MIN = 2;
 const GROUP_MAX = 40;
@@ -716,6 +718,12 @@ function parsePositional(verb, goal, toks, line, lex, ln, err, spans) {
 			if (p.xp !== undefined) goal.levelXp = p.xp;
 			return i + 1;
 		}
+		case 'wait': {
+			const v = t && !t.quoted && /^\d+$/.test(t.text) ? Number(t.text) : 0;
+			if (!(v > 0 && v <= 3600)) return err(ln, `malformed seconds "${t ? t.text : ''}" (1 to 3600)`, '`wait` needs seconds: wait <seconds> ["what for"]'), -1;
+			goal.seconds = v;
+			return i + 1;
+		}
 		case 'money': {
 			const v = t && !t.quoted ? readMoney(t.text) : null;
 			if (v === null || v <= 0) return err(ln, `malformed amount "${t ? t.text : ''}" (expected copper or 1g50s / 7s / 25c)`, '`money` needs an amount: money <amount>'), -1;
@@ -1008,6 +1016,14 @@ function parseGoal(verb, line, lex, ln, err, warn) {
 				goal.direct = true;
 				i++;
 				continue;
+			case 'gossip': {
+				if (!use('gossip')) return null;
+				const v = intArg(i + 1, 'gossip option id');
+				if (v === null) return null;
+				goal.gossip = v;
+				i += 2;
+				continue;
+			}
 			case 'group': {
 				if (!use('group')) return null;
 				// The size is optional: a next token that starts like a number is one.

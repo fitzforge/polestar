@@ -8,7 +8,7 @@ levels 58-60
 zone Orgrimmar
 keywords Material Assistance, The Darkreaver Menace, Sagorne Creststrider, Azerothian Diamond, Pristine Black Diamond, Divination Scryer, Death Knight Darkreaver, Great Ossuary, Scholomance, Skyfury Helm, Shaman, class quest
 reward text 200 Horde reputation
-why A Scholomance fight at 60 for Horde reputation; Forever removed the Skyfury Helm.
+why A Scholomance fight at 60 for Horde reputation; the Skyfury Helm may be gone in Forever.
 
 # The level 60 Shaman chain: Material Assistance (7667: an Azerothian Diamond
 # and a Pristine Black Diamond for Sagorne Creststrider in Orgrimmar) -> The
@@ -18,15 +18,16 @@ why A Scholomance fight at 60 for Horde reputation; Forever removed the Skyfury 
 # Sources: quests.json, npcs.json and items.json (giver, objectives,
 # droppers); Forever's quest data (quest 8258: the
 # "Series" box 7667 -> 8258, 200 Horde reputation) and its Shaman class page
-# (data/local/quest-audit/). The Skyfury Helm is no
-# longer the reward (Forever's change notes: "Rewards: no longer Skyfury Helm"; the
-# quest page shows the reward only as an unnamed item id), and the data names
-# nothing in its place: do it for the reputation until Forever shows a reward.
+# (data/local/quest-audit/). Its change notes say the Skyfury Helm is no
+# longer the reward, yet the quest page still lists item 20134 (the Skyfury
+# Helm's id, unnamed): the helm may or may not be gone, so the card counts on
+# the reputation and the step says so.
 # The Darkreaver Menace has an older twin (7668) that excludes it; Questie
 # chains 7667 to 8258, which Forever's quest series confirms. Again Into the Great
 # Ossuary (7669, a new Divination Scryer) and A More Fitting Reward (8259, the
 # helm for 7668's finishers) are left out: the first only repeats the fight,
-# the second lost its helm too.
+# the second only swaps 7668's helm for the Skyfury Helm (its page lists
+# 20134 too, the same unconfirmed case).
 # The Scholomance point is Caer Darrow, the island town that holds the
 # dungeon (forever/exploration/eastern-kingdoms-45-60.guide).
 # Dungeon work: Darkreaver and his spirits are elites inside Scholomance, a
@@ -40,16 +41,36 @@ why A Scholomance fight at 60 for Horde reputation; Forever removed the Skyfury 
 # 8918, 8942, 8957, 9011; the Earthshatter set 9068-9075; Icy Scale
 # 9244-9246). Forever's quest data has them, but they are raid and
 # dungeon-set turn-ins shared by several classes, not Shaman class quests.
-# Beta capped at 30: not played; it follows the data above.
+# Left out too: Frost Shock and You (7505), a Dire Maul book drop handed to
+# Lorekeeper Javon for a Royal Seal of Eldre'Thalas, like the druid book
+# (The Emerald Dream 7506, left out of druid/bloodpetal-poison): a drop, not
+# a chain.
+# Drop rates (Forever's quest notes and the KB): Azerothian Diamond about
+# 1% from Hakkari Thorium Veins and Obsidian Chunks, 0.7% from Small and
+# Ooze Covered Thorium Veins, and from the Cliff Breaker elites (level 54-55)
+# of Azshara; Pristine Black Diamond at best 11% from Revanchion (a rare elite),
+# 8% from Lieutenant Murp (Alterac Valley), about 1% from Blackwing
+# Spellbinders and Warlocks, Bloodscalp Speakers and Lord Blackwood.
+# The event (quest notes): four waves of spirits, each ending with an
+# "Aspect of" mini-boss (the first wave non-elite and slow, the rest elite);
+# Darkreaver (level 62 elite) then appears for 150 minutes and uses Blood
+# Leech, Cleave, Shadow Bolt and Dominate Mind.
+# INGAME: Forever's pages list both versions of The Darkreaver Menace: 7668 (from 58, Helm of Latent Power; Blizzard marked it obsolete in Classic) and 8258 (from 60, an unnamed item 20134, the Skyfury Helm's id). Which one does Sagorne offer after Material Assistance, and does 8258 still give the Skyfury Helm?
+# Who: no server answer for 7667 or 8258 (beta capped at 30). Forever's quest
+# page gives Material Assistance (7667) the race mask Orc, Tauren and Troll
+# (reqrace 162) and The Darkreaver Menace (8258) every Horde race; quests.json
+# extends both to Skyborne.
+# ASSUMED: the chain and the Great Ossuary event run as in Classic (Classic flow; Forever's data has no server answer or play report above 30 for 7667, 8258). In-game check: Sagorne's offer at 58 and the Scryer's waves.
+# INGAME: can a Skyborne shaman take Material Assistance (7667)? Forever's quest page says Orc, Tauren and Troll only.
 
 step Sagorne Creststrider
   zone Orgrimmar
-  tip At 58 Sagorne Creststrider, the shaman trainer in the Valley of Wisdom, asks for two rare diamonds.
+  tip At 58 Sagorne Creststrider, the shaman trainer in the Valley of Wisdom, asks for two rare diamonds; every Horde shaman goes to him. Skyborne: Forever's quest page lists this quest for Orcs, Tauren and Trolls only: ask before you buy the diamonds.
   accept 7667                                 -- Sagorne Creststrider
 
 step Two diamonds
   zone Western Plaguelands
-  tip An Azerothian Diamond comes from Thorium veins, a Pristine Black Diamond from the elites of the Western Plaguelands, both rarely: buy them at the auction house if you can.
+  tip Both diamonds are rare: the auction house is the quick way. Miners find the Azerothian Diamond in about one Thorium vein in a hundred (the Small Thorium Veins north of Morgan's Vigil in the Burning Steppes respawn every five minutes). The Pristine Black Diamond drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine).
   collect 12800 quest 7667.1                  -- Azerothian Diamond
   collect 18335 quest 7667.2                  -- Pristine Black Diamond
 
@@ -62,9 +83,9 @@ step Sagorne Creststrider
 
 step The Great Ossuary
   zone Western Plaguelands
-  tip Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands. Use the Divination Scryer in the heart of the Great Ossuary's basement, beat the spirits it calls, then Death Knight Darkreaver. All are elite: bring a group.
-  collect 18880 quest 8258.1 @68.9,75.2       -- Darkreaver's Head
+  tip A five-player dungeon event: Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands. In the Great Ossuary's basement, first clear every mob in the room, then use the Divination Scryer at its centre: four waves of spirits follow, each closing with an Aspect mini-boss (the first wave weak and slow, the rest elite). Fight in a corner so nothing else joins, and drink between waves: it is long. Then Death Knight Darkreaver (level 62 elite) appears: he Cleaves, casts Shadow Bolt and Blood Leech, and Dominates a player's mind against the group. His head always drops.
+  collect 18880 quest 8258.1 @68.9,75.2 group 5 -- Darkreaver's Head
 
 step Sagorne Creststrider
   zone Orgrimmar
-  turnin 8258                                 -- Sagorne Creststrider
+  turnin 8258                                 -- Sagorne Creststrider: 200 Horde reputation; the Skyfury Helm may be gone

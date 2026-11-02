@@ -1,55 +1,89 @@
 guide forever/class/warlock/incubus-alliance
-title Incubus (Alliance)
+title Succubus and Incubus (Alliance)
 category Class
 class Warlock
 folder Warlock
 faction Alliance
 levels 20-25
 zone Stormwind City
-keywords Summon Incubus, sayaad, What Is Love?, Wooden Figurine, Devourer of Souls, Gakin the Darkbinder, Takar the Seer, The Binding, Warlock, class pet
+keywords Summon Succubus, Summon Incubus, sayaad, Gakin's Summons, Devourer of Souls, Heartswood, Heartswood Core, What Is Love?, Unlit Torch, Burning Torch, Wooden Figurine, Ordil'Aran, Maestra's Post, Lago Blackwrench, Gakin the Darkbinder, Takar the Seer, The Binding, Small Soul Pouch, Warlock, class pet
+reward spell 712 "Summon Succubus"
 reward spell 713 "Summon Incubus"
 reward item 22243
-why A second seducer demon, the male sayaad, and a soul shard bag to carry your shards.
+why At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards.
 
-# The incubus for Alliance warlocks: Devourer of Souls (1716) from Gakin
-# the Darkbinder to Takar the Seer in the Barrens, What Is Love? (65602, the
-# Wooden Figurine in Ashenvale) and The Binding (65603) back in the
-# Slaughtered Lamb.
-# Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
-# and Questie-Forever) for the givers, the figurine and the summoning circle;
-# Forever's Warlock class quest list
-# (data/local/quest-audit/): Forever gives the chain
-# level 20 and lists a Small Soul Pouch as The Binding's reward. Forever's
-# data does not list the spell; in Classic it is Summon Incubus (Wowpedia,
-# "The Binding (Incubus, Stormwind)"), and Wowpedia ("Incubus (warlock
-# minion)") describes the incubus as the male sayaad, the succubus's
-# counterpart. Wowpedia is Classic-only: neither point is confirmed in Forever.
-# The leveling guides teach the succubus from the same Devourer of Souls
-# (Heartswood 1738, The Binding 1739: 04-redridge-mountains,
-# 07-thousand-needles, 30-40/02-desolace, 30-40/05-arathi-highlands). Takar
-# offers What Is Love? beside Heartswood, so a warlock on that route can take
-# both; the accept and turn-in below tick off if you already have them.
+# Both seducer demons for Alliance warlocks. Gnomes start with Gakin's
+# Summons (1717) from Lago Blackwrench in Ironforge; Humans take Devourer of
+# Souls (1716) from Gakin the Darkbinder in the Slaughtered Lamb directly.
+# Takar the Seer, a long way off in the Barrens, then offers both branches:
+# - succubus: Heartswood (1738, the Heartswood tree at Ordil'Aran in
+#   Ashenvale) and The Binding (1739, the Heartswood Core on the circle in
+#   the crypt below Gakin);
+# - incubus: What Is Love? (65602, Forever's: the Wooden Figurine in the
+#   house north of Maestra's Post, which needs a Burning Torch) and The
+#   Binding (65603) at the same circle.
+# Each Binding pays a Small Soul Pouch (quests.json 1739, 65603). The incubus
+# spell is Summon Incubus (713) in Forever's client tables; the quest data
+# does not name it, the Classic quest pages do.
+# What Is Love?: the Unlit Torch lies on a table outside the house (object
+# 400001, Ashenvale 26.8,22.4), the figurine upstairs (object 375544,
+# 26.6,22.0); light the torch at any campfire (your own Basic Campfire, or
+# Talen's fire on Zoram Strand); the Burning Torch lasts 300 seconds
+# (items.json 190308). Without it the figure in the house stops you (quest
+# notes, player reports).
+# The figurine has two ids in items.json and the server tables we have do not
+# list the binding item, so the incubus binding names it in the tip and has
+# no `use` goal.
+# The Alliance routes take part of this (forever/alliance/04-redridge-
+# mountains, 07-thousand-needles, 30-40/05-arathi-highlands): what you did
+# there ticks off here.
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json,
+# items.json); the quest notes (data/local/mechanics) for Takar's camp, the
+# Dark Strand guards and the torch.
+
+step Gakin's Summons (Gnomes)
+  only Gnome
+  zone Ironforge
+  tip At 20 Lago Blackwrench, the warlock trainer in Ironforge's Forlorn Cavern, sends you to Gakin the Darkbinder in Stormwind. Take the Deeprun Tram.
+  level 20
+  accept 1717                         -- Lago Blackwrench
 
 step Devourer of Souls
-  tip At 20 Gakin the Darkbinder, in the cellar of the Slaughtered Lamb in the Mage Quarter, sends you to Takar the Seer in the Barrens.
+  zone Stormwind City
+  tip At 20 Gakin the Darkbinder, in the cellar of the Slaughtered Lamb in the Mage Quarter, sends you to Takar the Seer in the Barrens: a long trip for the Alliance. Take the boat from Menethil Harbor to Theramore and ride west through Dustwallow Marsh, or the boat from Booty Bay to Ratchet.
   level 20
+  turnin 1717 only Gnome              -- Gakin the Darkbinder
   accept 1716                         -- Gakin the Darkbinder
 
 step Takar the Seer
   zone The Barrens
-  tip Takar the Seer camps in the southern Barrens, east of the road north-east of Camp Taurajo: come in from the east and keep clear of the Horde guards.
+  tip Takar the Seer camps at a tent with a campfire just north-east of Camp Taurajo, by a fork in the road: Horde ground, so come in from the east and keep clear of the Taurajo guards. Doan Karhan beside him starts the Orb of Soran'ruk. Takar offers both branches: take both.
   turnin 1716                         -- Takar the Seer
-  accept 65602
+  accept 1738                         -- the succubus
+  accept 65602                        -- the incubus
 
-step Wooden Figurine
+step Heartswood
   zone Ashenvale
-  tip From Astranaar take the road west to Maestra's Post: the figurine lies in a house among the trees north of the post.
-  collect 190309 quest 65602.1        -- Wooden Figurine
+  tip Ordil'Aran lies in north-west Ashenvale, north of Astranaar along the road toward Darkshore. About twenty Dark Strand cultists hold the ruins around the great tree: keep to the outer wall, and click the Heartswood from as far away as it lets you. It is turned in to Gakin, not to Takar.
+  collect 6912 quest 1738.1           -- Heartswood
 
-step The Binding
+step The Wooden Figurine
+  tip The house stands alone in the trees of north-western Ashenvale, north-west of Ordil'Aran and well north of Maestra's Post: do it on the same trip as the Heartswood. Take the Unlit Torch from the table outside, light it at a campfire (a Basic Campfire of your own, or Talen's fire on Zoram Strand), and go straight back: the Burning Torch burns out after five minutes, so a fire of your own beside the house is quickest. Without it the figure in the house stops you. The figurine is upstairs.
+  collect 190307 optional             -- Unlit Torch, on the table outside
+  collect 190309 quest 65602.1        -- Wooden Figurine, upstairs
+
+step The Binding: succubus
   zone Stormwind City
-  tip Back to Gakin in the Slaughtered Lamb. Place the figurine at the summoning circle in the crypt below him and defeat the incubus it calls.
+  tip Back to Gakin with the Heartswood. He hands you the Heartswood Core: take the stairs behind him down to the crypt; part way along the lowest corridor a side stair on the left leads to the room with the purple circle. Stand on it and use the core. Summon your voidwalker first and keep the succubus (level 20, not elite) on the circle, or the guards may kill her and the kill does not count. If she wins, use the core again; keep it, Gakin takes it back.
+  turnin 1738                         -- Gakin the Darkbinder
+  accept 1739
+  use 6913 @39.1,84.4 live            -- Heartswood Core, on the circle in the crypt
+  kill 5677 quest 1739.1              -- Summoned Succubus
+  turnin 1739                         -- Gakin the Darkbinder: Summon Succubus
+
+step The Binding: incubus
+  tip Give Gakin the figurine, then use the Wooden Figurine at the middle of the same circle and defeat the incubus it calls (level 20, not elite; it can charm you) with your voidwalker tanking. Keep the figurine: Gakin takes it back.
   turnin 65602                        -- Gakin the Darkbinder
   accept 65603
-  kill 185335 quest 65603.1           -- Summoned Incubus
-  turnin 65603                        -- Gakin the Darkbinder: he binds the incubus to you
+  kill 185335 quest 65603.1           -- Summoned Incubus, at the circle in the crypt
+  turnin 65603                        -- Gakin the Darkbinder: Summon Incubus

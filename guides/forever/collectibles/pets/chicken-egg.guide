@@ -2,20 +2,26 @@ guide forever/collectibles/pets/chicken-egg
 title Chicken Egg
 category Collectibles
 folder Companion pets · Quests
-keywords CLUCK!, Farm Chicken Egg, chicken, Westfall, Farmer Saldean, Special Chicken Feed, /chicken
+keywords CLUCK!, Farm Chicken Egg, chicken, Westfall, Farmer Saldean, Special Chicken Feed, /chicken, /cheer
 collects 11110
 faction Alliance
 levels 1-60
 zone Westfall
 
 # Chicken Egg from CLUCK!, the hidden chicken quest in Westfall.
-# Sources: quests.json (CLUCK!, Alliance races only); items.json (the egg is
-# looted from an object, the feed from Farmer Saldean); Forever client
-# 1.60.1.70338. The reward is general Era knowledge (not in quests.json).
+# Sources: quests.json (CLUCK! 3861: Alliance races, Skyborne included;
+# repeatable; its text); items.json (the egg is looted from the Farm Chicken
+# Egg object, the feed from Farmer Saldean); Forever's quest page for 3861;
+# the quest notes (data/local/mechanics: buy the feed first, a chicken that
+# is not friendly yet is attacked by a right-click, any chicken takes the
+# feed); Forever client 1.60.1.70532 (25 copper feed).
+
+step Special Chicken Feed
+  tip Buy one Special Chicken Feed (25 copper) from Farmer Saldean at his farm first: it is not a quest item, and the chicken stays friendly only for a short while.
+  buy 11109 npc 233                   -- Special Chicken Feed
 
 step CLUCK!
-  tip Find a chicken at Farmer Saldean's farm and type /chicken at it until it offers CLUCK!. Buy Special Chicken Feed from Farmer Saldean, go back, /cheer at the same chicken, then hand in the feed. The chicken lays an egg: loot it for your Chicken Egg pet.
+  tip Target one of the chickens around Saldean's farm and type /chicken at it, again and again, until it offers CLUCK!; this can take several minutes. Then /cheer at a chicken until it turns friendly (green) and hand in the feed; right-clicking a chicken before it is friendly attacks it. The chicken lays an egg on the ground: loot it for your Chicken Egg.
   accept 3861 @56.1,30
-  buy 11109 npc 233                   -- Special Chicken Feed, from Farmer Saldean
   turnin 3861 @56.1,30
   collect 11110 @56.1,30              -- Loot the Farm Chicken Egg the chicken lays

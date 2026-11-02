@@ -10,15 +10,21 @@ zone Winterspring
 
 # Reins of the Winterspring Frostsaber from Rivern Frostwind, for Exalted
 # Wintersaber Trainers (Era rule; the reputation is server-side).
-# Sources: Forever client 1.60.1.70338 tables via wago.tools (ItemSparse: level
-# 60, 200g, no riding rank asked); items.json / npcs.json for the vendors.
+# Sources: Forever client 1.60.1.70532 via wago.tools (ItemSparse: level 60,
+# 200g, no reputation on the item; MountCapability 570: full speed with no riding
+# skill, only PlayerCondition 163365 = Wintersaber Trainers 9000 or more, that is
+# Honored); items.json / npcs.json for the vendor; the Wintersaber Trainers
+# Reputation guide for the road (its quests and standings from Forever's data).
+# ASSUMED: Rivern Frostwind sells it at Exalted (Classic rule; the client item has
+# no standing). In-game check: her list below Exalted.
+
 
 step Wintersaber Trainers
-  tip Rivern Frostwind at Frostsaber Rock in northern Winterspring offers the repeatable Frostsaber Provisions, Winterfall Intrusion and Rampaging Giants (level 58); they are the whole road to Exalted, so expect weeks of turn-ins.
+  tip Rivern Frostwind stands on top of Frostsaber Rock in the far north of Winterspring. Only the Alliance can earn the Wintersaber Trainers' favour, from level 58: three repeatable quests worth 50 each, about 840 turn-ins from Neutral to Exalted. Frostsaber Provisions is open from the start, Winterfall Intrusion from halfway through Neutral and Rampaging Giants from Honored. The Wintersaber Trainers Reputation guide takes you through it.
   rep "Wintersaber Trainers" Exalted
   talk 10618                          -- Rivern Frostwind, Frostsaber Rock
 
 step Reins of the Winterspring Frostsaber
-  tip The Forever client lists it at 200g and level 60, and asks for no riding rank.
+  tip The Forever client lists it at 200g and level 60. It runs at full speed yet needs no riding training at all, only Honored with the Wintersaber Trainers, so you can skip the 1,000g Journeyman Riding if this is your fast mount.
   level 60
   buy 13086 npc 10618                 -- Rivern Frostwind, 200g

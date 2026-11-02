@@ -8,7 +8,7 @@ use rustc_hash::FxHashMap;
 use std::cell::RefCell;
 
 pub const FILES: [&str; 7] = ["quests", "npcs", "objects", "items", "zones", "map-frames", "meta"];
-pub const OPTIONAL: [&str; 6] = ["professions", "factions", "trainers", "races", "travel", "spawnz"];
+pub const OPTIONAL: [&str; 7] = ["professions", "factions", "trainers", "races", "travel", "spawnz", "moves"];
 
 /// Classic skill lines (game facts), so `skill <Profession> <N>` resolves without professions.json.
 pub const BUILTIN_PROFESSIONS: [(u32, &str); 13] = [
@@ -30,6 +30,34 @@ pub const BUILTIN_PROFESSIONS: [(u32, &str); 13] = [
 fn builtin(i: usize) -> V {
 	let (id, name) = BUILTIN_PROFESSIONS[i];
 	obj! { "id" => id, "name" => name }.into()
+}
+
+/// The weapon skill lines (SkillLine.db2, category 6: the Forever client's names) a `when skill`
+/// predicate may name besides the professions (`when !skill "Two-Handed Axes" 1`: the weapon master
+/// steps' "not learned yet"). The trainer's spell names for the one-handed lines ("One-Handed
+/// Axes") read the same line.
+pub const WEAPON_SKILLS: [(u32, &str, Option<&str>); 15] = [
+	(44, "Axes", Some("One-Handed Axes")),
+	(172, "Two-Handed Axes", None),
+	(54, "Maces", Some("One-Handed Maces")),
+	(160, "Two-Handed Maces", None),
+	(43, "Swords", Some("One-Handed Swords")),
+	(55, "Two-Handed Swords", None),
+	(229, "Polearms", None),
+	(136, "Staves", None),
+	(173, "Daggers", None),
+	(473, "Fist Weapons", None),
+	(45, "Bows", None),
+	(46, "Guns", None),
+	(226, "Crossbows", None),
+	(176, "Thrown", None),
+	(228, "Wands", None),
+];
+
+/// A weapon skill by name (either spelling, any case) -> (skill line, the line's name).
+pub fn weapon_skill_named(name: &str) -> Option<(u32, &'static str)> {
+	let k = lower_key(name);
+	WEAPON_SKILLS.iter().find(|w| w.1.to_lowercase() == k || w.2.is_some_and(|a| a.to_lowercase() == k)).map(|w| (w.0, w.1))
 }
 
 pub fn zone_type_rank(t: &V) -> i32 {
@@ -70,6 +98,9 @@ pub struct Data {
 	pub travel: V,
 	/// spawnz.json ({ npc, object } -> id -> [[instance map, x, y, z]]) or Null.
 	pub spawnz: V,
+	/// moves.json ({ npc } -> id -> [[instance map, x, y, centre x, centre y, radius]]: the ground a
+	/// walking creature's spawn covers, world yards) or Null.
+	pub moves: V,
 	/// solo.js loadInstances ({ areas, maps }) or Null.
 	pub instances: V,
 	/// tools/lib/data/areas.js loadAreas or Null.
@@ -102,6 +133,8 @@ impl Data {
 		let has = |f: &str| !missing.iter().any(|m| m == f);
 		let spawnz = raw.tables.get("spawnz").cloned().unwrap_or_default();
 		let spawnz = if spawnz.is_obj() && has("spawnz.json") { spawnz } else { V::Null };
+		let moves = raw.tables.get("moves").cloned().unwrap_or_default();
+		let moves = if moves.is_obj() && has("moves.json") { moves } else { V::Null };
 		let mut d = Data {
 			quests: t("quests"),
 			npcs: t("npcs"),
@@ -119,6 +152,7 @@ impl Data {
 			races: t("races"),
 			travel: t("travel"),
 			spawnz,
+			moves,
 			instances: if raw.instances.is_nullish() { V::Null } else { raw.instances },
 			areas: if raw.areas.is_nullish() { V::Null } else { raw.areas },
 			professions: FxHashMap::default(),

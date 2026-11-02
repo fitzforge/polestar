@@ -395,7 +395,7 @@ end
 -- There: the arrow goes back to the guide, after the arrival is drawn.
 ns.On("NAV_ARRIVED", function(target)
 	if not (trip and trip.target == target) then return end
-	C_Timer.After(0, function()
+	ns.After(0, function()
 		if trip and trip.target == target then Nearby.EndTrip(true) end
 	end)
 end)

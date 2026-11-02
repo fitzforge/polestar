@@ -17,7 +17,8 @@ const DATA_FILES = ['quests.json', 'npcs.json', 'items.json'];
 // may carry `unconfirmed: '<why>'` (a soft rule). `objective` is the index
 // in the quest's objectives (0-based; the guide's `quest <q>.<n>` is n - 1).
 // handover: the NPC who hands the objective's item over in gossip (the data
-// has no source for it; the world builder counts it sourced, R9b).
+// has no source for it; the world builder counts it sourced, R9b). giver: the
+// one of the quest's givers the route takes it from (the world builder's start).
 const FIELDS = {
 	before: ['a', 'b'],
 	together: ['a', 'b'],
@@ -36,6 +37,7 @@ const FIELDS = {
 	classLock: ['quest', 'classes'],
 	learn: ['quest', 'trainer', 'skill'],
 	handover: ['quest', 'objective', 'item', 'npc'],
+	giver: ['quest', 'npc'],
 };
 const KINDS = new Set(Object.keys(FIELDS));
 const STEPS = ['accept', 'turnin', 'objective'];

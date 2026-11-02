@@ -1,0 +1,242 @@
+guide forever/horde/50-60/03-winterspring
+title Winterspring & Feralas
+faction Horde
+levels 54-56
+zone Winterspring
+next forever/horde/50-60/04-azshara
+# Built from the playthrough simulator's consensus route (Horde, visits
+# 74-79) and machine-checked with lint; not play-tested on Forever yet.
+#
+# Flow: Everlook (Gregor, Felnok, Harlo, Umi, Meggi) -> Ice Thistle yetis ->
+# Chillwind chimaeras -> Everlook -> ride west (Raging Owlbeasts) -> Donova
+# Snowden -> Salfa -> Frostfire Winterfall camps -> Salfa -> Donova ->
+# Darkwhisper Gorge -> Winterfall Village -> Donova -> Salfa (beads) ->
+# hearth to Everlook -> grind to 55 -> Mau'ari -> fly to Camp Mojache
+# (Videre Elixir, Talo) -> Thunder Bluff (Morrowgrain, Hamuul, Nara, cloth
+# donations, Druid and Paladin training) -> Orgrimmar (bind, cloth
+# donations), where the next guide
+# starts.
+#
+# Deviations from the export:
+# - Umi's and Meggi's quests (3783, 6603) are taken on arrival in Everlook
+#   and the yetis done straight away, since their hills are next to town;
+#   the export takes them after its first hearth. That first hearth (54.7)
+#   becomes a ride: Darkwhisper Gorge and Winterfall Village lie east of
+#   Donova anyway.
+# - The Desolace stop (visit 77) is dropped: its only "objectives" are the
+#   Thunder Bluff cloth donations (7820-7822), which are just cloth carried in
+#   your bags. The same goes for the Mageweave donations the export
+#   "completes" in Azshara (7831, 7835).
+# - Binds immediately replaced are dropped (Camp Mojache, Thunder Bluff);
+#   the Orgrimmar bind is kept for the hearth at the end.
+# - Dropped: In Defense of Frostwolf (7241, a battleground quest); Return to
+#   Tinkee (4810: Burning Steppes, never on the later route) and Duke
+#   Hydraxis' Poisoned Water and Stormers and Rumblers (6804, 6805: the
+#   later guides no longer hand them in, the Duke's chain runs on past 60).
+#   A Crew Under Fire (3382): six naga waves at 57 on Azshara's Southridge
+#   Beach, with elite giants close by, for 600 XP, and a flight, a long ride
+#   and a hearth.
+#   Winterfall Activity (6241): no longer in the game; 8464, which the
+#   route takes, replaced it.
+# - Optional: Winterfall Firewater (5083) and Falling to Corruption (5084):
+#   the Empty Firewater Flask drops one kill in ten. Winterfall Ritual Totem
+#   (8471): the totem drops at 2-4%, and Kernda in Timbermaw Hold speaks
+#   only to characters at Neutral, which the route does not reach.
+# - Not taken: Guarding Secrets (4882, 4883, to Nara Wildmane here). The
+#   Blue-feathered Necklace that starts it drops from Winterspring's
+#   Moontouched and Berserk Owlbeasts only after Wild Guardians (4741) is
+#   done, and 4741 is not even accepted until 05-eastern-plaguelands.
+#
+# Left open for later guides: The Everlook Report (6029) and Duke Nicholas
+# Zverenhoff (6030, Plaguelands), A Strange One (6605), Runecloth (6031: keep
+# 30 Runecloth for Meilosh), Wild Guardians (4521, Trull in Felwood), Falling
+# to Corruption (5084) and Winterfall Ritual Totem (8471, both in Felwood),
+# The Videre Elixir (3909, back to Donova), Are We There, Yeti? (5163: the
+# goblins in Tanaris and Un'Goro), Rabine Saturna (1123, Moonglade) and the
+# cloth donations.
+
+# ---------------------------------------------------------------- Everlook
+
+step Everlook
+  tip Everlook is the goblin town on the east side of the valley.
+  sethome "Everlook" npc 11118        -- Innkeeper Vizzie: the last guide binds here, so this usually ticks at once
+  accept 6029                         -- Gregor Greystone
+  accept 6030
+  turnin 4808                         -- Felnok Steelspring
+  accept 4809
+  accept 6605                         -- Harlo Wigglesworth
+  accept 3783                         -- Umi Rumplesnicker
+  accept 6603                         -- Meggi Peppinrocker
+  note Gregor's and Harlo's quests lead to other zones: keep them.
+
+step Ice Thistle yetis
+  tip The yeti hills start just south-east of Everlook. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in.
+  collect 12366 quest 3783
+
+step Umi Rumplesnicker
+  turnin 3783
+  accept 977
+
+step Pristine Yeti Horns
+  tip Matriarchs and Patriarchs hit hard: pull them one at a time.
+  collect 12367 quest 977
+
+step Umi Rumplesnicker
+  turnin 977
+  accept 5163
+  note Umi's third prank targets goblins in Gadgetzan and Un'Goro: keep it for later.
+
+step Chillwind chimaeras
+  tip The chimaeras roam the snowfields south and west of Everlook. Stay clear of Mazthoril's cave: its blue dragonkin are elite.
+  collect 12444 quest 4809
+
+step Felnok Steelspring
+  turnin 4809
+
+# ---------------------------------------------------------------- Frostfire Hot Springs
+
+step Raging Owlbeasts
+  tip Ride west along the road past Lake Kel'Theril; Raging Owlbeasts roam the hills north of it.
+  kill 7451 quest 4521.1
+
+step Donova Snowden
+  tip Donova camps among the steaming pools of Frostfire Hot Springs, in the west of the valley.
+  turnin 980                          -- From Krakle in Un'Goro
+  turnin 3908                         -- Linken's letter
+  turnin 6603
+  accept 3909
+  accept 4842
+  accept 5082
+  note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
+
+step Salfa
+  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
+  turnin 8465
+  accept 8464
+
+step Frostfire Winterfall camps
+  tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
+  kill 7442 quest 5082.1
+  kill 7440 quest 5082.2
+  kill 7441 quest 5082.3
+  kill 7450 quest 4521.2
+  collect 12771 optional              -- Empty Firewater Flask, a rare drop from the Winterfall furbolgs
+  accept 5083 optional
+  collect 20742 optional              -- Winterfall Ritual Totem, a rare drop from the Winterfall furbolgs
+  accept 8471 optional
+
+step Donova Snowden
+  turnin 5082
+  turnin 5083 optional
+  accept 5084 optional
+  note Falling to Corruption is turned in at the Deadwood Cauldron in Felwood, on a later trip.
+
+# ---------------------------------------------------------------- Darkwhisper Gorge and Winterfall Village
+
+step Darkwhisper Gorge
+  tip Ride east, then south down Frostwhisper Gorge. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of Darkwhisper Gorge, at the south end.
+  goto 59.8,74.2 "Darkwhisper Gorge"
+  complete 4842
+
+step Winterfall Village
+  tip The furbolg village fills the valley north-east of Everlook. Kill Shamans first; they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  kill 7439 quest 8464.1
+  kill 7440 quest 8464.2
+  kill 7438 quest 8464.3
+
+step Donova Snowden
+  tip Ride back west to Frostfire Hot Springs.
+  turnin 4842
+
+step Salfa
+  turnin 8464
+  accept 8469
+
+step Beads for Salfa
+  tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
+  goto 31.6,36.6 "Frostfire Winterfall camp"
+  complete 8469
+
+step Salfa
+  turnin 8469
+
+# ---------------------------------------------------------------- Back to Everlook
+
+step Back to Everlook
+  hearth "Everlook"
+
+step Grind to 55
+  level 55 -- grind on Winterfall Den Watcher at Winterfall Village, Winterspring
+
+step A Little Luck
+  accept 6606                         -- Harlo Wigglesworth
+  turnin 6606                         -- Witch Doctor Mau'ari, beside him
+
+# ---------------------------------------------------------------- Feralas
+
+step Fly to Camp Mojache
+  zone Feralas
+  fly "Camp Mojache"
+
+step The Videre Elixir
+  tip Gregan Brewspewer, a dwarf, camps in the Lower Wilds north-west of Camp Mojache; he has the elixir.
+  goto 45.1,25.6 "Gregan Brewspewer"
+  complete 3909
+
+step Talo Thornhoof
+  tip Back at Camp Mojache.
+  turnin 4120
+
+# ---------------------------------------------------------------- Thunder Bluff
+
+step Fly to Thunder Bluff
+  zone Thunder Bluff
+  fly "Thunder Bluff"
+
+step Rumstag Proudstrider
+  tip He stands on Hunter Rise. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route.
+  accept 7820 optional
+  accept 7821 optional
+  accept 7822 optional
+
+step Bluff Runner Windstrider
+  accept 1000
+
+step Elder Rise
+  turnin 3761                         -- Ghede
+  accept 3782                         -- Arch Druid Hamuul Runetotem
+  turnin 1000
+  accept 1123
+  turnin 4987                         -- Nara Wildmane
+  train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
+  note Rabine Saturna waits in Moonglade: keep it for later.
+
+step Bashana Runetotem
+  tip Bashana buys Morrowgrain grown from your Un'Goro Soil.
+  turnin 3782
+  accept 3786
+  complete 3786
+  turnin 3786
+  accept 3804
+  complete 3804
+  turnin 3804
+
+# ---------------------------------------------------------------- Orgrimmar
+
+step Fly to Orgrimmar
+  zone Orgrimmar
+  fly "Orgrimmar"
+  sethome "Orgrimmar"
+
+step Vehena
+  tip In the Valley of Spirits.
+  accept 7833 optional
+  accept 7834 optional
+  accept 7835 optional
+
+step Rashona Straglash
+  tip In the Valley of Honor.
+  accept 7826 optional
+  accept 7827 optional
+  accept 7831 optional
+

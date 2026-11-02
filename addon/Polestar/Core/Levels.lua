@@ -19,14 +19,20 @@
 --       (level 60: none counts), below (the start level | nil), now = { level,
 --       xp, need } (the character), from (where the sums start: now, or the
 --       start level), to = { level, xp, need }, levels (the gain, fractional) }
---   Levels.ForGuide(id[, p]) -> summary | nil   -- a guide for this character
+--   Levels.ForGuide(id[, p[, from[, to]]]) -> summary | nil   -- a guide for this character
 --       (its race, class and faction: the steps' and goals' `only`), from its
 --       minLevel when below it: each turn-in once, its XP from the Codex; each
 --       kill goal's kills, and each loot goal's from its drop chance
 --       (count / chance, the goal's own mob else the item's likeliest), at the
 --       mob's level; an objective split over steps once, nothing for quests
---       done. nil: no guide, or no Codex to read (the Codex is loaded for it
---       only while lookup.enabled, as Lookup owns it)
+--       done. from/to: only steps from..to-1, from where the character is
+--       (no minLevel start). nil: no guide, or no Codex to read (the Codex is
+--       loaded for it only while lookup.enabled, as Lookup owns it)
+--   Levels.Pace([p]) -> { target, step, reach, bars } | nil  -- the active
+--       guide's next level target (Engine.LevelTarget) against what its steps
+--       from the live step to that one give: reach, the level they leave you
+--       at (fractional); bars, how many of the XP bar's 20 per level short
+--       (0: on pace). nil without a target ahead or the Codex
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
 --   Levels.Share(playerLevel, questLevel) -> 1, 0.8, 0.6, 0.4, 0.2 or 0.1
 --   Levels.MobXP(playerLevel, mobLevel, elite) -> XP for one kill
@@ -209,7 +215,7 @@ local function lootKills(Cx, goal)
 	return ceil((goal.count or 1) / (min(best.chance, 100) / 100)), mob, elite
 end
 
-function Levels.ForGuide(id, p)
+function Levels.ForGuide(id, p, from, to)
 	local G, Cx = ns.Guides, ns.Codex
 	local g = G and G.Get and G.Get(id)
 	if not (g and type(g.steps) == "table" and Cx and Cx.Quest) then return nil end
@@ -227,8 +233,8 @@ function Levels.ForGuide(id, p)
 		return qid and C and C.IsQuestCompleted and C.IsQuestCompleted(qid) or false
 	end
 	local entries, turnedIn, counted = {}, {}, {}
-	for _, step in ipairs(g.steps) do
-		if applies(step.only) and type(step.goals) == "table" then
+	for si, step in ipairs(g.steps) do
+		if (not from or si >= from) and (not to or si < to) and applies(step.only) and type(step.goals) == "table" then
 			for _, goal in ipairs(step.goals) do
 				if applies(goal.only) then
 					local t, qid = goal.t, goal.quest
@@ -257,5 +263,21 @@ function Levels.ForGuide(id, p)
 			end
 		end
 	end
-	return Levels.Run(entries, p, g.minLevel)
+	return Levels.Run(entries, p, not from and g.minLevel or nil)
+end
+
+function Levels.Pace(p)
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	local live = g and E.GetLiveStep and E.GetLiveStep()
+	if not (live and E.LevelTarget) then return nil end
+	p = p or Levels.Player()
+	local n, at, frac = E.LevelTarget(p.level)
+	if not (n and at and at >= live) then return nil end
+	local target = n + (frac or 0)
+	local s = Levels.ForGuide(g.id, p, live, at)
+	if not s then return nil end
+	local reach = s.to.level + (s.to.need > 0 and s.to.xp / s.to.need or 0)
+	local short = target - reach
+	return { target = target, step = at, reach = reach, bars = short > 0 and ceil(short * 20) or 0 }
 end

@@ -73,6 +73,7 @@ Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measur
 local HEARTH_ITEM = 6948
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
 local HEARTH_MARGIN = 120    -- an hour's cooldown is spent only to save at least this much
+Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN = HEARTH_SECONDS, HEARTH_MARGIN -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -173,6 +174,8 @@ function Nav.RegisterTravelData(d, replace)
 	for _, t in ipairs(d.taxi or {}) do
 		local node = point(t[9], t[2], t[3], t[4], t[5], t[6], t[7], "e")
 		node.id, node.faction, node.short = t[1], t[8], shortName(t[9])
+		-- The one class that flies from it (the Druids' Nighthaven flight masters), else nil.
+		node.class = t[10]
 		taxi[node.id] = node
 		taxiList[#taxiList + 1] = node
 		local key = lower(node.name)
@@ -395,7 +398,14 @@ end
 -- preferences (the Hearthstone's margin) on top.
 ---------------------------------------------------------------------------
 
-local function allowed(mask, faction)
+-- `class`: a class's own flight node (Nighthaven: Bunthen Plainswind and Silva Fil'naveth fly Druids
+-- only, out of Moonglade) is that class's alone, and needs no flight path learnt.
+local function allowed(mask, faction, class)
+	if class then
+		local C = ns.Compat
+		local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
+		if not (info and info.class == class) then return false end
+	end
 	return mask == 3 or (faction ~= 0 and mask == faction)
 end
 
@@ -536,7 +546,7 @@ local function planRoute(p)
 	for _, node in ipairs(walkOnly and {} or taxiList) do
 		if skip and skip.taxi[node.id] then
 			-- skipped: never flown from or through
-		elseif known[node.id] and allowed(node.faction, faction) then
+		elseif (known[node.id] or node.class) and allowed(node.faction, faction, node.class) then
 			taxiV[node.id] = add(TAXI, node.c, node.wx, node.wy, node, node.map)
 		end
 	end
@@ -1131,7 +1141,7 @@ local function markByName(known, name)
 	if not ids then return false end
 	local added = false
 	for _, id in ipairs(ids) do
-		if allowed(taxi[id].faction, playerFaction) and not known[id] then
+		if allowed(taxi[id].faction, playerFaction, taxi[id].class) and not known[id] then
 			known[id] = true
 			added = true
 		end
@@ -1583,9 +1593,10 @@ local function pointWorld(p)
 	return C.MapToWorld(p.map, p.x, p.y, p.f)
 end
 
--- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call
+-- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
+-- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two)
 --   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
-function Nav.EstimateTravel(from, to, budgeted)
+function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local tc, twx, twy = pointWorld(to)
 	if not tc then return nil end
 	local fc, fwx, fwy
@@ -1599,7 +1610,7 @@ function Nav.EstimateTravel(from, to, budgeted)
 	-- The level too: the plan's walk danger is the level's (Nav/Danger.lua).
 	local D = Nav.danger
 	local key = format("%d:%d:%d>%d:%.1f:%.1f:%d:%d", fc, floor(fwx / CACHE_CELL), floor(fwy / CACHE_CELL),
-		tc, twx, twy, from == nil and 1 or 0, D and D.Level() or 0)
+		tc, twx, twy, from ~= nil and 0 or noHearth and 2 or 1, D and D.Level() or 0)
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -1610,7 +1621,7 @@ function Nav.EstimateTravel(from, to, budgeted)
 	refreshFaction()
 	local ghost = from == nil and isGhost()
 	local inn, bindName
-	if from == nil and not ghost and hearthReady() then inn, bindName = bindInn() end
+	if from == nil and not ghost and not noHearth and hearthReady() then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
 		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },

@@ -2,20 +2,45 @@ guide forever/collectibles/pets/weevil-k-neevil
 title Weevil K. Neevil
 category Collectibles
 folder Companion pets · Quests
-keywords My Little Friends, Amaryllis Webb, Entomology Starter Kit, Hay Weevil, weevil, bug, Swamp of Sorrows
+keywords My Little Friends, Amaryllis Webb, Entomology Starter Kit, Hay Weevil, Arbor Tarantula, Flesh Picker, weevil, bug, Swamp of Sorrows
 collects 280456
 levels 25-60
 zone Swamp of Sorrows
 
-# Weevil K. Neevil, tied to My Little Friends from Amaryllis Webb in Swamp of
-# Sorrows (new in Forever).
-# Sources: Forever's quest data, quest 93176 (giver, level 25, objectives) and its
-# follow-up A Little Help From My Friends (Un'Goro, 50). The quest data
-# lists only money as the reward, so how the pet arrives is unconfirmed.
+# Weevil K. Neevil, the reward of My Little Friends from Amaryllis Webb in
+# Swamp of Sorrows (new in Forever).
+# Sources: Forever's quest data, quest 93176 (giver, level 25); the server's
+# quest answers in players' caches (the three specimen objectives and the
+# reward: Weevil K. Neevil and 35s); the quest page's completion text ("take
+# this... he might have taken a liking to you"); npcs.json (the three bugs:
+# Arbor Tarantula 217588, Hay Weevil 217589, Flesh Picker 217590); Forever's
+# client data (the kit costs 50s to replace). Its follow-up is A Little Help
+# From My Friends (Un'Goro, 50).
+# Lint warns that the specimens 213566-213568 are not in items.json (the
+# quest's objectives are not in quests.json either): the goals carry their
+# names and are counted in the bags.
 
 step My Little Friends
-  tip Amaryllis Webb gives you an Entomology Starter Kit: use its items to catch an Arbor Tarantula, a Hay Weevil Specimen and a Flesh Picker. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the Hay Weevil you catch. If you lose the kit, she sells another.
-  accept 93176 "My Little Friends" @25,54.2 live
-  complete 93176 "My Little Friends"
-  turnin 93176 "My Little Friends" @25,54.2 live
-  collect 280456 "Weevil K. Neevil" @25,54.2 live
+  tip Amaryllis Webb, a Forsaken bug collector, keeps her menagerie in western Swamp of Sorrows. She hands you an Entomology Starter Kit: open it for the tools that catch the three bugs. The bugs are far apart (northern Stranglethorn, Arathi Highlands and Desolace), so do them while you pass. If you lose the kit, she sells another for 50s.
+  accept 93176
+
+step Arbor Tarantula in Stranglethorn Vale
+  zone Stranglethorn Vale
+  tip The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it.
+  collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
+
+step Hay Weevil in Arathi Highlands
+  zone Arathi Highlands
+  tip The Hay Weevils crawl in the north-west of Arathi Highlands. Use the kit's tool on one.
+  collect 213568 "Hay Weevil Specimen" @31.9,28.2
+
+step Flesh Picker in Desolace
+  zone Desolace
+  tip The Flesh Pickers feed in the Kodo Graveyard in the middle of southern Desolace. Use the kit's tool on one.
+  collect 213567 "Flesh Picker Specimen" @48.1,57.1
+
+step Back to Amaryllis Webb
+  zone Swamp of Sorrows
+  tip Hand Amaryllis the three specimens: she gives you Weevil K. Neevil and 35s.
+  turnin 93176
+  collect 280456 "Weevil K. Neevil" @25.0,54.1

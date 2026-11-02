@@ -1,7 +1,8 @@
 //! The `die` goal (addon/Polestar/Core/Engine.lua): a deathskip's step points at the graveyard's Spirit Healer
 //! and is done once the player is back alive beside him (PLAYER_UNGHOST / PLAYER_ALIVE there), never by a
-//! ghost standing there, never by a resurrection elsewhere. Real Core manifest, stub world (a level 5 Orc
-//! Warrior in Durotar).
+//! ghost standing there, never by a resurrection elsewhere. Only with the player's "Use deathskips"
+//! (behavior.deathskips, off by default) and never on a Hardcore character: otherwise the step passes. Real Core
+//! manifest, stub world (a level 5 Orc Warrior in Durotar).
 
 use forge_addontest::{emitted, is_match, text, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::Value;
@@ -13,6 +14,8 @@ w.moveTo(1411, 52, 68)
 w.titles[840] = "Conscript of the Horde"
 dead = false
 function UnitIsDeadOrGhost(unit) return unit == "player" and dead end
+hardcore = false
+C_GameRules = { IsHardcoreActive = function() return hardcore end }
 "#;
 
 const GUIDE: &str = r#"
@@ -52,6 +55,7 @@ stub.login(); stub.fire("QUEST_LOG_UPDATE"); flush()
 #[test]
 fn a_die_goal_is_open_with_its_place_holds_while_a_ghost_stands_at_the_healer_and_is_done_back_alive_beside_him() {
 	let out = run(r#"
+		Polestar.Set("behavior.deathskips", true); flush()
 		emit(state())
 		dead = true; stub.fire("PLAYER_DEAD"); stub.world.moveTo(1411, 57.2, 73.3); flush()
 		emit(state())
@@ -69,9 +73,24 @@ fn a_die_goal_is_open_with_its_place_holds_while_a_ghost_stands_at_the_healer_an
 #[test]
 fn a_resurrection_elsewhere_leaves_the_die_goal_open() {
 	let out = run(r#"
+		Polestar.Set("behavior.deathskips", true); flush()
 		dead = true; stub.fire("PLAYER_DEAD"); stub.world.moveTo(1411, 44.2, 69.4); flush()
 		dead = false; stub.fire("PLAYER_UNGHOST"); flush()
 		emit(state())
 	"#);
 	assert_eq!(out[0]["step"], 1);
+}
+
+#[test]
+fn a_die_step_is_passed_unless_the_player_chose_deathskips_and_always_on_a_hardcore_character() {
+	let out = run(r#"
+		emit(E.GetStepIndex())
+		Polestar.Set("behavior.deathskips", true); flush()
+		emit(E.GetStepIndex())
+		hardcore = true; Polestar.Set("behavior.deathskips", false); Polestar.Set("behavior.deathskips", true); flush()
+		emit(E.GetStepIndex())
+	"#);
+	assert_eq!(out[0], 2, "off by default: the deathskip step is passed, the next step's travel takes over");
+	assert_eq!(out[1], 1, "chosen: the step comes back");
+	assert_eq!(out[2], 2, "a Hardcore character never takes one");
 }

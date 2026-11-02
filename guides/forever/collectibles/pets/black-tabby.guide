@@ -2,18 +2,25 @@ guide forever/collectibles/pets/black-tabby
 title Black Tabby
 category Collectibles
 folder Companion pets · Drops
-keywords Cat Carrier (Black Tabby), Maine Coon, Dalaran Spellscribe, Ambermill, Silverpine Forest, cat
+keywords Cat Carrier (Black Tabby), Maine Coon, Dalaran Spellscribe, Ambermill, Silverpine Forest, Alterac Mountains, Dalaran, cat
 collects 8491
 faction Horde
-levels 18-60
+levels 21-60
 zone Silverpine Forest
 
-# Cat Carrier (Black Tabby) from the Dalaran mages of Ambermill.
-# Sources: items.json (Dalaran Spellscribe 17%, other Dalaran mages 0.2%,
-# pfQuest; pfQuest calls it Maine Coon); Forever client 1.60.1.70338 (name).
+# Cat Carrier (Black Tabby) from the Dalaran mages: the rare Dalaran
+# Spellscribe at Ambermill, and the Shield Guards, Theurgists and Summoners
+# around Dalaran.
+# Sources: items.json and the TDB's loot (Dalaran Spellscribe 16.8%; Dalaran
+# Shield Guard and Theurgist 0.18%, Summoner 0.2%; Classic drop data);
+# npcs.json (spawns, levels; the Spellscribe is a rare at one spot); Forever
+# client 1.60.1.70532 (name; it can be traded).
 # Our data marks these mages friendly to the Alliance, so this guide is Horde
 # only; Alliance players buy it on the Auction House.
+# ASSUMED: The Spellscribe comes back hours after a kill (Classic flow; the
+# TDB's 38000-second respawn is Classic data). In-game check: how often it is
+# up at Ambermill.
 
-step Dalaran Spellscribe
-  tip The Dalaran Spellscribe, a rare spawn among the mages at Ambermill in southern Silverpine Forest, drops it about 17% of the time in our data; the other Dalaran mages at Ambermill and around the Dalaran crater drop it at about 0.2%. Kill the mages until the Spellscribe appears. Alliance players buy it on the Auction House.
-  collect 8491 "Cat Carrier (Black Tabby)" @63.5,63.3 -- Ambermill
+step Dalaran mages
+  tip The Dalaran Spellscribe, a rare level 21 mage at Ambermill in southern Silverpine Forest, drops the Black Tabby about once in 6 kills. It has a single spot and can take hours to come back, so check it whenever you pass. While it is down, the Dalaran Shield Guards, Theurgists and Summoners (level 31-35) at the Dalaran crater, where Alterac Mountains meet Hillsbrad Foothills, drop it too, but only about once in 500 kills. The cat can be traded: look at the Auction House as well.
+  collect 8491 "Cat Carrier (Black Tabby)" @63.5,63.3 -- Dalaran Spellscribe, Ambermill

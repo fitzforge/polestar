@@ -232,6 +232,8 @@ fn t_360_a_quest_the_guide_wants_stays_open_even_when_polestar_leaves_its_accept
 	let out = run("w.onQuest(476, {})", &[turnin(476), accept(483)], &format!("\n\t\t\tPolestar.Set(\"behavior.autoAccept\", false)\n\t\t\t{ATHRIDAS}"));
 	assert_eq!(out, json!({ "calls": reward(476), "open": "detail 483" }));
 
+	// A quest the guide turns in two steps later is not the live step's: the list the game opens after
+	// Polestar's own hand-in is closed (automation looks at the live step only, Fitz).
 	let list = run(
 		"w.onQuest(476, {}); w.onQuest(7, { 10 })",
 		&[turnin(476), away(), turnin(7)],
@@ -240,7 +242,8 @@ fn t_360_a_quest_the_guide_wants_stays_open_even_when_polestar_leaves_its_accept
 			w.greeting(2078, { active = { { questID = 7, isComplete = false } }, available = { { questID = 483 } } })
 			stub.runTimers()"#,
 	);
-	assert_eq!(list, json!({ "calls": reward(476), "open": "greeting nil" }), "a quest the guide turns in later is listed");
+	let closed = [reward(476), l(&["CloseQuest nil nil"])].concat();
+	assert_eq!(list, json!({ "calls": closed, "open": "none" }), "a quest a later step turns in does not keep it open");
 }
 
 #[test]

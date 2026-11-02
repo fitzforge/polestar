@@ -2,58 +2,70 @@ guide forever/collectibles/mounts/neutral/warlock-felsteed
 title Warlock Felsteed
 category Class
 folder Warlock
-keywords Summon Felsteed, Strahad Farsan, Ratchet, Warlock, class mount
+keywords Summon Felsteed, Strahad Farsan, Ratchet, Zevrost, Kaal Soulreaper, Demisette Cloyce, Briarthorn, Warlock, class mount
 reward spell 5784 "Summon Felsteed"
-why Your own mount at 40, summoned anywhere, with no gold spent on a riding horse.
+why Your own mount at 40, summoned anywhere: no 100g riding training needed.
 class Warlock
 levels 40-60
 zone The Barrens
 
-# Summon Felsteed: your class trainer's hand-off to Strahad Farsan in Ratchet.
-# Sources: Forever client 1.60.1.70338 tables via wago.tools (Mount: the spell
-# is still a Forever mount; ItemSparse); quests.json and npcs.json for the
-# chain; the codex's spell data (data/forever/codex/spells.json) for
-# Summon Felsteed as a Warlock mount, the `reward` line. Lint warns that
-# spell 5784 is not in the guide data; the explicit name is the codex's.
-# The hand-off quest comes from the warlock trainers of Stormwind (Humans),
-# Ironforge (Gnomes), Orgrimmar (Orcs, Trolls) and the
-# Undercity (Undead).
+# Summon Felsteed: your trainer's hand-off to Strahad Farsan in Ratchet, then
+# Strahad's own Summon Felsteed (4490), accepted and handed in on the spot:
+# the hand-in teaches the spell. Four hand-offs that exclude each other
+# (quests.json `excl`): Demisette Cloyce in Stormwind (4488) for Humans,
+# Briarthorn in Ironforge (4487) for Gnomes, Zevrost in Orgrimmar (3631) for
+# Orcs and Trolls, Kaal Soulreaper in the Undercity (4489) for the Undead.
+# An Undead warlock in Orgrimmar may take Zevrost's instead; the steps here
+# follow each race's home city.
+# The spell is still a Forever mount (Forever's client tables) and the codex's
+# spell data names it a Warlock mount, the `reward` line. The hand-in teaches
+# it, so the guide has no separate `learn` goal (lint has no spell data for
+# 5784).
+# One player note says Zevrost offered the hand-off only after the felhunter
+# chain (30) was done; the data lists no prerequisite.
+# Riding: Summon Felsteed needs no riding training. Forever client 1.60.1.70532
+# (wago.tools): its mount type's MountCapability asks for Riding 0 and gives 60%
+# speed; the mount's PlayerCondition 151684 asks only for the Warlock quest
+# "Summon Felsteed" (4490). The teaching spell not teaching Apprentice Riding
+# does not matter then.
+# Sources: Forever's quest data (quests.json, npcs.json); the quest notes
+# (data/local/mechanics) for Strahad's place; the reference class guides for
+# the order (one of them carries Felsteed; the other has no 40s guide).
 
 step Summon Felsteed (Stormwind)
   only Human
   zone Stormwind City
-  tip At 40 Demisette Cloyce in the Slaughtered Lamb, in the Mage Quarter, sends you to Strahad Farsan in Ratchet.
+  tip At 40 Demisette Cloyce, in the cellar of the Slaughtered Lamb in the Mage Quarter, sends you to Strahad Farsan in Ratchet. No quest offered? Finish the felhunter chain first: players report the mount comes after it.
   level 40
-  accept 4488
+  accept 4488                         -- Demisette Cloyce
 
 step Summon Felsteed (Ironforge)
   only Gnome
   zone Ironforge
-  tip At 40 Briarthorn in Ironforge sends you to Strahad Farsan in Ratchet.
+  tip At 40 Briarthorn, by the warlock trainers in Ironforge, sends you to Strahad Farsan in Ratchet. No quest offered? Finish the felhunter chain first: players report the mount comes after it.
   level 40
-  accept 4487
+  accept 4487                         -- Briarthorn
 
 step Summon Felsteed (Orgrimmar)
   only Orc,Troll
   zone Orgrimmar
-  tip At 40 Zevrost in the Cleft of Shadow sends you to Strahad Farsan in Ratchet.
+  tip At 40 Zevrost, in the Cleft of Shadow, sends you to Strahad Farsan in Ratchet. No quest offered? Finish the felhunter chain first: players report the mount comes after it.
   level 40
-  accept 3631
+  accept 3631                         -- Zevrost
 
 step Summon Felsteed (Undercity)
   only Undead
   zone Undercity
-  tip At 40 Kaal Soulreaper in the Magic Quarter sends you to Strahad Farsan in Ratchet. The zeppelin from Tirisfal Glades flies to Durotar.
+  tip At 40 Kaal Soulreaper, in the Magic Quarter, sends you to Strahad Farsan in Ratchet. The zeppelin from Tirisfal Glades flies to Durotar; Ratchet is a short flight from Orgrimmar. No quest offered? Finish the felhunter chain first: players report the mount comes after it.
   level 40
-  accept 4489
+  accept 4489                         -- Kaal Soulreaper
 
 step Strahad Farsan in Ratchet
   zone The Barrens
-  tip Ratchet is on the Barrens coast east of the Crossroads; from the Alliance side, take the boat from Booty Bay. Strahad Farsan's follow-up teaches Summon Felsteed.
-  turnin 4488 only Human
-  turnin 4487 only Gnome
-  turnin 3631 only Orc,Troll
-  turnin 4489 only Undead
+  tip Ratchet is the goblin port on the Barrens coast, east of the Crossroads; from the Alliance side take the boat from Booty Bay. Strahad Farsan stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own Summon Felsteed and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing.
+  turnin 4488 only Human              -- Strahad Farsan
+  turnin 4487 only Gnome              -- Strahad Farsan
+  turnin 3631 only Orc,Troll          -- Strahad Farsan
+  turnin 4489 only Undead             -- Strahad Farsan
   accept 4490
-  turnin 4490
-  learn 5784 "Summon Felsteed"
+  turnin 4490                         -- Strahad Farsan: Summon Felsteed

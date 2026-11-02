@@ -1,5 +1,5 @@
 -- Chinese (simplified) (zhCN): the guide forever/collectibles/mounts/horde/wolf (forever/collectibles/mounts/horde/wolf.guide).
--- Written by `node tools/polestar.js i18n guides sync zhCN`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync zhCN`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Chinese (simplified) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -11,12 +11,20 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "学习骑术",
-	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:4752}和{npc:3362}的狼舍在{zone:1454}的{object:172958}。40级时{npc:4752}教授{skill:762}（据暴雪设计师称100金），学会后会获得一匹坐骑。Forever 客户端允许所有部落种族骑乘这些坐骑。",
+	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}，骑术训练师",
 
-	-- Step 2: Pick a colour
+	-- Step 2: Wolf Riding for other races
+	-- {skill:762} Riding
+	["Wolf {skill:762} for other races"] = "",
+	-- {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
+	["Any Horde race can buy these wolves, but riding one also takes Wolf Riding, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	-- {npc:4752} Kildar
+	["{npc:4752}, Wolf Riding"] = "",
+
+	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑选颜色",
 	-- {npc:3362} Ogunaro Wolfrunner
 	["{npc:3362} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:3362}出售其他颜色（Forever 客户端中每只20金）。想要哪只就买哪只；如果喜欢送你的那只，也可以不买。",
@@ -28,4 +36,7 @@ return {
 	["{item:5668}, 20g"] = "{item:5668}，20金",
 	-- {item:1041} Horn of the Black Wolf
 	["{item:1041} is in the client (20g) but our data has no vendor selling it."] = "{item:1041}存在于客户端中（20金），但我们的数据中没有出售它的商人。",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:4752} and {npc:3362}'s kennel are in {zone:1454}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these."] = "{npc:4752}和{npc:3362}的狼舍在{zone:1454}的{object:172958}。40级时{npc:4752}教授{skill:762}（据暴雪设计师称100金），学会后会获得一匹坐骑。Forever 客户端允许所有部落种族骑乘这些坐骑。",
 }

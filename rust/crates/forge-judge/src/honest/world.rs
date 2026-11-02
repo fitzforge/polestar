@@ -67,6 +67,13 @@ impl Geo {
 		let f = a.get(&map).or_else(|| b.get(&map))?;
 		Some(Wpt { c: f.c, wx: f.top + (f.bottom - f.top) * (y / 100.0), wy: f.left + (f.right - f.left) * (x / 100.0) })
 	}
+
+	/// The inverse of `to_world`: a world place's x, y (percent) on `map` in the asked frame set.
+	pub fn to_map(&self, map: Id, wx: f64, wy: f64, era: bool) -> Option<(f64, f64)> {
+		let (a, b) = if era { (&self.era, &self.live) } else { (&self.live, &self.era) };
+		let f = a.get(&map).or_else(|| b.get(&map))?;
+		(f.right != f.left && f.bottom != f.top).then(|| ((wy - f.left) / (f.right - f.left) * 100.0, (wx - f.top) / (f.bottom - f.top) * 100.0))
+	}
 }
 
 pub fn dist(a: Option<Wpt>, b: Option<Wpt>) -> f64 {
@@ -402,6 +409,8 @@ pub struct World<'c, 'd> {
 	pub trace: Option<Vec<super::TraceRow>>,
 	pub travelled: Option<&'static str>,
 	pub worked: Vec<Worked>,
+	/// Items an `optional` collect asked for: an optional accept they start is the same player's.
+	pub opt_collected: FxHashSet<Id>,
 	pub findings: Vec<Finding>,
 	pub step: String,
 	pub pos_step: String,
@@ -411,6 +420,10 @@ pub struct World<'c, 'd> {
 
 impl<'c, 'd> World<'c, 'd> {
 	pub fn new(ctx: &'c Ctx<'d>, persona: Persona, kb: Option<&'c Kb>, opts: &HonestOpts) -> Self {
+		// (A class's own flight masters need no flight path learnt: Bunthen Plainswind flies any Horde
+		// Druid from Nighthaven to Thunder Bluff.)
+		let known: FxHashSet<NodeKey> =
+			ctx.nodes.iter().filter(|n| n.get("class").truthy() && n.get("class").to_js_string().eq_ignore_ascii_case(&persona.cls)).map(|n| NodeKey::of(&n.get("id"))).collect();
 		World {
 			ctx,
 			persona,
@@ -420,13 +433,14 @@ impl<'c, 'd> World<'c, 'd> {
 			log: Vec::new(),
 			done: FxHashSet::default(),
 			bags: FxHashMap::default(),
-			known: FxHashSet::default(),
+			known,
 			bound: V::Null,
 			pos: None,
 			pos_gen: 0,
 			trace: None,
 			travelled: None,
 			worked: Vec::new(),
+			opt_collected: FxHashSet::default(),
 			findings: Vec::new(),
 			step: String::new(),
 			pos_step: String::new(),
@@ -442,7 +456,9 @@ impl<'c, 'd> World<'c, 'd> {
 			_ => 0.0,
 		};
 		let f = n.get("faction").as_num();
-		side == 0.0 || (f != Some(1.0) && f != Some(2.0)) || f == Some(side)
+		// (A class's own node, the Druids' Nighthaven flight out of Moonglade: that class's alone.)
+		let class = n.get("class");
+		(!class.truthy() || class.to_js_string().eq_ignore_ascii_case(&self.persona.cls)) && (side == 0.0 || (f != Some(1.0) && f != Some(2.0)) || f == Some(side))
 	}
 
 	/// The taxi node of a getfp or fly line: its `node`, else by name among the usable ones.

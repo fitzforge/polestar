@@ -1,335 +1,452 @@
 -- Chinese (simplified) (zhCN): the guide forever/professions/alchemy (forever/professions/alchemy.guide).
--- Written by `node tools/polestar.js i18n guides sync zhCN`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync zhCN`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Chinese (simplified) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Apprentice Alchemy
+	-- Step 1: Learn Alchemy
 	-- {skill:171} Alchemy
-	["Apprentice {skill:171}"] = "初级{skill:171}",
+	["Learn {skill:171}"] = "",
+	-- {skill:171} Alchemy · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
+	-- plural, as words: Empty Vials = {item:3371} Empty Vial
+	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "",
+
+	-- Step 2: Alchemy 1-75: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171}可以边升级边练。Forever的传承系统会在制造专业技能达到150、225和300（中级、高级和专家级上限）时给予奖励，所以每个节点都很重要。1-75所需材料总价约68银。",
+	["{skill:171} 1-75: vendor goods"] = "",
+	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
-	-- Step 2: Silverleaf (Alliance)
-	-- {item:765} Silverleaf
-	["{item:765} (Alliance)"] = "{item:765}（联盟）",
-	-- {item:765} Silverleaf · {skill:182} Herbalism
-	["Pick {item:765} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:765}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 3: Silverleaf (Elwynn Forest)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1429} Elwynn Forest
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:1429} is marked."] = "",
 
-	-- Step 3: Silverleaf (Horde)
-	-- {item:765} Silverleaf
-	["{item:765} (Horde)"] = "{item:765}（部落）",
+	-- Step 4: Silverleaf (Dun Morogh)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1426} Dun Morogh
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:1426} is marked."] = "",
 
-	-- Step 4: Peacebloom (Alliance)
-	-- {item:2447} Peacebloom
-	["{item:2447} (Alliance)"] = "{item:2447}（联盟）",
-	-- {item:2447} Peacebloom · {skill:182} Herbalism
-	["Pick {item:2447} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:2447}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 5: Silverleaf (Teldrassil)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1438} Teldrassil
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:1438} is marked."] = "",
 
-	-- Step 5: Peacebloom (Horde)
-	-- {item:2447} Peacebloom
-	["{item:2447} (Horde)"] = "{item:2447}（部落）",
+	-- Step 6: Silverleaf (Zephras Isle)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:2521} Zephras Isle
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:2521} is marked."] = "",
 
-	-- Step 6: Elixir of Minor Defense to 75
+	-- Step 7: Silverleaf (Durotar)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1411} Durotar
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:1411} is marked."] = "",
+
+	-- Step 8: Silverleaf (Mulgore)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1412} Mulgore
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:1412} is marked."] = "",
+
+	-- Step 9: Silverleaf (Tirisfal Glades)
+	-- {item:765} Silverleaf · {item:5997} Elixir of Minor Defense · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
+	["82 {item:765} for {item:5997}: {skill:182}: {item:765} (skill 1); or the Auction House. The densest patch of {item:765} in {zone:1420} is marked."] = "",
+
+	-- Step 10: Peacebloom (Elwynn Forest)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1429} Elwynn Forest
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:1429} is marked."] = "",
+
+	-- Step 11: Peacebloom (Dun Morogh)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1426} Dun Morogh
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:1426} is marked."] = "",
+
+	-- Step 12: Peacebloom (Teldrassil)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1438} Teldrassil
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:1438} is marked."] = "",
+
+	-- Step 13: Peacebloom (Zephras Isle)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:2521} Zephras Isle
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:2521} is marked."] = "",
+
+	-- Step 14: Peacebloom (Durotar)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1411} Durotar
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:1411} is marked."] = "",
+
+	-- Step 15: Peacebloom (Mulgore)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1412} Mulgore
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:1412} is marked."] = "",
+
+	-- Step 16: Peacebloom (Tirisfal Glades)
+	-- {item:2447} Peacebloom · {item:5997} Elixir of Minor Defense · {spell:2331} Minor Mana Potion · {skill:182} Herbalism · {zone:1420} Tirisfal Glades
+	["110 {item:2447} for {item:5997} and {spell:2331} (28 of them for 75-150: pick them all now): {skill:182}: {item:2447} (skill 1); or the Auction House. The densest patch of {item:2447} in {zone:1420} is marked."] = "",
+
+	-- Step 17: Elixir of Minor Defense to 75
 	-- {item:5997} Elixir of Minor Defense
 	["{item:5997} to 75"] = "{item:5997}练到75",
-	["Orange (a point every craft) until 55, yellow until 75, green until 95. 75 is the Apprentice cap."] = "55之前为橙色（每次制作得1点），75之前为黄色，95之前为绿色。75是初级上限。",
+	-- {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom · {item:3371} Empty Vial
+	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "",
 
-	-- Step 7: Journeyman Alchemy
+	-- Step 18: Journeyman Alchemy
 	-- {skill:171} Alchemy
 	["Journeyman {skill:171}"] = "中级{skill:171}",
+	-- {skill:171} Alchemy · {npc:4160} Ainethil · {zone:1457} Darnassus · {npc:4900} Alchemist Narett · {zone:1445} Dustwallow Marsh · {npc:2837} Jaxin Chong · {zone:1434} Stranglethorn Vale · {npc:3964} Kylanna · {zone:1440} Ashenvale · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:5499} Lilyssia Nightbreeze · {zone:1453} Stormwind City · {npc:11042} Sylvanna Forestmoon · {npc:5177} Tally Berryfizz · {zone:1455} Ironforge · {npc:3009} Bena Winterhoof · {zone:1456} Thunder Bluff · {npc:4611} Doctor Herbert Halsey · {zone:1458} Undercity · {npc:4609} Doctor Marsh · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {npc:2391} Serge Hinott · {zone:1424} Hillsbrad Foothills · {npc:3347} Yelmak · {zone:1454} Orgrimmar · {spell:2331} Minor Mana Potion · {spell:1230564} Mana Well · {item:2447} Peacebloom · {item:3371} Empty Vial · {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed
+	["Journeyman raises the cap from 75 to 150 for 4s 50c (Classic's price; Forever's is not in the data); it needs {skill:171} 50 and character level 10, so you can take it on any visit from 50. Not every {skill:171} trainer teaches it: Alliance {npc:4160} ({zone:1457}), {npc:4900} ({zone:1445}), {npc:2837} ({zone:1434}), {npc:3964} ({zone:1440}), {npc:7948} ({zone:1444}), {npc:5499} ({zone:1453}), {npc:11042} ({zone:1457}) and {npc:5177} ({zone:1455}); Horde {npc:3009} ({zone:1456}), {npc:4611} ({zone:1458}), {npc:4609} ({zone:1458}), {npc:2837} ({zone:1434}), {npc:1386} ({zone:1435}), {npc:2391} ({zone:1424}) and {npc:3347} ({zone:1454}). The arrow picks the nearest of your faction. Learn now: {spell:2331} (from 25, 1s). Also learn {spell:1230564} (1s): Forever's {skill:171} camp item, 1 {item:2447} and 1 {item:3371}, placed at a campsite beside a campfire for its buff. The Camping 101: {skill:171} quest from your starting area's camping guide (after The Great Outdoors) sends you to an alchemy trainer who teaches it free. 75-150 takes about 1s of recipes and 9s 8c of vendor goods, plus 77 {item:785}, 152 {item:2450} and 54 {item:2453} to gather or buy."] = "",
+
+	-- Step 19: Alchemy 75-150: vendor goods
 	-- {skill:171} Alchemy
-	["Journeyman needs character level 10 and {skill:171} 50; it raises the cap to 150. Materials for 75-150 are worth about 1g 44s in all."] = "中级需要角色等级10级且{skill:171}达到50；上限提高到150。75-150所需材料总价约1金44银。",
+	["{skill:171} 75-150: vendor goods"] = "",
+	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
-	-- Step 8: Recipe: Holy Protection Potion
-	-- {item:6051} Holy Protection Potion · {skill:171} Alchemy
-	["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks."] = "教授{item:6051}（需要{skill:171}100）。商人限量出售，会定期补货。",
+	-- Step 20: Mageroyal (Westfall)
+	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1436} Westfall
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50); or the Auction House. The densest patch of {item:785} in {zone:1436} is marked."] = "",
 
-	-- Step 9: Murloc Eye (Alliance)
-	-- {item:730} Murloc Eye
-	["{item:730} (Alliance)"] = "{item:730}（联盟）",
-	-- {npc:513} Murloc Netter
-	["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "这里的{npc:513}（14-15级）会掉落。也可以去拍卖行购买。",
+	-- Step 21: Mageroyal (Loch Modan)
+	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1432} Loch Modan
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50); or the Auction House. The densest patch of {item:785} in {zone:1432} is marked."] = "",
 
-	-- Step 10: Murloc Eye (Horde)
-	-- {item:730} Murloc Eye
-	["{item:730} (Horde)"] = "{item:730}（部落）",
-	-- {npc:1958} Vile Fin Tidecaller
-	["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "这里的{npc:1958}（17-18级）会掉落。也可以去拍卖行购买。",
+	-- Step 22: Mageroyal (Teldrassil)
+	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1438} Teldrassil
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50); or the Auction House. The densest patch of {item:785} in {zone:1438} is marked."] = "",
 
-	-- Step 11: Mageroyal (Alliance)
-	-- {item:785} Mageroyal
-	["{item:785} (Alliance)"] = "{item:785}（联盟）",
-	-- {item:785} Mageroyal · {skill:182} Herbalism
-	["Pick {item:785} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:785}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 23: Mageroyal (Zephras Isle)
+	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:2521} Zephras Isle
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50); or the Auction House. The densest patch of {item:785} in {zone:2521} is marked."] = "",
 
-	-- Step 12: Mageroyal (Horde)
-	-- {item:785} Mageroyal
-	["{item:785} (Horde)"] = "{item:785}（部落）",
+	-- Step 24: Mageroyal (The Barrens)
+	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1413} The Barrens
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50); or the Auction House. The densest patch of {item:785} in {zone:1413} is marked."] = "",
 
-	-- Step 15: Briarthorn (Alliance)
-	-- {item:2450} Briarthorn
-	["{item:2450} (Alliance)"] = "{item:2450}（联盟）",
-	-- {item:2450} Briarthorn · {skill:182} Herbalism
-	["Pick {item:2450} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:2450}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 25: Mageroyal (Silverpine Forest)
+	-- {item:785} Mageroyal · {spell:2331} Minor Mana Potion · {spell:3171} Elixir of Wisdom · {skill:182} Herbalism · {zone:1421} Silverpine Forest
+	["77 {item:785} for {spell:2331} and {spell:3171}: {skill:182}: {item:785} (skill 50); or the Auction House. The densest patch of {item:785} in {zone:1421} is marked."] = "",
 
-	-- Step 16: Briarthorn (Horde)
-	-- {item:2450} Briarthorn
-	["{item:2450} (Horde)"] = "{item:2450}（部落）",
+	-- Step 26: Briarthorn (Westfall)
+	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70); or the Auction House. The densest patch of {item:2450} in {zone:1436} is marked."] = "",
 
-	-- Step 17: Swiftthistle (Alliance)
-	-- {item:2452} Swiftthistle
-	["{item:2452} (Alliance)"] = "{item:2452}（联盟）",
-	-- {item:2452} Swiftthistle · {item:2450} Briarthorn · {skill:182} Herbalism
-	["{item:2452} comes from {item:2450} nodes ({skill:182}); this is the densest patch in the data. The Auction House works too."] = "{item:2452}来自{item:2450}采集点（{skill:182}）；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 27: Briarthorn (Loch Modan)
+	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70); or the Auction House. The densest patch of {item:2450} in {zone:1432} is marked."] = "",
 
-	-- Step 18: Swiftthistle (Horde)
-	-- {item:2452} Swiftthistle
-	["{item:2452} (Horde)"] = "{item:2452}（部落）",
+	-- Step 28: Briarthorn (Darkshore)
+	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70); or the Auction House. The densest patch of {item:2450} in {zone:1439} is marked."] = "",
 
-	-- Step 19: Bruiseweed (Alliance)
-	-- {item:2453} Bruiseweed
-	["{item:2453} (Alliance)"] = "{item:2453}（联盟）",
-	-- {item:2453} Bruiseweed · {skill:182} Herbalism
-	["Pick {item:2453} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:2453}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 29: Briarthorn (The Barrens)
+	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70); or the Auction House. The densest patch of {item:2450} in {zone:1413} is marked."] = "",
 
-	-- Step 20: Bruiseweed (Horde)
-	-- {item:2453} Bruiseweed
-	["{item:2453} (Horde)"] = "{item:2453}（部落）",
+	-- Step 30: Briarthorn (Silverpine Forest)
+	-- {item:2450} Briarthorn · {spell:3171} Elixir of Wisdom · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
+	["152 {item:2450} for {spell:3171} and {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2450} (skill 70); or the Auction House. The densest patch of {item:2450} in {zone:1421} is marked."] = "",
 
-	-- Step 21: Minor Mana Potion to 85
+	-- Step 31: Bruiseweed (Westfall)
+	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1436} Westfall
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100); or the Auction House. The densest patch of {item:2453} in {zone:1436} is marked."] = "",
+
+	-- Step 32: Bruiseweed (Loch Modan)
+	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1432} Loch Modan
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100); or the Auction House. The densest patch of {item:2453} in {zone:1432} is marked."] = "",
+
+	-- Step 33: Bruiseweed (Darkshore)
+	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1439} Darkshore
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100); or the Auction House. The densest patch of {item:2453} in {zone:1439} is marked."] = "",
+
+	-- Step 34: Bruiseweed (The Barrens)
+	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1413} The Barrens
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100); or the Auction House. The densest patch of {item:2453} in {zone:1413} is marked."] = "",
+
+	-- Step 35: Bruiseweed (Silverpine Forest)
+	-- {item:2453} Bruiseweed · {spell:3176} Lesser Troll's Blood Elixir · {skill:182} Herbalism · {zone:1421} Silverpine Forest
+	["54 {item:2453} for {spell:3176} (24 of them for 150-225: pick them all now): {skill:182}: {item:2453} (skill 100); or the Auction House. The densest patch of {item:2453} in {zone:1421} is marked."] = "",
+
+	-- Step 36: Minor Mana Potion to 90
 	-- {spell:2331} Minor Mana Potion
-	["{spell:2331} to 85"] = "{spell:2331}练到85",
-	["Yellow until 85, green until 105: not every craft gives a point."] = "85之前为黄色，105之前为绿色：并非每次制作都能获得技能点。",
+	["{spell:2331} to 90"] = "",
+	-- {spell:2331} Minor Mana Potion · {item:785} Mageroyal · {item:2447} Peacebloom · {item:3371} Empty Vial · {spell:3171} Elixir of Wisdom
+	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "",
 
-	-- Step 22: Alchemy recipes at 85
+	-- Step 37: Alchemy recipes at 90
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 85"] = "85点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:1244645} Lesser Discolored Healing Potion
-	["Back to an {skill:171} trainer: {spell:1244645} is taught from {skill:171} 85."] = "回到{skill:171}训练师处：{skill:171}达到85即可学习{spell:1244645}。",
+	["{skill:171} recipes at 90"] = "",
+	-- {skill:171} Alchemy · {spell:3171} Elixir of Wisdom
+	["Back to an {skill:171} trainer: {spell:3171} (from 90)."] = "",
 
-	-- Step 23: Lesser Discolored Healing Potion to 100
-	-- {item:247239} Lesser Discolored Healing Potion
-	["{item:247239} to 100"] = "{item:247239}练到100",
-	["Yellow until 105, green until 125: not every craft gives a point."] = "105之前为黄色，125之前为绿色：并非每次制作都能获得技能点。",
+	-- Step 38: Elixir of Wisdom to 135
+	-- {spell:3171} Elixir of Wisdom
+	["{spell:3171} to 135"] = "",
+	-- {spell:3171} Elixir of Wisdom · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3371} Empty Vial
+	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "",
 
-	-- Step 24: Holy Protection Potion to 150
-	-- {item:6051} Holy Protection Potion
-	["{item:6051} to 150"] = "{item:6051}练到150",
+	-- Step 39: Alchemy recipes at 135
 	-- {skill:171} Alchemy
-	["Orange (a point every craft) until 130, yellow until 150, green until 170. {skill:171} 150 is a Legacy System milestone."] = "130之前为橙色（每次制作得1点），150之前为黄色，170之前为绿色。{skill:171}150是传承系统的里程碑。",
-	["from the recipe in your bags"] = "使用背包中的配方",
+	["{skill:171} recipes at 135"] = "",
+	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
+	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "",
 
-	-- Step 25: Expert Alchemy
+	-- Step 40: Lesser Troll's Blood Elixir to 150
+	-- {spell:3176} Lesser Troll's Blood Elixir
+	["{spell:3176} to 150"] = "",
+	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
+	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "",
+
+	-- Step 41: Alchemy 150-225: vendor goods
 	-- {skill:171} Alchemy
-	["Expert {skill:171}"] = "高级{skill:171}",
-	-- {skill:171} Alchemy
-	["Expert needs character level 20 and {skill:171} 125; it raises the cap to 225. Materials for 150-225 are worth about 3g 65s in all."] = "高级需要角色等级20级且{skill:171}达到125；上限提高到225。150-225所需材料总价约3金65银。",
+	["{skill:171} 150-225: vendor goods"] = "",
+	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
-	-- Step 26: Murloc Eye
-	["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在Polestar根据你的等级和阵营选择的刷怪点击杀掉落它的怪物。也可以去拍卖行购买。",
-
-	-- Step 27: Wild Steelbloom (Alliance)
+	-- Step 42: Wild Steelbloom (Alliance)
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Alliance)"] = "{object:1623}（联盟）",
-	-- {object:1623} Wild Steelbloom · {skill:182} Herbalism
-	["Pick {object:1623} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{object:1623}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- {object:1623} Wild Steelbloom · {spell:11450} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
+	["40 {object:1623} for {spell:11450} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45); or the Auction House. The densest patch of {object:1623} in {zone:1434} is marked."] = "",
 
-	-- Step 28: Wild Steelbloom (Horde)
+	-- Step 43: Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Horde)"] = "{object:1623}（部落）",
+	-- {object:1623} Wild Steelbloom · {spell:11450} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
+	["40 {object:1623} for {spell:11450} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45); or the Auction House. The densest patch of {object:1623} in {zone:1442} is marked."] = "",
 
-	-- Step 29: Kingsblood (Alliance)
+	-- Step 44: Kingsblood (Alliance)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Alliance)"] = "{item:3356}（联盟）",
-	-- {item:3356} Kingsblood · {skill:182} Herbalism
-	["Pick {item:3356} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:3356}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1440} Ashenvale · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45); or the Auction House. The densest patch of {item:3356} in {zone:1434} is marked."] = "",
 
-	-- Step 30: Kingsblood (Horde)
+	-- Step 45: Kingsblood (Horde)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Horde)"] = "{item:3356}（部落）",
+	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1434} Stranglethorn Vale
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45); or the Auction House. The densest patch of {item:3356} in {zone:1413} is marked."] = "",
 
-	-- Step 31: Liferoot (Alliance)
-	-- {item:3357} Liferoot
-	["{item:3357} (Alliance)"] = "{item:3357}（联盟）",
-	-- {item:3357} Liferoot · {skill:182} Herbalism
-	["Pick {item:3357} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:3357}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- Step 46: Stranglekelp (Alliance)
+	-- {object:2045} Stranglekelp
+	["{object:2045} (Alliance)"] = "",
+	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50); or the Auction House. The densest patch of {object:2045} in {zone:1434} is marked."] = "",
 
-	-- Step 32: Liferoot (Horde)
-	-- {item:3357} Liferoot
-	["{item:3357} (Horde)"] = "{item:3357}（部落）",
+	-- Step 47: Stranglekelp (Horde)
+	-- {object:2045} Stranglekelp
+	["{object:2045} (Horde)"] = "",
+	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50); or the Auction House. The densest patch of {object:2045} in {zone:1413} is marked."] = "",
 
-	-- Step 33: Goldthorn (Alliance)
+	-- Step 48: Goldthorn (Alliance)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Alliance)"] = "{object:2046}（联盟）",
-	-- {object:2046} Goldthorn · {skill:182} Herbalism
-	["Pick {object:2046} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{object:2046}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- {object:2046} Goldthorn · {spell:11450} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	["40 {object:2046} for {spell:11450} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50); or the Auction House. The densest patch of {object:2046} in {zone:1417} is marked."] = "",
 
-	-- Step 34: Goldthorn (Horde)
+	-- Step 49: Goldthorn (Horde)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Horde)"] = "{object:2046}（部落）",
+	-- {object:2046} Goldthorn · {spell:11450} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
+	["40 {object:2046} for {spell:11450} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50); or the Auction House. The densest patch of {object:2046} in {zone:1444} is marked."] = "",
 
-	-- Step 35: Oily Blackmouth (Alliance)
-	-- {item:6358} Oily Blackmouth
-	["{item:6358} (Alliance)"] = "{item:6358}（联盟）",
-	-- {object:180582} Oily Blackmouth School
-	["Fish {object:180582}; this is where the data has most of them. The Auction House works too."] = "在{object:180582}钓鱼；数据显示这里最多。也可以去拍卖行购买。",
-
-	-- Step 36: Oily Blackmouth (Horde)
-	-- {item:6358} Oily Blackmouth
-	["{item:6358} (Horde)"] = "{item:6358}（部落）",
-
-	-- Step 37: Firefin Snapper (Alliance)
-	-- {item:6359} Firefin Snapper
-	["{item:6359} (Alliance)"] = "{item:6359}（联盟）",
-	-- {object:180657} Firefin Snapper School
-	["Fish {object:180657}; this is where the data has most of them. The Auction House works too."] = "在{object:180657}钓鱼；数据显示这里最多。也可以去拍卖行购买。",
-
-	-- Step 38: Firefin Snapper (Horde)
-	-- {item:6359} Firefin Snapper
-	["{item:6359} (Horde)"] = "{item:6359}（部落）",
-
-	-- Step 39: Fire Oil to 165
-	-- {item:6371} Fire Oil
-	["{item:6371} to 165"] = "{item:6371}练到165",
-	["Yellow until 160, green until 170: not every craft gives a point."] = "160之前为黄色，170之前为绿色：并非每次制作都能获得技能点。",
-
-	-- Step 40: Alchemy recipes at 165
+	-- Step 50: Expert Alchemy
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 165"] = "165点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:7845} Elixir of Fire Power
-	["Back to an {skill:171} trainer: {spell:7845} is taught from {skill:171} 165."] = "回到{skill:171}训练师处：{skill:171}达到165即可学习{spell:7845}。",
+	["Expert {skill:171}"] = "高级{skill:171}",
+	-- {skill:171} Alchemy · {npc:4160} Ainethil · {zone:1457} Darnassus · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:4611} Doctor Herbert Halsey · {zone:1458} Undercity · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {object:2045} Stranglekelp · {object:2046} Goldthorn · {spell:3452} Mana Potion · {spell:11450} Elixir of Defense
+	["Expert raises the cap from 150 to 225 for 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 125 and character level 20, so you can take it on any visit from 125. Only a few trainers teach it: Alliance {npc:4160} ({zone:1457}) and {npc:7948} ({zone:1444}); Horde {npc:4611} ({zone:1458}) and {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 150-225 takes about 33s 20c of vendor goods, plus 40 {object:1623}, 39 {item:3356}, 39 {object:2045} and 40 {object:2046} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:3452} (from 160) and {spell:11450} (from 195), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
 
-	-- Step 41: Elixir of Fire Power to 175
-	-- {spell:7845} Elixir of Fire Power
-	["{spell:7845} to 175"] = "{spell:7845}练到175",
-	["Yellow until 185, green until 205: not every craft gives a point."] = "185之前为黄色，205之前为绿色：并非每次制作都能获得技能点。",
+	-- Step 51: Lesser Troll's Blood Elixir to 160
+	-- {spell:3176} Lesser Troll's Blood Elixir
+	["{spell:3176} to 160"] = "",
+	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "",
 
-	-- Step 42: Alchemy recipes at 175
+	-- Step 52: Alchemy recipes at 160
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 175"] = "175点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:1244647} Greater Discolored Healing Potion
-	["Back to an {skill:171} trainer: {spell:1244647} is taught from {skill:171} 175."] = "回到{skill:171}训练师处：{skill:171}达到175即可学习{spell:1244647}。",
+	["{skill:171} recipes at 160"] = "",
+	-- {spell:3452} Mana Potion
+	["Still at the Expert trainer: {spell:3452} (from 160)."] = "",
 
-	-- Step 43: Greater Discolored Healing Potion to 200
-	-- {item:247241} Greater Discolored Healing Potion
-	["{item:247241} to 200"] = "{item:247241}练到200",
-	["Yellow until 195, green until 215: not every craft gives a point."] = "195之前为黄色，215之前为绿色：并非每次制作都能获得技能点。",
+	-- Step 53: Mana Potion to 195
+	-- {spell:3452} Mana Potion
+	["{spell:3452} to 195"] = "",
+	-- {spell:3452} Mana Potion · {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3372} Leaded Vial
+	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "",
 
-	-- Step 44: Alchemy recipes at 200
+	-- Step 54: Alchemy recipes at 195
 	-- {skill:171} Alchemy
-	["{skill:171} recipes at 200"] = "200点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:11447} Draught of Water Walking
-	["Back to an {skill:171} trainer: {spell:11447} is taught from {skill:171} 190."] = "回到{skill:171}训练师处：{skill:171}达到190即可学习{spell:11447}。",
+	["{skill:171} recipes at 195"] = "",
+	-- {spell:11450} Elixir of Defense
+	["Still at the Expert trainer: {spell:11450} (from 195)."] = "",
 
-	-- Step 45: Draught of Water Walking to 215
-	-- {spell:11447} Draught of Water Walking
-	["{spell:11447} to 215"] = "{spell:11447}练到215",
-	["Yellow until 210, green until 230: not every craft gives a point."] = "210之前为黄色，230之前为绿色：并非每次制作都能获得技能点。",
-
-	-- Step 46: Alchemy recipes at 215
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 215"] = "215点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:11450} Elixir of Defense
-	["Back to an {skill:171} trainer: {spell:11450} is taught from {skill:171} 215."] = "回到{skill:171}训练师处：{skill:171}达到215即可学习{spell:11450}。",
-
-	-- Step 47: Elixir of Defense to 225
+	-- Step 55: Elixir of Defense to 225
 	-- {spell:11450} Elixir of Defense
 	["{spell:11450} to 225"] = "{spell:11450}练到225",
-	-- {skill:171} Alchemy
-	["Yellow until 235, green until 255: not every craft gives a point. {skill:171} 225 is a Legacy System milestone."] = "235之前为黄色，255之前为绿色：并非每次制作都能获得技能点。{skill:171}225是传承系统的里程碑。",
+	-- {spell:11450} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands · {skill:171} Alchemy
+	["{spell:11450} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "",
 
-	-- Step 48: Artisan Alchemy
+	-- Step 56: Alchemy 225-300: vendor goods
 	-- {skill:171} Alchemy
-	["Artisan {skill:171}"] = "专家级{skill:171}",
-	-- {skill:171} Alchemy
-	["Artisan needs character level 35 and {skill:171} 200; it raises the cap to 300. Materials for 225-300 are worth about 7g 80s in all."] = "专家级需要角色等级35级且{skill:171}达到200；上限提高到300。225-300所需材料总价约7金80银。",
+	["{skill:171} 225-300: vendor goods"] = "",
+	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
-	-- Step 49: Recipe: Elixir of Superior Defense
-	-- {item:8951} Elixir of Greater Defense · {skill:171} Alchemy
-	["Teaches {item:8951} (needs {skill:171} 265). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "教授{item:8951}（需要{skill:171}265）。商人限量出售，会定期补货；拍卖行也常有。",
+	-- Step 57: Recipe: Elixir of Superior Defense
+	-- {item:13478} Recipe: Elixir of Superior Defense · {item:8951} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
+	["{item:13478} teaches {item:8951} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
 
-	-- Step 55: Arthas' Tears (Alliance)
+	-- Step 58: Arthas' Tears (Alliance)
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Alliance)"] = "{item:8836}（联盟）",
-	-- {item:8836} Arthas' Tears · {skill:182} Herbalism
-	["Pick {item:8836} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:8836}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- {item:8836} Arthas' Tears · {spell:11460} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
+	["43 {item:8836} for {spell:11460}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60); or the Auction House. The densest patch of {item:8836} in {zone:1422} is marked."] = "",
 
-	-- Step 56: Arthas' Tears (Horde)
+	-- Step 59: Arthas' Tears (Horde)
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Horde)"] = "{item:8836}（部落）",
+	-- {item:8836} Arthas' Tears · {spell:11460} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
+	["43 {item:8836} for {spell:11460}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60); or the Auction House. The densest patch of {item:8836} in {zone:1448} is marked."] = "",
 
-	-- Step 57: Sungrass (Alliance)
+	-- Step 60: Sungrass (Alliance)
 	-- {item:8838} Sungrass
 	["{item:8838} (Alliance)"] = "{item:8838}（联盟）",
-	-- {item:8838} Sungrass · {skill:182} Herbalism
-	["Pick {item:8838} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:8838}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- {item:8838} Sungrass · {item:8951} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	["43 {item:8838} for {item:8951}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8838} in {zone:1425} is marked."] = "",
 
-	-- Step 58: Sungrass (Horde)
+	-- Step 61: Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["{item:8838} (Horde)"] = "{item:8838}（部落）",
+	-- {item:8838} Sungrass · {item:8951} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
+	["43 {item:8838} for {item:8951}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55); or the Auction House. The densest patch of {item:8838} in {zone:1444} is marked."] = "",
 
-	-- Step 59: Stonescale Eel (Alliance)
+	-- Step 62: Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel
 	["{item:13422} (Alliance)"] = "{item:13422}（联盟）",
-	-- {object:180712} Stonescale Eel Swarm
-	["Fish {object:180712}; this is where the data has most of them. The Auction House works too."] = "在{object:180712}钓鱼；数据显示这里最多。也可以去拍卖行购买。",
+	-- {item:13422} Stonescale Eel · {item:8951} Elixir of Greater Defense · {skill:356} Fishing · {object:180712} Stonescale Eel Swarm
+	["43 {item:13422} for {item:8951}: {skill:356}; or the Auction House. Fish {object:180712} here."] = "",
 
-	-- Step 60: Stonescale Eel (Horde)
+	-- Step 63: Stonescale Eel (Horde)
 	-- {item:13422} Stonescale Eel
 	["{item:13422} (Horde)"] = "{item:13422}（部落）",
 
-	-- Step 61: Elixir of Defense to 230
+	-- Step 64: Artisan Alchemy
+	-- {skill:171} Alchemy
+	["Artisan {skill:171}"] = "专家级{skill:171}",
+	-- {skill:171} Alchemy · {npc:7948} Kylanna Windwhisper · {zone:1444} Feralas · {npc:1386} Rogvar · {zone:1435} Swamp of Sorrows · {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13422} Stonescale Eel · {spell:11460} Draught of Detect Undead · {item:13423} Stonescale Oil
+	["Artisan raises the cap from 225 to 300 for 4g 50s (Classic's price; Forever's is not in the data); it needs {skill:171} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:7948} ({zone:1444}); Horde {npc:1386} ({zone:1435}). The arrow picks the nearest of your faction. 225-300 takes about 1g 30s of recipes and 4g 50s 40c of vendor goods, plus 43 {item:8836}, 43 {item:8838} and 43 {item:13422} to gather or buy. Come with all of it in your bags (the steps above, the rest from the Auction House): these trainers also teach {spell:11460} (from 230) and {item:13423} (from 250), and the crafts need no station, so craft right here and learn each recipe as you reach its skill. One trip instead of 3."] = "",
+
+	-- Step 65: Elixir of Defense to 230
 	-- {spell:11450} Elixir of Defense
 	["{spell:11450} to 230"] = "{spell:11450}练到230",
-	["Yellow until 235, green until 255: not every craft gives a point."] = "235之前为黄色，255之前为绿色：并非每次制作都能获得技能点。",
+	-- {spell:11450} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
+	["{spell:11450} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "",
 
-	-- Step 62: Alchemy recipes at 230
+	-- Step 66: Alchemy recipes at 230
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 230"] = "230点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:1244648} Superior Discolored Healing Potion
-	["Back to an {skill:171} trainer: {spell:1244648} is taught from {skill:171} 230."] = "回到{skill:171}训练师处：{skill:171}达到230即可学习{spell:1244648}。",
-
-	-- Step 63: Superior Discolored Healing Potion to 250
-	-- {item:247242} Superior Discolored Healing Potion
-	["{item:247242} to 250"] = "{item:247242}练到250",
-	["Yellow until 250, green until 270: not every craft gives a point."] = "250之前为黄色，270之前为绿色：并非每次制作都能获得技能点。",
-
-	-- Step 64: Alchemy recipes at 250
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 250"] = "250点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:17551} Stonescale Oil
-	["Back to an {skill:171} trainer: {spell:17551} is taught from {skill:171} 250."] = "回到{skill:171}训练师处：{skill:171}达到250即可学习{spell:17551}。",
-
-	-- Step 65: Stonescale Oil to 259
-	-- {item:13423} Stonescale Oil
-	["{item:13423} to 259"] = "{item:13423}练到259",
-	["Yellow until 255, green until 260: not every craft gives a point."] = "255之前为黄色，260之前为绿色：并非每次制作都能获得技能点。",
-
-	-- Step 66: Alchemy recipes at 259
-	-- {skill:171} Alchemy
-	["{skill:171} recipes at 259"] = "259点的{skill:171}配方",
-	-- {skill:171} Alchemy · {spell:11460} Draught of Detect Undead
-	["Back to an {skill:171} trainer: {spell:11460} is taught from {skill:171} 245."] = "回到{skill:171}训练师处：{skill:171}达到245即可学习{spell:11460}。",
+	-- {spell:11460} Draught of Detect Undead
+	["Still at the Artisan trainer: {spell:11460} (from 230)."] = "",
 
 	-- Step 67: Draught of Detect Undead to 265
 	-- {spell:11460} Draught of Detect Undead
 	["{spell:11460} to 265"] = "{spell:11460}练到265",
-	["Yellow until 265, green until 285: not every craft gives a point."] = "265之前为黄色，285之前为绿色：并非每次制作都能获得技能点。",
+	-- {spell:11460} Draught of Detect Undead · {item:8836} Arthas' Tears · {item:8925} Crystal Vial · {zone:1448} Felwood · {skill:182} Herbalism
+	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
+	["{spell:11460} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "",
 
-	-- Step 68: Elixir of Greater Defense to 300
+	-- Step 68: Alchemy recipes at 265
+	-- {skill:171} Alchemy
+	["{skill:171} recipes at 265"] = "",
+	-- {spell:17551} Stonescale Oil
+	["Still at the Artisan trainer: {spell:17551} (from 250)."] = "",
+
+	-- Step 69: Elixir of Greater Defense to 300
 	-- {spell:17554} Elixir of Greater Defense
 	["{spell:17554} to 300"] = "{spell:17554}练到300",
-	-- {skill:171} Alchemy
-	["Orange (a point every craft) until 280, yellow until 300, green until 320. {skill:171} 300 is a Legacy System milestone."] = "280之前为橙色（每次制作得1点），300之前为黄色，320之前为绿色。{skill:171}300是传承系统的里程碑。",
+	-- {spell:17554} Elixir of Greater Defense · {item:13423} Stonescale Oil · {item:8838} Sungrass · {item:8925} Crystal Vial · {item:13422} Stonescale Eel · {skill:171} Alchemy
+	["{spell:17554} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "",
+	["from the recipe in your bags"] = "使用背包中的配方",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Apprentice {skill:171}"] = "初级{skill:171}",
+	-- ["Artisan needs character level 35 and {skill:171} 200; it raises the cap to 300. Materials for 225-300 are worth about 7g 80s in all."] = "专家级需要角色等级35级且{skill:171}达到200；上限提高到300。225-300所需材料总价约7金80银。",
+	-- ["Back to an {skill:171} trainer: {spell:11447} is taught from {skill:171} 190."] = "回到{skill:171}训练师处：{skill:171}达到190即可学习{spell:11447}。",
+	-- ["Back to an {skill:171} trainer: {spell:11450} is taught from {skill:171} 215."] = "回到{skill:171}训练师处：{skill:171}达到215即可学习{spell:11450}。",
+	-- ["Back to an {skill:171} trainer: {spell:11460} is taught from {skill:171} 245."] = "回到{skill:171}训练师处：{skill:171}达到245即可学习{spell:11460}。",
+	-- ["Back to an {skill:171} trainer: {spell:1244645} is taught from {skill:171} 85."] = "回到{skill:171}训练师处：{skill:171}达到85即可学习{spell:1244645}。",
+	-- ["Back to an {skill:171} trainer: {spell:1244647} is taught from {skill:171} 175."] = "回到{skill:171}训练师处：{skill:171}达到175即可学习{spell:1244647}。",
+	-- ["Back to an {skill:171} trainer: {spell:1244648} is taught from {skill:171} 230."] = "回到{skill:171}训练师处：{skill:171}达到230即可学习{spell:1244648}。",
+	-- ["Back to an {skill:171} trainer: {spell:17551} is taught from {skill:171} 250."] = "回到{skill:171}训练师处：{skill:171}达到250即可学习{spell:17551}。",
+	-- ["Back to an {skill:171} trainer: {spell:7845} is taught from {skill:171} 165."] = "回到{skill:171}训练师处：{skill:171}达到165即可学习{spell:7845}。",
+	-- ["Expert needs character level 20 and {skill:171} 125; it raises the cap to 225. Materials for 150-225 are worth about 3g 65s in all."] = "高级需要角色等级20级且{skill:171}达到125；上限提高到225。150-225所需材料总价约3金65银。",
+	-- ["Fish {object:180582}; this is where the data has most of them. The Auction House works too."] = "在{object:180582}钓鱼；数据显示这里最多。也可以去拍卖行购买。",
+	-- ["Fish {object:180657}; this is where the data has most of them. The Auction House works too."] = "在{object:180657}钓鱼；数据显示这里最多。也可以去拍卖行购买。",
+	-- ["Fish {object:180712}; this is where the data has most of them. The Auction House works too."] = "在{object:180712}钓鱼；数据显示这里最多。也可以去拍卖行购买。",
+	-- ["Journeyman needs character level 10 and {skill:171} 50; it raises the cap to 150. Materials for 75-150 are worth about 1g 44s in all."] = "中级需要角色等级10级且{skill:171}达到50；上限提高到150。75-150所需材料总价约1金44银。",
+	-- ["Kill the mobs that drop it at the farm spot Polestar picks for your level and faction. The Auction House works too."] = "在Polestar根据你的等级和阵营选择的刷怪点击杀掉落它的怪物。也可以去拍卖行购买。",
+	-- ["Orange (a point every craft) until 130, yellow until 150, green until 170. {skill:171} 150 is a Legacy System milestone."] = "130之前为橙色（每次制作得1点），150之前为黄色，170之前为绿色。{skill:171}150是传承系统的里程碑。",
+	-- ["Orange (a point every craft) until 280, yellow until 300, green until 320. {skill:171} 300 is a Legacy System milestone."] = "280之前为橙色（每次制作得1点），300之前为黄色，320之前为绿色。{skill:171}300是传承系统的里程碑。",
+	-- ["Orange (a point every craft) until 55, yellow until 75, green until 95. 75 is the Apprentice cap."] = "55之前为橙色（每次制作得1点），75之前为黄色，95之前为绿色。75是初级上限。",
+	-- ["Pick {item:2447} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:2447}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:2450} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:2450}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:2453} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:2453}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
 	-- ["Pick {item:3355} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:3355}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:3356} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:3356}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:3357} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:3357}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
 	-- ["Pick {item:3821} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:3821}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:765} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:765}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:785} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:785}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:8836} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:8836}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {item:8838} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{item:8838}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {object:1623} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{object:1623}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Pick {object:2046} with {skill:182}; this is the densest patch in the data. The Auction House works too."] = "用{skill:182}采集{object:2046}；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["Teaches {item:6051} (needs {skill:171} 100). Vendors sell it in limited stock that restocks."] = "教授{item:6051}（需要{skill:171}100）。商人限量出售，会定期补货。",
+	-- ["Teaches {item:8951} (needs {skill:171} 265). Vendors sell it in limited stock that restocks; the Auction House often has it too."] = "教授{item:8951}（需要{skill:171}265）。商人限量出售，会定期补货；拍卖行也常有。",
+	-- ["Yellow until 105, green until 125: not every craft gives a point."] = "105之前为黄色，125之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 160, green until 170: not every craft gives a point."] = "160之前为黄色，170之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 185, green until 205: not every craft gives a point."] = "185之前为黄色，205之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 195, green until 215: not every craft gives a point."] = "195之前为黄色，215之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 210, green until 230: not every craft gives a point."] = "210之前为黄色，230之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 235, green until 255: not every craft gives a point."] = "235之前为黄色，255之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 235, green until 255: not every craft gives a point. {skill:171} 225 is a Legacy System milestone."] = "235之前为黄色，255之前为绿色：并非每次制作都能获得技能点。{skill:171}225是传承系统的里程碑。",
+	-- ["Yellow until 250, green until 270: not every craft gives a point."] = "250之前为黄色，270之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 255, green until 260: not every craft gives a point."] = "255之前为黄色，260之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 265, green until 285: not every craft gives a point."] = "265之前为黄色，285之前为绿色：并非每次制作都能获得技能点。",
+	-- ["Yellow until 85, green until 105: not every craft gives a point."] = "85之前为黄色，105之前为绿色：并非每次制作都能获得技能点。",
+	-- ["{item:13423} to 259"] = "{item:13423}练到259",
+	-- ["{item:2447} (Alliance)"] = "{item:2447}（联盟）",
+	-- ["{item:2447} (Horde)"] = "{item:2447}（部落）",
+	-- ["{item:2450} (Alliance)"] = "{item:2450}（联盟）",
+	-- ["{item:2450} (Horde)"] = "{item:2450}（部落）",
+	-- ["{item:2452} (Alliance)"] = "{item:2452}（联盟）",
+	-- ["{item:2452} (Horde)"] = "{item:2452}（部落）",
+	-- ["{item:2452} comes from {item:2450} nodes ({skill:182}); this is the densest patch in the data. The Auction House works too."] = "{item:2452}来自{item:2450}采集点（{skill:182}）；这里是数据中分布最密集的地点。也可以去拍卖行购买。",
+	-- ["{item:2453} (Alliance)"] = "{item:2453}（联盟）",
+	-- ["{item:2453} (Horde)"] = "{item:2453}（部落）",
+	-- ["{item:247239} to 100"] = "{item:247239}练到100",
+	-- ["{item:247241} to 200"] = "{item:247241}练到200",
+	-- ["{item:247242} to 250"] = "{item:247242}练到250",
 	-- ["{item:3355} (Alliance)"] = "{item:3355}（联盟）",
 	-- ["{item:3355} (Horde)"] = "{item:3355}（部落）",
+	-- ["{item:3357} (Alliance)"] = "{item:3357}（联盟）",
+	-- ["{item:3357} (Horde)"] = "{item:3357}（部落）",
 	-- ["{item:3821} (Alliance)"] = "{item:3821}（联盟）",
 	-- ["{item:3821} (Horde)"] = "{item:3821}（部落）",
+	-- ["{item:6051} to 150"] = "{item:6051}练到150",
+	-- ["{item:6358} (Alliance)"] = "{item:6358}（联盟）",
+	-- ["{item:6358} (Horde)"] = "{item:6358}（部落）",
+	-- ["{item:6359} (Alliance)"] = "{item:6359}（联盟）",
+	-- ["{item:6359} (Horde)"] = "{item:6359}（部落）",
+	-- ["{item:6371} to 165"] = "{item:6371}练到165",
+	-- ["{item:730} (Alliance)"] = "{item:730}（联盟）",
+	-- ["{item:730} (Horde)"] = "{item:730}（部落）",
+	-- ["{item:765} (Alliance)"] = "{item:765}（联盟）",
+	-- ["{item:765} (Horde)"] = "{item:765}（部落）",
+	-- ["{item:785} (Alliance)"] = "{item:785}（联盟）",
+	-- ["{item:785} (Horde)"] = "{item:785}（部落）",
+	-- ["{npc:1958} (level 17-18) drop it here. The Auction House works too."] = "这里的{npc:1958}（17-18级）会掉落。也可以去拍卖行购买。",
+	-- ["{npc:513} (level 14-15) drop it here. The Auction House works too."] = "这里的{npc:513}（14-15级）会掉落。也可以去拍卖行购买。",
+	-- ["{skill:171} recipes at 165"] = "165点的{skill:171}配方",
+	-- ["{skill:171} recipes at 175"] = "175点的{skill:171}配方",
+	-- ["{skill:171} recipes at 200"] = "200点的{skill:171}配方",
+	-- ["{skill:171} recipes at 215"] = "215点的{skill:171}配方",
+	-- ["{skill:171} recipes at 250"] = "250点的{skill:171}配方",
+	-- ["{skill:171} recipes at 259"] = "259点的{skill:171}配方",
+	-- ["{skill:171} recipes at 85"] = "85点的{skill:171}配方",
+	-- ["{skill:171} runs alongside leveling. Forever's Legacy System rewards crafting professions at skill 150, 225 and 300 (the Journeyman, Expert and Artisan caps), so each of those checkpoints counts. Materials for 1-75 are worth about 68s in all."] = "{skill:171}可以边升级边练。Forever的传承系统会在制造专业技能达到150、225和300（中级、高级和专家级上限）时给予奖励，所以每个节点都很重要。1-75所需材料总价约68银。",
+	-- ["{spell:11447} to 215"] = "{spell:11447}练到215",
+	-- ["{spell:2331} to 85"] = "{spell:2331}练到85",
+	-- ["{spell:7845} to 175"] = "{spell:7845}练到175",
 }

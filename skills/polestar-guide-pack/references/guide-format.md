@@ -74,7 +74,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `kill <npc>` / `kill "<Name>"` | Kill a mob; with `quest Q.O` the quest log counts it, without it the player ticks it | `npc`, `quest`, `xN` |
 | `collect <item> ["Name"]` | Loot or gather items; without `quest`, counted in the bags | `npc`, `quest`, `xN`, `nearest` |
 | `goto <x>,<y> ["Label"]` | Walk there; for travel and places the data has no target for | `map`, `r`, `era` / `live` only |
-| `talk <npc>` | Speak to an NPC | |
+| `talk <npc>` | Speak to an NPC | `gossip` |
 | `interact <object>` | Click a game object | `quest` |
 | `use <item> ["Name"]` | Use an item | `quest` |
 | `sethome "<Location>"` / `sethome nearest` | Bind the hearthstone at an inn (`polestar find --kind inn`) | `npc` |
@@ -83,9 +83,9 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `enter "<Place>"` | Be in that zone or area (the zone or subzone text; Polestar 0.3.0) | `@x,y` only points the arrow |
 | `getfp "<Flight point>"` | Learn a flight path (`polestar find --kind flight`) | `npc` |
 | `fly "<Town>"` | Take a flight; done on landing | no place modifiers |
-| `train class` / `train <npc>` / `train <Profession> [Rank]` | Visit a trainer: the nearest of the player's class, that one, or the nearest of a profession | `npc` |
+| `train class` / `train <npc>` / `train <Profession> [Rank]` | Visit a trainer: the nearest of the player's class, that one, or the nearest of a profession | `npc`, `gossip` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `npc`, `xN`, `nearest` |
-| `vendor nearest` / `vendor <npc>` | Sell and repair | `npc` |
+| `vendor nearest` / `vendor <npc>` | Sell and repair | `npc`, `gossip` |
 | `level <N>` | Reach level N, grinding if need be; `level 12.5` is halfway through 12, `level 12+2500` 2500 XP into it (whole percent; the pack then needs Polestar 0.2.6) | no place modifiers |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (Polestar 0.3.0) | no place modifiers, no `group` |
 | `task "<text>"` | Something Polestar cannot see; the player ticks it, and it holds the step until then unless `optional` (Polestar 0.3.0). With modifiers, quote the text | no `"text"`, no `group` |
@@ -97,6 +97,7 @@ otherwise, the place modifiers `@x,y`, `map`, `r`, `era` / `live`.
 | `rep <Faction> <Standing>` | Reach a standing, `Hated` to `Exalted`, with a faction by name or id | |
 | `explore <x>,<y> ["Area"]` | Discover the map area there | `map`, `r`, `era` / `live` only |
 | `achieve <id> "Name"` | Complete an achievement or Legacy Challenge; the name is required | `criteria` |
+| `wait <seconds> ["text"]` | A countdown (1 to 3600 seconds) that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (Polestar 0.3.0) | no place modifiers, no `group` |
 
 `nearest`, `train class` and `train <Profession>` pick the NPC or place when
 the step comes up, by the player's faction and position; they take no
@@ -127,6 +128,7 @@ After the arguments, in any order.
 | `choose <item> ...` / `reward <item> ...` | On `turnin`: the rewards to pick from, the ones given outright |
 | `xp <N>` / `money <amount>` | On `turnin`: what it pays (`money 1g50s`) |
 | `direct` | On `turnin`: handed in from the giver's window with no `accept`, so it needs none. The quest never enters the log: get what it asks for with a plain `buy` or `collect` |
+| `gossip <id>` | On `talk`, `vendor` and `train`: the gossip option (the client's `gossipOptionID`) Polestar picks at that NPC on this step |
 
 ## Conditions
 
@@ -152,12 +154,13 @@ step was completed, not skipped or jumped over; not on a `next` line),
 0), `cooldown item <item>` / `cooldown spell <spell>` (on cooldown, the global
 cooldown aside), `group <quest>` (the player chose to do that group quest;
 unanswered, the route waits and asks; on the accept step, `!group` for a solo
-way; not on `next` or `skipto`); `!` in front of any but
+way; not on `next` or `skipto`), `knows <spell>` (the character knows the
+spell; `!knows` for the step that trains it); `!` in front of any but
 `level` and `money` turns it around. Once the route has passed the step, the
 outcome stays. A pack with `when` (on a step or a `next` line), `along` or
 `label` needs Polestar 0.2.6; with `money`, `task`, `enter`, `cast`, `abandon`, `destroy` or `die` goals, a `when money`,
-`when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown` or
-`when group` predicate, or `skipto`, needs Polestar 0.3.0.
+`when dungeon`, `when upgrade`, `when done`, `when skill`, `when cooldown`,
+`when group` or `when knows` predicate, or `skipto`, needs Polestar 0.3.0.
 
 ## Lint errors that come up most
 

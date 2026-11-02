@@ -157,7 +157,7 @@ fn opt<T: Into<V>>(v: Option<T>) -> V {
 }
 
 fn node_v(n: &Node) -> V {
-	obj(vec![
+	let mut v = vec![
 		("id", n.id.into()),
 		("name", n.name.as_str().into()),
 		("short", n.short.as_str().into()),
@@ -170,7 +170,12 @@ fn node_v(n: &Node) -> V {
 		("faction", n.faction.into()),
 		("npc", n.npc.as_ref().map(|m| V::Num(m.0)).unwrap_or(V::Null)),
 		("npcName", n.npc.as_ref().map(|m| V::from(m.1.as_str())).unwrap_or(V::Null)),
-	])
+	];
+	// (Only a class's own node carries it: the Druids' Nighthaven.)
+	if let Some(c) = n.class {
+		v.push(("class", c.into()));
+	}
+	obj(v)
 }
 
 fn leg_v(l: &Leg) -> V {
@@ -470,10 +475,14 @@ fn emit_lua(t: &Emit) -> Result<String, String> {
 	lines.push(String::new());
 	lines.push("N.RegisterTravelData({".into());
 	lines.push(format!("\tbuild = {},", lua_str(t.build)));
-	lines.push("\t-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name".into());
+	lines.push("\t-- id, continent, wx, wy, uiMapID, x, y (Era frame), faction mask (1 Alliance, 2 Horde), name[, the one class that flies from it]".into());
 	lines.push("\ttaxi = {".into());
 	for n in t.nodes {
-		let v = V::from(vec![n.id.into(), n.c.into(), n.wx.into(), n.wy.into(), n.map.into(), n.x.into(), n.y.into(), n.faction.into(), n.name.as_str().into()]);
+		let mut row: Vec<V> = vec![n.id.into(), n.c.into(), n.wx.into(), n.wy.into(), n.map.into(), n.x.into(), n.y.into(), n.faction.into(), n.name.as_str().into()];
+		if let Some(c) = n.class {
+			row.push(c.into());
+		}
+		let v = V::from(row);
 		lines.push(format!("\t\t{},", lua_val(&v)?));
 	}
 	lines.push("\t},".into());
@@ -690,9 +699,12 @@ pub fn build(o: &Options) -> Result<Output, String> {
 		if areas.truthy() { Vec::new() } else { vec![format!("no cached WoW Forever AreaTable under {}: the inns get no area (`data build` downloads it)", o.sources_dir.join("wago").display())] };
 	let paths = build_paths(&recordings, &live, &frames);
 	let recorded = recorded_crossings(&paths.zone_steps, &frames);
-	let local = read_crossings_file(&o.crossings_file, &frames)?;
+	// (A crossing's end on a map Forever added, with no Era frame, is in the Forever client's frame:
+	// the Riverglades' ways to Redridge, the Badlands and the Swamp of Sorrows.)
+	let crossing_frames = frames.with_forever(&forever_frames);
+	let local = read_crossings_file(&o.crossings_file, &crossing_frames)?;
 	let shipped = match &o.shipped_file {
-		Some(f) => read_crossings_file(f, &frames)?.map(|(set, doc)| {
+		Some(f) => read_crossings_file(f, &crossing_frames)?.map(|(set, doc)| {
 			let s = doc.get("source");
 			let source = if s.truthy() { s.to_js_string() } else { f.file_name().map(|n| n.to_string_lossy().to_string()).unwrap_or_default() };
 			(set, source)
