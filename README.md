@@ -844,28 +844,43 @@ so a missing quest is a question with an answer.
 
 ### What changed in 0.3.0
 
-The same route checker played the leveling guides of 0.2.6 and of 0.3.0 to 60. Per character, for
-the five races of each faction (Troll, Gnome and both Skyborne included):
+What you will notice, that 0.2.6's guides didn't do:
 
-| Per character, to 60 | Horde 0.2.6 | Horde 0.3.0 | Alliance 0.2.6 | Alliance 0.3.0 |
-|---|---:|---:|---:|---:|
-| Steps the checker refuses | 30-34 | 1-2 | 41-60 | 6 |
-| of them: hearth while it cools down | 3-4 | 0 | 7-8 | 0 |
-| of them: against an order players reported as wrong | 13-16 | 0 | 8-25 | 0 |
-| of them: a quest that waits on a rare drop | 13-16 | 1 | 18-22 | 6 |
-| Open quests walked past | 150-156 | 120-128 | 159-175 | 107-117 |
-| Trips back that did nothing | 19-22 | 13-15 | 30-35 | 29-31 |
-| Hours of grinding | 26.6-27.9 | 24.1-25.5 | 30.9-32.1 | 27.4-28.6 |
-| Zone changes | 73-76 | 90-93 | 78-80 | 96-102 |
-| Hours to 60, solo | 117.9-119.9 | 118.0-120.1 | 122.6-123.7 | 121.7-123.8 |
+- **Your race's own start, then one route for your faction.** Every race levels in its own
+  starting zone, then joins the one Horde route from the Barrens or the one Alliance route from
+  Westfall, so every fix reaches every race.
+- **Towns in one visit.** At a town you pick up and hand in everything that is ready while you
+  are there, and a hand-in waits for you where a flight or your hearth lands you.
+- **Training on the way.** Class training sits where the route already passes a trainer, and
+  weapon trainers come up while you're there.
+- **Elite and group quests, your call.** They are offered with the group they want; skip one
+  and the guide has you grind back to the route's level, so you are never stranded.
+- **Rare drops never hold you up.** Quests that start from a rare drop are optional extras.
+- **The hearthstone is never asked for while it cools down.**
+- **Every order players reported as wrong is now followed**, and kept for every later build.
+- **The arrow walks a path made for each step**, and a step moves on only when the game confirms
+  it (a quest taken or handed in, a spell learnt), never when a window just opens.
 
-In words: no more hearths on cooldown, the orders players reported are followed, rare-drop quests
-no longer hold up the route (what is left is the Green Hills of Stranglethorn pages on the
-Alliance side and one Horde quest), steps that couldn't be done as written went from 34 across the
-ten starts to 2, and about 2.5 hours (Horde) to 3.5 hours (Alliance) of grinding became questing.
-The guides change zone more often, partly from the new order and partly because they now write
-out the way between zones. The hours to 60 stay about the same: they are a sanity check, not the
-goal.
+The same route checker played every leveling guide of 0.2.6 and of 0.3.0 to 60, for all ten
+starts (each race, both Skyborne). Totals across the ten:
+
+| Across all ten starts, to 60 | 0.2.6 | 0.3.0 | Change |
+|---|---:|---:|---:|
+| Steps the checker refuses | 411 | 37 | -91% |
+| Steps that can't be done as written | 34 | 2 | -94% |
+| Hearth asked for while it cools down | 53 | 0 | -100% |
+| Orders players reported as wrong, broken | 145 | 0 | -100% |
+| Quests the route waits on a rare drop for | 174 | 35 | -80% |
+| Open quests walked past | 1,584 | 1,191 | -25% |
+| Trips back that did nothing | 266 | 222 | -17% |
+| Hours of grinding | 297 | 266 | -10% |
+
+The rare-drop quests left are the Green Hills of Stranglethorn pages on the Alliance side and one
+Horde quest. Hours to 60 stay about the same, near 120 for the Horde and 122 for the Alliance:
+they are a sanity check, not the goal. The guides change zone more often (946 changes against
+764): more than half of the added ones come from how the guides are now written, with the way
+between zones spelled out and trips to trainers and towns, and the rest from the new order, some
+of them real back-and-forth trips that later rounds keep trimming.
 
 <p align="center">
   <img src="docs/assets/charts/starts.svg" width="880" alt="Chart: hours to 60 and hours of grinding per start, Polestar 0.3.0 against 0.2.6, as the route checker plays the guides. Hours to 60 stay within about an hour of 0.2.6: 118 to 120 for the Horde and 122 to 124 for the Alliance. Grinding drops from about 27 to 28 hours to 24 to 25.5 for the Horde, and from about 31 to 32 hours to 27.5 to 28.5 for the Alliance.">
