@@ -59,6 +59,8 @@ export const api = {
 	diagnostics: () => call<{ renderer: string; frameMeter: boolean }>('diagnostics'),
 	windowReady: () => call<boolean>('window_ready'),
 	clientLog: (line: string) => call<void>('client_log', { line }),
+	/** The fault page is up: ends the launch test (POLESTAR_SMOKE) as failed; nothing otherwise. */
+	smokeFault: (title: string, details: string) => call<void>('smoke_fault', { title, details }),
 	/** The window is coming back from the tray (src-tauri/src/launch.rs). */
 	onOpening: async (handler: () => void) => (await (bridge ??= load())).listen<null>('opening', handler),
 };

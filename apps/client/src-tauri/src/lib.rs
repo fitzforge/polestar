@@ -15,6 +15,7 @@ mod manager;
 mod packs;
 mod register;
 pub mod render;
+mod smoke;
 mod store;
 mod tray;
 mod update;
@@ -102,13 +103,17 @@ pub fn run() {
 	// reqwest and the updater use rustls with ring.
 	let _ = rustls::crypto::ring::default_provider().install_default();
 	let hidden = std::env::args().any(|a| a == HIDDEN_ARG);
-	tauri::Builder::default()
-		// Before anything else, so the page can ask for its window the moment it loads.
-		.manage(launch::Launch::new(hidden))
-		.plugin(SingleInstance(tauri_plugin_single_instance::init(|app, args, _cwd| {
+	// Before anything else, so the page can ask for its window the moment it loads.
+	let mut builder = tauri::Builder::default().manage(launch::Launch::new(hidden));
+	// The launch test starts beside a client that is already open instead of handing over to it
+	// (and exiting as if it had passed).
+	if !smoke::active() {
+		builder = builder.plugin(SingleInstance(tauri_plugin_single_instance::init(|app, args, _cwd| {
 			launch::open(app);
 			open_links(app, &args);
-		})))
+		})));
+	}
+	builder
 		.plugin(tauri_plugin_deep_link::init())
 		.plugin(tauri_plugin_autostart::init(MacosLauncher::LaunchAgent, Some(vec![HIDDEN_ARG])))
 		.plugin(tauri_plugin_dialog::init())
@@ -117,7 +122,9 @@ pub fn run() {
 		.plugin(tauri_plugin_notification::init())
 		.setup(|app| {
 			#[cfg(target_os = "linux")]
-			desktop::integrate();
+			if !smoke::active() {
+				desktop::integrate();
+			}
 			window::setup(app.handle());
 			// Composite on the GPU always (some distributions build WebKitGTK to decide per page).
 			#[cfg(target_os = "linux")]
@@ -129,24 +136,28 @@ pub fn run() {
 					}
 				});
 			}
-			let dir = app.path().app_data_dir()?;
+			let dir = if smoke::active() { smoke::data_dir() } else { app.path().app_data_dir()? };
 			let store = Store::open(dir)?;
 			let engine = Engine::new(app.handle().clone(), store)?;
 			app.manage(Arc::clone(&engine));
 			tray::create(app.handle())?;
 			tauri::async_runtime::spawn(Arc::clone(&engine).run());
-			let handle = app.handle().clone();
-			tauri::async_runtime::spawn(async move {
-				tokio::time::sleep(Duration::from_secs(20)).await;
-				loop {
-					let engine = handle.state::<Arc<Engine>>();
-					if let Ok(available) = update::check(&handle, &engine.http).await {
-						engine.lock().update = available;
-						engine.publish();
+			smoke::start(app.handle());
+			// The launch test never looks for an update (it would reach GitHub, and offer one).
+			if !smoke::active() {
+				let handle = app.handle().clone();
+				tauri::async_runtime::spawn(async move {
+					tokio::time::sleep(Duration::from_secs(20)).await;
+					loop {
+						let engine = handle.state::<Arc<Engine>>();
+						if let Ok(available) = update::check(&handle, &engine.http).await {
+							engine.lock().update = available;
+							engine.publish();
+						}
+						tokio::time::sleep(UPDATE_CHECK).await;
 					}
-					tokio::time::sleep(UPDATE_CHECK).await;
-				}
-			});
+				});
+			}
 			launch::fallback(app.handle());
 			links(app.handle());
 			Ok(())
@@ -191,6 +202,7 @@ pub fn run() {
 			commands::diagnostics,
 			commands::window_ready,
 			commands::client_log,
+			commands::smoke_fault,
 		])
 		.run(tauri::generate_context!())
 		.expect("Polestar Client could not start");

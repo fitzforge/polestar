@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="color-scheme" content="dark" />
     <title>Polestar Client</title>
+    <!-- Faults from before the app's own script runs (a plugin's page script runs first, and its
+         failure can arrive before src/lib/fault.ts listens): kept for fault.ts, so whether the
+         window shows one never depends on timing. -->
+    <script>
+      window.__faults = [];
+      addEventListener('error', (e) => window.__faults?.push(e.error ?? e.message));
+      addEventListener('unhandledrejection', (e) => window.__faults?.push(e.reason));
+    </script>
     <!-- The intro's first frame (src/lib/intro.svelte.ts plays the rest): the night ground,
          everything else unlit. Inline, so the window's first paint is already the intro. -->
     <style>
