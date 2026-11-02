@@ -162,10 +162,10 @@ is merged since):
 
 - **Better routes.** Every race's route is rebuilt by Polestar Forge, and on
   each side the races share one route after their starting zones, so a fix
-  or an improvement reaches all of them. The route checker finds no hearth
-  asked for while the stone is cooling down, no order a player reported as
-  wrong, and almost no quest that waits on a rare drop; you walk past fewer
-  open quests and grind about 2.5 to 3.5 hours less to 60. Elite and group
+  or an improvement reaches all of them. The hearthstone is never asked for
+  while it cools down, every order a player reported as wrong is followed,
+  rare drops are optional, towns are swept in one visit and class training
+  comes on the way. Elite and group
   quests come with the group they want and a solo way past
   ([what changed](#what-changed-in-030)).
 - **The arrow walks the guide's own paths.** The walk into each step is
@@ -861,39 +861,9 @@ What you will notice, that 0.2.6's guides didn't do:
 - **The arrow walks a path made for each step**, and a step moves on only when the game confirms
   it (a quest taken or handed in, a spell learnt), never when a window just opens.
 
-The same route checker played every leveling guide of 0.2.6 and of 0.3.0 to 60, for all ten
-starts (each race, both Skyborne). Totals across the ten:
-
-| Across all ten starts, to 60 | 0.2.6 | 0.3.0 | Change |
-|---|---:|---:|---:|
-| Steps the checker refuses | 411 | 37 | -91% |
-| Steps that can't be done as written | 34 | 2 | -94% |
-| Hearth asked for while it cools down | 53 | 0 | -100% |
-| Orders players reported as wrong, broken | 145 | 0 | -100% |
-| Quests the route waits on a rare drop for | 174 | 35 | -80% |
-| Open quests walked past | 1,584 | 1,191 | -25% |
-| Trips back that did nothing | 266 | 222 | -17% |
-| Hours of grinding | 297 | 266 | -10% |
-
-The rare-drop quests left are the Green Hills of Stranglethorn pages on the Alliance side and one
-Horde quest. Hours to 60 stay about the same, near 120 for the Horde and 122 for the Alliance:
-they are a sanity check, not the goal. The guides change zone more often (946 changes against
-764): more than half of the added ones come from how the guides are now written, with the way
-between zones spelled out and trips to trainers and towns, and the rest from the new order, some
-of them real back-and-forth trips that later rounds keep trimming.
-
-<p align="center">
-  <img src="docs/assets/charts/starts.svg" width="880" alt="Chart: hours to 60 and hours of grinding per start, Polestar 0.3.0 against 0.2.6, as the route checker plays the guides. Hours to 60 stay within about an hour of 0.2.6: 118 to 120 for the Horde and 122 to 124 for the Alliance. Grinding drops from about 27 to 28 hours to 24 to 25.5 for the Horde, and from about 31 to 32 hours to 27.5 to 28.5 for the Alliance.">
-</p>
-
-A chart of level against hours, as earlier releases drew, is not shown: the route check keeps each
-start's totals, not its hours to every level.
-
-> [!IMPORTANT]
-> The hours are **model estimates in /played hours**, not measurements. Time parameters such as
-> kill time and travel detours keep their priors, and Forever's 30-60 content is not in the data.
-> Comparisons between guides are what the numbers support; absolute hours are not. Recordings
-> from the Recorder are what will calibrate kill time (`forge sim calibrate`).
+Every leveling guide is checked the way a player follows it before it ships, for every race and
+class, and each round of routes is read step by step. Polestar is not a speed-leveling guide:
+the aim is a route that makes sense to play, with nothing pointless in it.
 
 Forge's model is in [docs/forge/model.md](docs/forge/model.md) and the route check in
 [docs/forge/judge.md](docs/forge/judge.md). The routes of releases up to 0.2.x came from an

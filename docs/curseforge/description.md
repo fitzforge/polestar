@@ -85,11 +85,9 @@ Quest item, target and Hearthstone buttons; XP per hour and time to level; selli
 
 ## How the routes are made
 
-The leveling routes are not hand-picked. Every race plays its own starting zone, then all the Horde races share one route from the Barrens to 60 and all the Alliance races one from Westfall. Polestar Forge builds them from the game's data and Forever's quest data (elite and group quests included, each with a solo way past), searches the order, writes the guides, and plays them the way a player follows them, refusing any step that can't be done as written: a quest before it is available, a flight path not learnt, a hearth on cooldown, a trip made twice. Every round is read step by step, and a fix from a player's report becomes a permanent record the next build keeps. Against 0.2.6, played by the same checker, 0.3.0 asks for no hearth on cooldown, follows the orders players reported, walks past about a quarter fewer open quests and grinds about 2.5 (Horde) to 3.5 (Alliance) hours less; the hours to 60 stay about the same, near 120 for the Horde and 122 for the Alliance.
+The leveling routes are not hand-picked. Every race plays its own starting zone, then all the Horde races share one route from the Barrens to 60 and all the Alliance races one from Westfall. Polestar Forge builds them from the game's data and Forever's quest data (elite and group quests included, each with a solo way past), searches the order, writes the guides, and plays them the way a player follows them, refusing any step that can't be done as written: a quest before it is available, a flight path not learnt, a hearth on cooldown, a trip made twice. Every round is read step by step, and a fix from a player's report becomes a permanent record the next build keeps. Towns are swept in one visit, class training comes on the way, rare drops are optional extras, and the hearthstone is never asked for while it cools down.
 
-![Chart: hours to 60 and hours of grinding per start, Polestar 0.3.0 against 0.2.6, as the route checker plays the guides](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/images/starts.png)
-
-*These hours are model estimates, not measured play. The method and every number are in the [README](https://github.com/fitzforge/polestar/blob/main/README.md#how-the-routes-are-made) and [docs/FORGE.md](https://github.com/fitzforge/polestar/blob/main/docs/FORGE.md).*
+*How the routes are made is in the [README](https://github.com/fitzforge/polestar/blob/main/README.md#how-the-routes-are-made) and [docs/FORGE.md](https://github.com/fitzforge/polestar/blob/main/docs/FORGE.md).*
 
 ---
 
