@@ -44,7 +44,10 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 
 test('Horde Call of Fire: hand in the carried trainer lead at Kranal before starting the shared ritual', { skip }, () => {
 	for (const file of ['forever/horde/02-the-barrens.guide', 'forever/horde/orc/02-the-barrens.guide', 'forever/horde/troll/02-the-barrens.guide']) {
-		const list = goals(file);
+		// An Orc or Troll Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the
+		// race's Durotar guide comes first.
+		const race = file.match(/\/(orc|troll)\//);
+		const list = [...(race ? goals(`forever/horde/${race[1]}/01-durotar.guide`) : []), ...goals(file)];
 		const start = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === 1524);
 		assert.ok(start >= 0, `${file}: the shared ritual is offered`);
 		for (const quest of [1522, 1523, 2983, 2984]) {
