@@ -1,9 +1,13 @@
 # How a route is made
 
-This page explains how Forge turns the shipped guides into a leveling route. A route is the order of
-quest steps one character plays from level 1 to 60. Forge starts from the order players already know
-(v1) and keeps only small edits that make it faster. Every edit is checked against the rules players
-asked for. Every quest the route leaves out is listed with the reason.
+This page explains how Forge turns the guides into a leveling route. A route is the order of quest
+steps one character plays from level 1 to 60: its race's own start zone, then its faction's shared
+route from the Barrens (Horde) or Westfall (Alliance) on ([section 8](#8-the-shared-12-60-route-and-join-points)).
+Forge starts from the order players already know (v1, the seed) and searches from there: the
+free search's bigger moves (a block moved, a stretch rebuilt), the edit descent's small ones, then
+the passes (pickups, hub sweeps, the written check). Every change is checked against the rules
+players asked for. Elite and group quests are taken where they pay, each with a solo fallback
+([Group quests](#group-quests)); every quest the route leaves out is listed with the reason.
 
 For the time model that prices a route (how long a kill, a walk or a flight takes), read
 [model.md](model.md). For the whole pipeline, start at [FORGE.md](../FORGE.md).
@@ -31,15 +35,23 @@ For each start, the routes stage:
 1. turns v1's guides into an order (the **seed**);
 2. applies the overrides file and v1's deliberate orders;
 3. adds class training stops;
-4. improves the order with **local edits**, one at a time, best first, until none saves time;
-5. adds **worthwhile pickups**: quests the route walks past that pay for their detour;
+4. searches the order: the **free search**, then **local edits**, one at a time, best first, until
+   none saves time (`--search hybrid`, which made the 0.3.0 routes; `--search edits`, the default,
+   runs the edits alone);
+5. adds **worthwhile pickups** and the other passes: quests the route walks past that pay for their
+   detour, a town's work done in one visit, a camp's work together, the written check;
 6. scores the result in several models and writes the route, the **skip ledger** and the **edit
    ledger**.
 
-In the model, the improved routes reach 60 a few hours sooner than v1, and the gain is checked
+A faction's starts share the order after their start zones; the search there keeps a change only
+when no start gets slower ([section 8](#8-the-shared-12-60-route-and-join-points)).
+
+In the model, the searched routes reach 60 a few hours sooner than v1, and the gain is checked
 against held-out parameter draws (see
 [model.md](model.md#counters-parameter-draws-and-the-held-out-gain)); each build's report has the
-numbers for its own data.
+numbers for its own data. Played by the route check as written (`check.md`), the guides of 0.3.0
+take about as long as 0.2.6's: the gain goes to fewer refused steps, fewer quests walked past and
+less grinding (README.md, "What changed in 0.3.0").
 
 ## 1. The v1 seed
 
