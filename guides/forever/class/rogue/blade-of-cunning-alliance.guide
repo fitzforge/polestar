@@ -98,7 +98,7 @@ step The Apple Falls
 step Syurna
   only NightElf
   zone Darnassus
-  tip Head west to Darnassus. Syurna is below ground in the Cenarion Enclave: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber riding trainer. Her map marker shows above ground.
+  tip Head west to Darnassus. Syurna is below ground in the Cenarion Enclave: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground.
   turnin 2241                                 -- Syurna
   accept 2242
 

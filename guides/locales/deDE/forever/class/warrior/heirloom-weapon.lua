@@ -40,7 +40,7 @@ return {
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post
 	["{npc:5810} at {area:379}"] = "",
 	-- {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1412} Mulgore · {area:380} Crossroads
-	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} ride north past the {area:380}."] = "",
+	["{npc:5810} is easy to miss: he stands under a small canopy by a large tree just west of {area:379}, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From {zone:1411} cross the bridge west; from {zone:1412} head north past the {area:380}."] = "",
 
 	-- Step 7: Singed Scales in Thunder Ridge
 	-- {area:369} Thunder Ridge

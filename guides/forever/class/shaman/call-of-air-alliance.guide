@@ -51,7 +51,7 @@ step Eldrun Stormbreaker
 
 step Veyric Thunderhame
   zone Arathi Highlands
-  tip Veyric Thunderhame camps in the hills just west of Hammerfall, the Horde town in the north-east of Arathi: mind its guards. Fly to Refuge Pointe and ride north-east.
+  tip Veyric Thunderhame camps in the hills just west of Hammerfall, the Horde town in the north-east of Arathi: mind its guards. Fly to Refuge Pointe and head north-east.
   turnin 94789 reward 5178                    -- Veyric Thunderhame: your Air Totem
   accept 96264
 
@@ -92,7 +92,7 @@ step Veyric Thunderhame
 
 step The steam pools
   zone Thousand Needles
-  tip Veyric hands you the Corrupted Totems. Thousand Needles is far: the boat to Theramore and the road west, or fly to Thalanaar on the Feralas border and ride east into the canyon. Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The Eye of the Tempest drops about every other kill, and every group member can loot it.
+  tip Veyric hands you the Corrupted Totems. Thousand Needles is far: the boat to Theramore and the road west, or fly to Thalanaar on the Feralas border and head east into the canyon. Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The Eye of the Tempest drops about every other kill, and every group member can loot it.
   collect 212792 quest 96135.1 group 3        -- Eye of the Tempest, from the Ravaging Tempest
 
 step Veyric Thunderhame

@@ -110,7 +110,7 @@ step Swoop
 step Holt Thunderhorn in Thunder Bluff
   only Tauren
   zone Thunder Bluff
-  tip Ride north to Thunder Bluff and take a lift up. Holt Thunderhorn stands with the hunter trainers on Hunter Rise; Hesuwa Thunderhorn, the pet trainer, is nearby.
+  tip Head north to Thunder Bluff and take a lift up. Holt Thunderhorn stands with the hunter trainers on Hunter Rise; Hesuwa Thunderhorn, the pet trainer, is nearby.
   turnin 6089                                 -- Holt Thunderhorn: Beast Training
 
 # ---------------------------------------------------------------- Skyborne: Quel'ana Quickgale in Valanaar

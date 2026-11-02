@@ -48,7 +48,7 @@ step Seeking Strahad (Undercity)
 
 step Strahad Farsan
   zone The Barrens
-  tip Ratchet's flight point is a short ride from Orgrimmar's. Strahad Farsan stands on the hill above the town, behind the engineers' hut, by his little tower; Menara Voidrender and two acolytes are with him. He sends you to Jorah Annison in the Undercity.
+  tip Ratchet's flight point is a short flight from Orgrimmar's. Strahad Farsan stands on the hill above the town, behind the engineers' hut, by his little tower; Menara Voidrender and two acolytes are with him. He sends you to Jorah Annison in the Undercity.
   turnin 2996 only Orc,Troll          -- Strahad Farsan
   turnin 3001 only Undead             -- Strahad Farsan
   accept 1801

@@ -50,7 +50,7 @@ step Gakin's Summons (Gnomes)
 
 step Devourer of Souls
   zone Stormwind City
-  tip At 20 Gakin the Darkbinder, in the cellar of the Slaughtered Lamb in the Mage Quarter, sends you to Takar the Seer in the Barrens: a long trip for the Alliance. Take the boat from Menethil Harbor to Theramore and ride west through Dustwallow Marsh, or the boat from Booty Bay to Ratchet.
+  tip At 20 Gakin the Darkbinder, in the cellar of the Slaughtered Lamb in the Mage Quarter, sends you to Takar the Seer in the Barrens: a long trip for the Alliance. Take the boat from Menethil Harbor to Theramore and head west through Dustwallow Marsh, or the boat from Booty Bay to Ratchet.
   level 20
   turnin 1717 only Gnome              -- Gakin the Darkbinder
   accept 1716                         -- Gakin the Darkbinder

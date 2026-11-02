@@ -52,7 +52,7 @@ return {
 
 	-- Step 10: Syurna
 	-- {zone:1457} Darnassus · {npc:4163} Syurna · {area:1658} Cenarion Enclave
-	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber riding trainer. Her map marker shows above ground."] = "",
+	["Head west to {zone:1457}. {npc:4163} is below ground in the {area:1658}: the way down is the opening at the foot of the split tree left of the Arch Druid's tree, near the nightsaber trainer. Her map marker shows above ground."] = "",
 
 	-- Step 11: Sethir the Ancient
 	-- {npc:6909} Sethir the Ancient · {area:264} Oracle Glade · {spell:2983} Sprint

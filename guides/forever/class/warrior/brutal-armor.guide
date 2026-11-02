@@ -95,7 +95,7 @@ step Windshear Mine
 
 step Hillsbrad Miners
   zone Hillsbrad Foothills
-  tip You need 10 Powdered Azurite. The Hillsbrad Miners (level 26-27) work the mine in the hills west of Southshore and drop the azurite four kills in five; they fight in Defensive Stance, sunder your armor and run for help at 30% health. Fly to Tarren Mill and ride south-west.
+  tip You need 10 Powdered Azurite. The Hillsbrad Miners (level 26-27) work the mine in the hills west of Southshore and drop the azurite four kills in five; they fight in Defensive Stance, sunder your armor and run for help at 30% health. Fly to Tarren Mill and head south-west.
   collect 7127 x10 quest 1838.2               -- Powdered Azurite, from the Hillsbrad Miners
 
 step Iron Bars
@@ -155,7 +155,7 @@ step Velora Nitely
 
 step Dragonmaw Shinbones
   zone Wetlands
-  tip The Dragonmaw orcs (level 26-30) camp in the middle of the Wetlands; from Hammerfall in Arathi ride south over the Thandol Span (Menethil Harbor is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a Dragonmaw Shinbone: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast Shadow Bolt, Bonewarders raise skeletons.
+  tip The Dragonmaw orcs (level 26-30) camp in the middle of the Wetlands; from Hammerfall in Arathi head south over the Thandol Span (Menethil Harbor is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a Dragonmaw Shinbone: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast Shadow Bolt, Bonewarders raise skeletons.
   collect 7131 "Dragonmaw Shinbone" optional  -- from the Dragonmaw orcs: right-click to test it
   collect 7134 x8 quest 1846.1                -- Sturdy Dragonmaw Shinbone
 

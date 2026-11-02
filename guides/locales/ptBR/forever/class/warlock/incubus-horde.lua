@@ -64,12 +64,12 @@ return {
 	-- Step 11: Silverpine hearts
 	["Silverpine hearts"] = "",
 	-- {npc:185333} Avelina Lilly · {area:279} Dalaran · {area:233} Ambermill · {npc:5682} Dalin Forgewright · {area:230} Greymane Wall
-	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) rides near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
+	["{npc:185333} (level 22) works as a tailor for the {area:279} wizards at {area:233}, in eastern Silverpine: the wizards around her are hostile. {npc:5682} (level 20, not elite) patrols near the {area:230} in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart."] = "",
 
 	-- Step 12: Corma Villard
 	["Corma Villard"] = "",
 	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} ride through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
 	["Corma's Heart"] = "",
 
 	-- Step 13: The Binding: succubus (Undercity)
@@ -82,7 +82,7 @@ return {
 
 	-- Step 14: Isaac Pearson
 	-- {npc:185334} Isaac Pearson · {area:392} Ratchet · {zone:1413} Barrens · {zone:1411} Durotar · {zone:1454} Orgrimmar
-	["{npc:185334} (level 22) works in {area:392}, on the {zone:1413} coast, at one of two spots in town: take the zeppelin to {zone:1411} and ride south, or fly from {zone:1454}. He is an Alliance-friendly human: attacking him can flag you for PvP."] = "",
+	["{npc:185334} (level 22) works in {area:392}, on the {zone:1413} coast, at one of two spots in town: take the zeppelin to {zone:1411} and head south, or fly from {zone:1454}. He is an Alliance-friendly human: attacking him can flag you for PvP."] = "",
 
 	-- Step 15: The Binding: incubus (Undercity)
 	-- {quest:65597} The Binding · {zone:1458} Undercity

@@ -24,7 +24,7 @@ why A rare off-hand orb or staff for your 20s, for fragments from two dungeons.
 # notes (data/local/mechanics) for where the mobs stand inside.
 
 step Doan Karhan
-  tip Doan Karhan camps beside Takar the Seer, at a tent just north-east of Camp Taurajo in the southern Barrens. Alliance warlocks reach him from Ratchet or Theramore; Horde ones ride south from the Crossroads. He wants fragments from two dungeons: take the quest before your Blackfathom Deeps and Shadowfang Keep runs.
+  tip Doan Karhan camps beside Takar the Seer, at a tent just north-east of Camp Taurajo in the southern Barrens. Alliance warlocks reach him from Ratchet or Theramore; Horde ones head south from the Crossroads. He wants fragments from two dungeons: take the quest before your Blackfathom Deeps and Shadowfang Keep runs.
   level 20
   accept 1740                         -- Doan Karhan
 

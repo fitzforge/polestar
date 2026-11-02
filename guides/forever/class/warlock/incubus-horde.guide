@@ -130,13 +130,13 @@ step Devourer of Souls (Undercity)
 
 step Silverpine hearts
   zone Silverpine Forest
-  tip Avelina Lilly (level 22) works as a tailor for the Dalaran wizards at Ambermill, in eastern Silverpine: the wizards around her are hostile. Dalin Forgewright (level 20, not elite) rides near the Greymane Wall in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart.
+  tip Avelina Lilly (level 22) works as a tailor for the Dalaran wizards at Ambermill, in eastern Silverpine: the wizards around her are hostile. Dalin Forgewright (level 20, not elite) patrols near the Greymane Wall in the far south. Both are Alliance-friendly humans: attacking them can flag you for PvP. Each drops her or his heart.
   collect 190179 quest 65593.1        -- Avelina's Heart
   collect 6312 quest 1476.1           -- Dalin's Heart
 
 step Corma Villard
   zone Wetlands
-  tip Corma Villard (level 22, not elite; Comar in older records) wanders the north of the Wetlands just past the Thandol Span, to the right as you come off the bridge. From the Undercity ride through Hillsbrad and Arathi Highlands, where the mobs are 30 and up. Attacking her flags you for PvP.
+  tip Corma Villard (level 22, not elite; Comar in older records) wanders the north of the Wetlands just past the Thandol Span, to the right as you come off the bridge. From the Undercity head through Hillsbrad and Arathi Highlands, where the mobs are 30 and up. Attacking her flags you for PvP.
   collect 6313 quest 1476.2           -- Corma's Heart
 
 step The Binding: succubus (Undercity)
@@ -150,7 +150,7 @@ step The Binding: succubus (Undercity)
 
 step Isaac Pearson
   zone The Barrens
-  tip Isaac Pearson (level 22) works in Ratchet, on the Barrens coast, at one of two spots in town: take the zeppelin to Durotar and ride south, or fly from Orgrimmar. He is an Alliance-friendly human: attacking him can flag you for PvP.
+  tip Isaac Pearson (level 22) works in Ratchet, on the Barrens coast, at one of two spots in town: take the zeppelin to Durotar and head south, or fly from Orgrimmar. He is an Alliance-friendly human: attacking him can flag you for PvP.
   collect 190180 quest 65593.2        -- Isaac's Heart
 
 step The Binding: incubus (Undercity)

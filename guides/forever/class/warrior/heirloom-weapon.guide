@@ -88,7 +88,7 @@ step Veteran Uzzek (Mulgore)
 step Uzzek at Far Watch Post
   only Orc,Troll,Tauren,Skyborne
   zone The Barrens
-  tip Uzzek is easy to miss: he stands under a small canopy by a large tree just west of Far Watch Post, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From Durotar cross the bridge west; from Mulgore ride north past the Crossroads.
+  tip Uzzek is easy to miss: he stands under a small canopy by a large tree just west of Far Watch Post, below the road's south side, with the post in sight to his east. Going straight south from the post does not lead to him. From Durotar cross the bridge west; from Mulgore head north past the Crossroads.
   turnin 1505                                 -- Uzzek
   accept 1498
 

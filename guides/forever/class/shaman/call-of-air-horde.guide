@@ -94,7 +94,7 @@ step Searn Firewarder
 step Alaana Stormwalker
   only Skyborne
   zone Mulgore
-  tip At 30 Skyborne shamans get their own Call of Air. Alaana Stormwalker waits where the airship from Zephras Isle lands, in northern Mulgore beside Thunder Bluff. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, ride up to Xanis Flameweaver in Thunder Bluff (next step): the trainers' Call of Air is open to Skyborne and gives the same totem.
+  tip At 30 Skyborne shamans get their own Call of Air. Alaana Stormwalker waits where the airship from Zephras Isle lands, in northern Mulgore beside Thunder Bluff. Your level 30 air totems need the Air Totem Prate Cloudseer gives. If she has nothing for you, head up to Xanis Flameweaver in Thunder Bluff (next step): the trainers' Call of Air is open to Skyborne and gives the same totem.
   level 30
   accept 96136 npc 259119 optional            -- Alaana Stormwalker
 
