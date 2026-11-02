@@ -3,6 +3,8 @@
 // replaces it with a plain-DOM page that says so, with the details to report.
 // Plain DOM on purpose: it must work when Svelte itself is what failed.
 
+import { t } from './i18n.svelte';
+
 let shown = false;
 
 function text(e: unknown): string {
@@ -30,20 +32,20 @@ export function fault(title: string, error: unknown): void {
 	h.textContent = title;
 	const p = document.createElement('p');
 	p.className = 'note';
-	p.textContent = 'Polestar Client hit a problem it could not recover from. Restart it from the tray (Quit, then open it again). If it happens again, copy the details below into a report on GitHub or the Polestar Discord.';
+	p.textContent = t('Polestar Client hit a problem it could not recover from. Restart it from the tray (Quit, then open it again). If it happens again, copy the details below into a report on GitHub or the Polestar Discord.');
 	const pre = document.createElement('pre');
 	pre.textContent = text(error);
 	const actions = document.createElement('div');
 	actions.className = 'fault-actions';
 	const reload = document.createElement('button');
 	reload.className = 'btn primary';
-	reload.textContent = 'Reload the window';
+	reload.textContent = t('Reload the window');
 	reload.onclick = () => location.reload();
 	const copy = document.createElement('button');
 	copy.className = 'btn';
-	copy.textContent = 'Copy details';
+	copy.textContent = t('Copy details');
 	copy.onclick = () => {
-		void navigator.clipboard.writeText(`${title}\n\n${pre.textContent}`).then(() => (copy.textContent = 'Copied'));
+		void navigator.clipboard.writeText(`${title}\n\n${pre.textContent}`).then(() => (copy.textContent = t('Copied')));
 	};
 	actions.append(reload, copy);
 	page.append(h, p, pre, actions);
@@ -51,6 +53,6 @@ export function fault(title: string, error: unknown): void {
 }
 
 export function watchFaults(): void {
-	window.addEventListener('error', (e) => fault('Something went wrong', e.error ?? e.message));
-	window.addEventListener('unhandledrejection', (e) => fault('Something went wrong', e.reason));
+	window.addEventListener('error', (e) => fault(t('Something went wrong'), e.error ?? e.message));
+	window.addEventListener('unhandledrejection', (e) => fault(t('Something went wrong'), e.reason));
 }

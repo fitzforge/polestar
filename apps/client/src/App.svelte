@@ -17,6 +17,7 @@
 	import Settings from './screens/Settings.svelte';
 	import OptIn from './components/OptIn.svelte';
 	import Glyph from './components/Glyph.svelte';
+	import { t } from './lib/i18n.svelte';
 
 	/** The sky turns a little with each page down the sidebar. */
 	const drift = $derived(SCREENS.indexOf(app.screen) * 48);
@@ -33,8 +34,8 @@
 	const custom = $derived(
 		app.snapshot
 			? [
-					app.snapshot.custom.community && `Using a custom community site: ${host(app.snapshot.custom.community)}`,
-					app.snapshot.custom.server && `Sending recordings to a custom server: ${host(app.snapshot.custom.server)}`,
+					app.snapshot.custom.community && t('Using a custom community site: {host}', { host: host(app.snapshot.custom.community) }),
+					app.snapshot.custom.server && t('Sending recordings to a custom server: {host}', { host: host(app.snapshot.custom.server) }),
 				].filter((line): line is string => !!line)
 			: [],
 	);
@@ -42,10 +43,10 @@
 
 {#snippet pageFault(error: unknown, reset: () => void)}
 	<div class="page-fault">
-		<h1>This page hit a problem</h1>
-		<p class="note">The rest of Polestar Client still works. Try the page again; if it keeps happening, copy the details into a report.</p>
+		<h1>{t('This page hit a problem')}</h1>
+		<p class="note">{t('The rest of Polestar Client still works. Try the page again; if it keeps happening, copy the details into a report.')}</p>
 		<pre class="selectable">{error instanceof Error ? `${error.message}\n\n${error.stack ?? ''}` : String(error)}</pre>
-		<div><button class="btn primary" onclick={reset}>Try again</button></div>
+		<div><button class="btn primary" onclick={reset}>{t('Try again')}</button></div>
 	</div>
 {/snippet}
 
@@ -106,7 +107,7 @@
 		<Glyph name="info" size={13} color="var(--warning)" />
 		<p class="small">{custom.join(' · ')}</p>
 		{#if app.snapshot?.setupDone}
-			<button class="link small" onclick={() => go('settings')}>Settings</button>
+			<button class="link small" onclick={() => go('settings')}>{t('Settings')}</button>
 		{/if}
 	</div>
 {/if}

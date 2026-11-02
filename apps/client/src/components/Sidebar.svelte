@@ -2,6 +2,7 @@
 	import { onMount, tick } from 'svelte';
 	import { app, go, type Screen } from '../lib/app.svelte';
 	import { STATUS } from '../lib/status';
+	import { msg, t, tn } from '../lib/i18n.svelte';
 	import type { Snapshot } from '../lib/types';
 	import Beacon from './Beacon.svelte';
 	import Emblem from './Emblem.svelte';
@@ -13,13 +14,13 @@
 
 	type Item = { id: Screen; label: string; glyph: string };
 	const top: Item[] = [
-		{ id: 'addons', label: 'Addons', glyph: 'layers' },
-		{ id: 'community', label: 'Community Guides', glyph: 'star' },
-		{ id: 'activity', label: 'Activity', glyph: 'compact' },
+		{ id: 'addons', label: msg('Addons'), glyph: 'layers' },
+		{ id: 'community', label: msg('Community Guides'), glyph: 'star' },
+		{ id: 'activity', label: msg('Activity'), glyph: 'compact' },
 	];
 	const recording: Item[] = [
-		{ id: 'home', label: 'Status', glyph: 'record' },
-		{ id: 'sending', label: 'What we send', glyph: 'eye' },
+		{ id: 'home', label: msg('Status'), glyph: 'record' },
+		{ id: 'sending', label: msg('What we send'), glyph: 'eye' },
 	];
 	const status = $derived(STATUS[snapshot.status.kind]);
 	// Polestar's own addons and the community packs with an update the game can take.
@@ -72,31 +73,31 @@
 		{@const active = app.screen === item.id}
 		<button class="nav" class:active bind:this={rows[item.id]} onclick={() => go(item.id)} aria-current={active ? 'page' : undefined}>
 			<Glyph name={item.glyph} color={active ? 'var(--accent)' : 'var(--textDim)'} />
-			<span class="nav-label">{item.label}</span>
+			<span class="nav-label">{t(item.label)}</span>
 			{#if item.id === 'addons' && updates > 0}
-				<span class="badge" title="{updates} {updates === 1 ? 'update' : 'updates'} ready">{updates}</span>
+				<span class="badge" title={tn('{count} update ready', '{count} updates ready', updates)}>{updates}</span>
 			{:else if item.id === 'home' && attention}
 				<span class="dot" title={snapshot.status.title}></span>
 			{/if}
 		</button>
 	{/snippet}
 
-	<nav aria-label="Pages">
+	<nav aria-label={t('Pages')}>
 		{#each top as item (item.id)}{@render row(item)}{/each}
-		<div class="heading small">Recording</div>
+		<div class="heading small">{t('Recording')}</div>
 		{#each recording as item (item.id)}{@render row(item)}{/each}
 	</nav>
 
 	<div class="bottom">
-		{@render row({ id: 'settings', label: 'Settings', glyph: 'sliders' })}
+		{@render row({ id: 'settings', label: msg('Settings'), glyph: 'sliders' })}
 		<button class="state" onclick={() => go('home')} title={snapshot.status.title}>
 			<Beacon kind={snapshot.status.kind} size={7} />
-			<span class="state-label small">{snapshot.consent ? status.short : 'Sharing off'}</span>
+			<span class="state-label small">{snapshot.consent ? t(status.short) : t('Sharing off')}</span>
 		</button>
 		<div class="version small">
 			<span>Client <span class="num">{snapshot.version}</span></span>
 			{#if snapshot.update}
-				<button class="chip accent update" onclick={() => go('settings')}>Update to {snapshot.update}</button>
+				<button class="chip accent update" onclick={() => go('settings')}>{t('Update to {version}', { version: snapshot.update })}</button>
 			{/if}
 		</div>
 	</div>

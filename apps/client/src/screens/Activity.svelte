@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { app } from '../lib/app.svelte';
 	import { api } from '../lib/backend';
-	import { bytes, count, plural, when } from '../lib/format';
+	import { bytes, date, when } from '../lib/format';
+	import { msg, t, tn } from '../lib/i18n.svelte';
 	import { rise } from '../lib/motion';
 	import type { ActivityEntry, Snapshot } from '../lib/types';
 	import PageHeader from '../components/PageHeader.svelte';
@@ -22,19 +23,21 @@
 		api.activity().then((list) => (entries = list));
 	});
 
+	/** What happened to an addon or guide, done and failed; `{name}` is it and its version. */
 	const VERB: Record<string, [string, string]> = {
-		install: ['Installed', "Couldn't install"],
-		update: ['Updated', "Couldn't update"],
-		repair: ['Repaired', "Couldn't repair"],
-		uninstall: ['Removed', "Couldn't remove"],
-		restored: ['Restored', "Couldn't restore"],
+		install: [msg('Installed {name}'), msg("Couldn't install {name}")],
+		update: [msg('Updated {name}'), msg("Couldn't update {name}")],
+		repair: [msg('Repaired {name}'), msg("Couldn't repair {name}")],
+		uninstall: [msg('Removed {name}'), msg("Couldn't remove {name}")],
+		restored: [msg('Restored {name}'), msg("Couldn't restore {name}")],
 	};
-	const clock = new Intl.DateTimeFormat('en-GB', { hour: '2-digit', minute: '2-digit' });
+	const clock = (ms: number) => date(ms, { hour: '2-digit', minute: '2-digit' });
+	const named = (e: ActivityEntry) => `${e.product ?? ''}${e.version ? ` ${e.version}` : ''}`;
 
 	/** When a batch that failed went through after all (the next upload after it). */
 	function sentAgain(i: number): string | null {
 		if (!entries) return null;
-		for (let j = i - 1; j >= 0; j--) if (entries[j].kind === 'upload') return clock.format(entries[j].at);
+		for (let j = i - 1; j >= 0; j--) if (entries[j].kind === 'upload') return clock(entries[j].at);
 		return null;
 	}
 
@@ -44,7 +47,7 @@
 	const expand = (e: ActivityEntry) => (e.kind !== 'failed' && e.rejected.length > 0) || !!e.message;
 </script>
 
-<PageHeader title="Activity" subtitle="Every upload and addon change on this PC, newest first. The last 500 are kept, on this PC only." />
+<PageHeader title={t('Activity')} subtitle={`${t('Every upload and addon change on this PC, newest first.')} ${t('The last 500 are kept, on this PC only.')}`} />
 
 <div class="body">
 	<div class="column">
@@ -52,8 +55,8 @@
 			<div class="empty" in:rise>
 				<div class="watermark" aria-hidden="true"><Emblem size={168} /></div>
 				<span class="halo"><Glyph name="compact" size={36} color="var(--accent)" /></span>
-				<h3>Nothing yet</h3>
-				<p class="note">Addon installs and updates show up here, and so does each upload once you share your play: every time the game saves the Recorder's file (when you log out or type /reload).</p>
+				<h3>{t('Nothing yet')}</h3>
+				<p class="note">{t("Addon installs and updates show up here, and so does each upload once you share your play: every time the game saves the Recorder's file (when you log out or type /reload).")}</p>
 			</div>
 		{:else if entries}
 			<div class="list" role="list">
@@ -65,37 +68,37 @@
 							<span class="kind"><Glyph name={glyph(entry)} size={14} color={entry.kind === 'failed' || entry.message || revoked(entry) ? 'var(--warning)' : entry.product ? 'var(--textDim)' : 'var(--accent)'} /></span>
 							<span class="what">
 								{#if entry.kind === 'deleted'}
-									Your data was deleted from the server
+									{t('Your data was deleted from the server')}
 								{:else if revoked(entry)}
-									{entry.product}{entry.version ? ` ${entry.version}` : ''} {entry.kind === 'disabled' ? 'turned off' : 'removed'} by the community site
+									{entry.kind === 'disabled' ? t('{name} turned off by the community site', { name: named(entry) }) : t('{name} removed by the community site', { name: named(entry) })}
 								{:else if entry.kind === 'restored' && !entry.message}
-									{entry.product}{entry.version ? ` ${entry.version}` : ''} restored
+									{t('{name} restored', { name: named(entry) })}
 								{:else if entry.product}
-									{VERB[entry.kind][entry.message ? 1 : 0]} {entry.product}{entry.version ? ` ${entry.version}` : ''}
+									{t(VERB[entry.kind][entry.message ? 1 : 0], { name: named(entry) })}
 								{:else}
-									{entry.kind === 'failed' ? 'Tried to share' : 'Shared'} {bytes(entry.bytes)} of play
-									<span class="muted small" title={entry.account ? `From the ${entry.account} account folder` : undefined}>· {plural(entry.records, 'event', 'events')}</span>
+									{entry.kind === 'failed' ? t('Tried to share {size} of play', { size: bytes(entry.bytes) }) : t('Shared {size} of play', { size: bytes(entry.bytes) })}
+									<span class="muted small" title={entry.account ? t('From the {account} account folder', { account: entry.account }) : undefined}>· {tn('{count} event', '{count} events', entry.records)}</span>
 								{/if}
 							</span>
 							<span class="when num muted">{when(entry.at, app.now)}</span>
 							<span class="result">
 								{#if entry.kind === 'deleted'}
-									<span class="chip">Fresh start</span>
+									<span class="chip">{t('Fresh start')}</span>
 								{:else if entry.kind === 'disabled'}
-									<span class="chip warning">Turned off</span>
+									<span class="chip warning">{t('Turned off')}</span>
 								{:else if entry.kind === 'removed'}
-									<span class="chip danger">Removed</span>
+									<span class="chip danger">{t('Removed')}</span>
 								{:else if entry.product}
-									{#if entry.message}<span class="chip warning">Failed</span>{:else}<span class="chip">{entry.kind === 'restored' ? 'Guide' : 'Addon'}</span>{/if}
+									{#if entry.message}<span class="chip warning">{t('Failed')}</span>{:else}<span class="chip">{entry.kind === 'restored' ? t('Guide') : t('Addon')}</span>{/if}
 								{:else if entry.kind === 'failed'}
-									<span class="chip warning">{again ? `Not delivered · sent again ${again}` : 'Not delivered yet'}</span>
+									<span class="chip warning">{again ? t('Not delivered · sent again {time}', { time: again }) : t('Not delivered yet')}</span>
 								{:else}
 									{#if entry.rejected.length}
-										<span class="chip warning">{count(entry.rejected.length)} skipped</span>
+										<span class="chip warning">{tn('{count} skipped', '{count} skipped', entry.rejected.length)}</span>
 									{:else if entry.duplicate.length && !entry.accepted.length}
-										<span class="chip" title="The server already had it: nothing is stored twice">Already there</span>
+										<span class="chip" title={t('The server already had it: nothing is stored twice')}>{t('Already there')}</span>
 									{:else}
-										<span class="chip success">Received</span>
+										<span class="chip success">{t('Received')}</span>
 									{/if}
 								{/if}
 								<span class="chev" aria-hidden="true">{#if expandable}<Glyph name="chevron-down" size={12} color="var(--textDim)" />{/if}</span>
@@ -105,7 +108,7 @@
 							<div class="detail" in:rise={{ y: 4, duration: 180 }}>
 								{#if entry.message}<p class="note selectable">{entry.message}</p>{/if}
 								{#if entry.kind !== 'failed' && entry.rejected.length}
-									<p class="note">The server couldn't read {entry.rejected.length === 1 ? 'one part' : `${entry.rejected.length} parts`} of this upload and skipped {entry.rejected.length === 1 ? 'it' : 'them'}. Everything else arrived; there is nothing for you to do.</p>
+									<p class="note">{tn("The server couldn't read one part of this upload and skipped it.", "The server couldn't read {count} parts of this upload and skipped them.", entry.rejected.length)} {t('Everything else arrived; there is nothing for you to do.')}</p>
 									{#each entry.rejected as r, j (j)}
 										<p class="small muted selectable reason">{r.reason}</p>
 									{/each}
@@ -160,11 +163,11 @@
 		display: grid;
 		place-items: center;
 	}
+	/* Wraps rather than cutting a line short: German and Russian say it at length. */
 	.what {
 		min-width: 0;
-		overflow: hidden;
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		padding: 6px 0;
+		overflow-wrap: break-word;
 	}
 	.when {
 		text-align: right;

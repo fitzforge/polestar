@@ -102,6 +102,26 @@
 	color-scheme: dark;
 }
 
+/* Inter has Latin and Cyrillic; Korean and Chinese come from the system's own fonts, the
+   language's first (Windows, macOS, then Linux's Noto/Source Han), so Han characters take the
+   shapes of the language on screen (main.ts sets <html lang>). Every language keeps the others
+   after it, for a guide title in another script. */
+:root {
+	--font: 'Inter', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Source Han Sans SC', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', sans-serif;
+}
+:root:lang(ko) {
+	--font: 'Inter', 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans CJK KR', 'Noto Sans KR', 'Source Han Sans K', 'NanumGothic', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+	/* Korean wraps between words, not inside them. */
+	word-break: keep-all;
+	overflow-wrap: break-word;
+}
+:root:lang(zh-CN) {
+	--font: 'Inter', 'Microsoft YaHei', 'PingFang SC', 'Noto Sans CJK SC', 'Noto Sans SC', 'Source Han Sans SC', 'WenQuanYi Micro Hei', 'Malgun Gothic', sans-serif;
+}
+:root:lang(zh-TW) {
+	--font: 'Inter', 'Microsoft JhengHei', 'PingFang TC', 'Noto Sans CJK TC', 'Noto Sans TC', 'Source Han Sans TC', 'Microsoft YaHei', 'Malgun Gothic', sans-serif;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -113,7 +133,7 @@ body {
 	overflow: hidden;
 	background: var(--bg);
 	color: var(--text);
-	font-family: 'Inter', sans-serif;
+	font-family: var(--font);
 	font-size: 13px;
 	font-weight: 500;
 	line-height: 1.4;
@@ -232,6 +252,8 @@ input {
 	gap: 6px;
 	height: 28px;
 	min-width: 72px;
+	/* A button keeps its whole label; the text beside it wraps instead. */
+	flex-shrink: 0;
 	padding: 0 14px;
 	border: 1px solid var(--border);
 	background: var(--panelAlt);
@@ -437,12 +459,12 @@ input {
 	border-bottom: 1px solid var(--divider);
 	min-width: 0;
 }
+/* A label too long for its column (German, Russian) wraps onto a second line. */
 .row > .label {
 	flex: 1;
 	min-width: 0;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
+	padding: 6px 0;
+	overflow-wrap: break-word;
 }
 .row > .value {
 	color: var(--text);

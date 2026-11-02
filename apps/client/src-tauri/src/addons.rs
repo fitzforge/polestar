@@ -63,7 +63,8 @@ pub enum Folders {
 pub struct Product {
 	pub id: &'static str,
 	pub name: &'static str,
-	pub blurb: &'static str,
+	/// What it is, in the player's language.
+	pub blurb: fn() -> String,
 	/// The folder whose .toc carries the installed version.
 	pub main: &'static str,
 	pub folders: Folders,
@@ -83,7 +84,7 @@ pub const PRODUCTS: [Product; 3] = [
 	Product {
 		id: "polestar",
 		name: "Polestar",
-		blurb: "Leveling guides, the arrow, Lookup, Dungeons and Rares",
+		blurb: || t!("Leveling guides, the arrow, Lookup, Dungeons and Rares"),
 		main: "Polestar",
 		folders: Folders::Polestar,
 		asset_prefix: "Polestar-",
@@ -92,7 +93,7 @@ pub const PRODUCTS: [Product; 3] = [
 	Product {
 		id: "recorder",
 		name: "Polestar Recorder",
-		blurb: "Records your play for the recording program (off until you turn it on)",
+		blurb: || t!("Records your play for the recording program (off until you turn it on)"),
 		main: "Polestar_Recorder",
 		folders: Folders::One("Polestar_Recorder"),
 		asset_prefix: "Polestar_Recorder-",
@@ -101,7 +102,7 @@ pub const PRODUCTS: [Product; 3] = [
 	Product {
 		id: "libforeverdata",
 		name: "LibForeverData",
-		blurb: "WoW: Forever's quests, NPCs and items as a library for other addons",
+		blurb: || t!("WoW: Forever's quests, NPCs and items as a library for other addons"),
 		main: "LibForeverData",
 		folders: Folders::One("LibForeverData"),
 		asset_prefix: "LibForeverData-",
@@ -174,15 +175,15 @@ pub async fn releases(http: &reqwest::Client, beta: bool) -> Result<BTreeMap<&'s
 		.header("X-GitHub-Api-Version", "2022-11-28")
 		.send()
 		.await
-		.map_err(|e| format!("Could not reach GitHub: {e}"))?;
+		.map_err(|e| t!("Could not reach GitHub: {error}", error = e))?;
 	let status = response.status();
 	if status == reqwest::StatusCode::FORBIDDEN || status == reqwest::StatusCode::TOO_MANY_REQUESTS {
-		return Err("GitHub is limiting requests from this network for now; try again in an hour.".to_owned());
+		return Err(t!("GitHub is limiting requests from this network for now; try again in an hour."));
 	}
 	if !status.is_success() {
-		return Err(format!("GitHub answered {status}."));
+		return Err(t!("GitHub answered {status}.", status = status));
 	}
-	let releases: Vec<GhRelease> = response.json().await.map_err(|e| format!("Could not read GitHub's answer: {e}"))?;
+	let releases: Vec<GhRelease> = response.json().await.map_err(|e| t!("Could not read GitHub's answer: {error}", error = e))?;
 	let mut out: BTreeMap<&'static str, Vec<Release>> = BTreeMap::new();
 	for release in releases {
 		if release.draft || (release.prerelease && !beta) {
@@ -288,19 +289,19 @@ impl Progress {
 /// Downloads an asset, telling `progress` the bytes so far and the total when known.
 async fn download(http: &reqwest::Client, asset: &Asset, progress: &(dyn Fn(u64, Option<u64>) + Sync)) -> Result<Vec<u8>, String> {
 	if asset.size > MAX_ZIP {
-		return Err(format!("{} is {} MB, far bigger than any Polestar addon; not installing it.", asset.name, asset.size / 1_000_000));
+		return Err(t!("{file} is {size} MB, far bigger than any Polestar addon; not installing it.", file = asset.name, size = asset.size / 1_000_000));
 	}
-	let failed = |e: reqwest::Error| format!("Downloading {} failed: {e}", asset.name);
+	let failed = |e: reqwest::Error| t!("Downloading {file} failed: {error}", file = asset.name, error = e);
 	let mut response = http.get(&asset.url).send().await.map_err(failed)?;
 	if !response.status().is_success() {
-		return Err(format!("Downloading {} failed: GitHub answered {}.", asset.name, response.status()));
+		return Err(t!("Downloading {file} failed: GitHub answered {status}.", file = asset.name, status = response.status()));
 	}
 	let total = response.content_length().filter(|&n| n > 0).or((asset.size > 0).then_some(asset.size));
 	let mut bytes = Vec::with_capacity(total.unwrap_or(0).min(MAX_ZIP) as usize);
 	while let Some(chunk) = response.chunk().await.map_err(failed)? {
 		bytes.extend_from_slice(&chunk);
 		if bytes.len() as u64 > MAX_ZIP {
-			return Err(format!("{} is far bigger than any Polestar addon; not installing it.", asset.name));
+			return Err(t!("{file} is far bigger than any Polestar addon; not installing it.", file = asset.name));
 		}
 		progress(bytes.len() as u64, total);
 	}
@@ -311,17 +312,17 @@ async fn download(http: &reqwest::Client, asset: &Asset, progress: &(dyn Fn(u64,
 /// least one of them must be there.
 async fn verify(http: &reqwest::Client, release: &Release, bytes: &[u8]) -> Result<(), String> {
 	let have = hex(&Sha256::digest(bytes));
-	let mismatch = || format!("{} does not match the checksum published for it, so it was not installed. Try again later.", release.asset.name);
+	let mismatch = || t!("{file} does not match the checksum published for it, so it was not installed. Try again later.", file = release.asset.name);
 	let mut checked = false;
 	if let Some(digest) = &release.asset.digest {
-		let want = digest.strip_prefix("sha256:").ok_or_else(|| format!("GitHub gave a checksum this client cannot read ({digest})."))?;
+		let want = digest.strip_prefix("sha256:").ok_or_else(|| t!("GitHub gave a checksum this client cannot read ({digest}).", digest = digest))?;
 		if !have.eq_ignore_ascii_case(want) {
 			return Err(mismatch());
 		}
 		checked = true;
 	}
 	if let Some(sums) = &release.sums {
-		let text = String::from_utf8(download(http, sums, &|_, _| {}).await?).map_err(|_| "SHA256SUMS is not text.".to_owned())?;
+		let text = String::from_utf8(download(http, sums, &|_, _| {}).await?).map_err(|_| t!("SHA256SUMS is not text."))?;
 		let want = text.lines().find_map(|l| {
 			let (sum, file) = l.split_once(char::is_whitespace)?;
 			(file.trim().trim_start_matches('*') == release.asset.name).then(|| sum.trim().to_owned())
@@ -329,13 +330,13 @@ async fn verify(http: &reqwest::Client, release: &Release, bytes: &[u8]) -> Resu
 		match want {
 			Some(want) if want.eq_ignore_ascii_case(&have) => checked = true,
 			Some(_) => return Err(mismatch()),
-			None => return Err(format!("The release's SHA256SUMS does not list {}; not installing it.", release.asset.name)),
+			None => return Err(t!("The release's SHA256SUMS does not list {file}; not installing it.", file = release.asset.name)),
 		}
 	}
 	if checked {
 		Ok(())
 	} else {
-		Err(format!("GitHub publishes no checksum for {}, so it can't be checked; not installing it.", release.asset.name))
+		Err(t!("GitHub publishes no checksum for {file}, so it can't be checked; not installing it.", file = release.asset.name))
 	}
 }
 
@@ -348,8 +349,8 @@ pub async fn install(http: &reqwest::Client, product: &'static Product, release:
 	report(Progress::step("install"));
 	let addons = addons.to_owned();
 	tauri::async_runtime::spawn_blocking(move || {
-		fs::create_dir_all(&addons).map_err(|e| format!("Could not create {}: {e}", addons.display()))?;
-		let staging = fresh_dir(&addons, STAGING).map_err(|e| format!("Could not prepare the install: {e}"))?;
+		fs::create_dir_all(&addons).map_err(|e| t!("Could not create {folder}: {error}", folder = addons.display(), error = e))?;
+		let staging = fresh_dir(&addons, STAGING).map_err(|e| t!("Could not prepare the install: {error}", error = e))?;
 		let result = unpack(&bytes, &staging).and_then(|folders| {
 			check(&staging, product, &folders)?;
 			// Polestar's update also clears its folders the new release no longer has.
@@ -370,7 +371,7 @@ pub fn uninstall(product: &Product, addons: &Path) -> Result<Vec<String>, String
 	if folders.is_empty() {
 		return Ok(folders);
 	}
-	let staging = fresh_dir(addons, STAGING).map_err(|e| format!("Could not prepare the removal: {e}"))?;
+	let staging = fresh_dir(addons, STAGING).map_err(|e| t!("Could not prepare the removal: {error}", error = e))?;
 	let result = swap(addons, &staging, &[], &folders).map(|()| folders);
 	let _ = fs::remove_dir_all(&staging);
 	result
@@ -389,22 +390,22 @@ pub(crate) fn fresh_dir(addons: &Path, name: &str) -> io::Result<PathBuf> {
 /// Paths that would leave the folder (zip slip), names Windows would not treat as
 /// plain files, too many entries or more than 1 GB unpacked make the whole zip fail.
 fn unpack(bytes: &[u8], staging: &Path) -> Result<Vec<String>, String> {
-	let bad = |e: String| format!("The download is not a usable zip: {e}");
+	let bad = |e: String| t!("The download is not a usable zip: {error}", error = e);
 	let mut archive = zip::ZipArchive::new(io::Cursor::new(bytes)).map_err(|e| bad(e.to_string()))?;
 	if archive.len() > MAX_ENTRIES {
-		return Err(bad("it holds too many files".to_owned()));
+		return Err(t!("The download is not a usable zip: it holds too many files"));
 	}
 	let mut folders: Vec<String> = Vec::new();
 	let mut total: u64 = 0;
 	for i in 0..archive.len() {
 		let mut entry = archive.by_index(i).map_err(|e| bad(e.to_string()))?;
-		let name = entry.name().map_err(|e| bad(format!("a file name that is not text ({e})")))?.into_owned();
-		let Some(path) = entry.enclosed_name() else { return Err(bad(format!("unsafe path {name}"))) };
+		let name = entry.name().map_err(|e| t!("The download is not a usable zip: a file name that is not text ({error})", error = e))?.into_owned();
+		let Some(path) = entry.enclosed_name() else { return Err(t!("The download is not a usable zip: unsafe path {name}", name = name)) };
 		if path.components().any(|c| !matches!(c, Component::Normal(n) if n.to_str().is_some_and(safe_component))) {
-			return Err(bad(format!("unsafe path {name}")));
+			return Err(t!("The download is not a usable zip: unsafe path {name}", name = name));
 		}
 		if entry.is_symlink() {
-			return Err(bad(format!("it holds a link ({name})")));
+			return Err(t!("The download is not a usable zip: it holds a link ({name})", name = name));
 		}
 		let mut parts = path.components();
 		let Some(Component::Normal(top)) = parts.next() else { continue };
@@ -412,9 +413,9 @@ fn unpack(bytes: &[u8], staging: &Path) -> Result<Vec<String>, String> {
 		if parts.as_path().as_os_str().is_empty() && !entry.is_dir() {
 			continue;
 		}
-		let top = top.to_str().ok_or_else(|| bad("a folder name that is not text".to_owned()))?.to_owned();
+		let top = top.to_str().ok_or_else(|| t!("The download is not a usable zip: a folder name that is not text"))?.to_owned();
 		if top.starts_with('.') {
-			return Err(bad(format!("unexpected folder {top}")));
+			return Err(t!("The download is not a usable zip: unexpected folder {name}", name = top));
 		}
 		if !folders.contains(&top) {
 			folders.push(top);
@@ -426,7 +427,7 @@ fn unpack(bytes: &[u8], staging: &Path) -> Result<Vec<String>, String> {
 		}
 		let room = MAX_UNPACKED - total;
 		if entry.size() > room {
-			return Err(bad("it unpacks to more than 1 GB".to_owned()));
+			return Err(t!("The download is not a usable zip: it unpacks to more than 1 GB"));
 		}
 		if let Some(parent) = target.parent() {
 			fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -436,7 +437,7 @@ fn unpack(bytes: &[u8], staging: &Path) -> Result<Vec<String>, String> {
 		(&mut entry).take(room + 1).read_to_end(&mut data).map_err(|e| bad(e.to_string()))?;
 		total += data.len() as u64;
 		if total > MAX_UNPACKED {
-			return Err(bad("it unpacks to more than 1 GB".to_owned()));
+			return Err(t!("The download is not a usable zip: it unpacks to more than 1 GB"));
 		}
 		fs::write(&target, data).map_err(|e| e.to_string())?;
 	}
@@ -446,9 +447,8 @@ fn unpack(bytes: &[u8], staging: &Path) -> Result<Vec<String>, String> {
 
 /// The zip must hold exactly the product's folders, each with a .toc.
 fn check(staging: &Path, product: &Product, folders: &[String]) -> Result<(), String> {
-	let fail = |what: String| Err(format!("The {} download {what}; not installing it.", product.name));
 	if !folders.iter().any(|f| f == product.main) {
-		return fail(format!("has no {} folder", product.main));
+		return Err(t!("The {name} download has no {folder} folder; not installing it.", name = product.name, folder = product.main));
 	}
 	for folder in folders {
 		let ours = match product.folders {
@@ -456,10 +456,10 @@ fn check(staging: &Path, product: &Product, folders: &[String]) -> Result<(), St
 			Folders::Polestar => folder == "Polestar" || (folder.starts_with("Polestar_") && folder != "Polestar_Recorder"),
 		};
 		if !ours {
-			return fail(format!("holds a folder that is not part of it ({folder})"));
+			return Err(t!("The {name} download holds a folder that is not part of it ({folder}); not installing it.", name = product.name, folder = folder));
 		}
 		if toc_file(&staging.join(folder)).is_none() {
-			return fail(format!("has no .toc in {folder}"));
+			return Err(t!("The {name} download has no .toc in {folder}; not installing it.", name = product.name, folder = folder));
 		}
 	}
 	Ok(())
@@ -496,7 +496,7 @@ fn fresh_backup(addons: &Path) -> io::Result<PathBuf> {
 /// takes the new folders out again and puts the backup back; whatever can't
 /// go back stays in a uniquely named backup the message names.
 pub(crate) fn swap(addons: &Path, staging: &Path, install: &[String], remove: &[String]) -> Result<(), String> {
-	let backup = fresh_backup(addons).map_err(|e| format!("Could not prepare a backup: {e}"))?;
+	let backup = fresh_backup(addons).map_err(|e| t!("Could not prepare a backup: {error}", error = e))?;
 	let mut backed: Vec<&String> = Vec::new();
 	let mut moved: Vec<&String> = Vec::new();
 	let result = (|| -> io::Result<()> {
@@ -529,10 +529,10 @@ pub(crate) fn swap(addons: &Path, staging: &Path, install: &[String], remove: &[
 			}
 			if lost.is_empty() {
 				let _ = fs::remove_dir_all(&backup);
-				Err(format!("Could not replace the addon folders ({e}); everything was put back as it was. Is the game still running?"))
+				Err(t!("Could not replace the addon folders ({error}); everything was put back as it was. Is the game still running?", error = e))
 			} else {
 				let kept = keep_backup(addons, &backup).unwrap_or(backup);
-				Err(format!("Could not replace the addon folders ({e}), and {} could not be put back: copy them from {} into AddOns.", lost.join(", "), kept.display()))
+				Err(t!("Could not replace the addon folders ({error}), and {folders} could not be put back: copy them from {backup} into AddOns.", error = e, folders = lost.join(", "), backup = kept.display()))
 			}
 		}
 	}

@@ -3,6 +3,7 @@
 	// Recording is a separate opt-in, offered in the Recording section.
 	import { api, message } from '../lib/backend';
 	import { ltr } from '../lib/format';
+	import { t, tn, parts } from '../lib/i18n.svelte';
 	import { rise, stagger, swap } from '../lib/motion';
 	import type { Candidate, FolderCheck, Snapshot } from '../lib/types';
 	import Band from '../components/Band.svelte';
@@ -19,14 +20,13 @@
 	const game = $derived(snapshot.game);
 	/** A folder chosen before (saved) that no longer works; the detected installs are still offered. */
 	const saved = $derived(game.problem && !picked?.problem ? game.problem : null);
-	const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
 	function clientName(client: string): string {
-		return client === '_forever_' ? 'WoW: Forever' : `WoW: Forever, ${client} folder`;
+		return client === '_forever_' ? 'WoW: Forever' : t('WoW: Forever, {folder} folder', { folder: client });
 	}
 
 	function facts(c: Candidate): string {
-		return [c.version ? `Game ${c.version}` : null, c.accounts ? plural(c.accounts, 'account', 'accounts') : 'Not logged in yet', c.addonVersion ? `Recorder ${c.addonVersion}` : null].filter(Boolean).join(' · ');
+		return [c.version ? t('Game {version}', { version: c.version }) : null, c.accounts ? tn('{count} account', '{count} accounts', c.accounts) : t('Not logged in yet'), c.addonVersion ? t('Recorder {version}', { version: c.addonVersion }) : null].filter(Boolean).join(' · ');
 	}
 
 	async function choose(c: Candidate) {
@@ -70,8 +70,8 @@
 		<div class="hero">
 			<div class="polaris"><Emblem size={56} glow target /></div>
 			<div class="titles">
-				<h1 in:rise={{ y: 10, duration: 420 }}>Find World of Warcraft: Forever</h1>
-				<p class="note" in:rise={{ y: 8, delay: 60, duration: 420 }}>Polestar Client installs and updates Polestar's addons in the game folder. It reads nothing outside it.</p>
+				<h1 in:rise={{ y: 10, duration: 420 }}>{t('Find World of Warcraft: Forever')}</h1>
+				<p class="note" in:rise={{ y: 8, delay: 60, duration: 420 }}>{t("Polestar Client installs and updates Polestar's addons in the game folder.")} {t('It reads nothing outside it.')}</p>
 			</div>
 		</div>
 	</Band>
@@ -82,7 +82,7 @@
 				<div class="notice" in:rise>
 					<Glyph name="info" color="var(--warning)" />
 					<div class="notice-text">
-						<p class="notice-title">The folder you chose before no longer works</p>
+						<p class="notice-title">{t('The folder you chose before no longer works')}</p>
 						<p class="small muted path" title={saved.path}>{ltr(saved.path)}</p>
 						<p class="note selectable">{saved.message}</p>
 					</div>
@@ -92,11 +92,11 @@
 			{#if !game.scanned}
 				<div class="looking" in:rise>
 					<span class="spinner" style:color="var(--accent)"></span>
-					<p class="note">Looking for the game on this PC…</p>
+					<p class="note">{t('Looking for the game on this PC…')}</p>
 				</div>
 			{:else if game.candidates.length > 0}
-				<p class="note intro" in:rise>{saved ? 'Polestar Client found these on this PC instead. Pick the one you play on:' : game.candidates.length === 1 ? 'Found on this PC:' : 'Found on this PC. Pick the one you play on:'}</p>
-				<div class="cards" role="radiogroup" aria-label="WoW: Forever installs">
+				<p class="note intro" in:rise>{saved ? t('Polestar Client found these on this PC instead. Pick the one you play on:') : game.candidates.length === 1 ? t('Found on this PC:') : t('Found on this PC. Pick the one you play on:')}</p>
+				<div class="cards" role="radiogroup" aria-label={t('WoW: Forever installs')}>
 					{#each game.candidates as c, i (c.dir)}
 						{@const on = game.dir === c.dir}
 						<button class="card" class:on role="radio" aria-checked={on} disabled={choosing !== null} onclick={() => choose(c)} in:rise={{ delay: 60 + stagger(i) }}>
@@ -115,7 +115,7 @@
 						</button>
 					{/each}
 				</div>
-				<button class="btn quiet other" onclick={locate} disabled={busy}><Glyph name="folder" size={13} />Use another folder…</button>
+				<button class="btn quiet other" onclick={locate} disabled={busy}><Glyph name="folder" size={13} />{t('Use another folder…')}</button>
 			{:else if game.found && game.dir}
 				<div class="cards">
 					<div class="card on">
@@ -123,16 +123,16 @@
 						<span class="card-text">
 							<span class="card-title">WoW: Forever</span>
 							<span class="small muted path" title={game.dir}>{ltr(game.root ?? '')}</span>
-							<span class="small dim">{[game.gameVersion ? `Game ${game.gameVersion}` : null, plural(game.accounts.length, 'account', 'accounts')].filter(Boolean).join(' · ')}</span>
+							<span class="small dim">{[game.gameVersion ? t('Game {version}', { version: game.gameVersion }) : null, tn('{count} account', '{count} accounts', game.accounts.length)].filter(Boolean).join(' · ')}</span>
 						</span>
 					</div>
 				</div>
-				<button class="btn quiet other" onclick={locate} disabled={busy}><Glyph name="folder" size={13} />Use another folder…</button>
+				<button class="btn quiet other" onclick={locate} disabled={busy}><Glyph name="folder" size={13} />{t('Use another folder…')}</button>
 			{:else}
 				<div class="locate" in:rise>
-					<h2>{saved ? 'And no other install turned up' : "We couldn't find WoW: Forever on this PC"}</h2>
-					<p class="note">Show Polestar Client where you installed it: the World of Warcraft folder itself, or the <span class="code">_forever_</span> folder inside it.</p>
-					<button class="btn primary" onclick={locate} disabled={busy}><Glyph name="folder" size={13} color="var(--onAccent)" />Locate your World of Warcraft folder</button>
+					<h2>{saved ? t('And no other install turned up') : t("We couldn't find WoW: Forever on this PC")}</h2>
+					<p class="note">{#each parts(t('Show Polestar Client where you installed it: the World of Warcraft folder itself, or the {folder} folder inside it.'), ['folder']) as p}{#if p.slot === 'folder'}<span class="code">_forever_</span>{:else}{p.text}{/if}{/each}</p>
+					<button class="btn primary" onclick={locate} disabled={busy}><Glyph name="folder" size={13} color="var(--onAccent)" />{t('Locate your World of Warcraft folder')}</button>
 				</div>
 			{/if}
 
@@ -140,22 +140,22 @@
 				<div class="notice" in:rise>
 					<Glyph name="info" color="var(--warning)" />
 					<div class="notice-text">
-						<p class="notice-title">That folder won't do</p>
+						<p class="notice-title">{t("That folder won't do")}</p>
 						{#if picked.path}<p class="small muted path" title={picked.path}>{ltr(picked.path)}</p>{/if}
 						<p class="note selectable">{picked.problem}</p>
 					</div>
 				</div>
 			{/if}
 
-			<p class="note next">Next: your addons, what is installed and what can be updated. Sharing your play to improve the guides is optional, and off until you choose it under Recording.</p>
+			<p class="note next">{t('Next: your addons, what is installed and what can be updated.')} {t('Sharing your play to improve the guides is optional, and off until you choose it under Recording.')}</p>
 			{#if error}<p class="note bad selectable">{error}</p>{/if}
 		</div>
 	</div>
 
 	<footer>
-		<button class="btn quiet" onclick={finish} disabled={busy}>Skip for now</button>
+		<button class="btn quiet" onclick={finish} disabled={busy}>{t('Skip for now')}</button>
 		{#if game.found}
-			{#key game.found}<button class="btn primary" disabled={busy} onclick={finish} in:swap>Continue</button>{/key}
+			{#key game.found}<button class="btn primary" disabled={busy} onclick={finish} in:swap>{t('Continue')}</button>{/key}
 		{/if}
 	</footer>
 </div>

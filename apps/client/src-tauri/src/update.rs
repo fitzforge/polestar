@@ -35,10 +35,10 @@ async fn manifest_url(http: &reqwest::Client) -> Result<Option<Url>, String> {
 		.send()
 		.await
 		.and_then(|r| r.error_for_status())
-		.map_err(|e| e.to_string())?
+		.map_err(|e| t!("Could not check for updates: {error}", error = e))?
 		.json()
 		.await
-		.map_err(|e| e.to_string())?;
+		.map_err(|e| t!("Could not check for updates: {error}", error = e))?;
 	let newest = releases
 		.into_iter()
 		.filter(|r| !r.draft && !r.prerelease && r.tag_name.starts_with(TAG_PREFIX))
@@ -54,19 +54,20 @@ async fn manifest_url(http: &reqwest::Client) -> Result<Option<Url>, String> {
 		});
 	let Some(release) = newest else { return Ok(None) };
 	let url = format!("https://github.com/{REPO}/releases/download/{}/latest.json", release.tag_name);
-	Url::parse(&url).map(Some).map_err(|e| e.to_string())
+	Url::parse(&url).map(Some).map_err(|e| t!("Could not check for updates: {error}", error = e))
 }
 
 /// Checks for a newer client; `None` when this one is the newest.
 pub async fn check(app: &AppHandle, http: &reqwest::Client) -> Result<Option<Available>, String> {
 	let Some(url) = manifest_url(http).await? else { return Ok(None) };
-	let updater = app.updater_builder().endpoints(vec![url]).map_err(|e| e.to_string())?.build().map_err(|e| e.to_string())?;
-	let update = updater.check().await.map_err(|e| e.to_string())?;
+	let failed = |e: tauri_plugin_updater::Error| t!("Could not check for updates: {error}", error = e);
+	let updater = app.updater_builder().endpoints(vec![url]).map_err(failed)?.build().map_err(failed)?;
+	let update = updater.check().await.map_err(failed)?;
 	Ok(update.map(|update| Available { version: update.version.clone(), update }))
 }
 
 /// Downloads, verifies and installs the update, then restarts the app.
 pub async fn install(app: &AppHandle, available: Available) -> Result<(), String> {
-	available.update.download_and_install(|_, _| {}, || {}).await.map_err(|e| e.to_string())?;
+	available.update.download_and_install(|_, _| {}, || {}).await.map_err(|e| t!("The update could not be installed: {error}", error = e))?;
 	app.restart();
 }

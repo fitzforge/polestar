@@ -43,7 +43,7 @@ fn use_folder(engine: &Engine, path: PathBuf) -> Result<FolderCheck, String> {
 			engine.rescan();
 			Ok(FolderCheck { path: shown, problem: None })
 		}
-		Err(problem) => Ok(FolderCheck { path: shown, problem: Some(problem.to_string()) }),
+		Err(problem) => Ok(FolderCheck { path: shown, problem: Some(crate::engine::folder_problem(&problem)) }),
 	}
 }
 
@@ -56,7 +56,7 @@ pub async fn choose_folder(engine: Engine_<'_>, path: String) -> Result<FolderCh
 /// The native folder picker; `None` when the player cancelled.
 #[tauri::command]
 pub async fn pick_folder(app: AppHandle, engine: Engine_<'_>) -> Result<Option<FolderCheck>, String> {
-	let picked = app.dialog().file().set_title("Locate your World of Warcraft folder").blocking_pick_folder();
+	let picked = app.dialog().file().set_title(t!("Locate your World of Warcraft folder")).blocking_pick_folder();
 	let Some(picked) = picked else { return Ok(None) };
 	let path = picked.into_path().map_err(|e| e.to_string())?;
 	use_folder(&engine, path).map(Some)
@@ -79,7 +79,7 @@ pub async fn addon_action(engine: Engine_<'_>, id: String, action: String) -> Re
 		"update" => "update",
 		"repair" => "repair",
 		"uninstall" => "uninstall",
-		_ => return Err(format!("Unknown action {action}.")),
+		_ => return Err(t!("Unknown action {action}.", action = action)),
 	};
 	Arc::clone(&engine).addon_action(&id, action).await
 }
@@ -109,7 +109,7 @@ pub async fn pack_action(engine: Engine_<'_>, id: String, action: String, confir
 		"uninstall" => "uninstall",
 		"restore" => "restore",
 		"discard" => "discard",
-		_ => return Err(format!("Unknown action {action}.")),
+		_ => return Err(t!("Unknown action {action}.", action = action)),
 	};
 	Arc::clone(&engine).pack_action(&id, action, confirm.unwrap_or(false)).await
 }
@@ -135,7 +135,7 @@ pub fn set_pack_auto_update(engine: Engine_, enabled: bool) -> Result<(), String
 #[tauri::command]
 pub async fn set_packs_url(engine: Engine_<'_>, url: String) -> Result<String, String> {
 	if !cfg!(debug_assertions) {
-		return Err("Community Guides always come from polestar.guide.".to_owned());
+		return Err(t!("Community Guides always come from polestar.guide."));
 	}
 	let url = web_address(&url, crate::packs::DEFAULT_BASE)?;
 	engine.save_settings(|s| s.packs_url = url.clone())?;
@@ -207,6 +207,22 @@ pub fn set_paused(engine: Engine_, paused: bool) -> Result<(), String> {
 	Ok(())
 }
 
+/// Settings > Language: `language` is the choice (`auto` or a locale code), `locale` what it
+/// means on this system (the window reads the system's languages). The backend's texts, the
+/// tray and notifications follow `locale`.
+#[tauri::command]
+pub fn set_language(engine: Engine_, language: String, locale: String) -> Result<(), String> {
+	let locale = crate::i18n::known(&locale);
+	let language = if language == "auto" { language } else { crate::i18n::known(&language).to_owned() };
+	crate::i18n::set_locale(locale);
+	engine.save_settings(|s| {
+		s.language = language;
+		s.locale = locale.to_owned();
+	})?;
+	engine.publish();
+	Ok(())
+}
+
 #[tauri::command]
 pub fn get_autostart(app: AppHandle) -> bool {
 	app.autolaunch().is_enabled().unwrap_or(false)
@@ -216,7 +232,7 @@ pub fn get_autostart(app: AppHandle) -> bool {
 pub fn set_autostart(app: AppHandle, enabled: bool) -> Result<(), String> {
 	let manager = app.autolaunch();
 	let result = if enabled { manager.enable() } else { manager.disable() };
-	result.map_err(|e| format!("Could not change starting with your computer: {e}"))
+	result.map_err(|e| t!("Could not change starting with your computer: {error}", error = e))
 }
 
 /// An address the player typed: https, or http for something on this PC; empty is `default`.
@@ -224,11 +240,11 @@ pub fn set_autostart(app: AppHandle, enabled: bool) -> Result<(), String> {
 fn web_address(url: &str, default: &str) -> Result<String, String> {
 	let url = url.trim();
 	let url = if url.is_empty() { default } else { url };
-	let parsed = tauri::Url::parse(url).map_err(|_| "That is not a web address.".to_owned())?;
+	let parsed = tauri::Url::parse(url).map_err(|_| t!("That is not a web address."))?;
 	if parsed.scheme() != "https" && !(parsed.scheme() == "http" && crate::packs::is_local(url)) {
-		return Err("Use an https:// address (http:// only for a server on this PC).".to_owned());
+		return Err(t!("Use an https:// address (http:// only for a server on this PC)."));
 	}
-	crate::packs::normalize_base(url).ok_or_else(|| "That is not a web address.".to_owned())
+	crate::packs::normalize_base(url).ok_or_else(|| t!("That is not a web address."))
 }
 
 /// Sets the recording server (debug builds only, for developing the server); an empty one puts
@@ -236,7 +252,7 @@ fn web_address(url: &str, default: &str) -> Result<String, String> {
 #[tauri::command]
 pub fn set_server_url(engine: Engine_, url: String) -> Result<String, String> {
 	if !cfg!(debug_assertions) {
-		return Err(format!("Recordings always go to {DEFAULT_SERVER}."));
+		return Err(t!("Recordings always go to {server}.", server = DEFAULT_SERVER));
 	}
 	let url = web_address(&url, DEFAULT_SERVER)?;
 	engine.save_settings(|s| s.server_url = url.clone())?;
@@ -251,12 +267,12 @@ pub fn set_server_url(engine: Engine_, url: String) -> Result<String, String> {
 pub async fn delete_server_data(engine: Engine_<'_>) -> Result<(), String> {
 	let server = engine.server();
 	if let Some(token) = engine.store.token(&server) {
-		let response = engine.http.delete(format!("{server}/v1/me")).bearer_auth(token).send().await.map_err(|e| format!("Could not reach the server, nothing was deleted: {e}"))?;
+		let response = engine.http.delete(format!("{server}/v1/me")).bearer_auth(token).send().await.map_err(|e| t!("Could not reach the server, nothing was deleted: {error}", error = e))?;
 		let status = response.status();
 		if !status.is_success() {
 			let message = crate::engine::server_message(response).await;
 			if !(status == reqwest::StatusCode::UNAUTHORIZED && message.as_deref() == Some(UNKNOWN_TOKEN)) {
-				return Err(format!("The server did not delete your data ({}).", message.unwrap_or_else(|| status.to_string())));
+				return Err(t!("The server did not delete your data ({reason}).", reason = message.unwrap_or_else(|| status.to_string())));
 			}
 		}
 	}
@@ -291,7 +307,7 @@ pub fn open_data_folder(app: AppHandle, engine: Engine_) -> Result<(), String> {
 #[tauri::command]
 pub fn open_link(app: AppHandle, url: String) -> Result<(), String> {
 	if !url.starts_with("https://") && !(url.starts_with("http://") && crate::packs::is_local(&url)) {
-		return Err("Only https:// links open from here.".to_owned());
+		return Err(t!("Only https:// links open from here."));
 	}
 	app.opener().open_url(url, None::<&str>).map_err(|e| e.to_string())
 }
@@ -307,7 +323,7 @@ pub async fn check_update(app: AppHandle, engine: Engine_<'_>) -> Result<Option<
 
 #[tauri::command]
 pub async fn install_update(app: AppHandle, engine: Engine_<'_>) -> Result<(), String> {
-	let available = engine.lock().update.clone().ok_or("No update is waiting.")?;
+	let available = engine.lock().update.clone().ok_or_else(|| t!("No update is waiting."))?;
 	crate::update::install(&app, available).await
 }
 

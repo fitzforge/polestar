@@ -4,6 +4,7 @@
 	import { app } from '../lib/app.svelte';
 	import { api, message } from '../lib/backend';
 	import { ago } from '../lib/format';
+	import { msg, t } from '../lib/i18n.svelte';
 	import { drop, ease, reduced, rise, stagger, swap } from '../lib/motion';
 	import { toast } from '../lib/toast.svelte';
 	import type { AddonAction, Changelog as Notes, Product, Snapshot } from '../lib/types';
@@ -16,8 +17,8 @@
 
 	const RELEASES = 'https://github.com/fitzforge/polestar/releases';
 	const GLYPHS: Record<string, string> = { recorder: 'record', libforeverdata: 'layers' };
-	const DONE: Record<AddonAction, string> = { install: 'Installed', update: 'Updated', repair: 'Repaired', uninstall: 'Removed' };
-	const PHASE: Record<string, string> = { download: 'Downloading', verify: 'Checking', install: 'Installing', remove: 'Removing' };
+	const DONE: Record<AddonAction, string> = { install: msg('Installed'), update: msg('Updated'), repair: msg('Repaired'), uninstall: msg('Removed') };
+	const PHASE: Record<string, string> = { download: msg('Downloading'), verify: msg('Checking'), install: msg('Installing'), remove: msg('Removing') };
 
 	let menu = $state<string | null>(null);
 	let armed = $state<string | null>(null);
@@ -28,8 +29,8 @@
 	/** The first rows rise in with a stagger; later changes move by crossfade and flip instead. */
 	let entered = $state(false);
 	$effect(() => {
-		const t = setTimeout(() => (entered = true), 1000);
-		return () => clearTimeout(t);
+		const timer = setTimeout(() => (entered = true), 1000);
+		return () => clearTimeout(timer);
 	});
 	/** Products that just finished an action: the row shows it for a moment, then settles. */
 	let done = $state<Record<string, AddonAction>>({});
@@ -141,16 +142,16 @@
 		}
 	}
 
-	const released = (p: Product) => (p.latest?.publishedAt ? `released ${ago(Date.parse(p.latest.publishedAt), app.now)}` : null);
+	const released = (p: Product) => (p.latest?.publishedAt ? t('released {ago}', { ago: ago(Date.parse(p.latest.publishedAt), app.now) }) : null);
 </script>
 
 <svelte:window onclick={() => (menu = null)} onkeydown={menuKeys} />
 
-<PageHeader title="Addons" subtitle="Polestar's addons for WoW: Forever, installed and kept up to date from the project's GitHub releases.">
+<PageHeader title={t('Addons')} subtitle={t("Polestar's addons for WoW: Forever, installed and kept up to date from the project's GitHub releases.")}>
 	{#snippet aside()}
 		<button class="btn" onclick={check} disabled={spinning}>
 			<span class="turn" class:spinning><Glyph name="reload" size={13} color="var(--textDim)" /></span>
-			Check for updates
+			{t('Check for updates')}
 		</button>
 		{#if pending > 0}
 			<button
@@ -161,7 +162,7 @@
 				onclick={() => (addons.gameRunning ? confirm('all', updateAll) : updateAll())}
 				in:swap
 			>
-				{#if updatingAll}<span class="spinner"></span>Updating…{:else if armed === 'all'}Click again: the game is running{:else if addons.gameRunning}Update all anyway{:else}Update all ({pending}){/if}
+				{#if updatingAll}<span class="spinner"></span>{t('Updating…')}{:else if armed === 'all'}{t('Click again: the game is running')}{:else if addons.gameRunning}{t('Update all anyway')}{:else}{t('Update all ({count})', { count: pending })}{/if}
 			</button>
 		{/if}
 	{/snippet}
@@ -175,28 +176,28 @@
 					{#if addons.error}
 						<span class="bad">{addons.error}</span>
 					{:else if spinning}
-						Looking for new releases…
+						{t('Looking for new releases…')}
 					{:else if addons.checkedAt}
-						Checked {ago(addons.checkedAt, app.now)}
+						{t('Checked {ago}', { ago: ago(addons.checkedAt, app.now) })}
 					{:else}
-						Not checked yet
+						{t('Not checked yet')}
 					{/if}
 				</span>
 			{/key}
 			<span class="sep">·</span>
-			<span title="Change it in Settings">{addons.channel === 'beta' ? 'Beta channel' : 'Stable channel'}</span>
+			<span title={t('Change it in Settings')}>{addons.channel === 'beta' ? t('Beta channel') : t('Stable channel')}</span>
 		</p>
 
 		{#if !addons.gameFound}
 			<div class="banner" in:rise>
 				<Glyph name="info" color="var(--warning)" />
-				<p class="note">Polestar Client hasn't found WoW: Forever yet, so it can't install anything.</p>
-				<button class="btn primary" onclick={() => api.pickFolder()}>Locate the game</button>
+				<p class="note">{t("Polestar Client hasn't found WoW: Forever yet, so it can't install anything.")}</p>
+				<button class="btn primary" onclick={() => api.pickFolder()}>{t('Locate the game')}</button>
 			</div>
 		{:else if addons.gameRunning}
 			<div class="banner" in:rise>
 				<Glyph name="info" color="var(--warning)" />
-				<p class="note">World of Warcraft is running. Close it before updating: the game only loads addons when it starts, and it may hold their files open.</p>
+				<p class="note">{t('World of Warcraft is running. Close it before updating: the game only loads addons when it starts, and it may hold their files open.')}</p>
 			</div>
 		{/if}
 
@@ -209,7 +210,7 @@
 					{#if p.id === 'polestar'}<Emblem size={22} />{:else}<Glyph name={GLYPHS[p.id] ?? 'layers'} size={20} color="var(--accent)" />{/if}
 				</span>
 				<span class="names">
-					<span class="name">{p.name}{#if p.latest?.prerelease}<span class="chip warning">Beta</span>{/if}</span>
+					<span class="name">{p.name}{#if p.latest?.prerelease}<span class="chip warning">{t('Beta')}</span>{/if}</span>
 					<span class="small muted blurb" title={p.blurb}>{p.blurb}</span>
 					<span class="small versions">
 						{#if p.status === 'update' && p.installed && p.latest}
@@ -221,7 +222,7 @@
 						{/if}
 						{#if p.latest}
 							{#if released(p)}<span class="sep">·</span><span class="muted">{released(p)}</span>{/if}
-							<span class="sep">·</span><button class="link small-link" onclick={(e) => openNotes(p, e)}>What's new</button>
+							<span class="sep">·</span><button class="link small-link" onclick={(e) => openNotes(p, e)}>{t("What's new")}</button>
 						{/if}
 					</span>
 				</span>
@@ -229,43 +230,43 @@
 					{#if busy}
 						{#key progress?.phase ?? busy}
 							<span class="phase small" in:swap>
-								<span class="spinner"></span>{progress ? PHASE[progress.phase] : PHASE[busy === 'uninstall' ? 'remove' : 'download']}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}
+								<span class="spinner"></span>{t(progress ? PHASE[progress.phase] : PHASE[busy === 'uninstall' ? 'remove' : 'download'])}{#if pct !== null}<span class="num">&nbsp;{Math.round(pct * 100)}%</span>{/if}
 							</span>
 						{/key}
 					{:else if done[p.id]}
-						<span class="chip success settled" in:swap><Glyph name="check" size={11} color="var(--success)" />{DONE[done[p.id]]}</span>
+						<span class="chip success settled" in:swap><Glyph name="check" size={11} color="var(--success)" />{t(DONE[done[p.id]])}</span>
 					{:else if p.status === 'noGame'}
-						<span class="small muted">Game not found</span>
+						<span class="small muted">{t('Game not found')}</span>
 					{:else if p.status === 'unknown'}
-						<span class="small muted">{spinning ? 'Checking…' : 'Not checked'}</span>
+						<span class="small muted">{spinning ? t('Checking…') : t('Not checked')}</span>
 					{:else if p.status === 'unavailable'}
-						<button class="link" onclick={() => api.openLink(RELEASES)}>Not published yet</button>
+						<button class="link" onclick={() => api.openLink(RELEASES)}>{t('Not published yet')}</button>
 					{:else if p.status === 'upToDate'}
-						<span class="chip success" in:swap>Up to date</span>
+						<span class="chip success" in:swap>{t('Up to date')}</span>
 					{:else}
 						{@const action = p.status === 'install' ? 'install' : 'update'}
 						{#if addons.gameRunning && action === 'update'}
 							<button class="btn small" class:armed={armed === `${p.id}:update`} onclick={() => confirm(`${p.id}:update`, () => act(p, 'update'))}>
-								{armed === `${p.id}:update` ? 'Click again' : 'Update anyway'}
+								{armed === `${p.id}:update` ? t('Click again') : t('Update anyway')}
 							</button>
 						{:else}
-							<button class="btn" onclick={() => act(p, action)} in:swap>{action === 'install' ? 'Install' : 'Update'}</button>
+							<button class="btn" onclick={() => act(p, action)} in:swap>{action === 'install' ? t('Install') : t('Update')}</button>
 						{/if}
 					{/if}
 				</span>
 				<span class="more">
 					{#if p.installed && !busy}
-						<button class="icon-btn" aria-label="More for {p.name}" aria-haspopup="menu" aria-expanded={menu === p.id} onclick={(e) => openMenu(p.id, e)}><Glyph name="menu" size={14} /></button>
+						<button class="icon-btn" aria-label={t('More for {name}', { name: p.name })} aria-haspopup="menu" aria-expanded={menu === p.id} onclick={(e) => openMenu(p.id, e)}><Glyph name="menu" size={14} /></button>
 						{#if menu === p.id}
 							<!-- svelte-ignore a11y_click_events_have_key_events -->
 							<div class="menu" role="menu" tabindex="-1" bind:this={menuEl} onclick={(e) => e.stopPropagation()} transition:drop>
 								<button role="menuitem" disabled={!p.latest} onclick={() => act(p, 'repair')}>
-									<Glyph name="reload" size={14} color="var(--textDim)" /><span>Repair</span>
-									<span class="small muted hint">Download {p.installed} again and replace it</span>
+									<Glyph name="reload" size={14} color="var(--textDim)" /><span>{t('Repair')}</span>
+									<span class="small muted hint">{t('Download {version} again and replace it', { version: p.installed })}</span>
 								</button>
 								<button role="menuitem" class="danger" onclick={() => confirm(`${p.id}:uninstall`, () => act(p, 'uninstall'))}>
-									<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:uninstall` ? 'Click again to remove' : 'Uninstall'}</span>
-									<span class="small muted hint">Removes only {p.name}'s folders</span>
+									<Glyph name="close" size={14} color="var(--danger)" /><span>{armed === `${p.id}:uninstall` ? t('Click again to remove') : t('Uninstall')}</span>
+									<span class="small muted hint">{t("Removes only {name}'s folders", { name: p.name })}</span>
 								</button>
 							</div>
 						{/if}
@@ -280,18 +281,18 @@
 		{/snippet}
 
 		<section class="section">
-			<h2>Installed <span class="count num">{installed.length}</span></h2>
+			<h2>{t('Installed')} <span class="count num">{installed.length}</span></h2>
 			<div class="list" class:entered>
 				{#each installed as p, i (p.id)}
 					<div in:receive={{ key: p.id }} out:send={{ key: p.id }} animate:flip={{ duration: 320, easing: ease }}>{@render row(p, i)}</div>
 				{:else}
-					<p class="note none" in:rise>Nothing from Polestar is installed in this game yet.</p>
+					<p class="note none" in:rise>{t('Nothing from Polestar is installed in this game yet.')}</p>
 				{/each}
 			</div>
 		</section>
 		{#if available.length > 0}
 			<section class="section" in:rise>
-				<h2>Not installed <span class="count num">{available.length}</span></h2>
+				<h2>{t('Not installed')} <span class="count num">{available.length}</span></h2>
 				<div class="list" class:entered>
 					{#each available as p, i (p.id)}
 						<div in:receive={{ key: p.id }} out:send={{ key: p.id }} animate:flip={{ duration: 320, easing: ease }}>{@render row(p, i + installed.length)}</div>
@@ -300,7 +301,7 @@
 			</section>
 		{/if}
 
-		<p class="small muted foot">Each download is checked against the checksum GitHub publishes for it before anything in your AddOns folder changes. Other addons are never touched.</p>
+		<p class="small muted foot">{t('Each download is checked against the checksum GitHub publishes for it before anything in your AddOns folder changes.')} {t('Other addons are never touched.')}</p>
 	</div>
 </div>
 
@@ -394,10 +395,13 @@
 		font-weight: 600;
 		white-space: nowrap;
 	}
+	/* Up to two lines: what an addon is takes longer to say in German or Russian. */
 	.blurb {
-		white-space: nowrap;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		-webkit-line-clamp: 2;
+		line-clamp: 2;
 		overflow: hidden;
-		text-overflow: ellipsis;
 	}
 	.versions {
 		display: flex;

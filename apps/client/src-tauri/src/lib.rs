@@ -4,6 +4,9 @@
 //! updates community guide packs from polestar.guide, and opens the site's
 //! `polestar://install?pack=<id>` links.
 
+// First, so every module can use its t and tn macros.
+#[macro_use]
+mod i18n;
 mod addons;
 mod commands;
 mod community;
@@ -177,6 +180,7 @@ pub fn run() {
 			commands::finish_setup,
 			commands::set_sharing,
 			commands::set_paused,
+			commands::set_language,
 			commands::get_autostart,
 			commands::set_autostart,
 			commands::set_server_url,

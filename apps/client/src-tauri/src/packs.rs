@@ -385,20 +385,22 @@ impl Changes {
 
 	/// The confirm's text, for an update asked for without one.
 	pub fn describe(&self, title: &str) -> String {
-		let mut what = Vec::new();
 		if self.replaced {
-			return format!("{title} was replaced by a different guide under the same name. Confirm to install the new one in its place.");
+			return t!("{title} was replaced by a different guide under the same name. Confirm to install the new one in its place.", title = title);
 		}
+		let mut what = Vec::new();
 		if let Some(p) = &self.publisher {
-			what.push(format!("a new publisher ({} instead of {})", p.to.as_deref().unwrap_or("unknown"), p.from.as_deref().unwrap_or("unknown")));
+			let unknown = || t!("unknown");
+			what.push(t!("a new publisher ({new} instead of {old})", new = p.to.clone().unwrap_or_else(unknown), old = p.from.clone().unwrap_or_else(unknown)));
 		}
 		if !self.added.is_empty() {
-			what.push(format!("new folders ({})", self.added.join(", ")));
+			what.push(t!("new folders ({folders})", folders = self.added.join(", ")));
 		}
 		if !self.removed.is_empty() {
-			what.push(format!("fewer folders (no {})", self.removed.join(", ")));
+			what.push(t!("fewer folders (no {folders})", folders = self.removed.join(", ")));
 		}
-		format!("This update of {title} has {}. Confirm to install it.", what.join(" and "))
+		let changes = what.into_iter().reduce(|first, second| t!("{first} and {second}", first = first, second = second)).unwrap_or_default();
+		t!("This update of {title} has {changes}. Confirm to install it.", title = title, changes = changes)
 	}
 }
 
@@ -473,32 +475,32 @@ pub fn parse_time(text: &str) -> Option<i64> {
 /// `generated` of the last index accepted from this site). Entries that break the contract are
 /// left out (and said on stderr); the rest stands.
 pub fn verify_index(bytes: &[u8], sig: &[u8], keys: &[&PinnedKey], base: &str, now: i64, last: Option<i64>) -> Result<Index, String> {
-	let sig: Signature = serde_json::from_slice(sig).map_err(|e| format!("The community index's signature is unreadable ({e})."))?;
+	let sig: Signature = serde_json::from_slice(sig).map_err(|e| t!("The community index's signature is unreadable ({error}).", error = e))?;
 	if sig.alg != "ed25519" {
-		return Err(format!("The community index is signed with {}, which Polestar Client does not accept.", sig.alg));
+		return Err(t!("The community index is signed with {algorithm}, which Polestar Client does not accept.", algorithm = sig.alg));
 	}
-	let key = keys.iter().find(|k| k.id == sig.key_id).ok_or_else(|| format!("The community index is signed with a key Polestar Client doesn't know ({}); not using it.", sig.key_id))?;
+	let key = keys.iter().find(|k| k.id == sig.key_id).ok_or_else(|| t!("The community index is signed with a key Polestar Client doesn't know ({key}); not using it.", key = sig.key_id))?;
 	if !hex(&Sha256::digest(bytes)).eq_ignore_ascii_case(sig.sha256.trim()) {
-		return Err("The community index doesn't match its signature (another copy was signed); not using it.".to_owned());
+		return Err(t!("The community index doesn't match its signature (another copy was signed); not using it."));
 	}
-	let signature = base64::engine::general_purpose::STANDARD.decode(sig.sig.trim()).map_err(|_| "The community index's signature is unreadable.".to_owned())?;
+	let signature = base64::engine::general_purpose::STANDARD.decode(sig.sig.trim()).map_err(|_| t!("The community index's signature is unreadable."))?;
 	ring::signature::UnparsedPublicKey::new(&ring::signature::ED25519, key.key)
 		.verify(bytes, &signature)
-		.map_err(|_| "The community index's signature is not valid; not using it.".to_owned())?;
-	let raw: RawIndex = serde_json::from_slice(bytes).map_err(|e| format!("The community index is unreadable ({e})."))?;
+		.map_err(|_| t!("The community index's signature is not valid; not using it."))?;
+	let raw: RawIndex = serde_json::from_slice(bytes).map_err(|e| t!("The community index is unreadable ({error}).", error = e))?;
 	if raw.schema != 1 {
-		return Err(format!("The community index is in a newer format ({}); update Polestar Client to use it.", raw.schema));
+		return Err(t!("The community index is in a newer format ({schema}); update Polestar Client to use it.", schema = raw.schema));
 	}
-	let generated = parse_time(&raw.generated).ok_or("The community index has no valid date.")?;
-	let expires = parse_time(&raw.expires).ok_or("The community index has no valid expiry date.")?;
+	let generated = parse_time(&raw.generated).ok_or_else(|| t!("The community index has no valid date."))?;
+	let expires = parse_time(&raw.expires).ok_or_else(|| t!("The community index has no valid expiry date."))?;
 	if expires <= generated || expires - generated > WEEK_MS {
-		return Err("The community index's expiry date is not one week after its date; not using it.".to_owned());
+		return Err(t!("The community index's expiry date is not one week after its date; not using it."));
 	}
 	if now >= expires {
-		return Err("The community index has expired: polestar.guide hasn't renewed it. Try again later.".to_owned());
+		return Err(t!("The community index has expired: polestar.guide hasn't renewed it. Try again later."));
 	}
 	if let Some(last) = last.filter(|&last| generated < last) {
-		return Err(format!("This community index is older than one already seen ({} < {last}); an old copy is being replayed, so it is not used.", generated));
+		return Err(t!("This community index is older than one already seen ({date} < {last}); an old copy is being replayed, so it is not used.", date = generated, last = last));
 	}
 	let mut packs: Vec<Entry> = Vec::with_capacity(raw.packs.len());
 	for value in raw.packs {
@@ -541,7 +543,7 @@ fn check_revoked(v: &serde_json::Value) -> Result<Revoked, String> {
 		_ => return Err(format!("{id}: versions is neither a list nor \"*\"")),
 	};
 	let reason: String = v.get("reason").and_then(|s| s.as_str()).unwrap_or("").chars().filter(|c| !c.is_control()).take(300).collect();
-	let reason = if reason.trim().is_empty() { "The site gave no reason.".to_owned() } else { reason.trim().to_owned() };
+	let reason = if reason.trim().is_empty() { t!("The site gave no reason.") } else { reason.trim().to_owned() };
 	let action = if v.get("action").and_then(|s| s.as_str()) == Some("remove") { RevokeAction::Remove } else { RevokeAction::Disable };
 	Ok(Revoked { id: id.to_owned(), uid: uid.to_owned(), versions, reason, action })
 }
@@ -617,7 +619,7 @@ pub enum Fetched {
 
 /// Fetches the index (with the ETag of the one held, when there is one) and its signature.
 pub async fn fetch_index(http: &reqwest::Client, base: &str, etag: Option<&str>) -> Result<Fetched, String> {
-	let failed = |e: reqwest::Error| format!("Could not reach {}: {e}", host(base));
+	let failed = |e: reqwest::Error| t!("Could not reach {site}: {error}", site = host(base), error = e);
 	let mut request = http.get(format!("{base}{INDEX_PATH}"));
 	if let Some(etag) = etag {
 		request = request.header("If-None-Match", etag);
@@ -627,19 +629,19 @@ pub async fn fetch_index(http: &reqwest::Client, base: &str, etag: Option<&str>)
 		return Ok(Fetched::NotModified);
 	}
 	if !response.status().is_success() {
-		return Err(format!("{} answered {} for the community index.", host(base), response.status()));
+		return Err(t!("{site} answered {status} for the community index.", site = host(base), status = response.status()));
 	}
 	let etag = response.headers().get("etag").and_then(|v| v.to_str().ok()).map(str::to_owned);
-	let body = read_capped(response, MAX_INDEX).await.map_err(|e| format!("Reading the community index failed: {e}"))?;
+	let body = read_capped(response, MAX_INDEX).await.map_err(|e| t!("Reading the community index failed: {error}", error = e))?;
 	let sig_url = match etag.as_deref().and_then(snapshot_id) {
 		Some(id) => format!("{base}{INDEX_PATH}.sig?for={id}"),
 		None => format!("{base}{INDEX_PATH}.sig"),
 	};
 	let response = http.get(sig_url).send().await.map_err(failed)?;
 	if !response.status().is_success() {
-		return Err(format!("{} has no signature for its community index yet ({}). Try again later.", host(base), response.status()));
+		return Err(t!("{site} has no signature for its community index yet ({status}). Try again later.", site = host(base), status = response.status()));
 	}
-	let sig = read_capped(response, 4096).await.map_err(|e| format!("Reading the community index's signature failed: {e}"))?;
+	let sig = read_capped(response, 4096).await.map_err(|e| t!("Reading the community index's signature failed: {error}", error = e))?;
 	Ok(Fetched::New { body, sig, etag })
 }
 
@@ -649,7 +651,7 @@ pub(crate) async fn read_capped(mut response: reqwest::Response, max: usize) -> 
 	while let Some(chunk) = response.chunk().await.map_err(|e| e.to_string())? {
 		out.extend_from_slice(&chunk);
 		if out.len() > max {
-			return Err("far bigger than expected".to_owned());
+			return Err(t!("far bigger than expected"));
 		}
 	}
 	Ok(out)
@@ -686,16 +688,16 @@ fn interface_name(interface: u32) -> String {
 /// version it was made for, and Polestar at least the version it needs.
 pub fn blocked(entry: &Entry, interface: Option<u32>, polestar: Option<&str>) -> Option<String> {
 	match interface {
-		None => return Some("Polestar Client couldn't read your game's version, so it can't tell whether this guide fits it.".to_owned()),
+		None => return Some(t!("Polestar Client couldn't read your game's version, so it can't tell whether this guide fits it.")),
 		Some(have) if have != entry.toc => {
-			return Some(format!("Made for game version {}; your game is {}.", interface_name(entry.toc), interface_name(have)));
+			return Some(t!("Made for game version {made}; your game is {have}.", made = interface_name(entry.toc), have = interface_name(have)));
 		}
 		_ => {}
 	}
 	let need = entry.min_polestar.as_deref()?;
 	match polestar {
-		None => Some(format!("Needs Polestar {need} or newer. Install Polestar on the Addons page first.")),
-		Some(have) if newer(need, have) => Some(format!("Needs Polestar {need} or newer; you have {have}. Update it on the Addons page.")),
+		None => Some(t!("Needs Polestar {need} or newer. Install Polestar on the Addons page first.", need = need)),
+		Some(have) if newer(need, have) => Some(t!("Needs Polestar {need} or newer; you have {have}. Update it on the Addons page.", need = need, have = have)),
 		_ => None,
 	}
 }
@@ -748,8 +750,10 @@ fn check_ownership(addons: &Path, entry: &Entry) -> Result<(), String> {
 		let locale = parse_folder(folder).is_some_and(|(_, l)| l.is_some());
 		let owner = meta.is_dir().then(|| folder_owner(&path, locale)).flatten();
 		if owner.as_deref() != Some(entry.id.as_str()) {
-			let whose = owner.map_or_else(|| "something else".to_owned(), |o| format!("the guide {o}"));
-			return Err(format!("AddOns already has a {folder} that belongs to {whose}, not to {}; Polestar Client leaves it alone. Move it away to install this guide.", entry.title));
+			return Err(match owner {
+				Some(o) => t!("AddOns already has a {folder} that belongs to the guide {owner}, not to {title}; Polestar Client leaves it alone. Move it away to install this guide.", folder = folder, owner = o, title = entry.title),
+				None => t!("AddOns already has a {folder} that belongs to something else, not to {title}; Polestar Client leaves it alone. Move it away to install this guide.", folder = folder, title = entry.title),
+			});
 		}
 	}
 	Ok(())
@@ -761,19 +765,19 @@ fn check_ownership(addons: &Path, entry: &Entry) -> Result<(), String> {
 /// Downloads the pack's zip, at most its listed size, telling `progress` the bytes so far.
 async fn download(http: &reqwest::Client, entry: &Entry, progress: &(dyn Fn(u64, Option<u64>) + Sync)) -> Result<Vec<u8>, String> {
 	let size = entry.download.size;
-	let failed = |e: reqwest::Error| format!("Downloading {} failed: {e}", entry.title);
+	let failed = |e: reqwest::Error| t!("Downloading {file} failed: {error}", file = entry.title, error = e);
 	let mut response = http.get(&entry.download.url).send().await.map_err(failed)?;
 	if !response.status().is_success() {
-		return Err(format!("Downloading {} failed: the site answered {}.", entry.title, response.status()));
+		return Err(t!("Downloading {title} failed: the site answered {status}.", title = entry.title, status = response.status()));
 	}
 	if response.content_length().is_some_and(|n| n > size) {
-		return Err(format!("{}'s download is bigger than the index says; not installing it.", entry.title));
+		return Err(t!("{title}'s download is bigger than the index says; not installing it.", title = entry.title));
 	}
 	let mut bytes = Vec::with_capacity(size as usize);
 	while let Some(chunk) = response.chunk().await.map_err(failed)? {
 		bytes.extend_from_slice(&chunk);
 		if bytes.len() as u64 > size {
-			return Err(format!("{}'s download is bigger than the index says; not installing it.", entry.title));
+			return Err(t!("{title}'s download is bigger than the index says; not installing it.", title = entry.title));
 		}
 		progress(bytes.len() as u64, Some(size));
 	}
@@ -783,10 +787,10 @@ async fn download(http: &reqwest::Client, entry: &Entry, progress: &(dyn Fn(u64,
 /// The zip is the one the signed index names: its size and SHA-256.
 fn verify_zip(entry: &Entry, bytes: &[u8]) -> Result<(), String> {
 	if bytes.len() as u64 != entry.download.size {
-		return Err(format!("{}'s download is {} bytes, not the {} the index says; not installing it.", entry.title, bytes.len(), entry.download.size));
+		return Err(t!("{title}'s download is {size} bytes, not the {expected} the index says; not installing it.", title = entry.title, size = bytes.len(), expected = entry.download.size));
 	}
 	if hex(&Sha256::digest(bytes)) != entry.download.sha256 {
-		return Err(format!("{}'s download doesn't match the checksum in the signed index; not installing it.", entry.title));
+		return Err(t!("{title}'s download doesn't match the checksum in the signed index; not installing it.", title = entry.title));
 	}
 	Ok(())
 }
@@ -807,32 +811,33 @@ fn allowed_file(name: &str) -> bool {
 /// entry's folders, of an allowed kind, within the size caps, and stay inside the folder
 /// (zip slip): one thing out of place fails the whole zip.
 fn unpack(bytes: &[u8], staging: &Path, entry: &Entry) -> Result<Vec<String>, String> {
-	let bad = |what: String| format!("{}'s download {what}; not installing it.", entry.title);
-	let mut archive = zip::ZipArchive::new(io::Cursor::new(bytes)).map_err(|e| bad(format!("is not a usable zip ({e})")))?;
+	let title = &entry.title;
+	let unusable = |e: &dyn std::fmt::Display| t!("{title}'s download is not a usable zip ({error}); not installing it.", title = title, error = e);
+	let mut archive = zip::ZipArchive::new(io::Cursor::new(bytes)).map_err(|e| unusable(&e))?;
 	if archive.len() > MAX_ENTRIES {
-		return Err(bad("holds too many files".to_owned()));
+		return Err(t!("{title}'s download holds too many files; not installing it.", title = title));
 	}
 	let mut folders: Vec<String> = Vec::new();
 	let mut total: u64 = 0;
 	for i in 0..archive.len() {
-		let mut file = archive.by_index(i).map_err(|e| bad(format!("is not a usable zip ({e})")))?;
-		let name = file.name().map_err(|e| bad(format!("has a file name that is not text ({e})")))?.into_owned();
-		let Some(path) = file.enclosed_name() else { return Err(bad(format!("has an unsafe path ({name})"))) };
+		let mut file = archive.by_index(i).map_err(|e| unusable(&e))?;
+		let name = file.name().map_err(|e| t!("{title}'s download has a file name that is not text ({error}); not installing it.", title = title, error = e))?.into_owned();
+		let Some(path) = file.enclosed_name() else { return Err(t!("{title}'s download has an unsafe path ({name}); not installing it.", title = title, name = name)) };
 		if path.components().any(|c| !matches!(c, Component::Normal(n) if n.to_str().is_some_and(safe_component))) {
-			return Err(bad(format!("has an unsafe path ({name})")));
+			return Err(t!("{title}'s download has an unsafe path ({name}); not installing it.", title = title, name = name));
 		}
 		if file.is_symlink() {
-			return Err(bad(format!("holds a link ({name})")));
+			return Err(t!("{title}'s download holds a link ({name}); not installing it.", title = title, name = name));
 		}
 		let mut parts = path.components();
 		let Some(Component::Normal(top)) = parts.next() else { continue };
-		let top = top.to_str().ok_or_else(|| bad("has a folder name that is not text".to_owned()))?.to_owned();
+		let top = top.to_str().ok_or_else(|| t!("{title}'s download has a folder name that is not text; not installing it.", title = title))?.to_owned();
 		let inner = parts.as_path();
 		if inner.as_os_str().is_empty() && !file.is_dir() {
-			return Err(bad(format!("has a file outside its folders ({name})")));
+			return Err(t!("{title}'s download has a file outside its folders ({name}); not installing it.", title = title, name = name));
 		}
 		if !entry.addon.contains(&top) {
-			return Err(bad(format!("holds a folder that isn't this guide's ({top})")));
+			return Err(t!("{title}'s download holds a folder that isn't this guide's ({folder}); not installing it.", title = title, folder = top));
 		}
 		if !folders.contains(&top) {
 			folders.push(top.clone());
@@ -844,25 +849,25 @@ fn unpack(bytes: &[u8], staging: &Path, entry: &Entry) -> Result<Vec<String>, St
 		}
 		let file_name = inner.file_name().and_then(|n| n.to_str()).unwrap_or("");
 		if !allowed_file(file_name) {
-			return Err(bad(format!("holds a file guides may not hold ({name})")));
+			return Err(t!("{title}'s download holds a file guides may not hold ({name}); not installing it.", title = title, name = name));
 		}
 		// The game reads `<folder>.toc` (and flavour TOCs beside it, which a pack never has) and
 		// the Lua files it lists, all at the folder's top.
 		let ext = file_name.rsplit_once('.').map(|(_, e)| e.to_ascii_lowercase()).unwrap_or_default();
 		let top_level = inner.components().count() == 1;
 		if (ext == "toc" && (!top_level || file_name != format!("{top}.toc"))) || (ext == "lua" && !top_level) {
-			return Err(bad(format!("holds a file guides may not hold ({name})")));
+			return Err(t!("{title}'s download holds a file guides may not hold ({name}); not installing it.", title = title, name = name));
 		}
 		let room = MAX_UNPACKED - total;
 		if file.size() > room {
-			return Err(bad("unpacks to more than 100 MB".to_owned()));
+			return Err(t!("{title}'s download unpacks to more than 100 MB; not installing it.", title = title));
 		}
 		let mut data = Vec::with_capacity(file.size() as usize);
 		// Never more than the cap, whatever the zip's header claims.
-		(&mut file).take(room + 1).read_to_end(&mut data).map_err(|e| bad(format!("is not a usable zip ({e})")))?;
+		(&mut file).take(room + 1).read_to_end(&mut data).map_err(|e| unusable(&e))?;
 		total += data.len() as u64;
 		if total > MAX_UNPACKED {
-			return Err(bad("unpacks to more than 100 MB".to_owned()));
+			return Err(t!("{title}'s download unpacks to more than 100 MB; not installing it.", title = title));
 		}
 		if let Some(parent) = target.parent() {
 			fs::create_dir_all(parent).map_err(|e| e.to_string())?;
@@ -876,53 +881,66 @@ fn unpack(bytes: &[u8], staging: &Path, entry: &Entry) -> Result<Vec<String>, St
 /// Every listed folder came, each with its TOC naming this pack, holding only the directives and
 /// file lines the compiler writes, and each Lua file in it listed there.
 fn check(staging: &Path, entry: &Entry, folders: &[String]) -> Result<(), String> {
-	let bad = |what: String| Err(format!("{}'s download {what}; not installing it.", entry.title));
+	let title = &entry.title;
 	for folder in &entry.addon {
 		if !folders.contains(folder) {
-			return bad(format!("has no {folder} folder"));
+			return Err(t!("{title}'s download has no {folder} folder; not installing it.", title = title, folder = folder));
 		}
 		let locale = parse_folder(folder).is_some_and(|(_, l)| l.is_some());
-		let toc = staging.join(folder).join(format!("{folder}.toc"));
+		let file = format!("{folder}.toc");
+		let toc = staging.join(folder).join(&file);
 		if !toc.is_file() {
-			return bad(format!("has no {folder}.toc"));
+			return Err(t!("{title}'s download has no {file}; not installing it.", title = title, file = file));
 		}
 		if folder_owner(&staging.join(folder), locale).as_deref() != Some(entry.id.as_str()) {
 			let field = if locale { TEXTS_FIELD } else { PACK_FIELD };
-			return bad(format!("doesn't say it is {} in {folder}.toc (## {field}: {})", entry.id, entry.id));
+			return Err(t!("{title}'s download doesn't say it is {id} in {file} (## {field}: {id}); not installing it.", title = title, id = entry.id, file = file, field = field));
 		}
-		let text = fs::read(&toc).map_err(|e| format!("Could not read {folder}.toc: {e}"))?;
+		let text = fs::read(&toc).map_err(|e| t!("Could not read {file}: {error}", file = file, error = e))?;
 		let listed = match check_toc(&String::from_utf8_lossy(&text), locale) {
 			Ok(listed) => listed,
-			Err(e) => return bad(format!("{e} in {folder}.toc")),
+			Err(TocProblem::Line(line)) => return Err(t!("{title}'s download has a line it may not have ({line}) in {file}; not installing it.", title = title, line = line, file = file)),
+			Err(TocProblem::Directive(key)) => return Err(t!("{title}'s download has a directive guides may not have (## {key}) in {file}; not installing it.", title = title, key = key, file = file)),
+			Err(TocProblem::File(line)) => return Err(t!("{title}'s download loads a file guides don't have ({line}) in {file}; not installing it.", title = title, line = line, file = file)),
 		};
 		let entries = fs::read_dir(staging.join(folder)).map_err(|e| e.to_string())?;
 		for name in entries.filter_map(|e| e.ok()).filter_map(|e| e.file_name().into_string().ok()) {
 			if name.to_ascii_lowercase().ends_with(".lua") && !listed.iter().any(|l| l.eq_ignore_ascii_case(&name)) {
-				return bad(format!("holds {folder}/{name}, which its TOC doesn't load"));
+				return Err(t!("{title}'s download holds {folder}/{name}, which its TOC doesn't load; not installing it.", title = title, folder = folder, name = name));
 			}
 		}
 	}
 	Ok(())
 }
 
+/// A TOC line a pack may not have (see [`check_toc`]).
+enum TocProblem {
+	/// A `##` line without a `:`.
+	Line(String),
+	/// A `## Key` the compiler never writes.
+	Directive(String),
+	/// A file line that is not one of the folder's generated files.
+	File(String),
+}
+
 /// The file lines of a pack TOC, when every line is one the compiler writes: blank, a `#`
 /// comment, a known `## Key: value` ([`TOC_KEYS`], or a `Title-`/`Notes-<locale>`), or one of the
 /// folder's generated files ([`MAIN_FILES`], [`TEXTS_FILES`] for a locale folder).
-fn check_toc(text: &str, locale: bool) -> Result<Vec<&'static str>, String> {
+fn check_toc(text: &str, locale: bool) -> Result<Vec<&'static str>, TocProblem> {
 	let files: &[&'static str] = if locale { &TEXTS_FILES } else { &MAIN_FILES };
 	let mut listed = Vec::new();
 	for line in text.trim_start_matches('\u{feff}').lines() {
 		let line = line.trim();
 		if let Some(directive) = line.strip_prefix("##") {
-			let key = directive.split_once(':').map(|(k, _)| k.trim()).ok_or_else(|| format!("has a line it may not have ({line})"))?;
+			let key = directive.split_once(':').map(|(k, _)| k.trim()).ok_or_else(|| TocProblem::Line(line.to_owned()))?;
 			let localized = |prefix: &str| key.strip_prefix(prefix).is_some_and(valid_locale);
 			if !TOC_KEYS.iter().any(|k| k.eq_ignore_ascii_case(key)) && !localized("Title-") && !localized("Notes-") {
-				return Err(format!("has a directive guides may not have (## {key})"));
+				return Err(TocProblem::Directive(key.to_owned()));
 			}
 		} else if line.is_empty() || line.starts_with('#') {
 			continue;
 		} else {
-			let file = files.iter().find(|f| f.eq_ignore_ascii_case(line)).ok_or_else(|| format!("loads a file guides don't have ({line})"))?;
+			let file = files.iter().find(|f| f.eq_ignore_ascii_case(line)).ok_or_else(|| TocProblem::File(line.to_owned()))?;
 			listed.push(*file);
 		}
 	}
@@ -943,8 +961,8 @@ pub async fn install(http: &reqwest::Client, entry: &Entry, addons: &Path, repor
 
 /// Unpacks a checked zip and swaps it in (the blocking half of [`install`]).
 fn install_zip(bytes: &[u8], entry: &Entry, addons: &Path) -> Result<Vec<String>, String> {
-	fs::create_dir_all(addons).map_err(|e| format!("Could not create {}: {e}", addons.display()))?;
-	let staging = fresh_dir(addons, STAGING).map_err(|e| format!("Could not prepare the install: {e}"))?;
+	fs::create_dir_all(addons).map_err(|e| t!("Could not create {folder}: {error}", folder = addons.display(), error = e))?;
+	let staging = fresh_dir(addons, STAGING).map_err(|e| t!("Could not prepare the install: {error}", error = e))?;
 	let result = unpack(bytes, &staging, entry).and_then(|folders| {
 		check(&staging, entry, &folders)?;
 		// Again, now: nothing may have taken a folder since the download started.
@@ -964,7 +982,7 @@ pub fn uninstall(id: &str, addons: &Path) -> Result<Vec<String>, String> {
 	if folders.is_empty() {
 		return Ok(folders);
 	}
-	let staging = fresh_dir(addons, STAGING).map_err(|e| format!("Could not prepare the removal: {e}"))?;
+	let staging = fresh_dir(addons, STAGING).map_err(|e| t!("Could not prepare the removal: {error}", error = e))?;
 	let result = swap(addons, &staging, &[], &folders).map(|()| folders);
 	let _ = fs::remove_dir_all(&staging);
 	result
@@ -979,16 +997,16 @@ pub fn disable(id: &str, addons: &Path, kept: &Path) -> Result<Vec<String>, Stri
 		return Ok(folders);
 	}
 	if kept.exists() {
-		fs::remove_dir_all(kept).map_err(|e| format!("Could not clear {}: {e}", kept.display()))?;
+		fs::remove_dir_all(kept).map_err(|e| t!("Could not clear {folder}: {error}", folder = kept.display(), error = e))?;
 	}
-	fs::create_dir_all(kept).map_err(|e| format!("Could not create {}: {e}", kept.display()))?;
+	fs::create_dir_all(kept).map_err(|e| t!("Could not create {folder}: {error}", folder = kept.display(), error = e))?;
 	let mut moved: Vec<&String> = Vec::new();
 	for folder in &folders {
 		if let Err(e) = move_dir(&addons.join(folder), &kept.join(folder)) {
 			for back in moved {
 				let _ = move_dir(&kept.join(back), &addons.join(back));
 			}
-			return Err(format!("Could not move {folder} out of AddOns: {e}"));
+			return Err(t!("Could not move {folder} out of AddOns: {error}", folder = folder, error = e));
 		}
 		moved.push(folder);
 	}
@@ -998,29 +1016,29 @@ pub fn disable(id: &str, addons: &Path, kept: &Path) -> Result<Vec<String>, Stri
 /// Puts a turned-off pack's folders back from `kept`; returns them. Each must still say it is
 /// pack `id`, and none may be in AddOns already.
 pub fn restore(id: &str, addons: &Path, kept: &Path) -> Result<Vec<String>, String> {
-	let entries = fs::read_dir(kept).map_err(|_| "Polestar Client no longer has the copy it kept of this guide.".to_owned())?;
+	let entries = fs::read_dir(kept).map_err(|_| t!("Polestar Client no longer has the copy it kept of this guide."))?;
 	let mut folders: Vec<String> = entries.filter_map(|e| e.ok()).filter(|e| e.file_type().is_ok_and(|t| t.is_dir())).filter_map(|e| e.file_name().into_string().ok()).collect();
 	folders.sort();
 	if !folders.contains(&main_folder(id)) {
-		return Err("The copy Polestar Client kept of this guide is incomplete; not restoring it.".to_owned());
+		return Err(t!("The copy Polestar Client kept of this guide is incomplete; not restoring it."));
 	}
 	for folder in &folders {
 		let ours = parse_folder(folder).is_some_and(|(owner, locale)| owner == id && folder_owner(&kept.join(folder), locale.is_some()).as_deref() == Some(id));
 		if !ours {
-			return Err(format!("The kept copy holds {folder}, which isn't this guide's; not restoring it."));
+			return Err(t!("The kept copy holds {folder}, which isn't this guide's; not restoring it.", folder = folder));
 		}
 		if fs::symlink_metadata(addons.join(folder)).is_ok() {
-			return Err(format!("AddOns already has a {folder}; remove it first to restore the kept copy."));
+			return Err(t!("AddOns already has a {folder}; remove it first to restore the kept copy.", folder = folder));
 		}
 	}
-	fs::create_dir_all(addons).map_err(|e| format!("Could not create {}: {e}", addons.display()))?;
+	fs::create_dir_all(addons).map_err(|e| t!("Could not create {folder}: {error}", folder = addons.display(), error = e))?;
 	let mut moved: Vec<&String> = Vec::new();
 	for folder in &folders {
 		if let Err(e) = move_dir(&kept.join(folder), &addons.join(folder)) {
 			for back in moved {
 				let _ = move_dir(&addons.join(back), &kept.join(back));
 			}
-			return Err(format!("Could not move {folder} back into AddOns: {e}"));
+			return Err(t!("Could not move {folder} back into AddOns: {error}", folder = folder, error = e));
 		}
 		moved.push(folder);
 	}
@@ -1062,15 +1080,15 @@ fn copy_dir(from: &Path, to: &Path) -> io::Result<()> {
 /// The pack a `polestar://install?pack=<id>` link asks for. Other parameters (a future
 /// `version=`) are ignored.
 pub fn parse_link(link: &str) -> Result<String, String> {
-	let url = tauri::Url::parse(link.trim()).map_err(|_| "That link isn't one Polestar Client can open.".to_owned())?;
+	let url = tauri::Url::parse(link.trim()).map_err(|_| t!("That link isn't one Polestar Client can open."))?;
 	let action = url.host_str().map(str::to_owned).unwrap_or_else(|| url.path().trim_matches('/').to_owned());
 	if url.scheme() != "polestar" || !action.eq_ignore_ascii_case("install") || !matches!(url.path(), "" | "/") && url.host_str().is_some() {
-		return Err("That link isn't one Polestar Client can open. Links from polestar.guide install a Community Guide.".to_owned());
+		return Err(t!("That link isn't one Polestar Client can open. Links from polestar.guide install a Community Guide."));
 	}
-	let pack = url.query_pairs().find(|(k, _)| k == "pack").map(|(_, v)| v.into_owned()).ok_or("That install link doesn't say which guide to install.")?;
+	let pack = url.query_pairs().find(|(k, _)| k == "pack").map(|(_, v)| v.into_owned()).ok_or_else(|| t!("That install link doesn't say which guide to install."))?;
 	if !valid_id(&pack) {
 		let shown: String = pack.chars().take(40).collect();
-		return Err(format!("\"{shown}\" isn't a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide's page on polestar.guide again."));
+		return Err(t!("\"{name}\" isn't a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide's page on polestar.guide again.", name = shown));
 	}
 	Ok(pack)
 }

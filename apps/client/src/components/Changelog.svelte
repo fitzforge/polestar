@@ -5,7 +5,8 @@
 	import { onMount } from 'svelte';
 	import { app } from '../lib/app.svelte';
 	import { api } from '../lib/backend';
-	import { ago } from '../lib/format';
+	import { ago, date as day } from '../lib/format';
+	import { t } from '../lib/i18n.svelte';
 	import { renderMarkdown } from '../lib/markdown';
 	import { drawer, fade } from '../lib/motion';
 	import type { Changelog } from '../lib/types';
@@ -14,9 +15,9 @@
 
 	let { notes, onclose }: { notes: Changelog; onclose: () => void } = $props();
 
-	const html = $derived(renderMarkdown(notes.body || '_No notes for this release._'));
+	const html = $derived(renderMarkdown(notes.body || `_${t('No notes for this release.')}_`));
 	const published = $derived(notes.publishedAt ? Date.parse(notes.publishedAt) : null);
-	const date = $derived(published ? new Date(published).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }) : null);
+	const date = $derived(published ? day(published, { day: 'numeric', month: 'long', year: 'numeric' }) : null);
 
 	let panel: HTMLElement;
 	let close: HTMLButtonElement;
@@ -56,15 +57,15 @@
 		<div class="head">
 			<div>
 				<h2 id="notes-title">{notes.name} {notes.version}</h2>
-				{#if date && published}<p class="small dim">Released {date} · {ago(published, app.now)}</p>{/if}
+				{#if date && published}<p class="small dim">{t('Released {date} · {ago}', { date, ago: ago(published, app.now) })}</p>{/if}
 			</div>
-			<button class="icon-btn" aria-label="Close" bind:this={close} onclick={onclose}><Glyph name="close" size={14} /></button>
+			<button class="icon-btn" aria-label={t('Close')} bind:this={close} onclick={onclose}><Glyph name="close" size={14} /></button>
 		</div>
 	</Band>
 	<!-- svelte-ignore a11y_click_events_have_key_events, a11y_no_static_element_interactions -->
 	<div class="notes selectable" onclick={click}>{@html html}</div>
 	<footer>
-		<button class="link" onclick={() => api.openLink(notes.pageUrl)}>{notes.pageLabel ?? 'Open the release on GitHub'}</button>
+		<button class="link" onclick={() => api.openLink(notes.pageUrl)}>{notes.pageLabel ?? t('Open the release on GitHub')}</button>
 	</footer>
 </div>
 
