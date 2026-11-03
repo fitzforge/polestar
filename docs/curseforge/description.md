@@ -124,7 +124,7 @@ Write leveling guides of your own? Polestar's guide format, compiler, checks, pl
 
 ## Beta
 
-Polestar is in beta. Every guide compiles, lints and plays to the end in a simulator for every race and class it serves, and the route checker plays every leveling guide to 60 the way a player follows it. The 0.3.0 routes have been tested in the developer's own game client, not yet by players on Forever. Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not in any data yet; the routes will take it in once it is.
+Polestar is in beta. Every guide compiles, lints and plays to the end in a simulator for every race and class it serves, and the route checker plays every leveling guide to 60 the way a player follows it. Tell us what you find on Forever: every report becomes a fix the next build keeps. Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not in any data yet; the routes will take it in once it is.
 
 A step in the wrong order, or a quest that is not where the guide says? Please tell us on the [Polestar Discord](https://discord.gg/polestar) or [open an issue on GitHub](https://github.com/fitzforge/polestar/issues), with the guide, the step and what you saw. `/console scriptErrors 1` shows Lua errors.
 

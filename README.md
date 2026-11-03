@@ -156,17 +156,20 @@ and community guides (`/polestar welcome` shows it again).
 
 ### New in 0.3.0
 
-[CHANGELOG.md](CHANGELOG.md) lists every change, and `changes/` what is
-merged since:
+0.3.0 is the current release and our biggest yet, built around a complete
+overhaul of the leveling routes ([CHANGELOG.md](CHANGELOG.md) lists every
+change):
 
-- **Better routes.** Every race's route is rebuilt by Polestar Forge, and on
-  each side the races share one route after their starting zones, so a fix
-  or an improvement reaches all of them. The hearthstone is never asked for
-  while it cools down, every order a player reported as wrong is followed,
-  rare drops are optional, towns are swept in one visit and class training
-  comes on the way. Elite and group
-  quests come with the group they want and a solo way past
+- **Routes rebuilt from the ground up.** Every race plays its own starting
+  zone, then one shared route per faction carries it to 60, so a fix or an
+  improvement reaches every race. Towns are done in one visit, work is picked
+  up on the way, class training comes where you already are, the hearthstone
+  is never asked for while it cools down, rare drops are optional, elite and
+  group quests come with the group they want and a solo way past, and every
+  order a player reported as wrong is followed
   ([what changed](#what-changed-in-030)).
+- **A guide that follows the game.** A step moves on only when the game
+  confirms it: a quest taken or handed in, an item looted, a spell learnt.
 - **The arrow walks the guide's own paths.** The walk into each step is
   worked out when the guides are built (on Leffe's navigation maps and
   Polestar's own), so the arrow follows it at once instead of searching
@@ -175,12 +178,14 @@ merged since:
   departure time; walks get on and off where the car stops; one fixed way in
   and out of the Undercity; Stormwind and the other capitals are left by
   their streets and gates.
-- **Reputation guides rebuilt** from Forever's data, ten new factions among
-  them: each standing band says what every turn-in, kill or run pays, how many
-  you need to the next standing, and what the quartermaster sells.
+- **Every guide shelf rebuilt or reviewed** against Forever's data: class
+  quests for every class, professions, reputation (ten new factions among
+  them), mounts, pets and exploration.
 - **Your own way through a route.** Pin any quest along the way, answer group
   quests once for the whole route, and have your class's quests offered in a
   tab beside your leveling guide when they open.
+- **A new look and new tools:** new map and minimap icons, a Characters page,
+  restock, bag tools and a redesigned welcome and options.
 - **The recording program.** The Recorder is rebuilt to record what the
   guides need most in compact, anonymous chunks, and the Polestar Client
   sends them only with your consent, showing what each upload holds.
@@ -190,14 +195,14 @@ merged since:
 > [!NOTE]
 > **Beta.** Every guide compiles, lints and plays to the end in a simulator
 > for every race and class it serves, and the route checker plays every
-> leveling guide to 60 the way a player follows it. The 0.3.0 routes have been
-> tested in the developer's own game client, not yet by players on Forever.
+> leveling guide to 60 the way a player follows it. Tell us what you find on
+> Forever: every report becomes a fix the next build keeps.
 > Forever's new 30-60 content (Riverglades, Shen'dralas, Mount Hyjal) is not
 > in any data yet; the routes take it in at launch.
 
 ## A look inside
 
-Polestar 0.2.6's own windows, drawn from the addon's layout: the same pictures
+Polestar's own windows, drawn from the addon's layout: the same pictures
 [polestar.guide](https://polestar.guide) shows. The world map, minimap and zone
 art in them is © Blizzard Entertainment.
 
