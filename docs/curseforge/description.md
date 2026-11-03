@@ -10,7 +10,7 @@
 
 ## Leveling routes that make sense
 
-![The guide window on a step of The Barrens, with goal counters, the next person, XP per hour and the time to level](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/guide-window.png)
+![The guide window on a step in Elwynn Forest, with its goals and counters, tabs for a profession and a reputation guide](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/guide.webp)
 
 *   **Your race's own start, then one route for your faction.** Every race levels through its own starting zone (Zephras Isle for the Skyborne included), then joins the Horde route from the Barrens or the Alliance route from Westfall, all the way to 60.
 *   **Towns in one visit.** Everything ready in a town is picked up and handed in while you're there, including where a flight or your hearth lands you. No running back for one quest.
@@ -31,7 +31,9 @@
 
 ## Finding the way
 
-![The 3D waypoint arrow over the sea: 34 yd, Collect Theramore Medal](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/arrow.png)
+![The waypoint arrow: 1412 yd, Go to Westfall](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/waypoint-arrow.webp)
+
+![Quest markers on the Elwynn Forest map: the step's mobs ringed in gold inside the step's area, other quests' mobs and turn-ins](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/quest-markers.webp)
 
 *   **A 3D waypoint arrow** with distance and ETA that walks paths worked out for every step: round cliffs and walls, through town gates, into caves, up and down lifts, and out of the capitals by their streets.
 *   **The travel planner** uses flight paths, boats, zeppelins, the tram, portals, class teleports and your Hearthstone when they're faster, on their real timetables.
@@ -39,7 +41,7 @@
 
 ## Every guide in one place
 
-![The Polestar hub on its Guides section, with the leveling guides by level band](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/hub-guides.png)
+![The Polestar hub on its Guides section: the guides by category, with a leveling guide's zone, steps and quests](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/hub.webp)
 
 *   **Leveling** for every race and both factions, 1 to 60.
 *   **Class quests** for every class: spells, pets, totems, forms, class items and class mounts.
@@ -50,7 +52,9 @@
 
 ## Lookup, Dungeons and Rares
 
-![The Wailing Caverns page: its quests with who starts and ends them, their chains, and a Pick up the quests button](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/dungeon-quests.png)
+![Lookup searching swift: mounts, items, recipes, quests, NPCs and rares, with the Swift Brown Steed's vendors](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/lookup-search.webp)
+
+![Wailing Caverns in the dungeon journal: its quests, who starts and ends them, and their rewards](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/dungeon-journal.webp)
 
 *   **Lookup** answers "how do I get that?" for any item, mount, pet, NPC, quest or zone, with the sources ranked for your character.
 *   **Dungeons:** every quest, its chain and rewards, the bosses and the entrance, and one button that guides you round to pick the quests up.
@@ -67,8 +71,6 @@
 
 ## Your look
 
-![The guide window in transparent mode: no background, outlined text over the grass of the Barrens](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/guide-transparent.png)
-
 Skins (Polestar's own, Halo, Hearth, WoW Forever, Blizzard and Classic), colour schemes with your own accent or class colour, standard, compact or transparent windows, text size, and EllesmereUI's accent and font when it's installed.
 
 **Every language:** English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it.
@@ -76,6 +78,10 @@ Skins (Polestar's own, Halo, Hearth, WoW Forever, Blizzard and Classic), colour 
 ***
 
 ## Polestar Client and polestar.guide
+
+![The Polestar Client: installed community guides with their authors and versions, and an Update button](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/client.webp)
+
+![The guide library on polestar.guide: every guide that ships inside Polestar, searchable](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/site-library.webp)
 
 *   **[Polestar Client](https://polestar.guide/client)** is a small app for Windows, macOS and Linux that finds WoW: Forever, installs and updates Polestar for you, and installs community guides in one click.
 *   **[polestar.guide](https://polestar.guide)** has every guide readable step by step, the community guides, and the docs.
