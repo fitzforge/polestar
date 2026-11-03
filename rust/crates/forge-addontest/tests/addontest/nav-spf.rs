@@ -3125,3 +3125,39 @@ fn a5_a_road_bending_13_yd_aside_and_back_keeps_the_arrow_pointing_down_the_road
 	assert!(num(&out["aim"][2]) >= 33.0, "aim_x {} should be past the bend (≥33), not held at it", out["aim"][2]);
 	assert!(num(&out["aim"][3]).abs() <= 3.0, "aim_y {} should be back on the road (|y| ≤ 3)", out["aim"][3]);
 }
+
+// Fitz, 2026-11-03: walking 12 yd beside a straight path, the arrow points
+// along it from where he is (the body), not back to the line: the aim is
+// carried sideways by his offset.
+#[test]
+fn a6_walking_12_yd_beside_a_straight_path_the_arrow_points_along_it_not_back_to_it() {
+	let out = run(r#"
+		local r = {}
+		nav.place(50, 12)
+		target(200, 0)
+		aim()
+		fake.resolve(0,0, 40,0, 80,0, 120,0, 160,0, 200,0)
+		r.aim = aim()
+		emit(r)"#);
+	assert_eq!(out["aim"][0], "travel");
+	assert!(num(&out["aim"][2]) > 70.0, "aim_x {} should be well ahead", out["aim"][2]);
+	assert!((num(&out["aim"][3]) - 12.0).abs() <= 1.0, "aim_y {} should stay at his 12 yd offset (parallel to the path)", out["aim"][3]);
+}
+
+// Fitz, 2026-11-03 (the Barrens, the road just east of him): a path searched
+// from where he stood ran 20 yd east to the road, then south along it, and the
+// arrow held him to that join. Outdoors the first turn near the path's start is
+// joining the road: the arrow aims on down the road, so he merges at an angle.
+#[test]
+fn a7_outdoors_the_turn_onto_the_road_near_the_path_start_is_cut_the_arrow_aims_down_the_road() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		target(20, -200)
+		aim()
+		fake.resolve(0,0, 20,0, 20,-40, 20,-80, 20,-120, 20,-160, 20,-200)
+		r.aim = aim()
+		emit(r)"#);
+	assert_eq!(out["aim"][0], "travel");
+	assert!(num(&out["aim"][3]) <= -20.0, "aim_y {} should be down the road (≤ -20), not the join at (20, 0)", out["aim"][3]);
+}

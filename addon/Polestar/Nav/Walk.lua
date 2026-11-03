@@ -175,6 +175,7 @@ ns.RegisterDefaults("nav", { navRouting = true, routeStyle = "balanced" })
 
 local PACK = "Polestar_Nav"
 local STRAY = 25            -- yards off the path: ask again
+local JOIN = 50             -- yards from a path's start: its first turn there, outdoors, is joining a road (Nav/Follow.lua)
 local ASK_EVERY = 2         -- seconds between asks for the same goal
 local GOAL_MOVED = 1        -- yards: the goal is another one
 local FAIL_RETRY, FAIL_MOVED = 15, 25 -- a failed search is asked again this late, this far away
@@ -890,7 +891,10 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	end
 	if count == 0 then return nil end
 
-	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop)
+	-- Outdoors, the path's first turn near its start (joining a road) may be cut
+	-- (Nav/Follow.lua `join`); indoors every turn is a wall's.
+	local join = not (IsIndoors and IsIndoors()) and JOIN or nil
+	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join)
 	idx = fstate.idx
 	if not ax then
 		lastLeft = nil
@@ -900,9 +904,16 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	local ix, iy = ptsX[idx] or ptsX[count], ptsY[idx] or ptsY[count]
 	local dx, dy = ix - px, iy - py
 	lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
-	-- Re-ask only when the player has strayed from the path: walking beside it,
-	-- or coming at it from the side, is the follower's to handle.
-	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
+	-- Re-ask when the player has strayed from the path (walking beside it, or
+	-- coming at it from the side, is the follower's to handle), or when the aim
+	-- points against the path's way on (a stale path whose start lies behind
+	-- the player: the Oct 19 "90° re-ask", kept since the follower moved).
+	local shouldAsk = fstate.off > STRAY
+	if not shouldAsk and idx >= 2 and idx <= count then
+		local fx, fy = ptsX[idx] - ptsX[idx - 1], ptsY[idx] - ptsY[idx - 1]
+		if fx * (ax - px) + fy * (ay - py) < 0 then shouldAsk = true end
+	end
+	if shouldAsk and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
 

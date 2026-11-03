@@ -31,8 +31,16 @@
 -- player has wandered off), it points back to the path LEAD yards ahead of
 -- the projection, never at a point behind.
 --
+-- Joining the road: a path searched from where the player stands runs to the
+-- nearest point of a road and turns along it (the router prices roads
+-- cheaper), and that turn is a cost, not a place to go. With `join` (yards;
+-- the caller passes it outdoors only), the first turn within `join` yards of
+-- the path's start is not a corner: the arrow aims on along the road past it,
+-- so the player merges at an angle. Later turns, `stop` and floor changes
+-- still hold.
+--
 --   Follow.Reset(S)                    a fresh path: S.idx = 2 (the first segment's end)
---   Follow.Step(xs, ys, zs, left, n, S, px, py, stop) -> ax, ay | nil
+--   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join) -> ax, ay | nil
 --     the point to aim at; nil once the player is within REACH of the last
 --     point (from there: straight at the goal). Sets, in S (the caller's table,
 --     reused, so it is allocation-free):
@@ -57,6 +65,7 @@ local AHEAD = 45       -- yards along the path the aim may lie past the projecti
 local PAD = 20         -- yards: path points this close to the line to the aim lie on the way (a road's wiggles)
 local CORNER_PAD = 10  -- yards: how far the aim may cut inside a real corner
 local TURN = math.cos(math.rad(60)) -- a piece of SHORT yards or more turning further from the line to the aim is a real corner (a wiggle's way back is less)
+local BODY = 15        -- yards beside the path the player may walk with the arrow pointing along it, not back to it
 local LEAD = 10        -- yards along the path past the projection: the aim when the path is out of RADIUS
 local FLOOR_STEP = 6   -- yards above or below: another floor
 local SHORT = 8        -- yards: pieces this short on both sides of a point are a road's zigzag, smoothed
@@ -95,7 +104,7 @@ local function inCorridor(xs, ys, a, b, sx, sy, qx, qy, pad)
 	return true
 end
 
-function Follow.Step(xs, ys, zs, left, n, S, px, py, stop)
+function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join)
 	if n == 0 then return nil end
 	if n == 1 then
 		local dx, dy = xs[1] - px, ys[1] - py
@@ -160,6 +169,9 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop)
 	local r2 = RADIUS * RADIUS
 	local sx, sy, done = p0x, p0y, 0
 	local qx, qy
+	local open = false -- the aim stopped mid-path at RADIUS or AHEAD (not at a corner, a floor change or the end)
+	local from = idx    -- the first path point the corridor holds to (past a road's join, the points after it)
+	local joined = false
 	for j = idx, limit do
 		local zj = zs[j]
 		if zRef and zj and abs(zj - zRef) > FLOOR_STEP then break end
@@ -189,7 +201,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop)
 			if budget < u then u = budget end
 			if u <= 0 then break end
 			local cx, cy = sx + dx * u, sy + dy * u
-			local corner = j > idx and not inCorridor(xs, ys, idx, j - 1, p0x, p0y, cx, cy, PAD)
+			local corner = j > idx and not inCorridor(xs, ys, from, j - 1, p0x, p0y, cx, cy, PAD)
 			if not corner and j > idx and L >= SHORT then
 				-- Within PAD, but the path itself turns away from the line to the aim:
 				-- a corner or a switchback, not a wiggle.
@@ -197,23 +209,35 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop)
 				local la = sqrt(ax2 * ax2 + ay2 * ay2)
 				corner = la > 0 and (ax2 * dx + ay2 * dy) / (la * L) < TURN
 			end
+			if corner and join and not joined and j - 1 >= idx and start - left[j - 1] <= join then
+				-- The first turn near the path's start: joining the road, cut freely.
+				corner, joined, from = false, true, j
+			end
 			if corner then
 				-- A corner: the furthest u whose line cuts inside it by CORNER_PAD at most.
 				local lo, hi = 0, u
 				for _ = 1, BISECT do
 					local mid = (lo + hi) * 0.5
-					if inCorridor(xs, ys, idx, j - 1, p0x, p0y, sx + dx * mid, sy + dy * mid, CORNER_PAD) then lo = mid else hi = mid end
+					if inCorridor(xs, ys, from, j - 1, p0x, p0y, sx + dx * mid, sy + dy * mid, CORNER_PAD) then lo = mid else hi = mid end
 				end
 				if lo > 0 then qx, qy = sx + dx * lo, sy + dy * lo end
 				break
 			end
 			qx, qy = cx, cy
-			if u < 1 then break end
+			if u < 1 then open = true break end
 			done = done + L
 		end
 		sx, sy = ex, ey
 	end
-	if qx then return qx, qy end
+	if qx then
+		-- The body: walking beside the path within BODY yards, the arrow points
+		-- along it from where the player is (the aim carried sideways by the
+		-- player's offset) instead of pulling back to the line. At a corner, a
+		-- floor change, `stop` or the end, it points at the path itself.
+		local off = S.off
+		if open and not joined and off > 0 and off <= BODY then return qx + (px - p0x), qy + (py - p0y) end
+		return qx, qy
+	end
 
 	-- Out of RADIUS: back to the path, LEAD yards ahead of the projection.
 	local bx, by = xs[idx], ys[idx]
