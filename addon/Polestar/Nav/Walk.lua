@@ -904,16 +904,12 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	local ix, iy = ptsX[idx] or ptsX[count], ptsY[idx] or ptsY[count]
 	local dx, dy = ix - px, iy - py
 	lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
-	-- Re-ask when the player has strayed from the path (walking beside it, or
-	-- coming at it from the side, is the follower's to handle), or when the aim
-	-- points against the path's way on (a stale path whose start lies behind
-	-- the player: the Oct 19 "90° re-ask", kept since the follower moved).
-	local shouldAsk = fstate.off > STRAY
-	if not shouldAsk and idx >= 2 and idx <= count then
-		local fx, fy = ptsX[idx] - ptsX[idx - 1], ptsY[idx] - ptsY[idx - 1]
-		if fx * (ax - px) + fy * (ay - py) < 0 then shouldAsk = true end
-	end
-	if shouldAsk and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
+	-- Re-ask only when the player has strayed from the path: walking beside it,
+	-- or coming at it from the side, is the follower's to handle. (A stale path
+	-- left behind the player cannot hold the arrow back: the follower's
+	-- projection moves on with the player, and past WINDOW yards the player is
+	-- off the path and STRAY asks again.)
+	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
 
