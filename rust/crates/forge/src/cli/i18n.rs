@@ -72,19 +72,18 @@ tools/polestar.js; the names addons are forge data names.)
 
   i18n audit [<locale>...]   read only: holds the translations against the
                              Forever client's own names (SpellName,
-                             AreaTable and SkillLine, from the tables that
-                             forge data names caches; the talent trees are
-                             skill lines). A text whose English names a
-                             spell, a talent, an area or a talent tree
-                             should carry the client's name. A name of one
-                             word counts only as a whole text, one of
-                             several words wherever it stands; endings may
-                             change. Reads the interface files of both
-                             addons and the guide texts
-                             (guides/locales/<locale>). Prints a table:
-                             kind, English name, client name, file:line, the
-                             English text (--json: the translation too).
-                             Exit 1 when it finds any.
+                             AreaTable, SkillLine and TalentTab, from the
+                             tables that forge data names caches). A text
+                             whose English names a spell, a talent, an
+                             area, a skill line or a talent tree should
+                             carry the client's name. A name of one word
+                             counts only as a whole text, one of several
+                             words wherever it stands; endings may change.
+                             Reads the interface files of both addons and
+                             the guide texts (guides/locales/<locale>).
+                             Prints a table: kind, English name, client
+                             name, file:line, the English text (--json: the
+                             translation too). Exit 1 when it finds any.
 
   i18n guides sync [<locale>...]
                              writes a pack's texts in other languages
@@ -565,9 +564,8 @@ fn run_audit(o: &Opts, positional: &[String]) -> Result<u8, Fail> {
 		let texts = audit::read_texts(&files, &|f| f.strip_prefix(&o.root).map_or_else(|_| rel(f), |r| r.to_string_lossy().replace('\\', "/")))?;
 		let names = &tables.names[locale];
 		let index = audit::name_index(names, &tables.english);
-		let trees = audit::tree_index(names, &tables.english);
 		checked.push((locale, texts.len(), index.len()));
-		rows.extend(audit::audit_texts(&texts, &index, &trees).into_iter().map(|f| (locale.as_str(), f)));
+		rows.extend(audit::audit_texts(&texts, &index).into_iter().map(|f| (locale.as_str(), f)));
 	}
 	if o.json {
 		let checked_obj = Obj::new();

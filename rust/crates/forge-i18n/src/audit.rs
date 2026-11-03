@@ -6,10 +6,10 @@
 //!
 //! A name of one word is also an everyday word (Fire, Shadow, Charge): it counts only as the whole
 //! English text, never inside a sentence. A name of several words counts wherever the English has it
-//! as whole words. A talent tree is also asked for by the first words of its name, as a whole text
-//! (the addon's "Shadow" is the client's "Shadow Magic"); a role in brackets after the text ("Holy
-//! (healer)") is left out. The translation may inflect it and put it in any case: each word of the
-//! client's name needs only its first letters, without the last three, in the text.
+//! as whole words. A role in brackets after the text ("Holy (healer)") is left out. The translation
+//! may inflect it and put it in any case: each word of the client's name needs only its first
+//! letters, without the last three, in the text. A name the client gives two ways (the skill line
+//! "Subtlety" is "Feingefühl", the talent tab "Subtlety" is "Täuschung") is carried by either.
 
 use forge_guide::i18n_files::unescape_lua_text;
 use regex::Regex;
@@ -125,7 +125,7 @@ pub fn carries(tr: &str, name: &str) -> bool {
 
 /// The English names of one locale: name -> kind and the client's names. A name keeps only the client
 /// names that differ from the English; one the client leaves in English somewhere (Ratchet) is none.
-/// The talent trees (kind tree) are in `tree_index`.
+/// A skill line or a talent tab is named as that kind, the talent tab last.
 pub fn name_index(names: &KindNames, english: &KindNames) -> BTreeMap<String, Entry> {
 	struct Acc {
 		kind: String,
@@ -133,7 +133,7 @@ pub fn name_index(names: &KindNames, english: &KindNames) -> BTreeMap<String, En
 		untranslated: bool,
 	}
 	let mut by: BTreeMap<String, Acc> = BTreeMap::new();
-	for kind in ["spell", "area", "skill"] {
+	for kind in ["spell", "area", "skill", "tree"] {
 		let Some(list) = english.get(kind) else { continue };
 		for (id, en) in list {
 			let Some(tr) = names.get(kind).and_then(|m| m.get(id)) else { continue };
@@ -141,8 +141,8 @@ pub fn name_index(names: &KindNames, english: &KindNames) -> BTreeMap<String, En
 				continue;
 			}
 			let e = by.entry(en.clone()).or_insert_with(|| Acc { kind: kind.to_string(), client: BTreeSet::new(), untranslated: false });
-			if kind == "skill" {
-				e.kind = "skill".to_string();
+			if kind == "skill" || kind == "tree" {
+				e.kind = kind.to_string();
 			}
 			if tr == en {
 				e.untranslated = true;
@@ -152,27 +152,6 @@ pub fn name_index(names: &KindNames, english: &KindNames) -> BTreeMap<String, En
 		}
 	}
 	by.into_iter().filter(|(_, e)| !e.untranslated && !e.client.is_empty()).map(|(en, e)| (en, Entry { kind: e.kind, client: e.client.into_iter().collect() })).collect()
-}
-
-/// The talent trees by the first words of their English name, shorter than the whole: words -> the
-/// client's names. A pet's skill line ("Pet - Wolf") is no tree.
-pub fn tree_index(names: &KindNames, english: &KindNames) -> BTreeMap<String, Entry> {
-	let mut out: BTreeMap<String, Entry> = BTreeMap::new();
-	let Some(list) = english.get("tree") else { return out };
-	for (id, en) in list {
-		let Some(tr) = names.get("tree").and_then(|m| m.get(id)) else { continue };
-		if tr == en || en.contains(" - ") {
-			continue;
-		}
-		let words: Vec<&str> = en.split(js_space).filter(|w| !w.is_empty()).collect();
-		for n in 1..words.len() {
-			let e = out.entry(words[..n].join(" ")).or_insert_with(|| Entry { kind: "tree".to_string(), client: Vec::new() });
-			if !e.client.contains(tr) {
-				e.client.push(tr.clone());
-			}
-		}
-	}
-	out
 }
 
 /// `name` stands in `text` as whole words: no letter or apostrophe right before or after it.
@@ -187,7 +166,7 @@ fn whole_words(text: &str, name: &str) -> bool {
 
 /// The texts of one locale against its client names: each name the English text has that the
 /// translation lacks.
-pub fn audit_texts(texts: &[Text], index: &BTreeMap<String, Entry>, trees: &BTreeMap<String, Entry>) -> Vec<Finding> {
+pub fn audit_texts(texts: &[Text], index: &BTreeMap<String, Entry>) -> Vec<Finding> {
 	// The names of several words by their first word; the one-word names by themselves.
 	let mut multi: BTreeMap<&str, Vec<&str>> = BTreeMap::new();
 	let mut single: BTreeMap<&str, &Entry> = BTreeMap::new();
@@ -214,12 +193,6 @@ pub fn audit_texts(texts: &[Text], index: &BTreeMap<String, Entry>, trees: &BTre
 		let whole = single.get(key.as_str()).copied();
 		if let Some(w) = whole {
 			found.push((key.clone(), w));
-		}
-		// A tree's short name, unless the client names a skill line so.
-		if let Some(tree) = trees.get(&key) {
-			if !whole.is_some_and(|w| w.kind == "skill") {
-				found.push((key.clone(), tree));
-			}
 		}
 		let mut rest = plain.clone();
 		let firsts: BTreeSet<&str> = FIRST_WORDS.split(&plain).filter(|w| !w.is_empty()).collect();

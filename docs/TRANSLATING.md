@@ -133,17 +133,17 @@ for your language from
   baseline (below).
 - `forge i18n audit [<locale>...]` holds your translations against the names
   the Forever client itself has in your language (spells and talents, areas,
-  and the talent trees, from the client tables that `forge data names`
-  caches). A text whose English names one of them should carry the client's
+  skill lines and the talent window's tabs, from the client tables that
+  `forge data names` caches). A text whose English names one of them should carry the client's
   name. It reads the interface files and the guide texts, changes nothing,
   and prints each finding with its file and line; exit 1 when there is any. A
   name of one word (Fire, Shadow) counts only as a whole text, never inside a
   sentence; a name of several words counts wherever it stands. Its endings may
   change and hyphens and spaces do not matter ("Heilig-Spezialisierung" carries
   "Heiligspezialisierung"); the check is loose by design, so "Feuer" is also
-  found in "Feuerball". A talent tree is also asked for by the first words of
-  its name (the addon's "Shadow" is the client's "Shadow Magic"). A finding is
-  a question, not an error: the client names the spell and a text may mean the
+  found in "Feuerball". A name the client gives two ways (the skill line
+  "Subtlety" is "Feingefühl", the talent tab "Täuschung") is carried by either.
+  A finding is a question, not an error: the client names the spell and a text may mean the
   NPC or faction of the same name. `--offline` uses the cached tables,
   `--build` a build, `--sources` the cache folder, `--json` prints one document.
 

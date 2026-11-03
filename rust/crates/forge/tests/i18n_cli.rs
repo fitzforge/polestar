@@ -114,8 +114,8 @@ fn audit_with_no_finding_is_exit_0_and_with_no_client_tables_exit_1() {
 			at = at.join(l);
 		}
 		std::fs::create_dir_all(&at).unwrap();
-		for (table, field) in [("SpellName", "Name_lang"), ("AreaTable", "AreaName_lang"), ("SkillLine", "DisplayName_lang")] {
-			std::fs::write(at.join(format!("{table}.csv")), format!("ID,{field},CategoryID\n1,Zzyzx Qwerty Name {},7\n", locale.unwrap_or("en"))).unwrap();
+		for (table, field) in [("SpellName", "Name_lang"), ("AreaTable", "AreaName_lang"), ("SkillLine", "DisplayName_lang"), ("TalentTab", "Name_lang")] {
+			std::fs::write(at.join(format!("{table}.csv")), format!("ID,{field}\n1,Zzyzx Qwerty Name {}\n", locale.unwrap_or("en"))).unwrap();
 		}
 	}
 	let sources = dir.to_string_lossy().into_owned();

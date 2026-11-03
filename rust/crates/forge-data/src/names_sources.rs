@@ -448,15 +448,11 @@ pub fn load_client_names(sources: &Path, locales: &[&str], forever: Option<&str>
 	Ok(out)
 }
 
-/// What `forge i18n audit` reads besides: the names of spells and talents, areas and skill lines, and
-/// the talent trees alone (the skill lines of category 7: the Classic client names a tree "Shadow
-/// Magic" where the addon says "Shadow"). Kept apart from TABLE_KINDS: the names addons carry none
-/// of them.
+/// What `forge i18n audit` reads besides: the names of spells and talents, areas, skill lines and the
+/// talent trees (TalentTab: the tabs of the talent window, "Shadow" where the skill line is "Shadow
+/// Magic"). Kept apart from TABLE_KINDS: the names addons carry none of them.
 pub const AUDIT_KINDS: [(&str, &str, &str); 4] =
-	[("spell", "SpellName", "Name_lang"), ("area", "AreaTable", "AreaName_lang"), ("skill", "SkillLine", "DisplayName_lang"), ("tree", "SkillLine", "DisplayName_lang")];
-
-/// The skill lines that are a talent tree.
-const TREE_CATEGORY: &str = "7";
+	[("spell", "SpellName", "Name_lang"), ("area", "AreaTable", "AreaName_lang"), ("skill", "SkillLine", "DisplayName_lang"), ("tree", "TalentTab", "Name_lang")];
 
 pub struct AuditNames {
 	/// locale -> kind -> names.
@@ -467,12 +463,9 @@ pub struct AuditNames {
 
 /// One build's audit tables in English and each language.
 fn load_audit_tables(sources: &Path, build: &str, locales: &[&str], http: Option<&Http>, log: &dyn Fn(&str)) -> Result<(BTreeMap<String, KindNames>, KindNames), String> {
-	let read = |locale: Option<&str>, kind: &str, table: &str, field: &str| -> Result<Names, String> {
+	let read = |locale: Option<&str>, table: &str, field: &str| -> Result<Names, String> {
 		let mut m = Names::new();
 		for r in cached_table(sources, build, table, locale, http, log)? {
-			if kind == "tree" && r.get("CategoryID").map(String::as_str) != Some(TREE_CATEGORY) {
-				continue;
-			}
 			let id = r.get("ID").map(|s| forge_guide::js::str_to_num(s)).unwrap_or(f64::NAN);
 			let name = r.get(field).map(|s| js_trim(s)).unwrap_or("");
 			if id > 0.0 && !name.is_empty() {
@@ -483,13 +476,13 @@ fn load_audit_tables(sources: &Path, build: &str, locales: &[&str], http: Option
 	};
 	let mut english = KindNames::new();
 	for (kind, table, field) in AUDIT_KINDS {
-		english.insert(kind, read(None, kind, table, field)?);
+		english.insert(kind, read(None, table, field)?);
 	}
 	let mut names = BTreeMap::new();
 	for l in locales {
 		let mut m = KindNames::new();
 		for (kind, table, field) in AUDIT_KINDS {
-			m.insert(kind, read(Some(l), kind, table, field)?);
+			m.insert(kind, read(Some(l), table, field)?);
 		}
 		names.insert(l.to_string(), m);
 	}
@@ -525,7 +518,7 @@ pub fn load_audit_names(sources: &Path, locales: &[&str], forever: Option<&str>,
 			Err(e) => errors.push(format!("{b}: {e}")),
 		}
 	}
-	let tables = ["SpellName", "AreaTable", "SkillLine"].join(", ");
+	let tables = ["SpellName", "AreaTable", "SkillLine", "TalentTab"].join(", ");
 	let why = if errors.is_empty() { " cached".to_string() } else { format!(": {}", errors.join("; ")) };
 	Err(format!("no forever client tables ({tables}) for {}{why}; run once online, or pass the build", locales.join(", ")))
 }
