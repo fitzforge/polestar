@@ -166,8 +166,10 @@ Nav.follow.Reset(S)
 local ax, ay = Nav.follow.Step(leg.xs, leg.ys, leg.zs, leg.left, leg.n, S, 1, -2, leg.n)
 emit({ ax = math.floor(ax + 0.5), ay = math.floor(ay + 0.5), left = math.floor(S.left + 0.5), idx = S.idx })`,
 	}).emitted[0];
-	// From the start, along the first straight (x 0): the aim lies on it, ahead.
-	assert.equal(out.ax, 0);
+	// From the start, along the first straight (x 0), the player 1 yd beside it:
+	// the aim lies ahead along it, carried by his 1 yd offset (the arrow's body:
+	// it points along the leg, not back onto it).
+	assert.equal(out.ax, 1);
 	assert.ok(out.ay < -2 && out.ay >= -60, `aim y ${out.ay}`);
 	assert.equal(out.idx, 2);
 	assert.ok(out.left > 170 && out.left < 182, `left ${out.left}`);
