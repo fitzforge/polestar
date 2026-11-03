@@ -3046,10 +3046,11 @@ fn t_234_floor_ruling_36b_a_search_sent_without_a_height_then_the_floor_found_wi
 	assert_eq!(out["lateCalls"], 0, "a floor found more than 5 s after the search asks nothing");
 }
 
-// Arrow body (POINT_REACH=20, PAD=12, AHEAD=45): the player has a 20 yd body
-// so path points within it are always treated as passed; the wider look-ahead
-// corridor keeps the arrow from going sideways on an offset path; a switchback
-// with legs 15 yd apart keeps the arrow on the near leg, not cutting across.
+// The arrow's corridor (Nav/Follow.lua: PAD 20, CORNER_PAD 10, TURN 60°, AHEAD 45):
+// a road's wiggles up to 20 yd to the side stay inside it, so the arrow points
+// down the road; the wider look-ahead keeps it from going sideways on an offset
+// path; a real corner or a switchback (the path turning more than 60° from the
+// line to the aim) still stops it at the corner.
 
 #[test]
 fn a1_arrow_aims_forward_when_12_yd_off_path_wider_pad_12_corridor_vs_old_pad_10() {
@@ -3087,11 +3088,11 @@ fn a2_player_12_yd_off_a_straight_path_arrow_within_30_of_forward_with_wider_loo
 }
 
 #[test]
-fn a4_switchback_with_legs_15_yd_apart_pad_12_keeps_the_arrow_on_the_near_leg() {
+fn a4_switchback_with_legs_15_yd_apart_keeps_the_arrow_on_the_near_leg() {
 	// Player at (70,0) near end of leg1 (x=0..100,y=0); leg2 is at y=-15.
-	// With PAD=20 the corridor would span to y=-15 and aim toward leg2 (cutting the
-	// switchback). With PAD=12 the across check fails (≈13.4 yd > 12) and aim stays
-	// on leg1 (y=0 or very close).
+	// Within PAD (20) the corridor alone would span to leg2; the turn down to it
+	// (63° from the line to the aim) makes it a corner, so the aim cuts inside by
+	// CORNER_PAD at most and stays near leg1.
 	let out = run(r#"
 		local r = {}
 		nav.place(70, 0)
@@ -3105,4 +3106,22 @@ fn a4_switchback_with_legs_15_yd_apart_pad_12_keeps_the_arrow_on_the_near_leg() 
 		emit(r)"#);
 	assert_eq!(out["aim"][0], "travel");
 	assert!(num(&out["aim"][3]) >= -12.0, "aim_y {} should be ≥-12 (near leg1 at y=0, not cut to leg2 at y=-15)", out["aim"][3]);
+}
+
+// Fitz, 2026-11-03: the arrow felt tight, swinging at every bend of a road. A
+// bend 13 yd to the side and back is a wiggle: the arrow points on down the
+// road past it, 35 yd out (with PAD 12 it stopped at the bend and pointed aside).
+#[test]
+fn a5_a_road_bending_13_yd_aside_and_back_keeps_the_arrow_pointing_down_the_road() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		target(80, 0)
+		aim()
+		fake.resolve(0,0, 8,0, 20,13, 32,0, 80,0)
+		r.aim = aim()
+		emit(r)"#);
+	assert_eq!(out["aim"][0], "travel");
+	assert!(num(&out["aim"][2]) >= 33.0, "aim_x {} should be past the bend (≥33), not held at it", out["aim"][2]);
+	assert!(num(&out["aim"][3]).abs() <= 3.0, "aim_y {} should be back on the road (|y| ≤ 3)", out["aim"][3]);
 }

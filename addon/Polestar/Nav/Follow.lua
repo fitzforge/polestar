@@ -23,8 +23,10 @@
 -- whose way there keeps every path point within PAD yards of the line from
 -- the projection to it. It may fall between points, so it slides along the
 -- path as the player moves instead of jumping from node to node. A road's
--- wiggles stay inside the corridor; a real corner stops it at the corner, and
--- it comes round the corner as the player does. It never passes `stop`, nor a
+-- wiggles stay inside the corridor; a real corner (the path turning more than
+-- TURN degrees away from the line to the aim, as at a street corner or a
+-- switchback) stops it at the corner, cutting inside by CORNER_PAD at most,
+-- and it comes round the corner as the player does. It never passes `stop`, nor a
 -- point on another floor. When no path point ahead is within RADIUS (the
 -- player has wandered off), it points back to the path LEAD yards ahead of
 -- the projection, never at a point behind.
@@ -52,8 +54,9 @@ local WINDOW = 60      -- yards along the path the projection may look ahead
 local HYST = 4         -- yards: a later segment must be this much nearer to take over
 local RADIUS = 35      -- yards from the player the aim may lie
 local AHEAD = 45       -- yards along the path the aim may lie past the projection
-local PAD = 12         -- yards: path points this close to the line to the aim lie on the way (a road's wiggles)
-local CORNER_PAD = 6   -- yards: how far the aim may cut inside a real corner
+local PAD = 20         -- yards: path points this close to the line to the aim lie on the way (a road's wiggles)
+local CORNER_PAD = 10  -- yards: how far the aim may cut inside a real corner
+local TURN = math.cos(math.rad(60)) -- a piece of SHORT yards or more turning further from the line to the aim is a real corner (a wiggle's way back is less)
 local LEAD = 10        -- yards along the path past the projection: the aim when the path is out of RADIUS
 local FLOOR_STEP = 6   -- yards above or below: another floor
 local SHORT = 8        -- yards: pieces this short on both sides of a point are a road's zigzag, smoothed
@@ -186,7 +189,15 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop)
 			if budget < u then u = budget end
 			if u <= 0 then break end
 			local cx, cy = sx + dx * u, sy + dy * u
-			if j > idx and not inCorridor(xs, ys, idx, j - 1, p0x, p0y, cx, cy, PAD) then
+			local corner = j > idx and not inCorridor(xs, ys, idx, j - 1, p0x, p0y, cx, cy, PAD)
+			if not corner and j > idx and L >= SHORT then
+				-- Within PAD, but the path itself turns away from the line to the aim:
+				-- a corner or a switchback, not a wiggle.
+				local ax2, ay2 = cx - p0x, cy - p0y
+				local la = sqrt(ax2 * ax2 + ay2 * ay2)
+				corner = la > 0 and (ax2 * dx + ay2 * dy) / (la * L) < TURN
+			end
+			if corner then
 				-- A corner: the furthest u whose line cuts inside it by CORNER_PAD at most.
 				local lo, hi = 0, u
 				for _ = 1, BISECT do
