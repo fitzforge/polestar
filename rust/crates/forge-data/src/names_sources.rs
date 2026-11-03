@@ -448,6 +448,88 @@ pub fn load_client_names(sources: &Path, locales: &[&str], forever: Option<&str>
 	Ok(out)
 }
 
+/// What `forge i18n audit` reads besides: the names of spells and talents, areas and skill lines, and
+/// the talent trees alone (the skill lines of category 7: the Classic client names a tree "Shadow
+/// Magic" where the addon says "Shadow"). Kept apart from TABLE_KINDS: the names addons carry none
+/// of them.
+pub const AUDIT_KINDS: [(&str, &str, &str); 4] =
+	[("spell", "SpellName", "Name_lang"), ("area", "AreaTable", "AreaName_lang"), ("skill", "SkillLine", "DisplayName_lang"), ("tree", "SkillLine", "DisplayName_lang")];
+
+/// The skill lines that are a talent tree.
+const TREE_CATEGORY: &str = "7";
+
+pub struct AuditNames {
+	/// locale -> kind -> names.
+	pub names: BTreeMap<String, KindNames>,
+	pub english: KindNames,
+	pub build: String,
+}
+
+/// One build's audit tables in English and each language.
+fn load_audit_tables(sources: &Path, build: &str, locales: &[&str], http: Option<&Http>, log: &dyn Fn(&str)) -> Result<(BTreeMap<String, KindNames>, KindNames), String> {
+	let read = |locale: Option<&str>, kind: &str, table: &str, field: &str| -> Result<Names, String> {
+		let mut m = Names::new();
+		for r in cached_table(sources, build, table, locale, http, log)? {
+			if kind == "tree" && r.get("CategoryID").map(String::as_str) != Some(TREE_CATEGORY) {
+				continue;
+			}
+			let id = r.get("ID").map(|s| forge_guide::js::str_to_num(s)).unwrap_or(f64::NAN);
+			let name = r.get(field).map(|s| js_trim(s)).unwrap_or("");
+			if id > 0.0 && !name.is_empty() {
+				m.insert(id as i64, name.to_string());
+			}
+		}
+		Ok(m)
+	};
+	let mut english = KindNames::new();
+	for (kind, table, field) in AUDIT_KINDS {
+		english.insert(kind, read(None, kind, table, field)?);
+	}
+	let mut names = BTreeMap::new();
+	for l in locales {
+		let mut m = KindNames::new();
+		for (kind, table, field) in AUDIT_KINDS {
+			m.insert(kind, read(Some(l), kind, table, field)?);
+		}
+		names.insert(l.to_string(), m);
+	}
+	Ok((names, english))
+}
+
+/// The audit's tables, Forever's alone. The build: `forever` when given; else the newest wago.tools
+/// lists (offline: none), falling back to the newest cached build holding every table in English and in
+/// every language asked. None is an error.
+pub fn load_audit_names(sources: &Path, locales: &[&str], forever: Option<&str>, offline: bool, log: &dyn Fn(&str)) -> Result<AuditNames, String> {
+	let http = (!offline).then(Http::default_agent);
+	let tries: Vec<String> = match forever {
+		Some(b) => vec![b.to_string()],
+		None => {
+			let mut t: Vec<String> = Vec::new();
+			if let Some(h) = &http {
+				if let Ok(b) = crate::sources::latest_build(h, &tables::FOREVER) {
+					t.push(b);
+				}
+			}
+			for b in complete_builds(sources, &tables::FOREVER, &AUDIT_KINDS, locales) {
+				if !t.contains(&b) {
+					t.push(b);
+				}
+			}
+			t
+		}
+	};
+	let mut errors = Vec::new();
+	for b in &tries {
+		match load_audit_tables(sources, b, locales, http.as_ref(), log) {
+			Ok((names, english)) => return Ok(AuditNames { names, english, build: b.clone() }),
+			Err(e) => errors.push(format!("{b}: {e}")),
+		}
+	}
+	let tables = ["SpellName", "AreaTable", "SkillLine"].join(", ");
+	let why = if errors.is_empty() { " cached".to_string() } else { format!(": {}", errors.join("; ")) };
+	Err(format!("no forever client tables ({tables}) for {}{why}; run once online, or pass the build", locales.join(", ")))
+}
+
 // ---------------------------------------------------------------- the web quest database
 
 /// Everything cached for one language: names and the web data's English names per kind (quest, npc,

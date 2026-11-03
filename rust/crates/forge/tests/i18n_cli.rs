@@ -101,3 +101,32 @@ fn guides_sync_writes_every_text_with_its_names_and_check_fails_on_a_lost_token_
 	assert_eq!(clean.status, 0, "{}", clean.stderr);
 	let _ = std::fs::remove_dir_all(&dir);
 }
+
+/// `i18n audit` (tests/i18n-audit.test.js, the command): no finding is exit 0 with a JSON document;
+/// no client tables is exit 1 with the reason.
+#[test]
+fn audit_with_no_finding_is_exit_0_and_with_no_client_tables_exit_1() {
+	let dir = Path::new(env!("CARGO_TARGET_TMPDIR")).join(format!("i18n-audit-{}", std::process::id()));
+	let _ = std::fs::remove_dir_all(&dir);
+	for locale in [None, Some("deDE")] {
+		let mut at = dir.join("wago/1.60.1.1");
+		if let Some(l) = locale {
+			at = at.join(l);
+		}
+		std::fs::create_dir_all(&at).unwrap();
+		for (table, field) in [("SpellName", "Name_lang"), ("AreaTable", "AreaName_lang"), ("SkillLine", "DisplayName_lang")] {
+			std::fs::write(at.join(format!("{table}.csv")), format!("ID,{field},CategoryID\n1,Zzyzx Qwerty Name {},7\n", locale.unwrap_or("en"))).unwrap();
+		}
+	}
+	let sources = dir.to_string_lossy().into_owned();
+	let ok = forge(&["audit", "deDE", "--json", "--offline", "--build", "1.60.1.1", "--sources", &sources]);
+	assert_eq!(ok.status, 0, "{}", ok.stderr);
+	let doc: serde_json::Value = serde_json::from_str(&ok.stdout).unwrap();
+	assert_eq!(doc["build"], "1.60.1.1");
+	assert_eq!(doc["findings"].as_array().unwrap().len(), 0);
+	assert!(doc["checked"]["deDE"]["texts"].as_u64().unwrap() > 1000, "the shipped German texts were read");
+	let none = forge(&["audit", "frFR", "--offline", "--sources", &sources]);
+	assert_eq!(none.status, 1);
+	assert!(none.stderr.contains("no forever client tables"), "{}", none.stderr);
+	let _ = std::fs::remove_dir_all(&dir);
+}

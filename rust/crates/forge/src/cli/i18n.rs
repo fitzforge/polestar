@@ -1,6 +1,6 @@
 //! `forge i18n`: Polestar's translations (docs/TRANSLATING.md; forge_i18n): the interface strings
 //! (status, check, sync, keys, import), a pack's guide texts (guides sync|check|stats) and the English
-//! left on a non-English client (leaks). Port of tools/commands/i18n.js; `i18n fit` still runs there,
+//! left on a non-English client (leaks), and the translations against the client's names (audit). Port of tools/commands/i18n.js; `i18n fit` still runs there,
 //! and the names addons are `forge data names`.
 
 use super::release::{checkout, opt, positional};
@@ -11,14 +11,14 @@ use forge_guide::js::{stringify, Obj, V};
 use forge_guide::locales::{locale, LOCALE_CODES};
 use forge_guide::obj;
 use forge_i18n::project::{locale_state, sync_files, State};
-use forge_i18n::{absolute, leaks, plural, rel, Addon, ADDONS};
+use forge_i18n::{absolute, audit, leaks, plural, rel, Addon, ADDONS};
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
 pub fn usage_text() -> String {
 	let scenes: Vec<&str> = leaks::SCENE_NAMES.to_vec();
 	format!(
-		"usage: forge i18n <status|check|sync|keys|import|leaks|guides> [options]
+		"usage: forge i18n <status|check|sync|keys|import|leaks|audit|guides> [options]
 
 Polestar's interface translations (docs/TRANSLATING.md): one file per
 locale, addon/Polestar/Locales/<locale>.lua, and the same for the Recorder,
@@ -70,6 +70,22 @@ tools/polestar.js; the names addons are forge data names.)
                              (--scene; default all):
 {}
 
+  i18n audit [<locale>...]   read only: holds the translations against the
+                             Forever client's own names (SpellName,
+                             AreaTable and SkillLine, from the tables that
+                             forge data names caches; the talent trees are
+                             skill lines). A text whose English names a
+                             spell, a talent, an area or a talent tree
+                             should carry the client's name. A name of one
+                             word counts only as a whole text, one of
+                             several words wherever it stands; endings may
+                             change. Reads the interface files of both
+                             addons and the guide texts
+                             (guides/locales/<locale>). Prints a table:
+                             kind, English name, client name, file:line, the
+                             English text (--json: the translation too).
+                             Exit 1 when it finds any.
+
   i18n guides sync [<locale>...]
                              writes a pack's texts in other languages
                              (docs/TRANSLATING.md, \"Guide texts\"):
@@ -95,13 +111,17 @@ tools/polestar.js; the names addons are forge data names.)
                              for naming only their goal.
 
 options:
-  --json            status, check, keys, leaks, guides: one JSON document on stdout
+  --json            status, check, keys, leaks, audit, guides: one JSON document on stdout
   --scene <a,b>     leaks: only these scenes
   --guide <id,...>  leaks: the guides the guide scene shows (default a few)
   --jobs <n>        leaks: runs at a time (default one per core)
   --update-baseline leaks: write data/i18n/leaks-baseline.json: add the
                     names no source has that the runs showed in English,
                     drop the entries that no longer show
+  --offline         audit: no downloads; the cached client tables
+  --build <version> audit: this Forever client build (default the newest
+                    wago.tools lists)
+  --sources <dir>   audit: the client-table cache (default data/sources)
   --pack <dir>      guides: the pack (default our guides/)
   --data <dir>      guides: the reference data (default data/forever)
   --markdown        status: a Markdown table
@@ -132,8 +152,8 @@ fn wrap_words(text: &str, indent: usize) -> String {
 	lines.iter().map(|l| format!("{}{l}", " ".repeat(indent))).collect::<Vec<_>>().join("\n")
 }
 
-const VALUES: [&str; 7] = ["--root", "--addon", "--pack", "--data", "--scene", "--guide", "--jobs"];
-const FLAGS: [&str; 3] = ["--json", "--markdown", "--update-baseline"];
+const VALUES: [&str; 9] = ["--root", "--addon", "--pack", "--data", "--scene", "--guide", "--jobs", "--build", "--sources"];
+const FLAGS: [&str; 4] = ["--json", "--markdown", "--update-baseline", "--offline"];
 
 pub fn main() -> ExitCode {
 	let args: Vec<String> = super::args().skip(1).collect();
@@ -186,6 +206,7 @@ fn run(args: &[String]) -> Result<u8, Fail> {
 		"keys" => keys(&o),
 		"import" => import(&o, rest),
 		"leaks" => run_leaks(&o, rest),
+		"audit" => run_audit(&o, rest),
 		"guides" => guides(&o, rest),
 		_ => Err(usage(format!("unknown i18n subcommand \"{sub}\""))),
 	}
@@ -521,6 +542,59 @@ fn import(o: &Opts, positional: &[String]) -> Result<u8, Fail> {
 
 fn split_list(v: Option<String>) -> Vec<String> {
 	v.map(|s| s.split(',').map(|x| x.trim().to_string()).filter(|x| !x.is_empty()).collect()).unwrap_or_default()
+}
+
+/// `i18n audit`: the translations against the client's own names (forge_i18n::audit); exit 1 when any
+/// text lacks one.
+fn run_audit(o: &Opts, positional: &[String]) -> Result<u8, Fail> {
+	let wanted = locales(positional)?;
+	let sources = o.opt("--sources").map_or_else(|| o.root.join("data/sources"), |d| absolute(Path::new(&d)));
+	let build = o.opt("--build");
+	let log = |m: &str| {
+		if !o.json {
+			println!("{m}");
+		}
+	};
+	let codes: Vec<&str> = wanted.iter().map(String::as_str).collect();
+	let tables = forge_data::names_sources::load_audit_names(&sources, &codes, build.as_deref(), o.flag("--offline"), &log)?;
+	let mut rows: Vec<(&str, audit::Finding)> = Vec::new();
+	let mut checked: Vec<(&str, usize, usize)> = Vec::new();
+	for locale in &wanted {
+		let mut files: Vec<PathBuf> = ADDONS.iter().map(|a| addon_dir(o, a).join("Locales").join(format!("{locale}.lua"))).filter(|f| f.exists()).collect();
+		files.extend(audit::lua_files(&o.root.join("guides/locales").join(locale)));
+		let texts = audit::read_texts(&files, &|f| f.strip_prefix(&o.root).map_or_else(|_| rel(f), |r| r.to_string_lossy().replace('\\', "/")))?;
+		let names = &tables.names[locale];
+		let index = audit::name_index(names, &tables.english);
+		let trees = audit::tree_index(names, &tables.english);
+		checked.push((locale, texts.len(), index.len()));
+		rows.extend(audit::audit_texts(&texts, &index, &trees).into_iter().map(|f| (locale.as_str(), f)));
+	}
+	if o.json {
+		let checked_obj = Obj::new();
+		for (l, texts, names) in &checked {
+			checked_obj.set(l, obj! { "texts" => *texts, "names" => *names });
+		}
+		let findings = rows.iter().map(|(l, f)| {
+			V::Obj(obj! { "locale" => *l, "kind" => f.kind.as_str(), "en" => f.en.as_str(), "client" => strs(&f.client), "file" => f.file.as_str(), "line" => f.line, "text" => f.text.as_str(), "tr" => f.tr.as_str() })
+		});
+		json(V::Obj(obj! { "build" => tables.build.as_str(), "checked" => checked_obj, "findings" => arr(findings) }));
+		return Ok(u8::from(!rows.is_empty()));
+	}
+	println!("client tables: Forever {}", tables.build);
+	for (locale, texts, names) in &checked {
+		if *texts == 0 {
+			continue;
+		}
+		let found: Vec<&audit::Finding> = rows.iter().filter(|(l, _)| l == locale).map(|(_, f)| f).collect();
+		let verdict = if found.is_empty() { "all carry the client's names".to_string() } else { format!("{} without the client's name", plural(found.len(), "text")) };
+		println!("\n{locale}: {} against {}: {verdict}", plural(*texts, "translated text"), plural(*names, "client name"));
+		if !found.is_empty() {
+			for line in audit::format_table(found) {
+				println!("{line}");
+			}
+		}
+	}
+	Ok(u8::from(!rows.is_empty()))
 }
 
 fn run_leaks(o: &Opts, positional: &[String]) -> Result<u8, Fail> {
