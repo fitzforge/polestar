@@ -483,8 +483,9 @@
   (vendors, innkeepers, trainers): the guide pack takes about 15 % less
   memory, and each goal still picks and cycles its own NPC (thanks HershelW,
   #574).
-- Polestar's guides take about 10 MB of memory instead of 24, and loading them
-  no longer spikes to 47 MB (about 22 now): a character loads only its own
+- Polestar's guides take about 15 MB of memory instead of 24, with the whole
+  new route set and every new guide shelf on board, and loading them no longer
+  spikes to 47 MB (about 32 now): a character loads only its own
   faction's guides, and a goal's spawn spots stay packed until the goal is
   shown. The other faction's guides load when you pick that faction in the
   guide menu (#693).
