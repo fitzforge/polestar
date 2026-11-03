@@ -39,7 +39,7 @@ return {
 	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
 	-- {area:1702} Honor's Stand
 	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "Die Straße nach Westen führt durch {area:1702}, einen Posten der Horde; dieser Weg führt darum herum.",
-	["North of Honor's Stand"] = "Nördlich von Honor's Stand",
+	["North of Honor's Stand"] = "Nördlich von Ehrenwacht",
 	["Path into the hills"] = "Pfad in die Hügel",
 
 	-- Step 6: A hundred paces north
