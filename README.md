@@ -154,11 +154,10 @@ scheme, then the route style (Fastest, Balanced or Roads, with a line on what
 each does); then the guide Polestar suggests for that character, the Discord
 and community guides (`/polestar welcome` shows it again).
 
-### Coming in 0.3.0
+### New in 0.3.0
 
-0.2.6 is the current release. These are on the `next` branch and arrive with
-0.3.0 ([CHANGELOG.md](CHANGELOG.md) lists every change, and `changes/` what
-is merged since):
+[CHANGELOG.md](CHANGELOG.md) lists every change, and `changes/` what is
+merged since:
 
 - **Better routes.** Every race's route is rebuilt by Polestar Forge, and on
   each side the races share one route after their starting zones, so a fix
