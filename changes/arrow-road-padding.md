@@ -6,5 +6,4 @@ section: players
   walk up to 15 yards beside the path with the arrow pointing along it, and,
   outdoors, lets you join a road at an angle instead of sending you to the
   exact spot where the path meets it. Real corners, doorways, bridges and
-  switchbacks still turn it at the corner, and a path that would point you
-  backwards is planned again.
+  switchbacks still turn it at the corner.
