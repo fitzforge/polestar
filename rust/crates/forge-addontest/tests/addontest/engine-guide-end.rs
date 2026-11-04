@@ -26,6 +26,21 @@ Polestar.RegisterGuide({ id = "test/cooking", pack = "test", title = "Cooking", 
 	steps = { q(20, "Cooking 1") } })
 Polestar.RegisterGuide({ id = "test/cooking2", pack = "test", title = "Cooking 2", category = "Professions",
 	steps = { { goals = { { t = "level", level = 30 } } } } })
+-- Dun Morogh's shape: the last step is the walk on to the next zone. The second also has work in that zone
+-- before it (as Darkshore visits Elwynn before it ends there).
+local walk = { title = "The Barrens", goals = { { t = "goto", map = 1413, x = 50, y = 50, text = "The Barrens" } } }
+Polestar.RegisterGuide({ id = "test/walk", pack = "test", title = "Walk", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(30, "One"), q(31, "Two"), q(32, "Three"), walk } })
+Polestar.RegisterGuide({ id = "test/visit", pack = "test", title = "Visit", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(40, "One"), { goals = { { t = "accept", quest = 41, title = "In the Barrens", map = 1413, x = 20, y = 20 } } }, q(42, "Three"), walk } })
+-- Stranglethorn's shape: trailing steps that only offer (riding at a level, all optional; a note), and one
+-- ending at any class trainer.
+Polestar.RegisterGuide({ id = "test/offer", pack = "test", title = "Offer", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(50, "One"), q(51, "Two"), q(52, "Last quest"),
+		{ title = "Riding", when = { { k = "level", op = ">=", n = 5 } }, goals = { { t = "train", npc = 7954, optional = true }, { t = "vendor", npc = 7955, optional = true } } },
+		{ goals = { { t = "note", text = "Next: the Barrens." } } } } })
+Polestar.RegisterGuide({ id = "test/trainer", pack = "test", title = "Trainer", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(60, "One"), q(61, "Two"), { title = "Class trainer", goals = { { t = "train", class = true } } } } })
 "#;
 
 const NEXT: &str = r#"next = "test/barrens","#;
@@ -63,7 +78,7 @@ fn run(o: Run) -> Value {
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: o.saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
-		script: [TEST_PACK, TEST_SOURCE, &GUIDES.replace("@NEXT@", o.next), HELPERS, "stub.login()", r#"E.SetGuide("test/durotar"); flush(); takeLog()"#, o.script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, &GUIDES.replace("@NEXT@", o.next), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE")"#, r#"E.SetGuide("test/durotar"); flush(); takeLog()"#, o.script].join("\n"),
 		..Default::default()
 	})
 	.remove(0)
@@ -198,4 +213,78 @@ fn the_old_continue_to_the_next_guide_toggle_is_dropped_and_both_values_start_on
 		});
 		assert_eq!(out, json!({ "old": "gone", "now": "ask", "kept": false }), "autoNextGuide = {old}");
 	}
+}
+
+// Dun Morogh's shape: the last step is the walk on to the next zone, watched for arrival out of turn.
+#[test]
+fn arriving_at_a_last_step_s_spot_ahead_of_the_live_step_ends_the_guide_and_it_stays_until_start() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/walk"); stub.advance(1); takeLog()
+			-- Somewhere else on the way: nothing.
+			w.moveTo(1413, 20, 20); stub.advance(1.5)
+			local r = { passing = takeLog() }
+			w.moveTo(1413, 50, 50); stub.advance(1.5)
+			r.arrived, r.guide, r.step = takeLog(), E.GetGuide().id, E.GetStepIndex()
+			r.started = E.StartNext("test/walk")
+			r.now = E.GetGuide().id
+			emit(r)"#,
+	});
+	assert_eq!(out["passing"], json!({}));
+	assert_eq!(out["arrived"], json!(["GUIDE_END test/walk undone=3 live=1 next=test/barrens choose=nil"]));
+	assert_eq!(out["guide"], "test/walk");
+	assert_eq!(out["step"], 1);
+	assert_eq!(out["started"], true);
+	assert_eq!(out["now"], "test/barrens");
+}
+
+// Darkshore's shape: the route still has open work on the last step's map, so being at its spot is passing by.
+#[test]
+fn a_last_spot_on_a_map_with_open_work_before_it_does_not_end_the_guide_until_that_work_is_behind() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/visit"); stub.advance(1); takeLog()
+			w.moveTo(1413, 50, 50); stub.advance(1.5)
+			local r = { passing = takeLog() }
+			w.accept(41, {}); flush()
+			w.moveTo(1413, 49, 50); stub.advance(1.5)
+			w.moveTo(1413, 50, 50); stub.advance(1.5)
+			r.after = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["passing"], json!({}));
+	assert_eq!(out["after"], json!(["GUIDE_END test/visit undone=2 live=1 next=test/barrens choose=nil"]));
+}
+
+// Stranglethorn's shape: a trailing step of only optional goals (riding at a level) and a note are offered,
+// not the end; a step at any class trainer cannot end it out of turn.
+#[test]
+fn trailing_optional_or_note_steps_are_not_the_end_and_a_class_trainer_visit_ahead_does_not_end_it() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/offer"); stub.advance(1); takeLog()
+			w.setLevel(5); flush()
+			local r = { ding = takeLog() }
+			w.accept(52, {}); flush()
+			r.lastQuest = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["ding"], json!({}), "the riding step applies at 5 and is all optional");
+	assert_eq!(out["lastQuest"], json!(["GUIDE_END test/offer undone=2 live=1 next=test/barrens choose=nil"]));
+
+	let trainer = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/trainer"); stub.advance(1); takeLog()
+			w.trainer(3031); w.close(); flush()
+			emit(takeLog())"#,
+	});
+	assert_eq!(trainer, json!({}));
 }

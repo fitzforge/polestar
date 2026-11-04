@@ -1548,12 +1548,27 @@ guides); every other guide hands off by itself as before. It replaced the
 `behavior.autoNextGuide` toggle in 0.3.1; the stored toggle is dropped at load
 and both of its values start on `"ask"`.
 
-- **The end** (`Own.noteEnd`): the guide's last step that applies to the
-  character (not an `along` step) done and not skipped, or every step done,
-  whatever steps before it were skipped or left open. It counts once the
-  guide was placed with its end still ahead this session (`Own.endOpen`), so
-  a guide opened, or brought back by a login, already at its end does not
-  ask; and once per guide per character (`CharState().guideEnds`).
+- **The end** (`Own.noteEnd`): every step done, or the guide's last step
+  with work for the character (`Own.lastWork`: it applies, is not an `along`
+  step, and has a goal that applies and is neither a note nor optional;
+  trailing steps that only offer, such as riding at 40, are not the end)
+  done ahead of the live step, whatever steps before it were skipped or left
+  open. It counts once the guide was seen unfinished after placement this
+  session (`Own.endOpen`), and for the last step done ahead, that same step
+  seen open (`Own.lastOpen`), so a guide opened, or brought back by a login,
+  already at its end does not ask, nor does a last step that reads done from
+  the start (its quest not offered yet) until the rest is done; and once per
+  guide per character (`CharState().guideEnds`).
+- **Ahead of the live step** (`Own.endDoneAhead`), by goal kind: quest
+  state, level, bags, flight paths as they are; goto and explore by arrival,
+  polled out of turn for the last step (`Own.endWatch`: Dun Morogh's walk to
+  Westfall); fly, hearth, enter by being there; train, vendor and talk at
+  their named NPC (latched out of turn). None of the place kinds while an
+  open step between the live one and the last has work in that place
+  (`Own.placeClear`: Darkshore visits Elwynn before it ends there), so
+  passing by never ends a guide. `train class` (any class trainer) never
+  counts out of turn, only on screen. tests/addontest/guides-end.rs plays
+  every leveling guide's last step ahead (with the reference data).
 - **Ask:** no hand-off by itself (the catch-up still passes guides done
   whole); `GUIDE_END` fires after the evaluation and the guide-end window
   (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed

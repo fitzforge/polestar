@@ -138,6 +138,8 @@ mod gear_pawn;
 mod gear_upgrades;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
+#[path = "guides-end.rs"]
+mod guides_end;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
