@@ -80,6 +80,10 @@ step Valley of Trials: kill these as you meet them
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
+step Hana'zua
+  turnin 790
+  accept 804
+
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -94,6 +98,7 @@ step Druid trainer
 
 step Back to the Den
   turnin 789                          -- Gornek, inside
+  turnin 804                          -- Gornek, inside
   turnin 1485 only Warlock            -- Ruzan
   accept 1516 only Shaman -- Canaga Earthcaller
   turnin 792 only !Warlock            -- Zureetha Fargaze
@@ -129,13 +134,8 @@ step Felstalker hooves
   tip Felstalkers roam the slope below the cave, on the valley's north side.
   collect 6640 quest 1516.1
 
-step Hana'zua
-  turnin 790
-  accept 804
-
 step Back to the Den
   goto 42.4,68.6 "The Den"
-  turnin 804                          -- Gornek, inside
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 794
