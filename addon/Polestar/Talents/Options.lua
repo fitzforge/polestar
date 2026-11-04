@@ -7,7 +7,14 @@ local ADDON, ns = ...
 local T = ns.Talents
 local L = ns.L
 
-if not (T and ns.RegisterOptions) then return end
+if not T then return end
+
+ns.On("SETTING_CHANGED", function(path)
+	if type(path) == "string" and path:find("^talents%.") then T.Refresh() end
+end)
+
+-- Coming soon (Talents.lua, T.SOON): no settings for plans that are not there.
+if not ns.RegisterOptions or T.SOON then return end
 
 local function off() return not T.Get("enabled") end
 local function overlayOff() return off() or not T.Get("overlay") end
@@ -28,7 +35,3 @@ local ok, err = ns.RegisterOptions({
 	},
 })
 if not ok and geterrorhandler then geterrorhandler()(err) end
-
-ns.On("SETTING_CHANGED", function(path)
-	if type(path) == "string" and path:find("^talents%.") then T.Refresh() end
-end)

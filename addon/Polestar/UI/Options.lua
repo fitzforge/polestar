@@ -411,7 +411,7 @@ for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
 		{ L["Rewards & gear"], { L["Quest rewards"], L["Loot and merchants"], L["Gear advice"], L["Comparison"] } },
-		{ L["Talents"], { L["Talent plan"] } },
+		-- Talents: { L["Talents"], { L["Talent plan"] } } here once the plans are back (Talents.lua, T.SOON).
 		{ L["Buttons"], { L["Action buttons"] } },
 	}),
 	declare(DISCOVERY, "discovery", "search", 50, L["Lookup, the dungeon journal and rares: finding things in the world."], {
@@ -721,7 +721,7 @@ local ALIASES = {
 	guidewindow = { "guide", L["Window"] }, general = { "guide", L["Window"] }, window = { "guide", L["Window"] },
 	navigation = { "guide", L["Arrow & routes"] }, nav = { "guide", L["Arrow & routes"] }, arrow = { "guide", L["Arrow & routes"] },
 	automation = { "guide", L["Automation"] }, behavior = { "guide", L["Automation"] }, behaviour = { "guide", L["Automation"] },
-	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] }, talents = { "questing", L["Talents"] },
+	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
 	look = { "appearance" }, qol = { "qualityoflife" },

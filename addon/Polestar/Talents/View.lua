@@ -202,6 +202,7 @@ local function statusText(c)
 end
 
 local REASONS = {
+	soon = L["Coming soon."],
 	off = L["Talent plans are turned off. Turn them on under Options > Questing > Talents."],
 	class = L["There is no talent plan for your class yet."],
 	noconfig = L["The talent tree is not loaded yet. It will be once you are in the world."],
@@ -272,11 +273,11 @@ function TV.Render()
 	local w = writer()
 	local data = T.Data()
 	local c, reason = T.Current()
-	if not data or reason == "off" then
+	if not data or reason == "off" or reason == "soon" then
 		reason = reason or "class"
-		if shellRef then W.ShellTitle(shellRef, L["Talents"], L["A talent plan, pick by pick"]) end
+		if shellRef then W.ShellTitle(shellRef, L["Talents"], reason == "soon" and L["Coming soon."] or L["A talent plan, pick by pick"]) end
 		renderList({ picks = {} }, nil)
-		list.Empty:SetText(L["No plan for this character."])
+		list.Empty:SetText(reason == "soon" and L["Coming soon."] or L["No plan for this character."])
 		w.title(L["Talents"])
 		w.note(REASONS[reason] or REASONS.class)
 		actions(false, false)
@@ -343,7 +344,7 @@ end
 -- The sidebar index: one tab per spec plan.
 function TV.Nav()
 	local data = T.Data()
-	if not data then return {}, nil end
+	if not data or T.SOON then return {}, nil end
 	local c = T.Current()
 	local followed = c and c.build or T.ActiveBuild(data)
 	local out = {}

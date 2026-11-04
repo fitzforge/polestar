@@ -2082,6 +2082,7 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "保留此方案"
 L["Follow this plan whatever spec gear advice uses."] = "无论装备建议使用哪个专精，都使用此方案。"
 L["There is no talent plan for your class yet."] = "还没有适合您职业的天赋计划。"
+L["Coming soon."] = "即将推出。"
 
 -- Gear/Weights.lua
 L["Arms"] = "武器"
