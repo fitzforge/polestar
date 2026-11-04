@@ -80,7 +80,7 @@ impl<'a> Sim<'a> {
 	}
 
 	/// playGuide's world: the character at the guide's start level and place (a leveling guide's first
-	/// located goal, any other the race's home), autoNextGuide off, group quests skipped.
+	/// located goal, any other the race's home), no hand-over by itself, group quests skipped.
 	pub(crate) fn for_play(guides: &'a [Guide], wd: &'a WorldData, gi: usize, race: &str, faction: &str, class: &str) -> Sim<'a> {
 		let g = &guides[gi];
 		let mut w = World::new(&wd.frames, race, class, faction, super::start_level(g) as f64);

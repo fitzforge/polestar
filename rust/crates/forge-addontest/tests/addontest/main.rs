@@ -62,6 +62,8 @@ mod engine_die;
 mod engine_enter;
 #[path = "engine-focus.rs"]
 mod engine_focus;
+#[path = "engine-guide-end.rs"]
+mod engine_guide_end;
 #[path = "engine-group-default.rs"]
 mod engine_group_default;
 #[path = "engine-heights.rs"]
@@ -247,6 +249,8 @@ mod ui;
 mod ui_along;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
+#[path = "ui-guide-end.rs"]
+mod ui_guide_end;
 #[path = "ui-import.rs"]
 mod ui_import;
 #[path = "ui-journey.rs"]

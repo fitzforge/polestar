@@ -30,7 +30,7 @@ local Guides = ns.Guides
 ns.RegisterDefaults("behavior", {
 	autoAccept = true,
 	autoTurnin = true,
-	autoNextGuide = true,
+	guideEnd = "ask", -- "ask" | "continue": at the end of a leveling guide the guide-end window asks (UI/GuideEnd.lua), or the next guide loads by itself; other guides always go on (Own.endAsks)
 	autoSelectGuide = true,
 	skipGrey = false,
 	deathskips = false, -- `die` goals (deathskips) apply; never on a Hardcore character (Own.deathskips)
@@ -42,6 +42,14 @@ ns.RegisterDefaults("behavior", {
 	groupQuests = "ask", -- "ask" | "do" | "skip": the answer at a group quest (`when group`) the player has not answered (Own.groupAnswer)
 	suggestFrom = "guides", -- pack id the suggestions come from (Guides.SuggestSource); ours fill in
 })
+
+-- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd
+-- in 0.3.1: a stored value was only ever `false`, and both old values start
+-- on the new default, "ask".
+ns.OnInit(function()
+	local b = ns.DB().settings.behavior
+	if type(b) == "table" then b.autoNextGuide = nil end
+end)
 
 local outleveled = {} -- guideId -> true, GUIDE_OUTLEVELED once per session
 
@@ -4246,6 +4254,65 @@ function Own.pruneLost()
 	if not next(all) then ns.CharState().lostQuests = nil end
 end
 
+---------------------------------------------------------------------------
+-- The end of a leveling guide (category Leveling: the starting zones and
+-- community leveling guides too). With behavior.guideEnd "ask" (default)
+-- it does not hand off by itself: GUIDE_END(guideId, info) asks the player
+-- (UI/GuideEnd.lua), who starts the next guide (Engine.StartNext), chooses
+-- a route, or stays. With "continue" the hand-off loads the next guide as
+-- before and GUIDE_CONTINUED(fromId, toId) says so. Other guides always go on.
+--
+-- The end is reached when the guide's last step for the character is done,
+-- whatever steps before it were skipped or left open (all done is the same
+-- moment). It counts only once the guide was placed with its end still
+-- ahead this session (Own.endOpen), so a guide opened, or brought back by a
+-- login, already at its end does not ask; and once per guide per character
+-- (CharState().guideEnds[guideId], kept over a reload or relog).
+-- info = { guideId, undone (open steps left), live (the live step, nil when
+-- all are done), next (the guide the hand-off goes to, nil with none or a
+-- choice to make), choose (true: a route choice the player makes) }.
+---------------------------------------------------------------------------
+
+Own.endOpen = {} -- guideId -> true: seen placed with its end ahead, this session
+Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
+
+function Own.leveling(g)
+	return g ~= nil and not Own.everyStep(g)
+end
+
+function Own.endAsks(g)
+	return Own.leveling(g) and ns.Get("behavior.guideEnd") ~= "continue"
+end
+
+-- The loaded tab's guide: note its end (see above).
+function Own.noteEnd()
+	if placing or not Own.endAsks(guide) then return end
+	local id, steps = guide.id, guide.steps
+	local ends = ns.CharState().guideEnds
+	if ends[id] then return end
+	local last
+	for s = #steps, 1, -1 do
+		if not steps[s].along and stepApplies(steps[s]) then
+			last = s
+			break
+		end
+	end
+	if not last then return end
+	if computed and not (stepDone(last) and not isSkipped(last)) then
+		Own.endOpen[id] = true
+		return
+	end
+	if not Own.endOpen[id] then return end
+	ends[id] = true
+	local undone = 0
+	for s = computed or #steps + 1, #steps do
+		if stepApplies(steps[s]) and not isSkipped(s) and not stepDone(s) then undone = undone + 1 end
+	end
+	local nextId, asks = routeNext(guide)
+	if nextId and not Guides.Get(nextId) then nextId = nil end
+	Own.pendingEnds[#Own.pendingEnds + 1] = { guideId = id, undone = undone, live = computed, next = nextId, choose = asks or nil }
+end
+
 -- Evaluate the loaded tab. Only the active tab announces step and waypoint
 -- changes; background tabs keep their state for GetTabs and automation.
 local function evaluateLoaded(active)
@@ -4374,12 +4441,15 @@ local function evaluateLoaded(active)
 			else
 				pendingCompleted[#pendingCompleted + 1] = id
 			end
-			-- autoNextGuide replaces the finished guide within its own tab,
+			-- The hand-off replaces the finished guide within its own tab,
 			-- unless the next guide is already open in another one. A route
 			-- choice the player has to make keeps the finished guide and asks.
+			-- A leveling guide hands off by itself only with behavior.guideEnd
+			-- "continue" (else its end asks: Own.noteEnd); the catch-up
+			-- passes through whatever the setting.
 			local through = Own.placedThrough[id]
 			Own.placedThrough[id] = nil
-			local mayChain = (autoChain or sawIncomplete or through) and ns.Get("behavior.autoNextGuide")
+			local mayChain = (autoChain or sawIncomplete or through) and (through or not Own.endAsks(guide))
 			local nextId, asks = routeNext(guide)
 			if through and asks then nextId, asks = Own.likeliestRoute(guide), false end
 			if mayChain and asks then pendingChoices[#pendingChoices + 1] = id end
@@ -4394,6 +4464,11 @@ local function evaluateLoaded(active)
 					if active then Own.placedChain[#Own.placedChain + 1] = id end
 				end
 				Own.opened[id] = nil
+				-- "Continue automatically" says so (GUIDE_CONTINUED, after the evaluation).
+				if not through and Own.leveling(guide) then
+					ns.CharState().guideEnds[id] = true
+					Own.pendingContinued[#Own.pendingContinued + 1] = { id, nextId }
+				end
 				resetLoaded(nextId, true)
 				persist()
 				if active then ns.Fire("GUIDE_CHANGED", nextId) end
@@ -4402,6 +4477,7 @@ local function evaluateLoaded(active)
 			end
 		end
 	end
+	Own.noteEnd()
 	-- Placed: where a guide just opened resumes, and the guides passed whole
 	-- on the way (the guide window shows the catch-up). A guide a login or
 	-- reload brings back is placed without it.
@@ -4501,6 +4577,16 @@ local function evaluate()
 		local list = pendingChoices
 		pendingChoices = {}
 		for i = 1, #list do ns.Fire("ROUTE_CHOICE", list[i]) end
+	end
+	if #Own.pendingContinued > 0 then
+		local list = Own.pendingContinued
+		Own.pendingContinued = {}
+		for i = 1, #list do ns.Fire("GUIDE_CONTINUED", list[i][1], list[i][2]) end
+	end
+	if #Own.pendingEnds > 0 then
+		local list = Own.pendingEnds
+		Own.pendingEnds = {}
+		for i = 1, #list do ns.Fire("GUIDE_END", list[i].guideId, list[i]) end
 	end
 end
 
@@ -4944,6 +5030,40 @@ function Engine.RouteOffered(fromId, toId)
 		if id == toId then listed = true end
 	end
 	return listed and Own.optionHolds(from, toId)
+end
+
+-- Whether the player reached the end of leveling guide `id` (Own.noteEnd;
+-- per character): the guide window then offers the next guide.
+function Engine.GuideEnded(id)
+	return id ~= nil and ns.CharState().guideEnds[id] == true
+end
+
+-- Start the guide that follows `fromId` now (Engine.NextGuide) in fromId's
+-- tab, as the hand-off does by itself (the catch-up may pass it whole and go
+-- on), and make that tab the active one; a next guide already open in a tab
+-- is selected instead, and with fromId in no tab it opens in a new one. The
+-- guide-end window's Start and the guide window's banner. False with no next
+-- guide, or a route choice to make first (Engine.GetRouteChoice).
+function Engine.StartNext(fromId)
+	local nextId = Engine.NextGuide(fromId)
+	if not (nextId and Guides.Get(nextId) and ns.IsLoggedIn()) then return false end
+	local open = tabIndexOf(nextId)
+	if open then
+		Engine.SelectTab(open)
+		return true
+	end
+	local index = tabIndexOf(fromId)
+	if not index then return Engine.OpenTab(nextId, true, true) ~= nil end
+	use(tabs[index])
+	Own.opened[fromId] = nil
+	completedFired[nextId] = nil
+	resetLoaded(nextId, true)
+	activeIndex = index
+	useActive()
+	persist()
+	ns.Fire("GUIDE_CHANGED", nextId)
+	evaluate()
+	return true
 end
 
 -- The guide Polestar goes on with after `fromId` now (as at its hand-off),

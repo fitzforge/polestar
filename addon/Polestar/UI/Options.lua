@@ -250,7 +250,8 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."] },
-		{ kind = "toggle", key = "behavior.autoNextGuide", label = L["Continue to the next guide"], help = L["Loads the follow-up guide in the same tab when one finishes."] },
+		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
 		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.

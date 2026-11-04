@@ -138,7 +138,6 @@ fn world(c: &Ctx, tail: &str) -> String {
 
 const PLAY: &str = r#"
 stub.login()
-Polestar.Set("behavior.autoNextGuide", false)
 local id, why = Polestar.Lookup.Guide(@KIND@, @ID@, @INDEX@)
 local g = id and Polestar.Guides.Get(id)
 local steps = {}
@@ -273,7 +272,6 @@ fn a_beast_to_tame_taming_the_beast_reads_tame_not_kill_and_still_plays_565() {
 			addons: vec!["Polestar".into()],
 			script: r#"
 stub.login()
-Polestar.Set("behavior.autoNextGuide", false)
 Polestar.Lookup.Guide("quest", @QUEST@)
 local view = Polestar.Engine.GetStepView(1)
 for _, g in ipairs(view.goals) do
@@ -356,7 +354,6 @@ fn tazul_s_report_610_a_lookup_quest_objective_lists_every_place_its_mob_spawns_
 		addons: vec!["Polestar".into()],
 		script: r#"
 stub.login()
-Polestar.Set("behavior.autoNextGuide", false)
 local id = Polestar.Lookup.Guide("quest", 7010)
 local kill
 for _, s in ipairs(Polestar.Guides.Get(id).steps) do

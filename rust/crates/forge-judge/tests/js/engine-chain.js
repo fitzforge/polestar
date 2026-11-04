@@ -7,7 +7,7 @@
 //
 // playtest.js's SIMULATE script is used as is, patched in memory only: it runs
 // once per guide (the engine hands over through `next` by itself,
-// autoNextGuide, as playtest's handOver play sets it), act() appends
+// behavior.guideEnd "continue", as playtest's handOver play sets it), act() appends
 // { k: "goal", g, s, i, t, id } to a trace (`m` when the player then ticks the
 // goal by hand). At a stuck goal the play stops ("stop", SIMULATE's own end)
 // or, with "skip", the player skips the step (Engine.Skip) and plays on, so

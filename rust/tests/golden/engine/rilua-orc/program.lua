@@ -89,7 +89,7 @@ assert(loadfile("@PACK@/Polestar_Guides/Guides.lua"))("Polestar_Guides", ns)
 end
 			stub.login()
 			stub.fire("QUEST_LOG_UPDATE") -- the client fills the quest log right after login
-			Polestar.Set("behavior.autoNextGuide", true)
+			Polestar.Set("behavior.guideEnd", "continue")
 			Polestar.Set("behavior.groupQuests", "skip")
 			Polestar.Set("behavior.routeChoice", "recommended")
 			PRE_GUIDE = Polestar.Engine.GetGuide() and Polestar.Engine.GetGuide().id or false

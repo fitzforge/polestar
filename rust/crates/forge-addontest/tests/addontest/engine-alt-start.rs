@@ -53,6 +53,7 @@ const HELPERS: &str = r#"
 			stub.login()
 			stub.fire("QUEST_LOG_UPDATE")
 			Polestar.Set("behavior.autoAccept", false)
+			Polestar.Set("behavior.guideEnd", "continue") -- the hand-off by itself
 "#;
 
 fn run(before: &str, script: &str) -> Value {

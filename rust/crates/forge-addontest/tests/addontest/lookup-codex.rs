@@ -118,7 +118,6 @@ fn nums(v: &Value) -> Vec<i64> {
 
 const LOOKUP: &str = r#"
 stub.login()
-Polestar.Set("behavior.autoNextGuide", false)
 local results = Polestar.Search.Query(@QUERY@)
 local hit
 for _, r in ipairs(results) do
@@ -347,7 +346,6 @@ fn tabetha_s_task_a_level_44_alliance_mage_in_stormwind_is_sent_to_an_alliance_m
 
 const ATTUNE: &str = r#"
 stub.login()
-Polestar.Set("behavior.autoNextGuide", false)
 local D = Polestar.Dungeons
 D.Load()
 local a

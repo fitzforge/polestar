@@ -1024,13 +1024,15 @@ fn registerguide_rejects_malformed_guides_with_a_debug_message_instead_of_errori
 }
 
 #[test]
-fn completing_a_guide_chains_to_next_when_autonextguide_is_on_and_not_when_it_is_off() {
+fn completing_a_leveling_guide_chains_to_next_with_guideend_continue_and_stays_with_ask() {
 	let guides = r#"
 		Polestar.RegisterGuide({ id = "test/a", pack = "test", title = "A", minLevel = 1, maxLevel = 2, next = "test/b", steps = { { goals = { { t = "level", level = 2 } } } } })
 		Polestar.RegisterGuide({ id = "test/b", pack = "test", title = "B", minLevel = 2, maxLevel = 3, steps = { { goals = { { t = "level", level = 3 } } } } })
 	"#;
+	const CONTINUE: &str = r#"PolestarDB = { schema = 1, settings = { behavior = { guideEnd = "continue" } } }"#;
 	let on = run1(Run {
 		guides,
+		saved: Some(CONTINUE),
 		script: r#"takeLog(); stub.world.setLevel(2); flush()
 			emit({ log = takeLog(), guide = E.GetGuide().id, stored = PolestarCharDB.guide, index = E.GetStepIndex() })"#,
 		..Default::default()
@@ -1045,29 +1047,32 @@ fn completing_a_guide_chains_to_next_when_autonextguide_is_on_and_not_when_it_is
 		})
 	);
 
-	let off = run1(Run {
+	// "Ask me" (the default): the finished guide stays for the guide-end window (engine-guide-end.rs).
+	let ask = run1(Run {
 		guides,
-		saved: Some("PolestarDB = { schema = 1, settings = { behavior = { autoNextGuide = false } } }"),
 		script: r#"takeLog(); stub.world.setLevel(2); flush()
 			emit({ log = takeLog(), guide = E.GetGuide().id })"#,
 		..Default::default()
 	});
-	assert_eq!(off, json!({ "log": ["STEP_CHANGED nil", "GUIDE_COMPLETED test/a"], "guide": "test/a" }));
+	assert_eq!(ask, json!({ "log": ["STEP_CHANGED nil", "GUIDE_COMPLETED test/a"], "guide": "test/a" }));
 
-	let at_login = run1(Run {
-		guides,
-		before: "w.level = 2",
-		saved: Some(r#"PolestarCharDB = { schema = 1, guide = "test/a" }"#),
-		script: "emit({ log = takeLog(), guide = E.GetGuide().id })",
-		..Default::default()
-	});
+	let at_login = |saved: &str| {
+		run1(Run {
+			guides,
+			before: "w.level = 2",
+			saved: Some(saved),
+			script: "emit({ log = takeLog(), guide = E.GetGuide().id })",
+			..Default::default()
+		})
+	};
 	assert_eq!(
-		at_login,
+		at_login(&format!("{CONTINUE}\nPolestarCharDB = {{ schema = 1, guide = \"test/a\" }}")),
 		json!({
 			"log": ["GUIDE_CHANGED test/a", "GUIDE_COMPLETED test/a", "GUIDE_CHANGED test/b", "STEP_CHANGED 1"],
 			"guide": "test/b",
 		})
 	);
+	assert_eq!(at_login(r#"PolestarCharDB = { schema = 1, guide = "test/a" }"#), json!({ "log": ["GUIDE_CHANGED test/a", "GUIDE_COMPLETED test/a"], "guide": "test/a" }));
 
 	// Picking a finished guide by hand reports it complete but stays on it.
 	let picked = run1(Run {

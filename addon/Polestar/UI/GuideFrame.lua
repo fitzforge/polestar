@@ -859,12 +859,15 @@ function GF.RenderTabs()
 end
 
 ---------------------------------------------------------------------------
--- Banners: the group quest the live step waits on (`when group`: Skip it,
--- the default, or Do it with a group; it cannot be dismissed); the step the
--- player just skipped, with its undo; why the guide
+-- Banners: "Continue automatically" moving on from a finished leveling
+-- guide (for SKIPPED_SECONDS); the group quest the live step waits on
+-- (`when group`: Skip it, the default, or Do it with a group; it cannot be
+-- dismissed); the step the player just skipped, with its undo; why the guide
 -- just moved past a quest (while that step's guide and next step are on
 -- screen); the step on screen when it is not the live one (skipped: unskip
--- it; looked at with ‹ ›: back to the live step); then the out-levelled offer
+-- it; looked at with ‹ ›: back to the live step); then the end of a leveling
+-- guide reached with steps still open (Start the next guide, GF.EndOffer),
+-- then the out-levelled offer
 -- (while its guide is active), then the training reminder, the riding one,
 -- then a Class guide that just opened (QoL/ClassQuests.lua), then the bags
 -- nearly full while the step collects (QoL/Space.lua: delete the cheapest
@@ -894,6 +897,27 @@ local function nearbyTrip()
 	return Nearby and Nearby.Trip and Nearby.Trip() or nil
 end
 
+-- The end of the active leveling guide reached while steps are still open
+-- (Engine.GuideEnded; the guide-end window's "Back to step N", UI/GuideEnd.lua):
+-- what to start from here, { guideId, label = "The Barrens (12–16)" } or
+-- { guideId, choose = true } for a route choice; nil with nothing to start,
+-- on a finished guide (its complete page offers the next one) or once
+-- dismissed (notices.endSeen, for the session).
+function GF.EndOffer(E, g)
+	if not (g and E and E.GuideEnded and E.GetLiveStep and E.GetLiveStep() ~= nil) then return nil end
+	if notices.endSeen == g.id or not E.GuideEnded(g.id) then return nil end
+	local G = ns.Guides
+	local nextId = E.NextGuide and E.NextGuide(g.id)
+	local nextGuide = nextId and G and G.Get and G.Get(nextId)
+	if nextGuide then
+		local lv = UI.LevelRange(nextGuide.minLevel, nextGuide.maxLevel)
+		return { guideId = g.id, label = (nextGuide.title or nextId) .. (lv and (" (" .. lv .. ")") or "") }
+	end
+	local choice = E.GetRouteChoice and E.GetRouteChoice(g.id)
+	if choice and #choice.options >= 2 then return { guideId = g.id, choose = true } end
+	return nil
+end
+
 local function bannerNotice()
 	local E = Engine()
 	local g = E and E.GetGuide and E.GetGuide()
@@ -901,6 +925,9 @@ local function bannerNotice()
 	local t = nearbyTrip()
 	if t then return "trip", t end
 	if notices.questSkip then return "questSkip", notices.questSkip end
+	-- "Continue automatically" moved on from a finished leveling guide.
+	local c = notices.continued
+	if c and g ~= nil and g.id == c.to then return "continued", c end
 	-- A quest the route had passed left the log: the guide holds and asks.
 	local lq, ltitle
 	if E and E.LostQuestion then lq, ltitle = E.LostQuestion() end
@@ -920,6 +947,8 @@ local function bannerNotice()
 		lo.key = g.id .. ":" .. view.index
 		return "log", lo
 	end
+	local en = GF.EndOffer(E, g)
+	if en then return "ended", en end
 	local o = notices.outlevel
 	if o and g ~= nil and g.id == o.guideId then return "outlevel", o end
 	if notices.train then return "train", notices.train end
@@ -1069,6 +1098,15 @@ function GF.LayoutBanner(width)
 		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
+	elseif kind == "continued" then
+		-- "Durotar complete — continuing with The Barrens", for SKIPPED_SECONDS.
+		banner.Icon:SetTexture(Theme.Media("check"))
+		banner.Text:SetText(string.format(L["%s complete \226\128\148 continuing with %s"], n.fromTitle, n.toTitle))
+		banner.Jump:Hide()
+		banner.Close:Show()
+		local h = floor(9 + banner.Text:GetStringHeight() + 9 + 0.5)
+		banner:SetHeight(h)
+		return h
 	elseif kind == "questSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
 		banner.Text:SetText(string.format(L["Skipped %s"], n.title or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
@@ -1119,6 +1157,12 @@ function GF.LayoutBanner(width)
 		banner.Text:SetText(string.format(L["On the way to %s (%s)."], n.name or "", n.label or ""))
 		placeLink(banner.Jump, L["Back to the guide"], 0, -4)
 		banner.Close:Hide()
+	elseif kind == "ended" then
+		-- The end reached with steps still open: the next guide, when the player wants it.
+		banner.Icon:SetTexture(Theme.Media("check"))
+		banner.Text:SetText(L["You've reached the end of this guide."])
+		placeLink(banner.Jump, n.choose and L["Choose where to go next"] or string.format(L["Start %s"], n.label), 0, -4)
+		banner.Close:Show()
 	elseif kind == "outlevel" then
 		banner.Icon:SetTexture(Theme.Media("icon-level"))
 		banner.Text:SetText(L["You have outlevelled this guide."])
@@ -1256,6 +1300,12 @@ function GF.TakeBanner()
 		elseif E and E.Goto and n.live then
 			E.Goto(n.live)
 		end
+	elseif kind == "ended" then
+		if n.choose then
+			UI.ShowRouteChoice(n.guideId)
+		elseif E and E.StartNext then
+			E.StartNext(n.guideId)
+		end
 	elseif kind == "outlevel" then
 		notices.outlevel = nil
 		-- A route choice opens the choice window, which loads the zone picked.
@@ -1334,6 +1384,8 @@ function GF.DismissBanner(later)
 		ns.QoL.Space.Dismiss()
 	elseif kind == "wear" then
 		ns.QoL.Wear.Dismiss()
+	elseif kind == "ended" then
+		notices.endSeen = n.guideId
 	elseif kind then
 		notices[kind] = nil
 	end
@@ -3489,6 +3541,27 @@ ns.On("GUIDE_OUTLEVELED", function(guideId, suggestedId)
 	if not target then return end
 	notices.outlevel = { guideId = guideId, to = suggestedId, title = target.title or suggestedId }
 	if ns.IsLoggedIn() then GF.Layout() end
+end)
+
+-- GUIDE_CONTINUED(fromId, toId): with "Continue automatically" a finished
+-- leveling guide handed off by itself. Said in the banner for
+-- SKIPPED_SECONDS, in chat while the window is hidden.
+ns.On("GUIDE_CONTINUED", function(fromId, toId)
+	local G = ns.Guides
+	local from, to = G and G.Get and G.Get(fromId), G and G.Get and G.Get(toId)
+	if not (from and to) then return end
+	local n = { to = toId, fromTitle = from.title or fromId, toTitle = to.title or toId }
+	if not (F and F:IsShown()) then
+		ns.Print(string.format(L["%s complete \226\128\148 continuing with %s"], n.fromTitle, n.toTitle))
+	end
+	if not F then return end
+	notices.continued = n
+	if ns.IsLoggedIn() then GF.Layout() end
+	ns.After(SKIPPED_SECONDS, function()
+		if notices.continued ~= n then return end
+		notices.continued = nil
+		if F:IsShown() and ns.IsLoggedIn() then GF.Layout() end
+	end)
 end)
 
 -- TRAIN_DUE(level, trainer): new class skills are waiting. A later level's

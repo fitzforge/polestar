@@ -515,6 +515,8 @@ function ns.CharState()
 	if type(s.flags) ~= "table" then s.flags = {} end
 	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
 	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
+	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once.
+	if type(s.guideEnds) ~= "table" then s.guideEnds = {} end
 	return s
 end
 
