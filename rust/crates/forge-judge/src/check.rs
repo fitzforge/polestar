@@ -1098,13 +1098,18 @@ fn in_log(goals: &[WalkGoal], p: i64) -> bool {
 	last("accept").is_some_and(|a| last("turnin").is_none_or(|h| h < a))
 }
 
+/// Levels under a quest's minimum an accept is still ready at ([`not_ready`]): the replay's
+/// rounding only (the routes' `lvl` has two decimals).
+pub const READY_LVL_EPS: f64 = 1e-6;
+
 /// Rule `not-ready` (blocker): an accept the game refuses there, on this class's walk: a prerequisite
 /// the walk hands in later is not handed in yet (The Binding 1471 before Creature of the Void 1473),
-/// a parent quest the walk takes is not in the log (taken later, or handed in already), or the walk's level is more than
-/// [`READY_LVL_SLACK`] under the quest's minimum (5680 at 16, level 20 needed). A breadcrumb is no
-/// prerequisite (8276 for 8280), nor is a parent one to hand in (349 inside 348) ([`quest_pre`]).
+/// a parent quest the walk takes is not in the log (taken later, or handed in already), or the walk's
+/// level is under the quest's minimum (5680 at 16, level 20 needed; c19r's Lazy Peons 5441 at the
+/// Den at 2.6, minimum 3: a level-2 player is held at the giver). The level is the routes model's
+/// ([`SimLevels`]); [`READY_LVL_EPS`] absorbs its fractions only. A breadcrumb is no prerequisite
+/// (8276 for 8280), nor is a parent one to hand in (349 inside 348) ([`quest_pre`]).
 pub fn not_ready(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
-	const READY_LVL_SLACK: f64 = 1.0;
 	let mut out = Vec::new();
 	for (i, g) in goals.iter().enumerate() {
 		let Some(q) = g.q.filter(|_| g.t == "accept" && !g.optional) else { continue };
@@ -1118,7 +1123,7 @@ pub fn not_ready(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
 			let later = goals[i + 1..].iter().any(|x| x.t == "accept" && x.q == Some(p));
 			Some(format!("{} must be in the log{}", facts.title(p), if later { ", and is taken later" } else { ", and is handed in already" }))
 		} else {
-			f.min_level.filter(|&m| g.lvl + READY_LVL_SLACK < m).map(|m| format!("level {:.1}, under its minimum {m}", g.lvl))
+			f.min_level.filter(|&m| g.lvl + READY_LVL_EPS < m).map(|m| format!("level {:.2}, under its minimum {m}", g.lvl))
 		};
 		if let Some(why) = why {
 			out.push(Violation::at(g, "not-ready", Level::Blocker, format!("{} accepted before it can be: {why}", facts.title(q))));

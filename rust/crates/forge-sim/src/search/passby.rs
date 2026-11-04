@@ -1457,6 +1457,9 @@ fn judge_revisit(p: &Problem, m: &Member, check: &mut crate::order::Checker, h: 
 	if !m.levels_ok_by(p, cand, &rs, 0.0) {
 		return Err("an objective moved under its level".into());
 	}
+	if !m.gate_ok(p, &rs) {
+		return Err("a quest taken under its minimum level".into());
+	}
 	let dt = rs.iter().map(|c| c.total).sum::<f64>() - m.total();
 	let mut raised = 0u32;
 	let mut why = vec![format!("{:+.1} min cost", dt / 60.0)];
@@ -1723,6 +1726,85 @@ pub fn grind_topups(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 				log(&format!("grind top-up at step {}: {:+.1} min", g.i, pk.added / 60.0));
 				kept.push(pk);
 			}
+		}
+	}
+	kept
+}
+
+/// The accept level rule's pass (crate::gate) over what the order still takes under a quest's
+/// minimum level in some character's run (v1's own lines; a record the seed's repairs could not
+/// keep otherwise; a shared tail a start reaches lower than the canonical one): each such accept,
+/// earliest first, goes to the first later place where every character meets the level and that
+/// picks up its giver, no later than its quest's first objective or hand-in (gate::later_places),
+/// the first of them that keeps the order's rules and adds no no-op or late hand-in; with none, a
+/// level step to the minimum goes right before it (the grind the model made there unseen, now
+/// written: grind_topups' gate). Kept for correctness, whatever it costs (the game refuses the
+/// quest under its minimum). Run before grind_topups, so a level step is left only where no later
+/// stop by the giver comes before its work.
+pub fn accept_gates(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<HubPickup> {
+	let run = &p.model.run;
+	let mut kept = Vec::new();
+	let mut tried: rustc_hash::FxHashSet<u32> = Default::default();
+	// The first accept some character takes under its minimum, not tried yet (canonical index).
+	let first = |m: &Member, tried: &rustc_hash::FxHashSet<u32>| -> Option<usize> {
+		(0..m.order.len().min(m.cap)).find(|&i| {
+			let s = m.order.steps[i];
+			s.kind == K_ACCEPT
+				&& !tried.contains(&s.q)
+				&& m.ctxs.iter().enumerate().any(|(k, c)| c.cur.lv.get(i + c.off).is_some_and(|&l| crate::gate::is_under(&p.ctxs[k].model.run, &c.cur.steps[i + c.off], l)))
+		})
+	};
+	while let Some(i) = first(m, &tried) {
+		let s = m.order.steps[i];
+		tried.insert(s.q);
+		let id = run.q_id[s.q as usize];
+		let min = f64::from(run.q_min_level[s.q as usize]);
+		let lv_at = m.ctxs.iter().map(|c| c.cur.lv.get(i + c.off).copied().unwrap_or(60.0)).fold(f64::INFINITY, f64::min);
+		// (Each character's levels on the order without it: what the model ground there is gone.)
+		let Some((rest, _, _)) = (Mv::DropStep { i }).apply(&m.order) else { continue };
+		let rr = super::runs(p, &rest);
+		let level_ok = |j: usize| rr.iter().zip(&m.ctxs).all(|(c, x)| c.lv.get(j + x.off).is_none_or(|&l| l + crate::gate::EPS >= min));
+		let places = crate::gate::later_places(run, &rest.steps, i, s.q, s.pt, &level_ok);
+		// (Before the move cap: a start's own part keeps its shared tail.)
+		let lv_to = |j: usize| rr.iter().zip(&m.ctxs).map(|(c, x)| c.lv.get(j + x.off).copied().unwrap_or(60.0)).fold(f64::INFINITY, f64::min);
+		let mut mvs: Vec<(Mv, String)> = places
+			.iter()
+			.filter(|&&j| j < m.cap)
+			.take(crate::gate::PLACES_TRIED)
+			.map(|&j| (Mv::Move { s: i, e: i, to: j, kind: "accept gate" }, format!("taken {} steps later by its giver at level {:.2}", j - i, lv_to(j))))
+			.collect();
+		mvs.push((
+			Mv::Seq { kind: "accept gate", mvs: vec![Mv::Insert { q: 0, at: vec![(i, checkpoint(min))] }] },
+			format!("no later stop by its giver at level {min} before its work: a level step to {min} before it"),
+		));
+		let mut done = false;
+		for (mv, how) in mvs {
+			let Some((cand, _, _)) = mv.apply(&m.order) else { continue };
+			if !m.check.valid(&cand.steps, &p.pairs, &p.feas) {
+				continue;
+			}
+			let rs = super::runs(p, &cand);
+			let worse = rs.iter().zip(&m.ctxs).any(|(n, c)| n.noops > c.cur.noops || n.late > c.cur.late);
+			let still = rs.iter().enumerate().any(|(k, c)| crate::gate::under_min(&p.ctxs[k].model.run, &c.steps, &c.lv).contains(&id));
+			if worse || still || !m.gate_ok(p, &rs) {
+				continue;
+			}
+			let (before, lv, now) = (m.order.clone(), m.lv.clone(), m.total());
+			if let Some(g) = &p.guard {
+				m.guard_now = g.counts(run, &rs[0]);
+			}
+			for (c, cur) in m.ctxs.iter_mut().zip(rs) {
+				c.cur = cur;
+			}
+			m.order = cand;
+			m.refresh();
+			log(&format!("accept gate {id} at step {i}: level {lv_at:.2}, under its minimum {min}: {how}, {:+.1} min", (m.total() - now) / 60.0));
+			kept.push(HubPickup { mv, before, lv, added: m.total() - now, hours: m.total() / 3600.0 });
+			done = true;
+			break;
+		}
+		if !done {
+			log(&format!("accept gate {id} at step {i}: level {lv_at:.2}, under its minimum {min}: left (no move keeps the order's rules)"));
 		}
 	}
 	kept

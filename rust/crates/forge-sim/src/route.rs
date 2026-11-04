@@ -623,6 +623,7 @@ pub fn prepare(world: &World, walks: &dyn Walks, base: &Params, race: &str, even
 		&crate::order::deliberate_after(&model0.run),
 		&crate::order::deliberate_together(&model0.run),
 		&lead_in_pairs(world, &rules0, &model0.run),
+		Some(&mut model0.evaluator(walks)),
 	);
 	seed = repaired;
 	after_notes.extend(ride_note);
@@ -898,6 +899,11 @@ pub fn improve(
 		let defers = crate::search::passby::defer_hard_work(&problem, &mut m, &mut plog);
 		tm.lap(&scope, "pass defer hard work");
 		hub_sweep_rows(world, rules, model, &mut edits_doc, &defers, "deferredWork");
+		// What the order still takes under a quest's minimum level moved to the next stop by its
+		// giver at that level, else behind a level step (crate::gate).
+		let gates = crate::search::passby::accept_gates(&problem, &mut m, &mut plog);
+		tm.lap(&scope, "pass accept gates");
+		hub_sweep_rows(world, rules, model, &mut edits_doc, &gates, "acceptGates");
 		let topups = crate::search::passby::grind_topups(&problem, &mut m, &mut plog);
 		tm.lap(&scope, "pass grind top-ups");
 		hub_sweep_rows(world, rules, model, &mut edits_doc, &topups, "grindTopUps");
@@ -1883,7 +1889,8 @@ pub(crate) fn hub_sweep_rows(world: &World, rules: &Rules, model: &Model, edits_
 	let words = |s: crate::Step| step_words(world, rules, model, s);
 	if let Some(list) = edits_doc["list"].as_array_mut() {
 		let at = list.iter().position(|x| x["kept"] != json!(true)).unwrap_or(list.len());
-		for (j, pk) in picks.iter().enumerate() {
+		let mut put = 0;
+		for pk in picks {
 			let o = &pk.before;
 			let (after, _, _) = pk.mv.apply(o).expect("sweep applies");
 			let row = match &pk.mv {
@@ -1897,6 +1904,7 @@ pub(crate) fn hub_sweep_rows(world: &World, rules: &Rules, model: &Model, edits_
 						"written check" => "the written guide walks past its NPC while it is ready (the check on the written guides)",
 						"hub batch undone" => "back where it was: the written guide walked past it after the hub batch",
 						"train at the hub" => "out of the field work it split: trained at the hub, before or after the stretch",
+						"accept gate" => "the first later stop by its giver at its minimum level, before its work (the game refuses it under that level)",
 						_ => "ready at this hub visit, not left for a return",
 					};
 					let shift = *to as i64 - *s as i64;
@@ -1941,6 +1949,19 @@ pub(crate) fn hub_sweep_rows(world: &World, rules: &Rules, model: &Model, edits_
 					);
 					json!({ "kept": true, "kind": kind, "text": text, "savedMin": (-pk.added / 60.0 * 100.0).round() / 100.0, "hours": (pk.hours * 1000.0).round() / 1000.0, "q": Value::Null, "steps": Vec::<Value>::new(), "from": a, "to": a })
 				}
+				Mv::Seq { kind, mvs } if *kind == "accept gate" => {
+					let (_, a, _) = pk.mv.apply(o).expect("gate applies");
+					let acc = after.steps.get(a + 1).copied().filter(|x| x.kind == K_ACCEPT);
+					let min = mvs.iter().find_map(|x| if let Mv::Insert { at, .. } = x { at.first().map(|s| s.1.q) } else { None }).unwrap_or(0);
+					let zone = acc.map(|x| world.zones.get(&run.p_map[x.pt as usize]).cloned().unwrap_or_default()).unwrap_or_default();
+					let what = acc.map_or_else(String::new, words);
+					let text = format!(
+						"{zone}, L{:.1}: a level step to {min} right before {what}: no later stop by its giver comes at that level before its work (the game refuses it under level {min})",
+						pk.lv.get(a).copied().unwrap_or(60.0)
+					);
+					let steps: Vec<Value> = acc.iter().map(|&x| crate::ledger::step_json(run, x)).collect();
+					json!({ "kept": true, "kind": kind, "text": text, "savedMin": (-pk.added / 60.0 * 100.0).round() / 100.0, "hours": (pk.hours * 1000.0).round() / 1000.0, "q": acc.map_or(Value::Null, |x| json!(run.q_id[x.q as usize])), "steps": steps, "from": a, "to": a })
+				}
 				Mv::Seq { kind, .. } => {
 					let qs = seq_quests(&pk.mv, o);
 					// (An edit that adds quests: their steps in the order after it.)
@@ -1951,7 +1972,8 @@ pub(crate) fn hub_sweep_rows(world: &World, rules: &Rules, model: &Model, edits_
 				}
 				_ => continue,
 			};
-			list.insert(at + j, row);
+			list.insert(at + put, row);
+			put += 1;
 		}
 		for (n, x) in list.iter_mut().enumerate() {
 			x["n"] = json!(n + 1);

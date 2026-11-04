@@ -3,6 +3,7 @@
 //! developer check, not in the help) replays a given order on the evaluator.
 //!
 //!   forge sim route --faction F --start <race> [--seed guides|<file>] [--tries N] --out <file.json>
+//!   forge sim route --audit [--dir D | --out O] [--faction F] [--start S] [--world-dir W]
 
 use forge_sim::chain::{compare_reference, events_from, goals_from, replay_events};
 use forge_sim::profile::Profile;
@@ -275,7 +276,58 @@ fn widen_cmd(args: &[String]) {
 	eprintln!("wrote {out}");
 }
 
+/// forge sim route --audit [--dir D | --out O] [--faction F] [--start S] [--world-dir W] [--root R]:
+/// the accept level rule (forge_sim::gate) on written routes, no search: every accept in each
+/// start's `<D>/<Start>.json` `order` whose `lvl` (the model's level before it) is under its quest's
+/// minimum level in the sim world (W: default the routes' sibling `world/` of a forge build output,
+/// else <R>/data/sim). Both factions unless --faction; every start unless --start. Exit 1 when any.
+fn route_audit(args: &[String]) {
+	check(args, &["--root", "--world-dir", "--faction", "--start", "--dir", "--out"], &["--audit"], 0);
+	let dir = routes_dir(args);
+	let root = PathBuf::from(arg(args, "--root").unwrap_or_else(|| ".".into()));
+	let world_dir = arg(args, "--world-dir").map(PathBuf::from).unwrap_or_else(|| {
+		let sibling = dir.parent().map(|p| p.join("world")).filter(|w| w.is_dir());
+		sibling.unwrap_or_else(|| root.join("data/sim"))
+	});
+	let factions: Vec<forge_core::Faction> = if arg(args, "--faction").is_some() { vec![faction_arg(args)] } else { forge_core::Faction::BOTH.to_vec() };
+	let only = arg(args, "--start");
+	let mut files: Vec<PathBuf> = std::fs::read_dir(&dir)
+		.unwrap_or_else(|e| die(&format!("{}: {e}", dir.display())))
+		.filter_map(|e| e.ok().map(|e| e.path()))
+		.filter(|p| p.extension().is_some_and(|x| x == "json") && p.file_stem().and_then(|s| s.to_str()).is_some_and(|s| !s.contains('.')))
+		.collect();
+	files.sort();
+	let mut under = 0;
+	for f in factions {
+		let world = forge_sim::load_world(&world_dir, f).unwrap_or_else(|e| die(&e));
+		let title: rustc_hash::FxHashMap<u32, &str> = world.quests.iter().map(|q| (q.id, q.title.as_str())).collect();
+		let (mut starts, mut accepts, mut n) = (0, 0, 0);
+		for file in &files {
+			let Some(doc) = std::fs::read(file).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()) else { continue };
+			let (Some(order), Some(start)) = (doc["order"].as_array(), doc["start"].as_str()) else { continue };
+			if doc["faction"].as_str().and_then(forge_core::Faction::parse) != Some(f) || only.as_deref().is_some_and(|s| s != start) {
+				continue;
+			}
+			let name = file.file_stem().and_then(|s| s.to_str()).unwrap_or(start);
+			starts += 1;
+			accepts += order.iter().filter(|e| e["t"] == "accept").count();
+			for u in forge_sim::gate::audit_order(&world, order) {
+				println!("{name}: order step {}: accept {} {} at level {:.2}, under its minimum {} ({})", u.i, u.q, title.get(&u.q).copied().unwrap_or(""), u.lvl, u.min, u.from);
+				n += 1;
+			}
+		}
+		println!("{}: {starts} routes, {accepts} accepts, {n} under their minimum level", f.name());
+		under += n;
+	}
+	if under > 0 {
+		std::process::exit(1);
+	}
+}
+
 fn route(args: &[String]) {
+	if args.iter().any(|a| a == "--audit") {
+		return route_audit(args);
+	}
 	check(
 		args,
 		&[

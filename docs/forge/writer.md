@@ -70,6 +70,13 @@ route travel, after the area steps are made):
   next farm step of the stay (within 8 steps), else it is left out (quest XP
   mostly covers it, the rest goes to the next top-up).
 
+The planner's accept level rule (routes.md, "accept gates") puts such a top-up
+right before an accept the route would take under its quest's minimum level
+when no later stop by the giver comes at that level before the quest's work. It
+gates that accept, so the rules above never fold it away or leave it out, and
+its tip names the quest (`tip Top up here to level 3: Lazy Peons, at <area>,
+needs level 3.`).
+
 c14's Human route wrote about 90 `Level` steps, one per piece of each split
 grind, before this.
 

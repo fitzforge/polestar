@@ -544,10 +544,11 @@ fn joined_problem<'a>(model: &'a crate::Model, walks: &'a dyn Walks, prep: &crat
 	p
 }
 
-/// shared::repair_across_join with the start's pairs and lead-ins, its notes to `log`.
-fn repair_across_join(world: &World, prep: &crate::route::Prepared, order: &mut crate::order::Order, join: usize, name: &str, log: &mut Vec<String>) -> usize {
+/// shared::repair_across_join with the start's pairs and lead-ins, under the accept level rule on
+/// its own model, its notes to `log`.
+fn repair_across_join(world: &World, walks: &dyn Walks, prep: &crate::route::Prepared, order: &mut crate::order::Order, join: usize, name: &str, log: &mut Vec<String>) -> usize {
 	let leads = crate::route::lead_in_pairs(world, &prep.rules, &prep.model.run);
-	let (join, notes) = crate::shared::repair_across_join(&prep.model.run, &prep.pairs, &leads, order, join);
+	let (join, notes) = crate::shared::repair_across_join(&prep.model.run, &prep.pairs, &leads, order, join, Some(&mut prep.model.evaluator(walks)));
 	log.extend(notes.iter().map(|n| format!("shared {name}: across its join: {n}")));
 	join
 }
@@ -746,18 +747,23 @@ impl Starts<'_> {
 		// (order::keep_records; a step may leave its own part for the tail): c15 Night Elf's
 		// overrides.pairs[14], Fruit of the Sea taken before Buzzbox 827's crawler legs, had the
 		// legs in its own part at 13.67 and the accept in the tail at 17.31.
-		let join = repair_across_join(world, &preps[k], &mut order, joins[k], &s.name, log);
+		let mut join = repair_across_join(world, walks, &preps[k], &mut order, joins[k], &s.name, log);
 		// Its own part's trips across water and returns to ground done on the later trip there,
 		// the tail kept (c15 Night Elf: the boat to Stormwind at 13.66 to train and hand in A
 		// Fishy Peril, back to Auberdine, then the boat to Westfall at the join 0.7 levels later).
+		// Then what its own part takes under a quest's minimum level (the own steps put back, the
+		// repairs across the join) moved within it, else behind a level step (passby::accept_gates).
 		if join > 0 && join < order.len() {
 			let mut p0 = joined_problem(&sm.0, walks, &preps[k], &order, &s.name, log);
 			p0.guard = guard.take();
 			let mut m = crate::search::Member::new(&p0, order.clone(), &crate::search::runs(&p0, &order), 1);
 			m.cap_moves(join);
-			let kept = crate::search::passby::camp_revisit(&p0, &mut m, &mut |x| log.push(format!("shared {}'s own part: {x}", s.name)));
+			let mut kept = crate::search::passby::camp_revisit(&p0, &mut m, &mut |x| log.push(format!("shared {}'s own part: {x}", s.name)));
+			kept.extend(crate::search::passby::accept_gates(&p0, &mut m, &mut |x| log.push(format!("shared {}'s own part: {x}", s.name))));
 			*guard = p0.guard.take();
-			if !kept.is_empty() && m.order.len() == order.len() && m.order.steps[join..] == order.steps[join..] {
+			let tail = order.len() - join;
+			if !kept.is_empty() && m.order.len() >= tail && m.order.steps[m.order.len() - tail..] == order.steps[join..] {
+				join = m.order.len() - tail;
 				order = m.order.clone();
 			}
 		}
@@ -881,6 +887,9 @@ fn shared_tail(
 		let defers = crate::search::passby::defer_hard_work(p, &mut m, &mut plog);
 		tm.lap(&scope, "pass defer hard work");
 		crate::route::hub_sweep_rows(world, &prep0.rules, &prep0.model, &mut shared_doc, &defers, "deferredWork");
+		let gates = crate::search::passby::accept_gates(p, &mut m, &mut plog);
+		tm.lap(&scope, "pass accept gates");
+		crate::route::hub_sweep_rows(world, &prep0.rules, &prep0.model, &mut shared_doc, &gates, "acceptGates");
 		let topups = crate::search::passby::grind_topups(p, &mut m, &mut plog);
 		tm.lap(&scope, "pass grind top-ups");
 		crate::route::hub_sweep_rows(world, &prep0.rules, &prep0.model, &mut shared_doc, &topups, "grindTopUps");

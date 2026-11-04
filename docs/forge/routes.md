@@ -226,8 +226,10 @@ hand-in, hearth line on cooldown, quest log over its bound, guard raised), the c
 orders, item needs and lock keys, `after` and `stay` records, together, keep, skip, southward,
 escorts), and the descent's own: no training right after a training, a reorder adds at most 100 yd to
 the straight walk over the stretch it changes, v1's grind checkpoints that guard a gate stay, no quest on the way is
-dropped, and no objective is moved earlier to more than 2 levels under its quest's level. On a shared
-tail, no start may be slower for a kept move.
+dropped, and no objective is moved earlier to more than 2 levels under its quest's level. No move takes
+a quest under its minimum level where the order did not (the accept level rule, section 6; counted as
+`accept under its minimum` in `refusedBy`): every search, edit and pass move is held to it. On a shared
+tail, no start may be slower for a kept move, and the level rule holds for every start's run.
 
 A free or hybrid route's edit list starts with the free search's difference from the seed: each
 quest added (`insert`), dropped (`drop`) or reordered (`free move`, with how many quest events it
@@ -300,7 +302,8 @@ route's `feasibility` list names the move.
 A `together` rule v1's order breaks is kept the same way: the `b` step moves next to the `a` step
 (with the steps of b's quest that must stay on its side), so a "do these together" record pulls a
 step earlier as well as later. A `together` rule's task without an objective index means the
-quest's first objective's place.
+quest's first objective's place. A level step right before an accept `b` (its gate, section 6)
+does not break the rule.
 
 ## 5. Deliberate orders
 
@@ -335,6 +338,16 @@ broken after the repairs is left out with `RECORD CONFLICT` in the notes and on 
 that would take a quest before the hand-in its chain needs (its prerequisites, or the quest before
 it in the world's chain) is refused and named (`repair refused: ...`): c15's together[47] took
 turnin 929 past accept 933 and the whole Crown of the Earth chain fell out of the Night Elf route.
+A repair also keeps the **accept level rule**: an accept it would take where the model's level is
+under the quest's minimum (the world's `minLevel`) goes on to the first later stop by its giver
+(within 120 yd of the stop before or after, or 50 yd off the leg between) where the level is met,
+no later than the quest's first objective or hand-in, and the notes say so (`together 4402 5441:
+quest 5441 would be taken at level 2.41, under its minimum 3: taken at the next stop by its giver
+instead, at level 4.31`). With no such stop the repair is refused and named (`repair refused:
+pair accept 348 before task 572 would take quest 348 at level 39.49, under its minimum 40, and no
+later stop by its giver before its work comes at that level`). c19r took Lazy Peons (minimum 3)
+at the Den at 2.6 after c17's `together 4402/5441` moved it beside Galgar's quest; the model ground
+the rest of level 2 there unseen, and a level-2 player was held at the giver.
 
 ## 6. Worthwhile pickups
 
@@ -511,6 +524,18 @@ in turn) wait with it, else they would be taken before it opens them. Grind is p
 route time plus the minutes of grind over 15 per block drops (by a minute or more), the order keeps
 its rules, no guard rises and the hours to 60 rise by at most 10 minutes; its edit is `defer hard
 work`, counted in `deferredWork`.
+
+Then **accept gates** (`forge-sim/src/gate.rs`, `passby::accept_gates`): whatever the order still
+takes under a quest's minimum level in some start's run (v1's own lines, a shared tail a start
+reaches lower than the canonical one) moves, earliest first, to the first later stop by its giver
+(as for the repairs above) where every start meets the level, before the quest's first objective or
+hand-in, the first such place that keeps the order's rules and adds no no-op or late hand-in. With
+none, a level step to the minimum goes right before the accept (the grind the model made there
+unseen, now written). Kept whatever it costs: the game refuses the quest under its minimum. Its edit
+is `accept gate`, counted in `acceptGates`; the log names each (`accept gate 840 at step 102: level
+9.93, under its minimum 10: no later stop by its giver at level 10 before its work: a level step to
+10 before it`). A shared start's own part gets the same pass before it is written, its tail kept.
+`forge sim route --audit` checks the written routes for it (section 12).
 
 Then **grind top-ups**: the grind left is explicit and in pieces. The model's own grind of a minute or
 more before an accept or work becomes a checkpoint at the last camp of the zone stay before it (its
@@ -876,6 +901,16 @@ forge sim skips --reason missing-info --dir out/routes
 ```
 
 With `--reason missing-info` this is the "help us with these quests" list for players.
+
+`forge sim route --audit` checks written routes against the accept level rule, without a search:
+every accept in each start's `order` whose `lvl` (the model's level before it) is under its quest's
+minimum level in the sim world. It reads `--dir` (or `<O>/routes`), the world from the routes'
+sibling `world/` (a build output) or `--world-dir`, both factions unless `--faction`, every start
+unless `--start`, and exits 1 when it finds one:
+
+```sh
+forge sim route --audit --dir out/routes
+```
 
 ## 13. Running it
 

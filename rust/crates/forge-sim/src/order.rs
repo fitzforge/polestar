@@ -589,8 +589,10 @@ impl Checker {
 				_ => steps.iter().position(|s| s.kind == t.kb && s.q == t.qb && (t.tb < 0 || s.task == t.tb)),
 			};
 			if let (Some(a), Some(b)) = (a, b) {
-				// a == b: one step is both ends (nothing between them).
-				if b < a || (b > a && steps[a + 1..b].iter().any(|s| !t.near.contains(&s.pt))) {
+				// a == b: one step is both ends (nothing between them). A level step right before an
+				// accept b is its gate (crate::gate: the game holds the quest until that level), placeless.
+				let gate = |k: usize| k + 1 == b && steps[k].kind == K_GRIND && steps[b].kind == K_ACCEPT;
+				if b < a || (b > a && (a + 1..b).any(|k| !gate(k) && !t.near.contains(&steps[k].pt))) {
 					return Some(format!("deliberate together: {} {} right after {} {}", kind_name(t.kb), id(t.qb), kind_name(t.ka), id(t.qa)));
 				}
 			}
@@ -887,7 +889,7 @@ impl Feas {
 				let a = steps.iter().rposition(|s| s.kind == t.ka && s.q == t.qa && (t.ta < 0 || s.task == t.ta));
 				let b = steps.iter().position(|s| s.kind == t.kb && s.q == t.qb && (t.tb < 0 || s.task == t.tb));
 				match (a, b) {
-					(Some(a), Some(b)) => b == a || (b > a && steps[a + 1..b].iter().all(|s| t.near.contains(&s.pt))),
+					(Some(a), Some(b)) => b == a || (b > a && (a + 1..b).all(|k| (k + 1 == b && steps[k].kind == K_GRIND && steps[b].kind == K_ACCEPT) || t.near.contains(&steps[k].pt))),
 					_ => true,
 				}
 			})
@@ -1350,9 +1352,13 @@ pub fn chain_breaks(run: &Run, steps: &[Step], leads: &[Pair]) -> Vec<(u32, u32)
 /// east trip, breaking `112 < 76` and `112 < 39`, which were then left out). The pairs go last in
 /// a pass. A repair that would take a quest before the hand-in its chain needs (chain_breaks, with
 /// `leads`) is refused and named (c15 Night Elf: together[47]'s Gaerolas moved to the dresser took
-/// turnin 929 past accept 933, and Crown of the Earth 933-98065 fell out of the route). Returns
-/// the order and the repair notes (each once).
-pub fn keep_records(run: &Run, seed: &Order, pairs: &[Pair], after: &[Need], together: &[Together], leads: &[Pair]) -> (Order, Vec<String>) {
+/// turnin 929 past accept 933, and Crown of the Earth 933-98065 fell out of the route). With `ev`
+/// (the start's evaluator), a repair keeps the accept level rule (crate::gate): an accept it would
+/// take under its quest's minimum level (c17's `together 4402 5441`: Lazy Peons, minimum 3, at
+/// Galgar's 2.6) goes on to the first later stop by its giver at that level, before its quest's
+/// work (gate::later_places); with none, the repair is refused and named. Returns the order and
+/// the repair notes (each once).
+pub fn keep_records(run: &Run, seed: &Order, pairs: &[Pair], after: &[Need], together: &[Together], leads: &[Pair], ev: Option<&mut Evaluator>) -> (Order, Vec<String>) {
 	let mut out = seed.clone();
 	let mut notes: Vec<String> = Vec::new();
 	let note = |x: String, notes: &mut Vec<String>| {
@@ -1360,20 +1366,45 @@ pub fn keep_records(run: &Run, seed: &Order, pairs: &[Pair], after: &[Need], tog
 			notes.push(x);
 		}
 	};
-	// One record's repair, kept unless it breaks the chain order (named when refused).
-	let guarded = |out: &mut Order, next: (Order, Vec<String>), what: String, notes: &mut Vec<String>| {
+	let mut ev = ev;
+	// (The quests the current order takes under their minimum: replayed again only when it changed.)
+	let mut was_of: Option<(Vec<Step>, Vec<u32>)> = None;
+	// One record's repair, kept unless it breaks the chain order or takes a quest under its
+	// minimum level with no later stop by its giver for it (named when refused).
+	let mut guarded = |out: &mut Order, next: (Order, Vec<String>), what: String, notes: &mut Vec<String>| {
 		if next.0.steps == out.steps {
 			return;
 		}
+		let (mut cand, mut cand_notes) = next;
+		if let Some(ev) = ev.as_deref_mut() {
+			if was_of.as_ref().is_none_or(|w| w.0 != out.steps) {
+				was_of = Some((out.steps.clone(), crate::gate::under_min(run, &out.steps, &crate::gate::levels(ev, &out.steps))));
+			}
+			let was = &was_of.as_ref().expect("just set").1;
+			match gate_repair(run, ev, was, cand, &what) {
+				Ok((c, n)) => {
+					cand = c;
+					cand_notes.extend(n);
+				}
+				Err(msg) => {
+					eprintln!("warning: {msg}");
+					note(msg, notes);
+					return;
+				}
+			}
+			if cand.steps == out.steps {
+				return;
+			}
+		}
 		let was = chain_breaks(run, &out.steps, leads);
-		if let Some(&(x, q)) = chain_breaks(run, &next.0.steps, leads).iter().find(|b| !was.contains(b)) {
+		if let Some(&(x, q)) = chain_breaks(run, &cand.steps, leads).iter().find(|b| !was.contains(b)) {
 			let msg = format!("repair refused: {what} would take quest {} before quest {}'s hand-in its chain needs", run.q_id[q as usize], run.q_id[x as usize]);
 			eprintln!("warning: {msg}");
 			note(msg, notes);
 			return;
 		}
-		*out = next.0;
-		for x in next.1 {
+		*out = cand;
+		for x in cand_notes {
 			note(x, notes);
 		}
 	};
@@ -1396,6 +1427,47 @@ pub fn keep_records(run: &Run, seed: &Order, pairs: &[Pair], after: &[Need], tog
 		}
 	}
 	(out, notes)
+}
+
+/// A record repair (`next`) held to the accept level rule (crate::gate): each accept it takes under
+/// its quest's minimum level that the order before it did not (`was`, gate::under_min) moves on to
+/// the first later stop by its giver where the level is met, before its quest's work
+/// (gate::later_places; the first gate::PLACES_TRIED places replayed: the stops before one look
+/// ahead to it, so their XP may move), with a note; Err (the refusal's note) when one has no such
+/// stop, or comes back under.
+fn gate_repair(run: &Run, ev: &mut Evaluator, was: &[u32], next: Order, what: &str) -> Result<(Order, Vec<String>), String> {
+	use crate::gate::{is_under, later_places, levels, EPS, PLACES_TRIED};
+	let mut cand = next;
+	let mut notes = Vec::new();
+	let mut done: Vec<u32> = Vec::new();
+	loop {
+		let lv = levels(ev, &cand.steps);
+		let Some(i) = (0..cand.len()).find(|&i| is_under(run, &cand.steps[i], lv[i]) && !was.contains(&run.q_id[cand.steps[i].q as usize])) else { break };
+		let s = cand.steps[i];
+		let (id, min) = (run.q_id[s.q as usize], f64::from(run.q_min_level[s.q as usize]));
+		if done.contains(&id) {
+			return Err(format!("repair refused: {what} would take quest {id} at level {:.2}, under its minimum {min}", lv[i]));
+		}
+		done.push(id);
+		let mut rest = cand.clone();
+		rest.steps.remove(i);
+		let g = rest.origin.remove(i);
+		let rl = levels(ev, &rest.steps);
+		let places = later_places(run, &rest.steps, i, s.q, s.pt, &|j| rl.get(j).is_none_or(|&l| l + EPS >= min));
+		let placed = places.into_iter().take(PLACES_TRIED).find_map(|j| {
+			let mut c = rest.clone();
+			c.steps.insert(j, s);
+			c.origin.insert(j, g);
+			let l = levels(ev, &c.steps)[j];
+			(l + EPS >= min).then_some((c, l))
+		});
+		let Some((c, l)) = placed else {
+			return Err(format!("repair refused: {what} would take quest {id} at level {:.2}, under its minimum {min}, and no later stop by its giver before its work comes at that level", lv[i]));
+		};
+		notes.push(format!("{what}: quest {id} would be taken at level {:.2}, under its minimum {min}: taken at the next stop by its giver instead, at level {l:.2}", lv[i]));
+		cand = c;
+	}
+	Ok((cand, notes))
 }
 
 /// The order with the overrides applied: skipped quests out; included quests in (the accept

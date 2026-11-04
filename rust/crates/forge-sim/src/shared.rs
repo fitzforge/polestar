@@ -233,9 +233,17 @@ pub fn keep_own_rest(route: &mut Order, join: usize, own_rest: &Order, dist: &dy
 /// the seed's records are (order::keep_records, with the chain guard over `leads`), kept when fewer
 /// stay broken (c15 Night Elf: overrides.pairs[14], Fruit of the Sea taken before Buzzbox 827's
 /// crawler legs, had the legs in its own part at 13.67 and the accept in the tail at 17.31). A
-/// step moved past the tail's first step is the start's own step in its tail. -> (the join after
-/// it, the repair notes and a line naming how many were repaired).
-pub fn repair_across_join(run: &crate::run::Run, pairs: &[crate::order::Pair], leads: &[crate::order::Pair], order: &mut Order, join: usize) -> (usize, Vec<String>) {
+/// step moved past the tail's first step is the start's own step in its tail. With `ev` (the start's
+/// evaluator) the repairs keep the accept level rule (keep_records). -> (the join after it, the
+/// repair notes and a line naming how many were repaired).
+pub fn repair_across_join(
+	run: &crate::run::Run,
+	pairs: &[crate::order::Pair],
+	leads: &[crate::order::Pair],
+	order: &mut Order,
+	join: usize,
+	ev: Option<&mut crate::Evaluator>,
+) -> (usize, Vec<String>) {
 	let broken = crate::order::broken_pairs(&order.steps, pairs);
 	if join == 0 || join >= order.len() || broken.is_empty() {
 		return (join, Vec::new());
@@ -243,7 +251,7 @@ pub fn repair_across_join(run: &crate::run::Run, pairs: &[crate::order::Pair], l
 	let pairs: Vec<crate::order::Pair> = broken.iter().map(|&i| pairs[i]).collect();
 	// (Origins as the steps' indices, to find the join again.)
 	let tagged = Order { steps: order.steps.clone(), origin: (0..order.len() as i64).collect() };
-	let (o2, mut notes) = crate::order::keep_records(run, &tagged, &pairs, &[], &[], leads);
+	let (o2, mut notes) = crate::order::keep_records(run, &tagged, &pairs, &[], &[], leads, ev);
 	let left = crate::order::broken_pairs(&o2.steps, &pairs).len();
 	if left >= pairs.len() {
 		return (join, notes);
