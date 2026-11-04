@@ -60,32 +60,32 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 
-	-- Step 16: Scrimshank's gear
+	-- Step 17: Scrimshank's gear
 	["Scrimshank's gear"] = "谢申克的勘探设备",
 	["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "",
 
-	-- Step 17: Hearth to Gadgetzan
+	-- Step 18: Hearth to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}"] = "",
 
-	-- Step 18: OOX-17/TN
+	-- Step 19: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "",
 
-	-- Step 19: Gadgetzan
+	-- Step 20: Gadgetzan
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "",
 
-	-- Step 20: Boat to Powderfuse Port
+	-- Step 21: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 
-	-- Step 21: Into Searing Gorge
+	-- Step 22: Into Searing Gorge
 	-- {area:51} Searing Gorge
 	["Into {area:51}"] = "",
 
-	-- Step 23: The Grimesilt Dig Site
+	-- Step 24: The Grimesilt Dig Site
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "{area:247}",
 	-- {area:340} Kargath · {area:51} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
@@ -94,21 +94,21 @@ return {
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
-	-- Step 25: Thorium Point
+	-- Step 26: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "{object:179827}告示板",
 
-	-- Step 26: Greater Lava Spider on the way
+	-- Step 27: Greater Lava Spider on the way
 	-- {npc:5858} Greater Lava Spider
 	["{npc:5858} on the way"] = "",
 
-	-- Step 27: Kalaran Windblade
+	-- Step 28: Kalaran Windblade
 	-- {area:1446} Thorium Point
 	["Kalaran stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "卡拉然独自站在{area:1446}南边，大熔炉的边缘。听他讲他的故事。",
 
-	-- Step 30: On the way
+	-- Step 31: On the way
 	["On the way"] = "",
 	-- {npc:5854} Heavy War Golem · {area:1446} Thorium Point
 	["{npc:5854} along the way to {area:1446}"] = "",
@@ -117,7 +117,7 @@ return {
 	-- {npc:5844} Dark Iron Slaver · {area:1446} Thorium Point
 	["{npc:5844} along the way to {area:1446}"] = "",
 
-	-- Step 31: Searing Gorge: kill these as you meet them
+	-- Step 32: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
 	["{area:51}: kill these as you meet them"] = "",
 	-- {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
@@ -126,28 +126,28 @@ return {
 	-- {item:11818} Grimesilt Outhouse Key
 	["{item:11818}, a rare drop"] = "{item:11818}，稀有掉落",
 
-	-- Step 32: Thorium Point
+	-- Step 33: Thorium Point
 	-- {area:1446} Thorium Point · {area:75} Stonard
 	["Ride back north to {area:1446}. Stay here: the next guide starts with the flight to {area:75}."] = "向北骑回{area:1446}。留在这里：下一个指南从飞往{area:75}开始。",
 
-	-- Step 34: The Steamsmiths' furnaces
+	-- Step 35: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "",
 
-	-- Step 35: Kalaran Windblade
+	-- Step 36: Kalaran Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "他的下一个请求需要精英信徒身上的{item:10552}：别接。",
 
-	-- Step 37: Dark Iron Lookouts
+	-- Step 38: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Dark Iron Lookouts"] = "",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "",
 
-	-- Step 40: The Key to Freedom
+	-- Step 41: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "仅当你有{item:11818}时：向东回到挖掘场的{object:173265}。",
 
