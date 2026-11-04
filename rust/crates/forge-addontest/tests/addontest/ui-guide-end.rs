@@ -81,7 +81,8 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 		PolestarGuideEnd.Later:Click()
 		r.goto, r.after = lastCall("Goto"), PolestarGuideEnd:IsShown()
 		emit(r)"#);
-	assert_eq!(plain(&out["title"]), "You've reached the end of Elwynn Forest (1–13)");
+	// Too long for one line: the break goes before the guide, never inside its name.
+	assert_eq!(plain(&out["title"]), "You've reached the end of\nElwynn Forest (1–13)");
 	assert!(out["title"].as_str().unwrap().contains("|c"), "the guide's name in the accent");
 	assert_eq!(out["undone"], "3 steps were left undone.");
 	assert_eq!(out["next"], "Next: Westfall (12–17)");
@@ -108,7 +109,7 @@ fn a_guide_done_whole_says_completed_start_loads_the_next_guide_not_now_only_clo
 		PolestarGuideEnd.Later:Click()
 		r.again = { shown = PolestarGuideEnd:IsShown(), goto = lastCall("Goto") }
 		emit(r)"#);
-	assert_eq!(plain(&out["title"]), "You've completed Elwynn Forest (1–13)");
+	assert_eq!(plain(&out["title"]), "You've completed\nElwynn Forest (1–13)");
 	assert_eq!(out["undone"], false);
 	assert_eq!(out["later"], "Not now");
 	assert_eq!(out["start"], json!(["StartNext", "forever/alliance/human/01-elwynn-forest"]));
