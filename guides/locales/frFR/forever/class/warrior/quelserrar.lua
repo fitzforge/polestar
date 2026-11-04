@@ -8,41 +8,41 @@
 return {
 	-- Guide
 	-- {area:2577} Dire Maul · {npc:10184} Onyxia
-	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "",
-	["Shen'dralar reputation"] = "",
+	["A tank sword at 60: a {area:2577} book, then {npc:10184}'s breath tempers the blade (the sword is not in Forever's items yet)."] = "Une épée de tank au niveau 60 : un livre de {area:2577}, puis le souffle d'{npc:10184} trempe la lame (l'épée n'est pas encore dans les objets de Forever).",
+	["Shen'dralar reputation"] = "Réputation auprès des Shen'dralar",
 
 	-- Step 1: Nostro's Compendium of Dragon Slaying
 	-- {area:2577} Dire Maul · {npc:11496} Immol'thar · {npc:11501} King Gordok · {zone:1444} Feralas
-	["The book is a rare random drop from the bosses of all three {area:2577} wings (Alzzin, Hydrospawn and the rest of the East, Tendris, Illyanna, Kalendris, {npc:11496} and the West, {npc:11501} and the North's guards) and very rarely from the tribute chest; it can be traded, so the auction house may have one. {area:2577} is a five-player dungeon in the ruins of central {zone:1444}: needs a group of five. Right-click the book to start the quest; it stays in your bags."] = "",
+	["The book is a rare random drop from the bosses of all three {area:2577} wings (Alzzin, Hydrospawn and the rest of the East, Tendris, Illyanna, Kalendris, {npc:11496} and the West, {npc:11501} and the North's guards) and very rarely from the tribute chest; it can be traded, so the auction house may have one. {area:2577} is a five-player dungeon in the ruins of central {zone:1444}: needs a group of five. Right-click the book to start the quest; it stays in your bags."] = "Le livre est un butin aléatoire rare sur les boss des trois ailes de {area:2577} (Alzzin, Hydrogénos et le reste de l'Est, Tendris, Illyanna, Kalendris, {npc:11496} et l'Ouest, {npc:11501} et les gardes du Nord) et très rarement dans le coffre du tribut ; il peut être échangé, l'hôtel des ventes peut donc en avoir un. {area:2577} est un donjon à cinq joueurs dans les ruines du centre de {zone:1444} : il faut un groupe de cinq. Faites un clic droit sur le livre pour lancer la quête ; il reste dans vos sacs.",
 	-- {item:18401} Nostro's Compendium of Dragon Slaying
-	["from {item:18401}"] = "",
+	["from {item:18401}"] = "sur le {item:18401}",
 
 	-- Step 2: Lorekeeper Lydros
 	-- {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key · {item:18513} A Dull and Flat Elven Blade · {item:18489} Unfired Ancient Blade
-	["{npc:14368} stands in the Athenaeum, the library at the far end of Dire Maul West, past the Court of the Highborne and the Prison of Immol'thar. The West door needs the {item:18249}, which Pusillin drops in Dire Maul East (he runs; chase him), or a rogue to pick it. Clearing to the library needs your group of five. He takes the book, hands you {item:18513} to give straight back, then the {item:18489}. Keep that blade: lose it, and you must abandon the quest and take it again."] = "",
+	["{npc:14368} stands in the Athenaeum, the library at the far end of Dire Maul West, past the Court of the Highborne and the Prison of Immol'thar. The West door needs the {item:18249}, which Pusillin drops in Dire Maul East (he runs; chase him), or a rogue to pick it. Clearing to the library needs your group of five. He takes the book, hands you {item:18513} to give straight back, then the {item:18489}. Keep that blade: lose it, and you must abandon the quest and take it again."] = "{npc:14368} se tient dans l'Athenaeum, la bibliothèque tout au fond de Haches-Tripes Ouest, après la Cour des Bien-nés et la prison d'Immol'thar. La porte Ouest exige la {item:18249}, que Pusillin lâche à Haches-Tripes Est (il s'enfuit ; poursuivez-le), ou un voleur pour la crocheter. Nettoyer jusqu'à la bibliothèque demande votre groupe de cinq. Il prend le livre, vous remet {item:18513} à lui rendre aussitôt, puis la {item:18489}. Gardez cette lame : si vous la perdez, vous devez abandonner la quête et la reprendre.",
 	-- {npc:14368} Lorekeeper Lydros
-	["{npc:14368}, in the Athenaeum"] = "",
+	["{npc:14368}, in the Athenaeum"] = "{npc:14368}, dans l'Athenaeum",
 	-- {npc:14368} Lorekeeper Lydros
-	["{npc:14368}: hand back the Dull and Flat Elven Blade"] = "",
+	["{npc:14368}: hand back the Dull and Flat Elven Blade"] = "{npc:14368} : rendez la lame elfique terne et plate",
 
 	-- Step 3: Onyxia's breath
 	-- {npc:10184} Onyxia
-	["{npc:10184}'s breath"] = "",
+	["{npc:10184}'s breath"] = "Le souffle d'{npc:10184}",
 	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {area:511} Wyrmbog · {zone:1445} Dustwallow Marsh · {item:18489} Unfired Ancient Blade · {object:179562} Ancient Heated Blade · {item:18488} Heated Ancient Blade
-	["{npc:10184} is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. Tell the raid first. Late in the fight (around 10-15% health, when she has landed again) use the {item:18489} to plant it in the path of her fire breath, usually by the main tank's feet. When her breath has heated it, click the {object:179562} to take the {item:18488}: from then you have 20 minutes. Her breath can kill you while you plant or pick up the blade; if you die and nobody brings you back before she dies, wait for next week. Planted in the wrong place? Abandon the quest, take it again from Lydros for a new blade."] = "",
+	["{npc:10184} is the 40-player raid boss of {area:2159}, a cave in the {area:511} of southern {zone:1445}; she returns once a week. Tell the raid first. Late in the fight (around 10-15% health, when she has landed again) use the {item:18489} to plant it in the path of her fire breath, usually by the main tank's feet. When her breath has heated it, click the {object:179562} to take the {item:18488}: from then you have 20 minutes. Her breath can kill you while you plant or pick up the blade; if you die and nobody brings you back before she dies, wait for next week. Planted in the wrong place? Abandon the quest, take it again from Lydros for a new blade."] = "{npc:10184} est le boss de raid à 40 joueurs du {area:2159}, une grotte dans la {area:511} au sud du {zone:1445} ; elle revient une fois par semaine. Prévenez d'abord le raid. Tard dans le combat (vers 10-15 % de vie, une fois qu'elle s'est reposée au sol), utilisez la {item:18489} pour la planter sur le trajet de son souffle de feu, en général aux pieds du tank principal. Quand son souffle l'a chauffée, cliquez sur la {object:179562} pour prendre la {item:18488} : vous avez alors 20 minutes. Son souffle peut vous tuer pendant que vous plantez ou ramassez la lame ; si vous mourez et que personne ne vous ressuscite avant sa mort, attendez la semaine suivante. Plantée au mauvais endroit ? Abandonnez la quête et reprenez-la auprès de Lydros pour une nouvelle lame.",
 	-- {item:18489} Unfired Ancient Blade
-	["{item:18489}: plant it in her breath"] = "",
-	["click the heated blade on the ground"] = "",
+	["{item:18489}: plant it in her breath"] = "{item:18489} : plantez-la dans son souffle",
+	["click the heated blade on the ground"] = "cliquez sur la lame chauffée au sol",
 
 	-- Step 4: Onyxia's corpse
 	-- {npc:10184} Onyxia
-	["{npc:10184}'s corpse"] = "",
+	["{npc:10184}'s corpse"] = "La dépouille d'{npc:10184}",
 	-- {npc:10184} Onyxia · {item:18488} Heated Ancient Blade · {item:18492} Treated Ancient Blade
-	["Kill {npc:10184}, then target her corpse and use the {item:18488} on it before the 20 minutes run out. It becomes the {item:18492}, with no time limit."] = "",
+	["Kill {npc:10184}, then target her corpse and use the {item:18488} on it before the 20 minutes run out. It becomes the {item:18492}, with no time limit."] = "Tuez {npc:10184}, puis ciblez sa dépouille et utilisez la {item:18488} dessus avant la fin des 20 minutes. Elle devient la {item:18492}, sans limite de temps.",
 	-- {item:18488} Heated Ancient Blade
-	["{item:18488}, on her corpse"] = "",
+	["{item:18488}, on her corpse"] = "{item:18488}, sur sa dépouille",
 
 	-- Step 5: The Forging of Quel'Serrar
 	-- {npc:14368} Lorekeeper Lydros · {item:18249} Crescent Key
-	["Back to {npc:14368} in the Athenaeum of Dire Maul West: through the West door with the {item:18249} again, and a group to reach the library."] = "",
+	["Back to {npc:14368} in the Athenaeum of Dire Maul West: through the West door with the {item:18249} again, and a group to reach the library."] = "Retournez voir {npc:14368} dans l'Athenaeum de Haches-Tripes Ouest : de nouveau par la porte Ouest avec la {item:18249}, et avec un groupe pour atteindre la bibliothèque.",
 }

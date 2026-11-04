@@ -534,7 +534,7 @@ local function buildRecorder(view)
 		rows.status.Value:SetText(st.enabled and L["Recording"] or L["Off"])
 		W.Color(rows.status.Value, st.enabled and "success" or "textDim")
 		rows.chunks.Value:SetText(st.chunks)
-		rows.size.Value:SetText(("%d KiB"):format(math.floor(st.bytes / 1024 + 0.5)))
+		rows.size.Value:SetText(string.format(L["%d KiB"], floor(st.bytes / 1024 + 0.5)))
 		rows.acked.Value:SetText(st.acked > 0 and st.acked or "\226\128\147")
 		y = y + placePair(view, { rows.status, rows.chunks }, y, cw, W.LayoutRow)
 		y = y + placePair(view, { rows.size, rows.acked }, y, cw, W.LayoutRow)
@@ -579,8 +579,8 @@ local function buildAbout(view)
 		local v = L["Version"] .. " " .. tostring(ns.version or "dev")
 		local kb = W.AddonMemory()
 		if not kb then return v end
-		if kb >= 1024 then return string.format("%s  \194\183  %.1f MB", v, kb / 1024) end
-		return string.format("%s  \194\183  %d KB", v, floor(kb + 0.5))
+		if kb >= 1024 then return v .. "  \194\183  " .. string.format(L["%.1f MB"], kb / 1024) end
+		return v .. "  \194\183  " .. string.format(L["%d KB"], floor(kb + 0.5))
 	end
 	ver:SetText(versionLine())
 	ver:SetPoint("TOPLEFT", hero, "TOPLEFT", TEXT_X, -68)

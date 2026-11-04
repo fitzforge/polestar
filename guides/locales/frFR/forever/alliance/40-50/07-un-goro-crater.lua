@@ -8,26 +8,26 @@
 return {
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Prendre un vol pour {area:150}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maître de vol de {zone:1455}",
 
 	-- Step 3: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
-	["Theramore flight master"] = "",
+	["Fly to {area:976}"] = "Prendre un vol pour {area:976}",
+	["Theramore flight master"] = "Maître de vol de Theramore",
 
 	-- Step 5: Gadgetzan
 	-- {area:392} Ratchet · {area:976} Gadgetzan
-	["From {area:392}, fly to {area:976}."] = "",
+	["From {area:392}, fly to {area:976}."] = "Depuis {area:392}, prenez un vol pour {area:976}.",
 
 	-- Step 7: Super Sticky Tar on the way
 	-- {item:11834} Super Sticky Tar
-	["{item:11834} on the way"] = "",
+	["{item:11834} on the way"] = "{item:11834} en chemin",
 
 	-- Step 9: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
-	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
+	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Chevauchez vers l'ouest en sortant de {area:976} jusqu'à la longue rampe qui descend dans le {area:490}. {npc:9619} campe au pied de la rampe, dans le coin sud-est du cratère.",
 
 	-- Step 10: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
@@ -46,30 +46,30 @@ return {
 
 	-- Step 14: Marshal's Refuge
 	-- {object:157936} Un'Goro Dirt Pile
-	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
+	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "Retournez vers l'ouest jusqu'au refuge.\nGardez vos distances avec les diablosaures et les stégodons élites. Ramassez désormais chaque Cristal de puissance et chaque {object:157936} que vous croisez.",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, à l'entrée du refuge",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, at the back of the cave; below ground"] = "",
+	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, au fond de la grotte ; sous terre",
 
 	-- Step 15: Webbed Diemetradon Scale on the way
 	-- {item:11830} Webbed Diemetradon Scale
-	["{item:11830} on the way"] = "",
+	["{item:11830} on the way"] = "{item:11830} en chemin",
 
 	-- Step 16: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
-	["{area:537} and the eastern jungle"] = "",
+	["{area:537} and the eastern jungle"] = "{area:537} et la jungle de l'est",
 	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Chevauchez vers le sud jusqu'à {area:537}, au milieu du cratère, puis vers l'est dans la jungle orientale. Des amas de cristaux se dressent partout dans le cratère, beaucoup autour de {area:537} : prenez-en quelques-uns de plus de chaque couleur. Les Flagellants ({npc:6509}) et Batteurs Pétale-de-sang lâchent les pétales ; {item:11113} de l'expédition se trouve dans un camp abandonné de la jungle orientale.",
 
 	-- Step 17: The Marshlands
 	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
+	["{object:161504}, underwater"] = "{object:161504}, sous l'eau",
 
 	-- Step 19: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, sous terre",
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["Ends with {npc:9298} in {zone:1452}: keep it"] = "Se termine auprès de {npc:9298} au {zone:1452} : gardez-la",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
@@ -78,27 +78,27 @@ return {
 	-- Step 20: Northern Pylon
 	["Northern Pylon"] = "Le Pylône nord",
 	-- {npc:9998} Shizzle
-	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
+	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "Le pylône se dresse sur la pente à l'est du refuge. Des Pterreurdactyles tournoient sur les pentes alentour : ils comptent pour Spraggle et lâchent les écailles de {npc:9998}.",
 
 	-- Step 21: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "Chevauchez vers le nord jusqu'à {area:1943}, où le robot se tient parmi les gorilles. N'entrez pas dans la grotte profonde.",
-	["Below ground"] = "",
+	["Below ground"] = "Sous terre",
 
 	-- Step 22: Level 49.51
-	["Level 49.51"] = "",
+	["Level 49.51"] = "Niveau 49.51",
 	-- {area:541} Marshal's Refuge
-	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50."] = "",
-	["Pterrordax"] = "",
-	["grind on Pterrordax"] = "",
+	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50."] = "Complétez ici jusqu'au niveau 49.51 avant les rendus de quêtes au {area:541} : ils vous font passer au niveau 50.",
+	["Pterrordax"] = "Pterreurdactyles",
+	["grind on Pterrordax"] = "tuez des Pterreurdactyles en boucle",
 
 	-- Step 23: The Gorishi hive
 	["The Gorishi hive"] = "La ruche Gorishi",
-	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
+	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
+	["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast Silithid Pox or Tunneler Acid in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "",
 	-- {npc:9167} Frenzied Pterrordax
-	["grind on {npc:9167}"] = "",
+	["grind on {npc:9167}"] = "tuez en boucle : {npc:9167}",
 
 	-- Step 24: Bones and equipment
 	["Bones and equipment"] = "Os et équipement",
@@ -106,11 +106,11 @@ return {
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
 	["Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from Diemetradons. The expedition's {item:11112} lies in the south-west jungle."] = "Les Os de dinosaure jonchent le sol au sud-ouest, parmi les stégodons : ceux-ci sont élites, ramassez les os autour d'eux et prenez le reste sur les Dimeurtrodons. L'{item:11112} de l'expédition se trouve dans la jungle sud-ouest.",
 	-- {npc:9164} Elder Diemetradon
-	["grind on {npc:9164}"] = "",
+	["grind on {npc:9164}"] = "tuez en boucle : {npc:9164}",
 
 	-- Step 25: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "",
+	["{area:490}: kill these as you meet them"] = "{area:490} : tuez-les au passage",
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "Descendez vers le sud par le côté est. Les Jeunes dimeurtrodons paissent dans la jungle est et les {npc:9165} volent près des falaises est ; les deux laissent tomber les écailles de {npc:9998}.",
@@ -131,17 +131,17 @@ return {
 
 	-- Step 31: Hearth to Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["Hearth to {area:2101}"] = "",
+	["Hearth to {area:2101}"] = "Pierre de foyer vers {area:2101}",
 
 	-- Step 32: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Vers {area:2101}",
 
 	-- Step 33: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Maître de vol de {area:144}",
 
 	-- Step 34: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
@@ -168,16 +168,16 @@ return {
 
 	-- Step 41: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Prendre un vol pour {area:415}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maître de vol d'{area:442}",
 
 	-- Step 42: Level 50.4
-	["Level 50.4"] = "",
+	["Level 50.4"] = "Niveau 50.4",
 	-- {area:3137} Talrendis Point
-	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "",
+	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "Complétez ici jusqu'au niveau 50.4 avant les rendus de quêtes à {area:3137} : ils vous font passer au niveau 51.",
 	-- {npc:6116} Highborne Apparition
-	["grind on {npc:6116}"] = "",
+	["grind on {npc:6116}"] = "tuez en boucle : {npc:6116}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Traversez le sud du cratère jusqu'à {npc:9619}, près de la rampe.",
@@ -195,6 +195,7 @@ return {
 	-- ["Ride south along the eastern cliffs to {npc:9619} at the foot of the ramp."] = "Chevauchez vers le sud le long des falaises est jusqu'à {npc:9619}, au pied de la rampe.",
 	-- ["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. {item:11316} Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "Chevauchez vers le sud jusqu'à {area:537}, au milieu du cratère, puis vers l'est dans la jungle est. Des amas de cristaux se dressent partout dans le cratère, beaucoup autour de {area:537} : prenez-en quelques-uns de plus de chaque couleur. Les Flagellants et Batteurs {item:11316} laissent tomber les pétales ; la {item:11113} de l'expédition se trouve dans un camp abandonné de la jungle est.",
 	-- ["Ride west back to the refuge."] = "Revenez vers l'ouest jusqu'au refuge.",
+	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; Pterrordax nest on the southern cliffs if you still need kills.\nCareful: Gorishi silithids are level 51-54 and cast {spell:8137} or {spell:14120} in melee; Gorishi Workers have a 50% chance to call for help within 25 yd once they fall below 45% health."] = "Chevauchez vers l'ouest depuis {npc:9619} : la ruche des silithides occupe le sud du cratère. Utilisez la fiole à prélèvement sur une couveuse, une salle aux larves suspendues. Les guêpes et les ouvriers Gorishi lâchent {quest:3764} ; des Pterreurdactyles nichent sur les falaises du sud s'il vous faut encore des victimes.\nAttention : les silithides Gorishi sont de niveau 51-54 et lancent {spell:8137} ou {spell:14120} au corps à corps ; les Ouvriers Gorishi ont 50 % de chances d'appeler à l'aide dans un rayon de 25 m quand leur vie passe sous 45 %.",
 	-- ["Ride west from {npc:9619}: the silithid hive fills the south of the crater. Use the Scraping Vial on a hatchery, a chamber with hanging larvae. Gorishi wasps and workers drop {quest:3764}; {npc:9166} nest on the southern cliffs if you still need kills."] = "Chevauchez vers l'ouest depuis {npc:9619} : la ruche silithide occupe le sud du cratère. Utilisez la Fiole rayée sur un couvoir, une salle où pendent des larves. Les guêpes et ouvriers Gorishi laissent tomber {quest:3764} ; les {npc:9166} nichent sur les falaises sud s'il vous faut encore des victimes.",
 	-- ["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "Chevauchez vers l'ouest hors de {area:976} jusqu'à la longue rampe qui descend dans {zone:1449}. {npc:9619} campe au pied de la rampe, dans le coin sud-est du cratère.",
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Chevauchez vers l'ouest après {area:541}, puis vers le sud par le côté ouest jusqu'à {area:543} : {npc:10302}, le gobelin, est assis au bord de l'eau.",

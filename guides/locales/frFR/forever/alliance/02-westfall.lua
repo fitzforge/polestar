@@ -8,7 +8,7 @@
 return {
 	-- Step 1: The Jansen Stead
 	-- {area:40} Westfall · {object:2724} Sack of Oats
-	["Follow the road from Elwynn into {area:40}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "",
+	["Follow the road from Elwynn into {area:40}: the Furlbrows sit by their burned farm, the first one on the road. Pick up oats from any {object:2724} you pass on the loop: the rest are gathered in the fields here on the way back."] = "Suivez la route depuis la forêt d'Elwynn jusqu'à {area:40} : les Furlbrow sont assis près de leur ferme incendiée, la première sur la route. Ramassez de l'avoine sur chaque {object:2724} que vous croisez pendant la boucle : le reste se ramasse dans les champs d'ici, au retour.",
 	-- {npc:237} Farmer Furlbrow · {npc:963} Deputy Rainer
 	["{npc:237}; Humans took it from {npc:963} in Elwynn"] = "{npc:237} ; les Humains l'ont pris à {npc:963} à Elwynn",
 
@@ -21,17 +21,17 @@ return {
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["South along the road, past the fork. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way."] = "Au sud de la route, après l'embranchement. {npc:233} se tient dehors, {npc:235} dans la maison, {npc:253395} dans la grange à l'ouest. De jeunes Défenses et Écorcheurs rôdent dans les champs autour de la ferme : commencez par les foies et la viande du ragoût en chemin.",
 	-- {npc:235} Salma Saldean
-	["{npc:235}, inside"] = "",
+	["{npc:235}, inside"] = "{npc:235}, à l'intérieur",
 
 	-- Step 5: Goretusk Snout on the way
 	-- {item:731} Goretusk Snout
-	["{item:731} on the way"] = "",
+	["{item:731} on the way"] = "{item:731} en chemin",
 
 	-- Step 6: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle · {npc:821} Captain Danuvin · {npc:491} Quartermaster Lewis · {npc:878} Scout Galiaan · {npc:523} Thor
 	["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} et {npc:821} se tiennent au sommet de la tour de pierre. {npc:491} est dans la tour, {npc:878} sur le flanc sud de la colline, près de l'auberge et de {npc:523}, le maître des griffons.",
 	-- {npc:491} Quartermaster Lewis
-	["{npc:491}, inside"] = "",
+	["{npc:491}, inside"] = "{npc:491}, à l'intérieur",
 	-- {npc:523} Thor
 	["{npc:523}; skip the free flight it offers"] = "{npc:523} ; ignorez le vol gratuit proposé",
 	-- {npc:253092} Alba Fairmoon · {npc:878} Scout Galiaan
@@ -39,10 +39,10 @@ return {
 
 	-- Step 8: Westfall: kill these as you meet them
 	-- {area:40} Westfall
-	["{area:40}: kill these as you meet them"] = "",
+	["{area:40}: kill these as you meet them"] = "{area:40} : tuez-les au passage",
 	-- {object:290} Furlbrow's Wardrobe · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
 	-- plural, as words: Defias Trappers = {npc:504} Defias Trapper · Harvest Watchers = {npc:114} Harvest Watcher
-	["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine.\nWest of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "",
+	["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine.\nWest of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "Au nord de la ferme des Molsen. Des Trappeurs défias et des Contrebandiers défias campent devant la mine. {object:290} se trouve près de la maison en ruine à l'est de la mine.\nÀ l'ouest de chez Saldean. Des Gardiens des moissons et des Golems des moissons travaillent les champs ; ils lâchent les isoressorts, les gyrostabiliseurs, du {item:732} et parfois un {item:255155}. {npc:573}, un rare de niveau 20, rôde ici : laissez-le tranquille. Continuez à tuer des Broche-tripes et des Déchireurs à chaque étape de cette boucle.",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "Gardiens des moissons",
 
@@ -56,24 +56,24 @@ return {
 
 	-- Step 12: Furlbrow's Pumpkin Farm: kill these as you meet them
 	-- {area:109} Furlbrow's Pumpkin Farm
-	["{area:109}: kill these as you meet them"] = "",
+	["{area:109}: kill these as you meet them"] = "{area:109} : tuez-les au passage",
 	-- {area:111} Jangolode Mine · {area:916} The Jansen Stead · {npc:502} Benny Blaanco
 	-- plural, as words: Riverpaw Gnolls = {npc:117} Riverpaw Gnoll · Murloc Coastrunners = {npc:126} Murloc Coastrunner
-	["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {area:111} east to the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nMurloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.\nCareful: Two Defias stand guard inside the house, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "",
+	["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {area:111} east to the {area:916}. The gnolls further south and west are 13-19: stay in the north hills.\nMurloc Coastrunners and Raiders line the beach north of the mine. They flee at low health: pull one at a time.\nCareful: Gnolls that stand close together tend to join a fight as a group. Pulling one at a time is safer.\nCareful: Two Defias stand guard inside the house, one of them the level 15 named {npc:502}. They are linked, so attacking either one brings both."] = "Des Gnolls Rivepatte et des Éclaireurs Rivepatte (niveau 11-13) parcourent les collines au sud de la côte, d'au-dessus de {area:111} vers l'est jusqu'à {area:916}. Les gnolls plus au sud et à l'ouest sont de niveau 13-19 : restez dans les collines du nord.\nDes Cours-la-côte murlocs et des Écumeurs murlocs bordent la plage au nord de la mine. Ils fuient quand ils sont blessés : attirez-les un par un.\nAttention : les gnolls proches les uns des autres ont tendance à rejoindre un combat en groupe. Les attirer un par un est plus sûr.\nAttention : deux Défias montent la garde dans la maison, dont {npc:502}, de niveau 15. Ils sont liés : attaquer l'un attire les deux.",
 	-- {quest:153} Red Leather Bandanas
 	["{quest:153}: every Defias drops them"] = "{quest:153} : tous les Défias en lâchent",
 	-- plural, as words: Gnoll Paws = {item:725} Gnoll Paw
 	["Gnoll Paws"] = "Pattes de gnoll",
 	-- {object:290} Furlbrow's Wardrobe
-	["{object:290}; inside"] = "",
+	["{object:290}; inside"] = "{object:290} ; à l'intérieur",
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
 	["Longshore Murloc Gills"] = "Branchies de Murloc de Longrivage",
 
 	-- Step 13: Handful of Oats
-	["Sacks of Oats in the fields around the farm"] = "",
+	["Sacks of Oats in the fields around the farm"] = "Sacs d'avoine dans les champs autour de la ferme",
 
 	-- Step 14: Saldean's Farm
-	["Inside"] = "",
+	["Inside"] = "À l'intérieur",
 
 	-- Step 15: Sentinel Hill
 	-- {npc:266} Wiley the Black · {area:69} Lakeshire
@@ -97,23 +97,23 @@ return {
 
 	-- Step 18: Moonbrook: kill these as you meet them
 	-- {area:20} Moonbrook
-	["{area:20}: kill these as you meet them"] = "",
+	["{area:20}: kill these as you meet them"] = "{area:20} : tuez-les au passage",
 	-- {area:108} Sentinel Hill · {area:20} Moonbrook · {area:113} Gold Coast Quarry
 	-- plural, as words: Defias Pillagers = {npc:589} Defias Pillager
-	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "",
+	["Defias Pillagers and Looters hold the farms west of {area:108}, between the coast road and {area:20}.\nCareful: The {area:113} cave holds many Defias packed together, so it is easy to pull several at once there."] = "Des Pilleurs défias et des Pillards défias tiennent les fermes à l'ouest de {area:108}, entre la route côtière et {area:20}.\nAttention : la grotte de {area:113} abrite de nombreux Défias serrés les uns contre les autres : il est facile d'en attirer plusieurs à la fois.",
 
 	-- Step 20: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
 	["{area:20} and the Defias hills"] = "{area:20} et les collines des Défias",
 	-- {area:20} Moonbrook · {area:1581} The Deadmines
 	-- plural, as words: Defias Pathstalkers = {npc:121} Defias Pathstalker
-	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "",
+	["Defias Pathstalkers and Knuckledusters walk {area:20}; Highwaymen (level 17) patrol the hills south and east of it in pairs: pull them apart. {area:1581} entrance in the smithy is a group dungeon.\nCareful: The camps in the hills hold mixed groups of Defias, so it is easy to pull more than one at a time if you are low level."] = "Des Éclaireurs défias et des Truands défias arpentent {area:20} ; des Malandrins défias (niveau 17) patrouillent par deux dans les collines au sud et à l'est : séparez-les. L'entrée de {area:1581}, dans la forge, mène à un donjon de groupe.\nAttention : les camps des collines abritent des groupes mêlés de Défias : il est facile d'en attirer plus d'un à la fois si votre niveau est bas.",
 	-- {item:254676} Suspicious Industrial Supplies · {area:20} Moonbrook
 	["{item:254676}, from the crates around {area:20}"] = "{item:254676}, dans les caisses autour de {area:20}",
 
 	-- Step 21: Hearth to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Hearth to {area:108}"] = "",
+	["Hearth to {area:108}"] = "Pierre de foyer vers {area:108}",
 
 	-- Step 22: Back to Sentinel Hill
 	-- {area:108} Sentinel Hill
@@ -122,8 +122,11 @@ return {
 	["For {npc:11026} in {zone:1453}'s {object:28027}"] = "Pour {npc:11026} dans {object:28027} de {zone:1453}",
 
 	-- Step 24: Defensive Stance
+	["Defensive Stance"] = "",
 	-- {zone:1453} Stormwind · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern
 	["Fly or walk to {zone:1453}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "Volez ou marchez jusqu'à {zone:1453}. {npc:5480} entraîne les guerriers dans {object:2100} ; {npc:6089} et {npc:6090} se tiennent ensemble près de {object:2152} là-bas. {npc:6090} vous combat pour sa chope.",
+	-- {npc:6089} Harry Burlguard
+	["{npc:6089}: Defensive Stance"] = "",
 
 	-- Step 26: High Priestess Laurena
 	-- {zone:1453} Stormwind · {npc:376} High Priestess Laurena
@@ -131,15 +134,15 @@ return {
 
 	-- Step 28: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {npc:6173} Gazin Tenorm · {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth
-	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "",
+	["{npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in the {object:2096} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "{npc:6171} et {npc:6173} sont dans la Cathédrale de la Lumière ; {npc:6174} se tient dans {object:2096} et demande dix {item:2589} (les humanoïdes en lâchent, l'hôtel des ventes en vend).",
 	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775} he gives you"] = "",
+	["Right-click the {item:6775} he gives you"] = "Faites un clic droit sur le {item:6775} qu'il vous donne",
 	-- {npc:6172} Henze Faulk · {area:86} Stone Cairn Lake
-	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "",
+	["{npc:6172}, by {area:86} in Elwynn, on the road to Redridge"] = "{npc:6172}, près de {area:86} dans la forêt d'Elwynn, sur la route des Carmines",
 
 	-- Step 30: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Tram pour {zone:1455}",
 
 	-- Step 31: Shaman training
 	["Shaman training"] = "Entraînement de chaman",
@@ -153,7 +156,7 @@ return {
 
 	-- Step 33: Back to Stormwind City
 	-- {area:1519} Stormwind City
-	["Back to {area:1519}"] = "",
+	["Back to {area:1519}"] = "Retour à {area:1519}",
 
 	-- Step 35: Stormwind
 	-- {item:2449} Earthroot · {zone:1439} Darkshore · {npc:1313} Maria Lumere
@@ -162,27 +165,27 @@ return {
 	["{npc:5497}, Wizard's Sanctum: {quest:1861}"] = "{npc:5497}, au sanctum des mages : {quest:1861}",
 
 	-- Step 37: Stormwind City
-	["Stormwind City"] = "",
+	["Stormwind City"] = "Cité de Hurlevent",
 
 	-- Step 38: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 39: Woo Ping
-	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "",
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "",
 
 	-- Step 40: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Pendant que vous y êtes : apprenez le maniement des bâtons auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; l'arme de mêlée d'un Chasseur vaut surtout par ses caractéristiques, et les armes à deux mains en portent le plus.",
 
 	-- Step 41: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "",
+	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Pendant que vous y êtes : apprenez le maniement des épées auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; une épée en main droite fait progresser un Voleur régulièrement.",
 
 	-- Step 42: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Pendant que vous y êtes : apprenez le maniement des bâtons auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; un bâton apporte plus de caractéristiques de sorts qu'une arme à une main pendant la progression.",
 
 	-- Step 44: Fishin' Time
 	-- {npc:5494} Catherine Leland · {object:2096} Trade District · {npc:267118} Gilbert Gray
@@ -217,6 +220,8 @@ return {
 	-- ["The western farms"] = "Les fermes de l'ouest",
 	-- ["West of Molsen Farm, toward the coast. Riverpaw Miners work the quarry."] = "À l'ouest de la ferme des Molsen, vers la côte. Des Mineurs Rivepatte travaillent dans la carrière.",
 	-- ["West of Saldean's. Harvest Watchers and Golems work the fields; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks here: leave it alone. Keep killing Goretusks and Fleshrippers on every leg of this loop."] = "À l'ouest de chez Saldean. Des Gardiens des moissons et des Golems des moissons travaillent les champs ; ils lâchent les isoressorts, les gyrostabiliseurs, du {item:732} et parfois un {item:255155}. {npc:573}, un rare de niveau 20, rôde ici : laissez-le tranquille. Continuez à tuer des Broche-tripes et des Déchireurs à chaque étape de cette boucle.",
+	-- ["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Paladin le plus vite.",
+	-- ["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 	-- ["Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way back."] = "Des Jeunes Broche-tripes et des Déchireurs parcourent les champs autour de la ferme : commencez les foies et la viande du ragoût au retour.",
 	-- ["{item:2449} for Gathering the Cure (6123) in {zone:1439}: {npc:1313}, {skill:171} Supplies; herbalists pick it there instead"] = "{item:2449} pour Rassembler les ingrédients du remède (6123) à {zone:1439} : {npc:1313}, fournitures d'{skill:171} ; les herboristes la cueillent plutôt sur place",
 	-- ["{npc:234} and {npc:821} stand at the top of the stone tower. {npc:491} is in the tower, {npc:878} and {npc:253092} on the south side of the hill, next to the inn and {npc:523} the gryphon master."] = "{npc:234} et {npc:821} se tiennent au sommet de la tour de pierre. {npc:491} est dans la tour, {npc:878} et {npc:253092} sur le flanc sud de la colline, près de l'auberge et de {npc:523}, le maître des griffons.",

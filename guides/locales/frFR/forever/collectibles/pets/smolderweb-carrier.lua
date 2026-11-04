@@ -10,14 +10,14 @@ return {
 	-- {npc:10260} Kibler · {area:251} Flame Crest
 	["{npc:10260} at {area:251}"] = "{npc:10260} à {area:251}",
 	-- {npc:10260} Kibler · {area:251} Flame Crest · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {item:12264} Worg Carrier
-	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He also gives {npc:10260}'s Exotic Pets (the {item:12264}): take both, they are done in the same run."] = "",
+	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He also gives {npc:10260}'s Exotic Pets (the {item:12264}): take both, they are done in the same run."] = "{npc:10260} se tient dans la grotte de {area:251}, le camp du nord des {zone:1428}, à l'est du {area:254}. Il donne aussi Les animaux exotiques de {npc:10260} (la {item:12264}) : acceptez les deux, elles se font dans la même expédition.",
 
 	-- Step 2: Lower Blackrock Spire
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583} inférieur",
 	-- {area:1583} Blackrock Spire · {area:254} Blackrock Mountain · {npc:10596} Mother Smolderweb
 	-- plural, as words: Spire Spider Eggs = {item:12530} Spire Spider Egg
-	["Lower {area:1583} is a group of five, level 55-60, inside {area:254}. The Spire Spider Eggs lie around {npc:10596}'s nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer."] = "",
+	["Lower {area:1583} is a group of five, level 55-60, inside {area:254}. The Spire Spider Eggs lie around {npc:10596}'s nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer."] = "Le {area:1583} inférieur est un donjon pour un groupe de cinq, niveau 55-60, dans le {area:254}. Les Œufs d'araignée du pic se trouvent autour du nid de la {npc:10596}, dans les tunnels des araignées : cliquez dessus jusqu'à en avoir 15 (chacun en donne un à trois). Des araignées qui frappent fort peuvent éclore pendant que vous ramassez. D'après des joueurs, les œufs ne peuvent pas être ramassés en groupe de raid : restez à cinq au maximum.",
 
 	-- Step 3: Back to Kibler
 	-- {npc:10260} Kibler

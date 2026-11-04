@@ -8,97 +8,100 @@
 return {
 	-- Guide
 	-- {spell:7328} Redemption
-	["{spell:7328} (Alliance)"] = "",
+	["{spell:7328} (Alliance)"] = "{spell:7328} (Alliance)",
 	-- {spell:7328} Redemption
-	["{spell:7328} at 12, the paladin's resurrection: an easy chain through your capital and its home zone."] = "",
+	["{spell:7328} at 12, the paladin's resurrection: an easy chain through your capital and its home zone."] = "{spell:7328} au niveau 12, la résurrection du paladin : une suite facile à travers votre capitale et sa zone d'origine.",
 
 	-- Step 1: The summons (Human)
-	["The summons (Human)"] = "",
+	["The summons (Human)"] = "La convocation (Humain)",
 	-- {npc:927} Brother Wilhelm · {area:87} Goldshire · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge
-	["At 12 {npc:927}, the paladin trainer in {area:87}, sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. The errand is optional, a little XP: {npc:5149} in {zone:1455} gives the same one (taking one closes the other), and {npc:6171} starts the chain without it."] = "",
+	["At 12 {npc:927}, the paladin trainer in {area:87}, sends you to {npc:6171} in {zone:1453}'s Cathedral of Light. The errand is optional, a little XP: {npc:5149} in {zone:1455} gives the same one (taking one closes the other), and {npc:6171} starts the chain without it."] = "Au niveau 12, {npc:927}, le maître des paladins de {area:87}, vous envoie voir {npc:6171} dans la cathédrale de la Lumière de {zone:1453}. Cette course est facultative, un peu d'expérience : {npc:5149} à {zone:1455} donne la même (en prendre une ferme l'autre), et {npc:6171} lance la suite sans elle.",
 
 	-- Step 2: The summons (Dwarf)
-	["The summons (Dwarf)"] = "",
+	["The summons (Dwarf)"] = "La convocation (Nain)",
 	-- {npc:5149} Brandur Ironhammer · {zone:1455} Ironforge · {object:32362} Mystic Ward · {npc:6179} Tiza Battleforge · {npc:1232} Azar Stronghammer · {area:131} Kharanos · {npc:928} Lord Grayson Shadowbreaker · {zone:1453} Stormwind
-	["At 12 {npc:5149}, the paladin trainer in {zone:1455}'s {object:32362}, sends you upstairs to {npc:6179}. The errand is optional, a little XP: {npc:1232} in {area:131} and {npc:928} in {zone:1453} give the same one (taking one closes the others), and {npc:6179} starts the chain without it."] = "",
+	["At 12 {npc:5149}, the paladin trainer in {zone:1455}'s {object:32362}, sends you upstairs to {npc:6179}. The errand is optional, a little XP: {npc:1232} in {area:131} and {npc:928} in {zone:1453} give the same one (taking one closes the others), and {npc:6179} starts the chain without it."] = "Au niveau 12, {npc:5149}, le maître des paladins de {object:32362} de {zone:1455}, vous envoie à l'étage voir {npc:6179}. Cette course est facultative, un peu d'expérience : {npc:1232} à {area:131} et {npc:928} à {zone:1453} donnent la même (en prendre une ferme les autres), et {npc:6179} lance la suite sans elle.",
 
 	-- Step 3: Duthorian Rall
 	-- {npc:6171} Duthorian Rall
-	["{npc:6171}, Cathedral of Light"] = "",
+	["{npc:6171}, Cathedral of Light"] = "{npc:6171}, cathédrale de la Lumière",
 
 	-- Step 5: The Tome of Divinity
 	-- {npc:6171} Duthorian Rall · {item:6775} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	["{npc:6171} stands inside the Cathedral of Light. He hands you the {item:6775}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6171} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6171} se tient dans la cathédrale de la Lumière. Il vous remet le {item:6775} : faites un clic droit dessus dans vos sacs pour lancer la quête suivante. Si le livre indique que la quête est déjà faite, détruisez-le et demandez un nouvel exemplaire à {npc:6171}. Apportez 10 {item:2589} pour l'étape suivante si vous en avez.",
 	-- {item:6775} Tome of Divinity
-	["Right-click the {item:6775}"] = "",
+	["Right-click the {item:6775}"] = "Clic droit sur le {item:6775}",
 
 	-- Step 6: Stephanie Turner
 	-- {npc:6174} Stephanie Turner · {object:2096} Trade District · {item:2589} Linen Cloth · {zone:1436} Westfall
-	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "",
+	["{npc:6174} stands at a corner in the middle of the {object:2096}, outside a general goods store. She wants 10 {item:2589}: humanoids drop it (Riverpaw gnolls in {zone:1436} about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the {object:2096}."] = "{npc:6174} se tient à un coin au milieu du {object:2096}, devant un magasin d'articles généraux. Elle veut 10 {item:2589} : les humanoïdes en laissent tomber (les gnolls Rivepatte de la {zone:1436} environ une fois sur deux, les Défias et les kobolds un peu moins), ou achetez-en à l'hôtel des ventes, à quelques pas dans le {object:2096}.",
 	-- {item:2589} Linen Cloth
-	["{item:2589} x10"] = "",
+	["{item:2589} x10"] = "{item:2589} x10",
 
 	-- Step 7: The Symbol of Life
 	-- {item:6866} Symbol of Life
-	["The {item:6866}"] = "",
+	["The {item:6866}"] = "Le {item:6866}",
 	-- {npc:6171} Duthorian Rall · {item:6866} Symbol of Life · {npc:6173} Gazin Tenorm · {npc:6172} Henze Faulk
-	["Back to the Cathedral. {npc:6171} gives you the {item:6866}; {npc:6173} lies wounded by the altar of the same hall. Keep the symbol: you need it on {npc:6172}. If you lose it, {npc:6171} gives you another (The {item:6866})."] = "",
+	["Back to the Cathedral. {npc:6171} gives you the {item:6866}; {npc:6173} lies wounded by the altar of the same hall. Keep the symbol: you need it on {npc:6172}. If you lose it, {npc:6171} gives you another (The {item:6866})."] = "Retour à la cathédrale. {npc:6171} vous donne le {item:6866} ; {npc:6173} est allongé, blessé, près de l'autel de la même salle. Gardez le symbole : vous en avez besoin sur {npc:6172}. Si vous le perdez, {npc:6171} vous en donne un autre (Le {item:6866}).",
 
 	-- Step 8: Henze Faulk
-	-- {npc:6172} Henze Faulk · {area:56} Heroes' Vigil · {area:86} Stone Cairn Lake · {item:6866} Symbol of Life · {spell:116} Frostbolt
+	-- {npc:6172} Henze Faulk · {area:56} Heroes' Vigil · {area:86} Stone Cairn Lake · {item:6866} Symbol of Life
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast {spell:116} from far off: they stand apart, so pull one at a time."] = "",
+	["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast Frostbolt from far off: they stand apart, so pull one at a time."] = "",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
-	["{item:6866} on {npc:6172}'s body"] = "",
+	["{item:6866} on {npc:6172}'s body"] = "{item:6866} sur le corps de {npc:6172}",
 
 	-- Step 9: The Defias Script
 	-- {item:6846} Defias Script
-	["The {item:6846}"] = "",
+	["The {item:6846}"] = "Le {item:6846}",
 	-- {npc:6172} Henze Faulk · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "",
+	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "Les Sorciers-voleurs défias autour de la grande tablette de pierre à l'est de {npc:6172} portent le {item:6846} : environ une victime sur deux le laisse tomber, mais certains joueurs doivent en tuer beaucoup. Ils réapparaissent en trois minutes.",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{item:6846}: Defias Rogue Wizards"] = "",
+	["{item:6846}: Defias Rogue Wizards"] = "{item:6846} : Sorciers-voleurs défias",
 
 	-- Step 10: Redemption
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall · {spell:7328} Redemption
-	["Back to the Cathedral of Light: {npc:6173} takes the script, {npc:6171} teaches you {spell:7328}."] = "",
+	["Back to the Cathedral of Light: {npc:6173} takes the script, {npc:6171} teaches you {spell:7328}."] = "Retour à la cathédrale de la Lumière : {npc:6173} prend le texte, {npc:6171} vous apprend {spell:7328}.",
 
 	-- Step 11: Tiza Battleforge
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words)
-	["{npc:6179}, upstairs in the {object:32386}"] = "",
+	["{npc:6179}, upstairs in the {object:32386}"] = "{npc:6179}, à l'étage de la salle des Mystères",
 
 	-- Step 14: The Tome of Divinity
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries (no name in this language: may be words) · {object:32362} Mystic Ward · {item:6916} Tome of Divinity · {item:2589} Linen Cloth
-	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "",
+	["{npc:6179} stands upstairs in the {object:32386}, in the {object:32362}: take the ramp at the back of the hall. She hands you the {item:6916}: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask {npc:6179} for a new copy. Bring 10 {item:2589} for the next step if you have it."] = "{npc:6179} se tient à l'étage de la salle des Mystères, dans {object:32362} : prenez la rampe au fond de la salle. Elle vous remet le {item:6916} : faites un clic droit dessus dans vos sacs pour lancer la quête suivante. Si le livre indique que la quête est déjà faite, détruisez-le et demandez un nouvel exemplaire à {npc:6179}. Apportez 10 {item:2589} pour l'étape suivante si vous en avez.",
 	-- {item:6916} Tome of Divinity
-	["Right-click the {item:6916}"] = "",
+	["Right-click the {item:6916}"] = "Clic droit sur le {item:6916}",
 
 	-- Step 15: John Turner
 	-- {npc:6175} John Turner · {item:2589} Linen Cloth · {npc:1245} Kogan Forgestone · {area:131} Kharanos
 	-- plural, as words: Dark Iron Ambushers = {npc:1981} Dark Iron Ambusher
-	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "",
+	["{npc:6175} walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 {item:2589}: humanoids drop it ({npc:1245} in {area:131} every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring."] = "{npc:6175} arpente l'anneau extérieur de la Grande Cour, devant la porte d'entrée, la banque et l'hôtel des ventes. Il veut 10 {item:2589} : les humanoïdes en laissent tomber ({npc:1245} à {area:131} à chaque fois, les Embusqués Sombrefer environ deux fois sur cinq), ou achetez-en à l'hôtel des ventes de son anneau.",
 
 	-- Step 16: The Symbol of Life
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6179} Tiza Battleforge · {item:6866} Symbol of Life · {npc:6178} Muiredon Battleforge · {npc:6177} Narm Faulk
-	["Back upstairs in the {object:32386}. {npc:6179} gives you the {item:6866}; her husband {npc:6178} rests on the same floor. Keep the symbol: you need it on {npc:6177}. If you lose it, {npc:6179} gives you another (The {item:6866})."] = "",
+	["Back upstairs in the {object:32386}. {npc:6179} gives you the {item:6866}; her husband {npc:6178} rests on the same floor. Keep the symbol: you need it on {npc:6177}. If you lose it, {npc:6179} gives you another (The {item:6866})."] = "Remontez à l'étage de la salle des Mystères. {npc:6179} vous donne le {item:6866} ; son mari {npc:6178} se repose au même étage. Gardez le symbole : vous en avez besoin sur {npc:6177}. Si vous le perdez, {npc:6179} vous en donne un autre (Le {item:6866}).",
 
 	-- Step 17: Narm Faulk
 	-- {npc:6177} Narm Faulk · {zone:1426} Dun Morogh · {zone:1432} Loch Modan · {area:131} Kharanos · {area:212} Helm's Bed Lake · {object:147516} Dark Iron · {item:6866} Symbol of Life
-	["{npc:6177} lies dead in {zone:1426}, not {zone:1432}: east past {area:131}, north-east of Ironband's compound, on the smallest of three little hills between {area:212} and the {object:147516} camp. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes."] = "",
+	["{npc:6177} lies dead in {zone:1426}, not {zone:1432}: east past {area:131}, north-east of Ironband's compound, on the smallest of three little hills between {area:212} and the {object:147516} camp. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes."] = "{npc:6177} gît mort en {zone:1426}, pas au {zone:1432} : à l'est, après {area:131}, au nord-est du domaine de Baguefer, sur la plus petite de trois petites collines entre le {area:212} et le camp {object:147516}. Ciblez son corps et utilisez le {item:6866} pour le ranimer, puis parlez-lui. Si un autre paladin vient de le ranimer, son corps revient en trois minutes environ.",
 	-- {item:6866} Symbol of Life · {npc:6177} Narm Faulk
-	["{item:6866} on {npc:6177}'s body"] = "",
+	["{item:6866} on {npc:6177}'s body"] = "{item:6866} sur le corps de {npc:6177}",
 
 	-- Step 18: The Dark Iron Script
 	-- {item:6847} Dark Iron Script
-	["The {item:6847}"] = "",
+	["The {item:6847}"] = "Le {item:6847}",
 	-- {item:6847} Dark Iron Script
-	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "",
+	["The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the {item:6847}. They run for help at low health: finish them or step back. They respawn in three minutes."] = "Les Espions Sombrefer (niveau 9-11, douze en tout) rôdent autour de la petite maison en contrebas du lac, juste au sud de Narm ; vous les voyez depuis sa colline. Environ une victime sur deux laisse tomber le {item:6847}. Ils fuient chercher de l'aide quand leur vie est basse : achevez-les ou reculez. Ils réapparaissent en trois minutes.",
 	-- {item:6847} Dark Iron Script
-	["{item:6847}: Dark Iron Spies"] = "",
+	["{item:6847}: Dark Iron Spies"] = "{item:6847} : Espions Sombrefer",
 
 	-- Step 19: Redemption
 	-- {object:32386} Hall of Mysteries (no name in this language: may be words) · {npc:6178} Muiredon Battleforge · {npc:6179} Tiza Battleforge · {spell:7328} Redemption
-	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "",
+	["Back up to the {object:32386}: {npc:6178} takes the script, {npc:6179} teaches you {spell:7328}."] = "Remontez à la salle des Mystères : {npc:6178} prend le texte, {npc:6179} vous apprend {spell:7328}.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast {spell:116} from far off: they stand apart, so pull one at a time."] = "{npc:6172} gît mort sur le {area:56}, l'île du {area:86}, dans l'est de la forêt d'Elwynn, au sommet de l'un des tertres autour du cercle de pierres. Ciblez son corps et utilisez le {item:6866} pour le ranimer, puis parlez-lui. Si un autre paladin vient de le ranimer, son corps revient en trois minutes environ. Les Sorciers-voleurs défias de l'île (niveau 9-10) lancent {spell:116} de loin : ils se tiennent à l'écart les uns des autres, attirez-les donc un par un.",
 }

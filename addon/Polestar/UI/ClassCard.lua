@@ -499,7 +499,8 @@ function CC.Fill(guide, index, view)
 			end
 		else
 			local where = goal.map and UI.MapName(goal.map)
-			local who = goal.npcName or goal.objName or (gv and gv.npcName)
+			local N = ns.Names
+			local who = (N and N.Npc(goal.npc)) or goal.npcName or (N and N.Object(goal.object)) or goal.objName or (gv and gv.npcName)
 			line = who and (where and format(L["Accept from %s, %s"], who, where) or format(L["Accept from %s"], who)) or L["Accept the quest"]
 		end
 		local done = gv.status == "done"
