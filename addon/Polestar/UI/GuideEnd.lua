@@ -138,6 +138,7 @@ local function build()
 			t:SetVertexColor(br, bg, bb, 1)
 		end
 	end)
+	if W.Haze then F.Haze = W.Haze(head, { width = WIDTH * 0.8, height = 120, sub = -6 }) end
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.HeadRule = W.Divider(head)
