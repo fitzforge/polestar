@@ -30,9 +30,9 @@
     "forever/alliance/gnome/01-dun-morogh.guide": "65d15b27c738ee10b27d7234d47bfe49243441eab5153ec1ab7711e4f29c7bf4",
     "forever/alliance/human/01-elwynn-forest.guide": "7f536ff12915c23757be5ad92296084554ad72ef6e9a3397cd336a790dfc6024",
     "forever/alliance/nightelf/01-teldrassil.guide": "9be879ee10b784f5334c3c8081f6fa0286f00709087e3e558f842d85d2af4f84",
-    "forever/alliance/nightelf/02-darkshore.guide": "94107dbfe4e0bb523ef4947a9564b1122218ba68b83cd4be5b99166e643696bc",
+    "forever/alliance/nightelf/02-darkshore.guide": "6a8ad196f0fcf11e6550429582fe7b6cd5dcffe34e19a9902152338b938b606a",
     "forever/alliance/skyborne/01-zephras-isle.guide": "2216f3154ab675d783a8cc7d0e00d441eb51e397c5b400c1f856e038ff8bd5c0",
-    "forever/horde/02-the-barrens.guide": "7232f2fa06ac9b13f545daf437e2977139c7765c27c66e7d7a5277145e7fc54c",
+    "forever/horde/02-the-barrens.guide": "037dbe66ca9320b516ca7ca77b12f1676e654bebcc04ebaab58d2dfe45e2a4ef",
     "forever/horde/03-silverpine-forest.guide": "a0869088a65365282951061ac13f03affe1d5d4581bd0fb23bfcdecbf9cbd265",
     "forever/horde/04-the-barrens.guide": "34001b2e5834cba25bcb0495176afe519f57494d286b2adabfbd16a473bb7cc5",
     "forever/horde/05-stonetalon-mountains.guide": "c34f5ebaebf0cdf4e9948f430c52983ee3f26f92a4db44728f11e8fc688028a2",
@@ -55,13 +55,11 @@
     "forever/horde/50-60/05-eastern-plaguelands.guide": "2ead1eeec5e5b6cc4ed974599f506cd101612dd81bc9c5ce684815a5f82f7728",
     "forever/horde/50-60/06-silithus.guide": "653ab462a619548ef264ca21697c87f4c22c77e7686f1d9f25dfddf125c52b14",
     "forever/horde/50-60/07-felwood.guide": "e06971b0901b6435a89191b292d82f6dd19d7ed5cd4a901e0966fc722357ec15",
-    "forever/horde/orc/01-durotar.guide": "084819f0ef3ab7f9be8195c097c9e13ed759eb704963a0c67a665dc7f5813101",
-    "forever/horde/orc/02-the-barrens.guide": "2ef801851839975946489925c7724e5b546d9ed349fca636a74df8992a4c785f",
+    "forever/horde/orc/01-durotar.guide": "b5a709f93fb7870b30950a598c2041b13437878479a23623460dec080af13000",
     "forever/horde/skyborne/01-zephras-isle.guide": "eb8bc8572afeb60213f6c5bc4393b0c72b272e4d2b204d9831647c03f26faa94",
     "forever/horde/tauren/01-mulgore.guide": "0336e81862ee7798235921f0c6d0db9821f4984caf0affd4b665b0370e5fb5f3",
-    "forever/horde/troll/01-durotar.guide": "4ea02332085cc51c7ef168eb18a97fd8f81a6c801ccc636a6d4fb0ec5e3689f4",
-    "forever/horde/troll/02-the-barrens.guide": "28f5058327fa19c9a27b8edae47219c66ff1923d3264ffb3bdbf9f474e836c2b",
+    "forever/horde/troll/01-durotar.guide": "227ef0eb97ba72878add77d1b9db1e894ae8aed457473932f463aa5679f394cf",
     "forever/horde/undead/01-tirisfal-glades.guide": "35cb63b70f631da8b288bf37c7c9eb04dc2130a1b5fa55272ff534c5becd5a2e",
-    "legs.json": "1b30cc82ee990113c92f41c66313035b4ecbd0d5006212aaa5ec404aa5b7c772"
+    "legs.json": "03bade43e9469f14cd52b197c67324ecfa31f622c069f216aabbf76e9d6fc7dc"
   }
 }

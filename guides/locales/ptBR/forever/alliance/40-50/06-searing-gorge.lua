@@ -63,17 +63,17 @@ return {
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Magma Elementals = {npc:5855} Magma Elemental · Dark Iron Slavers = {npc:5844} Dark Iron Slaver
 	["The spiders roam the plateaus and lava pools in the south-west of the gorge.\nHeavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.\nTaskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a {item:10551}. The Steamsmiths work at the furnaces in the middle (the {item:18959}), the Lookouts stand on the southern ridges (the Spyglass). Any {object:147516} may drop the {item:11818}: keep it.\nCareful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee."] = "",
 
-	-- Step 20: Thorium Plated Dagger on the way
+	-- Step 19: Thorium Plated Dagger on the way
 	-- {item:10551} Thorium Plated Dagger
 	["{item:10551} on the way"] = "",
 
-	-- Step 22: Incendosaur on the way
+	-- Step 21: Incendosaur on the way
 	-- {npc:9318} Incendosaur
 	["{npc:9318} on the way"] = "",
 	-- {npc:9318} Incendosaur · {area:1446} Thorium Point
 	["{npc:9318} along the way to {area:1446}"] = "",
 
-	-- Step 23: Searing Gorge: kill these as you meet them
+	-- Step 22: Searing Gorge: kill these as you meet them
 	-- {area:51} Searing Gorge
 	["{area:51}: kill these as you meet them"] = "",
 	-- {area:1443} The Slag Pit · {npc:14621} Overseer Maltorius
@@ -82,52 +82,52 @@ return {
 	-- {item:18922} Secret Plans: Fiery Flux
 	["{item:18922}; below ground"] = "",
 
-	-- Step 24: Searing Gorge: kill these as you meet them
+	-- Step 23: Searing Gorge: kill these as you meet them
 	-- {npc:14621} Overseer Maltorius
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:14621} is a level 50 elite: most classes solo it at level 52, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 26: Level 48.66
+	-- Step 25: Level 48.66
 	["Level 48.66"] = "",
 	-- {quest:7701} WANTED: Overseer Maltorius
 	["If you skipped {quest:7701}, grind here to level 48.66 to stay on the route's plan."] = "",
 	-- {npc:9318} Incendosaur
 	["grind on {npc:9318}"] = "",
 
-	-- Step 28: Dark Iron dwarves
+	-- Step 27: Dark Iron dwarves
 	-- {object:147516} Dark Iron (no name in this language: may be words)
 	["{object:147516} dwarves"] = "",
 
-	-- Step 31: The Flame's Casing
+	-- Step 29: The Flame's Casing
 	-- {npc:5860} Twilight Dark Shaman
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:5860} (level 50 elite) needs a group of 3. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 33: Level 48.98
+	-- Step 31: Level 48.98
 	["Level 48.98"] = "",
 	-- {quest:3452} The Flame's Casing
 	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "",
 
-	-- Step 34: Margol's Horn
+	-- Step 32: Margol's Horn
 	-- {quest:3181} The Horn of the Beast
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:3181} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 	["Below ground"] = "",
 
-	-- Step 35: Camp Cagg
+	-- Step 33: Camp Cagg
 	-- {zone:1446} Tanaris · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh
 	["The prisoner's next task, Ledger from {zone:1446}, sends you to the {zone:1435} and {zone:1445}: skip it."] = "A próxima tarefa do prisioneiro, Livro-Caixa de {zone:1446}, manda você para {zone:1435} e {zone:1445}: pule.",
 
-	-- Step 36: Dustfire Valley
+	-- Step 34: Dustfire Valley
 	-- {npc:8256} Curator Thorius · {area:1537} Ironforge
 	["For {npc:8256} in {area:1537}, later"] = "",
 
-	-- Step 38: Fly to Ironforge
+	-- Step 36: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:1446} Thorium Point
 	["{area:1446} flight master"] = "",
 
-	-- Step 39: Class trainer
+	-- Step 37: Class trainer
 	["Class trainer"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
