@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Azeroth Commerce Authority
 	-- {area:1002} Three Corners · {zone:1433} Redridge Mountains · {zone:1429} Elwynn Forest · {zone:1431} Duskwood · {area:69} Lakeshire · {npc:256736} Huey Sunnydale · {npc:10636} Pack Kodo · {faction:2586} Azeroth Commerce Authority · {item:280179} Shipping Label
-	["The camp is at {area:1002} in western {zone:1433}, where the roads from {zone:1429}, {zone:1431} and {area:69} meet. {npc:256736} sells the {npc:10636} only once you are Exalted with the {faction:2586}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp is at {area:1002} in western {zone:1433}, where the roads from {zone:1429}, {zone:1431} and {area:69} meet. {npc:256736} sells the {npc:10636} only once you are Exalted with the {faction:2586}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "Le camp se trouve aux {area:1002}, dans l'ouest des {zone:1433}, là où se rejoignent les routes de la {zone:1429}, du {zone:1431} et de {area:69}. {npc:256736} ne vend le {npc:10636} qu'une fois que vous êtes Exalté auprès de l'{faction:2586}, et il coûte 6 000 Faveurs du marchand. Les caisses ne rapportent que de la Faveur (environ 15 par caisse rendue) ; la réputation vient des Commissions d'artisan et de l'{item:280179}, unique, suivez donc le guide de réputation des factions de ravitaillement et mettez 6 000 Faveurs de côté.",
 	-- {faction:2586} Azeroth Commerce Authority
-	["{faction:2586} camp"] = "",
+	["{faction:2586} camp"] = "Camp de l'{faction:2586}",
 
 	-- Step 2: Pack Kodo
 	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "Les rênes demandent le niveau 60 et la monte Compagnon pour être utilisées (client Forever) ; vous pouvez les acheter avant.",

@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Apprendre à monter",
 	-- {npc:4752} Kildar · {npc:3362} Ogunaro Wolfrunner · {faction:76} Orgrimmar · {object:172958} Valley of Honor · {skill:762} Riding
-	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4752} and {npc:3362}'s kennel are in {faction:76}'s {object:172958}. At 40 {npc:4752} teaches {skill:762} to Orcs for 100g (10% less at Honored with {faction:76}), and it comes with a wolf. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4752} et le chenil de {npc:3362} sont dans la {object:172958} d'{faction:76}. Au niveau 40, {npc:4752} enseigne la {skill:762} aux Orcs pour 100 po (10 % de moins à Honoré auprès d'{faction:76}), avec un loup. Les autres races apprennent la {skill:762}, avec leur propre première monture, auprès du maître de monte de leur race.",
 	-- {npc:4752} Kildar
 	["{npc:4752}, riding trainer"] = "{npc:4752}, maître de monte",
 
 	-- Step 2: Wolf Riding for other races
 	-- {spell:825} Wolf Riding
-	["{spell:825} for other races"] = "",
+	["{spell:825} for other races"] = "{spell:825} pour les autres races",
 	-- {spell:825} Wolf Riding · {skill:762} Riding · {npc:4752} Kildar · {faction:76} Orgrimmar
-	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "",
+	["Any Horde race can buy these wolves, but riding one also takes {spell:825}, which only Orcs get with {skill:762}. {npc:4752} teaches it to other races once they are Exalted with {faction:76} (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character."] = "Toute race de la Horde peut acheter ces loups, mais en monter un demande aussi {spell:825}, que seuls les Orcs reçoivent avec la {skill:762}. {npc:4752} l'enseigne aux autres races une fois Exaltées auprès d'{faction:76} (le guide de réputation d'Orgrimmar montre le chemin). D'ici là, n'achetez pas de loup pour ce personnage.",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "Choisir une couleur",

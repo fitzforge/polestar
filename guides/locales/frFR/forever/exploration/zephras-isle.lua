@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Zephras Isle (1/3)
 	-- {zone:2521} Zephras Isle · {area:17221} Skywall
-	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "",
+	["{zone:2521} is the Skyborne starting island, a world of its own in {area:17221}; anyone may visit. 20 areas to discover here, levels 3-12."] = "{zone:2521} est l'île de départ des Éolides, un monde à part dans {area:17221} ; tout le monde peut la visiter. 20 zones à découvrir ici, niveaux 3-12.",
 	["Skyborne start here. Everyone else takes a skyboat, about every five minutes; either faction may take either one."] = "Les Éolides commencent ici. Les autres prennent un aéronef, environ toutes les cinq minutes ; les deux factions peuvent prendre l'un ou l'autre.",
 	-- {area:279} Dalaran · {zone:1416} Alterac Mountains · {zone:1456} Thunder Bluff
 	["The skyboat leaves the north side of {area:279} in the {zone:1416} (another flies from north of {zone:1456})."] = "L'aéronef part du côté nord de {area:279}, dans {zone:1416} (un autre part du nord de {zone:1456}).",

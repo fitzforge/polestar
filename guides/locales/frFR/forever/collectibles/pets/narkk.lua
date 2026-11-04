@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Narkk
 	-- {npc:2663} Narkk · {area:35} Booty Bay · {npc:2664} Kelsey Yance · {area:392} Ratchet
-	["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:2663}, the pirate supplier in {area:35}, sells two parrots (40s each), with no stock limit. He stands next to {npc:2664}, the cook. {area:35} is neutral: the boat from {area:392} and the Stranglethorn road both arrive there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:2663}, le fournisseur des pirates à {area:35}, vend deux perroquets (40 pa chacun), sans limite de stock. Il se tient à côté de {npc:2664}, la cuisinière. {area:35} est neutre : le bateau de {area:392} et la route de Strangleronce y arrivent tous deux. Chaque objet de mascotte apprend son compagnon quand vous l'utilisez ; les objectifs restent cochés ensuite.",
 	-- {item:8495} Parrot Cage (Senegal)
 	["{item:8495}, 40s"] = "{item:8495}, 40 pa",
 	-- {item:8496} Parrot Cage (Cockatiel)

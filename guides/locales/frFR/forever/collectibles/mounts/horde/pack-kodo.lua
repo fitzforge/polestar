@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Durotar Supply and Logistics
 	-- {area:380} Crossroads · {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
-	["The camp stands just outside the west gate of the {area:380} in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp stands just outside the west gate of the {area:380} in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "Le camp se dresse juste devant la porte ouest de la {area:380}, dans les {zone:1413}. {npc:256400} ne vend le {npc:10636} qu'une fois que vous êtes Exalté auprès de {faction:2587}, et il coûte 6 000 Faveurs du marchand. Les caisses ne rapportent que de la Faveur (environ 15 par caisse rendue) ; la réputation vient des Commissions d'artisan et de l'{item:280179}, unique, suivez donc le guide de réputation des factions de ravitaillement et mettez 6 000 Faveurs de côté.",
 	-- {faction:2587} Durotar Supply and Logistics
-	["{faction:2587} camp"] = "",
+	["{faction:2587} camp"] = "Camp de {faction:2587}",
 
 	-- Step 2: Pack Kodo
 	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "Les rênes demandent le niveau 60 et la monte Compagnon pour être utilisées (client Forever) ; vous pouvez les acheter avant.",

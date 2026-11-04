@@ -7,32 +7,32 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Teleports and Portals (Horde)"] = "",
-	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "",
+	["Teleports and Portals (Horde)"] = "Téléportations et portails (Horde)",
+	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "Les téléportations vers vos villes aux niveaux 20 et 30 et les portails de groupe aux niveaux 40 et 50, auprès du maître des portails de chaque ville.",
 
 	-- Step 1: Teleport: Orgrimmar
 	-- {object:173161} Darkbriar Lodge (no name in this language: may be words) · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:5958} Thuul · {spell:3567} Teleport: Orgrimmar · {item:17031} Rune of Teleportation
-	["At 20 go to {object:173161} in {zone:1454}'s {object:172961}, where the mage trainers live. {npc:5958}, the portal trainer, stands on the upper floor and teaches {spell:3567} for 20 silver. Every teleport burns one {item:17031} (10 silver at any reagent vendor), so carry a few."] = "",
+	["At 20 go to {object:173161} in {zone:1454}'s {object:172961}, where the mage trainers live. {npc:5958}, the portal trainer, stands on the upper floor and teaches {spell:3567} for 20 silver. Every teleport burns one {item:17031} (10 silver at any reagent vendor), so carry a few."] = "Au niveau 20, allez au pavillon Darkbriar, dans {object:172961} d'{zone:1454}, où vivent les maîtres des mages. {npc:5958}, le maître des portails, se tient à l'étage supérieur et enseigne {spell:3567} pour 20 pa. Chaque téléportation consomme une {item:17031} (10 pa chez tout marchand de composants) : emportez-en quelques-unes.",
 	-- {item:17031} Rune of Teleportation
-	["{item:17031}, 10s each"] = "",
+	["{item:17031}, 10s each"] = "{item:17031}, 10 pa pièce",
 
 	-- Step 2: Teleport: Undercity
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {npc:2492} Lexington Mortaim · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {npc:4575} Hannah Akeley
-	["Take the zeppelin from the tower outside {zone:1454}'s gate to {zone:1420} and walk into the {zone:1458}. {npc:2492}, the portal trainer, stands in the {object:36082} with the mage trainers: {spell:3563}, 20 silver. {npc:4575} beside him sells the runes."] = "",
+	["Take the zeppelin from the tower outside {zone:1454}'s gate to {zone:1420} and walk into the {zone:1458}. {npc:2492}, the portal trainer, stands in the {object:36082} with the mage trainers: {spell:3563}, 20 silver. {npc:4575} beside him sells the runes."] = "Prenez le zeppelin depuis la tour devant la porte d'{zone:1454} jusqu'à {zone:1420} et entrez à {zone:1458}. {npc:2492}, le maître des portails, se tient dans le {object:36082} avec les maîtres des mages : {spell:3563}, 20 pa. {npc:4575}, à côté de lui, vend les runes.",
 
 	-- Step 3: Teleport: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1454} Orgrimmar · {area:380} Crossroads · {npc:5957} Birgitte Cranston · {area:1640} Spirit Rise · {spell:3566} Teleport: Thunder Bluff
-	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the {area:380}. {npc:5957}, the portal trainer, stands with the mage trainers on {area:1640} and teaches {spell:3566} for 80 silver."] = "",
+	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the {area:380}. {npc:5957}, the portal trainer, stands with the mage trainers on {area:1640} and teaches {spell:3566} for 80 silver."] = "Au niveau 30. Les {zone:1456} se trouvent en {zone:1412} : volez-y depuis {zone:1454} ou la {area:380}. {npc:5957}, la maîtresse des portails, se tient avec les maîtres des mages sur la {area:1640} et enseigne {spell:3566} pour 80 pa.",
 
 	-- Step 4: Portals to Orgrimmar and the Undercity
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity
-	["Portals to {zone:1454} and the {zone:1458}"] = "",
+	["Portals to {zone:1454} and the {zone:1458}"] = "Portails vers {zone:1454} et {zone:1458}",
 	-- {item:17032} Rune of Portals · {npc:5958} Thuul · {object:173161} Darkbriar Lodge (no name in this language: may be words) · {spell:11417} Portal: Orgrimmar · {zone:1458} Undercity · {npc:2492} Lexington Mortaim · {spell:11418} Portal: Undercity
-	["At 40 the portal trainers teach the portals: a gateway your whole group can step through, for 1 gold 50 silver each. Each portal burns one {item:17032} (20 silver at any reagent vendor). {npc:5958} in {object:173161} has {spell:11417}; teleport to the {zone:1458} for {npc:2492}'s {spell:11418}."] = "",
+	["At 40 the portal trainers teach the portals: a gateway your whole group can step through, for 1 gold 50 silver each. Each portal burns one {item:17032} (20 silver at any reagent vendor). {npc:5958} in {object:173161} has {spell:11417}; teleport to the {zone:1458} for {npc:2492}'s {spell:11418}."] = "Au niveau 40, les maîtres des portails enseignent les portails : un passage que tout votre groupe peut emprunter, pour 1 po 50 pa chacun. Chaque portail consomme une {item:17032} (20 pa chez tout marchand de composants). {npc:5958}, dans le pavillon Darkbriar, propose {spell:11417} ; téléportez-vous à {zone:1458} pour {spell:11418} auprès de {npc:2492}.",
 	-- {item:17032} Rune of Portals
-	["{item:17032}, 20s each"] = "",
+	["{item:17032}, 20s each"] = "{item:17032}, 20 pa pièce",
 
 	-- Step 5: Portal: Thunder Bluff
 	-- {npc:5957} Birgitte Cranston · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
-	["At 50 {npc:5957} in {zone:1456} teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "",
+	["At 50 {npc:5957} in {zone:1456} teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "Au niveau 50, {npc:5957} aux {zone:1456} enseigne le dernier, {spell:11420}, pour 3 po 20 pa. Utilisez votre {spell:3566} pour vous y rendre.",
 }
