@@ -1172,6 +1172,10 @@ L["Recorder window"] = "Окно записи"
 -- L["Another race's starting zone"] = ""
 -- L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = ""
 -- L["Your class trainer may be elsewhere (check your capital)."] = ""
+L["%s complete — continuing with %s"] = "%s завершен — продолжаем: %s"
+L["You've reached the end of this guide."] = "Вы дошли до конца этого гайда."
+L["Choose where to go next"] = "Выбрать, куда дальше"
+L["Start %s"] = "Начать: %s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1708,8 +1712,6 @@ L["Before you take a quest that closes another for good, says which in chat and 
 L["Skip grey quests"] = "Пропускать серые задания"
 L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Не включает серые задания и их сдачу, если они не нужны для последующего задания."
 L["Pick a guide for me"] = "Выбирать гайд за меня"
-L["Continue to the next guide"] = "Переходить к следующему гайду"
-L["Loads the follow-up guide in the same tab when one finishes."] = "Загружает продолжение в той же вкладке, когда гайд завершен."
 L["Where to level next"] = "Где качаться дальше"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "Когда гайд предлагает несколько зон для продолжения (/polestar path)."
 L["Let me choose"] = "Дать мне выбрать"
@@ -1906,6 +1908,13 @@ L["Position trails, marks and the list of spots to walk, in a small window."] = 
 -- L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = ""
 -- L["Class quest chime"] = ""
 -- L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] = ""
+L["When a leveling guide ends"] = "Когда гайд прокачки заканчивается"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "Спросить: окно сообщит, что гайд пройден, и предложит следующий. Продолжать автоматически: следующий гайд загрузится в той же вкладке."
+L["Ask me"] = "Спросить"
+L["Continue automatically"] = "Продолжать автоматически"
+-- L["%d KiB"] = ""
+-- L["%.1f MB"] = ""
+-- L["%d KB"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -2751,6 +2760,15 @@ L["No names here yet."] = "Здесь пока нет имён."
 -- L["Show me"] = ""
 -- L["Summon %s"] = ""
 -- L["%s ready"] = ""
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "Вы завершили %s"
+L["You've reached the end of %s"] = "Вы дошли до конца: %s"
+L["1 step was left undone."] = "Невыполненных шагов: 1."
+L["%d steps were left undone."] = "Невыполненных шагов: %d."
+L["Next: %s"] = "Далее: %s"
+L["Pick a guide"] = "Выбрать гайд"
+L["Not now"] = "Не сейчас"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

@@ -1173,6 +1173,10 @@ L["The guide trains you in %d steps"] = "Le guide vous entraîne dans %d étapes
 L["Another race's starting zone"] = "Zone de départ d'une autre race"
 L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = "C'est la zone de départ de la race %s. Polestar ne vous y guidera pas : rendez-vous par vos propres moyens à %s, et le guide reprendra à votre arrivée."
 L["Your class trainer may be elsewhere (check your capital)."] = "Votre maître de classe est peut-être ailleurs (voyez dans votre capitale)."
+L["%s complete — continuing with %s"] = "%s terminé — vous continuez avec %s"
+L["You've reached the end of this guide."] = "Vous avez atteint la fin de ce guide."
+L["Choose where to go next"] = "Choisir où aller ensuite"
+L["Start %s"] = "Commencer %s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -1709,8 +1713,6 @@ L["Before you take a quest that closes another for good, says which in chat and 
 L["Skip grey quests"] = "Passer les quêtes grises"
 L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Écarte les quêtes grises et leurs rendus, sauf si une quête ultérieure les requiert."
 L["Pick a guide for me"] = "Choisir un guide pour moi"
-L["Continue to the next guide"] = "Continuer au guide suivant"
-L["Loads the follow-up guide in the same tab when one finishes."] = "Charge le guide suivant dans le même onglet quand un guide se termine."
 L["Where to level next"] = "Où monter en niveau ensuite"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "Quand un guide propose plusieurs zones pour continuer (/polestar path)."
 L["Let me choose"] = "Me laisser choisir"
@@ -1910,6 +1912,10 @@ L["A short chime the first time a class quest chain's card shows. Off while the 
 L["%d KiB"] = "%d Kio"
 L["%.1f MB"] = "%.1f Mo"
 L["%d KB"] = "%d Ko"
+L["When a leveling guide ends"] = "À la fin d'un guide de progression"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "Me demander : une fenêtre indique que le guide est terminé et propose le suivant. Continuer automatiquement : le guide suivant se charge dans le même onglet."
+L["Ask me"] = "Me demander"
+L["Continue automatically"] = "Continuer automatiquement"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -2755,6 +2761,15 @@ L["Show the class quest heads-up again (the next one due, or a quest id)"] = "R�
 L["Show me"] = "Me montrer"
 L["Summon %s"] = "Invocation d'un %s"
 L["%s ready"] = "%s disponible"
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "Vous avez terminé %s"
+L["You've reached the end of %s"] = "Vous avez atteint la fin de %s"
+L["1 step was left undone."] = "1 étape n'a pas été faite."
+L["%d steps were left undone."] = "%d étapes n'ont pas été faites."
+L["Next: %s"] = "Suivant : %s"
+L["Pick a guide"] = "Choisir un guide"
+L["Not now"] = "Pas maintenant"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

@@ -1172,6 +1172,10 @@ L["Recorder window"] = "记录器窗口"
 -- L["Another race's starting zone"] = ""
 -- L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = ""
 -- L["Your class trainer may be elsewhere (check your capital)."] = ""
+L["%s complete — continuing with %s"] = "%s 已完成——继续 %s"
+L["You've reached the end of this guide."] = "你已到达本指南的结尾。"
+L["Choose where to go next"] = "选择接下来去哪里"
+L["Start %s"] = "开始 %s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -1708,8 +1712,6 @@ L["Before you take a quest that closes another for good, says which in chat and 
 L["Skip grey quests"] = "跳过灰色任务"
 L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "略过灰色任务及其交还，除非后续任务需要先完成它们。"
 L["Pick a guide for me"] = "为我选择指南"
-L["Continue to the next guide"] = "继续下一份指南"
-L["Loads the follow-up guide in the same tab when one finishes."] = "指南完成时，在同一标签页载入后续指南。"
 L["Where to level next"] = "下一个练级地点"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "当指南提供多个可继续的地区时（/polestar path）。"
 L["Let me choose"] = "让我选择"
@@ -1906,6 +1908,13 @@ L["Position trails, marks and the list of spots to walk, in a small window."] = 
 -- L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = ""
 -- L["Class quest chime"] = ""
 -- L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] = ""
+L["When a leveling guide ends"] = "练级指南结束时"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "询问我：弹出窗口告知指南已完成，并提供下一份指南。自动继续：在同一标签页载入下一份指南。"
+L["Ask me"] = "询问我"
+L["Continue automatically"] = "自动继续"
+-- L["%d KiB"] = ""
+-- L["%.1f MB"] = ""
+-- L["%d KB"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -2751,6 +2760,15 @@ L["No names here yet."] = "暂无名单。"
 -- L["Show me"] = ""
 -- L["Summon %s"] = ""
 -- L["%s ready"] = ""
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "你已完成 %s"
+L["You've reached the end of %s"] = "你已到达 %s 的结尾"
+L["1 step was left undone."] = "有 1 个步骤未完成。"
+L["%d steps were left undone."] = "有 %d 个步骤未完成。"
+L["Next: %s"] = "下一份：%s"
+L["Pick a guide"] = "选择指南"
+L["Not now"] = "以后再说"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

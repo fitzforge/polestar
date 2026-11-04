@@ -1172,6 +1172,10 @@ L["Recorder window"] = "기록기 창"
 -- L["Another race's starting zone"] = ""
 -- L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = ""
 -- L["Your class trainer may be elsewhere (check your capital)."] = ""
+L["%s complete — continuing with %s"] = "%s 완료 — %s(으)로 계속합니다"
+L["You've reached the end of this guide."] = "이 가이드의 끝에 도달했습니다."
+L["Choose where to go next"] = "다음 갈 곳 선택"
+L["Start %s"] = "%s 시작"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1708,8 +1712,6 @@ L["Before you take a quest that closes another for good, says which in chat and 
 L["Skip grey quests"] = "회색 퀘스트 건너뛰기"
 L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "이후 퀘스트에 먼저 필요하지 않으면 회색 퀘스트와 그 제출을 뺍니다."
 L["Pick a guide for me"] = "가이드 자동 선택"
-L["Continue to the next guide"] = "다음 가이드로 계속"
-L["Loads the follow-up guide in the same tab when one finishes."] = "가이드가 끝나면 같은 탭에 후속 가이드를 불러옵니다."
 L["Where to level next"] = "다음 레벨업 장소"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "가이드가 이어갈 지역을 여럿 제시할 때 (/polestar path)."
 L["Let me choose"] = "직접 선택"
@@ -1906,6 +1908,13 @@ L["Position trails, marks and the list of spots to walk, in a small window."] = 
 -- L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = ""
 -- L["Class quest chime"] = ""
 -- L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] = ""
+L["When a leveling guide ends"] = "레벨업 가이드가 끝나면"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "묻기: 가이드가 끝났다고 알리고 다음 가이드를 제안하는 창이 뜹니다. 자동으로 계속: 같은 탭에 다음 가이드를 불러옵니다."
+L["Ask me"] = "묻기"
+L["Continue automatically"] = "자동으로 계속"
+-- L["%d KiB"] = ""
+-- L["%.1f MB"] = ""
+-- L["%d KB"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2751,6 +2760,15 @@ L["No names here yet."] = "아직 이름이 없습니다."
 -- L["Show me"] = ""
 -- L["Summon %s"] = ""
 -- L["%s ready"] = ""
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "%s 완료"
+L["You've reached the end of %s"] = "%s의 끝에 도달했습니다"
+L["1 step was left undone."] = "완료하지 않은 단계가 1개 있습니다."
+L["%d steps were left undone."] = "완료하지 않은 단계가 %d개 있습니다."
+L["Next: %s"] = "다음: %s"
+L["Pick a guide"] = "가이드 선택"
+L["Not now"] = "나중에"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
