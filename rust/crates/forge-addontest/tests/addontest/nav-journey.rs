@@ -710,7 +710,10 @@ fn nearby_the_tracking_menus_carry_a_nearby_services_submenu_with_every_kind_pic
 	.concat());
 	let out = &out[0];
 	assert_eq!(out["title"], "Nearby services");
-	assert_eq!(out["texts"], json!(["Profession trainer", "Class trainer", "Weapon master", "Repair", "Reagents", "Vendor", "Innkeeper", "Bank", "Auction house", "Flight master", "Stable master"]));
+	assert_eq!(
+		out["texts"],
+		json!(["Profession trainer", "Class trainer", "Weapon master", "Repair", "Reagents", "Vendor", "Innkeeper", "Bank", "Mailbox", "Auction house", "Flight master", "Stable master"])
+	);
 	assert_eq!(out["trainers"], json!(["Nearest", "Alchemy", "Mining"]), "no riding trainer");
 	assert_eq!(out["label"], "Far Smith");
 	assert_eq!(out["world"], true);
@@ -799,6 +802,98 @@ fn nearby_weapon_masters_the_class_s_weapons_a_master_of_its_side_teaches_known_
 	assert_eq!(out["none"], 0, "no gear tables: no weapons");
 }
 
+// Vendors by what they sell (the Codex's "sells:" roles): the vendor's page
+// lists what this character can use; a profession trainer the data also
+// lists as a vendor is no vendor to send anyone to (Fanorran Stilloak in
+// Shadowglen, a Junior Mining Trainer); the target names the NPC's title.
+#[test]
+fn nearby_the_vendor_page_food_and_drink_arrows_bullets_bows_and_guns_by_class_trainers_are_no_vendors_the_title_is_named() {
+	let out = run(&[
+		CODEX,
+		r#"
+		npcs[7] = { id = 7, name = "Keina", subName = "Bowyer", faction = "A", spawns = { { map = 9000, x = 62, y = 50 } } }
+		npcs[8] = { id = 8, name = "Fanorran", subName = "Junior Mining Trainer", faction = "A", spawns = { { map = 9000, x = 50.5, y = 50 } } }
+		npcs[9] = { id = 9, name = "Dellylah", subName = "Food & Drink Vendor", faction = "A", spawns = { { map = 9000, x = 65, y = 50 } } }
+		npcs[1].subName = "Blacksmith"
+		roles.vendor = { 1, 5, 7, 8, 9 }
+		roles.trainer = { 6, 8 }
+		roles["sells:arrows"] = { 7 }
+		roles["sells:ranged"] = { 7 }
+		roles["sells:food"] = { 8, 9 }
+		local C = Polestar.Compat
+		local info = { name = "Testchar", level = 12, faction = "Alliance", class = "HUNTER" }
+		C.GetPlayerInfo = function() return info end
+		C.GetSkillRank = function() return nil end
+		Polestar.Gear = { PROFICIENCY = { HUNTER = { weapons = { [2] = true, [3] = true, [18] = true } }, MAGE = { weapons = { [10] = true, [15] = true } } } }
+		local function page()
+			local out = {}
+			for _, e in ipairs(Near.MenuItems()) do
+				if e.page then for _, p in ipairs(e.page) do out[#out + 1] = p.key end end
+			end
+			return out
+		end
+		local hunter = page()
+		Near.Go("vendor")
+		local vendor = label()
+		Near.Go("arrows")
+		local arrows = { label(), said("Nearest arrows: Keina (Bowyer)") }
+		Near.Command("food")
+		local food = label()
+		Near.Command("bow")
+		local bow = label()
+		info.class = "MAGE"
+		emit({ hunter = hunter, mage = page(), vendor = vendor, arrows = arrows, food = food, bow = bow, bullets = Near.Go("bullets") })
+	"#,
+	]
+	.concat());
+	let out = &out[0];
+	assert_eq!(out["hunter"], json!(["vendor", "food", "arrows", "bullets", "ranged"]), "Nearest first, then what a hunter can use");
+	assert_eq!(out["mage"], json!(["vendor", "food"]), "a mage uses no bow, gun or crossbow");
+	assert_eq!(out["vendor"], "Near Smith (Blacksmith)", "Fanorran is nearer, but a trainer");
+	assert_eq!(out["arrows"], json!(["Keina (Bowyer)", true]));
+	assert_eq!(out["food"], "Dellylah (Food & Drink Vendor)", "a trainer the data lists as selling food is left out too");
+	assert_eq!(out["bow"], "Keina (Bowyer)");
+	assert_eq!(out["bullets"], false, "nobody sells bullets here");
+}
+
+// Mailboxes are Codex objects (Codex.Object(id).mailbox, with their side):
+// the nearest one of the player's side, or of both; one of the other side or
+// of no known side never counts, nor an object that is no mailbox.
+#[test]
+fn nearby_the_nearest_mailbox_of_the_player_s_side_from_the_codex_s_objects() {
+	let out = run(&[
+		CODEX,
+		r#"
+		local objects = {
+			[101] = { id = 101, name = "Mailbox", mailbox = true, faction = "A", spawns = { { map = 9000, x = 58, y = 50 } } },
+			[102] = { id = 102, name = "Mailbox", mailbox = true, faction = "AH", spawns = { { map = 9000, x = 70, y = 50 }, { map = 9000, x = 54, y = 50 } } },
+			[103] = { id = 103, name = "Mailbox", mailbox = true, faction = "H", spawns = { { map = 9000, x = 51, y = 50 } } },
+			[104] = { id = 104, name = "Mailbox", mailbox = true, spawns = { { map = 9000, x = 50.5, y = 50 } } },
+			[105] = { id = 105, name = "Battered Chest", treasure = true, spawns = { { map = 9000, x = 50.2, y = 50 } } },
+		}
+		Polestar.Codex.Each = function(kind, fn)
+			if kind ~= "object" then return end
+			for _, id in ipairs({ 101, 102, 103, 104, 105 }) do fn(id, objects[id].name) end
+		end
+		Polestar.Codex.Object = function(id) return objects[id] end
+		Polestar.Compat.GetSkillRank = function() return nil end
+		local listed = false
+		for _, e in ipairs(Near.MenuItems()) do if e.key == "mailbox" then listed = e.label end end
+		Near.Go("mailbox")
+		local first = { label(), N.GetTarget().x, said("Nearest mailbox: Mailbox") }
+		N.ClearTarget()
+		Near.Command("mail")
+		local alias = label()
+		emit({ listed = listed, first = first, alias = alias })
+	"#,
+	]
+	.concat());
+	let out = &out[0];
+	assert_eq!(out["listed"], "Mailbox", "the guide window's list carries it");
+	assert_eq!(out["first"], json!(["Mailbox", 54, true]), "the both-sides mailbox's nearer spawn; the Horde's and the sideless ones, nearer, never count");
+	assert_eq!(out["alias"], "Mailbox", "/polestar near mail");
+}
+
 #[test]
 fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_trainer_for_each_profession_the_character_has() {
 	let out = run(&[
@@ -821,11 +916,11 @@ fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_traine
 	]
 	.concat());
 	let (mining, none) = (&out[0], &out[1]);
-	assert_eq!(mining["texts"], json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Auction house", "Stable master"]));
+	assert_eq!(mining["texts"], json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master"]));
 	assert_eq!(mining["key"], "trainer");
 	assert_eq!(
 		*none,
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Auction house", "Stable master"]),
+		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master"]),
 		"no profession yet: the nearest trainer of any"
 	);
 }

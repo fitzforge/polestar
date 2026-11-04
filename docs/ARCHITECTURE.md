@@ -2075,16 +2075,21 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   adds a "Nearby services" submenu to `MENU_WORLD_MAP_TRACKING` and
   `MENU_MINIMAP_TRACKING`): kinds trainer (profession, by skill line, or any),
   class, weapon (a weapon skill's line, or any), repair, reagents, vendor,
-  food, arrows, bullets, ranged, innkeeper, bank, auction, flight, stable.
-  Food, arrows, bullets and ranged are vendors by what they sell: `codex
-  build` gives every NPC an item lists as its vendor a role from the item's
-  class and subclass (`sellsRole`: `sells:food` 0/5, `sells:arrows` 6/2,
-  `sells:bullets` 6/3, `sells:ranged` 2/2, 2/3, 2/18). Vendor and these kinds
+  food, arrows, bullets, ranged, innkeeper, bank, mailbox, auction, flight,
+  stable. Food, arrows, bullets and ranged are vendors by what they sell:
+  `forge data codex` gives every NPC an item lists as its vendor a role from
+  the item's class and subclass (`sells_role` in forge-data's
+  `codex/merge.rs`, with `sellsRole` in `tools/lib/codex/build.js` in step:
+  `sells:food` 0/5, `sells:arrows` 6/2, `sells:bullets` 6/3, `sells:ranged`
+  2/2, 2/3, 2/18). Vendor and these kinds
   leave out NPCs that are also trainers (`without`: the data lists Forever's
   Junior trainers as vendors, and they sell the player nothing), and their
   target names the NPC's title ("Keina (Bowyer)", `titled`). Weapon masters are the NPCs of
   `WEAPON_MASTERS` (the weapon skills each teaches, noted by hand) of the
-  player's side.
+  player's side. Mailboxes are the Codex's objects with the mailbox flag
+  (`object`: `Codex.Each("object")` and `Codex.Object(id).mailbox`, walked
+  once and cached), of the player's side or of both; one with no known side
+  never counts.
   Places are the Codex's NPCs with that role (`Codex.WithRole`, loaded on
   demand, never in combat), friendly to the player's faction and outside
   instances; reagents are vendors listed in `QoL.data.reagentVendors` (`qol

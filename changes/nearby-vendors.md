@@ -7,3 +7,5 @@ section: players
   (Bowyer)"). Profession trainers the data listed as vendors, such as Fanorran
   Stilloak at the Night Elf start, are no longer offered as vendors. Thanks
   Yendi.
+- Nearby services: Mailbox points the arrow at the nearest mailbox of your
+  side (`/polestar near mailbox`, or `mail`). Thanks Yendi.

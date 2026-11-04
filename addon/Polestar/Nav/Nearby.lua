@@ -7,7 +7,7 @@
 -- Portions Copyright (C) 2026 Cillian Berragan (Shortest Path Forever, GPL-3.0-or-later); adapted for Polestar, 2026-10-15.
 --
 --   /polestar near <kind> [profession]   kinds: trainer, class, repair, reagents, vendor,
---                                        innkeeper, bank, auction, flight, stable;
+--                                        innkeeper, bank, mailbox, auction, flight, stable;
 --                                        `/polestar near mining` = trainer mining
 --   Nearby.Find(kind, line) -> place, seconds | nil, reason
 --       reason "kind" | "combat" | "none" | a Codex failure: "missing" (not installed, or no
@@ -22,8 +22,9 @@
 -- combat), faction-filtered, outside instances; profession trainers by skill
 -- line ("trainer:<line>"); reagent vendors from QoL.data.reagentVendors (qol
 -- build); the class trainer from Engine.NearestClassTrainer, which ranks the
--- character's own trainers already. Each role's spawns are placed once per
--- session.
+-- character's own trainers already; mailboxes from the Codex's objects
+-- (Codex.Object(id).mailbox, with their side). Each role's spawns are placed
+-- once per session.
 --
 -- Ranking: the nearest spawn of each NPC by straight line, the player's
 -- continent first; the RANKED nearest of those get the route planner's
@@ -55,7 +56,8 @@ local FACTION = { Alliance = "A", Horde = "H" }
 -- data also lists as a vendor sells only its trade's goods, if anything).
 -- `titled`: the target and the chat line name the NPC's title ("Keina
 -- (Bowyer)"). `under`: a kind on the vendor's page, not in the list itself.
--- `uses`: shown only to a class that can use one of these weapon subclasses
+-- `uses`: shown only to a class that can use one of these weapon subclasses.
+-- `object`: the Codex objects with that flag, not NPCs (the mailbox).
 -- (Gear.PROFICIENCY: 2 bows, 3 guns, 18 crossbows).
 local KINDS = {
 	{ key = "trainer", label = L["Profession trainer"], stop = "trainer" },
@@ -71,6 +73,7 @@ local KINDS = {
 	{ key = "ranged", role = "sells:ranged", without = "trainer", titled = true, under = "vendor", uses = { 2, 3, 18 }, label = L["Bows & guns"] },
 	{ key = "innkeeper", role = "innkeeper", label = L["Innkeeper"], stop = "innkeeper" },
 	{ key = "bank", role = "banker", label = L["Bank"] },
+	{ key = "mailbox", object = "mailbox", label = L["Mailbox"] },
 	{ key = "auction", role = "auctioneer", label = L["Auction house"] },
 	{ key = "flight", role = "flightmaster", label = L["Flight master"], stop = "flightmaster" },
 	{ key = "stable", role = "stablemaster", label = L["Stable master"] },
@@ -82,6 +85,7 @@ local ALIAS = {
 	flightmaster = "flight", stablemaster = "stable", reagent = "reagents", trainers = "trainer",
 	drink = "food", water = "food", arrow = "arrows", bullet = "bullets", ammo = "arrows",
 	bow = "ranged", bows = "ranged", gun = "ranged", guns = "ranged", crossbow = "ranged",
+	mail = "mailbox", post = "mailbox",
 }
 Nearby.KINDS = KINDS
 
@@ -278,6 +282,33 @@ local function rolePlaces(role)
 	return list
 end
 
+-- The spawns of the Codex objects carrying `flag` (the mailbox) on the
+-- player's side: their side is A, H or AH, none when unknown or hostile.
+local function objectPlaces(flag)
+	local key = "object:" .. flag
+	local list = index[key]
+	if list then return list end
+	local X, C = ns.Codex, ns.Compat
+	local info = C.GetPlayerInfo and C.GetPlayerInfo()
+	local code = info and FACTION[info.faction]
+	list = {}
+	if X.Each and X.Object then
+		X.Each("object", function(id)
+			local o = X.Object(id)
+			if o and o[flag] and o.faction and o.faction ~= "" and friendly(o.faction, code) then
+				for _, s in ipairs(o.spawns or {}) do
+					local c, wx, wy = C.MapToWorld(s.map, s.x, s.y, s.f)
+					if c then
+						list[#list + 1] = { id = id, name = L["Mailbox"], map = s.map, x = s.x, y = s.y, f = s.f, c = c, wx = wx, wy = wy }
+					end
+				end
+			end
+		end)
+	end
+	index[key] = list
+	return list
+end
+
 -- Places carry the NPC's name as read: drop them when the names pack lands
 -- late, or when an NPC's learned name changes.
 ns.On("NAMES_LOADED", function() index = {} end)
@@ -321,6 +352,7 @@ local function candidates(kind, line)
 		if not (info and info.class) then return nil, "none" end
 		return rolePlaces("class:" .. info.class)
 	end
+	if kind.object then return objectPlaces(kind.object) end
 	local list = rolePlaces(kind.role)
 	if kind.without then
 		local skip = {}
@@ -459,7 +491,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"])
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -496,7 +528,7 @@ function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | auction | flight | stable"])
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
 		return
 	end
 	local key = ALIAS[word] or word
@@ -562,7 +594,7 @@ Nearby.AddMenu = addMenu
 -- profession trainer when it has none), then the rest. Each entry is
 -- { key, line, label, icon }, for Nearby.Go(key, line); the vendor and the
 -- weapon master are pages of their own (`page`, `weapons`).
-local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "auction", "stable" }
+local BUTTON_ORDER = { "vendor", "repair", "innkeeper", "flight", "class", "trainer", "weapon", "-", "reagents", "bank", "mailbox", "auction", "stable" }
 local ICONS = { vendor = "icon-vendor", repair = "icon-buy", innkeeper = "icon-sethome", flight = "icon-fly",
 	class = "icon-train", trainer = "icon-skill", weapon = "icon-train" }
 
@@ -607,7 +639,7 @@ ns.OnLogin(function()
 end)
 
 ns.RegisterCommand("near", Nearby.Command,
-	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master"])
+	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"])
 
 if ns.RegisterOptions then
 	local ok, err = ns.RegisterOptions({
