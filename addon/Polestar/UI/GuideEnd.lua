@@ -90,12 +90,18 @@ end
 -- Window
 ---------------------------------------------------------------------------
 
--- The heading, the guide in the accent (rebuilt on a theme change).
+-- The heading, the guide in the accent (rebuilt on a theme change). When it
+-- wraps and the sentence ends with the guide, the break goes before the
+-- guide so its name stays on one line ("…the end of" / "Dun Morogh (1–12)").
 local function paintTitle(fs)
 	local m = shown
 	if not m then return end
 	local name = "|c" .. Theme.Hex("accent") .. m.label .. "|r"
-	fs:SetText(format(m.complete and L["You've completed %s"] or L["You've reached the end of %s"], name))
+	local pattern = m.complete and L["You've completed %s"] or L["You've reached the end of %s"]
+	fs:SetText(format(pattern, name))
+	if fs.GetNumLines and fs:GetNumLines() > 1 and pattern:find(" %%s$") then
+		fs:SetText(format((pattern:gsub(" %%s$", "\n%%s")), name))
+	end
 end
 
 local function build()
