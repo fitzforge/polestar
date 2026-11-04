@@ -455,7 +455,7 @@ fn eligible(world: &World, m: &Model, rules: &forge_world::Rules, seed: &Order, 
 
 fn guard_for(world: &World, m: &Model, rules: &forge_world::Rules, seed: &Order, walks: &dyn Walks, judge: Option<(&GameData, &Atlas, &rustc_hash::FxHashMap<u32, String>)>) -> Option<Guard> {
 	let (d, a, _) = judge?;
-	let data = GuardData::new(world, &m.run, rules, d, a);
+	let data = GuardData::new(world, &m.run, rules, d, a, walks);
 	let cur = &runs(&Problem::single(m, walks, Vec::new(), Vec::new()), seed)[0];
 	let v1 = cur.guard_counts(&data, &m.run);
 	Some(Guard { data, mode: GuardMode::Current, v1, train_levels: crate::search::train_levels(seed, cur) })

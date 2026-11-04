@@ -3,7 +3,7 @@
 //! developer check, not in the help) replays a given order on the evaluator.
 //!
 //!   forge sim route --faction F --start <race> [--seed guides|<file>] [--tries N] --out <file.json>
-//!   forge sim route --audit [--dir D | --out O] [--faction F] [--start S] [--world-dir W]
+//!   forge sim route --audit [--dir D | --out O] [--faction F] [--start S] [--world-dir W] [--walks on|off]
 
 use forge_sim::chain::{compare_reference, events_from, goals_from, replay_events};
 use forge_sim::profile::Profile;
@@ -276,19 +276,22 @@ fn widen_cmd(args: &[String]) {
 	eprintln!("wrote {out}");
 }
 
-/// forge sim route --audit [--dir D | --out O] [--faction F] [--start S] [--world-dir W] [--root R]:
-/// the accept level rule (forge_sim::gate) on written routes, no search: every accept in each
-/// start's `<D>/<Start>.json` `order` whose `lvl` (the model's level before it) is under its quest's
-/// minimum level in the sim world (W: default the routes' sibling `world/` of a forge build output,
-/// else <R>/data/sim). Both factions unless --faction; every start unless --start. Exit 1 when any.
+/// forge sim route --audit [--dir D | --out O] [--faction F] [--start S] [--world-dir W] [--root R]
+/// [--walks on|off]: the written routes' rules, no search, on each start's `<D>/<Start>.json`
+/// `order`: the accept level rule (forge_sim::gate: every accept whose `lvl`, the model's level
+/// before it, is under its quest's minimum level in the sim world) and the hand-in-while-there rule
+/// (forge_sim::turnin: every hand-in made on a trip back though its quest was finished near its
+/// ender). W: default the routes' sibling `world/` of a forge build output, else <R>/data/sim; the
+/// walk store `walks-<faction>.bin` beside the routes (`../walks/`) or in W, used unless `--walks
+/// off`. Both factions unless --faction; every start unless --start. Exit 1 when an accept is under
+/// its minimum or a hand-in on a trip back is not a justified wait.
 fn route_audit(args: &[String]) {
-	check(args, &["--root", "--world-dir", "--faction", "--start", "--dir", "--out"], &["--audit"], 0);
+	check(args, &["--root", "--world-dir", "--faction", "--start", "--dir", "--out", "--walks"], &["--audit"], 0);
 	let dir = routes_dir(args);
 	let root = PathBuf::from(arg(args, "--root").unwrap_or_else(|| ".".into()));
-	let world_dir = arg(args, "--world-dir").map(PathBuf::from).unwrap_or_else(|| {
-		let sibling = dir.parent().map(|p| p.join("world")).filter(|w| w.is_dir());
-		sibling.unwrap_or_else(|| root.join("data/sim"))
-	});
+	let sibling = |name: &str| dir.parent().map(|p| p.join(name)).filter(|w| w.is_dir());
+	let world_dir = arg(args, "--world-dir").map(PathBuf::from).unwrap_or_else(|| sibling("world").unwrap_or_else(|| root.join("data/sim")));
+	let walks_on = walks_arg(args, true);
 	let factions: Vec<forge_core::Faction> = if arg(args, "--faction").is_some() { vec![faction_arg(args)] } else { forge_core::Faction::BOTH.to_vec() };
 	let only = arg(args, "--start");
 	let mut files: Vec<PathBuf> = std::fs::read_dir(&dir)
@@ -297,11 +300,16 @@ fn route_audit(args: &[String]) {
 		.filter(|p| p.extension().is_some_and(|x| x == "json") && p.file_stem().and_then(|s| s.to_str()).is_some_and(|s| !s.contains('.')))
 		.collect();
 	files.sort();
-	let mut under = 0;
+	let (mut under, mut bad) = (0, 0);
 	for f in factions {
 		let world = forge_sim::load_world(&world_dir, f).unwrap_or_else(|e| die(&e));
+		let store = [sibling("walks"), Some(world_dir.clone())].into_iter().flatten().map(|d| d.join(format!("walks-{}.bin", f.lower()))).find(|p| p.is_file());
+		let walks: Option<WalkTable> = store.filter(|_| walks_on).map(|p| WalkTable::load(&p, world.points.len()).unwrap_or_else(|e| die(&e)).with_crossings(&world));
+		eprintln!("{}: yards {}", f.name(), if walks.is_some() { "by the walk store near enders" } else { "straight" });
 		let title: rustc_hash::FxHashMap<u32, &str> = world.quests.iter().map(|q| (q.id, q.title.as_str())).collect();
-		let (mut starts, mut accepts, mut n) = (0, 0, 0);
+		let (mut starts, mut accepts, mut n_under) = (0, 0, 0);
+		let (mut turnins, mut n, mut blockers, mut waits) = (0, 0, 0, 0);
+		let mut quests: std::collections::BTreeSet<u32> = Default::default();
 		for file in &files {
 			let Some(doc) = std::fs::read(file).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()) else { continue };
 			let (Some(order), Some(start)) = (doc["order"].as_array(), doc["start"].as_str()) else { continue };
@@ -313,13 +321,45 @@ fn route_audit(args: &[String]) {
 			accepts += order.iter().filter(|e| e["t"] == "accept").count();
 			for u in forge_sim::gate::audit_order(&world, order) {
 				println!("{name}: order step {}: accept {} {} at level {:.2}, under its minimum {} ({})", u.i, u.q, title.get(&u.q).copied().unwrap_or(""), u.lvl, u.min, u.from);
+				n_under += 1;
+			}
+			turnins += order.iter().filter(|e| e["t"] == "turnin").count();
+			for a in forge_sim::turnin::audit_order(&world, walks.as_ref().map(|w| w as &dyn Walks), order) {
+				let x = &a.near;
+				let far = if x.far.is_finite() { format!("{:.0} yd away", x.far) } else { "to another continent".into() };
+				let verdict = match x.wait {
+					Some(forge_sim::turnin::Wait::Level { q, min, lvl }) => format!("wait: follow-up {q} needs level {min:.0}, at {lvl:.2}"),
+					Some(forge_sim::turnin::Wait::Returns { other, detour }) => format!("wait: back there anyway (order step {other}), now a {detour:.0} yd detour"),
+					None if a.blocker => "blocker".into(),
+					None => "warn".into(),
+				};
+				println!(
+					"{name}: order step {}: turnin {} {} finished {:.0} yd from its ender at order step {} (L{:.1}, {}), then {far} (order step {}) first ({}): {verdict}",
+					x.j,
+					a.q,
+					title.get(&a.q).copied().unwrap_or(""),
+					a.at_yd,
+					x.at,
+					a.lvl,
+					a.at_from,
+					x.away,
+					a.from
+				);
 				n += 1;
+				quests.insert(a.q);
+				if x.wait.is_some() {
+					waits += 1;
+				} else if a.blocker {
+					blockers += 1;
+				}
 			}
 		}
-		println!("{}: {starts} routes, {accepts} accepts, {n} under their minimum level", f.name());
-		under += n;
+		println!("{}: {starts} routes, {accepts} accepts, {n_under} under their minimum level", f.name());
+		println!("{}: {starts} routes, {turnins} hand-ins, {n} made on a trip back ({} quests): {blockers} blocker, {} warn, {waits} wait", f.name(), quests.len(), n - blockers - waits);
+		under += n_under;
+		bad += n - waits;
 	}
-	if under > 0 {
+	if under > 0 || bad > 0 {
 		std::process::exit(1);
 	}
 }
@@ -549,7 +589,7 @@ fn guards_cmd(args: &[String]) {
 	let data = forge_world::GameData::from_source(&forge_world::data::DirSource::repo(&root)).unwrap_or_else(|e| die(&format!("game data: {e:?}")));
 	let atlas = judge_atlas(&root, faction, &data);
 	let t0 = Instant::now();
-	let g = forge_sim::guards::GuardData::new(&l.world, &m.run, &rules, &data, &atlas);
+	let g = forge_sim::guards::GuardData::new(&l.world, &m.run, &rules, &data, &atlas, &*l.walks);
 	eprintln!("guard data in {:.2} s", t0.elapsed().as_secs_f64());
 	for f in args.iter().filter(|a| a.ends_with(".json")) {
 		let doc: Value = std::fs::read(f).map_err(|e| e.to_string()).and_then(|b| serde_json::from_slice(&b).map_err(|e| e.to_string())).unwrap_or_else(|e| die(&format!("{f}: {e}")));

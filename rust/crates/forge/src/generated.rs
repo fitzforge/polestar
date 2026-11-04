@@ -8,8 +8,9 @@
 //! - **The generated guides** (`forge guide publish --from <out>/guides`, [`publish`]): the
 //!   leveling guides of every start's written tree, copied into `guides/` with [`HEADER`] on top
 //!   and listed in `guides/GENERATED.json` (SHA-256 of each): the shared route once per faction,
-//!   each start guide from its own start, one copy per race where two starts share a folder. Every
-//!   other file under `guides/` (class, professions, ... and the translations) stays hand-written.
+//!   each start guide from its own start, one copy per race where two starts share a folder, a
+//!   race's lead-in merged into the shared guide of its zone. Every other file under `guides/`
+//!   (class, professions, ... and the translations) stays hand-written.
 //! - **The check** ([`check`]; `forge guide check-generated`, and `tests/generated-guides.test.js`
 //!   in CI): every listed file still has its hash, so a hand edit fails and says where the fix goes.
 //!
@@ -189,6 +190,8 @@ pub struct Published {
 	pub guides: usize,
 	/// Start guides several starts wrote, published once per race: (the written id, the races' ids).
 	pub split: Vec<(String, Vec<String>)>,
+	/// Race lead-ins merged into the shared guide of their zone: (the shared id, the lead-ins' ids).
+	pub merged: Vec<(String, Vec<String>)>,
 	/// Guides with baked legs in the merged `legs.json`.
 	pub legs: usize,
 }
@@ -236,6 +239,17 @@ fn split_rel(rel: &str, race: &str) -> String {
 
 fn guide_id(rel: &str) -> &str {
 	rel.strip_suffix(".guide").unwrap_or(rel)
+}
+
+/// A header key's value (before the first step).
+fn header_value<'a>(text: &'a str, key: &str) -> Option<&'a str> {
+	text.lines().take_while(|l| !l.starts_with("step")).find_map(|l| l.strip_prefix(key).and_then(|r| r.strip_prefix(' '))).map(str::trim)
+}
+
+/// A guide's text compiled on its own (for its legs' places).
+fn compile_guide(rel: &str, text: &str, d: &forge_guide::data::Data) -> Option<forge_guide::js::V> {
+	let src = forge_guide::project::Source { source: rel.to_string(), file: rel.to_string(), text: text.to_string() };
+	forge_guide::project::resolve_sources(&[src], d, &mut forge_guide::diag::Diagnostics::new(), None, None).into_iter().next()
 }
 
 /// `text` with every whole guide id of `ids` (old -> new) replaced.
@@ -391,6 +405,44 @@ fn rekey_legs(legs: &Value, old: &forge_guide::js::V, new: &forge_guide::js::V, 
 	json!({ "hash": guide_hash(new, frames), "steps": steps })
 }
 
+/// A compiled guide's steps as the bake reads them: whether a goal of the step has a place (it
+/// ends or begins a leg, forge_guide::bake::step_targets), and the races its `only` names (None:
+/// every race).
+fn step_audiences(g: &forge_guide::js::V, frames: &forge_guide::js::V) -> Vec<(bool, Option<Vec<String>>)> {
+	g.get("steps")
+		.items()
+		.iter()
+		.map(|s| {
+			let placed = s.get("goals").items().iter().any(|goal| goal.get("t").as_str() != Some("note") && forge_guide::bake::goal_world(goal, frames).is_some());
+			let races: Vec<String> = s.get("only").get("races").items().iter().map(|r| r.to_js_string()).collect();
+			(placed, (!races.is_empty()).then_some(races))
+		})
+		.collect()
+}
+
+/// The steps (1-based) whose leg in starts at the last placed step before them, when some race
+/// that sees the step never sees that one (a step for Orcs and Trolls after the Trolls' own).
+fn legs_across_races(steps: &[(bool, Option<Vec<String>>)]) -> Vec<usize> {
+	use forge_guide::conditions::same_race;
+	let mut out = Vec::new();
+	let mut last: Option<&Option<Vec<String>>> = None;
+	for (i, (placed, races)) in steps.iter().enumerate() {
+		if !placed {
+			continue;
+		}
+		let seen = match (last, races) {
+			(None | Some(None), _) => true,
+			(Some(Some(_)), None) => false,
+			(Some(Some(from)), Some(to)) => to.iter().all(|r| from.iter().any(|f| same_race(f, r))),
+		};
+		if !seen {
+			out.push(i + 1);
+		}
+		last = Some(races);
+	}
+	out
+}
+
 /// `forge guide publish --from <out>/guides`: the leveling guides of a build's written trees, one
 /// per start (`<from>/<Start>/`, as forge build writes them; every start is needed), into the
 /// checkout's `guides/` with the header, `guides/GENERATED.json` listing them:
@@ -402,7 +454,12 @@ fn rekey_legs(legs: &Value, old: &forge_guide::js::V, new: &forge_guide::js::V, 
 /// - a start guide two starts share (`orc-troll/`, `dwarf-gnome/`) once per race, from each race's
 ///   tree, in a folder named for the race (`orc/`, `troll/`) with `race <Race>` and the ids
 ///   between those guides rewritten ([`race_copy`]); the shared ids go into `guides/retired.json`,
-///   so a saved tab on one opens the race's leveling guide.
+///   so a saved tab on one opens the race's leveling guide;
+/// - a race's guide whose `next` is a shared guide of the same `zone` (its lead-in: the Orcs' and
+///   Trolls' Barrens before the shared Barrens) merged into that guide as its races' opening steps
+///   ([`crate::lead_in::merge_lead_ins`]); the guides that led to it lead to the shared guide, and
+///   its id goes into `guides/retired.json`. (Not the Night Elves' Darkshore: it hands over to
+///   Westfall.)
 ///
 /// The trees' baked legs (`legs.json`) become one `guides/legs.json`, per published guide id:
 /// the shared route's must agree between the starts, and all trees must be baked on one grid.
@@ -525,11 +582,7 @@ pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, S
 									gdata = Some(forge_guide::project::load_project_data(data, &mut forge_guide::diag::Diagnostics::new())?);
 								}
 								let d = gdata.as_ref().expect("loaded");
-								let compile = |text: &str| {
-									let src = forge_guide::project::Source { source: r.to_string(), file: r.to_string(), text: text.to_string() };
-									forge_guide::project::resolve_sources(&[src], d, &mut forge_guide::diag::Diagnostics::new(), None, None).into_iter().next()
-								};
-								match (compile(&String::from_utf8_lossy(b)), compile(&copy)) {
+								match (compile_guide(r, &String::from_utf8_lossy(b), d), compile_guide(r, &copy, d)) {
 									(Some(old), Some(new)) => rekey_legs(&l, &old, &new, &d.map_frames),
 									_ => return Err(format!("{r}: {}'s copy does not compile", t.race)),
 								}
@@ -546,6 +599,67 @@ pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, S
 					}
 				}
 			}
+		}
+		// A race's lead-in that hands over to the shared guide of its zone (the Orcs' and Trolls'
+		// Barrens): merged into that guide (crate::lead_in), its id retired.
+		let in_faction = |f: &str| f.starts_with(&format!("{sub}/"));
+		let mut into: BTreeMap<String, Vec<(usize, String)>> = BTreeMap::new();
+		for (f, b) in out.iter().filter(|(f, _)| in_faction(f)) {
+			let Some(order) = header_races(b).first().and_then(|x| trees.iter().position(|t| same_race(x, t.race))) else { continue };
+			let t = String::from_utf8_lossy(b);
+			let Some(s) = header_value(&t, "next").and_then(|n| n.split_whitespace().next()).map(|n| format!("{n}.guide")) else { continue };
+			let Some(st) = out.get(&s).filter(|sb| header_races(sb).is_empty()).map(|sb| String::from_utf8_lossy(sb)) else { continue };
+			let zone = header_value(&t, "zone").filter(|z| !z.is_empty());
+			if zone.is_some() && zone == header_value(&st, "zone") {
+				into.entry(s).or_default().push((order, f.clone()));
+			}
+		}
+		for (s, mut leads) in into {
+			leads.sort();
+			let shared_text = String::from_utf8_lossy(&out[&s]).into_owned();
+			let lead_texts: Vec<(Vec<String>, String)> = leads.iter().map(|(_, f)| (header_races(&out[f]), String::from_utf8_lossy(&out[f]).into_owned())).collect();
+			let Some(merged) = crate::lead_in::merge_lead_ins(&shared_text, &lead_texts) else { continue };
+			let sid = guide_id(&s).to_string();
+			let lead_ids: Vec<String> = leads.iter().map(|(_, f)| guide_id(f).to_string()).collect();
+			// (The legs move to the merged guide's steps between the same two places; a step whose
+			// leg in starts at a step some of its players never see has none: Orcs at the Crossroads
+			// do not come from the Trolls' own step before it.)
+			let sources: Vec<(Value, &str)> = std::iter::once((legs_out.remove(&sid), shared_text.as_str()))
+				.chain(lead_ids.iter().zip(&lead_texts).map(|(id, (_, t))| (legs_out.remove(id), t.as_str())))
+				.filter_map(|(l, t)| l.map(|l| (l, t)))
+				.collect();
+			if !sources.is_empty() {
+				if gdata.is_none() {
+					gdata = Some(forge_guide::project::load_project_data(data, &mut forge_guide::diag::Diagnostics::new())?);
+				}
+				let d = gdata.as_ref().expect("loaded");
+				let new = compile_guide(&s, &merged, d).ok_or_else(|| format!("{s}: the guide with its lead-ins merged does not compile"))?;
+				let mut steps = serde_json::Map::new();
+				for (l, t) in &sources {
+					let old = compile_guide(&s, t, d).ok_or_else(|| format!("{s}: a lead-in merged into it does not compile"))?;
+					for (k, v) in rekey_legs(l, &old, &new, &d.map_frames)["steps"].as_object().into_iter().flatten() {
+						steps.entry(k.clone()).or_insert_with(|| v.clone());
+					}
+				}
+				for k in legs_across_races(&step_audiences(&new, &d.map_frames)) {
+					steps.remove(&k.to_string());
+				}
+				legs_out.insert(sid.clone(), json!({ "hash": forge_guide::bake::guide_hash(&new, &d.map_frames), "steps": steps }));
+			}
+			for (_, f) in &leads {
+				out.remove(f);
+			}
+			out.insert(s.clone(), merged.into_bytes());
+			// (The guides that led to a lead-in lead to the shared guide.)
+			let ids: Vec<(String, String)> = lead_ids.iter().map(|i| (i.clone(), sid.clone())).collect();
+			for (_, b) in out.iter_mut().filter(|(f, _)| in_faction(f)) {
+				let t = String::from_utf8_lossy(b).into_owned();
+				let n = replace_ids(&t, &ids);
+				if n != t {
+					*b = n.into_bytes();
+				}
+			}
+			published.merged.push((sid, lead_ids));
 		}
 	}
 	for f in seed.keys().filter(|f| !seen_seed.contains(*f)) {
@@ -585,11 +699,13 @@ pub fn publish(checkout: &Path, from: &Path, data: &Path) -> Result<Published, S
 			let _ = std::fs::remove_file(&legs);
 		}
 	}
-	// The ids the races' copies replaced, for saved tabs (docs/PACK_FORMAT.md, "Retired guides").
+	// The ids the races' copies replaced and the lead-ins merged away, for saved tabs
+	// (docs/PACK_FORMAT.md, "Retired guides").
 	let retired_file = guides.join("retired.json");
 	let mut retired: std::collections::BTreeSet<String> =
 		if retired_file.is_file() { serde_json::from_slice(&read(&retired_file)?).map_err(|e| format!("{}: {e}", retired_file.display()))? } else { Default::default() };
 	retired.extend(published.split.iter().map(|(id, _)| id.clone()));
+	retired.extend(published.merged.iter().flat_map(|(_, ids)| ids.iter().cloned()));
 	retired.retain(|id| !out.contains_key(&format!("{id}.guide")));
 	if !retired.is_empty() {
 		write(&retired_file, (serde_json::to_string_pretty(&retired).map_err(|e| e.to_string())? + "\n").as_bytes())?;
@@ -810,5 +926,60 @@ mod tests {
 		let retired: Vec<String> = serde_json::from_slice(&std::fs::read(g.join("retired.json")).unwrap()).unwrap();
 		assert_eq!(retired, ["forever/alliance/dwarf-gnome/01-a", "forever/horde/orc-troll/01-a", "forever/horde/orc-troll/02-b"]);
 		std::fs::remove_dir_all(&co).unwrap();
+	}
+
+	#[test]
+	fn publish_merges_a_race_lead_in_into_the_shared_guide_of_its_zone() {
+		// (Shipped on 2026-11-04: the Orcs' and Trolls' Barrens lead-ins as the shared Barrens'
+		// opening steps, the Crossroads step labelled for them.)
+		let horde = "guide forever/horde/02-shared\ntitle The Barrens\nfaction Horde\nlevels 12-16\nzone The Barrens\nnext forever/horde/03-silverpine-forest\n\n# ---- The Crossroads\n\nstep The Crossroads\n  zone The Barrens\n  accept 844\n  accept 870\n";
+		let (co, out) =
+			round("merge", |s| if ["Human", "Dwarf", "Gnome", "NightElf", "Skyborne-alliance"].contains(&s) { "guide forever/alliance/02-shared\n\nstep shared\n".into() } else { horde.into() });
+		let head = "guide forever/horde/orc-troll/02-b\ntitle The Barrens\nfaction Horde\nrace Orc,Troll\nlevels 12-12\nzone The Barrens\nnext forever/horde/02-shared\n\n";
+		let rest = "step On the way\n  along\n  kill 3267 quest 871.1\n\nstep Thun'grim Firegaze\n  only Warrior\n  turnin 1502\n\nstep Drygulch Ravine\n  zone Durotar\n  collect 6652 quest 1525.2 only Shaman\n";
+		let orc = format!("{head}# Added here: Meats to Orgrimmar (6365).\n\nstep Zargh\n  accept 6365\n  turnin 6365\n\n# ---- The Crossroads\n\nstep The Crossroads\n  zone The Barrens\n  tip Helbrim and Gazrog by the north gate.\n  turnin 842\n  accept 844                          -- Sergra Darkthorn\n  accept 6384\n  accept 871\n\n{rest}");
+		let troll = format!("{head}step The Barrens\n  zone The Barrens\n  goto 52.2,31.0 \"The Barrens\"\n\n# ---- The Crossroads\n\nstep The Crossroads\n  zone The Barrens\n  tip Thork and Darsok on the tower platform. Helbrim and Gazrog by the north gate.\n  accept 844                          -- Sergra Darkthorn\n  accept 871\n\n{rest}");
+		write(&out.join("Orc/forever/horde/orc-troll/02-b.guide"), orc.as_bytes()).unwrap();
+		write(&out.join("Troll/forever/horde/orc-troll/02-b.guide"), troll.as_bytes()).unwrap();
+		let g = co.join("guides");
+		let p = publish(&co, &out, &co.join("data")).unwrap();
+		assert_eq!(p.merged, vec![("forever/horde/02-shared".to_string(), vec!["forever/horde/orc/02-b".to_string(), "forever/horde/troll/02-b".to_string()])]);
+		assert_eq!(p.guides, 12, "the two lead-ins are no guides of their own");
+		// Their steps first, each `only` its races (the steps both wrote once, a goal one of them has
+		// `only` it), then the shared Crossroads step every Horde race starts at, labelled; the
+		// lead-in's `along` ends there.
+		let want = format!(
+			"{HEADER}\nguide forever/horde/02-shared\ntitle The Barrens\nfaction Horde\nlevels 12-16\nzone The Barrens\nnext forever/horde/03-silverpine-forest\n\n# ---- The Crossroads\n\n\
+			# Orc and Troll: their own steps first (`only` their races), merged from their lead-in guides.\n\
+			# Every race of the faction starts at the step labelled `crossroads`.\n\
+			# The lead-in guides' former ids are in guides/retired.json.\n\n\
+			step Zargh\n  only Orc\n  accept 6365\n  turnin 6365\n\n\
+			step The Barrens\n  only Troll\n  zone The Barrens\n  goto 52.2,31.0 \"The Barrens\"\n\n\
+			# ---- The Crossroads\n\n\
+			step The Crossroads\n  only Orc,Troll\n  zone The Barrens\n  tip Helbrim and Gazrog by the north gate.\n  turnin 842 only Orc\n  accept 844                          -- Sergra Darkthorn\n  accept 6384 only Orc\n  accept 871\n\n\
+			step On the way\n  only Orc,Troll\n  along until crossroads\n  kill 3267 quest 871.1\n\n\
+			step Thun'grim Firegaze\n  only Orc,Troll,Warrior\n  turnin 1502\n\n\
+			step Drygulch Ravine\n  only Orc,Troll\n  zone Durotar\n  collect 6652 quest 1525.2 only Shaman\n\n\
+			step The Crossroads\n  label crossroads\n  zone The Barrens\n  accept 844\n  accept 870\n"
+		);
+		assert_eq!(read_s(&g.join("forever/horde/02-shared.guide")), want);
+		// Durotar hands over to the shared guide; the lead-ins' files, legs and ids go.
+		assert!(read_s(&g.join("forever/horde/orc/01-a.guide")).contains("\nnext forever/horde/02-shared\n"));
+		assert!(read_s(&g.join("forever/horde/troll/01-a.guide")).contains("\nnext forever/horde/02-shared\n"));
+		assert!(!g.join("forever/horde/orc/02-b.guide").exists() && !g.join("forever/horde/troll/02-b.guide").exists());
+		let legs: Value = serde_json::from_slice(&std::fs::read(g.join(crate::bake::LEGS_FILE)).unwrap()).unwrap();
+		assert!(legs["legs"].get("forever/horde/orc/02-b").is_none() && legs["legs"].get("forever/horde/02-shared").is_some());
+		let retired: Vec<String> = serde_json::from_slice(&std::fs::read(g.join("retired.json")).unwrap()).unwrap();
+		assert_eq!(retired, ["forever/alliance/dwarf-gnome/01-a", "forever/horde/orc-troll/01-a", "forever/horde/orc-troll/02-b", "forever/horde/orc/02-b", "forever/horde/troll/02-b"]);
+		std::fs::remove_dir_all(&co).unwrap();
+	}
+
+	#[test]
+	fn a_leg_from_a_step_some_players_never_see_is_none() {
+		let r = |x: &[&str]| Some(x.iter().map(|s| s.to_string()).collect::<Vec<_>>());
+		// Zargh (Orc), the Trolls' goto, a step of the Orcs' with no place, the Crossroads and On the
+		// way (Orc, Troll), the shared Crossroads (everyone), a Tauren-only travel step, a shared step.
+		let steps = [(true, r(&["Orc"])), (true, r(&["Troll"])), (false, r(&["Orc"])), (true, r(&["Orc", "Troll"])), (true, r(&["Orc", "Troll"])), (true, None), (true, r(&["Tauren"])), (true, None)];
+		assert_eq!(legs_across_races(&steps), vec![2, 4, 6, 8]);
 	}
 }

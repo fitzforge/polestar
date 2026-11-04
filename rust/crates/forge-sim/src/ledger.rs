@@ -388,6 +388,7 @@ pub fn edit_rows(edits: &Value, ovr: &Overrides, run: &crate::run::Run) -> Vec<V
                 "written check" => "done where the written guide's walk passes it ready (the check on the written guides)",
                 "bag tie" => "carried in the bags: taken, done and handed in at once (a tie, <= 30 s)",
                 "hub sweep" | "on the way" => "done where it is ready: the hub visit or the walk past its NPC",
+                "hand in while there" => "finished near its ender: handed in before the route goes away, not on a trip back",
                 "hub loop" => "the hub's stops in the order of the shortest walk",
                 "defer hard work" => "early hard work waits for its level: no long grind before it",
                 "grind top-up" => "grind left in pieces at the zone stay's camps, at most 15 minutes each, never a silent wait",

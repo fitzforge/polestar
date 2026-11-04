@@ -312,7 +312,7 @@ impl<'a> Problem<'a> {
 		if k == 0 {
 			canonical
 		} else {
-			self.ctxs[k].hub.get_or_init(|| crate::hubs::HubData::new(&self.ctxs[k].model.run))
+			self.ctxs[k].hub.get_or_init(|| crate::hubs::HubData::new(&self.ctxs[k].model.run).with_walks(&self.ctxs[k].model.run, self.walks))
 		}
 	}
 

@@ -178,8 +178,9 @@ publish: the leveling guides of every start's written tree (--from <out>/guides,
 starts) into the checkout's guides/ with the generated header, listed in guides/GENERATED.json: the shared
 route once per faction (refused when the starts wrote it differently), each start guide from its own start,
 and a start folder two races share (orc-troll, dwarf-gnome) once per race (orc/, troll/, with `race`), its
-old ids in guides/retired.json; one legs.json merged from the trees'. --data: the quests' races for the
-races' copies (default data/forever/).
+old ids in guides/retired.json; a race's lead-in to the shared guide of its zone (the Orcs' and Trolls'
+Barrens) merged into that guide as their opening steps, its id retired; one legs.json merged from the
+trees'. --data: the quests' races for the races' copies (default data/forever/).
 check-generated: fail (exit 1) when a generated guide or a seed file was edited by hand, and say
 where the fix goes instead.
 ";

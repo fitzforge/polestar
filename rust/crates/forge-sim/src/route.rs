@@ -693,7 +693,7 @@ pub fn prepare(world: &World, walks: &dyn Walks, base: &Params, race: &str, even
 		pool.retain(|&q| ins.ok(q));
 	}
 	let mut gdata = match (ex.data, ex.atlas) {
-		(Some(d), Some(a)) => Some(GuardData::new(world, &model.run, &rules, d, a)),
+		(Some(d), Some(a)) => Some(GuardData::new(world, &model.run, &rules, d, a, walks)),
 		_ => None,
 	};
 	let seed_run = &runs(&Problem::single(&model, walks, Vec::new(), Vec::new()), &seed)[0];
@@ -1878,7 +1878,8 @@ fn loop_words(world: &World, rules: &Rules, model: &Model, before: &Order, lv: &
 }
 
 /// The hub passes' kept moves as edit list rows (kinds `hub batch`, `hub sweep`, `on the way`,
-/// `hub loop`, `written check`, `hub batch undone`), inserted before the first row not kept, the
+/// `hand in while there`, `hub loop`, `written check`, `hub batch undone`), inserted before the
+/// first row not kept, the rows numbered again; `key` counts them.
 /// rows numbered again; `key` counts them.
 pub(crate) fn hub_sweep_rows(world: &World, rules: &Rules, model: &Model, edits_doc: &mut Value, picks: &[crate::search::passby::HubPickup], key: &str) {
 	use crate::search::edits::Mv;
@@ -1900,6 +1901,7 @@ pub(crate) fn hub_sweep_rows(world: &World, rules: &Rules, model: &Model, edits_
 					let zone = world.zones.get(&run.p_map[moved.pt as usize]).cloned().unwrap_or_default();
 					let why = match *kind {
 						"on the way" => "the walk passes its NPC while it is ready",
+						"hand in while there" => "its quest was finished near its ender: handed in before the route goes away, not on a trip back",
 						"hub batch" => "a return to the hub for this alone, folded into the next visit there",
 						"written check" => "the written guide walks past its NPC while it is ready (the check on the written guides)",
 						"hub batch undone" => "back where it was: the written guide walked past it after the hub batch",
