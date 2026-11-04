@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in German words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:148} Darkshore
+	["Into {area:148}"] = "Nach {area:148}",
+
 	-- Step 1: Auberdine
 	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "",
 	["The WANTED poster outside the inn"] = "",

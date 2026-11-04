@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:17} Barrens
+	["Into the {area:17}"] = "Vers {area:17}",
+
 	-- Step 2: The Crossroads
 	-- {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:3464} Gazrog · {area:380} The Crossroads
 	["{npc:3429} and {npc:3449} on the tower platform. Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "",

@@ -6,6 +6,10 @@
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	-- {area:17} Barrens
+	["Into the {area:17}"] = "{area:17}(으)로",
+
 	-- Step 1: Zargh
 	-- {area:379} Far Watch Post · {npc:3338} Sergra Darkthorn
 	["You arrive from {area:379}. {npc:3338} stands by the inn; Tonga at the south gate."] = "",

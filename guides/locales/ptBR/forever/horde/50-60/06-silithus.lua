@@ -217,85 +217,87 @@ return {
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "Marque a {npc:10902} com a {item:12815}",
 
-	-- Step 61: The Bulwark
+	-- Step 60: Chromie
+	["Upstairs"] = "",
+
+	-- Step 62: The Bulwark
 	-- {quest:964} Skeletal Fragments · {quest:838} Scholomance
 	["Dithers offers {quest:964} ({quest:838}). Skip it."] = "",
 
-	-- Step 63: Dalson's Tears
+	-- Step 64: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "Para leste pela estrada, {npc:11077} guarda o caldeirão nas {area:200}.",
 
-	-- Step 65: Northridge Lumber Camp
+	-- Step 66: Northridge Lumber Camp
 	["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "Para o norte até a madeireira; coloque o barril de cupins no meio da serraria.",
 
-	-- Step 66: Redpath's Shield
+	-- Step 67: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "O escudo fica em {area:201}, ao sul da cabana de {npc:1855}.",
 
-	-- Step 67: Tirion Fordring
+	-- Step 68: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Cavalgue para leste até a cabana de {npc:1855} junto ao {area:2619} e ouça o que ele tem a dizer.",
 
-	-- Step 70: Scourge Champions
+	-- Step 71: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "Campeões do Flagelo",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "Campeões do Flagelo vagam pela {area:2270}, ao norte da capela. Passe o {item:13156} de {npc:11063} sobre cada um que matar: os crânios que ressoam são os que ele quer.",
 
-	-- Step 72: Hameya's scroll
+	-- Step 73: Hameya's scroll
 	["Hameya's scroll"] = "",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "",
 
-	-- Step 73: Pamela and the Undercroft
+	-- Step 74: Pamela and the Undercroft
 	-- {area:2261} Undercroft
 	["Pamela and the {area:2261}"] = "",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
 	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 
-	-- Step 75: Tirion Fordring
+	-- Step 76: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "Cavalgue para noroeste até a cabana de {npc:1855}.",
 
-	-- Step 78: Level 59.14
+	-- Step 79: Level 59.14
 	["Level 59.14"] = "",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee...
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan."] = "",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "",
 
-	-- Step 79: Chromie
+	-- Step 80: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "Cavalgue para sudoeste até {npc:10667} em Andorhal.",
-	["Upstairs"] = "",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "A batalha pela Vila das Flechas de {npc:10667} termina contra elites. Pule-a.",
 
-	-- Step 80: Counting Out Time
+	-- Step 81: Counting Out Time
 	["Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
 
-	-- Step 82: The Bulwark
+	-- Step 83: The Bulwark
 	-- {area:152} The Bulwark · {zone:1458} Undercity
 	["West to the {area:152}. The next guide starts in the {zone:1458}, a short ride west."] = "Para oeste até o {area:152}. O próximo guia começa em {zone:1458}, a uma curta cavalgada a oeste.",
 
-	-- Step 83: Into Eastern Plaguelands
+	-- Step 84: Into Eastern Plaguelands
 	-- {area:139} Eastern Plaguelands
 	["Into {area:139}"] = "",
 
-	-- Step 85: Of Lost Honor
+	-- Step 86: Of Lost Honor
 	["Underwater"] = "",
 
-	-- Step 86: Infiltrator Hameya
+	-- Step 87: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
 	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
-	-- Step 89: Hameya's mound
+	-- Step 90: Hameya's mound
 	["Hameya's mound"] = "",
 	-- {object:177675} Mound of Dirt · {area:2261} Undercroft
 	["The {object:177675} is just behind the {area:2261}."] = "",
 
-	-- Step 90: Into Western Plaguelands
+	-- Step 91: Into Western Plaguelands
 	-- {area:28} Western Plaguelands
 	["Into {area:28}"] = "",
 

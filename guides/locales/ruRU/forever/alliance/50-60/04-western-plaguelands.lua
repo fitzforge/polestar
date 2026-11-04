@@ -51,13 +51,17 @@ return {
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
 	["Mark {npc:10903} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10903}",
 
-	-- Step 10: Felstone Field cauldron
+	-- Step 10: Chromie
+	-- {npc:10667} Chromie
+	["{npc:10667} waits in the ruined inn on the west side of Andorhal."] = "{npc:10667} ждет в разрушенной таверне в западной части Андорала.",
+
+	-- Step 11: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Котел: {area:199}",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
 	["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075} охраняет котел ({area:199}) к западу от Андорала.",
 
-	-- Step 11: Janice Felstone
+	-- Step 12: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "Призрак {npc:10778} бродит у дома ({area:199}) к западу от места {area:200}; ее посылка лежит внутри.",
 	-- {object:175894} Janice's Parcel
@@ -65,25 +69,21 @@ return {
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 
-	-- Step 12: The Andorhal watchtowers
+	-- Step 13: The Andorhal watchtowers
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
 	["Mark {npc:10904} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10904}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10905}",
 
-	-- Step 13: Chillwind Camp
+	-- Step 14: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} – элитный противник 61-го уровня",
 
-	-- Step 14: Dalson's Tears cauldron
+	-- Step 15: Dalson's Tears cauldron
 	-- {area:200} Dalson's Tears
 	["{area:200} cauldron"] = "Котел: {area:200}",
 	-- {area:200} Dalson's Tears
 	["The cauldron sits at {area:200}, north-east of Felstone; its Cauldron Lord stands beside it."] = "Котел стоит к северо-востоку от поля Фелстоуна ({area:200}); рядом – его повелитель котла.",
-
-	-- Step 15: Chromie
-	-- {npc:10667} Chromie
-	["{npc:10667} waits in the ruined inn on the west side of Andorhal."] = "{npc:10667} ждет в разрушенной таверне в западной части Андорала.",
 
 	-- Step 16: Andorhal
 	["Andorhal"] = "Андорал",
