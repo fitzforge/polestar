@@ -57,7 +57,6 @@ step The Den
   turnin 3086 only Troll,Mage         -- Mai'ah
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
-  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
 
 step Scorpid Worker Tail on the way
   along until q789
@@ -82,6 +81,7 @@ step Valley of Trials: kill these as you meet them
   tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way, and hit the sleeping peons across the valley with the Foreman's Blackjack.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   collect 4862 quest 789.1
+  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
   kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
   collect 4905 quest 790.1
   kill 3101 quest 792.1 only !Warlock
