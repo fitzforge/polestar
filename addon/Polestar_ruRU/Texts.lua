@@ -2334,6 +2334,7 @@ t.guides["forever/horde/02-the-barrens"] = (function() return {
 		["{npc:3442} in {area:392}: later, on the way"] = "{npc:3442} ({area:392}): позже, по пути",
 		["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: пульт управления – {area:382}, позже",
 		["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}: гарпии будут позже – {area:383}",
+		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} стоит лагерем у дороги на восток к месту {area:392}.",
 		["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} разбил лагерь у дороги от места {area:380} к месту {area:392}. {object:58369} стоит на юге лагеря Иглогривых, сразу к северу от него.",
 		["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} делает из смолы и мешочка предмет {item:6636}. Используйте его у жаровни рядом с ним, чтобы появился {npc:5893}; убейте его ради предмета {item:6655}, затем положите уголек в жаровню.",
 		["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} ждет на берегу реки к югу от заставы {area:379}, за мостом.",
@@ -3144,12 +3145,6 @@ t.guides["forever/horde/orc/01-durotar"] = (function() return {
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} стоит лагерем на холме к западу от пляжа наг, к югу от места {quest:827}.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "Главные ворота ({zone:1454}) – чуть к западу от места {area:817}. {npc:5875} стоит здесь: {object:172960} – каньон под местом {object:172982}.",
 } end)()
-t.guides["forever/horde/orc/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "Идите по дороге на юго-восток сюда: {area:392}, на побережье.",
-		["Razormane camp"] = "Лагерь Иглогривых",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} стоит лагерем у дороги на восток к месту {area:392}.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, ваш {item:5176} и {item:263412}",
-} end)()
 t.guides["forever/horde/skyborne/01-zephras-isle"] = (function() return {
 		["Aanders and the fallen guards are just south-west of the tower. Take Raani's feather and the Shadowsong signet from the bodies."] = "Аандерс и павшие стражи – чуть к юго-западу от башни. Заберите с тел перо Раани и фамильный перстень Песни Теней.",
 		["Back at {quest:92529}: Stormcallers and {npc:251662} fill the village, the Supply Caches stand among the houses and {npc:251966} waits at its south-east end."] = "Снова здесь: {quest:92529} – деревня полна призывателей бури и персонажей {npc:251662}, тайники с припасами стоят среди домов, а {npc:251966} ждет в юго-восточной части.",
@@ -3340,12 +3335,6 @@ t.guides["forever/horde/troll/01-durotar"] = (function() return {
 		["{npc:9796}, by the cooking fire"] = "{npc:9796}, у костра для готовки",
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} стоит лагерем на холме к западу от пляжа наг, к югу от места {quest:827}.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "Главные ворота ({zone:1454}) – чуть к западу от места {area:817}. {npc:5875} стоит здесь: {object:172960} – каньон под местом {object:172982}.",
-} end)()
-t.guides["forever/horde/troll/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "Идите по дороге на юго-восток сюда: {area:392}, на побережье.",
-		["Razormane camp"] = "Лагерь Иглогривых",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} стоит лагерем у дороги на восток к месту {area:392}.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, ваш {item:5176} и {item:263412}",
 } end)()
 t.guides["forever/horde/undead/01-tirisfal-glades"] = (function() return {
 		["Ask {npc:10666} for his report"] = "Спросите отчет у персонажа {npc:10666}",

@@ -2334,6 +2334,7 @@ t.guides["forever/horde/02-the-barrens"] = (function() return {
 		["{npc:3442} in {area:392}: later, on the way"] = "{npc:3442} em {area:392}: depois, no caminho",
 		["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: o console fica em {area:382}, depois",
 		["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}: as harpias vêm depois, em {area:383}",
+		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} acampa ao lado da estrada para o leste, rumo a {area:392}.",
 		["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} acampa junto à estrada da {area:380} para {area:392}. O {object:58369} fica no sul do acampamento Crinavalha, logo ao norte dele.",
 		["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} faz {item:6636} com o piche e o bornal. Use-o junto ao braseiro ao lado dele para revelar o {npc:5893}, mate-o pela {item:6655} e depois coloque a brasa no braseiro.",
 		["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} espera na margem do rio ao sul de {area:379}, do outro lado da ponte.",
@@ -3144,12 +3145,6 @@ t.guides["forever/horde/orc/01-durotar"] = (function() return {
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} acampa na colina a oeste da praia dos nagas, ao sul da {quest:827}.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "O portão principal de {zone:1454} fica logo a oeste da {area:817}. {npc:5875} fica na {object:172960}, o cânion abaixo do {object:172982}.",
 } end)()
-t.guides["forever/horde/orc/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "Siga a estrada para sudeste até {area:392}, na costa.",
-		["Razormane camp"] = "Acampamento Crinavalha",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} acampa ao lado da estrada para o leste, rumo a {area:392}.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, o seu {item:5176} e o {item:263412}",
-} end)()
 t.guides["forever/horde/skyborne/01-zephras-isle"] = (function() return {
 		["Aanders and the fallen guards are just south-west of the tower. Take Raani's feather and the Shadowsong signet from the bodies."] = "Aanders e os guardas caídos estão logo a sudoeste da torre. Pegue a pena de Raani e o sinete Cantonegro dos corpos.",
 		["Back at {quest:92529}: Stormcallers and {npc:251662} fill the village, the Supply Caches stand among the houses and {npc:251966} waits at its south-east end."] = "De volta a {quest:92529}: Tempestários e {npc:251662} enchem a aldeia, os Baús de Suprimentos ficam entre as casas e {npc:251966} espera no extremo sudeste.",
@@ -3340,12 +3335,6 @@ t.guides["forever/horde/troll/01-durotar"] = (function() return {
 		["{npc:9796}, by the cooking fire"] = "{npc:9796}, junto à fogueira de cozinhar",
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} acampa na colina a oeste da praia dos nagas, ao sul da {quest:827}.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "O portão principal de {zone:1454} fica logo a oeste da {area:817}. {npc:5875} fica na {object:172960}, o cânion abaixo do {object:172982}.",
-} end)()
-t.guides["forever/horde/troll/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "Siga a estrada para sudeste até {area:392}, na costa.",
-		["Razormane camp"] = "Acampamento Crinavalha",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} acampa ao lado da estrada para o leste, rumo a {area:392}.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, o seu {item:5176} e o {item:263412}",
 } end)()
 t.guides["forever/horde/undead/01-tirisfal-glades"] = (function() return {
 		["Ask {npc:10666} for his report"] = "Peça o relatório a {npc:10666}",

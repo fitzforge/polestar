@@ -17482,4 +17482,6 @@ Polestar.RetireGuides("guides", {
 	"forever/alliance/dwarf-gnome/01-dun-morogh",
 	"forever/horde/orc-troll/01-durotar",
 	"forever/horde/orc-troll/02-the-barrens",
+	"forever/horde/orc/02-the-barrens",
+	"forever/horde/troll/02-the-barrens",
 })

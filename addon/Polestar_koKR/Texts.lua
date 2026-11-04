@@ -2334,6 +2334,7 @@ t.guides["forever/horde/02-the-barrens"] = (function() return {
 		["{npc:3442} in {area:392}: later, on the way"] = "{area:392}의 {npc:3442}: 나중에 가는 길에",
 		["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: 제어판은 나중에 {area:382}에서 처리합니다",
 		["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}: 하피는 나중에 {area:383}에서 처리합니다",
+		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}은(는) {area:392}(으)로 가는 동쪽 길 옆에 진을 치고 있습니다.",
 		["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}은(는) {area:380}에서 {area:392}(으)로 가는 길가에 야영하고 있습니다. {object:58369}은(는) 그 바로 북쪽, 서슬갈기일족 야영지 남쪽에 있습니다.",
 		["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900}이(가) 타르와 주머니로 {item:6636}을(를) 만들어 줍니다. 그 옆의 화로 곁에서 사용해 {npc:5893}을(를) 드러내고, 처치해 {item:6655}을(를) 얻은 뒤 잉걸불을 화로에 넣으세요.",
 		["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}은(는) 다리 건너 {area:379} 남쪽 강기슭에서 기다립니다.",
@@ -3144,12 +3145,6 @@ t.guides["forever/horde/orc/01-durotar"] = (function() return {
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828}은(는) 나가 해변 서쪽, {quest:827} 남쪽 언덕에 진을 치고 있습니다.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "{zone:1454} 정문은 {area:817} 바로 서쪽에 있습니다. {npc:5875}은(는) {object:172982} 아래 협곡인 {object:172960}에 서 있습니다.",
 } end)()
-t.guides["forever/horde/orc/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "길을 따라 남동쪽으로 해안의 {area:392}까지 가세요.",
-		["Razormane camp"] = "서슬갈기일족 야영지",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}은(는) {area:392}(으)로 가는 동쪽 길 옆에 진을 치고 있습니다.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, {item:5176}, {item:263412}",
-} end)()
 t.guides["forever/horde/skyborne/01-zephras-isle"] = (function() return {
 		["Aanders and the fallen guards are just south-west of the tower. Take Raani's feather and the Shadowsong signet from the bodies."] = "하늘사제 앤더스와 쓰러진 경비병들은 탑 바로 남서쪽에 있습니다. 시신에서 라니의 행운의 깃털과 섀도송 가문 인장을 챙기세요.",
 		["Back at {quest:92529}: Stormcallers and {npc:251662} fill the village, the Supply Caches stand among the houses and {npc:251966} waits at its south-east end."] = "다시 {quest:92529}: 알아케스 폭풍소환사와 {npc:251662}이(가) 마을을 메우고 있고, {object:576179}은(는) 집들 사이에 있으며, {npc:251966}은(는) 남동쪽 끝에서 기다립니다.",
@@ -3340,12 +3335,6 @@ t.guides["forever/horde/troll/01-durotar"] = (function() return {
 		["{npc:9796}, by the cooking fire"] = "{npc:9796}, 요리용 모닥불 옆",
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828}은(는) 나가 해변 서쪽, {quest:827} 남쪽 언덕에 진을 치고 있습니다.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "{zone:1454} 정문은 {area:817} 바로 서쪽에 있습니다. {npc:5875}은(는) {object:172982} 아래 협곡인 {object:172960}에 서 있습니다.",
-} end)()
-t.guides["forever/horde/troll/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "길을 따라 남동쪽으로 해안의 {area:392}까지 가세요.",
-		["Razormane camp"] = "서슬갈기일족 야영지",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}은(는) {area:392}(으)로 가는 동쪽 길 옆에 진을 치고 있습니다.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, {item:5176}, {item:263412}",
 } end)()
 t.guides["forever/horde/undead/01-tirisfal-glades"] = (function() return {
 		["Ask {npc:10666} for his report"] = "{npc:10666}에게 보고를 요청하세요",

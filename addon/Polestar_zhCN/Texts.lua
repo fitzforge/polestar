@@ -2383,6 +2383,7 @@ t.guides["forever/horde/02-the-barrens"] = (function() return {
 		["{npc:3442} in {area:392}: later, on the way"] = "{area:392}的{npc:3442}：稍后，顺路",
 		["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}：控制台在{area:382}，稍后",
 		["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}：鹰身人稍后再打，在{area:383}",
+		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}在向东通往{area:392}的路旁扎营。",
 		["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}在从{area:380}到{area:392}的路旁扎营。{object:58369}在他北边不远的钢鬃营地南部。",
 		["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900}用焦油和材料袋制作{item:6636}。在他旁边的火盆处使用它，显现出{npc:5893}，杀死它获得{item:6655}，然后把余烬放进火盆。",
 		["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}在{area:379}南边、桥对面的河岸上等候。",
@@ -3199,12 +3200,6 @@ t.guides["forever/horde/orc/01-durotar"] = (function() return {
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828}在纳迦海滩西边、{quest:827}南边的山丘上扎营。",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "{zone:1454}的正门就在{area:817}西边。{npc:5875}站在{object:172982}下方的峡谷{object:172960}里。",
 } end)()
-t.guides["forever/horde/orc/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "沿道路向东南到海岸边的{area:392}。",
-		["Razormane camp"] = "钢鬃营地",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}在向东通往{area:392}的路旁扎营。",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}：{npc:2523}、你的{item:5176}和{item:263412}",
-} end)()
 t.guides["forever/horde/skyborne/01-zephras-isle"] = (function() return {
 		["Aanders and the fallen guards are just south-west of the tower. Take Raani's feather and the Shadowsong signet from the bodies."] = "天空祭司安德斯和阵亡的卫兵就在塔的西南方。从尸体上取得拉尼的幸运羽毛和影歌家族徽记。",
 		["Back at {quest:92529}: Stormcallers and {npc:251662} fill the village, the Supply Caches stand among the houses and {npc:251966} waits at its south-east end."] = "回到{quest:92529}：村里满是奥拉凯斯唤暴者和{npc:251662}，{object:576179}在房屋之间，{npc:251966}在村子东南端等候。",
@@ -3396,12 +3391,6 @@ t.guides["forever/horde/troll/01-durotar"] = (function() return {
 		["{npc:9796}, by the cooking fire"] = "{npc:9796}，在烹饪火堆旁",
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828}在纳迦海滩西边、{quest:827}南边的山丘上扎营。",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "{zone:1454}的正门就在{area:817}西边。{npc:5875}站在{object:172982}下方的峡谷{object:172960}里。",
-} end)()
-t.guides["forever/horde/troll/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "沿道路向东南到海岸边的{area:392}。",
-		["Razormane camp"] = "钢鬃营地",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878}在向东通往{area:392}的路旁扎营。",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}：{npc:2523}、你的{item:5176}和{item:263412}",
 } end)()
 t.guides["forever/horde/undead/01-tirisfal-glades"] = (function() return {
 		["Ask {npc:10666} for his report"] = "向{npc:10666}索取报告",
