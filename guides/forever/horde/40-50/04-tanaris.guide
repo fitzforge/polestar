@@ -147,6 +147,9 @@ step Gadgetzan
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
 
+step Marvon Rivetseeker
+  turnin 3161
+
 step Scrimshank's gear
   tip Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.
   tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.

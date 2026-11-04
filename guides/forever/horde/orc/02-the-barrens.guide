@@ -73,6 +73,7 @@ step Zargh
 step The Crossroads
   zone The Barrens
   tip Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  turnin 842
   accept 844                          -- Sergra Darkthorn
   accept 869                          -- Gazrog
   accept 1492

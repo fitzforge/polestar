@@ -74,6 +74,12 @@ step The Andorhal watchtowers
   kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
   kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
 
+step Chromie
+  tip Chromie waits in the ruined inn on the west side of Andorhal.
+  turnin 5153                         -- Upstairs
+  accept 5154
+  accept 4971
+
 step Felstone Field cauldron
   tip Cauldron Lord Bilemaw guards the cauldron in Felstone Field, west of Andorhal.
   collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
@@ -106,12 +112,6 @@ step Dalson's Tears cauldron
   accept 5220
 
 # ---------------------------------------------------------------- Andorhal
-
-step Chromie
-  tip Chromie waits in the ruined inn on the west side of Andorhal.
-  turnin 5153                         -- Upstairs
-  accept 5154
-  accept 4971
 
 step Andorhal
   tip Use the Temporal Displacer by the grain silos to draw out Temporal Parasites. The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.

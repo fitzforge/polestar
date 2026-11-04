@@ -41,6 +41,7 @@ step Light's Hope Chapel
   note Heroes of Darrowshire's items lie in the later Plaguelands zones: keep it.
   sethome "Light's Hope Chapel"
   accept 5281                         -- Caretaker Alen
+  turnin 6030                         -- Duke Nicholas Zverenhoff
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -182,11 +183,6 @@ step Carlin Redpath
   turnin 5181
 
 # ---------------------------------------------------------------- Eastern Plaguelands
-
-step Light's Hope Chapel
-  zone Eastern Plaguelands
-  tip Ride east across the plaguelands to the chapel.
-  turnin 6030                         -- Duke Nicholas Zverenhoff
 
 step Fly to Undercity
   zone Eastern Plaguelands

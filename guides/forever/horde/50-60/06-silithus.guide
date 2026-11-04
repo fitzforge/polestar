@@ -323,6 +323,9 @@ step Andorhal watchtowers and silos
   kill 10905 quest 5098.4 "Mark Andorhal Tower Four with the Beacon Torch"
   kill 10902 quest 5098.1 "Mark Andorhal Tower One with the Beacon Torch"
 
+step Chromie
+  turnin 4971                         -- Upstairs
+
 step Tirisfal Glades
   zone Tirisfal Glades
   goto 83.0,71.9 "Tirisfal Glades"
@@ -431,7 +434,6 @@ step Level 59.14
 step Chromie
   zone Western Plaguelands
   tip Ride south-west to Chromie in Andorhal.
-  turnin 4971                         -- Upstairs
   accept 4972
   turnin 5941
   note Chromie's Battle of Darrowshire ends against elites. Skip it.

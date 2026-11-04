@@ -358,7 +358,6 @@ step Gadgetzan
 
 step Marvon Rivetseeker
   tip South down the road again.
-  turnin 3161
   tip Ride south along the road to the Broken Pillar; Marvon Rivetseeker camps beside it. From here the road west leads down into Un'Goro Crater, where the next guide starts.
   turnin 3380                         -- Marvon Rivetseeker
   accept 3444

@@ -204,7 +204,6 @@ step Fly to Crossroads
 
 step The Crossroads
   turnin 903                          -- Sergra Darkthorn
-  turnin 842 only Orc,Troll
   accept 881
   turnin 871                          -- Thork
   turnin 5041
