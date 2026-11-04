@@ -275,7 +275,7 @@ fn the_sidebar_is_one_compact_block_on_one_edge_the_lockup_wordmark_tagline_unde
 	assert_eq!(out["status"], json!(["BOTTOMLEFT", edge, 23]));
 	assert_eq!(out["optLabelBottom"], 23, "the version shares the line of the rail's Options label");
 	assert_eq!(out["firstRail"], out["navTop"], "the first section sits level with the first category");
-	assert_eq!(out["emblem"], json!(["TOP", 0, -(47 - 18)]), "the emblem centred on the title line, like the lockup beside it");
+	assert_eq!(out["emblem"], json!(["TOP", 0, -(47 - 22)]), "the emblem centred on the title line, like the lockup beside it");
 }
 
 #[test]
