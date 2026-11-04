@@ -11,8 +11,8 @@ return {
 	["You arrive from {area:379}. {npc:3338} stands by the inn; {npc:3448} at the south gate."] = "",
 
 	-- Step 3: The Crossroads
-	-- {npc:3464} Gazrog · {area:380} The Crossroads · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
-	["Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn.\n{npc:3429} and {npc:3449} on the tower platform."] = "",
+	-- {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger
+	["Helbrim and {npc:3464} by the north gate.\n{npc:3429} and {npc:3449} on the tower platform."] = "",
 	-- {npc:3449} Darsok Swiftdagger · {area:383} Dry Hills
 	["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}: las arpías vienen después, en {area:383}",
 

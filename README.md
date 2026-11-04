@@ -889,7 +889,7 @@ faction Horde
 race Orc
 levels 1-12
 zone Durotar
-next forever/horde/orc/02-the-barrens
+next forever/horde/02-the-barrens
 
 step Kaltunk
   accept 4641                         -- Kaltunk, where you start

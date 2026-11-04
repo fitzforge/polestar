@@ -12,9 +12,14 @@ next forever/horde/03-silverpine-forest
 
 # ---------------------------------------------------------------- The Crossroads
 
-# Orcs and Trolls arrive from Durotar first: their own steps below, marked only Orc,Troll, run
-# before the Crossroads step every Horde race starts this guide with (merged from the
-# orc/troll lead-in guides, 0.3.1).
+# Orcs and Trolls arrive from Durotar first: their own steps below (only Orc / only Troll /
+# only Orc,Troll), merged from the former orc/troll lead-in guides in 0.3.1, run before the
+# Crossroads step labelled `crossroads`, where every Horde race starts. Orcs hand Crossroads
+# Conscription (842) to Sergra and take Meats to Orgrimmar here; Trolls did both at the end of
+# their Durotar guide. Warriors finish Thun'grim Firegaze / Forged Steel (1502, 1503) by the
+# Razormane camp; Shamans finish Call of Fire (1524-1527): the Fire Tar from the Razormane,
+# Telf Joolam's brazier across the river and Kranal Fiss. The former lead-in ids are in
+# guides/retired.json.
 
 step Zargh
   only Orc
@@ -22,58 +27,6 @@ step Zargh
   turnin 6365
   getfp "Crossroads"
   tip You arrive from Far Watch Post. Sergra stands by the inn; Tonga at the south gate.
-
-# Route: the simulator's consensus Orc route (data/sim/export/consensus-horde-orc,
-# visit 2, the Barrens 11.9-16.2). Trolls share it. Starts at the Crossroads,
-# where the Durotar guide leaves you bound with the flight path; ends at the
-# Crossroads, bound there, where the next guide picks up.
-# Checked against the 2026-10-14 export, which runs Orgrimmar and Silverpine
-# Forest first and reaches the Barrens at 14.3: its Barrens quests up to 17
-# are this guide's, plus Ak'Zeloth / The Demon Seed (809, 924), which hang on
-# the Orgrimmar stop the Durotar guide leaves out (see its header).
-#
-# Flow: Crossroads -> the plains around town (two short loops) -> Thun'grim
-# and the Razormane camp -> Ratchet (flight path, bind) and the Southsea beach
-# -> Crossroads -> Regthar, the Kolkar camps and the Forgotten Pools -> the
-# Witchwing harpies -> the Sludge Fen research site -> Echeyakee -> hearth to
-# Ratchet -> the Razormane camp again (Kreenig) -> Crossroads -> the Stagnant
-# Oasis and the Raptor Grounds -> Lushwater Oasis -> Crossroads -> Mor'shan
-# and the Sludge Fen buckets -> the Witchwing Slayers -> Crossroads.
-#
-# Deviations from the export:
-# - Conscript of the Horde (840) is turned in at Far Watch Post at the end of
-#   the Durotar guide, on the way in; Crossroads Conscription (842) is handed
-#   to Sergra on arrival.
-# - Stolen Booty (888) is done on the first Ratchet visit, in the pirate camp
-#   you just cleared, instead of a second beach trip at 14.5.
-# - Harpy Raiders (867) is done at about 14, after the Forgotten Pools next
-#   door, so Harpy Lieutenants (875) needs only one trip to the Dry Hills (the
-#   export goes there twice, at 15.6 and 16.1).
-# - In Ratchet, Sputtervalve, Wrenix and Gazlowe up the hill come before
-#   Wharfmaster Dizzywig on the dock: the dock is on the way to the beach.
-# - Hearths: one bind in Ratchet (12.8) and one hearth there from Echeyakee's
-#   lair (14.5); the export's other binds swap back and forth without a hearth
-#   between them. The final bind is at the Crossroads (16.1). The Sepulcher
-#   flight path and bind the export lists at 16.2 belong to Silverpine Forest
-#   and are left to the guides that go there.
-#
-# Left out:
-# - Chen's Empty Keg (819, 821): the keg lies at a random spot, and the chain
-#   needs another Ratchet round trip plus a hunt for a 20% horn drop on the
-#   Stormsnouts in the south (2,400 XP); a short grind at the Dry Hills covers
-#   the level.
-# - Apothecary Zamah (853) and Hamuul Runetotem (1489): the route never turns
-#   them in. Mura Runetotem (3301) is carried to the Sepulcher in Silverpine.
-#
-# Class quests: Warriors finish Thun'grim Firegaze / Forged Steel (1502,
-# 1503) by the Razormane camp. Shamans finish Call of Fire (1525-1527): the
-# Fire Tar from the Razormane, Telf Joolam's brazier across the river and
-# Kranal Fiss (Kranal, Telf and the Reagent Pouch come at 10 in the Durotar
-# guide). No class trainer on this route: train next in a capital.
-
-# ---------------------------------------------------------------- The Crossroads
-
-# ---------------------------------------------------------------- The Crossroads
 
 step The Barrens
   only Troll
@@ -83,7 +36,7 @@ step The Barrens
 step The Crossroads
   only Orc,Troll
   zone The Barrens
-  tip Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  tip Helbrim and Gazrog by the north gate.
   turnin 842 only Orc
   accept 844                          -- Sergra Darkthorn
   accept 869                          -- Gazrog
@@ -97,7 +50,7 @@ step The Crossroads
 
 step On the way
   only Orc,Troll
-  along
+  along until crossroads
   kill 3267 quest 871.1
   kill 3268 quest 871.2
   kill 3265 quest 871.3
@@ -143,7 +96,7 @@ step Telf Joolam
   accept 1525
 
 step Drygulch Ravine
-  only Orc,Troll
+  only Orc,Troll,Shaman
   zone Durotar
   collect 6652 quest 1525.2 only Shaman
 
@@ -197,6 +150,7 @@ step The Barrens
   goto 51.6,30.9 "The Barrens"
 
 step The Crossroads
+  label crossroads
   zone The Barrens
   tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
   accept 844                          -- Sergra Darkthorn
