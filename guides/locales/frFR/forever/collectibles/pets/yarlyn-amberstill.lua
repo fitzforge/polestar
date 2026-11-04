@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Yarlyn Amberstill
 	-- {npc:1263} Yarlyn Amberstill · {area:803} Amberstill Ranch · {area:131} Kharanos · {zone:1432} Loch Modan · {npc:1261} Veron Amberstill
-	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "",
+	["{npc:1263} stands at {area:803}, east of {area:131} on the road to {zone:1432}, beside {npc:1261}, the ram breeder. Each rabbit crate costs 20s; the Arctic and Brown crates are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards."] = "{npc:1263} se tient à {area:803}, à l'est de {area:131} sur la route du {zone:1432}, à côté de {npc:1261}, l'éleveur de béliers. Chaque caisse de lapin coûte 20 pa ; les caisses arctique et brune sont nouvelles dans Forever. Chaque objet de mascotte apprend sa mascotte quand vous l'utilisez ; les objectifs restent cochés ensuite.",
 	-- {item:8497} Rabbit Crate (Snowshoe)
 	["{item:8497}, 20s"] = "{item:8497}, 20 pa",
 	["20s"] = "20 pa",

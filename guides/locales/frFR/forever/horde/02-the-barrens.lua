@@ -14,14 +14,14 @@ return {
 
 	-- Step 2: Razormane Water Seeker on the way
 	-- {npc:3267} Razormane Water Seeker
-	["{npc:3267} on the way"] = "",
+	["{npc:3267} on the way"] = "{npc:3267} en chemin",
 
 	-- Step 3: The Barrens: kill these as you meet them
 	-- {area:17} The Barrens
-	["{area:17}: kill these as you meet them"] = "",
+	["{area:17}: kill these as you meet them"] = "{area:17} : tuez-les au passage",
 	-- {area:380} The Crossroads
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Plainstriders and Sunscale raptors roam the plains all around the {area:380}, thickest to the north.\nCareful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors."] = "",
+	["Plainstriders and Sunscale raptors roam the plains all around the {area:380}, thickest to the north.\nCareful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors."] = "Les trotteurs des plaines et les raptors Solécaille parcourent les plaines tout autour de la {area:380}, plus nombreux au nord.\nAttention : les Hurleurs solécaille appellent leurs alliés à moins de 30 m une fois sous 30 % de vie, les groupes serrés peuvent donc attirer des raptors en plus.",
 
 	-- Step 5: The Zhevra
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner
@@ -56,7 +56,7 @@ return {
 	["{area:1898} cultists"] = "Sectateurs de {area:1898}",
 	-- {area:1898} Dustwind Gulch · {area:14} Durotar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "",
+	["Burning Blade Cultists hold {area:1898} in northern {area:14}; they drop the {item:6652}. The {item:5026} comes from the Razormane on your next visit to their camp."] = "Les Sectateurs de la Lame ardente tiennent {area:1898}, dans le nord de {area:14} ; ils lâchent la {item:6652}. Le {item:5026} vient des Tranchecrin, lors de votre prochaine visite de leur camp.",
 
 	-- Step 20: Thun'grim Firegaze
 	-- {npc:5878} Thun'grim Firegaze · {area:380} The Crossroads · {area:392} Ratchet · {object:58369} Stolen Iron Chest
@@ -66,30 +66,30 @@ return {
 	-- {area:392} Ratchet
 	["Follow the road south-east to {area:392} on the coast."] = "Suivez la route vers le sud-est jusqu'à {area:392}, sur la côte.",
 	-- {npc:3391} Gazlowe
-	["{npc:3391}, upstairs"] = "",
+	["{npc:3391}, upstairs"] = "{npc:3391}, à l'étage",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442} : la console est dans {area:382}, plus tard",
 	-- {object:3972} WANTED
-	["{object:3972} poster"] = "",
+	["{object:3972} poster"] = "Affiche {object:3972}",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}, sur le quai",
 
 	-- Step 23: Intact Raptor Horn on the way
 	-- {item:5055} Intact Raptor Horn
-	["{item:5055} on the way"] = "",
+	["{item:5055} on the way"] = "{item:5055} en chemin",
 
 	-- Step 24: The Barrens: kill these as you meet them
 	-- {area:392} Ratchet · {npc:3467} Baron Longshore
-	["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "",
+	["The pirates camp on the beach south of {area:392}. The piles of complicated parts lie in the sand among them.\nThe pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Les pirates campent sur la plage au sud de {area:392}. Les tas de pièces compliquées sont dans le sable au milieu d'eux.\nLes pirates campent sur la plage au sud de {area:392} ; le {npc:3467} se tient à son extrémité sud.",
 
 	-- Step 26: Stolen Booty
 	["Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end."] = "Redescendez la plage après le camp pirate : la caisse de bottes et la caisse fragile avec la lentille se trouvent à son extrémité sud.",
 
 	-- Step 28: Fly to The Crossroads
 	-- {area:380} The Crossroads
-	["Fly to {area:380}"] = "",
+	["Fly to {area:380}"] = "Prendre un vol pour {area:380}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maître de vol de {area:392}",
 
 	-- Step 30: Regthar Deathgate
 	-- {npc:3389} Regthar Deathgate
@@ -103,22 +103,22 @@ return {
 	-- Step 33: Dry Hills
 	-- {area:383} Dry Hills · {quest:819} Chen's Empty Keg
 	-- plural, as words: Witchwing Ambushers = {npc:3279} Witchwing Ambusher
-	["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills.\nCareful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat."] = "",
+	["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills.\nCareful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat."] = "Vers l'ouest jusqu'à {area:383}. Les harpies Ensorçaile nichent partout ; n'importe laquelle peut lâcher une serre. {quest:819} se trouve dans leurs collines.\nAttention : il y a 2 Embusquées Ensorçaile (niveau 17-18). Elles restent camouflées grâce à Furtivité tant qu'elles ne sont pas en combat.",
 
 	-- Step 34: Samophlange
 	-- {object:4141} Control Console · {area:382} Sludge Fen · {item:5089} Console Key · {npc:3471} Tinkerer Sniggles
-	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "",
-	["Inside"] = "",
+	["The {object:4141} stands at the Venture Co. research site west of the {area:382}. Close the three valves around the drill, use the console again, then take the {item:5089} from {npc:3471} beside it.\nCareful: Several guards stand within aggro range of the valves, respawn in under about 3 minutes, and run at low health to bring back help; nearby mobs also join if you use a valve while they are close."] = "La {object:4141} se trouve sur le site de recherche de la KapitalRisk, à l'ouest de {area:382}. Fermez les trois vannes autour de la foreuse, utilisez à nouveau la console, puis prenez la {item:5089} sur l'{npc:3471}, juste à côté.\nAttention : plusieurs gardes se tiennent à portée d'aggro des vannes, réapparaissent en moins de 3 minutes environ et fuient à faible vie pour ramener de l'aide ; les monstres proches se joignent aussi au combat si vous utilisez une vanne près d'eux.",
+	["Inside"] = "À l'intérieur",
 	-- {npc:3442} Sputtervalve · {area:392} Ratchet
 	["{npc:3442} in {area:392}: later, on the way"] = "{npc:3442} à {area:392} : plus tard, en chemin",
 
 	-- Step 35: Echeyakee
 	-- {quest:881} Echeyakee
-	["{quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn."] = "",
+	["{quest:881}, a white lion, prowls the plains north of the Razormane camp.\nCareful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside {quest:881}, so clear them out before you blow the horn."] = "{quest:881}, un lion blanc, rôde dans les plaines au nord du camp Tranchecrin.\nAttention : des Chasseresses des savanes errent autour du repaire. Elles réapparaissent vite et rejoignent souvent le combat aux côtés de {quest:881} : éliminez-les avant de souffler dans la corne.",
 
 	-- Step 36: Hearth to Ratchet
 	-- {area:392} Ratchet
-	["Hearth to {area:392}"] = "",
+	["Hearth to {area:392}"] = "Pierre de foyer vers {area:392}",
 
 	-- Step 37: Ratchet
 	-- {area:392} Ratchet
@@ -139,7 +139,7 @@ return {
 	-- Step 44: The Stagnant Oasis
 	-- {area:380} The Crossroads
 	["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "Au sud-est de la {area:380}. Testez les graines à la fissure bouillonnante sur la rive est de l'oasis.",
-	["Underwater"] = "",
+	["Underwater"] = "Sous l'eau",
 
 	-- Step 45: The Crossroads
 	["Back west along the road."] = "Revenez vers l'ouest par la route.",
@@ -154,16 +154,16 @@ return {
 
 	-- Step 48: Ignition
 	-- {area:382} Sludge Fen · {npc:3439} Wizzlecrank's Shredder · {npc:3445} Supervisor Lugwizzle
-	["East to the {area:382}. {npc:3439} stands inside the Venture Co. camp; {npc:3445} carries the key."] = "",
+	["East to the {area:382}. {npc:3439} stands inside the Venture Co. camp; {npc:3445} carries the key."] = "Vers l'est jusqu'à {area:382}. Le {npc:3439} se trouve dans le camp de la KapitalRisk ; le {npc:3445} porte la clé.",
 
 	-- Step 49: Wenikee Boltbucket
 	-- {quest:3923} Rilli Greasygob · {zone:1454} Orgrimmar · {object:172958} Valley of Honor
-	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the next guide's {zone:1454} visit"] = "",
+	["Keep it: {quest:3923} is in {zone:1454}'s {object:172958}, on the next guide's {zone:1454} visit"] = "Gardez-le : {quest:3923} se fait dans la {object:172958} d'{zone:1454}, lors du passage à {zone:1454} du prochain guide",
 
 	-- Step 50: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["The Witchwing Slayers hold the western {area:383}; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "",
+	["The Witchwing Slayers hold the western {area:383}; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "Les Tueuses Ensorçaile tiennent l'ouest de {area:383} ; ce sont elles qui portent les anneaux.\nAttention : des harpies embusquées et camouflées attendent dans la zone et restent cachées jusqu'à ce que vous approchiez. Une harpie élite de niveau 19 patrouille aussi par là.",
 
 	-- Step 52: Lushwater Oasis
 	-- {area:387} Lushwater Oasis · {area:380} The Crossroads · {area:388} Stagnant Oasis
@@ -172,7 +172,7 @@ return {
 
 	-- Step 53: The Crossroads
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "",
+	["The next guide starts here and takes you to {zone:1454} and the zeppelin to {zone:1420}."] = "Le prochain guide commence ici et vous emmène à {zone:1454}, puis au zeppelin pour les {zone:1420}.",
 	-- {quest:3301} Mura Runetotem · {area:228} Sepulcher · {zone:1421} Silverpine Forest
 	["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301} : {area:228} en {zone:1421}, guide suivant",
 

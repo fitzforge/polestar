@@ -15,7 +15,7 @@ return {
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "Reprend à l'ouest des {zone:1413}, en {zone:1443}, et se termine dans {zone:1445}. 15 zones à découvrir ici, niveaux 30-39.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Explorer toute la carte du monde avec un seul personnage est un défi d'héritage de Forever (1 point d'héritage pour tout le compte).",
 	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
-	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Volez jusqu'à {area:467} (ou jusqu'à {area:608} si vous l'avez) et prenez la route vers le sud-ouest pour quitter les {zone:1442} et entrer en {zone:1443} ; {area:608}, au nord, est la ville de l'Alliance.",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
 	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "Volez jusqu'à {area:460} et prenez la route au sud-ouest jusqu'en {zone:1443} ; {area:2408}, sur la côte ouest, est la ville de la Horde.",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
@@ -47,9 +47,9 @@ return {
 
 	-- Step 6: Feralas: level 60+ areas
 	-- {zone:1444} Feralas
-	["{zone:1444}: level 60+ areas"] = "",
+	["{zone:1444}: level 60+ areas"] = "{zone:1444} : zones de niveau 60+",
 	-- {area:1113} Oneiros · {area:1111} Dream Bough
-	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "{area:1113} et {area:1111} sont des zones de niveau 60, bien au-dessus de ce guide. Passez cette étape pour l'instant et revenez vers ce niveau : elles sont nécessaires pour explorer toute la carte.",
 	["level 60 area, well above this guide's range"] = "zone de niveau 60, bien au-dessus de ce guide",
 
 	-- Step 7: Dustwallow Marsh
@@ -67,9 +67,9 @@ return {
 
 	-- Step 8: Dustwallow Marsh: level 61+ area
 	-- {zone:1445} Dustwallow Marsh
-	["{zone:1445}: level 61+ area"] = "",
+	["{zone:1445}: level 61+ area"] = "{zone:1445} : zone de niveau 61+",
 	-- {area:2079} Alcaz Island
-	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "{area:2079} est une zone de niveau 61, bien au-dessus de ce guide. Passez cette étape pour l'instant et revenez vers ce niveau : elle est nécessaire pour explorer toute la carte.",
 	["level 61 area, well above this guide's range"] = "zone de niveau 61, bien au-dessus de ce guide",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

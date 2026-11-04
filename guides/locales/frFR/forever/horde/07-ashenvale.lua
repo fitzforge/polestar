@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Fly to Zoram'gar Outpost
 	-- {area:2897} Zoram'gar Outpost
-	["Fly to {area:2897}"] = "",
+	["Fly to {area:2897}"] = "Prendre un vol pour {area:2897}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Maître de vol de {area:392}",
 
 	-- Step 2: Zoram'gar Outpost
 	-- {npc:12717} Muglash
@@ -32,16 +32,16 @@ return {
 	["The Sapphires are blue crystals on the walls of the tunnels leading to the {area:2797} portal, underground and outside the instance: swim down from the pit, under the wall, into the cave. The satyrs and naga in the tunnels are elite: grouping up is advised. The crystals respawn quickly, so there is no need to go deep."] = "Les Saphirs d'Aku'Mai sont des cristaux bleus sur les parois des tunnels menant au portail de {area:2797}, sous terre et hors de l'instance : plongez depuis la fosse, passez sous le mur et entrez dans la grotte. Les satyres et nagas des tunnels sont élites : il est conseillé de grouper. Les cristaux réapparaissent vite, inutile d'aller loin.",
 
 	-- Step 6: Thistlefur Village
-	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "",
+	["East of Zoram'gar, the Thistlefur furbolgs fill the village and the hills around their hold.\nCareful: A Shaman at 15% health or lower runs off to find help, which can pull extra furbolgs."] = "À l'est de Zoram'gar, les furbolgs Crins-de-chardon remplissent le village et les collines autour de leur repaire.\nAttention : un Chaman à 15 % de vie ou moins fuit chercher de l'aide, ce qui peut attirer des furbolgs en plus.",
 
 	-- Step 7: Thistlefur Hold
 	["Thistlefur Hold"] = "Antre des Crins-de-Chardon",
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
-	["Below ground"] = "",
+	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "Dans le repaire, des Coffres de troll se trouvent le long des tunnels. {npc:12818} est retenu tout au fond : libérez-le et protégez-le jusqu'à la sortie, puis il rentre chez lui à {area:428}.\nAttention : deux embuscades scénarisées ont lieu, chacune composée de trois Crins-de-chardon (un Chaman, un Éclaireur et un Vengeur, une Ursa ou un Protecteur) : la première quand vous revenez à l'embranchement du tunnel dans la grotte, la seconde juste après la porte où rôde {npc:3987}.",
+	["Below ground"] = "Sous terre",
 	-- {npc:12818} Ruul Snowhoof
-	["{npc:12818}, below ground"] = "",
+	["{npc:12818}, below ground"] = "{npc:12818}, sous terre",
 
 	-- Step 8: Zoram'gar Outpost
 	["Back west to Zoram'gar before heading east for good."] = "Retournez à Zoram'gar à l'ouest avant de partir pour de bon vers l'est.",
@@ -54,13 +54,13 @@ return {
 
 	-- Step 10: Befouled Water Elemental on the way
 	-- {npc:3917} Befouled Water Elemental
-	["{npc:3917} on the way"] = "",
+	["{npc:3917} on the way"] = "{npc:3917} en chemin",
 
 	-- Step 11: Alonso
 	-- {npc:210995} Alonso · {area:421} Mystral Lake
 	["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, un ajout de Forever, se tient sur la rive ouest de {area:421} avec trois quêtes rapides de tueur de dragon.",
 	-- {npc:210995} Alonso · {area:1276} The Talondeep Path
-	["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "",
+	["{npc:210995} may not offer these to every class; if he doesn't, carry on.; walks around {area:1276}: the map marks where to look"] = "{npc:210995} ne propose peut-être pas ces quêtes à toutes les classes ; s'il ne le fait pas, continuez ; il se déplace autour de {area:1276} : la carte indique où chercher",
 
 	-- Step 13: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
@@ -82,7 +82,7 @@ return {
 
 	-- Step 19: Splintertree Post
 	-- {npc:12837} Yama Snowhoof
-	["{npc:12837}, inside"] = "",
+	["{npc:12837}, inside"] = "{npc:12837}, à l'intérieur",
 
 	-- Step 21: Splintertree Post
 	-- {npc:12718} Gurda Ragescar
@@ -104,18 +104,18 @@ return {
 	-- {area:421} Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Back south-west to {area:421}. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Retournez au sud-ouest vers {area:421}. Des Elémentaires d’eau souillés dérivent le long de ses rives ; le belvédère se dresse sur l'île et domine l'avant-poste de l'Alliance.",
-	["Underwater"] = "",
+	["Underwater"] = "Sous l'eau",
 	["Gazebo"] = "Belvédère",
 
 	-- Step 26: Hearth to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Hearth to {area:431}"] = "",
+	["Hearth to {area:431}"] = "Pierre de foyer vers {area:431}",
 
 	-- Step 30: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["Fly to {area:378}"] = "",
+	["Fly to {area:378}"] = "Prendre un vol pour {area:378}",
 	-- {area:2897} Zoram'gar Outpost
-	["{area:2897} flight master"] = "",
+	["{area:2897} flight master"] = "Maître de vol de {area:2897}",
 
 	-- Step 33: The Earthen Ring
 	["The Earthen Ring"] = "Le Cercle terrestre",
@@ -124,7 +124,7 @@ return {
 
 	-- Step 34: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
-	["{area:17044}: kill these as you meet them"] = "",
+	["{area:17044}: kill these as you meet them"] = "{area:17044} : tuez-les au passage",
 	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
 	-- plural, as words: Gnawed Corpses = {npc:264096} Gnawed Corpse
 	["North of the camp, spiders overrun the burial ground at {area:17044}. Use {npc:264074}'s {item:273015} on the Gnawed Corpses; the Spinners drop the {item:273181}. {npc:264082} sits at the north end: her {item:273658} starts {quest:96294}."] = "Au nord du camp, des araignées envahissent le cimetière de {area:17044}. Utilisez {item:273015} de {npc:264074} sur les Gnawed Corpses ; les Spinners laissent {item:273181}. {npc:264082} se tient au nord : son objet {item:273658} lance {quest:96294}.",
@@ -143,27 +143,27 @@ return {
 	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "Retournez au camp au sud, puis montez à {zone:1456} pour le vol vers {area:378}.",
 
 	-- Step 37: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Maître de classe",
 
 	-- Step 38: Thunder Bluff flight master
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maître de vol des {zone:1456}",
 
 	-- Step 39: Thunder Bluff
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:1638} Thunder Bluff · {area:1639} Elder Rise · {area:378} Camp Taurajo
-	["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "",
+	["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "Depuis {zone:1454} (zeppelin depuis les tours devant {zone:1458}), volez jusqu'aux {area:1638} et entraînez-vous sur la {area:1639}, puis volez jusqu'au {area:378}.",
 
 	-- Step 41: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {area:215} Mulgore · {area:222} Bloodhoof Village · {npc:2995} Tal
-	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "",
+	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "Volez jusqu'aux {area:1638} si vous connaissez le trajet aérien. Sinon, volez jusqu'au {area:378}, allez vers l'ouest en {area:215} en passant {area:222} jusqu'aux {area:1638}, et prenez leur trajet aérien auprès de {npc:2995} sur la mesa centrale.",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
 	["Speak with {npc:3057}, in {area:1638}: {quest:93739}"] = "Parlez à {npc:3057}, à {area:1638} : {quest:93739}",
 	-- {npc:3057} Cairne Bloodhoof
-	["Talk to {npc:3057}"] = "",
+	["Talk to {npc:3057}"] = "Parlez à {npc:3057}",
 
 	-- Step 42: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
-	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:199} auprès de {npc:11869} (10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 
 	-- Step 46: Freewind Post
 	-- {area:484} Freewind Post
@@ -173,7 +173,7 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "L'avis de recherche près de {npc:10537}",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
-	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside"] = "",
+	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside"] = "{npc:4877}, le marchand de fournitures d'artisanat : les harpies hurlantes de {area:487} ; à l'intérieur",
 
 	-- Step 47: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "Descendez par l'ascenseur. L'œuf repose dans un nid au fond du canyon, à l'un de trois endroits : au sud-est des mesas (52.3,55.2), à l'est (56.4,50.4) ou au sud-ouest (37.6,56.1).",
@@ -187,7 +187,7 @@ return {
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} se tient au sommet d'une mesa à l'est des camps galak. Pour {quest:1149}, avancez jusqu'au bout des planches à côté de lui et sautez : vous atterrissez sans dommage.",
 	-- {npc:2986} Dorn Plainstalker
-	["{npc:2986}, below ground"] = "",
+	["{npc:2986}, below ground"] = "{npc:2986}, sous terre",
 
 	-- Step 51: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch
@@ -210,23 +210,23 @@ return {
 
 	-- Step 56: Freewind Post flight master
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Maître de vol de {area:484}",
 
 	-- Step 57: Brine
 	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {npc:5899} Brine · {area:485} Great Lift
-	["Fly from {zone:1456} to {area:378}. {npc:5899}'s hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the {area:485}."] = "",
+	["Fly from {zone:1456} to {area:378}. {npc:5899}'s hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the {area:485}."] = "Volez des {zone:1456} jusqu'au {area:378}. La hutte de {npc:5899} se dresse sur la crête au-dessus du point d'eau des huttins, au sud du camp, sur la route de {area:485}.",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "pour {npc:5901}, au sud de {area:392} : guide suivant",
 
 	-- Step 58: Back to Freewind Post
 	-- {area:484} Freewind Post
-	["Back to {area:484}"] = "",
+	["Back to {area:484}"] = "Retour à {area:484}",
 	-- {area:378} Camp Taurajo
-	["{area:378} flight master"] = "",
+	["{area:378} flight master"] = "Maître de vol du {area:378}",
 
 	-- Step 59: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "",
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "À l'ouest de Whitereach, les wyvernes nichent sur les falaises de {area:482} ; les œufs sont dans les nids. {npc:10427} attend du côté est des aires de nidification : libérez-le et gardez-le en vie sur le chemin du retour vers {area:2237}.\nAttention : des wyvernes de niveau 28-29 volent au-dessus de vous et peuvent être attirées sans prévenir. Un groupe de trois wyvernes peut vous tendre une embuscade une fois le premier pilier passé, en bas.",
 
 	-- Step 60: Wizlo Bearingshiner
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
@@ -234,30 +234,30 @@ return {
 
 	-- Step 62: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. La {npc:10992} est une élite de niveau 30 : la plupart des classes la tuent seules au niveau 32, mais vous aurez peut-être besoin d'aide. Passez-la si vous êtes seul : la route vous fait regagner cette expérience en tuant des monstres.",
 
 	-- Step 63: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "Tuez {npc:10720} qui s'en prend à {npc:10638}",
 
 	-- Step 66: Level 29.49
-	["Level 29.49"] = "",
+	["Level 29.49"] = "Niveau 29.49",
 	-- {quest:5151} Hypercapacitor Gizmo
-	["If you skipped {quest:5151}, grind here to level 29.49 to stay on the route's plan."] = "",
+	["If you skipped {quest:5151}, grind here to level 29.49 to stay on the route's plan."] = "Si vous avez passé {quest:5151}, tuez des monstres ici jusqu'au niveau 29.49 pour rester dans le plan de la route.",
 	-- {npc:4101} Screeching Roguefeather
-	["grind on {npc:4101}"] = "",
+	["grind on {npc:4101}"] = "tuez en boucle : {npc:4101}",
 
 	-- Step 67: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
-	["{area:483}: kill these as you meet them"] = "",
+	["{area:483}: kill these as you meet them"] = "{area:483} : tuez-les au passage",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia
 	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s."] = "Au sud de Noir-nuage, les harpies de {area:487}. {npc:4490} (31) circule parmi elles : éclaircissez les harpies autour d'elle avant de l'attirer. Les Harpies hurlantes, Volplumes hurlantes et Imploratrices célestes hurlantes de ce lieu sont pour {npc:4877}.",
 
 	-- Step 69: Freewind Post
 	-- {npc:10645} Thalia Amberhide
-	["{npc:10645}, inside"] = "",
+	["{npc:10645}, inside"] = "{npc:10645}, à l'intérieur",
 	-- {npc:4877} Jandia
-	["{npc:4877}, inside"] = "",
+	["{npc:4877}, inside"] = "{npc:4877}, à l'intérieur",
 
 	-- Step 70: Mirage Raceway
 	-- {area:2240} Mirage Raceway
@@ -266,13 +266,13 @@ return {
 
 	-- Step 71: Saltstone Crystalhide on the way
 	-- {npc:4151} Saltstone Crystalhide
-	["{npc:4151} on the way"] = "",
+	["{npc:4151} on the way"] = "{npc:4151} en chemin",
 	-- {npc:4151} Saltstone Crystalhide · {area:2240} Mirage Raceway
-	["{npc:4151} along the way to {area:2240}"] = "",
+	["{npc:4151} along the way to {area:2240}"] = "{npc:4151} sur le chemin de {area:2240}",
 
 	-- Step 72: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
-	["{area:2240}: kill these as you meet them"] = "",
+	["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Salt Flats Scavengers = {npc:4154} Salt Flats Scavenger · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868} jonche les Salines au nord de la piste. Scorpides ravageurs et Tortues nacrétoile parcourent la moitié nord, des Charognards des Salines tournoient au-dessus, et des Basilics du sel gemme paissent à l'ouest de la piste. Les Peaux de cristal du sel gemme parcourent le centre des Salines et les Contemplateurs du sel gemme (34-35, cinq niveaux au-dessus de vous : un à la fois) l'extrême sud.",

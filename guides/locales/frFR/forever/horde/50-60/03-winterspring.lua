@@ -8,26 +8,26 @@
 return {
 	-- Step 1: Ragged Owlbeast on the way
 	-- {npc:7450} Ragged Owlbeast
-	["{npc:7450} on the way"] = "",
+	["{npc:7450} on the way"] = "{npc:7450} en chemin",
 
 	-- Step 2: Into Winterspring
 	-- {area:618} Winterspring
-	["Into {area:618}"] = "",
+	["Into {area:618}"] = "Vers {area:618}",
 
 	-- Step 3: Raging Owlbeast on the way
 	-- {npc:7451} Raging Owlbeast
-	["{npc:7451} on the way"] = "",
+	["{npc:7451} on the way"] = "{npc:7451} en chemin",
 
 	-- Step 5: Everlook
 	-- {area:2255} Everlook
 	["{area:2255} is the goblin town on the east side of the valley."] = "{area:2255} est la ville gobeline à l'est de la vallée.",
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
-	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
+	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} se promène autour de {area:2255} : cherchez dans le cercle sur la carte",
 	["Gregor's and Harlo's quests lead to other zones: keep them."] = "Les quêtes de Gregor et de Harlo mènent à d'autres zones : gardez-les.",
 	-- {npc:11118} Innkeeper Vizzie
 	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118} : le guide précédent vous lie ici, cette étape se coche donc généralement aussitôt",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}, inside"] = "",
+	["{npc:10431}, inside"] = "{npc:10431}, à l'intérieur",
 
 	-- Step 6: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yétis Chardon de glace",
@@ -35,22 +35,22 @@ return {
 	["The yeti hills start just south-east of {area:2255}. Every yeti drops fur; only Matriarchs and Patriarchs drop horns, so keep those for after the turn-in."] = "Les collines des yétis commencent juste au sud-est de {area:2255}. Chaque yéti lâche de la fourrure ; seuls les Matriarches et Patriarches lâchent des cornes, gardez donc celles-ci pour après la remise de quête.",
 
 	-- Step 8: Level 55.04
-	["Level 55.04"] = "",
+	["Level 55.04"] = "Niveau 55.04",
 	-- {area:2255} Everlook
-	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56."] = "",
+	["Top up here to level 55.04 before the hand-ins at {area:2255}: they take you to level 56."] = "Montez ici jusqu'au niveau 55.04 avant de rendre les quêtes ({area:2255}) : elles vous font passer au niveau 56.",
 	-- {npc:7460} Ice Thistle Patriarch
-	["grind on {npc:7460}"] = "",
+	["grind on {npc:7460}"] = "tuez en boucle : {npc:7460}",
 
 	-- Step 9: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
 	["Pristine Yeti Horns"] = "Cornes de yéti en parfait état ({item:12367})",
 	["Matriarchs and Patriarchs hit hard: pull them one at a time."] = "Les Matriarches et Patriarches frappent fort : attirez-les un par un.",
-	["Below ground"] = "",
+	["Below ground"] = "Sous terre",
 
 	-- Step 10: Chillwind chimaeras
-	["Chillwind chimaeras"] = "",
+	["Chillwind chimaeras"] = "Chimères Frisevent",
 	-- {area:2255} Everlook · {area:2245} Mazthoril
-	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "",
+	["The chimaeras roam the snowfields south and west of {area:2255}. Stay clear of {area:2245}'s cave: its blue dragonkin are elite."] = "Les chimères parcourent les champs de neige au sud et à l'ouest de {area:2255}. Évitez la grotte de {area:2245} : ses draconiens bleus sont élites.",
 
 	-- Step 11: Umi Rumplesnicker
 	-- {area:976} Gadgetzan
@@ -65,18 +65,18 @@ return {
 
 	-- Step 13: Salfa
 	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands by the {area:618} exit of {area:1769}'s tunnel, north of the hot springs."] = "",
+	["{npc:11556} stands by the {area:618} exit of {area:1769}'s tunnel, north of the hot springs."] = "{npc:11556} se tient à la sortie du tunnel de {area:1769} côté {area:618}, au nord des sources chaudes.",
 
 	-- Step 14: Winterfall Den Watcher on the way
 	-- {npc:7440} Winterfall Den Watcher
-	["{npc:7440} on the way"] = "",
+	["{npc:7440} on the way"] = "{npc:7440} en chemin",
 
 	-- Step 15: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246} : tuez-les au passage",
 	-- {item:14047} Runecloth
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
-	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "",
+	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh."] = "Guides, Protecteurs et Totémiques se partagent les camps de furbolgs autour des sources chaudes ; des Chouettards éreintés parcourent les pentes entre eux. Tuez d'abord les Totémiques. Gardez chaque {item:14047} ramassée pour Meilosh.",
 	-- {item:12771} Empty Firewater Flask
 	["{item:12771}, a rare drop from the Winterfall furbolgs"] = "{item:12771}, un butin rare des furbolgs Tombe-hiver",
 	-- {quest:8471} Winterfall Ritual Totem
@@ -101,7 +101,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Volez jusqu'au {area:1099}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Maître de vol de {area:2255}",
 
 	-- Step 21: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache
@@ -111,11 +111,11 @@ return {
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Volez jusqu'à {area:1638}",
 	-- {area:2408} Shadowprey Village
-	["{area:2408} flight master"] = "",
+	["{area:2408} flight master"] = "Maître de vol de {area:2408}",
 
 	-- Step 24: Bluff Runner Windstrider
 	-- {area:1641} Hunter Rise
-	["He stands on {area:1641}. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route."] = "",
+	["He stands on {area:1641}. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route."] = "Il se tient sur {area:1641}. Chaque don demande soixante pièces de tissu de vos sacs : acceptez-les si vous gardez votre tissu, et rendez ce que vous avez sur vous plus loin dans le parcours.",
 
 	-- Step 25: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -126,13 +126,13 @@ return {
 	-- Step 26: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["{npc:9087} buys {item:11040} grown from your {quest:3761}.\nCareful: Gorishi Workers and Stingers cast {spell:8137}, and Hive Guards cast {spell:14120}. When a Worker drops to 45% health, it has a 50% chance to call for help from mobs within 25 yd."] = "",
+	["{npc:9087} buys {item:11040} grown from your {quest:3761}.\nCareful: Gorishi Workers and Stingers cast {spell:8137}, and Hive Guards cast {spell:14120}. When a Worker drops to 45% health, it has a 50% chance to call for help from mobs within 25 yd."] = "{npc:9087} achète le {item:11040} cultivé à partir de votre {quest:3761}.\nAttention : les Ouvriers et Dards Gorishi lancent {spell:8137}, et les Gardes de la ruche lancent {spell:14120}. Quand un Ouvrier tombe à 45 % de vie, il a 50 % de chances d'appeler à l'aide les monstres à moins de 25 m.",
 
 	-- Step 27: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Volez jusqu'à {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maître de vol : {zone:1456}",
 
 	-- Step 28: Vehena
 	-- {object:172961} Valley of Spirits

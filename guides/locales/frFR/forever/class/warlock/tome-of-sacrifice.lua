@@ -12,25 +12,25 @@ return {
 
 	-- Step 1: Daio the Decrepit
 	-- {npc:14463} Daio the Decrepit · {area:73} Tainted Scar · {zone:1419} Blasted Lands
-	["At 60 {npc:14463} waits in the {area:73}, the demon-filled hollow in the west of the {zone:1419}. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. {npc:14463} gives you two errands at once."] = "",
+	["At 60 {npc:14463} waits in the {area:73}, the demon-filled hollow in the west of the {zone:1419}. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. {npc:14463} gives you two errands at once."] = "Au niveau 60, {npc:14463} attend dans la {area:73}, le creux rempli de démons à l'ouest des {zone:1419}. La Balafre est pleine d'élites qui frappent fort : posez d'abord une Pierre d'âme sur vous-même, puis longez le mur de droite en entrant, ou traversez sur votre monture. {npc:14463} vous confie deux courses à la fois.",
 
 	-- Step 2: Satyr Blood
 	-- {area:2577} Dire Maul · {area:2518} Lariss Pavilion · {item:18249} Crescent Key · {zone:1444} Feralas
-	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "",
+	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "Les satyres Wildspawn (niveau 55-57, élites) remplissent le Warpwood Quarter, l'aile est de {area:2577} : venez avec un groupe de cinq. Quatre sur cinq lâchent un sang, mais ils ne reviennent pas avant deux heures et un nettoyage complet peut ne pas suffire pour quinze ; réinitialisez et recommencez. La porte de derrière, au {area:2518}, exige la {item:18249}, qui tombe dans cette aile ; tant que personne ne l'a, entrez par la porte principale de {area:2577}, au centre de {zone:1444}.",
 	-- {item:18603} Satyr Blood
-	["{item:18603}, from the Wildspawn inside"] = "",
+	["{item:18603}, from the Wildspawn inside"] = "{item:18603}, sur les Wildspawn à l'intérieur",
 
 	-- Step 3: Tears of the Hederine
 	-- {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring · {spell:7645} Dominate Mind · {spell:710} Banish
-	["The Hederine demons (level 57-60, elite) hold {area:2256} in the far south of {zone:1452}: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their {spell:7645}). A warlock can solo them one at a time with Fear or {spell:710} and damage over time, but slowly. Any of them can drop the Tears, four kills in five."] = "",
+	["The Hederine demons (level 57-60, elite) hold {area:2256} in the far south of {zone:1452}: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their {spell:7645}). A warlock can solo them one at a time with Fear or {spell:710} and damage over time, but slowly. Any of them can drop the Tears, four kills in five."] = "Les démons Hederine (niveau 57-60, élites) tiennent la {area:2256}, à l'extrême sud du {zone:1452} : mieux vaut former un groupe. Deux Tueurs gardent la gorge après le pont ; le tunnel ouest mène à d'autres Initiés, les plus faciles d'entre eux (méfiez-vous de leur {spell:7645}). Un démoniste peut les battre seul un par un avec Peur ou {spell:710} et des dégâts sur la durée, mais lentement. N'importe lequel peut lâcher les larmes, quatre fois sur cinq.",
 
 	-- Step 4: Suppression
 	-- {npc:14463} Daio the Decrepit · {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander · {area:73} Tainted Scar · {spell:45} War Stomp · {item:18605} Imprisoned Doomguard
-	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "",
+	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "Rendez les deux à {npc:14463} et prenez la {item:18601}. Trouvez un {npc:12396} (niveau 61, élite) seul dans la {area:73}, engagez à une trentaine de mètres avec votre marcheur du Vide sur lui, et canalisez la prison sur lui pendant une vingtaine de secondes : il vous attaque pour se libérer, et son {spell:45} peut interrompre la canalisation, sacrifiez donc le marcheur du Vide pour son bouclier s'il le faut. Mieux vaut former un groupe : un second joueur pour encaisser rend la chose facile. Quand la canalisation se termine, il devient le {item:18605} : cliquez dessus. Si la canalisation est interrompue, tuez-le ou fuyez, et essayez sur un autre.",
 	-- {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander
-	["{item:18601}, on a {npc:12396}"] = "",
+	["{item:18601}, on a {npc:12396}"] = "{item:18601}, sur un {npc:12396}",
 	-- {item:18605} Imprisoned Doomguard
-	["{item:18605}, click it"] = "",
+	["{item:18605}, click it"] = "{item:18605}, cliquez dessus",
 
 	-- Step 5: Back to Daio the Decrepit
 	-- {npc:14463} Daio the Decrepit
