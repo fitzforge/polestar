@@ -1,0 +1,8 @@
+{
+  "meta": { "schema": 1, "note": "Synthetic, written for the knowledge-base golden (rust/tests/golden/kb/README.md)." },
+  "quests": {
+    "4402": { "verdicts": { "object-click": "confirmed" } },
+    "5441": { "verdicts": { "use-item-on-mob": "confirmed", "timed": "refuted" }, "facts": [{ "kind": "use-item-on-mob", "how": "Spell 19938 on Lazy Peon wakes it.", "trigger": "spell 19938" }] },
+    "783": { "added": ["talk-to-npc"] }
+  }
+}

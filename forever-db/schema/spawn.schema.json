@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/spawn.schema.json",
+  "title": "spawn",
+  "description": "Spawn points in world yards on the continent or instance map.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "kind",
+    "id",
+    "map",
+    "n",
+    "x",
+    "y"
+  ],
+  "properties": {
+    "kind": {
+      "type": "string",
+      "enum": [
+        "npc",
+        "object"
+      ],
+      "description": "npc or object"
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "npc or object id"
+    },
+    "map": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "client Map id"
+    },
+    "n": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "point number on that map, from 1"
+    },
+    "x": {
+      "type": "number",
+      "description": "world x (north), 0.5 yd"
+    },
+    "y": {
+      "type": "number",
+      "description": "world y (west), 0.5 yd"
+    },
+    "z": {
+      "type": "number",
+      "description": "height, 0.1 yd"
+    }
+  }
+}

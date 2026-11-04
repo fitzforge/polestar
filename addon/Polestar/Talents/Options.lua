@@ -19,7 +19,7 @@ local ok, err = ns.RegisterOptions({
 			help = L["Follow a talent plan for your class and spec (/pole talents)."] },
 		{ kind = "toggle", key = "talents.overlay", label = L["Mark the talent frame"], disabled = off,
 			help = L["A ring on the next talent in your plan and a flag on points the plan does not spend."] },
-		{ kind = "toggle", key = "talents.badges", label = L["Pick numbers"], disabled = overlayOff,
+		{ kind = "toggle", key = "talents.badges", label = L["Pick numbers"], disabled = overlayOff, child = true,
 			help = L["Where each talent comes in your plan's order (#1, #2, ...)."] },
 		{ kind = "toggle", key = "talents.tooltip", label = L["Plan in tooltips"], disabled = off,
 			help = L["A line in each talent's tooltip: where it comes in the plan, or that it is off the plan."] },

@@ -1,65 +1,214 @@
 guide forever/reputation/arathi-basin
 title Arathi Basin Reputation
 category Reputation
+folder Reputation · Battlegrounds
 levels 20-60
 zone Arathi Highlands
+keywords The League of Arathor, The Defilers, Arathi Basin, Refuge Pointe, Hammerfall, Field Marshal Oslight, Sergeant Maclear, Samuel Hawke, Deathmaster Dwire, Deathstalker Mortis, Rutherford Twing, Arathi Basin Mark of Honor, Control Five Bases, Take Five Bases, Arathor Battle Tabard, Battle Tabard of the Defilers, Ironbark Staff, Master of Arathi Basin, Legacy Point
+reward text Master of Arathi Basin: a Legacy Point at Exalted
+reward item 20069
+reward item 20132
+reward item 20131
+collects 20132, 20131
+why Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard.
+
 # The League of Arathor (509, Alliance) and The Defilers (510, Horde).
-# Exalted with each battleground reputation is one of Forever's Legacy PvP
-# Challenges (one account-wide Legacy Point each; official Legacy System news).
+# Built from Forever's quest data (quest pages: reputation per quest and the
+# objectives), the world database's exclusive groups and standing gates, the
+# quartermasters' lists in Forever's NPC data, the Forever client's item
+# table (prices before any standing discount) and the base banners' places
+# from Forever's object data. Exalted with either faction is the Legacy
+# Challenge "Master of Arathi Basin" (one account-wide Legacy Point).
 #
-# From the Era-baseline reference data: the faction NPCs at Refuge Pointe
-# (Field Marshal Oslight, Sergeant Maclear, Samuel Hawke) and Hammerfall
-# (Deathmaster Dwire, Deathstalker Mortis, Rutherford Twing), their turn-ins
-# (The Battle for Arathi Basin! 8105/8166-8168 and 8120/8169-8171, Control /
-# Take Four and Five Bases 8114/8115 and 8121/8122, Arathi Resource Crate
-# turn-ins 8080/8154-8159/8297/8298 and 8123/8124/8160-8165/8299/8300), the
-# care packages (8260-8262, 8263-8265) and the weekend Call to Arms quests.
-# Forever's Field of Honor season reworks PvP and may change these, so they
-# stay notes until a live recording confirms them; the steps track the
-# standing itself (rep 509/510). Enter the battleground from any battlemaster.
+# The Battle for Arathi Basin! (8168/8167/8166/8105, 8171/8170/8169/8120) and
+# the one-mark quests (Arathi Basin Resources! 8155/8156/8154/8080/8297, Cut
+# Arathor Supply Lines 8162/8161/8160/8123/8299) are each one exclusive group:
+# one per character, 200 reputation in any bracket. The guide takes the level
+# 55 versions (from level 50, full reputation up to 60) and the Brigadier
+# General's and Warbringer's level 59 pair (Claiming Arathi Basin 8395 then
+# 8397, Conquering Arathi Basin 8438 then 8442). Below level 50 the tips name
+# the bracket versions. The Arathi Resource Crate turn-ins of early Classic
+# are gone from Forever's data.
+# INGAME: in Classic a quest pays less reputation once you are 6 or more
+# levels above it (a fifth at most); a Forever beta report says low quests
+# paid in full. Which holds for the bracket quests at level 60?
+# Reputation per resources is the Classic figure (10 for every 200, every 150
+# on the holiday weekend); Forever has published no battleground reputation
+# rates.
+# ASSUMED: 3 Marks of Honor for a win and 1 for a loss (Classic flow;
+# Forever's data has no per-match reward). In-game check: marks after a game.
+# The care package quests Forever added for the Darkspear Islands factions
+# (98910-98915) show 10 League of Arathor or Defilers reputation on Forever's
+# quest pages; left to the Darkspear Islands guide.
+
+step Refuge Pointe
+  only Alliance
+  when level>=50
+  tip Arathi Basin is a 15 against 15 battle over five bases, from level 20: hold bases to gather resources, and the first team to 2000 wins. Queue at any battlemaster in the capitals or from the battleground screen. In Classic every 200 resources your team gathers pay everyone 10 reputation, so a win pays 100 and a close loss nearly as much; a game also pays 3 Arathi Basin Marks of Honor for a win, 1 for a loss. The three quests here pay 500 reputation together (200, 200 and 100), once. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
+  level 50
+  accept 8105                          -- Field Marshal Oslight: assault four bases, 200
+  accept 8080                          -- Sergeant Maclear: one mark, 200
+  accept 8395                          -- Alliance Brigadier General: three marks, 100
+
+step Arathi Basin
+  only Alliance
+  zone Arathi Basin
+  when level>=50
+  tip Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for Sergeant Maclear, three for the Brigadier General. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Arathi Basin marks: hand in or spend them before you reach that.
+  interact 180091 quest 8105.1 "Assault the Mine banner"
+  interact 180090 quest 8105.2 "Assault the Lumber Mill banner"
+  interact 180088 quest 8105.3 "Assault the Blacksmith banner"
+  interact 180089 quest 8105.4 "Assault the Farm banner"
+  collect 20559 quest 8080.1 @46.2,45.4   -- one Arathi Basin Mark of Honor
+  collect 20559 x3 quest 8395.1 @46.2,45.4  -- three more marks
+
+step Back to Refuge Pointe
+  only Alliance
+  zone Arathi Highlands
+  when level>=50
+  turnin 8395                          -- hand in the three marks first
+  turnin 8080
+  turnin 8105
 
 step League of Arathor to Friendly
   only Alliance
-  tip The League of Arathor fights for Arathi Basin from Refuge Pointe. Their reputation comes from the battleground: the resources your team gathers pay it to everyone, so holding more bases for longer pays more. Queue at any battlemaster. Forever's Legacy Diplomat perk increases reputation gains.
-  talk 14983 optional -- Field Marshal Oslight, Refuge Pointe
-  note Field Marshal Oslight's The Battle for Arathi Basin! (assault every base) and Control Four Bases / Control Five Bases are one-time quests; Sergeant Maclear beside him takes Arathi Resource Crates.
+  zone Arathi Highlands
+  tip Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Brigadier General (Claiming Arathi Basin, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at Refuge Pointe come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Brigadier General.
+  talk 15351 optional                  -- Alliance Brigadier General: Claiming Arathi Basin again, 50 reputation for 3 marks
   rep 509 Friendly
+
+step Control Four Bases
+  only Alliance
+  zone Arathi Highlands
+  when level>=60
+  tip At level 60 and Friendly, Field Marshal Oslight asks your team to hold four bases at the same time: 200 reputation, once. It opens Control Five Bases for Exalted.
+  level 60
+  accept 8114
+  complete 8114 @46.2,45.4 map 1461    -- four bases held at once
+  turnin 8114
 
 step League of Arathor to Honored
   only Alliance
-  tip Keep playing Arathi Basin. On Call to Arms: Arathi Basin weekends the Alliance Brigadier General in the capitals takes three Arathi Basin Marks of Honor for extra reputation.
-  talk 15127 optional -- Samuel Hawke hands out one Arathor care package by level
+  zone Arathi Highlands
+  tip Friendly to Honored is 6000 reputation, about 40 wins at the Classic rate. Friendly opens the first rewards at Samuel Hawke beside Field Marshal Oslight: the Talisman of Arathor trinket for levels 28, 38, 48 and 58 (72s to 4g12s), and food and bandages that work in Arathi Basin (10s to 20s). He also gives one Arathor care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages.
+  talk 15127 optional                  -- Samuel Hawke: Friendly rewards
+  talk 15351 optional                  -- Alliance Brigadier General: 50 reputation for 3 marks
   rep 509 Honored
 
 step League of Arathor to Revered
   only Alliance
-  tip Keep playing Arathi Basin; wins with many bases held pay the most.
+  zone Arathi Highlands
+  tip Honored to Revered is 12000 reputation, about 80 wins. Honored opens the Highlander's belts in plate, lamellar, chain, mail, leather, lizardhide and cloth for levels 28 to 58 (72s to 8g84s).
+  talk 15127 optional                  -- Samuel Hawke: Honored rewards
+  talk 15351 optional                  -- Alliance Brigadier General: 50 reputation for 3 marks
   rep 509 Revered
 
 step League of Arathor to Exalted
   only Alliance
-  tip Exalted with the League of Arathor earns a Legacy Point.
+  zone Arathi Highlands
+  tip Revered to Exalted is 21000 reputation, about 140 wins: half of the whole climb. Revered opens the Highlander's boots and greaves for levels 28 to 58 (1g7s to 13g65s), the ones with the run-speed bonus.
+  talk 15127 optional                  -- Samuel Hawke: Revered rewards
+  talk 15351 optional                  -- Alliance Brigadier General: 50 reputation for 3 marks
   rep 509 Exalted
+
+step Samuel Hawke
+  only Alliance
+  zone Arathi Highlands
+  tip Exalted gives the Legacy Point "Master of Arathi Basin" and opens the epics: the level 60 Highlander's shoulders in every armor type (12g33s to 18g50s), Cloak of the Honor Guard (12g14s), Ironbark Staff (55g10s) and Sageclaw (44g24s), both from level 55.
+  talk 15127                           -- Samuel Hawke: Exalted rewards
+
+step Control Five Bases
+  only Alliance
+  zone Arathi Highlands
+  when level>=60
+  tip At Exalted, Field Marshal Oslight asks your team to hold all five bases at the same time. It pays 200 reputation and the Arathor Battle Tabard, the only way to get it.
+  level 60
+  accept 8115
+  complete 8115 @46.2,45.4 map 1461    -- all five bases held at once
+  turnin 8115
+
+step Hammerfall
+  only Horde
+  when level>=50
+  tip Arathi Basin is a 15 against 15 battle over five bases, from level 20: hold bases to gather resources, and the first team to 2000 wins. Queue at any battlemaster in the capitals or from the battleground screen. In Classic every 200 resources your team gathers pay everyone 10 reputation, so a win pays 100 and a close loss nearly as much; a game also pays 3 Arathi Basin Marks of Honor for a win, 1 for a loss. The three quests here pay 500 reputation together (200, 200 and 100), once. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
+  level 50
+  accept 8120                          -- Deathmaster Dwire: assault four bases, 200
+  accept 8123                          -- Deathstalker Mortis: one mark, 200
+  accept 8438                          -- Horde Warbringer: three marks, 100
+
+step Arathi Basin
+  only Horde
+  zone Arathi Basin
+  when level>=50
+  tip Assaulting a base means clicking its banner until it turns: you need not hold it. Four marks in all: one for Deathstalker Mortis, three for the Warbringer. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Arathi Basin marks: hand in or spend them before you reach that.
+  interact 180091 quest 8120.1 "Assault the Mine banner"
+  interact 180090 quest 8120.2 "Assault the Lumber Mill banner"
+  interact 180088 quest 8120.3 "Assault the Blacksmith banner"
+  interact 180087 quest 8120.4 "Assault the Stables banner"
+  collect 20559 quest 8123.1 @46.2,45.4   -- one Arathi Basin Mark of Honor
+  collect 20559 x3 quest 8438.1 @46.2,45.4  -- three more marks
+
+step Back to Hammerfall
+  only Horde
+  zone Arathi Highlands
+  when level>=50
+  turnin 8438                          -- hand in the three marks first
+  turnin 8123
+  turnin 8120
 
 step The Defilers to Friendly
   only Horde
-  tip The Defilers fight for Arathi Basin from Hammerfall. Their reputation comes from the battleground: the resources your team gathers pay it to everyone, so holding more bases for longer pays more. Queue at any battlemaster. Forever's Legacy Diplomat perk increases reputation gains.
-  talk 15021 optional -- Deathmaster Dwire, Hammerfall
-  note Deathmaster Dwire's The Battle for Arathi Basin! (assault every base) and Take Four Bases / Take Five Bases are one-time quests; Deathstalker Mortis beside him takes Arathi Resource Crates.
+  zone Arathi Highlands
+  tip Neutral to Friendly is 3000 reputation. In Classic a win paid 100 and its 3 marks bring 50 more at the Warbringer (Conquering Arathi Basin, again and again): about 150 a win, some 20 wins. Forever has not published its battleground rates, so count the games as a rough guide. Below level 50 the quests at Hammerfall come in a version for your bracket (from level 20): 200 for assaulting the bases, 200 for one mark, then 100 and 50 per 3 marks at the Warbringer.
+  talk 15350 optional                  -- Horde Warbringer: Conquering Arathi Basin again, 50 reputation for 3 marks
   rep 510 Friendly
+
+step Take Four Bases
+  only Horde
+  zone Arathi Highlands
+  when level>=60
+  tip At level 60 and Friendly, Deathmaster Dwire asks your team to hold four bases at the same time: 200 reputation, once. It opens Take Five Bases for Exalted.
+  level 60
+  accept 8121
+  complete 8121 @46.2,45.4 map 1461    -- four bases held at once
+  turnin 8121
 
 step The Defilers to Honored
   only Horde
-  tip Keep playing Arathi Basin. On Call to Arms: Arathi Basin weekends the Horde Warbringer in the capitals takes three Arathi Basin Marks of Honor for extra reputation.
-  talk 15126 optional -- Rutherford Twing hands out one Defiler's care package by level
+  zone Arathi Highlands
+  tip Friendly to Honored is 6000 reputation, about 40 wins at the Classic rate. Friendly opens the first rewards at Rutherford Twing beside Deathmaster Dwire: the Defiler's Talisman trinket for levels 28, 38, 48 and 58 (72s to 4g12s), and food and bandages that work in Arathi Basin (10s to 20s). He also gives one Defiler's care package at Friendly (pick the one for your level): 10 reputation and a bag of battleground food and bandages.
+  talk 15126 optional                  -- Rutherford Twing: Friendly rewards
+  talk 15350 optional                  -- Horde Warbringer: 50 reputation for 3 marks
   rep 510 Honored
 
 step The Defilers to Revered
   only Horde
-  tip Keep playing Arathi Basin; wins with many bases held pay the most.
+  zone Arathi Highlands
+  tip Honored to Revered is 12000 reputation, about 80 wins. Honored opens the Defiler's belts in plate, lamellar, chain, mail, leather, lizardhide and cloth for levels 28 to 58 (75s to 8g78s).
+  talk 15126 optional                  -- Rutherford Twing: Honored rewards
+  talk 15350 optional                  -- Horde Warbringer: 50 reputation for 3 marks
   rep 510 Revered
 
 step The Defilers to Exalted
   only Horde
-  tip Exalted with The Defilers earns a Legacy Point.
+  zone Arathi Highlands
+  tip Revered to Exalted is 21000 reputation, about 140 wins: half of the whole climb. Revered opens the Defiler's boots and greaves for levels 28 to 58 (1g12s to 13g41s), the ones with the run-speed bonus.
+  talk 15126 optional                  -- Rutherford Twing: Revered rewards
+  talk 15350 optional                  -- Horde Warbringer: 50 reputation for 3 marks
   rep 510 Exalted
+
+step Rutherford Twing
+  only Horde
+  zone Arathi Highlands
+  tip Exalted gives the Legacy Point "Master of Arathi Basin" and opens the epics: the level 60 Defiler's shoulders in every armor type (12g75s to 20g), Deathguard's Cloak (13g18s), Ironbark Staff (50g46s) and Mindfang (42g83s), both from level 55.
+  talk 15126                           -- Rutherford Twing: Exalted rewards
+
+step Take Five Bases
+  only Horde
+  zone Arathi Highlands
+  when level>=60
+  tip At Exalted, Deathmaster Dwire asks your team to hold all five bases at the same time. It pays 200 reputation and the Battle Tabard of the Defilers, the only way to get it.
+  level 60
+  accept 8122
+  complete 8122 @46.2,45.4 map 1461    -- all five bases held at once
+  turnin 8122

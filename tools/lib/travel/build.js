@@ -6,7 +6,7 @@
 // teleports Nav/Transit.lua reads: tools/lib/travel/timetable.js); the
 // flights' tracks -> addon/Polestar/Maps/FlightPaths.lua (what the map's
 // route lines draw).
-// Crossings: the shipped crossings file (tools/lib/travel/crossings.json, from
+// Crossings: the shipped crossings file (data/crossings.json, from
 // `travel import`: Carbonite's zone connections, GPL-3.0) goes into
 // TravelData.lua as the full crossing data; the optional local crossings
 // file (data/local/crossings.json) goes into the local data addon
@@ -31,10 +31,10 @@ const { readRecordings } = require('../data/recordings');
 
 const { ROOT, DATA, SOURCES } = require('../paths');
 const PATH_CHUNK = 1000; // records per Lua function (keeps each under Lua 5.1's constant limits)
-const SHIPPED_CROSSINGS = path.join(__dirname, 'crossings.json'); // committed, from `travel import`
+const SHIPPED_CROSSINGS = path.join(__dirname, '..', '..', '..', 'data', 'crossings.json'); // committed, from `travel import`
 
 function readJson(file) {
-	if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: node tools/polestar.js data build)`);
+	if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: forge data build)`);
 	return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
@@ -287,8 +287,11 @@ async function buildTravel({
 	const areaWarnings = areas ? [] : [`no cached WoW Forever AreaTable under ${path.join(sourcesDir, 'wago')}: the inns get no area (\`data build\` downloads it)`];
 	const paths = buildPaths({ recordings, frames });
 	const recorded = recordedCrossings(paths.zoneSteps, frames);
-	const local = readCrossingsFile(crossingsFile, frames);
-	const shipped = readCrossingsFile(shippedFile, frames);
+	// (A crossing's end on a map Forever added, with no Era frame, is in the Forever client's frame:
+	// the Riverglades' ways to Redridge, the Badlands and the Swamp of Sorrows.)
+	const crossingFrames = frames.withForever(mapFrames.forever);
+	const local = readCrossingsFile(crossingsFile, crossingFrames);
+	const shipped = readCrossingsFile(shippedFile, crossingFrames);
 	const shippedSource = shipped ? JSON.parse(fs.readFileSync(shippedFile, 'utf8')).source || path.basename(shippedFile) : null;
 	const warnings = [...src.warnings, ...(forever ? forever.warnings : []), ...(transitTables ? transitTables.warnings : []), ...transitWarnings, ...taxi.warnings, ...gridWarnings, ...tr.warnings, ...transit.warnings, ...areaWarnings, ...inns.warnings, ...paths.warnings];
 
@@ -304,7 +307,7 @@ async function buildTravel({
 		{ name: 'data/recordings', use: 'learned walking paths and recorded zone crossings', sessions: paths.sessions },
 	);
 	if (spawnz) sources.push({ name: 'data/forever spawnz.json (CMaNGOS classic-db, GPL-3.0)', use: 'the heights of the dock NPCs the zeppelin and wharf ends stand at' });
-	if (shipped) sources.push({ name: 'Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0)', source: shippedSource, use: 'zone crossings (tools/lib/travel/crossings.json)' });
+	if (shipped) sources.push({ name: 'Carbonite (github.com/IrcDirk/Carbonite-Classic, GPL-3.0)', source: shippedSource, use: 'zone crossings (data/crossings.json)' });
 	const result = {
 		schema: 1,
 		build: src.build,

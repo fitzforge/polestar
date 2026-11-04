@@ -1,0 +1,71 @@
+{
+	"about": "Road textures (tileset paths, the _s and _h variants as their base) for the roads layer, of the diffuse textures the tex0 ADTs of the listed maps use (names from the wowdev community listfile): every one whose path matches named; one whose path matches ground when its shape is a road's; one in reviewed (checked by a person to lie on known roads) when its shape is a road's. A shape is a road's when at least roadShare of the texture's weight lies in strips: 8-connected components of columns where it weighs >= 128 (per tile) at least longYd long (bounding box diagonal), at most narrow columns of mean width (area over half the perimeter) and at least elongated long (diagonal^2 / area, in columns). shapes: the measures of every named, ground and reviewed texture and of every other road-shaped one (kind other: candidates for review; medianWidth: the width half the weight lies under). Regenerate with node tools/polestar.js nav layers roads --allowlist.",
+	"build": "1.60.0.99999",
+	"maps": [
+		0,
+		1
+	],
+	"named": "road|path|cobble|street|trail",
+	"ground": "dirt|footprint|brick|gravel",
+	"longYd": 60,
+	"narrow": 6,
+	"elongated": 10,
+	"roadShare": 0.5,
+	"reviewed": [
+		{
+			"texture": "tileset/ironforge/ironforgerock09browncracks.blp",
+			"note": "Dun Morogh's main road: one continuous strip through Kharanos (tiles 31_41 to 36_42), checked 2026-10-16"
+		},
+		{
+			"texture": "tileset/desolace/desolacecracks.blp",
+			"note": "Desolace's roads: thin strips north-south at about x 49, y 48-56 of uiMap 1443 and south-east at about 56,57 to 52,60, checked 2026-10-16"
+		}
+	],
+	"textures": [
+		"tileset/aerie peaks/aeriepeaksrockroadbase.blp",
+		"tileset/duskwood/duskwoodcobblestone.blp",
+		"tileset/ironforge/ironforgerock09browncracks.blp"
+	],
+	"shapes": [
+		{
+			"texture": "tileset/aerie peaks/aeriepeaksrockroadbase.blp",
+			"kind": "name",
+			"tiles": 3,
+			"columns": 1280,
+			"components": 2,
+			"medianWidth": 2.97,
+			"share": 1,
+			"road": true
+		},
+		{
+			"texture": "tileset/barrens/barrensdirtbase.blp",
+			"kind": "ground",
+			"tiles": 3,
+			"columns": 2808,
+			"components": 4,
+			"medianWidth": 24,
+			"share": 0.123,
+			"road": false
+		},
+		{
+			"texture": "tileset/duskwood/duskwoodcobblestone.blp",
+			"kind": "name",
+			"tiles": 3,
+			"columns": 356,
+			"components": 2,
+			"medianWidth": 8,
+			"share": 0,
+			"road": true
+		},
+		{
+			"texture": "tileset/ironforge/ironforgerock09browncracks.blp",
+			"kind": "review",
+			"tiles": 3,
+			"columns": 444,
+			"components": 2,
+			"medianWidth": 1.97,
+			"share": 1,
+			"road": true
+		}
+	]
+}

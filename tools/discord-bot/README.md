@@ -25,7 +25,7 @@ sequenceDiagram
 | What happens | Who does it | What the player sees |
 |---|---|---|
 | A new post | the bot, at once | "Tracked as fitzforge/polestar#N. Replies in this thread, from anyone, are copied to the issue.", tag **Tracked** |
-| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". The bot's own messages are not copied |
+| Anyone writes in the thread (text, screenshots, a new report) | the bot | nothing; it becomes a comment on the issue, the reporter's marked "(the reporter)". The bot's own messages are not copied. Only the reporter's screenshots are copied to GitHub; other players' are linked on Discord. Each Discord user gets 3 new reports and 20 follow-ups (edits included) an hour; past that, the bot logs and skips them (a skipped post is filed by the next start's backfill) |
 | The reporter edits the post's first message | the bot | nothing; the issue body is written again |
 | A pull request addresses the issue for the first time (its title names `#N`, or it says `closes`/`fixes`/`resolves #N`) | `pr-links.yml` | ping: "A fix for this is open (#M). It still has to be reviewed; we'll tell you here when it's fixed.", tag **In progress**. Once per issue: more pull requests, edits and closes tell the thread nothing. On GitHub the issue gets one comment listing its pull requests, kept up to date, and the label `has-pr` (CONTRIBUTING.md, "Before you start") |
 | Issue labelled **needs-info** | `discord-issue-sync.yml` | ping: "We need a little more to go on with this one", quoting the maintainer's last comment on the issue, and "Please answer here in the thread". The answer comes back to the issue as a follow-up. Tags unchanged |
@@ -48,7 +48,12 @@ folded under "Full report", and the screenshots.
 Labels: `discord`, `triage` and `bug` on every one, then from the report
 `v0.2.3`, `guide:01-elwynn-forest`, `locale:enUS` and `lua-error` when it
 lists errors, then the forum tags (`questing`, `item`, `character`). The bot
-creates any label the repository lacks.
+creates any label the repository lacks, but a version, guide id or locale
+only when it has a real one's shape (`0.2.5` or `0.2.5-test.1`, a lowercase
+guide file name, a game locale); anything else gets no label.
+
+Screenshots are copied only when their bytes are a PNG, JPEG, WebP or GIF
+image of 5 MiB or less; anything else stays a link to Discord.
 
 The report is read by its shape, not its words (the addon translates them),
 so a German or French report fills the same table. A post without a report
@@ -88,16 +93,22 @@ other issues or carry HTML. Say so in the #bugs guidelines, for example:
 
 ### 2. GitHub
 
-1. A [fine-grained token](https://github.com/settings/personal-access-tokens/new),
-   repository `fitzforge/polestar` only, permissions **Issues: Read and
-   write** and **Contents: Read and write** (the screenshots branch). That is
-   the bot's `GITHUB_TOKEN`.
+1. A [fine-grained token](https://github.com/settings/personal-access-tokens/new)
+   (or a GitHub App installation), repository `fitzforge/polestar` only,
+   permission **Issues: Read and write** and nothing else. That is the bot's
+   `GITHUB_TOKEN`. Give it no Contents permission: Contents write on this
+   repository can push branches and replace release assets.
 
-   Contents write on this repository can push to any branch, `main`
-   included, and `main` has no protection. To keep that out of the bot's
-   hands, make a public `fitzforge/polestar-bug-media` repository, give the
-   bot a second token with Contents on that one alone, and set `MEDIA_REPO`
-   and `MEDIA_TOKEN`; the first token then needs Issues only.
+   Screenshots go to a separate public repository, `fitzforge/polestar-bug-media`
+   (create it empty). Make a second fine-grained token with **Contents: Read
+   and write** on that repository alone and set `MEDIA_REPO` and
+   `MEDIA_TOKEN`. Without them the bot falls back to `GITHUB_REPO` and
+   `GITHUB_TOKEN` (which then needs Contents on the main repository) and logs
+   a warning on every start.
+
+   Set `BOT_GITHUB_LOGIN` to the account the token acts as (an App's is
+   `name[bot]`), in `.env` and as an Actions variable: only issues that
+   account opened are then tied to a Discord thread.
 2. In the repository's Settings, Secrets and variables, Actions: the secret
    `DISCORD_TOKEN` (the same bot token) and the variable `DISCORD_FORUM_ID`;
    for release candidates, the variables `DISCORD_TESTERS_CHANNEL_ID` and

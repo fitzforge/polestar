@@ -2,19 +2,36 @@ guide forever/collectibles/pets/lil-timmy
 title White Kitten
 category Collectibles
 folder Companion pets · Vendors
-keywords Lil Timmy, Cat Carrier (White Kitten), cat, kitten
+keywords Lil Timmy, Xaphod Bizznox, Malaka'jin, Cat Carrier (White Kitten), cat, kitten
 collects 8489
-faction Alliance
 levels 1-60
 zone Stormwind City
 
-# Lil Timmy's White Kitten in Stormwind.
-# Sources: items.json / npcs.json (vendor); Forever client 1.60.1.70338 via
-# wago.tools (ItemSparse prices; every pet item teaches its companion when
-# used). A White Kitten vendor near the Stonetalon / Mulgore border has also
-# been reported (unconfirmed).
+# The White Kitten: Lil Timmy in Stormwind for the Alliance, Xaphod Bizznox at
+# Malaka'jin in Stonetalon Mountains for the Horde (new in Forever).
+# Sources: items.json / npcs.json (both vendors; Lil Timmy's spawn point;
+# Xaphod Bizznox 262471, Horde, at the Darkspear camp of Malaka'jin, from
+# Forever's quest-addon and item-page data); the TDB's vendor row for Lil
+# Timmy (one kitten in stock, restocked every 2.5 hours; Classic data);
+# Forever's client data 1.60.1.70532 (ItemSparse price: 60s; every pet item
+# teaches its companion when used).
+# ASSUMED: Lil Timmy carries one kitten at a time and walks a set path from
+# Cathedral Square, as in Classic (Classic flow; beta players report the same
+# path and the single kitten; the restock time is Classic data). In-game
+# check: how long until he has a kitten again.
+# ASSUMED: Xaphod Bizznox sells the kitten without a stock limit (Forever's
+# data lists it in his stock but not how many). In-game check: his window at
+# Malaka'jin.
 
 step Lil Timmy
-  tip Lil Timmy sells the White Kitten (60s). He walks around the city, so the waypoint is only one point on his path; look along the nearby streets if he is not there. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  only Alliance
+  tip Lil Timmy sells the White Kitten (60s). He starts at Cathedral Square and walks through the Trade District, Old Town and the Dwarven District before he vanishes near the square again; if he is not around, wait for him at Cathedral Square. By beta reports he carries one kitten at a time: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goal stays ticked afterwards.
   vendor 8666                         -- Lil Timmy
   buy 8489 npc 8666 optional          -- Cat Carrier (White Kitten), 60s
+
+step Xaphod Bizznox
+  only Horde
+  zone Stonetalon Mountains
+  tip Horde players buy the White Kitten (60s) from Xaphod Bizznox, a trader new in Forever, at Malaka'jin, the Darkspear camp at the southern tip of Stonetalon Mountains, on the way up from the Barrens. Each pet item teaches its companion when you use it; the goal stays ticked afterwards.
+  vendor 262471                       -- Xaphod Bizznox
+  buy 8489 npc 262471 optional        -- Cat Carrier (White Kitten), 60s

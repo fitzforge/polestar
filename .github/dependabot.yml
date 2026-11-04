@@ -1,0 +1,18 @@
+# The workflows pin every action by commit SHA (with the version in a comment): this keeps the
+# pins current within each action's major version. Major versions change behaviour, so they are
+# moved by hand, not here. One grouped pull request a month, to next.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    target-branch: next
+    schedule:
+      interval: monthly
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: CI

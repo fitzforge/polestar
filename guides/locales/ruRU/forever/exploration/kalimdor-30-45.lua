@@ -1,5 +1,5 @@
 -- Russian (ruRU): the guide forever/exploration/kalimdor-30-45 (forever/exploration/kalimdor-30-45.guide).
--- Written by `node tools/polestar.js i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Russian (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -14,8 +14,8 @@ return {
 	-- {zone:1413} Barrens · {zone:1443} Desolace · {zone:1445} Dustwallow Marsh
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "Продолжение к западу от зоны {zone:1413}, в зоне {zone:1443}; завершение – в зоне {zone:1445}. Местностей для открытия: 15, уровни 30-39.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Исследование всей карты мира одним персонажем – испытание наследия Forever (1 очко наследия на всю учетную запись).",
-	-- {zone:1442} Stonetalon Mountains · {zone:1443} Desolace · {area:608} Nijel's Point
-	["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Идите по дороге на юго-запад из зоны {zone:1442} в зону {zone:1443}; {area:608} на севере – город Альянса.",
+	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
 	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "Летите сюда: {area:460} – и по дороге на юго-запад в зону {zone:1443}; {area:2408} на западном побережье – город Орды.",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
@@ -44,9 +44,15 @@ return {
 	["Flight paths here: {area:489} (Thyssiana), Feathermoon ({npc:8019})."] = "Маршруты полета здесь: {area:489} (Тиссиана), Крепость Оперенной Луны ({npc:8019}).",
 	-- {area:1099} Camp Mojache
 	["Flight path here: {area:1099} (Shyn)."] = "Маршрут полета здесь: {area:1099} (Шин).",
+
+	-- Step 6: Feralas: level 60+ areas
+	-- {zone:1444} Feralas
+	["{zone:1444}: level 60+ areas"] = "",
+	-- {area:1113} Oneiros · {area:1111} Dream Bough
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
 	["level 60 area, well above this guide's range"] = "местность 60-го уровня, намного выше диапазона этого гайда",
 
-	-- Step 6: Dustwallow Marsh
+	-- Step 7: Dustwallow Marsh
 	["7 areas to discover here, levels 36-61."] = "Местностей для открытия: 7, уровни 36-61.",
 	-- {area:150} Menethil Harbor · {area:513} Theramore Isle
 	["Fly to Theramore (or take the boat from {area:150}); {area:513} is the Alliance town."] = "Летите на остров Терамор (или плывите на корабле отсюда: {area:150}); {area:513} – город Альянса.",
@@ -57,9 +63,16 @@ return {
 	["Flight path here: {area:496} (Shardi)."] = "Маршрут полета здесь: {area:496} (Щербушка).",
 	["any one of these names counts"] = "засчитывается любое из этих названий",
 	["Horde town: Alliance characters only need to touch its edge (guards); any one of these names counts"] = "Город Орды: персонажам Альянса достаточно коснуться его края (стража); засчитывается любое из этих названий",
-	["level 61 area, well above this guide's range"] = "местность 61-го уровня, намного выше диапазона этого гайда",
 	["Alliance town: Horde characters only need to touch its edge (guards); any one of these names counts"] = "Город Альянса: персонажам Орды достаточно коснуться его края (стража); засчитывается любое из этих названий",
 
+	-- Step 8: Dustwallow Marsh: level 61+ area
+	-- {zone:1445} Dustwallow Marsh
+	["{zone:1445}: level 61+ area"] = "",
+	-- {area:2079} Alcaz Island
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	["level 61 area, well above this guide's range"] = "местность 61-го уровня, намного выше диапазона этого гайда",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Идите по дороге на юго-запад из зоны {zone:1442} в зону {zone:1443}; {area:608} на севере – город Альянса.",
 	-- ["The {area:1108}"] = "{area:1108}",
 }

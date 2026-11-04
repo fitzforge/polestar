@@ -16,7 +16,7 @@ const BUILDS_URL = 'https://wago.tools/api/builds';
 // loads (tables[t] stays undefined, with a warning).
 const PRODUCTS = {
 	era: { key: 'wow_classic_era', family: /^1\.1[0-5]\./, tables: ['UiMap', 'UiMapAssignment', 'AreaTable', 'Faction'], optional: [] },
-	forever: { key: 'wow_classic_beta', family: /^1\.6\d\./, tables: ['UiMap', 'UiMapAssignment', 'AreaTable'], optional: ['ChrRaces', 'ChrClasses', 'CharBaseInfo', 'Faction', 'Map', 'ItemSparse'] },
+	forever: { key: 'wow_classic_beta', family: /^1\.6\d\./, tables: ['UiMap', 'UiMapAssignment', 'AreaTable'], optional: ['ChrRaces', 'ChrClasses', 'CharBaseInfo', 'Faction', 'Map', 'ItemSparse', 'Item', 'SpellName'] },
 };
 const PRODUCT = PRODUCTS.era.key;
 const TABLES = PRODUCTS.era.tables;

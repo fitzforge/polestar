@@ -4,7 +4,7 @@
 // Dungeons page shows with the character's progress and the "Guide me
 // through it" guide walks (addon/Polestar/Dungeons/Attune.lua).
 //
-// The cited table tools/lib/codex/attunements.json names each attunement's
+// The cited table data/codex/attunements.json names each attunement's
 // goal only: the quests that end its chain (one of them with `any`), or the
 // key item. The steps come from the Codex: every prerequisite of a goal
 // (all of `pre`, the `preAny` of the attunement's side), oldest first; a
@@ -40,8 +40,9 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { citationText } = require('./web');
 
-const TABLE = path.join(__dirname, 'attunements.json');
+const TABLE = path.join(__dirname, '..', '..', '..', 'data', 'codex', 'attunements.json');
 // Our verdicts on the differences (which source is right, and why): local
 // notes, kept apart so a rerun of the comparison keeps them.
 const VERDICTS = path.join(__dirname, '..', '..', '..', 'data', 'local', 'attunements-verdicts.md');
@@ -299,7 +300,7 @@ function auditReport(journal, attune, codex = {}, { verdicts } = {}) {
 	const theirs = ((attune && attune.attunes) || []).filter((x) => !/^DUNGEONS$|^CLASS/.test(x.group || ''));
 	const lines = [];
 	lines.push('# Attunements: Polestar against Attune', '');
-	lines.push(`Local comparison (Attune ${(attune && attune.meta && attune.meta.version) || '?'}: no licence, read here only). Ours: the Codex journal's attunements, built from the Codex's quests and items and the cited goals in tools/lib/codex/attunements.json.`, '');
+	lines.push(`Local comparison (Attune ${(attune && attune.meta && attune.meta.version) || '?'}: no licence, read here only). Ours: the Codex journal's attunements, built from the Codex's quests and items and the cited goals in data/codex/attunements.json.`, '');
 	const matched = new Set();
 	const rows = [];
 	for (const at of theirs) {
@@ -375,7 +376,7 @@ function auditReport(journal, attune, codex = {}, { verdicts } = {}) {
 	}
 	if (table.removed.length) {
 		lines.push('## Removed in Forever', '');
-		for (const r of table.removed) lines.push(`- ${r.name} (${r.key}, item ${r.item}): ${r.why} Sources: ${r.sources.join('; ')}.`);
+		for (const r of table.removed) lines.push(`- ${r.name} (${r.key}, item ${r.item}): ${r.why} Sources: ${r.sources.map(citationText).join('; ')}.`);
 		lines.push('');
 	}
 	if (verdicts && verdicts.trim()) lines.push('## Verdicts', '', verdicts.trim());

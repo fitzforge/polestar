@@ -4,7 +4,7 @@
 --     range of the zone under the cursor in the info bar;
 --   * on a zone map, that zone's range in the info bar;
 --   * player and cursor coordinates (map percent) in the info bar.
--- Level ranges come from ZoneLevels.lua (`node tools/polestar.js maps build`,
+-- Level ranges come from ZoneLevels.lua (`forge data maps build`,
 -- heuristic in tools/lib/maps/zonelevels.js).
 --
 -- The world map's view (Core/MapCanvas.lua) tells us about map, size and
@@ -258,12 +258,12 @@ local function buildBar()
 	bar.Coords = W.Text(bar, "small", "textDim")
 	bar.Coords:SetPoint("RIGHT", bar, "RIGHT", -10, 0)
 	bar.Coords:SetJustifyH("RIGHT")
-	bar:SetScript("OnUpdate", function(_, dt)
+	bar:SetScript("OnUpdate", ns.Safe(function(_, dt)
 		acc = acc + dt
 		if acc < TICK then return end
 		acc = 0
 		update(false)
-	end)
+	end))
 end
 
 local function refreshBar()

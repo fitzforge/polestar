@@ -9,7 +9,9 @@
 -- here before escaping it, and each text is then shown as:
 --   1. the guide pack's translation into the client's language, when its
 --      texts addon (<pack addon>_<locale>, load on demand, compiled from the
---      pack's locales/<locale>/ files) has one; else the English;
+--      pack's locales/<locale>/ files; for our own pack, Polestar_Guides, the
+--      language folder Polestar_<locale> it shares with Polestar.Names) has
+--      one; else the English;
 --   2. with every token filled by the game's name in that language
 --      (Polestar.Names for quests, NPCs, objects, items, spells, factions
 --      and areas; the client's map name for a zone; L for a profession),
@@ -30,7 +32,8 @@
 --     addon of the pack addon `addon` (Data.Pack), once; "combat": refused
 --     in combat, GuideTexts.Pending() lists it until it is tried again;
 --     nil: none (not installed, or an English client)
---   GuideTexts.TextsAddon(addon) -> "<addon>_<locale>" | nil (English)
+--   GuideTexts.TextsAddon(addon) -> "<addon>_<locale>" (our pack's:
+--     "Polestar_<locale>") | nil (English)
 --   GuideTexts.PackText(packId, text) -> translation or text
 --   GuideTexts.GUIDE_FIELDS   -- the guide-level fields it rewrites
 --   Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = {
@@ -58,7 +61,7 @@ local GOAL_FIELDS = { "note", "text" }
 
 local texts = {} -- pack id -> { pack = { english = translation }, guides = { [guide id] = { english = translation } } }
 local prepared = setmetatable({}, { __mode = "k" }) -- def -> { names, fields = { holder, key, english, ... } }
-local tried = {} -- texts addon name -> "loaded" | "combat" | "missing"
+local tried = {} -- pack addon -> its texts addon's "loaded" | "combat" | "missing"
 
 local function valid(s) return type(s) == "string" and s ~= "" end
 
@@ -147,7 +150,8 @@ local function collect(def, fields)
 	if type(def.reward) == "table" then
 		for _, r in ipairs(def.reward) do if type(r) == "table" then add(r, "text") end end
 	end
-	for _, step in ipairs(def.steps) do
+	-- Deferred steps not read in yet are left for PrepareSteps.
+	for _, step in ipairs(rawget(def, "steps") or {}) do
 		for _, f in ipairs(STEP_FIELDS) do add(step, f) end
 		for _, goal in ipairs(step.goals) do
 			if type(goal) == "table" then
@@ -160,10 +164,10 @@ local function collect(def, fields)
 end
 
 -- Writes def's texts; escaped through `escape` (nil: left for RegisterGuide).
-local function apply(def, entry, live, escape)
+local function apply(def, entry, live, escape, from)
 	local changed = false
 	local f = entry.fields
-	for i = 1, #f, 3 do
+	for i = from or 1, #f, 3 do
 		local v = render(def, entry, f[i + 2], live)
 		if escape then v = escape(v) end
 		if f[i][f[i + 1]] ~= v then
@@ -200,32 +204,77 @@ function GuideTexts.Prepare(def, live)
 	apply(def, entry, live, nil)
 end
 
+-- A deferred guide's steps, read in (Guides.Steps): their texts join def's,
+-- written in the client's language now.
+function GuideTexts.PrepareSteps(def)
+	local entry = prepared[def]
+	if not entry then
+		-- An English client keeps no entry: one for these steps alone.
+		local names, written = {}, {}
+		for k, v in pairs(type(def.names) == "table" and def.names or {}) do if valid(k) and valid(v) then names[k] = v end end
+		for k, v in pairs(type(def.written) == "table" and def.written or {}) do if valid(k) and valid(v) then written[k] = v end end
+		entry = { names = names, written = written, fields = {} }
+	end
+	entry.header = entry.header or #entry.fields
+	local from = #entry.fields + 1
+	local f = entry.fields
+	local function add(holder, key)
+		local v = holder[key]
+		if valid(v) then
+			f[#f + 1] = holder
+			f[#f + 1] = key
+			f[#f + 1] = v
+		end
+	end
+	for _, step in ipairs(rawget(def, "steps") or {}) do
+		for _, k in ipairs(STEP_FIELDS) do add(step, k) end
+		for _, goal in ipairs(step.goals or {}) do
+			if type(goal) == "table" then
+				for _, k in ipairs(GOAL_FIELDS) do add(goal, k) end
+				if goal.t == "kill" and goal.npc == nil then add(goal, "target") end
+			end
+		end
+	end
+	apply(def, entry, true, nil, from)
+end
+
+-- A deferred guide's steps dropped (Guides.Release): their texts leave def's.
+function GuideTexts.DropSteps(def)
+	local entry = prepared[def]
+	if not (entry and entry.header) then return end
+	for i = #entry.fields, entry.header + 1, -1 do entry.fields[i] = nil end
+end
+
 function GuideTexts.Refresh(def)
 	local entry = prepared[def]
 	if not entry then return false end
 	return apply(def, entry, true, ns.EscapeText)
 end
 
+-- Our pack's texts are in the language folder, beside the game's names.
+local OWN = "Polestar_Guides"
+
 function GuideTexts.TextsAddon(addon)
 	if english or not valid(addon) then return nil end
+	if addon == OWN then return "Polestar_" .. locale end
 	return addon .. "_" .. locale
 end
 
 function GuideTexts.Load(addon)
 	local name = GuideTexts.TextsAddon(addon)
 	if not name then return nil end
-	local was = tried[name]
+	local was = tried[addon]
 	if was == "loaded" or was == "missing" then return was == "loaded" and "loaded" or nil end
 	local ok, reason = ns.Data.Pack(name)
-	tried[name] = ok and "loaded" or (reason == "combat" and "combat" or "missing")
-	return tried[name] ~= "missing" and tried[name] or nil
+	tried[addon] = ok and "loaded" or (reason == "combat" and "combat" or "missing")
+	return tried[addon] ~= "missing" and tried[addon] or nil
 end
 
 -- Texts addons refused in combat, by pack addon: Guides.lua tries them again.
 function GuideTexts.Pending()
 	local out = {}
-	for name, state in pairs(tried) do
-		if state == "combat" then out[#out + 1] = name:sub(1, #name - #locale - 1) end
+	for addon, state in pairs(tried) do
+		if state == "combat" then out[#out + 1] = addon end
 	end
 	return out
 end

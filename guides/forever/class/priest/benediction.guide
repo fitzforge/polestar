@@ -5,60 +5,82 @@ class Priest
 folder Priest
 levels 60-60
 zone Eastern Plaguelands
-keywords Benediction, Anathema, The Balance of Light and Shadow, A Warning, Eris Havenfire, The Eye of Divinity, The Eye of Shadow, Splinter of Nordrassil, Molten Core, epic staff, class quest
+keywords Benediction, Anathema, The Balance of Light and Shadow, A Warning, Eris Havenfire, The Eye of Divinity, The Eye of Shadow, Splinter of Nordrassil, Molten Core, Majordomo Executus, Cache of the Firelord, Lord Kazzak, epic staff, class quest
 collects 18608
 reward item 18608
 reward item 18659
-why Eris's splinter and the two Eyes make Benediction, the epic priest staff that turns into Anathema.
+why The epic priest staff: the Eye of Divinity from Molten Core, Eris's peasant rescue, then the Eye of Shadow.
 
 # The level 60 Priest staff: A Warning and The Balance of Light and Shadow
 # (7621, 7622) from Eris Havenfire in the Eastern Plaguelands give the
 # Splinter of Nordrassil, which makes Benediction with The Eye of Divinity
-# and The Eye of Shadow.
-# Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for Eris, the event point and the drops; Wowhead
-# Forever's Priest class page (data/local/quest-audit/wowhead-class-quests.json:
-# no Forever change to either quest; 7622 rewards the Splinter of
-# Nordrassil). How it works: Icy Veins, "Benediction/Anathema Quest: Guide
-# to The Balance of Light and Shadow"
-# (icy-veins.com/wow-classic/benediction-anathema-quest-guide-to-the-balance-of-light-and-shadow):
-# the quest needs The Eye of Divinity from Majordomo Executus in Molten
-# Core, a failed attempt waits about two hours for the next, helpers who
-# join the fight call a demon that kills everyone nearby, and the splinter
-# needs both Eyes to become Benediction. Wowpedia (Eris Havenfire): Eris is
-# seen only with The Eye of Divinity equipped.
-# Raid content: The Eye of Divinity is in the Cache of the Firelord after
-# Majordomo Executus in Molten Core, a 40-player raid; the data has no
-# position for it. The Eye of Shadow drops from elite demons (Lord Kazzak,
-# Doomguard Commanders and Manahounds in the Blasted Lands, the Hederine of
-# Winterspring) and binds when equipped, so the Auction House may have it.
-# The quests are Forever-confirmed (both on Wowhead Forever's Priest class
-# page, unchanged); that the splinter turns into Benediction with both Eyes
-# is from the Classic sources above, used only for that detail.
-# Left out: Holy Bologna: What the Light Won't Tell You (7504, in Forever's
-# database) starts from a book found in Dire Maul and ends at Lorekeeper
-# Javon inside it; the data places neither. The Troll Scroll (79731, on the
-# class page) is not in the reference quest data: not confirmed in Forever.
+# and The Eye of Shadow; Benediction turns into Anathema (the shadow form)
+# and back on a cooldown.
+# Sources: quests.json, npcs.json and items.json for Eris, the event point
+# and the drops; Forever's Priest class quest list (data/local/quest-audit/):
+# no Forever change to either quest; 7622 rewards the Splinter of Nordrassil
+# (9950 XP). Quest notes (data/local/mechanics/quest-notes.json): Eris is
+# seen only with The Eye of Divinity, save 50 peasants before 15 die (the
+# Death Post counts the dead), skeletons have about 90 health (one Holy Nova
+# of rank 3 or more), Oil of Immolation needs two ticks, the event fails if
+# anyone heals the questing priest, several priests can share one run if
+# each has the Eye and has done A Warning (only one moves, the rest stand by
+# Eris). How it works: Icy Veins, "Benediction/Anathema Quest: Guide to The
+# Balance of Light and Shadow" (icy-veins.com/wow-classic/benediction-
+# anathema-quest-guide-to-the-balance-of-light-and-shadow): purple diseases
+# first, helpers who fight call a demon (the Cleaner) that kills everyone
+# nearby, the splinter needs both Eyes, the staff swaps forms when used.
+# Players' reports on Forever's quest page (snapshot): other players may
+# heal the peasants, cure them and hurt skeletons passively (Thorns,
+# Retribution Aura, Shadowguard) but must not heal or buff you once it
+# starts or attack skeletons; summoned pets count as help.
+# Raid content: The Eye of Divinity is in the Cache of the Firelord that
+# appears when Majordomo Executus yields in Molten Core, a 40-player raid
+# (items.json: about half the time); the data has no position for the cache,
+# so its goal points at Lothos Riftwaker (npcs.json, Burning Steppes 26.4,24.5,
+# the zone Forever's NPC list places him in; Searing Gorge 32.1,94.7 is the same spot),
+# who ports attuned players (Attunement to the Core 7487/7848) into the raid.
+# The Eye of Shadow (items.json): Lord Kazzak, a Blasted Lands world boss,
+# always; Manahounds 3%, Doomguard Commanders 2%, Dreadlords and Felguard
+# Elites in the Blasted Lands and the Hederine in Winterspring under 1%. It
+# can be traded, so the Auction House may have it.
+# ASSUMED: Eris comes back somewhere between 15 minutes and two hours after
+# a failed run (players' reports from Classic differ; Classic Era guides
+# still say two hours; Forever's data has no timer). In-game check: the wait.
+# Left out: Holy Bologna: What the Light Won't Tell You (7504) starts from a
+# book found in Dire Maul and ends at Lorekeeper Javon inside it; the data
+# places neither, and it gives a trinket, not this staff. The Troll Scroll
+# (79731, on the class page) is not in the reference quest data. Atiesh
+# (9250, 9251, 9257) is in the shared Atiesh guide.
 # Based on data, not play: the beta caps at level 30 until launch on
 # 4 November, so nothing here has been checked in game.
 
-step The Eye of Shadow
-  zone Blasted Lands
-  tip You need The Eye of Divinity first: it comes from the Cache of the Firelord after Majordomo Executus in Molten Core. The Eye of Shadow drops from elite demons (Lord Kazzak, a world boss, always; Doomguard Commanders and Manahounds rarely); it binds when equipped, so buying one works too.
-  collect 18665 x1                            -- The Eye of Shadow
+step The Eye of Divinity
+  zone Burning Steppes
+  tip The Eye of Divinity comes from the Cache of the Firelord, the chest that appears when Majordomo Executus yields in Molten Core, a 40-player raid (it is in the cache about half the time). Molten Core's portal is at the bottom of Blackrock Depths; once you have done Attunement to the Core (a Core Fragment from beside that portal), Lothos Riftwaker inside Blackrock Mountain ports you straight in. Nothing in this chain starts without the Eye: Eris is invisible until you equip it.
+  talk 14387 optional                         -- Lothos Riftwaker: the way into Molten Core once attuned
+  collect 18646 x1 group 40 @26.4,24.5        -- The Eye of Divinity: Molten Core, through Blackrock Mountain
 
 step Eris Havenfire
   zone Eastern Plaguelands
-  tip Equip The Eye of Divinity to see Eris Havenfire, a ghost on the mountainside in the north-west of the Eastern Plaguelands. Come with full mana, Major Mana Potions and Oil of Immolation: if you fail, the event takes about two hours to return.
+  tip Equip The Eye of Divinity, then find Eris Havenfire, a ghost on the hillside in the north-west of the Eastern Plaguelands, west of Stratholme's gate (if she does not show, take the Eye off and put it back on). A Warning is only talk; The Balance of Light and Shadow starts the moment you accept it, so prepare first: full mana, Major Mana Potions, Demonic or Dark Runes, mana food or Nightfin Soup, and a stack of Oil of Immolation or Stratholme Holy Water for the skeletons.
   level 60
   accept 7621                                 -- Eris Havenfire
   turnin 7621
   accept 7622
 
 step The Balance of Light and Shadow
-  tip Save 50 peasants before 15 die. Kill the skeletons that attack them, cure their diseases (the purple ones first) and heal the wounded with Renew. Friends may buff you beforehand but must stay out of the fight, or a demon appears and kills everyone.
+  tip Save 50 peasants before 15 die (the Death Post by the path counts the dead). They walk from the cave towards Eris in waves, catch diseases and draw skeletons and skeleton archers. Cure the purple-glowing diseases first (Abolish Disease), keep Renew on the hurt ones, Flash Heal the nearly dead, and kill skeletons as they spawn: one Holy Nova of rank 3 or more kills them, oil takes two ticks while they hit you. Shield yourself at the start of each wave; friendly nameplates make the hurt peasants easy to pick out. Friends may buff you before you accept and may heal or cure peasants, but they must not heal or buff you, attack a skeleton or bring a pet once it starts, or a demon appears and kills everyone. Fail, and Eris is gone for a while (players report anything from 15 minutes to two hours); talk to her again when she is back.
   complete 7622
 
 step Benediction
   turnin 7622 reward 18659                    -- Eris Havenfire: Splinter of Nordrassil
-  use 18659 @17.2,12.8 live                   -- With both Eyes in your bags: Benediction
+
+step The Eye of Shadow
+  zone Blasted Lands
+  tip The splinter needs The Eye of Shadow as well. Lord Kazzak, a world boss in the Blasted Lands (a raid), always drops it; Manahounds and Doomguard Commanders there drop it rarely (about 3% and 2%), the Hederine of Winterspring hardly ever. It can be traded: check the Auction House first.
+  collect 18665 x1                            -- The Eye of Shadow
+
+step Benediction
+  tip With the Splinter of Nordrassil, The Eye of Divinity and The Eye of Shadow in your bags, use the splinter wherever you are: it becomes Benediction. Use Benediction to turn it into Anathema, the shadow staff, and back (a 30-minute cooldown).
+  task "Use the Splinter of Nordrassil with both Eyes in your bags: Benediction"

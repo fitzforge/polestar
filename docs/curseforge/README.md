@@ -7,7 +7,7 @@ Everything the Polestar project on CurseForge needs, in one folder:
 | [description.md](description.md) | The project description, ready to paste whole into CurseForge's description editor in Markdown mode |
 | `images/logo-1024.png`, `images/logo-400.png` | The project avatar: the gold emblem on a night tile, no text |
 | `images/banner.png` | The banner at the top of the description (the README's dark banner at 2x) |
-| `images/starts.png`, `images/levels.png` | The route charts at 2x; the description shows `starts.png` |
+| `images/starts.png` | The route chart at 2x, shown in the description |
 
 The description's images and links point at `main` on GitHub
 (`https://raw.githubusercontent.com/fitzforge/polestar/main/...` and
@@ -20,22 +20,22 @@ and the docs on GitHub, never to the releases page.
 
 The images are drawn in code: `node tools/polestar.js readme brand` writes
 `docs/assets/avatar.svg` and, with `rsvg-convert` (librsvg) installed, every
-PNG here; `readme charts` re-exports the two charts when it redraws them
+PNG here; `readme charts` re-exports the chart when it redraws it
 (tools/README.md, "Generated files").
 
 ## Summary
 
 For the project's summary field (plain text, at most 150 characters; this one
-is 145):
+is 146):
 
 ```text
-Free, open-source guides for World of Warcraft: Forever: leveling routes for every start, found by simulation, plus professions, mounts and pets.
+Free, open-source guides for World of Warcraft: Forever: leveling routes for every start, built from game data, plus professions, mounts and pets.
 ```
 
 ## Project settings
 
-- [ ] **Name:** Polestar Guides (live at https://www.curseforge.com/wow/addons/polestar-guides)
-- [ ] **Slug:** `polestar-guides`
+- [ ] **Name:** Polestar Guides (live at https://www.curseforge.com/wow/addons/polestar)
+- [ ] **Slug:** `polestar`
 - [ ] **Summary:** the text above
 - [ ] **Description:** [description.md](description.md), pasted whole, editor in Markdown mode
 - [ ] **Avatar:** `images/logo-400.png` (CurseForge asks for 400x400 pixels; `images/logo-1024.png` is the large copy)
@@ -45,7 +45,7 @@ Free, open-source guides for World of Warcraft: Forever: leveling routes for eve
 - [ ] **Source URL:** https://github.com/fitzforge/polestar
 - [ ] **Issues URL:** https://github.com/fitzforge/polestar/issues
 - [ ] **Wiki or docs URL** (if asked): https://github.com/fitzforge/polestar/blob/main/docs/README.md
-- [ ] **Discord** (if the form has a field for it): https://discord.gg/vMbee6F2e9
+- [ ] **Discord** (if the form has a field for it): https://discord.gg/polestar
 - [ ] **Donation:** Ko-fi, `0xfitz` (https://ko-fi.com/0xfitz); the description's "Support Polestar" section links the same page
 - [ ] **Experimental:** off, so the project syncs to the CurseForge app
 - [ ] **Allow comments:** on
@@ -61,7 +61,7 @@ indicator.
 
 ### The file
 
-- **File:** `dist/Polestar-<version>.zip`, from `node tools/polestar.js pack`
+- **File:** `dist/Polestar-<version>.zip`, from `forge release pack`
   (docs/RELEASING.md). Its addon folders sit at the top level, as CurseForge
   and its app expect.
 - **Display name:** `Polestar <version>`
@@ -97,11 +97,11 @@ The in-game screenshots, from `docs/assets/screenshots/`, each with its title
 
 1. Upload the new zip as above, with its changelog.
 2. Read [description.md](description.md) against the release: the guide
-   counts in "What it is" (README.md, "What it is"), the hours in "How the
-   routes are made" (README.md, "The numbers"; always as the simulator's
-   estimates), the "Beta" section, and any feature the release adds or
+   counts in "What it is" (README.md, "What it is"), the numbers in "How the
+   routes are made" (README.md, "What changed in 0.3.0" or its successor;
+   always as model estimates), the "Beta" section, and any feature the release adds or
    changes. Keep each paragraph and list item on one line, as now.
-3. If the charts were redrawn (`readme charts`) or the brand art changed
+3. If the chart was redrawn (`readme charts`) or the brand art changed
    (`readme brand`), commit the new PNGs too.
 4. Push to `main` first: the description's images load from there.
 5. Paste description.md whole over the old description (Markdown mode) and

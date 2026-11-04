@@ -1,5 +1,5 @@
 -- Spanish (Spain) (esES): the guide forever/exploration/kalimdor-1-30 (forever/exploration/kalimdor-1-30.guide).
--- Written by `node tools/polestar.js i18n guides sync esES`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync esES`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Spanish (Spain) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -51,8 +51,8 @@ return {
 
 	-- Step 10: The Barrens (1/4)
 	["25 areas to discover here, levels 10-33."] = "Aquí hay 25 zonas por descubrir, niveles 10-33.",
-	-- {zone:1440} Ashenvale · {zone:1413} The Barrens · {area:380} The Crossroads · {area:378} Camp Taurajo · {area:392} Ratchet
-	["Walk east out of Stonetalon (or south out of {zone:1440}) into the {zone:1413}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "Sal de Sierra Espolón hacia el este (o de {zone:1440} hacia el sur) hasta {zone:1413}. {area:380} y {area:378} son pueblos de la Horda; {area:392} es un puerto neutral.",
+	-- {zone:1413} The Barrens · {area:1702} Honor's Stand · {area:380} The Crossroads · {area:378} Camp Taurajo · {area:392} Ratchet
+	["The road east out of south-eastern Stonetalon comes down into the {zone:1413} at {area:1702}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "",
 	-- {area:392} Ratchet
 	["Flight path here: {area:392} (Bragok)."] = "Ruta de vuelo aquí: {area:392} (Bragok).",
 	-- {area:378} Camp Taurajo
@@ -72,15 +72,17 @@ return {
 	["Horde guards: touch the edge of {area:362} and move on"] = "Guardias de la Horda: toca el borde de {area:362} y sigue adelante",
 
 	-- Step 15: Durotar (2/2)
-	-- {area:367} Sen'jin Village
-	["Horde guards: touch the edge of {area:367} and move on"] = "Guardias de la Horda: toca el borde de {area:367} y sigue adelante",
 	-- {area:363} Valley of Trials
 	["Horde guards: touch the edge of {area:363} and move on"] = "Guardias de la Horda: toca el borde de {area:363} y sigue adelante",
+	-- {area:367} Sen'jin Village
+	["Horde guards: touch the edge of {area:367} and move on"] = "Guardias de la Horda: toca el borde de {area:367} y sigue adelante",
 
 	-- Step 16: Mulgore (1/2)
 	["16 areas to discover here, levels 5-10."] = "Aquí hay 16 zonas por descubrir, niveles 5-10.",
 	-- {zone:1413} The Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {zone:1456} Thunder Bluff
-	["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "Vuelve hacia el oeste cruzando {zone:1413}; el camino hacia el oeste desde {area:378} sube a {zone:1412}, tierra tauren con guardias en {area:222} y {zone:1456}.",
+	["Go back west across the {zone:1413}; the road west from {area:378} climbs through the only pass into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "",
+
+	-- Step 17: Mulgore (2/2)
 	-- {zone:1456} Thunder Bluff
 	["Horde guards: touch the edge of {zone:1456} and move on"] = "Guardias de la Horda: toca el borde de {zone:1456} y sigue adelante",
 	-- {area:222} Bloodhoof Village
@@ -88,8 +90,8 @@ return {
 
 	-- Step 18: Thousand Needles (1/2)
 	["9 areas to discover here, levels 24-35."] = "Aquí hay 9 zonas por descubrir, niveles 24-35.",
-	-- {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles · {area:484} Freewind Post
-	["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "Desde el sur de {zone:1413}, baja por {area:485} hasta {zone:1441}. {area:484} es un pueblo de la Horda.",
+	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles · {area:484} Freewind Post
+	["Leave {zone:1412} by the same pass and ride south through the {zone:1413} to the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "",
 
 	-- Step 19: Thousand Needles (2/2)
 	-- {area:484} Freewind Post
@@ -110,13 +112,11 @@ return {
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The road west from {area:378} climbs into {zone:1412}."] = "El camino hacia el oeste desde {area:378} sube a {zone:1412}.",
-	-- {zone:1456} Thunder Bluff
-	["Flight path here: {zone:1456} (Tal)."] = "Ruta de vuelo aquí: {zone:1456} (Tal).",
+	["The road west from {area:378} climbs through the only pass into {zone:1412}."] = "",
 
 	-- Step 28: Stonetalon Mountains (1/2)
-	-- {zone:1413} The Barrens · {area:1702} Honor's Stand · {zone:1442} Stonetalon Mountains · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak
-	["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "Vuelve a {zone:1413} y ve hacia el oeste por {area:1702} hasta {zone:1442}. {area:460} es el pueblo de la Horda; {area:467}, al norte, es de la Alianza.",
+	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:1702} Honor's Stand · {zone:1442} Stonetalon Mountains · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak
+	["Leave {zone:1412} by the same pass, ride north through the {zone:1413} and west at {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "",
 	-- {area:460} Sun Rock Retreat
 	["Flight path here: {area:460} (Tharm)."] = "Ruta de vuelo aquí: {area:460} (Tharm).",
 
@@ -164,11 +164,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "Cruza los puentes de {area:814} hacia el oeste desde {zone:1411} hasta {zone:1413}. {area:385}, al este, es un fuerte de la Alianza.",
 	-- ["Cross the {area:814} east from the northern {zone:1413} into {zone:1411}: Horde country, with guards at {area:362}, {area:367} and {zone:1454}."] = "Cruza {area:814} hacia el este desde el norte de {zone:1413} hasta {zone:1411}: tierra de la Horda, con guardias en {area:362}, {area:367} y {zone:1454}.",
+	-- ["Flight path here: {zone:1456} (Tal)."] = "Ruta de vuelo aquí: {zone:1456} (Tal).",
 	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "Rutas de vuelo aquí: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378}).",
 	-- ["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "Vuela a {area:378} y ve hacia el sur por {zone:1413} hasta {area:485}, que baja a {zone:1441}.",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "Desde el sur de {zone:1413}, baja por {area:485} hasta {zone:1441}. {area:484} es un pueblo de la Horda.",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "Vuelve a {zone:1413} y ve hacia el oeste por {area:1702} hasta {zone:1442}. {area:460} es el pueblo de la Horda; {area:467}, al norte, es de la Alianza.",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "Vuelve hacia el oeste cruzando {zone:1413}; el camino hacia el oeste desde {area:378} sube a {zone:1412}, tierra tauren con guardias en {area:222} y {zone:1456}.",
+	-- ["The road west from {area:378} climbs into {zone:1412}."] = "El camino hacia el oeste desde {area:378} sube a {zone:1412}.",
 	-- ["The {area:485}"] = "{area:485}",
-	-- ["Walk east out of Stonetalon (or south out of {zone:1440}) into the {zone:1413}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "Sal de la Sierra Espolón hacia el este (o de {zone:1440} hacia el sur) hasta {zone:1413}. {area:380} y {area:378} son pueblos de la Horda; {area:392} es un puerto neutral.",
+	-- ["Walk east out of Stonetalon (or south out of {zone:1440}) into the {zone:1413}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "Sal de Sierra Espolón hacia el este (o de {zone:1440} hacia el sur) hasta {zone:1413}. {area:380} y {area:378} son pueblos de la Horda; {area:392} es un puerto neutral.",
 }

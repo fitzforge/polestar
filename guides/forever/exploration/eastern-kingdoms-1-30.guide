@@ -7,8 +7,8 @@ levels 1-30
 zone map 1415
 next forever/exploration/eastern-kingdoms-30-45
 
-# Every discoverable area of Elwynn Forest, Westfall, Duskwood, Redridge
-# Mountains, Dun Morogh, Loch Modan, Wetlands, Hillsbrad Foothills, Silverpine
+# Every discoverable area of Elwynn Forest, Dun Morogh, Loch Modan, Westfall,
+# Redridge Mountains, Duskwood, Wetlands, Hillsbrad Foothills, Silverpine
 # Forest, Tirisfal Glades (138 map overlays), for both factions. Each `explore`
 # point is the centre of the area's map overlay hit rect in the Forever client's
 # tables (WorldMapOverlay, UiMapXMapArt, UiMap, AreaTable via wago.tools, build
@@ -43,82 +43,11 @@ step Elwynn Forest (2/2)
   explore 41.2,64.7 "Goldshire"
   explore 24.2,35.6 "Stormwind City / Valley of Heroes / Stormwind Mountains" -- any one of these names counts
 
-step Westfall (1/2)
-  only Alliance
-  zone Westfall
-  tip 14 areas to discover here, levels 9-18.
-  note "Westfall borders Elwynn Forest to the west: follow the road out past the Westbrook Garrison."
-  note "Flight path here: Sentinel Hill (Thor)."
-  explore 56.6,17.6 "The Jansen Stead"
-  explore 50.9,21.3 "Furlbrow's Pumpkin Farm"
-  explore 44.7,24.3 "Jangolode Mine"
-  explore 44.9,36.3 "The Molsen Farm"
-  explore 31.4,41.5 "Gold Coast Quarry"
-  explore 38.2,52.4 "Alexston Farmstead"
-  explore 31.2,69.6 "Demont's Place"
-
-step Westfall (2/2)
-  only Alliance
-  zone Westfall
-  explore 31.9,86.1 "Westfall Lighthouse"
-  explore 44.2,65.5 "Moonbrook"
-  explore 46.9,79 "The Dagger Hills"
-  explore 63.4,72.6 "The Dust Plains"
-  explore 62.4,61.4 "The Dead Acre"
-  explore 55.9,49.8 "Sentinel Hill"
-  explore 55.4,32.6 "Saldean's Farm"
-
-step Duskwood (1/2)
-  only Alliance
-  zone Duskwood
-  tip 13 areas to discover here, levels 10-30.
-  note "Duskwood is east of Westfall and south of Elwynn Forest. Its road runs east to Darkshire."
-  note "Flight path here: Darkshire (Felicia Maline)."
-  explore 10,44.5 "The Hushed Bank"
-  explore 20.2,41.9 "Raven Hill Cemetery"
-  explore 20.7,56.1 "Raven Hill"
-  explore 21.7,69.2 "Addle's Stead"
-  explore 36.2,73.4 "Vul'Gol Ogre Mound"
-  explore 49.2,73.4 "The Yorgen Farmstead"
-  explore 64.1,73 "The Rotting Orchard"
-
-step Duskwood (2/2)
-  only Alliance
-  zone Duskwood
-  explore 80.1,70 "Tranquil Gardens Cemetery"
-  explore 77.1,44.9 "Darkshire"
-  explore 74.4,33.7 "Manor Mistmantle"
-  explore 62.6,40.8 "Brightwood Grove"
-  explore 47.7,40.4 "Twilight Grove"
-  explore 54.6,21.3 "The Darkened Bank"
-
-step Redridge Mountains (1/2)
-  only Alliance
-  zone Redridge Mountains
-  tip 11 areas to discover here, levels 15-24.
-  note "Redridge starts at Three Corners, where the roads from Elwynn Forest and Duskwood meet."
-  note "Flight path here: Lakeshire (Ariena Stormfeather)."
-  explore 11.9,73.3 "Three Corners" live
-  explore 21.4,45.3 "Lakeshire" live
-  explore 23.4,28.7 "Redridge Canyons / Rethban Caverns" live -- any one of these names counts
-  explore 34.1,14.7 "Render's Camp / Render's Rock" live -- any one of these names counts
-  explore 47.9,42.7 "Alther's Mill" live
-  explore 42,59.8 "Lake Everstill" live
-
-step Redridge Mountains (2/2)
-  only Alliance
-  zone Redridge Mountains
-  explore 37.3,76.9 "Lakeridge Highway" live
-  explore 70.4,79.1 "Render's Valley" live
-  explore 73.2,67.2 "Stonewatch Falls" live
-  explore 62.3,56.9 "Stonewatch / Stonewatch Tower" live -- any one of these names counts
-  explore 71.1,42 "Galardell Valley / Tower of Ilgalar" live -- any one of these names counts
-
 step Dun Morogh (1/3)
   only Alliance
   zone Dun Morogh
   tip 18 areas to discover here, levels 4-12.
-  note "Take the Deeprun Tram from Stormwind's Dwarven District to Ironforge (or fly to Ironforge), then leave the city through its gates."
+  note "Take the Deeprun Tram from Stormwind's Dwarven District to Ironforge, then leave the city through its gates."
   explore 40.9,40 "Shimmer Ridge"
   explore 34.9,38.5 "Iceflow Lake"
   explore 24.2,38.2 "Gnomeregan"
@@ -150,7 +79,7 @@ step Loch Modan (1/2)
   only Alliance
   zone Loch Modan
   tip 11 areas to discover here, levels 10-18.
-  note "Leave Dun Morogh east through the gate tunnel; it opens into Loch Modan at Algaz Station."
+  note "Leave Dun Morogh east through the South Gate tunnel; it opens into Loch Modan by the dwarf king statues of the Valley of Kings."
   note "Flight path here: Thelsamar (Thorgrum Borrelson)."
   explore 20.5,73.7 "Valley of Kings"
   explore 34.9,77.8 "Stonesplinter Valley"
@@ -163,54 +92,125 @@ step Loch Modan (2/2)
   only Alliance
   zone Loch Modan
   explore 50.1,42.3 "The Loch"
-  explore 34.9,46 "Thelsamar"
   explore 47.9,12.7 "Stonewrought Dam"
   explore 34.4,21.7 "Silver Stream Mine"
   explore 22.5,15.3 "North Gate Pass"
+  explore 34.9,46 "Thelsamar"
+
+step Westfall (1/2)
+  only Alliance
+  zone Westfall
+  tip 14 areas to discover here, levels 9-18.
+  note "Fly from Thelsamar to Stormwind if you have its flight path; otherwise ride back to Ironforge and take the Deeprun Tram. Walk west out of Elwynn Forest past the Westbrook Garrison into Westfall."
+  note "Flight path here: Sentinel Hill (Thor)."
+  explore 56.6,17.6 "The Jansen Stead"
+  explore 50.9,21.3 "Furlbrow's Pumpkin Farm"
+  explore 44.7,24.3 "Jangolode Mine"
+  explore 44.9,36.3 "The Molsen Farm"
+  explore 31.4,41.5 "Gold Coast Quarry"
+  explore 38.2,52.4 "Alexston Farmstead"
+  explore 31.2,69.6 "Demont's Place"
+
+step Westfall (2/2)
+  only Alliance
+  zone Westfall
+  explore 31.9,86.1 "Westfall Lighthouse"
+  explore 44.2,65.5 "Moonbrook"
+  explore 46.9,79 "The Dagger Hills"
+  explore 63.4,72.6 "The Dust Plains"
+  explore 62.4,61.4 "The Dead Acre"
+  explore 55.9,49.8 "Sentinel Hill"
+  explore 55.4,32.6 "Saldean's Farm"
+
+step Redridge Mountains (1/2)
+  only Alliance
+  zone Redridge Mountains
+  tip 11 areas to discover here, levels 15-24.
+  note "Go back east through Elwynn Forest: the road past the Eastvale Logging Camp enters Redridge at Three Corners, where the roads from Elwynn Forest and Duskwood meet."
+  note "Flight path here: Lakeshire (Ariena Stormfeather)."
+  explore 21.4,45.3 "Lakeshire" live
+  explore 23.4,28.7 "Redridge Canyons / Rethban Caverns" live -- any one of these names counts
+  explore 34.1,14.7 "Render's Camp / Render's Rock" live -- any one of these names counts
+  explore 71.1,42 "Galardell Valley / Tower of Ilgalar" live -- any one of these names counts
+  explore 73.2,67.2 "Stonewatch Falls" live
+  explore 70.4,79.1 "Render's Valley" live
+
+step Redridge Mountains (2/2)
+  only Alliance
+  zone Redridge Mountains
+  explore 62.3,56.9 "Stonewatch / Stonewatch Tower" live -- any one of these names counts
+  explore 47.9,42.7 "Alther's Mill" live
+  explore 42,59.8 "Lake Everstill" live
+  explore 37.3,76.9 "Lakeridge Highway" live
+  explore 11.9,73.3 "Three Corners" live
+
+step Duskwood (1/2)
+  only Alliance
+  zone Duskwood
+  tip 13 areas to discover here, levels 10-30.
+  note "From Three Corners take the road south into Duskwood; Darkshire is east along its main road. Most of Duskwood is level 24-30: come with Redridge behind you."
+  note "Flight path here: Darkshire (Felicia Maline)."
+  explore 74.4,33.7 "Manor Mistmantle"
+  explore 54.6,21.3 "The Darkened Bank"
+  explore 20.2,41.9 "Raven Hill Cemetery"
+  explore 10,44.5 "The Hushed Bank"
+  explore 20.7,56.1 "Raven Hill"
+  explore 21.7,69.2 "Addle's Stead"
+  explore 36.2,73.4 "Vul'Gol Ogre Mound"
+
+step Duskwood (2/2)
+  only Alliance
+  zone Duskwood
+  explore 49.2,73.4 "The Yorgen Farmstead"
+  explore 47.7,40.4 "Twilight Grove"
+  explore 62.6,40.8 "Brightwood Grove"
+  explore 64.1,73 "The Rotting Orchard"
+  explore 80.1,70 "Tranquil Gardens Cemetery"
+  explore 77.1,44.9 "Darkshire"
 
 step Wetlands (1/2)
   only Alliance
   zone Wetlands
   tip 15 areas to discover here, levels 20-30.
-  note "From Algaz Station, the road north through the Dun Algaz pass leads into the Wetlands."
+  note "Fly from Darkshire to Thelsamar in Loch Modan and ride north through the Dun Algaz pass into the Wetlands."
   note "Flight path here: Menethil Harbor (Shellei Brondir)."
+  explore 56.4,68.9 "Thelgen Rock"
   explore 80.1,63.2 "Grim Batol" -- the discovery triggers at the Dragonmaw Gates: do not go into Grim Batol itself
   explore 72.1,38.2 "Raptor Ridge"
   explore 60.6,32.6 "Direforge Hill"
   explore 53.6,36.7 "The Green Belt"
   explore 61.9,54.6 "Mosshide Fen"
-  explore 56.4,68.9 "Thelgen Rock"
   explore 47.4,48.3 "Angerfang Encampment"
   explore 35.9,49 "Whelgar's Excavation Site"
 
 step Wetlands (2/2)
   only Alliance
   zone Wetlands
-  explore 20,49 "Black Channel Marsh"
-  explore 10.2,56.9 "Menethil Harbor"
-  explore 19.2,36.3 "Bluegill Marsh"
-  explore 23.2,28.4 "Sundown Marsh"
-  explore 34.2,24.3 "Saltspray Glen"
   explore 44.7,31.1 "Ironbeard's Tomb"
   explore 49.4,16.8 "Dun Modr"
+  explore 34.2,24.3 "Saltspray Glen"
+  explore 23.2,28.4 "Sundown Marsh"
+  explore 19.2,36.3 "Bluegill Marsh"
+  explore 20,49 "Black Channel Marsh"
+  explore 10.2,56.9 "Menethil Harbor"
 
 step Hillsbrad Foothills (1/2)
   only Alliance
   zone Hillsbrad Foothills
   tip 12 areas to discover here, levels 20-31.
-  note "Cross the Thandol Span in northern Wetlands into the Arathi Highlands (level 30+ creatures off the road), follow the road west past Refuge Pointe and on into Hillsbrad Foothills."
+  note "Take the boat from Menethil Harbor to Southshore."
   note "Flight path here: Southshore (Darla Harris)."
-  explore 72.1,71.5 "Dun Garok"
-  explore 61.9,74.5 "Eastern Strand"
+  explore 49.7,55.4 "Southshore"
   explore 63.9,55.4 "Nethander Stead"
+  explore 61.9,74.5 "Eastern Strand"
+  explore 72.1,71.5 "Dun Garok"
   explore 76.8,40.8 "Durnholde Keep"
   explore 61.1,25.8 "Tarren Mill" -- Horde guards: touch the edge of Tarren Mill and move on
-  explore 50.9,33.7 "Darrow Hill"
 
 step Hillsbrad Foothills (2/2)
   only Alliance
   zone Hillsbrad Foothills
-  explore 49.7,55.4 "Southshore"
+  explore 50.9,33.7 "Darrow Hill"
   explore 34.9,44.9 "Hillsbrad Fields"
   explore 26.2,57.3 "Azurelode Mine"
   explore 35.7,68.1 "Western Strand"
@@ -320,18 +320,18 @@ step Silverpine Forest (1/2)
   explore 40.4,28.4 "North Tide's Hollow"
   explore 44.7,40.8 "The Sepulcher"
   explore 46.9,53.9 "Olsen's Farthing"
-  explore 44.2,66.2 "Shadowfang Keep"
+  explore 55.4,36.3 "The Decrepit Ferry"
 
 step Silverpine Forest (2/2)
   only Horde
   zone Silverpine Forest
+  explore 71.9,28.8 "Fenris Isle"
+  explore 56.1,48.3 "Deep Elem Mine"
+  explore 63.4,62.9 "Ambermill"
+  explore 58.9,72.2 "Beren's Peril"
+  explore 44.2,66.2 "Shadowfang Keep"
   explore 44.9,73.7 "Pyrewood Village"
   explore 46.4,86.1 "The Greymane Wall"
-  explore 58.9,72.2 "Beren's Peril"
-  explore 63.4,62.9 "Ambermill"
-  explore 56.1,48.3 "Deep Elem Mine"
-  explore 55.4,36.3 "The Decrepit Ferry"
-  explore 71.9,28.8 "Fenris Isle"
 
 step Hillsbrad Foothills (1/2)
   only Horde
@@ -339,66 +339,66 @@ step Hillsbrad Foothills (1/2)
   tip 12 areas to discover here, levels 20-31.
   note "At the south end of Silverpine the road turns east into Hillsbrad Foothills by Southpoint Tower. Tarren Mill in the north-east is the Horde town; Southshore is Alliance."
   note "Flight path here: Tarren Mill (Zarise)."
-  explore 50.9,33.7 "Darrow Hill"
-  explore 61.1,25.8 "Tarren Mill"
-  explore 76.8,40.8 "Durnholde Keep"
-  explore 72.1,71.5 "Dun Garok"
-  explore 61.9,74.5 "Eastern Strand"
-  explore 63.9,55.4 "Nethander Stead"
+  explore 15.5,46 "Southpoint Tower"
+  explore 17.2,79.7 "Purgation Isle"
+  explore 35.7,68.1 "Western Strand"
+  explore 26.2,57.3 "Azurelode Mine"
+  explore 34.9,44.9 "Hillsbrad Fields"
+  explore 49.7,55.4 "Southshore" -- Alliance guards: touch the edge of Southshore and move on
 
 step Hillsbrad Foothills (2/2)
   only Horde
   zone Hillsbrad Foothills
-  explore 49.7,55.4 "Southshore" -- Alliance guards: touch the edge of Southshore and move on
-  explore 34.9,44.9 "Hillsbrad Fields"
-  explore 35.7,68.1 "Western Strand"
-  explore 26.2,57.3 "Azurelode Mine"
-  explore 15.5,46 "Southpoint Tower"
-  explore 17.2,79.7 "Purgation Isle"
+  explore 50.9,33.7 "Darrow Hill"
+  explore 61.1,25.8 "Tarren Mill"
+  explore 63.9,55.4 "Nethander Stead"
+  explore 61.9,74.5 "Eastern Strand"
+  explore 72.1,71.5 "Dun Garok"
+  explore 76.8,40.8 "Durnholde Keep"
 
 step Wetlands (1/2)
   only Horde
   zone Wetlands
   tip 15 areas to discover here, levels 20-30.
   note "Walk east from Hillsbrad into the Arathi Highlands (level 30+ creatures off the road), south to the Thandol Span bridge, and across it into the Wetlands. Menethil Harbor is an Alliance town."
-  explore 34.2,24.3 "Saltspray Glen"
-  explore 44.7,31.1 "Ironbeard's Tomb"
   explore 49.4,16.8 "Dun Modr"
-  explore 60.6,32.6 "Direforge Hill"
-  explore 72.1,38.2 "Raptor Ridge"
-  explore 80.1,63.2 "Grim Batol" -- the discovery triggers at the Dragonmaw Gates: do not go into Grim Batol itself
-  explore 56.4,68.9 "Thelgen Rock"
-  explore 61.9,54.6 "Mosshide Fen"
+  explore 44.7,31.1 "Ironbeard's Tomb"
+  explore 34.2,24.3 "Saltspray Glen"
+  explore 23.2,28.4 "Sundown Marsh"
+  explore 19.2,36.3 "Bluegill Marsh"
+  explore 10.2,56.9 "Menethil Harbor" -- Alliance guards: touch the edge of Menethil Harbor and move on
+  explore 20,49 "Black Channel Marsh"
+  explore 35.9,49 "Whelgar's Excavation Site"
 
 step Wetlands (2/2)
   only Horde
   zone Wetlands
-  explore 53.6,36.7 "The Green Belt"
   explore 47.4,48.3 "Angerfang Encampment"
-  explore 35.9,49 "Whelgar's Excavation Site"
-  explore 23.2,28.4 "Sundown Marsh"
-  explore 19.2,36.3 "Bluegill Marsh"
-  explore 20,49 "Black Channel Marsh"
-  explore 10.2,56.9 "Menethil Harbor" -- Alliance guards: touch the edge of Menethil Harbor and move on
+  explore 53.6,36.7 "The Green Belt"
+  explore 60.6,32.6 "Direforge Hill"
+  explore 72.1,38.2 "Raptor Ridge"
+  explore 80.1,63.2 "Grim Batol" -- the discovery triggers at the Dragonmaw Gates: do not go into Grim Batol itself
+  explore 61.9,54.6 "Mosshide Fen"
+  explore 56.4,68.9 "Thelgen Rock"
 
 step Loch Modan (1/2)
   only Horde
   zone Loch Modan
   tip 11 areas to discover here, levels 10-18.
   note "The Dun Algaz pass in south-eastern Wetlands leads down into Loch Modan by Algaz Station."
-  explore 20.5,73.7 "Valley of Kings"
-  explore 34.9,77.8 "Stonesplinter Valley"
-  explore 45.2,68.9 "Grizzlepaw Ridge"
-  explore 69.4,65.5 "Ironband's Excavation Site"
-  explore 83.1,62.9 "The Farstrider Lodge"
+  explore 47.9,12.7 "Stonewrought Dam"
   explore 70.9,25.1 "Mo'grosh Stronghold"
+  explore 83.1,62.9 "The Farstrider Lodge"
+  explore 69.4,65.5 "Ironband's Excavation Site"
+  explore 45.2,68.9 "Grizzlepaw Ridge"
+  explore 34.9,77.8 "Stonesplinter Valley"
 
 step Loch Modan (2/2)
   only Horde
   zone Loch Modan
-  explore 50.1,42.3 "The Loch"
+  explore 20.5,73.7 "Valley of Kings"
   explore 34.9,46 "Thelsamar" -- Alliance guards: touch the edge of Thelsamar and move on
-  explore 47.9,12.7 "Stonewrought Dam"
+  explore 50.1,42.3 "The Loch"
   explore 34.4,21.7 "Silver Stream Mine"
   explore 22.5,15.3 "North Gate Pass"
 
@@ -406,7 +406,7 @@ step Dun Morogh (1/3)
   only Horde
   zone Dun Morogh
   tip 18 areas to discover here, levels 4-12.
-  note "From Algaz Station take the tunnel west into Dun Morogh. Kharanos and Ironforge's gates are Alliance ground."
+  note "From Algaz Station take the North Gate Pass tunnel west into Dun Morogh. Kharanos and Ironforge's gates are Alliance ground."
   explore 82.8,37.8 "North Gate Outpost"
   explore 85.3,50.9 "South Gate Outpost"
   explore 76.8,54.3 "Helm's Bed Lake"

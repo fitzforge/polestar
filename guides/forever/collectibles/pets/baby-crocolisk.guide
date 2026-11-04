@@ -4,13 +4,30 @@ category Collectibles
 folder Companion pets · Drops
 keywords Sewer Beast, Stormwind canals, crocolisk, rare
 collects 282047
-levels 1-60
+levels 50-60
 zone Stormwind City
 
 # Baby Crocolisk from the Sewer Beast in Stormwind's canals (new in Forever).
-# Sources: Wowhead Forever item 282047 (Sewer Beast, 1.5% in 132 kills);
-# npcs.json (the Sewer Beast's spawns); Forever client 1.60.1.70338.
+# Sources: Forever's drop data, item 282047 (Sewer Beast, 1.5% in 132 kills);
+# npcs.json (two of its spawns, live frame); the TDB's six spawn points
+# (creature 3581, converted to the era map) and its health (8x a normal level
+# 50); Forever client 1.60.1.70532 (item 282047).
+# ASSUMED: The Sewer Beast comes back about two hours after a kill, at one of
+# its six spots (Classic flow; the TDB's 7286-second respawn is Classic data).
+# In-game check: the time between two kills on one layer.
+# ASSUMED: The Baby Crocolisk binds when picked up (Forever's item page as
+# quoted in the news; our client tables have no ItemSparse row for it).
+# In-game check: the item's tooltip.
+# The beta's level-30 cap had raid groups killing it; the level 50-60 band is
+# for the full game.
 
 step Sewer Beast
-  tip The Sewer Beast is a rare level 50 crocolisk that swims Stormwind's canals; early kill counts give about 1.5% per kill. It is friendly to nobody: Horde players can farm it too, but they are in an enemy capital.
-  collect 282047 "Baby Crocolisk" @32.4,62.5 -- Sewer Beast
+  tip The Sewer Beast is a rare level 50 crocolisk, much tougher than a normal mob of its level. It swims Stormwind's canals and appears at one of six spots, about two hours after it last died; the arrow takes you round them. Below 60, bring a group; at 60, a well-geared character can try it alone. It drops the Baby Crocolisk about once in 70 kills, and the pet binds when picked up, so the Auction House never has it. Horde players can farm it too, but inside an enemy capital.
+  loop
+  goto 32.4,62.5
+  goto 49.8,69.8
+  goto 66.9,57.3
+  goto 66.4,31.8
+  goto 49.9,22.2
+  goto 35.5,45.4
+  collect 282047 "Baby Crocolisk" -- Sewer Beast

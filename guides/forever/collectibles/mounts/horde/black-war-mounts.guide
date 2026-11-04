@@ -5,26 +5,33 @@ folder Mounts · PvP
 keywords Horn of the Black War Wolf, Whistle of the Black War Raptor, Black War Kodo, Red Skeletal Warhorse, Raider Bork, Lieutenant General, PvP rank 11, Hall of Legends
 collects 18245, 18246, 18247, 18248
 faction Horde
-levels 40-60
+levels 60-60
 zone Orgrimmar
 
 # The Horde rank 11 PvP mounts from Raider Bork in Orgrimmar.
 # Rank 11 (Commander / Lieutenant General) unlocks the Black War mounts;
 # vendors in Stormwind and Orgrimmar.
-# Sources: Forever client 1.60.1.70338 via wago.tools (ItemSparse: level 40,
-# 100g, racial riding spell, no rank in the item itself). Our data has no spawn
-# for the vendor, so the waypoint is the honor hall next to its quartermasters
-# (npcs.json).
+# Sources: Forever client 1.60.1.70532 via wago.tools (ItemSparse: level 40,
+# 100g, no rank in the item itself; MountCapability: each needs Riding 150 and
+# its kind's riding: Wolf Riding, Raptor Riding, Kodo Riding, Undead
+# Horsemanship; CurrencyTypes: Rank Points come from battlegrounds and tasks
+# given in Gadgetzan). Blizzard's PvP article (October 2026): Rank Points from
+# battlegrounds, PvP quests and the season's weekly tasks, a weekly cap, rank 11
+# Mounts, and the Player vs. Player tab of the character pane.
+# Raider Bork's place: Forever's world data spawn (build 70170), in the open
+# city now rather than an instanced hall.
+# ASSUMED: they cost 100g (client price); beta player guides say PvP rewards are
+# bought with Honor. In-game check: Raider Bork's price.
 
 step PvP rank 11
-  tip Forever's PvP ranks come from Rank Points earned in battlegrounds and world PvP, with a weekly cap; Lieutenant General (rank 11) unlocks the Black War mounts. Polestar cannot read your rank, so this step waits for level 40 and the riding skill.
-  level 40
-  skill Riding 75
+  tip Rank Points come from battlegrounds, PvP quests and the season's weekly tasks, with a weekly cap; Lieutenant General (rank 11) unlocks the Black War mounts. The Player vs. Player tab of your character pane shows your rank and what you may buy. Riding one at full speed needs Journeyman Riding (level 60). Polestar cannot read your rank, so this step waits for level 60 and Journeyman Riding.
+  level 60
+  skill Riding 150
 
 step Raider Bork
-  tip Raider Bork sells the mounts in the Hall of Legends in Orgrimmar's Valley of Honor, beside the other honor quartermasters such as Sergeant Ba'sha. The Forever client lists each at 100g; choose one.
-  vendor 12796 @41.5,68.6             -- Raider Bork
-  buy 18245 npc 12796 @41.5,68.6 optional -- 100g
-  buy 18246 npc 12796 @41.5,68.6 optional -- 100g
-  buy 18247 npc 12796 @41.5,68.6 optional -- 100g
-  buy 18248 npc 12796 @41.5,68.6 optional -- 100g
+  tip Raider Bork sells the mounts by the Hall of Legends in Orgrimmar's Valley of Honor, beside the other honor quartermasters. The Forever client lists each at 100g. Each one also needs its kind's riding: Orcs ride the wolf, Trolls the raptor, Tauren the kodo, Undead the skeletal warhorse. A Skyborne, or anyone choosing another race's mount, first needs that riding from its trainer (Exalted with the race's city).
+  vendor 12796 @37.9,64.2             -- Raider Bork
+  buy 18245 npc 12796 @37.9,64.2 optional -- Black War Wolf, Wolf Riding, 100g
+  buy 18246 npc 12796 @37.9,64.2 optional -- Black War Raptor, Raptor Riding, 100g
+  buy 18247 npc 12796 @37.9,64.2 optional -- Black War Kodo, Kodo Riding, 100g
+  buy 18248 npc 12796 @37.9,64.2 optional -- Red Skeletal Warhorse, Undead Horsemanship, 100g

@@ -1,0 +1,30 @@
+{
+  "meta": { "schema": 1, "note": "Synthetic, written for the knowledge-base golden (rust/tests/golden/kb/README.md)." },
+  "quests": {
+    "4402": {
+      "title": "Galgar's Cactus Apple Surprise",
+      "kinds": [{ "kind": "object-click", "sources": ["forever-data", "player-notes"], "confidence": "high", "confirmedByReading": true }],
+      "params": [{ "kind": "object-click", "item": 11583, "objects": [171938], "objectName": "Cactus Apple", "source": "forever-data", "confidence": "high", "checkedAt": "2026-10-22" }]
+    },
+    "5441": {
+      "title": "Lazy Peons",
+      "kinds": [
+        { "kind": "use-item-on-mob", "sources": ["quest-text"], "confidence": "high", "confirmedByReading": true },
+        { "kind": "timed", "sources": ["player-notes"], "confidence": "medium", "confirmedByReading": false }
+      ],
+      "params": [
+        { "kind": "use-item-on-mob", "item": 16114, "npcs": [10556], "dead": false, "source": "server", "confidence": "high", "checkedAt": "2026-10-22" },
+        { "kind": "timed", "seconds": 600, "source": "player-notes", "confidence": "low", "checkedAt": "2026-10-22" }
+      ],
+      "refuted": [{ "kind": "escort", "by": "server-forever", "sources": ["player-notes"] }]
+    },
+    "790": {
+      "title": "Sarkoth",
+      "kinds": [{ "kind": "group/elite", "sources": ["player-notes"], "confidence": "low", "confirmedByReading": false }]
+    },
+    "783": {
+      "title": "A Threat Within",
+      "kinds": [{ "kind": "multi-step-in-one-objective", "sources": ["quest-text", "server"], "confidence": "high", "confirmedByReading": true }]
+    }
+  }
+}

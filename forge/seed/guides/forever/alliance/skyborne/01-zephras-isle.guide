@@ -1,0 +1,612 @@
+guide forever/alliance/skyborne/01-zephras-isle
+title Zephras Isle
+faction Alliance
+race Skyborne
+levels 1-15
+zone Zephras Isle
+next forever/alliance/02-westfall
+
+# Route: the simulator's consensus route for the Alliance Skyborne
+# (data/sim/export/consensus-alliance-skyborne, visit 1, levels 1-14.6).
+#
+# Flow: Thendal Grove (1-6) -> Shen'dar Village, the Highlands and Falaath
+# Village (6-9.5) -> Valanaar and the Gustberry Lowlands (9.5-12.5) -> the
+# Shrine of Akir and Shadowgale Forest (12.5-14.5) -> Valanaar -> the skycutter
+# to Dalaran, Denaaris and the Skyborne portal to Stormwind at about 14.6,
+# Bolvar in Stormwind Keep, then on to Westfall.
+# The isle has no flight master. Valanaar's inn (Donaal Downbreeze, by the
+# west gate) is bound on the first walk into town and the hearth used once,
+# from the Windfield farm back to Valanaar (the farm is the far south-west of
+# the isle). Every class trains in Thendal Grove (2, 4, 6), Shen'dar (about 9)
+# and Valanaar (about 10, 11 and 14). There are no grind stops: the quests
+# carry you.
+#
+# Class quests, as class-only steps around Valanaar:
+# - Hunter: Quel'ana Quickgale's Taming the Beast (94978, 94979, 94013:
+#   Windsong Crawler, Vuldren Alpha, Ornery Galestrider) and Training the
+#   Beast (94050). The first rod is taken at the first Valanaar training at
+#   10, by the west gate, and the crawler tamed among the crabs on the Crab
+#   Season trip; the rod goes back to her on the way west out of town to the
+#   Windstone Formations, where the other two beasts roam just north of her.
+#   Elayaa Easewind's breadcrumb (94007) is not needed. The Way of the
+#   Hunter (92482) is handed to Tai'ree Farsight in Thendal Grove at 2.
+# - Warrior: The Skybreaker Bulwark (94003, Defensive Stance), from Seena
+#   Skybreaker at the first Valanaar training at 10 (she stands beside Quel'ana
+#   and Nyalah). Zaal Stormshield holds the Bulwark west of the Shrine of
+#   Akir's approach: defeat him for it on the way in to the shrine.
+#   The Warrior's Path (92532), Rorian to Blademaster Ren in the grove at 2.
+# - Druid: The Great Ursera Spirit and Strength and Mercy (94006, 94638, Bear
+#   Form) from Lotheluum Starbreeze, Urs'endris and Ur'endra. The route meets
+#   Lotheluum first at about 9.6, under the quest's level 10, so 94006 is
+#   taken at the Valanaar training at about 11, between Valennia's house and
+#   the eastern watchtower; Bear Form is handed in at the falls as the route
+#   leaves Valanaar for the north, before Shadowgale Forest. Cat Form is in
+#   03-darkshore.
+#   At the Dalaran landing Alfina Nightgaze's Child of Nature (94912) goes to
+#   Sheldras Moontree in Stormwind, whose Moonglade (94914) teaches Teleport:
+#   Moonglade; Dendrite takes it on the Cat Form trip in 03-darkshore.
+# - Druid at 2: A Student of Nature (92485), Rorian to Xyton Silverwind in
+#   Thendal Grove.
+# - Mage: A Student of the Arcane (92481) in Thendal Grove; Speak with Belann
+#   and Boughs in the Wind (93791, 93797: Windbough Wand) around Valanaar at
+#   about 10; Mirror Lake (1861) from Jennea Cannon in Stormwind, its water
+#   taken on the way to Westfall, handed in at the 02-westfall Stormwind stop.
+# - Rogue: At Home in the Shadows (92483), Rorian to Akeri Duskblade in the
+#   watchtower (no spell).
+# - Level 2 class letters are taken: Rorian's note for every class (92532,
+#   92482, 92483, 92481, 92485) goes to its trainer in Thendal Grove once
+#   Harmony in Balance is handed in.
+#
+# Group quest: WANTED: Vulgara the Insatiable (93318), not in the export;
+# Vulgara is elite, so the guide asks (`when group 93318`, #639).
+#
+# Deviations from the export (local order only, same quest set):
+# - Thendal Grove: Halaan, Myriaal, Dalia and Falorne are taken on the first
+#   return to the grove. The watchtower comes first, a few steps from
+#   Elatrell: The Anchors of Zephras and Falling With Style, then the Walk on
+#   Air glide down to Rorian, who takes Harmony in Balance and Falling With
+#   Style on one visit (#363). The Windstones, the Cirrusfly Queen and the Ley
+#   Line go into one loop east with Yala, and the Ursera, Urs'anah and Hanaa's
+#   thugs into one loop west, instead of the simulator's back-and-forth.
+# - Shen'dar: Restocking the Larders is done with the Prideclaws on the
+#   grasslands south of the village; the hippogryphs and the Novice Seers are
+#   folded into the Western Watch trip instead of a separate trip before
+#   Falaath Village.
+# - Shadowgale Forest: the Strange Hermit's quests are done together with the
+#   refugees' belongings, which lie in the same corner of the forest.
+# - Valanaar: Mages hand Boughs in the Wind to Belann, on the way in, before
+#   Elaadrin. The hearth from the Windfield farm lands at the inn beside
+#   Alvarion and Nyalah: Deliver the News and Crab Season are handed in there.
+#
+# Carried on: Journey to Sentinel Hill (98021), from Bolvar, is turned in to
+# Gryan Stoutmantle on the first Sentinel Hill stop of the Westfall guide,
+# when his People's Militia (12) is taken.
+# Crab Season (93317): Nyalah's quest is taken on the road in; its crawler
+# meat comes from the shore below Fillion's camp on the missing scholar's
+# trip, and the meat goes to Nyalah when the hearth lands at the inn.
+#
+# The refreshed consensus export leaves the isle at about 12.2, after the
+# Gustberry Lowlands, because it now runs every start on one shared route
+# from level 12. This guide keeps the isle to 14.6 (the turncoat, the Shrine
+# of Akir, Shadowgale Forest and the skycutter): the previous export, which
+# did, reached level 20 sooner (9.4 h against 9.8 h), and it is the
+# Skyborne's own story.
+# Not taken: Boughs in the Wind (93797), which the new export takes, follows
+# Speak with Belann (93791, Mage only) and is on Forever's Mage class quest list:
+# a Mage quest, not one for everyone. Exploring the Alliance (93963), from
+# Bolvar with Journey to Sentinel Hill, sends you to Magni and Mekkatorque in
+# Ironforge and Tyrande in Darnassus: the route reaches Ironforge only in
+# 06-ashenvale and Darnassus only for Druid class quests. More Al'Aketh Ears
+# (93459, Vayn Moongaze) is a repeatable reputation turn-in with no XP.
+
+# ---------------------------------------------------------------- Thendal Grove
+
+step Thendal Grove
+  tip You wake in Thendal Grove. Ailee Farheart stands beside you; Rorian the Dayseeker is a few steps west, Elatrell Featherlight by the south edge of the grove.
+  accept 92460                                -- Ailee Farheart
+  turnin 92460                                -- Rorian the Dayseeker
+  accept 92461
+  accept 92462                                -- Elatrell Featherlight
+
+step Vuldren and Cirrusflies
+  tip Juvenile Vuldren and Pesky Cirrusflies roam the meadow just south-east of the grove.
+  kill 250873 quest 92461.1
+  kill 251169 quest 92462.1
+
+step Back to Thendal Grove
+  tip Halaan Hawk-Eye and Myriaal Mistwake stand at the top of the watchtower, a few steps north-east of Elatrell.
+  turnin 92462                                -- Elatrell Featherlight
+  accept 92463
+  accept 94414                                -- Halaan Hawk-Eye
+  complete 94414 @43.77,24.08                 -- Listen to Halaan
+  turnin 94414
+  accept 92474                                -- Myriaal Mistwake
+
+step Rorian the Dayseeker
+  tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  turnin 92461                                -- Rorian the Dayseeker
+  turnin 92474
+  accept 92464
+  accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note
+  turnin 92532 only Warrior                   -- Blademaster Ren, in the watchtower
+  accept 92482 only Hunter                    -- Rorian the Dayseeker: a note from your trainer
+  turnin 92482 only Hunter                    -- Tai'ree Farsight
+  accept 92483 only Rogue                     -- Rorian the Dayseeker: read the Simple Note
+  turnin 92483 only Rogue                     -- Akeri Duskblade, in the watchtower
+  accept 92481 only Mage                      -- Rorian the Dayseeker: A Student of the Arcane
+  turnin 92481 only Mage                      -- Dorii Brightwhisper, the mage trainer: read the Glowing Recall Crystal first
+  accept 92485 only Druid                     -- Rorian: A Student of Nature
+  turnin 92485 only Druid                     -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
+  train class                                 -- The class trainers stand together in the grove
+  accept 93552                                -- Dalia the Collector
+  accept 92597                                -- Falorne Fallwind
+
+step Raw Windstones and the Cirrusfly Queen
+  tip The Raw Windstones glitter on the ground just south of the grove. The Cirrusfly Queen hovers over the meadow further east, on the way to Yala.
+  collect 258772 quest 93552.1
+  kill 251404 quest 92463.1
+
+step Yala Windwatcher
+  tip Yala Windwatcher keeps watch east of the grove. The Roiling Winds and Al'Aketh Converts gather just north of her; the Ley Line rises further north: cast your Read Leyline racial ability at it.
+  turnin 92464                                -- Yala Windwatcher
+  accept 92465
+  kill 251143 quest 92465.2
+  kill 251160 quest 92465.1
+  interact 460002 quest 92597.1 @46.29,17.87 "Cast Read Leyline at the Ley Line"
+  turnin 92465                                -- Yala Windwatcher
+  accept 92469
+
+step Thendal Grove turn-ins
+  turnin 93552                                -- Dalia the Collector
+  turnin 92463                                -- Elatrell Featherlight
+  turnin 92597                                -- Falorne Fallwind
+  turnin 92469                                -- Rorian the Dayseeker
+  train class                                 -- Level 4 spells
+  accept 92471 lvl 4
+  turnin 92471                                -- Aetheen of the Gales
+  accept 92470
+  accept 92473                                -- Valreaa Valewind
+
+step Scrawny Ursera and Urs'anah
+  tip Scrawny Ursera prowl the woods just west of the grove; the Ursera Scavengers den further west, with Urs'anah, the matriarch, at the back of the den.
+  collect 251918 quest 92473.1 @41.4,26.4
+  kill 250937 quest 92470.1
+  collect 252665 quest 92470.2                -- Head of Urs'anah
+
+step Hanaa Nightwind
+  tip Hanaa Nightwind camps south of the Ursera den. The Al'Aketh thugs hold the camp south-west of her; Malduko Cloudcrush stands in its middle.
+  accept 92544                                -- Hanaa Nightwind
+  kill 251145 quest 92544.1
+  kill 251448 quest 92544.2
+  kill 256935 quest 92544.3                   -- Malduko Cloudcrush
+  turnin 92544
+
+step Aetheen of the Gales
+  turnin 92473                                -- Valreaa Valewind
+  turnin 92470                                -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class                                 -- Level 6 spells
+
+# ---------------------------------------------------------------- Shen'dar Village
+
+step Shen'dar Village
+  tip Follow the road south to Shen'dar Village. Raan Wildwind camps by the fire west of the village; Constable Aonda and Rathiril Sunlance stand in its middle.
+  turnin 96638                                -- Raan Wildwind
+  turnin 92472                                -- Constable Aonda
+  accept 92596                                -- Rathiril Sunlance
+  complete 92596 @44.99,46.28
+  turnin 92596
+  accept 94413
+  accept 93461                                -- Constable Aonda
+  complete 93461                              -- Speak with Rathiril Sunlance and Coriella Calmbreeze, north-west of the village
+
+step Raan Wildwind
+  accept 96101                                -- Raan Wildwind
+  complete 96101 @41.73,44.78                 -- /sit by Raan's campfire until you get Boosted Rest
+  turnin 96101
+  accept 96646
+  train Cooking npc 251905                    -- Zerril Softbreeze: Camping 101 asks you to learn it
+  complete 96646 @43.85,43.9
+  turnin 96646
+
+step Village quests
+  turnin 93461                                -- Constable Aonda
+  accept 92517
+  accept 93951                                -- Taleen Shimmerthread
+  accept 92515                                -- Indari Sunseam
+  accept 92516                                -- Teeri Wellwind
+  accept 93319
+  accept 92553                                -- Zerril Softbreeze
+
+step Village quests
+  when group 93318
+  accept 93318 optional                       -- The bounty board
+
+step Prideclaws and Galestriders
+  tip Prideclaws and Galestriders roam the grasslands south of the village. Galestriders drop both the eggs and the meat.
+  collect 252670 quest 92515.1
+  collect 6889 quest 92553.1
+  collect 5469 quest 92553.2
+
+step Back to Shen'dar
+  turnin 92553                                -- Zerril Softbreeze
+  turnin 92515                                -- Indari Sunseam
+
+step The Highlands bandits
+  tip The Highlands Bandits camp north-east of the village. "Badwind" Bennic waits at the far north end of their camp.
+  kill 251918 quest 92517.1
+  collect 257945 quest 93319.1
+  kill 255534 quest 92517.2                   -- "Badwind" Bennic
+
+step Shen'dar turn-ins
+  turnin 92517                                -- Constable Aonda
+  accept 93036
+  turnin 93036                                -- Sania Silverstream
+  accept 92529
+  turnin 93319                                -- Teeri Wellwind
+
+step Falaath Village
+  tip Missionary Jasaan waits at the entrance to Falaath Village, south of Shen'dar. The Mark of Akir lets you walk in among the faithful.
+  turnin 92529                                -- Missionary Jasaan
+  accept 92528
+  complete 92528 @48.84,53.93                 -- Search the wardrobe
+
+step Constable Aonda
+  turnin 92528                                -- Constable Aonda
+  accept 92550
+  accept 93926
+  accept 92551                                -- Danarii Bellowveil
+
+step Havoc in Falaath
+  tip Back in Falaath Village: Stormcallers and Living Lightning fill the village, the Stormcallers carry the stolen supplies, and Commander Cyclas stands at its south end.
+  kill 252068 quest 92550.1
+  kill 251662 quest 92550.2
+  collect 252760 quest 92551.1
+  collect 252661 quest 92550.3                -- Commander Cyclas's Head
+
+step The Western Watch
+  tip Peacekeeper Vaaniel holds the western watch, south-west of Falaath. Skypriest Aanders and the fallen guards lie just south of her.
+  complete 93926 @42.34,62.1                  -- Peacekeeper Vaaniel
+  turnin 93926
+  accept 93927
+  collect 254871 quest 93927.2                -- The Bloody Note
+  kill 256966 quest 93927.1                   -- Skypriest Aanders
+  collect 263415 quest 93927.3                -- Raani Windgazer
+  collect 263418 quest 93927.4                -- Arvensus Shadowsong
+
+step The hippogryph roost
+  tip Head north-west to the hippogryph nests on the western cliffs. Hippogryph Down lies around the nests; the Matriarch patrols among them.
+  kill 251291 quest 92516.1
+  kill 251284 quest 92516.2
+  kill 251261 quest 92516.3
+  collect 263493 quest 93951.1
+
+step Vulgara the Insatiable
+  when group 93318
+  tip Vulgara lurks in the hills south-west of the village, on the way back. Vulgara the Insatiable is elite: grouping up is advised.
+  collect 257942 quest 93318.1 optional       -- Vulgara's Head
+
+step Windshaper Novice Seers
+  tip The Novice Seers practise in the clearing west of Shen'dar.
+  kill 257532 quest 94413.1
+
+step Shen'dar Village again
+  turnin 92516                                -- Teeri Wellwind
+  turnin 93951                                -- Taleen Shimmerthread
+  turnin 92551                                -- Danarii Bellowveil
+  turnin 92550                                -- Constable Aonda
+  turnin 93927
+  accept 92701
+  accept 93948
+  turnin 94413                                -- Rathiril Sunlance
+  train class
+
+step Shen'dar Village again
+  when group 93318
+  turnin 93318 optional
+
+# ---------------------------------------------------------------- Valanaar
+
+step The road to Valanaar
+  tip Nyalah Brightfire and Alvarion Windfield stand on Valanaar's west side, beside the inn; Seena Skybreaker and Quel'ana Quickgale train just west of Nyalah. Windsong Crawlers line the shore further west, around 51,70.
+  accept 93317                                -- Nyalah Brightfire
+  accept 94003 only Warrior                   -- Seena Skybreaker, beside Nyalah: Zaal Stormshield holds the Bulwark at the Shrine of Akir
+  accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
+  sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
+  accept 92679                                -- Alvarion Windfield
+  kill 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  kill 254588 quest 94978.1 @51.6,70.6 "Tame Windsong Crawler" only Hunter -- Windsong Crawler, among the crabs: tame one with Quel'ana's first Taming Rod while you are there
+  collect 257941 quest 93317.1 @51.6,70.6
+  turnin 93317                                -- Nyalah Brightfire
+
+step Valanaar
+  tip Valennia Stormfist and Talaanis Shadowsong stand at the north end of Valanaar, Elaadrin Evengale and Dondallion Whisperwind at the south end.
+  turnin 93948                                -- Talaanis Shadowsong
+  turnin 92701                                -- Valennia Stormfist
+  accept 92699
+  accept 93949
+  turnin 92699                                -- Elaadrin Evengale
+  accept 92709
+  complete 92709 @66.59,79.92
+  turnin 92709
+  accept 92727                                -- Dondallion Whisperwind
+
+step Skyhoppers
+  tip Skyhoppers swarm the fields west of Valanaar.
+  kill 251727 quest 93949.1
+  turnin 93949                                -- Valennia Stormfist
+
+step The missing scholar
+  tip The Bloodstained Satchel lies by the path west of Valanaar; Fillion's camp is north-west of it, and the Shriekling Matriarchs nest just west of the camp.
+  turnin 92727                                -- The Bloodstained Satchel
+  accept 92849
+  complete 92849                              -- Find Fillion and his bedroll
+  turnin 92849                                -- Fillion Flamebreeze
+  accept 92850
+  collect 257107 quest 92850.1                -- Shriekling Matriarch's Head
+
+# ---------------------------------------------------------------- The Gustberry Lowlands
+
+step Aamelia Windfield
+  tip Aamelia Windfield runs the farm in the south-west lowlands.
+  kill 252800 quest 92679.1 @46.7,81.95 "Talk to Aamelia Windfield"
+  turnin 92679
+  accept 92682
+  accept 92683
+  accept 92684
+
+step The Windfield farm
+  tip Ripe Stormapples and Hungry Bandits are in the orchard by the farm, Flutterfly Dust in the fields north-east of it, Ornery Galestriders all around. The Malfunctioning Cyclone Construct stands in the field north-east of the farm.
+  collect 253591 quest 92682.1
+  kill 252802 quest 92682.2
+  accept 92698                                -- Malfunctioning Cyclone Construct
+  collect 253595 quest 92683.1
+  collect 253597 quest 92684.1
+
+step Aamelia again
+  turnin 92682                                -- Aamelia Windfield
+  turnin 92684
+  turnin 92683
+  turnin 92698
+  accept 92685
+
+step Bandit Highwaymen
+  tip The Bandit Highwaymen hold the hills north of the farm.
+  collect 253596 quest 92685.1
+
+step Standing our ground
+  turnin 92685                                -- Aamelia Windfield
+  accept 92693
+  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
+  kill 252863 quest 92693.2
+  turnin 92693
+  accept 92703
+
+step Valanaar turn-ins
+  hearth "Valanaar"                           -- Hearthstone on cooldown? Walk east back to town.
+  turnin 92703                                -- Alvarion Windfield
+  turnin 92850                                -- Dondallion Whisperwind
+  accept 99260                                -- Fillion Flamebreeze
+  turnin 99260                                -- Elaadrin Evengale
+  accept 92840
+  accept 93791 only Mage                      -- Anathamaas Aetherwind, the mage trainer
+  turnin 93791 only Mage                      -- Belann Windwood
+  accept 93797 only Mage
+  train class
+
+step Taming the Beast
+  only Hunter
+  tip Bring Quel'ana Quickgale the first Taming Rod back on the way west out of town; she hands you two more, one at a time: tame an Ornery Galestrider and a Vuldren Alpha in the fields just north of her, returning to her after each. Quel'dora Quickgale, beside her, teaches Beast Training.
+  turnin 94978                                -- Quel'ana Quickgale
+  accept 94979
+  kill 251707 quest 94979.1 "Tame Ornery Galestrider" -- Tame it with the Taming Rod
+  turnin 94979
+  accept 94013
+  kill 250874 quest 94013.1 "Tame Vuldren Alpha" -- Tame it with the Taming Rod
+  turnin 94013                                -- Tame Beast
+  accept 94050
+  turnin 94050                                -- Quel'dora Quickgale: Beast Training
+
+step The Windstone Formations
+  tip The Windstone Formations stand on the rise west of Fillion's camp.
+  interact 697118 quest 92840.1
+  collect 262668 quest 93797.1 only Mage      -- Wind-Infused Bough: by the formations
+
+step Elaadrin Evengale
+  turnin 93797 only Mage                      -- Belann Windwood: Windbough Wand
+  turnin 92840                                -- Elaadrin Evengale
+  accept 92834
+  accept 92860
+  turnin 92860                                -- Valennia Stormfist
+  accept 93320
+
+step Lotheluum Starbreeze
+  only Druid
+  tip Lotheluum Starbreeze, the druid trainer, stands between the west gate and Valennia's house.
+  accept 94006                                -- Lotheluum Starbreeze: The Great Ursera Spirit (level 10)
+
+step The eastern watchtower
+  tip Yorana Windyreed holds the watchtower north of Valanaar. The Al'Aketh camp is just west of the tower, its healers around 65,68 and 65,65; Commander Belguilos stands at its north end. The Al'Aketh there drop Windstone Charms.
+  turnin 93320                                -- Yorana Windyreed
+  accept 92642
+  accept 92645
+  kill 254596 quest 92642.1 @65.4,68.4
+  kill 270201 quest 92642.2
+  collect 255658 quest 92834.1
+  kill 252666 quest 92645.1                   -- Commander Belguilos
+  turnin 92642                                -- Yorana Windyreed
+  turnin 92645
+  accept 92880
+
+step Valanaar, the turncoat
+  turnin 92834                                -- Elaadrin Evengale
+  accept 92741                                -- Iaadaria Bitterwind
+  accept 94484                                -- Lotheluum Starbreeze
+  accept 94896                                -- Ealaane Nimbuswalker
+  accept 94897
+  turnin 92880                                -- Valennia Stormfist
+  accept 92881
+  turnin 92881                                -- Talaanis Shadowsong
+  accept 92643
+
+step Urs'endris
+  only Druid
+  tip Urs'endris waits by the falls north-east of Valanaar. Ur'endra prowls the Shen'dar Highlands west of Valanaar, by the road you take next.
+  turnin 94006                                -- Urs'endris
+  accept 94638
+
+step The dead cultist
+  tip North-west of Valanaar along the road: Fendaal Windstone watches the Al'Aketh Assassins; the dead cultist lies just north of him.
+  accept 98512                                -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  complete 92643 @56.01,58.81                 -- Search the dead cultist
+  turnin 92643
+  accept 92644
+  turnin 98512                                -- Fendaal Windstone
+  kill 258443 quest 94638.1 only Druid        -- Ur'endra, in the highlands south-west of the cultist
+
+step Desperate times
+  turnin 92644                                -- Talaanis Shadowsong
+  accept 94568
+  complete 94568 @66.17,76.51
+  turnin 94568
+  accept 92640
+  complete 92640                              -- Rally Valennia, Ayessa Dawnsinger (west of town) and Elaadrin
+  turnin 92640                                -- Valennia Stormfist
+  accept 93065
+  complete 93065 @61.18,70.95                 -- Meet Valennia at the gate
+  turnin 93065
+  accept 92947
+  turnin 94638 only Druid                     -- Urs'endris, by the falls north-east of Valanaar, on the way north: Bear Form
+
+# ---------------------------------------------------------------- The Shrine of Akir
+
+step The Shrine of Akir
+  tip Fight north to the Shrine of Akir. Guardians, Spiritcallers and Blademasters hold the approach; Hyusaa Quickbreeze waits at the shrine's door, Valennia inside the inner sanctum.
+  collect 263993 quest 94003.1 @56.6,50.3 only Warrior -- Skybreaker Bulwark: Zaal Stormshield holds it, west of the shrine's approach; defeat him for it on the way in
+  kill 252762 quest 92947.1
+  kill 252763 quest 92947.2
+  kill 252765 quest 92947.3
+  complete 92947 @63.77,50.51                 -- Hyusaa Quickbreeze
+  turnin 92947
+  accept 93958
+  turnin 93958                                -- Valennia Stormfist, in the sanctum
+  accept 93835
+
+# ---------------------------------------------------------------- Shadowgale Forest
+
+step Elegael Thornpaw
+  tip Head north into Shadowgale Forest. Elegael Thornpaw camps in its east.
+  turnin 94484                                -- Elegael Thornpaw
+  accept 94485
+  accept 94486
+  accept 94487
+
+step Shadowgale Forest
+  tip Al'Aketh Stormchasers and Footsoldiers camp just north of Elegael and drop the heirloom; the Shrieklings west of her drop the feathers and talons; the Lady's Tear Moss grows along the stream west of her.
+  collect 265141 quest 94487.1
+  collect 254378 quest 92741.1
+  collect 265140 quest 94486.1
+  collect 265105 quest 94485.1
+
+step Elegael again
+  turnin 94485                                -- Elegael Thornpaw
+  turnin 94487
+  turnin 94486
+  accept 94488
+  accept 94489
+
+step Vayn Moongaze
+  tip Vayn Moongaze, Jorel Windsinger and Naaleos Leafwhisper are north-east of Elegael; Commander Haalien stands east of them. Haalien also drops a Ripped Missive. For The Wounds of Betrayal, enter the Nightfang Den, heal 7 injured druids and find Jorel.
+  kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den"
+  kill 258130 quest 94489.2 "Find Jorel Windsinger"
+  accept 93165                                -- Vayn Moongaze
+  collect 258771 quest 93165.1
+  turnin 93165
+  collect 265475 quest 94488.1                -- Commander Haalien's Severed Head
+  collect 265476                              -- Ripped Missive
+  accept 94490
+
+step Elegael Thornpaw, the missive
+  turnin 94488                                -- Elegael Thornpaw
+  turnin 94489
+  turnin 94490
+  accept 94491
+
+step The Strange Hermit
+  tip The Strange Hermit lives west of Elegael. The Zephyrseed Cones lie in the woods between his hut and Elegael.
+  accept 93159                                -- Strange Hermit
+  complete 93159 @53.96,38.9
+  turnin 93159
+  accept 93160
+  accept 93172
+  collect 257128 quest 93160.1
+
+step The refugees' camp
+  tip North of the cones: the Wind Hollows drift around the refugees' camp, the Abandoned Belongings lie between the tents, and Resaan Nimbuswalker lies at its north end.
+  kill 251676 quest 93172.1
+  collect 266433 quest 94896.1
+  collect 266434 quest 94897.1                -- Resaan's Heirloom
+
+step Back to the Hermit
+  turnin 93160                                -- Strange Hermit
+  turnin 93172
+
+step High Priestess Lorthuna
+  tip Lorthuna waits on the eastern shore of the isle, east of the Shrine of Akir.
+  complete 93835 @74.32,53.68
+
+# ---------------------------------------------------------------- Leaving the isle
+
+step Valanaar, the fate of Zephras
+  turnin 94896                                -- Ealaane Nimbuswalker
+  turnin 94897
+  turnin 94491                                -- Lotheluum Starbreeze
+  turnin 92741                                -- Iaadaria Bitterwind
+  turnin 93835                                -- Elaadrin Evengale
+  accept 94369
+  complete 94369 @66.17,76.51                 -- Talaanis Shadowsong
+  turnin 94369
+  accept 93089
+  turnin 93089                                -- Elaadrin Evengale
+  accept 94946                                -- Elaadrin Evengale: Denaaris Stargale waits by the Skyborne portal
+  train class
+  turnin 94003 only Warrior                   -- Seena Skybreaker: Defensive Stance
+
+step The skycutter
+  tip The skycutter docks at the tower south of Valanaar. It lands by the Kirin Tor camp on the lake shore west of Dalaran.
+  goto 65.81,83.44 "Skycutter to Dalaran"
+
+step Denaaris Stargale
+  zone Alterac Mountains
+  tip Denaaris stands beside the Skyborne Portal where the zeppelin lands. The portal takes you to Stormwind.
+  turnin 94946                                -- Denaaris Stargale
+  accept 94912 npc 270459 only Druid          -- Alfina Nightgaze, beside Denaaris: for Sheldras Moontree in Stormwind
+  accept 94947
+  interact 631299 quest 94947.1               -- Skyborne Portal to Stormwind
+
+step Stormwind Keep
+  zone Stormwind City
+  tip Bolvar Fordragon stands in the throne room of Stormwind Keep, at the north end of the city. Then leave by the main gate for Westfall.
+  turnin 94947                                -- Highlord Bolvar Fordragon
+  accept 98021                                -- For Gryan Stoutmantle at Sentinel Hill
+
+step Sheldras Moontree
+  only Druid
+  zone Stormwind City
+  tip Sheldras Moontree, Stormwind's druid trainer, teaches you Teleport: Moonglade. Dendrite Starblaze's welcome waits for your Cat Form trip at the end of Darkshore.
+  turnin 94912                                -- Sheldras Moontree
+  accept 94914
+
+step Jennea Cannon
+  only Mage
+  zone Stormwind City
+  tip Jennea Cannon stands in the Wizard's Sanctum, the tower of the Mage Quarter; she gives you a flask for the Mirror Lake waterfall.
+  accept 1861                                 -- Jennea Cannon
+
+step Mirror Lake
+  only Mage
+  zone Elwynn Forest
+  tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
+  collect 7206 quest 1861.1                   -- Mirror Lake Water Sample

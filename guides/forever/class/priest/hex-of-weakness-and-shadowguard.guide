@@ -7,32 +7,137 @@ faction Horde
 race Troll
 levels 10-20
 zone Orgrimmar
-keywords Hex of Weakness, Shadowguard, Ur'kyo, Valley of Spirits, Troll, racial, Priest
+keywords Hex of Weakness, Shadowguard, Ur'kyo, Tai'jin, Var'jun, Miles Welsh, Aelthalyste, Valley of Spirits, Troll, racial, Priest
 reward spell 9035 "Hex of Weakness"
 reward spell 18137 "Shadowguard"
-why The Troll priest spells: Hex of Weakness at 10, Shadowguard at 20.
+why The Troll priest spells: Hex of Weakness at 10, Shadowguard at 20. Free, no objectives.
 
-# The Troll Priest spell quests: Hex of Weakness at 10 (5652) and
-# Shadowguard at 20 (5680), both from Ur'kyo in Orgrimmar's Valley of
-# Spirits.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json: both
-# unchanged); classicwowforever.com/racials for the spells (Hex of Weakness
-# and Shadowguard stay Troll spells).
-# horde/orc-troll/01-durotar and 03-silverpine-forest carry Hex of Weakness
-# on the route (5654, from Tai'jin in Razor Hill) and horde/04-the-barrens
-# carries Shadowguard; this guide repeats them for anyone off the route. The
-# game offers one quest of each set.
-# Not checked in game: written from the sources above.
+# The Troll Priest spell quests. Each spell has one quest at the teacher,
+# Ur'kyo (Valley of Spirits, Orgrimmar), and letters from priest trainers in
+# other towns; any one teaches the spell and the game offers only one of a
+# set:
+#   Hex of Weakness (level 10):
+#     5652 Ur'kyo (Orgrimmar), his own quest
+#     5654 Tai'jin (Razor Hill, Durotar)
+#     5655 Var'jun (by Bloodhoof Village, Mulgore)
+#     5656 Miles Welsh (Spirit Rise, Thunder Bluff)
+#     5657 Aelthalyste (Undercity)
+#   Shadowguard (level 20):
+#     5680 Ur'kyo (Orgrimmar), his own quest
+#     5642 Miles Welsh (Thunder Bluff)
+#     5643 Aelthalyste (Undercity)
+# The guide sends you to the giver in the zone you stand in when it gets
+# there (`when zone`), else straight to Ur'kyo; a letter you carry from
+# anywhere is handed in on its own step (`when onquest`). Pickups are `talk`
+# goals, not accepts: one guide accepting two quests of one exclusive set
+# warns in lint, which does not follow `when`.
+# Sources: quests.json and npcs.json for the givers; Forever's quest pages
+# (snapshot) agree, except that 5656's page names no giver (the reference
+# data has Miles Welsh); Forever's Priest class quest list
+# (data/local/quest-audit/): all unchanged, both stay Troll spells (Hex of
+# Weakness now lowers melee attack power instead of damage dealt).
+# Var'jun stands just south-west of Bloodhoof Village (npcs.json, Mulgore
+# 46.2,62.3 on the live map).
+# horde/orc-troll/01-durotar carries Hex of Weakness 5654 on the route (to
+# Ur'kyo at about 16) and horde/04-the-barrens Shadowguard 5642.
+# Based on data, not play: written from the sources above.
 
-step Hex of Weakness
-  tip At 10, go to Ur'kyo in the Valley of Spirits, on Orgrimmar's west side. Priest trainers elsewhere (Tai'jin in Razor Hill, Miles Welsh in Thunder Bluff) send you to him with a quest of the same name.
+step Hex of Weakness: Tai'jin
+  when zone "Durotar"
+  when !onquest 5652,5654,5655,5656,5657
+  zone Durotar
+  tip At 10, Tai'jin, the priest trainer inside the barracks of Razor Hill (the first building on the right as you come up the road from the Valley of Trials), hands you a Hex of Weakness letter for Ur'kyo in Orgrimmar. Razor Hill is on the road north to the city.
+  level 10
+  talk 3706                                   -- Tai'jin: take his Hex of Weakness letter
+
+step Hex of Weakness: Var'jun
+  when zone "Mulgore"
+  when !onquest 5652,5654,5655,5656,5657
+  zone Mulgore
+  tip At 10 in Mulgore, Var'jun, just south-west of Bloodhoof Village, hands you a Hex of Weakness letter for Ur'kyo in Orgrimmar.
+  level 10
+  talk 11407                                  -- Var'jun: take the Hex of Weakness letter
+
+step Hex of Weakness: Miles Welsh
+  when zone "Thunder Bluff"
+  when !onquest 5652,5654,5655,5656,5657
+  zone Thunder Bluff
+  tip At 10 in Thunder Bluff, Miles Welsh, the priest trainer in the cave under Spirit Rise, hands you a Hex of Weakness letter for Ur'kyo in Orgrimmar.
+  level 10
+  talk 3044                                   -- Miles Welsh: take his Hex of Weakness letter
+
+step Hex of Weakness: Aelthalyste
+  when zone "Undercity"
+  when !onquest 5652,5654,5655,5656,5657
+  zone Undercity
+  tip At 10 in the Undercity, Aelthalyste, the priest trainer in the War Quarter, hands you a Hex of Weakness letter for Ur'kyo in Orgrimmar (the zeppelin from the tower outside the Undercity).
+  level 10
+  talk 4606                                   -- Aelthalyste: take her Hex of Weakness letter
+
+step Hex of Weakness: Ur'kyo
+  when !onquest 5652,5654,5655,5656,5657
+  zone Orgrimmar
+  tip At 10, go to Ur'kyo, the priest trainer in a hut in the Valley of Spirits, Orgrimmar's south-west corner: he gives Hex of Weakness and takes it back at once. No letter needed.
   level 10
   accept 5652                                 -- Ur'kyo
   turnin 5652                                 -- Ur'kyo: Hex of Weakness
 
-step Shadowguard
-  tip At 20, Ur'kyo teaches Shadowguard. Miles Welsh in Thunder Bluff and Aelthalyste in the Undercity send you to him with a quest of the same name.
+step Hex of Weakness: Tai'jin's letter
+  when onquest 5654
+  zone Orgrimmar
+  tip Follow the road north from Razor Hill into Orgrimmar and west to the Valley of Spirits: Ur'kyo takes the letter and teaches Hex of Weakness.
+  turnin 5654                                 -- Ur'kyo: Hex of Weakness
+
+step Hex of Weakness: Var'jun's letter
+  when onquest 5655
+  zone Orgrimmar
+  tip Hand the letter to Ur'kyo in the Valley of Spirits, Orgrimmar (from Mulgore: north through the Barrens and east into Durotar, or fly from Thunder Bluff once you know Orgrimmar's flight path).
+  turnin 5655                                 -- Ur'kyo: Hex of Weakness
+
+step Hex of Weakness: Miles Welsh's letter
+  when onquest 5656
+  zone Orgrimmar
+  tip Hand the letter to Ur'kyo in the Valley of Spirits, Orgrimmar (from Mulgore: north through the Barrens and east into Durotar, or fly from Thunder Bluff once you know Orgrimmar's flight path).
+  turnin 5656                                 -- Ur'kyo: Hex of Weakness
+
+step Hex of Weakness: Aelthalyste's letter
+  when onquest 5657
+  zone Orgrimmar
+  tip Hand the letter to Ur'kyo in the Valley of Spirits, Orgrimmar (the zeppelin from Tirisfal Glades lands outside Orgrimmar).
+  turnin 5657                                 -- Ur'kyo: Hex of Weakness
+
+step Shadowguard: Miles Welsh
+  when zone "Thunder Bluff"
+  when !onquest 5680,5642,5643
+  zone Thunder Bluff
+  tip At 20 in Thunder Bluff, Miles Welsh in the cave under Spirit Rise hands you a Shadowguard letter for Ur'kyo in Orgrimmar.
+  level 20
+  talk 3044                                   -- Miles Welsh: take his Shadowguard letter
+
+step Shadowguard: Aelthalyste
+  when zone "Undercity"
+  when !onquest 5680,5642,5643
+  zone Undercity
+  tip At 20 in the Undercity, Aelthalyste in the War Quarter hands you a Shadowguard letter for Ur'kyo in Orgrimmar.
+  level 20
+  talk 4606                                   -- Aelthalyste: take her Shadowguard letter
+
+step Shadowguard: Ur'kyo
+  when !onquest 5680,5642,5643
+  zone Orgrimmar
+  tip At 20, Ur'kyo in the Valley of Spirits teaches Shadowguard with a quest he gives and takes back at once.
   level 20
   accept 5680                                 -- Ur'kyo
   turnin 5680                                 -- Ur'kyo: Shadowguard
+
+step Shadowguard: Miles Welsh's letter
+  when onquest 5642
+  zone Orgrimmar
+  tip Hand the letter to Ur'kyo in the Valley of Spirits, Orgrimmar (from Mulgore: north through the Barrens and east into Durotar, or fly from Thunder Bluff once you know Orgrimmar's flight path).
+  turnin 5642                                 -- Ur'kyo: Shadowguard
+
+step Shadowguard: Aelthalyste's letter
+  when onquest 5643
+  zone Orgrimmar
+  tip Hand the letter to Ur'kyo in the Valley of Spirits, Orgrimmar (the zeppelin from Tirisfal Glades lands outside Orgrimmar).
+  turnin 5643                                 -- Ur'kyo: Shadowguard

@@ -11,13 +11,19 @@ zone Redridge Mountains
 # Reins of the Pack Kodo from Huey Sunnydale at the Azeroth Commerce Authority
 # camp.
 # The reins cost 6,000 Merchant's Favor, earned from crate hand-ins at the camps.
-# Sources: NPC 256736 (position); Forever
-# client 1.60.1.70338 via wago.tools (ItemSparse 262766: level 60, Journeyman
-# Riding). Merchant's Favor is a currency Polestar cannot count.
+# Sources: NPC 256736 (position); Forever's world data for the Horde twin
+# Okamache (extended cost 11042 = 6,000 Merchant's Favor, PlayerCondition 163220
+# "Requires Durotar Supply and Logistics - Exalted"); the client holds the same
+# condition for this side, "Requires Azeroth Commerce Authority - Exalted"
+# (PlayerCondition 159140 and 163216). Forever client 1.60.1.70532 via
+# wago.tools (ItemSparse 262766: level 60; MountCapability: Riding 150, any
+# race). Merchant's Favor is a currency Polestar cannot count. The Supply
+# Factions Reputation guide has the road to Exalted.
 
 step Azeroth Commerce Authority
-  tip The camp is at Three Corners in western Redridge Mountains, between Elwynn Forest and Lakeshire. Loot supply crates in the world, fill them, and hand them in at the camp for Merchant's Favor (5-20 a crate); the Pack Kodo costs 6,000. Craftsman's Writs may help from level 10.
+  tip The camp is at Three Corners in western Redridge Mountains, where the roads from Elwynn Forest, Duskwood and Lakeshire meet. Huey Sunnydale sells the Pack Kodo only once you are Exalted with the Azeroth Commerce Authority, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time Shipping Label, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside.
   goto 10.5,72.7 "Azeroth Commerce Authority camp" live
+  rep "Azeroth Commerce Authority" Exalted
 
 step Pack Kodo
   tip The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier.

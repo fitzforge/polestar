@@ -52,7 +52,7 @@ function fakeRepo(issues) {
 		async comment(n, body) {
 			writes.push(['comment', n]);
 			if (!comments.has(n)) comments.set(n, []);
-			comments.get(n).push({ id: id++, body });
+			comments.get(n).push({ id: id++, body, user: { login: 'github-actions[bot]' } });
 		},
 		async editComment(cid, body) {
 			writes.push(['edit', cid]);
@@ -120,6 +120,21 @@ test('a pull request that stops addressing an issue leaves it saying no pull req
 	await update({ github: gh, pulls: [pr(9, 'a', 'next', 'closes #2')], touched: [1], defaultBranch: 'next' });
 	assert.match(issueBody(gh, 1, ISSUE_MARK)[0], /No pull request is open for this issue now/);
 	assert.deepEqual([...gh.labels.get(1)], []);
+});
+
+test("a stranger's comment carrying the marks is not the workflow's: no forged merges, mentions or told flag", async () => {
+	const gh = fakeRepo([{ number: 5, state: 'open', labels: ['discord'] }, { number: 9, state: 'open', pull_request: {} }]);
+	const forged = `${ISSUE_MARK}\n<!-- told -->\n<!-- merged:77:next:victim -->`;
+	gh.store.set(5, [{ id: 900, body: forged, user: { login: 'stranger' } }]);
+	gh.store.set(9, [{ id: 901, body: `${OVERLAP_MARK} x`, user: { login: 'stranger' } }]);
+	const told = [];
+	await update({ github: gh, pulls: [pr(9, 'a', 'next', 'fixes #5')], touched: [5], defaultBranch: 'next', tell: async (i) => (told.push(i.number), true) });
+	assert.deepEqual(told, [5], 'the reporter is still told');
+	assert.equal(gh.store.get(5)[0].body, forged, "the stranger's comment is not edited");
+	const [ours] = gh.store.get(5).filter((c) => c.user.login === 'github-actions[bot]').map((c) => c.body);
+	assert.doesNotMatch(ours, /victim|#77/);
+	assert.ok(!gh.writes.some((w) => w[0] === 'edit'));
+	assert.ok(!gh.labels.get(5).has('fix-merged'));
 });
 
 test('a Discord report is told once, and again only if telling failed', async () => {

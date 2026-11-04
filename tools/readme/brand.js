@@ -10,6 +10,7 @@
 //   logo.svg          the addon icon: the gold emblem on a night tile
 //   download.svg      the README's download button
 //   curseforge.svg    the README's CurseForge button, beside it
+//   client.svg        the README's Polestar Client button, beside those
 //   avatar.svg        the project avatar for the CurseForge listing: the
 //                     emblem, cut heavier, in its glow on a square night tile
 // and, with rsvg-convert, the listing's PNGs in docs/curseforge/images
@@ -189,6 +190,29 @@ ${text}
 `;
 }
 
+// The README's Polestar Client button, cut like the CurseForge one (night
+// face, gold rim) with the emblem in Polestar gold: the desktop app on
+// polestar.guide/client.
+function clientSvg() {
+	const o = new Outliner('c');
+	const H = 56, pad = 24, star = 24, gap = 12, size = 23;
+	const label = 'Get the Polestar Client';
+	const tw = o.width(label, { font: 'marcellus', size });
+	const W = Math.ceil(pad + star + gap + tw + pad);
+	const text = o.text(label, { font: 'marcellus', size, x: pad + star + gap, y: H / 2 + size * 0.34, fill: C.text, stroke: 0.2 });
+	return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" role="img" aria-label="${label}">
+<title>${label}</title>
+<defs>
+<linearGradient id="face" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="${C.sky}"/><stop offset="1" stop-color="${C.bg}"/></linearGradient>
+${o.defs()}
+</defs>
+<rect x="0.5" y="0.5" width="${W - 1}" height="${H - 1}" rx="10" fill="url(#face)" stroke="${C.accent}" stroke-opacity="0.55"/>
+<path fill="${C.accent}" d="${emblemPath(star / 128, pad, (H - star) / 2)}"/>
+${text}
+</svg>
+`;
+}
+
 // The band's sky mask (tools/media/ui.js band()): opaque at the top, a
 // quarter left halfway, gone at the foot. As gradient stops.
 function skyStops(color) {
@@ -287,6 +311,7 @@ function write() {
 		'logo.svg': logoSvg(),
 		'download.svg': downloadSvg(),
 		'curseforge.svg': curseforgeSvg(),
+		'client.svg': clientSvg(),
 		'avatar.svg': avatarSvg(),
 	};
 	for (const [name, text] of Object.entries(files)) {

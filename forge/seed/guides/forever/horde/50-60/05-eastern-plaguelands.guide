@@ -1,0 +1,238 @@
+guide forever/horde/50-60/05-eastern-plaguelands
+title Eastern Plaguelands, Winterspring & Tanaris
+faction Horde
+levels 56-58
+zone Eastern Plaguelands
+next forever/horde/50-60/06-silithus
+# Built from the playthrough simulator's consensus route (Horde, visits
+# 86-93) and machine-checked with lint; not play-tested on Forever yet.
+#
+# Optional: the Deadwood Cauldron chain (5084-5086) and Winterfall Ritual
+# Totem (8471) start from rare Winterspring drops (forever/horde/50-60/03-
+# winterspring), and Kernda speaks only to characters at Neutral with the
+# Timbermaw.
+#
+# Flow: fly from the Undercity to Light's Hope Chapel (bind, Alen, Carlin)
+# -> Lake Mereldar elementals -> Sword of Marduk -> the Pestilent Scar ->
+# Undercroft (Hameya's scroll) -> Marris Stead (Nathanos) -> western hills ->
+# Terrordale (Egan) -> Quel'Lithien Lodge -> Zul'Mashar -> Northdale ->
+# Corin's Crossing (Living Rot) -> Nathanos -> Hameya's mound -> hearth to
+# Light's Hope Chapel (Carlin) -> fly to Thunder Bluff (bind, cloth
+# donations, Druid and Paladin training) -> fly to Bloodvenom Post (Trull,
+# Deadwood Cauldron, Kernda) ->
+# Timbermaw Hold to Moonglade (Rabine Saturna) -> Winterspring (Donova,
+# Moontouched Owlbeasts) -> hearth to Thunder Bluff -> fly to Gadgetzan
+# (Sprinkle, Egg-O-Matic, Linken's sword) -> fly to
+# Camp Mojache (hippogryph eggs) -> Silithus.
+#
+# Super Sticky and Bungle in the Jungle (4504, 4496), which the export turns
+# in at Gadgetzan here, are handed in by the Un'Goro guide at its own
+# Gadgetzan stop.
+#
+# Deviations from the export:
+# - Inside the Plaguelands the order is one loop: west, then north, then
+#   back south. Villains of Darrowshire (5181) is handed to Carlin after the
+#   hearth to the chapel instead of riding back east mid-loop, and To Kill
+#   With Purpose (6022) is done at Corin's Crossing on the way back to
+#   Nathanos (the export finishes it at once).
+# - The Swamp of Sorrows stop (visit 91: The Swamp Talker, 2623) is dropped
+#   with its Stonard bind: the later guides no longer do the Fallen Hero's
+#   chain. Also dropped: Pawn Captures Queen (4507, an Un'Goro hive detour
+#   the later route leaves out) and Poisoned Water's bracers (6804, accept
+#   dropped in 03). The Gadgetzan bind is dropped (the hearth stays in
+#   Thunder Bluff). The Cenarion Hold flight path and bind are in Silithus
+#   and open the next guide.
+# - Dropped: A Donation of Runecloth for Thunder Bluff (7823): the route
+#   never hands it in.
+#
+# Left open for later guides: Heroes of Darrowshire (5168), Tirion's hunts
+# (5542-5544), Wild Guardians (4741), Toxic Horrors (5086), A Reliquary of
+# Purity and Wasteland (5527, 1124: Silithus), Linken's Sword (3914), Are We
+# There, Yeti? (5163) and The Super Egg-O-Matic (2741, back in Tanaris).
+
+# ---------------------------------------------------------------- Light's Hope Chapel
+
+step Fly to Light's Hope Chapel
+  zone Eastern Plaguelands
+  tip The Undercity's flight master is in the Trade Quarter's west tower, outside the walls.
+  fly "Light's Hope Chapel"
+  sethome "Light's Hope Chapel"
+
+step Light's Hope Chapel
+  accept 5281                         -- Caretaker Alen
+  turnin 5210                         -- Carlin Redpath
+  accept 5168
+  accept 5181
+  note Heroes of Darrowshire's items lie in the later Plaguelands zones: keep it.
+
+# ---------------------------------------------------------------- The south
+
+step Lake Mereldar
+  tip Plaguehounds and their runts roam the shores of the lake south-west of the chapel.
+  kill 8596 quest 5542.1
+  kill 8597 quest 5542.2
+
+step Sword of Marduk
+  tip The shattered sword lies on the ground north-west of the lake.
+  collect 12957 quest 5181.2
+
+step The Pestilent Scar
+  tip The skull sits in the Pestilent Scar, among Blighted Horrors and Plague Monstrosities.
+  collect 12956 quest 5181.1
+
+# ---------------------------------------------------------------- Marris Stead and the west
+
+step Hameya's scroll
+  tip A torn scroll lies at the entrance of the Undercroft, the crypt south of the Marris Stead.
+  accept 6024
+
+step Nathanos Blightcaller
+  tip The Banshee Queen's champion holds the Marris Stead farmhouse.
+  accept 6022
+  accept 6042
+  accept 6133
+
+step The western hills
+  tip Plaguehound Runts and Plaguebats roam the hills north of the Marris Stead, Carrion Grubs crawl among them; work north toward Terrordale.
+  kill 8596 quest 5542.1
+  kill 8600 quest 5543.1
+  collect 13853 quest 5544.1
+
+step Egan
+  tip Egan the ghost stands by a hut in Terrordale, in the north-west corner.
+  turnin 5281
+
+# ---------------------------------------------------------------- The north
+
+step Quel'Lithien Lodge
+  tip The high elf Rangers, Pathstriders and Woodsmen guard the lodge by Northpass Tower; the Registry lies inside. Rangers reach 60: pull one at a time. Noxious Plaguebats fly over the fields on the way.
+  collect 15847 quest 6133.4
+  kill 8564 quest 6133.2
+  kill 8565 quest 6133.1
+  kill 8563 quest 6133.3
+  kill 8601 quest 6042.1
+
+step Infiltrator Hameya
+  tip Hameya hides among the Mossflayer trolls of Zul'Mashar, in the north-east corner.
+  collect 15767 quest 6024
+
+step Northdale
+  tip Frenzied Plaguehounds and Monstrous Plaguebats share the fields around Northdale and Eastwall Tower, south of Zul'Mashar.
+  kill 8598 quest 5542.3
+  kill 8602 quest 6042.2
+  kill 8601 quest 6042.1
+
+# ---------------------------------------------------------------- Corin's Crossing and back west
+
+step Corin's Crossing
+  tip Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
+  collect 15447 x7
+  complete 6022
+
+step Nathanos Blightcaller
+  tip Ride west to the Marris Stead.
+  turnin 6022
+  turnin 6042
+  turnin 6133
+
+step Hameya's mound
+  tip The Mound of Dirt is just behind the Undercroft.
+  turnin 6024
+
+step Carlin Redpath
+  hearth "Light's Hope Chapel"
+  turnin 5181
+
+# ---------------------------------------------------------------- Thunder Bluff
+
+step Fly to Thunder Bluff
+  zone Thunder Bluff
+  tip Fly to the Undercity, take the zeppelin to Orgrimmar and fly on to Thunder Bluff.
+  fly "Thunder Bluff"
+  sethome "Thunder Bluff"
+  train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
+
+step Rumstag Proudstrider
+  tip On Hunter Rise. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.
+  turnin 7820 optional
+  turnin 7821 optional
+  turnin 7822 optional
+
+# ---------------------------------------------------------------- Felwood and Moonglade
+
+step Trull Failbane
+  zone Felwood
+  fly "Bloodvenom Post"
+  turnin 4521
+  accept 4741
+
+step Deadwood Cauldron
+  tip Only if you found a Winterfall Firewater flask in Winterspring: ride north up the road. The cauldron stands in Felpaw Village, just south-west of Timbermaw Hold; the Deadwood furbolgs there are hostile.
+  turnin 5084 optional
+  accept 5085 optional
+
+step Kernda
+  tip Only if a Winterfall Ritual Totem dropped for you: Kernda waits at the Felwood entrance of Timbermaw Hold, and speaks to you only at Neutral with the Timbermaw.
+  turnin 8471 optional
+
+step Rabine Saturna
+  zone Moonglade
+  tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
+  accept 5527
+  turnin 1123
+  accept 1124
+  note Both quests lead to Silithus: keep them.
+
+# ---------------------------------------------------------------- Winterspring
+
+step Donova Snowden
+  zone Winterspring
+  tip Back through the tunnel and take the Winterspring exit, then ride south to Frostfire Hot Springs.
+  turnin 5085 optional
+  accept 5086 optional
+  turnin 3909
+  accept 3912
+  note Toxic Horrors are in Felwood, on a later trip: keep it if you have it.
+
+step Moontouched Owlbeasts
+  tip Ride east to Everlook and north out of it; the Moontouched Owlbeasts roam the hills of Frostsaber Rock's southern slopes. Pull them one at a time.
+  kill 7453 quest 4741
+
+step Back to Thunder Bluff
+  hearth "Thunder Bluff"
+
+# ---------------------------------------------------------------- Tanaris
+
+step Gadgetzan
+  zone Tanaris
+  fly "Gadgetzan"
+  accept 2741                         -- The Egg-O-Matic machine
+
+step Sprinkle
+  tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
+  kill 7583 quest 5163.2
+
+step Gaeriyan
+  tip Gaeriyan is a ghost at the graveyard just north of Gadgetzan; the Conspicuous Gravestone is south of it, outside the town wall.
+  turnin 3912
+  accept 3913
+  turnin 3913                         -- A Conspicuous Gravestone
+  accept 3914
+  note Linken's Sword goes back to Linken in Un'Goro: keep it.
+
+step Marvon Rivetseeker
+  tip Marvon camps by the Lost Rigger Cove road, south of Gadgetzan.
+  turnin 3444
+
+# ---------------------------------------------------------------- Feralas and on to Silithus
+
+step Hippogryph eggs
+  zone Feralas
+  tip Fly to Camp Mojache. The hippogryph nests are in the south of Feralas; each holds an egg for the Egg-O-Matic.
+  fly "Camp Mojache"
+  collect 8564 quest 2741
+
+step On to Silithus
+  zone Un'Goro Crater
+  tip Fly to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. The next guide opens at Valor's Rest, where the pass comes out.
+  fly "Marshal's Refuge"

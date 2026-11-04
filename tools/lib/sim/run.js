@@ -37,7 +37,12 @@ const W_VISIT = 4;
 const W_DUNGEON = 5; // done by the dungeon run, not by visiting
 const WORK_KIND = { kill: W_KILL, use: W_USE, escort: W_ESCORT, buy: W_BUY, visit: W_VISIT, dungeon: W_DUNGEON };
 
-const NEAR_K = 3; // transport nodes considered at each end of a leg
+const NEAR_K = 3; // transport nodes considered at each end of a leg (travel.js picks them)
+// Straight-line nearest transport nodes kept per point (pNear) for travel.js to
+// pick NEAR_K of by walk: the nearest by straight line can be ones no walk
+// reaches (Teldrassil's tree top: Rut'theran's dock, portal and flight master
+// below it, the Darnassus portal further away).
+const NEAR_CAND = 8;
 const NEAR_HUB = 200; // a flight master / inn this close is learned / bound
 const SHARE_R = 100; // yards: kills of one mob credit another quest's work on it this close
 const SPOT_CELL = 250; // yards: side of a spot cell (spot returns, evaluate.js)
@@ -89,7 +94,7 @@ function onIsle(world, q) {
 }
 
 // Level below which a character stays on its home continent (and off other
-// races' starting islands); see docs/SIMULATION.md "Starts".
+// races' starting islands); see docs/legacy/SIMULATION-js.md "Starts".
 const HOME_LEVEL = 10;
 
 // Quests by level for the evaluator's full-log abandon (abandonable):
@@ -107,7 +112,12 @@ function questsByLevel(qLevel) {
 }
 
 // family: 'solo' (no dungeons) or 'dungeons' (dungeon packages and their quests allowed).
-function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } = {}) {
+// packages: false skips the package steps (and their ordering); walkRun: false
+// never builds the point-to-point walk table; extraPts: more world points to
+// index as run points (after every other one), with their geometry.
+// walkRun: false without a Travel walk lookup (travel.js opts.walk) loses the
+// routed walks: every leg is then the straight line × detour.
+function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo', packages: withPackages = true, walkRun: withWalkRun = true, extraPts = [] } = {}) {
 	const faction = world.faction;
 	const rbit = raceBit(race, raceBits, faction);
 	const start = world.starts[race];
@@ -314,7 +324,7 @@ function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } 
 	const KIND = ['accept', 'task', 'turnin'];
 	const dungeons = withDungeons ? world.dungeons || [] : [];
 	const dQuests = dungeons.map(() => []);
-	for (const p of world.packages) {
+	for (const p of withPackages ? world.packages : []) {
 		if (p.dungeon !== undefined) {
 			if (!withDungeons) continue;
 			// Fixed order: accepts, the run, turn-ins.
@@ -360,7 +370,7 @@ function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } 
 		pkgEnd.push(sKind.length);
 		packages.push({ key: p.key, zone: p.zone, zoneName: p.zoneName, band: p.band, levels: p.levels, world: world.packages.indexOf(p) });
 	}
-	// Starting area first (docs/SIMULATION.md "Starts"): home packages are the
+	// Starting area first (docs/legacy/SIMULATION-js.md "Starts"): home packages are the
 	// start zone's first band (1-5); for the Skyborne every Zephras Isle
 	// package. A package is "away" when it lies on another continent than the
 	// start, or on another starting island (Teldrassil, Zephras Isle): below
@@ -391,11 +401,12 @@ function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } 
 		if (q.gAlt) qGiverAlt.set(i, altPts(q.gAlt));
 		if (q.eAlt) qEnderAlt.set(i, altPts(q.eAlt));
 	});
+	for (const p of extraPts) usePt(p);
 
 	// Routed walks between the run's points (world.walks, sim walks) as one
 	// NP x NP table, -1 where there is none: Travel.leg reads it on every walk.
 	let walkRun = null;
-	if (walks) {
+	if (walks && withWalkRun) {
 		const NPw = ptList.length;
 		walkRun = new Float32Array(NPw * NPw).fill(-1);
 		for (const [key, yd] of walks) {
@@ -415,8 +426,8 @@ function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } 
 	const pY = new Float64Array(NP);
 	const pFp = new Int32Array(NP).fill(-1);
 	const pInn = new Int32Array(NP).fill(-1);
-	const pNear = new Int32Array(NP * NEAR_K).fill(-1);
-	const pNearD = new Float64Array(NP * NEAR_K);
+	const pNear = new Int32Array(NP * NEAR_CAND).fill(-1);
+	const pNearD = new Float64Array(NP * NEAR_CAND);
 	const nodePt = world.nodes.map((n) => W[n.pt]);
 	const innPt = world.inns.map((n) => W[n.pt]);
 	const pMap = new Int32Array(NP);
@@ -442,9 +453,9 @@ function compileRun(world, { race, cls = null, raceBits = {}, family = 'solo' } 
 			if (world.nodes[n].kind === 'fp' && d <= NEAR_HUB && (pFp[i] < 0 || d < near.find((x) => x[1] === pFp[i])[0])) pFp[i] = n;
 		}
 		near.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
-		for (let k = 0; k < NEAR_K && k < near.length; k++) {
-			pNear[i * NEAR_K + k] = near[k][1];
-			pNearD[i * NEAR_K + k] = near[k][0];
+		for (let k = 0; k < NEAR_CAND && k < near.length; k++) {
+			pNear[i * NEAR_CAND + k] = near[k][1];
+			pNearD[i * NEAR_CAND + k] = near[k][0];
 		}
 		let bd = NEAR_HUB;
 		innPt.forEach((q, n) => {
@@ -549,5 +560,5 @@ function makeTables(run, p) {
 }
 
 module.exports = {
-	compileRun, makeTables, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_ESCORT, W_BUY, NEAR_K, MOBL, SHARE_R,
+	compileRun, makeTables, questOpen, raceBit, onIsle, K_ACCEPT, K_TASK, K_TURNIN, K_GRIND, K_DUNGEON, W_KILL, W_USE, W_ESCORT, W_BUY, NEAR_K, NEAR_CAND, MOBL, SHARE_R,
 };

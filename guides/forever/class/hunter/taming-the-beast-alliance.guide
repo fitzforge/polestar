@@ -1,0 +1,235 @@
+guide forever/class/hunter/taming-the-beast-alliance
+title Taming the Beast (Alliance)
+category Class
+class Hunter
+folder Hunter
+faction Alliance
+race Human, Dwarf, NightElf, Skyborne
+levels 10-10
+zone Elwynn Forest
+keywords Taming the Beast, Training the Beast, The Hunter's Path, Taming Rod, Tame Beast, Beast Training, pet, Josephine Carson, Isaac Chan, Grif Wildheart, Belia Thundergranite, Dazalar, Jocaste, Quel'ana Quickgale, Quel'dora Quickgale, Goldshire, Kharanos, Dolanaar, Valanaar, pet trainer, Hunter
+reward spell 1515 "Tame Beast"
+reward spell 5149 "Beast Training"
+why Your own pet at 10: three practice tames with a Taming Rod teach Tame Beast, then Beast Training.
+
+# The Alliance hunter pet chains, one per home: Humans with Josephine Carson
+# in Goldshire (Forever-new: 94792, 94863, 94864, then Training the Beast
+# 94793 to Isaac Chan beside her), Dwarves with Grif Wildheart in Kharanos
+# (6064, 6084, 6085, then 6086 to Belia Thundergranite in Ironforge), Night
+# Elves with Dazalar in Dolanaar (6063, 6101, 6102, then 6103 to Jocaste in
+# Darnassus), Skyborne with Quel'ana Quickgale in Valanaar on Zephras Isle
+# (Forever-new: 94978, 94979, 94013, then 94050 to Quel'dora Quickgale;
+# Elayaa Easewind's breadcrumb 94007 points there).
+# Josephine's chain is open to Human, Dwarf, Night Elf, Gnome and Skyborne
+# (Forever's quest data; Gnomes cannot be hunters), so a Dwarf or Night Elf
+# who is in Elwynn at 10, or a Skyborne who left Zephras Isle without taming,
+# can do it there instead; the guide offers it to Skyborne only when the
+# Zephras chain is not done. The Goldshire steps come last; after the first
+# accept they carry no race filter but `when !turnedin 6064/6063`, and the
+# Dwarf and Night Elf steps carry `when` lines that close once Josephine's
+# chain is taken, so a Dwarf or Night Elf who takes her rod is led through
+# Goldshire instead of being held at Grif or Dazalar.
+# The Hunter's Path breadcrumbs (6071-6073, 6721, 6722 to Dazalar; 6074-6076
+# to Grif) are optional: the taming givers hand out the first rod without
+# them, and only one of each set can be done.
+# Sources: quests.json, npcs.json, items.json for givers, rods, beasts and
+# places; quest-notes/quest-mechanics for beast levels, respawns, the channel,
+# the rod's charges and the beasts' abilities; Forever's Hunter class quest
+# list: Training the Beast now teaches Beast Training (no Training Lesson);
+# the card's spells (Tame Beast 1515, Beast Training 5149) from the class
+# reward table.
+# The leveling routes (alliance/human/01-elwynn-forest, dwarf-gnome/
+# 01-dun-morogh, nightelf/01-teldrassil, skyborne/01-zephras-isle) do these
+# chains on the way; this guide is for anyone off the route and adds the pet
+# basics. Pet basics are Classic rules that a Forever hunter community wiki
+# lists unchanged.
+# Checked against Forever: Blizzard's beta development notes fix pet happiness
+# at max loyalty (so happiness and loyalty are in the game), and a Forever
+# hunter pet guide from beta play gives happiness at 125/100/75% damage, six
+# loyalty ranks and 300 training points at 60 Best Friend, the Classic formula
+# (pet level x (loyalty - 1)).
+# ASSUMED: a hunter who finished one taming chain is not offered Josephine Carson's as well (Forever's data marks no exclusion between them). In-game check: does Josephine offer Taming the Beast to a Skyborne or Night Elf hunter who already knows Tame Beast?
+
+# ---------------------------------------------------------------- Skyborne: Quel'ana Quickgale in Valanaar
+
+step Elayaa Easewind
+  only Skyborne
+  zone Zephras Isle
+  skipto goldshire when !zone "Zephras Isle"
+  tip At 10, Elayaa Easewind, a hunter trainer on Zephras Isle, may send you on to Valanaar with Taming the Beast. It is only a pointer: skip it if you are already in Valanaar.
+  level 10
+  accept 94007 optional                       -- Elayaa Easewind
+
+step Quel'ana Quickgale in Valanaar
+  only Skyborne
+  tip Quel'ana Quickgale stands with the trainers by Valanaar's west gate, Quel'dora Quickgale beside her.
+  turnin 94007 optional                       -- Quel'ana Quickgale
+  accept 94978                                -- Quel'ana Quickgale: the first Taming Rod
+
+step Windsong Crawler
+  only Skyborne
+  tip Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of Valanaar, among the crabs. How the rod works: target a living crawler, use the Taming Rod and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges. Killing one does not count. Keep each rod: it goes back to Quel'ana.
+  kill 254588 quest 94978.1 "Tame Windsong Crawler" -- Use the Taming Rod on a living crawler
+  turnin 94978                                -- Quel'ana Quickgale
+  accept 94979
+
+step Ornery Galestrider
+  only Skyborne
+  tip Dismiss the crawler first (right-click the pet portrait, Dismiss Pet). Ornery Galestriders graze in the Gustberry Lowlands, the fields a short walk west and south-west of Valanaar.
+  kill 251707 quest 94979.1 "Tame Ornery Galestrider" -- Use the Taming Rod on a living galestrider
+  turnin 94979                                -- Quel'ana Quickgale
+  accept 94013
+
+step Vuldren Alpha
+  only Skyborne
+  tip Dismiss the galestrider. Vuldren Alphas hunt in the same Gustberry Lowlands, a little further south.
+  kill 250874 quest 94013.1 "Tame Vuldren Alpha" -- Use the Taming Rod on a living alpha
+  turnin 94013                                -- Quel'ana Quickgale: Tame Beast
+  accept 94050
+  turnin 94050                                -- Quel'dora Quickgale, beside her: Beast Training
+
+# ---------------------------------------------------------------- Dwarf: Grif Wildheart in Kharanos
+
+step Grif Wildheart in Kharanos
+  only Dwarf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  zone Dun Morogh
+  tip At 10 go to Grif Wildheart, the hunter trainer at the smithy in Kharanos. The Hunter's Path from Olmin Burningbeard in Ironforge, Tristane Shadowstone north-west of Kharanos or Einris Brightspear in Stormwind also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? Josephine Carson's chain in Goldshire teaches the same.
+  level 10
+  accept 6064                                 -- Grif Wildheart: the first Taming Rod
+
+step Large Crag Boar
+  only Dwarf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  tip Large Crag Boars (level 6-7) root around the fields west, south and north-west of Kharanos and respawn every 3 minutes. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you. Moving, fighting back, being out of range or anyone else's help breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from Grif. The boars use Rushing Charge from 25 yards, so start with the rod, not Auto Shot. Keep each rod: it goes back to Grif.
+  kill 1126 quest 6064.1 "Tame Large Crag Boar" -- Use the Taming Rod on a living boar
+  turnin 6064                                 -- Grif Wildheart
+  accept 6084
+
+step Snow Leopard
+  only Dwarf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  tip Dismiss the boar first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Snow Leopards (level 7-8) prowl the slopes south-east of Kharanos, more north-west and west of it; the smaller Juvenile Snow Leopards do not count.
+  kill 1201 quest 6084.1 "Tame Snow Leopard" -- Use the Taming Rod on a living leopard
+  turnin 6084                                 -- Grif Wildheart
+  accept 6085
+
+step Ice Claw Bear
+  only Dwarf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  tip Dismiss the leopard. Ice Claw Bears (level 7-8) roam the hills around Kharanos, many south-east of it and more north-west toward Anvilmar; their Ice Claw hits hard, so start at full health.
+  kill 1196 quest 6085.1 "Tame Ice Claw Bear" -- Use the Taming Rod on a living bear
+  turnin 6085                                 -- Grif Wildheart: Tame Beast
+  accept 6086
+
+step Belia Thundergranite in Ironforge
+  only Dwarf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  zone Ironforge
+  tip Belia Thundergranite, the pet trainer, stands in the Hall of Arms in Ironforge's Military Ward, by the hunter trainers.
+  turnin 6086                                 -- Belia Thundergranite: Beast Training
+
+# ---------------------------------------------------------------- Night Elf: Dazalar in Dolanaar
+
+step Dazalar in Dolanaar
+  only NightElf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  zone Teldrassil
+  tip At 10 go to Dazalar, the hunter trainer in Dolanaar. The Hunter's Path from Ayanna Everstride at Aldrassil, Jocaste in Darnassus, Einris Brightspear in Stormwind, Olmin Burningbeard in Ironforge or Grif Wildheart in Kharanos also leads here, for a little experience; it is only a pointer. In Elwynn at 10 instead? Josephine Carson's chain in Goldshire teaches the same.
+  level 10
+  accept 6063                                 -- Dazalar: the first Taming Rod
+
+step Webwood Lurker
+  only NightElf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  tip Webwood Lurkers (level 5-6) creep through the woods just north-east, south-west and east of Dolanaar. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you; moving, attacking it or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). Their Web roots you but does not break the channel if you keep still. Keep each rod: it goes back to Dazalar.
+  kill 1998 quest 6063.1 "Tame Webwood Lurker" -- Use the Taming Rod on a living spider
+  turnin 6063                                 -- Dazalar
+  accept 6101
+
+step Nightsaber Stalker
+  only NightElf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  tip Dismiss the spider first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Nightsaber Stalkers (level 7-8) lie on the hillside south of Lake Al'Ameth, south of Dolanaar; the plain Nightsabers by the village do not count.
+  kill 2043 quest 6101.1 "Tame Nightsaber Stalker" -- Use the Taming Rod on a living stalker
+  turnin 6101                                 -- Dazalar
+  accept 6102
+
+step Strigid Screecher
+  only NightElf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  tip Dismiss the cat. Strigid Screechers (level 7-8), owls, perch in the woods south, south-west and west of Dolanaar.
+  kill 1996 quest 6102.1 "Tame Strigid Screecher" -- Use the Taming Rod on a living owl
+  turnin 6102                                 -- Dazalar: Tame Beast
+  accept 6103
+
+step Jocaste in Darnassus
+  only NightElf
+  when !onquest 94792,94863,94864,94793
+  when !turnedin 94792
+  zone Darnassus
+  tip Take the road west from Dolanaar to Darnassus. Jocaste stands inside the Cenarion Enclave with the hunter trainers; Silvaria, the pet trainer, is up the ramp next to her.
+  turnin 6103                                 -- Jocaste: Beast Training
+
+# ---------------------------------------------------------------- Goldshire (Human, Skyborne, or a Dwarf or Night Elf who took it there): Josephine Carson
+
+step Josephine Carson in Goldshire
+  only Human,Skyborne
+  zone Elwynn Forest
+  skipto pet when turnedin 94013
+  tip At 10 go to Josephine Carson, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in Goldshire; Isaac Chan, the pet trainer, is beside her. Skyborne: this is for one who left Zephras Isle without taming; it teaches the same.
+  level 10
+  accept 94792                                -- Josephine Carson: the first Taming Rod
+  label goldshire
+
+step Rockhide Boar
+  when !turnedin 6064
+  when !turnedin 6063
+  tip Rockhide Boars (level 7-8) graze in three herds south and south-east of Goldshire, toward the Maclure Vineyards. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again. The boars use Rushing Charge, so start with the rod, not Auto Shot. Killing a boar does not count. Keep each rod: it goes back to Josephine. A Dwarf or Night Elf who took Josephine's rod instead of their home trainer's is led through Goldshire from here.
+  kill 524 quest 94792.1 "Tame Rockhide Boar" -- Use the Taming Rod on a living boar
+  turnin 94792                                -- Josephine Carson
+  accept 94863
+
+step Gray Forest Wolf
+  when !turnedin 6064
+  when !turnedin 6063
+  tip Dismiss the boar first (right-click the pet portrait, Dismiss Pet): a released practice pet can turn on you. Gray Forest Wolves (level 7-8) run in the woods east of Goldshire, east of Crystal Lake.
+  kill 1922 quest 94863.1 "Tame Gray Forest Wolf" -- Use the Taming Rod on a living wolf
+  turnin 94863                                -- Josephine Carson
+  accept 94864
+
+step Young Forest Bear
+  when !turnedin 6064
+  when !turnedin 6063
+  tip Dismiss the wolf. Young Forest Bears (level 8-9) roam the woods just south of Goldshire, with more south-west and south-east of town.
+  kill 822 quest 94864.1 "Tame Young Forest Bear" -- Use the Taming Rod on a living bear
+  turnin 94864                                -- Josephine Carson: Tame Beast
+  accept 94793
+  turnin 94793                                -- Isaac Chan, beside her: Beast Training
+
+# ---------------------------------------------------------------- Your own pet
+
+step Your first pet
+  label pet
+  zone Elwynn Forest
+  tip Tame Beast works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment.
+  task "Tame a beast of your level to keep" optional
+  note "Near Goldshire there are no cats: Prowlers (wolves, level 9-10) roam eastern Elwynn, Longsnouts (boars, 10-11) its far south-west by the Westfall border; at 12-13, Young Goretusks (boars) graze the fields of northern Westfall." only Human
+  note "Near Kharanos: Snow Leopards (cats, level 7-8) prowl all over Dun Morogh, Scarred Crag Boars (9-10) its east toward Loch Modan; at 10-11, Mountain Boars roam western Loch Modan." only Dwarf
+  note "Near Dolanaar: Elder Nightsabers (cats, level 8-9) and Feral Nightsabers (cats, 10-11) prowl the woods of north-western Teldrassil." only NightElf
+  note "Near Valanaar: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the Gustberry Lowlands; Shriekling Matriarchs (raptors, level 9) nest just west of Valanaar; Shadowgale Urseras (bears, 10-11) roam the north of Zephras Isle." only Skyborne
+  note "Feed Pet: open your spellbook, cast Feed Pet and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Toddrick the butcher in Goldshire, Jaeana in Darnassus and the innkeepers on Zephras Isle sell meat; the innkeepers of Kharanos and Dolanaar sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."
+  note Happiness: the face on the pet frame. An unhappy pet does three quarters of its damage, a happy one a quarter more. Happiness drains slowly, faster when the pet dies; a pet left unhappy too long can run away.
+  note Loyalty grows with time and kills. Each loyalty rank raises the training points you spend in Beast Training (pet level times loyalty rank minus one).
+  note Beast Training (spellbook, General tab) teaches your current pet the abilities you know. To learn a new ability or rank: leave your pet with a stable master (Erma in Goldshire, Shelby Stoneflint in Kharanos, Seriadne in Dolanaar, Genn Fairweather on Zephras Isle), tame a beast that has it (its pet spellbook tab shows what it knows), use the ability in fights until the game says you learned it, then take your own pet back and teach it with Beast Training. A pet holds four active abilities at most.
+  note Pet trainers sell Growl ranks and resistances. Alliance: Isaac Chan in Goldshire, Karrina Mekenda by the hunter trainers in Stormwind's Dwarven District, Peria Lamenur in Kharanos, Belia Thundergranite in Ironforge's Hall of Arms, Keldas in Dolanaar, Silvaria in Darnassus' Cenarion Enclave, Quel'dora Quickgale in Valanaar.
+  note Call Pet, Dismiss Pet and Revive Pet are in your spellbook now; Mend Pet comes from your trainer at 12. A dead pet needs Revive Pet; one that is away more than about 100 yards is dismissed and comes back with Call Pet.

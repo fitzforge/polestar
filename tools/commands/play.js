@@ -73,7 +73,7 @@ async function run(argv) {
 		return 2;
 	}
 	if (!fs.existsSync(path.join(ROOT, 'data', 'forever', 'races.json'))) {
-		console.error('data/forever is not built: run node tools/polestar.js data build first');
+		console.error('data/forever is not built: run forge data build first');
 		return 1;
 	}
 	const packs = [];

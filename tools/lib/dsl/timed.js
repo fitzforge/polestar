@@ -9,7 +9,7 @@
 // latest goal before it that gets it (one `buy x3` for three turn-ins: to the
 // third; three `collect`s for three quests: from the third), so the stretch
 // is the least the item must last. Lint estimates its time with
-// the simulator's model (docs/SIMULATION.md §2) at its priors
+// the simulator's model (docs/legacy/SIMULATION-js.md §2) at its priors
 // (tools/lib/sim/params.js) over the guide's own goals and places:
 //   - travel: the straight line × the continent's detour factor at run speed
 //     (mounted from `mountLevel`); `fly` walks to the nearest flight master
@@ -134,8 +134,15 @@ function perItem(data, goal, L) {
 	return best.sec;
 }
 
+// A flight: yards along the taxi path a second, and seconds per hop (take-off,
+// landing), the addon planner's (addon/Polestar/Nav/Travel.lua FLIGHT_SPEED,
+// FLIGHT_STOP; the sim's v2/travel2.js uses the same). travel.json's leg `cost`
+// is TaxiPath.dbc's price in copper, not seconds.
+const FLIGHT_SPEED = 30;
+const FLIGHT_STOP = 2;
+
 // Cheapest flight seconds from taxi node a to every node (Dijkstra over
-// travel.json's legs, the faction's nodes only).
+// travel.json's legs, each its yards / FLIGHT_SPEED + FLIGHT_STOP; the faction's nodes only).
 function flights(data, side) {
 	const taxi = (data.travel && data.travel.taxi) || {};
 	const nodes = (taxi.nodes || []).filter((n) => !side || n.faction & side);
@@ -144,7 +151,7 @@ function flights(data, side) {
 	for (const l of taxi.legs || []) {
 		if (!ids.has(l.from) || !ids.has(l.to)) continue;
 		if (!out.has(l.from)) out.set(l.from, []);
-		out.get(l.from).push([l.to, l.cost]);
+		out.get(l.from).push([l.to, l.yards / FLIGHT_SPEED + FLIGHT_STOP]);
 	}
 	const memo = new Map();
 	const from = (a) => {
@@ -327,9 +334,9 @@ function checkTimedItems(g, data, diag, opts) {
 			g._ast.file,
 			from._line,
 			`item ${item.id} (${item.name}) lasts ${lasts(item.duration)}, but the route takes about ${fmt(seconds)} from here to the \`${to.t}\` that spends it (line ${to._line})`,
-			"get it later, nearer that goal, or go there straight away (the estimate is the simulator's travel and kill times over this guide's goals: docs/SIMULATION.md)",
+			"get it later, nearer that goal, or go there straight away (the estimate is the simulator's travel and kill times over this guide's goals: docs/legacy/SIMULATION-js.md)",
 		);
 	}
 }
 
-module.exports = { checkTimedItems, timedSpans };
+module.exports = { checkTimedItems, timedSpans, flights, FLIGHT_SPEED, FLIGHT_STOP };

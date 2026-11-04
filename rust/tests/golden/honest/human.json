@@ -1,0 +1,150 @@
+{
+ "ms": 168.993803,
+ "played": 1,
+ "findings": [
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 569,
+   "step": 51,
+   "title": "Jennea Cannon",
+   "reason": "zone change with no travel line: Elwynn Forest to Stormwind City (956 yd)",
+   "repair": "add `goto` (or `fly`) into Stormwind City with a label saying the way",
+   "race": "Human",
+   "cls": "MAGE"
+  },
+  {
+   "rule": "R3",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 576,
+   "step": 52,
+   "title": "Mirror Lake",
+   "reason": "collect Mirror Lake Water Sample: the data has no mob, object or vendor for it and no earlier line gives it",
+   "repair": "write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal",
+   "race": "Human",
+   "cls": "MAGE"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 584,
+   "step": 53,
+   "title": "Gakin the Darkbinder",
+   "reason": "zone change with no travel line: Elwynn Forest to Stormwind City (1159 yd)",
+   "repair": "add `goto` (or `fly`) into Stormwind City with a label saying the way",
+   "race": "Human",
+   "cls": "WARLOCK"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 591,
+   "step": 54,
+   "title": "Surena Caledon",
+   "reason": "zone change with no travel line: Stormwind City to Elwynn Forest (2136 yd)",
+   "repair": "add `goto` (or `fly`) into Elwynn Forest with a label saying the way",
+   "race": "Human",
+   "cls": "WARLOCK"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 597,
+   "step": 55,
+   "title": "The Binding",
+   "reason": "zone change with no travel line: Elwynn Forest to Stormwind City (2136 yd)",
+   "repair": "add `goto` (or `fly`) into Stormwind City with a label saying the way",
+   "race": "Human",
+   "cls": "WARLOCK"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 606,
+   "step": 56,
+   "title": "The Tome of Divinity",
+   "reason": "zone change with no travel line: Elwynn Forest to Stormwind City (1180 yd)",
+   "repair": "add `goto` (or `fly`) into Stormwind City with a label saying the way",
+   "race": "Human",
+   "cls": "PALADIN"
+  },
+  {
+   "rule": "R2",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 607,
+   "step": 56,
+   "title": "The Tome of Divinity",
+   "reason": "accept The Tome of Divinity: it starts from Tome of Divinity, which no earlier line puts in the bags",
+   "repair": "first `collect 6775`, then accept; or move the accept to the step that loots it",
+   "race": "Human",
+   "cls": "PALADIN"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 625,
+   "step": 57,
+   "title": "Henze Faulk",
+   "reason": "zone change with no travel line: Stormwind City to Elwynn Forest (1945 yd)",
+   "repair": "add `goto` (or `fly`) into Elwynn Forest with a label saying the way",
+   "race": "Human",
+   "cls": "PALADIN"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 633,
+   "step": 58,
+   "title": "Gazin Tenorm",
+   "reason": "zone change with no travel line: Elwynn Forest to Stormwind City (1920 yd)",
+   "repair": "add `goto` (or `fly`) into Stormwind City with a label saying the way",
+   "race": "Human",
+   "cls": "PALADIN"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 642,
+   "step": 59,
+   "title": "Westbrook Garrison",
+   "reason": "zone change with no travel line: Stormwind City to Elwynn Forest (761 yd)",
+   "repair": "add `goto` (or `fly`) into Elwynn Forest with a label saying the way",
+   "race": "Human",
+   "cls": "WARLOCK"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 642,
+   "step": 59,
+   "title": "Westbrook Garrison",
+   "reason": "zone change with no travel line: Stormwind City to Elwynn Forest (1126 yd)",
+   "repair": "add `goto` (or `fly`) into Elwynn Forest with a label saying the way",
+   "race": "Human",
+   "cls": "PALADIN"
+  },
+  {
+   "rule": "R1",
+   "severity": "fail",
+   "guide": "forever/alliance/human/01-elwynn-forest",
+   "line": 642,
+   "step": 59,
+   "title": "Westbrook Garrison",
+   "reason": "zone change with no travel line: Stormwind City to Elwynn Forest (692 yd)",
+   "repair": "add `goto` (or `fly`) into Elwynn Forest with a label saying the way",
+   "race": "Human",
+   "cls": "MAGE"
+  }
+ ]
+}

@@ -1,5 +1,5 @@
 -- Chinese (simplified) (zhCN): the guide forever/exploration/kalimdor-1-30 (forever/exploration/kalimdor-1-30.guide).
--- Written by `node tools/polestar.js i18n guides sync zhCN`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync zhCN`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Chinese (simplified) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -51,8 +51,8 @@ return {
 
 	-- Step 10: The Barrens (1/4)
 	["25 areas to discover here, levels 10-33."] = "这里有25个区域待发现，10-33级。",
-	-- {zone:1440} Ashenvale · {zone:1413} The Barrens · {area:380} The Crossroads · {area:378} Camp Taurajo · {area:392} Ratchet
-	["Walk east out of Stonetalon (or south out of {zone:1440}) into the {zone:1413}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "向东走出石爪山脉（或向南走出{zone:1440}）进入{zone:1413}。{area:380}和{area:378}是部落城镇；{area:392}是中立港口。",
+	-- {zone:1413} The Barrens · {area:1702} Honor's Stand · {area:380} The Crossroads · {area:378} Camp Taurajo · {area:392} Ratchet
+	["The road east out of south-eastern Stonetalon comes down into the {zone:1413} at {area:1702}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "",
 	-- {area:392} Ratchet
 	["Flight path here: {area:392} (Bragok)."] = "飞行路线：{area:392}（布拉高克）。",
 	-- {area:378} Camp Taurajo
@@ -72,15 +72,17 @@ return {
 	["Horde guards: touch the edge of {area:362} and move on"] = "部落卫兵：碰到{area:362}的边缘就继续前进",
 
 	-- Step 15: Durotar (2/2)
-	-- {area:367} Sen'jin Village
-	["Horde guards: touch the edge of {area:367} and move on"] = "部落卫兵：碰到{area:367}的边缘就继续前进",
 	-- {area:363} Valley of Trials
 	["Horde guards: touch the edge of {area:363} and move on"] = "部落卫兵：碰到{area:363}的边缘就继续前进",
+	-- {area:367} Sen'jin Village
+	["Horde guards: touch the edge of {area:367} and move on"] = "部落卫兵：碰到{area:367}的边缘就继续前进",
 
 	-- Step 16: Mulgore (1/2)
 	["16 areas to discover here, levels 5-10."] = "这里有16个区域待发现，5-10级。",
 	-- {zone:1413} The Barrens · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:222} Bloodhoof Village · {zone:1456} Thunder Bluff
-	["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "向西穿回{zone:1413}；从{area:378}向西的道路爬升进入{zone:1412}，这是牛头人的地盘，{area:222}和{zone:1456}有卫兵。",
+	["Go back west across the {zone:1413}; the road west from {area:378} climbs through the only pass into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "",
+
+	-- Step 17: Mulgore (2/2)
 	-- {zone:1456} Thunder Bluff
 	["Horde guards: touch the edge of {zone:1456} and move on"] = "部落卫兵：碰到{zone:1456}的边缘就继续前进",
 	-- {area:222} Bloodhoof Village
@@ -88,8 +90,8 @@ return {
 
 	-- Step 18: Thousand Needles (1/2)
 	["9 areas to discover here, levels 24-35."] = "这里有9个区域待发现，24-35级。",
-	-- {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles · {area:484} Freewind Post
-	["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "从{zone:1413}南部乘{area:485}下到{zone:1441}。{area:484}是部落城镇。",
+	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:485} Great Lift · {zone:1441} Thousand Needles · {area:484} Freewind Post
+	["Leave {zone:1412} by the same pass and ride south through the {zone:1413} to the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "",
 
 	-- Step 19: Thousand Needles (2/2)
 	-- {area:484} Freewind Post
@@ -110,13 +112,11 @@ return {
 
 	-- Step 26: Mulgore (1/2)
 	-- {area:378} Camp Taurajo · {zone:1412} Mulgore
-	["The road west from {area:378} climbs into {zone:1412}."] = "从{area:378}向西的道路爬升进入{zone:1412}。",
-	-- {zone:1456} Thunder Bluff
-	["Flight path here: {zone:1456} (Tal)."] = "飞行路线：{zone:1456}（塔尔）。",
+	["The road west from {area:378} climbs through the only pass into {zone:1412}."] = "",
 
 	-- Step 28: Stonetalon Mountains (1/2)
-	-- {zone:1413} The Barrens · {area:1702} Honor's Stand · {zone:1442} Stonetalon Mountains · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak
-	["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "回到{zone:1413}，向西穿过{area:1702}进入{zone:1442}。{area:460}是部落城镇；北部的{area:467}属于联盟。",
+	-- {zone:1412} Mulgore · {zone:1413} The Barrens · {area:1702} Honor's Stand · {zone:1442} Stonetalon Mountains · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak
+	["Leave {zone:1412} by the same pass, ride north through the {zone:1413} and west at {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "",
 	-- {area:460} Sun Rock Retreat
 	["Flight path here: {area:460} (Tharm)."] = "飞行路线：{area:460}（萨尔姆）。",
 
@@ -164,11 +164,13 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cross the {area:814} bridges west out of {zone:1411} into the {zone:1413}. {area:385} in the east is an Alliance fort."] = "从{zone:1411}向西过{area:814}上的桥进入{zone:1413}。东部的{area:385}是联盟堡垒。",
 	-- ["Cross the {area:814} east from the northern {zone:1413} into {zone:1411}: Horde country, with guards at {area:362}, {area:367} and {zone:1454}."] = "从{zone:1413}北部向东渡过{area:814}进入{zone:1411}：这是部落的地盘，{area:362}、{area:367}和{zone:1454}有卫兵。",
+	-- ["Flight path here: {zone:1456} (Tal)."] = "飞行路线：{zone:1456}（塔尔）。",
 	-- ["Flight paths here: {area:392} (Bragok), {area:380} (Devrak), {area:378} ({npc:10378})."] = "飞行路线：{area:392}（布拉高克），{area:380}（迪弗拉克），{area:378}（{npc:10378}）。",
 	-- ["Fly to {area:378} and walk south through the {zone:1413} to the {area:485} down into {zone:1441}."] = "飞往{area:378}，向南穿过{zone:1413}到{area:485}，下到{zone:1441}。",
 	-- ["From the southern {zone:1413} take the {area:485} down into {zone:1441}. {area:484} is a Horde town."] = "从{zone:1413}南部乘{area:485}下到{zone:1441}。{area:484}是部落城镇。",
 	-- ["Go back into the {zone:1413} and west through {area:1702} into the {zone:1442}. {area:460} is the Horde town; {area:467} in the north is Alliance."] = "回到{zone:1413}，向西穿过{area:1702}进入{zone:1442}。{area:460}是部落城镇；北部的{area:467}属于联盟。",
 	-- ["Go back west across the {zone:1413}; the road west from {area:378} climbs into {zone:1412}, tauren country with guards at {area:222} and {zone:1456}."] = "向西穿回{zone:1413}；从{area:378}向西的道路爬升进入{zone:1412}，这是牛头人的地盘，{area:222}和{zone:1456}有卫兵。",
+	-- ["The road west from {area:378} climbs into {zone:1412}."] = "从{area:378}向西的道路爬升进入{zone:1412}。",
 	-- ["The {area:485}"] = "{area:485}",
 	-- ["Walk east out of Stonetalon (or south out of {zone:1440}) into the {zone:1413}. {area:380} and {area:378} are Horde towns; {area:392} is a neutral port."] = "向东走出石爪山脉（或向南走出{zone:1440}）进入{zone:1413}。{area:380}和{area:378}是部落城镇；{area:392}是中立港口。",
 }

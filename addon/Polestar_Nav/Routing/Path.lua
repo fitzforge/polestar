@@ -32,9 +32,13 @@ local Path = ns.Path
 local Grid, Costs = ns.PathGrid, ns.Costs
 local tick, Deadline, Expansions, State, surface, grid =
 	Grid.tick, Grid.Deadline, Grid.Expansions, Grid.State, Grid.surface, Grid.grid
-local cellOf, nodesOf, metadata, adjacent = Grid.cellOf, Grid.nodesOf, Grid.metadata, Grid.adjacent
+local cellOf, nodesOf, metadata = Grid.cellOf, Grid.nodesOf, Grid.metadata
+local edges, edgeTarget, edgeValue = Grid.edges, Grid.edgeTarget, Grid.edgeValue
 local entrance, locate, standing, snap, smooth = Grid.entrance, Grid.locate, Grid.standing, Grid.snap, Grid.smooth
-local zoneAt, chunkDanger = Grid.zoneAt, Grid.chunkDanger
+local zOf, floorCell, floorsOf = Grid.zOf, Grid.floorCell, Grid.floorsOf
+local KINDS, VAL, CLS, MASK = Grid.KINDS, Grid.VAL, Grid.CLS, Grid.MASK
+local byte = string.byte
+local zoneAt, chunkDanger, nodeArea = Grid.zoneAt, Grid.chunkDanger, Grid.nodeArea
 
 local TILE, SNAP, ZTOL, DX, DY = Grid.TILE, Grid.SNAP, Grid.ZTOL, Grid.DX, Grid.DY
 local RETRIES = 8 -- other cells tried for an endpoint stuck in a pocket
@@ -107,12 +111,18 @@ end
 -- waterWalking flag every caller passed before profiles; a table is opts { waterWalking = boolean, profile =
 -- "Alliance" | "Horde" | nil, style = "fastest" | "balanced" | "roads" | nil (Costs.Style: anything else is
 -- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (a step into a zone the table holds costs that many
--- times; weights) }. -> waterWalking, profile, style, danger
+-- times; weights), homeHub = true | nil (the walk starts or ends inside a town hostile to profile: it is priced as
+-- for no profile, so it takes the town's own way in or out instead of the shortest way off the town's ground, over
+-- its walls or the mountains; the hostile towns its drawn line enters are still reported for profile) }.
+-- -> waterWalking, profile (the one that prices), style, danger, report (the profile job.hubs is read for)
 local function options(opts)
 	if type(opts) == "table" then
-		return opts.waterWalking, opts.profile, opts.style, opts.danger
+		if opts.homeHub then
+			return opts.waterWalking, nil, opts.style, opts.danger, opts.profile
+		end
+		return opts.waterWalking, opts.profile, opts.style, opts.danger, opts.profile
 	end
-	return opts, nil, nil, nil
+	return opts, nil, nil, nil, nil
 end
 
 -- A graph edge's multiplier under mult.danger: the larger of its two ends' (each entrance's chunk's zone), each
@@ -138,16 +148,16 @@ local function edgeDanger(st, mult)
 	end
 end
 
--- Where an entrance's decoded edges (PathGrid.lua's adjacent) keep a step's cost and yards: -> the values an edge,
--- the cost's offset and the yards' offset after the target. Format 2 prices an edge per profile (costNone without
+-- Which values of a graph edge record (PathGrid.lua's edgeValue) are a step's cost and yards: -> the cost's and the
+-- yards' value numbers. Format 2 prices an edge per profile (costNone without
 -- one) and carries its yards; format 1 has one cost per water mode and its yards are that cost.
 local function edgeFields(st, waterWalking, profile)
 	if st.classed then
 		local p = Costs.Profile(profile)
-		return 5, p == "Alliance" and 1 or p == "Horde" and 2 or 3, 4
+		return p == "Alliance" and 1 or p == "Horde" and 2 or 3, 4
 	end
 	local c = waterWalking and 2 or 1
-	return 3, c, c
+	return c, c
 end
 
 -- Binary min-heap on parallel arrays, reset per search.
@@ -193,34 +203,75 @@ end
 -- Grid search inside one cluster, entering water costing swim times its length and, with mult (weights), a node of
 -- class c mult[c] times it, and a node in a zone of mult.danger that zone's multiplier times. tree holds g/parent
 -- keyed by node + 1 and, with mult, y: the yards walked along the cost-best path. With goal set it is A*, otherwise
--- Dijkstra that stops once every node in targets (a set of nodes) is settled.
+-- Dijkstra that stops once every node in targets (a set of nodes) is settled. On a map with arcs (format 5's one-way
+-- jumps and drops) a search steps along them; back (a search out of a goal, its tree walked to the goal) along them
+-- backwards.
+-- tree.mark[node + 1] is 2 * gen while the node is open in the tree's search gen, 2 * gen + 1 once it is settled
+-- (older searches' marks are smaller). Endpoint trees dropped from st.endTrees wait in pool for the next one: a tree
+-- grows to its cluster's size once, then is reused (Idle empties the pool).
+local pool = {}
 local function Tree()
-	return { g = {}, par = {}, stamp = {}, closed = {}, gen = 0, y = {} }
+	return table.remove(pool) or { g = {}, par = {}, mark = {}, gen = 0, y = {} }
 end
+-- Per kind byte (PathGrid's decoded clusters), a step's class multiplier (mult's; 1 without one) and its water factor
+-- (swim in water, else 1), built once a multiplier table and a swim factor.
+local ONES, swims = {}, {}
+for b = 0, 255 do
+	ONES[b] = 1
+end
+local function kindMults(mult)
+	if not mult then
+		return ONES
+	end
+	local t = mult.kinds
+	if not t then
+		t = {}
+		for b = 0, 255 do
+			t[b] = mult[CLS[b]] or 1
+		end
+		mult.kinds = t
+	end
+	return t
+end
+local function kindSwims(swim)
+	local t = swims[swim]
+	if not t then
+		t = {}
+		for b = 0, 255 do
+			t[b] = VAL[b] == 2 and swim or 1
+		end
+		swims[swim] = t
+	end
+	return t
+end
+
 -- One grid search loop; splitting moves its retained arrays to upvalues on the hot path
-local function search(st, k, swim, mult, source, tree, goal, targets, left)
-	local val = grid(st, k)
-	-- Search only enters populated grids, through snapped endpoints or decoded entrances.
-	---@cast val number[]
-	-- A paused search retains these arrays even if another job evicts its cluster.
-	local m, z, at, links, cls = st.moves[k], st.z[k], st.at[k], st.links[k], mult and st.cls[k]
+local function search(st, k, swim, mult, source, tree, goal, targets, left, back)
+	-- Search only enters populated grids, through snapped endpoints or decoded entrances. A paused search keeps its
+	-- cluster's strings even if another job evicts the cluster.
+	local c = grid(st, k)
+	local kind, mv, lm, xo, xs, zs, fl, first = c.kind, c.mv, c.lm, c.xo, c.xs, c.z, c.fl, c.first
+	local WM, WS = kindMults(mult), kindSwims(swim)
+	local arcTag = back and 255 or 254 -- the arcs a search steps along (PathGrid's xs): backwards out of a goal
 	local C, cs = st.C, st.cs
+	local unit = 4 * cs -- an arc's yards * 4 per cell
 	local hs = cs * (mult and mult.min or 1) -- the cheapest yard: the heuristic never overstates
 	local N = C * C
 	-- Per chunk the zone multiplier of a step into it; nil when the cluster has no dangerous chunk (every search
 	-- without danger).
 	local dz = mult and mult.danger and chunkDanger(st, k, mult.danger)
-	local g, par, stamp, closed, ys = tree.g, tree.par, tree.stamp, tree.closed, mult and tree.y
+	local g, par, mark, ys = tree.g, tree.par, tree.mark, mult and tree.y
 	tree.gen = tree.gen + 1
-	local gen = tree.gen
+	local open = 2 * tree.gen
+	local settled = open + 1
 	tree.k = k
 	local gx, gy = 0, 0
 	if goal then
-		local cell = goal < N and goal or at[goal + 1]
+		local cell = goal < N and goal or floorCell(c, goal)
 		gx, gy = floor(cell / C), cell % C
 	end
 	hn = 0
-	g[source + 1], par[source + 1], stamp[source + 1] = 0, -1, gen
+	g[source + 1], par[source + 1], mark[source + 1] = 0, -1, open
 	if ys then
 		ys[source + 1] = 0
 	end
@@ -228,24 +279,52 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left)
 
 	---@type number, number, number, number, number
 	local u, ux, uy, gu, yu
+	-- The node on local cell lc nearest height h (PathGrid's surface for layer -1, on this cluster's strings).
+	local function nearest(lc, h)
+		local best, gap
+		if byte(kind, lc + 1) >= KINDS then
+			local a, b = byte(zs, 2 * lc + 1, 2 * lc + 2)
+			best, gap = lc, abs((a * 256 + b - 32768) / 2 - h)
+		end
+		local f1, f2, f3 = byte(first, 3 * lc + 1, 3 * lc + 3)
+		local v = (f1 * 256 + f2) * 256 + f3
+		if v > 0 then
+			local node = floor(v / 64) - 1
+			for n = node, node + v % 64 - 1 do
+				local z1, z2 = byte(zs, 2 * n + 1, 2 * n + 2)
+				local d = abs((z1 * 256 + z2 - 32768) / 2 - h)
+				if not gap or d < gap then
+					best, gap = n, d
+				end
+			end
+		end
+		return best
+	end
 	local function relax(v, length)
 		local i = v + 1
+		local kb = byte(kind, i)
 		local gv
-		if dz then
-			local cell = v < N and v or at[i]
-			gv = gu + length * cs * (cls and mult[cls[i]] or 1) * (val[i] == 2 and swim or 1)
-				* dz[floor(floor(cell / C) * 16 / C) * 16 + floor(cell % C * 16 / C) + 1]
-		else
-			gv = gu + length * cs * (cls and mult[cls[i]] or 1) * (val[i] == 2 and swim or 1)
+		local cell = v
+		if v >= N and (dz or goal) then
+			local a, b = byte(fl, 2 * (v - N) + 1, 2 * (v - N) + 2)
+			cell = a * 256 + b
 		end
-		if stamp[i] ~= gen or gv < g[i] then
-			g[i], par[i], stamp[i] = gv, u, gen
+		if dz then
+			gv = gu + length * cs * WM[kb] * WS[kb] * dz[floor(floor(cell / C) * 16 / C) * 16 + floor(cell % C * 16 / C) + 1]
+		else
+			gv = gu + length * cs * WM[kb] * WS[kb]
+		end
+		local mk = mark[i]
+		if not mk or mk < open or gv < g[i] then
+			g[i], par[i] = gv, u
+			if not mk or mk < open then
+				mark[i] = open
+			end
 			if ys then
 				ys[i] = yu + length * cs
 			end
 			local h = 0
 			if goal then
-				local cell = v < N and v or at[i]
 				local ax, ay = floor(cell / C) - gx, cell % C - gy
 				if ax < 0 then
 					ax = -ax
@@ -262,8 +341,8 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left)
 	while hn > 0 do
 		u = pop()
 		local i = u + 1
-		if closed[i] ~= gen then
-			closed[i] = gen
+		if mark[i] ~= settled then
+			mark[i] = settled
 			tick()
 			if u == goal then
 				return true
@@ -274,15 +353,26 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left)
 					return true
 				end
 			end
-			local cell = u < N and u or at[i]
+			local cell = u < N and u or floorCell(c, u)
 			gu, ux, uy = g[i], floor(cell / C), cell % C
 			if ys then
 				yu = ys[i]
 			end
 			if u < N then
-				local mi = m[i] % 16
-				local px, mx = mi % 2 == 1, ux > 0 and m[i - C] % 2 == 1
-				local py, my = mi % 4 >= 2, uy > 0 and m[i - 1] % 4 >= 2
+				-- This cell's moves, and the -x row's three around it (read only where that row exists).
+				local ml, mi = byte(mv, i - 1, i)
+				if uy == 0 then
+					mi = byte(mv, i)
+				end
+				mi = mi % 16
+				local mxm, mx0, mxp
+				if ux > 0 and uy > 0 then
+					mxm, mx0, mxp = byte(mv, i - C - 1, i - C + 1)
+				elseif ux > 0 then
+					mx0, mxp = byte(mv, i - C, i - C + 1)
+				end
+				local px, mx = mi % 2 == 1, ux > 0 and mx0 % 2 == 1
+				local py, my = mi % 4 >= 2, uy > 0 and ml % 4 >= 2
 				if px then
 					relax(u + C, 1)
 				end
@@ -301,33 +391,67 @@ local function search(st, k, swim, mult, source, tree, goal, targets, left)
 				if mi >= 8 then
 					relax(u + C - 1, SQRT2)
 				end
-				if ux > 0 and uy > 0 and m[i - C - 1] % 8 >= 4 then
+				if ux > 0 and uy > 0 and mxm % 8 >= 4 then
 					relax(u - C - 1, SQRT2)
 				end
-				if ux > 0 and uy < C - 1 and m[i - C + 1] % 16 >= 8 then
+				if ux > 0 and uy < C - 1 and mxp % 16 >= 8 then
 					relax(u - C + 1, SQRT2)
 				end
 			end
-			local l = links[i]
-			if l then
-				for e = 1, #l do
-					local d = l[e] % 8
+			-- Steps to the surface nearest the node's height on a neighbouring cell, then its other moves: steps to a
+			-- layer, and arcs.
+			local zu
+			local dirs = MASK[byte(lm, i)]
+			if #dirs > 0 then
+				zu = zOf(c, u)
+				for e = 1, #dirs do
+					local d = dirs[e]
 					local tx, ty = ux + DX[d], uy + DY[d]
 					if tx >= 0 and ty >= 0 and tx < C and ty < C then
-						local v = surface(st, k, tx * C + ty, floor(l[e] / 8) - 1, z[i], val, z, at)
+						local v = nearest(tx * C + ty, zu)
 						if v then
 							relax(v, d >= 4 and SQRT2 or 1)
 						end
 					end
 				end
 			end
+			local o1, o2, o3, p1, p2, p3 = byte(xo, 3 * u + 1, 3 * u + 6)
+			local a, b = (o1 * 256 + o2) * 256 + o3, (p1 * 256 + p2) * 256 + p3
+			while a < b do
+				local e = byte(xs, a + 1)
+				if e < 254 then
+					local d, layer
+					if e < 248 then
+						d, layer, a = e % 8, floor(e / 8) - 1, a + 1
+					else
+						local x1, x2 = byte(xs, a + 2, a + 3)
+						d, layer, a = x1, x2 - 1, a + 3
+					end
+					local tx, ty = ux + DX[d], uy + DY[d]
+					if tx >= 0 and ty >= 0 and tx < C and ty < C then
+						zu = zu or zOf(c, u)
+						local v = layer == -1 and nearest(tx * C + ty, zu) or surface(st, k, tx * C + ty, layer, zu, c)
+						if v then
+							relax(v, d >= 4 and SQRT2 or 1)
+						end
+					end
+				else
+					if e == arcTag then
+						local t1, t2, t3, y1, y2 = byte(xs, a + 2, a + 6)
+						relax((t1 * 256 + t2) * 256 + t3, (y1 * 256 + y2) / unit)
+					end
+					a = a + 6
+				end
+			end
 		end
 	end
+	-- The heap ran dry: every node reachable from source is settled (an endpoint tree that never met all its targets).
+	tree.whole = tree.gen
 	return goal == nil
 end
 
 local function reached(tree, node)
-	return tree.stamp[node + 1] == tree.gen and tree.closed[node + 1] == tree.gen
+	return tree.mark[node + 1] == 2 * tree.gen + 1
 end
 
 -- The yards along a tree's path to node: its yards label on a map with classes, its cost on one without (format 1).
@@ -351,7 +475,7 @@ local trees = { S = Tree(), G = Tree(), R = Tree() }
 local ag, ay, apar, astamp, aclosed, agen = {}, {}, {}, {}, {}, 0
 
 -- Endpoint searches: grid Dijkstra to the cluster's entrances.
-local function endpoint(st, swim, mult, tree, k, node)
+local function endpoint(st, swim, mult, tree, k, node, back)
 	local targets, left = {}, 0
 	for _, id in ipairs(nodesOf(st, k)) do
 		local e = entrance(st, id)
@@ -359,13 +483,13 @@ local function endpoint(st, swim, mult, tree, k, node)
 			targets[e], left = true, left + 1
 		end
 	end
-	search(st, k, swim, mult, node, tree, nil, targets, left)
+	search(st, k, swim, mult, node, tree, nil, targets, left, back)
 end
 -- An endpoint on a rooftop or ledge the grid cannot leave moves to the nearest node that reaches an entrance,
 -- down a ledge but never up one or onto another level.
-local function settle(st, swim, mult, tree, k, node)
+local function settle(st, swim, mult, tree, k, node, back)
 	local C = st.C
-	endpoint(st, swim, mult, tree, k, node)
+	endpoint(st, swim, mult, tree, k, node, back)
 	local function connected()
 		for _, id in ipairs(nodesOf(st, k)) do
 			local e = entrance(st, id)
@@ -379,8 +503,7 @@ local function settle(st, swim, mult, tree, k, node)
 		return node
 	end
 	local tries = 0
-	grid(st, k)
-	local h = st.z[k][node + 1]
+	local h = zOf(grid(st, k), node)
 	local cell = cellOf(st, k, node)
 	local lx, ly = floor(cell / C), cell % C
 	for r = 1, SNAP do
@@ -393,10 +516,10 @@ local function settle(st, swim, mult, tree, k, node)
 				local ring = dx == r or dx == -r or dy == r or dy == -r
 				if ring and x >= 0 and y >= 0 and x < C and y < C then
 					local near = standing(st, k, x * C + y, h)
-					local rise = near and st.z[k][near + 1] - h
+					local rise = near and zOf(grid(st, k), near) - h
 					if near and rise <= ZTOL and rise >= -DROP and not reached(tree, near) then
 						tries, node = tries + 1, near
-						endpoint(st, swim, mult, tree, k, node)
+						endpoint(st, swim, mult, tree, k, node, back)
 						if connected() then
 							return node
 						end
@@ -432,52 +555,98 @@ local function pointNode(st, point)
 end
 
 -- Fixed places recur in both batches and in later journeys. Keep their small entrance-cost vectors and only the
--- last eight grid trees; cap the cache so moving start positions cannot grow it for the entire play session. A
--- connection is priced for one profile and style on a map with classes (mult.tag), for every one on a map without.
-local function connect(st, swim, mult, k, node)
+-- last ENDTREES grid trees (an older entry's tree goes to the pool for the next connection: whoever kept the entry
+-- finds its tree gone and searches again); cap the cache so moving start positions cannot grow it for the entire play
+-- session. A connection is priced for one profile and style on a map with classes (mult.tag), for every one on a map
+-- without. -> the entry's node, edges, tree and yards, and the entry ({ node, edges, yards, tree }).
+-- st.endTrees keeps at most ENDTREES trees and TREE_NODES nodes between them (a tree spans its cluster: a city's on
+-- Leffe's maps holds up to 40,000 nodes, 2-3 MB a tree).
+local ENDTREES, TREE_NODES = 4, 65536
+-- Each Find stamps the entries it connects (pin): the trees of the walk under way are never the ones given up (a start
+-- without a height connects each of its surfaces: Ironforge's floors, whose trees spare a same-cluster walk its A*), so
+-- st.endTrees may hold more than ENDTREES while one runs. A batch (FindMany) pins its source's only: of its targets
+-- it keeps the costs.
+local runStamp, pin = 0, nil
+local function connect(st, swim, mult, k, node, back)
 	nodesOf(st, k)
-	local key = k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "")
+	local key = k .. ":" .. node .. ":" .. swim .. ":" .. (mult and mult.tag or "") .. (back and ":b" or "")
 	local entry = st.ends[key]
 	if not entry then
 		local tree = Tree()
-		node = settle(st, swim, mult, tree, k, node)
+		node = settle(st, swim, mult, tree, k, node, back)
 		local edges, yards = connections(st, tree, k)
 		entry = { node = node, edges = edges, yards = yards, tree = tree }
 		-- A handful of local trees removes repeated endpoint searches without retaining a continent's grids.
 		st.endTrees = st.endTrees or {}
 		st.endTrees[#st.endTrees + 1] = entry
-		if #st.endTrees > 8 then
-			table.remove(st.endTrees, 1).tree = nil
+		entry.stamp, entry.size = pin, grid(st, k).T
+		st.endNodes = (st.endNodes or 0) + entry.size
+		while #st.endTrees > ENDTREES or st.endNodes > TREE_NODES do
+			local gone
+			for i, old in ipairs(st.endTrees) do
+				if old.stamp ~= runStamp then
+					gone = table.remove(st.endTrees, i)
+					break
+				end
+			end
+			if not gone then
+				break
+			end
+			st.endNodes = st.endNodes - gone.size
+			if gone.tree then
+				pool[#pool + 1], gone.tree = gone.tree, nil
+			end
 		end
-		if st.endCount >= 256 then
+		if st.endCount >= (Path.endsMax or 256) then
 			st.ends, st.endCount = {}, 0
 		end
 		st.ends[key], st.endCount = entry, st.endCount + 1
 	end
-	return entry.node, entry.edges, entry.tree, entry.yards
+	entry.stamp = pin
+	return entry.node, entry.edges, entry.tree, entry.yards, entry
 end
 
 -- A point without a height (a map click, or the player while Polestar's walking floor is unknown: UnitPosition's
 -- height is a placeholder 0, so Nav/Walk.lua usually sends the floor it follows under the player, Path.SurfacesAt)
 -- could stand on any surface at its spot, so it starts from each one within a cell of it at a distinct height and the
 -- search keeps the cheapest: a street beside or over a canal is not walked from the canal bed, but a rock top or roof
--- over the player may be walked from (#234). Returns each surface's connection, the entrance costs merged by minimum,
--- per entrance the surface it came from, and the merged costs' yards.
-local function connectPoint(st, swim, mult, k, node, h)
+-- over the player may be walked from (#234). `floors` (the point's: a list of heights, Nav/Walk.lua's candidate floors
+-- while the player's own is unknown indoors) keeps to the surfaces within ZTOL of one of them, all of them when none
+-- is: the Undercity's canals and streets, never its roofs or the Ruins above. Returns each surface's connection, the
+-- entrance costs merged by minimum, per entrance the surface it came from, and the merged costs' yards.
+local function connectPoint(st, swim, mult, k, node, h, floors, back)
 	local nodes = { node }
 	if not h then
-		local values = grid(st, k)
-		assert(values)
-		local C, val, z, at = st.C, values, st.z[k], st.at[k]
+		local cl = grid(st, k)
+		assert(cl)
+		local C, kind = st.C, cl.kind
+		local function onFloor(n)
+			for _, f in ipairs(floors) do
+				if abs(zOf(cl, n) - f) <= ZTOL then
+					return true
+				end
+			end
+			return false
+		end
+		if type(floors) == "table" and #floors > 0 then
+			if not onFloor(node) then
+				nodes = {}
+			end
+		else
+			floors = nil
+		end
 		local cell = cellOf(st, k, node)
 		local lx, ly = floor(cell / C), cell % C
 		local function consider(n, r)
 			-- A neighbour's water is where the point is not: it would be standing in it.
-			if r > 0 and val[n + 1] == 2 then
+			if r > 0 and VAL[byte(kind, n + 1)] == 2 then
+				return
+			end
+			if floors and not onFloor(n) then
 				return
 			end
 			for _, m in ipairs(nodes) do
-				if abs(z[n + 1] - z[m + 1]) <= ZTOL then
+				if abs(zOf(cl, n) - zOf(cl, m)) <= ZTOL then
 					return
 				end
 			end
@@ -489,23 +658,26 @@ local function connectPoint(st, swim, mult, k, node, h)
 					local x, y = lx + dx, ly + dy
 					if (dx == r or dx == -r or dy == r or dy == -r) and x >= 0 and y >= 0 and x < C and y < C then
 						local c = x * C + y
-						if val[c + 1] ~= 0 then
+						if byte(kind, c + 1) >= KINDS then
 							consider(c, r)
 						end
-						local n = at[-(c + 1)]
-						while n and at[n + 1] == c do
-							consider(n, r)
-							n = n + 1
+						local n, count = floorsOf(cl, c)
+						for f = n or 0, (n or 0) + count - 1 do
+							consider(f, r)
 						end
 					end
 				end
 			end
 		end
+		if #nodes == 0 then
+			nodes[1] = node
+		end
 	end
 	local ends, merged, via, yards = {}, {}, {}, {}
 	for _, start in ipairs(nodes) do
-		local n, edges, tree, edgeYards = connect(st, swim, mult, k, start)
-		ends[#ends + 1] = { node = n, tree = tree }
+		-- The entry itself: its tree may go to the pool before the caller reads it (connect).
+		local _, edges, _, edgeYards, entry = connect(st, swim, mult, k, start, back)
+		ends[#ends + 1] = entry
 		for id, cost in pairs(edges) do
 			if not merged[id] or cost < merged[id] then
 				merged[id], via[id], yards[id] = cost, ends[#ends], edgeYards[id]
@@ -513,6 +685,116 @@ local function connectPoint(st, swim, mult, k, node, h)
 		end
 	end
 	return ends, merged, via, yards
+end
+
+-- Lifts: the walking grid has no links between a lift's landings (the car moves, the ground does not), so the
+-- searches join them here. The pack's lift chokepoints (PolestarNavChokepoints[map], Nav/Chokepoints.lua: kind
+-- "lift", liftEnd "bottom" with pair, the index of its "top" landing, each with its height) give each lift's
+-- landings; a ride between a bottom landing and its top, either way, costs LIFT_COST (an average wait and the ride at
+-- run speed) and adds the yards between them. A landing is an abstract vertex (LIFT_ID + its index) joined to its
+-- cluster's entrances by a grid Dijkstra from it (kept per profile, style and water mode: a few numbers a landing,
+-- LIFT_ENDS at most), and to a start or goal in its cluster by their own trees or one A* inside the cluster. A
+-- drawn line keeps both landings: straightening never jumps floors (PathGrid's sight), so Nav/Walk.lua finds the
+-- ride on it.
+local LIFT_COST = 175 -- 25 s (wait and ride) at 7 yd/s
+local LIFT_ID = 1073741824 -- landing i's vertex is LIFT_ID + i, above every entrance id
+local LIFT_ENDS = 64
+-- The longest walk a search looks for: DETOUR times the straight line plus DETOUR_YD yards (run's abstract A*).
+local DETOUR, DETOUR_YD = 8, 2000
+
+-- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... } }, byCluster = { [k] =
+-- { i, ... } } }.
+local function liftsOf(st, map)
+	local L = st.lifts
+	if L then
+		return L
+	end
+	L = { byCluster = {} }
+	local list = type(PolestarNavChokepoints) == "table" and PolestarNavChokepoints[map]
+	if type(list) == "table" then
+		local index = {}
+		local function landing(e)
+			if index[e] then
+				return index[e]
+			end
+			if type(e.wx) ~= "number" or type(e.wy) ~= "number" or type(e.z) ~= "number" then
+				return nil
+			end
+			local k = locate(st, e.wx, e.wy)
+			if not k then
+				return nil
+			end
+			local i = #L + 1
+			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, partners = {} }, i
+			local here = L.byCluster[k] or {}
+			L.byCluster[k], here[#here + 1] = here, i
+			return i
+		end
+		for _, e in ipairs(list) do
+			local top = type(e) == "table" and e.kind == "lift" and e.liftEnd == "bottom" and type(e.pair) == "number"
+				and list[e.pair]
+			if type(top) == "table" and top.kind == "lift" and top.liftEnd == "top" then
+				local a, b = landing(e), landing(top)
+				if a and b then
+					local pa, pb = L[a].partners, L[b].partners
+					pa[#pa + 1], pb[#pb + 1] = b, a
+				end
+			end
+		end
+	end
+	st.lifts = L
+	return L
+end
+
+-- Landing i's node and its costs (and yards) to its cluster's entrances for this search's water mode and weights;
+-- false when the landing stands on no walkable surface.
+local function landingEnds(st, swim, mult, lifts, i)
+	local key = i .. ":" .. swim .. ":" .. (mult and mult.tag or "")
+	st.liftEnds = st.liftEnds or { n = 0 }
+	local entry = st.liftEnds[key]
+	if entry == nil then
+		local l = lifts[i]
+		local k, lc = locate(st, l.x, l.y)
+		local node = k and snap(st, k, lc, l.x, l.y, l.z)
+		entry = false
+		if node then
+			nodesOf(st, k)
+			-- Called mid-search: the grid search gets its own heap, and runs on trees.R (every other use searches it and
+			-- reads it at once; only the costs to the entrances are kept).
+			local keys, values, size = hk, hv, hn
+			hk, hv, hn = {}, {}, 0
+			endpoint(st, swim, mult, trees.R, k, node)
+			local edges, yards = connections(st, trees.R, k)
+			hk, hv, hn = keys, values, size
+			entry = { node = node, edges = edges, yards = yards }
+		end
+		if st.liftEnds.n >= LIFT_ENDS then
+			st.liftEnds = { n = 0 }
+		end
+		st.liftEnds[key], st.liftEnds.n = entry, st.liftEnds.n + 1
+	end
+	return entry
+end
+
+-- The grid cost (and yards) between an endpoint (its connection: node, tree) and node `to` in cluster k: the
+-- endpoint's own tree when it settled `to`, else an A* from the endpoint inside the cluster (trees.R). nil when the
+-- cluster joins them nowhere.
+local function within(st, swim, mult, k, from, to)
+	local tree = from.tree
+	if tree and tree.k == k and reached(tree, to) then
+		return tree.g[to + 1], yardsAt(st, tree, to)
+	end
+	if from.node == to then
+		return 0, 0
+	end
+	local keys, values, size = hk, hv, hn
+	hk, hv, hn = {}, {}, 0
+	local cost, yards
+	if search(st, k, swim, mult, from.node, trees.R, to) then
+		cost, yards = trees.R.g[to + 1], yardsAt(st, trees.R, to)
+	end
+	hk, hv, hn = keys, values, size
+	return cost, yards
 end
 
 -- Where the segment from a to b first enters one of disks ({ x, y, r } each), as a fraction of the way along it;
@@ -578,6 +860,8 @@ local function hubsOn(hubs, points, profile)
 end
 -- Sliced A* and refinement share scratch trees; splitting adds hot-path calls and upvalues
 local function run(map, from, to, waterWalking, costOnly, profile, job, style, danger)
+	runStamp = runStamp + 1
+	pin = runStamp
 	local st = State(map)
 	if not st then
 		return nil, "nodata"
@@ -585,7 +869,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	-- Walking on water is running, so the search weights water by 1 (and a format 1 map reads each edge's second
 	-- cost).
 	local swim = waterWalking and 1 or st.swim
-	local stride, ci, yi = edgeFields(st, waterWalking, profile)
+	local ci, yi = edgeFields(st, waterWalking, profile)
 	local mult, hmin = weights(st, profile, style, danger)
 	local edged = edgeDanger(st, mult)
 	local sk, sc = locate(st, from.x, from.y)
@@ -600,21 +884,33 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	local C = st.C
 
 	local S, G = trees.S, trees.G
-	local starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z)
-	local goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z)
-	local key = table.concat({ sk, sc, gk, gc, swim, from.z and 1 or 0, to.z and 1 or 0, mult and mult.tag or "" }, ":")
+	local starts, source, sourceVia, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors)
+	local goals, target, targetVia, targetYards = connectPoint(st, swim, mult, gk, gc, to.z, to.floors, true)
+	local key = table.concat({ sk, sc, gk, gc, swim, from.z and 1 or 0, to.z and 1 or 0, mult and mult.tag or "",
+		type(from.floors) == "table" and table.concat(from.floors, ",") or "", type(to.floors) == "table" and table.concat(to.floors, ",") or "" }, ":")
 	st.paths = st.paths or {}
 	local cached = st.paths[key]
 	local hops, cost, yards, directFrom, directTo
 	local x0, y0, cs = st.x0, st.y0, st.cs
+	local lifts = liftsOf(st, map)
+	-- Per landing vertex on the way: the start node walked to it, the goal node walked to from it.
+	local liftStart, liftGoal
 	if cached then
 		hops, cost, yards, directFrom, directTo = cached.hops, cached.cost, cached.yards, cached.directFrom, cached.directTo
+		liftStart, liftGoal = cached.liftStart, cached.liftGoal
 	else
 		local direct, directYards
 		if sk == gk then
+			-- A start's endpoint tree is a Dijkstra over its cluster: a goal it never reached when it ran dry is out of
+			-- reach (a floor or rock top the start's floor never joins), and an A* for it would expand everything the
+			-- start reaches (Ironforge's city under the mountain: most of a cold walk). A goal it can reach keeps its A*
+			-- (the same points and costs as before).
 			for _, a in ipairs(starts) do
+				local tree = a.tree
+				local dry = tree and tree.k == sk and tree.whole == tree.gen
 				for _, b in ipairs(goals) do
-					if search(st, sk, swim, mult, a.node, S, b.node) and (not direct or S.g[b.node + 1] < direct) then
+					if not (dry and not reached(tree, b.node)) and search(st, sk, swim, mult, a.node, S, b.node)
+						and (not direct or S.g[b.node + 1] < direct) then
 						direct, directYards, directFrom, directTo = S.g[b.node + 1], yardsAt(st, S, b.node), a.node, b.node
 					end
 				end
@@ -632,7 +928,8 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			local _, _, component = metadata(st, id)
 			shared = shared or comps[component]
 		end
-		if not direct and not shared then
+		-- Components join only through the grid: a lift may join two (a mesa top and the plain below).
+		if not direct and not shared and #lifts == 0 then
 			return nil, "unreachable"
 		end
 
@@ -648,14 +945,28 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		local goalY = y0 + (gk % st.ny * C + goalCell % C + 0.5) * cs
 		local lower = max(0, 1 - 0.5 / cs) * hmin
 		local function h(id)
-			local x, y = world(id)
+			local x, y
+			if id > LIFT_ID then
+				local l = lifts[id - LIFT_ID]
+				x, y = l.x, l.y
+			else
+				x, y = world(id)
+			end
 			local dx, dy = abs(x - goalX), abs(y - goalY)
 			return (dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx) * lower
 		end
 		agen = agen + 1
 		local gen = agen
 		hn = 0
+		-- No walk is worth more than DETOUR times the straight line plus DETOUR_YD: past that the search stops
+		-- (unreachable; Nav/Walk.lua asks again without the start's height). A start on a surface the maps join to the
+		-- world only far away (the terrain buried under Stormwind's Trade District, reached by Leffe's maps only over
+		-- the mountains: 20 km) otherwise searched most of a continent's graph for seconds.
+		local detour = DETOUR * sqrt((to.x - from.x) ^ 2 + (to.y - from.y) ^ 2) + DETOUR_YD
 		local function relax(v, gv, yv, parent)
+			if yv and yv > detour then
+				return
+			end
 			if astamp[v] ~= gen or gv < ag[v] then
 				ag[v], ay[v], apar[v], astamp[v] = gv, yv, parent, gen
 				push(gv + (v == GOAL and 0 or h(v)), v)
@@ -666,6 +977,21 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		end
 		if direct then
 			relax(GOAL, direct, directYards, START)
+		end
+		liftStart, liftGoal = {}, {}
+		-- The landings in the start's cluster, walked to from the start.
+		for _, i in ipairs(lifts.byCluster[sk] or {}) do
+			local land = landingEnds(st, swim, mult, lifts, i)
+			if land then
+				for _, a in ipairs(starts) do
+					local c, yd = within(st, swim, mult, sk, a, land.node)
+					local v = LIFT_ID + i
+					if c and (astamp[v] ~= gen or c < ag[v]) then
+						relax(v, c, yd, START)
+						liftStart[v] = a.node
+					end
+				end
+			end
 		end
 		local found = false
 		while hn > 0 do
@@ -678,16 +1004,55 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 					break
 				end
 				local gu, yu = ag[u], ay[u]
-				if target[u] then
-					relax(GOAL, gu + target[u], yu + targetYards[u], u)
-				end
-				nodesOf(st, floor(u / 4096))
-				local adj = adjacent(st, u)
-				for e = 1, #adj, stride do
-					local v = adj[e]
-					if aclosed[v] ~= gen then
-						nodesOf(st, floor(v / 4096))
-						relax(v, gu + (edged and adj[e + ci] * edged(u, v) or adj[e + ci]), yu + adj[e + yi], u)
+				if u > LIFT_ID then
+					-- A landing: the ride to its other landing, its cluster's entrances, and the goal in its cluster.
+					local i = u - LIFT_ID
+					local l = lifts[i]
+					for _, j in ipairs(l.partners) do
+						local p = lifts[j]
+						relax(LIFT_ID + j, gu + LIFT_COST, yu + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2), u)
+					end
+					local land = landingEnds(st, swim, mult, lifts, i)
+					if land then
+						for id, c in pairs(land.edges) do
+							if aclosed[id] ~= gen then
+								nodesOf(st, floor(id / 4096))
+								relax(id, gu + c, yu + land.yards[id], u)
+							end
+						end
+						if l.k == gk then
+							for _, b in ipairs(goals) do
+								local c, yd = within(st, swim, mult, gk, b, land.node)
+								if c and (astamp[GOAL] ~= gen or gu + c < ag[GOAL]) then
+									relax(GOAL, gu + c, yu + yd, u)
+									liftGoal[u] = b.node
+								end
+							end
+						end
+					end
+				else
+					if target[u] then
+						relax(GOAL, gu + target[u], yu + targetYards[u], u)
+					end
+					local ku = floor(u / 4096)
+					-- The landings in this entrance's cluster.
+					for _, i in ipairs(lifts.byCluster[ku] or {}) do
+						local land = landingEnds(st, swim, mult, lifts, i)
+						local c = land and land.edges[u]
+						if c and aclosed[LIFT_ID + i] ~= gen then
+							relax(LIFT_ID + i, gu + c, yu + land.yards[u], u)
+						end
+					end
+					nodesOf(st, ku)
+					local s, pos, n, width = edges(st, u)
+					for _ = 1, n do
+						local v = edgeTarget(st, s, pos, ku)
+						if aclosed[v] ~= gen then
+							nodesOf(st, floor(v / 4096))
+							local c = edgeValue(st, s, pos, ci)
+							relax(v, gu + (edged and c * edged(u, v) or c), yu + edgeValue(st, s, pos, yi), u)
+						end
+						pos = pos + width
 					end
 				end
 			end
@@ -704,7 +1069,8 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		if (st.pathCount or 0) >= 16 then
 			st.paths, st.pathCount = {}, 0
 		end
-		st.paths[key] = { hops = hops, cost = cost, yards = yards, directFrom = directFrom, directTo = directTo }
+		st.paths[key] = { hops = hops, cost = cost, yards = yards, directFrom = directFrom, directTo = directTo,
+			liftStart = liftStart, liftGoal = liftGoal }
 		st.pathCount = (st.pathCount or 0) + 1
 	end
 	if costOnly then
@@ -731,7 +1097,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		local cell = node < C * C and node or cellOf(st, k, node)
 		P.x[n + 1], P.y[n + 1] = floor(k / st.ny) * C + floor(cell / C), (k % st.ny) * C + cell % C
 		P.k[n + 1], P.n[n + 1] = k, node
-		P.w[n + 1] = (P.w[n] or 0) + ((st.val[k] or grid(st, k))[node + 1] == 2 and 1 or 0)
+		P.w[n + 1] = (P.w[n] or 0) + (VAL[byte((st.cl[k] or grid(st, k)).kind, node + 1)] == 2 and 1 or 0)
 		seen[id] = n + 1
 	end
 	local function addAll(k, nodes, first, last, step)
@@ -740,9 +1106,34 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		end
 	end
 	local R = trees.R
+	-- A hop end beside a landing: its cluster and node.
+	local function hopEnd(x, landing)
+		if x == START then
+			return sk, liftStart[landing]
+		elseif x == GOAL then
+			return gk, liftGoal[landing]
+		elseif x > LIFT_ID then
+			return lifts[x - LIFT_ID].k, landingEnds(st, swim, mult, lifts, x - LIFT_ID).node
+		end
+		return floor(x / 4096), entrance(st, x)
+	end
 	for i = #hops, 2, -1 do
 		local a, b = hops[i], hops[i - 1]
-		if a == START and b == GOAL then
+		if a > LIFT_ID or b > LIFT_ID then
+			-- To, from or on a lift: a ride joins its two landings; a walk to or from one stays in its cluster.
+			local ka, na = hopEnd(a, b)
+			local kb, nb = hopEnd(b, a)
+			if a > LIFT_ID and b > LIFT_ID then
+				add(ka, na)
+				add(kb, nb)
+			elseif search(st, ka, swim, mult, na, R, nb) then
+				local nodes = trace(R, nb, {})
+				addAll(ka, nodes, #nodes, 1, -1)
+			else
+				add(ka, na)
+				add(kb, nb)
+			end
+		elseif a == START and b == GOAL then
 			search(st, sk, swim, mult, directFrom, S, directTo)
 			local nodes = trace(S, directTo, {})
 			addAll(sk, nodes, #nodes, 1, -1)
@@ -759,7 +1150,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 			local goal = targetVia[a]
 			local tree = goal.tree
 			if not tree or not reached(tree, entrance(st, a)) then
-				search(st, gk, swim, mult, goal.node, G, entrance(st, a))
+				search(st, gk, swim, mult, goal.node, G, entrance(st, a), nil, nil, true)
 				tree = G
 			end
 			local nodes = trace(tree, entrance(st, a), {})
@@ -787,12 +1178,11 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 	local points = { { map = map, x = from.x, y = from.y, z = from.z } }
 	for i = 2, #keep - 1 do
 		local j = keep[i]
-		grid(st, P.k[j])
 		points[#points + 1] = {
 			map = map,
 			x = x0 + (P.x[j] + 0.5) * cs,
 			y = y0 + (P.y[j] + 0.5) * cs,
-			z = st.z[P.k[j]][P.n[j] + 1],
+			z = zOf(grid(st, P.k[j]), P.n[j]),
 		}
 	end
 	points[#points + 1] = { map = map, x = to.x, y = to.y, z = to.z }
@@ -804,14 +1194,166 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		wetYards, drawnYards = wetYards + length * wet, drawnYards + length
 	end
 	points.wet = wetYards
-	job.yards, job.hubs = drawnYards, hubsOn(st.D.hubs, points, profile)
+	job.yards, job.hubs = drawnYards, hubsOn(st.D.hubs, points, job.report or profile)
 	-- Smoothing only changes drawing: planning and FindMany use the identical graph cost.
 	return points, cost
+end
+
+-- FindCoarse: the walk's shape from the entrance graph alone, no grid decoded or searched. A* from the start to the
+-- goal over the entrances (their edges priced as run's) and lift landings (a ride LIFT_COST), the start joined to
+-- every entrance and landing of its cluster and the goal to those of its, and a landing to its cluster's entrances,
+-- at their straight (octile) yards: no grid Dijkstra from an endpoint or a landing, which is most of a cold search.
+-- The line is the start, each entrance (the middle of its cell) and landing (with its height) on the way, and the
+-- goal: straight inside a cluster at most, between the border crossings the walk takes (consecutive points closer
+-- than SKETCH_GAP yards, the two sides of one border, are one); points.coarse = true, job.yards its length. Inside
+-- one cluster the full search is that cluster's (run): with job.whole its drawn path, without points.coarse; else
+-- nil, "cluster".
+local SKETCH_GAP = 8
+local function sketch(map, from, to, waterWalking, profile, job, style, danger)
+	local st = State(map)
+	if not st then
+		return nil, "nodata"
+	end
+	local sk, gk = locate(st, from.x, from.y), locate(st, to.x, to.y)
+	if not sk or not gk then
+		return nil, "outside"
+	end
+	if sk == gk then
+		if not job.whole then
+			return nil, "cluster"
+		end
+		return run(map, from, to, waterWalking, false, profile, job, style, danger)
+	end
+	local ci = edgeFields(st, waterWalking, profile)
+	local mult, hmin = weights(st, profile, style, danger)
+	local edged = edgeDanger(st, mult)
+	local lifts = liftsOf(st, map)
+	local C, x0, y0, cs, ny = st.C, st.x0, st.y0, st.cs, st.ny
+	local lower = max(0, 1 - 0.5 / cs) * hmin
+	local function at(id)
+		if id > LIFT_ID then
+			local l = lifts[id - LIFT_ID]
+			return l.x, l.y
+		end
+		local k, lc = floor(id / 4096), metadata(st, id)
+		return x0 + (floor(k / ny) * C + floor(lc / C) + 0.5) * cs, y0 + ((k % ny) * C + lc % C + 0.5) * cs
+	end
+	local function octile(ax, ay, bx, by)
+		local dx, dy = abs(ax - bx), abs(ay - by)
+		return dx > dy and dx + (SQRT2 - 1) * dy or dy + (SQRT2 - 1) * dx
+	end
+	agen = agen + 1
+	local gen = agen
+	hn = 0
+	local function relax(v, gv, parent)
+		if astamp[v] ~= gen or gv < ag[v] then
+			ag[v], apar[v], astamp[v] = gv, parent, gen
+			local h = 0
+			if v ~= GOAL then
+				local x, y = at(v)
+				h = octile(x, y, to.x, to.y) * lower
+			end
+			push(gv + h, v)
+		end
+	end
+	-- A cluster's entrances and landings, from a point in it at its straight yards.
+	local function join(k, x, y, g, parent)
+		for _, id in ipairs(nodesOf(st, k)) do
+			if aclosed[id] ~= gen then
+				local ex, ey = at(id)
+				relax(id, g + octile(x, y, ex, ey), parent)
+			end
+		end
+		for _, i in ipairs(lifts.byCluster[k] or {}) do
+			local l = lifts[i]
+			if aclosed[LIFT_ID + i] ~= gen then
+				relax(LIFT_ID + i, g + octile(x, y, l.x, l.y), parent)
+			end
+		end
+	end
+	join(sk, from.x, from.y, 0, START)
+	local found = false
+	while hn > 0 do
+		local u = pop()
+		if aclosed[u] ~= gen then
+			aclosed[u] = gen
+			tick()
+			if u == GOAL then
+				found = true
+				break
+			end
+			local gu = ag[u]
+			local ux, uy = at(u)
+			local k
+			if u > LIFT_ID then
+				local l = lifts[u - LIFT_ID]
+				k = l.k
+				for _, j in ipairs(l.partners) do
+					relax(LIFT_ID + j, gu + LIFT_COST, u)
+				end
+				join(k, ux, uy, gu, u)
+			else
+				k = floor(u / 4096)
+				for _, i in ipairs(lifts.byCluster[k] or {}) do
+					local l = lifts[i]
+					if aclosed[LIFT_ID + i] ~= gen then
+						relax(LIFT_ID + i, gu + octile(ux, uy, l.x, l.y), u)
+					end
+				end
+				nodesOf(st, k)
+				local s, pos, n, width = edges(st, u)
+				for _ = 1, n do
+					local v = edgeTarget(st, s, pos, k)
+					if aclosed[v] ~= gen then
+						nodesOf(st, floor(v / 4096))
+						local c = edgeValue(st, s, pos, ci)
+						relax(v, gu + (edged and c * edged(u, v) or c), u)
+					end
+					pos = pos + width
+				end
+			end
+			if k == gk then
+				relax(GOAL, gu + octile(ux, uy, to.x, to.y), u)
+			end
+		end
+	end
+	if not found then
+		return nil, "unreachable"
+	end
+	local hops = { GOAL }
+	while hops[#hops] ~= START do
+		hops[#hops + 1] = apar[hops[#hops]]
+	end
+	local points = { { map = map, x = from.x, y = from.y, z = from.z } }
+	for i = #hops - 1, 2, -1 do
+		local id = hops[i]
+		local x, y = at(id)
+		local last = points[#points]
+		if id > LIFT_ID then
+			points[#points + 1] = { map = map, x = x, y = y, z = lifts[id - LIFT_ID].z }
+		elseif (x - last.x) ^ 2 + (y - last.y) ^ 2 >= SKETCH_GAP * SKETCH_GAP then
+			points[#points + 1] = { map = map, x = x, y = y }
+		end
+	end
+	local last = points[#points]
+	if #points > 1 and last.z == nil and (to.x - last.x) ^ 2 + (to.y - last.y) ^ 2 < SKETCH_GAP * SKETCH_GAP then
+		points[#points] = nil
+	end
+	points[#points + 1] = { map = map, x = to.x, y = to.y, z = to.z }
+	points.coarse = true
+	local yards = 0
+	for i = 2, #points do
+		yards = yards + sqrt((points[i].x - points[i - 1].x) ^ 2 + (points[i].y - points[i - 1].y) ^ 2)
+	end
+	job.yards = yards
+	return points, ag[GOAL]
 end
 
 -- Lazy terminal-node connections let nearby targets settle without first searching every faraway endpoint.
 -- One sliced Dijkstra owns the heap swap and frontier locals across endpoint searches
 local function runMany(map, from, targets, waterWalking, reverse, job, profile, style, danger)
+	runStamp = runStamp + 1
+	pin = runStamp
 	local costs, yards = job and job.costs or {}, job and job.yards or {}
 	local function failed(reason)
 		for i = 1, #targets do
@@ -845,11 +1387,15 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 		end
 	end
 	local swim = waterWalking and 1 or st.swim
-	local stride, ci, yi = edgeFields(st, waterWalking, profile)
+	local ci, yi = edgeFields(st, waterWalking, profile)
 	local mult = weights(st, profile, style, danger)
 	local edged = edgeDanger(st, mult)
-	local starts, source, _, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z)
+	local starts, source, _, sourceYards = connectPoint(st, swim, mult, sk, sc, from.z, from.floors, reverse)
+	pin = nil -- the source's trees stay (a target in its cluster is priced on them); the targets' may go
 	local clusters, links, dist, dyards, closed, left = {}, {}, {}, {}, {}, #targets
+	local lifts = liftsOf(st, map)
+	-- Per prepared cluster with a landing: its targets, and per target the nodes it stands on (for a walk off a lift).
+	local landed, standsOn = {}, {}
 	for i, point in ipairs(targets) do
 		local k = locate(st, point.x, point.y)
 		if costs[i] ~= nil then
@@ -874,6 +1420,9 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 			return
 		end
 		clusters[k] = nil
+		if lifts.byCluster[k] then
+			landed[k] = list
+		end
 		-- Local searches need their own heap, including across a yield midway through a connection.
 		local keys, values, size = hk, hv, hn
 		hk, hv, hn = {}, {}, 0
@@ -882,7 +1431,14 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 			local _, node = pointNode(st, targets[i])
 			if node then
 				local goals, _
-				goals, ends[i], _, endYards[i] = connectPoint(st, swim, mult, k, node, targets[i].z)
+				goals, ends[i], _, endYards[i] = connectPoint(st, swim, mult, k, node, targets[i].z, targets[i].floors, not reverse)
+				if landed[k] then
+					local nodes = {}
+					for g, b in ipairs(goals) do
+						nodes[g] = b.node
+					end
+					standsOn[i] = nodes
+				end
 				for _, a in ipairs(k == sk and starts or {}) do
 					for _, b in ipairs(goals) do
 						-- Both trees search outward from their endpoint; a reverse batch walks to the source.
@@ -927,6 +1483,16 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 	for id, cost in pairs(source) do
 		relax(id, cost, sourceYards[id])
 	end
+	-- The landings in the start's cluster, walked to from the start.
+	for _, i in ipairs(lifts.byCluster[sk] or {}) do
+		local land = landingEnds(st, swim, mult, lifts, i)
+		for _, a in ipairs(land and starts or {}) do
+			local c, yd = within(st, swim, mult, sk, a, land.node)
+			if c then
+				relax(LIFT_ID + i, c, yd)
+			end
+		end
+	end
 	while hn > 0 and left > 0 do
 		-- Until the popped node's outgoing edges are relaxed, its key still bounds the frontier.
 		if job then
@@ -940,6 +1506,32 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 				if job then
 					job.revision = job.revision + 1
 				end
+			elseif u > LIFT_ID then
+				-- A landing: the ride to its other landing, its cluster's entrances and targets.
+				local l = lifts[u - LIFT_ID]
+				for _, j in ipairs(l.partners) do
+					local p = lifts[j]
+					relax(LIFT_ID + j, dist[u] + LIFT_COST, dyards[u] + sqrt((p.x - l.x) ^ 2 + (p.y - l.y) ^ 2))
+				end
+				local land = landingEnds(st, swim, mult, lifts, u - LIFT_ID)
+				if land then
+					for id, c in pairs(land.edges) do
+						if not closed[id] then
+							nodesOf(st, floor(id / 4096))
+							relax(id, dist[u] + c, dyards[u] + land.yards[id])
+						end
+					end
+					prepare(l.k)
+					local from = { node = land.node }
+					for _, i in ipairs(landed[l.k] or {}) do
+						for _, node in ipairs(not closed[-i] and standsOn[i] or {}) do
+							local c, yd = within(st, swim, mult, l.k, from, node)
+							if c then
+								relax(-i, dist[u] + c, dyards[u] + yd)
+							end
+						end
+					end
+				end
 			else
 				local k = floor(u / 4096)
 				prepare(k)
@@ -947,16 +1539,26 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 				for i = 1, ends and #ends or 0, 3 do
 					relax(ends[i], dist[u] + ends[i + 1], dyards[u] + ends[i + 2])
 				end
+				-- The landings in this entrance's cluster.
+				for _, i in ipairs(lifts.byCluster[k] or {}) do
+					local land = landingEnds(st, swim, mult, lifts, i)
+					local c = land and land.edges[u]
+					if c and not closed[LIFT_ID + i] then
+						relax(LIFT_ID + i, dist[u] + c, dyards[u] + land.yards[u])
+					end
+				end
 				nodesOf(st, k)
-				local adj = adjacent(st, u)
-				for e = 1, #adj, stride do
-					local v = adj[e]
+				local s, pos, n, width = edges(st, u)
+				for _ = 1, n do
+					local v = edgeTarget(st, s, pos, k)
 					if not closed[v] then
 						if edged then
 							nodesOf(st, floor(v / 4096))
 						end
-						relax(v, dist[u] + (edged and adj[e + ci] * edged(u, v) or adj[e + ci]), dyards[u] + adj[e + yi])
+						local c = edgeValue(st, s, pos, ci)
+						relax(v, dist[u] + (edged and c * edged(u, v) or c), dyards[u] + edgeValue(st, s, pos, yi))
 					end
+					pos = pos + width
 				end
 			end
 		end
@@ -1041,12 +1643,40 @@ function Path.ZoneAt(map, x, y)
 	return k and zoneAt(st, k, lc) or nil
 end
 
--- Path.SurfacesAt's marks, and a node's (its class byte read from the decoded cluster's cls).
+-- The town hostile to profile (Costs.Profile) whose ground holds the world point (x, y) on map: one of its disks in
+-- the map's hubs metadata (D.hubs, Nav/Nav<map>.lua) -> its id and English name; nil without one, without a profile or
+-- hubs. Reads the metadata only.
+---@param map number
+---@param x number
+---@param y number
+---@param profile? string
+---@return string?, string?
+function Path.HubAt(map, x, y, profile)
+	local D = PolestarPathData and PolestarPathData[map]
+	profile = Costs.Profile(profile)
+	if not (D and D.hubs and profile and x and y) then
+		return nil
+	end
+	for _, hub in ipairs(D.hubs) do
+		if hub.side ~= profile and Costs.Profile(hub.side) then
+			for _, d in ipairs(hub.disks or {}) do
+				local dx, dy = x - d[1], y - d[2]
+				if dx * dx + dy * dy <= d[3] * d[3] then
+					return hub.id, hub.name
+				end
+			end
+		end
+	end
+	return nil
+end
+
+-- Path.SurfacesAt's marks, and a node's (its kind byte read from decoded cluster c).
 Path.SURFACE_WATER, Path.SURFACE_INDOOR = 1, 2
 local INDOOR, CITY = Costs.CLASS.INDOOR, Costs.CLASS.CITY
-local function marks(val, cls, node)
-	local c = cls[node + 1] % 8
-	return (val[node + 1] == 2 and 1 or 0) + ((c == INDOOR or c == CITY) and 2 or 0)
+local function marks(c, node)
+	local kb = byte(c.kind, node + 1)
+	local cls = CLS[kb] % 8
+	return (VAL[kb] == 2 and 1 or 0) + ((cls == INDOOR or cls == CITY) and 2 or 0)
 end
 
 -- The walkable surfaces of the cell under a world point on map: its base surface and its floors, base first, each
@@ -1056,13 +1686,15 @@ end
 -- cluster is not decoded: the read never decodes, it queues Path.Prefetch for it (decoded under the frame budget, as
 -- a search's clusters are) and a later read finds it. The caller's out is reused (nothing is allocated; entries past
 -- n are left as they were). The cluster read last stays decoded at rest (PathGrid's reader) until
--- Path.ReleaseSurfaces().
+-- Path.ReleaseSurfaces(). With areas (optional, reused alike), areas[i] is surface i's WMOAreaTable row id (maps
+-- format 3: the client's subzone on that floor, Path.AreaName), 0 for none or on a map without areas.
 ---@param map number
 ---@param x number
 ---@param y number
 ---@param out table
+---@param areas table?
 ---@return number?
-function Path.SurfacesAt(map, x, y, out)
+function Path.SurfacesAt(map, x, y, out, areas)
 	local st = State(map)
 	if not st then
 		Grid.dropRead()
@@ -1073,31 +1705,110 @@ function Path.SurfacesAt(map, x, y, out)
 		Grid.dropRead()
 		return 0
 	end
-	local val = st.val[k]
-	if val == nil then
+	local c = st.cl[k]
+	if c == nil then
 		Grid.wantRead(st, k)
 		Path.Prefetch(map, x, y)
 		return nil
 	end
-	if not val then
+	if not c then
 		Grid.dropRead()
 		return 0
 	end
 	Grid.keepRead(st, k)
-	local z, at, cls, n = st.z[k], st.at[k], st.cls[k], 0
-	if val[lc + 1] ~= 0 then
+	local kind, n = c.kind, 0
+	if byte(kind, lc + 1) >= KINDS then
 		n = 1
-		out[1], out[-1] = z[lc + 1], marks(val, cls, lc)
-	end
-	local node = at[-(lc + 1)]
-	while node and at[node + 1] == lc do
-		if val[node + 1] ~= 0 then
-			n = n + 1
-			out[n], out[-n] = z[node + 1], marks(val, cls, node)
+		out[1], out[-1] = zOf(c, lc), marks(c, lc)
+		if areas then
+			areas[1] = nodeArea(st, k, lc)
 		end
-		node = node + 1
+	end
+	local first, count = floorsOf(c, lc)
+	for node = first or 0, (first or 0) + count - 1 do
+		if byte(kind, node + 1) >= KINDS then
+			n = n + 1
+			out[n], out[-n] = zOf(c, node), marks(c, node)
+			if areas then
+				areas[n] = nodeArea(st, k, node)
+			end
+		end
 	end
 	return n
+end
+
+-- 3 when map's walking data carries areas (maps format 3: Path.SurfacesAt's areas), else nil.
+---@param map number
+---@return number?
+function Path.AreaFormat(map)
+	local D = PolestarPathData and PolestarPathData[map]
+	return D and (D.area ~= nil or (D.packed ~= nil and D.packed.area ~= nil)) and 3 or nil
+end
+
+-- The subzone name (English, as GetSubZoneText gives it) of a WMOAreaTable row id of map's areas; nil for none.
+---@param map number
+---@param id number
+---@return string?
+function Path.AreaName(map, id)
+	local D = PolestarPathData and PolestarPathData[map]
+	local name = D and D.areaNames and D.areaNames[id]
+	return name ~= "" and name or nil
+end
+
+-- The walkable surfaces' heights in the cell under (x, y) on the map of st, lowest first (its cluster decoded).
+local function heightsAt(st, x, y)
+	local k, lc = locate(st, x, y)
+	local c = k and grid(st, k)
+	if not c then
+		return {}
+	end
+	local kind, out = c.kind, {}
+	if byte(kind, lc + 1) >= KINDS then
+		out[1] = zOf(c, lc)
+	end
+	local first, count = floorsOf(c, lc)
+	for node = first or 0, (first or 0) + count - 1 do
+		if byte(kind, node + 1) >= KINDS then
+			out[#out + 1] = zOf(c, node)
+		end
+	end
+	table.sort(out)
+	return out
+end
+
+-- run, and for an end without a height (a map click: no floor said) that finds no walk, the same walk from each
+-- other surface of that end's cell, lowest first, before giving up: a point without a height starts on the
+-- surface its cell's search picks (the base, or the cheapest of those apart in height), which can be a pocket no
+-- walk leaves (William MacGregor's house in Westfall: the ground's surface over the house floor, 4 yd above it).
+-- The start's surfaces first, then the goal's; at most RETRY_SURFACES tries. The answer's end keeps that surface's
+-- height.
+local RETRY_SURFACES = 6
+local function runAny(job)
+	local map, from, to = job.map, job.from, job.to
+	local points, cost = run(map, from, to, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
+	if points or cost ~= "unreachable" or (from.z and to.z) then
+		return points, cost
+	end
+	local st = State(map)
+	local tries = 0
+	for side = 1, 2 do
+		local p = side == 1 and from or to
+		if p.z == nil then
+			for _, h in ipairs(heightsAt(st, p.x, p.y)) do
+				if tries >= RETRY_SURFACES then
+					return points, cost
+				end
+				tries = tries + 1
+				local q = { x = p.x, y = p.y, z = h, map = p.map }
+				local a, b = run(map, side == 1 and q or from, side == 2 and q or to, job.waterWalking, job.costOnly,
+					job.profile, job, job.style, job.danger)
+				if a then
+					return a, b
+				end
+			end
+		end
+	end
+	return points, cost
 end
 
 local function start(job)
@@ -1116,7 +1827,10 @@ local function start(job)
 	if job.targets then
 		return runMany(job.map, job.from, job.targets, job.waterWalking, job.reverse, job, job.profile, job.style, job.danger)
 	end
-	return run(job.map, job.from, job.to, job.waterWalking, job.costOnly, job.profile, job, job.style, job.danger)
+	if job.coarseOnly then
+		return sketch(job.map, job.from, job.to, job.waterWalking, job.profile, job, job.style, job.danger)
+	end
+	return runAny(job)
 end
 
 local spare
@@ -1145,8 +1859,9 @@ end
 ---@param opts? boolean|{ waterWalking: boolean?, profile: string?, style: string?, danger: table<number, number>? } waterWalking, or opts (options above)
 function Path.FindSync(map, from, to, opts)
 	Deadline(huge)
-	local waterWalking, profile, style, danger = options(opts)
-	local job = { map = map, from = from, to = to, waterWalking = waterWalking, profile = profile, style = style, danger = danger }
+	local waterWalking, profile, style, danger, report = options(opts)
+	local job = { map = map, from = from, to = to, waterWalking = waterWalking, profile = profile, style = style, danger = danger,
+		report = report }
 	local co = coroutine.create(start)
 	local saved = scratch()
 	local ok, points, cost = coroutine.resume(co, job)
@@ -1183,7 +1898,12 @@ ns.PathSearch = {
 	start = start,
 	options = options,
 	scratch = scratch,
+	-- saved: a finished search's scratch, kept for the next; nil once the router is idle (the endpoint trees' pool
+	-- goes too).
 	Spare = function(saved)
 		spare = saved
+		if not saved then
+			pool = {}
+		end
 	end,
 }

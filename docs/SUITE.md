@@ -19,6 +19,7 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Rares | Rare NPC and treasure database with locations and loot, map pins (off by default, Map options), alerts (only through APIs the Forever client has) |
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
 | QoL | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
+| Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
 Out of scope: a full UI suite (Polestar integrates with EllesmereUI through its
@@ -35,17 +36,17 @@ opening or typing never stalls a frame.
 
 Inputs are read from the installed copies under
 `<client>/_classic_beta_/Interface/AddOns/`, from the client's own files
-(CASC/DB2), and from public sites (the Forever databases
-wowforevertalents.com, foreverchanges.pro; Wowhead's database pages as cached
-in `data/sources/wowhead/`). Polestar itself is GPL-3.0; each input keeps its own licence,
+(CASC/DB2), and from public sites (the Forever web databases: the Forever client's quest cache, Forever's quest
+chain data, and a web quest database's pages as cached in
+`data/sources/web/`). Polestar itself is GPL-3.0; each input keeps its own licence,
 and the rules follow it:
 
 | Input | What may enter the repository and the releases |
 |---|---|
 | MIT (pfQuest, ForeverLevelingBiS, wowsims) | Derived data, with attribution (THIRD_PARTY.md) |
 | QuestieDB (no licence file; its maintainers ask that it be treated as all rights reserved) | Facts only, credited, in the shipped packs (the compiled guides, `Polestar_QuestDB`, `Polestar_Codex`); `data build --no-questie` builds without them if the maintainers ask |
-| Web sources (Wowhead's Forever database, warcraft.wiki.gg, the Forever databases) | Facts only, each with its source: corrections, `entrances.json`, `repgates.json`, `attunements.json`, `journal-quests.json`, the Wowhead caches in `data/sources/wowhead/` (incl. its dungeon and raid quest lists) |
-| GPL-2.0, no licence or All Rights Reserved addons (AtlasLoot, DungeonJournal, RareScanner, Attune) | Nothing: the importer code only, read by `codex build --local-extras` for the parity comparison (Attune: by `codex attune`, the local comparison of dungeon quests and attunements); its output stays local and `pack` refuses it |
+| Web sources (Forever's quest data, warcraft.wiki.gg, the Forever databases) | Facts only, each with its source: corrections, `entrances.json`, `repgates.json`, `attunements.json`, `journal-quests.json`, the web caches in `data/sources/web/` (incl. its dungeon and raid quest lists) |
+| GPL-2.0, no licence or All Rights Reserved addons (AtlasLoot, DungeonJournal, RareScanner, Attune) | Nothing: the importer code only, read by `forge data codex --local-extras` for the parity comparison (Attune: by `codex attune`, the local comparison of dungeon quests and attunements); its output stays local and `pack` refuses it |
 
 Always facts (ids, names, levels, coordinates, drop rates, sources, rewards),
 never another addon's prose, art or code. Every output records its sources and
@@ -55,10 +56,10 @@ their versions in its `meta`.
 
 - Importers: `tools/lib/consume/<addon>.js` for the Codex and gear sources
   (AtlasLoot, ForeverLevelingBiS, RareScanner, wowsims), sharing one
-  Lua-literal reader (`lua.js`); QuestieDB is read by `data build`,
-  DungeonJournal by `dungeons build`. Each returns plain JSON. Web sources are
+  Lua-literal reader (`lua.js`); QuestieDB is read by `forge data build`,
+  DungeonJournal by `forge data dungeons`. Each returns plain JSON. Web sources are
   cached under `data/sources/` and only fetched when asked.
-- `node tools/polestar.js codex build` merges ForeverLevelingBiS,
+- `forge data codex` merges ForeverLevelingBiS,
   `data/forever/*.json` and the Forever client's tables into
   `data/forever/codex/*.json` and the `Polestar_Codex` pack, which ships in
   every release (release-safe inputs only; ARCHITECTURE, "Codex"). With
@@ -66,8 +67,8 @@ their versions in its `meta`.
   a local-only build that `pack` refuses.
 - Precedence for a fact found in several places: recordings > the Forever
   client's tables > Forever-specific sources (QuestieDB Forever, DungeonJournal,
-  the Forever sites) > Era sources (pfQuest, AtlasLoot Era tables) > Wowhead
-  Classic.
+  the Forever sites) > Era sources (pfQuest, AtlasLoot Era tables) > the classic
+  quest data.
 
 ## In-game packs
 
@@ -117,10 +118,10 @@ Search" and "Lookup"; in short:
 
 ## UI
 
-One hub, grown from the guide menu: Guides, Lookup, Dungeons and Rares as
-top-level sections, Options at the rail's foot, all in Polestar's world
-([`docs/DESIGN.md`](DESIGN.md)). New surfaces extend that world;
-they never introduce another look.
+One hub, grown from the guide menu: Guides, Lookup, Dungeons, Rares, Talents and
+Characters as top-level sections, Options at the rail's foot, all in
+Polestar's world ([`docs/DESIGN.md`](DESIGN.md)). New surfaces extend that
+world; they never introduce another look.
 
 Small windows outside the hub share its look: the guide window, the route
 choice, the welcome for new characters (`UI/Welcome.lua`), the copy window

@@ -1,0 +1,21 @@
+{
+	"_about": "Solo filter overrides (port of tools/lib/sim/solo.js OVERRIDES). exclude: quests to drop (category, reason; category null: excluded without a solo category); allow: quests kept whatever the rules say; turninAfter: parent -> quests turned in before it; startItemFrom: quest -> the quest whose turn-in hands over its starting item.",
+	"exclude": [
+		{ "ids": [[9124, 9142]], "category": "reputation", "reason": "Naxxramas-era Argent Dawn turn-ins at Light's Hope (patch 1.11 endgame materials)" },
+		{ "ids": [[9221, 9228]], "category": "reputation", "reason": "Argent Dawn armaments: Scourge Invasion insignia and Friendly-Exalted ranks" },
+		{ "ids": [969], "category": "elite", "reason": "Frostmaul Shards lie in the Frostmaul giants' cave (elite 59-60); opens the Mau'ari E'ko chain" },
+		{ "ids": [8308], "category": "elite", "reason": "the letter drops from Hive'Ashi elites; its non-elite droppers are hive-event spawns (3 recorded)" },
+		{ "ids": [8371, 8385], "category": "pvp", "reason": "Concerted Efforts: one mark from each battleground" },
+		{ "ids": [9664, 9665], "category": "pvp", "reason": "Eastern Plaguelands tower captures (world PvP objective)" },
+		{ "ids": [996, 998, 1514, 2523, 2878, 3363, 4113, 4114, 4115, 4116, 4117, 4118, 4119, 4221, 4222, 4343, 4401, 4403, 4443, 4444, 4445, 4446, 4447, 4448, 4461, 4462, 4464, 4465, 4466, 4467], "category": null, "reason": "corrupted plants: each needs a Cenarion Plant Salve (a Salve via ... turn-in item, not modelled)" },
+		{ "ids": [4103, 4104, 4105, 4106, 4107, 4108, 4109, 4110, 4111, 4112, 5882, 5883, 5884, 5885, 5886, 5887, 5888, 5889, 5890, 5891], "category": null, "reason": "Salve via ...: salve turn-ins (gathering or profession items), only for the corrupted plants" },
+		{ "ids": [6026, 6041], "category": null, "reason": "Smokey LaRue: crafted Thorium bars and bombs (profession items)" },
+		{ "ids": [9324, 9325, 9326, 9330, 9331, 9332], "category": null, "reason": "Midsummer Fire Festival: stealing the other faction's capital flames (seasonal; no event flag in the data)" }
+	],
+	"allow": [
+		{ "ids": [384, 4161], "reason": "Cooking rank 1 (Beer Basted Boar Ribs, Recipe of the Kaldorei): the starting-zone guides train Cooking at the trainer next to the giver" },
+		{ "ids": [97291], "reason": "Unending Torment: its Blisterweed grows by the Undercity herbalism trainer (no object or drop in the data, so it would read as made inside the Ruins of Lordaeron area)" }
+	],
+	"turninAfter": { "348": [349], "338": [339, 340, 341, 342], "812": [813], "5060": [5059], "1190": [1191] },
+	"startItemFrom": { "1642": 1641, "1646": 1645 }
+}

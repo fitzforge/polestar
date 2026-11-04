@@ -6,24 +6,32 @@ folder Warlock
 faction Alliance
 levels 30-33
 zone The Barrens
-keywords Summon Felhunter, Tome of the Cabal, Seeking Strahad, Strahad Farsan, Krom Stoutarm, Moldy Tome, Tattered Manuscript, Rod of Channeling, The Binding, Warlock, class pet
+keywords Summon Felhunter, Tome of the Cabal, Seeking Strahad, Strahad Farsan, Krom Stoutarm, Moldy Tome, Tattered Manuscript, Damaged Chest, Rod of Channeling, Reconstructed Tome, Dragonmaw Bonewarder, Dragonmaw Shadowwarder, Angerfang Encampment, The Binding, Box of Souls, Warlock, class pet
 reward spell 691 "Summon Felhunter"
 reward item 22244
 why The felhunter, the demon to bring against spellcasters, and a Box of Souls for your shards.
 
-# The felhunter for Alliance warlocks: Seeking Strahad (1798) from your
-# trainer to Strahad Farsan in Ratchet, Tome of the Cabal (1758, 1802, 1804)
-# with Krom Stoutarm in Ironforge, and The Binding (1795) back in Ratchet.
-# Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
-# and Questie-Forever) for the givers, the tome, the chest, the rods and the
-# summoning circle; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): the chain is unchanged in
-# Forever and The Binding pays a Box of Souls.
-# The Alliance leveling guides leave the chain out (see
+# The felhunter for Alliance warlocks: Seeking Strahad (1798, from Gakin the
+# Darkbinder in Stormwind or Lago Blackwrench in Ironforge) to Strahad Farsan
+# in Ratchet, Tome of the Cabal (1758 to Krom Stoutarm in Ironforge; 1802,
+# the Moldy Tome on the Hillsbrad shore and the Tattered Manuscript in a
+# Thousand Needles cave; 1804, three Rods of Channeling from the Wetlands
+# Dragonmaw casters) and The Binding (1795) at Strahad's circle in Ratchet.
+# Drops: the rods from Dragonmaw Bonewarders (27) and Shadowwarders (28) at
+# 80% (items.json); the raiders and other Dragonmaw drop none. The tome and
+# the chest give their item every time. The Binding pays a Box of Souls.
+# The fight: the Summoned Felhunter is level 30 and not elite; it appears only
+# when the Tome of the Cabal is read at the circle, after Strahad and his
+# acolytes finish drawing it. Lost fight: abandon The Binding and take it again
+# from Strahad (quest notes, player reports).
+# The Alliance leveling routes leave the chain out (see
 # forever/alliance/30-40/01-hillsbrad-foothills): it crosses between Ratchet,
 # Ironforge, the Hillsbrad coast, Thousand Needles and the Wetlands.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, and the chain starts at 30, so it has not been checked in game.
+# ASSUMED: The chain runs as in Classic above 30 (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: the cave chest, the murloc camp and Strahad's circle event.
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json,
+# items.json) for the givers, the tome, the chest, the rods and the circle;
+# the quest notes (data/local/mechanics) for the murloc camp, the cave path,
+# the casters and the circle event; the reference class guides for the order.
 
 step Seeking Strahad (Stormwind)
   only Human
@@ -41,41 +49,42 @@ step Seeking Strahad (Ironforge)
 
 step Strahad Farsan
   zone The Barrens
-  tip Ratchet is on the Barrens coast; Strahad Farsan stands on the hill in town.
+  tip Ratchet is a neutral goblin port on the Barrens coast: the boat from Booty Bay docks there. Strahad Farsan stands on the hill above the town, behind the engineers' hut, by his little tower; Menara Voidrender and two acolytes are with him. He sends you to Krom Stoutarm in Ironforge.
   turnin 1798                         -- Strahad Farsan
   accept 1758
 
 step Krom Stoutarm
   zone Ironforge
-  tip Krom Stoutarm stands in the Hall of Explorers.
+  tip Krom Stoutarm is in the library of the Hall of Explorers. He wants two lost pieces of the Tome of the Cabal: one on the Hillsbrad coast, one in Thousand Needles.
   turnin 1758                         -- Krom Stoutarm
   accept 1802
 
 step Moldy Tome
   zone Hillsbrad Foothills
-  tip The Moldy Tome lies on the shore west of Southshore, past the Torn Fin murloc camps.
-  collect 6931 quest 1802.1           -- Moldy Tome
+  tip The tome is a small grey-blue book lying in the sand of a murloc camp on the shore south-west of Southshore, near the water's edge. Six or seven murlocs guard it and more lurk underwater: they come in groups, so Fear one and keep your voidwalker on the rest. Walk down to the water to click it; from the hillside the crates block the cursor.
+  collect 6931 quest 1802.1           -- Moldy Tome, from the Tome of the Cabal on the sand
 
 step Tattered Manuscript
   zone Thousand Needles
-  tip The Damaged Chest lies in the canyon north of Freewind Post.
+  tip The centaur cave opens in the cliffs north of Freewind Post, a Horde town: keep clear of its guards. Inside, keep right at each fork, cross the pool by the small waterfall, and open the small dark box against the wall beside a larger chest: the larger one is the wrong one. You can open it only while on the quest. The centaurs respawn behind you on the way out.
   collect 6997 quest 1802.2           -- Tattered Manuscript, in the Damaged Chest
 
-step Krom Stoutarm
+step Back to Krom
   zone Ironforge
+  tip Krom pieces the tome together and gives you the Reconstructed Tome: keep it, Strahad takes it with the rods.
   turnin 1802                         -- Krom Stoutarm
   accept 1804
 
 step Rods of Channeling
   zone Wetlands
-  tip The Dragonmaw Bonewarders and Shadowwarders hold the hills east of the road through the Wetlands: the rods drop from them.
-  collect 6930 quest 1804.1           -- Rods of Channeling
+  tip The Dragonmaw hold Angerfang Encampment in the hills east of the road from Menethil Harbor to Dun Algaz. Only the casters drop the rods, four kills in five: the Bonewarders (level 27, with skeleton pets) and Shadowwarders (28). A steep path north of the central spirit healer leads up into the camp past most of the warriors.
+  collect 6930 x3 quest 1804.1        -- Rods of Channeling, from the Dragonmaw casters
 
 step The Binding
   zone The Barrens
-  tip Back to Strahad Farsan in Ratchet. Use the Tome of the Cabal on the summoning circle beside him and defeat the felhunter to bind it.
+  tip Back to Strahad in Ratchet. When you accept, he draws the summoning circle and his acolytes channel a greater circle over it: wait inside the tower until both are done. Then use the Tome of the Cabal on the circle. The felhunter (level 30, not elite) silences and eats mana, and it vanishes after two minutes: have your voidwalker out, open with your damage over time at once and let the voidwalker tank. If you die or it wins, abandon The Binding and take it again from Strahad. Keep the tome: Strahad takes it back.
   turnin 1804                         -- Strahad Farsan
   accept 1795
-  use 6999 @62.6,35.3                 -- Tome of the Cabal
+  use 6999 @62.6,35.3                 -- Tome of the Cabal, on the circle
   kill 6268 quest 1795.1              -- Summoned Felhunter
-  turnin 1795                         -- Strahad Farsan: he binds the felhunter to you
+  turnin 1795                         -- Strahad Farsan: Summon Felhunter

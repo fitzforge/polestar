@@ -1,68 +1,66 @@
 'use strict';
-// `polestar sim`: route simulation and optimization (docs/SIMULATION.md).
+// `polestar sim compare`: score a leveling chain against Polestar's under the
+// earlier JS route model (docs/legacy/SIMULATION-js.md). Every other `sim`
+// subcommand was retired for Forge; each prints its replacement.
 
 const path = require('node:path');
-const sim = require('../lib/sim');
-const { fmtH, fmtHM, table } = require('../lib/sim/report');
 const { objectiveName, parseOverrides, tagName } = require('../lib/sim/params');
 
-const usage = `usage: node tools/polestar.js sim <command> [options]
+const RETIRED = {
+	world: 'forge walks world <root> <grid> <simDir> <faction> (e.g. forge walks world . data/local/nav4 data/sim horde), or forge build',
+	walks: 'forge walks walks <root> <grid> <simDir> <faction> <store> <navFp> [bands] (e.g. forge walks walks . data/local/nav4 data/sim horde data/sim/store-horde.psbn forge-walks-1), or forge build; --report and --parity: removed, no replacement',
+	calibrate: 'forge sim calibrate [--root R] [--world-dir D] [--fdj DIR] [--recordings DIR] [--out FILE]',
+	run: 'forge sim route --faction F --start <race> --out <json> (routes are made by forge build; not a port of the v1 search)',
+	robust: 'forge sim route ... --search-draws K --holdout N (the nearest thing; not a port)',
+	bench: 'removed, no replacement',
+	export: 'removed, no replacement (forge writer apply-route <route.json> --world <world-faction.json> --out DIR writes a route into the guides, not skeletons)',
+	consensus: 'forge sim widen --faction F --starts A,B,... --out <json> or forge sim shared --faction F --out <json> (other algorithms)',
+	route: 'forge sim route --faction F --start <race> --out <json>; the whole pipeline is forge build',
+	guides: 'forge build (guides stage), or forge writer apply-route <route.json> --world <world-faction.json> --out DIR',
+	cases: "removed, no CLI replacement (forge-judge's cases.rs is checked by cargo test -p forge-judge)",
+	audit: 'removed, no replacement (forge judge <pack dir> --faction F --race R reports passed-by quests and avoidable returns)',
+	zoneplan: 'removed, no replacement',
+	search: "removed, no replacement (forge sim route/forge sim shared run Forge's own search)",
+	cas: 'removed, no replacement (Forge keeps its stage cache in <out>/.forge)',
+	tune: 'removed, no replacement',
+	shrink: 'removed, no replacement',
+	bisect: 'removed, no replacement',
+	serve: 'removed, no replacement',
+	ask: 'removed, no replacement',
+};
 
-  sim world   [--faction F] [--rebuild]               build/cache the world model (data/sim/world-<faction>.json)
-  sim walks   [--faction F] [--radius Y] [--workers W]  route the world's walks with the walking router
-              (data/sim/walks-<faction>.json; run, robust, compare, bench and consensus use them)
-  sim calibrate [--fdj DIR]                            fit parameters to quest data and recordings
-  sim run     --faction F [--race R] [--class C] [--paths N] [--workers W] [--seed S] [--dungeons]
-              [--jobs J] [--anneal A] [--max-paths M] [--objective time|smooth] [--param K=V ...] [--tag T]
-  sim robust  --faction F [--race R] [--class C] [--draws K] [--top N] [--objective O]   robustness of the top routes
+const usage = `usage: node tools/polestar.js sim compare [options]
+
   sim compare --faction F [--race R] [--class C] [--guides DIR] [--pack DIR | DIR] [--to 10,20,30] [--with-optional]
-              [--objective O]   Polestar's routes vs the best found, same model
-  sim bench   --faction F [--race R] [--class C]      bracket table: zones, levels, quests per 10 levels
-  sim export  --result <file> --out <dir>             zone-by-zone skeleton guides + visits.json for authors
-  sim consensus --faction F [--dungeons] [--evals N] [--objective O]   one 12-60 route shared by the faction's starts (+ exports)
+              [--objective O]   Polestar's routes vs a pack's chain (and earlier best-found results), same model
 
-Without --race, run/robust/compare/bench cover every start of the faction
-(Horde: Orc, Tauren, Undead, Skyborne; Alliance: Human, Dwarf, NightElf,
-Skyborne). Class defaults to none ("any": class quests excluded, class factor
-1); with --class the class's quests and kill-speed prior are used, and
-compare/bench write their own files so the class-agnostic ones stay.
+Without --race, compare covers every start of the faction (Horde: Orc, Tauren,
+Undead, Skyborne; Alliance: Human, Dwarf, NightElf, Skyborne). Class defaults
+to none ("any"); with --class the class's quests and kill-speed prior are used.
 
 options:
   --data <dir>       reference data (default data/forever)
-  --sim <dir>        simulator outputs (default data/sim)
-  --fdj <dir>        calibrate: ForeverDungeonJournal folder (default: the installed one)
-  --class <name>     Warrior, Paladin, Hunter, Rogue, Priest, Shaman, Mage, Warlock or Druid:
-                     score for that class (run/robust/compare/bench); default none ("any")
-  --band <levels>    level width of the world's quest packages (default 5; a new width rebuilds the world)
-  --guides <dir>     compare: Polestar guides folder to score (default guides/), e.g. an old copy
-  --pack <dir>       compare: also score this pack's chain (or name the pack folder
-                     as the one argument; default: the nearest pack.json); after our chain
-                     up to its first level when it starts above 1;
-                     written to data/bench/compare-<faction>-<race>-<pack id>.json
-  --to <levels>      compare: levels to show time to (default 10,20,30,40,50,60)
-  --with-optional    compare/bench: also score the guides' optional goals (default: only what
-                     a guide requires; elite and dungeon quests stay out either way)
-  --jobs <n>         run: search jobs per round (default 32)
-  --anneal <n>       run: annealing evaluations per job (default 6000)
-  --max-paths <n>    run: hard cap on evaluated routes (default 3x --paths)
-  --dungeons         run/robust/consensus: the dungeon-inclusive family (needs data/forever/dungeons.json)
-  --objective <o>    run/robust/compare/consensus: what the search optimises (default time):
-                     time = the fastest route; smooth = fewer zone changes, returns into zones
-                     left earlier and returns to spots already worked (docs/SIMULATION.md);
-                     smooth results are their own files (horde-orc-any-smooth.json)
-  --param <k=v>      run/robust/compare/consensus: set a model parameter (params.js), after the
-                     objective's preset; repeatable (--param grindWeight=6 --param zoneReturn=0)
-  --tag <name>       run/robust/compare/consensus: a result file variant, e.g. --tag g6 writes
-                     horde-orc-any-smooth-g6.json (and robust/compare/consensus read and write it)
-  --radius <yards>   walks: route every pair of points up to this far apart (default 4000)
-  --no-walks         run/robust/compare/bench/consensus: walk the straight line × detour even
-                     when data/sim/walks-<faction>.json is there
+  --sim <dir>        sim world and walks (default data/sim; forge walks world / forge walks walks)
+  --band <levels>    level width of the world's quest packages (default 5)
+  --guides <dir>     Polestar guides folder to score (default guides/), e.g. an old copy
+  --pack <dir>       also score this pack's chain (or name the pack folder as the one
+                     argument; default: the nearest pack.json); written to
+                     data/bench/compare-<faction>-<race>-<pack id>.json
+  --to <levels>      levels to show time to (default 10,20,30,40,50,60)
+  --with-optional    also score the guides' optional goals (default: only what a guide requires)
+  --objective <o>    time, smooth or smooth2 (default time)
+  --param <k=v>      set a model parameter (params.js); repeatable
+  --tag <name>       a result file variant
+  --no-walks         walk the straight line × detour even when data/sim/walks-<faction>.bin is there
   --offline          never download the QuestXP table
-  --quiet            less output`;
+  --quiet            less output
 
-const VALUE = new Set(['faction', 'race', 'class', 'paths', 'workers', 'seed', 'draws', 'top', 'result', 'out', 'data', 'sim', 'fdj', 'guides', 'pack', 'to', 'band', 'jobs', 'anneal', 'max-paths', 'evals', 'radius', 'objective', 'param', 'tag']);
+Retired (each prints its replacement and exits 2):
+${Object.entries(RETIRED).map(([k, v]) => `  sim ${k}: ${v}`).join('\n')}`;
+
+const VALUE = new Set(['faction', 'race', 'class', 'guides', 'pack', 'to', 'objective', 'param', 'tag', 'data', 'sim', 'band']);
 const REPEAT = new Set(['param']);
-const FLAGS = new Set(['rebuild', 'offline', 'quiet', 'help', 'dungeons', 'with-optional', 'no-walks']);
+const FLAGS = new Set(['offline', 'quiet', 'help', 'with-optional', 'no-walks']);
 
 function parseArgs(argv) {
 	const out = { _: [] };
@@ -101,25 +99,12 @@ function common(args) {
 	return o;
 }
 
-function races(args, faction) {
-	return args.race ? [args.race] : sim.START_RACES[faction];
-}
-
-function printRun(r) {
-	console.log(`\n== ${r.faction} ${r.race} (${r.class}, ${r.family}${sim.variantLabel(r.objective, r.overrides, r.tag)}) ==`);
-	console.log(`evaluated routes ${r.evaluatedRoutes.toLocaleString('en-US')} in ${r.rounds} rounds, ${r.wallSeconds.toFixed(1)} s on ${r.workers} workers; ${r.msPerEval != null ? r.msPerEval.toFixed(3) : '?'} ms per route evaluation; converged: ${r.converged ? 'yes' : 'no'}`);
-	console.log(`best: ${fmtH(r.best.seconds)} to 60 (${fmtHM(r.best.seconds)}); quests ${r.best.questsDone}; XP quest/kill/grind ${r.best.xpSplit.quest}/${r.best.xpSplit.kill}/${r.best.xpSplit.grind}; travel ${((100 * r.best.travelSeconds) / r.best.seconds).toFixed(1)}%; grinding ${fmtH(r.best.grindSeconds)}`);
-	console.log(`smoothness: zone changes ${r.best.zoneChanges}; zone returns ${r.best.zoneReturns}; spot returns ${r.best.spotReturns}; shared-credit kills saved ${Math.round(r.best.sharedKills)}`);
-	console.log(`quest log: peak ${r.best.logPeak}; accepts deferred for a full log ${r.best.logDeferred}, skipped ${r.best.logSkipped}; quests abandoned ${r.best.logAbandoned}; accepted but never turned in ${r.best.acceptedNeverTurnedIn}`);
-	console.log(`time to: ${Object.entries(r.best.timeTo).map(([l, s]) => `${l}: ${fmtH(s)}`).join('  ')}`);
-	console.log(table(['zone', 'levels', 'arrive', 'hours', 'quests'], r.best.visits.map((v) => [v.zone, `${v.levelIn.toFixed(1)}-${v.levelOut.toFixed(1)}`, fmtH(v.arrive), ((v.leave - v.arrive) / 3600).toFixed(2), v.quests])));
-	const c = r.curve;
-	const pts = [0.1, 0.25, 0.5, 0.75, 1].map((f) => c[Math.min(c.length - 1, Math.round(f * (c.length - 1)))]);
-	console.log(`convergence (routes -> best h): ${pts.map(([e, s]) => `${e.toLocaleString('en-US')} -> ${(s / 3600).toFixed(2)}`).join(', ')}`);
-	if (r.file) console.log(`wrote ${path.relative(process.cwd(), r.file)}`);
-}
-
 async function run(argv) {
+	const sub = argv[0];
+	if (Object.hasOwn(RETIRED, sub)) {
+		console.error(`polestar sim ${sub} was retired: ${RETIRED[sub]}`);
+		return 2;
+	}
 	let args;
 	try {
 		args = parseArgs(argv);
@@ -137,70 +122,7 @@ async function run(argv) {
 	}
 	const o = common(args);
 	try {
-		if (cmd === 'world') {
-			const factions = args.faction ? [sim.normFaction(args.faction)] : ['Horde', 'Alliance'];
-			for (const faction of factions) {
-				const { world, worldFile } = await sim.loadWorld({ ...o, faction, rebuild: !!args.rebuild });
-				const reasons = {};
-				for (const e of world.excluded) {
-					const k = e.reason.replace(/\d+/g, 'N');
-					reasons[k] = (reasons[k] || 0) + 1;
-				}
-				console.log(`${faction}: ${world.quests.length} quests, ${world.packages.length} packages (${world.packages.filter((p) => p.dungeon).length} dungeon), ${world.hubs.length} hubs, ${world.nodes.length} transport nodes, ${world.points.length} points; starts ${Object.keys(world.starts).join(', ')}`);
-				console.log(`  excluded ${world.excluded.length}: ${Object.entries(reasons).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${n} ${k}`).join('; ')}`);
-				if (world.solo) console.log(`  solo filter: ${Object.entries(world.solo.counts).map(([k, n]) => `${n} ${k}`).join(', ')}; ${world.solo.repeatNoXp} repeatables without a recorded reward give no XP; instance areas from client build ${world.solo.instanceAreas || 'none (dungeons.json only)'}`);
-				for (const w of world.warnings || []) console.log(`  warning: ${w}`);
-				console.log(`  ${path.relative(process.cwd(), worldFile)}`);
-			}
-			return 0;
-		}
-		if (cmd === 'walks') {
-			const { buildWalks, writeWalks } = require('../lib/sim/walks');
-			const factions = args.faction ? [sim.normFaction(args.faction)] : ['Horde', 'Alliance'];
-			for (const faction of factions) {
-				const { world } = await sim.loadWorld({ ...o, faction, walks: false });
-				const t0 = Date.now();
-				const doc = await buildWalks(world, {
-					log: o.log,
-					radius: args.radius ? Number(args.radius) : undefined,
-					workers: args.workers ? Number(args.workers) : undefined,
-				});
-				const file = writeWalks(o.simDir || sim.DEFAULTS.simDir, doc);
-				console.log(`${faction}: ${doc.points} points, ${doc.pairs.length / 3} routed walks within ${doc.radius} yd (${doc.style}) in ${((Date.now() - t0) / 1000).toFixed(0)} s`);
-				console.log(`  ${path.relative(process.cwd(), file)}`);
-			}
-			return 0;
-		}
-		if (cmd === 'run') {
-			const faction = sim.normFaction(args.faction);
-			let cls;
-			try {
-				cls = sim.normClass(args.class);
-			} catch (err) {
-				console.error(`sim run: ${err.message}`);
-				return 2;
-			}
-			const family = args.dungeons ? 'dungeons' : 'solo';
-			for (const race of races(args, faction)) {
-				const r = await sim.runCharacter({
-					...o, faction, race, cls, family,
-					paths: args.paths ? Number(args.paths) : undefined,
-					workers: args.workers ? Number(args.workers) : undefined,
-					seed: args.seed ? Number(args.seed) : undefined,
-					jobsPerRound: args.jobs ? Number(args.jobs) : undefined,
-					anneal: args.anneal ? Number(args.anneal) : undefined,
-					maxPaths: args['max-paths'] ? Number(args['max-paths']) : undefined,
-				});
-				printRun(r);
-			}
-			return 0;
-		}
-		if (cmd === 'robust') return await require('../lib/sim/robust').command(args, o);
 		if (cmd === 'compare') return await require('../lib/sim/compare').compareCommand(args, o);
-		if (cmd === 'bench') return await require('../lib/sim/compare').benchCommand(args, o);
-		if (cmd === 'calibrate') return await require('../lib/sim/calibrate').command(args, o);
-		if (cmd === 'export') return await require('../lib/sim/export').command(args, o);
-		if (cmd === 'consensus') return await require('../lib/sim/consensus').command(args, o);
 		console.error(`unknown sim command "${cmd}"\n\n${usage}`);
 		return 2;
 	} catch (err) {
@@ -209,4 +131,4 @@ async function run(argv) {
 	}
 }
 
-module.exports = { name: 'sim', summary: 'simulate and optimize leveling routes (docs/SIMULATION.md)', usage, run, parseArgs };
+module.exports = { name: 'sim', summary: "score a leveling chain against Polestar's under the route model (sim compare)", usage, run, parseArgs };

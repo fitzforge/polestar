@@ -21,8 +21,9 @@
 ## Notes-zhTW: Polestar 裝備建議所用的物品屬性。按需載入。
 ## Author: Polestar
 ## X-License: GPL-3.0-only
-## Version: 0.2.6
-## Category: Quests
+## Version: 0.3.0
+## Category: Polestar
+## Group: Polestar
 ## LoadOnDemand: 1
 ## Dependencies: Polestar
 

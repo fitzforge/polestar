@@ -1,5 +1,5 @@
 -- Korean (koKR): the guide forever/professions/herbalism (forever/professions/herbalism.guide).
--- Written by `node tools/polestar.js i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Korean (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -9,93 +9,126 @@ return {
 	-- Step 1: Learn Herbalism
 	-- {skill:182} Herbalism
 	["Learn {skill:182}"] = "{skill:182} 배우기",
-	-- {skill:182} Herbalism
-	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level, and so does the Junior Herbalism Trainer in each starting zone; the arrow picks the nearest."] = "",
+	-- {skill:182} Herbalism · {spell:2383} Find Herbs · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {item:11584} Cactus Apple Surprise · {item:247841} Wild Harvest · {item:277113} Apprentice's Herb Pouch · {spell:1229705} Incense Candle
+	["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on {spell:2383} (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have {object:656160} and {object:656161} (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247841} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the {item:277113}, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:182}: hand it in to the herbalism trainer it names once you reach skill 20, for the {spell:1229705} recipe."] = "",
 
-	-- Step 2: Silverleaf & Earthroot: Elwynn Forest (1-50)
+	-- Step 2: Peacebloom & Silverleaf: Elwynn Forest (1-50)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+
+	-- Step 4: Peacebloom & Silverleaf: Teldrassil (1-50)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {object:656161} Stunted Silverleaf (no name in this language: may be words) · {object:656160} Wilted Peacebloom (no name in this language: may be words) · {item:2449} Earthroot · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {object:656161} (1, orange, rare), {object:656160} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+
+	-- Step 5: Peacebloom & Silverleaf: Zephras Isle (1-50)
 	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism
-	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10."] = "지나가는 {item:2447}(1, 주황색), {item:765}(1, 주황색), {item:2449}(15부터)을(를) 모두 채집하고, {skill:182} 50까지 경유지를 도세요. 지역 레벨 1-10.",
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-15. Expect about 60 herbs for these 49 points."] = "",
 
-	-- Step 8: Journeyman Herbalism
+	-- Step 7: Peacebloom & Silverleaf: Mulgore (1-50)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {skill:182} Herbalism
+	["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10. Expect about 60 herbs for these 49 points."] = "",
+
+	-- Step 9: Journeyman Herbalism
 	-- {skill:182} Herbalism
 	["Journeyman {skill:182}"] = "수습 {skill:182}",
-	-- {skill:182} Herbalism
-	["Journeyman {skill:182} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:182} trainer of your faction."] = "수습 {skill:182}은(는) 최대 숙련도를 150(으)로 올립니다. 숙련도 50, 캐릭터 레벨 10이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:182} 상급자를 가리킵니다.",
+	-- {skill:182} Herbalism · {spell:1229705} Incense Candle · {item:2447} Peacebloom · {item:765} Silverleaf
+	["Journeyman {skill:182} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:182} trainer of your faction. {spell:1229705}, Forever's camping item for {skill:182}, is taught from skill 20 (1s, or free from Camping 101: {skill:182}): a {item:2447} and a {item:765} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
 
-	-- Step 9: Briarthorn & Stranglekelp: Westfall (50-100)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. Zone level 10-20."] = "지나가는 {item:2447}(1, 노란색), {item:765}(1, 노란색), {item:2449}(15, 노란색), {item:785}(50, 주황색), {item:2450}(70부터), {item:3820}(85부터)을(를) 모두 채집하고, {skill:182} 100까지 경유지를 도세요. 지역 레벨 10-20.",
+	-- Step 10: Mageroyal & Briarthorn: Westfall (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 130 herbs for these 50 points."] = "",
 
-	-- Step 10: Mageroyal & Briarthorn: Loch Modan (50-100)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. Zone level 10-20."] = "지나가는 {item:2447}(1, 노란색), {item:765}(1, 노란색), {item:2449}(15, 노란색), {item:785}(50, 주황색), {item:2450}(70부터)을(를) 모두 채집하고, {skill:182} 100까지 경유지를 도세요. 지역 레벨 10-20.",
+	-- Step 11: Mageroyal & Briarthorn: Loch Modan (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "",
 
-	-- Step 12: Briarthorn & Stranglekelp: The Barrens (50-100)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism
-	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. Zone level 10-25."] = "지나가는 {item:2447}(1, 노란색), {item:765}(1, 노란색), {item:2449}(15, 노란색), {item:785}(50, 주황색), {item:2450}(70부터), {item:3820}(85부터)을(를) 모두 채집하고, {skill:182} 100까지 경유지를 도세요. 지역 레벨 10-25.",
+	-- Step 13: Mageroyal & Briarthorn: The Barrens (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle · {npc:3446} Mebok Mizzyrix
+	-- plural, as words: Root Samples = {item:5056} Root Sample
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. A quest here needs {skill:182}: Root Samples (level 16, {npc:3446}). Zone level 10-25. Expect about 110 herbs for these 50 points."] = "",
 
-	-- Step 14: Bruiseweed: Redridge Mountains (100-125)
-	-- {item:2447} Peacebloom · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:182} Herbalism
-	["Pick every {item:2447} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 125. Zone level 15-25."] = "지나가는 {item:2447}(1, 초록색), {item:2449}(15, 초록색), {item:785}(50, 초록색), {item:2450}(70, 노란색), {item:2453}(100, 주황색)을(를) 모두 채집하고, {skill:182} 125까지 경유지를 도세요. 지역 레벨 15-25.",
+	-- Step 14: Mageroyal & Briarthorn: Silverpine Forest (50-100)
+	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 140 herbs for these 50 points."] = "",
 
-	-- Step 15: Bruiseweed & Wild Steelbloom: Thousand Needles (100-125)
-	-- {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism
-	["Pick every {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 25-35."] = "지나가는 {item:2453}(100, 주황색), {object:1623}(115부터)을(를) 모두 채집하고, {skill:182} 125까지 경유지를 도세요. 지역 레벨 25-35.",
+	-- Step 15: Briarthorn & Bruiseweed: Redridge Mountains (100-125)
+	-- {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-25. Expect about 60 herbs for these 25 points."] = "",
 
-	-- Step 16: Bruiseweed & Wild Steelbloom: Hillsbrad Foothills (100-125)
-	-- {item:2447} Peacebloom · {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism
-	["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 20-30."] = "지나가는 {item:2447}(1, 초록색), {item:765}(1, 초록색), {item:2449}(15, 초록색), {item:785}(50, 초록색), {item:2450}(70, 노란색), {item:3820}(85, 주황색), {item:2453}(100, 주황색), {object:1623}(115부터)을(를) 모두 채집하고, {skill:182} 125까지 경유지를 도세요. 지역 레벨 20-30.",
+	-- Step 16: Bruiseweed & Wild Steelbloom: Stonetalon Mountains (100-125)
+	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. Zone level 15-27. Expect about 40 herbs for these 25 points."] = "",
 
-	-- Step 17: Expert Herbalism
+	-- Step 18: Stranglekelp & Bruiseweed: Hillsbrad Foothills (100-125)
+	-- {item:765} Silverleaf · {item:2449} Earthroot · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {skill:182} Herbalism · {item:2452} Swiftthistle
+	["Pick every {item:765} (1, green, rare), {item:2449} (15, green, rare), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 40 herbs for these 25 points."] = "",
+
+	-- Step 19: Expert Herbalism
 	-- {skill:182} Herbalism
 	["Expert {skill:182}"] = "숙련 {skill:182}",
 	-- {skill:182} Herbalism
-	["Expert {skill:182} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:182} trainer of your faction."] = "숙련 {skill:182}은(는) 최대 숙련도를 225(으)로 올립니다. 숙련도 125, 캐릭터 레벨 20이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:182} 상급자를 가리킵니다.",
+	["Expert {skill:182} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:182} trainer of your faction."] = "",
 
-	-- Step 18: Grave Moss & Kingsblood: Duskwood (125-160)
-	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {object:1628} Grave Moss · {item:3356} Kingsblood · {skill:182} Herbalism
-	["Pick every {item:785} (50, green), {item:2450} (70, green), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange) you pass and circle the waypoints until {skill:182} 160. Zone level 18-30."] = "지나가는 {item:785}(50, 초록색), {item:2450}(70, 초록색), {item:2453}(100, 노란색), {object:1623}(115, 주황색), {object:1628}(120, 주황색), {item:3356}(125, 주황색)을(를) 모두 채집하고, {skill:182} 160까지 경유지를 도세요. 지역 레벨 18-30.",
+	-- Step 20: Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
+	-- {item:3820} Stranglekelp · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {skill:182} Herbalism
+	["Pick every {item:3820} (85, yellow), {object:1623} (115, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. {item:3820} grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 70 herbs for these 35 points."] = "",
 
-	-- Step 19: Kingsblood & Liferoot: Alterac Mountains (125-160)
-	-- {item:785} Mageroyal · {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {object:1628} Grave Moss · {item:3356} Kingsblood · {item:3357} Liferoot · {skill:182} Herbalism
-	["Pick every {item:785} (50, green), {item:2450} (70, green), {item:3820} (85, yellow), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. Zone level 30-40."] = "지나가는 {item:785}(50, 초록색), {item:2450}(70, 초록색), {item:3820}(85, 노란색), {item:2453}(100, 노란색), {object:1623}(115, 주황색), {object:1628}(120, 주황색), {item:3356}(125, 주황색), {item:3357}(150부터)을(를) 모두 채집하고, {skill:182} 160까지 경유지를 도세요. 지역 레벨 30-40.",
+	-- Step 21: Liferoot & Fadeleaf: Dustwallow Marsh (160-185)
+	-- {item:2450} Briarthorn · {item:3820} Stranglekelp · {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism · {item:785} Mageroyal · {item:2452} Swiftthistle
+	["Pick every {item:2450} (70, green, rare), {item:3820} (85, green), {item:2453} (100, green, rare), {object:1623} (115, yellow, rare), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. {item:785} and {item:2450} sometimes give a {item:2452} as well. {item:3820} grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points."] = "",
 
-	-- Step 20: Fadeleaf & Goldthorn: Swamp of Sorrows (160-185)
-	-- {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {skill:182} Herbalism
-	["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. Zone level 35-45."] = "지나가는 {item:3820}(85, 초록색), {item:3356}(125, 노란색), {item:3357}(150, 주황색), {item:3818}(160, 주황색), {item:3821}(170부터)을(를) 모두 채집하고, {skill:182} 185까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- Step 22: Liferoot & Khadgar's Whisker: Dustwallow Marsh (185-200)
+	-- {item:2453} Bruiseweed · {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
+	["Pick every {item:2453} (100, green, rare), {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45. Expect about 20 herbs for these 15 points."] = "",
 
-	-- Step 21: Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
-	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45."] = "지나가는 {item:3356}(125, 초록색), {item:3357}(150, 노란색), {item:3818}(160, 노란색), {item:3821}(170, 주황색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 200까지 경유지를 도세요. 지역 레벨 35-45.",
-
-	-- Step 22: Artisan Herbalism
+	-- Step 23: Artisan Herbalism
 	-- {skill:182} Herbalism
 	["Artisan {skill:182}"] = "전문 {skill:182}",
 	-- {skill:182} Herbalism
-	["Artisan {skill:182} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:182} trainer of your faction."] = "전문 {skill:182}은(는) 최대 숙련도를 300(으)로 올립니다. 숙련도 200, 캐릭터 레벨 35이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:182} 상급자를 가리킵니다.",
+	["Artisan {skill:182} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:182} trainer of your faction."] = "",
 
-	-- Step 23: Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
-	-- {object:2043} Khadgar's Whisker · {zone:1435} Swamp of Sorrows
-	["{object:2043}: {zone:1435} (200-210) cont."] = "{object:2043}: {zone:1435} (200-210) (계속)",
-	-- {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
-	["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45."] = "지나가는 {item:3356}(125, 초록색), {item:3357}(150, 초록색), {item:3818}(160, 노란색), {item:3821}(170, 노란색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 210까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- Step 24: Fadeleaf & Khadgar's Whisker: Dustwallow Marsh (200-210) cont.
+	-- {item:3818} Fadeleaf · {object:2043} Khadgar's Whisker · {zone:1445} Dustwallow Marsh
+	["{item:3818} & {object:2043}: {zone:1445} (200-210) cont."] = "",
+	-- {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {skill:182} Herbalism
+	["Pick every {object:1623} (115, green, rare), {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45. Expect about 20 herbs for these 10 points."] = "",
 
-	-- Step 24: Firebloom & Purple Lotus: Badlands (210-230)
-	-- {object:1623} Wild Steelbloom · {item:3356} Kingsblood · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:4625} Firebloom · {item:8831} Purple Lotus · {skill:182} Herbalism
-	["Pick every {object:1623} (115, green), {item:3356} (125, green), {item:3818} (160, green), {item:3821} (170, yellow), {object:2043} (185, yellow), {item:4625} (205, orange), {item:8831} (210, orange) you pass and circle the waypoints until {skill:182} 230. Zone level 35-45."] = "지나가는 {object:1623}(115, 초록색), {item:3356}(125, 초록색), {item:3818}(160, 초록색), {item:3821}(170, 노란색), {object:2043}(185, 노란색), {item:4625}(205, 주황색), {item:8831}(210, 주황색)을(를) 모두 채집하고, {skill:182} 230까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- Step 25: Purple Lotus: The Hinterlands (210-230)
+	-- {object:1623} Wild Steelbloom · {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {skill:182} Herbalism · {item:8153} Wildvine
+	["Pick every {object:1623} (115, green, rare), {item:3357} (150, green), {item:3818} (160, green, rare), {item:3821} (170, yellow), {object:2043} (185, yellow), {item:8831} (210, orange) you pass and circle the waypoints until {skill:182} 230. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 30 herbs for these 20 points."] = "",
 
-	-- Step 25: Sungrass & Gromsblood: Blasted Lands (230-260)
-	-- {item:4625} Firebloom · {item:8838} Sungrass · {item:8846} Gromsblood · {skill:182} Herbalism
-	["Pick every {item:4625} (205, yellow), {item:8838} (230, orange), {item:8846} (from 250) you pass and circle the waypoints until {skill:182} 260. Zone level 45-55."] = "지나가는 {item:4625}(205, 노란색), {item:8838}(230, 주황색), {item:8846}(250부터)을(를) 모두 채집하고, {skill:182} 260까지 경유지를 도세요. 지역 레벨 45-55.",
+	-- Step 26: Purple Lotus & Sungrass: The Hinterlands (230-260)
+	-- {item:3357} Liferoot · {item:3818} Fadeleaf · {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:8845} Ghost Mushroom · {skill:182} Herbalism · {item:8153} Wildvine
+	["Pick every {item:3357} (150, green, rare), {item:3818} (160, green, rare), {item:3821} (170, green), {object:2043} (185, yellow, rare), {item:8831} (210, orange), {item:8838} (230, orange), {item:8845} (from 245) you pass and circle the waypoints until {skill:182} 260. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 50 herbs for these 30 points."] = "",
 
-	-- Step 26: Dreamfoil & Mountain Silversage: Felwood (260-285)
-	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:8846} Gromsblood · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {skill:182} Herbalism
-	["Pick every {item:8836} (220, yellow), {item:8838} (230, yellow), {item:8846} (250, orange), {item:13464} (260, orange), {item:13463} (from 270), {item:13465} (from 280) you pass and circle the waypoints until {skill:182} 285. Zone level 48-55."] = "지나가는 {item:8836}(220, 노란색), {item:8838}(230, 노란색), {item:8846}(250, 주황색), {item:13464}(260, 주황색), {item:13463}(270부터), {item:13465}(280부터)을(를) 모두 채집하고, {skill:182} 285까지 경유지를 도세요. 지역 레벨 48-55.",
+	-- Step 27: Sungrass & Golden Sansam: The Hinterlands (260-285)
+	-- {item:3821} Goldthorn · {object:2043} Khadgar's Whisker · {item:8831} Purple Lotus · {item:8838} Sungrass · {item:8845} Ghost Mushroom · {item:13464} Golden Sansam · {skill:182} Herbalism · {item:8153} Wildvine
+	["Pick every {item:3821} (170, green), {object:2043} (185, green, rare), {item:8831} (210, green), {item:8838} (230, yellow), {item:8845} (245, orange), {item:13464} (260, orange) you pass and circle the waypoints until {skill:182} 285. {item:8845} grows in caves and dark hollows: look inside as well. {item:8831} sometimes gives a {item:8153} as well. Zone level 40-50. Expect about 70 herbs for these 25 points."] = "",
 
-	-- Step 27: Mountain Silversage & Plaguebloom: Felwood (285-300)
-	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:8846} Gromsblood · {item:13464} Golden Sansam · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism
-	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. Zone level 48-55."] = "지나가는 {item:8836}(220, 초록색), {item:8838}(230, 초록색), {item:8846}(250, 노란색), {item:13464}(260, 노란색), {item:13463}(270, 주황색), {item:13465}(280, 주황색), {item:13466}(285, 주황색)을(를) 모두 채집하고, {skill:182} 300까지 경유지를 도세요. 지역 레벨 48-55.",
+	-- Step 28: Dreamfoil & Plaguebloom: Western Plaguelands (285-300)
+	-- {item:8836} Arthas' Tears · {item:8838} Sungrass · {item:13463} Dreamfoil · {item:13465} Mountain Silversage · {item:13466} Plaguebloom · {skill:182} Herbalism
+	["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. Zone level 51-58. Expect about 20 herbs for these 15 points."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:182} trainer of your faction teaches Apprentice {skill:182} (character level 5); the arrow picks the nearest."] = "진영의 {skill:182} 상급자 누구에게서나 초급 {skill:182}을(를) 배울 수 있습니다(캐릭터 레벨 5). 화살표가 가장 가까운 상급자를 가리킵니다.",
+	-- ["Artisan {skill:182} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:182} trainer of your faction."] = "전문 {skill:182}은(는) 최대 숙련도를 300(으)로 올립니다. 숙련도 200, 캐릭터 레벨 35이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:182} 상급자를 가리킵니다.",
+	-- ["Expert {skill:182} raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest {skill:182} trainer of your faction."] = "숙련 {skill:182}은(는) 최대 숙련도를 225(으)로 올립니다. 숙련도 125, 캐릭터 레벨 20이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:182} 상급자를 가리킵니다.",
+	-- ["Journeyman {skill:182} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:182} trainer of your faction."] = "수습 {skill:182}은(는) 최대 숙련도를 150(으)로 올립니다. 숙련도 50, 캐릭터 레벨 10이(가) 필요합니다. 화살표는 진영의 가장 가까운 {skill:182} 상급자를 가리킵니다.",
+	-- ["Pick every {item:2447} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:2453} (100, orange) you pass and circle the waypoints until {skill:182} 125. Zone level 15-25."] = "지나가는 {item:2447}(1, 초록색), {item:2449}(15, 초록색), {item:785}(50, 초록색), {item:2450}(70, 노란색), {item:2453}(100, 주황색)을(를) 모두 채집하고, {skill:182} 125까지 경유지를 도세요. 지역 레벨 15-25.",
+	-- ["Pick every {item:2447} (1, green), {item:765} (1, green), {item:2449} (15, green), {item:785} (50, green), {item:2450} (70, yellow), {item:3820} (85, orange), {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 20-30."] = "지나가는 {item:2447}(1, 초록색), {item:765}(1, 초록색), {item:2449}(15, 초록색), {item:785}(50, 초록색), {item:2450}(70, 노란색), {item:3820}(85, 주황색), {item:2453}(100, 주황색), {object:1623}(115부터)을(를) 모두 채집하고, {skill:182} 125까지 경유지를 도세요. 지역 레벨 20-30.",
+	-- ["Pick every {item:2447} (1, orange), {item:765} (1, orange), {item:2449} (from 15) you pass and circle the waypoints until {skill:182} 50. Zone level 1-10."] = "지나가는 {item:2447}(1, 주황색), {item:765}(1, 주황색), {item:2449}(15부터)을(를) 모두 채집하고, {skill:182} 50까지 경유지를 도세요. 지역 레벨 1-10.",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70) you pass and circle the waypoints until {skill:182} 100. Zone level 10-20."] = "지나가는 {item:2447}(1, 노란색), {item:765}(1, 노란색), {item:2449}(15, 노란색), {item:785}(50, 주황색), {item:2450}(70부터)을(를) 모두 채집하고, {skill:182} 100까지 경유지를 도세요. 지역 레벨 10-20.",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. Zone level 10-20."] = "지나가는 {item:2447}(1, 노란색), {item:765}(1, 노란색), {item:2449}(15, 노란색), {item:785}(50, 주황색), {item:2450}(70부터), {item:3820}(85부터)을(를) 모두 채집하고, {skill:182} 100까지 경유지를 도세요. 지역 레벨 10-20.",
+	-- ["Pick every {item:2447} (1, yellow), {item:765} (1, yellow), {item:2449} (15, yellow), {item:785} (50, orange), {item:2450} (from 70), {item:3820} (from 85) you pass and circle the waypoints until {skill:182} 100. Zone level 10-25."] = "지나가는 {item:2447}(1, 노란색), {item:765}(1, 노란색), {item:2449}(15, 노란색), {item:785}(50, 주황색), {item:2450}(70부터), {item:3820}(85부터)을(를) 모두 채집하고, {skill:182} 100까지 경유지를 도세요. 지역 레벨 10-25.",
+	-- ["Pick every {item:2453} (100, orange), {object:1623} (from 115) you pass and circle the waypoints until {skill:182} 125. Zone level 25-35."] = "지나가는 {item:2453}(100, 주황색), {object:1623}(115부터)을(를) 모두 채집하고, {skill:182} 125까지 경유지를 도세요. 지역 레벨 25-35.",
+	-- ["Pick every {item:3356} (125, green), {item:3357} (150, green), {item:3818} (160, yellow), {item:3821} (170, yellow), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 210. Zone level 35-45."] = "지나가는 {item:3356}(125, 초록색), {item:3357}(150, 초록색), {item:3818}(160, 노란색), {item:3821}(170, 노란색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 210까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- ["Pick every {item:3356} (125, green), {item:3357} (150, yellow), {item:3818} (160, yellow), {item:3821} (170, orange), {object:2043} (185, orange) you pass and circle the waypoints until {skill:182} 200. Zone level 35-45."] = "지나가는 {item:3356}(125, 초록색), {item:3357}(150, 노란색), {item:3818}(160, 노란색), {item:3821}(170, 주황색), {object:2043}(185, 주황색)을(를) 모두 채집하고, {skill:182} 200까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- ["Pick every {item:3820} (85, green), {item:3356} (125, yellow), {item:3357} (150, orange), {item:3818} (160, orange), {item:3821} (from 170) you pass and circle the waypoints until {skill:182} 185. Zone level 35-45."] = "지나가는 {item:3820}(85, 초록색), {item:3356}(125, 노란색), {item:3357}(150, 주황색), {item:3818}(160, 주황색), {item:3821}(170부터)을(를) 모두 채집하고, {skill:182} 185까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- ["Pick every {item:4625} (205, yellow), {item:8838} (230, orange), {item:8846} (from 250) you pass and circle the waypoints until {skill:182} 260. Zone level 45-55."] = "지나가는 {item:4625}(205, 노란색), {item:8838}(230, 주황색), {item:8846}(250부터)을(를) 모두 채집하고, {skill:182} 260까지 경유지를 도세요. 지역 레벨 45-55.",
+	-- ["Pick every {item:785} (50, green), {item:2450} (70, green), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange) you pass and circle the waypoints until {skill:182} 160. Zone level 18-30."] = "지나가는 {item:785}(50, 초록색), {item:2450}(70, 초록색), {item:2453}(100, 노란색), {object:1623}(115, 주황색), {object:1628}(120, 주황색), {item:3356}(125, 주황색)을(를) 모두 채집하고, {skill:182} 160까지 경유지를 도세요. 지역 레벨 18-30.",
+	-- ["Pick every {item:785} (50, green), {item:2450} (70, green), {item:3820} (85, yellow), {item:2453} (100, yellow), {object:1623} (115, orange), {object:1628} (120, orange), {item:3356} (125, orange), {item:3357} (from 150) you pass and circle the waypoints until {skill:182} 160. Zone level 30-40."] = "지나가는 {item:785}(50, 초록색), {item:2450}(70, 초록색), {item:3820}(85, 노란색), {item:2453}(100, 노란색), {object:1623}(115, 주황색), {object:1628}(120, 주황색), {item:3356}(125, 주황색), {item:3357}(150부터)을(를) 모두 채집하고, {skill:182} 160까지 경유지를 도세요. 지역 레벨 30-40.",
+	-- ["Pick every {item:8836} (220, green), {item:8838} (230, green), {item:8846} (250, yellow), {item:13464} (260, yellow), {item:13463} (270, orange), {item:13465} (280, orange), {item:13466} (285, orange) you pass and circle the waypoints until {skill:182} 300. Zone level 48-55."] = "지나가는 {item:8836}(220, 초록색), {item:8838}(230, 초록색), {item:8846}(250, 노란색), {item:13464}(260, 노란색), {item:13463}(270, 주황색), {item:13465}(280, 주황색), {item:13466}(285, 주황색)을(를) 모두 채집하고, {skill:182} 300까지 경유지를 도세요. 지역 레벨 48-55.",
+	-- ["Pick every {item:8836} (220, yellow), {item:8838} (230, yellow), {item:8846} (250, orange), {item:13464} (260, orange), {item:13463} (from 270), {item:13465} (from 280) you pass and circle the waypoints until {skill:182} 285. Zone level 48-55."] = "지나가는 {item:8836}(220, 노란색), {item:8838}(230, 노란색), {item:8846}(250, 주황색), {item:13464}(260, 주황색), {item:13463}(270부터), {item:13465}(280부터)을(를) 모두 채집하고, {skill:182} 285까지 경유지를 도세요. 지역 레벨 48-55.",
+	-- ["Pick every {object:1623} (115, green), {item:3356} (125, green), {item:3818} (160, green), {item:3821} (170, yellow), {object:2043} (185, yellow), {item:4625} (205, orange), {item:8831} (210, orange) you pass and circle the waypoints until {skill:182} 230. Zone level 35-45."] = "지나가는 {object:1623}(115, 초록색), {item:3356}(125, 초록색), {item:3818}(160, 초록색), {item:3821}(170, 노란색), {object:2043}(185, 노란색), {item:4625}(205, 주황색), {item:8831}(210, 주황색)을(를) 모두 채집하고, {skill:182} 230까지 경유지를 도세요. 지역 레벨 35-45.",
+	-- ["{object:2043}: {zone:1435} (200-210) cont."] = "{object:2043}: {zone:1435} (200-210) (계속)",
 }

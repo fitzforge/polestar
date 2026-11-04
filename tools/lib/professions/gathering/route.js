@@ -5,7 +5,7 @@
 
 const { makeProjector, dist } = require('../../route/geo');
 const { planTour, pathLength } = require('../../route/tour');
-const { bandWeight } = require('./tables');
+const { bandWeight, FOREVER_NODES } = require('./tables');
 
 const DEDUPE_YARDS = 5;
 // A lap shorter than this outruns node respawns, so short laps score as if
@@ -16,24 +16,63 @@ function projector(data) {
 	return makeProjector(data.mapFrames || data['map-frames'] || {});
 }
 
+// Every spawn of a spawns record: `pts` (the reference data's evenly spread
+// points, at most its cap per map) and `more` (the rest).
+function allPoints(s) {
+	return s ? [...(s.pts || []), ...(s.more || [])] : [];
+}
+
 // Every spawn on `map` of the objects whose name is in `table` ({ name: req })
-// and whose roles include `role`, weighted for the band [from, to).
-function nodePoints(objects, project, { table, role, map, from, to }) {
+// and whose roles include `role`, weighted for the band [from, to). A point's
+// `up` is the nodes of its kind it stands for: the zone's nodes up at once
+// (`abundance`, node-abundance.json: { name: { up } } for the map) spread over
+// the kind's points, so a point listed for six pooled kinds counts for the one
+// node the server puts there; a kind the zone's table lacks counts nothing. A
+// map with no table splits each point among the kinds listed at it. `w` is
+// `up` times the band weight.
+function nodePoints(objects, project, { table, role, map, from, to, abundance = null }) {
+	const { raw, count } = mapNodes(objects, project, table, role, map);
 	const out = [];
+	for (const p of raw) {
+		const bw = bandWeight(p.req, from, to);
+		if (bw <= 0) continue;
+		const up = abundance ? (abundance[p.name] ? abundance[p.name].up / count.get(p.name) : 0) : p.share;
+		if (up <= 0) continue;
+		out.push({ name: p.name, req: p.req, up, w: bw * up, pt: p.pt });
+	}
+	return out;
+}
+
+// The deduplicated node points of `table` on `map` with each kind's count and
+// each point's share of the kinds listed at it; cached per objects/project.
+const nodeCache = new WeakMap();
+function mapNodes(objects, project, table, role, map) {
+	if (!nodeCache.has(objects)) nodeCache.set(objects, new Map());
+	const cache = nodeCache.get(objects);
+	const key = `${role}|${map}|${Object.keys(table).length}`;
+	const hit = cache.get(key);
+	if (hit && hit.project === project && hit.table === table) return hit;
+	const raw = [];
 	for (const o of Object.values(objects)) {
-		if (!o.roles || !o.roles.includes(role)) continue;
+		// Forever's own nodes carry no role in the data: their name in the table is enough.
+		if (!(o.roles && o.roles.includes(role)) && !FOREVER_NODES.has(o.name)) continue;
 		const req = table[o.name];
 		if (req === undefined) continue;
-		const w = bandWeight(req, from, to);
-		if (w <= 0) continue;
 		const s = o.spawns && o.spawns[String(map)];
 		if (!s) continue;
-		for (const [x, y] of s.pts) {
+		for (const [x, y] of allPoints(s)) {
 			const pt = project.point(map, x, y, s.f);
-			if (out.some((p) => p.name === o.name && dist(p.pt, pt) < DEDUPE_YARDS)) continue;
-			out.push({ name: o.name, req, w, pt });
+			if (raw.some((p) => p.name === o.name && dist(p.pt, pt) < DEDUPE_YARDS)) continue;
+			raw.push({ name: o.name, req, pt });
 		}
 	}
+	const count = new Map();
+	for (const p of raw) {
+		count.set(p.name, (count.get(p.name) || 0) + 1);
+		p.share = 1 / new Set(raw.filter((q) => dist(q.pt, p.pt) < DEDUPE_YARDS).map((q) => q.name)).size;
+	}
+	const out = { project, table, raw, count };
+	cache.set(key, out);
 	return out;
 }
 
@@ -57,8 +96,9 @@ function weightedClusters(points, radius, project) {
 		rest = rest.filter((p) => dist(seed.pt, p.pt) > radius);
 		const x = members.reduce((s, p) => s + p.pt.x, 0) / members.length;
 		const y = members.reduce((s, p) => s + p.pt.y, 0) / members.length;
+		// Nodes of each kind the cluster holds (a pooled point counts its share).
 		const counts = {};
-		for (const p of members) counts[p.name] = (counts[p.name] || 0) + 1;
+		for (const p of members) counts[p.name] = (counts[p.name] || 0) + (p.up === undefined ? 1 : p.up);
 		out.push({
 			pt: project.point(seed.pt.map, Math.round(x * 10) / 10, Math.round(y * 10) / 10, seed.pt.f),
 			w: bestW,
@@ -69,13 +109,17 @@ function weightedClusters(points, radius, project) {
 }
 
 // Expected skill-ups per yard for one lap over every useful node in the zone.
-function scorePoints(points) {
+// `perPoint`: yards a stop at each point costs on top of the walk (a beast to
+// kill before it can be skinned), so a zone of many low-value points does not
+// win on density alone.
+function scorePoints(points, { perPoint = 0 } = {}) {
 	if (!points.length) return { gain: 0, length: Infinity, score: 0 };
 	const gain = points.reduce((s, p) => s + p.w, 0);
 	const start = points[0].pt;
 	const order = planTour(start, points.slice(1), start);
 	const length = Math.max(1, pathLength(start, order, start));
-	return { gain, length, score: gain / Math.max(length, MIN_LAP_YARDS) };
+	const stops = perPoint * points.reduce((s, p) => s + (p.up === undefined ? 1 : p.up), 0);
+	return { gain, length, score: gain / (Math.max(length, MIN_LAP_YARDS) + stops) };
 }
 
 // A loop of at most `maxStops` cluster waypoints covering `cover` of the
@@ -99,4 +143,4 @@ function loop(points, project, { radius = 110, maxStops = 12, cover = 0.85, entr
 	return [first, ...planTour(first.pt, rest, first.pt)];
 }
 
-module.exports = { projector, nodePoints, weightedClusters, scorePoints, loop };
+module.exports = { projector, allPoints, nodePoints, weightedClusters, scorePoints, loop };

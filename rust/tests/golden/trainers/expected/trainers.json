@@ -1,0 +1,340 @@
+{
+	"198": {
+		"id": 198,
+		"name": "Khelden Bremen",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"328": {
+		"id": 328,
+		"name": "Zaldimar Wefhellt",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"375": {
+		"id": 375,
+		"name": "Priestess Anetta",
+		"classes": [
+			"PRIEST"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"377": {
+		"id": 377,
+		"name": "Priestess Josetta",
+		"classes": [
+			"PRIEST"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"459": {
+		"id": 459,
+		"name": "Drusilla La Salle",
+		"classes": [
+			"WARLOCK"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"906": {
+		"id": 906,
+		"name": "Maximillian Crowe",
+		"classes": [
+			"WARLOCK"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"911": {
+		"id": 911,
+		"name": "Llane Beshere",
+		"classes": [
+			"WARRIOR"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"913": {
+		"id": 913,
+		"name": "Lyria Du Lac",
+		"classes": [
+			"WARRIOR"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"915": {
+		"id": 915,
+		"name": "Jorik Kerridan",
+		"classes": [
+			"ROGUE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"917": {
+		"id": 917,
+		"name": "Keryn Sylvius",
+		"classes": [
+			"ROGUE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"925": {
+		"id": 925,
+		"name": "Brother Sammuel",
+		"classes": [
+			"PALADIN"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"927": {
+		"id": 927,
+		"name": "Brother Wilhelm",
+		"classes": [
+			"PALADIN"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3153": {
+		"id": 3153,
+		"name": "Frang",
+		"classes": [
+			"WARRIOR"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"3154": {
+		"id": 3154,
+		"name": "Jen'shan",
+		"classes": [
+			"HUNTER"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"3155": {
+		"id": 3155,
+		"name": "Rwag",
+		"classes": [
+			"ROGUE"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"3156": {
+		"id": 3156,
+		"name": "Nartok",
+		"classes": [
+			"WARLOCK"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"3157": {
+		"id": 3157,
+		"name": "Shikrik",
+		"classes": [
+			"SHAMAN"
+		],
+		"sources": [
+			"curated",
+			"guide"
+		]
+	},
+	"3169": {
+		"id": 3169,
+		"name": "Tarshaw Jaggedscar",
+		"classes": [
+			"WARRIOR"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3170": {
+		"id": 3170,
+		"name": "Kaplak",
+		"classes": [
+			"ROGUE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3171": {
+		"id": 3171,
+		"name": "Thotar",
+		"classes": [
+			"HUNTER"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3172": {
+		"id": 3172,
+		"name": "Dhugru Gorelust",
+		"classes": [
+			"WARLOCK"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3173": {
+		"id": 3173,
+		"name": "Swart",
+		"classes": [
+			"SHAMAN"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3706": {
+		"id": 3706,
+		"name": "Tai'jin",
+		"classes": [
+			"PRIEST"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"3707": {
+		"id": 3707,
+		"name": "Ken'jai",
+		"classes": [
+			"PRIEST"
+		],
+		"sources": [
+			"curated",
+			"record"
+		]
+	},
+	"5880": {
+		"id": 5880,
+		"name": "Un'Thuwa",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"5882": {
+		"id": 5882,
+		"name": "Pephredo",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"5883": {
+		"id": 5883,
+		"name": "Enyo",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"5884": {
+		"id": 5884,
+		"name": "Mai'ah",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"5885": {
+		"id": 5885,
+		"name": "Deino",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"6014": {
+		"id": 6014,
+		"name": "X'yera",
+		"classes": [
+			"PRIEST"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"6018": {
+		"id": 6018,
+		"name": "Ur'kyo",
+		"classes": [
+			"PRIEST"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"7311": {
+		"id": 7311,
+		"name": "Uthel'nay",
+		"classes": [
+			"MAGE"
+		],
+		"sources": [
+			"curated"
+		]
+	},
+	"99999": {
+		"id": 99999,
+		"name": null,
+		"classes": [
+			"PALADIN"
+		],
+		"sources": [
+			"guide"
+		]
+	}
+}

@@ -1,0 +1,500 @@
+guide forever/alliance/06-ashenvale
+title Ashenvale, Wetlands & Stonetalon Mountains
+faction Alliance
+levels 25-29
+zone Ashenvale
+next forever/alliance/07-thousand-needles
+
+# Ashenvale, Stonetalon, the Wetlands, Ironforge and Stormwind, Alliance
+# ~25.4 to ~28.2.
+#
+# Route from the simulator's consensus Alliance route (Human export, visits
+# 6-10: Ashenvale 25.4-26.6, Stonetalon 26.6-27, Wetlands 27-28.1, Ironforge
+# and Stormwind 28.1-28.2), written out as a playable guide; not play-tested
+# on Forever yet.
+#
+# Flow: boat Stormwind -> Auberdine, ride south -> Grove of the Ancients
+# (Kerlonian) -> Maestra's Post -> Bathran's Haunt -> Maestra's Post ->
+# Astranaar (flight path, hearth) -> west: Teronis, the Shrine of Aessina,
+# Ilkrud, the Zoram Strand, Maestra's Post -> hearth to Astranaar -> east:
+# Dal Bloodclaw, Elune's Tear -> Astranaar -> the Howling Vale, the
+# Foulweald, Mystral Lake, the Ruins of Stardust -> hearth to Astranaar ->
+# the Talondeep Path to Stonetalon's Windshear Crag -> hearth to
+# Astranaar, fly to Auberdine, boat to Menethil Harbor -> Menethil, Bluegill
+# Marsh, the hovels -> east: crocolisks, Whelgar's Excavation Site, the
+# oozes, the Green Belt, Dun Modr -> hearth to Menethil -> ride to Ironforge
+# -> tram to Stormwind.
+#
+# Deviations from the export:
+# - The Sleeper Has Awakened (5321): 03-darkshore accepts it at the Grove of
+#   the Ancients; the escort is walked on the way in, from the grove to
+#   Liladris at Maestra's Post, as the export completes and turns it in here.
+# - Local order fixed for one pass per hub: The Tower of Althalaxx (970) is
+#   taken on the first visit to Delgren; Wolves, Elune's Tear and the east
+#   quests run in one loop between the two hearths.
+# - Wetlands: Digging Through the Ooze (470) and Young Crocolisk Skins (484)
+#   are done in the east where their mobs live, the oozes at Ironbeard's
+#   Tomb as the quest says (the export did them before
+#   leaving Menethil) and turned in after the hearth. Apprentice's Duties
+#   (471) is accepted then and finished on the north coast in the next
+#   guide's Wetlands return, beside the Third Fleet's wreck (the export did
+#   it at 27.2-27.4).
+# - An Old Colleague (1072) is turned in to Lomac Gearstrip as you pass
+#   through Ironforge (the export carries it to 59.6).
+# - The Stormwind hearth bind (28.1) is dropped: the export rebinds in
+#   Darkshire at once (next guide).
+# - Look To The Stars (174): the Bronze Tube was bought in Darkshire (previous
+#   guide), so nothing to loot in Stonetalon.
+# - Menethil Statuette: Return the Statuette (98189) and both A Friend of the
+#   Family steps (98190, 98191) follow Karl Boran's chain through Menethil
+#   Keep, Stormwind Keep and the Cathedral; The Shamed Lieutenant (98219) is
+#   carried to Southshore.
+# - Refresh (2026): Making Do (97926, Forever: Baros Alexston's reply from
+#   the Stormwind stop in 04-redridge-mountains) goes to Thundris Windweaver
+#   as the boat lands in Auberdine. Alchemical Hazards (98282, Forever, from
+#   the new consensus's Wetlands visit): Caitlin Grassman in Menethil wants a
+#   gland from the stalkers of Thelgen Rock, beside the raptor quests. The
+#   Powers Below (968), only with the book from Darkshore, is handed in at
+#   the Ironforge stop.
+# - The new consensus runs Ashenvale right after Darkshore (21-23) and the
+#   Wetlands before Redridge and Duskwood; the guides keep their zone order
+#   and the Forever Ashenvale quests of its 29-30 visit (98027, 98418,
+#   95737, 86757) are in 30-40/03-ashenvale.
+# - Menethil Harbor: Karl Boran (279), on the pier, is taken first off the
+#   boat and Caitlin Grassman (98282) next to Sida. Stormwind Keep: Bolvar
+#   (98190) before the Royal Library, on the way in.
+# - Unrequited Love (98461, Forever, optional): Archaeologist Hollee's note
+#   is taken in Auberdine before the boat and handed to Tarrel Rockweaver
+#   before In Search of the Excavation Team (305). A player carrying it gets
+#   no 305 from him until it is handed in (#524).
+# - The grind to 28 for Pilot Longbeard's The Brassbolts Brothers (1179, from
+#   level 28) is done at the Dragonmaw camp on the walk east from Menethil to
+#   Dun Algaz, after the Menethil hand-ins (about 7,200 XP) count towards it,
+#   not before the hearth (#617).
+#
+# Class quests: on arrival in Auberdine, Night Elf Druids finish Trial of the
+# Sea Lion and Aquatic Form (272, 5061: Moonglade, then Darnassus) and Night
+# Elf Priests hand in Elune's Grace (5673) in Darnassus, both by the free
+# Rut'theran flight; in Ironforge, Dwarf and Gnome Priests hand in Chastise
+# (5645) and Contingency Plan (94819). Class training in Ironforge, Druids
+# in Stormwind (Ironforge has no druid trainer).
+# Paladins: A Strange Artifact (78088, level 30, from 22) starts at the
+# Strange Orb atop the Tower of Althalaxx in Darkshore and runs through
+# Delgren at Maestra's Post, Stormwind, Redridge and Demon Fall Canyon to the
+# Cloak of the Divine Storm: the Class guide
+# forever/class/paladin/cloak-of-the-divine-storm.
+#
+# Left out (the export accepts them but never turns them in): Journey to
+# Stonetalon Peak (1056), Pridewings of Stonetalon (1134), Mage Summoner
+# (1017), Supplies to Auberdine (976), Further Instructions (1094), The Day
+# After (2927), Tinkmaster Overspark (2923), Retrieval for Mauren (1078),
+# Devils in Westfall (1076), The Corruption Abroad (3765), Brother Paxton
+# (344).
+#
+# Dropped for flow: Scramble (79980, 200 XP), a ride west to Sun Rock
+# Retreat and back for one tiny quest; no grind needed to cover it.
+# Checked and skipped: The Tower of Althalaxx (981) needs 1143 (Athrikus
+# Narassin, after 1167), which the route never does. The Absent Minded
+# Prospector (943) needs 741 and 942 through Chief Archaeologist Greywhisker
+# in Darnassus, and its Stone of Relu is a 1.5% raptor drop.
+# Dropped: The Zoram Strand (1008): 20 heads from naga 6 levels below you,
+# at 80% XP. Remember That I Love You (95161): the Matron offers it only to
+# those who bring the Blood-Stained Letter out of the Ruins of Lordaeron
+# dungeon.
+
+# ---------------------------------------------------------------- Darkshore
+
+step Aquatic Form
+  only NightElf,Druid
+  zone Moonglade
+  tip Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village.
+  collect 15885 quest 272.1                   -- Pendant of the Sea Lion: join the two halves
+  turnin 272                                  -- Dendrite Starblaze
+  accept 5061
+  fly "Rut'theran Village"
+
+step Mathrengyl Bearwalker
+  only NightElf,Druid
+  zone Darnassus
+  tip Take the portal up to the Cenarion Enclave, then fly back to Auberdine.
+  turnin 5061                                 -- Mathrengyl Bearwalker: Aquatic Form
+  fly "Auberdine"
+
+step Elune's Grace
+  only NightElf,Priest
+  zone Darnassus
+  tip Take the boat from Stormwind Harbor to Auberdine and fly to Rut'theran Village; Priestess Alathea is in the Temple of the Moon. Then fly back to Auberdine.
+  fly "Rut'theran Village"
+  turnin 5673                                 -- Priestess Alathea: Elune's Grace
+  fly "Auberdine"
+
+step Boat to Auberdine
+  zone Darkshore
+  tip From Stormwind Harbor take the boat to Auberdine; Thundris Windweaver stands at the north end of the village. Then head south along the road through Darkshore.
+  turnin 97926 optional                       -- Thundris Windweaver: Alexston's reply, if you took it in Stormwind
+  goto 44.4,76.4 "Grove of the Ancients"
+
+step Kerlonian Evershade
+  tip Kerlonian sleeps at the Grove of the Ancients in southern Darkshore. Use the Horn of Awakening to wake him and lead him south along the road into Ashenvale to Liladris Moonriver at Maestra's Post; blow the horn again whenever he falls asleep.
+  collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
+  goto 44.4,76.4 "Kerlonian Evershade"
+  note Escort Kerlonian to Maestra's Post in Ashenvale.
+
+# ---------------------------------------------------------------- Maestra's Post
+
+step Maestra's Post
+  zone Ashenvale
+  turnin 5321                             -- Liladris Moonriver
+  turnin 967                              -- Delgren the Purifier
+  accept 970
+  accept 1010                             -- Orendil Broadleaf
+
+step Bathran's Haunt
+  tip North of Maestra's Post, plant bundles lie around the ruins of Bathran's Haunt. Dark Strand cultists hold the ruins just south of them: any of them can drop the Glowing Soul Gem.
+  collect 5437 quest 1010                 -- Bathran's Hair, from the plant bundles
+  collect 5366 quest 970                  -- Glowing Soul Gem
+
+step Maestra's Post
+  turnin 1010                             -- Orendil Broadleaf
+  accept 1020
+  turnin 970                              -- Delgren the Purifier
+  accept 973
+
+# ---------------------------------------------------------------- Astranaar
+
+step Astranaar
+  tip Follow the road south-east to Astranaar, on the island in the lake.
+  getfp "Astranaar" npc 4267              -- Daelyshia
+  sethome "Astranaar"
+  turnin 990                              -- Raene Wolfrunner, in the inn
+  accept 991
+  accept 1054
+  accept 1070                             -- Sentinel Thenysil
+  turnin 1020                             -- Pelturas Whitemoon
+  accept 1033
+
+# ---------------------------------------------------------------- West
+
+step Teronis' Corpse
+  tip Head west to the shore of Lake Falathim. Teronis lies among the Saltspittle murlocs; any murloc can drop the Glowing Gem.
+  turnin 991                              -- Teronis' Corpse
+  accept 1023
+  collect 5463 quest 1023                 -- Glowing Gem
+
+step Shrine of Aessina
+  tip South of the murlocs, Therysil waits at the Shrine of Aessina.
+  turnin 945                              -- Therysil
+
+step Ilkrud Magthrull
+  tip Ilkrud and his voidwalkers hold the Ruins of Ordil'Aran south of the shrine. Pull his guards first.
+  collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
+
+step The Zoram Strand
+  tip Follow the coast north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
+  accept 1007                             -- Talen
+  collect 5424 quest 1007 @14.2,20.6      -- Ancient Statuette, in the ruins on the shore
+
+step Talen
+  turnin 1007
+  accept 1009
+
+step Ruuzel
+  tip Ruuzel walks the northern tip of the Zoram Strand with Wrathtail guards.
+  collect 5445 quest 1009                 -- Ring of Zoram
+
+step Talen
+  turnin 1009
+
+step Maestra's Post
+  turnin 973                              -- Delgren the Purifier
+
+step Astranaar
+  hearth "Astranaar"
+  turnin 1023                             -- Raene Wolfrunner
+  accept 1024
+  accept 1025
+  vendor nearest
+
+# ---------------------------------------------------------------- East
+
+step Dal Bloodclaw
+  tip Dal Bloodclaw (25) leads the Thistlefur furbolgs at the camp north of Astranaar. Clear his guards first, one at a time.
+  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
+
+step Elune's Tear
+  tip The tears glow on the small isle east of Astranaar.
+  collect 5493 quest 1033 @46.4,46.4
+
+step Astranaar
+  turnin 1054                             -- Raene Wolfrunner
+  turnin 1033                             -- Pelturas Whitemoon
+  accept 1034
+
+step Shael'dryn
+  tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
+  turnin 1024
+
+step The Foulweald
+  tip The Foulweald furbolgs live in the woods south of the road, south-east of Astranaar. The Den Watcher and the Ursas guard the den.
+  kill 3746 quest 1025                    -- Foulweald Den Watcher
+  kill 3749 quest 1025                    -- Foulweald Ursa
+  kill 3750 quest 1025                    -- Foulweald Totemic
+  kill 3743 quest 1025                    -- Foulweald Warrior
+
+step Mystral Lake
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake; Alonso camps on its west shore. Befouled Water Elementals wade in the lake between them.
+  accept 1016                             -- Sentinel Velene Starstrike
+  collect 12220 x5 optional
+  collect 5455 quest 1016 @46.6,69.6      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
+  turnin 1016
+
+step Alonso
+  goto 42.4,70 "Alonso"
+  accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.
+  turnin 78132
+  accept 78133 optional
+  turnin 78133
+  accept 78134 optional
+  turnin 78134
+
+step The Ruins of Stardust
+  tip West of Mystral Lake, the stardust bushes grow among the ruins.
+  collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
+
+step Astranaar
+  hearth "Astranaar"
+  turnin 1034                             -- Pelturas Whitemoon
+  turnin 1025                             -- Raene Wolfrunner
+  vendor nearest
+
+# ---------------------------------------------------------------- Stonetalon Mountains
+
+step Windshear Crag
+  zone Stonetalon Mountains
+  tip Head south past Mystral Lake into the Talondeep Path tunnel; it comes out in Stonetalon's Windshear Crag. Kaela and Gaxim camp on the Webwinder Path south-west of the crag.
+  turnin 1070                             -- Kaela Shadowspear
+  accept 1085
+  turnin 1085                             -- Gaxim Rustfizzle
+  accept 1071
+  accept 1093                             -- Ziz Fizziks, in the hut north of them
+
+step Venture Co. loggers
+  tip The Venture Co. clear the forest of Windshear Crag. Loggers and Deforesters work all over it; the Operators run the shredders and one carries the blueprints.
+  kill 3989 quest 1071                    -- Venture Co. Logger
+  kill 3991 quest 1071                    -- Venture Co. Deforester
+  collect 5734 quest 1093                 -- Super Reaper 6000 Blueprints
+
+step Piznik
+  tip Piznik mines in the Windshear Mine at the east end of the crag. Talk to him and fend off the Venture Co. raiders while he mines.
+  accept 1090
+  complete 1090
+  turnin 1090
+  accept 1092
+
+step Webwinder Path
+  turnin 1092                             -- Ziz Fizziks
+  turnin 1093
+  turnin 1071                             -- Gaxim Rustfizzle
+  accept 1072
+  accept 1075
+
+# ---------------------------------------------------------------- Menethil Harbor
+
+step To Menethil Harbor
+  zone Darkshore
+  hearth "Astranaar"                      -- Hearthstone on cooldown? Head back north through the Talondeep Path.
+  fly "Auberdine"
+  accept 98461 optional                   -- Archaeologist Hollee
+  goto 32.4,43.8 "Boat to Menethil Harbor"
+
+step Menethil Harbor
+  zone Wetlands
+  accept 279                              -- Karl Boran, on the pier north of the inn
+  getfp "Menethil Harbor" npc 1571        -- Shellei Brondir
+  sethome "Deepwater Tavern" npc 1464     -- Innkeeper Helbrek
+  accept 463                              -- First Mate Fitzsimmons, in the inn
+  accept 470                              -- Sida
+  accept 98282                            -- Caitlin Grassman
+  accept 98197                            -- Valstag Ironjaw, by the keep
+  accept 472                              -- Harlo Barnaby, by the north gate
+  accept 484                              -- James Halloran, by the north gate
+  turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
+  accept 305                              -- Tarrel Rockweaver, by the north gate
+
+step Spoils of War
+  tip Timber and iron piles lie around the keep and along the harbor's walls.
+  collect 279821 quest 98197              -- Khaz Modan Timber
+  collect 279822 quest 98197              -- Khaz Modan Iron
+
+step Valstag Ironjaw
+  turnin 98197
+
+# ---------------------------------------------------------------- Bluegill Marsh
+
+step Bluegill Marsh
+  tip Follow the coast north out of Menethil. Bluegill Murlocs fill the marsh; Gobbler walks with a pack in the middle of it.
+  kill 1024 quest 279                     -- Bluegill Murloc
+  collect 3618 quest 279                  -- Gobbler's Head
+
+step Karl Boran
+  turnin 279
+  accept 281
+
+step The Bluegill hovels
+  tip Three containers in the murloc hovels, south to north: the Damaged Crate, then the Sealed Barrel, then the Half-buried Barrel at the north end.
+  turnin 281 @13.5,41.4                   -- Damaged Crate
+  accept 284
+  turnin 284 @13.6,38.2                   -- Sealed Barrel
+  accept 285
+  turnin 285 @13.9,34.8                   -- Half-buried Barrel
+  accept 286
+
+step Karl Boran
+  turnin 286
+  accept 98189 npc 1242                   -- Karl Boran: for Captain Stoutfist in the keep
+  vendor nearest
+
+step Captain Stoutfist
+  tip Captain Stoutfist stands in Menethil Keep, a short walk from Karl Boran.
+  turnin 98189 npc 2104                   -- Captain Stoutfist
+  accept 98190 npc 2104                   -- For Bolvar Fordragon in Stormwind Keep: keep it
+
+# ---------------------------------------------------------------- East Wetlands
+
+step Young crocolisks
+  tip Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site.
+  collect 3397 quest 484                  -- Young Crocolisk Skin
+
+step Whelgar's Excavation Site
+  tip The excavation site sits on the hill south of the road.
+  turnin 305                              -- Merrin Rockweaver
+  accept 306
+  accept 294                              -- Ormer Ironbraid
+
+step The raptor hills
+  tip Mottled Raptors and Screechers roam the hills west of the excavation site.
+  kill 1021 quest 294                     -- Mottled Screecher
+  kill 1020 quest 294                     -- Mottled Raptor
+
+step Ormer Ironbraid
+  turnin 294
+  accept 295
+
+step Raptor valley
+  tip The bigger raptors hunt in the valley just west of the dig.
+  kill 1022 quest 295                     -- Mottled Scytheclaw
+  kill 1023 quest 295                     -- Mottled Razormaw
+
+step Ormer Ironbraid
+  turnin 295
+
+step Thelgen Rock
+  tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site.
+  collect 280319 quest 98282              -- Unruptured Stalker Gland
+
+step Black Oozes
+  tip Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
+  collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
+
+step The Green Belt
+  tip Einar Stonegrip camps by the road; Rethiel the Greenwarden stands farther east, by the river.
+  accept 469                              -- Einar Stonegrip
+  turnin 463                              -- Rethiel the Greenwarden
+  accept 276
+
+step The Mosshide gnolls
+  tip Mosshide Gnolls and Mongrels hold the hills south-east of the Green Belt.
+  kill 1007 quest 276                     -- Mosshide Gnoll
+  kill 1008 quest 276                     -- Mosshide Mongrel
+
+step Rethiel the Greenwarden
+  turnin 276
+  accept 277
+
+step Crude Flint
+  tip Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of Rethiel; almost every one drops flint.
+  collect 2611 quest 277
+
+step Rethiel the Greenwarden
+  turnin 277
+  accept 275
+
+step Fen Creepers
+  tip Fen Creepers hide in the marsh pools north-west of the Green Belt.
+  kill 1040 quest 275
+
+step Dun Modr
+  tip Follow the road north to Dun Modr, at the foot of the Thandol Span. Longbraid the Grim stands in the dwarves' camp.
+  turnin 472                              -- Longbraid the Grim
+
+step Rethiel the Greenwarden
+  turnin 275
+
+step Hearth to Menethil
+  hearth "Deepwater Tavern"
+  turnin 306                              -- Tarrel Rockweaver
+  turnin 469                              -- James Halloran
+  turnin 484
+  accept 471                              -- For the giant crocolisks of the north coast, on your next visit
+  turnin 470                              -- Sida
+  turnin 98282                            -- Caitlin Grassman
+  vendor nearest
+
+step Dragonmaw camp
+  tip The Dragonmaw camp lies south of the road, just west of the Green Belt: Raiders, Swamprunners and Bonewarders. Pilot Longbeard's quest in Dun Morogh needs level 28.
+  goto 45.7,44.8 "Dragonmaw camp"
+  level 28 -- grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, Wetlands
+
+# ---------------------------------------------------------------- Ironforge
+
+step Ironforge
+  zone Ironforge
+  tip Head east along the Wetlands road, south through Dun Algaz into Loch Modan and west through the tunnel into Dun Morogh to Ironforge.
+  getfp "Ironforge" npc 1573              -- Gryth Thurden, in the Great Forge
+  turnin 1072                             -- Lomac Gearstrip, Tinker Town
+  turnin 968 optional                     -- Only with Book: The Powers Below from Darkshore: Gerrig Bonegrip, the Forlorn Cavern
+  accept 1179                             -- Pilot Longbeard
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  vendor nearest
+
+step Ironforge priests
+  only Dwarf,Gnome,Priest
+  tip High Priest Rohan and High Priestess Mims are in the Hall of Mysteries, in the Mystic Ward.
+  turnin 5645 only Dwarf                      -- High Priest Rohan: Chastise
+  turnin 94819 only Gnome                     -- High Priestess Mims: Contingency Plan
+
+# ---------------------------------------------------------------- Stormwind
+
+step Cathedral of Light
+  zone Stormwind City
+  tip Take the Deeprun Tram from Tinker Town to Stormwind's Dwarven District, then walk to the Cathedral Square.
+  accept 1274                             -- Thomas, in the Cathedral of Light
+  accept 343                              -- Brother Kristoff, in the Cathedral Square
+
+step Stormwind Keep
+  turnin 1274                             -- Bishop DeLavey
+  accept 1241
+  turnin 98190 npc 1748                   -- Highlord Bolvar Fordragon
+  accept 98191 npc 1748
+  turnin 343                              -- Milton Sheaf, in the Royal Library
+  turnin 337 optional                     -- Only if you looted An Old History Book in Duskwood
+
+step Lord Grayson Shadowbreaker
+  tip Back to the Cathedral of Light: Lord Grayson Shadowbreaker stands inside.
+  turnin 98191 npc 928                    -- Lord Grayson Shadowbreaker
+  accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
+
+step Mage Quarter
+  tip The Slaughtered Lamb is in the Mage Quarter.
+  turnin 1075                             -- Collin Mauren
+
+step Jorgen and Elling Trias
+  turnin 1241                             -- Jorgen
+  accept 1242
+  turnin 1242                             -- Elling Trias, the cheese shop in the Trade District
+  accept 1243
+
+step Trade District
+  getfp "Stormwind" npc 352               -- Dungar Longdrink
+  train class only Druid
+  note Next: fly to Darkshire.

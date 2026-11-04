@@ -2,8 +2,8 @@ guide forever/collectibles/mounts/alliance/saber
 title Saber
 category Collectibles
 folder Mounts · Level 40
-keywords Reins of the Striped Nightsaber, Reins of the Striped Frostsaber, Reins of the Spotted Frostsaber, Nightsaber, Frostsaber, Striped, Spotted, tiger, Night Elf, Darnassus, Lelanai, Jartsam, Riding
-collects 8629, 8631, 8632
+keywords Reins of the Striped Dawnsaber, Reins of the Striped Nightsaber, Reins of the Striped Frostsaber, Reins of the Spotted Frostsaber, Nightsaber, Frostsaber, Striped, Spotted, tiger, Night Elf, Darnassus, Lelanai, Jartsam, Riding
+collects 8629, 8631, 8632, 274706
 faction Alliance
 levels 40-60
 zone Darnassus
@@ -12,21 +12,35 @@ zone Darnassus
 # Sources: Forever client 1.60.1.70338 tables via wago.tools (ItemSparse: level,
 # price, races, riding spell; SkillLineAbility: Riding); npcs.json and
 # items.json for the trainer, the vendor and its stock.
-# Forever riding: the client files every racial riding spell under one Riding
-# skill (SkillLineAbility), so any riding trainer of your faction teaches it:
-# Apprentice Riding (skill 75) from level 40, Journeyman Riding (150) at 60.
-# Blizzard: learning to ride grants a mount, and training costs 100g at 40 and
-# 1,000g at 60 (Kris Zierhut). ItemSparse lists the
-# mounts at 20g (level 40) and 200g (level 60), usable by every race of the
-# faction; whether a vendor still wants Exalted with another race's city (the
-# Era rule) is server-side and unconfirmed.
+# Forever riding: one Riding skill (Apprentice 75 from level 40, Journeyman 150
+# at 60). Training costs 100g and 1,000g (Forever's world data: the trainers of
+# Velma Warnam and Genn Fairweather, build 70124) and comes with a mount
+# (Blizzard). ItemSparse lists the mounts at 20g (level 40) and 200g (level 60)
+# for every race of the faction, but each one also needs Tiger Riding (828;
+# MountCapability), which SkillLineAbility gives only Night Elves with Riding: the
+# faction's other races and the Skyborne must learn it.
+# ASSUMED: Jartsam teaches it to them at Exalted with Darnassus (Classic
+# rule; a beta player guide says other races' mounts need Exalted). In-game
+# check: a Human at Jartsam, with and without Exalted.
+# ASSUMED: Honored with your race's home city takes 10% off training and mounts
+# (beta player guides; Classic had the same). In-game check: the price at Honored.
+# ASSUMED: Lelanai sells Striped Dawnsaber too (a beta player guide lists it at this
+# vendor, and the same NPC sells it in today's game; our data has no vendor row).
+# In-game check: Lelanai's list.
 
 step Learn to ride
   zone Darnassus
-  tip Jartsam and Lelanai's sabers are in the Cenarion Enclave's riding grounds in Darnassus. At 40 Jartsam teaches Riding (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these.
+  tip Jartsam and Lelanai's sabers are in the Cenarion Enclave's riding grounds in Darnassus. At 40 Jartsam teaches Riding to Night Elves for 100g (10% less at Honored with Darnassus), and it comes with a saber. Other races learn Riding, with their own first mount, at their own race's riding trainer.
   level 40
-  train 4753                          -- Jartsam, riding trainer
+  train 4753 only NightElf            -- Jartsam, riding trainer
   skill Riding 75
+
+step Tiger Riding for other races
+  only Human,Dwarf,Gnome,Skyborne
+  when !knows 828
+  tip Any Alliance race can buy these sabers, but riding one also takes Tiger Riding, which only Night Elves get with Riding. Jartsam teaches it to other races once they are Exalted with Darnassus (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character.
+  rep "Darnassus" Exalted
+  train 4753                          -- Jartsam, Tiger Riding
 
 step Pick a colour
   tip Lelanai sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like.
@@ -34,4 +48,4 @@ step Pick a colour
   buy 8629 npc 4730 optional          -- Reins of the Striped Nightsaber, 20g
   buy 8631 npc 4730 optional          -- Reins of the Striped Frostsaber, 20g
   buy 8632 npc 4730 optional          -- Reins of the Spotted Frostsaber, 20g
-  note Reins of the Striped Dawnsaber is a new Forever saber (level 40, 20g in the client) whose source is not known yet.
+  buy 274706 "Reins of the Striped Dawnsaber" npc 4730 optional -- new in Forever, 20g; beta players found it here

@@ -1,26 +1,33 @@
 -- Korean (koKR): the guide forever/alliance/04-redridge-mountains (forever/alliance/04-redridge-mountains.guide).
--- Written by `node tools/polestar.js i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Korean (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
 -- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Stormwind
-	-- {area:442} Auberdine · {area:17203} Stormwind Harbor · {npc:1646} Baros Alexston · {zone:1429} Elwynn Forest
-	["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "{area:442}행 배는 {area:17203}에 정박합니다. 도시로 올라가 훈련을 받고 {npc:1646}을(를) 만난 뒤, 정문으로 나가 길을 따라 동쪽으로 {zone:1429}을(를) 지나가세요.",
+	-- Step 1: Boat to Stormwind Harbor
+	-- {area:17203} Stormwind Harbor
+	["Boat to {area:17203}"] = "",
+
+	-- Step 2: Stormwind
+	-- {area:442} Auberdine · {area:17203} Stormwind Harbor · {npc:1646} Baros Alexston · {area:12} Elwynn Forest
+	["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {area:12}."] = "",
 	["Level 18 and 20 spells"] = "18레벨과 20레벨 주문",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: {area:442}에서 온 툰드리스의 편지",
 	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "",
 
-	-- Step 2: Shaman training
-	["Shaman training"] = "주술사 훈련",
-	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
-	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}에는 주술사 상급자가 없습니다. {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가서 {npc:258098}에게 훈련을 받은 뒤, 지하철을 타고 돌아오세요.",
+	-- Step 3: Woo Ping
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); two-handers level a Warrior fastest."] = "",
 
-	-- Step 3: Stormwind class quests
+	-- Step 4: Woo Ping
+	-- {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+
+	-- Step 5: Stormwind class quests
 	-- {zone:1453} Stormwind
 	["{zone:1453} class quests"] = "{zone:1453} 직업 퀘스트",
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:376} High Priestess Laurena
@@ -36,33 +43,78 @@ return {
 	-- {npc:376} High Priestess Laurena · {npc:11401} Priestess Alathea · {zone:1457} Darnassus
 	["{npc:376}: {npc:11401} in {zone:1457} takes it, later"] = "{npc:376}: {zone:1457}의 {npc:11401}에게 제출합니다. 나중에",
 
-	-- Step 4: Half Pendant of Aquatic Endurance
+	-- Step 6: Tram to Ironforge
+	-- {zone:1455} Ironforge
+	["Tram to {zone:1455}"] = "",
+
+	-- Step 7: Shaman training
+	["Shaman training"] = "주술사 훈련",
+	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
+	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}에는 주술사 상급자가 없습니다. {object:28027}에서 {area:2257}을(를) 타고 {zone:1455}(으)로 가서 {npc:258098}에게 훈련을 받은 뒤, 지하철을 타고 돌아오세요.",
+
+	-- Step 8: Fly to Sentinel Hill
+	-- {area:108} Sentinel Hill
+	["Fly to {area:108}"] = "",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "",
+
+	-- Step 9: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
 	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge."] = "",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: {object:177790}",
 
-	-- Step 5: Three Corners
+	-- Step 10: Back to Elwynn Forest
+	-- {area:12} Elwynn Forest
+	["Back to {area:12}"] = "",
+
+	-- Step 12: Theocritus
+	["On the top floor"] = "",
+
+	-- Step 14: Henze Faulk
+	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
+	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
+	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
+	["Use the {item:6866} on {npc:6172}"] = "",
+	-- {item:6846} Defias Script
+	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
+	["{item:6846}: Defias Rogue Wizards"] = "",
+
+	-- Step 16: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker · {zone:1431} Duskwood
 	["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "엘윈 숲에서 오는 길은 {area:1002}에서 붉은마루 산맥으로 들어갑니다. {npc:464}은(는) 붉은마루 산맥과 {zone:1431}(으)로 가는 길이 만나는 곳에 서 있습니다.",
+	-- {npc:464} Guard Parker · {area:1002} Three Corners
+	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "",
 
-	-- Step 6: Lakeridge Highway
+	-- Step 17: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon · {npc:903} Guard Howe
 	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "{area:68}의 남쪽 기슭을 따라 길을 가면 그리폰 조련사가 있습니다. {npc:1070}와(과) {npc:903}은(는) 그녀 옆 길가에 서 있습니다.",
 
-	-- Step 7: Lakeshire
+	-- Step 18: Lakeshire
 	-- {npc:341} Foreman Oslow · {npc:382} Marshal Marris · {npc:900} Bailiff Conacher · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:343} Chef Breanna · {npc:342} Martie Jainrose
 	["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "긴 다리를 건너 북쪽 마을로 들어가세요. {npc:341}와(과) {npc:382}은(는) 다리 북쪽 끝에, {npc:900}은(는) 마을 회관에, {npc:381}와(과) {npc:266}은(는) 부두에, {npc:343}은(는) 여관에, {npc:342}은(는) 서쪽 끝 자기 정원에 있습니다.",
 	-- {npc:266} Wiley the Black
-	["{npc:266}, by the docks"] = "{npc:266}, 부두 옆",
+	["{npc:266}, by the docks; upstairs"] = "",
+	["Inside"] = "",
+	-- {npc:343} Chef Breanna
+	["{npc:343}, inside"] = "",
+	-- {npc:900} Bailiff Conacher
+	["{npc:900}, inside"] = "",
 
-	-- Step 8: Sunken Chest
+	-- Step 19: Spotted Sunfish on the way
+	-- {item:1467} Spotted Sunfish
+	["{item:1467} on the way"] = "",
+
+	-- Step 20: Sunken Chest
 	-- {area:68} Lake Everstill
 	["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "다리에서 동쪽으로 헤엄쳐 {area:68}(으)로 가세요. 상자는 호수 바닥에 있습니다.",
+	-- {item:1309} Oslow's Toolbox
+	["{item:1309}; underwater"] = "",
 
-	-- Step 9: Gnolls toward Three Corners
-	-- {area:1002} Three Corners
-	["Gnolls toward {area:1002}"] = "{area:1002} 쪽의 놀",
+	-- Step 22: Lakeridge Highway: kill these as you meet them
+	-- {area:1001} Lakeridge Highway
+	["{area:1001}: kill these as you meet them"] = "",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Redridge Thrashers = {npc:712} Redridge Thrasher · Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Dire Condors = {npc:428} Dire Condor · Great Goretusks = {npc:547} Great Goretusk
 	["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "",
@@ -70,53 +122,60 @@ return {
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: 붉은마루일족 약탈자",
 
-	-- Step 10: Bellygrub
+	-- Step 25: Bellygrub
 	-- {npc:345} Bellygrub · {area:69} Lakeshire
-	["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345}(24레벨)는 {area:69} 바로 서쪽 우리에서 땅을 파헤칩니다. 다른 멧돼지들과 떨어뜨려 끌어온 뒤 생명력이 가득 찬 상태로 싸우세요.",
+	["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "",
 
-	-- Step 12: Lakeshire
-	-- {npc:341} Foreman Oslow · {quest:89} The Everstill Bridge
-	["{npc:341}: after {quest:89}"] = "{npc:341}: {quest:89} 이후",
+	-- Step 28: Lakeshire
 	-- {npc:703} Lieutenant Fangore · {area:1000} Galardell Valley
 	["The Wanted poster by the inn: {npc:703}, in {area:1000}"] = "여관 옆 현상수배 게시판: {npc:703}, {area:1000}에 있음",
+	-- {npc:341} Foreman Oslow · {quest:89} The Everstill Bridge
+	["{npc:341}: after {quest:89}"] = "{npc:341}: {quest:89} 이후",
 
-	-- Step 13: Lake murlocs
-	["Lake murlocs"] = "호수 멀록",
+	-- Step 29: Lake Everstill: kill these as you meet them
+	-- {area:68} Lake Everstill
+	["{area:68}: kill these as you meet them"] = "",
 	-- {item:1467} Spotted Sunfish
-	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater
-	["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "멀록 청소부와 파도술사는 다리 동쪽 남쪽 기슭에 늘어서 있습니다. 누구든 {item:1467}이나 지느러미를 지니고 있을 수 있습니다.",
+	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Greater Tarantulas = {npc:505} Greater Tarantula
+	["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin.\nGreater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
 
-	-- Step 14: Alther's Mill
-	-- plural, as words: Greater Tarantulas = {npc:505} Greater Tarantula
-	["Greater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
-
-	-- Step 15: Galardell Valley
+	-- Step 31: Galardell Valley: kill these as you meet them
+	-- {area:1000} Galardell Valley
+	["{area:1000}: kill these as you meet them"] = "",
 	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
-	["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "방앗간을 지나 동쪽으로 강을 건너세요. 계곡에는 잿빛가죽 놀이 가득합니다. {npc:703}(26레벨, 당신보다 훨씬 높음)이 계곡 북쪽 끝에서 그들을 이끕니다. 호위병을 먼저 처치하고 생명력이 가득 찬 상태로 싸우세요. 남쪽의 {area:2099}에는 들어가지 마세요. 그곳의 오크는 정예입니다.",
+	["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite.\nCareful: Two gnoll guards stay with him and join the fight whenever he is attacked, even if he has wandered a short way off; other gnolls stand close by and wander through the area."] = "",
 	-- {item:1075} Shadowhide Pendant
 	["{item:1075}: any Shadowhide gnoll"] = "{item:1075}: 아무 잿빛가죽 놀",
 
-	-- Step 16: Blackrock camps
+	-- Step 33: Blackrock camps
 	["Blackrock camps"] = "",
 	-- {area:2099} Stonewatch Keep
 	["South down the valley's east side to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "",
 
-	-- Step 17: Back to Lakeshire
+	-- Step 34: Hearth to Lakeshire
+	-- {area:69} Lakeshire
+	["Hearth to {area:69}"] = "",
+
+	-- Step 35: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "{area:69}(으)로 돌아가기",
 	-- {npc:344} Magistrate Solomon
 	["{npc:344}, in the town hall"] = "{npc:344}, 마을 회관 안",
 
-	-- Step 18: Render's Valley
+	-- Step 36: Render's Valley
 	-- {area:69} Lakeshire · {area:95} Redridge Canyons · {area:997} Render's Valley
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "{area:69}에서 북쪽으로 나가 {area:95}을(를) 올라 {area:997}(으)로 가세요. 검은바위부족 용사가 계곡에 진을 치고 있습니다.",
+	-- {npc:435} Blackrock Champion
+	["{npc:435}, below ground"] = "",
 
-	-- Step 19: Corporal Keeshan
+	-- Step 37: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "키샨은 계곡 맨 북쪽 끝, {zone:1428} 경계 근처에 숨어 있습니다. 그를 호위하여 {area:69}까지 내려가세요. 가는 길에 검은바위부족 오크가 습격합니다.",
+	-- {npc:349} Corporal Keeshan
+	["{npc:349}, below ground"] = "",
 
-	-- Step 20: Lakeshire
+	-- Step 38: Lakeshire
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, 다리 남쪽 그리폰 옆",
 	-- {zone:1431} Duskwood · {area:1002} Three Corners · {area:42} Darkshire
@@ -124,10 +183,17 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "서리먹보",
+	-- ["East past the mill and across the river. Shadowhide gnolls fill the valley; {npc:703} (26, well above you) leads them at its north end: clear his escort first and fight him at full health. Stay out of {area:2099} to the south: its orcs are elite."] = "방앗간을 지나 동쪽으로 강을 건너세요. 계곡에는 잿빛가죽 놀이 가득합니다. {npc:703}(26레벨, 당신보다 훨씬 높음)이 계곡 북쪽 끝에서 그들을 이끕니다. 호위병을 먼저 처치하고 생명력이 가득 찬 상태로 싸우세요. 남쪽의 {area:2099}에는 들어가지 마세요. 그곳의 오크는 정예입니다.",
 	-- ["Fly to {area:108} and ride north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then ride east along the road through Elwynn to Redridge."] = "{area:108}(으)로 날아가 북서쪽 해안으로 가세요. {object:177790}은(는) 해안 앞바다의 바닥에 있습니다. 그런 다음 길을 따라 동쪽으로 엘윈 숲을 지나 붉은마루 산맥으로 가세요.",
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "{npc:3649}에게, {area:442}로 돌아갈 때 (06-ashenvale)",
+	-- ["Gnolls toward {area:1002}"] = "{area:1002} 쪽의 놀",
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "거대한 타란툴라는 호수 북동쪽 방앗간 주변 비탈을 기어다니고, 검은바위부족 보초병은 방앗간 자체를 차지하고 있습니다.",
+	-- ["Lake murlocs"] = "호수 멀록",
+	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "멀록 청소부와 파도술사는 다리 동쪽 남쪽 기슭에 늘어서 있습니다. 누구든 {item:1467}이나 지느러미를 지니고 있을 수 있습니다.",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "붉은마루일족 싸움꾼과 다른 놀들은 {area:1002} 동쪽, 길 북쪽의 언덕을 차지하고 있습니다. 붉은마루일족 약탈자가 그 사이를 배회하고, 밀렵꾼은 길 남쪽에 진을 치고 있습니다. 광포한 대머리수리와 큰 뿔엄니멧돼지도 같은 언덕을 돌아다닙니다.",
+	-- ["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {zone:1429}."] = "{area:442}행 배는 {area:17203}에 정박합니다. 도시로 올라가 훈련을 받고 {npc:1646}을(를) 만난 뒤, 정문으로 나가 길을 따라 동쪽으로 {zone:1429}을(를) 지나가세요.",
 	-- ["{item:3014}: any Blackrock orc"] = "{item:3014}: 아무 검은바위부족 오크",
 	-- ["{item:3014}: the Blackrock Renegades at the mill"] = "{item:3014}: 방앗간의 검은바위부족 보초병",
+	-- ["{npc:266}, by the docks"] = "{npc:266}, 부두 옆",
+	-- ["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "{npc:345}(24레벨)는 {area:69} 바로 서쪽 우리에서 땅을 파헤칩니다. 다른 멧돼지들과 떨어뜨려 끌어온 뒤 생명력이 가득 찬 상태로 싸우세요.",
 }

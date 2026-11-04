@@ -14,8 +14,13 @@
 //   on whatever the gradient: it is only climbed into (upward within
 //   CLIMB_MAX); along or down such a face one slides (a fall). Elsewhere
 //   (d the horizontal distance, slope the steeper of the two entries', at
-//   most WALK_MAX) walk or swim (either entry swim); beyond it, up to
-//   STAIR_MAX gradient, a WMO staircase is walked as a slope (LINK_SLOPE):
+//   most WALK_MAX) walk or swim (either entry swim); beyond it, between two
+//   WMO entries both at most STAIR_MAX steep, a rise of at most
+//   STEP + d * tan(the upper entry's slope), at most STEP + JUMP, is walked as
+//   a slope (LINK_SLOPE): a ramp or a stair's
+//   treads whose foot lies between the column centres (a step onto the
+//   slope, then the slope); up to STAIR_MAX gradient, a WMO staircase is
+//   walked as a slope (LINK_SLOPE):
 //   between two WMO entries, the treads in the upper one's column below it
 //   (treadRise) climb from the lower entry in rises of at most STEP; steps
 //   higher than that (the Ruins of Lordaeron's throne room into the
@@ -125,6 +130,20 @@ function linkClass(fa, sa, fb, sb, dz, h, riser = Infinity, lower = Infinity) {
 	}
 	if (adz > Math.max(STEP, h * TAN[Math.min(WALK_MAX, Math.max(sa, sb))])) {
 		if ((fa & fb & FLAG.WMO) && !((fa | fb) & FLAG.SWIM)) {
+			// Onto a walkable model slope whose foot lies between the two
+			// columns: a step of up to STEP, then the slope across the column (a
+			// stair's treads or a ramp's foot the column centres miss: the
+			// Tirisfal zeppelin tower's top flight, 2.5 yd onto a 39 degree
+			// ramp; the Ruins of Lordaeron's bell tower steps, a 0.4 yd riser and
+			// a 37 degree ramp). Only between surfaces a stair could be (both at
+			// most STAIR_MAX) and no more than STEP + JUMP in all (as steps and a
+			// jump): along a steeper model slope (a rock face, a roof) the slope
+			// rule alone decides, and a short steep face over a high riser (a tree
+			// root's 42 degree flank 2.2 yd above the floor, 3.2 yd at the column
+			// centre) is no ramp. The tower's flight turns, so its lower column is
+			// on the ramp too (38 degrees).
+			const [up, low] = dz > 0 ? [sb, sa] : [sa, sb];
+			if (Math.max(low, up) <= STAIR_MAX && adz <= Math.min(STEP + JUMP, STEP + h * TAN[up])) return LINK_SLOPE;
 			if (riser <= STEP && adz <= h * TAN_STAIR) return LINK_SLOPE;
 			// Steps higher than a stair's (rises to STEP, the top one to
 			// JUMP): steps and a jump onto the top.

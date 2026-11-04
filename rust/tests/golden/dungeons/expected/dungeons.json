@@ -1,0 +1,582 @@
+{
+	"source": {
+		"name": "DungeonJournal",
+		"addon": "ForeverDungeonJournal",
+		"title": "DungeonJournal",
+		"version": "0.0.1",
+		"author": "Fixture",
+		"license": null
+	},
+	"dungeons": [
+		{
+			"key": "ragefire-chasm",
+			"name": "Ragefire Chasm",
+			"levels": {
+				"min": 13,
+				"max": 18
+			},
+			"zone": 1454,
+			"zoneName": "Orgrimmar",
+			"entrance": {
+				"map": 1454,
+				"x": 52.4,
+				"y": 49.8,
+				"f": "l"
+			},
+			"abbreviations": [
+				"RFC"
+			],
+			"factions": [
+				"Horde"
+			],
+			"bosses": [
+				{
+					"name": "Oggleflint",
+					"npc": 11517,
+					"level": 16,
+					"rare": false,
+					"loot": []
+				},
+				{
+					"name": "Taragaman the Hungerer",
+					"npc": 11520,
+					"level": 16,
+					"rare": false,
+					"loot": [
+						{
+							"item": 14149,
+							"name": "Subterranean Cape",
+							"slot": "Back",
+							"quality": 3
+						}
+					]
+				},
+				{
+					"name": "Jergosh the Invoker",
+					"npc": 11518,
+					"level": 16,
+					"rare": false,
+					"loot": [
+						{
+							"item": 14150,
+							"name": "Robe of Evocation",
+							"slot": "Chest",
+							"quality": 2
+						}
+					]
+				},
+				{
+					"name": "Bazzalan",
+					"npc": 11519,
+					"level": 16,
+					"rare": false,
+					"loot": []
+				}
+			],
+			"quests": [
+				{
+					"id": 5728,
+					"title": "Hidden Enemies",
+					"faction": "Horde",
+					"level": 16,
+					"minLevel": 9,
+					"classes": null,
+					"xp": 1250,
+					"xpSource": "dungeonjournal",
+					"money": 1200,
+					"rewards": {
+						"items": [],
+						"choices": [
+							{
+								"item": 15443,
+								"name": "Kris of Orgrimmar",
+								"quality": 1
+							},
+							{
+								"item": 15445,
+								"name": "Hammer of Orgrimmar",
+								"quality": 1
+							}
+						]
+					},
+					"start": null,
+					"end": null,
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [
+						"Jergosh the Invoker",
+						"Bazzalan"
+					],
+					"inData": false,
+					"shareable": null,
+					"chain": [],
+					"followUps": []
+				},
+				{
+					"id": 5761,
+					"title": "Slaying the Beast",
+					"faction": "Horde",
+					"level": 16,
+					"minLevel": 9,
+					"classes": null,
+					"xp": null,
+					"xpSource": null,
+					"money": 1500,
+					"rewards": {
+						"items": [
+							{
+								"item": 14149,
+								"name": "Subterranean Cape",
+								"quality": 1
+							}
+						],
+						"choices": []
+					},
+					"start": null,
+					"end": null,
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [],
+					"inData": false,
+					"shareable": null,
+					"chain": [],
+					"followUps": []
+				},
+				{
+					"id": 790,
+					"title": "Sarkoth",
+					"faction": "Horde",
+					"level": 5,
+					"minLevel": 1,
+					"classes": null,
+					"xp": 280,
+					"xpSource": "data",
+					"money": null,
+					"rewards": {
+						"items": [],
+						"choices": []
+					},
+					"start": {
+						"map": 1411,
+						"x": 40.62,
+						"y": 62.6,
+						"f": "l",
+						"source": "data",
+						"kind": "npc",
+						"id": 3287,
+						"name": "Hana'zua"
+					},
+					"end": {
+						"map": 1411,
+						"x": 40.62,
+						"y": 62.6,
+						"f": "l",
+						"source": "data",
+						"kind": "npc",
+						"id": 3287,
+						"name": "Hana'zua"
+					},
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [],
+					"inData": true,
+					"shareable": null,
+					"chain": [],
+					"followUps": []
+				}
+			],
+			"chainQuests": {}
+		},
+		{
+			"key": "test-mine",
+			"name": "The Test Mine",
+			"levels": {
+				"min": 5,
+				"max": 10
+			},
+			"zone": 1429,
+			"zoneName": "Elwynn Forest",
+			"entrance": {
+				"map": 1429,
+				"x": 50,
+				"y": 50,
+				"f": "l"
+			},
+			"abbreviations": [],
+			"factions": [
+				"Alliance",
+				"Horde"
+			],
+			"bosses": [
+				{
+					"name": "Gnasher",
+					"npc": 990100,
+					"level": 7,
+					"rare": false,
+					"loot": [
+						{
+							"item": 990030,
+							"name": "Gnasher's Tooth",
+							"slot": "Neck",
+							"quality": 2
+						}
+					]
+				},
+				{
+					"name": "Tunnel Rat",
+					"npc": null,
+					"level": null,
+					"rare": true,
+					"loot": []
+				},
+				{
+					"name": "Foreman Grub",
+					"npc": 990101,
+					"level": {
+						"min": 9,
+						"max": 10
+					},
+					"rare": false,
+					"loot": [
+						{
+							"item": 990020,
+							"name": "Rusty Pick",
+							"slot": "Quest Item",
+							"quality": 1
+						}
+					]
+				}
+			],
+			"quests": [
+				{
+					"id": 7,
+					"title": "Kobold Camp Cleanup",
+					"faction": "Alliance",
+					"level": 2,
+					"minLevel": 1,
+					"classes": null,
+					"xp": 400,
+					"xpSource": "dungeonjournal",
+					"money": 150,
+					"rewards": {
+						"items": [],
+						"choices": [
+							{
+								"item": 159,
+								"name": "Refreshing Spring Water",
+								"quality": 1
+							},
+							{
+								"item": 750,
+								"name": "Tough Wolf Meat",
+								"quality": 2
+							}
+						]
+					},
+					"start": {
+						"map": 1429,
+						"x": 48.9,
+						"y": 41.6,
+						"f": "e",
+						"source": "data",
+						"kind": "npc",
+						"id": 197,
+						"name": "Marshal McBride"
+					},
+					"end": {
+						"map": 1429,
+						"x": 48.9,
+						"y": 41.6,
+						"f": "e",
+						"source": "data",
+						"kind": "npc",
+						"id": 197,
+						"name": "Marshal McBride"
+					},
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [],
+					"inData": true,
+					"shareable": null,
+					"chain": [
+						783
+					],
+					"followUps": []
+				},
+				{
+					"id": 990001,
+					"title": "A Ghostly Errand",
+					"faction": null,
+					"level": 7,
+					"minLevel": 5,
+					"classes": null,
+					"xp": 1100,
+					"xpSource": "dungeonjournal",
+					"money": 700,
+					"rewards": {
+						"items": [
+							{
+								"item": 990010,
+								"name": "Miner's Lantern",
+								"quality": 3
+							}
+						],
+						"choices": []
+					},
+					"start": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"source": "entrance",
+						"kind": "npc",
+						"name": "Ghostly Miner",
+						"inDungeon": true
+					},
+					"end": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"source": "entrance",
+						"kind": "npc",
+						"name": "Ghostly Miner",
+						"inDungeon": true
+					},
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [
+						"Foreman Grub"
+					],
+					"inData": false,
+					"shareable": true,
+					"chain": [],
+					"followUps": []
+				},
+				{
+					"id": 990002,
+					"title": "Lost Pick",
+					"faction": "Alliance",
+					"level": 8,
+					"minLevel": 5,
+					"classes": null,
+					"xp": 900,
+					"xpSource": "dungeonjournal",
+					"money": null,
+					"rewards": {
+						"items": [],
+						"choices": []
+					},
+					"start": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"kind": "item",
+						"item": 990020,
+						"name": "Rusty Pick",
+						"source": "entrance",
+						"inDungeon": true
+					},
+					"end": {
+						"map": 1429,
+						"x": 42,
+						"y": 65,
+						"f": "l",
+						"source": "dj",
+						"kind": "npc",
+						"name": "Old Miner"
+					},
+					"startItem": {
+						"item": 990020,
+						"name": "Rusty Pick"
+					},
+					"startBoss": "Foreman Grub",
+					"startNear": null,
+					"bosses": [],
+					"inData": false,
+					"shareable": null,
+					"chain": [],
+					"followUps": []
+				},
+				{
+					"id": 990003,
+					"title": "Miner's Request",
+					"faction": "Alliance",
+					"level": 6,
+					"minLevel": 1,
+					"classes": null,
+					"xp": null,
+					"xpSource": null,
+					"money": null,
+					"rewards": {
+						"items": [],
+						"choices": []
+					},
+					"start": {
+						"map": 1429,
+						"x": 42,
+						"y": 65,
+						"f": "l",
+						"source": "dj",
+						"kind": "npc",
+						"name": "Old Miner"
+					},
+					"end": {
+						"map": 1429,
+						"x": 42,
+						"y": 65,
+						"f": "l",
+						"source": "dj",
+						"kind": "npc",
+						"name": "Old Miner"
+					},
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [],
+					"inData": false,
+					"shareable": null,
+					"chain": [
+						783
+					],
+					"followUps": []
+				},
+				{
+					"id": 990004,
+					"title": "Grub's End",
+					"faction": "Horde",
+					"level": 9,
+					"minLevel": 5,
+					"classes": null,
+					"xp": 800,
+					"xpSource": "dungeonjournal",
+					"money": null,
+					"rewards": {
+						"items": [],
+						"choices": []
+					},
+					"start": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"source": "entrance",
+						"kind": "npc",
+						"name": "Ghostly Miner",
+						"inDungeon": true
+					},
+					"end": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"source": "entrance",
+						"kind": "npc",
+						"name": "Ghostly Miner",
+						"inDungeon": true
+					},
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [
+						"Foreman Grub"
+					],
+					"inData": false,
+					"shareable": null,
+					"chain": [],
+					"followUps": []
+				},
+				{
+					"id": 990005,
+					"title": "Hidden Side Errand",
+					"faction": "Horde",
+					"level": 9,
+					"minLevel": 5,
+					"classes": null,
+					"xp": null,
+					"xpSource": null,
+					"money": null,
+					"rewards": {
+						"items": [],
+						"choices": []
+					},
+					"start": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"source": "entrance",
+						"kind": "npc",
+						"name": "Ghostly Miner",
+						"inDungeon": true
+					},
+					"end": {
+						"map": 1429,
+						"x": 50,
+						"y": 50,
+						"f": "l",
+						"source": "entrance",
+						"kind": "npc",
+						"name": "Ghostly Miner",
+						"inDungeon": true
+					},
+					"startItem": null,
+					"startBoss": null,
+					"startNear": null,
+					"bosses": [],
+					"inData": false,
+					"shareable": null,
+					"chain": [],
+					"followUps": [],
+					"hidden": true
+				}
+			],
+			"chainQuests": {
+				"783": {
+					"id": 783,
+					"title": "A Threat Within",
+					"faction": "Alliance",
+					"level": 1,
+					"minLevel": 1,
+					"classes": null,
+					"xp": null,
+					"xpSource": null,
+					"money": null,
+					"rewards": {
+						"items": [],
+						"choices": []
+					},
+					"start": {
+						"map": 1429,
+						"x": 48.2,
+						"y": 42.9,
+						"f": "e",
+						"source": "data",
+						"kind": "npc",
+						"id": 823,
+						"name": "Deputy Willem"
+					},
+					"end": {
+						"map": 1429,
+						"x": 48.9,
+						"y": 41.6,
+						"f": "e",
+						"source": "data",
+						"kind": "npc",
+						"id": 197,
+						"name": "Marshal McBride"
+					},
+					"startItem": null,
+					"inData": true,
+					"shareable": null
+				}
+			}
+		}
+	]
+}

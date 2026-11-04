@@ -5,7 +5,7 @@
 // real reference data, the last located goal before the target must be a
 // `goto` at the mouth, and the step's tip must say the target is underground.
 //
-// Needs data/forever (node tools/polestar.js data build); skips without it.
+// Needs data/forever (forge data build); skips without it.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -23,7 +23,7 @@ const CASES = [
 		// Verium: the arrow sent him onto the hill above the Fargodeep Mine.
 		guide: 'forever/alliance/human/01-elwynn-forest.guide',
 		target: (g) => g.t === 'collect' && g.item === 981, // Bernice's Necklace, from Goldtooth
-		mouth: { map: 1429, x: 39.5, y: 82.4 }, // Wowhead quest 87/62 comments: "Enter mine 39 82", "Enter is on 39 83"
+		mouth: { map: 1429, x: 39.5, y: 82.4 }, // players' reports (quests 87, 62) put the entrance near 39.5,82.4
 		tip: /inside the Fargodeep Mine/,
 	},
 	{
@@ -33,13 +33,13 @@ const CASES = [
 		mouth: { map: 1440, x: 14.5, y: 14.2 }, // the client's Blackfathom Deeps entrance, the ruins' pit
 		tip: /tunnels leading to the Blackfathom Deeps portal/,
 	},
-	{
+	...['dwarf', 'gnome'].map((race) => ({
 		// Turesh: in Coldridge Valley the arrow pointed above ground, at Grik'nir inside the troll cave.
-		guide: 'forever/alliance/dwarf-gnome/01-dun-morogh.guide',
+		guide: `forever/alliance/${race}/01-dun-morogh.guide`,
 		target: (g) => g.t === 'collect' && g.item === 2004, // Grelin Whitebeard's Journal, from Grik'nir the Cold
 		mouth: { map: 1426, x: 26.93, y: 80.03 }, // marked in game (PR #16)
 		tip: /inside the troll cave/,
-	},
+	})),
 	{
 		// Onrevax (#392): the Whispering Elixir bottles are in the basement under Shadowvale's ruined house.
 		guide: 'forever/horde/undead/01-tirisfal-glades.guide',
@@ -70,7 +70,9 @@ for (const c of CASES) {
 		const goals = compiled(c.guide).steps.flatMap((step) => step.goals.map((goal) => ({ step, goal })));
 		const at = goals.findIndex(({ goal }) => c.target(goal));
 		assert.ok(at > 0, 'the target goal is in the guide');
-		const before = goals.slice(0, at).reverse().find(({ goal }) => goal.map != null && goal.x != null);
+		// (Other work of the target's own step, done in the same basement after the mouth's goto, is
+		// not a waypoint on the way in: the Shadowvale step's bottles before a Paladin's bones.)
+		const before = goals.slice(0, at).reverse().find(({ step, goal }) => goal.map != null && goal.x != null && (step !== goals[at].step || goal.t === 'goto'));
 		assert.ok(before, 'a located goal comes before the target');
 		const { t, map, x, y } = before.goal;
 		assert.deepEqual({ t, map, x, y }, { t: 'goto', ...c.mouth }, `the waypoint before "${goals[at].step.title}" is the mouth`);

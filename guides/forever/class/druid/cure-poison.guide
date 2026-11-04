@@ -2,7 +2,7 @@ guide forever/class/druid/cure-poison
 title Cure Poison
 category Class
 folder Druid
-keywords Cure Poison, Lessons Anew, The Principal Source, Gathering the Cure, Curing the Sick, Power over Poison, Sickly Deer, Sickly Gazelle, Moonglade, class quest
+keywords Cure Poison, Lessons Anew, The Principal Source, Gathering the Cure, Curing the Sick, Power over Poison, Sickly Deer, Sickly Gazelle, Cliffspring Falls, Dreadmist Peak, Lunar Fungus, Earthroot, Kodo Horn, Alfina Nightgaze, Hana Lighthoof, Skyborne, Moonglade, class quest
 reward spell 8946 "Cure Poison"
 reward item 15866
 why Cure Poison is no longer trained in Forever: this chain teaches it, with a medicine bag on the way.
@@ -11,139 +11,157 @@ levels 14-20
 zone Moonglade
 
 # Cure Poison: in Forever the spell is no longer trained, Power over Poison
-# (6125 Night Elf, 6130 Tauren) rewards it (Wowhead Forever's druid class
-# page: "Rewards: adds Cure Poison").
-# - Night Elves: Lessons Anew (6121, Mathrengyl Bearwalker) -> Dendrite
-#   Starblaze in Moonglade -> The Principal Source (6122: fill the sampler at
-#   Cliffspring Falls) -> Alanndarian Nightsong in Auberdine: Gathering the
-#   Cure (6123: 5 Earthroot, 12 Lunar Fungus) and Curing the Sick (6124: ten
-#   Sickly Deer) -> Dendrite -> Power over Poison (6125) back to Mathrengyl.
-# - Tauren: Lessons Anew (6126, Turak Runetotem) -> Dendrite -> The Principal
-#   Source (6127: Dreadmist Peak) -> Tonga Runetotem at the Crossroads:
-#   Gathering the Cure (6128: 5 Earthroot, 5 Kodo Horns) and Curing the Sick
-#   (6129: ten Sickly Gazelles) -> Dendrite -> Power over Poison (6130) back
-#   to Turak.
-# Earthroot needs Herbalism to pick (the quest text says so); herb vendors
-# sell it in limited stock (Wowhead Forever, item 2449: Maria Lumere in
-# Stormwind six at a time, Hula'mahi at the Crossroads three), else the
-# Auction House.
-# Skyborne: Forever added Lessons Anew givers beside both Skyborne landings
-# (Alfina Nightgaze west of Dalaran, Hana Lighthoof in northern Mulgore), but
-# the data offered the rest of the chain to Night Elves and Tauren only.
-# Wowhead Forever opens the Alliance chain (6121-6125) to Skyborne druids
-# (corrections.json, checked 2026-10-16); this guide has no Skyborne steps
-# yet.
+# (6125 Alliance, 6130 Horde) rewards it (Forever's druid class quest list:
+# "Rewards: adds Cure Poison").
+# - Night Elves and Alliance Skyborne: Lessons Anew (6121: Mathrengyl
+#   Bearwalker in Darnassus, or Alfina Nightgaze beside the Skyborne Portal
+#   west of Dalaran) -> Dendrite Starblaze in Moonglade -> The Principal
+#   Source (6122: fill the sampler at Cliffspring Falls) -> Alanndarian
+#   Nightsong in Auberdine: Gathering the Cure (6123: 5 Earthroot, 12 Lunar
+#   Fungus) and Curing the Sick (6124: ten Sickly Deer) -> Dendrite -> Power
+#   over Poison (6125) back to Mathrengyl.
+# - Tauren and Horde Skyborne: Lessons Anew (6126: Turak Runetotem in Thunder
+#   Bluff, or Hana Lighthoof in northern Mulgore by the Skyborne landing) ->
+#   Dendrite -> The Principal Source (6127: Dreadmist Peak) -> Tonga
+#   Runetotem at the Crossroads: Gathering the Cure (6128: 5 Earthroot, 5
+#   Kodo Horns) and Curing the Sick (6129: ten Sickly Gazelles) -> Dendrite
+#   -> Power over Poison (6130) back to Turak.
+# Skyborne: quests.json opens 6121-6125 to Alliance Skyborne (a correction);
+# the server race mask in the KB (EG) also opens 6126-6130 to Horde Skyborne
+# (forever-db/corrections/quests.json, this branch).
+# Earthroot needs Herbalism to pick (the quest text says so); vendors sell it
+# (Forever's quest notes: Hula'mahi at the Crossroads, 80 copper each, three
+# at a time until he restocks; Maria Lumere and Bernard Gump in Stormwind),
+# else the Auction House.
+# Gotchas from Forever's quest notes: the samplers call naga (Stormscale Wave
+# Rider and Toxicologist, level 15) or three Burning Blade Toxicologists
+# (level 13-14); the salve has ten doses and only works on living animals
+# (abandon and retake for a new one); Entangling Roots then the salve counts
+# twice when the roots kill the animal; the Lunar Fungal Blooms (20 spawns,
+# 3 min) give one or two each.
 # Sources: quests.json, npcs.json, objects.json and items.json (Questie
-# 12.1.0, Forever); Wowhead Forever quest 6123 (the Lunar Fungal Blooms grow in
-# the moonkin caves east of Auberdine) and item 2449 (Earthroot vendors).
+# 12.1.0, Forever); Forever's quest data for quest 6123 (the Lunar Fungal
+# Blooms grow in the moonkin caves east of Auberdine) and item 2449.
 
-# ---------------------------------------------------------------- Night Elves
+# ---------------------------------------------------------------- Night Elves and Alliance Skyborne
 
 step Lessons Anew
   only NightElf
   zone Darnassus
-  tip Mathrengyl Bearwalker stands in the Cenarion Enclave.
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
   level 14
   accept 6121 npc 4217                  -- Mathrengyl Bearwalker
 
+step Lessons Anew
+  only Skyborne,Alliance
+  zone Alterac Mountains
+  tip Alfina Nightgaze, the Skyborne druid trainer, stands beside the Skyborne Portal west of Dalaran (Mathrengyl Bearwalker in Darnassus gives the same quest). No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
+  level 14
+  accept 6121 npc 270459                -- Alfina Nightgaze
+
 step Dendrite Starblaze
-  only NightElf
+  only NightElf,Skyborne,Alliance
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven. Then fly to Auberdine.
+  tip Cast Teleport: Moonglade: Dendrite Starblaze stands upstairs in the building beside you. He hands you the Empty Cliffspring Falls Sampler. Then fly to Auberdine (learn the Moonglade flight path at Sindrayl first if you have not).
   turnin 6121                           -- Dendrite Starblaze
   accept 6122
   fly "Auberdine"
 
 step Cliffspring Falls
-  only NightElf
+  only NightElf,Skyborne,Alliance
   zone Darkshore
-  tip Head north-east from Auberdine to Cliffspring Falls and fill the Empty Cliffspring Falls Sampler at the mouth of the cave by the falls.
+  tip Head north-east from Auberdine to Cliffspring Falls. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the Empty Cliffspring Falls Sampler (not the Empty Sampling Tube of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight.
+  use 15844 @54.9,33.3                  -- Empty Cliffspring Falls Sampler, at the cave mouth
   collect 15845 quest 6122.1            -- Filled Cliffspring Falls Sampler
 
 step Alanndarian Nightsong
-  only NightElf
-  tip Back in Auberdine.
+  only NightElf,Skyborne,Alliance
+  tip Back in Auberdine, at the north end of the village.
   turnin 6122                           -- Alanndarian Nightsong
   accept 6123
 
 step Lunar Fungus and Earthroot
-  only NightElf
-  tip The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of Auberdine; the moonkin there are irritable. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else buys it from Maria Lumere (Alchemy Supplies) in Stormwind or on the Auction House.
+  only NightElf,Skyborne,Alliance
+  tip The Lunar Fungal Blooms are tiny white-spotted mushrooms on the floors and walls of the small moonkin caves in the hills just east and south-east of Auberdine; each gives one or two fungus, and each cave holds only a few, so go from cave to cave (they regrow in three minutes). The moonkin there are irritable. No Herbalism needed for the blooms. Earthroot needs Herbalism: herbalists pick it all over Darkshore, anyone else buys it (Maria Lumere or Bernard Gump in Stormwind, or the Auction House).
   collect 15851 x12 quest 6123.2        -- Lunar Fungus
   collect 2449 x5 quest 6123.1          -- Earthroot
 
 step Alanndarian Nightsong
-  only NightElf
+  only NightElf,Skyborne,Alliance
+  tip She hands you the Curative Animal Salve: ten doses, one per deer. Destroy any leftover Lunar Fungus.
   turnin 6123                           -- Alanndarian Nightsong
   accept 6124
 
 step Sickly Deer
-  only NightElf
-  tip Use the Curative Animal Salve on Sickly Deer. They roam Darkshore from the Cliffspring River in the north to the Ashenvale border in the south.
+  only NightElf,Skyborne,Alliance
+  tip Use the Curative Animal Salve on living Sickly Deer (level 5, a green cloud over them): they roam Darkshore from the Cliffspring River to the Ashenvale border, many around the Blackwood furbolg camp north-east of Auberdine. Druid trick: root a deer with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from Alanndarian for a fresh salve.
   kill 12298 quest 6124.1               -- Sickly Deer: use the salve on them
 
 step Curing the Sick
-  only NightElf
+  only NightElf,Skyborne,Alliance
   zone Moonglade
-  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then fly to Rut'theran Village and take the portal up to Darnassus.
+  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed) and the portal up to Darnassus.
   turnin 6124                           -- Dendrite Starblaze
   accept 6125
   fly "Rut'theran Village"
 
 step Power over Poison
-  only NightElf
+  only NightElf,Skyborne,Alliance
   zone Darnassus
+  tip Mathrengyl Bearwalker, upstairs in the Cenarion Enclave, teaches you Cure Poison.
   turnin 6125                           -- Mathrengyl Bearwalker: Cure Poison
 
-# ---------------------------------------------------------------- Tauren
+# ---------------------------------------------------------------- Tauren and Horde Skyborne
 
 step Lessons Anew
-  only Tauren
+  only Tauren,Skyborne,Horde
   zone Thunder Bluff
-  tip Turak Runetotem stands on Elder Rise.
+  tip Turak Runetotem stands in the druids' hut on Elder Rise; Hana Lighthoof, the Skyborne druid trainer where the airship from Zephras Isle lands in northern Mulgore, gives the same quest. No Herbalism? Hula'mahi at the Crossroads sells Earthroot later, or buy five on the Auction House now.
   level 14
-  accept 6126 npc 3033                  -- Turak Runetotem
+  accept 6126                           -- Turak Runetotem, or Hana Lighthoof in northern Mulgore
 
 step Dendrite Starblaze
-  only Tauren
+  only Tauren,Skyborne,Horde
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven. Bunthen Plainswind flies druids to Thunder Bluff; fly on to the Crossroads from there.
+  tip Cast Teleport: Moonglade: Dendrite Starblaze stands upstairs in the building beside you. He hands you the Empty Dreadmist Peak Sampler. Bunthen Plainswind flies druids to Thunder Bluff; fly on to the Crossroads from there.
   turnin 6126                           -- Dendrite Starblaze
   accept 6127
   fly "Thunder Bluff"
 
 step Dreadmist Peak
-  only Tauren
+  only Tauren,Skyborne,Horde
   zone The Barrens
-  tip From the Crossroads head north to Dreadmist Peak and fill the Empty Dreadmist Peak Sampler at the Dreadmist Peak Pool.
+  tip From the Crossroads head north to Dreadmist Peak and climb to the bubbling Dreadmist Peak Pool on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the Empty Dreadmist Peak Sampler: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run.
   fly "Crossroads"
+  use 15842 @48.4,18.9                  -- Empty Dreadmist Peak Sampler, standing in the pool
   collect 15843 quest 6127.1            -- Filled Dreadmist Peak Sampler
 
 step Tonga Runetotem
-  only Tauren
-  tip Tonga Runetotem stands in the Crossroads. No Herbalism? Hula'mahi, a few steps away, sells Earthroot, three at a time until he restocks.
+  only Tauren,Skyborne,Horde
+  tip Tonga Runetotem stands in the Crossroads. No Herbalism? Hula'mahi, a few steps away by the wind rider master, sells Earthroot for 80 copper each, three at a time until he restocks.
   turnin 6127                           -- Tonga Runetotem
   accept 6128
   buy 2449 x5 npc 3490 optional         -- Earthroot; herbalists pick it on the plains
 
 step Earthroot and Kodo Horns
-  only Tauren
-  tip Lost Barrens Kodos roam the plains north and west of the Crossroads and around the Stagnant Oasis; each drops a horn. Herbalists find Earthroot all over the northern Barrens.
+  only Tauren,Skyborne,Horde
+  tip Every Lost Barrens Kodo (level 14-15) drops a horn, but they are few and wander: search the far north near the Sludge Fen and the oases, above all the Stagnant Oasis south-east of the Crossroads. They charge from range and stomp. Herbalists find Earthroot all over the northern Barrens.
   collect 15852 x5 quest 6128.2         -- Kodo Horn
   collect 2449 x5 quest 6128.1          -- Earthroot
 
 step Tonga Runetotem
-  only Tauren
+  only Tauren,Skyborne,Horde
+  tip He hands you the Curative Animal Salve: ten doses, one per gazelle.
   turnin 6128                           -- Tonga Runetotem
   accept 6129
 
 step Sickly Gazelles
-  only Tauren
-  tip Use the Curative Animal Salve on Sickly Gazelles: they graze north of the road that runs east and west through the Crossroads.
+  only Tauren,Skyborne,Horde
+  tip Use the Curative Animal Salve on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the Ashenvale border, north-west of the Crossroads and west of Ratchet. Druid trick: root a gazelle with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from Tonga for a fresh salve.
   kill 12296 quest 6129.1               -- Sickly Gazelle: use the salve on them
 
 step Curing the Sick
-  only Tauren
+  only Tauren,Skyborne,Horde
   zone Moonglade
   tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Bunthen Plainswind's flight to Thunder Bluff.
   turnin 6129                           -- Dendrite Starblaze
@@ -151,6 +169,7 @@ step Curing the Sick
   fly "Thunder Bluff"
 
 step Power over Poison
-  only Tauren
+  only Tauren,Skyborne,Horde
   zone Thunder Bluff
+  tip Turak Runetotem on Elder Rise teaches you Cure Poison.
   turnin 6130                           -- Turak Runetotem: Cure Poison

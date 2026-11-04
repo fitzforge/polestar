@@ -1,0 +1,26 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70450",
+	"session": "u",
+	"char": {
+		"name": "Other",
+		"realm": "Fixture",
+		"race": "Orc",
+		"class": "MAGE",
+		"faction": "Horde"
+	},
+	"started": 300,
+	"ended": 400,
+	"events": [
+		{
+			"t": 1,
+			"e": "trainer",
+			"npc": 5884,
+			"npcName": "Mai'ah",
+			"map": 1411,
+			"x": 42.5,
+			"y": 69
+		}
+	],
+	"maps": {}
+}

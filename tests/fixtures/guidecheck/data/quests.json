@@ -1,0 +1,481 @@
+{
+	"38": {
+		"id": 38,
+		"title": "Westfall Stew",
+		"level": 13,
+		"minLevel": 9,
+		"races": 4294967373,
+		"classes": null,
+		"start": {
+			"npc": [
+				235
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				235
+			],
+			"object": []
+		},
+		"pre": [
+			36
+		],
+		"excl": [],
+		"next": null,
+		"objectives": [
+			{
+				"type": "item",
+				"id": 729,
+				"count": 3,
+				"text": "Stringy Vulture Meat"
+			},
+			{
+				"type": "item",
+				"id": 730,
+				"count": 3,
+				"text": "Murloc Eye"
+			},
+			{
+				"type": "item",
+				"id": 731,
+				"count": 3,
+				"text": "Goretusk Snout"
+			},
+			{
+				"type": "item",
+				"id": 732,
+				"count": 3,
+				"text": "Okra"
+			}
+		],
+		"objectiveText": "Salma Saldean wants 3 Stringy Vulture Meat, 3 Goretusk Snouts, 3 Murloc Eyes, 3 Okra.",
+		"zone": 1436,
+		"xp": 910,
+		"skill": null,
+		"event": null,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		],
+		"preAny": [
+			36
+		],
+		"area": 40,
+		"web": {
+			"zone": 40,
+			"type": 0,
+			"side": 1,
+			"choices": [],
+			"items": [
+				[
+					733,
+					3
+				],
+				[
+					728,
+					1
+				],
+				[
+					1479,
+					1
+				],
+				[
+					2225,
+					1
+				]
+			],
+			"money": 0,
+			"rep": [
+				[
+					72,
+					100
+				]
+			]
+		}
+	},
+	"103": {
+		"id": 103,
+		"title": "Keeper of the Flame",
+		"level": 16,
+		"minLevel": 10,
+		"races": null,
+		"classes": null,
+		"start": {
+			"npc": [
+				392
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				392
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": null,
+		"objectives": [
+			{
+				"type": "item",
+				"id": 814,
+				"count": 5,
+				"text": "Flask of Oil"
+			}
+		],
+		"objectiveText": "Bring 5 Flasks of Oil to Captain Grayson at the Westfall Lighthouse.",
+		"zone": 1436,
+		"xp": 1150,
+		"skill": null,
+		"event": null,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		],
+		"area": 40,
+		"web": {
+			"zone": 40,
+			"type": 0,
+			"side": 3,
+			"choices": [
+				[
+					2455,
+					3
+				],
+				[
+					118,
+					3
+				]
+			],
+			"items": [
+				[
+					955,
+					1
+				],
+				[
+					1180,
+					1
+				]
+			],
+			"money": 600,
+			"rep": []
+		}
+	},
+	"784": {
+		"id": 784,
+		"title": "Vanquish the Betrayers",
+		"level": 7,
+		"minLevel": 3,
+		"races": 8589934770,
+		"classes": null,
+		"start": {
+			"npc": [
+				3139
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				3139
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": 825,
+		"objectives": [
+			{
+				"type": "kill",
+				"id": 3128,
+				"count": 10,
+				"text": "Kul Tiras Sailor"
+			},
+			{
+				"type": "kill",
+				"id": 3129,
+				"count": 8,
+				"text": "Kul Tiras Marine"
+			},
+			{
+				"type": "kill",
+				"id": 3192,
+				"count": 1,
+				"text": "Lieutenant Benedict"
+			}
+		],
+		"objectiveText": "Kill 10 Kul Tiras Sailors, 8 Kul Tiras Marines and Lieutenant Benedict and return to Gar'Thok in Razor Hill.",
+		"zone": 1411,
+		"xp": 630,
+		"skill": null,
+		"event": null,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		],
+		"area": 14,
+		"web": {
+			"zone": 14,
+			"type": 0,
+			"side": 2,
+			"choices": [],
+			"items": [],
+			"money": 175,
+			"rep": [
+				[
+					76,
+					100
+				],
+				[
+					530,
+					100
+				]
+			]
+		}
+	},
+	"830": {
+		"id": 830,
+		"title": "The Admiral's Orders",
+		"level": 7,
+		"minLevel": 1,
+		"races": 8589934770,
+		"classes": null,
+		"start": {
+			"npc": [],
+			"object": [],
+			"item": [
+				4881
+			]
+		},
+		"end": {
+			"npc": [
+				3139
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": 831,
+		"objectives": [],
+		"objectiveText": "Take Admiral Proudmoore's Orders to Gar'Thok in Razor Hill.",
+		"zone": 1411,
+		"xp": 630,
+		"skill": null,
+		"event": null,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		],
+		"sourceItem": 4883,
+		"area": 14,
+		"web": {
+			"zone": 14,
+			"type": 0,
+			"side": 2,
+			"choices": [],
+			"items": [],
+			"money": 0,
+			"rep": [
+				[
+					76,
+					100
+				],
+				[
+					530,
+					100
+				]
+			]
+		}
+	},
+	"883": {
+		"id": 883,
+		"title": "Lakota'mani",
+		"level": 22,
+		"minLevel": 10,
+		"races": 8589934770,
+		"classes": null,
+		"start": {
+			"npc": [],
+			"object": [],
+			"item": [
+				5099
+			]
+		},
+		"end": {
+			"npc": [
+				3387
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": null,
+		"objectives": [],
+		"objectiveText": "Bring the Hoof of Lakota'mani to Jorn at Camp Taurajo.",
+		"zone": 1413,
+		"xp": 1300,
+		"skill": null,
+		"event": null,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		],
+		"sourceItem": 5099,
+		"area": 17,
+		"web": {
+			"zone": 17,
+			"type": 0,
+			"side": 2,
+			"choices": [],
+			"items": [],
+			"money": 0,
+			"rep": [
+				[
+					81,
+					75
+				]
+			]
+		}
+	},
+	"1505": {
+		"id": 1505,
+		"title": "Veteran Uzzek",
+		"level": 10,
+		"minLevel": 10,
+		"races": 8589934770,
+		"classes": 1,
+		"start": {
+			"npc": [
+				3041,
+				3063,
+				3169,
+				3354
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				5810
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [
+			1818,
+			1819
+		],
+		"next": 1498,
+		"objectives": [],
+		"objectiveText": "Speak with Uzzek at Far Watch Post.",
+		"zone": 1412,
+		"xp": 85,
+		"skill": null,
+		"event": null,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		],
+		"breadcrumbFor": 1498,
+		"web": {
+			"zone": -81,
+			"type": 0,
+			"side": 2,
+			"choices": [],
+			"items": [],
+			"money": 0,
+			"rep": []
+		}
+	},
+	"82208": {
+		"id": 82208,
+		"title": "Greater Friend of the Library",
+		"level": 45,
+		"minLevel": 35,
+		"races": 4294967373,
+		"classes": null,
+		"start": {
+			"npc": [
+				211033
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				211022,
+				211033
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": null,
+		"objectives": [],
+		"objectiveText": null,
+		"zone": 1453,
+		"xp": 390,
+		"skill": null,
+		"event": null,
+		"source": [
+			"questie-forever",
+			"kb:eg:min_level",
+			"kb:eg:xp"
+		]
+	},
+	"91738": {
+		"id": 91738,
+		"title": "An Apple Treat",
+		"level": 10,
+		"minLevel": 7,
+		"races": 4294967373,
+		"classes": null,
+		"start": {
+			"npc": [
+				955
+			],
+			"object": [],
+			"item": []
+		},
+		"end": {
+			"npc": [
+				955
+			],
+			"object": []
+		},
+		"pre": [],
+		"excl": [],
+		"next": null,
+		"objectives": [
+			{
+				"type": "item",
+				"id": 247824,
+				"count": 1,
+				"text": "Thunder Applejack"
+			}
+		],
+		"objectiveText": null,
+		"zone": 1429,
+		"xp": 625,
+		"skill": null,
+		"event": null,
+		"source": [
+			"questie-forever",
+			"webdb:xp",
+			"kb:eg:count"
+		],
+		"area": 12,
+		"web": {
+			"zone": 12,
+			"type": 0,
+			"side": 1,
+			"choices": [],
+			"items": [],
+			"money": 250,
+			"rep": []
+		}
+	}
+}

@@ -2,19 +2,19 @@ guide forever/collectibles/pets/xantish
 title Xan'tish's Snakes
 category Collectibles
 folder Companion pets · Vendors
-keywords Xan'tish, Black Kingsnake, Brown Snake, Crimson Snake, Jungle Boa, snake
+keywords Xan'tish, Black Kingsnake, Brown Snake, Crimson Snake, Jungle Boa, snake, Valley of Spirits
 collects 10360, 10361, 10392, 280703
 faction Horde
 levels 1-60
 zone Orgrimmar
 
 # Xan'tish's snakes in Orgrimmar.
-# Sources: items.json / npcs.json (vendor, three snakes; the new Jungle Boa); Forever client
-# 1.60.1.70338 via wago.tools (ItemSparse prices; every pet item teaches its
-# companion when used).
+# Sources: items.json / npcs.json (vendor, three snakes; the new Jungle Boa);
+# the world database (his walking path, Classic data); Forever's client data
+# (ItemSparse prices; every pet item teaches its companion when used).
 
 step Xan'tish
-  tip Xan'tish sells four snakes in Orgrimmar (50s each); the Jungle Boa is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Xan'tish, the snake vendor, walks with his three snakes: from the Valley of Spirits north along the city's west side to the battleground emissaries and back. The waypoint is where his walk starts; if he is not there, follow the road north. He sells four snakes (50s each); the Jungle Boa is new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 8404                         -- Xan'tish
   buy 10360 npc 8404 optional         -- Black Kingsnake, 50s
   buy 10361 npc 8404 optional         -- Brown Snake, 50s

@@ -1,0 +1,21 @@
+{
+	"3239": {
+		"id": 3239,
+		"name": "Benedict's Chest",
+		"spawns": {
+			"1411": {
+				"f": "e",
+				"pts": [
+					[
+						59.26,
+						57.65
+					]
+				]
+			}
+		},
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	}
+}

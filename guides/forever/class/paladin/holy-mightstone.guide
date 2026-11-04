@@ -4,73 +4,93 @@ category Class
 class Paladin
 folder Paladin
 faction Alliance
+race Human, Dwarf
 levels 50-56
 zone Stormwind City
-keywords Chillwind Point, Dispelling Evil, Inert Scourgestones, Forging the Mightstone, Holy Mightstone, Commander Ashlam Valorfist, High Priest Thel'danis, Lord Grayson Shadowbreaker, Brandur Ironhammer, Minion's Scourgestone, Voodoo Feather, Sunken Temple, Paladin, class quest
+keywords Chillwind Point, Dispelling Evil, Inert Scourgestones, Forging the Mightstone, Holy Mightstone, Commander Ashlam Valorfist, High Priest Thel'danis, Lord Grayson Shadowbreaker, Brandur Ironhammer, Argent Dawn Commission, Argent Officer Pureheart, Minion's Scourgestone, Voodoo Feather, Sunken Temple, Temple of Atal'Hakkar, Paladin, class quest
 collects 20620
 reward item 20620
-why A one-use stone that makes you much stronger against undead for 10 minutes; the old choice rewards are gone.
+why A one-use stone that makes you much stronger against undead for 10 minutes; the old item choice may be gone in Forever.
 
 # The level 52 Paladin chain: Chillwind Point (8415) from Lord Grayson
 # Shadowbreaker in Stormwind or Brandur Ironhammer in Ironforge, Dispelling
 # Evil (8414), Inert Scourgestones (8416) and Forging the Mightstone (8418).
 # Titled after its reward, the Holy Mightstone (one use, ten minutes against
-# the undead: Wowhead Classic's item tooltip, wowhead.com/classic/item=20620);
-# the quest name stays in keywords.
-# Sources: quests.json, npcs.json and items.json for givers, enders,
-# objectives and the droppers of the Minion's Scourgestones and the Voodoo
-# Feathers; Wowhead Forever's Paladin class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards: the Holy
-# Mightstone, and Forever's change note on 8418, "Rewards: no longer Choice of
-# Chivalrous Signet, Choice of Lightforged Blade, Choice of Sanctified Orb".
+# the undead: the classic item data, item 20620); the quest name stays in
+# keywords.
+# Sources: Forever's quest data (quests.json, the knowledge base) for givers,
+# enders, objectives, mob levels and the drop rates (Minion's Scourgestones
+# about two kills in five from the Western Plaguelands Scourge, 42-48%; each
+# Voodoo Feather every time from its troll); Forever's Paladin class quest list
+# (data/local/quest-audit/): its change note on 8418 says "Rewards: no longer
+# Choice of Chivalrous Signet, Choice of Lightforged Blade, Choice of
+# Sanctified Orb", but the same list and Forever's quest page still list the
+# three choices (20504, 20512, 20505) beside the Holy Mightstone: unconfirmed,
+# so the guide promises the stone and calls the choice uncertain; players'
+# notes in Forever's quest data for the Argent Dawn
+# Commission (the Scourgestones drop only while it is equipped; Argent Officer
+# Pureheart's quest, 5401, hands it over at once), Sorrow Hill as the place
+# to farm and the six trolls on the balconies of the temple's great room.
 # The Sunken Temple entrance (Swamp of Sorrows 69.9,53.6) is the one
 # forever/alliance/40-50/07-un-goro-crater uses.
-# The Voodoo Feathers drop from the elite troll bosses of the Sunken Temple
-# (Zolo, Gasher, Loro, Hukku, Zul'Lor, Mijan), a level 50 dungeon: bring a
-# group.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, so nothing here has been checked in game.
+# INGAME: does Forging the Mightstone (8418) still offer the Chivalrous Signet, Lightforged Blade or Sanctified Orb beside the Holy Mightstone on Forever, or only the stone?
+# ASSUMED: The six troll minibosses and their feathers are where they were in Classic, on the balconies around the Sunken Temple's great room (Classic flow; Forever's data has no spawns inside the temple). In-game check: the first Sunken Temple run at 50.
+# Based on data, not play: the beta capped at level 30 until launch on
+# 4 November.
 
 step Lord Grayson Shadowbreaker
   only Human
   zone Stormwind City
-  tip Lord Grayson Shadowbreaker is in the Cathedral of Light.
+  tip At 50 Lord Grayson Shadowbreaker, the paladin trainer in the Cathedral of Light, sends you to Chillwind Camp in the Western Plaguelands. Brandur Ironhammer in Ironforge gives the same quest.
   level 50
   accept 8415 npc 928                 -- Lord Grayson Shadowbreaker
 
 step Brandur Ironhammer
   only Dwarf
   zone Ironforge
-  tip Brandur Ironhammer is in the Mystic Ward.
+  tip At 50 Brandur Ironhammer, the paladin trainer in the Mystic Ward, sends you to Chillwind Camp in the Western Plaguelands. Lord Grayson Shadowbreaker in Stormwind gives the same quest.
   level 50
   accept 8415 npc 5149                -- Brandur Ironhammer
 
 step Chillwind Camp
   zone Western Plaguelands
-  tip Commander Ashlam Valorfist commands Chillwind Camp in the south of the Western Plaguelands.
+  tip Chillwind Camp is the Alliance camp at the south end of the Western Plaguelands, north of the Alterac foothills. Commander Ashlam Valorfist commands it; Argent Officer Pureheart stands in the same camp.
   turnin 8415                         -- Commander Ashlam Valorfist
   accept 8414
 
+step The Argent Dawn Commission
+  zone Western Plaguelands
+  when !has 12846
+  tip The Scourge drop no Scourgestones unless you wear an Argent Dawn Commission. Argent Officer Pureheart gives you one through her quest, Argent Dawn Commission, which you hand in straight away (if you already have one from Light's Hope Chapel, wear that). Equip it in a trinket slot: it shows as a buff that never runs out. Keep it on until you have 20 stones.
+  talk 10840                          -- Argent Officer Pureheart: Argent Dawn Commission
+  collect 12846 @42.97,83.55          -- Argent Dawn Commission: equip it
+
 step Minion's Scourgestones
-  tip The Scourge throughout the Western Plaguelands drop Minion's Scourgestones.
-  collect 12840 quest 8414.1
+  zone Western Plaguelands
+  tip Kill the Scourge of the Western Plaguelands with the Commission on: skeletons, ghouls and cultists (level 50-58) drop a Minion's Scourgestone about two kills in five. Sorrow Hill, just east of Chillwind Camp around Uther's Tomb, is the closest farm. Avoid the Flesh Golems that patrol the fields; Skeletal Guardians cast Cone of Cold and Arcane Explosion up close, Dark Summoners run for help at low health.
+  collect 12840 quest 8414.1          -- Minion's Scourgestone x20
 
 step High Priest Thel'danis
+  zone Western Plaguelands
+  tip High Priest Thel'danis keeps watch at Uther's Tomb on Sorrow Hill, east of the camp. He turns your 20 stones into one Inert Scourgestone: keep it.
   turnin 8414                         -- High Priest Thel'danis
   accept 8416
 
 step Commander Ashlam Valorfist
+  zone Western Plaguelands
+  tip Back to Chillwind Camp. Ashlam needs the voodoo of the Sunken Temple's trolls for the stone.
   turnin 8416                         -- Commander Ashlam Valorfist
   accept 8418
 
 step The Sunken Temple
   zone Swamp of Sorrows
-  tip The Temple of Atal'Hakkar lies in the Pool of Tears in eastern Swamp of Sorrows. Inside, Gasher and Zul'Lor drop the Amber Voodoo Feather, Hukku and Mijan the Blue, Zolo and Loro the Green.
+  tip The Temple of Atal'Hakkar, the Sunken Temple, lies in the Pool of Tears in eastern Swamp of Sorrows: go up the ruin's stairs, dive into the flooded hall and follow the stairs down to the portal. It is a dungeon for a group of five at about 50-55. Six elite troll minibosses (level 51-52) stand on the balconies around the temple's great round room, each behind a pack of elites on its side path. Each drops its feather every time: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green; you need all six. Hukku calls guardians and throws Shadow Bolt Volleys, Mijan heals: kill them first.
   goto 69.9,53.6 "The Temple of Atal'Hakkar"
-  collect 20606 quest 8418.1 @69.9,53.6 -- Amber Voodoo Feather, inside
-  collect 20607 quest 8418.2 @69.9,53.6 -- Blue Voodoo Feather, inside
-  collect 20608 quest 8418.3 @69.9,53.6 -- Green Voodoo Feather, inside
+  collect 20606 quest 8418.1 @69.9,53.6 -- Amber Voodoo Feather x2: Gasher, Zul'Lor
+  collect 20607 quest 8418.2 @69.9,53.6 -- Blue Voodoo Feather x2: Hukku, Mijan
+  collect 20608 quest 8418.3 @69.9,53.6 -- Green Voodoo Feather x2: Zolo, Loro
 
 step Forging the Mightstone
   zone Western Plaguelands
-  turnin 8418                         -- Commander Ashlam Valorfist: Holy Mightstone
+  tip Back to Ashlam in Chillwind Camp: he forges the Holy Mightstone. Look at the reward window before you hand in: Classic also offered the Chivalrous Signet, the Lightforged Blade or the Sanctified Orb, and Forever's notes say that choice may be gone. Use the stone before a fight against undead (Stratholme, Scholomance): it lasts ten minutes and is gone after one use.
+  turnin 8418 reward 20620            -- Commander Ashlam Valorfist: Holy Mightstone

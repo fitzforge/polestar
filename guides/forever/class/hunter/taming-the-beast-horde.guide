@@ -1,0 +1,166 @@
+guide forever/class/hunter/taming-the-beast-horde
+title Taming the Beast (Horde)
+category Class
+class Hunter
+folder Hunter
+faction Horde
+race Orc, Troll, Tauren, Skyborne
+levels 10-10
+zone Durotar
+keywords Taming the Beast, Training the Beast, The Hunter's Path, Taming Rod, Tame Beast, Beast Training, pet, Thotar, Yaw Sharpmane, Quel'ana Quickgale, Ormak Grimshot, Holt Thunderhorn, Quel'dora Quickgale, Razor Hill, Bloodhoof Village, Valanaar, pet trainer, Hunter
+reward spell 1515 "Tame Beast"
+reward spell 5149 "Beast Training"
+why Your own pet at 10: three practice tames with a Taming Rod teach Tame Beast, then Beast Training.
+
+# The Horde hunter pet chains, one per home: Orcs and Trolls with Thotar in
+# Razor Hill (6062, 6083, 6082, then Training the Beast 6081 to Ormak Grimshot
+# in Orgrimmar), Tauren with Yaw Sharpmane at Bloodhoof Village (6061, 6087,
+# 6088, then 6089 to Holt Thunderhorn in Thunder Bluff), Skyborne with
+# Quel'ana Quickgale in Valanaar on Zephras Isle (94978, 94979, 94013, then
+# 94050 to Quel'dora Quickgale beside her; Elayaa Easewind's breadcrumb 94007
+# points there). The Hunter's Path breadcrumbs (6068-6070 to Thotar,
+# 6065-6067 to Yaw) are optional: the taming givers hand out the first rod
+# without them (the leveling routes take it straight), and only one of each
+# set can be done.
+# Sources: quests.json, npcs.json, items.json for givers, rods, beasts and
+# places; quest-notes/quest-mechanics for beast levels, respawns, the
+# channel, the rod's charges and the knockdowns; Forever's Hunter class quest
+# list: Training the Beast now teaches Beast Training (no Training Lesson);
+# the Skyborne chain is Forever-new; the card's spells (Tame Beast 1515,
+# Beast Training 5149) from the class reward table.
+# The leveling routes (horde/orc-troll/01-durotar, horde/tauren/01-mulgore,
+# horde/skyborne/01-zephras-isle) do these chains on the way; this guide is
+# for anyone off the route and adds the pet basics.
+# Pet basics (happiness, loyalty, training points, food) are Classic rules
+# that a Forever hunter community wiki lists unchanged; Forever's own data
+# has no pet rules.
+# Checked against Forever: Blizzard's beta development notes fix pet happiness
+# at max loyalty (so happiness and loyalty are in the game), and a Forever
+# hunter pet guide from beta play gives happiness at 125/100/75% damage, six
+# loyalty ranks and 300 training points at 60 Best Friend, the Classic formula
+# (pet level x (loyalty - 1)).
+# Undead cannot be hunters on Forever (races.json), so no Undead chain.
+
+# ---------------------------------------------------------------- Orc and Troll: Thotar in Razor Hill
+
+step Thotar in Razor Hill
+  only Orc,Troll
+  zone Durotar
+  tip At 10 go to Thotar, the hunter trainer inside the barracks in Razor Hill. If Sian'dur in Orgrimmar, Kali Remik in Sen'jin Village or Kary Thunderhorn in Thunder Bluff hands you The Hunter's Path, take it and hand it to Thotar for a little experience; it is only a pointer, and you can take the first rod without it.
+  level 10
+  accept 6062                                 -- Thotar: the first Taming Rod
+
+step Dire Mottled Boar
+  only Orc,Troll
+  tip Dire Mottled Boars (level 6-7) roam just north and west of Razor Hill. How the rod works: target a living beast, use the Taming Rod from inside its range and stand still for the whole channel while the beast hits you. Moving, fighting back, a heal from someone else or anyone else hitting the beast breaks it and costs one of the rod's few charges; if they run out, destroy the rod, abandon the quest and take it again from Thotar. The boars charge from 20 yards, so start with the rod, not Auto Shot. The tamed boar becomes your pet for practice. Keep each rod: it goes back to Thotar.
+  kill 3099 quest 6062.1 "Tame Dire Mottled Boar" -- Use the Taming Rod on a living boar
+  turnin 6062                                 -- Thotar
+  accept 6083
+
+step Surf Crawler
+  only Orc,Troll
+  tip First dismiss the boar (right-click your pet's portrait, Dismiss Pet): a released practice pet can turn on you. Surf Crawlers (level 7-8) walk the beaches around Sen'jin Village and the Echo Isles; the small Pygmy Surf Crawlers do not count. A crawler runs for help at 15% health, so do not hurt it.
+  kill 3107 quest 6083.1 "Tame Surf Crawler" -- Use the Taming Rod on a living Surf Crawler
+  turnin 6083                                 -- Thotar
+  accept 6082
+
+step Armored Scorpid
+  only Orc,Troll
+  tip Dismiss the crawler. Armored Scorpids (level 7-8) crawl the dry plains west and south-west of Razor Hill, some just south of the road west out of town; Track Beasts shows them. Their hits can break the channel: start at full health and keep still.
+  kill 3126 quest 6082.1 "Tame Armored Scorpid" -- Use the Taming Rod on a living scorpid
+  turnin 6082                                 -- Thotar: Tame Beast
+  accept 6081
+
+step Ormak Grimshot in Orgrimmar
+  only Orc,Troll
+  zone Orgrimmar
+  tip Follow the road north to Orgrimmar's gate. Ormak Grimshot stands with the hunter trainers in the Valley of Honor, up the ramp at the city's east side; Xao'tsu, the pet trainer, is a few steps north of him.
+  turnin 6081                                 -- Ormak Grimshot: Beast Training
+
+# ---------------------------------------------------------------- Tauren: Yaw Sharpmane at Bloodhoof Village
+
+step Yaw Sharpmane at Bloodhoof
+  only Tauren
+  zone Mulgore
+  tip At 10 go to Yaw Sharpmane, who stands at the north edge of Bloodhoof Village. The Hunter's Path from Kary Thunderhorn in Thunder Bluff, Sian'dur in Orgrimmar or Thotar in Razor Hill also leads here, for a little experience; it is only a pointer.
+  level 10
+  accept 6061                                 -- Yaw Sharpmane: the first Taming Rod
+
+step Adult Plainstrider
+  only Tauren
+  tip Adult Plainstriders (level 6-7) walk the plains south-west and north-west of Bloodhoof Village. How the rod works: target a living beast, use the Taming Rod and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs one of the rod's few charges (out of charges: destroy the rod, abandon the quest, take it again). A plainstrider flees at 25% health, so do not damage it first. Keep each rod: it goes back to Yaw.
+  kill 2956 quest 6061.1 "Tame Adult Plainstrider" -- Use the Taming Rod on a living plainstrider
+  turnin 6061                                 -- Yaw Sharpmane
+  accept 6087
+
+step Prairie Stalker
+  only Tauren
+  tip Dismiss the plainstrider first (right-click the pet portrait, Dismiss Pet): a released practice pet may attack you. Prairie Stalkers (level 7-8) roam the grass north of Bloodhoof Village.
+  kill 2959 quest 6087.1 "Tame Prairie Stalker" -- Use the Taming Rod on a living stalker
+  turnin 6087                                 -- Yaw Sharpmane
+  accept 6088
+
+step Swoop
+  only Tauren
+  tip Dismiss the stalker. Swoops (level 7-9) glide over the plains north-west and north-east of Bloodhoof; the Taloned Swoops do not count. A Swoop's knockdown breaks the channel, but it lands only once per channel: start the rod just after it has used it.
+  kill 2970 quest 6088.1 "Tame Swoop" -- Use the Taming Rod on a living Swoop
+  turnin 6088                                 -- Yaw Sharpmane: Tame Beast
+  accept 6089
+
+step Holt Thunderhorn in Thunder Bluff
+  only Tauren
+  zone Thunder Bluff
+  tip Head north to Thunder Bluff and take a lift up. Holt Thunderhorn stands with the hunter trainers on Hunter Rise; Hesuwa Thunderhorn, the pet trainer, is nearby.
+  turnin 6089                                 -- Holt Thunderhorn: Beast Training
+
+# ---------------------------------------------------------------- Skyborne: Quel'ana Quickgale in Valanaar
+
+step Elayaa Easewind
+  only Skyborne
+  zone Zephras Isle
+  tip At 10, Elayaa Easewind, a hunter trainer on Zephras Isle, may send you on to Valanaar with Taming the Beast. It is only a pointer: skip it if you are already in Valanaar.
+  level 10
+  accept 94007 optional                       -- Elayaa Easewind
+
+step Quel'ana Quickgale in Valanaar
+  only Skyborne
+  tip Quel'ana Quickgale stands with the trainers by Valanaar's west gate, Quel'dora Quickgale beside her.
+  turnin 94007 optional                       -- Quel'ana Quickgale
+  accept 94978                                -- Quel'ana Quickgale: the first Taming Rod
+
+step Windsong Crawler
+  only Skyborne
+  tip Windsong Crawlers live only by water: the nearest scuttle along the shore south-west of Valanaar, among the crabs. How the rod works: target a living crawler, use the Taming Rod and stand still for the whole channel while it hits you; moving, fighting back or anyone else's help breaks it and costs a charge. Killing one does not count.
+  kill 254588 quest 94978.1 "Tame Windsong Crawler" -- Use the Taming Rod on a living crawler
+  turnin 94978                                -- Quel'ana Quickgale
+  accept 94979
+
+step Ornery Galestrider
+  only Skyborne
+  tip Dismiss the crawler first (right-click the pet portrait, Dismiss Pet). Ornery Galestriders graze in the Gustberry Lowlands, the fields a short walk west and south-west of Valanaar.
+  kill 251707 quest 94979.1 "Tame Ornery Galestrider" -- Use the Taming Rod on a living galestrider
+  turnin 94979                                -- Quel'ana Quickgale
+  accept 94013
+
+step Vuldren Alpha
+  only Skyborne
+  tip Dismiss the galestrider. Vuldren Alphas hunt in the same Gustberry Lowlands, a little further south.
+  kill 250874 quest 94013.1 "Tame Vuldren Alpha" -- Use the Taming Rod on a living alpha
+  turnin 94013                                -- Quel'ana Quickgale: Tame Beast
+  accept 94050
+  turnin 94050                                -- Quel'dora Quickgale, beside her: Beast Training
+
+# ---------------------------------------------------------------- Your own pet
+
+step Your first pet
+  tip Tame Beast works like the rod: a beast of your level or lower, a channel you must not move during, the beast hitting you all the while. A pet keeps the level you tame it at and levels up with you; it can never be above your level, so tame one close to yours. Each family has its own ability on Forever (a boar's Charge, for example). For levelling, a cat hits hardest (Claw and Bite) and a boar takes more punishment.
+  task "Tame a beast of your level to keep" optional
+  note "Near Razor Hill: Durotar Tigers (cats, level 7-8) roam the south of Durotar, from Sen'jin Village down the coast; Venomtail Scorpids (9-10) the north-west toward Orgrimmar; at 11-12, Savannah Huntresses (cats) prowl the plains around the Crossroads in the Barrens." only Orc,Troll
+  note "Near Bloodhoof: Flatland Prowlers (cats, level 9) and Prairie Wolf Alphas (wolves, 9-10) roam the plains of northern Mulgore; at 11-12, Savannah Huntresses (cats) prowl around the Crossroads in the Barrens." only Tauren
+  note "Near Valanaar: Vuldren Alphas (level 10), the beast of your last practice tame, hunt the Gustberry Lowlands; Shriekling Matriarchs (raptors, level 9) nest just west of Valanaar; Shadowgale Urseras (bears, 10-11) roam the north of Zephras Isle." only Skyborne
+  note "Feed Pet: open your spellbook, cast Feed Pet and click a food your pet's family eats (the pet's tooltip lists them: cats eat meat and fish, boars almost anything). Raw meat looted from beasts counts. To buy: Grimtak the butcher and Innkeeper Grosk in Razor Hill sell meat, Kaga Mistrunner in Thunder Bluff and the innkeepers on Zephras Isle too; Bloodhoof's innkeeper and bakers sell bread. Food near the pet's level makes it happiest; much lower food gives about half. You cannot feed in combat."
+  note Happiness: the face on the pet frame. An unhappy pet does three quarters of its damage, a happy one a quarter more. Happiness drains slowly, faster when the pet dies; a pet left unhappy too long can run away.
+  note Loyalty grows with time and kills. Each loyalty rank raises the training points you spend in Beast Training (pet level times loyalty rank minus one).
+  note Beast Training (spellbook, General tab) teaches your current pet the abilities you know. To learn a new ability or rank: leave your pet with a stable master (Shoja'my in Razor Hill, Seikwa at Bloodhoof, Genn Fairweather on Zephras Isle, Xon'cha in Orgrimmar), tame a beast that has it (its pet spellbook tab shows what it knows), use the ability in fights until the game says you learned it, then take your own pet back and teach it with Beast Training. A pet holds four active abilities at most.
+  note Pet trainers sell Growl ranks and resistances. Horde: Harruk in Razor Hill, Reban Freerunner at Bloodhoof, Xao'tsu in Orgrimmar's Valley of Honor, Hesuwa Thunderhorn on Thunder Bluff's Hunter Rise, Quel'dora Quickgale in Valanaar, later Grokor in Stonard and Zudd at Grom'gol.
+  note Call Pet, Dismiss Pet and Revive Pet are in your spellbook now; Mend Pet comes from your trainer at 12. A dead pet needs Revive Pet; one that is away more than about 100 yards is dismissed and comes back with Call Pet.

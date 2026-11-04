@@ -21,7 +21,7 @@ holding a pack.json, whose id is the guide id's prefix and whose license the
 string carries. The pack is linted first, with our guides as context, and a
 guide with errors is refused. A string holds one guide of at most
 ${LIMITS.steps} steps and ${LIMITS.length} characters; anything bigger, or a
-set of guides, is a community addon (\`polestar pack\`).
+set of guides, is a community addon (\`forge release pack\`).
 
 The string goes to stdout, everything else to stderr, so
 \`polestar export my.guide > my.txt\` keeps only the string.
@@ -89,7 +89,7 @@ async function run(argv) {
 	if (mine.length !== 1) {
 		console.error(
 			mine.length
-				? `export failed: ${positional[0]} holds ${mine.length} guides; an import string carries one (put each guide in its own file, or ship them together as a community addon: polestar pack)`
+				? `export failed: ${positional[0]} holds ${mine.length} guides; an import string carries one (put each guide in its own file, or ship them together as a community addon: forge release pack)`
 				: `export failed: no guide compiled from ${positional[0]} (a file under the pack's drafts/ or dist/ is not part of it)`,
 		);
 		return 1;

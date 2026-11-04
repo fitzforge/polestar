@@ -2,23 +2,24 @@ guide forever/collectibles/pets/smolderweb-carrier
 title Smolderweb Carrier
 category Collectibles
 folder Companion pets · Quests
-keywords En-Ay-Es-Tee-Why, Kibler, Spire Spider Egg, Lower Blackrock Spire, LBRS, spider, Flame Crest
+keywords En-Ay-Es-Tee-Why, Kibler, Spire Spider Egg, Lower Blackrock Spire, LBRS, spider, Flame Crest, Skitterweb Tunnels
 collects 12529
 levels 55-60
 zone Burning Steppes
 
 # Smolderweb Carrier from En-Ay-Es-Tee-Why (Lower Blackrock Spire).
-# Sources: quests.json (Kibler's quest); items.json (the eggs come from egg
-# objects); Lower Blackrock Spire (55-60) is in Forever;
-# Forever client 1.60.1.70338. The reward is general Era knowledge.
+# Sources: quests.json (Kibler's quest, 15 eggs, level 55); the world database
+# (the reward, item 12529; each Spire Spider Egg object gives 1-3 eggs); the
+# knowledge base's quest notes (egg room, spiderlings, the party-size rule);
+# Lower Blackrock Spire (55-60) is in Forever.
 
 step Kibler at Flame Crest
-  tip Kibler stands at Flame Crest in northern Burning Steppes, near the Blackrock Mountain path.
+  tip Kibler stands inside the cave at Flame Crest, the camp in northern Burning Steppes east of Blackrock Mountain. He also gives Kibler's Exotic Pets (the Worg Carrier): take both, they are done in the same run.
   accept 4862
 
 step Lower Blackrock Spire
-  tip Lower Blackrock Spire is a group of five, level 55-60. Collect 15 Spire Spider Eggs from the nests near Mother Smolderweb.
-  collect 12530 quest 4862 @33.2,24.9 -- Lower Blackrock Spire
+  tip Lower Blackrock Spire is a group of five, level 55-60, inside Blackrock Mountain. The Spire Spider Eggs lie around Mother Smolderweb's nest in the Skitterweb Tunnels, the spider halls: click them until you have 15 (each gives one to three). Hard-hitting spiderlings can hatch as you loot. By player reports the eggs cannot be looted in a raid group, so keep the party at five or fewer.
+  collect 12530 x15 quest 4862 @33.2,24.9 -- Lower Blackrock Spire
 
 step Back to Kibler
   turnin 4862

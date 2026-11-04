@@ -1,0 +1,12 @@
+{
+  "meta": { "schema": 1, "note": "Synthetic, written for the writer tests (rust/tests/golden/writer/README.md): the fields the engine reads, for the quests the tests play." },
+  "quests": {
+    "2458": {
+      "title": "Deep Cover",
+      "steps": [
+        { "n": 1, "action": "emote", "target": { "type": "npc", "name": "Taskmaster Fizzule", "id": 7233 } },
+        { "n": 2, "action": "turn-in", "target": { "type": "npc", "name": "Taskmaster Fizzule", "id": 7233 } }
+      ]
+    }
+  }
+}
