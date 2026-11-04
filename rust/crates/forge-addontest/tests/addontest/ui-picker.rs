@@ -92,6 +92,20 @@ fn includes(v: &Value, s: &str) -> bool {
 	v.as_array().unwrap().iter().any(|k| k.as_str() == Some(s))
 }
 
+// Fitz, 0.3.1: a race's lead-in ("Into the Barrens (12)") and the shared zone guide it hands over to ("The Barrens
+// (12-16)") start at the same level; the lead-in is listed first, as it is played, though its id sorts after.
+#[test]
+fn a_lead_in_guide_is_listed_right_before_the_guide_it_hands_over_to() {
+	let out = run(r#"
+		addBand("forever/alliance/05-the-zone", "The Zone", "Alliance", 12, 16)
+		addBand("forever/alliance/human/05-into-the-zone", "Into the Zone", "Alliance", 12, 12)
+		uistub.guides["forever/alliance/human/05-into-the-zone"].next = "forever/alliance/05-the-zone"
+		emit({ list = kinds(P.Entries("Alliance", "", "Leveling")) })"#);
+	let list: Vec<&str> = out["list"].as_array().unwrap().iter().filter_map(|v| v.as_str()).collect();
+	let at = |t: &str| list.iter().position(|x| *x == t).unwrap_or_else(|| panic!("{t} listed: {list:?}"));
+	assert!(at("Into the Zone") < at("The Zone"), "the lead-in first: {list:?}");
+}
+
 #[test]
 fn browse_folders_by_faction_and_band_then_by_category_faction_filter_and_band_derivation() {
 	let out = run(r#"
