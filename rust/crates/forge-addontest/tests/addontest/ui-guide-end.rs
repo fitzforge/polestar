@@ -54,8 +54,8 @@ fn plain(v: &Value) -> String {
 		let tail = &rest[i..];
 		if tail.starts_with("|c") && tail.len() >= 10 {
 			rest = &tail[10..];
-		} else if tail.starts_with("|r") {
-			rest = &tail[2..];
+		} else if let Some(after) = tail.strip_prefix("|r") {
+			rest = after;
 		} else {
 			out.push('|');
 			rest = &tail[1..];
