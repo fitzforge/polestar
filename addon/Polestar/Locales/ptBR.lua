@@ -2082,7 +2082,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "Manter este plano"
 L["Follow this plan whatever spec gear advice uses."] = "Seguir este plano seja qual for a especialização das dicas de equipamento."
 L["There is no talent plan for your class yet."] = "Ainda não há plano de talentos para sua classe."
-L["Coming soon."] = "Em breve."
+L["Coming soon"] = "Em breve"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "Planos de talentos para todas as classes estão a caminho. Estamos levando o tempo necessário para acertar cada escolha antes que o Polestar sugira uma."
+L["Gear advice still follows the talents you choose."] = "As dicas de equipamento continuam seguindo os talentos que você escolher."
 
 -- Gear/Weights.lua
 L["Arms"] = "Armas"

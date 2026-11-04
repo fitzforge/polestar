@@ -2082,7 +2082,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "Сохранить этот план"
 L["Follow this plan whatever spec gear advice uses."] = "Следовать этому плану при любой специализации для советов по экипировке."
 L["There is no talent plan for your class yet."] = "Для вашего класса пока нет плана талантов."
-L["Coming soon."] = "Скоро."
+L["Coming soon"] = "Скоро"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "Планы талантов для всех классов уже в пути. Мы не торопимся, чтобы каждый выбор был верным, прежде чем Polestar его предложит."
+L["Gear advice still follows the talents you choose."] = "Советы по снаряжению по-прежнему учитывают выбранные вами таланты."
 
 -- Gear/Weights.lua
 L["Arms"] = "Оружие"

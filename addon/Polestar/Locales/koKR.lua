@@ -2082,7 +2082,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "이 계획 유지"
 L["Follow this plan whatever spec gear advice uses."] = "장비 조언의 전문화와 관계없이 이 계획을 따릅니다."
 L["There is no talent plan for your class yet."] = "아직 이 직업의 특성 계획이 없습니다."
-L["Coming soon."] = "곧 제공됩니다."
+L["Coming soon"] = "곧 제공됩니다"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "모든 직업의 특성 계획이 준비 중입니다. Polestar가 추천하기 전에 모든 선택을 제대로 다듬고 있습니다."
+L["Gear advice still follows the talents you choose."] = "장비 조언은 계속 직접 선택한 특성을 따릅니다."
 
 -- Gear/Weights.lua
 L["Arms"] = "무기"

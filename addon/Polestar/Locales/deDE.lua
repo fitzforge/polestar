@@ -2033,7 +2033,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "Diesen Plan behalten"
 L["Follow this plan whatever spec gear advice uses."] = "Diesem Plan folgen, egal welche Spezialisierung die Ausrüstungsberatung nutzt."
 L["There is no talent plan for your class yet."] = "Für deine Klasse gibt es noch keinen Talentplan."
-L["Coming soon."] = "Demnächst verfügbar."
+L["Coming soon"] = "Demnächst verfügbar"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "Talentpläne für jede Klasse sind unterwegs. Wir nehmen uns die Zeit, jede Wahl richtig hinzubekommen, bevor Polestar eine vorschlägt."
+L["Gear advice still follows the talents you choose."] = "Die Ausrüstungsberatung richtet sich weiter nach den Talenten, die du wählst."
 
 -- Maps/MinimapButton.lua
 L["Click: show or hide the guide"] = "Klick: Guide ein- oder ausblenden"
