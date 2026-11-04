@@ -32,7 +32,23 @@ const RANK_UNKNOWN: f64 = 7.0;
 const TYPE_ORDER: [&str; 10] = ["vendor", "quest", "gift", "craft", "rep", "pvp", "drop", "object", "container", "world"];
 const WORLD_DROP_NPCS: usize = 12;
 const LOOT_CAP: usize = 150;
-const SERVICE_ROLES: [&str; 11] = ["vendor", "repair", "innkeeper", "banker", "auctioneer", "flightmaster", "battlemaster", "spirithealer", "stablemaster", "trainer", "weapon"];
+const SERVICE_ROLES: [&str; 15] = [
+	"vendor",
+	"repair",
+	"innkeeper",
+	"banker",
+	"auctioneer",
+	"flightmaster",
+	"battlemaster",
+	"spirithealer",
+	"stablemaster",
+	"trainer",
+	"weapon",
+	"sells:food",
+	"sells:arrows",
+	"sells:bullets",
+	"sells:ranged",
+];
 const STANDING_FLOOR: [f64; 8] = [-42000.0, -6000.0, -3000.0, 0.0, 3000.0, 9000.0, 21000.0, 42000.0];
 
 fn rank(f: &str) -> Option<f64> {
@@ -79,6 +95,19 @@ fn cap(ty: &str) -> Option<usize> {
 
 fn is_service(role: &str) -> bool {
 	SERVICE_ROLES.contains(&role)
+}
+
+/// `sellsRole(classId, subclassId)`: what a vendor of an item of this class
+/// sells, for Nearby services' vendor page (Nav/Nearby.lua): food and drink,
+/// arrows, bullets, or bows, guns and crossbows.
+pub fn sells_role(class_id: Option<f64>, subclass_id: Option<f64>) -> Option<&'static str> {
+	match (class_id?, subclass_id?) {
+		(c, s) if c == 0.0 && s == 5.0 => Some("sells:food"),
+		(c, s) if c == 6.0 && s == 2.0 => Some("sells:arrows"),
+		(c, s) if c == 6.0 && s == 3.0 => Some("sells:bullets"),
+		(c, s) if c == 2.0 && (s == 2.0 || s == 3.0 || s == 18.0) => Some("sells:ranged"),
+		_ => None,
+	}
 }
 
 /// `fromLabels(list)`.
@@ -1031,6 +1060,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			n.set("rare", false);
 			if let Some(&i) = role_ix.get(&*npc) {
 				npc_roles[i].1.delete("rare");
+			}
+		}
+	}
+	// Vendors by what they sell (sells_role): every NPC an item lists as its
+	// vendor, from the client's item class.
+	if let Some(cl) = cl {
+		for (id, it) in oentries(&fv.items) {
+			let Some(c) = cl.items.get(&(str_to_num(&id) as i64)) else { continue };
+			let Some(role) = sells_role(c.class_id, c.subclass_id) else { continue };
+			for npc in it.get("vendors").items() {
+				add_role(&mut npc_roles, &mut role_ix, &kstr(&npc), role);
 			}
 		}
 	}
