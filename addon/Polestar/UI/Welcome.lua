@@ -422,7 +422,9 @@ local function sampleGoal(g)
 		if si > SCAN then break end
 		for _, goal in ipairs(step.goals or {}) do
 			if (goal.t == "collect" or goal.t == "kill") and not goal.only then
-				local name = nameOf(goal.itemName, goal.target, goal.subject)
+				-- In the client's language where Polestar.Names has it.
+				local N = ns.Names
+				local name = nameOf(N and N.Item(goal.item), goal.itemName, N and N.Npc(goal.npc), goal.target, goal.subject)
 				local n = tonumber(goal.count) or (type(goal.progress) == "table" and tonumber(goal.progress.max))
 				if name and n and n > 1 then return goal.t, name, n end
 			end
