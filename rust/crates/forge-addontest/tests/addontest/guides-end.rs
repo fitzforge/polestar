@@ -194,7 +194,15 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 			}
 		}
 		let first = steps.iter().flat_map(|st| st.get("goals").items()).find(|x| !x.get("map").is_nullish() && !x.get("x").is_nullish());
-		let faction = if faction == "undefined" { if race == "Orc" || race == "Troll" || race == "Tauren" || race == "Scourge" { "Horde".into() } else { "Alliance".into() } } else { faction };
+		let faction = if faction == "undefined" {
+			if race == "Orc" || race == "Troll" || race == "Tauren" || race == "Scourge" {
+				"Horde".into()
+			} else {
+				"Alliance".into()
+			}
+		} else {
+			faction
+		};
 		for class in classes {
 			let raw = s(g, "minLevel");
 			let level = if raw == "undefined" { "1".to_string() } else { raw };

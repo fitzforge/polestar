@@ -1056,15 +1056,7 @@ fn completing_a_leveling_guide_chains_to_next_with_guideend_continue_and_stays_w
 	});
 	assert_eq!(ask, json!({ "log": ["STEP_CHANGED nil", "GUIDE_COMPLETED test/a"], "guide": "test/a" }));
 
-	let at_login = |saved: &str| {
-		run1(Run {
-			guides,
-			before: "w.level = 2",
-			saved: Some(saved),
-			script: "emit({ log = takeLog(), guide = E.GetGuide().id })",
-			..Default::default()
-		})
-	};
+	let at_login = |saved: &str| run1(Run { guides, before: "w.level = 2", saved: Some(saved), script: "emit({ log = takeLog(), guide = E.GetGuide().id })", ..Default::default() });
 	assert_eq!(
 		at_login(&format!("{CONTINUE}\nPolestarCharDB = {{ schema = 1, guide = \"test/a\" }}")),
 		json!({

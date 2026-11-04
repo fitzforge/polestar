@@ -78,7 +78,8 @@ fn run(o: Run) -> Value {
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: o.saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
-		script: [TEST_PACK, TEST_SOURCE, &GUIDES.replace("@NEXT@", o.next), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE")"#, r#"E.SetGuide("test/durotar"); flush(); takeLog()"#, o.script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, &GUIDES.replace("@NEXT@", o.next), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE")"#, r#"E.SetGuide("test/durotar"); flush(); takeLog()"#, o.script]
+			.join("\n"),
 		..Default::default()
 	})
 	.remove(0)
@@ -167,11 +168,7 @@ fn a_route_choice_at_the_end_is_left_to_the_window_and_no_next_guide_ends_the_li
 
 #[test]
 fn other_guides_keep_handing_off_by_themselves_and_a_guide_opened_at_its_end_does_not_ask() {
-	let cooking = run(Run {
-		next: NEXT,
-		saved: None,
-		script: r#"E.SetGuide("test/cooking"); flush(); takeLog(); w.accept(20, {}); flush(); emit({ log = takeLog(), guide = E.GetGuide().id })"#,
-	});
+	let cooking = run(Run { next: NEXT, saved: None, script: r#"E.SetGuide("test/cooking"); flush(); takeLog(); w.accept(20, {}); flush(); emit({ log = takeLog(), guide = E.GetGuide().id })"# });
 	assert_eq!(cooking, json!({ "log": ["GUIDE_COMPLETED test/cooking", "GUIDE_CHANGED test/cooking2"], "guide": "test/cooking2" }));
 
 	// Durotar opened with its last quest already taken: placed at its end, no ask.

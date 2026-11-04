@@ -40,13 +40,8 @@ end
 "#;
 
 fn run(script: &str) -> Value {
-	emitted(&RunAddon {
-		stubs: vec!["stub_ui.lua"],
-		addons: vec![Addon::files("Polestar", &FILES)],
-		script: ["uistub.install()", "stub.login()", HELPERS, script].join("\n"),
-		..Default::default()
-	})
-	.remove(0)
+	emitted(&RunAddon { stubs: vec!["stub_ui.lua"], addons: vec![Addon::files("Polestar", &FILES)], script: ["uistub.install()", "stub.login()", HELPERS, script].join("\n"), ..Default::default() })
+		.remove(0)
 }
 
 /// Text with the colour escapes taken out.
