@@ -286,8 +286,10 @@ test('left release advances the clicked kind after navigation even when navigati
 		local released = #events
 		local aimed = lastCall("AimGoal")
 		postClick(b, "RightButton", false)
+		-- Step 3 shows its done accept above the kill row, so the clicked overlay
+		-- is the second; on step 4 the second is the Kobold Camp Cleanup turn-in's.
 		emit({ pressed = pressed, released = released, events = events, aimed = aimed,
-			reused = b.psOwner == GF.parts.person, kind = b.psKind, name = b.psName,
+			reused = b.psOwner == rowFor("Kobold Camp Cleanup"), kind = b.psKind, name = b.psName,
 			macro = b.psMacro, nextMob = Polestar.QoL.Buttons.MarkLine("mob") })`);
 	assert.equal(out.pressed, 0);
 	assert.equal(out.released, 1);
