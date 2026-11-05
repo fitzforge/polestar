@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "Стрелка снова ведет п�
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Использование: /polestar near trainer [профессия] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "Кнопка «Услуги поблизости»"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Кнопка в заголовке окна гайда, слева от меню, находит ближайшего торговца, ремонт, трактир, распорядителя полетов или учителя и направляет туда стрелку."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "ПКМ — пропустить этот участок."
@@ -418,6 +423,7 @@ L["Not done"] = "Не готово"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Начинает задание"
+L["%d/%d (not accepted)"] = "%d/%d (не взято)"
 
 -- Quests/Options.lua
 L["Any level"] = "Любой уровень"
@@ -459,6 +465,10 @@ L["quests"] = "заданий"
 L["available now"] = "доступно сейчас"
 L["mobs tracked"] = "мобов отслеживается"
 L["Quest database status"] = "Состояние базы заданий"
+L["Quest marks in bags"] = "Метки заданий в сумках"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Помечает предметы в сумках, которые ещё нужны заданию в журнале или впереди в гайде, пока вы не сдадите задание."
+L["Offer to buy back quest items"] = "Предлагать выкуп предметов для заданий"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Если вы продадите предмет, который ещё нужен заданию, спросить, выкупить ли его у торговца."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -2769,6 +2779,17 @@ L["%d steps were left undone."] = "Невыполненных шагов: %d."
 L["Next: %s"] = "Далее: %s"
 L["Pick a guide"] = "Выбрать гайд"
 L["Not now"] = "Не сейчас"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Предметы заданий Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Нужно для:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Его больше нет в списке выкупа торговца."
+L["Not enough money to buy it back."] = "Недостаточно денег для выкупа."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Вы продали %s, а он ещё нужен для «%s». Выкупить за %s?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

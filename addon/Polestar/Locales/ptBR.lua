@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "A seta volta para o guia."
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Uso: /polestar near trainer [profissão] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "Botão de serviços próximos"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Um botão no cabeçalho da janela do guia, à esquerda do menu, encontra o vendedor, o reparo, a estalagem, o mestre de voo ou o instrutor mais próximo e aponta a seta para lá."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Clique direito para pular este trecho."
@@ -418,6 +423,7 @@ L["Not done"] = "Não feito"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Inicia uma missão"
+L["%d/%d (not accepted)"] = "%d/%d (não aceita)"
 
 -- Quests/Options.lua
 L["Any level"] = "Qualquer nível"
@@ -459,6 +465,10 @@ L["quests"] = "missões"
 L["available now"] = "disponíveis agora"
 L["mobs tracked"] = "criaturas rastreadas"
 L["Quest database status"] = "Status do banco de dados de missões"
+L["Quest marks in bags"] = "Marcas de missão nas bolsas"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Marca os itens das bolsas de que uma missão ainda precisa, no seu registro ou mais adiante no seu guia, até você entregar a missão."
+L["Offer to buy back quest items"] = "Oferecer recompra de itens de missão"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Se você vender um item de que uma missão ainda precisa, pergunta se quer recomprá-lo do vendedor."
 
 -- Quests/Party.lua
 L["%s done"] = "%s concluiu"
@@ -2769,6 +2779,17 @@ L["%d steps were left undone."] = "%d etapas ficaram por fazer."
 L["Next: %s"] = "Próximo: %s"
 L["Pick a guide"] = "Escolher um guia"
 L["Not now"] = "Agora não"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Itens de missão do Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Necessário para:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Ele não está mais na lista de recompra do vendedor."
+L["Not enough money to buy it back."] = "Dinheiro insuficiente para recomprá-lo."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Você vendeu %s, de que %s ainda precisa. Recomprar por %s?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

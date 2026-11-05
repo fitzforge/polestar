@@ -424,6 +424,7 @@ L["Not done"] = "Non fait"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Débute une quête"
+L["%d/%d (not accepted)"] = "%d/%d (non acceptée)"
 
 -- Quests/Options.lua
 L["Any level"] = "Tout niveau"
@@ -465,6 +466,10 @@ L["quests"] = "quêtes"
 L["available now"] = "disponibles maintenant"
 L["mobs tracked"] = "monstres suivis"
 L["Quest database status"] = "État de la base de données de quêtes"
+L["Quest marks in bags"] = "Marques de quête dans les sacs"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Marque les objets des sacs dont une quête a encore besoin, dans votre journal ou plus loin dans votre guide, jusqu'à ce que vous rendiez la quête."
+L["Offer to buy back quest items"] = "Proposer de racheter les objets de quête"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Si vous vendez un objet dont une quête a encore besoin, demande s'il faut le racheter au marchand."
 
 -- Quests/Party.lua
 L["%s done"] = "%s : fait"
@@ -2775,6 +2780,17 @@ L["%d steps were left undone."] = "%d étapes n'ont pas été faites."
 L["Next: %s"] = "Suivant : %s"
 L["Pick a guide"] = "Choisir un guide"
 L["Not now"] = "Pas maintenant"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Objets de quête Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Requis pour :"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Il n'est plus dans la liste de rachat du marchand."
+L["Not enough money to buy it back."] = "Pas assez d'argent pour le racheter."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Vous avez vendu %s, dont %s a encore besoin. Le racheter pour %s ?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
