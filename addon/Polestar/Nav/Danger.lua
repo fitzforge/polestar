@@ -19,7 +19,9 @@
 --     nil when unread. Walk's searches and Travel's plans both read it.
 --   Nav.danger.ZoneAt(map, x, y) -> uiMapID | nil
 --     the zone of world point (x, y) on map (a continent) in the router's
---     maps (Path.ZoneAt); nil without the router, its maps or a zone there.
+--     maps (Path.ZoneAt); nil without the router, its maps or a zone there,
+--     and on another continent whose maps have not loaded yet (they load
+--     when the player gets there).
 --   Nav.danger.Mult(level, uiMapID) -> 1 | 3 | 20
 --   Nav.danger.Table(level, startZone, goalZone) -> { [uiMapID] = 3 | 20 } | nil, signature
 --     every zone with levels whose multiplier is above 1 except startZone and
@@ -30,7 +32,8 @@
 --     what a straight walk's cost is multiplied by: the zone in the middle of
 --     each 100 yd piece of the line (Path.ZoneAt), each piece x danger[zone]
 --     (a Table), x1 in the zones of its two ends or in none; 1 without a
---     table, the router's maps or a length.
+--     table, the router's maps or a length, and on another continent whose
+--     maps have not loaded yet (Path.Resident: its part loads on arrival).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -64,9 +67,18 @@ ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	if type(level) == "number" and level > levelSeen then levelSeen = level end
 end)
 
+-- Are map's zones known without loading another continent's walking maps?
+-- Its maps are in memory (Path.Resident), or it is the player's continent
+-- (its part of Polestar_Nav loads with its first search anyway).
+local function known(P, map)
+	if not P.Resident or P.Resident(map) then return true end
+	local C = ns.Compat
+	return C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition() == map or false
+end
+
 function Danger.ZoneAt(map, x, y)
 	local P = Nav.Path
-	if not (P and P.ZoneAt and map and x and y) then return nil end
+	if not (P and P.ZoneAt and map and x and y) or not known(P, map) then return nil end
 	local ok, zone = pcall(P.ZoneAt, map, x, y)
 	return ok and zone or nil
 end
@@ -148,6 +160,9 @@ function Danger.Along(danger, map, x1, y1, x2, y2)
 	local P = Nav.Path
 	local zoneAt = P and P.ZoneAt
 	if not (danger and zoneAt and map and x1 and y1 and x2 and y2) then return 1 end
+	-- Another continent whose walking maps have not loaded (its part loads when the player gets there) has no zones
+	-- yet: none is remembered as none.
+	if not known(P, map) then return 1 end
 	if zoneAt ~= memoFn or memoSize > MEMO_MAX then memo, memoFn, memoSize = {}, zoneAt, 0 end
 	local ok, f = pcall(along, zoneAt, danger, map, x1, y1, x2, y2)
 	return ok and type(f) == "number" and f >= 1 and f or 1

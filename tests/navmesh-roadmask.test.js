@@ -69,11 +69,11 @@ test('roadmask: a gap in a straight road is bridged over walkable ground, never 
 	assert.ok(!roadAt(far, 103, 110), 'a gap over 100 yd stays open');
 });
 
-test('roadmask: a gap over a river is never bridged, and no swim surface is road (a road texture under a ford)', async () => {
-	const { packNav } = require('../tools/lib/nav/pack');
-	const S = require('./helpers/spfnav');
+// That no swim surface is road in the walking maps (a road texture under a ford) is forge nav pack's rule now
+// (forge-nav: tests/pack units.rs, node_class).
+test('roadmask: a gap over a river is never bridged', async () => {
 	// Flat ground with a river 6 yd deep across the gap (local y 205-255 yd, columns j 98-122), the road's two pieces
-	// either side of it; the road's texture also runs on under the water at columns i 140-145.
+	// either side of it.
 	const river = (y) => y > 205 && y < 255;
 	const s = new Scene({ height: (x, y) => (river(y) ? -6 : 0) }).water(-1, 205, ADT + 1, 255, 0);
 	const dir = tmpdir('polestar-roadmask-river-');
@@ -81,16 +81,4 @@ test('roadmask: a gap over a river is never bridged, and no swim surface is road
 	const w = weights([100, 106, 10, 96, 200], [100, 106, 124, 200, 200], [140, 146, 10, 200, 200]);
 	const m = maskOf(w, openNav({ dir }));
 	assert.ok(!roadAt(m, 102, 110) && !roadAt(m, 103, 110), 'no bridge across the river');
-	const files = await packNav({ dir, cells: 128, layers: { roads: () => w } });
-	const D = S.loadPack(files, 0);
-	const cl = S.decodeCluster(D, 0);
-	let water = 0;
-	let road = 0;
-	for (let n = 0; n < cl.nodes; n++) {
-		if (cl.val[n] === 2) {
-			water++;
-			assert.notEqual(cl.cls[n] & 7, 1, `water node ${n} is not road`);
-		} else if (cl.val[n] && (cl.cls[n] & 7) === 1) road++;
-	}
-	assert.ok(water > 100 && road > 100, `water ${water}, road ${road} nodes`);
 });

@@ -83,6 +83,22 @@ local function placement(G, link)
 	return HAND[info.inv], pct
 end
 
+-- Shared with the loot and merchant offers (QoL/Wear.lua).
+Equip.Placement = placement
+
+-- A turn-in's item this module is about to put on (or waits to see on):
+-- the offers leave it alone.
+function Equip.Pending(id)
+	if waiting and waiting.id == id then return true end
+	for _, e in ipairs(expected) do
+		if e.id == id then return true end
+	end
+	for _, link in ipairs(landed) do
+		if itemID(link) == id then return true end
+	end
+	return false
+end
+
 -- One reward at a time: the next is scored once the last is on
 -- (PLAYER_EQUIPMENT_CHANGED), so a second ring takes the other finger only
 -- when it beats the ring there, which may be the first reward's finger if
@@ -97,7 +113,7 @@ local function wear()
 			local this = { id = itemID(link), slot = slot, link = link, pct = pct }
 			waiting = this
 			C_Item.EquipItemByName(link, slot)
-			C_Timer.After(WAIT, function()
+			ns.After(WAIT, function()
 				if waiting == this then waiting = nil; QoL.Secure("rewardEquip", wear) end
 			end)
 			return

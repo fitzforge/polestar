@@ -53,13 +53,16 @@ function parseImageSize(text) {
 
 // The file a step's picture names (spec: parseImagePath's), found in the
 // pack folder: the extension written, else .tga, then .blp; the name as
-// written, the extension in any case. -> absolute path | null.
+// written, the extension in any case. A folder that is a link out of the
+// pack folder holds none. -> absolute path | null.
 function findImage(packDir, spec) {
 	const parts = spec.path.split('/');
 	const name = parts.pop();
 	const dir = path.join(packDir, ...parts);
 	let entries;
 	try {
+		const rel = path.relative(fs.realpathSync(packDir), fs.realpathSync(dir));
+		if (rel.startsWith('..') || path.isAbsolute(rel)) return null;
 		entries = fs.readdirSync(dir, { withFileTypes: true });
 	} catch {
 		return null;

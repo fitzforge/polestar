@@ -116,6 +116,15 @@ test('goal notes: the other faction\'s town, hazards, far-above-band levels, sev
 	assert.equal(P.overlayLevel({ areas: [{ level: 0 }, { level: 26 }, { level: 30 }] }), 26);
 });
 
+test('areas 10+ levels above a guide below the cap wait for a step of their own', () => {
+	const o = (level) => ({ areas: [{ id: 1, name: 'Somewhere', level }] });
+	assert.equal(P.isLater(o(60), 45), true, "Feralas's Oneiros in the 30-45 guide");
+	assert.equal(P.isLater(o(54), 45), false);
+	assert.equal(P.isLater(o(35), 30), false, 'five above: a warning only');
+	assert.equal(P.isLater(o(63), 60), false, 'the 45-60 guides keep everything in the tour');
+	assert.equal(P.isLater(o(0), 12), false, 'no known level');
+});
+
 test('steps split evenly at no more than 8 explore goals', () => {
 	const n = (k) => Array.from({ length: k }, (_, i) => i);
 	assert.deepEqual(P.chunks(n(8)).map((c) => c.length), [8]);

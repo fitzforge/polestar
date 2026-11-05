@@ -2,15 +2,17 @@ guide forever/collectibles/pets/tiny-crimson-whelpling
 title Tiny Crimson Whelpling
 category Collectibles
 folder Companion pets · Drops
-keywords Red Whelp, Crimson Whelp, Flamesnorting Whelp, Wetlands, dragon, whelp
+keywords Red Whelp, Crimson Whelp, Flamesnorting Whelp, Wetlands, dragon, whelp, Dragonmaw
 collects 8499
 levels 22-60
 zone Wetlands
 
 # Tiny Crimson Whelpling from the red whelps of the eastern Wetlands.
-# Sources: items.json (Red / Crimson / Flamesnorting Whelp, 0.06-0.16% per kill,
-# pfQuest); Forever client 1.60.1.70338.
+# Sources: items.json (Red Whelp 0.16%, Crimson Whelp 0.14%, Flamesnorting
+# Whelp 0.06% per kill, Classic drop data; their spawns); the world database
+# (about 50 whelps, five-minute respawn, Classic data); Forever's client
+# data (the whelpling does not bind, so it can be traded).
 
 step Wetlands whelps
-  tip The Red, Crimson and Flamesnorting Whelps (levels 23-26) in the eastern Wetlands drop it about once in 600-1,600 kills in our data.
+  tip The red whelps live in the hills of the eastern Wetlands, towards Grim Batol: about 50 of them, back about five minutes after a kill in Classic's data. Red Whelps (levels 23-24) and Crimson Whelps (25-26) drop the whelpling about once in 650 kills, the Flamesnorting Whelps (26-27) mixed in with them only once in 1,600, so expect a long farm. It can be traded, so the Auction House may be quicker.
   collect 8499 @64.6,42.2              -- Wetlands whelps

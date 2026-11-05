@@ -1,0 +1,377 @@
+{
+	"21": {
+		"id": 21,
+		"name": "Booty Bay",
+		"side": null
+	},
+	"46": {
+		"id": 46,
+		"name": "Blacksmithing - Armorsmithing",
+		"side": null
+	},
+	"47": {
+		"id": 47,
+		"name": "Ironforge",
+		"side": "Alliance"
+	},
+	"54": {
+		"id": 54,
+		"name": "Gnomeregan Exiles",
+		"side": "Alliance"
+	},
+	"59": {
+		"id": 59,
+		"name": "Thorium Brotherhood",
+		"side": null
+	},
+	"67": {
+		"id": 67,
+		"name": "Horde",
+		"side": "Horde"
+	},
+	"68": {
+		"id": 68,
+		"name": "Undercity",
+		"side": "Horde"
+	},
+	"69": {
+		"id": 69,
+		"name": "Darnassus",
+		"side": "Alliance"
+	},
+	"70": {
+		"id": 70,
+		"name": "Syndicate",
+		"side": null
+	},
+	"72": {
+		"id": 72,
+		"name": "Stormwind",
+		"side": "Alliance"
+	},
+	"76": {
+		"id": 76,
+		"name": "Orgrimmar",
+		"side": "Horde"
+	},
+	"81": {
+		"id": 81,
+		"name": "Thunder Bluff",
+		"side": "Horde"
+	},
+	"83": {
+		"id": 83,
+		"name": "Leatherworking - Elemental",
+		"side": null
+	},
+	"86": {
+		"id": 86,
+		"name": "Leatherworking - Dragonscale",
+		"side": null
+	},
+	"87": {
+		"id": 87,
+		"name": "Bloodsail Buccaneers",
+		"side": null
+	},
+	"92": {
+		"id": 92,
+		"name": "Gelkis Clan Centaur",
+		"side": null
+	},
+	"93": {
+		"id": 93,
+		"name": "Magram Clan Centaur",
+		"side": null
+	},
+	"169": {
+		"id": 169,
+		"name": "Steamwheedle Cartel",
+		"side": null
+	},
+	"270": {
+		"id": 270,
+		"name": "Zandalar Tribe",
+		"side": null
+	},
+	"289": {
+		"id": 289,
+		"name": "Blacksmithing - Weaponsmithing",
+		"side": null
+	},
+	"349": {
+		"id": 349,
+		"name": "Ravenholdt",
+		"side": null
+	},
+	"369": {
+		"id": 369,
+		"name": "Gadgetzan",
+		"side": null
+	},
+	"469": {
+		"id": 469,
+		"name": "Alliance",
+		"side": "Alliance"
+	},
+	"470": {
+		"id": 470,
+		"name": "Ratchet",
+		"side": null
+	},
+	"471": {
+		"id": 471,
+		"name": "Wildhammer Clan",
+		"side": "Alliance"
+	},
+	"509": {
+		"id": 509,
+		"name": "The League of Arathor",
+		"side": "Alliance"
+	},
+	"510": {
+		"id": 510,
+		"name": "The Defilers",
+		"side": "Horde"
+	},
+	"529": {
+		"id": 529,
+		"name": "Argent Dawn",
+		"side": null
+	},
+	"530": {
+		"id": 530,
+		"name": "Darkspear Trolls",
+		"side": "Horde"
+	},
+	"549": {
+		"id": 549,
+		"name": "Leatherworking - Tribal",
+		"side": null
+	},
+	"550": {
+		"id": 550,
+		"name": "Engineering - Goblin",
+		"side": null
+	},
+	"551": {
+		"id": 551,
+		"name": "Engineering - Gnome",
+		"side": null
+	},
+	"569": {
+		"id": 569,
+		"name": "Blacksmithing - Hammersmithing",
+		"side": null
+	},
+	"570": {
+		"id": 570,
+		"name": "Blacksmithing - Axesmithing",
+		"side": null
+	},
+	"571": {
+		"id": 571,
+		"name": "Blacksmithing - Swordsmithing",
+		"side": null
+	},
+	"574": {
+		"id": 574,
+		"name": "Caer Darrow",
+		"side": null
+	},
+	"576": {
+		"id": 576,
+		"name": "Timbermaw Hold",
+		"side": null
+	},
+	"577": {
+		"id": 577,
+		"name": "Everlook",
+		"side": null
+	},
+	"589": {
+		"id": 589,
+		"name": "Wintersaber Trainers",
+		"side": "Alliance"
+	},
+	"609": {
+		"id": 609,
+		"name": "Cenarion Circle",
+		"side": null
+	},
+	"629": {
+		"id": 629,
+		"name": "Shatterspear Trolls",
+		"side": null
+	},
+	"630": {
+		"id": 630,
+		"name": "Ravasaur Trainers",
+		"side": "Horde"
+	},
+	"709": {
+		"id": 709,
+		"name": "Battleground Neutral",
+		"side": null
+	},
+	"729": {
+		"id": 729,
+		"name": "Frostwolf Clan",
+		"side": "Horde"
+	},
+	"730": {
+		"id": 730,
+		"name": "Stormpike Guard",
+		"side": "Alliance"
+	},
+	"749": {
+		"id": 749,
+		"name": "Hydraxian Waterlords",
+		"side": null
+	},
+	"789": {
+		"id": 789,
+		"name": "Moro'gai",
+		"side": null
+	},
+	"809": {
+		"id": 809,
+		"name": "Shen'dralar",
+		"side": null
+	},
+	"889": {
+		"id": 889,
+		"name": "Warsong Outriders",
+		"side": "Horde"
+	},
+	"890": {
+		"id": 890,
+		"name": "Silverwing Sentinels",
+		"side": "Alliance"
+	},
+	"891": {
+		"id": 891,
+		"name": "Alliance Forces",
+		"side": "Alliance"
+	},
+	"892": {
+		"id": 892,
+		"name": "Horde Forces",
+		"side": "Horde"
+	},
+	"909": {
+		"id": 909,
+		"name": "Darkmoon Faire",
+		"side": null
+	},
+	"910": {
+		"id": 910,
+		"name": "Brood of Nozdormu",
+		"side": null
+	},
+	"2586": {
+		"id": 2586,
+		"name": "Azeroth Commerce Authority",
+		"side": "Alliance"
+	},
+	"2587": {
+		"id": 2587,
+		"name": "Durotar Supply and Logistics",
+		"side": "Horde"
+	},
+	"2641": {
+		"id": 2641,
+		"name": "Emerald Wardens",
+		"side": null
+	},
+	"2719": {
+		"id": 2719,
+		"name": "Cenarion Scouts",
+		"side": null
+	},
+	"2740": {
+		"id": 2740,
+		"name": "Kirin Tor",
+		"side": "Alliance"
+	},
+	"2747": {
+		"id": 2747,
+		"name": "Barkskin Burrow",
+		"side": null
+	},
+	"2758": {
+		"id": 2758,
+		"name": "Nightclaw Druids",
+		"side": null
+	},
+	"2765": {
+		"id": 2765,
+		"name": "Guardians of Hyjal",
+		"side": null
+	},
+	"2778": {
+		"id": 2778,
+		"name": "Windshapers",
+		"side": "Horde"
+	},
+	"2779": {
+		"id": 2779,
+		"name": "High Order",
+		"side": "Alliance"
+	},
+	"2782": {
+		"id": 2782,
+		"name": "Bolder'ok Clan",
+		"side": "Horde"
+	},
+	"2787": {
+		"id": 2787,
+		"name": "Earthen Ring",
+		"side": "Horde"
+	},
+	"2798": {
+		"id": 2798,
+		"name": "Darkspear Raiders",
+		"side": "Horde"
+	},
+	"2799": {
+		"id": 2799,
+		"name": "Theramore Expeditionary Force",
+		"side": "Alliance"
+	},
+	"2800": {
+		"id": 2800,
+		"name": "PvP Rank Points",
+		"side": null
+	},
+	"2801": {
+		"id": 2801,
+		"name": "Neutral Both But Alliance Can Attack",
+		"side": null
+	},
+	"2802": {
+		"id": 2802,
+		"name": "Legacy Track",
+		"side": null
+	},
+	"2807": {
+		"id": 2807,
+		"name": "DNT Test Reputation",
+		"side": null
+	},
+	"2819": {
+		"id": 2819,
+		"name": "The Watchers",
+		"side": null
+	},
+	"2826": {
+		"id": 2826,
+		"name": "Brotherhood of the Horse",
+		"side": "Alliance"
+	},
+	"2827": {
+		"id": 2827,
+		"name": "Powderfuse",
+		"side": null
+	}
+}

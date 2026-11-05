@@ -9,12 +9,12 @@ levels 1-60
 zone Undercity
 
 # Jeremiah Payson's cockroaches in the Undercity.
-# Sources: items.json / npcs.json (vendor, Cockroach; the new Plagued and Undercity
-# Cockroaches); Forever client 1.60.1.70338 via wago.tools (ItemSparse prices;
-# every pet item teaches its companion when used).
+# Sources: items.json / npcs.json (vendor, Cockroach; the new Plagued and
+# Undercity Cockroaches); Forever's client data 1.60.1.70532 (ItemSparse
+# prices: 50s each; every pet item teaches its companion when used).
 
 step Jeremiah Payson
-  tip Jeremiah Payson sells three cockroaches in the Undercity (50s each); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Jeremiah Payson sells three cockroaches in the Undercity (50s each, 1g 50s for all three); the Plagued and Undercity Cockroaches are new in Forever. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 8403                         -- Jeremiah Payson
   buy 10393 npc 8403 optional         -- Cockroach, 50s
   buy 280697 "Plagued Cockroach" npc 8403 optional -- 50s

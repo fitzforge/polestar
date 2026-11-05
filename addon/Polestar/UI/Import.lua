@@ -155,7 +155,7 @@ local function pasteBox(parent)
 		local now = GetTime()
 		if now ~= at then
 			at, parts, count = now, {}, 0
-			self:SetScript("OnUpdate", function(box)
+			self:SetScript("OnUpdate", ns.Safe(function(box)
 				box:SetScript("OnUpdate", nil)
 				if count < PASTE_MIN then
 					IV.Check(box:GetText())
@@ -166,7 +166,7 @@ local function pasteBox(parent)
 				box:SetText(format("%s\226\128\166 (%d KB)", pasted:gsub("%s", ""):sub(1, 40), math.ceil(#pasted / 1024)))
 				box:ClearFocus()
 				IV.Check(pasted)
-			end)
+			end))
 		end
 		count = count + 1
 		parts[count] = c

@@ -87,7 +87,7 @@ async function run(argv, env = process.env) {
 		return 1;
 	}
 	if (opts.play && !fs.existsSync(path.join(ROOT, 'data', 'forever', 'races.json'))) {
-		console.error('dev --play: data/forever is not built (the playground needs it): run node tools/polestar.js data build first');
+		console.error('dev --play: data/forever is not built (the playground needs it): run forge data build first');
 		return 1;
 	}
 	const packDir = first.dir;

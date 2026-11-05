@@ -1,0 +1,13 @@
+Polestar quest database: third-party notices
+============================================
+
+The data in this folder was generated for Polestar from the reference data
+sources below (quest, NPC, object and item facts, spawn positions, map frames).
+
+Fixture
+-------
+URL: https://example.invalid
+Revision: 1
+License: MIT
+
+Fixture notice.

@@ -1,5 +1,5 @@
 -- French (frFR): the guide forever/collectibles/mounts/alliance/saber (forever/collectibles/mounts/alliance/saber.guide).
--- Written by `node tools/polestar.js i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in French (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -11,12 +11,20 @@ return {
 
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Apprendre à monter",
-	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {zone:1457} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {zone:1457}. At 40 {npc:4753} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "Les sabres de {npc:4753} et {npc:4730} se trouvent dans l'enclos de monte de {area:1658}, à {zone:1457}. Au niveau 40, {npc:4753} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de l'Alliance de les monter.",
+	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 40 {npc:4753} teaches {skill:762} to Night Elves for 100g (10% less at Honored with {faction:69}), and it comes with a saber. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4753} et les sabres-de-givre de {npc:4730} sont sur le terrain de monte de l'{area:1658}, à {faction:69}. Au niveau 40, {npc:4753} enseigne la {skill:762} aux Elfes de la nuit pour 100 po (10 % de moins à Honoré auprès de {faction:69}), avec un sabre. Les autres races apprennent la {skill:762}, avec leur propre première monture, auprès du maître de monte de leur race.",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "{npc:4753}, maître de monte",
 
-	-- Step 2: Pick a colour
+	-- Step 2: Tiger Riding for other races
+	-- {skill:762} Riding
+	["Tiger {skill:762} for other races"] = "",
+	-- {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
+	["Any Alliance race can buy these sabers, but riding one also takes Tiger Riding, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	-- {npc:4753} Jartsam
+	["{npc:4753}, Tiger Riding"] = "",
+
+	-- Step 3: Pick a colour
 	["Pick a colour"] = "Choisir une couleur",
 	-- {npc:4730} Lelanai
 	["{npc:4730} sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like."] = "{npc:4730} vend les autres couleurs (20 po chacune dans le client Forever). Achetez celles que vous voulez, ou aucune si la monture reçue vous plaît.",
@@ -26,6 +34,11 @@ return {
 	["{item:8631}, 20g"] = "{item:8631}, 20 po",
 	-- {item:8632} Reins of the Spotted Frostsaber
 	["{item:8632}, 20g"] = "{item:8632}, 20 po",
-	-- {item:274706} Reins of the Striped Dawnsaber
-	["{item:274706} is a new Forever saber (level 40, 20g in the client) whose source is not known yet."] = "{item:274706} est un nouveau sabre de Forever (niveau 40, 20 po dans le client) dont la source n'est pas encore connue.",
+	["new in Forever, 20g; beta players found it here"] = "nouveau dans Forever, 20 po ; les joueurs de la bêta l'ont trouvé ici",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "Toute race de l'Alliance peut acheter ces sabres, mais en monter un demande aussi {spell:828}, que seuls les Elfes de la nuit reçoivent avec la {skill:762}. {npc:4753} l'enseigne aux autres races une fois Exaltées auprès de {faction:69} (le guide de réputation de Darnassus montre le chemin). D'ici là, n'achetez pas de sabre pour ce personnage.",
+	-- ["{item:274706} is a new Forever saber (level 40, 20g in the client) whose source is not known yet."] = "{item:274706} est un nouveau sabre de Forever (niveau 40, 20 po dans le client) dont la source n'est pas encore connue.",
+	-- ["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {zone:1457}. At 40 {npc:4753} teaches {skill:762} (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these."] = "Les sabres de {npc:4753} et {npc:4730} se trouvent dans l'enclos de monte de {area:1658}, à {zone:1457}. Au niveau 40, {npc:4753} enseigne {skill:762} (100 po selon les concepteurs de Blizzard), et l'apprendre vous donne une monture. Le client Forever permet à toutes les races de l'Alliance de les monter.",
+	-- ["{spell:828} for other races"] = "{spell:828} pour les autres races",
 }

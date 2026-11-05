@@ -7,7 +7,7 @@
 // where the quest data keeps them apart.
 //
 // The structure tests parse the guides alone; the chain tests read
-// data/forever (node tools/polestar.js data build) and skip without it.
+// data/forever (forge data build) and skip without it.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -142,7 +142,7 @@ const spellBuild = fs.existsSync(WAGO)
 	: null;
 const CLASS_BIT = { Warrior: 1, Paladin: 2, Hunter: 4, Rogue: 8, Priest: 16, Shaman: 64, Mage: 128, Warlock: 256, Druid: 1024 };
 
-test('reward spells are the client\'s: each id is in the Forever spell tables under its name, with an icon; no class spell is left as words', { skip: spellBuild ? false : 'no cached Forever wago build with SpellName, SpellMisc and SkillLineAbility (node tools/polestar.js data build)' }, () => {
+test('reward spells are the client\'s: each id is in the Forever spell tables under its name, with an icon; no class spell is left as words', { skip: spellBuild ? false : 'no cached Forever wago build with SpellName, SpellMisc and SkillLineAbility (forge data build)' }, () => {
 	const table = (t) => parseCsv(fs.readFileSync(path.join(WAGO, spellBuild, `${t}.csv`), 'utf8'));
 	const names = new Map(table('SpellName').map((r) => [Number(r.ID), r.Name_lang]));
 	const icons = new Map(table('SpellMisc').map((r) => [Number(r.SpellID), Number(r.SpellIconFileDataID)]));
@@ -167,4 +167,44 @@ test('reward spells are the client\'s: each id is in the Forever spell tables un
 		}
 	}
 	assert.ok(spells >= 30, `${spells} reward spells checked`);
+});
+
+// The level-up heads-up (UI/ClassToast.lua) offers "Open in a new tab" when a
+// Class guide for the character takes a quest of the chain it offers. Every
+// chain it can offer (the starts of classrewards build, level 2 and up) has
+// one for each race and class it is offered to, with a goal of the chain
+// that race and class can see.
+const { SOURCES } = require('../tools/lib/paths');
+const classrewards = require('../tools/commands/classrewards');
+const RACE_NAME = { Scourge: 'Scourge', Undead: 'Scourge' };
+const listOk = (list, v) => !list || !list.length || list.some((x) => (RACE_NAME[x] || x).toUpperCase() === (RACE_NAME[v] || v).toUpperCase());
+test('every chain the level-up heads-up can offer opens a Class guide for each race and class it offers it to', { skip: needs('quests.json', 'npcs.json', 'objects.json', 'races.json') || (spellBuild ? false : 'no cached Forever client tables') }, () => {
+	load();
+	const read = (f) => JSON.parse(fs.readFileSync(path.join(DATA, f), 'utf8'));
+	const tdbFile = path.join(SOURCES, 'forever-tdb', 'extract.json');
+	const tdb = fs.existsSync(tdbFile) ? JSON.parse(fs.readFileSync(tdbFile, 'utf8')) : null;
+	const races = read('races.json');
+	const built = classrewards.buildClassRewards({ quests, tdb, table: classrewards.tableFinder(SOURCES), guides: classrewards.classGuides(OFFICIAL_DIR), npcs: read('npcs.json'), objects: read('objects.json'), races });
+	const chainOf = new Map(built.quests.map((e) => [e.q, e.chain]));
+	const maskOf = new Map(built.quests.map((e) => [e.q, e.mask]));
+	const missing = [];
+	for (const s of built.starts) {
+		if (s.minLevel <= 1) continue;
+		const chain = chainOf.get(s.q);
+		for (const key of Object.keys(s.races)) {
+			const [race, side] = key.split(':');
+			const faction = side === 'A' ? 'Alliance' : 'Horde';
+			const playable = (races[race] && races[race][faction] && races[race][faction].classes) || [];
+			for (const cls of playable.filter((c) => maskOf.get(s.q) & CLASS_BIT[c[0] + c.slice(1).toLowerCase()])) {
+				const ok = GUIDES.some(({ ast }) => {
+					const h = ast.header;
+					if (h.category !== 'Class' || !listOk(h.classes, cls) || (h.faction && h.faction !== faction) || !listOk(h.races, race)) return false;
+					const sees = (only) => !only || (listOk(only.races, race) && listOk(only.classes, cls) && (!only.factions || only.factions.includes(faction)));
+					return ast.steps.some((st) => sees(st.only) && st.goals.some((g) => g.quest && chainOf.get(g.quest) === chain && sees(g.only)));
+				});
+				if (!ok) missing.push(`${s.q} ${quests[s.q] && quests[s.q].title} (${race} ${faction} ${cls})`);
+			}
+		}
+	}
+	assert.deepEqual(missing, []);
 });

@@ -1,5 +1,5 @@
 'use strict';
-// Model parameters (docs/SIMULATION.md §2): every one has a prior (mean,
+// Model parameters (docs/legacy/SIMULATION-js.md §2): every one has a prior (mean,
 // spread, bounds). data/sim/params.json keeps the priors and, after `sim
 // calibrate`, the calibrated mean/sd of the fitted ones; `effective()` merges
 // the two. Robustness draws sample each parameter from a normal around its
@@ -22,11 +22,17 @@ const PRIORS = {
 	killUp: [0.1, 0.04, 0, 0.3, 'kill time +share per mob level above the player'],
 	killDown: [0.05, 0.02, 0, 0.12, 'kill time -share per mob level below the player (floor 0.5)'],
 	eliteTime: [3.5, 1, 1.5, 8, 'kill time multiplier for elites'],
+	groupSize: [3, 0, 2, 5, 'v2: players in the party an elite quest is done with (Fitz 2026-10-20: elite quests in, grouping advised), an estimate: an elite kill takes eliteTime solo kills split over them'],
+	groupShare: [0.389, 0, 0.389, 0.389, 'v2: share of an elite kill\'s (double) XP each member of that party gets (Classic: a 3-player party\'s 1.166 bonus / 3)'],
+	groupWait: [600, 300, 120, 1800, 'v2: seconds to find a group, once per elite camp worked (a chain at one camp waits once), an estimate'],
 	classFactor: [1, 0.1, 0.6, 1.6, 'kill time multiplier of the class'],
 	spacing: [1, 0.25, 0.4, 2.5, 'multiplier on the walk between mobs from spawn density'],
 	talkSec: [6, 2, 2, 15, 'seconds per accept or turn-in'],
 	interactSec: [8, 3, 2, 25, 'seconds per object use'],
-	escortSec: [240, 90, 60, 600, 'seconds per escort/event objective'],
+	escortSec: [240, 90, 60, 600, 'seconds per event objective that is no escort (a defend event, an exploration); an escort without a known path or end (v1: every escort/event)'],
+	escortFail: [0.15, 0.08, 0, 0.5, 'v2: chance an escort fails once (the NPC dies to its ambush, the player strays), an estimate (QuestMechanics: "fails easily")'],
+	escortBusy: [0.1, 0.08, 0, 0.5, 'v2: chance an escort NPC is away on another player\'s escort when the character arrives, an estimate (QuestMechanics: "the NPC is often taken")'],
+	escortRespawn: [180, 90, 30, 600, 'v2: seconds an escort NPC takes to come back after a failed or another player\'s run, an estimate'],
 	dropMul: [1, 0.2, 0.5, 2, 'real drop rate / data drop rate'],
 	extraKill: [0.043, 0.038, 0, 0.8, 'incidental kills per objective kill (mobs in the way; fixed, fitted 2026-10-12 against level checkpoints)'],
 	questXpScale: [1, 0.1, 0.5, 1.5, 'Forever quest XP / data quest XP (all rewards)'],
@@ -35,13 +41,29 @@ const PRIORS = {
 	transportWait: [1, 0.3, 0.3, 2, 'multiplier on boat/zeppelin/tram average waits'],
 	hearthCast: [10, 0, 10, 10, 'hearthstone cast, seconds'],
 	hearthCooldown: [3600, 0, 1800, 3600, 'hearthstone cooldown, seconds'],
+	deathskipSec: [60, 20, 30, 120, 'deathskip (die on purpose, release, Spirit Healer), seconds: an estimate, ~30 s pulling mobs to die to plus the healer\'s ~30 s (v2 travel2.js SPIRIT_HEAL_SEC)'],
+	deathskipLevel: [60, 0, 0, 60, 'policy: highest level a route deathskips at (CapAudit #5: any level; above 10 resurrection sickness is priced as slower kills, sicknessSlow; was 10, Forever\'s last level without sickness)'],
+	sicknessSlow: [0.5, 0.2, 0.2, 1, 'v2: share of each second of resurrection sickness spent working that is lost to slower kills (the debuff cuts stats; walking, flights and talks lose nothing), an estimate'],
 	levelOverhead: [60, 40, 0, 300, 'seconds per level-up: training, vendoring, repairs'],
 	grindEff: [0.7, 0.12, 0.35, 1.1, 'grinding XP rate / formula rate at the best site (respawns, competition, bag trips)'],
 	grindWeight: [2.5, 0, 2.5, 2.5, 'policy, not a measurement: an hour of grinding counts as this many hours when routes are compared, so a route grinds only where no quest is nearly as good (reported times stay real)'],
+	escortWeight: [2.5, 0, 2.5, 2.5, 'policy, not a measurement: a second of an escort counts as this many when the accept rule prices it, as grinding\'s do (grindWeight), so an escort is taken when its XP beats grinding outright or it opens a chain that does: players skip escorts (the wait for the NPC, its pace, a failed run; reported times stay real)'],
 	zoneChange: [450, 0, 450, 450, 'policy, not a measurement: seconds a move into another zone counts when routes are compared, so a route takes a hub\'s quests and does them in one go and switches zones only when it is clearly worth it (reported times stay real)'],
 	zoneReturn: [0, 0, 0, 0, 'policy, not a measurement: seconds a move back into a zone the route was in earlier (and left) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
 	spotReturn: [0, 0, 0, 0, 'policy, not a measurement: seconds work again at a spot (250 yd cell) worked earlier, after leaving it by more than 600 yd, counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
 	wastedAccept: [0, 0, 0, 0, 'policy, not a measurement: seconds each quest accepted and never handed in (abandoned for a full log, or still in the log at 60) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	stepCost: [0, 0, 0, 600, 'policy: per-area-visit cost (seconds); 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	// v2 search (M3 objective, v2/search.js): the route audit's findings
+	// (v2/audit.js, by check) and the smooth pass's soft time bound.
+	deadLeg: [0, 0, 0, 0, 'v2 policy, not a measurement: seconds each dead leg (an arrival where nothing happens; route audit check 6) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	hubSplit: [0, 0, 0, 0, 'v2 policy, not a measurement: seconds each hub split (a hub\'s quests accepted on a later trip; route audit check 5) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	missedAccept: [0, 0, 0, 0, 'v2 policy, not a measurement: seconds each missed accept (a quest the walk passed and the sim would take, not taken then; route audit check 1) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	missedTurnin: [0, 0, 0, 0, 'v2 policy, not a measurement: seconds each missed turn-in (route audit check 2) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	avoidableReturn: [0, 0, 0, 0, 'v2 policy, not a measurement: seconds each avoidable return (back in a zone for work its first visit passed; route audit check 4) counts when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	xpLoss: [0, 0, 0, 0, 'v2 policy, not a measurement: weight on the seconds the XP lost to late turn-ins (the character 6+ levels over the quest) takes at the route\'s average rate, when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	overrunWeight: [0, 0, 0, 0, 'v2 policy, not a measurement: the smooth pass\'s soft time bound (spec §4): a route over (1 + ε) × the fastest route\'s time counts this × the overrun² (seconds) more; 0 in the time objective, see OBJECTIVES'],
+	territory: [0, 0, 0, 0, 'v2 policy, not a measurement: each second walked or worked in the other faction\'s territory (v2/territory.js: an AreaTable faction zone weighs 1, a contested zone leaning to it 0.4) counts this many times more when routes are compared; 0 in the time objective, see OBJECTIVES (reported times stay real)'],
+	territoryPvp: [1, 0, 1, 1, 'v2 policy: multiplier on territory for the realm (1: normal; a PvP realm\'s heavier weight is a later option)'],
 	gateGap: [2, 0, 2, 2, 'levels a character grinds to reach a quest\'s minimum level; further above, the quest is not available yet'],
 	dangerGap: [5, 0, 5, 5, 'most levels a quest may be above the character (red quests are not attempted)'],
 	deathRisk: [300, 150, 0, 1200, 'seconds lost per walking crossing of a zone whose mobs are 5+ levels above the character (deaths, corpse runs, detours)'],
@@ -51,7 +73,52 @@ const PRIORS = {
 	dungeonTrash: [70, 20, 25, 150, 'elite trash kills per clear (DungeonJournal has no trash counts)'],
 	partyShare: [0.28, 0, 0.28, 0.28, 'share of solo kill XP each of 5 party members gets (Classic: 1.4 / 5)'],
 	restedShare: [0, 0, 0, 1, 'share of kill XP doubled by rested XP (optional)'],
+	trainSec: [60, 0, 60, 60, 'v2: seconds per class trainer visit (v1 levelOverhead, spec §2.6)'],
+	vendorSec: [60, 0, 60, 60, 'v2: seconds per vendor visit, repair and sell (estimate, spec §2.6)'],
+	// Seconds added to route time when an unconfirmed rule is violated (the route
+	// bends the rule): an estimate balancing routing influence vs. noise (spec §6.2).
+	ruleSoftPenalty: [600, 0, 0, 3600, 'v2: seconds penalty for bending an unconfirmed rule (spec §6.2)'],
 };
+
+// ---- v2 gold (spec §2.6). Copper throughout. ----
+
+// Piecewise-linear table over levels 0..60 from [level, copper] anchors.
+function levelTable(anchors) {
+	const t = new Float64Array(61);
+	for (let l = 0; l <= 60; l++) {
+		let k = 0;
+		while (k < anchors.length - 2 && anchors[k + 1][0] <= l) k++;
+		const [l0, c0] = anchors[k];
+		const [l1, c1] = anchors[k + 1];
+		const v = l <= l0 ? c0 : l >= l1 ? c1 : c0 + ((c1 - c0) * (l - l0)) / (l1 - l0);
+		t[l] = Math.round(v);
+	}
+	return t;
+}
+
+// Mean quest coin per quest by quest level (copper): Forever's quest coin
+// rewards (local page data), mean per quest by level ±2, sampled 2026-10-19
+// (4,422 quests; 17-42% pay any coin, so the mean is the per-quest
+// expectation). Linear between anchors. Per-quest coin (world.questCoin)
+// replaces this when the page import lands; until then results mark gold: 'estimate'.
+const COIN_EST_ANCHORS = [[1, 7], [5, 29], [10, 83], [15, 221], [20, 362], [25, 997], [30, 677], [35, 1251], [40, 1522], [45, 2020], [50, 3829], [55, 2767], [60, 2415]];
+const COIN_EST = levelTable(COIN_EST_ANCHORS);
+
+// Per kill by mob level L (index 0..63, copper), from CMaNGOS classic-db (the
+// pinned dump in data/sources/cmangos), derived 2026-10-19 by a one-off script:
+// creature_template rows with Rank 0 (non-elite, non-rare) and some loot
+// (LootId or MaxLootGold > 0), L = round((MinLevel + MaxLevel) / 2).
+// KILL_COIN: mean of (MinLootGold + MaxLootGold) / 2.
+// KILL_VENDOR: mean expected vendor value of the loot: over creature_loot_template
+// rows of LootId (reference_loot_template one level deep; grouped zero-chance rows
+// share the group's remainder; negative chance = quest-only, skipped), chance% / 100
+// × mean count × item_template.SellPrice, for Quality 0-2 items that are not class 12
+// (quest); vendor price; the auction house is not modelled. Classic loot tables;
+// Forever drops may differ. Realised at vendor visits.
+const KILL_COIN = Object.freeze([0, 11, 4, 2, 3, 11, 3, 6, 6, 8, 11, 8, 10, 13, 13, 15, 16, 17, 18, 17, 23, 21, 23, 22, 30, 27, 29, 32, 28, 37, 33, 31, 51, 40, 41, 49, 50, 51, 47, 52, 47, 52, 68, 65, 72, 72, 83, 71, 62, 62, 82, 76, 79, 124, 104, 223, 118, 180, 152, 209, 208, 5867, 199, 1]);
+const KILL_VENDOR = Object.freeze([0, 5, 6, 5, 5, 5, 12, 12, 17, 18, 19, 34, 38, 39, 40, 35, 91, 57, 69, 75, 62, 125, 108, 121, 122, 125, 169, 164, 165, 163, 105, 259, 255, 320, 301, 238, 329, 329, 405, 384, 327, 524, 435, 436, 510, 481, 465, 545, 557, 620, 482, 778, 614, 726, 780, 529, 818, 707, 785, 887, 386, 641, 51, 0]);
+
+const GOLD = Object.freeze({ COIN_EST, KILL_COIN, KILL_VENDOR });
 
 // Kill-speed priors by class (a multiplier on kill time; lower is faster).
 const CLASS_FACTOR = {
@@ -72,7 +139,31 @@ const CLASS_FACTOR = {
 // (Horde Orc, 100k routes with walks: 42 abandoned, 63 never handed in).
 const OBJECTIVES = {
 	time: {},
-	smooth: { zoneChange: 900, zoneReturn: 1800, spotReturn: 900, grindWeight: 4, wastedAccept: 600 },
+	smooth: { zoneChange: 900, zoneReturn: 1800, spotReturn: 900, grindWeight: 4, escortWeight: 4, wastedAccept: 600 },
+	// smooth2 = v1 smooth weights + stepCost: 60 + grindWeight: 6 (plan Task
+	// 10; grinding uncapped since 2026-10-20, the weight alone prices it: the
+	// no-cap grid at 4/6/8/10, Horde 37.1/30.3/25.2/27.2 h of grinding,
+	// 154.0/156.4/161.5/167.2 h, errand trips 56/67/83/93; Alliance
+	// 43.1/30.6/35.4/37.8 h, 151.4/155.2/167.8/166.0 h, 55/78/88/87: above 6
+	// grinding stops falling while hours and errands rise),
+	// and the M3 search's terms (v2/search.js cost; tuned in M4):
+	// - each route audit finding (v2/audit.js check in brackets) at the
+	//   audit's own clunk-score seconds (audit.js CLUNK_WEIGHTS): deadLeg 60
+	//   (check 6), hubSplit 300 (5), missedAccept 300 (1), missedTurnin 120 (2),
+	//   avoidableReturn 600 (4);
+	// - xpLoss 1: XP lost to late turn-ins counts once more, at the seconds it
+	//   takes at the route's average rate (Fitz 2026-10-19: reduced XP is clunky);
+	// - overrunWeight 1/600: over the time bound a second's price doubles at 5
+	//   minutes over (d/dT of overrunWeight × overrun² is 1 there), small next to
+	//   the short list's 4% steps (about 4 h at 100 h);
+	// - territory 3: a second walked or worked in the other faction's zone
+	//   counts 4 (Fitz 2026-10-20: walking or questing there costs a lot; Luna's
+	//   Alliance L28-31 walk down the Barrens road to the Shimmering Flats).
+	smooth2: {
+		zoneChange: 900, zoneReturn: 1800, spotReturn: 900, grindWeight: 6, escortWeight: 6, wastedAccept: 600, stepCost: 60,
+		deadLeg: 60, hubSplit: 300, missedAccept: 300, missedTurnin: 120, avoidableReturn: 600, xpLoss: 1, overrunWeight: 1 / 600,
+		territory: 3,
+	},
 };
 
 function objectiveName(o) {
@@ -177,5 +268,5 @@ function draws(eff, k, seed) {
 }
 
 module.exports = {
-	PRIORS, NAMES, CLASS_FACTOR, OBJECTIVES, objectiveName, parseOverrides, tagName, priorTable, paramsFile, loadParamsFile, saveParamsFile, effective, means, sample, draws,
+	PRIORS, NAMES, CLASS_FACTOR, OBJECTIVES, GOLD, objectiveName, parseOverrides, tagName, priorTable, paramsFile, loadParamsFile, saveParamsFile, effective, means, sample, draws,
 };

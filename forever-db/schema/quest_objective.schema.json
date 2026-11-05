@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/quest_objective.schema.json",
+  "title": "quest_objective",
+  "description": "A quest's objectives in order.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "n",
+    "kind"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "n": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "position, from 1"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "kill",
+        "item",
+        "object",
+        "event",
+        "talk"
+      ],
+      "description": "what the objective asks"
+    },
+    "target": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "npc, item or object id"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "how many"
+    }
+  }
+}

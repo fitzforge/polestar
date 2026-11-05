@@ -1,0 +1,191 @@
+{
+	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-10-15 against client build 1.60.1.70374.",
+	"attunements": [
+		{
+			"key": "molten-core",
+			"id": "core",
+			"name": "Attunement to the Core",
+			"kind": "attunement",
+			"need": "each",
+			"goal": [7848],
+			"note": "Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 7848 }, "https://warcraft.wiki.gg/wiki/Attunement_to_the_Core"]
+		},
+		{
+			"key": "molten-core",
+			"id": "aqual",
+			"name": "Aqual Quintessence",
+			"kind": "item",
+			"need": "one",
+			"item": 17333,
+			"goal": [6824],
+			"note": "Douses the Molten Core's runes; Majordomo Executus comes out only when every rune is doused. Duke Hydraxis hands it out once Hands of the Enemy is done.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 17333 }, { "edition": "forever", "kind": "quest", "id": 6824 }, "https://warcraft.wiki.gg/wiki/Aqual_Quintessence (Source: once you complete Hands of the Enemy, Duke Hydraxis gives it)"]
+		},
+		{
+			"key": "onyxias-lair",
+			"id": "drakefire-h",
+			"name": "Drakefire Amulet",
+			"kind": "key",
+			"need": "each",
+			"faction": "H",
+			"item": 16309,
+			"goal": [6602],
+			"note": "Everyone entering Onyxia's Lair carries the Drakefire Amulet.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 6602 }, { "edition": "forever", "kind": "item", "id": 16309 }, "https://www.warcrafttavern.com/forever/news/onyxias-lair-raid-will-still-require-attunement-in-wow-forever"]
+		},
+		{
+			"key": "onyxias-lair",
+			"id": "drakefire-a",
+			"name": "Drakefire Amulet",
+			"kind": "key",
+			"need": "each",
+			"faction": "A",
+			"item": 16309,
+			"goal": [6502],
+			"note": "Everyone entering Onyxia's Lair carries the Drakefire Amulet.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 6502 }, { "edition": "forever", "kind": "item", "id": 16309 }, "https://www.warcrafttavern.com/forever/news/onyxias-lair-raid-will-still-require-attunement-in-wow-forever"]
+		},
+		{
+			"key": "blackwing-lair",
+			"id": "blackhand",
+			"name": "Blackhand's Command",
+			"kind": "attunement",
+			"need": "each",
+			"goal": [7761],
+			"note": "Lets you touch the Orb of Command in Upper Blackrock Spire to reach Blackwing Lair; without it, walk in through the spire.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 7761 }, "https://warcraft.wiki.gg/wiki/Blackhand%27s_Command"]
+		},
+		{
+			"key": "naxxramas",
+			"id": "dread-citadel",
+			"name": "The Dread Citadel",
+			"kind": "attunement",
+			"need": "each",
+			"goal": [9121, 9122, 9123],
+			"any": true,
+			"note": "Everyone entering Naxxramas needs it; which of the three quests you take depends on your standing with the Argent Dawn.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 9121 }, "https://warcraft.wiki.gg/wiki/The_Dread_Citadel_-_Naxxramas"]
+		},
+		{
+			"key": "scholomance",
+			"id": "skeleton-key-h",
+			"name": "Skeleton Key",
+			"kind": "key",
+			"need": "one",
+			"faction": "H",
+			"item": 13704,
+			"goal": [5511],
+			"note": "Opens Scholomance's gate; one key opens it for the group.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 13704 }, { "edition": "forever", "kind": "quest", "id": 5511 }]
+		},
+		{
+			"key": "scholomance",
+			"id": "skeleton-key-a",
+			"name": "Skeleton Key",
+			"kind": "key",
+			"need": "one",
+			"faction": "A",
+			"item": 13704,
+			"goal": [5505],
+			"note": "Opens Scholomance's gate; one key opens it for the group.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 13704 }, { "edition": "forever", "kind": "quest", "id": 5505 }]
+		},
+		{
+			"key": "blackrock-depths",
+			"id": "shadowforge-key",
+			"name": "Shadowforge Key",
+			"kind": "key",
+			"need": "one",
+			"item": 11000,
+			"goal": [3802],
+			"note": "Opens the Shadowforge gates in Blackrock Depths; one key opens them for the group.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 11000 }, { "edition": "forever", "kind": "quest", "id": 3802 }]
+		},
+		{
+			"key": "blackrock-depths",
+			"id": "prison-cell-key",
+			"name": "Prison Cell Key",
+			"kind": "key",
+			"need": "one",
+			"item": 11140,
+			"note": "Opens the cells of Blackrock Depths' prison.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 11140 }]
+		},
+		{
+			"key": "stratholme",
+			"id": "key-to-the-city",
+			"name": "Key to the City",
+			"kind": "key",
+			"need": "one",
+			"item": 12382,
+			"note": "Opens the Eastwall Gate into Stratholme's Scourge-held districts.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 12382 }, "https://warcraft.wiki.gg/wiki/Key_to_the_City"]
+		},
+		{
+			"key": "dire-maul",
+			"id": "crescent-key",
+			"name": "Crescent Key",
+			"kind": "key",
+			"need": "one",
+			"item": 18249,
+			"note": "Opens the inner doors of Dire Maul's North and West wings.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 18249 }, "https://warcraft.wiki.gg/wiki/Crescent_Key"]
+		},
+		{
+			"key": "gnomeregan",
+			"id": "workshop-key",
+			"name": "Workshop Key",
+			"kind": "key",
+			"need": "one",
+			"item": 6893,
+			"note": "Opens Gnomeregan's back door, the Workshop entrance.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 6893 }, "https://warcraft.wiki.gg/wiki/Workshop_Key"]
+		},
+		{
+			"key": "scarlet-monastery",
+			"id": "scarlet-key",
+			"name": "The Scarlet Key",
+			"kind": "key",
+			"need": "one",
+			"item": 7146,
+			"note": "Opens the doors of the Armory and the Cathedral.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 7146 }, "https://warcraft.wiki.gg/wiki/The_Scarlet_Key"]
+		},
+		{
+			"key": "city-of-dalaran",
+			"id": "sewer-key",
+			"name": "Dalaran Sewer Key",
+			"kind": "key",
+			"need": "one",
+			"faction": "H",
+			"item": 277507,
+			"goal": [96984],
+			"note": "Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance is sent in by the Image of Archmage Modera.",
+			"links": {
+				"92434": { "pre": [545, 93680], "source": { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards", "note": "Unlocking the City of Dalaran: Prison Break In and Key to the City, then Dalaran Patrols, then Blood in the Streets" } },
+				"96984": { "pre": [92434], "source": { "edition": "forever", "kind": "quest", "id": 96984, "note": "series: Blood in the Streets, Heart of Disruption, Shrewd Negotiations" } }
+			},
+			"sources": [{ "edition": "forever", "kind": "item", "id": 277507 }, { "edition": "forever", "kind": "quest", "id": 96984 }, { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards" }]
+		}
+	],
+	"inside": [
+		{ "kind": "npc", "id": 9023, "name": "Marshal Windsor", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "npc", "id": 9023, "note": "'can be found in Blackrock Depths'" }] },
+		{ "kind": "object", "id": 164689, "name": "Monument of Franclorn Forgewright", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "object", "id": 164689, "note": "'can be found in Blackrock Depths'" }] },
+		{ "kind": "object", "id": 179553, "name": "Core Fragment", "instance": "blackrock-depths", "sources": [{ "edition": "forever", "kind": "object", "id": 179553, "note": "'can be found in Blackrock Depths'" }, { "edition": "forever", "kind": "quest", "id": 7848, "note": "'the Molten Core entry portal in Blackrock Depths'" }] },
+		{ "kind": "object", "id": 175785, "name": "Inconspicuous Documents", "instance": "blackrock-spire", "sources": [{ "edition": "forever", "kind": "object", "id": 175785, "note": "'can be found in Blackrock Spire'" }] },
+		{ "kind": "object", "id": 179880, "name": "Drakkisath's Brand", "instance": "blackrock-spire", "sources": [{ "edition": "forever", "kind": "object", "id": 179880, "note": "'can be found in Blackrock Spire'" }] },
+		{ "kind": "object", "id": 103821, "name": "Doan's Strongbox", "instance": "scarlet-monastery", "sources": [{ "edition": "forever", "kind": "object", "id": 103821, "note": "'can be found in Scarlet Monastery'" }] }
+	],
+	"removed": [
+		{
+			"key": "blackrock-spire",
+			"id": "seal-of-ascension",
+			"name": "Seal of Ascension",
+			"item": 12344,
+			"quests": [4742, 4743],
+			"why": "Forever's Seal of Ascension quest no longer rewards the seal, and the Forever client has no ItemSparse row for it, so Upper Blackrock Spire takes no key.",
+			"sources": [{ "edition": "forever", "kind": "quest", "id": 4743, "note": "Forever change: 'Rewards: no longer Seal of Ascension'" }, { "edition": "forever", "kind": "item", "id": 12344, "note": "unnamed: 'Item #12344'" }, "wago.tools ItemSparse 1.60.1.70374 (no row 12344)"]
+		}
+	]
+}

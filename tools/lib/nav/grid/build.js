@@ -24,7 +24,7 @@ const path = require('node:path');
 const zlib = require('node:zlib');
 const { Worker } = require('node:worker_threads');
 const { ROOT, SOURCES, DATA } = require('../../paths');
-const { CONSTANTS, VERSION, GRAPH_VERSION, encodeGraph, decodeTile, tileKey, cellOf, cellCentre, FLAG, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN, CELL, TILE_CELLS } = require('./format');
+const { CONSTANTS, VERSION, GRAPH_VERSION, encodeGraph, decodeTile, tileKey, cellOf, cellCentre, FLAG, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN, LIFT_LEVEL, LIFT_CAR, CELL, TILE_CELLS } = require('./format');
 const { isOpen } = require('./search');
 const { assembleGraph, compactPart } = require('./graph');
 const { runJob } = require('./worker');
@@ -242,12 +242,14 @@ async function buildContinent({ cont, outDir, pool, force, geometryJob, prev, lo
 	};
 }
 
-// Lifts of continent c: each point { wx, wy, name, id, rise } joins two
-// landings (format.js LIFT_*): open walkable entries within LIFT_REACH of
-// the spawn whose heights differ by the car's rise within LIFT_FIT, the
-// pair nearest the spawn -> [{ name, id, a, b, h }], ends { col, row, k,
-// entry, z } (a the lower), one per pair of ends. A point with no such pair
-// is no lift.
+// Lifts of continent c: each point { wx, wy, name, id, rise, floor? } joins
+// two landings (format.js LIFT_*): open walkable entries within LIFT_REACH of
+// the car whose heights differ by the car's rise within LIFT_FIT, the pair
+// nearest the car; with floor ([lower, upper]: the car's floor at its two
+// stops) each landing's height off the car's floor there counts LIFT_LEVEL
+// times its distance (a landing level with the car, not a step below it)
+// -> [{ name, id, a, b, h }], ends { col, row, k, entry, z } (a the lower),
+// one per pair of ends. A point with no such pair is no lift.
 function liftLinks(dir, c, points) {
 	const cache = new Map();
 	const tileAt = (col, row) => {
@@ -296,7 +298,9 @@ function liftLinks(dir, c, points) {
 			while (y < ends.length && ends[y].z < lo.z + pt.rise - LIFT_FIT) y++;
 			for (let w = y; w < ends.length && ends[w].z <= lo.z + pt.rise + LIFT_FIT; w++) {
 				const hi = ends[w];
-				const s = lo.d + hi.d + Math.abs(hi.z - lo.z - pt.rise);
+				const s = pt.floor
+					? lo.d + hi.d + LIFT_LEVEL * (Math.abs(lo.z - pt.floor[0]) + Math.abs(hi.z - pt.floor[1]))
+					: lo.d + hi.d + Math.abs(hi.z - lo.z - pt.rise);
 				if (s < score) {
 					score = s;
 					best = { lo, hi };
@@ -315,17 +319,51 @@ function liftLinks(dir, c, points) {
 // Lift points: every spawn (objects.json) of an object the client animates
 // as a transport whose car rises at least LIFT_MIN and sways at most
 // LIFT_RADIUS; travel: Map id -> { rise, sway } (geom transportTravel), in
-// world yards -> [{ c, wx, wy, name, id, rise }].
-function liftPoints(objects, geo, travel) {
-	const out = [];
+// world yards -> [{ c, wx, wy, name, id, rise, floor? }]. cars (liftCars:
+// where each car stands at its stops, to the yard) replace the spawns within
+// LIFT_CAR yd of them: a spawn's map position is a tenth of a percent of its
+// map (Mulgore's: 5 yd), and each of an object's spawns (one per map it is
+// shown on) picked its own landings, a few yards round the car apart. A car
+// takes the nearest such spawn's object.
+function liftPoints(objects, geo, travel, cars = []) {
+	const spawns = [];
 	for (const o of Array.isArray(objects) ? objects : Object.values(objects)) {
 		const tr = o && travel.get(o.id);
 		if (!tr || tr.rise < LIFT_MIN || tr.sway > LIFT_RADIUS) continue;
 		for (const [map, s] of Object.entries(o.spawns || {})) {
 			for (const [x, y] of s.pts || []) {
 				const w = geo.toWorld(Number(map), x, y, s.f === 'e' ? 'e' : 'l');
-				if (w) out.push({ c: w.c, wx: w.wx, wy: w.wy, name: o.name, id: o.id, rise: tr.rise });
+				if (w) spawns.push({ c: w.c, wx: w.wx, wy: w.wy, name: o.name, id: o.id, rise: tr.rise });
 			}
+		}
+	}
+	const taken = new Set();
+	const out = [];
+	for (const car of cars) {
+		const near = spawns.filter((p) => p.c === car.c && Math.hypot(p.wx - car.wx, p.wy - car.wy) <= LIFT_CAR);
+		if (!near.length) continue;
+		const p = near.reduce((a, b) => (Math.hypot(b.wx - car.wx, b.wy - car.wy) < Math.hypot(a.wx - car.wx, a.wy - car.wy) ? b : a));
+		for (const q of near) taken.add(q);
+		out.push({ c: car.c, wx: car.wx, wy: car.wy, name: p.name, id: p.id, rise: p.rise, floor: [car.lo, car.hi] });
+	}
+	return [...out, ...spawns.filter((p) => !taken.has(p))];
+}
+
+// Lift cars from travel.json: each car of each lift route (transit.routes,
+// kind 'lift'; a stop is [from, to, c, wx, wy, z, car]) -> [{ c, wx, wy, lo, hi }],
+// at its first stop, lo and hi its floor at the lowest and highest.
+function liftCars(travelDoc) {
+	const out = [];
+	for (const r of Object.values((travelDoc && travelDoc.transit && travelDoc.transit.routes) || {})) {
+		if (!r || r.kind !== 'lift') continue;
+		const cars = new Map();
+		for (const s of r.stops || []) {
+			if (!cars.has(s[6])) cars.set(s[6], []);
+			cars.get(s[6]).push(s);
+		}
+		for (const stops of cars.values()) {
+			const zs = stops.map((s) => s[5]);
+			out.push({ c: stops[0][2], wx: stops[0][3], wy: stops[0][4], lo: Math.min(...zs), hi: Math.max(...zs) });
 		}
 	}
 	return out;
@@ -391,7 +429,7 @@ async function buildNav({
 	const { continentTiles, transportTravel } = require('../geom');
 	const { Geo } = require('../../planner/geo');
 	const framesFile = path.join(dataDir, 'map-frames.json');
-	if (!fs.existsSync(framesFile)) throw new Error(`${framesFile} not found (node tools/polestar.js data build)`);
+	if (!fs.existsSync(framesFile)) throw new Error(`${framesFile} not found (forge data build)`);
 	const frames = JSON.parse(fs.readFileSync(framesFile, 'utf8'));
 	const zonesFile = path.join(dataDir, 'zones.json');
 	const geo = new Geo(frames, fs.existsSync(zonesFile) ? JSON.parse(fs.readFileSync(zonesFile, 'utf8')) : {});
@@ -399,7 +437,9 @@ async function buildNav({
 	const objectsFile = path.join(dataDir, 'objects.json');
 	const casc = await openCasc({ sourcesDir, product, offline, concurrency });
 	log(`${product} ${casc.build}`);
-	const lifts = fs.existsSync(objectsFile) ? liftPoints(JSON.parse(fs.readFileSync(objectsFile, 'utf8')), geo, await transportTravel(casc)) : [];
+	const travelFile = path.join(dataDir, 'travel.json');
+	const cars = fs.existsSync(travelFile) ? liftCars(JSON.parse(fs.readFileSync(travelFile, 'utf8'))) : [];
+	const lifts = fs.existsSync(objectsFile) ? liftPoints(JSON.parse(fs.readFileSync(objectsFile, 'utf8')), geo, await transportTravel(casc), cars) : [];
 	const want = continents ? new Set(continents) : null;
 	const cs = [...names.keys()].filter((c) => !want || want.has(c));
 	const warnings = [];
@@ -427,4 +467,4 @@ async function buildNav({
 	return { ...r, build: casc.build, warnings: [...warnings, ...r.warnings] };
 }
 
-module.exports = { buildNav, buildGrid, liftLinks, liftPoints, defaultWorkers, SCHEMA };
+module.exports = { buildNav, buildGrid, liftLinks, liftPoints, liftCars, defaultWorkers, SCHEMA };

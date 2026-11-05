@@ -1,7 +1,7 @@
 'use strict';
 // The browser playground (tools/play): the hit-testing the page uses, and a
 // scripted session over HTTP against the real addons in a live Lua process.
-// Needs data/forever (node tools/polestar.js data build); skips without it.
+// Needs data/forever (forge data build); skips without it.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

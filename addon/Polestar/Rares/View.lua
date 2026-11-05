@@ -190,7 +190,8 @@ function RV.ItemClick(id)
 	if not id then return end
 	local Lookup = ns.Lookup
 	if IsAltKeyDown and IsAltKeyDown() and Lookup and Lookup.Guide then
-		Lookup.Guide("item", id)
+		-- No guide to it (a mount without a curated one): its Lookup page.
+		if not Lookup.Guide("item", id) and Lookup.Show then Lookup.Show(nil, "item", id) end
 		return
 	end
 	if W.ItemClick(id) then return end

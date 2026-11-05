@@ -1,0 +1,31 @@
+{
+	"1900": {
+		"id": 1900,
+		"name": "Synthetic Continent",
+		"type": 2
+	},
+	"1901": {
+		"id": 1901,
+		"name": "Westvale",
+		"type": 3,
+		"areaId": 9001
+	},
+	"1902": {
+		"id": 1902,
+		"name": "Mid Ridge",
+		"type": 3,
+		"areaId": 9002
+	},
+	"1903": {
+		"id": 1903,
+		"name": "Eastmarsh",
+		"type": 3,
+		"areaId": 9003
+	},
+	"1904": {
+		"id": 1904,
+		"name": "Highmoor",
+		"type": 3,
+		"areaId": 9004
+	}
+}

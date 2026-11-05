@@ -47,7 +47,8 @@ const { version } = require('../../package.json');
 const glyphs = require('./glyphs');
 const { openIcons, keyOf, KINDS } = require('./icons');
 const roads = require('../lib/nav/layers/roads');
-const { HUBS_FILE } = require('../lib/nav/layers/hubs');
+// The hubs layer (forge nav layers hubs) beside the roads layer: data/local/nav-layers/hubs.json.
+const { HUBS_FILE } = require('./hubview');
 
 const PUBLIC = path.join(__dirname, 'public');
 const TYPES = {
@@ -141,7 +142,7 @@ async function startServer(opts = {}) {
 		ws.on(event, fn);
 		return [event, fn];
 	});
-	const ctx = { clients: () => clients.size, icons };
+	const ctx = { clients: () => clients.size, icons, hubsFile };
 
 	async function cmd(b) {
 		const name = b && b.name;

@@ -35,7 +35,7 @@ function loadData(dir) {
 	for (const name of FILES) {
 		const file = path.join(dir, `${name}.json`);
 		if (!fs.existsSync(file)) {
-			if (name === 'quests' || name === 'npcs') throw new Error(`${file} not found (run \`node tools/polestar.js data build\` or pass --data)`);
+			if (name === 'quests' || name === 'npcs') throw new Error(`${file} not found (run \`forge data build\` or pass --data)`);
 			out[name] = {};
 			continue;
 		}
@@ -447,5 +447,5 @@ function buildModel(data, opts, warn = () => {}) {
 }
 
 module.exports = {
-	loadData, buildModel, resolveZone, raceInfo, className, classList,
+	FILES, loadData, buildModel, resolveZone, raceInfo, className, classList,
 };

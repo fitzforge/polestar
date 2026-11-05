@@ -505,6 +505,13 @@ function Engine.Unskip(i)
 end
 -- uistub.live: the live step when a test looks at another one (default: the step shown).
 function Engine.GetLiveStep() return uistub.live or current end
+-- uistub.trainStop: { steps, title } or { false }, the guide's next class
+-- training stop; unset, no guide.
+function Engine.GuideTrainStop()
+	local t = uistub.trainStop
+	if not t then return nil end
+	return t[1], t[2]
+end
 function Engine.Prev() record("Prev"); if guide and current and current > 1 then move(current - 1) end end
 function Engine.Goto(i) record("Goto", i); if guide and guide.steps[i] then move(i) end end
 -- Any goal but a note ticks done and back.
@@ -650,8 +657,10 @@ function Guides.Suggestions() return uistub.suggestions or { uistub.suggest } en
 function Guides.Suggest() return Guides.Suggestions()[1] end
 -- The scenes' guides are all ours.
 function Guides.SuggestSource() return "guides" end
--- Whether a character can follow a guide: the real registry's rule.
+-- Whether a character can follow a guide, and another race's starting zone
+-- they may still follow: the real registry's rules.
 function Guides.GuideMatches(g, player) return uistub.realGuides.GuideMatches(g, player) end
+function Guides.OtherStart(g, player) return uistub.realGuides.OtherStart(g, player) end
 
 local Nav = {}
 function Nav.SetTarget(map, x, y, label, f, stop, z)
@@ -673,7 +682,9 @@ function Nav.ResetArrowPosition() record("ResetArrowPosition") end
 -- Nearby services (Nav/Nearby.lua): the guide window's list, and Go.
 Nav.nearby = {
 	MenuItems = function()
-		return { { key = "vendor", label = "Vendor", icon = "icon-vendor" }, { key = "innkeeper", label = "Innkeeper", icon = "icon-sethome" },
+		return { { key = "vendor", label = "Vendor", icon = "icon-vendor", page = {
+				{ key = "vendor", label = "Nearest" }, { key = "food", label = "Food & drink" }, { key = "arrows", label = "Arrows" },
+			} }, { key = "innkeeper", label = "Innkeeper", icon = "icon-sethome" },
 			{ key = "trainer", line = 186, label = "Mining trainer", icon = "icon-skill" },
 			{ key = "weapon", label = "Weapon master", icon = "icon-train", weapons = {
 				{ key = "weapon", line = 43, label = "Swords" },
@@ -709,6 +720,7 @@ function Compat.IsOnQuest() return false end
 function Compat.IsQuestReadyForTurnIn() return false end
 function Compat.GetZoneText() return "Elwynn Forest", "" end
 function Compat.IsOnTaxi() return false end
+function Compat.IsShiftKeyDown() return stub.keys.shift and true or false end
 function Compat.IsInInstance() return uistub.instance ~= nil, uistub.instance end
 function Compat.GetPlayerInfo() return uistub.player end
 function Compat.GetMapName(id) return MAPS[id] end
@@ -744,7 +756,7 @@ function uistub.install(opts)
 			arrowColor = false, arrowNearColor = false })
 	end
 	if Polestar.GetDefault("behavior.autoAccept") == nil then
-		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, autoNextGuide = true, autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask" })
+		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask" })
 	end
 	-- An account and a character that have seen the welcome, so it never
 	-- opens over windows under test; tests/ui-welcome.test.js restores the

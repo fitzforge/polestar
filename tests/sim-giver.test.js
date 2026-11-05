@@ -3,7 +3,7 @@
 // Joshua in Stormwind and High Priest Rohan in Ironforge) is scored at the
 // one the guide names. The world used to keep the first friendly giver and
 // ender only, so a guide sending the player to the other one was scored on a
-// trip it never makes (docs/SIMULATION.md §5).
+// trip it never makes (docs/legacy/SIMULATION-js.md §5).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

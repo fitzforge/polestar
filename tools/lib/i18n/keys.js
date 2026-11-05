@@ -183,10 +183,10 @@ function talentSpecs(addonDir) {
 	return out;
 }
 
-// The attunement table's notes (tools/lib/codex/attunements.json `note`),
+// The attunement table's notes (data/codex/attunements.json `note`),
 // shown through L[a.note] on the Dungeons Attunement tab and in its guide.
 function attunementNotes(addonDir) {
-	const file = path.join(__dirname, '..', 'codex', 'attunements.json');
+	const file = path.join(__dirname, '..', '..', '..', 'data', 'codex', 'attunements.json');
 	if (!fs.existsSync(path.join(addonDir, 'Dungeons', 'Attune.lua')) || !fs.existsSync(file)) return [];
 	const doc = JSON.parse(fs.readFileSync(file, 'utf8'));
 	return [...new Set((doc.attunements || []).map((a) => a.note).filter((n) => typeof n === 'string' && n !== ''))];

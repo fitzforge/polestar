@@ -4,14 +4,14 @@ category Collectibles
 folder Companion pets · Drops
 keywords Tiny Black Whelpling, Searing Whelp, Scalding Whelp, Wyrmbog, Dustwallow Marsh, Badlands, dragon, whelp
 collects 10822
-levels 38-60
+levels 41-60
 zone Dustwallow Marsh
 
 # Dark Whelpling from the black whelps of Dustwallow Marsh and the Badlands.
-# Sources: items.json (Searing / Scalding Whelp, 0.11% per kill, pfQuest);
-# Forever client 1.60.1.70338 (the client's name; pfQuest: Tiny Black
-# Whelpling).
+# Sources: items.json and the TDB's loot (Searing / Scalding Whelp, 0.11% per
+# kill; Classic drop data); npcs.json (spawns, levels); Forever client
+# 1.60.1.70532 (the client's name; it can be traded).
 
 step Black whelps
-  tip The Searing Whelps of the Wyrmbog in southern Dustwallow Marsh (level 42) and the Scalding Whelps of eastern Badlands (level 41) drop it about once in 900 kills in our data. The waypoint is the Wyrmbog; the Badlands whelps are the same grind.
+  tip The Searing Whelps of the Wyrmbog in southern Dustwallow Marsh (level 42-43) and the Scalding Whelps of eastern Badlands (level 41-43) drop it about once in 900 kills. The waypoint is the Wyrmbog, where the whelps stand thickest; the Badlands whelps are the same grind. The whelpling can be traded, so the Auction House may be quicker.
   collect 10822 "Dark Whelpling" @46.9,72.5 -- The Wyrmbog

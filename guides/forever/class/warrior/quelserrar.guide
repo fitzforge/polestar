@@ -1,0 +1,67 @@
+guide forever/class/warrior/quelserrar
+title Quel'Serrar
+category Class
+class Warrior, Paladin
+folder Raid
+levels 60-60
+zone Feralas
+keywords Quel'Serrar, Foror's Compendium, Nostro's Compendium of Dragon Slaying, The Forging of Quel'Serrar, Lorekeeper Lydros, Athenaeum, Dire Maul, Crescent Key, Onyxia, Unfired Ancient Blade, Heated Ancient Blade, Treated Ancient Blade, Shen'dralar, tank sword, Warrior, Paladin, class weapon
+reward item 18348
+reward text Shen'dralar reputation
+why A tank sword at 60: a Dire Maul book, then Onyxia's breath tempers the blade (the sword is not in Forever's items yet).
+
+# The level 60 Warrior and Paladin chain of the Shen'dralar: Foror's
+# Compendium (7507), started from the book Nostro's Compendium of Dragon
+# Slaying (item 18401, Forever keeps the quest's old title), then The
+# Forging of Quel'Serrar (7508, hand back the Dull and Flat Elven Blade) and
+# The Forging of Quel'Serrar (7509, Onyxia's breath and her corpse temper the
+# Unfired Ancient Blade).
+# Classes: Forever's quest data (pfquest, Questie-Forever) gives the chain to
+# Warriors and Paladins (Classic: same); one shared guide, folder Raid, so
+# both classes see it once (no two guides one character sees share a chain).
+# Sources: quests.json and items.json for the chain, the book, the provided
+# blades and the reward; the knowledge base's drop table (the book from the
+# Dire Maul bosses of all three wings, the tribute chests about 0.2%; no rate
+# for the bosses) and quest-notes/quest-mechanics (Lydros in the Athenaeum,
+# the Crescent Key, the 20-minute Heated Ancient Blade, placing the blade in
+# her breath late in the fight, using it on her corpse, abandoning for a new
+# blade, no Quel'Serrar reward in Forever yet); Forever's quest page for 7509
+# shows the reward only as an unnamed item 18348, and a Forever dungeon guide
+# (web, a Dire Maul West guide for Forever) says the sword does not exist in Forever yet
+# and that the Athenaeum lies past the Prison of Immol'thar. A Classic
+# Quel'Serrar guide for the order of the steps.
+# The Dire Maul gate (Feralas 59.2,45.1) is the one the Dreadsteed guide
+# uses; Onyxia's Lair (Dustwallow Marsh 52.1,75.8) the one the Rhok'delar
+# guide uses (the game's zone data). Lorekeeper Lydros has no spawn in the
+# data: his steps point at the Dire Maul gate.
+# ASSUMED: Onyxia's Lair needs the Drakefire Amulet in your bags, from the Classic attunement chains through Blackrock Spire (Classic flow; Forever's data has no raid attunements). In-game check: entering Onyxia's Lair without it.
+# INGAME: does The Forging of Quel'Serrar (7509) give Quel'Serrar on Forever at launch, or is the reward still missing (Forever's quest page shows only an unnamed item 18348)?
+
+step Nostro's Compendium of Dragon Slaying
+  zone Feralas
+  tip The book is a rare random drop from the bosses of all three Dire Maul wings (Alzzin, Hydrospawn and the rest of the East, Tendris, Illyanna, Kalendris, Immol'thar and the West, King Gordok and the North's guards) and very rarely from the tribute chest; it can be traded, so the auction house may have one. Dire Maul is a five-player dungeon in the ruins of central Feralas: needs a group of five. Right-click the book to start the quest; it stays in your bags.
+  accept 7507 item 18401 group 5              -- from Nostro's Compendium of Dragon Slaying
+
+step Lorekeeper Lydros
+  tip Lorekeeper Lydros stands in the Athenaeum, the library at the far end of Dire Maul West, past the Court of the Highborne and the Prison of Immol'thar. The West door needs the Crescent Key, which Pusillin drops in Dire Maul East (he runs; chase him), or a rogue to pick it. Clearing to the library needs your group of five. He takes the book, hands you A Dull and Flat Elven Blade to give straight back, then the Unfired Ancient Blade. Keep that blade: lose it, and you must abandon the quest and take it again.
+  turnin 7507 @59.2,45.1 group 5              -- Lorekeeper Lydros, in the Athenaeum
+  accept 7508 @59.2,45.1
+  turnin 7508 @59.2,45.1                      -- Lorekeeper Lydros: hand back the Dull and Flat Elven Blade
+  accept 7509 @59.2,45.1
+
+step Onyxia's breath
+  zone Dustwallow Marsh
+  tip Onyxia is the 40-player raid boss of Onyxia's Lair, a cave in the Wyrmbog of southern Dustwallow Marsh; she returns once a week. Tell the raid first. Late in the fight (around 10-15% health, when she has landed again) use the Unfired Ancient Blade to plant it in the path of her fire breath, usually by the main tank's feet. When her breath has heated it, click the Ancient Heated Blade to take the Heated Ancient Blade: from then you have 20 minutes. Her breath can kill you while you plant or pick up the blade; if you die and nobody brings you back before she dies, wait for next week. Planted in the wrong place? Abandon the quest, take it again from Lydros for a new blade.
+  use 18489 @52.1,75.8 group 40               -- Unfired Ancient Blade: plant it in her breath
+  collect 18488 "Heated Ancient Blade" @52.1,75.8 -- click the heated blade on the ground
+
+step Onyxia's corpse
+  tip Kill Onyxia, then target her corpse and use the Heated Ancient Blade on it before the 20 minutes run out. It becomes the Treated Ancient Blade, with no time limit.
+  kill 10184 @52.1,75.8 group 40              -- Onyxia
+  use 18488 @52.1,75.8                        -- Heated Ancient Blade, on her corpse
+  collect 18492 quest 7509.1 @52.1,75.8       -- Treated Ancient Blade
+
+step The Forging of Quel'Serrar
+  zone Feralas
+  tip Back to Lorekeeper Lydros in the Athenaeum of Dire Maul West: through the West door with the Crescent Key again, and a group to reach the library.
+  turnin 7509 reward 18348 @59.2,45.1 group 5 -- Lorekeeper Lydros: Quel'Serrar

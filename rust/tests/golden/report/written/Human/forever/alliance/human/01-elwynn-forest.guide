@@ -1,0 +1,564 @@
+guide forever/alliance/human/01-elwynn-forest
+title Elwynn Forest
+faction Alliance
+race Human
+levels 1-13
+zone Elwynn Forest
+
+# v1 improved: order from the simulator's search (Human Alliance, 20000 tries, seeded with v1's order;
+# 180.0 h -> 179.7 h to 60 in the model), written by polestar apply-route.
+# The notes above describe v1's order; the steps below are the improved one.
+
+# Route: the simulator's consensus route for Human (consensus-alliance-human,
+# visits 1 and 3, levels 1 to 12.3). Its visit 2, a Stormwind stop at 6, is
+# left out (see "Left out").
+#
+# Flow: Northshire Valley (Abbey, the kobold camp, Echo Ridge Mine, the
+# Defias and Milly's vineyard) -> Goldshire (bind) and Crystal Lake -> the
+# south: the Maclure Vineyards, the Fargodeep Mine and the Stonefield farm ->
+# Goldshire -> the east: the Tower of Azora, the bridge, Brackwell, Eastvale,
+# Stone Cairn Lake, the gnoll camps and the Jasperlode Mine -> Goldshire ->
+# the farms and Westbrook -> hearth to Goldshire -> the east again -> the
+# road west: Deputy Rainer at the Westbrook Garrison (Report to Gryan
+# Stoutmantle, 109), then into Westfall (02-westfall takes the farms on the
+# way down and the Sentinel Hill flight path, #416).
+#
+# Optional extras: The Big Picture (91752, Shinyfinder Narf is elite) and
+# what follows it: Follow That Kobold! (91758), Shhh! We're Hunting Kobolds
+# (91772) and Book Return (91775, Nimsy is elite). The Northshire book chain
+# runs Nibbled-On Book (91741, a Kobold Vermin drop) -> Book Inventory (92124)
+# -> Rascally Rodents (91743) -> Mining Consultant (91745) -> The Big Picture,
+# each offered once the one before is done. Rough Wolf Pelts (91751) is for
+# skinners: the pelts are skinned. Furlbrow's Deed (184) is optional: the
+# Westfall Deed is a rare drop from the Defias; it is turned in in Westfall.
+# Croaky's Head (91740) is optional: Croaky, an elite, roams the murloc shore
+# south of the bridge where the second east loop takes the Torn Murloc Fins;
+# the head goes to Merell Ross at Ridgepoint Tower, a short way east. That
+# step's turn-in is plain: the guide stops there only for players who took
+# the quest, and passes it for everyone else.
+#
+# Changes to the simulator's order:
+# - The Adventurer (96627) is taken from Marshal McBride with Report to
+#   Goldshire and handed to Sam Sarsaparilla before The Great Outdoors: the
+#   simulator walked back to Northshire at 10 for it, and the game does not
+#   offer the breadcrumb once The Great Outdoors is done.
+# - Slimy Menace (99128) is taken from Jason Mathers after A Net Disaster
+#   (99127) is handed in, and A Man About a Murloc (99129) after Slimy
+#   Menace; Bottles and Baubles (99143) is finished in the murloc camp with
+#   Slimy Menace at 6. Baited for Success (99131) is taken from Remy after
+#   An Enticing Offer (99130) is handed in, and goes to Jason on the next
+#   pass by the lake.
+# - The second Delicate Instruments (91724) is taken from Hamish Bergwort
+#   after the first (91723) is handed in; its Defias Rogue Wizards are killed
+#   at Stone Cairn Lake on the last east pass and it is handed in on the way
+#   back to Goldshire.
+# - The level 7 walk east to take Hamish Bergwort's quests and hearth back is
+#   folded into the east loop at 9: his quests, Blixie Fitzwink's and the
+#   Rough Wolf Pelts are done there, and Hamish's and Blixie's are handed in
+#   on the way back instead of after the Westbrook trip.
+# - A Fishy Peril (40) and Further Concerns (35) are taken in Goldshire after
+#   the south loop instead of before it: A Fishy Peril needs level 7, and
+#   Further Concerns only leads to Guard Thomas on the east loop.
+# - The Gold Pickup Schedule (123) is looted from Gruff Swiftbite on the
+#   Westbrook trip at 11 instead of at 8: he is level 12 and walks with the
+#   gnolls Riverpaw Gnoll Bounty sends you to. Manhunt (147) moves with it
+#   to the last east pass, where Morgan the Collector walks beside the murlocs.
+#   Gruff is a rare, so the Schedule and The Collector are optional: the step
+#   waits for the armbands, not for him (#553). A player who does not take
+#   The Collector never sees its turn-in, and Manhunt drops out with it: its
+#   accept goes by `when turnedin 123` and its turn-in by `when onquest 147`.
+# - Shipment to Stormwind (61) is taken from William Pestle when Kobold
+#   Candles is handed in; Morgan Pestle takes it on the Stormwind stop of
+#   02-westfall (the simulator took it and never handed it in).
+# - An Apple Treat (91738) is done on the Westbrook trip: its Thunder Applejack
+#   comes from the Applejack Still (91736) north of the garrison, for four
+#   Shiny Red Apples, bought from Homer
+#   Stonefield at the Stonefield farm. The still is a short walk off the road.
+# - Northshire: Eagan Peltskinner's Wolves Across the Border (33) is taken
+#   after Deputy Willem and Marshal McBride (Willem is at the spawn, Eagan at
+#   the far corner), and Investigate Echo Ridge (15) right after Kobold Camp
+#   Cleanup is handed in to McBride, before the class letters.
+# - Skirmish at Echo Ridge (21) is taken when Investigate Echo Ridge is
+#   handed in to McBride, and Report to Goldshire (54) and The Adventurer
+#   (96627) when Skirmish is: he offers each at once (#310).
+# - Eastvale: Sara Timberlain, on the way in, before Hagar Lowe.
+# - Goldshire, back from the east: The Escape (114) is taken after Marshal
+#   Dughan's turn-ins. Handing in Collecting Kelp (112) starts a short scene
+#   while William Pestle brews the liquor ("just one moment while I concoct
+#   the potion"), and Dughan stands a few yards away (#613).
+#
+# Class quests, as class-only steps (the level 10-12 ones from the last
+# Goldshire stop, about level 12):
+# - Warlock: The Stolen Tome (1598, Summon Imp) in Northshire. Gakin's
+#   Summons (1685, Remen Marcot) to Surena Caledon (1688) and The Binding
+#   (1689, Summon Voidwalker): a trip to Stormwind and the Brackwell Pumpkin
+#   Patch before Westfall.
+# - Hunter: A Scribbled Letter (92479) from Marshal McBride to Tordrin
+#   Sternblade in Northshire; Josephine Carson's three Taming the Beast
+#   quests (94792, 94863, 94864: Tame Beast) and Training the Beast (94793,
+#   Isaac Chan: Beast Training), all around Goldshire.
+# - Paladin: Tome of Divinity (2998, Brother Wilhelm) through Henze Faulk by
+#   Stone Cairn Lake to Redemption (1788): a trip to Stormwind and east
+#   Elwynn before Westfall.
+# - Priest: Desperate Prayer (5635) and Divine Grace (94774) from Priestess
+#   Josetta, handed in at the Cathedral of Light (02-westfall).
+#   Forever rewords Desperate Prayer to name High Priest Rohan in Ironforge;
+#   the quest data still has Laurena take it, so the route keeps her.
+# - Priest: In Favor of the Light / Garments of the Light (5623, 5624) reward
+#   a robe, not a spell: not taken.
+# - Warrior: the Defensive Stance quests are taken in Stormwind (02-westfall).
+# - Mage: Glyphic Letter (3104) in the Abbey. Speak with Jennea (1860,
+#   Zaldimar Wefhellt in Goldshire) and Mirror Lake (1861): a Stormwind stop
+#   and the Mirror Lake waterfall on the way to Westfall; handed in at the
+#   Stormwind stop of 02-westfall (Ley Staff or Ley Orb).
+# - Rogue: their level 10 quests reward items, not spells: not taken.
+#   Rogues: see the Class guide Blade of Cunning (Alliance).
+# - Level 1 class letters are taken: every class's letter from Marshal
+#   McBride (3100-3105, 92479) is taken once Kobold Camp Cleanup is handed
+#   in and goes to its trainer in the Abbey after Echo Ridge Mine, with the
+#   next train, so the trainer visit has something to learn.
+# Train at the Abbey and in Goldshire.
+# Left out: An Enchanting Lesson (91753, it needs Enchanting to disenchant
+# the effigies). Rare Books (91777, after Book Return) wants two books from
+# the Jasperlode Mine taken to Brother Paxton in Northshire, off the route.
+# Elmpaw's Head (91746) starts from the head of Elmpaw, a named elite that
+# roams north-east Elwynn, off the route. The simulator's Stormwind stop at
+# 6 is for Jennea Cannon's book quests (84397, 84398, 84399, 84402: each
+# needs a book that has no known source, so they can't be done on this route)
+# and three level 2 deliveries (332, 333, 334): not worth the walk without
+# the books.
+
+# ---------------------------------------------------------------- Northshire Valley
+
+step Northshire Abbey
+  tip You start in front of the Abbey. Deputy Willem stands at the foot of the steps, Marshal McBride inside the hall, Brother Paxton and Daniel in the library to the right, Eagan Peltskinner outside the north-west corner.
+  accept 783                                  -- Deputy Willem
+  turnin 783                                  -- Marshal McBride
+  accept 7
+  accept 5261                                 -- Deputy Willem
+  accept 33                                   -- Eagan Peltskinner
+  accept 1598 only Warlock                    -- Drusilla La Salle, outside the Abbey
+
+step Kobold Vermin on the way
+  along until q7
+  kill 6 quest 7
+
+step Eagan Peltskinner
+  accept 18                                   -- Deputy Willem, back at the Abbey steps
+
+step Red Burlap Bandana on the way
+  along until q18
+  collect 752 quest 18
+
+step Wolves
+  tip Young Wolves and Timber Wolves roam the fields right around the Abbey.
+  collect 750 quest 33                        -- Tough Wolf Meat
+
+step Eagan Peltskinner
+  turnin 33                                   -- Eagan Peltskinner
+  turnin 5261
+
+step The kobold camp
+  label q7
+  tip Kobold Vermin dig in the vineyards north-east of the Abbey. Now and then one drops a Nibbled-On Book: right-click it.
+  kill 6 quest 7                              -- Kobold Vermin
+
+step Northshire Abbey
+  turnin 7                                    -- Marshal McBride
+  accept 15
+  accept 3100 only Warrior                    -- Marshal McBride: Simple Letter
+  accept 3101 only Paladin                    -- Marshal McBride: Consecrated Letter
+  accept 3102 only Rogue                      -- Marshal McBride: Encrypted Letter
+  accept 3103 only Priest                     -- Marshal McBride: Hallowed Letter
+  accept 3104 only Mage                       -- Marshal McBride: Glyphic Letter
+  accept 3105 only Warlock                    -- Marshal McBride: Tainted Letter
+
+step Echo Ridge Mine
+  tip Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the Stolen Books.
+  kill 257 quest 15                           -- Kobold Worker
+
+step Northshire Abbey
+  turnin 15                                   -- Marshal McBride
+  accept 21
+
+step Northshire Abbey
+  tip Tordrin Sternblade stands behind the Abbey, by the stables.
+  train class
+
+step Eagan Peltskinner
+  train class
+
+step Northshire Abbey
+  turnin 3100 only Warrior                    -- Llane Beshere, the warrior trainer
+  turnin 3101 only Paladin                    -- Brother Sammuel, the paladin trainer
+  turnin 3102 only Rogue                      -- Jorik Kerridan, the rogue trainer
+  turnin 3103 only Priest                     -- Priestess Anetta, the priest trainer
+  turnin 3104 only Mage                       -- Khelden Bremen, the mage trainer, inside the Abbey
+  turnin 3105 only Warlock                    -- Drusilla La Salle, outside the Abbey
+  train class
+
+step The Defias camp
+  label q18
+  tip Defias Thugs camp in the clearing east of the Abbey and along the valley's east side.
+  collect 752 quest 18                        -- Red Burlap Bandanas
+  collect 6785 quest 1598.1 only Warlock      -- Powers of the Void: the Stolen Books in the Defias camp
+
+step Deputy Willem
+  turnin 18
+  accept 6
+  accept 3903
+  turnin 1598 only Warlock                    -- Drusilla La Salle: Summon Imp
+
+step Inside Echo Ridge Mine
+  tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
+  kill 80 quest 21                            -- Kobold Laborer
+
+step Milly Osworth
+  tip She stands by her cart at the vineyard east of the Abbey.
+  turnin 3903
+  accept 3904
+
+step The vineyards and Garrick Padfoot
+  tip The crates of grapes lie in the vineyards behind the Defias. Garrick Padfoot waits by the cabin at the east end of the valley.
+  collect 11119 quest 3904                    -- Milly's Harvest
+  collect 182 quest 6                         -- Garrick's Head: Garrick Padfoot
+
+step Milly Osworth
+  tip She stands outside the mine entrance. Shinyfinder Narf, inside, is elite: grouping up is advised.
+  turnin 3904
+  accept 3905
+
+step Northshire Abbey
+  turnin 3905                                 -- Brother Neals, upstairs
+  turnin 21                                   -- Marshal McBride
+  accept 54
+  turnin 6                                    -- Deputy Willem
+  accept 2158                                 -- Falkhaan Isenstrider, by the stables south of the Abbey
+
+# ---------------------------------------------------------------- Goldshire and Crystal Lake
+
+step Goldshire
+  tip Follow the road south out of the valley to Goldshire. Innkeeper Farley is in the Lion's Pride Inn; Marshal Dughan stands outside the smithy across the road, William Pestle at the inn's front and Remy "Two Times" by the road south of it.
+  tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
+  tip The Fishing Traps sit along the west shore of the lake.
+  tip Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp.
+  turnin 2158                                 -- Innkeeper Farley
+  accept 60                                   -- William Pestle
+
+step Goldshire
+  tip Tomas cooks in the inn's kitchen.
+  train class
+
+step Goldshire
+  train class
+
+step Goldshire
+  accept 62
+
+step Goldshire
+  sethome "Goldshire"
+  turnin 54
+  accept 47                                   -- Remy "Two Times"
+
+step The Fargodeep Mine
+  tip The mine is west of the vineyards. Kobold Miners and Tunnelers fill both levels; Nimsy, a named kobold, holds the picture book in the lower tunnels. Nimsy is elite: grouping up is advised.
+  tip Overgrown Duskweed grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.
+  collect 773 quest 47                        -- Gold Dust
+  collect 772 quest 60                        -- Large Candles
+  complete 62 @40.6,82.3                      -- Walk through the mine
+
+# ---------------------------------------------------------------- The south: Fargodeep and the farms
+
+step Maybell Maclure
+  tip Follow the road south out of Goldshire to the Maclure Vineyards. Maybell waits by the house.
+  accept 106
+
+step The Stonefield Farm
+  tip The Stonefield farm is west of the mine. Ma and "Auntie" Bernice stand by the house.
+  accept 88                                   -- Ma Stonefield
+  accept 85                                   -- "Auntie" Bernice Stonefield
+
+step Tommy Joe Stonefield
+  tip He stands by the river west of the farm.
+  turnin 106
+  accept 111
+
+step Gramma Stonefield
+  tip She sits inside the farmhouse.
+  turnin 111
+  accept 107
+
+step Billy Maclure
+  tip Billy plays in the Maclure Vineyards, east of the mine.
+  turnin 85
+  accept 86
+
+step Boar meat
+  tip Stonetusk Boars graze between the vineyards and the farm.
+  collect 769 quest 86                        -- Chunks of Boar Meat
+
+step "Auntie" Bernice Stonefield
+  turnin 86
+  accept 84
+
+# Goldtooth (41.71,78.03) is inside the Fargodeep Mine, under the hill, on
+# the mine's lowest floor at its far end: a straight line from the hill
+# above never reaches him, so the walk goes in by the lower mouth, south of
+# the vineyards, and follows the floor of the mine to its back.
+# Our data slice places the mouth from the kobolds around it.
+# The mouth, 39.5,82.4,
+# lies between the Kobold Tunnelers outside it (39.33,83.2, 39.6,82.13) and
+# the Kobold Miners inside (39.85,81.06 on). From Billy a straight line to
+# Goldtooth climbs the hill above the mine, so the step ends at the mouth.
+step Billy Maclure
+  turnin 84
+  accept 87
+
+step Goldtooth
+  tip Goldtooth is inside the Fargodeep Mine, not on the hill above it: enter at the mouth and follow the lowest floor to the far end of the mine. Defias Bandits around the vineyards drop a Westfall Deed now and then: right-click it.
+  goto 39.5,82.4 "Fargodeep Mine"
+  collect 981 quest 87                        -- Bernice's Necklace
+
+step Goldshire
+  turnin 47                                   -- Remy "Two Times"
+  accept 40
+  turnin 40                                   -- Marshal Dughan
+  accept 35
+  turnin 62                                   -- Marshal Dughan
+  accept 76
+  turnin 60                                   -- William Pestle
+  accept 61                                   -- Morgan Pestle in Stormwind takes it (02-westfall)
+  turnin 107
+  accept 112
+
+# ---------------------------------------------------------------- The east
+
+step Crystal Lake and the wolves
+  tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
+  tip Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.
+  collect 1256 quest 112                      -- Crystal Kelp Fronds
+
+step Downstream and Princess
+  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way.
+  collect 1006 quest 88                       -- Brass Collar: Princess
+
+step Elwynn Forest
+  goto 42.1,65.9 "Elwynn Forest"
+
+step Marshal Dughan
+  when turnedin 123
+  accept 147
+
+# ---------------------------------------------------------------- The east again
+
+step Guard Thomas
+  tip Follow the road east past the Tower of Azora to the bridge.
+  accept 46
+
+step Torn Murloc Fin on the way
+  along until q46
+  collect 780 quest 46
+
+step The bridge
+  tip Guard Thomas guards the bridge on the road east; Ormin Pelford stands just across it.
+  turnin 35                                   -- Guard Thomas
+  accept 37
+  accept 52
+
+step The Eastvale Logging Camp
+  tip The camp is north-east of the bridge. Bundles of Wood lie around the camp and in the woods north of it.
+  accept 83                                   -- Sara Timberlain
+  accept 5545                                 -- Supervisor Raelen
+
+step Red Linen Bandana on the way
+  along until q83
+  collect 1019 quest 83
+
+step Downstream and Princess
+  kill 822 quest 52 optional                  -- Young Forest Bear
+  kill 118 quest 52 optional                  -- Prowler
+  kill 118 quest 52                           -- Prowler
+  kill 822 quest 52                           -- Young Forest Bear
+
+step The Eastvale Logging Camp
+  collect 13872 quest 5545                    -- Bundle of Wood
+
+step A half-eaten body
+  tip It lies by the river north-west of the logging camp.
+  turnin 37
+  accept 45
+
+step Stone Cairn Lake
+  tip Defias Rogue Wizards camp on the shores of Stone Cairn Lake; they drop the Red Linen Bandanas too. Rolf's corpse lies in the murloc village on the north-east shore.
+  tip Riverpaw gnolls camp in the hills west of Stone Cairn Lake; the Stolen Enchanting Supplies lie in their camps.
+  turnin 45                                   -- Rolf's corpse
+  accept 71
+
+step Guard Thomas
+  turnin 71
+  accept 39
+
+# The mine's mouth: the Copper Vein and Kobold Miners at its entrance in our data slice (61.5,54.1).
+step The Jasperlode Mine
+  tip The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.
+  tip Follow the hills south to the tower.
+  goto 60.2,49.2
+  complete 76 @60.2,49.2                      -- Walk into the mine
+
+# ---------------------------------------------------------------- Goldshire, the farms and Westbrook
+
+step Goldshire
+  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town.
+  turnin 112                                  -- William Pestle
+  turnin 39                                   -- Marshal Dughan, while William brews
+  turnin 76
+  accept 59
+  accept 239
+
+step Goldshire
+  tip Follow the road west back to Goldshire.
+  accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
+  accept 2998 only Paladin                    -- Brother Wilhelm: Duthorian Rall in Stormwind takes it
+  accept 5635 only Priest                     -- Priestess Josetta: High Priestess Laurena in Stormwind takes both
+  accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
+  train class
+
+step Goldshire
+  train class
+  accept 114                                  -- William Pestle
+
+step The Stonefield Farm
+  tip Head north-west across the fields to the Applejack Still, north of the Westbrook Garrison. Hand it four Shiny Red Apples for a Thunder Applejack.
+  turnin 88                                   -- Ma Stonefield
+  turnin 87                                   -- "Auntie" Bernice Stonefield
+
+step Westbrook Garrison
+  tip Back south to the Westbrook Garrison, by the road to Westfall. Deputy Rainer stands outside the barracks, Sergeant De Vries beside him.
+  turnin 239
+  accept 11
+
+step Forest's Edge
+  tip Riverpaw Runts and Outrunners hold the hills south of the garrison, along the Westfall border. Gruff Swiftbite, a level 12 gnoll, walks among them and carries the Gold Pickup Schedule: right-click it.
+  collect 782 quest 11                        -- Painted Gnoll Armbands
+  collect 1307 x1 optional                    -- Gold Pickup Schedule: Gruff Swiftbite
+  accept 123 optional
+  turnin 123
+
+step Westbrook Garrison
+  turnin 11                                   -- Deputy Rainer
+
+step Maybell Maclure
+  tip South down the road to the Maclure Vineyards.
+  turnin 114
+
+step Stone Cairn Lake
+  label q83
+  collect 1019 quest 83                       -- Red Linen Bandanas
+
+step Murlocs and the Collector
+  label q46
+  tip Murloc Foragers and Lurkers line the river south of the bridge. Morgan the Collector, a Defias, walks the Brackwell Pumpkin Patch west of it. Finish the Prowlers and Young Forest Bears on the way. Croaky roams the murloc shore too: right-click the head it drops. Croaky is elite: grouping up is advised.
+  tip Merell Ross keeps watch at Ridgepoint Tower, east of the murloc shore. Then head north-west back to the bridge.
+  collect 780 quest 46                        -- Torn Murloc Fins
+  collect 2239 quest 147                      -- The Collector's Ring: Morgan the Collector
+
+step Downstream and Princess
+  kill 118 quest 52 optional                  -- Prowler
+
+step Guard Thomas
+  turnin 46
+  turnin 52
+
+step The Eastvale Logging Camp
+  tip North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.
+  tip Follow the hills south to the tower, on the road west.
+  turnin 59                                   -- Sara Timberlain
+  turnin 83
+
+step The Eastvale Logging Camp
+  turnin 5545                                 -- Supervisor Raelen
+
+step Marshal Dughan
+  when onquest 147
+  only Hunter
+  tip Josephine Carson stands with the Goldshire trainers. Each of her quests hands you a Taming Rod: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the Maclure Vineyards, Gray Forest Wolves the woods east of Crystal Lake.
+  turnin 147
+
+step Jennea Cannon
+  only Mage
+  zone Stormwind City
+  tip Follow the road north from Goldshire into Stormwind. Jennea Cannon stands in the Wizard's Sanctum, the tower of the Mage Quarter; she gives you a flask for the Mirror Lake waterfall.
+  turnin 1860                                 -- Jennea Cannon
+  accept 1861
+
+step Mirror Lake
+  only Mage
+  zone Elwynn Forest
+  tip Leave Stormwind by the main gate. The Mirror Lake waterfall is south-west of the gates, on the way west to Westfall: fill Jennea's Flask at its base.
+  collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
+
+# ---------------------------------------------------------------- Warlocks and Paladins: Stormwind and east Elwynn
+
+step Gakin the Darkbinder
+  only Warlock
+  zone Stormwind City
+  tip Follow the road north from Goldshire into Stormwind. Gakin the Darkbinder waits in the cellar of the Slaughtered Lamb, in the Mage Quarter.
+  turnin 1685                                 -- Gakin the Darkbinder
+  accept 1688
+
+step Surena Caledon
+  only Warlock
+  zone Elwynn Forest
+  tip Head back out through Goldshire and east along the road to the Brackwell Pumpkin Patch. Surena Caledon (level 9) stands by its farmhouse.
+  collect 6810 quest 1688.1                   -- Surena's Choker: Surena Caledon
+
+step The Binding
+  only Warlock
+  zone Stormwind City
+  tip Back to Gakin. Use the Bloodstone Choker at the summoning circle in the Slaughtered Lamb's cellar and defeat the voidwalker it calls.
+  turnin 1688                                 -- Gakin the Darkbinder
+  accept 1689
+  complete 1689                               -- Subdue the voidwalker
+  turnin 1689                                 -- Summon Voidwalker
+
+step The Tome of Divinity
+  only Paladin
+  zone Stormwind City
+  tip Follow the road north from Goldshire into Stormwind. Duthorian Rall and Gazin Tenorm are in the Cathedral of Light; Stephanie Turner stands in Old Town and asks for ten Linen Cloth (humanoids drop it; the Auction House sells it).
+  turnin 2998                                 -- Duthorian Rall
+  accept 1642                                 -- From the Tome of Divinity he gives you
+  turnin 1642
+  accept 1643
+  turnin 1643                                 -- Stephanie Turner, Old Town
+  accept 1644
+  collect 2589 quest 1644.1                   -- Linen Cloth
+  turnin 1644
+  accept 1780
+  turnin 1780                                 -- Duthorian Rall
+  accept 1781
+  turnin 1781                                 -- Gazin Tenorm
+  accept 1786
+
+step Henze Faulk
+  only Paladin
+  zone Elwynn Forest
+  tip Head back out through Goldshire and east to Stone Cairn Lake. Henze Faulk lies south of the lake: use the Symbol of Life on him. The Defias Rogue Wizards around him carry the Defias Script.
+  complete 1786                               -- Use the Symbol of Life on Henze Faulk
+  turnin 1786                                 -- Henze Faulk
+  accept 1787
+  collect 6846 quest 1787.1                   -- Defias Script: Defias Rogue Wizards
+
+step Gazin Tenorm
+  only Paladin
+  zone Stormwind City
+  tip Back to the Cathedral of Light.
+  turnin 1787                                 -- Gazin Tenorm
+  accept 1788
+  turnin 1788                                 -- Duthorian Rall: Redemption
+
+# ---------------------------------------------------------------- To Westfall
+
+step Westbrook Garrison
+  zone Elwynn Forest
+  tip Follow the road west to the Westbrook Garrison, on the way into Westfall. Deputy Rainer stands outside the barracks.
+  accept 109 npc 963                          -- Deputy Rainer: for Gryan Stoutmantle at Sentinel Hill

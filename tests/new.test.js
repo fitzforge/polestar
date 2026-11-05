@@ -48,11 +48,12 @@ test('new --yes writes the template with the values filled in', () => {
 	assert.deepEqual(read(dir, '.gitignore').split('\n').filter(Boolean), ['dist/', 'drafts/']);
 	const tasks = JSON.parse(read(dir, '.vscode/tasks.json'));
 	const lint = tasks.tasks.find((t) => t.group && t.group.isDefault);
-	assert.match(lint.command, /lint/);
+	assert.equal(lint.command, 'forge guide lint');
 	assert.equal(lint.problemMatcher.pattern.regexp, '^(.*):(\\d+): (error|warning): (.*)$');
 	const agents = read(dir, 'AGENTS.md');
 	assert.match(agents, /`ann-routes\/`/);
-	for (const s of ['polestar find', '--json', 'polestar lint --format json', 'polestar playtest']) assert.ok(agents.includes(s), s);
+	for (const s of ['polestar find', '--json', 'forge guide lint --format json', 'polestar playtest', 'forge release pack']) assert.ok(agents.includes(s), s);
+	assert.ok(!/polestar (lint|pack)\b/.test(agents), 'lint and pack are forge commands');
 	assert.match(read(dir, 'CLAUDE.md'), /AGENTS\.md/);
 	for (const f of ['pack.json', 'guides/example.guide', 'README.md', 'AGENTS.md']) assert.doesNotMatch(read(dir, f), /\{\{\w+\}\}/, f);
 });
@@ -122,7 +123,7 @@ test('with an origin URL the workflow and dev container install Polestar from it
 	assert.equal(a.status, 0, a.stderr);
 	const wf = read(withRepo, '.github/workflows/pack.yml');
 	assert.ok(wf.includes(`git clone --depth 1 "${REPO}"`));
-	for (const s of ['lua5.1', 'npm link', 'polestar lint --format github', 'polestar playtest', 'polestar pack', "tags: ['v*']", '${{ github.token }}']) assert.ok(wf.includes(s), s);
+	for (const s of ['lua5.1', 'npm link', 'forge guide lint --format github', 'polestar playtest', 'forge release pack', '>> "$GITHUB_PATH"', "tags: ['v*']", '${{ github.token }}']) assert.ok(wf.includes(s), s);
 	// The check job runs Polestar's data build: it gets read access only; the
 	// release job, on version tags after the check passed, writes.
 	const [top, jobs] = wf.split(/^jobs:$/m);
@@ -138,8 +139,8 @@ test('with an origin URL the workflow and dev container install Polestar from it
 	const dc = JSON.parse(read(withRepo, '.devcontainer/devcontainer.json'));
 	assert.match(dc.image, /node:24/);
 	assert.ok(dc.postCreateCommand.includes(REPO) && /lua5\.1/.test(dc.postCreateCommand) && /npm link/.test(dc.postCreateCommand));
-	// Never fetch from community web sites (quest XP) or read a Wowhead cache from a runner or Codespace.
-	for (const text of [wf, dc.postCreateCommand]) assert.deepEqual(text.match(/polestar data build[^\n"&]*/g).map((s) => s.trim()), ['polestar data build --no-web-xp --no-wowhead']);
+	// Never fetch from community web sites (quest XP) or read a web quest list cache from a runner or Codespace.
+	for (const text of [wf, dc.postCreateCommand]) assert.deepEqual(text.match(/forge data build[^\n"&]*/g).map((s) => s.trim()), ['forge data build --no-web-xp --no-web-zones']);
 	assert.doesNotMatch(a.stdout, /skipped/);
 
 	const without = path.join(tmp(), 'p');
@@ -152,10 +153,10 @@ test('with an origin URL the workflow and dev container install Polestar from it
 
 const skip = needs('quests.json') || (!hasLua() && 'no Lua 5.1');
 
-test('end to end: the new pack lints clean, playtests and packs from its own folder', { skip }, () => {
+test('end to end: the new pack lints clean, playtests and packs from its own folder', { skip: skip || (!cli.forgeBin() && 'no forge build (lint is forge guide lint)') }, () => {
 	const dir = path.join(tmp(), 'ann');
 	assert.equal(polestar(['new', dir, ...ARGS, '--license', 'CC-BY-4.0'], { origin: '' }).status, 0);
-	const lint = polestar(['lint', '--format', 'json'], { cwd: dir });
+	const lint = cli.forge(['guide', 'lint', '--format', 'json'], { cwd: dir });
 	assert.equal(lint.status, 0, lint.stdout + lint.stderr);
 	const doc = JSON.parse(lint.stdout);
 	const diags = Array.isArray(doc) ? doc : doc.diagnostics;
@@ -163,7 +164,7 @@ test('end to end: the new pack lints clean, playtests and packs from its own fol
 	const play = polestar(['playtest'], { cwd: dir });
 	assert.equal(play.status, 0, play.stdout + play.stderr);
 	assert.match(play.stdout, /ok {2}ann-routes\/example/);
-	const pack = polestar(['pack'], { cwd: dir });
+	const pack = cli.forge(['release', 'pack'], { cwd: dir });
 	assert.equal(pack.status, 0, pack.stdout + pack.stderr);
 	assert.ok(fs.existsSync(path.join(dir, 'dist', 'PolestarPack_AnnsRoutes-0.1.0.zip')));
 });

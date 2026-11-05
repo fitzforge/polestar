@@ -1,0 +1,62 @@
+Polestar Codex: third-party notices
+===================================
+
+The data in this folder was generated for Polestar by `codex build` from the
+sources below: item, NPC, object, quest, zone and instance facts (ids, names,
+levels, coordinates, drop chances, requirements). No text, images or code
+were copied from them; the Dungeons journal is written in our own words.
+
+pfQuest
+-------
+Version: 104f35678ca39ab1fb78b655f815cc7016f5e0c8
+Licence: MIT
+
+World of Warcraft Classic Era client tables (UiMap, UiMapAssignment, AreaTable, Faction) via wago.tools
+-------------------------------------------------------------------------------------------------------
+Version: wow_classic_era 1.15.9.70003
+Licence: Blizzard Entertainment game client data; factual map geometry, names and faction hierarchy only
+
+World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse) via wago.tools
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+Version: wow_classic_beta 1.60.1.70450
+Licence: Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only
+
+CMaNGOS classic-db: creature and gameobject spawn heights
+---------------------------------------------------------
+Version: 22b51464f1625f6ef6275771de1f5466c6f5d19e
+Licence: GPL-3.0; spawn heights (z) only, used as facts like the transport periods: a guide goal, spawn spot or smart-target candidate at an NPC or object (and Core/ClassTrainers.lua's class trainers) carries its spawn's height
+
+ForeverLevelingBiS
+------------------
+Version: v0.0.1-golden
+Licence: MIT License
+
+Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)
+-------------------------------------------------------------------------------------------------------------------------------------------------
+Version: 30 entrances
+Licence: Facts only (coordinates), each entry with its source
+
+Curated reputation gates (data/codex/repgates.json): warcraft.wiki.gg, the web quest database's Classic reputation guides, QuestieDB
+------------------------------------------------------------------------------------------------------------------------------------
+Version: 178 items
+Licence: Facts only (standings), each row with its source
+
+Curated attunement goals (data/codex/attunements.json): the web quest database (Forever pages), warcraft.wiki.gg
+----------------------------------------------------------------------------------------------------------------
+Version: 15 attunements
+Licence: Facts only (quest and item ids), each entry with its sources
+
+Curated Dungeons journal quests (data/codex/journal-quests.json): the web quest database (Forever pages)
+--------------------------------------------------------------------------------------------------------
+Version: 1 quests
+Licence: Facts only (quest ids and instances), each row with its source
+
+World of Warcraft: Forever client tables via wago.tools
+-------------------------------------------------------
+Version: 1.60.1.70450
+Licence: Blizzard Entertainment game data, facts only
+
+World of Warcraft Classic Era client item tables via wago.tools (items missing from the Forever tables)
+-------------------------------------------------------------------------------------------------------
+Version: 1.15.9.70003
+Licence: Blizzard Entertainment game data, facts only

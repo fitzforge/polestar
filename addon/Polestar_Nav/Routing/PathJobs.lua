@@ -15,7 +15,10 @@ local Grid, Search = ns.PathGrid, ns.PathSearch
 local clock, Deadline, Expansions = Grid.clock, Grid.Deadline, Grid.Expansions
 local start, scratch, Spare, options = Search.start, Search.scratch, Search.Spare, Search.options
 
--- Round-robin slices share one frame budget, including callbacks that replan from newly settled costs.
+-- Slices share one frame budget, including callbacks that replan from newly settled costs. A drawn search (Find: the
+-- arrow's walk, a leg's path) and a surface prefetch come first: while one is queued, the cost-only work (FindMany
+-- batches such as Nav/Walk.lua's Walk.Measure, FindCost) waits, so a new waypoint's walk is drawn before the planner's
+-- measures run. Within each class the jobs take turns.
 local queue = {}
 local scheduled, pumped = false, false
 local pump, combatWait
@@ -41,6 +44,52 @@ local function schedule()
 	end
 end
 
+-- A job the player waits to see (a drawn path or the floor under them), against cost-only work.
+local function foreground(job)
+	return job.notify ~= nil or job.prefetch or (job.targets == nil and not job.costOnly)
+end
+
+-- The queue index of the next job to slice: the first foreground one, else the first; and whether another job of
+-- the same class stays queued (it then gets half the budget, the rest left for the others).
+local function nextJob()
+	local first
+	for i = 1, #queue do
+		if foreground(queue[i]) then
+			if first then
+				return first, true
+			end
+			first = i
+		end
+	end
+	if first then
+		return first, false
+	end
+	return 1, #queue > 1
+end
+
+-- The frame budget is Path.budget (PathGrid.lua) whatever the frame rate: a search costs a frame at most that much,
+-- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
+-- search ran).
+
+-- With the queue empty the router rests: decoded clusters and the decoder's scratch stay for the next search (a walk
+-- or measure from nearby reads the same clusters) until it has rested Path.restSeconds, then Grid.Idle drops them.
+Path.restSeconds = 60
+local rests = 0 -- times the queue emptied: a later rest makes an earlier rest's timer stale
+local function rest()
+	Grid.Rest()
+	rests = rests + 1
+	local mine = rests
+	if C_Timer and C_Timer.After then
+		C_Timer.After(Path.restSeconds, function()
+			if mine == rests and #queue == 0 then
+				Grid.Idle()
+			end
+		end)
+	else
+		Grid.Idle()
+	end
+end
+
 pump = function()
 	scheduled, pumped = false, true
 	if InCombatLockdown and InCombatLockdown() then
@@ -54,14 +103,17 @@ pump = function()
 		combatWait:RegisterEvent("PLAYER_REGEN_ENABLED")
 		return
 	end
-	local finish = clock() + Path.budget
+	local now = clock()
+	local budget = Path.budget
+	local finish = now + budget
 	repeat
-		local job = table.remove(queue, 1)
-		if not job then
+		if #queue == 0 then
 			break
 		end
+		local at, shared = nextJob()
+		local job = table.remove(queue, at)
 		local t0 = clock()
-		Deadline(math.min(finish, t0 + (not job.notify and #queue > 0 and Path.budget / 2 or Path.budget)))
+		Deadline(math.min(finish, t0 + (not job.notify and shared and budget / 2 or budget)))
 		Expansions(job.expansions or 0)
 		local saved = scratch(job.scratch)
 		local ok, points, cost = coroutine.resume(job.co, job)
@@ -99,8 +151,8 @@ pump = function()
 		end
 	until clock() >= finish
 	if #queue == 0 then
-		-- Exact endpoint costs survive; decoded grids and local trees are only useful during active work.
-		Grid.Idle()
+		-- Exact endpoint costs survive; local trees are only useful during active work.
+		rest()
 		Spare(nil)
 	end
 	schedule()
@@ -146,7 +198,7 @@ end
 ---@param opts? boolean|{ waterWalking: boolean?, profile: string?, style: string?, danger: table<number, number>? }
 ---@return SPFPathJob
 function Path.Find(map, from, to, callback, opts)
-	local waterWalking, profile, style, danger = options(opts)
+	local waterWalking, profile, style, danger, report = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -155,7 +207,39 @@ function Path.Find(map, from, to, callback, opts)
 		profile = profile,
 		style = style,
 		danger = danger,
+		report = report,
 		callback = callback,
+	})
+end
+
+-- A walk's shape at once, for its line before (or instead of) its search: callback(points, cost, job) with the
+-- start, each border crossing (entrance) and lift landing of a route over the entrance graph alone, and the goal
+-- (Path.lua sketch: no grid decoded or searched; points.coarse = true, heights at the ends and landings only, straight
+-- stretches inside one cluster at most; cost that route's, the ends joined at straight yards); callback(nil, reason,
+-- job) as Find's. A walk inside one cluster has no such route: with whole, the drawn path itself (Find's, no
+-- points.coarse), else callback(nil, "cluster", job) at once. job.yards is the line's length. A drawn job (sliced
+-- first, as Find).
+---@param map number
+---@param from SPFPoint
+---@param to SPFPoint
+---@param callback fun(points: SPFWalkPoints?, cost: number|string, job: SPFPathJob)
+---@param opts? boolean|{ waterWalking: boolean?, profile: string?, style: string?, danger: table<number, number>? } as Find's
+---@param whole? boolean
+---@return SPFPathJob
+function Path.FindCoarse(map, from, to, callback, opts, whole)
+	local waterWalking, profile, style, danger, report = options(opts)
+	return enqueue({
+		map = map,
+		from = from,
+		to = to,
+		waterWalking = waterWalking,
+		profile = profile,
+		style = style,
+		danger = danger,
+		report = report,
+		callback = callback,
+		coarseOnly = true,
+		whole = whole and true or nil,
 	})
 end
 
@@ -170,7 +254,7 @@ local prefetching
 function Path.Prefetch(map, x, y)
 	local st = Grid.State(map)
 	local k = st and Grid.locate(st, x, y)
-	if not k or st.val[k] ~= nil then
+	if not k or st.cl[k] ~= nil then
 		return nil
 	end
 	local p = prefetching

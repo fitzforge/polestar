@@ -1,5 +1,5 @@
 'use strict';
-// node tools/polestar.js profession build|draft|gathering ...
+// node tools/polestar.js profession draft|gathering ... (profession build was retired: forge data professions)
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -7,23 +7,10 @@ const { parseArgs } = require('node:util');
 
 const { ROOT, DATA } = require('../lib/paths');
 
-const usage = `usage: node tools/polestar.js profession build [options]
-       node tools/polestar.js profession draft <Profession> [options]
-       node tools/polestar.js profession gathering build|check [options]
+const usage = `usage: node tools/polestar.js profession draft <Profession> [options]
+       node tools/polestar.js profession gathering build|check|abundance [options]
 
-build: writes data/forever/professions.json from the Forever client's tables
-(wago.tools CSV, wow_classic_beta 1.60+: SkillLine, SkillLineAbility,
-SpellName, SpellEffect, SpellReagents, SpellTotems, SpellCastingRequirements,
-SpellFocusObject, ItemSparse, Item, ItemEffect, ItemXItemEffect; the newest
-Classic Era build fills the spells and items they lack) and
-data/forever/{items,npcs,objects}.json. Trainers come from a curated name
-list checked against npcs.json.
-
-  --offline            use cached tables only
-  --build <version>    wago.tools Forever build (default: newest listed)
-  --data <dir>         reference data (default data/forever)
-  --sources <dir>      source cache (default data/sources)
-  --out <file>         default <data>/professions.json
+(profession build was retired: forge data professions [--data DIR] [--sources DIR] [--build V] [--out FILE])
 
 draft: prints (or writes) a 1-300 guide for a crafting profession (Alchemy,
 Blacksmithing, Enchanting, Engineering, Leatherworking, Tailoring): the
@@ -41,8 +28,12 @@ tools/lib/professions/gathering/specs.js and data/forever (node spawns,
 professions, items, npcs, objects). Run \`compile\` afterwards.
 gathering check: builds them in memory and exits 1 when a committed guide
 differs (writes nothing).
+gathering abundance: rewrites tools/lib/professions/gathering/node-abundance.json,
+the nodes of each kind a zone holds at once, from the spawn pools of the
+Forever TrinityCore world database (data/local/forever-tdb/world.sqlite).
 
   --data <dir>         reference data (default data/forever)
+  --tdb <file>         world database (abundance only)
   --stdout             print the guides instead of writing them (build only)`;
 
 function fail(msg) {
@@ -50,40 +41,9 @@ function fail(msg) {
 	return 2;
 }
 
-async function runBuild(rest) {
-	let values;
-	try {
-		({ values } = parseArgs({
-			args: rest,
-			options: { offline: { type: 'boolean' }, build: { type: 'string' }, data: { type: 'string' }, sources: { type: 'string' }, out: { type: 'string' } },
-			strict: true,
-		}));
-	} catch (err) {
-		return fail(err.message);
-	}
-	const { buildProfessions } = require('../lib/professions/build');
-	const abs = (p) => (p ? path.resolve(p) : undefined);
-	const res = await buildProfessions({
-		offline: values.offline,
-		build: values.build,
-		dataDir: abs(values.data),
-		sourcesDir: abs(values.sources),
-		outFile: abs(values.out),
-		log: (m) => console.error(m),
-	});
-	for (const w of res.warnings) console.error(`warning: ${w}`);
-	const lines = Object.values(res.report).map((r) => {
-		const skipped = Object.entries(r.skipped).map(([k, n]) => `${n} ${k}`).join(', ');
-		return `  ${r.name.padEnd(15)} ${String(r.recipes).padStart(4)} recipes${skipped ? ` (left out: ${skipped})` : ''}`;
-	});
-	const era = res.eraBuild ? ` (gaps filled from Classic Era ${res.eraBuild})` : '';
-	console.log(`wrote ${path.relative(process.cwd(), res.outFile) || res.outFile} from Forever build ${res.build}${era}:\n${lines.join('\n')}`);
-	return 0;
-}
-
 function loadJson(dir, name) {
 	const file = path.join(dir, `${name}.json`);
-	if (!fs.existsSync(file)) throw new Error(`${path.relative(process.cwd(), file)} missing (node tools/polestar.js ${name === 'professions' ? 'profession build' : 'data build'})`);
+	if (!fs.existsSync(file)) throw new Error(`${path.relative(process.cwd(), file)} missing (${name === 'professions' ? 'forge data professions' : 'forge data build'})`);
 	return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 
@@ -155,17 +115,20 @@ function runGathering(rest) {
 	let values;
 	let positionals;
 	try {
-		({ values, positionals } = parseArgs({ args: rest, options: { data: { type: 'string' }, stdout: { type: 'boolean' } }, allowPositionals: true, strict: true }));
+		({ values, positionals } = parseArgs({ args: rest, options: { data: { type: 'string' }, stdout: { type: 'boolean' }, tdb: { type: 'string' } }, allowPositionals: true, strict: true }));
 	} catch (err) {
 		return fail(err.message);
 	}
 	const [mode, ...extra] = positionals;
-	if (mode !== 'build' && mode !== 'check') return fail(mode ? `unknown gathering subcommand "${mode}"` : 'gathering needs build or check');
+	if (mode !== 'build' && mode !== 'check' && mode !== 'abundance') return fail(mode ? `unknown gathering subcommand "${mode}"` : 'gathering needs build, check or abundance');
 	if (extra.length) return fail(`unexpected argument "${extra[0]}"`);
-	if (values.stdout && mode === 'check') return fail('--stdout goes with gathering build');
-	const { buildAll, OUT_DIR } = require('../lib/professions/gathering/build');
+	if (values.stdout && mode !== 'build') return fail('--stdout goes with gathering build');
+	if (values.tdb && mode !== 'abundance') return fail('--tdb goes with gathering abundance');
 	const { context } = require('../lib/professions/gathering/common');
-	const files = buildAll(context(values.data ? path.resolve(values.data) : undefined));
+	const ctx = context(values.data ? path.resolve(values.data) : undefined);
+	if (mode === 'abundance') return writeAbundance(ctx, values.tdb ? path.resolve(values.tdb) : path.join(ROOT, 'data', 'local', 'forever-tdb', 'world.sqlite'));
+	const { buildAll, OUT_DIR } = require('../lib/professions/gathering/build');
+	const files = buildAll(ctx);
 	if (values.stdout) {
 		for (const [name, text] of Object.entries(files)) process.stdout.write(`==> ${name}\n${text}\n`);
 		return 0;
@@ -174,12 +137,34 @@ function runGathering(rest) {
 	return reportSync(files, OUT_DIR, { check: mode === 'check', command: 'profession gathering build' });
 }
 
+// node-abundance.json: one line per zone and node kind.
+function writeAbundance(ctx, tdb) {
+	if (!fs.existsSync(tdb)) return fail(`${path.relative(process.cwd(), tdb)} missing`);
+	const A = require('../lib/professions/gathering/abundance');
+	const { maps } = A.derive(tdb, ctx.data.objects, ctx.project);
+	const ids = Object.keys(maps);
+	const lines = ['{', `\t"about": ${JSON.stringify(A.ABOUT)},`, '\t"maps": {'];
+	ids.forEach((map, i) => {
+		const names = Object.keys(maps[map]);
+		lines.push(`\t\t${JSON.stringify(map)}: {`);
+		names.forEach((name, j) => lines.push(`\t\t\t${JSON.stringify(name)}: ${JSON.stringify(maps[map][name])}${j < names.length - 1 ? ',' : ''}`));
+		lines.push(`\t\t}${i < ids.length - 1 ? ',' : ''}`);
+	});
+	lines.push('\t}', '}', '');
+	fs.writeFileSync(A.FILE, lines.join('\n'));
+	console.error(`wrote ${path.relative(process.cwd(), A.FILE)}: ${ids.length} zones`);
+	return 0;
+}
+
 async function run(argv) {
 	const [sub, ...rest] = argv;
-	if (sub === 'build') return runBuild(rest);
+	if (sub === 'build') {
+		console.error('polestar profession build was retired: forge data professions [--data DIR] [--sources DIR] [--build V] [--out FILE]');
+		return 2;
+	}
 	if (sub === 'draft') return runDraft(rest);
 	if (sub === 'gathering') return runGathering(rest);
 	return fail(sub ? `unknown subcommand "${sub}"` : 'missing subcommand');
 }
 
-module.exports = { name: 'profession', summary: 'Build professions.json; draft a crafting guide; build or check the generated gathering guides', usage, run };
+module.exports = { name: 'profession', summary: 'Draft a crafting guide; build or check the generated gathering guides', usage, run };

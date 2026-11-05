@@ -1,0 +1,64 @@
+guide forever/class/shaman/call-of-earth-alliance
+title Call of Earth (Alliance)
+category Class
+class Shaman
+folder Shaman
+faction Alliance
+levels 4-5
+zone Dun Morogh
+keywords Earth Totem, Stoneskin Totem, Earth Sapta, Call of Earth, Archaic Rune, Teo Hammerstorm, Sten Stoutarm, Eldrun Stormbreaker, Ingrid Dunwald, Spirit Stone, Minor Manifestation of Earth, Iceclaw Bear Pendant, Frostmane, Rough Quartz, Coldridge Valley, Anvilmar, Shaman, class quest, totem
+reward item 5175
+reward spell 8071 "Stoneskin Totem"
+why Your Earth Totem: without it no earth totem can be cast. Stoneskin Totem comes with it at level 4.
+
+# Forever's Alliance (Dwarf) shamans start in Coldridge Valley with their own
+# Call of Earth chain: Archaic Rune (98581, the level 1 letter from Sten
+# Stoutarm to Teo Hammerstorm inside Anvilmar) -> Call of Earth (94373: two
+# Iceclaw Bear Pendants from the Frostmane) -> the Spirit Stone on the ridge
+# north-west of Anvilmar (94374) -> Teo (94375: the Earth Totem).
+# The Archaic Rune is the level 1 letter the leveling guide takes with
+# Dwarven Outfitters (179) before it; this guide starts at Teo.
+# Call of Earth 96243 (level 10, Eldrun Stormbreaker in Ironforge or Ingrid
+# Dunwald in Kharanos) only sends a shaman who skipped the chain back to Teo;
+# Earth Sapta 94472 replaces a lost sapta from Teo while 94374 is open.
+# Sources: quests.json, npcs.json and items.json (givers, enders, the
+# Frostmane droppers); Forever's quest notes for the respawns, the casters and
+# the hidden trail. The pendants have no drop rate in the data. 96243 has no
+# ender in the data; its text names Teo Hammerstorm in Anvilmar (npc 257446).
+# 96243 is a tip on the first step, not a goal: it has no ender in the data
+# and a `when level>=10` step with it could not be played through.
+# The leveling guide forever/alliance/dwarf-gnome/01-dun-morogh carries the
+# chain inline; this guide is for shamans off the route.
+
+step Teo Hammerstorm
+  zone Dun Morogh
+  tip Teo Hammerstorm trains shamans inside Anvilmar, the hall at the south end of Coldridge Valley. The quest opens at level 4. Never took it and now 10 or more? Eldrun Stormbreaker in Ironforge or Ingrid Dunwald in Kharanos gives you Call of Earth, a pointer back to Teo: take it for the experience on the way.
+  level 4
+  accept 94373                                -- Teo Hammerstorm
+
+step Iceclaw Bear Pendants
+  tip The Frostmane Troll Whelps (level 3-4) hold the snowy slopes west and south-west of Anvilmar, and the Frostmane Novices (level 3-4, they throw Frostbolts from range) camp south of it. Both carry the pendants; they respawn in about three minutes.
+  collect 264356 x2 quest 94373.1             -- Iceclaw Bear Pendant
+
+step Teo Hammerstorm
+  tip Back to Teo inside Anvilmar. He hands you the Earth Sapta: do not drink it yet.
+  turnin 94373                                -- Teo Hammerstorm
+  accept 94374
+
+step Lost the Earth Sapta?
+  when onquest 94374
+  when !has 6635
+  tip Only if the Earth Sapta is gone from your bags (drunk away from the stone, or sold): Teo gives you another.
+  accept 94472
+  turnin 94472                                -- Teo Hammerstorm: a new Earth Sapta
+
+step The Spirit Stone
+  tip The Spirit Stone stands on a snowy ridge north-west of Anvilmar. The trail is easy to miss: it climbs the hill from the valley floor; at the small camp near the top turn left and the stone comes into view. Stand beside it, drink the Earth Sapta and speak to the Minor Manifestation of Earth before it fades.
+  use 6635 @24.8,61.8                         -- Earth Sapta, beside the Spirit Stone
+  turnin 94374                                -- Minor Manifestation of Earth
+  accept 94375                                -- it hands you the Rough Quartz: keep it
+
+step Teo Hammerstorm
+  tip Bring the Rough Quartz back to Teo inside Anvilmar. Keep the Earth Totem in your bags for good: every earth totem needs it.
+  turnin 94375 reward 5175                    -- Teo Hammerstorm: Stoneskin Totem and your Earth Totem
+  train class                                 -- the level 4 shaman spells

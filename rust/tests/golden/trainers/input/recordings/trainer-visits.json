@@ -1,0 +1,14 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70450",
+	"session": "t",
+	"char": { "name": "Visitor", "realm": "Fixture", "race": "Troll", "class": "PRIEST", "faction": "Horde" },
+	"started": 100,
+	"ended": 200,
+	"events": [
+		{ "t": 1, "e": "trainer", "npc": 3707, "npcName": "Ken'jai", "map": 1411, "x": 42.4, "y": 68.2 },
+		{ "t": 2, "e": "trainer", "npc": 5884, "npcName": "Mai'ah", "map": 1411, "x": 42.5, "y": 69 },
+		{ "t": 3, "e": "trainer", "npc": 0, "npcName": "Nobody" }
+	],
+	"maps": {}
+}

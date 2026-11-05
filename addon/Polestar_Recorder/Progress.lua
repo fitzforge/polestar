@@ -1,41 +1,32 @@
--- Character progress: skill ranks, reputation, exploration, crafting, newly
--- learned spells and recipes, achievements. Also the faction and skill
--- scanners behind `/psrec factions` and `/psrec skills`.
+-- Character progress (docs/RECORDING.md, "Services"): `rep`, `skill`,
+-- `explore`, `craft` (only what the trade skill window makes), `learn`,
+-- `achieve`.
 --
 -- Collapsed headers hide rows from C_Reputation / C_SkillInfo index scans.
--- A full scan expands every collapsed header (and shows legacy reputations),
--- reads every row, then puts the UI state back exactly as it was. Changes
--- between scans are diffed by ID (GetFactionDataByID / GetSkillLineInfoByID),
--- which works whatever is collapsed.
+-- The baseline scan expands every collapsed header (and shows legacy
+-- reputations), reads every row, then puts the UI state back exactly as it
+-- was. Changes between scans are diffed by ID (GetFactionDataByID /
+-- GetSkillLineInfoByID), which works whatever is collapsed.
 
 local ADDON, ns = ...
 
 local type, pairs, ipairs, pcall, tostring, tonumber, GetTime = type, pairs, ipairs, pcall, tostring, tonumber, GetTime
+local Num = ns.Num
 
 local DIFF_DELAY = 0.2 -- coalesces bursts of UPDATE_FACTION / SKILL_LINES_CHANGED
 local EXPLORE_WINDOW = 1 -- seconds to collect the discovery message and XP
 local CRAFT_WINDOW = 1 -- seconds between a recipe cast and its crafted-item result
 
--- A per-session set on the live session (survives reloads).
+-- Per-session sets (explored areas, learned spells), empty at every session.
+local sets = {}
 local function sessionSet(name)
-	local s = ns.Session()
-	if not s then return nil end
-	local t = s[name]
-	if type(t) ~= "table" then
+	if not ns.Recording() then return nil end
+	local t = sets[name]
+	if not t then
 		t = {}
-		s[name] = t
+		sets[name] = t
 	end
 	return t
-end
-
--- Stores a dump on the live session: session[kind] = data, session.dumped[kind] = time.
-function ns.StoreDump(kind, data)
-	local s = ns.Session()
-	if not s then return false end
-	s[kind] = data
-	if type(s.dumped) ~= "table" then s.dumped = {} end
-	s.dumped[kind] = GetServerTime()
-	return true
 end
 
 ---------------------------------------------------------------------------
@@ -188,10 +179,7 @@ local function checkFaction(id)
 	if type(new) ~= "number" or old == new then return end
 	repValues[id] = new
 	if old == nil and not repReady then return end
-	ns.Record("rep", ns.Here({
-		faction = id, factionName = d.name, standing = d.reaction, value = new,
-		delta = old and new - old or nil,
-	}))
+	ns.Rec("rep", id, Num(d.reaction), new, old and new - old or nil)
 end
 
 local repQueued = false
@@ -239,7 +227,7 @@ local function checkSkill(id, d)
 	if known and known.rank == d.rank and known.max == d.maxRank then return end
 	skillRanks[id] = { rank = d.rank, max = d.maxRank }
 	if not known and not skillReady then return end
-	ns.Record("skill", ns.Here({ skill = d.name, skillLine = id, rank = d.rank, max = d.maxRank }))
+	if Num(d.rank) and Num(d.maxRank) then ns.Rec("skill", id, d.rank, d.maxRank) end
 end
 
 -- Known lines are re-read by ID, which works under collapsed headers. New
@@ -287,6 +275,7 @@ ns.On("CHAT_MSG_SKILL", function() queueSkills(true) end)
 ns.On("LEARNED_SPELL_IN_SKILL_LINE", function() queueSkills(true) end)
 
 ns.OnSession(function()
+	sets = {}
 	repValues, repReady = {}, false
 	skillRanks, skillReady = {}, false
 	repBaseline()
@@ -303,22 +292,27 @@ end)
 -- areas as seen.
 ---------------------------------------------------------------------------
 
--- A client format string ("Discovered %s: %d experience gained") as a Lua
--- pattern capturing the %s and %d values in order.
-local function formatPattern(fmt)
-	if type(fmt) ~= "string" or fmt == "" then return nil end
-	local p = fmt:gsub("%%%d*%$?s", "\001"):gsub("%%%d*%$?d", "\002")
-	p = p:gsub("[%%%^%$%(%)%.%[%]%*%+%-%?]", "%%%0")
-	p = p:gsub("\001", "(.+)"):gsub("\002", "(%%d+)")
-	return "^" .. p .. "$"
-end
-ns.FormatPattern = formatPattern
-
-local exploredXP, exploredPlain -- patterns, built on first use (global strings load late)
+local exploredXP, exploredPlain -- { pattern, args }, built on first use (global strings load late)
 local function discoveryPatterns()
-	if exploredXP == nil then exploredXP = formatPattern(ERR_ZONE_EXPLORED_XP) or false end
-	if exploredPlain == nil then exploredPlain = formatPattern(ERR_ZONE_EXPLORED) or false end
+	if exploredXP == nil then
+		local p, args = ns.FormatPattern(ERR_ZONE_EXPLORED_XP)
+		exploredXP = p and { p = p, args = args } or false
+	end
+	if exploredPlain == nil then
+		local p, args = ns.FormatPattern(ERR_ZONE_EXPLORED)
+		exploredPlain = p and { p = p, args = args } or false
+	end
 	return exploredXP, exploredPlain
+end
+
+-- The format's arguments (in argument order) a text matches, or nil.
+local function matchFormat(f, text)
+	if not f then return nil end
+	local caps = { text:match(f.p) }
+	if not caps[1] then return nil end
+	local v = {}
+	for i, a in ipairs(f.args) do v[a] = caps[i] end
+	return v
 end
 
 local pending -- { at, map, x, y, areas = { ids }, name, xp }
@@ -373,8 +367,8 @@ local function finishExplore()
 		areaID = fresh[#fresh]
 	end
 	local name = p.name or (areaID and areaName(areaID)) or nil
-	local ev = { map = p.map, x = p.x, y = p.y, area = name, areaID = areaID, xp = xp }
-	if ns.Record("explore", ev) then
+	-- The record needs the area id; a name alone only marks it as seen.
+	if not areaID or ns.Rec("explore", areaID, xp, ns.PAt(p.map, p.x, p.y)) then
 		if p.name and areaID then
 			-- other new ids here may belong to a second discovery in this window
 			seen[areaID] = true
@@ -401,11 +395,9 @@ ns.On("MAP_EXPLORATION_UPDATED", startExplore)
 local function onMessage(text)
 	if type(text) ~= "string" or not ns.Usable(text) then return end
 	local withXP, plainMsg = discoveryPatterns()
-	local a, b
-	if withXP then a, b = text:match(withXP) end
-	if not a and plainMsg then a = text:match(plainMsg) end
-	if not a then return end
-	if b and tonumber(a) and not tonumber(b) then a, b = b, a end
+	local v = matchFormat(withXP, text) or matchFormat(plainMsg, text)
+	if not (v and v[1]) then return end
+	local a, b = v[1], v[2]
 	-- A second discovery inside the window is its own event.
 	if pending and pending.name and pending.name ~= a then finishExplore() end
 	local p = startExplore()
@@ -434,21 +426,68 @@ ns.OnSession(function()
 end)
 
 ---------------------------------------------------------------------------
--- Crafting: a successful cast of a recipe spell, with the item and count
--- from TRADE_SKILL_ITEM_CRAFTED_RESULT (else the recipe's schematic).
+-- Crafting: only what the player makes from the trade skill window. The
+-- window must be open on the player's own profession (not a linked or guild
+-- view, not an NPC's), the cast a recipe of that profession, and asked for
+-- through C_TradeSkillUI.CraftRecipe / CraftEnchant (hooked). Combat
+-- spells and forms, which GetRecipeInfo also answers for, never count. The
+-- item and count come from TRADE_SKILL_ITEM_CRAFTED_RESULT, else the
+-- recipe's schematic.
 ---------------------------------------------------------------------------
 
-local crafts = {} -- casts waiting for their result: { spell, skill, at, item, count }
+local crafts = {} -- casts waiting for their result: { spell, at, item, count }
 local lastResult -- crafted-item result that arrived before its cast
+local tradeOpen = false
+local queued = {} -- recipeSpellID -> casts asked for and not yet made
 
 local function professionID()
 	local T = C_TradeSkillUI
 	if not T then return nil end
 	local info = T.GetChildProfessionInfo and T.GetChildProfessionInfo()
-	if info and info.professionID and info.professionID ~= 0 then return info.professionID end
+	if info and Num(info.professionID) and info.professionID ~= 0 then return info.professionID end
 	info = T.GetBaseProfessionInfo and T.GetBaseProfessionInfo()
-	if info and info.professionID and info.professionID ~= 0 then return info.professionID end
+	if info and Num(info.professionID) and info.professionID ~= 0 then return info.professionID end
 	return nil
+end
+
+local function ownWindow()
+	local T = C_TradeSkillUI
+	if not (tradeOpen and T) then return false end
+	for _, name in ipairs({ "IsTradeSkillLinked", "IsTradeSkillGuild", "IsNPCCrafting" }) do
+		if T[name] and T[name]() then return false end
+	end
+	return true
+end
+
+-- A recipe of the open profession (the profession check rules out the
+-- combat spells and forms GetRecipeInfo answers for).
+local function isRecipe(spell)
+	local T = C_TradeSkillUI
+	if not (T and T.GetRecipeInfo) then return false end
+	local ok, recipe = pcall(T.GetRecipeInfo, spell)
+	if not (ok and type(recipe) == "table") then return false end
+	if T.GetProfessionInfoByRecipeID then
+		local open = professionID()
+		local okP, info = pcall(T.GetProfessionInfoByRecipeID, spell)
+		local prof = okP and type(info) == "table" and Num(info.professionID) or nil
+		if not (open and prof and (prof == open or (info.parentProfessionID and info.parentProfessionID == open))) then return false end
+	end
+	return true
+end
+
+-- Whether a cast is a craft from the trade skill window (World.lua leaves
+-- those out of `cast`).
+function ns.IsCraftSpell(spell)
+	return ownWindow() and (queued[spell] or 0) > 0 and isRecipe(spell)
+end
+
+-- Whether a spell is some profession's recipe (never a `cast`, crafted from
+-- the window or not).
+function ns.IsRecipeSpell(spell)
+	local T = C_TradeSkillUI
+	if not (T and T.GetProfessionInfoByRecipeID) then return false end
+	local ok, info = pcall(T.GetProfessionInfoByRecipeID, spell)
+	return ok and type(info) == "table" and (Num(info.professionID) or 0) ~= 0
 end
 
 local function finishCraft()
@@ -461,15 +500,32 @@ local function finishCraft()
 				c.item, c.count = schematic.outputItemID, schematic.quantityMin
 			end
 		end
-		ns.Record("craft", { spell = c.spell, item = c.item, count = c.count, skill = c.skill })
+		ns.Rec("craft", c.spell, c.item, c.count)
 	end
 end
 
+local function ask(spell, n)
+	spell = Num(spell)
+	if spell then queued[spell] = (queued[spell] or 0) + (Num(n) or 1) end
+end
+
+if C_TradeSkillUI then
+	for _, name in ipairs({ "CraftRecipe", "CraftEnchant" }) do
+		if type(C_TradeSkillUI[name]) == "function" then hooksecurefunc(C_TradeSkillUI, name, ask) end
+	end
+end
+
+ns.On("TRADE_SKILL_SHOW", function() tradeOpen = true end)
+ns.On("TRADE_SKILL_CLOSE", function()
+	tradeOpen = false
+	queued = {}
+end)
+
 ns.On("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
-	if unit ~= "player" or not ns.Usable(spellID) or not (C_TradeSkillUI and C_TradeSkillUI.GetRecipeInfo) then return end
-	local recipe = C_TradeSkillUI.GetRecipeInfo(spellID)
-	if not recipe then return end
-	local c = { spell = spellID, skill = professionID(), at = GetTime() }
+	if unit ~= "player" or not Num(spellID) or not ns.Recording() then return end
+	if not ns.IsCraftSpell(spellID) then return end
+	queued[spellID] = queued[spellID] - 1
+	local c = { spell = spellID, at = GetTime() }
 	if lastResult and GetTime() - lastResult.at <= CRAFT_WINDOW then
 		c.item, c.count = lastResult.item, lastResult.count
 		lastResult = nil
@@ -479,7 +535,7 @@ ns.On("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spellID)
 end)
 
 ns.On("TRADE_SKILL_ITEM_CRAFTED_RESULT", function(_, data)
-	if type(data) ~= "table" or not data.itemID then return end
+	if type(data) ~= "table" or not Num(data.itemID) then return end
 	for _, c in ipairs(crafts) do
 		if not c.item then
 			c.item, c.count = data.itemID, data.quantity
@@ -495,18 +551,15 @@ end)
 ---------------------------------------------------------------------------
 
 local function learned(spellID)
-	if type(spellID) ~= "number" then return end
+	if not Num(spellID) then return end
 	local seen = sessionSet("learned")
 	if not seen or seen[spellID] then return end
-	if ns.Record("learn", { spell = spellID, name = ns.SpellName(spellID) }) then seen[spellID] = true end
+	if ns.Rec("learn", spellID) then seen[spellID] = true end
 end
 
 ns.On("LEARNED_SPELL_IN_SKILL_LINE", function(_, spellID) learned(spellID) end)
 ns.On("NEW_RECIPE_LEARNED", function(_, recipeID) learned(recipeID) end)
 
-ns.On("ACHIEVEMENT_EARNED", function(_, id, alreadyEarned)
-	if type(id) ~= "number" then return end
-	local name
-	if type(GetAchievementInfo) == "function" then name = select(2, GetAchievementInfo(id)) end
-	ns.Record("achieve", { id = id, name = name, already = alreadyEarned and true or nil })
+ns.On("ACHIEVEMENT_EARNED", function(_, id)
+	if Num(id) then ns.Rec("achieve", id) end
 end)

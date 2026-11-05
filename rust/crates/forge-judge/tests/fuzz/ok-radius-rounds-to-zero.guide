@@ -1,0 +1,6 @@
+guide forever/fuzz/p
+title P
+levels 1-10
+zone Durotar
+step A
+  goto 50,50 r 0.004

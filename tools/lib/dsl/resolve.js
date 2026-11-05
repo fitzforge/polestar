@@ -341,15 +341,24 @@ const STRAY_SHARE = 0.75;
 // Median distance in yards from a spawn to its nearest neighbour.
 function medianSpacing(pts, frame) {
 	const { sx, sy } = scaleOf(frame);
-	const nn = pts.map((p, i) => {
+	// Each spawn's nearest neighbour: a sweep along x, stopping once the x gap
+	// alone exceeds the best found (the same distances as all pairs).
+	const ax = Math.abs(sx);
+	const order = pts.map((_, i) => i).sort((a, b) => pts[a][0] - pts[b][0]);
+	const nn = new Array(pts.length);
+	for (let r = 0; r < order.length; r++) {
+		const p = pts[order[r]];
 		let best = Infinity;
-		for (let j = 0; j < pts.length; j++) {
-			if (j === i) continue;
-			const d = Math.hypot((p[0] - pts[j][0]) * sx, (p[1] - pts[j][1]) * sy);
-			if (d < best) best = d;
+		for (const step of [-1, 1]) {
+			for (let s = r + step; s >= 0 && s < order.length; s += step) {
+				const q = pts[order[s]];
+				if (Math.abs(p[0] - q[0]) * ax > best) break;
+				const d = Math.hypot((p[0] - q[0]) * sx, (p[1] - q[1]) * sy);
+				if (d < best) best = d;
+			}
 		}
-		return best;
-	});
+		nn[r] = best;
+	}
 	nn.sort((a, b) => a - b);
 	return nn[Math.floor(nn.length / 2)];
 }
@@ -416,8 +425,15 @@ function strayPoints(pts, frame) {
 	const { sx, sy } = scaleOf(frame);
 	const root = pts.map((_, i) => i);
 	const find = (i) => (root[i] === i ? i : (root[i] = find(root[i])));
-	for (let i = 0; i < pts.length; i++) {
-		for (let j = i + 1; j < pts.length; j++) {
+	// Every pair within STRAY_YARDS linked: a sweep along x, each spawn against
+	// the ones after it until the x gap alone is too wide (the same links as all pairs).
+	const ax = Math.abs(sx);
+	const order = pts.map((_, i) => i).sort((a, b) => pts[a][0] - pts[b][0]);
+	for (let r = 0; r < order.length; r++) {
+		const i = order[r];
+		for (let s = r + 1; s < order.length; s++) {
+			const j = order[s];
+			if ((pts[j][0] - pts[i][0]) * ax > STRAY_YARDS) break;
 			if (Math.hypot((pts[i][0] - pts[j][0]) * sx, (pts[i][1] - pts[j][1]) * sy) <= STRAY_YARDS) root[find(i)] = find(j);
 		}
 	}
@@ -597,7 +613,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 		let out = null;
 		if (spec.map !== undefined) {
 			const z = data.zone(spec.map);
-			if (!z && Object.keys(data.zones).length) warn(spec.line, `map ${spec.map} is not in zones.json`);
+			if (!z && nonEmpty(data.zones)) warn(spec.line, `map ${spec.map} is not in zones.json`);
 			out = { id: spec.map, name: z && z.name ? String(z.name) : undefined };
 		} else {
 			const found = data.zoneNamed(spec.name);
@@ -630,7 +646,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	if (h.collects) {
 		guide.collects = h.collects.slice();
 		// Validated only when items.json is loaded: a missing data directory already warns.
-		const haveItems = Object.keys(data.items || {}).length > 0;
+		const haveItems = nonEmpty(data.items);
 		for (const id of h.collects) {
 			if (haveItems && !data.item(id)) warn(ast.lines.collects, `\`collects\` item ${id} is not in data (new Forever content?)`);
 		}
@@ -867,7 +883,7 @@ function checkLabels(steps, err) {
 // Goals Polestar checks off only on the step the route is on: arrivals, NPC
 // visits, flights, hearths, and tasks and kills, clicks and uses without a
 // quest (the player ticks those). In an along step they never check off.
-const ON_STEP_ONLY = new Set(['goto', 'talk', 'hearth', 'getfp', 'fly', 'vendor', 'task']);
+const ON_STEP_ONLY = new Set(['goto', 'talk', 'hearth', 'die', 'getfp', 'fly', 'vendor', 'task']);
 function onStepOnly(goal) {
 	if (ON_STEP_ONLY.has(goal.t)) return true;
 	if (goal.t === 'train') return goal.skillLine === undefined;
@@ -908,6 +924,19 @@ function acceptGate(q, id, data) {
 	return out;
 }
 
+// Whether a data table has any entry, once per table (listing the keys of
+// the full tables on every `when` cost seconds per compile).
+const NON_EMPTY = new WeakSet();
+function nonEmpty(o) {
+	if (!o || typeof o !== 'object') return false;
+	if (NON_EMPTY.has(o)) return true;
+	for (const _ in o) {
+		NON_EMPTY.add(o);
+		return true;
+	}
+	return false;
+}
+
 // A step's `when` predicates (tools/lib/dsl/when.js) as the engine reads them
 // (docs/PACK_FORMAT.md, "Format 4"): quest and item ids (`has`, `upgrade`)
 // checked against the data; `available` with what an accept of the quest waits on (minLevel,
@@ -919,9 +948,9 @@ function acceptGate(q, id, data) {
 // guide's [min, max], to warn about a step no character in that range sees.
 function resolveWhen(list, zoneId, levels, data, warn) {
 	if (!list || !list.length) return undefined;
-	const haveQuests = Object.keys(data.quests || {}).length > 0;
-	const haveItems = Object.keys(data.items || {}).length > 0;
-	const haveZones = Object.keys(data.zones || {}).length > 0;
+	const haveQuests = nonEmpty(data.quests);
+	const haveItems = nonEmpty(data.items);
+	const haveZones = nonEmpty(data.zones);
 	const out = list.map((p) => {
 		const w = { k: p.k };
 		if (p.neg) w.neg = true;
@@ -967,7 +996,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 				w.name = p.name;
 				const found = data.zoneNamed(p.name);
 				if (found && found.zone.areaId) w.area = Number(found.zone.areaId);
-				else if (!found && haveZones) warn(p.line, `zone "${p.name}" is not in zones.json: the game never reports that zone name, so the predicate never holds there`, 'write the zone as the game names it (`polestar find --kind zone <text>`)');
+				else if (!found && haveZones) warn(p.line, `zone "${p.name}" is not in zones.json: the game never reports that zone name, so the predicate never holds there`, 'write the zone as the game names it: the zone text it shows when you walk in');
 				break;
 			}
 			case 'subzone': {
@@ -994,6 +1023,9 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 					w.item = p.item;
 					if (haveItems && !data.item(p.item)) warn(p.line, `item ${p.item} is not in data (new Forever content?)`);
 				} else w.spell = p.spell;
+				break;
+			case 'knows':
+				w.spell = p.spell;
 				break;
 			case 'dungeon': {
 				w.name = p.name;
@@ -1028,7 +1060,7 @@ function resolveWhen(list, zoneId, levels, data, warn) {
 	const key = (p) => JSON.stringify({ ...p, neg: undefined, line: undefined });
 	for (const p of list) {
 		if (p.k !== 'level' && list.some((o) => o !== p && !!o.neg !== !!p.neg && key(o) === key(p))) {
-			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : 'place'}: no character sees it`);
+			warn(p.line, `the step asks for \`${p.k}\` and \`!${p.k}\` of the same ${p.k === 'has' || p.k === 'upgrade' ? 'item' : p.k === 'onquest' || p.k === 'complete' || p.k === 'turnedin' || p.k === 'available' || p.k === 'group' ? 'quest' : p.k === 'dungeon' ? 'dungeon' : p.k === 'done' ? 'step' : p.k === 'skill' ? 'profession and rank' : p.k === 'cooldown' ? (p.item ? 'item' : 'spell') : p.k === 'knows' ? 'spell' : 'place'}: no character sees it`);
 			break;
 		}
 	}
@@ -1458,12 +1490,20 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.location = g.location;
 			placeWarning(v, g.location);
 			break;
+		case 'die':
+			// A deathskip: the graveyard's name, at its Spirit Healer (the typed coordinates,
+			// checked against the healers' spawns).
+			goal.location = g.location;
+			if (!g.explicitCoords) err(ln, '`die` needs @x,y at the graveyard\'s Spirit Healer');
+			candidates = data.npcsWithRole('spirithealer').map((id) => ({ kind: 'npc', id }));
+			checkKinds = candidates;
+			break;
 		case 'enter':
 			// A zone or an area the game names: its area ID (goalArea) makes the check the client's language.
 			goal.location = g.location;
 			// Without the client's area table (no `sources` beside the data) an area name cannot be checked.
 			if (data.areas && !data.zoneNamed(g.location) && !data.areas.byName.has(g.location.trim().toLowerCase())) {
-				warn(ln, `enter "${g.location}": no zone or area has that name; the game never reports it, so the goal never checks off by itself`, 'write the place as the game names it (`polestar find --kind zone <text>`)');
+				warn(ln, `enter "${g.location}": no zone or area has that name; the game never reports it, so the goal never checks off by itself`, 'write the place as the game names it: the zone or subzone text the minimap shows there');
 			}
 			break;
 		case 'buy': {
@@ -1718,7 +1758,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// A map with no Era bounds has no Era frame to be in (new Forever zones).
 			const frame = ctx.frame || { frame: 'era', explicit: false };
 			const hasEra = !!data.eraFrame(map);
-			const anyFrames = Object.keys(data.mapFrames.era || {}).length > 0;
+			const anyFrames = nonEmpty(data.mapFrames.era);
 			if (frame.frame === 'era' && (hasEra || !anyFrames)) goal.f = 'e';
 			else if (frame.frame === 'era' && frame.explicit) {
 				warn(ln, `\`era\` coordinates on map ${map}, but map-frames.json has no Era bounds for it; compiling them as live-frame`);
@@ -1755,7 +1795,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			if (picked.f) {
 				// An Era point is only usable with that map's Era bounds; without them
 				// the client reads it as live-frame, so say so and emit it that way.
-				const anyFrames = Object.keys(data.mapFrames.era || {}).length > 0;
+				const anyFrames = nonEmpty(data.mapFrames.era);
 				if (data.eraFrame(picked.map) || !anyFrames) goal.f = picked.f;
 				else warn(ln, `Era-frame coordinates on map ${picked.map}, but map-frames.json has no Era bounds for it; compiled as live-frame`);
 			}
@@ -1784,9 +1824,18 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			// SPAWN_CHECK_YARDS away has moved (the lint's own threshold).
 			// Gathering nodes respawn over the zone's whole pool, so a route's
 			// point anywhere in it lists every node place.
-			const known = area ? candidates.filter((s) => s.chance === undefined || s.chance > 0 || gatherNode(data, s)) : [c];
+			// No source with known odds (the data's droppers without a chance):
+			// the droppers that spawn at the author's point, with every place
+			// they spawn; not the other droppers, whose places the author chose
+			// against (the Savannah Lion Hide's Matriarchs by Ratchet, #273).
+			const unknownOdds = area && candidates.length > 0 && candidates.every((s) => s.chance === 0);
+			const known = area ? candidates.filter((s) => s.chance === undefined || s.chance > 0 || unknownOdds || gatherNode(data, s)) : [c];
 			const all = known.map((cand) => ({ cand, spawns: data.spawns(cand.kind, cand.id) }));
-			const sources = onMap(data, all, goal.map, dropSides, passRares, dropLevel).on.map((o) => o.cand);
+			let sources = onMap(data, all, goal.map, dropSides, passRares, dropLevel).on.map((o) => o.cand);
+			if (unknownOdds) {
+				const atPin = new Set(pointSources(data, sources, goal.map, goal.f, goal.x, goal.y, SPREAD_YARDS));
+				sources = sources.filter((s) => gatherNode(data, s) || atPin.has(s));
+			}
 			const near = !area ? SPAWN_CHECK_YARDS : sources.length && sources.every((s) => gatherNode(data, s)) ? Infinity : SPREAD_YARDS;
 			setIf(goal, 'spots', handSpots(data, sources, goal.map, goal.f, goal.x, goal.y, near));
 			if (v === 'collect' && goal.npc === undefined) {

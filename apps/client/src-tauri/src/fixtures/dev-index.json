@@ -1,0 +1,181 @@
+{
+	"schema": 1,
+	"generated": "2026-10-27T16:41:44.877Z",
+	"expires": "2026-11-03T16:41:44.877Z",
+	"packs": [
+		{
+			"id": "durotar-dash",
+			"addon": [
+				"PolestarPack_durotar-dash"
+			],
+			"title": "Durotar Dash",
+			"author": "Tester",
+			"version": "1.0.0",
+			"channel": "stable",
+			"download": {
+				"url": "http://localhost:3100/api/v1/packs/durotar-dash/1.0.0/download",
+				"sha256": "7a1868e03ca1c8c06b04d86a3f48c4de1a6b1db670fab18b05c7a557a6764ef3",
+				"size": 10311
+			},
+			"toc": 16001,
+			"minPolestar": "0.2.5",
+			"homepage": null,
+			"changelog": "First release.",
+			"uid": "pk_dev_durotar-dash",
+			"publisher": {
+				"id": "usr_dev_tester",
+				"handle": "Tester"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		},
+		{
+			"id": "emberway",
+			"addon": [
+				"PolestarPack_emberway"
+			],
+			"title": "Emberway Routes",
+			"author": "Ashka",
+			"version": "1.0.0",
+			"channel": "stable",
+			"download": {
+				"url": "http://localhost:3100/api/v1/packs/emberway/1.0.0/download",
+				"sha256": "76eca11a179b9fd32c2798f6b9bd7eeab0c5c4c7f50f4732f0b99362cc55d618",
+				"size": 10251
+			},
+			"toc": 16001,
+			"minPolestar": "0.2.5",
+			"homepage": null,
+			"changelog": "First release.",
+			"uid": "pk_dev_emberway",
+			"publisher": {
+				"id": "usr_dev_ashka",
+				"handle": "Ashka"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		},
+		{
+			"id": "hearthside",
+			"addon": [
+				"PolestarPack_hearthside"
+			],
+			"title": "Hearthside Professions",
+			"author": "Mira",
+			"version": "1.0.0",
+			"channel": "stable",
+			"download": {
+				"url": "http://localhost:3100/api/v1/packs/hearthside/1.0.0/download",
+				"sha256": "afdc5505ff208c365dafb35da30664ff948f4a66c99d057fdeb99baa801d9c87",
+				"size": 12169
+			},
+			"toc": 16001,
+			"minPolestar": "0.2.5",
+			"homepage": null,
+			"changelog": "First release.",
+			"uid": "pk_dev_hearthside",
+			"publisher": {
+				"id": "usr_dev_mira",
+				"handle": "Mira"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		},
+		{
+			"id": "ironvault",
+			"addon": [
+				"PolestarPack_ironvault"
+			],
+			"title": "Ironvault Dungeon Runs",
+			"author": "Brekka",
+			"version": "1.0.0",
+			"channel": "stable",
+			"download": {
+				"url": "http://localhost:3100/api/v1/packs/ironvault/1.0.0/download",
+				"sha256": "fb6e7e3ee14693d9b6d6ff813f94c2cad16f7068b00587a48ca8cfe500465157",
+				"size": 6958
+			},
+			"toc": 16001,
+			"minPolestar": "0.2.5",
+			"homepage": null,
+			"changelog": "First release.",
+			"uid": "pk_dev_ironvault",
+			"publisher": {
+				"id": "usr_dev_brekka",
+				"handle": "Brekka"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		},
+		{
+			"id": "lightforge",
+			"addon": [
+				"PolestarPack_lightforge"
+			],
+			"title": "Lightforge Leveling",
+			"author": "Corwin",
+			"version": "1.0.0",
+			"channel": "stable",
+			"download": {
+				"url": "http://localhost:3100/api/v1/packs/lightforge/1.0.0/download",
+				"sha256": "0e4e44117c116991acab9d6849f6792e16e5874dd53b465aaeac4e08dfbf381e",
+				"size": 9671
+			},
+			"toc": 16001,
+			"minPolestar": "0.2.5",
+			"homepage": null,
+			"changelog": "First release.",
+			"uid": "pk_dev_lightforge",
+			"publisher": {
+				"id": "usr_dev_corwin",
+				"handle": "Corwin"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		},
+		{
+			"id": "wayfarer",
+			"addon": [
+				"PolestarPack_wayfarer"
+			],
+			"title": "Wayfarer's Atlas",
+			"author": "Tamsin",
+			"version": "1.0.0",
+			"channel": "stable",
+			"download": {
+				"url": "http://localhost:3100/api/v1/packs/wayfarer/1.0.0/download",
+				"sha256": "41037f11d630988ad37292d66bb02ef745e3186a9d47b4baf8bdaaaefe35eb18",
+				"size": 7330
+			},
+			"toc": 16001,
+			"minPolestar": "0.2.5",
+			"homepage": null,
+			"changelog": "First release.",
+			"uid": "pk_dev_wayfarer",
+			"publisher": {
+				"id": "usr_dev_tamsin",
+				"handle": "Tamsin"
+			},
+			"published": "2026-10-27T16:41:44.877Z",
+			"reviewed": true
+		}
+	],
+	"revoked": [
+		{
+			"id": "oldroute",
+			"uid": "pk_dev_oldroute",
+			"versions": [
+				"1.0.0"
+			],
+			"reason": "Sent players into a wall in Durotar.",
+			"action": "disable"
+		},
+		{
+			"id": "emberway",
+			"uid": "pk_dev_emberway_v0",
+			"versions": "*",
+			"reason": "An earlier guide under this name.",
+			"action": "remove"
+		}
+	]
+}

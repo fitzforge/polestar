@@ -1,0 +1,67 @@
+guide forever/class/warlock/voidwalker-alliance
+title Voidwalker (Alliance)
+category Class
+class Warlock
+folder Warlock
+faction Alliance
+levels 10-12
+zone Elwynn Forest
+keywords Summon Voidwalker, Gakin's Summons, The Slaughtered Lamb, Surena Caledon, The Binding, Remen Marcot, Lago Blackwrench, Gakin the Darkbinder, Surena's Choker, Bloodstone Choker, Morgan the Collector, Brackwell Pumpkin Patch, Summoning Circle, Warlock, class pet
+reward spell 697 "Summon Voidwalker"
+why Your tank demon at 10: the voidwalker, after a dark sorceress's choker and a fight in Gakin's crypt.
+
+# The voidwalker for Alliance warlocks: Gakin's Summons (1685) from Remen
+# Marcot in Goldshire for Humans, or The Slaughtered Lamb (1715) from Lago
+# Blackwrench in Ironforge for Gnomes; the two exclude each other
+# (quests.json `excl`) and both end at Gakin the Darkbinder in the cellar of
+# the Slaughtered Lamb, Stormwind. Then Surena Caledon (1688, her choker, in
+# the Brackwell Pumpkin Patch farmhouse) and The Binding (1689, the
+# Bloodstone Choker at the circle in the crypt below Gakin).
+# The fight: the Summoned Voidwalker is level 10 and not elite; at 30% health
+# it casts Consuming Rage. It appears only when the choker is used on the
+# circle and stays six minutes (the quest notes); the choker is not used up.
+# Surena: level 9, not elite, Fireball; Morgan the Collector (level 10) and a
+# warrior share the house and join in. Morgan gouges and kills pets: Fear him
+# (the level-10 reference steps and the quest notes agree). She drops the
+# choker only while you have the quest and respawns after three minutes.
+# Sources: Forever's quest data (quests.json, npcs.json, items.json) for the
+# givers, Surena and Morgan and the circle; the quest notes
+# (data/local/mechanics) for the way down to the circle, Remen Marcot's
+# cellar and the fight. The start-zone routes (forever/alliance/human/
+# 01-elwynn-forest, forever/alliance/dwarf-gnome/01-dun-morogh) route this
+# chain too: what you did there ticks off here.
+
+step Gakin's Summons (Humans)
+  only Human
+  tip At 10 Remen Marcot, in the cellar of the Lion's Pride Inn in Goldshire (the stairs down are in the back room past the butcher's table), sends you to Gakin the Darkbinder in Stormwind.
+  level 10
+  accept 1685                         -- Remen Marcot, Lion's Pride Inn cellar
+
+step The Slaughtered Lamb (Gnomes)
+  only Gnome
+  zone Ironforge
+  tip At 10 Lago Blackwrench, the warlock trainer in Ironforge's Forlorn Cavern, sends you to Gakin the Darkbinder in Stormwind. Take the Deeprun Tram from Tinker Town. If Lago does not offer it, go to Gakin anyway: he still gives you the next quest.
+  level 10
+  accept 1715                         -- Lago Blackwrench, Forlorn Cavern
+
+step Gakin the Darkbinder
+  zone Stormwind City
+  tip The Slaughtered Lamb is the tavern in the Mage Quarter; Gakin is in its cellar, down the stairs inside.
+  turnin 1685 only Human              -- Gakin the Darkbinder
+  turnin 1715 only Gnome              -- Gakin the Darkbinder
+  accept 1688
+
+step Surena Caledon
+  zone Elwynn Forest
+  tip Surena Caledon (level 9) is inside the farmhouse at the Brackwell Pumpkin Patch, south-east Elwynn near the Redridge road. Morgan the Collector (level 10) and a warrior stand with her and join the fight; Morgan gouges and goes for your imp, so keep him Feared. Put your damage over time on Surena first, Fear the others, and loot her choker before you finish them: it stays yours even if you die after. She throws fireballs from range and is back three minutes after she dies. Have the quest before you kill her, or the choker does not drop.
+  kill 881 optional                   -- Surena Caledon
+  collect 6810 quest 1688.1           -- Surena's Choker
+
+step The Binding
+  zone Stormwind City
+  tip Back to Gakin. He hands you the Bloodstone Choker. The circle is hard to find: take the stairs behind Gakin down; part way along the lowest corridor a side stair on the left leads into a room with a glowing purple circle in the middle. Stand on it and use the choker. The voidwalker (level 10, not elite) gets dangerous below 30% health: Curse of Agony, Corruption and Immolate with your imp on it, Fear when it gets close. If it beats you, use the choker again. Keep the choker: Gakin takes it back.
+  turnin 1688                         -- Gakin the Darkbinder
+  accept 1689
+  use 6928 @39.1,84.4 live            -- Bloodstone Choker, on the circle in the crypt
+  kill 5676 quest 1689.1              -- Summoned Voidwalker
+  turnin 1689                         -- Gakin the Darkbinder: Summon Voidwalker

@@ -11,7 +11,6 @@ on:
     types: [closed, reopened, labeled]
 
 permissions:
-  issues: read
   contents: read
 
 concurrency:
@@ -25,12 +24,16 @@ jobs:
       (github.event.action != 'labeled' || github.event.label.name == 'needs-info')
     runs-on: ubuntu-latest
     timeout-minutes: 5
+    permissions:
+      contents: read
+      issues: read
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
         with:
           sparse-checkout: tools/discord-bot
+          persist-credentials: false
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: 24
 
@@ -39,4 +42,5 @@ jobs:
         env:
           DISCORD_TOKEN: ${{ secrets.DISCORD_TOKEN }}
           DISCORD_FORUM_ID: ${{ vars.DISCORD_FORUM_ID }}
+          BOT_GITHUB_LOGIN: ${{ vars.BOT_GITHUB_LOGIN }}
           GITHUB_TOKEN: ${{ github.token }}

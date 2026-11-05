@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/note.schema.json",
+  "title": "note",
+  "description": "Quest notes (timers, spawns, dangers, requirements, tips), in our own words.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "id",
+    "kind",
+    "text"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "stable id <quest>:n:<hash>: kept when the wording or the order changes; note fixes name it"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "timer",
+        "spawn",
+        "danger",
+        "requirement",
+        "tip"
+      ],
+      "description": "what the note is about"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "the note in our words"
+    },
+    "place": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "map",
+        "x",
+        "y"
+      ],
+      "properties": {
+        "map": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "description": "where, in world yards"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "unconfirmed"
+      ],
+      "description": "unconfirmed: a community note rewritten as a neutral fact, not yet confirmed from game data"
+    }
+  }
+}

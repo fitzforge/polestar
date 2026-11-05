@@ -6,7 +6,7 @@ folder Warrior
 faction Horde
 levels 20-32
 zone The Barrens
-keywords Ruga Ragetotem, Trial at the Field of Giants, Ruga's Bulwark, Thun'grim Firegaze, Brutal Hauberk, Brutal Gauntlets, Brutal Helm, Brutal Legguards, Roogug, Razorfen Kraul, Warrior, class armor
+keywords Ruga Ragetotem, Trial at the Field of Giants, Twitching Antenna, Ruga's Bulwark, Thun'grim Firegaze, Brutal Armor, Smoky Iron Ingot, Powdered Azurite, Iron Bar, Vial of Phlogiston, Brutal Hauberk, Brutal Gauntlets, Brutal Helm, Brutal Legguards, Ula'elek, Satyr Hooves, Orm Stonehoof, Chimaeric Horn, Velora Nitely, Dragonmaw Shinbones, Roogug, Razorfen Kraul, Warrior, class armor
 reward item 7133
 reward item 7130
 reward item 7129
@@ -19,16 +19,26 @@ why Four armor pieces at 30 (hauberk, helm, gauntlets, legguards) and a shield o
 # Brutal Hauberk (1848) and three pieces from three crafters: Ula'elek in
 # Sen'jin Village (1839, 1842, 1843), Orm Stonehoof in Thunder Bluff (1840,
 # 1844, 1845) and Velora Nitely in the Undercity (1841, 1846, 1847), level 30.
+# Thun'grim gives all three crafter quests after the hauberk (TDB: 1839-1841
+# need 1838; Satyr Hooves, Chimaeric Horn and Dragonmaw Shinbones need
+# nothing more), so every Horde warrior can get all four pieces.
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# objectives, drops and places; Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
-# Forever's changes (none for this chain); the Razorfen Kraul entrance from
-# data/forever/dungeons.json (The Barrens 42.9,90.2, live frame). Roogug, who
-# drops the Vial of Phlogiston, has no spawn in the data: he is a quilboar
-# elite inside Razorfen Kraul (https://www.wowhead.com/zone=491/razorfen-kraul,
-# https://wowwiki-archive.fandom.com/wiki/Vial_of_Phlogiston). Iron Bars have
-# no source in the data: they are smelted (Mining) or bought; the guide points
-# at the Orgrimmar auction house (Auctioneer Thathung, npc 8673).
+# objectives and places; the knowledge base's drop table (Twitching Antenna
+# 100% from every silithid, Smoky Iron Ingot and Powdered Azurite 80%,
+# Uncloven Satyr Hoof 80% from the Xavian, Felmusk and Bleakheart satyrs,
+# Galvanized Horn 80%, Dragonmaw Shinbone 100%, Vial of Phlogiston 100%);
+# quest-notes for the trial's 30-minute timer and 15-minute antennae, the
+# silithids' adds, Roogug (level 28 elite, Earth Rumblers, the way through
+# Razorfen Kraul), the kobolds' and miners' habits, Gift of the Xavian, the
+# Matriarch, and testing the shinbones (about one in four turns sturdy);
+# Forever's Warrior class quest list (data/local/quest-audit/) for the
+# rewards and Forever's changes (none for this chain); the Razorfen Kraul
+# entrance from data/forever/dungeons.json (The Barrens 42.9,90.2, live
+# frame). Roogug has no spawn in the data: he is a quilboar elite inside
+# Razorfen Kraul (a Classic quest wiki's page on the Vial of Phlogiston).
+# Iron Bars have no source in the data: they are smelted (Mining, Smelt Iron)
+# or bought; the guide points at the Orgrimmar auction house (Auctioneer
+# Thathung, npc 8673).
 # horde/04-the-barrens does 1823-1825 on the route; they are repeated here for
 # anyone off it. Brutal Armor needs a dungeon (Razorfen Kraul), and the pieces
 # send you to Ashenvale, Stonetalon, the Wetlands and three capitals: a guide
@@ -57,42 +67,45 @@ step Speak with Ruga (Undercity)
   level 20
   accept 1823 npc 4595                        -- Baltus Fowler
 
-step Trial at the Field of Giants
+step Ruga Ragetotem
   zone The Barrens
-  tip Fly to Camp Taurajo. South of the camp the Silithid Mounds dot the Field of Giants: the silithid there carry the Twitching Antennae.
+  tip Fly to Camp Taurajo. Ruga stands in the hut with the leatherworking and tailoring trainers.
   turnin 1823                                 -- Ruga Ragetotem
   accept 1824
-  collect 7119 quest 1824.1                   -- Twitching Antennae from the silithid
-  turnin 1824 reward 7120                     -- Ruga Ragetotem
+
+step Trial at the Field of Giants
+  tip You have 30 minutes, and each Twitching Antenna rots 15 minutes after you loot it, so take the quest only when ready (logging out does not stop the clock). The Silithid Mounds dot the Field of Giants south of Camp Taurajo; every silithid drops an antenna. Creepers (level 20-21) and Grubs are the easiest: Swarmers (21-22) call small swarms and Creepers lay eggs that hatch adds. The eastern part of the field has plenty of Creepers. Ruga's Bulwark, a shield, is the reward.
+  collect 7119 x5 quest 1824.1                -- Twitching Antenna, from the silithid
+  turnin 1824 reward 7120                     -- Ruga Ragetotem: Ruga's Bulwark
   accept 1825
 
 step Thun'grim Firegaze
-  tip Thun'grim camps beside the road east of the Crossroads. Brutal Armor is a level 30 quest; you can take it now and gather for it on the way.
+  tip Thun'grim's hut sits on top of Thorn Hill, east of the Crossroads: climb the broad ridge on the north or east side. Brutal Armor is a level 30 quest; take it now and gather on the way. Thun'grim's Instructions list where each material comes from.
   turnin 1825
   accept 1838
 
 step Roogug in Razorfen Kraul
-  tip Roogug is an elite quilboar inside Razorfen Kraul, the dungeon at the south end of the Barrens; he drops the Vial of Phlogiston. Razorfen Kraul is a dungeon: grouping up is advised.
-  collect 6841 quest 1838.4 @42.9,90.2 live   -- Vial of Phlogiston, from Roogug
+  tip Roogug is an elite quilboar (level 28) inside Razorfen Kraul, the dungeon at the south end of the Barrens; a five-player dungeon: needs a group of five, his guards come with him. Inside take the left path at the first fork, cross the vine bridge over the pig pens, go past the room with the big cauldron: he waits in the room on the right. He casts Lightning Bolt and calls Earth Rumblers. The vial always drops.
+  collect 6841 quest 1838.4 @42.9,90.2 live group 5 -- Vial of Phlogiston, from Roogug
 
 step Windshear Mine
   zone Stonetalon Mountains
-  tip The Windshear Mine lies at the east end of Windshear Crag in Stonetalon. Its kobolds drop the Smoky Iron Ingots.
-  collect 7126 quest 1838.1                   -- Smoky Iron Ingots from the Windshear kobolds
+  tip You need 15 Smoky Iron Ingots. The Windshear Mine lies at the east end of Windshear Crag, east of Sun Rock Retreat; every Windshear kobold (level 19-23) drops an ingot four kills in five. Stonecutters, Geomancers and Overlords run for help when low; Geomancers cast Frostbolt.
+  collect 7126 x15 quest 1838.1               -- Smoky Iron Ingot, from the Windshear kobolds
 
 step Hillsbrad Miners
   zone Hillsbrad Foothills
-  tip The Hillsbrad Miners work the mine in the west of Hillsbrad Foothills; they drop the Powdered Azurite. Take the zeppelin from Orgrimmar to Tirisfal Glades and head south through Silverpine Forest.
-  collect 7127 quest 1838.2                   -- Powdered Azurite from the Hillsbrad Miners
+  tip You need 10 Powdered Azurite. The Hillsbrad Miners (level 26-27) work the mine in the hills west of Southshore and drop the azurite four kills in five; they fight in Defensive Stance, sunder your armor and run for help at 30% health. Fly to Tarren Mill and head south-west.
+  collect 7127 x10 quest 1838.2               -- Powdered Azurite, from the Hillsbrad Miners
 
 step Iron Bars
   zone Orgrimmar
-  tip Miners smelt Iron Bars from Iron Ore (Mining 125); everyone else buys them at the auction house in Orgrimmar.
-  collect 3575 quest 1838.3 @55.9,62.7        -- Iron Bars: Auctioneer Thathung
+  tip You need 10 Iron Bars. Miners smelt them from Iron Ore (one ore a bar, Smelt Iron at Mining 125); everyone else buys them at the auction house in Orgrimmar.
+  collect 3575 x10 quest 1838.3 @55.9,62.7    -- Iron Bars: Auctioneer Thathung
 
 step Brutal Hauberk
   zone The Barrens
-  tip Back to Thun'grim beside the road east of the Crossroads. Brutal Hauberk is the first piece; he then sends you to three crafters for the rest.
+  tip Back to Thun'grim on Thorn Hill. Brutal Hauberk is the first piece; he then sends you to three crafters, one per piece: take all three.
   turnin 1838                                 -- Thun'grim Firegaze
   accept 1848
   turnin 1848 reward 7133
@@ -102,14 +115,14 @@ step Brutal Hauberk
 
 step Ula'elek
   zone Durotar
-  tip Ula'elek is in Sen'jin Village on the Durotar coast.
+  tip Ula'elek is in Sen'jin Village on the Durotar coast. He wants 7 Uncloven Satyr Hooves.
   turnin 1839                                 -- Ula'elek
   accept 1842
 
 step Satyr Hooves
   zone Ashenvale
-  tip The Xavian satyrs camp in eastern Ashenvale, with the Felmusk satyrs further west; both drop Uncloven Satyr Hooves.
-  collect 7128 quest 1842.1                   -- Uncloven Satyr Hooves
+  tip The satyrs of Satyrnaar, north-east of Splintertree Post (Xavian, level 28-30), and the Felmusk satyrs north-west of the post (25-27) drop a hoof four kills in five. A Xavian satyr at 15% health may cast Gift of the Xavian and heal to full: finish it fast or stun it. Hellcallers throw Fireballs from 40 yards; Felmusk satyrs reek in melee and run for help at 15%.
+  collect 7128 x7 quest 1842.1                -- Uncloven Satyr Hoof
 
 step Brutal Gauntlets
   zone Durotar
@@ -119,13 +132,14 @@ step Brutal Gauntlets
 
 step Orm Stonehoof
   zone Thunder Bluff
+  tip Orm Stonehoof works on Thunder Bluff's lowest level, close to the blacksmith.
   turnin 1840                                 -- Orm Stonehoof
   accept 1844
 
 step Chimaeric Horn
   zone Stonetalon Mountains
-  tip The Chimaera Matriarch roams the south-west of Stonetalon near the Fledgling and Young Chimaeras; she drops the Galvanized Horn.
-  collect 6840 quest 1844.1                   -- Galvanized Horn from the Chimaera Matriarch
+  tip The Chimaera Matriarch (level 28, not elite, larger than the young ones around her) roams the south edge of the Charred Vale in south-west Stonetalon, near the road to Desolace. She is the only one: she returns 5 minutes after dying and drops the Galvanized Horn four kills in five. She spits Corrosive Poison from 30 yards.
+  collect 6840 quest 1844.1                   -- Galvanized Horn, from the Chimaera Matriarch
 
 step Brutal Helm
   zone Thunder Bluff
@@ -135,14 +149,15 @@ step Brutal Helm
 
 step Velora Nitely
   zone Undercity
-  tip Take the zeppelin from Orgrimmar to Tirisfal Glades; the Undercity lies below the Ruins of Lordaeron.
+  tip Take the zeppelin from Orgrimmar to Tirisfal Glades; Velora Nitely works in the Undercity's Trade Quarter. She wants 8 Sturdy Dragonmaw Shinbones.
   turnin 1841                                 -- Velora Nitely
   accept 1846
 
 step Dragonmaw Shinbones
   zone Wetlands
-  tip The Dragonmaw orcs camp in the middle of the Wetlands, south of the road; Raiders, Swamprunners, Centurions, Shadowwarders and Bonewarders all drop the Sturdy Dragonmaw Shinbones.
-  collect 7134 quest 1846.1                   -- Sturdy Dragonmaw Shinbones
+  tip The Dragonmaw orcs (level 26-30) camp in the middle of the Wetlands; from Hammerfall in Arathi head south over the Thandol Span (Menethil Harbor is Alliance). Every Raider, Swamprunner, Centurion, Shadowwarder and Bonewarder drops a Dragonmaw Shinbone: right-click it to test it, and about one in four comes out sturdy, the rest break, so expect 30 or more kills for 8. You can test while moving or fighting. The orcs run for help at 15%; Raiders net you, Centurions shield-bash, Shadowwarders cast Shadow Bolt, Bonewarders raise skeletons.
+  collect 7131 "Dragonmaw Shinbone" optional  -- from the Dragonmaw orcs: right-click to test it
+  collect 7134 x8 quest 1846.1                -- Sturdy Dragonmaw Shinbone
 
 step Brutal Legguards
   zone Undercity

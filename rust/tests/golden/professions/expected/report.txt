@@ -1,0 +1,13 @@
+wrote professions.json from Forever build 1.60.1.70450 (gaps filled from Classic Era 1.15.9.70003):
+  First Aid         20 recipes (left out: 12 season)
+  Blacksmithing      0 recipes
+  Leatherworking     0 recipes
+  Alchemy          108 recipes (left out: 9 retired, 86 season)
+  Herbalism          0 recipes
+  Cooking           82 recipes (left out: 50 season)
+  Mining            12 recipes (left out: 6 season)
+  Tailoring          0 recipes
+  Engineering        0 recipes
+  Enchanting         0 recipes
+  Fishing            0 recipes
+  Skinning           0 recipes

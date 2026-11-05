@@ -1,0 +1,444 @@
+# Western Plaguelands, Eastern Plaguelands and the Kalimdor errands, Alliance ~54 to ~56 (consensus visits 66-76).
+# Flow: fly to Chillwind Camp -> Sorrow Hill (Marlene) -> the fields -> the Writhing Haunt -> Dalson's Tears ->
+# Felstone Field -> Chillwind Camp -> the Andorhal watchtowers and the four Scourge cauldrons, back to the camp
+# between each -> Andorhal (Chromie) -> Northridge Lumber Camp (Kirsta Deepshadow) -> Tirion Fordring ->
+# Gahrron's Withering -> Chillwind Camp -> hearth Light's Hope Chapel -> Corin's Crossing -> the chapel ->
+# Quel'Lithien Lodge -> Terrordale -> Tirion Fordring -> Hearthglen and Gahrron's Withering (Darrowshire relics) ->
+# the Undercroft -> Darnassus -> Rut'theran Village -> Feralas (Feathermoon, the Twin Colossals) -> Ratchet (bind)
+# -> Azshara -> Winterspring -> Moonglade -> hearth Ratchet.
+# Optional: Alas, Andorhal (211): Araj the Summoner is a level 61 elite. Of Forgotten Memories (5781): Tirion's
+# next task summons Mercutio Filthgorger, an elite, in the Undercroft (done in 06 or later). Morrowgrain Research
+# and Morrowgrain to Darnassus (3785, 3803): only with ten Morrowgrain grown from the Evergreen Pouch.
+# Deviations from the export:
+# - The Everlook Report (6028) was handed in at Chillwind Camp in 04, on the way east.
+# - A Strange Historian (5153) is taken from Marlene on the first pass and her husband's ring picked up then.
+# - The Andorhal watchtowers (5097) are followed straight by the Felstone Field key (5216). A cauldron's own task
+#   (5218, 5221, 5224) only appears once its Return to Chillwind Camp is handed in: Felstone's is done on the way
+#   to Dalson's Tears, the Writhing Haunt's and Dalson's after the third camp stop, in one northward sweep.
+# - The Scourge Cauldron repeatables (5218, 5221, 5224, 5227) are skipped (route-fixes: three camp round trips
+#   for about 1650 XP), so no Arcane Quickener (13320) is bought: they only serve those quests (c14 still bought
+#   three for nothing).
+# - Dropped: Gahrron's Withering Cauldron (5227): one small quest that needs a ride back from the camp to the
+#   eastern border after Return to Chillwind Camp (5226).
+# - Dropped the Azshara visit: A Crew Under Fire (3382), the Sacred Highborne Writings for Fragments of the Past
+#   (5246, so it is not accepted from Aurora; 5247 needs crafted and dungeon items) and Duke Hydraxis' Poisoned
+#   Water and Stormers and Rumblers (6804, 6805: the next guide never returns to him). A flight detour for small
+#   quests; Ratchet flies straight to Everlook.
+# - Target: Gahrron's Withering and Alas, Andorhal (5225, 211) are taken at the camp before Andorhal, and Skeletal
+#   Fragments (5537) and 211 are handed in on the last camp stop with Gahrron's return (5226, 5237).
+# - Visits 67-69 merged into one loop: the termites of A Plague Upon Thee (5903) are filled in Terrordale with
+#   Tirion's hounds, bats and grubs, and Tirion's turn-ins come right after.
+# - Hameya's Plea (6024): the Torn Scroll is taken in the Undercroft here, but Infiltrator Hameya stands in the far
+#   north-east of the zone: his key and the turn-in at the mound of dirt move to 06's Plaguelands stop, which
+#   passes both.
+# - Felbound Ancients (4441, Felwood): its Vial of Blessed Water is filled at the Darnassus moonwell here.
+# - The Feathermoon Stronghold bind is dropped (replaced by Ratchet's before any hearth); the Ratchet bind is set
+#   in Ratchet instead of in Feralas. Cenarion Hold's flight path and bind move to the start of 06, where you
+#   arrive there.
+# Carried on: Glyphed Oaken Branch (4986), Better Late Than Never (5022), Mold Rhymes With... (5538), Brother
+# Carlin -> Heroes of Darrowshire (5168), Find Ranshalla (979), March of the Silithid
+# (4493), Volcanic Activity (4502), The Sunken Temple (3445), Cleansed Water Returns to Felwood (5159),
+# A Reliquary of Purity (5527), Wasteland (1124), Meet at the Grave (3912), A Plague Upon
+# Thee (5903), Of Forgotten Memories (5781).
+# Class quests: Paladins' Forging the Mightstone (8414-8416, 8418, Chillwind Camp
+# and the Sunken Temple) is the Class guide
+# forever/class/paladin/holy-mightstone. Druids train in Darnassus (Ironforge, where the next guide trains, has no druid
+# trainer).
+guide forever/alliance/50-60/04-western-plaguelands
+title Western Plaguelands, Eastern Plaguelands & Feralas
+faction Alliance
+levels 54-57
+zone Western Plaguelands
+next forever/alliance/50-60/05-silithus
+
+# ---------------------------------------------------------------- Light's Hope Chapel
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  sethome "Light's Hope Chapel" npc 16256 -- Jessica Chambers: the last guide binds here, so this usually ticks at once
+
+# ---------------------------------------------------------------- Chillwind Camp
+
+step Chillwind Camp
+  zone Western Plaguelands
+  fly "Chillwind Camp"
+  accept 5092                         -- Commander Ashlam Valorfist
+  accept 5402                         -- Argent Officer Pureheart
+  accept 5403
+  accept 5903                         -- Nathaniel Dumah: the termites come later, in Terrordale
+
+step Marlene Redpath
+  tip Marlene's farmhouse stands on the hill east of the camp; Joseph Redpath's monument is just north of it.
+  turnin 5152
+  accept 5153
+  collect 12894 quest 5153.1          -- Joseph's Wedding Ring, at the monument
+
+step The fields
+  tip Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.
+  kill 1783 quest 5092.1              -- Skeletal Flayer
+  kill 1791 quest 5092.2              -- Slavering Ghoul
+  collect 12840 quest 5402.1          -- Minion's Scourgestone
+  collect 12841 quest 5403.1          -- Invader's Scourgestone
+
+# ---------------------------------------------------------------- The Writhing Haunt and Dalson's Tears
+
+step Mulgris Deepriver
+  tip Mulgris stands by the farm at the Writhing Haunt, north-east of the fields.
+  accept 4984
+
+step Diseased Wolves
+  kill 1817 quest 4984.1              -- Diseased Wolf
+
+step Mulgris Deepriver
+  turnin 4984
+  accept 4985
+
+step Diseased Grizzlies
+  kill 1816 quest 4985.1              -- Diseased Grizzly
+
+step Mulgris Deepriver
+  turnin 4985
+  accept 4986                         -- For the druids of Darnassus: keep it
+
+step Dalson's Tears
+  tip Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and Farmer Dalson waits in the outhouse with the cabinet key.
+  accept 5058                         -- Mrs. Dalson's Diary
+  turnin 5058
+  accept 5059                         -- Outhouse
+  collect 12738 quest 5059.1          -- Dalson Outhouse Key
+  turnin 5059
+  accept 5060
+  collect 12739 quest 5060.1          -- Dalson Cabinet Key
+  turnin 5060                         -- Locked Cabinet, in the farmhouse
+
+step Janice Felstone
+  tip Janice's ghost wanders by the farmhouse of Felstone Field, west of Dalson's Tears; her parcel lies inside.
+  accept 5021
+  turnin 5021                         -- Janice's Parcel
+  accept 5022                         -- For Stormwind: keep it
+
+# ---------------------------------------------------------------- The cauldrons
+
+step Chillwind Camp
+  tip Ride back south to the camp.
+  turnin 5402                         -- Argent Officer Pureheart
+  turnin 5403
+  turnin 5092                         -- Commander Ashlam Valorfist
+  accept 5097
+  accept 5215
+  turnin 5215                         -- High Priestess MacDonnell
+  accept 5216
+
+step The Andorhal watchtowers
+  tip Use the Beacon Torch at the foot of each of the four watchtowers around the edge of Andorhal, north of the camp.
+  kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
+  kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
+  kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
+  kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
+
+step Felstone Field cauldron
+  tip Cauldron Lord Bilemaw guards the cauldron in Felstone Field, west of Andorhal.
+  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key
+  turnin 5216                         -- Scourge Cauldron
+  accept 5217
+
+step Chillwind Camp
+  turnin 5097                         -- Commander Ashlam Valorfist
+  turnin 5217                         -- High Priestess MacDonnell
+  accept 5219
+
+step Felstone Field cauldron
+  tip The cauldron now offers its own task; the skeletons around it drop Osseous Agitators.
+  accept 5218                         -- Scourge Cauldron
+  collect 13357 quest 5218.2          -- Osseous Agitator
+  collect 14047 quest 5218.3          -- Runecloth
+  turnin 5218
+
+step Dalson's Tears cauldron
+  tip The cauldron sits at Dalson's Tears, north-east of Felstone; its Cauldron Lord stands beside it.
+  collect 13195 quest 5219.1          -- Dalson's Tears Cauldron Key
+  turnin 5219                         -- Scourge Cauldron
+  accept 5220
+
+step Chillwind Camp
+  turnin 5220                         -- High Priestess MacDonnell
+  accept 5222
+
+step Writhing Haunt cauldron
+  tip The cauldron sits at the Writhing Haunt, by Mulgris' farm.
+  collect 13197 quest 5222.1          -- Writhing Haunt Cauldron Key
+  turnin 5222                         -- Scourge Cauldron
+  accept 5223
+  level 55                            -- grind on Freezing Ghoul at the Writhing Haunt, Western Plaguelands
+
+step Chillwind Camp
+  turnin 5223                         -- High Priestess MacDonnell
+  accept 5225
+  accept 5533                         -- Commander Ashlam Valorfist
+  accept 211 optional                 -- Araj the Summoner is a level 61 elite
+  turnin 5533                         -- Alchemist Arbington
+  accept 5537
+
+step Writhing Haunt cauldron
+  tip Back north to the Writhing Haunt: the cauldron offers its own task now. The ghouls nearby drop Somatic Intensifiers.
+  accept 5224                         -- Scourge Cauldron
+  collect 13356 quest 5224.2          -- Somatic Intensifier
+  collect 14047 quest 5224.3          -- Runecloth
+  turnin 5224
+
+step Dalson's Tears cauldron
+  accept 5221                         -- Scourge Cauldron
+  collect 13356 quest 5221.2          -- Somatic Intensifier
+  collect 14047 quest 5221.3          -- Runecloth
+  turnin 5221
+
+# ---------------------------------------------------------------- Andorhal
+
+step Chromie
+  tip Chromie waits in the ruined inn on the west side of Andorhal.
+  turnin 5153
+  accept 5154
+  accept 4971
+
+step Andorhal
+  tip Use the Temporal Displacer by the grain silos to draw out Temporal Parasites. The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
+  use 12627 @45.1,62.3 "Temporal Displacer"
+  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
+  collect 12900 quest 5154.1          -- Annals of Darrowshire
+  collect 14619 quest 5537.1          -- Skeletal Fragments
+
+step Araj's Phylactery
+  tip Araj the Summoner is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.
+  collect 17114 quest 211.1 optional  -- Araj's Phylactery Shard
+
+step Chromie
+  turnin 4971
+  accept 4972
+  turnin 5154
+  accept 5210                         -- Brother Carlin, at Light's Hope Chapel: keep it
+
+step Andorhal Watches
+  tip Small lockboxes lie in the rubble all over Andorhal; each holds a watch.
+  collect 12638 quest 4972.1
+
+step Chromie
+  turnin 4972
+  accept 4973
+
+step More watches
+  collect 12638 quest 4973.1
+
+step Chromie
+  turnin 4973
+
+# ---------------------------------------------------------------- Northridge and Tirion
+
+step Kirsta Deepshadow
+  tip Ride north up the road to the Northridge lumber mill; Kirsta hides at the camp's edge.
+  accept 6004
+
+step The Scarlet Crusade
+  tip The Scarlet Medics, Hunters, Knights and Mages patrol the lumber camp and the road toward Hearthglen.
+  kill 10605 quest 6004.1             -- Scarlet Medic
+  kill 1831 quest 6004.2              -- Scarlet Hunter
+  kill 1833 quest 6004.4              -- Scarlet Knight
+  kill 1826 quest 6004.3              -- Scarlet Mage
+
+step Kirsta Deepshadow
+  turnin 6004
+  accept 6023
+
+step Radley and Durgen
+  tip Huntsman Radley walks the Northridge camp east of Kirsta; Cavalier Durgen guards the tower at Hearthglen's southern approach.
+  kill 11613 quest 6023.1             -- Huntsman Radley
+  kill 11611 quest 6023.2             -- Cavalier Durgen
+
+step Kirsta Deepshadow
+  turnin 6023
+  accept 6025
+
+step Hearthglen overlook
+  tip Climb the hill west of Hearthglen to look down on the town.
+  complete 6025 @45.8,18.3
+
+step Kirsta Deepshadow
+  turnin 6025
+
+step Tirion Fordring
+  zone Eastern Plaguelands
+  tip Ride east to the border river: Tirion lives in a small hut on the bank.
+  accept 5542
+  accept 5543
+  accept 5544
+
+# ---------------------------------------------------------------- Gahrron's Withering
+
+step Gahrron's Withering cauldron
+  zone Western Plaguelands
+  tip Ride south to Gahrron's Withering, where Cauldron Lord Soulwrath guards the cauldron.
+  collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
+  turnin 5225                         -- Scourge Cauldron
+  accept 5226
+
+step Chillwind Camp
+  tip Ride south-west to the camp.
+  turnin 5226                         -- High Priestess MacDonnell
+  accept 5237
+  turnin 5237                         -- Commander Ashlam Valorfist
+  turnin 211 optional
+  turnin 5537                         -- Alchemist Arbington
+  accept 5538                         -- Krinkle Goodsteel in Gadgetzan: keep it
+  vendor nearest
+
+# ---------------------------------------------------------------- Eastern Plaguelands
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  hearth "Light's Hope Chapel"
+  accept 5281                         -- Caretaker Alen, by the graves south of the chapel
+  turnin 5210                         -- Carlin Redpath
+  accept 5168
+  accept 5181
+
+step Villains of Darrowshire
+  tip Horgus' skull lies at Blackwood Lake and Marduk's sword in the Infectis Scar, each where ghosts fight; grown Plaguehounds hunt the plains between.
+  collect 12956 quest 5181.1          -- Skull of Horgus
+  collect 12957 quest 5181.2          -- Shattered Sword of Marduk
+  kill 8597 quest 5542.2              -- Plaguehound
+
+step Light's Hope Chapel
+  turnin 5181                         -- Carlin Redpath
+
+step Aurora Skycaller
+  tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.
+  turnin 5245
+
+step Terrordale
+  tip Ride west to Terrordale. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the Empty Termite Jar at the big termite mounds and kill the Frenzied Plaguehounds further north.
+  kill 8596 quest 5542.1              -- Plaguehound Runt
+  kill 8600 quest 5543.1              -- Plaguebat
+  collect 13853 quest 5544.1          -- Slab of Carrion Worm Meat
+  collect 15043 quest 5903.1          -- Plagueland Termites
+  kill 8598 quest 5542.3              -- Frenzied Plaguehound
+
+step Egan
+  tip Egan stands by Augustus' hut in Terrordale.
+  turnin 5281
+
+step Tirion Fordring
+  zone Eastern Plaguelands
+  tip Cross the river west to Tirion's hut.
+  turnin 5543
+  turnin 5544
+  turnin 5542
+  accept 5742
+  turnin 5742                         -- Listen to his story
+  accept 5781 optional                -- Mercutio Filthgorger is elite: grouping up is advised
+
+step Davil's Libram
+  zone Western Plaguelands
+  tip Davil's Libram lies in the town hall of Hearthglen, west of Tirion: the Scarlet guards stand close together.
+  collect 12954 quest 5168.1          -- Davil's Libram
+
+step Redpath's Shield
+  tip Redpath's Shield lies east of the barn at Gahrron's Withering.
+  collect 12955 quest 5168.2          -- Redpath's Shield
+
+step The Undercroft
+  zone Eastern Plaguelands
+  tip Cross the river east to the Undercroft, the crypt in the south-west of the zone. The Torn Scroll lies inside: its key is on Infiltrator Hameya in the far north-east, done in the next guide.
+  accept 6024                         -- Torn Scroll
+
+# ---------------------------------------------------------------- Darnassus
+
+step Darnassus
+  zone Darnassus
+  tip The portal in Rut'theran Village leads up to Darnassus.
+  turnin 3764                         -- Jenal, in the Cenarion Enclave
+  accept 3781                         -- Arch Druid Fandral Staghelm
+  turnin 3781                         -- Mathrengyl Bearwalker
+  accept 3785 optional                -- Ten Morrowgrain from the Evergreen Pouch
+  turnin 3785 optional
+  accept 3803 optional
+  turnin 3803 optional
+  turnin 4986
+  train class only Druid              -- Ironforge, where the next guide trains, has no druid trainer
+
+step Temple of the Moon
+  tip Herald Moonstalker and Gracina Spiritmight stand by the Temple of the Moon; fill Eridan's Vial at the moonwell inside.
+  accept 1047                         -- Herald Moonstalker
+  accept 4493                         -- Gracina Spiritmight: keep it for Gadgetzan
+  collect 5646 quest 4441.1           -- Vial of Blessed Water
+
+step Cenarion Enclave
+  turnin 1047                         -- Arch Druid Fandral Staghelm
+  accept 6761
+  turnin 6761                         -- Mathrengyl Bearwalker
+  accept 6762                         -- Rabine Saturna in Moonglade: keep it
+
+step Rut'theran Village
+  zone Teldrassil
+  turnin 978                          -- Erelas Ambersky
+  accept 979                          -- Ranshalla in Winterspring: keep it
+
+# ---------------------------------------------------------------- Feralas
+
+step Feathermoon Stronghold
+  zone Feralas
+  tip From Rut'theran Village, fly to Feathermoon Stronghold.
+  fly "Feathermoon"
+  accept 3445                         -- Angelas Moonbreeze: keep it for Tanaris
+
+step Zorbin Fandazzle
+  tip Take the boat to the mainland and ride north-east to Zorbin's camp by the Twin Colossals.
+  accept 7725
+  accept 7726
+
+step Zapped giants and sea elementals
+  tip The shrunken giants roam the Twin Colossals; the sea elementals wade along the coast to the west.
+  collect 18956 quest 7725.1          -- Miniaturization Residue
+  collect 18958 quest 7726.1          -- Water Elemental Core
+
+step Zorbin Fandazzle
+  turnin 7725
+  turnin 7726
+
+step Gregan Brewspewer
+  tip Gregan's camp lies north of the Twin Colossals. He sells the Videre Elixir once he has his bait.
+  turnin 4142
+  collect 11243 quest 3909.1          -- Videre Elixir
+
+# ---------------------------------------------------------------- Ratchet and Azshara
+
+step Ratchet
+  zone The Barrens
+  tip Fly to Ratchet.
+  fly "Ratchet"
+  sethome "Ratchet"
+  accept 4502                         -- Liv Rizzlefix: keep it for Un'Goro
+  turnin 5158                         -- Islen Waterseer, on the coast north of town
+  accept 5159                         -- For Felwood: keep it
+
+# ---------------------------------------------------------------- Winterspring and Moonglade
+
+step Ranshalla
+  zone Winterspring
+  tip Ranshalla waits at Owl Wing Thicket, south of Everlook.
+  fly "Everlook"
+  turnin 979                          -- Ranshalla: her escort comes later on the route
+
+step Donova Snowden
+  tip Ride west along the road to the hot springs.
+  turnin 3909
+  accept 3912                         -- Gaeriyan in Gadgetzan: keep it
+
+step Rabine Saturna
+  zone Moonglade
+  tip Walk into Timbermaw Hold and take the Moonglade branch of the tunnel to Nighthaven.
+  turnin 6762
+  accept 5527
+  accept 1124                         -- For Silithus: keep it
+
+step Ratchet
+  hearth "Ratchet"
+  tip The next guide starts here in Ratchet and flies on to Gadgetzan.

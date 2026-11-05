@@ -12,21 +12,32 @@ zone Orgrimmar
 # Sources: Forever client 1.60.1.70338 tables via wago.tools (ItemSparse: level,
 # price, races, riding spell; SkillLineAbility: Riding); npcs.json and
 # items.json for the trainer, the vendor and its stock.
-# Forever riding: the client files every racial riding spell under one Riding
-# skill (SkillLineAbility), so any riding trainer of your faction teaches it:
-# Apprentice Riding (skill 75) from level 40, Journeyman Riding (150) at 60.
-# Blizzard: learning to ride grants a mount, and training costs 100g at 40 and
-# 1,000g at 60 (Kris Zierhut). ItemSparse lists the
-# mounts at 20g (level 40) and 200g (level 60), usable by every race of the
-# faction; whether a vendor still wants Exalted with another race's city (the
-# Era rule) is server-side and unconfirmed.
+# Forever riding: one Riding skill (Apprentice 75 from level 40, Journeyman 150
+# at 60). Training costs 100g and 1,000g (Forever's world data: the trainers of
+# Velma Warnam and Genn Fairweather, build 70124) and comes with a mount
+# (Blizzard). ItemSparse lists the mounts at 20g (level 40) and 200g (level 60)
+# for every race of the faction, but each one also needs Wolf Riding (825;
+# MountCapability), which SkillLineAbility gives only Orcs with Riding: the
+# faction's other races and the Skyborne must learn it.
+# ASSUMED: Kildar teaches it to them at Exalted with Orgrimmar (Classic
+# rule; a beta player guide says other races' mounts need Exalted). In-game
+# check: a Tauren at Kildar, with and without Exalted.
+# ASSUMED: Honored with your race's home city takes 10% off training and mounts
+# (beta player guides; Classic had the same). In-game check: the price at Honored.
 
 step Learn to ride
   zone Orgrimmar
-  tip Kildar and Ogunaro Wolfrunner's kennel are in Orgrimmar's Valley of Honor. At 40 Kildar teaches Riding (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Horde race ride these.
+  tip Kildar and Ogunaro Wolfrunner's kennel are in Orgrimmar's Valley of Honor. At 40 Kildar teaches Riding to Orcs for 100g (10% less at Honored with Orgrimmar), and it comes with a wolf. Other races learn Riding, with their own first mount, at their own race's riding trainer.
   level 40
-  train 4752                          -- Kildar, riding trainer
+  train 4752 only Orc                 -- Kildar, riding trainer
   skill Riding 75
+
+step Wolf Riding for other races
+  only Tauren,Troll,Undead,Skyborne
+  when !knows 825
+  tip Any Horde race can buy these wolves, but riding one also takes Wolf Riding, which only Orcs get with Riding. Kildar teaches it to other races once they are Exalted with Orgrimmar (the Orgrimmar Reputation guide shows the way). Until then, don't buy a wolf for this character.
+  rep "Orgrimmar" Exalted
+  train 4752                          -- Kildar, Wolf Riding
 
 step Pick a colour
   tip Ogunaro Wolfrunner sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like.

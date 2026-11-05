@@ -1,0 +1,9 @@
+# Fixture: tests/packs-parity.test.js. Lint rejects it; the runtime refuses its compiled twin.
+guide parity/die-map
+title Parity die-map
+faction Alliance
+levels 1-10
+
+step S
+  level 2
+  die "Goldshire" @50,50

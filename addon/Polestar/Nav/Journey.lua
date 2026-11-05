@@ -578,7 +578,7 @@ end
 -- One frame after the world is up, the arrow's restored waypoint is followed.
 local function worldUp()
 	ns.UnregisterEvent("PLAYER_ENTERING_WORLD", worldUp)
-	C_Timer.After(0, function()
+	ns.After(0, function()
 		live = true
 		local uid = restored
 		restored = nil

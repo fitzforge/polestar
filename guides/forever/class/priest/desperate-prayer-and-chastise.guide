@@ -4,55 +4,180 @@ category Class
 class Priest
 folder Priest
 faction Alliance
-race Human,Dwarf
+race Dwarf
 levels 10-20
 zone Ironforge
-keywords Desperate Prayer, Chastise, A Lack of Fear, High Priest Rohan, High Priestess Laurena, Hall of Mysteries, Mystic Ward, Dwarf, Human, racial, Priest
+keywords Desperate Prayer, Chastise, A Lack of Fear, High Priest Rohan, High Priestess Laurena, Maxan Anvol, Priestess Josetta, Nara Meideros, Laurna Morninglight, Priestess Alathea, Hall of Mysteries, Mystic Ward, Dwarf, racial, Priest
 reward spell 13908 "Desperate Prayer"
 reward spell 1277331 "Chastise (Dwarves)"
-why The Human and Dwarf priest spells: Desperate Prayer at 10, Chastise for Dwarves at 20.
+why The Dwarf priest spells: Desperate Prayer at 10, Chastise (new in Forever) at 20. Free, no objectives.
 
-# The Desperate Prayer quest at 10 (5639, Humans and Dwarves) and the Dwarf
-# Priest Chastise quest at 20 (5641), both from High Priest Rohan in
-# Ironforge's Hall of Mysteries.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json):
-# Chastise (5641, 5645, 5647, updated) is "Renamed from A Lack of Fear",
-# "Rewards: adds Chastise", "no longer Fear Ward"; the Desperate Prayer
-# quests (5634-5640, updated) have reworded or removed objective text, and
-# 5634 "no longer Starts at High Priestess Laurena".
-# Races: Wowhead Forever (wowhead.com/forever/quest=5634-5640, checked
-# 2026-10-14) lists 5635, 5637 and 5639 for Humans and Dwarves, the others
-# for Dwarves; this guide follows that. Third-party Forever sites
-# (classicwowforever.com/racials) say Humans no longer learn Desperate
-# Prayer; the quest data does not confirm it, so the step stays open to
-# Humans: skip it if Rohan offers you nothing.
-# Who takes it: Wowhead Forever's quest pages still name High Priestess
-# Laurena in Stormwind as the ender of every Desperate Prayer quest, while
-# the reworded Forever text says "Speak to High Priest Rohan in Ironforge".
-# The turn-in follows the ender data (Laurena); the tip says to ask Rohan
-# first.
-# alliance/dwarf-gnome/01-dun-morogh carries Desperate Prayer on the route
-# (5637, from Maxan Anvol in Kharanos) and alliance/04-redridge-mountains
-# and 06-ashenvale carry Chastise (5645, from High Priestess Laurena); this
-# guide repeats them for anyone off the route. The game offers one quest of
-# each set (the others are breadcrumbs from priest trainers in other
-# cities). Not checked in game: written from the sources above.
+# The Dwarf Priest spell quests. Both spells are taught by High Priest Rohan
+# (Hall of Mysteries, Ironforge's Mystic Ward); priest trainers in other towns
+# hand you a letter for him. Any one quest of a set teaches the spell, and the
+# game offers only one:
+#   Desperate Prayer (level 10):
+#     5639 High Priest Rohan (Ironforge), his own quest
+#     5637 Maxan Anvol (Kharanos, Dun Morogh)
+#     5635 Priestess Josetta (Goldshire, Elwynn Forest)
+#     5638 Nara Meideros (the Park, Stormwind)
+#     5636 Laurna Morninglight (Dolanaar, Teldrassil)
+#     5640 Priestess Alathea (Temple of the Moon, Darnassus)
+#     5634 no giver in Forever (High Priestess Laurena no longer offers it)
+#   Chastise (level 20; renamed from A Lack of Fear, teaches Chastise instead
+#   of Fear Ward, which every priest trains in Forever):
+#     5641 High Priest Rohan (Ironforge), his own quest
+#     5645 High Priestess Laurena (Cathedral of Light, Stormwind)
+#     5647 Priestess Alathea (Darnassus)
+# Forever made Desperate Prayer a Dwarf spell and moved it to Rohan: the
+# server's quest answers in players' game caches (EG Link) give every
+# Desperate Prayer quest the Dwarf race mask only and every letter the
+# objective "Speak to High Priest Rohan in Ironforge" (5640's says "in
+# Stormwind", a slip in Forever's text); 5639 lost its objective text, the
+# mark of the teacher's own quest. Humans learn Divine Grace from High
+# Priestess Laurena instead (divine-grace-and-feedback), whose own Classic
+# Desperate Prayer completion text now closes Divine Grace 94773 (dialog
+# captures). Corrections: 5634-5640 races Dwarf, ender Rohan. Forever web
+# guides to the priest racials list Desperate Prayer and Chastise under
+# Dwarves and Divine Grace and Feedback under Humans, and so does Blizzard's
+# own Forever priest deep dive (news.blizzard.com, September 2026: Dwarf
+# "Desperate Prayer: Unchanged", Chastise; Human Divine Grace, Feedback).
+# Human priests get no Desperate Prayer quest: the server's race mask is Dwarf
+# only on all seven in every build from 1.60.1.70170 to 70450, and Human
+# priests' dialog captures show Priestess Josetta and Laurna Morninglight
+# handing them Divine Grace letters at 10 instead.
+# The guide sends you to the giver in the zone you stand in when it gets
+# there (`when zone`), else to Rohan; a letter you carry from anywhere is
+# handed in on its own step (`when onquest`). Pickups are `talk` goals, not
+# accepts: one guide accepting two quests of one exclusive set warns in lint,
+# which does not follow `when`.
+# Sources: quests.json and npcs.json for the givers; the EG Link quest cache
+# for races and texts; Forever's Priest class quest list
+# (data/local/quest-audit/): Chastise (5641, 5645, 5647) "Renamed from A Lack
+# of Fear", "Rewards: adds Chastise", "no longer Fear Ward"; the Desperate
+# Prayer letters reworded, 5639's text removed, 5634 "no longer Starts at
+# High Priestess Laurena".
+# alliance/dwarf-gnome/01-dun-morogh carries 5637 on the route (Maxan Anvol
+# to Rohan at the Ironforge stop); alliance/04-redridge-mountains and
+# 06-ashenvale carry Chastise 5645.
+# Based on data, not play: written from the sources above.
 
-step Desperate Prayer
-  tip At 10, go to High Priest Rohan in the Hall of Mysteries, in Ironforge's Mystic Ward. Forever's quest text names Rohan, but the quest data has High Priestess Laurena in Stormwind's Cathedral of Light take it: try Rohan first, then Laurena (the Deeprun Tram links the cities).
+step Desperate Prayer: Maxan Anvol
+  when zone "Dun Morogh"
+  when !onquest 5634,5635,5636,5637,5638,5639,5640
+  zone Dun Morogh
+  tip At 10, Maxan Anvol, the priest trainer inside the Thunderbrew Distillery in Kharanos, hands you a Desperate Prayer letter for High Priest Rohan. Kharanos is on the road up to Ironforge.
+  level 10
+  talk 1226                                   -- Maxan Anvol: take his Desperate Prayer letter
+
+step Desperate Prayer: Priestess Josetta
+  when zone "Elwynn Forest"
+  when !onquest 5634,5635,5636,5637,5638,5639,5640
+  zone Elwynn Forest
+  tip At 10 in Elwynn Forest, Priestess Josetta, upstairs in the Lion's Pride Inn in Goldshire, hands you a Desperate Prayer letter for High Priest Rohan in Ironforge (the Deeprun Tram from Stormwind's Dwarven District).
+  level 10
+  talk 377                                    -- Priestess Josetta: take her Desperate Prayer letter
+
+step Desperate Prayer: Nara Meideros
+  when zone "Stormwind City"
+  when !onquest 5634,5635,5636,5637,5638,5639,5640
+  zone Stormwind City
+  tip At 10 in Stormwind, Nara Meideros, the priest trainer in the Park (the night elf quarter on the city's west side), hands you a Desperate Prayer letter for High Priest Rohan in Ironforge. High Priestess Laurena in the Cathedral has none for Dwarves.
+  level 10
+  talk 11397                                  -- Nara Meideros: take her Desperate Prayer letter
+
+step Desperate Prayer: Laurna Morninglight
+  when zone "Teldrassil"
+  when !onquest 5634,5635,5636,5637,5638,5639,5640
+  zone Teldrassil
+  tip At 10 in Teldrassil, Laurna Morninglight, in the building at the north edge of Dolanaar, hands you a Desperate Prayer letter for High Priest Rohan in Ironforge.
+  level 10
+  talk 3600                                   -- Laurna Morninglight: take her Desperate Prayer letter
+
+step Desperate Prayer: Priestess Alathea
+  when zone "Darnassus"
+  when !onquest 5634,5635,5636,5637,5638,5639,5640
+  zone Darnassus
+  tip At 10 in Darnassus, Priestess Alathea, on the upper balcony of the Temple of the Moon beside Tyrande Whisperwind, hands you a Desperate Prayer letter for High Priest Rohan in Ironforge.
+  level 10
+  talk 11401                                  -- Priestess Alathea: take her Desperate Prayer letter
+
+step Desperate Prayer: High Priest Rohan
+  when !onquest 5634,5635,5636,5637,5638,5639,5640
+  zone Ironforge
+  tip At 10, go to High Priest Rohan in the Hall of Mysteries, in Ironforge's Mystic Ward (north-west of the city): he gives Desperate Prayer and takes it back at once. No letter needed. Desperate Prayer heals you instantly, costs no mana and has a long cooldown: keep it for emergencies.
   level 10
   accept 5639                                 -- High Priest Rohan
+  turnin 5639                                 -- High Priest Rohan: Desperate Prayer
 
-step High Priestess Laurena
-  zone Stormwind City
-  tip If Rohan did not take it: High Priestess Laurena is in the Cathedral of Light. Take the Deeprun Tram from Tinker Town.
-  turnin 5639                                 -- Desperate Prayer
-
-step Chastise
-  only Dwarf
+step Desperate Prayer: Maxan's letter
+  when onquest 5637
   zone Ironforge
-  tip At 20, High Priest Rohan teaches Chastise. High Priestess Laurena in Stormwind and Priestess Alathea in Darnassus send you to him with a quest of the same name.
+  tip Follow the road up from Kharanos into Ironforge and west to the Mystic Ward: High Priest Rohan in the Hall of Mysteries takes the letter and teaches Desperate Prayer. The letter tells you to head to Stormwind, but the one who wants you is Rohan in Ironforge.
+  turnin 5637                                 -- High Priest Rohan: Desperate Prayer
+
+step Desperate Prayer: Josetta's letter
+  when onquest 5635
+  zone Ironforge
+  tip Hand the letter to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward: the Deeprun Tram from Stormwind's Dwarven District.
+  turnin 5635                                 -- High Priest Rohan: Desperate Prayer
+
+step Desperate Prayer: Nara's letter
+  when onquest 5638
+  zone Ironforge
+  tip Hand the letter to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward: the Deeprun Tram from Stormwind's Dwarven District.
+  turnin 5638                                 -- High Priest Rohan: Desperate Prayer
+
+step Desperate Prayer: Laurna's letter
+  when onquest 5636
+  zone Ironforge
+  tip Hand the letter to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward: from Teldrassil, the boat from Rut'theran Village to Auberdine, the boat to Menethil Harbor and the road north through the Wetlands and Loch Modan (or the boat to Stormwind Harbor and the Deeprun Tram).
+  turnin 5636                                 -- High Priest Rohan: Desperate Prayer
+
+step Desperate Prayer: Alathea's letter
+  when onquest 5640
+  zone Ironforge
+  tip Hand the letter to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward: its text says Stormwind, but Rohan is in Ironforge. From Darnassus, the portal down to Rut'theran Village, the boat to Auberdine, then Menethil Harbor and the road north (or Stormwind Harbor and the Deeprun Tram).
+  turnin 5640                                 -- High Priest Rohan: Desperate Prayer
+
+step Desperate Prayer: an old letter
+  when onquest 5634
+  zone Ironforge
+  tip This letter also goes to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward.
+  turnin 5634                                 -- High Priest Rohan: Desperate Prayer
+
+step Chastise: High Priestess Laurena
+  when zone "Stormwind City"
+  when !onquest 5641,5645,5647
+  zone Stormwind City
+  tip At 20 in Stormwind, High Priestess Laurena at the altar of the Cathedral of Light hands you a Chastise letter for High Priest Rohan in Ironforge (the Deeprun Tram from the Dwarven District).
+  level 20
+  talk 376                                    -- High Priestess Laurena: take her Chastise letter
+
+step Chastise: Priestess Alathea
+  when zone "Darnassus"
+  when !onquest 5641,5645,5647
+  zone Darnassus
+  tip At 20 in Darnassus, Priestess Alathea, on the upper balcony of the Temple of the Moon beside Tyrande Whisperwind, hands you a Chastise letter for High Priest Rohan in Ironforge.
+  level 20
+  talk 11401                                  -- Priestess Alathea: take her Chastise letter
+
+step Chastise: High Priest Rohan
+  when !onquest 5641,5645,5647
+  zone Ironforge
+  tip At 20, High Priest Rohan in the Hall of Mysteries teaches Chastise with a quest he gives and takes back at once. Forever renamed it from A Lack of Fear: Chastise damages a humanoid and roots it for 2 seconds (instant, 2-minute cooldown), and every priest now trains Fear Ward.
   level 20
   accept 5641                                 -- High Priest Rohan
   turnin 5641                                 -- High Priest Rohan: Chastise
+
+step Chastise: Laurena's letter
+  when onquest 5645
+  zone Ironforge
+  tip Hand Laurena's letter to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward: he teaches Chastise.
+  turnin 5645                                 -- High Priest Rohan: Chastise
+
+step Chastise: Alathea's letter
+  when onquest 5647
+  zone Ironforge
+  tip Hand Alathea's letter to High Priest Rohan in the Hall of Mysteries, Ironforge's Mystic Ward: from Darnassus, the boats via Rut'theran Village and Auberdine to Menethil Harbor, then the road north through the Wetlands and Loch Modan (or the boat to Stormwind Harbor and the Deeprun Tram).
+  turnin 5647                                 -- High Priest Rohan: Chastise

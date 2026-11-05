@@ -1,0 +1,45 @@
+## Interface: 16001
+## Title: Polestar Codex
+## Notes: Part of Polestar: items, mounts, pets, NPCs, quests and where to get them, dungeons and rares, for Lookup, Dungeons and Rares. Loaded on demand.
+## Title-deDE: Polestar Codex
+## Notes-deDE: Teil von Polestar: Gegenstände, Reittiere, Haustiere, NPCs, Quests und wo man sie bekommt, Dungeons und Rares, für Nachschlagen, Dungeons und Rares. Wird bei Bedarf geladen.
+## Title-esES: Polestar Codex
+## Notes-esES: Parte de Polestar: objetos, monturas, mascotas, PNJ, misiones y dónde conseguirlos, mazmorras y raros, para Buscador, Mazmorras y Raros. Se carga bajo demanda.
+## Title-esMX: Polestar Codex
+## Notes-esMX: Parte de Polestar: objetos, monturas, mascotas, PNJ, misiones y dónde conseguirlos, calabozos y raros, para Buscador, Calabozos y Raros. Se carga bajo demanda.
+## Title-frFR: Polestar Codex
+## Notes-frFR: Fait partie de Polestar : objets, montures, mascottes, PNJ, quêtes et où les obtenir, donjons et rares, pour Recherche, Donjons et Rares. Chargé à la demande.
+## Title-koKR: Polestar Codex
+## Notes-koKR: Polestar의 일부: 아이템, 탈것, 애완동물, NPC, 퀘스트와 얻는 곳, 던전과 희귀 몬스터. 찾아보기, 던전, 희귀에서 씁니다. 필요할 때 불러옵니다.
+## Title-ptBR: Polestar Codex
+## Notes-ptBR: Parte do Polestar: itens, montarias, mascotes, PNJs, missões e onde obtê-los, masmorras e raros, para Consulta, Masmorras e Raros. Carregado sob demanda.
+## Title-ruRU: Polestar Codex
+## Notes-ruRU: Часть Polestar: предметы, транспорт, питомцы, NPC, задания и где их получить, подземелья и редкие существа для разделов «Поиск», «Подземелья» и «Редкие». Загружается по требованию.
+## Title-zhCN: Polestar Codex
+## Notes-zhCN: Polestar 的组成部分：物品、坐骑、宠物、NPC、任务及其获取途径、地下城和稀有怪物，供查询、地下城和稀有页面使用。按需加载。
+## Title-zhTW: Polestar Codex
+## Notes-zhTW: Polestar 的一部分：物品、坐騎、寵物、NPC、任務及其取得方式、地城與稀有怪物，供查詢、地城與稀有頁面使用。按需載入。
+## Author: Polestar
+## Version: 0.2.6
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+
+Meta.lua
+Skills1.lua
+Items1.lua
+Mounts1.lua
+Pets1.lua
+Npcs1.lua
+Rares1.lua
+Roles1.lua
+Objects1.lua
+Treasures1.lua
+Quests1.lua
+Instances1.lua
+Zones1.lua
+Factions1.lua
+Spells1.lua
+Index.lua
+Dungeons1.lua

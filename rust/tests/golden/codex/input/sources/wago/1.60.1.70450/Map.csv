@@ -1,0 +1,76 @@
+ID,Directory,MapName_lang,MapDescription0_lang,MapDescription1_lang,PvpShortDescription_lang,PvpLongDescription_lang,Corpse_0,Corpse_1,MapType,InstanceType,ExpansionID,AreaTableID,LoadingScreenID,TimeOfDayOverride,ParentMapID,CosmeticParentMapID,TimeOffset,MinimapIconScale,CorpseMapID,MaxPlayers,WindSettingsID,ZmpFileDataID,WdtFileDataID,OceanLiquidTypeID,NavigationMaxDistance,PreloadFileDataID,Flags_0,Flags_1,Flags_2
+0,Azeroth,"Eastern Kingdoms",,,,,0,0,1,0,0,0,4,-1,-1,-1,0,1,-1,0,136,804940,775971,1250,0,0,159399517,135528464,2277510
+1,Kalimdor,Kalimdor,,,,,0,0,1,0,0,0,3,-1,-1,-1,0,1,-1,0,136,804935,782779,1250,0,0,159399517,135528464,2277510
+13,test,"Test Dungeon",,,,,0,0,2,1,0,13649,61,-1,-1,-1,0,1,-1,0,0,0,857697,2,0,0,411057731,393216,2
+25,ScottTest,"Scott Test",,,,,0,0,2,0,0,0,0,-1,-1,-1,0,1,-1,0,0,0,863335,2,0,0,67073,8,130
+29,TEST_01,CashTest,,,,,0,0,2,1,0,0,0,-1,-1,-1,0,1,-1,10,0,0,2323096,2,0,0,67073,8,130
+30,PVPZone01,"Alterac Valley","Hidden within the Alterac Mountains, Alterac Valley is the home of Thrall's own clan of orcs, the Frostwolves. The Stormpike dwarves have established a foothold in the valley and seek to plumb its depths for riches and links to their ancestral past. The territorial Frostwolves, unwilling to suffer the dwarven incursion, have rallied an army... an army eager for righteous slaughter.","Hidden within the Alterac Mountains, Alterac Valley is the home of Thrall's own clan of orcs, the Frostwolves. The Stormpike dwarves have established a foothold in the valley and seek to plumb its depths for riches and links to their ancestral past. The territorial Frostwolves, unwilling to suffer the dwarven incursion, have rallied an army... an army eager for righteous slaughter.",,,0,0,1,3,0,0,104,-1,-1,-1,0,1,-1,0,0,0,790112,2,0,0,81425,262152,2277506
+33,Shadowfang,"Shadowfang Keep",,,,,-230.98936462402,1571.5703125,1,1,0,0,204,-1,-1,-1,0,1,0,10,0,0,790796,2,0,0,81425,262144,2277506
+34,StormwindJail,"Stormwind Stockade",,,,,-8762.37890625,848.01031494141,2,1,0,717,194,-1,-1,-1,0,1,0,10,0,0,791060,2,0,0,67073,0,2277506
+35,StormwindPrison,<unused>StormwindPrison,,,,,-8762.4765625,848.04913330078,2,0,0,717,23,-1,-1,-1,0,1,0,0,0,0,870849,2,0,0,67073,8,130
+36,DeadminesInstance,Deadmines,,,,,-11207.798828125,1681.1508789062,1,1,0,0,142,-1,-1,-1,0,1,0,10,0,0,780605,2,0,0,81425,262144,49282
+37,PVPZone02,"Azshara Crater","Crush the Alliance!","Defend yourself from the onslaught of the Horde!",,,0,0,1,0,0,0,25,-1,-1,-1,0,1,-1,0,0,0,861092,2,0,0,81425,262152,131202
+42,Collin,"Collin's Test",,,,,0,0,2,0,0,0,0,-1,-1,-1,0,1,-1,0,0,0,863984,2,0,0,67073,8,130
+43,WailingCaverns,"Wailing Caverns",,,,,-751.13122558594,-2209.2404785156,2,1,0,718,143,-1,-1,-1,0,1,1,10,0,0,791429,2,0,0,67073,0,130
+44,Monastery,"<unused> Monastery",,,,,2892.4133300781,-811.24133300781,2,1,0,0,42,-1,-1,-1,0,1,0,10,0,0,865519,2,0,0,67073,8,130
+47,RazorfenKraulInstance,"Razorfen Kraul",,,,,-4459.44921875,-1660.2117919922,1,1,0,0,188,-1,-1,-1,0,1,1,10,0,0,790640,2,0,0,81425,262144,130
+48,Blackfathom,"Blackfathom Deeps",,,,,4249.1206054688,748.38708496094,2,1,0,719,196,-1,-1,-1,0,1,1,10,0,0,780169,2,0,0,67073,0,130
+70,Uldaman,Uldaman,,,,,-6060.181640625,-2954.9973144531,2,1,0,1337,144,-1,-1,-1,0,1,0,10,0,0,791372,2,0,0,67073,0,130
+90,GnomeragonInstance,Gnomeregan,,,,,-5162.6616210938,931.59875488281,2,1,0,721,193,-1,-1,-1,0,1,0,10,0,0,782773,2,0,0,67073,0,130
+109,SunkenTemple,"Sunken Temple",,,,,-10170.099609375,-3995.9699707031,2,1,0,1477,191,-1,-1,-1,0,1,0,20,0,0,791166,2,0,0,67073,0,130
+129,RazorfenDowns,"Razorfen Downs",,,,,-4662.8828125,-2535.8715820312,1,1,0,0,145,-1,-1,-1,0,1,1,10,0,0,790517,2,0,0,81425,262144,130
+169,EmeraldDream,"Emerald Dream",,,,,0,0,1,2,0,0,0,-1,-1,-1,0,1,-1,40,0,0,780817,2,0,0,16858641,262152,130
+189,MonasteryInstances,"Scarlet Monastery",,,,,2892.2353515625,-811.263671875,1,1,0,0,190,-1,-1,-1,0,1,0,10,17,0,788662,2,0,0,81425,134479872,2277506
+209,TanarisInstance,Zul'Farrak,,,,,-6790.5766601562,-2891.2780761719,1,1,0,0,146,-1,-1,-1,0,1,1,10,0,0,791169,2,0,0,81433,262144,2277510
+229,BlackRockSpire,"Blackrock Spire",,,,,-7522.5268554688,-1233.0415039062,2,1,0,1583,189,-1,-1,-1,0,1,0,10,0,0,780175,2,0,0,67073,0,130
+230,BlackrockDepths,"Blackrock Depths",,,,,-7178.0947265625,-928.63946533203,2,1,0,1584,103,-1,-1,-1,0,1,0,5,0,0,780172,2,0,0,67073,0,130
+249,OnyxiaLairInstance,"Onyxia's Lair",,,,,-4753.3125,-3752.4211425781,2,2,0,2159,61,-1,-1,-1,0,1,1,40,0,0,789922,2,0,0,16844289,128,130
+269,CavernsOfTime,"Caverns of Time",,,,,0,0,1,1,0,0,4,-1,-1,-1,0,1,0,10,0,0,829736,2,0,0,81425,262144,130
+289,SchoolofNecromancy,Scholomance,,,,,1274.78125,-2552.5639648438,1,1,0,0,102,-1,-1,-1,0,1,0,5,0,0,790713,2,0,0,81425,262144,130
+309,Zul'gurub,Zul'Gurub,,,,,-11916.059570312,-1224.5771484375,1,2,0,1977,161,-1,-1,-1,0,1,0,20,0,0,791432,2,0,0,16858641,262144,131202
+329,Stratholme,Stratholme,,,,,3392.3168945312,-3378.4831542969,1,1,0,0,101,90,-1,-1,0,1,0,5,0,0,791063,2,0,0,81489,134479888,2277506
+349,Mauradon,Maraudon,,,,,-1432.6971435547,2924.9775390625,2,1,0,2100,81,-1,-1,-1,0,1,1,10,0,0,788656,2,0,0,67073,0,130
+369,DeeprunTram,"Deeprun Tram",,,,,-8349.2236328125,517.34796142578,2,0,0,2257,205,-1,-1,-1,0,1,0,0,0,0,780788,2,0,0,67073,1048584,130
+389,OrgrimmarInstance,"Ragefire Chasm",,,,,1816.755859375,-4423.3715820312,2,1,0,2437,195,-1,-1,-1,0,1,1,10,0,0,789981,2,0,0,67073,0,130
+409,MoltenCore,"Molten Core",,,,,-7510.5649414062,-1036.6981201172,2,2,0,2717,192,-1,-1,-1,0,1,0,40,0,0,788659,2,0,0,16844289,128,130
+429,DireMaul,"Dire Maul",,,,,-3908.0300292969,1130,2,1,0,2557,82,-1,-1,-1,0,1,1,5,0,0,780814,2,0,0,67073,0,130
+449,AlliancePVPBarracks,"Alliance PVP Barracks",,,,,0,0,2,0,0,2918,181,-1,-1,-1,0,1,0,0,0,0,775968,2,0,0,67073,1048576,130
+450,HordePVPBarracks,"Horde PVP Barracks",,,,,0,0,2,0,0,2917,182,-1,-1,-1,0,1,0,0,0,0,782776,2,0,0,67073,1048576,130
+469,BlackwingLair,"Blackwing Lair",,,,,-7663.41015625,-1218.6700439453,1,2,0,2677,141,-1,-1,-1,0,1,0,40,0,0,780178,2,0,0,16858641,262272,130
+489,PVPZone03,"Warsong Gulch","A valley bordering Ashenvale Forest and the Barrens, Warsong Gulch hosts a constant battle between the Horde and the Alliance. Orcs use their Warsong Mill to cut lumber reaped from Ashenvale, provoking the night elves of Silverwing Hold. Eager to aid their allies, members of every race in Azeroth rush to the Gulch to lend sword, or spell, to the conflict.","A valley bordering Ashenvale Forest and the Barrens, Warsong Gulch hosts a constant battle between the Horde and the Alliance. Orcs use their Warsong Mill to cut lumber reaped from Ashenvale, provoking the night elves of Silverwing Hold. Eager to aid their allies, members of every race in Azeroth rush to the Gulch to lend sword, or spell, to the conflict.",,,0,0,1,3,0,3277,122,-1,-1,-1,0,1,0,0,0,0,790291,2,0,0,81433,262144,2277506
+509,AhnQiraj,"Ruins of Ahn'Qiraj",,,,,-8114.4643554688,1526.3657226562,1,2,0,3429,184,-1,-1,-1,0,1,1,20,0,0,775637,2,0,0,16858641,262144,131202
+529,PVPZone04,"Arathi Basin","The Arathi Basin is one of the main staging points of war between the Humans and the Forsaken in Azeroth. The League of Arathor seek to reclaim lost lands for their benefactors in Stormwind, while the Defilers – elite troopers under the watchful eye of Varimathras – seek to sever the vital connection between the Humans and their Dwarven allies to the south.","The Arathi Basin is one of the main staging points of war between the Humans and the Forsaken in Azeroth. The League of Arathor seek to reclaim lost lands for their benefactors in Stormwind, while the Defilers – elite troopers under the watchful eye of Varimathras – seek to sever the vital connection between the Humans and their Dwarven allies to the south.",,,0,0,1,3,0,3358,183,-1,-1,-1,0,1.25,0,0,136,0,790377,2,0,0,81433,262144,2277506
+531,AhnQirajTemple,"Ahn'Qiraj Temple",,,,,-8111.7241210938,1526.7857666016,1,2,0,3428,185,-1,-1,-1,0,1,1,40,0,0,775840,2,0,0,16858641,262272,131202
+533,"Stratholme Raid",Naxxramas,,,,,0,0,1,2,0,3456,197,-1,-1,-1,0,1,0,40,0,0,827115,2,0,0,16858641,262272,128
+2720,2720,"The Searing Basin",,,,,0,0,1,1,0,0,4,-1,-1,-1,0,1,-1,0,0,804940,5554791,2,0,0,81425,1310848,4226
+2784,2784,"Demon Fall Canyon",,,,,0,0,1,1,0,0,630,-1,-1,-1,0,1,-1,5,0,0,5900942,2,0,0,8470109,263184,4322
+2789,2789,"The Tainted Scar",,,,,0,0,1,2,0,0,632,-1,-1,-1,0,1,-1,40,0,0,5922434,2,0,0,25173597,1040,184548
+2791,2791,"Storm Cliffs",,,,,0,0,1,2,0,0,631,-1,-1,-1,0,1,-1,40,0,0,5930564,2,0,0,25181789,1040,4320
+2804,2804,"The Crystal Vale",,,,,0,0,1,2,0,0,640,-1,-1,-1,0,1,-1,0,0,0,6081492,2,0,0,25181789,1040,4320
+2806,2806,"Shadow Hold",,,,,0,0,1,1,0,0,3,-1,-1,-1,0,1,-1,0,0,0,6099506,2,0,0,81429,262144,4226
+2807,2807,"Burning of Andorhal",,,,,0,0,1,1,0,0,42,0,-1,-1,0,1,-1,0,0,0,6099634,2,0,0,81429,262144,4226
+2817,2817,"Starfall Barrow Den",,,,,0,0,1,1,0,0,3,-1,-1,-1,0,1,-1,0,0,0,6155791,2,0,0,8396381,1040,4320
+2832,2832,"Nightmare Grove",,,,,0,0,1,2,0,0,641,-1,-1,-1,0,1,-1,0,0,0,6227405,2,0,0,25173597,1040,4320
+2853,2853,"Deadwind Pass",,,,,0,0,1,1,0,0,4,-1,-1,-1,0,1,-1,0,136,0,6357503,2,0,0,8470109,263184,184550
+2856,2856,"Scarlet Enclave",,,,,0,0,1,2,0,0,637,0,-1,-1,0,1,-1,0,0,0,6372264,2,0,0,25181789,1040,4320
+2868,2868,"Eastern Plaguelands (Scarlet Raid Phase)",,,,,0,0,1,0,0,0,4,-1,0,-1,0,1,-1,0,0,0,6402491,2,0,0,8404573,134480144,2248832
+2875,2875,"Karazhan Crypts",,,,,0,0,1,1,0,16074,639,0,-1,-1,0,1,-1,0,0,0,6420120,2,0,0,8470101,263824,226
+2902,2902,"The Scarab Dais",,,,,0,0,1,1,0,0,0,-1,-1,1,0,1,-1,0,0,0,6635982,2,0,0,8396381,1024,4320
+2921,2921,Naxxramas,,,,,0,0,1,1,0,0,197,-1,-1,-1,0,1,-1,0,0,0,6789271,2,0,0,8396381,1040,4320
+2959,2959,"City of Dalaran",,,,,0,0,1,1,0,16544,647,1380,-1,0,0,1,-1,0,135,0,6982267,2,0,0,8396381,1040,119008
+2980,2980,"Dalaran City",,,,,0,0,1,0,0,0,4,-1,0,-1,0,1,-1,0,0,0,7090844,2,0,0,8396381,1040,2244832
+2991,2991,"Zephras Isle",,,,,0,0,1,0,0,0,687,-1,-1,-1,0,1,-1,0,136,0,7198644,2,0,0,142614109,134218768,180448
+2995,2995,"Hyjal Crater",,,,,0,0,1,0,0,0,0,900,-1,-1,0,1,-1,0,136,0,7245741,2,0,0,8396381,1040,2281568
+2996,2996,"Warsong Gulch (Winter)",,,,,0,0,1,0,0,0,122,0,-1,-1,0,1,-1,0,136,0,7251896,2,0,0,8396381,1040,224
+2997,2997,"Darkspear Islands","Off the coast of Kalimdor are the ceremonial islands of the Darkspear tribe.","Off the coast of Kalimdor are the ceremonial islands of the Darkspear tribe.","Capture the objectives","- Capture and hold objectives
+- Capture the Darkspear Islands Flag
+- Earn 2000 resources",0,0,1,3,0,0,702,-1,-1,-1,0,1,-1,0,136,0,7251908,1296,0,0,8404573,1040,184544
+2998,2998,"Excavation Site: Wetlands",,,,,0,0,1,1,0,0,691,-1,-1,-1,0,1,-1,0,136,0,7252920,2,0,0,8396381,1040,2347232
+2999,2999,"Ruins of Lordaeron",,,,,0,0,1,1,0,0,650,-1,-1,-1,0,1,-1,0,136,0,7255103,2,0,0,8396381,1040,2347232
+3005,3005,"Battle for Gilneas","As the Greymane wall collapses, the inevitable conflict between the Forsaken and Worgen reaches a new climax.","As the Greymane wall collapses, the inevitable conflict between the Forsaken and Worgen reaches a new climax.",,,0,0,1,3,0,0,656,0,-1,-1,0,1,-1,0,136,0,7338374,2,0,0,8396381,1040,69856
+3021,3021,"Eastern Kingdoms Preserved",,,,,0,0,1,0,0,0,4,-1,-1,-1,0,1,-1,0,12,804940,7456538,2,0,0,142622301,1310736,131214
+3065,3065,"The Hall of Thanes",,,,,0,0,1,1,0,0,693,-1,-1,-1,0,1,-1,0,136,0,7713294,2,0,0,8396381,1040,119008
+3104,3104,"nothing to see here",,,,,0,0,1,0,0,0,4,-1,-1,-1,0,1,-1,0,12,0,7898491,1250,0,0,8396381,1040,180448
+3109,3109,"Manor Mistmantle",,,,,0,0,1,1,0,0,4,-1,-1,-1,0,1,-1,0,12,0,7937200,2,0,0,8396381,1040,65632
+3217,3217,"Dalaran Skycuter",,,,,0,0,3,0,0,0,0,-1,-1,-1,0,1,-1,0,0,0,0,2,0,0,3649,134479920,0
+3218,3218,"Mulgore Skycuter",,,,,0,0,3,0,0,0,0,-1,-1,-1,0,1,-1,0,0,0,0,2,0,0,3649,134479920,0

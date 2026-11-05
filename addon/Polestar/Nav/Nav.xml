@@ -1,9 +1,11 @@
 <Ui xmlns="http://www.blizzard.com/wow/ui/">
 	<Script file="Nav.lua"/>
+	<Script file="Baked.lua"/>
 	<Script file="MapCanvas.lua"/>
 	<Script file="Pins.lua"/>
 	<Script file="Arrow.lua"/>
 	<Script file="Layers.lua"/>
+	<Script file="Upcoming.lua"/>
 	<Script file="Bridges.lua"/>
 	<Script file="Transit.lua"/>
 	<Script file="Danger.lua"/>

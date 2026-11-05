@@ -8,7 +8,7 @@ zone map 1415
 next forever/exploration/eastern-kingdoms-45-60
 
 # Every discoverable area of Alterac Mountains, Arathi Highlands, Badlands,
-# Riverglades, Stranglethorn Vale, Swamp of Sorrows (97 map overlays), for both
+# Riverglades, Swamp of Sorrows, Stranglethorn Vale (97 map overlays), for both
 # factions. Each `explore` point is the centre of the area's map overlay hit
 # rect in the Forever client's tables (WorldMapOverlay, UiMapXMapArt, UiMap,
 # AreaTable via wago.tools, build 1.60.1.70338), in the map's live frame
@@ -20,7 +20,7 @@ next forever/exploration/eastern-kingdoms-45-60
 
 step Alterac Mountains (1/2)
   zone Alterac Mountains
-  tip Picks up in Hillsbrad Foothills, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39.
+  tip Starts in the Alterac Mountains, north of Hillsbrad Foothills, and ends in Stranglethorn Vale. 15 areas to discover here, levels 27-39.
   note "Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."
   note "Fly to Southshore in Hillsbrad Foothills and walk north into the Alterac Mountains." only Alliance
   note "Fly to Tarren Mill in Hillsbrad Foothills and walk north into the Alterac Mountains." only Horde
@@ -78,107 +78,107 @@ step Badlands (1/2)
   note "Faster: fly to Thelsamar in Loch Modan." only Alliance
   note "Kargath in the west is the Horde town." only Horde
   note "Flight path here: Kargath (Gorrik)." only Horde
-  explore 49.2,16.5 "The Maker's Terrace"
   explore 66.1,22.5 "Camp Kosh"
-  explore 62.6,46 "Dustwind Gulch"
-  explore 56.6,36.3 "Hammertoe's Digsite"
+  explore 49.2,16.5 "The Maker's Terrace"
   explore 42.9,33.3 "Angor Fortress"
-  explore 8.7,47.5 "Kargath" -- Horde town: Alliance characters only need to touch its edge (guards)
-  explore 15.7,61.8 "Apocryphan's Rest"
+  explore 56.6,36.3 "Hammertoe's Digsite"
+  explore 62.6,46 "Dustwind Gulch"
+  explore 78.3,50.9 "Lethlor Ravine"
+  explore 61.4,72.6 "Camp Boff"
 
 step Badlands (2/2)
   zone Badlands
+  explore 46.4,56.9 "Valley of Fangs"
+  explore 30.4,51.6 "The Dustbowl"
+  explore 8.7,47.5 "Kargath" -- Horde town: Alliance characters only need to touch its edge (guards)
+  explore 15.7,61.8 "Apocryphan's Rest"
   explore 13.2,81.6 "Camp Cagg"
   explore 30.7,75.2 "Mirage Flats"
-  explore 30.4,51.6 "The Dustbowl"
-  explore 46.4,56.9 "Valley of Fangs"
   explore 47.2,74.1 "Agmond's End"
-  explore 61.4,72.6 "Camp Boff"
-  explore 78.3,50.9 "Lethlor Ravine"
 
 step Riverglades (1/2)
   zone Riverglades
-  tip 14 areas to discover here, levels 36-44.
-  note "The Riverglades lie east of the Badlands and the Burning Steppes: the way in is the fork east off the Redridge Mountains road (a ship also runs from Tanaris to Powderfuse Port, the neutral goblin port on its coast). Krol'dok Stronghold is an ogre clan's outdoor dungeon."
+  tip 14 areas to discover here, levels 36-44. Flight paths: Farholde Keep in the south-east (Alliance), Rog'mar in the middle (Horde).
+  note "From the south of the Badlands, past Agmond's End, a way leads down into the Riverglades by Twilight's Shroud. (The Riverglades also open off northern Redridge through Blackrock Pass, and a ship runs from Steamwheedle Port in Tanaris to Powderfuse Port, the neutral goblin port on its coast.) Krol'dok Stronghold is an ogre clan's outdoor dungeon."
+  explore 27.5,43.9 "Twilight's Shroud" live
   explore 44.4,26.5 "Krol'dok Stronghold" live
-  explore 52.3,45.5 "Elbrim's Farm" live
-  explore 58.7,46 "Rog'mar" live
   explore 65.7,16.4 "Bolder'ok" live
   explore 76.2,34.2 "Windstead" live
   explore 76.5,51.8 "Powderfuse Port" live
-  explore 60,64.3 "Terral's Watch" live
+  explore 64.8,82.9 "Farholde Keep" live
+  explore 54.2,77.6 "Wheeler's Grange" live
 
 step Riverglades (2/2)
   zone Riverglades
-  explore 64.8,82.9 "Farholde Keep" live
-  explore 54.2,77.6 "Wheeler's Grange" live
   explore 44.8,81 "Meadowsbrook" live
-  explore 38.1,61 "Turner's Logging Camp" live
+  explore 60,64.3 "Terral's Watch" live
+  explore 58.7,46 "Rog'mar" live
+  explore 52.3,45.5 "Elbrim's Farm" live
   explore 46.1,51.3 "Sunnyglade" live
-  explore 27.5,43.9 "Twilight's Shroud" live
+  explore 38.1,61 "Turner's Logging Camp" live
   explore 27.3,62.6 "Bristle Hills" live
+
+step Swamp of Sorrows (1/2)
+  zone Swamp of Sorrows
+  tip 11 areas to discover here, levels 36-43.
+  note "The Swamp of Sorrows lies south of the Riverglades: swim south from Wheeler's Grange, or walk through Redridge Pass, south of the Bristle Hills."
+  note "Stonard is the Horde town." only Horde
+  note "Flight path here: Stonard (Breyk)." only Horde
+  explore 65.1,22.5 "Fallow Sanctuary"
+  explore 71.1,52.8 "Pool of Tears"
+  explore 83.8,46.4 "Sorrowmurk"
+  explore 88.3,52.8 "Misty Reed Strand"
+  explore 70.4,79 "Stagalbog"
+  explore 47.7,55 "Stonard" -- Horde town: Alliance characters only need to touch its edge (guards)
+
+step Swamp of Sorrows (2/2)
+  zone Swamp of Sorrows
+  explore 43.9,34.8 "The Shifting Mire"
+  explore 27.7,35.9 "The Harborage"
+  explore 24.5,52.4 "Splinterspear Junction"
+  explore 15,62.9 "Itharius's Cave"
+  explore 13.2,35.9 "Misty Valley"
 
 step Stranglethorn Vale (1/4)
   zone Stranglethorn Vale
   tip 27 areas to discover here, levels 30-50. Booty Bay at the southern tip is a neutral goblin port with a boat to Ratchet.
-  note "Fly to Darkshire (or Stormwind) and take the road south out of Duskwood into northern Stranglethorn Vale." only Alliance
-  note "Take the zeppelin from Orgrimmar or the Undercity to Grom'gol Base Camp." only Horde
+  note "Ride west out of the Swamp of Sorrows through Deadwind Pass (level 50+ creatures off the road) into Duskwood and take the road south into northern Stranglethorn Vale."
+  note "Or take the zeppelin from Orgrimmar or the Undercity to Grom'gol Base Camp." only Horde
   note "Flight path here: Booty Bay (Gyll)." only Alliance
   note "Flight paths here: Booty Bay (Gringer), Grom'gol (Thysta)." only Horde
-  explore 31.7,27.3 "Grom'gol Base Camp" -- Horde town: Alliance characters only need to touch its edge (guards)
-  explore 36.9,29.6 "Mizjah Ruins"
-  explore 41.7,31.1 "Balia'mah Ruins"
-  explore 44.2,19.8 "Venture Co. Base Camp"
-  explore 45.4,9.4 "Kurzen's Compound"
   explore 37.4,5.6 "Rebel Camp"
-  explore 34.2,13.1 "Nesingwary's Expedition"
+  explore 25.9,12.4 "Ruins of Zul'Kunda"
+  explore 21.2,15 "Zuuldaia Ruins"
+  explore 29.4,19.8 "Bal'lal Ruins"
+  explore 24.2,27.7 "The Vile Reef"
+  explore 29.4,44.2 "Gurubashi Arena" -- free-for-all PvP inside the arena ring
+  explore 26.9,53.5 "Bloodsail Compound"
 
 step Stranglethorn Vale (2/4)
   zone Stranglethorn Vale
-  explore 40.4,18.7 "Lake Nazferiti"
-  explore 34.4,21 "Kal'ai Ruins"
-  explore 29.4,19.8 "Bal'lal Ruins"
-  explore 25.9,12.4 "Ruins of Zul'Kunda"
-  explore 21.2,15 "Zuuldaia Ruins"
-  explore 24.2,27.7 "The Vile Reef"
-  explore 29.4,44.2 "Gurubashi Arena" -- free-for-all PvP inside the arena ring
-
-step Stranglethorn Vale (3/4)
-  zone Stranglethorn Vale
-  explore 26.9,53.5 "Bloodsail Compound"
   explore 25.7,62.5 "Nek'mani Wellspring"
   explore 26.2,74.1 "Booty Bay"
   explore 32.4,79.3 "Wild Shore"
   explore 38.9,82.3 "Jaguero Isle" -- level 50 area, well above this guide's range
   explore 33.7,64.4 "Mistvale Valley"
   explore 39.7,59.1 "Ruins of Aboraz"
-
-step Stranglethorn Vale (4/4)
-  zone Stranglethorn Vale
   explore 35.7,51.6 "Ruins of Jubuwal"
+
+step Stranglethorn Vale (3/4)
+  zone Stranglethorn Vale
   explore 40.9,50.5 "Crystalvein Mine"
   explore 40.7,41.2 "Ziata'jai Ruins"
   explore 46.7,42.3 "Ruins of Zul'Mamwe"
   explore 49.4,29.9 "Mosh'Ogg Ogre Mound" -- elite ogres: discover it from the edge
+  explore 41.7,31.1 "Balia'mah Ruins"
+  explore 36.9,29.6 "Mizjah Ruins"
+  explore 31.7,27.3 "Grom'gol Base Camp" -- Horde town: Alliance characters only need to touch its edge (guards)
+
+step Stranglethorn Vale (4/4)
+  zone Stranglethorn Vale
+  explore 34.4,21 "Kal'ai Ruins"
+  explore 34.2,13.1 "Nesingwary's Expedition"
+  explore 40.4,18.7 "Lake Nazferiti"
+  explore 44.2,19.8 "Venture Co. Base Camp"
+  explore 45.4,9.4 "Kurzen's Compound"
   explore 59.9,18.7 "Zul'Gurub"
-
-step Swamp of Sorrows (1/2)
-  zone Swamp of Sorrows
-  tip 11 areas to discover here, levels 36-43.
-  note "Go back north into Duskwood and follow its road east through Deadwind Pass (level 50+ creatures off the road) into the Swamp of Sorrows."
-  note "Stonard is the Horde town." only Horde
-  note "Flight path here: Stonard (Breyk)." only Horde
-  explore 15,62.9 "Itharius's Cave"
-  explore 24.5,52.4 "Splinterspear Junction"
-  explore 13.2,35.9 "Misty Valley"
-  explore 27.7,35.9 "The Harborage"
-  explore 43.9,34.8 "The Shifting Mire"
-  explore 47.7,55 "Stonard" -- Horde town: Alliance characters only need to touch its edge (guards)
-
-step Swamp of Sorrows (2/2)
-  zone Swamp of Sorrows
-  explore 70.4,79 "Stagalbog"
-  explore 88.3,52.8 "Misty Reed Strand"
-  explore 83.8,46.4 "Sorrowmurk"
-  explore 71.1,52.8 "Pool of Tears"
-  explore 65.1,22.5 "Fallow Sanctuary"

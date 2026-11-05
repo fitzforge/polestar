@@ -14,6 +14,7 @@ const { ROOT, DATA } = require('../paths');
 const { hasCoreData, emptyData, CORE_FILES } = require('../dsl/data');
 const { commandPack, packArgument } = require('./locate');
 const { FOLDER_RE, LICENSE_PLACEHOLDER } = require('./format');
+const { readPackFile } = require('./manifest');
 
 // The options every pack-building command takes (parseArgs `options`).
 const PACK_OPTIONS = ['--pack', '--data', '--context', '--context-data'];
@@ -104,26 +105,28 @@ function noReferenceData(pack, dataDir, flag) {
 		shownPath(dataDir),
 		0,
 		`no reference data: ${what}, so no quest, NPC or place can be looked up`,
-		`run \`node tools/polestar.js data build\`, or pass --data <dir>${context}${flag ? '; --no-data checks guides that give every quest title, name and place themselves' : ''}`,
+		`run \`forge data build\`, or pass --data <dir>${context}${flag ? '; --no-data checks guides that give every quest title, name and place themselves' : ''}`,
 	);
 	return diag;
 }
 
 // The pack's LICENSE file (its text, or null without one), with a warning in
-// diag while it still holds the placeholder line `new` writes.
+// diag while it still holds the placeholder line `new` writes, and an error
+// for a LICENSE that is a link or lies outside the pack folder (never read).
 function readLicense(pack, diag) {
 	const file = path.join(pack.dir, 'LICENSE');
-	let text;
-	try {
-		text = fs.readFileSync(file, 'utf8');
-	} catch {
+	const rel = path.relative(process.cwd(), file);
+	const shown = rel.startsWith('..') ? file : rel.split(path.sep).join('/');
+	const { text, error } = readPackFile(pack.dir, 'LICENSE');
+	if (error) {
+		diag.error(shown, 1, error, 'make LICENSE a plain file holding the licence text');
 		return null;
 	}
+	if (text === undefined) return null;
 	const at = text.split(/\r?\n/).findIndex((l) => l.includes(LICENSE_PLACEHOLDER));
 	if (at >= 0) {
-		const shown = path.relative(process.cwd(), file);
 		diag.warn(
-			shown.startsWith('..') ? file : shown.split(path.sep).join('/'),
+			shown,
 			at + 1,
 			'LICENSE still holds the placeholder line `polestar new` writes, not the licence text',
 			`replace the line with the full text of the ${pack.manifest.license} licence: the built addon ships LICENSE as LICENSE.txt`,
@@ -182,7 +185,7 @@ function buildPack(pack, { dataDir = DATA, cache = null, includeDrafts = false, 
 		guides: r.guides,
 		sources: r.sources,
 		data: r.data,
-		files: ok && files ? buildPackFiles({ guides: r.guides, manifest: pack.manifest, data: r.data, license, translations }) : null,
+		files: ok && files ? buildPackFiles({ guides: r.guides, manifest: pack.manifest, data: r.data, license, translations, retired: r.retired }) : null,
 		tokens: r.tokens,
 		noData: false,
 	};

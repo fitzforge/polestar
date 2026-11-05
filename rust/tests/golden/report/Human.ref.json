@@ -1,0 +1,110 @@
+{
+ "rows": [
+  {
+   "chain": "v1",
+   "to": 30,
+   "hours": 2,
+   "endLevel": 10.48,
+   "questsDone": 41,
+   "zoneChanges": 0,
+   "passedBy": 0,
+   "pbNever": 0,
+   "pbLater": 0,
+   "qPerVisit": 1.78,
+   "areaVisits": 23,
+   "returns": 8,
+   "wastedTrips": 2,
+   "leftBehind": 0,
+   "sameMob": 0,
+   "deaths": 0,
+   "trains": 7,
+   "trainTrips": 0,
+   "grindMin": 0
+  },
+  {
+   "chain": "v1",
+   "to": 61,
+   "hours": 2,
+   "endLevel": 10.48,
+   "questsDone": 41,
+   "zoneChanges": 0,
+   "passedBy": 0,
+   "pbNever": 0,
+   "pbLater": 0,
+   "qPerVisit": 1.78,
+   "areaVisits": 23,
+   "returns": 8,
+   "wastedTrips": 2,
+   "leftBehind": 0,
+   "sameMob": 0,
+   "deaths": 0,
+   "trains": 7,
+   "trainTrips": 0,
+   "grindMin": 0
+  },
+  {
+   "chain": "written",
+   "to": 30,
+   "hours": 2,
+   "endLevel": 10.46,
+   "questsDone": 41,
+   "zoneChanges": 0,
+   "passedBy": 0,
+   "pbNever": 0,
+   "pbLater": 0,
+   "qPerVisit": 1.64,
+   "areaVisits": 25,
+   "returns": 7,
+   "wastedTrips": 2,
+   "leftBehind": 0,
+   "sameMob": 0,
+   "deaths": 0,
+   "trains": 7,
+   "trainTrips": 0,
+   "grindMin": 0
+  },
+  {
+   "chain": "written",
+   "to": 61,
+   "hours": 2,
+   "endLevel": 10.46,
+   "questsDone": 41,
+   "zoneChanges": 0,
+   "passedBy": 0,
+   "pbNever": 0,
+   "pbLater": 0,
+   "qPerVisit": 1.64,
+   "areaVisits": 25,
+   "returns": 7,
+   "wastedTrips": 2,
+   "leftBehind": 0,
+   "sameMob": 0,
+   "deaths": 0,
+   "trains": 7,
+   "trainTrips": 0,
+   "grindMin": 0
+  }
+ ],
+ "honest": {
+  "v1": 12,
+  "written": 19
+ },
+ "stream": {
+  "order": {
+   "h30": 182.97635360419298,
+   "h60": 182.97635360419298,
+   "end": 60
+  },
+  "written": {
+   "h30": null,
+   "h60": 1.9739788450007847,
+   "end": 10.464635432940172
+  },
+  "orderEvents": 98,
+  "writtenEvents": 106,
+  "inBoth": 98,
+  "outOfOrder": 4,
+  "onlyInOrder": 0,
+  "onlyWritten": 8
+ }
+}

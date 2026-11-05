@@ -2,29 +2,35 @@ guide forever/collectibles/pets/musical-gustjumper
 title Musical Gustjumper
 category Collectibles
 folder Companion pets · Quests
-keywords frog, /sing, Zephras Isle, Skyborne, gustjumper
+keywords frog, /sing, Zephras Isle, Skyborne, gustjumper, Thendal Village
 collects 268109
 levels 1-60
 zone map 2521
 
-# Musical Gustjumper: sing to a frog on Zephras Isle (new in Forever).
-# At 51 72, /sing and interact with the frog that spawns; skyboats leave the
-# isle.
-# Sources: Forever client 1.60.1.70338 (item 268109).
+# Musical Gustjumper: sing to the frogs on Zephras Isle (new in Forever).
+# Sources: Forever's NPC data (the frogs, NPC 259005, on the rock; the Musical
+# Gustjumper, NPC 259006, at 51.5,72.1 live); Forever's client data (item
+# 268109: no binding, so it can be traded until used); beta reports (/sing at
+# the rock, one frog hops onto the log, click it).
+# INGAME: can a character who is not Skyborne ride the skyboat to Zephras Isle
+# and see the frogs? (Two beta reports say anyone may visit; one says only
+# Skyborne can reach the rock.)
 
 step Skyboat from Dalaran
   only Alliance
+  when !zone "Zephras Isle"
   zone Alterac Mountains
-  tip Zephras Isle is the Skyborne starting island; anyone may visit. A skyboat leaves the north side of Dalaran about every five minutes (another flies from north of Thunder Bluff; either faction may take either). Skip this if you are already on the island.
+  tip Zephras Isle is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the north side of Dalaran about every five minutes (another flies from north of Thunder Bluff; either faction may take either).
   goto 12.5,51.8 "Skyboat to Zephras Isle" live
 
 step Skyboat from Thunder Bluff
   only Horde
+  when !zone "Zephras Isle"
   zone Mulgore
-  tip Zephras Isle is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes (another flies from Dalaran; either faction may take either). Skip this if you are already on the island.
+  tip Zephras Isle is the Skyborne starting island; by beta reports anyone may visit. A skyboat leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes (another flies from Dalaran; either faction may take either).
   goto 34.3,25.8 "Skyboat to Zephras Isle" live
 
 step Sing to the frogs
   zone map 2521
-  tip Target one of the frogs here and type /sing; a Musical Gustjumper appears. Interact with it to get the pet.
-  collect 268109 "Musical Gustjumper" @51,72 live
+  tip From Thendal Village follow the road south, then cut across the field to the top of the waterfall: five frogs sit together on a rock there, by a log. Mobs patrol nearby, so a level 1 character should watch its back. Stand by the rock, target a frog and type /sing. The frogs sing back, the group disappears and one frog hops onto the log beside you: click it to take the Musical Gustjumper, then use it to learn the pet. The item is not bound until you use it, so a friend on the island can sing again and trade you one.
+  collect 268109 "Musical Gustjumper" @51.5,72.1 live

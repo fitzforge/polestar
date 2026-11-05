@@ -5,56 +5,55 @@ class Warlock
 folder Warlock
 levels 60-60
 zone Blasted Lands
-keywords The Prison's Bindings, The Prison's Casing, Suppression, Daio the Decrepit, Tainted Scar, Satyr Blood, Tears of the Hederine, Glowing Crystal Prison, Doomguard Commander, Tome of Sacrifice, Dire Maul, Warpwood Quarter, Darkwhisper Gorge, Warlock, class quest
+keywords The Prison's Bindings, The Prison's Casing, Suppression, Daio the Decrepit, Tainted Scar, Satyr Blood, Wildspawn, Tears of the Hederine, Hederine, Glowing Crystal Prison, Doomguard Commander, Imprisoned Doomguard, Tome of Sacrifice, Dire Maul, Warpwood Quarter, Darkwhisper Gorge, Warlock, class quest
 reward item 18602
 why A rare off-hand at 60, Daio's payment for capturing a Doomguard Commander in the Blasted Lands.
 
 # Daio the Decrepit's chain in the Tainted Scar: The Prison's Bindings (7581,
-# Satyr Blood from the Warpwood Quarter of Dire Maul), The Prison's Casing
-# (7582, Tears of the Hederine from Darkwhisper Gorge in Winterspring) and
-# Suppression (7583, capturing a Doomguard Commander), for the Tome of
-# Sacrifice.
-# Sources: quests.json, npcs.json, objects.json and items.json (Questie
-# 12.1.0 and Questie-Forever) for Daio, the droppers, the Doomguard Commander
-# and the Imprisoned Doomguard; Wowhead Forever's Warlock class page
-# (data/local/quest-audit/wowhead-class-quests.json): unchanged in Forever,
-# Suppression rewards the Tome of Sacrifice; Wowhead's Classic quest pages
-# (wowhead.com/classic/quest=7581, =7582, =7583) for where the satyrs and the
-# Hederine live and for using the Glowing Crystal Prison on the Commander.
-# The Wildspawn satyrs, the Hederine and the Doomguard Commander are all
-# elite: grouping up is advised, and the satyrs are inside Dire Maul, a
-# dungeon. The data has no position for the satyrs or Dire Maul's entrances;
-# the Warpwood Quarter's back door at Lariss Pavilion, behind Azj'Tordin
-# (whose position is in npcs.json), needs the Crescent Key; without it, go in
-# by Dire Maul's main entrances (Warcraft Tavern, "Dire Maul East",
-# warcrafttavern.com/wow-classic/guides/dire-maul-east, a Classic source).
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, so nothing here has been checked in game.
+# 15 Satyr Blood from the Wildspawn of Dire Maul East), The Prison's Casing
+# (7582, 5 Tears of the Hederine from Darkwhisper Gorge in Winterspring) and
+# Suppression (7583, capturing a Doomguard Commander with the Glowing Crystal
+# Prison), for the Tome of Sacrifice.
+# Drops (items.json): Satyr Blood four times in five from every Wildspawn
+# (55-56, elite); Tears of the Hederine four times in five from the Hederine
+# Initiates, Manastalkers and Slayers (57-58, elite; player notes report
+# fewer). The Doomguard Commander (61) is elite; the prison is a channel of
+# about 20 seconds that his War Stomp can break, and when it completes he
+# turns into the Imprisoned Doomguard, an object you click (quest notes).
+# Dire Maul has no entrance positions in our data except the gate; the
+# Warpwood Quarter's back door at Lariss Pavilion needs the Crescent Key,
+# which drops inside Dire Maul East itself: first runs go in by the main
+# entrance (Feralas 59.2,45.1, Forever's dungeon entrances).
+# Neither reference class guide carries this chain.
+# ASSUMED: The chain runs as in Classic (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: the prison's channel and the Imprisoned Doomguard object.
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json,
+# items.json); the quest notes (data/local/mechanics) for the camps and the
+# capture.
 
 step Daio the Decrepit
-  tip At 60 Daio the Decrepit waits in the Tainted Scar, in western Blasted Lands.
+  tip At 60 Daio the Decrepit waits in the Tainted Scar, the demon-filled hollow in the west of the Blasted Lands. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. Daio gives you two errands at once.
   level 60
   accept 7581                         -- Daio the Decrepit
   accept 7582
 
 step Satyr Blood
   zone Feralas
-  tip The Wildspawn satyrs of the Warpwood Quarter, Dire Maul's eastern wing, carry the blood. The back door at Lariss Pavilion, north of Camp Mojache, needs the Crescent Key; otherwise go in by Dire Maul's main entrance. Bring a group.
-  collect 18603 quest 7581.1 @76.9,37.4 -- Satyr Blood, inside the Warpwood Quarter
+  tip The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, Dire Maul's eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at Lariss Pavilion needs the Crescent Key, which drops inside this wing; until someone has it, go in by Dire Maul's main gate in central Feralas.
+  collect 18603 x15 quest 7581.1 @59.2,45.1 group 5 -- Satyr Blood, from the Wildspawn inside
 
 step Tears of the Hederine
   zone Winterspring
-  tip The Hederine demons hold Darkwhisper Gorge, in southern Winterspring. They are elite: grouping up is advised.
-  collect 18604 quest 7582.1          -- Tears of the Hederine
+  tip The Hederine demons (level 57-60, elite) hold Darkwhisper Gorge in the far south of Winterspring: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their Dominate Mind). A warlock can solo them one at a time with Fear or Banish and damage over time, but slowly. Any of them can drop the Tears, four kills in five.
+  collect 18604 x5 quest 7582.1       -- Tears of the Hederine
 
 step Suppression
   zone Blasted Lands
-  tip Hand both in to Daio, then find the Doomguard Commander in the Tainted Scar and use the Glowing Crystal Prison on him. He is elite and fights to escape: grouping up is advised.
+  tip Hand both in to Daio and take the Glowing Crystal Prison. Find a Doomguard Commander (level 61, elite) standing alone in the Tainted Scar, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his War Stomp can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the Imprisoned Doomguard: click it. If the channel breaks, kill him or run, and try another.
   turnin 7581                         -- Daio the Decrepit
   turnin 7582                         -- Daio the Decrepit
   accept 7583
-  use 18601 @34.5,63.7                -- Glowing Crystal Prison, on the Doomguard Commander
-  collect 18605 quest 7583.1          -- Imprisoned Doomguard
+  use 18601 @34.5,63.7                -- Glowing Crystal Prison, on a Doomguard Commander
+  collect 18605 quest 7583.1          -- Imprisoned Doomguard, click it
 
 step Back to Daio
   turnin 7583                         -- Daio the Decrepit: Tome of Sacrifice

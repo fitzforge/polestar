@@ -1,5 +1,5 @@
 -- German (deDE): the guide forever/exploration/eastern-kingdoms-30-45 (forever/exploration/eastern-kingdoms-30-45.guide).
--- Written by `node tools/polestar.js i18n guides sync deDE`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync deDE`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in German (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -11,8 +11,8 @@ return {
 	["Exploration: {zone:1415} 30-45"] = "Erkundung: {zone:1415} 30-45",
 
 	-- Step 1: Alterac Mountains (1/2)
-	-- {zone:1424} Hillsbrad Foothills
-	["Picks up in {zone:1424}, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39."] = "Setzt in {zone:1424} ein, wo der Guide für 1-30 die Horde verlässt und die Allianz durchreist. Hier gibt es 15 Gebiete zu entdecken, Stufe 27-39.",
+	-- {zone:1416} Alterac Mountains · {zone:1424} Hillsbrad Foothills · {zone:1434} Stranglethorn Vale
+	["Starts in the {zone:1416}, north of {zone:1424}, and ends in {zone:1434}. 15 areas to discover here, levels 27-39."] = "",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Die gesamte Weltkarte mit einem Charakter zu erkunden, ist eine Vermächtnisherausforderung in Forever (1 accountweiter Vermächtnispunkt).",
 	-- {area:271} Southshore · {zone:1424} Hillsbrad Foothills · {zone:1416} Alterac Mountains
 	["Fly to {area:271} in {zone:1424} and walk north into the {zone:1416}."] = "Flieg nach {area:271} in {zone:1424} und geh nach Norden in {zone:1416}.",
@@ -50,37 +50,44 @@ return {
 	["Flight path here: {area:340} (Gorrik)."] = "Flugroute hier: {area:340} (Gorrik).",
 
 	-- Step 7: Riverglades (1/2)
-	["14 areas to discover here, levels 36-44."] = "Hier gibt es 14 Gebiete zu entdecken, Stufe 36-44.",
-	-- {zone:2548} Riverglades · {zone:1418} Badlands · {zone:1428} Burning Steppes · {zone:1433} Redridge Mountains · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
-	["The {zone:2548} lie east of the {zone:1418} and the {zone:1428}: the way in is the fork east off the {zone:1433} road (a ship also runs from {zone:1446} to {area:16727}, the neutral goblin port on its coast). {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:2548} liegt östlich von {zone:1418} und {zone:1428}: Der Weg hinein ist die Abzweigung nach Osten von der Straße in {zone:1433} (ein Schiff fährt auch von {zone:1446} nach {area:16727}, dem neutralen Goblinhafen an der Küste). {area:17780} ist der Freiluft-Dungeon eines Ogerklans.",
+	-- {area:16724} Farholde Keep · {area:16743} Rog'mar
+	["14 areas to discover here, levels 36-44. Flight paths: {area:16724} in the south-east (Alliance), {area:16743} in the middle (Horde)."] = "",
+	-- {zone:1418} Badlands · {area:345} Agmond's End · {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:2417} Blackrock Pass · {area:977} Steamwheedle Port · {zone:1446} Tanaris · {area:16727} Powderfuse Port · {area:17780} Krol'dok Stronghold
+	["From the south of the {zone:1418}, past {area:345}, a way leads down into the {zone:2548} by {area:16685}. (The {zone:2548} also open off northern Redridge through {area:2417}, and a ship runs from {area:977} in {zone:1446} to {area:16727}, the neutral goblin port on its coast.) {area:17780} is an ogre clan's outdoor dungeon."] = "",
 
-	-- Step 9: Stranglethorn Vale (1/4)
-	-- {area:35} Booty Bay · {area:392} Ratchet
-	["27 areas to discover here, levels 30-50. {area:35} at the southern tip is a neutral goblin port with a boat to {area:392}."] = "Hier gibt es 27 Gebiete zu entdecken, Stufe 30-50. {area:35} an der Südspitze ist ein neutraler Goblinhafen mit einem Schiff nach {area:392}.",
-	-- {area:42} Darkshire · {zone:1453} Stormwind · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
-	["Fly to {area:42} (or {zone:1453}) and take the road south out of {zone:1431} into northern {zone:1434}."] = "Flieg nach {area:42} (oder {zone:1453}) und nimm die Straße nach Süden aus {zone:1431} hinaus in den Norden von {zone:1434}.",
-	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
-	["Take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "Nimm den Zeppelin von {zone:1454} oder {zone:1458} nach {area:117}.",
-	-- {area:35} Booty Bay
-	["Flight path here: {area:35} (Gyll)."] = "Flugroute hier: {area:35} (Gyll).",
-	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
-	["Flight paths here: {area:35} (Gringer), {object:3202} (Thysta)."] = "Flugrouten hier: {area:35} (Gringer), {object:3202} (Thysta).",
-
-	-- Step 10: Stranglethorn Vale (2/4)
-	["free-for-all PvP inside the arena ring"] = "Freies PvP für alle innerhalb des Arenarings",
-
-	-- Step 11: Stranglethorn Vale (3/4)
-	["level 50 area, well above this guide's range"] = "Gebiet der Stufe 50, weit über dem Bereich dieses Guides",
-
-	-- Step 12: Stranglethorn Vale (4/4)
-	["elite ogres: discover it from the edge"] = "Elite-Oger: Entdecke es vom Rand aus",
-
-	-- Step 13: Swamp of Sorrows (1/2)
+	-- Step 9: Swamp of Sorrows (1/2)
 	["11 areas to discover here, levels 36-43."] = "Hier gibt es 11 Gebiete zu entdecken, Stufe 36-43.",
-	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {zone:1435} Swamp of Sorrows
-	["Go back north into {zone:1431} and follow its road east through {zone:1430} (level 50+ creatures off the road) into the {zone:1435}."] = "Geh zurück nach Norden in {zone:1431} und folge der Straße nach Osten durch {zone:1430} (Kreaturen ab Stufe 50 abseits der Straße) in {zone:1435}.",
+	-- {zone:1435} Swamp of Sorrows · {zone:2548} Riverglades · {area:16725} Wheeler's Grange · {area:16737} Bristle Hills
+	["The {zone:1435} lies south of the {zone:2548}: swim south from {area:16725}, or walk through Redridge Pass, south of the {area:16737}."] = "",
 	-- {area:75} Stonard
 	["{area:75} is the Horde town."] = "{area:75} ist die Hordestadt.",
 	-- {area:75} Stonard
 	["Flight path here: {area:75} (Breyk)."] = "Flugroute hier: {area:75} (Breyk).",
+
+	-- Step 11: Stranglethorn Vale (1/4)
+	-- {area:35} Booty Bay · {area:392} Ratchet
+	["27 areas to discover here, levels 30-50. {area:35} at the southern tip is a neutral goblin port with a boat to {area:392}."] = "Hier gibt es 27 Gebiete zu entdecken, Stufe 30-50. {area:35} an der Südspitze ist ein neutraler Goblinhafen mit einem Schiff nach {area:392}.",
+	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass · {zone:1431} Duskwood · {zone:1434} Stranglethorn Vale
+	["Ride west out of the {zone:1435} through {zone:1430} (level 50+ creatures off the road) into {zone:1431} and take the road south into northern {zone:1434}."] = "",
+	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:117} Grom'gol Base Camp
+	["Or take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "",
+	-- {area:35} Booty Bay
+	["Flight path here: {area:35} (Gyll)."] = "Flugroute hier: {area:35} (Gyll).",
+	-- {area:35} Booty Bay · {object:3202} Grom'gol (no name in this language: may be words)
+	["Flight paths here: {area:35} (Gringer), {object:3202} (Thysta)."] = "Flugrouten hier: {area:35} (Gringer), {object:3202} (Thysta).",
+	["free-for-all PvP inside the arena ring"] = "Freies PvP für alle innerhalb des Arenarings",
+
+	-- Step 12: Stranglethorn Vale (2/4)
+	["level 50 area, well above this guide's range"] = "Gebiet der Stufe 50, weit über dem Bereich dieses Guides",
+
+	-- Step 13: Stranglethorn Vale (3/4)
+	["elite ogres: discover it from the edge"] = "Elite-Oger: Entdecke es vom Rand aus",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["14 areas to discover here, levels 36-44."] = "Hier gibt es 14 Gebiete zu entdecken, Stufe 36-44.",
+	-- ["Fly to {area:42} (or {zone:1453}) and take the road south out of {zone:1431} into northern {zone:1434}."] = "Flieg nach {area:42} (oder {zone:1453}) und nimm die Straße nach Süden aus {zone:1431} hinaus in den Norden von {zone:1434}.",
+	-- ["Go back north into {zone:1431} and follow its road east through {zone:1430} (level 50+ creatures off the road) into the {zone:1435}."] = "Geh zurück nach Norden in {zone:1431} und folge der Straße nach Osten durch {zone:1430} (Kreaturen ab Stufe 50 abseits der Straße) in {zone:1435}.",
+	-- ["Picks up in {zone:1424}, where the 1-30 guide leaves the Horde and passes the Alliance. 15 areas to discover here, levels 27-39."] = "Setzt in {zone:1424} ein, wo der Guide für 1-30 die Horde verlässt und die Allianz durchreist. Hier gibt es 15 Gebiete zu entdecken, Stufe 27-39.",
+	-- ["Take the zeppelin from {zone:1454} or the {zone:1458} to {area:117}."] = "Nimm den Zeppelin von {zone:1454} oder {zone:1458} nach {area:117}.",
+	-- ["The {zone:2548} lie east of the {zone:1418} and the {zone:1428}: the way in is the fork east off the {zone:1433} road (a ship also runs from {zone:1446} to {area:16727}, the neutral goblin port on its coast). {area:17780} is an ogre clan's outdoor dungeon."] = "{zone:2548} liegt östlich von {zone:1418} und {zone:1428}: Der Weg hinein ist die Abzweigung nach Osten von der Straße in {zone:1433} (ein Schiff fährt auch von {zone:1446} nach {area:16727}, dem neutralen Goblinhafen an der Küste). {area:17780} ist der Freiluft-Dungeon eines Ogerklans.",
 }

@@ -126,13 +126,34 @@ local function numLines(tooltip)
 	return nil
 end
 
--- What each tooltip last got lines for: { key, lines }. The same subject on
--- a tooltip that still holds at least that many lines already has them (a
--- data refresh or an appended section ran the post-call again); a cleared or
--- rebuilt tooltip has fewer lines and gets them again.
+-- What each tooltip last got lines for: { kind, key, lines }. Until cleared,
+-- repeated or appended callbacks for the same subject keep those lines.
+-- A rebuild may have more client lines, so its count alone cannot detect a
+-- clear. Keep the hook's lifetime separate from the decoration cache.
 local added = setmetatable({}, { __mode = "k" })
+local clearChecked = setmetatable({}, { __mode = "k" })
+
+local function clearAdded(tooltip)
+	added[tooltip] = nil
+end
 
 local function decorate(kind, tooltip, key, ...)
+	if not clearChecked[tooltip] then
+		-- Check once, including failures: repeated post-calls must not retry.
+		-- Missing APIs or explicit lack of support keep the line-count fallback.
+		-- A thrown error has an unknown cause; retain it in the session report.
+		clearChecked[tooltip] = true
+		if tooltip.HookScript then
+			local ok, supported = true, true
+			if tooltip.HasScript then ok, supported = pcall(tooltip.HasScript, tooltip, "OnTooltipCleared") end
+			if not ok then
+				ns.NoteError(supported)
+			elseif supported ~= false then
+				local installed, err = pcall(tooltip.HookScript, tooltip, "OnTooltipCleared", clearAdded)
+				if not installed then ns.NoteError(err) end
+			end
+		end
+	end
 	local before = numLines(tooltip)
 	local last = added[tooltip]
 	if last and last.key == key and last.kind == kind and before and before >= last.lines then return 0 end

@@ -15,37 +15,41 @@ zone map 2521
 # data/forever/travel.json. Zone order and travel lines are
 # tools/lib/exploration/spec.js; inside a zone the areas are a shortest tour
 # from where you arrive towards the next zone.
+#
+# INGAME: does Zephras Isle count towards the world-map Legacy Challenge? Beta write-ups list it among the
+# new areas of the map, while the challenge list itself names the zones of the Eastern Kingdoms and Kalimdor
+# (Explore Azeroth); the client parents the isle's map to Azeroth, on no continent. Until it is settled the
+# guide does not claim it counts.
 
 step Zephras Isle (1/3)
   zone map 2521
-  tip Zephras Isle is the Skyborne starting island, a world of its own in Skywall; anyone may visit, and its map counts towards exploring the world. 20 areas to discover here, levels 3-12.
-  note "Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."
+  tip Zephras Isle is the Skyborne starting island, a world of its own in Skywall; anyone may visit. 20 areas to discover here, levels 3-12.
   note "Skyborne start here. Everyone else takes a skyboat, about every five minutes; either faction may take either one."
   note "The skyboat leaves the north side of Dalaran in the Alterac Mountains (another flies from north of Thunder Bluff)." only Alliance
   note "The skyboat leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff (another flies from Dalaran)." only Horde
-  explore 51.8,47.3 "Windsong Lake" live
-  explore 49.9,54.9 "Falaath Village" live
-  explore 49.2,62 "Shen'dar Highlands" live
-  explore 48.1,69.1 "Overlook Standing Stones" live
-  explore 40.6,64 "West Pylon Watchtower" live
-  explore 36.8,50.3 "Shen'dar Highlands" live
-  explore 44.5,44.6 "Shen'dar Village" live
+  explore 62.7,78.7 "Valanaar / Valanaar Skydocks" live -- any one of these names counts
+  explore 60,66.6 "Gustberry Lowlands" live
+  explore 70,67.1 "East Pylon Watchtower" live
+  explore 71.1,49.6 "Rohashi Spires" live
+  explore 62.3,50.3 "Shrine of Akir" live
+  explore 60.3,38.8 "Shadowgale Forest" live
+  explore 58,28.3 "Ruins of Ban'aethal" live
 
 step Zephras Isle (2/3)
   zone map 2521
-  explore 45.8,38.8 "Windsong Standing Stones" live
-  explore 41.1,29.6 "Thendal Grove" live
-  explore 42.8,22 "Thendal Village" live
   explore 48.8,18.6 "Thendal Standing Stones / Thendal Village" live -- any one of these names counts
-  explore 58,28.3 "Ruins of Ban'aethal" live
-  explore 60.3,38.8 "Shadowgale Forest" live
-  explore 62.3,50.3 "Shrine of Akir" live
+  explore 42.8,22 "Thendal Village" live
+  explore 41.1,29.6 "Thendal Grove" live
+  explore 45.8,38.8 "Windsong Standing Stones" live
+  explore 44.5,44.6 "Shen'dar Village" live
+  explore 51.8,47.3 "Windsong Lake" live
+  explore 49.9,54.9 "Falaath Village" live
 
 step Zephras Isle (3/3)
   zone map 2521
-  explore 71.1,49.6 "Rohashi Spires" live
-  explore 70,67.1 "East Pylon Watchtower" live
-  explore 60,66.6 "Gustberry Lowlands" live
-  explore 62.7,78.7 "Valanaar / Valanaar Skydocks" live -- any one of these names counts
-  explore 54,81.2 "Fairweather Stables" live
+  explore 36.8,50.3 "Shen'dar Highlands" live
+  explore 40.6,64 "West Pylon Watchtower" live
+  explore 49.2,62 "Shen'dar Highlands" live
+  explore 48.1,69.1 "Overlook Standing Stones" live
   explore 46.8,82 "Windfield Orchard" live
+  explore 54,81.2 "Fairweather Stables" live

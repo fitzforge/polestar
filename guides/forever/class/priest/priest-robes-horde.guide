@@ -1,0 +1,86 @@
+guide forever/class/priest/priest-robes-horde
+title Priest Robes at 5 (Horde)
+category Class
+class Priest
+folder Priest
+faction Horde
+race Troll,Undead
+levels 5-6
+zone Durotar
+keywords Garments of Spirituality, Garments of Darkness, In Favor of Spirituality, In Favor of Darkness, Juju Hex Robes, Acolyte's Sacrificial Robes, Grunt Kor'ja, Deathguard Kel, Lesser Heal, Power Word: Fortitude, robe, Priest
+reward item 16606
+reward item 16607
+why A free uncommon robe at 5: heal and fortify a wounded guard near your first town.
+
+# The level 5 Priest robe quests, one pair per race; the first quest is a
+# letter from the start-area priest trainer to the trainer in the first town,
+# who sends you to heal a wounded guard nearby:
+#   Troll: In Favor of Spirituality 5649 (Ken'jai, the Den in the Valley of
+#     Trials) to Tai'jin (Razor Hill), then Garments of Spirituality 5648:
+#     Grunt Kor'ja just south of Razor Hill. Juju Hex Robes.
+#   Undead: In Favor of Darkness 5651 (Dark Cleric Duesten, Deathknell) to
+#     Dark Cleric Beryl (Brill), then Garments of Darkness 5650: Deathguard
+#     Kel at the north gate of Brill's graveyard. Acolyte's Sacrificial Robes.
+# The objective counts only Lesser Heal Rank 2 (level 4, 1 silver at any
+# priest trainer: the trainer tables) followed by Power Word: Fortitude
+# (rank 1 at level 1, 10 copper). The robes: uncommon cloth chest, item
+# level 5, 10 armor, +1 Spirit, bind on pickup (a Forever web database of
+# the class quests).
+# Sources: quests.json, npcs.json (every giver, ender and wounded NPC) and
+# Forever's quest data (KB: level 4, needs 5, 270 XP each Garments quest);
+# quest notes (data/local/mechanics/quest-notes.json) for the spots, the
+# respawn (Kor'ja about 5 minutes) and the cast order; Forever's quest pages
+# (snapshot) agree on every giver and objective; players there report that
+# Fortitude before the heal does not count and that spell addons can stop
+# the credit.
+# The leveling routes leave these quests out (a robe, not a spell); this
+# guide is the only place they are.
+# Based on data, not play: written from the sources above.
+
+step In Favor of Spirituality
+  only Troll
+  zone Durotar
+  tip At 5, Ken'jai, the priest trainer in the Den in the middle of the Valley of Trials, sends you to Tai'jin in Razor Hill. Train Lesser Heal (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank.
+  level 5
+  accept 5649                                 -- Ken'jai
+
+step Tai'jin
+  only Troll
+  tip Follow the road out of the Valley of Trials north-east to Razor Hill. Tai'jin is inside the barracks, the first building on the right as you come into town.
+  turnin 5649                                 -- Tai'jin
+  accept 5648
+  train class                                 -- Lesser Heal (Rank 2), if Ken'jai did not teach it yet
+
+step Grunt Kor'ja
+  only Troll
+  tip Grunt Kor'ja kneels behind a group of rocks just off the road, a short walk south of Razor Hill. Cast Lesser Heal (Rank 2) on her first, then Power Word: Fortitude. Rank 1 of Lesser Heal does not count; drag Rank 2 onto your bar from the spellbook. She leaves once both land and is back in about 5 minutes.
+  kill 12430 quest 5648.1 "Heal and fortify Grunt Kor'ja"
+
+step Tai'jin
+  only Troll
+  tip Back in the Razor Hill barracks: Tai'jin gives you the Juju Hex Robes.
+  turnin 5648 reward 16606                    -- Tai'jin
+
+step In Favor of Darkness
+  only Undead
+  zone Tirisfal Glades
+  tip At 5, Dark Cleric Duesten, the priest trainer in the chapel of Deathknell, sends you to Dark Cleric Beryl in Brill. Train Lesser Heal (Rank 2) from him while you are here: it opens at level 4 for 1 silver, and the next quest needs exactly that rank.
+  level 5
+  accept 5651                                 -- Dark Cleric Duesten
+
+step Dark Cleric Beryl
+  only Undead
+  tip Follow the road east out of Deathknell to Brill. Dark Cleric Beryl is upstairs in the inn, Gallows' End Tavern.
+  turnin 5651                                 -- Dark Cleric Beryl
+  accept 5650
+  train class                                 -- Lesser Heal (Rank 2), if Duesten did not teach it yet
+
+step Deathguard Kel
+  only Undead
+  tip Deathguard Kel kneels, half-dead, beside the north gate of Brill's graveyard, a short walk north of the inn. Cast Lesser Heal (Rank 2) on him first, then Power Word: Fortitude: Fortitude first does not count, nor does Rank 1 of Lesser Heal. If an addon gets in the way, cast both from the spellbook.
+  kill 12428 quest 5650.1 "Heal and fortify Deathguard Kel"
+
+step Dark Cleric Beryl
+  only Undead
+  tip Back upstairs in the Brill inn: Beryl gives you the Acolyte's Sacrificial Robes.
+  turnin 5650 reward 16607                    -- Dark Cleric Beryl

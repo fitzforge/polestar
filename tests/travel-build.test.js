@@ -1,4 +1,6 @@
 'use strict';
+// The tests of the addon alone are rust/crates/forge-addontest/tests/addontest/travel-build.rs;
+// these need the travel tools (tools/lib/travel).
 // `travel build` (tools/lib/travel, tools/commands/travel.js) on fixture
 // Blizzard CSVs, data/forever-shaped JSON and one recording: what it keeps,
 // where it puts docks and inns, learned paths, determinism, and that the
@@ -243,30 +245,6 @@ test('generated TravelData.lua loads under Lua 5.1 and the addon planner routes 
 	}
 });
 
-test('the committed TravelData.lua is loaded by the addon with the real network', () => {
-	const [counts] = runAddon({
-		stubs: ['stub_nav.lua'],
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml'] }],
-		script: 'emit({ Polestar.Nav.travel.Counts() })',
-	}).emitted;
-	const [taxi, transports, inns] = counts;
-	assert.ok(taxi >= 50, `${taxi} flight masters`);
-	assert.ok(transports >= 8, `${transports} transports`);
-	assert.ok(inns >= 40, `${inns} inns`);
-	// Inns with their own area answer to both names (GetBindLocation may report either).
-	const [names] = runAddon({
-		stubs: ['stub_nav.lua'],
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml'] }],
-		script: `
-			local out = {}
-			for _, inn in ipairs(Polestar.Nav.GetTravelData().inns) do
-				if inn.npc == 6734 then out = inn.names end
-			end
-			emit(out)`,
-	}).emitted;
-	assert.deepEqual(names, ['Stoutlager Inn', 'Thelsamar']);
-});
-
 // The committed inns, as the addon reads them.
 function committedInns() {
 	return runAddon({
@@ -279,15 +257,8 @@ function committedInns() {
 	}).emitted[0];
 }
 
-test('every inn of the committed TravelData.lua has its AreaTable area', () => {
-	const inns = committedInns();
-	assert.ok(inns.length >= 40, `${inns.length} inns`);
-	assert.deepEqual(inns.filter((i) => typeof i.area !== 'number').map((i) => i.names[0]), []);
-	assert.equal(inns.find((i) => i.npc === 6790).area, 42, 'Darkshire (#83)');
-});
-
 const AREAS = loadAreas(path.join(ROOT, 'data', 'sources'));
-test('every committed inn\'s area is named, in English, like one of its bind locations', { skip: !AREAS && 'no cached Forever AreaTable under data/sources/wago (node tools/polestar.js data build)' }, () => {
+test('every committed inn\'s area is named, in English, like one of its bind locations', { skip: !AREAS && 'no cached Forever AreaTable under data/sources/wago (forge data build)' }, () => {
 	const wrong = committedInns()
 		.filter((i) => !AREAS.byId.has(i.area) || !i.names.includes(AREAS.byId.get(i.area).name))
 		.map((i) => `${i.names.join('/')}: area ${i.area} is ${AREAS.byId.has(i.area) ? `"${AREAS.byId.get(i.area).name}"` : 'not in the AreaTable'}`);
@@ -407,50 +378,6 @@ test('an end on dry ground gets the floor nearest its source\'s height: the entr
 	assert.ok(Math.abs(endHeight(nav, end, 13) - 12) < 0.5, 'a spawn on the roof: the roof');
 	assert.equal(endHeight(nav, end, 30), null, 'nothing within 10 yd: none');
 	assert.equal(endHeight(nav, end, null), null, 'no source height: none');
-});
-
-test('the committed TravelData.lua gives the tram and zeppelin ends their floor: the tram\'s entrances, the towers\' tops', () => {
-	const [ends] = runAddon({
-		stubs: ['stub_nav.lua'],
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml'] }],
-		script: `
-			local out = {}
-			for _, t in ipairs(Polestar.Nav.GetTravelData().transports) do
-				out[t.id] = { t.a.z or false, t.b.z or false }
-			end
-			emit(out)`,
-	}).emitted;
-	const near = (v, z) => typeof v === 'number' && Math.abs(v - z) < 3;
-	const tram = ends['tram-stormwind-ironforge'];
-	assert.ok(near(tram[0], 92) && near(tram[1], 502), `the tram's entrances in Stormwind (AreaTrigger 96.6) and Ironforge: ${tram}`);
-	const og = ends['zeppelin-orgrimmar-undercity'];
-	assert.ok(near(og[0], 54), `Orgrimmar's tower top (Frezza at 53.6): ${og[0]}`);
-});
-
-test('the committed TravelData.lua has the Forever ships on their dock maps', () => {
-	const [ships] = runAddon({
-		stubs: ['stub_nav.lua'],
-		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Nav/Nav.xml'] }],
-		script: `
-			local out = {}
-			for _, t in ipairs(Polestar.Nav.GetTravelData().transports) do
-				out[t.id] = { t.faction, t.a.map, t.a.f, t.b.map, t.b.f, t.ab, t.ba, t.waitA, t.waitB }
-			end
-			emit(out)`,
-	}).emitted;
-	const expect = {
-		'boat-stormwind-auberdine': [1, 1453, 'l', 1439, 'e'], // Stormwind Harbor is on Forever's redrawn Stormwind map
-		'boat-menethil-southshore': [1, 1437, 'e', 1424, 'e'],
-		'boat-southshore-auberdine': [1, 1424, 'e', 1439, 'e'],
-		'boat-menethil-auberdine': [1, 1437, 'e', 1439, 'e'],
-		'boat-tanaris-powderfuse': [3, 1446, 'e', 2548, 'l'], // Riverglades: a Forever-only map
-	};
-	for (const [id, ends] of Object.entries(expect)) {
-		const t = ships[id];
-		assert.ok(t, `${id} present`);
-		assert.deepEqual(t.slice(0, 5), ends, id);
-		for (const secs of t.slice(5)) assert.ok(secs > 20 && secs < 600, `${id}: ${t.slice(5)} s`);
-	}
 });
 
 // Playtest: 14 of the 18 boat ends are ship stops in open water 12-14 yd off

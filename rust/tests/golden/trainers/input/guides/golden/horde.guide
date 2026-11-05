@@ -1,0 +1,17 @@
+guide golden/horde
+title Golden trainers (Horde)
+faction Horde
+race Orc,Troll
+levels 1-10
+zone Durotar
+
+# Synthetic guide for the trainers golden: `train <npc> only <Class>` goals.
+step Valley of Trials training
+  train 3153 only Warrior  -- Frang
+  train 3155 only Rogue    -- Rwag
+  train 3154 only Hunter   -- Jen'shan
+  train 3157 only Orc,Shaman -- two restrictions: not a class trainer source
+
+step Warlock only
+  only Warlock
+  train 3156              -- Nartok

@@ -6,7 +6,7 @@ folder Rogue
 faction Horde
 levels 16-20
 zone Orgrimmar
-keywords Plundering the Plunderers, Find the Shattered Hand, To Orgrimmar!, Shenthul, Zando'zan, Wrenix of Ratchet, Wrenix the Wretched, Gizmotronic Apparatus, E.C.A.C., Thieves' Tools, Southsea Treasure, Polly, Thistle Tea, Fenwick Thatros, Tools of the Trade, Ambermill Strongbox, Dalaran Status Report, Mennet Carkad, Rogue, lockpicking quest
+keywords Plundering the Plunderers, Find the Shattered Hand, To Orgrimmar!, Shenthul, Zando'zan, Wrenix of Ratchet, Wrenix the Wretched, Gizmotronic Apparatus, E.C.A.C., Thieves' Tools, Southsea Treasure, Polly, Jewel of the Southsea, Tide Razor, Buccaneer's Strongbox, Thistle Tea, Fenwick Thatros, Tools of the Trade, Ambermill Strongbox, Dalaran Status Report, Mennet Carkad, Rogue, lockpicking quest
 reward item 7676
 why Ten Thistle Tea, the rogue energy drink, from the Horde lockpicking jobs at 16.
 
@@ -17,11 +17,22 @@ why Ten Thistle Tea, the rogue energy drink, from the Horde lockpicking jobs at 
 #   Ratchet (2382) and Plundering the Plunderers (2381, ten Thistle Tea).
 # - Undead only: Fenwick Thatros and Tools of the Trade (1998, 1999) for
 #   Mennet Carkad, in Silverpine Forest.
-# Sources: Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for which quests Forever
+# Sources: Forever's Rogue class quest list
+# (data/local/quest-audit/) for which quests Forever
 # has, the rewards and Forever's changes (none for these quests);
 # quests.json, npcs.json, objects.json and items.json for the givers, drops,
 # vendors and places; travel.json for the inns and flight points.
+# The KB drops table: Southsea Treasure 97.5% from the shrunken Polly.
+# Forever's server data (gameobject_template): The Jewel of the Southsea uses
+# the same lock as Lucius's Lockbox (Alliance, about 25 Lockpicking by
+# players' notes); the Buccaneer's Strongboxes on the ship and the Ambermill
+# Strongbox the lowest lock.
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20): the
+# Tide Razor's bow, the strongboxes on the middle deck (some trapped) for
+# Lockpicking practice, the empty chest in the bottom hold that calls the
+# level 50 Polly, the E.C.A.C. shrinking it to 18; Fenwick on the old dock;
+# the Ambermill Strongbox upstairs in the inn-style house, its casters (19-20)
+# that see through stealth.
 # The two breadcrumbs exclude one another. To Orgrimmar!'s race mask takes
 # any Horde race, so Orcs, Trolls and Skyborne take it from Kaplak.
 # The leveling guides leave these out: they teach no spell.
@@ -45,7 +56,7 @@ step Find the Shattered Hand
 
 step Shenthul and Zando'zan
   zone Orgrimmar
-  tip Undead take the zeppelin from the towers outside the Undercity to Durotar. Shenthul and Zando'zan stand in the Cleft of Shadow, the canyon under the Valley of Strength.
+  tip Undead take the zeppelin from the towers outside the Undercity to Durotar. Shenthul and Zando'zan stand in the Cleft of Shadow, the canyon under the Valley of Strength. Train Pick Lock from Shenthul (or any rogue trainer) now if you lack it: this job is a lockpicking test.
   turnin 2380 only Orc,Troll,Skyborne         -- Shenthul
   turnin 2378 only Undead
   accept 2379
@@ -56,7 +67,7 @@ step Shenthul and Zando'zan
 
 step Wrenix the Wretched
   zone The Barrens
-  tip Fly or walk to Ratchet on the Barrens coast. Wrenix stands in town with his Gizmotronic Apparatus: buy an E.C.A.C. and Thieves' Tools from the apparatus before you go.
+  tip Fly or walk to Ratchet on the Barrens coast. Wrenix stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an E.C.A.C. and Thieves' Tools (Pick Lock does not work without the tools in your bags).
   getfp "Ratchet" optional
   turnin 2382                                 -- Wrenix the Wretched
   accept 2381
@@ -64,8 +75,8 @@ step Wrenix the Wretched
   buy 5060 x1 npc 7166                        -- Thieves' Tools
 
 step Southsea Treasure
-  tip South along the coast from Ratchet, at the Southsea pirates' camp. If an unusually hostile parrot attacks you, use the E.C.A.C. on it (the quest's own advice).
-  collect 7968 quest 2381.1                   -- Southsea Treasure
+  tip Follow the coast south from Ratchet to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of The Jewel of the Southsea: it is empty, but opening it calls a giant level 50 Polly into the next room. Stay stealthed, put the E.C.A.C. on your action bar, target Polly and use it: the parrot shrinks to level 18. Kill it for the Southsea Treasure.
+  collect 7968 quest 2381.1                   -- Southsea Treasure: Polly, after the E.C.A.C.
 
 step Back to Wrenix
   turnin 2381 reward 7676                     -- Wrenix the Wretched: ten Thistle Tea
@@ -75,19 +86,20 @@ step Back to Wrenix
 step Fenwick Thatros
   only Undead
   zone Silverpine Forest
-  tip Take the zeppelin from Orgrimmar to the Undercity and head south into Silverpine. Fenwick Thatros stands north-east of the Sepulcher.
+  tip Take the zeppelin from Orgrimmar to the Undercity and head south into Silverpine. Fenwick Thatros (level 16) stands alone on the old ferry dock on Lordamere Lake, north-east of the Sepulcher. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death.
   collect 7306 quest 1998.1                   -- Fenwick's Head: Fenwick Thatros
 
 step Mennet Carkad
   only Undead
   zone Undercity
+  tip If you have no Thieves' Tools left, ask Estelle Gendry, the outfitter in the Rogues' Quarter.
   turnin 1998                                 -- Mennet Carkad, Rogues' Quarter
   accept 1999
 
 step Ambermill
   only Undead
   zone Silverpine Forest
-  tip The Kirin Tor keep their reports at Ambermill, in south-east Silverpine: pick the lock on the Ambermill Strongbox.
+  tip The Kirin Tor keep their reports in walled Ambermill, in south-east Silverpine. Facing the town hall, take the building on the right: the Ambermill Strongbox is in a corner room upstairs (any Lockpicking opens it; the Thieves' Tools must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time.
   collect 7309 quest 1999.1                   -- Dalaran Status Report: Ambermill Strongbox
 
 step Back to Mennet
