@@ -365,6 +365,7 @@ end
 Rares.AlertOf = alertOf
 
 local function fire(a)
+	if a.source ~= "sample" and not ns.GuideShown() then return end
 	Rares.PlaySound()
 	ns.Fire("RARE_SPOTTED", a)
 end

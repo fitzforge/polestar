@@ -507,6 +507,8 @@ ns.On("GUIDE_CHANGED", stepMoved)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or (type(path) == "string" and path:sub(1, 4) == "nav.") then
 		notify("OnSettings")
+	elseif path == "ui.shown" or path == "ui" then
+		Nav.Refresh() -- the arrow and travel button go and come back with the guide
 	end
 end)
 

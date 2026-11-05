@@ -732,7 +732,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | Command | What it does |
 |---|---|
 | `help` | List every command |
-| `show`, `hide` | Show or hide the guide window |
+| `show`, `hide` | Show or hide the guide window, with the arrow, the action buttons and the rare and transport alerts |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
