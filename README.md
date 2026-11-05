@@ -282,8 +282,10 @@ Most are published on [polestar.guide](https://polestar.guide/community), which
 keeps them safe to play and fair to their authors:
 
 - **Plain text, built by Polestar.** An author publishes the guide files, never
-  code: the site builds every version with Polestar's own compiler and checks
-  every step against the game data, so no author's code runs in your game.
+  code: the site builds every version with Polestar's own compiler, so no
+  author's code runs in your game. It also checks every step against the game
+  data and gives the author its notes; what to change is the author's call,
+  and the notes never hold a version back.
 - **Scanned and reviewed.** Every version is scanned on VirusTotal before it is
   published, and its page links the report. A moderator reviews each author's
   first version, and any later one that changes owner or installs different
