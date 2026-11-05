@@ -238,12 +238,12 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
-			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way" }),
+			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
 		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
 			search = "teleport, portal, mage, druid, moonglade",
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
 		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
-			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains" }),
+			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
 			gear = { tip = L["Line style"], onClick = function() if UI.ShowLineStyle then UI.ShowLineStyle() end end } }),
@@ -346,7 +346,7 @@ local BUILTIN = {
 		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, search = "font size, bigger text, smaller text, readability",
 			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
-			search = "animations, motion sickness, fps, performance, lag, stutter" },
+			search = "animations, motion sickness, fps, frame rate, performance, lag, stutter, cpu, slow" },
 		{ kind = "toggle", key = "ui.classCardSound", label = L["Class quest chime"],
 			disabled = function() return not (UI.ClassCard and UI.ClassCard.GameSoundOn()) end,
 			help = L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] },
@@ -1226,7 +1226,7 @@ local function kindOf(m, t)
 		k = 3
 	elseif lq >= 4 and distance(m.qb, lq, t, m.cap) <= m.cap then
 		k = 2
-	elseif lq >= 3 and find(t, q, 1, true) then
+	elseif lq >= 4 and find(t, q, 1, true) then
 		k = 1
 	else
 		k = 0

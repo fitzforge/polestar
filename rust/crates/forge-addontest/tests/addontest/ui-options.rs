@@ -1101,9 +1101,20 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 		r#"
 		local once = 0
 		for _, k in ipairs(keys("autoaccept")) do if k == "behavior.autoAccept" then once = once + 1 end end
-		emit({
+		-- By score across groups (the page shows them grouped by page and tab).
+		local function best(q)
+			local list = {}
+			for gi, g in ipairs((O.Search(q))) do for ci, c in ipairs(g.controls) do list[#list + 1] = { c.key or c.label, c.psScore, gi * 1000 + ci } end end
+			table.sort(list, function(a, b) if a[2] ~= b[2] then return a[2] > b[2] end return a[3] < b[3] end)
+			local out = {}
+			for i, e in ipairs(list) do out[i] = e[1] end
+			return out
+		end
+		local perf = {}
+		for _, q in ipairs({ "fps", "performance", "lag", "stutter", "cpu", "frame rate", "slow" }) do perf[q] = best(q) end
+		emit({ perf = perf,
 			joined = top("autoaccept"), hyphen = top("auto-loot"), typo = top("auto acept"), prefixes = top("acc quest"),
-			fps = keys("fps"), minimap = top("minimap icon"), question = top("how do I turn off the quest tracker"),
+			minimap = top("minimap icon"), question = top("how do I turn off the quest tracker"),
 			american = top("sell gray"), repiar = keys("repiar"), once = once, upper = top("AUTOACCEPT"),
 		})"#,
 	);
@@ -1113,7 +1124,17 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 	assert_eq!(out["hyphen"]["key"], "qol.fastLoot");
 	assert_eq!(out["typo"]["key"], "behavior.autoAccept", "\"acept\" is one letter off");
 	assert_eq!(out["prefixes"]["key"], "behavior.autoAccept", "\"acc\" starts accept, \"quest\" quests");
-	assert!(includes(&out["fps"], "qol.questDB") && includes(&out["fps"], "ui.reduceMotion"), "fps: {}", out["fps"]);
+	// What changes Polestar's frame cost: the walking paths and route planning first, then Reduce motion; never the
+	// Quest database, and no three-letter word matches inside another ("lag" in "flag").
+	for (q, v) in out["perf"].as_object().unwrap() {
+		let k: Vec<&str> = v.as_array().unwrap().iter().map(|x| x.as_str().unwrap()).collect();
+		assert!(k.len() >= 3, "{q}: {k:?}");
+		let mut first = k[..2].to_vec();
+		first.sort();
+		assert_eq!(first, ["nav.navRouting", "nav.travel"], "{q}: {k:?}");
+		assert_eq!(k[2], "ui.reduceMotion", "{q}: {k:?}");
+		assert!(!k.contains(&"qol.questDB"), "{q}: {k:?}");
+	}
 	assert_eq!(out["minimap"]["key"], "maps.minimapButton");
 	assert_eq!(out["question"]["key"], "qol.hideQuestTracker", "filler words are not needed");
 	assert_eq!(out["american"]["key"], "qol.sellJunk");

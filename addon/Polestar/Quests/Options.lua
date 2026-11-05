@@ -25,7 +25,7 @@ Q.OPTIONS = {
 	{
 		page = L["Questing"], tab = L["Quests"], section = L["Quest database"],
 		controls = {
-			{ kind = "toggle", key = "qol.questDB", label = L["Quest database"], search = "memory, ram, fps, performance, lag, stutter, quest data",
+			{ kind = "toggle", key = "qol.questDB", label = L["Quest database"], search = "memory, ram, quest data",
 				help = L["Quest, NPC and item data for markers and tooltips, loaded when one of them is on (about 5 MB of memory)."] },
 		},
 	},
