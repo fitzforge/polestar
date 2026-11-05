@@ -205,3 +205,57 @@ fn guides_validate_refuses_a_bad_label_or_along() {
 	"#);
 	assert_eq!(out, vec![json!(true), json!(true), json!("step 1: bad label"), json!("step 2: duplicate label a"), json!("step 1: bad along"), json!("step 2: bad along"), json!("step 1: bad along")]);
 }
+
+// #862, the guide as shipped (guides/forever/horde/tauren/01-mulgore.guide, compiled with data/forever; skipped
+// with a note without it): step 9 `along until q780` collects The Battleboars' snouts and flanks on the way,
+// step 12 (label q780) turns 780 in to Grull Hawkwind (2980). The reporter: a level 5 Tauren Druid at Red
+// Cloud Mesa, step 12 live, 757, 781, 3376 and 1656 ready, 780 at one of two objectives (here the 8 snouts
+// done, 3 of 8 flanks). The arrow leads to the flanks (step 9 goal 2), not to Grull (before: 12:1).
+#[test]
+fn mulgore_the_battleboars_half_done_at_camp_narache_the_arrow_leads_to_the_boars_not_to_grull() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/tauren/01-mulgore.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1412");
+	let before = format!(
+		r#"local w = stub.world
+w.addMap(1412, {{ name = "Mulgore", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Tauren", "Tauren", "DRUID", "DRUID", "Horde", 5
+w.moveTo(1412, 50.64, 83.03)
+w.complete({{ 752, 747, 753, 750, 3094, 755, 95805 }})
+w.onQuest(781, {{}}); w.onQuest(757, {{ {{ required = 12, fulfilled = 12 }} }}); w.onQuest(1656, {{}})
+w.onQuest(3376, {{ {{ required = 1, fulfilled = 1 }} }})
+w.onQuest(780, {{ {{ required = 8, fulfilled = 8 }}, {{ required = 8, fulfilled = 3 }} }})
+w.addItem(4770, 12); w.addItem(10459, 1); w.addItem(4848, 8); w.addItem(4849, 3)
+"#,
+		f.get("c").to_js_string(),
+		f.get("left").to_js_string(),
+		f.get("right").to_js_string(),
+		f.get("top").to_js_string(),
+		f.get("bottom").to_js_string()
+	);
+	let script = format!(
+		r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+E.SetGuide("forever/horde/tauren/01-mulgore"); flush()
+emit({{ E.GetLiveStep(), wp() }})
+"#,
+		loads.join("\n")
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() });
+	assert_eq!(out, vec![json!([12, "9:2"])], "the flanks still to get (step 9 goal 2), not Grull Hawkwind's turn-in (12:1)");
+}
