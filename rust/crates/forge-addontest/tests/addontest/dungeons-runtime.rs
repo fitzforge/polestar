@@ -70,7 +70,11 @@ fn journal(inputs: &Value, codex: &Value) -> V {
 		factions: obj(&codex["factions"]),
 		zones: obj(&codex["zones"]),
 	};
-	build_journal(&JournalInputs { maps: &maps, frames: &frames, fv_quests: &fq, fv_objects: &fo, fv_zones: &fz, fv_dungeons: &fd, journal_quests: &jq, attunement_table: &att }, &c).0
+	build_journal(
+		&JournalInputs { maps: &maps, frames: &frames, fv_quests: &fq, fv_objects: &fo, fv_zones: &fz, fv_dungeons: &fd, journal_quests: &jq, attunement_table: &att, store_xp: &Default::default() },
+		&c,
+	)
+	.0
 }
 
 fn journal_json(inputs: &Value, codex: &Value) -> Value {

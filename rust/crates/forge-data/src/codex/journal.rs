@@ -3,7 +3,7 @@
 
 use std::sync::LazyLock;
 
-use forge_guide::js::{num_str, str_to_num, Obj, V};
+use forge_guide::js::{num_str, parse_json, str_to_num, Obj, V};
 use regex::Regex;
 use rustc_hash::{FxHashMap, FxHashSet};
 
@@ -251,6 +251,36 @@ pub struct Codex {
 	pub zones: V,
 }
 
+/// quest id -> XP from forever-db (`db`, the folder): its quest store (`data/quest.jsonl`), the open
+/// database's answer for which source to believe, then the corrections not published into it yet
+/// (`corrections/quests.json`). `quests.json` takes XP from QuestieDB first and web XP only for what
+/// QuestieDB lacks, so it can hold an older number (#837). No store (a slice of the data): empty.
+pub fn load_store_xp(db: &std::path::Path) -> Result<FxHashMap<i64, f64>, String> {
+	let mut out = FxHashMap::default();
+	let store = db.join("data/quest.jsonl");
+	if !store.exists() {
+		return Ok(out);
+	}
+	let read = |f: &std::path::Path| std::fs::read_to_string(f).map_err(|e| format!("{}: {e}", f.display()));
+	for (i, line) in read(&store)?.lines().enumerate().filter(|(_, l)| !l.trim().is_empty()) {
+		let q = parse_json(line).map_err(|e| format!("{}:{}: {e}", store.display(), i + 1))?;
+		if q.get("xp").num() > 0.0 {
+			out.insert(q.get("id").num() as i64, q.get("xp").num());
+		}
+	}
+	let corrections = db.join("corrections/quests.json");
+	if corrections.exists() {
+		let all = parse_json(&read(&corrections)?).map_err(|e| format!("{}: {e}", corrections.display()))?;
+		for (id, record) in oentries(&all) {
+			let xp = record.get("set").get("xp").num();
+			if xp > 0.0 {
+				out.insert(str_to_num(&id) as i64, xp);
+			}
+		}
+	}
+	Ok(out)
+}
+
 pub struct JournalInputs<'a> {
 	pub maps: &'a [InstanceMap],
 	/// map-frames.json forever frames.
@@ -262,6 +292,8 @@ pub struct JournalInputs<'a> {
 	pub fv_dungeons: &'a V,
 	pub journal_quests: &'a [V],
 	pub attunement_table: &'a V,
+	/// The XP forever-db gives each quest (`load_store_xp`): what the pages show first.
+	pub store_xp: &'a FxHashMap<i64, f64>,
 }
 
 fn match_map<'a>(inst: &V, maps: &'a [InstanceMap]) -> Option<&'a InstanceMap> {
@@ -536,7 +568,7 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		}
 		let rewards = Obj::new();
 		rewards.set("items", V::from(ritems));
-		rewards.set("xp", nn(f.get("xp")));
+		rewards.set("xp", inp.store_xp.get(&(str_to_num(&ids) as i64)).map_or_else(|| nn(f.get("xp")), |xp| V::Num(*xp)));
 		let money = f.get("rewards").get("money");
 		rewards.set(
 			"money",

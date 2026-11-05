@@ -4268,7 +4268,7 @@ the names pack, kind `objective`), chain (every prerequisite and breadcrumb of t
 all of `pre` and `preAny`, oldest first, at most 20), rewards (items with
 quality, count and choice from recordings and ForeverLevelingBiS, else
 the quest list's rewards, choice versus fixed as the list files them; XP from
-`quests.json`; money, else the list's; reputation from the list's rewards, its
+`forever-db/data/quest.jsonl`, else `quests.json`; money, else the list's; reputation from the list's rewards, its
 "+1" placeholders left out, never the standing a quest asks for) and, with
 `--local-extras`, DungeonJournal's audited shareability; bosses in kill order
 with the quests tied to them (an encounter's boss carries its DungeonEncounter

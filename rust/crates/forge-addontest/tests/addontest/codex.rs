@@ -699,6 +699,7 @@ fn inputs(s: Synth) -> Inputs {
 		entrance_table: V::obj(),
 		rep_table: V::obj(),
 		attunement_table: V::obj(),
+		store_xp: Default::default(),
 		journal_quests: Vec::new(),
 		warnings: Vec::new(),
 	}
