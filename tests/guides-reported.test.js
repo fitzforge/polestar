@@ -612,26 +612,30 @@ test(`EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads "Tame
 	assert.ok(seen >= 21, `the seven Hunter starting guides' 21 tames (found ${seen})`);
 });
 
-test(`#873: an objective done by using an item on someone reads the item use, not "Kill": Curing the Sick and Are We There, Yeti?`, { skip }, () => {
-	// The data counts the salve's cure and the yeti's fright as kill credit, so the goal stays a
-	// `kill` tracking the objective; its text says what to do. The hand-written druid guide says it
-	// itself; the generated leveling guides get it from data/places.json on the next build.
-	const want = {
-		'6124.1': 'Use the Curative Animal Salve on Sickly Deer',
-		'6129.1': 'Use the Curative Animal Salve on Sickly Gazelles',
-		'5163.1': "Use Umi's Mechanical Yeti beside Legacki",
-		'5163.2': "Use Umi's Mechanical Yeti beside Sprinkle",
-		'5163.3': "Use Umi's Mechanical Yeti beside Quixxil",
-	};
+// The data counts the salve's cure and the yeti's fright as kill credit, so the goal stays a `kill`
+// tracking the objective; its text says what to do. The hand-written druid guide says it itself; the
+// generated leveling guides get it from data/places.json on the next build.
+const USE_ITEM_873 = {
+	'6124.1': 'Use the Curative Animal Salve on Sickly Deer',
+	'6129.1': 'Use the Curative Animal Salve on Sickly Gazelles',
+	'5163.1': "Use Umi's Mechanical Yeti beside Legacki",
+	'5163.2': "Use Umi's Mechanical Yeti beside Sprinkle",
+	'5163.3': "Use Umi's Mechanical Yeti beside Quixxil",
+};
+
+test(`#873: data/places.json labels the Curing the Sick and Are We There, Yeti? objectives with the item use, not "Kill"`, () => {
+	const { places } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
+	for (const [key, label] of Object.entries(USE_ITEM_873)) {
+		const [quest, objective] = key.split('.').map(Number);
+		assert.equal(places.find((p) => p.quest === quest && p.objective === objective && p.label)?.label, label, `data/places.json labels ${key}`);
+	}
+});
+
+test(`#873: the druid Cure Poison guide's Curing the Sick goal reads the salve use, not "Kill"`, { skip }, () => {
 	for (const quest of [6124, 6129]) {
 		const list = goals('forever/class/druid/cure-poison.guide');
 		const { goal } = list[at(list, `${quest}.1`, (g) => g.t === 'kill' && g.quest === quest && g.oi === 1)];
-		assert.equal(goal.text, want[`${quest}.1`]);
-	}
-	const { places } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
-	for (const [key, label] of Object.entries(want)) {
-		const [quest, objective] = key.split('.').map(Number);
-		assert.equal(places.find((p) => p.quest === quest && p.objective === objective && p.label)?.label, label, `data/places.json labels ${key}`);
+		assert.equal(goal.text, USE_ITEM_873[`${quest}.1`]);
 	}
 });
 
