@@ -1005,6 +1005,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// War Banners was handed in.
 		[THOUSAND_NEEDLES, 98221, [464]],
 		[THOUSAND_NEEDLES, 465, [98221]],
+		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
+		// offer The Adventurer at level 4 with Night Web's Hollow still open.
+		[TIRISFAL, 96656, [382]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
