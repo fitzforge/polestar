@@ -173,7 +173,10 @@ the upload API, and the public list of what is never collected.
   published Recorder records the new format yet it says the new one comes
   with the next Polestar update. **Activity** lists every upload and every
   addon change; **What we send** shows the next upload as a summary, event
-  by event, and as the raw JSON.
+  by event, and as the raw JSON, and its **Already sent** tab shows the uploads
+  the server accepted in the last 8 days the same way (read from `sent.jsonl`;
+  nothing is asked of the server). A chunk the server already had is not kept
+  there, and Activity lists uploads older than that.
 - **Settings** has sharing and pause, the addon update options, start with
   your computer, the game folder, "Delete my data from the server", the
   frame-rate overlay (Ctrl+Shift+F anywhere, or `POLESTAR_FRAME_METER=1`
@@ -215,7 +218,7 @@ Everything lives in the app's data folder (Settings > Open data folder):
 | `settings.json` | Sharing (`consent`, and `everShared`: sharing was on once, so off is the player's choice), whether the sharing notice was read, pause, the game folder, the server address. |
 | `progress.json` | Per Recorder install id: the last chunk sent and the last one the server confirmed. |
 | `activity.json` | The last 500 uploads. |
-| `sent.jsonl` | The chunks the server accepted in the last 8 days, for the Home page's week. |
+| `sent.jsonl` | The chunks the server accepted in the last 8 days, as they left: for the Home page's week and What we send's Already sent tab. |
 | `packs.json` | Per community site (its address normalized: lowercase host, default port dropped, no trailing slash), the last guide index accepted (its bytes, signature and ETag): the Community page works offline, and an older index is never accepted after it. |
 | `community.json` | Per installed guide, what it was pinned to at install (uid, publisher, folders), and the guides the site turned off or removed. |
 

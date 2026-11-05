@@ -10,7 +10,7 @@ use tauri_plugin_autostart::ManagerExt as _;
 use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_opener::OpenerExt;
 
-use crate::engine::{now_ms, Engine, Preview, Snapshot, UNKNOWN_TOKEN};
+use crate::engine::{now_ms, Engine, Preview, SentUpload, Snapshot, UNKNOWN_TOKEN};
 use crate::manager::Changelog;
 use crate::store::{ActivityEntry, Channel, DEFAULT_SERVER};
 
@@ -284,6 +284,18 @@ pub fn activity(engine: Engine_) -> Vec<ActivityEntry> {
 pub async fn preview(engine: Engine_<'_>) -> Result<Preview, String> {
 	let engine = Arc::clone(&engine);
 	tauri::async_runtime::spawn_blocking(move || engine.preview()).await.map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub async fn sent_uploads(engine: Engine_<'_>) -> Result<Vec<SentUpload>, String> {
+	let engine = Arc::clone(&engine);
+	tauri::async_runtime::spawn_blocking(move || engine.sent_uploads()).await.map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub async fn sent_upload(engine: Engine_<'_>, at: i64, install: String) -> Result<Preview, String> {
+	let engine = Arc::clone(&engine);
+	tauri::async_runtime::spawn_blocking(move || engine.sent_upload(at, &install)).await.map_err(|e| e.to_string())
 }
 
 #[tauri::command]

@@ -283,6 +283,15 @@ export interface Preview {
 	json: string;
 }
 
+/** An upload the server accepted (`sent.jsonl`: the last 8 days), without its contents. */
+export interface SentUpload {
+	at: number;
+	install: string;
+	chunks: number;
+	bytes: number;
+	records: number;
+}
+
 export interface FolderCheck {
 	path: string;
 	problem: string | null;

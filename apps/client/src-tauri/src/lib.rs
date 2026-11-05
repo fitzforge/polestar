@@ -195,6 +195,8 @@ pub fn run() {
 			commands::delete_server_data,
 			commands::activity,
 			commands::preview,
+			commands::sent_uploads,
+			commands::sent_upload,
 			commands::retry_now,
 			commands::open_data_folder,
 			commands::open_link,
