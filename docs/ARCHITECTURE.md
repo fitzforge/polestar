@@ -1083,7 +1083,18 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   stands in counts as not visited; all visited: the one visited longest ago),
   so the spots form a circuit. Spots with `alt` are never picked by these
   rules; they are reached by hand and, once picked, hold like any current spot
-  (camps: until another spot is 40 yd nearer). `Engine.CycleSpot(stepIndex,
+  (camps: until another spot is 40 yd nearer). Levels (#827): a kill or
+  collect goal's spot carries `lvl`, the highest level of the mobs spawning in
+  it (compiled from the data; with a level for every spot, the goal's own `lvl`
+  is the one most share and a spot carries `lvl` only when it differs; a
+  `loop` step's points carry none). While a goal
+  has a spot whose mobs are at most one level above the player
+  (`Spots.ABOVE`) and one above that, these rules leave the higher spots as
+  they leave alternatives (a current one above is left at once); with none at
+  the player's level every spot counts. A step with several open field goals
+  likewise leads to the nearest such spot of any of them (a spot without
+  `lvl`, or a goal without spots, counts as at the player's level), and only
+  with none to the nearest of all; a level up re-picks. `Engine.CycleSpot(stepIndex,
   goalIndex[, index])` moves on by hand to the nearest spot not visited lately,
   alternatives included (the current spot counts as visited), or to spot
   `index`; a spot picked that way holds until the player reaches it. It returns
