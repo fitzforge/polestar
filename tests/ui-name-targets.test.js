@@ -266,6 +266,7 @@ test('the NPC header wash responds to delegated hover, survives cycle refresh, a
 
 test('left release advances the clicked kind after navigation even when navigation reuses its overlay', () => {
 	const [out] = run(`
+		Polestar.Set("ui.showCompletedGoals", true)
 		Polestar.Set("qol.markTarget", true)
 		Polestar.Set("qol.markMob", "cycle")
 		Polestar.Set("qol.markNpc", "4")
@@ -419,6 +420,7 @@ test('the real gear-reward link remains above the objective overlay and keeps it
 
 test('objective clicks retain row navigation and the quest right-click menu', () => {
 	const [out] = run(`
+		Polestar.Set("ui.showCompletedGoals", true)
 		uistub.setGuide(uistub.elwynn, 3)
 		settle()
 		local row = rowFor("Kobold Vermin")
