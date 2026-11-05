@@ -99,8 +99,10 @@ Good to know:
   **Walk real paths** (Options, Arrow & routes) off never loads them.
 - **Optional:** `Polestar_Recorder` (`Polestar_Recorder-<version>.zip` in the
   same release, or from the Polestar Client) records your play for the
-  recording program that improves the routes. It stays off until you start
-  sharing in the Polestar Client or type `/psrec on`.
+  recording program that improves the routes. With the Polestar Client it
+  records while sharing is on, which it is by default (one click in the
+  Client stops it, and `/psrec off` always wins); on its own it stays off
+  until you type `/psrec on`.
 - **Community guides** are routes other players publish for Polestar, on
   [polestar.guide](https://polestar.guide/community): see
   [Community guides](#community-guides).
@@ -368,9 +370,10 @@ computer and:
   Updates install by themselves only if you turn that on, and then only a day
   after release and while the guide's publisher and folders are unchanged; a
   guide the site pulls is turned off or removed, with the reason shown.
-- **joins the recording program** if you want it to: with your consent it
-  sends what the Recorder records, showing exactly what each upload holds
-  first. Pause it, or delete everything it sent, any time
+- **shares your play with the recording program**, on by default: it sends
+  what the Recorder records, with no character, realm or account names, and
+  shows exactly what each upload holds. A notice says so the first time,
+  with Stop sharing; stop, pause, or delete everything it sent, any time
   ([docs/RECORDING.md](docs/RECORDING.md) lists every field).
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
@@ -692,9 +695,11 @@ shows: everything works with the mouse and keyboard as before.
 ### Recorder
 
 `Polestar_Recorder` is an optional companion addon that records your play
-for the recording program, to improve the routes. It is off until you start
-sharing in the [Polestar Client](https://polestar.guide/client) or turn it on
-(`/psrec on`, or Options > Recorder), and writes nothing while off. It writes
+for the recording program, to improve the routes. It records while sharing
+is on in the [Polestar Client](https://polestar.guide/client) (on by
+default there, unless you stop it or type `/psrec off`); without the Client
+it is off until you turn it on (`/psrec on`, or Options > Recorder), and it
+writes nothing while off. It writes
 compact chunks with no character, realm or account names, and records what
 the guides need most: kill pace and kill XP, drops counted against what your
 quests still needed, which quests each NPC offered you, trainer and vendor
@@ -1124,8 +1129,8 @@ saved you a minute. Questions and ideas are welcome on the
   `node --test "tests/**/*.test.js"` green.
 - **UI** changes stay in the visual system of [docs/DESIGN.md](docs/DESIGN.md);
   `node tools/polestar.js preview` renders them for review.
-- **Recordings** are the most useful contribution of all: start sharing in
-  the [Polestar Client](#polestar-client) and play, or attach `record report`
+- **Recordings** are the most useful contribution of all: install the
+  [Polestar Client](#polestar-client) (it shares by default) and play, or attach `record report`
   for the steps that felt slow.
 - **With an AI agent?** It reads [AGENTS.md](AGENTS.md) in a clone. To have
   Polestar's skills everywhere, install them:

@@ -1,8 +1,9 @@
 'use strict';
-// One opt-in (addon/Polestar_Recorder/Recorder.lua, docs/RECORDING.md "Ack
-// file"): Polestar Client writes PolestarRecorderShare into Ack.lua. true
-// turns recording on at login (once, with a message) unless the player typed
-// /psrec off; false turns it off; nil (no client) leaves the player's choice.
+// The client's share flag (addon/Polestar_Recorder/Recorder.lua, docs/RECORDING.md
+// "Ack file"): Polestar Client writes PolestarRecorderShare into Ack.lua while
+// sharing (on by default there). true turns recording on at login (once, with
+// a message) unless the player typed /psrec off; false turns it off; nil (no
+// client) leaves the player's choice, so a Recorder on its own stays off.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

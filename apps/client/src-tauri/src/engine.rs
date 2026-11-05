@@ -270,6 +270,7 @@ impl Engine {
 				});
 			}
 			let soon = self.poll_files();
+			self.default_share();
 			self.refresh_week();
 			self.upload_pending().await;
 			self.publish();
@@ -675,6 +676,28 @@ impl Engine {
 		self.sync_share();
 	}
 
+	/// Sharing is on by default: turns it on, as Start sharing does, for a player who never chose
+	/// ([`share_by_default`]); the window's notice then says what is shared, with Stop sharing.
+	/// Called right after `poll_files`, so every account's file has been looked at.
+	fn default_share(&self) {
+		let state = self.lock();
+		let on = share_by_default(&state.settings, state.install.is_some(), &state.accounts);
+		drop(state);
+		if !on {
+			return;
+		}
+		let result = self.save_settings(|s| {
+			s.consent = true;
+			s.ever_shared = true;
+			s.consent_at = Some(now_ms());
+			s.paused = false;
+		});
+		match result {
+			Ok(()) => eprintln!("sharing is on by default (never chosen, no /psrec off)"),
+			Err(e) => eprintln!("{e}"),
+		}
+	}
+
 	/// Puts the share flag in Ack.lua when the file does not say it already: the Recorder records
 	/// while the player shares (docs/RECORDING.md "Ack file"). Called when the settings change
 	/// and after every look for the game (which also catches a Recorder reinstalled by hand).
@@ -785,6 +808,7 @@ impl Engine {
 			version: env!("CARGO_PKG_VERSION").to_owned(),
 			setup_done: state.settings.setup_done || state.settings.consent,
 			consent: state.settings.consent,
+			share_notice: state.settings.consent && !state.settings.share_notice_seen,
 			paused: state.settings.paused,
 			server_url: state.settings.server_url.clone(),
 			default_server_url: crate::store::DEFAULT_SERVER.to_owned(),
@@ -902,11 +926,29 @@ fn backoff_secs(attempts: u32, retry_after: Option<u64>) -> u64 {
 	(BACKOFF_MIN << attempts.min(10)).min(BACKOFF_MAX).max(retry_after.unwrap_or(0).min(RETRY_AFTER_503_MAX))
 }
 
-/// What Ack.lua tells the Recorder: nothing (`None`) until the player has shared once, so a
-/// `/psrec on` of someone who never opted in stays theirs; then whether they share and have not
-/// paused uploads. (`consent` covers settings saved before `ever_shared` existed.)
+/// What Ack.lua tells the Recorder: nothing (`None`) until sharing has been on once, so a
+/// `/psrec on` of someone whose client never shared stays theirs; then whether they share and
+/// have not paused uploads. (`consent` covers settings saved before `ever_shared` existed.)
 fn sharing(settings: &Settings) -> Option<bool> {
 	(settings.ever_shared || settings.consent).then_some(settings.consent && !settings.paused)
+}
+
+/// Whether sharing turns on by default now: the player never chose (sharing was never on, so
+/// they never stopped it either), the game is found (setup done, an install) and no account's
+/// Recorder was turned off with `/psrec off` (its `optout`). Every account's file must have been
+/// looked at (`poll_files`): none there, read, holding nothing yet, or schema 1 (from before
+/// `/psrec off` was an opt-out); a file that can't be read waits, since its opt-out is unknown.
+fn share_by_default(settings: &Settings, found: bool, accounts: &[Account]) -> bool {
+	if settings.consent || settings.ever_shared || !settings.setup_done || !found {
+		return false;
+	}
+	accounts.iter().all(|a| match (&a.sv, &a.error) {
+		(Some(vars), _) => !vars.optout,
+		(None, Some(sv::Error::Missing | sv::Error::OldSchema)) => true,
+		(None, Some(_)) => false,
+		// Not read: no file when last looked at, or one that could not be read yet.
+		(None, None) => a.seen.is_none(),
+	})
 }
 
 /// `address`'s host when it is not `default` (both normalized): the banner names it.
@@ -951,7 +993,7 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		next_retry: None,
 	};
 	if !state.settings.consent {
-		return make("off", "Sharing is off", "Nothing is sent. Opt in under Recording to help improve Polestar's guides.".into(), None);
+		return make("off", "Sharing is off", "Nothing is sent. Start sharing under Recording to help improve Polestar's guides.".into(), None);
 	}
 	if state.settings.paused {
 		let detail = if pending > 0 { "Your new play waits on this PC until you resume. The Recorder keeps recording in the game." } else { "Nothing is sent until you resume. The Recorder keeps recording in the game." };
@@ -1024,8 +1066,10 @@ pub struct Snapshot {
 	pub version: String,
 	/// The first-run setup (finding the game) is behind the player.
 	pub setup_done: bool,
-	/// The player opted in to the recording program.
+	/// The player shares their play (on by default unless they stopped it).
 	pub consent: bool,
+	/// Sharing is on and the notice saying what it sends has not been read yet.
+	pub share_notice: bool,
 	pub paused: bool,
 	pub server_url: String,
 	pub default_server_url: String,
@@ -1244,7 +1288,7 @@ mod tests {
 	#[test]
 	fn no_share_flag_until_the_player_has_shared() {
 		let at = |consent, paused, ever_shared| sharing(&Settings { consent, paused, ever_shared, ..Settings::default() });
-		// Never opted in: the Recorder is left to /psrec.
+		// Never shared: the Recorder is left to /psrec.
 		assert_eq!(at(false, false, false), None);
 		assert_eq!(at(true, false, true), Some(true));
 		assert_eq!(at(true, true, true), Some(false));
@@ -1252,6 +1296,48 @@ mod tests {
 		assert_eq!(at(false, false, true), Some(false));
 		// Consent saved before ever_shared existed counts.
 		assert_eq!(at(true, false, false), Some(true));
+	}
+
+	/// An account folder as `poll_files` leaves it: no file, a file read, or one it can't read.
+	fn account(sv: Option<sv::SavedVars>, error: Option<sv::Error>) -> Account {
+		let seen = (sv.is_some() || error.is_some()).then_some((UNIX_EPOCH, 1));
+		Account { sv: sv.map(Arc::new), error, seen, ..Account::new_empty("WOW1", Path::new("Polestar_Recorder.lua")) }
+	}
+
+	fn recording(optout: bool) -> Option<sv::SavedVars> {
+		Some(sv::SavedVars { schema: 2, enabled: !optout, optout, ..Default::default() })
+	}
+
+	#[test]
+	fn sharing_is_on_by_default_for_a_player_who_never_chose() {
+		let never = Settings { setup_done: true, ..Settings::default() };
+		// A new install with the game found: no files yet, a first recording, or one from before
+		// the recording program.
+		assert!(share_by_default(&never, true, &[]));
+		assert!(share_by_default(&never, true, &[account(None, None)]));
+		assert!(share_by_default(&never, true, &[account(recording(false), None), account(None, Some(sv::Error::Missing))]));
+		assert!(share_by_default(&never, true, &[account(None, Some(sv::Error::OldSchema))]));
+		// Not before the game is found and set up.
+		assert!(!share_by_default(&Settings::default(), true, &[]));
+		assert!(!share_by_default(&never, false, &[]));
+		// Already sharing: nothing to turn on.
+		assert!(!share_by_default(&Settings { consent: true, ever_shared: true, ..never.clone() }, true, &[]));
+	}
+
+	#[test]
+	fn sharing_stays_off_for_every_opt_out() {
+		let never = Settings { setup_done: true, ..Settings::default() };
+		// Stopped sharing in the client (sharing was on before): never turned back on.
+		let stopped = Settings { ever_shared: true, ..never.clone() };
+		assert!(!share_by_default(&stopped, true, &[]));
+		assert!(!share_by_default(&Settings { paused: true, ..stopped }, true, &[account(recording(false), None)]));
+		// /psrec off on any account of this game.
+		assert!(!share_by_default(&never, true, &[account(recording(true), None)]));
+		assert!(!share_by_default(&never, true, &[account(recording(false), None), account(recording(true), None)]));
+		// A file that can't be read (its opt-out unknown), or that could not be read yet: wait.
+		assert!(!share_by_default(&never, true, &[account(None, Some(sv::Error::Field("chunks")))]));
+		let unread = Account { seen: Some((UNIX_EPOCH, 1)), ..account(None, None) };
+		assert!(!share_by_default(&never, true, &[unread]));
 	}
 
 	#[test]
