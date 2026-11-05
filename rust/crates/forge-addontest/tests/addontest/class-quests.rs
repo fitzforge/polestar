@@ -171,6 +171,7 @@ fn the_gated_guide_is_offered_once_its_gate_opens_nothing_with_the_setting_off()
 // the class card's data (UI/ClassRewards.lua) and a client whose spell icons name the spell.
 const CARD_PRE: &str = r#"uistub.install()
 stub.login()
+Polestar.Set("ui.showCompletedGoals", true)
 local GF = Polestar.UI.GuideFrame
 local CC = Polestar.UI.ClassCard
 GetSpellTexture = function(id) return "Interface\\Icons\\spell-" .. id end

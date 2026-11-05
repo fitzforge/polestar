@@ -38,18 +38,45 @@ local TABS = { { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwind
 "#;
 
 // Run `script` after the fakes are installed and the player logged in.
-fn run_with(script: &str, before: &str, install: &str) -> Vec<Value> {
+fn run_with_setting(script: &str, before: &str, install: &str, setup: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: before.into(),
 		addons: vec![Addon::files("Polestar", &FILES)],
-		script: format!("uistub.install({install})\nstub.login()\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{script}"),
+		script: format!("uistub.install({install})\nstub.login()\n{setup}\nlocal GF, UI, W = Polestar.UI.GuideFrame, Polestar.UI, Polestar.Widgets\nlocal F = PolestarGuideFrame\n{HELPERS}\n{script}"),
 		..Default::default()
 	})
 }
 
+fn run_with(script: &str, before: &str, install: &str) -> Vec<Value> {
+	run_with_setting(script, before, install, "Polestar.Set(\"ui.showCompletedGoals\", true)")
+}
+
 fn run(script: &str) -> Vec<Value> {
 	run_with(script, "", "")
+}
+
+#[test]
+fn completed_goals_are_hidden_by_default_and_the_setting_shows_them() {
+	let out = run_with_setting(
+		r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local function subjects()
+			local out = {}
+			for _, r in ipairs(visibleRows()) do out[#out + 1] = r.psGoal.subject end
+			return out
+		end
+		local hidden = subjects()
+		Polestar.Set("ui.showCompletedGoals", true)
+		emit({ default = Polestar.GetDefault("ui.showCompletedGoals"), hidden = hidden, shown = subjects() })"#,
+		"",
+		"",
+		"",
+	)
+	.remove(0);
+	assert_eq!(out["default"], false);
+	assert_eq!(out["hidden"], json!(["Kobold Vermin", "Tough Wolf Meat"]));
+	assert_eq!(out["shown"], json!(["Wolves Across the Border", "the Kobold Camp", "Kobold Vermin", "Tough Wolf Meat"]));
 }
 
 /// The first three entries of an array (`.slice(0, 3)`).

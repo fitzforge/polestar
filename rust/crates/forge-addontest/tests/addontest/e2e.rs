@@ -237,6 +237,7 @@ step Marshal McBride
 const ESCORT_SCRIPT: &str = r#"
 				${loads}
 				stub.login()
+				Polestar.Set("ui.showCompletedGoals", true)
 				stub.advance(0.5)
 				local w, GF = stub.world, Polestar.UI.GuideFrame
 				local DUNGEON = "|c" .. Polestar.Theme.Hex("dungeon")
