@@ -22,6 +22,7 @@
 - [ ] Not run, and why:
 - [ ] A changelog fragment in `changes/` (`forge changelog add`), crediting the reporter
 - [ ] An AI agent wrote or helped with this — **Model and tool:** ____
+- [ ] Every commit is signed off (`git commit -s`; CONTRIBUTING.md, "Sign-off")
 
 ## Maintainer review
 

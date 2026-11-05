@@ -332,6 +332,7 @@ your request matches it; to be sure, name it: "use polestar-triage on #123".
 
 - Base branch: see [Branches](#branches).
 - One change per commit.
+- Every commit signed off: see [Sign-off](#sign-off).
 - Plain messages that describe the change for the players or authors it
   affects (for example "Westfall: turn in at Sentinel Hill before the farms"), not
   how it was made.
@@ -393,3 +394,27 @@ merge; pull requests that leave the line blank are treated the same way.
 Contributions to Polestar are under GPL-3.0 ([LICENSE](LICENSE)). Community
 addons written by others are separate works; see
 [LICENSE-EXCEPTION.md](LICENSE-EXCEPTION.md).
+
+### Sign-off
+
+Every commit in a pull request ends with a sign-off line, added by
+`git commit -s`:
+
+```text
+Signed-off-by: Your Name <you@example.com>
+```
+
+It is your statement, under the
+[Developer Certificate of Origin](https://developercertificate.org), that you
+wrote the change or otherwise have the right to submit it under the project's
+licence. The name or email must match the commit's author. A check on every
+pull request ("Sign-off (DCO)") looks for it. Forgot it? Add it to every
+commit of your branch and update the pull request:
+
+```sh
+git rebase --signoff origin/next
+git push --force-with-lease
+```
+
+Commits made in GitHub's web editor are signed off for you. Merge commits and
+bots are exempt.

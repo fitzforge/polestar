@@ -1,0 +1,41 @@
+name: Sign-off
+
+# Every commit in a pull request carries a Developer Certificate of Origin
+# sign-off (https://developercertificate.org): a line
+#
+#   Signed-off-by: Your Name <you@example.com>
+#
+# whose name or email matches the commit's author. `git commit -s` adds it.
+# It records that the author wrote the change, or otherwise has the right to
+# submit it, under the project's licence (CONTRIBUTING.md, "Sign-off").
+# Merge commits and bots are exempt.
+#
+# Runs on pull_request with a read-only token. It checks out only the base
+# branch's .github/scripts (never the pull request's code) and reads the pull
+# request's commits as text from the API.
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  dco:
+    name: Sign-off (DCO)
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.pull_request.base.sha }}
+          sparse-checkout: .github/scripts
+          persist-credentials: false
+      - name: Check every commit is signed off
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: bash .github/scripts/dco.sh
