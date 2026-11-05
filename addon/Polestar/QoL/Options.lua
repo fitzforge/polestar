@@ -79,6 +79,10 @@ register(QUESTING, L["Rewards & gear"], L["Loot and merchants"], {
 })
 
 register(QUESTING, L["Quests"], L["Faster questing"], {
+	-- Accepting and turning in the guide's quests (behavior.*, Core/Engine.lua): here with the other
+	-- questing helpers, where players look for them (Fitz, 2026-11-05).
+	{ kind = "toggle", key = "behavior.autoAccept", label = L["Accept guide quests"], help = L["Only quests in the next steps of your open guides. Hold Shift to skip."] },
+	{ kind = "toggle", key = "behavior.autoTurnin", label = L["Turn in guide quests"], help = L["Never picks between rewards. Hold Shift to skip."] },
 	{ kind = "toggle", key = "qol.instantQuestText", label = L["Instant quest text"],
 		help = L["Shows quest text at once instead of fading it in (Forever's own option)."],
 		disabled = function() return not (QoL.Toggles and QoL.Toggles.InstantTextSupported()) end },
