@@ -1398,6 +1398,8 @@ L["Pick what the step asks for"] = "Wählen, was der Schritt verlangt"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "Beim NPC des Schritts wird die Gesprächsoption gewählt, die der Guide nennt, oder die Waren oder das Training geöffnet, die der Schritt braucht. Nur bei dem Schritt, an dem der Guide steht. Halte Umschalt gedrückt, um selbst zu wählen."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Wählt die einzige Option von NPCs ohne Quests. Halte Umschalt gedrückt, um sie zu lesen. Aus überspringt das Spiel manche trotzdem selbst, „Wählen, was der Schritt verlangt“ wählt weiter die Option des Schritts, und Flugmeister folgen „Flugkarte öffnen“."
 -- L["Reset"] = ""
+L["Click objectives to target"] = "Ziele per Klick anvisieren"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -1922,6 +1924,11 @@ L["The arrow is back on the guide."] = "Der Pfeil zeigt wieder auf den Guide."
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Verwendung: /polestar near trainer [Beruf] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "Knopf für Dienste in der Nähe"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Ein Knopf in der Kopfzeile des Guide-Fensters, links vom Menü, findet den nächsten Händler, Reparaturhändler, das nächste Gasthaus, den nächsten Flugmeister oder Lehrer und richtet den Pfeil dorthin."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Rechtsklick, um diese Etappe zu überspringen."
@@ -2750,6 +2757,11 @@ L["%d steps were left undone."] = "%d Schritte blieben offen."
 L["Next: %s"] = "Als Nächstes: %s"
 L["Pick a guide"] = "Guide auswählen"
 L["Not now"] = "Nicht jetzt"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Klicken, um %s anzuvisieren und zu markieren (außerhalb des Kampfes)."
+L["Click to target %s (out of combat)."] = "Klicken, um %s anzuvisieren (außerhalb des Kampfes)."
+L["%s not found nearby."] = "%s nicht in der Nähe gefunden."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "화살표가 다시 가이드를 따릅�
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "사용법: /polestar near trainer [전문 기술] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "주변 시설 버튼"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "가이드 창 머리글의 메뉴 왼쪽에 있는 버튼으로, 가장 가까운 상인, 수리, 여관, 비행 조련사 또는 전문가를 찾아 화살표가 그곳을 가리키게 합니다."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "오른쪽 클릭: 이 구간 건너뛰기."
@@ -833,6 +838,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "임무 클릭으로 대상 지정"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "임무 줄이나 NPC 제목을 클릭하면 전투 중이 아닐 때 그 NPC도 대상으로 지정합니다. 징표 설정은 대상 버튼과 같습니다. 현재 대상이 바뀌며, 찾지 못하면 대상이 해제됩니다."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -2769,6 +2776,11 @@ L["%d steps were left undone."] = "완료하지 않은 단계가 %d개 있습니
 L["Next: %s"] = "다음: %s"
 L["Pick a guide"] = "가이드 선택"
 L["Not now"] = "나중에"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."
+L["Click to target %s (out of combat)."] = "클릭: %s 대상 지정 (전투 중이 아닐 때)."
+L["%s not found nearby."] = "근처에서 찾을 수 없음: %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "A seta volta para o guia."
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Uso: /polestar near trainer [profissão] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "Botão de serviços próximos"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Um botão no cabeçalho da janela do guia, à esquerda do menu, encontra o vendedor, o reparo, a estalagem, o mestre de voo ou o instrutor mais próximo e aponta a seta para lá."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Clique direito para pular este trecho."
@@ -833,6 +838,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "Clicar nos objetivos seleciona o alvo"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Clicar numa linha de objetivo ou no cabeçalho de um PNJ também seleciona esse PNJ fora de combate, com as mesmas opções de marcação do Botão de alvo. Isso substitui o seu alvo atual; uma busca sem sucesso o limpa."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Só Aliança"
@@ -2769,6 +2776,11 @@ L["%d steps were left undone."] = "%d etapas ficaram por fazer."
 L["Next: %s"] = "Próximo: %s"
 L["Pick a guide"] = "Escolher um guia"
 L["Not now"] = "Agora não"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Clique para selecionar e marcar %s (fora de combate)."
+L["Click to target %s (out of combat)."] = "Clique para selecionar %s (fora de combate)."
+L["%s not found nearby."] = "%s não encontrado por perto."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

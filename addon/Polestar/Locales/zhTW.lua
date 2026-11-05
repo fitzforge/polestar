@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "箭頭重新指向指南。"
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "用法：/polestar near trainer [專業] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "附近服務按鈕"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "指南視窗標題列中、選單左側的按鈕，可找到最近的商人、修理、旅店、飛行管理員或訓練師，並讓箭頭指向那裡。"
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右鍵點擊以跳過這一段。"
@@ -833,6 +838,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "點擊任務目標以選取"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -2769,6 +2776,11 @@ L["%d steps were left undone."] = "有 %d 個步驟未完成。"
 L["Next: %s"] = "下一份：%s"
 L["Pick a guide"] = "選擇指南"
 L["Not now"] = "稍後再說"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"
+L["Click to target %s (out of combat)."] = "點擊選取 %s（戰鬥外）。"
+L["%s not found nearby."] = "附近找不到 %s。"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "Стрелка снова ведет п�
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Использование: /polestar near trainer [профессия] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "Кнопка «Услуги поблизости»"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Кнопка в заголовке окна гайда, слева от меню, находит ближайшего торговца, ремонт, трактир, распорядителя полетов или учителя и направляет туда стрелку."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "ПКМ — пропустить этот участок."
@@ -833,6 +838,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "Выбор цели щелчком по задачам"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -2769,6 +2776,11 @@ L["%d steps were left undone."] = "Невыполненных шагов: %d."
 L["Next: %s"] = "Далее: %s"
 L["Pick a guide"] = "Выбрать гайд"
 L["Not now"] = "Не сейчас"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Щелкните, чтобы выбрать целью и пометить: %s (вне боя)."
+L["Click to target %s (out of combat)."] = "Щелкните, чтобы выбрать целью: %s (вне боя)."
+L["%s not found nearby."] = "%s не найден поблизости."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
