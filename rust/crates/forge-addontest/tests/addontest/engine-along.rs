@@ -106,6 +106,22 @@ fn reaching_the_step_until_names_ends_the_list_but_a_quest_with_work_left_keeps_
 	assert_eq!(out, vec![json!([5, "2:1:0 3:1:0"]), json!("2:1:6 3:1:0"), json!("3:1:0")]);
 }
 
+// Bill's (#853, Legging It) and striderZA's (#862, The Battleboars) reports: at the labelled step the arrow stood on the
+// turn-in while its along kills were open. Until the quest is ready the arrow leads to that work and the turn-in
+// says it is still open.
+#[test]
+fn before_a_turn_in_that_is_not_ready_the_arrow_leads_to_its_open_along_work_and_the_turn_in_says_so() {
+	let out = run(r#"
+		local w = stub.world
+		w.accept(7, { 10 }); flush()
+		w.accept(783, {}); flush()
+		emit({ E.GetLiveStep(), wp(), E.GetStepView(5).goals[1].pinOpen or false })
+		w.progress(7, 1, 10); flush()
+		emit({ wp(), E.GetStepView(5).goals[1].pinOpen or false })
+	"#);
+	assert_eq!(out, vec![json!([5, "2:1", "along"]), json!(["5:1", false])]);
+}
+
 #[test]
 fn an_along_step_that_does_not_apply_when_only_or_that_the_player_skipped_is_not_listed() {
 	let out = run_with(

@@ -448,12 +448,15 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
 	r.Text:SetText(UI.GoalLine(goal, questHex))
 	-- White while it is to be done; done and skipped goals step back. The
-	-- turn-in of a quest the player pinned (#644) whose objectives are still
-	-- open: the warning colour, and its line says so.
+	-- turn-in of a quest whose objectives are still open, pinned (#644) or
+	-- worked along the way (#853): the warning colour, and its line says so.
 	local warn = goal.pinOpen and not done and not skipped
 	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
-	if warn then sub = sub and (L["Pinned: its objectives are still open."] .. "\n" .. sub) or L["Pinned: its objectives are still open."] end
+	if warn then
+		local open = goal.pinOpen == "along" and L["Its objectives are still open."] or L["Pinned: its objectives are still open."]
+		sub = sub and (open .. "\n" .. sub) or open
+	end
 	-- An unavailable quest's reason names its giver already.
 	if who and not goal.unavailable then sub = sub and (who .. "  \194\183  " .. sub) or who end
 	r.Sub:SetText(sub or "")
@@ -1959,12 +1962,12 @@ local function fillUpcoming(E, index)
 			local r = upRow(n)
 			r.psIndex = i
 			r.psSummary = UI.StepSummary(v)
-			-- It turns in a pinned quest still open (#644): warning colour, and says so.
+			-- It turns in a quest still open, pinned (#644) or worked along the way (#853): warning colour, and says so.
 			local warn = false
 			for _, gv in ipairs(v.goals) do
-				if gv.pinOpen then warn = true end
+				if gv.pinOpen then warn = warn == true or gv.pinOpen end
 			end
-			if warn then r.psSummary = r.psSummary .. " (" .. L["pinned, still open"] .. ")" end
+			if warn then r.psSummary = r.psSummary .. " (" .. (warn == "along" and L["still open"] or L["pinned, still open"]) .. ")" end
 			r.Num:SetText(i)
 			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 			r.Text:SetText(r.psSummary)
