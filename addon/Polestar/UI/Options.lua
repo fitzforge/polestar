@@ -1085,7 +1085,8 @@ end
 -- folded (lower case, accents off) and each two neighbours are also joined
 -- ("auto loot" gives "autoloot"). Every query word must match one of them, as
 -- the whole word, its start, a typo off (one letter for 4-7 letters, two for
--- 8 or more) or inside it; filler words ("the", "turn", "off") only add to a
+-- 8 or more) or inside it (a word of 4 letters or more: "lag" is not in
+-- "flag"); filler words ("the", "turn", "off") only add to a
 -- match. The label counts most, then the search terms and key, then the
 -- section, tab and page, then the help; typos and inside-a-word matches least.
 ---------------------------------------------------------------------------
