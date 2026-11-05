@@ -27,6 +27,8 @@ ns.RegisterDefaults("ui", {
 	opacity = 1,
 	bgOpacity = 0.94, -- the ground of every Polestar window
 	width = 340,
+	maxHeight = 0.5, -- the guide window's tallest, as a share of the screen's height; a longer step scrolls (#843)
+	wholeStep = false, -- the card lists every goal of the step, finished ones kept, instead of one person at a time (#843)
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
 	showNotes = true,

@@ -4498,16 +4498,53 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 - **Guide window** (`UI/GuideFrame.lua`): tab strip, a slim navigator (prev,
   step number, next, Skip, the bug that opens the report window, menu), one
   focus header from the step view's `groups`/`focus` (the person to talk to
-  now, or a field step's place) over every goal of the step that applies, in
-  written order (the focus's own, then the other persons' with the person's
-  name first on their line and their open goals in textDim; done ones
-  checked, a skipped quest with its reason, an accept the game does not
-  confirm open with its `noticeText` first on its line, so nothing leaves
-  the card when the focus moves on, #741/#739), counters right
-  after the goal text (in text, success once complete; the accent is kept
-  for the current goal's glyph, the arrow's target mark, tabs, primary
-  buttons and the progress fill), a "Then: <next
-  person>" line with "Person n of N", tips folded to one line (an opened tip
+  now, or a field step's place) over that group's open goals (#843), counters
+  right after the goal text (in text, success once complete; the accent is
+  kept for the current goal's glyph, the arrow's target mark, tabs, primary
+  buttons and the progress fill). Every other group of the step is a
+  summary line in written order: a later person "Then: <name> · 1 hand-in, 2
+  quests" (the name in the NPC or object colour, open goals that apply
+  counted by verb in the order they come: quests, hand-ins, tasks), the
+  field work "Then out here: 7 kills and items" (kills, items, else goals; a
+  "Go to" counts only when nothing else is open), a later group already
+  done "✓ <name>". Past the first three such lines, the rest share one "+ N
+  more people · X quests, Y tasks" line (`CARD.ahead`). The groups done
+  before the focus share one "✓ <name>, <name>" line, so a quest taken,
+  handed in or not offered stays on the card when the focus moves on
+  (#741/#739). A click on a line lists what it stands for under it (goals,
+  stepped back in textDim; the "more" line its persons' lines) and a second
+  click folds them; a new focus or step closes every line and the new focus
+  shows in full. Finished goals of the focus fold into a "✓ N done" line at
+  the top of its goals (`model.folded`, per guide, step and focus): a goal
+  already done when the focus came is counted at once; one that turns done
+  while it shows pops its check, holds 0.75 s, then folds shut over 0.3 s
+  (cubic ease-out; its text and glyph fade in the first 60 %), the rows
+  below gliding up because each row is anchored under the one before, and
+  the count goes up with its text glowing from the accent back to textDim
+  over 0.6 s. Goals done together start 80 ms apart; the first fold of a
+  focus grows the done line in as its row shuts. One driver frame
+  (`fold.driver`) runs every fold and the glow and drops its OnUpdate when
+  none is left; a frame only sets heights, alphas, colours and the points of
+  the frames under the card (`fitGoals`), and a fold that lands refills the
+  card once. Under `ui.reduceMotion` a fold is the hold, a 0.2 s fade and the
+  count, with no height motion or glow. A click on the done line lists the
+  finished goals, dimmed. "Show the whole step" (`ui.wholeStep`, off) lists
+  every goal of the step instead, as before #843 (the other persons' named on
+  their rows), with the "Then:" line and "Person n of N"; a done step (no
+  focus) always lists its goals. Otherwise the "Then: <next person>" line
+  shows only once no group of the step is open after the focus (it names the
+  next step's first person). The goals sit in a scroll area (`W.Scroll`)
+  between the header and the tip: the window never grows past `ui.maxHeight`
+  of the screen's height (0.5; 0.3 to 0.9 in Options > Guide > Window, in
+  the window's own units, so its scale and the UI scale count), the goals
+  area giving up the difference (never below 72 px), the header, the tip
+  and everything under the card staying whole. Past the cap the wheel
+  scrolls the goals (48 px a notch; without more to see the wheel stays the
+  camera's), a thin bar shows and fades out 1.5 s after the last scroll or
+  hover, and the current goal glides into sight when the focus or the
+  current goal changes (from the top on a new focus). A row scrolled out of
+  sight or folding has no name target. The resize grip and every width
+  change keep to the cap. Tips fold to one line (an opened tip
   shows the step's `image` under it: the texture in its pack's addon folder,
   as wide as the text column, its aspect kept, at most 160 high; none for a
   pack without an addon folder, or a file the client cannot load), and the

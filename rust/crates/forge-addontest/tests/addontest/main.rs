@@ -251,6 +251,8 @@ mod travel_transit;
 mod ui;
 #[path = "ui-along.rs"]
 mod ui_along;
+#[path = "ui-card.rs"]
+mod ui_card;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
 #[path = "ui-guide-end.rs"]

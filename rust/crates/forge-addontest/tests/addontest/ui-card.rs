@@ -1,0 +1,468 @@
+//! The guide window's card one person at a time (#843): the focus's goals in full, every other person of the step
+//! on one summary line that opens in place, finished goals folding into "✓ N done" (pop, hold, fold, count), the
+//! height cap with its scroll, Along the way not repeating the step, and "Show the whole step". Against the real
+//! Core + Theme + UI manifests and the fake Engine (tests/lua/stub_ui.lua).
+
+use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
+use serde_json::{json, Value};
+
+const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
+
+const HELPERS: &str = r#"
+local function plain(s) return ((s or ""):gsub("|c%x%x%x%x%x%x%x%x", "")):gsub("|r", "") end
+local function visibleRows()
+	local out = {}
+	for _, r in ipairs(GF.rows) do if r:IsShown() then out[#out + 1] = r end end
+	return out
+end
+local function rowFor(subject)
+	for _, r in ipairs(visibleRows()) do
+		if r.psGoal and r.psGoal.subject == subject then return r end
+	end
+end
+local function subjects()
+	local out = {}
+	for _, r in ipairs(visibleRows()) do out[#out + 1] = r.psGoal.subject end
+	return out
+end
+-- The goals area top to bottom: a row's subject, a line's text (plain), "+" on an opened line.
+local function items()
+	local out = {}
+	for _, f in ipairs(GF.CardItems()) do
+		if f.psLine then
+			local open = f.Chevron:GetTexture():match("chevron%-up") and "+" or ""
+			out[#out + 1] = "[" .. plain(f.Text:GetText()) .. "]" .. open
+		else
+			out[#out + 1] = f.psGoal.subject
+		end
+	end
+	return out
+end
+local function lineFor(needle)
+	for _, l in ipairs(GF.lines) do
+		if l:IsShown() and plain(l.Text:GetText()):find(needle, 1, true) then return l end
+	end
+end
+local function sameColor(fs, name)
+	local r, g, b = fs:GetTextColor()
+	local tr, tg, tb = Polestar.Theme.Color(name)
+	return math.abs(r - tr) < 0.002 and math.abs(g - tg) < 0.002 and math.abs(b - tb) < 0.002
+end
+-- A step shaped like Dun Morogh's Brewnall Village for a gnome (#843, the reporter's screenshot): three persons,
+-- then the field work, 13 goals. A sample: its names and ids are Classic's where they exist.
+local function brewnall()
+	local function G(t, f) f.t = t; return f end
+	local DM = 1426
+	local steps = uistub.guides[uistub.elwynn].steps
+	steps[#steps + 1] = { title = "Brewnall Village", note = "Gretta Ganter's dock is the first stop.", goals = {
+		G("accept", { verb = "Accept", subject = "Gretta's errand", subjectKind = "quest", quest = 98326, npc = 1, npcName = "Gretta Ganter", map = DM, x = 30.2, y = 45.7, status = "active" }),
+		G("accept", { verb = "Accept", subject = "Bitter Rivals", subjectKind = "quest", quest = 310, npc = 1374, npcName = "Marleth Barleybrew", map = DM, x = 30.2, y = 45.8, status = "active" }),
+		G("turnin", { verb = "Turn in", subject = "Evershine", subjectKind = "quest", quest = 318, npc = 1373, npcName = "Rejold Barleybrew", map = DM, x = 30.2, y = 45.9, status = "active" }),
+		G("accept", { verb = "Accept", subject = "The Perfect Stout", subjectKind = "quest", quest = 315, npc = 1373, npcName = "Rejold Barleybrew", map = DM, x = 30.2, y = 45.9, status = "pending" }),
+		G("accept", { verb = "Accept", subject = "A Favor for Evershine", subjectKind = "quest", quest = 319, npc = 1373, npcName = "Rejold Barleybrew", map = DM, x = 30.2, y = 45.9, status = "pending" }),
+		G("kill", { verb = "Kill", subject = "Ice Claw Bear", subjectKind = "npc", npc = 1196, quest = 319, optional = true, progress = { cur = 0, max = 6 }, status = "pending" }),
+		G("kill", { verb = "Kill", subject = "Elder Crag Boar", subjectKind = "npc", npc = 1127, quest = 319, optional = true, progress = { cur = 0, max = 8 }, status = "pending" }),
+		G("kill", { verb = "Kill", subject = "Snow Leopard", subjectKind = "npc", npc = 1201, quest = 319, optional = true, progress = { cur = 0, max = 8 }, status = "pending" }),
+		G("kill", { verb = "Kill", subject = "Elder Crag Boars", subjectKind = "npc", npc = 1127, quest = 319, progress = { cur = 0, max = 8 }, status = "pending" }),
+		G("kill", { verb = "Kill", subject = "Snow Leopards", subjectKind = "npc", npc = 1201, quest = 319, progress = { cur = 0, max = 8 }, status = "pending" }),
+		G("collect", { verb = "Collect", subject = "Restabilization Cog", subjectKind = "item", item = 3083, quest = 412, progress = { cur = 0, max = 1 }, status = "active" }),
+		G("collect", { verb = "Collect", subject = "Gyromechanic Gear", subjectKind = "item", item = 3084, quest = 412, progress = { cur = 0, max = 1 }, status = "active" }),
+		G("goto", { verb = "Go to", subject = "Frostmane Hold", subjectKind = "place", map = DM, x = 25.1, y = 50.9, status = "pending" }),
+	} }
+	return #steps
+end
+-- Every 0.05 s for `seconds`, fn(t) (t from now).
+local function frames(seconds, fn)
+	local t = 0
+	while t < seconds - 1e-9 do
+		stub.advance(0.05)
+		t = t + 0.05
+		fn(t)
+	end
+end
+"#;
+
+fn run_with(script: &str, before: &str) -> Vec<Value> {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: before.into(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!("uistub.install()\nstub.login()\nlocal GF, UI = Polestar.UI.GuideFrame, Polestar.UI\nlocal F = PolestarGuideFrame\n{HELPERS}\n{script}"),
+		..Default::default()
+	})
+}
+
+fn run(script: &str) -> Vec<Value> {
+	run_with(script, "")
+}
+
+fn f(v: &Value) -> f64 {
+	v.as_f64().unwrap_or_else(|| panic!("not a number: {v}"))
+}
+
+fn strings(v: &Value) -> Vec<String> {
+	v.as_array().unwrap().iter().map(|x| text(x).to_string()).collect()
+}
+
+#[test]
+fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_person_and_the_field_work() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, brewnall())
+		stub.advance(1)
+		local P = GF.parts
+		local calm = { person = P.person.Name:GetText(), items = items(), after = P.after:IsShown(), h = F:GetHeight() }
+		Polestar.Set("ui.wholeStep", true)
+		local whole = { items = items(), after = plain(P.after.Text:GetText()), persons = P.after.Count:GetText(), h = F:GetHeight() }
+		Polestar.Set("ui.wholeStep", false)
+		emit({ calm = calm, whole = whole, back = items() })"#)
+	.remove(0);
+	let calm = &out["calm"];
+	assert_eq!(calm["person"], "Gretta Ganter");
+	assert_eq!(
+		strings(&calm["items"]),
+		[
+			"Gretta's errand",
+			"[Then: Marleth Barleybrew  ·  1 quest]",
+			"[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]",
+			"[Then out here: 7 kills and items]",
+		],
+		"the person to talk to now in full; every other person and the field work on one line, counted"
+	);
+	assert!(calm["items"].as_array().unwrap().len() <= 5);
+	assert_eq!(calm["after"], false, "the lines already say who comes next");
+	// "Show the whole step": the list as before, with "Then:" and the count of persons.
+	assert_eq!(out["whole"]["items"].as_array().unwrap().len(), 13);
+	assert!(!strings(&out["whole"]["items"]).iter().any(|s| s.starts_with('[')), "no summary lines");
+	assert_eq!(out["whole"]["after"], "Then: Marleth Barleybrew");
+	assert_eq!(out["whole"]["persons"], "Person 1 of 3");
+	assert!(f(&out["calm"]["h"]) < f(&out["whole"]["h"]) - 150.0, "the card is far shorter: {} vs {}", out["calm"]["h"], out["whole"]["h"]);
+	assert_eq!(out["back"], out["calm"]["items"], "turned off again, the card reads one person at a time");
+}
+
+#[test]
+fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_moving_on_closes_it() {
+	let out = run(r#"
+		local s = brewnall()
+		uistub.setGuide(uistub.elwynn, s)
+		local line = lineFor("Rejold")
+		stub.RunScript(line, "OnClick", "LeftButton")
+		local opened = items()
+		stub.RunScript(lineFor("Rejold"), "OnClick", "LeftButton")
+		local closed = items()
+		stub.RunScript(lineFor("Rejold"), "OnClick", "LeftButton")
+		uistub.goal(s, 1).status = "done"
+		uistub.update()
+		emit({ opened = opened, closed = closed, moved = items(), person = GF.parts.person.Name:GetText() })"#)
+	.remove(0);
+	assert_eq!(
+		strings(&out["opened"]),
+		[
+			"Gretta's errand",
+			"[Then: Marleth Barleybrew  ·  1 quest]",
+			"[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]+",
+			"Evershine",
+			"The Perfect Stout",
+			"A Favor for Evershine",
+			"[Then out here: 7 kills and items]",
+		],
+		"a look ahead: Rejold's goals right under his line"
+	);
+	assert_eq!(strings(&out["closed"]), ["Gretta's errand", "[Then: Marleth Barleybrew  ·  1 quest]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]);
+	assert_eq!(out["person"], "Marleth Barleybrew");
+	assert_eq!(
+		strings(&out["moved"]),
+		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"],
+		"the next person opens by itself; the one opened by hand closes; the person done is one line"
+	);
+}
+
+// The field step (Elwynn, step 3): Kobold Vermin turns done while the window shows it.
+const FOLD: &str = r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.advance(1)
+		local frames0 = uistub.frameCount()
+		uistub.goal(3, 3).progress.cur = 10
+		uistub.goal(3, 3).status = "done"
+		uistub.update()
+		local h0 = F:GetHeight()
+		local row = rowFor("Kobold Vermin")
+		local at0 = { shown = row ~= nil, popping = Polestar.Anim.IsRunning(row.Icon, "size"), icon = row.Icon:GetTexture():match("([%w-]+)$"),
+			done = plain(lineFor("done").Text:GetText()) }
+		local samples = {}
+		frames(1.2, function(t)
+			local r = rowFor("Kobold Vermin")
+			local done = lineFor("done")
+			samples[#samples + 1] = { t = t, row = r ~= nil and r:IsShown(), k = r and (r.psK or 1) or 0, a = r and r:GetAlpha() or 0,
+				h = F:GetHeight(), done = plain(done.Text:GetText()), glow = not sameColor(done.Text, "textDim") }
+		end)
+		stub.advance(1)
+		emit({ at0 = at0, samples = samples, h0 = h0, rows = subjects(), lines = items(), folding = GF.Folding(), tweens = Polestar.Anim.Active(),
+			framesAdded = uistub.frameCount() - frames0, glowAfter = not sameColor(lineFor("done").Text, "textDim") })"#;
+
+#[test]
+fn a_goal_turning_done_pops_holds_then_folds_shut_while_the_rows_below_glide_up_and_done_counts_it_with_a_glow() {
+	let out = run(FOLD).remove(0);
+	assert_eq!(out["at0"], json!({ "shown": true, "popping": true, "icon": "check", "done": "1 done" }), "the moment it turns done: its check pops, the row stays");
+	let samples = out["samples"].as_array().unwrap();
+	let at = |s: &Value| f(&s["t"]);
+	// Hold (0.75 s): the row stays whole and opaque so the player sees the check.
+	for s in samples.iter().filter(|s| at(s) < 0.749) {
+		assert_eq!((f(&s["k"]), f(&s["a"])), (1.0, 1.0), "held at {}", at(s));
+	}
+	// Fold (0.3 s, ease-out): its height share and alpha only fall; the text is gone before the row has shut.
+	let folding: Vec<&Value> = samples.iter().filter(|s| at(s) > 0.76 && s["row"] == true).collect();
+	assert!(folding.len() >= 4, "several frames of motion: {}", folding.len());
+	for w in folding.windows(2) {
+		assert!(f(&w[1]["k"]) < f(&w[0]["k"]) && f(&w[1]["a"]) <= f(&w[0]["a"]), "{} -> {}", w[0], w[1]);
+	}
+	assert!(folding.iter().any(|s| f(&s["a"]) == 0.0 && f(&s["k"]) > 0.0), "faded before shut");
+	// The window glides: its height only falls, by less than half the row a frame (stub frames are 50 ms),
+	// never a jump of the row.
+	let h0 = f(&out["h0"]);
+	let end = f(&samples.last().unwrap()["h"]);
+	assert!(h0 - end >= 20.0, "the row's height is gone: {h0} -> {end}");
+	let mut last = h0;
+	for s in samples {
+		let h = f(&s["h"]);
+		assert!(h <= last + 0.01, "the window never grows back: {} at {}", h, at(s));
+		assert!(last - h < (h0 - end) * 0.5, "no jump: {} -> {} at {}", last, h, at(s));
+		last = h;
+	}
+	// Then the count: "2 done", its text glowing in the accent and back.
+	let landed = samples.iter().find(|s| s["row"] == false).expect("the row folded away");
+	assert!(at(landed) > 1.0 && at(landed) < 1.15, "lands after hold + fold: {}", at(landed));
+	assert_eq!(landed["done"], "2 done");
+	assert_eq!(landed["glow"], true, "the new count glows");
+	assert_eq!(out["glowAfter"], false, "and settles in textDim");
+	assert_eq!(out["rows"], json!(["Tough Wolf Meat"]));
+	assert_eq!(out["lines"], json!(["[Eagan Peltskinner]", "[2 done]", "Tough Wolf Meat"]));
+	assert_eq!(out["folding"], false, "the fold driver stops once nothing moves");
+	assert_eq!(out["tweens"], 0);
+	assert_eq!(out["framesAdded"], 0, "folding creates no frames");
+}
+
+#[test]
+fn with_reduced_motion_a_goal_turning_done_only_fades_then_the_count_changes() {
+	let out = run(&format!("Polestar.Set(\"ui.reduceMotion\", true)\n{FOLD}")).remove(0);
+	let samples = out["samples"].as_array().unwrap();
+	let h0 = f(&out["h0"]);
+	let visible: Vec<&Value> = samples.iter().filter(|s| s["row"] == true).collect();
+	for s in &visible {
+		assert_eq!(f(&s["k"]), 1.0, "no height motion at {}", s["t"]);
+		assert_eq!(f(&s["h"]), h0, "the window holds still while the row fades at {}", s["t"]);
+	}
+	assert!(visible.iter().any(|s| f(&s["a"]) < 1.0 && f(&s["a"]) > 0.0), "it fades");
+	let landed = samples.iter().find(|s| s["row"] == false).expect("the row is gone");
+	assert!(f(&landed["t"]) > 0.9 && f(&landed["t"]) < 1.05, "after the hold and a short fade: {}", landed["t"]);
+	assert_eq!(landed["done"], "2 done");
+	assert_eq!(landed["glow"], false, "no glow");
+	assert_eq!(out["rows"], json!(["Tough Wolf Meat"]));
+	assert_eq!(out["folding"], false);
+}
+
+#[test]
+fn goals_done_together_fold_one_after_another_a_beat_apart_into_one_count() {
+	let out = run(r#"
+		local s = brewnall()
+		local goals = uistub.guides[uistub.elwynn].steps[s].goals
+		for g = 1, 5 do goals[g].status = "done" end
+		for g = 6, 10 do goals[g].status = "active" end
+		uistub.setGuide(uistub.elwynn, s)
+		stub.advance(1)
+		local before = items()
+		uistub.goal(s, 9).status = "done"
+		uistub.goal(s, 10).status = "done"
+		uistub.goal(s, 11).status = "done"
+		uistub.update()
+		local mid
+		frames(0.9, function(t)
+			if not mid and t >= 0.85 - 1e-9 then
+				mid = {}
+				for _, name in ipairs({ "Elder Crag Boars", "Snow Leopards", "Restabilization Cog" }) do
+					local r = rowFor(name)
+					mid[#mid + 1] = r and (r.psK or 1) or 0
+				end
+			end
+		end)
+		stub.advance(1)
+		emit({ before = before, mid = mid, after = items(), folding = GF.Folding() })"#)
+	.remove(0);
+	assert_eq!(strings(&out["before"])[0], "[Gretta Ganter, Marleth Barleybrew, Rejold Barleybrew]", "the persons done: one line");
+	let mid: Vec<f64> = out["mid"].as_array().unwrap().iter().map(f).collect();
+	assert!(mid[0] < mid[1] && mid[1] < mid[2] && mid[2] <= 1.0, "staggered, first folds first: {mid:?}");
+	assert!(mid[0] > 0.0, "one movement, not one after the other finished: {mid:?}");
+	assert_eq!(
+		strings(&out["after"]),
+		["[Gretta Ganter, Marleth Barleybrew, Rejold Barleybrew]", "[3 done]", "Ice Claw Bear", "Elder Crag Boar", "Snow Leopard", "Gyromechanic Gear", "Frostmane Hold"]
+	);
+	assert_eq!(out["folding"], false);
+}
+
+#[test]
+fn the_done_line_opens_the_finished_goals_dimmed_for_review_and_closes_again() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		stub.RunScript(lineFor("done"), "OnClick", "LeftButton")
+		local opened = items()
+		local camp = rowFor("the Kobold Camp")
+		local dimmed = sameColor(camp.Text, "textMuted")
+		stub.RunScript(lineFor("done"), "OnClick", "LeftButton")
+		emit({ opened = opened, dimmed = dimmed, closed = items() })"#)
+	.remove(0);
+	assert_eq!(strings(&out["opened"]), ["[Eagan Peltskinner]", "[1 done]+", "the Kobold Camp", "Kobold Vermin", "Tough Wolf Meat"]);
+	assert_eq!(out["dimmed"], true);
+	assert_eq!(strings(&out["closed"]), ["[Eagan Peltskinner]", "[1 done]", "Kobold Vermin", "Tough Wolf Meat"]);
+}
+
+#[test]
+fn the_window_stops_at_its_height_cap_the_goals_scroll_and_the_current_goal_is_scrolled_into_view() {
+	let out = run(r#"
+		local s = brewnall()
+		for g = 1, 5 do uistub.guides[uistub.elwynn].steps[s].goals[g].status = "done" end
+		Polestar.Set("ui.maxHeight", 0.3)
+		Polestar.Set("ui.wholeStep", true)
+		uistub.setGuide(uistub.elwynn, s)
+		stub.advance(1)
+		local goals = GF.parts.goals
+		local cur = rowFor("Elder Crag Boars")
+		local top, view, scroll = GF.ItemTop(cur), goals.psViewH, goals:GetVerticalScroll()
+		local capped = { h = F:GetHeight(), cap = GF.CapHeight(), over = goals.psOver, wheel = goals.mouseWheel, bar = goals.Bar:IsShown(),
+			barAlpha = goals.Bar:GetAlpha(), scroll = scroll, inView = top >= scroll - 0.5 and top + cur:GetHeight() <= scroll + view + 0.5,
+			content = goals.psContentH, view = view }
+		stub.advance(3)
+		local idleAlpha = goals.Bar:GetAlpha()
+		stub.RunScript(goals, "OnMouseWheel", 1)
+		local wheeled = { scroll = goals:GetVerticalScroll() }
+		stub.advance(0.2)
+		wheeled.alpha = goals.Bar:GetAlpha()
+		Polestar.Set("ui.width", 260)
+		local narrow = F:GetHeight()
+		Polestar.Set("ui.maxHeight", 0.9)
+		local roomy = { h = F:GetHeight(), over = goals.psOver, wheel = goals.mouseWheel }
+		Polestar.Set("ui.wholeStep", false)
+		Polestar.Set("ui.width", 340)
+		Polestar.Set("ui.maxHeight", 0.3)
+		emit({ capped = capped, idleAlpha = idleAlpha, wheeled = wheeled, narrow = narrow, roomy = roomy,
+			calm = { h = F:GetHeight(), content = goals.psContentH } })"#)
+	.remove(0);
+	let c = &out["capped"];
+	assert_eq!(f(&c["cap"]), 1080.0 * 0.3, "30% of the screen at scale 1");
+	assert!(f(&c["h"]) <= f(&c["cap"]) + 0.5, "the window stops at the cap: {}", c["h"]);
+	assert_eq!(c["over"], true);
+	assert!(f(&c["content"]) > f(&c["view"]));
+	assert_eq!(c["wheel"], true, "the wheel scrolls the goals");
+	assert_eq!(c["bar"], true, "a thin bar shows there is more");
+	assert!(f(&c["scroll"]) > 0.0, "scrolled to the current goal, low in the list");
+	assert_eq!(c["inView"], true);
+	assert_eq!(f(&out["idleAlpha"]), 0.0, "the bar fades out when idle");
+	assert!(f(&out["wheeled"]["scroll"]) < f(&c["scroll"]), "the wheel scrolls up");
+	assert!(f(&out["wheeled"]["alpha"]) > 0.0, "and wakes the bar");
+	assert!(f(&out["narrow"]) <= f(&c["cap"]) + 0.5, "a narrower window still keeps to the cap");
+	assert_eq!(out["roomy"]["over"], false, "with room the step shows whole");
+	assert_eq!(out["roomy"]["wheel"], false, "and the wheel is the camera's again");
+	assert!(f(&out["roomy"]["h"]) > f(&c["h"]));
+	assert!(f(&out["calm"]["content"]) < f(&c["content"]) - 100.0, "one person at a time is far shorter than the whole step");
+	assert!(f(&out["calm"]["h"]) <= f(&c["cap"]) + 0.5);
+}
+
+#[test]
+fn along_the_way_leaves_out_goals_the_step_on_screen_lists_itself() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "On the way", goals = {
+			{ t = "kill", verb = "Kill", subject = "Kobold Vermin", subjectKind = "npc", npc = 6, quest = 7, progress = { cur = 7, max = 10 }, status = "active" },
+			{ t = "collect", verb = "Collect", subject = "Tough Wolf Meat", subjectKind = "item", item = 750, quest = 33, progress = { cur = 3, max = 8 }, status = "active" },
+			{ t = "kill", verb = "Kill", subject = "Young Wolf", subjectKind = "npc", npc = 299, quest = 33, progress = { cur = 0, max = 4 }, status = "active" },
+		} }
+		uistub.along = { { #steps, { 1, 2, 3 } } }
+		uistub.setGuide(uistub.elwynn, 3)
+		local shown = {}
+		for _, r in ipairs(GF.alongRows) do if r:IsShown() then shown[#shown + 1] = plain(r.Text:GetText()) end end
+		uistub.setGuide(uistub.elwynn, 5)
+		local elsewhere = 0
+		for _, r in ipairs(GF.alongRows) do if r:IsShown() then elsewhere = elsewhere + 1 end end
+		emit({ shown = shown, elsewhere = elsewhere })"#)
+	.remove(0);
+	assert_eq!(out["shown"], json!(["Kill Young Wolf  0/4"]), "the step's own kill and item are not said twice");
+	assert_eq!(out["elsewhere"], 3, "on a step that does not list them, all three");
+}
+
+#[test]
+fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() {
+	let out = run(r#"
+		UI.ShowOptions("guide")
+		local O = UI.Options
+		local widgets = O.Controls("guide", "Window")
+		local found = {}
+		for _, q in ipairs({ "whole step", "maximum height" }) do
+			for _, g in ipairs(O.Search(q)) do
+				for _, c in ipairs(g.controls) do
+					if c.key == "ui.wholeStep" or c.key == "ui.maxHeight" then
+						found[c.key] = { title = g.title, kind = c.kind, min = c.min, max = c.max, label = c.label }
+					end
+				end
+			end
+		end
+		emit({ found = found, widgets = { whole = widgets["ui.wholeStep"] ~= nil, max = widgets["ui.maxHeight"] ~= nil },
+			defaults = { whole = Polestar.Get("ui.wholeStep"), max = Polestar.Get("ui.maxHeight") } })"#)
+	.remove(0);
+	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
+	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
+	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window", "kind": "toggle", "label": "Show the whole step" }));
+	assert_eq!(
+		out["found"]["ui.maxHeight"],
+		json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" })
+	);
+	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
+}
+
+// A town hub of eight persons (Darkshore's Auberdine has seventeen): past three lines the rest share one.
+#[test]
+fn past_three_persons_the_rest_of_a_hub_share_one_more_line_that_opens_and_closes_in_place() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		local goals = {}
+		local names = { "Ada", "Bram", "Cora", "Dain", "Edda", "Finn", "Gil", "Hale" }
+		for i, who in ipairs(names) do
+			goals[#goals + 1] = { t = "accept", verb = "Accept", subject = "Quest " .. i, subjectKind = "quest", quest = 900 + i, npc = 800 + i, npcName = who, status = "active" }
+		end
+		-- Finn has a hand-in too; Gil's quest is done already, Hale's does not apply to this character.
+		table.insert(goals, 7, { t = "turnin", verb = "Turn in", subject = "Old Quest", subjectKind = "quest", quest = 899, npc = 806, npcName = "Finn", status = "active" })
+		goals[8].status = "done"
+		goals[9].status = "na"
+		goals[#goals + 1] = { t = "talk", verb = "Talk to", subject = "Hale", subjectKind = "npc", npc = 808, npcName = "Hale", status = "active" }
+		steps[#steps + 1] = { title = "Town", goals = goals }
+		uistub.setGuide(uistub.elwynn, #steps)
+		local closed = items()
+		stub.RunScript(lineFor("more people"), "OnClick", "LeftButton")
+		local opened = items()
+		stub.RunScript(lineFor("Edda"), "OnClick", "LeftButton")
+		local deeper = items()
+		stub.RunScript(lineFor("more people"), "OnClick", "LeftButton")
+		emit({ closed = closed, opened = opened, deeper = deeper, again = items() })"#)
+	.remove(0);
+	let closed = [
+		"Quest 1",
+		"[Then: Bram  ·  1 quest]",
+		"[Then: Cora  ·  1 quest]",
+		"[Then: Dain  ·  1 quest]",
+		"[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]",
+	];
+	assert_eq!(strings(&out["closed"]), closed, "only the goals that apply and are still open are counted");
+	assert_eq!(
+		strings(&out["opened"]),
+		[
+			"Quest 1",
+			"[Then: Bram  ·  1 quest]",
+			"[Then: Cora  ·  1 quest]",
+			"[Then: Dain  ·  1 quest]",
+			"[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]+",
+			"[Then: Edda  ·  1 quest]",
+			"[Then: Finn  ·  1 quest, 1 hand-in]",
+			"[Gil]",
+			"[Then: Hale  ·  1 task]",
+		]
+	);
+	assert!(strings(&out["deeper"]).contains(&"Quest 5".to_string()), "a line inside opens its goals too");
+	assert_eq!(strings(&out["again"]), closed);
+}

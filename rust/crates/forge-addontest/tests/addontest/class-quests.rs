@@ -408,7 +408,8 @@ local function slim()
 		only = on and f.Only:IsShown() and f.Only:GetText() or nil, trip = on and f.Trip:IsShown() or false,
 		line = on and f.Accept:IsShown() and f.Accept.Text:GetText() or nil, check = on and f.Accept.Check:IsShown() or false,
 		height = on and f:GetHeight() or 0, person = GF.parts.person.Name:GetText(),
-		row = uistub.findText(GF.parts.card, "Glyphic Memorandum") and true or false }
+		row = uistub.findText(GF.parts.card, "Glyphic Memorandum") and true or false,
+		giverLine = uistub.findText(GF.parts.card, "Sten Stoutarm") and true or false }
 end
 uistub.player.class, uistub.player.race, uistub.player.level = "MAGE", "Gnome", 1
 "#;
@@ -428,7 +429,7 @@ fn once_the_class_quest_is_taken_the_card_folds_to_one_line_naming_who_gets_it_a
 		uistub.goal(1, 1).ticked = true
 		uistub.update()
 		emit(slim())
-		-- Handed in: the card is gone, the accept a row like any other.
+		-- Handed in: the card is gone, the accept a goal like any other (on the persons-done line, #843).
 		uistub.goal(1, 1).ticked = false
 		uistub.goal(1, 3).status = "done"
 		uistub.update()
@@ -458,7 +459,7 @@ fn once_the_class_quest_is_taken_the_card_folds_to_one_line_naming_who_gets_it_a
 	assert_eq!(ticked["check"], true, "{ticked}");
 	let handed = &out[3];
 	assert_eq!(handed["shown"], false, "{handed}");
-	assert_eq!(handed["row"], true, "{handed}");
+	assert_eq!(handed["giverLine"], true, "the accept's giver stays on the card, on the line of the persons done: {handed}");
 }
 
 #[test]
