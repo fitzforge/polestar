@@ -50,11 +50,21 @@ fn check(name: &str, guides: &str, reference: &Path) -> Vec<String> {
 		diffs.push(format!("{name}: only in Rust: {}", f.display()));
 	}
 	for f in a.iter().filter(|f| b.contains(f)) {
-		if std::fs::read(reference.join(f)).unwrap() != std::fs::read(got.join(f)).unwrap() {
+		if unversioned(&std::fs::read(reference.join(f)).unwrap()) != unversioned(&std::fs::read(got.join(f)).unwrap()) {
 			diffs.push(format!("{name}: differs: {} (rust output in {})", f.display(), got.display()));
 		}
 	}
 	diffs
+}
+
+/// The file with the release version (guides/pack.json's, which every release bumps) blanked: the
+/// pack's `## Version:` TOC line and `version = "…"` in Pack.lua. Parity is about the compiled
+/// guides, so a release no longer breaks this test until the goldens are regenerated.
+fn unversioned(bytes: &[u8]) -> Vec<u8> {
+	let Ok(text) = std::str::from_utf8(bytes) else { return bytes.to_vec() };
+	let toc = regex::Regex::new(r"(?m)^## Version: .*$").unwrap();
+	let pack = regex::Regex::new(r#"version = "[^"]*""#).unwrap();
+	pack.replace_all(&toc.replace_all(text, "## Version: *"), r#"version = "*""#).into_owned().into_bytes()
 }
 
 #[test]
