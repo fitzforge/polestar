@@ -1,0 +1,199 @@
+-- The dungeon heads-up (#836): the class quest heads-up's card (UI/ClassToast.lua)
+-- for a dungeon whose quests have opened to this character. "LEVEL 18 ·
+-- DUNGEON", "Ragefire Chasm is open to you", how many quests there are to
+-- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP);
+-- "Pick up the quests" opens the dungeon's pickup guide in a new tab
+-- (Dungeons.PickUp), so the leveling guide keeps its own; "Later" and the
+-- close button dismiss it; "Turn these off" sets dungeons.headsUp off (also
+-- under Options > Discovery > Dungeons).
+--
+-- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
+-- in its range, with quests for the character's faction, not told before
+-- (CharState().dungeonToastSeen, once per dungeon per character), whose
+-- pickup plan (Dungeons.PickupPlan) has a quest to take now and either none
+-- left for later levels or at least MIN_OPEN to take. At a level-up, after
+-- DELAY seconds so the class quest heads-up goes first; at login, only for a
+-- dungeon whose range began within LOGIN_LEVELS levels, after the class
+-- quest heads-up and the class guide banner. Never in combat (the Codex may
+-- have to load): it waits for combat to end, and while another heads-up is
+-- on the card it waits for that one to be dismissed (HEADS_UP_HIDDEN). Of
+-- several, the one whose range began last.
+--
+--   UI.DungeonToast.Candidates(level, mode)  mode "levelup" | "login" | "any"
+--   UI.DungeonToast.Check(level, mode)       show the first candidate
+--   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key)
+--   /polestar dungeontoast [dungeon]         show it again
+
+local ADDON, ns = ...
+local UI, Theme = ns.UI, ns.Theme
+local L = ns.L
+local format, ipairs, sort, type = string.format, ipairs, table.sort, type
+
+local DT = {}
+UI.DungeonToast = DT
+
+local LOGIN_LEVELS = 2 -- on login, dungeons whose range began within this many levels
+local MIN_OPEN = 3 -- with quests still to open at later levels, this many open now
+local DELAY = 1.5 -- after a level-up, so the class quest heads-up has the card first
+local SIDE = { Alliance = "A", Horde = "H" }
+
+local function D() return ns.Dungeons end
+local function CT() return UI.ClassToast end
+
+local function seen()
+	local st = ns.CharState()
+	st.dungeonToastSeen = st.dungeonToastSeen or {}
+	return st.dungeonToastSeen
+end
+
+-- The character (Levels.Player: Compat.GetPlayerInfo), or an empty table.
+local function player()
+	local Lv = ns.Levels
+	return Lv and Lv.Player and Lv.Player() or {}
+end
+
+local function on()
+	local Dg = D()
+	return Dg and Dg.IsEnabled and Dg.IsEnabled() and ns.Get("dungeons.headsUp") and true or false
+end
+
+-- The dungeons to tell this character about at `level` (the character's when
+-- nil), the one whose range began last first ("any": told ones too, for the
+-- command): { key, name, zoneName,
+-- minLevel, maxLevel, take, level }.
+function DT.Candidates(level, mode)
+	local Dg = D()
+	if not (on() and Dg.List and Dg.PickupPlan) then return {} end
+	local p = player()
+	level = level or p.level
+	local side = SIDE[p.faction or ""]
+	if type(level) ~= "number" or not side then return {} end
+	local told, out = seen(), {}
+	for _, d in ipairs(Dg.List()) do
+		local min, max = d.minLevel, d.maxLevel
+		if d.kind == "dungeon" and (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
+			and (d.quests[side] or 0) > 0 and (mode ~= "login" or level - min <= LOGIN_LEVELS) then
+			local plan = Dg.PickupPlan(d.key)
+			local take = plan and #plan.take or 0
+			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
+				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level }
+			end
+		end
+	end
+	sort(out, function(a, b)
+		if a.minLevel ~= b.minLevel then return a.minLevel > b.minLevel end
+		return a.key < b.key
+	end)
+	return out
+end
+
+-- What the card says for candidate c.
+function DT.Model(c)
+	local m = { dungeon = c.key, icon = Theme.Media("icon-dungeon"), iconColor = "dungeon", titleColor = "text" }
+	m.head = format(L["LEVEL %d · DUNGEON"], c.level)
+	m.title = format(L["%s is open to you"], c.name)
+	local quests = c.take == 1 and L["1 quest to pick up"] or format(L["%d quests to pick up"], c.take)
+	local range = UI.LevelRange and UI.LevelRange(c.minLevel, c.maxLevel)
+	local where = { quests }
+	if range then where[#where + 1] = format(L["Levels %s"], range) end
+	if c.zoneName then where[#where + 1] = c.zoneName end
+	m.giver = table.concat(where, "  \194\183  ")
+	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
+	local Dg, LT = D(), UI.LevelTip
+	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
+	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
+	m.act = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
+	m.off = { label = L["Turn these off"], run = DT.TurnOff }
+	return m
+end
+
+-- Show the card for candidate c (marks the dungeon told). -> true when shown
+function DT.Show(c)
+	local T = CT()
+	if not (c and T and T.ShowCard) then return false end
+	seen()[c.key] = true
+	return T.ShowCard(DT.Model(c))
+end
+
+-- "Pick up the quests": the dungeon's pickup guide in a new tab, as its page's
+-- button does.
+function DT.PickUp(key)
+	local Dg = D()
+	local gid, reason = Dg.PickUp(key)
+	if gid then
+		ns.Set("ui.shown", true)
+		CT().Hide()
+		return gid
+	end
+	if reason == "tabs" then
+		ns.Print(L["Six tabs is the limit. Close one to open another."])
+	elseif reason == "nothing" then
+		ns.Print(L["Nothing to pick up"])
+	else
+		ns.Print(format(L["No guide could be made for this (%s)."], tostring(reason)))
+	end
+	return nil, reason
+end
+
+function DT.TurnOff()
+	ns.Set("dungeons.headsUp", false)
+	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."])
+end
+
+-- A check that has to wait (combat, another heads-up on the card).
+local pending
+
+function DT.Check(level, mode)
+	if not on() then return false end
+	local C, T = ns.Compat, CT()
+	if (C.InCombat and C.InCombat()) or (T and T.current) then
+		pending = { level, mode }
+		return false
+	end
+	pending = nil
+	local c = DT.Candidates(level, mode)[1]
+	return c ~= nil and DT.Show(c) or false
+end
+
+local function retry()
+	if not pending then return end
+	local p = pending
+	ns.After(0.5, function()
+		if pending == p then DT.Check(p[1], p[2]) end
+	end)
+end
+
+---------------------------------------------------------------------------
+-- Events and the command
+---------------------------------------------------------------------------
+
+ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
+	local n = tonumber(level)
+	if n then ns.After(DELAY, function() DT.Check(n, "levelup") end) end
+end)
+
+-- After the class quest heads-up (2 s) and the class guide banner (3 s).
+local loggedIn = false
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
+	if loggedIn then return end
+	loggedIn = true
+	ns.After(4, function() DT.Check(nil, "login") end)
+end)
+
+ns.RegisterEvent("PLAYER_REGEN_ENABLED", retry)
+ns.On("HEADS_UP_HIDDEN", retry)
+
+ns.RegisterCommand("dungeontoast", function(rest)
+	local Dg = D()
+	local key = rest and rest ~= "" and Dg and Dg.Find and Dg.Find(rest) or nil
+	local c
+	for _, x in ipairs(DT.Candidates(nil, "any")) do
+		if not key or x.key == key then c = x break end
+	end
+	if not c and key and Dg.Get(key) then
+		local d, plan = Dg.Get(key), Dg.PickupPlan(key)
+		c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = plan and #plan.take or 0,
+			level = player().level }
+	end
+	if not (c and DT.Show(c)) then ns.Print(L["No dungeon has opened up for this character."]) end
+end, L["Show the dungeon heads-up again (the next one due, or a dungeon)"])

@@ -338,6 +338,9 @@ local function build()
 	f.Open = W.Button(f, L["Open in a new tab"], function() CT.Open() end, { primary = true })
 	f.ShowMe = W.Button(f, L["Show me"], function() CT.ShowMe() end, { primary = true })
 	f.Later = W.Button(f, L["Later"], function() CT.Hide() end, { ghost = true })
+	-- Another heads-up's own action and its "stop these" (UI/DungeonToast.lua).
+	f.Act = W.Button(f, "", function() CT.Act() end, { primary = true })
+	f.Off = W.Button(f, "", function() CT.Off() end, { ghost = true })
 	f:Hide()
 	CT.frame = f
 
@@ -349,10 +352,17 @@ local function build()
 	end
 end
 
+-- class: the class colour's stripe, ring and header; nil (another heads-up)
+-- the accent's.
 local function paint(class)
 	local r, g, b = Theme.ClassColor(class)
 	if not r then r, g, b = Theme.Accent() end
-	local tr, tg, tb = CC().TextColor(class)
+	local tr, tg, tb
+	if class then
+		tr, tg, tb = CC().TextColor(class)
+	else
+		tr, tg, tb = Theme.Color("accent")
+	end
 	f.Stripe:SetVertexColor(r, g, b, 1)
 	f.Ring:SetVertexColor(r, g, b, 1)
 	f.Head:SetTextColor(tr, tg, tb, 1)
@@ -403,11 +413,13 @@ function layout(width)
 	f.Rule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
 	f.Rule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -y)
 	y = y + 10
-	local act = f.Open:IsShown() and f.Open or f.ShowMe
+	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or f.ShowMe
 	act:ClearAllPoints()
 	act:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
 	f.Later:ClearAllPoints()
 	f.Later:SetPoint("LEFT", act, "RIGHT", 8, 0)
+	f.Off:ClearAllPoints()
+	f.Off:SetPoint("LEFT", f.Later, "RIGHT", 4, 0)
 	y = y + act:GetHeight() + PAD
 	f:SetHeight(floor(y + 0.5))
 end
@@ -467,11 +479,30 @@ function CT.Show(q)
 			flags.classOffered[m.guideId] = true
 		end
 	end
+	CT.ShowCard(m)
+	return true
+end
+
+-- Paint and place the card for model m: a class quest's (CT.Model) or
+-- another heads-up's, which carries its own action instead of a quest:
+-- { head, title, giver, route, badge, icon, class (nil: the accent),
+-- titleColor, iconColor, act = { label, run }, off = { label, run } }.
+-- -> true when shown
+function CT.ShowCard(m)
+	if not (m and window()) then return false end
+	if not f then build() end
 	local wasShown = f:IsShown() and CT.current ~= nil
 	CT.current = m
 	paint(m.class)
 	f.Icon:SetTexture(m.icon)
+	if m.iconColor then
+		W.Color(f.Icon, m.iconColor)
+	else
+		W.Uncolor(f.Icon)
+		f.Icon:SetVertexColor(1, 1, 1, 1)
+	end
 	f.Head:SetText(m.head)
+	W.Color(f.Title, m.titleColor or "personName")
 	f.Title:SetText(m.title)
 	f.Giver:SetText(m.giver or "")
 	f.Giver:SetShown(m.giver ~= nil)
@@ -479,8 +510,12 @@ function CT.Show(q)
 	f.Route:SetShown(m.route ~= nil)
 	f.Badge.Text:SetText(m.badge or "")
 	f.Badge:SetShown(m.badge ~= nil)
-	f.Open:SetShown(m.guideId ~= nil)
-	f.ShowMe:SetShown(m.guideId == nil)
+	f.Act:SetShown(m.act ~= nil)
+	if m.act then W.SetButtonText(f.Act, m.act.label) end
+	f.Off:SetShown(m.off ~= nil)
+	if m.off then W.SetButtonText(f.Off, m.off.label) end
+	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
+	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
 	CT.Place(not wasShown)
 	if not wasShown and f:IsShown() then
 		local C = CC()
@@ -488,12 +523,28 @@ function CT.Show(q)
 			pcall(PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
 		end
 	end
-	return true
+	return f:IsShown()
 end
 
+-- Dismissing a card lets a heads-up that waited for it show (HEADS_UP_HIDDEN).
 function CT.Hide()
+	local was = CT.current
 	CT.current = nil
 	if f then f:Hide() end
+	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN") end
+end
+
+-- Another heads-up's action and its "stop these": the model's own.
+function CT.Act()
+	local m = CT.current
+	if m and m.act and m.act.run then return m.act.run(m) end
+	return false
+end
+
+function CT.Off()
+	local m = CT.current
+	if m and m.off and m.off.run then m.off.run(m) end
+	CT.Hide()
 end
 
 -- "Open in a new tab": the chain's Class guide in a new tab (the guide

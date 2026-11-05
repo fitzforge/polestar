@@ -4565,6 +4565,25 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   race and side the start and giver it takes for the reward: a giver in the
   race's home (its starting zone or capital), else one in no race's home,
   else one in another race's (Skyborne use the Night Elves' and Tauren's).
+- **Dungeon heads-up** (`UI/DungeonToast.lua`, #836): the class quest
+  heads-up's card (`UI.ClassToast.ShowCard(model)`, a model with its own
+  `act` and `off` buttons and no class: the accent's stripe, ring and
+  header) for a dungeon whose quests have opened to this character: "LEVEL
+  20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
+  17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
+  of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the
+  pickup guide in a new tab), **Later** and **Turn these off**
+  (`dungeons.headsUp` off; also under Options > Discovery > Dungeons). It
+  tells a dungeon, not a raid, with quests for the character's faction, the
+  character's level in its range, whose pickup plan has a quest to take now
+  and none left for later levels or at least 3 to take; once per dungeon per
+  character (`CharState().dungeonToastSeen`); of several, the one whose range
+  began last. It checks 1.5 s after `PLAYER_LEVEL_UP`, so the class quest
+  heads-up has the card first, and 4 s after login, then only for a dungeon
+  whose range began within the last two levels. In combat (the Codex may
+  have to load) or while another card is shown it waits for
+  `PLAYER_REGEN_ENABLED` or `HEADS_UP_HIDDEN` (fired by `UI.ClassToast.Hide`).
+  `/polestar dungeontoast [dungeon]` shows it again.
 - **Hub** (`UI/Picker.lua`, `UI.ShowPicker(opts)`; the window the guide menu
   grew into, `docs/SUITE.md` "UI"). A section rail (`W.Shell` with
   `rail = true`, `W.ShellRail`) at the window's left: the emblem, then one
