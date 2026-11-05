@@ -879,6 +879,9 @@ Warnings:
   on a quest whose objectives have places (an npc or object with spawns, an
   item with a placed dropper or vendor): the arrow has nowhere to point; write a
   goal per objective
+- a `use` with no quest (and not `optional`) right before a `collect … quest
+  Q.O`: nothing ticks a bare use, so it holds the step after the item is
+  collected; bind it to the objective (`use <item> quest Q.O`)
 - explicit coordinates more than 50 yards from every known spawn of the entity
 - ids missing from data but given explicit names/coordinates (new Forever content)
 - objective-capable goals with no coordinates
