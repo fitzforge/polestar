@@ -516,9 +516,12 @@ end
 
 ns.On("UNIT_AURA", function(_, unit, info)
 	if unit ~= "player" or not ns.Recording() then return end
+	-- Restricted contexts pass secret values, which error on a boolean test:
+	-- wait for an update that can be read.
+	if type(info) == "table" and issecretvalue and issecretvalue(info.isFullUpdate) then return end
 	if type(info) ~= "table" or info.isFullUpdate then
 		-- a full update: rescan and end the auras no longer there
-		local present = {}
+		local present, unreadable = {}, false
 		if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
 			for i = 1, 40 do
 				local a = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
@@ -528,11 +531,15 @@ ns.On("UNIT_AURA", function(_, unit, info)
 					present[id] = true
 					local kind = not resting[id] and restKind(a.name)
 					if kind then resting[id] = { kind = kind, at = GetTime() } end
+				else
+					unreadable = true
 				end
 			end
 		end
-		for id in pairs(resting) do
-			if not present[id] then endRest(id) end
+		if not unreadable then
+			for id in pairs(resting) do
+				if not present[id] then endRest(id) end
+			end
 		end
 		return
 	end
@@ -545,7 +552,8 @@ ns.On("UNIT_AURA", function(_, unit, info)
 	end
 	if type(info.removedAuraInstanceIDs) == "table" and next(resting) then
 		for _, id in ipairs(info.removedAuraInstanceIDs) do
-			if resting[id] then endRest(id) end
+			id = Num(id)
+			if id and resting[id] then endRest(id) end
 		end
 	end
 end)
