@@ -6123,9 +6123,10 @@ stops with at least one point. The window's place is `PolestarRecorderDB.panel`.
 
 #### Measuring routes
 
-Recording is opt-in (`PolestarRecorderDB.enabled == true`, set by `/psrec on`,
-Options > Recorder, or sharing in Polestar Client, docs/RECORDING.md "Ack
-file"); while it is off the Recorder writes nothing, not even a
+Recording is off until turned on (`PolestarRecorderDB.enabled == true`, set
+by `/psrec on`, Options > Recorder, or Polestar Client's share flag, which is
+on by default in the client unless the player stops sharing or typed
+`/psrec off`, docs/RECORDING.md "Ack file"); while it is off the Recorder writes nothing, not even a
 session. Testers turn it on, play with Polestar, run `forge record import`
 (or `forge record pull` for the server's), then `record report [--guide <text>]
 [--json] [--top n]`. The report rebuilds step passes from every session and

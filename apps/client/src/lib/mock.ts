@@ -53,6 +53,7 @@ const base: Snapshot = {
 	version: '0.1.0',
 	setupDone: true,
 	consent: true,
+	shareNotice: scene === 'notice',
 	paused: false,
 	serverUrl: MOCK_SERVER,
 	defaultServerUrl: MOCK_SERVER,
@@ -133,7 +134,7 @@ const base: Snapshot = {
 		packs: scene === 'community-off' ? [] : mockPacks(),
 		link: scene === 'community-link' ? { seq: 1, pack: 'emberway', error: null } : scene === 'community-bad-link' ? { seq: 1, pack: null, error: '"Ember_Way" isn\'t a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide\'s page on polestar.guide again.' } : null,
 	},
-	update: null,
+	update: scene === 'update' ? '0.1.4' : null,
 	custom: { community: null, server: null },
 };
 
@@ -207,7 +208,7 @@ function initial(): Snapshot {
 		case 'optin':
 			s.consent = false;
 			s.setupDone = scene === 'optin';
-			s.status = { ...s.status, kind: 'off', title: 'Sharing is off', detail: "Nothing is sent. Opt in under Recording to help improve Polestar's guides.", lastUpload: null };
+			s.status = { ...s.status, kind: 'off', title: 'Sharing is off', detail: "Nothing is sent. Start sharing under Recording to help improve Polestar's guides.", lastUpload: null };
 			s.week = null;
 			if (scene === 'optin') {
 				s.addons.products[1] = { ...s.addons.products[1], installed: null, status: 'install' };
@@ -470,7 +471,11 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 		emit();
 	},
 	set_sharing: (a) => {
-		snapshot = a.enabled ? { ...structuredClone(base), pending: 0 } : { ...snapshot, consent: false, status: { ...snapshot.status, kind: 'off', title: 'Sharing is off', detail: '', action: null } };
+		snapshot = a.enabled ? { ...structuredClone(base), pending: 0, shareNotice: false } : { ...snapshot, consent: false, shareNotice: false, status: { ...snapshot.status, kind: 'off', title: 'Sharing is off', detail: '', action: null } };
+		emit();
+	},
+	dismiss_share_notice: () => {
+		snapshot.shareNotice = false;
 		emit();
 	},
 	set_paused: (a) => {
@@ -489,8 +494,12 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 	retry_now: () => undefined,
 	open_data_folder: () => undefined,
 	open_link: (a) => void window.open(a.url as string, '_blank'),
-	check_update: () => null,
-	install_update: () => undefined,
+	check_update: () => snapshot.update,
+	// A real install restarts the app; here it fails after a moment, to show the banner's retry.
+	install_update: async () => {
+		await sleep(1500);
+		throw 'Could not download the update: the connection was reset.';
+	},
 	diagnostics: () => ({ renderer: 'browser (vite dev, mock backend)', frameMeter: params.has('meter') }),
 	window_ready: () => true,
 	client_log: (a) => void console.debug(a.line),

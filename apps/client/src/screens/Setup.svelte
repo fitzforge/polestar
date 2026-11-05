@@ -1,6 +1,7 @@
 <script lang="ts">
 	// First run: find the game, then the Addons page is ready to use.
-	// Recording is a separate opt-in, offered in the Recording section.
+	// Sharing then turns on by default (the notice says so once, with Stop sharing)
+	// unless the player stopped it before or typed /psrec off in the game.
 	import { api, message } from '../lib/backend';
 	import { ltr } from '../lib/format';
 	import { rise, stagger, swap } from '../lib/motion';

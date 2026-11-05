@@ -187,6 +187,7 @@ pub fn run() {
 			commands::set_addon_prefs,
 			commands::finish_setup,
 			commands::set_sharing,
+			commands::dismiss_share_notice,
 			commands::set_paused,
 			commands::get_autostart,
 			commands::set_autostart,

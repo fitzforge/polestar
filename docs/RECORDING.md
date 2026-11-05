@@ -6,7 +6,7 @@ in this repository.
 
 | Part | Where | Job |
 |---|---|---|
-| Recorder addon | `addon/Polestar_Recorder/` | Writes compact records into `PolestarRecorderDB` while the player plays (opt-in). |
+| Recorder addon | `addon/Polestar_Recorder/` | Writes compact records into `PolestarRecorderDB` while the player plays: off until `/psrec on` or Polestar Client's share flag, which is on by default in the client (see "Ack file"). |
 | Recording library | `rust/crates/polestar-recording/` | Reads the SavedVariables file, decodes and validates records, finds WoW installs, scrubs text, writes the ack file, summarises. Shared by the three below. |
 | Polestar Client | `apps/client/` (Tauri) | Desktop app for Windows, macOS and Linux: finds the game, installs the Recorder, uploads new chunks, shows exactly what was sent. |
 | Ingest server | `services/ingest/` | Receives uploads, validates them with the library, stores them, serves stats, deletion and the maintainer export. |
@@ -73,15 +73,22 @@ Polestar Client merges its entry into whatever the file holds. A lost ack
 only means a chunk is uploaded twice; the server ignores a repeated
 `(install, seq)`.
 
-`PolestarRecorderShare` is written only once the player has turned sharing on
-in Polestar Client at least once (before that the file has no flag, so a
-`/psrec on` of someone who never opted in is left alone). From then on it is
-`true` while sharing is on and uploads are not paused, `false` otherwise; the
-client writes it whenever that changes and with every ack. At login the
-Recorder reads it: `true` turns recording on (saying so once in chat) unless
-`optout` is set, `false` turns it off (without setting `optout`), and no flag
-leaves `enabled` as the player set it. So one opt-in, Start sharing in the client,
-is enough; `/psrec off` stays the player's last word until `/psrec on`.
+`PolestarRecorderShare` is written only once sharing has been on in Polestar
+Client at least once (before that the file has no flag, so a `/psrec on` of
+someone whose client never shared is left alone). Sharing is on by default in
+the client: once it has found the game, a player who never chose shares, as
+if they had pressed Start sharing, unless an account's `PolestarRecorderDB`
+says `optout` (`/psrec off`), and a notice in the client says once what is
+shared, with Stop sharing. A player who stopped sharing in the client stays
+off; it never turns back on by itself. From then on the flag is `true` while
+sharing is on and uploads are not paused, `false` otherwise; the client
+writes it whenever that changes and with every ack. At login the Recorder
+reads it: `true` turns recording on (saying so once in chat) unless `optout`
+is set, `false` turns it off (without setting `optout`), and no flag leaves
+`enabled` as the player set it. So the client's sharing is enough;
+`/psrec off` stays the player's last word until `/psrec on`. The Recorder's
+own default does not change: installed without Polestar Client (no flag), it
+stays off until `/psrec on`.
 
 ### Field encoding
 
