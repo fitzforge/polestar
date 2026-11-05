@@ -219,6 +219,43 @@ local function itemIcon(id)
 	return nil
 end
 
+-- A reward tile's border and name in the item's colour: what the game's
+-- tooltip draws, else the client's quality, else the page's (built from the
+-- client's tables, which can disagree with the game: Axe of Orgrimmar, #837).
+-- A tile whose item is not loaded yet asks for it and is painted again when
+-- it arrives (GET_ITEM_INFO_RECEIVED below).
+local tilesWaiting = {}
+local function paintTile(t, id, quality)
+	t.psQuality = quality
+	local C = ns.Compat
+	local qr, qg, qb = C.ItemTipColor(id)
+	if not qr then
+		if type(id) == "number" and not C.RequestItem(id) then
+			local waiting = tilesWaiting[id] or {}
+			tilesWaiting[id] = waiting
+			waiting[t] = true
+		end
+		qr, qg, qb = qualityRaw(C.GetItemQuality(id) or quality)
+	end
+	if qr then
+		Theme.Border(t.Well, qr, qg, qb, 0.9)
+		paintRGB(t.Name, lift(qr, qg, qb))
+	else
+		local ir, ig, ib = Theme.Wash("border")
+		Theme.Border(t.Well, ir, ig, ib, 0.6)
+		W.Color(t.Name, "item")
+	end
+end
+
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id)
+	local waiting = tilesWaiting[id]
+	if not waiting then return end
+	tilesWaiting[id] = nil
+	for t in pairs(waiting) do
+		if t.psID == id and t:IsShown() then paintTile(t, id, t.psQuality) end
+	end
+end)
+
 local mapName = ns.Compat.MapName
 
 local function bandOf(level)
@@ -1357,15 +1394,7 @@ local function placeTiles(b, n0, items, choice, y)
 				t.Icon:SetTexCoord(0, 1, 0, 1)
 				W.Color(t.Icon, "textMuted")
 			end
-			local qr, qg, qb = qualityRaw(it.quality)
-			if qr then
-				Theme.Border(t.Well, qr, qg, qb, 0.9)
-				paintRGB(t.Name, lift(qr, qg, qb))
-			else
-				local ir, ig, ib = Theme.Wash("border")
-				Theme.Border(t.Well, ir, ig, ib, 0.6)
-				W.Color(t.Name, "item")
-			end
+			paintTile(t, it.id, it.quality)
 			local name = it.name or (L["Item"] .. " " .. tostring(it.id))
 			if (it.count or 1) > 1 then name = format(L["%d x %s"], it.count, name) end
 			t.Name:SetText(name)
@@ -1887,15 +1916,7 @@ local function renderAttune(key, f, plevel)
 				t.Icon:SetTexCoord(0, 1, 0, 1)
 				W.Color(t.Icon, "textMuted")
 			end
-			local qr, qg, qb = qualityRaw(a.item.quality)
-			if qr then
-				Theme.Border(t.Well, qr, qg, qb, 0.9)
-				paintRGB(t.Name, lift(qr, qg, qb))
-			else
-				local ir, ig, ib = Theme.Wash("border")
-				Theme.Border(t.Well, ir, ig, ib, 0.6)
-				W.Color(t.Name, "item")
-			end
+			paintTile(t, a.item.id, a.item.quality)
 			t.Name:SetText(a.item.name or (L["Item"] .. " " .. tostring(a.item.id)))
 			t:Show()
 			h.Owned:ClearAllPoints()
