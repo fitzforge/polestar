@@ -212,6 +212,8 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(THOUSAND_NEEDLES, 465, &[98221], false),
 		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
 		(SILVERPINE, 95981, &[482], false),
+		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
+		(SILVERPINE, 97275, &[97242], false),
 	];
 	for &(guide, quest, after, optional) in cases {
 		let list = ctx.goals(guide);

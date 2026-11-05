@@ -1093,6 +1093,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// DexeeXI (#872): Shadow Priest Allister offers Watching the Roads only
 		// once Dalaran's Intentions is handed in to him.
 		[SILVERPINE, 95981, [482]],
+		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley
+		// is handed in to Kor'geld beside him.
+		[SILVERPINE, 97275, [97242]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));

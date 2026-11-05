@@ -482,8 +482,6 @@ step Druid trainer
 step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
-  accept 97275                        -- Yelmak
-  turnin 97275                        -- Whuut
 
 step Valley of Honor
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
@@ -493,6 +491,8 @@ step Valley of Honor
 
 step Kor'geld
   turnin 97242
+  accept 97275                        -- Yelmak
+  turnin 97275                        -- Whuut
 
 step Valley of Wisdom
   tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at Doras, the wind rider master in the Valley of Strength.
