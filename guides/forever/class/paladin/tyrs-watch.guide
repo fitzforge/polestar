@@ -202,7 +202,7 @@ step The Scarlet attack plans
   collect 264693 quest 94440.1        -- Scarlet Crusade Attack Plans
 
 step Redemption
-  tip Back to Bandarion Keep, across the whole glades: Billmuth downstairs takes the plans, Danitha teaches you Redemption.
-  turnin 94440                        -- Deathguard Billmuth
+  tip Back to Bandarion Keep, across the whole glades: Billmuth downstairs takes the plans, then Danitha, back upstairs in the keep, teaches you Redemption.
+  turnin 94440                        -- Deathguard Billmuth, downstairs
   accept 94441
-  turnin 94441                        -- Danitha Morr: Redemption
+  turnin 94441                        -- Danitha Morr, back upstairs: Redemption
