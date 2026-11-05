@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "화살표가 다시 가이드를 따릅�
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "사용법: /polestar near trainer [전문 기술] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "주변 시설 버튼"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "가이드 창 머리글의 메뉴 왼쪽에 있는 버튼으로, 가장 가까운 상인, 수리, 여관, 비행 조련사 또는 전문가를 찾아 화살표가 그곳을 가리키게 합니다."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "오른쪽 클릭: 이 구간 건너뛰기."
@@ -418,6 +423,7 @@ L["Not done"] = "미완료"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "퀘스트 시작"
+L["%d/%d (not accepted)"] = "%d/%d (수락 안 함)"
 
 -- Quests/Options.lua
 L["Any level"] = "모든 레벨"
@@ -459,6 +465,10 @@ L["quests"] = "퀘스트"
 L["available now"] = "지금 수락 가능"
 L["mobs tracked"] = "추적 중인 몹"
 L["Quest database status"] = "퀘스트 데이터베이스 상태"
+L["Quest marks in bags"] = "가방의 퀘스트 표시"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "퀘스트 목록에 있거나 가이드에서 앞으로 진행할 퀘스트가 아직 필요로 하는 가방 아이템을 퀘스트를 완료할 때까지 표시합니다."
+L["Offer to buy back quest items"] = "퀘스트 아이템 재구매 제안"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "퀘스트에 아직 필요한 아이템을 팔면 상인에게서 되살지 묻습니다."
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -2769,6 +2779,17 @@ L["%d steps were left undone."] = "완료하지 않은 단계가 %d개 있습니
 L["Next: %s"] = "다음: %s"
 L["Pick a guide"] = "가이드 선택"
 L["Not now"] = "나중에"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Polestar 퀘스트 아이템"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "필요한 퀘스트:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "상인의 되사기 목록에 더 이상 없습니다."
+L["Not enough money to buy it back."] = "되살 돈이 부족합니다."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "%s 아이템을 판매했지만 %s 퀘스트에 아직 필요합니다. %s에 되사시겠습니까?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

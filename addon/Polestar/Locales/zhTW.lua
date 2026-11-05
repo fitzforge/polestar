@@ -378,6 +378,11 @@ L["The arrow is back on the guide."] = "箭頭重新指向指南。"
 L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "用法：/polestar near trainer [專業] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "附近服務按鈕"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "指南視窗標題列中、選單左側的按鈕，可找到最近的商人、修理、旅店、飛行管理員或訓練師，並讓箭頭指向那裡。"
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右鍵點擊以跳過這一段。"
@@ -418,6 +423,7 @@ L["Not done"] = "未完成"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "開始一個任務"
+L["%d/%d (not accepted)"] = "%d/%d（未接受）"
 
 -- Quests/Options.lua
 L["Any level"] = "任何等級"
@@ -459,6 +465,10 @@ L["quests"] = "任務"
 L["available now"] = "目前可接"
 L["mobs tracked"] = "追蹤中的怪物"
 L["Quest database status"] = "任務資料庫狀態"
+L["Quest marks in bags"] = "背包中的任務標記"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "標記背包中任務仍需要的物品（在任務日誌中，或在指南後續步驟中），直到你交回任務。"
+L["Offer to buy back quest items"] = "提示買回任務物品"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "出售任務仍需要的物品時，詢問是否向商人買回。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -2769,6 +2779,17 @@ L["%d steps were left undone."] = "有 %d 個步驟未完成。"
 L["Next: %s"] = "下一份：%s"
 L["Pick a guide"] = "選擇指南"
 L["Not now"] = "稍後再說"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Polestar 任務物品"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "所需任務："
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "它已不在商人的買回清單中。"
+L["Not enough money to buy it back."] = "金錢不足，無法買回。"
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "你賣出了 %s，而 %s 仍需要它。花費 %s 買回嗎？"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"
