@@ -5,7 +5,9 @@ section: players
   ahead of you. It starts off: turn it on in Options, Appearance, Ground trail
   (or `/polestar trail`) to tune its look, spacing, reach, fading and indoor
   visibility, try seven looks or save your own. Map trail settings stay
-  separate. The existing first-time setup offers the switch; updates do not
+  separate. Hiding the guide also hides the ground trail without changing
+  its enabled setting; showing the guide restores an enabled trail. The
+  existing first-time setup offers the switch; updates do not
   replay the welcome or add a login popup. With camera following set to Never,
   walking is not assumed to re-centre a freely turned camera. Short left
   clicks use a brief grace period instead of switching the trail off; longer

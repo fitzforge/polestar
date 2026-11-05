@@ -740,6 +740,7 @@ end
 function Render.Why()
 	if competing() then return "suppressed while ForeverSparkleTrail is loaded" end
 	if not (NS.db and NS.db.enabled) then return "the ground trail is off" end
+	if not ns.GuideShown() then return "the guide is hidden" end
 	if #paths==0 then return "no Polestar route" end
 	if not Render.Settled() then return "waiting after a loading screen" end
 	return why
@@ -765,7 +766,7 @@ local function ensureGround()
 end
 function Render.Show()
 	local db=NS.db
-	local active=started and db and db.enabled and style and #paths>0 and not competing()
+	local active=started and db and db.enabled and ns.GuideShown() and style and #paths>0 and not competing()
 	if not active then
 		if gr then finish(gr,0); gr:SetScript("OnUpdate",nil); gr:Hide() end
 		pauseCameraTracking()
@@ -778,6 +779,10 @@ function Render.Start()
 	if started then return true end
 	started=true
 	ns.On("NAV_ROUTE_GEOMETRY",Render.Rebuild)
+	-- Follow the guide's explicit on/off, not its combat/instance auto-hide.
+	ns.On("SETTING_CHANGED",function(path)
+		if path == "" or path == "ui" or path == "ui.shown" then Render.Show() end
+	end)
 	ns.RegisterEvent("LOADING_SCREEN_ENABLED",loadingStarted)
 	ns.RegisterEvent("LOADING_SCREEN_DISABLED",loadingFinished)
 	ns.RegisterEvent("PLAYER_ENTERING_WORLD",settle)

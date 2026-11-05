@@ -2564,6 +2564,10 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   The existing first-account setup offers the same switch;
   the welcome version is unchanged, with no new upgrade popup or login message.
   All `nav.worldTrail*` settings are independent of map-line settings.
+  The painter follows `ns.GuideShown()`: explicit guide hiding clears its
+  sprites and stops its update callback without changing the enabled setting.
+  Showing the guide restores an enabled trail without a route-change event;
+  combat/instance auto-hide of the guide window is not this visibility gate.
   `WorldTrail.Settings()` returns a normalized, detached runtime snapshot;
   `ApplyPreset`, `SaveLook` and `Reset` write only this feature's native settings.
   Looks change appearance and shape, not enabled/indoor/view policy. Reset also
