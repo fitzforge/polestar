@@ -1,0 +1,188 @@
+guide forever/reputation/zandalar-tribe
+title Zandalar Tribe Reputation
+category Reputation
+folder Reputation · Raids and dungeons
+levels 60-60
+zone Stranglethorn Vale
+keywords Zandalar Tribe, Yojamba Isle, Zul'Gurub, Vinchaxa, Rin'wosho the Trader, Zanza the Restless, Zandalar Honor Token, Hakkari Bijou, Zulian Coin, Razzashi Coin, Hakkari Coin, Gurubashi Coin, Primal Hakkari Idol, Paragons of Power, Zandalar Signet of Might, Zandalar Signet of Mojo, Zandalar Signet of Serenity, shoulder enchant, Savage Guard, Arcanum, class necklace, Hakkar
+why Shoulder and head enchants, a class necklace upgraded at every standing, and Zul'Gurub's set pieces.
+reward item 20077 20076 20078
+reward text Your class's necklace at Friendly, upgraded at Honored, Revered and Exalted
+reward text Zanza's head and leg enchants, from Friendly
+
+# Built from Forever's data: the Zandalar Tribe quest rows (reputation from Forever's quest pages; the world
+# database's standing gates: the class necklaces at Friendly, Honored, Revered and Exalted, Zanza's enchants from
+# Friendly, the Savage Guard and Essence Mangoes from Honored, Zanza's Potent Potables from Revered, the Signets
+# of the Zandalar at Exalted), the kill reputation and the standing each kill stops at (world database), the
+# Zul'Gurub drop tables (each coin about 5% from the trolls, each bijou colour 2% to 3% from the trash, the Primal
+# Hakkari Idol from Jin'do and Mandokir about 90%), Rin'wosho the Trader's shop with each recipe's standing and
+# price (Forever's client item table), and the spawns of Yojamba Isle. Destroying a bijou at the Altar of Zanza
+# pays 75 reputation and an Honor Token through a spell (Forever's client spell data); the quest pages show
+# none. A full clear by the database's spawns is about 4,050 reputation: about 2,700 from trash that stops at
+# 11,999 of 12,000 Honored, about 1,350 from bosses that count to Exalted. Neutral to Exalted is 42,000. No race gets a
+# reputation bonus in Forever; the Legacy perk Diplomat adds up to 10%. Numbers below are without it.
+# Zanza the Restless stands inside Zul'Gurub; his goals point at the raid's entrance, placed from the client's
+# map table (the corpse point outside it).
+# The Arcanums for the Savage Guard bind on pickup and the Librams do not (Forever's client item table); the
+# Lorekeeper's libram quests 7483-7485 take the libram, a Pristine Black Diamond, 2 or 4 Large Brilliant Shards and
+# Blood of Heroes, Skin of Shadow or Frayed Abomination Stitching (quest data).
+# Formula: Magnificent Trollshine (Honored, 4g) is tied to the Zandalar in Forever's client, but no vendor in
+# Forever's data sells it; the guide names Rin'wosho as the likely seller.
+# INGAME: Is Zul'Gurub open? Blizzard's raid announcement for Forever names Barrow Deeps, Hyjal Summit and
+# Onyxia's Lair; Zul'Gurub is in the client but not announced.
+# INGAME: Does Rin'wosho the Trader sell Formula: Magnificent Trollshine at Honored?
+# INGAME: Does Zul'Gurub trash stop at 11,999 of 12,000 Honored? Forever's world database says so; Classic players
+# reported it counting to 20,999 of 21,000 Revered.
+
+step Yojamba Isle
+  tip Yojamba Isle is the small island off the north-west coast of Stranglethorn Vale, west of the Zuuldaia Ruins: swim over from the coast. Everyone starts Neutral with the Zandalar Tribe. Vinchaxa takes coins and bijous, Rin'wosho the Trader sells the recipes and trades Honor Tokens, and Jin'rokh, Al'tabim, Maywiki and Falthir hand out the class necklaces and the set pieces. Almost all Zandalar reputation comes from Zul'Gurub, a 20-player raid, and Zul'Gurub is not among the first raids Blizzard has announced for Forever: until it opens there is no Zandalar reputation to earn, and no coins or bijous on the auction house either. Once it is open, the only solo way is buying coins and bijous on the auction house (75 per bijou, 25 per set of three coins). The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it.
+  accept 8240                         -- Vinchaxa: A Bijou for Zanza
+
+step Zul'Gurub to Friendly
+  tip Zul'Gurub is the troll city in the north-east of Stranglethorn Vale: a 20-player raid. Trash pays 3 to 5 each until 11,999 of 12,000 Honored, one point short of Revered; the Speakers 15, Ohgan 15, the Edge of Madness boss 25, Gahz'ranka and the five High Priests 100, Bloodlord Mandokir and Jin'do 200 and Hakkar 400, all the way to Exalted. A full clear is about 4,050: one clear reaches Friendly (3,000). Loot every coin, bijou, Primal Hakkari Idol, Channeler's Head and Primal Hakkari set piece. Coins and bijous pay the same at any standing: save them until the trash stops counting, except one bijou for A Bijou for Zanza.
+  collect 19707 optional              -- Red Hakkari Bijou; any of the nine colours does
+  rep 270 Friendly
+
+step A Bijou for Zanza
+  tip Destroy one bijou at the Altar of Zanza, the stone altar on the west side of Yojamba Isle (right-click the bijou there), then tell Vinchaxa: 150 reputation and an extra Zandalar Honor Token, once. From then on every bijou you destroy at the altar pays 75 reputation and a token, and every set of three coins Vinchaxa takes pays 25 and a token. They never stop counting.
+  turnin 8240 optional                -- Vinchaxa: 150
+
+step Friendly: your class necklace
+  tip At Friendly your class's trainer on the isle gives a necklace for free (100 reputation); the same NPC upgrades it at Honored, Revered and Exalted (100 each) with no raid item needed. Friendly also opens Rin'wosho's first recipes (Pattern: Bloodvine Boots, Primal Batskin Bracers, Plans: Bloodsoul Gauntlets, Darksoul Shoulders, Schematic: Bloodvine Lens, Recipe: Greater Dreamless Sleep, 5g each; Formula: Brilliant Mana Oil, 4g) and the Paragons of Power bracers (150 for the Primal Hakkari bracer token of your class).
+  accept 8041 optional only Warrior   -- Jin'rokh the Breaker: Strength of Mugamba, Friendly
+  turnin 8041 optional only Warrior   -- 100
+  accept 8045 optional only Paladin   -- Jin'rokh the Breaker: Heathen's Brand, Friendly
+  turnin 8045 optional only Paladin   -- 100
+  accept 8049 optional only Priest    -- Al'tabim the All-Seeing: The Eye of Zuldazar, Friendly
+  turnin 8049 optional only Priest    -- 100
+  accept 8101 optional only Mage      -- Al'tabim the All-Seeing: Pebble of Kajaro, Friendly
+  turnin 8101 optional only Mage      -- 100
+  accept 8106 optional only Warlock   -- Al'tabim the All-Seeing: Kezan's Taint, Friendly
+  turnin 8106 optional only Warlock   -- 100
+  accept 8110 optional only Druid     -- Maywiki of Zuldazar: Enchanted South Seas Kelp, Friendly
+  turnin 8110 optional only Druid     -- 100
+  accept 8116 optional only Shaman    -- Maywiki of Zuldazar: Vision of Voodress, Friendly
+  turnin 8116 optional only Shaman    -- 100
+  accept 8141 optional only Rogue     -- Falthir the Sightless: Zandalarian Shadow Talisman, Friendly
+  turnin 8141 optional only Rogue     -- 100
+  accept 8145 optional only Hunter    -- Falthir the Sightless: Maelstrom's Tendril, Friendly
+  turnin 8145 optional only Hunter    -- 100
+
+step Zanza's enchants, from Friendly
+  tip Zanza the Restless, a spirit just inside Zul'Gurub's entrance, trades your class's head and leg enchant for a Primal Hakkari Idol (Jin'do the Hexxer or Bloodlord Mandokir, about 90%) and your class's Punctured Voodoo Doll (the Jinxed Hoodoo Piles scattered through Zul'Gurub, now and then from its trash): 100 reputation each, as often as you like.
+  collect 22637 optional @54.0,17.6  -- Primal Hakkari Idol, Jin'do or Mandokir
+  collect 19813 optional only Warrior @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8184 direct optional only Warrior @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19815 optional only Paladin @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8185 direct optional only Paladin @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19814 optional only Rogue @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8186 direct optional only Rogue @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19816 optional only Hunter @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8187 direct optional only Hunter @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19817 optional only Shaman @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8188 direct optional only Shaman @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19818 optional only Mage @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8189 direct optional only Mage @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19819 optional only Warlock @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8190 direct optional only Warlock @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19820 optional only Priest @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8191 direct optional only Priest @54.0,17.6 -- Zanza: idol and doll, 100
+  collect 19821 optional only Druid @51.2,17.6 -- your class's Punctured Voodoo Doll
+  turnin 8192 direct optional only Druid @54.0,17.6 -- Zanza: idol and doll, 100
+
+step Zul'Gurub to Honored
+  tip Friendly to Honored is 6,000: one and a half clears. Honored opens Bloodvine Leggings, Primal Batskin Gloves, Blood Tiger Shoulders, Bloodsoul Shoulders, Darksoul Leggings and Major Troll's Blood Elixir (5g each), Schematic: Bloodvine Goggles (12g), Formula: Brilliant Wizard Oil (4g) and Magnificent Trollshine (4g), the Paragons of Power belts and mantles (150 each), Essence Mangoes (one Honor Token) and The Savage Guard.
+  rep 270 Honored
+
+step Honored: necklace, Savage Guard and mangoes
+  tip Zanza takes an Arcanum of Protection, Rapidity or Focus for the Savage Guard head and leg enchant: 200 reputation each, again and again. The Arcanum binds to you, so it never sells: Lorekeeper Lydros in the library of Dire Maul makes it from the matching Libram (Dire Maul drops, and on the auction house), a Pristine Black Diamond and Large Brilliant Shards, plus Frayed Abomination Stitching, two Blood of Heroes or two Skin of Shadow. Rin'wosho the Trader trades Essence Mangoes for an Honor Token.
+  accept 8042 optional only Warrior   -- Jin'rokh the Breaker: Strength of Mugamba, Honored
+  turnin 8042 optional only Warrior   -- 100
+  accept 8046 optional only Paladin   -- Jin'rokh the Breaker: Heathen's Brand, Honored
+  turnin 8046 optional only Paladin   -- 100
+  accept 8050 optional only Priest    -- Al'tabim the All-Seeing: The Eye of Zuldazar, Honored
+  turnin 8050 optional only Priest    -- 100
+  accept 8102 optional only Mage      -- Al'tabim the All-Seeing: Pebble of Kajaro, Honored
+  turnin 8102 optional only Mage      -- 100
+  accept 8107 optional only Warlock   -- Al'tabim the All-Seeing: Kezan's Taint, Honored
+  turnin 8107 optional only Warlock   -- 100
+  accept 8111 optional only Druid     -- Maywiki of Zuldazar: Enchanted South Seas Kelp, Honored
+  turnin 8111 optional only Druid     -- 100
+  accept 8117 optional only Shaman    -- Maywiki of Zuldazar: Vision of Voodress, Honored
+  turnin 8117 optional only Shaman    -- 100
+  accept 8142 optional only Rogue     -- Falthir the Sightless: Zandalarian Shadow Talisman, Honored
+  turnin 8142 optional only Rogue     -- 100
+  accept 8146 optional only Hunter    -- Falthir the Sightless: Maelstrom's Tendril, Honored
+  turnin 8146 optional only Hunter    -- 100
+  collect 18329 optional @54.0,17.6   -- Arcanum of Rapidity
+  turnin 9209 direct optional @54.0,17.6 -- Zanza: Arcanum of Rapidity, 200
+  collect 18330 optional @54.0,17.6   -- Arcanum of Focus
+  turnin 9210 direct optional @54.0,17.6 -- Zanza: Arcanum of Focus, 200
+  collect 18331 optional @54.0,17.6   -- Arcanum of Protection
+  turnin 9208 direct optional @54.0,17.6 -- Zanza: Arcanum of Protection, 200
+  turnin 8196 direct optional         -- Essence Mangoes: one Zandalar Honor Token
+
+step Zul'Gurub to Revered
+  tip Honored to Revered is 12,000: about three clears. Two one-time quests help: A Collection of Heads (Exzhal on the isle: 200 for five Channeler's Heads from the High Priests, strung on his Sacred Cord) and The Heart of Hakkar (one per kill, for whoever loots it; Molthor on the isle pays 200 and a Zandalarian Hero badge, charm or medallion). Revered opens Bloodvine Vest, Primal Batskin Jerkin, Blood Tiger Breastplate, Bloodsoul Breastplate, Darksoul Breastplate and Mageblood Elixir (5g each), the Paragons of Power chests and mantles (150) and Zanza's Potent Potables.
+  accept 8201 optional                -- Exzhal: A Collection of Heads
+  turnin 8201 optional                -- 200
+  accept 8183 optional item 19802 @54.0,17.6 -- Heart of Hakkar
+  turnin 8183 optional                -- 200
+  rep 270 Revered
+
+step Revered: necklace, coins and bijous
+  tip Trash stopped counting at 11,999 Honored. Revered to Exalted is 21,000: bosses give about 1,350 a clear, and now the saved coins and bijous pay: 75 per bijou (280 bijous alone), 25 per coin set. Coins and bijous are tradeable, so the auction house is the only solo way. Each Paragons piece pays 150, each Zanza enchant 100, each Savage Guard 200. Rin'wosho trades one of Zanza's potables (Spirit, Sheen or Swiftness of Zanza) for an Honor Token.
+  accept 8043 optional only Warrior   -- Jin'rokh the Breaker: Strength of Mugamba, Revered
+  turnin 8043 optional only Warrior   -- 100
+  accept 8047 optional only Paladin   -- Jin'rokh the Breaker: Heathen's Brand, Revered
+  turnin 8047 optional only Paladin   -- 100
+  accept 8051 optional only Priest    -- Al'tabim the All-Seeing: The Eye of Zuldazar, Revered
+  turnin 8051 optional only Priest    -- 100
+  accept 8103 optional only Mage      -- Al'tabim the All-Seeing: Pebble of Kajaro, Revered
+  turnin 8103 optional only Mage      -- 100
+  accept 8108 optional only Warlock   -- Al'tabim the All-Seeing: Kezan's Taint, Revered
+  turnin 8108 optional only Warlock   -- 100
+  accept 8112 optional only Druid     -- Maywiki of Zuldazar: Enchanted South Seas Kelp, Revered
+  turnin 8112 optional only Druid     -- 100
+  accept 8118 optional only Shaman    -- Maywiki of Zuldazar: Vision of Voodress, Revered
+  turnin 8118 optional only Shaman    -- 100
+  accept 8143 optional only Rogue     -- Falthir the Sightless: Zandalarian Shadow Talisman, Revered
+  turnin 8143 optional only Rogue     -- 100
+  accept 8147 optional only Hunter    -- Falthir the Sightless: Maelstrom's Tendril, Revered
+  turnin 8147 optional only Hunter    -- 100
+  collect 19698 optional   -- Zulian Coin
+  collect 19699 optional   -- Razzashi Coin
+  collect 19700 optional   -- Hakkari Coin
+  turnin 8195 direct optional         -- Vinchaxa: 3 coins, 25 and a token
+  collect 19701 optional   -- Gurubashi Coin
+  collect 19702 optional   -- Vilebranch Coin
+  collect 19703 optional   -- Witherbark Coin
+  turnin 8238 direct optional         -- 25 and a token
+  collect 19704 optional   -- Sandfury Coin
+  collect 19705 optional   -- Skullsplitter Coin
+  collect 19706 optional   -- Bloodscalp Coin
+  turnin 8239 direct optional         -- 25 and a token
+  turnin 8243 direct optional         -- Zanza's Potent Potables: one token
+  rep 270 Exalted
+
+step Exalted: the Signets of the Zandalar
+  tip At Exalted your necklace takes its last upgrade, Rin'wosho sells Recipe: Living Action Potion (5g), and Rin'wosho trades 15 Zandalar Honor Tokens for one Signet of the Zandalar, the shoulder enchant: Might (attack power), Mojo (spell damage) or Serenity (healing).
+  accept 8044 optional only Warrior   -- Jin'rokh the Breaker: Strength of Mugamba, Exalted
+  turnin 8044 optional only Warrior   -- 100
+  accept 8048 optional only Paladin   -- Jin'rokh the Breaker: Heathen's Brand, Exalted
+  turnin 8048 optional only Paladin   -- 100
+  accept 8052 optional only Priest    -- Al'tabim the All-Seeing: The Eye of Zuldazar, Exalted
+  turnin 8052 optional only Priest    -- 100
+  accept 8104 optional only Mage      -- Al'tabim the All-Seeing: Pebble of Kajaro, Exalted
+  turnin 8104 optional only Mage      -- 100
+  accept 8109 optional only Warlock   -- Al'tabim the All-Seeing: Kezan's Taint, Exalted
+  turnin 8109 optional only Warlock   -- 100
+  accept 8113 optional only Druid     -- Maywiki of Zuldazar: Enchanted South Seas Kelp, Exalted
+  turnin 8113 optional only Druid     -- 100
+  accept 8119 optional only Shaman    -- Maywiki of Zuldazar: Vision of Voodress, Exalted
+  turnin 8119 optional only Shaman    -- 100
+  accept 8144 optional only Rogue     -- Falthir the Sightless: Zandalarian Shadow Talisman, Exalted
+  turnin 8144 optional only Rogue     -- 100
+  accept 8148 optional only Hunter    -- Falthir the Sightless: Maelstrom's Tendril, Exalted
+  turnin 8148 optional only Hunter    -- 100
+  turnin 8246 direct optional         -- Signets of the Zandalar: 15 Honor Tokens

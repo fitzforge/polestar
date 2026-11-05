@@ -1,0 +1,26 @@
+[package]
+name = "forge-release"
+description = "Building and releasing the addon: the release zips, the version, the changelog fragments, the release notes and the Guiding Stars credits."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+serde_json.workspace = true
+forge-guide = { path = "../forge-guide" }
+regex = "1"
+sha2 = "0.10"
+unicode-normalization = "0.1"
+# zlib-rs directly, not through flate2: the workspace also enables flate2's C zlib, which would win
+# there. zlib-rs's deflate equals zlib-ng's byte for byte, on every machine.
+zlib-rs = "0.6"
+
+[dev-dependencies]
+mlua = { version = "0.11", features = ["lua51", "vendored"] }
+
+[lints]
+workspace = true

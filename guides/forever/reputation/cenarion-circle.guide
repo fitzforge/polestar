@@ -1,58 +1,324 @@
 guide forever/reputation/cenarion-circle
 title Cenarion Circle Reputation
 category Reputation
-levels 57-60
+folder Reputation · World
+levels 60-60
 zone Silithus
-# Built from the Era-baseline reference data: Cenarion Hold's Bor Wildmane and
-# Huum Wildmane with Secret Communication (8318), Twilight Geolords (8320) and
-# the repeatable Encrypted Twilight Texts (8319); the Encrypted Twilight Text
-# drop table (Twilight's Hammer cultists, 25% each, Twilight Prophets 100%).
-# Farm spots are the densest spawn clusters of the droppers.
-#
-# The data is the Era (patch 1.12) Silithus, with Cenarion Hold and the Ahn'Qiraj
-# war content. Nothing public confirms Forever's Silithus matches it; this has
-# NOT been play-tested on Forever yet. Repeatable turn-ins are never flagged
-# completed by the client, so those steps track the standing (rep 609). The
-# Abyssal Council turn-ins (8361-8364, crests, signets and scepters from
-# Templars, Dukes and Lords summoned at the Wind Stones while wearing the
-# Twilight Trappings) are in the data but need a summoning setup the data does
-# not describe, so they are notes.
-#
-# Secret Communication (8318) needs level 57 and Twilight Geolords (8320) level
-# 60, so the guide starts at 57 and Twilight Geolords is optional: below 60 the
-# texts and the cultist kills carry the standing on their own.
+keywords Cenarion Circle, Cenarion Hold, Silithus, Encrypted Twilight Text, Bor Wildmane, Twilight's Hammer, cultists, Twilight Trappings, Wind Stone, Abyssal Council, Abyssal Crest, Abyssal Signet, Abyssal Scepter, Templar, Duke, Field Duty, Windcaller Kaldon, Cenarion badge, Allegiance to Cenarion Circle, Vargus, Mishta, Kania, Gaea's Embrace, Greater Nature Resistance, Greater Fire Resistance, Sylvan, Ruins of Ahn'Qiraj
+why Nature resistance enchants and patterns, badge gear and Forever's new Silithus patterns, from Silithus's camps.
+reward item 20733
+reward item 22683
+reward item 20732
+reward item 21187
+reward text Forever's new Silithus patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored
+
+# Built from Forever's data: the Cenarion Circle quest rows (reputation from Forever's quest pages; the world
+# database's standing gates: Aurel Goldleaf from Friendly, Abyssal Signets from Honored, Lords and Abyssal
+# Scepters from Revered), the kill reputation and the standing each kill stops at (world database), the
+# Encrypted Twilight Text drop table (about a third from every cultist, 87% from the Twilight Prophet), the
+# spawns of the cultists and the Wind Stones, and the shops of Cenarion Hold with each item's standing and
+# price from Forever's client item table. Neutral to Exalted is 42,000 reputation; druids start at Neutral
+# 2,000 (the client's faction table). No race gets a reputation bonus in Forever; the Legacy perk Diplomat
+# adds up to 10%. Numbers below are without it.
+# INGAME: Do quests 6 or more levels below you still pay full reputation in Forever? In Classic they pay a
+# fifth less per level past 5, down to a fifth; one beta report had a low quest paying in full.
+# Forever changes: the Classic Silithus crafting patterns of Aendel Windspear (Dreamscale, Spitfire,
+# Sandstalker, Bramblewood) and Vargus (Obsidian belts, Ironvine) are not in Forever's client; Forever adds 24
+# patterns instead (Friendly and Honored, 7g 50s each). Forever's data names Mishta for the tailoring ones and
+# Vargus for the blacksmithing ones, and no vendor for the leatherworking ones.
+# Mortal Champions pays its 100 Cenarion reputation through a spell (client spell data), so Forever's quest
+# page shows none.
+# INGAME: Who sells Forever's new leatherworking patterns (Bileblister, Hivethrasher, Scalegut, Broodwatcher)?
+# INGAME: Are the Ruins of Ahn'Qiraj open? Blizzard's raid announcement for Forever names Barrow Deeps, Hyjal
+# Summit and Onyxia's Lair; the Ruins are in the client but not announced.
+# ASSUMED: Field Duty's captains and their silithid fight at the hives work as in Classic (Forever's data has
+# the quests and the captains' spawns, no record of the fight). In-game check: does Captain Blackanvil (or
+# Krug Skullsplit) sign the papers after the fight?
+
+step The emissary in Ironforge
+  only Alliance
+  zone Ironforge
+  tip Optional, and needed only for the Dredge quests later: Cenarion Emissary Jademoon sends you to Silithus with Taking Back Silithus, a 10-reputation letter. Skip it if you are already in Silithus.
+  accept 8275 optional
+
+step The emissary in Orgrimmar
+  only Horde
+  zone Orgrimmar
+  tip Optional, and needed only for the Dredge quests later: Cenarion Emissary Blackhoof sends you to Silithus with Taking Back Silithus, a 10-reputation letter. Skip it if you are already in Silithus.
+  accept 8276 optional
 
 step Cenarion Hold
-  tip Cenarion Hold is the walled town in north-central Silithus. Bor and Huum Wildmane stand together inside. The Cenarion Circle starts out Neutral. Forever's Legacy Diplomat perk increases reputation gains.
-  accept 8318
-  accept 8320 optional -- Twilight Geolords needs level 60
+  zone Silithus
+  tip Cenarion Hold is the walled druid camp in north-central Silithus, with flight points for both sides. Everyone starts Neutral with the Cenarion Circle (druids at 2,000 of 3,000). Bor and Huum Wildmane stand together in the main building. Secret Communication opens the Encrypted Twilight Text turn-ins for good. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it.
+  getfp "Cenarion Hold"
+  turnin 8275 optional only Alliance  -- Windcaller Proudhorn
+  turnin 8276 optional only Horde
+  accept 8318                         -- Bor Wildmane
+  accept 8320 optional                -- Huum Wildmane, level 60
 
-step Twilight Base Camp
-  tip Twilight's Hammer cultists hold the camps in western Silithus. Twilight Geolords and Stonecallers mix here; any cultist can drop an Encrypted Twilight Text. Every cultist kill also counts toward the Cenarion Circle. The Geolords count for Twilight Geolords only if you are 60 and took it.
-  kill 11881 quest 8320.1 optional @26.2,33.9
-  collect 20404 x10 quest 8318.1 @26.3,32.9
+step The cultist camp west of Cenarion Hold
+  tip The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an Encrypted Twilight Text about a third of the time, and every cultist kill is 1 reputation. Twilight Keeper Havunth walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later.
+  collect 20404 x10 quest 8318.1      -- Encrypted Twilight Text
+  kill 11881 x10 quest 8320.1 optional -- Twilight Geolord
 
 step Back to Cenarion Hold
   turnin 8318
   turnin 8320 optional
+  accept 8321 optional                -- Vyral the Vile
 
-step Encrypted Twilight Texts to Friendly
-  tip Encrypted Twilight Texts repeats: Bor Wildmane takes more texts again and again. The cultist camps are the place to farm them.
-  collect 20404 x10 optional @26.3,32.9
-  talk 15306 optional -- Bor Wildmane: Encrypted Twilight Texts
-  rep 609 Friendly
-
-step Cenarion Circle to Honored
-  tip Keep farming the Twilight camps. Wearing the Twilight Trappings (the Twilight cultist set plus a Medallion of Station, from Aurel Goldleaf's Medallion of Station quest) lets you summon Abyssal Templars at the Wind Stones; their Abyssal Crests go to Bor Wildmane.
-  collect 20404 x10 optional @26.3,32.9
-  talk 15306 optional
+step Cultists until the top of Friendly, texts saved
+  tip Neutral to Honored is 9,000 reputation (7,000 for druids). Every Twilight Avenger, Geolord, Stonecaller, Master and Overlord gives 1 reputation until 5,999 of 6,000 Friendly, one point short of Honored; there they stop. Save every Encrypted Twilight Text and leave the quests of the next steps for later: each kill below that point is a free point on top of its text, and the texts and quests pay the same at any standing. A text drops about every third kill, so 30 kills make 30 reputation and 10 texts (100 reputation later). Four camps: south-west of the Hold (39,44), the far west (26,34), the far south-west (19,84) and the north-east below Hive'Ashi (66,18: Overlords, and Flamereavers that count until the top of Honored). The Twilight Prophet (87% text) walks between 18,31 and 23,69. Texts sell on the auction house if you would rather buy. At 5,999 Friendly the last point into Honored comes from a Flamereaver, Twilight Keeper or Marauder, or from your first 10 texts at Bor Wildmane.
+  note "Kills alone to the top of Friendly is 8,999 kills (6,999 for druids), but the texts they drop (about 3,000) are worth 30,000 more: most of the way to Exalted."
+  note "Friendly (3,000) opens Kania's Formula: Enchant Cloak - Greater Fire Resistance (10g), Mishta's Cenarion Herb Bag (2g) and Sylvan Shoulders (5g), and Forever's new Friendly gloves patterns (7g 50s)."
+  collect 20404 x10 nearest optional  -- Encrypted Twilight Text: save them
+  kill 11880 optional                 -- Twilight Avenger
+  kill 11882 optional                 -- Twilight Stonecaller
+  kill 15213 optional                 -- Twilight Overlord
+  kill 15201 optional @69.8,14.3      -- Twilight Flamereaver: still counts at 5,999 Friendly
+  turnin 8319 direct optional         -- Bor Wildmane: 10 texts, 100, for the last point
   rep 609 Honored
 
-step Cenarion Circle to Revered
-  tip From here on, the Ruins of Ahn'Qiraj raid and the Abyssal Council turn-ins (crests, signets, scepters) carry most of the reputation.
-  note Abyssal Crests, Abyssal Signets and Abyssal Scepters are repeatable at Bor Wildmane once their opening quests are done.
+step Vyral the Vile
+  tip Vyral the Vile (level 61, not elite) waits at the back of Twilight's Run, the cave in the north-east of Silithus. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists.
+  collect 20466 quest 8321.1 optional @72.4,15.6 -- Vyral's Signet Ring
+  turnin 8321 optional
+
+step Silithus quests at Cenarion Hold
+  tip Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. Securing the Supply Lines needs Taking Back Silithus first. Deathclasp is an elite scorpid with two guards (group of 2 or 3). Calandrath's Desert Recipe is for Cooks: its recipe makes the Smoked Desert Dumplings he wants.
+  accept 8277                         -- Beetix Ficklespragg
+  accept 8280 optional                -- Windcaller Proudhorn, after Taking Back Silithus
+  accept 8284                         -- Geologist Larksbane
+  accept 8304                         -- Commander Mar'alith
+  accept 8283 optional                -- Wanted poster: Deathclasp, elite
+  accept 8307 optional                -- Calandrath, for Cooks
+  accept 9415 optional only Alliance  -- Rifleman Torrig: Report to Marshal Bluewall
+  accept 9416 optional only Horde     -- Scout Bloodfist: Report to General Kirika
+
+step Around Cenarion Hold
+  tip Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The Sandy Cookbook lies in the cultist camp south-west of the Hold.
+  collect 20373 x8 quest 8277.1       -- Stonelash Scorpid Stinger
+  collect 20376 x8 quest 8277.2       -- Sand Skitterer Fang
+  kill 11740 x15 quest 8280.1 optional -- Dredge Striker
+  turnin 8307 optional                -- Sandy Cookbook
+  accept 8313 optional
+
+step Back at the Hold
+  turnin 8277
+  accept 8278
+  turnin 8280 optional
+  accept 8281 optional
+  turnin 8313 optional                -- Calandrath
+  accept 8317 optional
+
+step Stonelash and Dredge Crushers
+  tip Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold.
+  collect 20375 x3 quest 8278.1       -- Stonelash Flayer Stinger
+  collect 20374 x3 quest 8278.2       -- Stonelash Pincer Stinger
+  collect 20377 x3 quest 8278.3       -- Rock Stalker Fang
+  kill 11741 x20 quest 8281.1 optional -- Dredge Crusher
+  learn 24801 optional                -- Smoked Desert Dumplings, from the Sandy Cookbook
+  craft 24801 x10 optional            -- Smoked Desert Dumplings, from Sandworm Meat and Soothing Spices
+
+step Noggle and Proudhorn
+  turnin 8278
+  accept 8282                         -- Noggle Ficklespragg
+  turnin 8281 optional
+  turnin 8317 optional
+
+step The Ravaged Twilight Camp
+  tip The broken camp in the far north-west of Silithus: the Twilight Tablet Fragments lie on the ground among the ruins.
+  collect 20378 x8 quest 8284.1       -- Twilight Tablet Fragment
+
+step Larksbane
+  turnin 8284
+  accept 8285
+
+step Hermit Ortell
+  tip Hermit Ortell hides in the hills of eastern Silithus. He also decodes Encrypted Twilight Texts for a chance at a scroll of beckoning, but Bor Wildmane pays the reputation: keep the texts for Bor.
+  turnin 8285
+  accept 8279
+
+step The three Twilight Keepers
+  tip Each Keeper is a level 60, not elite, alone at a camp edge, and always drops its chapter: Mayna in the far west camp, Havunth in the camp south-west of the Hold, Exeter in the far south-west camp beside the Twilight Lord.
+  collect 20394 quest 8279.1          -- Twilight Keeper Mayna
+  collect 20395 quest 8279.2          -- Twilight Keeper Havunth
+  collect 20396 quest 8279.3          -- Twilight Keeper Exeter
+
+step Back to Ortell
+  turnin 8279
+  accept 8287
+
+step Bronzebeard's Encampment
+  tip The dwarves' camp in the south of Silithus. Talk Frankal Stonebridge and Rutgar Glyphshaper through their whole stories for Dearest Natalia. Noggle's Satchel lies on the mountain south-east of the camp. Deathclasp lives up the trail east of the camp: an elite, and his Knock Away can throw you off the cliff.
+  complete 8304 @41.0,88.7            -- Frankal Stonebridge and Rutgar Glyphshaper
+  collect 20379 quest 8282.1          -- Noggle's Satchel
+  collect 20385 quest 8283.1 optional @45.1,92.3 -- Deathclasp's Pincer, elite: group of 2 or 3
+
+step Back to Cenarion Hold with news
+  turnin 8287                         -- Commander Mar'alith
+  turnin 8304
+  accept 8306 optional                -- Natalia, elite: group up
+  turnin 8282                         -- Noggle Ficklespragg
+  turnin 8283 optional
+
+step Rubbings and brains
+  tip Rutgar and Frankal hand out the next two quests at their camp. Each hive has a Glyphed Crystal to rub with the Geologist's Transcription Kit, and its silithid drop the brains: Hive'Ashi north of the Hold, Hive'Zora in the west, Hive'Regal in the south. Inside Hive'Regal waits Mistress Natalia (level 62 elite, mind control and fear; group of 3 to 5). Now and then a hive silithid drops Brann Bronzebeard's Lost Letter: it starts a quest for Rutgar worth 100.
+  accept 8309                         -- Rutgar Glyphshaper
+  accept 8310                         -- Frankal Stonebridge
+  collect 20455 quest 8309.1          -- Hive'Ashi Rubbing
+  collect 20454 quest 8309.2          -- Hive'Zora Rubbing
+  collect 20456 quest 8309.3 @52.0,99.0 -- Hive'Regal Rubbing, deep in Hive'Regal
+  collect 20457 quest 8310.1          -- Hive'Ashi Silithid Brain
+  collect 20458 quest 8310.2          -- Hive'Zora Silithid Brain
+  collect 20459 quest 8310.3          -- Hive'Regal Silithid Brain
+  accept 8308 optional item 20461     -- Brann Bronzebeard's Lost Letter, a rare drop
+
+step Mistress Natalia
+  zone map 1414
+  tip Optional: Natalia waits deep in Hive'Regal, the hive in the south of Silithus. She is a level 62 elite who mind-controls, fears and heals herself below half health: bring a group of 3 to 5 and interrupt her heals.
+  kill 15215 quest 8306.1 optional    -- Mistress Natalia: group of 3 to 5
+
+step The Calling
+  zone Silithus
+  tip Unraveling the Mystery leads to The Calling: Geologist Larksbane sends you to the Bones of Grakkarond to summon Emissary Roman'khan, a level 63 boss for a raid of about 20. Take it only with a raid.
+  turnin 8309
+  turnin 8310
+  accept 8314                         -- Rutgar Glyphshaper
+  turnin 8308 optional                -- Rutgar Glyphshaper: 100
+  turnin 8314                         -- Geologist Larksbane
+  accept 8315 optional                -- raid of 20
+  turnin 8306 optional                -- Commander Mar'alith
+  collect 20465 quest 8315.1 optional @48.8,58.1 -- Crystal Unlocking Mechanism, Emissary Roman'khan: raid of 20
+  turnin 8315 optional
+
+step The New Frontier, Thunder Bluff
+  only Horde
+  zone Thunder Bluff
+  tip Optional: Rabine Saturna's chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. Bluff Runner Windstrider sends you to Arch Druid Hamuul Runetotem on Elder Rise, who sends you to Rabine Saturna in Nighthaven, Moonglade.
+  accept 1000 optional                -- Bluff Runner Windstrider
+  turnin 1000 optional                -- Arch Druid Hamuul Runetotem
+  accept 1123 optional
+
+step The New Frontier, Darnassus
+  only Alliance
+  zone Darnassus
+  tip Optional: Rabine Saturna's chain pays 525 Cenarion reputation over seven quests of level 55 to 57, full at 60. Herald Moonstalker sends you to Arch Druid Fandral Staghelm, who sends you to Mathrengyl Bearwalker, who sends you to Rabine Saturna in Nighthaven, Moonglade.
+  accept 1047 optional                -- Herald Moonstalker
+  turnin 1047 optional                -- Arch Druid Fandral Staghelm
+  accept 6761 optional
+  turnin 6761 optional                -- Mathrengyl Bearwalker
+  accept 6762 optional
+
+step Rabine Saturna
+  zone Moonglade
+  tip Rabine Saturna lives in Nighthaven. She sends you to Layo Starstrike at Valor's Rest, the camp in the north-east corner of Silithus.
+  turnin 1123 optional only Horde
+  turnin 6762 optional only Alliance
+  accept 1124 optional
+
+step Southwind Village
+  zone Silithus
+  tip The Tortured Druids and Sentinels roam the ruins of Southwind Village, south-east of Cenarion Hold; the Hive'Ashi Pod sits on the top floor of its wasp-circled tower.
+  turnin 1124 optional                -- Layo Starstrike
+  accept 1125 optional
+  kill 12178 x8 quest 1125.1 optional -- Tortured Druid
+  kill 12179 x8 quest 1125.2 optional -- Tortured Sentinel
+  turnin 1125 optional
+  accept 1126 optional
+  collect 17346 quest 1126.1 optional -- Encrusted Silithid Object
+  turnin 1126 optional
+  accept 6844 optional
+
+step Umber in Nighthaven
+  zone Moonglade
+  turnin 6844 optional                -- Umber
+  accept 6845 optional
+  turnin 6845 optional                -- Rabine Saturna
+  accept 1185 optional
+  turnin 1185 optional
+
+step Quests elsewhere
+  tip The Cenarion Circle's other quests are spread over Kalimdor and the Plaguelands. In Classic a quest pays less once it is 6 or more levels below you (a fifth less per level, down to a fifth): at 60, The Wildlife Suffers Too (Mulgris Deepriver, Western Plaguelands, levels 54 and 56) would pay 60 and 75 instead of 75 and 75, and Corruption of Earth and Seed (Maraudon, level 51) 30 instead of 150. Your first turn-in shows which rule Forever uses. Shards of the Felvine (Rabine Saturna, level 60, the Felvine Shard from Alzzin in Dire Maul) pays 150 and its Reliquary 100 at any level.
+  note Do the Western Plaguelands and Maraudon quests while you level; at 60 they may pay a fraction.
+
+step Encrypted Twilight Texts to Revered
+  zone Silithus
+  tip Honored to Revered is 12,000 reputation. Bor Wildmane takes 10 Encrypted Twilight Texts for 100 reputation, again and again, until Exalted: 120 turn-ins (1,200 texts) to Revered without the quests, or about 950 texts after them. Hand in the texts you saved now. The cultists no longer count, but the Flamereavers, Twilight Keepers, Marauders and Templars count until 11,999 of 12,000 Honored, and the Twilight Lord Everun and Prophet until Exalted. Honored opens Kania's Formula: Enchant Cloak - Greater Nature Resistance (10g), Mishta's Pattern: Sylvan Crown (5g) and Forever's new Honored patterns (7g 50s each).
+  collect 20404 x10 nearest optional  -- Encrypted Twilight Text
+  turnin 8319 direct optional         -- Bor Wildmane: 10 texts, 100
   rep 609 Revered
 
-step Cenarion Circle to Exalted
-  tip Keep running the Ruins of Ahn'Qiraj and turning in Abyssal Council insignia until Exalted.
+step Field Duty, level 60
+  tip Windcaller Kaldon stands by the moonwell of Cenarion Hold. Field Duty (25 reputation, repeatable) sends you with unsigned papers to your side's captain: Captain Blackanvil's Ironforge Brigade outside Hive'Zora (Alliance) or Krug Skullsplit's Orgrimmar Legion outside Hive'Regal (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or Tactical Assignment, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 Ornate Mithril Boots, or one Templar, Twilight Marauder or scout report. One badge of each kind buys Allegiance to Cenarion Circle at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation.
+  accept 8507 optional only Alliance  -- Windcaller Kaldon
+  accept 8731 optional only Horde
+  collect 20810 quest 8507.1 optional only Alliance @32.8,52.6 -- Signed Field Duty Papers, Captain Blackanvil
+  collect 20810 quest 8731.1 optional only Horde @51.4,68.4 -- Signed Field Duty Papers, Krug Skullsplit
+  turnin 8507 optional only Alliance
+  turnin 8731 optional only Horde
+  turnin 9338 direct optional         -- Allegiance: one Combat, Logistics and Tactical badge, 200
+  accept 8800 optional                -- Cenarion Battlegear: Vargus's badge gear
+  turnin 8800 optional
+
+step Silithyst
+  tip Optional, 100 reputation once: Scouring the Desert. Your side's camp sits by a hive: Marshal Bluewall's by Hive'Zora (Alliance), General Kirika's by Hive'Regal (Horde). Silithyst rises from glowing geysers around the desert: walk through one, carry the Silithyst to your camp's Silithyst Extractor, then talk to the camp's leader. It is a world PvP objective: players of the other side can take it from you.
+  turnin 9415 optional only Alliance @33.3,51.1 -- Marshal Bluewall
+  accept 9419 optional only Alliance
+  complete 9419 optional only Alliance @33.0,50.8 -- deliver Silithyst at the extractor
+  turnin 9419 optional only Alliance  -- 100
+  turnin 9416 optional only Horde @50.8,69.5 -- General Kirika
+  accept 9422 optional only Horde
+  complete 9422 optional only Horde @50.9,69.3 -- deliver Silithyst at the extractor
+  turnin 9422 optional only Horde     -- 100
+
+step Templars and the Abyssal Council
+  tip Wearing a full set of Twilight Trappings (cultist Cowl, Mantle and Robe, about 8%, 8% and 6% per cultist) lets you use a Lesser Wind Stone: two stand in each of the three western camps. A random Abyssal Templar appears: a level 60 elite for 1 to 3 players, 5 reputation until the top of Honored and an Abyssal Crest 93% of the time. The summon uses up the set (and later the medallion and ring too), and if the elemental gets away they are gone: summon only when you can win. Abyssal Contacts pays 100 for the first crest; after that Bor takes 3 crests for 50. From Friendly, Huum Wildmane sends you to Aurel Goldleaf: 3 crests and a Large Brilliant Shard buy the Medallion of Station that, worn with a set, opens the larger Wind Stone for a Duke (level 62 elite, group of 5; 25 reputation, Abyssal Signet 85%).
+  accept 8361 optional                -- Bor Wildmane
+  collect 20513 quest 8361.1 optional @24.4,36.0 -- Abyssal Crest: Templar, group of 1 to 3
+  turnin 8361 optional
+  turnin 8362 direct optional         -- 3 Abyssal Crests: 50
+  accept 8331 optional                -- Huum Wildmane, Friendly
+  turnin 8331 optional                -- Aurel Goldleaf
+  accept 8332 optional
+  turnin 8332 optional                -- 3 crests and a Large Brilliant Shard: the Medallion of Station
+  accept 8349 optional
+  turnin 8349 optional                -- Bor Wildmane
+  accept 8348 optional
+  collect 20514 quest 8348.1 optional @24.7,32.7 -- Abyssal Signet: Duke, group of 5
+  turnin 8348 optional
+
+step Signets and scepters to Exalted
+  tip Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 Abyssal Signets for 100 (each Duke also gives 25, to Exalted), and Aurel takes one Abyssal Scepter for A Humble Offering (200, once). From Revered, Goldleaf's Discovery leads to Lords of the Council: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the Greater Wind Stone for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an Abyssal Scepter. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's Satchel of Cenarius (5g), Gaea's Embrace (9g) and Sylvan Vest (5g); Exalted is the standing for Champion's Battlegear at Vargus.
+  collect 20404 x10 nearest optional  -- Encrypted Twilight Text
+  turnin 8319 direct optional         -- 10 texts: 100
+  turnin 8363 direct optional         -- 3 Abyssal Signets: 100, Honored
+  accept 9248 optional                -- Aurel Goldleaf: A Humble Offering
+  collect 20515 quest 9248.1 optional @25.6,34.0 -- Abyssal Scepter: Lord, raid of 20
+  turnin 9248 optional
+  accept 8343 optional                -- Huum Wildmane, Revered
+  turnin 8343 optional
+  accept 8341 optional
+  turnin 8341 optional                -- 3 signets and 5 Large Brilliant Shards: the Ring of Lordship
+  accept 8351 optional
+  turnin 8351 optional
+  accept 8352 optional
+  collect 20515 quest 8352.1 optional @25.6,34.0 -- Abyssal Scepter: Lord, raid of 20
+  turnin 8352 optional
+  turnin 8364 direct optional         -- 3 Abyssal Scepters: 150, Revered
   rep 609 Exalted
+
+step The Ruins of Ahn'Qiraj, when they open
+  tip A 20-player raid behind the Scarab Wall in the far south-west of Silithus. A full clear is about 1,600 Cenarion reputation: the trash 3 each until 20,999 of 21,000 Revered, Kurinnaxx, Moam, Buru and Ayamiss 150 each and Ossirian 300, to Exalted. Ossirian's head starts The Fall of Ossirian (200 here and 200 Brood of Nozdormu). Their drops buy the ring (Honored), cloak (Revered) and weapon (Exalted) quests of Windcaller Yessendra, Keyl Swiftclaw and Warden Haro in the Hold, 100 reputation each. Dirk Thunderwood in the Hold pays 100 once for The Perfect Poison: Kurinnaxx's Venom Sac from here and Venoxis's from Zul'Gurub. Lieutenant General Andorov sells Plans: Jagged Obsidian Shield (Revered, 5g) and Obsidian Mail Tunic (Exalted, 8g) inside.
+  accept 8791 optional item 21220     -- Head of Ossirian the Unscarred
+  turnin 8791 optional                -- Commander Mar'alith
+  accept 9023 optional                -- Dirk Thunderwood: The Perfect Poison
+  collect 22217 quest 9023.2 optional @29.0,92.8 -- Kurinnaxx's Venom Sac
+
+step Venoxis's Venom Sac, Zul'Gurub
+  zone Stranglethorn Vale
+  tip Optional, for The Perfect Poison: High Priest Venoxis is the first boss of Zul'Gurub, a 20-player raid in north-east Stranglethorn Vale.
+  collect 22216 quest 9023.1 optional @54.0,17.6 -- Venoxis's Venom Sac: raid of 20
+
+step The Perfect Poison
+  zone Silithus
+  turnin 9023 optional                -- Dirk Thunderwood: 100

@@ -74,6 +74,9 @@ function parseConditions(list, allow = 'any') {
 		// Classes OR together: a negation contributes every class but itself.
 		const set = new Set(pos);
 		for (const n of neg) for (const f of CLASS_FILES) if (f !== n) set.add(f);
+		if (neg.length && set.size === CLASS_FILES.length) {
+			warnings.push(`"${list}" admits every class: classes OR together, so to leave several out, list the classes it is for`);
+		}
 		classes = CLASS_FILES.filter((f) => set.has(f));
 	}
 	return {

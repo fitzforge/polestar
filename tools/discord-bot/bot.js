@@ -35,6 +35,9 @@ async function main() {
 	const forum = await discord.getChannel(config.forumId);
 	if (forum.type !== 15) throw new Error(`DISCORD_FORUM_ID ${config.forumId} is not a forum channel (#${forum.name})`);
 	log.info(`watching #${forum.name}, filing to ${config.repo}, screenshots to ${config.mediaRepo}@${config.mediaBranch}`);
+	if (config.mediaRepo === config.repo) {
+		log.warn(`MEDIA_REPO is not set: screenshots go to ${config.repo} itself, so GITHUB_TOKEN needs Contents write on the main repository. Set MEDIA_REPO and MEDIA_TOKEN to a separate repository and drop Contents from GITHUB_TOKEN (.env.example)`);
+	}
 	await sync.loadIndex();
 	if (process.argv[2] === 'refresh') {
 		await sync.refresh();

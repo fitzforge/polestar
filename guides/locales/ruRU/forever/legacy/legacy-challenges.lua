@@ -1,5 +1,5 @@
 -- Russian (ruRU): the guide forever/legacy/legacy-challenges (forever/legacy/legacy-challenges.guide).
--- Written by `node tools/polestar.js i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Russian (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -59,9 +59,7 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "PvP: репутация полей боя (Альянс)",
-	["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "Превознесение у каждой фракции поля боя дает очко (всего 4; здесь показаны три, см. примечание). Следуйте гайдам Polestar по репутации: Ущелье Песни Войны, Низина Арати и Альтеракская долина. Бонус наследия «Дипломат» ускоряет рост репутации.",
-	-- {zone:1460} Warsong Gulch · {zone:1461} Arathi Basin · {zone:1459} Alterac Valley
-	["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "Blizzard считает четыре репутации полей боя, но в наших данных по три на сторону ({zone:1460}, {zone:1461}, {zone:1459}). Четвертая, вероятно, связана с новым PvP-контентом Forever; проверьте панель наследия в игре.",
+	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "PvP: репутация полей боя (Орда)",
@@ -84,47 +82,55 @@ return {
 
 	-- Step 14: Adventure: explore the world map
 	["Adventure: explore the world map"] = "Приключения: исследуйте карту мира",
-	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "Исследование всей карты мира одним персонажем дает очко и может открыть Систему наследия. Все должно быть сделано одним и тем же персонажем.",
-	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "Следуйте гайдам Polestar по исследованию: Восточные Королевства 1-30, 30-45 и 45-60, а также Калимдор 1-30, 30-45 и 45-60. Они отмечают каждую открытую местность.",
+	-- {zone:2548} Riverglades · {zone:2652} Shen'dralas · {zone:2482} Mount Hyjal
+	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "",
+	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "",
 	["This step cannot check the whole map by itself yet; it becomes a tracked goal once the Legacy achievement ids are recorded."] = "Этот шаг пока не может сам проверить всю карту; он станет отслеживаемой целью, когда будут записаны ID достижений наследия.",
 
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "Приключения: {npc:16042}",
-	-- {npc:16042} Lord Valthalak · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Цепочка заданий – {npc:16042} – дает очко. Это цепочка комплекта подземелий 60-го уровня: {npc:16013} ({zone:1455}) или {npc:16012} ({zone:1454}) через «В поисках Антиона» и «Прощальные слова Антиона» отправляют к NPC {npc:16033} ({area:254}); его задания «Три властелина огня», левая и правая части амулета Лорда Вальтхалака, «Последние приготовления» и {quest:8995} завершаются заданием {quest:8996}. Затем {quest:8997} ведет к классовым заданиям «Сладкое – на закуску».",
+	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073} – в верхней части Вершины Черной горы, после задания «Mea Culpa» (в данных нет точки появления: стрелка ведет к NPC {npc:16033}, {area:254})",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{npc:16033} выдает его после сдачи задания {quest:8996}",
-	-- {quest:8996} Return to Bodley
-	["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "Какое задание Blizzard считает концом цепочки ({quest:8996} или последнее классовое задание), неизвестно, пока не записаны данные наследия.",
 
-	-- Step 16: Adventure: Back to the Beginning (Alliance)
-	-- {quest:8997} Back to the Beginning
-	["Adventure: {quest:8997} (Alliance)"] = "Приключения: {quest:8997} (Альянс)",
-	-- {npc:16013} Deliana
-	["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "Затем {npc:16013} выдает классовое задание на последнее улучшение комплекта подземелий.",
+	-- Step 16: Adventure: Saving the Best for Last (Alliance)
+	-- {quest:8999} Saving the Best for Last
+	["Adventure: {quest:8999} (Alliance)"] = "",
+	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
+	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
-	-- Step 17: Adventure: Back to the Beginning (Horde)
-	-- {quest:8998} Back to the Beginning
-	["Adventure: {quest:8998} (Horde)"] = "Приключения: {quest:8998} (Орда)",
-	-- {npc:16012} Mokvar
-	["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "Затем {npc:16012} выдает классовое задание на последнее улучшение комплекта подземелий.",
+	-- Step 17: Adventure: Saving the Best for Last (Horde)
+	-- {quest:9007} Saving the Best for Last
+	["Adventure: {quest:9007} (Horde)"] = "",
+	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
+	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "Подземелья: уровни 15-25",
-	["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "Последние боссы всех подземелий 15-25 вместе дают одно очко. Отмечайте каждого убитого босса; группы следуют обычным диапазонам уровней Classic, так что точный список смотрите на панели наследия в игре.",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718} (появляется после события; NPC – {npc:3678})",
-	-- {area:717} The Stockade
-	["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}: обычное последнее убийство; постоянного последнего босса в {area:717} нет",
-	-- {area:16919} Hall of Thanes · {area:153} Ruins of Lordaeron
-	["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever добавляет подземелья: {area:16919} и {area:153}; их боссов и диапазонов пока нет в наших данных.",
+	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
+	["{area:17732} (Forever's): {npc:260326}"] = "",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "Подземелья: уровни 26-45",
-	["The final boss of every level 26-45 dungeon earns one point together."] = "Последние боссы всех подземелий 26-45 вместе дают одно очко.",
+	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
+	["the final boss of the Drowned City"] = "",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}: Кладбище",
 	-- {area:796} Scarlet Monastery
@@ -133,51 +139,72 @@ return {
 	["{area:796}: Armory"] = "{area:796}: Оружейная",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Cathedral"] = "{area:796}: Собор",
-	-- {area:1517} Uldaman
-	["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517} (уровни 41-51; может засчитываться в диапазоне 46-60)",
+	-- {area:17780} Krol'dok Stronghold
+	["the final boss of {area:17780}"] = "",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "Подземелья: уровни 46-60",
-	["The final boss of every level 46-60 dungeon earns one point together."] = "Последние боссы всех подземелий 46-60 вместе дают одно очко.",
+	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
+	["the final boss of Alcaz Prison"] = "",
+	-- {area:1216} Blackmaw Hold
+	["the final boss of {area:1216}"] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}: нижняя часть",
 	-- {area:1583} Blackrock Spire
 	["Upper {area:1583}"] = "{area:1583}: верхняя часть",
-	["Dire Maul East"] = "Забытый Город: восток",
-	["Dire Maul West"] = "Забытый Город: запад",
-	["Dire Maul North"] = "Забытый Город: север",
 	-- {area:2279} Stratholme
 	["{area:2279}, Live side"] = "{area:2279}: живая часть",
 	-- {area:2279} Stratholme
 	["{area:2279}, Undead side"] = "{area:2279}: часть нежити",
+	["Dire Maul East"] = "Забытый Город: восток",
+	["Dire Maul North"] = "Забытый Город: север",
+	["Dire Maul West"] = "Забытый Город: запад",
+	-- {area:16985} Shaper's Terrace
+	["the final boss of the {area:16985}"] = "",
 
-	-- Step 21: Forever's new dungeons
-	["Forever's new dungeons"] = "Новые подземелья Forever",
-	-- {area:16919} Hall of Thanes · {area:153} Ruins of Lordaeron
-	["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919} и {area:153} – новые подземелья Forever. Их боссов, уровней и диапазона наследия нет в наших данных, так что отмечайте их сами.",
-	-- {area:16919} Hall of Thanes
-	["the final boss of {area:16919}"] = "последнего босса: {area:16919}",
-	-- {area:153} Ruins of Lordaeron
-	["the final boss of {area:153}"] = "последнего босса: {area:153}",
-
-	-- Step 22: Raids: Onyxia
+	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "Рейды: {npc:10184}",
-	-- {npc:10184} Onyxia · {item:16309} Drakefire Amulet · {item:16663} Blood of the Black Dragon Champion
-	["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "Убийство босса ({npc:10184}) дает очко. В Classic для входа в логово нужен допуск: {item:16309} для Альянса, {item:16663} для Орды.",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
 
-	-- Step 23: Raids: Hyjal Summit
+	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "Рейды: Вершина Хиджала",
-	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "Все 13 боссов Вершины Хиджала дают очко. Вершина Хиджала – новый рейд Forever; его боссов нет в наших данных, так что отметьте шаг, когда убьете всех 13.",
+	-- {zone:2482} Mount Hyjal
+	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "",
 	["all 13 Hyjal Summit bosses"] = "всех 13 боссов Вершины Хиджала",
 
-	-- Step 24: Raids: Barrow Deeps
+	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "Рейды: Barrow Deeps",
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "Все 8 боссов рейда Barrow Deeps дают очко. Это новый рейд Forever; его боссов нет в наших данных, так что отметьте шаг, когда убьете всех 8.",
+	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
 	["all 8 Barrow Deeps bosses"] = "всех 8 боссов Курганных глубин",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Adventure: {quest:8997} (Alliance)"] = "Приключения: {quest:8997} (Альянс)",
+	-- ["Adventure: {quest:8998} (Horde)"] = "Приключения: {quest:8998} (Орда)",
+	-- ["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "Все 13 боссов Вершины Хиджала дают очко. Вершина Хиджала – новый рейд Forever; его боссов нет в наших данных, так что отметьте шаг, когда убьете всех 13.",
+	-- ["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "Все 8 боссов рейда Barrow Deeps дают очко. Это новый рейд Forever; его боссов нет в наших данных, так что отметьте шаг, когда убьете всех 8.",
+	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "Blizzard считает четыре репутации полей боя, но в наших данных по три на сторону ({zone:1460}, {zone:1461}, {zone:1459}). Четвертая, вероятно, связана с новым PvP-контентом Forever; проверьте панель наследия в игре.",
+	-- ["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "Превознесение у каждой фракции поля боя дает очко (всего 4; здесь показаны три, см. примечание). Следуйте гайдам Polestar по репутации: Ущелье Песни Войны, Низина Арати и Альтеракская долина. Бонус наследия «Дипломат» ускоряет рост репутации.",
+	-- ["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "Исследование всей карты мира одним персонажем дает очко и может открыть Систему наследия. Все должно быть сделано одним и тем же персонажем.",
+	-- ["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "Следуйте гайдам Polestar по исследованию: Восточные Королевства 1-30, 30-45 и 45-60, а также Калимдор 1-30, 30-45 и 45-60. Они отмечают каждую открытую местность.",
+	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever добавляет подземелья: {area:16919} и {area:153}; их боссов и диапазонов пока нет в наших данных.",
+	-- ["Forever's new dungeons"] = "Новые подземелья Forever",
+	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "Убийство босса ({npc:10184}) дает очко. В Classic для входа в логово нужен допуск: {item:16309} для Альянса, {item:16663} для Орды.",
+	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "Последние боссы всех подземелий 15-25 вместе дают одно очко. Отмечайте каждого убитого босса; группы следуют обычным диапазонам уровней Classic, так что точный список смотрите на панели наследия в игре.",
+	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "Последние боссы всех подземелий 26-45 вместе дают одно очко.",
+	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "Последние боссы всех подземелий 46-60 вместе дают одно очко.",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Цепочка заданий – {npc:16042} – дает очко. Это цепочка комплекта подземелий 60-го уровня: {npc:16013} ({zone:1455}) или {npc:16012} ({zone:1454}) через «В поисках Антиона» и «Прощальные слова Антиона» отправляют к NPC {npc:16033} ({area:254}); его задания «Три властелина огня», левая и правая части амулета Лорда Вальтхалака, «Последние приготовления» и «Mea Culpa» ({npc:16042}) завершаются заданием {quest:8996}. Затем {quest:8997} ведет к классовым заданиям на последнее улучшение комплекта.",
+	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Цепочка заданий – {npc:16042} – дает очко. Это цепочка комплекта подземелий 60-го уровня: {npc:16013} ({zone:1455}) или {npc:16012} ({zone:1454}) через «В поисках Антиона» и «Прощальные слова Антиона» отправляют к NPC {npc:16033} ({area:254}); его задания «Три властелина огня», левая и правая части амулета Лорда Вальтхалака, «Последние приготовления» и {quest:8995} завершаются заданием {quest:8996}. Затем {quest:8997} ведет к классовым заданиям «Сладкое – на закуску».",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "Цепочка заданий – {npc:16042} – дает очко. Это цепочка комплекта подземелий 60-го уровня: {npc:16013} ({zone:1455}) или {npc:16012} ({zone:1454}) через «В поисках Антиона» и «Прощальные слова Антиона» отправляют к NPC {npc:16033} ({area:254}); его задания «Три властелина огня», левая и правая части амулета ({item:22048}), «Последние приготовления» и «Mea Culpa» ({npc:16042}) завершаются заданием {quest:8996}. Затем {quest:8997} ведет к классовым заданиям на последнее улучшение комплекта.",
-	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}: обычное последнее убийство; постоянного последнего босса в подземелье {area:717} нет",
+	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "Какое задание Blizzard считает концом цепочки ({quest:8996} или последнее классовое задание), неизвестно, пока не записаны данные наследия.",
+	-- ["the final boss of {area:153}"] = "последнего босса: {area:153}",
+	-- ["the final boss of {area:16919}"] = "последнего босса: {area:16919}",
+	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517} (уровни 41-51; может засчитываться в диапазоне 46-60)",
+	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919} и {area:153} – новые подземелья Forever. Их боссов, уровней и диапазона наследия нет в наших данных, так что отмечайте их сами.",
+	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}: обычное последнее убийство; постоянного последнего босса в {area:717} нет",
+	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "Затем {npc:16012} выдает классовое задание на последнее улучшение комплекта подземелий.",
+	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "Затем {npc:16013} выдает классовое задание на последнее улучшение комплекта подземелий.",
 }

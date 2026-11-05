@@ -1,0 +1,22 @@
+{
+	"_about": "Test corrections for the data-corrections golden (made-up ids above the slice's, except quest 15 and item 159, which the slice has). Applied to the data golden's slice without Forever's quest data.",
+	"quests": {
+		"15": { "set": { "minLevel": 2 }, "note": "an existing record: the field is replaced" },
+		"990001": {
+			"set": { "title": "A Quest Only We Know", "level": 5, "minLevel": 3, "start": { "npc": [990101], "object": [], "item": [] }, "end": { "npc": [990101], "object": [] } },
+			"note": "absent, but it holds a title, a giver and a turn-in: it becomes the record"
+		},
+		"990002": { "set": { "races": 77 }, "note": "absent and no title, giver or turn-in: reported as unused" }
+	},
+	"npcs": {
+		"990101": { "set": { "name": "Test Quartermaster", "level": 10 }, "addSpawns": { "1429": { "f": "e", "pts": [[40.1, 60.2]] } }, "note": "absent, but named and placed: it becomes the record" },
+		"990102": { "set": { "rank": 1 }, "note": "absent, no name or place: reported as unused" }
+	},
+	"objects": {
+		"990201": { "set": { "name": "Test Crate" }, "note": "absent, named but not placed: reported as unused" }
+	},
+	"items": {
+		"159": { "removeVendors": [990101], "note": "an existing item: removing a vendor it does not have changes nothing but tags it" },
+		"990301": { "removeDrops": { "npc": [6] }, "note": "absent item: an item correction cannot stand alone" }
+	}
+}

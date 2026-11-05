@@ -4,8 +4,8 @@
 // names inside the prose as {kind:id} tokens and drops a goal note that only
 // names its goal (#133); an English client reads the guide as written; a
 // French one reads the game's French names in it, and the pack's French
-// texts, from its texts addon, where they are translated. `i18n guides`
-// writes and checks the texts files a translator fills.
+// texts, from its texts addon, where they are translated. (`forge i18n guides`, which
+// writes and checks the texts files a translator fills: rust/crates/forge/tests/i18n_cli.rs.)
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -15,7 +15,6 @@ const { runAddon } = require('./helpers/lua');
 const { namesPack } = require('./helpers/names');
 const { tmpdir } = require('./helpers/tmp');
 const { DATA_DIR } = require('./helpers/dsl');
-const { polestar } = require('./helpers/cli');
 const { buildPack } = require('../tools/lib/pack/build');
 const { commandPack } = require('../tools/lib/pack/locate');
 const { writePackDir } = require('../tools/lib/dsl/project');
@@ -65,9 +64,6 @@ function install(r) {
 	writePackDir(out, r.files);
 	return { addons, out };
 }
-
-// `node tools/polestar.js i18n guides ...` on the pack folder `dir`, with the fixture data.
-const i18n = (args) => polestar(args);
 
 const FR_NAMES = namesPack('frFR', { npc: { 197: 'Maréchal McBride', 152: 'Frère Danil', 6: 'Vermine kobold' }, quest: { 7: 'Nettoyer le camp des kobolds' } });
 
@@ -162,31 +158,6 @@ test("the pack's French texts addon loads on a French client only, and its trans
 	const [de, loads] = view(addons, r.manifest.folder, { locale: 'deDE', texts: ['PolestarPack_Texts_frFR'], script: 'emit(stub.packLoads)' });
 	assert.equal(de.note, TIP, 'a German client reads the English');
 	assert.deepEqual(loads, {}, 'and never loads the French texts');
-});
-
-test('i18n guides sync writes every text to translate with its names shown; check fails on a lost token and names the new English of a stale one', () => {
-	const dir = packDir();
-	const sync = i18n(['i18n', 'guides', 'sync', 'frFR', '--pack', dir, '--data', DATA_DIR]);
-	assert.equal(sync.status, 0, sync.stderr);
-	const file = path.join(dir, 'locales', 'frFR', 'guides', 'main.lua');
-	const text = fs.readFileSync(file, 'utf8');
-	assert.match(text, /-- \{npc:197\} Marshal McBride · \{npc:152\} Brother Danil · \{npc:6\} Kobold Vermin\n/);
-	assert.match(text, /\["a few \{npc:6\} at a time"\] = "",/);
-	assert.doesNotMatch(text, /\["\{npc:197\}"\]/, 'a text that is only a name needs no words');
-	fs.writeFileSync(file, text.replace('["a few {npc:6} at a time"] = ""', '["a few {npc:6} at a time"] = "quelques-uns à la fois"'));
-	const lost = i18n(['i18n', 'guides', 'check', 'frFR', '--pack', dir, '--data', DATA_DIR]);
-	assert.equal(lost.status, 1);
-	assert.match(lost.stderr, /leaves out \{npc:6\}/);
-	fs.writeFileSync(file, fs.readFileSync(file, 'utf8').replace('"quelques-uns à la fois"', '"quelques {npc:6} à la fois"'));
-	fs.writeFileSync(path.join(dir, 'guides', 'main.guide'), GUIDE.replace('-- a few Kobold Vermin at a time', '-- a few Kobold Vermin at once'));
-	const stale = i18n(['i18n', 'guides', 'check', 'frFR', '--pack', dir, '--data', DATA_DIR]);
-	assert.equal(stale.status, 1);
-	assert.match(stale.stderr, /stale translation of "a few \{npc:6\} at a time" \(its English is now "a few \{npc:6\} at once"/);
-	const again = i18n(['i18n', 'guides', 'sync', 'frFR', '--pack', dir, '--data', DATA_DIR]);
-	assert.equal(again.status, 0, again.stderr);
-	assert.match(fs.readFileSync(file, 'utf8'), /-- \["a few \{npc:6\} at a time"\] = "quelques \{npc:6\} à la fois",/, 'the old translation waits, commented out, for its translator');
-	const clean = i18n(['i18n', 'guides', 'check', 'frFR', '--pack', dir, '--data', DATA_DIR]);
-	assert.equal(clean.status, 0, clean.stderr);
 });
 
 test('a token the author wrote must name something the data has', () => {

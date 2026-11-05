@@ -13,7 +13,7 @@ const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 
 const FILES = ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml'];
-const INVITE = 'https://discord.gg/vMbee6F2e9';
+const INVITE = 'https://discord.gg/polestar';
 
 function run(script, before = '') {
 	return runAddon({
@@ -163,7 +163,8 @@ test('at its longest, with a marked spot and 40 addons, the report still fits on
 		assert.ok(text.length <= 2000, `${locale}: ${text.length} characters, ${Buffer.byteLength(text, 'utf8')} bytes`);
 		assert.ok(lines[0].endsWith(letter.repeat(250)), `${locale}: the description is kept whole`);
 		assert.deepEqual(block(text), details, `${locale}: every detail line, as taken`);
-		assert.equal(lines[1], '**Right spot:** zone map 1429 · goto 51.23,40.50 live', `${locale}: the right spot is kept`);
+		// The label is the locale's (ruRU translates it); the spot after it is kept whole.
+		assert.match(lines[1], /^\*\*[^*]+\*\* zone map 1429 · goto 51\.23,40\.50 live$/, `${locale}: the right spot is kept`);
 	}
 	const english = longest(...SCRIPTS[0]);
 	assert.equal(english.text.length, 2000, 'English is the one that runs over');
@@ -645,4 +646,22 @@ test('the 5 letters are letters: spaces a Chinese or Japanese input method types
 		end
 		emit({ res = res })`);
 	assert.deepEqual(out.res, [false, false, false, false, true, true], 'ideographic spaces, no-break spaces, two letters padded with them, three emoji: no; five emoji, five Japanese letters: yes');
+});
+
+test('the report carries the quest log, the settings turned away from their defaults and the rolling log\'s last lines', () => {
+	const [out] = run(`
+		Polestar.Compat.GetLogQuests = function() return { 783, 7 } end
+		Polestar.Compat.IsQuestReadyForTurnIn = function(q) return q == 7 end
+		Polestar.Compat.GetQuestObjectives = function() return { { finished = true }, { finished = false } } end
+		Polestar.Set("qol.stepInteract", true)
+		Polestar.Debug("picked the inn at Goldshire")
+		uistub.setGuide(uistub.elwynn, 3)
+		UI.ShowReport()
+		emit({ text = PolestarReport.Box:GetText() })`);
+	const lines = out.text.split('\n');
+	assert.ok(lines.includes('Quest log 2/40: 783 1/2, 7 done'), out.text);
+	assert.ok(lineWith(out.text, 'Settings: ').includes('qol.stepInteract=true'), out.text);
+	const log = lines.indexOf('Log:');
+	assert.ok(log > 0, out.text);
+	assert.match(lines[lines.length - 2], /^> \d\d:\d\d:\d\d picked the inn at Goldshire$/, 'the newest line last, inside the block');
 });

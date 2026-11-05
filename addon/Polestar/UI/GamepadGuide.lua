@@ -258,7 +258,7 @@ local function bindingClick(row, button)
 					row.psArmed, row.psWho = key, who
 					local armed = key
 					if C_Timer and C_Timer.After then
-						C_Timer.After(ARM_SECONDS, function() if row.psArmed == armed then disarm(row) end end)
+						ns.After(ARM_SECONDS, function() if row.psArmed == armed then disarm(row) end end)
 					end
 				elseif not G.Bind(row.psBinding, key) then
 					row.psSay = L["The game refused that key."]

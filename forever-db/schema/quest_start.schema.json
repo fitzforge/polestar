@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/quest_start.schema.json",
+  "title": "quest_start",
+  "description": "What offers a quest.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "kind",
+    "id"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "npc",
+        "object",
+        "item"
+      ],
+      "description": "npc, object or item"
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "npc, object or item id"
+    }
+  }
+}

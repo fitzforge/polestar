@@ -9,12 +9,12 @@ levels 1-60
 zone Elwynn Forest
 
 # Donni Anthania, the crazy cat lady, north of Goldshire.
-# Sources: items.json / npcs.json (vendor, stock); Forever client 1.60.1.70338
-# via wago.tools (ItemSparse prices; every pet item teaches its companion when
-# used).
+# Sources: items.json / npcs.json (vendor, stock); Forever's client data
+# 1.60.1.70532 (ItemSparse prices: 40s each; every pet item teaches its
+# companion when used).
 
 step Donni Anthania
-  tip Donni Anthania has a farmhouse north of Goldshire. Each cat carrier costs 40s. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Donni Anthania has a farmhouse north of Goldshire. Each cat carrier costs 40s, 1g 60s for all four. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 6367                         -- Donni Anthania
   buy 8485 npc 6367 optional          -- Cat Carrier (Bombay), 40s
   buy 8486 npc 6367 optional          -- Cat Carrier (Cornish Rex), 40s

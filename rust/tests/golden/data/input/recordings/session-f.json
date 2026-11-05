@@ -1,0 +1,30 @@
+{
+	"schema": 1,
+	"build": "1.60.1.70450",
+	"session": "f",
+	"char": { "name": "Finder", "realm": "Fixture", "race": "Troll", "class": "HUNTER", "faction": "Horde" },
+	"started": 9000,
+	"ended": 9900,
+	"events": [
+		{ "t": 1, "e": "slain", "npc": 3098, "npcName": "Mottled Boar", "cls": "normal", "npcLvl": 1, "map": 1411, "x": 44.5, "y": 65 },
+		{ "t": 2, "e": "slain", "npc": 3098, "npcName": "Mottled Boar", "cls": "normal", "npcLvl": 2, "map": 1411, "x": 44.6, "y": 59.3 },
+		{ "t": 3, "e": "slain", "npc": 3098, "npcName": "Mottled Boar", "cls": "normal", "npcLvl": 2, "map": 1411, "x": 45.1, "y": 63.1 },
+		{ "t": 4, "e": "slain", "npc": 3098, "npcName": "Mottled Boar", "cls": "normal", "npcLvl": 1, "map": 1411, "x": 45.2, "y": 60.4 },
+		{ "t": 5, "e": "slain", "npc": 3098, "npcName": "Mottled Boar", "cls": "normal", "npcLvl": 1, "map": 1411, "x": 45.2, "y": 67, "denied": true },
+		{ "t": 6, "e": "drop", "npc": 3098, "npcName": "Mottled Boar", "items": [{ "item": 769, "n": 1 }], "map": 1411, "x": 44.5, "y": 65 },
+		{ "t": 7, "e": "drop", "npc": 3098, "npcName": "Mottled Boar", "items": [{ "item": 769, "n": 1 }, { "item": 4865, "n": 2 }], "map": 1411, "x": 44.6, "y": 59.3 },
+		{ "t": 8, "e": "drop", "npc": 3098, "npcName": "Mottled Boar", "items": [{ "item": 783, "n": 1 }], "gather": "skin", "map": 1411, "x": 45.1, "y": 63.1 },
+		{ "t": 9, "e": "rare", "npc": 5823, "npcName": "Death Flayer", "cls": "rare", "npcLvl": 11, "src": "nameplate", "map": 1411, "x": 39.2, "y": 27.3 },
+		{ "t": 10, "e": "slain", "npc": 5823, "npcName": "Death Flayer", "cls": "rare", "npcLvl": 11, "map": 1411, "x": 39.5, "y": 27.6 },
+		{ "t": 11, "e": "drop", "npc": 5823, "npcName": "Death Flayer", "items": [{ "item": 5459, "n": 1 }], "map": 1411, "x": 39.5, "y": 27.6 },
+		{ "t": 12, "e": "drop", "object": 1617, "objName": "Silverleaf", "items": [{ "item": 765, "n": 2 }], "gather": "herb", "map": 1411, "x": 50.1, "y": 40.2 },
+		{ "t": 13, "e": "treasure", "object": 3240, "objName": "Battered Chest", "src": "vignette", "map": 1411, "x": 52.3, "y": 44.1 },
+		{ "t": 14, "e": "drop", "object": 3240, "objName": "Battered Chest", "items": [{ "item": 4865, "n": 1 }, { "item": 4905, "n": 1, "q": true }], "map": 1411, "x": 52.3, "y": 44.1 },
+		{ "t": 20, "e": "enter", "inst": 389, "instName": "Ragefire Chasm", "instType": "party", "diff": 1, "map": 1454, "x": 52.4, "y": 49.8 },
+		{ "t": 21, "e": "enter", "inst": 389, "instName": "Ragefire Chasm", "instType": "party", "diff": 1 },
+		{ "t": 22, "e": "slain", "npc": 11520, "npcName": "Taragaman the Hungerer", "cls": "elite", "npcLvl": 16, "inst": 389, "diff": 1 },
+		{ "t": 23, "e": "drop", "npc": 11520, "npcName": "Taragaman the Hungerer", "items": [{ "item": 14149, "n": 1 }], "inst": 389, "diff": 1 },
+		{ "t": 24, "e": "encounter", "enc": 1443, "encName": "Taragaman the Hungerer", "diff": 1, "size": 5, "ok": true, "inst": 389, "npcs": [11520] }
+	],
+	"maps": {}
+}

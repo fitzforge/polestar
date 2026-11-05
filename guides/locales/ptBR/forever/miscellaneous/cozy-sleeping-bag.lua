@@ -1,5 +1,5 @@
 -- Portuguese (Brazil) (ptBR): the guide forever/miscellaneous/cozy-sleeping-bag (forever/miscellaneous/cozy-sleeping-bag.guide).
--- Written by `node tools/polestar.js i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Portuguese (Brazil) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -14,7 +14,7 @@ return {
 	-- {zone:1436} Westfall
 	["The note in {zone:1436}"] = "",
 	-- {zone:1436} Westfall
-	["A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in western {zone:1436}, with a nailed plank beside it."] = "",
 
 	-- Step 2: Its twin in the Barrens
 	-- {zone:1413} Barrens
@@ -26,7 +26,7 @@ return {
 	-- {zone:1413} Barrens
 	["The note in the {zone:1413}"] = "",
 	-- {zone:1413} Barrens
-	["A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "",
+	["The chain opens at level 14. A burned-out campfire in the southern {zone:1413}, with a nailed plank beside it."] = "",
 
 	-- Step 4: Its twin in Westfall
 	-- {zone:1436} Westfall
@@ -35,8 +35,8 @@ return {
 	["The note's \"twin land\" is {zone:1436}: the same burned-out campfire stands in western {zone:1436}."] = "",
 
 	-- Step 5: Stonetalon Mountains
-	-- {object:424005} Pocket Litter
-	["The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
+	-- {area:460} Sun Rock Retreat · {zone:1442} Stonetalon Mountains · {object:424005} Pocket Litter
+	["The next hideout is a small camp in the hills north-west of {area:460}, in the middle of the {zone:1442}. Leave the road where a path climbs west into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "",
 	-- {area:1702} Honor's Stand
 	["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "",
 	["North of Honor's Stand"] = "",

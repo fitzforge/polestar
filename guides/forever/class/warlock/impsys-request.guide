@@ -5,91 +5,107 @@ class Warlock
 folder Warlock
 levels 50-54
 zone Felwood
-keywords An Imp's Request, Hot and Itchy, The Wrong Stuff, Trolls of a Feather, Impsy, Felcloth, Rotting Wood, Bloodvenom Essence, Voodoo Feather, Sunken Temple, Temple of Atal'Hakkar, Soul Harvester, Abyss Shard, Robes of Servitude, Warlock, class quest
+keywords An Imp's Request, Hot and Itchy, The Wrong Stuff, Trolls of a Feather, Impsy, Felcloth, Rotting Wood, Bloodvenom Essence, Withered Protector, Irontree, Tainted Ooze, Voodoo Feather, Sunken Temple, Temple of Atal'Hakkar, Gasher, Zul'Lor, Hukku, Mijan, Zolo, Loro, Soul Harvester, Abyss Shard, Robes of Servitude, Warlock, class quest
 reward item 20536 20534 20530
 why A staff, off-hand or robe for your 50s; Impsy's own errand, not a step of the Dreadsteed chain.
 
 # The level 52 Warlock class chain: An Imp's Request (8419) from your class
 # trainer to Impsy in Felwood, The Wrong Stuff (8421) and Trolls of a Feather
 # (8422), the Voodoo Feathers of the Sunken Temple's troll guardians.
-# Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for the givers, drops and spawns; Wowhead Forever's
-# Warlock class page (data/local/quest-audit/wowhead-class-quests.json):
-# unchanged in Forever, Trolls of a Feather lets you choose the Soul
-# Harvester, the Abyss Shard or the Robes of Servitude.
 # Impsy also offers Hot and Itchy (8420), the same Felcloth errand without the
-# trainer; the two exclude each other, so take An Imp's Request from your
-# trainer as below.
-# The feathers drop from elite trolls inside the Sunken Temple: this chain
-# needs a dungeon group. Wowhead's Classic quest page
-# (wowhead.com/classic/quest=8422) asks for six feathers in all. The data has
-# no position for the trolls or the dungeon entrance; the entrance point
-# (69,54, the temple in the middle of the Pool of Tears) is from a comment on
-# Wowhead's Sunken Temple zone page (wowhead.com/zone=1477).
-# Not part of the Dreadsteed chain: An Imp's Request (8419 or 8420) -> The
-# Wrong Stuff (8421) -> Trolls of a Feather (8422) ends there (8422 has no
-# `next`, and no Dreadsteed quest needs any of them; Wowhead's series box for
-# 8419 shows the same four). The imp of the Dreadsteed road is J'eevee in
-# the Scholomance (Imp Delivery), not Impsy. Impsy's camp also runs Niby the
-# Almighty's chain for the Shard of the Green Flame
+# trainer; the two exclude each other. Both reference class guides take
+# Impsy's at the camp. The guide offers the trainer's (the level-up heads-up
+# shows it there) only when it starts outside Felwood (`when !zone`); in
+# Felwood it goes straight to Impsy and Hot and Itchy. The two Impsy steps
+# pick one by `when` (onquest 8419 / not turned in 8419); lint still warns
+# that 8420 is not offered once 8419 is taken: both versions kept on purpose.
+# Drops (items.json): Felcloth from the Jadefire satyrs of Felwood (about 7%),
+# the Legashi satyrs of Azshara (about 9%), the Felguard Sentries of the
+# Blasted Lands (10%) and the Hederine of Winterspring (8%); Forever's data
+# also lists Vi'el, the Exotic Reagent Merchant in Winterspring, selling it.
+# Rotting Wood: Irontree Stompers and Wanderers (52) 25%, the Withered
+# Protector (55) 26% (player notes: about three per kill). Bloodvenom Essence:
+# Tainted Oozes (51) 20%. Feathers: each of the six named trolls (51-52, elite)
+# drops its own every time (Amber: Gasher, Zul'Lor; Blue: Hukku, Mijan;
+# Green: Zolo, Loro). The trolls have no positions in our data: they stand on
+# the balconies around the temple's central pit; the goals point at the
+# entrance (69,54, the temple in the middle of the Pool of Tears, from player
+# reports on the Sunken Temple zone).
+# Not part of the Dreadsteed chain: 8422 has no `next` and no Dreadsteed quest
+# needs any of these. The imp of the Dreadsteed road is J'eevee in the
+# Scholomance. Impsy's camp also runs Niby's Shard of the Green Flame
 # (forever/class/warlock/shard-of-the-green-flame), at the same spot.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, so nothing here has been checked in game.
+# ASSUMED: The chain runs as in Classic (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: the trolls' feathers and Impsy's rewards.
+# Sources: Forever's quest data (quests.json, npcs.json, items.json); the
+# quest notes (data/local/mechanics); the reference class guides.
 
 step An Imp's Request (Stormwind)
   only Human
   zone Stormwind City
-  tip At 50 Demisette Cloyce in the Slaughtered Lamb, in the Mage Quarter, sends you to Impsy in Felwood.
+  tip At 50 Demisette Cloyce in the Slaughtered Lamb, in the Mage Quarter, sends you to Impsy in Felwood with a piece of Felcloth.
+  when !zone "Felwood"
   level 50
   accept 8419 npc 461                 -- Demisette Cloyce
 
 step An Imp's Request (Ironforge)
   only Gnome
   zone Ironforge
-  tip At 50 Briarthorn in Ironforge sends you to Impsy in Felwood.
+  tip At 50 Briarthorn in Ironforge sends you to Impsy in Felwood with a piece of Felcloth.
+  when !zone "Felwood"
   level 50
   accept 8419 npc 5172                -- Briarthorn
 
 step An Imp's Request (Orgrimmar)
   only Orc,Troll
   zone Orgrimmar
-  tip At 50 Zevrost in the Cleft of Shadow sends you to Impsy in Felwood.
+  tip At 50 Zevrost in the Cleft of Shadow sends you to Impsy in Felwood with a piece of Felcloth.
+  when !zone "Felwood"
   level 50
   accept 8419 npc 3326                -- Zevrost
 
 step An Imp's Request (Undercity)
   only Undead
   zone Undercity
-  tip At 50 Kaal Soulreaper in the Magic Quarter sends you to Impsy in Felwood.
+  tip At 50 Kaal Soulreaper in the Magic Quarter sends you to Impsy in Felwood with a piece of Felcloth.
+  when !zone "Felwood"
   level 50
   accept 8419 npc 4563                -- Kaal Soulreaper
 
 step Felcloth
   zone Felwood
-  tip Impsy wants one Felcloth: the Jadefire satyrs and the demons of Jaedenar drop it.
-  collect 14256 quest 8419.1          -- Felcloth
+  tip One Felcloth: the Jadefire satyrs of Felwood drop it about one kill in fourteen, and so do the Legashi satyrs and the Felguard Sentries you hunt for Niby's essences. Quicker: buy one at the Auction House. You need it for the trainer's An Imp's Request or for Impsy's own Hot and Itchy, the same errand: whichever you hold.
+  collect 14256                       -- Felcloth
 
 step Impsy
-  tip Impsy waits beside Niby the Almighty in central Felwood, just east of Jaedenar. This chain is Impsy's own and is not part of the Dreadsteed chain; Niby and Impsy also give the Shard of the Green Flame chain here.
+  tip Impsy waits beside Niby the Almighty on a rise just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. Hand him the trainer's An Imp's Request with the cloth. Next he wants ten Rotting Wood and four Bloodvenom Essence.
+  when onquest 8419
   turnin 8419                         -- Impsy
-  accept 8421
+
+step Impsy: Hot and Itchy
+  tip Impsy waits beside Niby the Almighty on a rise just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. Take his own Hot and Itchy and hand him the cloth at once. Next he wants ten Rotting Wood and four Bloodvenom Essence.
+  when !turnedin 8419
+  accept 8420                         -- Impsy: Hot and Itchy
+  turnin 8420                         -- Impsy
 
 step Rotting Wood and Bloodvenom
-  tip The Irontree treants in northern Felwood drop the Rotting Wood; the Tainted Oozes around Jaedenar the Bloodvenom Essence.
-  collect 20613 quest 8421.1          -- Rotting Wood
-  collect 20614 quest 8421.2          -- Bloodvenom Essence
+  tip The Irontree treants (level 52) of Irontree Woods, in northern Felwood west of Talonbranch Glade, drop Rotting Wood one time in four; the big Withered Protector (55) often drops three at once but hits hard and dazes. The Tainted Oozes (51) around Impsy and along the Bloodvenom drop the essence one time in five.
+  accept 8421                         -- Impsy: The Wrong Stuff
+  collect 20613 x10 quest 8421.1      -- Rotting Wood
+  collect 20614 x4 quest 8421.2       -- Bloodvenom Essence
 
 step Impsy again
+  tip Impsy now wants six Voodoo Feathers from the Sunken Temple: a dungeon run.
   turnin 8421                         -- Impsy
   accept 8422
 
 step The Sunken Temple
   zone Swamp of Sorrows
-  tip The six troll guardians of the Sunken Temple, a level 50 dungeon, each drop a Voodoo Feather: bring a group of five. The temple stands in the middle of the Pool of Tears; swim down into it to reach the entrance.
-  collect 20606 quest 8422.1 @69.0,54.0 -- Amber Voodoo Feather
-  collect 20607 quest 8422.2 @69.0,54.0 -- Blue Voodoo Feather
-  collect 20608 quest 8422.3 @69.0,54.0 -- Green Voodoo Feather
+  tip The Sunken Temple (Temple of Atal'Hakkar, level 50-56, a group of five) stands in the middle of the Pool of Tears: swim down into the temple and take the stairs to the entrance. The six troll guardians (level 51-52, elite) stand on the balconies around the central pit, each with adds; each drops his feather every time: Gasher and Zul'Lor the Amber, Hukku and Mijan the Blue, Zolo and Loro the Green. Not soloable at 52.
+  collect 20606 x2 quest 8422.1 @69.0,54.0 group 5 -- Amber Voodoo Feathers: Gasher, Zul'Lor
+  collect 20607 x2 quest 8422.2 @69.0,54.0 group 5 -- Blue Voodoo Feathers: Hukku, Mijan
+  collect 20608 x2 quest 8422.3 @69.0,54.0 group 5 -- Green Voodoo Feathers: Zolo, Loro
 
 step Trolls of a Feather
   zone Felwood
+  tip Choose the Soul Harvester (staff), the Abyss Shard (off-hand) or the Robes of Servitude.
   turnin 8422 choose 20536 20534 20530 -- Impsy

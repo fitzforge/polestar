@@ -1,0 +1,62 @@
+guide forever/class/warlock/imp-alliance
+title Imp (Alliance)
+category Class
+class Warlock
+folder Warlock
+faction Alliance
+levels 1-4
+zone Elwynn Forest
+keywords Summon Imp, The Stolen Tome, Beginnings, Drusilla La Salle, Alamar Grimm, Powers of the Void, Stolen Books, Feather Charm, Frostmane Novice, Northshire, Coldridge Valley, Anvilmar, Tainted Letter, Tainted Memorandum, Warlock, class pet
+reward spell 688 "Summon Imp"
+why Your first demon at level 1-4: the imp, from your start zone's warlock trainer.
+
+# The imp for Alliance warlocks, one quest per start zone; The Stolen Tome
+# (1598) and Beginnings (1599) exclude each other (quests.json `excl`), and
+# each race gets its own start zone's version:
+# - Humans (Northshire, Elwynn Forest): The Stolen Tome (1598) from Drusilla
+#   La Salle, the Powers of the Void from the Stolen Books in the Defias tent.
+# - Gnomes (Coldridge Valley, Dun Morogh): Beginnings (1599) from Alamar
+#   Grimm, three Feather Charms from the Frostmane Novices.
+# The trainer teaches Summon Imp at the hand-in. Forever has no Dwarf or Night
+# Elf warlocks (races.json).
+# The level-1 letters (Tainted Letter 3105 for Humans, Tainted Memorandum 3115
+# for Gnomes) only send you to your trainer; the start-zone routes take them,
+# so they are named in the tips here, not routed.
+# Sources: Forever's quest data (quests.json, npcs.json, objects.json,
+# items.json) for the givers, the book (one spawn) and the charms (80%); the
+# quest notes (data/local/mechanics) for the guards, the respawns and where
+# the book lies. The start-zone routes (forever/alliance/human/01-elwynn-forest,
+# forever/alliance/dwarf-gnome/01-dun-morogh) route the same quests: accepts
+# and turn-ins you already did there tick off here.
+
+step Drusilla La Salle (Humans)
+  only Human
+  zone Elwynn Forest
+  tip Your first letter (Tainted Letter, from Marshal McBride after Kobold Camp Cleanup) points you to Drusilla La Salle, the warlock trainer in the little graveyard beside Northshire Abbey. She asks for a book the Defias stole.
+  accept 1598                         -- Drusilla La Salle
+
+step The Stolen Books
+  only Human
+  tip The Defias tent stands in the vineyard east of the Abbey. The book is small: it lies on the ground just right of the tent's opening, beside a blue jug. Three Defias Thugs (level 3-4) guard the tent; pull them one at a time, or step inside the tent and click the book, where they cannot reach you. The book respawns three minutes after someone takes it.
+  collect 6785 quest 1598.1           -- Powers of the Void, from the Stolen Books
+
+step Summon Imp
+  only Human
+  tip Drusilla teaches you Summon Imp at the hand-in: summon it right away, it costs nothing and fights beside you.
+  turnin 1598                         -- Drusilla La Salle: Summon Imp
+
+step Alamar Grimm (Gnomes)
+  only Gnome
+  zone Dun Morogh
+  tip Your first letter (Tainted Memorandum, from Sten Stoutarm after Dwarven Outfitters) points you to Alamar Grimm, the warlock trainer upstairs inside Anvilmar. He asks for three Feather Charms.
+  accept 1599                         -- Alamar Grimm
+
+step Feather Charms
+  only Gnome
+  tip The Frostmane Novices (level 3-4) sit at the back of the troll cave south of Anvilmar, near Grek'nir the Cold by the icy pool: take the left tunnel past the entrance. Four kills in five drop a charm, but only two or three novices spawn, so you may wait out their three-minute respawn. They throw frostbolts from range; the Troll Whelps at the cave mouth jump anyone who passes. With the charms, your hearthstone takes you straight back: a new character's is set to Coldridge Valley.
+  collect 6753 x3 quest 1599.1        -- Feather Charms
+
+step Summon Imp
+  only Gnome
+  tip Alamar teaches you Summon Imp at the hand-in: summon it right away, it costs nothing and fights beside you.
+  turnin 1599                         -- Alamar Grimm: Summon Imp

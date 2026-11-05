@@ -7,38 +7,146 @@ faction Alliance
 race Gnome
 levels 10-20
 zone Ironforge
-keywords Confounding Flash, Contingency Plan, High Priestess Mims, Hall of Mysteries, Mystic Ward, Gnome, racial, Priest
+keywords Confounding Flash, Contingency Plan, High Priestess Mims, Maxan Anvol, Priestess Josetta, High Priestess Laurena, Hall of Mysteries, Mystic Ward, Gnome, racial, Priest
 reward spell 1277455 "Confounding Flash"
 reward spell 1277462 "Contingency Plan"
-why The Gnome priest spells, new in Forever: one at 10, one at 20.
+why The Gnome priest spells, new in Forever: Confounding Flash at 10, Contingency Plan at 20. Free, no objectives.
 
-# The Gnome Priest spell quests, new in Forever: Confounding Flash at 10
-# (94817) and Contingency Plan at 20 (94818), both from High Priestess Mims
-# in Ironforge's Hall of Mysteries.
-# Sources: quests.json and npcs.json for Mims and Confounding Flash;
-# Wowhead Forever's Priest class page
-# (data/local/quest-audit/wowhead-class-quests.json: 94817-94826 and
-# 94818-94820 are new). The reference data has no giver for Contingency
-# Plan 94818: Wowhead Forever (wowhead.com/forever/quest=94818 and
-# npc=258785, checked 2026-10-14) lists High Priestess Mims as its giver
-# and the one who takes it, so the guide names her (npc 258785).
-# Two Wowhead comments (quest=94821 and 94824, September 2026) note that
-# the breadcrumbs' text says "head to Stormwind" while Mims is in
-# Ironforge's Mystic Ward.
-# alliance/dwarf-gnome/01-dun-morogh carries Confounding Flash on the route
-# (94824, from Maxan Anvol in Kharanos) and alliance/04-redridge-mountains
-# and 06-ashenvale carry Contingency Plan (94819, from High Priestess
-# Laurena); this guide repeats them for anyone off the route.
-# Not checked in game: written from the sources above.
+# The Gnome Priest spell quests, new in Forever. Each spell has one quest at
+# the teacher, High Priestess Mims (Hall of Mysteries, Ironforge's Mystic
+# Ward, beside High Priest Rohan), and letters from priest trainers in other
+# towns; any one teaches the spell:
+#   Confounding Flash (level 10):
+#     94817 High Priestess Mims (Ironforge), her own quest
+#     94821 High Priestess Laurena (Cathedral of Light, Stormwind)
+#     94822 Priestess Josetta (Goldshire, Elwynn Forest)
+#     94824 Maxan Anvol (Kharanos, Dun Morogh)
+#     94823, 94825, 94826: no giver in Forever's data.
+#   Contingency Plan (level 20):
+#     94818 High Priestess Mims (Ironforge), her own quest
+#     94819 High Priestess Laurena (Stormwind)
+#     94820: no giver in Forever's data.
+# The guide sends you to the giver in the zone you stand in when it gets
+# there (`when zone`), else straight to Mims; a letter you carry from
+# anywhere is handed in on its own step (`when onquest`). Pickups are `talk`
+# goals, not accepts, as in the other priest racial guides.
+# Sources: quests.json and npcs.json for Mims, 94817, 94819 and 94824;
+# Forever's quest pages (snapshot, 2026-10-29) for 94818 (Mims gives and
+# takes it), 94821 (Laurena) and 94822 (Josetta), added to the private
+# corrections; Forever's Priest class quest list (data/local/quest-audit/):
+# 94817-94826 new. Spells (Blizzard's Forever priest deep dive, September
+# 2026, and Forever web guides to the priest racials): Confounding Flash
+# confuses up to 5 enemies within 8 yards for 3 sec, damage breaks it, 0.5 sec
+# cast, 2-minute cooldown; Contingency Plan wards an ally for 30 sec and
+# shields and heals them if they drop below 35% health, 5-minute cooldown.
+# ASSUMED: 94823, 94825 and 94826 are the letters from Laurna Morninglight
+# (Dolanaar), Nara Meideros (Stormwind's Park) and Priestess Alathea
+# (Darnassus), and 94820 Alathea's Contingency Plan letter: their texts match
+# those trainers' other letters (Classic flow; Forever's data has no giver
+# for them). In-game check: who offers them. The guide hands them in at Mims
+# without naming a giver.
+# ASSUMED: one quest of each set closes the others, like the Classic sets
+# (Forever's data has no exclusive links for 94817-94826). In-game check:
+# after one, Mims offers no second.
+# Players' reports on 94821 and 94824 (September 2026) said an early text
+# read "head to Stormwind"; the current texts name Mims in Ironforge.
+# alliance/dwarf-gnome/01-dun-morogh carries Confounding Flash 94824 on the
+# route (Maxan Anvol to Mims); alliance/04-redridge-mountains and
+# 06-ashenvale carry Contingency Plan 94819 (Laurena to Mims).
+# Based on data, not play: written from the sources above.
 
-step Confounding Flash
-  tip At 10, go to High Priestess Mims in the Hall of Mysteries, in Ironforge's Mystic Ward. Maxan Anvol in Kharanos, Priestess Josetta in Goldshire and High Priestess Laurena in Stormwind send you to her with a quest of the same name (its text may say Stormwind: Mims is in Ironforge).
+step Confounding Flash: Maxan Anvol
+  when zone "Dun Morogh"
+  when !onquest 94817,94821,94822,94823,94824,94825,94826
+  zone Dun Morogh
+  tip At 10, Maxan Anvol, the priest trainer inside the Thunderbrew Distillery in Kharanos, hands you a Confounding Flash letter for High Priestess Mims in Ironforge. Kharanos is on the road up to the city.
+  level 10
+  talk 1226                                   -- Maxan Anvol: take his Confounding Flash letter
+
+step Confounding Flash: Priestess Josetta
+  when zone "Elwynn Forest"
+  when !onquest 94817,94821,94822,94823,94824,94825,94826
+  zone Elwynn Forest
+  tip At 10 in Elwynn Forest, Priestess Josetta, upstairs in the Lion's Pride Inn in Goldshire, hands you a Confounding Flash letter for High Priestess Mims in Ironforge.
+  level 10
+  talk 377                                    -- Priestess Josetta: take her Confounding Flash letter
+
+step Confounding Flash: High Priestess Laurena
+  when zone "Stormwind City"
+  when !onquest 94817,94821,94822,94823,94824,94825,94826
+  zone Stormwind City
+  tip At 10 in Stormwind, High Priestess Laurena at the altar of the Cathedral of Light hands you a Confounding Flash letter for High Priestess Mims in Ironforge (the Deeprun Tram from the Dwarven District).
+  level 10
+  talk 376                                    -- High Priestess Laurena: take her Confounding Flash letter
+
+step Confounding Flash: High Priestess Mims
+  when !onquest 94817,94821,94822,94823,94824,94825,94826
+  zone Ironforge
+  tip At 10, go to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward (north-west of the city), right beside High Priest Rohan: she gives Confounding Flash and takes it back at once. No letter needed. Confounding Flash confuses up to five enemies around you for 3 seconds (any damage wakes them) on a 2-minute cooldown: time to step back and heal, or to run.
   level 10
   accept 94817                                -- High Priestess Mims
   turnin 94817                                -- High Priestess Mims: Confounding Flash
 
-step Contingency Plan
-  tip At 20, High Priestess Mims teaches Contingency Plan. High Priestess Laurena in Stormwind sends you to her with a quest of the same name.
+step Confounding Flash: Maxan's letter
+  when onquest 94824
+  zone Ironforge
+  tip Follow the road up from Kharanos into Ironforge and to the Mystic Ward: High Priestess Mims in the Hall of Mysteries takes the letter and teaches Confounding Flash.
+  turnin 94824                                -- High Priestess Mims: Confounding Flash
+
+step Confounding Flash: Josetta's letter
+  when onquest 94822
+  zone Ironforge
+  tip Hand the letter to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward: the Deeprun Tram from Stormwind's Dwarven District.
+  turnin 94822 npc 258785                     -- High Priestess Mims: Confounding Flash
+
+step Confounding Flash: Laurena's letter
+  when onquest 94821
+  zone Ironforge
+  tip Hand the letter to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward: the Deeprun Tram from Stormwind's Dwarven District.
+  turnin 94821 npc 258785                     -- High Priestess Mims: Confounding Flash
+
+step Confounding Flash: a letter from another trainer
+  when onquest 94823
+  zone Ironforge
+  tip Any Confounding Flash letter goes to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward.
+  turnin 94823 npc 258785                     -- High Priestess Mims: Confounding Flash
+
+step Confounding Flash: a letter from another trainer
+  when onquest 94825
+  zone Ironforge
+  tip Any Confounding Flash letter goes to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward.
+  turnin 94825 npc 258785                     -- High Priestess Mims: Confounding Flash
+
+step Confounding Flash: a letter from another trainer
+  when onquest 94826
+  zone Ironforge
+  tip Any Confounding Flash letter goes to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward.
+  turnin 94826 npc 258785                     -- High Priestess Mims: Confounding Flash
+
+step Contingency Plan: High Priestess Laurena
+  when zone "Stormwind City"
+  when !onquest 94818,94819,94820
+  zone Stormwind City
+  tip At 20 in Stormwind, High Priestess Laurena at the altar of the Cathedral of Light hands you a Contingency Plan letter for High Priestess Mims in Ironforge (the Deeprun Tram from the Dwarven District).
+  level 20
+  talk 376                                    -- High Priestess Laurena: take her Contingency Plan letter
+
+step Contingency Plan: High Priestess Mims
+  when !onquest 94818,94819,94820
+  zone Ironforge
+  tip At 20, High Priestess Mims in the Hall of Mysteries teaches Contingency Plan with a quest she gives and takes back at once. Contingency Plan wards a friend for 30 seconds: if they drop below 35% health, they get a shield and a heal over time at once (it stacks with Renew and Power Word: Shield). 5-minute cooldown.
   level 20
   accept 94818 npc 258785                     -- High Priestess Mims
   turnin 94818 npc 258785                     -- High Priestess Mims: Contingency Plan
+
+step Contingency Plan: Laurena's letter
+  when onquest 94819
+  zone Ironforge
+  tip Hand Laurena's letter to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward: the Deeprun Tram from Stormwind's Dwarven District.
+  turnin 94819                                -- High Priestess Mims: Contingency Plan
+
+step Contingency Plan: a letter from another trainer
+  when onquest 94820
+  zone Ironforge
+  tip Any Contingency Plan letter goes to High Priestess Mims in the Hall of Mysteries, Ironforge's Mystic Ward.
+  turnin 94820 npc 258785                     -- High Priestess Mims: Contingency Plan

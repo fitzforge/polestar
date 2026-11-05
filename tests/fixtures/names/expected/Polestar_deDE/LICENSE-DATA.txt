@@ -1,0 +1,36 @@
+Polestar names (deDE): third-party notices
+==========================================
+
+The names in this folder (quests, NPCs, objects, items, instances, dungeon
+encounters, factions, flight points and some quest objectives) are the game's
+texts in German, for Polestar. Names and texts of the game belong to
+Blizzard Entertainment. They come from the sources below, in this order, the
+first one with a name for an id winning.
+
+DingDB, the game database of Ding! by Yendi (@moust4ki)
+-------------------------------------------------------
+URL: https://example.invalid/ding
+Version: v0.0.0, commit aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+File: Ding/DB/CREDITS.md (sha256 0ad201a201c7865eea15709ee0b4e122f05220e61ea4bdeebf0d7ebf276c76c2)
+File: Ding/DB/Locales/deDE.lua (sha256 4bd459d575d812208cd5b520d814a9ca0f10811bb4a4e4b00019010e997c0ca7)
+License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
+(THIRD_PARTY.md in the Polestar repository).
+Names taken: 1 quest.
+DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
+beside this file.
+
+pfQuest database by Shagu
+-------------------------
+URL: https://github.com/shagu/pfQuest
+Files: db/deDE/{quests,units,objects,items}.lua
+License: MIT
+Names taken: 1 quest, 1 NPC (the ones the sources above lack).
+
+MIT License
+
+Copyright (c) 2026 A Test Fixture
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software, to deal in the Software without restriction.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND.

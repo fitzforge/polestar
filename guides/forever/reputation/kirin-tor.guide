@@ -1,0 +1,112 @@
+guide forever/reputation/kirin-tor
+title Kirin Tor Reputation
+category Reputation
+folder Reputation · World
+faction Alliance
+levels 28-60
+zone Alterac Mountains
+keywords Kirin Tor, Dalaran, City of Dalaran, Archmage Alvareaux, Elizabeth Ross, Archmage Modera, Azure Skyforged, Azure Gustwoven, Azure Windraveled, Azure Stormsewn, Kirin Tor Tabard, Skyborne
+reward item 285327
+reward text Eight Azure helm and shoulder recipes at Friendly (Blacksmithing, Leatherworking, Tailoring)
+why New in Forever: Dalaran's mages sell Azure armour recipes at Friendly and their tabard at Exalted.
+
+# Built from Forever's quest data (the reputation each quest pays, as Forever's
+# quest pages give it: 92432 10, 92458 100, 92459 10, 92457 100, 96800 100;
+# Skyborne only 94946 100 and 93963 100), npcs.json and the Forever client
+# tables: Faction (Kirin Tor starts at Neutral 0 for Humans, Dwarves, Night
+# Elves and Gnomes, Friendly 3000 for Alliance Skyborne; the Horde starts
+# Hated and cannot gain it), ItemSparse (eight Azure recipes at Friendly, 10g
+# each, from Archmage Alvareaux; Kirin Tor Tabard at Exalted, 25g, from him and
+# Elizabeth Ross). dungeons.json for the City of Dalaran (levels 28-33) and its
+# bosses.
+# The quests pay 320 to a non-Skyborne: short of Friendly (3000).
+# INGAME: kill reputation in the City of Dalaran dungeon (beta reports: every
+# kill pays Kirin Tor, the Shade of the Archmage and Lyn the Ignored the most;
+# the game's data has no amounts or cap). Check the chat after a run and how
+# many runs Friendly takes.
+# INGAME: grey-quest rep at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# Legacy Diplomat adds up to 10% to every gain; the numbers here leave it out.
+
+step Skyborne: the recipes now
+  only Skyborne
+  zone Alterac Mountains
+  tip Alliance Skyborne start Friendly with the Kirin Tor, and their arrival quests The Magical City of Dalaran and Exploring the Alliance pay 100 more each, so Archmage Alvareaux sells you the Azure recipes at once (10g each, they need skill 175). He stands upstairs in the building with the Kirin Tor banners in Dalaran, past the Sky Enclave. Buy the ones for your profession.
+  vendor 32287
+  buy 276984 npc 32287 optional       -- Plans: Azure Skyforged Helm (Blacksmithing)
+  buy 276985 npc 32287 optional       -- Plans: Azure Skyforged Pauldrons (Blacksmithing)
+  buy 276986 npc 32287 optional       -- Pattern: Azure Gustwoven Hood (Leatherworking)
+  buy 276987 npc 32287 optional       -- Pattern: Azure Gustwoven Spaulders (Leatherworking)
+  buy 276988 npc 32287 optional       -- Pattern: Azure Windraveled Cover (Leatherworking)
+  buy 276989 npc 32287 optional       -- Pattern: Azure Windraveled Drapes (Leatherworking)
+  buy 276990 npc 32287 optional       -- Pattern: Azure Stormsewn Cowl (Tailoring)
+  buy 276991 npc 32287 optional       -- Pattern: Azure Stormsewn Epaulets (Tailoring)
+
+step An Alarming Request
+  zone Hillsbrad Foothills
+  tip Emissary Jacques of the Kirin Tor waits in Southshore. He sends you to Archmage Modera's image by the shore of Lordamere Lake, outside Dalaran's walls. The Kirin Tor quests start at level 24 to 30 and pay full reputation while they are at most 5 levels below you; in Classic a quest 6+ levels below you pays less (a fifth at 60).
+  level 30
+  accept 92432
+
+step Archmage Modera's image
+  zone Silverpine Forest
+  turnin 92432
+  accept 92458                        -- you get the Dalaran Sewer Key with it
+  accept 92457
+
+step The City of Dalaran
+  zone Alterac Mountains
+  tip The City of Dalaran is a dungeon for levels 28 to 33: go in through the sewers with the key Modera gave you. The arcane elementals throughout the city count for Starving Arcane. The Shade of the Archmage, the last boss, waits in the Purple Parlor above the Violet Citadel (a portal by Archmage Modera in the Citadel takes you up) and drops the Arcane Mote. Beta players saw every kill in the dungeon pay Kirin Tor reputation, the bosses the most. Group of five advised below level 35.
+  kill 247003 x8 quest 92457.1 @8.5,59.3 live -- Seeking Remnant
+  kill 247001 x8 quest 92457.2 @8.5,59.3 live -- Saturated Remnant
+  kill 246600 x8 quest 92457.3 @8.5,59.3 live -- Mana Echo
+  collect 251961 quest 92458.1 @8.5,59.3 live -- Arcane Mote, from the Shade of the Archmage
+
+step Back to Modera's image
+  zone Silverpine Forest
+  turnin 92458
+  turnin 92457
+  accept 92459
+
+step Archmage Celindra
+  zone Alterac Mountains
+  tip Archmage Celindra waits in the Violet Citadel in Dalaran.
+  turnin 92459
+
+step Past Due
+  tip Magus Olvek in Dalaran wants a book back from Arcanist Doan, the last boss of the Scarlet Monastery's Library (levels 33 to 41), in Tirisfal Glades.
+  level 33
+  accept 96800
+
+step Arcanist Doan
+  zone Tirisfal Glades
+  tip The Scarlet Monastery stands in the north-east of Tirisfal Glades; Doan waits at the end of the Library wing. Group of five advised below level 40.
+  collect 273169 quest 96800.1 @82.6,33.8 live -- The Lost Magic of the Runemasters, from Arcanist Doan
+
+step Back to Magus Olvek
+  zone Alterac Mountains
+  turnin 96800
+
+step City of Dalaran runs to Friendly
+  zone Alterac Mountains
+  tip The quests leave a non-Skyborne at about 320 of the 3,000 Friendly needs. The rest comes from kills in the City of Dalaran dungeon: run it until Friendly. How much each kill pays is not in the game's data; the bosses pay the most. At 60 you clear it alone.
+  rep 2740 Friendly
+
+step Archmage Alvareaux: the Azure recipes
+  tip Archmage Alvareaux sells the Azure helm and shoulder recipes at Friendly, 10g each (skill 175). He stands upstairs in the building with the Kirin Tor banners in Dalaran. Buy the ones for your profession.
+  vendor 32287
+  buy 276984 npc 32287 optional       -- Plans: Azure Skyforged Helm (Blacksmithing)
+  buy 276985 npc 32287 optional       -- Plans: Azure Skyforged Pauldrons (Blacksmithing)
+  buy 276986 npc 32287 optional       -- Pattern: Azure Gustwoven Hood (Leatherworking)
+  buy 276987 npc 32287 optional       -- Pattern: Azure Gustwoven Spaulders (Leatherworking)
+  buy 276988 npc 32287 optional       -- Pattern: Azure Windraveled Cover (Leatherworking)
+  buy 276989 npc 32287 optional       -- Pattern: Azure Windraveled Drapes (Leatherworking)
+  buy 276990 npc 32287 optional       -- Pattern: Azure Stormsewn Cowl (Tailoring)
+  buy 276991 npc 32287 optional       -- Pattern: Azure Stormsewn Epaulets (Tailoring)
+
+step City of Dalaran runs to Exalted
+  tip Nothing is sold at Honored or Revered in the game's data. Friendly to Exalted is 39,000 reputation, all from City of Dalaran kills. In Classic most dungeon kills stop paying at Honored or Revered; whether these do is not known yet.
+  rep 2740 Exalted
+
+step The Kirin Tor Tabard
+  tip Archmage Alvareaux and Elizabeth Ross, the tabard vendor in Dalaran, sell the Kirin Tor Tabard at Exalted for 25g.
+  buy 285327 npc 32287

@@ -1,0 +1,162 @@
+{
+	"729": {
+		"id": 729,
+		"name": "Stringy Vulture Meat",
+		"drops": {
+			"npc": {
+				"154": 36.0133,
+				"462": 35.8491,
+				"4154": 48.7221,
+				"4158": 49.8017
+			},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": "observed",
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"730": {
+		"id": 730,
+		"name": "Murloc Eye",
+		"drops": {
+			"npc": {
+				"127": 50.0035,
+				"517": 49.9893,
+				"1418": 50.7714,
+				"2206": 49.9201
+			},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": "observed",
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"731": {
+		"id": 731,
+		"name": "Goretusk Snout",
+		"drops": {
+			"npc": {
+				"157": 39.7198,
+				"454": 37.338
+			},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": "observed",
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"732": {
+		"id": 732,
+		"name": "Okra",
+		"drops": {
+			"npc": {
+				"36": 39.8294,
+				"114": 42.3704,
+				"115": 43.1735,
+				"480": 36.7918,
+				"573": 40.5546,
+				"276061": null
+			},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": "observed",
+		"questItem": true,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"814": {
+		"id": 814,
+		"name": "Flask of Oil",
+		"drops": {
+			"npc": {
+				"36": 45.8103,
+				"114": 42.7001,
+				"115": 48.0778,
+				"480": 45.219,
+				"573": 35.8752,
+				"276061": 53.3
+			},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": "observed",
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"4881": {
+		"id": 4881,
+		"name": "Aged Envelope",
+		"drops": {
+			"npc": {},
+			"object": {
+				"3239": 100
+			}
+		},
+		"vendors": [],
+		"dropScale": null,
+		"questItem": true,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"4883": {
+		"id": 4883,
+		"name": "Admiral Proudmoore's Orders",
+		"drops": {
+			"npc": {},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": null,
+		"questItem": true,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"5099": {
+		"id": 5099,
+		"name": "Hoof of Lakota'mani",
+		"drops": {
+			"npc": {
+				"3474": 100
+			},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": "pfquest",
+		"questItem": true,
+		"source": [
+			"pfquest",
+			"questie-forever"
+		]
+	},
+	"247824": {
+		"id": 247824,
+		"name": "Thunder Applejack",
+		"drops": {
+			"npc": {},
+			"object": {}
+		},
+		"vendors": [],
+		"dropScale": null,
+		"source": [
+			"questie-forever"
+		]
+	}
+}

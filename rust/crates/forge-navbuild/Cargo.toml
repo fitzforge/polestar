@@ -1,0 +1,25 @@
+[package]
+name = "forge-navbuild"
+description = "Builds the navigation grid (data/local/nav4) from the installed WoW client's geometry."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+forge-gamedata = { path = "../forge-gamedata" }
+forge-core = { path = "../forge-core" }
+rayon = "1"
+rustc-hash.workspace = true
+serde = { workspace = true }
+serde_json = { workspace = true, features = ["preserve_order"] }
+# The system's C zlib: gzip bytes identical to the grids built so far.
+flate2 = { version = "1", default-features = false, features = ["zlib-rs"] }
+libm = "0.2"
+parking_lot = "0.12"
+
+[lints]
+workspace = true

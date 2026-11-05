@@ -88,14 +88,14 @@ end
 
 -- After the level-up has reached the player info and the engine's gates.
 ns.RegisterEvent("PLAYER_LEVEL_UP", function()
-	C_Timer.After(1, function() ns.SafeCall(ClassQuests.Check) end)
+	ns.After(1, function() ns.SafeCall(ClassQuests.Check) end)
 end)
 
 -- A prerequisite turned in may open a guide.
 ns.RegisterEvent("QUEST_TURNED_IN", function()
-	C_Timer.After(1, function() ns.SafeCall(ClassQuests.Check) end)
+	ns.After(1, function() ns.SafeCall(ClassQuests.Check) end)
 end)
 
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
-	C_Timer.After(3, function() ns.SafeCall(ClassQuests.Check) end)
+	ns.After(3, function() ns.SafeCall(ClassQuests.Check) end)
 end)

@@ -1,0 +1,13 @@
+{
+	"114": {
+		"params": [
+			{
+				"kind": "delayed-offer",
+				"after": 112,
+				"npc": 253,
+				"sec": 10
+			}
+		],
+		"note": "Synthetic: a delayed offer."
+	}
+}

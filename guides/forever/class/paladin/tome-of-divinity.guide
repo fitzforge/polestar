@@ -1,0 +1,197 @@
+guide forever/class/paladin/tome-of-divinity
+title Redemption (Alliance)
+category Class
+class Paladin
+folder Paladin
+faction Alliance
+race Human, Dwarf
+levels 12-14
+zone Stormwind City
+keywords The Tome of Divinity, Tome of Divinity, Redemption, Symbol of Life, Duthorian Rall, Stephanie Turner, Gazin Tenorm, Henze Faulk, Defias Script, Tiza Battleforge, John Turner, Muiredon Battleforge, Narm Faulk, Dark Iron Script, Brother Wilhelm, Azar Stronghammer, Brandur Ironhammer, Linen Cloth, Paladin, class quest
+reward spell 7328 "Redemption"
+why Redemption at 12, the paladin's resurrection: an easy chain through your capital and its home zone.
+
+# The level 12 Redemption chain of the Alliance paladins, one guide for both
+# races with `only` steps:
+# - Human: Tome of Divinity (2998 from Brother Wilhelm in Goldshire, or 3681
+#   from Brandur Ironhammer in Ironforge; they close each other) to Duthorian
+#   Rall, The Tome of Divinity (1641, Duthorian hands you the book; repeatable,
+#   so he gives a new one if it is lost), 1642 (read the book), 1643
+#   (Stephanie Turner), 1644 (10 Linen Cloth), 1780, 1781 (Gazin Tenorm, the
+#   Symbol of Life), 1786 (revive Henze Faulk in Elwynn), 1787 (the Defias
+#   Script) and 1788 (Redemption from Duthorian).
+# - Dwarf: Tome of Divinity (2997 Azar Stronghammer in Kharanos, 2999 Brandur
+#   Ironhammer in Ironforge or 3000 Lord Grayson Shadowbreaker in Stormwind;
+#   one closes the others) to Tiza Battleforge, The Tome of Divinity (1645,
+#   repeatable, the book), 1646, 1647 (John Turner), 1648 (10 Linen Cloth),
+#   1778, 1779 (Muiredon Battleforge, the Symbol of Life), 1783 (revive Narm
+#   Faulk in Dun Morogh), 1784 (the Dark Iron Script) and 1785 (Redemption from
+#   Tiza).
+# The Symbol of Life (1790 Human, 1789 Dwarf) is the replacement quest for a
+# lost symbol: named in the tips only.
+# Sources: Forever's quest data (quests.json, the knowledge base) for givers,
+# enders, objectives, the exclusive breadcrumbs and the drop rates (Defias
+# Script 50% from the Defias Rogue Wizards, Dark Iron Script 50% from the Dark
+# Iron Spies); the Forever server tables (TDB) for the chain order, the books
+# (1641 rewards item 6775, 1645 item 6916, both repeatable) and Redemption
+# (1788 and 1785 teach spell 7329); players' notes in Forever's quest data
+# for where the bodies lie (Henze on a mound of the Heroes' Vigil island in
+# Stone Cairn Lake, Narm on the smallest of three hills between Helm's Bed Lake
+# and the Dark Iron camp) and the Defias mages on the island. Warcraft Wiki
+# (Stephanie Turner) for her place: the middle of the Trade District, outside
+# a general goods store.
+# The leveling routes do this chain in pieces (Human: forever/alliance/
+# 02-westfall, 04-redridge-mountains, 05-duskwood; Dwarf: forever/alliance/
+# dwarf-gnome/01-dun-morogh); this guide is the whole chain in one go.
+# Forsaken paladins learn Redemption from A Lesson in Divinity
+# (forever/class/paladin/tyrs-watch).
+
+# ---------------------------------------------------------------- The summons
+
+step The summons (Human)
+  only Human
+  tip At 12 Brother Wilhelm, the paladin trainer in Goldshire, sends you to Duthorian Rall in Stormwind's Cathedral of Light. The errand is optional, a little XP: Brandur Ironhammer in Ironforge gives the same one (taking one closes the other), and Duthorian starts the chain without it.
+  level 12
+  accept 2998 optional                -- Brother Wilhelm, Goldshire
+
+step The summons (Dwarf)
+  only Dwarf
+  tip At 12 Brandur Ironhammer, the paladin trainer in Ironforge's Mystic Ward, sends you upstairs to Tiza Battleforge. The errand is optional, a little XP: Azar Stronghammer in Kharanos and Lord Grayson Shadowbreaker in Stormwind give the same one (taking one closes the others), and Tiza starts the chain without it.
+  level 12
+  accept 2999 optional                -- Brandur Ironhammer, Ironforge
+
+# ---------------------------------------------------------------- Human: Stormwind
+
+step Duthorian Rall
+  only Human
+  zone Stormwind City
+  when onquest 2998
+  turnin 2998                         -- Duthorian Rall, Cathedral of Light
+
+step Duthorian Rall
+  only Human
+  zone Stormwind City
+  when onquest 3681
+  turnin 3681                         -- Duthorian Rall, Cathedral of Light
+
+step The Tome of Divinity
+  only Human
+  zone Stormwind City
+  tip Duthorian Rall stands inside the Cathedral of Light. He hands you the Tome of Divinity: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask Duthorian for a new copy. Bring 10 Linen Cloth for the next step if you have it.
+  accept 1641                         -- Duthorian Rall
+  turnin 1641
+  accept 1642 item 6775               -- Right-click the Tome of Divinity
+  turnin 1642                         -- Duthorian Rall
+  accept 1643
+
+step Stephanie Turner
+  only Human
+  zone Stormwind City
+  tip Stephanie Turner stands at a corner in the middle of the Trade District, outside a general goods store. She wants 10 Linen Cloth: humanoids drop it (Riverpaw gnolls in Westfall about every other kill, Defias and kobolds a little less), or buy it at the Auction House a few steps away in the Trade District.
+  turnin 1643                         -- Stephanie Turner
+  accept 1644
+  collect 2589 quest 1644.1           -- Linen Cloth x10
+  turnin 1644
+  accept 1780
+
+step The Symbol of Life
+  only Human
+  zone Stormwind City
+  tip Back to the Cathedral. Duthorian gives you the Symbol of Life; Gazin Tenorm lies wounded by the altar of the same hall. Keep the symbol: you need it on Henze Faulk. If you lose it, Duthorian gives you another (The Symbol of Life).
+  turnin 1780                         -- Duthorian Rall
+  accept 1781
+  turnin 1781                         -- Gazin Tenorm
+  accept 1786
+
+step Henze Faulk
+  only Human
+  zone Elwynn Forest
+  tip Henze Faulk lies dead on Heroes' Vigil, the island in Stone Cairn Lake in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the Symbol of Life to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast Frostbolt from far off: they stand apart, so pull one at a time.
+  use 6866 quest 1786.1 @72.6,51.41   -- Symbol of Life on Henze Faulk's body
+  turnin 1786                         -- Henze Faulk
+  accept 1787
+
+step The Defias Script
+  only Human
+  zone Elwynn Forest
+  tip The Defias Rogue Wizards around the big stone tablet east of Henze carry the Defias Script: about one kill in two drops it, but some players need many kills. They respawn in three minutes.
+  collect 6846 quest 1787.1 @74.16,52.0 -- Defias Script: Defias Rogue Wizards
+
+step Redemption
+  only Human
+  zone Stormwind City
+  tip Back to the Cathedral of Light: Gazin takes the script, Duthorian teaches you Redemption.
+  turnin 1787                         -- Gazin Tenorm
+  accept 1788
+  turnin 1788                         -- Duthorian Rall: Redemption
+
+# ---------------------------------------------------------------- Dwarf: Ironforge
+
+step Tiza Battleforge
+  only Dwarf
+  zone Ironforge
+  when onquest 2997
+  turnin 2997                         -- Tiza Battleforge, upstairs in the Hall of Mysteries
+
+step Tiza Battleforge
+  only Dwarf
+  zone Ironforge
+  when onquest 2999
+  turnin 2999                         -- Tiza Battleforge, upstairs in the Hall of Mysteries
+
+step Tiza Battleforge
+  only Dwarf
+  zone Ironforge
+  when onquest 3000
+  turnin 3000                         -- Tiza Battleforge, upstairs in the Hall of Mysteries
+
+step The Tome of Divinity
+  only Dwarf
+  zone Ironforge
+  tip Tiza Battleforge stands upstairs in the Hall of Mysteries, in the Mystic Ward: take the ramp at the back of the hall. She hands you the Tome of Divinity: right-click it in your bags to start the next quest. If the book says the quest is already done, destroy it and ask Tiza for a new copy. Bring 10 Linen Cloth for the next step if you have it.
+  accept 1645                         -- Tiza Battleforge
+  turnin 1645
+  accept 1646 item 6916               -- Right-click the Tome of Divinity
+  turnin 1646                         -- Tiza Battleforge
+  accept 1647
+
+step John Turner
+  only Dwarf
+  zone Ironforge
+  tip John Turner walks the outer ring of the Commons, past the front gate, the bank and the Auction House. He wants 10 Linen Cloth: humanoids drop it (Kogan Forgestone in Kharanos every time, Dark Iron Ambushers about two kills in five), or buy it at the Auction House on his ring.
+  turnin 1647                         -- John Turner
+  accept 1648
+  collect 2589 quest 1648.1           -- Linen Cloth x10
+  turnin 1648
+  accept 1778
+
+step The Symbol of Life
+  only Dwarf
+  zone Ironforge
+  tip Back upstairs in the Hall of Mysteries. Tiza gives you the Symbol of Life; her husband Muiredon Battleforge rests on the same floor. Keep the symbol: you need it on Narm Faulk. If you lose it, Tiza gives you another (The Symbol of Life).
+  turnin 1778                         -- Tiza Battleforge
+  accept 1779
+  turnin 1779                         -- Muiredon Battleforge
+  accept 1783
+
+step Narm Faulk
+  only Dwarf
+  zone Dun Morogh
+  tip Narm Faulk lies dead in Dun Morogh, not Loch Modan: east past Kharanos, north-east of Ironband's compound, on the smallest of three little hills between Helm's Bed Lake and the Dark Iron camp. Target his body and use the Symbol of Life to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes.
+  use 6866 quest 1783.1 @78.32,58.09  -- Symbol of Life on Narm Faulk's body
+  turnin 1783                         -- Narm Faulk
+  accept 1784
+
+step The Dark Iron Script
+  only Dwarf
+  zone Dun Morogh
+  tip The Dark Iron Spies (level 9-11, twelve of them) sneak around the little house below the lake, just south of Narm; you see them from his hill. About one kill in two drops the Dark Iron Script. They run for help at low health: finish them or step back. They respawn in three minutes.
+  collect 6847 quest 1784.1 @77.53,61.18 -- Dark Iron Script: Dark Iron Spies
+
+step Redemption
+  only Dwarf
+  zone Ironforge
+  tip Back up to the Hall of Mysteries: Muiredon takes the script, Tiza teaches you Redemption.
+  turnin 1784                         -- Muiredon Battleforge
+  accept 1785
+  turnin 1785                         -- Tiza Battleforge: Redemption

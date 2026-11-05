@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/item_source.schema.json",
+  "title": "item_source",
+  "description": "Where a quest-relevant item comes from.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "item",
+    "kind",
+    "id"
+  ],
+  "properties": {
+    "item": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "item id"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "npc",
+        "object",
+        "item"
+      ],
+      "description": "npc, object or item (a container)"
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "npc, object or container item id"
+    },
+    "chance": {
+      "type": "number",
+      "description": "designed loot chance in percent, 0.1"
+    }
+  }
+}

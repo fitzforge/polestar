@@ -439,7 +439,7 @@ function formatReport(report) {
 	const out = [];
 	out.push(`Route report: ${report.sessions} session(s), ${report.characters} character(s), ${report.guides.length} guide(s)`);
 	if (!report.guides.length) {
-		out.push('', 'No guide steps recorded. Play with Polestar and Polestar Recorder enabled, then run "record import".');
+		out.push('', 'No guide steps recorded. Play with Polestar and Polestar Recorder enabled, then run "forge record import".');
 		return `${out.join('\n')}\n`;
 	}
 	for (const g of report.guides) {

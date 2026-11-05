@@ -1,0 +1,14 @@
+{
+	"3239": {
+		"set": {
+			"lock": {
+				"item": 4882
+			}
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#357, PR #467"
+		},
+		"note": "Benedict's Chest (Tiragarde Keep, Durotar) opens only with Benedict's Key 4882, which Lieutenant Benedict 3192 drops (items.json: 4882 drops 100% from 3192); the chest holds the Aged Envelope 4881 that starts The Admiral's Orders 830, so 830 can be taken only after Benedict is killed (PR #467, #357; the knowledge base's 830 step: \"Kill Lieutenant Benedict in Tiragarde Keep for his key, then open the chest\"). No merged source records the lock."
+	}
+}

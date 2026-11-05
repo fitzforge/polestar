@@ -368,8 +368,20 @@ function emblemShape(n) {
 	return sdf.union(ring, guideStar(c, c, 30 * s, 60 * s, 7.5 * s));
 }
 
+// The in-game emblem (emblem.tga): the same mark a touch bolder than the
+// website's line art, a ring 4 units wide and fuller rays, so it still reads
+// as the app icon does when the client draws it at 36-48px.
 function emblem() {
-	return new Canvas(128, 128).fill(emblemShape(128), [1, 1, 1, 1]);
+	const n = 128, c = 64;
+	const ring = sdf.subtract(sdf.ring(c, c, 44, 4), sdf.box(c, c, 10.5, 60));
+	return new Canvas(n, n).fill(sdf.union(ring, guideStar(c, c, 34, 60, 10)), [1, 1, 1, 1]);
+}
+
+// The emblem's hot centre: the small bright star the website and the app
+// icon draw over the gold one (polestar-site components/brand.tsx EMBLEM_HOT),
+// white and tintable, on the same 128 canvas so it lies over emblem.tga 1:1.
+function emblemHot() {
+	return new Canvas(128, 128).fill(guideStar(64, 64, 10, 18, 2.8), [1, 1, 1, 1]);
 }
 
 // The same emblem as fine linework, for faint watermarks behind content:
@@ -615,6 +627,7 @@ function generate(addonRoot) {
 	written.push(hourglassSand().write(path.join(dir, 'hourglass-sand.tga')));
 	written.push(logo().write(path.join(dir, 'logo.tga')));
 	written.push(emblem().write(path.join(dir, 'emblem.tga')));
+	written.push(emblemHot().write(path.join(dir, 'emblem-hot.tga')));
 	written.push(watermark().write(path.join(dir, 'watermark.tga')));
 	written.push(band().write(path.join(dir, 'band.tga')));
 	written.push(bandStars().write(path.join(dir, 'band-stars.tga')));

@@ -1,0 +1,69 @@
+guide forever/class/mage/teleports-horde
+title Teleports and Portals (Horde)
+category Class
+class Mage
+folder Mage
+faction Horde
+levels 20-50
+zone Orgrimmar
+keywords Teleport, Portal, Teleport: Orgrimmar, Teleport: Undercity, Teleport: Thunder Bluff, Portal: Orgrimmar, Portal: Undercity, Portal: Thunder Bluff, Thuul, Lexington Mortaim, Birgitte Cranston, Portal Trainer, Rune of Teleportation, Rune of Portals, reagent vendor, Mage, class spell
+reward spell 3567 "Teleport: Orgrimmar"
+reward spell 3563 "Teleport: Undercity"
+reward spell 3566 "Teleport: Thunder Bluff"
+reward spell 11417 "Portal: Orgrimmar"
+reward spell 11418 "Portal: Undercity"
+reward spell 11420 "Portal: Thunder Bluff"
+why Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer.
+
+# No quest: the Horde mage teleports and portals are trained, each city's
+# from that city's Portal Trainer (Forever's trainer data, forever-tdb
+# trainer_spell/creature_trainer: trainers 1005958 Thuul, 1002492 Lexington
+# Mortaim, 1005957 Birgitte Cranston teach only their own city's two spells;
+# the class trainers teach none of them):
+# - Teleport: Orgrimmar (3567) and Teleport: Undercity (3563): level 20, 20s each.
+# - Teleport: Thunder Bluff (3566): level 30, 80s.
+# - Portal: Orgrimmar (11417) and Portal: Undercity (11418): level 40, 1g50s each.
+# - Portal: Thunder Bluff (11420): level 50, 3g20s.
+# Reagents (client item data, BuyPrice): Rune of Teleportation (17031) 10s,
+# Rune of Portals (17032) 20s, from every capital's reagent vendor (items.json
+# vendors: Hannah Akeley and Thomas Mordan in the Undercity, Horthus, Hagrus
+# and Magenius in Orgrimmar, Chepi in Thunder Bluff).
+# Teleport: Dalaran (1297659) in Forever's client spell book is untrained in
+# Forever's data and listed as Alliance; see teleports-alliance.
+
+step Teleport: Orgrimmar
+  zone Orgrimmar
+  tip At 20 go to Darkbriar Lodge in Orgrimmar's Valley of Spirits, where the mage trainers live. Thuul, the portal trainer, stands on the upper floor and teaches Teleport: Orgrimmar for 20 silver. Every teleport burns one Rune of Teleportation (10 silver at any reagent vendor), so carry a few.
+  level 20
+  money 30s
+  train 5958                                  -- Thuul: Teleport: Orgrimmar
+  buy 17031 x5 nearest                        -- Rune of Teleportation, 10s each
+
+step Teleport: Undercity
+  zone Undercity
+  tip Take the zeppelin from the tower outside Orgrimmar's gate to Tirisfal Glades and walk into the Undercity. Lexington Mortaim, the portal trainer, stands in the Magic Quarter with the mage trainers: Teleport: Undercity, 20 silver. Hannah Akeley beside him sells the runes.
+  money 20s
+  train 2492                                  -- Lexington Mortaim: Teleport: Undercity
+
+step Teleport: Thunder Bluff
+  zone Thunder Bluff
+  tip At 30. Thunder Bluff is in Mulgore: fly there from Orgrimmar or the Crossroads. Birgitte Cranston, the portal trainer, stands with the mage trainers on Spirit Rise and teaches Teleport: Thunder Bluff for 80 silver.
+  level 30
+  money 80s
+  train 5957                                  -- Birgitte Cranston: Teleport: Thunder Bluff
+
+step Portals to Orgrimmar and the Undercity
+  zone Orgrimmar
+  tip At 40 the portal trainers teach the portals: a gateway your whole group can step through, for 1 gold 50 silver each. Each portal burns one Rune of Portals (20 silver at any reagent vendor). Thuul in Darkbriar Lodge has Portal: Orgrimmar; teleport to the Undercity for Lexington Mortaim's Portal: Undercity.
+  level 40
+  money 3g
+  train 5958                                  -- Thuul: Portal: Orgrimmar
+  buy 17032 x5 nearest                        -- Rune of Portals, 20s each
+  train 2492                                  -- Lexington Mortaim, Undercity: Portal: Undercity
+
+step Portal: Thunder Bluff
+  zone Thunder Bluff
+  tip At 50 Birgitte Cranston in Thunder Bluff teaches the last one, Portal: Thunder Bluff, for 3 gold 20 silver. Use your Teleport: Thunder Bluff to get there.
+  level 50
+  money 3g20s
+  train 5957                                  -- Birgitte Cranston: Portal: Thunder Bluff

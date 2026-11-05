@@ -5,61 +5,118 @@ class Rogue
 folder Rogue
 levels 24-36
 zone Hillsbrad Foothills
-keywords Ravenholdt, Ravenholdt Manor, The Manor Ravenholdt, Elegant Letter, Seal of Ravenholdt, Rite of Cunning, Fahrad, Myrokos Silentform, Syndicate Sabotage, Lord Tomas, Durnholde Keep, What's the Big Idea?, Barton, Barton's Scouting Report, Strahnbrad, Syndicate Emblems, Rogue, reputation
+keywords Ravenholdt, Ravenholdt Manor, The Manor Ravenholdt, Elegant Letter, Seal of Ravenholdt, Rite of Cunning, Detect Traps, Fahrad, Myrokos Silentform, Syndicate Sabotage, Lord Tomas, Durnholde Keep, What's the Big Idea?, Barton, Barton's Scouting Report, Strahnbrad, Covert Extraction, Blade of House Perenolde, Royal Aegis of Perenolde, Ruins of Alterac, A Way In, Northfold Manor, Syndicate Footlocker, Master of Disguise, Syndicate Uniform, Stromgarde, Anastasia Miller, Ain't No Telling, Stolen Funds, The Syndicate Sting, Intercepted Shipment, Thoradin's Wall, Syndicate Emblems, Rogue, reputation
 reward text Ravenholdt reputation
-why Opens Ravenholdt Manor, the hidden rogue house in the Alterac hills, and its first jobs.
+why Opens Ravenholdt Manor, the hidden rogue house in the Alterac hills, and Myrokos's jobs against the Syndicate.
 
 # Ravenholdt for Rogues of both factions: The Manor, Ravenholdt (6681, from
 # the Elegant Letter at 24) to Fahrad, then Forever's new jobs for Myrokos
-# Silentform at the manor: Syndicate Sabotage (96779, level 24, Lord Tomas
-# in Durnholde Keep) and What's the Big Idea? (96781, level 36, Barton at
-# Strahnbrad in the Alterac Mountains). Syndicate Emblems (6701) is the
-# Ravenholdt Guards' repeatable reputation turn-in.
-# Sources: Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for which quests Forever
-# has and their rewards (Ravenholdt reputation; no items); quests.json,
-# npcs.json and items.json for the givers, places and the Elegant Letter's
-# givers (Master Mathias Shaw and Osborne the Night Man in Stormwind, Gest
-# and Ormok in Orgrimmar); the quest texts on foreverchanges.pro (96779,
-# 96781) for Durnholde and the pickpocketing.
-# Left out, new in Forever but not placeable in the data (no position for
-# their items, objects or NPCs and no named source for one): Covert
-# Extraction (96782, the Perenolde heirlooms "in two towers among the ruins
-# of Alterac"), and the Stromgarde chain A Way In, Master of Disguise, Ain't
-# No Telling and The Syndicate Sting (96783-96786: the Syndicate Footlocker
-# at Northfold Manor, Anastasia Miller, the Stolen Funds and the shipment at
-# Thoradin's Wall). Junkboxes Needed (8249, level 50+ repeatable, Fahrad) is
-# also left out: its Heavy Junkboxes come from level 50+ pickpocketing.
-# Based on data, not play past 30: What's the Big Idea? (36) is above the
-# beta's level cap until launch on 4 November.
+# Silentform at the manor (Forever's quest data; Ravenholdt reputation and
+# money, no items):
+# - Syndicate Sabotage (96779, level 24): Lord Tomas in Durnholde Keep. 100 rep.
+# - What's the Big Idea? (96781, level 36) and Covert Extraction (96782, its
+#   follow-up): Barton's report at Strahnbrad, then the Perenolde heirlooms in
+#   two towers of the Ruins of Alterac. 100 rep each; 40s for 96782.
+# - A Way In (96783), Master of Disguise (96784), Ain't No Telling (96785) and
+#   The Syndicate Sting (96786), level 34-36: a uniform from Northfold Manor,
+#   Anastasia Miller in Stromgarde, her stash, the handoff at Thoradin's Wall.
+#   35s, 35s and 70s with 300 rep.
+# - Syndicate Emblems (6701): the Ravenholdt Guards' repeatable reputation
+#   turn-in, 100 rep each (Ravenholdt reputation must be Neutral or better).
+# Sources: Forever's Rogue class quest list (data/local/quest-audit/) and
+# Forever's quest pages (page snapshot) for the quests, texts, reputation and
+# money; quests.json, npcs.json, objects.json and items.json for the givers,
+# places and the Elegant Letter's givers (every capital's rogue trainer);
+# the KB for the starts quests.json lacks (Myrokos gives 96782; Anastasia
+# Miller 96785 and 96786); npcs.json for the Syndicate levels (Durnholde 20-21,
+# Northfold Manor 30-32, Stromgarde's Prowlers and Conjurors 35-36 elite) and
+# Lord Tomas's 15 spawn points; data/local/mechanics (quest-steps and
+# quest-notes, checked 2026-10-20) for the Rite of Cunning (Detect Traps at
+# the tunnel chest, Milton if it is opened), Barton's pickpocket-only report,
+# and the places our data has no spawn for: the two heirloom towers, the
+# Syndicate Footlocker at Northfold Manor, Anastasia Miller on her ledge, her
+# stash and the shipment at the south end of Thoradin's Wall (players' notes;
+# their map frame is not recorded).
+# Races: quests.json and the KB give every Syndicate quest to both sides
+# except Master of Disguise (96784, Horde races only). Forever's quest page
+# files Covert Extraction (96782) as Alliance, but that is not a lock: the
+# Forever dialog captures have an Orc rogue taking and handing in Covert
+# Extraction at Myrokos (and What's the Big Idea?, A Way In, Master of
+# Disguise and Ain't No Telling), and the server's quest answers in players'
+# caches (EG Link, client 1.60.1.70450) set no race limit on any of 96781-96786.
+# Ain't No Telling (96785) has no prerequisite in our data, so Alliance
+# rogues go from the footlocker straight to Anastasia.
+# INGAME: does the Syndicate Footlocker offer Master of Disguise (96784) to an Alliance rogue too? (Horde: yes, dialog captures; server: no race limit; quests.json: Horde only.)
+# Players' caches (EG Link): both Master of Disguise (96784) and Ain't No
+# Telling (96785) hand out the Syndicate Uniform (275706) when accepted, so a
+# rogue who cannot take 96784 still gets it from Anastasia.
+# Junkboxes Needed (8249, level 50+ repeatable, Fahrad) is left out: its
+# Heavy Junkboxes come from level 50+ pickpocketing.
+# Based on data, not play past 30: the jobs above 30 are above the beta's
+# level cap until launch on 4 November.
 
 step The Elegant Letter
-  tip At 24 an Elegant Letter from Ravenholdt starts this; the data gives it to you through Master Mathias Shaw or Osborne the Night Man in Stormwind, or Gest or Ormok in Orgrimmar. The quest hands you the Seal of Ravenholdt for Fahrad.
+  tip At 24 any capital's rogue trainer (Master Mathias Shaw or Osborne the Night Man in Stormwind, Gest or Ormok in Orgrimmar, and the others) has an Elegant Letter from Ravenholdt for you: ask for it in their talk window. Open it: the quest gives you the Seal of Ravenholdt for Fahrad. Learn Detect Traps from your trainer first if you have not; the way in is a test of it.
   level 24
   accept 6681 item 17126                      -- Elegant Letter
 
 step Ravenholdt Manor
-  tip Horde fly to Tarren Mill, Alliance to Southshore. The manor hides in the hills east of Tarren Mill, up a path into the Alterac Mountains; the Rite of Cunning is passing its way in.
-  kill 13936 quest 6681.1                     -- Rite of Cunning
+  tip Horde fly to Tarren Mill, Alliance to Southshore. The trail to the manor is hard to see: it starts behind the plateau north of Durnholde Keep, east of Tarren Mill, climbs into the hills and bends twice to a small tunnel. A chest sits in the tunnel: do not open it. Cast Detect Traps near it and walk up close; that is the Rite of Cunning (it comes back after 5 minutes). Opening the chest calls Milton, an elite rogue of about level 32. Through the tunnel lies Ravenholdt Manor: Fahrad is upstairs inside. Do not attack anyone at the manor: it costs Ravenholdt reputation.
+  kill 13936 quest 6681.1                     -- Rite of Cunning: Detect Traps beside the tunnel chest
   zone Alterac Mountains
   turnin 6681                                 -- Fahrad
   accept 96779                                -- Myrokos Silentform
-  accept 6701 optional                        -- Ravenholdt Guard: Syndicate Emblems, repeatable
 
 step Lord Tomas
   zone Hillsbrad Foothills
-  tip Lord Tomas is inside Durnholde Keep, the Syndicate fortress in eastern Hillsbrad, south of the manor. Quick and quiet, says Myrokos.
+  tip Lord Tomas is inside Durnholde Keep, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says Myrokos. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry Syndicate Emblems for the guards' repeatable reputation quest.
   kill 266216 quest 96779.1                   -- Lord Tomas
+  collect 17124 optional                      -- Syndicate Emblem, by Pick Pocket
 
 step Myrokos Silentform
   zone Alterac Mountains
   turnin 96779                                -- Myrokos Silentform
+  accept 6701 optional                        -- Ravenholdt Guard: Syndicate Emblems, repeatable
+  turnin 6701 optional                        -- one emblem each time, 100 reputation
+
+# ---------------------------------------------------------------- Myrokos's mid-30s jobs
 
 step What's the Big Idea?
-  tip At 36, Myrokos sends you after Barton's scouting report. Barton leads a Syndicate party at Strahnbrad, in the east of the Alterac Mountains: pick his pocket, do not kill him.
-  level 36
+  tip In your mid 30s Myrokos has two more jobs; take both. Barton leads a Syndicate scouting party at Strahnbrad, in the east of the Alterac Mountains, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. Pick Pocket can miss several times in a row.
+  level 34
   accept 96781                                -- Myrokos Silentform
-  collect 275482 quest 96781.1 @62.6,46.9     -- Barton's Scouting Report: pickpocket Barton
+  accept 96783
+  collect 275482 quest 96781.1 @62.6,46.9     -- Barton's Scouting Report: Pick Pocket on Barton
+
+step Covert Extraction
+  tip Back to Myrokos; the report sends you after the Perenolde heirlooms. Two towers stand among the Ruins of Alterac, in the middle of the Alterac Mountains, held by ogres: the shield lies in the northern tower, the sword in the southern one, which elite ogres ring and watch from far off. Stay stealthed; nothing guards the heirlooms inside.
+  turnin 96781                                -- Myrokos Silentform
+  accept 96782 npc 13085
+  collect 275636 quest 96782.2 @41.35,40.16   -- Royal Aegis of Perenolde, in the northern tower
+  collect 275635 quest 96782.1 @38.5,58.0     -- Blade of House Perenolde, in the southern tower
+  turnin 96782                                -- Myrokos Silentform
+
+step A Way In
+  zone Arathi Highlands
+  tip Stromgarde Keep in western Arathi is a Syndicate stronghold; to get in you need a uniform. Northfold Manor, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the Syndicate Footlocker there and take the uniform; that ends A Way In.
+  turnin 96783 object 656157 @32.3,26.6       -- Syndicate Footlocker, Northfold Manor
+  accept 96784 object 656157 @32.3,26.6 only Horde -- Master of Disguise: the Syndicate Uniform
+
+step Anastasia Miller
+  tip Stromgarde's Syndicate Prowlers and Conjurors are elite (level 35-36): a rogue of 36 can slip past them, but fighting one alone is hard, so stay hidden or bring a friend. Put on the Syndicate Uniform (Master of Disguise hands it to you at the footlocker) to pass as one of them; stealth or suspicious acts can break it. If the footlocker gave you no uniform, Anastasia hands you one with Ain't No Telling. Anastasia Miller is not inside the keep: she stands on a ledge on the outside of the castle wall. Jump across to it from the roof of the house beside the ledge.
+  turnin 96784 @26.8,64.4 only Horde          -- Anastasia Miller
+  accept 96785 npc 266847 @26.8,64.4          -- Ain't No Telling
+
+step Ain't No Telling
+  tip She will not talk without something to bargain with. Her stash is upstairs in a house close to the keep: take the Stolen Funds. If it is already open, wait for it to come back.
+  collect 275709 quest 96785.1 @29.5,65.1     -- Stolen Funds: Anastasia's Stash
+  turnin 96785 @26.8,64.4                     -- Anastasia Miller
+  accept 96786 npc 266847 @26.8,64.4          -- The Syndicate Sting
+
+step The Syndicate Sting
+  tip Falconcrest's men make the handoff at the southern end of Thoradin's Wall, the old wall between Arathi and Hillsbrad. Kill the two guarding the box and take the Intercepted Shipment. Keep the Syndicate Uniform: Myrokos wants it back with the shipment.
+  collect 275882 quest 96786.1 @15.5,43.0     -- Intercepted Shipment
 
 step Back to Myrokos
-  turnin 96781                                -- Myrokos Silentform
+  zone Alterac Mountains
+  turnin 96786                                -- Myrokos Silentform: 70 silver, 300 Ravenholdt reputation

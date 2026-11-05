@@ -1,82 +1,329 @@
 guide forever/reputation/thunder-bluff
 title Thunder Bluff Reputation
 category Reputation
+folder Reputation · Cities
 faction Horde
 levels 12-60
 zone Thunder Bluff
-# Built from the Era-baseline reference data: Rumstag Proudstrider, the Thunder Bluff
-# cloth quartermaster, and the cloth quests 7820/7821/7822/7823 (one-time) and 7825
-# (Additional Runecloth, repeatable) from quests.json; cloth farm spots are
-# the densest spawn clusters of strong cloth droppers in items.json/npcs.json.
-# Nothing public shows Forever changing the cloth donations; this has NOT been
-# play-tested on Forever yet. Refine it with Polestar_Recorder sessions.
-#
-# The client never flags a repeatable quest as completed, so the Additional
-# Runecloth steps finish on the Thunder Bluff standing (rep 81); each
-# step's optional `turnin 7825 direct` checks off at its first hand-in. Cloth counts (60 per first donation, 20 per repeat) are game
-# knowledge: the data only has the 60 Runecloth of A Donation of Runecloth.
+keywords Thunder Bluff, Rumstag Proudstrider, cloth quartermaster, cloth donation, Runecloth, Additional Runecloth, Wool, Silk, Mageweave, Morrowgrain, Evergreen Pouch, Bashana Runetotem, Storm Shadowhoof, Shy-Rotam, Guarding Secrets, Camp Narache, Bloodhoof Village, Gloomrise, kodo mount, Harb Clawhoof
+reward text Exalted with Thunder Bluff
+reward item 18793
+why Winterspring's level 56-60 quests, Morrowgrain and Runecloth to Exalted, with Mulgore's old quests as an optional extra.
+
+# Built from Forever's quest data: every quest that pays Thunder Bluff
+# reputation, with the value from Forever's own quest pages, the world
+# database (quest chains, the cloth quests' exclusive group,
+# Additional Runecloth's repeat flag), quests.json, npcs.json, items.json and
+# the quest notes for givers, objectives, drops and places, and the Forever
+# client's Faction and ItemSparse tables.
+# Numbers (Forever's quest pages): A Donation of Wool, Silk, Mageweave and
+# Runecloth 150 each (60 cloth); Additional Runecloth 50 for 20 Runecloth (the
+# same as Classic Era);
+# Morrowgrain to Thunder Bluff 50 for 10 Morrowgrain, repeatable, quest level
+# 55 (full at 60). In Forever's data Un'Goro Soil is handed to Ghede in
+# Thunder Bluff and the Evergreen Pouch and Tharlendris Seeds are sold by
+# Bashana Runetotem.
+# Starting standing (Faction table): Tauren Friendly 1000; Orc, Troll and
+# Skyborne Friendly 100; Undead Neutral 500. No race has a reputation bonus.
+# The Legacy perk Diplomat adds 2% a rank, 10% at 5/5: the numbers here leave
+# it out. City reputation also gives a quarter to the other Horde cities
+# (Faction table: parent Horde, 0.25), except starting-zone quests.
+# Low-level quests: in Classic a quest 6 or more levels below you pays less, a
+# fifth at 60; quests of level 55 and up pay in full at 60, so the Winterspring
+# chain comes first. The old hubs are optional steps (the first step of each
+# carries a label; skipping it skips the hub), ranked by reputation per minute
+# at full value with the fifth beside it.
+# INGAME: grey-quest reputation at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# INGAME: reputation discounts in Forever (Classic: 10% at Honored with the city's merchants; Forever guide sites report 5/10/15/20% from Friendly to Exalted, one says not announced)
+# Morrowgrain: the world database's loot table for the Evergreen Herb Casing
+# holds Morrowgrain 37% of the time, 1 to 5 of it (about 1.1 a casing).
+# ASSUMED: the Evergreen Pouch can be used once every 10 minutes (Classic; Forever's data has no cooldown for it). In-game check: the pouch's cooldown after one use.
+# Left out: class letters and the Tauren-only well chain (Poison Water to
+# Wildmane Cleansing), race-only breadcrumbs, dungeon quests (Disharmony of
+# Fire in Blackrock Depths, 150, named in a tip), Commendation Signets (only
+# from the Ahn'Qiraj war effort), The Mark of Quality and Improved Quality
+# (Feralas yeti hides, level 46-48) and Perfect Yeti Hide (a 3% drop).
+# Mounts: the client lets every Horde race ride every Horde mount and puts no
+# reputation gate on them.
+# ASSUMED: another race's kodos need Exalted with Thunder Bluff (Classic rule; Forever's client puts no reputation gate on the items, so the vendor decides). In-game check: a non-tauren below Exalted at Harb Clawhoof.
+
+step Thunder Bluff: how it works
+  tip Thunder Bluff reputation comes from quests, Morrowgrain and cloth. Rumstag Proudstrider, the cloth quartermaster, stands on the central rise among the leatherworkers' and tailors' tents. He takes four one-time donations of 60 cloth (150 each) and then Additional Runecloth, 20 Runecloth for 50, as often as you like. Every point you earn with Thunder Bluff also gives a quarter as much to Orgrimmar, the Undercity and the Darkspear Trolls. While you level, do Thunder Bluff's quests within 5 levels of them: Mulgore at 1 to 12, Camp Taurajo and the Crossroads at 13 to 22, Thousand Needles at 25 to 30. The Legacy perk Diplomat adds up to 10%. Rewards: at Honored Thunder Bluff's merchants sell to you for 10% less (the Classic rule), the kodo vendor included; at Exalted other races can buy the kodos: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60, once you have mount training. Thunder Bluff has no tabard or other reward.
+  accept 7820                         -- Rumstag Proudstrider: A Donation of Wool, +150
+
+step Everlook: Storm Shadowhoof
+  zone Winterspring
+  tip Storm Shadowhoof's four quests are level 56 to 60, so they pay in full: 400 Thunder Bluff reputation. Ursius, an elite bear, walks a loop over the four hills north of Everlook: wait on a hilltop for him.
+  level 55
+  accept 5054                         -- Ursius of the Shardtooth, +100
+  kill 10806 quest 5054.1             -- Ursius, elite
+  turnin 5054
+  accept 5055                         -- Brumeran of the Chillwind, +100
+
+step Brumeran and Shy-Rotam
+  tip Brumeran, an elite chimera, spawns south of Everlook. For Shy-Rotam, kill frostsabers north of Everlook until one drops Sacred Frostsaber Meat (about one in ten), then use the meat at the Stone of Shy-Rotam, far to the north, and kill the great cat that comes. If you have done Trull Failbane's Wild Guardians quests (the Orgrimmar guide), the Crazed, Moontouched and Berserk owlbeasts around Everlook sometimes drop a Blue-feathered Necklace: it starts Guarding Secrets, 50 Orgrimmar and then 100 Thunder Bluff reputation in full.
+  kill 10807 quest 5055.1             -- Brumeran, elite
+  turnin 5055                         -- Storm Shadowhoof
+  accept 5056                         -- Shy-Rotam, +150
+  collect 12733 optional              -- Sacred Frostsaber Meat, from the frostsabers
+  kill 10737 quest 5056.1             -- Shy-Rotam
+  turnin 5056                         -- Storm Shadowhoof
+  accept 5057                         -- Past Endeavors, +50
+  turnin 5057
+
+step Bloodvenom Post: Trull Failbane
+  when onquest 4882
+  zone Felwood
+  tip Trull Failbane stands at Bloodvenom Post, through the Timbermaw tunnel south of Winterspring.
+  turnin 4882                         -- Trull Failbane
+  accept 4883                         -- Guarding Secrets, +100: to Nara Wildmane in Thunder Bluff
+
+step Thunder Bluff: Nara Wildmane
+  when onquest 4883
+  zone Thunder Bluff
+  tip Nara Wildmane stands on Elder Rise, beside Arch Druid Hamuul Runetotem.
+  turnin 4883                         -- Nara Wildmane
+
+step Morrowgrain (optional)
+  label morrowgrain
+  zone Thunder Bluff
+  tip Morrowgrain to Thunder Bluff takes 10 Morrowgrain for 50, as often as you like, and pays in full at 60, but it is slow: the Evergreen Pouch grows one casing every 10 minutes and a casing holds about one Morrowgrain on average, so each hand-in takes about 90 minutes of waiting, 18 Un'Goro Soil and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50 (in Classic a fifth at 60). Innkeeper Pala sends you to Arch Druid Hamuul Runetotem on Elder Rise; he wants 20 Un'Goro Soil.
+  accept 3762                         -- Innkeeper Pala: Assisting Arch Druid Runetotem
+  turnin 3762                         -- Arch Druid Hamuul Runetotem
+  accept 3761                         -- Un'Goro Soil, +100
+
+step Un'Goro Crater: Un'Goro Soil
+  when done morrowgrain
+  zone Un'Goro Crater
+  tip Nearly every beast, plant and silithid in the crater drops Un'Goro Soil, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each Morrowgrain hand-in.
+  collect 11018 x20 quest 3761.1      -- Un'Goro Soil
+
+step Thunder Bluff: Morrowgrain Research
+  when done morrowgrain
+  zone Thunder Bluff
+  tip Ghede takes the soil. Bashana Runetotem sells the Evergreen Pouch (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 Un'Goro Soil in your bags, use the pouch: it grows an Evergreen Herb Casing, once every 10 minutes. Open each casing: about one in three holds 1 to 5 Morrowgrain, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide.
+  turnin 3761                         -- Ghede
+  accept 3782                         -- Arch Druid Hamuul Runetotem: Morrowgrain Research
+  turnin 3782                         -- Bashana Runetotem
+  accept 3786                         -- Morrowgrain Research, +100
+  buy 11020 npc 9087                  -- Evergreen Pouch, 1 gold
+  buy 11022 x10 npc 9087              -- Packet of Tharlendris Seeds, 10 silver each
+
+step Morrowgrain as you go
+  when done morrowgrain
+  along until morrowgrain-in
+  collect 11040 x10 quest 3786.1 @71.1,34.2 -- Morrowgrain: use the pouch every 10 minutes and open the casings; Bashana takes it
+
+step Gloomrise (optional hub)
+  label gloomrise
+  zone Mulgore
+  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. The Earthen Ring camp on the Skywatcher Plateau, north-west of Thunder Bluff: 300 Thunder Bluff reputation in 20 minutes (60 at a fifth), plus 100 each for Orgrimmar and the Darkspear Trolls and 450 Earthen Ring. Muln Earthfury, Mazu'kon and Yorn Grimtotem stand in the camp.
+  accept 96259                        -- Muln Earthfury: Defending the Dead, +100
+  accept 96261                        -- The Broodmother
+  accept 96241                        -- Mazu'kon: Talkin' bout Toxins, Mon (Darkspear +100)
+  accept 96260                        -- Yorn Grimtotem: Stronger than Steel, +100
+
+step Gloomrise
+  when done gloomrise
+  tip Gloomrise is the tauren burial ground north of Thunder Bluff. Use the Toxin Extractor on the Gnawed Corpses. Broodmother Valraxx waits at the heart of it; her body carries a Bloody Parchment: read it to start A Darker Truth.
+  kill 264079 x10 quest 96259.2       -- Gloomrise Hatchling
+  kill 264083 x5 quest 96259.1        -- Gloomrise Soldier
+  collect 273181 x3 quest 96260.1     -- Crystalline Silk, from Gloomrise Spinners
+  collect 273001 x5 quest 96241.1     -- Gloomrise Toxin Sample
+  kill 264082 quest 96261.1           -- Broodmother Valraxx
+  accept 96294 item 273658            -- Bloody Parchment: A Darker Truth, +100 (Orgrimmar +100)
+
+step The Skywatcher camp: hand in
+  when done gloomrise
+  turnin 96259
+  turnin 96261
+  turnin 96241
+  turnin 96260
+  turnin 96294                        -- Muln Earthfury
+
+step Camp Narache (optional hub)
+  label narache
+  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Camp Narache, at the south end of Mulgore: about 1,100 Thunder Bluff reputation in 25 minutes (220 at a fifth). Starting-zone quests give the other cities no share. Grull Hawkwind and Chief Hawkwind stand in the camp, Brave Windfeather at its edge.
+  accept 747                          -- Grull Hawkwind: The Hunt Begins, +100
+  accept 752                          -- Chief Hawkwind: A Humble Task, +50
+  accept 3376                         -- Brave Windfeather: Break Sharptusk!, +200
+
+step Greatmother Hawkwind and the plains
+  when done narache
+  tip Greatmother Hawkwind's tent is south-east of the camp; the water pitcher stands at the well beside it. Plainstriders graze all around.
+  turnin 752                          -- Greatmother Hawkwind
+  accept 753                          -- A Humble Task, +100
+  collect 4755 quest 753.1            -- Water Pitcher
+  collect 4739 x7 quest 747.1         -- Plainstrider Meat
+  collect 4740 x7 quest 747.2         -- Plainstrider Feather
+
+step Camp Narache: hand in
+  when done narache
+  turnin 753                          -- Chief Hawkwind
+  accept 755                          -- Rites of the Earthmother, +100
+  turnin 747
+  accept 750                          -- The Hunt Continues, +100
+
+step Seer Graytongue and the cougars
+  when done narache
+  tip Seer Graytongue sits on the hill south of the camp; the Mountain Cougars live in those hills.
+  turnin 755                          -- Seer Graytongue
+  accept 757                          -- Rite of Strength, +150
+  collect 4742 x10 quest 750.1        -- Mountain Cougar Pelt
+
+step Camp Narache: the Battleboars
+  when done narache
+  turnin 750                          -- Grull Hawkwind
+  accept 780                          -- The Battleboars, +150
+
+step Brambleblade Ravine
+  when done narache
+  tip The Battleboars graze east of the camp; the Bristleback quilboar and Chief Sharptusk Thornmantle hold Brambleblade Ravine beyond them. A Dirt-stained Map lies in the ravine: reading it starts Attack on Camp Narache.
+  collect 4848 x8 quest 780.1         -- Battleboar Snout
+  collect 4849 x8 quest 780.2         -- Battleboar Flank
+  collect 4770 x12 quest 757.1        -- Bristleback Belt
+  collect 10459 quest 3376.1          -- Chief Sharptusk Thornmantle's Head
+  accept 781 item 4851 optional       -- Dirt-stained Map: Attack on Camp Narache, +100
+
+step Camp Narache: last hand-in
+  when done narache
+  turnin 780
+  turnin 757                          -- Chief Hawkwind
+  turnin 3376
+  turnin 781 optional
+  accept 763                          -- Rites of the Earthmother, +75: to Baine Bloodhoof
+
+step Bloodhoof Village: Baine Bloodhoof
+  when onquest 763
+  turnin 763                          -- Baine Bloodhoof
+
+step Bloodhoof Village (optional hub)
+  label bloodhoof
+  tip In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Bloodhoof Village and eastern Mulgore: about 1,000 Thunder Bluff reputation in 45 minutes (200 at a fifth). Baine Bloodhoof stands in the middle of the village; Harken Windtotem, Ruul Eagletalon and Brave Wildrunner close by; Morin Cloudstalker waits east of the village by the road.
+  accept 745                          -- Baine Bloodhoof: Sharing the Land, +100
+  accept 761                          -- Harken Windtotem: Swoop Hunting, +150
+  accept 743                          -- Ruul Eagletalon: Dangers of the Windfury, +100
+  accept 99079                        -- Brave Wildrunner: Longwalker Malah, +10
+  accept 749                          -- Morin Cloudstalker: The Ravaged Caravan, +75
+  accept 98427                        -- Ceasing Operations, +150
+
+step Eastern Mulgore
+  when done bloodhoof
+  tip Longwalker Malah waits by the eastern border. The Sealed Supply Crate of the ravaged caravan lies north-east of the village: open it to start the next quest. The Venture Co. mine is further north-east; the elite shredder Venture Co. Clearcutter works deep inside.
+  turnin 99079                        -- Longwalker Malah
+  accept 99081                        -- Grim Tidings, +10
+  turnin 749                          -- the Sealed Supply Crate
+  accept 751                          -- The Ravaged Caravan, +75
+  collect 281048 quest 98427.1        -- Clearcutter Key
+
+step Bloodhoof Village: hand in
+  when done bloodhoof
+  turnin 99081                        -- Brave Wildrunner
+  accept 99101                        -- Our Ancient Enemy, +10
+  turnin 99101                        -- Baine Bloodhoof
+  accept 99080                        -- Drive Them Out, +100
+  turnin 751                          -- Morin Cloudstalker
+  turnin 98427
+  accept 764                          -- The Venture Co., +75
+  accept 765                          -- Supervisor Fizsprocket, +100
+
+step The mine, the centaurs and the plains
+  when done bloodhoof
+  tip Back to the mine for the workers, supervisors and Supervisor Fizsprocket. The Galak centaurs and Herak camp east of the village. Swoops fly all over Mulgore; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it.
+  kill 2978 x14 quest 764.1           -- Venture Co. Worker
+  kill 2979 x6 quest 764.2            -- Venture Co. Supervisor
+  collect 4819 quest 765.1            -- Fizsprocket's Clipboard
+  kill 2967 x6 quest 99080.1          -- Galak Centaur
+  kill 2968 x4 quest 99080.2          -- Galak Outrunner
+  collect 286075 quest 99080.3        -- Herak's Head
+  collect 4769 x8 quest 761.1         -- Trophy Swoop Quill
+  collect 4751 x8 quest 743.1         -- Windfury Talon
+  kill 2949 x10 quest 745.1           -- Palemane Tanner
+  kill 2950 x8 quest 745.2            -- Palemane Skinner
+  kill 2951 x5 quest 745.3            -- Palemane Poacher
+
+step Bloodhoof Village: last hand-in
+  when done bloodhoof
+  turnin 764                          -- Morin Cloudstalker
+  turnin 765
+  turnin 99080                        -- Baine Bloodhoof
+  accept 99082                        -- The High Chieftain, +10: to Cairne in Thunder Bluff
+  turnin 745
+  turnin 761
+  turnin 743
+
+step Thunder Bluff: Cairne
+  when onquest 99082
+  zone Thunder Bluff
+  turnin 99082                        -- Cairne Bloodhoof
+
+step Bashana Runetotem: Morrowgrain Research
+  label morrowgrain-in
+  when done morrowgrain
+  zone Thunder Bluff
+  tip Bashana Runetotem stands on Elder Rise. If your 10 Morrowgrain are not ready yet, skip this step and go on with the cloth: the cloth steps below list the Morrowgrain hand-in too.
+  turnin 3786                         -- Bashana Runetotem
+  collect 11040 x10 optional @71.1,34.2 -- Morrowgrain
+  turnin 3804 direct optional         -- Morrowgrain to Thunder Bluff, +50
 
 step Rumstag Proudstrider: A Donation of Wool
-  tip Rumstag Proudstrider takes cloth for Thunder Bluff in Thunder Bluff. The first donations of Wool, Silk, Mageweave and Runecloth (60 cloth each) are done once and give the most reputation per cloth; after them, Additional Runecloth repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains.
-  level 12
-  accept 7820
-
-step Wool Cloth
-  zone The Barrens
-  tip Venture Co. Enforcers at the Boulder Lode Mine (level 16-17) drop it here. The Auction House works too.
-  collect 2592 x60 quest 7820.1 @61,4.2
-
-step Rumstag Proudstrider: A Donation of Silk
   zone Thunder Bluff
-  turnin 7820
+  tip From here it is cloth. Wool, Silk and Mageweave must all be handed in before Rumstag offers the Runecloth donation, and Additional Runecloth needs the Runecloth donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, Runecloth 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey.
+  zone Ashenvale
+  collect 2592 x60 quest 7820.1 @36,37      -- Wool Cloth: the Thistlefur furbolgs drop it about one kill in four
+  turnin 7820                         -- Rumstag Proudstrider, +150
+
+step A Donation of Silk
+  tip Silk: the Syndicate in Hillsbrad and Alterac drop it about one kill in three, or buy it.
   level 26
-  accept 7821
-
-step Silk Cloth
-  zone Desolace
-  tip Kolkar centaur (level 30-33) drop it here. The Auction House works too.
-  collect 4306 x60 quest 7821.1 @72.4,47.1
-
-step Rumstag Proudstrider: A Donation of Mageweave
-  zone Thunder Bluff
+  accept 7821                         -- +150
+  zone Alterac Mountains
+  collect 4306 x60 quest 7821.1 @57.7,67.6 -- Silk Cloth: the Syndicate
   turnin 7821
+
+step A Donation of Mageweave
+  tip Mageweave: the Jadefire satyrs in southern Felwood and the Dunemaul ogres in Tanaris drop it about one kill in three, or buy it.
   level 40
-  accept 7822
-
-step Mageweave Cloth
-  zone Tanaris
-  tip Dunemaul ogres (level 45-48) drop it here. The Auction House works too.
-  collect 4338 x60 quest 7822.1 @40.1,54.4
-
-step Rumstag Proudstrider: A Donation of Runecloth
-  zone Thunder Bluff
+  accept 7822                         -- +150
+  zone Felwood
+  collect 4338 x60 quest 7822.1 @41.6,85.7 -- Mageweave Cloth: the Jadefire satyrs
   turnin 7822
+
+step A Donation of Runecloth
+  tip Runecloth: the Scarlet at Tyr's Hand in the Eastern Plaguelands, the Gordok ogres outside Dire Maul in Feralas and the Twilight camps of Silithus drop it about one kill in three. The Auction House is faster if you have gold.
   level 50
-  accept 7823
-
-step Runecloth
+  accept 7823                         -- +150
   zone Eastern Plaguelands
-  tip Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the Argent Dawn (see that guide). The Auction House works too.
-  collect 14047 x60 quest 7823.1 @40,51.3
-
-step Rumstag Proudstrider: Runecloth delivered
-  zone Thunder Bluff
+  collect 14047 x60 quest 7823.1 live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
   turnin 7823
 
 step Additional Runecloth to Honored
-  tip Additional Runecloth takes 20 Runecloth per turn-in and repeats as often as you like. Bring Runecloth in multiples of 20 and hand them all in at once, one turn-in after another. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
-  turnin 7825 direct optional
+  zone Eastern Plaguelands
+  tip Additional Runecloth: 20 Runecloth for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 Runecloth, less what the quests gave you (a tauren starts at Friendly 1,000: 100 hand-ins; an Undead at Neutral 500 first needs 50 more to reach Friendly). Hand in every 20 you carry, one after another.
+  collect 14047 x20 optional live @68,69.5 -- Runecloth: the Scarlet outside Tyr's Hand
+  turnin 7825 direct optional         -- Rumstag Proudstrider: Additional Runecloth, +50
+  zone Thunder Bluff
+  collect 11040 x10 optional @71.1,34.2 -- Morrowgrain, if you grow it: Bashana takes it
+  turnin 3804 direct optional         -- Bashana Runetotem: Morrowgrain to Thunder Bluff, +50
   rep 81 Honored
 
 step Additional Runecloth to Revered
-  tip Keep handing in Additional Runecloth, 20 Runecloth at a time. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
-  turnin 7825 direct optional
+  zone Eastern Plaguelands
+  tip Honored to Revered is 12,000: 240 hand-ins, 4,800 Runecloth, fewer if you also hand in Morrowgrain. Blackrock Depths pays too: Disharmony of Flame and Disharmony of Fire from Thunderheart at Kargath (Lord Incendius, 150 in full).
+  collect 14047 x20 optional live @68,69.5 -- Runecloth
+  turnin 7825 direct optional         -- Additional Runecloth, +50
+  zone Thunder Bluff
+  collect 11040 x10 optional @71.1,34.2 -- Morrowgrain, if you grow it
+  turnin 3804 direct optional         -- Morrowgrain to Thunder Bluff, +50
   rep 81 Revered
 
 step Additional Runecloth to Exalted
-  tip Keep handing in Additional Runecloth until Thunder Bluff is Exalted. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
-  turnin 7825 direct optional
+  zone Eastern Plaguelands
+  tip Revered to Exalted is 21,000: 420 hand-ins, 8,400 Runecloth. For The Horde! (Rend's head) and The Lord of Blackrock (Nefarian's head) pay 200 to every Horde city. At Exalted, Harb Clawhoof in Bloodhoof Village sells the kodos to every Horde race: 20 gold for a level 40 kodo, 200 gold for a great kodo at level 60 (Forever's prices); in Classic other races needed Exalted to buy them.
+  collect 14047 x20 optional live @68,69.5 -- Runecloth
+  turnin 7825 direct optional         -- Additional Runecloth, +50
+  zone Thunder Bluff
+  collect 11040 x10 optional @71.1,34.2 -- Morrowgrain, if you grow it
+  turnin 3804 direct optional         -- Morrowgrain to Thunder Bluff, +50
   rep 81 Exalted
+  talk 3685 optional                  -- Harb Clawhoof: the kodos

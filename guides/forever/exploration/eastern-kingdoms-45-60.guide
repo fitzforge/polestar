@@ -6,10 +6,10 @@ coords era
 levels 45-60
 zone map 1415
 
-# Every discoverable area of Blasted Lands, Deadwind Pass, Burning Steppes,
-# Searing Gorge, The Hinterlands, Western Plaguelands, Eastern Plaguelands (79
-# map overlays), for both factions. Each `explore` point is the centre of the
-# area's map overlay hit rect in the Forever client's tables (WorldMapOverlay,
+# Every discoverable area of The Hinterlands, Searing Gorge, Burning Steppes,
+# Deadwind Pass, Blasted Lands, Western Plaguelands, Eastern Plaguelands (79 map
+# overlays), for both factions. Each `explore` point is the centre of the area's
+# map overlay hit rect in the Forever client's tables (WorldMapOverlay,
 # UiMapXMapArt, UiMap, AreaTable via wago.tools, build 1.60.1.70338), in the
 # map's live frame (written `live` where Forever moved the map or added it, else
 # the Era frame it equals); area levels are AreaTable.ExplorationLevel; flight
@@ -17,70 +17,10 @@ zone map 1415
 # tools/lib/exploration/spec.js; inside a zone the areas are a shortest tour
 # from where you arrive towards the next zone.
 
-step Blasted Lands (1/2)
-  zone Blasted Lands
-  tip Starts where the 30-45 guide ends, in the Swamp of Sorrows. The last area of this guide completes the Eastern Kingdoms map. 9 areas to discover here, levels 46-63.
-  note "Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."
-  note "The Blasted Lands are south of the Swamp of Sorrows; the road arrives at Nethergarde Keep (Alliance)."
-  note "Flight path here: Nethergarde Keep (Alexandra Constantine)." only Alliance
-  explore 64.4,18.3 "Nethergarde Keep" -- Alliance town: Horde characters only need to touch its edge (guards)
-  explore 55.9,13.8 "Garrison Armory"
-  explore 48.7,29.9 "Rise of the Defiler"
-  explore 50.4,44.2 "Dreadmaul Post"
-  explore 62.9,33.3 "Serpent's Coil"
-
-step Blasted Lands (2/2)
-  zone Blasted Lands
-  explore 58.4,56.5 "The Dark Portal" -- level 63 area, well above this guide's range
-  explore 37.9,62.5 "The Tainted Scar"
-  explore 39.7,31.8 "Altar of Storms"
-  explore 43.2,14.2 "Dreadmaul Hold"
-
-step Deadwind Pass
-  zone Deadwind Pass
-  tip 3 areas to discover here, levels 50-60.
-  note "Go back north through the Swamp of Sorrows and west into Deadwind Pass."
-  explore 58.6,64.7 "The Vice"
-  explore 42.7,68.9 "Karazhan" -- high-level undead around the tower: discover it from the road
-  explore 45.2,35.9 "Deadman's Crossing"
-
-step Burning Steppes (1/2)
-  zone Burning Steppes
-  tip 10 areas to discover here, levels 50-59.
-  note "Continue west into Duskwood, north to Redridge Mountains and take the pass north out of Redridge into the Burning Steppes; Morgan's Vigil (Alliance) is near the top."
-  note "Flight path here: Morgan's Vigil (Borgus Stoutarm)." only Alliance
-  note "Flight path here: Flame Crest (Vahgruk)." only Horde
-  explore 75.1,68.5 "Blackrock Pass"
-  explore 88.6,64.7 "Morgan's Vigil" -- Alliance town: Horde characters only need to touch its edge (guards)
-  explore 88.6,35.9 "Terror Wing Path"
-  explore 81.3,41.5 "Dreadmaul Rock"
-  explore 65.1,34.4 "Ruins of Thaurissan"
-
-step Burning Steppes (2/2)
-  zone Burning Steppes
-  explore 43.7,35.2 "Blackrock Stronghold" -- elite Blackrock orcs: discover it from the edge
-  explore 50.1,56.5 "The Pillar of Ash"
-  explore 27.9,65.5 "Draco'dar"
-  explore 15.7,32.2 "Altar of Storms"
-  explore 29.9,31.8 "Blackrock Mountain"
-
-step Searing Gorge
-  zone Searing Gorge
-  tip 7 areas to discover here, levels 43-56.
-  note "Cross Blackrock Mountain from the western Burning Steppes into the Searing Gorge: stay on the chain path inside, past the dungeon entrances."
-  note "Flight path here: Thorium Point (Lanie Reed)." only Alliance
-  note "Flight path here: Thorium Point (Grisha)." only Horde
-  explore 44.9,84.2 "The Sea of Cinders"
-  explore 23,73.4 "Blackchar Cave"
-  explore 27.9,33.7 "Firewatch Ridge"
-  explore 46.2,49.4 "The Cauldron"
-  explore 67.4,29.2 "Dustfire Valley"
-  explore 64.9,58.8 "Grimesilt Dig Site"
-  explore 69.4,76.3 "Tanner Camp"
-
 step The Hinterlands (1/2)
   zone The Hinterlands
-  tip 14 areas to discover here, levels 41-49.
+  tip Starts in the Hinterlands, north-east of Hillsbrad Foothills. The last area of this guide completes the Eastern Kingdoms map. 14 areas to discover here, levels 41-49.
+  note "Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."
   note "Fly to Aerie Peak if you have it; otherwise fly to Southshore and walk north-east from Hillsbrad Foothills into the Hinterlands." only Alliance
   note "Fly to Revantusk Village if you have it; otherwise fly to Tarren Mill and walk east from Hillsbrad Foothills into the Hinterlands." only Horde
   note "Flight path here: Aerie Peak (Guthrum Thunderfist)." only Alliance
@@ -98,33 +38,95 @@ step The Hinterlands (2/2)
   explore 50.1,53.5 "The Creeping Ruin"
   explore 49.7,37.1 "Agol'watha"
   explore 59.1,43 "Skulk Rock"
+  explore 64.1,25.4 "Seradane"
+  explore 70.1,50.5 "Shaol'watha"
   explore 62.4,69.6 "Jintha'Alor" -- elite trolls on the upper terraces: discover it from the bottom
   explore 79.3,68.9 "The Overlook Cliffs"
-  explore 70.1,50.5 "Shaol'watha"
-  explore 64.1,25.4 "Seradane"
+
+step Searing Gorge
+  zone Searing Gorge
+  tip 7 areas to discover here, levels 43-56.
+  note "The way in on foot is from the western Badlands: the path by Kargath climbs west into the Searing Gorge."
+  note "Fly to Thelsamar and ride south through Loch Modan into the Badlands, then west to Kargath (Horde guards)." only Alliance
+  note "Fly to Kargath in the Badlands." only Horde
+  note "Flight path here: Thorium Point (Lanie Reed)." only Alliance
+  note "Flight path here: Thorium Point (Grisha)." only Horde
+  explore 64.9,58.8 "Grimesilt Dig Site"
+  explore 67.4,29.2 "Dustfire Valley"
+  explore 27.9,33.7 "Firewatch Ridge"
+  explore 23,73.4 "Blackchar Cave"
+  explore 46.2,49.4 "The Cauldron"
+  explore 69.4,76.3 "Tanner Camp"
+  explore 44.9,84.2 "The Sea of Cinders"
+
+step Burning Steppes (1/2)
+  zone Burning Steppes
+  tip 10 areas to discover here, levels 50-59.
+  note "Cross Blackrock Mountain from the south of the Searing Gorge into the Burning Steppes: stay on the chain path inside, past the dungeon entrances. Morgan's Vigil (Alliance) is in the east."
+  note "Flight path here: Morgan's Vigil (Borgus Stoutarm)." only Alliance
+  note "Flight path here: Flame Crest (Vahgruk)." only Horde
+  explore 29.9,31.8 "Blackrock Mountain"
+  explore 15.7,32.2 "Altar of Storms"
+  explore 27.9,65.5 "Draco'dar"
+  explore 50.1,56.5 "The Pillar of Ash"
+  explore 43.7,35.2 "Blackrock Stronghold" -- elite Blackrock orcs: discover it from the edge
+
+step Burning Steppes (2/2)
+  zone Burning Steppes
+  explore 65.1,34.4 "Ruins of Thaurissan"
+  explore 81.3,41.5 "Dreadmaul Rock"
+  explore 88.6,35.9 "Terror Wing Path"
+  explore 88.6,64.7 "Morgan's Vigil" -- Alliance town: Horde characters only need to touch its edge (guards)
+  explore 75.1,68.5 "Blackrock Pass"
+
+step Deadwind Pass
+  zone Deadwind Pass
+  tip 3 areas to discover here, levels 50-60.
+  note "Take the pass south from the Burning Steppes into the Redridge Mountains, follow the road south-west through Three Corners into Duskwood and east past Darkshire into Deadwind Pass."
+  explore 45.2,35.9 "Deadman's Crossing"
+  explore 42.7,68.9 "Karazhan" -- high-level undead around the tower: discover it from the road
+  explore 58.6,64.7 "The Vice"
+
+step Blasted Lands (1/2)
+  zone Blasted Lands
+  tip 9 areas to discover here, levels 46-63.
+  note "Ride east out of Deadwind Pass into the Swamp of Sorrows and take the road south into the Blasted Lands; Nethergarde Keep (Alliance) stands just inside."
+  note "Flight path here: Nethergarde Keep (Alexandra Constantine)." only Alliance
+  explore 43.2,14.2 "Dreadmaul Hold"
+  explore 55.9,13.8 "Garrison Armory"
+  explore 64.4,18.3 "Nethergarde Keep" -- Alliance town: Horde characters only need to touch its edge (guards)
+  explore 62.9,33.3 "Serpent's Coil"
+  explore 58.4,56.5 "The Dark Portal" -- level 63 area, well above this guide's range
+
+step Blasted Lands (2/2)
+  zone Blasted Lands
+  explore 50.4,44.2 "Dreadmaul Post"
+  explore 48.7,29.9 "Rise of the Defiler"
+  explore 39.7,31.8 "Altar of Storms"
+  explore 37.9,62.5 "The Tainted Scar"
 
 step Western Plaguelands (1/2)
   zone Western Plaguelands
   tip 13 areas to discover here, levels 46-57.
-  note "Walk back to Hillsbrad Foothills and north through the Alterac Mountains to Chillwind Camp in southern Western Plaguelands." only Alliance
-  note "Walk back to Hillsbrad Foothills and north through the Alterac Mountains, or from Tirisfal Glades east past The Bulwark, into Western Plaguelands." only Horde
+  note "Fly to Chillwind Camp if you have it; otherwise fly to Southshore and ride north through the Alterac Mountains to Chillwind Camp in southern Western Plaguelands." only Alliance
+  note "Fly to Tarren Mill and ride north through the Alterac Mountains into southern Western Plaguelands, or go east from Tirisfal Glades past The Bulwark." only Horde
   note "Flight path here: Chillwind Camp (Bibilfaz Featherwhistle)." only Alliance
-  explore 68.9,75.2 "Caer Darrow"
-  explore 68.4,73.7 "Darrowmere Lake"
-  explore 62.9,57.3 "Gahrron's Withering"
-  explore 53.4,65.5 "The Writhing Haunt"
   explore 51.6,79.3 "Sorrow Hill"
   explore 43.7,69.2 "Ruins of Andorhal"
+  explore 37.4,55.8 "Felstone Field"
   explore 26.4,58 "The Bulwark"
+  explore 47.2,18 "Hearthglen"
+  explore 47.4,36.3 "Northridge Lumber Camp"
+  explore 46.4,52.8 "Dalson's Tears"
 
 step Western Plaguelands (2/2)
   zone Western Plaguelands
-  explore 37.4,55.8 "Felstone Field"
-  explore 46.4,52.8 "Dalson's Tears"
-  explore 47.4,36.3 "Northridge Lumber Camp"
-  explore 47.2,18 "Hearthglen"
-  explore 67.6,38.5 "Thondroril River"
+  explore 53.4,65.5 "The Writhing Haunt"
+  explore 68.9,75.2 "Caer Darrow"
+  explore 68.4,73.7 "Darrowmere Lake"
+  explore 62.9,57.3 "Gahrron's Withering"
   explore 65.1,42.3 "The Weeping Cave"
+  explore 67.6,38.5 "Thondroril River"
 
 step Eastern Plaguelands (1/3)
   zone Eastern Plaguelands

@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/quest.schema.json",
+  "title": "quest",
+  "description": "One row per quest id.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "id"
+  ],
+  "properties": {
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "client quest id"
+    },
+    "title": {
+      "type": "string",
+      "minLength": 1,
+      "description": "quest title"
+    },
+    "level": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest level"
+    },
+    "min_level": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "minimum character level"
+    },
+    "races": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "client race bitmask; 0 = every race"
+    },
+    "classes": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "client class bitmask; 0 = every class"
+    },
+    "side": {
+      "type": "integer",
+      "enum": [
+        0,
+        1,
+        2
+      ],
+      "description": "0 both, 1 Alliance, 2 Horde"
+    },
+    "xp": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "turn-in experience at the quest's level"
+    },
+    "money_copper": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "money reward in copper"
+    },
+    "type": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "client QuestInfo id"
+    },
+    "zone_area": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "client AreaTable id of the quest's zone"
+    },
+    "repeatable": {
+      "type": "boolean",
+      "description": "the quest can be done again"
+    }
+  }
+}

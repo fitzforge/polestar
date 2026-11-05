@@ -115,44 +115,44 @@ step Stonetalon Mountains (2/2)
   explore 54.4,74.9 "Sishir Canyon"
   explore 64.9,92.8 "Boulderslide Ravine"
   explore 72.9,94.7 "Malaka'jin" -- Horde guards: touch the edge of Malaka'jin and move on
-  explore 77.3,92.4 "Camp Aparaje"
   explore 75.6,86.8 "Grimtotem Post"
+  explore 77.3,92.4 "Camp Aparaje"
 
 step The Barrens (1/4)
   only Alliance
   zone The Barrens
   tip 25 areas to discover here, levels 10-33.
-  note "Walk east out of Stonetalon (or south out of Ashenvale) into the Barrens. The Crossroads and Camp Taurajo are Horde towns; Ratchet is a neutral port."
+  note "The road east out of south-eastern Stonetalon comes down into the Barrens at Honor's Stand. The Crossroads and Camp Taurajo are Horde towns; Ratchet is a neutral port."
   note "Flight path here: Ratchet (Bragok)."
+  explore 37.4,28.4 "Honor's Stand"
+  explore 43.2,48.3 "Agama'gor"
+  explore 45.7,61 "Camp Taurajo" -- Horde guards: touch the edge of Camp Taurajo and move on
   explore 41.7,79 "Blackthorn Ridge"
   explore 40.9,88.3 "Razorfen Kraul"
   explore 48.9,91.7 "Razorfen Downs"
   explore 47.7,83.8 "Bael Modan"
-  explore 46.2,70.7 "Field of Giants"
-  explore 45.7,61 "Camp Taurajo" -- Horde guards: touch the edge of Camp Taurajo and move on
-  explore 50.6,58.4 "Bramblescar"
 
 step The Barrens (2/4)
   only Alliance
   zone The Barrens
+  explore 46.2,70.7 "Field of Giants"
+  explore 50.6,58.4 "Bramblescar"
   explore 61.1,55.4 "Northwatch Hold"
   explore 63.6,45.3 "The Merchant Coast"
   explore 62.6,37.4 "Ratchet"
   explore 55.6,42.7 "The Stagnant Oasis"
   explore 55.9,51.3 "Raptor Grounds"
-  explore 43.2,48.3 "Agama'gor"
-  explore 46.7,38.9 "Lushwater Oasis"
 
 step The Barrens (3/4)
   only Alliance
   zone The Barrens
+  explore 46.7,38.9 "Lushwater Oasis"
   explore 51.6,28.4 "The Crossroads" -- Horde guards: touch the edge of The Crossroads and move on
   explore 56.9,28.4 "Thorn Hill"
   explore 61.1,21.3 "Far Watch Post"
   explore 55.6,19.1 "Grol'dom Farm"
   explore 48.4,18.3 "Dreadmist Peak"
   explore 45.4,23.6 "The Forgotten Pools"
-  explore 37.4,28.4 "Honor's Stand"
 
 step The Barrens (4/4)
   only Alliance
@@ -178,53 +178,53 @@ step Durotar (2/2)
   only Alliance
   zone Durotar
   explore 57.6,56.1 "Tiragarde Keep"
+  explore 44.4,67 "Valley of Trials" -- Horde guards: touch the edge of Valley of Trials and move on
+  explore 48.9,79.3 "Kolkar Crag"
   explore 56.1,73 "Sen'jin Village" -- Horde guards: touch the edge of Sen'jin Village and move on
   explore 65.4,84.6 "Echo Isles"
-  explore 48.9,79.3 "Kolkar Crag"
-  explore 44.4,67 "Valley of Trials" -- Horde guards: touch the edge of Valley of Trials and move on
 
 step Mulgore (1/2)
   only Alliance
   zone Mulgore
   tip 16 areas to discover here, levels 5-10.
-  note "Go back west across the Barrens; the road west from Camp Taurajo climbs into Mulgore, tauren country with guards at Bloodhoof Village and Thunder Bluff."
+  note "Go back west across the Barrens; the road west from Camp Taurajo climbs through the only pass into Mulgore, tauren country with guards at Bloodhoof Village and Thunder Bluff."
+  explore 59.2,52.1 "The Venture Co. Mine" live
+  explore 52,52.6 "Ravaged Caravan" live
+  explore 44.4,50 "Thunderhorn Water Well" live
+  explore 49.5,39.8 "The Golden Plains" live
   explore 57.8,31.6 "Red Rocks" live
   explore 50.6,20.5 "Windfury Ridge" live
   explore 42.6,24.3 "Wildmane Water Well" live
   explore 36.9,16.8 "Skywatcher Plateau" live
-  explore 39.4,36.2 "Thunder Bluff" live -- Horde guards: touch the edge of Thunder Bluff and move on
-  explore 32.6,50.7 "Bael'dun Digsite" live
-  explore 34.1,68.5 "Palemane Rock" live
-  explore 47,62.4 "Bloodhoof Village" live -- Horde guards: touch the edge of Bloodhoof Village and move on
 
 step Mulgore (2/2)
   only Alliance
   zone Mulgore
-  explore 44.4,50 "Thunderhorn Water Well" live
-  explore 49.5,39.8 "The Golden Plains" live
-  explore 52,52.6 "Ravaged Caravan" live
-  explore 59.2,52.1 "The Venture Co. Mine" live
+  explore 39.4,36.2 "Thunder Bluff" live -- Horde guards: touch the edge of Thunder Bluff and move on
+  explore 32.6,50.7 "Bael'dun Digsite" live
+  explore 34.1,68.5 "Palemane Rock" live
+  explore 47,62.4 "Bloodhoof Village" live -- Horde guards: touch the edge of Bloodhoof Village and move on
   explore 51.9,68.9 "Winterhoof Water Well" live
-  explore 60.4,68.1 "The Rolling Plains" live
-  explore 61.4,80.8 "Brambleblade Ravine" live
   explore 46.7,82.9 "Red Cloud Mesa" live
+  explore 61.4,80.8 "Brambleblade Ravine" live
+  explore 60.4,68.1 "The Rolling Plains" live
 
 step Thousand Needles (1/2)
   only Alliance
   zone Thousand Needles
   tip 9 areas to discover here, levels 24-35.
-  note "From the southern Barrens take the Great Lift down into Thousand Needles. Freewind Post is a Horde town."
+  note "Leave Mulgore by the same pass and ride south through the Barrens to the Great Lift down into Thousand Needles. Freewind Post is a Horde town."
+  explore 32.2,22.5 "The Great Lift"
   explore 16.2,17.6 "Camp E'thok"
   explore 15.9,42.4 "Highperch"
-  explore 32.2,22.5 "The Great Lift"
-  explore 34.9,36.3 "Darkcloud Pinnacle"
   explore 30.7,47.5 "The Screeching Canyon"
+  explore 34.9,36.3 "Darkcloud Pinnacle"
 
 step Thousand Needles (2/2)
   only Alliance
   zone Thousand Needles
-  explore 46.2,52.8 "Freewind Post" -- Horde guards: touch the edge of Freewind Post and move on
   explore 47.9,41.2 "Splithoof Crag"
+  explore 46.2,52.8 "Freewind Post" -- Horde guards: touch the edge of Freewind Post and move on
   explore 62.4,55 "Windbreak Canyon"
   explore 78.3,73 "The Shimmering Flats" -- level 35 area, well above this guide's range
 
@@ -262,76 +262,75 @@ step The Barrens (1/4)
   explore 55.4,7.5 "The Sludge Fen"
   explore 47.9,6.7 "The Mor'shan Rampart"
   explore 39.7,14.6 "The Dry Hills"
+  explore 37.4,28.4 "Honor's Stand"
   explore 45.4,23.6 "The Forgotten Pools"
   explore 48.4,18.3 "Dreadmist Peak"
-  explore 51.6,28.4 "The Crossroads"
 
 step The Barrens (2/4)
   only Horde
   zone The Barrens
+  explore 51.6,28.4 "The Crossroads"
   explore 56.9,28.4 "Thorn Hill"
   explore 55.6,19.1 "Grol'dom Farm"
   explore 61.1,21.3 "Far Watch Post"
   explore 62.6,37.4 "Ratchet"
   explore 63.6,45.3 "The Merchant Coast"
   explore 61.1,55.4 "Northwatch Hold"
-  explore 55.6,42.7 "The Stagnant Oasis"
 
 step The Barrens (3/4)
   only Horde
   zone The Barrens
+  explore 55.6,42.7 "The Stagnant Oasis"
+  explore 46.7,38.9 "Lushwater Oasis"
+  explore 43.2,48.3 "Agama'gor"
   explore 55.9,51.3 "Raptor Grounds"
   explore 50.6,58.4 "Bramblescar"
   explore 47.7,83.8 "Bael Modan"
   explore 48.9,91.7 "Razorfen Downs"
-  explore 40.9,88.3 "Razorfen Kraul"
-  explore 41.7,79 "Blackthorn Ridge"
-  explore 46.2,70.7 "Field of Giants"
 
 step The Barrens (4/4)
   only Horde
   zone The Barrens
+  explore 40.9,88.3 "Razorfen Kraul"
+  explore 41.7,79 "Blackthorn Ridge"
+  explore 46.2,70.7 "Field of Giants"
   explore 45.7,61 "Camp Taurajo"
-  explore 43.2,48.3 "Agama'gor"
-  explore 46.7,38.9 "Lushwater Oasis"
-  explore 37.4,28.4 "Honor's Stand"
 
 step Mulgore (1/2)
   only Horde
   zone Mulgore
   tip 16 areas to discover here, levels 5-10.
-  note "The road west from Camp Taurajo climbs into Mulgore."
-  note "Flight path here: Thunder Bluff (Tal)."
-  explore 57.8,31.6 "Red Rocks" live
-  explore 59.2,52.1 "The Venture Co. Mine" live
-  explore 51.9,68.9 "Winterhoof Water Well" live
-  explore 60.4,68.1 "The Rolling Plains" live
+  note "The road west from Camp Taurajo climbs through the only pass into Mulgore."
   explore 61.4,80.8 "Brambleblade Ravine" live
   explore 46.7,82.9 "Red Cloud Mesa" live
   explore 34.1,68.5 "Palemane Rock" live
   explore 32.6,50.7 "Bael'dun Digsite" live
-
-step Mulgore (2/2)
-  only Horde
-  zone Mulgore
-  explore 47,62.4 "Bloodhoof Village" live
-  explore 52,52.6 "Ravaged Caravan" live
-  explore 44.4,50 "Thunderhorn Water Well" live
-  explore 49.5,39.8 "The Golden Plains" live
   explore 39.4,36.2 "Thunder Bluff" live
   explore 36.9,16.8 "Skywatcher Plateau" live
   explore 42.6,24.3 "Wildmane Water Well" live
   explore 50.6,20.5 "Windfury Ridge" live
 
+step Mulgore (2/2)
+  only Horde
+  zone Mulgore
+  explore 57.8,31.6 "Red Rocks" live
+  explore 49.5,39.8 "The Golden Plains" live
+  explore 59.2,52.1 "The Venture Co. Mine" live
+  explore 52,52.6 "Ravaged Caravan" live
+  explore 44.4,50 "Thunderhorn Water Well" live
+  explore 47,62.4 "Bloodhoof Village" live
+  explore 51.9,68.9 "Winterhoof Water Well" live
+  explore 60.4,68.1 "The Rolling Plains" live
+
 step Stonetalon Mountains (1/2)
   only Horde
   zone Stonetalon Mountains
   tip 11 areas to discover here, levels 15-25.
-  note "Go back into the Barrens and west through Honor's Stand into the Stonetalon Mountains. Sun Rock Retreat is the Horde town; Stonetalon Peak in the north is Alliance."
+  note "Leave Mulgore by the same pass, ride north through the Barrens and west at Honor's Stand into the Stonetalon Mountains. Sun Rock Retreat is the Horde town; Stonetalon Peak in the north is Alliance."
   note "Flight path here: Sun Rock Retreat (Tharm)."
+  explore 72.9,94.7 "Malaka'jin"
   explore 77.3,92.4 "Camp Aparaje"
   explore 75.6,86.8 "Grimtotem Post"
-  explore 72.9,94.7 "Malaka'jin"
   explore 64.9,92.8 "Boulderslide Ravine"
   explore 54.4,74.9 "Sishir Canyon"
   explore 60.4,68.5 "Webwinder Path"
@@ -424,16 +423,16 @@ step Thousand Needles (1/2)
   tip 9 areas to discover here, levels 24-35.
   note "Fly to Camp Taurajo and walk south through the Barrens to the Great Lift down into Thousand Needles."
   note "Flight path here: Freewind Post (Nyse)."
+  explore 32.2,22.5 "The Great Lift"
   explore 16.2,17.6 "Camp E'thok"
   explore 15.9,42.4 "Highperch"
-  explore 32.2,22.5 "The Great Lift"
-  explore 34.9,36.3 "Darkcloud Pinnacle"
   explore 30.7,47.5 "The Screeching Canyon"
+  explore 34.9,36.3 "Darkcloud Pinnacle"
 
 step Thousand Needles (2/2)
   only Horde
   zone Thousand Needles
-  explore 46.2,52.8 "Freewind Post"
   explore 47.9,41.2 "Splithoof Crag"
+  explore 46.2,52.8 "Freewind Post"
   explore 62.4,55 "Windbreak Canyon"
   explore 78.3,73 "The Shimmering Flats" -- level 35 area, well above this guide's range

@@ -245,7 +245,7 @@ do
 		controls = {
 			{ kind = "toggle", key = "maps.flightTimer", label = L["Flight timer"],
 				help = L["While flying, shows the destination and the time left. Learns each route's real duration for this character; drag to move."] },
-			{ kind = "button", label = L["Forget learned flight times"],
+			{ kind = "button", button = L["Forget"], label = L["Forget learned flight times"],
 				help = L["Clears this character's recorded flight durations; estimates are used until they are flown again."],
 				onClick = function()
 					ns.CharState().flightTimes = {}
@@ -272,7 +272,7 @@ do
 			{ kind = "slider", key = "maps.perDay", label = L["Instances per day"], min = 0, max = 60, step = 1, format = "%d",
 				help = L["Classic Era allows 30 new instances per 24 hours per account; 0 ignores the daily cap. Forever may differ."],
 				disabled = off("maps.instances") },
-			{ kind = "button", label = L["Clear instance history"],
+			{ kind = "button", button = L["Clear"], label = L["Clear instance history"],
 				help = L["Forgets recorded entries and runs (the server's own limit is not affected)."],
 				onClick = function() if Maps.ClearInstances then Maps.ClearInstances() end end },
 		},

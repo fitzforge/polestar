@@ -1,5 +1,5 @@
 'use strict';
-// Simulator world builder (docs/SIMULATION.md §1 "Solo filter", placement,
+// Simulator world builder (docs/legacy/SIMULATION-js.md §1 "Solo filter", placement,
 // vendors, child quests, prerequisites, exclusive quests) on the invented
 // world of tests/fixtures/sim.
 
@@ -80,14 +80,18 @@ function build(d, overrides = OVR) {
 const has = (w, id) => w.quests.some((q) => q.id === id);
 const why = (w, id) => w.excluded.find((e) => e.id === id) || null;
 
-test('solo filter: instance areas (dungeon, raid, PvP), elite targets, elite or high droppers, rare drops, reputation, listings', () => {
+test('solo filter: instance areas (dungeon, raid, PvP), rare drops, reputation, listings; elite targets and elite or high droppers are kept', () => {
 	const w = build(data());
 	assert.equal(why(w, 901).category, 'dungeon');
 	assert.equal(why(w, 902).category, 'raid');
 	assert.equal(why(w, 903).category, 'pvp');
-	assert.equal(why(w, 904).category, 'elite'); // kill an elite
-	assert.equal(why(w, 905).category, 'elite'); // item only from an elite
-	assert.equal(why(w, 906).category, 'elite'); // item only from a mob 5+ levels above the quest (12 vs 5)
+	// #638's rule: kept; group work (elite) only when an elite is the target or dropper.
+	const grp = (id) => w.quests.find((q) => q.id === id);
+	assert.equal(grp(904).elite, true); // kill an elite
+	assert.equal(grp(905).elite, true); // item only from an elite
+	assert.ok(grp(905).objs[0].camps.every((c) => w.camps[c].elite), 'quest 905: elite camps');
+	assert.equal(grp(906).elite, false, 'a non-elite dropper 5+ levels above is not group work'); // 12 vs 5
+	assert.ok(grp(906).objs[0].camps.every((c) => !w.camps[c].elite), 'quest 906: plain camps');
 	assert.ok(has(w, 907)); // an elite and a normal dropper: the normal one
 	const mixed = w.quests.find((q) => q.id === 907);
 	assert.deepEqual(mixed.tasks[0].work[0].slice(0, 4), ['kill', 2, 5, 0]); // 2 items at 40% from Burrow Rats
@@ -96,11 +100,11 @@ test('solo filter: instance areas (dungeon, raid, PvP), elite targets, elite or 
 	assert.equal(why(w, 910).category, 'reputation'); // above Friendly
 	assert.ok(has(w, 911)); // Friendly is reachable by questing
 	assert.equal(why(w, 912).category, 'reputation'); // explicit listing
-	assert.equal(why(w, 918).category, 'elite'); // quest-starting item only from an elite
+	assert.equal(grp(918).elite, true); // quest-starting item only from an elite
 	assert.ok(has(w, 919)); // allowlist wins over the rules
 	assert.equal(w.quests.find((q) => q.id === 919).elite, true);
 	// Counts per category.
-	assert.deepEqual(w.solo.counts, { dungeon: 1, raid: 1, pvp: 1, elite: 4, rareDrop: 2, reputation: 2, repeatable: 1 });
+	assert.deepEqual(w.solo.counts, { dungeon: 1, raid: 1, pvp: 1, elite: 0, rareDrop: 2, reputation: 2, repeatable: 1 });
 	// The base quests are untouched.
 	for (const id of [501, 502, 503, 504, 505]) assert.ok(has(w, id), `base quest ${id}`);
 });
@@ -120,7 +124,7 @@ test('solo filter: repeatables count once; without a reward they are dropped unl
 });
 
 test('solo filter: a quest after an excluded one is unreachable at run time', () => {
-	const d = data({ 920: { ...syn.makeData().quests[501], id: 920, title: 'After the Brute', pre: [904], objectives: [{ type: 'kill', id: 10, count: 2 }] } });
+	const d = data({ 920: { ...syn.makeData().quests[501], id: 920, title: 'After the Rare Drop', pre: [908], objectives: [{ type: 'kill', id: 10, count: 2 }] } });
 	const w = build(d);
 	assert.ok(has(w, 920));
 	assert.equal(compileRun(w, { race: 'Orc' }).qIndex.has(920), false);
@@ -285,7 +289,7 @@ test('quest-starting items: droppers without any recorded rate count at the assu
 	const book = w.quests.find((x) => x.id === 931);
 	assert.ok(book, 'located from its null-rate dropper');
 	assert.deepEqual(book.accept.work[0].slice(0, 4), ['kill', 2, 100 / 30, 0]);
-	assert.equal(why(w, 932).category, 'elite'); // the only dropper is an elite
+	assert.equal(w.quests.find((x) => x.id === 932).elite, true); // the only dropper is an elite: group work
 	// Next to a recorded rate, the null-rate dropper is no evidence: the fox at 5%.
 	assert.deepEqual(w.quests.find((x) => x.id === 933).accept.work[0].slice(0, 3), ['kill', 4, 20]);
 });
@@ -309,7 +313,7 @@ test('kill credit on an NPC of the faction is one interaction, never elite; a ho
 	assert.equal(q(927).elite, false);
 	assert.deepEqual(q(928).tasks[0].work, [['use', 1]]);
 	assert.equal(w.points[q(928).tasks[0].pt][4], FIELD); // at the warden
-	assert.equal(why(w, 929).category, 'elite');
+	assert.equal(q(929).elite, true); // a hostile elite: group work
 	assert.equal(q(934).tasks[0].work[0][0], 'kill'); // the other faction's NPC is fought
 	// In a conversation quest the other faction's NPC is its counterpart: no work.
 	assert.deepEqual(q(938).tasks.flatMap((t) => t.work), [['use', 1]]);

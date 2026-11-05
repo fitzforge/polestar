@@ -12,21 +12,32 @@ zone Dun Morogh
 # Sources: Forever client 1.60.1.70338 tables via wago.tools (ItemSparse: level,
 # price, races, riding spell; SkillLineAbility: Riding); npcs.json and
 # items.json for the trainer, the vendor and its stock.
-# Forever riding: the client files every racial riding spell under one Riding
-# skill (SkillLineAbility), so any riding trainer of your faction teaches it:
-# Apprentice Riding (skill 75) from level 40, Journeyman Riding (150) at 60.
-# Blizzard: learning to ride grants a mount, and training costs 100g at 40 and
-# 1,000g at 60 (Kris Zierhut). ItemSparse lists the
-# mounts at 20g (level 40) and 200g (level 60), usable by every race of the
-# faction; whether a vendor still wants Exalted with another race's city (the
-# Era rule) is server-side and unconfirmed.
+# Forever riding: one Riding skill (Apprentice 75 from level 40, Journeyman 150
+# at 60). Training costs 100g and 1,000g (Forever's world data: the trainers of
+# Velma Warnam and Genn Fairweather, build 70124) and comes with a mount
+# (Blizzard). ItemSparse lists the mounts at 20g (level 40) and 200g (level 60)
+# for every race of the faction, but each one also needs Mechanostrider Piloting (10907;
+# MountCapability), which SkillLineAbility gives only Gnomes with Riding: the
+# faction's other races and the Skyborne must learn it.
+# ASSUMED: Binjy Featherwhistle teaches it to them at Exalted with Gnomeregan Exiles (Classic
+# rule; a beta player guide says other races' mounts need Exalted). In-game
+# check: a Human at Binjy Featherwhistle, with and without Exalted.
+# ASSUMED: Honored with your race's home city takes 10% off training and mounts
+# (beta player guides; Classic had the same). In-game check: the price at Honored.
 
 step Learn to ride
   zone Dun Morogh
-  tip Steelgrill's Depot is just east of Kharanos; Binjy Featherwhistle stands beside Milli Featherwhistle's mechanostriders. At 40 Binjy Featherwhistle teaches Riding (100g per Blizzard's designers), and learning it gives you a mount. The Forever client lets every Alliance race ride these.
+  tip Steelgrill's Depot is just east of Kharanos; Binjy Featherwhistle stands beside Milli Featherwhistle's mechanostriders. At 40 Binjy Featherwhistle teaches Riding to Gnomes for 100g (10% less at Honored with Gnomeregan Exiles), and it comes with a mechanostrider. Other races learn Riding, with their own first mount, at their own race's riding trainer.
   level 40
-  train 7954                          -- Binjy Featherwhistle, riding trainer
+  train 7954 only Gnome               -- Binjy Featherwhistle, riding trainer
   skill Riding 75
+
+step Mechanostrider Piloting for other races
+  only Human,Dwarf,NightElf,Skyborne
+  when !knows 10907
+  tip Any Alliance race can buy these mechanostriders, but riding one also takes Mechanostrider Piloting, which only Gnomes get with Riding. Binjy Featherwhistle teaches it to other races once they are Exalted with Gnomeregan Exiles (the Gnomeregan Exiles Reputation guide shows the way). Until then, don't buy a mechanostrider for this character.
+  rep "Gnomeregan Exiles" Exalted
+  train 7954                          -- Binjy Featherwhistle, Mechanostrider Piloting
 
 step Pick a colour
   tip Milli Featherwhistle sells the other colours (20g each in the Forever client). Buy any you want, or none if the mount you were given is the one you like.
@@ -35,4 +46,4 @@ step Pick a colour
   buy 8595 npc 7955 optional          -- Blue Mechanostrider, 20g
   buy 13321 npc 7955 optional         -- Green Mechanostrider, 20g
   buy 13322 npc 7955 optional         -- Unpainted Mechanostrider, 20g
-  note Era let only Dwarves and Gnomes ride mechanostriders; the Forever client allows every Alliance race.
+  note In Classic only Dwarves and Gnomes could ride mechanostriders; in Forever every Alliance race can learn Mechanostrider Piloting.

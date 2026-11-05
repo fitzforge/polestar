@@ -1,0 +1,24 @@
+{
+	"note": [
+		"Tracked files allowed to name the web quest databases tools/lib/nameguard.js guards against, with why (excluded: third-party notices, the Names addons rebuilt separately, verbatim upstream inputs and the pack check's forbidden-word list).",
+		"The list only shrinks: tests/nameguard.test.js fails when a file not listed here names them, and when a listed file no longer does (drop it from the list). A new entry is { \"kind\": \"excluded\", \"reason\": \"...\" }, decided by the maintainers in review."
+	],
+	"files": {
+		"rust/crates/forge/src/pack-spec.json": {
+			"kind": "excluded",
+			"reason": "the pack check's own list of words a public pack must never contain"
+		},
+		"rust/tests/golden/gear/input/root/data/sources/wowsims/classic/7779ebbf79dc7f1341e6ab939b28a3402c9a730a/ui/mage/presets.ts": {
+			"kind": "excluded",
+			"reason": "verbatim upstream wowsims source (MIT) used as a golden input; its own comments link the site"
+		},
+		"rust/tests/golden/gear/input/root/data/sources/wowsims/classic/7779ebbf79dc7f1341e6ab939b28a3402c9a730a/ui/rogue/presets.ts": {
+			"kind": "excluded",
+			"reason": "verbatim upstream wowsims source (MIT) used as a golden input; its own comments link the site"
+		},
+		"rust/tests/golden/gear/input/root/data/sources/wowsims/classic/7779ebbf79dc7f1341e6ab939b28a3402c9a730a/ui/warrior/presets.ts": {
+			"kind": "excluded",
+			"reason": "verbatim upstream wowsims source (MIT) used as a golden input; its own comments link the site"
+		}
+	}
+}

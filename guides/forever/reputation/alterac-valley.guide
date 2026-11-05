@@ -1,70 +1,277 @@
 guide forever/reputation/alterac-valley
 title Alterac Valley Reputation
 category Reputation
+folder Reputation · Battlegrounds
 levels 51-60
-zone Alterac Valley
+zone Alterac Mountains
+keywords Stormpike Guard, Frostwolf Clan, Alterac Valley, Lieutenant Haggerdin, Warmaster Laggrond, Stormpike Insignia, Frostwolf Insignia, Armor Scraps, Murgot Deepforge, Smith Regzar, Thanthaldis Snowgleam, Jekyll Flandring, Alterac Valley Mark of Honor, Stormpike Battle Charger, Horn of the Frostwolf Howler, Master of Alterac Valley, Legacy Point
+reward text Master of Alterac Valley: a Legacy Point at Exalted
+reward item 17904 "Stormpike Insignia Rank 6"
+reward item 17909 "Frostwolf Insignia Rank 6"
+reward item 19032
+reward item 19031
+collects 19032, 19031
+why One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point.
+
 # Stormpike Guard (730, Alliance) and Frostwolf Clan (729, Horde).
-# Exalted with each battleground reputation is one of Forever's Legacy PvP
-# Challenges (one account-wide Legacy Point each; official Legacy System news).
+# Built from Forever's quest data (quest pages: reputation per quest and the
+# objectives), the world database's standing gates (the insignia quests),
+# Forever's NPC data (places, on-kill reputation, quartermasters' lists),
+# Forever's object data (tower and banner places) and the Forever client's
+# item table (prices before any standing discount). Exalted with either
+# faction is the Legacy Challenge "Master of Alterac Valley" (one
+# account-wide Legacy Point). The mounts have their own guides
+# (forever/collectibles/mounts/alliance/stormpike-battle-charger,
+# forever/collectibles/mounts/horde/frostwolf-howler).
 #
-# From the Era-baseline reference data: the turn-in NPCs inside the battleground
-# (Alterac Valley map) and their quests: Armor Scraps 7223 / Enemy Booty 7224
-# (one-time, 20 Armor Scraps) then More Armor Scraps 6781 / More Booty! 6741;
-# the quartermasters' Irondeep and Coldtooth Supplies (5892/6982, 5893/6985);
-# Arch Druid Renferal's Storm Crystals (6881/7386) and Primalist Thurloga's
-# Stormpike Soldier's Blood (6801/7385); the ram and wolf hide harnesses
-# (7026/7002); and the faction NPCs outside (Prospector Stonehewer, Voggah
-# Deathgrip). Only the one-time scrap quests are quest goals; the rest repeat,
-# and the client never flags repeatables completed, so the steps track the
-# standing itself (rep 730/729). Forever's Field of Honor season may change
-# these; refine with live recordings.
+# Forever's quest pages give the repeatable turn-ins inside the battleground
+# (More Armor Scraps 6781 / More Booty! 6741, Irondeep and Coldtooth Supplies,
+# Crystal Cluster 7386 / A Gallon of Blood 7385, the harnesses and stables)
+# only Ironforge or Orgrimmar reputation, no Stormpike or Frostwolf: they are
+# left to notes. The Classic body-part bounties and "Wanted" posters (7361-
+# 7366, 7401, 7402) and Korrak the Everliving (7382) have no Forever page.
+# Reputation for towers, captains and generals inside the battle is the
+# Classic figure (12 a tower, graveyard or mine, 125 a captain, about 300 a
+# general); Forever has published no battleground reputation rates.
+# ASSUMED: 3 Marks of Honor for a win and 1 for a loss (Classic flow;
+# Forever's data has no per-match reward). In-game check: marks after a game.
+# INGAME: Forever's item table lists no standing on any Alterac Valley reward
+# but the draughts (in Classic: the tabard and the Superior Draughts at
+# Friendly, the cloaks, pendants, belts and Major Draughts at Honored, the
+# weapons and the battle standard at Revered, the rest and the mounts at
+# Exalted; the guide names each at that standing). Does the quartermaster
+# still ask for it?
+
+step Lieutenant Rotimer
+  only Alliance
+  zone Ironforge
+  tip Alterac Valley is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 Ironforge reputation. Lieutenant Rotimer recruits outside the Great Forge. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
+  accept 7261                          -- The Sovereign Imperative, 100
+
+step Lieutenant Haggerdin
+  only Alliance
+  zone Alterac Mountains
+  tip The Stormpike camp stands outside the Alterac Valley gate, on the Alterac Mountains side above Hillsbrad. Take every quest here: they all pay 100 or more, once.
+  turnin 7261
+  accept 7162                          -- Proving Grounds: the Stormpike Banner in Icewing Cavern, 100
+  accept 7081                          -- Sergeant Durgen Stormpike: assault a graveyard, 100
+  accept 7102                          -- destroy a tower or bunker banner, 100
+  accept 7122                          -- capture a mine, 100
+
+step Dun Baldar
+  only Alliance
+  zone Alterac Valley
+  tip Queue at the gate, at any battlemaster or from the battleground screen; you enter at Dun Baldar in the north. Before the gates open, take the quests in the town: they are done during the battle.
+  accept 7121                          -- Mountaineer Boombellow: The Quartermaster, 10
+  turnin 7121
+  accept 7223                          -- Murgot Deepforge: 20 Armor Scraps, 100
+  accept 7282                          -- Commander Karl Philips: Brotherly Love, 100
+  accept 7301                          -- Commander Duffy: Fallen Sky Lords, 100
+  accept 7367                          -- Stormpike Explosives Expert: Defusing the Threat, 100
+
+step Icewing Cavern
+  only Alliance
+  zone Alterac Valley
+  tip Icewing Cavern lies southwest of Dun Baldar. The Stormpike Banner stands at the back of the cave, past the yetis and harpies.
+  collect 17849 quest 7162.1           -- Stormpike Banner
+
+step The battle
+  only Alliance
+  zone Alterac Valley
+  tip Most of this happens on the way to Drek'Thar. Loot Armor Scraps from Horde players and guards you kill. Assault the Snowfall Graveyard or any Horde graveyard, burn a Horde tower (click its banner), and take Coldtooth Mine. Commander Louis Philips stands at Tower Point; the Frostwolf Explosives Expert at Frostwolf Village. Fallen Sky Lords asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, Captain Galvangar 125 and Drek'Thar about 300.
+  collect 17422 x20 quest 7223.1       -- Armor Scraps
+  kill 13756 quest 7081.1              -- assault a graveyard
+  kill 13778 quest 7102.1 @48.2,58.7   -- Iceblood Tower banner
+  kill 13796 quest 7122.1 @44.3,67.9   -- Coldtooth Mine
+  kill 13154 quest 7282.1              -- Commander Louis Philips
+  kill 14029 quest 7301.1              -- Wing Commander Ichman's spot
+  kill 14031 quest 7301.2              -- Wing Commander Vipore's spot
+  kill 14030 quest 7301.3              -- Wing Commander Slidore's spot
+  kill 13597 quest 7367.1              -- Frostwolf Explosives Expert
+
+step Back in Dun Baldar
+  only Alliance
+  zone Alterac Valley
+  turnin 7223
+  turnin 7282
+  turnin 7301
+  turnin 7367
+
+step Back at the gate
+  only Alliance
+  zone Alterac Mountains
+  tip Your first Alterac Valley Marks of Honor go to the Alliance Brigadier General beside Lieutenant Haggerdin: 150 the first time (Remember Alterac Valley!), then 100 for every 3 more. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Alterac Valley marks: hand in or spend them before you reach that.
+  turnin 7162                          -- Stormpike Insignia Rank 1
+  turnin 7081
+  turnin 7102
+  turnin 7122
+  accept 8375
+  collect 20560 x3 quest 8375.1 @39.3,82.3  -- Alterac Valley Marks of Honor: play games
+  turnin 8375
 
 step Stormpike Guard to Friendly
   only Alliance
-  tip The Stormpike Guard holds Dun Baldar in the north of Alterac Valley. Destroying towers, taking graveyards and mines, and killing captains and generals all pay reputation to the whole team. Loot Armor Scraps from fallen enemies for Murgot Deepforge. Forever's Legacy Diplomat perk increases reputation gains.
-  accept 7223 optional
-  turnin 7223 optional
-  talk 12096 optional -- Stormpike Quartermaster: Irondeep and Coldtooth Supplies from the mines
+  zone Alterac Mountains
+  tip Prospector Stonehewer by the gate wants Drek'Thar dead: win a game in which your team kills him. Then he lets you pick a weapon (Hero of the Stormpike).
+  accept 7141 optional                 -- The Battle of Alterac, 200
+  turnin 7141 optional
+  accept 8271 optional
+  turnin 8271 optional                 -- Hero of the Stormpike, 10 and a weapon
   rep 730 Friendly
 
-step Stormpike Guard to Honored
+step Rise and Be Recognized
   only Alliance
-  tip Keep winning Alterac Valley. More Armor Scraps (Murgot Deepforge), Storm Crystals for Arch Druid Renferal (they summon Ivus the Forest Lord) and Frostwolf Hides for the Stormpike Ram Rider Commander all repeat.
-  talk 13257 optional -- Murgot Deepforge: More Armor Scraps
-  talk 13442 optional -- Arch Druid Renferal: Crystal Cluster
+  zone Alterac Mountains
+  tip Friendly lets Lieutenant Haggerdin upgrade your insignia: 100 reputation. Friendly to Honored is 6000 reputation. In Classic a full win paid 300 to 700 with its 3 marks; the Brigadier General keeps taking 3 marks for 100. Inside, Master Ryson's All Seeing Eye (75, from the Winterax caves) repeats every game; Korrak the Bloodrager (200, when he appears in the middle of the valley) goes back to Lieutenant Haggerdin here. Friendly opens the Stormpike Battle Tabard (1g) and the Superior Healing and Mana Draughts (5s) at Thanthaldis Snowgleam beside him.
+  accept 7168
+  turnin 7168
+  buy 19032 npc 13217                  -- Stormpike Battle Tabard, 1g
+  talk 15351 optional                  -- Alliance Brigadier General: Remember Alterac Valley! again, 100 for 3 marks
   rep 730 Honored
 
-step Stormpike Guard to Revered
+step Honored Amongst the Guard
   only Alliance
-  tip Full games that kill Drek'Thar after the towers fall pay the most.
+  zone Alterac Mountains
+  tip Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. Thanthaldis Snowgleam beside Lieutenant Haggerdin sells the Stormpike Soldier's and Sage's Cloaks and Pendants (about 7g each), the Stormpike belts (4g74s to 7g12s) and the Major Healing and Mana Draughts (10s).
+  accept 7169
+  turnin 7169
+  talk 13217 optional                  -- Thanthaldis Snowgleam
+  talk 15351 optional                  -- Alliance Brigadier General: 100 for 3 marks
   rep 730 Revered
 
-step Stormpike Guard to Exalted
+step Earned Reverence
   only Alliance
-  tip Exalted with the Stormpike Guard earns a Legacy Point.
+  zone Alterac Mountains
+  tip Revered: insignia rank 4, 150 reputation. Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons at Thanthaldis Snowgleam: Electrified Dagger, Crackling Staff and Stormstrike Hammer (31g65s to 39g85s), and the Stormpike Battle Standard (5g). At 51 and up Concerted Efforts (3 marks each from Alterac Valley, Arathi Basin and Warsong Gulch) pays 200 the first time and 150 after, plus reputation for the other two battlegrounds.
+  accept 7170
+  turnin 7170
+  talk 15351 optional                  -- Alliance Brigadier General: Concerted Efforts
+  talk 13217 optional                  -- Thanthaldis Snowgleam: Revered rewards
   rep 730 Exalted
+
+step Legendary Heroes
+  only Alliance
+  zone Alterac Mountains
+  tip Exalted gives the Legacy Point "Master of Alterac Valley" and the last two insignia, 400 reputation that no longer counts for anything but the insignia. Thanthaldis Snowgleam sells the Stormpike Battle Charger (200g, level 60; its own guide), Don Julio's Band and Don Rodrigo's Band (75g56s), The Unstoppable Force (156g49s), The Immovable Object (79g53s), The Lobotomizer (125g66s) and the 50g tomes and off-hands.
+  accept 7171
+  turnin 7171
+  accept 7172
+  turnin 7172
+  talk 13217 optional                  -- Thanthaldis Snowgleam: Exalted rewards
+
+step Frostwolf Ambassador Rokhstrom
+  only Horde
+  zone Orgrimmar
+  tip Alterac Valley is a 40 against 40 battle for level 51 and up, and the fastest of the four battleground reputations: it has about 2,000 reputation of one-time quests, and a full win pays several hundred. The same one-time quests also pay 1,870 Orgrimmar reputation. Frostwolf Ambassador Rokhstrom stands in the Valley of Strength. Forever's Legacy Diplomat perk adds up to 10% to every number in this guide.
+  accept 7241                          -- In Defense of Frostwolf, 100
+
+step Warmaster Laggrond
+  only Horde
+  zone Alterac Mountains
+  tip The Frostwolf camp stands outside the Alterac Valley gate in the Alterac Mountains. Take every quest here: they all pay 100 or more, once.
+  turnin 7241
+  accept 7161                          -- Proving Grounds: the Frostwolf Banner in Wildpaw Cavern, 100
+  accept 7082                          -- Corporal Teeka Bloodsnarl: assault a graveyard, 100
+  accept 7101                          -- capture a tower or bunker, 100
+  accept 7124                          -- capture a mine, 100
+
+step Frostwolf Village
+  only Horde
+  zone Alterac Valley
+  tip Queue at the gate, at any battlemaster or from the battleground screen; you enter at Frostwolf Village in the south. Before the gates open, take the quests in the village: they are done during the battle.
+  accept 7123                          -- Jotek: Speak with our Quartermaster, 10
+  turnin 7123
+  accept 7224                          -- Smith Regzar: 20 Armor Scraps, 100
+  accept 7281                          -- Commander Louis Philips: Brotherly Love, 100
+  accept 7302                          -- Commander Mulfort: Fallen Sky Lords, 100
+  accept 7368                          -- Frostwolf Explosives Expert: Defusing the Threat, 100
+
+step Wildpaw Cavern
+  only Horde
+  zone Alterac Valley
+  tip Wildpaw Cavern lies south of Frostwolf Keep. The Frostwolf Banner stands at the back of the cave, past the gnolls.
+  collect 17850 quest 7161.1           -- Frostwolf Banner
+
+step The battle
+  only Horde
+  zone Alterac Valley
+  tip Most of this happens on the way to Vanndar Stormpike. Loot Armor Scraps from Alliance players and guards you kill. Assault the Snowfall Graveyard or any Alliance graveyard, burn an Alliance bunker (click its banner), and take Irondeep Mine. Commander Karl Philips stands at Icewing Bunker; the Stormpike Explosives Expert in Dun Baldar. Fallen Sky Lords asks you to find where the three wing commanders landed. In Classic every tower, graveyard or mine paid 12 reputation, Captain Balinda Stonehearth 125 and Vanndar about 300.
+  collect 17422 x20 quest 7224.1       -- Armor Scraps
+  kill 13756 quest 7082.1              -- assault a graveyard
+  kill 13778 quest 7101.1 @52.5,43.8   -- Stonehearth Bunker banner
+  kill 13796 quest 7124.1 @52.5,7.6    -- Irondeep Mine
+  kill 13320 quest 7281.1              -- Commander Karl Philips
+  kill 14026 quest 7302.1              -- Wing Commander Guse's spot
+  kill 14028 quest 7302.2              -- Wing Commander Jeztor's spot
+  kill 14027 quest 7302.3              -- Wing Commander Mulverick's spot
+  kill 13598 quest 7368.1              -- Stormpike Explosives Expert
+
+step Back in Frostwolf Village
+  only Horde
+  zone Alterac Valley
+  turnin 7224
+  turnin 7281
+  turnin 7302
+  turnin 7368
+
+step Back at the gate
+  only Horde
+  zone Alterac Mountains
+  tip Your first Alterac Valley Marks of Honor go to the Horde Warbringer by the gate: 150 the first time (Invaders of Alterac Valley), then 100 for every 3 more. Forever's PvP gear also costs Marks of Honor along with honor: decide what you want before you hand them in. You can carry at most 30 Alterac Valley marks: hand in or spend them before you reach that.
+  turnin 7161                          -- Frostwolf Insignia Rank 1
+  turnin 7082
+  turnin 7101
+  turnin 7124
+  accept 8369
+  collect 20560 x3 quest 8369.1 @63.1,59.9  -- Alterac Valley Marks of Honor: play games
+  turnin 8369
 
 step Frostwolf Clan to Friendly
   only Horde
-  tip The Frostwolf Clan holds Frostwolf Keep in the south of Alterac Valley. Destroying towers, taking graveyards and mines, and killing captains and generals all pay reputation to the whole team. Loot Armor Scraps from fallen enemies for Smith Regzar. Forever's Legacy Diplomat perk increases reputation gains.
-  accept 7224 optional
-  turnin 7224 optional
-  talk 12097 optional -- Frostwolf Quartermaster: Coldtooth and Irondeep Supplies from the mines
+  zone Alterac Mountains
+  tip Voggah Deathgrip by the gate wants Vanndar Stormpike dead: win a game in which your team kills him. Then he lets you pick a weapon (Hero of the Frostwolf).
+  accept 7142 optional                 -- The Battle for Alterac, 200
+  turnin 7142 optional
+  accept 8272 optional
+  turnin 8272 optional                 -- Hero of the Frostwolf, 10 and a weapon
   rep 729 Friendly
 
-step Frostwolf Clan to Honored
+step Rise and Be Recognized
   only Horde
-  tip Keep winning Alterac Valley. More Booty! (Smith Regzar), Stormpike Soldier's Blood for Primalist Thurloga (it summons Lokholar the Ice Lord) and Alterac Ram Hides for the Frostwolf Wolf Rider Commander all repeat.
-  talk 13176 optional -- Smith Regzar: More Booty!
-  talk 13236 optional -- Primalist Thurloga: A Gallon of Blood
+  zone Alterac Mountains
+  tip Friendly lets Warmaster Laggrond upgrade your insignia: 100 reputation. Friendly to Honored is 6000 reputation. In Classic a full win paid 300 to 700 with its 3 marks; the Warbringer keeps taking 3 marks for 100. Inside, Master Ryson's All Seeing Eye (75, from the Winterax caves) repeats every game; The Legend of Korrak (200, when he appears in the middle of the valley) goes back to Warmaster Laggrond here. Friendly opens the Frostwolf Battle Tabard (1g) and the Superior Healing and Mana Draughts (5s) at Jekyll Flandring beside him.
+  accept 7163
+  turnin 7163
+  buy 19031 npc 13219                  -- Frostwolf Battle Tabard, 1g
+  talk 15350 optional                  -- Horde Warbringer: Invaders of Alterac Valley again, 100 for 3 marks
   rep 729 Honored
 
-step Frostwolf Clan to Revered
+step Honored Amongst the Clan
   only Horde
-  tip Full games that kill Vanndar Stormpike after the towers fall pay the most.
+  zone Alterac Mountains
+  tip Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. Jekyll Flandring beside Warmaster Laggrond sells the Frostwolf Legionnaire's and Advisor's Cloaks and Pendants (about 7g each), the Frostwolf belts (5g9s to 7g66s) and the Major Healing and Mana Draughts (10s).
+  accept 7164
+  turnin 7164
+  talk 13219 optional                  -- Jekyll Flandring
+  talk 15350 optional                  -- Horde Warbringer: 100 for 3 marks
   rep 729 Revered
 
-step Frostwolf Clan to Exalted
+step Earned Reverence
   only Horde
-  tip Exalted with the Frostwolf Clan earns a Legacy Point.
+  zone Alterac Mountains
+  tip Revered: insignia rank 4, 150 reputation. Revered to Exalted is 21000 reputation, half the climb. Revered opens the weapons at Jekyll Flandring: Glacial Blade, Whiteout Staff and Frostbite (31g53s to 39g71s), and the Frostwolf Battle Standard (5g). At 51 and up For Great Honor (3 marks each from Alterac Valley, Arathi Basin and Warsong Gulch) pays 200 the first time and 150 after, plus reputation for the other two battlegrounds.
+  accept 7165
+  turnin 7165
+  talk 15350 optional                  -- Horde Warbringer: For Great Honor
+  talk 13219 optional                  -- Jekyll Flandring: Revered rewards
   rep 729 Exalted
+
+step Legendary Heroes
+  only Horde
+  zone Alterac Mountains
+  tip Exalted gives the Legacy Point "Master of Alterac Valley" and the last two insignia, 400 reputation that no longer counts for anything but the insignia. Jekyll Flandring sells the Horn of the Frostwolf Howler (200g, level 60; its own guide), Don Julio's Band and Don Rodrigo's Band (75g56s), The Unstoppable Force (156g49s), The Immovable Object (79g53s), The Lobotomizer (125g66s) and the 50g tomes and off-hands.
+  accept 7166
+  turnin 7166
+  accept 7167
+  turnin 7167
+  talk 13219 optional                  -- Jekyll Flandring: Exalted rewards

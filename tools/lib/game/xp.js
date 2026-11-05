@@ -1,6 +1,6 @@
 'use strict';
 // Experience rules, once for every tool: the route drafter, the simulator,
-// the recording report and lint's level checks (docs/SIMULATION.md §2).
+// the recording report and lint's level checks (docs/legacy/SIMULATION-js.md §2).
 //
 // - XP to level: the 1.12 table (Forever has not published a different one;
 //   recordings will show if it changed).
@@ -190,12 +190,14 @@ function greyLevel(l) {
 	return l - 9;
 }
 
-function mobXp(playerLevel, mobLevel, elite = false) {
+// Forever (#30): a mob below the player starts from the mob's own level, then
+// takes the same level-difference factor. Mobs at or above the player: Classic.
+function mobXp(playerLevel, mobLevel, elite = false, { forever = false } = {}) {
 	const base = playerLevel * 5 + 45;
 	let v;
 	if (mobLevel >= playerLevel) v = base * (1 + 0.05 * Math.min(mobLevel - playerLevel, 4));
 	else if (mobLevel <= greyLevel(playerLevel)) v = 0;
-	else v = Math.max(0, base * (1 - (playerLevel - mobLevel) / zeroDiff(playerLevel)));
+	else v = Math.max(0, (forever ? mobLevel * 5 + 45 : base) * (1 - (playerLevel - mobLevel) / zeroDiff(playerLevel)));
 	return Math.round(v) * (elite ? 2 : 1);
 }
 

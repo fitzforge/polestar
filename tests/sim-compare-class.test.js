@@ -1,5 +1,5 @@
 'use strict';
-// `sim compare --class` (docs/SIMULATION.md §5, §6) on the synthetic world
+// `sim compare --class` (docs/legacy/SIMULATION-js.md §5) on the synthetic world
 // (tests/fixtures/sim/synthetic.js): a chain's `only <Class>` goals and the
 // class's own quests are scored only when a class is named, and the run writes
 // its own files so the class-agnostic ones are left alone.
@@ -11,7 +11,7 @@ const path = require('node:path');
 const syn = require('./fixtures/sim/synthetic');
 const { quiet } = require('./helpers/cli');
 const { tmpdir } = require('./helpers/tmp');
-const { compareCommand, benchCommand } = require('../tools/lib/sim/compare');
+const { compareCommand } = require('../tools/lib/sim/compare');
 
 // Our chain: the Orc starting zone, with 508 "Mage Lesson" (classes 128) behind
 // an `only Mage` condition, as the leveling guides carry their class quests.
@@ -59,13 +59,4 @@ test('sim compare --class rejects a name that is not a class, rather than scorin
 	assert.notEqual(result, 0, out);
 	assert.match(out, /--class must be one of/);
 	assert.doesNotMatch(out, /Cleric.*scored/);
-});
-
-test('sim bench --class carries the class into its table and file name', async () => {
-	const f = fixture();
-	const { result, out } = await quiet(() => benchCommand({ faction: 'Horde', race: 'Orc', class: 'Mage' }, opts(f)));
-	assert.equal(result, 0, out);
-	assert.ok(fs.existsSync(path.join(f.benchDir, 'bench-horde-orc-mage.json')), 'bench-<faction>-<race>-<class>.json');
-	assert.equal(JSON.parse(fs.readFileSync(path.join(f.benchDir, 'bench-horde-orc-mage.json'), 'utf8')).class, 'Mage');
-	assert.match(out, /bench Horde Orc \(Mage\)/);
 });

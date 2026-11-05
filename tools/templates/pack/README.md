@@ -26,14 +26,16 @@ your next pack, run `polestar new` first and `git init` in the folder after
 (a folder holding only `.git` counts as not empty).
 
 You need Node 24 or newer, Lua 5.1 and a Polestar clone with `npm link`
-run in it (`polestar doctor` checks all of it). From this folder:
+run in it (`polestar doctor` checks all of it), and `forge` built in the
+clone (`cargo build --release -p forge` in its `rust/`) on your PATH. From
+this folder:
 
 - `polestar find <text>`: look up quest, NPC, object, item and guide ids, and
   the inn and flight point names `sethome`, `hearth`, `getfp` and `fly` take.
-- `polestar lint`: check the guides (in VS Code: the default build task).
+- `forge guide lint`: check the guides (in VS Code: the default build task).
 - `polestar playtest`: play every guide to the end in the real addon.
 - `polestar dev`: copy the pack into the game's AddOns folder while you work.
-- `polestar pack`: write the release zip to `dist/`.
+- `forge release pack`: write the release zip to `dist/`.
 
 Polestar's source describes the guide format on one page in
 docs/GUIDE_CHEATSHEET.md, in full in docs/GUIDE_FORMAT.md, and packs in

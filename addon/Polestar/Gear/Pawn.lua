@@ -159,7 +159,9 @@ function Pawn.NameOf(key)
 end
 
 local function number3(v)
-	return tostring(math.floor(v * 1000 + (v >= 0 and 0.5 or -0.5)) / 1000)
+	local rounded = math.floor(math.abs(v) * 1000 + 0.5) / 1000
+	if v < 0 and rounded ~= 0 then rounded = -rounded end
+	return tostring(rounded)
 end
 
 -- The Pawn string for a scale: "( Pawn: v1: "Name": Class=Warrior, Strength=1, ... )".

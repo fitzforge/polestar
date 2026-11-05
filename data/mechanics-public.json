@@ -1,0 +1,71 @@
+{
+	"_about": "Polestar's public quest mechanics: how a quest is done beyond its objectives, in our own words, ids and positions. `forge data build --kb` merges it over the private mechanics layers by their rules, into data/forever/mechanics.json. quests: { \"<quest id>\": { kinds, params, steps, note } }. kinds: [{ kind, confidence }]: kind is one of escort, timed, summon-by-item, use-item-at-place, use-item-on-mob, object-click, vendor-buy, crafted, event-start, group/elite, item-from-other-quest, multi-step-in-one-objective, delayed-offer, other; confidence high, medium (default) or low. A kind gains the source `public`; it drives the route when it is high or another source agrees with it; a kind the server data refutes is not added. params: [{ kind, ... }]: the kind's parameters (for example delayed-offer: after, npc, sec; summon-by-item: item, npc); they join a kind some layer keeps, replacing the row with the same kind and item. steps: [{ n, action, target, item, count, place, fact, confidence }]: step n replaces the step with that n or is added; place is { map, x, y, f } (uiMapID, map percent, f `e` for the Classic frame). note: where each fact comes from (an in-game check, a recording, a player report with its issue number, the game's data). Check an edit with `forge data check-corrections`. See docs/forge/data.md, Changing the data. Hand-checked mechanics fixes, applied over every layer and always driving the route, live in forever-db/corrections/mechanics.json.",
+	"schema": 1,
+	"quests": {
+		"91736": {
+			"kinds": [
+				{
+					"kind": "object-click",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "object-click",
+					"object": 562131,
+					"item": 4536,
+					"count": 4
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "buy",
+					"item": 4536,
+					"count": 4,
+					"fact": "Get four Shiny Red Apples: Homer Stonefield sells them, and Elwynn's kobolds and crates drop them too.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "turn-in",
+					"target": {
+						"type": "object",
+						"id": 562131
+					},
+					"fact": "Click the Applejack Still north of the Westbrook Garrison with the four apples in your bags: it takes them and gives you a Thunder Applejack on the spot. The quest has no accept and never shows in your quest log.",
+					"confidence": "high"
+				}
+			],
+			"note": "The Applejack Still (91736) is handed in at the still (object 562131) the moment it is clicked with four Shiny Red Apples (4536), and gives the Thunder Applejack (247824). Source: Players' in-game recordings since launch (4 hand-ins of 91736 at the still, no accept and no quest window; a player who drank the Thunder Applejack was shown only Sergeant De Vries's shop) and the player reports #820 and #823."
+		},
+		"91738": {
+			"kinds": [
+				{
+					"kind": "item-from-other-quest",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "item-from-other-quest",
+					"item": 247824,
+					"from": 91736
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "turn-in",
+					"target": {
+						"type": "npc",
+						"id": 955
+					},
+					"fact": "Sergeant De Vries has An Apple Treat only while you carry the Thunder Applejack from the Applejack Still. Without it he opens only his shop; with it, talking to him goes straight to the hand-in.",
+					"confidence": "high"
+				}
+			],
+			"note": "An Apple Treat (91738) is offered by Sergeant De Vries (npc 955) only while the player carries the Thunder Applejack (247824) from The Applejack Still (91736); there is no accept window. Source: Players' in-game recordings since launch (4 hand-ins of 91736 at the still, no accept and no quest window; a player who drank the Thunder Applejack was shown only Sergeant De Vries's shop) and the player reports #820 and #823."
+		}
+	}
+}

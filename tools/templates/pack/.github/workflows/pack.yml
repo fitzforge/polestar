@@ -24,14 +24,16 @@ jobs:
           git clone --depth 1 "{{repo}}" "$RUNNER_TEMP/polestar"
           cd "$RUNNER_TEMP/polestar"
           npm link
-          polestar data build --no-web-xp --no-wowhead
+          cargo build --release --locked --manifest-path rust/Cargo.toml -p forge
+          rust/target/release/forge data build --no-web-xp --no-web-zones
+          echo "$RUNNER_TEMP/polestar/rust/target/release" >> "$GITHUB_PATH"
       - name: Lint
-        run: polestar lint --format github
+        run: forge guide lint --format github
       - name: Playtest
         run: polestar playtest
       - name: Pack
         if: startsWith(github.ref, 'refs/tags/v')
-        run: polestar pack
+        run: forge release pack
       - name: Keep the zip for the release
         if: startsWith(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v4

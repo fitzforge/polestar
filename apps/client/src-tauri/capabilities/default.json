@@ -1,0 +1,16 @@
+{
+	"$schema": "../gen/schemas/desktop-schema.json",
+	"identifier": "default",
+	"description": "The main window: the app's own commands and its status events, and its own title bar (drag, minimize, close to the tray). Folder picking, links, autostart, updates and notifications run in Rust, so no plugin is exposed to the page, with one exception: the notification plugin's own page script asks whether notifications are allowed when the window loads, and a refused ask stopped the window (the read-only permission check, nothing that sends). The drag strip's double-click asks to maximize; the fixed-size window ignores it (allowed so the request never fails).",
+	"windows": [
+		"main"
+	],
+	"permissions": [
+		"core:default",
+		"core:window:allow-start-dragging",
+		"core:window:allow-internal-toggle-maximize",
+		"core:window:allow-minimize",
+		"core:window:allow-close",
+		"notification:allow-is-permission-granted"
+	]
+}

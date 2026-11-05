@@ -2,23 +2,24 @@ guide forever/collectibles/pets/worg-carrier
 title Worg Carrier
 category Collectibles
 folder Companion pets · Quests
-keywords Kibler's Exotic Pets, Kibler, Bloodaxe Worg Pup, Caged Worg Pup, Upper Blackrock Spire, UBRS, worg, Flame Crest
+keywords Kibler's Exotic Pets, Kibler, Bloodaxe Worg Pup, Caged Worg Pup, Empty Worg Pup Cage, Halycon, Lower Blackrock Spire, LBRS, worg, Flame Crest
 collects 12264
 levels 55-60
 zone Burning Steppes
 
-# Worg Carrier from Kibler's Exotic Pets (Upper Blackrock Spire).
-# Sources: quests.json (Kibler's quest); Upper Blackrock Spire
-# (58-60) is in Forever; Forever client 1.60.1.70338. The reward is
-# general Era knowledge (not in quests.json).
+# Worg Carrier from Kibler's Exotic Pets (Lower Blackrock Spire).
+# Sources: quests.json (Kibler's quest, level 55); the world database (the
+# reward, item 12264; the pups, NPC 10221, are Halycon's); the knowledge
+# base's quest notes (the pups in Halycon's lair in Lower Blackrock Spire, the
+# cage cast); Lower Blackrock Spire (55-60) is in Forever.
 
 step Kibler at Flame Crest
-  tip Kibler stands at Flame Crest in northern Burning Steppes, near the Blackrock Mountain path.
+  tip Kibler stands inside the cave at Flame Crest, the camp in northern Burning Steppes east of Blackrock Mountain. He gives you an Empty Worg Pup Cage. He also gives En-Ay-Es-Tee-Why (the Smolderweb Carrier): take both, they are done in the same run.
   accept 4729
 
-step Upper Blackrock Spire
-  tip Upper Blackrock Spire is a raid group of up to ten, level 58-60. Use Kibler's cage on a Bloodaxe Worg Pup (Halycon's den) to get the Caged Worg Pup.
-  collect 12263 quest 4729 @33.2,24.9 -- Upper Blackrock Spire
+step Lower Blackrock Spire: Halycon's pups
+  tip The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond Urok Doomhowl's ogres. Use the cage on a living Bloodaxe Worg Pup before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish.
+  collect 12263 quest 4729 @33.2,24.9 -- Lower Blackrock Spire
 
 step Back to Kibler
   turnin 4729

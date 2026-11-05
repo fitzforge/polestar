@@ -5,9 +5,9 @@ class Warrior
 folder Warrior
 levels 30-40
 zone The Barrens
-keywords Berserker Stance, The Islander, The Affray, Klannoc Macleod, Fray Island, Big Will, Bath'rah the Windwatcher, Cyclonian, Essence of the Exile, Whirlwind Axe, Whirlwind Sword, Whirlwind Warhammer, Warrior, class weapon
-reward item 6975 6977 6976
+keywords Berserker Stance, The Islander, The Affray, Klannoc Macleod, Fray Island, Twiggy Flathead, Big Will, The Windwatcher, Bath'rah the Windwatcher, Cyclonian, Essence of the Exile, Bath'rah's Cauldron, Burning Charm, Thundering Charm, Cresting Charm, Liferoot, Bloodscalp Tusk, Whirlwind Heart, Whirlwind Axe, Whirlwind Sword, Whirlwind Warhammer, Warrior, class weapon
 reward spell 2458 "Berserker Stance"
+reward item 6975 6977 6976
 why Berserker Stance at 30 and a Whirlwind axe, sword or warhammer at 40.
 
 # Berserker Stance and the Whirlwind weapon: The Islander and The Affray
@@ -15,22 +15,30 @@ why Berserker Stance at 30 and a Whirlwind axe, sword or warhammer at 40.
 # the Exile (1712, 1714), The Summoning (1713) and Whirlwind Weapon (1792,
 # level 40).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
-# objectives, drops and places; Wowhead Forever's Warrior class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
-# Forever's changes: The Affray now teaches Berserker Stance; Whirlwind Weapon
-# lets you choose the Whirlwind Axe, Sword or Warhammer.
+# objectives (8 Liferoot, 30 Bloodscalp Tusks, 8 of each charm), drops and
+# places; the knowledge base's drop table (Burning Charm 34%, Thundering 39%,
+# Cresting 32%, Bloodscalp Tusk 37% from every Bloodscalp, Kurzen Medicine
+# Man Liferoot 8%, Whirlwind Heart 100%) and vendor table (Liferoot, one in
+# stock per vendor, two hours to restock: forever-tdb npc_vendor); quest-notes
+# for the Affray (10-minute timer, the grate, challengers 15-20 s apart, Big
+# Will level 33 and neutral, Demoralizing Shout), the sand bar, Tarren Mill's
+# guards, the exiles' levels and spells, the charms' banish use and
+# Cyclonian (level 40 elite, Whirlwind, Gust of Wind, Knock Away, nature
+# damage, abandon and retake after a failed fight); Forever's Warrior class
+# quest list (data/local/quest-audit/): The Affray now teaches Berserker
+# Stance; Whirlwind Weapon lets you choose the Whirlwind Axe, Sword or
+# Warhammer.
 # The leveling guides take The Islander and The Affray on the route
 # (alliance/30-40/01-hillsbrad-foothills and 40-50/01-stranglethorn-vale;
 # horde/30-40/03-arathi-highlands); they are repeated here for anyone off it.
 # The rest is left out of the leveling guides: it ends in an elite fight and
 # runs from the Barrens to Alterac, Arathi and Stranglethorn.
-# Level 30 and up is above the beta's level cap: this guide is written from
-# the data, not from play.
+# ASSUMED: the Affray's challengers, Bath'rah's ritual and Cyclonian's fight are as in Classic (Classic flow; Forever's data has no event data above 30). In-game check: six challengers before Big Will, and Cyclonian appearing when The Summoning is accepted.
 
 step The Islander (Stormwind)
   only Human,NightElf,Skyborne,Alliance
   zone Stormwind City
-  tip At 30, Wu Shen in Old Town, beside the Pig and Whistle, sends you to Klannoc Macleod on Fray Island in the Barrens.
+  tip At 30, Wu Shen, beside Ilsa Corbin in the warrior trainers' building of Old Town, sends you to Klannoc Macleod on Fray Island in the Barrens.
   level 30
   accept 1718 npc 5479                        -- Wu Shen
 
@@ -62,45 +70,54 @@ step The Islander (Undercity)
   level 30
   accept 1718 npc 4595                        -- Baltus Fowler
 
-step The Affray
+step Fray Island
   zone The Barrens
-  tip Head south along the coast from Ratchet to Fray Island. Klannoc Macleod stands by the arena: step on the grate to start the fight; the challengers come one at a time, then Big Will (33).
+  tip Fly to Ratchet and go south along the Merchant Coast. Fray Island lies offshore to the south-east: wade across on the shallow sand bar; off it the water is deep and fatigue sets in. Klannoc Macleod stands by the arena.
   turnin 1718                                 -- Klannoc Macleod
   accept 1719
-  complete 1719                               -- Defeat the challengers and Big Will
+
+step The Affray
+  tip You have 10 minutes. Eat and drink to full, then step onto the grate in the middle of the crowd: Twiggy Flathead announces the challengers (level 26-27), who come one at a time, 15-20 seconds apart, and only while you stand near the grate. After each kill, step off the grate to eat or bandage; step back on when ready for the next. Six of them, then Big Will (level 33, not elite) walks out; he stays neutral until you attack him, so bandage or eat first. Do not use Demoralizing Shout: it sends the challengers running and more of them pile in at once. If nothing starts, step off and on the grate again, or abandon the quest and take it again.
+  kill 6238 quest 1719.1 @68.6,48.7           -- Big Will
   turnin 1719                                 -- Klannoc Macleod: Berserker Stance
   accept 1791
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
-  tip Bath'rah the Windwatcher camps in the south-east of Alterac Mountains, above Hillsbrad Foothills; his cauldron stands beside him. He asks for a Liferoot, a Bloodscalp Tusk and the Essence of the Exile, which his cauldron brews from three charms.
+  tip Bath'rah the Windwatcher camps by ruins on the east bank of the river that runs past Tarren Mill, a short walk north-east of the town, just over the border in Alterac Mountains; his cauldron stands beside him. Horde: fly to Tarren Mill. Alliance: fly to Southshore and go north along the river; Tarren Mill's guards are level 42 elites, so keep away from the town. Accepting Cyclonian gives you Bath'rah's Parchment, the list of what he needs: 8 Liferoot, 30 Bloodscalp Tusks and the Essence of the Exile from his cauldron. Click the cauldron for that quest.
   turnin 1791                                 -- Bath'rah the Windwatcher
   accept 1712
-  accept 1714                                 -- Bath'rah's Cauldron
+  accept 1714 object 89931                    -- Bath'rah's Cauldron
 
 step The exiles of Arathi
   zone Arathi Highlands
-  tip Three kinds of elemental exiles roam Arathi Highlands: Burning Exiles in the north-west, Thundering Exiles in the middle, Cresting Exiles in the north-east. Each drops its charm.
-  collect 4479 quest 1714.2                   -- Burning Charm from the Burning Exiles
-  collect 4480 quest 1714.1                   -- Thundering Charm from the Thundering Exiles
-  collect 4481 quest 1714.3                   -- Cresting Charm from the Cresting Exiles
+  tip The cauldron wants 8 of each charm, 24 in all, and each exile drops its charm about one kill in three, so plan on some 70 kills. All are level 38-39, not elite, and hit hard at 30-33: bring a friend or come at 35 or more. Burning Exiles (fire) by the Circle of West Binding in the north-west, north-west of Refuge Pointe; Thundering Exiles (air) by the Circle of Outer Binding south-east of Refuge Pointe, casting Lightning Bolt from 40 yards; Cresting Exiles (water) by the Circle of East Binding, north-west of Hammerfall, with Frost Nova. About a dozen of each, back in under 7 minutes. The charms trade and sell on the auction house; using one banishes another kind of exile for a while (Burning on Thundering, Thundering on Cresting, Cresting on Burning).
+  collect 4479 x8 quest 1714.2                -- Burning Charm, from Burning Exiles
+  collect 4480 x8 quest 1714.1                -- Thundering Charm, from Thundering Exiles
+  collect 4481 x8 quest 1714.3                -- Cresting Charm, from Cresting Exiles
 
 step Essence of the Exile
   zone Alterac Mountains
-  turnin 1714                                 -- Bath'rah's Cauldron: Essence of the Exile
-  collect 3357 quest 1712.1                   -- Liferoot: Herbalism, or the auction house
+  tip Put the 24 charms into Bath'rah's Cauldron: it hands you the Essence of the Exile.
+  turnin 1714 object 89931                    -- Bath'rah's Cauldron: Essence of the Exile
+  collect 6851 quest 1712.3 @80.5,66.9        -- Essence of the Exile, from the cauldron by Bath'rah
 
-step Bloodscalp Tusk
+step Liferoot
+  tip You need 8 Liferoot. Herbalists pick it by rivers and lakes in the Wetlands, Arathi Highlands and Stranglethorn Vale; otherwise the auction house. Herb vendors keep only one at a time and restock every two hours: Bernard Gump and Maria Lumere in Stormwind, Antonio Perelli on the road in eastern Elwynn, Jeeda at Sun Rock Retreat in Stonetalon, Montarr in Thousand Needles. Kurzen Medicine Men in northern Stranglethorn drop one about one kill in twelve.
+  collect 3357 x8 quest 1712.1                -- Liferoot
+
+step Bloodscalp Tusks
   zone Stranglethorn Vale
-  tip The Bloodscalp trolls hold the north-west of Stranglethorn Vale; they drop the Bloodscalp Tusk.
-  collect 3901 quest 1712.2                   -- Bloodscalp Tusk
+  tip You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of Grom'gol Base Camp and around the Bal'lal Ruins on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes.
+  collect 3901 x30 quest 1712.2               -- Bloodscalp Tusk
 
 step The Summoning
   zone Alterac Mountains
-  tip Cyclonian waits just north of Bath'rah's camp and carries the Whirlwind Heart. Cyclonian is elite: grouping up is advised.
+  tip Back to Bath'rah. Accepting The Summoning starts his ritual, and Cyclonian appears just north of his camp. Cyclonian is elite (level 40): grouping up is encouraged; it needs a group of two or three around level 40. It deals nature damage (a Nature Protection Potion soaks it), whirls, and Knock Away throws you far while it heals itself as you run back: fight with your back to a slope or rock. The Whirlwind Heart always drops. If the fight fails Bath'rah stops answering: abandon The Summoning and take it again for a new summon; the earlier items are not needed again.
   turnin 1712                                 -- Bath'rah the Windwatcher
   accept 1713
-  collect 6894 quest 1713.1                   -- Whirlwind Heart from Cyclonian
+  kill 6239 group 3                           -- Cyclonian
+  collect 6894 quest 1713.1                   -- Whirlwind Heart, from Cyclonian
   turnin 1713
   accept 1792
-  turnin 1792 choose 6975 6977 6976           -- Bath'rah the Windwatcher
+  turnin 1792 choose 6975 6977 6976           -- Bath'rah the Windwatcher: Whirlwind Axe, Sword or Warhammer

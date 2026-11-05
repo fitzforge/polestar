@@ -1,0 +1,84 @@
+guide forever/class/mage/atiesh
+title Atiesh, Greatstaff of the Guardian
+category Class
+class Priest, Mage, Warlock, Druid
+folder Raid
+levels 60-60
+zone Tanaris
+keywords Atiesh, Greatstaff of the Guardian, Splinter of Atiesh, Frame of Atiesh, Befouled Greatstaff, Anachronos, Caverns of Time, Staff Head of Atiesh, Base of Atiesh, Kel'Thuzad, C'Thun, Naxxramas, Ahn'Qiraj, Stratholme, Consecrated Earth, Hand of Sargeras, legendary, Mage, Priest, Warlock, Druid, raid
+reward item 22589
+reward item 22631
+reward item 22630
+reward item 22632
+why The legendary staff of the Guardian: forty splinters from Naxxramas, two raid bosses and a demon in Stratholme.
+
+# Atiesh, for Priests, Mages, Warlocks and Druids (quests.json class mask
+# 1424): Frame of Atiesh (9250, started by the Frame of Atiesh 22727), Atiesh,
+# the Befouled Greatstaff (9251) and the class's own Atiesh, Greatstaff of the
+# Guardian (Priest 9257, Druid 9269, Mage 9270, Warlock 9271; they shut each
+# other out), all with Anachronos at the Caverns of Time in Tanaris.
+# Rewards (quest_template in Forever's server data): the class's staff,
+# Mage 22589, Priest 22631, Warlock 22630, Druid 22632.
+# The chain is whole in Forever's data: the Splinter of Atiesh (22726) drops
+# from twelve Naxxramas bosses and the Four Horsemen Chest (items.json, 30%
+# each); a Splinter's use spell is Forming Frame of Atiesh (28324, 39 more
+# splinters as reagents: forty in all; client item data); the Staff Head
+# (22733) from Kel'Thuzad and the Base (22734) from C'Thun, 100% each; the
+# class quest's staff (22737) uses Exorcise Atiesh at the Consecrated Earth
+# (object 181206) in Stratholme and summons Atiesh, Hand of Sargeras (16387,
+# level 63 boss). data/local/mechanics (quest-steps and quest-notes, checked
+# 2026-10-20): Atiesh casts Unholy Aura and Shadow Bolt, answers a Disarm with
+# Reaper of Souls, and stays up to 150 minutes.
+# The Consecrated Earth on Festival Lane, with a small white flame on it, and
+# the Breath of Sargeras curse: a Classic guide to the staff (web, 2026-10-29);
+# our data has no spawn for the object.
+# Lint warns that the splinters, the frame and the Staff Head have no place:
+# Forever's data has no entrance for Naxxramas (its bosses have no open-world
+# spawn); the Base points at the Gate of Ahn'Qiraj (object 176146) and the
+# Stratholme steps at its Meeting Stone (object 178831).
+# Raids: Forever opens them on 9 December 2026; nothing here was played.
+# ASSUMED: Naxxramas is entered from the necropolis over the Plaguewood in Eastern Plaguelands and the Temple of Ahn'Qiraj from the Gates of Ahn'Qiraj in southern Silithus (Classic flow; Forever's data has no entrance for either raid). In-game check: the raid entrances after 9 December.
+# ASSUMED: the Consecrated Earth lies on Festival Lane in Stratholme's main-gate half (Classic flow; Forever's data has no spawn for object 181206). In-game check: where the staff's use works.
+
+step Splinters of Atiesh
+  tip Forty Splinters of Atiesh drop in Naxxramas, the 40-player raid in the necropolis over the Plaguewood in Eastern Plaguelands: each of its twelve bosses before Sapphiron and Kel'Thuzad, and the Four Horsemen's chest, drops one about a third of the time, and the raid shares them out. It takes many weeks of clears. Keep every splinter in one stack.
+  level 60
+  collect 22726 x40 group 40                  -- Splinter of Atiesh
+  use 22726                                   -- Forming Frame of Atiesh: forty splinters become the Frame of Atiesh
+
+step Anachronos
+  tip Right-click the Frame of Atiesh to start the quest, then take it to Anachronos, the bronze dragon in elf form who stands outside the Caverns of Time in eastern Tanaris. Fly to Gadgetzan and ride east.
+  accept 9250 item 22727                      -- Frame of Atiesh
+  turnin 9250                                 -- Anachronos
+  accept 9251
+
+step The Staff Head and the Base
+  tip Two more raid bosses, a full 40-player raid each, both pieces always drop: the Staff Head of Atiesh from Kel'Thuzad on his throne at the top of Naxxramas, the Base of Atiesh from C'Thun at the bottom of the Temple of Ahn'Qiraj, behind the Gates of Ahn'Qiraj in southern Silithus. Each boss comes back once a week.
+  collect 22733 quest 9251.1                  -- Staff Head of Atiesh: Kel'Thuzad, Naxxramas
+  zone Silithus
+  collect 22734 quest 9251.2 @29.1,93.6       -- Base of Atiesh: C'Thun, Temple of Ahn'Qiraj, past the Gate of Ahn'Qiraj
+
+step Back to Anachronos
+  zone Tanaris
+  turnin 9251                                 -- Anachronos
+  accept 9270 only Mage                       -- your class's Atiesh quest; he hands you the befouled staff
+  accept 9257 only Priest
+  accept 9271 only Warlock
+  accept 9269 only Druid
+
+step Atiesh, Hand of Sargeras
+  zone Eastern Plaguelands
+  tip Take the befouled staff to Stratholme, the dungeon at the north end of Eastern Plaguelands, through the main gate. On Festival Lane find the patch of Consecrated Earth with a small white flame on it, stand on it and use the staff: Atiesh, Hand of Sargeras (level 63 boss) steps out. Bring a strong group: his Unholy Aura hurts everyone and cannot be dispelled (shadow resistance helps), his Breath of Sargeras curse must be removed at once, and a warrior's Disarm makes him drop his sword, which a melee player can pick up and use against him. He stays up to two and a half hours, so you can regroup.
+  use 22737 @26.11,11.13                      -- the befouled staff, on the Consecrated Earth inside Stratholme
+  kill 16387 quest 9270.1 @26.11,11.13 only Mage group      -- Atiesh, Hand of Sargeras
+  kill 16387 quest 9257.1 @26.11,11.13 only Priest group
+  kill 16387 quest 9271.1 @26.11,11.13 only Warlock group
+  kill 16387 quest 9269.1 @26.11,11.13 only Druid group
+
+step The Greatstaff
+  zone Tanaris
+  tip Back to Anachronos at the Caverns of Time.
+  turnin 9270 reward 22589 only Mage          -- Anachronos: Atiesh, Greatstaff of the Guardian
+  turnin 9257 reward 22631 only Priest
+  turnin 9271 reward 22630 only Warlock
+  turnin 9269 reward 22632 only Druid

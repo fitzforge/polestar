@@ -48,9 +48,9 @@ Cillian Berragan, GPL-3.0-or-later, used with his permission). They cut each
 map tile into 128 x 128 cells (4.17 yd, his are 8 yd), so the routes keep to
 doors and gates, never swim across open sea, and the router runs on them.
 `Nav/Chokepoints.lua` (the lifts, bridges, gates, tunnels, cave and
-building mouths and passes a walk is split at) is Polestar's too. `nav pack`
+building mouths and passes a walk is split at) is Polestar's too. `forge nav pack`
 writes them with `PACK.json` (the grid's client build, the cells, the date and
-the sha256 of every file) and `Nav/Nav.xml`; `nav check` checks them.
+the sha256 of every file) and `Nav/Nav.xml`; `forge nav check` checks them.
 Polestar's other files here are `API.lua` (with the memory ceilings for the
 finer maps) and `Polestar_Nav.toc`.
 
@@ -82,6 +82,14 @@ permission), outside this folder, each file saying so at its top:
   `Sync.lua`, `Teleports.lua`).
 - `tools/lib/travel/timetable.js` and `tools/lib/travel/cmangos.js`: his
   transit generators (`tools/gen_routes.py`, `tools/gen_transit.py`).
+
+## Leffe's navigation maps
+
+The surfaces, floors, ground classes, zones, entrance graph and the jumps and
+drops in these walking maps (maps format 5) are **Leffe's navigation maps**,
+condensed for the game by `forge nav pack --leffe`, with his permission. His
+maps were built from the same Forever client; Polestar adds only the area names
+of the floors (from its own grid) and `Nav/Chokepoints.lua`. Thank you, Leffe.
 
 ## With Shortest Path Forever installed too
 

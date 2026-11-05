@@ -1,0 +1,203 @@
+{
+	"schema": 1,
+	"rules": [
+		{
+			"id": "H01", "kind": "timer", "item": 10439, "seconds": 300,
+			"from": { "quest": 3364, "step": "accept" }, "to": { "quest": 3364, "step": "turnin" },
+			"fact": "Durnan's Scalding Mornbrew, handed over with Scalding Mornbrew Delivery (3364) by Nori Pridedrift, vanishes after 300 s, so the run to Durnan Furcutter goes straight after the accept.",
+			"source": { "refs": ["PR #16"], "credit": ["thmastin"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:24" }
+		},
+		{
+			"id": "H02", "kind": "notBefore", "quest": 97277, "level": 4,
+			"fact": "Grund and Gozwin (97277) is doable at its minimum level 4 once the level-4 spells are trained.",
+			"source": { "refs": ["PR #16"], "credit": ["thmastin"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:32" }
+		},
+		{
+			"id": "H03", "kind": "learn", "quest": 96629, "trainer": 1699, "skill": "Cooking",
+			"fact": "Camping 101: Cooking (96629) needs Cooking learned from Gremlock Pilsnor in Kharanos before the turn-in; the lesson costs copper, which a fresh character has spent on class training on arrival.",
+			"source": { "refs": ["PR #61"], "credit": ["thmastin"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:62" }
+		},
+		{
+			"id": "H04", "kind": "exclusive", "quest": 413, "closes": [415],
+			"fact": "Taking Shimmer Stout (413) closes Rejold's New Brew (415, from Pilot Bellowfiz): it is no longer offered.",
+			"source": { "refs": ["PR #238"], "credit": ["thmastin"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:531" }
+		},
+		{
+			"id": "H05", "kind": "avoid", "npc": 1271, "quest": 312,
+			"fact": "Old Icebeard is an elite yeti who patrols out of his cave; Tundra MacGrann's meats (312) are taken while he is away, without a fight.",
+			"source": { "refs": ["PR #238"], "credit": ["thmastin"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:603" }
+		},
+		{
+			"id": "H06", "kind": "at", "quest": 99160, "objective": 0, "map": 1426, "x": 56.37, "y": 44.73,
+			"fact": "Rime's Wrath (99160) Minor Ice Elementals are finished at the small lake west of Misty Pine Refuge.",
+			"source": { "refs": ["PR #238"], "credit": ["thmastin"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:439" }
+		},
+		{
+			"id": "H07", "kind": "requires", "quest": 6543, "item": 16746, "place": { "map": 1413, "x": 48.12, "y": 5.42 },
+			"fact": "Each Warsong update for The Warsong Reports (6543) is traded for a Warsong Report, which only comes out of the Bundle of Reports (16783) Kadrak gives on accept; it is opened at Kadrak.",
+			"source": { "refs": ["#278", "PR #293"], "credit": ["Hotline", "muffe", "PRDesrochers"], "guide": "guides/forever/horde/05-stonetalon-mountains.guide:85" }
+		},
+		{
+			"id": "H08", "kind": "buy", "item": 2320, "vendor": 2118, "quest": 375,
+			"fact": "Coarse Thread for The Chill of Death (375) is vendor-only: bought from Abigail Shiel in Brill before Gretchen.",
+			"source": { "refs": ["#365", "PR #381"], "credit": ["Onrevax", "PRDesrochers"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:325" }
+		},
+		{
+			"id": "H09", "kind": "buy", "item": 4371, "vendor": 3133, "quest": 174,
+			"fact": "The Bronze Tube for Look to the Stars (174) is bought from Herble Baubbletump in Darkshire, next to Viktori; the export's drop in Stonetalon is wrong.",
+			"source": { "refs": ["0.2.3 report"], "credit": ["Yendi"], "guide": "guides/forever/alliance/05-duskwood.guide:26" }
+		},
+		{
+			"id": "H11", "kind": "requires", "quest": 4763, "objective": 0, "item": 12347, "place": { "map": 1439, "x": 37.78, "y": 44.03 },
+			"fact": "The Blackwood Corrupted (4763) needs the Cleansing Bowl filled at the Auberdine Moonwell first, then the samples, then the summon at the bonfire.",
+			"source": { "refs": ["#302", "PR #316", "PR #321"], "credit": ["XooVe", "b7216309-jpg", "CDVolvik"] }
+		},
+		{
+			"id": "H12", "kind": "make", "item": 5455, "from": [{ "item": 12220, "count": 5 }], "tool": 5456, "quest": 1016,
+			"fact": "The Divined Scroll for Elemental Bracers (1016) is made with the Divining Scroll from 5 Intact Elemental Bracers.",
+			"source": { "refs": ["#415", "#391"], "credit": [], "guide": "guides/forever/alliance/06-ashenvale.guide:237" }
+		},
+		{
+			"id": "H13", "kind": "skip", "quest": 98299, "reason": "never offered",
+			"fact": "Dalar never offers Stop the Spread (98299): not to an Undead at 19, nor a Tauren at 21.",
+			"source": { "refs": ["#161", "#229", "#245"], "credit": ["Wyatt R", "Rupert"], "guide": "guides/forever/horde/03-silverpine-forest.guide:52" }
+		},
+		{
+			"id": "H14", "kind": "afterTurnin", "quest": 98298, "after": 99,
+			"fact": "Dalar offers the Forever Arugal's Folly (98298) only after the Classic 421-424, 99 series.",
+			"source": { "refs": ["#51"], "credit": ["Mull"], "guide": "guides/forever/horde/03-silverpine-forest.guide:50" }
+		},
+		{
+			"id": "H15a", "kind": "skip", "quest": 92910, "reason": "optional: starter item drops at 0.09%",
+			"fact": "Harvesting the Harvesters (92910) starts from a 0.09% drop: never required, taken only if it drops.",
+			"source": { "refs": ["PR #322"], "credit": ["b7216309-jpg"], "guide": "guides/forever/alliance/02-westfall.guide:33" }
+		},
+		{
+			"id": "H15b", "kind": "skip", "quest": 92911, "reason": "optional: follows the 0.09% starter",
+			"fact": "The second Harvesting the Harvesters (92911) follows the optional 92910: never required.",
+			"source": { "refs": ["PR #322"], "credit": ["b7216309-jpg"], "guide": "guides/forever/alliance/02-westfall.guide:33" }
+		},
+		{
+			"id": "H16a", "kind": "notBefore", "quest": 99152, "level": 10,
+			"fact": "As Above, So Below (99152) needs level 10 on Forever and has no prerequisite.",
+			"source": { "refs": ["PR #343", "#51"], "credit": ["Mull"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:94" }
+		},
+		{
+			"id": "H16b", "kind": "notBefore", "quest": 99153, "level": 10,
+			"fact": "The One That Got Away (99153) needs level 10 on Forever and has no prerequisite.",
+			"source": { "refs": ["PR #343", "#51"], "credit": ["Mull"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:94" }
+		},
+		{
+			"id": "H17", "kind": "afterTurnin", "quest": 98389, "after": 376,
+			"unconfirmed": "seen in recorded runs only; Forever's quest data shows no prerequisite and reqlevel 2 (or minLevel 4), still to confirm in game",
+			"fact": "A Light in the Darkness (98389) was not offered before The Damned (376) was handed in, in recorded runs; unconfirmed, as Forever's data shows no prerequisite.",
+			"source": { "refs": ["#120", "PR #359"], "credit": ["Onrevax", "thmastin"] }
+		},
+		{
+			"id": "H18", "kind": "notBefore", "quest": 4542, "level": 23,
+			"fact": "Brave Moonhorn offers Message to Freewind Post (4542) from level 23.",
+			"source": { "refs": ["guide header"], "credit": [], "guide": "guides/forever/horde/04-the-barrens.guide:39" }
+		},
+		{
+			"id": "H20a", "kind": "classLock", "quest": 78132, "classes": ["WARRIOR"],
+			"fact": "Dragonslayer's Helm (78132, Alonso) is Warrior-only, both factions (maintainer decision 2026-10-19).",
+			"source": { "refs": ["#383", "#396", "PR #388"], "credit": ["Zerkness", "Ioney", "c0njure"] }
+		},
+		{
+			"id": "H20b", "kind": "classLock", "quest": 78133, "classes": ["WARRIOR"],
+			"fact": "Dragonslayer's Shield (78133, Alonso) is Warrior-only, both factions (maintainer decision 2026-10-19).",
+			"source": { "refs": ["#383", "#396", "PR #388"], "credit": ["Zerkness", "Ioney", "c0njure"] }
+		},
+		{
+			"id": "H20c", "kind": "classLock", "quest": 78134, "classes": ["WARRIOR"],
+			"fact": "Dragonslayer's Lance (78134, Alonso) is Warrior-only, both factions (maintainer decision 2026-10-19).",
+			"source": { "refs": ["#383", "#396", "PR #388"], "credit": ["Zerkness", "Ioney", "c0njure"] }
+		},
+		{
+			"id": "H23a", "kind": "skip", "quest": 96873, "reason": "profession: Enchanting",
+			"fact": "A Pain in the Neck (96873) is for enchanters only.",
+			"source": { "refs": ["report"], "credit": ["AndarKerran"], "guide": "guides/forever/horde/orc-troll/01-durotar.guide:59" }
+		},
+		{
+			"id": "H23b", "kind": "afterTurnin", "quest": 4161, "after": 96634,
+			"fact": "Zarrin offers Recipe of the Kaldorei (4161) only to cooks, after he teaches Cooking for Camping 101: Cooking (96634).",
+			"source": { "refs": ["report"], "credit": ["AndarKerran"], "guide": "guides/forever/alliance/nightelf/01-teldrassil.guide:82" }
+		},
+		{
+			"id": "H23c", "kind": "skip", "quest": 95217, "reason": "profession: Blacksmithing",
+			"fact": "Frast Dokner offers The Quarry's Smith (95217) to blacksmiths only.",
+			"source": { "refs": ["report"], "credit": ["AndarKerran"], "guide": "guides/forever/alliance/dwarf-gnome/01-dun-morogh.guide:89" }
+		},
+		{
+			"id": "H26", "kind": "at", "quest": 90902, "objective": 0, "map": 1420, "x": 31.77, "y": 63.85,
+			"fact": "Rediscovering the Light (90902, Undead Paladin) heals 5 Injured Deathguard at Deathknell, done in the first Deathknell pass.",
+			"source": { "refs": ["#408", "PR #413"], "credit": ["Hotline", "CDVolvik"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:160" }
+		},
+		{
+			"id": "H28", "kind": "ride", "quest": 6342, "from": { "map": 1438, "x": 58.4, "y": 94.02 }, "to": { "map": 1439, "x": 36.34, "y": 45.58 },
+			"fact": "Flight to Auberdine (6342) gives a free hippogryph flight from Vesprystus in Rut'theran Village to Auberdine while the quest is held.",
+			"source": { "refs": ["#402", "#403"], "credit": ["Pynte"], "guide": "guides/forever/alliance/nightelf/01-teldrassil.guide:40" }
+		},
+		{
+			"id": "H29a", "kind": "skip", "quest": 91740, "reason": "optional: elite",
+			"fact": "Croaky's Head (91740) starts from the elite Croaky: optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/alliance/human/01-elwynn-forest.guide:29" }
+		},
+		{
+			"id": "H29b", "kind": "skip", "quest": 91746, "reason": "optional: elite",
+			"fact": "Elmpaw's Head (91746) starts from the named elite Elmpaw: optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/alliance/human/01-elwynn-forest.guide:108" }
+		},
+		{
+			"id": "H29c", "kind": "skip", "quest": 99156, "reason": "optional: elite",
+			"fact": "Rear Guard Patrol (99156) needs Riptear, a level 13 elite: optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:35" }
+		},
+		{
+			"id": "H29d", "kind": "skip", "quest": 93318, "reason": "optional: elite",
+			"fact": "WANTED: Vulgara the Insatiable (93318): Vulgara is elite, so it is optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/horde/skyborne/01-zephras-isle.guide:26" }
+		},
+		{
+			"id": "H29e", "kind": "skip", "quest": 99052, "reason": "optional: elite",
+			"fact": "Threat from Below (99052), Orgnil's last naga quest: Aggor the Young is elite, so it is optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/horde/orc-troll/01-durotar.guide:62" }
+		},
+		{
+			"id": "H29f", "kind": "skip", "quest": 1151, "reason": "optional: elite",
+			"fact": "Test of Strength (1151): Rok'Alim the Pounder is elite, so it is optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/horde/07-ashenvale.guide:59" }
+		},
+		{
+			"id": "H29g", "kind": "skip", "quest": 2478, "reason": "optional: elite",
+			"fact": "Mission: Possible But Not Probable (2478): Gallywix is elite, so it is optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/horde/04-the-barrens.guide:60" }
+		},
+		{
+			"id": "H29h", "kind": "skip", "quest": 92706, "reason": "optional: elite",
+			"fact": "WANTED: Bruuz (92706): Bruuz is elite, so it is optional, never required.",
+			"source": { "refs": ["#221"], "credit": ["Syfin"], "guide": "guides/forever/horde/04-the-barrens.guide:57" }
+		},
+		{
+			"id": "H30", "kind": "timer", "item": 7119, "seconds": 900,
+			"from": { "quest": 1824, "step": "objective", "objective": 0 }, "to": { "quest": 1824, "step": "turnin" },
+			"fact": "Twitching Antennae (Trial at the Field of Giants, 1824) vanish after 900 s: gathered after Gann's last turn-in, then hearth.",
+			"source": { "refs": ["guide header"], "credit": [], "guide": "guides/forever/horde/04-the-barrens.guide:75" }
+		},
+		{
+			"id": "H31a", "kind": "handover", "quest": 99141, "objective": 0, "item": 286200, "npc": 1496,
+			"fact": "Dillinger's Report for Patience (99141) is handed over by Deathguard Dillinger when asked (gossip); the data has no source for it.",
+			"source": { "refs": ["#337", "PR #457"], "credit": ["Onrevax", "XrayAlpha"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:262" }
+		},
+		{
+			"id": "H31b", "kind": "handover", "quest": 99141, "objective": 1, "item": 286201, "npc": 251001,
+			"fact": "Kristof's Report for Patience (99141) is handed over by Deathguard Kristof when asked (gossip); the data has no source for it.",
+			"source": { "refs": ["#337", "PR #457"], "credit": ["Onrevax", "XrayAlpha"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:361" }
+		},
+		{
+			"id": "H31c", "kind": "handover", "quest": 99141, "objective": 2, "item": 286202, "npc": 10666,
+			"fact": "Gordo's Report for Patience (99141) is handed over by Gordo when asked (gossip); the data has no source for it.",
+			"source": { "refs": ["#337", "PR #457"], "credit": ["Onrevax", "XrayAlpha"], "guide": "guides/forever/horde/undead/01-tirisfal-glades.guide:298" }
+		}
+	]
+}

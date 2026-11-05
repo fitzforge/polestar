@@ -1,5 +1,5 @@
 -- Chinese (traditional) (zhTW): the guide forever/legacy/legacy-challenges (forever/legacy/legacy-challenges.guide).
--- Written by `node tools/polestar.js i18n guides sync zhTW`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync zhTW`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Chinese (traditional) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -59,9 +59,7 @@ return {
 
 	-- Step 10: PvP: battleground reputations (Alliance)
 	["PvP: battleground reputations (Alliance)"] = "PvP：戰場聲望（聯盟）",
-	["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "每個戰場陣營達到崇拜各值1點（共4點；此頁顯示三個，請見備註）。請參照Polestar聲望指南「戰歌峽谷聲望」、「阿拉希盆地聲望」和「奧特蘭克山谷聲望」。傳承外交官天賦可提高聲望獲得量。",
-	-- {zone:1460} Warsong Gulch · {zone:1461} Arathi Basin · {zone:1459} Alterac Valley
-	["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "暴雪計算四個戰場聲望，但我們的陣營資料每方只有三個（{zone:1460}、{zone:1461}、{zone:1459}）。第四個可能與Forever新的PvP內容有關；請查看遊戲內的傳承面板。",
+	["Exalted with each of the four battleground factions is worth a point. Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation, Alterac Valley Reputation and Darkspear Islands Reputation (Forever's new battleground, open from level 30). The Diplomat Legacy perk increases reputation gains."] = "",
 
 	-- Step 11: PvP: battleground reputations (Horde)
 	["PvP: battleground reputations (Horde)"] = "PvP：戰場聲望（部落）",
@@ -84,47 +82,55 @@ return {
 
 	-- Step 14: Adventure: explore the world map
 	["Adventure: explore the world map"] = "冒險：探索世界地圖",
-	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "用一個角色探索整個世界地圖值1點，也可能解鎖傳承系統。全部必須在同一個角色上完成。",
-	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "請參照Polestar探索指南：「探索：東部王國 1-30」、「30-45」和「45-60」，以及「探索：卡林多 1-30」、「30-45」和「45-60」。它們會在你發現每個區域時進行追蹤。",
+	-- {zone:2548} Riverglades · {zone:2652} Shen'dralas · {zone:2482} Mount Hyjal
+	["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character. Forever's new zones are part of the map: the {zone:2548}, {zone:2652} and {zone:2482}, a level 60 zone."] = "",
+	["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it. Exploration: Zephras Isle covers the Skyborne island; whether its map counts towards this challenge is not confirmed yet."] = "",
 	["This step cannot check the whole map by itself yet; it becomes a tracked goal once the Legacy achievement ids are recorded."] = "此步驟目前還無法自行檢查整張地圖；記錄傳承成就ID後，它就會成為可追蹤的目標。",
 
 	-- Step 15: Adventure: Lord Valthalak
 	-- {npc:16042} Lord Valthalak
 	["Adventure: {npc:16042}"] = "冒險：{npc:16042}",
-	-- {npc:16042} Lord Valthalak · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
-	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」、「最後的準備」和{quest:8995}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
+	-- {npc:16042} Lord Valthalak · {quest:8999} Saving the Best for Last · {npc:16013} Deliana · {zone:1455} Ironforge · {npc:16012} Mokvar · {zone:1454} Orgrimmar · {npc:16033} Bodley · {area:254} Blackrock Mountain · {quest:8995} Mea Culpa, Lord Valthalak · {quest:8996} Return to Bodley · {quest:8997} Back to the Beginning
+	["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain, from An Earnest Proposition to your class's {quest:8999}: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to {quest:8999}."] = "",
 	-- {npc:16073} Spirit of Lord Valthalak · {npc:16033} Bodley · {area:254} Blackrock Mountain
 	["{npc:16073}, inside Upper Blackrock Spire after Mea Culpa (no spawn in the data: the arrow leads to {npc:16033}'s {area:254})"] = "{npc:16073}，在黑石塔上層完成「認錯，瓦薩拉克」之後（資料中沒有重生點：箭頭指向{npc:16033}所在的{area:254}）",
 	-- {npc:16033} Bodley · {quest:8996} Return to Bodley
 	["{npc:16033} offers it once {quest:8996} is turned in"] = "{quest:8996}繳交後，{npc:16033}會提供此任務",
-	-- {quest:8996} Return to Bodley
-	["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "暴雪將哪個任務算作任務線的結尾（{quest:8996}或你職業的「最後的獎賞」），要等到記錄傳承資料後才能確認。",
 
-	-- Step 16: Adventure: Back to the Beginning (Alliance)
-	-- {quest:8997} Back to the Beginning
-	["Adventure: {quest:8997} (Alliance)"] = "冒險：{quest:8997}（聯盟）",
-	-- {npc:16013} Deliana
-	["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16013}接著會提供你職業的「最後的獎賞」，也就是地城套裝的最終升級。",
+	-- Step 16: Adventure: Saving the Best for Last (Alliance)
+	-- {quest:8999} Saving the Best for Last
+	["Adventure: {quest:8999} (Alliance)"] = "",
+	-- {npc:16013} Deliana · {quest:8999} Saving the Best for Last
+	["{npc:16013} then offers your class's {quest:8999}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
-	-- Step 17: Adventure: Back to the Beginning (Horde)
-	-- {quest:8998} Back to the Beginning
-	["Adventure: {quest:8998} (Horde)"] = "冒險：{quest:8998}（部落）",
-	-- {npc:16012} Mokvar
-	["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16012}接著會提供你職業的「最後的獎賞」，也就是地城套裝的最終升級。",
+	-- Step 17: Adventure: Saving the Best for Last (Horde)
+	-- {quest:9007} Saving the Best for Last
+	["Adventure: {quest:9007} (Horde)"] = "",
+	-- {npc:16012} Mokvar · {quest:9007} Saving the Best for Last
+	["{npc:16012} then offers your class's {quest:9007}, the last quest of the challenge: it takes your class's dungeon-set helm and chest and upgrades them."] = "",
 
 	-- Step 18: Dungeons: level 15-25
 	["Dungeons: level 15-25"] = "地城：等級15-25",
-	["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "每個等級15-25地城的最終首領合計值1點。擊殺每個首領後將其勾選；分組依照經典版的一般等級範圍，確切清單請查看遊戲內的傳承面板。",
+	-- {area:2437} Ragefire Chasm · {area:16919} Hall of Thanes · {zone:1455} Ironforge
+	["The final boss of every level 15-25 dungeon earns one point together. {area:2437} and Forever's {area:16919} (in {zone:1455}) count as one: either final boss does. Tick each boss off when you kill it, and check the in-game Legacy panel for the list."] = "",
+	-- {area:2437} Ragefire Chasm · {npc:11519} Bazzalan · {area:16919} Hall of Thanes
+	["{area:2437}: {npc:11519} (or {area:16919})"] = "",
+	-- {area:16919} Hall of Thanes · {npc:261319} Durgen Dirgehammer · {area:2437} Ragefire Chasm
+	["{area:16919}: {npc:261319} (or {area:2437})"] = "",
+	-- {area:153} Ruins of Lordaeron · {zone:1420} Tirisfal Glades · {npc:256035} Viktor the Vile
+	["{area:153} (Forever's, {zone:1420}): {npc:256035}"] = "",
 	-- {area:718} Wailing Caverns · {npc:3678} Disciple of Naralex
 	["{area:718} (appears after the {npc:3678}'s event)"] = "{area:718}（在{npc:3678}的事件之後出現）",
-	-- {area:717} The Stockade
-	["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}：通常最後擊殺的目標；{area:717}沒有固定的最終首領",
-	-- {area:16919} Hall of Thanes · {area:153} Ruins of Lordaeron
-	["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever新增了地城{area:16919}和{area:153}；它們的首領和等級分組尚未收錄在我們的資料中。",
+	-- {area:17732} Excavation Site: Wetlands · {npc:260326} Relic Guardian
+	["{area:17732} (Forever's): {npc:260326}"] = "",
 
 	-- Step 19: Dungeons: level 26-45
 	["Dungeons: level 26-45"] = "地城：等級26-45",
-	["The final boss of every level 26-45 dungeon earns one point together."] = "每個等級26-45地城的最終首領合計值1點。",
+	-- {area:17780} Krol'dok Stronghold · {zone:2548} Riverglades
+	["The final boss of every level 26-45 dungeon earns one point together. The Drowned City and {area:17780} (in the {zone:2548}) are new in Forever and not in our data: tick them off yourself."] = "",
+	-- {zone:1416} Alterac Mountains · {npc:246020} Shade of the Archmage
+	["City of Dalaran (Forever's, {zone:1416}): {npc:246020}"] = "",
+	["the final boss of the Drowned City"] = "",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Graveyard"] = "{area:796}：墓地",
 	-- {area:796} Scarlet Monastery
@@ -133,51 +139,72 @@ return {
 	["{area:796}: Armory"] = "{area:796}：軍械庫",
 	-- {area:796} Scarlet Monastery
 	["{area:796}: Cathedral"] = "{area:796}：大教堂",
-	-- {area:1517} Uldaman
-	["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517}（等級41-51；可能算在46-60的分組）",
+	-- {area:17780} Krol'dok Stronghold
+	["the final boss of {area:17780}"] = "",
 
 	-- Step 20: Dungeons: level 46-60
 	["Dungeons: level 46-60"] = "地城：等級46-60",
-	["The final boss of every level 46-60 dungeon earns one point together."] = "每個等級46-60地城的最終首領合計值1點。",
+	-- {area:1216} Blackmaw Hold · {area:16985} Shaper's Terrace
+	["The final boss of every level 46-60 dungeon earns one point together. Alcaz Prison, {area:1216} and the {area:16985} are new in Forever and not in our data: tick them off yourself."] = "",
+	["the final boss of Alcaz Prison"] = "",
+	-- {area:1216} Blackmaw Hold
+	["the final boss of {area:1216}"] = "",
 	-- {area:1583} Blackrock Spire
 	["Lower {area:1583}"] = "{area:1583}下層",
 	-- {area:1583} Blackrock Spire
 	["Upper {area:1583}"] = "{area:1583}上層",
-	["Dire Maul East"] = "厄運之槌東區",
-	["Dire Maul West"] = "厄運之槌西區",
-	["Dire Maul North"] = "厄運之槌北區",
 	-- {area:2279} Stratholme
 	["{area:2279}, Live side"] = "{area:2279}，活人區",
 	-- {area:2279} Stratholme
 	["{area:2279}, Undead side"] = "{area:2279}，亡靈區",
+	["Dire Maul East"] = "厄運之槌東區",
+	["Dire Maul North"] = "厄運之槌北區",
+	["Dire Maul West"] = "厄運之槌西區",
+	-- {area:16985} Shaper's Terrace
+	["the final boss of the {area:16985}"] = "",
 
-	-- Step 21: Forever's new dungeons
-	["Forever's new dungeons"] = "Forever的新地城",
-	-- {area:16919} Hall of Thanes · {area:153} Ruins of Lordaeron
-	["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919}和{area:153}是Forever新增的。它們的首領、等級和傳承分組不在我們的資料中，所以請自行勾選。",
-	-- {area:16919} Hall of Thanes
-	["the final boss of {area:16919}"] = "{area:16919}的最終首領",
-	-- {area:153} Ruins of Lordaeron
-	["the final boss of {area:153}"] = "{area:153}的最終首領",
-
-	-- Step 22: Raids: Onyxia
+	-- Step 21: Raids: Onyxia
 	-- {npc:10184} Onyxia
 	["Raids: {npc:10184}"] = "團隊：{npc:10184}",
-	-- {npc:10184} Onyxia · {item:16309} Drakefire Amulet · {item:16663} Blood of the Black Dragon Champion
-	["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "擊殺{npc:10184}值1點。在經典版中，進入她的巢穴需要完成前置任務：聯盟需要{item:16309}，部落需要{item:16663}。",
+	-- {npc:10184} Onyxia · {area:2159} Onyxia's Lair · {zone:1445} Dustwallow Marsh · {item:16309} Drakefire Amulet · {zone:1428} Burning Steppes · {area:340} Kargath · {zone:1418} Badlands · {npc:10363} General Drakkisath
+	["Killing {npc:10184} is a point. {area:2159} is a 40-player raid in {zone:1445}, open from 9 December. Every raider needs the {item:16309} in the bags: the Alliance chain starts with Dragonkin Menace in the {zone:1428}, the Horde chain with Blood and Thunder in {area:340} ({zone:1418}); both end in Upper Blackrock Spire with {npc:10363}."] = "",
 
-	-- Step 23: Raids: Hyjal Summit
+	-- Step 22: Raids: Hyjal Summit
 	["Raids: Hyjal Summit"] = "團隊：Hyjal Summit",
-	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "擊敗Hyjal Summit的全部13個首領值1點。Hyjal Summit是Forever新增的團隊副本；它的首領不在我們的資料中，所以全部13個首領都倒下後請自行勾選。",
+	-- {zone:2482} Mount Hyjal
+	["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new 20-player Forever raid at the top of {zone:2482}, near Nordrassil, open from 9 December; its bosses are not in our data, so tick it off once all 13 are down."] = "",
 	["all 13 Hyjal Summit bosses"] = "海加爾山的全部13個首領",
 
-	-- Step 24: Raids: Barrow Deeps
+	-- Step 23: Raids: Barrow Deeps
 	["Raids: Barrow Deeps"] = "團隊：Barrow Deeps",
-	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "擊敗Barrow Deeps的全部8個首領值1點。Barrow Deeps是Forever新增的團隊副本；它的首領不在我們的資料中，所以全部8個首領都倒下後請自行勾選。",
+	-- {zone:2482} Mount Hyjal · {zone:1452} Winterspring · {area:1216} Blackmaw Hold
+	["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new 10-player Forever raid beneath {zone:2482}, entered from {zone:2482}, {zone:1452} or {area:1216} and open from 9 December; its bosses are not in our data, so tick it off once all 8 are down."] = "",
 	["all 8 Barrow Deeps bosses"] = "古墓深淵的全部8個首領",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Adventure: {quest:8997} (Alliance)"] = "冒險：{quest:8997}（聯盟）",
+	-- ["Adventure: {quest:8998} (Horde)"] = "冒險：{quest:8998}（部落）",
+	-- ["All 13 Hyjal Summit bosses are a point. Hyjal Summit is a new Forever raid; its bosses are not in our data, so tick it off once all 13 are down."] = "擊敗Hyjal Summit的全部13個首領值1點。Hyjal Summit是Forever新增的團隊副本；它的首領不在我們的資料中，所以全部13個首領都倒下後請自行勾選。",
+	-- ["All 8 Barrow Deeps bosses are a point. Barrow Deeps is a new Forever raid; its bosses are not in our data, so tick it off once all 8 are down."] = "擊敗Barrow Deeps的全部8個首領值1點。Barrow Deeps是Forever新增的團隊副本；它的首領不在我們的資料中，所以全部8個首領都倒下後請自行勾選。",
+	-- ["Blizzard counts four battleground reputations, but our faction data has three per side ({zone:1460}, {zone:1461}, {zone:1459}). The fourth is likely tied to Forever's new PvP content; check the in-game Legacy panel."] = "暴雪計算四個戰場聲望，但我們的陣營資料每方只有三個（{zone:1460}、{zone:1461}、{zone:1459}）。第四個可能與Forever新的PvP內容有關；請查看遊戲內的傳承面板。",
+	-- ["Exalted with each battleground faction is worth a point (4 in all; this page shows three, see the note). Follow the Polestar Reputation guides Warsong Gulch Reputation, Arathi Basin Reputation and Alterac Valley Reputation. The Diplomat Legacy perk increases reputation gains."] = "每個戰場陣營達到崇拜各值1點（共4點；此頁顯示三個，請見備註）。請參照Polestar聲望指南「戰歌峽谷聲望」、「阿拉希盆地聲望」和「奧特蘭克山谷聲望」。傳承外交官天賦可提高聲望獲得量。",
+	-- ["Exploring the entire world map on one character is a point, and it can also unlock the Legacy System. It must all be on the same character."] = "用一個角色探索整個世界地圖值1點，也可能解鎖傳承系統。全部必須在同一個角色上完成。",
+	-- ["Follow the Polestar Exploration guides: Exploration: Eastern Kingdoms 1-30, 30-45 and 45-60, and Exploration: Kalimdor 1-30, 30-45 and 45-60. They track every area as you discover it."] = "請參照Polestar探索指南：「探索：東部王國 1-30」、「30-45」和「45-60」，以及「探索：卡林多 1-30」、「30-45」和「45-60」。它們會在你發現每個區域時進行追蹤。",
+	-- ["Forever adds the dungeons {area:16919} and {area:153}; their bosses and brackets are not in our data yet."] = "Forever新增了地城{area:16919}和{area:153}；它們的首領和等級分組尚未收錄在我們的資料中。",
+	-- ["Forever's new dungeons"] = "Forever的新地城",
+	-- ["Killing {npc:10184} is a point. In Classic her lair needs an attunement: {item:16309} for the Alliance, {item:16663} for the Horde."] = "擊殺{npc:10184}值1點。在經典版中，進入她的巢穴需要完成前置任務：聯盟需要{item:16309}，部落需要{item:16663}。",
+	-- ["The final boss of every level 15-25 dungeon earns one point together. Tick each boss off when you kill it; the grouping follows the usual Classic level ranges, so check the in-game Legacy panel for the exact list."] = "每個等級15-25地城的最終首領合計值1點。擊殺每個首領後將其勾選；分組依照經典版的一般等級範圍，確切清單請查看遊戲內的傳承面板。",
+	-- ["The final boss of every level 26-45 dungeon earns one point together."] = "每個等級26-45地城的最終首領合計值1點。",
+	-- ["The final boss of every level 46-60 dungeon earns one point together."] = "每個等級46-60地城的最終首領合計值1點。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」（瓦薩拉克的護符）、「最後的準備」和「認錯，瓦薩拉克」，以及{npc:16042}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
+	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of Lord Valthalak's Amulet, Final Preparations and {quest:8995} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」、「最後的準備」和{quest:8995}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
 	-- ["The {npc:16042} questline is a point. It is the level 60 dungeon-set chain: {npc:16013} ({zone:1455}) or {npc:16012} ({zone:1454}) send you through In Search of Anthion and Anthion's Parting Words to {npc:16033} at {area:254}, whose Three Kings of Flame, the Left and Right Pieces of {item:22048}, Final Preparations and Mea Culpa, {npc:16042} end with {quest:8996}. {quest:8997} then leads to the class Saving the Best for Last quests."] = "{npc:16042}任務線值1點。這是60級地城套裝任務鏈：{npc:16013}（{zone:1455}）或{npc:16012}（{zone:1454}）會帶你完成「尋找安希恩」和「安希恩的離別感言」，前往{area:254}的{npc:16033}，他的「烈焰三巨頭」、「瓦薩拉克護符的左半塊」和「瓦薩拉克護符的右半塊」（{item:22048}）、「最後的準備」和「Mea Culpa」，以及{npc:16042}，最後以{quest:8996}結束。{quest:8997}接著會引導至各職業的「最後的獎賞」任務。",
+	-- ["Which quest Blizzard counts as the end of the questline ({quest:8996} or your class's Saving the Best for Last) is unconfirmed until the Legacy data is recorded."] = "暴雪將哪個任務算作任務線的結尾（{quest:8996}或你職業的「最後的獎賞」），要等到記錄傳承資料後才能確認。",
+	-- ["the final boss of {area:153}"] = "{area:153}的最終首領",
+	-- ["the final boss of {area:16919}"] = "{area:16919}的最終首領",
+	-- ["{area:1517} (level 41-51; may count in the 46-60 bracket)"] = "{area:1517}（等級41-51；可能算在46-60的分組）",
+	-- ["{area:16919} and {area:153} are new in Forever. Their bosses, levels and Legacy bracket are not in our data, so tick them off yourself."] = "{area:16919}和{area:153}是Forever新增的。它們的首領、等級和傳承分組不在我們的資料中，所以請自行勾選。",
 	-- ["{area:717}: the usual last kill; the {area:717} has no fixed final boss"] = "{area:717}：通常最後擊殺的目標；{area:717}沒有固定的最終首領",
+	-- ["{npc:16012} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16012}接著會提供你職業的「最後的獎賞」，也就是地城套裝的最終升級。",
+	-- ["{npc:16013} then offers your class's Saving the Best for Last, the final upgrade of the dungeon set."] = "{npc:16013}接著會提供你職業的「最後的獎賞」，也就是地城套裝的最終升級。",
 }

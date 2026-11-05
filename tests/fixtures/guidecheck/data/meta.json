@@ -1,0 +1,18 @@
+{
+	"builtAt": "2026-10-12T00:00:00Z",
+	"counts": {},
+	"sources": [
+		{
+			"license": "MIT",
+			"name": "pfQuest",
+			"revision": "fixture",
+			"url": "https://github.com/shagu/pfQuest"
+		},
+		{
+			"license": "Blizzard game data (facts)",
+			"name": "wago.tools DB2 exports",
+			"revision": "1.60.1",
+			"url": "https://wago.tools"
+		}
+	]
+}

@@ -1,0 +1,23 @@
+[package]
+name = "forge-i18n"
+description = "The interface translations (addon/*/Locales), the guide texts in other languages and the English-on-screen check: forge i18n."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+forge-guide = { path = "../forge-guide" }
+# `i18n leaks` runs the addon on the client stub.
+forge-addontest = { path = "../forge-addontest" }
+serde_json.workspace = true
+regex = "1"
+# The leaks allow list's patterns look behind (`(?<![\p{L}\p{N}])`).
+fancy-regex = "0.14"
+unicode-normalization = "0.1"
+
+[lints]
+workspace = true

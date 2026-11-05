@@ -1,12 +1,14 @@
 -- The guide's level on the game's XP bar (qol.xpTargetMark): a thin accent
--- tick at the bar's right end and the level the guide expects you to reach
--- before it moves on (Engine.LevelTarget: its first `level N` goal for this
--- character from the step shown, N above your level). Guide levels are whole
--- levels, so the mark always sits at the end of this level's bar: "Guide: 12"
--- when the target is the next level, "Guide: 14 (4 levels)" when it lies
--- further on.
+-- tick and the level the guide expects you to reach before it moves on
+-- (Engine.LevelTarget: its first `level N` goal for this character from the
+-- step shown, N above your level, or a point inside your level not reached
+-- yet). A whole level's tick sits at the right end of this level's bar:
+-- "Guide: 12" when the target is the next level, "Guide: 14 (4 levels)"
+-- when it lies further on. A point inside this level (`level 12.4`) puts the
+-- tick at that share of the bar ("Guide: 40% of this level"); one inside a
+-- later level stays at the end ("Guide: 14 (40%)").
 --
---   Polestar.QoL.XPMark.Label(level, target) -> text | nil   -- pure; nil: no mark
+--   Polestar.QoL.XPMark.Label(level, target[, frac]) -> text | nil   -- pure; nil: no mark
 --   Polestar.QoL.XPMark.Refresh()                            -- show, move or hide the mark now
 --   Polestar.QoL.XPMark.frame                                -- the mark, once made
 --
@@ -32,8 +34,11 @@ local TICK = 2        -- tick width
 local OVERHANG = 2    -- the tick stands this far above and below the bar
 local GAP = 3         -- between the label and the tick
 
-function Mark.Label(level, target)
-	if type(level) ~= "number" or type(target) ~= "number" or target <= level then return nil end
+function Mark.Label(level, target, frac)
+	if type(level) ~= "number" or type(target) ~= "number" or target < level then return nil end
+	local pct = type(frac) == "number" and frac > 0 and frac < 1 and math.floor(frac * 100 + 0.5) or nil
+	if target == level then return pct and format(L["Guide: %d%% of this level"], pct) or nil end
+	if pct then return format(L["Guide: %d (%d%%)"], target, pct) end
 	if target == level + 1 then return format(L["Guide: %d"], target) end
 	return format(L["Guide: %d (%d levels)"], target, target - level)
 end
@@ -70,20 +75,30 @@ local function paint()
 	frame.Label:SetTextColor(r, g, b, 1)
 end
 
+-- The tick at `share` of the bar from its left (nil: the right end).
+local function place(share)
+	local tick = frame.Tick
+	local x = share and -(1 - share) * (frame:GetWidth() or 0) or 0
+	tick:ClearAllPoints()
+	tick:SetPoint("TOPRIGHT", frame, "TOPRIGHT", x, OVERHANG)
+	tick:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", x, -OVERHANG)
+end
+
 local function build(bar)
 	local T = ns.Theme
 	frame = ns.CreateFrameUnder("Frame", nil, bar)
 	local tick = frame:CreateTexture(nil, "OVERLAY")
 	tick:SetTexture(T and T.Media and T.Media("white") or nil)
 	tick:SetWidth(TICK)
-	tick:SetPoint("TOPRIGHT", frame, "TOPRIGHT", 0, OVERHANG)
-	tick:SetPoint("BOTTOMRIGHT", frame, "BOTTOMRIGHT", 0, -OVERHANG)
 	local label = frame:CreateFontString(nil, "OVERLAY")
 	if T and T.Font then T.Font(label, "small") end
 	if T and T.SetOutline then T.SetOutline(label, true) end
 	label:SetJustifyH("RIGHT")
 	label:SetPoint("RIGHT", tick, "LEFT", -GAP, 0)
 	frame.Tick, frame.Label = tick, label
+	place(nil)
+	-- The bar resized (a new layout, a scale change): the share's tick follows.
+	frame:SetScript("OnSizeChanged", function() place(frame.share) end)
 	Mark.frame = frame
 	paint()
 	return frame
@@ -105,13 +120,15 @@ local function attach(bar)
 end
 
 function Mark.Refresh()
-	local text
+	local text, share
 	if QoL.On("xpTargetMark") then
 		local level = playerLevel()
 		local cap = readable(GetMaxPlayerLevel and GetMaxPlayerLevel())
 		local E = ns.Engine
 		if level > 0 and not (cap and level >= cap) and E and E.LevelTarget then
-			text = Mark.Label(level, (E.LevelTarget(level)))
+			local target, _, frac = E.LevelTarget(level)
+			text = Mark.Label(level, target, frac)
+			if text and target == level then share = frac end
 		end
 	end
 	local bar = text and xpBar()
@@ -120,6 +137,10 @@ function Mark.Refresh()
 		return
 	end
 	attach(bar).Label:SetText(text)
+	if frame.share ~= share then
+		frame.share = share
+		place(share)
+	end
 	frame:Show()
 end
 

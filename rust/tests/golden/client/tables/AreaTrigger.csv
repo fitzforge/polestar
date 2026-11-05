@@ -1,0 +1,3 @@
+Pos_0,Pos_1,Pos_2,ID,ContinentID,PhaseUseFlags,PhaseID,PhaseGroupID,Radius,Box_length,Box_width,Box_height,Box_yaw,ShapeType,ShapeID,AreaTriggerActionSetID,Flags
+-400,200,0,98,0,0,0,0,30,0,0,0,0,0,0,0,0
+-1600,-200,0,99,0,0,0,0,0,20,10,5,0,1,0,0,0

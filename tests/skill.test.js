@@ -140,7 +140,9 @@ function invocations(texts) {
 
 test('every polestar command and option a skill names exists', () => {
 	const used = new Set(invocations([MAIN, REF]).map((c) => c.cmd));
-	for (const cmd of ['new', 'find', 'lint', 'playtest', 'play', 'dev', 'pack', 'doctor']) assert.ok(used.has(cmd), `the skill names polestar ${cmd}`);
+	for (const cmd of ['new', 'find', 'playtest', 'play', 'dev', 'doctor']) assert.ok(used.has(cmd), `the skill names polestar ${cmd}`);
+	assert.ok(`${MAIN}\n${REF}`.includes('forge guide lint'), 'the skill names forge guide lint');
+	assert.ok(`${MAIN}\n${REF}`.includes('forge release pack'), 'the skill names forge release pack');
 	const kinds = /--kind <k>\s+only ([a-z, ]+)/.exec(COMMANDS.get('find').usage)[1].split(/,\s*/);
 	for (const name of ALL) {
 		const texts = name === 'polestar-guide-pack' ? [MAIN, REF] : [skillText(name)];
@@ -225,8 +227,8 @@ function examplePack() {
 	return dir;
 }
 
-test('the example guide lints clean against the reference data', { skip: needs('quests.json', 'npcs.json', 'zones.json') }, () => {
-	const r = cli.polestar(['lint', examplePack(), '--format', 'json']);
+test('the example guide lints clean against the reference data', { skip: needs('quests.json', 'npcs.json', 'zones.json') || (!cli.forgeBin() && 'no forge build (lint is forge guide lint)') }, () => {
+	const r = cli.forge(['guide', 'lint', examplePack(), '--format', 'json']);
 	const doc = JSON.parse(r.stdout);
 	assert.equal(r.status, 0, r.stdout + r.stderr);
 	assert.deepEqual({ errors: doc.errors, warnings: doc.warnings }, { errors: 0, warnings: 0 }, r.stdout);

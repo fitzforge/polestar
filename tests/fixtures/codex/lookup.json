@@ -83,7 +83,7 @@
     "8012": { "id": 8012, "name": "Ember Wolf Horn", "quality": 3, "kind": "mount", "spell": 9502, "reqLevel": null, "sources": [{ "type": "rep", "faction": 9101, "standing": 8, "npc": 5002, "from": ["atlasloot"] }] },
     "8013": { "id": 8013, "name": "Pocket Toad", "quality": 1, "kind": "pet", "spell": 9504, "reqLevel": null, "sources": [{ "type": "vendor", "npc": 5001, "cost": 500, "from": ["client"] }] },
     "8014": { "id": 8014, "name": "Gnash's Fang", "quality": 2, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 5011, "chance": 25, "from": ["rarescanner"] }] },
-    "8015": { "id": 8015, "name": "Mystery Box Prize", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "world", "minLevel": 10, "maxLevel": 30, "from": ["wowhead"] }] },
+    "8015": { "id": 8015, "name": "Mystery Box Prize", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "world", "minLevel": 10, "maxLevel": 30, "from": ["web"] }] },
     "8016": { "id": 8016, "name": "Warden Charger Reins", "quality": 4, "kind": "mount", "spell": null, "reqLevel": null, "repFaction": 9100, "repStanding": 8, "sources": [{ "type": "vendor", "npc": 5007, "cost": 800000, "from": ["client"] }] },
     "8017": { "id": 8017, "name": "Pattern: Vale Cloak", "quality": 2, "kind": "recipe", "spell": null, "reqLevel": null, "reqSkill": 197, "reqSkillRank": 125, "sources": [{ "type": "vendor", "npc": 5001, "cost": 2000, "from": ["client"] }] },
     "8018": { "id": 8018, "name": "Commission Band", "quality": 3, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "quest", "quest": 7008, "from": ["questie"] }] }

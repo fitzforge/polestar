@@ -1,0 +1,19 @@
+[package]
+name = "forge-gamedata"
+description = "Reads the installed WoW client's own tables: local CASC storage, BLTE, DB2 (WDC5) typed by WoWDBDefs, CSV export."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+rustc-hash.workspace = true
+serde_json.workspace = true
+flate2 = "1"
+md-5 = "0.10"
+
+[lints]
+workspace = true

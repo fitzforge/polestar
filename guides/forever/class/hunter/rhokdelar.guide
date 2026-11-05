@@ -5,7 +5,7 @@ class Hunter
 folder Hunter
 levels 60-60
 zone Felwood
-keywords Rhok'delar, Lok'delar, Ancient Sinew Wrapped Lamina, Stave of the Ancients, A Proper String, Vartrus the Ancient, Ancient Petrified Leaf, Molten Core, Onyxia, Azuregos, epic bow, class quest
+keywords Rhok'delar, Lok'delar, Ancient Sinew Wrapped Lamina, Stave of the Ancients, A Proper String, The Ancient Leaf, Vartrus the Ancient, Stoma the Ancient, Hastat the Ancient, Ancient Petrified Leaf, Majordomo Executus, Molten Core, Onyxia, Azuregos, Simone, Klinfran, Solenor, Artorius, epic bow, class quest
 collects 18707, 18724, 18714
 reward item 18707
 reward item 18724
@@ -14,42 +14,54 @@ why The hunter's epic bow chain: in Classic the stave and sinew became Rhok'dela
 
 # The level 60 Hunter weapon chain: The Ancient Leaf (7632) from Molten Core
 # to Vartrus the Ancient in Felwood, An Introduction (7633), then Stave of
-# the Ancients (7636, four demons), A Proper String (7635, Onyxia) and,
-# optional, Ancient Sinew Wrapped Lamina (7634, Azuregos).
-# Forever status (Wowhead Forever's Hunter class page,
-# data/local/quest-audit/wowhead-class-quests.json): 7632, 7633, 7634, 7635
-# and 7636 are all listed, "unchanged". Titles, levels and rewards follow
-# those rows: the Ancient Rune Etched Stave (7636), the Enchanted Black
-# Dragon Sinew (7635) and the Ancient Sinew Wrapped Lamina (7634).
+# the Ancients (7636, four demons, alone), A Proper String (7635, Onyxia)
+# and, optional, Ancient Sinew Wrapped Lamina (7634, Azuregos).
+# Forever status (Forever's Hunter class quest list,
+# data/local/quest-audit/): 7632, 7633, 7634, 7635 and 7636 are all listed,
+# "unchanged". Titles, levels and rewards follow those rows: the Ancient Rune
+# Etched Stave (7636), the Enchanted Black Dragon Sinew (7635) and the
+# Ancient Sinew Wrapped Lamina (7634).
 # Sources: quests.json, npcs.json and items.json (Questie 12.1.0 and
-# Questie-Forever) for the givers, drops and spawns; travel.json for the
-# flight points.
-# Classic-only source, for details the Forever data lacks: Icy Veins,
-# "Rhok'delar Quest: Guide to Stave of the Ancients"
-# (icy-veins.com/wow-classic/rhok-delar-quest-guide-to-stave-of-the-ancients):
-# that the demons must be fought alone, without a pet, and that in Classic
-# the stave and the sinew become Rhok'delar and Vartrus then gives
-# Lok'delar. Neither Rhok'delar nor Lok'delar is a quest reward on the Forever page:
-# the last step is not confirmed in Forever.
+# Questie-Forever) for the givers, drops and spawns; the knowledge base's
+# drop table (Ancient Petrified Leaf from the Cache of the Firelord 50%,
+# Mature Black Dragon Sinew from Onyxia 44%, Mature Blue Dragon Sinew from
+# Azuregos 87% and the Winterspring dragonkin under 1%); quest-notes for the
+# demons (level 60 elites, 3 h respawn, alone or they vanish, Precious,
+# Klinfran's frenzy, Solenor's fear and beetles, Artorius's patrol), the
+# ancients' island and Onyxia's weekly respawn; travel.json for the flight
+# points.
+# Classic-only sources, for the fight tricks the Forever data lacks: two
+# Classic hunter guides to Stave of the Ancients (the pet must stay out, buffs
+# before the pull are allowed, Freezing Trap on Precious, Viper Sting and melee against
+# Simone, Tranquilizing Shot against Demonic Frenzy, Wing Clip roots
+# Solenor, Feign Death after a Frost Trap clears his enrage, Artorius's
+# Demonic Doom inside 30 yards and Serpent Sting's Stinging Trauma, the
+# stave and the sinew becoming Rhok'delar and Vartrus then giving Lok'delar).
+# Neither Rhok'delar nor Lok'delar is a quest reward on the Forever page: the
+# last step is not confirmed in Forever. Forever gives Viper Sting a 15 s
+# cooldown (a Forever hunter community wiki), so it cannot be kept up on
+# Simone the Classic way.
 # Raid content: the Ancient Petrified Leaf drops from the Cache of the
-# Firelord after Majordomo Executus in Molten Core, the Mature Black Dragon
-# Sinew from Onyxia, the Mature Blue Dragon Sinew from Azuregos (a world
-# boss) and, very rarely, the Cobalt dragonkin in Winterspring. The four
-# demons are elite. The data has no position for Molten Core, Onyxia or
-# the demons' true forms; their disguises are placed from the data. The
-# entrance of Onyxia's Lair (Dustwallow Marsh 52.1,75.8) is from Wowhead's
-# Onyxia's Lair zone page (wowhead.com/zone=2159); Azuregos is placed from
-# npcs.json.
+# Firelord after Majordomo Executus in Molten Core (40 players), the Mature
+# Black Dragon Sinew from Onyxia (40 players), the Mature Blue Dragon Sinew
+# from Azuregos (a world boss for a raid) and, very rarely, the Cobalt
+# dragonkin in Winterspring. The four demons are elite. The data has no
+# position for Molten Core, Onyxia or the demons' true forms; their
+# disguises are placed from the data. The entrance of Onyxia's Lair
+# (Dustwallow Marsh 52.1,75.8) is from the game's zone data (zone 2159);
+# Azuregos is placed from npcs.json.
+# ASSUMED: Molten Core needs the Classic attunement (a Core Fragment from Blackrock Depths to Lothos Riftwaker) and Onyxia's Lair the Drakefire Amulet in your bags (Classic flow; Forever's data has no raid attunements). In-game check: entering Molten Core and Onyxia's Lair without them.
+# ASSUMED: the four demons, their disguises, patrols and abilities are as in Classic (Classic flow; Forever's data has their disguises and spawns only). In-game check: Simone's, Franklin's, Nelson's and Artorius's paths and whether a pet in the fight makes the demon vanish.
 # Based on data, not play: the beta caps at level 30 until launch on
 # 4 November, so nothing here has been checked in game.
 
 step The Ancient Petrified Leaf
-  tip The Cache of the Firelord appears in Molten Core when Majordomo Executus yields; it holds the Ancient Petrified Leaf about half the time. Molten Core is a 40-player raid inside Blackrock Mountain. Right-click the leaf to start the quest.
-  accept 7632 item 18703              -- from the Ancient Petrified Leaf
+  tip Molten Core is a 40-player raid inside Blackrock Mountain. When Majordomo Executus yields, the Cache of the Firelord appears; it holds the Ancient Petrified Leaf about half the time, one per kill, so it may take several weeks of raids. Right-click the leaf to start the quest.
+  accept 7632 item 18703 group 40     -- from the Ancient Petrified Leaf
 
 step Vartrus the Ancient
   zone Felwood
-  tip Vartrus, Stoma and Hastat the Ancient stand together in the north of Felwood. Alliance: Talonbranch Glade is the nearest flight point; Horde: Bloodvenom Post.
+  tip Vartrus, Stoma and Hastat the Ancient are petrified trees on a small island in a ring-shaped lake in Irontree Woods, north Felwood. Their spirits only appear when someone carrying the leaf climbs the island's little hill to its east edge. Alliance: fly to Talonbranch Glade; Horde: fly to Bloodvenom Post. Vartrus gives Stave of the Ancients, Stoma A Proper String, Hastat the quiver; each can be handed in on its own.
   turnin 7632                         -- Vartrus the Ancient
   accept 7633
   turnin 7633
@@ -57,34 +69,38 @@ step Vartrus the Ancient
   accept 7635                         -- Stoma the Ancient
   accept 7634                         -- Hastat the Ancient: the quiver, last in this guide
 
-step Artorius the Doombringer
-  zone Winterspring
-  tip Artorius the Amiable, a tauren, waits in the north-east of Winterspring. Talk to him and he becomes Artorius the Doombringer. Fight every demon alone and without your pet: help of any kind makes it vanish. Loot the head.
-  talk 14531                          -- Artorius the Amiable
-  collect 18955 quest 7636.4          -- Artorius's Head
+step Before the demons
+  tip The four demons are level 60 elites disguised as friendly travellers; talk to one and say you know what it is, and it turns into its demon form. Fight every one alone: no pet (dismiss it), no other player's heal, buff or attack once the fight starts, or the demon calls you a coward and vanishes, with a 3 hour wait for it to return (also after it dies). Buffs and potions you take before the pull are fine, and a friend may stand by to kill wandering monsters or enemy players, as long as they never touch the demon or you. Bring an Elixir of Demonslaying (Alchemy or the auction house), Major Mana Potions for the long kites, and a melee weapon with the Demonslaying enchant if you can. Track Demons, from your trainer, shows the disguised demons on the minimap. In a group, set loot to free for all so you can loot the head.
+  task "Learn Track Demons and get demon-slaying potions" optional
 
 step Simone the Seductress
   zone Un'Goro Crater
-  tip Simone the Inconspicuous, a troll, stands in the west of Un'Goro Crater. Talk to her and she becomes Simone the Seductress, with a pet of her own. Alone, without your pet.
+  tip Simone the Inconspicuous, a troll with a wolf, walks a long path that starts at the lake in western Un'Goro and can reach the south of the crater; use Track Demons. Talk to her and she becomes Simone the Seductress, and her wolf Precious a Felstalker. The hardest of the four: Freezing Trap Precious and pull Simone well away from it, or kite Precious away and kill it first, let Simone reset and come back for her alone. Her Chain Lightning hits hard, so drain her mana with Viper Sting (a 15-second cooldown on Forever) and keep her busy; her Temptress' Kiss cuts your ranged attack power, so finish her in melee. Loot her head before Precious breaks free.
   talk 14527                          -- Simone the Inconspicuous
   collect 18952 quest 7636.1          -- Simone's Head
 
-step Solenor the Slayer
-  zone Silithus
-  tip Nelson the Nice, a gnome, stands in the south-west of Silithus. Talk to him and he becomes Solenor the Slayer. Alone, without your pet; keep away from the beetles he calls.
-  talk 14536                          -- Nelson the Nice
-  collect 18954 quest 7636.3          -- Solenor's Head
-
 step Klinfran the Crazed
   zone Burning Steppes
-  tip Franklin the Friendly, a human, stands in the west of the Burning Steppes. Talk to him and he becomes Klinfran the Crazed. Alone, without your pet.
+  tip Franklin the Friendly, a human, wanders the western Burning Steppes south of Blackrock Mountain. Talk to him and he becomes Klinfran the Crazed, the easiest of the four. Keep Scorpid Sting on him the whole fight: while it lasts he barely hurts you. When he goes into Demonic Frenzy, remove it with Tranquilizing Shot and never stand in melee while it is up; between frenzies you can fight him in melee with Wing Clip and Raptor Strike. He cannot leave the Burning Steppes, so kite him around the trees if needed.
   talk 14529                          -- Franklin the Friendly
   collect 18953 quest 7636.2          -- Klinfran's Head
 
+step Solenor the Slayer
+  zone Silithus
+  tip Nelson the Nice, a gnome, walks around the gates of Ahn'Qiraj in the far south-west of Silithus. Talk to him and he becomes Solenor the Slayer. He enrages with Soul Flame as he turns: drop a Frost Trap, Feign Death, and he resets without the enrage. Wing Clip roots him for a long time; while rooted he fears you and sends beetles (Creeping Doom): kill them fast with traps and Multi-Shot before they wear you down.
+  talk 14536                          -- Nelson the Nice
+  collect 18954 quest 7636.3          -- Solenor's Head
+
+step Artorius the Doombringer
+  zone Winterspring
+  tip Artorius the Amiable, a tauren, walks a loop in the rocks of northern Winterspring, north of Everlook. Talk to him and he becomes Artorius the Doombringer. Within 30 yards of him Demonic Doom hits hard: keep your distance and kite him the whole fight, Aspect of the Cheetah on, south down the road. Serpent Sting on him adds Stinging Trauma, extra Nature damage, so keep it ticking while you run; his Demonic Frenzy can be removed with Tranquilizing Shot, but distance matters more. It is a long fight: bring mana potions and plan your kiting path.
+  talk 14531                          -- Artorius the Amiable
+  collect 18955 quest 7636.4          -- Artorius's Head
+
 step Onyxia
   zone Dustwallow Marsh
-  tip Onyxia drops the Mature Black Dragon Sinew; she is the 40-player raid boss of Onyxia's Lair, a cave in the Wyrmbog of southern Dustwallow Marsh.
-  collect 18705 quest 7635.1 @52.1,75.8 -- Mature Black Dragon Sinew, from Onyxia
+  tip Onyxia is the 40-player raid boss of Onyxia's Lair, a cave in the Wyrmbog of southern Dustwallow Marsh; she returns once a week. She drops one Mature Black Dragon Sinew in about two kills of five, lootable without the quest, so only one hunter per kill gets it: settle who first.
+  collect 18705 quest 7635.1 @52.1,75.8 group 40 -- Mature Black Dragon Sinew, from Onyxia
 
 step Back to the Ancients
   zone Felwood
@@ -92,14 +108,14 @@ step Back to the Ancients
   turnin 7635 reward 18724            -- Stoma the Ancient
 
 step Rhok'delar and Lok'delar
-  tip Not confirmed in Forever. In Classic, using the Ancient Rune Etched Stave with the Enchanted Black Dragon Sinew in your bags made Rhok'delar, and Vartrus then gave Lok'delar, Stave of the Ancient Keepers (Icy Veins).
+  tip Not confirmed in Forever. In Classic, using the Ancient Rune Etched Stave with the Enchanted Black Dragon Sinew in your bags made Rhok'delar, and talking to Vartrus once more then gave Lok'delar, Stave of the Ancient Keepers, at no extra cost.
   use 18707 @47.8,24.1                -- Ancient Rune Etched Stave, by Vartrus
   talk 14524 optional                 -- Vartrus the Ancient: Lok'delar in Classic
 
 step Azuregos
   zone Azshara
-  tip Hastat's quiver needs the Mature Blue Dragon Sinew. Azuregos, a world boss for a raid, roams the south of Azshara and drops it most of the time; the Cobalt dragonkin of Winterspring drop it very rarely. Skip the rest of this guide if you do not want the quiver.
-  collect 18704 quest 7634.1 @53.3,80.4 -- Mature Blue Dragon Sinew, from Azuregos
+  tip Hastat's quiver needs the Mature Blue Dragon Sinew. Azuregos, a world boss for a raid, stands in southern Azshara, returns only every two to four days and drops it nearly every kill. The elite Cobalt dragonkin in and around Mazthoril, the cave south of Everlook in Winterspring, drop it about once in 200 kills; Manaclaw there a little more often. Skip the rest of this guide if you do not want the quiver.
+  collect 18704 quest 7634.1 @53.3,80.4 group 40 -- Mature Blue Dragon Sinew, from Azuregos
 
 step Hastat the Ancient
   zone Felwood

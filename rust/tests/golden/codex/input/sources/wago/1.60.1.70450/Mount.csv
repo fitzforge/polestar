@@ -1,0 +1,145 @@
+Name_lang,SourceText_lang,Description_lang,ID,MountTypeID,Flags,SourceTypeEnum,SourceSpellID,PlayerConditionID,MountFlyRideHeight,UiModelSceneID,MountSpecialRiderAnimKitID,MountSpecialSpellVisualKitID
+"Brown Horse",,,6,469,0,-1,458,0,0,4,0,0
+"Gray Wolf",,,7,455,64,-1,459,0,0,4,0,0
+"White Stallion",,,8,469,64,-1,468,0,0,4,0,0
+"Black Stallion",,,9,469,0,2,470,0,0,4,0,0
+"Pinto Horse",,,11,469,0,-1,472,0,0,4,0,0
+"Black Wolf",,,12,455,64,-1,578,0,0,4,0,0
+"Red Wolf",,,13,456,64,-1,579,0,0,4,0,0
+"Large Timber Wolf",,,14,455,0,-1,580,0,0,4,0,0
+"Winter Wolf",,,15,455,64,-1,581,0,0,4,0,0
+"Summon Felsteed",,,17,471,0,-1,5784,151684,0,4,0,0
+"Chestnut Mare",,,18,469,0,-1,6648,0,0,4,0,0
+"Dire Wolf",,,19,455,0,-1,6653,0,0,4,0,0
+"Brown Wolf",,,20,455,0,-1,6654,0,0,4,0,0
+"Gray Ram",,,21,459,0,-1,6777,0,0,4,0,0
+"Black Ram",,,22,459,64,-1,6896,0,0,4,0,0
+"White Ram",,,24,459,0,-1,6898,0,0,4,0,0
+"Brown Ram",,,25,459,0,-1,6899,0,0,4,0,0
+"Striped Frostsaber",,,26,457,0,-1,8394,0,0,4,0,0
+"Emerald Raptor",,,27,461,0,-1,8395,0,0,4,0,0
+"Skeletal Horse",,,28,467,64,-1,8980,0,0,4,0,0
+"Spotted Frostsaber",,,31,457,0,-1,10789,0,0,4,0,0
+Tiger,,,32,457,64,-1,10790,0,0,4,0,0
+"Striped Nightsaber",,,34,457,0,-1,10793,0,0,4,0,0
+"Ivory Raptor",,,35,461,64,-1,10795,0,0,4,0,0
+"Turquoise Raptor",,,36,461,0,-1,10796,0,0,4,0,0
+"Violet Raptor",,,38,461,0,-1,10799,0,0,4,0,0
+"Red Mechanostrider",,,39,465,0,-1,10873,0,0,4,0,0
+"Blue Mechanostrider",,,40,465,0,-1,10969,0,0,4,0,0
+"Summon Warhorse",,,41,471,4,-1,13819,151683,0,4,0,0
+"White Mechanostrider",,,42,466,64,-1,15779,0,0,4,0,0
+"Green Mechanostrider",,,43,453,64,-1,15780,0,0,4,0,0
+Nightsaber,,,45,458,64,-1,16055,0,0,4,0,0
+Frostsaber,,,46,458,64,-1,16056,0,0,4,0,0
+"Red Wolf",,,50,456,64,-1,16080,0,0,4,0,0
+"Arctic Wolf",,,51,456,64,-1,16081,0,0,4,0,0
+"Palomino Stallion",,,52,470,64,-1,16082,0,0,4,0,0
+"White Stallion",,,53,470,64,-1,16083,0,0,4,0,0
+"Mottled Red Raptor",,,54,462,64,-1,16084,0,0,4,0,0
+"Winterspring Frostsaber",,,55,487,4,-1,17229,0,0,4,0,0
+"Ivory Raptor",,,56,462,64,-1,17450,0,0,4,0,0
+"Green Mechanostrider",,,57,465,0,-1,17453,0,0,4,0,0
+"Unpainted Mechanostrider",,,58,465,0,-1,17454,0,0,4,0,0
+"Icy Blue Mechanostrider",,,62,466,64,-1,17459,0,0,4,0,0
+"Frost Ram",,,63,460,64,-1,17460,0,0,4,0,0
+"Black Ram",,,64,460,64,-1,17461,0,0,4,0,0
+"Red Skeletal Horse",,,65,467,0,-1,17462,0,0,4,0,0
+"Blue Skeletal Horse",,,66,467,0,-1,17463,0,0,4,0,0
+"Brown Skeletal Horse",,,67,467,0,-1,17464,0,0,4,0,0
+"Green Skeletal Warhorse",,,68,468,0,-1,17465,0,0,4,0,0
+"Rivendare's Deathcharger",,,69,454,0,-1,17481,0,0,4,0,0
+"Riding Kodo",,,70,453,64,-1,18363,0,0,4,0,0
+"Gray Kodo",,,71,463,0,-1,18989,0,0,4,0,0
+"Brown Kodo",,,72,463,0,-1,18990,0,0,4,0,0
+"Green Kodo",,,73,464,64,-1,18991,0,0,4,0,0
+"Teal Kodo",,,74,464,64,-1,18992,0,0,4,0,0
+"Black War Steed",,,75,470,0,-1,22717,0,0,4,0,0
+"Black War Kodo",,,76,464,0,-1,22718,0,0,4,0,0
+"Black Battlestrider",,,77,466,0,-1,22719,0,0,4,0,0
+"Black War Ram",,,78,460,0,-1,22720,0,0,4,0,0
+"Black War Raptor",,,79,462,0,-1,22721,0,0,4,0,0
+"Red Skeletal Warhorse",,,80,468,0,-1,22722,0,0,4,0,0
+"Black War Tiger",,,81,458,0,-1,22723,0,0,4,0,0
+"Black War Wolf",,,82,456,0,-1,22724,0,0,4,0,0
+"Summon Dreadsteed",,,83,472,0,-1,23161,31504,0,4,0,0
+"Summon Charger",,,84,472,4,-1,23214,27943,0,4,0,0
+"Swift Mistsaber",,,85,458,0,-1,23219,0,0,4,0,0
+"Swift Frostsaber",,,87,458,0,-1,23221,0,0,4,0,0
+"Swift Yellow Mechanostrider",,,88,466,0,-1,23222,0,0,4,0,0
+"Swift White Mechanostrider",,,89,466,0,-1,23223,0,0,4,0,0
+"Swift Green Mechanostrider",,,90,466,0,-1,23225,0,0,4,0,0
+"Swift Palomino",,,91,470,0,-1,23227,0,0,4,0,0
+"Swift White Steed",,,92,470,0,-1,23228,0,0,4,0,0
+"Swift Brown Steed",,,93,470,0,-1,23229,0,0,4,0,0
+"Swift Brown Ram",,,94,460,0,-1,23238,0,0,4,0,0
+"Swift Gray Ram",,,95,460,0,-1,23239,0,0,4,0,0
+"Swift White Ram",,,96,460,0,-1,23240,0,0,4,0,0
+"Swift Blue Raptor",,,97,462,0,-1,23241,0,0,4,0,0
+"Swift Olive Raptor",,,98,462,0,-1,23242,0,0,4,0,0
+"Swift Orange Raptor",,,99,462,0,-1,23243,0,0,4,0,0
+"Purple Skeletal Warhorse",,,100,468,0,-1,23246,0,0,4,0,0
+"Great White Kodo",,,101,464,0,-1,23247,0,0,4,0,0
+"Great Gray Kodo",,,102,464,0,-1,23248,0,0,4,0,0
+"Great Brown Kodo",,,103,464,0,-1,23249,0,0,4,0,0
+"Swift Brown Wolf",,,104,456,0,-1,23250,0,0,4,0,0
+"Swift Timber Wolf",,,105,456,0,-1,23251,0,0,4,0,0
+"Swift Gray Wolf",,,106,456,0,-1,23252,0,0,4,0,0
+"Swift Stormsaber",,,107,458,0,-1,23338,0,0,4,0,0
+"Frostwolf Howler",,,108,454,4,-1,23509,0,0,4,0,0
+"Stormpike Battle Charger",,,109,454,4,-1,23510,0,0,4,0,0
+"Swift Razzashi Raptor",,,110,454,64,-1,24242,0,0,4,0,0
+"Swift Zulian Tiger",,,111,454,64,-1,24252,0,0,4,0,0
+"Summon Black Qiraji Battle Tank",,,116,454,64,-1,25863,0,0,44,0,0
+"Summon Blue Qiraji Battle Tank",,,117,241,0,-1,25953,0,0,44,0,0
+"Summon Red Qiraji Battle Tank",,,118,241,0,-1,26054,0,0,44,0,0
+"Summon Yellow Qiraji Battle Tank",,,119,241,0,-1,26055,0,0,44,0,0
+"Summon Green Qiraji Battle Tank",,,120,241,0,-1,26056,0,0,44,0,0
+"Summon Black Qiraji Battle Tank",,,121,454,64,-1,26655,0,0,44,0,0
+"Riding Turtle",,,125,453,2112,8,30174,0,0,4,0,0
+"Venomhide Ravasaur",,,311,462,4,-1,64659,0,0,4,0,0
+"Golden Sabercat",,,2864,453,0,-1,436329,0,0,4,0,0
+"Green Skeletal Horse",,,2918,468,0,-1,1277329,0,0,4,0,0
+"Dark Skeletal Horse",,,2919,468,0,-1,1277330,0,0,4,0,0
+"Purple Skeletal Horse",,,2920,468,0,-1,1277336,0,0,4,0,0
+"Summon Warhorse",,,2923,471,4,-1,1279399,151486,0,4,0,0
+"Swift Empyrean Galestrider",,,2952,473,0,-1,1286011,0,0,4,0,0
+"Swift Regal Galestrider",,,2953,473,0,-1,1286021,0,0,4,0,0
+"Swift Stormy Galestrider",,,2954,473,0,-1,1286022,0,0,4,0,0
+"Empyrean Galestrider",,,2955,474,0,-1,1286024,0,0,4,0,0
+"Regal Galestrider",,,2957,474,0,-1,1286025,0,0,4,0,0
+"Stormy Galestrider",,,2958,474,0,-1,1286026,0,0,4,0,0
+Translocation,,,2971,475,0,-1,1290805,0,0,4,0,0
+"Swift Hyjal Stag",,,2978,476,0,-1,1292482,0,0,4,0,0
+"Striped Dawnsaber",,,2995,457,0,-1,1294897,0,0,4,0,0
+"Ochre Skeletal Warhorse",,,2996,468,0,-1,1295387,0,0,4,0,0
+"Umber Galestrider",,,2997,474,0,-1,1295678,0,0,4,0,0
+"Swift Umber Galestrider",,,2998,473,0,-1,1295683,0,0,4,0,0
+"Summon Forsaken Charger",,,3001,472,4,-1,1296534,157535,0,4,0,0
+"White Kodo",,,3037,463,0,-1,1298450,0,0,4,0,0
+"Black Skeletal Horse",,,3038,467,0,-1,1298496,0,0,4,0,0
+"Pack Kodo",,,3067,454,0,-1,1301636,0,0,4,0,0
+"Spectral Bear",,,3085,454,0,-1,1302661,0,0,4,37708,0
+"Lavender Kodo",,,3089,463,0,-1,1303075,0,0,4,0,0
+"Caravan Kodo",,,3090,463,0,-1,1303215,0,0,4,0,0
+"Cerulean Prideclaw",,,3111,454,64,-1,1309208,0,0,4,0,0
+"[PH] Purple Prideclaw",,,3112,454,64,-1,1309246,0,0,4,0,0
+"[PH] Brown Prideclaw",,,3113,454,64,-1,1309248,0,0,4,0,0
+"[PH] White Blue Prideclaw",,,3114,454,64,-1,1309250,0,0,4,0,0
+"Black Warden Saber Mount",,,3115,454,64,-1,1309268,0,0,4,0,0
+"Brown Warden Saber Mount",,,3116,454,64,-1,1309270,0,0,4,0,0
+"Gray Warden Saber Mount",,,3117,454,64,-1,1309271,0,0,4,0,0
+"White Warden Saber Mount",,,3118,454,64,-1,1309272,0,0,4,0,0
+"Black Devilsaur Mount",,,3120,454,64,-1,1309346,0,0,4,0,0
+"Blue Devilsaur Mount",,,3121,454,64,-1,1309347,0,0,4,0,0
+"Green Devilsaur Mount",,,3122,454,64,-1,1309348,0,0,4,0,0
+"Purple Devilsaur Mount",,,3123,454,64,-1,1309349,0,0,4,0,0
+"White Devilsaur Mount",,,3124,454,64,-1,1309350,0,0,4,0,0
+"Black Druid Moose Mount",,,3126,454,64,-1,1309377,0,0,4,0,0
+"White Druid Moose Mount",,,3127,454,64,-1,1309379,0,0,4,0,0
+"Green Druid Moose Mount",,,3128,454,64,-1,1309380,0,0,4,0,0
+"Gray Druid Moose Mount",,,3129,454,64,-1,1309381,0,0,4,0,0
+"Veteran Adventurer's Loyal Companion",,,3130,485,64,-1,1309405,0,0,4,0,0
+"Spectral Wolf Pack",,,3169,454,1088,-1,1321233,0,0,4,0,0
+"Verdant Sea Turtle",,,3167,454,64,-1,1321200,0,0,4,0,0
+"Crimson Rooster",,,3168,454,64,-1,1321221,0,0,4,0,0

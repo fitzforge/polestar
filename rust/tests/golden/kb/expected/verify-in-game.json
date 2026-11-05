@@ -1,0 +1,119 @@
+{
+	"schema": 1,
+	"counts": {
+		"entities": 5,
+		"byRank": {
+			"2": 5
+		},
+		"byField": {
+			"side": 5
+		},
+		"position": {
+			"under40": 0,
+			"from40to100": 0,
+			"over100": 0
+		},
+		"positionComparisons": {
+			"under40": 0,
+			"from40to100": 0,
+			"over100": 0
+		}
+	},
+	"entities": [
+		{
+			"kind": "quest",
+			"id": 1524,
+			"name": "Call of Fire",
+			"conflicts": [
+				{
+					"field": "side",
+					"ours": "both",
+					"others": [
+						{
+							"source": "eg",
+							"value": "H"
+						}
+					]
+				}
+			],
+			"rank": 2,
+			"yards": 0
+		},
+		{
+			"kind": "quest",
+			"id": 1525,
+			"name": "Call of Fire",
+			"conflicts": [
+				{
+					"field": "side",
+					"ours": "both",
+					"others": [
+						{
+							"source": "eg",
+							"value": "H"
+						}
+					]
+				}
+			],
+			"rank": 2,
+			"yards": 0
+		},
+		{
+			"kind": "quest",
+			"id": 1526,
+			"name": "Call of Fire",
+			"conflicts": [
+				{
+					"field": "side",
+					"ours": "both",
+					"others": [
+						{
+							"source": "eg",
+							"value": "H"
+						}
+					]
+				}
+			],
+			"rank": 2,
+			"yards": 0
+		},
+		{
+			"kind": "quest",
+			"id": 1527,
+			"name": "Call of Fire",
+			"conflicts": [
+				{
+					"field": "side",
+					"ours": "both",
+					"others": [
+						{
+							"source": "eg",
+							"value": "H"
+						}
+					]
+				}
+			],
+			"rank": 2,
+			"yards": 0
+		},
+		{
+			"kind": "quest",
+			"id": 2983,
+			"name": "Call of Fire",
+			"conflicts": [
+				{
+					"field": "side",
+					"ours": "both",
+					"others": [
+						{
+							"source": "eg",
+							"value": "H"
+						}
+					]
+				}
+			],
+			"rank": 2,
+			"yards": 0
+		}
+	]
+}

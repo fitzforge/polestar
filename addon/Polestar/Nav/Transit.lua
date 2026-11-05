@@ -752,7 +752,7 @@ local function remoteChanged(route)
 		flushRemote()
 	else
 		remoteTimer = true
-		C_Timer.After(wait, flushRemote)
+		ns.After(wait, flushRemote)
 	end
 end
 
@@ -786,7 +786,7 @@ local function onAddonMessage(_, prefix, message, chatType, sender)
 		pendingReply[chatType] = { covered = {} }
 		local delay = REPLY_DELAY_MIN + math.random() * (REPLY_DELAY_MAX - REPLY_DELAY_MIN)
 		if C_Timer and C_Timer.After then
-			C_Timer.After(delay, function() reply(chatType) end)
+			ns.After(delay, function() reply(chatType) end)
 		else
 			reply(chatType)
 		end
@@ -878,7 +878,7 @@ ns.OnLogin(function()
 	lastTeleports = teleportState()
 	if C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then pcall(C_ChatInfo.RegisterAddonMessagePrefix, PREFIX) end
 	if C_Timer and C_Timer.NewTicker and not ticker then
-		ticker = C_Timer.NewTicker(SAMPLE_EVERY, function()
+		ticker = ns.NewTicker(SAMPLE_EVERY, function()
 			sample()
 			tick = tick + 1
 			if tick % 5 == 0 then teleportsChanged() end
@@ -886,7 +886,7 @@ ns.OnLogin(function()
 	end
 	-- Ask the guild for its sightings once the chat channels are up.
 	if C_Timer and C_Timer.After then
-		C_Timer.After(15, function()
+		ns.After(15, function()
 			if sharing() and IsInGuild and IsInGuild() then send("Q", {}, "GUILD") end
 		end)
 	end

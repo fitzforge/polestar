@@ -7,8 +7,11 @@
 
 const { bandWeight, skinningReq } = require('./tables');
 const { dist } = require('../../route/geo');
+const { allPoints } = require('./route');
 
 const BEASTS = {
+	// Zephras Isle (Forever): the beasts the Forever TrinityCore DB gives skinning loot (SkinLootID).
+	2521: ['Juvenile Vuldren', 'Vuldren', 'Vuldren Alpha', 'Prideclaw', 'Galestrider', 'Ornery Galestrider', 'Scrawny Ursera', 'Ursera Scavenger', 'Highlands Ursera', 'Hippogryph Youth', 'Hippogryph Protector', 'Shriekling Fledgling', 'Shadowgale Shriekling', 'Windsong Crawler', 'Cloudrunner'],
 	1429: ['Young Wolf', 'Timber Wolf', 'Mangy Wolf', 'Stonetusk Boar', 'Rockhide Boar', 'Gray Forest Wolf', 'Young Forest Bear', 'Prowler'],
 	1426: ['Ragged Young Wolf', 'Ragged Timber Wolf', 'Small Crag Boar', 'Crag Boar', 'Large Crag Boar', 'Elder Crag Boar', 'Scarred Crag Boar', 'Young Black Bear', 'Ice Claw Bear', 'Winter Wolf', 'Snow Tracker Wolf', 'Juvenile Snow Leopard', 'Snow Leopard'],
 	1438: ['Young Thistle Boar', 'Thistle Boar', 'Young Nightsaber', 'Mangy Nightsaber', 'Nightsaber', 'Nightsaber Stalker', 'Elder Nightsaber'],
@@ -75,7 +78,7 @@ function SKINNING_POINTS(ctx, map, from, to) {
 			const req = skinningReq(n.level);
 			const w = bandWeight(req, from, to);
 			if (w <= 0) continue;
-			for (const [x, y] of s.pts) {
+			for (const [x, y] of allPoints(s)) {
 				const pt = ctx.project.point(map, x, y, s.f);
 				if (out.some((p) => p.name === name && dist(p.pt, pt) < 5)) continue;
 				out.push({ name, req, level: n.level, w, pt });

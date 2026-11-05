@@ -6,7 +6,7 @@ folder Rogue
 faction Horde
 levels 20-26
 zone Orgrimmar
-keywords Poisons, The Shattered Salute, Deep Cover, Shenthul, Taskmaster Fizzule, Flare Gun, Fizzule's Whistle, Mission: Possible But Not Probable, Gallywix, Foreman Silixiz, Venture Co. tower, Hinott's Assistance, Serge Hinott, Hinott's Oil, Tarren Mill, Thistle Tea, Rogue, class spell
+keywords Poisons, The Shattered Salute, Deep Cover, Shenthul, Taskmaster Fizzule, Flare Gun, Fizzule's Whistle, Mission: Possible But Not Probable, Gallywix, Foreman Silixiz, Venture Co. tower, Hinott's Assistance, Serge Hinott, Hinott's Oil, Tarren Mill, Thistle Tea, Lockpicking, Buccaneer's Strongbox, Rogue, class spell
 reward spell 2842 "Poisons"
 reward item 18160
 reward item 8066
@@ -18,56 +18,76 @@ why Forever teaches Poisons through this chain, not the trainer; the Thistle Tea
 # Venture Co. tower in the northern Barrens; Mission: Possible But Not
 # Probable (2478) there; then Hinott's Assistance (2479, 2480) to Serge
 # Hinott in Tarren Mill.
-# Forever change (Wowhead Forever's Rogue class page,
-# data/local/quest-audit/wowhead-class-quests.json): Hinott's Assistance
+# Forever change (Forever's Rogue class quest list,
+# data/local/quest-audit/): Hinott's Assistance
 # (2480) now teaches Poisons (Forever moved it from the trainer onto this
-# quest). Rewards from the same page: Fizzule's Whistle (Deep Cover), Recipe:
+# quest). Rewards from the same list: Fizzule's Whistle (Deep Cover), Recipe:
 # Thistle Tea (Mission: Possible), Hinott's Oil (2480).
 # Mission: Possible needs Grand Foreman Puzik Gallywix's head, and Gallywix
-# is an elite (npcs.json): bring a friend. Wowhead files it as a group
-# quest. No Gallywix, no Poisons: 2479 needs 2478 turned in.
+# is an elite (npcs.json: level 23): bring a friend or come at about 24.
+# Forever's quest data files it as a group quest. No Gallywix, no Poisons:
+# 2479 needs 2478 turned in.
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
-# drops and places; travel.json for the flight points.
+# drops and places; travel.json for the flight points. Forever's server data
+# (gameobject_template): Gallywix's Lockbox has the Duskwood Chest's lock
+# (about 70-75 Lockpicking by players' notes); the Buccaneer's Strongboxes on
+# the Tide Razor the lowest. data/local/mechanics (quest-steps and
+# quest-notes, checked 2026-10-20): the salute after Shenthul's third line,
+# Fizzule under the tree east of the tower, two flares then /salute, the
+# whistle, Silixiz's key by Pick Pocket only, the floors and their mobs,
+# Gallywix's 10 minute respawn, the one-minute cure, abandon-and-retake.
+# The one-combo-point Rupture and Eviscerate tricks on the tower's floors and
+# Ambush on the drones: a Forever leveling guide (2026).
 # horde/04-the-barrens and horde/06-hillsbrad-foothills carry this chain on
 # the route (2478 onwards optional there); this guide is for anyone off it or
 # coming back with a group for Gallywix.
 
+step Lockpicking practice
+  zone The Barrens
+  tip Gallywix's Lockbox at the end of the tower job needs Lockpicking of about 70-75. Train Pick Lock from Gest or Shenthul in the Cleft of Shadow if you lack it, carry Thieves' Tools, and pick the Buccaneer's Strongboxes on the middle deck of the Tide Razor, the beached pirate ship south of Ratchet: they come back fast. Your cap rises 5 per level.
+  level 20
+  goto 64.4,45.4 "Tide Razor"
+  task "Lockpicking about 75: pick the Buccaneer's Strongboxes on the Tide Razor" optional
+
 step The Shattered Salute
   zone Orgrimmar
-  tip At 20 Shenthul stands in the Cleft of Shadow, the canyon under the Valley of Strength. Target him and type /salute.
-  level 20
+  tip Shenthul stands in the Cleft of Shadow, the canyon under the Valley of Strength. Take the quest and wait: he speaks three lines and salutes you. After his third line, target him and type /salute. If it does not count, abandon the quest and take it again. The tower job ahead is built around Ambush, which needs a dagger: if you have none, Kareth, the blade merchant in the Cleft of Shadow, sells a Jambiya.
   accept 2460                                 -- Shenthul
-  complete 2460                               -- /salute Shenthul
+  complete 2460 @43.05,53.74                  -- /salute Shenthul
   turnin 2460
   accept 2458                                 -- Deep Cover: keep the Flare Gun
 
 step Taskmaster Fizzule
   zone The Barrens
-  tip Fly to the Crossroads and head north to the Venture Co. tower north of the Sludge Fen. In sight of the tower, fire the Flare Gun twice, then /salute Taskmaster Fizzule before he attacks you.
-  use 8051 @55.4,5.6                          -- Flare Gun, twice, in sight of the tower
+  tip Fly to the Crossroads and head north to the Venture Co. tower above the Sludge Fen. Fizzule stands under a tree east of the tower, outside it, and is hostile until signalled. Target him from about 50 yards and fire the Flare Gun twice, then walk up in front of him and /salute. In any other order he attacks. Lost the Flare Gun? Abandon and retake from Shenthul.
+  use 8051 @55.4,5.6                          -- Flare Gun, twice, at Fizzule
   turnin 2458 reward 8066                     -- Taskmaster Fizzule: Fizzule's Whistle
   accept 2478
 
-step Mission: Possible But Not Probable
-  tip Stay stealthed. Foreman Silixiz carries the tower key; Gallywix (elite) and his lockbox are at the top of the tower. Kill two each of the drones, patrollers and lookouts around it.
-  collect 8072 quest 2478.5                   -- Silixiz's Tower Key: Foreman Silixiz
-  kill 7310 quest 2478.1                      -- Mutated Venture Co. Drone
-  kill 7308 quest 2478.3                      -- Venture Co. Patroller
-  kill 7307 quest 2478.2                      -- Venture Co. Lookout
+step Silixiz's Tower Key
+  tip Keep Fizzule's Whistle in your bags and use it on him every time you come near, or he turns hostile. Foreman Silixiz (level 22) walks by the tower: hug the wall, stealth up behind him and Pick Pocket the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back.
+  collect 8072 quest 2478.5                   -- Silixiz's Tower Key: Pick Pocket Foreman Silixiz
+
+step The Venture Co. tower
+  tip Inside, floor by floor (everything comes back after 4 1/2 minutes): the Mutated Venture Co. Drones (level 25) on the ground floor die to one Ambush with a dagger; the Patrollers on the second floor take half their health from a one-point Rupture; the Lookouts on the open third floor from a one-point Eviscerate. Grand Foreman Puzik Gallywix waits on the top floor: a level 23 elite, back 10 minutes after a kill. Open with Ambush (about half his health), then Gouge, Evasion, a healing potion and Thistle Tea; a friend makes it easy. One head per kill. Then pick Gallywix's Lockbox beside him for the cache: it poisons you with the Touch of Zanzil, which weakens your stealth and agility until Serge Hinott cures it.
+  kill 7310 x2 quest 2478.1                   -- Mutated Venture Co. Drone
+  kill 7308 x2 quest 2478.3                   -- Venture Co. Patroller
+  kill 7307 x2 quest 2478.2                   -- Venture Co. Lookout
   collect 8074 quest 2478.4                   -- Gallywix's Head: Grand Foreman Puzik Gallywix (elite)
   collect 8073 quest 2478.6                   -- Cache of Zanzil's Altered Mixture: Gallywix's Lockbox
 
 step Back to Shenthul
   zone Orgrimmar
-  tip Fly back to Orgrimmar.
+  tip Fly back to Orgrimmar (Ratchet or the Crossroads; dying at the tower and taking the spirit healer's way back to the Crossroads is quicker). Keep Silixiz's Tower Key afterwards. Before you leave the Cleft, buy Dust of Decay and Empty Vials from Rekkul: once Hinott teaches Poisons, each batch of Instant Poison takes one of each.
   turnin 2478 reward 18160                    -- Shenthul: Recipe: Thistle Tea
   accept 2479
 
 step Serge Hinott
   zone Hillsbrad Foothills
-  tip Take the zeppelin from Orgrimmar to the Undercity and head south through Silverpine Forest to Tarren Mill in Hillsbrad. Serge Hinott stands in Tarren Mill; wait beside him while he brews the cure.
+  tip Take the zeppelin from Orgrimmar to the Undercity and follow the road south through Silverpine Forest into Hillsbrad, to Tarren Mill. Serge Hinott works in the building next to the flight path, beside Apothecary Lydon, a wagon outside. If you lost the Sample of Zanzil's Mixture, abandon and retake from Shenthul. Stay beside him for about a minute while he brews the cure; if it never finishes, abandon and retake from him. Then open Poisons from your spellbook to make Instant Poison from Rekkul's dust and vials, and use it on your weapon.
   getfp "Tarren Mill" optional
   turnin 2479                                 -- Serge Hinott
   accept 2480
   complete 2480                               -- Wait for the cure
   turnin 2480 reward 8095                     -- Serge Hinott: Poisons
+  use 8095 optional @61.63,19.19              -- Hinott's Oil: clears the Touch of Zanzil

@@ -1,0 +1,66 @@
+guide forever/class/warlock/imp-horde
+title Imp (Horde)
+category Class
+class Warlock
+folder Warlock
+faction Horde
+levels 1-4
+zone Durotar
+keywords Summon Imp, Vile Familiars, Piercing the Veil, Ruzan, Zureetha Fargaze, Venya Marthand, Vile Familiar Head, Rattlecage Skull, Burning Blade Coven, Deathknell, Tainted Parchment, Tainted Tablet, Tainted Scroll, Primitive Hand Blade, Primitive Walking Stick, Warlock, class pet
+reward spell 688 "Summon Imp"
+reward item 4925 5778
+why Your first demon at level 1-4: the imp, with a starter blade or staff for Orcs and Trolls.
+
+# The imp for Horde warlocks, one chain per start zone; Vile Familiars (1485)
+# and Piercing the Veil (1470) exclude each other (quests.json `excl`), and
+# each race gets its own start zone's version:
+# - Orcs and Trolls (Valley of Trials, Durotar): Vile Familiars (1485) from
+#   Ruzan, six Vile Familiar Heads; Ruzan teaches Summon Imp at the hand-in,
+#   then Vile Familiars (1499) to Zureetha Fargaze pays the Primitive Hand
+#   Blade or the Primitive Walking Stick (quests.json 1499 choices).
+# - Undead (Deathknell, Tirisfal Glades): Piercing the Veil (1470) from Venya
+#   Marthand, three Rattlecage Skulls; she teaches Summon Imp at the hand-in.
+# The level-1 letters (Tainted Parchment 3090 for Orcs, Tainted Tablet 98575
+# for Trolls, Tainted Scroll 3099 for the Undead) only send you to your
+# trainer; the start-zone routes take them, so they are named in the tips here,
+# not routed.
+# Sources: Forever's quest data (quests.json, npcs.json, items.json) for the
+# givers, the drops (both 80%) and the rewards; the quest notes
+# (data/local/mechanics) for the spawns and respawn times. The start-zone
+# routes (forever/horde/orc-troll/01-durotar, forever/horde/undead/01-tirisfal
+# -glades) route the same quests: accepts and turn-ins you already did there
+# tick off here.
+
+step Ruzan (Orcs and Trolls)
+  only Orc,Troll
+  zone Durotar
+  tip Your first letter (Tainted Parchment for Orcs, Tainted Tablet for Trolls, from Gornek after Cutting Teeth) points you to Nartok, the warlock trainer in the Den. Ruzan stands just outside the Den in the Valley of Trials and asks for six Vile Familiar Heads.
+  accept 1485                         -- Ruzan
+
+step Vile Familiars
+  only Orc,Troll
+  tip The Vile Familiars (level 3-4) swarm the Burning Blade Coven, the cave north of the Den, inside and around its mouth. Almost every kill drops a head (80%), so about eight kills does it; they throw small fireballs, so pull them one at a time. They respawn in just over three minutes. Other classes hunt the same imps for their own Vile Familiars quest.
+  collect 6487 x6 quest 1485.1        -- Vile Familiar Heads
+
+step Summon Imp
+  only Orc,Troll
+  tip Ruzan teaches you Summon Imp when you hand in the heads: summon it right away, it costs nothing and fights beside you. Then speak with Zureetha Fargaze a few steps away for a starter weapon.
+  turnin 1485                         -- Ruzan: Summon Imp
+  accept 1499
+  turnin 1499 choose 4925 5778        -- Zureetha Fargaze
+
+step Venya Marthand (Undead)
+  only Undead
+  zone Tirisfal Glades
+  tip Your first letter (Tainted Scroll, from Shadow Priest Sarvis after The Mindless Ones) points you to Maximillion, the warlock trainer in Deathknell. Venya Marthand waits inside the building beside him and asks for three Rattlecage Skulls.
+  accept 1470                         -- Venya Marthand
+
+step Rattlecage Skulls
+  only Undead
+  tip The Rattlecage Skeletons (level 2-3) stand around the old smithy buildings just north of Deathknell, often right against the walls. Four kills in five drop a skull, so plan on about five; twenty of them spawn there and each comes back after five minutes.
+  collect 6281 x3 quest 1470.1        -- Rattlecage Skulls
+
+step Summon Imp
+  only Undead
+  tip Venya teaches you Summon Imp when you hand in the skulls: summon it right away, it costs nothing and fights beside you.
+  turnin 1470                         -- Venya Marthand: Summon Imp

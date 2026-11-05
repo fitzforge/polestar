@@ -1,0 +1,303 @@
+guide forever/reputation/brood-of-nozdormu
+title Brood of Nozdormu Reputation
+category Reputation
+folder Reputation · Raids and dungeons
+levels 60-60
+zone Silithus
+keywords Brood of Nozdormu, Bronze Dragonflight, Anachronos, Caverns of Time, Baristolth, Scepter of the Shifting Sands, Silithid Carapace Fragment, Hand of the Righteous, Signet Ring of the Bronze Dragonflight, Path of the Protector, Path of the Conqueror, Path of the Invoker, Ahn'Qiraj, Ancient Qiraji Artifact, Qiraji Lord's Insignia, Mortal Champions, Secrets of the Qiraji, Andorgos, Kandrostrasz, Narain Soothfancy, Scarab Gong
+why The Bronze Dragonflight's ring, upgraded at every standing; a long climb from Hated, mostly in raids.
+reward item 21200 21205 21210
+reward text The Scepter of the Shifting Sands quest chain
+
+# Built from Forever's data: the Brood of Nozdormu quest rows (reputation from Forever's quest pages; the world
+# database's standing gates: The Hand of the Righteous only below Neutral, Anachronos and the whole Scepter
+# chain from Neutral, the ring quests from Neutral to Revered), the kill reputation and the standing each kill
+# stops at (world database), the drop tables (Silithid Carapace Fragments: one to three from every hive
+# silithid of Hive'Ashi, Hive'Zora and Hive'Regal), and the client's faction table (the Brood starts at Hated 0 of 36,000: Neutral is 42,000
+# away). Secrets of the Qiraji (+1,000) and Mortal Champions (+500 Brood, +100 Cenarion Circle) pay through
+# spells (Forever's client spell data), so Forever's quest pages show no reputation for them.
+# Forever's quest pages give several Scepter chain quests 200 where Classic paid 500 (Return to Narain, The
+# Wrath of Neptulon, The Nightmare Manifests, The Might of Kalimdor, Bang a Gong!, Treasure of the Timeless One)
+# and 100 where Classic paid 250 (A Pawn on the Eternal Board, The Champion Returns, the ring quests). This
+# guide uses Forever's numbers. No race gets a reputation bonus in Forever; the Legacy perk Diplomat adds up
+# to 10%. Numbers below are without it.
+# Raids: Blackwing Lair and the Temple of Ahn'Qiraj are 40-player raids, the Ruins of Ahn'Qiraj a 20-player one.
+# Instance entrances are placed from the client's map table (the corpse point outside each).
+# INGAME: Are Blackwing Lair and the Temple of Ahn'Qiraj open? Blizzard's raid announcement for Forever names
+# Barrow Deeps, Hyjal Summit and Onyxia's Lair; Blackwing Lair, the Temple and the Ruins are in the client but
+# not announced. Without Blackwing Lair the Broodlord's head, and with it every Brood quest after the first (the
+# fragment turn-ins too), is out of reach.
+# INGAME: Can the Scarab Gong be rung on a Forever realm? In Classic the first scepter opens the gates for the
+# whole realm once, after the war effort.
+# INGAME: Do the Twin Emperors stop paying at 2,999 of 3,000 Neutral like the Temple trash? Forever's world
+# database says so; Classic players reported them paying past it.
+
+step Baristolth in Cenarion Hold
+  tip The Brood of Nozdormu is not in your reputation list until you meet Anachronos. Baristolth of the Shifting Sands, in the main building of Cenarion Hold, sends you to him. Meeting him sets you at Hated, 0 of 36,000: Neutral is 42,000 reputation away, and almost all of it comes from raids. Blackwing Lair and the Temple of Ahn'Qiraj are not among the first raids Blizzard has announced for Forever: until one of them opens, the 100 from Baristolth's first quest is all the Brood reputation there is. The Legacy perk Diplomat adds up to 10% to every gain; the numbers in this guide are without it.
+  getfp "Cenarion Hold"
+  accept 8286                         -- Baristolth of the Shifting Sands
+
+step Anachronos at the Caverns of Time
+  zone Tanaris
+  tip Anachronos, a bronze dragon in elf form, stands at the mouth of the Caverns of Time in eastern Tanaris, south-east of Gadgetzan. Walk up to him.
+  complete 8286 @65.3,50.0            -- Meet Anachronos
+
+step Back to Baristolth
+  zone Silithus
+  tip Only One May Rise wants the head of Broodlord Lashlayer, the third boss of Blackwing Lair (a 40-player raid in Blackrock Mountain). Everything after it needs the head, the fragment turn-ins included: until you have it, What Tomorrow Brings is all the Brood reputation there is, solo or not.
+  turnin 8286                         -- 100
+  accept 8288 optional
+
+step Broodlord Lashlayer
+  zone Burning Steppes
+  tip Blackwing Lair is a 40-player raid at the top of Blackrock Mountain. Broodlord Lashlayer always drops his head.
+  collect 20383 quest 8288.1 optional @32.5,32.4 -- Head of the Broodlord Lashlayer: raid of 40
+
+step The Path of the Righteous
+  zone Silithus
+  tip The Path of the Righteous wants 200 Silithid Carapace Fragments. Every hive silithid drops one to three on most kills: the Hive'Ashi Workers, Stingers, Swarmers and Defenders north and north-west of Cenarion Hold, and those of Hive'Zora in the west and Hive'Regal in the south. Almost all of them are elites of level 57 to 60: one at a time solo, faster in a group.
+  turnin 8288 optional                -- 200
+  accept 8301 optional
+  collect 20384 x200 quest 8301.1 optional -- Silithid Carapace Fragment
+  turnin 8301 optional                -- 200
+
+step Hated to Neutral
+  tip After The Path, Baristolth takes 200 more fragments for The Hand of the Righteous: 200 reputation, again and again, but only until Neutral. From Hated 500 that is 208 turn-ins, 41,600 fragments, 20,000 to 30,000 elite kills: the only way without the Temple, and a very long one. With the Temple of Ahn'Qiraj open (a 40-player raid) it is far quicker: every Temple trash mob gives 100 until 2,999 of 3,000 Neutral, about 9,500 a full clear, so four to five clears reach Neutral. Save every Ancient Qiraji Artifact and Qiraji Lord's Insignia you loot until the trash stops counting: they pay the same later.
+  collect 20384 x200 optional         -- Silithid Carapace Fragment
+  turnin 8302 direct optional         -- The Hand of the Righteous: 200 fragments, 200
+  rep 910 Neutral
+
+step Anachronos's quests
+  tip Neutral opens the rest of the Scepter of the Shifting Sands chain. Baristolth sends you back to Anachronos.
+  accept 8303                         -- Baristolth of the Shifting Sands
+
+step Long Forgotten Memories
+  zone Tanaris
+  turnin 8303                         -- Anachronos: 200
+  accept 8305
+
+step The Crystalline Tear
+  zone Silithus
+  tip The Crystalline Tear is a small red crystal on the ground just outside the gates of Ahn'Qiraj, in the far south-west of Silithus. Click it, then stay and watch the vision of the War of the Shifting Sands to its end. If it is cut short, abandon the quest and click the Tear again.
+  turnin 8305                         -- Crystalline Tear: 50
+  accept 8519
+  complete 8519 @28.7,89.1            -- Watch the vision
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  tip Anachronos now offers the Signet Ring of the Bronze Dragonflight in three kinds: the Path of the Protector (tanks), of the Conqueror (melee fighters) or of the Invoker (casters). Take one: the other two close. Each standing from Friendly to Exalted brings an upgrade of the same ring, 100 reputation each. The Charge of the Dragonflights sends you after the three shards of the Scepter of the Shifting Sands.
+  turnin 8519                         -- 100
+  accept 8555
+  turnin 8555                         -- 10
+  talk 15192 optional                 -- Pick one: The Path of the Protector, the Conqueror or the Invoker, 100
+
+step The red shard: Vaelastrasz
+  zone Burning Steppes
+  tip The red shard: Vaelastrasz the Corrupt, the second boss of Blackwing Lair, gives Nefarius's Corruption before his fight; Nefarian, the last boss, drops the Red Scepter Shard for one raider on the quest each kill. The quest lasts five hours.
+  accept 8730 optional @32.5,32.4     -- Vaelastrasz the Corrupt, Blackwing Lair: raid of 40
+  collect 21138 quest 8730.1 optional @32.5,32.4 -- Red Scepter Shard, Nefarian
+
+step The blue shard: Azuregos's ledger
+  zone Azshara
+  tip The Spirit of Azuregos stands on the south coast of Azshara. His ledger starts Narain Soothfancy's long chain in Tanaris.
+  accept 8575 optional                -- Spirit of Azuregos
+
+step Narain Soothfancy
+  zone Tanaris
+  tip Narain Soothfancy, a goblin seer, lives in a hut north-east of Gadgetzan. He sends you three ways at once: to Stewvul's crate in Silverpine Forest, to an island off the south coast of Tanaris, and to Dirge Quikcleave in Gadgetzan.
+  turnin 8575 optional                -- 10
+  accept 8576 optional
+  turnin 8576 optional                -- 10
+  accept 8577 optional
+  accept 8597 optional
+  accept 8584 optional
+
+step Stewvul's crate
+  zone Silverpine Forest
+  tip The Inconspicuous Crate leans on the Greymane Wall at the south end of Silverpine Forest, left of the closed gate.
+  turnin 8577 optional                -- Inconspicuous Crate: 10
+  accept 8578 optional
+  collect 20951 quest 8578.1 optional @46.2,86.7 -- Narain's Scrying Goggles
+
+step Meridith the Mermaiden
+  zone Tanaris
+  tip The Freshly Dug Dirt lies on the farther of two islands south of Land's End Beach, past the fatigue line. Meridith the Mermaiden, on the sea floor south of the beach's crashed gyrocopter, gives Love Song for Narain and a three-minute swim-speed blessing that gets you across.
+  accept 8599 optional                -- Meridith the Mermaiden
+
+step The island off Land's End Beach
+  zone map 947
+  turnin 8597 optional                -- Freshly Dug Dirt: 10
+  accept 8598 optional
+
+step Back to Narain
+  zone Tanaris
+  tip Decoy! sends you, disguised with Narain's turban, to a drop-off point south of Everlook in Winterspring. Leave the bag of gold there: Number Two, a level 61 elite, comes for it (group of 3 to 5).
+  turnin 8578 optional                -- 10
+  turnin 8598 optional                -- 10
+  turnin 8599 optional                -- 10
+  accept 8606 optional
+
+step Decoy!
+  zone Winterspring
+  kill 15554 quest 8606.1 optional    -- Number Two, elite: group of 3 to 5
+
+step Dirge Quikcleave
+  zone Tanaris
+  tip Dirge Quikcleave cooks in Gadgetzan. He sends you to the Isle of Dread off southern Feralas for a Chimaerok feast.
+  turnin 8606 optional                -- Narain Soothfancy: 25
+  accept 8620 optional
+  turnin 8584 optional                -- Dirge Quikcleave
+  accept 8585 optional
+
+step The Isle of Dread
+  zone Feralas
+  tip Lord Lakmaeran and the Chimaerok on the Isle of Dread are elites of level 60 to 62 that respawn every ten minutes: a raid's work. The Chimaerok drop a tenderloin about half the time, Lakmaeran two to four now and then.
+  collect 21027 quest 8585.1 optional @29.3,72.6 -- Lakmaeran's Carcass, Lord Lakmaeran: raid
+  collect 21024 x20 quest 8585.2 optional @29.5,78.0 -- Chimaerok Tenderloin
+
+step Draconic for Dummies, Volume II
+  zone Dustwallow Marsh
+  tip The Only Prescription needs the eight chapters of Draconic for Dummies, Volume II: from Doctor Weavil in his house on Alcaz Island (a level 63 elite with guards, raid), the Felguard Elites, Doomguard Commanders and Dreadlords of the Blasted Lands, the Hederine south of Everlook, and a book in the Undercity. Narain hands out the binding when you accept.
+  collect 21111 quest 8620.1 optional @77.9,17.1 -- Draconic for Dummies: Volume II
+
+step Dirge's Chops
+  zone Tanaris
+  tip Dirge wants 20 Goblin Rocket Fuel and 20 Deeprock Salt with the meat. Narain then wants 20 Arcanite Bars, 10 Elementium Ore, 10 Azerothian Diamonds and 10 Blue Sapphires, and gives you an Arcanite Buoy: placed at the Swirling Maelstrom in Azshara's Bay of Storms, it calls up Maws, a level 63 boss for a raid. Maws drops the Blue Scepter Shard for one raider on the quest each kill.
+  turnin 8585 optional                -- Dirge Quikcleave
+  accept 8586 optional
+  collect 9061 x20 quest 8586.1 optional -- Goblin Rocket Fuel
+  collect 8150 x20 quest 8586.2 optional -- Deeprock Salt
+  turnin 8586 optional
+  accept 8587 optional
+  turnin 8587 optional                -- Narain Soothfancy: 200
+  turnin 8620 optional                -- 75
+  accept 8728 optional
+  collect 12360 x20 quest 8728.1 optional @52.0,29.7 -- Arcanite Bar: Alchemists, or the auction house
+  collect 18562 x10 quest 8728.2 optional @52.0,29.7 -- Elementium Ore: Blackwing Lair, or the auction house
+  collect 12800 x10 quest 8728.3 optional -- Azerothian Diamond
+  collect 12361 x10 quest 8728.4 optional -- Blue Sapphire
+  turnin 8728 optional                -- 100
+  accept 8729 optional
+
+step Maws
+  zone Azshara
+  collect 21137 quest 8729.1 optional @68.0,52.5 -- Blue Scepter Shard, Maws: raid
+
+step The green shard: Eranikus
+  zone Swamp of Sorrows
+  tip Malfurion Stormrage appears beside the Shade of Eranikus at the bottom of the Temple of Atal'Hakkar (a five-player dungeon). He sends you to a Forest Wisp outside Darnassus (Horde players walk past the city's guards), then to Keeper Remulos in Moonglade.
+  accept 8733 optional @69.9,53.6     -- Malfurion Stormrage, inside the Temple of Atal'Hakkar
+
+step The Forest Wisp
+  zone Teldrassil
+  turnin 8733 optional                -- Forest Wisp: 25 (and 25 Cenarion Circle)
+  accept 8734 optional
+
+step Keeper Remulos
+  zone Moonglade
+  tip The Nightmare's Corruption wants a fragment from each of the four Dragons of Nightmare portals: elite dragonkin at the Ashenvale, Feralas and Hinterlands portals (5% each) and the Twilight Corrupter in Duskwood. Raid content.
+  turnin 8734 optional                -- 10 (and 100 Cenarion Circle)
+  accept 8735 optional
+
+step The Ashenvale portal
+  zone Ashenvale
+  tip The four dream portals sit in groves guarded by elite dragonkin of level 60 to 62 that respawn every 30 minutes; each drops the portal's fragment one time in twenty. Raid content.
+  collect 21147 quest 8735.1 optional -- Fragment of the Nightmare's Corruption
+
+step The Duskwood portal
+  zone Duskwood
+  tip The Twilight Corrupter (level 63 boss) always drops its fragment.
+  collect 21149 quest 8735.2 optional -- Twilight Corrupter
+
+step The Feralas portal
+  zone Feralas
+  collect 21148 quest 8735.3 optional -- Fragment of the Nightmare's Corruption
+
+step The Hinterlands portal
+  zone The Hinterlands
+  collect 21146 quest 8735.4 optional -- Fragment of the Nightmare's Corruption
+
+step The Nightmare Manifests
+  zone Moonglade
+  tip A raid event: follow Keeper Remulos toward Nighthaven and keep him alive against Eranikus and his nightmare adds until Tyrande arrives and redeems Eranikus. Do not kill Eranikus.
+  turnin 8735 optional                -- 100 (and 100 Cenarion Circle)
+  accept 8736 optional
+  complete 8736 optional @36.2,41.8   -- The Redemption of Eranikus: raid
+  turnin 8736 optional                -- 200 (and 200 Cenarion Circle)
+  accept 8741 optional
+
+step The Scepter of the Shifting Sands
+  zone Tanaris
+  tip With the three shards, Anachronos makes the Scepter of the Shifting Sands. In Classic its first holder rings the Scarab Gong once for the whole realm, opening the gates of Ahn'Qiraj, and those who finish within ten hours earn the black qiraji crystal mount; whether Forever's realms get that event is not known.
+  turnin 8730 optional                -- Red Scepter Shard: 200
+  turnin 8729 optional                -- Blue Scepter Shard: 200
+  turnin 8741 optional                -- Green Scepter Shard: 100
+  accept 8742 optional
+  turnin 8742 optional                -- 200 (and 200 Cenarion Circle)
+
+step The Scarab Gong
+  zone Silithus
+  tip The Scarab Gong hangs before the gates of Ahn'Qiraj. Jonathan the Revelator appears beside it once the gong has been rung, with Treasure of the Timeless One: a weapon and 200 reputation.
+  accept 8743 optional                -- The Scarab Gong
+  turnin 8743 optional                -- 200 (and 200 Cenarion Circle)
+  accept 8745 optional                -- Jonathan the Revelator
+  turnin 8745 optional                -- 200
+
+step Neutral to Friendly in the Temple
+  zone Silithus
+  tip Neutral to Friendly is 3,000 reputation. Every trash mob of the Temple of Ahn'Qiraj (a 40-player raid behind the Scarab Wall) gives 100, and the Twin Emperors 210 each, until 2,999 of 3,000 Neutral, one point short of Friendly; there they stop. Then hand in one saved Ancient Qiraji Artifact (1,000, to Andorgos) or Qiraji Lord's Insignia (500, to Kandrostrasz) to tip you over. The shoulder and boot exchanges of the Temple's tier set need no standing: the token, two idols and ten scarabs to Andorgos (shoulders) or Kandrostrasz (boots) pay 200 each. The Ruins of Ahn'Qiraj (20 players) give a little from bosses: Kurinnaxx, Moam, Buru and Ayamiss 50 each, Rajaxx 34, Ossirian 100, to Exalted.
+  accept 8784 optional item 21230 @29.0,92.8 -- Ancient Qiraji Artifact
+  turnin 8784 optional @29.0,92.8     -- Andorgos: 1,000
+  accept 8579 optional @29.0,92.8     -- Kandrostrasz
+  collect 21229 quest 8579.1 optional @29.0,92.8 -- Qiraji Lord's Insignia, Temple bosses
+  turnin 8579 optional @29.0,92.8     -- 500
+  rep 910 Friendly
+
+step The ring at Friendly
+  zone Tanaris
+  tip At Friendly, Anachronos upgrades the ring of the path you chose: The Path of the Protector, Conqueror or Invoker. Bring the ring you wear; 100 reputation.
+  talk 15192 optional                 -- Anachronos: the Friendly ring quest of your path
+
+step Friendly to Honored: the turn-ins
+  zone Silithus
+  tip Now hand in what you saved. Each Ancient Qiraji Artifact (any Temple trash, 1% to 9%) starts Secrets of the Qiraji: 1,000 reputation from Andorgos, one of the three bronze dragons inside the Temple. Each Qiraji Lord's Insignia (nearly every Temple boss) goes to Kandrostrasz for Mortal Champions: 500 here and 100 Cenarion Circle. C'Thun gives 2,500, to Exalted. Friendly to Honored is 6,000: six artifacts or twelve insignias. Friendly also opens the helm and leg exchanges of the Temple's tier set (200 reputation each) at Andorgos and Kandrostrasz.
+  collect 21230 optional @29.0,92.8   -- Ancient Qiraji Artifact: right-click it, then Andorgos
+  collect 21229 optional @29.0,92.8   -- Qiraji Lord's Insignia
+  turnin 8595 direct optional @29.0,92.8 -- Mortal Champions: 1 insignia, 500
+  rep 910 Honored
+
+step The ring at Honored
+  zone Tanaris
+  tip At Honored, Anachronos upgrades the ring of the path you chose: The Path of the Protector, Conqueror or Invoker. Bring the ring you wear; 100 reputation.
+  talk 15192 optional                 -- Anachronos: the Honored ring quest of your path
+
+step Honored to Revered
+  zone Silithus
+  tip Honored to Revered is 12,000: twelve artifacts, 24 insignias, or a mix with C'Thun (2,500). After the first, each insignia is the repeatable Mortal Champions. Every Temple boss sometimes drops an Imperial Qiraji Armaments or Regalia (about one time in twenty): Arygos and Merithra of the Dream, inside the Temple once C'Thun is dead, take it with 3 Elementium Ore for 200 and a weapon. Honored opens the chest exchange of the tier set (200).
+  collect 21229 optional @29.0,92.8   -- Qiraji Lord's Insignia
+  turnin 8595 direct optional @29.0,92.8 -- Mortal Champions: 1 insignia, 500
+  collect 21232 optional @29.0,92.8   -- Imperial Qiraji Armaments
+  collect 21237 optional @29.0,92.8   -- Imperial Qiraji Regalia
+  collect 18562 x3 optional @32.5,32.4 map 1428 -- Elementium Ore, Blackwing Lair or the auction house
+  turnin 8789 direct optional @29.0,92.8 -- Arygos: Armaments and 3 Elementium Ore, 200
+  turnin 8790 direct optional @29.0,92.8 -- Merithra of the Dream: Regalia and 3 Elementium Ore, 200
+  rep 910 Revered
+
+step The ring at Revered
+  zone Tanaris
+  tip At Revered, Anachronos upgrades the ring of the path you chose: The Path of the Protector, Conqueror or Invoker. Bring the ring you wear; 100 reputation.
+  talk 15192 optional                 -- Anachronos: the Revered ring quest of your path
+
+step Revered to Exalted
+  zone Silithus
+  tip Revered to Exalted is 21,000: 21 artifacts or 42 insignias, with C'Thun's 2,500 a week. C'Thun's eye starts C'Thun's Legacy for Caelestrasz (200, and 200 Cenarion Circle). At Exalted Anachronos gives the last ring: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker.
+  collect 21229 optional @29.0,92.8   -- Qiraji Lord's Insignia
+  turnin 8595 direct optional @29.0,92.8 -- Mortal Champions: 1 insignia, 500
+  accept 8801 optional item 21221 @29.0,92.8 -- Eye of C'Thun
+  turnin 8801 optional @29.0,92.8     -- Caelestrasz: 200
+  rep 910 Exalted
+
+step The Exalted ring
+  zone Tanaris
+  tip At Exalted, Anachronos gives the last ring of your path: The Protector of Kalimdor, The Qiraji Conqueror or The Grand Invoker. Bring the Revered ring; 100 reputation.
+  talk 15192 optional                 -- Anachronos: the Exalted ring quest of your path

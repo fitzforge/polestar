@@ -1,0 +1,19 @@
+{
+	"note": [
+		"Reviewed openings: WMO portals that nav build always opens (tools/lib/nav/geom/index.js tileGeometry, tools/lib/nav/grid/rasterise.js carve).",
+		"A doorway narrower than about three yards can lose to the grid's 2.08 yd columns: a jamb's moulding or reveal on a column's centre line closes it, and the room behind becomes a pocket the pack leaves out.",
+		"Each entry names a WMO by FileDataID and one of its portals (MOPT index, from the root file); every placement of that WMO gets the cut: the portal's span along its wall, `depth` yards to each side of its plane, between the portal's bottom and top.",
+		"Add an entry only for a door that is open in the game and checked against the model's portals: a portal is where the client draws one group from the next, so it is an opening by construction.",
+		"nav build keeps a tile it already built: after a change here, delete the tiles the WMO stands on (tiles/<c>/<col>_<row>.*) or build with --force, then nav pack."
+	],
+	"openings": [
+		{
+			"id": "brill-town-hall-tower-door",
+			"wmo": 106787,
+			"portal": 2,
+			"depth": 1.5,
+			"issue": 366,
+			"why": "Brill's town hall (groups entry01, entry02, tower, hall): the way in is the porch and corridor, then this side door into the tower room (portal 2, entry02 to tower, 3.2 x 4 yd), then the tower into the hall (portal 3). Its jambs' mouldings and reveal sit on both of the doorway's column centre lines, so the hall and tower were a sealed pocket of 208 surfaces."
+		}
+	]
+}

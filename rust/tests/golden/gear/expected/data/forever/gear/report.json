@@ -1,0 +1,127 @@
+{
+	"builtAt": "2026-10-22T00:00:00.000Z",
+	"foreverLevelingBiS": {
+		"source": "ForeverLevelingBiS",
+		"author": "Thunder",
+		"url": "https://www.curseforge.com/wow/addons/forever-leveling-bis",
+		"licence": "MIT License",
+		"version": "v0.0.1-golden",
+		"generator": "tools/scraper/scrape.py",
+		"generated": "2026-10-22",
+		"files": [
+			"Data/Tables.lua",
+			"Data/Items.lua",
+			"Data/Quests.lua",
+			"Data/Overrides.lua",
+			"Racials.lua"
+		],
+		"counts": {
+			"items": 12,
+			"quests": 5,
+			"dungeons": 1,
+			"patterns": 1,
+			"races": 2
+		},
+		"unmapped": {
+			"frores": 1
+		},
+		"pack": {
+			"items": 11,
+			"newItems": 2,
+			"retuned": 7,
+			"unchanged": 2,
+			"sources": {
+				"quest": 7,
+				"drop": 3,
+				"crafted": 2
+			},
+			"quests": 4,
+			"skippedSlot": 1
+		},
+		"bytes": 2318
+	},
+	"wowsims": {
+		"meta": {
+			"source": "wowsims",
+			"url": "https://github.com/wowsims",
+			"licence": "MIT",
+			"licenceUrl": "https://github.com/wowsims/classic/blob/master/LICENSE",
+			"version": [
+				"wowsims/sod@19c880c1a8a8f87ecf8b96d6d6aaf6fca9bfb06a (sod-p1, 2024-01-30)",
+				"wowsims/sod@6f19e7806cccdc2e215bbf9c4ae7a07c26cd6ee3 (sod-p2, 2024-03-25)",
+				"wowsims/sod@9568974bd605da01a973c0173c491d40371eedec (sod-p3, 2024-06-28)",
+				"wowsims/sod@0e3f6eff5fa3ad356664a1c2abbd02903d4cc97e (sod-latest, 2026-07-24)",
+				"wowsims/classic@7779ebbf79dc7f1341e6ab939b28a3402c9a730a (era, 2026-07-24)",
+				"wowsims/classic@5634c852d47acfcc5b6b62a6472a536df64634dc (era cutover baseline)"
+			],
+			"commits": {
+				"classic": "7779ebbf79dc7f1341e6ab939b28a3402c9a730a",
+				"classicCutover": "5634c852d47acfcc5b6b62a6472a536df64634dc",
+				"sod": {
+					"sod-p1": "19c880c1a8a8f87ecf8b96d6d6aaf6fca9bfb06a",
+					"sod-p2": "6f19e7806cccdc2e215bbf9c4ae7a07c26cd6ee3",
+					"sod-p3": "9568974bd605da01a973c0173c491d40371eedec",
+					"sod-latest": "0e3f6eff5fa3ad356664a1c2abbd02903d4cc97e"
+				}
+			},
+			"fetched": "2026-10-12T18:59:59.219Z",
+			"notes": [
+				"Weights: wowsims default EP (ui/<sim>/sim.ts epWeights), mapped to Polestar keys, zero weights dropped, scaled so the spec main stat (normalizedTo) is 1.",
+				"Hit/crit/dodge/parry/block weights are per 1% (Classic sims count these stats in percent); defense per point.",
+				"season sod / origin sod-carryover: tuned with SoD runes and set bonuses. origin era: re-derived in the Era fork after 2024-11-21.",
+				"Sets still holding the WotLK per-rating defaults are listed in rejected, not converted.",
+				"sameAs: identical raw weights to an earlier band (not retuned for this level).",
+				"Not read (SoD-only roles): warden_shaman (SoD-only tank shaman), tank_rogue (SoD-only tank rogue), tank_warlock (SoD-only tank warlock).",
+				"Gear sets: Classic Era level 60 raid-phase presets (phase 0 = pre-raid), item ids by Polestar slot; one-sim classes share sets across specs."
+			]
+		},
+		"bands": {
+			"specs": 27,
+			"simBands": 22,
+			"authoredOnly": 113,
+			"bySim": {
+				"WARRIOR.arms": [
+					"59:sod-p3",
+					"60:era"
+				],
+				"WARRIOR.fury": [
+					"59:sod-p3",
+					"60:era"
+				],
+				"MAGE.fire": [
+					"49:sod-p2",
+					"59:sod-p3",
+					"60:era"
+				],
+				"MAGE.frost": [
+					"49:sod-p2",
+					"59:sod-p3",
+					"60:era"
+				],
+				"MAGE.arcane": [
+					"49:sod-p2",
+					"59:sod-p3",
+					"60:era"
+				],
+				"ROGUE.subtlety": [
+					"49:sod-p2",
+					"59:sod-p3",
+					"60:era"
+				],
+				"ROGUE.combat": [
+					"49:sod-p2",
+					"59:sod-p3",
+					"60:era"
+				],
+				"ROGUE.assassination": [
+					"49:sod-p2",
+					"59:sod-p3",
+					"60:era"
+				]
+			}
+		},
+		"rejected": 4
+	},
+	"specDataBytes": 20314,
+	"gaps": []
+}

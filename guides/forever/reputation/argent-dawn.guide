@@ -1,60 +1,169 @@
 guide forever/reputation/argent-dawn
 title Argent Dawn Reputation
 category Reputation
+folder Reputation · World
 levels 50-60
 zone Western Plaguelands
-# Built from the Era-baseline reference data: the Argent Dawn Commission quests
-# (5401 Chillwind Camp, 5405 The Bulwark, 5503 Light's Hope; one excludes the
-# others), the repeatable Scourgestone turn-ins (5402-5404, 5406-5408,
-# 5508-5510) and the Scourgestone drop tables in items.json. Farm spots are the
-# densest spawn clusters of the droppers. Nothing public shows Forever changing
-# the Plaguelands; this has NOT been play-tested on Forever yet.
-#
-# Scourgestone turn-ins are repeatable, and the client never flags a repeatable
-# quest as completed, so those steps track the Argent Dawn standing itself
-# (rep 529). Stone counts per turn-in (20 Minion's, 10 Invader's, 1 Corruptor's)
-# and the Honored cap on the two smaller turn-ins are Classic Era game
-# knowledge, not data. Corruptor's Scourgestones drop only from named and elite
-# Scourge that the data places in Stratholme and Scholomance, so they are notes.
-# Not covered: the Craftsman's Writ and Scourge-invasion turn-ins at Light's
-# Hope (9141/9142, 9124-9129); the data has them, but whether Forever runs that
-# content is unknown.
+keywords Argent Dawn, Argent Dawn Commission, Scourgestones, Minion's Scourgestone, Invader's Scourgestone, Corruptor's Scourgestone, Argent Dawn Valor Token, Mantles of the Dawn, Chromatic Mantle of the Dawn, Light's Hope Chapel, Chillwind Camp, The Bulwark, Quartermaster Miranda Breechlock, Argent Quartermaster Lightspark, Argent Quartermaster Hasana, Scholomance, Stratholme, Enchant Bracer, Argent Boots, Gloves of the Dawn
+reward item 18182
+reward item 18169 18170 18171 18172 18173
+reward text Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered
+why Scourgestones, Scholomance and Stratholme: the shoulder resistance enchants and a dozen recipes.
+
+# Built from Forever's quest data (the reputation each quest pays, as Forever's
+# quest pages give it), the world database Forever's data is fitted to
+# (reputation per kill and the standing it stops at, quest requirements, what
+# the quartermasters sell and when), quests.json, npcs.json and items.json
+# (givers, drops, drop chances, farm spots) and the Forever client tables
+# (Faction: every race starts at Neutral 200/3000; ItemSparse: prices and the
+# standing each item needs).
+# Numbers: the Commission pays 10. Each Scourgestone turn-in (20 Minion's, 10
+# Invader's or 1 Corruptor's) pays 25 and an Argent Dawn Valor Token, and none
+# of them stops counting. Kills: Plaguelands Scourge 5 (named ones 15, but
+# Putridius none) to the end of Friendly; Scholomance and Stratholme mobs 5
+# to 11,999 of 12,000 Honored, never into Revered; their bosses 25 (Ras
+# Frostwhisper, Darkmaster Gandling and Baron Rivendare 50) until Exalted. A
+# capped kill never tips you into the next standing: each band's step has a
+# turn-in that does. The Scourge Cauldron deliveries (after Mission
+# Accomplished!) pay 25, repeatable, never capped; Arcane Quickener 50 silver;
+# the reagents drop only while you carry the Vitreous Focuser, which Alchemist
+# Arbington and Apothecary Dithers give (world database gossip and loot rules).
+# Lint warns that Gahrron's Withering Cauldron (5227) needs Return to Chillwind
+# Camp or Return to the Bulwark (5226/5236) first: that chain is the leveling
+# guides' and the tip's; the accept is optional and only offered once it is done.
+# Mantles of the Dawn (Revered, 10 tokens, 100) lets you buy the five
+# resistance mantles for 10 gold each; Chromatic Mantle of the Dawn (Exalted,
+# 25 tokens, 150) gives one and lets you buy more for 40 gold.
+# The dungeon quests are taken optionally: their objective and turn-in steps
+# hold only a player who took them.
+# Numbers are base values; the Legacy perk Diplomat adds up to 10%.
+# INGAME: grey-mob kill rep in Forever (Classic: grey mobs give about a fifth;
+# at 60 that is Scourge of level 51 and below).
+# INGAME: open-world Scourge cap (Classic: normal mobs stop at 3000 into
+# Friendly; Forever's data: they count through all of Friendly). The guide
+# says halfway through Friendly.
+# ASSUMED: Scourgestones drop only while the Argent Dawn Commission is worn
+# (Classic flow; Forever's data ties the Commission's aura to the loot of two
+# mobs only), and The Active Agent's Seal of the Dawn and Rune of the Dawn work
+# as the Commission too. In-game check: a Minion's Scourgestone without the
+# trinket, and one while wearing the Seal.
+# Not covered: the Craftsman's Writs, the invasion turn-ins and the armour
+# quests at Light's Hope Chapel. Forever's data has them, but they belong to
+# Naxxramas, which Forever does not open with its first raids.
 
 step Argent Dawn Commission (Alliance)
   only Alliance
-  tip The Argent Dawn starts out Neutral. Take the Commission from Argent Officer Pureheart at Chillwind Camp and wear it: in Classic, Scourgestones only drop while the Argent Dawn Commission trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains.
+  tip Argent Officer Pureheart stands in Chillwind Camp, in the south of the Western Plaguelands. The Argent Dawn starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. Duke Nicholas Zverenhoff at Light's Hope Chapel gives the same Commission; you can only take one.
   accept 5401
   turnin 5401
 
 step Argent Dawn Commission (Horde)
   only Horde
   zone Tirisfal Glades
-  tip The Argent Dawn starts out Neutral. Take the Commission from Argent Officer Garush at The Bulwark and wear it: in Classic, Scourgestones only drop while the Argent Dawn Commission trinket is equipped. Forever's Legacy Diplomat perk increases reputation gains.
+  tip Argent Officer Garush stands at the Bulwark, on the road from Tirisfal Glades into the Western Plaguelands. The Argent Dawn starts at Neutral 200 for everyone. Wear the Commission trinket while you fight the Scourge: Scourgestones only drop while you wear it. Duke Nicholas Zverenhoff at Light's Hope Chapel gives the same Commission; you can only take one.
   accept 5405
   turnin 5405
 
-step Minion's Scourgestones to Friendly
+step Neutral to Friendly: Scourge of the Western Plaguelands
   zone Western Plaguelands
-  tip Ghouls and skeletons all over Western Plaguelands drop Minion's Scourgestones about half the time; this cluster is dense. Hand them in 20 at a time to any Argent Officer (Pureheart at Chillwind Camp, Garush at The Bulwark, Duke Nicholas Zverenhoff at Light's Hope Chapel). Each turn-in also pays an Argent Dawn Valor Token for the Argent quartermasters.
-  collect 12840 x20 optional @41.8,70.4
-  talk 10840 only Alliance optional -- Argent Officer Pureheart, Chillwind Camp
-  talk 10839 only Horde optional -- Argent Officer Garush, The Bulwark
+  tip Every Scourge kill in the Plaguelands gives 5 reputation (named ones 15), from the level 50 ghouls and skeletons up; at level 60 pick the level 53 and up ones, since in Classic grey mobs give only about a fifth. Neutral to Friendly is 2,800: about 560 kills, fewer with the Plaguelands quests on the way. The densest Scourge stand around the four Scourge Cauldrons: Felstone Field west of Andorhal (skeletons, 50-53), Dalson's Tears north of Andorhal (zombies and ghouls, 52-55), the Writhing Haunt in the south (ghouls, 54-55) and Gahrron's Withering in the east (ghosts, 56-57). Keep every Scourgestone and every quest you can save: turn-ins never stop counting, kills do. Minion's Scourgestones drop from about four in ten of these Scourge, Invader's from about a third of the level 56 and up ones. If you die, take the Commission off and put it back on: it can lose its effect. Paladins (Human and Dwarf): Commander Ashlam Valorfist at Chillwind Camp asks 20 Minion's Scourgestones once for Dispelling Evil, 100 reputation instead of 25. The Legacy perk Diplomat adds up to 10% to every gain.
+  collect 12840 x20 nearest optional  -- Minion's Scourgestones: keep them
+  kill 1802 optional @60.7,58.3       -- Hungering Wraiths at Gahrron's Withering; any Scourge counts
+  kill 1794 optional                  -- Soulless Ghouls at the Writhing Haunt
   rep 529 Friendly
 
-step Invader's Scourgestones to Honored
+step Plaguelands quests and the Scourge Cauldrons
+  zone Western Plaguelands
+  tip The Plaguelands quests pay in full at 60 from level 55 up and never stop counting, about 1,500 in all; the leveling guides walk them. The cauldron chain from High Priestess MacDonnell at Chillwind Camp (Horde: Shadow Priestess Vandis at the Bulwark): 150 per cauldron with its return (Felstone Field's pair is level 53: in Classic it pays three fifths at 60), then Mission Accomplished! 200. Alas, Andorhal 150 (Araj the Summoner, elite). At Light's Hope Chapel, Carlin Redpath's Darrowshire quests (Brother Carlin 50 from Chromie in Andorhal, Villains of Darrowshire 100, Marauders of Darrowshire 100) and Pamela Redpath's Hidden Treasures 200 at the end of the Darrowshire story; Zaeldarr the Outcast 75 from Caretaker Alen. After Mission Accomplished!, each cauldron takes a repeatable delivery: 25 reputation every time, until Exalted. Alchemist Arbington at Chillwind Camp (Horde: Apothecary Dithers at the Bulwark) gives you a Vitreous Focuser, without which the reagents never drop, and sells Arcane Quickeners for 50 silver (one per delivery; it crumbles after 30 minutes, so buy it last). Each delivery also takes 4 Runecloth. Farm Gahrron's Withering: its ghosts drop an Ectoplasmic Resonator about one time in four, so about 16 kills fill a delivery; the other cauldrons want 5 or 6 reagents that drop one time in ten or less. Once the Plaguelands Scourge stop counting, this earns about four times what their Scourgestones alone do.
+  talk 11056 optional only Alliance   -- Alchemist Arbington: ask for a Vitreous Focuser
+  talk 11057 optional only Horde map 1420 -- Apothecary Dithers, at the Bulwark: ask for a Vitreous Focuser
+  accept 5227 optional                -- the cauldron at Gahrron's Withering
+  collect 13354 x4 quest 5227.2 optional -- Ectoplasmic Resonators: the ghosts around the cauldron
+  collect 14047 x4 quest 5227.3 optional -- Runecloth
+  buy 13320 npc 11056 optional only Alliance -- Arcane Quickener, 50 silver
+  buy 13320 npc 11057 optional only Horde map 1420 -- Arcane Quickener, 50 silver
+  turnin 5227 optional
+
+step Light's Hope Chapel quests
   zone Eastern Plaguelands
-  tip Dark Adepts and Shadowmages (level 58-60) drop Invader's Scourgestones here, along with Minion's stones and Runecloth. Hand Invader's in 10 at a time and Minion's 20 at a time to Duke Nicholas Zverenhoff at Light's Hope Chapel. In Classic both stop giving reputation at Honored.
-  collect 12841 x10 optional @40,51.3
-  talk 11039 optional -- Duke Nicholas Zverenhoff, Light's Hope Chapel
+  tip Light's Hope Chapel, on the east side of the Eastern Plaguelands, is the Argent Dawn's home: Duke Nicholas Zverenhoff, Betina Bigglezink and Leonid Barthalomew give its dungeon quests, 100 to 200 reputation each and about 1,700 in all. They are group quests for Stratholme and Scholomance (level 58-60, five players): take the ones your group will run. The Duke's chain ends at the Argent Hold, a chest of Argent Dawn gear.
+  level 55
+  accept 5212 optional                -- The Flesh Does Not Lie: Betina Bigglezink
+  accept 5529 optional                -- Plagued Hatchlings: Betina Bigglezink
+  accept 5243 optional                -- Houses of the Holy: Leonid Barthalomew
+  accept 5251 optional                -- The Archivist: Duke Nicholas Zverenhoff
+
+step Stratholme
+  tip Stratholme is a group of five at the north end of the Eastern Plaguelands. Its Scourge give 5 reputation a kill up to the last point of Honored, and its Scourge bosses 25 until Exalted (Baron Rivendare 50), each with a Corruptor's Scourgestone. The Black Guard Sentries by the Baron give 5 until Exalted. The Scourge side, through the service entrance, pays far more than the Scarlet side.
+  goto 26.5,10.4 live "Stratholme"
+  collect 13174 x10 quest 5212.1 group 5 @26.5,10.4 live -- Plagued Flesh Samples: the Scourge inside
+  collect 13180 x5 quest 5243.1 group 5 @26.5,10.4 live -- Stratholme Holy Water: the supply crates
+  kill 10811 quest 5251.1 group 5 @26.5,10.4 live -- Archivist Galford, Scarlet side
+
+step Scholomance
+  zone Western Plaguelands
+  tip Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands; your side's Scholomance quests give the Skeleton Key that opens it. It is the best Argent Dawn run: its mobs give 5 up to the last point of Honored, and its thirteen bosses about 375 reputation a full clear plus ten or so Corruptor's Scourgestones (about 250 more). Ras Frostwhisper and Darkmaster Gandling give 50 each.
+  goto 69.7,73.2 "Scholomance"
+  kill 10678 x20 quest 5529.1 group 5 @69.7,73.2 -- Plagued Hatchlings, in the hatchery
+
+step Back at Light's Hope Chapel
+  zone Eastern Plaguelands
+  tip The Flesh Does Not Lie leads to The Active Agent (the Scourge Data in a Stratholme ziggurat), which rewards the Seal of the Dawn or the Rune of the Dawn: better trinkets that also make Scourgestones drop, so they can replace the Commission. The Archivist leads on to the Head of Balnazzar and Baron Rivendare. A Healthy Dragon Scale, a rare drop (about 6%) from the Plagued Hatchlings once Plagued Hatchlings is done, starts a quest worth 50 each time: keep them until Revered. Tinkee Steamboil in the Burning Steppes, at the end of her Blackrock Spire quests, sends you to Leonid Barthalomew (75) and on to Betina's Dawn's Gambit in Scholomance (25 and 200).
+  turnin 5212
+  accept 5213 optional
+  turnin 5529
+  turnin 5243
+  turnin 5251
+
+step Friendly to Honored: stones and named Scourge
+  tip Normal Scourge outside the dungeons stop giving reputation halfway through Friendly (3,000 of 6,000); Lord Darkscythe, Hed'mush and Gish stop at the end of Friendly. After that only Araj, the Scholomance and Stratholme mobs, the cauldron deliveries and Scourgestones count. Now turn in the stones you saved: Duke Nicholas Zverenhoff at Light's Hope Chapel takes all three kinds, and so do the officers at Chillwind Camp and the Bulwark. Every turn-in pays 25 and an Argent Dawn Valor Token: keep 35 tokens for the mantles at Revered and Exalted. Invader's Scourgestones are worth twice as much per stone: the Dark Adepts, Shadowmages, Dread Weavers and Scourge Champions (level 58-60) at Northdale, just north of Light's Hope Chapel, drop them about a third of the time or more, next to the turn-in. The named Scourge below drop a Corruptor's Scourgestone half the time or more (Putridius two times in three, Araj and Hed'mush half the time) and give 15 a kill, Araj until Exalted; Putridius gives no reputation, only the stone. Friendly opens the Enriched Manna Biscuits (60 silver) at the quartermasters.
+  collect 12841 x10 nearest optional  -- Invader's Scourgestones
+  collect 12843 x1 optional           -- Corruptor's Scourgestone: the named Scourge below, and dungeon bosses
+  kill 8546 optional map 1423 @73.6,34.1 live -- Dark Adepts and Shadowmages at Northdale
+  kill 1852 optional                  -- Araj the Summoner, Andorhal
+  kill 1850 optional                  -- Putridius, Western Plaguelands: the stone only
+  kill 10826 optional                 -- Lord Darkscythe, Eastern Plaguelands
+  kill 10821 optional                 -- Hed'mush the Rotting, Eastern Plaguelands
+  kill 10825 optional                 -- Gish the Unmoving, Eastern Plaguelands
+  turnin 5510 direct optional         -- Minion's Scourgestones: 20 for 25 reputation
+  turnin 5509 direct optional         -- Invader's Scourgestones: 10 for 25 reputation
+  turnin 5508 direct optional         -- Corruptor's Scourgestones: 1 for 25 reputation
   rep 529 Honored
 
-step Corruptor's Scourgestones and dungeons to Revered
-  tip From Honored on, Corruptor's Scourgestones (one per turn-in) and Scourge kills in Stratholme and Scholomance carry the reputation. Corruptor's stones drop from the Scourge bosses there (Darkmaster Gandling, Marduk Blackpool, Vectus) and from Araj the Summoner and Putridius in Western Plaguelands. Many dungeon runs pay off faster than any open-world farm.
-  note Run Stratholme (both wings) and Scholomance, killing every Scourge you pass.
-  talk 11039 optional -- Duke Nicholas Zverenhoff, Light's Hope Chapel
+step Honored to Revered: dungeons and stones
+  tip Honored to Revered is 12,000: about 2,400 Scholomance and Stratholme mobs, fewer with their bosses. Their mobs stop at 11,999 of 12,000 Honored; a boss or a turn-in takes you over. Solo, only Scourgestones, the cauldron deliveries and Araj count: 12,000 is 480 turn-ins, or 4,800 Invader's Scourgestones. Keep the stones you get in the dungeons until their mobs stop counting. Honored opens recipes at all three quartermasters: Quartermaster Miranda Breechlock at Light's Hope Chapel, Argent Quartermaster Lightspark at Chillwind Camp, Argent Quartermaster Hasana at the Bulwark. Also the Hallowed Brazier (133 gold) for the Three Kings of Flame quest.
+  buy 19446 npc 11536 optional        -- Formula: Enchant Bracer - Mana Regeneration, 3 gold
+  buy 19216 npc 11536 optional        -- Pattern: Argent Boots (Tailoring), 2 gold 20 silver
+  buy 19328 npc 11536 optional        -- Pattern: Dawn Treaders (Leatherworking), 2 gold 20 silver
+  buy 19203 npc 11536 optional        -- Plans: Girdle of the Dawn (Blacksmithing), 2 gold 20 silver
+  buy 13482 npc 11536 optional        -- Recipe: Transmute Air to Fire (Alchemy), 1 gold 50 silver
+  buy 19442 npc 11536 optional        -- Formula: Powerful Anti-Venom (First Aid), 10 gold
+  turnin 5510 direct optional
+  turnin 5509 direct optional
+  turnin 5508 direct optional
   rep 529 Revered
 
-step Argent Dawn to Exalted
-  tip Keep running Stratholme and Scholomance and turning in every Corruptor's Scourgestone at Light's Hope Chapel until Exalted.
-  talk 11039 optional
+step Mantles of the Dawn
+  zone Eastern Plaguelands
+  tip At Revered, Quartermaster Miranda Breechlock takes 10 Argent Dawn Valor Tokens for Mantles of the Dawn (100 reputation). After it, any Argent Dawn quartermaster sells the five shoulder enchants for 10 gold each: Flame, Frost, Arcane, Nature and Shadow Mantle of the Dawn, +5 to that resistance. Revered also opens the Blessed Sunfruit and its juice (60 silver) and the Revered recipes.
+  collect 12844 x10 optional @71.6,50.1 -- Argent Dawn Valor Tokens, from the stone turn-ins
+  accept 5513
+  turnin 5513
+  buy 18170 npc 11536 optional        -- Frost Mantle of the Dawn: pick the resistance you need, 10 gold
+  buy 19447 npc 11536 optional        -- Formula: Enchant Bracer - Healing, 6 gold
+  buy 19217 npc 11536 optional        -- Pattern: Argent Shoulders (Tailoring), 4 gold
+  buy 19329 npc 11536 optional        -- Pattern: Golden Mantle of the Dawn (Leatherworking), 4 gold
+  buy 19205 npc 11536 optional        -- Plans: Gloves of the Dawn (Blacksmithing), 4 gold
+
+step Revered to Exalted
+  tip Revered to Exalted is 21,000: 840 Scourgestone or cauldron turn-ins, or the dungeon bosses with their Corruptor's Scourgestones (a full Scholomance clear is about 600). Turn in every stone and Healthy Dragon Scale you saved.
+  turnin 5510 direct optional
+  turnin 5509 direct optional
+  turnin 5508 direct optional
   rep 529 Exalted
+
+step Chromatic Mantle of the Dawn
+  tip At Exalted, Quartermaster Miranda Breechlock takes 25 Argent Dawn Valor Tokens for the Chromatic Mantle of the Dawn (150 reputation): +5 to every resistance, on your shoulders. After it, the quartermasters sell more for 40 gold each.
+  collect 12844 x25 optional @71.6,50.1 -- Argent Dawn Valor Tokens
+  accept 5517
+  turnin 5517

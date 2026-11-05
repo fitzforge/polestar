@@ -36,7 +36,7 @@ local TV = {}
 UI.TalentsSection = TV
 
 local tab -- the spec index shown; nil: the followed plan's
-local root, shellRef, list, detail
+local root, shellRef, list, detail, soon
 local rows, bands, heads, notes = {}, {}, {}, {}
 local shown = {}
 
@@ -121,6 +121,37 @@ function TV.Build(parent, shell)
 	d.Body = d.Scroll.Child
 	d.Title = W.Text(d.Body, "display", "text")
 	d.Sub = W.Text(d.Body, "small", "textDim")
+
+	-- Coming soon (T.SOON): the Polestar emblem in its soft glow (as on the
+	-- options' About page), the heading, why, and what still follows the
+	-- player's own talents, centred on the panel.
+	soon = CreateFrame("Frame", nil, root)
+	soon:SetAllPoints(root)
+	W.Fill(soon, "panel")
+	soon.Glyph = W.Tex(soon, "ARTWORK", "emblem", "accent")
+	soon.Glyph:SetSize(72, 72)
+	soon.Glyph:SetPoint("CENTER", soon, "CENTER", 0, 92)
+	soon.Glow = W.Tex(soon, "BACKGROUND", "glow")
+	soon.Glow:SetSize(200, 200)
+	soon.Glow:SetPoint("CENTER", soon.Glyph, "CENTER", 0, 0)
+	W.Painter(soon.Glow, function(t) local r, g, b = Theme.Accent(); t:SetVertexColor(r, g, b, 0.14) end)
+	soon.Title = W.Text(soon, "hero", "text")
+	soon.Title:SetJustifyH("CENTER")
+	soon.Title:SetPoint("TOP", soon.Glyph, "BOTTOM", 0, -26)
+	soon.Title:SetText(L["Coming soon"])
+	soon.Text = W.Text(soon, "note", "textDim")
+	soon.Text:SetJustifyH("CENTER")
+	soon.Text:SetWordWrap(true)
+	soon.Text:SetSpacing(3)
+	soon.Text:SetWidth(420)
+	soon.Text:SetPoint("TOP", soon.Title, "BOTTOM", 0, -12)
+	soon.Text:SetText(L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."])
+	soon.Foot = W.Text(soon, "small", "textMuted")
+	soon.Foot:SetJustifyH("CENTER")
+	soon.Foot:SetWidth(420)
+	soon.Foot:SetPoint("TOP", soon.Text, "BOTTOM", 0, -18)
+	soon.Foot:SetText(L["Gear advice still follows the talents you choose."])
+	soon:Hide()
 	return root
 end
 
@@ -269,9 +300,19 @@ function TV.Render()
 	hideAll()
 	for k in pairs(shown) do shown[k] = nil end
 	shown.notes = {}
-	local w = writer()
 	local data = T.Data()
 	local c, reason = T.Current()
+	-- Coming soon (T.SOON): one page over the whole section, no plan panes.
+	local paused = reason == "soon"
+	soon:SetShown(paused)
+	list:SetShown(not paused)
+	detail:SetShown(not paused)
+	if paused then
+		if shellRef then W.ShellTitle(shellRef, L["Talents"], L["A talent plan, pick by pick"]) end
+		shown.empty = reason
+		return
+	end
+	local w = writer()
 	if not data or reason == "off" then
 		reason = reason or "class"
 		if shellRef then W.ShellTitle(shellRef, L["Talents"], L["A talent plan, pick by pick"]) end
@@ -343,7 +384,7 @@ end
 -- The sidebar index: one tab per spec plan.
 function TV.Nav()
 	local data = T.Data()
-	if not data then return {}, nil end
+	if not data or T.SOON then return {}, nil end
 	local c = T.Current()
 	local followed = c and c.build or T.ActiveBuild(data)
 	local out = {}

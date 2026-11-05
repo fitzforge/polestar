@@ -14,14 +14,20 @@ why A robe at 15 for Alliance mages, from Stormwind and Loch Modan.
 # Recluse (1920), Gathering Materials (1921) and Manaweave Robe (1941).
 # Sources: quests.json, npcs.json, objects.json and items.json for the chain,
 # the coffers and the Rift Spawn in the Blue Recluse, and the Miners' League
-# Crates in Loch Modan; Wowhead Forever's Mage class page
-# (data/local/quest-audit/wowhead-class-quests.json) and quest pages
-# (https://www.wowhead.com/forever/quest=1920 and 1941, checked 2026-10-14) for
+# Crates in Loch Modan; Forever's Mage class quest list
+# (data/local/quest-audit/) and quest data
+# (quests 1920 and 1941, checked 2026-10-14) for
 # the races and the reward (Manaweave Robe); the quest texts for the Blue
-# Recluse and the Silver Stream Mine.
-# Wowhead Forever lists Human, Gnome and Skyborne mages for 1919-1921;
+# Recluse and the Silver Stream Mine; data/local/mechanics (quest-steps and
+# quest-notes, checked 2026-10-20) for the stun-and-capture, the cantation's
+# 5 minute cooldown and how many spawns each room brings, the Rift Spawns'
+# level, the table's 5 minute respawn, and the 14 crates (3-5 minute respawn).
+# Forever's quest data lists Human, Gnome and Skyborne mages for 1919-1921;
 # corrections.json adds Skyborne to 1919 and 1921, which the merged data
-# gave to Humans and Gnomes only.
+# gave to Humans and Gnomes only. Manaweave Robe (1941) is Human and Gnome in
+# quests.json, but Forever's quest page for 1941 names Skyborne too (check.py
+# quest 1941: races page=Human/Gnome/HighOrderSkyborne), so the guide offers it
+# to all three (corrections-private sets it).
 # Investigate the Blue Recluse needs Report to Jennea first (quests.json):
 # Zaldimar Wefhellt in Goldshire, Magis Sparkmantle in Kharanos and Dink in
 # Ironforge give it.
@@ -31,7 +37,7 @@ why A robe at 15 for Alliance mages, from Stormwind and Loch Modan.
 step Zaldimar Wefhellt (Goldshire)
   only Human,Skyborne
   zone Elwynn Forest
-  tip Zaldimar Wefhellt is the Goldshire mage trainer.
+  tip Zaldimar Wefhellt is the Goldshire mage trainer, upstairs in the Lion's Pride Inn.
   level 15
   accept 1919 npc 328                         -- Zaldimar Wefhellt
 
@@ -44,30 +50,31 @@ step Dink (Ironforge)
 
 step Jennea Cannon
   zone Stormwind City
-  tip Jennea Cannon stands in the Wizard's Sanctum, the tower of the Mage Quarter. The Chest of Containment Coffers and the Cantation of Manifestation lie behind her.
+  tip Jennea Cannon stands at the top of the Wizard's Sanctum, the violet tower of the Mage Quarter: climb the spiral ramp and take the portal near the top. The Chest of Containment Coffers and the Cantation of Manifestation lie on the table behind her (both come back 5 minutes after someone takes them). You hand both in at the end, so keep them.
   turnin 1919                                 -- Jennea Cannon
   accept 1920
   collect 7247 quest 1920.2                   -- Chest of Containment Coffers
   collect 7308 quest 1920.3                   -- Cantation of Manifestation
 
 step The Blue Recluse
-  tip The Blue Recluse is the tavern in the Mage Quarter. Use the Cantation of Manifestation inside to make the Rift Spawn visible, subdue one with your spells, then use the Chest of Containment Coffers to throw down a coffer and capture it.
+  tip The Blue Recluse is the tavern in the Mage Quarter. Read the Cantation of Manifestation inside to make the invisible Rift Spawns (level 16-17) show: in the basement it brings out one, on the balcony or in the kitchen two, in the main room or by the door three, so read it downstairs. They hit hard and break out of Frost Nova fast. Beat one down: it does not die but sits stunned with a spiral over its head; use the Chest of Containment Coffers on it while it is stunned, then click the Filled Containment Coffer it leaves on the floor (clicking before it appears wastes a charge). You need three, and the cantation works only once every 5 minutes (logging out does not reset it), so plan on three rounds.
   use 7308 optional @51.3,93.3 live           -- Cantation of Manifestation
-  kill 6492 optional                          -- Rift Spawn
-  collect 7292 quest 1920.1 @51.3,93.3 live   -- Filled Containment Coffer
+  kill 6492 optional                          -- Rift Spawn, down to the stun
+  use 7247 optional @51.3,93.3 live           -- Chest of Containment Coffers, on the stunned Rift Spawn
+  collect 7292 x3 quest 1920.1 @51.3,93.3 live -- Filled Containment Coffer
 
 step Back to Jennea Cannon
   turnin 1920                                 -- Jennea Cannon
   accept 1921
 
 step Linen Cloth
-  tip Humanoids drop Linen Cloth; the Auction House in the Trade District sells it.
-  collect 2589 quest 1921.1                   -- Linen Cloth
+  tip Any humanoid drops Linen Cloth, and the Tunnel Rats in the Silver Stream Mine drop it while you gather the gems; the Auction House in the Trade District sells it. You hand in ten.
+  collect 2589 x10 quest 1921.1               -- Linen Cloth
 
 step The Silver Stream Mine
   zone Loch Modan
-  tip Take the Deeprun Tram to Ironforge, then the road east through the South Gate tunnel into Loch Modan. The dwarven miners' league left the crates in the Silver Stream Mine at the north end of the loch; Tunnel Rat troggs hold the mine.
-  collect 7249 quest 1921.2                   -- Charged Rift Gem: Miners' League Crates
+  tip Take the Deeprun Tram to Ironforge, then the road east through the South Gate tunnel into Loch Modan. The Silver Stream Mine is at the north end of the loch, north of Thelsamar; Tunnel Rat kobolds hold it. The gems come only from the tall stacked Miners' League Crates (the cursor shows a cog over them; single boxes hold nothing): every crate gives one, there are fourteen and they come back after 3 to 5 minutes. You may have to go as deep as the end chamber for six. The same crates serve the dwarves' Filthy Paws quest.
+  collect 7249 x6 quest 1921.2                -- Charged Rift Gem: Miners' League Crates
 
 step Wynne Larson
   zone Stormwind City

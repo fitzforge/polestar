@@ -16,6 +16,8 @@ BINDING_NAME_POLESTAR_FOCUS = L["Browse the guide with the gamepad"]
 BINDING_NAME_POLESTAR_MENU = L["Open the guide menu"]
 BINDING_NAME_POLESTAR_OPTIONS = L["Open Polestar options"]
 BINDING_NAME_POLESTAR_REPORT = L["Report a problem"]
+BINDING_NAME_POLESTAR_NEXT_WAYPOINT = L["Next waypoint"]
+BINDING_NAME_POLESTAR_PREV_WAYPOINT = L["Previous waypoint"]
 -- Labels for the QoL secure buttons' CLICK bindings (QoL/Buttons.lua). The
 -- client looks these names up as globals; they contain spaces and a colon,
 -- so they can only be set through _G.
@@ -25,6 +27,7 @@ _G["BINDING_NAME_CLICK PolestarRareButton:LeftButton"] = L["Target rare"]
 _G["BINDING_NAME_CLICK PolestarHearthButton:LeftButton"] = L["Use Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarStepButton:LeftButton"] = L["Step action: NPC, quest item, mob or Hearthstone"]
 _G["BINDING_NAME_CLICK PolestarTravelButton:LeftButton"] = L["Use the route's Hearthstone or teleport"]
+_G["BINDING_NAME_CLICK PolestarBagButton:LeftButton"] = L["Make bag room: delete the cheapest junk (press twice)"]
 
 -- Entry points for Bindings.xml (and Polestar's gamepad chords, UI/Gamepad.lua).
 ns.Bindings = {
@@ -35,6 +38,9 @@ ns.Bindings = {
 	Menu = function() ns.Fire("TOGGLE_PICKER") end,
 	Options = function() ns.Fire("TOGGLE_OPTIONS") end,
 	Report = function() ns.Fire("SHOW_REPORT") end,
+	-- The arrow to the step's next or previous place: spawn spot, else goal.
+	NextWaypoint = function() Engine.CycleWaypoint(1) end,
+	PrevWaypoint = function() Engine.CycleWaypoint(-1) end,
 }
 
 local function needGuide()
@@ -166,6 +172,8 @@ ns.RegisterCommand("where", function()
 	ns.Print((L["For another goal, add %s"]):format("@" .. xy))
 	ns.Fire("SHOW_COPY", L["Your position"], table.concat(lines, "\n"))
 end, L["Print your map and position as guide lines"])
+
+ns.RegisterCommand("questlog", function() ns.Fire("SHOW_QUEST_ROOM") end, L["List the quests in your log the route never hands in"])
 
 ns.RegisterCommand("report", function() ns.Fire("SHOW_REPORT") end, L["Report a problem with the step on screen"])
 ns.RegisterCommand("discord", function() ns.Fire("SHOW_DISCORD") end, L["The invite to the Polestar Discord"])
