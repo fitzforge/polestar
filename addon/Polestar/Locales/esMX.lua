@@ -718,6 +718,8 @@ L["When the step sets your home and you talk to its innkeeper, binds your Hearth
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "Clic en los objetivos para seleccionar"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Al hacer clic en una fila de objetivo o en el encabezado de un PNJ, también se selecciona a ese PNJ fuera de combate, con los mismos ajustes de marcado que el botón de objetivo. Esto reemplaza tu objetivo actual; una búsqueda fallida lo quita."
 
 -- QoL/QoL.lua
 L["%dh %02dm"] = "%dh %02dm"
@@ -2778,6 +2780,11 @@ L["%d steps were left undone."] = "Quedaron %d pasos sin hacer."
 L["Next: %s"] = "Siguiente: %s"
 L["Pick a guide"] = "Elegir una guía"
 L["Not now"] = "Ahora no"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Haz clic para seleccionar y marcar a %s (fuera de combate)."
+L["Click to target %s (out of combat)."] = "Haz clic para seleccionar a %s (fuera de combate)."
+L["%s not found nearby."] = "No se encuentra a %s cerca."
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Objetos de misión de Polestar"

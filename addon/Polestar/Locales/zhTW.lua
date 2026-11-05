@@ -843,6 +843,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "點擊任務目標以選取"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在戰鬥外點擊任務目標列或 NPC 標題時，也會選取該 NPC，並使用與目標按鈕相同的標記設定。這會取代你目前的目標；搜尋失敗時會清除目標。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "僅限聯盟"
@@ -2779,6 +2781,11 @@ L["%d steps were left undone."] = "有 %d 個步驟未完成。"
 L["Next: %s"] = "下一份：%s"
 L["Pick a guide"] = "選擇指南"
 L["Not now"] = "稍後再說"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"
+L["Click to target %s (out of combat)."] = "點擊選取 %s（戰鬥外）。"
+L["%s not found nearby."] = "附近找不到 %s。"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 任務物品"

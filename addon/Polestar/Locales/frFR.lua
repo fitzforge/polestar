@@ -844,6 +844,8 @@ L["Under water, a red edge round the screen, a sound and a taskbar flash with 10
 L["Pick what the step asks for"] = "Choisir ce que demande l'étape"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "Auprès du PNJ de l'étape, choisit l'option de dialogue indiquée par le guide, ou ouvre les marchandises ou l'apprentissage dont l'étape a besoin. Seulement à l'étape où se trouve le guide. Maintenez Maj pour choisir vous-même."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Choisit l'unique option des PNJ sans quête. Maintenez Maj pour la lire. Désactivé, le jeu en passe encore certaines lui-même, « Choisir ce que demande l'étape » choisit toujours l'option de l'étape, et les maîtres de vol suivent « Ouvrir la carte de vol »."
+L["Click objectives to target"] = "Cibler en cliquant sur les objectifs"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Un clic sur une ligne d'objectif ou sur le nom d'un PNJ en tête cible aussi ce PNJ hors combat, avec les mêmes réglages de marquage que le bouton de ciblage. Cela remplace votre cible actuelle ; une recherche infructueuse la retire."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -2780,6 +2782,11 @@ L["%d steps were left undone."] = "%d étapes n'ont pas été faites."
 L["Next: %s"] = "Suivant : %s"
 L["Pick a guide"] = "Choisir un guide"
 L["Not now"] = "Pas maintenant"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Cliquez pour cibler et marquer %s (hors combat)."
+L["Click to target %s (out of combat)."] = "Cliquez pour cibler %s (hors combat)."
+L["%s not found nearby."] = "%s introuvable à proximité."
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Objets de quête Polestar"

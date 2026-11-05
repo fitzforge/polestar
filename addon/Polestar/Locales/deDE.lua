@@ -1398,6 +1398,8 @@ L["Pick what the step asks for"] = "Wählen, was der Schritt verlangt"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "Beim NPC des Schritts wird die Gesprächsoption gewählt, die der Guide nennt, oder die Waren oder das Training geöffnet, die der Schritt braucht. Nur bei dem Schritt, an dem der Guide steht. Halte Umschalt gedrückt, um selbst zu wählen."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Wählt die einzige Option von NPCs ohne Quests. Halte Umschalt gedrückt, um sie zu lesen. Aus überspringt das Spiel manche trotzdem selbst, „Wählen, was der Schritt verlangt“ wählt weiter die Option des Schritts, und Flugmeister folgen „Flugkarte öffnen“."
 -- L["Reset"] = ""
+L["Click objectives to target"] = "Ziele per Klick anvisieren"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Ein Klick auf eine Zielzeile oder eine NPC-Überschrift visiert außerhalb des Kampfes auch den NPC an, mit denselben Markierungseinstellungen wie der Ziel-Button. Das ersetzt dein aktuelles Ziel; eine erfolglose Suche hebt es auf."
 
 -- Rares/View.lua, Rares/Options.lua
 L["Seen"] = "Gesehen"
@@ -2759,6 +2761,11 @@ L["%d steps were left undone."] = "%d Schritte blieben offen."
 L["Next: %s"] = "Als Nächstes: %s"
 L["Pick a guide"] = "Guide auswählen"
 L["Not now"] = "Nicht jetzt"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Klicken, um %s anzuvisieren und zu markieren (außerhalb des Kampfes)."
+L["Click to target %s (out of combat)."] = "Klicken, um %s anzuvisieren (außerhalb des Kampfes)."
+L["%s not found nearby."] = "%s nicht in der Nähe gefunden."
 
 -- Quests/Tooltips.lua
 L["%d/%d (not accepted)"] = "%d/%d (nicht angenommen)"

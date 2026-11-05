@@ -843,6 +843,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "임무 클릭으로 대상 지정"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "임무 줄이나 NPC 제목을 클릭하면 전투 중이 아닐 때 그 NPC도 대상으로 지정합니다. 징표 설정은 대상 버튼과 같습니다. 현재 대상이 바뀌며, 찾지 못하면 대상이 해제됩니다."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -2779,6 +2781,11 @@ L["%d steps were left undone."] = "완료하지 않은 단계가 %d개 있습니
 L["Next: %s"] = "다음: %s"
 L["Pick a guide"] = "가이드 선택"
 L["Not now"] = "나중에"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."
+L["Click to target %s (out of combat)."] = "클릭: %s 대상 지정 (전투 중이 아닐 때)."
+L["%s not found nearby."] = "근처에서 찾을 수 없음: %s"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 퀘스트 아이템"
