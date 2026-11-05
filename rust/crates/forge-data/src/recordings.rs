@@ -19,6 +19,7 @@
 //! published on its own); a record only recordings have carries `recorder`. Schema 1 sessions
 //! count as `local` and enUS.
 
+use std::collections::VecDeque;
 use std::path::Path;
 
 use forge_guide::js::{cmp_utf16, parse_json, stringify, Obj, V};
@@ -399,6 +400,13 @@ pub struct Stats {
 	pub recorded_treasures: usize,
 	pub recorded_instances: usize,
 	pub recorded_encounters: usize,
+	/// Quests whose objectives the game's own list restructured ([`game_objectives`]).
+	pub game_objective_quests: usize,
+	/// Objectives that became `talk`, and objectives the game does not count that were dropped.
+	pub talk_objectives: usize,
+	pub dropped_objectives: usize,
+	/// Quests whose recorded lists disagree: the data's objectives are kept.
+	pub objective_conflicts: Vec<i64>,
 }
 
 type ByMap = IndexMap<i64, Vec<P>>;
@@ -477,6 +485,89 @@ struct QuestVotes {
 	rewards: IndexMap<String, (u8, V)>,
 }
 
+/// What players' game clients showed of one quest's objectives, its own list ([`game_objectives`]).
+#[derive(Default)]
+struct ClientList {
+	/// Each player's lines at the accept (`objectives`), in the game's order: (type, required).
+	listed: IndexMap<String, IndexSet<Vec<(String, i64)>>>,
+	/// Each player's number of lines once the quest was complete: those at the accept and every
+	/// line the game revealed later (a `progress` of a higher line).
+	lines: IndexMap<String, IndexSet<usize>>,
+	/// Line number -> what ticked it.
+	ticks: IndexMap<i64, Ticks>,
+}
+
+/// What ticked one line: kill credits on it (id -> players); the NPCs players talked to where it
+/// ticked, around then, or stood by (a friendly NPC whose spawn is where it ticked: some talks count
+/// as the player walks up); those whose training or vendor window opened then (a talk to them is
+/// training or buying, in any player's session); and players who cast a spell right before. (Loot
+/// windows name every item objective open at the time, so they say nothing of one line.)
+#[derive(Default)]
+struct Ticks {
+	kills: Backers<i64>,
+	talks: Backers<i64>,
+	stood: Backers<i64>,
+	services: Backers<i64>,
+	casts: IndexSet<String>,
+}
+
+impl Ticks {
+	/// The players who talked to `id` as the line ticked, none when anyone trained or bought from
+	/// it then.
+	fn talked(&self, id: i64) -> Option<&IndexSet<String>> {
+		self.talks.get(&id).filter(|_| !self.services.contains_key(&id))
+	}
+}
+
+/// One session's view of a quest since its `objectives` record: its lines at the accept, the
+/// highest line it saw tick, and the lines that ticked.
+struct Open {
+	listed: usize,
+	top: i64,
+	ticked: FxHashSet<i64>,
+}
+
+/// One session's state for [`Overlay::client_event`]: its quests since their `objectives` record,
+/// what the player did in the last [`TALK_WINDOW`] seconds, the lines that ticked in the last
+/// [`TALK_AFTER`] seconds (time, quest, line, place) and the player's last known place.
+#[derive(Default)]
+struct Session {
+	open: FxHashMap<i64, Open>,
+	recent: VecDeque<(f64, Seen)>,
+	ticks: VecDeque<(f64, i64, i64, Option<At>)>,
+	at: Option<At>,
+}
+
+/// A place: (map, x, y).
+type At = (i64, f64, f64);
+
+/// Something a player did around a line's tick: a conversation, a training or vendor window, or
+/// work of its own (a spell cast, a craft, a skill up, a kill, a loot).
+#[derive(Clone, Copy)]
+enum Seen {
+	Talk(i64, Option<At>),
+	Service(i64),
+	Work,
+}
+
+/// A conversation with an NPC counts for a line that ticks up to [`TALK_WINDOW`] seconds later (a
+/// "listen to" line ticks after the NPC's speech) with no work of the player's own in between, or
+/// [`TALK_AFTER`] seconds earlier (the quest log can update before the window opens), where it
+/// ticked ([`TALK_RADIUS`], map percent); work up to [`CAST_WINDOW`] seconds before it ticked
+/// is what ticked it.
+const TALK_WINDOW: f64 = 30.0;
+const TALK_AFTER: f64 = 3.0;
+const TALK_RADIUS: f64 = 1.0;
+const CAST_WINDOW: f64 = 5.0;
+
+fn near(a: Option<At>, b: Option<At>) -> bool {
+	matches!((a, b), (Some(a), Some(b)) if a.0 == b.0 && hypot(a.1 - b.1, a.2 - b.2) <= TALK_RADIUS)
+}
+
+fn at_of(ev: &V) -> Option<At> {
+	coord(ev).map(|c| (c.map, c.x, c.y))
+}
+
 const NPC: usize = 0;
 const OBJECT: usize = 1;
 const ITEM: usize = 2;
@@ -492,6 +583,10 @@ struct Overlay<'a> {
 	touched_entities: IndexMap<String, (&'static str, i64)>,
 	quests: IndexMap<i64, QuestVotes>,
 	objectives: IndexMap<i64, IndexMap<i64, Slot>>,
+	/// quest -> what players' clients listed of its objectives and what ticked each line.
+	clients: IndexMap<i64, ClientList>,
+	/// NPCs players opened a gossip or quest window with.
+	talked_to: FxHashSet<i64>,
 	/// (NPC/OBJECT/ITEM/FACTION, id) -> [English, other locales] names.
 	names: IndexMap<(usize, i64), [Ballot; 2]>,
 	live: [IndexMap<i64, ByMap>; 2],
@@ -665,6 +760,136 @@ impl<'a> Overlay<'a> {
 		let s = self.objectives.entry(q).or_default().entry(oi).or_default();
 		s.who.insert(who);
 		s
+	}
+
+	/// Collects what the session's client showed of a quest's objectives ([`ClientList`]): its
+	/// `objectives` record at the accept, every line that ticked (a `progress`, or the `complete`
+	/// for lines that never counted up) with the talks and casts around it, and the kill and loot
+	/// credits on each line. `s`: the session so far.
+	fn client_event(&mut self, e: &str, qid: Option<i64>, npc: Option<i64>, ev: &V, s: &mut Session) {
+		let t = ev.get("t").as_num().unwrap_or(f64::NAN);
+		while s.recent.front().is_some_and(|&(at, _)| !(t - at <= TALK_WINDOW)) {
+			s.recent.pop_front();
+		}
+		while s.ticks.front().is_some_and(|&(at, ..)| !(t - at <= TALK_AFTER)) {
+			s.ticks.pop_front();
+		}
+		let here = at_of(ev);
+		if here.is_some() {
+			s.at = here;
+		}
+		let known = qid.is_some_and(|q| self.db.quests.has(&q.to_string()));
+		if matches!(e, "cast" | "craft" | "skill" | "learn" | "kill" | "loot") {
+			s.recent.push_back((t, Seen::Work));
+		}
+		match (e, qid) {
+			("gossip" | "offer", _) => {
+				if let Some(n) = npc {
+					s.recent.push_back((t, Seen::Talk(n, here)));
+					self.talked_to.insert(n);
+					// A line that ticked a moment before the window opened, where it opened.
+					let who = self.voter.clone();
+					for &(_, q, oi, at) in &s.ticks {
+						if near(here, at) {
+							self.clients.entry(q).or_default().ticks.entry(oi).or_default().talks.entry(n).or_default().insert(who.clone());
+						}
+					}
+				}
+			}
+			("trainer" | "vendor", _) => {
+				if let Some(n) = npc {
+					s.recent.push_back((t, Seen::Service(n)));
+				}
+			}
+			("objectives", Some(q)) if known => {
+				let listed: Vec<(String, i64)> = ev
+					.get("objectives")
+					.items()
+					.iter()
+					.map(|o| (o.get("type").as_str().unwrap_or("log").to_string(), o.get("max").as_num().filter(|m| m.is_finite()).map_or(0, |m| m as i64)))
+					.collect();
+				s.open.insert(q, Open { listed: listed.len(), top: 0, ticked: FxHashSet::default() });
+				let who = self.voter.clone();
+				self.clients.entry(q).or_default().listed.entry(who).or_default().insert(listed);
+			}
+			("progress", Some(q)) => {
+				if let (Some(o), Some(oi)) = (s.open.get_mut(&q), pos_int(&ev.get("oi"))) {
+					o.top = o.top.max(oi);
+					o.ticked.insert(oi);
+					let at = here.or(s.at);
+					self.client_tick(q, oi, t, at, &s.recent);
+					s.ticks.push_back((t, q, oi, at));
+				}
+			}
+			("complete", Some(q)) => {
+				if let Some(o) = s.open.remove(&q) {
+					let n = (o.listed as i64).max(o.top);
+					let at = here.or(s.at);
+					for oi in 1..=n {
+						if !o.ticked.contains(&oi) {
+							self.client_tick(q, oi, t, at, &s.recent);
+							s.ticks.push_back((t, q, oi, at));
+						}
+					}
+					let who = self.voter.clone();
+					self.clients.entry(q).or_default().lines.entry(who).or_default().insert(n as usize);
+				}
+			}
+			("abandon" | "turnin", Some(q)) => {
+				s.open.remove(&q);
+			}
+			("kill", Some(q)) if known => {
+				if let (Some(id), Some(oi)) = (npc, pos_int(&ev.get("oi"))) {
+					let who = self.voter.clone();
+					self.clients.entry(q).or_default().ticks.entry(oi).or_default().kills.entry(id).or_default().insert(who);
+				}
+			}
+			_ => {}
+		}
+	}
+
+	/// Line `oi` of quest `q` ticked at `t`, at `at`: the NPCs talked to there in the
+	/// [`TALK_WINDOW`] before, the quest's friendly objective NPCs whose spawn is there, those whose
+	/// training or vendor window opened then, and a cast in the [`CAST_WINDOW`] count for it.
+	fn client_tick(&mut self, q: i64, oi: i64, t: f64, at: Option<At>, recent: &VecDeque<(f64, Seen)>) {
+		let by: Vec<i64> = self
+			.db
+			.quests
+			.get(&q.to_string())
+			.get("objectives")
+			.items()
+			.iter()
+			.flat_map(credited)
+			.filter(|id| {
+				let n = self.db.npcs.get(&id.to_string());
+				n.get("faction").as_str().is_some_and(|f| !f.is_empty())
+					&& at.is_some_and(|a| points_of(&n.get("spawns").get(&a.0.to_string()).get("pts")).iter().any(|p| near(Some((a.0, p[0], p[1])), at)))
+			})
+			.collect();
+		let who = self.voter.clone();
+		let line = self.clients.entry(q).or_default().ticks.entry(oi).or_default();
+		for n in by {
+			line.stood.entry(n).or_default().insert(who.clone());
+		}
+		// Latest first: a talk counts only with no work of the player's own after it.
+		let mut worked = false;
+		for &(when, s) in recent.iter().rev() {
+			match s {
+				Seen::Talk(n, place) if !worked && near(place, at) => {
+					line.talks.entry(n).or_default().insert(who.clone());
+				}
+				Seen::Service(n) => {
+					line.services.entry(n).or_default().insert(who.clone());
+				}
+				Seen::Work => {
+					if t - when <= CAST_WINDOW {
+						line.casts.insert(who.clone());
+					}
+					worked = true;
+				}
+				_ => {}
+			}
+		}
 	}
 
 	/// The faction, when it exists (one no source has is created only from vouched evidence),
@@ -1320,8 +1545,9 @@ fn clusters(points: &[P], radius: f64) -> Vec<(f64, f64, usize)> {
 /// highest it saw) and an objective gets the lower median of them. An objective another source
 /// has takes the recorded count where it has none, or on trusted evidence; a recorded objective
 /// the quest lacks is added, and the recorded order applied, only on trusted evidence or when the
-/// quest had no objectives. Tags `objectives`.
-fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize) {
+/// quest had no objectives, and never to a quest the game's own list `settled` ([`game_objectives`]).
+/// Tags `objectives`.
+fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: bool) {
 	let mut list: Vec<V> = q.get("objectives").items();
 	let had = !list.is_empty();
 	let (mut by_trusted, mut by_gap) = (false, false);
@@ -1352,7 +1578,7 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize) {
 		}
 		let idx = match idx {
 			None => {
-				if had && !tr {
+				if (had && !tr) || settled {
 					continue;
 				}
 				let o = Obj::new();
@@ -1388,7 +1614,7 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize) {
 			}
 		};
 		used.insert(idx);
-		if tr || !had {
+		if (tr || !had) && !settled {
 			oi_of.insert(idx, oi);
 		}
 	}
@@ -1409,6 +1635,163 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize) {
 	if by_gap {
 		tag_field(q, "objectives", false);
 	}
+}
+
+/// What [`game_objectives`] did to a quest: kept its objectives (no list, or lines it cannot match),
+/// found them the same as the game's, met disagreeing lists, or changed them.
+enum Game {
+	Kept,
+	Same,
+	Conflict,
+	Changed { talk: usize, dropped: usize },
+}
+
+/// The players behind line `tk`'s evidence that a talk to `id` ticked it: a window opened with it
+/// where and when the line ticked, or (`stood`) the line ticking at its spawn, for an NPC players
+/// open windows with (`windows`: not a credit marker nobody can talk to) on a creature's line or a
+/// revealed one, with no spell cast just before (a heal or a ritual is no talk).
+fn talk_evidence<'a>(tk: &'a Ticks, id: i64, line: Option<&str>, windows: &FxHashSet<i64>) -> IndexSet<&'a String> {
+	let mut who: IndexSet<&String> = tk.talked(id).into_iter().flatten().collect();
+	if windows.contains(&id) && tk.casts.is_empty() && matches!(line, None | Some("monster")) && !tk.services.contains_key(&id) {
+		who.extend(tk.stood.get(&id).into_iter().flatten());
+	}
+	who
+}
+
+/// The ids an objective is credited on: its own and its `credit` list.
+fn credited(o: &V) -> Vec<i64> {
+	let mut ids: Vec<i64> = pos_int(&o.get("id")).into_iter().collect();
+	ids.extend(o.get("credit").items().iter().filter_map(pos_int));
+	ids
+}
+
+/// Whether a line the game lists as `line` (none: a line it revealed later) can be a data
+/// objective of `kind`.
+fn fits(line: Option<&str>, kind: &str) -> bool {
+	match line {
+		None => true,
+		Some("monster") => matches!(kind, "kill" | "talk"),
+		Some(t @ ("item" | "object" | "event")) => t == kind,
+		_ => false,
+	}
+}
+
+/// The game's own objective list over the data's ([`ClientList`]): its lines decide how many
+/// objectives a quest has, their order and which are kills. It is the client's own list, so one
+/// counted player's recording settles it; players whose lists at the accept, or line counts once
+/// complete, disagree leave the data's objectives as they are ([`Game::Conflict`]). Texts are never
+/// read (any client language counts): a line is matched to the data objective whose NPC its ticks
+/// name (kill credits on its ids, a talk to it) when each is the other's clear strongest, and the
+/// rest in order by type. When every line has its objective:
+/// - the objectives take the game's order;
+/// - once a player completed the quest (every line the game reveals one at a time is then known),
+///   a data objective no line has is one the game does not count, and goes (The Cult of the
+///   Damned's Decrepit Darkhounds);
+/// - a kill objective no kill of its NPC ticked becomes `talk` (count 1) when players talked to its
+///   NPC as its line ticked ([`talk_evidence`]: Desperate Times' three talks, Welcome to Shen'dar
+///   Village's innkeeper, who counts as you walk up to her). Kills of other creatures credited to
+///   the line count as killing only from two players (one kill credited as an unrelated line ticks
+///   is noise).
+///
+/// A line of a type no data objective has (a skill to raise, a beast to tame) keeps the data's list.
+fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
+	let shapes: IndexSet<&Vec<(String, i64)>> = c.listed.values().flatten().collect();
+	if shapes.len() > 1 {
+		return Game::Conflict;
+	}
+	let Some(&listed) = shapes.first() else { return Game::Kept };
+	if listed.iter().all(|(t, _)| t == "log") {
+		return Game::Kept;
+	}
+	let finals: IndexSet<usize> = c.lines.values().flatten().copied().collect();
+	if finals.len() > 1 {
+		return Game::Conflict;
+	}
+	let complete = finals.first().copied();
+	let n = complete.unwrap_or(0).max(listed.len());
+	let list = q.get("objectives").items();
+	if list.is_empty() {
+		return Game::Kept;
+	}
+	let none = Ticks::default();
+	let ticks = |oi: usize| c.ticks.get(&(oi as i64)).unwrap_or(&none);
+	let kind = |o: &V| o.get("type").as_str().unwrap_or("event").to_string();
+	// Players behind each (line, objective) pair; a pair is taken when it is the line's strongest
+	// and the objective's strongest, each alone (kill credits a moment off land on a neighbouring
+	// line now and then).
+	let mut score = vec![vec![0usize; list.len()]; n + 1];
+	for (oi, row) in score.iter_mut().enumerate().skip(1) {
+		let tk = ticks(oi);
+		let line = listed.get(oi - 1).map(|(t, _)| t.as_str());
+		for (j, o) in list.iter().enumerate() {
+			if matches!(kind(o).as_str(), "kill" | "talk") {
+				let ids = credited(o);
+				row[j] = ids.iter().flat_map(|&id| tk.kills.get(&id).into_iter().flatten().chain(talk_evidence(tk, id, line, windows))).collect::<IndexSet<_>>().len();
+			}
+		}
+	}
+	let mut of_line: Vec<Option<usize>> = vec![None; n + 1];
+	let mut taken = vec![false; list.len()];
+	for oi in 1..=n {
+		for j in 0..list.len() {
+			let s = score[oi][j];
+			let alone_in_row = (0..list.len()).all(|k| k == j || score[oi][k] < s);
+			let alone_in_column = (1..=n).all(|k| k == oi || score[k][j] < s);
+			if s > 0 && alone_in_row && alone_in_column {
+				of_line[oi] = Some(j);
+				taken[j] = true;
+			}
+		}
+	}
+	for oi in 1..=n {
+		if of_line[oi].is_some() {
+			continue;
+		}
+		let line = listed.get(oi - 1).map(|(t, _)| t.as_str());
+		let Some(j) = (0..list.len()).find(|&j| !taken[j] && fits(line, &kind(&list[j]))) else { return Game::Kept };
+		of_line[oi] = Some(j);
+		taken[j] = true;
+	}
+	let before = stringify(&q.get("objectives"), None);
+	let mut out: Vec<V> = of_line[1..].iter().map(|j| list[j.unwrap()].clone()).collect();
+	let rest = (0..list.len()).filter(|&j| !taken[j]).map(|j| list[j].clone());
+	let dropped = if complete.is_some() {
+		rest.count()
+	} else {
+		out.extend(rest);
+		0
+	};
+	let mut talk = 0;
+	for oi in 1..=n {
+		let o = &out[oi - 1];
+		if o.get("type").as_str() != Some("kill") {
+			continue;
+		}
+		let tk = ticks(oi);
+		let ids = credited(o);
+		let killed = ids.iter().any(|id| tk.kills.contains_key(id)) || tk.kills.values().flatten().collect::<IndexSet<_>>().len() >= 2;
+		if killed {
+			continue;
+		}
+		let line = listed.get(oi - 1).map(|(t, _)| t.as_str());
+		if ids.iter().any(|&id| !talk_evidence(tk, id, line, windows).is_empty()) {
+			let t = Obj::new();
+			for (k, v) in o.entries() {
+				t.set_str(k, v);
+			}
+			t.set("type", "talk");
+			t.set("count", 1.0);
+			out[oi - 1] = V::Obj(t);
+			talk += 1;
+		}
+	}
+	let after = arr(out);
+	if stringify(&after, None) == before {
+		return Game::Same;
+	}
+	q.set("objectives", after);
+	tag_field(q, "objectives", true);
+	Game::Changed { talk, dropped }
 }
 
 /// A quest's recorded XP: the base reward when one was seen, else the log or turn-in values of
@@ -1522,6 +1905,8 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], min_voters: usize, so
 		touched_entities: IndexMap::new(),
 		quests: IndexMap::new(),
 		objectives: IndexMap::new(),
+		clients: IndexMap::new(),
+		talked_to: FxHashSet::default(),
 		names: IndexMap::new(),
 		live: Default::default(),
 		xp_seen: IndexMap::new(),
@@ -1577,6 +1962,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], min_voters: usize, so
 			}
 		}
 		ov.faction_dump(&rec.get("factions"));
+		let mut session = Session::default();
 		for ev in rec.get("events").items() {
 			let Some(e) = ev.get("e").as_rc_str() else { continue };
 			if !ev.truthy() {
@@ -1585,6 +1971,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], min_voters: usize, so
 			ov.stats.events += 1;
 			let qid = pos_int(&ev.get("q"));
 			let npc = pos_int(&ev.get("npc"));
+			ov.client_event(&e, qid, npc, &ev, &mut session);
 			match (&*e, qid) {
 				("accept", Some(qid)) => {
 					if let Some(q) = ov.quest(qid) {
@@ -1724,11 +2111,35 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], min_voters: usize, so
 		}
 	}
 	ov.apply_names();
+	// The game's own list first: a quest it settles keeps that structure, and the recorded
+	// progress only fills its counts.
+	let clients = std::mem::take(&mut ov.clients);
+	let mut settled: FxHashSet<i64> = FxHashSet::default();
+	for (&qid, c) in &clients {
+		let q = db.quests.get(&qid.to_string());
+		if !q.truthy() {
+			continue;
+		}
+		match game_objectives(&q, c, &ov.talked_to) {
+			Game::Kept => {}
+			Game::Same => {
+				settled.insert(qid);
+			}
+			Game::Conflict => ov.stats.objective_conflicts.push(qid),
+			Game::Changed { talk, dropped } => {
+				ov.stats.game_objective_quests += 1;
+				ov.stats.talk_objectives += talk;
+				ov.stats.dropped_objectives += dropped;
+				ov.touched.insert(qid);
+				settled.insert(qid);
+			}
+		}
+	}
 	let objectives = std::mem::take(&mut ov.objectives);
 	for (qid, slots) in &objectives {
 		let q = db.quests.get(&qid.to_string());
 		if q.truthy() {
-			merge_objectives(&q, slots, ov.min);
+			merge_objectives(&q, slots, ov.min, settled.contains(qid));
 			ov.touched.insert(*qid);
 		}
 	}
@@ -1836,9 +2247,9 @@ mod tests {
 			Tables { quests: obj(quests), npcs: obj(npcs), objects: obj("{}"), items: obj(items), zones: obj("{}"), factions: obj("{}"), instances: obj("{}") }
 		}
 
-		fn apply(&self, recs: &[Recording]) {
+		fn apply(&self, recs: &[Recording]) -> Stats {
 			let db = Db { quests: &self.quests, npcs: &self.npcs, objects: &self.objects, items: &self.items, zones: &self.zones, factions: &self.factions, instances: &self.instances };
-			apply_recordings(&db, recs, MIN_VOTERS, DEFAULTS, &|_| false, false);
+			apply_recordings(&db, recs, MIN_VOTERS, DEFAULTS, &|_| false, false)
 		}
 
 		fn quest(&self, id: &str) -> V {
@@ -2249,5 +2660,187 @@ mod tests {
 		std::fs::remove_dir_all(&dir).unwrap();
 		let voters = |v: &[&str]| v.iter().map(|s| s.to_string()).collect::<IndexSet<String>>();
 		assert!(!trusted(&voters(&[A, B, C]), 4) && trusted(&voters(&[A, B, C]), 3) && trusted(&voters(&["sent-x"]), 4));
+	}
+
+	// Desperate Times (#859): the data counts talking to Valennia, Ayessa and Elaadrin as three kills;
+	// the game lists one line at the accept and reveals the next as each talk counts.
+	const TIMES: &str = r#"{
+		"92640":{"id":92640,"title":"Desperate Times","races":null,"objectives":[{"type":"kill","id":252383,"count":null,"text":"Valennia Stormfist"},{"type":"kill","id":251968,"count":null,"text":"Ayessa Dawnsinger"},{"type":"kill","id":252475,"count":null,"text":"Elaadrin Evengale"}],"source":["questie-forever"]},
+		"96897":{"id":96897,"title":"The Cult of the Damned","races":8589934770,"objectives":[{"type":"kill","id":267006,"count":8,"text":"Dark Neophyte"},{"type":"kill","id":275437,"count":8,"text":"Dark Enforcer"},{"type":"kill","id":1547,"count":null,"text":"Decrepit Darkhound"}],"source":["questie-forever"]},
+		"93461":{"id":93461,"title":"Welcome to Shen'dar Village","races":4294967373,"objectives":[{"type":"kill","id":251903,"count":null,"text":"Rathiril Sunlance"},{"type":"kill","id":254089,"count":null,"text":"Coriella Calmbreeze"}],"source":["questie-forever"]},
+		"93927":{"id":93927,"title":"A Last Request","races":null,"objectives":[{"type":"kill","id":256966,"count":null,"text":"Skypriest Aanders"},{"type":"item","id":254871,"count":null,"text":"Bloody Note"}],"source":["questie-forever"]},
+		"96626":{"id":96626,"title":"Camping 101: Cooking","races":null,"objectives":[{"type":"kill","id":1430,"count":null,"text":"Tomas"}],"source":["questie-forever"]},
+		"98067":{"id":98067,"title":"Eyes of the Sentinels","races":null,"objectives":[{"type":"kill","id":270419,"count":null,"text":"Credit"}],"source":["questie-forever"]}}"#;
+	const TIMES_NPCS: &str = r#"{
+		"252383":{"id":252383,"name":"Valennia Stormfist","faction":"AH","spawns":{}},"251968":{"id":251968,"name":"Ayessa Dawnsinger","faction":"H","spawns":{}},
+		"252475":{"id":252475,"name":"Elaadrin Evengale","faction":"A","spawns":{}},"252476":{"id":252476,"name":"Talaanis Shadowsong","faction":"AH","spawns":{}},
+		"267006":{"id":267006,"name":"Dark Neophyte","faction":null,"spawns":{}},"275437":{"id":275437,"name":"Dark Enforcer","faction":null,"spawns":{}},
+		"1547":{"id":1547,"name":"Decrepit Darkhound","faction":null,"spawns":{}},"254089":{"id":254089,"name":"Coriella Calmbreeze","faction":"AH","spawns":{"2521":{"f":"l","pts":[[43.05,43.3]]}}},
+		"251903":{"id":251903,"name":"Rathiril Sunlance","faction":"A","spawns":{"2521":{"f":"l","pts":[[45.0,46.35]]}}},"256966":{"id":256966,"name":"Skypriest Aanders","faction":null,"spawns":{}},
+		"1430":{"id":1430,"name":"Tomas","faction":"A","spawns":{}},"270419":{"id":270419,"name":"Credit","faction":"A","spawns":{"1457":{"f":"l","pts":[[40.0,60.0]]}}}}"#;
+
+	/// A Desperate Times session whose client lists its first line as `text` (texts in any language
+	/// never matter): each talk and its line ticking where it was (the later lines carry no text: the
+	/// accept listed only the first; Ayessa's ticks a moment before her window opens).
+	fn desperate_times(text: &str) -> Vec<String> {
+		vec![
+			r#"{"t":1,"e":"accept","q":92640,"npc":252476,"map":2521,"x":66.22,"y":76.57}"#.into(),
+			format!(r#"{{"t":1,"e":"objectives","q":92640,"objectives":[{{"type":"monster","max":1,"text":"{text}"}}]}}"#),
+			r#"{"t":20,"e":"offer","npc":252383,"map":2521,"x":66.23,"y":76.58}"#.into(),
+			r#"{"t":22,"e":"gossip","npc":252383,"map":2521,"x":66.23,"y":76.58}"#.into(),
+			format!(r#"{{"t":23,"e":"progress","q":92640,"oi":1,"cur":1,"max":1,"map":2521,"x":66.23,"y":76.58,"type":"monster","text":"{text}: 1/1"}}"#),
+			r#"{"t":140,"e":"progress","q":92640,"oi":2,"cur":1,"max":1,"map":2521,"x":59.17,"y":79.74}"#.into(),
+			r#"{"t":140.5,"e":"offer","npc":251968,"map":2521,"x":59.17,"y":79.74}"#.into(),
+			r#"{"t":230,"e":"offer","npc":252475,"map":2521,"x":66.59,"y":80.0}"#.into(),
+			r#"{"t":231,"e":"gossip","npc":252475,"map":2521,"x":66.59,"y":80.0}"#.into(),
+			r#"{"t":231,"e":"progress","q":92640,"oi":3,"cur":1,"max":1,"map":2521,"x":66.59,"y":80.0}"#.into(),
+			r#"{"t":231,"e":"complete","q":92640}"#.into(),
+			r#"{"t":300,"e":"turnin","q":92640,"npc":252383,"map":2521,"x":66.23,"y":76.66}"#.into(),
+		]
+	}
+
+	#[test]
+	fn a_kill_credit_on_an_npc_players_talk_to_is_a_talk_in_the_games_order() {
+		// One counted player settles it (the game's own list), in any client language; Ayessa and
+		// Elaadrin are each friendly to one side only: the talks before their lines say so.
+		for (who, lang, text) in [(A, "ruRU", "Поговорите с Валеннией Штормовой Кулак"), (B, "enUS", "Speak with Valennia Stormfist")] {
+			let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+			let stats = t.apply(&[session("s", who, lang, &desperate_times(text))]);
+			let q = t.quest("92640");
+			assert_eq!(
+				j(&q.get("objectives")),
+				r#"[{"type":"talk","id":252383,"count":1,"text":"Valennia Stormfist"},{"type":"talk","id":251968,"count":1,"text":"Ayessa Dawnsinger"},{"type":"talk","id":252475,"count":1,"text":"Elaadrin Evengale"}]"#,
+				"{lang}"
+			);
+			assert!(q.get("source").items().iter().any(|s| s.as_str() == Some("recorder:objectives")), "{lang}");
+			assert_eq!((stats.game_objective_quests, stats.talk_objectives, stats.dropped_objectives), (1, 3, 0), "{lang}");
+		}
+		// A player who does not count changes nothing.
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&[Recording { counts: false, ..session("n", A, "enUS", &desperate_times("Speak with Valennia Stormfist")) }]);
+		assert_eq!(j(&t.quest("92640").get("objectives")), j(&obj(TIMES).get("92640").get("objectives")));
+	}
+
+	#[test]
+	fn the_games_lines_set_the_order_and_npcs_talked_to_as_a_line_ticks_are_talks() {
+		// Welcome to Shen'dar Village: Rathiril's line ticks a moment before his window opens, and
+		// the innkeeper's as the player reaches her (players open her window at other times).
+		let events: Vec<String> = vec![
+			r#"{"t":1,"e":"accept","q":93461,"npc":251523}"#.into(),
+			r#"{"t":1,"e":"objectives","q":93461,"objectives":[{"type":"monster","max":1,"text":"Speak with Rathiril Sunlance"},{"type":"monster","max":1,"text":"Speak with the Innkeeper"}]}"#.into(),
+			r#"{"t":200,"e":"progress","q":93461,"oi":1,"cur":1,"max":1,"map":2521,"x":45.01,"y":46.35,"type":"monster","text":"Speak with Rathiril Sunlance: 1/1"}"#.into(),
+			r#"{"t":200.2,"e":"offer","npc":251903,"map":2521,"x":45.01,"y":46.35}"#.into(),
+			r#"{"t":215,"e":"progress","q":93461,"oi":2,"cur":1,"max":1,"map":2521,"x":43.04,"y":43.3,"type":"monster","text":"Speak with the Innkeeper: 1/1"}"#.into(),
+			r#"{"t":900,"e":"offer","npc":254089,"map":2521,"x":43.05,"y":43.31}"#.into(),
+		];
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&from(&[A], &events));
+		assert_eq!(
+			j(&t.quest("93461").get("objectives")),
+			r#"[{"type":"talk","id":251903,"count":1,"text":"Rathiril Sunlance"},{"type":"talk","id":254089,"count":1,"text":"Coriella Calmbreeze"}]"#
+		);
+		// Without the window nobody opened (Rathiril's talk elsewhere, 15 s earlier, does not count
+		// at the innkeeper's), she stays as the data has her.
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&from(&[A], &events[..5]));
+		assert_eq!(j(&t.quest("93461").get("objectives").get("1").get("type")), r#""kill""#);
+		// A credit marker the line ticks at (an explored spot), whose window nobody opens, stays.
+		let marker: Vec<String> = vec![
+			r#"{"t":1,"e":"objectives","q":98067,"objectives":[{"type":"monster","max":1,"text":"Darnassus Bank"}]}"#.into(),
+			r#"{"t":50,"e":"progress","q":98067,"oi":1,"cur":1,"max":1,"map":1457,"x":40.1,"y":60.0}"#.into(),
+			r#"{"t":50,"e":"complete","q":98067}"#.into(),
+		];
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&from(&[A], &marker));
+		assert_eq!(j(&t.quest("98067").get("objectives")), j(&obj(TIMES).get("98067").get("objectives")));
+		// A Last Request: the game lists the note first (an item line), then reveals Skypriest
+		// Aanders, whose kills tick line 2: the data's order follows, and Aanders stays a kill.
+		let request: Vec<String> = vec![
+			r#"{"t":1,"e":"objectives","q":93927,"objectives":[{"type":"item","max":1,"text":"Collect and read the note"}]}"#.into(),
+			r#"{"t":9,"e":"loot","item":254871,"q":93927,"oi":1}"#.into(),
+			r#"{"t":9,"e":"progress","q":93927,"oi":1,"cur":1,"max":1,"type":"item","text":"Collect and read the note: 1/1"}"#.into(),
+			r#"{"t":90,"e":"kill","npc":256966,"q":93927,"oi":2}"#.into(),
+			r#"{"t":90,"e":"progress","q":93927,"oi":2,"cur":1,"max":1}"#.into(),
+			r#"{"t":90,"e":"complete","q":93927}"#.into(),
+		];
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&from(&[A], &request));
+		assert_eq!(
+			j(&t.quest("93927").get("objectives")),
+			r#"[{"type":"item","id":254871,"count":1,"text":"Bloody Note"},{"type":"kill","id":256966,"count":null,"text":"Skypriest Aanders"}]"#
+		);
+		// A trainer's lesson or a skill raised by crafting beside him is no talk, even where and as
+		// his window opened (Camping 101: Tomas's line ticks as you learn cooking in his training
+		// window, or as a craft right after talking to him raises the skill).
+		let lesson: Vec<String> = vec![
+			r#"{"t":1,"e":"objectives","q":96626,"objectives":[{"type":"monster","max":1,"text":"Learn cooking from Tomas in Goldshire"}]}"#.into(),
+			r#"{"t":10,"e":"gossip","npc":1430,"map":1429,"x":44.4,"y":66.0}"#.into(),
+			r#"{"t":11,"e":"trainer","npc":1430,"map":1429,"x":44.4,"y":66.0}"#.into(),
+			r#"{"t":13,"e":"complete","q":96626}"#.into(),
+		];
+		let crafted: Vec<String> = vec![
+			r#"{"t":1,"e":"objectives","q":96626,"objectives":[{"type":"monster","max":1,"text":"Learn cooking from Tomas in Goldshire"}]}"#.into(),
+			r#"{"t":10,"e":"gossip","npc":1430,"map":1429,"x":44.4,"y":66.0}"#.into(),
+			r#"{"t":20,"e":"craft","spell":2538,"map":1429,"x":44.4,"y":66.0}"#.into(),
+			r#"{"t":21,"e":"complete","q":96626}"#.into(),
+		];
+		for events in [lesson, crafted] {
+			let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+			t.apply(&from(&[A], &events));
+			assert_eq!(j(&t.quest("96626").get("objectives")), j(&obj(TIMES).get("96626").get("objectives")));
+		}
+		// The same talk with nothing after it is a talk.
+		let talked: Vec<String> = vec![
+			r#"{"t":1,"e":"objectives","q":96626,"objectives":[{"type":"monster","max":1,"text":"Learn cooking from Tomas in Goldshire"}]}"#.into(),
+			r#"{"t":10,"e":"gossip","npc":1430,"map":1429,"x":44.4,"y":66.0}"#.into(),
+			r#"{"t":11,"e":"complete","q":96626}"#.into(),
+		];
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&from(&[A], &talked));
+		assert_eq!(j(&t.quest("96626").get("objectives").get("0").get("type")), r#""talk""#);
+	}
+
+	/// A Cult of the Damned session: eight kills of each, credited to their lines, then (with
+	/// `complete`) the quest complete.
+	fn cult(complete: bool) -> Vec<String> {
+		let mut v: Vec<String> = vec![
+			r#"{"t":1,"e":"accept","q":96897,"npc":267009}"#.into(),
+			r#"{"t":1,"e":"objectives","q":96897,"objectives":[{"type":"monster","max":8,"text":"Dark Neophyte slain"},{"type":"monster","max":8,"text":"Dark Enforcer slain"}]}"#.into(),
+		];
+		for i in 1..=8 {
+			v.push(format!(r#"{{"t":{},"e":"kill","npc":267006,"q":96897,"oi":1}}"#, 10 * i));
+			v.push(format!(r#"{{"t":{},"e":"progress","q":96897,"oi":1,"cur":{i},"max":8,"type":"monster","text":"Dark Neophyte slain: {i}/8"}}"#, 10 * i));
+			v.push(format!(r#"{{"t":{},"e":"kill","npc":275437,"q":96897,"oi":2}}"#, 10 * i + 5));
+			v.push(format!(r#"{{"t":{},"e":"progress","q":96897,"oi":2,"cur":{i},"max":8,"type":"monster","text":"Dark Enforcer slain: {i}/8"}}"#, 10 * i + 5));
+		}
+		if complete {
+			v.push(r#"{"t":200,"e":"complete","q":96897}"#.into());
+		}
+		v
+	}
+
+	#[test]
+	fn an_objective_the_game_does_not_count_goes_once_a_player_completed_the_quest() {
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		let stats = t.apply(&from(&[A], &cult(true)));
+		assert_eq!(
+			j(&t.quest("96897").get("objectives")),
+			r#"[{"type":"kill","id":267006,"count":8,"text":"Dark Neophyte"},{"type":"kill","id":275437,"count":8,"text":"Dark Enforcer"}]"#
+		);
+		assert_eq!((stats.game_objective_quests, stats.talk_objectives, stats.dropped_objectives), (1, 0, 1));
+		// Until someone completes it, a later line could still be revealed: nothing goes.
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		t.apply(&from(&[A], &cult(false)));
+		assert_eq!(j(&t.quest("96897").get("objectives")), j(&obj(TIMES).get("96897").get("objectives")));
+	}
+
+	#[test]
+	fn players_whose_lists_disagree_leave_the_datas_objectives_and_are_listed() {
+		let mut other = cult(true);
+		other[1] = r#"{"t":1,"e":"objectives","q":96897,"objectives":[{"type":"monster","max":8,"text":"Dark Neophyte slain"}]}"#.into();
+		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
+		let stats = t.apply(&[session("a", A, "enUS", &cult(true)), session("b", B, "enUS", &other)]);
+		assert_eq!(j(&t.quest("96897").get("objectives")), j(&obj(TIMES).get("96897").get("objectives")));
+		assert_eq!(stats.objective_conflicts, vec![96897]);
 	}
 }

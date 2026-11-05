@@ -703,12 +703,12 @@ fn check_corrections(ck: &mut Ck, c: &V) {
 					for (i, o) in v.items().iter().enumerate() {
 						let oa = format!("{a}[{i}]");
 						let table = match o.get("type").as_str() {
-							Some("kill") => "npcs",
+							Some("kill" | "talk") => "npcs",
 							Some("object") => "objects",
 							Some("item") => "items",
 							Some("event") => "",
 							_ => {
-								ck.err(&oa, "type is kill, object, item or event");
+								ck.err(&oa, "type is kill, talk, object, item or event");
 								continue;
 							}
 						};
@@ -1160,7 +1160,7 @@ fn check_xy(ck: &mut Ck, at: &str, x: &V, y: &V) {
 
 /// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender", write?, label?, at: {
 /// map, x, y, frame } | path: { map, frame, points: [[x, y], ...] }, note, source, issue, pr }] }`. `label`: the
-/// objective's goal text (`"Talk to …"` for an objective the data counts as a kill).
+/// objective's goal text.
 fn check_places(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "places"]);
 	let list = d.get("places");
