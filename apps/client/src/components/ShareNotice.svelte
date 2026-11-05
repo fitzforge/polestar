@@ -39,10 +39,9 @@
 		As you play, the Polestar Recorder notes the quests, places, creatures and vendors you meet, and Polestar Client sends them in with no character, realm or account names. Like any website, the server
 		sees your IP address.
 	</p>
-	<p>It's how the guides and the Forever database get better for everyone. Thank you!</p>
 	<p>
-		To see exactly what is sent, open <button class="link" onclick={() => go('sending')}>What we send</button> or <button class="link" onclick={() => go('activity')}>Activity</button>.
-		<button class="link" onclick={() => api.openLink(CONTRACT_URL)}>The full list</button> says what never is.
+		It's how the guides and the Forever database get better for everyone. Thank you! See exactly what was sent in <button class="link" onclick={() => go('sending')}>What we send</button> and
+		<button class="link" onclick={() => go('activity')}>Activity</button>, and what is never sent in <button class="link" onclick={() => api.openLink(CONTRACT_URL)}>the full list</button>.
 	</p>
 	<div class="act">
 		<button class="btn primary small" disabled={busy !== null} onclick={() => act('ok')}>{#if busy === 'ok'}<span class="spinner"></span>{/if}Got it</button>
