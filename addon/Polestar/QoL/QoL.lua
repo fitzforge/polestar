@@ -380,6 +380,8 @@ end
 -- true / false, or nil when range does not apply (no target, no range).
 function Client.ItemInRange(itemID)
 	if not (C_Item and C_Item.IsItemInRange and UnitExists and UnitExists("target")) then return nil end
+	-- The client blocks range checks on non-friendly units in combat.
+	if inLockdown() and not (UnitIsFriend and UnitIsFriend("player", "target")) then return nil end
 	return readable(C_Item.IsItemInRange(itemID, "target"))
 end
 
