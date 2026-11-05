@@ -63,56 +63,5 @@
 			"kind": "in-game-check",
 			"ref": "#619"
 		}
-	},
-	"91736": {
-		"params": [
-			{
-				"kind": "object-click",
-				"object": 562131,
-				"item": 4536,
-				"count": 4,
-				"gives": 247824
-			}
-		],
-		"note": "The Applejack Still: clicking the still (object 562131) with four Shiny Red Apples (4536) in the bags hands the quest in on the spot and gives a Thunder Applejack (247824). The quest has no accept and never shows in the quest log; it can be done again with four more apples.",
-		"source": [
-			{
-				"kind": "recording",
-				"ref": "players' in-game recordings since launch: 4 hand-ins of 91736 at the still and no accept or quest window; a player who drank the Thunder Applejack (item 247824) got only Sergeant De Vries's shop"
-			},
-			{
-				"kind": "in-game-check",
-				"ref": "#820"
-			},
-			{
-				"kind": "in-game-check",
-				"ref": "#823"
-			}
-		]
-	},
-	"91738": {
-		"params": [
-			{
-				"kind": "item-from-other-quest",
-				"item": 247824,
-				"from": 91736,
-				"npc": 955
-			}
-		],
-		"note": "An Apple Treat: Sergeant De Vries (955) has the quest only while the player carries a Thunder Applejack (247824) from The Applejack Still (91736). Without one he opens only his shop; with one, talking to him goes straight to the hand-in, with no accept window.",
-		"source": [
-			{
-				"kind": "recording",
-				"ref": "players' in-game recordings since launch: 4 hand-ins of 91736 at the still and no accept or quest window; a player who drank the Thunder Applejack (item 247824) got only Sergeant De Vries's shop"
-			},
-			{
-				"kind": "in-game-check",
-				"ref": "#820"
-			},
-			{
-				"kind": "in-game-check",
-				"ref": "#823"
-			}
-		]
 	}
 }
