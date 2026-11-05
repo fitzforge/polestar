@@ -12,6 +12,9 @@
 --   stub.turnIn(q, npcGuid, npcName, xp, money)
 --   stub.abandon(q)
 --   stub.unitDied(guid) / stub.partyKill(guid)
+--   stub.setGroup(members, raid)  the other members (0 solo), fires GROUP_ROSTER_UPDATE
+--   stub.uiError(errorType, message)  UI_ERROR_MESSAGE (names: stub.world.gameMessages)
+--   stub.failQuest(q)          C_QuestLog.IsFailed turns true, fires quest log events
 --   stub.serialize(value)      -> Lua source for a SavedVariables round trip
 --   stub.secret()              -> a value issecretvalue() reports as secret
 
@@ -46,6 +49,9 @@ local W = {
 	timers = {}, -- questID -> seconds allowed (C_QuestLog.GetTimeAllowed)
 	spellbook = { [6603] = true },
 	talents = nil, -- { configID, treeIDs, groups = {...}, nodes = { [nodeID] = info }, entries = {...}, defs = {...} }
+	group = { members = 0, raid = false }, -- the other members of the party or raid
+	gameMessages = {}, -- errorType -> constant name (GetGameMessageInfo)
+	fishing = false, -- IsFishingLoot()
 }
 stub.world = W
 
@@ -199,6 +205,20 @@ function IsMounted() return W.mounted == true end
 function IsSwimming() return W.swimming == true end
 function IsFalling() return W.falling == true end
 function IsIndoors() return W.indoors == true end
+-- The group: W.group.members others (0 solo); a raid's subgroup holds at most 4 of them.
+function IsInRaid() return W.group.raid == true end
+function GetNumGroupMembers() return W.group.members > 0 and W.group.members + 1 or 0 end
+function GetNumSubgroupMembers() return W.group.raid and math.min(W.group.members, 4) or W.group.members end
+function stub.setGroup(members, raid)
+	W.group.members, W.group.raid = members, raid == true
+	stub.fire("GROUP_ROSTER_UPDATE")
+end
+-- Errors the client shows: GetGameMessageInfo names the error type's constant.
+function GetGameMessageInfo(errorType)
+	local name = W.gameMessages[errorType]
+	if name then return name, nil, nil end
+end
+function stub.uiError(errorType, message) stub.fire("UI_ERROR_MESSAGE", errorType, message) end
 
 ---------------------------------------------------------------------------
 -- Maps
@@ -297,6 +317,10 @@ end
 function C_QuestLog.IsComplete(q) return logIndex(q) ~= nil and ready(q) end
 function C_QuestLog.ReadyForTurnIn(q) return logIndex(q) ~= nil and ready(q) end
 function C_QuestLog.IsQuestFlaggedCompleted(q) return W.completed[q] == true end
+function C_QuestLog.IsFailed(q)
+	local def = logIndex(q) and W.quests[q]
+	return def ~= nil and def.failed == true
+end
 function C_QuestLog.UnitIsRelatedToActiveQuest(unit)
 	local u = W.units[unit]
 	return u ~= nil and u.related == true
@@ -321,7 +345,7 @@ function stub.acceptQuest(q, def)
 	for i, o in ipairs(def.objectives or {}) do
 		objectives[i] = { text = o.text, type = o.type or "monster", numFulfilled = o.numFulfilled or 0, numRequired = o.numRequired or 1 }
 	end
-	W.quests[q] = { title = def.title or ("Quest " .. q), level = def.level or 1, objectives = objectives }
+	W.quests[q] = { title = def.title or ("Quest " .. q), level = def.level or 1, objectives = objectives, failed = def.failed }
 	W.log[#W.log + 1] = q
 	stub.fire("QUEST_ACCEPTED", q)
 	stub.fire("QUEST_LOG_UPDATE")
@@ -345,6 +369,13 @@ end
 
 function stub.setProgress(q, oi, n)
 	W.quests[q].objectives[oi].numFulfilled = n
+	stub.fire("QUEST_LOG_UPDATE")
+	stub.fire("UNIT_QUEST_LOG_CHANGED", "player")
+	stub.advance(0.2)
+end
+
+function stub.failQuest(q)
+	W.quests[q].failed = true
 	stub.fire("QUEST_LOG_UPDATE")
 	stub.fire("UNIT_QUEST_LOG_CHANGED", "player")
 	stub.advance(0.2)
@@ -426,6 +457,7 @@ function GetLootSlotInfo(slot)
 	if not l then return nil end
 	return 134400, l.name, l.count or 1, nil, 1, false, l.quest or false, l.questID, true, false
 end
+function IsFishingLoot() return W.fishing == true end
 function GetLootSlotLink(slot)
 	local l = W.loot[slot]
 	if not l or not l.item then return nil end
