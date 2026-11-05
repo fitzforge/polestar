@@ -195,6 +195,8 @@ fn group_a_goal_row_offers_share_when_a_member_lacks_its_quest_and_the_party_lin
 		APART,
 		r#"
 p.join("Ben")
+-- Ben runs Polestar too (his hello); without it nothing would be said of him.
+p.receive("Ben-TestRealm", "1H|0.0.1")
 p.onQuest.Ben = { [7] = false }
 stub.advance(1)
 Polestar.UI.GuideFrame.Update()

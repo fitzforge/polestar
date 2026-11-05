@@ -1,13 +1,13 @@
--- The party panel: a small movable panel with one row per party member
--- (Quests/Party.lua, Party.Roster): the name in its class colour, level and
--- XP, the step they are on (or "Other guide"), what they still need of your
--- live step, and whether they are dead, far away or offline. Members
--- without Polestar show their name and level only. A click on a row points
--- the arrow at the member where the client gives their place on the map
--- (Party.PointAt). Shown with party.panel while party sync listens in a
--- party; hidden with the guide, and in combat when the guide hides there.
--- Toggled from the guide window's party line and /polestar party; its
--- place is kept in party.panelPos.
+-- The party panel: a small movable panel with one row per party member who
+-- runs Polestar (Quests/Party.lua, Party.Roster: those who have spoken it):
+-- the name in its class colour, level and XP, the step they are on (or
+-- "Other guide"), what they still need of your live step, and whether they
+-- are dead, far away or offline. Nothing shows without such a member. A
+-- click on a row points the arrow at the member where the client gives
+-- their place on the map (Party.PointAt). Shown with party.panel while party
+-- sync listens in a party; hidden with the guide, and in combat when the
+-- guide hides there. Toggled from the guide window's party line and
+-- /polestar party; its place is kept in party.panelPos.
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -34,7 +34,7 @@ local function wanted()
 	if not (ns.Get("party.panel") and P and P.IsLive and P.IsLive()) then return false end
 	if not ns.GuideShown() then return false end
 	if inCombat and ns.Get("ui.combat") == "hide" then return false end
-	return true
+	return #P.Roster() > 0
 end
 
 local function row(i)
@@ -86,11 +86,6 @@ local function build()
 	F.Title:SetText(L["Party"])
 	F.Close = W.IconButton(F, "close", 18, L["Close"], function() ns.Set("party.panel", false) end, 10)
 	F.Close:SetPoint("TOPRIGHT", F, "TOPRIGHT", -4, -4)
-	F.Empty = W.Text(F, "small", "textDim")
-	F.Empty:SetPoint("TOPLEFT", F, "TOPLEFT", PAD, -HEAD_H)
-	F.Empty:SetPoint("RIGHT", F, "RIGHT", -PAD, 0)
-	F.Empty:SetJustifyH("LEFT")
-	F.Empty:SetWordWrap(true)
 	F.rows = {}
 	F:SetScript("OnHide", function()
 		if ticker then
@@ -101,7 +96,7 @@ local function build()
 end
 
 -- The row texts of a Party.Roster entry: name (class colour), level line,
--- step line (nil for a member without Polestar), needs line or nil.
+-- step line, needs line or nil.
 function PP.RowText(e)
 	local name = e.name
 	local r, g, b
@@ -109,7 +104,6 @@ function PP.RowText(e)
 	if r then name = hexOf(r, g, b) .. name .. "|r" end
 	local level = e.level and L["Level %d"]:format(e.level) or ""
 	if e.xp then level = level .. DOT .. L["%d%% XP"]:format(e.xp) end
-	if not e.polestar then return name, level, nil, nil end
 	local parts = {}
 	if e.step then
 		parts[#parts + 1] = e.step
@@ -124,16 +118,12 @@ function PP.RowText(e)
 	return name, level, table.concat(parts, DOT), #needs > 0 and L["Still needs: %s"]:format(table.concat(needs, DOT)) or nil
 end
 
--- Repaint the rows from Party.Roster.
+-- Repaint the rows from Party.Roster; without a row, the panel hides.
 function PP.Refresh()
 	if not (F and F:IsShown()) then return end
 	local list = ns.Party.Roster()
+	if #list == 0 then return F:Hide() end
 	local y = HEAD_H
-	F.Empty:SetShown(#list == 0)
-	if #list == 0 then
-		F.Empty:SetText(L["Nobody in your party yet."])
-		y = y + F.Empty:GetStringHeight() + 4
-	end
 	for i, e in ipairs(list) do
 		local r = row(i)
 		local name, level, step, needs = PP.RowText(e)
@@ -202,7 +192,8 @@ local function onLive(on)
 end
 
 ns.On("PARTY_LIVE", onLive)
-ns.On("PARTY_PROGRESS", PP.Refresh)
+-- A member who speaks Polestar (or leaves) shows or hides the panel.
+ns.On("PARTY_PROGRESS", PP.Sync)
 ns.On("STEP_CHANGED", PP.Refresh)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "party.panelPos" then

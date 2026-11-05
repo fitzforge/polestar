@@ -4,17 +4,22 @@
 -- or client languages agree on what they share.
 --
 -- Rules: hidden addon messages to the party only (never chat, never a raid),
--- sent when a count changes (QUEST_LOG_UPDATE, 2 s debounce) and as a full
--- snapshot a few seconds after someone joins; never on a timer. Settings
--- party.share (send) and party.show (receive and show), both on unless the
--- player turned them off (a stored false); solo, only the roster events are
--- registered, and with both off nothing is. Every client API is checked
--- first.
+-- and only once a member has shown they run Polestar. Joining a party (or
+-- logging in or reloading in one) sends one hello, "1H|<version>"; a member
+-- who answers (their snapshot, a bare "1Y|<version>", or any valid message)
+-- gets the full sync, members who never answer get nothing more, and
+-- everything the guide shows of the party is of members who answered. Then
+-- progress goes out when a count changes (QUEST_LOG_UPDATE, 2 s debounce)
+-- and as a full snapshot a few seconds after a member answers; never on a
+-- timer. Settings party.share (send) and party.show (receive and show), both
+-- on unless the player turned them off (a stored false); solo, only the
+-- roster events are registered, and with both off nothing is. Every client
+-- API is checked first.
 --
 -- Message: "1|33:5/8,0/1;60:-", version first; "1S|" marks a snapshot that
--- replaces what is known of the sender; "1R|" is a snapshot sent after a
--- login or reload in a party, asking the others for theirs; "1Q|" asks for
--- theirs and carries nothing (showing without sharing). "33:-" is a quest
+-- replaces what is known of the sender; "1R|" is a snapshot that also asks
+-- the others for theirs (answering a hello); "1Q|" asks for theirs and
+-- carries nothing (showing without sharing). "33:-" is a quest
 -- that left the log; "33:" one without objectives. Split by whole quests
 -- under 255 bytes.
 --
@@ -132,6 +137,20 @@ end
 -- The request for the party's snapshots that shares nothing of ours.
 Party.ASK = VERSION .. "Q|"
 
+-- The handshake: "1H|<Polestar version>" asks the party who runs Polestar
+-- (sent once on joining a party, at login or reload in one, or with the
+-- settings back on); "1Y|<version>" answers it from a player who shares
+-- nothing (a sharer answers with its snapshot). Version-1 decoders before
+-- the handshake drop both. -> "H" | "Y", version; nil for anything else.
+function Party.EncodeHello(reply)
+	return VERSION .. (reply and "Y|" or "H|") .. (tostring(ns.version or ""):gsub("|", ""))
+end
+function Party.DecodeHello(text)
+	if type(text) ~= "string" then return nil end
+	local mark, version = text:match("^" .. VERSION .. "([HY])|([^|]*)$")
+	return mark, version
+end
+
 -- pos = { step, addon, pack, packVersion, guide } -> the "1P|" message, cut to
 -- MAX_BYTES; nil without a guide.
 function Party.EncodePos(pos)
@@ -239,12 +258,16 @@ local owed -- a snapshot the client refused (throttle, instance lockdown): { ask
 local askOwed = false -- a bare request the client refused: asked again when a member's log changes
 local lastSnapshotAt -- GetTime() of our last snapshot
 local roster = {} -- "Name" or "Name-Realm" -> short name: the party but you, online
+-- Members who have spoken Polestar (a hello, its answer or any valid
+-- message), by roster key: nothing of ours goes out, and nothing of group
+-- play shows, before one has, and only theirs count.
+local spoken = {}
 
 local function grouped()
 	return IsInGroup and IsInGroup() and not (IsInRaid and IsInRaid()) or false
 end
 
-local function sharing() return ns.Get("party.share") and grouped() end
+local function sharing() return ns.Get("party.share") and grouped() and next(spoken) ~= nil end
 
 local function countsOf(s)
 	if s == nil then return false end
@@ -348,7 +371,8 @@ end
 -- for theirs.
 local function snapshot(asks)
 	snapPending, pendingAsks = false, false
-	if not grouped() then return end
+	-- Nobody in the party has spoken Polestar: nothing of ours goes out.
+	if not grouped() or next(spoken) == nil then return end
 	if not ns.Get("party.share") then
 		-- Showing without sharing: ask for theirs, send nothing of ours.
 		if asks and ns.Get("party.show") then askOwed = send({ Party.ASK }) == 0 end
@@ -372,6 +396,21 @@ local function scheduleSnapshot(asks)
 	if snapPending or not C_Timer then return end
 	snapPending = true
 	ns.After(JOIN_MIN + math.random() * JOIN_SPREAD, function() snapshot(pendingAsks) end)
+end
+
+-- The hello: once on joining a party (the roster was empty), JOIN_MIN-6 s
+-- later so the others' clients listen by then. A refused one is owed and
+-- sent again when a member's quest log changes.
+local helloPending, helloOwed = false, false
+local function hello()
+	helloPending = false
+	if not grouped() or not (ns.Get("party.share") or ns.Get("party.show")) then return end
+	helloOwed = send({ Party.EncodeHello(false) }) == 0
+end
+local function scheduleHello()
+	if helloPending or not C_Timer then return end
+	helloPending = true
+	ns.After(JOIN_MIN + math.random() * JOIN_SPREAD, hello)
 end
 
 local function flush()
@@ -426,7 +465,7 @@ end
 local function forgetAll()
 	local had = next(members) ~= nil or next(roster) ~= nil or next(gone) ~= nil
 	roster, lastSent, members, owed, shared, askOwed, posSent, unitSent = {}, {}, {}, nil, false, false, nil, nil
-	gone, units, released = {}, {}, {}
+	gone, units, released, spoken, helloOwed = {}, {}, {}, {}, false
 	if wantLive then wantLive() end
 	if had then progressChanged() end
 end
@@ -445,8 +484,10 @@ end
 -- Offline members are left out: they drop off the line and count as new
 -- when back (what they sent is kept GONE_GRACE seconds for the group's
 -- wait). A roster read when we knew nobody (login, reload, joining from
--- solo, the settings back on: `asks`) asks the party for their snapshots.
-local function readRoster(asks)
+-- solo, the settings back on) says hello; the members who answer are
+-- synced, the others get nothing more. Members who leave are forgotten
+-- at once, holds and all.
+local function readRoster()
 	if not grouped() then return forgetAll() end
 	if wantLive then wantLive() end
 	local wasEmpty = next(roster) == nil
@@ -488,14 +529,17 @@ local function readRoster(asks)
 	for key in pairs(gone) do
 		if not offline[key] then gone[key] = nil end
 	end
+	for key in pairs(spoken) do
+		if not (now[key] or offline[key]) then spoken[key] = nil end
+	end
 	if gained or changed then progressChanged() end
-	if gained then scheduleSnapshot(asks or wasEmpty) end
+	if gained and wasEmpty then scheduleHello() end
 end
 
-local function onRoster() readRoster(false) end
+local function onRoster() readRoster() end
 
 local function onConnection(_, unit)
-	if type(unit) == "string" and unit:match("^party%d$") then readRoster(false) end
+	if type(unit) == "string" and unit:match("^party%d$") then readRoster() end
 end
 
 -- A party member's log changed: the "Not on this quest" nudge may be stale
@@ -503,6 +547,7 @@ end
 local function onUnitQuestLog(_, unit)
 	if type(unit) == "string" and unit:match("^party%d$") then
 		if askOwed then scheduleSnapshot(true) end
+		if helloOwed then scheduleHello() end
 		progressChanged()
 	end
 end
@@ -558,15 +603,42 @@ local function tellOnce()
 	ns.Print(ns.L["Party sync is on: your party sees your quest progress (Options > Questing > Group to turn it off)."])
 end
 
+-- A member spoke Polestar (any valid message). One new to us is told once
+-- (the notice, on the first found) and gets our snapshot unless their
+-- message already asks for it. True when they are new.
+local function heard(key, asks)
+	if spoken[key] then return false end
+	spoken[key] = true
+	tellOnce()
+	progressChanged()
+	if not asks and ns.Get("party.share") then scheduleSnapshot(false) end
+	return true
+end
+
 local function onAddonMessage(_, prefix, text, channel, sender)
 	if prefix ~= Party.PREFIX or channel ~= "PARTY" or type(sender) ~= "string" then return end
 	local key = Ambiguate and Ambiguate(sender, "none") or sender
 	local short = roster[key]
 	if not short then return end
+	local mark = Party.DecodeHello(text)
+	if mark == "H" then
+		-- A hello (they joined, logged in or reloaded): a sharer answers with
+		-- its snapshot, asking theirs; anyone else with a bare answer.
+		heard(key, true)
+		if ns.Get("party.share") then
+			scheduleSnapshot(true)
+		else
+			send({ Party.EncodeHello(true) })
+		end
+		return
+	elseif mark == "Y" then
+		heard(key, false)
+		return
+	end
 	local pos = Party.DecodePos(text)
 	if pos then
+		heard(key, false)
 		if not ns.Get("party.show") then return end
-		tellOnce()
 		memberFor(key, short).pos = pos
 		noticeNewer(short, pos)
 		progressChanged()
@@ -574,15 +646,15 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	end
 	local u = Party.DecodeUnit(text)
 	if u then
+		heard(key, false)
 		if not ns.Get("party.show") then return end
-		tellOnce()
 		memberFor(key, short).unit = u
 		progressChanged()
 		return
 	end
 	local snap, entries, asks = Party.Decode(text)
 	if snap == nil then return end
-	tellOnce()
+	heard(key, asks)
 	if asks and sharing() and not snapPending and not (lastSnapshotAt and GetTime() - lastSnapshotAt < REPLY_GAP) then
 		scheduleSnapshot(false)
 	end
@@ -592,6 +664,9 @@ local function onAddonMessage(_, prefix, text, channel, sender)
 	apply(m, entries, snap)
 	progressChanged()
 end
+
+-- Whether the member under roster key `key` has spoken Polestar.
+function Party.Spoke(key) return spoken[key] == true end
 
 -- The party members whose progress we have, by name:
 -- { { name = "Ana", quests = { [q] = { { cur, max }, ... } } }, ... }.
@@ -881,10 +956,10 @@ local function whyNot(unit, key, name, q)
 	return nil, false
 end
 
--- Party members (connected) who lack quest `q`: the client's own party check
--- first; without it, what a member running Polestar sent us; never a guess
--- about the rest. { { name, unit, key, why (text or nil), blocked }, ... }
--- by name.
+-- Party members (connected) who have spoken Polestar and lack quest `q`:
+-- what they sent first, else the client's own party check (which may not
+-- know about members far away); nothing is said of members without
+-- Polestar. { { name, unit, key, why (text or nil), blocked }, ... } by name.
 function Party.Lacking(q)
 	local out = {}
 	local check = C_QuestLog and C_QuestLog.IsUnitOnQuest
@@ -892,7 +967,7 @@ function Party.Lacking(q)
 	for i = 1, n do
 		local unit = "party" .. i
 		local key, name = memberKey(unit)
-		if key and not (UnitIsConnected and not UnitIsConnected(unit)) then
+		if key and spoken[key] and not (UnitIsConnected and not UnitIsConnected(unit)) then
 			-- What a member running Polestar sent outranks the client's check,
 			-- which may not know about members far away.
 			local m = members[key]
@@ -1013,7 +1088,7 @@ function Party.Apply()
 		lastSent = {}
 		scheduleSnapshot(true)
 	end
-	readRoster(true)
+	readRoster()
 end
 
 ns.OnLogin(Party.Apply)
@@ -1151,10 +1226,10 @@ local function stepNeeds(m, view)
 	return out
 end
 
--- One row per party member, in party order: { name, unit, class (file),
--- level, xp (percent, Polestar only), polestar, offline, dead, far, step
--- (their step's title on your guide), otherGuide, needs (stepNeeds of your
--- live step) }. Members without Polestar carry name, class, level and state.
+-- One row per party member who has spoken Polestar, in party order: { name,
+-- unit, class (file), level, xp (percent), polestar (true), offline, dead,
+-- far, step (their step's title on your guide), otherGuide, needs
+-- (stepNeeds of your live step) }. Empty without one.
 function Party.Roster()
 	local out = {}
 	if not grouped() then return out end
@@ -1166,11 +1241,11 @@ function Party.Roster()
 	for i = 1, n do
 		local unit = "party" .. i
 		local key, name = memberKey(unit)
-		if key then
+		if key and spoken[key] then
 			local m = ns.Get("party.show") and (members[key] or (gone[key] and gone[key].m)) or nil
 			local info = Party.UnitInfo(unit, key)
 			local row = {
-				name = name, unit = unit, class = info.class, level = info.level, xp = info.xp, polestar = m ~= nil,
+				name = name, unit = unit, class = info.class, level = info.level, xp = info.xp, polestar = true,
 				offline = (UnitIsConnected and not UnitIsConnected(unit)) and true or false,
 				dead = (UnitIsDeadOrGhost and UnitIsDeadOrGhost(unit)) and true or false,
 				far = farAway(unit),

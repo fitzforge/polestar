@@ -3701,6 +3701,8 @@ Quest markers); `guideHighlight` only restyles markers those layers draw.
 ### Party: where each member is on the guide, and group play — Quests/Party.lua
 
 ```lua
+Polestar.Party.EncodeHello(reply) / DecodeHello(text)  -- "1H|<version>" hello, "1Y|<version>" its bare answer -> "H"|"Y", version
+Polestar.Party.Spoke(key) -> bool                  -- the member has spoken Polestar
 Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar version>|<pack id>|<pack version>|<guide id>"
 Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>"; later fields ignored
 Polestar.Party.MyPos() -> { step, addon, pack, packVersion, guide } | nil
@@ -3720,6 +3722,18 @@ Polestar.Party.ItemNeeds(itemID) -> { { name, unit, need }, ... }; NeedText(e)  
 Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires when it changes
 ```
 
+- The handshake: group play runs only with party members who also run
+  Polestar. A roster read that knew nobody (joining a party, login or reload
+  in one, the settings back on) sends one "1H|" hello, 3-6 s later; a refused
+  one is said again when a member's quest log changes. A member is `spoken`
+  once any valid message of theirs arrives (hello, "1Y|", a snapshot, a
+  position, a unit). Nothing of ours (snapshot, changes, position, unit)
+  goes out before one has (`sharing()`); a hello is answered by a sharer
+  with its snapshot asking theirs ("1R|"), by anyone else with "1Y|"; a
+  member first heard otherwise gets our snapshot. Everything shown (party
+  line, holds, arrow, lacking and Share, panel rows, loot lines, the
+  one-time notice) is of spoken members only; one who leaves is forgotten at
+  once, holds and all. Older versions drop "1H|"/"1Y|" as malformed.
 - Settings (Questing → Quests → Group): `party.share`, `party.show`,
   `party.waitForGroup`, `party.lootNeeds` on by default, `party.panel` off,
   `party.panelPos`. A player who turned one off has `false` stored (Set
@@ -3764,9 +3778,10 @@ Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires whe
   (`Party.ShareFor`), through `Compat.ShareQuest` (`C_QuestLog.SetSelectedQuest`,
   `QuestLogPushQuest`, after `IsPushableQuest` when the client has it).
 - The party panel (UI/PartyPanel.lua, `Maps.CompactFrame` at
-  `party.panelPos`): a row per party member from `Party.Roster`; shown with
-  `party.panel` while `Party.IsLive()`, hidden with the guide and in combat
-  under `ui.combat` "hide"; `/polestar party`.
+  `party.panelPos`): a row per party member who has spoken Polestar, from
+  `Party.Roster`; shown with `party.panel` while `Party.IsLive()` and there
+  is such a member, hidden with the guide and in combat under `ui.combat`
+  "hide"; `/polestar party`.
 - Loot (UI/PartyLoot.lua, `party.lootNeeds`): on `LOOT_OPENED` and
   `START_LOOT_ROLL`, a line per item a member's counts are short of while
   yours are not (the item's log line from the active guide's collect goals,

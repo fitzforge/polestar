@@ -579,13 +579,15 @@ guides you there instead.
 
 ### Playing in a party
 
-When you group with friends who also run Polestar, the guide plays for the
-party as well as for you (Options, Questing, Group; each part can be turned
-off there, and nothing of it runs solo or in a raid).
+Group play works only with party members who also run Polestar. On joining
+a party Polestar sends one small hidden hello; a member who answers is synced,
+and everything below is about them. With friends who don't run Polestar
+nothing shows and nothing more is sent. Turn each part off under Options,
+Questing, Group; nothing of it runs solo or in a raid.
 
 - **Party sync**: each member's count shows under the quest goals you share
-  ("Ana 5/8", "Ben done"), and on a quest you took, who in the party lacks
-  it. It is on by default; the first time you group with another Polestar
+  ("Ana 5/8", "Ben done"), and on a quest you took, which of them lacks it.
+  It is on by default; the first time a party member answers as a Polestar
   user, Polestar says so once in chat. Only quest IDs, counts, levels and
   step numbers go out, as hidden addon messages to your party, never to
   chat. Turned off, it stays off.
@@ -601,11 +603,11 @@ off there, and nothing of it runs solo or in a raid).
   they can't take it, it says so ("Ben (level 8, needs 10)", "another class",
   "already done").
 - **Party panel**: a click on the guide window's party line, or `/polestar
-  party`, opens a small movable panel with each member's level and XP, the
-  step they are on, what they still need of yours, and whether they are
-  dead, far away or offline. Click a name to point the arrow at them where
-  the game gives their place on the map. Members without Polestar show their
-  name and level.
+  party`, opens a small movable panel with each Polestar member's level and
+  XP, the step they are on, what they still need of yours, and whether they
+  are dead, far away or offline. Click a name to point the arrow at them
+  where the game gives their place on the map. Without a Polestar member in
+  the party it stays hidden.
 - **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,

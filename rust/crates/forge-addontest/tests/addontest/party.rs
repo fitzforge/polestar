@@ -38,12 +38,20 @@ fn not_logged_in(script: &str) -> Vec<Value> {
 
 const SENT: &str = r#"
 local p = stub.party
--- The "2U|" unit messages have tests of their own (p.units = true keeps them);
--- the others read what they read before it came.
+-- The "2U|" unit messages and our own "1H|" hello have tests of their own
+-- (p.units = true, p.hellos = true keep them); the others read what they
+-- read before them.
 local rawSend = C_ChatInfo.SendAddonMessage
 function C_ChatInfo.SendAddonMessage(prefix, text, ...)
-	if text:sub(1, 3) == "2U|" and not p.units then return p.result end
+	if (text:sub(1, 3) == "2U|" and not p.units) or (text:sub(1, 3) == "1H|" and not p.hellos) then return p.result end
 	return rawSend(prefix, text, ...)
+end
+-- A member who joins runs Polestar and says hello, unless p.quiet[name].
+p.quiet = {}
+local rawJoin = p.join
+function p.join(name, realm)
+	rawJoin(name, realm)
+	if not p.quiet[name] then p.receive(name .. "-" .. (realm and realm:gsub("[%s%-]", "") or "TestRealm"), "1H|0.0.1") end
 end
 local function texts()
 	local out = {}
@@ -268,7 +276,7 @@ stub.advance(10)
 emit(texts())"#,
 	));
 	assert_eq!(json!([out[0], out[1]]), json!([0, 0]));
-	assert_eq!(out[2], json!(["1Q|"]), "with showing on, only the request for theirs");
+	assert_eq!(out[2], json!(["1Y|0.1.0-test"]), "with showing on, only the answer to Ben's hello");
 }
 
 #[test]
@@ -432,9 +440,10 @@ emit(fires)"#,
 }
 
 #[test]
-fn party_after_a_reload_in_a_party_the_others_are_asked_for_their_progress_once() {
+fn party_after_a_reload_in_a_party_it_says_hello_and_answers_the_member_who_answers_once() {
 	let out = not_logged_in(&sent(
 		r#"
+p.hellos = true
 p.members = { { name = "Ana", online = true } }
 w.onQuest(33, { 8 })
 stub.login()
@@ -447,7 +456,7 @@ p.receive("Ana-TestRealm", "1R|60:1/4")
 stub.advance(6)
 emit(texts())"#,
 	));
-	assert_eq!(out[0], json!(["1R|33:0/8"]));
+	assert_eq!(out[0], json!(["1H|0.1.0-test"]), "only the hello until someone answers");
 	assert_eq!(out[1], json!(["1S|33:0/8"]));
 }
 
@@ -612,7 +621,7 @@ emit(p.sent[#p.sent].text)"#,
 }
 
 #[test]
-fn party_a_member_who_goes_offline_leaves_the_line_and_gets_a_snapshot_when_back() {
+fn party_a_member_who_goes_offline_leaves_the_line_and_is_answered_when_back() {
 	let out = live(&sent_members(
 		r#"
 w.onQuest(33, { 8 })
@@ -623,11 +632,12 @@ p.connect("Ana", false)
 emit(#P.Members())
 p.sent = {}
 p.connect("Ana", true)
+p.receive("Ana-TestRealm", "1H|0.0.1")
 stub.advance(6)
 emit(texts())"#,
 	));
 	assert_eq!(out[0], 0);
-	// Back online with nobody else known: the snapshot asks for hers too.
+	// Back online, her client says hello: our snapshot asks for hers too.
 	assert_eq!(out[1], json!(["1R|33:0/8"]));
 }
 
@@ -732,7 +742,7 @@ Polestar.Set("party.share", false)
 stub.advance(10)
 emit(texts())"#,
 	));
-	assert_eq!(out[0], json!(["1S|", "1Q|"]));
+	assert_eq!(out[0], json!(["1S|"]), "the party had counts of ours from before the reload; nothing else until someone answers");
 }
 
 #[test]
@@ -757,18 +767,19 @@ p.receive("Ana-TestRealm", "1Q|")
 stub.advance(6)
 emit({ texts(), members() })"#,
 	));
-	// After a reload or a join from solo: a bare request, nothing of ours.
-	assert_eq!(out[0], json!(["1Q|"]));
-	assert_eq!(out[1], json!([["1Q|"], ["Ana 33:4/8"]]));
+	// A hello from a member while showing without sharing: a bare answer, nothing of ours.
+	assert_eq!(out[0], json!(["1Y|0.1.0-test"]));
+	assert_eq!(out[1], json!([["1Y|0.1.0-test"], ["Ana 33:4/8"]]));
 	// A sharer answers a bare request; it changes nothing of the asker's counts.
 	assert_eq!(out[2], json!([["1S|33:1/8"], ["Ana 33:4/8"]]));
 }
 
 #[test]
-fn party_a_refused_bare_request_is_asked_again_when_a_member_s_quest_log_changes() {
+fn party_a_refused_hello_is_said_again_when_a_member_s_quest_log_changes() {
 	let out = live(&sent(
 		r#"
-Polestar.Set("party.share", false)
+p.hellos = true
+p.quiet.Ana = true
 p.result = Enum.SendAddonMessageResult.AddonMessageThrottle
 p.join("Ana")
 stub.advance(6)
@@ -783,9 +794,9 @@ p.questLogChanged("Ana")
 stub.advance(6)
 emit(#p.sent)"#,
 	));
-	assert_eq!(out[0], json!(["1Q|"]));
-	assert_eq!(out[1], json!(["1Q|"]));
-	assert_eq!(out[2], 0, "once it went out, a log change asks nothing");
+	assert_eq!(out[0], json!(["1H|0.1.0-test"]));
+	assert_eq!(out[1], json!(["1H|0.1.0-test"]));
+	assert_eq!(out[2], 0, "once it went out, a log change says nothing");
 }
 
 #[test]
@@ -955,30 +966,90 @@ local function told()
 end"#;
 
 #[test]
-fn party_sync_is_on_by_default_a_player_who_turned_it_off_stays_off_and_the_first_group_says_so_once() {
+fn party_sync_is_on_by_default_a_player_who_turned_it_off_stays_off_and_the_first_polestar_member_found_says_so_once() {
 	let script = format!(
 		"{NOTICE}{}",
 		r#"
+p.hellos = true
+p.quiet.Ana = true
 w.onQuest(33, { 8 })
 p.join("Ana")
 stub.advance(6)
 emit(texts())
 emit(told())
+p.sent = {}
 p.receive("Ana-TestRealm", "1|60:1/4")
 p.receive("Ana-TestRealm", "1|60:2/4")
+stub.advance(6)
+emit(texts())
 emit(told())
 p.disband(); p.join("Ben"); stub.advance(6)
 p.receive("Ben-TestRealm", "1|60:1/4")
 emit(told())"#
 	);
 	let fresh = saved_run(None, &script);
-	assert_eq!(fresh[0], json!(["1R|33:0/8"]), "never touched: on");
-	assert_eq!(json!([fresh[1], fresh[2], fresh[3]]), json!([0, 1, 1]), "said once, on the first member who runs Polestar");
+	assert_eq!(fresh[0], json!(["1H|0.1.0-test"]), "never touched: on, and only the hello before anyone answers");
+	assert_eq!(fresh[2], json!(["1S|33:0/8"]), "Ana runs Polestar: she gets our snapshot");
+	assert_eq!(json!([fresh[1], fresh[3], fresh[4]]), json!([0, 1, 1]), "said once, on the first member who runs Polestar");
 	let no_share = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false } } }"), &script);
-	assert_eq!(no_share[0], json!(["1Q|"]), "sharing turned off stays off; showing asks for theirs");
-	assert_eq!(no_share[2], 0, "nothing to say to a player who does not share");
+	assert_eq!(no_share[0], json!(["1H|0.1.0-test"]), "showing alone still says hello");
+	assert!(no_share[2] == json!([]) || no_share[2] == json!({}), "sharing turned off stays off: {}", no_share[2]);
+	assert_eq!(no_share[3], 0, "nothing to say to a player who does not share");
 	let off = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false, show = false } } }"), &script);
 	assert!(off[0] == json!([]) || off[0] == json!({}), "both off: nothing sent, {}", off[0]);
+}
+
+// The handshake: a party whose members don't run Polestar gets one hello and sees nothing of group play;
+// a member who answers starts the sync and the features; one who leaves takes their hold along at once.
+#[test]
+fn party_with_members_without_polestar_only_the_hello_goes_out_and_nothing_shows_until_one_answers() {
+	let out = run_with(
+		&sent(&format!(
+			"{PANEL_GUIDE}{}",
+			r#"
+p.hellos = true
+p.quiet.Ana, p.quiet.Ben = true, true
+w.onQuest(33, { 8 })
+w.progress(33, 1, 8)
+p.join("Ana"); p.join("Ben")
+p.onQuest.Ana = { [33] = false }; p.onQuest.Ben = { [33] = false }
+stub.advance(10)
+w.progress(33, 1, 7); stub.advance(10)
+local goal = { t = "kill", quest = 33, oi = 1, status = "done", subject = "Kobold Vermin" }
+local function seen()
+	return { sent = texts(), line = P.Line(goal) or false, step = P.StepLine() or false, roster = #P.Roster(),
+		share = P.ShareFor(goal) or false, missing = #P.Missing(33), waiting = P.Waiting(goal) or false, holds = P.HoldsQuest(33),
+		panel = (function() Polestar.Set("party.panel", true); local f = Polestar.UI.PartyPanel.Frame(); return f ~= nil and f:IsShown() end)() }
+end
+emit(seen())
+p.sent = {}
+p.receive("Ana-TestRealm", "1Y|0.0.1")
+stub.advance(6)
+emit(seen())
+p.receive("Ana-TestRealm", "1S|33:2/8")
+stub.advance(1)
+emit({ waiting = P.Waiting(goal), holds = P.HoldsQuest(33) })
+p.leave("Ana")
+emit({ waiting = P.Waiting(goal) or false, holds = P.HoldsQuest(33), roster = #P.Roster() })"#
+		)),
+		LIVE_STUBS,
+		GROUP_FILES,
+		true,
+		None,
+	);
+	let quiet = &out[0];
+	assert_eq!(
+		quiet,
+		&json!({ "sent": ["1H|0.1.0-test"], "line": false, "step": false, "roster": 0, "share": false, "missing": 0, "waiting": false, "holds": false, "panel": false }),
+		"a member without Polestar: one hello, nothing shown"
+	);
+	let answered = &out[1];
+	assert_eq!(answered["sent"], json!(["1S|33:7/8", "1P|5|0.1.0-test|test|3|test/g"]), "she answered: our snapshot and place");
+	assert_eq!(answered["missing"], 1, "now she counts as lacking quest 33");
+	assert_eq!(answered["roster"], 1);
+	assert_eq!(answered["panel"], true);
+	assert_eq!(out[2], json!({ "waiting": [{ "name": "Ana", "cur": 2, "max": 8 }], "holds": true }));
+	assert_eq!(out[3], json!({ "waiting": false, "holds": false, "roster": 0 }), "she left: her hold goes at once");
 }
 
 #[test]
@@ -1095,6 +1166,7 @@ fn party_the_panel_has_a_row_per_member_with_level_xp_step_needs_and_state_and_p
 		"{PANEL_GUIDE}{}",
 		r#"
 local PP = Polestar.UI.PartyPanel
+p.quiet.Ben = true
 p.join("Ana"); p.join("Ben")
 p.set("Ana", { class = "MAGE", level = 11, sex = 3, map = 1429, x = 40, y = 50, dead = true })
 p.set("Ben", { class = "WARRIOR", level = 9 })
@@ -1105,7 +1177,7 @@ local rows = P.Roster()
 emit(rows)
 local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or false end
 local function texts(e) local a, b, c, d = PP.RowText(e); return { plain(a), b, c or false, d or false } end
-emit({ texts(rows[1]), texts(rows[2]), (PP.RowText(rows[1])):sub(1, 4) == "|cff" })
+emit({ texts(rows[1]), #rows, (PP.RowText(rows[1])):sub(1, 4) == "|cff" })
 emit(PP.Frame() ~= nil and PP.Frame():IsShown())
 Polestar.RunCommand("party")
 emit(PP.Frame():IsShown())
@@ -1123,10 +1195,8 @@ emit(PP.Frame():IsShown())"#
 	let ana = &out[0][0];
 	assert_eq!(json!([&ana["name"], &ana["class"], &ana["level"], &ana["xp"], &ana["polestar"], &ana["dead"], &ana["far"], &ana["offline"], &ana["step"]]), json!(["Ana", "MAGE", 12, 45, true, true, false, false, "Kobold Camp"]));
 	assert_eq!(ana["needs"], json!([{ "what": "Kobold Vermin", "cur": 3, "max": 8 }]));
-	let ben = &out[0][1];
-	assert_eq!(json!([&ben["name"], &ben["level"], &ben["polestar"]]), json!(["Ben", 9, false]));
 	assert_eq!(out[1][0], json!(["Ana", "Level 12  \u{b7}  45% XP", "Kobold Camp  \u{b7}  Dead", "Still needs: Kobold Vermin 3/8"]));
-	assert_eq!(out[1][1], json!(["Ben", "Level 9", false, false]), "no Polestar: name and level only");
+	assert_eq!(out[1][1], 1, "Ben runs no Polestar: no row");
 	assert_eq!(out[1][2], true, "the name in its class colour");
 	assert_eq!(out[2], false, "off until asked for");
 	assert_eq!(out[3], true, "/polestar party");
@@ -1176,4 +1246,19 @@ emit(#PL.Lines())"#,
 	assert_eq!(out[5], 0);
 	assert_eq!(out[6], 0, "you need it too: nothing said");
 	assert_eq!(out[7], 0, "the setting off");
+}
+
+#[test]
+fn party_the_hello_and_its_answer_round_trip_and_older_decoders_drop_them() {
+	let out = run(r#"
+local h, y = P.EncodeHello(false), P.EncodeHello(true)
+emit({ h, y })
+emit({ P.DecodeHello(h) }); emit({ P.DecodeHello(y) })
+emit({ P.Decode(h) == nil, P.DecodePos(h) == nil, P.Decode(y) == nil, P.DecodePos(y) == nil })
+emit({ P.DecodeHello("1Q|") == nil, P.DecodeHello("1H|1|2") == nil, P.DecodeHello("2H|1") == nil })"#);
+	assert_eq!(out[0], json!(["1H|0.1.0-test", "1Y|0.1.0-test"]));
+	assert_eq!(out[1], json!(["H", "0.1.0-test"]));
+	assert_eq!(out[2], json!(["Y", "0.1.0-test"]));
+	assert_eq!(out[3], json!([true, true, true, true]), "the decoders of Polestar before the handshake drop both");
+	assert_eq!(out[4], json!([true, true, true]));
 }
