@@ -1,6 +1,7 @@
 //! The forge-i18n tests, one binary: the interface translations (keys, format check, sync, reader,
 //! glossary, shipped files), the addon in its languages, the AddOns list texts and `i18n leaks`.
 mod addon;
+mod audit;
 mod files;
 mod leaks;
 mod state;

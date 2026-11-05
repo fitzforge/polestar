@@ -419,3 +419,34 @@ fn the_client_tables_come_from_a_build_holding_every_table_in_english_and_each_l
 	assert_eq!(got.english["map"].get(&1).map(String::as_str), Some("Map en"));
 	assert!(src::load_client_names(&s, &["deDE"], None, true, &|_| {}).err().unwrap().contains("no forever client tables"));
 }
+
+#[test]
+fn the_audit_tables_come_from_the_newest_cached_build_holding_every_table() {
+	let s = scratch("names-wago-audit");
+	let tables = [("SpellName", "Name_lang"), ("AreaTable", "AreaName_lang"), ("SkillLine", "DisplayName_lang"), ("TalentTab", "Name_lang")];
+	let write = |build: &str, locale: Option<&str>, only: &[&str]| {
+		for (t, field) in tables.iter().filter(|(t, _)| only.contains(t)) {
+			let mut dir = s.join("wago").join(build);
+			if let Some(l) = locale {
+				dir = dir.join(l);
+			}
+			std::fs::create_dir_all(&dir).unwrap();
+			let row = |id: u32| format!("{id},{t} {id} {}", locale.unwrap_or("en"));
+			let csv = if *t == "SkillLine" { format!("ID,{field}\n{}\n{}\n", row(1), row(2)) } else { format!("ID,{field}\n{}\n", row(1)) };
+			std::fs::write(dir.join(format!("{t}.csv")), csv).unwrap();
+		}
+	};
+	let all: Vec<&str> = tables.iter().map(|t| t.0).collect();
+	// 1.60.1.2 is newer but lacks deDE's other tables: 1.60.1.1 is the one read.
+	for l in [None, Some("deDE")] {
+		write("1.60.1.1", l, &all);
+	}
+	write("1.60.1.2", None, &all);
+	write("1.60.1.2", Some("deDE"), &all[..1]);
+	let got = src::load_audit_names(&s, &["deDE"], None, true, &|_| {}).unwrap();
+	assert_eq!(got.build, "1.60.1.1");
+	assert_eq!(got.names["deDE"]["skill"].get(&2).map(String::as_str), Some("SkillLine 2 deDE"));
+	assert_eq!(got.names["deDE"]["tree"].get(&1).map(String::as_str), Some("TalentTab 1 deDE"), "the trees: the talent window's tabs");
+	assert_eq!(got.english["area"].get(&1).map(String::as_str), Some("AreaTable 1 en"));
+	assert!(src::load_audit_names(&s, &["frFR"], None, true, &|_| {}).err().unwrap().contains("no forever client tables"));
+}
