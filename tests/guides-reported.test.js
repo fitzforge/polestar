@@ -1039,6 +1039,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// handed in, so it is an optional extra.
 		...DUROTARS.map((g) => [g, 97225, [805]]),
 		...[...DUROTARS, 'forever/reputation/orgrimmar.guide', 'forever/reputation/darkspear-trolls.guide'].map((g) => [g, 97282, [97281], true]),
+		// DexeeXI (#872): Shadow Priest Allister offers Watching the Roads only
+		// once Dalaran's Intentions is handed in to him.
+		[SILVERPINE, 95981, [482]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));

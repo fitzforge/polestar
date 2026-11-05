@@ -2743,6 +2743,21 @@
 		},
 		"note": "Her Name Is Olgra (Barrens, Mankrik) comes after Lost in Battle 4921, once you have found her body: in game Mankrik did not offer it beside Lost in Battle (issue #65). QuestieDB has no prerequisite."
 	},
+	"95981": {
+		"set": {
+			"pre": [
+				482
+			],
+			"preAny": [
+				482
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#872"
+		},
+		"note": "Watching the Roads (Silverpine, Shadow Priest Allister) is offered once Dalaran's Intentions 482 is handed in to Allister: a level 18 Tauren Shaman with Border Crossings done and 482 not yet handed in was not offered it, and was offered it right after the 482 hand-in (#872). QuestieDB has no prerequisite, so the 0.3.0 route asked for it at the first Sepulcher visit."
+	},
 	"95998": {
 		"set": {
 			"start": {

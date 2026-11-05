@@ -210,6 +210,8 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(WESTFALL, 92911, &[92910], true),
 		(THOUSAND_NEEDLES, 98221, &[464], false),
 		(THOUSAND_NEEDLES, 465, &[98221], false),
+		// DexeeXI (#872): Allister offers Watching the Roads once Dalaran's Intentions is handed in.
+		(SILVERPINE, 95981, &[482], false),
 	];
 	for &(guide, quest, after, optional) in cases {
 		let list = ctx.goals(guide);
