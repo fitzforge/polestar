@@ -2139,9 +2139,21 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   adds a "Nearby services" submenu to `MENU_WORLD_MAP_TRACKING` and
   `MENU_MINIMAP_TRACKING`): kinds trainer (profession, by skill line, or any),
   class, weapon (a weapon skill's line, or any), repair, reagents, vendor,
-  innkeeper, bank, auction, flight, stable. Weapon masters are the NPCs of
+  food, arrows, bullets, ranged, innkeeper, bank, mailbox, auction, flight,
+  stable. Food, arrows, bullets and ranged are vendors by what they sell:
+  `forge data codex` gives every NPC an item lists as its vendor a role from
+  the item's class and subclass (`sells_role` in forge-data's
+  `codex/merge.rs`, with `sellsRole` in `tools/lib/codex/build.js` in step:
+  `sells:food` 0/5, `sells:arrows` 6/2, `sells:bullets` 6/3, `sells:ranged`
+  2/2, 2/3, 2/18). Vendor and these kinds
+  leave out NPCs that are also trainers (`without`: the data lists Forever's
+  Junior trainers as vendors, and they sell the player nothing), and their
+  target names the NPC's title ("Keina (Bowyer)", `titled`). Weapon masters are the NPCs of
   `WEAPON_MASTERS` (the weapon skills each teaches, noted by hand) of the
-  player's side.
+  player's side. Mailboxes are the Codex's objects with the mailbox flag
+  (`object`: `Codex.Each("object")` and `Codex.Object(id).mailbox`, walked
+  once and cached), of the player's side or of both; one with no known side
+  never counts.
   Places are the Codex's NPCs with that role (`Codex.WithRole`, loaded on
   demand, never in combat), friendly to the player's faction and outside
   instances; reagents are vendors listed in `QoL.data.reagentVendors` (`qol
@@ -2153,7 +2165,11 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 - **The guide window's button** (`nav.nearbyButton`, on: Options, Guide,
   Arrow & routes): an icon left of the bug, Skip left of it (left of the bug
   when it is off). Its menu is `Nearby.MenuItems()`: the services, a trainer
-  per profession the character has, and Weapon master, a page of
+  per profession the character has, Vendor, a page of `Nearby.VendorPage()`
+  (Nearest, Food & drink, and Arrows, Bullets, Bows & guns only for a class
+  that can use a bow or crossbow, a gun, or either: `Nearby.Fits`, by
+  `Gear.PROFICIENCY`; the map menus' Vendor submenu lists the same), and
+  Weapon master, a page of
   `Nearby.Weapons()` (a known weapon, by `Compat.IsPlayerSpell` on its
   skill's spell, and polearms before level 20 are listed and off); off in
   combat.

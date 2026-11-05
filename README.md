@@ -475,10 +475,12 @@ its source is in [apps/client](apps/client).
   takes you there, routed like any goal; Alt-click works over map icons.
   Click the spot again to let it go.
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
-  class, weapon, reagents, vendor, innkeeper, bank, auction, flight, stable)
-  points the arrow at the quickest one to reach; the map's tracking menu and
-  the guide window's Nearby services button list them, the button with a
-  page of the weapons a weapon master can teach you. Once you get there,
+  class, weapon, reagents, vendor, food, arrows, bullets, ranged, innkeeper,
+  bank, mailbox, auction, flight, stable) points the arrow at the quickest one to
+  reach, naming a vendor's trade; the map's tracking menu and the guide
+  window's Nearby services button list them, the button with a page of
+  vendors (food and drink, and the ammunition and bows or guns your class
+  can use) and one of the weapons a weapon master can teach you. Once you get there,
   the arrow is back on the guide.
 - **OpenMap.** On [OpenMap](https://www.curseforge.com/wow/addons/openmap)'s
   seamless world map the trail dots carry on across zone borders and show on
@@ -741,7 +743,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `path` | Choose where to level next, where a guide offers a choice of route |
 | `route` | Show the travel route to the current target |
 | `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
-| `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master |
+| `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it) |
 | `reset` | Clear ticks and skips for the current guide |
