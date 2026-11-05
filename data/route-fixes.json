@@ -3434,6 +3434,12 @@
 				"faction": "Alliance",
 				"reason": "ZoneFix c18 read (Alliance 50-60): the Super Egg-O-Matic's Hippogryph Egg is in southern Feralas, which the Alliance reach only at Feathermoon by boat or at Thalanaar, and v1 drops it for that (06-silithus header: 'Feralas (The Super Egg-O-Matic 2741 ...'). c18 inserted it: a flight to Thalanaar for the egg and a hearth back at 58 (Human 50-60/06-silithus:209-225; Human.json order[2215-2216])",
 				"issue": ""
+			},
+			{
+				"q": 99073,
+				"faction": "Alliance",
+				"reason": "#650 (Pynte): Easing Suffering gives 85 XP and nothing else, and its hand-in, Sentinel Eralya Leafshadow at 37.5,36.8, lies north of the road to Darnassus: the 0.3.x route walks about 1,370 yards from Dolanaar to her and 830 back down to Darnassus' gate, against about 1,100 for the road straight to the gate, so about 1,100 yards (2 to 3 minutes) for 85 XP. Players' recordings on 0.3.1 and 0.3.2: 4 to 8 minutes on that step, then 2 to 2.5 minutes back south to the gate",
+				"issue": "#650"
 			}
 		],
 		"revert": [

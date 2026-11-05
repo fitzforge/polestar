@@ -366,7 +366,6 @@ step Dolanaar
 step Dolanaar again
   tip Byancie takes a Refreshing Spring Water with the fronds and the vial: if you drank yours, buy another from Innkeeper Keldamyr in this inn before you hand in.
   turnin 99050                                -- Byancie, inside
-  accept 99073
 
 step Taming the Beast
   only Hunter
@@ -380,10 +379,6 @@ step Taming the Beast
   kill 1996 quest 6102.1 "Tame Strigid Screecher" -- Strigid Screecher: tame it with the Taming Rod
   turnin 6102                                 -- Tame Beast
   accept 6103                                 -- Jocaste in Darnassus takes it
-
-step Sentinel Eralya Leafshadow
-  tip Take the road north-west from Dolanaar again; she still lies beside it, on the way to Darnassus.
-  turnin 99073
 
 step Into Darnassus
   only Warrior

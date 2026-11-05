@@ -332,6 +332,11 @@ test(`${TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle 
 	assert.ok(yards(list[hand].goal, list[fandral].goal) < 5, 'to Fandral himself');
 });
 
+test(`${TELDRASSIL}: Pynte's report (#650): Easing Suffering, 85 XP for a walk out to Sentinel Eralya and back, is left out`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	for (const t of ['accept', 'turnin']) assert.equal(list.findIndex(({ goal }) => is(t, 99073)(goal)), -1, `no ${t} of 99073`);
+});
+
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: Supplies to Tannok is taken from Hands Springsprocket at the tunnel, leaving Coldridge Valley`, { skip }, () => {
 	const list = goals(DUN_MOROGH);
 	const take = at(list, 'accept 2160 (Supplies to Tannok)', is('accept', 2160));
