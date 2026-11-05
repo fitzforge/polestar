@@ -520,6 +520,7 @@ function Nearby.Go(key, line)
 	else
 		ns.Print(format(L["Nearest %s: %s, %s."], lower(kindLabel(key, line)), name, zone))
 	end
+	Nav.SayGuideHidden()
 	return true
 end
 

@@ -745,7 +745,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
 | `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
-| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it) |
+| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide is hidden the arrow is too, and these commands say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |

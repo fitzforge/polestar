@@ -89,3 +89,33 @@ test('no rare alert or sound fires while the guide is hidden', () => {
 	assert.deepEqual(run(true), [[1, 1], 2]);
 	assert.deepEqual(run(false), [[0, 0], 1]);
 });
+
+test('a command that asks for the arrow says so while the guide is hidden, and stays quiet otherwise', () => {
+	const run = (shown) => runAddon({
+		stubs: ['stub_nav.lua'],
+		addons: [{ name: 'Polestar', files: ['Core/Init.lua', 'Theme/Theme.xml', 'Nav/Nav.xml'] }],
+		login: true,
+		script: `local Nav = Polestar.Nav
+		Polestar.Set("ui.shown", ${shown})
+		Nav.nearby.Find = function() return { name = "Innkeeper", map = 9000, x = 50, y = 20 } end
+		Polestar.Set("nav.answerTomTom", true)
+		local function said(command)
+			local before = #stub.messages
+			command()
+			local n = 0
+			for i = before + 1, #stub.messages do
+				if stub.messages[i]:find("/polestar show", 1, true) then n = n + 1 end
+			end
+			emit(n)
+		end
+		said(function() SlashCmdList.POLESTAR("arrow show") end)
+		said(function() SlashCmdList.POLESTAR("arrow hide") end)
+		said(function() SlashCmdList.POLESTAR("arrow") end)
+		said(function() SlashCmdList.POLESTAR("way 50 20") end)
+		said(function() SlashCmdList.POLESTAR("near inn") end)
+		said(function() Nav.journey.Way("50 20") end)
+		emit(Nav.GetTarget() ~= nil)`,
+	}).emitted;
+	assert.deepEqual(run(false), [1, 0, 1, 1, 1, 1, true]);
+	assert.deepEqual(run(true), [0, 0, 0, 0, 0, 0, true]);
+});
