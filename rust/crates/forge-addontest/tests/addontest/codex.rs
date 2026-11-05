@@ -1000,7 +1000,21 @@ fn curatedrepgates_a_collectible_guide_reaching_a_standing_before_it_buys_the_it
 	)
 	.unwrap();
 	std::fs::write(dir.join("plain.guide"), ["guide x/plain", "step A", "  rep 589 Honored", "  buy 5 npc 1"].join("\n")).unwrap();
-	assert_eq!(plain(&curated_rep_gates_in(dir)), json!({ "13086": [{ "npc": 10618, "faction": null, "factionName": "Wintersaber Trainers", "standing": 8 }] }));
+	// #785: the other races' Exalted for a racial mount holds back those races, not Lelanai; a faction's
+	// standing (only Alliance) still gates the vendor.
+	std::fs::write(
+		dir.join("racial.guide"),
+		["guide x/racial", "collects 8631", "", "step Tiger Riding for other races", "  only Human,Dwarf,Gnome,Skyborne", "  rep \"Darnassus\" Exalted", "step Pick a colour", "  buy 8631 npc 4730 optional"].join("\n"),
+	)
+	.unwrap();
+	std::fs::write(dir.join("side.guide"), ["guide x/side", "collects 19030", "", "step Exalted", "  only Alliance", "  rep 730 Exalted", "step Buy", "  buy 19030 npc 13216"].join("\n")).unwrap();
+	assert_eq!(
+		plain(&curated_rep_gates_in(dir)),
+		json!({
+			"13086": [{ "npc": 10618, "faction": null, "factionName": "Wintersaber Trainers", "standing": 8 }],
+			"19030": [{ "npc": 13216, "faction": 730, "factionName": null, "standing": 8 }]
+		})
+	);
 }
 
 #[test]

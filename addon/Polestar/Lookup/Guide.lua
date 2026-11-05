@@ -136,9 +136,15 @@ end
 -- Building
 ---------------------------------------------------------------------------
 
+-- A guide goal's frame: "e" (Era) or nothing (live). The Codex marks live
+-- points "l" (#785: the Alliance Drakefire Amulet's guide failed to build).
+local function frame(f)
+	return f == "e" and "e" or nil
+end
+
 local function at(goal, p)
 	if p and p.map and p.x and p.y then
-		goal.map, goal.x, goal.y, goal.f = p.map, p.x, p.y, p.f
+		goal.map, goal.x, goal.y, goal.f = p.map, p.x, p.y, frame(p.f)
 	end
 	return goal
 end
@@ -215,7 +221,7 @@ local function spawnSpots(goal, spawns)
 	if not c0 then return goal end
 	local pts, sx, sy = {}, 0, 0
 	for _, s in ipairs(spawns) do
-		if s.map == map and s.f == f and s.x and s.y then
+		if s.map == map and frame(s.f) == f and s.x and s.y then
 			local c, wx, wy = toWorld(map, s.x, s.y, f)
 			if c ~= c0 then return goal end
 			pts[#pts + 1] = { x = s.x, y = s.y, wx = wx, wy = wy }

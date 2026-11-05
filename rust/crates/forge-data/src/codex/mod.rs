@@ -258,6 +258,9 @@ fn curated_collects(texts: &[String]) -> Vec<f64> {
 
 /// `curatedRepGates(dir)`: the vendor gates the guides under `dir` state (in a guide that collects an
 /// item, the last `rep` goal before `buy <item> npc <id>`) -> { item: [{ npc, faction, factionName, standing }] }.
+/// A `rep` goal in a step for some races or classes only (`only Human,Dwarf,Gnome,Skyborne`: the other
+/// races' Exalted for a racial mount) holds back those characters, not the vendor, so it is no gate
+/// (#785: the Striped Frostsaber read as reputation-only); a step for one faction (`only Alliance`) still is.
 pub fn curated_rep_gates_in(dir: &Path) -> V {
 	curated_rep_gates(&guide_texts(dir))
 }
@@ -274,14 +277,21 @@ fn curated_rep_gates(texts: &[String]) -> V {
 			continue;
 		}
 		let mut rep: Option<(V, V, f64)> = None;
+		let mut some_only = false;
 		for line in text.split('\n') {
 			let line = line.strip_suffix('\r').unwrap_or(line);
 			let goal = COMMENT.replace(line, "");
 			let goal = goal.trim_matches(util::is_js_space);
+			if line.starts_with("step ") {
+				some_only = false;
+			} else if let Some(o) = goal.strip_prefix("only ") {
+				some_only = o.split(',').map(|c| c.trim_matches(util::is_js_space)).any(|c| c != "Alliance" && c != "Horde");
+				continue;
+			}
 			if let Some(r) = REP.captures(goal) {
 				let st = STANDINGS.iter().find(|(n, _)| *n == r[3].to_lowercase()).map(|(_, s)| *s);
 				if let Some(st) = st {
-					if r.get(1).is_some() || r.get(2).is_some() {
+					if (r.get(1).is_some() || r.get(2).is_some()) && !some_only {
 						rep = Some((r.get(1).map(|m| V::Num(forge_guide::js::str_to_num(m.as_str()))).unwrap_or(V::Null), r.get(2).map(|m| V::str(m.as_str())).unwrap_or(V::Null), st));
 						continue;
 					}
