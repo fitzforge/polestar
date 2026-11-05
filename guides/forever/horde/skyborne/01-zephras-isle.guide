@@ -482,8 +482,7 @@ step Unfortunate News
 step Desperate Times
   talk 252383 quest 92640.1 -- Upstairs
   talk 251968 quest 92640.2
-  talk 252475                         -- Elaadrin Evengale
-  complete 92640 @66.59,79.92
+  talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065
 
