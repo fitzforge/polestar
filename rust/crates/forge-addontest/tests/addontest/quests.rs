@@ -709,6 +709,62 @@ emit({ Q.IsItemNeeded(772) })
 	assert_eq!(out[3], json!([true]), "qol.questBagMarks off hides only the marks");
 }
 
+// The Applejack Still (91736, #820) takes four Shiny Red Apples (4536) when it
+// is clicked and never enters the quest log, so only the guide-ahead path
+// knows the apples are needed. On the database built from data/forever and
+// Elwynn Forest's steps (Stonefield Farm buys the apples, the still takes
+// them, Westbrook Garrison follows), the apples are protected and named on
+// their tooltip and the delete dialog until the guide has gone past the still.
+#[test]
+fn the_applejack_still_s_apples_are_protected_from_the_guide_until_it_is_past_the_still_820() {
+	forge_addontest::needs!("quests.json");
+	let db = build_db(&root().join("data/forever"));
+	let out = run(
+		&db,
+		r#"
+local E = Polestar.Engine
+local steps = {
+	{ title = "The Stonefield Farm", goals = { { t = "turnin", quest = 88 }, { t = "turnin", quest = 87 }, { t = "buy", item = 4536, count = 4 } } },
+	{ title = "The Applejack Still", goals = { { t = "accept", quest = 91736 }, { t = "turnin", quest = 91736 }, { t = "collect", item = 247824, count = 1 } } },
+	{ title = "Westbrook Garrison", goals = { { t = "accept", quest = 91738 }, { t = "turnin", quest = 91738 } } },
+}
+local live = 1
+E.GetGuide = function() return { id = "forever/alliance/human/01-elwynn-forest", steps = steps } end
+E.GetLiveStep = function() return live end
+E.Applies = function() return true end
+local function at(i) live = i; Polestar.Fire("STEP_CHANGED"); stub.advance(0.3) end
+GetCursorInfo = function() return "item", 4536 end
+local function deleteText()
+	local text = { s = "Do you want to destroy Shiny Red Apple?" }
+	function text:GetText() return self.s end
+	function text:SetText(v) self.s = v end
+	function text:GetStringHeight() return 12 end
+	local dialog = { text = text, h = 100 }
+	function dialog:GetHeight() return self.h end
+	function dialog:SetHeight(h) self.h = h end
+	StaticPopup_FindVisible = function() return dialog end
+	Q.AddDeleteWarning("DELETE_ITEM")
+	return (text.s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\n", "/"))
+end
+w.items[4536] = 4
+at(1)
+emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
+at(2)
+emit({ Q.IsItemNeeded(4536) })
+at(3)
+emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
+"#,
+		"",
+	);
+	assert_eq!(
+		out[0],
+		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: Applejack Still"]),
+		"bought at the Stonefield Farm: the still ahead needs them"
+	);
+	assert_eq!(out[1], json!([true]), "at the still");
+	assert_eq!(out[2], json!([false, ["?"], "Do you want to destroy Shiny Red Apple?"]), "past the still: free to sell or delete");
+}
+
 // The delete confirmation gets "Needed for: <Quest>" while the item on the
 // cursor is one a quest in the log still needs, and the dialog grows by the
 // lines added.
