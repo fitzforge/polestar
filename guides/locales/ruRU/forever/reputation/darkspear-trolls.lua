@@ -140,68 +140,75 @@ return {
 	-- Step 21: Thunder Ridge and Razorwind Canyon
 	-- {area:369} Thunder Ridge · {area:410} Razorwind Canyon
 	["{area:369} and {area:410}"] = "",
-	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
-	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {zone:1454}, among the thunder lizards. A {item:277661} may drop from the lizards: use it to start {quest:97281}. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
+	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {zone:1454}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "",
 
 	-- Step 22: Rezlak and Misha
 	-- {npc:3293} Rezlak
 	["{npc:3293} and Misha"] = "",
+	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
+	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
 	["{npc:3117}, in {area:370}"] = "",
 
-	-- Step 24: Skull Rock
+	-- Step 23: Stormy Potential
+	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
+	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "",
+
+	-- Step 25: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {zone:1454} Orgrimmar
 	["{quest:828} camps outside {quest:827}, the cave just east of {zone:1454}."] = "",
 
-	-- Step 25: Orgrimmar: Neeru Fireblade and Nazgrel
+	-- Step 26: Orgrimmar: Neeru Fireblade and Nazgrel
 	-- {zone:1454} Orgrimmar · {npc:3216} Neeru Fireblade · {npc:3230} Nazgrel
 	["{zone:1454}: {npc:3216} and {npc:3230}"] = "",
 	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow · {npc:3230} Nazgrel
 	["{quest:829} is in the {object:172960}; {npc:3230} in Grommash Hold beside Thrall."] = "",
 
-	-- Step 26: Far Watch Post
+	-- Step 27: Far Watch Post
 	-- {zone:1454} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {zone:1454}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "",
 	-- {quest:842} Crossroads Conscription · {npc:3338} Sergra Darkthorn
 	["{quest:842}, +100: to {npc:3338}"] = "",
 
-	-- Step 28: Vehena: A Donation of Wool
+	-- Step 29: Vehena: A Donation of Wool
 	-- {npc:14727} Vehena · {item:14047} Runecloth · {quest:7837} Additional Runecloth
 	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14727} offers the {item:14047} donation, and {quest:7837} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "",
 	-- {item:2592} Wool Cloth
 	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "",
 
-	-- Step 29: A Donation of Silk
+	-- Step 30: A Donation of Silk
 	-- {area:287} Hillsbrad
 	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "",
 	-- {item:4306} Silk Cloth
 	["{item:4306}: the Syndicate"] = "",
 
-	-- Step 30: A Donation of Mageweave
+	-- Step 31: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
 	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "",
 	-- {item:4338} Mageweave Cloth
 	["{item:4338}: the Jadefire satyrs"] = "",
 
-	-- Step 31: A Donation of Runecloth
+	-- Step 32: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
 	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
 	["{item:14047}: the Scarlet outside {area:2266}"] = "",
 
-	-- Step 32: Additional Runecloth to Honored
+	-- Step 33: Additional Runecloth to Honored
 	-- {quest:7837} Additional Runecloth
 	["{quest:7837} to Honored"] = "{quest:7837} — до уважения",
 	-- {quest:7837} Additional Runecloth · {item:14047} Runecloth
 	["{quest:7837}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (a troll starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne at Neutral 2,000 first needs 20 more to reach Friendly). Hand in every 20 you carry, one after another."] = "",
 
-	-- Step 33: Additional Runecloth to Revered
+	-- Step 34: Additional Runecloth to Revered
 	-- {quest:7837} Additional Runecloth
 	["{quest:7837} to Revered"] = "{quest:7837} — до почтения",
 	-- {item:14047} Runecloth
 	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "",
 
-	-- Step 34: Additional Runecloth to Exalted
+	-- Step 35: Additional Runecloth to Exalted
 	-- {quest:7837} Additional Runecloth
 	["{quest:7837} to Exalted"] = "{quest:7837} — до превознесения",
 	-- {item:14047} Runecloth · {npc:7952} Zjolnir · {area:367} Sen'jin Village

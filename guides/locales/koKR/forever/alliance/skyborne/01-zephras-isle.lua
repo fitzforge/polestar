@@ -83,6 +83,10 @@ return {
 	-- Step 13: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:263664} Raan Wildwind · {npc:251523} Constable Aonda · {npc:251903} Rathiril Sunlance
 	["Follow the road south to {area:16624}. {npc:263664} camps by the fire west of the village; {npc:251523} and {npc:251903} stand in its middle."] = "길을 따라 남쪽 {area:16624}(으)로 가세요. {npc:263664}은(는) 마을 서쪽 모닥불 옆에 야영하고, {npc:251523}와(과) {npc:251903}은(는) 마을 한가운데에 서 있습니다.",
+	-- {npc:251903} Rathiril Sunlance
+	["Talk to {npc:251903}"] = "",
+	-- {npc:254089} Coriella Calmbreeze
+	["Talk to {npc:254089}"] = "",
 
 	-- Step 14: Windshaper Novice Seer on the way
 	-- {npc:257532} Windshaper Novice Seer
@@ -214,6 +218,8 @@ return {
 	["The {object:581822} lies by the path west of {area:16638}."] = "",
 	-- {object:581822} Bloodstained Satchel
 	["The {object:581822}"] = "{object:581822}",
+	-- {npc:253002} Fillion Flamebreeze
+	["Talk to {npc:253002}"] = "",
 
 	-- Step 44: Gustberry Lowlands
 	-- {npc:254588} Windsong Crawler · {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod

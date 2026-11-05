@@ -124,8 +124,8 @@ return {
 	-- Step 24: Brakk's campfire
 	-- {npc:265809} Brakk
 	["{npc:265809}'s campfire"] = "Feu de camp de {npc:265809}",
-	-- {npc:265809} Brakk · {area:362} Razor Hill
-	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the Boosted Rest buff appears."] = "",
+	-- {npc:265809} Brakk · {area:362} Razor Hill · {spell:1229451} Boosted Rest
+	["{npc:265809} camps just south of {area:362}. Sit by his campfire (/sit) until the {spell:1229451} buff appears."] = "",
 
 	-- Step 25: Razor Hill
 	-- {npc:266940} Turroc
@@ -225,8 +225,6 @@ return {
 	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly."] = "Lézards-tonnerre et Foudroyants paissent sur {area:369}, juste à l'ouest et au sud-ouest de {npc:3293}.\nFizzle tient le camp de la Lame ardente sur {area:369}, au nord-ouest de {area:362}. Chasseurs : apprivoisez un {npc:3099} avec {item:15908} en chemin.\nAttention : des sectateurs de la Lame ardente entourent Fizzle, certains liés pour attaquer par paires, et ils réapparaissent vite.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Apprivoisez-le avec le {item:15908}",
-	-- {npc:3099} Dire Mottled Boar
-	["Tame {npc:3099}"] = "",
 
 	-- Step 52: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
@@ -258,8 +256,6 @@ return {
 	-- {npc:275657} Heglan Shadeeye · {area:370} Drygulch Ravine · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
 	["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "Retournez à l'est jusqu'au rivage au nord de {npc:275657}. Les Eclaireurs et les Domestiques fouette-bile tiennent la plage sous {area:370}. Chasseurs : apprivoisez un {npc:3107} sur la plage.",
-	-- {npc:3107} Surf Crawler
-	["Tame {npc:3107}"] = "",
 
 	-- Step 61: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
@@ -296,8 +292,6 @@ return {
 	-- Step 71: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:7464} Glyphs of Summoning
 	["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "Retournez voir {npc:5875} dans {object:172960}. Utilisez les {item:7464} sur le cercle d'invocation et vainquez le marcheur du Vide pour le lier.",
-	-- {npc:5875} Gan'rul Bloodeye
-	["{npc:5875}: Summon Voidwalker"] = "",
 
 	-- Step 78: Uzzek
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:5810} Uzzek · {area:379} Far Watch Post · {area:17} The Barrens
@@ -320,23 +314,17 @@ return {
 	-- Step 85: Razor Hill
 	-- {area:362} Razor Hill
 	["Back to {area:362}."] = "Retournez à {area:362}.",
-	-- {npc:3126} Armored Scorpid
-	["Tame {npc:3126}"] = "",
-	-- {npc:3171} Thotar
-	["{npc:3171}: Tame Beast"] = "",
 
 	-- Step 86: Thotar
 	-- {area:362} Razor Hill · {npc:3171} Thotar
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "Les Scorpides blindés rampent dans les plaines à l'ouest de {area:362}. Apprivoisez-en un, puis retournez voir {npc:3171}.",
-	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar
-	["{npc:3171}: {npc:3352} in {zone:1454} teaches Beast Training"] = "",
+	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
+	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "",
 
 	-- Step 87: Ormak Grimshot
 	-- {area:362} Razor Hill · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
 	["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Suivez la route vers le nord depuis {area:362} jusqu'à la grande porte d'{zone:1454}, juste à l'ouest de {area:817}. {npc:3352} se tient avec les maîtres des chasseurs dans {object:172958}.",
-	-- {npc:3352} Ormak Grimshot
-	["{npc:3352}: Beast Training"] = "",
 
 	-- Step 88: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor

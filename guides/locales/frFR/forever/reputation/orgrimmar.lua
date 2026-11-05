@@ -237,38 +237,45 @@ return {
 	-- Step 36: Thunder Ridge and Razorwind Canyon
 	-- {area:369} Thunder Ridge · {area:410} Razorwind Canyon
 	["{area:369} and {area:410}"] = "{area:369} et {area:410}",
-	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {faction:76} Orgrimmar · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
-	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {faction:76}, among the thunder lizards. A {item:277661} may drop from the lizards: use it to start {quest:97281}. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203} tient un camp de la Lame ardente à {area:369}, au sud d'{faction:76}, parmi les lézards-tonnerre. Un {item:277661} peut tomber des lézards : utilisez-le pour lancer {quest:97281}. Les sacs de ravitaillement sont dans le {area:410}, au nord de {area:362}. L'{item:4891} tombe des crocilisques le long de la rivière à l'ouest, environ une fois sur dix.",
+	-- {npc:3203} Fizzle Darkstorm · {area:369} Thunder Ridge · {faction:76} Orgrimmar · {area:410} Razorwind Canyon · {area:362} Razor Hill · {item:4891} Kron's Amulet
+	["{npc:3203} keeps a Burning Blade camp in {area:369}, south of {faction:76}, among the thunder lizards. The supply sacks lie in {area:410}, north of {area:362}. {item:4891} drops from the crocolisks along the river to the west, about one in ten."] = "{npc:3203} tient un camp de la Lame ardente à {area:369}, au sud d'{faction:76}, parmi les lézards-tonnerre. Les sacs de ravitaillement sont dans le {area:410}, au nord de {area:362}. L'{item:4891} tombe des crocilisques le long de la rivière à l'ouest, environ une fois sur dix.",
 
 	-- Step 37: Rezlak and Misha
 	-- {npc:3293} Rezlak
 	["{npc:3293} and Misha"] = "{npc:3293} et Misha",
+	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
+	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
 	["{npc:3117}, in {area:370}"] = "{npc:3117}, dans le {area:370}",
 
-	-- Step 39: Skull Rock
+	-- Step 38: Stormy Potential
+	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
+	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "",
+
+	-- Step 40: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {faction:76} Orgrimmar
 	["{quest:828} camps outside {quest:827}, the cave just east of {faction:76}."] = "{quest:828} campe devant {quest:827}, la grotte juste à l'est d'{faction:76}.",
 
-	-- Step 40: Orgrimmar: Neeru Fireblade and Nazgrel
+	-- Step 41: Orgrimmar: Neeru Fireblade and Nazgrel
 	-- {faction:76} Orgrimmar · {npc:3216} Neeru Fireblade · {npc:3230} Nazgrel
 	["{faction:76}: {npc:3216} and {npc:3230}"] = "{faction:76} : {npc:3216} et {npc:3230}",
 	-- {quest:829} Neeru Fireblade · {object:172960} Cleft of Shadow · {npc:3230} Nazgrel · {npc:4949} Thrall
 	["{quest:829} is in the {object:172960}; {npc:3230} in Grommash Hold beside {npc:4949}."] = "{quest:829} est dans la {object:172960} ; {npc:3230} dans le fort Grommash, à côté de {npc:4949}.",
 
-	-- Step 41: Far Watch Post
+	-- Step 42: Far Watch Post
 	-- {faction:76} Orgrimmar · {zone:1413} Barrens · {npc:3337} Kargal Battlescar · {quest:809} Ak'Zeloth · {area:379} Far Watch Post
 	["Run out of {faction:76}'s west gate and over the bridge into the {zone:1413}. {npc:3337} and {quest:809} stand at {area:379}."] = "Sortez d'{faction:76} par la porte ouest et traversez le pont vers les {zone:1413}. {npc:3337} et {quest:809} se tiennent au {area:379}.",
 	-- {quest:842} Crossroads Conscription · {npc:3338} Sergra Darkthorn
 	["{quest:842}, +100: to {npc:3338}"] = "{quest:842}, +100 : à {npc:3338}",
 
-	-- Step 43: Crossroads (optional hub)
+	-- Step 44: Crossroads (optional hub)
 	-- {area:380} Crossroads
 	["{area:380} (optional hub)"] = "{area:380} (étape facultative)",
 	-- {area:380} Crossroads · {faction:76} Orgrimmar · {npc:3338} Sergra Darkthorn · {npc:3464} Gazrog · {npc:3429} Thork · {npc:3449} Darsok Swiftdagger · {npc:267310} Gur'ak · {npc:3432} Mankrik
 	["In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. {area:380}: about 1,500 {faction:76} reputation in 70 minutes (300 at a fifth), {faction:76}'s only. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} and {npc:267310} stand in the town, {npc:3432} by the inn."] = "Dans Classic, les quêtes de 6 niveaux ou plus sous le vôtre rapportent moins (un cinquième au niveau 60) ; un retour de la bêta de Forever dit qu'elles rapportaient en entier. Votre première remise vous le montrera : si elle rapporte un cinquième, sautez ces étapes. {area:380} : environ 1 500 de réputation auprès d'{faction:76} en 70 minutes (300 à un cinquième), pour {faction:76} seulement. {npc:3338}, {npc:3464}, {npc:3429}, {npc:3449} et {npc:267310} se tiennent dans la ville, {npc:3432} près de l'auberge.",
 
-	-- Step 44: Around the Crossroads
+	-- Step 45: Around the Crossroads
 	-- {area:380} Crossroads
 	["Around the {area:380}"] = "Autour de {area:380}",
 	-- {npc:267307} Chol'aruk · {area:1699} Thorn Hill · {npc:10668} Beaten Corpse · {area:378} Camp Taurajo
@@ -276,29 +283,29 @@ return {
 	-- {npc:10668} Beaten Corpse
 	["{npc:10668}: right-click it"] = "{npc:10668} : faites un clic droit dessus",
 
-	-- Step 45: Crossroads: hand in
+	-- Step 46: Crossroads: hand in
 	-- {area:380} Crossroads
 	["{area:380}: hand in"] = "{area:380} : rendez les quêtes",
 
-	-- Step 46: Zhevras, quilboars, harpies and the Raptor Grounds
+	-- Step 47: Zhevras, quilboars, harpies and the Raptor Grounds
 	-- {area:1697} Raptor Grounds
 	["Zhevras, quilboars, harpies and the {area:1697}"] = "Zhévras, huran, harpies et {area:1697}",
 	-- {npc:3438} Kreenig Snarlsnout · {quest:3281} Stolen Silver · {area:1697} Raptor Grounds · {area:378} Camp Taurajo
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner · Witchwing Slayers = {npc:3278} Witchwing Slayer
 	["Zhevra Runners graze south and west of the town. {npc:3438} leads the Razormane camps north-east. The Witchwing Slayers carry the rings. The {quest:3281} is in the {area:1697} east of {area:378}: follow the nest-lined path on its left side to the last nest."] = "Les Messagers zhévras paissent au sud et à l'ouest de la ville. {npc:3438} dirige les camps Tranchecrin au nord-est. Les Tueuses Ensorçaile portent les anneaux. L'{quest:3281} se trouve dans les {area:1697}, à l'est du {area:378} : suivez le chemin bordé de nids sur son côté gauche jusqu'au dernier nid.",
 
-	-- Step 47: Crossroads: hand in again
+	-- Step 48: Crossroads: hand in again
 	-- {area:380} Crossroads
 	["{area:380}: hand in again"] = "{area:380} : rendez de nouveau les quêtes",
 
-	-- Step 48: Prowlers, Serena Bloodfeather and Echeyakee
+	-- Step 49: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "Rôdeurs, {npc:3452} et {quest:881}",
 	-- {area:380} Crossroads · {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
 	["Savannah Prowlers lie west and north of the {area:380}. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "Les Rôdeurs des savanes se tiennent à l'ouest et au nord de {area:380}. {quest:876} dirige les harpies Ensorçaile loin au nord-ouest. Ensuite, {npc:3338} vous donne la {item:10327} : sonnez-la près des os de kodo de l'antre d'Echeyakee, au nord de la ville, et tuez le lion blanc.",
 
-	-- Step 49: Chen's Empty Keg (optional hub)
+	-- Step 50: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819} (optional hub)"] = "{quest:819} (étape facultative)",
 	-- {quest:819} Chen's Empty Keg · {zone:1413} Barrens · {area:380} Crossroads · {npc:3292} Brewmaster Drohn · {area:392} Ratchet · {faction:76} Orgrimmar
@@ -306,12 +313,12 @@ return {
 	-- {quest:819} Chen's Empty Keg
 	["{quest:819}: look for it by the roads"] = "{quest:819} : cherchez-le près des routes",
 
-	-- Step 51: Lions, plainstriders and a thunder lizard
+	-- Step 52: Lions, plainstriders and a thunder lizard
 	["Lions, plainstriders and a thunder lizard"] = "Lions, trotteurs des plaines et un lézard-tonnerre",
 	-- {zone:1413} Barrens
 	["Savannah lions, plainstriders and thunder lizards roam the whole northern {zone:1413}. The lions drop a tusk about every other kill, the plainstriders a kidney about two kills in five; any thunder lizard may drop the horn, about one in five."] = "Les lions des savanes, les trotteurs des plaines et les lézards-tonnerre errent dans tout le nord des {zone:1413}. Les lions laissent une défense environ une victime sur deux, les trotteurs un rein environ deux victimes sur cinq ; n'importe quel lézard-tonnerre peut laisser la corne, environ une fois sur cinq.",
 
-	-- Step 52: Ratchet: the repeatable keg
+	-- Step 53: Ratchet: the repeatable keg
 	-- {area:392} Ratchet
 	["{area:392}: the repeatable keg"] = "{area:392} : le tonneau répétable",
 	-- {item:4897} Thunderhawk Saliva Gland · {item:4896} Kodo Liver · {npc:3238} Stormhide · {area:378} Camp Taurajo · {area:392} Ratchet
@@ -326,43 +333,43 @@ return {
 	-- {item:4896} Kodo Liver
 	["{item:4896}, from the kodos"] = "{item:4896}, sur les kodos",
 
-	-- Step 53: Rashona Straglash: A Donation of Wool
+	-- Step 54: Rashona Straglash: A Donation of Wool
 	-- {npc:14726} Rashona Straglash · {item:14047} Runecloth · {quest:7832} Additional Runecloth
 	["From here it is cloth. Wool, Silk and Mageweave must all be handed in before {npc:14726} offers the {item:14047} donation, and {quest:7832} needs the {item:14047} donation. Buy cloth at the Auction House, or farm it: humanoids drop it, Wool from level 15 to 25, Silk 25 to 40, Mageweave 40 to 50, {item:14047} 50 and up. At 60 farm mobs of level 52 or more: lower ones are grey."] = "À partir d'ici, ce sont les étoffes. La laine, la soie et le tisse-mage doivent tous être rendus avant que {npc:14726} propose le don d'{item:14047}, et {quest:7832} demande le don d'{item:14047}. Achetez les étoffes à l'hôtel des ventes, ou farmez-les : les humanoïdes en laissent, la laine du niveau 15 à 25, la soie de 25 à 40, le tisse-mage de 40 à 50, l'{item:14047} à partir de 50. Au niveau 60, farmez des monstres de niveau 52 ou plus : les plus bas sont gris.",
 	-- {item:2592} Wool Cloth
 	["{item:2592}: the Thistlefur furbolgs drop it about one kill in four"] = "{item:2592} : les furbolgs Crin-de-Chardon en laissent environ une fois sur quatre",
 
-	-- Step 54: A Donation of Silk
+	-- Step 55: A Donation of Silk
 	-- {area:287} Hillsbrad
 	["Silk: the Syndicate in {area:287} and Alterac drop it about one kill in three, or buy it."] = "Soie : le Syndicat à {area:287} et en Alterac en laisse environ une fois sur trois, ou achetez-la.",
 	-- {item:4306} Silk Cloth
 	["{item:4306}: the Syndicate"] = "{item:4306} : le Syndicat",
 
-	-- Step 55: A Donation of Mageweave
+	-- Step 56: A Donation of Mageweave
 	-- {zone:1448} Felwood · {zone:1446} Tanaris
 	["Mageweave: the Jadefire satyrs in southern {zone:1448} and the Dunemaul ogres in {zone:1446} drop it about one kill in three, or buy it."] = "Tisse-mage : les satyres Jadefeu du sud de {zone:1448} et les ogres Cognedune de {zone:1446} en laissent environ une fois sur trois, ou achetez-le.",
 	-- {item:4338} Mageweave Cloth
 	["{item:4338}: the Jadefire satyrs"] = "{item:4338} : les satyres Jadefeu",
 
-	-- Step 56: A Donation of Runecloth
+	-- Step 57: A Donation of Runecloth
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand · {zone:1423} Eastern Plaguelands · {area:2577} Dire Maul · {zone:1444} Feralas · {zone:1451} Silithus
 	["{item:14047}: the Scarlet at {area:2266} in the {zone:1423}, the Gordok ogres outside {area:2577} in {zone:1444} and the Twilight camps of {zone:1451} drop it about one kill in three. The Auction House is faster if you have gold."] = "{item:14047} : la Croisade écarlate à {area:2266}, dans les {zone:1423}, les ogres Gordok devant {area:2577}, à {zone:1444}, et les camps du crépuscule de {zone:1451} en laissent environ une fois sur trois. L'hôtel des ventes est plus rapide si vous avez de l'or.",
 	-- {item:14047} Runecloth · {area:2266} Tyr's Hand
 	["{item:14047}: the Scarlet outside {area:2266}"] = "{item:14047} : la Croisade écarlate devant {area:2266}",
 
-	-- Step 57: Additional Runecloth to Honored
+	-- Step 58: Additional Runecloth to Honored
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Honored"] = "{quest:7832} : Honoré",
 	-- {quest:7832} Additional Runecloth · {item:14047} Runecloth
 	["{quest:7832}: 20 {item:14047} for 50 reputation, as often as you like. Friendly to Honored is 6,000: 120 hand-ins, 2,400 {item:14047}, less what the quests gave you (an orc starts at Friendly 1,000: 100 hand-ins; an Undead or Skyborne starts at Neutral 2,000 and first needs 20 hand-ins, 400 {item:14047}, to reach Friendly). Hand in every 20 you carry, one after another."] = "{quest:7832} : 20 {item:14047} contre 50 de réputation, aussi souvent que vous le voulez. D'Amical à Honoré, il faut 6 000 : 120 remises, 2 400 {item:14047}, moins ce que les quêtes vous ont donné (un orc commence à Amical 1 000 : 100 remises ; un Mort-vivant ou un Éolide commence à Neutre 2 000 et a d'abord besoin de 20 remises, 400 {item:14047}, pour atteindre Amical). Rendez chaque lot de 20 que vous portez, l'un après l'autre.",
 
-	-- Step 58: Additional Runecloth to Revered
+	-- Step 59: Additional Runecloth to Revered
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Revered"] = "{quest:7832} : Révéré",
 	-- {item:14047} Runecloth
 	["Honored to Revered is 12,000: 240 hand-ins, 4,800 {item:14047}. The Auction House price of a stack decides whether to farm or buy."] = "D'Honoré à Révéré, il faut 12 000 : 240 remises, 4 800 {item:14047}. Le prix d'une pile à l'hôtel des ventes décide s'il vaut mieux farmer ou acheter.",
 
-	-- Step 59: Additional Runecloth to Exalted
+	-- Step 60: Additional Runecloth to Exalted
 	-- {quest:7832} Additional Runecloth
 	["{quest:7832} to Exalted"] = "{quest:7832} : Exalté",
 	-- {item:14047} Runecloth · {faction:76} Orgrimmar · {npc:3362} Ogunaro Wolfrunner · {object:172958} Valley of Honor
