@@ -1096,6 +1096,17 @@ test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still c
 	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
 });
 
+// Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
+// step (players' recordings). His head stays an optional extra (#221); the step
+// says he is an elite and to leave him without a group or below level 10.
+test(`${ELWYNN}: the step that lists Croaky's Head warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
+	const step = compiled(ELWYNN).steps.find((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
+	assert.ok(step, 'the head is still an optional goal');
+	const tip = [].concat(step.note || []).join(' ');
+	assert.match(tip, /level 11 elite/, tip);
+	assert.match(tip, /with a group or once you're level 10/, tip);
+});
+
 // A Last Request (93927): the game's objective 1 is the Bloody Note ("Collect
 // and read the note"), 2 is Skypriest Aanders (players' recordings, Forever's
 // quest data). Written swapped, the note goal followed Aanders' line and stayed

@@ -557,6 +557,24 @@
 				}
 			],
 			"issue": 820
+		},
+		{
+			"id": "croaky-elite-warning",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91733,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.",
+			"note": "The Downstream step comes at about 8.6 and lists Croaky's Head (an optional extra, #221) on Croaky's shore; players died to him at 8-9, so the tip makes skipping him the default: with a group or from level 10 only.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: 4 deaths to Croaky (npc 248278, level 11, rank 1) in 3 sessions at levels 8-9 on the Downstream and Princess step"
+				}
+			],
+			"pr": 816
 		}
 	]
 }
