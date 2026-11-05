@@ -714,6 +714,51 @@ fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stac
 	assert_eq!(pt(&out["back"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "turning it off restores the order");
 }
 
+// thmastin (#666): with Grow upward the window is pinned by its bottom edge.
+// A step that would push its top past the top of the screen made the game
+// move the whole window down (its screen clamp), bar and all. The window now
+// ends at the top of the screen: the goals area scrolls, as under the height
+// cap, and when even that is too tall the step list is clipped at the bars.
+#[test]
+fn grow_upward_the_window_ends_at_the_top_of_the_screen_and_keeps_its_bottom_edge_where_it_is_pinned() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Set("ui.maxHeight", 0.9)
+		Polestar.Set("ui.growUp", true)
+		Polestar.Set("ui.barsBottom", true)
+		Polestar.Set("ui.pos", { 1500, 100 })
+		local goals = GF.parts.goals
+		local full, fullOver = F:GetHeight(), goals.psOver
+		local clips = {}
+		GF.parts.body.SetClipsChildren = function(_, on) clips[#clips + 1] = on end
+		local function at(y)
+			Polestar.Set("ui.pos", { 1500, y })
+			local p, _, rp, _, py = F:GetPoint(1)
+			return { y = y, h = F:GetHeight(), point = { p, rp, py }, over = goals.psOver, cut = clips[#clips] }
+		end
+		local top = UIParent:GetTop()
+		local near = at(top - full + 20)
+		local tight = at(top - 150)
+		local back = at(100)
+		emit({ full = full, fullOver = fullOver, top = top, near = near, tight = tight, back = back })"#)
+	.remove(0);
+	let top = f(&out["top"]);
+	assert!(f(&out["full"]) >= 160.0, "the step is tall enough to be cut: {}", out["full"]);
+	assert_eq!(out["fullOver"], false, "with room the goals area shows everything");
+	for k in ["near", "tight"] {
+		let s = &out[k];
+		assert_eq!(f(&s["h"]), top - f(&s["y"]), "{k}: the window ends at the top of the screen, not past it ({s})");
+		assert_eq!(s["point"][0], "BOTTOMLEFT", "{k}: still pinned by its bottom-left corner");
+		assert_eq!(s["point"][2], s["y"], "{k}: where the player put it");
+	}
+	assert_eq!(out["near"]["over"], true, "20 px short: the goals area scrolls ({})", out["near"]);
+	assert_eq!(out["near"]["cut"], false, "and nothing is clipped");
+	assert_eq!(out["tight"]["cut"], true, "150 px of room: the step list is clipped at the bars ({})", out["tight"]);
+	assert_eq!(out["back"]["h"], out["full"], "with room again the window has its full height");
+	assert_eq!(out["back"]["over"], false, "the goals area shows everything again");
+	assert_eq!(out["back"]["cut"], false, "and nothing is clipped");
+}
+
 #[test]
 fn bar_at_the_bottom_a_tab_opened_while_it_is_on_has_its_highlight_on_the_top_edge_from_the_render_that_makes_it() {
 	let out = run(r#"
