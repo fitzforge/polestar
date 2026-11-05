@@ -35,11 +35,10 @@ zone Moonglade
 #   Runeweaver offers it too) and Moonglade (94914) from Sheldras Moontree in
 #   Stormwind. Both reward Nightclaw Druids reputation (Forever's quest data).
 # Left out: Stalk With The Earthmother (76156, 76160, 76240, Boarton
-# Shadetotem in Thunder Bluff). Forever's change notes open 76156 and
-# 76160 to every class (not druid quests) and 76240 to Hunters, Shamans and
-# Druids; quests.json gives 76240 to Shamans only, so the chain is guided in
-# forever/class/shaman/stalk-with-the-earthmother (its INGAME note asks
-# whether Druids get it).
+# Shadetotem in Thunder Bluff). Forever opened the three to every class
+# (its change notes: "Classes none"; Tauren Warriors, Hunters, Shamans and
+# Druids took them), so they are no druid quests: the chain is a Tauren side
+# guide, forever/miscellaneous/stalk-with-the-earthmother.
 # Places and gotchas from Forever's quest notes: the Great Bear Spirit
 # (no quest mark, three trees, the talk is the objective), the right moonkin
 # cave by Auberdine (the northern of two small caves; moonkin 11-13 outside,

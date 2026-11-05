@@ -1,9 +1,9 @@
--- Russian (ruRU): the guide forever/class/shaman/stalk-with-the-earthmother (forever/class/shaman/stalk-with-the-earthmother.guide).
--- Written by `forge i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Spanish (Spain) (esES): the guide forever/miscellaneous/stalk-with-the-earthmother (forever/miscellaneous/stalk-with-the-earthmother.guide).
+-- Written by `forge i18n guides sync esES`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
--- name there in Russian (the English is listed above the line). A name the English has in the plural, as words,
+-- name there in Spanish (Spain) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
--- A token marked "no name in this language" would show in English: write that name in Russian words instead.
+-- A token marked "no name in this language" would show in English: write that name in Spanish (Spain) words instead.
 -- The comments are rewritten by sync.
 return {
 	-- Guide

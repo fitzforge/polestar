@@ -1,9 +1,9 @@
--- Portuguese (Brazil) (ptBR): the guide forever/class/shaman/stalk-with-the-earthmother (forever/class/shaman/stalk-with-the-earthmother.guide).
--- Written by `forge i18n guides sync ptBR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Korean (koKR): the guide forever/miscellaneous/stalk-with-the-earthmother (forever/miscellaneous/stalk-with-the-earthmother.guide).
+-- Written by `forge i18n guides sync koKR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
--- name there in Portuguese (Brazil) (the English is listed above the line). A name the English has in the plural, as words,
+-- name there in Korean (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
--- A token marked "no name in this language" would show in English: write that name in Portuguese (Brazil) words instead.
+-- A token marked "no name in this language" would show in English: write that name in Korean words instead.
 -- The comments are rewritten by sync.
 return {
 	-- Guide
