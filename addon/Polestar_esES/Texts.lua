@@ -1051,7 +1051,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Fun with Elementals: {npc:248464}"] = "Álbum de fotos: diversión con elementales: {npc:248464}",
 		["He stands by the river west of the farm."] = "Está junto al río, al oeste de la granja.",
 		["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Regresa por {area:87} y hacia el este por el camino hasta {area:62}. {npc:881} (nivel 9) está junto a la granja.",
-		["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Ve al noroeste a través de los campos hasta {quest:91736}, al norte de {area:120}. Échale cuatro Manzanas rojas lustrosas para obtener un {item:247824}.",
 		["Inside {area:34}"] = "Dentro de {area:34}",
 		["It lies by the river north-west of the logging camp."] = "Está junto al río, al noroeste del campamento maderero.",
 		["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "Los Obreros kóbold trabajan en los túneles de la mina. {npc:248362} espera tras el segundo giro a la derecha.",

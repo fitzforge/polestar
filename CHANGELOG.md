@@ -1,5 +1,108 @@
 # Changelog
 
+## 0.3.2 (2026-11-05)
+
+### For players
+
+- Tirisfal Glades no longer sends you to Executor Arren for The Adventurer
+  before he offers it: the quest needs The Red Messenger handed in first
+  (thanks mtbhuskies, Soulevoker, mcclaskiem and petllama, #792).
+- Durotar (Orc, Troll): Forgotten Loa Idols is taken from Master Vornal right
+  after Report to Sen'jin Village is handed in, when he offers it (thanks
+  kieran1188, #796).
+- A quest's objectives listed "along the way" no longer vanish when the guide
+  reaches the step that hands it in: they stay under the step until they are
+  done, so "Turn in" never hides what is left (thanks Zyd and jkw, #797,
+  #809).
+- Tirisfal Glades: if you are already level 5 on the road from Calvin
+  Montague to Brill, Gordo's Task and its Gloom Weed are listed along the
+  way, so you can take it when you pass Gordo (thanks petllama, #798).
+- Tirisfal Glades: Tomb Weed is taken from Junior Apothecary Holland when
+  Doom Weed is handed in, not on the first Brill stop, and Paladins take A
+  Difficult Path once The Mindless Ones is handed in (thanks Livnthedream,
+  #800).
+- Tirisfal Glades: WANTED: Maggot Eye is taken from the poster in Brill on
+  your second visit, when you have the level 6 it needs, still before Maggot
+  Eye's camp (#801, thanks petllama).
+- Zephras Isle (Alliance): Welcome to Shen'dar Village and The Missing
+  Scholar say "Talk to" Rathiril Sunlance, Coriella Calmbreeze and Fillion
+  Flamebreeze instead of asking you to kill them (thanks Visur, #802).
+- Durotar (Orc, Troll) and the Orgrimmar and Darkspear Trolls reputation
+  guides no longer send you to Rezlak for Stormy Potential before he offers
+  it: it follows A Simmering Storm, which starts from the Dull Storm Orb a
+  Storm Witch may drop, so it is now an optional extra, and without the orb
+  you skip the last walk back to Rezlak. The reputation guides' tip now says
+  the orb drops from the Storm Witches, not the lizards (thanks Rohkin, #807).
+- The class-quest card no longer shows up for a line meant for every class
+  but one: a Mage in Tirisfal is not told to learn Redemption, and Warriors
+  in Durotar don't get a Warlock card for Vile Familiars (thanks Michael,
+  #812).
+- Elwynn Forest: the Applejack Still comes once, right after Homer Stonefield
+  sells you the apples, instead of on the first trip west before you have
+  any, and the guide says the quest never shows in your log, to keep the
+  Thunder Applejack for Sergeant De Vries, and that looted apples count too
+  (thanks Onrevax and bob, #820, #823).
+- Zephras Isle: A Last Request's Bloody Note is ticked as soon as you read it,
+  instead of waiting for Skypriest Aanders (#825).
+- On a "kill these as you meet them" step the arrow now leads to the nearest
+  mobs at or below your level + 1 first, and moves on to the tougher ones
+  once those are done or you have levelled: in Westfall, a level 12 player
+  leaving Sentinel Hill is sent to the Defias before the Goretusks and
+  Harvest Watchers. For an item that several kinds of mob drop, the arrow
+  searches the places of the ones at your level first (thanks Erá, #827).
+- Leveling routes no longer send you to a quest giver before you are high
+  enough to take the quest: the quest is taken on a later stop by its giver,
+  or the guide says to reach its level first. In the Valley of Trials, Lazy
+  Peons is now taken on the way back to the Den after the valley loop, not at
+  level 2.
+- Polestar Client shares your play by default, unless you stopped sharing in
+  it or typed `/psrec off` in the game. A notice says once what is shared (no
+  character, realm or account names) and where to see exactly what was sent,
+  with a Stop sharing button. The Recorder on its own, without the Client,
+  still stays off until `/psrec on`.
+- Polestar Client no longer stops sending your play after an upload with
+  "PolestarRecorderDB.chunks has an unexpected value" (thanks Fyurie).
+- Polestar Client shows a waiting update across the top of every page, with
+  "Update to <version>": one click, instead of scrolling to the bottom of
+  Settings.
+- Darkshore (Night Elf): Swelling Forces and its level 20 naga wait for your
+  later Darkshore visit, when Arbal offers it, instead of a trip north at
+  level 13.
+- Elwynn Forest: a clear warning that Croaky is a level 11 elite (optional;
+  with a group or from level 10).
+- The Recorder no longer shows a Lua error about `isFullUpdate` when the game
+  hides your buffs' details from addons.
+- Smoother frame rate while you move: the arrow's path finding takes a small,
+  fixed slice of each frame instead of up to half of it at high frame rates,
+  reuses the map pieces it has just read instead of reading them again, and no
+  longer works out flight and hearth options for a waypoint within 400 yards
+  of you. The short stutters when a new waypoint is set, or every 50 yards of
+  running, are much rarer and shorter.
+- Westfall: Harvesting the Harvesters sends you to the Harvest Watchers for
+  the Harvester Gyrostabilizers, the only mobs that drop them, instead of the
+  level 17-18 Harvest Reapers (thanks Erá).
+
+### For contributors
+
+- The Discord bot no longer answers reports with a note about the pathing
+  overhaul or puts them on hold: walking and arrow reports are triaged like
+  any other.
+
+### Forge
+
+- Hand in while there: a quest finished within 160 yards of its turn-in NPC is
+  handed in before the route walks 300 yards or more away, not on a trip back
+  (Sarkoth at Hana'zua). Waiting stays when the follow-up needs a level not
+  reached yet or the route returns to that NPC anyway. The route planner moves
+  and guards it, `forge judge check` reports it as `finished-near` (a blocker to
+  level 30, a warning above) and `forge sim route --audit` lists it on written
+  routes.
+- A turn-in whose NPC stands on a loop's way is written inside the area step,
+  right after the goal that finishes the quest, when it adds at most 40 yards
+  and saves a walk back later.
+- Guide titles leave out the capitals and zones the guide hardly quests in;
+  a race's lead-in to the shared guide of the same zone is merged into it.
+
 ## 0.3.1 (2026-11-04)
 
 ### For players

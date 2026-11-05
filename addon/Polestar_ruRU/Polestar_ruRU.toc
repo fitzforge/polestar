@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar - 俄語
 ## Notes-zhTW: Polestar 的指南文字與遊戲名稱（任務、NPC、物件、物品、副本等）。語言：俄語。僅在該語言的用戶端中按需載入。
 ## Author: Polestar
-## Version: 0.3.1
+## Version: 0.3.2
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

@@ -1051,7 +1051,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Fun with Elementals: {npc:248464}"] = "快樂玩元素：{npc:248464}",
 		["He stands by the river west of the farm."] = "他站在農場西邊的河邊。",
 		["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "穿過{area:87}返回，沿路向東到{area:62}。{npc:881}（9級）站在農舍旁。",
-		["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "向西北穿過田野前往{area:120}北邊的{quest:91736}。交給它四個新鮮的紅蘋果，換取{item:247824}。",
 		["Inside {area:34}"] = "{area:34}內部",
 		["It lies by the river north-west of the logging camp."] = "它躺在伐木場西北方的河邊。",
 		["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "狗頭人苦力在礦坑隧道裡工作。{npc:248362}在右邊第二個轉角深處等著。",

@@ -1051,7 +1051,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Fun with Elementals: {npc:248464}"] = "«Забавы с элементалями»: {npc:248464}",
 		["He stands by the river west of the farm."] = "Он стоит у реки к западу от фермы.",
 		["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Возвращайтесь через {area:87} и на восток вдоль дороги к {area:62}. {npc:881} (9 уровня) стоит у фермерского домика.",
-		["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Идите на северо-запад через поля. Цель: {quest:91736}, к северу от места {area:120}. Отдайте четыре спелых красных яблока и получите {item:247824}.",
 		["Inside {area:34}"] = "Внутри: {area:34}",
 		["It lies by the river north-west of the logging camp."] = "Оно лежит у реки к северо-западу от лесозаготовок.",
 		["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.",
