@@ -2276,7 +2276,7 @@
 				"ref": "Factoruide row: race mask 0, no class mask, seen in game"
 			}
 		],
-		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825). Forever opened this library book to everyone: its quest data has no race or class limit (Forever's change notes: classes none instead of Mage), and the Horde's Oran Snakewrithe takes it too. The merged data kept Season of Discovery's Mage and Alliance limits, so Polestar showed it as a Mage class quest."
+		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825). Forever opened this library book to everyone: its quest data has no race or class limit (Forever's change notes: classes none instead of Mage); the race limit is dropped on the factoruide row's race mask 0. The merged data kept Season of Discovery's Mage and Alliance limits, so Polestar showed it as a Mage class quest."
 	},
 	"84398": {
 		"set": {

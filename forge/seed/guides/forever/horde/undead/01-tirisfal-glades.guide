@@ -99,8 +99,8 @@ next forever/horde/02-the-barrens
 # race mask of Hadric's any-class chain (the keep's paladin quests are in the
 # Paladin category) and every class can take them after 96896.
 # So no class lock in the data, and every class takes them beside Leonid:
-# players' in-game recordings since launch show Undead Rogues and Warlocks
-# taking and handing in both, as Paladins do. MadReign_Ltd (Paladin, 0.2.5)
+# players' in-game recordings since launch show an Undead Rogue (99152) and
+# Warlock (both) taking and handing them in, as Paladins do. MadReign_Ltd (Paladin, 0.2.5)
 # found Hilda and Ephram without them at 9 and with them at 12 after 96896.
 #
 # Paladins take the start of the Bandarion Keep chain with Leonid's visit: A
