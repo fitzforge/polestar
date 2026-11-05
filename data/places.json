@@ -560,6 +560,96 @@
 				"kind": "pfquest",
 				"ref": "npc 10638 (Kanati Greycloud) spawn, Thousand Needles 21.25,32.06"
 			}
+		},
+		{
+			"id": "873-6124-1",
+			"quest": 6124,
+			"objective": 1,
+			"label": "Use the Curative Animal Salve on Sickly Deer",
+			"note": "Curing the Sick (Night Elf druids): the deer are cured with the salve, not killed; the data counts the cure as kill credit, so the line read \"Kill Sickly Deer\" (#873).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#873: the goal read \"Kill Sickly Deer 0/10\""
+				},
+				{
+					"kind": "recording",
+					"ref": "20261105T081945Z-41b277df: every tick follows a cast of Apply Salve (19512) on a Sickly Deer, no kill"
+				}
+			],
+			"issue": 873
+		},
+		{
+			"id": "873-6129-1",
+			"quest": 6129,
+			"objective": 1,
+			"label": "Use the Curative Animal Salve on Sickly Gazelles",
+			"note": "Curing the Sick (Tauren druids): the gazelles are cured with the salve, not killed; the data counts the cure as kill credit, so the line read \"Kill Sickly Gazelle\" (#873).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#873: the goal read \"Kill Sickly Deer 0/10\""
+				},
+				{
+					"kind": "recording",
+					"ref": "20261105T081945Z-41b277df: every tick follows a cast of Apply Salve (19512) on a Sickly Deer, no kill"
+				}
+			],
+			"issue": 873
+		},
+		{
+			"id": "873-5163-1",
+			"quest": 5163,
+			"objective": 1,
+			"label": "Use Umi's Mechanical Yeti beside Legacki",
+			"note": "Are We There, Yeti?: Legacki is frightened with Umi's Mechanical Yeti, not killed; the data counts it as kill credit, so the line read \"Kill Legacki\" (#873).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#873: the same kill line on an objective done with an item"
+				},
+				{
+					"kind": "client",
+					"ref": "quest 5163 text: Take Umi's Mechanical Yeti and scare her friends with it"
+				}
+			],
+			"issue": 873
+		},
+		{
+			"id": "873-5163-2",
+			"quest": 5163,
+			"objective": 2,
+			"label": "Use Umi's Mechanical Yeti beside Sprinkle",
+			"note": "Are We There, Yeti?: Sprinkle is frightened with Umi's Mechanical Yeti, not killed; the data counts it as kill credit, so the line read \"Kill Sprinkle\" (#873).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#873: the same kill line on an objective done with an item"
+				},
+				{
+					"kind": "client",
+					"ref": "quest 5163 text: Take Umi's Mechanical Yeti and scare her friends with it"
+				}
+			],
+			"issue": 873
+		},
+		{
+			"id": "873-5163-3",
+			"quest": 5163,
+			"objective": 3,
+			"label": "Use Umi's Mechanical Yeti beside Quixxil",
+			"note": "Are We There, Yeti?: Quixxil is frightened with Umi's Mechanical Yeti, not killed; the data counts it as kill credit, so the line read \"Kill Quixxil\" (#873).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#873: the same kill line on an objective done with an item"
+				},
+				{
+					"kind": "client",
+					"ref": "quest 5163 text: Take Umi's Mechanical Yeti and scare her friends with it"
+				}
+			],
+			"issue": 873
 		}
 	]
 }

@@ -612,6 +612,29 @@ test(`EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads "Tame
 	assert.ok(seen >= 21, `the seven Hunter starting guides' 21 tames (found ${seen})`);
 });
 
+test(`#873: an objective done by using an item on someone reads the item use, not "Kill": Curing the Sick and Are We There, Yeti?`, { skip }, () => {
+	// The data counts the salve's cure and the yeti's fright as kill credit, so the goal stays a
+	// `kill` tracking the objective; its text says what to do. The hand-written druid guide says it
+	// itself; the generated leveling guides get it from data/places.json on the next build.
+	const want = {
+		'6124.1': 'Use the Curative Animal Salve on Sickly Deer',
+		'6129.1': 'Use the Curative Animal Salve on Sickly Gazelles',
+		'5163.1': "Use Umi's Mechanical Yeti beside Legacki",
+		'5163.2': "Use Umi's Mechanical Yeti beside Sprinkle",
+		'5163.3': "Use Umi's Mechanical Yeti beside Quixxil",
+	};
+	for (const quest of [6124, 6129]) {
+		const list = goals('forever/class/druid/cure-poison.guide');
+		const { goal } = list[at(list, `${quest}.1`, (g) => g.t === 'kill' && g.quest === quest && g.oi === 1)];
+		assert.equal(goal.text, want[`${quest}.1`]);
+	}
+	const { places } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
+	for (const [key, label] of Object.entries(want)) {
+		const [quest, objective] = key.split('.').map(Number);
+		assert.equal(places.find((p) => p.quest === quest && p.objective === objective && p.label)?.label, label, `data/places.json labels ${key}`);
+	}
+});
+
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram`, { skip }, () => {
 	const list = goals(DUN_MOROGH);
 	const accept = at(list, 'accept 291 (The Reports)', is('accept', 291));

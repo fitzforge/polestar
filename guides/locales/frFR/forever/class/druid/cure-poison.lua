@@ -46,8 +46,8 @@ return {
 	-- Step 8: Sickly Deer
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {npc:3702} Alanndarian Nightsong
 	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
-	-- {npc:12298} Sickly Deer
-	["{npc:12298}: use the salve on them"] = "{npc:12298} : utilisez le baume sur eux",
+	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
+	["Use the {item:15826} on {npc:12298}"] = "",
 
 	-- Step 9: Curing the Sick
 	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
@@ -97,8 +97,9 @@ return {
 	-- {item:15826} Curative Animal Salve · {area:380} Crossroads · {zone:1440} Ashenvale · {area:392} Ratchet · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
-	-- {npc:12296} Sickly Gazelle
-	["{npc:12296}: use the salve on them"] = "{npc:12296} : utilisez le baume sur elles",
+	-- {item:15826} Curative Animal Salve
+	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
+	["Use the {item:15826} on Sickly Gazelles"] = "",
 
 	-- Step 18: Curing the Sick
 	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -130,6 +131,8 @@ return {
 	-- ["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "Utilisez le {item:15826} sur des Gazelles malades vivantes (niveau 3) : elles broutent des deux côtés de la route au nord de {area:380} jusqu'à la frontière d'{zone:1440}, au nord-ouest de {area:380} et à l'ouest de {area:392}. Astuce de druide : immobilisez une gazelle avec {spell:339}, appliquez le baume avant que les racines ne fassent des dégâts, et la mort par les racines compte une seconde fois : cinq gazelles peuvent donc suffire. Perdu une dose ? Abandonnez la quête et reprenez-la auprès de {npc:3448} pour un baume neuf.",
 	-- ["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "Utilisez le {item:15826} sur des {npc:12298} vivants (niveau 5, un nuage vert au-dessus d'eux) : ils errent en {zone:1439}, de la {area:456} jusqu'à la frontière d'{zone:1440}, nombreux autour du camp des furbolgs Noirbois au nord-est d'{area:442}. Astuce de druide : immobilisez un cerf avec {spell:339}, appliquez le baume avant que les racines ne fassent des dégâts, et la mort par les racines compte une seconde fois. Perdu une dose sur un cerf qui n'a pas compté ? Abandonnez la quête et reprenez-la auprès de {npc:3702} pour un baume neuf.",
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "Utilisez le {item:15826} sur les {npc:12298}. Ils parcourent {zone:1439}, de {area:456} au nord jusqu'à la frontière d'{zone:1440} au sud.",
+	-- ["{npc:12296}: use the salve on them"] = "{npc:12296} : utilisez le baume sur elles",
+	-- ["{npc:12298}: use the salve on them"] = "{npc:12298} : utilisez le baume sur eux",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} se trouve sur {area:1639}.",
 	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448} se trouve à {area:380}. Pas d'{skill:182} ? {npc:3490}, à quelques pas, vend de la {item:2449}, trois à la fois jusqu'à son réapprovisionnement.",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217} se trouve dans {area:1658}.",

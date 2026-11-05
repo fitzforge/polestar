@@ -95,7 +95,7 @@ step Alanndarian Nightsong
 step Sickly Deer
   only NightElf,Skyborne,Alliance
   tip Use the Curative Animal Salve on living Sickly Deer (level 5, a green cloud over them): they roam Darkshore from the Cliffspring River to the Ashenvale border, many around the Blackwood furbolg camp north-east of Auberdine. Druid trick: root a deer with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from Alanndarian for a fresh salve.
-  kill 12298 quest 6124.1               -- Sickly Deer: use the salve on them
+  kill 12298 quest 6124.1 "Use the Curative Animal Salve on Sickly Deer"
 
 step Curing the Sick
   only NightElf,Skyborne,Alliance
@@ -158,7 +158,7 @@ step Tonga Runetotem
 step Sickly Gazelles
   only Tauren,Skyborne,Horde
   tip Use the Curative Animal Salve on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the Ashenvale border, north-west of the Crossroads and west of Ratchet. Druid trick: root a gazelle with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from Tonga for a fresh salve.
-  kill 12296 quest 6129.1               -- Sickly Gazelle: use the salve on them
+  kill 12296 quest 6129.1 "Use the Curative Animal Salve on Sickly Gazelles"
 
 step Curing the Sick
   only Tauren,Skyborne,Horde
