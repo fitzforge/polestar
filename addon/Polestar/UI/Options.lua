@@ -147,6 +147,8 @@ local GUIDE, LOOK, MAP, QUESTING, DISCOVERY, QOL, REC, ABOUT =
 
 local function resetPositions()
 	ns.Set("ui.pos", nil)
+	-- The party panel re-places itself on the change (UI/PartyPanel.lua).
+	ns.Set("party.panelPos", nil)
 	if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end
 	if win then
 		win:ClearAllPoints()

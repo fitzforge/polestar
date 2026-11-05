@@ -3081,8 +3081,9 @@ W.OptionsRegistry = registry
 -- binding: a key binding row (UI/GamepadGuide.lua): { kind = "binding", action = "POLESTAR_NEXT", label, help }.
 local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = true, button = true, binding = true }
 
--- spec = { page, key, icon, order, tab, section, controls = { { kind, key, label, help, ... } } }
--- page is the title as shown, key (optional) the page's stable key.
+-- spec = { page, key, icon, order, tab, section, controls = { { kind, key, label, help, terms, ... } } }
+-- page is the title as shown, key (optional) the page's stable key; a
+-- control's `terms` are more words the settings search finds it by.
 -- -> true | false, err
 function ns.RegisterOptions(spec)
 	if type(spec) ~= "table" then return false, "RegisterOptions: spec must be a table" end

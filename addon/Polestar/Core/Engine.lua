@@ -2435,7 +2435,8 @@ local function computeCurrent()
 	local steps = guide.steps
 	local sk = skippedFor(guide.id)
 	for s = 1, #steps do
-		if stepApplies(steps[s]) and not (sk and sk[s]) and not stepDone(s) then
+		-- The live step stays while the group waits on it (Own.partyHold).
+		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
 			if not Own.jump(s) then return s end
 			sk = skippedFor(guide.id)
 		end
@@ -3057,7 +3058,9 @@ end
 -- `z`: the goal's height at that point (posOf), for the walking engine's floor.
 -- `at`: a group (stepGroups) whose place stands in for the goal's own.
 -- `s`: the goal's step, when not the current one (an along goal).
-local function waypointOf(g, goal, at, s)
+-- `held`: a goal done for the player that a party member still needs
+-- (Own.partyAim), pointed at all the same.
+local function waypointOf(g, goal, at, s, held)
 	s = s or current
 	local map, x, y, f, area, z
 	local walk
@@ -3074,7 +3077,7 @@ local function waypointOf(g, goal, at, s)
 		end
 	end
 	if not (map and x and y) or not goalApplies(goal) or unavailableFor(goal) or Own.goalSkipped(s, g)
-		or goalDone(s, g, goal) then return nil end
+		or (not held and goalDone(s, g, goal)) then return nil end
 	local verb, subject, _, detail = describe(goal)
 	local many = area and #goal.spots > 1
 	return {
@@ -3199,6 +3202,10 @@ local function findWaypoint()
 		end
 		local as, ag = Own.alongOf(aim)
 		local wp = as and waypointOf(ag, aim, nil, as)
+		if wp then return wp end
+	end
+	if current == computed then
+		local wp = Own.partyAim(current)
 		if wp then return wp end
 	end
 	local groups, focus = stepGroups(current)
@@ -3343,6 +3350,51 @@ function Own.nearestField(s, list)
 		if c and goal.spots and Spots.chosen[goal] then Spots.repick(goal, c, px, py) end
 	end
 	return pick
+end
+
+-- Party sync's "wait for the group" (Quests/Party.lua, party.waitForGroup).
+-- The live step stays while a member who holds the group still needs one of
+-- its objectives that is done for the player (Party.Waiting): computeCurrent
+-- asks this of the live step only, so the route never goes back for one. An
+-- along step never waits.
+function Own.partyHold(s)
+	local P = ns.Party
+	local step = guide.steps[s]
+	if not (P and P.Waiting) or step.along then return false end
+	for g, goal in ipairs(step.goals) do
+		if goal.quest and goal.oi and blocks(goal) and goalApplies(goal) and goalDone(s, g, goal) and P.Waiting(goal) then return true end
+	end
+	return false
+end
+
+-- The arrow while the group waits: once every goal of step s is done for the
+-- player but turn-ins the group holds (Party.HoldsQuest), the nearest of the
+-- objectives a member still needs (Own.nearestField), its label naming them
+-- ("For Ana: Kill Kobold Vermin"). Nil otherwise.
+function Own.partyAim(s)
+	local P = ns.Party
+	if not (P and P.Waiting) then return nil end
+	local goals = guide.steps[s].goals
+	local list, names
+	for g, goal in ipairs(goals) do
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) then
+			local done = goalDone(s, g, goal)
+			if not done and not (goal.t == "turnin" and P.HoldsQuest(goal.quest)) then return nil end
+			local w = done and goal.quest and goal.oi and P.Waiting(goal)
+			if w then
+				list, names = list or {}, names or {}
+				list[#list + 1] = g
+				local who = {}
+				for i, m in ipairs(w) do who[i] = m.name end
+				names[g] = table.concat(who, ", ")
+			end
+		end
+	end
+	if not list then return nil end
+	local pick = Own.nearestField(s, list)
+	local wp = waypointOf(pick, goals[pick], nil, s, true)
+	if wp then wp.label = L["For %s: %s"]:format(names[pick], wp.label) end
+	return wp
 end
 
 ---------------------------------------------------------------------------
@@ -6268,6 +6320,10 @@ ns.On("QOL_HEARTH_CHANGED", onUpdateEvent)
 -- New gear verdicts (equipment, spec, level, item data): `when upgrade`.
 ns.On("GEAR_UPDATED", onUpdateEvent)
 
+-- Party progress (Quests/Party.lua): the group's wait holds the live step,
+-- its turn-ins and the arrow (Own.partyHold, Own.partyAim).
+ns.On("PARTY_PROGRESS", onUpdateEvent)
+
 -- A new answer for every group quest (`when group`, Own.groupAnswer), and
 -- deathskips turned on or off (`die` goals, Own.deathskips).
 ns.On("SETTING_CHANGED", function(path)
@@ -6612,12 +6668,14 @@ local function wantsFrom(from, verb, questID, span)
 	for s = from, #steps do
 		local step = steps[s]
 		if stepApplies(step) then
-			-- A group quest the player has not answered for yet is not taken or handed in for them.
+			-- A group quest the player has not answered for yet is not taken or handed in for them;
+			-- nor is a quest handed in while the group waits on a member (Party.HoldsQuest).
 			local waits = Own.groupPending(step)
 			for g, goal in ipairs(step.goals) do
 				if matchesVerb(goal, verb) and goal.quest == questID and questID ~= waits and goalApplies(goal)
 					and not Own.questSkipped(questID)
-					and not (verb == "direct" and goalDone(s, g, goal)) then
+					and not (verb == "direct" and goalDone(s, g, goal))
+					and not (verb ~= "accept" and ns.Party and ns.Party.HoldsQuest(questID)) then
 					return true
 				end
 			end

@@ -577,6 +577,40 @@ guides you there instead.
   already placed alone. Either can be set to "A new one each press", so the
   last few targets keep theirs. Your party sees the icons.
 
+### Playing in a party
+
+When you group with friends who also run Polestar, the guide plays for the
+party as well as for you (Options, Questing, Group; each part can be turned
+off there, and nothing of it runs solo or in a raid).
+
+- **Party sync**: each member's count shows under the quest goals you share
+  ("Ana 5/8", "Ben done"), and on a quest you took, who in the party lacks
+  it. It is on by default; the first time you group with another Polestar
+  user, Polestar says so once in chat. Only quest IDs, counts, levels and
+  step numbers go out, as hidden addon messages to your party, never to
+  chat. Turned off, it stays off.
+- **Wait for the group**: when you finish an objective a party member on the
+  same quest still needs ("Waiting on Ana: 3/8 Boar Ribs"), the step and its
+  turn-in wait for them (nothing is handed in automatically meanwhile), and
+  the arrow leads to the nearest place they still need. "Everyone's ready"
+  shows once they are done. A member in another zone, or offline for more
+  than 2 minutes, doesn't hold you, and the guide window's party line offers
+  "Go on without them".
+- **Share a missing quest**: a Share button on the goal of a quest you have
+  that a member lacks, using the game's own sharing. When Polestar knows why
+  they can't take it, it says so ("Ben (level 8, needs 10)", "another class",
+  "already done").
+- **Party panel**: a click on the guide window's party line, or `/polestar
+  party`, opens a small movable panel with each member's level and XP, the
+  step they are on, what they still need of yours, and whether they are
+  dead, far away or offline. Click a name to point the arrow at them where
+  the game gives their place on the map. Members without Polestar show their
+  name and level.
+- **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
+  collect goal, and on a loot window or roll with a quest item a member still
+  needs and you don't, "For Ana: she still needs 2". Nothing is passed,
+  rolled or said for you.
+
 ### Gear advice
 
 - **Upgrade indicator** on item tooltips: by how much an item is an upgrade
@@ -751,6 +785,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**), these commands, `way` and `near` say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
+| `party` | Show or hide the party panel: each party member's level, step and what they still need |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |

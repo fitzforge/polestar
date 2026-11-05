@@ -38,6 +38,13 @@ fn not_logged_in(script: &str) -> Vec<Value> {
 
 const SENT: &str = r#"
 local p = stub.party
+-- The "2U|" unit messages have tests of their own (p.units = true keeps them);
+-- the others read what they read before it came.
+local rawSend = C_ChatInfo.SendAddonMessage
+function C_ChatInfo.SendAddonMessage(prefix, text, ...)
+	if text:sub(1, 3) == "2U|" and not p.units then return p.result end
+	return rawSend(prefix, text, ...)
+end
 local function texts()
 	local out = {}
 	for i, m in ipairs(p.sent) do out[i] = m.text end
@@ -286,10 +293,10 @@ emit(p.sent[#p.sent].text)"#,
 }
 
 #[test]
-fn party_both_settings_off_registers_no_events() {
+fn party_solo_only_the_roster_events_listen_in_a_party_the_rest_and_with_both_off_nothing() {
 	let out = live(&sent(
 		r#"
-local EVENTS = { "GROUP_ROSTER_UPDATE", "GROUP_LEFT", "QUEST_LOG_UPDATE", "CHAT_MSG_ADDON" }
+local EVENTS = { "GROUP_ROSTER_UPDATE", "GROUP_LEFT", "QUEST_LOG_UPDATE", "CHAT_MSG_ADDON", "PLAYER_XP_UPDATE", "CHAT_MSG_SYSTEM" }
 local function registered()
 	local out = {}
 	for _, ev in ipairs(EVENTS) do
@@ -300,14 +307,18 @@ local function registered()
 	return out
 end
 emit(registered())
+p.join("Ana")
+emit(registered())
 Polestar.Set("party.share", false)
 Polestar.Set("party.show", false)
 emit(registered())"#,
 	));
-	let on = out[0].as_array().unwrap();
-	assert!(on.contains(&json!("CHAT_MSG_ADDON")) && on.contains(&json!("GROUP_ROSTER_UPDATE")));
-	let off: Vec<&Value> = out[1].as_array().unwrap().iter().filter(|e| e.as_str() != Some("QUEST_LOG_UPDATE")).collect();
-	assert_eq!(off, Vec::<&Value>::new());
+	let others = |v: &Value| -> Vec<Value> { v.as_array().unwrap().iter().filter(|e| e.as_str() != Some("QUEST_LOG_UPDATE") && e.as_str() != Some("PLAYER_XP_UPDATE")).cloned().collect() };
+	assert_eq!(others(&out[0]), vec![json!("GROUP_ROSTER_UPDATE"), json!("GROUP_LEFT")], "solo: only the roster");
+	let grouped = out[1].as_array().unwrap();
+	assert!(grouped.contains(&json!("CHAT_MSG_ADDON")) && grouped.contains(&json!("PLAYER_XP_UPDATE")), "{grouped:?}");
+	assert!(!grouped.contains(&json!("CHAT_MSG_SYSTEM")), "the share answers only after a share");
+	assert_eq!(others(&out[2]), Vec::<Value>::new());
 }
 
 #[test]
@@ -536,23 +547,27 @@ emit(Polestar.UI.GoalSubline({ t = "kill", quest = 33, oi = 1, status = "active"
 }
 
 #[test]
-fn party_the_questing_page_has_the_two_party_switches_both_off_until_turned_on() {
+fn party_the_group_section_has_its_switches_all_on_by_default_but_the_panel() {
 	let out = run_with(
 		r#"
 local keys = {}
 Polestar.Widgets.OnOptionsRegistered(function(spec)
 	for _, c in ipairs(spec.controls) do
-		if c.key and c.key:sub(1, 6) == "party." then keys[#keys + 1] = spec.page .. "/" .. c.key end
+		if c.key and c.key:sub(1, 6) == "party." then keys[#keys + 1] = spec.page .. "/" .. spec.section .. "/" .. c.key end
 	end
 end)
-emit(keys); emit(Polestar.Get("party.share")); emit(Polestar.Get("party.show"))"#,
+emit(keys)
+emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel") })"#,
 		LIVE_STUBS,
 		SHOWN_FILES,
 		true,
 		None,
 	);
-	assert_eq!(out[0], json!(["Questing/party.share", "Questing/party.show"]));
-	assert_eq!(json!([out[1], out[2]]), json!([false, false]));
+	assert_eq!(
+		out[0],
+		json!(["Questing/Group/party.share", "Questing/Group/party.show", "Questing/Group/party.waitForGroup", "Questing/Group/party.lootNeeds", "Questing/Group/party.panel"])
+	);
+	assert_eq!(out[1], json!([true, true, true, true, false]));
 }
 
 // Found by the final review (Codex and a fresh reviewer).
@@ -883,25 +898,28 @@ emit({ first = first, same = same, moved = texts() })"#
 }
 
 #[test]
-fn party_the_step_line_says_who_is_ahead_or_behind_on_the_same_guide_who_is_still_at_it_and_what_to_share() {
+fn party_the_step_line_says_who_is_ahead_behind_or_on_another_guide_and_who_the_group_waits_on() {
 	let out = shown(&sent(&format!(
 		"{ON_GUIDE}{}",
 		r#"
 w.onQuest(33, { 8 })
-w.titles = w.titles or {}
-p.join("Ana"); p.join("Ben"); p.join("Cy")
+p.join("Ana"); p.join("Ben"); p.join("Cy"); p.join("Dee")
 p.onQuest.Ana = { [33] = true }; p.onQuest.Cy = { [33] = true }
 p.receive("Ana-TestRealm", "1P|8|0.0.1|test|3|test/g")
 p.receive("Ben-TestRealm", "1P|4|0.0.1|test|3|test/g")
 p.receive("Cy-TestRealm", "1P|9|0.0.1|test|2|test/g")
+p.receive("Dee-TestRealm", "1P|2|0.0.1|test|3|test/other")
 emit({ P.StepLine() })
 goals[1] = { t = "kill", quest = 33, oi = 1, status = "done" }
 p.receive("Ana-TestRealm", "1|33:5/8")
-local text, share = P.StepLine()
-emit({ text, share })"#
+emit({ P.StepLine() })
+Polestar.Set("party.waitForGroup", false)
+emit({ P.StepLine() })"#
 	)));
-	assert_eq!(out[0], json!([format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind")]), "Cy's pack version differs: no line for her");
-	assert_eq!(out[1], json!([format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind{DOT}Still at it: Ana{DOT}Share Quest 33 with Ben"), 33]));
+	let places = format!("Ana: 3 steps ahead{DOT}Ben: 1 step behind{DOT}Dee: other guide");
+	assert_eq!(out[0], json!([places, false]), "Cy's pack version differs: no line for her");
+	assert_eq!(out[1], json!([format!("{places}{DOT}Waiting on Ana"), true]));
+	assert_eq!(out[2], json!([format!("{places}{DOT}Still at it: Ana"), false]), "the wait off: a hint, never a hold");
 }
 
 #[test]
@@ -919,4 +937,243 @@ for _, m in ipairs(stub.messages) do if m:find("999.0", 1, true) or m:find("(4;"
 emit(n)"#
 	)));
 	assert_eq!(out[0], 2, "one line for Polestar, one for the pack, each once");
+}
+
+// Group play: on by default, the "2U|" unit message, sharing with the reason a member cannot take a
+// quest, the party panel's rows and the loot a member still needs. The wait itself, with a real guide:
+// party-group.rs.
+
+fn saved_run(saved: Option<&str>, script: &str) -> Vec<Value> {
+	run_with(&sent(script), LIVE_STUBS, FILES, true, saved)
+}
+
+const NOTICE: &str = r#"
+local function told()
+	local n = 0
+	for _, m in ipairs(stub.messages) do if m:find("Party sync is on", 1, true) then n = n + 1 end end
+	return n
+end"#;
+
+#[test]
+fn party_sync_is_on_by_default_a_player_who_turned_it_off_stays_off_and_the_first_group_says_so_once() {
+	let script = format!(
+		"{NOTICE}{}",
+		r#"
+w.onQuest(33, { 8 })
+p.join("Ana")
+stub.advance(6)
+emit(texts())
+emit(told())
+p.receive("Ana-TestRealm", "1|60:1/4")
+p.receive("Ana-TestRealm", "1|60:2/4")
+emit(told())
+p.disband(); p.join("Ben"); stub.advance(6)
+p.receive("Ben-TestRealm", "1|60:1/4")
+emit(told())"#
+	);
+	let fresh = saved_run(None, &script);
+	assert_eq!(fresh[0], json!(["1R|33:0/8"]), "never touched: on");
+	assert_eq!(json!([fresh[1], fresh[2], fresh[3]]), json!([0, 1, 1]), "said once, on the first member who runs Polestar");
+	let no_share = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false } } }"), &script);
+	assert_eq!(no_share[0], json!(["1Q|"]), "sharing turned off stays off; showing asks for theirs");
+	assert_eq!(no_share[2], 0, "nothing to say to a player who does not share");
+	let off = saved_run(Some("PolestarDB = { schema = 1, settings = { party = { share = false, show = false } } }"), &script);
+	assert!(off[0] == json!([]) || off[0] == json!({}), "both off: nothing sent, {}", off[0]);
+}
+
+#[test]
+fn party_the_unit_message_round_trips_ignores_later_fields_and_version_1_decoders_drop_it() {
+	let out = run(r#"
+local text = P.EncodeUnit({ level = 12, xp = 45, class = 8, race = 1 })
+emit(text); emit(P.DecodeUnit(text)); emit(P.DecodeUnit(text .. "|7|later"))
+emit({ P.Decode(text) == nil, P.DecodePos(text) == nil })
+emit({ P.DecodeUnit("1|33:1/2") == nil, P.DecodeUnit("2U|0|5||") == nil, P.DecodeUnit("2U|12|101||") == nil, P.DecodeUnit("2U|12|5||x") == nil })
+emit(P.DecodeUnit("2U|3|0||"))"#);
+	assert_eq!(out[0], "2U|12|45|8|1");
+	assert_eq!(out[1], json!({ "level": 12, "xp": 45, "class": 8, "race": 1 }));
+	assert_eq!(out[2], out[1], "a later version's fields are ignored");
+	assert_eq!(out[3], json!([true, true]), "the version-1 decoders (what older Polestar runs) drop it");
+	assert_eq!(out[4], json!([true, true, true, true]));
+	assert_eq!(out[5], json!({ "level": 3, "xp": 0 }), "class and race may be unknown");
+}
+
+#[test]
+fn party_a_member_s_new_or_unknown_messages_change_nothing_else_and_raise_no_error() {
+	let out = live(&sent_members(
+		r#"
+p.join("Ana")
+p.receive("Ana-TestRealm", "1|33:5/8")
+p.receive("Ana-TestRealm", "2U|14|55|8|1|more")
+p.receive("Ana-TestRealm", "3Z|whatever|comes|next")
+p.receive("Ana-TestRealm", "2P|5|x")
+emit(members()); emit(P.Members()[1].unit); emit(#Polestar.Errors())"#,
+	));
+	assert_eq!(out[0], json!(["Ana 33:5/8"]));
+	assert_eq!(out[1], json!({ "level": 14, "xp": 55, "class": 8, "race": 1 }));
+	assert_eq!(out[2], 0);
+}
+
+#[test]
+fn party_your_level_and_xp_go_out_with_the_snapshot_and_again_only_when_the_whole_percent_moves() {
+	let out = live(&sent(
+		r#"
+p.units = true
+w.setLevel(12); w.setXP(100, 1000)
+stub.advance(3)
+emit(#p.sent)
+p.join("Ana"); stub.advance(6)
+emit(texts())
+p.sent = {}
+w.setXP(105, 1000); stub.advance(3)
+emit(#p.sent)
+w.setXP(200, 1000); stub.advance(3)
+emit(texts())"#,
+	));
+	assert_eq!(out[0], 0, "solo: nothing");
+	assert_eq!(out[1], json!(["1R|", "2U|12|10|1|1"]));
+	assert_eq!(out[2], 0, "still 10%");
+	assert_eq!(out[3], json!(["2U|12|20|1|1"]));
+}
+
+// A quest database for the reasons a member cannot take quest 33 (level 10, warriors and paladins).
+const QDB: &str = r#"
+local Q = Polestar.QuestDB
+Q.IsLoaded = function() return true end
+Q.GetQuest = function(q) if q == 33 then return { id = 33, minLevel = 10, classes = 1 + 2, objectives = {} } end end
+"#;
+
+const GROUP_FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "Maps/Maps.lua", "UI/UI.xml", "Quests/QuestDB.lua", "Quests/Party.lua"];
+
+fn group(script: &str) -> Vec<Value> {
+	run_with(&sent(script), LIVE_STUBS, GROUP_FILES, true, None)
+}
+
+#[test]
+fn party_share_is_offered_only_for_a_quest_you_have_that_a_member_lacks_and_can_take_with_why_not() {
+	let out = group(&format!(
+		"{QDB}{}",
+		r#"
+local goal = { t = "kill", quest = 33, oi = 1, status = "active" }
+p.join("Ana"); p.join("Ben"); p.join("Cy"); p.join("Dee")
+p.onQuest.Ana = { [33] = true }
+p.set("Ben", { level = 8, class = "WARRIOR", race = "Human" })
+p.set("Cy", { level = 12, class = "MAGE", race = "Human" })
+p.set("Dee", { level = 12, class = "WARRIOR", race = "Human" })
+emit(P.ShareFor(goal) == nil)
+w.onQuest(33, { 8 })
+emit(P.ShareFor(goal))
+emit(P.Line(goal))
+emit(P.Share(33)); emit(p.shared)
+p.pushResult("Dee", "ERR_QUEST_PUSH_ALREADY_DONE_S")
+stub.advance(1)
+emit(P.ShareFor(goal) == nil)
+emit(P.Line(goal))
+p.pushable[33] = false
+p.set("Ben", { level = 10 })
+emit(P.ShareFor(goal) == nil)"#
+	));
+	assert_eq!(out[0], true, "not in your log: nothing to share");
+	assert_eq!(out[1], json!(["Dee"]), "Ana has it; Ben is too low, Cy another class");
+	assert_eq!(out[2], format!("Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee").as_str());
+	assert_eq!(json!([&out[3], &out[4]]), json!([true, [33]]));
+	assert_eq!(out[5], true, "the game said Dee has done it");
+	assert_eq!(out[6], "Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee (already done)");
+	assert_eq!(out[7], true, "a quest the game will not share: no Share");
+}
+
+const PANEL_GUIDE: &str = r#"
+local E = Polestar.Engine
+E.GetGuide = function() return { id = "test/g", pack = "test", steps = { [5] = { title = "Kobold Camp" } } } end
+E.GetLiveStep = function() return 5 end
+Polestar.Guides.Pack = function(id) if id == "test" then return { id = "test", title = "Test", version = "3" } end end
+E.GetStepView = function(i) if i == 5 then return { goals = { { t = "kill", quest = 33, oi = 1, status = "active", subject = "Kobold Vermin" } } } end end
+"#;
+
+#[test]
+fn party_the_panel_has_a_row_per_member_with_level_xp_step_needs_and_state_and_points_the_arrow() {
+	let out = group(&format!(
+		"{PANEL_GUIDE}{}",
+		r#"
+local PP = Polestar.UI.PartyPanel
+p.join("Ana"); p.join("Ben")
+p.set("Ana", { class = "MAGE", level = 11, sex = 3, map = 1429, x = 40, y = 50, dead = true })
+p.set("Ben", { class = "WARRIOR", level = 9 })
+p.receive("Ana-TestRealm", "1P|5|0.0.1|test|3|test/g")
+p.receive("Ana-TestRealm", "2U|12|45|8|1")
+p.receive("Ana-TestRealm", "1|33:3/8")
+local rows = P.Roster()
+emit(rows)
+local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or false end
+local function texts(e) local a, b, c, d = PP.RowText(e); return { plain(a), b, c or false, d or false } end
+emit({ texts(rows[1]), texts(rows[2]), (PP.RowText(rows[1])):sub(1, 4) == "|cff" })
+emit(PP.Frame() ~= nil and PP.Frame():IsShown())
+Polestar.RunCommand("party")
+emit(PP.Frame():IsShown())
+Polestar.Set("ui.combat", "hide")
+stub.fire("PLAYER_REGEN_DISABLED")
+emit(PP.Frame():IsShown())
+stub.fire("PLAYER_REGEN_ENABLED")
+emit(PP.Frame():IsShown())
+local t
+Polestar.Nav = { SetTarget = function(map, x, y, label) t = { map, x, y, label }; return true end, GetTarget = function() return t end }
+emit({ P.PointAt("party1"), t, P.PointAt("party2") })
+p.disband()
+emit(PP.Frame():IsShown())"#
+	));
+	let ana = &out[0][0];
+	assert_eq!(json!([&ana["name"], &ana["class"], &ana["level"], &ana["xp"], &ana["polestar"], &ana["dead"], &ana["far"], &ana["offline"], &ana["step"]]), json!(["Ana", "MAGE", 12, 45, true, true, false, false, "Kobold Camp"]));
+	assert_eq!(ana["needs"], json!([{ "what": "Kobold Vermin", "cur": 3, "max": 8 }]));
+	let ben = &out[0][1];
+	assert_eq!(json!([&ben["name"], &ben["level"], &ben["polestar"]]), json!(["Ben", 9, false]));
+	assert_eq!(out[1][0], json!(["Ana", "Level 12  \u{b7}  45% XP", "Kobold Camp  \u{b7}  Dead", "Still needs: Kobold Vermin 3/8"]));
+	assert_eq!(out[1][1], json!(["Ben", "Level 9", false, false]), "no Polestar: name and level only");
+	assert_eq!(out[1][2], true, "the name in its class colour");
+	assert_eq!(out[2], false, "off until asked for");
+	assert_eq!(out[3], true, "/polestar party");
+	assert_eq!(out[4], false, "hidden in combat when the guide hides there");
+	assert_eq!(out[5], true);
+	assert_eq!(out[6], json!([true, [1429, 40, 50, "Party: Ana"], false]), "Ben's place is not known: no arrow");
+	assert_eq!(out[7], false, "solo: hidden");
+}
+
+#[test]
+fn party_a_collect_goal_and_the_loot_window_say_who_still_needs_an_item_you_do_not() {
+	let out = group(
+		r#"
+local PL = Polestar.UI.PartyLoot
+Polestar.Engine.GetGuide = function() return { id = "test/g", steps = { { goals = { { t = "collect", item = 723, quest = 33, oi = 1 } } } } } end
+p.join("Ana"); p.join("Ben")
+p.set("Ana", { sex = 3 }); p.set("Ben", { sex = 2 })
+p.receive("Ana-TestRealm", "1|33:3/5")
+p.receive("Ben-TestRealm", "1|33:5/5")
+emit(P.Line({ t = "collect", quest = 33, oi = 1, status = "active", subject = "Goretusk Liver" }))
+local LIVER = "|cffffffff|Hitem:723::::::::|h[Goretusk Liver]|h|r"
+function GetNumLootItems() return 2 end
+function GetLootSlotLink(i) if i == 1 then return "|cff9d9d9d|Hitem:2589::::::::|h[Linen Cloth]|h|r" end return LIVER end
+function GetLootRollItemLink(id) return LIVER end
+stub.fire("LOOT_OPENED")
+emit(PL.Lines()); emit(PL.Frame() and PL.Frame():IsShown())
+stub.fire("LOOT_CLOSED")
+emit(#PL.Lines())
+stub.fire("START_LOOT_ROLL", 7, 60000)
+emit(PL.Lines())
+stub.fire("CANCEL_LOOT_ROLL", 7)
+emit(#PL.Lines())
+w.onQuest(33, { 5 })
+stub.fire("LOOT_OPENED")
+emit(#PL.Lines())
+stub.fire("LOOT_CLOSED")
+w.abandon(33)
+Polestar.Set("party.lootNeeds", false)
+stub.fire("LOOT_OPENED")
+emit(#PL.Lines())"#,
+	);
+	assert_eq!(out[0], format!("Ana still needs 2 Goretusk Liver{DOT}Ben done").as_str());
+	assert_eq!(out[1], json!([format!("Goretusk Liver{DOT}For Ana: she still needs 2")]), "Ben has his; the cloth is no quest's");
+	assert_eq!(out[2], true);
+	assert_eq!(out[3], 0);
+	assert_eq!(out[4], json!([format!("Goretusk Liver{DOT}For Ana: she still needs 2")]), "a roll says it too");
+	assert_eq!(out[5], 0);
+	assert_eq!(out[6], 0, "you need it too: nothing said");
+	assert_eq!(out[7], 0, "the setting off");
 }
