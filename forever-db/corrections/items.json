@@ -32,5 +32,24 @@
 			}
 		],
 		"note": "Southsea Pirate Hat (Pirate Hats Ahoy! 8365) drops from six Southsea pirates (7855, 7856, 7857, 7858, 7883, 8203) at 10%, as QuestieDB's Forever store and CMaNGOS classic-db's loot tables have it; neither puts it in the Southsea Kidnapper's (15685) loot. Only pfQuest lists 15685, at 50%, which sent the goal to the Kidnapper alone (issue #327)."
+	},
+	"255010": {
+		"removeDrops": {
+			"npc": [
+				36,
+				115
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "creature_loot_template: Harvest Watcher 114 only (40%)"
+			},
+			{
+				"kind": "recording",
+				"ref": "launch recordings: Harvesting the Harvesters objective 2 ticked only after Harvest Watcher kills (2 players); 25 Harvest Golem kills, none ticked it"
+			}
+		],
+		"note": "Harvester Gyrostabilizer (Harvesting the Harvesters, 92909) drops from the Harvest Watcher (114). The merged data also listed the Harvest Golem (36) and the level 17-18 Harvest Reaper (115), which sent the arrow to the Reapers (Erá, Discord, #827)."
 	}
 }
