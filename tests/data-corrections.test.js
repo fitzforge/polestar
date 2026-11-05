@@ -78,6 +78,12 @@ test('Highland Hides waits for Young Crocolisk Skins, not Daily Delivery (#533)'
 	assert.deepEqual({ all, any }, { all: [], any: [484] });
 });
 
+test('The Wrath of Rath\'mael waits for the second Rear Guard Patrol, which waits for the first (#849)', () => {
+	const { all, any } = blockingPrereqs({ id: 92422, start: { npc: [251001] }, ...corrections.quests[92422].set });
+	assert.deepEqual({ all, any }, { all: [], any: [99156] });
+	assert.deepEqual(corrections.quests[99156].set.preAny, [356]);
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
