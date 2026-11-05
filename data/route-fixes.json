@@ -1863,6 +1863,17 @@
 				],
 				"faction": "Horde",
 				"why": "ZoneFix c18 read (Horde 50-60): the Super Egg-O-Matic's Hippogryph Egg is collected in southern Feralas before Silithus, as v1 does (Gadgetzan -> Camp Mojache for the egg -> Marshal's Refuge -> the pass to Valor's Rest, 05-eastern-plaguelands:205-240), or earlier on the 44-47 Feralas visits. c18 flew from Cenarion Hold to Camp Mojache for the egg alone and hearthed back to Silithus (Orc 50-60/06-silithus:113-121; Orc.json order[1868], after Wasteland's hand-in at [1855])"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					398
+				],
+				"why": "#801 Tirisfal: WANTED: Maggot Eye (398) needs level 6, and the Brill stop took it from the poster by the inn before Vital Intelligence was handed to Executor Zygand in front of it; an Undead Priest at level 5 (93%) found the poster offering nothing. Vital Intelligence first (340 XP) gives the level at the same stop: checked in game, the poster offered it once the turn-in reached level 6"
 			}
 		],
 		"notes": [
