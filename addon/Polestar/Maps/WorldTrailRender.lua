@@ -166,7 +166,7 @@ local function waypointWorld()
 end
 
 -- The waypoint's height is unknown (the probe showed C_Navigation.GetDistance
--- is flat and UnitPosition gives no height), so a pitch solved from it is off
+-- is flat and the position gives no height), so a pitch solved from it is off
 -- by its slope, and drifts as the player walks over hills. So the pitch is
 -- only taken from the marker while the camera is being moved (a mouse button
 -- held, mouselook, a new zoom) and the waypoint is far enough for the slope to
