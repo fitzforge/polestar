@@ -598,6 +598,9 @@ function CC.Layout(width)
 	F.Head:ClearAllPoints()
 	F.Head:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
 	y = y + F.Head:GetStringHeight() + 4
+	-- The badge (top right, 20 high from 10 down) sits beside the class line;
+	-- the title starts below it with a gap, never in its shadow.
+	if F.Badge:IsShown() then y = max(y, 10 + 20 + 6) end
 	F.Title:ClearAllPoints()
 	F.Title:SetPoint("TOPLEFT", F, "TOPLEFT", x, -y)
 	y = y + F.Title:GetStringHeight()
