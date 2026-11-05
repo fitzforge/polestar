@@ -20,9 +20,13 @@
 // the same rule, each from its own point. A smart target's candidates
 // (`candidates` with an npc: trainers, vendors, innkeepers, and
 // Core/ClassTrainers.lua's) get one each, from their own NPC (#180).
-// Never: goto and explore (a place, not an entity), collect (a farming spot
-// among the item's sources), use (an item), and `collect … nearest`'s farm
-// spots (a cluster of several droppers, no single NPC).
+//   collect          its one named source (resolve.js fromKind npc or object,
+//                    fromId): the loot's NPC or the chest (Lord Melenas on his
+//                    ledge, a chest in a barrow under its hill; #580, #583);
+//                    a farming spot away from every spawn of it gets none
+// Never: goto and explore (a place, not an entity), a collect without one
+// named source, use (an item), and `collect … nearest`'s farm spots (a
+// cluster of several droppers, no single NPC).
 
 const HEIGHT_YARDS = 15;
 const HEIGHT_VERBS = new Set(['accept', 'turnin', 'talk', 'kill', 'interact', 'buy', 'train', 'vendor', 'sethome', 'getfp', 'learn']);
@@ -32,6 +36,16 @@ function heightEntity(goal) {
 	if (!HEIGHT_VERBS.has(goal.t) || goal.candidates || goal.x === undefined || goal.y === undefined || goal.map === undefined) return null;
 	if (goal.npc !== undefined) return { kind: 'npc', id: goal.npc };
 	if (goal.object !== undefined) return { kind: 'object', id: goal.object };
+	return null;
+}
+
+// The NPC or object a goal's height comes from: heightEntity's, or a
+// collect's one named source. { kind, id } or null.
+function heightSource(goal) {
+	const e = heightEntity(goal);
+	if (e) return e;
+	if (goal.t !== 'collect' || goal.candidates || goal.x === undefined || goal.y === undefined || goal.map === undefined || goal.fromId === undefined) return null;
+	if (goal.fromKind === 'npc' || goal.fromKind === 'object') return { kind: goal.fromKind, id: goal.fromId };
 	return null;
 }
 
@@ -63,16 +77,16 @@ function spawnHeight(data, kind, id, point) {
 	return best ? best.z : undefined;
 }
 
-// The goal's height, or undefined (heightEntity).
+// The goal's height, or undefined (heightSource).
 function goalHeight(data, goal) {
-	const e = heightEntity(goal);
+	const e = heightSource(goal);
 	return e ? spawnHeight(data, e.kind, e.id, goal) : undefined;
 }
 
 // A spawn spot's height ({ x, y } of the goal's `spots`, on the goal's map
 // and frame), or undefined: by the goal's own NPC or object.
 function spotHeight(data, goal, spot) {
-	const e = heightEntity(goal);
+	const e = heightSource(goal);
 	return e ? spawnHeight(data, e.kind, e.id, { map: goal.map, x: spot.x, y: spot.y, f: goal.f }) : undefined;
 }
 
@@ -96,7 +110,7 @@ function heightCounts(guides) {
 					n.candidates++;
 					if (c.z !== undefined) n.candidatesWithZ++;
 				}
-				if (!heightEntity(goal)) continue;
+				if (!heightSource(goal)) continue;
 				n.eligible++;
 				if (goal.z !== undefined) n.withZ++;
 				for (const s of goal.spots || []) {
@@ -109,4 +123,4 @@ function heightCounts(guides) {
 	return n;
 }
 
-module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, heightEntity, worldPoint, spawnHeight, goalHeight, spotHeight, candidateHeight, heightCounts };
+module.exports = { HEIGHT_YARDS, HEIGHT_VERBS, heightEntity, heightSource, worldPoint, spawnHeight, goalHeight, spotHeight, candidateHeight, heightCounts };

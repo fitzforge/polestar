@@ -24,6 +24,24 @@ pub fn height_entity(goal: &V) -> Option<(&'static str, V)> {
 	None
 }
 
+/// The NPC or object a goal's height comes from: height_entity's, or a `collect`'s one named source (the
+/// loot's NPC or the chest, resolve's fromKind and fromId: Lord Melenas on his ledge, a chest in a barrow
+/// under its hill; #580, #583). The 15-yard rule still holds, so a farming spot away from every spawn of
+/// its source gets none.
+pub fn height_source(goal: &V) -> Option<(&'static str, V)> {
+	if let Some(e) = height_entity(goal) {
+		return Some(e);
+	}
+	if goal.get("t").as_str() != Some("collect") || goal.get("candidates").truthy() || goal.get("x").is_undef() || goal.get("y").is_undef() || goal.get("map").is_undef() || goal.get("fromId").is_undef() {
+		return None;
+	}
+	match goal.get("fromKind").as_str() {
+		Some("npc") => Some(("npc", goal.get("fromId"))),
+		Some("object") => Some(("object", goal.get("fromId"))),
+		_ => None,
+	}
+}
+
 /// A goal's world point { c, wx, wy } in its frame, or Null without bounds.
 pub fn world_point(data: &Data, goal: &V) -> V {
 	let map = goal.get("map");
@@ -72,15 +90,15 @@ pub fn spawn_height(data: &Data, kind: &str, id: &V, point: &V) -> Option<V> {
 	best.map(|b| b.1)
 }
 
-/// The goal's height, or None (height_entity).
+/// The goal's height, or None (height_source).
 pub fn goal_height(data: &Data, goal: &V) -> Option<V> {
-	let (kind, id) = height_entity(goal)?;
+	let (kind, id) = height_source(goal)?;
 	spawn_height(data, kind, &id, goal)
 }
 
 /// A spawn spot's height ({ x, y } of the goal's `spots`, on the goal's map and frame), or None.
 pub fn spot_height(data: &Data, goal: &V, spot: &V) -> Option<V> {
-	let (kind, id) = height_entity(goal)?;
+	let (kind, id) = height_source(goal)?;
 	let point: V = obj! { "map" => goal.get("map"), "x" => spot.get("x"), "y" => spot.get("y"), "f" => goal.get("f") }.into();
 	spawn_height(data, kind, &id, &point)
 }
@@ -108,7 +126,7 @@ pub fn height_counts(guides: &[V]) -> V {
 						candidates_with_z += 1;
 					}
 				}
-				if height_entity(&goal).is_none() {
+				if height_source(&goal).is_none() {
 					continue;
 				}
 				eligible += 1;

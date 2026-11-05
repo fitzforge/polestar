@@ -332,6 +332,18 @@ test(`${TELDRASSIL}: Pynte's report (#647): Teldrassil is taken from the Oracle 
 	assert.ok(yards(list[hand].goal, list[fandral].goal) < 5, 'to Fandral himself');
 });
 
+test(`${TELDRASSIL}: Pynte's reports (#580, #583): Melenas' Head and the Raven Claw Talisman carry their spawns' heights, so the walk ends on Lord Melenas' ledge and inside Ban'ethil Barrow`, { skip: needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json', 'spawnz.json') }, () => {
+	const list = goals(TELDRASSIL);
+	const head = list.find(({ goal }) => goal.t === 'collect' && goal.item === 5221).goal;
+	assert.equal(head.fromId, 2038, 'looted from Lord Melenas');
+	// His ledge spawn, 9 yards above the cave mouth (the floor under it is about z 1326).
+	assert.ok(Math.abs(head.z - 1338) < 1, `Melenas' Head: z ${head.z}, not his ledge`);
+	const talisman = list.find(({ goal }) => goal.t === 'collect' && goal.item === 3405).goal;
+	assert.equal(talisman.fromId, 2740, 'from the Chest of the Raven Claw');
+	// The chest's room under the hill (the hilltop above it is about z 1362).
+	assert.ok(Math.abs(talisman.z - 1278.8) < 1, `Raven Claw Talisman: z ${talisman.z}, not the chest's room`);
+});
+
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: Supplies to Tannok is taken from Hands Springsprocket at the tunnel, leaving Coldridge Valley`, { skip }, () => {
 	const list = goals(DUN_MOROGH);
 	const take = at(list, 'accept 2160 (Supplies to Tannok)', is('accept', 2160));

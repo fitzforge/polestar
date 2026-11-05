@@ -103,7 +103,7 @@ fn smart_target_candidate_on_a_spawn_of_its_npc_gets_that_z_one_with_no_spawn_wi
 }
 
 #[test]
-fn an_npc_goals_spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_centre_farther_from_both_and_a_collects_spots_none() {
+fn an_npc_goals_spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_centre_farther_from_both_and_a_collects_from_it_alike() {
 	let r = compile_with(&src(), &height_data());
 	let g = goals(&r);
 	let kill = find(&g, "kill", None);
@@ -111,8 +111,12 @@ fn an_npc_goals_spawn_spots_get_the_z_of_a_spawn_within_15_yards_a_clusters_cent
 	assert_eq!(spot(45.1, 33.9)["z"], 1, "a lone spawn: its z");
 	assert_eq!(spot(52.3, 26.8)["z"], 1);
 	assert!(spot(48.3, 31.8).get("z").is_none(), "the centre between two spawns some 30 yd apart: none");
+	// A collect from one named source (fromId: the Timber Wolf, the meat's top source) takes that NPC's
+	// heights by the same rule: its spots at a wolf's spawn get its z (#580, #583).
 	let collect = find(&g, "collect", None);
-	assert!(collect.get("spots").and_then(Value::as_array).is_none_or(|s| s.iter().all(|s| s.get("z").is_none())));
+	assert_eq!(collect["fromId"], 69, "the meat's named source: {collect}");
+	let spots = collect["spots"].as_array().cloned().unwrap_or_default();
+	assert!(spots.iter().all(|s| s.get("z").is_none() || s["z"] == 2), "only a wolf's own height: {collect}");
 }
 
 #[test]
