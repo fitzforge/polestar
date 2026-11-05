@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip) or a level gate before the goal (level). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), or a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "dun-morogh-shimmerweed-on-shimmer-ridge",
@@ -477,6 +477,35 @@
 				}
 			],
 			"issue": 365
+		},
+		{
+			"id": "798-gordo-on-the-road-to-brill",
+			"faction": "Horde",
+			"at": {
+				"quest": 5481,
+				"goal": "accept"
+			},
+			"early": {
+				"after": {
+					"quest": 8,
+					"goal": "accept"
+				},
+				"title": "Gordo on the road to Brill",
+				"when": "level>=5",
+				"tip": "Gordo walks the road between Cold Hearth Manor and Brill: take Gordo's Task when you pass him and pick the Gloom Weed along the road."
+			},
+			"note": "Gordo's Task needs level 5, so the route takes it on the pass west after Brill (route-fixes, FitzTest c12w). Players already level 5 walk past Gordo on the road from Calvin Montague to Brill: from level 5 the quest and its Gloom Weed are listed along the way until Gordo's own step, which still takes it for everyone else.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch (Tirisfal): of 6 runs, 4 took Gordo's Task right after Calvin Montague at level 5 or 6 and handed it in on the first Brill visit"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#798"
+				}
+			],
+			"issue": 798
 		}
 	]
 }

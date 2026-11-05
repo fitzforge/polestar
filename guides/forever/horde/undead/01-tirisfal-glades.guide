@@ -22,8 +22,6 @@ step Shadow Priest Sarvis
   tip Follow the path north into Deathknell; Sarvis stands in front of the church.
   turnin 363                          -- Inside
   accept 364
-  accept 98601 only Paladin           -- Shadow Priest Sarvis: the scroll for Aramis
-  turnin 98601 only Paladin           -- Aramis Hammerhand
   accept 1470 only Warlock            -- Venya Marthand
 
 step Mindless Zombies
@@ -39,12 +37,14 @@ step Shadow Priest Sarvis
   accept 3097 only Priest             -- Shadow Priest Sarvis: Hallowed Scroll
   accept 3098 only Mage               -- Shadow Priest Sarvis: Glyphic Scroll
   accept 3099 only Warlock            -- Shadow Priest Sarvis: Tainted Scroll
+  accept 98601 only Paladin           -- Shadow Priest Sarvis: the scroll for Aramis
   accept 376                          -- Novice Elreth, beside the church; inside
   turnin 3095 only Warrior            -- Dannal Stern, the warrior trainer; inside
   turnin 3096 only Rogue              -- David Trias, the rogue trainer
   turnin 3097 only Priest             -- Dark Cleric Duesten, the priest trainer in the church
   turnin 3098 only Mage               -- Isabella, the mage trainer, in the church
   turnin 3099 only Warlock            -- Maximillion, the warlock trainer
+  turnin 98601 only Paladin           -- Aramis Hammerhand
   train class                         -- The Deathknell trainers stand around the church
   accept 90902 only Paladin
 
@@ -80,7 +80,6 @@ step Back to the church
   train class
   accept 3902                         -- Deathguard Saltain
   accept 380                          -- Executor Arren, in the church
-  accept 96656
 
 step Scavenging Deathknell
   tip The Equipment Boxes lie beside the ruined houses in the north of Deathknell.
@@ -131,6 +130,7 @@ step Meven Korgal
 step Executor Arren
   turnin 382
   accept 383
+  accept 96656
 
 # ---------------------------------------------------------------- To Brill
 
@@ -138,14 +138,18 @@ step Calvin Montague
   tip Leave Deathknell by the road north-east. Calvin Montague stands by the farmhouse at the Solliden Farmstead.
   accept 8
 
+step Gordo on the road to Brill
+  along until q5481
+  when level>=5
+  tip Gordo walks the road between Cold Hearth Manor and Brill: take Gordo's Task when you pass him and pick the Gloom Weed along the road.
+  accept 5481
+  collect 12737 quest 5481.1
+
 step Brill
-  tip Junior Apothecary Holland stands at the north-west edge of town.
-  accept 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 358                          -- Magistrate Sevren, in the town hall
   tip The Gallows' End Tavern is the big inn in the middle, with Executor Zygand in front of it.
   sethome "Gallows' End Tavern" npc 5688 -- Innkeeper Renee
   turnin 8                            -- Innkeeper Renee
-  accept 398                          -- The Wanted poster by the inn
   accept 99134
   accept 99141
   turnin 383                          -- Executor Zygand
@@ -195,6 +199,7 @@ step Gordo
   collect 286202 quest 99141.3 npc 10666 -- Ask Gordo for his report
 
 step Gordo
+  label q5481
   tip Gordo, the big abomination, walks the road from here east past Cold Hearth Manor almost to Brill, and back: if he isn't at the arrow, follow the road east until you meet him. The Gloom Weed grows along the road around him.
   accept 5481
   collect 12737 quest 5481.1
@@ -221,6 +226,7 @@ step Brill
   train class                         -- The Brill trainers are in and around the inn
 
 step Brill
+  accept 398                          -- The Wanted poster by the inn
   accept 375                          -- Gretchen Dedmar, upstairs
   buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
   accept 362                          -- Coleman Farthing, in the inn
@@ -247,6 +253,7 @@ step Tirisfal Glades: kill these as you meet them
 
 step Brill
   turnin 5482                         -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
+  accept 99142
   turnin 368                          -- Apothecary Johaan, inside
   accept 369
   train class

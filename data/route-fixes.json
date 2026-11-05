@@ -1863,6 +1863,17 @@
 					398
 				],
 				"why": "#801 Tirisfal: WANTED: Maggot Eye (398) needs level 6, and the Brill stop took it from the poster by the inn before Vital Intelligence was handed to Executor Zygand in front of it; an Undead Priest at level 5 (93%) found the poster offering nothing. Vital Intelligence first (340 XP) gives the level at the same stop: checked in game, the poster offered it once the turn-in reached level 6"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					398
+				],
+				"why": "#801 follow-up (0.3.2): with Vital Intelligence and A Rogue's Deal handed in first, players' in-game recordings still reach the poster at 5.94 and 5.95 in 2 of 6 Tirisfal runs (the model has them at 6), so the poster offers nothing. The second Brill visit (Deathguard Dillinger's A Putrid Task hand-in, then the inn) comes at 6.7 to 7.5 in the recordings and still before Maggot Eye's camp, so the poster is read there: no extra trip"
 			}
 		],
 		"notes": [

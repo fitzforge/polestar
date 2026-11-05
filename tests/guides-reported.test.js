@@ -465,13 +465,18 @@ test(`${TIRISFAL}: Fitz's report (#736): A Light in the Darkness is handed to Ar
 });
 
 // WANTED: Maggot Eye needs level 6; Vital Intelligence, handed to Zygand in
-// front of the inn, gives it (data/route-fixes.json, #801).
+// front of the inn, gives it to some (data/route-fixes.json, #801). The
+// recordings still reach the poster at 5.94 on the first Brill stop, so it is
+// read on the second, after A Putrid Task, before Maggot Eye's camp.
 test(`${TIRISFAL}: petllama's report (#801): WANTED: Maggot Eye is taken from the poster after Vital Intelligence is handed in`, { skip }, () => {
 	for (const cls of ['WARRIOR', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'PALADIN']) {
 		const list = goals(TIRISFAL).filter(forClass(cls));
 		const take = at(list, `accept 398 for a ${cls}`, is('accept', 398));
 		const vital = at(list, `turnin 383 for a ${cls}`, is('turnin', 383));
 		assert.ok(vital < take, `a ${cls} hands Vital Intelligence in before the Maggot Eye poster`);
+		const second = at(list, `turnin 404 for a ${cls}`, is('turnin', 404));
+		const paw = at(list, `collect 3635 for a ${cls}`, (g) => g.t === 'collect' && g.item === 3635);
+		assert.ok(second < take && take < paw, `a ${cls} reads the poster on the second Brill visit, before Maggot Eye`);
 	}
 });
 
@@ -1023,6 +1028,17 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
 		// offer The Adventurer at level 4 with Night Web's Hollow still open.
 		[TIRISFAL, 96656, [382]],
+		// Livnthedream (#800): Apothecary Holland offers Tomb Weed once Doom
+		// Weed is handed in; the recordings show Sarvis giving the Paladin's
+		// A Difficult Path only after The Mindless Ones.
+		[TIRISFAL, 99142, [5482]],
+		[TIRISFAL, 98601, [364]],
+		// kieran1188 (#796): Master Vornal offers Forgotten Loa Idols once
+		// Report to Sen'jin Village is handed in. Rohkin (#807): Rezlak offers
+		// Stormy Potential once A Simmering Storm (the Dull Storm Orb's) is
+		// handed in, so it is an optional extra.
+		...DUROTARS.map((g) => [g, 97225, [805]]),
+		...[...DUROTARS, 'forever/reputation/orgrimmar.guide', 'forever/reputation/darkspear-trolls.guide'].map((g) => [g, 97282, [97281], true]),
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -1032,6 +1048,34 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 			assert.ok(at(list, `${guide}: turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${quest} is taken after ${pre} is handed in`);
 		}
 	}
+});
+
+// Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a
+// chance drop (the Storm Witches' Dull Storm Orb) starts: never a must-do, and
+// its hand-in at Rezlak only for those who took it.
+test('Rohkin\'s report (#807): Stormy Potential is an optional extra after the Dull Storm Orb\'s quest', { skip }, () => {
+	for (const guide of [...DUROTARS, 'forever/reputation/orgrimmar.guide', 'forever/reputation/darkspear-trolls.guide']) {
+		const accepts = goals(guide).filter(({ goal }) => is('accept', 97282)(goal));
+		assert.ok(accepts.length > 0, `${guide}: Stormy Potential is offered`);
+		for (const { goal } of accepts) assert.equal(goal.optional, true, `${guide}: accept 97282 is optional`);
+		assert.ok(goals(guide).some(({ goal }) => is('accept', 97281)(goal) && goal.optional), `${guide}: the orb's quest is optional too`);
+	}
+});
+
+// petllama (#798): from level 5, Gordo's Task is listed on the road from
+// Calvin Montague to Brill, until the later Gordo step that takes it for
+// everyone else (data/guide-fixes.json, 798-gordo-on-the-road-to-brill).
+test(`${TIRISFAL}: petllama's request (#798): Gordo's Task is taken on the road to Brill from level 5`, { skip }, () => {
+	const { steps } = compiled(TIRISFAL);
+	const has = (step, verb, quest) => step.goals.some((g) => is(verb, quest)(g));
+	const early = steps.findIndex((st) => st.along && has(st, 'accept', 5481));
+	assert.ok(early >= 0, 'an along step takes Gordo\'s Task');
+	const step = steps[early];
+	assert.deepEqual(step.when, [{ k: 'level', op: '>=', n: 5 }], 'from level 5 only');
+	assert.ok(step.goals.some((g) => g.t === 'collect' && g.item === 12737 && g.quest === 5481), 'with its Gloom Weed');
+	assert.ok(has(steps[early - 1], 'accept', 8), 'right after Calvin Montague');
+	const until = steps.findIndex((st) => st.label === step.along);
+	assert.ok(until > early && has(steps[until], 'accept', 5481) && !steps[until].along, 'until Gordo\'s own step, which still takes it');
 });
 
 // --- Silverpine (Wyatt R, #161; Rupert, #229): Dalar Dawnweaver did not offer
