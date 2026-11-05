@@ -34,6 +34,8 @@
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine).
 --
+-- All of them go with the guide window (ns.GuideShown); the step key stays.
+--
 -- The buttons hang off one holder: the bag and hearth above the item, target and rare
 -- below. A left-drag on any of them moves the set (out of combat; with
 -- ui.lockHud on, only a Shift-drag); the position is per character, so the
@@ -688,7 +690,7 @@ end
 
 local function applyBag(b)
 	local Space = QoL.Space
-	local j = Space and Space.Low() and Space.Junk()
+	local j = ns.GuideShown() and Space and Space.Low() and Space.Junk()
 	b.junk = j or nil
 	if j then
 		b.Icon:SetTexture(Client.ItemIcon(j.id) or media("icon-use"))
@@ -931,10 +933,11 @@ local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
-	applyItem(itemButton, QoL.On("itemButton") and view and Buttons.ChooseQuestItem(view, raw) or nil)
-	applyItem(hearthButton, QoL.On("hearthButton") and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
+	local guideShown = ns.GuideShown()
+	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and Buttons.ChooseQuestItem(view, raw) or nil)
+	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
-	local list = QoL.On("targetButton") and view and Buttons.TargetNames(view, raw) or {}
+	local list = QoL.On("targetButton") and guideShown and view and Buttons.TargetNames(view, raw) or {}
 	-- The mark settings are part of both signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. "\n") or ""
 	local sig = mark .. concat(list, "\n")
@@ -949,7 +952,7 @@ local function refresh()
 
 	-- Not tied to the step: a rare can turn up on any of them.
 	local R = ns.Rares
-	local rares = QoL.On("rareButton") and R and R.Nearby and R.Nearby() or {}
+	local rares = QoL.On("rareButton") and guideShown and R and R.Nearby and R.Nearby() or {}
 	local raresSig = concat(rares, "\n")
 	if raresSig ~= rare.sig then
 		rare.sig = raresSig
@@ -1091,7 +1094,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
 		for i = 1, #set do placeLabel(set[i]) end
 	end
-	if path:sub(1, 4) == "qol." or path == "qol" or path == "" then refreshSoon() end
+	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui" or path == "" then refreshSoon() end
 end)
 
 -- Back to the default spot (options button).

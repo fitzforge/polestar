@@ -507,6 +507,8 @@ ns.On("GUIDE_CHANGED", stepMoved)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or (type(path) == "string" and path:sub(1, 4) == "nav.") then
 		notify("OnSettings")
+	elseif path == "ui.shown" or path == "ui" then
+		Nav.Refresh() -- the arrow and travel button go and come back with the guide
 	end
 end)
 
@@ -571,6 +573,14 @@ function Nav.HandoffOption(c)
 	return c
 end
 
+-- A command that asked for the arrow while the guide is hidden still takes
+-- effect: says why nothing shows yet.
+function Nav.SayGuideHidden()
+	if not ns.GuideShown() then
+		ns.Print(L["The guide is hidden, so the arrow is too: /polestar show brings them back."])
+	end
+end
+
 ns.RegisterCommand("arrow", function(rest)
 	local arg = (rest or ""):lower()
 	if arg == "reset" then
@@ -578,9 +588,11 @@ ns.RegisterCommand("arrow", function(rest)
 	elseif arg == "show" or arg == "hide" then
 		if arg == "show" and Nav.SayHandedOff() then return end
 		ns.Set("nav.arrow", arg == "show")
+		if arg == "show" then Nav.SayGuideHidden() end
 	else
 		if not ns.Get("nav.arrow") and Nav.SayHandedOff() then return end
 		ns.Set("nav.arrow", not ns.Get("nav.arrow"))
+		if ns.Get("nav.arrow") then Nav.SayGuideHidden() end
 	end
 end, L["Waypoint arrow: show, hide, reset"])
 
@@ -617,5 +629,5 @@ ns.RegisterCommand("way", function(rest)
 		ns.Print(L["No position here: the game gives none in instances and on some maps."])
 		return
 	end
-	Nav.SetTarget(map, x, y, label ~= "" and label or nil)
+	if Nav.SetTarget(map, x, y, label ~= "" and label or nil) then Nav.SayGuideHidden() end
 end, L["Point the arrow at x y on your current map (no argument clears it)"])
