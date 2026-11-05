@@ -185,13 +185,12 @@ clients elsewhere.
 | File | What it does |
 |---|---|
 | `bot.js` | The service: settings, the gateway, the sync |
-| `notify.js` | The Actions' entry: `issue` (closed, reopened), `pathing` (opened, labelled `navigation`) and `release` |
+| `notify.js` | The Actions' entry: `issue` (closed, reopened) and `release` |
 | `links.js` | The Actions' entry for pull requests: `event`, and `sweep` for every open one (`--dry-run`) |
 | `lib/report.js` | The addon's report (`addon/Polestar/UI/Report.lua`) read back into fields |
 | `lib/issue.js` | Issue title, body, labels and comments; the marker; making player text inert |
 | `lib/sync.js` | Posts, follow-ups and edits to issues; the index and the backfill |
 | `lib/notify.js` | Close, reopen and release messages, tags and locks; the testers' ping for a prerelease |
-| `lib/pathing.js` | Pathing complaints (a new player issue about the walk or path, or one labelled `navigation`): `navigation` + `on-hold` and a note that the pathing overhaul should fix it, on the issue and in the thread, once (`.github/workflows/pathing-notice.yml`) |
 | `lib/links.js` | Which issues a pull request addresses; the issue's pull requests comment, the overlap warning and their labels |
 | `lib/gateway.js`, `lib/discord.js`, `lib/github.js` | The Discord gateway and the two REST APIs; the media branch |
 
