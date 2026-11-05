@@ -84,30 +84,27 @@ return {
 	-- {area:2268} Light's Hope Chapel
 	["Hearth to {area:2268}"] = "",
 
-	-- Step 21: Light's Hope Chapel
-	["Ride east across the plaguelands to the chapel."] = "",
-
-	-- Step 22: Fly to Undercity
+	-- Step 21: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:2268} Light's Hope Chapel
 	["{area:2268} flight master"] = "",
 
-	-- Step 23: Zeppelin to Orgrimmar
+	-- Step 22: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "",
 
-	-- Step 25: Fly to Bloodvenom Post
+	-- Step 24: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
 	["Fly to {area:1997}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 26: Fly to Thunder Bluff
+	-- Step 25: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飞往{area:1638}",
 
-	-- Step 27: Fly to Thunder Bluff
+	-- Step 26: Fly to Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["Fly to {zone:1456}"] = "",
 	-- {area:1497} Undercity · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff
@@ -115,81 +112,81 @@ return {
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}的{npc:3033}；{npc:246344}",
 
-	-- Step 28: Rumstag Proudstrider
+	-- Step 27: Rumstag Proudstrider
 	-- {area:1641} Hunter Rise
 	["On {area:1641}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 29: Fly to Bloodvenom Post
+	-- Step 28: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 31: Deadwood Cauldron
+	-- Step 30: Deadwood Cauldron
 	-- {item:12820} Winterfall Firewater · {area:618} Winterspring · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
 	["Only if you found a {item:12820} flask in {area:618}: ride north up the road. The cauldron stands in {area:1762}, just south-west of {area:1769}; the Deadwood furbolgs there are hostile."] = "",
 
-	-- Step 32: Kernda
+	-- Step 31: Kernda
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "仅当你掉落了{quest:8471}时：{npc:11558}在{area:1769}的{zone:1448}入口处等候，只有你在木喉要塞声望达到中立时才会和你说话。",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 34: Rabine Saturna
+	-- Step 33: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
 	["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "",
 
-	-- Step 35: Class trainer
+	-- Step 34: Class trainer
 	["Class trainer"] = "",
 
-	-- Step 36: Rabine Saturna
+	-- Step 35: Rabine Saturna
 	-- {zone:1451} Silithus
 	["Both quests lead to {zone:1451}: keep them."] = "两个任务都通往{zone:1451}：留着它们。",
 
-	-- Step 38: Donova Snowden
+	-- Step 37: Donova Snowden
 	-- {area:618} Winterspring · {area:2246} Frostfire Hot Springs
 	["Back through the tunnel and take the {area:618} exit, then ride south to {area:2246}."] = "",
 	-- {quest:5086} Toxic Horrors · {zone:1448} Felwood
 	["{quest:5086} are in {zone:1448}, on a later trip: keep it if you have it."] = "{quest:5086}在{zone:1448}，之后那一趟再去：如果你有就留着。",
 
-	-- Step 39: Moontouched Owlbeasts
+	-- Step 38: Moontouched Owlbeasts
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Moontouched Owlbeasts"] = "月光枭兽",
 	-- {area:2255} Everlook · {area:2241} Frostsaber Rock
 	-- plural, as words: Moontouched Owlbeasts = {npc:7453} Moontouched Owlbeast
 	["Ride east to {area:2255} and north out of it; the Moontouched Owlbeasts roam the hills of {area:2241}'s southern slopes. Pull them one at a time."] = "向东骑往{area:2255}，再从那里向北出去；月光枭兽在{area:2241}南坡的山丘上游荡。一次引一只。",
 
-	-- Step 41: Fly to Gadgetzan
+	-- Step 40: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 42: Gaeriyan
+	-- Step 41: Gaeriyan
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
 	["{npc:9299} is a ghost at the graveyard just north of {area:976}; the Conspicuous Gravestone is south of it, outside the town wall."] = "{npc:9299}是{area:976}正北墓地里的一个鬼魂；明显的墓碑在它南边、城墙外面。",
 
-	-- Step 43: Sprinkle
+	-- Step 42: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "",
 
-	-- Step 44: Gadgetzan
+	-- Step 43: Gadgetzan
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071} machine"] = "{object:142071}机器",
 
-	-- Step 45: Gaeriyan
+	-- Step 44: Gaeriyan
 	-- {quest:3914} Linken's Sword
 	["{quest:3914} goes back to Linken in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的林克：留着它。",
 
-	-- Step 46: Marvon Rivetseeker
+	-- Step 45: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
-	-- Step 47: Fly to Camp Mojache
+	-- Step 46: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "",
 
-	-- Step 48: Ruins of Isildien
+	-- Step 47: Ruins of Isildien
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {object:142071} Egg-O-Matic
 	["Fly to {area:1099}. The hippogryph nests are in the south of {zone:1444}; each holds an egg for the {object:142071}."] = "飞往{area:1099}。角鹰兽的巢在{zone:1444}南部；每个巢里都有一个蛋，用于{object:142071}。",
 

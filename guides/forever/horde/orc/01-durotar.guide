@@ -5,7 +5,7 @@ faction Horde
 race Orc
 levels 1-12
 zone Durotar
-next forever/horde/orc/02-the-barrens
+next forever/horde/02-the-barrens
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -55,7 +55,6 @@ step The Den
   turnin 98576 only Orc,Mage          -- Mai'ah, the mage trainer, at the entrance to the Den
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
-  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
 
 step Scorpid Worker Tail on the way
   along until q789
@@ -73,12 +72,13 @@ step Hana'zua
 step Valley of Trials: kill these as you meet them
   label q789
   zone Durotar
-  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way, and hit the sleeping peons across the valley with the Foreman's Blackjack.
+  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
-  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
   collect 4905 quest 790.1
+  turnin 790
+  accept 804
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
 
@@ -96,15 +96,22 @@ step Druid trainer
 
 step Back to the Den
   turnin 789                          -- Gornek, inside
+  turnin 804                          -- Gornek, inside
   turnin 1485 only Warlock            -- Ruzan
   accept 1516 only Shaman -- Canaga Earthcaller
   turnin 792 only !Warlock            -- Zureetha Fargaze
   accept 1499 only Warlock
   turnin 1499 only Warlock            -- Zureetha Fargaze
   accept 794
+  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
+  turnin 4402                         -- Galgar
+
+step Lazy Peons
+  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
+
+step Foreman Thazz'ril
   turnin 5441
   accept 6394
-  turnin 4402                         -- Galgar
 
 # The Burning Blade Coven's mouth: players report it near 45,56, keep right
 # inside (quest 794); the pick lies past the first split, straight on, then
@@ -125,13 +132,8 @@ step Felstalker hooves
   tip Felstalkers roam the slope below the cave, on the valley's north side.
   collect 6640 quest 1516.1
 
-step Hana'zua
-  turnin 790
-  accept 804
-
 step Back to the Den
   goto 42.4,68.6 "The Den"
-  turnin 804                          -- Gornek, inside
   turnin 1516 only Shaman -- Canaga Earthcaller
   accept 1517 only Shaman
   turnin 794

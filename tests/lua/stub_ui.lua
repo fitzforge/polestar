@@ -754,7 +754,7 @@ function uistub.install(opts)
 			arrowColor = false, arrowNearColor = false })
 	end
 	if Polestar.GetDefault("behavior.autoAccept") == nil then
-		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, autoNextGuide = true, autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask" })
+		Polestar.RegisterDefaults("behavior", { autoAccept = true, autoTurnin = true, guideEnd = "ask", autoSelectGuide = true, skipGrey = false, offerClassQuests = true, groupQuests = "ask" })
 	end
 	-- An account and a character that have seen the welcome, so it never
 	-- opens over windows under test; tests/ui-welcome.test.js restores the

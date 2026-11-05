@@ -500,7 +500,6 @@ step Auberdine
   accept 984                                  -- Terenthis
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 2118                                 -- Tharnariun Treetender
-  accept 4811                                 -- Sentinel Glynda Nal'Shea
 
 step Moonglade
   only Druid

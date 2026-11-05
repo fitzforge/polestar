@@ -1,5 +1,67 @@
 # Changelog
 
+## 0.3.1 (2026-11-04)
+
+### For players
+
+- Orcs and Trolls are no longer held at the Den waiting for level 3 to take
+  Lazy Peons: Foreman Thazz'ril gives it on the return to the Den, once the
+  valley's turn-ins have brought you to level 3; you wake the peons sleeping
+  around the Den and the lumber piles, then take Thazz'ril's Pick with you to
+  the Burning Blade Coven. The same fix for two other
+  quests the route offered just before their level: The Red Crystal for Night
+  Elves (now on the next Auberdine stop) and Beren's Peril in Silverpine (now
+  on the later Sepulcher stop, before its loop).
+- The arrow gives you room again. It points down the road instead of swinging
+  at every bend (bends up to 20 yards to the side count as the road), lets you
+  walk up to 15 yards beside the path with the arrow pointing along it, and,
+  outdoors, lets you join a road at an angle instead of sending you to the
+  exact spot where the path meets it. Real corners, doorways, bridges and
+  switchbacks still turn it at the corner.
+- The Polestar emblem in the main menu looks like the app icon now: a bolder
+  star and ring with its bright centre and a soft glow.
+- French: the guides' texts are translated (9,493 of 9,934; the rest are
+  texts new in 0.3.1): steps,
+  tips, notes and route choices of the leveling, class, profession, reputation
+  and collectible guides. Thanks Yendi.
+- French: the whole interface is translated (503 strings and the Recorder's
+  10), and the welcome's sample goal and the class card's quest giver name the
+  NPC or item in French. Thanks Yendi.
+- German: the 157 texts new in 0.3.0 are translated (bag space and junk,
+  Restock, class quest cards, the guide's hand-in warnings and more), so the
+  German interface is complete again (thanks Cortexyn).
+- German: the Cozy Sleeping Bag's step names Honor's Stand by the client's
+  German name, Ehrenwacht (thanks Cortexyn).
+- The end of a leveling guide is no longer silent: when you finish its last
+  step, a window says you completed it (or reached its end, and how many steps
+  you left undone) and offers the next guide, the zones to choose from, or the
+  guide menu. Stay instead and the guide window keeps a "Start <next guide>"
+  link at the top. It asks once per guide per character. The old option
+  "Continue to the next guide" is now "When a leveling guide ends": "Ask me"
+  (the window) or "Continue automatically" (the next guide loads by itself and
+  the guide window says so). Everyone starts on "Ask me", also if you had the
+  old option on: pick "Continue automatically" in Options → Guide →
+  Automation to keep the old way.
+- One Barrens guide for every Horde race: the Orc and Troll arrival steps (the
+  Crossroads, Thun'grim, the Shaman's fire totem, Ratchet) open "The Barrens
+  (12-16)" for Orcs and Trolls only, instead of a separate guide with the same
+  name; Durotar hands over to it directly. Guide names leave out capitals and
+  zones you only pass through (Silverpine Forest, Arathi Highlands & Badlands,
+  Winterspring and more).
+- Talent plans are paused for now: the Talents page says "Coming soon", and
+  Polestar no longer marks the game's talent frame, adds plan lines to talent
+  tooltips or reminds you of unspent points. The plans weren't ready to
+  recommend picks yet; they'll come back once they are. Gear advice still
+  follows the talents you've chosen.
+- Quests are handed in where you finish them instead of on a later trip back:
+  Sarkoth at Hana'zua as soon as he's dead, before the Vile Familiars (Orcs
+  and Trolls), Crossroads
+  Conscription to Sergra as you arrive at the Crossroads (Orcs and Trolls),
+  MacKreel's Moonshine on the first Southshore stop, Fiery Menace! and Curse
+  These Fat Fingers at Thorium Point, A Strange Historian and A Matter of Time
+  to Chromie right after the Andorhal towers, Gahz'ridian on the way past
+  Marvon, and Duke Nicholas Zverenhoff on the first Light's Hope stop.
+
 ## 0.3.0 (2026-11-02)
 
 ### For players

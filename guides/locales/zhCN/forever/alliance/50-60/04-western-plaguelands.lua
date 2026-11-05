@@ -51,13 +51,17 @@ return {
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
 	["Mark {npc:10903} with the {item:12815}"] = "用{item:12815}标记{npc:10903}",
 
-	-- Step 10: Felstone Field cauldron
+	-- Step 10: Chromie
+	-- {npc:10667} Chromie
+	["{npc:10667} waits in the ruined inn on the west side of Andorhal."] = "{npc:10667}在安多哈尔西侧的废弃旅店里等候。",
+
+	-- Step 11: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "{area:199}的大锅",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
 	["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075}守卫着安多哈尔西边{area:199}的大锅。",
 
-	-- Step 11: Janice Felstone
+	-- Step 12: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}的鬼魂在{area:200}西边、{area:199}的农舍旁游荡；她的包裹在屋里。",
 	-- {object:175894} Janice's Parcel
@@ -65,25 +69,21 @@ return {
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "交给{zone:1453}：先留着",
 
-	-- Step 12: The Andorhal watchtowers
+	-- Step 13: The Andorhal watchtowers
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
 	["Mark {npc:10904} with the {item:12815}"] = "用{item:12815}标记{npc:10904}",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "用{item:12815}标记{npc:10905}",
 
-	-- Step 13: Chillwind Camp
+	-- Step 14: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852}是61级精英",
 
-	-- Step 14: Dalson's Tears cauldron
+	-- Step 15: Dalson's Tears cauldron
 	-- {area:200} Dalson's Tears
 	["{area:200} cauldron"] = "{area:200}的大锅",
 	-- {area:200} Dalson's Tears
 	["The cauldron sits at {area:200}, north-east of Felstone; its Cauldron Lord stands beside it."] = "大锅在费尔斯通农场东北方的{area:200}；护锅者拉扎奇站在旁边。",
-
-	-- Step 15: Chromie
-	-- {npc:10667} Chromie
-	["{npc:10667} waits in the ruined inn on the west side of Andorhal."] = "{npc:10667}在安多哈尔西侧的废弃旅店里等候。",
 
 	-- Step 16: Andorhal
 	["Andorhal"] = "安多哈尔",

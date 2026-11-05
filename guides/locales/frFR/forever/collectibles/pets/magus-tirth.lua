@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Magus Tirth
 	-- {npc:6548} Magus Tirth · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {item:11023} Ancona Chicken · {area:484} Freewind Post · {area:976} Gadgetzan · {zone:1446} Tanaris
-	["{npc:6548} at the {area:2240}, the goblin and gnome racetrack in the {area:439} of south-eastern {zone:1441}, sells the {item:11023} (1g) to both sides. The nearest flight paths are {area:484} (Horde) and {area:976} in {zone:1446} (both sides); from {area:976}, ride north into the {area:439}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "",
+	["{npc:6548} at the {area:2240}, the goblin and gnome racetrack in the {area:439} of south-eastern {zone:1441}, sells the {item:11023} (1g) to both sides. The nearest flight paths are {area:484} (Horde) and {area:976} in {zone:1446} (both sides); from {area:976}, ride north into the {area:439}. Each pet item teaches its companion when you use it; the goal stays ticked afterwards."] = "{npc:6548}, sur la {area:2240}, le circuit de course gobelin et gnome des {area:439}, au sud-est de {zone:1441}, vend le {item:11023} (1 po) aux deux camps. Les trajets aériens les plus proches sont le {area:484} (Horde) et {area:976} en {zone:1446} (les deux camps) ; depuis {area:976}, chevauchez vers le nord jusqu'aux {area:439}. Chaque objet de mascotte apprend son compagnon quand vous l'utilisez ; l'objectif reste coché ensuite.",
 	-- {item:11023} Ancona Chicken
 	["{item:11023}, 1g"] = "{item:11023}, 1 po",
 

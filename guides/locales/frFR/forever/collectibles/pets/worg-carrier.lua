@@ -10,15 +10,15 @@ return {
 	-- {npc:10260} Kibler · {area:251} Flame Crest
 	["{npc:10260} at {area:251}"] = "{npc:10260} à {area:251}",
 	-- {npc:10260} Kibler · {area:251} Flame Crest · {zone:1428} Burning Steppes · {area:254} Blackrock Mountain · {item:12262} Empty Worg Pup Cage · {item:12529} Smolderweb Carrier
-	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He gives you an {item:12262}. He also gives En-Ay-Es-Tee-Why (the {item:12529}): take both, they are done in the same run."] = "",
+	["{npc:10260} stands inside the cave at {area:251}, the camp in northern {zone:1428} east of {area:254}. He gives you an {item:12262}. He also gives En-Ay-Es-Tee-Why (the {item:12529}): take both, they are done in the same run."] = "{npc:10260} se tient dans la grotte de {area:251}, le camp du nord des {zone:1428}, à l'est du {area:254}. Il vous remet une {item:12262}. Il donne aussi En-Ay-Es-Tee-Why (la {item:12529}) : acceptez les deux, elles se font dans la même expédition.",
 
 	-- Step 2: Lower Blackrock Spire: Halycon's pups
 	-- {area:1583} Blackrock Spire
-	["Lower {area:1583}: Halycon's pups"] = "",
+	["Lower {area:1583}: Halycon's pups"] = "{area:1583} inférieur : les chiots de Halycon",
 	-- {npc:10584} Urok Doomhowl · {npc:10221} Bloodaxe Worg Pup
-	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "",
+	["The pups are in Lower Blackrock Spire (a group of five, level 55-60), not Upper: they run with Halycon, the great worg, deep in the dungeon beyond {npc:10584}'s ogres. Use the cage on a living {npc:10221} before the pack is dead. Taking damage interrupts the cast, so let the tank hold the pups and cage one from the side. A rogue or druid can sneak in, cage a pup from a corner, then vanish."] = "Les chiots sont dans le pic Blackrock inférieur (un groupe de cinq, niveau 55-60), pas dans le supérieur : ils accompagnent Halycon, la grande worg, au fond du donjon, au-delà des ogres de {npc:10584}. Utilisez la cage sur un {npc:10221} vivant avant que la meute soit morte. Les dégâts subis interrompent l'incantation : laissez le tank retenir les chiots et capturez-en un par le côté. Un voleur ou un druide peut se faufiler, capturer un chiot depuis un coin, puis disparaître.",
 	-- {area:1583} Blackrock Spire
-	["Lower {area:1583}"] = "",
+	["Lower {area:1583}"] = "{area:1583} inférieur",
 
 	-- Step 3: Back to Kibler
 	-- {npc:10260} Kibler

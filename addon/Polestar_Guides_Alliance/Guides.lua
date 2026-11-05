@@ -3417,7 +3417,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/alliance/30-40/01-hillsbrad-foothills",
 			pack = "guides",
-			title = "{zone:1437}, {area:267}, {zone:1455} & {zone:1453}",
+			title = "{zone:1437} & {area:267}",
 			faction = "Alliance",
 			minLevel = 31,
 			maxLevel = 32,
@@ -3428,8 +3428,8 @@ do
 			author = "Polestar",
 			version = 1,
 			group = true,
-			names = { ["area:1025"] = "The Green Belt", ["area:1036"] = "Angerfang Encampment", ["area:1038"] = "Dragonmaw Gates", ["area:150"] = "Menethil Harbor", ["area:1537"] = "Ironforge", ["area:205"] = "Dun Modr", ["area:2104"] = "Deepwater Tavern", ["area:2257"] = "Deeprun Tram", ["area:267"] = "Hillsbrad Foothills", ["area:271"] = "Southshore", ["area:272"] = "Tarren Mill", ["area:287"] = "Hillsbrad", ["area:295"] = "Western Strand", ["area:35"] = "Booty Bay", ["area:36"] = "Alterac Mountains", ["area:392"] = "Ratchet", ["area:406"] = "Stonetalon Mountains", ["area:415"] = "Astranaar", ["area:442"] = "Auberdine", ["area:720"] = "Fray Island", ["area:880"] = "Thandol Span", ["item:2321"] = "Fine Thread", ["item:279996"] = "Goaz Stone", ["item:2997"] = "Bolt of Woolen Cloth", ["item:3713"] = "Soothing Spices", ["item:3719"] = "Hillman's Cloak", ["item:4433"] = "Waterlogged Envelope", ["npc:1071"] = "Longbraid the Grim", ["npc:1072"] = "Roggo Harlbarrow", ["npc:1075"] = "Rhag Garmason", ["npc:1077"] = "Prospector Whelgar", ["npc:1356"] = "Prospector Stormpike", ["npc:1418"] = "Bluegill Raider", ["npc:2091"] = "Chieftain Nek'rosh", ["npc:2104"] = "Captain Stoutfist", ["npc:211033"] = "Garion Wendell", ["npc:2228"] = "Lieutenant Farren Orinelle", ["npc:2276"] = "Magistrate Henry Maleb", ["npc:2366"] = "Barkeep Kelly", ["npc:2381"] = "Micha Yance", ["npc:2382"] = "Darren Malvew", ["npc:2430"] = "Chef Jessen", ["npc:2438"] = "Bartolo Ginsetti", ["npc:251493"] = "Captain McManus", ["npc:2695"] = "Sara Balloo", ["npc:2696"] = "Foggy MacKreel", ["npc:270637"] = "Howin Kindfeather", ["npc:2708"] = "Archmage Malin", ["npc:2711"] = "Phin Odelic", ["npc:271322"] = "Essene Villard", ["npc:271338"] = "Ados", ["npc:271460"] = "Modr", ["npc:271462"] = "Golm", ["npc:271481"] = "Captive Fire Elemental", ["npc:2784"] = "King Magni Bronzebeard", ["npc:2916"] = "Historian Karnik", ["npc:482"] = "Elling Trias", ["npc:4961"] = "Dashel Stonefist", ["npc:5081"] = "Connor Rivers", ["npc:5479"] = "Wu Shen", ["npc:5504"] = "Sheldras Moontree", ["npc:5683"] = "Comar Villard", ["npc:6236"] = "Klannoc Macleod", ["object:171709"] = "High Seat", ["object:176370"] = "Boat to Auberdine", ["object:2096"] = "Trade District", ["object:2100"] = "Old Town", ["object:2101"] = "Mage Quarter", ["object:2117"] = "Stormwind Keep", ["object:2164"] = "Slaughtered Lamb", ["object:28027"] = "Dwarven District", ["object:32356"] = "Hall of Explorers", ["object:386691"] = "Library Book", ["object:671518"] = "Tattered Spellbook", ["quest:1078"] = "Retrieval for Mauren", ["quest:1718"] = "The Islander", ["quest:474"] = "Defeat Nek'rosh", ["quest:559"] = "Farren's Proof", ["zone:1413"] = "Barrens", ["zone:1437"] = "Wetlands", ["zone:1453"] = "Stormwind City", ["zone:1455"] = "Ironforge" },
-			written = { ["Fly to {zone:1453}"] = "Fly to Stormwind", ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.", ["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "Dashel waits in the Pig and Whistle tavern in Old Town; he and his two thugs fight you, but stop once beaten.", ["{npc:5683} waits north of {area:205} by the {area:880}; {npc:271322} a short walk further north-east."] = "Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east.", ["{zone:1455} has no druid trainer: train with {npc:5504} in {zone:1453} before the tram."] = "Ironforge has no druid trainer: train with Sheldras Moontree in Stormwind before the tram." },
+			names = { ["area:1025"] = "The Green Belt", ["area:1036"] = "Angerfang Encampment", ["area:1038"] = "Dragonmaw Gates", ["area:150"] = "Menethil Harbor", ["area:1537"] = "Ironforge", ["area:205"] = "Dun Modr", ["area:2104"] = "Deepwater Tavern", ["area:2257"] = "Deeprun Tram", ["area:267"] = "Hillsbrad Foothills", ["area:271"] = "Southshore", ["area:272"] = "Tarren Mill", ["area:287"] = "Hillsbrad", ["area:295"] = "Western Strand", ["area:35"] = "Booty Bay", ["area:36"] = "Alterac Mountains", ["area:392"] = "Ratchet", ["area:406"] = "Stonetalon Mountains", ["area:415"] = "Astranaar", ["area:442"] = "Auberdine", ["area:720"] = "Fray Island", ["area:880"] = "Thandol Span", ["item:2321"] = "Fine Thread", ["item:279996"] = "Goaz Stone", ["item:2997"] = "Bolt of Woolen Cloth", ["item:3713"] = "Soothing Spices", ["item:3719"] = "Hillman's Cloak", ["item:4433"] = "Waterlogged Envelope", ["npc:1071"] = "Longbraid the Grim", ["npc:1072"] = "Roggo Harlbarrow", ["npc:1075"] = "Rhag Garmason", ["npc:1077"] = "Prospector Whelgar", ["npc:1356"] = "Prospector Stormpike", ["npc:1418"] = "Bluegill Raider", ["npc:2091"] = "Chieftain Nek'rosh", ["npc:2104"] = "Captain Stoutfist", ["npc:211033"] = "Garion Wendell", ["npc:2228"] = "Lieutenant Farren Orinelle", ["npc:2276"] = "Magistrate Henry Maleb", ["npc:2366"] = "Barkeep Kelly", ["npc:2381"] = "Micha Yance", ["npc:2382"] = "Darren Malvew", ["npc:2430"] = "Chef Jessen", ["npc:2438"] = "Bartolo Ginsetti", ["npc:251493"] = "Captain McManus", ["npc:2695"] = "Sara Balloo", ["npc:2696"] = "Foggy MacKreel", ["npc:270637"] = "Howin Kindfeather", ["npc:2708"] = "Archmage Malin", ["npc:2711"] = "Phin Odelic", ["npc:271322"] = "Essene Villard", ["npc:271338"] = "Ados", ["npc:271460"] = "Modr", ["npc:271462"] = "Golm", ["npc:271481"] = "Captive Fire Elemental", ["npc:2784"] = "King Magni Bronzebeard", ["npc:2916"] = "Historian Karnik", ["npc:482"] = "Elling Trias", ["npc:4961"] = "Dashel Stonefist", ["npc:5081"] = "Connor Rivers", ["npc:5479"] = "Wu Shen", ["npc:5504"] = "Sheldras Moontree", ["npc:5683"] = "Comar Villard", ["npc:6236"] = "Klannoc Macleod", ["object:171709"] = "High Seat", ["object:176370"] = "Boat to Auberdine", ["object:2096"] = "Trade District", ["object:2100"] = "Old Town", ["object:2101"] = "Mage Quarter", ["object:2117"] = "Stormwind Keep", ["object:2164"] = "Slaughtered Lamb", ["object:28027"] = "Dwarven District", ["object:32356"] = "Hall of Explorers", ["object:386691"] = "Library Book", ["object:671518"] = "Tattered Spellbook", ["quest:1078"] = "Retrieval for Mauren", ["quest:1718"] = "The Islander", ["quest:474"] = "Defeat Nek'rosh", ["quest:559"] = "Farren's Proof", ["zone:1413"] = "Barrens", ["zone:1437"] = "Wetlands", ["zone:1453"] = "Stormwind", ["zone:1455"] = "Ironforge" },
+			written = { ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.", ["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "Dashel waits in the Pig and Whistle tavern in Old Town; he and his two thugs fight you, but stop once beaten.", ["{npc:5683} waits north of {area:205} by the {area:880}; {npc:271322} a short walk further north-east."] = "Comar Villard waits north of Dun Modr by the Thandol Span; Essene a short walk further north-east." },
 			steps = {
 				{
 					title = "Hearth to {area:2104}",
@@ -3616,6 +3616,7 @@ do
 						{ t = "accept", quest = 555, title = "Soothing Turtle Bisque", npc = 2430, npcName = "Chef Jessen", minLevel = 28, qlvl = 31, map = 1424, x = 51.89, y = 58.68, z = 11.7, f = "e", note = "{npc:2430}, upstairs" },
 						{ t = "accept", quest = 98463, title = "Talk of the Town", npc = 2366, npcName = "Barkeep Kelly", minLevel = 28, qlvl = 33, map = 1424, x = 51.57, y = 58.57, z = 11.7, f = "e", note = "{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)" },
 						{ t = "sethome", npc = 2352, npcName = "Innkeeper Anderson", location = "Southshore", area = 271, map = 1424, x = 51.17, y = 58.93, z = 11.3, f = "e" },
+						{ t = "turnin", quest = 647, title = "MacKreel's Moonshine", npc = 2705, npcName = "Brewmeister Bilger", map = 1424, x = 52.13, y = 58.74, z = 4.5, f = "e", only = { races = { "Dwarf", "Gnome", "NightElf", "Skyborne" } }, note = "Below ground" },
 						{ t = "turnin", quest = 98219, title = "The Shamed Lieutenant", npc = 2228, npcName = "Lieutenant Farren Orinelle", map = 1424, x = 51.46, y = 58.39, z = 11.7, f = "e", note = "{npc:2228}, inside" },
 						{ t = "accept", quest = 536, title = "Down the Coast", npc = 2228, npcName = "Lieutenant Farren Orinelle", minLevel = 25, qlvl = 30, map = 1424, x = 51.46, y = 58.39, z = 11.7, f = "e" },
 						{ t = "accept", quest = 659, title = "Hints of a New Plague?", npc = 2711, npcName = "Phin Odelic", minLevel = 30, qlvl = 33, map = 1424, x = 50.35, y = 59.05, z = 10.1, f = "e", note = "{npc:2711}: his trail leads to Arathi" },
@@ -3662,7 +3663,6 @@ do
 						{ t = "accept", quest = 561, title = "Farren's Proof", npc = 2263, npcName = "Marshal Redpath", minLevel = 25, qlvl = 32, pre = { 560 }, preTitles = { [560] = "Farren's Proof" }, map = 1424, x = 49.47, y = 58.73, z = 12.1, f = "e" },
 						{ t = "turnin", quest = 561, title = "Farren's Proof", npc = 2228, npcName = "Lieutenant Farren Orinelle", map = 1424, x = 51.46, y = 58.39, z = 11.7, f = "e" },
 						{ t = "accept", quest = 562, title = "Stormwind Ho!", npc = 2228, npcName = "Lieutenant Farren Orinelle", minLevel = 25, qlvl = 32, pre = { 561 }, preTitles = { [561] = "Farren's Proof" }, map = 1424, x = 51.46, y = 58.39, z = 11.7, f = "e" },
-						{ t = "turnin", quest = 647, title = "MacKreel's Moonshine", npc = 2705, npcName = "Brewmeister Bilger", map = 1424, x = 52.13, y = 58.74, z = 4.5, f = "e", only = { races = { "Dwarf", "Gnome", "NightElf", "Skyborne" } }, note = "Below ground" },
 					},
 				},
 				{
@@ -8334,6 +8334,8 @@ do
 					goals = {
 						{ t = "turnin", quest = 7729, title = "JOB OPPORTUNITY: Culling the Competition", npc = 14626, npcName = "Taskmaster Scrange", map = 1427, x = 38.97, y = 27.51, z = 309.3, f = "e" },
 						{ t = "turnin", quest = 7728, title = "STOLEN: Smithing Tuyere and Lookout's Spyglass", npc = 14626, npcName = "Taskmaster Scrange", map = 1427, x = 38.97, y = 27.51, z = 309.3, f = "e" },
+						{ t = "turnin", quest = 7723, title = "Curse These Fat Fingers", npc = 14627, npcName = "Hansel Heavyhands", map = 1427, x = 38.58, y = 27.81, z = 309.3, f = "e" },
+						{ t = "turnin", quest = 7724, title = "Fiery Menace!", npc = 14627, npcName = "Hansel Heavyhands", map = 1427, x = 38.58, y = 27.81, z = 309.3, f = "e" },
 					},
 				},
 				{
@@ -8380,8 +8382,6 @@ do
 					title = "{area:1446}",
 					label = "q7727",
 					goals = {
-						{ t = "turnin", quest = 7723, title = "Curse These Fat Fingers", npc = 14627, npcName = "Hansel Heavyhands", map = 1427, x = 38.58, y = 27.81, z = 309.3, f = "e" },
-						{ t = "turnin", quest = 7724, title = "Fiery Menace!", npc = 14627, npcName = "Hansel Heavyhands", map = 1427, x = 38.58, y = 27.81, z = 309.3, f = "e" },
 						{ t = "turnin", quest = 7727, title = "Incendosaurs? Whateverosaur is More Like It", npc = 14627, npcName = "Hansel Heavyhands", map = 1427, x = 38.58, y = 27.81, z = 309.3, f = "e" },
 						{ t = "turnin", quest = 7722, title = "What the Flux?", npc = 14624, npcName = "Master Smith Burninate", map = 1427, x = 38.8, y = 28.51, z = 309.3, f = "e" },
 					},
@@ -8487,7 +8487,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/alliance/40-50/07-un-goro-crater",
 			pack = "guides",
-			title = "{area:490} & {zone:1455}",
+			title = "{area:490}",
 			faction = "Alliance",
 			minLevel = 49,
 			maxLevel = 50,
@@ -8856,7 +8856,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/alliance/50-60/01-burning-steppes",
 			pack = "guides",
-			title = "{zone:1428}, {area:16} & {zone:1419}",
+			title = "{zone:1428} & {area:16}",
 			faction = "Alliance",
 			minLevel = 50,
 			maxLevel = 53,
@@ -10122,6 +10122,15 @@ do
 					},
 				},
 				{
+					title = "{npc:10667}",
+					note = "{npc:10667} waits in the ruined inn on the west side of Andorhal.",
+					goals = {
+						{ t = "turnin", quest = 5153, title = "A Strange Historian", npc = 10667, npcName = "Chromie", map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e", note = "Upstairs" },
+						{ t = "accept", quest = 5154, title = "The Annals of Darrowshire", npc = 10667, npcName = "Chromie", minLevel = 50, qlvl = 56, pre = { 5153 }, preTitles = { [5153] = "A Strange Historian" }, map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e" },
+						{ t = "accept", quest = 4971, title = "A Matter of Time", npc = 10667, npcName = "Chromie", minLevel = 53, qlvl = 56, map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e" },
+					},
+				},
+				{
 					title = "{area:199} cauldron",
 					note = "{npc:11075} guards the cauldron in {area:199}, west of Andorhal.",
 					goals = {
@@ -10165,15 +10174,6 @@ do
 						{ t = "collect", quest = 5219, title = "Target: Dalson's Tears", item = 13195, itemName = "Dalson's Tears Cauldron Key", count = 1, oi = 1, map = 1422, x = 46.1, y = 52.6, f = "e", from = "Cauldron Lord Malvinious", fromKind = "npc", fromId = 11077, fromNpcs = { { npc = 11077, npcName = "Cauldron Lord Malvinious" } } },
 						{ t = "turnin", quest = 5219, title = "Target: Dalson's Tears", object = 177289, objName = "Scourge Cauldron", map = 1422, x = 46.18, y = 51.9, z = 58.9, f = "e" },
 						{ t = "accept", quest = 5220, title = "Return to Chillwind Camp", object = 177289, objName = "Scourge Cauldron", minLevel = 50, qlvl = 55, pre = { 5219 }, preTitles = { [5219] = "Target: Dalson's Tears" }, map = 1422, x = 46.18, y = 51.9, z = 58.9, f = "e" },
-					},
-				},
-				{
-					title = "{npc:10667}",
-					note = "{npc:10667} waits in the ruined inn on the west side of Andorhal.",
-					goals = {
-						{ t = "turnin", quest = 5153, title = "A Strange Historian", npc = 10667, npcName = "Chromie", map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e", note = "Upstairs" },
-						{ t = "accept", quest = 5154, title = "The Annals of Darrowshire", npc = 10667, npcName = "Chromie", minLevel = 50, qlvl = 56, pre = { 5153 }, preTitles = { [5153] = "A Strange Historian" }, map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e" },
-						{ t = "accept", quest = 4971, title = "A Matter of Time", npc = 10667, npcName = "Chromie", minLevel = 53, qlvl = 56, map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e" },
 					},
 				},
 				{
@@ -11006,7 +11006,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/alliance/50-60/05-silithus",
 			pack = "guides",
-			title = "{zone:1451}, {zone:1449} & {zone:1423}",
+			title = "{zone:1423}",
 			faction = "Alliance",
 			minLevel = 58,
 			maxLevel = 58,
@@ -11016,7 +11016,7 @@ do
 			next = "forever/alliance/50-60/06-silithus",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:2257"] = "Deeprun Tram", ["area:2261"] = "The Undercroft", ["area:2268"] = "Light's Hope Chapel", ["area:2270"] = "Noxious Glade", ["area:2273"] = "Zul'Mashar", ["area:2277"] = "Plaguewood", ["area:3197"] = "Chillwind Camp", ["area:3425"] = "Cenarion Hold", ["area:35"] = "Booty Bay", ["area:392"] = "Ratchet", ["item:13155"] = "Resonating Skull", ["item:13156"] = "Mystic Crystal", ["item:14613"] = "Taelan's Hammer", ["npc:10778"] = "Janice Felstone", ["npc:11063"] = "Carlin Redpath", ["npc:11886"] = "Mercutio Filthgorger", ["npc:12248"] = "Infiltrator Hameya", ["npc:14724"] = "Bubulo Acerbus", ["npc:332"] = "Master Mathias Shaw", ["npc:3520"] = "Ol' Emma", ["npc:8496"] = "Liv Rizzlefix", ["npc:8529"] = "Scourge Champion", ["object:2117"] = "Stormwind Keep", ["quest:6184"] = "Flint Shadowmore", ["zone:1423"] = "Eastern Plaguelands", ["zone:1449"] = "Un'Goro Crater", ["zone:1451"] = "Silithus", ["zone:1453"] = "Stormwind", ["zone:1455"] = "Ironforge" },
+			names = { ["area:2257"] = "Deeprun Tram", ["area:2261"] = "The Undercroft", ["area:2268"] = "Light's Hope Chapel", ["area:2270"] = "Noxious Glade", ["area:2273"] = "Zul'Mashar", ["area:2277"] = "Plaguewood", ["area:3197"] = "Chillwind Camp", ["area:3425"] = "Cenarion Hold", ["area:35"] = "Booty Bay", ["area:392"] = "Ratchet", ["item:13155"] = "Resonating Skull", ["item:13156"] = "Mystic Crystal", ["item:14613"] = "Taelan's Hammer", ["npc:10778"] = "Janice Felstone", ["npc:11063"] = "Carlin Redpath", ["npc:11886"] = "Mercutio Filthgorger", ["npc:12248"] = "Infiltrator Hameya", ["npc:14724"] = "Bubulo Acerbus", ["npc:332"] = "Master Mathias Shaw", ["npc:3520"] = "Ol' Emma", ["npc:8496"] = "Liv Rizzlefix", ["npc:8529"] = "Scourge Champion", ["object:2117"] = "Stormwind Keep", ["quest:6184"] = "Flint Shadowmore", ["zone:1423"] = "Eastern Plaguelands", ["zone:1453"] = "Stormwind", ["zone:1455"] = "Ironforge" },
 			written = { ["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Ride south-west to the Undercroft. The mound of dirt lies inside. Mercutio Filthgorger is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot.", ["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "Scourge Champions (59) roam the Noxious Glade, north of Light's Hope Chapel. Pass Carlin's Mystic Crystal over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time.", ["{zone:1453}"] = "Stormwind City" },
 			steps = {
 				{
@@ -15778,7 +15778,6 @@ do
 						{ t = "accept", quest = 984, title = "How Big a Threat?", npc = 3693, npcName = "Terenthis", minLevel = 10, qlvl = 14, map = 1439, x = 39.37, y = 43.48, z = 14, f = "e" },
 						{ t = "accept", quest = 1141, title = "The Family and the Fishing Pole", npc = 10216, npcName = "Gubber Blump", minLevel = 10, qlvl = 14, map = 1439, x = 36.1, y = 44.93, z = 0.2, f = "e", optional = true, note = "{npc:10216}, on the pier: only with {skill:356}" },
 						{ t = "accept", quest = 2118, title = "Plagued Lands", npc = 3701, npcName = "Tharnariun Treetender", minLevel = 10, qlvl = 14, map = 1439, x = 38.84, y = 43.42, z = 11.8, f = "e" },
-						{ t = "accept", quest = 4811, title = "The Red Crystal", npc = 2930, npcName = "Sentinel Glynda Nal'Shea", minLevel = 12, qlvl = 14, map = 1439, x = 37.7, y = 43.41, z = 7.9, f = "e" },
 					},
 				},
 				{
@@ -15991,6 +15990,7 @@ do
 						{ t = "accept", quest = 983, title = "Buzzbox 827", npc = 3666, npcName = "Wizbang Cranktoggle", minLevel = 7, qlvl = 10, map = 1439, x = 36.97, y = 44.13, z = 24, f = "e", note = "{npc:3666}, by the inn" },
 						{ t = "turnin", quest = 3524, title = "Washed Ashore", npc = 10219, npcName = "Gwennyth Bly'Leggonde", map = 1439, x = 36.62, y = 45.59, z = 16.1, f = "e" },
 						{ t = "accept", quest = 4681, title = "Washed Ashore", npc = 10219, npcName = "Gwennyth Bly'Leggonde", minLevel = 11, qlvl = 14, pre = { 3524 }, preTitles = { [3524] = "Washed Ashore" }, map = 1439, x = 36.62, y = 45.59, z = 16.1, f = "e" },
+						{ t = "accept", quest = 4811, title = "The Red Crystal", npc = 2930, npcName = "Sentinel Glynda Nal'Shea", minLevel = 12, qlvl = 14, map = 1439, x = 37.7, y = 43.41, z = 7.9, f = "e", only = { races = { "NightElf" } } },
 						{ t = "turnin", quest = 1141, title = "The Family and the Fishing Pole", npc = 10216, npcName = "Gubber Blump", map = 1439, x = 36.1, y = 44.93, z = 0.2, f = "e", optional = true },
 					},
 				},

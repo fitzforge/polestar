@@ -2734,9 +2734,9 @@ function W.Shell(name, opts)
 	-- it; without one it stands left of the wordmark, its ink on the 24 edge.
 	-- Placed by their ink, not their texture boxes: the small wordmark's
 	-- glyphs start 2px into its box and fill rows 7-24 of its 32
-	-- (Media/UI/wordmark-small.tga, drawn 1:1); the emblem's ink starts 5px
-	-- into its 36px box and is 26px wide (emblem.tga).
-	local WORD_INK, WORD_TOP, EMBLEM, EMBLEM_INK, EMBLEM_INK_W = 2, 22, 36, 5, 26
+	-- (Media/UI/wordmark-small.tga, drawn 1:1); the emblem's ink starts 6px
+	-- into its 44px box and is 32px wide (emblem.tga).
+	local WORD_INK, WORD_TOP, EMBLEM, EMBLEM_INK, EMBLEM_INK_W = 2, 22, 44, 6, 32
 	local railFrame = rawget(f, "Rail")
 	f.Emblem = W.Tex(railFrame or side, "ARTWORK", "emblem", "accent")
 	f.Emblem:SetSize(EMBLEM, EMBLEM)
@@ -2748,6 +2748,16 @@ function W.Shell(name, opts)
 		-- 12px of air between the emblem's ink and the wordmark's.
 		textX = SHELL.side + EMBLEM_INK_W + 12
 	end
+	-- As on the website and the app icon: the gold star's bright centre over
+	-- it (emblem-hot.tga, the same box) and a soft accent glow behind it.
+	local emblemParent = railFrame or side
+	f.Emblem.Hot = W.Tex(emblemParent, "OVERLAY", "emblem-hot")
+	f.Emblem.Hot:SetAllPoints(f.Emblem)
+	f.Emblem.Hot:SetVertexColor(1, 0.93, 0.76)
+	f.Emblem.Glow = W.Tex(emblemParent, "BORDER", "glow")
+	f.Emblem.Glow:SetSize(EMBLEM * 2, EMBLEM * 2)
+	f.Emblem.Glow:SetPoint("CENTER", f.Emblem, "CENTER", 0, 0)
+	W.Painter(f.Emblem.Glow, function(t) local r, g, b = Theme.Accent(); t:SetVertexColor(r, g, b, 0.22) end)
 	f.Wordmark = W.Tex(side, "ARTWORK", "wordmark-small", "text")
 	f.Wordmark:SetSize(256, 32)
 	f.Wordmark:SetPoint("TOPLEFT", side, "TOPLEFT", textX - WORD_INK, -WORD_TOP)

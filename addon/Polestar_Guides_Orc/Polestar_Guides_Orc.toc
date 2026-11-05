@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar 指南（獸人）
 ## Notes-zhTW: Polestar 為獸人角色提供的升級指南及其步行路線。按需載入。
 ## Author: Polestar
-## Version: 0.3.0
+## Version: 0.3.1
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

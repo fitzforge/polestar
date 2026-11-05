@@ -332,6 +332,10 @@ function P.Entries(filter, q, cat)
 		if fa ~= fb then return fa < fb end
 		local la, lb = a.minLevel or 0, b.minLevel or 0
 		if la ~= lb then return la < lb end
+		-- Same first level: a guide that hands over to the other comes first,
+		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)").
+		if a.next == b.id then return true end
+		if b.next == a.id then return false end
 		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
 		return (a.title or "") < (b.title or "")
 	end)

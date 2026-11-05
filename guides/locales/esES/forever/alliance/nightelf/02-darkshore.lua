@@ -146,4 +146,7 @@ return {
 	-- Step 38: Into Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Into {area:12}"] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Into {area:148}"] = "Hacia {area:148}",
 }

@@ -70,13 +70,17 @@ function optionIds(c)
 end
 "#;
 
+// The hand-off by itself (behavior.guideEnd "continue"), where these route choices are made at the end of a
+// guide; with "ask" the guide-end window offers them (engine-guide-end.rs).
+const CONTINUE: &str = r#"Polestar.Set("behavior.guideEnd", "continue")"#;
+
 fn run(before: &str, saved: Option<&str>, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: format!("{WORLD}{before}"),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
-		script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, "stub.login()", script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, GUIDES, HELPERS, "stub.login()", CONTINUE, script].join("\n"),
 		..Default::default()
 	})
 	.remove(0)

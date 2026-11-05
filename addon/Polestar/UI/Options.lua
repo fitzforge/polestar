@@ -250,7 +250,8 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
 		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."] },
-		{ kind = "toggle", key = "behavior.autoNextGuide", label = L["Continue to the next guide"], help = L["Loads the follow-up guide in the same tab when one finishes."] },
+		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
 		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
@@ -411,7 +412,7 @@ for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Quest database"], L["Tooltips and quest log"], L["Faster questing"] } },
 		{ L["Rewards & gear"], { L["Quest rewards"], L["Loot and merchants"], L["Gear advice"], L["Comparison"] } },
-		{ L["Talents"], { L["Talent plan"] } },
+		-- Talents: { L["Talents"], { L["Talent plan"] } } here once the plans are back (Talents.lua, T.SOON).
 		{ L["Buttons"], { L["Action buttons"] } },
 	}),
 	declare(DISCOVERY, "discovery", "search", 50, L["Lookup, the dungeon journal and rares: finding things in the world."], {
@@ -534,7 +535,7 @@ local function buildRecorder(view)
 		rows.status.Value:SetText(st.enabled and L["Recording"] or L["Off"])
 		W.Color(rows.status.Value, st.enabled and "success" or "textDim")
 		rows.chunks.Value:SetText(st.chunks)
-		rows.size.Value:SetText(("%d KiB"):format(math.floor(st.bytes / 1024 + 0.5)))
+		rows.size.Value:SetText(string.format(L["%d KiB"], floor(st.bytes / 1024 + 0.5)))
 		rows.acked.Value:SetText(st.acked > 0 and st.acked or "\226\128\147")
 		y = y + placePair(view, { rows.status, rows.chunks }, y, cw, W.LayoutRow)
 		y = y + placePair(view, { rows.size, rows.acked }, y, cw, W.LayoutRow)
@@ -579,8 +580,8 @@ local function buildAbout(view)
 		local v = L["Version"] .. " " .. tostring(ns.version or "dev")
 		local kb = W.AddonMemory()
 		if not kb then return v end
-		if kb >= 1024 then return string.format("%s  \194\183  %.1f MB", v, kb / 1024) end
-		return string.format("%s  \194\183  %d KB", v, floor(kb + 0.5))
+		if kb >= 1024 then return v .. "  \194\183  " .. string.format(L["%.1f MB"], kb / 1024) end
+		return v .. "  \194\183  " .. string.format(L["%d KB"], floor(kb + 0.5))
 	end
 	ver:SetText(versionLine())
 	ver:SetPoint("TOPLEFT", hero, "TOPLEFT", TEXT_X, -68)
@@ -721,7 +722,7 @@ local ALIASES = {
 	guidewindow = { "guide", L["Window"] }, general = { "guide", L["Window"] }, window = { "guide", L["Window"] },
 	navigation = { "guide", L["Arrow & routes"] }, nav = { "guide", L["Arrow & routes"] }, arrow = { "guide", L["Arrow & routes"] },
 	automation = { "guide", L["Automation"] }, behavior = { "guide", L["Automation"] }, behaviour = { "guide", L["Automation"] },
-	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] }, talents = { "questing", L["Talents"] },
+	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Characters"] }, alts = { "discovery", L["Characters"] },
 	look = { "appearance" }, qol = { "qualityoflife" },

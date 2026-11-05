@@ -118,7 +118,7 @@ function buildSimPack(files, data) {
 
 // Plays guide `g` from `pack` as one persona; returns runAddon's emitted values.
 // With `handOver` (the guide ids g's `next` offers), the engine moves on by
-// itself when g ends (autoNextGuide, the recommended route) and a second
+// itself when g ends (behavior.guideEnd "continue", the recommended route) and a second
 // value says where it landed: { guide, registered: [bool per id], step, open }.
 // `groups`: the answer at every group quest (`when group`), "skip" (the solo
 // route) or "do", as behavior.groupQuests sets it in game; never "ask", which
@@ -154,7 +154,7 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			${pack.loads}
 			stub.login()
 			stub.fire("QUEST_LOG_UPDATE") -- the client fills the quest log right after login
-			Polestar.Set("behavior.autoNextGuide", ${handOver ? 'true' : 'false'})
+			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})

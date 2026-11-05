@@ -217,85 +217,87 @@ return {
 	-- {npc:10902} Andorhal Tower One · {item:12815} Beacon Torch
 	["Mark {npc:10902} with the {item:12815}"] = "{item:12815}(으)로 {npc:10902} 표시",
 
-	-- Step 61: The Bulwark
+	-- Step 60: Chromie
+	["Upstairs"] = "",
+
+	-- Step 62: The Bulwark
 	-- {quest:964} Skeletal Fragments · {quest:838} Scholomance
 	["Dithers offers {quest:964} ({quest:838}). Skip it."] = "",
 
-	-- Step 63: Dalson's Tears
+	-- Step 64: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "길을 따라 동쪽으로 가면 {npc:11077}이(가) {area:200}의 가마솥을 지키고 있습니다.",
 
-	-- Step 65: Northridge Lumber Camp
+	-- Step 66: Northridge Lumber Camp
 	["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "북쪽의 벌목지로 가서 흰개미 통을 제재소 한가운데에 내려놓으세요.",
 
-	-- Step 66: Redpath's Shield
+	-- Step 67: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "방패는 {npc:1855}의 오두막 남쪽 {area:201}에 있습니다.",
 
-	-- Step 67: Tirion Fordring
+	-- Step 68: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "동쪽으로 {area:2619} 옆 {npc:1855}의 오두막으로 가서 그의 이야기를 들으세요.",
 
-	-- Step 70: Scourge Champions
+	-- Step 71: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "스컬지 용사",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "스컬지 용사는 예배당 북쪽 {area:2270}을(를) 돌아다닙니다. 처치한 용사마다 {npc:11063}의 {item:13156}을(를) 대 보세요. 공명하는 해골이 그가 원하는 것입니다.",
 
-	-- Step 72: Hameya's scroll
+	-- Step 73: Hameya's scroll
 	["Hameya's scroll"] = "",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "",
 
-	-- Step 73: Pamela and the Undercroft
+	-- Step 74: Pamela and the Undercroft
 	-- {area:2261} Undercroft
 	["Pamela and the {area:2261}"] = "",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
 	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 
-	-- Step 75: Tirion Fordring
+	-- Step 76: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "북서쪽의 {npc:1855} 오두막으로 가세요.",
 
-	-- Step 78: Level 59.14
+	-- Step 79: Level 59.14
 	["Level 59.14"] = "",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee...
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan."] = "",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "",
 
-	-- Step 79: Chromie
+	-- Step 80: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "남서쪽 안돌할의 {npc:10667}에게 가세요.",
-	["Upstairs"] = "",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "{npc:10667}의 다로우샤이어 전투는 정예와 싸우며 끝납니다. 건너뛰세요.",
 
-	-- Step 80: Counting Out Time
+	-- Step 81: Counting Out Time
 	["Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
 
-	-- Step 82: The Bulwark
+	-- Step 83: The Bulwark
 	-- {area:152} The Bulwark · {zone:1458} Undercity
 	["West to the {area:152}. The next guide starts in the {zone:1458}, a short ride west."] = "서쪽의 {area:152}로 가세요. 다음 가이드는 조금 서쪽의 {zone:1458}에서 시작합니다.",
 
-	-- Step 83: Into Eastern Plaguelands
+	-- Step 84: Into Eastern Plaguelands
 	-- {area:139} Eastern Plaguelands
 	["Into {area:139}"] = "",
 
-	-- Step 85: Of Lost Honor
+	-- Step 86: Of Lost Honor
 	["Underwater"] = "",
 
-	-- Step 86: Infiltrator Hameya
+	-- Step 87: Infiltrator Hameya
 	-- {area:2273} Zul'Mashar
 	["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
 
-	-- Step 89: Hameya's mound
+	-- Step 90: Hameya's mound
 	["Hameya's mound"] = "",
 	-- {object:177675} Mound of Dirt · {area:2261} Undercroft
 	["The {object:177675} is just behind the {area:2261}."] = "",
 
-	-- Step 90: Into Western Plaguelands
+	-- Step 91: Into Western Plaguelands
 	-- {area:28} Western Plaguelands
 	["Into {area:28}"] = "",
 

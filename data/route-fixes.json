@@ -1852,6 +1852,17 @@
 					5441
 				],
 				"why": "c19r read (maintainer, Durotar, Valley of Trials): Lazy Peons (5441) needs level 3. Taken with Galgar's quest on the first Den visit (the c13 together 4402/5441 records) it came at level 2.6, and a level-2 player is held at Foreman Thazz'ril; it is taken on the Den return after the valley loop instead (level 4 by then), the peons by the Den woken right after and handed in before Thazz'ril's Pick (6394), as Polestar 0.3.1 ships it"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					398
+				],
+				"why": "#801 Tirisfal: WANTED: Maggot Eye (398) needs level 6, and the Brill stop took it from the poster by the inn before Vital Intelligence was handed to Executor Zygand in front of it; an Undead Priest at level 5 (93%) found the poster offering nothing. Vital Intelligence first (340 XP) gives the level at the same stop: checked in game, the poster offered it once the turn-in reached level 6"
 			}
 		],
 		"notes": [

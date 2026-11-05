@@ -6,18 +6,21 @@
 -- A token marked "no name in this language" would show in English: write that name in French words instead.
 -- The comments are rewritten by sync.
 return {
+	-- Guide
+	["Spectral Bear"] = "",
+
 	-- Step 1: 55 Legacy Points
 	["55 Legacy Points"] = "55 points d'héritage",
 	-- {item:281060} Replica Ironforge Air Rifle · {npc:268840} Spectral Bear Cub · {item:277717} Spectral Bear Tabard · {npc:6791} Innkeeper Wiley · {area:392} Ratchet · {zone:1413} Barrens
-	["Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one, and every point the account earns counts here, spent or not. The Legacy Challenges guide plans them. The Progress Track gives the {item:281060} at 15, the {npc:268840} at 25, the {item:277717} at 40 and the reins at 55. Claim each one from {npc:6791} at the inn in {area:392}, on the {zone:1413} coast: he offers a \"Legacy Reward\" quest once you have the points."] = "",
+	["Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one, and every point the account earns counts here, spent or not. The Legacy Challenges guide plans them. The Progress Track gives the {item:281060} at 15, the {npc:268840} at 25, the {item:277717} at 40 and the reins at 55. Claim each one from {npc:6791} at the inn in {area:392}, on the {zone:1413} coast: he offers a \"Legacy Reward\" quest once you have the points."] = "Les points d'héritage sont communs à tout le compte : chaque défi d'héritage (une classe atteignant 25, 45 et 60, les métiers, le JcJ, l'exploration) en vaut un, et chaque point gagné par le compte compte ici, dépensé ou non. Le guide des défis d'héritage les planifie. La piste de progression donne la {item:281060} à 15, le {npc:268840} à 25, le {item:277717} à 40 et les rênes à 55. Réclamez chacun auprès de {npc:6791}, à l'auberge de {area:392}, sur la côte des {zone:1413} : il propose une quête « Récompense d'héritage » une fois que vous avez les points.",
 	-- {npc:6791} Innkeeper Wiley
-	["from {npc:6791}"] = "",
+	["from {npc:6791}"] = "auprès de {npc:6791}",
 
 	-- Step 2: Journeyman Riding
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762} (Compagnon)",
 	-- {skill:762} Riding
-	["The bear runs at full speed: riding it needs level 60 and Journeyman {skill:762} (Forever client), from your race's riding trainer; see the Level 60 mount guides."] = "",
+	["The bear runs at full speed: riding it needs level 60 and Journeyman {skill:762} (Forever client), from your race's riding trainer; see the Level 60 mount guides."] = "L'ours va à pleine vitesse : le monter demande le niveau 60 et la {skill:762} (compagnon) (client Forever), auprès du maître de monte de votre race ; voir les guides de montures du niveau 60.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one. The Progress Track gives the {item:281060} at 15, the {npc:268840} at 25, the {item:277717} at 40 and the reins at 55. How rewards are delivered is not known yet (perhaps by mail); this goal ticks once the reins are in your bags."] = "Les points d'héritage sont communs au compte : chaque défi d'héritage (une classe atteignant 25, 45 et 60, métiers, JcJ, exploration) en vaut un. La piste de progression donne {item:281060} à 15, {npc:268840} à 25, {item:277717} à 40 et les rênes à 55. Le mode de remise des récompenses n'est pas encore connu (peut-être par courrier) ; cet objectif se coche dès que les rênes sont dans vos sacs.",

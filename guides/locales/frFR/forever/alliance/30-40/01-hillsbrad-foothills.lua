@@ -8,15 +8,15 @@
 return {
 	-- Step 1: Hearth to Deepwater Tavern
 	-- {area:2104} Deepwater Tavern
-	["Hearth to {area:2104}"] = "",
+	["Hearth to {area:2104}"] = "Pierre de foyer vers {area:2104}",
 
 	-- Step 2: To Deepwater Tavern
 	-- {area:2104} Deepwater Tavern
-	["To {area:2104}"] = "",
+	["To {area:2104}"] = "Vers {area:2104}",
 
 	-- Step 3: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
-	["{npc:2104}: for {npc:270637}; on the top floor"] = "",
+	["{npc:2104}: for {npc:270637}; on the top floor"] = "{npc:2104} : pour {npc:270637} ; au dernier étage",
 
 	-- Step 4: Howin Kindfeather
 	-- {zone:1455} Ironforge
@@ -28,13 +28,13 @@ return {
 
 	-- Step 7: Angerfang Encampment
 	-- {quest:474} Defeat Nek'rosh
-	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "",
+	["The next step, {quest:474}, pits you against an elite chieftain: skip it."] = "L'étape suivante, {quest:474}, vous oppose à un chef élite : passez-la.",
 	-- {object:671518} Tattered Spellbook · {npc:2104} Captain Stoutfist
 	["{object:671518}: for {npc:2104}"] = "{object:671518} : pour {npc:2104}",
 
 	-- Step 8: Defeat Nek'rosh
 	-- {npc:2091} Chieftain Nek'rosh
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2091} is a level 32 elite: most classes solo it at level 34, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Shadowcasters stand on either side of him, and at least one is linked to him, so it joins when he is pulled. Non-elite centurions and captains are spread around his ring of tents."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2091} is a level 32 elite: most classes solo it at level 34, but you may need help. Skip it if you are alone: the route has you grind the XP back.\nCareful: Shadowcasters stand on either side of him, and at least one is linked to him, so it joins when he is pulled. Non-elite centurions and captains are spread around his ring of tents."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:2091} est un élite de niveau 32 : la plupart des classes le battent seules au niveau 34, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul : l'itinéraire vous fait regagner l'expérience en tuant des monstres.\nAttention : des lanceurs de sorts se tiennent de chaque côté de lui, et au moins l'un d'eux lui est lié : il se joint au combat quand vous l'attirez. Des centurions et des capitaines non élites sont répartis autour de son cercle de tentes.",
 
 	-- Step 9: Golm
 	-- {npc:271462} Golm · {item:279996} Goaz Stone
@@ -42,43 +42,43 @@ return {
 
 	-- Step 10: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
-	["{area:1038}: kill these as you meet them"] = "",
+	["{area:1038}: kill these as you meet them"] = "{area:1038} : tuez-les au passage",
 	-- {area:1038} Dragonmaw Gates · {npc:271338} Ados · {item:279996} Goaz Stone
-	["North-east to the {area:1038}: {npc:271338} stands at the gates (use the {item:279996})."] = "",
+	["North-east to the {area:1038}: {npc:271338} stands at the gates (use the {item:279996})."] = "Au nord-est vers {area:1038} : {npc:271338} se tient aux portes (utilisez la {item:279996}).",
 
 	-- Step 12: Dun Modr
 	-- {area:205} Dun Modr · {npc:271460} Modr · {item:279996} Goaz Stone · {npc:271481} Captive Fire Elemental · {npc:1072} Roggo Harlbarrow
 	["North along the road to {area:205}. {npc:271460} stands in the ruins (use the {item:279996}); the {npc:271481} is held on the west side: lead it out to {npc:1072}."] = "Au nord par la route jusqu'à {area:205}. {npc:271460} se dresse dans les ruines (utilisez la {item:279996}) ; {npc:271481} est retenu du côté ouest : ramenez-le à {npc:1072}.",
 
 	-- Step 14: Waterlogged Envelope
-	["Underwater"] = "",
+	["Underwater"] = "Sous l'eau",
 
 	-- Step 15: The Villards
-	["The Villards"] = "",
+	["The Villards"] = "Les Villard",
 	-- {npc:5683} Comar Villard · {area:205} Dun Modr · {area:880} Thandol Span · {npc:271322} Essene Villard
-	["{npc:5683} waits north of {area:205} by the {area:880}; {npc:271322} a short walk further north-east."] = "",
+	["{npc:5683} waits north of {area:205} by the {area:880}; {npc:271322} a short walk further north-east."] = "{npc:5683} attend au nord de {area:205}, près du {area:880} ; {npc:271322} à quelques pas plus au nord-est.",
 
 	-- Step 16: Dun Modr
 	-- {npc:1071} Longbraid the Grim
-	["{npc:1071} stands in the dwarves' camp."] = "",
+	["{npc:1071} stands in the dwarves' camp."] = "{npc:1071} se tient dans le camp des nains.",
 
 	-- Step 17: Thandol Span
 	-- {area:205} Dun Modr · {zone:1437} Wetlands · {npc:1075} Rhag Garmason
-	["Follow the road south over the bridge to {area:205} at the {zone:1437} end, where {npc:1075} waits."] = "",
+	["Follow the road south over the bridge to {area:205} at the {zone:1437} end, where {npc:1075} waits."] = "Suivez la route vers le sud par le pont jusqu'à {area:205}, à l'extrémité côté {zone:1437}, où {npc:1075} attend.",
 
 	-- Step 19: Prospector Whelgar
-	["Below ground"] = "",
+	["Below ground"] = "Sous terre",
 
 	-- Step 20: Menethil Harbor
 	["West along the road to Menethil."] = "À l'ouest par la route jusqu'au Port de Menethil.",
-	["On the top floor"] = "",
+	["On the top floor"] = "Au dernier étage",
 
 	-- Step 22: Level 31.23
-	["Level 31.23"] = "",
+	["Level 31.23"] = "Niveau 31.23",
 	-- {quest:474} Defeat Nek'rosh
-	["If you skipped {quest:474}, grind here to level 31.23 to stay on the route's plan."] = "",
+	["If you skipped {quest:474}, grind here to level 31.23 to stay on the route's plan."] = "Si vous avez passé {quest:474}, tuez des monstres ici jusqu'au niveau 31.23 pour suivre le plan de l'itinéraire.",
 	-- {npc:1418} Bluegill Raider
-	["grind on {npc:1418}"] = "",
+	["grind on {npc:1418}"] = "tuez en boucle : {npc:1418}",
 
 	-- Step 24: Boat to Southshore
 	-- {area:271} Southshore
@@ -86,33 +86,33 @@ return {
 
 	-- Step 25: Southshore
 	-- {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly
-	["Pick up everything in town before heading out. {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "",
+	["Pick up everything in town before heading out. {npc:2381} and {npc:2438} stand between the flight master and the inn, Farren and {npc:2366} at the inn, Maleb in the town hall."] = "Prenez tout en ville avant de partir. {npc:2381} et {npc:2438} se tiennent entre le maître de vol et l'auberge, Farren et {npc:2366} à l'auberge, Maleb à l'hôtel de ville.",
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}, chez {npc:2381}",
 	-- {npc:2382} Darren Malvew
 	["{npc:2382}: the lions come later"] = "{npc:2382} : les lions viendront plus tard",
 	-- {npc:2430} Chef Jessen
-	["{npc:2430}, upstairs"] = "",
+	["{npc:2430}, upstairs"] = "{npc:2430}, à l'étage",
 	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
 	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, à l'auberge : pour {area:35} (04-stranglethorn-vale)",
 	-- {npc:2228} Lieutenant Farren Orinelle
-	["{npc:2228}, inside"] = "",
+	["{npc:2228}, inside"] = "{npc:2228}, à l'intérieur",
 	-- {npc:2711} Phin Odelic
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711} : sa piste mène en Arathi",
 	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside"] = "",
+	["{npc:2276}, inside"] = "{npc:2276}, à l'intérieur",
 
 	-- Step 26: On the way
-	["On the way"] = "",
+	["On the way"] = "En chemin",
 
 	-- Step 27: Torn Fin murlocs
 	["Torn Fin murlocs"] = "Murlocs Aileron déchiré",
 	-- {area:295} Western Strand · {area:271} Southshore
-	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "",
+	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "Les murlocs Aileron déchiré se pressent dans {area:295}, au sud-ouest d'{area:271}.\nAttention : un camp abrite un groupe serré d'Oracles qui attaquent tous ensemble.",
 
 	-- Step 28: Farren
 	["Farren"] = "Farren",
-	["Inside"] = "",
+	["Inside"] = "À l'intérieur",
 
 	-- Step 29: Murloc heads
 	["Murloc heads"] = "Têtes de murloc",
@@ -125,11 +125,11 @@ return {
 
 	-- Step 34: Farren
 	-- {object:2117} Stormwind Keep
-	["A report for {object:2117}; inside"] = "",
+	["A report for {object:2117}; inside"] = "Un rapport pour {object:2117} ; à l'intérieur",
 
 	-- Step 35: Southshore
 	-- {npc:251493} Captain McManus
-	["Off the boat, {npc:251493} is the first you meet, north-west of the flight master."] = "",
+	["Off the boat, {npc:251493} is the first you meet, north-west of the flight master."] = "En descendant du bateau, {npc:251493} est le premier que vous rencontrez, au nord-ouest du maître de vol.",
 
 	-- Step 36: Yeti cave
 	["Yeti cave"] = "Grotte des yétis",
@@ -150,9 +150,9 @@ return {
 
 	-- Step 44: Fly to Ironforge
 	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	["Fly to {area:1537}"] = "Prendre un vol pour {area:1537}",
 	-- {area:271} Southshore
-	["{area:271} flight master"] = "",
+	["{area:271} flight master"] = "Maître de vol d'{area:271}",
 
 	-- Step 45: Deeprun Tram
 	-- {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge
@@ -161,13 +161,13 @@ return {
 
 	-- Step 48: Deeprun Tram
 	-- {npc:2784} King Magni Bronzebeard · {object:171709} High Seat
-	["{npc:2784}, the {object:171709}"] = "",
+	["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
 
-	-- Step 50: Fly to Stormwind City
-	-- {zone:1453} Stormwind City
+	-- Step 50: Fly to Stormwind
+	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Volez jusqu'à {zone:1453}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Maître de vol de {zone:1455}",
 
 	-- Step 51: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
@@ -179,7 +179,7 @@ return {
 
 	-- Step 53: Druid training
 	["Druid training"] = "Entraînement de druide",
-	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind City
+	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind
 	["{zone:1455} has no druid trainer: train with {npc:5504} in {zone:1453} before the tram."] = "{zone:1455} n'a pas de maître des druides : entraînez-vous auprès de {npc:5504} à {zone:1453} avant le tram.",
 
 	-- Step 55: Dashel Stonefist
@@ -194,13 +194,13 @@ return {
 	["{npc:2708} is in the {object:2164}; {npc:211033} near the canal; {npc:5081} south of the {object:2101}."] = "{npc:2708} est dans {object:2164} ; {npc:211033} près du canal ; {npc:5081} au sud de {object:2101}.",
 	-- {npc:211033} Garion Wendell
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["{npc:211033}: only offered once you have handed in library books (the Library Books guide)"] = "",
+	["{npc:211033}: only offered once you have handed in library books (the Library Books guide)"] = "{npc:211033} : proposée seulement une fois que vous avez rendu des livres de la bibliothèque (le guide Livres de la bibliothèque)",
 
 	-- Step 61: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Prendre un vol pour {area:415}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Maître de vol d'{area:442}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A new {item:279996}, for the four titan watchers around the {zone:1437}"] = "Une nouvelle {item:279996}, pour les quatre gardiens titans des {zone:1437}",

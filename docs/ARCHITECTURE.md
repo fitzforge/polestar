@@ -135,6 +135,8 @@ Messages:
 | `PLAYER_SKIPPED_QUEST` | questID, title or nil | Engine, after `SkipQuest(questID)` (a quest's line, right-clicked): the guide window offers the undo |
 | `WAYPOINT_CHANGED` | waypoint or nil | Engine (and Nav when an override is set/cleared) |
 | `GUIDE_COMPLETED` | guideId | Engine |
+| `GUIDE_END` | guideId, `{ guideId, undone, live, next, choose }` | Engine, after the evaluation, with `behavior.guideEnd = "ask"` (default): the player reached the end of a leveling guide (its last step for the character done, whatever was skipped or left open before it), once per guide per character (`CharState().guideEnds`); `undone` the open steps left, `live` the live step (nil when all are done), `next` the guide the hand-off goes to (nil with none or a choice to make), `choose` a route choice the player makes. The guide-end window asks (UI/GuideEnd.lua); see "End of a leveling guide" |
+| `GUIDE_CONTINUED` | fromId, toId | Engine, after the evaluation, with `behavior.guideEnd = "continue"`: a finished leveling guide handed off by itself (the guide window's banner says so, chat while it is hidden) |
 | `GUIDE_PLACED` | guideId, stepIndex or nil, `{ guideId, ... }` | Engine, active tab, once placement of a guide just opened ends (see "Placement"; not for a guide a login or /reload brings back): where the guide resumes, and the guides passed whole on the way; the guide window goes over the steps before it, titles and count rolling (`GF.PlayCatchUp`, after `PLAYER_ENTERING_WORLD`) |
 | `CATCH_UP` | true \| false | Guide window, while its catch-up goes over the steps (`GF.PlayCatchUp`): the arrow shows an hourglass turning over in its dial's place (`Arrow.SetBusy`; Media/UI `hourglass`, `hourglass-sand`, tools/media/ui.js) |
 | `SETTING_CHANGED` | path, value | Core settings |
@@ -1489,8 +1491,9 @@ Polestar.Engine.GuideFocus(id) -> x, y | nil       -- live-frame percent of wher
   guide every option continues to, when they share one.
 - **Recommended:** not outlevelled, then the quickest to reach (1-minute
   bands), then the author's order.
-- **At completion** (with `behavior.autoNextGuide`, and the guide either
-  auto-loaded or seen incomplete): the remembered choice
+- **At completion** (the guide either auto-loaded or seen incomplete; a
+  leveling guide only with `behavior.guideEnd = "continue"`, else see "End
+  of a leveling guide"): the remembered choice
   (`CharState().routes[fromId]`), else the only option offered, else with
   `behavior.routeChoice = "recommended"` the recommended one. With none
   offered (every option's `when` fails) the guide ends there, as without
@@ -1530,6 +1533,56 @@ Polestar.Engine.GuideFocus(id) -> x, y | nil       -- live-frame percent of wher
   cache of decoded client tiles (base and overlay tiles, `maps.json` with each
   map's `artID`); those renders go to `<folder>/preview/`, never into `docs/`.
 
+#### End of a leveling guide
+
+```lua
+Polestar.Engine.GuideEnded(id) -> bool       -- the player reached the end of leveling guide `id` (this character)
+Polestar.Engine.StartNext(fromId) -> bool    -- the guide after fromId (NextGuide) in fromId's tab, as the hand-off;
+                                             -- false with none or a route choice to make first
+```
+
+`behavior.guideEnd` ("When a leveling guide ends", Options → Guide →
+Automation): `"ask"` (default) or `"continue"`. It applies to leveling
+guides (category Leveling or none: the starting zones and community leveling
+guides); every other guide hands off by itself as before. It replaced the
+`behavior.autoNextGuide` toggle in 0.3.1; the stored toggle is dropped at load
+and both of its values start on `"ask"`.
+
+- **The end** (`Own.noteEnd`): every step done, or the guide's last step
+  with work for the character (`Own.lastWork`: it applies, is not an `along`
+  step, and has a goal that applies and is neither a note nor optional;
+  trailing steps that only offer, such as riding at 40, are not the end)
+  done ahead of the live step, whatever steps before it were skipped or left
+  open. It counts once the guide was seen unfinished after placement this
+  session (`Own.endOpen`), and for the last step done ahead, that same step
+  seen open (`Own.lastOpen`), so a guide opened, or brought back by a login,
+  already at its end does not ask, nor does a last step that reads done from
+  the start (its quest not offered yet) until the rest is done; and once per
+  guide per character (`CharState().guideEnds`).
+- **Ahead of the live step** (`Own.endDoneAhead`), by goal kind: quest
+  state, level, bags, flight paths as they are; goto and explore by arrival,
+  polled out of turn for the last step (`Own.endWatch`: Dun Morogh's walk to
+  Westfall); fly, hearth, enter by being there; train, vendor and talk at
+  their named NPC (latched out of turn). None of the place kinds while an
+  open step between the live one and the last has work in that place
+  (`Own.placeClear`: Darkshore visits Elwynn before it ends there), so
+  passing by never ends a guide. `train class` (any class trainer) never
+  counts out of turn, only on screen. tests/addontest/guides-end.rs plays
+  every leveling guide's last step ahead (with the reference data).
+- **Ask:** no hand-off by itself (the catch-up still passes guides done
+  whole); `GUIDE_END` fires after the evaluation and the guide-end window
+  (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed
+  <guide>" or "You've reached the end of <guide>" with the open steps left,
+  and offers Start <next> (`StartNext`), Choose where to go next (the route
+  choice window) or Pick a guide (the guide menu); the second button (Not now,
+  Back to step N, Close) keeps the guide. While steps are open the guide
+  window's banner then offers the next guide (`GF.EndOffer`) until dismissed;
+  a finished guide's completed state offers it as before.
+- **Continue:** the hand-off at completion as under "At completion", and
+  `GUIDE_CONTINUED(fromId, toId)`: the guide window's banner reads "Durotar
+  complete — continuing with The Barrens" for 20 seconds (chat while the
+  window is hidden).
+
 #### Tabs (several guides at once)
 
 ```lua
@@ -1549,7 +1602,7 @@ and skip state stays keyed by guide id. Selecting a tab fires `GUIDE_CHANGED`
 (and `STEP_CHANGED`, `WAYPOINT_CHANGED`) for the newly active guide; any tab
 change fires `TABS_CHANGED(tabs, activeIndex)`. The waypoint follows the active
 tab only. Automation considers the live step of **every** open
-tab. `autoNextGuide` replaces the finished guide within its own tab. On login,
+tab. The hand-off replaces the finished guide within its own tab. On login,
 saved tabs reopen; `Guides.Suggest()` opens a first tab only when none survive
 (SavedVariables can come back nil). Each tab in the guide window reads
 `Title (min–max)` like the menu's rows; a narrow tab cuts the title, never the

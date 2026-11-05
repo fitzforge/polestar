@@ -5,7 +5,7 @@ faction Horde
 race Troll
 levels 1-12
 zone Durotar
-next forever/horde/troll/02-the-barrens
+next forever/horde/02-the-barrens
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -57,7 +57,6 @@ step The Den
   turnin 3086 only Troll,Mage         -- Mai'ah
   turnin 97279                        -- Kzan Thornslash, at the back of the cave; below ground
   accept 4402                         -- Galgar, by the cooking fire
-  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
 
 step Scorpid Worker Tail on the way
   along until q789
@@ -79,18 +78,14 @@ step Cactus Apple on the way
 step Valley of Trials: kill these as you meet them
   label q789
   zone Durotar
-  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way, and hit the sleeping peons across the valley with the Foreman's Blackjack.
+  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
   collect 4862 quest 789.1
-  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
   collect 4905 quest 790.1
-  kill 3101 quest 792.1 only !Warlock
-  collect 6487 quest 1485.1 only Warlock
-
-step Hana'zua
   turnin 790
   accept 804
-  goto 42.4,68.6 "The Den"
+  kill 3101 quest 792.1 only !Warlock
+  collect 6487 quest 1485.1 only Warlock
 
 step Back to the Den
   label q4402
@@ -117,6 +112,12 @@ step Back to the Den
   accept 1499 only Warlock
   turnin 1499 only Warlock            -- Zureetha Fargaze
   accept 794
+  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
+
+step Lazy Peons
+  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
+
+step Foreman Thazz'ril
   turnin 5441
   accept 6394
 
@@ -555,6 +556,7 @@ step Far Watch Post
 
 step Zargh
   accept 6365
+  turnin 842
   turnin 6365
   accept 6384
   getfp "Crossroads"

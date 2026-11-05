@@ -51,13 +51,17 @@ return {
 	-- {npc:10903} Andorhal Tower Two · {item:12815} Beacon Torch
 	["Mark {npc:10903} with the {item:12815}"] = "{item:12815}(으)로 {npc:10903} 표시",
 
-	-- Step 10: Felstone Field cauldron
+	-- Step 10: Chromie
+	-- {npc:10667} Chromie
+	["{npc:10667} waits in the ruined inn on the west side of Andorhal."] = "{npc:10667}은(는) 안돌할 서쪽의 무너진 여관에서 기다립니다.",
+
+	-- Step 11: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "{area:199} 가마솥",
 	-- {npc:11075} Cauldron Lord Bilemaw · {area:199} Felstone Field
 	["{npc:11075} guards the cauldron in {area:199}, west of Andorhal."] = "{npc:11075}이(가) 안돌할 서쪽 {area:199}의 가마솥을 지킵니다.",
 
-	-- Step 11: Janice Felstone
+	-- Step 12: Janice Felstone
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "{npc:10778}의 유령은 {area:200} 서쪽, {area:199}의 농가 근처를 떠돕니다. 소포는 농가 안에 있습니다.",
 	-- {object:175894} Janice's Parcel
@@ -65,25 +69,21 @@ return {
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "{zone:1453}용: 보관하세요",
 
-	-- Step 12: The Andorhal watchtowers
+	-- Step 13: The Andorhal watchtowers
 	-- {npc:10904} Andorhal Tower Three · {item:12815} Beacon Torch
 	["Mark {npc:10904} with the {item:12815}"] = "{item:12815}(으)로 {npc:10904} 표시",
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "{item:12815}(으)로 {npc:10905} 표시",
 
-	-- Step 13: Chillwind Camp
+	-- Step 14: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852}은(는) 61레벨 정예입니다",
 
-	-- Step 14: Dalson's Tears cauldron
+	-- Step 15: Dalson's Tears cauldron
 	-- {area:200} Dalson's Tears
 	["{area:200} cauldron"] = "{area:200} 가마솥",
 	-- {area:200} Dalson's Tears
 	["The cauldron sits at {area:200}, north-east of Felstone; its Cauldron Lord stands beside it."] = "가마솥은 펠스톤 북동쪽 {area:200}에 있고, 가마솥군주가 그 옆에 서 있습니다.",
-
-	-- Step 15: Chromie
-	-- {npc:10667} Chromie
-	["{npc:10667} waits in the ruined inn on the west side of Andorhal."] = "{npc:10667}은(는) 안돌할 서쪽의 무너진 여관에서 기다립니다.",
 
 	-- Step 16: Andorhal
 	["Andorhal"] = "안돌할",

@@ -464,6 +464,17 @@ test(`${TIRISFAL}: Fitz's report (#736): A Light in the Darkness is handed to Ar
 	}
 });
 
+// WANTED: Maggot Eye needs level 6; Vital Intelligence, handed to Zygand in
+// front of the inn, gives it (data/route-fixes.json, #801).
+test(`${TIRISFAL}: petllama's report (#801): WANTED: Maggot Eye is taken from the poster after Vital Intelligence is handed in`, { skip }, () => {
+	for (const cls of ['WARRIOR', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'PALADIN']) {
+		const list = goals(TIRISFAL).filter(forClass(cls));
+		const take = at(list, `accept 398 for a ${cls}`, is('accept', 398));
+		const vital = at(list, `turnin 383 for a ${cls}`, is('turnin', 383));
+		assert.ok(vital < take, `a ${cls} hands Vital Intelligence in before the Maggot Eye poster`);
+	}
+});
+
 // --- Coldridge Valley (thmastin, PR #16): the valley is never walked back to.
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit`, { skip }, () => {
@@ -1005,6 +1016,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// War Banners was handed in.
 		[THOUSAND_NEEDLES, 98221, [464]],
 		[THOUSAND_NEEDLES, 465, [98221]],
+		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
+		// offer The Adventurer at level 4 with Night Web's Hollow still open.
+		[TIRISFAL, 96656, [382]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));

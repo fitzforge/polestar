@@ -11,8 +11,11 @@ use serde_json::{json, Value};
 const CORE: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "Talents/Talents.xml"];
 const WITH_UI: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Talents/Talents.xml"];
 
+// The plans are paused in the shipped addon (Talents.lua, T.SOON); these tests switch them back on to keep the
+// plan code covered for when they return. what_players_get_while_talents_are_coming_soon tests the pause itself.
 const PRELUDE: &str = r#"
 local T, TS = Polestar.Talents, stub.talents
+T.SOON = false
 local data = T.Data("PALADIN")
 TS.useSnapshot(data)
 local function plan(key) return T.BuildByKey(data, key) end
@@ -636,8 +639,36 @@ fn view_another_class_sees_why_there_is_no_plan() {
 		before: r#"stub.talents.class, stub.talents.className = "DEATHKNIGHT", "Death Knight""#.into(),
 		addons: vec![Addon::files("Polestar", WITH_UI)],
 		login: true,
-		script: "Polestar.UI.TalentsSection.Show(); emit(Polestar.UI.TalentsSection.Shown().empty)".into(),
+		script: "Polestar.Talents.SOON = false; Polestar.Talents.Refresh(); Polestar.UI.TalentsSection.Show(); emit(Polestar.UI.TalentsSection.Shown().empty)".into(),
 		..Default::default()
 	});
 	assert_eq!(out[0], "class");
+}
+
+// Fitz, 0.3.1: the plans are paused. As shipped (T.SOON), a Paladin with a point waiting gets no plan, no
+// chat reminder and no spec tabs, and the Talents section says "Coming soon." instead.
+#[test]
+fn what_players_get_while_talents_are_coming_soon() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_talents.lua", "stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", WITH_UI)],
+		script: r#"
+local T, TS = Polestar.Talents, stub.talents
+local data = T.Data("PALADIN")
+TS.useSnapshot(data)
+TS.learn(T.BuildByKey(data, "retribution"), 10)
+TS.level = 20
+stub.login()
+stub.messages = {}
+stub.fire("PLAYER_LEVEL_UP", 20)
+stub.advance(2)
+local c, reason = T.Current()
+local TV = Polestar.UI.TalentsSection
+TV.Show()
+local tabs = TV.Nav()
+emit({ soon = T.SOON, plan = c ~= nil, reason = reason, messages = #stub.messages, empty = TV.Shown().empty, tabs = #tabs })"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!({ "soon": true, "plan": false, "reason": "soon", "messages": 0, "empty": "soon", "tabs": 0 }));
 }

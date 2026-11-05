@@ -8,18 +8,18 @@
 return {
 	-- Step 2: Tram to Stormwind
 	-- {zone:1453} Stormwind
-	["Tram to {zone:1453}"] = "",
+	["Tram to {zone:1453}"] = "Tram pour {zone:1453}",
 
 	-- Step 3: Druid training
 	["Druid training"] = "Entraînement de druide",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {object:171524} Tinker Town · {zone:1453} Stormwind · {npc:5504} Sheldras Moontree
-	["{zone:1455} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "",
+	["{zone:1455} has no druid trainer: take the {area:2257} from {object:171524} to {zone:1453} and train with {npc:5504}."] = "{zone:1455} n'a pas de maître des druides : prenez le {area:2257} depuis {object:171524} jusqu'à {zone:1453} et entraînez-vous auprès de {npc:5504}.",
 
 	-- Step 4: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Prendre un vol pour {zone:1453}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Maître de vol du {area:150}",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {zone:1431} Duskwood · {area:99} Rebel Camp
@@ -56,11 +56,11 @@ return {
 	-- Step 15: Bookie Herod
 	["Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth."] = "Les registres de Herod se trouvent dans une hutte du côté ouest de la base ; son coffre est plus à l'est, près de l'entrée de la grotte.",
 	-- {object:287} Bookie Herod's Records
-	["{object:287}, upstairs"] = "",
+	["{object:287}, upstairs"] = "{object:287}, à l'étage",
 
 	-- Step 16: Kurzen's Compound: kill these as you meet them
 	-- {area:101} Kurzen's Compound
-	["{area:101}: kill these as you meet them"] = "",
+	["{area:101}: kill these as you meet them"] = "{area:101} : tuez-les au passage",
 	-- {area:99} Rebel Camp
 	["The Kurzen rebels hold the camp east of the {area:99}; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents."] = "Les rebelles de Kurzen tiennent le camp à l'est de {area:99} ; restez sur son pourtour, où se tiennent les Guerriers de la jungle et les Guérisseurs, et fouillez les caisses de ravitaillement près des tentes.",
 	-- {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
@@ -68,12 +68,12 @@ return {
 
 	-- Step 17: Bookie Herod
 	-- {object:288} Bookie Herod's Strongbox
-	["{object:288}, below ground"] = "",
+	["{object:288}, below ground"] = "{object:288}, sous terre",
 
 	-- Step 19: Stranglethorn Vale: kill these as you meet them
 	-- {area:33} Stranglethorn Vale
-	["{area:33}: kill these as you meet them"] = "",
-	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
+	["{area:33}: kill these as you meet them"] = "{area:33} : tuez-les au passage",
+	["Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Attention : des camps de trolls sont proches du territoire des tigres, et les trolls peuvent se joindre au combat si vous attirez sans précaution.\nAttention : le nid des raptors abrite de jeunes raptors qui se joignent au combat quand vous attaquez les adultes.",
 
 	-- Step 20: Nesingwary's Expedition
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
@@ -81,7 +81,7 @@ return {
 
 	-- Step 21: Shadowmaw Panther on the way
 	-- {npc:684} Shadowmaw Panther
-	["{npc:684} on the way"] = "",
+	["{npc:684} on the way"] = "{npc:684} en chemin",
 
 	-- Step 22: Sin'Dall and the Lashtail raptors
 	-- {npc:729} Sin'Dall
@@ -96,17 +96,17 @@ return {
 	-- {object:3202} Grom'gol (no name in this language: may be words) · {area:35} Booty Bay
 	["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "Suivez la route principale vers le sud sur toute la longueur de la jungle, après l'embranchement de {object:3202}, jusqu'à {area:35}, sur le cap sud.",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, by the bank; inside"] = "",
+	["{npc:2495}, by the bank; inside"] = "{npc:2495}, près de la banque ; à l'intérieur",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, à l'intérieur",
 	-- {npc:6807} Innkeeper Skindle · {object:56910} The Salty Sailor Tavern
-	["{npc:6807}, {object:56910}; upstairs"] = "",
+	["{npc:6807}, {object:56910}; upstairs"] = "{npc:6807}, {object:56910} ; à l'étage",
 	-- {npc:2832} Nixxrax Fillamug · {object:56910} The Salty Sailor Tavern
-	["{npc:2832}, in the {object:56910}; upstairs"] = "",
+	["{npc:2832}, in the {object:56910}; upstairs"] = "{npc:2832}, dans {object:56910} ; à l'étage",
 	-- {npc:773} Krazek
-	["{npc:773}, in the tavern; upstairs"] = "",
+	["{npc:773}, in the tavern; upstairs"] = "{npc:773}, dans la taverne ; à l'étage",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, à l'étage",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}, dans la taverne",
 	-- {npc:2496} Baron Revilgaz
@@ -114,16 +114,16 @@ return {
 
 	-- Step 24: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "Prendre un vol pour {area:108}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maître de vol de {area:35}",
 
 	-- Step 26: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301} : tuez-les au passage",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.\nThe Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "",
+	["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.\nThe Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Repartez vers le nord ; la {area:310} se trouve à l'ouest de la route, au milieu de la jungle. Les Basilics de cristal qui s'y trouvent lâchent les éclats.\nLes trolls Bloodscalp tiennent les ruines sur la côte à l'ouest du camp de Nesingwary.",
 
 	-- Step 27: River crocolisks
 	["River crocolisks"] = "Crocilisques des rivières",
@@ -141,13 +141,13 @@ return {
 
 	-- Step 30: Hearth to Booty Bay
 	-- {area:35} Booty Bay
-	["Hearth to {area:35}"] = "",
+	["Hearth to {area:35}"] = "Pierre de foyer vers {area:35}",
 
 	-- Step 31: Booty Bay
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, à l'intérieur",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, à l'étage",
 
 	-- Step 32: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
@@ -158,18 +158,17 @@ return {
 
 	-- Step 34: Fly to Darkshire
 	-- {area:42} Darkshire
-	["Fly to {area:42}"] = "",
+	["Fly to {area:42}"] = "Prendre un vol pour {area:42}",
 
 	-- Step 35: Into Stranglethorn Vale
 	-- {area:33} Stranglethorn Vale
-	["Into {area:33}"] = "",
+	["Into {area:33}"] = "Vers la {area:33}",
 
 	-- Step 37: Kurzen's Compound
-	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
-	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
+	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use Smoke Bomb."] = "",
 	-- {npc:941} Kurzen Headshrinker
-	["{npc:941}, below ground"] = "",
+	["{npc:941}, below ground"] = "{npc:941}, sous terre",
 
 	-- Step 38: The jungle ruins
 	["The jungle ruins"] = "Les ruines de la jungle",
@@ -177,7 +176,7 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Faites le tour des ruines trolls du nord et du centre : chacune abrite une tablette de pierre des légendes trolls. Les Panthères Ombregueule rôdent camouflées dans la jungle autour ; le camp de la KapitalRisk sur {area:37} porte les Cristaux réduits.",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
-	["{item:2006}: {object:58}; underwater"] = "",
+	["{item:2006}: {object:58}; underwater"] = "{item:2006} : {object:58} ; sous l'eau",
 
 	-- Step 39: The haunted island
 	["The haunted island"] = "L'île hantée",
@@ -185,7 +184,7 @@ return {
 
 	-- Step 40: Stranglethorn Vale: kill these as you meet them
 	-- {npc:1096} Venture Co. Geologist
-	["grind on {npc:1096}"] = "",
+	["grind on {npc:1096}"] = "tuez en boucle : {npc:1096}",
 
 	-- Step 41: Rebel Camp
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
@@ -193,7 +192,7 @@ return {
 
 	-- Step 44: Jungle Stalker on the way
 	-- {npc:687} Jungle Stalker
-	["{npc:687} on the way"] = "",
+	["{npc:687} on the way"] = "{npc:687} en chemin",
 
 	-- Step 45: Skullsplitter trolls
 	["Skullsplitter trolls"] = "Trolls Skullsplitter",
@@ -202,20 +201,20 @@ return {
 
 	-- Step 48: Booty Bay
 	-- {object:56910} The Salty Sailor Tavern
-	["{object:56910} is the tall building over the harbour; most of the quest givers are on its floors or the docks below."] = "",
+	["{object:56910} is the tall building over the harbour; most of the quest givers are on its floors or the docks below."] = "{object:56910} est le grand bâtiment qui domine le port ; la plupart des donneurs de quêtes se trouvent à ses étages ou sur les quais en contrebas.",
 	-- {zone:1417} Arathi Highlands
 	["The ore drops from Drywhisker kobolds in {zone:1417}"] = "Le minerai tombe des kobolds Sèche-moustache des {zone:1417}",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "« Loup de mer » MacKinley, au dernier étage",
 
 	-- Step 50: Into Westfall
 	-- {area:40} Westfall
-	["Into {area:40}"] = "",
+	["Into {area:40}"] = "Vers {area:40}",
 
 	-- Step 52: Fly to Booty Bay
 	-- {area:35} Booty Bay
-	["Fly to {area:35}"] = "",
+	["Fly to {area:35}"] = "Prendre un vol pour {area:35}",
 	-- {area:108} Sentinel Hill
-	["{area:108} flight master"] = "",
+	["{area:108} flight master"] = "Maître de vol de {area:108}",
 
 	-- Step 53: Baron Revilgaz
 	-- {zone:1416} Alterac Mountains
@@ -226,6 +225,7 @@ return {
 	-- ["Fly from {area:150} to {area:1537} and train."] = "Prenez un vol de {area:150} pour {area:1537} et entraînez-vous.",
 	-- ["Fly to {area:42}: {npc:1573} in {area:1537}'s {object:32372}, or {npc:352} in {zone:1453}'s {object:2096}."] = "Prenez un vol pour {area:42} : {npc:1573} dans {object:32372} de {area:1537}, ou {npc:352} dans {object:2096} de {zone:1453}.",
 	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop."] = "Les Réducteurs de tête se tiennent plus loin dans la base ; les Commandos rôdent camouflés autour et dans la grotte. Ramassez les pages des Vertes collines quand elles tombent.",
+	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "Des Réducteurs de têtes se tiennent au fond du camp ; les Commandos rôdent, camouflés, autour et dans la grotte. Ramassez les pages des Vertes collines quand elles tombent.\nAttention : les Commandos de Kurzen sont de niveau 34-35, non élites, et apparaissent souvent camouflés ; près de la mort, ils utilisent {spell:7964}.",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "Prenez la route vers le nord ; {npc:738} s'y tient, le camp se trouve dans les collines à l'ouest.",
 	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "Les trolls Bloodscalp tiennent les ruines sur la côte à l'ouest du camp de Nesingwary.",
 	-- ["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards."] = "Revenez vers le nord ; {area:310} se trouve à l'ouest de la route, au milieu de la jungle. Les Basilics de cristal qui s'y trouvent laissent tomber les éclats.",

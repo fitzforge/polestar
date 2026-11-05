@@ -121,6 +121,8 @@ step Thorium Point
   label q7729
   turnin 7729
   turnin 7728                         -- Taskmaster Scrange
+  turnin 7723                         -- Hansel Heavyhands
+  turnin 7724
 
 step Incendosaur on the way
   along until q7727
@@ -151,8 +153,6 @@ step Level 48.66
 
 step Thorium Point
   label q7727
-  turnin 7723                         -- Hansel Heavyhands
-  turnin 7724
   turnin 7727
   turnin 7722                         -- Master Smith Burninate
 

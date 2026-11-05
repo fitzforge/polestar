@@ -446,6 +446,10 @@ L["The guide trains you in %d steps"] = "Der Guide lässt dich in %d Schritten t
 L["Another race's starting zone"] = "Startgebiet eines anderen Volkes"
 L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = "Das ist das Startgebiet von %s. Polestar führt dich dort nicht: Such dir deinen eigenen Weg nach %s, und der Guide setzt ein, wenn du ankommst."
 L["Your class trainer may be elsewhere (check your capital)."] = "Dein Klassenlehrer ist vielleicht woanders (schau in deiner Hauptstadt nach)."
+L["%s complete — continuing with %s"] = "%s abgeschlossen — weiter mit %s"
+L["You've reached the end of this guide."] = "Du hast das Ende dieses Guides erreicht."
+L["Choose where to go next"] = "Wähle, wo es weitergeht"
+L["Start %s"] = "%s starten"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -854,8 +858,6 @@ L["Turn in guide quests"] = "Guide-Quests abgeben"
 L["Never picks between rewards. Hold Shift to skip."] = "Wählt nie zwischen Belohnungen. Halte Umschalt gedrückt, um es auszulassen."
 L["Skip grey quests"] = "Graue Quests überspringen"
 L["Pick a guide for me"] = "Guide für mich wählen"
-L["Continue to the next guide"] = "Mit dem nächsten Guide weitermachen"
-L["Loads the follow-up guide in the same tab when one finishes."] = "Lädt den Folge-Guide im selben Tab, wenn einer endet."
 L["Where to level next"] = "Wo du als Nächstes levelst"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "Wenn ein Guide mehr als ein Gebiet zum Weitermachen anbietet (/polestar path)."
 L["Let me choose"] = "Ich wähle selbst"
@@ -1095,6 +1097,13 @@ L["A short chime the first time a class quest chain's card shows. Off while the 
 -- L["Run"] = ""
 -- L["Reset this page?"] = ""
 -- L["Every setting on %s goes back to its default."] = ""
+L["When a leveling guide ends"] = "Wenn ein Leveling-Guide endet"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "Frag mich: Ein Fenster sagt, dass der Guide fertig ist, und bietet den nächsten an. Automatisch weitermachen: Der nächste Guide lädt im selben Tab."
+L["Ask me"] = "Frag mich"
+L["Continue automatically"] = "Automatisch weitermachen"
+L["%d KiB"] = "%d KiB"
+L["%.1f MB"] = "%.1f MB"
+L["%d KB"] = "%d KB"
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"
@@ -2033,6 +2042,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "Diesen Plan behalten"
 L["Follow this plan whatever spec gear advice uses."] = "Diesem Plan folgen, egal welche Spezialisierung die Ausrüstungsberatung nutzt."
 L["There is no talent plan for your class yet."] = "Für deine Klasse gibt es noch keinen Talentplan."
+L["Coming soon"] = "Demnächst verfügbar"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "Talentpläne für jede Klasse sind unterwegs. Wir nehmen uns die Zeit, jede Wahl richtig hinzubekommen, bevor Polestar eine vorschlägt."
+L["Gear advice still follows the talents you choose."] = "Die Ausrüstungsberatung richtet sich weiter nach den Talenten, die du wählst."
 
 -- Maps/MinimapButton.lua
 L["Click: show or hide the guide"] = "Klick: Guide ein- oder ausblenden"
@@ -2729,6 +2741,15 @@ L["Show the class quest heads-up again (the next one due, or a quest id)"] = "De
 L["Show me"] = "Zeig es mir"
 L["Summon %s"] = "Beschwöre %s"
 L["%s ready"] = "%s bereit"
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "Du hast %s abgeschlossen"
+L["You've reached the end of %s"] = "Du hast das Ende von %s erreicht"
+L["1 step was left undone."] = "1 Schritt blieb offen."
+L["%d steps were left undone."] = "%d Schritte blieben offen."
+L["Next: %s"] = "Als Nächstes: %s"
+L["Pick a guide"] = "Guide auswählen"
+L["Not now"] = "Nicht jetzt"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

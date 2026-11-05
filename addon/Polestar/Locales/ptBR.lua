@@ -1172,6 +1172,10 @@ L["Recorder window"] = "Janela do gravador"
 -- L["Another race's starting zone"] = ""
 -- L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = ""
 -- L["Your class trainer may be elsewhere (check your capital)."] = ""
+L["%s complete — continuing with %s"] = "%s concluído — continuando com %s"
+L["You've reached the end of this guide."] = "Você chegou ao fim deste guia."
+L["Choose where to go next"] = "Escolher para onde ir"
+L["Start %s"] = "Começar %s"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -1708,8 +1712,6 @@ L["Before you take a quest that closes another for good, says which in chat and 
 L["Skip grey quests"] = "Pular missões cinzas"
 L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Deixa de fora missões cinzas e suas entregas, a não ser que uma missão posterior precise delas antes."
 L["Pick a guide for me"] = "Escolher um guia para mim"
-L["Continue to the next guide"] = "Continuar no próximo guia"
-L["Loads the follow-up guide in the same tab when one finishes."] = "Carrega o guia seguinte na mesma aba quando um termina."
 L["Where to level next"] = "Onde upar depois"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "Quando um guia oferece mais de uma zona para continuar (/polestar path)."
 L["Let me choose"] = "Deixar eu escolher"
@@ -1906,6 +1908,13 @@ L["Position trails, marks and the list of spots to walk, in a small window."] = 
 -- L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = ""
 -- L["Class quest chime"] = ""
 -- L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] = ""
+L["When a leveling guide ends"] = "Quando um guia de evolução termina"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "Perguntar: uma janela avisa que o guia terminou e oferece o próximo. Continuar automaticamente: o próximo guia carrega na mesma aba."
+L["Ask me"] = "Perguntar"
+L["Continue automatically"] = "Continuar automaticamente"
+-- L["%d KiB"] = ""
+-- L["%.1f MB"] = ""
+-- L["%d KB"] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
@@ -2082,6 +2091,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "Manter este plano"
 L["Follow this plan whatever spec gear advice uses."] = "Seguir este plano seja qual for a especialização das dicas de equipamento."
 L["There is no talent plan for your class yet."] = "Ainda não há plano de talentos para sua classe."
+L["Coming soon"] = "Em breve"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "Planos de talentos para todas as classes estão a caminho. Estamos levando o tempo necessário para acertar cada escolha antes que o Polestar sugira uma."
+L["Gear advice still follows the talents you choose."] = "As dicas de equipamento continuam seguindo os talentos que você escolher."
 
 -- Gear/Weights.lua
 L["Arms"] = "Armas"
@@ -2748,6 +2760,15 @@ L["No names here yet."] = "Nenhum nome ainda."
 -- L["Show me"] = ""
 -- L["Summon %s"] = ""
 -- L["%s ready"] = ""
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "Você concluiu %s"
+L["You've reached the end of %s"] = "Você chegou ao fim de %s"
+L["1 step was left undone."] = "1 etapa ficou por fazer."
+L["%d steps were left undone."] = "%d etapas ficaram por fazer."
+L["Next: %s"] = "Próximo: %s"
+L["Pick a guide"] = "Escolher um guia"
+L["Not now"] = "Agora não"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

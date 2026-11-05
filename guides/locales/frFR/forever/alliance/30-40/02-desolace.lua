@@ -18,11 +18,11 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Les satyres Fielfurie tiennent les ruines de {area:603}, à l'est de {area:608}.\nAttention : les Voleurs Fielfurie apparaissent camouflés, et les attaques des Entourloupeurs Fielfurie peuvent empoisonner.",
 
 	-- Step 5: Aged Kodo Hide on the way
 	-- {item:6249} Aged Kodo Hide
-	["{item:6249} on the way"] = "",
+	["{item:6249} on the way"] = "{item:6249} en chemin",
 
 	-- Step 7: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
@@ -31,7 +31,7 @@ return {
 	-- Step 8: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} se cache dans la forteresse de la Lame ardente, au sud-ouest de {area:608}.",
-	["Inside"] = "",
+	["Inside"] = "À l'intérieur",
 
 	-- Step 9: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
@@ -39,15 +39,15 @@ return {
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer
 	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building."] = "Son frère {npc:5643} (36) arpente la forteresse avec les sectateurs de la Lame ardente (30-33) : attirez-le seul. {npc:13019} garde le sceptre dans le bâtiment principal de la forteresse.",
 	-- {item:6767} Tyranis' Pendant
-	["{item:6767}; inside"] = "",
+	["{item:6767}; inside"] = "{item:6767} ; à l'intérieur",
 	-- {quest:5741} Sceptre of Light
-	["{quest:5741}; on the top floor"] = "",
+	["{quest:5741}; on the top floor"] = "{quest:5741} ; au dernier étage",
 
 	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "Escortez {npc:5644}",
 	-- {npc:5644} Dalinda Malem
-	["{npc:5644}, inside"] = "",
+	["{npc:5644}, inside"] = "{npc:5644}, à l'intérieur",
 	["Out of Thunder Axe Fortress"] = "Sortie de la Forteresse de Hache-Tonnerre",
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Faites sortir {npc:5644} de la forteresse ; elle s'en va une fois que vous en êtes sortis. La quête se rend à {npc:5642}, à {area:608}, à la fin du guide.",
@@ -72,21 +72,21 @@ return {
 
 	-- Step 17: Hearth to Nijel's Point
 	-- {area:608} Nijel's Point
-	["Hearth to {area:608}"] = "",
+	["Hearth to {area:608}"] = "Pierre de foyer vers {area:608}",
 
 	-- Step 19: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Prendre un vol pour {area:415}",
 	-- {area:608} Nijel's Point
-	["{area:608} flight master"] = "",
+	["{area:608} flight master"] = "Maître de vol du {area:608}",
 
 	-- Step 20: Delgren the Purifier
 	-- {area:415} Astranaar · {area:413} Maestra's Post
-	["Follow the road west out of {area:415}; {area:413} lies north of it."] = "",
+	["Follow the road west out of {area:415}; {area:413} lies north of it."] = "Suivez la route vers l'ouest en sortant d'{area:415} ; le {area:413} se trouve au nord.",
 
 	-- Step 21: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "",
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "Depuis {area:415}, partez au nord-ouest dans les collines : {quest:1738} est un arbre lumineux au nord de la route du {area:413}. Si vous avez pris {quest:65602}, la {item:190309} se trouve dans une maison parmi les arbres au nord du {area:413} (26.6,22.0). Puis repassez par {area:415} jusqu'au {area:1276}.",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, au nord de {area:413}",
 

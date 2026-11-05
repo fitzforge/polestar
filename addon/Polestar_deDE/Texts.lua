@@ -2420,6 +2420,7 @@ t.guides["forever/horde/02-the-barrens"] = (function() return {
 		["{npc:3442} in {area:392}: later, on the way"] = "{npc:3442} in {area:392}: später, auf dem Weg",
 		["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: Die Konsole ist in {area:382}, später",
 		["{npc:3449}: the harpies come later, in the {area:383}"] = "{npc:3449}: Die Harpyien kommen später, in {area:383}",
+		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} lagert an der Straße nach Osten Richtung {area:392}.",
 		["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} lagert an der Straße von {area:380} nach {area:392}. {object:58369} steht im Süden des Lagers der Grimmhauer gleich nördlich von ihm.",
 		["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "{npc:5900} macht aus dem Teer und dem Beutel {item:6636}. Benutze es am Kohlenbecken neben ihm, um {npc:5893} sichtbar zu machen, töte sie für {item:6655} und leg die Glut dann ins Kohlenbecken.",
 		["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} wartet am Flussufer südlich von {area:379}, jenseits der Brücke.",
@@ -3284,12 +3285,6 @@ t.guides["forever/horde/orc/01-durotar"] = (function() return {
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} lagert auf dem Hügel westlich des Nagastrands, südlich von {quest:827}.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "Das Haupttor von {zone:1454} liegt gleich westlich von {area:817}. {npc:5875} steht in {object:172960}, der Schlucht unter dem {object:172982}.",
 } end)()
-t.guides["forever/horde/orc/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "Folge der Straße nach Südosten nach {area:392} an der Küste.",
-		["Razormane camp"] = "Lager der Grimmhauer",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} lagert an der Straße nach Osten Richtung {area:392}.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, dein {item:5176} und {item:263412}",
-} end)()
 t.guides["forever/horde/skyborne/01-zephras-isle"] = (function() return {
 		["Aanders and the fallen guards are just south-west of the tower. Take Raani's feather and the Shadowsong signet from the bodies."] = "Aanders und die gefallenen Wachen liegen gleich südwestlich des Turms. Nimm Raanis Glücksfeder und das Schattensang-Familiensiegel von den Leichen.",
 		["Back at {quest:92529}: Stormcallers and {npc:251662} fill the village, the Supply Caches stand among the houses and {npc:251966} waits at its south-east end."] = "Zurück in {quest:92529}: Sturmrufer und {npc:251662} füllen das Dorf, die Vorratskisten stehen zwischen den Häusern und {npc:251966} wartet an seinem Südostende.",
@@ -3487,12 +3482,6 @@ t.guides["forever/horde/troll/01-durotar"] = (function() return {
 		["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} lagert auf dem Hügel westlich des Nagastrands, südlich von {quest:827}.",
 		["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "Das Haupttor von {zone:1454} liegt gleich westlich von {area:817}. {npc:5875} steht in {object:172960}, der Schlucht unter dem {object:172982}.",
 } end)()
-t.guides["forever/horde/troll/02-the-barrens"] = (function() return {
-		["Follow the road south-east to {area:392} on the coast."] = "Folge der Straße nach Südosten nach {area:392} an der Küste.",
-		["Razormane camp"] = "Lager der Grimmhauer",
-		["{npc:5878} camps beside the road east toward {area:392}."] = "{npc:5878} lagert an der Straße nach Osten Richtung {area:392}.",
-		["{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}"] = "{npc:5907}: {npc:2523}, dein {item:5176} und {item:263412}",
-} end)()
 t.guides["forever/horde/undead/01-tirisfal-glades"] = (function() return {
 		["Ask {npc:10666} for his report"] = "Bitte {npc:10666} um seinen Bericht",
 		["Ask {npc:1496} for his report"] = "Bitte {npc:1496} um seinen Bericht",
@@ -3623,7 +3612,7 @@ t.guides["forever/miscellaneous/cozy-sleeping-bag"] = (function() return {
 		["Fallen cart"] = "Umgestürzter Karren",
 		["Its twin in the {zone:1413}"] = "Ihr Zwilling in der {zone:1413}",
 		["Its twin in {zone:1436}"] = "Ihr Zwilling in {zone:1436}",
-		["North of Honor's Stand"] = "Nördlich von Honor's Stand",
+		["North of Honor's Stand"] = "Nördlich von Ehrenwacht",
 		["Path into the hills"] = "Pfad in die Hügel",
 		["The dam in {zone:1432}"] = "Der Damm in {zone:1432}",
 		["The figurine is on a ledge just below the top of the {area:146}, on its north face. Step off slowly; walking backwards keeps you from overshooting the ledge."] = "Die Figur liegt auf einem Vorsprung knapp unter der Spitze des {area:146}, an seiner Nordseite. Tritt langsam hinaus; rückwärts zu gehen verhindert, dass du über den Vorsprung hinausschießt.",

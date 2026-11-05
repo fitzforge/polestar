@@ -13,6 +13,7 @@
 --   stub.abandon(q)
 --   stub.unitDied(guid) / stub.partyKill(guid)
 --   stub.serialize(value)      -> Lua source for a SavedVariables round trip
+--   stub.secret()              -> a value issecretvalue() reports as secret
 
 local W = {
 	map = 1429,
@@ -123,7 +124,10 @@ function GetRealZoneText() return W.zone end
 function GetZoneText() return W.zone end
 function GetSubZoneText() return W.subzone end
 function GetBindLocation() return W.bind end
-function issecretvalue() return false end
+-- issecretvalue(v) is true for values made by stub.secret().
+local SECRET = {}
+function stub.secret() return setmetatable({}, SECRET) end
+function issecretvalue(v) return type(v) == "table" and getmetatable(v) == SECRET end
 function UnitSex() return W.player.sex or 2 end
 function GetCurrentRegion() return W.region or 3 end
 function UnitIsGhost(unit) return unit == "player" and W.ghost == true end
@@ -514,6 +518,13 @@ function C_Traits.GetTraitCurrencyForAchievement(currencyID, achievementID)
 	local a = W.achievements and W.achievements.list[achievementID]
 	if currencyID ~= 4225 or not a then return 0 end
 	return a.legacyPoints or 0
+end
+
+C_UnitAuras = {}
+W.auras = {} -- the player's helpful auras: { auraInstanceID, name }
+function C_UnitAuras.GetAuraDataByIndex(unit, i, filter)
+	if unit ~= "player" or filter ~= "HELPFUL" then return nil end
+	return W.auras[i]
 end
 
 C_Spell = {}

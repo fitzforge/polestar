@@ -1268,6 +1268,10 @@ L["Recorder window"] = "Ventana del Recorder"
 -- L["Another race's starting zone"] = ""
 -- L["This is the %s starting zone. Polestar won't guide you there: make your own way to %s, and the guide picks up when you arrive."] = ""
 -- L["Your class trainer may be elsewhere (check your capital)."] = ""
+L["%s complete — continuing with %s"] = "%s completado — continúas con %s"
+L["You've reached the end of this guide."] = "Llegaste al final de esta guía."
+L["Choose where to go next"] = "Elige a dónde ir ahora"
+L["Start %s"] = "Empezar %s"
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -1422,8 +1426,6 @@ L["Skip grey quests"] = "Omitir misiones grises"
 L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] = "Deja fuera las misiones grises y sus entregas, salvo que una misión posterior las necesite antes."
 L["Pick a guide for me"] = "Elegir una guía por mí"
 L["Opens the suggested guide when no tab is open."] = "Abre la guía sugerida cuando no hay ninguna pestaña abierta."
-L["Continue to the next guide"] = "Continuar con la siguiente guía"
-L["Loads the follow-up guide in the same tab when one finishes."] = "Carga la guía siguiente en la misma pestaña cuando una termina."
 L["Where to level next"] = "Siguiente zona"
 L["Where a guide offers more than one zone to continue in (/polestar path)."] = "Cuando una guía ofrece más de una zona para continuar (/polestar path)."
 L["Let me choose"] = "Déjame elegir"
@@ -1632,6 +1634,13 @@ L["Position trails, marks and the list of spots to walk, in a small window."] = 
 -- L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] = ""
 -- L["Class quest chime"] = ""
 -- L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] = ""
+L["When a leveling guide ends"] = "Al terminar una guía para subir de nivel"
+L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."] = "Preguntarme: una ventana avisa que la guía terminó y ofrece la siguiente. Continuar automáticamente: la siguiente guía se carga en la misma pestaña."
+L["Ask me"] = "Preguntarme"
+L["Continue automatically"] = "Continuar automáticamente"
+-- L["%d KiB"] = ""
+-- L["%.1f MB"] = ""
+-- L["%d KB"] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -2106,6 +2115,9 @@ L["Picks from %s (%s), checked against the game's talent tree; notes in Polestar
 L["Keep this plan"] = "Mantener este plan"
 L["Follow this plan whatever spec gear advice uses."] = "Seguir este plan sea cual sea la especialización de los consejos de equipo."
 L["There is no talent plan for your class yet."] = "Aún no hay ningún plan de talentos para tu clase."
+L["Coming soon"] = "Próximamente"
+L["Talent plans for every class are on their way. We're taking the time to get every pick right before Polestar suggests one."] = "Los planes de talentos para todas las clases están en camino. Nos estamos tomando el tiempo de acertar cada elección antes de que Polestar sugiera una."
+L["Gear advice still follows the talents you choose."] = "Los consejos de equipo siguen basándose en los talentos que elijas."
 
 -- Maps/MinimapButton.lua
 L["Click: show or hide the guide"] = "Clic: mostrar u ocultar la guía"
@@ -2747,6 +2759,15 @@ L["No names here yet."] = "Aún no hay nombres."
 -- L["Show me"] = ""
 -- L["Summon %s"] = ""
 -- L["%s ready"] = ""
+
+-- UI/GuideEnd.lua
+L["You've completed %s"] = "Completaste %s"
+L["You've reached the end of %s"] = "Llegaste al final de %s"
+L["1 step was left undone."] = "Quedó 1 paso sin hacer."
+L["%d steps were left undone."] = "Quedaron %d pasos sin hacer."
+L["Next: %s"] = "Siguiente: %s"
+L["Pick a guide"] = "Elegir una guía"
+L["Not now"] = "Ahora no"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

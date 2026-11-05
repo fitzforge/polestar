@@ -4306,12 +4306,172 @@ do
 			next = "forever/horde/03-silverpine-forest",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:14"] = "Durotar", ["area:17"] = "The Barrens", ["area:1703"] = "Mor'shan Rampart", ["area:1898"] = "Dustwind Gulch", ["area:228"] = "Sepulcher", ["area:379"] = "Far Watch Post", ["area:380"] = "The Crossroads", ["area:382"] = "Sludge Fen", ["area:383"] = "Dry Hills", ["area:387"] = "Lushwater Oasis", ["area:388"] = "Stagnant Oasis", ["area:392"] = "Ratchet", ["area:814"] = "Southfury River", ["item:263412"] = "Totem of Charged Flames", ["item:5026"] = "Fire Tar", ["item:5055"] = "Intact Raptor Horn", ["item:5089"] = "Console Key", ["item:5176"] = "Fire Totem", ["item:6636"] = "Fire Sapta", ["item:6652"] = "Reagent Pouch", ["item:6655"] = "Glowing Ember", ["npc:2523"] = "Searing Totem", ["npc:3130"] = "Thunder Lizard", ["npc:3131"] = "Lightning Hide", ["npc:3199"] = "Burning Blade Cultist", ["npc:3242"] = "Zhevra Runner", ["npc:3255"] = "Sunscale Screecher", ["npc:3267"] = "Razormane Water Seeker", ["npc:3278"] = "Witchwing Slayer", ["npc:3279"] = "Witchwing Ambusher", ["npc:3389"] = "Regthar Deathgate", ["npc:3391"] = "Gazlowe", ["npc:3425"] = "Savannah Prowler", ["npc:3438"] = "Kreenig Snarlsnout", ["npc:3439"] = "Wizzlecrank's Shredder", ["npc:3442"] = "Sputtervalve", ["npc:3445"] = "Supervisor Lugwizzle", ["npc:3449"] = "Darsok Swiftdagger", ["npc:3461"] = "Oasis Snapjaw", ["npc:3467"] = "Baron Longshore", ["npc:3471"] = "Tinkerer Sniggles", ["npc:5810"] = "Uzzek", ["npc:5878"] = "Thun'grim Firegaze", ["npc:5893"] = "Minor Manifestation of Fire", ["npc:5900"] = "Telf Joolam", ["npc:5907"] = "Kranal Fiss", ["npc:9316"] = "Wenikee Boltbucket", ["object:172958"] = "Valley of Honor", ["object:3640"] = "Laden Mushroom", ["object:3972"] = "WANTED", ["object:4141"] = "Control Console", ["object:58369"] = "Stolen Iron Chest", ["quest:1492"] = "Wharfmaster Dizzywig", ["quest:1502"] = "Thun'grim Firegaze", ["quest:3301"] = "Mura Runetotem", ["quest:3921"] = "Wenikee Boltbucket", ["quest:3922"] = "Nugget Slugs", ["quest:3923"] = "Rilli Greasygob", ["quest:819"] = "Chen's Empty Keg", ["quest:845"] = "The Zhevra", ["quest:858"] = "Ignition", ["quest:872"] = "The Disruption Ends", ["quest:875"] = "Harpy Lieutenants", ["quest:877"] = "The Stagnant Oasis", ["quest:881"] = "Echeyakee", ["quest:888"] = "Stolen Booty", ["quest:894"] = "Samophlange", ["zone:1420"] = "Tirisfal Glades", ["zone:1421"] = "Silverpine Forest", ["zone:1454"] = "Orgrimmar" },
-			written = { ["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "East to the Mor'shan Rampart; Wenikee stands at the camp just south of it.", ["Fly to {area:380}"] = "Fly to Crossroads", ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.", ["Plainstriders and Sunscale raptors roam the plains all around the {area:380}, thickest to the north.\nCareful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors."] = "Plainstriders and Sunscale raptors roam the plains all around the Crossroads, thickest to the north.\nCareful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors.", ["South to {npc:3389}'s watch post on the Kolkar border."] = "South to Regthar's watch post on the Kolkar border.", ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank.", ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "The pools lie just north of Regthar. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers.", ["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen, east of Wenikee.", ["{area:383}"] = "The Dry Hills", ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "Thun'grim camps beside the road from the Crossroads to Ratchet. The Stolen Iron Chest sits in the south of the Razormane camp just north of him.", ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.", ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "Telf waits on the riverbank south of Far Watch Post, across the bridge." },
+			names = { ["area:14"] = "Durotar", ["area:17"] = "The Barrens", ["area:1703"] = "Mor'shan Rampart", ["area:1898"] = "Dustwind Gulch", ["area:228"] = "Sepulcher", ["area:370"] = "Drygulch Ravine", ["area:379"] = "Far Watch Post", ["area:380"] = "The Crossroads", ["area:382"] = "Sludge Fen", ["area:383"] = "Dry Hills", ["area:387"] = "Lushwater Oasis", ["area:388"] = "Stagnant Oasis", ["area:392"] = "Ratchet", ["area:814"] = "Southfury River", ["item:263412"] = "Totem of Charged Flames", ["item:5026"] = "Fire Tar", ["item:5055"] = "Intact Raptor Horn", ["item:5089"] = "Console Key", ["item:5176"] = "Fire Totem", ["item:6636"] = "Fire Sapta", ["item:6652"] = "Reagent Pouch", ["item:6655"] = "Glowing Ember", ["npc:2523"] = "Searing Totem", ["npc:3130"] = "Thunder Lizard", ["npc:3131"] = "Lightning Hide", ["npc:3199"] = "Burning Blade Cultist", ["npc:3242"] = "Zhevra Runner", ["npc:3255"] = "Sunscale Screecher", ["npc:3267"] = "Razormane Water Seeker", ["npc:3278"] = "Witchwing Slayer", ["npc:3279"] = "Witchwing Ambusher", ["npc:3338"] = "Sergra Darkthorn", ["npc:3389"] = "Regthar Deathgate", ["npc:3391"] = "Gazlowe", ["npc:3425"] = "Savannah Prowler", ["npc:3429"] = "Thork", ["npc:3438"] = "Kreenig Snarlsnout", ["npc:3439"] = "Wizzlecrank's Shredder", ["npc:3442"] = "Sputtervalve", ["npc:3445"] = "Supervisor Lugwizzle", ["npc:3448"] = "Tonga Runetotem", ["npc:3449"] = "Darsok Swiftdagger", ["npc:3461"] = "Oasis Snapjaw", ["npc:3464"] = "Gazrog", ["npc:3467"] = "Baron Longshore", ["npc:3471"] = "Tinkerer Sniggles", ["npc:3489"] = "Zargh", ["npc:5810"] = "Uzzek", ["npc:5878"] = "Thun'grim Firegaze", ["npc:5893"] = "Minor Manifestation of Fire", ["npc:5900"] = "Telf Joolam", ["npc:5907"] = "Kranal Fiss", ["npc:9316"] = "Wenikee Boltbucket", ["object:172958"] = "Valley of Honor", ["object:3640"] = "Laden Mushroom", ["object:3972"] = "WANTED", ["object:4141"] = "Control Console", ["object:58369"] = "Stolen Iron Chest", ["quest:1492"] = "Wharfmaster Dizzywig", ["quest:1502"] = "Thun'grim Firegaze", ["quest:3301"] = "Mura Runetotem", ["quest:3921"] = "Wenikee Boltbucket", ["quest:3922"] = "Nugget Slugs", ["quest:3923"] = "Rilli Greasygob", ["quest:819"] = "Chen's Empty Keg", ["quest:845"] = "The Zhevra", ["quest:858"] = "Ignition", ["quest:872"] = "The Disruption Ends", ["quest:875"] = "Harpy Lieutenants", ["quest:877"] = "The Stagnant Oasis", ["quest:881"] = "Echeyakee", ["quest:888"] = "Stolen Booty", ["quest:894"] = "Samophlange", ["zone:1420"] = "Tirisfal Glades", ["zone:1421"] = "Silverpine Forest", ["zone:1454"] = "Orgrimmar" },
+			written = { ["Back east over the bridge and up the trail to {npc:5900}'s shrine, as at 10. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Back east over the bridge and up the trail to Telf's shrine, as at 10. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.", ["East to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "East to the Mor'shan Rampart; Wenikee stands at the camp just south of it.", ["Fly to {area:380}"] = "Fly to Crossroads", ["Helbrim and {npc:3464} by the north gate.\n{npc:3429} and {npc:3449} on the tower platform."] = "Helbrim and Gazrog by the north gate.\nThork and Darsok on the tower platform.", ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.", ["Plainstriders and Sunscale raptors roam the plains all around the {area:380}, thickest to the north.\nCareful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors."] = "Plainstriders and Sunscale raptors roam the plains all around the Crossroads, thickest to the north.\nCareful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors.", ["South to {npc:3389}'s watch post on the Kolkar border."] = "South to Regthar's watch post on the Kolkar border.", ["South-east of the {area:380}. Test the seeds at the bubbling fissure on the oasis' east bank."] = "South-east of the Crossroads. Test the seeds at the bubbling fissure on the oasis' east bank.", ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers."] = "The pools lie just north of Regthar. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers.", ["The tool buckets with the slugs lie around the Venture Co. drill site in the {area:382}, east of {npc:9316}."] = "The tool buckets with the slugs lie around the Venture Co. drill site in the Sludge Fen, east of Wenikee.", ["Water Seekers, Thornweavers and Hunters hold the camp east of the {area:380}. The supply crates sit at its eastern end. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "Water Seekers, Thornweavers and Hunters hold the camp east of the Crossroads. The supply crates sit at its eastern end. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.", ["You arrive from {area:379}. {npc:3338} stands by the inn; {npc:3448} at the south gate."] = "You arrive from Far Watch Post. Sergra stands by the inn; Tonga at the south gate.", ["{area:383}"] = "The Dry Hills", ["{npc:5878} camps beside the road east toward {area:392}."] = "Thun'grim camps beside the road east toward Ratchet.", ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "Thun'grim camps beside the road from the Crossroads to Ratchet. The Stolen Iron Chest sits in the south of the Razormane camp just north of him.", ["{npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.", ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "Telf waits on the riverbank south of Far Watch Post, across the bridge." },
 			steps = {
+				{
+					title = "{npc:3489}",
+					note = "You arrive from {area:379}. {npc:3338} stands by the inn; {npc:3448} at the south gate.",
+					only = { races = { "Orc" } },
+					goals = {
+						{ t = "accept", quest = 6365, title = "Meats to Orgrimmar", npc = 3489, npcName = "Zargh", minLevel = 10, qlvl = 10, map = 1413, x = 52.62, y = 29.84, z = 97.7, f = "e" },
+						{ t = "turnin", quest = 6365, title = "Meats to Orgrimmar", npc = 3615, npcName = "Devrak", map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
+						{ t = "getfp", npc = 3615, npcName = "Devrak", location = "Crossroads", node = 25, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
+					},
+				},
+				{
+					title = "{area:17}",
+					only = { races = { "Troll" } },
+					goals = {
+						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 52.2, y = 31, f = "e" },
+					},
+				},
+				{
+					title = "{area:380}",
+					note = "Helbrim and {npc:3464} by the north gate.\n{npc:3429} and {npc:3449} on the tower platform.",
+					only = { races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "turnin", quest = 842, title = "Crossroads Conscription", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e", only = { races = { "Orc" } } },
+						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
+						{ t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", minLevel = 9, qlvl = 13, map = 1413, x = 51.93, y = 30.32, z = 96.4, f = "e" },
+						{ t = "accept", quest = 1492, title = "Wharfmaster Dizzywig", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 9, qlvl = 11, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
+						{ t = "accept", quest = 848, title = "Fungal Spores", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 10, qlvl = 15, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
+						{ t = "accept", quest = 6384, title = "Ride to Orgrimmar", npc = 3615, npcName = "Devrak", minLevel = 10, qlvl = 10, pre = { 6365 }, preTitles = { [6365] = "Meats to Orgrimmar" }, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e", only = { races = { "Orc" } } },
+						{ t = "accept", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 14, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
+						{ t = "accept", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 12, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
+						{ t = "accept", quest = 867, title = "Harpy Raiders", npc = 3449, npcName = "Darsok Swiftdagger", minLevel = 12, qlvl = 15, map = 1413, x = 51.62, y = 30.9, z = 127.9, f = "e", note = "{npc:3449}: the harpies come later, in the {area:383}" },
+					},
+				},
+				{
+					title = "On the way",
+					only = { races = { "Orc", "Troll" } },
+					along = "crossroads",
+					goals = {
+						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Water Seeker", npc = 3267, count = 8, oi = 1, map = 1413, x = 53.97, y = 26.06, z = 95.1, f = "e", spotsPacked = "54.2,25.5,91.8,45,5;53.5,25.1,,46,3;55.4,26.9,91.8,48,5;55.5,25.8,91.8,15,1,1" },
+						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Thornweaver", npc = 3268, count = 8, oi = 2, map = 1413, x = 54.06, y = 25.52, z = 92.4, f = "e", spotsPacked = "54.5,25.2,91.9,54,6;55.1,26.9,,41,3;55.7,26.6,91.8,31,3" },
+						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Hunter", npc = 3265, count = 3, oi = 3, map = 1413, x = 53.76, y = 25.29, z = 92, f = "e", spotsPacked = "53.8,25.3,92,50,1;55.2,25.8,,59,3;57.9,24.1,,50,3;59.4,23.9,85.4,50,1;59.2,26.5,93.2,50,1", spread = true },
+					},
+				},
+				{
+					title = "{quest:1502}",
+					note = "{npc:5878} camps beside the road east toward {area:392}.",
+					only = { classes = { "WARRIOR" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "turnin", quest = 1502, title = "Thun'grim Firegaze", npc = 5878, npcName = "Thun'grim Firegaze", map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
+						{ t = "accept", quest = 1503, title = "Forged Steel", npc = 5878, npcName = "Thun'grim Firegaze", minLevel = 10, qlvl = 10, pre = { 1502 }, preTitles = { [1502] = "Thun'grim Firegaze" }, map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
+					},
+				},
+				{
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					when = { { k = "onquest", q = { 1522 } } },
+					goals = {
+						{ t = "turnin", quest = 1522, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
+					},
+				},
+				{
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					when = { { k = "onquest", q = { 1523 } } },
+					goals = {
+						{ t = "turnin", quest = 1523, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
+					},
+				},
+				{
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					when = { { k = "onquest", q = { 2984 } } },
+					goals = {
+						{ t = "turnin", quest = 2984, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
+					},
+				},
+				{
+					title = "{npc:5907}",
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "accept", quest = 1524, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", minLevel = 10, qlvl = 11, map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
+					},
+				},
+				{
+					title = "{npc:5900}",
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "turnin", quest = 1524, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
+						{ t = "accept", quest = 1525, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", minLevel = 10, qlvl = 12, pre = { 1524 }, preTitles = { [1524] = "Call of Fire" }, map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
+					},
+				},
+				{
+					title = "{area:370}",
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "collect", quest = 1525, title = "Call of Fire", item = 6652, itemName = "Reagent Pouch", count = 1, oi = 2, map = 1411, x = 52.41, y = 26.8, f = "e", spotsPacked = "52.4,25.5,,46,7", only = { classes = { "SHAMAN" } }, from = "Burning Blade Cultist", fromKind = "npc", fromId = 3199, fromNpcs = { { npc = 3199, npcName = "Burning Blade Cultist" } } },
+					},
+				},
+				{
+					title = "Razormane camp",
+					note = "Water Seekers, Thornweavers and Hunters hold the camp east of the {area:380}. The supply crates sit at its eastern end. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.",
+					only = { classes = { "WARRIOR", "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "collect", quest = 1503, title = "Forged Steel", item = 6534, itemName = "Forged Steel Bars", count = 1, oi = 1, map = 1413, x = 55.05, y = 26.65, f = "e", only = { classes = { "WARRIOR" } }, from = "Stolen Iron Chest", fromKind = "object", fromId = 58369 },
+						{ t = "collect", quest = 1525, title = "Call of Fire", item = 5026, itemName = "Fire Tar", count = 1, oi = 1, map = 1413, x = 55.11, y = 26.59, f = "e", spotsPacked = "55.4,26.8,,72,11;55.3,25.5,,40,2;54.4,25.3,,49,8;53.9,25.7,,40,3;53.4,24.8,,40,2;57,25.3,,52,3;57.1,24.4,,40,3;59.1,24.4,,45,6;58.5,26.7,,43,4", spread = true, only = { classes = { "SHAMAN" } }, from = "Razormane Water Seeker", fromKind = "npc", fromAlso = "Razormane Thornweaver", fromId = 3267, fromAlsoId = 3268, fromNpcs = { { npc = 3268, npcName = "Razormane Thornweaver" }, { npc = 3267, npcName = "Razormane Water Seeker" }, { npc = 3269, npcName = "Razormane Geomancer" }, { npc = 3271, npcName = "Razormane Mystic" } } },
+					},
+				},
+				{
+					title = "{area:14}",
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "goto", text = "{area:14}", area = 14, map = 1411, x = 38.5, y = 59, f = "e" },
+					},
+				},
+				{
+					title = "{npc:5900}",
+					note = "Back east over the bridge and up the trail to {npc:5900}'s shrine, as at 10. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier.",
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "turnin", quest = 1525, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
+						{ t = "accept", quest = 1526, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", minLevel = 10, qlvl = 13, pre = { 1525 }, preTitles = { [1525] = "Call of Fire" }, map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
+						{ t = "collect", quest = 1526, title = "Call of Fire", item = 6655, itemName = "Glowing Ember", count = 1, oi = 1, map = 1411, x = 38.72, y = 58.29, f = "e", from = "Minor Manifestation of Fire", fromKind = "npc", fromId = 5893, fromNpcs = { { npc = 5893, npcName = "Minor Manifestation of Fire" } } },
+						{ t = "turnin", quest = 1526, title = "Call of Fire", object = 61934, objName = "Brazier of the Dormant Flame", map = 1411, x = 38.96, y = 58.22, z = 187.3, f = "e" },
+						{ t = "accept", quest = 1527, title = "Call of Fire", object = 61934, objName = "Brazier of the Dormant Flame", minLevel = 10, qlvl = 13, pre = { 1526 }, preTitles = { [1526] = "Call of Fire" }, map = 1411, x = 38.96, y = 58.22, z = 187.3, f = "e" },
+					},
+				},
+				{
+					title = "{npc:5907}",
+					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "turnin", quest = 1527, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e", note = "{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}", rewards = { items = { { item = 5176, itemName = "Fire Totem" }, { item = 263412, itemName = "Totem of Charged Flames" } } } },
+					},
+				},
+				{
+					title = "{npc:5878}",
+					only = { classes = { "WARRIOR" }, races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "turnin", quest = 1503, title = "Forged Steel", npc = 5878, npcName = "Thun'grim Firegaze", map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
+					},
+				},
+				{
+					title = "{area:17}",
+					only = { races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 63.1, y = 37.1, f = "e" },
+					},
+				},
+				{
+					title = "{area:392}",
+					note = "Follow the road south-east to {area:392} on the coast.",
+					only = { races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "getfp", npc = 16227, npcName = "Bragok", location = "Ratchet", node = 80, area = 392, map = 1413, x = 63.08, y = 37.16, z = 11.8, f = "e" },
+					},
+				},
+				{
+					title = "{area:17}",
+					only = { races = { "Orc", "Troll" } },
+					goals = {
+						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 51.6, y = 30.9, f = "e" },
+					},
+				},
 				{
 					title = "{area:380}",
 					note = "{area:380} is your base for this guide. Everyone you need stands within a few steps of the inn.",
+					label = "crossroads",
 					goals = {
 						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
 						{ t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", minLevel = 9, qlvl = 13, map = 1413, x = 51.93, y = 30.32, z = 96.4, f = "e" },
@@ -4558,7 +4718,6 @@ do
 					title = "{area:380}",
 					goals = {
 						{ t = "turnin", quest = 903, title = "Prowlers of the Barrens", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
-						{ t = "turnin", quest = 842, title = "Crossroads Conscription", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e", only = { races = { "Orc", "Troll" } } },
 						{ t = "accept", quest = 881, title = "Echeyakee", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 16, pre = { 903 }, preTitles = { [903] = "Prowlers of the Barrens" }, map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
 						{ t = "turnin", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
 						{ t = "turnin", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
@@ -4850,7 +5009,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/horde/03-silverpine-forest",
 			pack = "guides",
-			title = "{area:130} & {zone:1454}",
+			title = "{area:130}",
 			faction = "Horde",
 			minLevel = 16,
 			maxLevel = 19,
@@ -4939,7 +5098,6 @@ do
 						{ t = "accept", quest = 477, title = "Border Crossings", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 10, qlvl = 14, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e" },
 						{ t = "accept", quest = 421, title = "Prove Your Worth", npc = 1938, npcName = "Dalar Dawnweaver", minLevel = 12, qlvl = 10, map = 1421, x = 44.2, y = 39.81, z = 130.1, f = "e" },
 						{ t = "accept", quest = 95981, title = "Watching the Roads", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 10, qlvl = 20, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e" },
-						{ t = "accept", quest = 516, title = "Beren's Peril", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 16, qlvl = 21, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e", note = "{npc:2121}: {quest:516}, on the south loop" },
 						{ t = "accept", quest = 428, title = "Lost Deathstalkers", npc = 1952, npcName = "High Executor Hadrec", minLevel = 10, qlvl = 12, closedBy = { 429 }, preTitles = { [429] = "Wild Hearts" }, map = 1421, x = 43.42, y = 40.86, z = 105, f = "e", note = "{npc:1952}, below ground" },
 						{ t = "accept", quest = 437, title = "The Dead Fields", npc = 1952, npcName = "High Executor Hadrec", minLevel = 10, qlvl = 14, map = 1421, x = 43.42, y = 40.86, z = 105, f = "e" },
 						{ t = "sethome", npc = 6739, npcName = "Innkeeper Bates", location = "The Sepulcher", area = 228, map = 1421, x = 43.18, y = 41.28, z = 126, f = "e" },
@@ -5205,6 +5363,7 @@ do
 						{ t = "turnin", quest = 91920, title = "Wild Eyes", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
 						{ t = "turnin", quest = 443, title = "Rot Hide Ichor", npc = 1937, npcName = "Apothecary Renferrel", map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e" },
 						{ t = "accept", quest = 91921, title = "Return to Quinn (Again)", npc = 1937, npcName = "Apothecary Renferrel", minLevel = 10, qlvl = 11, pre = { 91920 }, preTitles = { [91920] = "Wild Eyes" }, map = 1421, x = 42.8, y = 40.86, z = 125.8, f = "e", note = "{npc:1937}: for Quinn, on the road north at the end" },
+						{ t = "accept", quest = 516, title = "Beren's Peril", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 16, qlvl = 21, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e", note = "{npc:2121}: {quest:516}, on the south loop" },
 					},
 				},
 				{
@@ -6963,7 +7122,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/horde/06-hillsbrad-foothills",
 			pack = "guides",
-			title = "{area:267}, {zone:1458} & {area:17}",
+			title = "{area:267} & {area:17}",
 			faction = "Horde",
 			minLevel = 25,
 			maxLevel = 27,
@@ -9319,7 +9478,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/horde/30-40/03-arathi-highlands",
 			pack = "guides",
-			title = "{area:45}, {zone:1418} & {zone:1413}",
+			title = "{area:45} & {zone:1418}",
 			faction = "Horde",
 			minLevel = 36,
 			maxLevel = 38,
@@ -9329,7 +9488,7 @@ do
 			next = "forever/horde/30-40/04-dustwallow-marsh",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:150"] = "Menethil Harbor", ["area:1517"] = "Uldaman", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1857"] = "Thoradin's Wall", ["area:1877"] = "Valley of Fangs", ["area:1878"] = "The Dustbowl", ["area:272"] = "Tarren Mill", ["area:313"] = "Northfold Manor", ["area:316"] = "Boulderfist Hall", ["area:317"] = "Witherbark Village", ["area:318"] = "Drywhisker Gorge", ["area:321"] = "Hammerfall", ["area:327"] = "Faldir's Cove", ["area:328"] = "The Drowned Reef", ["area:334"] = "Circle of West Binding", ["area:340"] = "Kargath", ["area:345"] = "Agmond's End", ["area:35"] = "Booty Bay", ["area:380"] = "Crossroads", ["area:386"] = "Forgotten Pools", ["area:439"] = "Shimmering Flats", ["area:45"] = "Arathi Highlands", ["area:75"] = "Stonard", ["area:880"] = "Thandol Span", ["item:2868"] = "Patterned Bronze Bracers", ["item:3713"] = "Soothing Spices", ["item:4495"] = "Bloodstone Amulet", ["item:7848"] = "Rock Elemental Shard", ["npc:11798"] = "Bunthen Plainswind", ["npc:246344"] = "Alodan the Hopeful", ["npc:2487"] = "Fleet Master Seahorn", ["npc:2559"] = "Highland Strider", ["npc:2561"] = "Highland Fleshstalker", ["npc:2562"] = "Boulderfist Ogre", ["npc:2566"] = "Boulderfist Brute", ["npc:2595"] = "Daggerspine Raider", ["npc:260093"] = "Garen Largo", ["npc:2729"] = "Elder Crag Coyote", ["npc:2735"] = "Lesser Rock Elemental", ["npc:2736"] = "Greater Rock Elemental", ["npc:2760"] = "Burning Exile", ["npc:2761"] = "Cresting Exile", ["npc:2762"] = "Thundering Exile", ["npc:2766"] = "Lolo the Lookout", ["npc:2768"] = "Professor Phizzlethorpe", ["npc:2771"] = "Drum Fel", ["npc:2774"] = "Doctor Draxlegauge", ["npc:2831"] = "Giant Buzzard", ["npc:2851"] = "Urda", ["npc:2920"] = "Lucien Tosselwrench", ["npc:2921"] = "Lotwil Veriatus", ["npc:3033"] = "Turak Runetotem", ["npc:3354"] = "Sorek", ["npc:3389"] = "Regthar Deathgate", ["npc:6868"] = "Jarkal Mossmeld", ["npc:92"] = "Rock Elemental", ["object:126260"] = "Ancient Chest", ["object:138492"] = "Shards of Myzrael", ["object:1661"] = "The Undercity", ["object:172958"] = "Valley of Honor", ["object:180105"] = "Circle of Binding", ["object:2690"] = "Stone of Outer Binding", ["object:2691"] = "Stone of East Binding", ["object:2701"] = "Iridescent Shards", ["object:2702"] = "Stone of Inner Binding", ["object:3202"] = "Grom'gol", ["object:36070"] = "War Quarter", ["object:36073"] = "Rogues' Quarter", ["object:36082"] = "Magic Quarter", ["quest:1106"] = "Martek the Exiled", ["quest:1361"] = "Regthar Deathgate", ["quest:678"] = "Call to Arms", ["skill:164"] = "Blacksmithing", ["spell:18960"] = "Teleport: Moonglade", ["zone:1413"] = "The Barrens", ["zone:1418"] = "Badlands", ["zone:1432"] = "Loch Modan", ["zone:1437"] = "Wetlands", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity" },
+			names = { ["area:150"] = "Menethil Harbor", ["area:1517"] = "Uldaman", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1857"] = "Thoradin's Wall", ["area:1877"] = "Valley of Fangs", ["area:1878"] = "The Dustbowl", ["area:272"] = "Tarren Mill", ["area:313"] = "Northfold Manor", ["area:316"] = "Boulderfist Hall", ["area:317"] = "Witherbark Village", ["area:318"] = "Drywhisker Gorge", ["area:321"] = "Hammerfall", ["area:327"] = "Faldir's Cove", ["area:328"] = "The Drowned Reef", ["area:334"] = "Circle of West Binding", ["area:340"] = "Kargath", ["area:345"] = "Agmond's End", ["area:35"] = "Booty Bay", ["area:380"] = "Crossroads", ["area:386"] = "Forgotten Pools", ["area:439"] = "Shimmering Flats", ["area:45"] = "Arathi Highlands", ["area:75"] = "Stonard", ["area:880"] = "Thandol Span", ["item:2868"] = "Patterned Bronze Bracers", ["item:3713"] = "Soothing Spices", ["item:4495"] = "Bloodstone Amulet", ["item:7848"] = "Rock Elemental Shard", ["npc:11798"] = "Bunthen Plainswind", ["npc:246344"] = "Alodan the Hopeful", ["npc:2487"] = "Fleet Master Seahorn", ["npc:2559"] = "Highland Strider", ["npc:2561"] = "Highland Fleshstalker", ["npc:2562"] = "Boulderfist Ogre", ["npc:2566"] = "Boulderfist Brute", ["npc:2595"] = "Daggerspine Raider", ["npc:260093"] = "Garen Largo", ["npc:2729"] = "Elder Crag Coyote", ["npc:2735"] = "Lesser Rock Elemental", ["npc:2736"] = "Greater Rock Elemental", ["npc:2760"] = "Burning Exile", ["npc:2761"] = "Cresting Exile", ["npc:2762"] = "Thundering Exile", ["npc:2766"] = "Lolo the Lookout", ["npc:2768"] = "Professor Phizzlethorpe", ["npc:2771"] = "Drum Fel", ["npc:2774"] = "Doctor Draxlegauge", ["npc:2831"] = "Giant Buzzard", ["npc:2851"] = "Urda", ["npc:2920"] = "Lucien Tosselwrench", ["npc:2921"] = "Lotwil Veriatus", ["npc:3033"] = "Turak Runetotem", ["npc:3354"] = "Sorek", ["npc:3389"] = "Regthar Deathgate", ["npc:6868"] = "Jarkal Mossmeld", ["npc:92"] = "Rock Elemental", ["object:126260"] = "Ancient Chest", ["object:138492"] = "Shards of Myzrael", ["object:1661"] = "The Undercity", ["object:172958"] = "Valley of Honor", ["object:180105"] = "Circle of Binding", ["object:2690"] = "Stone of Outer Binding", ["object:2691"] = "Stone of East Binding", ["object:2701"] = "Iridescent Shards", ["object:2702"] = "Stone of Inner Binding", ["object:3202"] = "Grom'gol", ["object:36070"] = "War Quarter", ["object:36073"] = "Rogues' Quarter", ["object:36082"] = "Magic Quarter", ["quest:1106"] = "Martek the Exiled", ["quest:1361"] = "Regthar Deathgate", ["quest:678"] = "Call to Arms", ["skill:164"] = "Blacksmithing", ["spell:18960"] = "Teleport: Moonglade", ["zone:1418"] = "Badlands", ["zone:1432"] = "Loch Modan", ["zone:1437"] = "Wetlands", ["zone:1454"] = "Orgrimmar", ["zone:1458"] = "Undercity" },
 			written = { ["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "Every rock elemental in the Badlands drops Jarkal's shards: the Lesser Rock Elementals (37) on the flats west of Lotwil's camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop Lotwil's bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way.", ["Head north up the road from the {area:380} to the {area:386}; {npc:3389} keeps watch on the rise above the water."] = "Head north up the road from the Crossroads to the Forgotten Pools; Regthar keeps watch on the rise above the water.", ["Head west along the road; {npc:2921}'s camp sits in the {area:1878} halfway to {area:340}."] = "Head west along the road; Lotwil's camp sits in the Dustbowl halfway to Kargath.", ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; only the buzzards drop wings and gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "The Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; only the buzzards drop wings and gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the Dustbowl; each one drops a slab.", ["The small elementals drift across the flats just west of {npc:2921}'s camp. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards: keep them."] = "The small elementals drift across the flats just west of Lotwil's camp. Every rock elemental in the zone can drop Jarkal's Rock Elemental Shards: keep them." },
 			steps = {
 				{
@@ -11997,6 +12156,12 @@ do
 					},
 				},
 				{
+					title = "{npc:7771}",
+					goals = {
+						{ t = "turnin", quest = 3161, title = "Gahz'ridian", npc = 7771, npcName = "Marvon Rivetseeker", map = 1446, x = 52.71, y = 45.92, z = 17.8, f = "e" },
+					},
+				},
+				{
 					title = "Scrimshank's gear",
 					note = "Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.",
 					goals = {
@@ -13070,7 +13235,6 @@ do
 					title = "{npc:7771}",
 					note = "South down the road again.\nRide south along the road to the {area:1938}; {npc:7771} camps beside it. From here the road west leads down into {zone:1449}, where the next guide starts.",
 					goals = {
-						{ t = "turnin", quest = 3161, title = "Gahz'ridian", npc = 7771, npcName = "Marvon Rivetseeker", map = 1446, x = 52.71, y = 45.92, z = 17.8, f = "e" },
 						{ t = "turnin", quest = 3380, title = "The Sunken Temple", npc = 7771, npcName = "Marvon Rivetseeker", map = 1446, x = 52.71, y = 45.92, z = 17.8, f = "e" },
 						{ t = "accept", quest = 3444, title = "The Stone Circle", npc = 7771, npcName = "Marvon Rivetseeker", minLevel = 46, qlvl = 51, pre = { 3380, 3445 }, preTitles = { [3380] = "The Sunken Temple", [3445] = "The Sunken Temple" }, map = 1446, x = 52.71, y = 45.92, z = 17.8, f = "e" },
 						{ t = "note", text = "Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit." },
@@ -14206,7 +14370,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/horde/50-60/03-winterspring",
 			pack = "guides",
-			title = "{area:618} & {zone:1444}",
+			title = "{area:618}",
 			faction = "Horde",
 			minLevel = 55,
 			maxLevel = 56,
@@ -14539,7 +14703,7 @@ do
 		Polestar.RegisterGuide({
 			id = "forever/horde/50-60/04-azshara",
 			pack = "guides",
-			title = "{zone:1447}, {zone:1413} & {zone:1458}",
+			title = "{zone:1447} & {zone:1413}",
 			faction = "Horde",
 			minLevel = 56,
 			maxLevel = 56,
@@ -14819,6 +14983,7 @@ do
 						{ t = "note", text = "{quest:5168}'s items lie in the later Plaguelands zones: keep it." },
 						{ t = "sethome", npc = 16256, npcName = "Jessica Chambers", location = "Light's Hope Chapel", area = 2268, map = 1423, x = 71.8, y = 48.52, z = 90.9 },
 						{ t = "accept", quest = 5281, title = "The Restless Souls", npc = 11038, npcName = "Caretaker Alen", minLevel = 55, qlvl = 60, map = 1423, x = 69.93, y = 53.72, z = 95.9 },
+						{ t = "turnin", quest = 6030, title = "Duke Nicholas Zverenhoff", npc = 11039, npcName = "Duke Nicholas Zverenhoff", map = 1423, x = 71.63, y = 50.09, z = 86.3 },
 					},
 				},
 				{
@@ -14948,13 +15113,6 @@ do
 					title = "{npc:11063}",
 					goals = {
 						{ t = "turnin", quest = 5181, title = "Villains of Darrowshire", npc = 11063, npcName = "Carlin Redpath", map = 1423, x = 71.7, y = 50.04, z = 86.8 },
-					},
-				},
-				{
-					title = "{area:2268}",
-					note = "Ride east across the plaguelands to the chapel.",
-					goals = {
-						{ t = "turnin", quest = 6030, title = "Duke Nicholas Zverenhoff", npc = 11039, npcName = "Duke Nicholas Zverenhoff", map = 1423, x = 71.63, y = 50.09, z = 86.3 },
 					},
 				},
 				{
@@ -15642,6 +15800,12 @@ do
 					},
 				},
 				{
+					title = "{npc:10667}",
+					goals = {
+						{ t = "turnin", quest = 4971, title = "A Matter of Time", npc = 10667, npcName = "Chromie", map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e", note = "Upstairs" },
+					},
+				},
+				{
 					title = "{area:85}",
 					goals = {
 						{ t = "goto", text = "{area:85}", area = 85, map = 1420, x = 83, y = 71.9, f = "e" },
@@ -15790,7 +15954,6 @@ do
 					title = "{npc:10667}",
 					note = "Ride south-west to {npc:10667} in Andorhal.",
 					goals = {
-						{ t = "turnin", quest = 4971, title = "A Matter of Time", npc = 10667, npcName = "Chromie", map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e", note = "Upstairs" },
 						{ t = "accept", quest = 4972, title = "Counting Out Time", npc = 10667, npcName = "Chromie", minLevel = 53, qlvl = 56, pre = { 4971 }, preTitles = { [4971] = "A Matter of Time" }, map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e" },
 						{ t = "turnin", quest = 5941, title = "Return to Chromie", npc = 10667, npcName = "Chromie", map = 1422, x = 39.46, y = 66.76, z = 68.6, f = "e" },
 						{ t = "note", text = "{npc:10667}'s Battle of Darrowshire ends against elites. Skip it." },
@@ -16296,7 +16459,7 @@ do
 			category = "Leveling",
 			zone = 1411,
 			zoneName = "Durotar",
-			next = "forever/horde/orc/02-the-barrens",
+			next = "forever/horde/02-the-barrens",
 			author = "Polestar",
 			version = 1,
 			names = { ["area:14"] = "Durotar", ["area:1637"] = "Orgrimmar", ["area:17"] = "The Barrens", ["area:362"] = "Razor Hill", ["area:363"] = "Valley of Trials", ["area:364"] = "The Den", ["area:365"] = "Burning Blade Coven", ["area:366"] = "Kolkar Crag", ["area:367"] = "Sen'jin Village", ["area:368"] = "Echo Isles", ["area:369"] = "Thunder Ridge", ["area:370"] = "Drygulch Ravine", ["area:371"] = "Dustwind Cave", ["area:372"] = "Tiragarde Keep", ["area:373"] = "Scuttle Coast", ["area:379"] = "Far Watch Post", ["area:639"] = "Spirit Rock", ["area:814"] = "Southfury River", ["area:816"] = "Razormane Grounds", ["area:817"] = "Skull Rock", ["item:11583"] = "Cactus Apple", ["item:15908"] = "Taming Rod", ["item:16114"] = "Foreman's Blackjack", ["item:275724"] = "Hexed Pendant", ["item:277661"] = "Dull Storm Orb", ["item:4862"] = "Scorpid Worker Tail", ["item:4870"] = "Canvas Scraps", ["item:4871"] = "Searing Collar", ["item:4881"] = "Aged Envelope", ["item:4890"] = "Taillasher Egg", ["item:4891"] = "Kron's Amulet", ["item:4892"] = "Durotar Tiger Fur", ["item:4903"] = "Eye of Burning Shadow", ["item:5175"] = "Earth Totem", ["item:6486"] = "Singed Scale", ["item:6535"] = "Tablet of Verga", ["item:6635"] = "Earth Sapta", ["item:6652"] = "Reagent Pouch", ["item:6656"] = "Rough Quartz", ["item:7464"] = "Glyphs of Summoning", ["npc:10176"] = "Kaltunk", ["npc:11378"] = "Foreman Thazz'ril", ["npc:246344"] = "Alodan the Hopeful", ["npc:265809"] = "Brakk", ["npc:266849"] = "Ridgeshade Lurker", ["npc:266850"] = "Ridgeshade Creeper", ["npc:266881"] = "Pa'zula", ["npc:266940"] = "Turroc", ["npc:2704"] = "Hanashi", ["npc:275657"] = "Heglan Shadeeye", ["npc:275662"] = "Spitelash Scout", ["npc:275666"] = "Aggor the Young", ["npc:275811"] = "Pal'juh", ["npc:3034"] = "Sheal Runetotem", ["npc:3098"] = "Mottled Boar", ["npc:3099"] = "Dire Mottled Boar", ["npc:3102"] = "Felstalker", ["npc:3107"] = "Surf Crawler", ["npc:3111"] = "Razormane Quilboar", ["npc:3118"] = "Dustwind Storm Witch", ["npc:3121"] = "Durotar Tiger", ["npc:3124"] = "Scorpid Worker", ["npc:3126"] = "Armored Scorpid", ["npc:3130"] = "Thunder Lizard", ["npc:3131"] = "Lightning Hide", ["npc:3142"] = "Orgnil Soulscar", ["npc:3143"] = "Gornek", ["npc:3147"] = "Furl Scornbrow", ["npc:3153"] = "Frang", ["npc:3154"] = "Jen'shan", ["npc:3155"] = "Rwag", ["npc:3156"] = "Nartok", ["npc:3157"] = "Shikrik", ["npc:3159"] = "Kzan Thornslash", ["npc:3169"] = "Tarshaw Jaggedscar", ["npc:3171"] = "Thotar", ["npc:3183"] = "Yarrog Baneshadow", ["npc:3191"] = "Cook Torka", ["npc:3192"] = "Lieutenant Benedict", ["npc:3193"] = "Misha Tor'kren", ["npc:3199"] = "Burning Blade Cultist", ["npc:3204"] = "Gazz'uz", ["npc:3206"] = "Voodoo Troll", ["npc:3207"] = "Hexed Troll", ["npc:3208"] = "Margoz", ["npc:3287"] = "Hana'zua", ["npc:3293"] = "Rezlak", ["npc:3294"] = "Ophek", ["npc:3352"] = "Ormak Grimshot", ["npc:5810"] = "Uzzek", ["npc:5873"] = "Stoneskin Totem", ["npc:5875"] = "Gan'rul Bloodeye", ["npc:5880"] = "Un'Thuwa", ["npc:5884"] = "Mai'ah", ["npc:5887"] = "Canaga Earthcaller", ["npc:5891"] = "Minor Manifestation of Earth", ["npc:5907"] = "Kranal Fiss", ["npc:6491"] = "Spirit Healer", ["npc:6786"] = "Ukor", ["npc:6928"] = "Innkeeper Grosk", ["npc:9796"] = "Galgar", ["object:172958"] = "Valley of Honor", ["object:172960"] = "Cleft of Shadow", ["object:172982"] = "Valley of Strength", ["object:58595"] = "Burning Blade Stash", ["object:654925"] = "Lost Journal", ["quest:1504"] = "The Binding", ["quest:1517"] = "Call of Earth", ["quest:2383"] = "Simple Parchment", ["quest:3087"] = "Etched Parchment", ["quest:3088"] = "Encrypted Parchment", ["quest:3089"] = "Rune-Inscribed Parchment", ["quest:3090"] = "Tainted Parchment", ["quest:5441"] = "Lazy Peons", ["quest:6394"] = "Thazz'ril's Pick", ["quest:790"] = "Sarkoth", ["quest:792"] = "Vile Familiars", ["quest:826"] = "Zalazane", ["quest:827"] = "Skull Rock", ["quest:828"] = "Margoz", ["quest:840"] = "Conscript of the Horde", ["quest:98576"] = "Glyphic Parchment", ["spell:1229451"] = "Boosted Rest", ["spell:1515"] = "Tame Beast", ["spell:19681"] = "Tame Dire Mottled Boar", ["spell:19682"] = "Tame Surf Crawler", ["spell:19683"] = "Tame Armored Scorpid", ["spell:5149"] = "Beast Training", ["spell:697"] = "Summon Voidwalker", ["zone:1412"] = "Mulgore", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff" },
@@ -16344,14 +16507,13 @@ do
 						{ t = "turnin", quest = 98576, title = "Glyphic Parchment", npc = 5884, npcName = "Mai'ah", map = 1411, x = 42.51, y = 69.04, z = 38.3, f = "e", only = { classes = { "MAGE" }, races = { "Orc" } }, note = "{npc:5884}, the mage trainer, at the entrance to the Den" },
 						{ t = "turnin", quest = 97279, title = "Wayward Weapons", npc = 3159, npcName = "Kzan Thornslash", map = 1411, x = 40.47, y = 68, z = 43.5, f = "e", note = "{npc:3159}, at the back of the cave; below ground" },
 						{ t = "accept", quest = 4402, title = "Galgar's Cactus Apple Surprise", npc = 9796, npcName = "Galgar", minLevel = 1, qlvl = 3, pre = { 788 }, preTitles = { [788] = "Cutting Teeth" }, map = 1411, x = 42.73, y = 67.23, z = 41.7, f = "e", note = "{npc:9796}, by the cooking fire" },
-						{ t = "accept", quest = 5441, title = "Lazy Peons", npc = 11378, npcName = "Foreman Thazz'ril", minLevel = 3, qlvl = 4, map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e", note = "{npc:11378}, at the lumber pile east of the Den" },
 					},
 				},
 				{
 					title = "{item:4862} on the way",
 					along = "q789",
 					goals = {
-						{ t = "collect", quest = 789, title = "Sting of the Scorpid", item = 4862, itemName = "Scorpid Worker Tail", count = 10, oi = 1, map = 1411, x = 45.09, y = 71.37, f = "e", spotsPacked = "45.2,72.1,,40,2;43.6,73.7,,40,2;41,70.6,,40,2;40.5,67.5,,59,9;40.9,63.7,,44,5;39.8,62.2,,45,6;41.2,61.4,,40,5;42.8,58.7,,73,7;43.1,56.4,,40,1;46,59.6,,45,7;46.9,61.6,,40,3;47.4,63.7,,40,3;41.4,66.1,,40,4,1", spread = true, from = "Scorpid Worker", fromKind = "npc", fromAlso = "Sarkoth", fromId = 3124, fromAlsoId = 3281, fromNpcs = { { npc = 3124, npcName = "Scorpid Worker" }, { npc = 3281, npcName = "Sarkoth" } } },
+						{ t = "collect", quest = 789, title = "Sting of the Scorpid", item = 4862, itemName = "Scorpid Worker Tail", count = 10, oi = 1, map = 1411, x = 41.83, y = 65.81, f = "e", spotsPacked = "41.4,66.1,,40,4;40.9,63.7,,44,5;39.8,62.2,,45,6;41.2,61.4,,40,5;42.8,58.7,,73,7;43.1,56.4,,40,1;46,59.6,,45,7;46.9,61.6,,40,3;47.4,63.7,,40,3;45.2,72.1,,40,2;43.6,73.7,,40,2;41,70.6,,40,2;40.5,67.5,,59,9,1", spread = true, from = "Scorpid Worker", fromKind = "npc", fromAlso = "Sarkoth", fromId = 3124, fromAlsoId = 3281, fromNpcs = { { npc = 3124, npcName = "Scorpid Worker" }, { npc = 3281, npcName = "Sarkoth" } } },
 					},
 				},
 				{
@@ -16363,13 +16525,14 @@ do
 				},
 				{
 					title = "{area:363}: kill these as you meet them",
-					note = "{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way, and hit the sleeping peons across the valley with the {item:16114}.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side.",
+					note = "{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side.",
 					label = "q789",
 					goals = {
 						{ t = "collect", quest = 789, title = "Sting of the Scorpid", item = 4862, itemName = "Scorpid Worker Tail", count = 10, oi = 1, map = 1411, x = 40.22, y = 62.07, f = "e", spotsPacked = "39.8,62.2,,45,6;40.9,63.7,,44,5;41.2,61.4,,40,5;42.8,58.7,,73,7;43.1,56.4,,40,1;46,59.6,,45,7;46.9,61.6,,40,3;47.4,63.7,,40,3;45.2,72.1,,40,2;43.6,73.7,,40,2;41,70.6,,40,2;40.5,67.5,,59,9;41.4,66.1,,40,4,1", spread = true, from = "Scorpid Worker", fromKind = "npc", fromAlso = "Sarkoth", fromId = 3124, fromAlsoId = 3281, fromNpcs = { { npc = 3124, npcName = "Scorpid Worker" }, { npc = 3281, npcName = "Sarkoth" } } },
 						{ t = "collect", quest = 4402, title = "Galgar's Cactus Apple Surprise", item = 11583, itemName = "Cactus Apple", count = 10, oi = 1, map = 1411, x = 39.63, y = 63.03, f = "e", spotsPacked = "40.9,64.3,,87,5;39.9,68.1,,55,1;44,65.8,,55,3;45.1,63.3,,86,6;47.3,64,,55,2;45.5,59.5,,76,5;41.5,59.2,,65,3;42,56.5,,55,1;44.4,71.3,,55,3", spread = true, from = "Cactus Apple", fromKind = "object", fromId = 171938 },
-						{ t = "kill", quest = 5441, title = "Lazy Peons", target = "Lazy Peon", npc = 10556, count = 5, oi = 1, text = "Wake {quest:5441} with the {item:16114}", map = 1411, x = 38.83, y = 61.8, z = 50.8, f = "e", spotsPacked = "40.3,60.4,,93,3;43.4,57.5,,80,2;46.9,59.3,,80,2;46.3,67.4,,96,4;42.8,72.9,,99,3", spread = true },
 						{ t = "collect", quest = 790, title = "Sarkoth", item = 4905, itemName = "Sarkoth's Mangled Claw", count = 1, oi = 1, map = 1411, x = 40.5, y = 66.83, f = "e", from = "Sarkoth", fromKind = "npc", fromId = 3281, fromNpcs = { { npc = 3281, npcName = "Sarkoth" } } },
+						{ t = "turnin", quest = 790, title = "Sarkoth", npc = 3287, npcName = "Hana'zua", map = 1411, x = 40.6, y = 62.58, z = 50.3, f = "e" },
+						{ t = "accept", quest = 804, title = "Sarkoth", npc = 3287, npcName = "Hana'zua", minLevel = 1, qlvl = 5, pre = { 790 }, preTitles = { [790] = "Sarkoth" }, map = 1411, x = 40.6, y = 62.58, z = 50.3, f = "e" },
 						{ t = "kill", quest = 792, title = "Vile Familiars", target = "Vile Familiar", npc = 3101, count = 12, oi = 1, map = 1411, x = 43.82, y = 58.29, z = 61.6, f = "e", spotsPacked = "44.2,58.4,,21,2;44.7,57.1,68.3,44,6;45.5,55.8,67.1,37,4;46.1,57.3,,49,6;43.7,54.1,62.8,71,15", only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
 						{ t = "collect", quest = 1485, title = "Vile Familiars", item = 6487, itemName = "Vile Familiar Head", count = 6, oi = 1, map = 1411, x = 43.82, y = 58.29, f = "e", spotsPacked = "44.2,58.4,,21,2;44.7,57.1,,44,6;45.5,55.8,,37,4;46.1,57.3,,49,6;43.7,54.1,,71,15", only = { classes = { "WARLOCK" } }, from = "Vile Familiar", fromKind = "npc", fromId = 3101, fromNpcs = { { npc = 3101, npcName = "Vile Familiar" } } },
 					},
@@ -16399,15 +16562,28 @@ do
 					title = "Back to the Den",
 					goals = {
 						{ t = "turnin", quest = 789, title = "Sting of the Scorpid", npc = 3143, npcName = "Gornek", map = 1411, x = 42.06, y = 68.33, z = 41.3, f = "e", note = "{npc:3143}, inside" },
+						{ t = "turnin", quest = 804, title = "Sarkoth", npc = 3143, npcName = "Gornek", map = 1411, x = 42.06, y = 68.33, z = 41.3, f = "e", note = "{npc:3143}, inside" },
 						{ t = "turnin", quest = 1485, title = "Vile Familiars", npc = 5765, npcName = "Ruzan", map = 1411, x = 42.59, y = 69, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
 						{ t = "accept", quest = 1516, title = "Call of Earth", npc = 5887, npcName = "Canaga Earthcaller", minLevel = 4, qlvl = 4, closedBy = { 1519, 92466 }, preTitles = { [1519] = "Call of Earth", [92466] = "Call of Earth" }, map = 1411, x = 42.4, y = 69.17, z = 38.2, f = "e", only = { classes = { "SHAMAN" } } },
 						{ t = "turnin", quest = 792, title = "Vile Familiars", npc = 3145, npcName = "Zureetha Fargaze", map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e", only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
 						{ t = "accept", quest = 1499, title = "Vile Familiars", npc = 5765, npcName = "Ruzan", minLevel = 1, qlvl = 4, pre = { 1470, 1485 }, preTitles = { [1470] = "Piercing the Veil", [1485] = "Vile Familiars" }, map = 1411, x = 42.59, y = 69, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
 						{ t = "turnin", quest = 1499, title = "Vile Familiars", npc = 3145, npcName = "Zureetha Fargaze", map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
 						{ t = "accept", quest = 794, title = "Burning Blade Medallion", npc = 3145, npcName = "Zureetha Fargaze", minLevel = 1, qlvl = 5, pre = { 792, 1499 }, preTitles = { [792] = "Vile Familiars", [1499] = "Vile Familiars" }, map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e" },
+						{ t = "accept", quest = 5441, title = "Lazy Peons", npc = 11378, npcName = "Foreman Thazz'ril", minLevel = 3, qlvl = 4, map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e", note = "{npc:11378}, at the lumber pile east of the Den" },
+						{ t = "turnin", quest = 4402, title = "Galgar's Cactus Apple Surprise", npc = 9796, npcName = "Galgar", map = 1411, x = 42.73, y = 67.23, z = 41.7, f = "e" },
+					},
+				},
+				{
+					title = "{quest:5441}",
+					goals = {
+						{ t = "kill", quest = 5441, title = "Lazy Peons", target = "Lazy Peon", npc = 10556, count = 5, oi = 1, text = "Wake {quest:5441} with the {item:16114}", map = 1411, x = 44.98, y = 69.13, z = 41.8, f = "e", spotsPacked = "46.3,67.4,,96,4;42.8,72.9,,99,3;40.3,60.4,,93,3;43.4,57.5,,80,2;46.9,59.3,,80,2", spread = true },
+					},
+				},
+				{
+					title = "{npc:11378}",
+					goals = {
 						{ t = "turnin", quest = 5441, title = "Lazy Peons", npc = 11378, npcName = "Foreman Thazz'ril", map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e" },
 						{ t = "accept", quest = 6394, title = "Thazz'ril's Pick", npc = 11378, npcName = "Foreman Thazz'ril", minLevel = 3, qlvl = 4, pre = { 5441 }, preTitles = { [5441] = "Lazy Peons" }, map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e" },
-						{ t = "turnin", quest = 4402, title = "Galgar's Cactus Apple Surprise", npc = 9796, npcName = "Galgar", map = 1411, x = 42.73, y = 67.23, z = 41.7, f = "e" },
 					},
 				},
 				{
@@ -16439,17 +16615,9 @@ do
 					},
 				},
 				{
-					title = "{npc:3287}",
-					goals = {
-						{ t = "turnin", quest = 790, title = "Sarkoth", npc = 3287, npcName = "Hana'zua", map = 1411, x = 40.6, y = 62.58, z = 50.3, f = "e" },
-						{ t = "accept", quest = 804, title = "Sarkoth", npc = 3287, npcName = "Hana'zua", minLevel = 1, qlvl = 5, pre = { 790 }, preTitles = { [790] = "Sarkoth" }, map = 1411, x = 40.6, y = 62.58, z = 50.3, f = "e" },
-					},
-				},
-				{
 					title = "Back to the Den",
 					goals = {
 						{ t = "goto", text = "{area:364}", area = 364, map = 1411, x = 42.4, y = 68.6, f = "e" },
-						{ t = "turnin", quest = 804, title = "Sarkoth", npc = 3143, npcName = "Gornek", map = 1411, x = 42.06, y = 68.33, z = 41.3, f = "e", note = "{npc:3143}, inside" },
 						{ t = "turnin", quest = 1516, title = "Call of Earth", npc = 5887, npcName = "Canaga Earthcaller", map = 1411, x = 42.4, y = 69.17, z = 38.2, f = "e", only = { classes = { "SHAMAN" } } },
 						{ t = "accept", quest = 1517, title = "Call of Earth", npc = 5887, npcName = "Canaga Earthcaller", minLevel = 4, qlvl = 4, pre = { 1516, 1519 }, preTitles = { [1516] = "Call of Earth", [1519] = "Call of Earth" }, map = 1411, x = 42.4, y = 69.17, z = 38.2, f = "e", only = { classes = { "SHAMAN" } } },
 						{ t = "turnin", quest = 794, title = "Burning Blade Medallion", npc = 3145, npcName = "Zureetha Fargaze", map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e" },
@@ -17071,176 +17239,6 @@ do
 					goals = {
 						{ t = "turnin", quest = 840, title = "Conscript of the Horde", npc = 3337, npcName = "Kargal Battlescar", map = 1413, x = 62.26, y = 19.38, z = 27.2, f = "e" },
 						{ t = "accept", quest = 842, title = "Crossroads Conscription", npc = 3337, npcName = "Kargal Battlescar", minLevel = 10, qlvl = 12, pre = { 840 }, preTitles = { [840] = "Conscript of the Horde" }, map = 1413, x = 62.26, y = 19.38, z = 27.2, f = "e" },
-					},
-				},
-			},
-		})
-	end
-	register()
-end
-
--- Source: forever/horde/orc/02-the-barrens.guide
-do
-	local function register()
-		Polestar.RegisterGuide({
-			id = "forever/horde/orc/02-the-barrens",
-			pack = "guides",
-			title = "{area:17}",
-			faction = "Horde",
-			races = { "Orc" },
-			minLevel = 12,
-			maxLevel = 12,
-			category = "Leveling",
-			zone = 1413,
-			zoneName = "The Barrens",
-			next = "forever/horde/02-the-barrens",
-			author = "Polestar",
-			version = 1,
-			names = { ["area:14"] = "Durotar", ["area:17"] = "The Barrens", ["area:370"] = "Drygulch Ravine", ["area:379"] = "Far Watch Post", ["area:380"] = "The Crossroads", ["area:383"] = "Dry Hills", ["area:392"] = "Ratchet", ["item:263412"] = "Totem of Charged Flames", ["item:5026"] = "Fire Tar", ["item:5176"] = "Fire Totem", ["item:6636"] = "Fire Sapta", ["item:6655"] = "Glowing Ember", ["npc:2523"] = "Searing Totem", ["npc:3338"] = "Sergra Darkthorn", ["npc:3425"] = "Savannah Prowler", ["npc:3429"] = "Thork", ["npc:3449"] = "Darsok Swiftdagger", ["npc:3464"] = "Gazrog", ["npc:3489"] = "Zargh", ["npc:5878"] = "Thun'grim Firegaze", ["npc:5893"] = "Minor Manifestation of Fire", ["npc:5900"] = "Telf Joolam", ["npc:5907"] = "Kranal Fiss", ["object:58369"] = "Stolen Iron Chest", ["quest:1502"] = "Thun'grim Firegaze" },
-			written = { ["Back east over the bridge and up the trail to {npc:5900}'s shrine, as at 10. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Back east over the bridge and up the trail to Telf's shrine, as at 10. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.", ["Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn.\n{npc:3429} and {npc:3449} on the tower platform."] = "Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.\nThork and Darsok on the tower platform.", ["Water Seekers, Thornweavers and Hunters hold the camp east of the {area:380}. The supply crates sit at its eastern end. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "Water Seekers, Thornweavers and Hunters hold the camp east of the Crossroads. The supply crates sit at its eastern end. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.", ["You arrive from {area:379}. {npc:3338} stands by the inn; Tonga at the south gate."] = "You arrive from Far Watch Post. Sergra stands by the inn; Tonga at the south gate.", ["{npc:5878} camps beside the road east toward {area:392}."] = "Thun'grim camps beside the road east toward Ratchet." },
-			steps = {
-				{
-					title = "{npc:3489}",
-					note = "You arrive from {area:379}. {npc:3338} stands by the inn; Tonga at the south gate.",
-					goals = {
-						{ t = "accept", quest = 6365, title = "Meats to Orgrimmar", npc = 3489, npcName = "Zargh", minLevel = 10, qlvl = 10, map = 1413, x = 52.62, y = 29.84, z = 97.7, f = "e" },
-						{ t = "turnin", quest = 6365, title = "Meats to Orgrimmar", npc = 3615, npcName = "Devrak", map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
-						{ t = "getfp", npc = 3615, npcName = "Devrak", location = "Crossroads", node = 25, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
-					},
-				},
-				{
-					title = "{area:380}",
-					note = "Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn.\n{npc:3429} and {npc:3449} on the tower platform.",
-					goals = {
-						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
-						{ t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", minLevel = 9, qlvl = 13, map = 1413, x = 51.93, y = 30.32, z = 96.4, f = "e" },
-						{ t = "accept", quest = 1492, title = "Wharfmaster Dizzywig", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 9, qlvl = 11, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
-						{ t = "accept", quest = 848, title = "Fungal Spores", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 10, qlvl = 15, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
-						{ t = "accept", quest = 6384, title = "Ride to Orgrimmar", npc = 3615, npcName = "Devrak", minLevel = 10, qlvl = 10, pre = { 6365 }, preTitles = { [6365] = "Meats to Orgrimmar" }, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
-						{ t = "accept", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 14, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
-						{ t = "accept", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 12, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
-						{ t = "accept", quest = 867, title = "Harpy Raiders", npc = 3449, npcName = "Darsok Swiftdagger", minLevel = 12, qlvl = 15, map = 1413, x = 51.62, y = 30.9, z = 127.9, f = "e", note = "{npc:3449}: the harpies come later, in the {area:383}" },
-					},
-				},
-				{
-					title = "On the way",
-					along = true,
-					goals = {
-						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Water Seeker", npc = 3267, count = 8, oi = 1, map = 1413, x = 53.97, y = 26.06, z = 95.1, f = "e", spotsPacked = "54.2,25.5,91.8,45,5;53.5,25.1,,46,3;55.4,26.9,91.8,48,5;55.5,25.8,91.8,15,1,1" },
-						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Thornweaver", npc = 3268, count = 8, oi = 2, map = 1413, x = 54.06, y = 25.52, z = 92.4, f = "e", spotsPacked = "54.5,25.2,91.9,54,6;55.1,26.9,,41,3;55.7,26.6,91.8,31,3" },
-						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Hunter", npc = 3265, count = 3, oi = 3, map = 1413, x = 53.76, y = 25.29, z = 92, f = "e", spotsPacked = "53.8,25.3,92,50,1;55.2,25.8,,59,3;57.9,24.1,,50,3;59.4,23.9,85.4,50,1;59.2,26.5,93.2,50,1", spread = true },
-					},
-				},
-				{
-					title = "{quest:1502}",
-					note = "{npc:5878} camps beside the road east toward {area:392}.",
-					only = { classes = { "WARRIOR" } },
-					goals = {
-						{ t = "turnin", quest = 1502, title = "Thun'grim Firegaze", npc = 5878, npcName = "Thun'grim Firegaze", map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
-						{ t = "accept", quest = 1503, title = "Forged Steel", npc = 5878, npcName = "Thun'grim Firegaze", minLevel = 10, qlvl = 10, pre = { 1502 }, preTitles = { [1502] = "Thun'grim Firegaze" }, map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
-					},
-				},
-				{
-					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
-					when = { { k = "onquest", q = { 1522 } } },
-					goals = {
-						{ t = "turnin", quest = 1522, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
-					when = { { k = "onquest", q = { 1523 } } },
-					goals = {
-						{ t = "turnin", quest = 1523, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
-					when = { { k = "onquest", q = { 2984 } } },
-					goals = {
-						{ t = "turnin", quest = 2984, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5907}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "accept", quest = 1524, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", minLevel = 10, qlvl = 11, map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5900}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "turnin", quest = 1524, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-						{ t = "accept", quest = 1525, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", minLevel = 10, qlvl = 12, pre = { 1524 }, preTitles = { [1524] = "Call of Fire" }, map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-					},
-				},
-				{
-					title = "{area:370}",
-					goals = {
-						{ t = "collect", quest = 1525, title = "Call of Fire", item = 6652, itemName = "Reagent Pouch", count = 1, oi = 2, map = 1411, x = 52.41, y = 26.8, f = "e", spotsPacked = "52.4,25.5,,46,7", only = { classes = { "SHAMAN" } }, from = "Burning Blade Cultist", fromKind = "npc", fromId = 3199, fromNpcs = { { npc = 3199, npcName = "Burning Blade Cultist" } } },
-					},
-				},
-				{
-					title = "Razormane camp",
-					note = "Water Seekers, Thornweavers and Hunters hold the camp east of the {area:380}. The supply crates sit at its eastern end. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.",
-					only = { classes = { "WARRIOR", "SHAMAN" } },
-					goals = {
-						{ t = "collect", quest = 1503, title = "Forged Steel", item = 6534, itemName = "Forged Steel Bars", count = 1, oi = 1, map = 1413, x = 55.05, y = 26.65, f = "e", only = { classes = { "WARRIOR" } }, from = "Stolen Iron Chest", fromKind = "object", fromId = 58369 },
-						{ t = "collect", quest = 1525, title = "Call of Fire", item = 5026, itemName = "Fire Tar", count = 1, oi = 1, map = 1413, x = 55.11, y = 26.59, f = "e", spotsPacked = "55.4,26.8,,72,11;55.3,25.5,,40,2;54.4,25.3,,49,8;53.9,25.7,,40,3;53.4,24.8,,40,2;57,25.3,,52,3;57.1,24.4,,40,3;59.1,24.4,,45,6;58.5,26.7,,43,4", spread = true, only = { classes = { "SHAMAN" } }, from = "Razormane Water Seeker", fromKind = "npc", fromAlso = "Razormane Thornweaver", fromId = 3267, fromAlsoId = 3268, fromNpcs = { { npc = 3268, npcName = "Razormane Thornweaver" }, { npc = 3267, npcName = "Razormane Water Seeker" }, { npc = 3269, npcName = "Razormane Geomancer" }, { npc = 3271, npcName = "Razormane Mystic" } } },
-					},
-				},
-				{
-					title = "{area:14}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "goto", text = "{area:14}", area = 14, map = 1411, x = 38.5, y = 59, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5900}",
-					note = "Back east over the bridge and up the trail to {npc:5900}'s shrine, as at 10. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier.",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "turnin", quest = 1525, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-						{ t = "accept", quest = 1526, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", minLevel = 10, qlvl = 13, pre = { 1525 }, preTitles = { [1525] = "Call of Fire" }, map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-						{ t = "collect", quest = 1526, title = "Call of Fire", item = 6655, itemName = "Glowing Ember", count = 1, oi = 1, map = 1411, x = 38.72, y = 58.29, f = "e", from = "Minor Manifestation of Fire", fromKind = "npc", fromId = 5893, fromNpcs = { { npc = 5893, npcName = "Minor Manifestation of Fire" } } },
-						{ t = "turnin", quest = 1526, title = "Call of Fire", object = 61934, objName = "Brazier of the Dormant Flame", map = 1411, x = 38.96, y = 58.22, z = 187.3, f = "e" },
-						{ t = "accept", quest = 1527, title = "Call of Fire", object = 61934, objName = "Brazier of the Dormant Flame", minLevel = 10, qlvl = 13, pre = { 1526 }, preTitles = { [1526] = "Call of Fire" }, map = 1411, x = 38.96, y = 58.22, z = 187.3, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5907}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "turnin", quest = 1527, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e", note = "{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}", rewards = { items = { { item = 5176, itemName = "Fire Totem" }, { item = 263412, itemName = "Totem of Charged Flames" } } } },
-					},
-				},
-				{
-					title = "{npc:5878}",
-					only = { classes = { "WARRIOR" } },
-					goals = {
-						{ t = "turnin", quest = 1503, title = "Forged Steel", npc = 5878, npcName = "Thun'grim Firegaze", map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
-					},
-				},
-				{
-					title = "{area:17}",
-					goals = {
-						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 63.1, y = 37.1, f = "e" },
-					},
-				},
-				{
-					title = "{area:392}",
-					note = "Follow the road south-east to {area:392} on the coast.",
-					goals = {
-						{ t = "getfp", npc = 16227, npcName = "Bragok", location = "Ratchet", node = 80, area = 392, map = 1413, x = 63.08, y = 37.16, z = 11.8, f = "e" },
-					},
-				},
-				{
-					title = "{area:17}",
-					goals = {
-						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 51.6, y = 30.9, f = "e" },
 					},
 				},
 			},
@@ -19180,7 +19178,7 @@ do
 			category = "Leveling",
 			zone = 1411,
 			zoneName = "Durotar",
-			next = "forever/horde/troll/02-the-barrens",
+			next = "forever/horde/02-the-barrens",
 			author = "Polestar",
 			version = 1,
 			names = { ["area:14"] = "Durotar", ["area:1637"] = "Orgrimmar", ["area:17"] = "The Barrens", ["area:362"] = "Razor Hill", ["area:363"] = "Valley of Trials", ["area:364"] = "The Den", ["area:365"] = "Burning Blade Coven", ["area:366"] = "Kolkar Crag", ["area:367"] = "Sen'jin Village", ["area:368"] = "Echo Isles", ["area:369"] = "Thunder Ridge", ["area:370"] = "Drygulch Ravine", ["area:371"] = "Dustwind Cave", ["area:372"] = "Tiragarde Keep", ["area:373"] = "Scuttle Coast", ["area:379"] = "Far Watch Post", ["area:639"] = "Spirit Rock", ["area:814"] = "Southfury River", ["area:816"] = "Razormane Grounds", ["area:817"] = "Skull Rock", ["item:11583"] = "Cactus Apple", ["item:15908"] = "Taming Rod", ["item:16114"] = "Foreman's Blackjack", ["item:275724"] = "Hexed Pendant", ["item:277135"] = "Forgotten Loa Idol", ["item:277661"] = "Dull Storm Orb", ["item:4862"] = "Scorpid Worker Tail", ["item:4870"] = "Canvas Scraps", ["item:4871"] = "Searing Collar", ["item:4881"] = "Aged Envelope", ["item:4891"] = "Kron's Amulet", ["item:4903"] = "Eye of Burning Shadow", ["item:5175"] = "Earth Totem", ["item:6486"] = "Singed Scale", ["item:6535"] = "Tablet of Verga", ["item:6635"] = "Earth Sapta", ["item:6652"] = "Reagent Pouch", ["item:6656"] = "Rough Quartz", ["item:7464"] = "Glyphs of Summoning", ["npc:10176"] = "Kaltunk", ["npc:11378"] = "Foreman Thazz'ril", ["npc:246344"] = "Alodan the Hopeful", ["npc:265809"] = "Brakk", ["npc:266849"] = "Ridgeshade Lurker", ["npc:266850"] = "Ridgeshade Creeper", ["npc:266881"] = "Pa'zula", ["npc:266940"] = "Turroc", ["npc:2704"] = "Hanashi", ["npc:275657"] = "Heglan Shadeeye", ["npc:275662"] = "Spitelash Scout", ["npc:275666"] = "Aggor the Young", ["npc:275811"] = "Pal'juh", ["npc:3034"] = "Sheal Runetotem", ["npc:3098"] = "Mottled Boar", ["npc:3099"] = "Dire Mottled Boar", ["npc:3102"] = "Felstalker", ["npc:3107"] = "Surf Crawler", ["npc:3111"] = "Razormane Quilboar", ["npc:3118"] = "Dustwind Storm Witch", ["npc:3121"] = "Durotar Tiger", ["npc:3124"] = "Scorpid Worker", ["npc:3126"] = "Armored Scorpid", ["npc:3130"] = "Thunder Lizard", ["npc:3131"] = "Lightning Hide", ["npc:3142"] = "Orgnil Soulscar", ["npc:3143"] = "Gornek", ["npc:3145"] = "Zureetha Fargaze", ["npc:3147"] = "Furl Scornbrow", ["npc:3159"] = "Kzan Thornslash", ["npc:3169"] = "Tarshaw Jaggedscar", ["npc:3171"] = "Thotar", ["npc:3183"] = "Yarrog Baneshadow", ["npc:3191"] = "Cook Torka", ["npc:3192"] = "Lieutenant Benedict", ["npc:3193"] = "Misha Tor'kren", ["npc:3199"] = "Burning Blade Cultist", ["npc:3204"] = "Gazz'uz", ["npc:3207"] = "Hexed Troll", ["npc:3208"] = "Margoz", ["npc:3287"] = "Hana'zua", ["npc:3293"] = "Rezlak", ["npc:3294"] = "Ophek", ["npc:3352"] = "Ormak Grimshot", ["npc:3489"] = "Zargh", ["npc:3706"] = "Tai'jin", ["npc:3707"] = "Ken'jai", ["npc:5810"] = "Uzzek", ["npc:5873"] = "Stoneskin Totem", ["npc:5875"] = "Gan'rul Bloodeye", ["npc:5880"] = "Un'Thuwa", ["npc:5884"] = "Mai'ah", ["npc:5887"] = "Canaga Earthcaller", ["npc:5891"] = "Minor Manifestation of Earth", ["npc:5907"] = "Kranal Fiss", ["npc:6018"] = "Ur'kyo", ["npc:6491"] = "Spirit Healer", ["npc:6786"] = "Ukor", ["npc:6928"] = "Innkeeper Grosk", ["npc:9796"] = "Galgar", ["object:172958"] = "Valley of Honor", ["object:172960"] = "Cleft of Shadow", ["object:172982"] = "Valley of Strength", ["object:58595"] = "Burning Blade Stash", ["object:654925"] = "Lost Journal", ["quest:1504"] = "The Binding", ["quest:1517"] = "Call of Earth", ["quest:3065"] = "Simple Tablet", ["quest:3082"] = "Etched Tablet", ["quest:3083"] = "Encrypted Tablet", ["quest:3084"] = "Rune-Inscribed Tablet", ["quest:3085"] = "Hallowed Tablet", ["quest:3086"] = "Glyphic Tablet", ["quest:5441"] = "Lazy Peons", ["quest:6394"] = "Thazz'ril's Pick", ["quest:790"] = "Sarkoth", ["quest:792"] = "Vile Familiars", ["quest:826"] = "Zalazane", ["quest:827"] = "Skull Rock", ["quest:828"] = "Margoz", ["quest:840"] = "Conscript of the Horde", ["quest:97223"] = "Bloodtalon Matriarch", ["quest:98575"] = "Tainted Tablet", ["spell:1229451"] = "Boosted Rest", ["spell:1515"] = "Tame Beast", ["spell:19681"] = "Tame Dire Mottled Boar", ["spell:19682"] = "Tame Surf Crawler", ["spell:19683"] = "Tame Armored Scorpid", ["spell:5149"] = "Beast Training", ["spell:697"] = "Summon Voidwalker", ["zone:1412"] = "Mulgore", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff" },
@@ -19230,14 +19228,13 @@ do
 						{ t = "turnin", quest = 3086, title = "Glyphic Tablet", npc = 5884, npcName = "Mai'ah", map = 1411, x = 42.51, y = 69.04, z = 38.3, f = "e", only = { classes = { "MAGE" }, races = { "Troll" } } },
 						{ t = "turnin", quest = 97279, title = "Wayward Weapons", npc = 3159, npcName = "Kzan Thornslash", map = 1411, x = 40.47, y = 68, z = 43.5, f = "e", note = "{npc:3159}, at the back of the cave; below ground" },
 						{ t = "accept", quest = 4402, title = "Galgar's Cactus Apple Surprise", npc = 9796, npcName = "Galgar", minLevel = 1, qlvl = 3, pre = { 788 }, preTitles = { [788] = "Cutting Teeth" }, map = 1411, x = 42.73, y = 67.23, z = 41.7, f = "e", note = "{npc:9796}, by the cooking fire" },
-						{ t = "accept", quest = 5441, title = "Lazy Peons", npc = 11378, npcName = "Foreman Thazz'ril", minLevel = 3, qlvl = 4, map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e", note = "{npc:11378}, at the lumber pile east of the Den" },
 					},
 				},
 				{
 					title = "{item:4862} on the way",
 					along = "q789",
 					goals = {
-						{ t = "collect", quest = 789, title = "Sting of the Scorpid", item = 4862, itemName = "Scorpid Worker Tail", count = 10, oi = 1, map = 1411, x = 45.09, y = 71.37, f = "e", spotsPacked = "45.2,72.1,,40,2;43.6,73.7,,40,2;41,70.6,,40,2;40.5,67.5,,59,9;40.9,63.7,,44,5;39.8,62.2,,45,6;41.2,61.4,,40,5;42.8,58.7,,73,7;43.1,56.4,,40,1;46,59.6,,45,7;46.9,61.6,,40,3;47.4,63.7,,40,3;41.4,66.1,,40,4,1", spread = true, from = "Scorpid Worker", fromKind = "npc", fromAlso = "Sarkoth", fromId = 3124, fromAlsoId = 3281, fromNpcs = { { npc = 3124, npcName = "Scorpid Worker" }, { npc = 3281, npcName = "Sarkoth" } } },
+						{ t = "collect", quest = 789, title = "Sting of the Scorpid", item = 4862, itemName = "Scorpid Worker Tail", count = 10, oi = 1, map = 1411, x = 41.83, y = 65.81, f = "e", spotsPacked = "41.4,66.1,,40,4;40.9,63.7,,44,5;39.8,62.2,,45,6;41.2,61.4,,40,5;42.8,58.7,,73,7;43.1,56.4,,40,1;46,59.6,,45,7;46.9,61.6,,40,3;47.4,63.7,,40,3;45.2,72.1,,40,2;43.6,73.7,,40,2;41,70.6,,40,2;40.5,67.5,,59,9,1", spread = true, from = "Scorpid Worker", fromKind = "npc", fromAlso = "Sarkoth", fromId = 3124, fromAlsoId = 3281, fromNpcs = { { npc = 3124, npcName = "Scorpid Worker" }, { npc = 3281, npcName = "Sarkoth" } } },
 					},
 				},
 				{
@@ -19256,22 +19253,15 @@ do
 				},
 				{
 					title = "{area:363}: kill these as you meet them",
-					note = "{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way, and hit the sleeping peons across the valley with the {item:16114}.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side.",
+					note = "{quest:790}, a large scorpid, prowls the slope south of {npc:3287} among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side.",
 					label = "q789",
 					goals = {
 						{ t = "collect", quest = 789, title = "Sting of the Scorpid", item = 4862, itemName = "Scorpid Worker Tail", count = 10, oi = 1, map = 1411, x = 41.37, y = 63.37, f = "e", spotsPacked = "40.9,63.7,,44,5;39.8,62.2,,45,6;41.2,61.4,,40,5;42.8,58.7,,73,7;43.1,56.4,,40,1;46,59.6,,45,7;46.9,61.6,,40,3;47.4,63.7,,40,3;45.2,72.1,,40,2;43.6,73.7,,40,2;41,70.6,,40,2;40.5,67.5,,59,9;41.4,66.1,,40,4,1", spread = true, from = "Scorpid Worker", fromKind = "npc", fromAlso = "Sarkoth", fromId = 3124, fromAlsoId = 3281, fromNpcs = { { npc = 3124, npcName = "Scorpid Worker" }, { npc = 3281, npcName = "Sarkoth" } } },
-						{ t = "kill", quest = 5441, title = "Lazy Peons", target = "Lazy Peon", npc = 10556, count = 5, oi = 1, text = "Wake {quest:5441} with the {item:16114}", map = 1411, x = 40.94, y = 60.41, z = 51.8, f = "e", spotsPacked = "40.3,60.4,,93,3;43.4,57.5,,80,2;46.9,59.3,,80,2;46.3,67.4,,96,4;42.8,72.9,,99,3", spread = true },
 						{ t = "collect", quest = 790, title = "Sarkoth", item = 4905, itemName = "Sarkoth's Mangled Claw", count = 1, oi = 1, map = 1411, x = 40.5, y = 66.83, f = "e", from = "Sarkoth", fromKind = "npc", fromId = 3281, fromNpcs = { { npc = 3281, npcName = "Sarkoth" } } },
-						{ t = "kill", quest = 792, title = "Vile Familiars", target = "Vile Familiar", npc = 3101, count = 12, oi = 1, map = 1411, x = 43.82, y = 58.29, z = 61.6, f = "e", spotsPacked = "44.2,58.4,,21,2;44.7,57.1,68.3,44,6;45.5,55.8,67.1,37,4;46.1,57.3,,49,6;43.7,54.1,62.8,71,15", only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
-						{ t = "collect", quest = 1485, title = "Vile Familiars", item = 6487, itemName = "Vile Familiar Head", count = 6, oi = 1, map = 1411, x = 43.82, y = 58.29, f = "e", spotsPacked = "44.2,58.4,,21,2;44.7,57.1,,44,6;45.5,55.8,,37,4;46.1,57.3,,49,6;43.7,54.1,,71,15", only = { classes = { "WARLOCK" } }, from = "Vile Familiar", fromKind = "npc", fromId = 3101, fromNpcs = { { npc = 3101, npcName = "Vile Familiar" } } },
-					},
-				},
-				{
-					title = "{npc:3287}",
-					goals = {
 						{ t = "turnin", quest = 790, title = "Sarkoth", npc = 3287, npcName = "Hana'zua", map = 1411, x = 40.6, y = 62.58, z = 50.3, f = "e" },
 						{ t = "accept", quest = 804, title = "Sarkoth", npc = 3287, npcName = "Hana'zua", minLevel = 1, qlvl = 5, pre = { 790 }, preTitles = { [790] = "Sarkoth" }, map = 1411, x = 40.6, y = 62.58, z = 50.3, f = "e" },
-						{ t = "goto", text = "{area:364}", area = 364, map = 1411, x = 42.4, y = 68.6, f = "e" },
+						{ t = "kill", quest = 792, title = "Vile Familiars", target = "Vile Familiar", npc = 3101, count = 12, oi = 1, map = 1411, x = 43.82, y = 58.29, z = 61.6, f = "e", spotsPacked = "44.2,58.4,,21,2;44.7,57.1,68.3,44,6;45.5,55.8,67.1,37,4;46.1,57.3,,49,6;43.7,54.1,62.8,71,15", only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "DRUID" } } },
+						{ t = "collect", quest = 1485, title = "Vile Familiars", item = 6487, itemName = "Vile Familiar Head", count = 6, oi = 1, map = 1411, x = 43.82, y = 58.29, f = "e", spotsPacked = "44.2,58.4,,21,2;44.7,57.1,,44,6;45.5,55.8,,37,4;46.1,57.3,,49,6;43.7,54.1,,71,15", only = { classes = { "WARLOCK" } }, from = "Vile Familiar", fromKind = "npc", fromId = 3101, fromNpcs = { { npc = 3101, npcName = "Vile Familiar" } } },
 					},
 				},
 				{
@@ -19313,6 +19303,18 @@ do
 						{ t = "accept", quest = 1499, title = "Vile Familiars", npc = 5765, npcName = "Ruzan", minLevel = 1, qlvl = 4, pre = { 1470, 1485 }, preTitles = { [1470] = "Piercing the Veil", [1485] = "Vile Familiars" }, map = 1411, x = 42.59, y = 69, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
 						{ t = "turnin", quest = 1499, title = "Vile Familiars", npc = 3145, npcName = "Zureetha Fargaze", map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e", only = { classes = { "WARLOCK" } } },
 						{ t = "accept", quest = 794, title = "Burning Blade Medallion", npc = 3145, npcName = "Zureetha Fargaze", minLevel = 1, qlvl = 5, pre = { 792, 1499 }, preTitles = { [792] = "Vile Familiars", [1499] = "Vile Familiars" }, map = 1411, x = 42.85, y = 69.15, z = 38.2, f = "e" },
+						{ t = "accept", quest = 5441, title = "Lazy Peons", npc = 11378, npcName = "Foreman Thazz'ril", minLevel = 3, qlvl = 4, map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e", note = "{npc:11378}, at the lumber pile east of the Den" },
+					},
+				},
+				{
+					title = "{quest:5441}",
+					goals = {
+						{ t = "kill", quest = 5441, title = "Lazy Peons", target = "Lazy Peon", npc = 10556, count = 5, oi = 1, text = "Wake {quest:5441} with the {item:16114}", map = 1411, x = 44.98, y = 69.13, z = 41.8, f = "e", spotsPacked = "46.3,67.4,,96,4;42.8,72.9,,99,3;40.3,60.4,,93,3;43.4,57.5,,80,2;46.9,59.3,,80,2", spread = true },
+					},
+				},
+				{
+					title = "{npc:11378}",
+					goals = {
 						{ t = "turnin", quest = 5441, title = "Lazy Peons", npc = 11378, npcName = "Foreman Thazz'ril", map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e" },
 						{ t = "accept", quest = 6394, title = "Thazz'ril's Pick", npc = 11378, npcName = "Foreman Thazz'ril", minLevel = 3, qlvl = 4, pre = { 5441 }, preTitles = { [5441] = "Lazy Peons" }, map = 1411, x = 44.63, y = 68.65, z = 40.1, f = "e" },
 					},
@@ -19912,6 +19914,7 @@ do
 					title = "{npc:3489}",
 					goals = {
 						{ t = "accept", quest = 6365, title = "Meats to Orgrimmar", npc = 3489, npcName = "Zargh", minLevel = 10, qlvl = 10, map = 1413, x = 52.62, y = 29.84, z = 97.7, f = "e" },
+						{ t = "turnin", quest = 842, title = "Crossroads Conscription", npc = 3338, npcName = "Sergra Darkthorn", map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
 						{ t = "turnin", quest = 6365, title = "Meats to Orgrimmar", npc = 3615, npcName = "Devrak", map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
 						{ t = "accept", quest = 6384, title = "Ride to Orgrimmar", npc = 3615, npcName = "Devrak", minLevel = 10, qlvl = 10, pre = { 6365 }, preTitles = { [6365] = "Meats to Orgrimmar" }, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
 						{ t = "getfp", npc = 3615, npcName = "Devrak", location = "Crossroads", node = 25, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
@@ -19973,172 +19976,6 @@ do
 					goals = {
 						{ t = "collect", quest = 99052, title = "Threat from Below", item = 286009, itemName = "Aggor's Belt", oi = 1, map = 1411, x = 59.22, y = 17.6, f = "e", optional = true, from = "Aggor the Young", fromKind = "npc", fromRank = 1, fromId = 275666, fromNpcs = { { npc = 275666, npcName = "Aggor the Young" } }, group = { kind = "elite", rank = 1 } },
 						{ t = "turnin", quest = 99052, title = "Threat from Below", npc = 3142, npcName = "Orgnil Soulscar", map = 1411, x = 52.24, y = 43.15, z = 13.2, f = "e", optional = true, note = "{npc:3142}, back in {area:362}" },
-					},
-				},
-			},
-		})
-	end
-	register()
-end
-
--- Source: forever/horde/troll/02-the-barrens.guide
-do
-	local function register()
-		Polestar.RegisterGuide({
-			id = "forever/horde/troll/02-the-barrens",
-			pack = "guides",
-			title = "{area:17}",
-			faction = "Horde",
-			races = { "Troll" },
-			minLevel = 12,
-			maxLevel = 12,
-			category = "Leveling",
-			zone = 1413,
-			zoneName = "The Barrens",
-			next = "forever/horde/02-the-barrens",
-			author = "Polestar",
-			version = 1,
-			names = { ["area:14"] = "Durotar", ["area:17"] = "The Barrens", ["area:370"] = "Drygulch Ravine", ["area:380"] = "The Crossroads", ["area:383"] = "Dry Hills", ["area:392"] = "Ratchet", ["item:263412"] = "Totem of Charged Flames", ["item:5026"] = "Fire Tar", ["item:5176"] = "Fire Totem", ["item:6636"] = "Fire Sapta", ["item:6655"] = "Glowing Ember", ["npc:2523"] = "Searing Totem", ["npc:3425"] = "Savannah Prowler", ["npc:3429"] = "Thork", ["npc:3449"] = "Darsok Swiftdagger", ["npc:3464"] = "Gazrog", ["npc:5878"] = "Thun'grim Firegaze", ["npc:5893"] = "Minor Manifestation of Fire", ["npc:5900"] = "Telf Joolam", ["npc:5907"] = "Kranal Fiss", ["object:58369"] = "Stolen Iron Chest", ["quest:1502"] = "Thun'grim Firegaze" },
-			written = { ["Back east over the bridge and up the trail to {npc:5900}'s shrine, as at 10. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier."] = "Back east over the bridge and up the trail to Telf's shrine, as at 10. Telf makes Fire Sapta from the tar and pouch. Use it by the brazier next to him to reveal the Minor Manifestation of Fire, kill it for the Glowing Ember, then place the ember in the brazier.", ["Water Seekers, Thornweavers and Hunters hold the camp east of the {area:380}. The supply crates sit at its eastern end. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight."] = "Water Seekers, Thornweavers and Hunters hold the camp east of the Crossroads. The supply crates sit at its eastern end. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.", ["{npc:3429} and {npc:3449} on the tower platform. Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn."] = "Thork and Darsok on the tower platform. Helbrim and Gazrog by the north gate. The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.", ["{npc:5878} camps beside the road east toward {area:392}."] = "Thun'grim camps beside the road east toward Ratchet." },
-			steps = {
-				{
-					title = "{area:17}",
-					goals = {
-						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 52.2, y = 31, f = "e" },
-					},
-				},
-				{
-					title = "{area:380}",
-					note = "{npc:3429} and {npc:3449} on the tower platform. Helbrim and {npc:3464} by the north gate. {area:380} is your base for this guide. Everyone you need stands within a few steps of the inn.",
-					goals = {
-						{ t = "accept", quest = 844, title = "Plainstrider Menace", npc = 3338, npcName = "Sergra Darkthorn", minLevel = 10, qlvl = 12, map = 1413, x = 52.23, y = 31.01, z = 97.5, f = "e" },
-						{ t = "accept", quest = 869, title = "Raptor Thieves", npc = 3464, npcName = "Gazrog", minLevel = 9, qlvl = 13, map = 1413, x = 51.93, y = 30.32, z = 96.4, f = "e" },
-						{ t = "accept", quest = 1492, title = "Wharfmaster Dizzywig", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 9, qlvl = 11, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
-						{ t = "accept", quest = 848, title = "Fungal Spores", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 10, qlvl = 15, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
-						{ t = "accept", quest = 5041, title = "Supplies for the Crossroads", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 14, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
-						{ t = "accept", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 12, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
-						{ t = "accept", quest = 867, title = "Harpy Raiders", npc = 3449, npcName = "Darsok Swiftdagger", minLevel = 12, qlvl = 15, map = 1413, x = 51.62, y = 30.9, z = 127.9, f = "e", note = "{npc:3449}: the harpies come later, in the {area:383}" },
-					},
-				},
-				{
-					title = "On the way",
-					along = true,
-					goals = {
-						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Water Seeker", npc = 3267, count = 8, oi = 1, map = 1413, x = 53.97, y = 26.06, z = 95.1, f = "e", spotsPacked = "54.2,25.5,91.8,45,5;53.5,25.1,,46,3;55.4,26.9,91.8,48,5;55.5,25.8,91.8,15,1,1" },
-						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Thornweaver", npc = 3268, count = 8, oi = 2, map = 1413, x = 54.06, y = 25.52, z = 92.4, f = "e", spotsPacked = "54.5,25.2,91.9,54,6;55.1,26.9,,41,3;55.7,26.6,91.8,31,3" },
-						{ t = "kill", quest = 871, title = "Disrupt the Attacks", target = "Razormane Hunter", npc = 3265, count = 3, oi = 3, map = 1413, x = 53.76, y = 25.29, z = 92, f = "e", spotsPacked = "53.8,25.3,92,50,1;55.2,25.8,,59,3;57.9,24.1,,50,3;59.4,23.9,85.4,50,1;59.2,26.5,93.2,50,1", spread = true },
-					},
-				},
-				{
-					title = "{quest:1502}",
-					note = "{npc:5878} camps beside the road east toward {area:392}.",
-					only = { classes = { "WARRIOR" } },
-					goals = {
-						{ t = "turnin", quest = 1502, title = "Thun'grim Firegaze", npc = 5878, npcName = "Thun'grim Firegaze", map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
-						{ t = "accept", quest = 1503, title = "Forged Steel", npc = 5878, npcName = "Thun'grim Firegaze", minLevel = 10, qlvl = 10, pre = { 1502 }, preTitles = { [1502] = "Thun'grim Firegaze" }, map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
-					},
-				},
-				{
-					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
-					when = { { k = "onquest", q = { 1522 } } },
-					goals = {
-						{ t = "turnin", quest = 1522, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
-					when = { { k = "onquest", q = { 1523 } } },
-					goals = {
-						{ t = "turnin", quest = 1523, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					only = { classes = { "SHAMAN" }, races = { "Orc", "Troll" } },
-					when = { { k = "onquest", q = { 2984 } } },
-					goals = {
-						{ t = "turnin", quest = 2984, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5907}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "accept", quest = 1524, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", minLevel = 10, qlvl = 11, map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5900}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "turnin", quest = 1524, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-						{ t = "accept", quest = 1525, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", minLevel = 10, qlvl = 12, pre = { 1524 }, preTitles = { [1524] = "Call of Fire" }, map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-					},
-				},
-				{
-					title = "{area:370}",
-					goals = {
-						{ t = "collect", quest = 1525, title = "Call of Fire", item = 6652, itemName = "Reagent Pouch", count = 1, oi = 2, map = 1411, x = 52.41, y = 26.8, f = "e", spotsPacked = "52.4,25.5,,46,7", only = { classes = { "SHAMAN" } }, from = "Burning Blade Cultist", fromKind = "npc", fromId = 3199, fromNpcs = { { npc = 3199, npcName = "Burning Blade Cultist" } } },
-					},
-				},
-				{
-					title = "Razormane camp",
-					note = "Water Seekers, Thornweavers and Hunters hold the camp east of the {area:380}. The supply crates sit at its eastern end. Warriors: the {object:58369} stands in the camp. Shamans: the quilboar drop the {item:5026}. Kill Savannah Prowlers you pass for their claws.\nCareful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.",
-					only = { classes = { "WARRIOR", "SHAMAN" } },
-					goals = {
-						{ t = "collect", quest = 1503, title = "Forged Steel", item = 6534, itemName = "Forged Steel Bars", count = 1, oi = 1, map = 1413, x = 55.05, y = 26.65, f = "e", only = { classes = { "WARRIOR" } }, from = "Stolen Iron Chest", fromKind = "object", fromId = 58369 },
-						{ t = "collect", quest = 1525, title = "Call of Fire", item = 5026, itemName = "Fire Tar", count = 1, oi = 1, map = 1413, x = 55.11, y = 26.59, f = "e", spotsPacked = "55.4,26.8,,72,11;55.3,25.5,,40,2;54.4,25.3,,49,8;53.9,25.7,,40,3;53.4,24.8,,40,2;57,25.3,,52,3;57.1,24.4,,40,3;59.1,24.4,,45,6;58.5,26.7,,43,4", spread = true, only = { classes = { "SHAMAN" } }, from = "Razormane Water Seeker", fromKind = "npc", fromAlso = "Razormane Thornweaver", fromId = 3267, fromAlsoId = 3268, fromNpcs = { { npc = 3268, npcName = "Razormane Thornweaver" }, { npc = 3267, npcName = "Razormane Water Seeker" }, { npc = 3269, npcName = "Razormane Geomancer" }, { npc = 3271, npcName = "Razormane Mystic" } } },
-					},
-				},
-				{
-					title = "{area:14}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "goto", text = "{area:14}", area = 14, map = 1411, x = 38.5, y = 59, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5900}",
-					note = "Back east over the bridge and up the trail to {npc:5900}'s shrine, as at 10. {npc:5900} makes {item:6636} from the tar and pouch. Use it by the brazier next to him to reveal the {npc:5893}, kill it for the {item:6655}, then place the ember in the brazier.",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "turnin", quest = 1525, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-						{ t = "accept", quest = 1526, title = "Call of Fire", npc = 5900, npcName = "Telf Joolam", minLevel = 10, qlvl = 13, pre = { 1525 }, preTitles = { [1525] = "Call of Fire" }, map = 1411, x = 38.55, y = 58.96, z = 168.2, f = "e" },
-						{ t = "collect", quest = 1526, title = "Call of Fire", item = 6655, itemName = "Glowing Ember", count = 1, oi = 1, map = 1411, x = 38.72, y = 58.29, f = "e", from = "Minor Manifestation of Fire", fromKind = "npc", fromId = 5893, fromNpcs = { { npc = 5893, npcName = "Minor Manifestation of Fire" } } },
-						{ t = "turnin", quest = 1526, title = "Call of Fire", object = 61934, objName = "Brazier of the Dormant Flame", map = 1411, x = 38.96, y = 58.22, z = 187.3, f = "e" },
-						{ t = "accept", quest = 1527, title = "Call of Fire", object = 61934, objName = "Brazier of the Dormant Flame", minLevel = 10, qlvl = 13, pre = { 1526 }, preTitles = { [1526] = "Call of Fire" }, map = 1411, x = 38.96, y = 58.22, z = 187.3, f = "e" },
-					},
-				},
-				{
-					title = "{npc:5907}",
-					only = { classes = { "SHAMAN" } },
-					goals = {
-						{ t = "turnin", quest = 1527, title = "Call of Fire", npc = 5907, npcName = "Kranal Fiss", map = 1413, x = 56.03, y = 19.89, z = 97.2, f = "e", note = "{npc:5907}: {npc:2523}, your {item:5176} and the {item:263412}", rewards = { items = { { item = 5176, itemName = "Fire Totem" }, { item = 263412, itemName = "Totem of Charged Flames" } } } },
-					},
-				},
-				{
-					title = "{npc:5878}",
-					only = { classes = { "WARRIOR" } },
-					goals = {
-						{ t = "turnin", quest = 1503, title = "Forged Steel", npc = 5878, npcName = "Thun'grim Firegaze", map = 1413, x = 57.23, y = 30.34, z = 211.4, f = "e" },
-					},
-				},
-				{
-					title = "{area:17}",
-					goals = {
-						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 63.1, y = 37.1, f = "e" },
-					},
-				},
-				{
-					title = "{area:392}",
-					note = "Follow the road south-east to {area:392} on the coast.",
-					goals = {
-						{ t = "getfp", npc = 16227, npcName = "Bragok", location = "Ratchet", node = 80, area = 392, map = 1413, x = 63.08, y = 37.16, z = 11.8, f = "e" },
-					},
-				},
-				{
-					title = "{area:17}",
-					goals = {
-						{ t = "goto", text = "{area:17}", area = 17, map = 1413, x = 51.6, y = 30.9, f = "e" },
 					},
 				},
 			},

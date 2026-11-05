@@ -8,15 +8,15 @@
 return {
 	-- Step 1: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zeppelin pour {zone:1458}",
 
 	-- Step 2: Orgrimmar
 	-- {object:1661} The Undercity · {zone:1454} Orgrimmar · {zone:1458} Undercity
 	["{object:1661} has no Hunter or Shaman trainer: take the {zone:1454} zeppelin from the same tower instead and train in the city, then take the {zone:1458} zeppelin from the tower outside {zone:1454}'s main gate."] = "{object:1661} n'a pas de maître des chasseurs ni des chamans : prenez plutôt le zeppelin d'{zone:1454} à la même tour et entraînez-vous en ville, puis prenez le zeppelin de {zone:1458} à la tour devant la porte principale d'{zone:1454}.",
 
 	-- Step 3: Thunder Bluff
-	-- {spell:18960} Teleport: Moonglade · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar · {zone:1458} Undercity
-	["Cast {spell:18960} and take {npc:11798}'s flight to {area:1638}; {npc:3033} trains you on {area:1639}. Then fly to {zone:1454} and take the {zone:1458} zeppelin from the tower outside the main gate."] = "",
+	-- {zone:1450} Moonglade · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar · {zone:1458} Undercity
+	["Cast Teleport: {zone:1450} and take {npc:11798}'s flight to {area:1638}; {npc:3033} trains you on {area:1639}. Then fly to {zone:1454} and take the {zone:1458} zeppelin from the tower outside the main gate."] = "",
 
 	-- Step 4: Undercity trainers
 	-- {zone:1458} Undercity
@@ -28,14 +28,14 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Volez jusqu'à {area:272}",
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Maître de vol de {zone:1458}",
 
 	-- Step 7: Boulderfist camp
 	["Boulderfist camp"] = "Camp Rochepoing",
 	-- {area:272} Tarren Mill · {area:1857} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["Head east out of {area:272} through {area:1857} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south-east of {area:313}."] = "",
-	["Below ground"] = "",
+	["Head east out of {area:272} through {area:1857} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south-east of {area:313}."] = "Allez vers l'est en quittant {area:272} par {area:1857} et suivez la route vers l'est. Les Ogres et les Exécuteurs Rochepoing (32-34) campent au sud de la route, au sud-est de {area:313}.",
+	["Below ground"] = "Sous terre",
 
 	-- Step 8: The Shards of Myzrael
 	-- {object:138492} Shards of Myzrael
@@ -54,7 +54,7 @@ return {
 	["Highland Striders roam the hills all around {area:321}; both they and the Thrashers further west drop the eyes."] = "Des Arpenteurs des hautes-terres ({npc:2559}) parcourent les collines tout autour de {area:321} ; eux et les Vandales des hautes-terres plus à l'ouest lâchent les yeux.",
 
 	-- Step 13: Drywhisker Gorge
-	["North-east of Hammerfall the Drywhisker kobolds mine the gorge; the Kobolds at the mouth and the Diggers and Surveyors deeper in all drop the Motes of Myzrael.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	["North-east of Hammerfall the Drywhisker kobolds mine the gorge; the Kobolds at the mouth and the Diggers and Surveyors deeper in all drop the Motes of Myzrael.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "Au nord-est de Trépas-d'Orgrim, les kobolds Drywhisker exploitent la gorge ; les Kobolds à l'entrée, et les Fouilleurs et les Géomètres plus loin, lâchent tous des Particules de Myzrael.\nAttention : chaque type de kobold fuit chercher de l'aide quand sa vie est basse (les Kobolds à 30 %, les Géomètres et les Fouilleurs à 15 %), ce qui peut en attirer d'autres.",
 
 	-- Step 14: Iridescent Shards
 	-- {object:2701} Iridescent Shards
@@ -65,15 +65,15 @@ return {
 	["The {object:2691}"] = "{object:2691}",
 	-- {object:180105} Circle of Binding · {area:321} Hammerfall
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "",
+	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "Chaque {object:180105} est un anneau de pierres levées ; la clé repose sur la pierre en son centre. Le cercle de l'est se trouve sur les collines au nord-ouest de {area:321}.\nAttention : chaque pierre centrale est gardée par environ trois élémentaires proches du niveau 39, qui attaquent ensemble si vous cliquez sur la pierre sans les avoir éliminés : des Exilés ardents à l'ouest, des Exilés foudroyants au cercle extérieur, des Exilés grimpeurs à l'est.",
 
 	-- Step 16: Witherbark Village
-	["The Witherbark trolls hold the village in the south-eastern hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.\nCareful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "",
+	["The Witherbark trolls hold the village in the south-eastern hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village.\nCareful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Les trolls Witherbark tiennent le village dans les collines du sud-est. Les Lanceurs de hache gardent les huttes extérieures ; les Sorciers-docteurs et les Chasseurs de têtes tiennent le cœur du village.\nAttention : les trois types de trolls fuient chercher de l'aide à 15 % de vie, ce qui peut attirer d'autres trolls des camps voisins.",
 
 	-- Step 17: The Stone of Outer Binding
 	-- {object:2690} Stone of Outer Binding
 	["The {object:2690}"] = "{object:2690}",
-	["Head north; the outer circle stands in the middle of the highlands."] = "",
+	["Head north; the outer circle stands in the middle of the highlands."] = "Allez vers le nord ; le cercle extérieur se dresse au milieu des hautes-terres.",
 
 	-- Step 18: Fleshstalker raptors
 	["Fleshstalker raptors"] = "Raptors charognards",
@@ -83,17 +83,17 @@ return {
 
 	-- Step 19: Faldir's Cove
 	-- {npc:2766} Lolo the Lookout
-	["Head south-west to the goblins' cove on the southern coast. {npc:2766} keeps watch on the cliff above it."] = "",
+	["Head south-west to the goblins' cove on the southern coast. {npc:2766} keeps watch on the cliff above it."] = "Allez vers le sud-ouest jusqu'à la crique des gobelins sur la côte sud. {npc:2766} monte la garde sur la falaise au-dessus.",
 
 	-- Step 20: Professor Phizzlethorpe
-	["Escort the professor down to the shore. Two Daggerspine naga ambush him on the way: stay close.\nCareful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with."] = "",
+	["Escort the professor down to the shore. Two Daggerspine naga ambush him on the way: stay close.\nCareful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with."] = "Escortez le professeur jusqu'au rivage. Deux nagas Épine-de-dague lui tendent une embuscade en chemin : restez près de lui.\nAttention : l'embuscade est composée de deux élémentaires d'eau de niveau 40, insensibles au givre. Si le combat a lieu dans la grotte, le professeur s'y joint au lieu de travailler et d'autres élémentaires continuent d'apparaître ; retenir les élémentaires à l'entrée de la grotte, loin de lui, lui permet de terminer avec seulement les deux premiers à affronter.",
 
 	-- Step 22: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
-	["{area:328}: kill these as you meet them"] = "",
+	["{area:328}: kill these as you meet them"] = "{area:328} : tuez-les au passage",
 	-- plural, as words: Daggerspine Raiders = {npc:2595} Daggerspine Raider
 	["West of the cove the Daggerspine Raiders and Sorceresses (38-40) hold the shore: pull them one at a time. The two wrecks lie in the shallows off it, the charts and logs inside them; the gems lie on the sea floor around the wrecks."] = "À l'ouest de la crique, les Ecumeurs ({npc:2595}) et Sorcières Daguéchine (38-40) tiennent le rivage : attirez-les un par un. Les deux épaves gisent dans les hauts-fonds au large, les cartes et journaux à l'intérieur ; les gemmes reposent au fond de la mer autour des épaves.",
-	["Underwater"] = "",
+	["Underwater"] = "Sous l'eau",
 
 	-- Step 23: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
@@ -101,10 +101,10 @@ return {
 
 	-- Step 24: Circle of West Binding: kill these as you meet them
 	-- {area:334} Circle of West Binding
-	["{area:334}: kill these as you meet them"] = "",
+	["{area:334}: kill these as you meet them"] = "{area:334} : tuez-les au passage",
 	-- {area:1857} Thoradin's Wall
 	-- plural, as words: Bloodstone Amulets = {item:4495} Bloodstone Amulet
-	["The western circle is near {area:1857}, where you came in.\nThe Syndicate hold the walled manor and its farm in the north-west; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "",
+	["The western circle is near {area:1857}, where you came in.\nThe Syndicate hold the walled manor and its farm in the north-west; their Highwaymen, Mercenaries and Pathstalkers carry the Bloodstone Amulets.\nCareful: Highwaymen (level 30-31) can be in Sneak, so they may be hidden when you approach."] = "Le cercle de l'ouest est près de {area:1857}, par où vous êtes entré.\nLe Syndicat tient le manoir fortifié et sa ferme au nord-ouest ; ses Bandits de grand chemin, ses Mercenaires et ses Rôdeurs portent les Amulettes de pierre de sang.\nAttention : les Bandits de grand chemin (niveau 30-31) peuvent être camouflés et donc cachés quand vous approchez.",
 
 	-- Step 25: The Stone of Inner Binding
 	-- {object:2702} Stone of Inner Binding
@@ -114,7 +114,7 @@ return {
 
 	-- Step 26: Hearth to Hammerfall
 	-- {area:321} Hammerfall
-	["Hearth to {area:321}"] = "",
+	["Hearth to {area:321}"] = "Pierre de foyer vers {area:321}",
 
 	-- Step 27: Back to Hammerfall
 	-- {area:321} Hammerfall
@@ -133,7 +133,7 @@ return {
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "Vers {zone:1418}",
 	-- {area:880} Thandol Span · {zone:1437} Wetlands · {area:150} Menethil Harbor · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:1877} Valley of Fangs
-	["Head south-west out of Arathi over {area:880}, south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "",
+	["Head south-west out of Arathi over {area:880}, south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "Quittez Arathi vers le sud-ouest par {area:880}, allez vers le sud à travers les {zone:1437} (en évitant {area:150}) puis vers l'est dans le {zone:1432} ; la route quitte le {zone:1432} vers le sud pour entrer dans les {zone:1418}. Suivez-la vers le sud jusqu'au camp gobelin de {area:1877}.",
 
 	-- Step 31: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
@@ -145,11 +145,11 @@ return {
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "pour Helgrum l'Agile à {area:75}, vers le niveau 42",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}, à l'intérieur",
 
 	-- Step 33: The Dustbowl
 	-- {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl · {area:340} Kargath
-	["Head west along the road; {npc:2921}'s camp sits in the {area:1878} halfway to {area:340}."] = "",
+	["Head west along the road; {npc:2921}'s camp sits in the {area:1878} halfway to {area:340}."] = "Allez vers l'ouest par la route ; le camp de {npc:2921} se trouve dans {area:1878}, à mi-chemin de {area:340}.",
 
 	-- Step 34: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
@@ -160,19 +160,19 @@ return {
 
 	-- Step 36: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "",
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418} : tuez-les au passage",
 	-- {area:1878} The Dustbowl
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; only the buzzards drop wings and gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "",
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; only the buzzards drop wings and gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "Les Anciens coyotes des rochers et les Busards géants parcourent le bassin au sud de {area:1878}. Les coyotes lâchent à la fois les mâchoires et les crocs ; seuls les busards lâchent les ailes et les gésiers.\nLes Élémentaires de roche, plus grands, se tiennent sur les pentes au nord-ouest de {area:1878} ; chacun lâche une dalle.",
 
 	-- Step 38: Agmond's End
 	-- {area:345} Agmond's End · {area:1877} Valley of Fangs
 	["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin l’Egaré se trouve parmi les ruines naines de {area:345}, au sud de la {area:1877}.",
 
 	-- Step 39: Stonevault troggs
-	["Stonevault troggs"] = "",
+	["Stonevault troggs"] = "Troggs Stonevault",
 	-- {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes."] = "",
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes."] = "Les troggs Stonevault creusent autour des entrées de grottes au sud de {area:1877}, sur le chemin de {area:345} ; les Briseurs d'os et les Chamans lâchent les éclats.",
 
 	-- Step 40: Ancient Chest
 	-- {area:1517} Uldaman
@@ -180,14 +180,14 @@ return {
 
 	-- Step 41: Agmond's End
 	-- {area:1877} Valley of Fangs
-	["Head back south down the road, past the {area:1877}."] = "",
+	["Head back south down the road, past the {area:1877}."] = "Redescendez la route vers le sud, en passant {area:1877}.",
 
 	-- Step 44: The Dustbowl: kill these as you meet them
 	-- {area:1878} The Dustbowl
-	["{area:1878}: kill these as you meet them"] = "",
+	["{area:1878}: kill these as you meet them"] = "{area:1878} : tuez-les au passage",
 	-- {zone:1418} Badlands · {npc:6868} Jarkal Mossmeld · {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "",
+	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "Tous les élémentaires de roche des {zone:1418} lâchent les éclats de {npc:6868} : les Élémentaires de roche inférieurs (37), sur les plaines à l'ouest du camp de {npc:2921}, sont les plus sûrs, environ une fois sur cinq. Seuls les Élémentaires de roche supérieurs (42-44, bien au-dessus de vous) dans les ravins du sud-ouest lâchent les brassards de {npc:2921}, également environ une fois sur cinq : attirez-les un par un et reposez-vous entre les combats, ou laissez-les. Continuez à tuer en chemin les coyotes et les busards qui vous manquent encore.",
 
 	-- Step 45: The Dustbowl
 	-- {npc:2920} Lucien Tosselwrench · {item:2868} Patterned Bronze Bracers · {skill:164} Blacksmithing
@@ -195,13 +195,13 @@ return {
 
 	-- Step 46: Kargath
 	-- {area:340} Kargath
-	["Head north back to {area:340}."] = "",
+	["Head north back to {area:340}."] = "Retournez vers le nord jusqu'à {area:340}.",
 
 	-- Step 47: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Volez jusqu'à {object:3202}",
 	-- {area:340} Kargath
-	["{area:340} flight master"] = "",
+	["{area:340} flight master"] = "Maître de vol de {area:340}",
 
 	-- Step 48: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -209,11 +209,11 @@ return {
 
 	-- Step 50: Orgrimmar
 	-- {item:3713} Soothing Spices
-	["{item:3713}, for \"Swamp Eye\" Jarl"] = "",
+	["{item:3713}, for \"Swamp Eye\" Jarl"] = "{item:3713}, pour « Swamp Eye » Jarl",
 
 	-- Step 52: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
 
 	-- Step 53: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {zone:1454} Orgrimmar · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {area:380} Crossroads
@@ -221,14 +221,14 @@ return {
 
 	-- Step 54: Fly to Crossroads
 	-- {area:380} Crossroads
-	["Fly to {area:380}"] = "",
+	["Fly to {area:380}"] = "Prendre un vol pour {area:380}",
 
 	-- Step 57: Regthar Deathgate
 	-- {area:380} Crossroads · {area:386} Forgotten Pools · {npc:3389} Regthar Deathgate
-	["Head north up the road from the {area:380} to the {area:386}; {npc:3389} keeps watch on the rise above the water."] = "",
+	["Head north up the road from the {area:380} to the {area:386}; {npc:3389} keeps watch on the rise above the water."] = "Remontez la route vers le nord depuis la {area:380} jusqu'à {area:386} ; {npc:3389} monte la garde sur l'éminence au-dessus de l'eau.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["Cast {spell:18960} and take {npc:11798}'s flight to {area:1638}; {npc:3033} trains you on {area:1639}. Then fly to {zone:1454} and take the {zone:1458} zeppelin from the tower outside the main gate."] = "Lancez {spell:18960} et prenez le vol de {npc:11798} jusqu'à {area:1638} ; {npc:3033} vous entraîne sur {area:1639}. Volez ensuite jusqu'à {zone:1454} et prenez le zeppelin de {zone:1458} à la tour devant la porte principale.",
+	-- ["Cast {spell:18960} and take {npc:11798}'s flight to {area:1638}; {npc:3033} trains you on {area:1639}. Then fly to {zone:1454} and take the {zone:1458} zeppelin from the tower outside the main gate."] = "Lancez {spell:18960} et prenez le vol de {npc:11798} jusqu'aux {area:1638} ; {npc:3033} vous entraîne sur la {area:1639}. Volez ensuite jusqu'à {zone:1454} et prenez le zeppelin pour {zone:1458} à la tour devant la grande porte.",
 	-- ["Coyotes and buzzards"] = "Coyotes et busards",
 	-- ["Daggerspine shore"] = "Rivage des Daguéchine",
 	-- ["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}."] = "Chaque {object:180105} est un cercle de pierres levées ; la clé repose sur la pierre en son centre. Le cercle est se trouve sur les collines au nord-ouest de {area:321}.",

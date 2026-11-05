@@ -64,6 +64,8 @@ mod engine_enter;
 mod engine_focus;
 #[path = "engine-group-default.rs"]
 mod engine_group_default;
+#[path = "engine-guide-end.rs"]
+mod engine_guide_end;
 #[path = "engine-heights.rs"]
 mod engine_heights;
 #[path = "engine-keep.rs"]
@@ -136,6 +138,8 @@ mod gear_pawn;
 mod gear_upgrades;
 #[path = "guides-compiled.rs"]
 mod guides_compiled;
+#[path = "guides-end.rs"]
+mod guides_end;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
@@ -247,6 +251,8 @@ mod ui;
 mod ui_along;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
+#[path = "ui-guide-end.rs"]
+mod ui_guide_end;
 #[path = "ui-import.rs"]
 mod ui_import;
 #[path = "ui-journey.rs"]

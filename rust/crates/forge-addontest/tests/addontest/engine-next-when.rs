@@ -70,12 +70,16 @@ fn core() -> Addon {
 	Addon::files("Polestar", &["Core/Core.xml"])
 }
 
+// The hand-off by itself (behavior.guideEnd "continue"); with "ask" the guide-end window offers it
+// (engine-guide-end.rs).
+const CONTINUE: &str = r#"Polestar.Set("behavior.guideEnd", "continue")"#;
+
 fn run(next_when: &str, script: &str) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.into(),
 		addons: vec![core()],
-		script: [TEST_PACK, TEST_SOURCE, &GUIDES.replace("@NEXTWHEN@", next_when), HELPERS, "stub.login()", script].join("\n"),
+		script: [TEST_PACK, TEST_SOURCE, &GUIDES.replace("@NEXTWHEN@", next_when), HELPERS, "stub.login()", CONTINUE, script].join("\n"),
 		..Default::default()
 	})
 }

@@ -32,6 +32,7 @@ const HELPERS: &str = r#"
 			E = Polestar.Engine
 			function flush() stub.advance(0.25) end
 			stub.login()
+			Polestar.Set("behavior.guideEnd", "continue") -- the hand-off by itself
 			stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)
 			-- Each step's statuses, goal by goal ("skipped" for a skipped quest).
 			function statuses()

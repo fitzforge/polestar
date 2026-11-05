@@ -16,6 +16,7 @@
 	<Script file="Lookup.lua"/>
 	<Script file="Dungeons.lua"/>
 	<Script file="RouteChoice.lua"/>
+	<Script file="GuideEnd.lua"/>
 	<Script file="Welcome.lua"/>
 	<Script file="Copy.lua"/>
 	<Script file="QuestRoom.lua"/>

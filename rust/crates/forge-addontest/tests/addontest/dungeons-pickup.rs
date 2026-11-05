@@ -323,7 +323,6 @@ emit({ take = g, target = p and p.name or false })"#);
 fn pickup_opens_the_guide_in_a_new_tab_and_it_plays_to_the_end_the_giver_link_points_at_the_first_prerequisite_still_to_do() {
 	let pack = default_pack();
 	let script = k(r#"
-Polestar.Set("behavior.autoNextGuide", false)
 local before = #Polestar.Engine.GetTabs()
 local function target(id)
 	local p, label, first, turnIn = D.GiverTarget("{KEY}", id)
@@ -720,7 +719,6 @@ fn handin_takes_the_place_of_the_pick_up_guide_once_that_one_is_at_the_entrance_
 	let pack = default_pack();
 	let opts = || Opts { done: vec![1098, 1740, 1011, 1014], log: vec![], ready: vec![1013], ..Default::default() };
 	let script = k(r#"
-Polestar.Set("behavior.autoNextGuide", false)
 -- Return to Dalar is all that is left to pick up: its step, then the entrance.
 D.PickUp("{KEY}")
 Polestar.Engine.OpenTab("lookup/pickup/{KEY}")
