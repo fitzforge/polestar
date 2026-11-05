@@ -2523,6 +2523,47 @@
 		},
 		"note": "The Missing Scholar: ends with Dondallion Whisperwind (npc 253204) and Fillion Flamebreeze (npc 253285); as its ender the merged data lacked Dondallion Whisperwind (npc 253204)."
 	},
+	"93927": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 254871,
+					"count": 1,
+					"text": "Bloody Note"
+				},
+				{
+					"type": "kill",
+					"id": 256966,
+					"count": 1,
+					"text": "Skypriest Aanders"
+				},
+				{
+					"type": "item",
+					"id": 263415,
+					"count": 1,
+					"text": "Raani's Lucky Feather"
+				},
+				{
+					"type": "item",
+					"id": 263418,
+					"count": 1,
+					"text": "Shadowsong Family Signet"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: \"Collect and read the note: 1/1\" is objective 1, seconds after the accept at the note; the Skypriest Aanders kill credits objective 2"
+			}
+		],
+		"note": "A Last Request (Zephras Isle) lists the Bloody Note first, then Skypriest Aanders, then Raani's feather and the Shadowsong signet. The merged data had the note and Aanders the other way round, so `quest 93927.1` named Aanders and the guide's note goal followed Aanders' quest-log line: it stayed open after the note was read (#825)."
+	},
 	"94373": {
 		"set": {
 			"next": 94374

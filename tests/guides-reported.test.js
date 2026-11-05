@@ -1096,6 +1096,22 @@ test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still c
 	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
 });
 
+// A Last Request (93927): the game's objective 1 is the Bloody Note ("Collect
+// and read the note"), 2 is Skypriest Aanders (players' recordings, Forever's
+// quest data). Written swapped, the note goal followed Aanders' line and stayed
+// open after the note was read.
+test('Zephras Isle: A Last Request\'s note and Skypriest Aanders count the objectives the game gives them (#825)', { skip }, () => {
+	const order = fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'data', 'quest_objective.jsonl'), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter((o) => o.quest === 93927);
+	const n = (target) => order.find((o) => o.target === target).n;
+	assert.deepEqual([n(254871), n(256966)], [1, 2], 'Forever\'s quest data: the note first, Aanders second');
+	for (const guide of ['forever/alliance/skyborne/01-zephras-isle.guide', 'forever/horde/skyborne/01-zephras-isle.guide']) {
+		const list = goals(guide);
+		const note = list[at(list, `${guide}: the Bloody Note`, (g) => g.t === 'collect' && g.item === 254871 && g.quest === 93927)].goal;
+		const aanders = list[at(list, `${guide}: Skypriest Aanders`, (g) => g.t === 'kill' && g.npc === 256966 && g.quest === 93927)].goal;
+		assert.deepEqual([note.oi, aanders.oi], [n(254871), n(256966)], guide);
+	}
+});
+
 // --- Silverpine (Wyatt R, #161; Rupert, #229): Dalar Dawnweaver did not offer
 // Stop the Spread to an Undead at 19 or a Tauren at 21 on the route, though
 // the data gives it to every Horde race with no prerequisite.
