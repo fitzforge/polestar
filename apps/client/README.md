@@ -197,8 +197,10 @@ the upload API, and the public list of what is never collected.
   window was shown and how smoothly the intro ran.
 - **The window.** On Linux and Windows it has no system frame: the app draws
   its own title bar (drag anywhere along the top) and window controls
-  (minimize, close to the tray). The window is one fixed size, 880×600,
-  smaller only where the screen's work area is (`src-tauri/src/window.rs`); macOS keeps its traffic lights over the sidebar. On
+  (minimize, close to the tray). The window opens at 880×600, smaller only
+  where the screen's work area is, and that size is its minimum: it can be
+  made larger (a tiling window manager sizes it to its tile) but does not
+  maximize (`src-tauri/src/window.rs`); macOS keeps its traffic lights over the sidebar. On
   Linux the page is drawn through WebKitGTK's DMA-BUF renderer on the GPU,
   except on NVIDIA drivers older than 560 and machines without a GPU render
   node, where it uses the shared-memory renderer (`src-tauri/src/render.rs`;
