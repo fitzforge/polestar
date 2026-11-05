@@ -1,5 +1,5 @@
 'use strict';
-// Solo feasibility (docs/SIMULATION.md §1 "Solo filter"): which quests a
+// Solo feasibility (docs/legacy/SIMULATION-js.md §1 "Solo filter"): which quests a
 // levelling character can do alone. The world builder (world.js) applies
 // these rules, the instance areas from `loadQuestAreas` and the explicit
 // `OVERRIDES` per quest; every exclusion carries one category, counted in
@@ -17,9 +17,9 @@
 //                         objectives cannot be placed in the open world (the
 //                         area is the story zone: breadcrumbs and outer-cave
 //                         quests stay);
-//   elite                 a kill objective on an elite (rank 1-3), or a
-//                         collect / quest-starting item whose only droppers
-//                         are elites or 5+ levels above the quest;
+//   elite                 listed below only (an elite target or an item only
+//                         elites or mobs 5+ levels above drop is group work,
+//                         kept by world.js);
 //   rareDrop              a collect objective whose every dropper is below
 //                         1% (Kum'isha's sphere, 0.01%);
 //   reputation            needs more than Friendly with a faction (Questie

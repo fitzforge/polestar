@@ -104,10 +104,15 @@ function Lookup.Sources(kind, id)
 	return lookupstub.sources[k] or {}, lookupstub.entity[k] or Codex.Item(id)
 end
 function Lookup.CuratedGuide(kind, id) return lookupstub.curated[kind .. ":" .. tostring(id)] end
+function Lookup.IsMount(record) return type(record) == "table" and record.kind == "mount" end
 function Lookup.Guide(kind, id, index)
 	table.insert(lookupstub.calls, { kind, id, index or false })
 	if lookupstub.guideResult ~= nil then return nil, lookupstub.guideResult end
-	return lookupstub.curated[kind .. ":" .. tostring(id)] or ("lookup/" .. kind .. "/" .. tostring(id))
+	local curated = lookupstub.curated[kind .. ":" .. tostring(id)]
+	if curated then return curated end
+	-- As the runtime: a mount is not built from its best source.
+	if index == nil and Lookup.IsMount(select(2, Lookup.Sources(kind, id))) then return nil, "mount" end
+	return "lookup/" .. kind .. "/" .. tostring(id)
 end
 function Lookup.Show(q, kind, id) Polestar.Fire("SHOW_LOOKUP", q, kind, id) end
 
@@ -130,6 +135,11 @@ lookupstub.sources["mount:12302"] = {
 		map = 1457, x = 38.3, y = 15.8, travel = 260, available = false, why = "retired", whyText = "No longer obtainable", price = 1000000, guideable = false },
 }
 lookupstub.entity["mount:13335"] = { id = 13335, name = "Deathcharger's Reins", quality = 4, kind = "mount", reqLevel = 60 }
+-- An ordinary item: its best source builds a guide.
+lookupstub.sources["item:4386"] = {
+	{ type = "drop", src = { type = "drop", npc = 772, chance = 40 }, label = "Stranglethorn Tiger", detail = "Drop \194\183 Stranglethorn Vale", zone = "Stranglethorn Vale",
+		map = 1434, x = 30.2, y = 10.5, travel = 900, effort = 120, cost = 1020, available = true, chance = 40, guideable = true },
+}
 
 function lookupstub.install()
 	Polestar.Search = Search

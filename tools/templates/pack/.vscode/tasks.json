@@ -2,9 +2,9 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
-			"label": "polestar lint",
+			"label": "forge guide lint",
 			"type": "shell",
-			"command": "polestar lint",
+			"command": "forge guide lint",
 			"group": { "kind": "build", "isDefault": true },
 			"presentation": { "reveal": "silent", "clear": true },
 			"problemMatcher": {

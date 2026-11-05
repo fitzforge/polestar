@@ -8,9 +8,10 @@ levels 33-60
 zone Swamp of Sorrows
 
 # Tiny Emerald Whelpling from the Dreaming Whelps of Swamp of Sorrows.
-# Sources: items.json (Dreaming Whelp, 0.08% per kill, pfQuest); Forever client
-# 1.60.1.70338.
+# Sources: items.json (Dreaming Whelp, 0.08% per kill, Classic drop data; its
+# spawns); the world database (five-minute respawn, Classic data); Forever's
+# client data (the whelpling does not bind, so it can be traded).
 
 step Dreaming Whelps
-  tip The Dreaming Whelps (level 35) in western Swamp of Sorrows drop it about once in 1,250 kills in our data.
+  tip The Dreaming Whelps (levels 35-36) live in western Swamp of Sorrows, near the Deadwind Pass border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker.
   collect 8498 @11.5,62.9              -- Dreaming Whelps

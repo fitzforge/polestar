@@ -1,82 +1,442 @@
 guide forever/reputation/stormwind
 title Stormwind Reputation
 category Reputation
+folder Reputation · Cities
 faction Alliance
 levels 12-60
 zone Stormwind City
-# Built from the Era-baseline reference data: Clavicus Knavingham, the Stormwind
-# cloth quartermaster, and the cloth quests 7791/7793/7794/7795 (one-time) and 7796
-# (Additional Runecloth, repeatable) from quests.json; cloth farm spots are
-# the densest spawn clusters of strong cloth droppers in items.json/npcs.json.
-# Nothing public shows Forever changing the cloth donations; this has NOT been
-# play-tested on Forever yet. Refine it with Polestar_Recorder sessions.
-#
-# The client never flags a repeatable quest as completed, so the Additional
-# Runecloth steps finish on the Stormwind standing (rep 72); each
-# step's optional `turnin 7796 direct` checks off at its first hand-in. Cloth counts (60 per first donation, 20 per repeat) are game
-# knowledge: the data only has the 60 Runecloth of A Donation of Runecloth.
+keywords Stormwind, Clavicus Knavingham, cloth quartermaster, Additional Runecloth, Wool, Silk, Mageweave, Runecloth, horse, Swift Palomino, grey quests, Northshire, Goldshire, Stockade, Chillwind Camp, Scourge Cauldrons, The True Masters
+reward text Exalted with Stormwind: in Classic, other races may buy the horses
+reward text About 1,150 Stormwind reputation from level 52-58 quests at Chillwind Camp and in the Burning Steppes
+reward text About 4,500 Stormwind reputation from low-level quests in Elwynn and the Stockade (in Classic, a fifth of it at 60)
+why Cloth, the Western Plaguelands' cauldron quests and the Elwynn hubs: the quests pay most while you level.
 
-step Clavicus Knavingham: A Donation of Wool
-  tip Clavicus Knavingham takes cloth for Stormwind in Stormwind City. The first donations of Wool, Silk, Mageweave and Runecloth (60 cloth each) are done once and give the most reputation per cloth; after them, Additional Runecloth repeats until Exalted. Exalted with another race's city lets you buy that race's mounts. Forever's Legacy Diplomat perk increases reputation gains.
+# Built from Forever's quest data (the reputation each quest pays, as Forever's
+# quest pages give it), quests.json, npcs.json and items.json (givers, drops,
+# farm spots), and the Forever client tables (Faction: Humans start at 4000,
+# the other Alliance races at 3100; ItemSparse: no item needs Stormwind
+# standing, and the horses carry no reputation requirement in the client).
+# Numbers: the first donation of each cloth pays 150 (60 cloth); Additional
+# Runecloth (7796) pays 50 for 20 Runecloth and repeats. Bands from Forever's
+# steps: Friendly 6000, Honored 12000, Revered 21000.
+# Low-level quests: in Classic a quest 6+ levels below you pays a fifth less per
+# level, down to a fifth; one Forever beta report saw full pay at level 30.
+# The quest hubs below are optional: each hub's first step carries a label,
+# the steps after it run only when it was done (`when done`), so skipping the
+# first step skips the hub.
+# Level 52-58 quests first (they pay in full at 60, or nearly): Chillwind
+# Camp's cauldron chain (5092-5226, 5097: 820, and 600 Argent Dawn), Janice
+# Felstone's parcel (5021-5048: 150) and The True Masters up to Stormwind
+# Keep (4182-4186: 175, and 175 Darnassus). Left to a tip: the Blackrock
+# Depths chain of Marshal Windsor and The Great Masquerade (4241-6403: 750),
+# Maxwell's Mission (5002, 5081: 250), Delivery to Ridgewell (135), The Key
+# to Scholomance (200), Order Must Be Restored (Nathanos, 200), Onyxia's
+# head (400) and Nefarian's (200 to every Alliance city), Commendation
+# Signets (only from the Ahn'Qiraj war effort). Alterac Valley's Brotherly
+# Love pays 100.
+# ASSUMED: other races buy the horses at Exalted with Stormwind (Classic flow;
+# Forever's data has no vendor rule for it). In-game check: Katie Hunter's
+# stock for a non-Human at Exalted and below.
+# INGAME: grey-quest rep at 60 (Classic: a fifth from 9 levels below; one Forever beta report: full, quest 456 at level 30 paid 100)
+# INGAME: reputation discount (Classic: 10% at Honored with the vendor's faction; Forever guide sites report 5% at Friendly rising to 20% at Exalted, another says unannounced). Check a city vendor's price at Friendly and at Honored.
+# Legacy Diplomat adds up to 10% to every gain; the numbers here leave it out.
+# No race has a reputation bonus in Forever (Diplomacy is gone).
+
+step Clavicus Knavingham, the cloth quartermaster
+  tip Clavicus Knavingham takes cloth for Stormwind. The arrow leads to him; he stands upstairs inside his building. Each first donation of 60 Wool, Silk, Mageweave and Runecloth pays 150 reputation once; after the Runecloth one, Additional Runecloth pays 50 for every 20 Runecloth, as often as you like. The Auction House is the quickest source of cloth. In Classic, quests pay full reputation while they are at most 5 levels below you, so do Elwynn (levels 1-10), Westfall (10-18), Redridge (15-25) and Duskwood (20-30) while you level through them. After the donations come the level 52-58 quests of the Western Plaguelands and the Burning Steppes (about 1,150), then the optional low-level hubs, best rate first: Northshire and the city errands (about 40 a minute at full value), the Stockade (30), Eastvale and Goldshire (25). Every Stormwind gain also gives a quarter as much to Ironforge, Darnassus and the Gnomeregan Exiles, except quests in the level 1-10 start areas. Legacy Diplomat adds up to 10% to every gain.
   level 12
+  collect 2592 x60 nearest            -- Wool Cloth: Defias, gnolls and kobolds in Westfall and Redridge
   accept 7791
-
-step Wool Cloth
-  zone Westfall
-  tip Riverpaw Bandits and Taskmasters (level 16-18) drop it here. The Auction House works too.
-  collect 2592 x60 quest 7791.1 @59.9,70.7
-
-step Clavicus Knavingham: A Donation of Silk
-  zone Stormwind City
   turnin 7791
+
+step A Donation of Silk
+  tip Silk Cloth drops from humanoids level 23 to 40: Syndicate in Alterac and Arathi, the Defias of Duskwood's Raven Hill, Stranglethorn's trolls.
   level 26
+  collect 4306 x60 nearest
   accept 7793
-
-step Silk Cloth
-  zone Arathi Highlands
-  tip Syndicate Mercenaries at Stromgarde (level 31-32) drop it here. The Auction House works too.
-  collect 4306 x60 quest 7793.1 @32.3,28.3
-
-step Clavicus Knavingham: A Donation of Mageweave
-  zone Stormwind City
   turnin 7793
+
+step A Donation of Mageweave
+  tip Mageweave Cloth drops from humanoids level 35 to 50: the Dunemaul ogres of Tanaris, the Hatecrest naga of Feralas, the Shadowforge dwarves of the Badlands.
   level 40
+  collect 4338 x60 nearest
   accept 7794
-
-step Mageweave Cloth
-  zone Tanaris
-  tip Dunemaul ogres (level 45-48) drop it here. The Auction House works too.
-  collect 4338 x60 quest 7794.1 @40.1,54.4
-
-step Clavicus Knavingham: A Donation of Runecloth
-  zone Stormwind City
   turnin 7794
+
+step A Donation of Runecloth
+  tip Runecloth drops from humanoids level 50 and up: the Scourge cultists and Scarlet Crusade in the Plaguelands, the Deadwood furbolgs of Felwood, the Winterfall furbolgs of Winterspring. Keep any Runecloth past the first 60: it all goes to Additional Runecloth later.
   level 50
+  collect 14047 x60 nearest
   accept 7795
-
-step Runecloth
-  zone Eastern Plaguelands
-  tip Dark Adepts and Shadowmages (level 58-60) drop it here; every Scourge kill here also counts toward the Argent Dawn (see that guide). The Auction House works too.
-  collect 14047 x60 quest 7795.1 @40,51.3
-
-step Clavicus Knavingham: Runecloth delivered
-  zone Stormwind City
   turnin 7795
 
+step Chillwind Camp: Clear the Way
+  zone Western Plaguelands
+  tip These quests are level 52 to 58, so they pay in full at 60, or nearly. Commander Ashlam Valorfist and High Priestess MacDonnell at Chillwind Camp, in the south of the Western Plaguelands, send you against the four Scourge cauldrons: 820 Stormwind reputation in all and 600 Argent Dawn on the side (in Classic about 690 Stormwind at 60, as the first quests are level 52 and 53). The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp.
+  level 55
+  accept 5092                         -- Clear the Way, +100
+  kill 1783 x10 quest 5092.1          -- Skeletal Flayer
+  kill 1791 x10 quest 5092.2          -- Slavering Ghoul
+  turnin 5092
+  accept 5097                         -- All Along the Watchtowers, +100
+  accept 5215                         -- The Scourge Cauldrons, +10
+  turnin 5215                         -- High Priestess MacDonnell
+  accept 5216                         -- Target: Felstone Field, +100
+
+step Andorhal and Felstone Field
+  tip Mark the four watchtowers around Andorhal, north of the camp, with the Beacon Torch at each door. Cauldron Lord Bilemaw guards the cauldron at Felstone Field, west of Andorhal; his key opens it. Janice Felstone's ghost wanders by the Felstone farmhouse, and her parcel lies inside: it goes to Stormwind for 150 more.
+  kill 10902 quest 5097.1 "Mark Andorhal Tower One with the Beacon Torch"
+  kill 10903 quest 5097.2 "Mark Andorhal Tower Two with the Beacon Torch"
+  kill 10904 quest 5097.3 "Mark Andorhal Tower Three with the Beacon Torch"
+  kill 10905 quest 5097.4 "Mark Andorhal Tower Four with the Beacon Torch"
+  collect 13194 quest 5216.1          -- Felstone Field Cauldron Key, from Cauldron Lord Bilemaw
+  turnin 5216                         -- the Scourge Cauldron
+  accept 5217                         -- Return to Chillwind Camp, +50
+  accept 5021                         -- Janice Felstone
+  turnin 5021                         -- Janice's Parcel, in the farmhouse
+  accept 5022                         -- Better Late Than Never, +50
+
+step Chillwind Camp: Dalson's Tears
+  turnin 5097
+  turnin 5217
+  accept 5219                         -- Target: Dalson's Tears, +100
+
+step Dalson's Tears
+  tip Cauldron Lord Malvinious guards the cauldron at Dalson's Tears, north-east of Felstone Field.
+  collect 13195 quest 5219.1          -- Dalson's Tears Cauldron Key
+  turnin 5219                         -- the Scourge Cauldron
+  accept 5220                         -- Return to Chillwind Camp, +50
+
+step Chillwind Camp: the Writhing Haunt
+  turnin 5220
+  accept 5222                         -- Target: Writhing Haunt, +100
+
+step The Writhing Haunt
+  tip Cauldron Lord Razarch guards the cauldron at the Writhing Haunt, the farm east of Dalson's Tears.
+  collect 13197 quest 5222.1          -- Writhing Haunt Cauldron Key
+  turnin 5222                         -- the Scourge Cauldron
+  accept 5223                         -- Return to Chillwind Camp, +50
+
+step Chillwind Camp: Gahrron's Withering
+  turnin 5223
+  accept 5225                         -- Target: Gahrron's Withering, +100
+
+step Gahrron's Withering
+  tip Cauldron Lord Soulwrath guards the cauldron at Gahrron's Withering, in the east of the zone.
+  collect 13196 quest 5225.1          -- Gahrron's Withering Cauldron Key
+  turnin 5225                         -- the Scourge Cauldron
+  accept 5226                         -- Return to Chillwind Camp, +50
+
+step Chillwind Camp: done
+  tip Alchemist Arbington in the camp also ends The Key to Scholomance (200), after a longer chain that needs a Scholomance group.
+  turnin 5226
+
+step Stormwind: Janice's parcel
+  zone Stormwind City
+  tip Royal Factor Bathrilor stands in the city hall on Cathedral Square, beside Baros Alexston; Ol' Emma walks the canals.
+  turnin 5022                         -- Royal Factor Bathrilor
+  accept 5048                         -- Good Natured Emma, +100
+  turnin 5048                         -- Ol' Emma
+
+step Morgan's Vigil: Dragonkin Menace
+  zone Burning Steppes
+  tip Helendis Riverhorn at Morgan's Vigil, in the south-east of the Burning Steppes, starts The True Masters: a chain to Lakeshire and Stormwind Keep, 175 Stormwind and 175 Darnassus reputation (level 54: in Classic four fifths of it at 60). The Black Broodlings and the Black Drake live on the slopes north of the Vigil; the Black Dragonspawn and Black Wyrmkin west of it, in the middle of the zone.
+  accept 4182                         -- Dragonkin Menace, +100 Darnassus
+  kill 7047 x15 quest 4182.1          -- Black Broodling
+  kill 7040 x10 quest 4182.2          -- Black Dragonspawn
+  kill 7044 quest 4182.3              -- Black Drake
+  kill 7041 x4 quest 4182.4           -- Black Wyrmkin
+  turnin 4182
+  accept 4183                         -- The True Masters, +75 Darnassus
+
+step Lakeshire: Magistrate Solomon
+  zone Redridge Mountains
+  tip Magistrate Solomon waits in the town hall of Lakeshire.
+  turnin 4183
+  accept 4184                         -- The True Masters, +75
+
+step Stormwind Keep
+  zone Stormwind City
+  tip Highlord Bolvar Fordragon holds court in Stormwind Keep with Lady Katrana Prestor at his side: speak with her for the second of his quests.
+  turnin 4184                         -- Highlord Bolvar Fordragon
+  accept 4185
+  kill 1749 quest 4185.1 "Speak with Lady Katrana Prestor"
+  turnin 4185
+  accept 4186                         -- The True Masters, +100
+
+step Lakeshire: Solomon again
+  zone Redridge Mountains
+  tip With a group the chain goes on into Blackrock Depths: Marshal Windsor, Jail Break! and The Great Masquerade back in Stormwind pay about 750 Stormwind more, Maxwell's Mission (Lower Blackrock Spire) 250, Delivery to Ridgewell 135. Order Must Be Restored (Nathanos Blightcaller in the Eastern Plaguelands) pays 200, The Key to Scholomance 200; Onyxia's head 400 and Nefarian's 200 when the raids open.
+  turnin 4186                         -- Magistrate Solomon
+
+step Stormwind errands
+  label sw-city
+  zone Stormwind City
+  tip Optional: four quick deliveries inside Stormwind for 200 reputation (40 at a fifth) in about five minutes. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  accept 332
+  accept 333
+  turnin 333
+  accept 334
+  turnin 334
+  turnin 332
+
+step The Stockade: two quests
+  label sw-stockade
+  tip Optional: the Stockade is Stormwind's prison, a dungeon in the canals of the Mage Quarter. At 60 you clear it alone in ten minutes: 300 reputation (60 at a fifth). Warden Thelwater stands at the gate, Nikova Raskol in Old Town. Two more Stockade quests start outside the city, 100 each, if you pass by: What Comes Around... (Targorr the Dread) from Guard Berton in Lakeshire and Crime and Punishment (Dextren Ward) from Councilman Millstipe in Darkshire. (The Stockade Riots, 100 more, needs the Unsent Letter from Edwin VanCleef in the Deadmines first.) In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  accept 387
+  accept 388
+
+step Inside the Stockade
+  when done sw-stockade
+  tip Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. Bazil Thredd waits in the far end.
+  kill 1706 x10 quest 387.1 @52.4,70.0 live -- Defias Prisoner
+  kill 1711 x8 quest 387.2 @52.4,70.0 live -- Defias Convict
+  kill 1715 x8 quest 387.3 @52.4,70.0 live -- Defias Insurgent
+  collect 2909 x10 quest 388.1 @52.4,70.0 live -- Red Wool Bandana
+
+step The Stockade: hand in
+  when done sw-stockade
+  turnin 387
+  turnin 388
+
+step Northshire Valley
+  label sw-northshire
+  zone Elwynn Forest
+  tip Optional: the Human start valley north of Goldshire: about 1,600 reputation (320 at a fifth) in 40 minutes at 60, the best rate of the hubs. Deputy Willem and Marshal McBride stand at Northshire Abbey. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  accept 783
+  turnin 783
+  accept 7
+  accept 5261
+  accept 18
+  turnin 5261
+  accept 33
+
+step Northshire: kobolds, wolves and bandanas
+  when done sw-northshire
+  tip The Kobold Vermin dig at the camp north of the abbey; the wolves roam the valley; the Defias at the vineyard east of the abbey drop the bandanas. Keep any Nibbled-On Book a kobold drops: it starts Forever's book chain.
+  kill 6 x10 quest 7.1                -- Kobold Vermin
+  collect 750 x8 quest 33.1           -- Tough Wolf Meat
+  collect 752 x12 quest 18.1          -- Red Burlap Bandana
+  collect 247834 x1                   -- Nibbled-On Book, from the kobolds
+
+step Northshire: back at the abbey
+  when done sw-northshire
+  turnin 7
+  accept 15
+  turnin 33
+  turnin 18
+  accept 6
+  accept 3903
+  accept 91741 item 247834
+  turnin 91741
+  accept 92124
+  turnin 92124
+  accept 91743
+
+step Northshire: Echo Ridge, Garrick and the vineyard
+  when done sw-northshire
+  tip The Kobold Workers are in Echo Ridge Mine north of the abbey; Garrick Padfoot stands in the Defias camp east of the vineyard; Milly's Harvest crates lie in the vineyard; the rats carrying the Stolen Books run about the abbey grounds.
+  kill 257 x10 quest 15.1             -- Kobold Worker
+  collect 182 quest 6.1               -- Garrick's Head
+  turnin 3903
+  accept 3904
+  collect 11119 x8 quest 3904.1       -- Milly's Harvest
+  collect 247839 x8 quest 91743.1     -- Stolen Book
+
+step Northshire: second hand-in
+  when done sw-northshire
+  turnin 15
+  accept 21
+  turnin 6
+  turnin 3904
+  accept 3905
+  turnin 3905
+  turnin 91743
+  accept 91745
+
+step Northshire: the mine and the books
+  when done sw-northshire
+  kill 80 x12 quest 21.1              -- Kobold Laborer, deep in Echo Ridge Mine
+  turnin 91745
+  accept 91752
+  collect 247886 quest 91752.1
+
+step Northshire: last hand-in
+  when done sw-northshire
+  turnin 21
+  accept 54
+  turnin 91752
+  accept 91758
+  turnin 91758
+  accept 91772
+  interact 563442 quest 91772.1       -- Kobold Tracks, east of the abbey
+
+step Northshire: the books end in Goldshire
+  when done sw-northshire
+  tip Marshal Dughan stands in front of the Lion's Pride Inn in Goldshire. The Lost Books drop from the kobolds of Fargodeep Mine south of Goldshire; the picture book and the two rare books from the named kobolds there.
+  turnin 54
+  turnin 91772
+  accept 91775
+  collect 248002 quest 91775.1        -- Picture Book: Fun with Elementals
+  collect 248001 x6 quest 91775.2     -- Lost Book
+  turnin 91775
+  accept 91777
+  collect 248003 quest 91777.1        -- Geomancy for Curious Young Wizards
+  collect 248004 quest 91777.2        -- Arcane Explainer
+  turnin 91777                        -- Brother Paxton, back at the abbey
+
+step Goldshire
+  label sw-goldshire
+  tip Optional: Goldshire, Westbrook and the farms south of Goldshire: about 1,450 reputation (290 at a fifth) in an hour at 60. Marshal Dughan, Remy and William Pestle stand around the Lion's Pride Inn. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  accept 62
+  accept 47
+  accept 60
+  accept 40
+  turnin 40
+  accept 35
+  accept 91751
+
+step Goldshire: the mines
+  when done sw-goldshire
+  tip Fargodeep Mine is south of Goldshire, Jasperlode Mine north-east of it. The kobolds in both drop the candles and the Gold Dust; the wolves around Goldshire the pelts.
+  complete 62
+  collect 773 x10 quest 47.1          -- Gold Dust
+  collect 772 x8 quest 60.1           -- Large Candle
+  collect 247877 x7 quest 91751.1     -- Rough Wolf Pelt
+
+step Goldshire: back at the inn
+  when done sw-goldshire
+  turnin 62
+  accept 76
+  turnin 47
+  turnin 60
+  accept 61
+  turnin 91751
+
+step Goldshire: Jasperlode Mine
+  when done sw-goldshire
+  complete 76 map 1429 @60.2,49.2     -- walk into the mine
+
+step Goldshire: Westbrook and Hogger
+  when done sw-goldshire
+  tip Hogger is an elite gnoll west of Westbrook Garrison; at 60 he is no trouble. The Wanted poster hangs on the garrison.
+  turnin 76
+  accept 239
+  turnin 239
+  accept 11
+  accept 176
+  collect 782 x8 quest 11.1           -- Painted Gnoll Armband, from the Riverpaw gnolls
+  collect 1931 quest 176.1            -- Huge Gnoll Claw, from Hogger
+  turnin 11
+
+step The farms south of Goldshire
+  when done sw-goldshire
+  tip The Stonefields' farm and the Maclures' farm lie on either side of the road south of Goldshire. Goldtooth guards the back of Fargodeep Mine; Princess the boar roams the Brackwell Pumpkin Patch.
+  accept 85
+  turnin 85
+  accept 86
+  accept 106
+  accept 88
+  collect 769 x4 quest 86.1           -- Chunk of Boar Meat
+  collect 1006 quest 88.1             -- Brass Collar, from Princess
+  turnin 86
+  accept 84
+  turnin 84
+  accept 87
+  turnin 106
+  accept 111
+  turnin 111
+  accept 107
+  turnin 88
+
+step Goldtooth and the kelp
+  when done sw-goldshire
+  collect 981 quest 87.1              -- Bernice's Necklace, from Goldtooth
+  turnin 87
+  turnin 107
+  accept 112
+  collect 1256 x4 quest 112.1         -- Crystal Kelp Frond, from the murlocs of Crystal Lake
+
+step Goldshire: last hand-in
+  when done sw-goldshire
+  turnin 112
+  accept 114
+  turnin 114
+  turnin 176
+
+step Shipment to Stormwind
+  when done sw-goldshire
+  zone Stormwind City
+  turnin 61                           -- Morgan Pestle, in the Trade District
+
+step Eastvale
+  label sw-eastvale
+  zone Elwynn Forest
+  tip Optional: eastern Elwynn, around Guard Thomas on the bridge and the Tower of Azora, about 1,000 reputation (200 at a fifth) in 40 minutes at 60. In Classic, quests 6+ levels below you pay less (a fifth at 60); a Forever beta report says they paid in full. Your first turn-in shows which: if it pays a fifth, skip these hubs. Skip this step to skip the hub.
+  turnin 35 optional
+  accept 37
+  accept 52
+  accept 83
+  accept 91723
+  accept 91725
+  accept 91732
+  accept 91733
+
+step Eastvale: the work
+  when done sw-eastvale
+  tip The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the Tower of Azora carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at Jasperlode Mine; the tools and the river finds lie along the river north of the logging camp.
+  turnin 37
+  accept 45
+  turnin 45
+  accept 71
+  turnin 71
+  accept 39
+  kill 118 x8 quest 52.1              -- Prowler
+  kill 822 x5 quest 52.2              -- Young Forest Bear
+  collect 1019 x6 quest 83.1          -- Red Linen Bandana
+  kill 476 x8 quest 91723.1           -- Kobold Geomancer
+  collect 247805 x5 quest 91725.1     -- Stolen Enchanting Supplies
+  collect 247816 x4 quest 91732.1     -- Mining Tools
+  collect 247817 quest 91733.1        -- Waterlogged Axe
+  collect 247813 quest 91733.2        -- Waterlogged Saw
+  collect 247818 quest 91733.3        -- Waterlogged Toolbox
+
+step Eastvale: hand in
+  when done sw-eastvale
+  turnin 52
+  turnin 83
+  turnin 91723
+  accept 91724
+  turnin 91725
+  turnin 91732
+  turnin 91733
+
+step Eastvale: Defias Rogue Wizards
+  when done sw-eastvale
+  kill 474 x6 quest 91724.1           -- Defias Rogue Wizard
+  turnin 91724
+  turnin 39                           -- Marshal Dughan, Goldshire
+  accept 59
+  accept 46                           -- opens with Thomas' report
+  turnin 59                           -- Sara Timberlain, Eastvale Logging Camp
+  collect 780 x8 quest 46.1           -- Torn Murloc Fin, from the murlocs south of the bridge
+  turnin 46
+
 step Additional Runecloth to Honored
-  tip Additional Runecloth takes 20 Runecloth per turn-in and repeats as often as you like. Bring Runecloth in multiples of 20 and hand them all in at once, one turn-in after another. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
+  zone Stormwind City
+  tip Additional Runecloth: 50 reputation for 20 Runecloth, as often as you like. After the four first donations a non-Human stands at Friendly 700 of 6,000, so Honored is 5,300 away: 106 turn-ins, 2,120 Runecloth (Humans start 900 higher: 88 turn-ins; a Skyborne's Exploring the Alliance paid 100, two fewer). The level 52-58 quests above take 23 turn-ins off; every Elwynn hub you did takes 20 to 30 more off if it paid in full. More quest hubs pay Stormwind, in full while they are no more than 5 levels below you: Westfall (about 2,500 in all), Redridge's Lakeshire (about 3,000) and Duskwood's Darkshire (about 2,900). Every city gain also gives a quarter as much to the other three Alliance cities (not counted here). Hand in all your Runecloth at once.
+  collect 14047 x20 optional nearest
   turnin 7796 direct optional
   rep 72 Honored
 
 step Additional Runecloth to Revered
-  tip Keep handing in Additional Runecloth, 20 Runecloth at a time. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
+  tip Honored: in Classic Stormwind's vendors take 10% off for you, Katie Hunter's horses (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 Runecloth.
+  collect 14047 x20 optional nearest
   turnin 7796 direct optional
   rep 72 Revered
 
 step Additional Runecloth to Exalted
-  tip Keep handing in Additional Runecloth until Stormwind is Exalted. Runecloth: Dark Adepts and Shadowmages (level 58-60) in Eastern Plaguelands, or the Auction House.
-  collect 14047 x20 optional @40,51.3 map 1423
+  tip Revered to Exalted is 21,000 reputation: 420 turn-ins, 8,400 Runecloth. At Exalted, Katie Hunter at Eastvale Logging Camp sells her horses to other races in Classic; the Horse and Swift Horse guides cover them.
+  collect 14047 x20 optional nearest
   turnin 7796 direct optional
   rep 72 Exalted

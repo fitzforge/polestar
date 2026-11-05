@@ -1,0 +1,10 @@
+## Interface: 16001
+## Title: Polestar Travel (local)
+## Notes: Zone crossings for Polestar's travel planner, built from an optional local crossings file. Local use only.
+## Author: Polestar
+## Version: 0.2.6
+## Category: Polestar
+## Group: Polestar
+## Dependencies: Polestar
+
+Crossings.lua

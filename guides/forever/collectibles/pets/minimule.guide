@@ -2,27 +2,33 @@ guide forever/collectibles/pets/minimule
 title Minimule
 category Collectibles
 folder Companion pets · Vendors
-keywords Packmule Treat, Minimule, mule, Merchant's Favor, Azeroth Commerce Authority, Durotar Supply and Logistics, Tamelyn Aldridge, Gishah
+keywords Packmule Treat, Minimule, mule, Merchant's Favor, Azeroth Commerce Authority, Durotar Supply and Logistics, Tamelyn Aldridge, Gishah, Marcy Baker, Dokimi, Waylaid Crate
 collects 284664
 levels 10-60
 zone Redridge Mountains
 
 # Packmule Treat (the Minimule) for 1,500 Merchant's Favor from the supply
-# reputation camps.
-# The treat costs 1,500 Merchant's Favor, earned from crate hand-ins at the camps.
-# Sources: NPCs 256389 / 256384 (positions); Forever client 1.60.1.70338 via wago.tools.
-# Merchant's Favor is a currency Polestar cannot count.
+# camps, at Revered with the camp's faction.
+# Sources: NPCs 256389 / 256384 / 256390 / 256386 (positions); Forever's client
+# data (ItemSparse 284664: binds when picked up, no standing on the item).
+# The Favor price and the Revered gate are vendor rules the client item table
+# does not hold: they follow beta vendor lists, as in the Supply Factions
+# Reputation guide. Crate pay (5/10/15 Favor for plain bundles, 10/20/30 for
+# crafted ones) is from beta reports. Merchant's Favor is a currency Polestar
+# cannot count.
+# INGAME: does Tamelyn Aldridge or Gishah sell the Packmule Treat below Revered?
+# (beta vendor lists say Revered; the client item carries no standing).
 
 step Azeroth Commerce Authority
   only Alliance
   zone Redridge Mountains
-  tip The Alliance camp is at Three Corners in western Redridge Mountains. Loot supply crates in the world, fill them and hand them in to Marcy Baker for Merchant's Favor (5-20 a crate); the treat costs 1,500.
+  tip The Alliance camp is at Three Corners in western Redridge Mountains. Merchant's Favor comes from Waylaid Crates that mobs drop from level 10: fill one with a bundle it lists and hand it to Marcy Baker, for 5 to 30 Favor a crate. The treat costs 1,500 Favor and, by beta vendor lists, needs Revered with the Azeroth Commerce Authority. Crates pay no standing: that comes from the Craftsman's Writs, 21,000 from Neutral to Revered. The Supply Factions Reputation guide takes you there.
   vendor 256389 "Tamelyn Aldridge" @10.6,71.3 live
   buy 284664 "Packmule Treat" npc 256389 @10.6,71.3 live -- 1,500 Merchant's Favor
 
 step Durotar Supply and Logistics
   only Horde
   zone The Barrens
-  tip The Horde camp is just outside the Crossroads. Loot supply crates in the world, fill them and hand them in at the camp for Merchant's Favor; the treat costs 1,500. (Another Gishah stands in the Undercity; this is the one at the camp.)
+  tip The Horde camp is just outside the west gate of the Crossroads. Merchant's Favor comes from Waylaid Crates that mobs drop from level 10: fill one with a bundle it lists and hand it to Dokimi, for 5 to 30 Favor a crate. The treat costs 1,500 Favor and, by beta vendor lists, needs Revered with Durotar Supply and Logistics. Crates pay no standing: that comes from the Craftsman's Writs, 21,000 from Neutral to Revered. The Supply Factions Reputation guide takes you there. (Another Gishah stands in the Undercity; this is the one at the camp.)
   vendor 256384 "Gishah" @49.4,29.4
   buy 284664 "Packmule Treat" npc 256384 @49.4,29.4 -- 1,500 Merchant's Favor

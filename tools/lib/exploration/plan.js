@@ -12,6 +12,11 @@ const MAX_GOALS_PER_STEP = 8;
 // Area levels this far above a guide's top level get a warning.
 const DANGER_MARGIN = 5;
 const MAX_PLAYER_LEVEL = 60;
+// Areas this far above a guide's top level (below the level cap) wait in a
+// step of their own at the end of their zone, one the player can skip and
+// come back to later (Feralas's level 60 Oneiros and Dream Bough in the
+// 30-45 guide); they stay out of the zone's tour.
+const LATER_MARGIN = 10;
 const TAXI_SIDE = { 1: 'Alliance', 2: 'Horde', 3: 'both' };
 const FACTIONS = ['Alliance', 'Horde'];
 
@@ -81,6 +86,10 @@ function overlayLevel(o) {
 	return lv.length ? Math.min(...lv) : 0;
 }
 
+function isLater(o, maxLevel) {
+	return maxLevel < MAX_PLAYER_LEVEL && overlayLevel(o) >= maxLevel + LATER_MARGIN;
+}
+
 function findArea(ctx, name) {
 	for (const [map, list] of Object.entries(ctx.areas)) {
 		const o = list.find((x) => x.areas.some((a) => a.name === name));
@@ -135,11 +144,12 @@ function chunks(list) {
 	return out;
 }
 
-// Flight masters on a zone map: { both: neutral ones, Alliance, Horde }.
+// Flight masters on a zone map: { both: neutral ones, Alliance, Horde }. A
+// class's own flight master (`class`: Moonglade's druid ones) is left out.
 function flightMasters(ctx, map) {
 	const out = { both: [], Alliance: [], Horde: [] };
 	for (const n of ctx.travel.taxi.nodes.slice().sort((a, b) => a.id - b.id)) {
-		if (n.map !== map) continue;
+		if (n.map !== map || n.class) continue;
 		const key = TAXI_SIDE[n.faction];
 		if (key) out[key].push(`${n.short} (${n.npcName})`);
 	}
@@ -201,9 +211,13 @@ function planRoute(ctx, guide, route, side) {
 			end = target.reduce((b, n) => (dist(c, n.pt) < dist(c, b.pt) ? n : b)).pt;
 			if (end.c !== start.c) end = null;
 		}
-		const order = [...head, ...planTour(head.length ? head[0].pt : start, rest, end), ...tail];
+		const max = guide.levels[1];
+		const now = rest.filter((n) => !isLater(n.o, max));
+		const order = [...head, ...planTour(head.length ? head[0].pt : start, now, end), ...tail];
 		at = order[order.length - 1].pt;
+		const later = rest.filter((n) => isLater(n.o, max));
 		const levels = nodes.map((n) => overlayLevel(n.o)).filter((l) => l > 0);
+		const goal = (n) => ({ ...n.o, notes: goalNotes(n.o, side, max) });
 		out.push({
 			zone: v.zone,
 			map: v.map,
@@ -211,7 +225,8 @@ function planRoute(ctx, guide, route, side) {
 			tip: v.tip || null,
 			fps: flightMasters(ctx, v.map),
 			levels: levels.length ? [Math.min(...levels), Math.max(...levels)] : null,
-			steps: chunks(order.map((n) => ({ ...n.o, notes: goalNotes(n.o, side, guide.levels[1]) }))),
+			steps: chunks(order.map(goal)),
+			later: later.length ? planTour(at, later, null).map(goal) : [],
 		});
 	});
 	return out;
@@ -229,4 +244,4 @@ function planGuide(ctx, guide) {
 	return out;
 }
 
-module.exports = { context, planGuide, planRoute, goalNotes, overlayLevel, areaLabel, chunks, MAX_GOALS_PER_STEP };
+module.exports = { context, planGuide, planRoute, goalNotes, overlayLevel, isLater, areaLabel, chunks, MAX_GOALS_PER_STEP };

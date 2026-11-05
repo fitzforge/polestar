@@ -9,9 +9,18 @@ zone Loch Modan
 
 # Shaking Egg (the Condor Hatchling) from Lord Condar in Loch Modan (new in
 # Forever).
-# Sources: Wowhead Forever item 282637 (Lord Condar, 0.2% in 475 kills);
-# npcs.json (Lord Condar's spawn); Forever client 1.60.1.70338.
+# Sources: Forever's item data, item 282637 (Lord Condar, 0.2% in 475 kills);
+# npcs.json (Lord Condar's four spots); Forever client 1.60.1.70532 (item
+# 282637, Summon Condor Hatchling).
+# ASSUMED: Lord Condar comes back about four hours after a kill, at one of his
+# four spots (Classic flow; the TDB's 14400-second respawn is Classic data).
+# In-game check: how often he is up on one layer.
 
 step Lord Condar
-  tip Lord Condar is a rare level 15-16 condor in south-eastern Loch Modan; early kill counts give about 0.2% per kill, so expect many respawns.
-  collect 282637 "Shaking Egg" @77.7,74.9 -- Lord Condar
+  tip Lord Condar is a rare level 15-16 condor in south-eastern Loch Modan. He appears at one of four spots, hours after he last died; the arrow takes you round them. He drops the Shaking Egg only about once in 500 kills, so this is a pet for players who pass through Loch Modan often: check his spots each time, and kill him whenever you see him.
+  loop
+  goto 77.7,74.9
+  goto 74.6,70.8
+  goto 74.7,66.9
+  goto 62.6,78.5
+  collect 282637 "Shaking Egg" -- Lord Condar

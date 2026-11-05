@@ -1,0 +1,145 @@
+guide forever/class/mage/staff-or-orb-alliance
+title Ley or Arcane Staff or Orb (Alliance)
+category Class
+class Mage
+folder Mage
+faction Alliance
+levels 10-15
+zone Elwynn Forest
+keywords Speak with Jennea, Mirror Lake, Jennea Cannon, Zaldimar Wefhellt, Jennea's Flask, Speak with Bink, Mage-tastic Gizmonitor, Bink, Magis Sparkmantle, Bink's Toolbox, Speak with Belann, Boughs in the Wind, Belann Windwood, Anathamaas Aetherwind, Windbough Wand, Ley Staff, Ley Orb, Arcane Staff, Arcane Orb, Mage, class weapon
+reward item 7508 9513
+reward item 7507 9514
+reward item 263430
+why A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand.
+
+# The Alliance mage weapon quests at level 10, one per home town:
+# - Humans (Goldshire): Speak with Jennea (1860, Zaldimar Wefhellt) and Mirror
+#   Lake (1861, Jennea Cannon in Stormwind): Ley Orb (7508) or Ley Staff (9513).
+# - Gnomes (Kharanos): Speak with Bink (1879, Magis Sparkmantle) and
+#   Mage-tastic Gizmonitor (1880, Bink in Ironforge): Arcane Orb (7507) or
+#   Arcane Staff (9514).
+# - Skyborne (Zephras Isle): Forever's Speak with Belann (93791, Anathamaas
+#   Aetherwind in Valanaar) and Boughs in the Wind (93797): the Windbough Wand
+#   (263430). Mirror Lake's race mask takes Skyborne too, so they take it from
+#   Jennea on reaching Stormwind at about 15 (02-westfall does).
+# Exclusive (quests.json `excl`, and Forever's quest data): 1860 shuts out 1879
+# and 1880, 1879 shuts out 1860 and 1861, 1861 and 1880 shut out each other.
+# Every Human or Gnome mage gets one staff-or-orb chain: Humans take Jennea's,
+# Gnomes Bink's (either race may take the other town's; the guide follows the
+# home town). Belann's chain has no `excl`: Skyborne do both.
+# Mirror Lake needs no breadcrumb (pre none): Jennea offers it on sight.
+# Sources: quests.json, npcs.json, objects.json and items.json (the givers, the
+# Mirror Lake Waterwall 174794, Bink's Toolbox 102984, the Wind-Infused Bough
+# 616860); quest_template in Forever's server data for the reward choices;
+# data/local/mechanics (quest-steps, quest-notes, checked 2026-10-20) for the
+# flask's place under the falls, its 5 second fill, the toolbox's 15 minute
+# respawn and the leper gnomes, and the bough's lack of sparkle.
+# The leveling routes carry these (01-elwynn-forest, 01-dun-morogh,
+# 01-zephras-isle, 02-westfall); this guide is for mages off the route or
+# coming back for the weapon.
+# Each race takes its home town's quest; the steps after the pick-up follow
+# whichever quest is in the log (`when onquest`), so a Gnome who took
+# Zaldimar's quest or a Human who took Magis's is guided too. Belann's chain
+# is open to Human and Gnome mages as well (race mask); for them it is an
+# optional last step.
+# Lint warns that Mage-tastic Gizmonitor is shut out once Mirror Lake is
+# taken: true, and why the Gizmonitor steps only run `when onquest` 1879/1880;
+# no character plays both.
+
+# ---------------------------------------------------------------- Skyborne: Belann's bough
+
+step Anathamaas Aetherwind (Valanaar)
+  only Skyborne
+  zone Zephras Isle
+  tip At 10 Anathamaas Aetherwind, the Valanaar mage trainer, sends you to Belann Windwood, the staff merchant a few steps away in the same town.
+  level 10
+  accept 93791 npc 252373                     -- Anathamaas Aetherwind
+  turnin 93791                                -- Belann Windwood
+  accept 93797
+
+step The Windstone Formations
+  only Skyborne
+  tip The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of Falaath Village. It does not sparkle, so look at the ground by the stones; there are two spots for it.
+  collect 262668 quest 93797.1                -- Wind-Infused Bough
+
+step Back to Belann
+  only Skyborne
+  turnin 93797 reward 263430                  -- Belann Windwood: Windbough Wand
+  note Mirror Lake (the next steps) waits for you with Jennea Cannon in Stormwind, at about 15.
+
+# ---------------------------------------------------------------- Pick up: Goldshire or Kharanos
+
+step Zaldimar Wefhellt (Goldshire)
+  only Human
+  zone Elwynn Forest
+  tip At 10 Zaldimar Wefhellt, the Goldshire mage trainer, upstairs in the Lion's Pride Inn, sends you to Jennea Cannon in Stormwind. Taking it shuts out Bink's quest in Ironforge; you get one staff-or-orb quest.
+  level 10
+  accept 1860 npc 328                         -- Zaldimar Wefhellt
+
+step Magis Sparkmantle (Kharanos)
+  only Gnome
+  zone Dun Morogh
+  tip At 10 Magis Sparkmantle, the Kharanos mage trainer in the Thunderbrew Distillery, sends you to Bink in Ironforge. Taking it shuts out Jennea's Mirror Lake; you get one staff-or-orb quest. (A Gnome who took Zaldimar's quest in Goldshire instead follows the Mirror Lake steps; a Human who took this one, the Gizmonitor steps.)
+  level 10
+  accept 1879 npc 1228                        -- Magis Sparkmantle
+
+# ---------------------------------------------------------------- Jennea's Mirror Lake
+
+step Jennea Cannon
+  only Human,Gnome,Skyborne
+  when !onquest 1879
+  zone Stormwind City
+  tip Follow the road north into Stormwind and west to the Mage Quarter. Jennea stands at the top of the Wizard's Sanctum, the tall violet tower: climb the spiral ramp and step into the portal near the top, which puts you beside her. She hands you Jennea's Flask. Skyborne mages take Mirror Lake from her when they first reach Stormwind, at about 15.
+  turnin 1860 only Human,Gnome                -- Jennea Cannon
+  accept 1861
+
+step The Mirror Lake waterfall
+  only Human,Gnome,Skyborne
+  when onquest 1861
+  zone Elwynn Forest
+  tip Leave Stormwind by the main gate and head south-west to the waterfall that feeds Mirror Lake. Wade in under the falling water to the rock behind it and use Jennea's Flask there (a 5 second cast); it fails anywhere else. Level 10 Defias casters stand on the rocks either side of the falls and shoot from range: pull them one at a time or fill the flask from the water.
+  use 7207 @28.57,61.39                       -- Jennea's Flask, under the falls
+  collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
+
+step Back to Jennea
+  only Human,Gnome,Skyborne
+  when onquest 1861
+  zone Stormwind City
+  tip Back up the Wizard's Sanctum and through the portal. The orb is an off-hand for a one-hand weapon; the staff is a two-hander.
+  turnin 1861 choose 7508 9513                -- Jennea Cannon: Ley Orb or Ley Staff
+
+# ---------------------------------------------------------------- Bink's Gizmonitor
+
+step Bink
+  only Human,Gnome
+  when onquest 1879
+  zone Ironforge
+  tip Bink teaches mages in the Mystic Ward, at the back of Ironforge past the Hall of Mysteries.
+  turnin 1879                                 -- Bink
+  accept 1880
+
+step Bink's Toolbox
+  only Human,Gnome
+  when onquest 1880
+  zone Dun Morogh
+  tip Head west along the road to Gnomeregan. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone.
+  interact 102984                             -- Bink's Toolbox
+  collect 7226 quest 1880.1                   -- Mage-tastic Gizmonitor
+
+step Back to Bink
+  only Human,Gnome
+  when onquest 1880
+  zone Ironforge
+  turnin 1880 choose 7507 9514                -- Bink: Arcane Orb or Arcane Staff
+
+# ---------------------------------------------------------------- Optional: Belann's wand for Humans and Gnomes
+
+step Belann's wand (optional)
+  only Human,Gnome
+  zone Zephras Isle
+  tip Belann's quest is open to Human and Gnome mages too, if you ever visit Valanaar on Zephras Isle, the Skyborne home: Anathamaas Aetherwind, the town's mage trainer, sends you to Belann Windwood next door, who wants a Wind-Infused Bough from the ground by the Windstone Formations south of Falaath Village, for the Windbough Wand. It does not shut out the staff or the orb.
+  accept 93791 npc 252373 optional            -- Anathamaas Aetherwind
+  turnin 93791 optional                       -- Belann Windwood
+  accept 93797 optional
+  collect 262668 quest 93797.1 optional       -- Wind-Infused Bough
+  turnin 93797 reward 263430 optional         -- Belann Windwood: Windbough Wand

@@ -57,8 +57,8 @@ local function questsStartedBy(itemID)
 	if not startItems then
 		startItems = {}
 		local F = Q.F
-		for q, r in pairs(Q._data.quests) do
-			for _, it in Q.Each(r[F.START_ITEM]) do
+		for _, q in ipairs(Q.QuestIds()) do
+			for _, it in Q.Each(Q.QuestRecord(q)[F.START_ITEM]) do
 				local list = startItems[it]
 				if not list then
 					list = {}
@@ -414,7 +414,7 @@ local function updatePlate(unit)
 		-- Replacement plates are often built in the same event after this
 		-- handler, or a frame later: look again once on the next frame.
 		if not replaced and C_Timer and C_Timer.After then
-			C_Timer.After(0, function()
+			ns.After(0, function()
 				if icons[unit] ~= f then return end
 				local now = plateFor(unit)
 				if now then place(f, now, unit) end
@@ -445,7 +445,7 @@ local function updatePlate(unit)
 	-- Re-run once on the next frame so the walk sees it.
 	if not f._countChecked and C_Timer and C_Timer.After then
 		f._countChecked = true
-		C_Timer.After(0, function()
+		ns.After(0, function()
 			if icons[unit] == f then updatePlate(unit) end
 		end)
 	end

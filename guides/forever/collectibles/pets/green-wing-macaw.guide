@@ -8,11 +8,13 @@ levels 17-60
 zone Westfall
 
 # Parrot Cage (Green Wing Macaw) from the Defias Pirates in the Deadmines.
-# Sources: items.json (Defias Pirate, 3.5% per kill, pfQuest); the Deadmines is in Forever;
-# Forever client
-# 1.60.1.70338.
+# Sources: items.json and the TDB's loot (Defias Pirate, 3.5% per kill; Classic
+# drop data); dungeons.json (the Deadmines, levels 17-26, the mine mouth); the
+# TDB's exit point (the portal at 38.3,77.5); Forever client 1.60.1.70532 (it
+# can be traded).
 
 step The Deadmines: Defias Pirates
-  tip The Deadmines is a group of five under Moonbrook; the instance portal is inside the Moonbrook mine. The Defias Pirates on and around the ship drop the macaw about 3.5% of the time in our data.
-  goto 38.0,77.5 "The Deadmines portal, inside the Moonbrook mine"
-  collect 8492 @38.0,77.5             -- Defias Pirates
+  tip The Deadmines is a group of five at level 17-26, under Moonbrook: go in at the Moonbrook mine and follow the tunnel down to the instance portal. The Defias Pirates (elite, level 19-20) on and around the ship at the far end drop the macaw about once in 30 kills, so plan on several runs; a character well past the dungeon's level clears it alone. The cage can be traded: look at the Auction House too.
+  goto 42.5,71.7 live "The Deadmines, in the Moonbrook mine"
+  goto 38.0,77.5 "The Deadmines portal, at the bottom of the mine"
+  collect 8492 @38.0,77.5             -- Defias Pirates, on the ship

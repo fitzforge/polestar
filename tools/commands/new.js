@@ -256,7 +256,7 @@ async function run(argv) {
 			'note: skipped .github/workflows/pack.yml and .devcontainer/: this Polestar clone has no origin remote (`git remote get-url origin`), so they would not know where to install Polestar from',
 		);
 	}
-	console.log('next: cd into it, then `polestar lint` and `polestar playtest`; start from guides/example.guide');
+	console.log('next: cd into it, then `forge guide lint` and `polestar playtest`; start from guides/example.guide');
 	return 0;
 }
 

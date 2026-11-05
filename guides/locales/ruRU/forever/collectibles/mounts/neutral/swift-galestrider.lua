@@ -1,5 +1,5 @@
 -- Russian (ruRU): the guide forever/collectibles/mounts/neutral/swift-galestrider (forever/collectibles/mounts/neutral/swift-galestrider.guide).
--- Written by `node tools/polestar.js i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync ruRU`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Russian (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -13,7 +13,7 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "{skill:762}: подмастерье",
 	-- {skill:762} Riding
-	["Swift Galestriders need level 60 and Journeyman {skill:762} from a riding trainer of your faction; see the Level 60 mount guides for where."] = "Для стремительных буреногов нужны 60-й уровень и навык {skill:762} (подмастерье) от учителя верховой езды вашей фракции; где его найти, см. в гайдах по средствам передвижения 60-го уровня.",
+	["Swift Galestriders need level 60 and Journeyman {skill:762}. Train it at your own race's riding trainer; see the Level 60 mount guides for where."] = "",
 
 	-- Step 2: Skyboat from Dalaran
 	-- {area:279} Dalaran
@@ -29,8 +29,26 @@ return {
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
 	["{zone:2521} is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes (another flies from {area:279}; either faction may take either). Skip this if you are already on the island."] = "{zone:2521} — стартовый остров Небеснорожденных; посетить его может любой. Небесный корабль отправляется от утесов к югу от места {area:17045}, к северу от города {zone:1456}, примерно каждые пять минут (еще один летает из места {area:279}; обе фракции могут садиться на любой). Пропустите это, если вы уже на острове.",
 
-	-- Step 4: Genn Fairweather
-	-- {npc:265756} Genn Fairweather · {area:16638} Valanaar
-	["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} находится здесь: {area:16638} — портовый город острова, рядом с пристанью небесных кораблей. Клиент Forever указывает цену каждого стремительного буренога 200 з.; выберите одного.",
+	-- Step 4: Journeyman Riding with Genn Fairweather
+	-- {skill:762} Riding · {npc:265756} Genn Fairweather
+	["Journeyman {skill:762} with {npc:265756}"] = "",
+	-- {skill:762} Riding · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
+	["Skyborne train Journeyman {skill:762} with {npc:265756} himself for 1,000g; Blizzard says it comes with a mount. He stands at the {area:17684} in {area:16638}, near the skyboat docks."] = "",
+	-- {npc:265756} Genn Fairweather
+	["{npc:265756}, riding trainer"] = "",
+
+	-- Step 5: Galestrider Riding for other races
+	-- {spell:1285849} Galestrider Riding
+	["{spell:1285849} for other races"] = "",
+	-- {spell:1285849} Galestrider Riding · {skill:762} Riding · {npc:265756} Genn Fairweather
+	["Any race can buy Galestriders, but riding one also takes {spell:1285849}, which only the Skyborne get with {skill:762}. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask {npc:265756} before you buy."] = "",
+
+	-- Step 6: Genn Fairweather
+	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
+	["{npc:265756} is at the {area:17684} in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "",
 	["200g"] = "200 з.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Swift Galestriders need level 60 and Journeyman {skill:762} from a riding trainer of your faction; see the Level 60 mount guides for where."] = "Для стремительных буреногов нужны 60-й уровень и навык {skill:762} (подмастерье) от учителя верховой езды вашей фракции; где его найти, см. в гайдах по средствам передвижения 60-го уровня.",
+	-- ["{npc:265756} is in {area:16638}, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one."] = "{npc:265756} находится здесь: {area:16638} — портовый город острова, рядом с пристанью небесных кораблей. Клиент Forever указывает цену каждого стремительного буренога 200 з.; выберите одного.",
 }

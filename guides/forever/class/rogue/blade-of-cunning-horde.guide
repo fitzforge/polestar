@@ -18,12 +18,21 @@ why A dagger at 10 from your home town's rogue quests.
 # - Undead: Mennet Carkad and The Deathstalkers (1885, 1886, 1898, 1899,
 #   1978), from Marion Call in Brill to the Undercity, Silverpine Forest and
 #   back.
+# Therzok (1859) and Mennet Carkad (1885) shut each other out (quests.json
+# `excl`): one chain per character.
 # Sources: quests.json, npcs.json, objects.json and items.json for the givers,
 # drops and places; travel.json for the inns (Gamon and Marion Call stand by
-# the innkeepers); Wowhead Forever's Rogue class page
-# (data/local/quest-audit/wowhead-class-quests.json) for the rewards and
+# the innkeepers); Forever's Rogue class quest list
+# (data/local/quest-audit/) for the rewards and
 # Forever's changes (none for these chains). Tazan's Key has one source in
-# the data, Gamon in Orgrimmar; the quest asks you to steal it.
+# the data, Gamon in Orgrimmar (Pick Pocket; it drops on a kill almost never);
+# the quest asks you to steal it.
+# data/local/mechanics (quest-steps and quest-notes, checked 2026-10-20):
+# Tazan's hill path and 4 1/2 minute respawn, the satchel handed in unopened,
+# one satchel per kill; Astor Hadren's two dialogue options; Andron's
+# bookshelf in the back room; the way to Varimathras.
+# Opening Tazan's Satchel with Pick Lock instead of the key: a Forever
+# leveling guide from 2026 does it once Pick Lock is trained.
 # Horde Skyborne have no level 10 Rogue quest in the data.
 # The leveling guides leave these out: they teach no spell.
 
@@ -31,7 +40,7 @@ why A dagger at 10 from your home town's rogue quests.
 
 step Therzok
   only Orc
-  tip At 10 Kaplak, the rogue trainer in Razor Hill, sends you to Therzok in Orgrimmar.
+  tip At 10 Kaplak, the rogue trainer in Razor Hill, sends you to Therzok in Orgrimmar. It is only a pointer: an Orc already in Orgrimmar can skip it and take The Shattered Hand from Therzok straight away.
   level 10
   accept 1859                                 -- Kaplak
 
@@ -46,7 +55,7 @@ step The Shattered Hand
 step Tazan
   only Orc,Troll
   zone The Barrens
-  tip Tazan stands on the Barrens coast south of Ratchet. Kill him for his satchel.
+  tip Tazan (level 13, not elite) is a troll pirate on the Merchant Coast south of Ratchet: he walks the fenced hill path between the lower pirate camp by the beached ship and the upper camp by a big tree. Fight him at the foot of the hill, away from the camps. He always drops his satchel and is back 4 1/2 minutes after a death; one satchel per kill, so two rogues need two kills. Hand the satchel in unopened: picking its lock now destroys it and you must kill him again.
   collect 7209 quest 1963.1                   -- Tazan's Satchel: Tazan
 
 step Back to Therzok
@@ -57,8 +66,8 @@ step Back to Therzok
 
 step Tazan's Key
   only Orc,Troll
-  tip Gamon drinks in the inn in the Valley of Strength. Pick his pocket for Tazan's Key, then open Tazan's Satchel.
-  collect 7208 x1                             -- Tazan's Key: Gamon
+  tip Therzok hands the satchel back: now open it. Gamon (level 12) kneels by the innkeeper in the inn in the Valley of Strength; stealth up and pick his pocket for Tazan's Key (do not kill him: the key almost never drops). Players often kill him, so you may wait up to 5 minutes for him. Then use the key on Tazan's Satchel in your bags. If you have trained Pick Lock, you can pick the satchel's lock instead.
+  collect 7208 x1                             -- Tazan's Key: Pick Pocket Gamon
   use 7209 @54.0,68.0                         -- Tazan's Satchel, once you have the key
   collect 7295 quest 1858.1 @54.0,68.0        -- Tazan's Logbook, from the satchel
 
@@ -71,7 +80,7 @@ step Therzok's reward
 step Mennet Carkad
   only Undead
   zone Tirisfal Glades
-  tip At 10 Marion Call, the rogue trainer in the Gallows' End Tavern in Brill, sends you to Mennet Carkad in the Undercity.
+  tip At 10 Marion Call, the rogue trainer upstairs in the Gallows' End Tavern in Brill, sends you to Mennet Carkad in the Undercity.
   level 10
   accept 1885                                 -- Marion Call
 
@@ -85,7 +94,7 @@ step The Rogues' Quarter
 step Astor Hadren
   only Undead
   zone Silverpine Forest
-  tip Astor Hadren stands north-east of the Sepulcher. Take his Letter of Introduction from him.
+  tip Astor Hadren (level 13) walks the road between the Sepulcher and the Undercity, north of the Sepulcher. He looks like a friendly traveller with no quest mark. Talk to him and pick both of his answers: he turns hostile. Kill him for the letter (it always drops). Fight him away from guards, who can take the kill and leave no loot; only one rogue per kill gets the letter. He is back 5 minutes after a death.
   collect 7231 quest 1886.1                   -- Astor's Letter of Introduction: Astor Hadren
 
 step Back to Mennet Carkad
@@ -96,14 +105,14 @@ step Back to Mennet Carkad
 
 step Andron Gant
   only Undead
-  tip Andron Gant's ledger sits on the bookshelf beside him.
+  tip Andron Gant is in the Apothecarium, in its biggest room, where two huge guards watch a small bridge. His ledger is on the bookshelf in the back room behind him, not the shelf on the wall next to him.
   turnin 1898                                 -- Andron Gant
   accept 1899
   collect 7294 quest 1899.1                   -- Andron's Ledger: Andron's Bookshelf
 
 step Mennet and Varimathras
   only Undead
-  tip Mennet sends the ledger on to Varimathras in the Hall of the Dark Lady, the Royal Quarter.
+  tip Mennet sends the ledger on to Varimathras, the big demon in the middle of the Hall of the Dark Lady in the Royal Quarter, past its elite guards; the way in is the passage off the Apothecarium. If you lose the ledger, take another from Andron's bookshelf.
   turnin 1899                                 -- Mennet Carkad, Rogues' Quarter
   accept 1978
   turnin 1978 reward 7298                     -- Varimathras, Royal Quarter

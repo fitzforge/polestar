@@ -78,12 +78,15 @@ before(() => {
 	goodSrc = path.join(tmp, 'acceptance-good');
 	polestar(['new', goodSrc, '--yes', '--id', 'acceptance-good', '--title', 'Acceptance Good', '--author', 'Ann Example', '--license', 'CC-BY-4.0'], tmp, { POLESTAR_ORIGIN_URL: '' });
 	fs.copyFileSync(path.join(FIXTURES, 'acceptance-farms.guide'), path.join(goodSrc, 'guides', 'farms.guide'));
-	const lint = polestar(['lint'], goodSrc);
-	assert.match(lint.stdout, /lint ok: 2 files, 2 guides: 0 errors, 0 warnings/);
+	// Lint moved to forge: checked when this checkout has a forge build.
+	const lint = cli.forge(['guide', 'lint'], { cwd: goodSrc });
+	if (lint) assert.match(lint.stdout, /lint ok: 2 files, 2 guides: 0 errors, 0 warnings/, lint.stderr);
 	const play = polestar(['playtest'], goodSrc);
 	assert.match(play.stdout, /ok {2}acceptance-good\/example/);
-	polestar(['pack'], goodSrc);
-	zip = path.join(goodSrc, 'dist', `${GOOD}-0.1.0.zip`);
+	// Packing moved to forge too: checked when this checkout has a forge build.
+	const packed = cli.forge(['release', 'pack'], { cwd: goodSrc });
+	if (packed) assert.equal(packed.status, 0, packed.stdout + packed.stderr);
+	zip = packed && path.join(goodSrc, 'dist', `${GOOD}-0.1.0.zip`);
 	polestar(['install', '--dest', dest], goodSrc);
 	const imposterSrc = path.join(tmp, 'imposter');
 	fs.cpSync(path.join(FIXTURES, 'acceptance-bad', 'imposter'), imposterSrc, { recursive: true });
@@ -93,6 +96,9 @@ before(() => {
 	addons = [
 		{ name: 'Polestar', dir: path.join(ADDONS, 'Polestar') },
 		{ name: 'Polestar_Guides', dir: path.join(ADDONS, 'Polestar_Guides') },
+		// Both faction parts (Polestar loads only the player's in game): Alliance and Horde characters play here.
+		{ name: 'Polestar_Guides_Alliance', dir: path.join(ADDONS, 'Polestar_Guides_Alliance') },
+		{ name: 'Polestar_Guides_Horde', dir: path.join(ADDONS, 'Polestar_Guides_Horde') },
 		...fs.readdirSync(dest).sort().map((name) => ({ name, dir: path.join(dest, name) })),
 	];
 });
@@ -149,7 +155,7 @@ ${script}`,
 }
 
 test('the pack made by `new` lints, playtests, packs and installs with --dest', { skip }, () => {
-	assert.ok(fs.existsSync(zip), zip);
+	if (zip) assert.ok(fs.existsSync(zip), zip);
 	assert.deepEqual(fs.readdirSync(good).sort(), ['Guides.lua', 'LICENSE-DATA.txt', 'LICENSE.txt', `${GOOD}.toc`, 'MapFrames.lua', 'Pack.lua'].sort());
 	assert.equal(fs.readFileSync(path.join(good, 'LICENSE.txt'), 'utf8'), fs.readFileSync(path.join(goodSrc, 'LICENSE'), 'utf8'));
 	assert.equal(tocMeta(good)['X-Polestar-Pack'], 'acceptance-good');
@@ -327,7 +333,11 @@ test('a "|" in a pack and its guide prints literally in the guide window and the
 		'step Step |Hone', '  tip Mind the |cffff0000red|r sign.', '  goto 24.2,74.5 "Mill |cffgold" r 30', '',
 	].join('\n'));
 	const out = path.join(tmp, 'pipe-out', 'PolestarPack_Pipe');
-	polestar(['compile', src, '--out', out], tmp);
+	// The pack built as `forge guide compile` builds it (the JS library both compilers match byte for byte).
+	const { buildPack } = require('../tools/lib/pack/build');
+	const { commandPack } = require('../tools/lib/pack/locate');
+	const { writePackDir } = require('../tools/lib/dsl/project');
+	writePackDir(out, buildPack(commandPack({ pack: src }, tmp)).files);
 	const [r] = run(`
 		E.OpenTab("pipe/walk"); flush()
 		local texts = {}

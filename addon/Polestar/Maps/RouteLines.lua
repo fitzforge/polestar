@@ -616,7 +616,7 @@ local function ensureWorldPin()
 	worldPin = newOwner(ns.CreateFrameUnder("Frame", nil, canvas))
 	worldPin:SetPoint("TOPLEFT", canvas, "TOPLEFT", 0, 0)
 	worldPin:EnableMouse(false)
-	worldPin:SetScript("OnUpdate", worldTick)
+	worldPin:SetScript("OnUpdate", ns.Safe(worldTick))
 	return worldPin
 end
 
@@ -775,7 +775,7 @@ local function ensureMinimap()
 	mm:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 3)
 	mm:EnableMouse(false)
 	driver = ns.CreateFrameUnder("Frame", nil, mm)
-	driver:SetScript("OnUpdate", tick)
+	driver:SetScript("OnUpdate", ns.Safe(tick))
 	return true
 end
 

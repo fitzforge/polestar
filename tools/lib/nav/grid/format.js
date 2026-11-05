@@ -130,12 +130,18 @@ const MERGE_TOP = 0.5; // yd: spans whose tops are this close keep the flatter t
 // differ by the car's rise within LIFT_FIT. The animated rise is the
 // landings' (the Undercity's cars rise 96.5 yd, their lower and upper
 // stations are 96.6 yd apart, the upper 8.7 yd from the spawn, the car's
-// middle); a lid over the shaft 103.7 yd up is no landing.
+// middle); a lid over the shaft 103.7 yd up is no landing. A car whose stops
+// travel.json knows (to the yard) stands in for the spawns within LIFT_CAR yd
+// of it, and its landings are level with its floor at both stops (the Thunder
+// Bluff cars' landings came out on the far side of the car, or a step below
+// it, 4-7 yd from where you step on: Fitz's rides, 2026-10-23).
 const LIFT_RADIUS = 8; // yd a car may sway
 const LIFT_REACH = 10; // yd from the spawn a landing may lie
 const LIFT_MIN = 10; // yd of height a lift must span (shorter animations are doors and plungers: Undercity lowerLdoor 8.1 yd)
 const LIFT_FIT = 2; // yd between the landings' height difference and the car's rise
 const LIFT_OPEN = 200; // surfaces a landing reaches (and is reached from) inside its tile
+const LIFT_CAR = 12; // yd from a car's stop its object's spawns may lie (a tenth of a percent of Mulgore's map is 5 yd)
+const LIFT_LEVEL = 2; // yards of distance a yard of a landing's height off the car's floor counts
 
 // SWIM | BLOCKED: fatigue water (MH2O deep quads, surfaces.js), never swum.
 const FLAG = { TERRAIN: 1, WMO: 2, M2: 4, INDOOR: 8, SWIM: 16, OCEAN: 32, STEEP: 64, BLOCKED: 128 };
@@ -170,7 +176,7 @@ const WALL_MERGE = 0.05; // yd: ranges of a half-line this close merge
 
 const CONSTANTS = {
 	ADT, CELL, TILE_CELLS, GENTLE_MAX, WALK_MAX, STEEP_MAX, CLIMB_MAX, STAIR_MAX, WALL_MIN, AGENT_HEIGHT, STEP, JUMP, SWIM_DEPTH, SAFE_FALL, FALL_MAX, FALL_MAX_WATER,
-	STABLE_CELLS, MERGE_TOP, MAX_LAYERS, FALL_REACH, FALL_SLIDE, RUN_MAX, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN,
+	STABLE_CELLS, MERGE_TOP, MAX_LAYERS, FALL_REACH, FALL_SLIDE, RUN_MAX, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN, LIFT_CAR, LIFT_LEVEL,
 };
 
 const tileKey = (col, row) => `${col}_${row}`;
@@ -423,7 +429,11 @@ function encodeGraph(g) {
 }
 
 function decodeGraph(gz) {
-	const raw = gunzip(gz);
+	return decodeGraphRaw(gunzip(gz));
+}
+
+// An inflated graph (any Uint8Array, a SharedArrayBuffer's view too: the arrays are views on it).
+function decodeGraphRaw(raw) {
 	const buf = raw.byteOffset % 4 ? new Uint8Array(raw) : raw;
 	const ab = buf.buffer;
 	const base = buf.byteOffset;
@@ -467,7 +477,7 @@ function decodeGraph(gz) {
 
 module.exports = {
 	ADT, TILE_CELLS, CELL, COLUMNS, GENTLE_MAX, WALK_MAX, STEEP_MAX, CLIMB_MAX, STAIR_MAX, WALL_MIN, HALF, AGENT_HEIGHT, STEP, JUMP, SWIM_DEPTH, SAFE_FALL, FALL_MAX, FALL_MAX_WATER,
-	MERGE_TOP, STABLE_CELLS, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN, LINK_SLOPE, CODE_LIFT, FALL_SLIDE,
+	MERGE_TOP, STABLE_CELLS, LIFT_RADIUS, LIFT_REACH, LIFT_MIN, LIFT_FIT, LIFT_OPEN, LIFT_CAR, LIFT_LEVEL, LINK_SLOPE, CODE_LIFT, FALL_SLIDE,
 	FLAG, CLS, CLS_NAMES, NO_LINK, NO_COMP, MAX_LAYERS, DIRS, FALL_REACH, RUN_MAX, REF_PROFILES, VERSION, TILE_VERSIONS, GRAPH_VERSION, CONSTANTS,
-	tileKey, cellCentre, cellOf, firstOf, encodeTile, decodeTile, encodeGraph, decodeGraph, wallIndex, wallBlocks, encodeWalls, decodeWalls,
+	tileKey, cellCentre, cellOf, firstOf, encodeTile, decodeTile, encodeGraph, decodeGraph, decodeGraphRaw, gunzip, wallIndex, wallBlocks, encodeWalls, decodeWalls,
 };

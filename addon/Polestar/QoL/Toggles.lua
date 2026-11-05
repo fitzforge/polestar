@@ -99,6 +99,7 @@ end
 ns.RegisterEvent("GOSSIP_SHOW", function()
 	if QoL.Flight and QoL.Flight.OnGossip() then return end
 	if QoL.Bind and QoL.Bind.OnGossip() then return end
+	if QoL.Gossip and QoL.Gossip.OnGossip() then return end
 	Toggles.SkipGossip()
 end)
 

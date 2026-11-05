@@ -60,7 +60,9 @@ async function onPathingIssue({ discord, github, event, forumId, log = console }
 	const add = ['navigation', 'on-hold'].filter((l) => !have.includes(l));
 	if (add.length) await github.addLabels(issue.number, add);
 	await github.comment(issue.number, `${NOTE}\n\n${MARK}`);
-	const thread = discord ? await threadOf(discord, issue, forumId, log) : null;
+	// Only an issue filed from Discord has a thread; a marker in anything
+	// else is a stranger's.
+	const thread = discord && have.includes('discord') ? await threadOf(discord, issue, forumId, log) : null;
 	if (thread) {
 		const ping = thread.owner_id ? `<@${thread.owner_id}> ` : '';
 		await postIn(discord, thread, `${ping}${NOTE} ([${github.repo}#${issue.number}](<https://github.com/${github.repo}/issues/${issue.number}>))`, thread.owner_id ? [thread.owner_id] : []);

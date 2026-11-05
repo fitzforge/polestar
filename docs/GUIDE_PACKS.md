@@ -33,7 +33,7 @@ menu, with the arrow, the map markers and everything else Polestar does.
 | **Tested by Polestar** | yes | no: Polestar does not test or vouch for them |
 | **How you get them** | they come with Polestar | a separate addon you install yourself |
 | **Where they show** | the guide menu's categories (Leveling, Professions…) | the guide menu, under **Community guides** |
-| **Where to report a problem** | the [Polestar Discord](https://discord.gg/vMbee6F2e9) or GitHub | the addon's author, where they publish it |
+| **Where to report a problem** | the [Polestar Discord](https://discord.gg/polestar) or GitHub | the addon's author, where they publish it |
 
 A community addon only adds guides: it never replaces Polestar's own or
 another community addon's. Polestar does not ship, host or recommend any;
@@ -184,7 +184,8 @@ You need Node 24 or newer, and Lua 5.1 or LuaJIT for `play` and `playtest`.
 git clone https://github.com/fitzforge/polestar.git
 cd polestar
 npm link               # puts `polestar` on your PATH
-polestar data build    # the reference data every guide command reads
+cd rust && cargo build --release -p forge && cd ..   # or a prebuilt forge from the Releases page
+rust/target/release/forge data build    # the reference data every guide command reads
 polestar doctor        # checks the setup and prints the fix for anything missing
 cd ..                  # your pack goes beside the clone, not inside it
 polestar new my-pack   # asks for the id, title, author and licence
@@ -257,19 +258,19 @@ them.
 2. **Write**: `polestar find <text>` prints quest, NPC, object, item, inn
    and flight-point lines ready to paste. In the game, `/polestar where`
    prints where you stand as a guide line.
-3. **Check**: `polestar lint` checks every guide against the game's data,
+3. **Check**: `forge guide lint` checks every guide against the game's data,
    and `polestar playtest` plays each one to the end, for each race that
    can reach it and each class it has steps for.
 4. **Try**: `polestar play` opens the real addon in your browser with your
    pack loaded, and `polestar install` copies it into the game's AddOns
    folder (restart the game the first time).
-5. **Build**: `polestar pack` writes `dist/<folder>-<version>.zip`, byte
+5. **Build**: `forge release pack` writes `dist/<folder>-<version>.zip`, byte
    for byte reproducible.
 6. **Publish**: upload the zip as a new addon project on CurseForge, Wago
    or GitHub. On CurseForge and Wago, mark Polestar as a required
    dependency so addon apps install it too. With the template's workflow, a
    version tag on GitHub builds the zip and attaches it to a release.
-7. **Update**: raise `version` in `pack.json`, run `polestar pack` again and
+7. **Update**: raise `version` in `pack.json`, run `forge release pack` again and
    upload the new zip.
 
 > [!NOTE]
@@ -345,13 +346,13 @@ a community addon.
 | | Import string | Community addon |
 |---|---|---|
 | **For** | one small guide | a whole route or a set of guides |
-| **You run** | `polestar export <file.guide>` | `polestar pack` |
+| **You run** | `polestar export <file.guide>` | `forge release pack` |
 | **Players** | paste it on the Import page | install it, then restart the game |
 | **Updates** | raise the guide's `version` and share the new string: players press Update | raise `version` in `pack.json` and upload the new zip |
 | **Size** | one guide of at most 60 steps (and 50,000 characters) | no limit |
 
 ```sh
-polestar lint && polestar playtest       # the same checks as for an addon
+forge guide lint && polestar playtest       # the same checks as for an addon
 polestar export guides/cozy-sleeping-bag.guide > cozy.txt
 ```
 
@@ -382,7 +383,7 @@ strings"](PACK_FORMAT.md#import-strings). Strings are covered by the same
 | You want to… | Read |
 |---|---|
 | Write your first pack, step by step | [PACKS.md, "A first pack in 15 minutes"](PACKS.md#a-first-pack-in-15-minutes) |
-| Write guides by playing, from the simulator, by hand or with an AI assistant | [PACKS.md, "Four ways to write guides"](PACKS.md#four-ways-to-write-guides) |
+| Write guides by playing, by hand or with an AI assistant | [PACKS.md, "Three ways to write guides"](PACKS.md#three-ways-to-write-guides) |
 | Look up a guide line quickly | [GUIDE_CHEATSHEET.md](GUIDE_CHEATSHEET.md) |
 | Read the whole guide format | [GUIDE_FORMAT.md](GUIDE_FORMAT.md) |
 | Fix a lint message or an in-game problem | [PACKS.md, "Lint messages"](PACKS.md#lint-messages) and ["In game: statuses and problems"](PACKS.md#in-game-statuses-and-problems) |
@@ -390,4 +391,4 @@ strings"](PACK_FORMAT.md#import-strings). Strings are covered by the same
 | Know exactly what the tools write | [PACK_FORMAT.md](PACK_FORMAT.md) |
 
 Questions, or a community addon to show? Players and authors meet on the
-[Polestar Discord](https://discord.gg/vMbee6F2e9).
+[Polestar Discord](https://discord.gg/polestar).

@@ -1,0 +1,70 @@
+Polestar names (koKR): third-party notices
+==========================================
+
+The names in this folder (quests, NPCs, objects, items, instances, dungeon
+encounters, factions, flight points and some quest objectives) are the game's
+texts in Korean, for Polestar. Names and texts of the game belong to
+Blizzard Entertainment. They come from the sources below, in this order, the
+first one with a name for an id winning.
+
+World of Warcraft client tables, via wago.tools
+-----------------------------------------------
+Build: 1.60.1.70425, World of Warcraft: Forever (wow_classic_beta)
+Build: 1.15.9.70003, Classic Era (wow_classic_era), for the items Forever's table lacks
+Table: https://wago.tools/db2/DungeonEncounter/csv?build=1.60.1.70425&locale=koKR
+Table: https://wago.tools/db2/Faction/csv?build=1.60.1.70425&locale=koKR
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.15.9.70003&locale=koKR
+Table: https://wago.tools/db2/ItemSparse/csv?build=1.60.1.70425&locale=koKR
+Table: https://wago.tools/db2/Map/csv?build=1.60.1.70425&locale=koKR
+Table: https://wago.tools/db2/TaxiNodes/csv?build=1.60.1.70425&locale=koKR
+The client's own strings: names only.
+Names taken: 21315 items, 30 instances, 342 encounters, 74 factions, 61 flight points.
+
+The web quest database, World of Warcraft: Forever pages
+--------------------------------------------------------
+Pages: the Korean list pages and tooltips
+Read: 2026-10-16 to 2026-10-16
+Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
+Names taken: 4605 quests, 8907 NPCs, 1048 objects, 499 items, 1 quest objective.
+
+DingDB, the game database of Ding! by Yendi (@moust4ki)
+-------------------------------------------------------
+URL: https://github.com/moust4ki/DingGuideWoWForever
+Version: v1.8.1, commit fb0a06a43d054ab53b67e8d7af9743a9f8953ac3
+File: Ding/DB/CREDITS.md (sha256 d32ce3d857766e88d0afd94d39eb0d4e3317ccc5538a46720f0ac743dfd64ab9)
+File: Ding/DB/Locales/koKR.lua (sha256 8efe170a161c47ed64b1e4d0c9048773f6e2ce594906e95fa005c63940375f45)
+License: GPL-3.0 (Copyright Yendi), used in Polestar with his permission
+(THIRD_PARTY.md in the Polestar repository).
+Names taken: 87 quests, 3 NPCs, 31 objects, 11 items.
+DingDB's base data is generated from Questie and QuestieDB: see CREDITS.md
+beside this file.
+
+pfQuest database by Shagu
+-------------------------
+URL: https://github.com/shagu/pfQuest
+Revision: 104f35678ca39ab1fb78b655f815cc7016f5e0c8
+Files: db/koKR/{quests,units,objects,items}.lua
+License: MIT
+Names taken: 12 quests, 62 objects, 494 items, 27 quest objectives (the ones the sources above lack).
+
+MIT License
+
+Copyright (c) 2017-2021 Eric Mauser (Shagu)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.

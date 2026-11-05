@@ -34,8 +34,10 @@ ns.RegisterDefaults("ui", {
 	combat = "show", -- "show" | "fade" | "hide"; steady by default, a fade on every pull distracts
 	instance = "show", -- "show" | "hide": in dungeons and raids, until the player opens it there
 	reduceMotion = false,
+	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
 	font = "skin", -- "skin" (the skin's: the game's own font, Fira Sans in Halo) | "game" | "inter" | "fira" (EllesmereUI's while matchFont is on)
+	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale
 	scheme = "dusk", -- "dusk" | "night" | "graphite" | "ellesmere" (Polestar.Theme.SCHEMES)
 	accent = false, -- false: the scheme's (or EllesmereUI's) accent; { r, g, b }: your own
 	bgColor = false, -- false: the scheme's ground; { r, g, b }: your own
@@ -118,6 +120,15 @@ function UI.ClassName(file)
 	return L[file:sub(1, 1) .. file:sub(2):lower()]
 end
 
+-- "Human", "Dwarf and Gnome", "Orc, Troll, Tauren"; nil for none.
+function UI.RaceList(list)
+	if type(list) ~= "table" or #list == 0 then return nil end
+	local out = {}
+	for i, r in ipairs(list) do out[i] = UI.RaceName(r) end
+	if #out == 2 then return format(L["%s and %s"], out[1], out[2]) end
+	return table.concat(out, ", ")
+end
+
 function UI.ClassList(list)
 	if type(list) ~= "table" then return nil end
 	local out = {}
@@ -178,9 +189,10 @@ local KIND_COLOR = {
 
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
--- by its kind wherever it appears in that text. Done goals render plain (the
--- row colours them muted).
-function UI.GoalText(goal)
+-- by its kind wherever it appears in that text (a quest's in `questHex`, an
+-- "ffrrggbb", when given: the class-quest card's class colour). Done goals
+-- render plain (the row colours them muted).
+function UI.GoalText(goal, questHex)
 	local text = goal.text
 	local verb, subject = goal.verb, goal.subject
 	if type(text) ~= "string" or text == "" then
@@ -195,7 +207,8 @@ function UI.GoalText(goal)
 	if not kind or type(subject) ~= "string" or subject == "" then return text end
 	local a, b = text:find(subject, 1, true)
 	if not a then return text end
-	return text:sub(1, a - 1) .. "|c" .. Theme.Hex(kind) .. subject .. "|r" .. text:sub(b + 1)
+	local hex = (kind == "quest" and questHex) or Theme.Hex(kind)
+	return text:sub(1, a - 1) .. "|c" .. hex .. subject .. "|r" .. text:sub(b + 1)
 end
 
 -- The goal's main line without colour codes (skipped goals).
@@ -413,14 +426,20 @@ end
 function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 	if goal.unavailable then return UI.GoalDetail(goal) end
 	local parts = {}
+	-- An accept the game does not confirm says so first (not in the quest
+	-- log; not offered by its giver: report it).
+	if goal.noticeText then parts[#parts + 1] = goal.noticeText end
 	local party = not noParty and UI.GroupLine(goal)
 	if party then parts[#parts + 1] = party end
 	local escort = not noEscort and UI.EscortLine(goal)
 	if escort then parts[#parts + 1] = escort end
 	local starter = UI.StarterLine(goal)
 	if starter then parts[#parts + 1] = starter end
-	-- A hearth goal while the Hearthstone waits: the time left (#576).
+	-- A hearth goal while the Hearthstone waits, or while travelling there
+	-- is about as fast: what to do (#576).
 	if goal.hearthText then parts[#parts + 1] = goal.hearthText end
+	-- A level goal: the XP still to earn.
+	if goal.xpLeft then parts[#parts + 1] = format(L["%s XP to go"], thousands(goal.xpLeft)) end
 	-- A grey accept "Skip grey quests" keeps, and the quest it opens.
 	if goal.keptGreyText and goal.status ~= "skipped" then parts[#parts + 1] = goal.keptGreyText end
 	local source = UI.SourceLine(goal)
@@ -458,10 +477,11 @@ end
 -- numbers on their bar instead. (A counter cannot switch weight inside one
 -- font string; it keeps the line's role.) An open optional goal ends in
 -- "optional" in warning, so an extra is unmistakable and never reads as the
--- route; one the player skipped ends in "skipped" in textMuted.
-function UI.GoalLine(goal)
+-- route; one the player skipped ends in "skipped" in textMuted. questHex:
+-- the quest name's colour instead of the theme's (UI.GoalText).
+function UI.GoalLine(goal, questHex)
 	local plain = goal.status == "done" or goal.status == "skipped"
-	local text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal)
+	local text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
 	local count = UI.GoalProgress(goal)
 	if count and goal.status ~= "skipped" then
 		local p = goal.progress
@@ -499,7 +519,7 @@ end
 local function barKind(goal)
 	local p = goal.progress
 	if type(p) ~= "table" or type(p.max) ~= "number" or p.max <= 0 then return nil end
-	if p.kind == "skill" or p.kind == "rep" then return p.kind end
+	if p.kind == "skill" or p.kind == "rep" or p.kind == "wait" then return p.kind end
 	if goal.subjectKind == "achievement" then return "count" end
 	return nil
 end
@@ -510,7 +530,7 @@ function UI.GoalProgress(goal)
 	local p = goal.progress
 	if type(p) == "table" and type(p.max) == "number" and p.max > 1 then
 		local kind = barKind(goal)
-		if kind == "skill" or kind == "rep" then return nil end
+		if kind == "skill" or kind == "rep" or kind == "wait" then return nil end
 		return format("%d/%d", p.cur or 0, p.max)
 	end
 	return nil
@@ -527,6 +547,11 @@ function UI.GoalBar(goal)
 	local frac = (p.cur or 0) / p.max
 	if frac < 0 then frac = 0 elseif frac > 1 then frac = 1 end
 	if kind == "count" then return frac, nil end
+	-- A `wait`: the time left, draining from full.
+	if kind == "wait" then
+		local left = math.max(0, p.cur or 0)
+		return frac, format(L["%d:%02d left"], math.floor(left / 60), left % 60)
+	end
 	local name = p.label
 	if name and kind == "skill" and goal.text and goal.text:find(name, 1, true) then name = nil end
 	local numbers = format("%d/%d", p.cur or 0, p.max)

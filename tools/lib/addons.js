@@ -3,7 +3,7 @@
 // Bottles prefixes under the home folder, and native installs on Windows
 // (C:\Program Files (x86)\World of Warcraft) and macOS (/Applications/World of
 // Warcraft). Every tool that looks for the client's AddOns or WTF folder goes
-// through here: install, doctor, record import and the readers of installed
+// through here: install, doctor and the readers of installed
 // addons (data build, codex, gear, sim calibration).
 
 const fs = require('node:fs');

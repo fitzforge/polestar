@@ -1,0 +1,1994 @@
+{
+	"458": {
+		"class": null,
+		"item": 875,
+		"kind": "mount",
+		"name": "Brown Horse"
+	},
+	"459": {
+		"class": null,
+		"item": 1134,
+		"kind": "mount",
+		"name": "Gray Wolf"
+	},
+	"468": {
+		"class": null,
+		"item": 901,
+		"kind": "mount",
+		"name": "White Stallion"
+	},
+	"470": {
+		"class": null,
+		"item": 2411,
+		"kind": "mount",
+		"name": "Black Stallion"
+	},
+	"471": {
+		"class": null,
+		"item": 2413,
+		"kind": "mount",
+		"name": "Palomino Stallion"
+	},
+	"472": {
+		"class": null,
+		"item": 2414,
+		"kind": "mount",
+		"name": "Pinto Horse"
+	},
+	"578": {
+		"class": null,
+		"item": 1041,
+		"kind": "mount",
+		"name": "Black Wolf"
+	},
+	"579": {
+		"class": null,
+		"item": 5663,
+		"kind": "mount",
+		"name": "Red Wolf"
+	},
+	"580": {
+		"class": null,
+		"item": 1132,
+		"kind": "mount",
+		"name": "Large Timber Wolf"
+	},
+	"581": {
+		"class": null,
+		"item": 1133,
+		"kind": "mount",
+		"name": "Winter Wolf"
+	},
+	"4055": {
+		"class": null,
+		"item": 4401,
+		"kind": "pet",
+		"name": "Mechanical Squirrel"
+	},
+	"5784": {
+		"class": "WARLOCK",
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Felsteed"
+	},
+	"6648": {
+		"class": null,
+		"item": 5655,
+		"kind": "mount",
+		"name": "Chestnut Mare"
+	},
+	"6653": {
+		"class": null,
+		"item": 5665,
+		"kind": "mount",
+		"name": "Dire Wolf"
+	},
+	"6654": {
+		"class": null,
+		"item": 5668,
+		"kind": "mount",
+		"name": "Brown Wolf"
+	},
+	"6777": {
+		"class": null,
+		"item": 5864,
+		"kind": "mount",
+		"name": "Gray Ram"
+	},
+	"6896": {
+		"class": null,
+		"item": 5874,
+		"kind": "mount",
+		"name": "Black Ram"
+	},
+	"6897": {
+		"class": null,
+		"item": 5875,
+		"kind": "mount",
+		"name": "Blue Ram"
+	},
+	"6898": {
+		"class": null,
+		"item": 5873,
+		"kind": "mount",
+		"name": "White Ram"
+	},
+	"6899": {
+		"class": null,
+		"item": 5872,
+		"kind": "mount",
+		"name": "Brown Ram"
+	},
+	"8394": {
+		"class": null,
+		"item": 8631,
+		"kind": "mount",
+		"name": "Striped Frostsaber"
+	},
+	"8395": {
+		"class": null,
+		"item": 8588,
+		"kind": "mount",
+		"name": "Emerald Raptor"
+	},
+	"8980": {
+		"class": null,
+		"item": 8583,
+		"kind": "mount",
+		"name": "Skeletal Horse"
+	},
+	"10673": {
+		"class": null,
+		"item": 8485,
+		"kind": "pet",
+		"name": "Summon Bombay"
+	},
+	"10674": {
+		"class": null,
+		"item": 8486,
+		"kind": "pet",
+		"name": "Summon Cornish Rex"
+	},
+	"10675": {
+		"class": null,
+		"item": 8491,
+		"kind": "pet",
+		"name": "Summon Maine Coon"
+	},
+	"10676": {
+		"class": null,
+		"item": 8487,
+		"kind": "pet",
+		"name": "Summon Orange Tabby"
+	},
+	"10677": {
+		"class": null,
+		"item": 8490,
+		"kind": "pet",
+		"name": "Summon Siamese"
+	},
+	"10678": {
+		"class": null,
+		"item": 8488,
+		"kind": "pet",
+		"name": "Summon Silver Tabby"
+	},
+	"10679": {
+		"class": null,
+		"item": 8489,
+		"kind": "pet",
+		"name": "Summon White Kitten"
+	},
+	"10680": {
+		"class": null,
+		"item": 8496,
+		"kind": "pet",
+		"name": "Summon Cockatiel"
+	},
+	"10681": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Cockatoo"
+	},
+	"10682": {
+		"class": null,
+		"item": 8494,
+		"kind": "pet",
+		"name": "Summon Hyacinth Macaw"
+	},
+	"10683": {
+		"class": null,
+		"item": 8492,
+		"kind": "pet",
+		"name": "Summon Green Wing Macaw"
+	},
+	"10684": {
+		"class": null,
+		"item": 8495,
+		"kind": "pet",
+		"name": "Summon Senegal"
+	},
+	"10685": {
+		"class": null,
+		"item": 11023,
+		"kind": "pet",
+		"name": "Summon Ancona"
+	},
+	"10688": {
+		"class": null,
+		"item": 10393,
+		"kind": "pet",
+		"name": "Summon Cockroach"
+	},
+	"10695": {
+		"class": null,
+		"item": 10822,
+		"kind": "pet",
+		"name": "Summon Dark Whelpling"
+	},
+	"10696": {
+		"class": null,
+		"item": 268503,
+		"kind": "pet",
+		"name": "Summon Azure Whelpling"
+	},
+	"10697": {
+		"class": null,
+		"item": 8499,
+		"kind": "pet",
+		"name": "Summon Crimson Whelpling"
+	},
+	"10698": {
+		"class": null,
+		"item": 8498,
+		"kind": "pet",
+		"name": "Summon Emerald Whelpling"
+	},
+	"10699": {
+		"class": null,
+		"item": 268502,
+		"kind": "pet",
+		"name": "Summon Bronze Whelpling"
+	},
+	"10703": {
+		"class": null,
+		"item": 11027,
+		"kind": "pet",
+		"name": "Summon Wood Frog"
+	},
+	"10704": {
+		"class": null,
+		"item": 11026,
+		"kind": "pet",
+		"name": "Summon Tree Frog"
+	},
+	"10705": {
+		"class": null,
+		"item": 280803,
+		"kind": "pet",
+		"name": "Summon Eagle Owl"
+	},
+	"10706": {
+		"class": null,
+		"item": 8501,
+		"kind": "pet",
+		"name": "Summon Hawk Owl"
+	},
+	"10707": {
+		"class": null,
+		"item": 8500,
+		"kind": "pet",
+		"name": "Summon Great Horned Owl"
+	},
+	"10708": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Snowy Owl"
+	},
+	"10709": {
+		"class": null,
+		"item": 10394,
+		"kind": "pet",
+		"name": "Summon Prairie Dog"
+	},
+	"10711": {
+		"class": null,
+		"item": 8497,
+		"kind": "pet",
+		"name": "Summon Snowshoe Rabbit"
+	},
+	"10712": {
+		"class": null,
+		"item": 280797,
+		"kind": "pet",
+		"name": "Summon Arctic Hare"
+	},
+	"10713": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Albino Snake"
+	},
+	"10714": {
+		"class": null,
+		"item": 10360,
+		"kind": "pet",
+		"name": "Summon Black Kingsnake"
+	},
+	"10716": {
+		"class": null,
+		"item": 10361,
+		"kind": "pet",
+		"name": "Summon Brown Snake"
+	},
+	"10717": {
+		"class": null,
+		"item": 10392,
+		"kind": "pet",
+		"name": "Summon Crimson Snake"
+	},
+	"10718": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Green Water Snake"
+	},
+	"10719": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Ribbon Snake"
+	},
+	"10720": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Scarlet Snake"
+	},
+	"10721": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Elven Wisp"
+	},
+	"10787": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Panther"
+	},
+	"10788": {
+		"class": null,
+		"item": 8633,
+		"kind": "mount",
+		"name": "Leopard"
+	},
+	"10789": {
+		"class": null,
+		"item": 8632,
+		"kind": "mount",
+		"name": "Spotted Frostsaber"
+	},
+	"10790": {
+		"class": null,
+		"item": 8630,
+		"kind": "mount",
+		"name": "Tiger"
+	},
+	"10792": {
+		"class": null,
+		"item": 8628,
+		"kind": "mount",
+		"name": "Spotted Panther"
+	},
+	"10793": {
+		"class": null,
+		"item": 8629,
+		"kind": "mount",
+		"name": "Striped Nightsaber"
+	},
+	"10795": {
+		"class": null,
+		"item": 8589,
+		"kind": "mount",
+		"name": "Ivory Raptor"
+	},
+	"10796": {
+		"class": null,
+		"item": 8591,
+		"kind": "mount",
+		"name": "Turquoise Raptor"
+	},
+	"10798": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Obsidian Raptor"
+	},
+	"10799": {
+		"class": null,
+		"item": 8592,
+		"kind": "mount",
+		"name": "Violet Raptor"
+	},
+	"10873": {
+		"class": null,
+		"item": 8563,
+		"kind": "mount",
+		"name": "Red Mechanostrider"
+	},
+	"10969": {
+		"class": null,
+		"item": 8595,
+		"kind": "mount",
+		"name": "Blue Mechanostrider"
+	},
+	"12243": {
+		"class": null,
+		"item": 10398,
+		"kind": "pet",
+		"name": "Summon Mechanical Chicken"
+	},
+	"13548": {
+		"class": null,
+		"item": 11110,
+		"kind": "pet",
+		"name": "Summon Farm Chicken"
+	},
+	"13819": {
+		"class": "PALADIN",
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Warhorse"
+	},
+	"15048": {
+		"class": null,
+		"item": 11825,
+		"kind": "pet",
+		"name": "Summon Bomb"
+	},
+	"15049": {
+		"class": null,
+		"item": 11826,
+		"kind": "pet",
+		"name": "Summon Robot"
+	},
+	"15067": {
+		"class": null,
+		"item": 11474,
+		"kind": "pet",
+		"name": "Summon Sprite Darter Hatchling"
+	},
+	"15648": {
+		"class": null,
+		"item": 11903,
+		"kind": "pet",
+		"name": "Summon Corrupted Kitten"
+	},
+	"15779": {
+		"class": null,
+		"item": 13326,
+		"kind": "mount",
+		"name": "White Mechanostrider"
+	},
+	"15780": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Green Mechanostrider"
+	},
+	"15781": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Steel Mechanostrider"
+	},
+	"15999": {
+		"class": null,
+		"item": 12264,
+		"kind": "pet",
+		"name": "Summon Worg Pup"
+	},
+	"16055": {
+		"class": null,
+		"item": 12303,
+		"kind": "mount",
+		"name": "Nightsaber"
+	},
+	"16056": {
+		"class": null,
+		"item": 12302,
+		"kind": "mount",
+		"name": "Frostsaber"
+	},
+	"16058": {
+		"class": null,
+		"item": 12325,
+		"kind": "mount",
+		"name": "Primal Leopard"
+	},
+	"16059": {
+		"class": null,
+		"item": 12326,
+		"kind": "mount",
+		"name": "Tawny Sabercat"
+	},
+	"16060": {
+		"class": null,
+		"item": 12327,
+		"kind": "mount",
+		"name": "Golden Sabercat"
+	},
+	"16080": {
+		"class": null,
+		"item": 12330,
+		"kind": "mount",
+		"name": "Red Wolf"
+	},
+	"16081": {
+		"class": null,
+		"item": 12351,
+		"kind": "mount",
+		"name": "Arctic Wolf"
+	},
+	"16082": {
+		"class": null,
+		"item": 12354,
+		"kind": "mount",
+		"name": "Palomino Stallion"
+	},
+	"16083": {
+		"class": null,
+		"item": 12353,
+		"kind": "mount",
+		"name": "White Stallion"
+	},
+	"16084": {
+		"class": null,
+		"item": 8586,
+		"kind": "mount",
+		"name": "Mottled Red Raptor"
+	},
+	"16450": {
+		"class": null,
+		"item": 12529,
+		"kind": "pet",
+		"name": "Summon Smolderweb"
+	},
+	"17229": {
+		"class": null,
+		"item": 13086,
+		"kind": "mount",
+		"name": "Winterspring Frostsaber"
+	},
+	"17450": {
+		"class": null,
+		"item": 13317,
+		"kind": "mount",
+		"name": "Ivory Raptor"
+	},
+	"17453": {
+		"class": null,
+		"item": 13321,
+		"kind": "mount",
+		"name": "Green Mechanostrider"
+	},
+	"17454": {
+		"class": null,
+		"item": 13322,
+		"kind": "mount",
+		"name": "Unpainted Mechanostrider"
+	},
+	"17455": {
+		"class": null,
+		"item": 13323,
+		"kind": "mount",
+		"name": "Purple Mechanostrider"
+	},
+	"17456": {
+		"class": null,
+		"item": 13324,
+		"kind": "mount",
+		"name": "Red & Blue Mechanostrider"
+	},
+	"17458": {
+		"class": null,
+		"item": 13325,
+		"kind": "mount",
+		"name": "Fluorescent Green Mechanostrider"
+	},
+	"17459": {
+		"class": null,
+		"item": 13327,
+		"kind": "mount",
+		"name": "Icy Blue Mechanostrider"
+	},
+	"17460": {
+		"class": null,
+		"item": 13329,
+		"kind": "mount",
+		"name": "Frost Ram"
+	},
+	"17461": {
+		"class": null,
+		"item": 13328,
+		"kind": "mount",
+		"name": "Black Ram"
+	},
+	"17462": {
+		"class": null,
+		"item": 13331,
+		"kind": "mount",
+		"name": "Red Skeletal Horse"
+	},
+	"17463": {
+		"class": null,
+		"item": 13332,
+		"kind": "mount",
+		"name": "Blue Skeletal Horse"
+	},
+	"17464": {
+		"class": null,
+		"item": 13333,
+		"kind": "mount",
+		"name": "Brown Skeletal Horse"
+	},
+	"17465": {
+		"class": null,
+		"item": 13334,
+		"kind": "mount",
+		"name": "Green Skeletal Warhorse"
+	},
+	"17481": {
+		"class": null,
+		"item": 13335,
+		"kind": "mount",
+		"name": "Rivendare's Deathcharger"
+	},
+	"17707": {
+		"class": null,
+		"item": 13583,
+		"kind": "pet",
+		"name": "Summon Panda"
+	},
+	"17708": {
+		"class": null,
+		"item": 13584,
+		"kind": "pet",
+		"name": "Summon Diablo"
+	},
+	"17709": {
+		"class": null,
+		"item": 13582,
+		"kind": "pet",
+		"name": "Summon Zergling"
+	},
+	"18363": {
+		"class": null,
+		"item": 14062,
+		"kind": "mount",
+		"name": "Riding Kodo"
+	},
+	"18989": {
+		"class": null,
+		"item": 15277,
+		"kind": "mount",
+		"name": "Gray Kodo"
+	},
+	"18990": {
+		"class": null,
+		"item": 15290,
+		"kind": "mount",
+		"name": "Brown Kodo"
+	},
+	"18991": {
+		"class": null,
+		"item": 15292,
+		"kind": "mount",
+		"name": "Green Kodo"
+	},
+	"18992": {
+		"class": null,
+		"item": 15293,
+		"kind": "mount",
+		"name": "Teal Kodo"
+	},
+	"19772": {
+		"class": null,
+		"item": 15996,
+		"kind": "pet",
+		"name": "Summon Lifelike Toad"
+	},
+	"22717": {
+		"class": null,
+		"item": 18241,
+		"kind": "mount",
+		"name": "Black War Steed"
+	},
+	"22718": {
+		"class": null,
+		"item": 18247,
+		"kind": "mount",
+		"name": "Black War Kodo"
+	},
+	"22719": {
+		"class": null,
+		"item": 18243,
+		"kind": "mount",
+		"name": "Black Battlestrider"
+	},
+	"22720": {
+		"class": null,
+		"item": 18244,
+		"kind": "mount",
+		"name": "Black War Ram"
+	},
+	"22721": {
+		"class": null,
+		"item": 18246,
+		"kind": "mount",
+		"name": "Black War Raptor"
+	},
+	"22722": {
+		"class": null,
+		"item": 18248,
+		"kind": "mount",
+		"name": "Red Skeletal Warhorse"
+	},
+	"22723": {
+		"class": null,
+		"item": 18242,
+		"kind": "mount",
+		"name": "Black War Tiger"
+	},
+	"22724": {
+		"class": null,
+		"item": 18245,
+		"kind": "mount",
+		"name": "Black War Wolf"
+	},
+	"23161": {
+		"class": "WARLOCK",
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Dreadsteed"
+	},
+	"23214": {
+		"class": "PALADIN",
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Charger"
+	},
+	"23219": {
+		"class": null,
+		"item": 18767,
+		"kind": "mount",
+		"name": "Swift Mistsaber"
+	},
+	"23220": {
+		"class": null,
+		"item": 18768,
+		"kind": "mount",
+		"name": "Swift Dawnsaber"
+	},
+	"23221": {
+		"class": null,
+		"item": 18766,
+		"kind": "mount",
+		"name": "Swift Frostsaber"
+	},
+	"23222": {
+		"class": null,
+		"item": 18774,
+		"kind": "mount",
+		"name": "Swift Yellow Mechanostrider"
+	},
+	"23223": {
+		"class": null,
+		"item": 18773,
+		"kind": "mount",
+		"name": "Swift White Mechanostrider"
+	},
+	"23225": {
+		"class": null,
+		"item": 18772,
+		"kind": "mount",
+		"name": "Swift Green Mechanostrider"
+	},
+	"23227": {
+		"class": null,
+		"item": 18776,
+		"kind": "mount",
+		"name": "Swift Palomino"
+	},
+	"23228": {
+		"class": null,
+		"item": 18778,
+		"kind": "mount",
+		"name": "Swift White Steed"
+	},
+	"23229": {
+		"class": null,
+		"item": 18777,
+		"kind": "mount",
+		"name": "Swift Brown Steed"
+	},
+	"23238": {
+		"class": null,
+		"item": 18786,
+		"kind": "mount",
+		"name": "Swift Brown Ram"
+	},
+	"23239": {
+		"class": null,
+		"item": 18787,
+		"kind": "mount",
+		"name": "Swift Gray Ram"
+	},
+	"23240": {
+		"class": null,
+		"item": 18785,
+		"kind": "mount",
+		"name": "Swift White Ram"
+	},
+	"23241": {
+		"class": null,
+		"item": 18788,
+		"kind": "mount",
+		"name": "Swift Blue Raptor"
+	},
+	"23242": {
+		"class": null,
+		"item": 18789,
+		"kind": "mount",
+		"name": "Swift Olive Raptor"
+	},
+	"23243": {
+		"class": null,
+		"item": 18790,
+		"kind": "mount",
+		"name": "Swift Orange Raptor"
+	},
+	"23246": {
+		"class": null,
+		"item": 18791,
+		"kind": "mount",
+		"name": "Purple Skeletal Warhorse"
+	},
+	"23247": {
+		"class": null,
+		"item": 18793,
+		"kind": "mount",
+		"name": "Great White Kodo"
+	},
+	"23248": {
+		"class": null,
+		"item": 18795,
+		"kind": "mount",
+		"name": "Great Gray Kodo"
+	},
+	"23249": {
+		"class": null,
+		"item": 18794,
+		"kind": "mount",
+		"name": "Great Brown Kodo"
+	},
+	"23250": {
+		"class": null,
+		"item": 18796,
+		"kind": "mount",
+		"name": "Swift Brown Wolf"
+	},
+	"23251": {
+		"class": null,
+		"item": 18797,
+		"kind": "mount",
+		"name": "Swift Timber Wolf"
+	},
+	"23252": {
+		"class": null,
+		"item": 18798,
+		"kind": "mount",
+		"name": "Swift Gray Wolf"
+	},
+	"23338": {
+		"class": null,
+		"item": 18902,
+		"kind": "mount",
+		"name": "Swift Stormsaber"
+	},
+	"23509": {
+		"class": null,
+		"item": 19029,
+		"kind": "mount",
+		"name": "Frostwolf Howler"
+	},
+	"23510": {
+		"class": null,
+		"item": 19030,
+		"kind": "mount",
+		"name": "Stormpike Battle Charger"
+	},
+	"23530": {
+		"class": null,
+		"item": 19054,
+		"kind": "pet",
+		"name": "Summon Tiny Red Dragon"
+	},
+	"23531": {
+		"class": null,
+		"item": 19055,
+		"kind": "pet",
+		"name": "Summon Tiny Green Dragon"
+	},
+	"23811": {
+		"class": null,
+		"item": 19450,
+		"kind": "pet",
+		"name": "Summon Jubling"
+	},
+	"24242": {
+		"class": null,
+		"item": 19872,
+		"kind": "mount",
+		"name": "Swift Razzashi Raptor"
+	},
+	"24252": {
+		"class": null,
+		"item": 19902,
+		"kind": "mount",
+		"name": "Swift Zulian Tiger"
+	},
+	"24576": {
+		"class": null,
+		"item": 20221,
+		"kind": "mount",
+		"name": "Chromatic Mount"
+	},
+	"24696": {
+		"class": null,
+		"item": 20371,
+		"kind": "pet",
+		"name": "Summon Murky"
+	},
+	"24987": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Baby Murloc (Orange)"
+	},
+	"24988": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Baby Murloc (White)"
+	},
+	"25162": {
+		"class": null,
+		"item": 20769,
+		"kind": "pet",
+		"name": "Summon Disgusting Oozeling"
+	},
+	"25675": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Reindeer"
+	},
+	"25858": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Reindeer"
+	},
+	"25859": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Reindeer"
+	},
+	"25863": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Black Qiraji Battle Tank"
+	},
+	"25953": {
+		"class": null,
+		"item": 21218,
+		"kind": "mount",
+		"name": "Summon Blue Qiraji Battle Tank"
+	},
+	"26010": {
+		"class": null,
+		"item": 21277,
+		"kind": "pet",
+		"name": "Summon Tranquil Mechanical Yeti"
+	},
+	"26054": {
+		"class": null,
+		"item": 21321,
+		"kind": "mount",
+		"name": "Summon Red Qiraji Battle Tank"
+	},
+	"26055": {
+		"class": null,
+		"item": 21324,
+		"kind": "mount",
+		"name": "Summon Yellow Qiraji Battle Tank"
+	},
+	"26056": {
+		"class": null,
+		"item": 21323,
+		"kind": "mount",
+		"name": "Summon Green Qiraji Battle Tank"
+	},
+	"26332": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Mouth Tentacle"
+	},
+	"26469": {
+		"class": null,
+		"item": 21309,
+		"kind": "pet",
+		"name": "Summon Snowman"
+	},
+	"26529": {
+		"class": null,
+		"item": 21308,
+		"kind": "pet",
+		"name": "Summon Reindeer"
+	},
+	"26533": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Helper"
+	},
+	"26541": {
+		"class": null,
+		"item": 21305,
+		"kind": "pet",
+		"name": "Summon Helper"
+	},
+	"26655": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Black Qiraji Battle Tank"
+	},
+	"27241": {
+		"class": null,
+		"item": 22114,
+		"kind": "pet",
+		"name": "Summon Gurky"
+	},
+	"27570": {
+		"class": null,
+		"item": 22235,
+		"kind": "pet",
+		"name": "Summon Peddlefeet"
+	},
+	"28487": {
+		"class": null,
+		"item": 22780,
+		"kind": "pet",
+		"name": "Summon Terky"
+	},
+	"28505": {
+		"class": null,
+		"item": 22781,
+		"kind": "pet",
+		"name": "Summon Poley"
+	},
+	"28738": {
+		"class": null,
+		"item": 23002,
+		"kind": "pet",
+		"name": "Summon Speedy"
+	},
+	"28739": {
+		"class": null,
+		"item": 23007,
+		"kind": "pet",
+		"name": "Summon Mr. Wiggles"
+	},
+	"28740": {
+		"class": null,
+		"item": 23015,
+		"kind": "pet",
+		"name": "Summon Whiskers"
+	},
+	"28871": {
+		"class": null,
+		"item": 23083,
+		"kind": "pet",
+		"name": "Summon Spirit of Summer"
+	},
+	"29059": {
+		"class": null,
+		"item": 23193,
+		"kind": "mount",
+		"name": "Skeletal Steed"
+	},
+	"30152": {
+		"class": null,
+		"item": 23712,
+		"kind": "pet",
+		"name": "Summon White Tiger Cub"
+	},
+	"30156": {
+		"class": null,
+		"item": 23713,
+		"kind": "pet",
+		"name": "Summon Hippogryph Hatchling"
+	},
+	"30174": {
+		"class": null,
+		"item": 23720,
+		"kind": "mount",
+		"name": "Riding Turtle"
+	},
+	"42609": {
+		"class": null,
+		"item": 33154,
+		"kind": "pet",
+		"name": "Sinister Squashling"
+	},
+	"64659": {
+		"class": null,
+		"item": 46102,
+		"kind": "mount",
+		"name": "Venomhide Ravasaur"
+	},
+	"104047": {
+		"class": null,
+		"item": 74610,
+		"kind": "pet",
+		"name": "Lunar Lantern"
+	},
+	"104049": {
+		"class": null,
+		"item": 74611,
+		"kind": "pet",
+		"name": "Festival Lantern"
+	},
+	"142880": {
+		"class": null,
+		"item": 98550,
+		"kind": "pet",
+		"name": "Blossoming Ancient"
+	},
+	"370637": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Skeletal Steed"
+	},
+	"381598": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Skeletal Steed"
+	},
+	"406634": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Animated Lobster Molt"
+	},
+	"429856": {
+		"class": null,
+		"item": 211498,
+		"kind": "mount",
+		"name": "Summon Sentinel Nightsaber"
+	},
+	"429857": {
+		"class": null,
+		"item": 211499,
+		"kind": "mount",
+		"name": "Summon Outrider Wolf"
+	},
+	"434508": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Reindeer"
+	},
+	"436288": {
+		"class": null,
+		"item": 216492,
+		"kind": "mount",
+		"name": "Mottled Blood Raptor"
+	},
+	"436289": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Ivory Raptor"
+	},
+	"436327": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Bengal Tiger"
+	},
+	"436329": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Golden Sabercat"
+	},
+	"446685": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Blood-crazed Spirit"
+	},
+	"461607": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Divine Steed"
+	},
+	"463005": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Fluorescent Green Mechanostrider"
+	},
+	"463006": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Golden Sabercat"
+	},
+	"463007": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Mottled Blood Raptor"
+	},
+	"464808": {
+		"class": null,
+		"item": 229368,
+		"kind": "pet",
+		"name": "Gill'el"
+	},
+	"473848": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Light Green Qiraji Battle Tank"
+	},
+	"473853": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Light Green Qiraji Battle Tank"
+	},
+	"473855": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Light Green Qiraji Battle Tank"
+	},
+	"473858": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Dark Blue Qiraji Battle Tank"
+	},
+	"473859": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Dark Blue Qiraji Battle Tank"
+	},
+	"473860": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Dark Blue Qiraji Battle Tank"
+	},
+	"473869": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Light Blue Qiraji Battle Tank"
+	},
+	"473870": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Light Blue Qiraji Battle Tank"
+	},
+	"473871": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Light Blue Qiraji Battle Tank"
+	},
+	"473874": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Orange Qiraji Battle Tank"
+	},
+	"473875": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Orange Qiraji Battle Tank"
+	},
+	"473877": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Orange Qiraji Battle Tank"
+	},
+	"473882": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Twilight Qiraji Battle Tank"
+	},
+	"473886": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Twilight Qiraji Battle Tank"
+	},
+	"473887": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Twilight Qiraji Battle Tank"
+	},
+	"473900": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Tamed Silithid Tank"
+	},
+	"1214283": {
+		"class": null,
+		"item": 234465,
+		"kind": "mount",
+		"name": "Swift Spectral Tiger"
+	},
+	"1215378": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Blood-Caked Tiger"
+	},
+	"1215380": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Blood-Caked Raptor"
+	},
+	"1217142": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Yellow Qiraji Battle Tank"
+	},
+	"1217143": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Yellow Qiraji Battle Tank"
+	},
+	"1217144": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Yellow Qiraji Battle Tank"
+	},
+	"1217146": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Green Qiraji Battle Tank"
+	},
+	"1217147": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Green Qiraji Battle Tank"
+	},
+	"1217148": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Green Qiraji Battle Tank"
+	},
+	"1217150": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Blue Qiraji Battle Tank"
+	},
+	"1217151": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Blue Qiraji Battle Tank"
+	},
+	"1217152": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Blue Qiraji Battle Tank"
+	},
+	"1217154": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Red Qiraji Battle Tank"
+	},
+	"1217155": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Red Qiraji Battle Tank"
+	},
+	"1217156": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Flawless Red Qiraji Battle Tank"
+	},
+	"1220565": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "War"
+	},
+	"1220566": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Conquest"
+	},
+	"1220567": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Death"
+	},
+	"1220568": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Famine"
+	},
+	"1229305": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Climhazzard"
+	},
+	"1229308": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Scarlet Steed"
+	},
+	"1237632": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Divine Steed"
+	},
+	"1250013": {
+		"class": null,
+		"item": 249895,
+		"kind": "pet",
+		"name": "Summon Lashling"
+	},
+	"1250014": {
+		"class": null,
+		"item": 249896,
+		"kind": "pet",
+		"name": "Summon Lashling"
+	},
+	"1250015": {
+		"class": null,
+		"item": 249897,
+		"kind": "pet",
+		"name": "Summon Lashling"
+	},
+	"1250016": {
+		"class": null,
+		"item": 249898,
+		"kind": "pet",
+		"name": "Summon Lashling"
+	},
+	"1277329": {
+		"class": null,
+		"item": 265838,
+		"kind": "mount",
+		"name": "Green Skeletal Horse"
+	},
+	"1277330": {
+		"class": null,
+		"item": 265839,
+		"kind": "mount",
+		"name": "Dark Skeletal Horse"
+	},
+	"1277336": {
+		"class": null,
+		"item": 265840,
+		"kind": "mount",
+		"name": "Purple Skeletal Horse"
+	},
+	"1279399": {
+		"class": "PALADIN",
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Warhorse"
+	},
+	"1281641": {
+		"class": null,
+		"item": 268109,
+		"kind": "pet",
+		"name": "Summon Musical Gustjumper"
+	},
+	"1283932": {
+		"class": null,
+		"item": 268879,
+		"kind": "pet",
+		"name": "Summon Uber Diablo"
+	},
+	"1286011": {
+		"class": null,
+		"item": 269671,
+		"kind": "mount",
+		"name": "Swift Empyrean Galestrider"
+	},
+	"1286021": {
+		"class": null,
+		"item": 269673,
+		"kind": "mount",
+		"name": "Swift Regal Galestrider"
+	},
+	"1286022": {
+		"class": null,
+		"item": 269678,
+		"kind": "mount",
+		"name": "Swift Stormy Galestrider"
+	},
+	"1286024": {
+		"class": null,
+		"item": 269681,
+		"kind": "mount",
+		"name": "Empyrean Galestrider"
+	},
+	"1286025": {
+		"class": null,
+		"item": 269682,
+		"kind": "mount",
+		"name": "Regal Galestrider"
+	},
+	"1286026": {
+		"class": null,
+		"item": 269683,
+		"kind": "mount",
+		"name": "Stormy Galestrider"
+	},
+	"1286629": {
+		"class": null,
+		"item": 269830,
+		"kind": "pet",
+		"name": "Summon Snowy Wolf Pup"
+	},
+	"1290131": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Child of By'zaali"
+	},
+	"1294897": {
+		"class": null,
+		"item": 274706,
+		"kind": "mount",
+		"name": "Striped Dawnsaber"
+	},
+	"1295387": {
+		"class": null,
+		"item": 274799,
+		"kind": "mount",
+		"name": "Ochre Skeletal Warhorse"
+	},
+	"1295678": {
+		"class": null,
+		"item": 274930,
+		"kind": "mount",
+		"name": "Umber Galestrider"
+	},
+	"1295683": {
+		"class": null,
+		"item": 274933,
+		"kind": "mount",
+		"name": "Swift Umber Galestrider"
+	},
+	"1295738": {
+		"class": null,
+		"item": 274956,
+		"kind": "pet",
+		"name": "Summon Wild Chicken"
+	},
+	"1296534": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Summon Forsaken Charger"
+	},
+	"1297608": {
+		"class": null,
+		"item": 275682,
+		"kind": "pet",
+		"name": "Summon Excitable Slime"
+	},
+	"1297823": {
+		"class": null,
+		"item": 275818,
+		"kind": "pet",
+		"name": "Pinky"
+	},
+	"1298450": {
+		"class": null,
+		"item": 275993,
+		"kind": "mount",
+		"name": "White Kodo"
+	},
+	"1298496": {
+		"class": null,
+		"item": 276063,
+		"kind": "mount",
+		"name": "Black Skeletal Horse"
+	},
+	"1299341": {
+		"class": null,
+		"item": 276275,
+		"kind": "pet",
+		"name": "Summon Bitter Baitling"
+	},
+	"1301636": {
+		"class": null,
+		"item": 262766,
+		"kind": "mount",
+		"name": "Pack Kodo"
+	},
+	"1302196": {
+		"class": null,
+		"item": 277508,
+		"kind": "pet",
+		"name": "Summon Prairie Wolf Pup"
+	},
+	"1302650": {
+		"class": null,
+		"item": 277714,
+		"kind": "pet",
+		"name": "Summon Spectral Bear Cub"
+	},
+	"1302661": {
+		"class": null,
+		"item": 277718,
+		"kind": "mount",
+		"name": "Spectral Bear"
+	},
+	"1303075": {
+		"class": null,
+		"item": 277960,
+		"kind": "mount",
+		"name": "Lavender Kodo"
+	},
+	"1303215": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Caravan Kodo"
+	},
+	"1308283": {
+		"class": null,
+		"item": 280347,
+		"kind": "pet",
+		"name": "Summon Shadowgale Squirrel"
+	},
+	"1308870": {
+		"class": null,
+		"item": 280456,
+		"kind": "pet",
+		"name": "Summon Weevil K. Neevil"
+	},
+	"1309208": {
+		"class": null,
+		"item": 280544,
+		"kind": "mount",
+		"name": "Cerulean Prideclaw"
+	},
+	"1309268": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Black Warden Saber Mount"
+	},
+	"1309270": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Brown Warden Saber Mount"
+	},
+	"1309271": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Gray Warden Saber Mount"
+	},
+	"1309272": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "White Warden Saber Mount"
+	},
+	"1309346": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Black Devilsaur Mount"
+	},
+	"1309347": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Blue Devilsaur Mount"
+	},
+	"1309348": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Green Devilsaur Mount"
+	},
+	"1309349": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Purple Devilsaur Mount"
+	},
+	"1309350": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "White Devilsaur Mount"
+	},
+	"1309377": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Black Druid Moose Mount"
+	},
+	"1309379": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "White Druid Moose Mount"
+	},
+	"1309380": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Green Druid Moose Mount"
+	},
+	"1309381": {
+		"class": null,
+		"item": null,
+		"kind": "mount",
+		"name": "Gray Druid Moose Mount"
+	},
+	"1309405": {
+		"class": null,
+		"item": 280611,
+		"kind": "mount",
+		"name": "Veteran Adventurer's Loyal Companion"
+	},
+	"1309420": {
+		"class": null,
+		"item": 280614,
+		"kind": "pet",
+		"name": "Summon Pachimari"
+	},
+	"1309423": {
+		"class": null,
+		"item": 280615,
+		"kind": "pet",
+		"name": "Galestrider Chick"
+	},
+	"1309436": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Black Furbolg Pet"
+	},
+	"1309437": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Brown Furbolg Pet"
+	},
+	"1309438": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Gray Furbolg Pet"
+	},
+	"1309439": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Tan Furbolg Pet"
+	},
+	"1309440": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon White Furbolg Pet"
+	},
+	"1309501": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Purple Ent Pet"
+	},
+	"1309503": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Red Ent Pet"
+	},
+	"1309504": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Blue Ent Pet"
+	},
+	"1309505": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Gray Ent Pet"
+	},
+	"1309506": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Orange Ent Pet"
+	},
+	"1309507": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Yellow Ent Pet"
+	},
+	"1309545": {
+		"class": null,
+		"item": 280697,
+		"kind": "pet",
+		"name": "Summon Plagued Cockroach"
+	},
+	"1309546": {
+		"class": null,
+		"item": 280699,
+		"kind": "pet",
+		"name": "Summon Undercity Cockroach"
+	},
+	"1309547": {
+		"class": null,
+		"item": 280703,
+		"kind": "pet",
+		"name": "Summon Jungle Boa"
+	},
+	"1309730": {
+		"class": null,
+		"item": 280794,
+		"kind": "pet",
+		"name": "Summon Brown Ground Squirrel"
+	},
+	"1309736": {
+		"class": null,
+		"item": 280795,
+		"kind": "pet",
+		"name": "Summon Red Ground Squirrel"
+	},
+	"1309752": {
+		"class": null,
+		"item": 280801,
+		"kind": "pet",
+		"name": "Summon Brown Rabbit"
+	},
+	"1310329": {
+		"class": null,
+		"item": 281168,
+		"kind": "pet",
+		"name": "Summon Diablo"
+	},
+	"1310330": {
+		"class": null,
+		"item": 281167,
+		"kind": "pet",
+		"name": "Summon Zergling"
+	},
+	"1310331": {
+		"class": null,
+		"item": 281166,
+		"kind": "pet",
+		"name": "Summon Panda"
+	},
+	"1312880": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Baby Crocolisk"
+	},
+	"1314120": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Condor Hatchling"
+	},
+	"1315267": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Tallstrider Hatchling"
+	},
+	"1315451": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Minfernal"
+	},
+	"1316778": {
+		"class": null,
+		"item": 284664,
+		"kind": "pet",
+		"name": "Summon Minimule"
+	},
+	"1318286": {
+		"class": null,
+		"item": 285354,
+		"kind": "pet",
+		"name": "Summon Azurky"
+	},
+	"1320758": {
+		"class": null,
+		"item": null,
+		"kind": "pet",
+		"name": "Summon Spawn of Grubthor"
+	},
+	"1321200": {
+		"class": null,
+		"item": 286724,
+		"kind": "mount",
+		"name": "Verdant Sea Turtle"
+	},
+	"1321221": {
+		"class": null,
+		"item": 286727,
+		"kind": "mount",
+		"name": "Crimson Rooster"
+	},
+	"1321233": {
+		"class": null,
+		"item": 286756,
+		"kind": "mount",
+		"name": "Spectral Wolf Pack"
+	}
+}

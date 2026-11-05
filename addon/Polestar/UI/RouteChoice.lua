@@ -1,15 +1,19 @@
 -- "Choose your path": the route choice window. Where a guide's `next` names
 -- several guides, the Engine asks (ROUTE_CHOICE) instead of deciding, and this
--- window shows one card per zone the character can level in next. Each card
--- reads top-down on one grid shared by every card: the zone painting with its
--- name on it; the stat row that decides it for a leveller ("10–14 · ~2 min
--- away · 28 quests", the levels in text, the rest dim) at the same y on every
--- card; the state chip; the author's pitch; then at most 3 pros and 2 cons, one
--- line each. The full pitch, pros and cons are in the card's tooltip. The
--- recommended zone (one the character has not outlevelled, the quickest to
--- reach) carries an accent hairline and the primary button. Choosing calls
--- Engine.ChooseRoute; "Decide later" and the header ✕ close it, and the guide
--- window keeps offering the choice.
+-- window shows one card per zone the character can level in next. The window
+-- wears the welcome's chrome: the gold rim on top (W.Rim), a night header
+-- (the band, and in the house style a gradient and the haze) with the emblem
+-- in its glow. Each card is a panel with its hairline and reads top-down on
+-- one grid shared by every card: the zone painting inset 6px (a dark hairline
+-- round it) with its name on it; the stat row that decides it for a leveller
+-- ("10–14 · ~2 min away · 28 quests", the levels in text, the rest dim) at
+-- the same y on every card; the state chip; the author's pitch; then at most
+-- 3 pros and 2 cons, one line each. The full pitch, pros and cons are in the
+-- card's tooltip. The recommended zone (one the character has not
+-- outlevelled, the quickest to reach) carries the Recommended chip, a 1px
+-- accent outline and the primary button. Choosing calls Engine.ChooseRoute;
+-- "Decide later" and the header ✕ close it, and the guide window keeps
+-- offering the choice.
 --
 -- Colours are Theme tokens only (the name's shadow in shade), repainted on a
 -- scheme change.
@@ -34,6 +38,7 @@ local HEAD_H = 112
 local FOOT_H = 56
 local LINE_GAP = 6
 local ART_H = 116 -- the zone art band at the top of each card (UI.ZoneArt)
+local ART_X = 6 -- the art's inset in the card
 local MAX_PROS, MAX_CONS = 3, 2 -- the rest wait in the card's tooltip
 local SEP = "  \194\183  "
 
@@ -109,8 +114,10 @@ local function card(i)
 	if c then return c end
 	c = CreateFrame("Button", nil, F)
 	c:SetWidth(CARD_W)
-	Theme.Skin(c, "button")
-	-- The recommended card: a 1px accent hairline around it, brighter on top.
+	-- A panel card with its hairline, the hover wash over it.
+	Theme.Skin(c, "panel")
+	W.Hover(c)
+	-- The recommended card: a 1px accent outline round it.
 	c.Ring = {}
 	for k = 1, 4 do
 		local t = c:CreateTexture(nil, "OVERLAY")
@@ -130,15 +137,37 @@ local function card(i)
 		local px = Theme.Pixel(self)
 		for k = 1, 4 do
 			local t = self.Ring[k]
-			t:SetVertexColor(r, g, b, k == 1 and 0.9 or 0.45)
+			t:SetVertexColor(r, g, b, 1)
 			if k <= 2 then t:SetHeight(px) else t:SetWidth(px) end
 		end
 	end)
-	-- The zone art, with the zone's name over its fade.
-	c.Art = ZoneArt.Create(c, CARD_W - 2, ART_H)
-	c.Art:SetPoint("TOPLEFT", c, "TOPLEFT", 1, -1)
+	-- The zone art inset in the card as on the welcome's cards (a dark
+	-- hairline round it), with the zone's name over its fade.
+	c.Art = ZoneArt.Create(c, CARD_W - ART_X * 2, ART_H, "panel")
+	c.Art:SetPoint("TOPLEFT", c, "TOPLEFT", ART_X, -ART_X)
+	c.Art.Rule:Hide()
+	c.Edge = {}
+	for k = 1, 4 do c.Edge[k] = c.Art.Over:CreateTexture(nil, "OVERLAY") end
+	c.Edge[1]:SetPoint("TOPLEFT", c.Art, "TOPLEFT", 0, 0)
+	c.Edge[1]:SetPoint("TOPRIGHT", c.Art, "TOPRIGHT", 0, 0)
+	c.Edge[2]:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", 0, 0)
+	c.Edge[2]:SetPoint("BOTTOMRIGHT", c.Art, "BOTTOMRIGHT", 0, 0)
+	c.Edge[3]:SetPoint("TOPLEFT", c.Art, "TOPLEFT", 0, 0)
+	c.Edge[3]:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", 0, 0)
+	c.Edge[4]:SetPoint("TOPRIGHT", c.Art, "TOPRIGHT", 0, 0)
+	c.Edge[4]:SetPoint("BOTTOMRIGHT", c.Art, "BOTTOMRIGHT", 0, 0)
+	W.Painter(c.Art, function(a)
+		local r, g, b = Theme.Color("shade")
+		local px = Theme.Pixel(a)
+		for k = 1, 4 do
+			local t = c.Edge[k]
+			t:SetTexture(Theme.Media("white"))
+			t:SetVertexColor(r, g, b, 0.6)
+			if k <= 2 then t:SetHeight(px) else t:SetWidth(px) end
+		end
+	end)
 	c.Name = W.Text(c.Art.Over, "display", "text")
-	c.Name:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", CARD_PAD - 1, 12)
+	c.Name:SetPoint("BOTTOMLEFT", c.Art, "BOTTOMLEFT", CARD_PAD - ART_X, 10)
 	W.Painter(c.Name, function(fs)
 		local r, g, b = Theme.Color("shade")
 		fs:SetShadowOffset(0, -1)
@@ -147,11 +176,12 @@ local function card(i)
 	-- The stat row, straight under the painting at the same y on every card.
 	c.Stats = W.Text(c, "small", "textDim")
 	c.Stats:SetWidth(CARD_W - CARD_PAD * 2)
-	c.Stats:SetPoint("TOPLEFT", c, "TOPLEFT", CARD_PAD, -(ART_H + 12))
+	c.Stats:SetPoint("TOPLEFT", c, "TOPLEFT", CARD_PAD, -(ART_X + ART_H + 12))
 	W.Painter(c.Stats, paintStats)
 	c.Tag = W.Chip(c)
 	c.Pitch = W.Text(c, "note", "textDim")
 	c.Pitch:SetWordWrap(true)
+	c.Pitch:SetSpacing(3)
 	c.Pitch:SetJustifyV("TOP")
 	c.Rule = W.Divider(c)
 	c.Pros, c.Cons = {}, {}
@@ -182,7 +212,7 @@ local function fillCard(c, o, grid)
 	if o.quests and o.quests > 0 then facts[#facts + 1] = string.format(L["%d quests"], o.quests) end
 	c.psLevels, c.psFacts = levelsText(o), facts
 	paintStats(c.Stats)
-	local y = ART_H + 12 + c.Stats:GetLineHeight() + 12
+	local y = ART_X + ART_H + 12 + c.Stats:GetLineHeight() + 12
 	local tag, kind
 	if o.open then
 		tag, kind = L["Your current route"], "success"
@@ -266,7 +296,8 @@ local function build()
 	F:Hide()
 	Theme.Skin(F, "window")
 
-	-- Header: the night sky, the emblem, the question.
+	-- Header: the night sky (in the house style a scrim-to-ground gradient
+	-- and the haze under the band), the emblem in its glow, the question.
 	local head = CreateFrame("Frame", nil, F)
 	head:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	head:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
@@ -276,6 +307,21 @@ local function build()
 	head:SetScript("OnDragStart", function() F:StartMoving() end)
 	head:SetScript("OnDragStop", function() F:StopMovingOrSizing() end)
 	F.Header = head
+	F.Night = head:CreateTexture(nil, "BACKGROUND", nil, -8)
+	F.Night:SetTexture(Theme.Media("white"))
+	F.Night:SetAllPoints(head)
+	W.Painter(F.Night, function(t)
+		t:SetShown(Theme.SkinKey() == "polestar")
+		local tr, tg, tb = Theme.Color("scrim")
+		local br, bg, bb = Theme.Color("bg")
+		if t.SetGradient and CreateColor then
+			t:SetVertexColor(1, 1, 1, 1)
+			t:SetGradient("VERTICAL", CreateColor(br, bg, bb, 1), CreateColor(tr, tg, tb, 1))
+		else
+			t:SetVertexColor(br, bg, bb, 1)
+		end
+	end)
+	if W.Haze then F.Haze = W.Haze(head, { height = HEAD_H, sub = -6 }) end
 	F.Band = Theme.Band(head, "BACKGROUND", -5)
 	F.Band:SetAllPoints(head)
 	F.HeadRule = W.Divider(head)
@@ -284,10 +330,18 @@ local function build()
 	F.Emblem = W.Tex(head, "ARTWORK", "emblem", "accent")
 	F.Emblem:SetSize(34, 34)
 	F.Emblem:SetPoint("TOPLEFT", head, "TOPLEFT", PAD, -30)
+	F.Glow = W.Tex(head, "BORDER", "glow")
+	F.Glow:SetSize(84, 84)
+	F.Glow:SetPoint("CENTER", F.Emblem, "CENTER", 0, 0)
+	W.Painter(F.Glow, function(t)
+		local r, g, b = Theme.Accent()
+		t:SetVertexColor(r, g, b, 0.3)
+		t:SetShown(Theme.SkinKey() == "polestar")
+	end)
 	F.Title = W.Text(head, "hero", "text")
 	F.Title:SetPoint("TOPLEFT", F.Emblem, "TOPRIGHT", 14, 4)
 	F.Title:SetText(L["Choose your path"])
-	F.Subtitle = W.Text(head, "note", "textDim")
+	F.Subtitle = W.Text(head, "body", "textDim")
 	F.Subtitle:SetPoint("TOPLEFT", F.Title, "BOTTOMLEFT", 0, -8)
 	F.Subtitle:SetWordWrap(true)
 	F.Subtitle:SetJustifyV("TOP")
@@ -332,6 +386,7 @@ local function build()
 			unasked = function() return unasked end,
 		})
 	end
+	if W.Rim then W.Rim(F) end
 	RC.frame = F
 end
 
@@ -340,6 +395,7 @@ local function layout(choice)
 	local n = #opts
 	local width = PAD * 2 + n * CARD_W + (n - 1) * GAP
 	F:SetWidth(width)
+	if W.LayoutRim then W.LayoutRim(F) end
 	F.Band:SetTexCoord(Theme.BandCoords(width - 2, HEAD_H))
 	-- "You finished Durotar. Both routes meet again in Stonetalon Mountains."
 	local parts = {}

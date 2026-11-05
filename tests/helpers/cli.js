@@ -19,6 +19,21 @@ function polestar(args, { cwd = ROOT, env = {}, input } = {}) {
 	return spawnSync(process.execPath, [CLI, ...args], { cwd, env: full, input, encoding: 'utf8' });
 }
 
+// The forge binary the guide commands moved to: $FORGE, else this checkout's
+// release build (rust/target/release/forge), else null (the test skips: forge
+// is not built here).
+function forgeBin() {
+	if (process.env.FORGE) return process.env.FORGE;
+	const built = path.join(ROOT, 'rust', 'target', 'release', process.platform === 'win32' ? 'forge.exe' : 'forge');
+	return fs.existsSync(built) ? built : null;
+}
+
+// forge(['guide', 'lint', ...], { cwd }) -> spawnSync's result, or null without a forge binary.
+function forge(args, { cwd = ROOT } = {}) {
+	const bin = forgeBin();
+	return bin ? spawnSync(bin, args, { cwd, encoding: 'utf8' }) : null;
+}
+
 // Run fn with console output captured; returns { result, out }.
 async function quiet(fn) {
 	const out = [];
@@ -41,7 +56,7 @@ function fakeAddons(root, names = ['Polestar', 'Polestar_Guides', 'Polestar_Nav'
 		const files = n === 'Polestar_Guides' ? `${TOC_MARKER}\n\nPack.lua\nMapFrames.lua\nGuides.lua` : '\nMain.lua';
 		fs.writeFileSync(path.join(dir, `${n}.toc`), `## Interface: 16001\n## Title: ${n}\n## Version: ${version}\n${files}\n`);
 		if (n !== 'Polestar_Guides') fs.writeFileSync(path.join(dir, 'Main.lua'), `local ADDON, ns = ...\n-- ${n}\n`);
-		// A release-safe Codex as `pack` checks it (tools/lib/codex/pack.js releaseRefusal).
+		// A release-safe Codex as `forge release pack` checks it (forge-release addons.rs codex_refusal).
 		if (n === 'Polestar_Codex') {
 			fs.writeFileSync(path.join(dir, 'Meta.lua'), 'C.Register("meta", {\n\tlocalExtras = false,\n\tsources = {\n\t\t{\n\t\t\tname = "pfQuest",\n\t\t},\n\t},\n})\n');
 			fs.writeFileSync(path.join(dir, 'LICENSE-DATA.txt'), 'Polestar Codex: third-party notices\n');
@@ -51,4 +66,4 @@ function fakeAddons(root, names = ['Polestar', 'Polestar_Guides', 'Polestar_Nav'
 	return root;
 }
 
-module.exports = { CLI, polestar, quiet, fakeAddons };
+module.exports = { CLI, polestar, forge, forgeBin, quiet, fakeAddons };

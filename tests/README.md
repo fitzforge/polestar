@@ -6,7 +6,7 @@ against a fake game client written in Lua.
 
 ```sh
 node --test "tests/**/*.test.js"                                   # everything (npm test does the same)
-node --test tests/engine.test.js                                   # one file
+node --test rust/crates/forge-addontest/tests/addontest/engine.rs                                   # one file
 node --test --test-name-pattern="hand-over" tests/playtest.test.js # the tests in a file whose name matches
 ```
 
@@ -15,11 +15,29 @@ picks one) for every addon test; `luac5.1` for `syntax.test.js`; `python3`
 for the zip checks in `pack.test.js`. `node tools/polestar.js doctor` checks
 Node and Lua.
 
-CI (`.github/workflows/ci.yml`, on pushes to main and on pull requests)
-installs Lua 5.1 and runs `npm test`, then rebuilds the textures with
+While working, `npm run test:changed` runs only the test files your change
+can reach: `tools/testsel.js` takes the files `git diff HEAD` and untracked
+files name (`--base main` adds what is committed since main; paths given on
+the command line replace them), maps each to the tests that require it, load
+it into the addon or read its path (the rules are the table at the top of the
+script), prints `N of M test files` with a reason for each, and runs them:
+each file in a `node --test` process of its own, several at once (`--jobs N`,
+default half the cores) but another only while the machine has more than
+`--reserve GB` available (default 6; a large sim test holds 2-3 GB), printing
+the output of the files that fail.
+`node tools/testsel.js` alone only prints the selection; `--json` prints the
+mapping. A changed file no rule maps to a test is listed as unmapped
+(`--all-unmapped` runs the whole suite for it). The selection is a shortcut,
+not the gate: `npm test` (every file) is what CI runs, so run it before you
+push.
+
+CI (`.github/workflows/ci.yml`, on pushes to main and next and on pull
+requests) installs Lua 5.1, runs `npm test`, the translations check and
+`forge changelog check`, then rebuilds the textures with
 `node tools/polestar.js media` and the UI renders with
-`node tools/polestar.js preview`, and fails when either differs from the
-committed files in `addon/Polestar/Media` and `docs/preview`.
+`node tools/polestar.js preview` to show the generators still work. The
+committed copies in `addon/Polestar/Media` and `docs/preview` are refreshed
+by the maintainer (`polestar regen`).
 
 ## Layers
 
@@ -33,7 +51,7 @@ not the layer. They fall into these layers:
 | Addon modules | The addon's own Lua under Lua 5.1, against the fake client, through `helpers/lua.js` | `core.test.js`, `engine*.test.js`, `nav*.test.js`, `quests*.test.js`, `gear*.test.js`, `maps*.test.js`, `qol.test.js`, `lookup*.test.js`, `dungeons-*.test.js`, `ui*.test.js`, `rares.test.js`, `recorder*.test.js` |
 | End to end | A guide compiled by the real compiler and played in the whole addon | `e2e.test.js`, `guides.test.js` (every authored guide, every class), `playtest.test.js`, `acceptance-packs.test.js` |
 | Static and docs | Checks over files rather than behaviour at run time | `syntax.test.js` (every addon file compiles, no stray globals, every file loaded by a manifest), `guides-parse.test.js` (every guide parses, and `Polestar_Guides` holds exactly those guides), `media-refs.test.js` (every texture in `Media` is named by the addon), `svg-assets.test.js` (every committed SVG is well-formed for a browser: no `--` in a comment), `wording.test.js` (the addon, the guides, every doc and the pack template name no other guide product), `docs-packs.test.js` (the pack docs name every verb and key), `docs-cheatsheet.test.js`, `packs-parity.test.js` (lint and the runtime refuse the same guides), `text-fit.test.js` (text stays inside its window), `i18n.test.js` (every shipped locale file loads with no stale key or broken format, `i18n sync` keeps every translation, a translated client reads its language from the start) |
-| Performance | CPU budgets: the whole addon with every module on, and the Recorder while it records. Memory budgets: what a compiled data pack costs resident | `perf.test.js`, `recorder-perf.test.js`, `questdb.test.js` (the quest database), `guides-memory.test.js` (the guide pack: what it costs resident, what one faction's share of it weighs, and what validating it allocates) |
+| Performance | CPU budgets: the whole addon with every module on, and the Recorder while it records. Memory budgets: what a compiled data pack costs resident | `perf.test.js`, `recorder-perf.test.js`, forge-addontest's `questdb-memory` (the quest database), `guides-memory.test.js` (the guide pack: what it costs resident, what one faction's share of it weighs, and what validating it allocates) |
 
 ## The fake client: tests/lua
 
@@ -99,18 +117,18 @@ CI, they skip; everything else runs.
 
 | Local input | Built by | Tests that use it |
 |---|---|---|
-| `data/forever/*.json` (reference data) | `data build` and the other data commands | `guides.test.js`, `guides-caves.test.js` and `guides-reported.test.js` (player-reported guide fixes, one case per report), `guides-patterns.test.js` (the patterns behind those reports, across every guide: the first giver beside the spawn, class letters on a training visit, "Click X" only for clicks, quest clicks shown with their step's kills, vendor-only items bought), `lint-timed.test.js` (the old and fixed orders of timed quest items, every guide in time; needs item durations), `engine-placement.test.js`, `perf.test.js`, `acceptance-packs.test.js`, `playtest.test.js`, `play.test.js`, `play-pack.test.js`, `play-start.test.js`, `new.test.js`, `dev.test.js`, `dsl.test.js`, `maps-zonelevels.test.js`, `profession-gathering.test.js`, `questdb.test.js`, `planner-timeline.test.js` (the Dwarf chain played to level 55; needs `travel.json` too) |
+| `data/forever/*.json` (reference data) | `data build` and the other data commands | `guides.test.js`, `guides-caves.test.js` and `guides-reported.test.js` (player-reported guide fixes, one case per report), `guides-patterns.test.js` (the patterns behind those reports, across every guide: the first giver beside the spawn, class letters on a training visit, "Click X" only for clicks, quest clicks shown with their step's kills, vendor-only items bought), `lint-timed.test.js` (the old and fixed orders of timed quest items, every guide in time; needs item durations), `engine-placement.test.js`, `perf.test.js`, `acceptance-packs.test.js`, `playtest.test.js`, `play.test.js`, `play-pack.test.js`, `play-start.test.js`, `new.test.js`, `dev.test.js`, `dsl.test.js`, `maps-zonelevels.test.js`, `profession-gathering.test.js`, forge-data's `questdb` (the real database's size budget), `planner-timeline.test.js` (the Dwarf chain played to level 55; needs `travel.json` too) |
 | Client map tables cached in `data/sources/wago` | `exploration build` | `exploration.test.js` |
 | Classic Era `TaxiPathNode` cached in `data/sources/wago` | `travel build` | `nav-transit.test.js` (the transport model against every sniffed CMaNGOS period) |
-| `addon/Polestar_QuestDB` | `questdb build` | `questdb.test.js`, `quests.test.js` |
-| `addon/Polestar_Codex` | `codex build` | `lookup-codex.test.js` (release-safe, and Lookup, Dungeons and Rares read it in game) |
-| `data/forever/codex/*.json` | `codex build` | `dungeons-attune.test.js` (the real attunement chains) |
+| `addon/Polestar_QuestDB` | `forge data questdb` | forge-addontest `questdb-memory` (data/forever), forge-data `questdb` |
+| `addon/Polestar_Codex` | `forge data codex` | `lookup-codex.test.js` (release-safe, and Lookup, Dungeons and Rares read it in game) |
+| `data/forever/codex/*.json` | `forge data codex` | `rust/crates/forge-addontest/tests/addontest/dungeons-attune.rs` (the real attunement chains) |
 | `addon/Polestar_ItemDB/Items.lua` | `itemdb build` (committed, so present on a clone) | `itemdb.test.js` |
-| `addon/Polestar_Nav` (Polestar's walking router, started from Shortest Path Forever's; Polestar's maps of maps 0, 1 and 2991 and `Chokepoints.lua`) | the router hand-written, `nav pack` (`PACK.json`); committed, so present on a clone | `nav-maps.test.js` (matches `PACK.json`; the router's headers keep his copyright; walks Goldshire to the Fargodeep Mine mouth on the real maps; Idle trims the graph to its resting ceiling), `nav-router.test.js` (ground classes and faction profiles on synthetic maps; format 1 routes as the router before classes, from git history), `nav-load.test.js` (a missing part file or no decoder drops the map, no Lua error), `nav-e2e.test.js` (the arrow end to end on the real engine: Polestar's world frame against the engine's, the path through Walk, Travel and Nav.Sample; needs `data/forever/map-frames.json` and `addon/Polestar_Guides/MapFrames.lua` too) |
+| `addon/Polestar_Nav` (Polestar's walking router, started from Shortest Path Forever's; Polestar's maps of maps 0, 1 and 2991 and `Chokepoints.lua`) | the router hand-written, `forge nav pack` (`PACK.json`); committed, so present on a clone | `nav-maps.test.js` (matches `PACK.json`; the router's headers keep his copyright; walks Goldshire to the Fargodeep Mine mouth on the real maps; Idle trims the graph to its resting ceiling), `nav-router.test.js` (ground classes and faction profiles on synthetic maps; format 1 routes as the router before classes, from git history), `nav-load.test.js` (a missing part file or no decoder drops the map, no Lua error), `rust/crates/forge-addontest/tests/addontest/nav-e2e.rs` (the arrow end to end on the real engine: Polestar's world frame against the engine's, the path through Walk, Travel and Nav.Sample; needs `data/forever/map-frames.json` and `addon/Polestar_Guides/MapFrames.lua` too) |
 | `data/local/crossings.json`, `addon/Polestar_Travel` | the local crossings file, `travel build` | `travel-crossings.test.js`, `nav-crossings.test.js` |
 | `data/local/nav/` (the navigation grid) | `nav build` | `navmesh-path.test.js` (real routes: the Frostmane Hold cave mouth, the Mesa Elevator, the South Gate tunnel) |
 | The Forever client's map tiles and WMO roots cached in `data/sources/casc` | `nav build` | `navmesh-geom.test.js` (WMO bounding boxes on their placements, real tiles) |
-| Installed addons in the game's AddOns folder | the game client | `consume.test.js` |
+| Installed addons in the game's AddOns folder | the game client | `rust/crates/forge-data/tests/data/consume.rs` |
 
 `perf.test.js` also loads the local data addons when they are built.
 

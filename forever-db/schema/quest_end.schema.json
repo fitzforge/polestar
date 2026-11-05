@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/quest_end.schema.json",
+  "title": "quest_end",
+  "description": "Where a quest is turned in.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "kind",
+    "id"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "kind": {
+      "type": "string",
+      "enum": [
+        "npc",
+        "object"
+      ],
+      "description": "npc or object"
+    },
+    "id": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "npc or object id"
+    }
+  }
+}

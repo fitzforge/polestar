@@ -1,0 +1,31 @@
+[package]
+name = "forge-guide"
+description = "The .guide format: parse, when, tokens, compile, lint, pack emit."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[features]
+default = ["native"]
+# File system access (project loading, the CLI) and Lua 5.1 (the translation files); the core API takes
+# strings and bytes.
+native = ["dep:mlua"]
+
+[dependencies]
+rustc-hash.workspace = true
+forge-core = { path = "../forge-core" }
+regex = "1"
+miniz_oxide = "0.8"
+# zlib-rs (a port of zlib-ng): its deflate output equals zlib-ng's byte for byte, which the shipped import strings use; miniz_oxide's does not.
+flate2 = { version = "1.1", default-features = false, features = ["zlib-rs"] }
+mlua = { version = "0.11", features = ["lua51", "vendored"], optional = true }
+
+[dev-dependencies]
+serde_json.workspace = true
+
+[lints]
+workspace = true

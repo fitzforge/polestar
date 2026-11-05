@@ -1,0 +1,403 @@
+ID,Name_lang
+1,"Word of Recall (OLD)"
+3,"Word of Mass Recall (OLD)"
+4,"Word of Recall Other"
+31,"Teleport Goldshire"
+33,"Teleport Westfall"
+34,"Teleport Duskwood"
+35,"Teleport Elwynn"
+50,"Zone Recall (OLD)"
+427,"Teleport Monastery"
+428,"Teleport Moonbrook"
+442,"Teleport Northshire Abbey"
+443,"Teleport Barracks"
+444,"Teleport Lighthouse"
+445,"Teleport Darkshire"
+446,"Teleport Cemetary"
+447,"Teleport Treant"
+556,"Astral Recall"
+720,Entangle
+1936,"Teleport Anvilmar"
+3561,"Teleport: Stormwind"
+3562,"Teleport: Ironforge"
+3563,"Teleport: Undercity"
+3565,"Teleport: Darnassus"
+3566,"Teleport: Thunder Bluff"
+3567,"Teleport: Orgrimmar"
+3721,"Teleport Altar of the Tides"
+4801,Teleport
+4996,"[PH] Teleport to Orgrimmar"
+4997,"[PH] Teleport to Booty Bay"
+4998,"[PH] Teleport to Grom'Gol"
+4999,"[PH] Teleport to Ratchet"
+5000,"[PH] Teleport to Undercity"
+6348,"[PH] Teleport to Menethil Harbor"
+6349,"[PH] Teleport to Auberdine"
+6483,"[PH] Teleport to Felwood"
+6484,"[PH] Teleport to Balthule"
+6714,"Test of Faith"
+6719,"[PH] Teleport to Theramore"
+6766,"Test of Lore"
+7136,"Shadow Port"
+8690,Hearthstone
+8735,"Blackfathom Teleport"
+9268,"Teleport to Darnassus - Event"
+11362,"Teleport to Gnomeregan"
+11409,"Teleport to Booty Bay"
+12241,"Twin Colossals Teleport"
+12520,"Teleport from Azshara Tower"
+12885,"Teleport to Razelikh"
+13044,"Teleport to Ground"
+13461,"Go Home"
+13954,"NPC PORT TEST"
+16787,"Warosh's Teleport"
+17159,"Port to Haleh"
+17160,"Port to Mazthoril"
+17167,"Blue Flight"
+17334,"Portal Effect: Stormwind"
+17607,"Portal Effect: Ironforge"
+17608,"Portal Effect: Darnassus"
+17609,"Portal Effect: Orgrimmar"
+17610,"Portal Effect: Thunder Bluff"
+17611,"Portal Effect: Undercity"
+17863,"Shadow Portal"
+18960,"Teleport: Moonglade"
+19527,"Majordomo Teleport"
+21128,"Maraudon Portal Effect"
+21463,"Teleport to Player"
+22563,Recall
+22935,Planted
+22950,"Portal of Immol'thar"
+23405,"Alliance Reset Teleport"
+23406,"Horde Reset Teleport"
+23441,"Gadgetzan Transporter"
+23442,"Everlook Transporter"
+23446,"Gadgetzan Transporter Failure"
+23460,"Teleport to Blackwing Lair DND"
+24730,"Cannon Prep"
+25139,"Teleport to Molten Core DND"
+25371,Consume
+25709,"Hive'Zara Swarmer Teleport"
+25904,"Viscidus Teleport"
+26220,"Digestive Acid"
+26285,"Teleport Ouro Trigger"
+26448,"Holiday - Teleport: Moonglade"
+26450,"Holiday - Lunar Teleport: Darnassus"
+26451,"Holiday - Teleport: Moonglade (self)"
+26452,"Holiday - Lunar Teleport: Ironforge"
+26453,"Holiday - Lunar Teleport: Orgrimmar"
+26454,"Holiday - Lunar Teleport: Stormwind"
+26455,"Holiday - Lunar Teleport: Thunderbluff"
+26456,"Holiday - Lunar Teleport: Undercity"
+28025,"Teleport Left"
+28026,"Teleport Right"
+28147,"Portal Effect: Karazhan"
+28444,"Portal Effect: Deathknight Wing"
+29181,"Teleport to Twin Emps Effect DND"
+29190,"Teleport to Final Chamber Effect DND"
+29215,"Copy of Vanish"
+29231,"Teleport Return"
+29295,"Naxxramas Entry Teleport DND"
+30211,"Teleport Self"
+31605,"Netherwalk, Port to Strathholme"
+345918,"Teleport to Light's Hope"
+364558,"Teleport to Onyxia's Lair"
+370301,"Rune of Teleportation: Antechamber"
+370343,"Rune of Teleportation: Frostwyrm's Lair"
+370538,"[DNT] Teleport to AQ40"
+370541,"[DNT] Teleport to Naxxramas"
+399985,Shadowstrike
+414119,"[DNT] Teleport to Ragefire Chasm"
+414120,"[DNT] Teleport to Wailing Caverns"
+414121,"[DNT] Teleport to Deadmines"
+414122,"[DNT] Teleport to Shadowfang Keep"
+414123,"[DNT] Teleport to Stockades"
+414124,"[DNT] Teleport to Blackfathom Deeps"
+419417,"A Place Very Homelike"
+419652,"Teleport Players"
+421352,"Escape Rope"
+423168,"[DNT] Teleport to Lorgus Jett in Blackfathom Deeps"
+426737,"[DNT] S03 - BFD Raid - Teleport 01 - Entrance"
+426738,"[DNT] S03 - BFD Raid - Teleport 02 - Baron Aquanis"
+426740,"[DNT] S03 - BFD Raid - Teleport 03 - Ghamoo-ra & Sarevess"
+426742,"[DNT] S03 - BFD Raid - Teleport 04 - Gelihast & Lorgus Jett"
+426745,"[DNT] S03 - BFD Raid - Teleport 05 - Kelris"
+426832,"[DNT] S03 - BFD Raid - Teleport 06 - Aku'mai"
+430373,"Portal to Zoram Strand"
+430497,"WoW Variety Show - Back to Goldshire!"
+430499,"WoW Variety Show - Back to Razor Hill!"
+432288,Rowboat
+433653,"Windbreak Canyon Ridge Teleport"
+436476,"Teleport to Wirdal Wondergear"
+436483,"Wintersprint Teleport"
+436484,"Azshara Teleport"
+436485,"Azshara Duke Hydraxis Teleport"
+436486,"Desolace Two Goliaths Teleport"
+436487,"Desolace Horn Teleport"
+436488,"Desolace Tent Teleport"
+436489,"Feralas Teleport"
+436490,"Silithus Teleport"
+436491,"Tanaris Teleport"
+436492,"Southern Tanaris Teleport"
+436493,"Ironforge Teleport"
+436494,"Theramore Teleport"
+436495,"Scarlet Monastery Teleport"
+436496,"Mushroom Teleport"
+436497,"Scholomance Teleport"
+436498,"Alterac Mountain Teleport"
+436499,"Thandol Span Teleport"
+436500,"Zepplin Teleport"
+436501,"Grim Batol Teleport"
+436502,"Overlook Cliffs Teleport"
+436503,"Stonewrought Dam Teleport"
+436504,"Altar of Storms Teleport"
+436505,"Blackrock Mountain Teleport"
+436506,"Burning Steppes Teleport"
+436507,"Searing Gorge Teleport"
+436508,"TEST DEVELOPER DEBUG SPELL"
+436509,"Booty Bay Teleport"
+436510,"Booty Bay Bell Teleport"
+436511,"Purgation Isle Teleport"
+436512,"Troll Village Teleport"
+436530,"[DNT] S03 - Gnomeregan Professions - Beam me up to Wirdal"
+436531,"Teleport to Feralas"
+436536,"GM Hearth"
+437280,"Teleport to Searing Basin"
+437281,"Teleport to Stormwind"
+437283,"Teleport to Orgrimmar"
+439947,"[DNT] Teleport Player Back To Crowd Pummeler's Platform"
+440817,"[DNT] Holdout Teleport - Teleport To Crowd Pummeler Room"
+440845,"[DNT] Holdout Teleport - Teleport To Holdout"
+440847,"[DNT] Holdout Teleport - Teleport To Electrocutioner Room"
+440848,"[DNT] Holdout Teleport - Teleport To Thermaplugg Room"
+444935,Parasomnia
+445279,"Enter Dream"
+446669,Dreamscape
+461124,"Answer Call"
+461841,"[DNT] Sending Pillar"
+462744,"[DNT] Teleport to Tainted Scar Exterior"
+462781,"[DNT] Demon Fall Canyon Portal Effect"
+463078,"[DNT] S03 - MC Raid - Teleport 01 - Entrance"
+463080,"[DNT] S03 - MC Raid - Teleport 02 - Rune of Kress (Magmadar)"
+463082,"[DNT] S03 - MC Raid - Teleport 03 - Rune of Mohn (Gehennas)"
+463085,"[DNT] S03 - MC Raid - Teleport 04 - Rune of Blaz (Garr)"
+463109,"[DNT] S03 - MC Raid - Teleport 05 - Rune of Mazj (Shazzrah)"
+463111,"[DNT] S03 - MC Raid - Teleport 06 - Rune of Zeth (Baron Geddon)"
+463112,"[DNT] S03 - MC Raid - Teleport 07 - Rune of Theri (Golemagg)"
+463113,"[DNT] S03 - MC Raid - Teleport 08 - Rune of Koro (Sulfuron Harbinger)"
+464251,"[DNT] Teleport to Storm Cliffs Exterior"
+465789,"Teleport: Elsewhen"
+467805,Fatality
+468030,"[DNT] Teleport to Crystal Vale Interior"
+469162,"Portal to Old Andorhal"
+469872,"Teleport to Zul'Gurub DND"
+469873,"[DNT] Teleport to Zul'Gurub"
+472900,"[DNT] Teleport to BWL GY"
+1215866,"Enter Hyjal"
+1216528,"[DNT] Teleport to Nightmare Grove Raid Exit (Duskwood)"
+1216532,"[DNT] Teleport to Twilight Grove Raid"
+1216533,"[DNT] Teleport to AQ20"
+1216535,"[DNT] Teleport to Nightmare Grove Raid Exit (Feralas)"
+1216536,"[DNT] Teleport to Nightmare Grove Raid Exit (Ashenvale)"
+1216537,"[DNT] Teleport to Nightmare Grove Raid Exit (Hinterlands)"
+1216602,"Teleport to Deadwind Pass [DNT]"
+1217948,"Portal to Ironforge"
+1217949,"Portal to Darnassus"
+1217950,"Portal to Undercity"
+1217951,"Portal to Orgrimmar"
+1221312,"Leave - DNT"
+1230361,"Radiant Portal"
+1230578,"Hyjal Teleport"
+1230649,"Everlook Teleport"
+1231024,"Teleport Somewhere"
+1231400,Lobby
+1231615,"Teleported to Safety"
+1232033,"Portal: Elsewhere"
+1232395,"Portal Effect: Scarlet Enclave"
+1232816,"[DNT] Teleport"
+1235126,"Hearthstone of the Dawn"
+1240062,"Teleport Target to Self"
+1259410,"Portal to Rohaashi Spires"
+1263986,"Portal Effect: Dalaran"
+1267193,Dismissal
+1269353,"Mount Hyjal Transporter Failure"
+1269464,"Portal to Valanaar"
+1275834,"Teleport to Redridge"
+1275867,"Teleport to Darkwhisper Gorge"
+1278902,"Skyborne Portal to Dalaran"
+1284040,"Portal to Stormwind"
+1286242,"Portal Effect: Emerald Dream"
+1291920,Caught!
+1297659,"Teleport: Dalaran"
+1306478,"(DNT) Teleport Corpse"
+1308517,"Teleport Just a Lil' Bit"
+1318270,"Teleport to Purple Parlor"
+1318287,"Teleport to Violet Citadel"
+1325994,"[DNT] Teleport to Hall of Thanes"
+1325995,"[DNT] Teleport to Ruins of Lordaeron"
+1325996,"[DNT] Teleport to Excavation Site"
+1325997,"[DNT] Teleport to City of Dalaran"
+731,Entangle
+1121,Entangle
+22994,Entangle
+22651,Sacrifice
+24228,Vanish
+24229,Vanish
+24230,Vanish
+24231,Vanish
+24232,Vanish
+24233,Vanish
+24700,Vanish
+28401,Blink
+1231233,Blink
+1231235,Blink
+1231236,Blink
+1231237,Blink
+1231238,Blink
+1231239,Blink
+1324301,Blink
+1326189,Blink
+27597,"Teleport: Ironforge"
+27598,"Teleport: Undercity"
+8195,Teleport
+20449,Teleport
+20534,Teleport
+20618,Teleport
+20682,Teleport
+29216,Teleport
+29273,Teleport
+457010,Teleport
+461064,Teleport
+461067,Teleport
+461351,Teleport
+463626,Teleport
+470460,Teleport
+1222226,Teleport
+1222332,Teleport
+1222333,Teleport
+1222334,Teleport
+1222335,Teleport
+1222395,Teleport
+1222704,Teleport
+1228010,Teleport
+1234831,Teleport
+1281960,Teleport
+1281961,Teleport
+1286513,Teleport
+1286514,Teleport
+7586,"Shadow Port"
+7587,"Shadow Port"
+1315212,Hearthstone
+439691,"Teleport to Booty Bay"
+12510,"Teleport to Azshara Tower"
+13142,"Teleport to Razelikh"
+17272,Summon
+470451,"Portal Effect: Stormwind"
+1216208,"Portal Effect: Stormwind"
+1216252,"Portal Effect: Stormwind"
+1216261,"Portal Effect: Stormwind"
+1216264,"Portal Effect: Stormwind"
+1216267,"Portal Effect: Stormwind"
+1216272,"Portal Effect: Stormwind"
+1216279,"Portal Effect: Stormwind"
+1216303,"Portal Effect: Stormwind"
+1325714,"Portal Effect: Stormwind"
+1325717,"Portal Effect: Orgrimmar"
+458399,Eruption
+17939,"Shadow Portal"
+17943,"Shadow Portal"
+17944,"Shadow Portal"
+17946,"Shadow Portal"
+17948,"Shadow Portal"
+22564,Recall
+22668,Shadowblink
+22669,Shadowblink
+22670,Shadowblink
+22671,Shadowblink
+22672,Shadowblink
+22673,Shadowblink
+22674,Shadowblink
+22675,Shadowblink
+22676,Shadowblink
+23139,"Gate of Shazzrah"
+25725,Paralyze
+24831,"Cannon Prep"
+26196,Consume
+25825,"Hive'Zara Swarmer Teleport"
+25826,"Hive'Zara Swarmer Teleport"
+25827,"Hive'Zara Swarmer Teleport"
+25828,"Hive'Zara Swarmer Teleport"
+26382,Burrow
+27694,"Teleport to Razelikh (GROUP)"
+1321337,DNT
+1292621,"Teleport Self"
+368420,"Teleport to Blackwing Lair"
+370091,"Uber Invis"
+370092,"Uber Invis"
+371060,"Uber Invis"
+406754,Shadowstep
+1231386,Shadowstep
+401991,Shadowcrawl
+1321339,DNT
+452185,"Teleport Players"
+449012,"Escape Rope"
+463010,"Escape Rope"
+463012,"Escape Rope"
+1221793,"Escape Rope"
+1321343,DNT
+445280,"Exit Dream"
+446624,"Exit Dream"
+446625,"Exit Dream"
+446627,"Exit Dream"
+432289,Rowboat
+436513,"TEST DEVELOPER DEBUG SPELL"
+436514,"TEST DEVELOPER DEBUG SPELL"
+436515,"TEST DEVELOPER DEBUG SPELL"
+1223095,"Emerald Nightmare"
+446621,"Enter Dream"
+446622,"Enter Dream"
+446623,"Enter Dream"
+1216183,"Enter Dream"
+1216337,"Enter Dream"
+1216341,"Enter Dream"
+1216343,"Enter Dream"
+1216345,"Enter Dream"
+1216346,"Enter Dream"
+1216347,"Enter Dream"
+1216348,"Enter Dream"
+446732,"Wake Up Dead"
+461900,"[DNT] Sending Pillar"
+461902,"[DNT] Sending Pillar"
+461905,"[DNT] Sending Pillar"
+461906,"[DNT] Sending Pillar"
+462787,"[DNT] Demon Fall Canyon Portal Effect"
+464732,"[DNT] Teleport to Storm Cliffs Exterior"
+470317,DNT
+470454,DNT
+469593,"Portal to Old Andorhal"
+471150,"Portal to Old Andorhal"
+1218599,"Teleport to Deadwind Pass [DNT]"
+1227466,Portal
+1227468,Portal
+1231622,Portal
+1239317,Portal
+1226210,"Tinker: Teleport"
+1226211,"Tinker: Nitro Boosts"
+1226212,"Tinker: Magnetic Displacement"
+1226217,"Semisafe Transporter: New Avalon"
+1235133,"Portal Effect: Scarlet Enclave"
+1235749,"Portal Effect: Scarlet Enclave"
+1232817,"[DNT] Teleport"
+1232818,"[DNT] Teleport"
+1232819,"[DNT] Teleport"
+1232820,"[DNT] Teleport"
+1297791,"Portal to the Violet Chamber"
+1297938,"Portal to the Violet Chamber"
+1325764,Dismissal
+1269351,"Mount Hyjal Transporter"
+1269465,"Portal to Valanaar"
+1273006,"Portal to Valanaar"
+1273009,"Portal to Valanaar"
+1296339,"Portal to Valanaar"
+1269772,"Silken Tomb"
+1271002,"Crushing Brambles"

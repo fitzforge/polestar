@@ -1,0 +1,2231 @@
+{
+	"ahnqiraj-temple": {
+		"areaId": 3428,
+		"bosses": [
+			{
+				"encounter": 709,
+				"items": [],
+				"name": "The Prophet Skeram",
+				"npc": null
+			},
+			{
+				"encounter": 710,
+				"items": [],
+				"name": "Silithid Royalty",
+				"npc": null
+			},
+			{
+				"encounter": 711,
+				"items": [],
+				"name": "Battleguard Sartura",
+				"npc": null
+			},
+			{
+				"encounter": 712,
+				"items": [],
+				"name": "Fankriss the Unyielding",
+				"npc": null
+			},
+			{
+				"encounter": 713,
+				"items": [],
+				"name": "Viscidus",
+				"npc": null
+			},
+			{
+				"encounter": 714,
+				"items": [],
+				"name": "Princess Huhuran",
+				"npc": null
+			},
+			{
+				"encounter": 715,
+				"items": [],
+				"name": "Twin Emperors",
+				"npc": null
+			},
+			{
+				"encounter": 716,
+				"items": [],
+				"name": "Ouro",
+				"npc": null
+			},
+			{
+				"encounter": 717,
+				"items": [],
+				"name": "C'thun",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1451,
+			"x": 28.6,
+			"y": 92.3
+		},
+		"forever": false,
+		"key": "ahnqiraj-temple",
+		"kind": "raid",
+		"levels": null,
+		"map": 531,
+		"name": "Ahn'Qiraj Temple"
+	},
+	"blackfathom-deeps": {
+		"areaId": 719,
+		"bosses": [
+			{
+				"encounter": 2916,
+				"items": [],
+				"name": "Ghamoo-ra",
+				"npc": null
+			},
+			{
+				"encounter": 2915,
+				"items": [],
+				"name": "Lady Sarevess",
+				"npc": null
+			},
+			{
+				"encounter": 2914,
+				"items": [],
+				"name": "Geilhast",
+				"npc": null
+			},
+			{
+				"encounter": 2913,
+				"items": [],
+				"name": "Lorgus Jett",
+				"npc": null
+			},
+			{
+				"encounter": 2912,
+				"items": [],
+				"name": "Old Serra'kis",
+				"npc": null
+			},
+			{
+				"encounter": 2911,
+				"items": [],
+				"name": "Twilight Lord Kelris",
+				"npc": null
+			},
+			{
+				"encounter": 2910,
+				"items": [],
+				"name": "Aku'mai",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1440,
+			"x": 14.5,
+			"y": 14.2
+		},
+		"forever": false,
+		"key": "blackfathom-deeps",
+		"kind": "dungeon",
+		"levels": [
+			15,
+			22,
+			22
+		],
+		"map": 48,
+		"name": "Blackfathom Deeps"
+	},
+	"blackrock-depths": {
+		"areaId": 1584,
+		"bosses": [
+			{
+				"encounter": 227,
+				"items": [],
+				"name": "High Interrogator Gerstahn",
+				"npc": null
+			},
+			{
+				"encounter": 228,
+				"items": [],
+				"name": "Lord Roccor",
+				"npc": null
+			},
+			{
+				"encounter": 229,
+				"items": [],
+				"name": "Houndmaster Grebmar",
+				"npc": null
+			},
+			{
+				"encounter": 230,
+				"items": [],
+				"name": "Ring of Law",
+				"npc": null
+			},
+			{
+				"encounter": 231,
+				"items": [],
+				"name": "Pyromancer Loregrain",
+				"npc": null
+			},
+			{
+				"encounter": 232,
+				"items": [],
+				"name": "Lord Incendius",
+				"npc": null
+			},
+			{
+				"encounter": 233,
+				"items": [],
+				"name": "Warder Stilgiss",
+				"npc": null
+			},
+			{
+				"encounter": 234,
+				"items": [],
+				"name": "Fineous Darkvire",
+				"npc": null
+			},
+			{
+				"encounter": 235,
+				"items": [],
+				"name": "Bael'Gar",
+				"npc": null
+			},
+			{
+				"encounter": 236,
+				"items": [],
+				"name": "General Angerforge",
+				"npc": null
+			},
+			{
+				"encounter": 237,
+				"items": [],
+				"name": "Golem Lord Argelmach",
+				"npc": null
+			},
+			{
+				"encounter": 238,
+				"items": [],
+				"name": "Hurley Blackbreath",
+				"npc": null
+			},
+			{
+				"encounter": 239,
+				"items": [],
+				"name": "Phalanx",
+				"npc": null
+			},
+			{
+				"encounter": 240,
+				"items": [],
+				"name": "Ribbly Screwspigot",
+				"npc": null
+			},
+			{
+				"encounter": 241,
+				"items": [],
+				"name": "Plugger Spazzring",
+				"npc": null
+			},
+			{
+				"encounter": 2791,
+				"items": [],
+				"name": "The Vault",
+				"npc": null
+			},
+			{
+				"encounter": 242,
+				"items": [],
+				"name": "Ambassador Flamelash",
+				"npc": null
+			},
+			{
+				"encounter": 243,
+				"items": [],
+				"name": "The Seven",
+				"npc": null
+			},
+			{
+				"encounter": 244,
+				"items": [],
+				"name": "Magmus",
+				"npc": null
+			},
+			{
+				"encounter": 2789,
+				"items": [
+					14047
+				],
+				"name": "Princess Moira Bronzebeard",
+				"npc": 8929
+			},
+			{
+				"encounter": 2790,
+				"items": [
+					14047
+				],
+				"name": "Emperor Dagran Thaurissan",
+				"npc": 9019
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1427,
+			"x": 34.8,
+			"y": 85.3
+		},
+		"forever": false,
+		"key": "blackrock-depths",
+		"kind": "dungeon",
+		"levels": [
+			42,
+			48,
+			59
+		],
+		"map": 230,
+		"name": "Blackrock Depths"
+	},
+	"blackrock-spire": {
+		"areaId": 1583,
+		"bosses": [
+			{
+				"encounter": 267,
+				"items": [],
+				"name": "Highlord Omokk",
+				"npc": null
+			},
+			{
+				"encounter": 268,
+				"items": [],
+				"name": "Shadow Hunter Vosh'gajin",
+				"npc": null
+			},
+			{
+				"encounter": 269,
+				"items": [],
+				"name": "War Master Voone",
+				"npc": null
+			},
+			{
+				"encounter": 270,
+				"items": [],
+				"name": "Mother Smolderweb",
+				"npc": null
+			},
+			{
+				"encounter": 271,
+				"items": [],
+				"name": "Urok Doomhowl",
+				"npc": null
+			},
+			{
+				"encounter": 272,
+				"items": [],
+				"name": "Quartermaster Zigris",
+				"npc": null
+			},
+			{
+				"encounter": 274,
+				"items": [],
+				"name": "Halycon",
+				"npc": null
+			},
+			{
+				"encounter": 273,
+				"items": [],
+				"name": "Gizrul the Slavener",
+				"npc": null
+			},
+			{
+				"encounter": 275,
+				"items": [],
+				"name": "Overlord Wyrmthalak",
+				"npc": null
+			},
+			{
+				"encounter": 3062,
+				"items": [],
+				"name": "Pyroguard Emberseer",
+				"npc": null
+			},
+			{
+				"encounter": 3063,
+				"items": [],
+				"name": "Warchief Rend Blackhand",
+				"npc": null
+			},
+			{
+				"encounter": 3068,
+				"items": [],
+				"name": "The Beast",
+				"npc": null
+			},
+			{
+				"encounter": 3069,
+				"items": [],
+				"name": "General Drakkisath",
+				"npc": null
+			},
+			{
+				"encounter": 3070,
+				"items": [],
+				"name": "Lord Valthalak",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1427,
+			"x": 34.8,
+			"y": 85.3
+		},
+		"forever": false,
+		"key": "blackrock-spire",
+		"kind": "dungeon",
+		"levels": [
+			48,
+			53,
+			53
+		],
+		"map": 229,
+		"name": "Blackrock Spire"
+	},
+	"blackwing-lair": {
+		"areaId": 2677,
+		"bosses": [
+			{
+				"encounter": 610,
+				"items": [],
+				"name": "Razorgore the Untamed",
+				"npc": null
+			},
+			{
+				"encounter": 611,
+				"items": [],
+				"name": "Vaelastrasz the Corrupt",
+				"npc": null
+			},
+			{
+				"encounter": 612,
+				"items": [],
+				"name": "Broodlord Lashlayer",
+				"npc": null
+			},
+			{
+				"encounter": 613,
+				"items": [],
+				"name": "Firemaw",
+				"npc": null
+			},
+			{
+				"encounter": 614,
+				"items": [],
+				"name": "Ebonroc",
+				"npc": null
+			},
+			{
+				"encounter": 615,
+				"items": [],
+				"name": "Flamegor",
+				"npc": null
+			},
+			{
+				"encounter": 616,
+				"items": [],
+				"name": "Chromaggus",
+				"npc": null
+			},
+			{
+				"encounter": 617,
+				"items": [],
+				"name": "Nefarian",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1428,
+			"x": 29.4,
+			"y": 38.3
+		},
+		"forever": false,
+		"key": "blackwing-lair",
+		"kind": "raid",
+		"levels": [
+			null,
+			60,
+			60
+		],
+		"map": 469,
+		"name": "Blackwing Lair"
+	},
+	"city-of-dalaran": {
+		"areaId": 16544,
+		"bosses": [
+			{
+				"encounter": 3298,
+				"items": [],
+				"name": "Arcane Anomaly",
+				"npc": null
+			},
+			{
+				"encounter": 3299,
+				"items": [],
+				"name": "Fel Ancient",
+				"npc": null
+			},
+			{
+				"encounter": 3300,
+				"items": [],
+				"name": "Mana Devourer",
+				"npc": null
+			},
+			{
+				"encounter": 3301,
+				"items": [],
+				"name": "Mana Elemental",
+				"npc": null
+			},
+			{
+				"encounter": 3302,
+				"items": [],
+				"name": "Unstable Sentinel",
+				"npc": null
+			},
+			{
+				"encounter": 3303,
+				"items": [],
+				"name": "Shade of the Archmage",
+				"npc": null
+			},
+			{
+				"encounter": 3310,
+				"items": [],
+				"name": "Lyn the Ignored",
+				"npc": null
+			},
+			{
+				"encounter": 3311,
+				"items": [],
+				"name": "Atrexis the Grave Knight",
+				"npc": null
+			},
+			{
+				"encounter": 3312,
+				"items": [],
+				"name": "Mana Wraith",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1416,
+			"x": 8.5,
+			"y": 59.2
+		},
+		"forever": true,
+		"key": "city-of-dalaran",
+		"kind": "dungeon",
+		"levels": [
+			null,
+			28,
+			28
+		],
+		"map": 2959,
+		"name": "City of Dalaran"
+	},
+	"deadmines": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 2741,
+				"items": [],
+				"name": "Rhahk'Zor",
+				"npc": null
+			},
+			{
+				"encounter": 2742,
+				"items": [],
+				"name": "Sneed",
+				"npc": null
+			},
+			{
+				"encounter": 3676,
+				"items": [],
+				"name": "Miner Johnson",
+				"npc": null
+			},
+			{
+				"encounter": 2743,
+				"items": [],
+				"name": "Gilnid",
+				"npc": null
+			},
+			{
+				"encounter": 2744,
+				"items": [],
+				"name": "Captain Greenskin",
+				"npc": null
+			},
+			{
+				"encounter": 2745,
+				"items": [],
+				"name": "Mr. Smite",
+				"npc": null
+			},
+			{
+				"encounter": 2746,
+				"items": [],
+				"name": "Cookie",
+				"npc": null
+			},
+			{
+				"encounter": 2747,
+				"items": [],
+				"name": "Edwin VanCleef",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1436,
+			"x": 42.5,
+			"y": 71.7
+		},
+		"forever": false,
+		"key": "deadmines",
+		"kind": "dungeon",
+		"levels": [
+			10,
+			16,
+			16
+		],
+		"map": 36,
+		"name": "Deadmines"
+	},
+	"dire-maul": {
+		"areaId": 2557,
+		"bosses": [
+			{
+				"encounter": 343,
+				"items": [],
+				"name": "Zevrim Thornhoof",
+				"npc": null
+			},
+			{
+				"encounter": 344,
+				"items": [],
+				"name": "Hydrospawn",
+				"npc": null
+			},
+			{
+				"encounter": 345,
+				"items": [],
+				"name": "Lethtendris",
+				"npc": null
+			},
+			{
+				"encounter": 2792,
+				"items": [],
+				"name": "Pusillin",
+				"npc": null
+			},
+			{
+				"encounter": 346,
+				"items": [],
+				"name": "Alzzin the Wildshaper",
+				"npc": null
+			},
+			{
+				"encounter": 350,
+				"items": [],
+				"name": "Tendris Warpwood",
+				"npc": null
+			},
+			{
+				"encounter": 347,
+				"items": [],
+				"name": "Illyanna Ravenoak",
+				"npc": null
+			},
+			{
+				"encounter": 348,
+				"items": [],
+				"name": "Magister Kalendris",
+				"npc": null
+			},
+			{
+				"encounter": 349,
+				"items": [],
+				"name": "Immol'thar",
+				"npc": null
+			},
+			{
+				"encounter": 361,
+				"items": [],
+				"name": "Prince Tortheldrin",
+				"npc": null
+			},
+			{
+				"encounter": 362,
+				"items": [],
+				"name": "Guard Mol'dar",
+				"npc": null
+			},
+			{
+				"encounter": 363,
+				"items": [],
+				"name": "Stomper Kreeg",
+				"npc": null
+			},
+			{
+				"encounter": 364,
+				"items": [],
+				"name": "Guard Fengus",
+				"npc": null
+			},
+			{
+				"encounter": 365,
+				"items": [],
+				"name": "Guard Slip'kik",
+				"npc": null
+			},
+			{
+				"encounter": 366,
+				"items": [],
+				"name": "Captain Kromcrush",
+				"npc": null
+			},
+			{
+				"encounter": 367,
+				"items": [],
+				"name": "Cho'Rush the Observer",
+				"npc": null
+			},
+			{
+				"encounter": 368,
+				"items": [],
+				"name": "King Gordok",
+				"npc": null
+			},
+			{
+				"encounter": 2793,
+				"items": [],
+				"name": "Lord Hel'nurath",
+				"npc": null
+			},
+			{
+				"encounter": 2794,
+				"items": [],
+				"name": "Tsu'zee",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1444,
+			"x": 59.2,
+			"y": 45.1
+		},
+		"forever": false,
+		"key": "dire-maul",
+		"kind": "dungeon",
+		"levels": [
+			31,
+			54,
+			54
+		],
+		"map": 429,
+		"name": "Dire Maul"
+	},
+	"excavation-site-wetlands": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 3480,
+				"items": [],
+				"name": "Saltspine",
+				"npc": null
+			},
+			{
+				"encounter": 3481,
+				"items": [],
+				"name": "Shadetooth",
+				"npc": null
+			},
+			{
+				"encounter": 3644,
+				"items": [],
+				"name": "Highland Horror",
+				"npc": null
+			},
+			{
+				"encounter": 3482,
+				"items": [],
+				"name": "Relic Guardian",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1437,
+			"x": 47.8,
+			"y": 56.2
+		},
+		"forever": true,
+		"key": "excavation-site-wetlands",
+		"kind": "dungeon",
+		"levels": [
+			null,
+			26,
+			26
+		],
+		"map": 2998,
+		"name": "Excavation Site: Wetlands"
+	},
+	"gnomeregan": {
+		"areaId": 721,
+		"bosses": [
+			{
+				"encounter": 2768,
+				"items": [],
+				"name": "Grubbis",
+				"npc": null
+			},
+			{
+				"encounter": 2769,
+				"items": [],
+				"name": "Viscous Fallout",
+				"npc": null
+			},
+			{
+				"encounter": 2770,
+				"items": [],
+				"name": "Electrocutioner 6000",
+				"npc": null
+			},
+			{
+				"encounter": 2771,
+				"items": [],
+				"name": "Crowd Pummeler 9-60",
+				"npc": null
+			},
+			{
+				"encounter": 2772,
+				"items": [],
+				"name": "Mekgineer Thermaplugg",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1426,
+			"x": 24.3,
+			"y": 39.8
+		},
+		"forever": false,
+		"key": "gnomeregan",
+		"kind": "dungeon",
+		"levels": [
+			19,
+			25,
+			25
+		],
+		"map": 90,
+		"name": "Gnomeregan"
+	},
+	"maraudon": {
+		"areaId": 2100,
+		"bosses": [
+			{
+				"encounter": 422,
+				"items": [],
+				"name": "Noxxion",
+				"npc": null
+			},
+			{
+				"encounter": 423,
+				"items": [],
+				"name": "Razorlash",
+				"npc": null
+			},
+			{
+				"encounter": 427,
+				"items": [],
+				"name": "Tinkerer Gizlock",
+				"npc": null
+			},
+			{
+				"encounter": 424,
+				"items": [],
+				"name": "Lord Vyletongue",
+				"npc": null
+			},
+			{
+				"encounter": 425,
+				"items": [],
+				"name": "Celebras the Cursed",
+				"npc": null
+			},
+			{
+				"encounter": 426,
+				"items": [],
+				"name": "Landslide",
+				"npc": null
+			},
+			{
+				"encounter": 428,
+				"items": [],
+				"name": "Rotgrip",
+				"npc": null
+			},
+			{
+				"encounter": 429,
+				"items": [],
+				"name": "Princess Theradras",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1443,
+			"x": 29.1,
+			"y": 62.5
+		},
+		"forever": false,
+		"key": "maraudon",
+		"kind": "dungeon",
+		"levels": [
+			25,
+			42,
+			42
+		],
+		"map": 349,
+		"name": "Maraudon"
+	},
+	"molten-core": {
+		"areaId": 2717,
+		"bosses": [
+			{
+				"encounter": 663,
+				"items": [],
+				"name": "Lucifron",
+				"npc": null
+			},
+			{
+				"encounter": 664,
+				"items": [],
+				"name": "Magmadar",
+				"npc": null
+			},
+			{
+				"encounter": 665,
+				"items": [],
+				"name": "Gehennas",
+				"npc": null
+			},
+			{
+				"encounter": 666,
+				"items": [],
+				"name": "Garr",
+				"npc": null
+			},
+			{
+				"encounter": 667,
+				"items": [],
+				"name": "Shazzrah",
+				"npc": null
+			},
+			{
+				"encounter": 668,
+				"items": [],
+				"name": "Baron Geddon",
+				"npc": null
+			},
+			{
+				"encounter": 669,
+				"items": [],
+				"name": "Sulfuron Harbinger",
+				"npc": null
+			},
+			{
+				"encounter": 670,
+				"items": [],
+				"name": "Golemagg the Incinerator",
+				"npc": null
+			},
+			{
+				"encounter": 671,
+				"items": [],
+				"name": "Majordomo Executus",
+				"npc": null
+			},
+			{
+				"encounter": 672,
+				"items": [],
+				"name": "Ragnaros",
+				"npc": null
+			},
+			{
+				"encounter": 3018,
+				"items": [],
+				"name": "The Molten Core",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1427,
+			"x": 34.8,
+			"y": 85.3
+		},
+		"forever": false,
+		"key": "molten-core",
+		"kind": "raid",
+		"levels": [
+			50,
+			60,
+			60
+		],
+		"map": 409,
+		"name": "Molten Core"
+	},
+	"naxxramas": {
+		"areaId": 3456,
+		"bosses": [
+			{
+				"encounter": 1107,
+				"items": [],
+				"name": "Anub'Rekhan",
+				"npc": null
+			},
+			{
+				"encounter": 1110,
+				"items": [],
+				"name": "Grand Widow Faerlina",
+				"npc": null
+			},
+			{
+				"encounter": 1116,
+				"items": [],
+				"name": "Maexxna",
+				"npc": null
+			},
+			{
+				"encounter": 1117,
+				"items": [],
+				"name": "Noth the Plaguebringer",
+				"npc": null
+			},
+			{
+				"encounter": 1112,
+				"items": [],
+				"name": "Heigan the Unclean",
+				"npc": null
+			},
+			{
+				"encounter": 1115,
+				"items": [],
+				"name": "Loatheb",
+				"npc": null
+			},
+			{
+				"encounter": 1113,
+				"items": [],
+				"name": "Instructor Razuvious",
+				"npc": null
+			},
+			{
+				"encounter": 1109,
+				"items": [],
+				"name": "Gothik the Harvester",
+				"npc": null
+			},
+			{
+				"encounter": 1121,
+				"items": [],
+				"name": "The Four Horsemen",
+				"npc": null
+			},
+			{
+				"encounter": 1118,
+				"items": [],
+				"name": "Patchwerk",
+				"npc": null
+			},
+			{
+				"encounter": 1111,
+				"items": [],
+				"name": "Grobbulus",
+				"npc": null
+			},
+			{
+				"encounter": 1108,
+				"items": [],
+				"name": "Gluth",
+				"npc": null
+			},
+			{
+				"encounter": 1120,
+				"items": [],
+				"name": "Thaddius",
+				"npc": null
+			},
+			{
+				"encounter": 1119,
+				"items": [],
+				"name": "Sapphiron",
+				"npc": null
+			},
+			{
+				"encounter": 1114,
+				"items": [],
+				"name": "Kel'Thuzad",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1423,
+			"x": 34.3,
+			"y": 19.5
+		},
+		"forever": false,
+		"key": "naxxramas",
+		"kind": "raid",
+		"levels": null,
+		"map": 533,
+		"name": "Naxxramas"
+	},
+	"onyxias-lair": {
+		"areaId": 2159,
+		"bosses": [
+			{
+				"encounter": 1084,
+				"items": [],
+				"name": "Onyxia",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1445,
+			"x": 52.6,
+			"y": 76.8
+		},
+		"forever": false,
+		"key": "onyxias-lair",
+		"kind": "raid",
+		"levels": null,
+		"map": 249,
+		"name": "Onyxia's Lair"
+	},
+	"ragefire-chasm": {
+		"areaId": 2437,
+		"bosses": [
+			{
+				"encounter": 2732,
+				"items": [],
+				"name": "Oggleflint",
+				"npc": null
+			},
+			{
+				"encounter": 2733,
+				"items": [],
+				"name": "Taragaman the Hungerer",
+				"npc": null
+			},
+			{
+				"encounter": 2734,
+				"items": [
+					2589,
+					1179
+				],
+				"name": "Jergosh the Invoker",
+				"npc": 11518
+			},
+			{
+				"encounter": 2735,
+				"items": [
+					2589,
+					1179
+				],
+				"name": "Bazzalan",
+				"npc": 11519
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1454,
+			"x": 52.6,
+			"y": 49
+		},
+		"forever": false,
+		"key": "ragefire-chasm",
+		"kind": "dungeon",
+		"levels": [
+			10,
+			13,
+			16
+		],
+		"map": 389,
+		"name": "Ragefire Chasm"
+	},
+	"razorfen-downs": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 2780,
+				"items": [],
+				"name": "Tuten'kash",
+				"npc": null
+			},
+			{
+				"encounter": 2781,
+				"items": [],
+				"name": "Plaguemaw the Rotting",
+				"npc": null
+			},
+			{
+				"encounter": 2782,
+				"items": [],
+				"name": "Mordresh Fire Eye",
+				"npc": null
+			},
+			{
+				"encounter": 2783,
+				"items": [],
+				"name": "Ragglesnout",
+				"npc": null
+			},
+			{
+				"encounter": 2784,
+				"items": [],
+				"name": "Glutton",
+				"npc": null
+			},
+			{
+				"encounter": 2785,
+				"items": [
+					4306,
+					4338
+				],
+				"name": "Amnennar the Coldbringer",
+				"npc": 7358
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1413,
+			"x": 49,
+			"y": 93.9
+		},
+		"forever": false,
+		"key": "razorfen-downs",
+		"kind": "dungeon",
+		"levels": [
+			35,
+			35,
+			41
+		],
+		"map": 129,
+		"name": "Razorfen Downs"
+	},
+	"razorfen-kraul": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 2773,
+				"items": [],
+				"name": "Roogug",
+				"npc": null
+			},
+			{
+				"encounter": 2774,
+				"items": [],
+				"name": "Aggem Thorncurse",
+				"npc": null
+			},
+			{
+				"encounter": 2775,
+				"items": [],
+				"name": "Death Speaker Jargba",
+				"npc": null
+			},
+			{
+				"encounter": 2776,
+				"items": [],
+				"name": "Overlord Ramtusk",
+				"npc": null
+			},
+			{
+				"encounter": 2777,
+				"items": [],
+				"name": "Agathelos the Raging",
+				"npc": null
+			},
+			{
+				"encounter": 2778,
+				"items": [],
+				"name": "Charlga Razorflank",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1413,
+			"x": 42.9,
+			"y": 90.2
+		},
+		"forever": false,
+		"key": "razorfen-kraul",
+		"kind": "dungeon",
+		"levels": [
+			25,
+			25,
+			25
+		],
+		"map": 47,
+		"name": "Razorfen Kraul"
+	},
+	"ruins-of-ahnqiraj": {
+		"areaId": 3429,
+		"bosses": [
+			{
+				"encounter": 718,
+				"items": [],
+				"name": "Kurinnaxx",
+				"npc": null
+			},
+			{
+				"encounter": 719,
+				"items": [],
+				"name": "General Rajaxx",
+				"npc": null
+			},
+			{
+				"encounter": 720,
+				"items": [],
+				"name": "Moam",
+				"npc": null
+			},
+			{
+				"encounter": 721,
+				"items": [],
+				"name": "Buru the Gorger",
+				"npc": null
+			},
+			{
+				"encounter": 722,
+				"items": [],
+				"name": "Ayamiss the Hunter",
+				"npc": null
+			},
+			{
+				"encounter": 723,
+				"items": [],
+				"name": "Ossirian the Unscarred",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1451,
+			"x": 28.6,
+			"y": 92.3
+		},
+		"forever": false,
+		"key": "ruins-of-ahnqiraj",
+		"kind": "raid",
+		"levels": null,
+		"map": 509,
+		"name": "Ruins of Ahn'Qiraj"
+	},
+	"ruins-of-lordaeron": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 3353,
+				"items": [],
+				"name": "Witherfang",
+				"npc": null
+			},
+			{
+				"encounter": 3357,
+				"items": [],
+				"name": "The Abandoned",
+				"npc": null
+			},
+			{
+				"encounter": 3355,
+				"items": [],
+				"name": "The Butcher",
+				"npc": null
+			},
+			{
+				"encounter": 3354,
+				"items": [],
+				"name": "Rath'mael",
+				"npc": null
+			},
+			{
+				"encounter": 3408,
+				"items": [],
+				"name": "Lordaeron Captain",
+				"npc": null
+			},
+			{
+				"encounter": 3411,
+				"items": [],
+				"name": "Viktor the Vile",
+				"npc": null
+			},
+			{
+				"encounter": 3412,
+				"items": [],
+				"name": "Bjork",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1420,
+			"x": 63.2,
+			"y": 67.5
+		},
+		"forever": true,
+		"key": "ruins-of-lordaeron",
+		"kind": "dungeon",
+		"levels": [
+			null,
+			15,
+			15
+		],
+		"map": 2999,
+		"name": "Ruins of Lordaeron"
+	},
+	"scarlet-monastery": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 444,
+				"items": [],
+				"name": "Interrogator Vishas",
+				"npc": null
+			},
+			{
+				"encounter": 2779,
+				"items": [],
+				"name": "Bloodmage Thalnos",
+				"npc": null
+			},
+			{
+				"encounter": 446,
+				"items": [],
+				"name": "Houndmaster Loksey",
+				"npc": null
+			},
+			{
+				"encounter": 447,
+				"items": [],
+				"name": "Arcanist Doan",
+				"npc": null
+			},
+			{
+				"encounter": 448,
+				"items": [],
+				"name": "Herod",
+				"npc": null
+			},
+			{
+				"encounter": 449,
+				"items": [],
+				"name": "High Inquisitor Fairbanks",
+				"npc": null
+			},
+			{
+				"encounter": 450,
+				"items": [],
+				"name": "High Inquisitor Whitemane",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1420,
+			"x": 82.6,
+			"y": 33.8
+		},
+		"forever": false,
+		"key": "scarlet-monastery",
+		"kind": "dungeon",
+		"levels": [
+			20,
+			30,
+			30
+		],
+		"map": 189,
+		"name": "Scarlet Monastery"
+	},
+	"scholomance": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 2805,
+				"items": [],
+				"name": "Kirtonos",
+				"npc": null
+			},
+			{
+				"encounter": 2804,
+				"items": [],
+				"name": "Jandice Barov",
+				"npc": null
+			},
+			{
+				"encounter": 2811,
+				"items": [],
+				"name": "Rattlegore",
+				"npc": null
+			},
+			{
+				"encounter": 2809,
+				"items": [],
+				"name": "Marduk Blackpool",
+				"npc": null
+			},
+			{
+				"encounter": 2813,
+				"items": [],
+				"name": "Vectus",
+				"npc": null
+			},
+			{
+				"encounter": 3055,
+				"items": [],
+				"name": "Kormok",
+				"npc": null
+			},
+			{
+				"encounter": 2810,
+				"items": [],
+				"name": "Ras Frostwhisperer",
+				"npc": null
+			},
+			{
+				"encounter": 2803,
+				"items": [],
+				"name": "Instructor Malicia",
+				"npc": null
+			},
+			{
+				"encounter": 2802,
+				"items": [],
+				"name": "Doctor Theolen Krastinov",
+				"npc": null
+			},
+			{
+				"encounter": 2808,
+				"items": [],
+				"name": "Lorekeeper Polkelt",
+				"npc": null
+			},
+			{
+				"encounter": 2812,
+				"items": [],
+				"name": "The Ravenian",
+				"npc": null
+			},
+			{
+				"encounter": 2807,
+				"items": [],
+				"name": "Lord Alexei Barov",
+				"npc": null
+			},
+			{
+				"encounter": 2806,
+				"items": [],
+				"name": "Lady Illucia Barov",
+				"npc": null
+			},
+			{
+				"encounter": 2801,
+				"items": [],
+				"name": "Darkmaster Gandling",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1422,
+			"x": 69.7,
+			"y": 73.2
+		},
+		"forever": false,
+		"key": "scholomance",
+		"kind": "dungeon",
+		"levels": [
+			33,
+			57,
+			57
+		],
+		"map": 289,
+		"name": "Scholomance"
+	},
+	"shadowfang-keep": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 2748,
+				"items": [],
+				"name": "Rethilgore",
+				"npc": null
+			},
+			{
+				"encounter": 2749,
+				"items": [],
+				"name": "Razorclaw the Butcher",
+				"npc": null
+			},
+			{
+				"encounter": 2750,
+				"items": [],
+				"name": "Baron Silverlaine",
+				"npc": null
+			},
+			{
+				"encounter": 2751,
+				"items": [],
+				"name": "Commander Springvale",
+				"npc": null
+			},
+			{
+				"encounter": 2752,
+				"items": [],
+				"name": "Odo the Blindwatcher",
+				"npc": null
+			},
+			{
+				"encounter": 2753,
+				"items": [],
+				"name": "Fenrus the Devourer",
+				"npc": null
+			},
+			{
+				"encounter": 2754,
+				"items": [],
+				"name": "Wolf Master Nandos",
+				"npc": null
+			},
+			{
+				"encounter": 2755,
+				"items": [],
+				"name": "Archmage Arugal",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1421,
+			"x": 44.8,
+			"y": 67.8
+		},
+		"forever": false,
+		"key": "shadowfang-keep",
+		"kind": "dungeon",
+		"levels": [
+			11,
+			18,
+			18
+		],
+		"map": 33,
+		"name": "Shadowfang Keep"
+	},
+	"stormwind-stockade": {
+		"areaId": 717,
+		"bosses": [
+			{
+				"encounter": 2756,
+				"items": [],
+				"name": "Targorr the Dread",
+				"npc": null
+			},
+			{
+				"encounter": 2757,
+				"items": [],
+				"name": "Kam Deepfury",
+				"npc": null
+			},
+			{
+				"encounter": 2758,
+				"items": [],
+				"name": "Hamhock",
+				"npc": null
+			},
+			{
+				"encounter": 2759,
+				"items": [],
+				"name": "Dextren Ward",
+				"npc": null
+			},
+			{
+				"encounter": 2760,
+				"items": [],
+				"name": "Bazil Thredd",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1453,
+			"x": 52.4,
+			"y": 70
+		},
+		"forever": false,
+		"key": "stormwind-stockade",
+		"kind": "dungeon",
+		"levels": [
+			15,
+			23,
+			23
+		],
+		"map": 34,
+		"name": "Stormwind Stockade"
+	},
+	"stratholme": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 473,
+				"items": [],
+				"name": "Hearthsinger Forresten",
+				"npc": null
+			},
+			{
+				"encounter": 474,
+				"items": [],
+				"name": "Timmy the Cruel",
+				"npc": null
+			},
+			{
+				"encounter": 476,
+				"items": [],
+				"name": "Malor the Zealous",
+				"npc": null
+			},
+			{
+				"encounter": 475,
+				"items": [],
+				"name": "Cannon Master Willey",
+				"npc": null
+			},
+			{
+				"encounter": 477,
+				"items": [],
+				"name": "Archivist Galford",
+				"npc": null
+			},
+			{
+				"encounter": 478,
+				"items": [],
+				"name": "Balnazzar",
+				"npc": null
+			},
+			{
+				"encounter": 472,
+				"items": [],
+				"name": "The Unforgiven",
+				"npc": null
+			},
+			{
+				"encounter": 479,
+				"items": [],
+				"name": "Baroness Anastari",
+				"npc": null
+			},
+			{
+				"encounter": 480,
+				"items": [],
+				"name": "Nerub'enkan",
+				"npc": null
+			},
+			{
+				"encounter": 481,
+				"items": [],
+				"name": "Maleki the Pallid",
+				"npc": null
+			},
+			{
+				"encounter": 482,
+				"items": [],
+				"name": "Magistrate Barthilas",
+				"npc": null
+			},
+			{
+				"encounter": 483,
+				"items": [],
+				"name": "Ramstein the Gorger",
+				"npc": null
+			},
+			{
+				"encounter": 484,
+				"items": [],
+				"name": "Baron Rivendare",
+				"npc": null
+			},
+			{
+				"encounter": 2795,
+				"items": [],
+				"name": "Black Guard Swordsmith",
+				"npc": null
+			},
+			{
+				"encounter": 2796,
+				"items": [],
+				"name": "Crimson Hammersmith",
+				"npc": null
+			},
+			{
+				"encounter": 2797,
+				"items": [],
+				"name": "Ezra Grimm",
+				"npc": null
+			},
+			{
+				"encounter": 2798,
+				"items": [],
+				"name": "Postmaster Malown",
+				"npc": null
+			},
+			{
+				"encounter": 2799,
+				"items": [],
+				"name": "Skul",
+				"npc": null
+			},
+			{
+				"encounter": 2800,
+				"items": [],
+				"name": "Stonespine",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1423,
+			"x": 26.5,
+			"y": 10.4
+		},
+		"forever": false,
+		"key": "stratholme",
+		"kind": "dungeon",
+		"levels": [
+			37,
+			55,
+			55
+		],
+		"map": 329,
+		"name": "Stratholme"
+	},
+	"sunken-temple": {
+		"areaId": 1477,
+		"bosses": [
+			{
+				"encounter": 3582,
+				"items": [],
+				"name": "Atal'alarion",
+				"npc": null
+			},
+			{
+				"encounter": 3583,
+				"items": [],
+				"name": "Avatar of Hakkar",
+				"npc": null
+			},
+			{
+				"encounter": 3584,
+				"items": [],
+				"name": "Shade of Eranikus",
+				"npc": null
+			},
+			{
+				"encounter": 3585,
+				"items": [],
+				"name": "Hazzas",
+				"npc": null
+			},
+			{
+				"encounter": 3586,
+				"items": [],
+				"name": "Morphaz",
+				"npc": null
+			},
+			{
+				"encounter": 3587,
+				"items": [],
+				"name": "Weaver",
+				"npc": null
+			},
+			{
+				"encounter": 3588,
+				"items": [],
+				"name": "Dreamscythe",
+				"npc": null
+			},
+			{
+				"encounter": 3589,
+				"items": [],
+				"name": "Jammal'an the Prophet",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1435,
+			"x": 69.9,
+			"y": 53.5
+		},
+		"forever": false,
+		"key": "sunken-temple",
+		"kind": "dungeon",
+		"levels": [
+			45,
+			45,
+			45
+		],
+		"map": 109,
+		"name": "Sunken Temple"
+	},
+	"the-hall-of-thanes": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 3493,
+				"items": [],
+				"name": "Faldrim Anvilmar",
+				"npc": null
+			},
+			{
+				"encounter": 3495,
+				"items": [],
+				"name": "Infurnus",
+				"npc": null
+			},
+			{
+				"encounter": 3494,
+				"items": [],
+				"name": "Plunder",
+				"npc": null
+			},
+			{
+				"encounter": 3496,
+				"items": [],
+				"name": "Durgen Dirgehammer",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1455,
+			"x": 27.6,
+			"y": 47.8
+		},
+		"forever": true,
+		"key": "the-hall-of-thanes",
+		"kind": "dungeon",
+		"levels": [
+			null,
+			13,
+			13
+		],
+		"map": 3065,
+		"name": "The Hall of Thanes"
+	},
+	"uldaman": {
+		"areaId": 1337,
+		"bosses": [
+			{
+				"encounter": 547,
+				"items": [],
+				"name": "Revelosh",
+				"npc": null
+			},
+			{
+				"encounter": 548,
+				"items": [],
+				"name": "The Lost Dwarves",
+				"npc": null
+			},
+			{
+				"encounter": 549,
+				"items": [],
+				"name": "Ironaya",
+				"npc": null
+			},
+			{
+				"encounter": 1887,
+				"items": [],
+				"name": "Obsidian Sentinel",
+				"npc": null
+			},
+			{
+				"encounter": 551,
+				"items": [],
+				"name": "Ancient Stone Keeper",
+				"npc": null
+			},
+			{
+				"encounter": 552,
+				"items": [],
+				"name": "Galgann Firehammer",
+				"npc": null
+			},
+			{
+				"encounter": 553,
+				"items": [],
+				"name": "Grimlok",
+				"npc": null
+			},
+			{
+				"encounter": 554,
+				"items": [],
+				"name": "Archaedas",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1418,
+			"x": 44.6,
+			"y": 12.1
+		},
+		"forever": false,
+		"key": "uldaman",
+		"kind": "dungeon",
+		"levels": [
+			30,
+			35,
+			35
+		],
+		"map": 70,
+		"name": "Uldaman"
+	},
+	"wailing-caverns": {
+		"areaId": 718,
+		"bosses": [
+			{
+				"encounter": 585,
+				"items": [],
+				"name": "Lady Anacondra",
+				"npc": null
+			},
+			{
+				"encounter": 586,
+				"items": [],
+				"name": "Lord Cobrahn",
+				"npc": null
+			},
+			{
+				"encounter": 587,
+				"items": [],
+				"name": "Kresh",
+				"npc": null
+			},
+			{
+				"encounter": 588,
+				"items": [],
+				"name": "Lord Pythas",
+				"npc": null
+			},
+			{
+				"encounter": 589,
+				"items": [],
+				"name": "Skum",
+				"npc": null
+			},
+			{
+				"encounter": 590,
+				"items": [],
+				"name": "Lord Serpentis",
+				"npc": null
+			},
+			{
+				"encounter": 591,
+				"items": [],
+				"name": "Verdan the Everliving",
+				"npc": null
+			},
+			{
+				"encounter": 592,
+				"items": [],
+				"name": "Mutanus the Devourer",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1413,
+			"x": 46,
+			"y": 36.5
+		},
+		"forever": false,
+		"key": "wailing-caverns",
+		"kind": "dungeon",
+		"levels": [
+			10,
+			17,
+			17
+		],
+		"map": 43,
+		"name": "Wailing Caverns"
+	},
+	"zulfarrak": {
+		"areaId": null,
+		"bosses": [
+			{
+				"encounter": 593,
+				"items": [],
+				"name": "Hydromancer Velratha",
+				"npc": null
+			},
+			{
+				"encounter": 594,
+				"items": [],
+				"name": "Gahz'rilla",
+				"npc": null
+			},
+			{
+				"encounter": 595,
+				"items": [],
+				"name": "Antu'sul",
+				"npc": null
+			},
+			{
+				"encounter": 596,
+				"items": [],
+				"name": "Theka the Martyr",
+				"npc": null
+			},
+			{
+				"encounter": 597,
+				"items": [],
+				"name": "Witch Doctor Zum'rah",
+				"npc": null
+			},
+			{
+				"encounter": 598,
+				"items": [],
+				"name": "Nekrum Gutchewer",
+				"npc": null
+			},
+			{
+				"encounter": 599,
+				"items": [],
+				"name": "Shadowpriest Sezz'ziz",
+				"npc": null
+			},
+			{
+				"encounter": 600,
+				"items": [],
+				"name": "Chief Ukorz Sandscalp",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1446,
+			"x": 38.7,
+			"y": 20.1
+		},
+		"forever": false,
+		"key": "zulfarrak",
+		"kind": "dungeon",
+		"levels": [
+			39,
+			42,
+			42
+		],
+		"map": 209,
+		"name": "Zul'Farrak"
+	},
+	"zulgurub": {
+		"areaId": 1977,
+		"bosses": [
+			{
+				"encounter": 785,
+				"items": [],
+				"name": "High Priestess Jeklik",
+				"npc": null
+			},
+			{
+				"encounter": 784,
+				"items": [],
+				"name": "High Priest Venoxis",
+				"npc": null
+			},
+			{
+				"encounter": 786,
+				"items": [],
+				"name": "High Priestess Mar'li",
+				"npc": null
+			},
+			{
+				"encounter": 787,
+				"items": [],
+				"name": "Bloodlord Mandokir",
+				"npc": null
+			},
+			{
+				"encounter": 788,
+				"items": [],
+				"name": "Edge of Madness",
+				"npc": null
+			},
+			{
+				"encounter": 789,
+				"items": [],
+				"name": "High Priest Thekal",
+				"npc": null
+			},
+			{
+				"encounter": 790,
+				"items": [],
+				"name": "Gahz'ranka",
+				"npc": null
+			},
+			{
+				"encounter": 791,
+				"items": [],
+				"name": "High Priestess Arlokk",
+				"npc": null
+			},
+			{
+				"encounter": 792,
+				"items": [],
+				"name": "Jin'do the Hexxer",
+				"npc": null
+			},
+			{
+				"encounter": 793,
+				"items": [],
+				"name": "Hakkar",
+				"npc": null
+			}
+		],
+		"entrance": {
+			"f": null,
+			"map": 1434,
+			"x": 53.9,
+			"y": 17.6
+		},
+		"forever": false,
+		"key": "zulgurub",
+		"kind": "raid",
+		"levels": [
+			null,
+			60,
+			60
+		],
+		"map": 309,
+		"name": "Zul'Gurub"
+	}
+}

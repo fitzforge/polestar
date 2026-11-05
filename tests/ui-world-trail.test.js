@@ -85,24 +85,39 @@ test('native sliders, saved looks and confirmed reset work without changing map 
 		UI.ShowOptions("groundtrail")
 		local c = O.Controls("appearance", "Ground trail")
 		local result = { controlsOff = not Polestar.Widgets.Enabled(c["nav.worldTrailIntensity"]),
-			noSavedLook = not c["Use custom look"]:IsEnabled() }
+			noSavedLook = not c["Use custom look"].Button:IsEnabled() }
 		c["nav.worldTrail"]:Click()
 		result.controlsOn = Polestar.Widgets.Enabled(c["nav.worldTrailIntensity"])
 		stub.RunScript(c["nav.worldTrailIntensity"].Slider, "OnValueChanged", 1, true)
 		stub.RunScript(c["nav.worldTrailSize"].Slider, "OnValueChanged", 28, true)
 		stub.RunScript(c["nav.worldTrailLength"].Slider, "OnValueChanged", 75, true)
-		c["Save custom look"]:Click()
-		result.savedLookReady = c["Use custom look"]:IsEnabled()
+		c["Save custom look"].Button:Click()
+		result.savedLookReady = c["Use custom look"].Button:IsEnabled()
 		stub.RunScript(c["nav.worldTrailIntensity"].Slider, "OnValueChanged", 0.2, true)
-		c["Use custom look"]:Click()
+		c["Use custom look"].Button:Click()
 		result.restored = { Polestar.Get("nav.worldTrailIntensity"), Polestar.Get("nav.worldTrailSize"), Polestar.Get("nav.worldTrailLength") }
-		c["Reset ground trail"]:Click()
+		c["Reset ground trail"].Button:Click()
 		result.firstClickKeepsTrail = Polestar.Get("nav.worldTrail")
-		c["Reset ground trail"]:Click()
+		assert(Polestar.Widgets.ModalShown(), "reset asks in the native dialog")
+		PolestarModal.Box.Cancel:Click()
+		assert(Polestar.Get("nav.worldTrail"), "cancel preserves the trail")
+		c["Reset ground trail"].Button:Click()
+		PolestarModal.Box.Action:Click()
 		result.resetOff = Polestar.Get("nav.worldTrail") == false
 		result.mapStyle = Polestar.Get("nav.lineStyle")
 		result.scale = Polestar.Get("ui.scale")
 		emit(result)`);
 	assert.deepEqual(out, { controlsOff: true, noSavedLook: true, controlsOn: true, savedLookReady: true,
 		restored: [1, 28, 75], firstClickKeepsTrail: true, resetOff: true, mapStyle: 'sparkle', scale: 1.2 });
+});
+
+test('v0.3.1 ground-trail action rows name the action instead of generic Run buttons', () => {
+ const [out] = run(`
+  UI.ShowOptions("groundtrail")
+  local c = O.Controls("appearance", "Ground trail")
+  emit({ preset = c["Lantern"].Button.Label:GetText(),
+   save = c["Save custom look"].Button.Label:GetText(),
+   use = c["Use custom look"].Button.Label:GetText(),
+   reset = c["Reset ground trail"].Button.Label:GetText() })`);
+ assert.deepEqual(out, { preset: 'Apply', save: 'Save', use: 'Use', reset: 'Reset' });
 });

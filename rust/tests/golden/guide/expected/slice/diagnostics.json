@@ -1,0 +1,1856 @@
+{
+	"ok": false,
+	"errors": 178,
+	"warnings": 93,
+	"diagnostics": [
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 7,
+			"severity": "error",
+			"message": "`next` points to unknown guide \"forever/alliance/02-westfall\"",
+			"hint": "list guide ids with `polestar find --kind guide <text>`"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 136,
+			"severity": "warning",
+			"message": "quest 33 needs 5261 (Eagan Peltskinner) turned in first, but the chain never turns it in"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 152,
+			"severity": "error",
+			"message": "item 247834 is not in data; give its name: `collect 247834 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 152,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 153,
+			"severity": "error",
+			"message": "quest 91741 is not in data; give its title: `accept 91741 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 156,
+			"severity": "error",
+			"message": "quest 91741 is not in data; give its title: `turnin 91741 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 157,
+			"severity": "error",
+			"message": "quest 92124 is not in data; give its title: `accept 92124 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 158,
+			"severity": "error",
+			"message": "quest 92124 is not in data; give its title: `turnin 92124 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 159,
+			"severity": "error",
+			"message": "quest 91743 is not in data; give its title: `accept 91743 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 164,
+			"severity": "error",
+			"message": "quest 92479 is not in data; give its title: `accept 92479 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 173,
+			"severity": "error",
+			"message": "item 247839 is not in data; give its name: `collect 247839 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 173,
+			"severity": "warning",
+			"message": "quest 91743 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 173,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 178,
+			"severity": "error",
+			"message": "quest 91743 is not in data; give its title: `turnin 91743 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 179,
+			"severity": "error",
+			"message": "quest 91745 is not in data; give its title: `accept 91745 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 182,
+			"severity": "error",
+			"message": "quest 92479 is not in data; give its title: `turnin 92479 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 216,
+			"severity": "error",
+			"message": "quest 91745 is not in data; give its title: `turnin 91745 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 217,
+			"severity": "error",
+			"message": "quest 91752 is not in data; give its title: `accept 91752 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 222,
+			"severity": "error",
+			"message": "item 247886 is not in data; give its name: `collect 247886 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 222,
+			"severity": "warning",
+			"message": "quest 91752 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 222,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 230,
+			"severity": "error",
+			"message": "quest 96627 is not in data; give its title: `accept 96627 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 231,
+			"severity": "error",
+			"message": "quest 91752 is not in data; give its title: `turnin 91752 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 232,
+			"severity": "error",
+			"message": "quest 91758 is not in data; give its title: `accept 91758 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 233,
+			"severity": "error",
+			"message": "quest 91758 is not in data; give its title: `turnin 91758 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 234,
+			"severity": "error",
+			"message": "quest 91772 is not in data; give its title: `accept 91772 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 244,
+			"severity": "error",
+			"message": "quest 91772 is not in data; give its title: `turnin 91772 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 247,
+			"severity": "error",
+			"message": "quest 91775 is not in data; give its title: `accept 91775 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 253,
+			"severity": "error",
+			"message": "quest 96627 is not in data; give its title: `turnin 96627 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 254,
+			"severity": "error",
+			"message": "quest 95998 is not in data; give its title: `accept 95998 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 255,
+			"severity": "error",
+			"message": "quest 95998 is not in data; give its title: `complete 95998 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 256,
+			"severity": "error",
+			"message": "quest 95998 is not in data; give its title: `turnin 95998 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 257,
+			"severity": "error",
+			"message": "quest 96626 is not in data; give its title: `accept 96626 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 258,
+			"severity": "error",
+			"message": "quest 91751 is not in data; give its title: `accept 91751 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 259,
+			"severity": "error",
+			"message": "quest 99127 is not in data; give its title: `accept 99127 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 260,
+			"severity": "error",
+			"message": "quest 99143 is not in data; give its title: `accept 99143 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 264,
+			"severity": "error",
+			"message": "item 286205 is not in data; give its name: `collect 286205 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 264,
+			"severity": "warning",
+			"message": "quest 99127 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 264,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 267,
+			"severity": "error",
+			"message": "quest 99127 is not in data; give its title: `turnin 99127 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 268,
+			"severity": "error",
+			"message": "quest 99128 is not in data; give its title: `accept 99128 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 272,
+			"severity": "warning",
+			"message": "quest 99128 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 273,
+			"severity": "warning",
+			"message": "quest 99128 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 274,
+			"severity": "error",
+			"message": "item 286209 is not in data; give its name: `collect 286209 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 274,
+			"severity": "warning",
+			"message": "quest 99143 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 274,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 277,
+			"severity": "error",
+			"message": "quest 99128 is not in data; give its title: `turnin 99128 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 278,
+			"severity": "error",
+			"message": "quest 99129 is not in data; give its title: `accept 99129 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 279,
+			"severity": "error",
+			"message": "quest 99143 is not in data; give its title: `turnin 99143 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 283,
+			"severity": "error",
+			"message": "quest 96626 is not in data; give its title: `complete 96626 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 284,
+			"severity": "error",
+			"message": "quest 96626 is not in data; give its title: `turnin 96626 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 285,
+			"severity": "error",
+			"message": "quest 99129 is not in data; give its title: `turnin 99129 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 286,
+			"severity": "error",
+			"message": "quest 99130 is not in data; give its title: `accept 99130 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 300,
+			"severity": "error",
+			"message": "item 248001 is not in data; give its name: `collect 248001 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 300,
+			"severity": "warning",
+			"message": "quest 91775 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 300,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 301,
+			"severity": "error",
+			"message": "item 248002 is not in data; give its name: `collect 248002 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 301,
+			"severity": "warning",
+			"message": "quest 91775 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 301,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 305,
+			"severity": "error",
+			"message": "item 286214 is not in data; give its name: `collect 286214 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 305,
+			"severity": "warning",
+			"message": "quest 99130 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 305,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 306,
+			"severity": "error",
+			"message": "item 286215 is not in data; give its name: `collect 286215 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 306,
+			"severity": "warning",
+			"message": "quest 99130 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 306,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 353,
+			"severity": "error",
+			"message": "item 1972 is not in data; give its name: `collect 1972 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 353,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 354,
+			"severity": "error",
+			"message": "quest 184 is not in data; give its title: `accept 184 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 358,
+			"severity": "error",
+			"message": "quest 99130 is not in data; give its title: `turnin 99130 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 359,
+			"severity": "error",
+			"message": "quest 99131 is not in data; give its title: `accept 99131 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 364,
+			"severity": "error",
+			"message": "quest 91775 is not in data; give its title: `turnin 91775 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 367,
+			"severity": "warning",
+			"message": "quest 61 (Shipment to Stormwind) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 377,
+			"severity": "error",
+			"message": "item 247877 is not in data; give its name: `collect 247877 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 377,
+			"severity": "warning",
+			"message": "quest 91751 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 377,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 381,
+			"severity": "error",
+			"message": "quest 91723 is not in data; give its title: `accept 91723 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 382,
+			"severity": "error",
+			"message": "quest 91725 is not in data; give its title: `accept 91725 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 389,
+			"severity": "error",
+			"message": "quest 91733 is not in data; give its title: `accept 91733 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 393,
+			"severity": "error",
+			"message": "item 247813 is not in data; give its name: `collect 247813 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 393,
+			"severity": "warning",
+			"message": "quest 91733 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 393,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 394,
+			"severity": "error",
+			"message": "item 247817 is not in data; give its name: `collect 247817 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 394,
+			"severity": "warning",
+			"message": "quest 91733 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 394,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 395,
+			"severity": "error",
+			"message": "item 247818 is not in data; give its name: `collect 247818 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 395,
+			"severity": "warning",
+			"message": "quest 91733 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 395,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 401,
+			"severity": "error",
+			"message": "quest 91733 is not in data; give its title: `turnin 91733 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 407,
+			"severity": "error",
+			"message": "quest 91732 is not in data; give its title: `accept 91732 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 426,
+			"severity": "error",
+			"message": "item 247805 is not in data; give its name: `collect 247805 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 426,
+			"severity": "warning",
+			"message": "quest 91725 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 426,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 435,
+			"severity": "warning",
+			"message": "quest 91723 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 436,
+			"severity": "error",
+			"message": "item 247816 is not in data; give its name: `collect 247816 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 436,
+			"severity": "warning",
+			"message": "quest 91732 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 436,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 440,
+			"severity": "error",
+			"message": "quest 91723 is not in data; give its title: `turnin 91723 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 441,
+			"severity": "error",
+			"message": "quest 91724 is not in data; give its title: `accept 91724 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 442,
+			"severity": "error",
+			"message": "quest 91725 is not in data; give its title: `turnin 91725 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 452,
+			"severity": "error",
+			"message": "quest 91751 is not in data; give its title: `turnin 91751 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 453,
+			"severity": "error",
+			"message": "quest 99131 is not in data; give its title: `turnin 99131 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 469,
+			"severity": "error",
+			"message": "item 4536 is not in data; give its name: `buy 4536 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 473,
+			"severity": "error",
+			"message": "quest 91736 is not in data; give its title: `accept 91736 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 474,
+			"severity": "error",
+			"message": "quest 91736 is not in data; give its title: `turnin 91736 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 475,
+			"severity": "error",
+			"message": "item 247824 is not in data; give its name: `collect 247824 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 481,
+			"severity": "error",
+			"message": "quest 91738 is not in data; give its title: `accept 91738 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 482,
+			"severity": "error",
+			"message": "quest 91738 is not in data; give its title: `turnin 91738 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 513,
+			"severity": "error",
+			"message": "item 247826 is not in data; give its name: `collect 247826 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 513,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 514,
+			"severity": "error",
+			"message": "quest 91740 is not in data; give its title: `accept 91740 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 518,
+			"severity": "error",
+			"message": "quest 91740 is not in data; give its title: `turnin 91740 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 527,
+			"severity": "error",
+			"message": "quest 91732 is not in data; give its title: `turnin 91732 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 531,
+			"severity": "warning",
+			"message": "quest 91724 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 535,
+			"severity": "error",
+			"message": "quest 91724 is not in data; give its title: `turnin 91724 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 541,
+			"severity": "warning",
+			"message": "quest 5635 (Desperate Prayer) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 542,
+			"severity": "error",
+			"message": "quest 94774 is not in data; give its title: `accept 94774 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 542,
+			"severity": "warning",
+			"message": "quest 94774 is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 553,
+			"severity": "error",
+			"message": "quest 94792 is not in data; give its title: `accept 94792 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 554,
+			"severity": "warning",
+			"message": "quest 94792 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 555,
+			"severity": "error",
+			"message": "quest 94792 is not in data; give its title: `turnin 94792 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 556,
+			"severity": "error",
+			"message": "quest 94863 is not in data; give its title: `accept 94863 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 557,
+			"severity": "warning",
+			"message": "quest 94863 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 558,
+			"severity": "error",
+			"message": "quest 94863 is not in data; give its title: `turnin 94863 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 559,
+			"severity": "error",
+			"message": "quest 94864 is not in data; give its title: `accept 94864 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 560,
+			"severity": "warning",
+			"message": "quest 94864 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 561,
+			"severity": "error",
+			"message": "quest 94864 is not in data; give its title: `turnin 94864 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 562,
+			"severity": "error",
+			"message": "quest 94793 is not in data; give its title: `accept 94793 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 563,
+			"severity": "error",
+			"message": "quest 94793 is not in data; give its title: `turnin 94793 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 570,
+			"severity": "warning",
+			"message": "quest 1861 (Mirror Lake) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 576,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 599,
+			"severity": "warning",
+			"message": "`complete` for quest 1689 (The Binding) has no place, but its objectives do (1689.1 = kill Summoned Voidwalker): the arrow has nowhere to point",
+			"hint": "write a goal per objective (`kill <npc> quest 1689.<n>`, `collect <item> quest 1689.<n>`), or give the `complete` a `goto` or coordinates"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 624,
+			"severity": "warning",
+			"message": "`complete` for quest 1786 (The Tome of Divinity), which has no objectives: the action is the turn-in; use `turnin`"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/alliance/human/01-elwynn-forest.guide",
+			"line": 642,
+			"severity": "warning",
+			"message": "quest 109 (Report to Gryan Stoutmantle) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 6,
+			"severity": "error",
+			"message": "`next` points to unknown guide \"forever/horde/03-silverpine-forest\"",
+			"hint": "list guide ids with `polestar find --kind guide <text>`"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 75,
+			"severity": "warning",
+			"message": "quest 870 needs 886 (The Barrens Oases) turned in first, but the chain never turns it in"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 76,
+			"severity": "warning",
+			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 109,
+			"severity": "error",
+			"message": "quest 871.1 is kill Razormane Hunter x3, not this npc; Razormane Water Seeker is 871.2",
+			"hint": "write `quest 871.2`, or `quest 871` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 110,
+			"severity": "error",
+			"message": "quest 871.2 is kill Razormane Water Seeker x8, not this npc; Razormane Thornweaver is 871.3",
+			"hint": "write `quest 871.3`, or `quest 871` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 111,
+			"severity": "error",
+			"message": "quest 871.3 is kill Razormane Thornweaver x8, not this npc; Razormane Hunter is 871.1",
+			"hint": "write `quest 871.1`, or `quest 871` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 138,
+			"severity": "error",
+			"message": "`turnin` for quest 1523 that is never accepted earlier in this guide or a guide chaining into it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 188,
+			"severity": "error",
+			"message": "quest 97253 is not in data; give its title: `accept 97253 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 196,
+			"severity": "error",
+			"message": "item 277331 is not in data; give its name: `collect 277331 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 196,
+			"severity": "warning",
+			"message": "quest 97253 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 196,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 199,
+			"severity": "error",
+			"message": "quest 97253 is not in data; give its title: `turnin 97253 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 228,
+			"severity": "error",
+			"message": "quest 872.1 is kill Razormane Defender x8, not this npc; Razormane Geomancer is 872.2",
+			"hint": "write `quest 872.2`, or `quest 872` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 229,
+			"severity": "error",
+			"message": "quest 872.2 is kill Razormane Geomancer x8, not this npc; Razormane Defender is 872.1",
+			"hint": "write `quest 872.1`, or `quest 872` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 246,
+			"severity": "error",
+			"message": "reward item 5176 is not in data; give its name: `5176 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 246,
+			"severity": "error",
+			"message": "reward item 263412 is not in data; give its name: `263412 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 258,
+			"severity": "error",
+			"message": "quest 900.3 is interact Fuel Control Valve, not this object; Regulator Valve is 900.2",
+			"hint": "write `quest 900.2`, or `quest 900` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 259,
+			"severity": "error",
+			"message": "quest 900.2 is interact Regulator Valve, not this object; Fuel Control Valve is 900.3",
+			"hint": "write `quest 900.3`, or `quest 900` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 308,
+			"severity": "error",
+			"message": "quest 905.3 is interact Yellow Raptor Nest, not this object; Red Raptor Nest is 905.1",
+			"hint": "write `quest 905.1`, or `quest 905` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 309,
+			"severity": "error",
+			"message": "quest 905.1 is interact Red Raptor Nest, not this object; Blue Raptor Nest is 905.2",
+			"hint": "write `quest 905.2`, or `quest 905` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 310,
+			"severity": "error",
+			"message": "quest 905.2 is interact Blue Raptor Nest, not this object; Yellow Raptor Nest is 905.3",
+			"hint": "write `quest 905.3`, or `quest 905` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 323,
+			"severity": "warning",
+			"message": "quest 905 (The Angry Scytheclaws) is turned in, but no earlier goal in this guide or a guide chaining into it gets Sunscale Feather (5165, objective 905.4)",
+			"hint": "add the goal that gets it before the turn-in (`collect <item> quest <Q.O>`, or the `kill`/`interact` that drops it, linked to its objective)"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 331,
+			"severity": "warning",
+			"message": "quest 3301 (Mura Runetotem) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/02-the-barrens.guide",
+			"line": 350,
+			"severity": "warning",
+			"message": "quest 3923 (Rilli Greasygob) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 120,
+			"severity": "error",
+			"message": "quest 97279 is not in data; give its title: `accept 97279 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 133,
+			"severity": "error",
+			"message": "item 277653 is not in data; give its name: `collect 277653 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 133,
+			"severity": "warning",
+			"message": "quest 97279 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 133,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 149,
+			"severity": "error",
+			"message": "quest 98576 is not in data; give its title: `accept 98576 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 152,
+			"severity": "error",
+			"message": "quest 98575 is not in data; give its title: `accept 98575 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 154,
+			"severity": "error",
+			"message": "quest 97279 is not in data; give its title: `turnin 97279 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 156,
+			"severity": "error",
+			"message": "quest 98575 is not in data; give its title: `turnin 98575 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 166,
+			"severity": "error",
+			"message": "quest 98576 is not in data; give its title: `turnin 98576 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 248,
+			"severity": "error",
+			"message": "quest 96652 is not in data; give its title: `accept 96652 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 269,
+			"severity": "error",
+			"message": "quest 96821 is not in data; give its title: `accept 96821 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 273,
+			"severity": "error",
+			"message": "npc 266850 is not in data; give its name: `kill 266850 \"Target name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 273,
+			"severity": "warning",
+			"message": "quest 96821 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 273,
+			"severity": "warning",
+			"message": "`kill` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 274,
+			"severity": "error",
+			"message": "npc 266849 is not in data; give its name: `kill 266849 \"Target name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 274,
+			"severity": "warning",
+			"message": "quest 96821 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 274,
+			"severity": "warning",
+			"message": "`kill` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 278,
+			"severity": "error",
+			"message": "quest 96652 is not in data; give its title: `turnin 96652 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 279,
+			"severity": "error",
+			"message": "quest 96604 is not in data; give its title: `accept 96604 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 280,
+			"severity": "error",
+			"message": "quest 96604 is not in data; give its title: `complete 96604 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 281,
+			"severity": "error",
+			"message": "quest 96604 is not in data; give its title: `turnin 96604 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 282,
+			"severity": "error",
+			"message": "quest 96655 is not in data; give its title: `accept 96655 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 285,
+			"severity": "error",
+			"message": "quest 96822 is not in data; give its title: `accept 96822 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 286,
+			"severity": "error",
+			"message": "quest 96821 is not in data; give its title: `turnin 96821 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 288,
+			"severity": "error",
+			"message": "quest 96655 is not in data; give its title: `complete 96655 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 289,
+			"severity": "error",
+			"message": "quest 96655 is not in data; give its title: `turnin 96655 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 290,
+			"severity": "error",
+			"message": "quest 96825 is not in data; give its title: `accept 96825 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 297,
+			"severity": "error",
+			"message": "item 275718 is not in data; give its name: `collect 275718 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 297,
+			"severity": "warning",
+			"message": "quest 96825 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 297,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 300,
+			"severity": "error",
+			"message": "quest 96825 is not in data; give its title: `turnin 96825 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 305,
+			"severity": "error",
+			"message": "item 275716 is not in data; give its name: `collect 275716 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 305,
+			"severity": "warning",
+			"message": "quest 96822 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 306,
+			"severity": "error",
+			"message": "item 275713 is not in data; give its name: `collect 275713 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 306,
+			"severity": "warning",
+			"message": "quest 96822 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 307,
+			"severity": "error",
+			"message": "item 275717 is not in data; give its name: `collect 275717 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 307,
+			"severity": "warning",
+			"message": "quest 96822 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 316,
+			"severity": "error",
+			"message": "quest 96822 is not in data; give its title: `turnin 96822 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 330,
+			"severity": "error",
+			"message": "quest 96873 is not in data; give its title: `accept 96873 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 333,
+			"severity": "error",
+			"message": "quest 97225 is not in data; give its title: `accept 97225 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 337,
+			"severity": "warning",
+			"message": "quest 786 needs 785 turned in first, but the chain never turns it in"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 338,
+			"severity": "error",
+			"message": "quest 97223 is not in data; give its title: `accept 97223 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 347,
+			"severity": "error",
+			"message": "item 277128 is not in data; give its name: `collect 277128 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 347,
+			"severity": "warning",
+			"message": "quest 97223 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 347,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 351,
+			"severity": "error",
+			"message": "item 277135 is not in data; give its name: `collect 277135 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 351,
+			"severity": "warning",
+			"message": "quest 97225 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 351,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 352,
+			"severity": "error",
+			"message": "quest 826.2 is kill Hexed Troll x8, not this npc; Voodoo Troll is 826.1",
+			"hint": "write `quest 826.1`, or `quest 826` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 353,
+			"severity": "error",
+			"message": "quest 826.1 is kill Voodoo Troll x8, not this npc; Hexed Troll is 826.2",
+			"hint": "write `quest 826.2`, or `quest 826` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 354,
+			"severity": "error",
+			"message": "quest 96873 is not in data; give its title: `complete 96873 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 364,
+			"severity": "error",
+			"message": "quest 96873 is not in data; give its title: `turnin 96873 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 367,
+			"severity": "error",
+			"message": "quest 97225 is not in data; give its title: `turnin 97225 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 370,
+			"severity": "error",
+			"message": "quest 97223 is not in data; give its title: `turnin 97223 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 377,
+			"severity": "error",
+			"message": "quest 99123 is not in data; give its title: `accept 99123 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 379,
+			"severity": "error",
+			"message": "quest 99123 is not in data; give its title: `complete 99123 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 383,
+			"severity": "error",
+			"message": "quest 99123 is not in data; give its title: `turnin 99123 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 393,
+			"severity": "error",
+			"message": "quest 99048 is not in data; give its title: `accept 99048 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 399,
+			"severity": "warning",
+			"message": "quest 6062 needs one of 6068 (The Hunter's Path), 6069 (The Hunter's Path), 6070 (The Hunter's Path) turned in first, but the chain turns in none of them"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 401,
+			"severity": "warning",
+			"message": "quest 5654 (Hex of Weakness) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 423,
+			"severity": "warning",
+			"message": "item 277661 is not in data; using the explicit name (new Forever content?)"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 423,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 424,
+			"severity": "error",
+			"message": "quest 97281 is not in data; give its title: `accept 97281 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 428,
+			"severity": "error",
+			"message": "quest 97281 is not in data; give its title: `turnin 97281 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 429,
+			"severity": "error",
+			"message": "quest 97282 is not in data; give its title: `accept 97282 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 433,
+			"severity": "error",
+			"message": "item 277665 is not in data; give its name: `collect 277665 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 433,
+			"severity": "warning",
+			"message": "quest 97282 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 433,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 436,
+			"severity": "error",
+			"message": "quest 97282 is not in data; give its title: `turnin 97282 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 446,
+			"severity": "warning",
+			"message": "quest 6062 has 0 objective(s) in data, not 1",
+			"hint": "drop the `.1`: write `quest 6062`"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 458,
+			"severity": "error",
+			"message": "quest 99048 is not in data; give its title: `turnin 99048 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 459,
+			"severity": "error",
+			"message": "quest 99049 is not in data; give its title: `accept 99049 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 460,
+			"severity": "error",
+			"message": "item 286010 is not in data; give its name: `collect 286010 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 460,
+			"severity": "warning",
+			"message": "quest 99049 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 461,
+			"severity": "error",
+			"message": "item 286011 is not in data; give its name: `collect 286011 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 461,
+			"severity": "warning",
+			"message": "quest 99049 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 462,
+			"severity": "error",
+			"message": "item 286012 is not in data; give its name: `collect 286012 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 462,
+			"severity": "warning",
+			"message": "quest 99049 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 487,
+			"severity": "warning",
+			"message": "quest 832 (Burning Shadows) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 500,
+			"severity": "error",
+			"message": "item 7464 is not in data; give its name: `use 7464 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 510,
+			"severity": "error",
+			"message": "quest 99049 is not in data; give its title: `turnin 99049 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 511,
+			"severity": "error",
+			"message": "quest 99051 is not in data; give its title: `accept 99051 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 516,
+			"severity": "error",
+			"message": "item 286008 is not in data; give its name: `collect 286008 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 516,
+			"severity": "warning",
+			"message": "quest 99051 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 516,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 517,
+			"severity": "warning",
+			"message": "quest 6083 has 0 objective(s) in data, not 1",
+			"hint": "drop the `.1`: write `quest 6083`"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 521,
+			"severity": "error",
+			"message": "quest 99051 is not in data; give its title: `turnin 99051 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 522,
+			"severity": "error",
+			"message": "quest 99052 is not in data; give its title: `accept 99052 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 528,
+			"severity": "error",
+			"message": "item 286009 is not in data; give its name: `collect 286009 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 528,
+			"severity": "warning",
+			"message": "quest 99052 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 528,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 529,
+			"severity": "error",
+			"message": "quest 99052 is not in data; give its title: `turnin 99052 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/01-durotar.guide",
+			"line": 534,
+			"severity": "warning",
+			"message": "quest 6082 has 0 objective(s) in data, not 1",
+			"hint": "drop the `.1`: write `quest 6082`"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 62,
+			"severity": "warning",
+			"message": "quest 844 needs 860 (Sergra Darkthorn) turned in first, but the chain never turns it in"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 68,
+			"severity": "warning",
+			"message": "quest 870 needs 886 (The Barrens Oases) turned in first, but the chain never turns it in"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 141,
+			"severity": "error",
+			"message": "quest 871.1 is kill Razormane Hunter x3, not this npc; Razormane Water Seeker is 871.2",
+			"hint": "write `quest 871.2`, or `quest 871` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 142,
+			"severity": "error",
+			"message": "quest 871.2 is kill Razormane Water Seeker x8, not this npc; Razormane Thornweaver is 871.3",
+			"hint": "write `quest 871.3`, or `quest 871` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 143,
+			"severity": "error",
+			"message": "quest 871.3 is kill Razormane Thornweaver x8, not this npc; Razormane Hunter is 871.1",
+			"hint": "write `quest 871.1`, or `quest 871` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 162,
+			"severity": "error",
+			"message": "reward item 5176 is not in data; give its name: `5176 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 162,
+			"severity": "error",
+			"message": "reward item 263412 is not in data; give its name: `263412 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 175,
+			"severity": "error",
+			"message": "quest 97253 is not in data; give its title: `accept 97253 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 183,
+			"severity": "error",
+			"message": "item 277331 is not in data; give its name: `collect 277331 \"Item name\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 183,
+			"severity": "warning",
+			"message": "quest 97253 is not in data; objective index and count cannot be filled"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 183,
+			"severity": "warning",
+			"message": "`collect` has no coordinates (no known spawns; add @x,y)",
+			"hint": "add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 186,
+			"severity": "error",
+			"message": "quest 97253 is not in data; give its title: `turnin 97253 \"Title\"`",
+			"hint": "find the id with `polestar find <name>`, or give its name in quotes"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 235,
+			"severity": "error",
+			"message": "quest 900.2 is interact Regulator Valve, not this object; Fuel Control Valve is 900.3",
+			"hint": "write `quest 900.3`, or `quest 900` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 236,
+			"severity": "error",
+			"message": "quest 900.3 is interact Fuel Control Valve, not this object; Regulator Valve is 900.2",
+			"hint": "write `quest 900.2`, or `quest 900` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 255,
+			"severity": "error",
+			"message": "quest 872.1 is kill Razormane Defender x8, not this npc; Razormane Geomancer is 872.2",
+			"hint": "write `quest 872.2`, or `quest 872` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 256,
+			"severity": "error",
+			"message": "quest 872.2 is kill Razormane Geomancer x8, not this npc; Razormane Defender is 872.1",
+			"hint": "write `quest 872.1`, or `quest 872` to take the index from the npc"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 277,
+			"severity": "error",
+			"message": "quest 905.3 is interact Yellow Raptor Nest, not this object; Red Raptor Nest is 905.1",
+			"hint": "write `quest 905.1`, or `quest 905` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 278,
+			"severity": "error",
+			"message": "quest 905.1 is interact Red Raptor Nest, not this object; Blue Raptor Nest is 905.2",
+			"hint": "write `quest 905.2`, or `quest 905` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 279,
+			"severity": "error",
+			"message": "quest 905.2 is interact Blue Raptor Nest, not this object; Yellow Raptor Nest is 905.3",
+			"hint": "write `quest 905.3`, or `quest 905` to take the index from the object"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 282,
+			"severity": "warning",
+			"message": "quest 905 (The Angry Scytheclaws) is turned in, but no earlier goal in this guide or a guide chaining into it gets Sunscale Feather (5165, objective 905.4)",
+			"hint": "add the goal that gets it before the turn-in (`collect <item> quest <Q.O>`, or the `kill`/`interact` that drops it, linked to its objective)"
+		},
+		{
+			"file": "rust/tests/golden/guide/slice/forever/horde/orc-troll/02-the-barrens.guide",
+			"line": 292,
+			"severity": "warning",
+			"message": "quest 3301 (Mura Runetotem) is accepted but never turned in later in this guide or a guide after it",
+			"hint": "turn it in later in this guide or in a guide after it, or make the accept `optional` when the player may leave it"
+		}
+	]
+}

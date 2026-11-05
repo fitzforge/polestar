@@ -5,52 +5,55 @@ class Warlock
 folder Warlock
 levels 50-56
 zone Felwood
-keywords Niby the Almighty, What Niby Commands, Flawless Fel Essence, Kroshius' Infernal Core, Kroshius, Fel Fire, Impsy, Shard of the Green Flame, Jaedenar, Legashi, Felguard Sentry, Shatter Scar Vale, Warlock, class quest
+keywords Niby the Almighty, What Niby Commands, Flawless Fel Essence, Kroshius' Infernal Core, Kroshius, Fel Fire, Impsy, Shard of the Green Flame, Jaedenar, Jaedenar Legionnaire, Legashi, Legash Encampment, Felguard Sentry, Dark Portal, Shatter Scar Vale, Warlock, class quest
 reward item 18762
 why A rare off-hand for your 50s from Niby and Impsy in Felwood, the camp that also offers An Imp's Request.
 
 # Niby the Almighty's errands in Felwood: What Niby Commands (7601) to Impsy,
 # Flawless Fel Essence (7602: Azshara, Jaedenar and the Dark Portal) and
 # Kroshius' Infernal Core (7603), for the Shard of the Green Flame.
-# Sources: quests.json, npcs.json, objects.json and items.json (Questie 12.1.0
-# and Questie-Forever) for Niby, Impsy, the essences' droppers, Kroshius and
-# his remains; Wowhead's Classic quest page (wowhead.com/classic/quest=7603)
-# for lighting the Fel Fire at the remains to wake him; Wowhead Forever's
-# Warlock class page (data/local/quest-audit/wowhead-class-quests.json):
-# unchanged in Forever, Kroshius' Infernal Core rewards the Shard of the Green
-# Flame.
-# Kroshius is elite: grouping up is advised.
-# Based on data, not play: the beta caps at level 30 until launch on
-# 4 November, so nothing here has been checked in game.
+# Drops (items.json): each essence three times in four from its mobs: Legashi
+# Satyrs, Rogues and Hellcallers (51-53, Azshara), Jaedenar Legionnaires (55),
+# Felguard Sentries (54, Blasted Lands); none elite. Player notes report few
+# spawns and long waits for the last two. The same Legashi and Felguards drop
+# Felcloth for Impsy's own chain (forever/class/warlock/impsys-request).
+# Kroshius (55) is elite and immune to fire; he wakes only when the Fel Fire
+# (given at the accept) is used at his remains. Lost Fel Fire: abandon and
+# take the quest again (player reports).
+# ASSUMED: The chain runs as in Classic (Classic flow; Forever's data has no play reports past the level-30 beta cap). In-game check: Kroshius wakes at the Fel Fire and the essences drop as listed.
+# Sources: Forever's quest data (quests.json, npcs.json, items.json); the
+# quest notes (data/local/mechanics) for the camps and the fight; the
+# reference class guides for the order.
 
 step Niby the Almighty
-  tip At 50 Niby the Almighty and his imp Impsy wait in central Felwood, just east of Jaedenar.
+  tip At 50 Niby the Almighty and his imp Impsy wait on a rise in central Felwood just north-east of Bloodvenom Post: coming north over the Bloodvenom Falls bridge, they stand off the road to the east, past a few oozes. Niby sends you to Impsy, beside him, who wants three Flawless Fel Essences from three places.
   level 50
   accept 7601                         -- Niby the Almighty
   turnin 7601                         -- Impsy
   accept 7602
 
 step Jaedenar
-  tip The Jaedenar Legionnaires, a short way west of Niby, carry Jaedenar's essence.
+  tip Jaedenar lies just south of Bloodvenom Post, west of the road. Of its two caves, Shadow Hold is the northern one, further up the hill; the other has no Legionnaires. Shadow Hold's tunnels run north under the hills, and the Jaedenar Legionnaires (level 55) stand in its deeper halls, from the first ramps on toward Lord Banehollow's chamber; they Uppercut anyone in melee. Three kills in four give the essence, but only about eleven spawn: clear your way in and wait out a five-minute respawn if you must. The cultists of Jaedenar and Shadow Hold are all hostile.
   collect 18622 quest 7602.2          -- Flawless Fel Essence (Jaedenar)
 
 step Azshara
   zone Azshara
-  tip The Legashi satyrs of northern Azshara carry Azshara's essence.
+  tip The Legashi satyrs (level 51-53) hold the Legash Encampment on Azshara's northern coast. Every kind drops the essence three times in four; the satyrs burn mana and the Hellcallers rain fire, so pull them singly.
   collect 18624 quest 7602.1          -- Flawless Fel Essence (Azshara)
 
 step The Dark Portal
   zone Blasted Lands
-  tip The Felguard Sentries around the Dark Portal, in southern Blasted Lands, carry its essence.
+  tip The Felguard Sentries (level 54) walk around the Dark Portal in the south of the Blasted Lands, each with a felhunter. Leave the level 57 Servants of Razelikh alone: they cannot be killed without their own quest.
   collect 18623 quest 7602.3          -- Flawless Fel Essence (Dark Portal)
 
 step Impsy
   zone Felwood
+  tip Back to Impsy. He hands you the Fel Fire: keep it, it wakes the infernal Kroshius.
   turnin 7602                         -- Impsy
   accept 7603
 
 step Kroshius
-  tip Kroshius' remains lie in Shatter Scar Vale, north of Niby. Use the Fel Fire beside them and kill the infernal when he wakes. Kroshius is elite: grouping up is advised.
+  tip Kroshius' remains lie in Shatter Scar Vale, the burnt crater north of Niby: follow the road north from his camp; the remains lie a little east of it. Use the Fel Fire beside them and wait for him to rise. Kroshius is elite (level 55): grouping up is encouraged; a warlock of 55 or more can solo him with Fear and damage over time, or with Enslave Demon, but fire spells do nothing to him and he knocks you back. If you die he heals to full; he rises again three minutes after he dies. An elite infernal patrols the pool south of the remains: pull Kroshius away from it. He always drops his core. Lost the Fel Fire? Abandon the quest and take it again from Impsy.
   use 18626 @45.7,34.8                -- Fel Fire, at Kroshius' Remains
   kill 14467 quest 7603.1             -- Kroshius
   collect 18625 quest 7603.2          -- Kroshius' Infernal Core

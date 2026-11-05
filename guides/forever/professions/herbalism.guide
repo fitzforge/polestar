@@ -8,459 +8,489 @@ zone Ironforge
 
 # Herbalism 1-300 for both factions: loops through the densest skill-up herbs
 # for each skill band (expected skill-ups per yard walked), with rank training.
-# Skill needed per herb: see tools/lib/professions/gathering/tables.js
-# (Peacebloom and Silverleaf 1 ... Black Lotus 300).
+# A zone counts the herbs it keeps up at once (the Forever server's spawn pools,
+# tools/lib/professions/gathering/node-abundance.json), not every spot a herb can use.
+# Skill needed per herb: Peacebloom, Silverleaf 1, Earthroot 15, Mageroyal 50,
+# Briarthorn 70, Stranglekelp 85, Bruiseweed 100, Wild Steelbloom 115, Grave
+# Moss 120, Kingsblood 125, Liferoot 150, Fadeleaf 160, Goldthorn 170,
+# Khadgar's Whisker 185, Wintersbite 195, Firebloom 205, Purple Lotus 210,
+# Arthas' Tears 220, Sungrass 230, Blindweed 235, Ghost Mushroom 245,
+# Gromsblood 250, Golden Sansam 260, Dreamfoil 270, Mountain Silversage 280,
+# Plaguebloom 285, Icecap 290, Black Lotus 300.
 #
-# Spawns, trainers and vendors come from the Era baseline (pfQuest); recipes and
-# their skill colours from the Forever client tables (`profession build`).
-# Nothing confirms the spawns' 10-60 placement on Forever yet: refine with
-# Polestar_Recorder sessions. Waypoints are Era-frame (`coords era`); the engine
-# converts them where Forever changed a map frame.
+# Spawns come from the reference data: the Era baseline (pfQuest) plus the
+# node spawns Forever's beta sniffs add (Zephras Isle, the starting-area Poor
+# Copper Veins and herbs: the Forever TrinityCore world DB); trainer learn skills
+# and prices from Forever's sniffed trainer lists; recipes and their skill colours
+# from the Forever client tables (`forge data professions`).
+# ASSUMED: past level 30 (the beta's cap) Forever's spawns are Classic's; nothing
+# confirms them yet. In-game check: refine with Polestar_Recorder sessions.
+# Ranks ask no character level: Forever's sniffed trainer lists carry none for
+# Herbalism, Mining or Skinning, and level 10 for Journeyman crafting and Fishing.
+# INGAME: does a gathering trainer ask a level for Expert or Artisan? (our data:
+# none; one web guide: Expert 10, Artisan 25).
+# Waypoints are Era-frame (`coords era`); the engine converts them where Forever
+# changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
 
 step Learn Herbalism
-  tip Any Herbalism trainer of your faction teaches Apprentice Herbalism at any level, and so does the Junior Herbalism Trainer in each starting zone; the arrow picks the nearest.
+  tip Any Herbalism trainer of your faction teaches Apprentice Herbalism at any level (10c), and so does the Junior Herbalism Trainer in each starting area; the arrow picks the nearest. Turn on Find Herbs (spellbook, General tab) so herbs show on the minimap. Forever's starting areas also have Wilted Peacebloom and Stunted Silverleaf (skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers Wild Harvest as a reward: reading it gives 2 skill, up to 15. Trade goods vendors sell the Apprentice's Herb Pouch, a four-slot bag for herbs (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Herbalism: hand it in to the herbalism trainer it names once you reach skill 20, for the Incense Candle recipe.
   train Herbalism Apprentice
 
 # ---------------------------------------------------------------- Herbalism 1-50
 
-step Silverleaf & Earthroot: Elwynn Forest (1-50)
+step Peacebloom & Silverleaf: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10.
-  goto 50.3,82.8 "Earthroot, Peacebloom" r 30
-  goto 78.5,76.4 "Earthroot, Peacebloom" r 30
-  goto 85.0,58.8 "Earthroot, Peacebloom" r 30
-  goto 74.5,52.6 "Earthroot, Peacebloom" r 30
-  goto 64.8,66.2 "Peacebloom, Silverleaf" r 30
-  goto 62.7,54.4 "Earthroot, Peacebloom" r 30
-  goto 50.7,58.8 "Earthroot, Peacebloom" r 30
-  goto 41.2,52.9 "Peacebloom, Silverleaf" r 30
-  goto 35.3,68.1 "Peacebloom, Silverleaf" r 30
-  goto 23.0,76.6 "Peacebloom, Silverleaf" r 30
-  goto 26.6,83.0 "Peacebloom, Silverleaf" r 30
-  goto 40.0,75.7 "Peacebloom, Silverleaf" r 30
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  goto 53.1,38.6 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 45.8,32.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 46.1,42.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 42.4,56.6 "Peacebloom, Silverleaf" r 30
+  goto 35.8,59.4 "Silverleaf, Peacebloom" r 30
+  goto 26.3,85.5 "Peacebloom, Silverleaf" r 30
+  goto 49.3,83.1 "Peacebloom, Earthroot" r 30
+  goto 59.3,78.1 "Peacebloom, Silverleaf" r 30
+  goto 87.6,80.0 "Silverleaf, Peacebloom" r 30
+  goto 62.6,62.7 "Peacebloom, Silverleaf" r 30
+  goto 56.9,44.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 50.9,46.4 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
-step Silverleaf & Earthroot: Dun Morogh (1-50)
+step Peacebloom & Silverleaf: Dun Morogh (1-50)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10.
-  goto 73.1,49.6 "Earthroot, Peacebloom" r 30
-  goto 65.7,52.6 "Earthroot, Peacebloom" r 30
-  goto 58.0,54.0 "Earthroot, Peacebloom" r 30
-  goto 34.1,33.2 "Peacebloom, Silverleaf" r 30
-  goto 26.2,43.6 "Peacebloom, Silverleaf" r 30
-  goto 30.0,51.1 "Peacebloom, Silverleaf" r 30
-  goto 34.7,59.2 "Earthroot, Peacebloom" r 30
-  goto 39.7,60.8 "Silverleaf, Earthroot" r 30
-  goto 47.6,63.4 "Earthroot, Peacebloom" r 30
-  goto 49.8,58.9 "Earthroot, Peacebloom" r 30
-  goto 58.7,60.6 "Earthroot, Peacebloom" r 30
-  goto 62.4,55.7 "Earthroot, Peacebloom" r 30
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  goto 73.3,54.1 "Peacebloom, Earthroot" r 30
+  goto 62.9,57.0 "Silverleaf, Earthroot" r 30
+  goto 58.2,57.1 "Peacebloom, Earthroot" r 30
+  goto 48.9,61.6 "Silverleaf, Peacebloom" r 30
+  goto 44.2,57.5 "Silverleaf, Peacebloom" r 30
+  goto 38.6,60.8 "Silverleaf, Peacebloom" r 30
+  goto 32.3,71.8 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 26.0,78.4 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 21.3,74.5 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 27.7,72.3 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 34.5,58.5 "Peacebloom, Silverleaf" r 30
+  goto 46.6,42.2 "Silverleaf, Peacebloom" r 30
   skill Herbalism 50
 
-step Silverleaf & Earthroot: Teldrassil (1-50)
+step Peacebloom & Silverleaf: Teldrassil (1-50)
   only NightElf
   zone Teldrassil
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10.
-  goto 55.6,72.3 "Peacebloom, Silverleaf" r 30
-  goto 50.9,68.1 "Earthroot, Peacebloom" r 30
-  goto 45.4,75.2 "Earthroot, Peacebloom" r 30
-  goto 38.7,65.3 "Earthroot, Peacebloom" r 30
-  goto 41.0,47.5 "Peacebloom, Silverleaf" r 30
-  goto 37.3,42.7 "Earthroot, Peacebloom" r 30
-  goto 35.8,36.1 "Earthroot, Peacebloom" r 30
-  goto 40.5,28.3 "Earthroot, Peacebloom" r 30
-  goto 46.1,39.6 "Earthroot, Peacebloom" r 30
-  goto 46.4,45.9 "Earthroot, Peacebloom" r 30
-  goto 48.7,56.7 "Earthroot, Peacebloom" r 30
-  goto 53.2,61.3 "Peacebloom, Silverleaf" r 30
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange, rare), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  goto 55.6,73.7 "Silverleaf, Peacebloom" r 30
+  goto 63.6,71.6 "Silverleaf, Peacebloom" r 30
+  goto 60.9,62.4 "Silverleaf, Peacebloom" r 30
+  goto 67.3,60.5 "Silverleaf, Peacebloom" r 30
+  goto 67.3,51.6 "Silverleaf, Peacebloom" r 30
+  goto 56.0,44.1 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 45.8,40.8 "Peacebloom, Silverleaf" r 30
+  goto 37.2,41.1 "Silverleaf, Peacebloom" r 30
+  goto 38.6,67.2 "Peacebloom, Earthroot" r 30
+  goto 40.9,79.5 "Silverleaf, Peacebloom" r 30
+  goto 45.8,76.0 "Silverleaf, Peacebloom" r 30
+  goto 50.8,61.7 "Peacebloom, Silverleaf" r 30
   skill Herbalism 50
 
-step Silverleaf & Earthroot: Durotar (1-50)
+step Peacebloom & Silverleaf: Zephras Isle (1-50)
+  only Skyborne
+  zone Zephras Isle
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-15. Expect about 60 herbs for these 49 points.
+  goto 40.8,44.8 live "Peacebloom, Silverleaf" r 30
+  goto 37.3,45.9 live "Peacebloom, Silverleaf" r 30
+  goto 36.4,52.6 live "Earthroot, Silverleaf" r 30
+  goto 40.4,53.7 live "Silverleaf, Peacebloom" r 30
+  goto 45.9,57.0 live "Silverleaf, Peacebloom" r 30
+  goto 43.0,61.9 live "Peacebloom, Silverleaf" r 30
+  goto 45.5,70.7 live "Silverleaf, Peacebloom" r 30
+  goto 48.5,75.1 live "Peacebloom, Silverleaf" r 30
+  goto 57.1,70.8 live "Peacebloom" r 30
+  goto 44.1,40.7 live "Peacebloom, Silverleaf" r 30
+  goto 44.7,27.7 live "Peacebloom, Silverleaf" r 30
+  goto 41.0,26.9 live "Peacebloom, Earthroot" r 30
+  skill Herbalism 50
+
+step Peacebloom & Silverleaf: Durotar (1-50)
   only Orc,Troll
   zone Durotar
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10.
-  goto 41.1,16.0 "Earthroot, Peacebloom" r 30
-  goto 44.7,23.2 "Peacebloom, Silverleaf" r 30
-  goto 46.3,35.8 "Peacebloom, Silverleaf" r 30
-  goto 56.2,38.7 "Peacebloom, Silverleaf" r 30
-  goto 69.0,71.3 "Peacebloom, Silverleaf" r 30
-  goto 60.4,90.4 "Peacebloom, Silverleaf" r 30
-  goto 53.7,80.0 "Earthroot, Peacebloom" r 30
-  goto 55.4,68.2 "Peacebloom, Silverleaf" r 30
-  goto 52.0,58.3 "Peacebloom, Silverleaf" r 30
-  goto 50.6,47.6 "Earthroot, Peacebloom" r 30
-  goto 40.7,49.1 "Peacebloom, Silverleaf" r 30
-  goto 36.4,30.0 "Earthroot, Silverleaf" r 30
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  goto 44.6,64.6 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 45.1,70.8 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 55.3,66.9 "Silverleaf, Peacebloom" r 30
+  goto 52.1,58.4 "Peacebloom, Silverleaf" r 30
+  goto 49.5,47.7 "Silverleaf, Peacebloom" r 30
+  goto 58.2,42.5 "Silverleaf, Peacebloom" r 30
+  goto 55.5,32.9 "Silverleaf, Peacebloom" r 30
+  goto 44.2,21.2 "Peacebloom, Silverleaf" r 30
+  goto 41.7,14.9 "Silverleaf, Peacebloom" r 30
+  goto 39.6,49.7 "Peacebloom, Earthroot" r 30
+  goto 44.6,58.6 "Wilted Peacebloom, Stunted Silverleaf" r 30
+  goto 40.5,62.4 "Wilted Peacebloom, Stunted Silverleaf" r 30
   skill Herbalism 50
 
-step Silverleaf & Earthroot: Mulgore (1-50)
+step Peacebloom & Silverleaf: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10.
-  goto 34.3,34.1 "Earthroot, Peacebloom" r 30
-  goto 38.4,41.9 "Peacebloom, Silverleaf" r 30
-  goto 35.6,61.9 "Earthroot, Peacebloom" r 30
-  goto 47.4,48.1 "Peacebloom, Silverleaf" r 30
-  goto 63.4,70.9 "Peacebloom, Silverleaf" r 30
-  goto 66.1,64.0 "Peacebloom, Silverleaf" r 30
-  goto 59.1,47.2 "Earthroot, Peacebloom" r 30
-  goto 54.2,17.6 "Earthroot, Peacebloom" r 30
-  goto 52.3,8.3 "Earthroot, Peacebloom" r 30
-  goto 46.0,16.7 "Peacebloom, Silverleaf" r 30
-  goto 37.9,9.1 "Earthroot, Peacebloom" r 30
-  goto 28.8,24.7 "Earthroot, Silverleaf" r 30
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  goto 34.2,35.0 "Silverleaf, Peacebloom" r 30
+  goto 34.7,41.1 "Peacebloom, Silverleaf" r 30
+  goto 38.0,47.3 "Peacebloom, Silverleaf" r 30
+  goto 35.5,60.9 "Silverleaf, Peacebloom" r 30
+  goto 41.1,64.4 "Peacebloom, Silverleaf" r 30
+  goto 59.0,57.7 "Silverleaf, Peacebloom" r 30
+  goto 63.2,58.2 "Silverleaf, Peacebloom" r 30
+  goto 65.7,60.3 "Silverleaf, Peacebloom" r 30
+  goto 57.7,45.5 "Peacebloom, Silverleaf" r 30
+  goto 53.6,19.0 "Peacebloom, Silverleaf" r 30
+  goto 52.8,9.5 "Peacebloom, Earthroot" r 30
+  goto 47.6,29.4 "Peacebloom, Silverleaf" r 30
   skill Herbalism 50
 
-step Silverleaf & Earthroot: Tirisfal Glades (1-50)
+step Peacebloom & Silverleaf: Tirisfal Glades (1-50)
   only Undead
   zone Tirisfal Glades
-  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10.
-  goto 47.1,43.4 "Earthroot, Peacebloom" r 30
-  goto 31.1,46.4 "Earthroot, Peacebloom" r 30
-  goto 41.2,57.6 "Peacebloom, Silverleaf" r 30
-  goto 52.2,71.1 "Peacebloom, Silverleaf" r 30
-  goto 52.5,61.1 "Peacebloom, Silverleaf" r 30
-  goto 64.7,51.6 "Peacebloom, Silverleaf" r 30
-  goto 74.6,56.9 "Earthroot, Peacebloom" r 30
-  goto 71.8,35.4 "Peacebloom, Silverleaf" r 30
-  goto 56.5,39.2 "Earthroot, Peacebloom" r 30
-  goto 48.5,28.7 "Earthroot, Peacebloom" r 30
-  goto 53.2,44.7 "Peacebloom, Silverleaf" r 30
-  goto 48.0,52.0 "Peacebloom, Silverleaf" r 30
+  tip Pick every Peacebloom (1, orange), Silverleaf (1, orange), Stunted Silverleaf (1, orange), Wilted Peacebloom (1, orange), Earthroot (from 15) you pass and circle the waypoints until Herbalism 50. Zone level 1-10. Expect about 60 herbs for these 49 points.
+  goto 34.3,65.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 37.6,68.9 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 49.6,65.7 "Peacebloom, Silverleaf" r 30
+  goto 52.0,60.4 "Silverleaf, Peacebloom" r 30
+  goto 52.7,52.6 "Silverleaf, Peacebloom" r 30
+  goto 53.1,44.3 "Silverleaf, Earthroot" r 30
+  goto 49.3,30.6 "Peacebloom, Silverleaf" r 30
+  goto 46.5,51.4 "Peacebloom, Silverleaf" r 30
+  goto 42.3,58.4 "Peacebloom, Silverleaf" r 30
+  goto 35.5,59.5 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 30.5,61.0 "Stunted Silverleaf, Wilted Peacebloom" r 30
+  goto 31.6,70.5 "Stunted Silverleaf, Wilted Peacebloom" r 30
   skill Herbalism 50
 
 step Journeyman Herbalism
-  tip Journeyman Herbalism raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest Herbalism trainer of your faction.
-  level 10
+  tip Journeyman Herbalism raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest Herbalism trainer of your faction. Incense Candle, Forever's camping item for Herbalism, is taught from skill 20 (1s, or free from Camping 101: Herbalism): a Peacebloom and a Silverleaf each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour.
   train Herbalism Journeyman
+  learn 1229705
 
 # ---------------------------------------------------------------- Herbalism 50-100
 
-step Briarthorn & Stranglekelp: Westfall (50-100)
-  only Human
+step Mageroyal & Briarthorn: Westfall (50-100)
+  only Human,Skyborne,Alliance
   zone Westfall
-  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Zone level 10-20.
-  goto 63.7,70.1 "Briarthorn, Mageroyal" r 30
-  goto 69.8,74.4 "Briarthorn, Mageroyal" r 30
-  goto 57.8,31.7 "Peacebloom, Silverleaf" r 30
-  goto 56.2,9.8 "Earthroot, Mageroyal" r 30
-  goto 51.5,14.2 "Earthroot, Mageroyal" r 30
-  goto 46.7,31.6 "Earthroot, Briarthorn" r 30
-  goto 43.0,41.0 "Briarthorn, Earthroot" r 30
-  goto 39.5,32.2 "Earthroot, Briarthorn" r 30
-  goto 28.6,31.5 "Stranglekelp, Earthroot" r 30
-  goto 27.3,48.4 "Briarthorn, Earthroot" r 30
-  goto 34.7,84.3 "Briarthorn, Earthroot" r 30
-  goto 39.8,70.0 "Briarthorn, Mageroyal" r 30
+  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 130 herbs for these 50 points.
+  goto 53.3,65.1 "Peacebloom, Briarthorn" r 30
+  goto 39.9,70.1 "Briarthorn, Mageroyal" r 30
+  goto 37.6,78.1 "Briarthorn, Silverleaf" r 30
+  goto 34.3,84.8 "Stranglekelp, Briarthorn" r 30
+  goto 32.1,39.7 "Briarthorn, Peacebloom" r 30
+  goto 28.7,32.0 "Stranglekelp, Earthroot" r 30
+  goto 36.6,25.8 "Peacebloom, Mageroyal" r 30
+  goto 37.7,34.0 "Briarthorn, Mageroyal" r 30
+  goto 42.2,33.7 "Earthroot, Briarthorn" r 30
+  goto 46.2,28.8 "Earthroot, Peacebloom" r 30
+  goto 57.7,27.4 "Silverleaf, Peacebloom" r 30
+  goto 68.3,73.0 "Peacebloom, Briarthorn" r 30
   skill Herbalism 100
 
 step Mageroyal & Briarthorn: Loch Modan (50-100)
   only Dwarf,Gnome
   zone Loch Modan
-  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70) you pass and circle the waypoints until Herbalism 100. Zone level 10-20.
-  goto 27.4,46.4 "Earthroot, Mageroyal" r 30
-  goto 39.7,41.8 "Mageroyal" r 30
-  goto 47.6,24.9 "Mageroyal" r 30
-  goto 54.0,28.2 "Mageroyal, Briarthorn" r 30
+  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70) you pass and circle the waypoints until Herbalism 100. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Zone level 10-20. Expect about 140 herbs for these 50 points.
+  goto 33.1,54.9 "Earthroot, Silverleaf" r 30
+  goto 26.0,49.7 "Earthroot, Mageroyal" r 30
+  goto 39.4,44.0 "Mageroyal" r 30
+  goto 38.8,33.7 "Mageroyal, Silverleaf" r 30
+  goto 53.7,36.1 "Silverleaf, Briarthorn" r 30
+  goto 55.0,28.0 "Silverleaf, Mageroyal" r 30
   goto 58.1,16.9 "Briarthorn, Mageroyal" r 30
-  goto 59.8,26.8 "Mageroyal, Peacebloom" r 30
-  goto 75.8,44.2 "Briarthorn, Mageroyal" r 30
-  goto 69.4,51.3 "Briarthorn, Mageroyal" r 30
+  goto 74.1,42.4 "Briarthorn" r 30
+  goto 69.4,51.3 "Briarthorn, Peacebloom" r 30
   goto 77.5,69.8 "Briarthorn" r 30
   goto 68.4,74.0 "Mageroyal, Briarthorn" r 30
   goto 63.4,59.1 "Mageroyal, Peacebloom" r 30
-  goto 51.2,71.7 "Peacebloom, Mageroyal" r 30
   skill Herbalism 100
 
-step Briarthorn & Stranglekelp: Darkshore (50-100)
+step Mageroyal & Briarthorn: Darkshore (50-100)
   only NightElf
   zone Darkshore
-  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Zone level 10-20.
-  goto 40.0,39.2 "Briarthorn, Earthroot" r 30
-  goto 39.1,53.9 "Briarthorn, Mageroyal" r 30
-  goto 40.4,72.2 "Earthroot, Mageroyal" r 30
-  goto 39.2,77.0 "Briarthorn, Mageroyal" r 30
-  goto 38.4,88.2 "Earthroot, Mageroyal" r 30
-  goto 44.0,89.8 "Earthroot, Mageroyal" r 30
-  goto 42.9,83.9 "Briarthorn, Earthroot" r 30
-  goto 42.6,67.0 "Earthroot, Briarthorn" r 30
-  goto 44.6,61.0 "Briarthorn, Earthroot" r 30
-  goto 62.0,21.2 "Briarthorn, Earthroot" r 30
-  goto 57.0,26.1 "Briarthorn, Mageroyal" r 30
-  goto 41.4,33.7 "Briarthorn, Earthroot" r 30
+  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 130 herbs for these 50 points.
+  goto 37.8,35.5 "Mageroyal, Stranglekelp" r 30
+  goto 40.8,34.0 "Silverleaf, Earthroot" r 30
+  goto 48.3,23.2 "Mageroyal, Briarthorn" r 30
+  goto 58.0,15.0 "Mageroyal, Peacebloom" r 30
+  goto 57.9,26.9 "Silverleaf, Earthroot" r 30
+  goto 53.4,30.4 "Silverleaf, Mageroyal" r 30
+  goto 42.9,66.4 "Earthroot, Mageroyal" r 30
+  goto 38.6,88.2 "Earthroot, Mageroyal" r 30
+  goto 35.4,90.6 "Earthroot, Mageroyal" r 30
+  goto 39.0,71.0 "Earthroot, Briarthorn" r 30
+  goto 39.9,63.1 "Briarthorn, Silverleaf" r 30
+  goto 42.4,38.2 "Briarthorn, Earthroot" r 30
   skill Herbalism 100
 
-step Briarthorn & Stranglekelp: The Barrens (50-100)
-  only Orc,Troll,Tauren
+step Mageroyal & Briarthorn: The Barrens (50-100)
+  only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Zone level 10-25.
-  goto 45.4,36.8 "Briarthorn, Silverleaf" r 30
-  goto 40.9,30.0 "Earthroot, Mageroyal" r 30
-  goto 43.2,21.4 "Mageroyal" r 30
-  goto 40.4,21.1 "Briarthorn, Earthroot" r 30
-  goto 39.1,12.9 "Silverleaf, Briarthorn" r 30
-  goto 63.2,6.2 "Mageroyal" r 30
-  goto 62.5,13.7 "Earthroot, Mageroyal" r 30
-  goto 58.9,37.4 "Briarthorn, Mageroyal" r 30
-  goto 64.8,47.8 "Earthroot, Stranglekelp" r 30
-  goto 53.7,43.4 "Briarthorn, Mageroyal" r 30
-  goto 52.5,49.4 "Mageroyal" r 30
-  goto 48.8,46.6 "Briarthorn, Mageroyal" r 30
+  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. A quest here needs Herbalism: Root Samples (level 16, Mebok Mizzyrix). Zone level 10-25. Expect about 110 herbs for these 50 points.
+  goto 46.0,37.2 "Silverleaf, Briarthorn" r 30
+  goto 40.3,22.2 "Earthroot, Briarthorn" r 30
+  goto 43.5,21.3 "Mageroyal, Briarthorn" r 30
+  goto 56.0,12.6 "Mageroyal, Briarthorn" r 30
+  goto 62.3,11.4 "Earthroot, Mageroyal" r 30
+  goto 62.2,15.6 "Mageroyal, Earthroot" r 30
+  goto 53.5,43.5 "Mageroyal, Briarthorn" r 30
+  goto 52.8,49.9 "Mageroyal, Briarthorn" r 30
+  goto 51.4,54.0 "Mageroyal" r 30
+  goto 44.5,62.4 "Mageroyal, Briarthorn" r 30
+  goto 46.1,40.8 "Mageroyal, Silverleaf" r 30
+  goto 43.7,39.9 "Mageroyal" r 30
   skill Herbalism 100
 
-step Briarthorn & Stranglekelp: Silverpine Forest (50-100)
+step Mageroyal & Briarthorn: Silverpine Forest (50-100)
   only Undead
   zone Silverpine Forest
-  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Zone level 10-20.
-  goto 48.3,31.6 "Briarthorn, Earthroot" r 30
-  goto 47.0,27.2 "Earthroot, Mageroyal" r 30
-  goto 50.0,19.3 "Silverleaf, Mageroyal" r 30
-  goto 56.0,21.3 "Mageroyal, Peacebloom" r 30
-  goto 53.4,28.1 "Earthroot, Mageroyal" r 30
-  goto 54.0,43.9 "Briarthorn, Earthroot" r 30
-  goto 61.3,76.0 "Briarthorn, Peacebloom" r 30
-  goto 50.2,77.6 "Briarthorn, Mageroyal" r 30
-  goto 45.1,80.0 "Peacebloom, Briarthorn" r 30
-  goto 53.1,73.6 "Mageroyal, Briarthorn" r 30
-  goto 55.4,63.1 "Briarthorn, Peacebloom" r 30
-  goto 54.0,55.5 "Briarthorn, Mageroyal" r 30
+  tip Pick every Peacebloom (1, yellow), Silverleaf (1, yellow), Earthroot (15, yellow), Mageroyal (50, orange), Briarthorn (from 70), Stranglekelp (from 85) you pass and circle the waypoints until Herbalism 100. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Zone level 10-20. Expect about 140 herbs for these 50 points.
+  goto 48.0,34.1 "Briarthorn, Earthroot" r 30
+  goto 47.3,28.4 "Earthroot, Silverleaf" r 30
+  goto 49.3,19.6 "Silverleaf, Peacebloom" r 30
+  goto 62.1,10.8 "Silverleaf, Peacebloom" r 30
+  goto 58.5,16.8 "Peacebloom, Mageroyal" r 30
+  goto 55.7,22.5 "Silverleaf, Mageroyal" r 30
+  goto 53.8,29.1 "Earthroot, Mageroyal" r 30
+  goto 55.3,35.4 "Mageroyal" r 30
+  goto 52.5,56.9 "Briarthorn, Peacebloom" r 30
+  goto 55.7,63.4 "Briarthorn, Peacebloom" r 30
+  goto 52.8,73.8 "Mageroyal, Peacebloom" r 30
+  goto 50.2,77.6 "Briarthorn, Peacebloom" r 30
   skill Herbalism 100
 
 # ---------------------------------------------------------------- Herbalism 100-125
 
-step Bruiseweed: Redridge Mountains (100-125)
-  only Human,Dwarf,Gnome
+step Briarthorn & Bruiseweed: Redridge Mountains (100-125)
+  only Human,Dwarf,Gnome,Skyborne,Alliance
   zone Redridge Mountains
-  tip Pick every Peacebloom (1, green), Earthroot (15, green), Mageroyal (50, green), Briarthorn (70, yellow), Bruiseweed (100, orange) you pass and circle the waypoints until Herbalism 125. Zone level 15-25.
-  goto 35.6,64.9 "Briarthorn, Bruiseweed" r 30
-  goto 38.0,77.3 "Briarthorn, Bruiseweed" r 30
-  goto 59.4,62.1 "Briarthorn, Bruiseweed" r 30
-  goto 76.8,68.2 "Briarthorn, Bruiseweed" r 30
-  goto 82.2,43.8 "Briarthorn, Bruiseweed" r 30
-  goto 75.0,48.3 "Bruiseweed, Earthroot" r 30
-  goto 63.0,50.9 "Briarthorn, Bruiseweed" r 30
-  goto 54.2,47.6 "Briarthorn, Bruiseweed" r 30
-  goto 28.3,26.8 "Briarthorn, Mageroyal" r 30
-  goto 21.5,34.2 "Briarthorn, Bruiseweed" r 30
-  goto 24.4,62.3 "Briarthorn, Bruiseweed" r 30
-  goto 22.1,75.5 "Briarthorn, Bruiseweed" r 30
+  tip Pick every Earthroot (15, green), Mageroyal (50, green), Briarthorn (70, yellow), Bruiseweed (100, orange) you pass and circle the waypoints until Herbalism 125. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Zone level 15-25. Expect about 60 herbs for these 25 points.
+  goto 23.7,62.4 "Briarthorn, Mageroyal" r 30
+  goto 15.7,61.0 "Briarthorn, Earthroot" r 30
+  goto 21.9,75.0 "Briarthorn, Earthroot" r 30
+  goto 36.0,71.1 "Briarthorn, Bruiseweed" r 30
+  goto 58.7,68.1 "Bruiseweed, Briarthorn" r 30
+  goto 62.4,79.6 "Bruiseweed, Earthroot" r 30
+  goto 74.8,71.2 "Bruiseweed, Briarthorn" r 30
+  goto 81.4,50.1 "Earthroot, Bruiseweed" r 30
+  goto 75.4,41.5 "Earthroot, Bruiseweed" r 30
+  goto 68.7,54.2 "Earthroot, Bruiseweed" r 30
+  goto 35.3,8.6 "Bruiseweed, Earthroot" r 30
+  goto 38.9,40.3 "Bruiseweed, Mageroyal" r 30
   skill Herbalism 125
 
-step Bruiseweed & Wild Steelbloom: Thousand Needles (100-125)
-  only NightElf,Orc,Troll,Tauren
-  zone Thousand Needles
-  tip Pick every Bruiseweed (100, orange), Wild Steelbloom (from 115) you pass and circle the waypoints until Herbalism 125. Zone level 25-35.
-  goto 11.1,10.2 "Bruiseweed, Wild Steelbloom" r 30
-  goto 13.0,14.8 "Bruiseweed" r 30
-  goto 20.8,22.7 "Bruiseweed, Wild Steelbloom" r 30
-  goto 34.2,34.3 "Bruiseweed" r 30
-  goto 41.9,36.9 "Bruiseweed" r 30
-  goto 63.8,50.5 "Bruiseweed, Wild Steelbloom" r 30
-  goto 86.3,85.0 "Bruiseweed, Wild Steelbloom" r 30
-  goto 81.2,90.8 "Bruiseweed, Wild Steelbloom" r 30
-  goto 33.8,53.3 "Bruiseweed" r 30
-  goto 22.0,40.2 "Bruiseweed" r 30
-  goto 14.7,31.5 "Bruiseweed, Wild Steelbloom" r 30
-  goto 11.6,23.4 "Bruiseweed" r 30
+step Bruiseweed & Wild Steelbloom: Stonetalon Mountains (100-125)
+  only NightElf
+  zone Stonetalon Mountains
+  tip Pick every Mageroyal (50, green), Briarthorn (70, yellow), Bruiseweed (100, orange), Wild Steelbloom (from 115) you pass and circle the waypoints until Herbalism 125. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Zone level 15-27. Expect about 40 herbs for these 25 points.
+  goto 31.9,12.1 "Mageroyal, Briarthorn" r 30
+  goto 37.4,19.3 "Bruiseweed, Mageroyal" r 30
+  goto 48.7,33.2 "Bruiseweed, Briarthorn" r 30
+  goto 73.3,46.7 "Bruiseweed, Briarthorn" r 30
+  goto 72.7,58.2 "Bruiseweed, Wild Steelbloom" r 30
+  goto 84.7,84.7 "Wild Steelbloom, Bruiseweed" r 30
+  goto 82.2,86.9 "Mageroyal, Bruiseweed" r 30
+  goto 74.9,90.8 "Bruiseweed, Mageroyal" r 30
+  goto 59.4,83.0 "Bruiseweed, Wild Steelbloom" r 30
+  goto 28.2,70.0 "Bruiseweed, Briarthorn" r 30
+  goto 35.9,63.5 "Bruiseweed, Briarthorn" r 30
+  goto 36.1,50.0 "Bruiseweed, Wild Steelbloom" r 30
   skill Herbalism 125
 
-step Bruiseweed & Wild Steelbloom: Hillsbrad Foothills (100-125)
+step Bruiseweed & Wild Steelbloom: Stonetalon Mountains (100-125)
+  only Orc,Troll,Tauren,Skyborne,Horde
+  zone Stonetalon Mountains
+  tip Pick every Mageroyal (50, green), Briarthorn (70, yellow), Bruiseweed (100, orange), Wild Steelbloom (from 115) you pass and circle the waypoints until Herbalism 125. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Zone level 15-27. Expect about 40 herbs for these 25 points.
+  goto 35.9,63.5 "Bruiseweed, Briarthorn" r 30
+  goto 28.2,70.0 "Bruiseweed, Briarthorn" r 30
+  goto 59.4,83.0 "Bruiseweed, Wild Steelbloom" r 30
+  goto 74.9,90.8 "Bruiseweed, Mageroyal" r 30
+  goto 82.2,86.9 "Mageroyal, Bruiseweed" r 30
+  goto 84.7,84.7 "Wild Steelbloom, Bruiseweed" r 30
+  goto 72.7,58.2 "Bruiseweed, Wild Steelbloom" r 30
+  goto 73.3,46.7 "Bruiseweed, Briarthorn" r 30
+  goto 48.7,33.2 "Bruiseweed, Briarthorn" r 30
+  goto 37.4,19.3 "Bruiseweed, Mageroyal" r 30
+  goto 31.9,12.1 "Mageroyal, Briarthorn" r 30
+  goto 36.1,50.0 "Bruiseweed, Wild Steelbloom" r 30
+  skill Herbalism 125
+
+step Stranglekelp & Bruiseweed: Hillsbrad Foothills (100-125)
   only Undead
   zone Hillsbrad Foothills
-  tip Pick every Peacebloom (1, green), Silverleaf (1, green), Earthroot (15, green), Mageroyal (50, green), Briarthorn (70, yellow), Stranglekelp (85, orange), Bruiseweed (100, orange), Wild Steelbloom (from 115) you pass and circle the waypoints until Herbalism 125. Zone level 20-30.
-  goto 71.5,24.3 "Bruiseweed, Briarthorn" r 30
-  goto 69.5,38.8 "Wild Steelbloom, Briarthorn" r 30
-  goto 63.7,53.4 "Briarthorn, Bruiseweed" r 30
-  goto 58.1,58.0 "Briarthorn, Bruiseweed" r 30
-  goto 68.9,85.2 "Wild Steelbloom, Stranglekelp" r 30
-  goto 65.9,92.3 "Stranglekelp" r 30
-  goto 45.5,64.2 "Bruiseweed, Stranglekelp" r 30
-  goto 38.9,68.5 "Bruiseweed, Stranglekelp" r 30
-  goto 32.7,72.2 "Briarthorn, Stranglekelp" r 30
-  goto 34.1,54.6 "Mageroyal, Briarthorn" r 30
-  goto 20.3,42.3 "Briarthorn, Bruiseweed" r 30
-  goto 42.7,34.7 "Briarthorn, Bruiseweed" r 30
+  tip Pick every Silverleaf (1, green, rare), Earthroot (15, green, rare), Mageroyal (50, green), Briarthorn (70, yellow), Stranglekelp (85, orange), Bruiseweed (100, orange), Wild Steelbloom (from 115) you pass and circle the waypoints until Herbalism 125. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Zone level 20-30. Expect about 40 herbs for these 25 points.
+  goto 65.0,13.4 "Bruiseweed, Briarthorn" r 30
+  goto 71.5,28.7 "Bruiseweed, Wild Steelbloom" r 30
+  goto 78.1,28.9 "Bruiseweed, Wild Steelbloom" r 30
+  goto 69.9,56.4 "Bruiseweed, Wild Steelbloom" r 30
+  goto 69.7,64.4 "Bruiseweed, Wild Steelbloom" r 30
+  goto 68.1,85.6 "Stranglekelp, Wild Steelbloom" r 30
+  goto 46.8,67.6 "Stranglekelp, Bruiseweed" r 30
+  goto 41.3,67.6 "Stranglekelp, Bruiseweed" r 30
+  goto 33.6,71.1 "Stranglekelp, Briarthorn" r 30
+  goto 17.0,53.4 "Bruiseweed" r 30
+  goto 36.6,56.0 "Bruiseweed, Briarthorn" r 30
+  goto 41.0,39.7 "Bruiseweed, Briarthorn" r 30
   skill Herbalism 125
 
 step Expert Herbalism
-  tip Expert Herbalism raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest Herbalism trainer of your faction.
-  level 20
+  tip Expert Herbalism raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Herbalism trainer of your faction.
   train Herbalism Expert
 
 # ---------------------------------------------------------------- Herbalism 125-160
 
-step Grave Moss & Kingsblood: Duskwood (125-160)
-  only Alliance
-  zone Duskwood
-  tip Pick every Mageroyal (50, green), Briarthorn (70, green), Bruiseweed (100, yellow), Wild Steelbloom (115, orange), Grave Moss (120, orange), Kingsblood (125, orange) you pass and circle the waypoints until Herbalism 160. Zone level 18-30.
-  goto 65.3,45.7 "Kingsblood, Briarthorn" r 30
-  goto 56.3,28.4 "Wild Steelbloom, Briarthorn" r 30
-  goto 34.5,36.1 "Briarthorn, Bruiseweed" r 30
-  goto 31.0,49.1 "Kingsblood, Briarthorn" r 30
-  goto 23.7,38.5 "Grave Moss, Mageroyal" r 30
-  goto 16.9,35.1 "Grave Moss, Bruiseweed" r 30
-  goto 16.7,44.7 "Grave Moss, Briarthorn" r 30
-  goto 23.3,67.9 "Kingsblood, Briarthorn" r 30
-  goto 38.0,76.0 "Mageroyal, Wild Steelbloom" r 30
-  goto 54.9,57.1 "Briarthorn, Bruiseweed" r 30
-  goto 63.6,69.9 "Kingsblood, Briarthorn" r 30
-  goto 79.5,72.4 "Grave Moss, Briarthorn" r 30
-  skill Herbalism 160
-
-step Kingsblood & Liferoot: Alterac Mountains (125-160)
-  only Horde
-  zone Alterac Mountains
-  tip Pick every Mageroyal (50, green), Briarthorn (70, green), Stranglekelp (85, yellow), Bruiseweed (100, yellow), Wild Steelbloom (115, orange), Grave Moss (120, orange), Kingsblood (125, orange), Liferoot (from 150) you pass and circle the waypoints until Herbalism 160. Zone level 30-40.
-  goto 51.2,83.5 "Briarthorn, Kingsblood" r 30
-  goto 33.5,83.3 "Kingsblood" r 30
-  goto 19.7,83.5 "Bruiseweed, Kingsblood" r 30
-  goto 19.5,56.6 "Bruiseweed, Liferoot" r 30
-  goto 38.7,53.4 "Grave Moss, Bruiseweed" r 30
-  goto 37.8,24.2 "Liferoot, Kingsblood" r 30
-  goto 43.1,36.8 "Wild Steelbloom, Bruiseweed" r 30
-  goto 51.9,40.1 "Wild Steelbloom" r 30
-  goto 61.6,43.4 "Bruiseweed" r 30
-  goto 77.2,62.5 "Liferoot" r 30
-  goto 57.8,61.8 "Kingsblood" r 30
-  goto 49.1,72.8 "Kingsblood" r 30
+step Stranglekelp & Kingsblood: Stranglethorn Vale (125-160)
+  zone Stranglethorn Vale
+  tip Pick every Stranglekelp (85, yellow), Wild Steelbloom (115, orange), Kingsblood (125, orange), Liferoot (from 150) you pass and circle the waypoints until Herbalism 160. Stranglekelp grows underwater along the shore: watch your breath. Zone level 30-45. Expect about 70 herbs for these 35 points.
+  goto 29.0,87.0 "Stranglekelp" r 30
+  goto 26.6,84.2 "Stranglekelp" r 30
+  goto 27.1,42.5 "Stranglekelp, Kingsblood" r 30
+  goto 30.4,43.8 "Kingsblood" r 30
+  goto 34.9,24.1 "Liferoot, Kingsblood" r 30
+  goto 31.7,22.7 "Kingsblood" r 30
+  goto 28.4,14.1 "Kingsblood, Wild Steelbloom" r 30
+  goto 34.3,11.1 "Kingsblood, Liferoot" r 30
+  goto 44.3,17.0 "Kingsblood" r 30
+  goto 41.0,27.3 "Kingsblood, Liferoot" r 30
+  goto 45.3,33.2 "Kingsblood" r 30
+  goto 39.6,50.6 "Kingsblood, Wild Steelbloom" r 30
   skill Herbalism 160
 
 # ---------------------------------------------------------------- Herbalism 160-185
 
-step Fadeleaf & Goldthorn: Swamp of Sorrows (160-185)
-  zone Swamp of Sorrows
-  tip Pick every Stranglekelp (85, green), Kingsblood (125, yellow), Liferoot (150, orange), Fadeleaf (160, orange), Goldthorn (from 170) you pass and circle the waypoints until Herbalism 185. Zone level 35-45.
-  goto 21.1,58.3 "Fadeleaf, Goldthorn" r 30
-  goto 13.1,62.7 "Fadeleaf, Goldthorn" r 30
-  goto 11.3,31.2 "Fadeleaf, Goldthorn" r 30
-  goto 22.4,39.7 "Liferoot, Fadeleaf" r 30
-  goto 32.5,31.5 "Goldthorn, Liferoot" r 30
-  goto 68.1,11.3 "Goldthorn, Kingsblood" r 30
-  goto 76.2,66.7 "Kingsblood, Liferoot" r 30
-  goto 55.3,45.3 "Liferoot, Fadeleaf" r 30
-  goto 48.4,36.3 "Fadeleaf, Kingsblood" r 30
-  goto 41.1,36.2 "Fadeleaf, Liferoot" r 30
-  goto 33.3,50.3 "Fadeleaf, Liferoot" r 30
-  goto 28.1,62.0 "Fadeleaf, Goldthorn" r 30
+step Liferoot & Fadeleaf: Dustwallow Marsh (160-185)
+  zone Dustwallow Marsh
+  tip Pick every Briarthorn (70, green, rare), Stranglekelp (85, green), Bruiseweed (100, green, rare), Wild Steelbloom (115, yellow, rare), Kingsblood (125, yellow), Liferoot (150, orange), Fadeleaf (160, orange), Goldthorn (from 170) you pass and circle the waypoints until Herbalism 185. Mageroyal and Briarthorn sometimes give a Swiftthistle as well. Stranglekelp grows underwater along the shore: watch your breath. Zone level 35-45. Expect about 40 herbs for these 25 points.
+  goto 44.2,44.7 "Liferoot, Fadeleaf" r 30
+  goto 42.4,52.4 "Fadeleaf" r 30
+  goto 44.5,62.1 "Liferoot" r 30
+  goto 33.3,72.1 "Fadeleaf" r 30
+  goto 46.6,71.3 "Fadeleaf" r 30
+  goto 48.9,61.9 "Fadeleaf" r 30
+  goto 45.6,50.2 "Liferoot, Fadeleaf" r 30
+  goto 48.8,46.8 "Goldthorn, Kingsblood" r 30
+  goto 53.8,34.9 "Goldthorn, Liferoot" r 30
+  goto 52.6,29.9 "Fadeleaf, Liferoot" r 30
+  goto 40.7,14.7 "Fadeleaf, Liferoot" r 30
+  goto 44.9,28.1 "Fadeleaf, Goldthorn" r 30
   skill Herbalism 185
 
 # ---------------------------------------------------------------- Herbalism 185-210
 
-step Goldthorn & Khadgar's Whisker: Swamp of Sorrows (185-200)
-  zone Swamp of Sorrows
-  tip Pick every Kingsblood (125, green), Liferoot (150, yellow), Fadeleaf (160, yellow), Goldthorn (170, orange), Khadgar's Whisker (185, orange) you pass and circle the waypoints until Herbalism 200. Zone level 35-45.
-  goto 23.5,60.1 "Fadeleaf, Goldthorn" r 30
-  goto 13.1,62.7 "Fadeleaf, Goldthorn" r 30
-  goto 11.3,31.2 "Fadeleaf, Goldthorn" r 30
-  goto 17.1,43.2 "Fadeleaf, Goldthorn" r 30
-  goto 24.8,43.2 "Khadgar's Whisker, Goldthorn" r 30
-  goto 33.8,31.6 "Khadgar's Whisker, Goldthorn" r 30
-  goto 40.4,38.8 "Fadeleaf, Liferoot" r 30
-  goto 42.9,29.8 "Goldthorn, Khadgar's Whisker" r 30
-  goto 49.7,36.2 "Fadeleaf, Khadgar's Whisker" r 30
-  goto 80.9,48.9 "Khadgar's Whisker, Liferoot" r 30
-  goto 55.6,45.3 "Liferoot, Fadeleaf" r 30
-  goto 32.4,48.8 "Fadeleaf, Liferoot" r 30
+step Liferoot & Khadgar's Whisker: Dustwallow Marsh (185-200)
+  zone Dustwallow Marsh
+  tip Pick every Bruiseweed (100, green, rare), Wild Steelbloom (115, green, rare), Kingsblood (125, green), Liferoot (150, yellow), Fadeleaf (160, yellow), Goldthorn (170, orange), Khadgar's Whisker (185, orange) you pass and circle the waypoints until Herbalism 200. Zone level 35-45. Expect about 20 herbs for these 15 points.
+  goto 45.4,43.7 "Liferoot, Goldthorn" r 30
+  goto 41.2,46.8 "Liferoot, Fadeleaf" r 30
+  goto 35.3,46.1 "Khadgar's Whisker, Kingsblood" r 30
+  goto 41.0,52.1 "Fadeleaf, Liferoot" r 30
+  goto 38.4,55.4 "Liferoot, Khadgar's Whisker" r 30
+  goto 47.3,71.3 "Fadeleaf, Khadgar's Whisker" r 30
+  goto 50.5,71.0 "Khadgar's Whisker, Liferoot" r 30
+  goto 48.9,53.7 "Khadgar's Whisker" r 30
+  goto 45.6,50.2 "Liferoot, Fadeleaf" r 30
+  goto 53.8,34.9 "Goldthorn, Liferoot" r 30
+  goto 48.1,16.1 "Khadgar's Whisker, Goldthorn" r 30
+  goto 41.0,40.6 "Khadgar's Whisker, Kingsblood" r 30
   skill Herbalism 200
 
 step Artisan Herbalism
-  tip Artisan Herbalism raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest Herbalism trainer of your faction.
-  level 35
+  tip Artisan Herbalism raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest Herbalism trainer of your faction.
   train Herbalism Artisan
 
-step Khadgar's Whisker: Swamp of Sorrows (200-210) cont.
-  zone Swamp of Sorrows
-  tip Pick every Kingsblood (125, green), Liferoot (150, green), Fadeleaf (160, yellow), Goldthorn (170, yellow), Khadgar's Whisker (185, orange) you pass and circle the waypoints until Herbalism 210. Zone level 35-45.
-  goto 23.5,60.1 "Fadeleaf, Goldthorn" r 30
-  goto 13.1,62.7 "Fadeleaf, Goldthorn" r 30
-  goto 11.3,31.2 "Fadeleaf, Goldthorn" r 30
-  goto 17.1,43.2 "Fadeleaf, Goldthorn" r 30
-  goto 24.8,43.2 "Khadgar's Whisker, Goldthorn" r 30
-  goto 33.8,31.6 "Khadgar's Whisker, Goldthorn" r 30
-  goto 40.4,38.8 "Fadeleaf, Liferoot" r 30
-  goto 42.9,29.8 "Goldthorn, Khadgar's Whisker" r 30
-  goto 49.7,36.2 "Fadeleaf, Khadgar's Whisker" r 30
-  goto 80.9,48.9 "Khadgar's Whisker, Liferoot" r 30
-  goto 55.6,45.3 "Liferoot, Fadeleaf" r 30
-  goto 32.4,48.8 "Fadeleaf, Liferoot" r 30
+step Fadeleaf & Khadgar's Whisker: Dustwallow Marsh (200-210) cont.
+  zone Dustwallow Marsh
+  tip Pick every Wild Steelbloom (115, green, rare), Kingsblood (125, green), Liferoot (150, green), Fadeleaf (160, yellow), Goldthorn (170, yellow), Khadgar's Whisker (185, orange) you pass and circle the waypoints until Herbalism 210. Zone level 35-45. Expect about 20 herbs for these 10 points.
+  goto 45.4,43.7 "Liferoot, Goldthorn" r 30
+  goto 41.2,46.8 "Liferoot, Fadeleaf" r 30
+  goto 35.3,46.1 "Khadgar's Whisker, Kingsblood" r 30
+  goto 41.0,52.1 "Fadeleaf, Liferoot" r 30
+  goto 38.4,55.4 "Liferoot, Khadgar's Whisker" r 30
+  goto 47.3,71.3 "Fadeleaf, Khadgar's Whisker" r 30
+  goto 50.5,71.0 "Khadgar's Whisker, Liferoot" r 30
+  goto 48.9,53.7 "Khadgar's Whisker" r 30
+  goto 45.6,50.2 "Liferoot, Fadeleaf" r 30
+  goto 53.8,34.9 "Goldthorn, Liferoot" r 30
+  goto 48.1,16.1 "Khadgar's Whisker, Goldthorn" r 30
+  goto 41.0,40.6 "Khadgar's Whisker, Kingsblood" r 30
   skill Herbalism 210
 
 # ---------------------------------------------------------------- Herbalism 210-230
 
-step Firebloom & Purple Lotus: Badlands (210-230)
-  zone Badlands
-  tip Pick every Wild Steelbloom (115, green), Kingsblood (125, green), Fadeleaf (160, green), Goldthorn (170, yellow), Khadgar's Whisker (185, yellow), Firebloom (205, orange), Purple Lotus (210, orange) you pass and circle the waypoints until Herbalism 230. Zone level 35-45.
-  goto 21.5,45.5 "Goldthorn, Firebloom" r 30
-  goto 16.1,56.0 "Khadgar's Whisker" r 30
-  goto 11.2,63.3 "Khadgar's Whisker, Firebloom" r 30
-  goto 6.6,79.3 "Goldthorn, Khadgar's Whisker" r 30
-  goto 34.4,68.1 "Khadgar's Whisker, Kingsblood" r 30
-  goto 48.6,71.7 "Firebloom, Goldthorn" r 30
-  goto 58.4,54.6 "Firebloom, Fadeleaf" r 30
-  goto 51.0,44.1 "Fadeleaf, Firebloom" r 30
-  goto 52.9,34.7 "Goldthorn, Purple Lotus" r 30
-  goto 47.3,11.8 "Purple Lotus, Kingsblood" r 30
-  goto 43.4,40.1 "Purple Lotus" r 30
-  goto 30.2,54.5 "Khadgar's Whisker, Firebloom" r 30
+step Purple Lotus: The Hinterlands (210-230)
+  zone The Hinterlands
+  tip Pick every Wild Steelbloom (115, green, rare), Liferoot (150, green), Fadeleaf (160, green, rare), Goldthorn (170, yellow), Khadgar's Whisker (185, yellow), Purple Lotus (210, orange) you pass and circle the waypoints until Herbalism 230. Purple Lotus sometimes gives a Wildvine as well. Zone level 40-50. Expect about 30 herbs for these 20 points.
+  goto 65.5,67.8 "Purple Lotus" r 30
+  goto 57.6,40.7 "Purple Lotus, Goldthorn" r 30
+  goto 49.6,52.2 "Purple Lotus, Goldthorn" r 30
+  goto 31.2,58.7 "Purple Lotus, Goldthorn" r 30
+  goto 23.3,58.4 "Purple Lotus" r 30
+  goto 31.5,66.7 "Purple Lotus, Goldthorn" r 30
+  goto 34.0,74.3 "Purple Lotus, Goldthorn" r 30
+  goto 40.5,65.0 "Purple Lotus, Liferoot" r 30
+  goto 49.0,68.8 "Purple Lotus" r 30
+  goto 57.6,72.5 "Purple Lotus" r 30
+  goto 62.2,69.3 "Purple Lotus" r 30
+  goto 68.1,74.8 "Purple Lotus" r 30
   skill Herbalism 230
 
 # ---------------------------------------------------------------- Herbalism 230-260
 
-step Sungrass & Gromsblood: Blasted Lands (230-260)
-  zone Blasted Lands
-  tip Pick every Firebloom (205, yellow), Sungrass (230, orange), Gromsblood (from 250) you pass and circle the waypoints until Herbalism 260. Zone level 45-55.
-  goto 54.2,53.5 "Sungrass, Gromsblood" r 30
-  goto 61.5,52.6 "Gromsblood, Sungrass" r 30
-  goto 58.3,48.4 "Firebloom, Sungrass" r 30
-  goto 59.0,42.9 "Firebloom, Sungrass" r 30
-  goto 62.7,45.5 "Firebloom, Sungrass" r 30
-  goto 61.8,38.4 "Firebloom, Sungrass" r 30
-  goto 63.4,31.0 "Sungrass, Firebloom" r 30
-  goto 56.9,30.8 "Firebloom, Sungrass" r 30
-  goto 46.0,23.4 "Sungrass" r 30
-  goto 47.3,37.9 "Firebloom, Sungrass" r 30
-  goto 53.4,39.4 "Gromsblood, Sungrass" r 30
-  goto 45.9,50.2 "Sungrass, Firebloom" r 30
+step Purple Lotus & Sungrass: The Hinterlands (230-260)
+  zone The Hinterlands
+  tip Pick every Liferoot (150, green, rare), Fadeleaf (160, green, rare), Goldthorn (170, green), Khadgar's Whisker (185, yellow, rare), Purple Lotus (210, orange), Sungrass (230, orange), Ghost Mushroom (from 245) you pass and circle the waypoints until Herbalism 260. Ghost Mushroom grows in caves and dark hollows: look inside as well. Purple Lotus sometimes gives a Wildvine as well. Zone level 40-50. Expect about 50 herbs for these 30 points.
+  goto 56.9,42.2 "Ghost Mushroom, Purple Lotus" r 30
+  goto 63.8,47.8 "Sungrass, Khadgar's Whisker" r 30
+  goto 65.5,67.8 "Purple Lotus" r 30
+  goto 68.1,74.8 "Purple Lotus" r 30
+  goto 49.8,65.6 "Purple Lotus, Sungrass" r 30
+  goto 29.7,65.3 "Sungrass, Purple Lotus" r 30
+  goto 18.1,52.5 "Sungrass" r 30
+  goto 24.2,56.2 "Sungrass, Purple Lotus" r 30
+  goto 32.6,59.9 "Purple Lotus, Sungrass" r 30
+  goto 37.8,54.3 "Sungrass, Fadeleaf" r 30
+  goto 42.0,45.9 "Sungrass, Khadgar's Whisker" r 30
+  goto 46.6,55.1 "Sungrass, Purple Lotus" r 30
   skill Herbalism 260
 
 # ---------------------------------------------------------------- Herbalism 260-285
 
-step Dreamfoil & Mountain Silversage: Felwood (260-285)
-  zone Felwood
-  tip Pick every Arthas' Tears (220, yellow), Sungrass (230, yellow), Gromsblood (250, orange), Golden Sansam (260, orange), Dreamfoil (from 270), Mountain Silversage (from 280) you pass and circle the waypoints until Herbalism 285. Zone level 48-55.
-  goto 56.2,9.6 "Sungrass, Golden Sansam" r 30
-  goto 56.9,20.9 "Golden Sansam, Dreamfoil" r 30
-  goto 52.7,25.1 "Golden Sansam, Dreamfoil" r 30
-  goto 56.8,85.4 "Dreamfoil, Golden Sansam" r 30
-  goto 47.3,80.4 "Golden Sansam, Dreamfoil" r 30
-  goto 40.0,84.6 "Golden Sansam, Sungrass" r 30
-  goto 41.8,80.4 "Arthas' Tears, Gromsblood" r 30
-  goto 43.4,66.0 "Arthas' Tears, Dreamfoil" r 30
-  goto 38.7,59.6 "Arthas' Tears, Golden Sansam" r 30
-  goto 45.8,41.7 "Golden Sansam, Dreamfoil" r 30
-  goto 41.7,21.0 "Arthas' Tears, Gromsblood" r 30
-  goto 49.4,18.7 "Golden Sansam, Dreamfoil" r 30
+step Sungrass & Golden Sansam: The Hinterlands (260-285)
+  zone The Hinterlands
+  tip Pick every Goldthorn (170, green), Khadgar's Whisker (185, green, rare), Purple Lotus (210, green), Sungrass (230, yellow), Ghost Mushroom (245, orange), Golden Sansam (260, orange) you pass and circle the waypoints until Herbalism 285. Ghost Mushroom grows in caves and dark hollows: look inside as well. Purple Lotus sometimes gives a Wildvine as well. Zone level 40-50. Expect about 70 herbs for these 25 points.
+  goto 56.9,42.3 "Ghost Mushroom, Purple Lotus" r 30
+  goto 51.9,40.4 "Sungrass, Golden Sansam" r 30
+  goto 46.5,55.2 "Sungrass" r 30
+  goto 41.1,45.5 "Sungrass, Golden Sansam" r 30
+  goto 24.0,56.9 "Sungrass, Purple Lotus" r 30
+  goto 29.6,66.1 "Sungrass, Purple Lotus" r 30
+  goto 36.8,59.0 "Sungrass, Golden Sansam" r 30
+  goto 58.2,81.6 "Purple Lotus, Ghost Mushroom" r 30
+  goto 65.5,67.8 "Purple Lotus" r 30
+  goto 75.5,53.4 "Golden Sansam, Khadgar's Whisker" r 30
+  goto 69.3,48.6 "Golden Sansam, Sungrass" r 30
+  goto 63.8,47.3 "Sungrass, Khadgar's Whisker" r 30
   skill Herbalism 285
 
 # ---------------------------------------------------------------- Herbalism 285-300
 
-step Mountain Silversage & Plaguebloom: Felwood (285-300)
-  zone Felwood
-  tip Pick every Arthas' Tears (220, green), Sungrass (230, green), Gromsblood (250, yellow), Golden Sansam (260, yellow), Dreamfoil (270, orange), Mountain Silversage (280, orange), Plaguebloom (285, orange) you pass and circle the waypoints until Herbalism 300. Zone level 48-55.
-  goto 56.8,21.7 "Golden Sansam, Plaguebloom" r 30
-  goto 56.2,9.6 "Sungrass, Golden Sansam" r 30
-  goto 51.6,12.0 "Plaguebloom, Golden Sansam" r 30
-  goto 49.4,18.7 "Golden Sansam, Dreamfoil" r 30
-  goto 42.6,16.2 "Dreamfoil, Arthas' Tears" r 30
-  goto 40.6,38.0 "Plaguebloom, Arthas' Tears" r 30
-  goto 44.3,45.2 "Plaguebloom, Arthas' Tears" r 30
-  goto 38.7,59.2 "Arthas' Tears, Golden Sansam" r 30
-  goto 43.4,66.0 "Arthas' Tears, Dreamfoil" r 30
-  goto 37.8,68.9 "Gromsblood, Plaguebloom" r 30
-  goto 41.6,80.1 "Arthas' Tears, Gromsblood" r 30
-  goto 56.8,84.7 "Dreamfoil, Plaguebloom" r 30
+step Dreamfoil & Plaguebloom: Western Plaguelands (285-300)
+  zone Western Plaguelands
+  tip Pick every Arthas' Tears (220, green), Sungrass (230, green), Dreamfoil (270, orange), Mountain Silversage (280, orange), Plaguebloom (285, orange) you pass and circle the waypoints until Herbalism 300. Zone level 51-58. Expect about 20 herbs for these 15 points.
+  goto 37.1,55.1 "Plaguebloom, Arthas' Tears" r 30
+  goto 47.0,59.0 "Arthas' Tears, Dreamfoil" r 30
+  goto 52.5,65.4 "Plaguebloom, Sungrass" r 30
+  goto 68.9,76.8 "Plaguebloom" r 30
+  goto 66.3,55.4 "Dreamfoil, Plaguebloom" r 30
+  goto 66.6,43.8 "Plaguebloom, Dreamfoil" r 30
+  goto 62.4,57.7 "Plaguebloom, Arthas' Tears" r 30
+  goto 59.1,52.9 "Arthas' Tears, Plaguebloom" r 30
+  goto 47.9,31.3 "Plaguebloom, Mountain Silversage" r 30
+  goto 45.0,35.8 "Plaguebloom, Dreamfoil" r 30
+  goto 46.8,45.3 "Arthas' Tears, Plaguebloom" r 30
+  goto 46.4,52.9 "Plaguebloom, Sungrass" r 30
   skill Herbalism 300

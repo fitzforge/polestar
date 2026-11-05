@@ -1,0 +1,19 @@
+[package]
+name = "forge-core"
+description = "Shared types for Forge: ids, positions, map frames, race and class masks, content keys, number formatting."
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+rust-version.workspace = true
+repository.workspace = true
+homepage.workspace = true
+publish = false
+
+[dependencies]
+serde.workspace = true
+serde_json = { workspace = true, features = ["float_roundtrip"] }
+rustc-hash.workspace = true
+sha1_smol = "1"
+
+[lints]
+workspace = true

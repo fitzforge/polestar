@@ -1,5 +1,5 @@
 'use strict';
-// Polestar baseline extractor (docs/SIMULATION.md §5): compiles the project's
+// Polestar baseline extractor (docs/legacy/SIMULATION-js.md §5): compiles the project's
 // guides and turns a race's leveling routes (the default `next` chain and
 // every route choice) into normalized event sequences for the simulator.
 

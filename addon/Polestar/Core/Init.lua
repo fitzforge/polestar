@@ -31,7 +31,7 @@ function ns.DocsURL()
 end
 
 -- The Polestar Discord's invite: where players report problems (UI/Report.lua).
-ns.DiscordURL = "https://discord.gg/vMbee6F2e9"
+ns.DiscordURL = "https://discord.gg/polestar"
 -- A new issue on Polestar's GitHub: the report window fills one in (UI/Report.lua).
 ns.IssueURL = "https://github.com/fitzforge/polestar/issues/new"
 
@@ -129,6 +129,27 @@ function ns.FormatDistance(yards, opts)
 	return (decimal and L["%.1f yd"] or L["%d yd"]):format(math.floor(yards / round + 0.5) * round)
 end
 
+-- The rolling debug log: the last DEBUG_LINES lines Polestar noted (ns.Debug,
+-- caught errors, blocked calls), kept whether or not debug output is on, so
+-- a report carries what led up to a problem (UI/Report.lua). A ring: one
+-- string per line, nothing else kept.
+local DEBUG_LINES = 200
+local debugLog, debugNext, debugCount = {}, 1, 0
+function ns.Log(text)
+	debugLog[debugNext] = date("%H:%M:%S ") .. tostring(text)
+	debugNext = debugNext % DEBUG_LINES + 1
+	if debugCount < DEBUG_LINES then debugCount = debugCount + 1 end
+end
+-- The last n lines (all kept by default), oldest first.
+function ns.DebugLog(n)
+	n = math.min(n or debugCount, debugCount)
+	local out = {}
+	for i = n, 1, -1 do
+		out[#out + 1] = debugLog[(debugNext - i - 1) % DEBUG_LINES + 1]
+	end
+	return out
+end
+
 -- The errors Polestar caught this session, for the report a player copies
 -- (UI/Report.lua): each message's first line with how often it came, oldest
 -- first, the last few kept. seq, shared with the blocked calls below, says
@@ -138,6 +159,7 @@ local errors = {}
 local seq = 0
 function ns.NoteError(err)
 	local msg = tostring(err):match("^[^\n]*")
+	ns.Log("error: " .. msg)
 	seq = seq + 1
 	for i = 1, #errors do
 		if errors[i].msg == msg then
@@ -162,6 +184,7 @@ function ns.NoteBlocked(addon, fn)
 	if type(addon) ~= "string" or not (addon == ADDON or addon:find("^Polestar_")) then return end
 	fn = tostring(fn or "?")
 	local at = date("%H:%M:%S")
+	ns.Log("blocked: " .. addon .. " " .. fn)
 	seq = seq + 1
 	for i = 1, #blocked do
 		local e = blocked[i]
@@ -177,15 +200,42 @@ function ns.NoteBlocked(addon, fn)
 end
 function ns.Blocked() return blocked end
 
+-- An error passed on to the game's handler (BugGrabber, the error frame): the
+-- same message at most once every REPEAT_SECONDS, so a loop that keeps
+-- failing (an OnUpdate, a ticker) does not flood it. Every one is still noted.
+local REPEAT_SECONDS = 30
+local raisedAt = {}
+local function raise(err)
+	local msg = tostring(err):match("^[^\n]*")
+	local now = GetTime and GetTime() or 0
+	local at = raisedAt[msg]
+	if at and now - at < REPEAT_SECONDS then return end
+	raisedAt[msg] = now
+	geterrorhandler()(err)
+end
+
 -- Run a callback; report its error without stopping the caller's loop.
 local function call(fn, ...)
 	local ok, err = pcall(fn, ...)
 	if not ok then
 		ns.NoteError(err)
-		geterrorhandler()(err)
+		raise(err)
 	end
 end
 ns.SafeCall = call
+
+-- fn wrapped so its errors are caught, noted and passed on like an event
+-- handler's (nil stays nil): for OnUpdate scripts and timer callbacks, which
+-- the client would otherwise run bare.
+function ns.Safe(fn)
+	if fn == nil then return nil end
+	return function(...) call(fn, ...) end
+end
+
+-- C_Timer's After, NewTicker and NewTimer with the callback through ns.Safe.
+function ns.After(seconds, fn) return C_Timer.After(seconds, ns.Safe(fn)) end
+function ns.NewTicker(seconds, fn, n) return C_Timer.NewTicker(seconds, ns.Safe(fn), n) end
+function ns.NewTimer(seconds, fn) return C_Timer.NewTimer(seconds, ns.Safe(fn)) end
 
 -- A frame of Polestar's that goes under the game's own UI (the world map's
 -- canvas, the minimap, a quest reward or talent button): made with no parent,
@@ -465,6 +515,10 @@ function ns.CharState()
 	-- Quest id -> "do" | "skip": the player's answer at a group quest in leveling guides (`when group`; Engine.AnswerGroup).
 	if type(s.groupQuests) ~= "table" then s.groupQuests = {} end
 	if type(s.flags) ~= "table" then s.flags = {} end
+	-- Quest id -> true: the quests the player pinned as along the way (#644; Engine.PinQuest).
+	if type(s.pinnedQuests) ~= "table" then s.pinnedQuests = {} end
+	-- Guide id -> true: the leveling guides whose end the player reached (Engine.lua, Own.noteEnd), told once.
+	if type(s.guideEnds) ~= "table" then s.guideEnds = {} end
 	return s
 end
 
@@ -533,7 +587,13 @@ function ns.Print(...)
 end
 
 ns.debug = false
+-- A debug line: always into the rolling log (ns.Log), to chat while
+-- /polestar debug is on.
 function ns.Debug(...)
+	local n = select("#", ...)
+	local parts = {}
+	for i = 1, n do parts[i] = tostring((select(i, ...))) end
+	ns.Log(table.concat(parts, " "))
 	if ns.debug then ns.Print("|cff8a8f98[debug]|r", ...) end
 end
 

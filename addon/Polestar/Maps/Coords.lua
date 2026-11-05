@@ -44,12 +44,12 @@ local function build()
 	frame.Text:SetPoint("CENTER", frame, "CENTER", 0, 0)
 	frame.Text:SetJustifyH("CENTER")
 	if T and T.SetOutline then T.SetOutline(frame.Text, true) end
-	frame:SetScript("OnUpdate", function(_, dt)
+	frame:SetScript("OnUpdate", ns.Safe(function(_, dt)
 		acc = acc + dt
 		if acc < TICK then return end
 		acc = 0
 		update(false)
-	end)
+	end))
 	frame:Hide()
 	return frame
 end

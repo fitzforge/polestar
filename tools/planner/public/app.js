@@ -14,6 +14,8 @@ import { transport, SPEEDS } from './ui/transport.js';
 import { openLibrary, closeLibrary, characterFor, guideAudience } from './ui/library.js';
 import { changesDrawer } from './ui/changes.js';
 import { mapController } from './ui/mapctl.js';
+import { hubViewPanel } from './ui/hubview.js';
+import { reviewMode } from './ui/review.js';
 import { registerWebMcp } from './ui/webmcp.js';
 import { toast } from './ui/toasts.js';
 import * as edits from './ui/edits.js';
@@ -29,6 +31,7 @@ const LAYERS = [
 	['roads', 'Roads'],
 	['hubs', 'Hubs'],
 	['aids', 'Arrow aids'],
+	['quests', 'Quest marks'],
 ];
 // Layers offered only when the planner has their data: the navigation grid, the roads and hubs layers, the arrow aids.
 const layerOffered = ([k]) => (k === 'walkable' ? !!(S.info.nav && S.info.nav.available) : k === 'roads' ? !!S.roads : k === 'hubs' ? !!S.hubs : k === 'aids' ? !!S.aids : true);
@@ -43,6 +46,8 @@ const EXTENTS = [
 
 let map = null;          // MapView, null when WebGL2 or the art is unavailable
 let mc = null;           // map controller
+let hv = null;           // the Quest marks layer's panel (ui/hubview.js)
+let rv = null;           // review mode (ui/review.js)
 let bar, list, panel, editor, tp, drawer;
 let editTarget = null;   // { id, index }: the GuideView step the editor shows
 let tlSeq = 0;
@@ -80,10 +85,21 @@ async function main() {
 	S.follow = prefs.follow !== false;
 	if (prefs.layers) S.layers = { ...S.layers, ...prefs.layers };
 	if (EXTENTS.some(([k]) => k === prefs.extent)) S.extent = prefs.extent;
+	if (prefs.hubLoop === false) S.hubLoop = false;
+	const link = applyLink();
 
 	buildUi();
 	await initMap();
 	$('#boot').remove();
+	rv = reviewMode({
+		map,
+		layers: LAYERS.map(([k]) => k),
+		onAdvanced(i) {
+			selectStep(i, { seek: true, fit: true, force: true });
+			if (mc) mc.setStep(i, true);
+			if (hv) hv.refresh(true);
+		},
+	});
 
 	let greeted = false;
 	events({
@@ -119,11 +135,33 @@ async function main() {
 	registerWebMcp(cmds);
 	drawer.refresh();
 	await loadTimeline({ keep: false });
+	if (link.review && S.timeline) await rv.enter(link.visit);
+	else if (link.step != null && S.timeline) selectStep(link.step, { seek: true, fit: true, force: true });
 	requestAnimationFrame(tick);
 }
 
 function nearestSpeed(s) {
 	return SPEEDS.reduce((a, b) => (Math.abs(b - s) < Math.abs(a - s) ? b : a), SPEEDS[0]);
+}
+
+// A link to a place in a route: ?start=<guide id>&race=<race file>&cls=<CLASS>&step=<n, as the
+// steps list numbers them>&marks=1 (the Quest marks layer on); review=1 opens review mode at
+// visit=<n> (its screens numbered from 1). -> { step (0-based) | null, review, visit }
+function applyLink() {
+	const q = new URLSearchParams(location.search);
+	const start = q.get('start');
+	if (start && S.guideById.has(start)) S.start = start;
+	const race = q.get('race') === 'Undead' ? 'Scourge' : q.get('race') || null;
+	const cls = q.get('cls') ? q.get('cls').toUpperCase() : null;
+	if (race || cls) {
+		const want = { race: race || S.character.race, cls: cls || S.character.cls };
+		const o = raceOptions().find((x) => x.race === want.race && x.classes.includes(want.cls) && (!q.get('faction') || x.faction === q.get('faction')));
+		if (o) S.character = { race: want.race, cls: want.cls, faction: o.faction };
+	}
+	if (q.get('marks') === '1') S.layers.quests = true;
+	const n = Number(q.get('step'));
+	const visit = Number(q.get('visit'));
+	return { step: Number.isInteger(n) && n >= 1 ? n - 1 : null, review: q.get('review') === '1', visit: Number.isInteger(visit) && visit >= 1 ? visit : null };
 }
 
 // ---------------------------------------------------------------- layout
@@ -228,6 +266,7 @@ function buildMapChrome() {
 			b.setAttribute('aria-checked', String(S.layers[k]));
 			if (map) map.setLayer(k, S.layers[k]);
 			if (k === 'aids') showOpenBorders();
+			if (k === 'quests' && hv) hv.refresh(true);
 			savePrefs();
 		}));
 		const radios = EXTENTS.map(([k, label]) => row(label, S.extent === k, (b) => {
@@ -243,7 +282,8 @@ function buildMapChrome() {
 	});
 	const add = h('button.btn#add-waypoint', { title: 'Click the map to add a goto to this step', hidden: true }, glyph('pin-add'), 'Add waypoint');
 	add.addEventListener('click', () => setAdding(!S.adding));
-	head.append(dropdown(sel, 'quiet'), follow, layersBtn, h('span.spacer'), add);
+	const review = h('button.btn.ghost', { title: 'Review mode: the route one town visit at a time, with notes', onclick: () => rv && rv.enter(null) }, glyph('eye'), 'Review');
+	head.append(dropdown(sel, 'quiet'), follow, layersBtn, review, h('span.spacer'), add);
 
 	const wrap = $('#map-wrap');
 	wrap.append(
@@ -336,7 +376,7 @@ async function initMap() {
 	const canvas = $('#map');
 	try {
 		// Labels keep clear of the controls floating over the map.
-		const reserved = () => [...document.querySelectorAll('.map-head > *, .map-zoom, .map-legend, .map-banner, .map-note')]
+		const reserved = () => [...document.querySelectorAll('.map-head > *, .map-zoom, .map-legend, .map-banner, .map-note, .hv-panel')]
 			.filter((el) => !el.hidden && el.offsetParent).map((el) => el.getBoundingClientRect());
 		map = new MapView(canvas, { artBase: '/art', reserved });
 		await map.init();
@@ -349,6 +389,8 @@ async function initMap() {
 	if (!S.info.art || !S.info.art.available) showMapNote('No map art yet: run node tools/polestar.js planner art. The route still draws on the grid.', 'warn');
 	for (const [k] of LAYERS) map.setLayer(k, !!S.layers[k]);
 	mc = mapController(map);
+	hv = hubViewPanel($('#map-wrap'), { map, selectStep: (i) => selectStep(i, { seek: true, fit: true, force: true }) });
+	map.on('mark', (d) => hv.pick(d.mark));
 	loadNav();
 	map.on('view', (v) => {
 		const sel = $('#map-select');
@@ -436,6 +478,7 @@ async function loadTimeline({ keep }) {
 	S.step = -1;
 	selectStep(i, { seek: !keep || !stepHolds(i, S.t), fit: !keep, reveal: true, force: true });
 	bar.update();
+	if (rv) rv.reload();
 }
 
 function setStart(id) {
@@ -465,6 +508,11 @@ function selectStep(i, { seek: doSeek = false, fit = false, reveal = true, force
 	const tl = S.timeline;
 	if (!tl || !tl.steps.length) return;
 	i = Math.max(0, Math.min(tl.steps.length - 1, i));
+	// review mode draws its own screen (ui/review.js); "Advanced" selects again
+	if (S.review) {
+		S.step = i;
+		return;
+	}
 	const prev = S.step;
 	S.step = i;
 	if (doSeek) S.t = tl.steps[i].start;
@@ -488,6 +536,7 @@ function selectStep(i, { seek: doSeek = false, fit = false, reveal = true, force
 	}
 	bar.update();
 	sendView();
+	if (hv) hv.refresh();
 }
 
 function seek(t, { fit = false } = {}) {
@@ -526,7 +575,7 @@ function tick(now) {
 	const dt = last ? Math.min(0.25, (now - last) / 1000) : 0;
 	last = now;
 	const tl = S.timeline;
-	if (tl) {
+	if (tl && !S.review) {
 		if (S.playing) {
 			S.t += dt * S.speed;
 			if (S.t >= tl.totals.seconds) {

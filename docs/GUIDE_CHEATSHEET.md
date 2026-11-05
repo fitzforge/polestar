@@ -1,7 +1,7 @@
 # Guide format on one page
 
 Every line a `.guide` file can hold, with what it does and a short example.
-The full rules, the checks `polestar lint` runs and worked examples are in
+The full rules, the checks `forge guide lint` runs and worked examples are in
 [GUIDE_FORMAT.md](GUIDE_FORMAT.md); packs are in [PACKS.md](PACKS.md).
 `polestar find <text>` looks up the ids the examples use.
 
@@ -68,6 +68,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `sethome "<Location>"` | Bind the hearthstone at an inn, named as the game reports it | `sethome "Goldshire"` |
 | `sethome nearest` | Bind at the nearest inn of the player's faction | `sethome nearest` |
 | `hearth "<Location>"` | Use the hearthstone; done on landing there | `hearth "Goldshire"` |
+| `die "<Graveyard>" @x,y` | Deathskip: die and take the resurrection at that graveyard's Spirit Healer; done back alive there | `die "Sen'jin Village" @57.2,73.3` |
 | `getfp "<Flight point>"` | Learn a flight path from its flight master | `getfp "Stormwind"` |
 | `fly "<Town>"` | Take a flight; done on landing there | `fly "Stormwind"` |
 | `enter "<Place>"` | Be in that zone or area (the zone or subzone text); `@x,y` points the arrow (needs Polestar 0.3.0) | `enter "Goldshire"` |
@@ -111,9 +112,11 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `train class` | Visit the nearest trainer of the player's class | `train class only Warrior,Mage` |
 | `train <npc>` | Visit that trainer | `train 911 only Warrior,Paladin` |
 | `vendor nearest` / `vendor <npc>` | Sell and repair, at the closest vendor or that one | `vendor nearest` |
+| `gossip <id>` | On `talk`, `vendor` and `train`: the gossip option (the client's `gossipOptionID`) Polestar picks at that NPC on this step | `talk 197 gossip 1` |
 | `buy <item> ["Name"]` | Buy an item; `nearest` picks the closest vendor selling it | `buy 159 x5 nearest` |
 | `money <amount>` | Hold that much money (`1g50s`, `7s`, `25c` or copper); stays done for the rest of the step (needs Polestar 0.3.0) | `money 1s` |
 | `destroy <item> ["Name"]` | Delete an item from the bags; done once the bags hold none (needs Polestar 0.3.0) | `destroy 6948 "Hearthstone"` |
+| `wait <seconds> ["text"]` | A countdown that starts once the goals before it in the step are done: a boat, an event or a speech to sit through (needs Polestar 0.3.0) | `wait 30 "the boat docks"` |
 | `task "<text>"` | Something Polestar cannot see: the player ticks it, and it holds the step until then unless `optional` (needs Polestar 0.3.0) | `task "Tame a Venomtail Scorpid"` |
 
 ## Professions
@@ -171,6 +174,7 @@ the outcome stays.
 | `when done <label>` | the labelled step of this guide was completed, not skipped or jumped over; not on a `next` line (needs Polestar 0.3.0) | `when done camp` |
 | `when skill <Profession> <N>` | the profession's rank is N or more; not learned counts as 0 (needs Polestar 0.3.0) | `when !skill Cooking 50` |
 | `when cooldown item <item>` / `when cooldown spell <spell>` | the item or spell is on cooldown, the global cooldown aside (needs Polestar 0.3.0) | `when !cooldown item 6948` |
+| `when knows <spell>` | the character knows the spell (spellbook or recipe; needs Polestar 0.3.0) | `when !knows 100` |
 | `when group <quest>` | the player chose to do that group quest; unanswered, the route waits and asks "Skip it" or "Do it with a group"; `!group` is the solo way; not on `next` or `skipto` (needs Polestar 0.3.0) | `when group 7` |
 
 ## Route choices and optional steps

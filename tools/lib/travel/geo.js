@@ -18,6 +18,14 @@ class Frames {
 		for (const [id, b] of Object.entries(frames || {})) this.frames.set(Number(id), b);
 	}
 
+	// These frames and, for a map with no frame here, its frame in `forever`
+	// (map-frames.json `forever`: the maps Forever added, the Riverglades).
+	withForever(forever) {
+		const all = Object.fromEntries(this.frames);
+		for (const [id, b] of Object.entries(forever || {})) if (!this.frames.has(Number(id))) all[id] = b;
+		return new Frames(all, this.zones);
+	}
+
 	frame(map) {
 		return this.frames.get(Number(map)) || null;
 	}

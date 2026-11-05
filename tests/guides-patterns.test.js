@@ -8,7 +8,7 @@
 // and back (#310). tests/guides-reported.test.js pins each report itself.
 // Every test names all its offenders as guide:line.
 //
-// Needs data/forever (node tools/polestar.js data build); skips without it.
+// Needs data/forever (forge data build); skips without it.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -68,9 +68,11 @@ const located = (p) => p && p.map != null && p.x != null && p.y != null;
 // continent, wx north, wy west.
 const STARTS = [
 	{ guide: 'forever/alliance/human/01-elwynn-forest', races: [['Human', 'Alliance']], spawn: { c: 0, wx: -8949.95, wy: -132.493 } },
-	{ guide: 'forever/alliance/dwarf-gnome/01-dun-morogh', races: [['Dwarf', 'Alliance'], ['Gnome', 'Alliance']], spawn: { c: 0, wx: -6240.32, wy: 331.033 } },
+	{ guide: 'forever/alliance/dwarf/01-dun-morogh', races: [['Dwarf', 'Alliance']], spawn: { c: 0, wx: -6240.32, wy: 331.033 } },
+	{ guide: 'forever/alliance/gnome/01-dun-morogh', races: [['Gnome', 'Alliance']], spawn: { c: 0, wx: -6240.32, wy: 331.033 } },
 	{ guide: 'forever/alliance/nightelf/01-teldrassil', races: [['NightElf', 'Alliance']], spawn: { c: 1, wx: 10311.3, wy: 832.463 } },
-	{ guide: 'forever/horde/orc-troll/01-durotar', races: [['Orc', 'Horde'], ['Troll', 'Horde']], spawn: { c: 1, wx: -618.518, wy: -4251.67 } },
+	{ guide: 'forever/horde/orc/01-durotar', races: [['Orc', 'Horde']], spawn: { c: 1, wx: -618.518, wy: -4251.67 } },
+	{ guide: 'forever/horde/troll/01-durotar', races: [['Troll', 'Horde']], spawn: { c: 1, wx: -618.518, wy: -4251.67 } },
 	{ guide: 'forever/horde/tauren/01-mulgore', races: [['Tauren', 'Horde']], spawn: { c: 1, wx: -2917.58, wy: -257.98 } },
 	{ guide: 'forever/horde/undead/01-tirisfal-glades', races: [['Scourge', 'Horde']], spawn: { c: 0, wx: 1676.35, wy: 1677.45 } },
 ];
@@ -341,6 +343,11 @@ test('a turn-in that needs an item only vendors sell has a buy for it, in its gu
 // Givers this close stand together: walking between them is no detour.
 const FOLLOW_UP_YARDS = 30;
 
+// Follow-ups that cannot be taken at once, each with why: the walk in between is the wait.
+const FOLLOW_UP_WAITS = {
+	114: 'The Escape: William Pestle brews it after Collecting Kelp; Marshal Dughan is handed in meanwhile (#613)',
+};
+
 test('a follow-up is taken right after its prerequisite is handed in to the same giver, not after a walk to someone else and back', { skip }, () => {
 	const { guides, data } = officialGuides();
 	// Every race, side and class the game has, to tell whether two goals are
@@ -352,9 +359,12 @@ test('a follow-up is taken right after its prerequisite is handed in to the same
 		for (const step of guide.steps) {
 			const people = step.goals.filter((g) => (g.t === 'accept' || g.t === 'turnin') && g.npc);
 			people.forEach((take, j) => {
-				if (take.t !== 'accept' || !located(take)) return;
+				if (take.t !== 'accept' || !located(take) || FOLLOW_UP_WAITS[take.quest]) return;
 				const handed = people.slice(0, j).findIndex((g) => g.t === 'turnin' && g.npc === take.npc && (take.pre || []).includes(g.quest));
 				if (handed < 0) return;
+				// A `level` goal between them: the follow-up needs a level the turn-ins in between bring.
+				const from = step.goals.indexOf(people[handed]);
+				if (step.goals.slice(from + 1, step.goals.indexOf(take)).some((g) => g.t === 'level')) return;
 				const doers = characters.filter((c) => admits(step.only, c) && admits(take.only, c) && admits(people[handed].only, c));
 				const away = people.slice(handed + 1, j).filter((g) => g.npc !== take.npc && located(g) && yards(data, take, g) > FOLLOW_UP_YARDS && doers.some((c) => admits(g.only, c)));
 				if (!away.length) return;

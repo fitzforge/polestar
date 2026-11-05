@@ -30,7 +30,7 @@
 // are rejected (see `rejected`), not converted: they were never Classic EP.
 //
 // Spell power: a wowsims StatSpellPower item raises damage and healing, which
-// Polestar items carry as both `sp` and `heal` (consume/foreverlevelingbis.js),
+// Polestar items carry as both `sp` and `heal` (the ForeverLevelingBiS reader, rust/crates/forge-data/src/gear/flb.rs),
 // so its weight lands on `heal` for healers and on `sp` for everyone else;
 // StatHealingPower is `heal`. StatSpellDamage (damage-only, a SoD item stat)
 // is not mapped.

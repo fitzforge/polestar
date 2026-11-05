@@ -5,8 +5,6 @@
 //
 //   qol-toggles  options page: two switches
 //   qol-target   target button: crosshair
-//   qol-spirit   Spirit Healer pin: an ankh
-//   qol-corpse   corpse pin: a headstone
 //   qol-upgrade  quest reward badge: an upgrade, a bold up arrow with a dark rim
 //   qol-coin     quest reward badge: sells for most, a coin with a dark rim
 //   qol-ring     alert, toast and dungeon marker: a ring with four ticks
@@ -28,7 +26,7 @@ const dot = (cx, cy, r) => sdf.circle(g(cx), g(cy), g(r));
 const ring = (cx, cy, r, w = STROKE) => sdf.ring(g(cx), g(cy), g(r), g(w));
 const box = (cx, cy, hw, hh, r = 0) => sdf.box(g(cx), g(cy), g(hw), g(hh), g(r));
 const poly = (pts) => sdf.polygon(pts.map(([x, y]) => [g(x), g(y)]));
-const { union, subtract, intersect } = sdf;
+const { union, subtract } = sdf;
 
 // An up arrow: the head and a short stem, corners eased so it reads at 18 px.
 function arrow() {
@@ -64,15 +62,6 @@ const GLYPHS = {
 		line(2.2, 12, 7.4, 12),
 		line(16.6, 12, 21.8, 12),
 		dot(12, 12, 1.5),
-	),
-	'qol-spirit': union(
-		ring(12, 7.2, 3.6, 2.4),
-		line(12, 11, 12, 21.5, 2.6),
-		line(6, 12.6, 18, 12.6, 2.6),
-	),
-	'qol-corpse': subtract(
-		union(intersect(dot(12, 9.5, 7), box(12, 6, 7, 6)), box(12, 15, 7, 6)),
-		union(line(12, 7, 12, 15, 1.8), line(9, 10, 15, 10, 1.8)),
 	),
 	'qol-ring': union(
 		ring(12, 12, 7.5, 2.4),

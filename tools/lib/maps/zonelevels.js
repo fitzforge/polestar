@@ -153,7 +153,7 @@ function emitLua(levels) {
 }
 
 function readJson(file) {
-	if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: node tools/polestar.js data build)`);
+	if (!fs.existsSync(file)) throw new Error(`missing ${file} (run: forge data build)`);
 	return JSON.parse(fs.readFileSync(file, 'utf8'));
 }
 

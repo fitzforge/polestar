@@ -1,0 +1,70 @@
+guide forever/reputation/bloodsail-buccaneers
+title Bloodsail Buccaneers Reputation
+category Reputation
+folder Reputation · World
+levels 55-60
+zone Stranglethorn Vale
+keywords Bloodsail Buccaneers, pirates, Booty Bay, Booty Bay Bruiser, Fleet Master Firallon, Crimson Veil, Pretty Boy Duncan, Dressing the Part, Avast Ye Scallywag, Avast Ye Admiral, Bloodsail Admiral's Hat, Buccaneer's Uniform, Bloodsail Shirt, Baron Revilgaz, Fleet Master Seahorn, Steamwheedle Cartel, at war
+why The pirate outfit and the Admiral's Hat, bought with a war against Booty Bay and every goblin town.
+reward item 12185
+reward item 22746
+next forever/reputation/steamwheedle-cartel
+
+# Built from Forever's data: the Bloodsail starting standing in Forever's client faction table (Hated, -6,500:
+# 500 short of Hostile), the kill reputation rows (Booty Bay Bruiser +25 Bloodsail up to the end of Honored and
+# -125 Booty Bay; Booty Bay Elite +25; every other Booty Bay goblin +5, Jazzrik up to the end of Revered;
+# Bloodsail pirates -25, their captains -125), the quest rows that cost Bloodsail (every Booty Bay quest takes
+# five times its Booty Bay reward: An OOX of Your Own, Stranglethorn Fever and Facing Negolash -1,000 each), the
+# three Bloodsail quests with Forever's values and requirements (Dressing the Part 9272: Bloodsail Neutral, +10,
+# -500 Booty Bay, the Buccaneer's Uniform; Avast Ye, Scallywag 1036: level 55, Booty Bay below Neutral, done at
+# Bloodsail Friendly and Booty Bay Hated, +25; Avast Ye, Admiral! 4621: same standings, +200, -1,000 Booty Bay,
+# the Bloodsail Admiral's Hat), and Forever's quest change log, which takes the town reputation off the four
+# goblin "amends" quests (9259, 9266, 9267, 9268). Counts: from a fresh -6,500, Neutral is 260 Bruisers and
+# Friendly 380; from the bottom of Hated (-42,000, near where a player who did Booty Bay's quests starts) 1,680 and
+# 1,800. Each Bruiser costs Booty Bay 125 and the other goblin towns half that (Classic spillover, the same rows
+# in Forever's client): after 380 Bruisers every goblin town is Hated. Exalted is out of reach: no kill counts
+# past the end of Revered.
+# Kill-count spot, the guard spawns and the New Year trick are Classic players' practice.
+# INGAME: Do Traitor to the Bloodsail, Mending Old Wounds, War at Sea and Making Amends pay any town reputation
+# in Forever (the change log says no)?
+
+step Before you start
+  tip Bloodsail standing goes up only by killing the people of Booty Bay, and every kill costs you Booty Bay 125 and the other goblin towns (Gadgetzan, Ratchet, Everlook, and in Forever likely Powderfuse) about 62 each. After the Bruisers this guide asks for, every goblin town is Hated: their guards attack you, and you lose their flight masters, inns, vendors and Gadgetzan's and Everlook's auction houses. Getting back takes longer than getting here (last step). Fly in, bind elsewhere, and do your goblin-town business first. The outfit and the hat need only Friendly; past that Bloodsail has nothing to give. Booty Bay's guards are not your enemies yet: tick At War for Booty Bay in your reputation panel, then attack.
+  goto 27.0,77.1 "Booty Bay"
+
+step Booty Bay Bruisers to Neutral
+  tip Look at your Bloodsail bar first. A new character starts Hated, 500 short of Hostile: 260 Bruisers to Neutral, at 25 each. But every Booty Bay quest you did while leveling took five times its Booty Bay reward off Bloodsail (An OOX of Your Own, Stranglethorn Fever and Facing Negolash 1,000 each), and every Bloodsail pirate you killed 25 more: after Booty Bay's quests you sit near the bottom of Hated, up to 1,680 Bruisers from Neutral. Divide what the bar still lacks to Hostile, plus 6,000, by 25. Bruisers (level 57) hit hard, net you and knock you back, and new ones come when a goblin calls for help. Fight on the path that turns left from the tunnel up to the blacksmith's house: two Bruisers patrol it and rarely meet. Once they are down, step into the house (or hit one of the goblins inside) and a fresh Bruiser comes running. Players manage 30 to 40 an hour. Booty Bay is Hated after about 53 Bruisers from a fresh Neutral 500. At the New Year celebration the town's goblins are drunk and do not fight back. The Blackwater crew at Faldir's Cove in the Arathi Highlands (level 37-40) are easier but pay only 5 each. Do not kill Bloodsail pirates: each costs 25.
+  goto 29.0,75.6 "the path to the smithy"
+  kill 4624 optional                  -- Booty Bay Bruiser: +25
+  rep 87 Neutral
+
+step Dressing the Part
+  tip At Neutral the Bloodsail crew stop attacking you. Fleet Master Firallon is aboard the Crimson Veil, the pirate ship anchored south of Booty Bay, on its middle deck. Swim out; take the quest and hand it in on the spot for the Buccaneer's Uniform: the Bloodsail Shirt, Sash, Pants and Boots.
+  accept 9272
+  turnin 9272 reward 22746            -- Fleet Master Firallon: the Buccaneer's Uniform
+
+step Bruisers to Friendly
+  tip Neutral to Friendly is 3,000 more: 120 Bruisers. Friendly is the last standing that unlocks anything.
+  goto 29.0,75.6 "the path to the smithy"
+  kill 4624 optional                  -- Booty Bay Bruiser: +25
+  rep 87 Friendly
+
+step Avast Ye, Scallywag
+  tip "Pretty Boy" Duncan, a Bloodsail pirate, stands on the beach north of Booty Bay. Booty Bay players kill him for a quest: if he is not there, wait for him. He has a quest for you from level 55, while Booty Bay is below Neutral; it is done once you are Friendly with the Bloodsail and Hated with Booty Bay.
+  accept 1036                         -- "Pretty Boy" Duncan
+  turnin 1036                         -- Fleet Master Firallon, on the Crimson Veil: 25
+  accept 4621
+
+step Avast Ye, Admiral!
+  tip Baron Revilgaz and Fleet Master Seahorn stand on the top floor of the Booty Bay inn, out on the balcony. Both are level 60 and Bruisers come to their aid: clear the stairs first and pull them one at a time. They come back, so a friend can kill them too.
+  kill 2496 quest 4621.1              -- Baron Revilgaz
+  kill 2487 quest 4621.2              -- Fleet Master Seahorn
+
+step The Admiral's Hat
+  tip Back to Firallon for the Bloodsail Admiral's Hat (in Classic its use calls a parrot to your shoulder): 200 more Bloodsail and 1,000 less Booty Bay. Bruisers pay 25 only up to the end of Honored and Jazzrik, a lone goblin in the Badlands, 5 up to the end of Revered; no quest is left, so Exalted cannot be reached.
+  turnin 4621 reward 12185            -- Fleet Master Firallon: Bloodsail Admiral's Hat
+
+step The way back
+  tip Every goblin town is now Hated. Forever's quest data takes the town reputation off the four goblin amends quests outside Ratchet, Booty Bay, Gadgetzan and Everlook, so the climb back is the Cartel's own: Zorbin Fandazzle in Feralas serves everyone, and his Zapped Giants quests pay 25 to every town at once; Bloodsail pirates give Booty Bay 5 each up to the end of Neutral (and cost Bloodsail 25); Southsea pirates and the Venture Co. in Stranglethorn give the towns 5 each. The Steamwheedle Cartel guide has the details. Expect it to take longer than the war did.
+  zone Feralas
+  talk 14637 optional                 -- Zorbin Fandazzle: Zapped Giants, open to the Hated

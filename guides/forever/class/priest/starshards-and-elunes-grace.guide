@@ -7,34 +7,168 @@ faction Alliance
 race NightElf
 levels 10-20
 zone Darnassus
-keywords Starshards, Stars of Elune, Elune's Grace, Priestess Alathea, Temple of the Moon, Night Elf, racial, Priest
+keywords Starshards, Stars of Elune, Returning Home, Elune's Grace, Priestess Alathea, Laurna Morninglight, Brother Joshua, Nara Meideros, Braenna Flintcrag, Temple of the Moon, Night Elf, racial, Priest
 reward spell 10797 "Starshards"
 reward spell 2651 "Elune's Grace"
-why The Night Elf priest spells: Starshards at 10, Elune's Grace at 20.
+why The Night Elf priest spells: Starshards at 10, Elune's Grace at 20. Free, no objectives.
 
-# The Night Elf Priest spell quests: Stars of Elune at 10 (5627, Starshards)
-# and Elune's Grace at 20 (5672), both from Priestess Alathea in the Temple
-# of the Moon in Darnassus.
-# Sources: quests.json and npcs.json for the givers; Wowhead Forever's
-# Priest class page (data/local/quest-audit/wowhead-class-quests.json:
-# both unchanged; Elune's Grace 5674 now also starts at Nara Meideros);
-# classicwowforever.com/racials and wowclassicforever.info/classes/priest
-# for the spells (Starshards and Elune's Grace stay Night Elf spells).
-# alliance/nightelf/01-teldrassil carries Starshards on the route (5629,
-# Returning Home, from Laurna Morninglight in Dolanaar) and
-# alliance/04-redridge-mountains and 06-ashenvale carry Elune's Grace (5673,
-# from High Priestess Laurena); this guide repeats them for anyone off the
-# route. The game offers one quest of each set.
-# Not checked in game: written from the sources above.
+# The Night Elf Priest spell quests. Each spell has one quest at the teacher,
+# Priestess Alathea (upper balcony of the Temple of the Moon, beside Tyrande
+# Whisperwind, Darnassus: npcs.json and a Darnassus trainer guide agree), and
+# letters from priest trainers in other towns; any one teaches the spell and
+# the game offers only one of a set:
+#   Starshards (level 10):
+#     5627 Stars of Elune, Priestess Alathea (Darnassus), her own quest
+#     5628 Returning Home, Priestess Josetta (Goldshire, Elwynn Forest)
+#     5629 Returning Home, Laurna Morninglight (Dolanaar, Teldrassil)
+#     5630 Returning Home, Maxan Anvol (Kharanos, Dun Morogh)
+#     5631 Returning Home, Brother Joshua (Cathedral of Light, Stormwind)
+#     5632 Returning Home, Nara Meideros (the Park, Stormwind)
+#     5633 Returning Home, Braenna Flintcrag (Hall of Mysteries, Ironforge)
+#   Elune's Grace (level 20):
+#     5672 Priestess Alathea (Darnassus), her own quest
+#     5673 High Priestess Laurena (Cathedral of Light, Stormwind)
+#     5674 Nara Meideros (the Park, Stormwind)
+#     5675 High Priest Rohan (Hall of Mysteries, Ironforge)
+# The guide sends you to the giver in the zone you stand in when it gets
+# there (`when zone`; one per zone), else straight to Alathea; a letter you
+# carry from anywhere is handed in on its own step (`when onquest`). Pickups
+# are `talk` goals, not accepts: one guide accepting two quests of one
+# exclusive set warns in lint, which does not follow `when`.
+# Sources: quests.json and npcs.json for the givers (corrections: 5631
+# Brother Joshua, 5633 Braenna Flintcrag, 5674 Nara Meideros); Forever's
+# quest pages (snapshot) agree on every giver; Forever's Priest class quest
+# list (data/local/quest-audit/): all unchanged; Starshards and Elune's
+# Grace stay Night Elf spells (Elune's Grace reworked: half the chance to be
+# hit by melee and ranged attacks for 15 sec or 3 misses).
+# Nara Meideros stands in the Park, Stormwind's night elf quarter (npcs.json
+# 35.7,63.2 on the live map, about 20.7,50.1 on the classic one).
+# alliance/nightelf/01-teldrassil carries Returning Home (5629) on the route;
+# alliance/04-redridge-mountains and 06-ashenvale carry Elune's Grace 5673.
+# Based on data, not play: written from the sources above.
 
-step Stars of Elune
-  tip At 10, go to Priestess Alathea in the Temple of the Moon. Priest trainers elsewhere (Laurna Morninglight in Dolanaar, Priestess Josetta in Goldshire, Maxan Anvol in Kharanos) send you to her with Returning Home.
+step Starshards: Laurna Morninglight
+  when zone "Teldrassil"
+  when !onquest 5627,5628,5629,5630,5631,5632,5633
+  zone Teldrassil
+  tip At 10, Laurna Morninglight, the priest trainer in the building at the north edge of Dolanaar, hands you Returning Home, a letter for Priestess Alathea in Darnassus. Dolanaar is on the road west to Darnassus.
+  level 10
+  talk 3600                                   -- Laurna Morninglight: take Returning Home
+
+step Starshards: Priestess Josetta
+  when zone "Elwynn Forest"
+  when !onquest 5627,5628,5629,5630,5631,5632,5633
+  zone Elwynn Forest
+  tip At 10 in Elwynn Forest, Priestess Josetta, upstairs in the Lion's Pride Inn in Goldshire, hands you Returning Home, a letter for Priestess Alathea in Darnassus.
+  level 10
+  talk 377                                    -- Priestess Josetta: take Returning Home
+
+step Starshards: Maxan Anvol
+  when zone "Dun Morogh"
+  when !onquest 5627,5628,5629,5630,5631,5632,5633
+  zone Dun Morogh
+  tip At 10 in Dun Morogh, Maxan Anvol, the priest trainer inside the Thunderbrew Distillery in Kharanos, hands you Returning Home, a letter for Priestess Alathea in Darnassus.
+  level 10
+  talk 1226                                   -- Maxan Anvol: take Returning Home
+
+step Starshards: Brother Joshua
+  when zone "Stormwind City"
+  when !onquest 5627,5628,5629,5630,5631,5632,5633
+  zone Stormwind City
+  tip At 10 in Stormwind, Brother Joshua at the altar of the Cathedral of Light hands you Returning Home, a letter for Priestess Alathea in Darnassus. Nara Meideros in the Park has the same letter.
+  level 10
+  talk 5489                                   -- Brother Joshua: take Returning Home
+
+step Starshards: Braenna Flintcrag
+  when zone "Ironforge"
+  when !onquest 5627,5628,5629,5630,5631,5632,5633
+  zone Ironforge
+  tip At 10 in Ironforge, Braenna Flintcrag in the Hall of Mysteries (Mystic Ward) hands you Returning Home, a letter for Priestess Alathea in Darnassus.
+  level 10
+  talk 5142                                   -- Braenna Flintcrag: take Returning Home
+
+step Starshards: Priestess Alathea
+  when !onquest 5627,5628,5629,5630,5631,5632,5633
+  zone Darnassus
+  tip At 10, go to Priestess Alathea on the upper balcony of the Temple of the Moon, at the south end of Darnassus: take the ramp up from the temple floor; she stands beside Tyrande Whisperwind. Stars of Elune is given and taken back at once and teaches Starshards. No letter needed. Forever made Starshards hit much harder, on a 30-second cooldown.
   level 10
   accept 5627                                 -- Priestess Alathea
   turnin 5627                                 -- Priestess Alathea: Starshards
 
-step Elune's Grace
-  tip At 20, Priestess Alathea teaches Elune's Grace. High Priestess Laurena in Stormwind and High Priest Rohan in Ironforge send you to her with a quest of the same name.
+step Starshards: Laurna's letter
+  when onquest 5629
+  zone Darnassus
+  tip Take the road west from Dolanaar into Darnassus and go up to the upper balcony of the Temple of the Moon, beside Tyrande Whisperwind: Priestess Alathea takes Returning Home and teaches Starshards.
+  turnin 5629                                 -- Priestess Alathea: Starshards
+
+step Starshards: Josetta's letter
+  when onquest 5628
+  zone Darnassus
+  tip Returning Home goes to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: take the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5628                                 -- Priestess Alathea: Starshards
+
+step Starshards: Maxan's letter
+  when onquest 5630
+  zone Darnassus
+  tip Returning Home goes to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: take the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5630                                 -- Priestess Alathea: Starshards
+
+step Starshards: Joshua's letter
+  when onquest 5631
+  zone Darnassus
+  tip Returning Home goes to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: take the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5631                                 -- Priestess Alathea: Starshards
+
+step Starshards: Nara's letter
+  when onquest 5632
+  zone Darnassus
+  tip Returning Home goes to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: take the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5632                                 -- Priestess Alathea: Starshards
+
+step Starshards: Braenna's letter
+  when onquest 5633
+  zone Darnassus
+  tip Returning Home goes to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: take the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5633                                 -- Priestess Alathea: Starshards
+
+step Elune's Grace: High Priestess Laurena
+  when zone "Stormwind City"
+  when !onquest 5672,5673,5674,5675
+  zone Stormwind City
+  tip At 20 in Stormwind, High Priestess Laurena at the altar of the Cathedral of Light hands you an Elune's Grace letter for Priestess Alathea in Darnassus. Nara Meideros in the Park has the same letter.
+  level 20
+  talk 376                                    -- High Priestess Laurena: take her Elune's Grace letter
+
+step Elune's Grace: High Priest Rohan
+  when zone "Ironforge"
+  when !onquest 5672,5673,5674,5675
+  zone Ironforge
+  tip At 20 in Ironforge, High Priest Rohan in the Hall of Mysteries (Mystic Ward) hands you an Elune's Grace letter for Priestess Alathea in Darnassus.
+  level 20
+  talk 11406                                  -- High Priest Rohan: take his Elune's Grace letter
+
+step Elune's Grace: Priestess Alathea
+  when !onquest 5672,5673,5674,5675
+  zone Darnassus
+  tip At 20, Priestess Alathea on the upper balcony of the Temple of the Moon, beside Tyrande Whisperwind, teaches Elune's Grace with a quest she gives and takes back at once. In Forever, Elune's Grace halves the chance for melee and ranged attacks to hit you for 15 seconds or until three attacks miss.
   level 20
   accept 5672                                 -- Priestess Alathea
   turnin 5672                                 -- Priestess Alathea: Elune's Grace
+
+step Elune's Grace: Laurena's letter
+  when onquest 5673
+  zone Darnassus
+  tip Hand Laurena's letter to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5673                                 -- Priestess Alathea: Elune's Grace
+
+step Elune's Grace: Nara's letter
+  when onquest 5674
+  zone Darnassus
+  tip Hand Nara's letter to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5674                                 -- Priestess Alathea: Elune's Grace
+
+step Elune's Grace: Rohan's letter
+  when onquest 5675
+  zone Darnassus
+  tip Hand Rohan's letter to Priestess Alathea, on the upper balcony of the Temple of the Moon in Darnassus, beside Tyrande Whisperwind: the boat from Stormwind Harbor (or Menethil Harbor) to Auberdine, the boat on to Rut'theran Village, then the portal up into Darnassus.
+  turnin 5675                                 -- Priestess Alathea: Elune's Grace

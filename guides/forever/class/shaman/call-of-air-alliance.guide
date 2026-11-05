@@ -22,9 +22,9 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # handed to Bath'rah the Windwatcher in Alterac Mountains for the weapon.
 # Sources: quests.json, npcs.json and items.json (givers, enders, the Twisted
 # Totems' droppers, the Ravaging Tempest's spawns, Razorfen Kraul's entrance
-# from dungeons.json); Wowhead Forever's Shaman class page
-# (data/local/quest-audit/wowhead-class-quests.json) and quest pages
-# (https://www.wowhead.com/forever/quest=94789, 96264, 79358, 96135, 96016)
+# from dungeons.json); Forever's Shaman class quest list
+# (data/local/quest-audit/) and quest data
+# (quests 94789, 96264, 79358, 96135, 96016)
 # for the order and the rewards: Air Totem; 96016 gives the Elementalist's
 # Guard and a choice of Lightning's Grasp, Tidebringer's Claw or Rage of the
 # Storm.
@@ -32,26 +32,32 @@ why The Air Totem that lets you place air totems, then a weapon of your choice a
 # lists Rau Cliffrunner and Veyric as its enders, and its text asks for the
 # totems "for Veyric Thunderhame in Arathi Highlands": handed to Veyric.
 # Elite and dungeon work: Charlga Razorflank is the last boss of Razorfen
-# Kraul (a dungeon), and Wowhead marks Heed My Call as an elite quest.
+# Kraul (a dungeon), and Forever's quest data marks Heed My Call as an elite quest.
 # The Alliance leveling guides leave this out: Veyric sits in Arathi and the
 # chain then crosses both continents.
+# Drops and levels from Forever's quest notes and npcs.json: Charlga
+# (level 33 elite, one spawn), the Twisted Totems' droppers (37-41 troggs,
+# 34-39 Lost Ones, 35-38 Mirefin, 36-40 Maraudine; only the Maraudine Scout
+# has a rate, 44%), the Eye of the Tempest 53% (96135).
+# ASSUMED: the Ravaging Tempest fight needs about three players (the Forever-new chain's quest flags; Forever's data marks Heed My Call a group quest but has no group size or the Tempest's level). In-game check: the Tempest's level and whether a duo manages it.
 # Beta capped at 30: nothing past Call of Air was played; it follows the data
 # above.
 
 step Eldrun Stormbreaker
   zone Ironforge
-  tip At 30 Eldrun Stormbreaker, the shaman trainer in Ironforge, sends you to Veyric Thunderhame in Arathi Highlands.
+  tip At 30 Eldrun Stormbreaker, the shaman trainer in Ironforge, sends you to Veyric Thunderhame in Arathi Highlands. Your level 30 air totems (Grounding, Nature Resistance) need the Air Totem he gives.
+  level 30
   accept 94789                                -- Eldrun Stormbreaker
 
 step Veyric Thunderhame
   zone Arathi Highlands
-  tip Veyric camps in the northern hills of Arathi Highlands.
+  tip Veyric Thunderhame camps in the hills just west of Hammerfall, the Horde town in the north-east of Arathi: mind its guards. Fly to Refuge Pointe and head north-east.
   turnin 94789 reward 5178                    -- Veyric Thunderhame: your Air Totem
   accept 96264
 
 step Charlga Razorflank
   zone The Barrens
-  tip Razorfen Kraul is a dungeon at the southern edge of the Barrens (the arrow points at its entrance); Charlga Razorflank is its last boss. Bring a group.
+  tip Razorfen Kraul is a five-player dungeon at the southern edge of the Barrens (the arrow points at its entrance); Charlga Razorflank (level 33 elite) is its last boss. She casts Chain Bolt, Renew on her allies and Purity; the Tattered Note drops only from her.
   collect 274463 quest 96264.1 @42.9,90.2 live -- Tattered Note, from Charlga Razorflank
 
 step Veyric Thunderhame
@@ -61,23 +67,23 @@ step Veyric Thunderhame
 
 step Twisted Fire Totems
   zone Badlands
-  tip The Stonevault troggs in the south of the Badlands carry the Twisted Fire Totems.
-  collect 274044 quest 79358.1                -- Twisted Fire Totem
+  tip Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of Angor Fortress in the Badlands carry them; the Shamans drop Fire Nova Totems and a Healing Ward, the Bonesnappers run for help when hurt. Respawn about five minutes.
+  collect 274044 x5 quest 79358.1                -- Twisted Fire Totem
 
 step Twisted Earth Totems
   zone Swamp of Sorrows
-  tip The Lost Ones in the north of the Swamp of Sorrows carry the Twisted Earth Totems.
-  collect 274045 quest 79358.3                -- Twisted Earth Totem
+  tip Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of Stonard in the Swamp of Sorrows carry them; most run for help when hurt.
+  collect 274045 x5 quest 79358.3                -- Twisted Earth Totem
 
 step Twisted Water Totems
   zone Dustwallow Marsh
-  tip The Mirefin murlocs of northern Dustwallow Marsh carry the Twisted Water Totems.
-  collect 274046 quest 79358.4                -- Twisted Water Totem
+  tip Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of Brackenwall Village in northern Dustwallow Marsh carry them.
+  collect 274046 x5 quest 79358.4                -- Twisted Water Totem
 
 step Twisted Air Totems
   zone Desolace
-  tip The Maraudine centaurs of western Desolace carry the Twisted Air Totems.
-  collect 274047 quest 79358.2                -- Twisted Air Totem
+  tip Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of Shadowprey Village in western Desolace carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw Jumping Lightning: pull one at a time. Respawn about five minutes.
+  collect 274047 x5 quest 79358.2                -- Twisted Air Totem
 
 step Veyric Thunderhame
   zone Arathi Highlands
@@ -86,8 +92,8 @@ step Veyric Thunderhame
 
 step The steam pools
   zone Thousand Needles
-  tip Veyric hands you the Corrupted Totems: place them at the steam pools of Thousand Needles and defeat the Ravaging Tempest they call. Heed My Call is an elite quest: grouping up is advised.
-  collect 212792 quest 96135.1                -- Eye of the Tempest, from the Ravaging Tempest
+  tip Veyric hands you the Corrupted Totems. Thousand Needles is far: the boat to Theramore and the road west, or fly to Thalanaar on the Feralas border and head east into the canyon. Place the Corrupted Totems at the steam pools north-west of Freewind Post to call the corrupted elementals and then the Ravaging Tempest; Razormane quilboar join the fight while the ritual runs. A group quest: bring at least one or two friends. The Eye of the Tempest drops about every other kill, and every group member can loot it.
+  collect 212792 quest 96135.1 group 3        -- Eye of the Tempest, from the Ravaging Tempest
 
 step Veyric Thunderhame
   zone Arathi Highlands
@@ -96,5 +102,5 @@ step Veyric Thunderhame
 
 step Bath'rah the Windwatcher
   zone Alterac Mountains
-  tip Bath'rah camps in the east of Alterac Mountains, north-east of Tarren Mill.
+  tip Bath'rah camps in the ruins in the east of Alterac Mountains: from Tarren Mill follow the river east of town north into the hills. Pick your weapon: Lightning's Grasp, Tidebringer's Claw or Rage of the Storm.
   turnin 96016 reward 280696 choose 280607 280605 280604 -- Bath'rah the Windwatcher: the Elementalist's Guard and your weapon

@@ -1,5 +1,5 @@
 -- Spanish (Spain) (esES): the guide forever/exploration/kalimdor-30-45 (forever/exploration/kalimdor-30-45.guide).
--- Written by `node tools/polestar.js i18n guides sync esES`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Written by `forge i18n guides sync esES`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in Spanish (Spain) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
@@ -14,8 +14,8 @@ return {
 	-- {zone:1413} Barrens · {zone:1443} Desolace · {zone:1445} Dustwallow Marsh
 	["Picks up west of the {zone:1413}, in {zone:1443}, and ends in {zone:1445}. 15 areas to discover here, levels 30-39."] = "Empieza al oeste de {zone:1413}, en {zone:1443}, y termina en {zone:1445}. 15 áreas por descubrir aquí, niveles 30-39.",
 	["Exploring the entire world map on one character is a Forever Legacy Challenge (1 account-wide Legacy Point)."] = "Explorar el mapa del mundo entero con un personaje es un Desafío de Legado de Forever (1 Punto de Legado para toda la cuenta).",
-	-- {zone:1442} Stonetalon Mountains · {zone:1443} Desolace · {area:608} Nijel's Point
-	["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Toma el camino que sale de {zone:1442} hacia el suroeste hasta {zone:1443}; {area:608}, al norte, es el pueblo de la Alianza.",
+	-- {area:467} Stonetalon Peak · {area:608} Nijel's Point · {zone:1442} Stonetalon Mountains · {zone:1443} Desolace
+	["Fly to {area:467} (or to {area:608} if you have it) and take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "",
 	-- {area:460} Sun Rock Retreat · {zone:1443} Desolace · {area:2408} Shadowprey Village
 	["Fly to {area:460} and take the road south-west into {zone:1443}; {area:2408} on the west coast is the Horde town."] = "Vuela a {area:460} y toma el camino hacia el suroeste hasta {zone:1443}; {area:2408}, en la costa oeste, es el pueblo de la Horda.",
 	-- {area:608} Nijel's Point · {npc:6706} Baritanas Skyriver
@@ -44,9 +44,15 @@ return {
 	["Flight paths here: {area:489} (Thyssiana), Feathermoon ({npc:8019})."] = "Rutas de vuelo aquí: {area:489} (Thyssiana), Plumaluna ({npc:8019}).",
 	-- {area:1099} Camp Mojache
 	["Flight path here: {area:1099} (Shyn)."] = "Ruta de vuelo aquí: {area:1099} (Shyn).",
+
+	-- Step 6: Feralas: level 60+ areas
+	-- {zone:1444} Feralas
+	["{zone:1444}: level 60+ areas"] = "",
+	-- {area:1113} Oneiros · {area:1111} Dream Bough
+	["{area:1113} and {area:1111} are level 60 areas, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs them."] = "",
 	["level 60 area, well above this guide's range"] = "área de nivel 60, muy por encima del rango de esta guía",
 
-	-- Step 6: Dustwallow Marsh
+	-- Step 7: Dustwallow Marsh
 	["7 areas to discover here, levels 36-61."] = "7 áreas por descubrir aquí, niveles 36-61.",
 	-- {area:150} Menethil Harbor · {area:513} Theramore Isle
 	["Fly to Theramore (or take the boat from {area:150}); {area:513} is the Alliance town."] = "Vuela a Theramore (o toma el barco desde {area:150}); {area:513} es el pueblo de la Alianza.",
@@ -57,9 +63,16 @@ return {
 	["Flight path here: {area:496} (Shardi)."] = "Ruta de vuelo aquí: {area:496} (Shardi).",
 	["any one of these names counts"] = "cualquiera de estos nombres cuenta",
 	["Horde town: Alliance characters only need to touch its edge (guards); any one of these names counts"] = "Pueblo de la Horda: los personajes de la Alianza solo tienen que tocar su borde (guardias); cualquiera de estos nombres cuenta",
-	["level 61 area, well above this guide's range"] = "área de nivel 61, muy por encima del rango de esta guía",
 	["Alliance town: Horde characters only need to touch its edge (guards); any one of these names counts"] = "Pueblo de la Alianza: los personajes de la Horda solo tienen que tocar su borde (guardias); cualquiera de estos nombres cuenta",
 
+	-- Step 8: Dustwallow Marsh: level 61+ area
+	-- {zone:1445} Dustwallow Marsh
+	["{zone:1445}: level 61+ area"] = "",
+	-- {area:2079} Alcaz Island
+	["{area:2079} is a level 61 area, far above this guide. Skip this step for now and come back near that level: exploring the whole map needs it."] = "",
+	["level 61 area, well above this guide's range"] = "área de nivel 61, muy por encima del rango de esta guía",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Take the road south-west out of the {zone:1442} into {zone:1443}; {area:608} in the north is the Alliance town."] = "Toma el camino que sale de {zone:1442} hacia el suroeste hasta {zone:1443}; {area:608}, al norte, es el pueblo de la Alianza.",
 	-- ["The {area:1108}"] = "{area:1108}",
 }

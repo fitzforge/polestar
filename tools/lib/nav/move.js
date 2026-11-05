@@ -9,10 +9,10 @@
 //   (Classic riding: apprentice mounts at 40, epic mounts at 60; sim params mountMul 1.6).
 //   Mounts do not swim faster and are not usable indoors.
 // - Travel Form (Druid 30): +40%, "Only useable outdoors"
-//   (wowhead.com/classic/spell=783; Forever 1.60.1.70374 keeps 40%, foreverdiff.com/spells/travel-form-783).
-// - Aquatic Form (Druid 16): swim speed +50% (wowhead.com/classic/spell=1066, "Requires Level 16").
-// - Ghost Wolf (Shaman 20): +40%, "Only useable outdoors" (wowhead.com/classic/spell=2645, classicdb.ch/?spell=2645).
-// - Aspect of the Cheetah (Hunter 20): +30%, usable indoors (wowhead.com/classic/spell=5118).
+//   (classic spell 783; Forever 1.60.1.70374 keeps 40%, foreverdiff.com/spells/travel-form-783).
+// - Aquatic Form (Druid 16): swim speed +50% (classic spell 1066, "Requires Level 16").
+// - Ghost Wolf (Shaman 20): +40%, "Only useable outdoors" (classic spell 2645, classicdb.ch/?spell=2645).
+// - Aspect of the Cheetah (Hunter 20): +30%, usable indoors (classic spell 5118).
 // - Slopes (decided here): land time is multiplied by SLOPE_MUL of the
 //   link's class: terrain gradient to 35° x1, to 50° x2, to 60° (steep)
 //   x4, to 80° (climb) x10 (grid/format.js, grid/links.js).
@@ -125,9 +125,12 @@ function segmentClass(code, fa, fb) {
 }
 
 // Seconds of a link (stored code) over length d (yards, 3D) from an entry
-// with flags fa to one with fb, for profile p.
+// with flags fa to one with fb, for profile p (p.slopeMul: its own SLOPE_MUL;
+// p.faceMul: a land link touching a FLAG.STEEP column, terrain steeper than
+// the client walks up, costs that many times more).
 function linkSeconds(p, code, fa, fb, d) {
-	let s = code === CLS.SWIM ? d / p.swim : (d * SLOPE_MUL[code]) / ((fa | fb) & FLAG.INDOOR ? p.indoor : p.outdoor);
+	let s = code === CLS.SWIM ? d / p.swim : (d * (p.slopeMul || SLOPE_MUL)[code]) / ((fa | fb) & FLAG.INDOOR ? p.indoor : p.outdoor);
+	if (p.faceMul && code !== CLS.SWIM && (fa | fb) & FLAG.STEEP) s *= p.faceMul;
 	if (code === CLS.JUMP) s += JUMP_SECONDS;
 	if (p.remount && fa & FLAG.INDOOR && !(fb & (FLAG.INDOOR | FLAG.SWIM))) s += p.remount;
 	return s;

@@ -8,20 +8,30 @@ zone Ironforge
 
 # Mining 1-300 for both factions: loops through the densest skill-up nodes for
 # each skill band (expected skill-ups per yard walked), with rank training.
+# A zone counts the nodes it keeps up at once (the Forever server's spawn pools,
+# tools/lib/professions/gathering/node-abundance.json), not every spot a node can use.
 # Skill needed per node: Copper 1, Tin and Incendicite 65, Silver and Lesser
 # Bloodstone 75, Iron 125, Gold 155, Mithril 175, Truesilver and Dark Iron 230,
 # Small Thorium 245, Rich Thorium 275.
 #
-# Spawns, trainers and vendors come from the Era baseline (pfQuest); recipes and
-# their skill colours from the Forever client tables (`profession build`).
-# Nothing confirms the spawns' 10-60 placement on Forever yet: refine with
-# Polestar_Recorder sessions. Waypoints are Era-frame (`coords era`); the engine
-# converts them where Forever changed a map frame.
+# Spawns come from the reference data: the Era baseline (pfQuest) plus the
+# node spawns Forever's beta sniffs add (Zephras Isle, the starting-area Poor
+# Copper Veins and herbs: the Forever TrinityCore world DB); trainer learn skills
+# and prices from Forever's sniffed trainer lists; recipes and their skill colours
+# from the Forever client tables (`forge data professions`).
+# ASSUMED: past level 30 (the beta's cap) Forever's spawns are Classic's; nothing
+# confirms them yet. In-game check: refine with Polestar_Recorder sessions.
+# Ranks ask no character level: Forever's sniffed trainer lists carry none for
+# Herbalism, Mining or Skinning, and level 10 for Journeyman crafting and Fishing.
+# INGAME: does a gathering trainer ask a level for Expert or Artisan? (our data:
+# none; one web guide: Expert 10, Artisan 25).
+# Waypoints are Era-frame (`coords era`); the engine converts them where Forever
+# changed a map frame, and a map without an Era frame (Zephras Isle) compiles live.
 
 # ---------------------------------------------------------------- Apprentice
 
 step Learn Mining
-  tip Any Mining trainer of your faction teaches Apprentice Mining at any level, and so does the Junior Mining Trainer in each starting zone; the arrow picks the nearest. Buy a Mining Pick from a trade goods or general vendor: keep it in your bags, you cannot mine without it.
+  tip Any Mining trainer of your faction teaches Apprentice Mining at any level (10c), and so does the Junior Mining Trainer in each starting area; the arrow picks the nearest. Buy a Mining Pick from a trade goods or general vendor: keep it in your bags, you cannot mine without it. Turn on Find Minerals (spellbook, General tab) so veins show on the minimap. Forever's starting areas also have Poor Copper Veins (Copper Ore and Rough Stone, from skill 1). The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's Cactus Apple Surprise, A Humble Task, Marla's Last Wish) offers Mining for Dummies as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the Apprentice's Mining Pack, a four-slot bag for ore and stone (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: Mining: hand it in to the mining trainer it names once you reach skill 20, for the Lodestone recipe.
   train Mining Apprentice
   buy 2901 x1 nearest
 
@@ -30,454 +40,473 @@ step Learn Mining
 step Copper: Elwynn Forest (1-50)
   only Human
   zone Elwynn Forest
-  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 20.8,77.7 "Copper" r 30
-  goto 28.1,66.2 "Copper" r 30
-  goto 30.2,54.0 "Copper" r 30
-  goto 43.5,49.0 "Copper" r 30
-  goto 52.0,58.6 "Copper" r 30
-  goto 51.4,67.5 "Copper" r 30
-  goto 57.5,78.6 "Copper" r 30
-  goto 50.5,87.2 "Copper" r 30
-  goto 45.6,72.6 "Copper" r 30
-  goto 38.9,78.3 "Copper" r 30
-  goto 38.4,86.7 "Copper" r 30
-  goto 29.2,88.1 "Copper" r 30
+  tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
+  goto 40.2,80.1 "Copper" r 30
+  goto 27.7,68.7 "Copper" r 30
+  goto 31.2,60.0 "Copper" r 30
+  goto 39.0,51.4 "Copper" r 30
+  goto 44.5,39.3 "Poor Copper" r 30
+  goto 49.0,29.1 "Poor Copper" r 30
+  goto 54.6,35.8 "Poor Copper" r 30
+  goto 60.9,50.0 "Copper, Poor Copper" r 30
+  goto 74.2,54.5 "Copper" r 30
+  goto 57.8,79.1 "Copper" r 30
+  goto 51.6,84.0 "Copper" r 30
+  goto 43.5,73.2 "Copper" r 30
   skill Mining 50
 
-step Copper: Dun Morogh (1-50)
+step Copper & Poor Copper: Dun Morogh (1-50)
   only Dwarf,Gnome
   zone Dun Morogh
-  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 50.0,44.4 "Copper" r 30
-  goto 48.5,35.8 "Copper" r 30
-  goto 41.3,29.0 "Copper" r 30
-  goto 38.9,37.9 "Copper" r 30
-  goto 27.1,34.8 "Copper" r 30
-  goto 21.2,54.7 "Copper" r 30
-  goto 32.8,51.2 "Copper" r 30
-  goto 32.0,59.0 "Copper" r 30
-  goto 39.8,68.1 "Copper" r 30
-  goto 38.0,59.5 "Copper" r 30
-  goto 39.3,47.0 "Copper" r 30
-  goto 44.3,53.9 "Copper" r 30
+  tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
+  goto 71.7,52.2 "Copper" r 30
+  goto 69.9,56.9 "Copper" r 30
+  goto 49.6,63.8 "Copper" r 30
+  goto 29.1,81.0 "Poor Copper" r 30
+  goto 19.9,75.4 "Poor Copper" r 30
+  goto 21.8,69.7 "Poor Copper" r 30
+  goto 27.0,63.8 "Poor Copper" r 30
+  goto 22.0,52.6 "Copper" r 30
+  goto 40.2,47.6 "Copper" r 30
+  goto 43.5,50.9 "Copper" r 30
+  goto 41.3,33.6 "Copper" r 30
+  goto 51.8,43.7 "Copper" r 30
   skill Mining 50
 
 step Copper: Darkshore (1-50)
   only NightElf
   zone Darkshore
-  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 10-20.
-  goto 37.8,49.4 "Copper" r 30
-  goto 35.5,55.6 "Copper" r 30
-  goto 33.2,81.2 "Copper" r 30
-  goto 30.6,92.4 "Copper" r 30
-  goto 36.2,90.7 "Copper" r 30
-  goto 42.9,86.6 "Copper" r 30
-  goto 39.1,81.5 "Copper" r 30
-  goto 42.7,73.4 "Copper" r 30
-  goto 39.5,61.1 "Copper" r 30
-  goto 41.4,39.5 "Copper" r 30
-  goto 40.3,26.6 "Copper" r 30
-  goto 38.9,33.1 "Copper" r 30
+  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points.
+  goto 43.4,45.8 "Copper" r 30
+  goto 44.0,37.0 "Copper" r 30
+  goto 54.4,33.7 "Copper" r 30
+  goto 44.3,79.9 "Copper" r 30
+  goto 43.9,85.7 "Copper" r 30
+  goto 35.6,86.0 "Copper" r 30
+  goto 33.0,89.2 "Copper" r 30
+  goto 30.4,91.8 "Copper" r 30
+  goto 31.8,86.7 "Copper" r 30
+  goto 33.5,80.4 "Copper" r 30
+  goto 39.2,72.6 "Copper" r 30
+  goto 44.8,50.9 "Copper" r 30
   skill Mining 50
 
-step Copper: Durotar (1-50)
+step Copper: Zephras Isle (1-50)
+  only Skyborne
+  zone Zephras Isle
+  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 60 nodes for these 49 points.
+  goto 39.8,48.9 live "Copper" r 30
+  goto 35.9,49.4 live "Copper" r 30
+  goto 42.4,53.9 live "Copper" r 30
+  goto 45.4,75.4 live "Copper" r 30
+  goto 50.9,67.8 live "Copper" r 30
+  goto 56.6,63.8 live "Copper" r 30
+  goto 48.5,25.6 live "Copper" r 30
+  goto 44.6,29.7 live "Copper" r 30
+  goto 40.6,27.8 live "Copper" r 30
+  goto 36.9,23.6 live "Copper" r 30
+  goto 42.1,42.3 live "Copper" r 30
+  goto 44.2,48.3 live "Copper" r 30
+  skill Mining 50
+
+step Copper & Poor Copper: Durotar (1-50)
   only Orc,Troll
   zone Durotar
-  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 35.6,35.5 "Copper" r 30
-  goto 36.1,28.9 "Copper" r 30
-  goto 37.6,20.9 "Copper" r 30
-  goto 39.6,14.4 "Copper" r 30
-  goto 47.9,19.5 "Copper" r 30
-  goto 42.5,27.7 "Copper" r 30
-  goto 49.5,35.9 "Copper" r 30
-  goto 47.0,45.8 "Copper" r 30
-  goto 49.2,80.9 "Copper" r 30
-  goto 38.9,54.5 "Copper" r 30
-  goto 36.0,45.4 "Copper" r 30
-  goto 42.4,38.1 "Copper" r 30
+  tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
+  goto 44.3,54.3 "Poor Copper" r 30
+  goto 42.4,60.6 "Poor Copper" r 30
+  goto 40.3,66.7 "Poor Copper" r 30
+  goto 45.8,69.8 "Poor Copper" r 30
+  goto 46.3,59.7 "Poor Copper" r 30
+  goto 49.1,49.7 "Copper" r 30
+  goto 52.1,25.9 "Copper" r 30
+  goto 54.1,19.4 "Copper" r 30
+  goto 53.4,9.2 "Copper" r 30
+  goto 50.1,18.9 "Copper" r 30
+  goto 43.1,25.5 "Copper" r 30
+  goto 39.8,25.7 "Copper" r 30
   skill Mining 50
 
 step Copper: Mulgore (1-50)
   only Tauren
   zone Mulgore
-  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 36.5,16.6 "Copper" r 30
-  goto 38.3,7.1 "Copper" r 30
-  goto 44.6,12.1 "Copper" r 30
-  goto 49.3,24.7 "Copper" r 30
-  goto 48.4,74.4 "Copper" r 30
-  goto 34.5,79.8 "Copper" r 30
-  goto 33.2,70.1 "Copper" r 30
-  goto 33.0,62.6 "Copper" r 30
-  goto 35.1,55.1 "Copper" r 30
-  goto 31.6,50.3 "Copper" r 30
-  goto 34.5,38.3 "Copper" r 30
-  goto 30.4,28.6 "Copper" r 30
+  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
+  goto 36.7,15.4 "Copper" r 30
+  goto 54.7,12.4 "Copper" r 30
+  goto 60.0,30.8 "Copper" r 30
+  goto 61.0,38.3 "Copper" r 30
+  goto 62.0,53.0 "Copper" r 30
+  goto 68.6,67.5 "Copper" r 30
+  goto 55.6,74.4 "Copper" r 30
+  goto 43.3,73.4 "Copper" r 30
+  goto 34.0,69.9 "Copper" r 30
+  goto 31.6,61.6 "Copper" r 30
+  goto 33.6,58.8 "Copper" r 30
+  goto 34.1,53.6 "Copper" r 30
   skill Mining 50
 
-step Copper: Tirisfal Glades (1-50)
+step Copper & Poor Copper: Tirisfal Glades (1-50)
   only Undead
   zone Tirisfal Glades
-  tip Mine every Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 29.7,42.5 "Copper" r 30
-  goto 33.5,52.8 "Copper" r 30
-  goto 40.3,57.2 "Copper" r 30
-  goto 45.1,69.9 "Copper" r 30
-  goto 54.9,54.1 "Copper" r 30
-  goto 63.5,27.2 "Copper" r 30
-  goto 57.2,30.2 "Copper" r 30
-  goto 49.6,27.0 "Copper" r 30
-  goto 50.7,34.3 "Copper" r 30
-  goto 54.6,40.5 "Copper" r 30
-  goto 48.6,45.9 "Copper" r 30
-  goto 39.3,37.1 "Copper" r 30
+  tip Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until Mining 50. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points.
+  goto 24.9,59.5 "Poor Copper" r 30
+  goto 30.2,67.3 "Poor Copper" r 30
+  goto 31.1,71.7 "Poor Copper" r 30
+  goto 35.1,70.7 "Poor Copper" r 30
+  goto 38.2,65.2 "Poor Copper" r 30
+  goto 47.3,69.4 "Copper" r 30
+  goto 85.8,37.1 "Copper" r 30
+  goto 53.9,42.4 "Copper" r 30
+  goto 49.0,47.3 "Copper" r 30
+  goto 37.5,37.7 "Copper" r 30
+  goto 38.1,53.1 "Copper" r 30
+  goto 33.9,55.0 "Poor Copper, Copper" r 30
   skill Mining 50
 
 step Journeyman Mining
-  tip Journeyman Mining raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest Mining trainer of your faction.
-  level 10
+  tip Journeyman Mining raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest Mining trainer of your faction. Lodestone, Forever's camping item for Mining, is taught from skill 20 (1s, or free from Camping 101: Mining): a Rough Stone and a Copper Bar each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour.
   train Mining Journeyman
+  learn 1230161
 
 step Copper: Elwynn Forest (50-65) cont.
   only Human
   zone Elwynn Forest
-  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 20.8,77.7 "Copper" r 30
-  goto 28.1,66.2 "Copper" r 30
-  goto 30.2,54.0 "Copper" r 30
-  goto 43.5,49.0 "Copper" r 30
-  goto 52.0,58.6 "Copper" r 30
-  goto 51.4,67.5 "Copper" r 30
-  goto 57.5,78.6 "Copper" r 30
-  goto 50.5,87.2 "Copper" r 30
-  goto 45.6,72.6 "Copper" r 30
-  goto 38.9,78.3 "Copper" r 30
-  goto 38.4,86.7 "Copper" r 30
-  goto 29.2,88.1 "Copper" r 30
+  tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
+  goto 40.2,80.1 "Copper" r 30
+  goto 27.7,68.7 "Copper" r 30
+  goto 31.2,60.0 "Copper" r 30
+  goto 39.0,51.4 "Copper" r 30
+  goto 44.5,39.3 "Poor Copper" r 30
+  goto 49.0,29.1 "Poor Copper" r 30
+  goto 54.6,35.8 "Poor Copper" r 30
+  goto 60.9,50.0 "Copper, Poor Copper" r 30
+  goto 74.2,54.5 "Copper" r 30
+  goto 57.8,79.1 "Copper" r 30
+  goto 51.6,84.0 "Copper" r 30
+  goto 43.5,73.2 "Copper" r 30
   skill Mining 65
 
-step Copper: Dun Morogh (50-65) cont.
+step Copper & Poor Copper: Dun Morogh (50-65) cont.
   only Dwarf,Gnome
   zone Dun Morogh
-  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 50.0,44.4 "Copper" r 30
-  goto 48.5,35.8 "Copper" r 30
-  goto 41.3,29.0 "Copper" r 30
-  goto 38.9,37.9 "Copper" r 30
-  goto 27.1,34.8 "Copper" r 30
-  goto 21.2,54.7 "Copper" r 30
-  goto 32.8,51.2 "Copper" r 30
-  goto 32.0,59.0 "Copper" r 30
-  goto 39.8,68.1 "Copper" r 30
-  goto 38.0,59.5 "Copper" r 30
-  goto 39.3,47.0 "Copper" r 30
-  goto 44.3,53.9 "Copper" r 30
+  tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
+  goto 71.7,52.2 "Copper" r 30
+  goto 69.9,56.9 "Copper" r 30
+  goto 49.6,63.8 "Copper" r 30
+  goto 29.1,81.0 "Poor Copper" r 30
+  goto 19.9,75.4 "Poor Copper" r 30
+  goto 21.8,69.7 "Poor Copper" r 30
+  goto 27.0,63.8 "Poor Copper" r 30
+  goto 22.0,52.6 "Copper" r 30
+  goto 40.2,47.6 "Copper" r 30
+  goto 43.5,50.9 "Copper" r 30
+  goto 41.3,33.6 "Copper" r 30
+  goto 51.8,43.7 "Copper" r 30
   skill Mining 65
 
 step Copper: Darkshore (50-65) cont.
   only NightElf
   zone Darkshore
-  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 10-20.
-  goto 37.8,49.4 "Copper" r 30
-  goto 35.5,55.6 "Copper" r 30
-  goto 33.2,81.2 "Copper" r 30
-  goto 30.6,92.4 "Copper" r 30
-  goto 36.2,90.7 "Copper" r 30
-  goto 42.9,86.6 "Copper" r 30
-  goto 39.1,81.5 "Copper" r 30
-  goto 42.7,73.4 "Copper" r 30
-  goto 39.5,61.1 "Copper" r 30
-  goto 41.4,39.5 "Copper" r 30
-  goto 40.3,26.6 "Copper" r 30
-  goto 38.9,33.1 "Copper" r 30
+  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 80 nodes for these 15 points.
+  goto 43.4,45.8 "Copper" r 30
+  goto 44.0,37.0 "Copper" r 30
+  goto 54.4,33.7 "Copper" r 30
+  goto 44.3,79.9 "Copper" r 30
+  goto 43.9,85.7 "Copper" r 30
+  goto 35.6,86.0 "Copper" r 30
+  goto 33.0,89.2 "Copper" r 30
+  goto 30.4,91.8 "Copper" r 30
+  goto 31.8,86.7 "Copper" r 30
+  goto 33.5,80.4 "Copper" r 30
+  goto 39.2,72.6 "Copper" r 30
+  goto 44.8,50.9 "Copper" r 30
   skill Mining 65
 
-step Copper: Durotar (50-65) cont.
+step Copper: Zephras Isle (50-65) cont.
+  only Skyborne
+  zone Zephras Isle
+  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-15. Expect about 80 nodes for these 15 points.
+  goto 39.8,48.9 live "Copper" r 30
+  goto 35.9,49.4 live "Copper" r 30
+  goto 42.4,53.9 live "Copper" r 30
+  goto 45.4,75.4 live "Copper" r 30
+  goto 50.9,67.8 live "Copper" r 30
+  goto 56.6,63.8 live "Copper" r 30
+  goto 48.5,25.6 live "Copper" r 30
+  goto 44.6,29.7 live "Copper" r 30
+  goto 40.6,27.8 live "Copper" r 30
+  goto 36.9,23.6 live "Copper" r 30
+  goto 42.1,42.3 live "Copper" r 30
+  goto 44.2,48.3 live "Copper" r 30
+  skill Mining 65
+
+step Copper & Poor Copper: Durotar (50-65) cont.
   only Orc,Troll
   zone Durotar
-  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 35.6,35.5 "Copper" r 30
-  goto 36.1,28.9 "Copper" r 30
-  goto 37.6,20.9 "Copper" r 30
-  goto 39.6,14.4 "Copper" r 30
-  goto 47.9,19.5 "Copper" r 30
-  goto 42.5,27.7 "Copper" r 30
-  goto 49.5,35.9 "Copper" r 30
-  goto 47.0,45.8 "Copper" r 30
-  goto 49.2,80.9 "Copper" r 30
-  goto 38.9,54.5 "Copper" r 30
-  goto 36.0,45.4 "Copper" r 30
-  goto 42.4,38.1 "Copper" r 30
+  tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
+  goto 44.3,54.3 "Poor Copper" r 30
+  goto 42.4,60.6 "Poor Copper" r 30
+  goto 40.3,66.7 "Poor Copper" r 30
+  goto 45.8,69.8 "Poor Copper" r 30
+  goto 46.3,59.7 "Poor Copper" r 30
+  goto 49.1,49.7 "Copper" r 30
+  goto 52.1,25.9 "Copper" r 30
+  goto 54.1,19.4 "Copper" r 30
+  goto 53.4,9.2 "Copper" r 30
+  goto 50.1,18.9 "Copper" r 30
+  goto 43.1,25.5 "Copper" r 30
+  goto 39.8,25.7 "Copper" r 30
   skill Mining 65
 
 step Copper: Mulgore (50-65) cont.
   only Tauren
   zone Mulgore
-  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 36.5,16.6 "Copper" r 30
-  goto 38.3,7.1 "Copper" r 30
-  goto 44.6,12.1 "Copper" r 30
-  goto 49.3,24.7 "Copper" r 30
-  goto 48.4,74.4 "Copper" r 30
-  goto 34.5,79.8 "Copper" r 30
-  goto 33.2,70.1 "Copper" r 30
-  goto 33.0,62.6 "Copper" r 30
-  goto 35.1,55.1 "Copper" r 30
-  goto 31.6,50.3 "Copper" r 30
-  goto 34.5,38.3 "Copper" r 30
-  goto 30.4,28.6 "Copper" r 30
+  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
+  goto 36.7,15.4 "Copper" r 30
+  goto 54.7,12.4 "Copper" r 30
+  goto 60.0,30.8 "Copper" r 30
+  goto 61.0,38.3 "Copper" r 30
+  goto 62.0,53.0 "Copper" r 30
+  goto 68.6,67.5 "Copper" r 30
+  goto 55.6,74.4 "Copper" r 30
+  goto 43.3,73.4 "Copper" r 30
+  goto 34.0,69.9 "Copper" r 30
+  goto 31.6,61.6 "Copper" r 30
+  goto 33.6,58.8 "Copper" r 30
+  goto 34.1,53.6 "Copper" r 30
   skill Mining 65
 
-step Copper: Tirisfal Glades (50-65) cont.
+step Copper & Poor Copper: Tirisfal Glades (50-65) cont.
   only Undead
   zone Tirisfal Glades
-  tip Mine every Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 1-10.
-  goto 29.7,42.5 "Copper" r 30
-  goto 33.5,52.8 "Copper" r 30
-  goto 40.3,57.2 "Copper" r 30
-  goto 45.1,69.9 "Copper" r 30
-  goto 54.9,54.1 "Copper" r 30
-  goto 63.5,27.2 "Copper" r 30
-  goto 57.2,30.2 "Copper" r 30
-  goto 49.6,27.0 "Copper" r 30
-  goto 50.7,34.3 "Copper" r 30
-  goto 54.6,40.5 "Copper" r 30
-  goto 48.6,45.9 "Copper" r 30
-  goto 39.3,37.1 "Copper" r 30
+  tip Mine every Copper (1, yellow), Poor Copper (1, yellow) node you pass and circle the waypoints until Mining 65. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 80 nodes for these 15 points.
+  goto 24.9,59.5 "Poor Copper" r 30
+  goto 30.2,67.3 "Poor Copper" r 30
+  goto 31.1,71.7 "Poor Copper" r 30
+  goto 35.1,70.7 "Poor Copper" r 30
+  goto 38.2,65.2 "Poor Copper" r 30
+  goto 47.3,69.4 "Copper" r 30
+  goto 85.8,37.1 "Copper" r 30
+  goto 53.9,42.4 "Copper" r 30
+  goto 49.0,47.3 "Copper" r 30
+  goto 37.5,37.7 "Copper" r 30
+  goto 38.1,53.1 "Copper" r 30
+  goto 33.9,55.0 "Poor Copper, Copper" r 30
   skill Mining 65
+
+step Smelt Bronze & Smelt Tin
+  tip At 65 a Mining trainer teaches Smelt Bronze (2s; grey at 115) and Smelt Tin (50c; grey at 75): smelting at a forge raises Mining too, so smelt what you mine.
+  learn 2659
+  learn 3304
 
 # ---------------------------------------------------------------- Mining 65-125
 
-step Tin & Silver: Redridge Mountains (65-125)
-  only Human,Dwarf,Gnome
-  zone Redridge Mountains
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until Mining 125. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 15-25.
-  goto 24.5,65.2 "Copper, Silver" r 30
-  goto 15.9,55.0 "Copper, Silver" r 30
-  goto 18.9,30.6 "Copper, Tin" r 30
-  goto 19.3,18.3 "Copper, Tin" r 30
-  goto 27.6,7.8 "Copper, Silver" r 30
-  goto 37.2,13.3 "Copper, Silver" r 30
-  goto 33.4,28.1 "Copper, Silver" r 30
-  goto 40.0,42.8 "Copper, Silver" r 30
-  goto 38.4,70.2 "Copper, Silver" r 30
-  goto 31.2,84.9 "Copper, Silver" r 30
-  goto 21.2,75.1 "Copper, Silver" r 30
-  goto 8.5,77.5 "Copper, Silver" r 30
+step Incendicite & Tin: Wetlands (65-125)
+  only Human,Dwarf,Gnome,Skyborne,Alliance
+  zone Wetlands
+  tip Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 26.5,36.6 "Tin, Copper" r 30
+  goto 32.6,47.9 "Tin, Copper" r 30
+  goto 37.0,44.9 "Tin, Copper" r 30
+  goto 43.6,45.3 "Tin, Copper" r 30
+  goto 49.5,61.0 "Incendicite, Tin" r 30
+  goto 46.2,63.9 "Incendicite, Tin" r 30
+  goto 49.5,71.6 "Tin, Copper" r 30
+  goto 54.4,77.8 "Tin, Copper" r 30
+  goto 60.7,79.6 "Tin, Copper" r 30
+  goto 67.3,57.4 "Tin, Copper" r 30
+  goto 68.1,31.6 "Tin, Copper" r 30
+  goto 69.6,29.0 "Tin, Copper" r 30
   skill Mining 125
 
-step Tin & Silver: Darkshore (65-125)
+step Tin: Ashenvale (65-125)
   only NightElf
-  zone Darkshore
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until Mining 125. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 10-20.
-  goto 35.0,55.8 "Copper, Silver" r 30
-  goto 37.3,59.4 "Tin" r 30
-  goto 37.8,63.2 "Tin" r 30
-  goto 32.3,78.7 "Tin" r 30
-  goto 39.8,85.5 "Tin" r 30
-  goto 45.0,86.8 "Tin" r 30
-  goto 56.2,34.9 "Copper, Silver" r 30
-  goto 60.3,20.6 "Tin, Silver" r 30
-  goto 60.8,16.0 "Tin, Copper" r 30
-  goto 62.2,9.1 "Copper, Tin" r 30
-  goto 44.1,17.8 "Tin" r 30
-  goto 38.6,24.9 "Tin" r 30
+  zone Ashenvale
+  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 40.4,37.0 "Tin, Copper" r 30
+  goto 29.3,33.4 "Tin, Copper" r 30
+  goto 13.7,11.9 "Tin, Silver" r 30
+  goto 5.5,14.7 "Tin" r 30
+  goto 23.6,34.0 "Tin, Silver" r 30
+  goto 21.8,43.5 "Tin, Copper" r 30
+  goto 64.8,69.0 "Tin, Silver" r 30
+  goto 82.3,79.6 "Tin, Silver" r 30
+  goto 89.5,86.2 "Tin" r 30
+  goto 80.7,62.7 "Tin, Silver" r 30
+  goto 75.7,48.1 "Tin, Silver" r 30
+  goto 47.1,45.7 "Tin, Silver" r 30
   skill Mining 125
 
-step Tin & Silver: The Barrens (65-125)
-  only Orc,Troll,Tauren
+step Copper & Tin: The Barrens (65-125)
+  only Orc,Troll,Tauren,Skyborne,Horde
   zone The Barrens
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until Mining 125. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 10-25.
-  goto 45.4,36.1 "Silver, Tin" r 30
-  goto 46.4,39.6 "Copper, Silver" r 30
+  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 45.4,36.1 "Tin, Silver" r 30
   goto 51.1,57.8 "Copper, Tin" r 30
-  goto 48.7,88.0 "Copper, Silver" r 30
-  goto 47.7,85.2 "Copper, Silver" r 30
-  goto 46.8,84.5 "Copper, Silver" r 30
+  goto 48.7,88.0 "Copper, Tin" r 30
+  goto 47.7,85.2 "Copper, Tin" r 30
+  goto 46.8,84.5 "Copper, Tin" r 30
   goto 42.6,82.7 "Copper, Tin" r 30
   goto 41.3,78.9 "Copper, Tin" r 30
   goto 45.0,51.2 "Copper, Tin" r 30
   goto 40.8,45.8 "Copper, Tin" r 30
+  goto 39.5,23.6 "Tin" r 30
   goto 37.8,14.7 "Tin" r 30
   goto 59.9,3.2 "Copper, Tin" r 30
   skill Mining 125
 
-step Tin & Silver: Hillsbrad Foothills (65-125)
+step Tin: Hillsbrad Foothills (65-125)
   only Undead
   zone Hillsbrad Foothills
-  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until Mining 125. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 20-30.
-  goto 54.9,23.7 "Copper, Silver" r 30
-  goto 57.0,8.5 "Copper, Silver" r 30
-  goto 37.5,25.9 "Copper, Silver" r 30
-  goto 26.2,31.8 "Copper, Silver" r 30
-  goto 21.8,40.9 "Copper, Silver" r 30
-  goto 17.1,56.3 "Copper, Silver" r 30
-  goto 13.5,79.2 "Copper, Silver" r 30
-  goto 28.6,57.8 "Silver, Tin" r 30
-  goto 31.1,54.2 "Silver, Tin" r 30
-  goto 38.5,63.8 "Copper, Silver" r 30
-  goto 40.7,53.4 "Copper, Silver" r 30
-  goto 39.0,36.7 "Copper, Silver" r 30
+  tip Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until Mining 125. Smelt at a forge when your bags fill: Smelt Copper (orange to 25, grey at 70), Smelt Tin (grey at 75), Smelt Bronze (grey at 115) give points too. Smelt Bronze takes a Copper Bar and a Tin Bar each: keep bars from the smelts before it. Zone level 20-30. Expect about 140 nodes for these 60 points. Smelt Silver (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 64.5,14.0 "Tin, Copper" r 30
+  goto 69.9,31.3 "Tin, Copper" r 30
+  goto 85.1,43.3 "Tin, Copper" r 30
+  goto 68.4,67.3 "Tin, Copper" r 30
+  goto 64.4,51.6 "Tin, Copper" r 30
+  goto 40.9,53.5 "Tin, Copper" r 30
+  goto 31.1,54.2 "Tin, Copper" r 30
+  goto 28.6,57.8 "Tin, Silver" r 30
+  goto 17.1,53.0 "Tin, Copper" r 30
+  goto 51.2,27.9 "Tin, Copper" r 30
+  goto 53.8,16.6 "Tin, Copper" r 30
+  goto 57.5,10.2 "Tin, Copper" r 30
   skill Mining 125
 
 step Expert Mining
-  tip Expert Mining raises the cap to 225; it needs skill 125 and character level 20. The arrow picks the nearest Mining trainer of your faction.
-  level 20
+  tip Expert Mining raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest Mining trainer of your faction. Learn Smelt Iron (5s; orange to 130, grey at 140) on the same visit: smelting at a forge raises Mining too, so smelt what you mine.
   train Mining Expert
+  learn 3307
 
 # ---------------------------------------------------------------- Mining 125-155
 
-step Iron: Duskwood (125-155)
-  only Alliance
-  zone Duskwood
-  tip Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until Mining 155. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 18-30.
-  goto 50.6,63.2 "Iron, Silver" r 30
-  goto 52.3,77.9 "Iron, Silver" r 30
-  goto 38.1,84.0 "Iron, Silver" r 30
-  goto 30.4,76.2 "Iron, Silver" r 30
-  goto 20.1,80.2 "Iron, Silver" r 30
-  goto 5.8,44.6 "Iron, Silver" r 30
-  goto 25.9,34.1 "Iron, Silver" r 30
-  goto 36.0,31.9 "Iron, Silver" r 30
-  goto 43.5,22.6 "Iron, Silver" r 30
-  goto 33.6,44.3 "Iron, Silver" r 30
-  goto 37.8,54.6 "Iron, Silver" r 30
-  goto 35.7,67.8 "Iron, Silver" r 30
-  skill Mining 155
-
-step Iron: Alterac Mountains (125-155)
-  only Horde
-  zone Alterac Mountains
-  tip Mine every Tin (65, green), Silver (75, green), Iron (125, orange) node you pass and circle the waypoints until Mining 155. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 30-40.
-  goto 44.4,84.2 "Iron, Silver" r 30
-  goto 39.9,74.0 "Iron, Silver" r 30
-  goto 32.3,65.1 "Iron, Silver" r 30
-  goto 33.6,54.0 "Iron, Silver" r 30
-  goto 32.9,39.9 "Iron, Silver" r 30
-  goto 43.1,49.3 "Iron, Silver" r 30
-  goto 42.0,35.3 "Iron, Silver" r 30
-  goto 38.4,10.6 "Iron, Silver" r 30
-  goto 12.7,52.4 "Iron, Silver" r 30
-  goto 14.4,94.0 "Iron, Silver" r 30
-  goto 28.4,85.4 "Iron, Silver" r 30
-  goto 30.8,76.3 "Iron, Silver" r 30
+step Iron: Arathi Highlands (125-155)
+  zone Arathi Highlands
+  tip Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until Mining 155. Smelt at a forge when your bags fill: Smelt Iron (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points.
+  goto 68.3,79.2 "Iron, Tin" r 30
+  goto 71.5,67.8 "Iron, Tin" r 30
+  goto 72.5,60.3 "Iron, Tin" r 30
+  goto 72.8,49.9 "Iron, Tin" r 30
+  goto 80.4,36.6 "Iron, Tin" r 30
+  goto 84.7,31.6 "Lesser Bloodstone, Silver" r 30
+  goto 48.7,34.1 "Iron, Tin" r 30
+  goto 33.1,20.5 "Iron, Tin" r 30
+  goto 33.1,44.7 "Iron, Tin" r 30
+  goto 23.5,72.3 "Iron, Tin" r 30
+  goto 53.3,78.4 "Iron, Tin" r 30
+  goto 56.5,71.5 "Iron, Tin" r 30
   skill Mining 155
 
 # ---------------------------------------------------------------- Mining 155-175
 
-step Gold: Swamp of Sorrows (155-175)
-  zone Swamp of Sorrows
-  tip Mine every Silver (75, green), Iron (125, yellow), Gold (155, orange) node you pass and circle the waypoints until Mining 175. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 35-45.
-  goto 48.0,66.1 "Gold" r 30
-  goto 42.6,58.6 "Gold, Iron" r 30
-  goto 15.7,43.0 "Gold, Iron" r 30
-  goto 17.8,32.8 "Gold, Iron" r 30
-  goto 5.0,30.9 "Gold, Iron" r 30
-  goto 5.9,51.2 "Gold, Iron" r 30
-  goto 10.4,66.0 "Gold, Iron" r 30
-  goto 17.7,65.3 "Gold, Iron" r 30
-  goto 17.7,57.8 "Gold, Iron" r 30
-  goto 36.6,68.1 "Gold, Iron" r 30
-  goto 65.2,75.1 "Gold, Iron" r 30
-  goto 60.1,62.3 "Gold, Iron" r 30
+step Iron: Arathi Highlands (155-175)
+  zone Arathi Highlands
+  tip Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, yellow), Gold (155, orange, rare) node you pass and circle the waypoints until Mining 175. Smelt at a forge when your bags fill: Smelt Gold (orange to 170, grey at 185) gives points too. Zone level 30-40. Expect about 40 nodes for these 20 points. Smelt Gold (25s; orange to 170, grey at 185) is taught from 155: learn it if you pass a Mining trainer, it is not worth a trip of its own.
+  goto 68.3,79.2 "Iron, Tin" r 30
+  goto 71.5,67.8 "Iron, Tin" r 30
+  goto 72.5,60.3 "Iron, Tin" r 30
+  goto 72.8,49.9 "Iron, Tin" r 30
+  goto 80.5,36.6 "Iron, Tin" r 30
+  goto 84.7,31.6 "Lesser Bloodstone, Gold" r 30
+  goto 48.7,34.1 "Iron, Tin" r 30
+  goto 33.1,20.5 "Iron, Tin" r 30
+  goto 33.1,44.7 "Iron, Tin" r 30
+  goto 23.4,72.3 "Iron, Tin" r 30
+  goto 53.3,78.4 "Iron, Tin" r 30
+  goto 56.5,71.5 "Iron, Tin" r 30
   skill Mining 175
 
 # ---------------------------------------------------------------- Mining 175-230
 
-step Gold & Mithril: Swamp of Sorrows (175-200)
-  zone Swamp of Sorrows
-  tip Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until Mining 200. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 35-45.
-  goto 48.0,66.1 "Gold, Mithril" r 30
-  goto 43.1,58.1 "Gold, Mithril" r 30
-  goto 15.7,43.0 "Gold, Iron" r 30
-  goto 17.8,32.8 "Gold, Iron" r 30
-  goto 5.0,30.9 "Gold, Iron" r 30
-  goto 5.9,51.2 "Gold, Iron" r 30
-  goto 10.4,66.0 "Gold, Iron" r 30
-  goto 17.7,65.3 "Gold, Iron" r 30
-  goto 17.7,57.8 "Gold, Iron" r 30
-  goto 37.0,68.6 "Gold, Mithril" r 30
-  goto 64.8,74.0 "Gold, Mithril" r 30
-  goto 60.1,62.1 "Gold, Mithril" r 30
+step Mithril: Badlands (175-200)
+  zone Badlands
+  tip Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until Mining 200. Smelt at a forge when your bags fill: Smelt Gold (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points.
+  goto 9.7,89.3 "Iron, Mithril" r 30
+  goto 7.4,77.4 "Iron, Mithril" r 30
+  goto 12.3,57.8 "Iron, Mithril" r 30
+  goto 15.6,36.8 "Iron, Mithril" r 30
+  goto 35.2,51.1 "Iron, Mithril" r 30
+  goto 46.6,52.1 "Iron, Mithril" r 30
+  goto 55.7,44.2 "Iron, Mithril" r 30
+  goto 62.5,61.2 "Iron, Mithril" r 30
+  goto 42.3,77.6 "Iron, Mithril" r 30
+  goto 23.2,63.3 "Iron, Mithril" r 30
+  goto 24.3,73.8 "Iron, Mithril" r 30
+  goto 17.8,82.3 "Iron, Mithril" r 30
   skill Mining 200
 
 step Artisan Mining
-  tip Artisan Mining raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest Mining trainer of your faction.
-  level 35
+  tip Artisan Mining raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest Mining trainer of your faction.
   train Mining Artisan
 
-step Gold & Mithril: Swamp of Sorrows (200-230) cont.
-  zone Swamp of Sorrows
-  tip Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until Mining 230. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 35-45.
-  goto 48.0,66.1 "Gold, Mithril" r 30
-  goto 43.1,58.1 "Gold, Mithril" r 30
-  goto 15.7,43.0 "Gold, Iron" r 30
-  goto 17.8,32.8 "Gold, Iron" r 30
-  goto 5.0,30.9 "Gold, Iron" r 30
-  goto 5.9,51.2 "Gold, Iron" r 30
-  goto 10.4,66.0 "Gold, Iron" r 30
-  goto 17.7,65.3 "Gold, Iron" r 30
-  goto 17.7,57.8 "Gold, Iron" r 30
-  goto 37.0,68.6 "Gold, Mithril" r 30
-  goto 64.8,74.0 "Gold, Mithril" r 30
-  goto 60.1,62.1 "Gold, Mithril" r 30
+step Mithril: Badlands (200-230) cont.
+  zone Badlands
+  tip Mine every Iron (125, green), Gold (155, yellow), Mithril (175, yellow) node you pass and circle the waypoints until Mining 230. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 35-45. Expect about 90 nodes for these 30 points.
+  goto 9.7,89.3 "Iron, Mithril" r 30
+  goto 7.4,77.4 "Iron, Mithril" r 30
+  goto 12.3,57.8 "Iron, Mithril" r 30
+  goto 15.6,36.8 "Iron, Mithril" r 30
+  goto 35.2,51.1 "Iron, Mithril" r 30
+  goto 46.6,52.1 "Iron, Mithril" r 30
+  goto 55.7,44.2 "Iron, Mithril" r 30
+  goto 62.5,61.2 "Iron, Mithril" r 30
+  goto 42.3,77.6 "Iron, Mithril" r 30
+  goto 23.2,63.3 "Iron, Mithril" r 30
+  goto 24.3,73.8 "Iron, Mithril" r 30
+  goto 17.8,82.3 "Iron, Mithril" r 30
   skill Mining 230
 
 # ---------------------------------------------------------------- Mining 230-245
 
-step Dark Iron & Truesilver: Searing Gorge (230-245)
+step Mithril & Dark Iron: Searing Gorge (230-245)
   zone Searing Gorge
-  tip Mine every Gold (155, green), Mithril (175, green), Dark Iron (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until Mining 245. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 43-50.
-  goto 22.5,25.7 "Truesilver, Dark Iron" r 30
-  goto 15.7,32.4 "Dark Iron, Gold" r 30
-  goto 17.1,42.1 "Dark Iron, Gold" r 30
-  goto 23.1,53.7 "Dark Iron, Gold" r 30
-  goto 27.8,64.4 "Dark Iron, Gold" r 30
-  goto 21.6,79.6 "Dark Iron, Gold" r 30
-  goto 36.9,76.6 "Truesilver, Dark Iron" r 30
-  goto 43.7,65.8 "Dark Iron, Gold" r 30
-  goto 38.9,54.8 "Truesilver, Dark Iron" r 30
-  goto 31.1,39.3 "Truesilver, Dark Iron" r 30
-  goto 42.5,34.2 "Truesilver, Dark Iron" r 30
-  goto 33.5,22.9 "Dark Iron, Gold" r 30
+  tip Mine every Gold (155, green), Mithril (175, green), Dark Iron (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until Mining 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Dark Iron Ore smelts only at the Black Forge in Blackrock Depths (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points.
+  goto 23.8,37.0 "Mithril, Dark Iron" r 30
+  goto 16.9,36.4 "Mithril, Dark Iron" r 30
+  goto 22.7,53.8 "Mithril, Dark Iron" r 30
+  goto 29.6,50.9 "Mithril, Dark Iron" r 30
+  goto 27.1,64.9 "Mithril, Dark Iron" r 30
+  goto 22.1,76.3 "Mithril, Dark Iron" r 30
+  goto 39.9,62.0 "Mithril, Dark Iron" r 30
+  goto 47.4,46.9 "Mithril, Dark Iron" r 30
+  goto 62.4,45.0 "Mithril, Dark Iron" r 30
+  goto 41.9,35.4 "Mithril, Dark Iron" r 30
+  goto 38.4,27.3 "Mithril, Dark Iron" r 30
+  goto 32.2,39.9 "Mithril, Dark Iron" r 30
   skill Mining 245
 
 # ---------------------------------------------------------------- Mining 245-275
 
-step Truesilver & Small Thorium: Blasted Lands (245-275)
-  zone Blasted Lands
-  tip Mine every Gold (155, green), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until Mining 275. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 45-55.
-  goto 70.4,5.8 "Gold, Mithril" r 30
-  goto 61.8,2.3 "Gold, Mithril" r 30
-  goto 58.1,13.9 "Gold, Mithril" r 30
-  goto 54.2,7.1 "Gold, Mithril" r 30
-  goto 47.2,16.9 "Gold, Mithril" r 30
-  goto 42.5,10.7 "Gold, Mithril" r 30
-  goto 42.1,24.2 "Gold, Mithril" r 30
-  goto 43.5,30.8 "Gold, Mithril" r 30
-  goto 38.0,34.7 "Gold, Mithril" r 30
-  goto 42.8,43.0 "Gold, Mithril" r 30
-  goto 45.1,51.0 "Gold, Mithril" r 30
-  goto 50.8,57.6 "Gold, Mithril" r 30
+step Small Thorium: Felwood (245-275)
+  zone Felwood
+  tip Mine every Gold (155, green, rare), Mithril (175, green), Truesilver (230, orange), Small Thorium (245, orange) node you pass and circle the waypoints until Mining 275. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Quests here that need Mining: Salve via Mining (level 55, Arathandris Silversky; Alliance), Salve via Mining (level 55, Maybess Riverbreeze; Horde). Zone level 48-55. Expect about 50 nodes for these 30 points.
+  goto 37.4,53.8 "Mithril, Small Thorium" r 30
+  goto 37.2,68.4 "Small Thorium, Truesilver" r 30
+  goto 34.4,60.7 "Small Thorium, Truesilver" r 30
+  goto 38.2,47.1 "Small Thorium, Truesilver" r 30
+  goto 39.8,22.3 "Small Thorium, Truesilver" r 30
+  goto 46.1,13.1 "Small Thorium, Truesilver" r 30
+  goto 60.2,6.3 "Small Thorium, Truesilver" r 30
+  goto 57.9,19.6 "Small Thorium, Truesilver" r 30
+  goto 48.6,23.8 "Small Thorium, Truesilver" r 30
+  goto 43.4,46.4 "Small Thorium, Truesilver" r 30
   skill Mining 275
 
 # ---------------------------------------------------------------- Mining 275-300
 
-step Rich Thorium: Burning Steppes (275-300)
-  zone Burning Steppes
-  tip Mine every Dark Iron (230, yellow), Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until Mining 300. Smelt the ore at a forge when your bags fill: smelting also raises Mining. Zone level 50-58.
-  goto 12.2,30.2 "Dark Iron, Rich Thorium" r 30
-  goto 15.6,50.4 "Dark Iron, Rich Thorium" r 30
-  goto 22.5,62.5 "Dark Iron, Rich Thorium" r 30
-  goto 23.0,73.2 "Dark Iron, Rich Thorium" r 30
-  goto 35.1,67.5 "Dark Iron, Rich Thorium" r 30
-  goto 54.3,68.7 "Dark Iron, Rich Thorium" r 30
-  goto 47.2,59.5 "Dark Iron, Rich Thorium" r 30
-  goto 46.3,40.3 "Dark Iron, Rich Thorium" r 30
-  goto 55.2,30.0 "Dark Iron, Rich Thorium" r 30
-  goto 39.1,28.4 "Dark Iron, Rich Thorium" r 30
-  goto 34.6,54.0 "Dark Iron, Rich Thorium" r 30
-  goto 26.1,45.8 "Dark Iron, Rich Thorium" r 30
+step Small Thorium & Rich Thorium: Winterspring (275-300)
+  zone Winterspring
+  tip Mine every Truesilver (230, yellow), Small Thorium (245, yellow), Rich Thorium (275, orange) node you pass and circle the waypoints until Mining 300. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. Zone level 55-60. Expect about 40 nodes for these 25 points.
+  goto 69.6,38.7 "Rich Thorium, Small Thorium" r 30
+  goto 67.2,38.4 "Rich Thorium, Truesilver" r 30
+  goto 48.2,6.5 "Rich Thorium" r 30
+  goto 48.2,9.0 "Rich Thorium" r 30
+  goto 50.0,15.7 "Rich Thorium, Truesilver" r 30
+  goto 52.2,40.3 "Rich Thorium, Truesilver" r 30
+  goto 53.3,44.2 "Rich Thorium, Truesilver" r 30
+  goto 56.3,43.7 "Small Thorium, Truesilver" r 30
+  goto 53.4,52.7 "Rich Thorium" r 30
+  goto 53.7,85.6 "Rich Thorium" r 30
+  goto 59.1,87.9 "Small Thorium, Rich Thorium" r 30
+  goto 60.1,78.7 "Small Thorium, Rich Thorium" r 30
   skill Mining 300

@@ -2,16 +2,26 @@ guide forever/collectibles/pets/spectral-bear-cub
 title Spectral Bear Cub
 category Collectibles
 folder Companion pets · Legacy
-keywords Legacy, Legacy Points, Legacy Progress Track, bear cub, bear
+keywords Legacy, Legacy Points, Legacy Progress Track, Legacy Reward, Innkeeper Wiley, Ratchet, bear cub, bear
 collects 277714
 levels 25-60
-zone Stormwind City
+zone The Barrens
 
 # Spectral Bear Cub: the 25-point reward of the Legacy Progress Track.
-# The cub is the 25 Legacy Points reward.
-# Sources: Forever client 1.60.1.70338 (item
-# 277714).
+# Sources: Forever's quest data and the server's quest answers in players'
+# caches (quest 96383 "Legacy Reward: Spectral Bear Cub", given and taken by
+# Innkeeper Wiley in Ratchet, reward item 277714; the rifle's reward quest
+# 96339 was seen at Wiley in the beta); Forever's client data (item 277714,
+# binds when picked up); the Legacy Challenges list (Blizzard's Legacy post,
+# as in the Legacy Challenges guide). The world database's 96340 for the cub
+# was never seen.
+# ASSUMED: Wiley offers the quest once your account has 25 Legacy Points (beta
+# reports; the quest has no other requirement in our data). In-game check: the
+# quest at Wiley below and at 25 points.
 
-step 25 Legacy Points
-  tip Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, professions, PvP, exploring) is worth one. The Progress Track gives the Replica Ironforge Air Rifle at 15, the Spectral Bear Cub at 25, the Spectral Bear Tabard at 40 and the Reins of the Spectral Bear at 55. How rewards are delivered is not known yet (perhaps by mail); this goal ticks once the cub is in your bags.
-  collect 277714 "Spectral Bear Cub"
+step Innkeeper Wiley in Ratchet
+  tip Legacy Points are account-wide: each Legacy Challenge (a class reaching 25, 45 and 60, a crafting profession at 150, 225 and 300, PvP ranks and battleground reputations, exploring, dungeons and raids) is worth one, and the track counts points earned, not spent. It gives the Replica Ironforge Air Rifle at 15, the Spectral Bear Cub at 25, the Spectral Bear Tabard at 40 and the Reins of the Spectral Bear at 55. The rewards are claimed as quests from Innkeeper Wiley in the inn at Ratchet, the goblin port on the Barrens coast (Alliance players come by the boat from Booty Bay): with 25 points he offers Legacy Reward: Spectral Bear Cub; hand it straight back for the cub.
+  note "Without PvP one character can earn 17 points: its class at 25, 45 and 60, two professions to 300, the two adventure challenges, the three dungeon tiers and the three raids. A second class or more professions on an alt make up the rest; the Legacy Challenges guide plans them."
+  accept 96383
+  turnin 96383
+  collect 277714 "Spectral Bear Cub" @62.0,39.4

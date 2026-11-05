@@ -163,10 +163,23 @@ function createGitHub({ token, repo, api = API, fetch: fetchImpl = fetch }) {
 	};
 }
 
+// What a file's first bytes say it is: a PNG, JPEG, WebP or GIF image, else
+// null. Discord's content type comes from the file name, so it is not used.
+function imageType(bytes) {
+	const b = bytes;
+	const at = (i, ...xs) => xs.every((x, k) => b[i + k] === x);
+	if (b.length >= 8 && at(0, 0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a)) return 'png';
+	if (b.length >= 3 && at(0, 0xff, 0xd8, 0xff)) return 'jpeg';
+	if (b.length >= 12 && at(0, 0x52, 0x49, 0x46, 0x46) && at(8, 0x57, 0x45, 0x42, 0x50)) return 'webp';
+	if (b.length >= 6 && (at(0, 0x47, 0x49, 0x46, 0x38, 0x37, 0x61) || at(0, 0x47, 0x49, 0x46, 0x38, 0x39, 0x61))) return 'gif';
+	return null;
+}
+
 // The media branch: an orphan branch holding the screenshots, one commit per
 // file. Writes go one at a time (the contents API rejects a commit whose
 // branch moved underneath it) and a file already there is not written again.
-function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fetch, maxBytes = 20 * 1024 * 1024 }) {
+// Only images (by their bytes) up to maxBytes are copied.
+function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fetch, maxBytes = 5 * 1024 * 1024 }) {
 	const r = `/repos/${repo}`;
 	let ready = null;
 	let queue = Promise.resolve();
@@ -217,13 +230,15 @@ function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fe
 	}
 
 	// Copies a Discord attachment and returns its permanent URL, or null when
-	// it is too big or cannot be fetched (the caller links Discord instead).
+	// it is too big, not an image or cannot be fetched (the caller links
+	// Discord instead).
 	function copy(path, attachment, message) {
 		const job = queue.then(async () => {
-			if (attachment.size > maxBytes) return null;
+			if (!(attachment.size <= maxBytes)) return null;
 			const res = await fetchImpl(attachment.url);
 			if (!res.ok) return null;
 			const bytes = new Uint8Array(await res.arrayBuffer());
+			if (bytes.length > maxBytes || !imageType(bytes)) return null;
 			await put(path, bytes, message);
 			return rawUrl(path);
 		});
@@ -234,4 +249,4 @@ function createMedia({ github, repo = github.repo, branch, fetch: fetchImpl = fe
 	return { copy, rawUrl, ensureBranch };
 }
 
-module.exports = { createGitHub, createMedia, GitHubError };
+module.exports = { createGitHub, createMedia, imageType, GitHubError };

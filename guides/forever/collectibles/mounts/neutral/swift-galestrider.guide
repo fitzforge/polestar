@@ -10,32 +10,55 @@ zone map 2521
 # Galestriders, the Skyborne racial mounts, from Genn Fairweather in Valanaar on
 # Zephras Isle.
 # Genn Fairweather sells them for 200 gold; skyboats leave the isle.
-# Sources: NPC 265756
-# (position); Forever client 1.60.1.70338 via wago.tools (ItemSparse: level 60,
-# Galestrider Riding, every race; SkillLineAbility files Galestrider Riding
-# under the one Riding skill). They are tagged Reputation, but no standing is
-# known; Regal Galestrider and Swift Regal Galestrider have no known source.
+# Sources: NPC 265756 (position; "Stablemaster and Riding Trainer"); Forever's
+# world data: his vendor rows (build 70338) and trainer (build 70124: Apprentice
+# Riding 100g at 40, Journeyman Riding 1,000g at 60); Forever client 1.60.1.70532
+# via wago.tools (ItemSparse: level 60, every race; MountCapability: Riding 150
+# and Galestrider Riding 1285849; SkillLineAbility: the Skyborne get Galestrider
+# Riding with Riding, the other races must learn it). Regal Galestrider and Swift
+# Regal Galestrider have no known source. A beta player guide: the Skyborne buy
+# their riding and mount from Genn, and other races' mounts need Exalted.
+# INGAME: how does a non-Skyborne learn Galestrider Riding (Genn at Exalted with
+# the High Order or the Windshapers, as other races' riding was in Classic?).
 
 step Journeyman Riding
-  tip Swift Galestriders need level 60 and Journeyman Riding from a riding trainer of your faction; see the Level 60 mount guides for where.
+  only Human,Dwarf,NightElf,Gnome,Orc,Troll,Tauren,Undead
+  tip Swift Galestriders need level 60 and Journeyman Riding. Train it at your own race's riding trainer; see the Level 60 mount guides for where.
   level 60
   skill Riding 150
 
 step Skyboat from Dalaran
   only Alliance
+  when !zone "Zephras Isle"
   zone Alterac Mountains
   tip Zephras Isle is the Skyborne starting island; anyone may visit. A skyboat leaves the north side of Dalaran about every five minutes (another flies from north of Thunder Bluff; either faction may take either). Skip this if you are already on the island.
   goto 12.5,51.8 "Skyboat to Zephras Isle" live
 
 step Skyboat from Thunder Bluff
   only Horde
+  when !zone "Zephras Isle"
   zone Mulgore
   tip Zephras Isle is the Skyborne starting island; anyone may visit. A skyboat leaves the cliffs south of Skywatcher Plateau, north of Thunder Bluff, about every five minutes (another flies from Dalaran; either faction may take either). Skip this if you are already on the island.
   goto 34.3,25.8 "Skyboat to Zephras Isle" live
 
+step Journeyman Riding with Genn Fairweather
+  only Skyborne
+  zone map 2521
+  tip Skyborne train Journeyman Riding with Genn Fairweather himself for 1,000g; Blizzard says it comes with a mount. He stands at the Fairweather Stables in Valanaar, near the skyboat docks.
+  level 60
+  train 265756                        -- Genn Fairweather, riding trainer
+  skill Riding 150
+
+step Galestrider Riding for other races
+  only Human,Dwarf,NightElf,Gnome,Orc,Troll,Tauren,Undead
+  when !knows 1285849
+  zone map 2521
+  tip Any race can buy Galestriders, but riding one also takes Galestrider Riding, which only the Skyborne get with Riding. Other races can learn it too, but how is not known yet: in Classic another race's riding needed Exalted with its home faction, here the High Order (Alliance) or the Windshapers (Horde). Ask Genn Fairweather before you buy.
+  talk 265756                         -- Genn Fairweather
+
 step Genn Fairweather
   zone map 2521
-  tip Genn Fairweather is in Valanaar, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one.
+  tip Genn Fairweather is at the Fairweather Stables in Valanaar, the island's harbour town, near the skyboat docks. The Forever client lists each Swift Galestrider at 200g; choose one.
   vendor 265756 "Genn Fairweather" @53.8,81.2
   buy 269671 "Swift Empyrean Galestrider" npc 265756 optional -- 200g
   buy 269678 "Swift Stormy Galestrider" npc 265756 optional -- 200g

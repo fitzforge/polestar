@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "schema/step.schema.json",
+  "title": "step",
+  "description": "Ordered quest steps from structured data, in our own words.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "quest",
+    "n",
+    "id",
+    "action"
+  ],
+  "properties": {
+    "quest": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "quest id"
+    },
+    "n": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "step number (display order only)"
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "stable id <quest>:s:<hash>: kept when the wording or the order changes; note fixes name it"
+    },
+    "action": {
+      "type": "string",
+      "minLength": 1,
+      "description": "what to do"
+    },
+    "target_kind": {
+      "type": "string",
+      "minLength": 1,
+      "description": "npc, object, item or area"
+    },
+    "target": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "target id"
+    },
+    "count": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "how many"
+    },
+    "place": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "map",
+        "x",
+        "y"
+      ],
+      "properties": {
+        "map": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        }
+      },
+      "description": "where, in world yards"
+    },
+    "text": {
+      "type": "string",
+      "minLength": 1,
+      "description": "the step in our words"
+    },
+    "confidence": {
+      "type": "string",
+      "enum": [
+        "unconfirmed"
+      ],
+      "description": "unconfirmed: a community note rewritten as a neutral fact, not yet confirmed from game data"
+    }
+  }
+}

@@ -1,0 +1,185 @@
+# set	id	refs	levels	kind	severity	review_caught_by
+v2-orc	1	01:44, 01:213, 02:32	2-9	wrong order	major	none
+v2-orc	2	01:20-27, 01:98, 01:284, 01:293; 02:32-48; 06:296-303	1-22	repeated/redundant steps	minor	none
+v2-orc	3	01:97-102	3	wordiness/confusing text	minor	none
+v2-orc	4	01:226-236	6	wordiness/confusing text	minor	none
+v2-orc	5	01:247-268	6-7	wordiness/confusing text	minor	none
+v2-orc	6	01:270-278; 03:62-68	7-12	wordiness/confusing text	minor	none
+v2-orc	7	01:320-323, 01:338-340, 02:22-25	7-10	bad travel	major	none
+v2-orc	8	01:331-340	7-8	wrong order	major	none
+v2-orc	9	02:12-13	9	wordiness/confusing text	minor	none
+v2-orc	10	02:22-29	9	wrong order	minor	none
+v2-orc	11	02:40-46, 02:109-112, 02:282-296	9-12	wrong order	major	none
+v2-orc	12	02:72, 02:93	10	repeated/redundant steps	minor	none
+v2-orc	13	02:115-127	10	wrong place	minor	none
+v2-orc	14	02:145-201	10-11	wrong order	minor	none
+v2-orc	15	02:261-268	11	bad travel	minor	none
+v2-orc	16	03:24-27	12	missing step	major	none
+v2-orc	17	02:192 → 05:15	12-17	wrong/missing trainer	major	none
+v2-orc	18	03:189-193, 04:12-28	14	bad travel	major	none
+v2-orc	19	04:39-69	14-15	wrong order	minor	none
+v2-orc	20	04:42-46	14	missing step	major	none
+v2-orc	21	04:140-142	15	repeated/redundant steps	minor	none (added by repair)
+v2-orc	22	04:249-256, 05:117-136, 05:362-363	16-19	wrong order	major	none
+v2-orc	23	04:305, 04:318, 04:332, 04:344	17	bad travel	major	none
+v2-orc	24	05:12-21	17	wrong/missing trainer	major	none
+v2-orc	25	05:321-331	19	wrong/missing trainer	major	none
+v2-orc	26	07:13-22	23	wrong/missing trainer	major	none
+v2-orc	27	05:38-47	17	wordiness/confusing text	minor	none
+v2-orc	28	05:77-88, 06:89-117	18-21	wrong order	major	none
+v2-orc	29	05:163-172	18	other	minor	lint warning `item 10338 … lasts 30 minutes` (05:169)
+v2-orc	30	05:333-335	19	other (repair made it worse)	major	none
+v2-orc	31	05:296-303	19	elite/group content solo	minor	none
+v2-orc	32	05:412-416	20	bad travel	minor	none
+v2-orc	33	06:24-44, 08:172-178, 09:60-75	20-28	missing step	major	none
+v2-orc	34	06:85-97	21	wrong order	major	none
+v2-orc	35	06:151-160, 06:284-292	21-22	bad travel	major	none
+v2-orc	36	06:190-205	21	wrong place	minor	none
+v2-orc	37	06:377-401	21	wrong order	major	none
+v2-orc	38	06:384-391, 06:503-510, 07:61-69, 07:210-218, 09:103-111	21-28	grinding	major	none
+v2-orc	39	06:468-472, 07:55-59, 06-catchup, 07-catchup	22-25	grinding	major	none
+v2-orc	40	06:423-426, 09:172-175	21-29	grinding	minor	none
+v2-orc	41	06:515-550	23	bad travel	major	none
+v2-orc	42	07:102-120, 07:295, 09:142	23-28	wordiness/confusing text	minor	none
+v2-orc	43	07:115-116, 07:136-137, 07:186-187, 07:244-246	23-24	missing step	major	honest R3 (07:116, both fails); the `buy` lines: none
+v2-orc	44	07:154-157, 07:275-278, 09:307-310	24-30	other (repair made it worse)	minor	honest R4 (07:277, Muglash only); others none
+v2-orc	45	07:177-190, 07:316-318	23-25	bad travel	minor	none
+v2-orc	46	07:295-306	25	wrong order	minor	none
+v2-orc	47	07:362-372	25	elite/group content solo	major	none
+v2-orc	48	06:440, 07:333, 08:48, 08:196	22-27	wrong place	minor	lint warning `explicit coordinates … more than 50 yards` (each line)
+v2-orc	49	08:12-13	25	bad travel	minor	none
+v2-orc	50	08:37-50	25	wordiness/confusing text	minor	none
+v2-orc	51	08:155-161	26	elite/group content solo	major	none
+v2-orc	52	08:296-332	26	wordiness/confusing text	minor	none
+v2-orc	53	08:251-271	26	bad travel	minor	none
+v2-orc	54	08:541-547, 09:13-21	27-28	bad travel	major	none
+v2-orc	55	09:30-41	28	wrong order	major	none
+v2-orc	56	09:72-76	28	bad travel	minor	none
+v2-orc	57	09:77-101, 09:250	28-29	bad travel	major	guidecheck `travel` (09:91)
+v2-orc	58	09:116-127	28	missing step	blocker [INFERENCE]	none
+v2-orc	59	09:151-154	28	other (repair made it worse)	major	none
+v2-orc	60	09:172-180	29	bad travel	major	none
+v2-orc	61	09:182-241	29	wrong order	major	none
+v2-orc	62	09:243-252	29	bad travel	major	none
+v2-orc	63	09:497-500	29	wordiness/confusing text	minor	none
+v2-orc	64	09:570-575	30	grinding	blocker [INFERENCE, beta only]	none
+v2-orc	65	03:166-170	13	wrong place	minor	none
+v2-orc	66	all 01-09	1-30	wordiness/confusing text	minor	none
+v2-orc	67	all (`skipto`, `die`, `enter`, `when group`)	1-30	other	blocker [INFERENCE, conditional]	none
+v2-human	1	01-elwynn-forest:18-24	1-2	wrong order	minor	none
+v2-human	2	01-elwynn-forest:30-32	2	other	minor	none
+v2-human	3	01-elwynn-forest:120-121	3	repeated/redundant	minor	none
+v2-human	4	01-elwynn-forest:185-191	4	wordiness	minor	none
+v2-human	5	01-elwynn-forest:286-333, 410-417	5-7	wrong order	major	none
+v2-human	6	01-elwynn-forest:296-300, 358-363, 561-566	5-9	wordiness	minor	none
+v2-human	7	01-elwynn-forest:76+94, 356+366, 591+731	3-12	repeated/redundant	minor	none
+v2-human	8	01-elwynn-forest:475-485	8-9	wordiness	minor	none
+v2-human	9	01-elwynn-forest:467-473, 542-545	8-9	wrong order	minor	none
+v2-human	10	01-elwynn-forest:605-608	10	wrong place	major	none (lint only warns when no spawn is near)
+v2-human	11	01-elwynn-forest:568-572	9	wordiness	minor	none
+v2-human	12	01-elwynn-forest:661-728	10-12	bad travel	major	none
+v2-human	13	01-elwynn-forest:721-725	11-12	grinding	major	none
+v2-human	14	02-westfall:47-58	12	wordiness	minor	none
+v2-human	15	02-westfall:79-84	12	wordiness	minor	none
+v2-human	16	02-westfall:111-125	13	wrong place	minor	lint warning "explicit coordinates … more than 50 yards from every known spawn of the target" (02:120, 02:125)
+v2-human	17	02-westfall:187-228	14-15	bad travel	major	none
+v2-human	18	02-westfall:236-237 → 03-darkshore-stormwind-city:13-14	15	bad travel	major	none
+v2-human	19	02-westfall:230-234	14-15	grinding	minor	none
+v2-human	20	03-darkshore-stormwind-city:19-22	15	missing step	minor	none
+v2-human	21	03-darkshore-stormwind-city:60-62; 05-duskwood:245-251	15→29	missing step	minor	none
+v2-human	22	03-darkshore-stormwind-city:83-86	15	other	minor	none
+v2-human	23	03-darkshore-stormwind-city:180-186	16	wrong order	minor	none
+v2-human	24	03-darkshore-stormwind-city:490-516	17	missing step	major	none
+v2-human	25	03-darkshore-stormwind-city:427-431, 781-784	16-19	wordiness	minor	none
+v2-human	26	03-darkshore-stormwind-city:467-471, 600-603, 822-826, 833-837	17-19	repeated/redundant	minor	none
+v2-human	27	03-darkshore-stormwind-city:652-654	19	other (repair made it worse)	major	none (same zone, so R1 and travel stay silent)
+v2-human	28	03-darkshore-stormwind-city:767-769	19	other (repair made it worse)	major	none
+v2-human	29	03-darkshore-stormwind-city:881-900	19-20	bad travel	major	none
+v2-human	30	03-darkshore-stormwind-city:617-907	18-20	bad travel	major	none
+v2-human	31	03-darkshore-stormwind-city:909-913	19-20	grinding	major	none
+v2-human	32	03-darkshore-stormwind-city:23,30 → 04-redridge-mountains-elwynn-forest:204	15-21	wrong/missing trainer	minor	none
+v2-human	33	04-redridge-mountains-elwynn-forest:195-204	21	wrong/missing trainer + bad travel	major	none
+v2-human	34	04-redridge-mountains-elwynn-forest:226-235	21	wrong place	minor	none
+v2-human	35	04-redridge-mountains-elwynn-forest:252-256	21-22	grinding	major	none
+v2-human	36	05-duskwood:23-31, 72-77, 241-243	22-24	wordiness	minor	none
+v2-human	37	05-duskwood:50-65	22	wrong place	minor	none
+v2-human	38	05-duskwood:211-221	23	repeated/redundant	minor	honest R5 05:226 fires, but its message ("has no line") is wrong: the buy lines exist
+v2-human	39	06-ashenvale-stonetalon-mountains:12-13	25	bad travel	minor	none
+v2-human	40	06-ashenvale-stonetalon-mountains:60-66	25	other (repair made it worse)	major	honest R1 06:62 + 06:66; guidecheck travel 06:62/66; lint warning 06:62 (map 1439 vs zone 1440)
+v2-human	41	06-ashenvale-stonetalon-mountains:171-173	26	repeated/redundant	minor	none
+v2-human	42	06-ashenvale-stonetalon-mountains:130-132; 07-wetlands-darkshore:128-130	25; 27	bad travel	minor	none
+v2-human	43	06-ashenvale-stonetalon-mountains:199-208	26	repeated/redundant	minor	none
+v2-human	44	06-ashenvale-stonetalon-mountains:316-322	25-26	other (over-level)	major	none
+v2-human	45	06-ashenvale-stonetalon-mountains:380-395	26	wordiness	minor	none
+v2-human	46	06-ashenvale-stonetalon-mountains:403-409	26	elite/group content solo	minor	none
+v2-human	47	06-ashenvale-stonetalon-mountains:497	27	wrong place	minor	lint warning 06:497
+v2-human	48	07-wetlands-darkshore:34-40	27	wordiness	minor	none
+v2-human	49	07-wetlands-darkshore:59-60, 78-80	27	repeated/redundant	minor	honest R5 07:84 fires, but its message is wrong (the buy lines exist)
+v2-human	50	07-wetlands-darkshore:122-126	27	wrong place	minor	lint warning 07:126
+v2-human	51	07-wetlands-darkshore:273-279, 376-399, 441-447	28-29	bad travel	major	none
+v2-human	52	07-wetlands-darkshore:1-7	27	wordiness	minor	none
+v2-human	53	08-catchup:14 (and 8 copies in 08:381-468)	29-31	wordiness	minor	none
+v2-human	54	01-catchup, 03-catchup	—	repeated/redundant	minor	none
+v2-human	55	08-duskwood-thousand-needles:372-377	~29.5	elite/group content solo	blocker (must be skipped by hand)	none
+shipped-orc	1	o01:387-397	~9.3-9.5	missing step	major	
+shipped-orc	2	o01:508-512 → h03:117	~11.2 → 16.1	wrong/missing trainer	major	
+shipped-orc	3	o01:546-563	~11.6	wrong order	minor	
+shipped-orc	4	o01:483-488	~11.0	deaths	minor	
+shipped-orc	5	o02:308-311	15.5→16	grinding	major	
+shipped-orc	6	o02:275-279	~15	wordiness/confusing text	minor	
+shipped-orc	7	h02:266-270, h02:312-317	~16.1	bad travel	major	
+shipped-orc	8	h02:268	~16.1	wrong data/giver/count	major	
+shipped-orc	9	h02:339-350	~16.1	bad travel	major	
+shipped-orc	10	h02:350	16 → ~45	wrong data/giver/count	minor	
+shipped-orc	11	h03:288-291	~17.6→19	grinding	major	
+shipped-orc	12	h03:323-325	~19.3	wrong order	minor	
+shipped-orc	13	h03:149-165, h03:311-315	~16.2, ~19.3	wrong/missing trainer	minor	
+shipped-orc	14	h04:177-179	~19.6→20	grinding	minor	
+shipped-orc	15	h04:459-472	~22	deaths	minor	
+shipped-orc	16	h04:474-479	~22.5	deaths	minor	
+shipped-orc	17	h04:537-541	~23.2	wrong/missing trainer	minor	
+shipped-orc	18	h04:460	~22	wordiness/confusing text	minor	
+shipped-orc	19	h05:223-227	~24.8	wrong/missing trainer	major	
+shipped-orc	20	h05:98-99	~23.2	wrong data/giver/count	minor	
+shipped-orc	21	h05:236	~24.9	wordiness/confusing text	minor	
+shipped-orc	22	h06:140-143	~25.5	grinding	major	
+shipped-orc	23	h06:110-114	~25	grinding	minor	
+shipped-orc	24	h06:191-197	~26.6	deaths	major	
+shipped-orc	25	h06:204-208	~26.7	deaths	minor	
+shipped-orc	26	h06:263-268	~27	wrong data/giver/count	minor	
+shipped-orc	27	h06:271-273	~27	wrong data/giver/count	minor	
+shipped-orc	28	h07:254-258 (and the whole guide)	~28.4 → cap	wrong/missing trainer	major	
+shipped-orc	29	h07:254-258	~28.4	bad travel	major	
+shipped-orc	30	h07:134-136	~27.2	group content for a solo player	minor	
+shipped-orc	31	h07:174-182	~27.6	other	minor	
+shipped-orc	32	h07:232-236	~27.9	bad travel	minor	
+shipped-orc	33	h07:218-221	~27.6	deaths	minor	
+shipped-orc	34	h07:376-381	~29.5-30	deaths	minor	
+shipped-orc	35	h07:376-425	30 (cap)	other	minor	
+shipped-human	1	human/01-elwynn-forest:140,149	1-2	wrong order	minor	
+shipped-human	2	human/01-elwynn-forest:154-157	1-2	other	minor	
+shipped-human	3	human/01-elwynn-forest:488-492	~10	deaths	minor	
+shipped-human	4	human/01-elwynn-forest:541-548 (with 02-westfall:258-270)	10-12 → ~16	wrong/missing trainer	major	
+shipped-human	5	human/01-elwynn-forest:371	~7	wordiness/confusing text	minor	
+shipped-human	6	02-westfall:127-288	12.3-16.4	wrong/missing trainer	major	
+shipped-human	7	02-westfall:156, 261, 287	~13-16.4	wrong/missing data	minor	
+shipped-human	8	03-darkshore (whole guide; next train 04-redridge:82)	16.4-20.5	wrong/missing trainer	major	
+shipped-human	9	03-darkshore:338 → 06-ashenvale:137-146	~19 → ~25.5	wrong order	minor	
+shipped-human	10	04-redridge-mountains:183-186	~21.5	deaths	major	
+shipped-human	11	04-redridge-mountains:205-212	~22.5	deaths	major	
+shipped-human	12	04-redridge-mountains:157-159	~21	deaths	minor	
+shipped-human	13	04-redridge-mountains:84	~20.5	wordiness/confusing text	minor	
+shipped-human	14	05-duskwood (whole guide; train only at 248)	22.7-25.4	wrong/missing trainer	major	
+shipped-human	15	05-duskwood:76-79 → 07-thousand-needles:84,93-94	22.7 → 28.2	wrong order	minor	
+shipped-human	16	05-duskwood:211-248	~25.4	bad travel	minor	
+shipped-human	17	06-ashenvale:442-445	~27.2 → 28	grinding	major	
+shipped-human	18	06-ashenvale:456 (previous: 05-duskwood:248)	25.4 → ~28	wrong/missing trainer	major	
+shipped-human	19	06-ashenvale:264, 302-305	~27	bad travel	major	
+shipped-human	20	06-ashenvale:443	~27.5	wrong/missing data	minor	
+shipped-human	21	06-ashenvale:317, 358	~27	missing step	(see #22)	
+shipped-human	22	07-thousand-needles:196, 245-263	~29	missing step	blocker	
+shipped-human	23	07-thousand-needles:260-312 (plus 06:442-455)	28 → 30.4	bad travel	major	
+shipped-human	24	07-thousand-needles:290-298	29.6-30	deaths	major	
+shipped-human	25	07-thousand-needles:99-124	~28.3-28.6	deaths	minor	
+shipped-human	26	07-thousand-needles:264-276	~29.6	missing step	minor	
+shipped-human	27	07-thousand-needles (whole), chain end	30	wrong/missing trainer	minor	

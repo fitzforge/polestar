@@ -67,7 +67,7 @@ test('no Lua: exit 0 with the Lua fix', async () => {
 		}),
 	);
 	assert.equal(code, 0);
-	assert.match(lines.find((l) => l.startsWith('fix lua:')), /no Lua 5\.1 interpreter.*play.*playtest.*record import/);
+	assert.match(lines.find((l) => l.startsWith('fix lua:')), /no Lua 5\.1 interpreter.*play and playtest need one/);
 	assert.deepEqual(FIXES(lines, 'lua').map((f) => f.split(':')[0]), ['Windows', 'macOS', 'Linux']);
 });
 

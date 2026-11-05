@@ -8,14 +8,18 @@ levels 1-60
 zone Elwynn Forest
 
 # Flik's frogs at the Darkmoon Faire.
-# Sources: items.json / npcs.json (vendor, stock; Flik has no fixed spawn);
-# Forever client 1.60.1.70338 via wago.tools (ItemSparse prices; every pet item
-# teaches its companion when used).
-# Forever's Faire schedule is not confirmed; in Era it alternates between
-# Goldshire (Elwynn Forest) and Mulgore.
+# Sources: items.json / npcs.json (vendor, stock; Flik's two Faire spots, in
+# Elwynn Forest and Mulgore); the TDB's vendor rows (Wood Frog Box: one in
+# stock, restocked every 30 minutes; Tree Frog Box unlimited; Classic data);
+# Forever's client data 1.60.1.70532 (ItemSparse prices: 1g each; every pet
+# item teaches its companion when used).
+# ASSUMED: The Darkmoon Faire comes to Forever as in Classic, alternating
+# between Elwynn Forest (south of Goldshire) and Mulgore (near Thunder Bluff)
+# month by month (Classic flow; Forever has not shown the Faire yet, and the
+# reputation guides say so too). In-game check: the first Faire after launch.
 
 step Flik at the Darkmoon Faire
-  tip Flik sells two frogs (1g each) while the Darkmoon Faire is in town. In Era the Faire sets up south of Goldshire in Elwynn Forest one month and near Thunder Bluff in Mulgore the next; go to whichever is up. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
+  tip Flik sells two frogs (1g each) while the Darkmoon Faire is in town; Forever has not shown the Faire yet. In Classic it sets up south of Goldshire in Elwynn Forest one month and near Thunder Bluff in Mulgore the next; go to whichever is up. Flik runs all over the Faire grounds, so look around for him. He carries only one Wood Frog Box at a time and restocks it about every 30 minutes: if he has none, someone just bought it. Each pet item teaches its companion when you use it; the goals stay ticked afterwards.
   vendor 14860                        -- Flik
   buy 11026 npc 14860 optional        -- Tree Frog Box, 1g
   buy 11027 npc 14860 optional        -- Wood Frog Box, 1g

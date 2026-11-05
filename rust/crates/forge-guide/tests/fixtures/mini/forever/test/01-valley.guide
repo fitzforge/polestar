@@ -1,0 +1,30 @@
+guide forever/test/01-valley
+# Written by the typed model (polestar-guide model::fixture).
+title Valley of Trials
+levels 1-6
+zone Durotar
+faction Horde
+race Orc, Troll
+next forever/horde/orc-troll/02-the-barrens when level>=5
+
+step Kaltunk
+  accept 4641 -- Kaltunk, where you start
+
+step Gornek
+  label den
+  tip Gornek waits inside the Den.
+  turnin 4641
+  accept 788
+  accept 97279
+
+step Training weapons and boars
+  collect 277653 quest 97279.1
+  kill 3098 x10 quest 788.1
+  goto 42.4,68.6 "The Den"
+
+step The Den
+  when level<6
+  turnin 788
+  train class optional
+  vendor nearest only Warrior
+  level 5.5
