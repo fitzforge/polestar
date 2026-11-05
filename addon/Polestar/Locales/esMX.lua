@@ -805,9 +805,14 @@ L["quests"] = "misiones"
 L["available now"] = "disponibles ahora"
 L["mobs tracked"] = "monstruos rastreados"
 L["Quest database status"] = "Estado de la base de datos de misiones"
+L["Quest marks in bags"] = "Marcas de misión en las bolsas"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Marca los objetos de las bolsas que una misión aún necesita, en tu registro o más adelante en tu guía, hasta que entregues la misión."
+L["Offer to buy back quest items"] = "Ofrecer recomprar objetos de misión"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Si vendes un objeto que una misión aún necesita, pregunta si quieres recomprárselo al mercader."
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Inicia una misión"
+L["%d/%d (not accepted)"] = "%d/%d (no aceptada)"
 
 -- Quests/Tracker.lua
 L["Done"] = "Hecho"
@@ -2780,6 +2785,17 @@ L["Not now"] = "Ahora no"
 L["Click to target and mark %s (out of combat)."] = "Haz clic para seleccionar y marcar a %s (fuera de combate)."
 L["Click to target %s (out of combat)."] = "Haz clic para seleccionar a %s (fuera de combate)."
 L["%s not found nearby."] = "No se encuentra a %s cerca."
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Objetos de misión de Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Necesario para:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Ya no está en la lista de recompra del mercader."
+L["Not enough money to buy it back."] = "No tienes suficiente dinero para recomprarlo."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Vendiste %s, que %s aún necesita. ¿Recomprarlo por %s?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

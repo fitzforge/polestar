@@ -423,6 +423,7 @@ L["Not done"] = "Не готово"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Начинает задание"
+L["%d/%d (not accepted)"] = "%d/%d (не взято)"
 
 -- Quests/Options.lua
 L["Any level"] = "Любой уровень"
@@ -464,6 +465,10 @@ L["quests"] = "заданий"
 L["available now"] = "доступно сейчас"
 L["mobs tracked"] = "мобов отслеживается"
 L["Quest database status"] = "Состояние базы заданий"
+L["Quest marks in bags"] = "Метки заданий в сумках"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Помечает предметы в сумках, которые ещё нужны заданию в журнале или впереди в гайде, пока вы не сдадите задание."
+L["Offer to buy back quest items"] = "Предлагать выкуп предметов для заданий"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Если вы продадите предмет, который ещё нужен заданию, спросить, выкупить ли его у торговца."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -2781,6 +2786,17 @@ L["Not now"] = "Не сейчас"
 L["Click to target and mark %s (out of combat)."] = "Щелкните, чтобы выбрать целью и пометить: %s (вне боя)."
 L["Click to target %s (out of combat)."] = "Щелкните, чтобы выбрать целью: %s (вне боя)."
 L["%s not found nearby."] = "%s не найден поблизости."
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Предметы заданий Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Нужно для:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Его больше нет в списке выкупа торговца."
+L["Not enough money to buy it back."] = "Недостаточно денег для выкупа."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Вы продали %s, а он ещё нужен для «%s». Выкупить за %s?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

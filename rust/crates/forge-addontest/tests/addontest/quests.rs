@@ -636,6 +636,235 @@ emit(sq.hoverUnit(6, true))         -- GUID is a secret value (combat): no lines
 	assert_eq!(out[5], json!(["?"]));
 }
 
+// An item a quest still needs is marked in the bags and named on its tooltip
+// until the quest is handed in: through the log, and (not accepted yet) through
+// the running guide's steps from the live one on.
+#[test]
+fn an_item_a_quest_needs_is_flagged_while_the_quest_is_in_the_log_or_ahead_in_the_guide() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local E = Polestar.Engine
+local function guideAhead() E.GetGuide = function() return { id = "test", steps = { { goals = { { t = "accept", quest = 60 } } } } } end end
+guideAhead()
+E.GetLiveStep = function() return 1 end
+E.Applies = function() return true end
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+w.turnIn(60); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772), sq.hoverItem(772) })
+E.GetGuide = function() return nil end
+Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3)
+emit({ Q.IsItemNeeded(772) })
+"#,
+		"w.complete({ 783 })",
+	);
+	assert_eq!(out[0], json!([true, ["?", "Kobold Candles: | 0/8 (not accepted)"]]));
+	assert_eq!(out[1], json!([true, ["?", "Kobold Candles: | 0/8"]]));
+	assert_eq!(out[2], json!([false, ["?"]]));
+	assert_eq!(out[3], json!([false]));
+}
+
+// The guide-ahead list reads from the live step (not the one on screen),
+// leaves out steps that are not for this character, shows how many the bags
+// hold, and hiding the bag marks does not turn off the guards that ask it.
+#[test]
+fn quest_items_ahead_from_the_live_step_only_steps_for_you_with_the_count_you_carry_marks_off_keeps_the_guards() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local E = Polestar.Engine
+local steps = { { goals = { { t = "goto" } } }, { goals = { { t = "accept", quest = 60 } } }, { goals = { { t = "goto" } } } }
+local applies = { true, true, true }
+E.GetGuide = function() return { id = "test", steps = steps } end
+E.Applies = function(i) return applies[i] == true end
+local function again() Polestar.Fire("GUIDE_CHANGED", nil); stub.advance(0.3) end
+E.GetStepIndex = function() return 2 end   -- looking back at the accept
+E.GetLiveStep = function() return 3 end    -- the guide has moved past it
+again()
+emit({ Q.IsItemNeeded(772) })
+E.GetStepIndex = function() return 1 end
+E.GetLiveStep = function() return 1 end
+applies[2] = false                         -- another class's step
+again()
+emit({ Q.IsItemNeeded(772) })
+applies[2] = true
+w.items[772] = 3
+again()
+emit(sq.hoverItem(772))
+Polestar.Set("qol.questBagMarks", false)
+again()
+emit({ Q.IsItemNeeded(772) })
+"#,
+		"w.complete({ 783 })",
+	);
+	assert_eq!(out[0], json!([false]), "a quest behind the live step is not ahead, whichever step is on screen");
+	assert_eq!(out[1], json!([false]), "a step that is not for this character is left out");
+	assert_eq!(out[2], json!(["?", "Kobold Candles: | 3/8 (not accepted)"]));
+	assert_eq!(out[3], json!([true]), "qol.questBagMarks off hides only the marks");
+}
+
+// The Applejack Still (91736, #820) takes four Shiny Red Apples (4536) when it
+// is clicked and never enters the quest log, so only the guide-ahead path
+// knows the apples are needed. On the database built from data/forever and
+// Elwynn Forest's steps (Stonefield Farm buys the apples, the still takes
+// them, Westbrook Garrison follows), the apples are protected and named on
+// their tooltip and the delete dialog until the guide has gone past the still.
+#[test]
+fn the_applejack_still_s_apples_are_protected_from_the_guide_until_it_is_past_the_still_820() {
+	forge_addontest::needs!("quests.json");
+	let db = build_db(&root().join("data/forever"));
+	let out = run(
+		&db,
+		r#"
+local E = Polestar.Engine
+local steps = {
+	{ title = "The Stonefield Farm", goals = { { t = "turnin", quest = 88 }, { t = "turnin", quest = 87 }, { t = "buy", item = 4536, count = 4 } } },
+	{ title = "The Applejack Still", goals = { { t = "accept", quest = 91736 }, { t = "turnin", quest = 91736 }, { t = "collect", item = 247824, count = 1 } } },
+	{ title = "Westbrook Garrison", goals = { { t = "accept", quest = 91738 }, { t = "turnin", quest = 91738 } } },
+}
+local live = 1
+E.GetGuide = function() return { id = "forever/alliance/human/01-elwynn-forest", steps = steps } end
+E.GetLiveStep = function() return live end
+E.Applies = function() return true end
+local function at(i) live = i; Polestar.Fire("STEP_CHANGED"); stub.advance(0.3) end
+GetCursorInfo = function() return "item", 4536 end
+local function deleteText()
+	local text = { s = "Do you want to destroy Shiny Red Apple?" }
+	function text:GetText() return self.s end
+	function text:SetText(v) self.s = v end
+	function text:GetStringHeight() return 12 end
+	local dialog = { text = text, h = 100 }
+	function dialog:GetHeight() return self.h end
+	function dialog:SetHeight(h) self.h = h end
+	StaticPopup_FindVisible = function() return dialog end
+	Q.AddDeleteWarning("DELETE_ITEM")
+	return (text.s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\n", "/"))
+end
+w.items[4536] = 4
+at(1)
+emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
+at(2)
+emit({ Q.IsItemNeeded(4536) })
+at(3)
+emit({ Q.IsItemNeeded(4536), sq.hoverItem(4536), deleteText() })
+"#,
+		"",
+	);
+	assert_eq!(
+		out[0],
+		json!([true, ["?", "Applejack Still: | 1/1 (not accepted)"], "Do you want to destroy Shiny Red Apple?//Needed for: Applejack Still"]),
+		"bought at the Stonefield Farm: the still ahead needs them"
+	);
+	assert_eq!(out[1], json!([true]), "at the still");
+	assert_eq!(out[2], json!([false, ["?"], "Do you want to destroy Shiny Red Apple?"]), "past the still: free to sell or delete");
+}
+
+// The delete confirmation gets "Needed for: <Quest>" while the item on the
+// cursor is one a quest in the log still needs, and the dialog grows by the
+// lines added.
+#[test]
+fn the_delete_confirmation_names_the_quest_that_still_needs_the_item() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local cursor = 772
+GetCursorInfo = function() return "item", cursor end
+local function popup()
+	local text = { s = "Do you want to destroy X?", lines = 1 }
+	function text:GetText() return self.s end
+	function text:SetText(v) self.s = v; self.lines = 3 end
+	function text:GetStringHeight() return self.lines * 12 end
+	local dialog = { text = text, h = 100 }
+	function dialog:GetHeight() return self.h end
+	function dialog:SetHeight(h) self.h = h end
+	StaticPopup_FindVisible = function() return dialog end
+	return dialog
+end
+local function show(which)
+	local d = popup()
+	Q.AddDeleteWarning(which)
+	return { (d.text.s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""):gsub("\n", "/")), d.h }
+end
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+emit(show("DELETE_ITEM"))
+cursor = 1972
+emit(show("DELETE_ITEM"))
+cursor = 772
+w.turnIn(60); stub.advance(0.3)
+emit(show("DELETE_GOOD_ITEM"))
+"#,
+		"w.complete({ 783 })",
+	);
+	assert_eq!(out[0], json!(["Do you want to destroy X?//Needed for: Kobold Candles", 124]));
+	assert_eq!(out[1], json!(["Do you want to destroy X?", 100]), "an item no quest needs: dialog untouched");
+	assert_eq!(out[2], json!(["Do you want to destroy X?", 100]), "quest handed in: dialog untouched");
+}
+
+// At a vendor, a sale that takes a quest item out of the bags raises a
+// buy-back question; nothing is bought until the dialog is accepted.
+#[test]
+fn selling_an_item_a_quest_needs_offers_the_buyback_and_buys_it_back_only_when_accepted() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+local bag = { { itemID = 772, stackCount = 8 }, { itemID = 5, stackCount = 3 } }
+Polestar.QoL = { Client = {
+	NumBags = function() return 0 end,
+	NumSlots = function() return #bag end,
+	SlotInfo = function(_, slot) return bag[slot] end,
+} }
+local shown, bought, money = {}, {}, 1000
+StaticPopupDialogs = {}
+StaticPopup_Show = function(which, text, _, data) shown[#shown + 1] = { which, (text:gsub("|c%x+|Hitem[^|]*|h", ""):gsub("|h|r", "")), data } end
+local buyback = {}
+GetNumBuybackItems = function() return #buyback end
+GetBuybackItemLink = function(i) return buyback[i].link end
+GetBuybackItemInfo = function(i) return "x", "icon", buyback[i].price end
+BuybackItem = function(i) bought[#bought + 1] = i end
+GetMoney = function() return money end
+GetCoinTextureString = function(c) return c .. "c" end
+w.accept(60, { { text = "Large Candle: 0/8", type = "item", required = 8 } })
+stub.advance(0.3)
+Q.SellWarningOpen(true)
+emit(#shown)
+bag[1] = nil                         -- the candles are sold
+buyback[1] = { link = "|cffffffff|Hitem:772::::::::|h[Large Candle]|h|r", price = 24 }
+Q.CheckSold()
+emit(shown)
+local data = shown[1] and shown[1][3]
+emit(#bought)                        -- asked, not bought
+StaticPopupDialogs.POLESTAR_QUEST_BUYBACK.OnAccept(nil, data)
+emit(bought)
+money = 5
+shown[1] = nil
+StaticPopupDialogs.POLESTAR_QUEST_BUYBACK.OnAccept(nil, data)
+emit(bought)
+"#,
+		"w.complete({ 783 })",
+	);
+	assert_eq!(out[0], 0, "nothing asked while the bags are unchanged");
+	let shown = arr(&out[1]);
+	assert_eq!(shown.len(), 1);
+	assert_eq!(shown[0][0], "POLESTAR_QUEST_BUYBACK");
+	assert_eq!(shown[0][2], 772);
+	let text = shown[0][1].as_str().unwrap();
+	for want in ["Large Candle", "Kobold Candles", "24c"] {
+		assert!(text.contains(want), "{want} in {text}");
+	}
+	assert_eq!(out[2], 0, "asking buys nothing");
+	assert_eq!(out[3], json!([1]), "accept buys the buyback entry back");
+	assert_eq!(out[4], json!([1]), "too little money: no second buyback");
+}
+
 #[test]
 fn object_tooltips_by_id_or_without_one_by_name() {
 	let db = fixture();
@@ -1178,7 +1407,7 @@ emit(sq.pins.layers["quests.turnin"] == nil)
 #[test]
 fn the_database_loads_on_demand_not_while_every_quest_feature_is_off_at_once_when_one_turns_on() {
 	let db = fixture();
-	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, nameplateIcons = false }";
+	let all_off = "{ questDB = true, mapObjectives = false, minimapObjectives = false, availableQuests = false, turnInMarkers = false, questTooltips = false, questBagMarks = false, questSellWarning = false, nameplateIcons = false }";
 	let out = run_saved(
 		&db,
 		r#"

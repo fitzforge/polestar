@@ -1570,6 +1570,10 @@ L["quests"] = "Quests"
 L["available now"] = "jetzt verfügbar"
 L["mobs tracked"] = "Mobs erfasst"
 L["Quest database status"] = "Status der Quest-Datenbank"
+L["Quest marks in bags"] = "Quest-Markierungen in den Taschen"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Markiert Gegenstände in den Taschen, die eine Quest noch braucht, in deinem Questlog oder weiter vorn in deinem Guide, bis du die Quest abgibst."
+L["Offer to buy back quest items"] = "Rückkauf von Questgegenständen anbieten"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Verkaufst du einen Gegenstand, den eine Quest noch braucht, wird gefragt, ob du ihn vom Händler zurückkaufen willst."
 
 -- UI/Packs.lua (the pack report lines stay English: authors read them)
 L["turned off in the AddOns list"] = "in der AddOn-Liste ausgeschaltet"
@@ -2762,6 +2766,20 @@ L["Not now"] = "Nicht jetzt"
 L["Click to target and mark %s (out of combat)."] = "Klicken, um %s anzuvisieren und zu markieren (außerhalb des Kampfes)."
 L["Click to target %s (out of combat)."] = "Klicken, um %s anzuvisieren (außerhalb des Kampfes)."
 L["%s not found nearby."] = "%s nicht in der Nähe gefunden."
+
+-- Quests/Tooltips.lua
+L["%d/%d (not accepted)"] = "%d/%d (nicht angenommen)"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Polestar-Questgegenstände"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Benötigt für:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Er ist nicht mehr in der Rückkaufliste des Händlers."
+L["Not enough money to buy it back."] = "Nicht genug Geld für den Rückkauf."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Du hast %s verkauft, das %s noch braucht. Für %s zurückkaufen?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
