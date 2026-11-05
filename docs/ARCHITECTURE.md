@@ -2840,9 +2840,10 @@ walk priced at the old level and re-plans at once, as a style change does.
 The journey planner's straight estimates take the same rule
 (`Nav.danger.Along(danger, map, x1, y1, x2, y2)`, `p.walkDanger`): a straight
 walk's cost (never its time) is multiplied by the mean, over the middle of
-each 100 yd piece of the line, of `danger[Path.ZoneAt(...)]` (1 elsewhere),
-the zones of its two ends never counting; the table is the plan's level's
-without the player's and the target's zones (`Travel.Replan` and
+each 100 yd piece of the line, of `danger[Path.ZoneAt(...)]` (1 elsewhere);
+the table is the plan's level's without the player's and the target's zones,
+and a line's own ends count like any other ground (a walk between two zone
+crossings inside Western Plaguelands is a walk through it, #566) (`Travel.Replan` and
 `Nav.EstimateTravel` alike; the latter's 5 s cache is keyed by the level
 too). A walk half through a far-above zone costs x10.5, half through a
 dangerous one x2. The zones read are kept per chunk (16 to a tile) for the

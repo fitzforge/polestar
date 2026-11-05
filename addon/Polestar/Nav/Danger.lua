@@ -31,9 +31,12 @@
 --   Nav.danger.Along(danger, map, x1, y1, x2, y2) -> factor >= 1
 --     what a straight walk's cost is multiplied by: the zone in the middle of
 --     each 100 yd piece of the line (Path.ZoneAt), each piece x danger[zone]
---     (a Table), x1 in the zones of its two ends or in none; 1 without a
---     table, the router's maps or a length, and on another continent whose
---     maps have not loaded yet (Path.Resident: its part loads on arrival).
+--     (a Table), x1 in none; 1 without a table, the router's maps or a
+--     length, and on another continent whose maps have not loaded yet
+--     (Path.Resident: its part loads on arrival). The line's own ends count
+--     like any other ground: the Table already leaves out the player's and
+--     the target's zones, and a plan's walk between two zone crossings deep in
+--     Western Plaguelands is a walk through it (#566).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -146,12 +149,11 @@ local function along(zoneAt, danger, map, x1, y1, x2, y2)
 	local dx, dy = x2 - x1, y2 - y1
 	local n = ceil(sqrt(dx * dx + dy * dy) / STEP)
 	if n < 1 then return 1 end
-	local a, b = zoneOf(zoneAt, map, x1, y1), zoneOf(zoneAt, map, x2, y2)
 	local sum = 0
 	for i = 1, n do
 		local f = (i - 0.5) / n
 		local z = zoneOf(zoneAt, map, x1 + dx * f, y1 + dy * f)
-		sum = sum + (z and z ~= a and z ~= b and danger[z] or 1)
+		sum = sum + (z and danger[z] or 1)
 	end
 	return sum / n
 end

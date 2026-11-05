@@ -2169,3 +2169,47 @@ fn acceptance_dolanaar_auberdine_from_dolanaar_to_auberdine_no_walk_leg_joins_th
 fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }
+
+/// #566 (dogoku), Horde, level 24: from Tarren Mill (Hillsbrad 60.79,19.92) to Nurse Neela in Brill (Tirisfal
+/// 61.82,52.83) with no flight path known to Polestar, the route walked 1471 yd through Western Plaguelands (levels
+/// 51-57) and 1399 yd through Alterac Mountains: the planner's straight walks between zone crossings never counted
+/// the zones of their own two ends (Danger.Along), so a walk from one Plaguelands crossing to the next was safe ground.
+#[test]
+fn zone_danger_566_tarren_mill_to_brill_at_level_24_with_no_flight_path_known_walks_no_yard_of_western_plaguelands() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(24)
+		local c, wx, wy = C.MapToWorld(1424, 60.79, 19.92, "e")
+		place(1424, wx, wy)
+		Polestar.CharState().flags.taxi = {}
+		N.SetTarget(1420, 61.82, 52.83, "Nurse Neela", "e")
+		for _ = 1, 600 do stub.advance(0.05); aim() end
+		local legs, ci = N.GetRoute()
+		local kinds, yards = {}, {}
+		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		for _, leg in ipairs(N.GetRouteGeometry().legs) do
+			if leg.kind == "walk" then
+				local pts = leg.pts
+				for i = 2, #pts do
+					local ax, ay, bx, by = pts[i - 1][2], pts[i - 1][3], pts[i][2], pts[i][3]
+					local d = dist(ax, ay, bx, by)
+					local n = math.max(1, math.ceil(d / 20))
+					for k = 0, n - 1 do
+						local s = (k + 0.5) / n
+						local z = tostring(E.ZoneAt(c, ax + (bx - ax) * s, ay + (by - ay) * s) or 0)
+						yards[z] = (yards[z] or 0) + d / n
+					end
+				end
+			end
+		end
+		for z, y in pairs(yards) do yards[z] = floor(y + 0.5) end
+		emit({ kinds = kinds, yards = yards })"#,
+		true,
+	);
+	let kinds = strs(&out["kinds"]);
+	assert!(!kinds.is_empty() && kinds.iter().all(|k| k == "walk"), "it walks ({})", kinds.join(", "));
+	assert!(out["yards"]["1420"].as_f64().unwrap_or(0.0) > 0.0, "to Tirisfal: {}", out["yards"]);
+	assert_eq!(out["yards"]["1422"].as_f64().unwrap_or(0.0), 0.0, "no yard of Western Plaguelands (51-57): {}", out["yards"]);
+}

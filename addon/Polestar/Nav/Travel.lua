@@ -822,7 +822,7 @@ local function planRoute(p)
 	-- A straight walk from u to v of `s` seconds (yards x1.25 at run speed):
 	-- its cost takes the share of its length in zones far above the player,
 	-- x3 dangerous, x20 far above (p.walkDanger, Nav/Danger.lua Danger.Along:
-	-- the zone every 100 yd, its two ends' zones never counting); its time
+	-- the zone every 100 yd; the player's and the target's zones never count); its time
 	-- stays. The zone danger idea and its 4-level threshold come from Ding! by
 	-- Yendi (ding-travel 2bccf01). The factor is at least 1, so a walk that
 	-- cannot beat v's cost unscaled is not looked at (unless a hook may lower it).
