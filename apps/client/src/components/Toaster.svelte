@@ -1,10 +1,14 @@
 <script lang="ts">
 	// The toasts at the foot of the main column: they rise in, stack, and
-	// leave the way they came; hovering holds them.
+	// leave the way they came; hovering holds them. `children` (the sharing
+	// notice) stays under them until it is answered.
+	import type { Snippet } from 'svelte';
 	import { flip } from 'svelte/animate';
 	import { dismiss, hold, toasts } from '../lib/toast.svelte';
 	import { rise } from '../lib/motion';
 	import Glyph from './Glyph.svelte';
+
+	let { children }: { children?: Snippet } = $props();
 
 	const GLYPH = { success: 'check', warning: 'info', info: 'info' } as const;
 	const COLOR = { success: 'var(--success)', warning: 'var(--warning)', info: 'var(--textDim)' } as const;
@@ -18,6 +22,7 @@
 			<button class="icon-btn" aria-label="Dismiss" onclick={() => dismiss(t.id)}><Glyph name="close" size={12} /></button>
 		</div>
 	{/each}
+	{@render children?.()}
 </div>
 
 <style>

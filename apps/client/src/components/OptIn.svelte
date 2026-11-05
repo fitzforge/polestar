@@ -1,6 +1,7 @@
 <script lang="ts">
-	// The recording program's opt-in, shown on the Recording pages until the
-	// player chooses to share. Nothing is uploaded before "Start sharing".
+	// The Recording pages while sharing is off: the player stopped it, or it has
+	// not turned on by default (/psrec off in the game). Nothing is uploaded
+	// before "Start sharing".
 	import { go } from '../lib/app.svelte';
 	import { api, message } from '../lib/backend';
 	import { COLLECTED, CONTRACT_URL, NEVER, NEVER_NOTE } from '../lib/copy';

@@ -16,6 +16,9 @@ pub const FILE_NAME: &str = "Polestar_Recorder.lua";
 pub struct SavedVars {
 	pub schema: u32,
 	pub enabled: bool,
+	/// The player typed `/psrec off` (and not `/psrec on` since): Polestar Client's share flag
+	/// does not turn recording on for this account.
+	pub optout: bool,
 	/// 12 base-36 characters, made once per WoW account folder.
 	pub install: String,
 	/// The last chunk number used.
@@ -90,6 +93,8 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 		None | Some(Value::Nil) => false,
 		Some(v) => v.as_bool().ok_or(Error::Field("enabled"))?,
 	};
+	// As the Recorder reads it (`db.optout == true`): it writes only `true` or nothing.
+	let optout = db.get("optout") == Some(&Value::Bool(true));
 	let install = db.get("install").and_then(Value::as_str).filter(|s| valid_install(s)).ok_or(Error::Field("install"))?.to_string();
 	let count = |name: &'static str| -> Result<u64, Error> {
 		match db.get(name) {
@@ -122,7 +127,7 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 			maps.insert(k as u32, v.to_string());
 		}
 	}
-	Ok(SavedVars { schema: schema as u32, enabled, install, seq, acked, chunks, maps })
+	Ok(SavedVars { schema: schema as u32, enabled, optout, install, seq, acked, chunks, maps })
 }
 
 #[cfg(test)]
@@ -138,6 +143,15 @@ mod tests {
 		assert_eq!(sv.chunks[&40], "chunk\t0\t40\t1700000000\tabcdefghij\npos\t5");
 		assert_eq!(sv.chunks.len(), 2);
 		assert!(sv.maps[&1429].starts_with("1429\t3\t1415"));
+	}
+
+	#[test]
+	fn reads_the_opt_out() {
+		assert!(!parse(FILE).unwrap().optout);
+		let off = parse("PolestarRecorderDB = { schema = 2, enabled = false, optout = true, install = \"k3j9x0q2m7ab\" }").unwrap();
+		assert!(off.optout && !off.enabled);
+		// Only `true` counts, as in the Recorder.
+		assert!(!parse("PolestarRecorderDB = { schema = 2, optout = 1, install = \"k3j9x0q2m7ab\" }").unwrap().optout);
 	}
 
 	#[test]
