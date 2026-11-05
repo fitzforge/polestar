@@ -104,7 +104,8 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 		if !matches!(t, Value::Table(_) | Value::Nil) {
 			return Err(Error::Field("chunks"));
 		}
-		for (k, v) in t.entries() {
+		// WoW writes a table's emptied array slots as positional `nil`s: absent, as in Lua.
+		for (k, v) in t.entries().iter().filter(|(_, v)| *v != Value::Nil) {
 			let k = k.as_u64().filter(|k| *k > 0).ok_or(Error::Field("chunks"))?;
 			let v = v.as_str().ok_or(Error::Field("chunks"))?;
 			chunks.insert(k, v.to_string());
@@ -115,7 +116,7 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 		if !matches!(t, Value::Table(_) | Value::Nil) {
 			return Err(Error::Field("maps"));
 		}
-		for (k, v) in t.entries() {
+		for (k, v) in t.entries().iter().filter(|(_, v)| *v != Value::Nil) {
 			let k = k.as_u64().filter(|k| *k > 0 && *k <= u32::MAX as u64).ok_or(Error::Field("maps"))?;
 			let v = v.as_str().ok_or(Error::Field("maps"))?;
 			maps.insert(k as u32, v.to_string());
@@ -137,6 +138,31 @@ mod tests {
 		assert_eq!(sv.chunks[&40], "chunk\t0\t40\t1700000000\tabcdefghij\npos\t5");
 		assert_eq!(sv.chunks.len(), 2);
 		assert!(sv.maps[&1429].starts_with("1429\t3\t1415"));
+	}
+
+	#[test]
+	fn nil_entries_are_absent() {
+		let sv = parse(
+			"PolestarRecorderDB = {
+[\"schema\"] = 2,
+[\"install\"] = \"k3j9x0q2m7ab\",
+[\"chunks\"] = {
+nil,
+nil,
+\"c3\",
+\"c4\",
+[6] = nil,
+},
+[\"maps\"] = {
+nil,
+[1429] = \"m\",
+},
+}
+",
+		)
+		.unwrap();
+		assert_eq!(sv.chunks.into_iter().collect::<Vec<_>>(), vec![(3, "c3".to_string()), (4, "c4".to_string())]);
+		assert_eq!(sv.maps.into_iter().collect::<Vec<_>>(), vec![(1429, "m".to_string())]);
 	}
 
 	#[test]
