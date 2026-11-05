@@ -558,6 +558,10 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 		// (Sylvanas is talked to on the Undercity trip of the Hillsbrad guide.)
 		['forever/horde/06-hillsbrad-foothills.guide', 93739, 4, 'Lady Sylvanas Windrunner'],
 		[ASHENVALE_HORDE, 93739, 3, 'Cairne Bloodhoof'],
+		// Visur (#802): the Alliance Skyborne's Welcome to Shen'dar Village and The Missing Scholar.
+		['forever/alliance/skyborne/01-zephras-isle.guide', 93461, 1, 'Rathiril Sunlance'],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 93461, 2, 'Coriella Calmbreeze'],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 92849, 1, 'Fillion Flamebreeze'],
 	];
 	for (const [guide, quest, oi, name] of talks) {
 		const { goal } = goals(guide)[at(goals(guide), `${quest}.${oi} (${name})`, (g) => g.t === 'kill' && g.quest === quest && g.oi === oi)];

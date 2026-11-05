@@ -464,7 +464,9 @@ applies them to the guides it writes, last:
 on the objective's goal line, on the `goto` right before it when the step leads there with one, or on
 the quest's bare `complete`. A `path` becomes a `loop` of `goto`s before the goal. `write: true`
 gives the objective its own goal line from the data (`kill`, `interact` or `collect … quest Q.N`)
-before the bare `complete`, which goes once every objective has one.
+before the bare `complete`, which goes once every objective has one. `label` sets that line's goal
+text, for an objective the data counts as a kill but the game asks you to talk to someone
+(`"label": "Talk to Rathiril Sunlance"`).
 
 ```json
 { "fixes": [

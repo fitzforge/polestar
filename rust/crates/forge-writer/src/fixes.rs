@@ -10,7 +10,8 @@
 //!   line of its own lands on the quest's bare `complete`; with `write: true` the objective gets its
 //!   own goal line from the data (`kill`, `interact` or `collect` with `quest Q.N`) before that
 //!   `complete`, which goes once every objective has its line. `at` is optional then: the compiler
-//!   places a written objective from the data.
+//!   places a written objective from the data. `label` sets the objective line's goal text (`"Talk to
+//!   Rathiril Sunlance"` for an objective the data counts as a kill, #802).
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
@@ -258,6 +259,19 @@ fn write_objective(lines: &mut Vec<String>, found: &[usize], q: u32, n: u32, dat
 	(now, changed)
 }
 
+/// `line` (a goal line's code and comment) with `label` as its goal text: the quoted text replaced, or
+/// put right after `quest Q.N`.
+fn labelled(line: &str, label: &str) -> String {
+	let (code, rest) = split_comment(line);
+	let quoted = format!("\"{label}\"");
+	let code = if code.contains('"') {
+		re!(r#""[^"]*""#).replace(code, regex::NoExpand(&quoted)).into_owned()
+	} else {
+		re!(r"\bquest\s+\d+\.\d+").replace(code, |m: &regex::Captures| format!("{} {quoted}", &m[0])).into_owned()
+	};
+	format!("{code}{rest}")
+}
+
 fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option<&Data>) -> Vec<usize> {
 	let mut changed = Vec::new();
 	let mut found = found.to_vec();
@@ -266,6 +280,20 @@ fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option
 			let (now, ch) = write_objective(lines, &found, q as u32, n as u32, data);
 			found = now;
 			changed = ch;
+		}
+	}
+	if let (Some(label), Some(q), Some(n)) = (r["label"].as_str(), r["quest"].as_u64(), r["objective"].as_u64()) {
+		for &i in &found {
+			if !objective_line(&lines[i], q as u32, n as u32) {
+				continue;
+			}
+			let new = labelled(&lines[i], label);
+			if new != lines[i] {
+				lines[i] = new;
+				if !changed.contains(&i) {
+					changed.push(i);
+				}
+			}
 		}
 	}
 	let found = &found[..];
@@ -408,7 +436,7 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 	let mut recs: Vec<Rec> = Vec::new();
 	for r in rec.places.and_then(|d| d["places"].as_array()).into_iter().flatten() {
 		let anchor = place_anchor(r);
-		recs.push(Rec { file: "places", r, slot: format!("{anchor:?}"), want: format!("{}{}{}", r["at"], r["path"], r["write"]), anchor });
+		recs.push(Rec { file: "places", r, slot: format!("{anchor:?}"), want: format!("{}{}{}{}", r["at"], r["path"], r["write"], r["label"]), anchor });
 	}
 	for r in rec.guide_fixes.and_then(|d| d["fixes"].as_array()).into_iter().flatten() {
 		let anchor = fix_anchor(r);
@@ -607,6 +635,30 @@ mod tests {
 		let (again, rows) = run(&out, places, json!({}), &[]);
 		assert_eq!(again, out);
 		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_talk_objective_the_data_counts_as_a_kill_reads_talk_to() {
+		// Visur's report (#802): Welcome to Shen'dar Village's "Speak with" objectives were written as
+		// bare kills ("Kill Coriella Calmbreeze"); the label goes on the written line, before its point.
+		let seed = "step Shen'dar\n  accept 93461\n  complete 93461                 -- Speak with both\n  turnin 93461\n";
+		let places = json!({ "places": [
+			{ "id": "703-a", "quest": 93461, "objective": 1, "write": true, "label": "Talk to Rathiril Sunlance" },
+			{ "id": "703-b", "quest": 93461, "objective": 2, "write": true, "label": "Talk to Coriella Calmbreeze", "at": { "map": 2521, "x": 43.05, "y": 43.3, "frame": "live" } }
+		] });
+		let (out, rows) = run(seed, places.clone(), json!({}), &[]);
+		assert_eq!(out, "step Shen'dar\n  accept 93461\n  kill 251903 quest 93461.1 \"Talk to Rathiril Sunlance\"\n  kill 254089 quest 93461.2 \"Talk to Coriella Calmbreeze\" @43.05,43.3 map 2521 live\n  turnin 93461\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, places.clone(), json!({}), &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+		// A guide written before the label: the label joins the line; a different label is replaced.
+		let old = "step Shen'dar\n  kill 251903 quest 93461.1           -- Rathiril\n  kill 254089 quest 93461.2 \"Coriella\" @43.05,43.3 map 2521 live\n";
+		let (out, _) = run(old, places, json!({}), &[]);
+		assert_eq!(
+			out,
+			"step Shen'dar\n  kill 251903 quest 93461.1 \"Talk to Rathiril Sunlance\"           -- Rathiril\n  kill 254089 quest 93461.2 \"Talk to Coriella Calmbreeze\" @43.05,43.3 map 2521 live\n"
+		);
 	}
 
 	#[test]

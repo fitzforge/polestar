@@ -1158,8 +1158,9 @@ fn check_xy(ck: &mut Ck, at: &str, x: &V, y: &V) {
 	}
 }
 
-/// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender", write?, at: { map,
-/// x, y, frame } | path: { map, frame, points: [[x, y], ...] }, note, source, issue, pr }] }`.
+/// data/places.json: `{ about, places: [{ id, quest, objective: N | "giver" | "ender", write?, label?, at: {
+/// map, x, y, frame } | path: { map, frame, points: [[x, y], ...] }, note, source, issue, pr }] }`. `label`: the
+/// objective's goal text (`"Talk to …"` for an objective the data counts as a kill).
 fn check_places(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "places"]);
 	let list = d.get("places");
@@ -1171,13 +1172,17 @@ fn check_places(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("places[{i}]");
-		ck.keys(&at, r, &["id", "quest", "objective", "write", "at", "path", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "quest", "objective", "write", "label", "at", "path", "faction", "note", "source", "issue", "pr"]);
 		let write = r.get("write");
 		if !(write.is_undef() || matches!(write, V::Bool(_))) {
 			ck.err(format!("{at}.write"), "write is true or false");
 		}
 		if write.truthy() && !is_id(&r.get("objective")) {
 			ck.err(format!("{at}.write"), "only an objective (a number) gets its own goal line");
+		}
+		let label = r.get("label");
+		if !label.is_undef() && (label.as_str().is_none_or(|s| s.trim().is_empty() || s.contains('"')) || !is_id(&r.get("objective"))) {
+			ck.err(format!("{at}.label"), "a label is an objective's (a number's) goal text, without quotes");
 		}
 		check_record(ck, &at, r, &mut ids);
 		ck.refers(&format!("{at}.quest"), "quests", &r.get("quest"));
@@ -1216,8 +1221,8 @@ fn check_places(ck: &mut Ck, d: &V) {
 					check_xy(ck, &format!("{at}.path.points[{j}]"), &p.items()[0], &p.items()[1]);
 				}
 			}
-			(true, true) if write.truthy() => {}
-			_ => ck.err(&at, "a place has either `at` (a point) or `path` (or neither, with `write: true`)"),
+			(true, true) if write.truthy() || !label.is_undef() => {}
+			_ => ck.err(&at, "a place has either `at` (a point) or `path` (or neither, with `write: true` or a `label`)"),
 		}
 		let slot = format!("quest {} objective {}{}", num_str(r.get("quest").num()), stringify(&o, None), r.get("faction").as_str().map_or(String::new(), |f| format!(" ({f})")));
 		let id = r.get("id").as_str().unwrap_or("?").to_string();
