@@ -84,6 +84,13 @@ test('The Wrath of Rath\'mael waits for the second Rear Guard Patrol, which wait
 	assert.deepEqual(corrections.quests[99156].set.preAny, [356]);
 });
 
+test('The New Plague waits for the A Recipe For Death chain, handed in to its last part (#867)', () => {
+	const entry = corrections.quests[95216];
+	assert.ok(entry, 'a correction for The New Plague');
+	const { all, any } = blockingPrereqs({ id: 95216, start: { npc: [11835] }, ...entry.set });
+	assert.deepEqual({ all, any }, { all: [], any: [451] });
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);

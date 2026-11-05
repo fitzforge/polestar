@@ -2672,6 +2672,21 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95216": {
+		"set": {
+			"pre": [
+				451
+			],
+			"preAny": [
+				451
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#867"
+		},
+		"note": "The New Plague (Undercity, Theodore Griffs in the Apothecarium) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: a level 16 Tauren Druid without the chain was not offered it, and was offered it at level 17 right after the chain (#867). Forever's quest data lists no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs too early."
+	},
 	"95217": {
 		"set": {
 			"objectives": [
