@@ -240,8 +240,10 @@ end
 -- Sending
 ---------------------------------------------------------------------------
 
--- On by default; Set stores a value that differs from its default, so a
--- player who turned one off keeps it off.
+-- On by default. Up to v0.3.2 the default was off and Set stored nothing for
+-- it, so a player who had it off gets it switched on once by this version
+-- (the once-per-account notice says so); from now on Set stores a `false`,
+-- so turning it off stays off.
 -- panel: the party panel (UI/PartyPanel.lua), panelPos: its place once dragged.
 ns.RegisterDefaults("party", { share = true, show = true, waitForGroup = true, lootNeeds = true, panel = false, panelPos = false })
 
@@ -600,7 +602,7 @@ local function tellOnce()
 	local db = ns.DB()
 	if db.partySyncTold or not ns.Get("party.share") then return end
 	db.partySyncTold = true
-	ns.Print(ns.L["Party sync is on: your party sees your quest progress (Options > Questing > Group to turn it off)."])
+	ns.Print(ns.L["Party sync is on: your party sees your quest progress (Options > Questing > Quests > Group to turn it off)."])
 end
 
 -- A member spoke Polestar (any valid message). One new to us is told once
@@ -1380,22 +1382,23 @@ end
 
 -- The Group section of the Questing page (its Quests tab), after the quest
 -- settings (Quests/Options.lua registers first: this file loads after it).
--- `terms`: more words the settings search finds them by.
-local TERMS = L["party group friend together sync"]
+-- `search`: more words the settings search finds them by (English, as the
+-- other controls' `search`).
+local SEARCH = "group, party, sync, friends, together"
 Party.OPTIONS = {
 	page = L["Questing"], tab = L["Quests"], section = L["Group"],
 	controls = {
-		{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], terms = TERMS,
+		{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = SEARCH,
 			help = L["Party members who run Polestar see your counts under their quest goals, your step and your level. Hidden addon messages to your party only; nothing goes to chat."] },
-		{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], terms = TERMS,
+		{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = SEARCH,
 			help = L["Their counts under your quest goals, and who lacks a quest you took, with a Share button."] },
-		{ kind = "toggle", key = "party.waitForGroup", label = L["Wait for the group"], terms = TERMS,
+		{ kind = "toggle", key = "party.waitForGroup", label = L["Wait for the group"], search = SEARCH,
 			disabled = function() return not ns.Get("party.show") end,
 			help = L["When a party member on your quest still needs an objective you finished, the step and its turn-in wait and the arrow leads to what they need. Members in another zone or offline for 2 minutes don't hold you; the party line offers Go on without them."] },
-		{ kind = "toggle", key = "party.lootNeeds", label = L["Say who still needs quest loot"], terms = TERMS,
+		{ kind = "toggle", key = "party.lootNeeds", label = L["Say who still needs quest loot"], search = SEARCH,
 			disabled = function() return not ns.Get("party.show") end,
 			help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
-		{ kind = "toggle", key = "party.panel", label = L["Party panel"], terms = TERMS,
+		{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
 			help = L["Each party member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] },
 	},
 }

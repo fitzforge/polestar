@@ -3743,7 +3743,7 @@ Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires whe
   and zone changes, and a 5 s look at who holds the wait (sends nothing). The
   first message from a member who runs Polestar prints, once per account
   (`PolestarDB.partySyncTold`), that party sync is on and where to turn it
-  off. The options carry `terms`, more words the settings search reads.
+  off. The options carry `search`, more words the settings search reads.
 - With `party.share`, the position goes out with every snapshot and, two
   seconds after `STEP_CHANGED`/`STEP_UPDATED`/`GUIDE_CHANGED`, only when it
   changed. Older clients drop "1P|" as malformed. "2U|" goes out with every

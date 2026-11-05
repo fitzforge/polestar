@@ -582,15 +582,18 @@ guides you there instead.
 Group play works only with party members who also run Polestar. On joining
 a party Polestar sends one small hidden hello; a member who answers is synced,
 and everything below is about them. With friends who don't run Polestar
-nothing shows and nothing more is sent. Turn each part off under Options,
-Questing, Group; nothing of it runs solo or in a raid.
+nothing shows and nothing more is sent. Turn each part off under Options >
+Questing > Quests > Group; nothing of it runs solo or in a raid.
 
 - **Party sync**: each member's count shows under the quest goals you share
   ("Ana 5/8", "Ben done"), and on a quest you took, which of them lacks it.
   It is on by default; the first time a party member answers as a Polestar
-  user, Polestar says so once in chat. Only quest IDs, counts, levels and
-  step numbers go out, as hidden addon messages to your party, never to
-  chat. Turned off, it stays off.
+  user, Polestar says so once in chat. What goes out: quest IDs and counts,
+  level, XP %, class and race, your step, your guide (and pack) and your
+  Polestar version, as hidden addon messages to your party, never to chat.
+  Up to v0.3.2 it was off by default and that choice wasn't stored, so if
+  you had it off, this update turns it on once (the chat notice tells you);
+  from this version on, turned off, it stays off.
 - **Wait for the group**: when you finish an objective a party member on the
   same quest still needs ("Waiting on Ana: 3/8 Boar Ribs"), the step and its
   turn-in wait for them (nothing is handed in automatically meanwhile), and
@@ -787,7 +790,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**), these commands, `way` and `near` say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
-| `party` | Show or hide the party panel: each party member's level, step and what they still need |
+| `party` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need) |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |

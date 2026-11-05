@@ -4,8 +4,10 @@ section: players
 - Group play, only with party members who also run Polestar: on joining a
   party Polestar says a small hidden hello, and syncs with whoever answers;
   friends without Polestar see and get nothing more. Party sync is now on by
-  default (turn it off under Options, Questing, Group), and the first
-  Polestar member found says so once. When you finish an objective such a
+  default (turn it off under Options > Questing > Quests > Group), and the
+  first Polestar member found says so once: if you had it off before, this
+  update turns it on once, since up to v0.3.2 that choice wasn't stored;
+  from now on, turned off, it stays off. When you finish an objective such a
   member on the same quest still needs, the step and its turn-in wait for
   them ("Waiting on Ana: 3/8 Boar Ribs", then "Everyone's ready") and the
   arrow leads to what they still need; a member in another zone or offline
