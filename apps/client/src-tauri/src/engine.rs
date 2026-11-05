@@ -1374,6 +1374,21 @@ mod tests {
 	}
 
 	#[test]
+	fn gathers_groups_spawns_fails_and_refusals_leave_as_written() {
+		let lines = [
+			"chunk\t0\t38\t1700000000\tabcdefghij",
+			"group\t1\t2\t0",
+			"spawn\t2\t1501\t000043F59F\t1420\t3100\t6700",
+			"loot\t3\to\t1617\t1420\t3110\t6710\th\t765:2\t",
+			"gather\t3\t1617\t1420\t3110\t6710\th\t182\t57",
+			"fail\t4\t5821\t1420\t3120\t6720",
+			"refuse\t5\t1420\t3120\t6720\tc\t1568\tERR_QUEST_NEED_PREREQS",
+		];
+		let text = lines.join("\n");
+		assert_eq!(prepare_chunk(&text, &["Testchar".to_owned()]).unwrap(), text);
+	}
+
+	#[test]
 	fn ack_covers_only_what_was_sent() {
 		let sent: Vec<api::UploadChunk> = [3, 4, 5].iter().map(|&seq| api::UploadChunk { seq, text: String::new() }).collect();
 		assert_eq!(confirmed_ack(&sent, &[3, 4], &[5]), Some(5));

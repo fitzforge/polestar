@@ -130,6 +130,8 @@ struct State {
 	next_index: usize,
 	/// (drop event index, quest, objective): its item ticked that objective.
 	tags: Vec<(usize, i64, i64)>,
+	/// The last `group` record: (size, raid).
+	group: Option<(i64, bool)>,
 }
 
 struct Ev {
@@ -190,6 +192,18 @@ impl Ev {
 	fn inst(&mut self, s: &State) -> &mut Self {
 		self.opt("inst", s.inst)
 	}
+
+	/// The group the player was in (the last `group` record): `group` = its size (the other party
+	/// members, or the raid's size), `raid` when it was a raid.
+	fn group(&mut self, s: &State) -> &mut Self {
+		if let Some((size, raid)) = s.group {
+			self.set("group", size);
+			if raid {
+				self.set("raid", true);
+			}
+		}
+		self
+	}
 }
 
 fn pairs(r: &Record, field: &str) -> Vec<(i64, i64)> {
@@ -227,7 +241,29 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 			st.xp = r.int("xp");
 			st.xp_max = r.int("xpMax");
 			st.rested = r.int("rested");
-			e.opt("xp", st.xp).opt("xpMax", st.xp_max).opt("rested", st.rested);
+			e.opt("xp", st.xp).opt("xpMax", st.xp_max).opt("rested", st.rested).group(st);
+		}
+		Kind::Group => {
+			st.group = r.int("size").map(|s| (s, flag(r, "raid")));
+			e.int("size", r, "size").set("raid", flag(r, "raid"));
+		}
+		Kind::Fail => {
+			e.int("q", r, "q").pos(r);
+		}
+		Kind::Refuse => {
+			e.pos(r).who(r, "targetKind", "targetId", "").text("error", r, "error").inst(st);
+		}
+		Kind::Spawn => {
+			e.int("npc", r, "npcId").text("uid", r, "spawnUid").pos(r).inst(st);
+		}
+		Kind::Gather => {
+			let how = match r.get("how") {
+				"h" => "herb",
+				"m" => "mine",
+				"f" => "fish",
+				_ => "lock",
+			};
+			e.int("object", r, "objectId").pos(r).set("how", how).int("skillLine", r, "skillLineId").int("rank", r, "rank").inst(st);
 		}
 		Kind::Dropped => {
 			e.int("count", r, "count");
@@ -318,7 +354,7 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 		}
 		Kind::Progress => {
 			let (q, oi, cur, max) = (r.int("q"), r.int("index"), r.int("cur"), r.int("max"));
-			e.opt("q", q).opt("oi", oi).opt("cur", cur).opt("max", max).pos(r);
+			e.opt("q", q).opt("oi", oi).opt("cur", cur).opt("max", max).pos(r).group(st);
 			let obj = q.zip(oi).and_then(|(q, oi)| known.objectives.get(&q).and_then(|l| l.get((oi - 1).max(0) as usize).filter(|_| oi >= 1)));
 			if let Some(o) = obj {
 				if !o.kind.is_empty() {
@@ -355,7 +391,7 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 			if let Some(l) = r.int("level").filter(|l| *l > 0) {
 				st.lvl = Some(l);
 			}
-			e.opt("lvl", st.lvl).int("xpReward", r, "xp").int("money", r, "money").int("chosen", r, "chosenItem");
+			e.opt("lvl", st.lvl).int("xpReward", r, "xp").int("money", r, "money").int("chosen", r, "chosenItem").group(st);
 		}
 		Kind::Gossip => {
 			e.who(r, "npcKind", "npcId", "").pos(r).int("option", r, "optionId").text("optionText", r, "optionText");
@@ -374,7 +410,7 @@ fn events_of(r: &Record, t: f64, st: &mut State, known: &Known) -> Vec<Ev> {
 			if let Some((q, oi)) = pairs(r, "q").first() {
 				e.set("q", *q).set("oi", *oi);
 			}
-			e.inst(st);
+			e.inst(st).group(st);
 		}
 		Kind::Loot => {
 			let gather = match r.get("gather") {
@@ -746,6 +782,34 @@ mod tests {
 		assert_eq!(s["maps"]["1420"], json!({ "type": 3, "parent": 1415, "c": 0, "left": 1000.0, "right": 0.0, "top": 1000.0, "bottom": 0.0 }));
 		assert!(s["maps"].get("1415").is_some());
 		assert_eq!(out[1]["events"].as_array().unwrap().iter().find(|e| e["e"] == "level").unwrap()["lvl"], 6);
+	}
+
+	#[test]
+	fn group_spawn_gather_fail_and_refuse_become_events_and_the_group_rides_on_kills_xp_progress_turnins() {
+		let session = "session\t0\tabcdefghij\tScourge\tWARRIOR\tHorde\t2\t5\tenUS\t62345\t11508\t3\th\t2.0.0\t1.4.0\t\n";
+		let a = chunk(
+			1,
+			1700000000,
+			&format!(
+				"{session}kill\t5\t1501\t2\tn\t1420\t3200\t6500\t40\t\t0\t\ngroup\t6\t2\t0\nkill\t10\t1501\t2\tn\t1420\t3200\t6500\t40\t\t0\t\nspawn\t10\t1501\t000043F59F\t1420\t3200\t6500\nxp\t11\t500\t1400\t\nprogress\t12\t364\t1\t2\t8\t1420\t3200\t6500\ngroup\t13\t12\t1\nturnin\t14\t364\tc\t1568\t1420\t3100\t6600\t5\t450\t\t\nloot\t20\to\t1617\t1420\t3300\t6500\th\t765:2\t\ngather\t20\t1617\t1420\t3300\t6500\th\t182\t57\ngather\t21\t2850\t1420\t3300\t6500\tl\t633\t\nfail\t30\t5821\t1420\t3400\t6500\nrefuse\t40\t1420\t3400\t6500\tc\t1568\tERR_QUEST_NEED_PREREQS\n"
+			),
+		);
+		let src = Source { contributor: "local".into(), install: "k3j9x0q2m7ab".into(), chunks: vec![a], maps: BTreeMap::new() };
+		let out = sessions(&[src]);
+		let ev = out[0]["events"].as_array().unwrap();
+		let all = |e: &str| ev.iter().filter(|x| x["e"] == e).collect::<Vec<_>>();
+		let kills = all("kill");
+		assert!(kills[0].get("group").is_none(), "before any group record the group is unknown");
+		assert_eq!((kills[1]["group"].as_u64(), kills[1].get("raid")), (Some(2), None));
+		assert_eq!(all("xp")[0]["group"], 2);
+		assert_eq!(all("progress")[0]["group"], 2);
+		assert_eq!((all("turnin")[0]["group"].as_u64(), all("turnin")[0]["raid"].as_bool()), (Some(12), Some(true)));
+		assert_eq!(all("group").len(), 2);
+		assert_eq!(*all("spawn")[0], json!({ "t": 1.0, "e": "spawn", "npc": 1501, "uid": "000043F59F", "map": 1420, "x": 32.0, "y": 65.0 }));
+		assert_eq!(*all("gather")[0], json!({ "t": 2.0, "e": "gather", "object": 1617, "map": 1420, "x": 33.0, "y": 65.0, "how": "herb", "skillLine": 182, "rank": 57 }));
+		assert_eq!((all("gather")[1]["how"].as_str(), all("gather")[1].get("rank")), (Some("lock"), None));
+		assert_eq!(*all("fail")[0], json!({ "t": 3.0, "e": "fail", "q": 5821, "map": 1420, "x": 34.0, "y": 65.0 }));
+		assert_eq!(*all("refuse")[0], json!({ "t": 4.0, "e": "refuse", "map": 1420, "x": 34.0, "y": 65.0, "npc": 1568, "error": "ERR_QUEST_NEED_PREREQS" }));
 	}
 
 	#[test]
