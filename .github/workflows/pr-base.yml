@@ -2,7 +2,10 @@ name: PR base
 
 # Every pull request goes to `next`. `main` is never a base: it moves only
 # when a release is made (fast-forward to `next`, then tagged). See
-# CONTRIBUTING.md, "Branches".
+# CONTRIBUTING.md, "Branches". The one exception: the maintainer's own fix
+# branches may target an update's umbrella branch (`release-*`, e.g.
+# `release-033`), which gathers an update's fixes for testing before it goes
+# to `next`. A pull request from a fork never may.
 #
 # This runs on pull_request_target so it is a required check for forks too.
 # It never checks out or runs the pull request's code.
@@ -39,7 +42,7 @@ jobs:
           exit 1
 
       - name: Not something else
-        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next'
+        if: github.event.pull_request.base.ref != 'main' && github.event.pull_request.base.ref != 'next' && !(startsWith(github.event.pull_request.base.ref, 'release-') && github.event.pull_request.head.repo.full_name == github.repository)
         run: |
           msg="Pull requests go to next. Change the base to next (CONTRIBUTING.md, \"Branches\")."
           echo "::error::$msg"
@@ -50,8 +53,8 @@ jobs:
           } >> "$GITHUB_STEP_SUMMARY"
           exit 1
 
-      - name: Next
-        if: github.event.pull_request.base.ref == 'next'
+      - name: Next or an update branch
+        if: github.event.pull_request.base.ref == 'next' || (startsWith(github.event.pull_request.base.ref, 'release-') && github.event.pull_request.head.repo.full_name == github.repository)
         run: |
           {
             echo "## Base branch: $BASE"
