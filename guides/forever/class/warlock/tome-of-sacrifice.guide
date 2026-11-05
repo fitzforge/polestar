@@ -52,7 +52,7 @@ step Suppression
   turnin 7581                         -- Daio the Decrepit
   turnin 7582                         -- Daio the Decrepit
   accept 7583
-  use 18601 @34.5,63.7                -- Glowing Crystal Prison, on a Doomguard Commander
+  use 18601 quest 7583.1 @34.5,63.7   -- Glowing Crystal Prison, on a Doomguard Commander
   collect 18605 quest 7583.1          -- Imprisoned Doomguard, click it
 
 step Back to Daio

@@ -71,7 +71,7 @@ step Cliffspring Falls
   only NightElf,Skyborne,Alliance
   zone Darkshore
   tip Head north-east from Auberdine to Cliffspring Falls. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the Empty Cliffspring Falls Sampler (not the Empty Sampling Tube of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight.
-  use 15844 @54.9,33.3                  -- Empty Cliffspring Falls Sampler, at the cave mouth
+  use 15844 quest 6122.1 @54.9,33.3       -- Empty Cliffspring Falls Sampler, at the cave mouth
   collect 15845 quest 6122.1            -- Filled Cliffspring Falls Sampler
 
 step Alanndarian Nightsong
@@ -133,7 +133,7 @@ step Dreadmist Peak
   zone The Barrens
   tip From the Crossroads head north to Dreadmist Peak and climb to the bubbling Dreadmist Peak Pool on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the Empty Dreadmist Peak Sampler: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run.
   fly "Crossroads"
-  use 15842 @48.4,18.9                  -- Empty Dreadmist Peak Sampler, standing in the pool
+  use 15842 quest 6127.1 @48.4,18.9       -- Empty Dreadmist Peak Sampler, standing in the pool
   collect 15843 quest 6127.1            -- Filled Dreadmist Peak Sampler
 
 step Tonga Runetotem

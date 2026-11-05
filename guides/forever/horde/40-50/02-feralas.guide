@@ -341,7 +341,7 @@ step Camp Mojache
 
 step Gordunni Outpost
   tip North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.
-  use 9466 @74.5,30.2 map 1444
+  use 9466 quest 2987.1 @74.5,30.2 map 1444
   collect 9463 quest 2987.1
   kill 5229 quest 2975.1
   kill 5237 quest 2975.2

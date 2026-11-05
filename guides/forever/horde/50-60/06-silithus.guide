@@ -196,7 +196,7 @@ step Krakle
   note Krakle sends you to Donova Snowden in Winterspring: keep it.
 
 step Pawn Captures Queen
-  use 11833 @43.5,81.0 map 1449
+  use 11833 quest 4507.1 @43.5,81.0 map 1449
   collect 11835 quest 4507.1 @43.9,81.4 map 1449
 
 step Torwa Pathfinder

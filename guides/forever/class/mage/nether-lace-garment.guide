@@ -46,7 +46,7 @@ step Deino
 step The Xavian Waterfall
   zone Ashenvale
   tip Fly to Splintertree Post and swim north up the river past the big lake to its far northern end, where the zone text reads Xavian; satyrs hold the ruins around it and a few river beasts are in the way. Swim right in under the highest waterfall until you touch the rock wall, then use the flask (you can stay in the water). The waterfalls on the western Falfarren fork do not work.
-  use 7269 @76.29,41.49                       -- Deino's Flask, under the falls
+  use 7269 quest 1944.1 @76.29,41.49          -- Deino's Flask, under the falls
   collect 7268 quest 1944.1                   -- Xavian Water Sample
 
 step Back to Deino

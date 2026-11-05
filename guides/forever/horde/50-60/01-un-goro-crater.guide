@@ -149,7 +149,7 @@ step The Slithering Scar
   level 51.26                          -- grind on Gorishi Wasp
 
 step The Slithering Scar
-  use 11132 @48.7,85.3 map 1449
+  use 11132 quest 3883.1 @48.7,85.3 map 1449
   collect 11131 quest 3883 @48.7,85.3
 
 step Stegodons and ravasaurs
