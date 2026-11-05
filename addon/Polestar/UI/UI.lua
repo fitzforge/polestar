@@ -31,6 +31,7 @@ ns.RegisterDefaults("ui", {
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
 	showNotes = true,
 	notesOpen = true, -- a step's tip starts in full; off, it starts on one line (players asked for it open)
+	showCompletedGoals = false,
 	combat = "show", -- "show" | "fade" | "hide"; steady by default, a fade on every pull distracts
 	instance = "show", -- "show" | "hide": in dungeons and raids, until the player opens it there
 	reduceMotion = false,

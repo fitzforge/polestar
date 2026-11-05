@@ -190,6 +190,7 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."] },
 		{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
+		{ kind = "toggle", key = "ui.showCompletedGoals", label = L["Show completed goals"], help = L["Show goals you have already completed in the guide window."] },
 		{ kind = "slider", key = "ui.upcoming", label = L["Upcoming steps"], min = 0, max = 6, step = 1, format = "%d", help = L["How many steps the Up next list holds; 0 turns it off."] },
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
 	} },

@@ -7,8 +7,8 @@
 --   focus          the person to talk to now: icon, name in NPC colour, where;
 --                  under it only that person's goals, one line each, the
 --                  counter right after the text. A field step shows its few
---                  objectives under the step title. Done goals check and dim;
---                  a done step (viewed with Prev) lists all its goals.
+--                  objectives under the step title. Done goals check and dim
+--                  when ui.showCompletedGoals is on; off by default.
 --                  The author's tip, collapsed to one line.
 --   journey        the travel route's steps and times (UI/JourneyPanel.lua),
 --                  while the route has more than one leg
@@ -2088,7 +2088,7 @@ local function shownGoals(v, group)
 	return out, header
 end
 
--- The rows the card lists: every goal of the step in written order, the
+-- The rows the card lists: goals of the step in written order, the
 -- focus person's and everyone else's, done, skipped (with its reason) or
 -- open, never one that does not apply or is folded into another. A hub step
 -- reads person by person in the header, the arrow and "Then:", but a quest
@@ -2104,7 +2104,8 @@ local function cardGoals(v, groups, focus)
 	local fold = CC and E and E.GetGuide and CC.Fold(E.GetGuide(), v)
 	local list = {}
 	for gi, goal in ipairs(v.goals) do
-		if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi) then
+		if goal.status ~= "na" and not goal.folded and gi ~= fold and not (header and header.index == gi)
+			and (goal.status ~= "done" or ns.Get("ui.showCompletedGoals")) then
 			list[#list + 1] = UI.ReadingGoal(v, goal)
 		end
 	end
@@ -2506,6 +2507,7 @@ local APPLY = {
 	["ui.upcoming"] = function() GF.Render() end,
 	["ui.upcomingOpen"] = function() GF.Render() end,
 	["ui.showNotes"] = function() GF.Render() end,
+	["ui.showCompletedGoals"] = function() GF.Render() end,
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
 	["ui.font"] = function() GF.Layout() end,
