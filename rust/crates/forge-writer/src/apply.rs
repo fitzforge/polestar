@@ -5424,6 +5424,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			*t = sweep_goals(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
 			*t = hand_ins_into_loops(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
 		}
+		// (Last: the merges above can bring one goal into a step twice.)
+		*t = post::one_goal_each(t.split('\n').map(str::to_string).collect()).join("\n");
 		*t = re!(r"\n{3,}").replace_all(t, "\n\n").into_owned();
 	}
 	for (f, t) in files.iter_mut().zip(texts) {

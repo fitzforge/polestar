@@ -9605,3 +9605,68 @@ fn a_hand_in_after_a_spread_camp_stays_unless_its_npc_is_on_the_way_from_every_s
 	assert!(!goal_lines(&b).iter().any(|l| l == "  turnin 790"), "{g:#?}");
 	assert!(has(&g, "  turnin 790"), "{g:#?}");
 }
+
+#[test]
+fn a_step_never_lists_the_same_goal_twice() {
+	// #843, Dun Morogh's "Brewnall Village": v1's optional "on the way" kills for Rejold and the
+	// required kills the route works right there came into one step: the boars and the leopards twice.
+	// One line each: required, with its own note, else the optional copy's.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 5-8",
+				"zone Durotar",
+				"",
+				"step Brewnall Village",
+				"  accept 319",
+				"  kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold",
+				"  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way",
+				"  kill 1201 quest 319 optional                -- Snow Leopard, on the way",
+				"",
+				"step Brewnall Village",
+				"  accept 310",
+				"  kill 1127 quest 319",
+				"  kill 1201 quest 319                         -- Snow Leopard",
+				"",
+				"step Rejold Barleybrew",
+				"  turnin 319",
+				"  turnin 310",
+				"",
+			],
+		)],
+		// (Rejold and Marleth stand together: givers at points 0 and 1, 10 yd apart.)
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, 10, 0, 1411], [1, 1, 900, 900, 1411]], "zones": { "1411": "Durotar" }, "quests": [
+			{ "id": 319, "giver": 0, "ender": 2, "objs": [{ "oi": 0, "type": "kill", "id": 1196, "task": 0 }, { "oi": 1, "type": "kill", "id": 1127, "task": 1 }, { "oi": 2, "type": "kill", "id": 1201, "task": 2 }] },
+			{ "id": 310, "giver": 1, "ender": 2 }
+		] }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 319, "from": f("a", 7) },
+			{ "t": "task", "q": 319, "task": 0, "from": f("a", 8) },
+			{ "t": "accept", "q": 310, "from": f("a", 13) },
+			{ "t": "task", "q": 319, "task": 1, "from": f("a", 14) },
+			{ "t": "task", "q": 319, "task": 2, "from": f("a", 15) },
+			{ "t": "turnin", "q": 319, "from": f("a", 18) },
+			{ "t": "turnin", "q": 310, "from": f("a", 19) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	// (Each kill once in each step.)
+	let mut step = "";
+	let mut seen: Vec<(&str, &str)> = Vec::new();
+	for l in &g {
+		if l.starts_with("step ") {
+			step = l;
+		} else if let Some(k) = l.strip_prefix("  kill ") {
+			let id = k.split_whitespace().next().unwrap_or("");
+			assert!(!seen.contains(&(step, id)), "kill {id} twice in {step}: {g:#?}");
+			seen.push((step, id));
+		}
+	}
+	assert!(has(&g, "  kill 1127 quest 319                         -- Elder Crag Boar, on the way"), "{g:#?}");
+	assert!(has(&g, "  kill 1201 quest 319                         -- Snow Leopard"), "{g:#?}");
+}

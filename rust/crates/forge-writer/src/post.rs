@@ -1625,6 +1625,55 @@ pub fn one_service_line(files: &mut [String]) {
 	}
 }
 
+/// One line per field goal in a step (#843): a `kill`, `collect`, `use` or `interact` the step lists
+/// twice, the same target for the same quest objective and characters (`optional`, the coordinates
+/// and `live` aside), is one line: the first required one, else the first, with its own note, else
+/// the first note of a copy (v1's optional "on the way" kills of Dun Morogh's Brewnall Village beside
+/// the required kills the route works there).
+pub fn one_goal_each(mut out: Vec<String>) -> Vec<String> {
+	let goal = |l: &str| -> Option<String> {
+		let code = split_comment(l).0;
+		if !re!(r"^\s+(kill|collect|use|interact)\s").is_match(code) {
+			return None;
+		}
+		let code = re!(r"\s@\s*[\d.,]+(\s+map\s+\d+)?").replace_all(code, "");
+		let code = re!(r"\s+(optional|live)\b").replace_all(&code, "");
+		Some(code.split_whitespace().collect::<Vec<_>>().join(" "))
+	};
+	let optional = |l: &str| re!(r"\soptional\b").is_match(split_comment(l).0);
+	let mut drop: FxHashSet<usize> = FxHashSet::default();
+	let mut start = 0;
+	for i in 0..=out.len() {
+		if i < out.len() && !is_step(&out[i]) {
+			continue;
+		}
+		// (The step's lines, by goal, in order.)
+		let mut groups: Vec<(String, Vec<usize>)> = Vec::new();
+		for b in start..i {
+			let Some(g) = goal(&out[b]) else { continue };
+			match groups.iter_mut().find(|(k, _)| *k == g) {
+				Some((_, v)) => v.push(b),
+				None => groups.push((g, vec![b])),
+			}
+		}
+		for (_, v) in groups.iter().filter(|(_, v)| v.len() > 1) {
+			let keep = v.iter().copied().find(|&b| !optional(&out[b])).unwrap_or(v[0]);
+			let line = out[keep].clone();
+			let (code, note) = split_comment(&line);
+			let carry = v.iter().map(|&b| split_comment(&out[b])).find(|(_, n)| !n.is_empty()).map(|(c, n)| (c.len(), n.to_string()));
+			if let (true, Some((width, note))) = (note.is_empty(), carry) {
+				out[keep] = format!("{:<width$}{note}", trim_end(code));
+			}
+			drop.extend(v.iter().copied().filter(|&b| b != keep));
+		}
+		start = i;
+	}
+	if drop.is_empty() {
+		return out;
+	}
+	out.into_iter().enumerate().filter(|(i, _)| !drop.contains(i)).map(|(_, l)| l).collect()
+}
+
 /// In a step with a `level` gate before a class accept (written where the route is below the
 /// accept's level), the step's hand-ins after the gate go before it: their experience is what tops
 /// the level up (c14 Razor Hill, `level 10 only Warrior` and four level-10 class accepts before

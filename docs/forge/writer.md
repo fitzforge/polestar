@@ -568,6 +568,13 @@ be compared byte for byte with the old JavaScript writer.
   loop at the NPC with the hand-in next (Those Blasted Troggs!), 4 finish the
   quest on a goal that is not a field goal. Sarkoth is not among them: those
   guides already hand it in right after the kill, inside the valley loop.
+- Last, **one line per goal in a step** (`post::one_goal_each`, #843): a
+  `kill`, `collect`, `use` or `interact` a step lists twice (the same target
+  for the same quest objective and characters; `optional`, coordinates and
+  `live` aside) is one line: the first required one, else the first, with its
+  own note, else a copy's. The merges above bring them together: v1's
+  optional "on the way" boars and leopards of Dun Morogh's Brewnall Village
+  beside the required kills the route works there.
 
 ### 4. Travel
 
@@ -807,6 +814,8 @@ they matter to the player. They are not the judge's honest rules.
   (a bowl filled at a moonwell) is not bound to the objective; one that makes
   an item a line collects goes right before that line (the empty bowl at the
   Auberdine moonwell, not at the furbolg camp after the filled bowl, #302).
+  One use per quest and item, however often the mechanics list it (A Matter
+  of Time's Temporal Displacer, #843).
 - **R3 guards**: travel steps for quests carried from an earlier guide get
   `when onquest`, except a step that also trains, learns a flight path or
   binds, or holds lines for some races or classes only (the Ironforge training

@@ -226,6 +226,17 @@ fn r2_use_for_an_item_summon() {
 }
 
 #[test]
+#[ignore = "needs data/forever and data/local/mechanics (or POLESTAR_V1)"]
+fn r2_one_use_per_quest_item() {
+	// #843: A Matter of Time's mechanics list the Temporal Displacer's summon three times; Andorhal's
+	// step had `use 12627` three times.
+	let g = guide("a", "Undead", "Horde", "Western Plaguelands", None, &["step Chromie", "  accept 4971", "", "step Andorhal", "  kill 10717 quest 4971.1", "", "step Chromie again", "  turnin 4971"]);
+	let after = run(&[("a", g)], "Undead", "Horde", &Opts { use_items: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	assert_eq!(a.iter().filter(|l| l.starts_with("  use 12627")).count(), 1, "{}", a.join("\n"));
+}
+
+#[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r3_travel_for_a_carried_quest_is_when_onquest() {
 	let a = guide("a", "Orc", "Horde", "Durotar", Some("b"), &["step Gornek", "  accept 788"]);
