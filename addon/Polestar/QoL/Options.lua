@@ -78,11 +78,21 @@ register(QUESTING, L["Rewards & gear"], L["Loot and merchants"], {
 		help = L["When gear from a kill, a chest or a merchant is an upgrade for your spec (with Gear advice on), the guide window offers to put it on. Nothing goes on until you press Wear it; Not this one stops it asking about that item."] },
 })
 
+-- Fresh tables per page: the registry keeps per-control state (rows, caches).
+local function autoQuests()
+	return {
+		{ kind = "toggle", key = "behavior.autoAccept", label = L["Accept guide quests"], help = L["Only quests in the next steps of your open guides. Hold Shift to skip."] },
+		{ kind = "toggle", key = "behavior.autoTurnin", label = L["Turn in guide quests"], help = L["Never picks between rewards. Hold Shift to skip."] },
+	}
+end
+
+local questingAuto = autoQuests()
 register(QUESTING, L["Quests"], L["Faster questing"], {
 	-- Accepting and turning in the guide's quests (behavior.*, Core/Engine.lua): here with the other
-	-- questing helpers, where players look for them (Fitz, 2026-11-05).
-	{ kind = "toggle", key = "behavior.autoAccept", label = L["Accept guide quests"], help = L["Only quests in the next steps of your open guides. Hold Shift to skip."] },
-	{ kind = "toggle", key = "behavior.autoTurnin", label = L["Turn in guide quests"], help = L["Never picks between rewards. Hold Shift to skip."] },
+	-- questing helpers, and on Quality of Life > Quests too (autoQuests below), where players look
+	-- for them (Fitz, 2026-11-05). One setting, two places: both read and write the same key.
+	questingAuto[1],
+	questingAuto[2],
 	{ kind = "toggle", key = "qol.instantQuestText", label = L["Instant quest text"],
 		help = L["Shows quest text at once instead of fading it in (Forever's own option)."],
 		disabled = function() return not (QoL.Toggles and QoL.Toggles.InstantTextSupported()) end },
@@ -100,6 +110,8 @@ register(QUESTING, L["Quests"], L["Tooltips and quest log"], {
 	{ kind = "toggle", key = "qol.hideQuestTracker", label = L["Hide the game's quest tracker"],
 		help = L["Hides the game's tracker on the right of the screen, with its quests, achievements and professions, as Questie can. Not with the gamepad interface."] },
 })
+
+register(QOL, L["Quests"], L["Faster questing"], autoQuests())
 
 register(QOL, L["Travel"], L["Flight masters"], {
 	{ kind = "toggle", key = "qol.flightAutoOpen", label = L["Open the flight map"],

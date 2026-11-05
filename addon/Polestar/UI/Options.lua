@@ -428,6 +428,8 @@ for _, list in ipairs({
 		{ L["Characters"], { L["Characters"] } },
 	}),
 	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: travel, invitations, merchants and trackers."], {
+		-- The quest automation toggles again (also on Questing > Quests): players look for them here (Fitz, 2026-11-05).
+		{ L["Quests"], { L["Faster questing"] } },
 		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Death"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
 		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },

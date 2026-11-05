@@ -191,7 +191,7 @@ fn old_page_keys_open_the_page_and_tab_that_hold_their_settings_now() {
 			"lookup": "Discovery > Lookup",
 			"dungeons": "Discovery > Dungeons",
 			"rares": "Discovery > Rares",
-			"qualityoflife": "Quality of Life > Travel",
+			"qualityoflife": "Quality of Life > Quests",
 		})
 	);
 }
@@ -241,7 +241,7 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 			"options gear": "questing: Questen > Belohnungen & Ausrüstung",
 			"options lookup": "discovery: Entdecken > Nachschlagen",
 			"options appearance": "appearance: Darstellung > Colour & type",
-			"options qualityoflife": "qualityoflife: Komfort > Travel",
+			"options qualityoflife": "qualityoflife: Komfort > Aufträge",
 			"options about": "about: Über > ",
 			"packs": "guidepacks: Community-Guides > ",
 			"keys": ["guide", "appearance", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"],
@@ -967,4 +967,39 @@ fn guide_automation_an_answer_for_all_group_quests_while_a_guide_has_one_the_cla
 		local dd = c["behavior.groupQuests"]
 		emit({ shown = dd ~= nil, label = dd and dd.Button.Label:GetText() or false, value = Polestar.Get("behavior.groupQuests") })"#);
 	assert_eq!(out, json!({ "shown": true, "label": "Ask me at each", "value": "ask" }));
+}
+
+// The quest automation toggles show on Questing > Quests and on Quality of Life > Quests:
+// one setting, so a click on either page is what the other shows (Fitz, 2026-11-05).
+#[test]
+fn the_quest_automation_toggles_are_on_questing_and_quality_of_life_and_stay_in_step() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		addons: vec![Addon::files("Polestar", &MODS)],
+		script: "uistub.install()\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options".to_string()
+			+ r#"
+		Polestar.Set("behavior.autoAccept", true)
+		UI.ShowOptions("qualityoflife")
+		O.Select("qualityoflife", "Quests")
+		local qol = O.Controls("qualityoflife", "Quests")
+		local r = { qolHas = qol["behavior.autoAccept"] ~= nil and qol["behavior.autoTurnin"] ~= nil }
+		qol["behavior.autoAccept"]:Click()
+		r.after = Polestar.Get("behavior.autoAccept")
+		UI.ShowOptions("questing")
+		O.Select("questing", "Quests")
+		local q = O.Controls("questing", "Quests")
+		r.questingHas = q["behavior.autoAccept"] ~= nil and q["behavior.autoTurnin"] ~= nil
+		r.questingShows = q["behavior.autoAccept"].checked
+		UI.ShowOptions("guide")
+		O.Select("guide", "Automation")
+		r.guideHas = O.Controls("guide", "Automation")["behavior.autoAccept"] ~= nil
+		emit(r)"#,
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["qolHas"], true, "Quality of Life > Quests has both toggles");
+	assert_eq!(out["questingHas"], true, "Questing > Quests has both toggles");
+	assert_eq!(out["after"], false, "the click on Quality of Life turned it off");
+	assert_eq!(out["questingShows"], false, "Questing shows the same setting");
+	assert_eq!(out["guideHas"], false, "no longer under Guide > Automation");
 }
