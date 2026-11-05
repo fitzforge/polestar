@@ -262,7 +262,7 @@ fn a_record_another_record_s_repair_breaks_is_repaired_again() {
 	assert_eq!(broken_pairs(&keep_pairs(&seed, &pairs, &|_, _| false).steps, &pairs), vec![0], "one pass breaks the first");
 	let o = common::orc();
 	let m = o.model(&[]);
-	let (out, _) = keep_records(&m.run, &seed, &pairs, &[], &[], &[]);
+	let (out, _) = keep_records(&m.run, &seed, &pairs, &[], &[], &[], None);
 	assert!(broken_pairs(&out.steps, &pairs).is_empty());
 	assert_eq!(out.steps.iter().map(|s| s.q).collect::<Vec<_>>(), vec![3, 1, 2]);
 }
@@ -356,7 +356,7 @@ fn a_record_repair_that_breaks_a_chain_is_refused() {
 	let (x, w) = (st[ix], st[iw]);
 	assert!(chain_breaks(r, st, &[]).iter().all(|b| *b != (x.q, st[iy].q)), "v1 keeps it");
 	let need = Need { kb: K_TURNIN, qb: x.q, task: -1, ka: K_TASK, qa: w.q, task_a: w.task, why: "test".into() };
-	let (out, notes) = keep_records(r, &seed, &[], &[need], &[], &[]);
+	let (out, notes) = keep_records(r, &seed, &[], &[need], &[], &[], None);
 	assert!(!chain_breaks(r, &out.steps, &[]).contains(&(x.q, st[iy].q)), "the chain kept");
 	assert!(notes.iter().any(|n| n.starts_with("repair refused")), "named: {notes:?}");
 }
@@ -388,7 +388,7 @@ fn a_pair_a_joined_order_breaks_across_its_join_is_repaired() {
 	let pair = Pair { tb: y.task, ..Pair::new(K_ACCEPT, x.q, K_TASK, y.q) };
 	let mut order = seed.clone();
 	assert_eq!(broken_pairs(&order.steps, &[pair]), vec![0]);
-	let (new_join, notes) = forge_sim::shared::repair_across_join(r, &[pair], &[], &mut order, join);
+	let (new_join, notes) = forge_sim::shared::repair_across_join(r, &[pair], &[], &mut order, join, None);
 	assert!(broken_pairs(&order.steps, &[pair]).is_empty(), "{notes:?}");
 	let moved = 1 + usize::from(tin < join);
 	assert_eq!(new_join, join - moved, "the task (and its hand-in) left the own part");

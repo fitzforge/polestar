@@ -38,14 +38,19 @@ pub const SENT_KEEP_MS: i64 = 8 * 24 * 3600 * 1000;
 pub struct Settings {
 	/// The first-run setup (finding the game) is done.
 	pub setup_done: bool,
-	/// The player opted in to the recording program; nothing uploads before.
+	/// The player shares their play. On by default (`engine::share_by_default`) for a player who
+	/// never chose; nothing uploads while it is off.
 	pub consent: bool,
-	/// When they agreed, in epoch milliseconds.
+	/// When sharing was turned on, in epoch milliseconds.
 	pub consent_at: Option<i64>,
 	pub paused: bool,
-	/// The player has turned sharing on at least once: from then on the client tells the
-	/// Recorder whether to record (Ack.lua's `PolestarRecorderShare`); before, it says nothing.
+	/// Sharing has been on at least once (by default or by the player): from then on the client
+	/// tells the Recorder whether to record (Ack.lua's `PolestarRecorderShare`), and sharing off
+	/// is the player's own choice, never turned back on by default.
 	pub ever_shared: bool,
+	/// The notice saying what sharing sends (with its Stop sharing) was read, or the player chose
+	/// for themselves (Start sharing, the Settings switch); shown once while sharing is on.
+	pub share_notice_seen: bool,
 	/// The WoW folder the player picked or confirmed; `None` = auto-detect.
 	pub wow_folder: Option<PathBuf>,
 	/// The recording server ([`DEFAULT_SERVER`]; a developer's own in a debug build's Settings > Advanced).
@@ -116,6 +121,7 @@ impl Default for Settings {
 			consent_at: None,
 			paused: false,
 			ever_shared: false,
+			share_notice_seen: false,
 			wow_folder: None,
 			server_url: DEFAULT_SERVER.to_owned(),
 			channel: Channel::Stable,

@@ -41,6 +41,10 @@ enum F {
 	Tok(&'static [&'static str]),
 	/// Characters each from the set, any order, may be empty.
 	Flags(&'static str),
+	/// 1 to 16 uppercase hexadecimal digits, required (a GUID's spawn part).
+	Hex,
+	/// A game constant's name (`ERR_QUEST_NEED_PREREQS`): 1 to 64 of `A-Z`, `0-9`, `_`, required.
+	Const,
 	/// Three fields: map x y (all empty, or uiMapID > 0 and coordinates 0..=10000).
 	P,
 	/// `;`-separated items of `:`-separated parts; empty = no items.
@@ -102,6 +106,7 @@ kinds! {
 	Level "level" ["level": F::U, "P": F::P, "playedSeconds": F::OU],
 	Xp "xp" ["xp": F::U, "xpMax": F::U, "rested": F::OU],
 	Dropped "dropped" ["count": F::U],
+	Group "group" ["size": F::U, "raid": BOOL],
 	Mark "mark" ["P": F::P, "text": F::Text],
 	Pos "pos" ["P": F::P, "flags": F::OU, "speed": F::OU],
 	Zone "zone" ["P": F::P, "zoneText": F::Name(MAX_PLACE), "subzoneText": F::Name(MAX_PLACE)],
@@ -125,13 +130,17 @@ kinds! {
 	Complete "complete" ["q": F::U],
 	Turnin "turnin" ["q": F::U, "npcKind": NK, "npcId": F::OU, "P": F::P, "level": F::OU, "xp": F::OU, "money": F::OU, "chosenItem": F::OU],
 	Abandon "abandon" ["q": F::U],
+	Fail "fail" ["q": F::U, "P": F::P],
 	Gossip "gossip" ["npcKind": NK, "npcId": F::OU, "P": F::P, "optionId": F::OU, "optionText": F::Text],
+	Refuse "refuse" ["P": F::P, "targetKind": NK, "targetId": F::OU, "error": F::Const],
 	Cast "cast" ["spellId": F::OU, "itemId": F::OU, "P": F::P, "targetKind": NK, "targetId": F::OU],
 	Escort "escort" ["q": F::U, "on": BOOL, "P": F::P],
 	Kill "kill" [
 		"npcId": F::U, "level": F::OI, "cls": CLS, "P": F::P, "xp": F::OU, "rested": F::OU, "tapped": F::Tok(&["1", "0", ""]), "q": ITEMS,
 	],
+	Spawn "spawn" ["npcId": F::U, "spawnUid": F::Hex, "P": F::P],
 	Loot "loot" ["srcKind": NK, "srcId": F::OU, "P": F::P, "gather": F::Tok(&["h", "m", "s", "f", ""]), "items": ITEMS, "wanted": ITEMS],
+	Gather "gather" ["objectId": F::U, "P": F::P, "how": F::Tok(&["h", "m", "f", "l"]), "skillLineId": F::OU, "rank": F::OU],
 	Unit "unit" ["npcId": F::U, "level": F::OI, "cls": CLS, "react": F::Tok(&["h", "n", "f", ""]), "P": F::P, "src": F::Tok(&["p", "t", "m", ""])],
 	Rare "rare" ["npcId": F::U, "level": F::OI, "cls": CLS, "P": F::P, "src": F::Word],
 	Treasure "treasure" ["objectId": F::OU, "P": F::P],
@@ -400,7 +409,7 @@ fn check_list(s: &str, parts: &[Part]) -> Result<(), String> {
 
 fn optional(ty: F) -> bool {
 	match ty {
-		F::U | F::Id => false,
+		F::U | F::Id | F::Hex | F::Const => false,
 		F::Tok(list) => list.contains(&""),
 		_ => true,
 	}
@@ -418,6 +427,8 @@ fn check_field(v: &str, ty: F) -> Result<(), String> {
 		F::Name(max) => return check_name(v, max),
 		F::Tok(list) => list.contains(&v),
 		F::Flags(set) => v.chars().all(|c| set.contains(c)) && v.len() <= set.len(),
+		F::Hex => (1..=16).contains(&v.len()) && v.bytes().all(|b| b.is_ascii_digit() || (b'A'..=b'F').contains(&b)),
+		F::Const => (1..=64).contains(&v.len()) && v.bytes().all(|b| b.is_ascii_uppercase() || b.is_ascii_digit() || b == b'_'),
 		F::L(parts) => return check_list(v, parts),
 		F::P => unreachable!(),
 	};
@@ -538,11 +549,17 @@ mod tests {
 			"trainer\t40\t2119\t\t\t\t6673:10:4:a;0:100:6:u:Battle Shout\n",
 			"zone\t50\t\t\t\tDeathknell\t\n",
 			"futurekind\t60\twhatever\tfields\n",
-			"step\t61\thorde/1-12\t4\tnext\t1420\t3300\t6400",
+			"step\t61\thorde/1-12\t4\tnext\t1420\t3300\t6400\n",
+			"group\t62\t3\t0\n",
+			"spawn\t63\t1501\t000043F59F\t1420\t3200\t6500\n",
+			"loot\t64\to\t1617\t1420\t3200\t6500\th\t765:2\t\n",
+			"gather\t64\t1617\t1420\t3200\t6500\th\t182\t57\n",
+			"fail\t65\t364\t1420\t3200\t6500\n",
+			"refuse\t66\t1420\t3200\t6500\tc\t1568\tERR_QUEST_NEED_PREREQS",
 		))
 		.unwrap();
 		assert_eq!((c.seq, c.epoch, c.char_id.as_str(), c.skipped_unknown), (38, 1700000000, "abcdefghij", 1));
-		assert_eq!(c.records.len(), 9);
+		assert_eq!(c.records.len(), 15);
 		assert_eq!(c.session().unwrap().get("locale"), "enUS");
 		let pos = &c.records[1];
 		assert_eq!(pos.t, 1700000001.5);
@@ -554,6 +571,13 @@ mod tests {
 		assert_eq!(c.records[6].list("services")[1], vec!["0", "100", "6", "u", "Battle Shout"]);
 		assert_eq!(c.records[7].pos(), None);
 		assert_eq!(c.records[8].kind, Kind::Step);
+		let k = |i: usize| c.records[i].kind;
+		assert_eq!([k(9), k(10), k(11), k(12), k(13), k(14)], [Kind::Group, Kind::Spawn, Kind::Loot, Kind::Gather, Kind::Fail, Kind::Refuse]);
+		assert_eq!((c.records[9].int("size"), c.records[9].get("raid")), (Some(3), "0"));
+		assert_eq!(c.records[10].get("spawnUid"), "000043F59F");
+		assert_eq!((c.records[12].int("objectId"), c.records[12].get("how"), c.records[12].int("skillLineId"), c.records[12].int("rank")), (Some(1617), "h", Some(182), Some(57)));
+		assert_eq!(c.records[13].pos(), Some(Pos { map: 1420, x: 3200, y: 6500 }));
+		assert_eq!((c.records[14].get("targetKind"), c.records[14].int("targetId"), c.records[14].get("error")), ("c", Some(1568), "ERR_QUEST_NEED_PREREQS"));
 	}
 
 	#[test]
@@ -580,6 +604,7 @@ mod tests {
 			"level\t0\t\t1420\t1\t1",
 			"xp\t0\t10",
 			"dropped\t0\t-1",
+			"group\t0\t3\t2",
 			"mark\t0\t1420\t100",
 			"pos\t0\t1420\t10001\t5",
 			"zone\t0\t0\t5\t5\tA\tB",
@@ -600,11 +625,15 @@ mod tests {
 			"complete\t0\t",
 			"turnin\t0\t364\tz",
 			"abandon\t0\tq",
+			"fail\t0\t",
 			"gossip\t0\tq",
+			"refuse\t0\t\t\t\tc\t1\tERR quest",
 			"cast\t0\t1.5",
 			"escort\t0\t364\t2",
 			"kill\t0\t\t2",
+			"spawn\t0\t1501\t43f59f",
 			"loot\t0\tc\t1\t\t\t\tx",
+			"gather\t0\t1617\t\t\t\ts\t182\t57",
 			"unit\t0\t1\t2\tn\tz",
 			"rare\t0\t1\t2\tz",
 			"treasure\t0\tx",

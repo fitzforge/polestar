@@ -1,16 +1,18 @@
 //! Hubs and passing (Fitz in Brill on c12: sent to pick up a quest past three quest givers he
 //! would come back to, past ready hand-ins, back and forth in town).
 //!
-//! The check's `left-ready` and `walked-past` rules (forge-judge `check/hub.rs`) counted on the
-//! sim's order, cheap enough to guard every kept move (GuardCounts::left_ready, walked_past); the
-//! fixes they point at, for the hub sweep pass (`search::passby::hub_sweep`); and the shortest
-//! straight walk through a hub visit's stops (`loop_order`, the check's `hub-order`).
+//! The check's `left-ready`, `walked-past` and `finished-near` rules (forge-judge `check/hub.rs`)
+//! counted on the sim's order, cheap enough to guard every kept move (GuardCounts::left_ready,
+//! walked_past, finished_near); the fixes they point at, for the hub sweep pass
+//! (`search::passby::hub_sweep`); and the shortest straight walk through a hub visit's stops
+//! (`loop_order`, the check's `hub-order`).
 //!
 //! On the order instead of the written guide: places are the steps' run points, a leg is walked
 //! when the evaluator walked it, and a leg's path is the straight line between its two steps (the
 //! walk store holds yards, not paths; the check reads straight lines too). A leg by the network (a
 //! flight, a boat, a zeppelin) walks to its departure node and from its arrival node: those two
 //! walks pass NPCs too (c13: Grom'gol, Brackenwall, the Steamwheedle boat, Theramore).
+//! `finished-near` reads the walk store's walks near an ender for its reach ([`HubData::with_walks`]).
 
 use crate::eval::{Moved, Step};
 use crate::guards::Walk;
@@ -36,9 +38,12 @@ pub const LOOP_NODES: usize = 16;
 /// counts a visit more than 20 yd and 1.3 times longer than its best).
 pub const LOOP_MIN_YD: f64 = 20.0;
 
-/// Per run point: the run points within HUB_YD (itself included), ascending.
+/// Per run point: the run points within HUB_YD (itself included), ascending; and the walk store's
+/// yards between each quest ender and the run points within crate::turnin::NEAR_YD of it.
 pub struct HubData {
 	near: Vec<Vec<u32>>,
+	n: u64,
+	walk: FxHashMap<u64, f32>,
 }
 
 impl HubData {
@@ -69,7 +74,49 @@ impl HubData {
 				v
 			})
 			.collect();
-		HubData { near }
+		HubData { near, n: n as u64, walk: FxHashMap::default() }
+	}
+
+	/// With the walk store's yards (both ways) between every quest ender and each run point within
+	/// crate::turnin::NEAR_YD straight of it: an ender behind a cliff or a wall is not near
+	/// (`finished-near`).
+	pub fn with_walks(mut self, run: &Run, walks: &dyn crate::Walks) -> HubData {
+		let near_yd = crate::turnin::NEAR_YD;
+		let cell = |p: usize| (run.p_r[p], (run.p_x[p] / near_yd).floor() as i64, (run.p_y[p] / near_yd).floor() as i64);
+		let ok = |p: usize| run.p_x[p].is_finite() && run.p_y[p].is_finite();
+		let mut grid: FxHashMap<(i64, i64, i64), Vec<u32>> = FxHashMap::default();
+		for p in (0..run.p_x.len()).filter(|&p| ok(p)) {
+			grid.entry(cell(p)).or_default().push(p as u32);
+		}
+		let mut enders: Vec<u32> = run.q_ender.iter().copied().filter(|&e| (e as usize) < run.p_x.len() && ok(e as usize)).collect();
+		enders.sort_unstable();
+		enders.dedup();
+		let yd = |a: u32, b: u32| walks.yards(run.pt_list[a as usize], run.pt_list[b as usize]).filter(|&y| y >= 0.0);
+		for e in enders {
+			let (r, cx, cy) = cell(e as usize);
+			for gx in cx - 1..=cx + 1 {
+				for gy in cy - 1..=cy + 1 {
+					for &p in grid.get(&(r, gx, gy)).into_iter().flatten() {
+						if p == e || run.straight(p, e) > near_yd {
+							continue;
+						}
+						if let Some(y) = yd(p, e) {
+							self.walk.insert(u64::from(p) * self.n + u64::from(e), y as f32);
+						}
+						if let Some(y) = yd(e, p) {
+							self.walk.insert(u64::from(e) * self.n + u64::from(p), y as f32);
+						}
+					}
+				}
+			}
+		}
+		self
+	}
+
+	/// The walk from run point `a` reaches `b` (an ender) within crate::turnin::REACH_YD, by the walk
+	/// store's yards near enders ([`HubData::with_walks`]); true where it has none (`finished-near`).
+	pub fn reach(&self, a: u32, b: u32) -> bool {
+		self.walk.get(&(u64::from(a) * self.n + u64::from(b))).is_none_or(|&y| f64::from(y) <= crate::turnin::REACH_YD)
 	}
 }
 
@@ -84,11 +131,21 @@ pub struct HubCounts {
 	pub walked_past: u32,
 	/// Accepts the same way (the planner's own: the check counts hand-ins only).
 	pub passed_accepts: u32,
+	/// Hand-ins of quests finished within crate::turnin::NEAR_YD of their ender, made only after
+	/// the walk went crate::turnin::AWAY_YD away, with no reason to wait (the check's
+	/// `finished-near`; crate::turnin).
+	pub finished_near: u32,
 }
 
 impl HubCounts {
 	pub fn sum(&self) -> u32 {
-		self.left_ready + self.walked_past + self.passed_accepts
+		self.left_ready + self.walked_past + self.passed_accepts + self.finished_near
+	}
+
+	/// No count above `bound`'s that a kept move may not raise (left ready, walked past, finished
+	/// near: the check's warnings and blockers; passed accepts are the planner's own).
+	pub fn within(&self, bound: &HubCounts) -> bool {
+		self.left_ready <= bound.left_ready && self.walked_past <= bound.walked_past && self.finished_near <= bound.finished_near
 	}
 }
 
@@ -98,6 +155,7 @@ impl std::ops::AddAssign for HubCounts {
 		self.left_ready += o.left_ready;
 		self.walked_past += o.walked_past;
 		self.passed_accepts += o.passed_accepts;
+		self.finished_near += o.finished_near;
 	}
 }
 
@@ -110,12 +168,15 @@ pub enum Fix {
 	Visit { j: usize, s: usize, e: usize, after: usize },
 	/// Step `j` on the walked leg into step `i` (its NPC within PAST_YD of that leg, ready there).
 	Leg { j: usize, i: usize },
+	/// Hand-in `j` and the `n` follow-up accepts right after it at its NPC to `to` (right after the
+	/// stop the quest was finished near its ender: crate::turnin).
+	Near { j: usize, n: usize, to: usize },
 }
 
 impl Fix {
 	pub fn step(&self) -> usize {
 		match *self {
-			Fix::Visit { j, .. } | Fix::Leg { j, .. } => j,
+			Fix::Visit { j, .. } | Fix::Leg { j, .. } | Fix::Near { j, .. } => j,
 		}
 	}
 }
@@ -285,6 +346,8 @@ pub(crate) fn count(h: &HubData, w: &Walk, walked: &[Moved], mut fixes: Option<&
 	// lv_after is non-decreasing: the first step after which the level is at least `l`.
 	let level_at = |l: f64| -> usize { w.lv_after.partition_point(|&x| x < l - 1e-9) };
 	let mut last_task = vec![NONE; run.n_quests()];
+	// The step after which each hand-in is ready (finished-near).
+	let mut ready_of = vec![NONE; n];
 	for j in 0..n {
 		let s = steps[j];
 		let qi = s.q as usize;
@@ -301,11 +364,8 @@ pub(crate) fn count(h: &HubData, w: &Walk, walked: &[Moved], mut fixes: Option<&
 			if w.accept_at[qi] == u32::MAX || a >= j {
 				continue;
 			}
-			if last_task[qi] == NONE {
-				a
-			} else {
-				a.max(last_task[qi])
-			}
+			ready_of[j] = if last_task[qi] == NONE { a } else { a.max(last_task[qi]) };
+			ready_of[j]
 		} else {
 			if w.accept_at[qi] as usize != j {
 				continue;
@@ -381,7 +441,67 @@ pub(crate) fn count(h: &HubData, w: &Walk, walked: &[Moved], mut fixes: Option<&
 			break;
 		}
 	}
+	// finished-near: hand-ins made on a trip back, with no reason to wait (crate::turnin).
+	let line = StepsLine { h, w, ready: &ready_of };
+	for x in crate::turnin::scan(&line) {
+		if x.wait.is_some() {
+			continue;
+		}
+		c.finished_near += 1;
+		if let Some(f) = fixes.as_deref_mut() {
+			f.push(Fix::Near { j: x.j, n: x.follow.len(), to: x.at + 1 });
+		}
+	}
 	c
+}
+
+/// An order's walk as crate::turnin reads it: run quest indices, the steps' run points, yards by
+/// HubData::yd.
+struct StepsLine<'a, 'w> {
+	h: &'a HubData,
+	w: &'a Walk<'w>,
+	ready: &'a [usize],
+}
+
+impl crate::turnin::Line for StepsLine<'_, '_> {
+	fn len(&self) -> usize {
+		self.w.steps.len()
+	}
+	fn kind(&self, i: usize) -> crate::turnin::Kind {
+		use crate::turnin::Kind;
+		match self.w.steps[i].kind {
+			K_ACCEPT => Kind::Accept,
+			K_TASK => Kind::Work,
+			K_TURNIN => Kind::Turnin,
+			K_GRIND => Kind::None,
+			_ => Kind::Npc,
+		}
+	}
+	fn quest(&self, i: usize) -> u32 {
+		self.w.steps[i].q
+	}
+	fn yd(&self, a: usize, b: usize) -> f64 {
+		self.w.run.straight(self.w.steps[a].pt, self.w.steps[b].pt)
+	}
+	fn reach(&self, a: usize, b: usize) -> bool {
+		self.h.reach(self.w.steps[a].pt, self.w.steps[b].pt)
+	}
+	fn same_place(&self, a: usize, b: usize) -> bool {
+		self.w.steps[a].pt == self.w.steps[b].pt
+	}
+	fn lvl_after(&self, i: usize) -> f64 {
+		self.w.lvl(i)
+	}
+	fn ready_after(&self, j: usize) -> Option<usize> {
+		Some(self.ready[j]).filter(|&r| r != NONE)
+	}
+	fn min_level(&self, q: u32) -> f64 {
+		f64::from(self.w.run.q_min_level[q as usize])
+	}
+	fn follows(&self, f: u32, q: u32) -> bool {
+		let r = self.w.run;
+		r.q_pre[f as usize].contains(&q) || r.q_all[f as usize].contains(&q)
+	}
 }
 
 /// The shortest straight walk from `entry` through steps `s..=e` to `exit`, the steps grouped by

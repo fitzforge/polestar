@@ -168,8 +168,8 @@ step Sen'jin Village
   accept 96873 optional               -- Pa'zula: enchanters only, the residue is disenchanted from Hexed Pendants
   accept 817                          -- Vel'rin Fang
   accept 818                          -- Master Vornal
-  accept 97225
   turnin 805                          -- Master Gadrin
+  accept 97225
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
   accept 808
   accept 826                          -- Master Gadrin
@@ -346,7 +346,6 @@ step Razormane Grounds
 step Rezlak
   tip Head north-east to the road toward Orgrimmar. Rezlak camps beside it; the stolen sacks lie along the road south of him.
   accept 834                          -- Rezlak
-  accept 97282
   collect 4918 quest 834.1 @49.1,22.6 map 1411
   turnin 834                          -- Rezlak
   accept 835
@@ -367,6 +366,7 @@ step Rezlak
   zone Durotar
   turnin 835
   turnin 97281 optional
+  accept 97282 optional
 
 step Thunder Ridge: kill these as you meet them
   zone Durotar

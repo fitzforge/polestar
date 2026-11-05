@@ -226,8 +226,10 @@ hand-in, hearth line on cooldown, quest log over its bound, guard raised), the c
 orders, item needs and lock keys, `after` and `stay` records, together, keep, skip, southward,
 escorts), and the descent's own: no training right after a training, a reorder adds at most 100 yd to
 the straight walk over the stretch it changes, v1's grind checkpoints that guard a gate stay, no quest on the way is
-dropped, and no objective is moved earlier to more than 2 levels under its quest's level. On a shared
-tail, no start may be slower for a kept move.
+dropped, and no objective is moved earlier to more than 2 levels under its quest's level. No move takes
+a quest under its minimum level where the order did not (the accept level rule, section 6; counted as
+`accept under its minimum` in `refusedBy`): every search, edit and pass move is held to it. On a shared
+tail, no start may be slower for a kept move, and the level rule holds for every start's run.
 
 A free or hybrid route's edit list starts with the free search's difference from the seed: each
 quest added (`insert`), dropped (`drop`) or reordered (`free move`, with how many quest events it
@@ -253,6 +255,7 @@ build (`--guard current`) the bound is the current order's counts. With `--guard
 | Elite or rare camps | tasks that kill an elite or rare mob, except the tasks of a group family the route takes (section 7, Group quests) |
 | Left ready | accepts and hand-ins done on a return to a hub although they were ready when the route last left it (the check's `left-ready`, below) |
 | Walked past | hand-ins whose ender a walked leg passed within 50 yd while they were ready, the route then going 200 yd from the ender before handing in (the check's `walked-past`) |
+| Finished near | hand-ins made on a trip back: the quest finished within 160 yd of its ender, the route then 300 yd or more away before handing it in, with no reason to wait (the check's `finished-near`; below, "Hand in while there") |
 | Low trips | trips off the continent and back whose quest steps are at least two thirds for quests 3 or more levels under the character, taken while a quest no more than 2 levels under it is in the log with a step left on the continent the route leaves (planner rule 2: stay on the continent while on-level quests are open there) |
 
 Only walked legs count for passed-by and walked past. Flights, boats and hearths do not walk past anyone.
@@ -300,7 +303,8 @@ route's `feasibility` list names the move.
 A `together` rule v1's order breaks is kept the same way: the `b` step moves next to the `a` step
 (with the steps of b's quest that must stay on its side), so a "do these together" record pulls a
 step earlier as well as later. A `together` rule's task without an objective index means the
-quest's first objective's place.
+quest's first objective's place. A level step right before an accept `b` (its gate, section 6)
+does not break the rule.
 
 ## 5. Deliberate orders
 
@@ -335,6 +339,16 @@ broken after the repairs is left out with `RECORD CONFLICT` in the notes and on 
 that would take a quest before the hand-in its chain needs (its prerequisites, or the quest before
 it in the world's chain) is refused and named (`repair refused: ...`): c15's together[47] took
 turnin 929 past accept 933 and the whole Crown of the Earth chain fell out of the Night Elf route.
+A repair also keeps the **accept level rule**: an accept it would take where the model's level is
+under the quest's minimum (the world's `minLevel`) goes on to the first later stop by its giver
+(within 120 yd of the stop before or after, or 50 yd off the leg between) where the level is met,
+no later than the quest's first objective or hand-in, and the notes say so (`together 4402 5441:
+quest 5441 would be taken at level 2.41, under its minimum 3: taken at the next stop by its giver
+instead, at level 4.31`). With no such stop the repair is refused and named (`repair refused:
+pair accept 348 before task 572 would take quest 348 at level 39.49, under its minimum 40, and no
+later stop by its giver before its work comes at that level`). c19r took Lazy Peons (minimum 3)
+at the Den at 2.6 after c17's `together 4402/5441` moved it beside Galgar's quest; the model ground
+the rest of level 2 there unseen, and a level-2 player was held at the giver.
 
 ## 6. Worthwhile pickups
 
@@ -452,6 +466,32 @@ departure flight master or dock, each walk between two of its nodes (Gadgetzan's
 the Steamwheedle dock between the flight and the boat) and the walk from its arrival one (c13:
 Grom'gol, Brackenwall, the Steamwheedle boat, Theramore were walked past unseen).
 
+**Hand in while there** (c19r Orc and Troll: Sarkoth killed 150 yd from Hana'zua, handed in only
+after the Burning Blade Coven, 372 yd away and back). The hub sweep also takes every hand-in the
+`finished near` count points at: its quest was finished (its last objective, else its accept)
+within 160 yd of its ender, and the route then went 300 yd or more away (or to another continent)
+before the hand-in. The hand-in moves, with the accepts of its follow-ups that come right after it
+at the same NPC, to right after the last stop within 160 yd of the ender before the route goes
+away (a `hand in while there` edit). Yards are straight; an ender the route's walk store puts more
+than 240 yd of walking away from that stop (a cliff, a tower: Thorium Point above Searing Gorge's
+camps, Brother Neals up Northshire's bell tower) is not near. Waiting is right, and the count leaves
+the hand-in out, when:
+
+- a follow-up taken with the hand-in needs a level the route has not reached where the quest was
+  finished (the player comes back for it anyway); or
+- waiting saves walking: the route returns to the ender anyway (the hand-in's visit, the stops
+  around it within 120 yd of the ender, holds another accept, hand-in, training or work that is
+  not itself a hand-in made on a trip back or its follow-up), and handing in now is a detour (the
+  ender is more than 1 yd off the straight way from that stop to the next).
+
+The move is kept when the order keeps its rules, no guard rises and the hours to 60 do not rise at
+all (priced by the exact replay): a move that costs time is a wait that saves walking, and the route
+keeps it. The count is a guard too: no later move adds a hand-in made on a trip back. A follow-up
+whose own hand-in then comes earlier is handed in where the route passes its NPC by the sweep's
+other moves. The written check's `finished-near` comes back the same way (the hand-in and its
+follow-up accepts as one block right after the line the quest was finished at, below). The code is
+`forge-sim/src/turnin.rs`, one reading for the planner, the check and `forge sim route --audit`.
+
 Then **trainings at the hub**: a training whose steps either side are both work away from its town
 (beyond 120 yd) splits the field work (c13 Shadowglen: the level-4 training between the cave's
 tasks). It moves to right before the stretch's first task, else right after its last, within a
@@ -511,6 +551,18 @@ in turn) wait with it, else they would be taken before it opens them. Grind is p
 route time plus the minutes of grind over 15 per block drops (by a minute or more), the order keeps
 its rules, no guard rises and the hours to 60 rise by at most 10 minutes; its edit is `defer hard
 work`, counted in `deferredWork`.
+
+Then **accept gates** (`forge-sim/src/gate.rs`, `passby::accept_gates`): whatever the order still
+takes under a quest's minimum level in some start's run (v1's own lines, a shared tail a start
+reaches lower than the canonical one) moves, earliest first, to the first later stop by its giver
+(as for the repairs above) where every start meets the level, before the quest's first objective or
+hand-in, the first such place that keeps the order's rules and adds no no-op or late hand-in. With
+none, a level step to the minimum goes right before the accept (the grind the model made there
+unseen, now written). Kept whatever it costs: the game refuses the quest under its minimum. Its edit
+is `accept gate`, counted in `acceptGates`; the log names each (`accept gate 840 at step 102: level
+9.93, under its minimum 10: no later stop by its giver at level 10 before its work: a level step to
+10 before it`). A shared start's own part gets the same pass before it is written, its tail kept.
+`forge sim route --audit` checks the written routes for it (section 12).
 
 Then **grind top-ups**: the grind left is explicit and in pieces. The model's own grind of a minute or
 more before an accept or work becomes a checkpoint at the last camp of the zone stay before it (its
@@ -709,6 +761,21 @@ the checkout's `guides/` (it needs all ten trees and the checkout's seed, `forge
   `guides/retired.json`, so a saved tab on one opens the race's leveling guide. Two copies rather
   than one guide with `only Orc` and `only Troll` steps: each copy is the start's route exactly as
   written and baked, and only that race's part carries its legs.
+- **A race's lead-in merged into the shared guide of its zone** (`crates/forge/src/lead_in.rs`; Fitz,
+  2026-11-04). A race's guide whose `next` is a shared guide with the same `zone` header (the Orcs'
+  and Trolls' `02-the-barrens`, before the shared Barrens) is no guide of its own: its steps open
+  the shared guide, before its first step. A step the lead-ins have alike (the same title and
+  `only`) is one step, `only Orc,Troll` (with its classes: `only Orc,Troll,Warrior`); a step of
+  one of them is `only Orc` or `only Troll`; a goal one of them lacks is `only` the other
+  (`turnin 842 only Orc`), and of a tip worded twice the first start's stays. The shared guide's
+  first step gets a `label` (`crossroads`, from its title) and the lead-ins' open `along` lists
+  end there (`along until crossroads`); every other race starts there. The header's `levels`
+  span both. The guides that led to a lead-in lead to the shared guide (Durotar's `next`), and the
+  lead-in's id goes into `guides/retired.json`. Their legs move to the merged guide's steps
+  between the same two places, except a step's whose leg would start at a step some of its
+  players never see (the Orcs' Crossroads after the Trolls' own goto; the shared Crossroads after
+  the lead-ins). The Night Elves' Darkshore is no lead-in: it hands over to Westfall and stays a
+  guide, "Darkshore".
 - **One `legs.json`**, per published guide id: the shared route's legs once (they must agree
   between the starts), each start guide's from its start. The compiler writes them into the race
   parts (docs/PACK_FORMAT.md, "Format 7"): each race part holds its own start guides' legs and its
@@ -876,6 +943,16 @@ forge sim skips --reason missing-info --dir out/routes
 ```
 
 With `--reason missing-info` this is the "help us with these quests" list for players.
+
+`forge sim route --audit` checks written routes against the accept level rule, without a search:
+every accept in each start's `order` whose `lvl` (the model's level before it) is under its quest's
+minimum level in the sim world. It reads `--dir` (or `<O>/routes`), the world from the routes'
+sibling `world/` (a build output) or `--world-dir`, both factions unless `--faction`, every start
+unless `--start`, and exits 1 when it finds one:
+
+```sh
+forge sim route --audit --dir out/routes
+```
 
 ## 13. Running it
 

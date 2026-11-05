@@ -115,6 +115,7 @@ fn journal(codex: &Value, inputs: &Value) -> (V, Vec<String>) {
 			fv_dungeons: &fv_dungeons,
 			journal_quests: &journal_quests,
 			attunement_table: &table,
+			store_xp: &Default::default(),
 		},
 		&c,
 	)

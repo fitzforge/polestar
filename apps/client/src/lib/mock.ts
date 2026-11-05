@@ -13,7 +13,7 @@
 //   hasn't run yet), recorder-next (an old-format file; no published Recorder
 //   records the new format yet)
 
-import type { ActivityEntry, Pack, Preview, Product, Snapshot, Summary } from './types';
+import type { ActivityEntry, Pack, Preview, Product, SentUpload, Snapshot, Summary } from './types';
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -53,6 +53,7 @@ const base: Snapshot = {
 	version: '0.1.0',
 	setupDone: true,
 	consent: true,
+	shareNotice: scene === 'notice',
 	paused: false,
 	serverUrl: MOCK_SERVER,
 	defaultServerUrl: MOCK_SERVER,
@@ -133,7 +134,7 @@ const base: Snapshot = {
 		packs: scene === 'community-off' ? [] : mockPacks(),
 		link: scene === 'community-link' ? { seq: 1, pack: 'emberway', error: null } : scene === 'community-bad-link' ? { seq: 1, pack: null, error: '"Ember_Way" isn\'t a guide name: they are 2 to 32 lowercase letters, digits and dashes. Copy the link from the guide\'s page on polestar.guide again.' } : null,
 	},
-	update: null,
+	update: scene === 'update' ? '0.1.4' : null,
 	custom: { community: null, server: null },
 };
 
@@ -207,7 +208,7 @@ function initial(): Snapshot {
 		case 'optin':
 			s.consent = false;
 			s.setupDone = scene === 'optin';
-			s.status = { ...s.status, kind: 'off', title: 'Sharing is off', detail: "Nothing is sent. Opt in under Recording to help improve Polestar's guides.", lastUpload: null };
+			s.status = { ...s.status, kind: 'off', title: 'Sharing is off', detail: "Nothing is sent. Start sharing under Recording to help improve Polestar's guides.", lastUpload: null };
 			s.week = null;
 			if (scene === 'optin') {
 				s.addons.products[1] = { ...s.addons.products[1], installed: null, status: 'install' };
@@ -306,6 +307,15 @@ const activity: ActivityEntry[] =
 
 function preview(): Preview {
 	if (snapshot.pending === 0) return { chunks: 0, bytes: 0, requests: 0, summary: null, records: [], totalRecords: 0, problems: [], json: '[]' };
+	return sampleUpload();
+}
+
+// The uploads the server accepted, from the log above, with their contents in `sampleUpload`.
+const sentUploads: SentUpload[] = activity
+	.filter((e) => e.kind === 'upload' && e.accepted.length > 0)
+	.map((e) => ({ at: e.at, install: 'k3j9x0q2m7ab', chunks: e.accepted.length, bytes: e.bytes, records: e.records }));
+
+function sampleUpload(): Preview {
 	const t0 = Math.floor(now / 1000) - 1800;
 	const kinds: [string, [string, string][]][] = [
 		['session', [['charId', 'a8k2m0q1z9'], ['race', 'Orc'], ['class', 'WARRIOR'], ['faction', 'Horde'], ['sex', '2'], ['level', '23'], ['locale', 'enUS'], ['build', '61582'], ['interface', '11507'], ['region', '3'], ['ruleset', ''], ['recorderVersion', '0.3.0'], ['polestarVersion', '0.2.6'], ['packs', 'guide:barrens-19-24']]],
@@ -327,7 +337,7 @@ function preview(): Preview {
 		chunks: [{ seq: 40, text: 'chunk\t0\t40\t1761562800\ta8k2m0q1z9\nsession\t0\ta8k2m0q1z9\tOrc\tWARRIOR\tHorde\t2\t23\tenUS\t61582\t11507\t3\t\t0.3.0\t0.2.6\tguide:barrens-19-24\npos\t12\t1413\t5132\t3388\t1\t140\n…' }],
 	};
 	return {
-		chunks: snapshot.pending,
+		chunks: snapshot.pending || 9,
 		bytes: 73_204,
 		requests: 1,
 		summary: { ...week, chunks: 12, records: 1288, questsAccepted: 6, questsTurnedIn: 5, kills: 94, lootWindows: 61, uniqueCreatures: 18, vendors: 2, trainers: 1, distanceYards: 6_120, seconds: 3 * 3600 + 5 * 60, characters: [week.characters[0]] },
@@ -470,7 +480,11 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 		emit();
 	},
 	set_sharing: (a) => {
-		snapshot = a.enabled ? { ...structuredClone(base), pending: 0 } : { ...snapshot, consent: false, status: { ...snapshot.status, kind: 'off', title: 'Sharing is off', detail: '', action: null } };
+		snapshot = a.enabled ? { ...structuredClone(base), pending: 0, shareNotice: false } : { ...snapshot, consent: false, shareNotice: false, status: { ...snapshot.status, kind: 'off', title: 'Sharing is off', detail: '', action: null } };
+		emit();
+	},
+	dismiss_share_notice: () => {
+		snapshot.shareNotice = false;
 		emit();
 	},
 	set_paused: (a) => {
@@ -486,11 +500,17 @@ const commands: Record<string, (args: Record<string, unknown>) => unknown> = {
 	delete_server_data: () => undefined,
 	activity: () => activity,
 	preview: () => preview(),
+	sent_uploads: () => sentUploads,
+	sent_upload: () => sampleUpload(),
 	retry_now: () => undefined,
 	open_data_folder: () => undefined,
 	open_link: (a) => void window.open(a.url as string, '_blank'),
-	check_update: () => null,
-	install_update: () => undefined,
+	check_update: () => snapshot.update,
+	// A real install restarts the app; here it fails after a moment, to show the banner's retry.
+	install_update: async () => {
+		await sleep(1500);
+		throw 'Could not download the update: the connection was reset.';
+	},
 	diagnostics: () => ({ renderer: 'browser (vite dev, mock backend)', frameMeter: params.has('meter') }),
 	window_ready: () => true,
 	client_log: (a) => void console.debug(a.line),

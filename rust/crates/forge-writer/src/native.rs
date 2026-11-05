@@ -338,12 +338,14 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	// (Riding at 40 on the guides as written, the shared ones adopted: after the travel repair's ways
 	// to the riding steps, which it writes only for steps that apply.)
 	let written: Vec<String> = ro.tree.iter().filter(|(r, t)| guides.get(*r) != Some(*t)).map(|(r, _)| r.clone()).collect();
-	for rel in written {
-		let mut one = [ro.tree[&rel].clone()];
+	for rel in &written {
+		let mut one = [ro.tree[rel].clone()];
 		crate::post::riding_at_level(&mut one, &data);
 		let [text] = one;
-		ro.tree.insert(rel, text);
+		ro.tree.insert(rel.clone(), text);
 	}
+	// (The titles: the zones each guide as written quests in, docs/forge/writer.md "Guide titles".)
+	crate::titles::guide_titles(&mut ro.tree, &written, &|z| gdata.zone_by_name.contains_key(&z.to_lowercase()));
 	let tree = &ro.tree;
 	let _ = std::fs::remove_dir_all(&out);
 	copy_tree(&guides_dir, &out).map_err(|e| format!("{}: {e}", out.display()))?;

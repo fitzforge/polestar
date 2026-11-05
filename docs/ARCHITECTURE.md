@@ -685,6 +685,7 @@ Compat.GetOfferedQuests(source)        -> { questID, ... } | nil   (source "goss
 Compat.IsQuestTrivial(qlvl, level)     -> bool   (grey for that level)
 Compat.GetItemCount(itemID, includeBank) -> number   (includeBank: the bank's too)
 Compat.GetItemQuality(itemID)          -> 0..7 | nil (nil while not cached)
+Compat.ItemTipColor(itemID)            -> r, g, b | nil (its tooltip's title colour; nil until loaded)
 Compat.ItemQualityHex(quality)         -> "ffrrggbb" | nil
 Compat.ItemIcon(itemID)                -> icon | nil (C_Item.GetItemIconByID; no cache needed)
 Compat.SpellIcon(spellID)              -> icon | nil
@@ -1085,7 +1086,18 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   stands in counts as not visited; all visited: the one visited longest ago),
   so the spots form a circuit. Spots with `alt` are never picked by these
   rules; they are reached by hand and, once picked, hold like any current spot
-  (camps: until another spot is 40 yd nearer). `Engine.CycleSpot(stepIndex,
+  (camps: until another spot is 40 yd nearer). Levels (#827): a kill or
+  collect goal's spot carries `lvl`, the highest level of the mobs spawning in
+  it (compiled from the data; with a level for every spot, the goal's own `lvl`
+  is the one most share and a spot carries `lvl` only when it differs; a
+  `loop` step's points carry none). While a goal
+  has a spot whose mobs are at most one level above the player
+  (`Spots.ABOVE`) and one above that, these rules leave the higher spots as
+  they leave alternatives (a current one above is left at once); with none at
+  the player's level every spot counts. A step with several open field goals
+  likewise leads to the nearest such spot of any of them (a spot without
+  `lvl`, or a goal without spots, counts as at the player's level), and only
+  with none to the nearest of all; a level up re-picks. `Engine.CycleSpot(stepIndex,
   goalIndex[, index])` moves on by hand to the nearest spot not visited lately,
   alternatives included (the current spot counts as visited), or to spot
   `index`; a spot picked that way holds until the player reaches it. It returns
@@ -2130,9 +2142,21 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
   adds a "Nearby services" submenu to `MENU_WORLD_MAP_TRACKING` and
   `MENU_MINIMAP_TRACKING`): kinds trainer (profession, by skill line, or any),
   class, weapon (a weapon skill's line, or any), repair, reagents, vendor,
-  innkeeper, bank, auction, flight, stable. Weapon masters are the NPCs of
+  food, arrows, bullets, ranged, innkeeper, bank, mailbox, auction, flight,
+  stable. Food, arrows, bullets and ranged are vendors by what they sell:
+  `forge data codex` gives every NPC an item lists as its vendor a role from
+  the item's class and subclass (`sells_role` in forge-data's
+  `codex/merge.rs`, with `sellsRole` in `tools/lib/codex/build.js` in step:
+  `sells:food` 0/5, `sells:arrows` 6/2, `sells:bullets` 6/3, `sells:ranged`
+  2/2, 2/3, 2/18). Vendor and these kinds
+  leave out NPCs that are also trainers (`without`: the data lists Forever's
+  Junior trainers as vendors, and they sell the player nothing), and their
+  target names the NPC's title ("Keina (Bowyer)", `titled`). Weapon masters are the NPCs of
   `WEAPON_MASTERS` (the weapon skills each teaches, noted by hand) of the
-  player's side.
+  player's side. Mailboxes are the Codex's objects with the mailbox flag
+  (`object`: `Codex.Each("object")` and `Codex.Object(id).mailbox`, walked
+  once and cached), of the player's side or of both; one with no known side
+  never counts.
   Places are the Codex's NPCs with that role (`Codex.WithRole`, loaded on
   demand, never in combat), friendly to the player's faction and outside
   instances; reagents are vendors listed in `QoL.data.reagentVendors` (`qol
@@ -2144,7 +2168,11 @@ Polestar.Pins.MinimapCursor() -> dNorth, dWest | nil      -- yards from the play
 - **The guide window's button** (`nav.nearbyButton`, on: Options, Guide,
   Arrow & routes): an icon left of the bug, Skip left of it (left of the bug
   when it is off). Its menu is `Nearby.MenuItems()`: the services, a trainer
-  per profession the character has, and Weapon master, a page of
+  per profession the character has, Vendor, a page of `Nearby.VendorPage()`
+  (Nearest, Food & drink, and Arrows, Bullets, Bows & guns only for a class
+  that can use a bow or crossbow, a gun, or either: `Nearby.Fits`, by
+  `Gear.PROFICIENCY`; the map menus' Vendor submenu lists the same), and
+  Weapon master, a page of
   `Nearby.Weapons()` (a known weapon, by `Compat.IsPlayerSpell` on its
   skill's spell, and polearms before level 20 are listed and off); off in
   combat.
@@ -2859,7 +2887,10 @@ reached by the chain's straight link and keeps its straight price). Rules: a
 place the engine finds no walk from (`false`: Thunder Bluff's flight
 master, on a tower it cannot snap from) and every place when none has a walk
 (the target snapped off the ground) or the batch failed keep the straight
-estimate; a place farther or beyond the nearest 16 keeps it too; the
+estimate; a place farther or beyond the nearest 16 keeps it too; a target
+within 400 yd of the player is not measured at all (its plan keeps the
+straight estimates, the arrow its own search: a batch is about a second of
+router work, and a guide sets such a waypoint at every turn-in); the
 player's measure holds within 50 yd of where it was taken. Farther, the
 player's walk counts as missing from the measure, so the next plan (at most
 once per replan) measures it again; meanwhile it is that measure less the
@@ -3356,7 +3387,7 @@ Polestar_Nav.toc        LoadOnDemand, Dependencies: Polestar
                         lifts: Chokepoints.lua's lift landings (bottom, pair = its top) as abstract vertices, the ride
                         175 (25 s at run speed) either way, joined to their cluster's entrances and to a start or goal
                         there by grid searches (a few numbers a landing kept, 64 at most)
-  Routing\PathJobs.lua  ours from his: the coroutine queue sharing Path.budget (2 ms) a frame
+  Routing\PathJobs.lua  ours from his: the coroutine queue sharing Path.budget (3 ms) a frame
   API.lua               Polestar_NavEngine = the Path table, plus Available(map); the memory ceilings
 ```
 
@@ -3428,11 +3459,16 @@ of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, 
 } }`) hostile to `profile` that the drawn line enters, each once, in path
 order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
-slices of `Path.budget` ms, wait out combat, and drop decoded clusters once
-the queue is empty, except the one `Path.SurfacesAt` reads (the player's
-floor, until `Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap
-them meanwhile, and `Idle` trims the decoded graph to `Path.graphRestKB`, all
-set in `API.lua`.
+slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
+100 fps, halving the frame rate while a search ran) and wait out combat. A
+decode yields at its slice points to its very end. Once the queue is empty
+the router rests: `Rest` trims the decoded graph to `Path.graphRestKB`, and
+decoded clusters, the decoder's scratch and the endpoint trees stay for the
+next search (a walk from nearby reads the same clusters: 0.3.1 decoded them
+again for every search); after `Path.restSeconds` (60) with no search `Idle`
+drops them, except the one `Path.SurfacesAt` reads (the player's floor, until
+`Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap them
+meanwhile, all set in `API.lua`.
 The maps are base64 zlib blocks decoded per cluster with `C_EncodingUtil`.
 `forge nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
 the sha256 of every file), and `Nav.xml` to it.
@@ -3796,6 +3832,45 @@ flight timer and the instance tracker are set under Quality of Life.
   Shift-click, it sets a Nav waypoint.
 
 ## QoL — quality-of-life helpers
+
+### Clickable objectives
+
+`qol.guideNameTarget` is off by default. Enabling it extends objective-row
+navigation clicks to target the objective's NPC. Marking uses the existing
+`qol.markTarget`, `qol.markMob` and `qol.markNpc` settings, including their
+shared icon cycle. Opt-in is a product decision:
+existing navigation clicks should not unexpectedly replace the player's
+target. The default can be changed independently of the targeting code.
+`QoL.Buttons.GuideNameMacro` resolves one NPC belonging to that
+goal, never a collect item's name or another objective, then delegates to
+`Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind))`. Kill and collect
+goals use the mob icon; NPC verbs and headings use the NPC icon. The shared
+name validation and literal macro commands are the same as the Target
+button's, and the result must fit within 255 bytes. It clears the previous
+target and dead matches before optional marking. For a collect with two
+named sources, it uses the primary source; the hover tooltip identifies
+that NPC. The client determines
+targeting range and marker permission. An exact-name search can select a
+nearer corpse instead of a living namesake; clearing that corpse does not
+make the macro search farther.
+
+The command sequence is checked against Forever 1.60.1 (70450):
+[exact targeting and clearing](https://github.com/Gethe/wow-ui-source/blob/172a387e3ab85b26e6640d3058d5ec1e6ccd4c63/Interface/AddOns/Blizzard_ChatFrameBase/Shared/SlashCommands.lua#L489),
+and [marker commands](https://github.com/Gethe/wow-ui-source/blob/172a387e3ab85b26e6640d3058d5ec1e6ccd4c63/Interface/AddOns/Blizzard_ChatFrameBase/Shared/SlashCommands.lua#L1451).
+
+`UI/NameTargets.lua` pools secure buttons over objective rows (and the NPC
+heading's text), independently of the guide's frame tree. Absolute UIParent
+positions follow the guide's layout, animation and dragging. A secure
+visibility driver hides the buttons
+in combat; no protected attributes or geometry change under lockdown, and a
+combat reload defers button creation. The normal guide remains interactive.
+After combat the buttons use the latest displayed goals. Left clicks retain
+arrow navigation; the quest's right-click menu, non-quest completion and
+adjacent controls keep working.
+A left-click that finds no living target reports the NPC name through
+`UIErrorsFrame` (chat fallback), before navigation can reuse the button.
+The overlay sets `type1`, so a Shift-, Ctrl- or Alt-click runs no macro: it
+is only the ordinary row click, with no report and no mark-cycle advance.
 
 ### Quest reward marks — QoL, reads Gear
 
@@ -4222,7 +4297,7 @@ the names pack, kind `objective`), chain (every prerequisite and breadcrumb of t
 all of `pre` and `preAny`, oldest first, at most 20), rewards (items with
 quality, count and choice from recordings and ForeverLevelingBiS, else
 the quest list's rewards, choice versus fixed as the list files them; XP from
-`quests.json`; money, else the list's; reputation from the list's rewards, its
+`forever-db/data/quest.jsonl`, else `quests.json`; money, else the list's; reputation from the list's rewards, its
 "+1" placeholders left out, never the standing a quest asks for) and, with
 `--local-extras`, DungeonJournal's audited shareability; bosses in kill order
 with the quests tied to them (an encounter's boss carries its DungeonEncounter
@@ -4654,7 +4729,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (its turn-in when that one is in the log), else the quest's giver, its
   tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each; the
   steps still to do numbered, the next one on an accent ground),
-  Choose one / You get item tiles (quality border; hover `GameTooltip:
+  Choose one / You get item tiles (border and name in the colour of the
+  item's tooltip, else its quality, the client's then the page's, painted
+  again when the item loads; hover `GameTooltip:
   SetHyperlink`, where Gear adds its upgrade line; modified clicks through
   `HandleModifiedItemClick`), XP, money and reputation chips. Bosses: kill
   order, name, level, each tied quest ("Kill it for", "Drops X for", "Drops X,
@@ -6132,9 +6209,10 @@ stops with at least one point. The window's place is `PolestarRecorderDB.panel`.
 
 #### Measuring routes
 
-Recording is opt-in (`PolestarRecorderDB.enabled == true`, set by `/psrec on`,
-Options > Recorder, or sharing in Polestar Client, docs/RECORDING.md "Ack
-file"); while it is off the Recorder writes nothing, not even a
+Recording is off until turned on (`PolestarRecorderDB.enabled == true`, set
+by `/psrec on`, Options > Recorder, or Polestar Client's share flag, which is
+on by default in the client unless the player stops sharing or typed
+`/psrec off`, docs/RECORDING.md "Ack file"); while it is off the Recorder writes nothing, not even a
 session. Testers turn it on, play with Polestar, run `forge record import`
 (or `forge record pull` for the server's), then `record report [--guide <text>]
 [--json] [--top n]`. The report rebuilds step passes from every session and

@@ -1756,35 +1756,13 @@
 			{
 				"a": [
 					"task",
-					5441
-				],
-				"b": [
-					"turnin",
-					789
-				],
-				"why": "RevHS c17 read (Durotar, Valley of Trials): the peons (5441) and the Vile Familiars (792) are woken and killed on the valley loop with the cactuses and the Scorpid Workers, then the Den takes 789, 4402, 5441 and 792 on one return before the Burning Blade Coven (the route's own order: one Den return). c17's writer hub tour handed 789 and 4402 in at the Den 'on the way' between the scorpids and the peons, then walked back to the Den for 5441 and 792 (01-durotar:211-227, judge dup-trip blocker for every Orc and Troll class)"
-			},
-			{
-				"a": [
-					"task",
-					5441
-				],
-				"b": [
-					"turnin",
-					4402
-				],
-				"why": "RevHS c17 read (Durotar, Valley of Trials): the peons (5441) and the Vile Familiars (792) are woken and killed on the valley loop with the cactuses and the Scorpid Workers, then the Den takes 789, 4402, 5441 and 792 on one return before the Burning Blade Coven (the route's own order: one Den return). c17's writer hub tour handed 789 and 4402 in at the Den 'on the way' between the scorpids and the peons, then walked back to the Den for 5441 and 792 (01-durotar:211-227, judge dup-trip blocker for every Orc and Troll class)"
-			},
-			{
-				"a": [
-					"task",
 					792
 				],
 				"b": [
 					"turnin",
 					789
 				],
-				"why": "RevHS c17 read (Durotar, Valley of Trials): the peons (5441) and the Vile Familiars (792) are woken and killed on the valley loop with the cactuses and the Scorpid Workers, then the Den takes 789, 4402, 5441 and 792 on one return before the Burning Blade Coven (the route's own order: one Den return). c17's writer hub tour handed 789 and 4402 in at the Den 'on the way' between the scorpids and the peons, then walked back to the Den for 5441 and 792 (01-durotar:211-227, judge dup-trip blocker for every Orc and Troll class)"
+				"why": "RevHS c17 read (Durotar, Valley of Trials): the Vile Familiars (792) are killed on the valley loop with the cactuses and the Scorpid Workers, then the Den takes 789, 4402 and 792 on one return before the Burning Blade Coven (the route's own order: one Den return). c17's writer hub tour handed 789 and 4402 in at the Den 'on the way' between the scorpids and the Vile Familiars, then walked back to the Den for 792 (01-durotar:211-227, judge dup-trip blocker for every Orc and Troll class)"
 			},
 			{
 				"a": [
@@ -1795,7 +1773,7 @@
 					"turnin",
 					4402
 				],
-				"why": "RevHS c17 read (Durotar, Valley of Trials): the peons (5441) and the Vile Familiars (792) are woken and killed on the valley loop with the cactuses and the Scorpid Workers, then the Den takes 789, 4402, 5441 and 792 on one return before the Burning Blade Coven (the route's own order: one Den return). c17's writer hub tour handed 789 and 4402 in at the Den 'on the way' between the scorpids and the peons, then walked back to the Den for 5441 and 792 (01-durotar:211-227, judge dup-trip blocker for every Orc and Troll class)"
+				"why": "RevHS c17 read (Durotar, Valley of Trials): the Vile Familiars (792) are killed on the valley loop with the cactuses and the Scorpid Workers, then the Den takes 789, 4402 and 792 on one return before the Burning Blade Coven (the route's own order: one Den return). c17's writer hub tour handed 789 and 4402 in at the Den 'on the way' between the scorpids and the Vile Familiars, then walked back to the Den for 792 (01-durotar:211-227, judge dup-trip blocker for every Orc and Troll class)"
 			},
 			{
 				"a": [
@@ -1863,6 +1841,61 @@
 				],
 				"faction": "Horde",
 				"why": "ZoneFix c18 read (Horde 50-60): the Super Egg-O-Matic's Hippogryph Egg is collected in southern Feralas before Silithus, as v1 does (Gadgetzan -> Camp Mojache for the egg -> Marshal's Refuge -> the pass to Valor's Rest, 05-eastern-plaguelands:205-240), or earlier on the 44-47 Feralas visits. c18 flew from Cenarion Hold to Camp Mojache for the egg alone and hearthed back to Silithus (Orc 50-60/06-silithus:113-121; Orc.json order[1868], after Wasteland's hand-in at [1855])"
+			},
+			{
+				"a": [
+					"turnin",
+					789
+				],
+				"b": [
+					"accept",
+					5441
+				],
+				"why": "c19r read (maintainer, Durotar, Valley of Trials): Lazy Peons (5441) needs level 3. Taken with Galgar's quest on the first Den visit (the c13 together 4402/5441 records) it came at level 2.6, and a level-2 player is held at Foreman Thazz'ril; it is taken on the Den return after the valley loop instead (level 4 by then), the peons by the Den woken right after and handed in before Thazz'ril's Pick (6394), as Polestar 0.3.1 ships it"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					398
+				],
+				"why": "#801 Tirisfal: WANTED: Maggot Eye (398) needs level 6, and the Brill stop took it from the poster by the inn before Vital Intelligence was handed to Executor Zygand in front of it; an Undead Priest at level 5 (93%) found the poster offering nothing. Vital Intelligence first (340 XP) gives the level at the same stop: checked in game, the poster offered it once the turn-in reached level 6"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					398
+				],
+				"why": "#801 follow-up (0.3.2): with Vital Intelligence and A Rogue's Deal handed in first, players' in-game recordings still reach the poster at 5.94 and 5.95 in 2 of 6 Tirisfal runs (the model has them at 6), so the poster offers nothing. The second Brill visit (Deathguard Dillinger's A Putrid Task hand-in, then the inn) comes at 6.7 to 7.5 in the recordings and still before Maggot Eye's camp, so the poster is read there: no extra trip"
+			},
+			{
+				"a": [
+					"turnin",
+					87
+				],
+				"b": [
+					"accept",
+					91736
+				],
+				"why": "#820/#823: the Applejack Still (91736) takes four Shiny Red Apples and never enters the quest log; it gives the Thunder Applejack on the spot (players' recordings: 4 hand-ins, no accept, no quest window). The route took it on the first Westbrook trip (01-elwynn-forest step 70), before Homer Stonefield's apples (step 89), and the writer gated the later still visit on `when onquest 91736`, which never holds: players without apples reached Sergeant De Vries with no Applejack (recorded: step 89 -> 91). After the Stonefield farm (turnin 87, where the buy is) the still comes once, with the apples in the bags."
+			},
+			{
+				"a": [
+					"turnin",
+					950
+				],
+				"b": [
+					"accept",
+					98013
+				],
+				"why": "High-level-areas sweep (0.3.2): Swelling Forces (98013, quest level 20; the Stormscale naga at the Ruins of Mathystra are 18-21) needs Return to Onu (950) handed in, which the Night Elf start's own Darkshore guide never does. nightelf/02-darkshore took it at the Grove at about 13 (the judge: accepted before its prerequisite) and sent the player north to the naga and back south for it; the shared 03-darkshore takes it right after 950 at about 19. With 950 first, the Night Elf start leaves it to the shared visit"
 			}
 		],
 		"notes": [
@@ -2392,28 +2425,6 @@
 					4402
 				],
 				"why": "RevOrcTroll3 c13 read: the cactus apples and the Scorpid Worker tails are on the same valley floor (cactuses 39.6-47.3 x 56.5-72.5 %, workers 39.4-47.7 x 56.4-73.7 % of Durotar): one loop, v1's one 'Sarkoth' step; the c13 Orc cut put the Vile Familiars between them"
-			},
-			{
-				"a": [
-					"accept",
-					4402
-				],
-				"b": [
-					"accept",
-					5441
-				],
-				"why": "RevOrcTroll3 c13 read: Foreman Thazz'ril's Lazy Peons is taken on the first Den visit with Galgar's Cactus Apple Surprise (Thazz'ril at the lumber pile 140 yd east of Galgar's fire), so the peons are woken on the valley loop that follows (the next rule); v1 and the c13 Troll cut take it only on the second Den visit"
-			},
-			{
-				"a": [
-					"task",
-					4402
-				],
-				"b": [
-					"task",
-					5441
-				],
-				"why": "RevOrcTroll3 c13 read: the Lazy Peons sleep across the same valley floor as the cactuses and Scorpid Workers (14 spawns, 38.8-47.6 x 57-73 % of Durotar): woken on that loop, before the Den hand-ins, not on a second circuit after the Den (c13 Orc and Troll 01-durotar:216)"
 			},
 			{
 				"a": [

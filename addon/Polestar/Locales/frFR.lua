@@ -340,6 +340,7 @@ L["Reagents"] = "Réactifs"
 L["Vendor"] = "Marchand"
 L["Innkeeper"] = "Aubergiste"
 L["Bank"] = "Banque"
+L["Mailbox"] = "Boîte aux lettres"
 L["Auction house"] = "Hôtel des ventes"
 L["Flight master"] = "Maître de vol"
 L["Stable master"] = "Maître des écuries"
@@ -355,7 +356,7 @@ L["Nearest %s: %s, %s."] = "Au plus près (%s) : %s, %s."
 L["No profession called %s."] = "Aucun métier nommé %s."
 L["Nearby services"] = "Services à proximité"
 L["Nearest"] = "Le plus proche"
-L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master"] = "Diriger la flèche vers le maître de métier, le maître de classe, la réparation, les réactifs, le marchand, l'aubergiste, la banque, l'hôtel des ventes, le maître de vol ou le maître des écuries le plus proche"
+L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"] = "Diriger la flèche vers le maître de métier, le maître de classe, la réparation, les réactifs, le marchand, l'aubergiste, la banque, la boîte aux lettres, l'hôtel des ventes, le maître de vol ou le maître des écuries le plus proche"
 L["Nearby services in map menus"] = "Services à proximité dans les menus des cartes"
 L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] = "Les menus de suivi de la carte et de la minicarte trouvent le maître, le marchand, l'auberge, la banque et le reste les plus proches (/polestar near)."
 L["Weapon master"] = "Maître d'armes"
@@ -376,9 +377,13 @@ L["Thrown"] = "Armes de jet"
 L["Weapon master (%s)"] = "Maître d'armes (%s)"
 L["At %s: the arrow is back on the guide."] = "Arrivé auprès de %s : la flèche revient au guide."
 L["The arrow is back on the guide."] = "La flèche revient au guide."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "Utilisation : /polestar near trainer [métier] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
 L["Nearby services button"] = "Bouton des services à proximité"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Un bouton dans l'en-tête de la fenêtre du guide, à gauche du menu, trouve le marchand, la réparation, l'auberge, le maître de vol ou le maître le plus proche et y dirige la flèche."
+L["Food & drink"] = "Nourriture et boissons"
+L["Arrows"] = "Flèches"
+L["Bullets"] = "Balles"
+L["Bows & guns"] = "Arcs et armes à feu"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Utilisation : /polestar near trainer [métier] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Clic droit pour passer ce tronçon."
@@ -419,6 +424,7 @@ L["Not done"] = "Non fait"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Débute une quête"
+L["%d/%d (not accepted)"] = "%d/%d (non acceptée)"
 
 -- Quests/Options.lua
 L["Any level"] = "Tout niveau"
@@ -460,6 +466,10 @@ L["quests"] = "quêtes"
 L["available now"] = "disponibles maintenant"
 L["mobs tracked"] = "monstres suivis"
 L["Quest database status"] = "État de la base de données de quêtes"
+L["Quest marks in bags"] = "Marques de quête dans les sacs"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Marque les objets des sacs dont une quête a encore besoin, dans votre journal ou plus loin dans votre guide, jusqu'à ce que vous rendiez la quête."
+L["Offer to buy back quest items"] = "Proposer de racheter les objets de quête"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Si vous vendez un objet dont une quête a encore besoin, demande s'il faut le racheter au marchand."
 
 -- Quests/Party.lua
 L["%s done"] = "%s : fait"
@@ -834,6 +844,8 @@ L["Under water, a red edge round the screen, a sound and a taskbar flash with 10
 L["Pick what the step asks for"] = "Choisir ce que demande l'étape"
 L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = "Auprès du PNJ de l'étape, choisit l'option de dialogue indiquée par le guide, ou ouvre les marchandises ou l'apprentissage dont l'étape a besoin. Seulement à l'étape où se trouve le guide. Maintenez Maj pour choisir vous-même."
 L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = "Choisit l'unique option des PNJ sans quête. Maintenez Maj pour la lire. Désactivé, le jeu en passe encore certaines lui-même, « Choisir ce que demande l'étape » choisit toujours l'option de l'étape, et les maîtres de vol suivent « Ouvrir la carte de vol »."
+L["Click objectives to target"] = "Cibler en cliquant sur les objectifs"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Un clic sur une ligne d'objectif ou sur le nom d'un PNJ en tête cible aussi ce PNJ hors combat, avec les mêmes réglages de marquage que le bouton de ciblage. Cela remplace votre cible actuelle ; une recherche infructueuse la retire."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Alliance uniquement"
@@ -2770,6 +2782,22 @@ L["%d steps were left undone."] = "%d étapes n'ont pas été faites."
 L["Next: %s"] = "Suivant : %s"
 L["Pick a guide"] = "Choisir un guide"
 L["Not now"] = "Pas maintenant"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Cliquez pour cibler et marquer %s (hors combat)."
+L["Click to target %s (out of combat)."] = "Cliquez pour cibler %s (hors combat)."
+L["%s not found nearby."] = "%s introuvable à proximité."
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Objets de quête Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Requis pour :"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Il n'est plus dans la liste de rachat du marchand."
+L["Not enough money to buy it back."] = "Pas assez d'argent pour le racheter."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Vous avez vendu %s, dont %s a encore besoin. Le racheter pour %s ?"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"

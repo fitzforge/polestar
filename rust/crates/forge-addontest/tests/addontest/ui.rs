@@ -952,6 +952,42 @@ fn a_goal_with_alternative_trainers_shows_where_it_is_and_cycles_to_the_next() {
 	assert_eq!(out["alone"], "Elwynn Forest", "without a person above, the goal names its zone");
 }
 
+// Vendor is a page too (Nearby.VendorPage): what to buy, each to its nearest
+// seller; Back returns to the services.
+#[test]
+fn the_nearby_menu_opens_the_vendor_page_a_pick_goes_to_the_nearest_seller_of_it_back_returns() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.nearbyButton
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r end end
+			return out
+		end
+		local function pick(text)
+			for _, r in ipairs(rows()) do if r.Text:GetText() == text then r:Click() return r end end
+		end
+		B:Click()
+		pick("Vendor  \226\128\186")
+		local page = {}
+		for _, r in ipairs(rows()) do page[#page + 1] = r.Text:GetText() end
+		pick("Arrows")
+		local go = lastCall("NearbyGo")
+		B:Click()
+		pick("Vendor  \226\128\186")
+		pick("Nearest")
+		local nearest = lastCall("NearbyGo")
+		B:Click()
+		pick("Vendor  \226\128\186")
+		pick("Back")
+		emit({ page = page, go = go, nearest = nearest, back = rows()[1].Text:GetText() })"#)
+	.remove(0);
+	assert_eq!(out["page"], json!(["Back", "Nearest", "Food & drink", "Arrows"]));
+	assert_eq!(out["go"], json!(["NearbyGo", "arrows"]));
+	assert_eq!(out["nearest"], json!(["NearbyGo", "vendor"]));
+	assert_eq!(out["back"], "Vendor  \u{203a}");
+}
+
 #[test]
 fn the_nearby_menu_opens_a_page_of_weapons_known_ones_and_those_not_yet_at_this_level_are_off_a_pick_goes_to_the_master_back_returns() {
 	let out = run(r#"
@@ -982,7 +1018,7 @@ fn the_nearby_menu_opens_a_page_of_weapons_known_ones_and_those_not_yet_at_this_
 	assert_eq!(out["page"], json!([["Back", false], ["Swords", false], ["Daggers (known)", true], ["Polearms (from level 20)", true]]));
 	assert_eq!(out["stillOpen"], true, "a weapon already known does nothing");
 	assert_eq!(out["go"], json!(["NearbyGo", "weapon", 43]));
-	assert_eq!(out["back"], "Vendor", "Back shows the services again");
+	assert_eq!(out["back"], "Vendor  \u{203a}", "Back shows the services again");
 }
 
 #[test]
@@ -1094,7 +1130,7 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 	.remove(0);
 	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by the menu");
 	assert_eq!(out["order"], json!({ "skip": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, the menu");
-	assert_eq!(out["items"], json!(["Vendor", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
+	assert_eq!(out["items"], json!(["Vendor  \u{203a}", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
 	assert_eq!(out["mining"], json!(["NearbyGo", "trainer", 186]));
 	assert_eq!(out["inn"], json!(["NearbyGo", "innkeeper"]));
 	assert_eq!(out["enabledInCombat"], 0, "in combat every entry is off");

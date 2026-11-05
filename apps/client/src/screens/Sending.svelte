@@ -1,32 +1,29 @@
 <script lang="ts">
 	import { onMount, tick } from 'svelte';
 	import { api, message } from '../lib/backend';
-	import { bytes, count, plural, time } from '../lib/format';
+	import { bytes, plural } from '../lib/format';
 	import { NEVER, NEVER_NOTE } from '../lib/copy';
 	import { fade, rise, swap } from '../lib/motion';
-	import { fieldName, kindName } from '../lib/records';
 	import type { Preview, Snapshot } from '../lib/types';
 	import PageHeader from '../components/PageHeader.svelte';
 	import Glyph from '../components/Glyph.svelte';
 	import Emblem from '../components/Emblem.svelte';
-	import Facts from '../components/Facts.svelte';
-	import Characters from '../components/Characters.svelte';
+	import SentUploads from '../components/SentUploads.svelte';
+	import UploadDetail from '../components/UploadDetail.svelte';
 
 	let { snapshot }: { snapshot: Snapshot } = $props();
 
-	type Tab = 'readable' | 'json' | 'never';
+	type Tab = 'readable' | 'json' | 'sent' | 'never';
 	const tabs: { id: Tab; label: string }[] = [
 		{ id: 'readable', label: 'Readable' },
 		{ id: 'json', label: 'Raw JSON' },
+		{ id: 'sent', label: 'Already sent' },
 		{ id: 'never', label: 'Never sent' },
 	];
-	const PAGE = 200;
 
 	let tab = $state<Tab>('readable');
 	let preview = $state<Preview | null>(null);
 	let error = $state<string | null>(null);
-	let showRecords = $state(false);
-	let shown = $state(PAGE);
 	let copied = $state(false);
 
 	// The next upload changes when new play arrives or some is sent.
@@ -72,7 +69,7 @@
 	}
 </script>
 
-<PageHeader title="What we send" subtitle="Your next upload, exactly as it will leave this PC, with names already replaced. Nothing else is sent." />
+<PageHeader title="What we send" subtitle={tab === 'sent' ? 'What has already left this PC, with names replaced as it was sent.' : 'Your next upload, exactly as it will leave this PC, with names already replaced. Nothing else is sent.'} />
 
 <!-- svelte-ignore a11y_interactive_supports_focus -->
 <div class="tabs" role="tablist" tabindex="-1" bind:this={bar} onkeydown={keys}>
@@ -97,6 +94,8 @@
 						{/each}
 					</ul>
 					<p class="note">{NEVER_NOTE}</p>
+				{:else if tab === 'sent'}
+					<SentUploads {snapshot} />
 				{:else if error}
 					<p class="note warn selectable">{error}</p>
 				{:else if !preview}
@@ -107,6 +106,7 @@
 						<span class="halo"><Glyph name="eye" size={36} color="var(--accent)" /></span>
 						<h3>Nothing waiting to be sent</h3>
 						<p class="note">Your next upload shows up here, piece by piece, as soon as the game saves the Recorder's file: when you log out or type /reload.</p>
+						<button class="btn quiet small to-sent" onclick={() => (tab = 'sent')}>See what's already been sent</button>
 					</div>
 				{:else if tab === 'json'}
 					<div class="jsonbar">
@@ -117,60 +117,7 @@
 					</div>
 					<pre class="json selectable">{preview.json}</pre>
 				{:else}
-					{#each preview.problems as problem, i (i)}
-						<p class="note warn selectable">{problem}</p>
-					{/each}
-					{#if preview.summary}
-						<section class="section">
-							<h2>In this upload <span class="aside small muted">{plural(preview.totalRecords, 'event', 'events')}</span></h2>
-							<Facts summary={preview.summary} />
-						</section>
-						{#if preview.summary.characters.length > 0}
-							<section class="section">
-								<h2>Characters <span class="aside small muted">Class, race and level only, never names</span></h2>
-								<Characters characters={preview.summary.characters} />
-							</section>
-						{/if}
-					{/if}
-					<section class="section">
-						<h2>
-							Every event
-							<button class="btn quiet small aside-btn" onclick={() => (showRecords = !showRecords)} aria-expanded={showRecords}>
-								{showRecords ? 'Hide' : 'Show them all'}
-								<span class="chev" class:up={showRecords}><Glyph name="chevron-down" size={12} /></span>
-							</button>
-						</h2>
-						{#if showRecords}
-							<div in:rise={{ y: 4 }}>
-								<table>
-									<thead class="small muted">
-										<tr><th>Time</th><th>What</th><th>Details</th></tr>
-									</thead>
-									<tbody>
-										{#each preview.records.slice(0, shown) as r, i (i)}
-											<tr>
-												<td class="num muted">{time(r.t)}</td>
-												<td><span class="chip" title={r.kind}>{kindName(r.kind)}</span></td>
-												<td class="fields">
-													{#each r.fields as [name, value], j (j)}
-														{#if value !== ''}<span class="pair" title={name}><span class="muted">{fieldName(name)}</span> {value}</span>{/if}
-													{/each}
-												</td>
-											</tr>
-										{/each}
-									</tbody>
-								</table>
-								{#if shown < preview.records.length}
-									<div class="more">
-										<button class="btn" onclick={() => (shown += PAGE)}>Show {count(Math.min(PAGE, preview.records.length - shown))} more</button>
-										<span class="small muted">{count(shown)} of {count(preview.totalRecords)}</span>
-									</div>
-								{:else if preview.records.length < preview.totalRecords}
-									<p class="small muted">The first {count(preview.records.length)} events; Raw JSON has all {count(preview.totalRecords)}.</p>
-								{/if}
-							</div>
-						{/if}
-					</section>
+					<UploadDetail upload={preview} heading="In this upload" />
 				{/if}
 			</div>
 		{/key}
@@ -264,16 +211,8 @@
 		color: var(--warning);
 		margin: 0 0 var(--s3);
 	}
-	.aside-btn {
-		margin-left: auto;
-		font-weight: 500;
-	}
-	.chev {
-		display: inline-grid;
-		transition: transform var(--base) var(--ease);
-	}
-	.chev.up {
-		transform: rotate(180deg);
+	.to-sent {
+		margin-top: var(--s3);
 	}
 	.jsonbar {
 		display: flex;
@@ -307,46 +246,6 @@
 		white-space: pre-wrap;
 		word-break: break-all;
 		text-shadow: none;
-	}
-	table {
-		width: 100%;
-		border-collapse: collapse;
-		user-select: text;
-		-webkit-user-select: text;
-	}
-	th {
-		text-align: left;
-		font-weight: 500;
-		height: 32px;
-		border-bottom: 1px solid var(--divider);
-	}
-	td {
-		padding: 7px 12px 7px 0;
-		border-bottom: 1px solid var(--divider);
-		vertical-align: top;
-		font-size: 12px;
-	}
-	th:first-child,
-	td:first-child {
-		width: 72px;
-	}
-	th:nth-child(2),
-	td:nth-child(2) {
-		width: 136px;
-	}
-	.fields {
-		color: var(--text);
-		word-break: break-word;
-	}
-	.pair {
-		display: inline-block;
-		margin-right: 12px;
-	}
-	.more {
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		margin-top: 12px;
 	}
 	@media (prefers-reduced-motion: reduce) {
 		.never li {

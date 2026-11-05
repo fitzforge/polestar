@@ -109,6 +109,7 @@ fn journal_of(codex: &Value, inputs: &Value) -> V {
 			fv_dungeons: &fv_dungeons,
 			journal_quests: &journal_quests,
 			attunement_table: &attunement_table,
+			store_xp: &Default::default(),
 		},
 		&codex_v,
 	)

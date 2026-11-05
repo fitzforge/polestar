@@ -9,8 +9,10 @@
 -- resolves to a no-op returning nil, so the long tail of Set* calls is accepted.
 --
 --   stub.fire(event, ...)    deliver a game event to every frame registered for it
---   stub.advance(seconds)    move the clock: OnUpdate scripts, due timers, tickers
---   stub.runTimers()         run timers due now (C_Timer.After(0, ...))
+--   stub.advance(seconds)    move the clock frame by frame (0.05 s): OnUpdate scripts, then the timers due as
+--                            the frame starts; one a timer makes for now (C_Timer.After(0)) runs next frame,
+--                            as in the client
+--   stub.runTimers()         run timers due now, and the ones they make for now, to the end
 --   stub.addonLoaded(name)   fire ADDON_LOADED(name)
 --   stub.login()             PLAYER_LOGIN then PLAYER_ENTERING_WORLD(true, false)
 --   stub.messages            every chat line the addon printed
@@ -484,11 +486,13 @@ function stub.login()
 	stub.runTimers()
 end
 
+local function byTime(a, b) return a.at < b.at end
+
 local function runDue()
 	local ran = true
 	while ran do
 		ran = false
-		table.sort(stub.timers, function(a, b) return a.at < b.at end)
+		table.sort(stub.timers, byTime)
 		local t = stub.timers[1]
 		if t and t.at <= stub.now + 1e-9 then
 			table.remove(stub.timers, 1)
@@ -500,6 +504,20 @@ end
 
 function stub.runTimers() runDue() end
 
+-- One frame's timers: those due as it starts, in time order; a timer one of them makes for now waits for the next.
+function stub.frameTimers()
+	local now, due, later = stub.now + 1e-9, {}, {}
+	for _, t in ipairs(stub.timers) do
+		if t.at <= now then due[#due + 1] = t else later[#later + 1] = t end
+	end
+	if #due == 0 then return end
+	stub.timers = later
+	table.sort(due, byTime)
+	for _, t in ipairs(due) do
+		if not t.cancelled then t.fn(t.handle) end
+	end
+end
+
 function stub.advance(seconds)
 	local step = 0.05
 	local remaining = seconds or 0
@@ -510,7 +528,7 @@ function stub.advance(seconds)
 		for _, f in ipairs(stub.frames) do
 			if f.scripts.OnUpdate and Methods.IsVisible(f) then RunScript(f, "OnUpdate", dt) end
 		end
-		runDue()
+		stub.frameTimers()
 	until remaining <= 1e-9
 end
 

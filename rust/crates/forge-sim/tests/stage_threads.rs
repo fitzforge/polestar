@@ -62,6 +62,7 @@ fn routes_stage_is_the_same_at_4_and_12_threads() {
 		"hub loop",
 		"train at the hub",
 		"defer hard work",
+		"accept gate",
 		"grind top-up",
 	];
 	let descent: Vec<&serde_json::Value> = e["list"].as_array().unwrap().iter().filter(|x| !passes.iter().any(|k| x["kind"] == *k)).collect();

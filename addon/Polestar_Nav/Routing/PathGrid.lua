@@ -22,7 +22,7 @@ local ns = select(2, ...)
 local Path = {}
 ns.Path = Path
 
-Path.budget = 2 -- milliseconds of path work, leaving headroom under the 3 ms frame ceiling
+Path.budget = 3 -- milliseconds of path work a frame, whatever the frame rate (PathJobs.lua)
 Path.clusters = 64 -- secondary count ceiling per map (at least 4)
 Path.graphKB = 4096 -- decoded entrances/edges across all maps while a search runs (API.lua sets Polestar's)
 Path.graphRestKB = 4096 -- the same with no search queued (Idle trims to it)
@@ -351,10 +351,12 @@ local function takeScratch()
 	return S or { v = {}, z = {}, m = {}, at = {}, first = {}, lm = {}, x = {}, cells = {}, buf = {}, xbuf = {}, parts = {}, nx = 0, xmax = 0, np = 0 }
 end
 
+-- The writers below finish a decode: each CHUNK a slice point (a decode holds its scratch across a yield).
 local CHUNK = 4096 -- bytes a string.char call
 local function chunk(S, n)
 	S.np = S.np + 1
 	S.parts[S.np] = char(unpack(S.buf, 1, n))
+	slice()
 end
 local function finish(S)
 	local s = concat(S.parts, "", 1, S.np)
@@ -370,6 +372,7 @@ local function bytes(S, t, first, last)
 	for i = first, last, CHUNK do
 		S.np = S.np + 1
 		S.parts[S.np] = char(unpack(t, i, min(last, i + CHUNK - 1)))
+		slice()
 	end
 	return finish(S)
 end
@@ -526,6 +529,9 @@ local function floorColumns(S, N, s)
 	local cells = S.cells
 	local lc = -1
 	for i = 1, n do
+		if i % 256 == 0 then
+			slice()
+		end
 		local gap
 		gap, pos = b32(s, pos)
 		lc = lc + gap + 1
@@ -533,6 +539,9 @@ local function floorColumns(S, N, s)
 	end
 	counts = pos
 	for i = 0, n - 1 do
+		if i % 1024 == 0 then
+			slice()
+		end
 		floors = floors + B64[byte(s, counts + i)]
 	end
 	local values = counts + n
@@ -566,6 +575,9 @@ local function floorColumns(S, N, s)
 	m, pos = b32(s, pos + 2 * floors)
 	local u = 0
 	for i = 1, m do
+		if i % 256 == 0 then
+			slice()
+		end
 		local d
 		d, pos = b32(s, pos)
 		u = u + unzig(d)
@@ -587,12 +599,18 @@ local function decodeArcs(S, s)
 	local X, e0 = S.x, S.nx
 	local a = 0
 	for i = 1, n do
+		if i % 256 == 0 then
+			slice()
+		end
 		local gap
 		gap, pos = b32(s, pos)
 		a = a + gap
 		X[e0 + i] = a * NODE
 	end
 	for i = 1, n do
+		if i % 256 == 0 then
+			slice()
+		end
 		local d
 		d, pos = b32(s, pos)
 		X[e0 + i] = X[e0 + i] + X[e0 + i] / NODE + unzig(d) -- its start * NODE + its end
@@ -609,6 +627,9 @@ local function decodeArcs(S, s)
 	end
 	S.nx = e0 + n
 	for e = e0 + 1, e0 + n do
+		if e % 256 == 0 then
+			slice()
+		end
 		local v = X[e]
 		local p = v % NODE
 		local from, rest = (v - p) / NODE, p - ARC
@@ -699,6 +720,9 @@ local function decodeGrid(st, k)
 	end
 	decodeHeights(st, V, Z, height)
 	for i = 1, N do
+		if i % 1024 == 0 then
+			slice()
+		end
 		FIRST[i], LM[i] = 0, 0
 	end
 	S.nx = 0
@@ -732,6 +756,9 @@ local function decodeGrid(st, k)
 			end
 		end
 		for e = 1, explicit do
+			if e % 64 == 0 then
+				slice()
+			end
 			local p = X[e] % NODE
 			local f = (X[e] - p) / NODE
 			if f >= N and f < T then
@@ -775,10 +802,16 @@ local function decodeGrid(st, k)
 		end
 	end
 	for i = n + 1, T do
+		if i % 1024 == 0 then
+			slice()
+		end
 		V[i] = V[i] * KINDS
 	end
 	-- Heights in half yards (whole numbers: zstep 2 and floors in yards), a blocked base cell's 0 (after the bias).
 	for i = 1, N do
+		if i % 1024 == 0 then
+			slice()
+		end
 		if V[i] < KINDS then
 			Z[i] = -16384
 		end
@@ -786,6 +819,9 @@ local function decodeGrid(st, k)
 	-- Each cell's floors: the first's node + 1 and their count (the consecutive floors on that cell).
 	local AT = S.at
 	for i = 1, N do
+		if i % 1024 == 0 then
+			slice()
+		end
 		local f = FIRST[i]
 		if f > 0 then
 			local count = 0
@@ -1496,8 +1532,23 @@ local function smooth(st, P, profile, style, danger)
 	return out
 end
 
--- With no search queued, drop decoded grids (but the one Path.SurfacesAt reads: the player's), the decoder's scratch
--- and local trees, and trim the decoded graph to its resting ceiling; exact endpoint costs stay.
+-- With no search queued (PathJobs.lua's rest): drop the strings of clusters whose decode never finished and trim the
+-- decoded graph to its resting ceiling. Decoded grids, the decoder's scratch and the endpoint trees stay for the next
+-- search (within Path.cacheKB, ENDTREES), until Idle.
+local function Rest()
+	for _, st in pairs(states) do
+		if st.D.packed then
+			st.D.grid, st.D.height, st.D.floor = {}, {}, {}
+			if st.classed then
+				st.D.class = {}
+			end
+		end
+	end
+	trimGraphs(math.min(Path.graphRestKB or Path.graphKB, Path.graphKB))
+end
+
+-- Rested Path.restSeconds with no search (PathJobs.lua): drop decoded grids (but the one Path.SurfacesAt reads: the
+-- player's), the decoder's scratch and local trees as well; exact endpoint costs stay.
 local function Idle()
 	spare = nil
 	for _, st in pairs(states) do
@@ -1512,14 +1563,8 @@ local function Idle()
 				evict(st, k)
 			end
 		end
-		if st.D.packed then
-			st.D.grid, st.D.height, st.D.floor = {}, {}, {}
-			if st.classed then
-				st.D.class = {}
-			end
-		end
 	end
-	trimGraphs(math.min(Path.graphRestKB or Path.graphKB, Path.graphKB))
+	Rest()
 end
 
 local function Reset()
@@ -1600,6 +1645,7 @@ ns.PathGrid = {
 	standing = standing,
 	snap = snap,
 	smooth = smooth,
+	Rest = Rest,
 	Idle = Idle,
 	Reset = Reset,
 	TILE = TILE,

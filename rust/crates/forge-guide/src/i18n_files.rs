@@ -384,6 +384,11 @@ fn unescape_lua(body: &[char], file: &str, line: usize) -> Result<String, String
 	Ok(String::from_utf8_lossy(&bytes).into_owned())
 }
 
+/// A quoted Lua string's body as written in a file -> its text (`unescape_lua` for callers outside).
+pub fn unescape_lua_text(body: &str, file: &str, line: usize) -> Result<String, String> {
+	unescape_lua(&body.chars().collect::<Vec<_>>(), file, line)
+}
+
 /// `^\[(=*)\[` at `at`: the number of `=`.
 fn long_open(src: &[char], at: usize) -> Option<usize> {
 	if src.get(at) != Some(&'[') {

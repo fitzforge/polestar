@@ -7,6 +7,7 @@
 	import { toast } from '../lib/toast.svelte';
 	import { diagnostics, showFrames } from '../lib/diagnostics.svelte';
 	import { intro, setFullIntro } from '../lib/intro.svelte';
+	import { clientUpdate, installClientUpdate } from '../lib/update.svelte';
 	import type { Channel, Snapshot } from '../lib/types';
 	import PageHeader from '../components/PageHeader.svelte';
 	import Glyph from '../components/Glyph.svelte';
@@ -99,7 +100,7 @@
 		<section class="section">
 			<h2>Recording</h2>
 			<div class="rows">
-				<div class="row" title="Off: nothing is sent, and the Recording pages offer to opt in again. What was already sent stays until you delete it below.">
+				<div class="row" title="Off: nothing is sent, and the Recording pages offer to start again. What was already sent stays until you delete it below.">
 					<span class="label">Share my play</span>
 					<button class="toggle" role="switch" aria-checked={snapshot.consent} aria-label="Share my play" onclick={() => run('sharing', () => api.setSharing(!snapshot.consent))}></button>
 				</div>
@@ -214,8 +215,8 @@
 				<div class="row">
 					<span class="label">Polestar Client <span class="num muted">{snapshot.version}</span></span>
 					{#if snapshot.update}
-						<button class="btn primary" disabled={busy === 'update'} onclick={() => run('update', () => api.installUpdate())}>
-							{#if busy === 'update'}<span class="spinner"></span>Updating…{:else}Update to {snapshot.update}{/if}
+						<button class="btn primary" disabled={clientUpdate.busy} onclick={installClientUpdate}>
+							{#if clientUpdate.busy}<span class="spinner"></span>Updating…{:else}Update to {snapshot.update}{/if}
 						</button>
 					{:else}
 						<button class="btn" disabled={busy === 'check'} onclick={checkClient}>

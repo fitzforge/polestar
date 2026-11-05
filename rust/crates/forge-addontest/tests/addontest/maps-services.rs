@@ -698,6 +698,7 @@ fn a_fresh_install_leaves_the_codex_unloaded_until_the_layer_is_on_and_the_world
 		entrance_table: V::Null,
 		rep_table: V::Null,
 		attunement_table: V::Null,
+		store_xp: Default::default(),
 		journal_quests: Vec::new(),
 		warnings: Vec::new(),
 	};

@@ -226,8 +226,10 @@ export interface Snapshot {
 	version: string;
 	/** The first-run setup (finding the game) is done. */
 	setupDone: boolean;
-	/** The player opted in to the recording program. */
+	/** The player shares their play (on by default unless they stopped it). */
 	consent: boolean;
+	/** Sharing is on and its notice (what is shared, Stop sharing) has not been read yet. */
+	shareNotice: boolean;
 	paused: boolean;
 	serverUrl: string;
 	defaultServerUrl: string;
@@ -279,6 +281,15 @@ export interface Preview {
 	totalRecords: number;
 	problems: string[];
 	json: string;
+}
+
+/** An upload the server accepted (`sent.jsonl`: the last 8 days), without its contents. */
+export interface SentUpload {
+	at: number;
+	install: string;
+	chunks: number;
+	bytes: number;
+	records: number;
 }
 
 export interface FolderCheck {

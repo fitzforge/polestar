@@ -10,7 +10,8 @@
 //!                   graph and search trees)
 //!   allocated       everything the searches allocate, collected or not: the garbage the client's collector
 //!                   has to catch up with
-//!   at rest         after the searches, once the engine went idle
+//!   rest            just after the searches (the engine resting: its decoded clusters held for the next search)
+//!   idle            once the engine has rested Path.restSeconds and dropped them
 //!
 //! The searches: five walks (Northshire, Goldshire to the Trade District, Loch Modan, Silverpine, Darkshore),
 //! Horde, then one batch as Walk.Measure asks when a waypoint is set: from the Trade District to 16 places
@@ -27,7 +28,12 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// read from its strings, Path.cacheKB 8 MB, Path.graphRestKB 1 MB; the parts guarded against a dropped map),
 /// Eastern Kingdoms / Kalimdor: load 18,341 / 22,428 and 20,717 / 25,016; live 39,799 / 29,201; allocated 91,361 /
 /// 7,859; at rest 19,846 / 22,480.
-const BUDGET: [(&str, f64); 5] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 40000.0), ("allocated", 92000.0), ("rest", 22500.0)];
+/// 0.3.2 (2026-11-05, the stutter fixes; Fitz approved the rise): a search's decoded clusters, the decoder's scratch
+/// and the endpoint trees stay between searches until the router has rested a minute (Path.restSeconds), so "live"
+/// (the clusters of the earlier walks still held) is 42,952 / 29,201 and "rest" (just after the searches) 32,813 /
+/// 29,023; "idle" (after the minute's rest) is the old at-rest figure, 19,848 / 22,479. Live rose 3,500 KiB to
+/// 43,500 and rest 11,000 to 33,500; idle holds the old 22,500.
+const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 43500.0), ("allocated", 92000.0), ("rest", 33500.0), ("idle", 22500.0)];
 
 const WALKS: [(u32, [f64; 3], [f64; 3]); 5] = [
 	(0, [-8911.708, -130.583, 81.024], [-8680.25, -113.229, 91.141]),
@@ -122,7 +128,9 @@ end
 {batch}
 allocated = allocated + collectgarbage("count") - last - EXCLUDED
 collectgarbage("restart")
-emit({{ loadResident = loadResident, loadPeak = loadPeak, live = live, allocated = allocated, rest = FULL() - BASE, answers = answers }})"#,
+local rest = FULL() - BASE
+stub.advance(Path.restSeconds + 1)
+emit({{ loadResident = loadResident, loadPeak = loadPeak, live = live, allocated = allocated, rest = rest, idle = FULL() - BASE, answers = answers }})"#,
 		walks = walks.join(", "),
 	)
 }

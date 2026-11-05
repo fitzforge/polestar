@@ -270,6 +270,7 @@ impl Engine {
 				});
 			}
 			let soon = self.poll_files();
+			self.default_share();
 			self.refresh_week();
 			self.upload_pending().await;
 			self.publish();
@@ -675,6 +676,28 @@ impl Engine {
 		self.sync_share();
 	}
 
+	/// Sharing is on by default: turns it on, as Start sharing does, for a player who never chose
+	/// ([`share_by_default`]); the window's notice then says what is shared, with Stop sharing.
+	/// Called right after `poll_files`, so every account's file has been looked at.
+	fn default_share(&self) {
+		let state = self.lock();
+		let on = share_by_default(&state.settings, state.install.is_some(), &state.accounts);
+		drop(state);
+		if !on {
+			return;
+		}
+		let result = self.save_settings(|s| {
+			s.consent = true;
+			s.ever_shared = true;
+			s.consent_at = Some(now_ms());
+			s.paused = false;
+		});
+		match result {
+			Ok(()) => eprintln!("sharing is on by default (never chosen, no /psrec off)"),
+			Err(e) => eprintln!("{e}"),
+		}
+	}
+
 	/// Puts the share flag in Ack.lua when the file does not say it already: the Recorder records
 	/// while the player shares (docs/RECORDING.md "Ack file"). Called when the settings change
 	/// and after every look for the game (which also catches a Recorder reinstalled by hand).
@@ -785,6 +808,7 @@ impl Engine {
 			version: env!("CARGO_PKG_VERSION").to_owned(),
 			setup_done: state.settings.setup_done || state.settings.consent,
 			consent: state.settings.consent,
+			share_notice: state.settings.consent && !state.settings.share_notice_seen,
 			paused: state.settings.paused,
 			server_url: state.settings.server_url.clone(),
 			default_server_url: crate::store::DEFAULT_SERVER.to_owned(),
@@ -806,43 +830,104 @@ impl Engine {
 	/// What the next upload holds: its summary, its records and the exact request bodies.
 	pub fn preview(&self) -> Preview {
 		let batches = self.pending();
-		let mut chunks = Vec::new();
-		let mut rows = Vec::new();
-		let mut problems = Vec::new();
-		let mut total_records = 0usize;
-		let mut requests = Vec::new();
-		for batch in &batches {
-			for chunk in &batch.chunks {
-				match record::decode_chunk(&chunk.text) {
-					Ok(decoded) => {
-						total_records += decoded.records.len();
-						for r in &decoded.records {
-							if rows.len() < PREVIEW_ROWS {
-								rows.push(RecordRow { seq: chunk.seq, kind: r.kind.to_string(), t: r.t, fields: r.kind.field_names().into_iter().map(str::to_owned).zip(r.fields.iter().cloned()).collect() });
-							}
-						}
-						chunks.push(decoded);
-					}
-					Err(e) => problems.push(format!("Chunk {} would be turned away: {e}", chunk.seq)),
-				}
-			}
-			requests.push(api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: batch.install.clone(), chunks: batch.chunks.clone() });
-		}
+		let reading = read_chunks(batches.iter().flat_map(|b| &b.chunks), "would be turned away");
+		let requests: Vec<api::UploadRequest> =
+			batches.iter().map(|b| api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: b.install.clone(), chunks: b.chunks.clone() }).collect();
 		let json = serde_json::to_string_pretty(&requests).unwrap_or_default();
 		Preview {
 			chunks: batches.iter().map(|b| b.chunks.len()).sum(),
 			bytes: requests.iter().map(|r| serde_json::to_vec(r).map(|v| v.len()).unwrap_or(0)).sum(),
 			requests: requests.len(),
-			summary: (!chunks.is_empty()).then(|| serde_json::to_value(summary::summarize_with_maps(&chunks, &self.maps())).unwrap_or_default()),
-			records: rows,
-			total_records,
-			problems,
+			summary: (!reading.decoded.is_empty()).then(|| serde_json::to_value(summary::summarize_with_maps(&reading.decoded, &self.maps())).unwrap_or_default()),
+			records: reading.rows,
+			total_records: reading.total_records,
+			problems: reading.problems,
+			json,
+		}
+	}
+
+	/// The uploads the server accepted that this PC still keeps (`sent.jsonl`: the last 8 days), newest first.
+	pub fn sent_uploads(&self) -> Vec<SentUpload> {
+		sent_uploads_of(&self.store.sent(now_ms()))
+	}
+
+	/// One of those uploads, for the window to show as it shows the next one. Its chunks are the
+	/// text that left this PC. `json` leaves out the request's `uploader`, which isn't kept.
+	pub fn sent_upload(&self, at: i64, install: &str) -> Preview {
+		let chunks: Vec<api::UploadChunk> =
+			self.store.sent(now_ms()).into_iter().filter(|c| c.at == at && c.install == install).map(|c| api::UploadChunk { seq: c.seq, text: c.text }).collect();
+		let reading = read_chunks(chunks.iter(), "can't be read by this version");
+		let bytes = request_bytes(install, &chunks);
+		let json = serde_json::to_string_pretty(&serde_json::json!({ "install": install, "chunks": chunks })).unwrap_or_default();
+		Preview {
+			chunks: chunks.len(),
+			bytes,
+			requests: 1,
+			summary: (!reading.decoded.is_empty()).then(|| serde_json::to_value(summary::summarize_with_maps(&reading.decoded, &self.maps())).unwrap_or_default()),
+			records: reading.rows,
+			total_records: reading.total_records,
+			problems: reading.problems,
 			json,
 		}
 	}
 }
 
 const PREVIEW_ROWS: usize = 5000;
+
+/// Chunks read back into what `Preview` shows. `verdict` ends the line for a chunk that doesn't decode.
+struct Reading {
+	decoded: Vec<record::Chunk>,
+	rows: Vec<RecordRow>,
+	total_records: usize,
+	problems: Vec<String>,
+}
+
+fn read_chunks<'a>(chunks: impl Iterator<Item = &'a api::UploadChunk>, verdict: &str) -> Reading {
+	let mut reading = Reading { decoded: Vec::new(), rows: Vec::new(), total_records: 0, problems: Vec::new() };
+	for chunk in chunks {
+		match record::decode_chunk(&chunk.text) {
+			Ok(decoded) => {
+				reading.total_records += decoded.records.len();
+				for r in &decoded.records {
+					if reading.rows.len() < PREVIEW_ROWS {
+						reading.rows.push(RecordRow { seq: chunk.seq, kind: r.kind.to_string(), t: r.t, fields: r.kind.field_names().into_iter().map(str::to_owned).zip(r.fields.iter().cloned()).collect() });
+					}
+				}
+				reading.decoded.push(decoded);
+			}
+			Err(e) => reading.problems.push(format!("Chunk {} {verdict}: {e}", chunk.seq)),
+		}
+	}
+	reading
+}
+
+/// Kept chunks as uploads, newest first: the chunks of one request share their `at` and `install`.
+fn sent_uploads_of(chunks: &[SentChunk]) -> Vec<SentUpload> {
+	let mut groups: BTreeMap<(std::cmp::Reverse<i64>, &str), Vec<&SentChunk>> = BTreeMap::new();
+	for c in chunks {
+		groups.entry((std::cmp::Reverse(c.at), &c.install)).or_default().push(c);
+	}
+	groups
+		.into_iter()
+		.map(|((at, install), group)| {
+			let body: Vec<api::UploadChunk> = group.iter().map(|c| api::UploadChunk { seq: c.seq, text: c.text.clone() }).collect();
+			SentUpload {
+				at: at.0,
+				install: install.to_owned(),
+				chunks: group.len(),
+				bytes: request_bytes(install, &body),
+				// The first line of a chunk is its header; every other line is one record.
+				records: group.iter().map(|c| c.text.lines().filter(|l| !l.is_empty()).count().saturating_sub(1)).sum(),
+			}
+		})
+		.collect()
+}
+
+/// The size of the request body that carried these chunks, the size Activity gives the same upload.
+/// The `uploader` it held isn't kept, so this client's version stands in for it.
+fn request_bytes(install: &str, chunks: &[api::UploadChunk]) -> usize {
+	serde_json::to_vec(&api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: install.to_owned(), chunks: chunks.to_vec() }).map(|v| v.len()).unwrap_or(0)
+}
 
 impl Account {
 	fn new_empty(folder_name: &str, sv_path: &Path) -> Account {
@@ -902,11 +987,29 @@ fn backoff_secs(attempts: u32, retry_after: Option<u64>) -> u64 {
 	(BACKOFF_MIN << attempts.min(10)).min(BACKOFF_MAX).max(retry_after.unwrap_or(0).min(RETRY_AFTER_503_MAX))
 }
 
-/// What Ack.lua tells the Recorder: nothing (`None`) until the player has shared once, so a
-/// `/psrec on` of someone who never opted in stays theirs; then whether they share and have not
-/// paused uploads. (`consent` covers settings saved before `ever_shared` existed.)
+/// What Ack.lua tells the Recorder: nothing (`None`) until sharing has been on once, so a
+/// `/psrec on` of someone whose client never shared stays theirs; then whether they share and
+/// have not paused uploads. (`consent` covers settings saved before `ever_shared` existed.)
 fn sharing(settings: &Settings) -> Option<bool> {
 	(settings.ever_shared || settings.consent).then_some(settings.consent && !settings.paused)
+}
+
+/// Whether sharing turns on by default now: the player never chose (sharing was never on, so
+/// they never stopped it either), the game is found (setup done, an install) and no account's
+/// Recorder was turned off with `/psrec off` (its `optout`). Every account's file must have been
+/// looked at (`poll_files`): none there, read, holding nothing yet, or schema 1 (from before
+/// `/psrec off` was an opt-out); a file that can't be read waits, since its opt-out is unknown.
+fn share_by_default(settings: &Settings, found: bool, accounts: &[Account]) -> bool {
+	if settings.consent || settings.ever_shared || !settings.setup_done || !found {
+		return false;
+	}
+	accounts.iter().all(|a| match (&a.sv, &a.error) {
+		(Some(vars), _) => !vars.optout,
+		(None, Some(sv::Error::Missing | sv::Error::OldSchema)) => true,
+		(None, Some(_)) => false,
+		// Not read: no file when last looked at, or one that could not be read yet.
+		(None, None) => a.seen.is_none(),
+	})
 }
 
 /// `address`'s host when it is not `default` (both normalized): the banner names it.
@@ -951,7 +1054,7 @@ fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView 
 		next_retry: None,
 	};
 	if !state.settings.consent {
-		return make("off", "Sharing is off", "Nothing is sent. Opt in under Recording to help improve Polestar's guides.".into(), None);
+		return make("off", "Sharing is off", "Nothing is sent. Start sharing under Recording to help improve Polestar's guides.".into(), None);
 	}
 	if state.settings.paused {
 		let detail = if pending > 0 { "Your new play waits on this PC until you resume. The Recorder keeps recording in the game." } else { "Nothing is sent until you resume. The Recorder keeps recording in the game." };
@@ -1024,8 +1127,10 @@ pub struct Snapshot {
 	pub version: String,
 	/// The first-run setup (finding the game) is behind the player.
 	pub setup_done: bool,
-	/// The player opted in to the recording program.
+	/// The player shares their play (on by default unless they stopped it).
 	pub consent: bool,
+	/// Sharing is on and the notice saying what it sends has not been read yet.
+	pub share_notice: bool,
 	pub paused: bool,
 	pub server_url: String,
 	pub default_server_url: String,
@@ -1154,6 +1259,18 @@ pub struct Preview {
 	pub json: String,
 }
 
+/// An upload the server accepted, without its contents (`Engine::sent_upload` reads those).
+#[derive(Serialize, Debug, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct SentUpload {
+	/// Epoch milliseconds, as in `ActivityEntry`.
+	pub at: i64,
+	pub install: String,
+	pub chunks: usize,
+	pub bytes: usize,
+	pub records: usize,
+}
+
 /// A chunk as it leaves the PC: only lines of record kinds this client knows (each
 /// scrubbed of the account's character names); unknown kinds never leave. An error
 /// when it is over the server's caps (bytes or records): such a chunk is never sent,
@@ -1189,6 +1306,30 @@ fn is_temporary(status: reqwest::StatusCode) -> bool {
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn kept_chunks_group_into_uploads_newest_first() {
+		let chunk = |at, install: &str, seq, text: &str| SentChunk { at, install: install.to_owned(), seq, text: text.to_owned() };
+		let chunks = [
+			chunk(100, "a", 1, "chunk\t0\t1\nxp\t0\nkill\t1"),
+			chunk(100, "a", 2, "chunk\t0\t2\nxp\t2\n"),
+			chunk(100, "b", 1, "chunk\t0\t1"),
+			chunk(200, "a", 3, "chunk\t0\t3\nxp\t3"),
+		];
+		let body = |of: &[&SentChunk]| of.iter().map(|c| api::UploadChunk { seq: c.seq, text: c.text.clone() }).collect::<Vec<_>>();
+		let upload = |at, install: &str, of: &[&SentChunk], records| SentUpload { at, install: install.to_owned(), chunks: of.len(), bytes: request_bytes(install, &body(of)), records };
+		assert_eq!(
+			sent_uploads_of(&chunks),
+			[
+				upload(200, "a", &[&chunks[3]], 1),
+				// Two chunks of one request are one upload, and neither header counts as a record.
+				upload(100, "a", &[&chunks[0], &chunks[1]], 3),
+				// The same moment from another Recorder install is another upload.
+				upload(100, "b", &[&chunks[2]], 0),
+			]
+		);
+		assert_eq!(sent_uploads_of(&[]), []);
+	}
 
 	#[test]
 	fn timeouts_and_unavailable_are_temporary() {
@@ -1233,6 +1374,21 @@ mod tests {
 	}
 
 	#[test]
+	fn gathers_groups_spawns_fails_and_refusals_leave_as_written() {
+		let lines = [
+			"chunk\t0\t38\t1700000000\tabcdefghij",
+			"group\t1\t2\t0",
+			"spawn\t2\t1501\t000043F59F\t1420\t3100\t6700",
+			"loot\t3\to\t1617\t1420\t3110\t6710\th\t765:2\t",
+			"gather\t3\t1617\t1420\t3110\t6710\th\t182\t57",
+			"fail\t4\t5821\t1420\t3120\t6720",
+			"refuse\t5\t1420\t3120\t6720\tc\t1568\tERR_QUEST_NEED_PREREQS",
+		];
+		let text = lines.join("\n");
+		assert_eq!(prepare_chunk(&text, &["Testchar".to_owned()]).unwrap(), text);
+	}
+
+	#[test]
 	fn ack_covers_only_what_was_sent() {
 		let sent: Vec<api::UploadChunk> = [3, 4, 5].iter().map(|&seq| api::UploadChunk { seq, text: String::new() }).collect();
 		assert_eq!(confirmed_ack(&sent, &[3, 4], &[5]), Some(5));
@@ -1244,7 +1400,7 @@ mod tests {
 	#[test]
 	fn no_share_flag_until_the_player_has_shared() {
 		let at = |consent, paused, ever_shared| sharing(&Settings { consent, paused, ever_shared, ..Settings::default() });
-		// Never opted in: the Recorder is left to /psrec.
+		// Never shared: the Recorder is left to /psrec.
 		assert_eq!(at(false, false, false), None);
 		assert_eq!(at(true, false, true), Some(true));
 		assert_eq!(at(true, true, true), Some(false));
@@ -1252,6 +1408,48 @@ mod tests {
 		assert_eq!(at(false, false, true), Some(false));
 		// Consent saved before ever_shared existed counts.
 		assert_eq!(at(true, false, false), Some(true));
+	}
+
+	/// An account folder as `poll_files` leaves it: no file, a file read, or one it can't read.
+	fn account(sv: Option<sv::SavedVars>, error: Option<sv::Error>) -> Account {
+		let seen = (sv.is_some() || error.is_some()).then_some((UNIX_EPOCH, 1));
+		Account { sv: sv.map(Arc::new), error, seen, ..Account::new_empty("WOW1", Path::new("Polestar_Recorder.lua")) }
+	}
+
+	fn recording(optout: bool) -> Option<sv::SavedVars> {
+		Some(sv::SavedVars { schema: 2, enabled: !optout, optout, ..Default::default() })
+	}
+
+	#[test]
+	fn sharing_is_on_by_default_for_a_player_who_never_chose() {
+		let never = Settings { setup_done: true, ..Settings::default() };
+		// A new install with the game found: no files yet, a first recording, or one from before
+		// the recording program.
+		assert!(share_by_default(&never, true, &[]));
+		assert!(share_by_default(&never, true, &[account(None, None)]));
+		assert!(share_by_default(&never, true, &[account(recording(false), None), account(None, Some(sv::Error::Missing))]));
+		assert!(share_by_default(&never, true, &[account(None, Some(sv::Error::OldSchema))]));
+		// Not before the game is found and set up.
+		assert!(!share_by_default(&Settings::default(), true, &[]));
+		assert!(!share_by_default(&never, false, &[]));
+		// Already sharing: nothing to turn on.
+		assert!(!share_by_default(&Settings { consent: true, ever_shared: true, ..never.clone() }, true, &[]));
+	}
+
+	#[test]
+	fn sharing_stays_off_for_every_opt_out() {
+		let never = Settings { setup_done: true, ..Settings::default() };
+		// Stopped sharing in the client (sharing was on before): never turned back on.
+		let stopped = Settings { ever_shared: true, ..never.clone() };
+		assert!(!share_by_default(&stopped, true, &[]));
+		assert!(!share_by_default(&Settings { paused: true, ..stopped }, true, &[account(recording(false), None)]));
+		// /psrec off on any account of this game.
+		assert!(!share_by_default(&never, true, &[account(recording(true), None)]));
+		assert!(!share_by_default(&never, true, &[account(recording(false), None), account(recording(true), None)]));
+		// A file that can't be read (its opt-out unknown), or that could not be read yet: wait.
+		assert!(!share_by_default(&never, true, &[account(None, Some(sv::Error::Field("chunks")))]));
+		let unread = Account { seen: Some((UNIX_EPOCH, 1)), ..account(None, None) };
+		assert!(!share_by_default(&never, true, &[unread]));
 	}
 
 	#[test]

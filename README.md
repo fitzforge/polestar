@@ -99,8 +99,10 @@ Good to know:
   **Walk real paths** (Options, Arrow & routes) off never loads them.
 - **Optional:** `Polestar_Recorder` (`Polestar_Recorder-<version>.zip` in the
   same release, or from the Polestar Client) records your play for the
-  recording program that improves the routes. It stays off until you start
-  sharing in the Polestar Client or type `/psrec on`.
+  recording program that improves the routes. With the Polestar Client it
+  records while sharing is on, which it is by default (one click in the
+  Client stops it, and `/psrec off` always wins); on its own it stays off
+  until you type `/psrec on`.
 - **Community guides** are routes other players publish for Polestar, on
   [polestar.guide](https://polestar.guide/community): see
   [Community guides](#community-guides).
@@ -368,9 +370,10 @@ computer and:
   Updates install by themselves only if you turn that on, and then only a day
   after release and while the guide's publisher and folders are unchanged; a
   guide the site pulls is turned off or removed, with the reason shown.
-- **joins the recording program** if you want it to: with your consent it
-  sends what the Recorder records, showing exactly what each upload holds
-  first. Pause it, or delete everything it sent, any time
+- **shares your play with the recording program**, on by default: it sends
+  what the Recorder records, with no character, realm or account names, and
+  shows exactly what each upload holds. A notice says so the first time,
+  with Stop sharing; stop, pause, or delete everything it sent, any time
   ([docs/RECORDING.md](docs/RECORDING.md) lists every field).
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
@@ -472,10 +475,12 @@ its source is in [apps/client](apps/client).
   takes you there, routed like any goal; Alt-click works over map icons.
   Click the spot again to let it go.
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
-  class, weapon, reagents, vendor, innkeeper, bank, auction, flight, stable)
-  points the arrow at the quickest one to reach; the map's tracking menu and
-  the guide window's Nearby services button list them, the button with a
-  page of the weapons a weapon master can teach you. Once you get there,
+  class, weapon, reagents, vendor, food, arrows, bullets, ranged, innkeeper,
+  bank, mailbox, auction, flight, stable) points the arrow at the quickest one to
+  reach, naming a vendor's trade; the map's tracking menu and the guide
+  window's Nearby services button list them, the button with a page of
+  vendors (food and drink, and the ammunition and bows or guns your class
+  can use) and one of the weapons a weapon master can teach you. Once you get there,
   the arrow is back on the guide.
 - **OpenMap.** On [OpenMap](https://www.curseforge.com/wow/addons/openmap)'s
   seamless world map the trail dots carry on across zone borders and show on
@@ -692,9 +697,11 @@ shows: everything works with the mouse and keyboard as before.
 ### Recorder
 
 `Polestar_Recorder` is an optional companion addon that records your play
-for the recording program, to improve the routes. It is off until you start
-sharing in the [Polestar Client](https://polestar.guide/client) or turn it on
-(`/psrec on`, or Options > Recorder), and writes nothing while off. It writes
+for the recording program, to improve the routes. It records while sharing
+is on in the [Polestar Client](https://polestar.guide/client) (on by
+default there, unless you stop it or type `/psrec off`); without the Client
+it is off until you turn it on (`/psrec on`, or Options > Recorder), and it
+writes nothing while off. It writes
 compact chunks with no character, realm or account names, and records what
 the guides need most: kill pace and kill XP, drops counted against what your
 quests still needed, which quests each NPC offered you, trainer and vendor
@@ -725,7 +732,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | Command | What it does |
 |---|---|
 | `help` | List every command |
-| `show`, `hide` | Show or hide the guide window |
+| `show`, `hide` | Show or hide the guide window, with the arrow, the action buttons and the rare and transport alerts |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
@@ -736,9 +743,9 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `path` | Choose where to level next, where a guide offers a choice of route |
 | `route` | Show the travel route to the current target |
 | `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
-| `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master |
+| `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
-| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it) |
+| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide is hidden the arrow is too, and these commands say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
@@ -1124,8 +1131,8 @@ saved you a minute. Questions and ideas are welcome on the
   `node --test "tests/**/*.test.js"` green.
 - **UI** changes stay in the visual system of [docs/DESIGN.md](docs/DESIGN.md);
   `node tools/polestar.js preview` renders them for review.
-- **Recordings** are the most useful contribution of all: start sharing in
-  the [Polestar Client](#polestar-client) and play, or attach `record report`
+- **Recordings** are the most useful contribution of all: install the
+  [Polestar Client](#polestar-client) (it shares by default) and play, or attach `record report`
   for the steps that felt slow.
 - **With an AI agent?** It reads [AGENTS.md](AGENTS.md) in a clone. To have
   Polestar's skills everywhere, install them:

@@ -378,3 +378,30 @@ fn isindoors_the_client_s_indoor_state_nil_without_isindoors_or_when_it_errors()
 	"#);
 	assert_eq!(out, json!({ "inside": true, "outside": false, "err": true, "none": true }));
 }
+
+// #837: the colour a tile takes. The red "Retrieving item information" line is never an item's colour.
+#[test]
+fn item_tip_color_is_the_tooltips_title_colour_and_nil_until_the_item_is_loaded() {
+	let out = run_with(
+		r#"
+		local before = { C.ItemTipColor(15424) }
+		tipTitle = "Axe of Orgrimmar"
+		local after = { C.ItemTipColor(15424) }
+		tipTitle = RETRIEVING_ITEM_INFO
+		local kept = { C.ItemTipColor(15424) }
+		C_TooltipInfo = nil
+		emit({ before = before, after = after, kept = kept, none = { C.ItemTipColor(1) }, notNumber = { C.ItemTipColor("x") } })"#,
+		r#"RETRIEVING_ITEM_INFO = "Retrieving item information"
+		tipTitle = RETRIEVING_ITEM_INFO
+		C_TooltipInfo = { GetItemByID = function()
+			local c = tipTitle == RETRIEVING_ITEM_INFO and { r = 1, g = 0.125, b = 0.125 } or { r = 0, g = 0.5, b = 1 }
+			return { lines = { { leftText = tipTitle, leftColor = c } } }
+		end }
+		"#,
+	);
+	assert_eq!(out["before"], json!({}), "not loaded yet");
+	assert_eq!(out["after"], json!([0, 0.5, 1]), "the title line's colour");
+	assert_eq!(out["kept"], json!([0, 0.5, 1]), "kept for the session");
+	assert_eq!(out["none"], json!({}), "a client without C_TooltipInfo");
+	assert_eq!(out["notNumber"], json!({}));
+}

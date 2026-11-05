@@ -92,7 +92,7 @@ function stub.advance(seconds)
 				if running then runTimed(f, "OnUpdate", "OnUpdate", dt) else RunScript(f, "OnUpdate", dt) end
 			end
 		end
-		stub.runTimers()
+		stub.frameTimers()
 	until remaining <= 1e-9
 end
 

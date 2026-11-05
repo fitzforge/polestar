@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip) or a level gate before the goal (level). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), or a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "dun-morogh-shimmerweed-on-shimmer-ridge",
@@ -477,6 +477,104 @@
 				}
 			],
 			"issue": 365
+		},
+		{
+			"id": "798-gordo-on-the-road-to-brill",
+			"faction": "Horde",
+			"at": {
+				"quest": 5481,
+				"goal": "accept"
+			},
+			"early": {
+				"after": {
+					"quest": 8,
+					"goal": "accept"
+				},
+				"title": "Gordo on the road to Brill",
+				"when": "level>=5",
+				"tip": "Gordo walks the road between Cold Hearth Manor and Brill: take Gordo's Task when you pass him and pick the Gloom Weed along the road."
+			},
+			"note": "Gordo's Task needs level 5, so the route takes it on the pass west after Brill (route-fixes, FitzTest c12w). Players already level 5 walk past Gordo on the road from Calvin Montague to Brill: from level 5 the quest and its Gloom Weed are listed along the way until Gordo's own step, which still takes it for everyone else.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch (Tirisfal): of 6 runs, 4 took Gordo's Task right after Calvin Montague at level 5 or 6 and handed it in on the first Brill visit"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#798"
+				}
+			],
+			"issue": 798
+		},
+		{
+			"id": "820-applejack-still",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91736,
+				"goal": "accept"
+			},
+			"tip": "The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.",
+			"note": "The still's quest is handed in the moment you click it with the apples; players who drank the Applejack found De Vries with nothing to offer.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: 4 hand-ins of 91736 at the still, no accept or quest window; one player drank the Applejack (cast with item 247824) and De Vries opened only his vendor window"
+				}
+			],
+			"issue": 820
+		},
+		{
+			"id": "823-de-vries-apple-treat",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91738,
+				"goal": "accept"
+			},
+			"tip": "Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.",
+			"note": "Without the Applejack De Vries only opens his vendor window; with it the quest is handed in without an accept window.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: vendor window only without the Applejack; hand-in of 91738 with no accept or quest window once it was in the bags"
+				}
+			],
+			"issue": 823
+		},
+		{
+			"id": "820-stonefield-apples",
+			"faction": "Alliance",
+			"at": {
+				"quest": 87,
+				"goal": "turnin"
+			},
+			"tip": "Homer Stonefield sells the Shiny Red Apples for the Applejack Still. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four.",
+			"note": "Answers #820 (tell players earlier to keep four apples): the buy goal counts the bags, so kept apples skip it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: Shiny Red Apples from Elwynn kobolds (npcs 6, 40, 80, 257, 475, 476) and crates (objects 106318, 3719)"
+				}
+			],
+			"issue": 820
+		},
+		{
+			"id": "croaky-elite-warning",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91733,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.",
+			"note": "The Downstream step comes at about 8.6 and lists Croaky's Head (an optional extra, #221) on Croaky's shore; players died to him at 8-9, so the tip makes skipping him the default: with a group or from level 10 only.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: 4 deaths to Croaky (npc 248278, level 11, rank 1) in 3 sessions at levels 8-9 on the Downstream and Princess step"
+				}
+			],
+			"pr": 816
 		}
 	]
 }

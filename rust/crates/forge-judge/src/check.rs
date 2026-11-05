@@ -18,7 +18,9 @@
 //!    order, hours).
 //! 7. [`levels`] (warn): quest work more than [`UNDER_LEVELS`] levels under the quest, turn-ins grey.
 //! 8. [`hub_order`], [`walked_past`], [`left_ready`] (warn, `check/hub.rs`): a hub visit walked the
-//!    long way round, a ready hand-in walked past, a hub left with a ready line it comes back for.
+//!    long way round, a ready hand-in walked past, a hub left with a ready line it comes back for;
+//!    [`finished_near`] (blocker to level 30, warn above): a quest finished near its ender handed in
+//!    on a trip back.
 //! 9. [`slow_ways`] (warn): a travel stretch the model takes far longer than its best way between the
 //!    same two points.
 //!
@@ -1098,13 +1100,18 @@ fn in_log(goals: &[WalkGoal], p: i64) -> bool {
 	last("accept").is_some_and(|a| last("turnin").is_none_or(|h| h < a))
 }
 
+/// Levels under a quest's minimum an accept is still ready at ([`not_ready`]): the replay's
+/// rounding only (the routes' `lvl` has two decimals).
+pub const READY_LVL_EPS: f64 = 1e-6;
+
 /// Rule `not-ready` (blocker): an accept the game refuses there, on this class's walk: a prerequisite
 /// the walk hands in later is not handed in yet (The Binding 1471 before Creature of the Void 1473),
-/// a parent quest the walk takes is not in the log (taken later, or handed in already), or the walk's level is more than
-/// [`READY_LVL_SLACK`] under the quest's minimum (5680 at 16, level 20 needed). A breadcrumb is no
-/// prerequisite (8276 for 8280), nor is a parent one to hand in (349 inside 348) ([`quest_pre`]).
+/// a parent quest the walk takes is not in the log (taken later, or handed in already), or the walk's
+/// level is under the quest's minimum (5680 at 16, level 20 needed; c19r's Lazy Peons 5441 at the
+/// Den at 2.6, minimum 3: a level-2 player is held at the giver). The level is the routes model's
+/// ([`SimLevels`]); [`READY_LVL_EPS`] absorbs its fractions only. A breadcrumb is no prerequisite
+/// (8276 for 8280), nor is a parent one to hand in (349 inside 348) ([`quest_pre`]).
 pub fn not_ready(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
-	const READY_LVL_SLACK: f64 = 1.0;
 	let mut out = Vec::new();
 	for (i, g) in goals.iter().enumerate() {
 		let Some(q) = g.q.filter(|_| g.t == "accept" && !g.optional) else { continue };
@@ -1118,7 +1125,7 @@ pub fn not_ready(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
 			let later = goals[i + 1..].iter().any(|x| x.t == "accept" && x.q == Some(p));
 			Some(format!("{} must be in the log{}", facts.title(p), if later { ", and is taken later" } else { ", and is handed in already" }))
 		} else {
-			f.min_level.filter(|&m| g.lvl + READY_LVL_SLACK < m).map(|m| format!("level {:.1}, under its minimum {m}", g.lvl))
+			f.min_level.filter(|&m| g.lvl + READY_LVL_EPS < m).map(|m| format!("level {:.2}, under its minimum {m}", g.lvl))
 		};
 		if let Some(why) = why {
 			out.push(Violation::at(g, "not-ready", Level::Blocker, format!("{} accepted before it can be: {why}", facts.title(q))));
@@ -1790,7 +1797,8 @@ mod native {
 			}
 			land_flights(&mut walk.goals, &data, &proj, &faction);
 			let g = &walk.goals;
-			for f in walked_past_at(g, &facts).into_iter().chain(dup_trips_at(g, &facts)).chain(bounces_at(g)) {
+			let finished = finished_near_at(g, &facts).into_iter().filter(|f| f.v.level != Level::Info);
+			for f in walked_past_at(g, &facts).into_iter().chain(finished).chain(dup_trips_at(g, &facts)).chain(bounces_at(g)) {
 				if !seen.insert((f.v.rule.clone(), f.v.file.clone(), f.v.line)) {
 					continue;
 				}
@@ -1900,7 +1908,7 @@ mod native {
 						let stream = if stream_file.is_file() { Some(crate::report::stream_goals(&read_json(&stream_file)?)) } else { None };
 						let title = |q: i64| facts.quests.get(&q).map_or_else(String::new, |x| x.title.clone());
 						let mut chain: FxHashSet<String> = FxHashSet::default();
-						let mut per: [Vec<(String, Vec<Violation>)>; 17] = Default::default();
+						let mut per: [Vec<(String, Vec<Violation>)>; 18] = Default::default();
 						for cls in &classes {
 							let ctx = Ctx::new(&faction, &race, Some(cls))?;
 							let mut walk = walk_chain(&guides, &|_| String::new(), Chain::Routes, &ctx, &proj, &lv, 61.0)?;
@@ -1927,6 +1935,7 @@ mod native {
 							per[13].push((cls.clone(), hub_order(g, &facts)));
 							per[14].push((cls.clone(), walked_past(g, &facts)));
 							per[15].push((cls.clone(), left_ready(g, &facts)));
+							per[17].push((cls.clone(), finished_near(g, &facts)));
 							// The walk as written (along goals at their own steps): how the steps play.
 							let (raw, _) = crate::walk::chain_goals(&guides, &|_| String::new(), &walk.chain, &ctx, &proj, true)?;
 							per[10].push((cls.clone(), merges(&raw, &loops)));
@@ -2046,9 +2055,10 @@ mod native {
 
 mod hub;
 mod play;
-pub use hub::{best_tour, hub_order, hub_visits, left_ready, walked_past, walked_past_at, EXACT_STOPS};
+pub use hub::{best_tour, finished_near, finished_near_at, hub_order, hub_visits, left_ready, walked_past, walked_past_at, EXACT_STOPS};
 /// The overlap of two field objectives' spawn areas (rule `merge`), for the writer to agree with it.
 pub use play::OVERLAP_YD;
+
 pub use play::{alongs, arrow_order, merges, ARROW_SLACK_YD};
 
 #[cfg(test)]

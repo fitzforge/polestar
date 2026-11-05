@@ -17,7 +17,8 @@
 -- decoded cluster is a few byte strings (Routing/PathGrid.lua): 0.2-0.45 MB
 -- on Leffe's maps (2-10 MB as tables before, 2026-10-25), so 8 MB of grids
 -- hold a long walk's clusters (a 3,000 yd walk decodes about 10) without
--- evicting one mid-search. The decoded graph (entrance lists and each
+-- evicting one mid-search, and stay held between searches until the router
+-- has rested a minute (Routing/PathJobs.lua, Path.restSeconds). The decoded graph (entrance lists and each
 -- cluster's graph string, about 40 KB a cluster on his maps) may grow to 16
 -- MB while a search runs (a batch of walks 3,000 yd round the Trade District
 -- reads 209 clusters' graphs: about 9 MB) and is trimmed to 1 MB at rest.

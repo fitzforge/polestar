@@ -74,6 +74,8 @@ mod engine_keep;
 mod engine_l10n;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-pick.rs"]
+mod engine_level_pick;
 #[path = "engine-lost-quest.rs"]
 mod engine_lost_quest;
 #[path = "engine-manual.rs"]

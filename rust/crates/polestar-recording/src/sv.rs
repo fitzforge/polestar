@@ -16,6 +16,9 @@ pub const FILE_NAME: &str = "Polestar_Recorder.lua";
 pub struct SavedVars {
 	pub schema: u32,
 	pub enabled: bool,
+	/// The player typed `/psrec off` (and not `/psrec on` since): Polestar Client's share flag
+	/// does not turn recording on for this account.
+	pub optout: bool,
 	/// 12 base-36 characters, made once per WoW account folder.
 	pub install: String,
 	/// The last chunk number used.
@@ -90,6 +93,8 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 		None | Some(Value::Nil) => false,
 		Some(v) => v.as_bool().ok_or(Error::Field("enabled"))?,
 	};
+	// As the Recorder reads it (`db.optout == true`): it writes only `true` or nothing.
+	let optout = db.get("optout") == Some(&Value::Bool(true));
 	let install = db.get("install").and_then(Value::as_str).filter(|s| valid_install(s)).ok_or(Error::Field("install"))?.to_string();
 	let count = |name: &'static str| -> Result<u64, Error> {
 		match db.get(name) {
@@ -104,7 +109,8 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 		if !matches!(t, Value::Table(_) | Value::Nil) {
 			return Err(Error::Field("chunks"));
 		}
-		for (k, v) in t.entries() {
+		// WoW writes a table's emptied array slots as positional `nil`s: absent, as in Lua.
+		for (k, v) in t.entries().iter().filter(|(_, v)| *v != Value::Nil) {
 			let k = k.as_u64().filter(|k| *k > 0).ok_or(Error::Field("chunks"))?;
 			let v = v.as_str().ok_or(Error::Field("chunks"))?;
 			chunks.insert(k, v.to_string());
@@ -115,13 +121,13 @@ pub fn parse(text: &str) -> Result<SavedVars, Error> {
 		if !matches!(t, Value::Table(_) | Value::Nil) {
 			return Err(Error::Field("maps"));
 		}
-		for (k, v) in t.entries() {
+		for (k, v) in t.entries().iter().filter(|(_, v)| *v != Value::Nil) {
 			let k = k.as_u64().filter(|k| *k > 0 && *k <= u32::MAX as u64).ok_or(Error::Field("maps"))?;
 			let v = v.as_str().ok_or(Error::Field("maps"))?;
 			maps.insert(k as u32, v.to_string());
 		}
 	}
-	Ok(SavedVars { schema: schema as u32, enabled, install, seq, acked, chunks, maps })
+	Ok(SavedVars { schema: schema as u32, enabled, optout, install, seq, acked, chunks, maps })
 }
 
 #[cfg(test)]
@@ -137,6 +143,40 @@ mod tests {
 		assert_eq!(sv.chunks[&40], "chunk\t0\t40\t1700000000\tabcdefghij\npos\t5");
 		assert_eq!(sv.chunks.len(), 2);
 		assert!(sv.maps[&1429].starts_with("1429\t3\t1415"));
+	}
+
+	#[test]
+	fn reads_the_opt_out() {
+		assert!(!parse(FILE).unwrap().optout);
+		let off = parse("PolestarRecorderDB = { schema = 2, enabled = false, optout = true, install = \"k3j9x0q2m7ab\" }").unwrap();
+		assert!(off.optout && !off.enabled);
+		// Only `true` counts, as in the Recorder.
+		assert!(!parse("PolestarRecorderDB = { schema = 2, optout = 1, install = \"k3j9x0q2m7ab\" }").unwrap().optout);
+	}
+
+	#[test]
+	fn nil_entries_are_absent() {
+		let sv = parse(
+			"PolestarRecorderDB = {
+[\"schema\"] = 2,
+[\"install\"] = \"k3j9x0q2m7ab\",
+[\"chunks\"] = {
+nil,
+nil,
+\"c3\",
+\"c4\",
+[6] = nil,
+},
+[\"maps\"] = {
+nil,
+[1429] = \"m\",
+},
+}
+",
+		)
+		.unwrap();
+		assert_eq!(sv.chunks.into_iter().collect::<Vec<_>>(), vec![(3, "c3".to_string()), (4, "c4".to_string())]);
+		assert_eq!(sv.maps.into_iter().collect::<Vec<_>>(), vec![(1429, "m".to_string())]);
 	}
 
 	#[test]

@@ -311,7 +311,8 @@ fn a_bare_complete_leads_to_its_group_s_place_else_to_its_giver_before_it_never_
 			local r = { salute = wp() }
 			E.Skip(); flush()
 			r.pylon = wp()
-			stub.world.moveTo(1413, 60, 40); flush()
+			-- The arrival poll (every 0.5 s), then the evaluation it asks for a frame later.
+			stub.world.moveTo(1413, 60, 40); stub.advance(0.55)
 			r.reached = wp()
 			E.Skip(); flush()
 			r.elsewhere = wp()

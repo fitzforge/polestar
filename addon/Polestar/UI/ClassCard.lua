@@ -90,10 +90,20 @@ local function matches(only, p)
 	return (only.classes == nil or lists(only.classes, p.class)) and (only.factions == nil or lists(only.factions, p.faction))
 end
 
+-- Whether an `only` list makes its line a quest of `class`: it names the
+-- class among a few. `only !Paladin` compiles to the eight other classes: a
+-- line for every class but one is nobody's class quest (#812: a Mage was
+-- shown Redemption, a Warrior the Warlock's Vile Familiars).
+local FEW = 4
+local function gate(only, class)
+	local list = type(only) == "table" and only.classes or nil
+	return type(list) == "table" and #list <= FEW and lists(list, class)
+end
+
 -- Whether `goal` (a guide step's goal) is a quest of class `class`.
 local function classQuest(guide, step, goal, class)
 	if not goal.quest then return false end
-	if (step.only and lists(step.only.classes, class)) or (goal.only and lists(goal.only.classes, class)) then return true end
+	if gate(step.only, class) or gate(goal.only, class) then return true end
 	local e = entry(goal.quest)
 	if e then return hasBit(e[1], CLASS_BIT[class]) end
 	return guide.category == "Class" and lists(guide.classes, class)

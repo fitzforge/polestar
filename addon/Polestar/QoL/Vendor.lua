@@ -4,8 +4,9 @@
 -- and re-reads every slot right before selling it, so an item moved or
 -- swapped in the meantime is never sold: only Poor-quality items with a
 -- vendor price ever are, and the items the player marked as junk
--- (QoL/Marks.lua), of any quality; never one marked to keep or one the
--- guide keeps for a later step (QoL.Kept, QoL/Keep.lua). Repair runs after
+-- (QoL/Marks.lua), of any quality; never one marked to keep, one the
+-- guide keeps for a later step (QoL.Kept, QoL/Keep.lua) or one a quest
+-- still needs (QuestDB.IsItemNeeded). Repair runs after
 -- the selling (the sale pays for it);
 -- with qol.repairGuild and a rank that may (CanGuildBankRepair), it repairs the
 -- way the merchant's guild repair button does: RepairAllItems(true), the
@@ -47,6 +48,8 @@ local function junkAt(bag, slot)
 	if not id then return nil end
 	local Marks = QoL.Marks
 	if Marks.Protected(id) then return nil end
+	local Q = ns.QuestDB
+	if Q and Q.IsItemNeeded and Q.IsItemNeeded(id) then return nil end -- a quest still needs it
 	if info.quality ~= Client.QUALITY_POOR and not Marks.Junk(id) then return nil end
 	local price = Client.SellPrice(id)
 	if not price or price <= 0 then return nil end

@@ -116,7 +116,7 @@ L["No Hearthstone in your bags: walk to the inn"] = "背包中没有炉石：请
 L["No Hearthstone in your bags"] = "背包中没有炉石"
 L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "炉石将在 %s 后就绪：请步行前往旅店，或等待冷却"
 L["Hearthstone ready in %s"] = "炉石将在 %s 后就绪"
--- L["%s isn't in your quest log"] = ""
+L["%s isn't in your quest log"] = "%s 不在你的任务日志中"
 -- L["Not offered by %s? Report it with /polestar"] = ""
 -- L["The inn is only %s away: travel there and keep the Hearthstone"] = ""
 -- L["Hearthstone ready in %s; the trip takes %s: set off now"] = ""
@@ -354,7 +354,7 @@ L["Nearest %s: %s, %s."] = "最近的%s：%s，%s。"
 L["No profession called %s."] = "没有名为 %s 的专业。"
 L["Nearby services"] = "附近服务"
 L["Nearest"] = "最近"
-L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master"] = "将箭头指向最近的训练师、职业训练师、修理、材料、商人、旅店老板、银行、拍卖行、飞行管理员或兽栏管理员"
+L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"] = "将箭头指向最近的训练师、职业训练师、修理、材料、商人、旅店老板、银行、拍卖行、飞行管理员或兽栏管理员"
 L["Nearby services in map menus"] = "地图菜单中的附近服务"
 L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] = "地图和微缩地图的追踪菜单可查找最近的训练师、商人、旅店、银行等（/polestar near）。"
 L["Weapon master"] = "武器大师"
@@ -375,9 +375,14 @@ L["Thrown"] = "投掷武器"
 L["Weapon master (%s)"] = "武器大师（%s）"
 L["At %s: the arrow is back on the guide."] = "已到达%s：箭头重新指向指南。"
 L["The arrow is back on the guide."] = "箭头重新指向指南。"
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "用法：/polestar near trainer [专业] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "用法：/polestar near trainer [专业] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "附近服务按钮"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "指南窗口标题栏中、菜单左侧的按钮，可找到最近的商人、修理、旅店、飞行管理员或训练师，并让箭头指向那里。"
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "右键点击跳过这一段。"
@@ -418,6 +423,7 @@ L["Not done"] = "未完成"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "开始任务"
+L["%d/%d (not accepted)"] = "%d/%d（未接受）"
 
 -- Quests/Options.lua
 L["Any level"] = "任意等级"
@@ -459,6 +465,10 @@ L["quests"] = "任务"
 L["available now"] = "当前可接"
 L["mobs tracked"] = "追踪的怪物"
 L["Quest database status"] = "任务数据库状态"
+L["Quest marks in bags"] = "背包中的任务标记"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "标记背包中任务仍需要的物品（在任务日志中，或在指南后续步骤中），直到你交还任务。"
+L["Offer to buy back quest items"] = "提示回购任务物品"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "出售任务仍需要的物品时，询问是否从商人处回购。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"
@@ -833,6 +843,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "点击任务目标以选中"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "在战斗外点击任务目标行或 NPC 标题时，也会选中该 NPC，并使用与目标按钮相同的标记设置。这会替换你当前的目标；搜索失败时会清除目标。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -2769,6 +2781,22 @@ L["%d steps were left undone."] = "有 %d 个步骤未完成。"
 L["Next: %s"] = "下一份：%s"
 L["Pick a guide"] = "选择指南"
 L["Not now"] = "以后再说"
+
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "点击选中并标记 %s（战斗外）。"
+L["Click to target %s (out of combat)."] = "点击选中 %s（战斗外）。"
+L["%s not found nearby."] = "附近未找到 %s。"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Polestar 任务物品"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "所需任务："
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "它已不在商人的回购列表中。"
+L["Not enough money to buy it back."] = "金钱不足，无法回购。"
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "你出售了 %s，而 %s 仍需要它。花费 %s 回购吗？"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

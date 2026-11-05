@@ -1077,6 +1077,23 @@ mod tests {
 		std::fs::remove_dir_all(&out).unwrap();
 	}
 
+	#[test]
+	fn gathers_groups_spawns_fails_and_refusals_reach_the_session_files() {
+		let out = scratch("new-kinds");
+		let text = format!(
+			"{}{}",
+			chunk(1, 1_799_990_000, 1),
+			"group\t5\t2\t0\nkill\t6\t1501\t2\tn\t1429\t5000\t5000\t40\t\t0\t\nspawn\t6\t1501\t000043F59F\t1429\t5000\t5000\nloot\t7\to\t1617\t1429\t5010\t5000\th\t765:2\t\ngather\t7\t1617\t1429\t5010\t5000\th\t182\t57\nfail\t8\t5821\t1429\t5020\t5000\nrefuse\t9\t1429\t5020\t5000\tc\t1568\tERR_QUEST_NEED_PREREQS\n"
+		);
+		pull_page(&out, &line(1, VICTIM, "", 1, &text));
+		let s = sessions(&out);
+		let ev = s[0]["events"].as_array().unwrap();
+		let kinds: Vec<&str> = ev.iter().filter_map(|e| e["e"].as_str()).filter(|e| ["group", "spawn", "gather", "fail", "refuse"].contains(e)).collect();
+		assert_eq!(kinds, ["group", "spawn", "gather", "fail", "refuse"]);
+		assert_eq!(ev.iter().find(|e| e["e"] == "kill").unwrap()["group"], 2);
+		std::fs::remove_dir_all(&out).unwrap();
+	}
+
 	/// `drain` over canned pages: after -> body (limit 1 asks for the first line only).
 	fn drain_pages(out: &Path, state: &mut PullState, pages: &[(i64, String)]) -> (Tally, Vec<i64>) {
 		let (mut contributors, mut t, mut asked) = (BTreeMap::new(), Tally::default(), Vec::new());

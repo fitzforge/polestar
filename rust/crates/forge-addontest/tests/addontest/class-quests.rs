@@ -239,6 +239,32 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(warrior["row"], "Accept |cffffd673The Great Cat Spirit|r");
 }
 
+// Michael's report (#812): `only !Paladin` compiles to the eight other classes, and the card took
+// such a line for the reader's own class quest (a Mage was told to learn Redemption at Tirisfal's
+// 99152; Warriors in Durotar got a card for Vile Familiars, every class but Warlock).
+#[test]
+fn a_line_for_every_class_but_one_is_nobody_s_class_quest_the_class_s_own_line_still_is() {
+	let out = run_card(
+		r#"
+		local function allBut(c)
+			local out = {}
+			for _, k in ipairs({ "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }) do
+				if k ~= c then out[#out + 1] = k end
+			end
+			return { classes = out }
+		end
+		local guide, plain = { category = "Leveling" }, {}
+		emit({
+			mage = CC.ClassQuest(guide, plain, { t = "accept", quest = 99152, only = allBut("PALADIN") }, "MAGE"),
+			paladin = CC.ClassQuest(guide, plain, { t = "accept", quest = 99152, only = { classes = { "PALADIN" } } }, "PALADIN"),
+			warrior = CC.ClassQuest(guide, plain, { t = "accept", quest = 792, only = allBut("WARLOCK") }, "WARRIOR"),
+			hunter = CC.ClassQuest(guide, { only = allBut("DRUID") }, { t = "turnin", quest = 6343 }, "HUNTER"),
+			few = CC.ClassQuest(guide, plain, { t = "accept", quest = 1, only = { classes = { "WARRIOR", "PALADIN" } } }, "WARRIOR"),
+		})"#,
+	);
+	assert_eq!(out[0], json!({ "mage": false, "paladin": true, "warrior": false, "hunter": false, "few": true }));
+}
+
 #[test]
 fn a_reward_choice_reads_as_one_line_and_the_card_shines_and_chimes_once_per_chain() {
 	let out = run_card(

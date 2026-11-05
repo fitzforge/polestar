@@ -1,8 +1,10 @@
 -- Fights and loot (docs/RECORDING.md, "Fights and loot"): the creatures the
 -- player sees (`unit` census, `rare`), treasures behind vignettes, kills with
--- the XP they paid and the objective they ticked, loot windows per source
--- with the open item objectives (the drop-chance denominator), instance
--- entrances and encounters.
+-- the XP they paid and the objective they ticked, the spawn each kill was
+-- (`spawn`: the creature GUID's spawn part), loot windows per source with
+-- the open item objectives (the drop-chance denominator), the world objects
+-- gathered with a skill (`gather`: herbs, ore, fishing pools, locks),
+-- instance entrances and encounters.
 --
 -- Kills: Forever's combat log is closed to addons (COMBAT_LOG_EVENT_* are
 -- callback events; C_CombatLog has no GetCurrentEventInfo), so deaths come
@@ -19,7 +21,8 @@
 -- CanLootUnit, ENCOUNTER_START / ENCOUNTER_END, UNIT_SPELLCAST_SUCCEEDED,
 -- PLAYER_LEAVING_WORLD, GetInstanceInfo (8th return: the instance map id),
 -- the loot globals GetNumLootItems / GetLootSlotInfo / GetLootSlotLink /
--- GetLootSourceInfo / IsFishingLoot (LootFrame.lua), and the XP lines'
+-- GetLootSourceInfo / IsFishingLoot (LootFrame.lua), C_SkillInfo
+-- .GetSkillLineInfoByID (the gathering skill's rank), and the XP lines'
 -- COMBATLOG_XPGAIN_* global strings. Unit identity is secret in combat and
 -- in instances on this client: every read goes through ns.Usable, and a
 -- secret reads as unknown.
@@ -37,6 +40,9 @@ local LOOT_CHECK = 1 -- seconds after a death to ask CanLootUnit whose loot it i
 local LINK_WINDOW = 3 -- seconds a death waits for its objective tick and XP line
 local XP_WINDOW = 1.5 -- seconds between a death and its XP line, either order
 local GATHER_WINDOW = 3 -- seconds between a gathering cast and its loot window
+local GATHER_AGAIN = 300 -- seconds before the same object (a fishing pool) is a `gather` again
+local GATHER_PER_MINUTE = 20 -- most `gather` records in any 60 seconds
+local BOBBER = 35591 -- the Fishing Bobber: a catch from open water, not from a pool
 
 local RARE = { rare = true, rareelite = true, worldboss = true }
 
@@ -47,6 +53,11 @@ for _, id in ipairs({ 2366, 2368, 3570, 11993 }) do GATHER[id] = "h" end
 for _, id in ipairs({ 2575, 2576, 3564, 10248 }) do GATHER[id] = "m" end
 for _, id in ipairs({ 8613, 8617, 8618, 10768 }) do GATHER[id] = "s" end
 function ns.IsGatherSpell(spell) return GATHER[spell] ~= nil end
+
+-- A world object's `gather` kind (the loot record's `gather`, or Pick Lock)
+-- and the skill line it takes: Herbalism, Mining, Fishing, Lockpicking.
+local PICK_LOCK = 1804
+local SKILL_LINE = { h = 182, m = 186, f = 356, l = 633 }
 
 local function creature(kind) return kind == "Creature" or kind == "Vehicle" end
 
@@ -309,6 +320,17 @@ local function nameMatches(name, text)
 	return not name or not text or text:find(name, 1, true) ~= nil
 end
 
+-- The spawn part of a creature GUID ("Creature-0-<server>-<instance>-<zone>-
+-- <npc>-<spawn>"): the last of its seven parts when that is 1-16 hex digits
+-- (uppercase), else nil and no `spawn` is written. No other part of the GUID
+-- is ever kept.
+local function spawnUid(guid)
+	if type(guid) ~= "string" then return nil end
+	local uid = guid:match("^%a+%-[^-]*%-[^-]*%-[^-]*%-[^-]*%-%d+%-(%x+)$")
+	if uid and #uid <= 16 then return uid:upper() end
+	return nil
+end
+
 local function finish(k)
 	for i = #pending, 1, -1 do
 		if pending[i] == k then table.remove(pending, i) end
@@ -316,7 +338,10 @@ local function finish(k)
 	if not (k.keep or k.q[1] or k.xp) then return end
 	local tapped
 	if k.denied ~= nil then tapped = k.denied elseif k.tapped ~= nil then tapped = k.tapped end
-	ns.RecAt(k.t, "kill", k.npc, k.lvl, ns.Cls(k.cls), k.p, k.xp, k.rested, tapped, k.q[1] and concat(k.q, ";") or nil)
+	if ns.RecAt(k.t, "kill", k.npc, k.lvl, ns.Cls(k.cls), k.p, k.xp, k.rested, tapped, k.q[1] and concat(k.q, ";") or nil) then
+		local uid = spawnUid(k.guid)
+		if uid then ns.RecAt(k.t, "spawn", k.npc, uid, k.p) end
+	end
 end
 
 -- A creature seen with this name that is not dead (the XP line may be its).
@@ -455,10 +480,63 @@ ns.On("UNIT_SPELLCAST_SUCCEEDED", function(_, unit, _, spell)
 	if spell then lastCast, lastCastAt = spell, GetTime() end
 end)
 
+-- The loot record's `gather` for this window, and whether it was Pick Lock.
 local function gathering()
 	local spell = lastCast
 	lastCast = nil -- one cast opens one loot window
-	if spell and GetTime() - lastCastAt <= GATHER_WINDOW then return GATHER[spell] end
+	if spell and GetTime() - lastCastAt <= GATHER_WINDOW then return GATHER[spell], spell == PICK_LOCK end
+	return nil, false
+end
+
+---------------------------------------------------------------------------
+-- `gather`: a world object gathered with a skill (herb, ore, a fishing pool,
+-- a lock picked), with the skill line and the player's rank in it. Its items
+-- are in the `loot` record written just before it. Once per object per
+-- GATHER_AGAIN seconds (a pool gives many catches), GATHER_PER_MINUTE a minute.
+---------------------------------------------------------------------------
+
+local gathered = {} -- object GUID -> GetTime() of its last `gather`
+local gatherTimes = {} -- GetTime() of the `gather` records in the last minute
+
+local function skillRank(line)
+	local get = C_SkillInfo and C_SkillInfo.GetSkillLineInfoByID
+	local d = call(get, line)
+	return type(d) == "table" and Num(d.rank) or nil
+end
+
+local function noteGather(guid, id, how, p)
+	local line = SKILL_LINE[how]
+	if not (line and id) then return end
+	local now = GetTime()
+	local last = gathered[guid]
+	if last and now - last < GATHER_AGAIN then return end
+	local recent = {}
+	for _, t in ipairs(gatherTimes) do
+		if now - t < 60 then recent[#recent + 1] = t end
+	end
+	gatherTimes = recent
+	if #recent >= GATHER_PER_MINUTE then return end
+	for g, t in pairs(gathered) do
+		if now - t >= GATHER_AGAIN then gathered[g] = nil end
+	end
+	if ns.Rec("gather", id, p, how, line, skillRank(line)) then
+		gathered[guid] = now
+		recent[#recent + 1] = now
+	end
+end
+
+-- The fishing pool a catch came from: the game object the client names as
+-- its source, unless that is the bobber (open water).
+local function pool()
+	if not GetLootSourceInfo then return nil end
+	for slot = 1, GetNumLootItems() do
+		local list = { GetLootSourceInfo(slot) }
+		for i = 1, #list, 2 do
+			local guid = Str(list[i])
+			local kind, id = ns.RefOfGUID(guid)
+			if kind == "o" and id ~= BOBBER then return guid, id end
+		end
+	end
 	return nil
 end
 
@@ -495,10 +573,12 @@ ns.On("LOOT_OPENED", function()
 			local item = slotItem(slot)
 			if item then items[#items + 1] = { item, Num(select(3, GetLootSlotInfo(slot))) or 1 } end
 		end
-		ns.Rec("loot", nil, nil, p, "f", itemList(items), ns.Wanted())
+		local guid, id = pool()
+		ns.Rec("loot", id and "o", id, p, "f", itemList(items), ns.Wanted())
+		if guid then noteGather(guid, id, "f", p) end
 		return
 	end
-	local gather = gathering()
+	local gather, picked = gathering()
 	local bySource, order = {}, {}
 	for slot = 1, GetNumLootItems() do
 		local quantity = select(3, GetLootSlotInfo(slot))
@@ -526,7 +606,9 @@ ns.On("LOOT_OPENED", function()
 			-- a corpse looted is a kill counted, so loots never outnumber kills
 			if kind == "c" and not gather then onDeath(s.guid, false, true) end
 			markLooted(key)
-			ns.Rec("loot", kind, id, p, gather, itemList(s.items), wanted)
+			if ns.Rec("loot", kind, id, p, gather, itemList(s.items), wanted) and kind == "o" then
+				noteGather(s.guid, id, picked and "l" or gather, p)
+			end
 		end
 	end
 end)
@@ -572,6 +654,7 @@ ns.On("ZONE_CHANGED", noteOutdoor)
 ns.OnSession(function()
 	wipe(levelSeen)
 	wipe(placesSeen)
+	wipe(gathered)
 	pending = {}
 	recent.left, xpLine = 0, nil
 	inInstance = nil

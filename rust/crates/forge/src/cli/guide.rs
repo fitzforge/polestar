@@ -146,6 +146,9 @@ fn generated(cmd: &str, args: &[String]) -> i32 {
 					for (id, ids) in &p.split {
 						eprintln!("  {id} -> {} (one per race; the old id retired)", ids.join(", "));
 					}
+					for (id, ids) in &p.merged {
+						eprintln!("  {} -> {id} (merged in as their races' opening steps; the old ids retired)", ids.join(", "));
+					}
 					eprintln!(
 						"forge guide publish: {} generated guides ({} with baked legs) from {} into {}/guides ({}); compile them with forge guide compile",
 						p.guides,

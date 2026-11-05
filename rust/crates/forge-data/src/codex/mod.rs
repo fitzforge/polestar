@@ -28,6 +28,7 @@ use std::time::Instant;
 
 use forge_guide::js::{parse_json, stringify, Obj, V};
 use regex::Regex;
+use rustc_hash::FxHashMap;
 
 use client::{ClientFacts, ERA_BUILD, ERA_TABLES, TABLES};
 use instances::GuideGoto;
@@ -127,6 +128,8 @@ pub struct Inputs {
 	pub rep_table: V,
 	pub attunement_table: V,
 	pub journal_quests: Vec<V>,
+	/// forever-db's quest XP (`journal::load_store_xp`).
+	pub store_xp: FxHashMap<i64, f64>,
 	pub warnings: Vec<String>,
 }
 
@@ -451,6 +454,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		rep_table: load_rep_gate_table(&lib.join("repgates.json"))?,
 		attunement_table: V::Obj(attunement_table),
 		journal_quests,
+		store_xp: journal::load_store_xp(&opts.root.join("forever-db"))?,
 		warnings,
 	})
 }
@@ -478,6 +482,13 @@ fn sources_meta(inputs: &Inputs) -> V {
 			let m = x.get("meta");
 			out.push(source(name, first_truthy(&[m.get("version")]), first_truthy(&[m.get("licence"), V::str(licence)])));
 		}
+	}
+	if !inputs.store_xp.is_empty() {
+		out.push(source(
+			"Polestar's open Forever database (forever-db): quest XP",
+			V::from(format!("{} quests; forever-db/data/quest.jsonl", inputs.store_xp.len())),
+			V::from("See forever-db/NOTICE.md and datapackage.json"),
+		));
 	}
 	let d = &inputs.forever.dungeons;
 	if d.truthy() && d.get("source").truthy() {
@@ -649,6 +660,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			fv_dungeons: &inputs.forever.dungeons,
 			journal_quests: &inputs.journal_quests,
 			attunement_table: &inputs.attunement_table,
+			store_xp: &inputs.store_xp,
 		},
 		&jc,
 	);

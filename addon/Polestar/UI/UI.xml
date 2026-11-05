@@ -3,6 +3,7 @@
 	<Script file="Gamepad.lua"/>
 	<Script file="ZoneArt.lua"/>
 	<Script file="ZoneArtOverlays.lua"/>
+	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
 	<Script file="ClassRewards.lua"/>
 	<Script file="ClassCard.lua"/>

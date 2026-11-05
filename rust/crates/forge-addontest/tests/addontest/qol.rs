@@ -1297,6 +1297,27 @@ fn merchant_sells_only_grey_items_with_a_vendor_price_and_prints_the_total() {
 }
 
 #[test]
+fn merchant_a_grey_item_a_quest_still_needs_is_not_sold() {
+	let out = run(&[
+		BAGS,
+		r#"
+		Polestar.QuestDB = { IsItemNeeded = function(id) return id == 5 end }
+		q.openMerchant()
+		stub.advance(2)
+		emit(q.sold)
+		local left = {}
+		for bag = 0, 1 do for slot, s in pairs(q.bags[bag].slots) do left[#left + 1] = s.itemID end end
+		emit(left)
+	"#,
+	]
+	.concat());
+	let mut sold: Vec<i64> = out[0].as_array().unwrap().iter().map(|v| v.as_i64().unwrap()).collect();
+	sold.sort();
+	assert_eq!(sold, vec![1, 1, 1, 1, 1]);
+	assert!(out[1].as_array().unwrap().contains(&json!(5)), "item 5 stays in the bags");
+}
+
+#[test]
 fn merchant_a_slot_changed_between_ticks_is_re_checked_and_never_sold() {
 	let out = run(&[
 		BAGS,

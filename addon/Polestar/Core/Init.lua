@@ -488,6 +488,12 @@ function ns.DragLocked()
 	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
 end
 
+-- The guide window's on/off (ui.shown): the arrow, the action buttons and the
+-- rare and transport alerts go with it. A combat or instance hide leaves them.
+function ns.GuideShown()
+	return ns.Get("ui.shown") ~= false
+end
+
 -- Forget stored values for one section (or all), back to defaults.
 function ns.ResetSettings(section)
 	local settings = DB().settings
