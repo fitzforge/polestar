@@ -3320,6 +3320,11 @@
 		],
 		"skip": [
 			{
+				"q": 5635,
+				"reason": "#844: Desperate Prayer is a Dwarf priest quest in Forever (race mask Dwarf, letters name High Priest Rohan in Ironforge); Priestess Josetta never offered it to Human priests in players' recordings (levels 5-10) or to the reporter at 12. Humans take Divine Grace (94774) from her instead",
+				"issue": 844
+			},
+			{
 				"q": 46,
 				"reason": "Rev17 AS c17 read: Bounty on Murlocs opens only once Deliver Thomas' Report (39) is handed to Marshal Dughan in Goldshire after the east loop (Forever's chain, world pre [39]), so c17 walked Goldshire -> the Eastvale bridge -> the river murlocs -> back west at 10.6 for this quest alone (Human order[156-159], 01-elwynn-forest:595-603). c15w left it out (chain not open where v1 had it)",
 				"issue": ""

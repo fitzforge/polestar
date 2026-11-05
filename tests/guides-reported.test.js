@@ -3025,3 +3025,12 @@ test(`Hotline's report (#718): the Undead's Silverpine fishing step leads to Lor
 	const ferry = point(1421, x, y, data.npcs[6570].spawns[1421].f);
 	assert.ok(dist(point(arrow.goal.map, arrow.goal.x, arrow.goal.y, arrow.goal.f || 'l'), ferry) < 80, 'within 80 yards of Fenwick Thatros at the Decrepit Ferry on the lake');
 });
+
+// Dingus's report (#844): Josetta does not offer Desperate Prayer to Human priests; they take Divine Grace.
+test(`${ELWYNN}: no Desperate Prayer for a Human priest (#844)`, { skip }, () => {
+	for (const g of [ELWYNN, 'forever/alliance/02-westfall.guide']) {
+		const list = goals(g).filter(forClass('PRIEST'));
+		assert.equal(list.findIndex(({ goal }) => goal.quest === 5635), -1, `${g}: no 5635`);
+	}
+	assert.ok(goals(ELWYNN).filter(forClass('PRIEST')).some(({ goal }) => is('accept', 94774)(goal)), 'Divine Grace is still taken from Josetta');
+});
