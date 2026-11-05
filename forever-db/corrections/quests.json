@@ -3385,6 +3385,21 @@
 		},
 		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
 	},
+	"92422": {
+		"set": {
+			"pre": [
+				99156
+			],
+			"preAny": [
+				99156
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#849"
+		},
+		"note": "The Wrath of Rath'mael (Deathguard Kristof, Tirisfal) is offered once the Rear Guard Patrol chain from Deathguard Linnea is handed in: Rear Guard Patrol 356, then 99156, which needs 356 itself. At level 15 with 356 still in the log, Pilk was not offered it; once the chain was done, Kristof offered it (#849). No quest data names this prerequisite, so the Ruins of Lordaeron pick-up guide sent players straight to Kristof."
+	},
 	"92519": {
 		"set": {
 			"start": {
