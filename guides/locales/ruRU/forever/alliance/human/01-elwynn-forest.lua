@@ -329,68 +329,59 @@ return {
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}: принимает {npc:5497} ({zone:1453})",
 
-	-- Step 70: The Applejack Still
-	-- {quest:91736} Applejack Still
-	["The {quest:91736}"] = "{quest:91736}",
-	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack
-	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Идите на северо-запад через поля. Цель: {quest:91736}, к северу от места {area:120}. Отдайте четыре спелых красных яблока и получите {item:247824}.",
-	-- {item:247824} Thunder Applejack
-	["{item:247824}, from the still"] = "{item:247824}, из перегонного куба",
-
-	-- Step 71: Westbrook Garrison
+	-- Step 70: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries
 	["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Назад на юг. Цель: {area:120}, у дороги в зону {zone:1436}. {npc:963} стоит у казарм, {npc:955} – рядом с ним.",
 
-	-- Step 72: Westbrook Garrison
+	-- Step 71: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer
 	["Follow the road west to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks."] = "Следуйте на запад по дороге к {area:120}, по пути в {zone:1436}. {npc:963} стоит снаружи казармы.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: для {npc:234} у {area:108}",
 
-	-- Step 74: Goldshire
+	-- Step 73: Goldshire
 	-- {area:87} Goldshire
 	["Follow the road west back to {area:87}."] = "Идите по дороге на запад обратно. Цель: {area:87}.",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}: принимает {npc:6122} ({zone:1453})",
 
-	-- Step 76: Jennea Cannon
+	-- Step 75: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "Идите по дороге на север от места {area:87} в город {zone:1453}. {npc:5497} стоит в башне ({object:2101}); она даст вам флягу для водопада ({quest:1861}).",
 
-	-- Step 78: Gakin the Darkbinder
+	-- Step 77: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "Идите по дороге на север от места {area:87} в город {zone:1453}. {npc:6122} ждет в подвале ({object:2164}, {object:2101}).",
 
-	-- Step 79: Woo Ping
+	-- Step 78: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 80: Mirror Lake
+	-- Step 79: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Выйдите из города {zone:1453} через главные ворота. Водопад ({quest:1861}) – к юго-западу от ворот, по пути на запад в зону {zone:1436}: наполните {item:7207} у его подножия.",
 
-	-- Step 81: Surena Caledon
+	-- Step 80: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Возвращайтесь через {area:87} и на восток вдоль дороги к {area:62}. {npc:881} (9 уровня) стоит у фермерского домика.",
 
-	-- Step 82: The Binding
+	-- Step 81: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Назад к {npc:6122}. Используйте {item:6928} у круга призыва в подвале ({object:2164}) и победите призванного демона Бездны.",
 	["Subdue the voidwalker"] = "Одолейте демона Бездны",
 
-	-- Step 83: Back to Elwynn Forest
+	-- Step 82: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "",
 
-	-- Step 84: Forest's Edge
+	-- Step 83: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "Раскрашенные поручи гнолла",
 
-	-- Step 87: Taming the Beast
+	-- Step 86: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} стоит с учителями ({area:87}). Каждое ее задание дает вам {item:15908}: используйте его на названном звере, затем верните жезл ей. Твердошкурые вепри и молодые лесные медведи бродят по холмам к югу от места {area:64}, серые лесные волки – по лесу к востоку (ориентир: {area:18}).",
@@ -409,16 +400,30 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "",
 
-	-- Step 88: Maybell Maclure
+	-- Step 87: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "По дороге на юг. Цель: {area:64}.",
 
-	-- Step 89: The Stonefield Farm
+	-- Step 88: The Stonefield Farm
+	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Спелые красные яблоки: продает {npc:894}, для задания {quest:91736}",
 
-	-- Step 91: Westbrook Garrison
+	-- Step 89: The Applejack Still
+	-- {quest:91736} Applejack Still
+	["The {quest:91736}"] = "{quest:91736}",
+	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "",
+	-- {item:247824} Thunder Applejack
+	["{item:247824}, from the still"] = "{item:247824}, из перегонного куба",
+
+	-- Step 90: Westbrook Garrison
+	-- {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
+	["{npc:955} stands inside the barracks. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "",
 
@@ -431,6 +436,7 @@ return {
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "Идите по дороге на запад мимо гарнизона у Западного ручья в зону {zone:1436}, затем по ней на юг. Цель: {area:108}. Укротитель грифонов {npc:523} стоит на холме.",
 	-- ["From the {quest:2998} he gives you"] = "Из книги ({quest:2998}), которую он вам даст",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Возвращайтесь через {area:87} и на восток к {area:86}. {npc:6172} лежит к югу от озера: используйте на нём {item:6866}. Бесчестные маги Братства Справедливости вокруг него несут {item:6846}.",
+	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Идите на северо-запад через поля. Цель: {quest:91736}, к северу от места {area:120}. Отдайте четыре спелых красных яблока и получите {item:247824}.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Мурлоки-добытчики и мурлоки-скрытни занимают реку к югу от моста. {npc:473} из Братства Справедливости ходит здесь: {area:62}, к западу от нее. По пути добейте лесных хищников и молодых лесных медведей. {npc:248278} тоже бродит по берегу мурлоков: щелкните правой кнопкой по голове, которую он оставит. {npc:248278} – элитный противник: лучше собрать группу.",
 	-- ["Murlocs and the Collector"] = "Мурлоки и Собиратель",

@@ -329,68 +329,59 @@ return {
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}：交给{zone:1453}的{npc:5497}",
 
-	-- Step 70: The Applejack Still
-	-- {quest:91736} Applejack Still
-	["The {quest:91736}"] = "{quest:91736}",
-	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack
-	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "向西北穿过田野到{area:120}北边的{quest:91736}。交给它四个{item:4536}，换一瓶{item:247824}。",
-	-- {item:247824} Thunder Applejack
-	["{item:247824}, from the still"] = "{item:247824}，来自蒸馏器",
-
-	-- Step 71: Westbrook Garrison
+	-- Step 70: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries
 	["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "向南返回通往{zone:1436}的路旁的{area:120}。{npc:963}站在兵营外，{npc:955}在他旁边。",
 
-	-- Step 72: Westbrook Garrison
+	-- Step 71: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer
 	["Follow the road west to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks."] = "沿路向西前往{area:120}，这里位于通往{zone:1436}的路上。{npc:963}站在兵营外。",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}：给{area:108}的{npc:234}",
 
-	-- Step 74: Goldshire
+	-- Step 73: Goldshire
 	-- {area:87} Goldshire
 	["Follow the road west back to {area:87}."] = "沿道路向西返回{area:87}。",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}：交给{zone:1453}的{npc:6122}",
 
-	-- Step 76: Jennea Cannon
+	-- Step 75: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:5497}站在{object:2101}的法师圣殿塔里；她会给你一个瓶子，用于{quest:1861}的瀑布。",
 
-	-- Step 78: Gakin the Darkbinder
+	-- Step 77: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "沿道路从{area:87}向北进入{zone:1453}。{npc:6122}在{object:2101}的{object:2164}地下室等候。",
 
-	-- Step 79: Woo Ping
+	-- Step 78: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 80: Mirror Lake
+	-- Step 79: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "从正门离开{zone:1453}。{quest:1861}瀑布在城门西南方，就在向西前往{zone:1436}的路上：在瀑布底部装满{item:7207}。",
 
-	-- Step 81: Surena Caledon
+	-- Step 80: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "穿过{area:87}返回，沿路向东到{area:62}。{npc:881}（9级）站在农舍旁。",
 
-	-- Step 82: The Binding
+	-- Step 81: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "回去找{npc:6122}。在{object:2164}地下室的召唤法阵处使用{item:6928}，击败召唤出的虚空行者。",
 	["Subdue the voidwalker"] = "制服虚空行者",
 
-	-- Step 83: Back to Elwynn Forest
+	-- Step 82: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "",
 
-	-- Step 84: Forest's Edge
+	-- Step 83: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "{item:782}",
 
-	-- Step 87: Taming the Beast
+	-- Step 86: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}和{area:87}的训练师站在一起。她的每个任务都会给你一根{item:15908}：对她指定的野兽使用，然后把驯兽棒带回给她。{npc:524}和{npc:822}在{area:64}南边的山丘上游荡，森林灰狼在{area:18}东边的树林里。",
@@ -409,16 +400,30 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "",
 
-	-- Step 88: Maybell Maclure
+	-- Step 87: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "沿道路向南到{area:64}。",
 
-	-- Step 89: The Stonefield Farm
+	-- Step 88: The Stonefield Farm
+	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "{item:4536}，来自{npc:894}，用于{quest:91736}",
 
-	-- Step 91: Westbrook Garrison
+	-- Step 89: The Applejack Still
+	-- {quest:91736} Applejack Still
+	["The {quest:91736}"] = "{quest:91736}",
+	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "",
+	-- {item:247824} Thunder Applejack
+	["{item:247824}, from the still"] = "{item:247824}，来自蒸馏器",
+
+	-- Step 90: Westbrook Garrison
+	-- {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
+	["{npc:955} stands inside the barracks. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "",
 
@@ -431,6 +436,7 @@ return {
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "沿道路向西经过西泉要塞进入{zone:1436}，再沿路向南到{area:108}。狮鹫管理员{npc:523}站在山丘上。",
 	-- ["From the {quest:2998} he gives you"] = "从他给你的{quest:2998}获得",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "穿过{area:87}返回，向东到{area:86}。{npc:6172}躺在湖南边：对他使用{item:6866}。他周围的{npc:474}带着{item:6846}。",
+	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "向西北穿过田野到{area:120}北边的{quest:91736}。交给它四个{item:4536}，换一瓶{item:247824}。",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "{npc:46}和鱼人潜伏者遍布桥南边的河岸。迪菲亚成员{npc:473}在河西边的{area:62}巡逻。顺路收集完{npc:118}和{npc:822}。",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "鱼人觅食者和鱼人潜伏者遍布桥南边的河岸。迪菲亚成员{npc:473}在河西边的{area:62}巡逻。顺路杀完潜伏者和小森林熊。{npc:248278}也在鱼人河岸游荡：右键点击它掉落的头颅。{npc:248278}是精英：建议组队。",
 	-- ["Murlocs and the Collector"] = "鱼人和收藏家",

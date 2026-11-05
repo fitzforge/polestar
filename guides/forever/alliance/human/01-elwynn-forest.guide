@@ -456,11 +456,6 @@ step Goldshire
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson
 
-step The Applejack Still
-  tip Head north-west across the fields to the Applejack Still, north of the Westbrook Garrison. Hand it four Shiny Red Apples for a Thunder Applejack.
-  accept 91736 optional                       -- Applejack Still
-  collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
-
 step Westbrook Garrison
   tip Back south to the Westbrook Garrison, by the road to Westfall. Deputy Rainer stands outside the barracks, Sergeant De Vries beside him.
   turnin 239
@@ -576,14 +571,18 @@ step Maybell Maclure
   turnin 114                          -- Inside
 
 step The Stonefield Farm
+  tip Homer Stonefield sells the Shiny Red Apples for the Applejack Still. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four.
   turnin 88                                   -- Ma Stonefield
   turnin 87                                   -- "Auntie" Bernice Stonefield
   buy 4536 x4 npc 894                         -- Shiny Red Apples, from Homer Stonefield, for the Applejack Still
 
 step The Applejack Still
-  when onquest 91736
+  tip The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.
+  accept 91736 optional                       -- Applejack Still
   turnin 91736 optional
+  collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
 step Westbrook Garrison
+  tip Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.
   accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
   turnin 91738

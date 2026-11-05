@@ -1078,6 +1078,24 @@ test(`${TIRISFAL}: petllama's request (#798): Gordo's Task is taken on the road 
 	assert.ok(until > early && has(steps[until], 'accept', 5481) && !steps[until].along, 'until Gordo\'s own step, which still takes it');
 });
 
+// Onrevax (#820) and bob (#823): the Applejack Still (91736) never enters the
+// quest log: clicking it with four Shiny Red Apples hands it in on the spot
+// and gives the Thunder Applejack, which Sergeant De Vries needs for An Apple
+// Treat. The still comes once, after Homer Stonefield sells the apples, and no
+// step waits on `when onquest 91736`, which never holds.
+test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries`, { skip }, () => {
+	const { steps } = compiled(ELWYNN);
+	const has = (st, pred) => st.goals.some(pred);
+	const still = steps.map((st, i) => [st, i]).filter(([st]) => has(st, (g) => g.quest === 91736));
+	assert.equal(still.length, 1, 'one step for the still');
+	const [step, at] = still[0];
+	assert.ok(has(step, is('accept', 91736)) && has(step, is('turnin', 91736)) && has(step, (g) => g.t === 'collect' && g.item === 247824), 'the still hands in and gives the Applejack in that step');
+	for (const st of steps) assert.ok(!(st.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(91736)), 'no step waits for 91736 in the quest log');
+	const apples = steps.findIndex((st) => has(st, (g) => g.t === 'buy' && g.item === 4536));
+	const deVries = steps.findIndex((st) => has(st, is('accept', 91738)));
+	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
+});
+
 // --- Silverpine (Wyatt R, #161; Rupert, #229): Dalar Dawnweaver did not offer
 // Stop the Spread to an Undead at 19 or a Tauren at 21 on the route, though
 // the data gives it to every Horde race with no prerequisite.

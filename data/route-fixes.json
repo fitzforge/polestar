@@ -1874,6 +1874,17 @@
 					398
 				],
 				"why": "#801 follow-up (0.3.2): with Vital Intelligence and A Rogue's Deal handed in first, players' in-game recordings still reach the poster at 5.94 and 5.95 in 2 of 6 Tirisfal runs (the model has them at 6), so the poster offers nothing. The second Brill visit (Deathguard Dillinger's A Putrid Task hand-in, then the inn) comes at 6.7 to 7.5 in the recordings and still before Maggot Eye's camp, so the poster is read there: no extra trip"
+			},
+			{
+				"a": [
+					"turnin",
+					87
+				],
+				"b": [
+					"accept",
+					91736
+				],
+				"why": "#820/#823: the Applejack Still (91736) takes four Shiny Red Apples and never enters the quest log; it gives the Thunder Applejack on the spot (players' recordings: 4 hand-ins, no accept, no quest window). The route took it on the first Westbrook trip (01-elwynn-forest step 70), before Homer Stonefield's apples (step 89), and the writer gated the later still visit on `when onquest 91736`, which never holds: players without apples reached Sergeant De Vries with no Applejack (recorded: step 89 -> 91). After the Stonefield farm (turnin 87, where the buy is) the still comes once, with the apples in the bags."
 			}
 		],
 		"notes": [

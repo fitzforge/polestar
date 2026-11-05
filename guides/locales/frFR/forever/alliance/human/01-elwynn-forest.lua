@@ -66,8 +66,6 @@ return {
 
 	-- Step 9: Deputy Willem
 	["She stands by her cart at the vineyard east of the Abbey."] = "Elle se tient près de sa charrette, dans la vigne à l'est de l'abbaye.",
-	-- {npc:459} Drusilla La Salle
-	["{npc:459}: Summon Imp"] = "",
 
 	-- Step 10: The vineyards and Garrick Padfoot
 	-- {npc:103} Garrick Padfoot
@@ -128,7 +126,8 @@ return {
 	["The lake shore"] = "La rive du lac",
 	-- {npc:263399} Sam Sarsaparilla · {npc:6306} Helene Peltskinner · {npc:383} Jason Mathers · {npc:1651} Lee Brown · {area:18} Crystal Lake
 	["{npc:263399} camps north-east of the inn; {npc:6306}, {npc:383} and {npc:1651} stand on the shore of {area:18} east of town."] = "{npc:263399} campe au nord-est de l'auberge ; {npc:6306}, {npc:383} et {npc:1651} se tiennent sur la rive du {area:18}, à l'est du village.",
-	["Sit (/sit) by his campfire until you have Boosted Rest"] = "",
+	-- {spell:1229451} Boosted Rest
+	["Sit (/sit) by his campfire until you have {spell:1229451}"] = "",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}: skinners only, the pelts are skinned; inside"] = "{npc:6306} : dépeceurs seulement, les peaux se dépècent ; à l'intérieur",
 
@@ -330,69 +329,59 @@ return {
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328} : {npc:5497} à {zone:1453} la reçoit",
 
-	-- Step 70: The Applejack Still
-	-- {quest:91736} Applejack Still
-	["The {quest:91736}"] = "L'{quest:91736}",
-	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack
-	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Traversez les champs vers le nord-ouest jusqu'à l'{quest:91736}, au nord de la {area:120}. Mettez-y quatre Pommes rouges brillantes pour obtenir un {item:247824}.",
-	-- {item:247824} Thunder Applejack
-	["{item:247824}, from the still"] = "{item:247824}, de l'alambic",
-
-	-- Step 71: Westbrook Garrison
+	-- Step 70: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries
 	["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "Retournez au sud jusqu'à la {area:120}, sur la route de la {zone:1436}. {npc:963} se tient devant la caserne, {npc:955} à côté de lui.",
 
-	-- Step 72: Westbrook Garrison
+	-- Step 71: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer
 	["Follow the road west to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks."] = "Suivez la route vers l'ouest jusqu'à {area:120}, en direction de {zone:1436}. {npc:963} se tient à l'extérieur de la caserne.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963} : pour {npc:234} à {area:108}",
 
-	-- Step 74: Goldshire
+	-- Step 73: Goldshire
 	-- {area:87} Goldshire
 	["Follow the road west back to {area:87}."] = "Suivez la route vers l'ouest pour revenir à {area:87}.",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121} : {npc:6122} à {zone:1453} la reçoit",
 
-	-- Step 76: Jennea Cannon
+	-- Step 75: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "Suivez la route vers le nord depuis {area:87} jusqu'à {zone:1453}. {npc:5497} se tient dans le Sanctuaire du Sorcier, la tour du {object:2101} ; elle vous remet une flasque pour la cascade du {quest:1861}.",
 
-	-- Step 78: Gakin the Darkbinder
+	-- Step 77: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "Suivez la route vers le nord depuis {area:87} jusqu'à {zone:1453}. {npc:6122} attend dans la cave de l'{object:2164}, dans le {object:2101}.",
 
-	-- Step 79: Woo Ping
+	-- Step 78: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Pendant que vous y êtes : apprenez le maniement des bâtons auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; un bâton apporte plus de caractéristiques de sorts qu'une arme à une main pendant la progression.",
 
-	-- Step 80: Mirror Lake
+	-- Step 79: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "Quittez {zone:1453} par la porte principale. La cascade du {quest:1861} se trouve au sud-ouest des portes, sur le chemin de la {zone:1436} à l'ouest : remplissez la {item:7207} à son pied.",
 
-	-- Step 81: Surena Caledon
+	-- Step 80: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "Repassez par {area:87} et allez vers l'est le long de la route jusqu'à {area:62}. {npc:881} (niveau 9) se tient près de la ferme.",
 
-	-- Step 82: The Binding
+	-- Step 81: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "Retournez voir {npc:6122}. Utilisez l'{item:6928} sur le cercle d'invocation dans la cave de l'{object:2164} et vainquez le marcheur du Vide qu'elle appelle.",
 	["Subdue the voidwalker"] = "Soumettez le marcheur du Vide",
-	["Summon Voidwalker"] = "",
 
-	-- Step 83: Back to Elwynn Forest
+	-- Step 82: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "Retour dans la {area:12}",
 
-	-- Step 84: Forest's Edge
+	-- Step 83: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "Des Rivepatte chétifs et des Estafettes Rivepatte tiennent les collines au sud de la garnison, le long de la frontière de {zone:1436}.",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "Brassards peints de gnoll",
 
-	-- Step 87: Taming the Beast
+	-- Step 86: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507} se tient avec les maîtres de {area:87}. Chacune de ses quêtes vous remet un {item:15908} : utilisez-le sur la bête qu'elle désigne, puis rapportez-lui le bâton. Les Sangliers Rochecuir et les Jeunes ours des forêts rôdent dans les collines au sud des {area:64}, les Loups forestiers gris dans les bois à l'est du {area:18}.",
@@ -408,20 +397,33 @@ return {
 	["{npc:822}: tame it with the {item:15908}"] = "{npc:822} : apprivoisez-le avec le {item:15908}",
 	-- {npc:822} Young Forest Bear
 	["Tame {npc:822}"] = "Apprivoisez : {npc:822}",
-	["Tame Beast"] = "",
-	-- {npc:258930} Isaac Chan
-	["{npc:258930}, beside her: Beast Training"] = "",
+	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
+	["{npc:258930}, beside her: {spell:5149}"] = "",
 
-	-- Step 88: Maybell Maclure
+	-- Step 87: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "Descendez la route vers le sud jusqu'aux {area:64}.",
 
-	-- Step 89: The Stonefield Farm
+	-- Step 88: The Stonefield Farm
+	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vend les Pommes rouges brillantes pour l'{quest:91736}. Les pommes ramassées sur les kobolds et dans les caisses comptent aussi : l'achat se coche tout seul dès que vous en avez quatre.",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Pommes rouges brillantes, auprès de {npc:894}, pour l'{quest:91736}",
 
-	-- Step 91: Westbrook Garrison
+	-- Step 89: The Applejack Still
+	-- {quest:91736} Applejack Still
+	["The {quest:91736}"] = "L'{quest:91736}",
+	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "L'{quest:91736} se trouve au nord de la {area:120}. Cliquez dessus avec quatre Pommes rouges brillantes dans vos sacs : il les prend et vous donne aussitôt un {item:247824} (la quête n'apparaît jamais dans votre journal de quêtes). Gardez le cidre pour {npc:955} : ne le buvez pas.",
+	-- {item:247824} Thunder Applejack
+	["{item:247824}, from the still"] = "{item:247824}, de l'alambic",
+
+	-- Step 90: Westbrook Garrison
+	-- {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
+	["{npc:955} stands inside the barracks. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "{npc:955} se tient dans la caserne. Il ne propose {quest:91738} que si vous avez le {item:247824} sur vous : parlez-lui et vous passez directement à la remise.",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "{npc:955} : il veut votre {item:247824} ; à l'intérieur",
 
@@ -434,6 +436,7 @@ return {
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "Suivez la route vers l'ouest, au-delà de la garnison du ruisseau de l'ouest, jusqu'en {zone:1436}, puis vers le sud jusqu'à la {area:108}. {npc:523}, le maître des griffons, se tient sur la colline.",
 	-- ["From the {quest:2998} he gives you"] = "Grâce au {quest:2998} qu'il vous remet",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Repassez par {area:87} et allez vers l'est jusqu'à {area:86}. {npc:6172} se trouve au sud du lac : utilisez le {item:6866} sur lui. Les Sorciers vauriens Défias autour de lui portent le {item:6846}.",
+	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "Traversez les champs vers le nord-ouest jusqu'à l'{quest:91736}, au nord de la {area:120}. Mettez-y quatre Pommes rouges brillantes pour obtenir un {item:247824}.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "Les Fourrageurs murlocs et les Rôdeurs murlocs bordent la rivière au sud du pont. {npc:473}, un Défias, arpente le {area:62} à l'ouest de celle-ci. Achevez les Rôdeurs et les Jeunes ours des forêts en chemin.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "Les Fourrageurs murlocs et les Rôdeurs murlocs bordent la rivière au sud du pont. {npc:473}, un Défias, arpente le {area:62} à l'ouest de celle-ci. Achevez les Rôdeurs et les Jeunes ours des forêts en chemin. {npc:248278} rôde aussi sur la rive des murlocs : faites un clic droit sur la tête qu'il laisse tomber. {npc:248278} est un élite : mieux vaut être en groupe.",
 	-- ["Murlocs and the Collector"] = "Les murlocs et le Collecteur",
