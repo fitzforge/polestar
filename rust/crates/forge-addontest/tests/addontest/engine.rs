@@ -1231,6 +1231,85 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 	);
 }
 
+// #859: Desperate Times (92640) asks to speak with Valennia, then the Windshapers (Ayessa), then the High
+// Order (Elaadrin), and the client lists each line only once the one before it is done. A quest `talk` goal
+// reads its quest-log line; talking checks it off only on a line the client does not list yet, with every
+// line before it finished.
+const DESPERATE_TIMES: &str = r#"
+	Polestar.RegisterGuide({ id = "test/talkq", pack = "test", title = "Talk objectives", minLevel = 1, maxLevel = 90, steps = {
+		{ goals = {
+			{ t = "talk", npc = 252383, npcName = "Valennia", quest = 92640, title = "Desperate Times", oi = 1 },
+			{ t = "talk", npc = 251968, npcName = "Ayessa", quest = 92640, title = "Desperate Times", oi = 2 },
+			{ t = "talk", npc = 252475, npcName = "Elaadrin", quest = 92640, title = "Desperate Times", oi = 3 },
+		} },
+		{ goals = { { t = "level", level = 99 } } },
+	} })
+"#;
+
+#[test]
+fn t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_on_a_line_the_client_does_not_list_yet() {
+	let out = run1(Run {
+		guides: DESPERATE_TIMES,
+		before: r#"w.titles[92640] = "Desperate Times"; w.onQuest(92640, { { text = "Speak with Valennia", required = 1 } })"#,
+		script: r#"
+			local w = stub.world
+			-- The game's ready flag, not the stub's (every listed line finished): a line not revealed yet is open.
+			C_QuestLog.ReadyForTurnIn = function() return false end
+			C_QuestLog.IsComplete = C_QuestLog.ReadyForTurnIn
+			local trail = {}
+			local function mark(label)
+				local s = ""
+				for _, g in ipairs(E.GetStepView(1).goals) do s = s .. (g.status == "done" and "x" or "-") end
+				trail[#trail + 1] = label .. "=" .. s
+			end
+			local function talk(npc)
+				w.gossip(npc, { options = { { name = "I am ready." } } }); flush()
+				C_GossipInfo.SelectOption(1); w.close(); flush()
+			end
+			local TEXT = { "Speak with Valennia", "Recruit the Windshapers", "Recruit the High Order" }
+			local function lines(...)
+				local objs = {}
+				for i, n in ipairs({ ... }) do
+					objs[i] = { text = TEXT[i], type = "monster", numRequired = 1, numFulfilled = n, finished = n >= 1 }
+				end
+				w.log[92640].objectives = objs
+				stub.fire("QUEST_LOG_UPDATE"); flush()
+			end
+			local view = E.GetStepView(1).goals[1]
+			mark("start")
+			talk(252475); mark("elaadrin-first")     -- line 3 not listed, line 1 open: the game does not count it
+			talk(252383); mark("valennia")           -- line 1 listed: its state decides
+			lines(1, 0); mark("line1")
+			talk(252475); mark("elaadrin-early")     -- line 2 still open
+			talk(251968); mark("ayessa")             -- line 2 listed: its state decides
+			lines(1, 1); mark("line2")
+			talk(252475); mark("elaadrin")           -- line 3 not listed yet, lines 1 and 2 finished
+			emit({ trail = trail, at = E.GetStepIndex(), text = view.text, detail = view.detail })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(
+		out["trail"],
+		json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"])
+	);
+	assert_eq!(out["at"], 2);
+	assert_eq!(out["text"], "Talk to Valennia");
+	assert_eq!(out["detail"], "for Desperate Times");
+
+	// The quest ready for turn-in: every talk goal is done, the lines the client never listed too.
+	let ready = run1(Run {
+		guides: DESPERATE_TIMES,
+		before: r#"w.titles[92640] = "Desperate Times"; w.onQuest(92640, { { required = 1, fulfilled = 1 }, { required = 1, fulfilled = 1 } })"#,
+		script: r#"
+			local s = {}
+			for i, g in ipairs(E.GetStepView(1).goals) do s[i] = g.status end
+			emit({ s = s, at = E.GetStepIndex() })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(ready, json!({ "s": ["done", "done", "done"], "at": 2 }));
+}
+
 #[test]
 fn a_step_that_hearths_and_then_flies_completes_when_the_flight_lands_the_hearth_counts_as_done_once_a_later_goal_is() {
 	let guide = r#"

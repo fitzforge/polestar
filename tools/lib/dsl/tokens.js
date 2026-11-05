@@ -124,7 +124,7 @@ function goalNames(goal, data) {
 	if (Number.isInteger(goal.area)) add('area', goal.area, dataName(data, 'area', goal.area));
 	if (Number.isInteger(goal.quest)) {
 		for (const o of data.questObjectives(goal.quest)) {
-			const kind = o.kind === 'kill' ? 'npc' : o.kind === 'item' ? 'item' : o.kind === 'object' ? 'object' : null;
+			const kind = o.kind === 'kill' || o.kind === 'talk' ? 'npc' : o.kind === 'item' ? 'item' : o.kind === 'object' ? 'object' : null;
 			if (kind && Number.isInteger(o.id)) add(kind, o.id, dataName(data, kind, o.id));
 		}
 	}

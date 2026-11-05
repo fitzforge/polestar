@@ -280,7 +280,7 @@ impl Data {
 					V::Null
 				} else {
 					match kind.as_str().unwrap() {
-						"kill" => self.npc(&id),
+						"kill" | "talk" => self.npc(&id),
 						"item" => self.item(&id),
 						"object" => self.object(&id),
 						_ => V::Null,
@@ -513,6 +513,7 @@ impl Data {
 pub fn objective_verb(kind: &str) -> Option<&'static str> {
 	match kind {
 		"kill" => Some("kill"),
+		"talk" => Some("talk"),
 		"item" => Some("collect"),
 		"object" => Some("interact"),
 		_ => None,

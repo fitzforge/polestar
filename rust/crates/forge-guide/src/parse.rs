@@ -73,7 +73,7 @@ pub const MODS: [(&str, &[&str]); 32] = [
 	("kill", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count"]),
 	("collect", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc", "quest", "count", "nearest"]),
 	("goto", &["text", "optional", "only", "group", "map", "r", "frame"]),
-	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip"]),
+	("talk", &["text", "optional", "only", "group", "at", "map", "r", "frame", "gossip", "quest"]),
 	("interact", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
 	("use", &["text", "optional", "only", "group", "at", "map", "r", "frame", "quest"]),
 	("sethome", &["text", "optional", "only", "group", "at", "map", "r", "frame", "npc"]),

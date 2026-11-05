@@ -320,7 +320,7 @@ impl<'a> Sim<'a> {
 					self.w_remove_item(item);
 				}
 			}
-			T::Kill | T::Collect | T::Use | T::Interact if q.is_some() => {
+			T::Kill | T::Collect | T::Use | T::Interact | T::Talk if q.is_some() => {
 				let q = q.unwrap();
 				if in_log(self, q) {
 					match goal.oi {

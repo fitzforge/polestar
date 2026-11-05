@@ -290,7 +290,9 @@ fn is_profession_train(goal: &Goal) -> bool {
 pub(crate) fn is_manual(goal: &Goal) -> bool {
 	match goal.t {
 		T::Train if is_profession_train(goal) => false,
-		T::Talk | T::Hearth | T::Getfp | T::Fly | T::Train | T::Vendor | T::Task => true,
+		// A quest `talk` is the quest's objective: its line decides (goal_done).
+		T::Talk => goal.quest.is_none(),
+		T::Hearth | T::Getfp | T::Fly | T::Train | T::Vendor | T::Task => true,
 		T::Kill | T::Interact | T::Use => goal.quest.is_none(),
 		T::Craft => craft_mode(goal) == 2,
 		_ => false,
@@ -313,7 +315,7 @@ fn blocks(goal: &Goal) -> bool {
 }
 
 fn is_quest_goal(goal: &Goal) -> bool {
-	goal.quest.is_some() && matches!(goal.t, T::Accept | T::Turnin | T::Complete | T::Kill | T::Collect | T::Interact | T::Use)
+	goal.quest.is_some() && matches!(goal.t, T::Accept | T::Turnin | T::Complete | T::Kill | T::Collect | T::Interact | T::Use | T::Talk)
 }
 
 pub(crate) fn is_bag_count(goal: &Goal) -> bool {
@@ -891,6 +893,18 @@ impl<'a> Sim<'a> {
 		Done { done: finished, cur, max }
 	}
 
+	/// Own.talkCounts: talking to a quest `talk` goal's NPC checks it off only while the quest is in the log, the
+	/// client lists no line `oi` yet and every line before it is finished; without `oi` the talk counts.
+	fn talk_counts(&self, goal: &Goal) -> bool {
+		let (Some(q), Some(oi)) = (goal.quest, goal.oi) else { return true };
+		if !self.w.on_quest(q) {
+			return false;
+		}
+		let Some(objs) = self.w.objectives(q) else { return false };
+		let oi = (oi as usize).max(1);
+		oi > objs.len() && objs[..oi - 1].iter().all(|o| o.finished)
+	}
+
 	fn count_state(&self, goal: &Goal) -> Done {
 		let need = goal.count.unwrap_or(1.0);
 		let have = goal.item.map_or(0.0, |i| self.w.item_count(i));
@@ -1052,6 +1066,7 @@ impl<'a> Sim<'a> {
 				Done::of(max.unwrap_or(0.0) >= rank_cap(goal).unwrap_or(f64::INFINITY))
 			}
 			T::Train if goal.class && self.nothing_to_train() => Done::yes(),
+			T::Talk if q.is_some() => self.objective_state(goal),
 			T::Talk | T::Train | T::Vendor | T::Task => Done::no(),
 			T::Abandon => Done::of(!self.w.on_quest(q.unwrap_or(0))),
 			T::Destroy => Done::of(goal.item.map_or(0.0, |i| self.w.item_count(i)) == 0.0),
@@ -1821,7 +1836,7 @@ impl<'a> Sim<'a> {
 				let mut ok = t_ok && self.goal_applies(s, g);
 				if ok {
 					ok = match kind {
-						Kind::Talk => goal.npc == npc,
+						Kind::Talk => goal.npc == npc && self.talk_counts(goal),
 						// Engine.IsSethomeInnkeeper: a located sethome needs its inn's innkeeper (never known here).
 						Kind::Sethome => goal.location.is_none() || (npc.is_some() && npc == self.find_inn(goal.npc, goal.location.as_deref()).map(|k| self.wd.inns[k].npc).or(goal.npc)),
 						Kind::Train if is_profession_train(goal) => false,

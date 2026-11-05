@@ -1196,7 +1196,8 @@ end
 local function isManual(goal)
 	local t = goal.t
 	if t == "train" and isProfessionTrain(goal) then return false end
-	if MANUAL[t] then return true end
+	-- A quest `talk` is the quest's objective: its line decides (goalDone).
+	if MANUAL[t] and not (t == "talk" and goal.quest) then return true end
 	if (t == "kill" or t == "interact" or t == "use") and not goal.quest then return true end
 	if t == "skill" then return not supports("skill") end
 	if t == "learn" then return not supports("spell") end
@@ -1693,6 +1694,27 @@ local function objectiveState(goal)
 	return finished and true or false, cur, max
 end
 
+-- Whether talking to a quest `talk` goal's NPC checks it off (latch). The
+-- client reveals such lines one at a time (Desperate Times: Valennia, then
+-- the Windshapers, then the High Order, each listed once the line before it
+-- is done): the talk counts only while the quest is in the log, the client
+-- lists no line `oi` yet and every line before it is finished. While the
+-- client lists the line, the line decides (goalDone): a talk out of order,
+-- which the game does not count, does not tick it. Without `oi` the talk
+-- counts. (On Own: the main chunk is at 200 locals.)
+function Own.talkCounts(goal)
+	local q, oi = goal.quest, goal.oi
+	if not (q and oi) then return true end
+	local C = Compat()
+	if not C.IsOnQuest(q) then return false end
+	local objs = C.GetQuestObjectives(q)
+	if not objs or objs[oi] then return false end
+	for k = 1, oi - 1 do
+		if not (objs[k] and objs[k].finished) then return false end
+	end
+	return true
+end
+
 -- A `complete` goal's quest in the log: its objectives' counts summed, each
 -- capped at what it needs ("Plainstrider Meat 3/7, Feathers 5/7": 8/14), and
 -- with `open`, when it has more than one, the open ones in the game's words
@@ -1889,6 +1911,11 @@ goalDone = function(s, g, goal)
 		return (maxRank or 0) >= rankCap(goal)
 	elseif t == "train" and goal.class and Own.nothingToTrain() then
 		return true
+	elseif t == "talk" and goal.quest then
+		-- The quest's objective: its line (`oi`), the ready flag or the
+		-- hand-in; a talk on a line the client does not list yet is latched
+		-- (Own.talkCounts).
+		return objectiveState(goal)
 	elseif t == "talk" or t == "train" or t == "vendor" then
 		-- Interactions during the step are stored as check-offs (see latch).
 		return false
@@ -2025,7 +2052,7 @@ end
 local QUEST_VERBS = { accept = true, turnin = true, complete = true }
 local function isQuestGoal(goal)
 	return goal.quest and (QUEST_VERBS[goal.t] or goal.t == "kill" or goal.t == "collect"
-		or goal.t == "interact" or goal.t == "use")
+		or goal.t == "interact" or goal.t == "use" or goal.t == "talk")
 end
 
 -- Whether the step after s that applies to the character is done with quest
@@ -2663,7 +2690,7 @@ local function describe(goal)
 		local lx, ly = liveXY(goal)
 		return L["Go to"], ("%.1f, %.1f"):format(lx or goal.x, ly or goal.y), "place", mapName
 	elseif t == "talk" then
-		return L["Talk to"], N.Npc(goal.npc) or goal.npcName, "npc", nil
+		return L["Talk to"], N.Npc(goal.npc) or goal.npcName, "npc", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "interact" then
 		return L["Click"], N.Object(goal.object) or goal.objName, "object", goal.quest and fmt(L["for %s"], questTitle(goal)) or nil
 	elseif t == "use" then
@@ -3906,7 +3933,8 @@ end
 -- survives the step moving on and a reload. Only that NPC counts: a goal
 -- with candidates for one of them (a class trainer's for the character's
 -- class), one naming its NPC for that NPC, `train class` for a trainer of
--- the character's class; profession trains complete from the skill's max
+-- the character's class; a quest `talk` only on a line the client does not
+-- list yet (Own.talkCounts); profession trains complete from the skill's max
 -- rank instead. A window still open when the step changes counts for nothing
 -- in the new step: only what opens, or what the player does, while it is
 -- current (Fitz: "clear signals from the game"). Returns true if anything
@@ -3925,7 +3953,7 @@ local function latch(kind, npc)
 				local ok = goal.t == kind and goalApplies(goal) and (pass ~= 3 or goal.npc ~= nil)
 				if ok then
 					if kind == "talk" then
-						ok = goal.npc == npc
+						ok = goal.npc == npc and Own.talkCounts(goal)
 					elseif kind == "sethome" then
 						-- `sethome nearest` on any bind; a located one at its inn's
 						-- innkeeper (Engine.IsSethomeInnkeeper).

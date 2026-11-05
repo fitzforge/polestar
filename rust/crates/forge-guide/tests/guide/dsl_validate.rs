@@ -563,6 +563,71 @@ fn a_collect_bound_to_a_quest_line_that_is_not_an_item_warns_for_an_item_the_que
 	);
 }
 
+/// A quest whose lines are talks the client reveals one at a time (#859), and one whose talk is a legacy
+/// `kill` credit on a friendly npc.
+fn talk_data() -> Data {
+	let talk = |id: u32, text: &str| json!({ "type": "talk", "id": id, "count": 1, "text": text });
+	data_plus(
+		json!({
+			"9710": like7(json!({ "id": 9710, "title": "Desperate Times", "pre": [], "objectives": [talk(197, "Marshal McBride"), talk(823, "Deputy Willem"), talk(295, "Innkeeper Farley")] })),
+			"9711": like7(json!({ "id": 9711, "title": "A Word", "pre": [], "objectives": [{ "type": "kill", "id": 152, "count": 1, "text": "Brother Danil" }] })),
+		}),
+		Value::Null,
+		Value::Null,
+	)
+}
+
+fn talk_goals(r: &Compiled) -> Vec<Value> {
+	r.steps().iter().flat_map(|s| s["goals"].as_array().cloned().unwrap_or_default()).filter(|g| g["t"] == "talk" || g["t"] == "kill").collect()
+}
+
+#[test]
+fn a_talk_with_quest_compiles_to_a_quest_objective_goal_and_quest_q_takes_the_index_from_the_talk_or_legacy_kill_objective() {
+	let src = guide_text(&["step S", "  accept 9710", "  accept 9711", "  talk 823 quest 9710.2", "  talk 295 quest 9710", "  talk 152 quest 9711.1", "  talk 152 quest 9711", "  turnin 9710", "  turnin 9711"]);
+	let r = compile_with(&src, &talk_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
+	let g = talk_goals(&r);
+	let fields = |g: &Value| (g["t"].clone(), g["npc"].clone(), g["npcName"].clone(), g["quest"].clone(), g["title"].clone(), g["oi"].clone(), g.get("count").cloned());
+	assert_eq!(
+		g.iter().map(fields).collect::<Vec<_>>(),
+		vec![
+			(json!("talk"), json!(823), json!("Deputy Willem"), json!(9710), json!("Desperate Times"), json!(2), None),
+			(json!("talk"), json!(295), json!("Innkeeper Farley"), json!(9710), json!("Desperate Times"), json!(3), None),
+			(json!("talk"), json!(152), json!("Brother Danil"), json!(9711), json!("A Word"), json!(1), None),
+			(json!("talk"), json!(152), json!("Brother Danil"), json!(9711), json!("A Word"), json!(1), None),
+		]
+	);
+}
+
+#[test]
+fn a_talk_with_quest_naming_another_npcs_line_is_an_error_that_says_which_index_is_the_npcs() {
+	let src = guide_text(&["step S", "  accept 9710", "  talk 823 quest 9710.1", "  talk 197 quest 9710.1", "  talk 5479 quest 9710", "  turnin 9710"]);
+	let r = compile_with(&src, &talk_data());
+	let d = diags(r.diag.errors(), r"9710\.1 is");
+	assert_eq!(d.len(), 1, "{}", r.text);
+	assert_eq!(d[0].line as usize, line_of(&src, "  talk 823 quest 9710.1"));
+	assert_eq!(d[0].message, "quest 9710.1 is talk Marshal McBride x1, not this npc; Deputy Willem is 9710.2");
+	assert_eq!(d[0].hint.as_deref(), Some("write `quest 9710.2`, or `quest 9710` to take the index from the npc"));
+	assert_eq!(
+		only(&r.warnings, "no objective for this npc"),
+		vec![format!("test.guide:{}: quest 9710 has no objective for this npc; write `quest 9710.<objective>`", line_of(&src, "  talk 5479 quest 9710"))]
+	);
+}
+
+#[test]
+fn a_kill_with_quest_on_a_talk_objective_of_the_same_npc_compiles_and_takes_its_index() {
+	let src = guide_text(&["step S", "  accept 9710", "  kill 823 quest 9710", "  kill 197 quest 9710.1", "  turnin 9710"]);
+	let r = compile_with(&src, &talk_data());
+	assert!(r.errors.is_empty(), "{}", r.text);
+	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
+	let g = talk_goals(&r);
+	assert_eq!(g.iter().map(|g| (g["t"].clone(), g["npc"].clone(), g["quest"].clone(), g["oi"].clone())).collect::<Vec<_>>(), vec![
+		(json!("kill"), json!(823), json!(9710), json!(2)),
+		(json!("kill"), json!(197), json!(9710), json!(1)),
+	]);
+}
+
 #[test]
 fn complete_on_a_quest_without_objectives_warns_the_turnin_is_the_action() {
 	let src = guide_text(&["step S", "  accept 783", "  accept 7", "  complete 783", "  complete 7", "  turnin 783", "  turnin 7"]);
