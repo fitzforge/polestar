@@ -47,7 +47,7 @@ pub fn params_doc() -> Option<serde_json::Value> {
 
 /// The route fixes' deliberate pairs the seed keeps, as route.rs leaves out a pair the start's
 /// repaired seed still breaks. The fixes are the checkout's live file and the seed a golden: a pair
-/// added for v1's order (the c17 Valley of Trials Den pairs, 5441/792 before 789/4402) would refuse
+/// added for v1's order (the c17 Valley of Trials Den pairs, 792 before 789/4402) would refuse
 /// every move on the golden order, never on a built route.
 pub fn pairs(run: &forge_sim::run::Run, seed: &Order) -> Vec<Pair> {
 	held_pairs(&seed.steps, &deliberate_pairs(run))

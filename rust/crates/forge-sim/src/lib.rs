@@ -14,6 +14,7 @@ pub mod chain;
 pub mod eval;
 pub mod fixes;
 pub mod flow;
+pub mod gate;
 pub mod group;
 pub mod guards;
 pub mod hubs;

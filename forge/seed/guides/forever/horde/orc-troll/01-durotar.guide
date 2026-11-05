@@ -170,7 +170,6 @@ step The Den
   turnin 3086 only Troll,Mage         -- Mai'ah
   turnin 97279                        -- Kzan Thornslash, at the back of the cave
   accept 4402                         -- Galgar, by the cooking fire
-  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
   accept 792 only !Warlock            -- Zureetha Fargaze
   accept 1485 only Warlock            -- Ruzan
   train class
@@ -179,17 +178,15 @@ step Hana'zua
   tip Hana'zua lies wounded at the foot of the hills north-west of the Den.
   accept 790
 
-# The Lazy Peons sleep across the same valley floor as the Scorpid Workers and
-# the cactuses: woken on this loop (route-fixes together 4402/5441). As a step
-# of their own after it, the writer's hub tour turned 789 and 4402 in at the
-# Den on the way to the peons and the Vile Familiars, then came back to the
-# Den for 5441 and 792 (c17 01-durotar:211-227, judge dup-trip).
+# The Vile Familiars join this loop in the route (route-fixes pairs 792 before
+# the Den hand-ins). Lazy Peons (5441) needs level 3: it is taken on the Den
+# return after the loop, not with Galgar's quest on the first visit (at 2.6 a
+# level-2 player was held at Foreman Thazz'ril, c19r).
 step Sarkoth
-  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way, and hit the sleeping peons across the valley with the Foreman's Blackjack.
+  tip Sarkoth, a large scorpid, prowls the slope south of Hana'zua among the Scorpid Workers; pick the Cactus Apples by the cactuses on the way.
   collect 4905 quest 790.1
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
-  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
 
 step Hana'zua
   turnin 790
@@ -200,10 +197,6 @@ step Back to the Den
   turnin 804                          -- Gornek
   turnin 789                          -- Gornek
   turnin 4402                         -- Galgar
-
-step Foreman Thazz'ril
-  turnin 5441
-  accept 6394
 
 step North end of the valley
   tip The Vile Familiars swarm the slope below the Burning Blade Coven, the cave on the valley's north side.
@@ -216,6 +209,15 @@ step Back at the Den
   accept 1499 only Warlock
   turnin 1499 only Warlock            -- Zureetha Fargaze
   accept 794
+  accept 5441                         -- Foreman Thazz'ril, at the lumber pile east of the Den
+
+step Lazy Peons
+  tip The peons doze around the Den, east and south of it.
+  kill 10556 quest 5441.1 "Wake Lazy Peons with the Foreman's Blackjack"
+
+step Foreman Thazz'ril
+  turnin 5441
+  accept 6394
 
 step Canaga Earthcaller
   only Shaman

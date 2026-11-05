@@ -799,6 +799,22 @@ fn not_ready_is_an_accept_before_its_prerequisite_or_its_level() {
 }
 
 #[test]
+fn not_ready_is_any_accept_under_its_minimum_level() {
+	// c19r: Lazy Peons (minimum 3) taken at the Den at 2.6 after a review record moved it there; a
+	// level-2 player is held at the giver. Under by less than a level is a blocker too; at the
+	// minimum (a level step before it) it is not.
+	let a = pt(10.0, 10.0, 1411, 0);
+	let mut f = Facts::default();
+	open_quest(&mut f, 5441, &[]);
+	f.quests.get_mut(&5441).unwrap().min_level = Some(3.0);
+	let v = not_ready(&walk(vec![at("accept", Some(5441), a, 2.6)]), &f);
+	assert_eq!(lines(&v), vec![("horde/01-durotar.guide".into(), 100, "not-ready".into())]);
+	assert_eq!(v[0].level, Level::Blocker);
+	assert!(v[0].message.contains("level 2.60, under its minimum 3"), "{}", v[0].message);
+	assert!(not_ready(&walk(vec![at("accept", Some(5441), a, 3.0)]), &f).is_empty());
+}
+
+#[test]
 fn a_chapter_is_taken_with_its_parent_in_the_log_not_after_its_hand_in() {
 	// Chapter I (339): the data's `pre` lists its parent The Green Hills of Stranglethorn (338), which
 	// the TDB has as a negative PrevQuestID: in the log, not handed in (c13 STV false not-ready).

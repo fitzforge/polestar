@@ -375,8 +375,8 @@ pub struct Stats {
 
 /// The edit descent's rules a free-search move is held to (Member::rules_ok, levels_ok,
 /// no_worse), as counted in Stats::refused.
-pub const RULES: usize = 7;
-pub const RULE_NAMES: [&str; RULES] = ["checker", "twin training", "walk lengthened", "grind checkpoint", "quest on the way", "objective under level", "a start slower"];
+pub const RULES: usize = 8;
+pub const RULE_NAMES: [&str; RULES] = ["checker", "twin training", "walk lengthened", "grind checkpoint", "quest on the way", "objective under level", "a start slower", "accept under its minimum"];
 
 pub const MOVES: usize = 12;
 pub const MOVE_NAMES: [&str; MOVES] = [
@@ -845,6 +845,16 @@ impl<'a> Member<'a> {
 		})
 	}
 
+	/// The accept level rule (crate::gate) on a candidate's runs: no character's run takes a quest
+	/// under its minimum level that its run of the order now does not.
+	pub(crate) fn gate_ok(&self, p: &Problem, next: &[Current]) -> bool {
+		self.ctxs.iter().zip(next).enumerate().all(|(k, (c, cur))| {
+			let r = &p.ctxs[k].model.run;
+			let was = crate::gate::under_min(r, &c.cur.steps, &c.cur.lv);
+			crate::gate::under_min(r, &cur.steps, &cur.lv).iter().all(|q| was.binary_search(q).is_ok())
+		})
+	}
+
 	fn pick_move(&mut self) -> usize {
 		// Weights in percent, by MOVE_NAMES order. (No grind checkpoint is dropped: rules_ok; its
 		// share goes to moving objectives.)
@@ -861,7 +871,8 @@ impl<'a> Member<'a> {
 
 	/// Replay a candidate for every character from the snapshot before `a`: the windows, the
 	/// summed estimate, then (when it promises a gain) the exact runs. The new runs when the
-	/// summed seconds to 60 drop and no character's run gains a step that does nothing.
+	/// summed seconds to 60 drop, no character's run gains a step that does nothing, and no
+	/// character's run takes a quest under its minimum level that the order did not (crate::gate).
 	fn replay(&mut self, p: &Problem, cand: &Order, a: usize, b: usize) -> Option<(Vec<Current>, crate::guards::GuardCounts)> {
 		let now = self.total();
 		// No training put inside a field stretch (order::field_trains).
@@ -895,6 +906,10 @@ impl<'a> Member<'a> {
 		}
 		let total: f64 = next.iter().map(|c| c.total).sum();
 		if total >= limit {
+			return None;
+		}
+		if !self.gate_ok(p, &next) {
+			self.stats.refused[7] += 1;
 			return None;
 		}
 		let mut gc = self.guard_now.clone();
