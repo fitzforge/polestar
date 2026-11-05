@@ -698,11 +698,13 @@ See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 tower's floors) a point on the map is several places, and the walking route
 ends on whichever floor its engine picks. So a goal whose point stands for an
 NPC or object gets that entity's height, `z` (world yards), from
-`data/forever/spawnz.json` (CMaNGOS classic-db's spawn positions, which
-`data build` writes): the z of the entity's nearest spawn on the goal's
-instance map (its world point's, in the goal's frame), when that spawn is
-within 15 yards of the point. Nothing is guessed: an NPC only Forever has, or
-one Forever moved more than 15 yards, gets none, and without `spawnz.json` no
+`data/forever/spawnz.json`, which `data build` writes from CMaNGOS
+classic-db's spawn positions and, for an NPC or object classic-db lacks (one
+only Forever has), the Forever TrinityCore world database's sniffed spawn
+positions: the z of the entity's nearest spawn on the goal's instance map
+(its world point's, in the goal's frame), when that spawn is within 15 yards
+of the point. Nothing is guessed: an NPC neither source places, or one
+Forever moved more than 15 yards, gets none, and without `spawnz.json` no
 goal gets one. These goals can get one, their point being the NPC's or
 object's (its spawn, or your `@x,y` at it):
 

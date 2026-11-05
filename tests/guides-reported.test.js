@@ -26,6 +26,15 @@ const { makeProjector, dist } = require('../tools/lib/route/geo');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
+test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, from the Forever TDB when classic-db lacks him (#855)", { skip: skip || needs('spawnz.json') }, () => {
+	const list = goals('forever/class/paladin/tyrs-watch.guide');
+	for (const pred of [is('turnin', 94434), is('accept', 94435)]) {
+		const { goal } = list[at(list, 'Tanis Alderwood', pred)];
+		assert.equal(goal.npc, 257648);
+		assert.ok(Math.abs(goal.z - -43) < 3, `${goal.t} ${goal.quest}: z ${goal.z} is the city level, not the ruins above`);
+	}
+});
+
 test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/04-azshara.guide', 3505, 1447, null],

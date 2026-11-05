@@ -631,6 +631,11 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			None
 		}
 	};
+	let mut tdb_heights = 0;
+	if let (Some(h), Some(t)) = (heights.as_mut(), &tdb) {
+		tdb_heights = crate::cmangos::add_tdb_heights(h, t);
+		log(&format!("spawn heights: {tdb_heights} NPCs and objects classic-db lacks, from the Forever TDB's sniffed spawns"));
+	}
 	let moves = match crate::cmangos::load_moves(&o.sources) {
 		Ok(m) => Some(m),
 		Err(e) => {
@@ -643,7 +648,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let mut training_doc: Option<V> = None;
 	let mut trainers_doc: Option<V> = None;
 	let mut kb: Option<crate::kb::KbOut> = None;
-	let mut tdb_used = nodes_added > 0;
+	let mut tdb_used = nodes_added > 0 || tdb_heights > 0;
 	match crate::cmangos::load_training(&o.sources) {
 		Ok(t) => training_doc = Some(obj_of(vec![("schema", V::Num(1.0)), ("source", s(&format!("cmangos classic-db {}", &crate::cmangos::DB_REV[..12]))), ("classes", t.get("classes"))])),
 		Err(e) => warnings.push(format!("CMaNGOS classic-db training costs unavailable ({e}); training.json not written")),
