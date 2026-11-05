@@ -2685,7 +2685,7 @@
 			"kind": "in-game-check",
 			"ref": "#867"
 		},
-		"note": "The New Plague (Undercity, Theodore Griffs in the Apothecarium) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: a level 16 Tauren Druid without the chain was not offered it, and was offered it at level 17 right after the chain (#867). Forever's quest data lists no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs too early."
+		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
 	},
 	"95217": {
 		"set": {
