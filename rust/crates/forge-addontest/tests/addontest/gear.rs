@@ -541,3 +541,39 @@ fn a_feral_druid_takes_the_harder_hitting_mace_over_a_caster_staff_with_more_sta
 	let out = run(script, Opts { cls: "DRUID", class_name: "Druid", class_id: 11, level: 20, ..Default::default() }).remove(0);
 	assert_eq!(out["up"], true, "5.2 more weapon DPS outweighs 7 Stamina and 7 Intellect");
 }
+
+// #833: an Orc Hunter at 13 with Rusty Hatchet (2.9 DPS, no stats) was told Jagged Dagger (6.0 DPS, +1 Strength)
+// is a big downgrade. Axe Specialization's 1% crit was worth the Hunter's whole crit weight (10, the bow's) on the
+// axe, against 0.5 per melee DPS: the axe scored 11.45, the dagger 3.1. A melee weapon's racial crit now counts
+// by the spec's melee share (0.5 of 6.5); an Orc Warrior's axe keeps it whole. The items are Polestar_ItemDB's.
+const AXE_AND_DAGGER: &str = r#"
+		Polestar.ItemDB.Register(nil, {
+			[1416] = "21 9 4 0 2 0 dmin4 dmax8 speed2100",
+			[4947] = "13 11 0 2 2 15 str1 dmin6 dmax12 speed1500",
+		})
+		g.defineItem("item:1416", { equipLoc = "INVTYPE_WEAPONMAINHAND", classID = 2, subclassID = 0, minLevel = 4 })
+		g.defineItem("item:4947", { equipLoc = "INVTYPE_WEAPON", classID = 2, subclassID = 15, minLevel = 0,
+			stats = { ITEM_MOD_STRENGTH_SHORT = 1, ITEM_MOD_DAMAGE_PER_SECOND_SHORT = 6 } })
+		g.equip(16, "item:1416")
+		local function round(x) return math.floor(x * 100 + 0.5) / 100 end
+		local axe = G.GetItemInfo("item:1416")
+		local w = G.GetWeights()
+		emit({ axe = round(G.ScoreWith(axe, w)), dagger = round(G.ScoreItem("item:4947")) })
+		emit(g.showTooltip(GameTooltip, "item:4947"))
+"#;
+
+#[test]
+fn an_orc_hunters_axe_specialization_counts_by_how_much_a_hunter_fights_in_melee() {
+	let orc = |cls: &'static str, class_name: &'static str, class_id: i32| Opts { cls, class_name, class_id, level: 13, race: "Orc", race_id: 2, ..Opts::default() };
+	let hunter = run(AXE_AND_DAGGER, orc("HUNTER", "Hunter", 3));
+	// 2.9 x 0.5 + 10 x 1% x (0.5 / 6.5); 6.0 x 0.5 + 0.1.
+	assert_eq!(hunter[0], json!({ "axe": 2.22, "dagger": 3.1 }));
+	assert_eq!(hunter[1], json!(["Polestar · Beast Mastery | +40% upgrade · Main Hand"]));
+	// A Warrior fights with the axe: Axe Specialization counts whole (the dagger's double DPS still wins).
+	let warrior = run(AXE_AND_DAGGER, orc("WARRIOR", "Warrior", 1));
+	let (axe, dagger) = (warrior[0]["axe"].as_f64().unwrap(), warrior[0]["dagger"].as_f64().unwrap());
+	let w = run("local w = G.GetWeights() emit({ dps = w.dps, crit = w.crit })", orc("WARRIOR", "Warrior", 1));
+	let (dps_w, crit_w) = (w[0]["dps"].as_f64().unwrap(), w[0]["crit"].as_f64().unwrap());
+	assert!((axe - (2.9 * dps_w + crit_w)).abs() < 0.01, "the Warrior's axe keeps the whole crit: {axe} vs {dps_w} {crit_w}");
+	assert!(dagger > axe, "{dagger} > {axe}");
+}
