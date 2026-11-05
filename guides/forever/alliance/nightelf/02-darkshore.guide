@@ -205,29 +205,6 @@ step Hearth to Auberdine
   hearth "Auberdine" only Human,Dwarf,Gnome,Skyborne
   vendor nearest
 
-# ---------------------------------------------------------------- Fourth loop: the south
-
-step The Grove of the Ancients
-  tip Follow the road south. Onu is the ancient at the Grove; Arbal and Kerlonian Evershade sleep beside him.
-  accept 98013                                -- Arbal
-
-step Auberdine
-  tip Follow the road north.
-  vendor nearest
-
-step The naga
-  tip Follow the coast north-east to the Ruins of Mathystra. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore.
-  kill 2181 quest 98013
-  kill 2182 quest 98013
-  kill 2183 quest 98013
-
-step Back south
-  hearth "Auberdine" only Human,Dwarf,Gnome,Skyborne -- Hearthstone on cooldown? Follow the coast road back south.
-  turnin 98013                                -- Arbal
-
-step Auberdine
-  vendor nearest
-
 step Darkshore
   zone Darkshore
   goto 36.4,45.6 "Darkshore"

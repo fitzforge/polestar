@@ -100,8 +100,8 @@ return {
 	["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 
 	-- Step 19: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 20: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -124,30 +124,18 @@ return {
 	-- {area:447} Ameth'Aran
 	["The flame burns in the south of {area:447}."] = "La flamme brûle au sud d'{area:447}.",
 
-	-- Step 31: The Grove of the Ancients
-	-- {area:448} Grove of the Ancients
-	["The {area:448}"] = "{area:448}",
-	-- {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Suivez la route vers le sud. Onu est l'ancien du Bosquet ; {npc:270269} et {npc:11218} dorment à côté de lui.",
-
-	-- Step 32: Auberdine
-	["Follow the road north."] = "Suivez la route vers le nord.",
-
-	-- Step 33: The naga
-	["The naga"] = "Les nagas",
-	-- {area:443} Ruins of Mathystra
-	-- plural, as words: Mathystra Relics = {item:5273} Mathystra Relic · Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Suivez la côte vers le nord-est jusqu'aux {area:443}. Des Reliques de Mathystra jonchent les ruines ; des Myrmidons, des Ensorceleuses et des Guerriers Tempécaille les gardent, et des Maîtresses des bêtes Tempécaille arpentent le rivage.",
-
-	-- Step 34: Back south
-	["Back south"] = "Retour au sud",
-	["Hearthstone on cooldown? Follow the coast road back south."] = "Pierre de foyer en recharge ? Suivez la route côtière vers le sud.",
-
-	-- Step 38: Into Elwynn Forest
+	-- Step 33: Into Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Into {area:12}"] = "Vers {area:12}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back south"] = "Retour au sud",
+	-- ["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "Suivez la côte vers le nord-est jusqu'aux {area:443}. Des Reliques de Mathystra jonchent les ruines ; des Myrmidons, des Ensorceleuses et des Guerriers Tempécaille les gardent, et des Maîtresses des bêtes Tempécaille arpentent le rivage.",
+	-- ["Follow the road north."] = "Suivez la route vers le nord.",
+	-- ["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "Suivez la route vers le sud. Onu est l'ancien du Bosquet ; {npc:270269} et {npc:11218} dorment à côté de lui.",
+	-- ["Hearthstone on cooldown? Follow the coast road back south."] = "Pierre de foyer en recharge ? Suivez la route côtière vers le sud.",
 	-- ["Into {area:148}"] = "Vers {area:148}",
+	-- ["The naga"] = "Les nagas",
+	-- ["The {area:448}"] = "{area:448}",
 	-- ["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 }

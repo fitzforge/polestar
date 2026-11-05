@@ -1885,6 +1885,17 @@
 					91736
 				],
 				"why": "#820/#823: the Applejack Still (91736) takes four Shiny Red Apples and never enters the quest log; it gives the Thunder Applejack on the spot (players' recordings: 4 hand-ins, no accept, no quest window). The route took it on the first Westbrook trip (01-elwynn-forest step 70), before Homer Stonefield's apples (step 89), and the writer gated the later still visit on `when onquest 91736`, which never holds: players without apples reached Sergeant De Vries with no Applejack (recorded: step 89 -> 91). After the Stonefield farm (turnin 87, where the buy is) the still comes once, with the apples in the bags."
+			},
+			{
+				"a": [
+					"turnin",
+					950
+				],
+				"b": [
+					"accept",
+					98013
+				],
+				"why": "High-level-areas sweep (0.3.2): Swelling Forces (98013, quest level 20; the Stormscale naga at the Ruins of Mathystra are 18-21) needs Return to Onu (950) handed in, which the Night Elf start's own Darkshore guide never does. nightelf/02-darkshore took it at the Grove at about 13 (the judge: accepted before its prerequisite) and sent the player north to the naga and back south for it; the shared 03-darkshore takes it right after 950 at about 19. With 950 first, the Night Elf start leaves it to the shared visit"
 			}
 		],
 		"notes": [

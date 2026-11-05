@@ -1107,6 +1107,15 @@ test(`${ELWYNN}: the step that lists Croaky's Head warns he is a level 11 elite,
 	assert.match(tip, /with a group or once you're level 10/, tip);
 });
 
+// Swelling Forces (98013, level 20 naga) needs Return to Onu (950), which only
+// the shared Darkshore hands in: the Night Elf start's own Darkshore left it
+// unoffered at about 13 and walked to the naga for it.
+test('Night Elf Darkshore: Swelling Forces waits for the shared Darkshore visit, after Return to Onu', { skip }, () => {
+	assert.ok(!goals('forever/alliance/nightelf/02-darkshore.guide').some(({ goal }) => goal.quest === 98013), 'not in the Night Elf start\'s own Darkshore');
+	const list = goals(DARKSHORE);
+	assert.ok(at(list, 'turnin 950', is('turnin', 950)) < at(list, 'accept 98013', is('accept', 98013)), 'the shared Darkshore takes it after Return to Onu');
+});
+
 // A Last Request (93927): the game's objective 1 is the Bloody Note ("Collect
 // and read the note"), 2 is Skypriest Aanders (players' recordings, Forever's
 // quest data). Written swapped, the note goal followed Aanders' line and stayed

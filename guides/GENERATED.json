@@ -30,7 +30,7 @@
     "forever/alliance/gnome/01-dun-morogh.guide": "65d15b27c738ee10b27d7234d47bfe49243441eab5153ec1ab7711e4f29c7bf4",
     "forever/alliance/human/01-elwynn-forest.guide": "3bf3e24a3603aa54fd68002a63b7d46e7a175564b477232094ad1389041bd1c3",
     "forever/alliance/nightelf/01-teldrassil.guide": "9be879ee10b784f5334c3c8081f6fa0286f00709087e3e558f842d85d2af4f84",
-    "forever/alliance/nightelf/02-darkshore.guide": "6a8ad196f0fcf11e6550429582fe7b6cd5dcffe34e19a9902152338b938b606a",
+    "forever/alliance/nightelf/02-darkshore.guide": "d75ce7ae30a990cd5a1e17f132e65fe5972e5d429e8db6139ea597c20e4f6255",
     "forever/alliance/skyborne/01-zephras-isle.guide": "7b1d86620b54bc6ec50f6d63a1d77e4c488d2d179c29aa16b9a9e0fb1c22454a",
     "forever/horde/02-the-barrens.guide": "3489229d5970e48c906048aee55839f803a6a17d9f4aae9b8b575e826e3a2038",
     "forever/horde/03-silverpine-forest.guide": "a0869088a65365282951061ac13f03affe1d5d4581bd0fb23bfcdecbf9cbd265",
@@ -60,6 +60,6 @@
     "forever/horde/tauren/01-mulgore.guide": "0336e81862ee7798235921f0c6d0db9821f4984caf0affd4b665b0370e5fb5f3",
     "forever/horde/troll/01-durotar.guide": "a20652bc39c80d821b0649b7ed468e9c8b15160c9f3c4476f29c744b434ee59c",
     "forever/horde/undead/01-tirisfal-glades.guide": "c72a3e01a1c698b58acca7134566fb4378d6c8c7529d843c4426c1d9f8efd4fd",
-    "legs.json": "24a41bc8ecb2f69c049db5cfecf765969e531680ca972ba6001ee14f018ce060"
+    "legs.json": "46d93fdfc454bd2e90f09ab8b4eb09dd2259e1b0f33773a094af2107ce763abb"
   }
 }
