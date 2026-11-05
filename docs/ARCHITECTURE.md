@@ -4579,11 +4579,15 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   and none left for later levels or at least 3 to take; once per dungeon per
   character (`CharState().dungeonToastSeen`); of several, the one whose range
   began last. It checks 1.5 s after `PLAYER_LEVEL_UP`, so the class quest
-  heads-up has the card first, and 4 s after login, then only for a dungeon
-  whose range began within the last two levels. In combat (the Codex may
+  heads-up has the card first; 4 s after login, then only for a dungeon
+  whose range began within the last two levels; and 1.5 s after
+  `QUEST_TURNED_IN` of a quest on a dungeon's page (a prerequisite whose
+  follow-ups there may open), then only for that dungeon. In combat (the Codex may
   have to load) or while another card is shown it waits for
-  `PLAYER_REGEN_ENABLED` or `HEADS_UP_HIDDEN` (fired by `UI.ClassToast.Hide`).
-  `/polestar dungeontoast [dungeon]` shows it again.
+  `PLAYER_REGEN_ENABLED` or `HEADS_UP_HIDDEN` (fired by `UI.ClassToast.Hide`);
+  the waiting checks run in order until one shows a card.
+  `/polestar dungeontoast [dungeon]` shows it again ("Nothing to pick up" for
+  a dungeon with no quest to take now).
 - **Hub** (`UI/Picker.lua`, `UI.ShowPicker(opts)`; the window the guide menu
   grew into, `docs/SUITE.md` "UI"). A section rail (`W.Shell` with
   `rail = true`, `W.ShellRail`) at the window's left: the emblem, then one

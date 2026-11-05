@@ -944,3 +944,59 @@ fn at_login_only_a_dungeon_whose_range_began_in_the_last_two_levels_is_told() {
 		"17-24: three levels in at 20 is too old for a login heads-up, two at 19 is not"
 	);
 }
+
+// "Or a finished prerequisite" (#836): the fixture's Wailing Caverns has no page quest that opens another, so
+// its plan is wrapped to stand in for one: until Leaders of the Fang (914, on the page, in the log) is handed
+// in, one quest waits for a later level (two to take: not told); once it is, a third opens (told).
+#[test]
+fn handing_in_a_quest_of_the_dungeons_page_tells_it_once_its_follow_ups_open() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local plan = Polestar.Dungeons.PickupPlan
+		Polestar.Dungeons.PickupPlan = function(key)
+			local p = plan(key)
+			if p and key == "wailing-caverns" then
+				if done[914] then p.take[#p.take + 1] = {{ quest = {{ id = 90099 }} }} else p.later = 1 end
+			end
+			return p
+		end
+		levelUp(20)
+		emit({{ levelUp = card().shown }})
+		log[914], done[914] = nil, true
+		-- A quest that isn't on the page tells nothing, not even a dungeon that is due by now.
+		stub.fire("QUEST_TURNED_IN", 1490)
+		stub.advance(2)
+		emit({{ otherQuest = card().shown }})
+		-- Handed in while another card is shown: it waits for that one.
+		CT.ShowCard({{ head = "LEVEL 20 · DRUID", title = "Cat Form ready", class = "DRUID", guideId = "x" }})
+		stub.fire("QUEST_TURNED_IN", 914)
+		stub.advance(2)
+		local waiting = card().title
+		CT.Hide()
+		emit({{ waiting = waiting, before = card().shown }})
+		stub.advance(1)
+		local c = card()
+		emit({{ dungeon = c.dungeon, line = c.line }})"#
+	));
+	assert_eq!(out[0], json!({ "levelUp": false }), "two to take and one for later is not enough (MIN_OPEN)");
+	assert_eq!(out[1], json!({ "otherQuest": false }));
+	assert_eq!(out[2], json!({ "waiting": "Cat Form ready", "before": false }));
+	assert_eq!(out[3], json!({ "dungeon": "wailing-caverns", "line": "3 quests to pick up  ·  Levels 17–24  ·  The Barrens" }));
+}
+
+#[test]
+fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_without_a_level() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local printed = {{}}
+		Polestar.Print = function(...) printed[#printed + 1] = table.concat({{ ... }}, " ") end
+		Polestar.RunCommand("dungeontoast deadmines")
+		emit({{ shown = card().shown, printed = printed }})
+		printed = {{}}
+		Polestar.Levels.Player = function() return {{ faction = "Horde" }} end
+		Polestar.RunCommand("dungeontoast wailing caverns")
+		emit({{ shown = card().shown, printed = printed }})"#
+	));
+	assert_eq!(out[0], json!({ "shown": false, "printed": ["Nothing to pick up"] }), "the Deadmines has no Horde quests");
+	assert_eq!(out[1], json!({ "shown": false, "printed": ["No dungeon has opened up for this character."] }));
+}

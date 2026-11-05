@@ -14,13 +14,17 @@
 -- left for later levels or at least MIN_OPEN to take. At a level-up, after
 -- DELAY seconds so the class quest heads-up goes first; at login, only for a
 -- dungeon whose range began within LOGIN_LEVELS levels, after the class
--- quest heads-up and the class guide banner. Never in combat (the Codex may
+-- quest heads-up and the class guide banner; after a quest of a dungeon's
+-- page is handed in (a prerequisite: its follow-ups there may open), only for
+-- that dungeon, after DELAY seconds so the completed flag has caught up. Never
+-- in combat (the Codex may
 -- have to load): it waits for combat to end, and while another heads-up is
 -- on the card it waits for that one to be dismissed (HEADS_UP_HIDDEN). Of
 -- several, the one whose range began last.
 --
---   UI.DungeonToast.Candidates(level, mode)  mode "levelup" | "login" | "any"
---   UI.DungeonToast.Check(level, mode)       show the first candidate
+--   UI.DungeonToast.Candidates(level, mode, questId)
+--       mode "levelup" | "login" | "turnin" (questId handed in) | "any"
+--   UI.DungeonToast.Check(level, mode, questId)  show the first candidate
 --   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key)
 --   /polestar dungeontoast [dungeon]         show it again
 
@@ -52,6 +56,14 @@ local function player()
 	return Lv and Lv.Player and Lv.Player() or {}
 end
 
+-- Whether quest id is one of the dungeon's page quests.
+local function onPage(key, id)
+	for _, q in ipairs(D().Quests(key)) do
+		if q.id == id then return true end
+	end
+	return false
+end
+
 local function on()
 	local Dg = D()
 	return Dg and Dg.IsEnabled and Dg.IsEnabled() and ns.Get("dungeons.headsUp") and true or false
@@ -59,11 +71,11 @@ end
 
 -- The dungeons to tell this character about at `level` (the character's when
 -- nil), the one whose range began last first ("any": told ones too, for the
--- command): { key, name, zoneName,
--- minLevel, maxLevel, take, level }.
-function DT.Candidates(level, mode)
+-- command; "turnin": only dungeons whose page has questId): { key, name,
+-- zoneName, minLevel, maxLevel, take, level }.
+function DT.Candidates(level, mode, questId)
 	local Dg = D()
-	if not (on() and Dg.List and Dg.PickupPlan) then return {} end
+	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests) then return {} end
 	local p = player()
 	level = level or p.level
 	local side = SIDE[p.faction or ""]
@@ -72,7 +84,8 @@ function DT.Candidates(level, mode)
 	for _, d in ipairs(Dg.List()) do
 		local min, max = d.minLevel, d.maxLevel
 		if d.kind == "dungeon" and (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "login" or level - min <= LOGIN_LEVELS) then
+			and (d.quests[side] or 0) > 0 and (mode ~= "login" or level - min <= LOGIN_LEVELS)
+			and (mode ~= "turnin" or onPage(d.key, questId)) then
 			local plan = Dg.PickupPlan(d.key)
 			local take = plan and #plan.take or 0
 			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
@@ -140,26 +153,35 @@ function DT.TurnOff()
 	ns.Print(L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."])
 end
 
--- A check that has to wait (combat, another heads-up on the card).
-local pending
+-- The checks that have to wait (combat, another heads-up on the card), in
+-- order, each once: a level-up and a turn-in while a card is shown both stay.
+local pending = {}
 
-function DT.Check(level, mode)
+function DT.Check(level, mode, questId)
 	if not on() then return false end
 	local C, T = ns.Compat, CT()
 	if (C.InCombat and C.InCombat()) or (T and T.current) then
-		pending = { level, mode }
+		for _, p in ipairs(pending) do
+			if p[1] == level and p[2] == mode and p[3] == questId then return false end
+		end
+		pending[#pending + 1] = { level, mode, questId }
 		return false
 	end
-	pending = nil
-	local c = DT.Candidates(level, mode)[1]
+	local c = DT.Candidates(level, mode, questId)[1]
 	return c ~= nil and DT.Show(c) or false
 end
 
+-- Runs the waiting checks until one shows a card (the rest are dropped, as
+-- at a level-up only one dungeon is told); one still blocked waits again.
 local function retry()
-	if not pending then return end
-	local p = pending
+	if #pending == 0 then return end
+	local waiting = pending
 	ns.After(0.5, function()
-		if pending == p then DT.Check(p[1], p[2]) end
+		if pending ~= waiting then return end
+		pending = {}
+		for _, p in ipairs(waiting) do
+			if DT.Check(p[1], p[2], p[3]) then return end
+		end
 	end)
 end
 
@@ -180,6 +202,12 @@ ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	ns.After(4, function() DT.Check(nil, "login") end)
 end)
 
+-- A quest of a dungeon's page handed in may open its follow-ups there.
+ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
+	local id = tonumber(questID)
+	if id then ns.After(DELAY, function() DT.Check(nil, "turnin", id) end) end
+end)
+
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", retry)
 ns.On("HEADS_UP_HIDDEN", retry)
 
@@ -192,8 +220,11 @@ ns.RegisterCommand("dungeontoast", function(rest)
 	end
 	if not c and key and Dg.Get(key) then
 		local d, plan = Dg.Get(key), Dg.PickupPlan(key)
-		c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = plan and #plan.take or 0,
-			level = player().level }
+		local take, level = plan and #plan.take or 0, player().level
+		if take == 0 then return ns.Print(L["Nothing to pick up"]) end
+		if type(level) == "number" then
+			c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = take, level = level }
+		end
 	end
 	if not (c and DT.Show(c)) then ns.Print(L["No dungeon has opened up for this character."]) end
 end, L["Show the dungeon heads-up again (the next one due, or a dungeon)"])
