@@ -432,6 +432,26 @@ function Compat.GetItemQuality(itemID)
 	return nil
 end
 
+-- The colour the game's tooltip gives an item's name (r, g, b), or nil where
+-- the client has no C_TooltipInfo or the item is not loaded yet: its first
+-- line is then the red "Retrieving item information". Kept for the session.
+local itemTipColors = {}
+function Compat.ItemTipColor(itemID)
+	if type(itemID) ~= "number" then return nil end
+	local known = itemTipColors[itemID]
+	if known then return known[1], known[2], known[3] end
+	local get = C_TooltipInfo and C_TooltipInfo.GetItemByID
+	if not get then return nil end
+	local ok, data = pcall(get, itemID)
+	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
+	if type(line) ~= "table" then return nil end
+	local text, c = line.leftText, line.leftColor
+	if type(text) ~= "string" or text == "" or isSecret(text) or text == RETRIEVING_ITEM_INFO then return nil end
+	if type(c) ~= "table" or type(c.r) ~= "number" or isSecret(c.r) then return nil end
+	itemTipColors[itemID] = { c.r, c.g, c.b }
+	return c.r, c.g, c.b
+end
+
 -- The client's colour for an item quality as "ffrrggbb" (|c escapes), or nil.
 function Compat.ItemQualityHex(quality)
 	local colors = type(quality) == "number" and ITEM_QUALITY_COLORS

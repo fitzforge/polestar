@@ -683,6 +683,7 @@ Compat.GetOfferedQuests(source)        -> { questID, ... } | nil   (source "goss
 Compat.IsQuestTrivial(qlvl, level)     -> bool   (grey for that level)
 Compat.GetItemCount(itemID, includeBank) -> number   (includeBank: the bank's too)
 Compat.GetItemQuality(itemID)          -> 0..7 | nil (nil while not cached)
+Compat.ItemTipColor(itemID)            -> r, g, b | nil (its tooltip's title colour; nil until loaded)
 Compat.ItemQualityHex(quality)         -> "ffrrggbb" | nil
 Compat.ItemIcon(itemID)                -> icon | nil (C_Item.GetItemIconByID; no cache needed)
 Compat.SpellIcon(spellID)              -> icon | nil
@@ -4700,7 +4701,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (its turn-in when that one is in the log), else the quest's giver, its
   tooltip saying which; the Chain (`Dungeons.Quest` per id, a pin each; the
   steps still to do numbered, the next one on an accent ground),
-  Choose one / You get item tiles (quality border; hover `GameTooltip:
+  Choose one / You get item tiles (border and name in the colour of the
+  item's tooltip, else its quality, the client's then the page's, painted
+  again when the item loads; hover `GameTooltip:
   SetHyperlink`, where Gear adds its upgrade line; modified clicks through
   `HandleModifiedItemClick`), XP, money and reputation chips. Bosses: kill
   order, name, level, each tied quest ("Kill it for", "Drops X for", "Drops X,
