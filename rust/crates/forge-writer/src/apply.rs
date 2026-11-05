@@ -5422,6 +5422,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		if cx.route_travel {
 			*t = hub_steps(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
 			*t = sweep_goals(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
+			*t = hand_ins_into_loops(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
 		}
 		*t = re!(r"\n{3,}").replace_all(t, "\n\n").into_owned();
 	}
@@ -8390,6 +8391,11 @@ fn area_work_steps(cx: &Ctx, lines: Vec<String>, task_pt: &FxHashMap<(u32, Optio
 
 /// A named target (fewer spawns than a camp's) this many levels over a step's camps is worked last.
 const HARD_LEVEL_GAP: f64 = 3.0;
+/// Yards a hand-in may add to an area or loop step's walk to be done on its way, right after the goal
+/// that finishes its quest (loop_detour: walk(finish, NPC) + walk(NPC, next goal) - walk(finish, next
+/// goal); Fitz: a detour, not a distance, so an NPC behind or beside the way the loop goes stays out).
+/// Hana'zua between Sarkoth and the Vile Familiars on the Valley of Trials loop: 150 + 228 - 348 = 29 yd.
+const ON_THE_WAY_YD: f64 = 40.0;
 
 /// A step's field goals (kill, collect, interact for a quest objective, for everyone, not optional; not
 /// in a `loop` or `along` step) in the order a player sweeps them from where the step is entered: the
@@ -8608,6 +8614,241 @@ fn sweep_goals(cx: &Ctx, lines: Vec<String>) -> Vec<String> {
 		i = j;
 	}
 	out
+}
+
+/// The walk store's yards between two places when both are world points (within SNAP_YD of one) and
+/// it has the pair.
+fn loop_walk(cx: &Ctx, a: Pt, b: Pt) -> Option<f64> {
+	const SNAP_YD: f64 = 10.0;
+	let w = cx.walks?;
+	if a.c != b.c {
+		return None;
+	}
+	let snap = |p: Pt| (0..cx.world.points.len() as u32).find(|&i| cx.w(Some(i)).is_some_and(|w| w.c == p.c && js_hypot(w.wx - p.wx, w.wy - p.wy) <= SNAP_YD));
+	w.yards(snap(a)?, snap(b)?).filter(|&v| v >= 0.0)
+}
+
+/// Yards between two places for a loop: loop_walk's, else straight; infinite across continents.
+fn loop_yd(cx: &Ctx, a: Pt, b: Pt) -> f64 {
+	if a.c != b.c {
+		return f64::INFINITY;
+	}
+	loop_walk(cx, a, b).unwrap_or_else(|| js_hypot(a.wx - b.wx, a.wy - b.wy))
+}
+
+/// Yards a stop at `npc` adds between loop goals at `a` and `b`: the walk store's yards when it has
+/// all three legs (loop_walk), else straight ones, never a mix (Sarkoth to Hana'zua is 150 yd straight
+/// and 161 walked; with the rest straight that read 41 yd for a 29 yd detour).
+fn loop_detour(cx: &Ctx, a: Pt, npc: Pt, b: Pt) -> f64 {
+	if let (Some(w1), Some(w2), Some(w3)) = (loop_walk(cx, a, npc), loop_walk(cx, npc, b), loop_walk(cx, a, b)) {
+		return w1 + w2 - w3;
+	}
+	let d = |x: Pt, y: Pt| if x.c == y.c { js_hypot(x.wx - y.wx, x.wy - y.wy) } else { f64::INFINITY };
+	d(a, npc) + d(npc, b) - d(a, b)
+}
+
+/// A hand-in the walk would come back for, done in the loop instead (Fitz, c19r Durotar: Sarkoth's
+/// hand-in at Hana'zua, on the slope the Valley of Trials loop crosses, written after the Burning Blade
+/// Coven). A step of two or more field goals (an area or loop step) finishes quest Q: its last goal
+/// of Q is there and no later line before Q's hand-in works Q. The hand-in, with the follow-up accepts
+/// right after it at the same NPC, moves into the step right after Q's last goal when all of these
+/// hold, so the arrow takes the player to the NPC on the way, before the loop's next goal:
+/// - it saves a trip: the hand-in's step hands in or takes nothing else (a stop the route passes
+///   anyway, the Den after the valley loop, stays); the walk goes AWAY_YD from the NPC after Q's last
+///   goal, on the loop's later goals or between the loop and that step (or flies or hearths); and not
+///   when the loop ends within NEAR_YD of the NPC and the very next step hands Q in (the walk is
+///   there anyway: Those Blasted Troggs! at the end of Dun Morogh's trogg loop);
+/// - it is on the way: where Q finishes (its last goal's spot nearest the NPC) the NPC adds at most
+///   ON_THE_WAY_YD to the walk on to the loop's next goal (its spot nearest that; the step after the
+///   loop's place when Q's goal is the loop's last) (loop_detour). An NPC near the loop but behind
+///   the way it goes, or beside it, is a detour and stays.
+///
+/// Yards are the walk store's where loop_yd has them. Fitz's scale: 150 yd is near, 250 yd away.
+fn hand_ins_into_loops(cx: &Ctx, mut lines: Vec<String>) -> Vec<String> {
+	const NEAR_YD: f64 = 150.0;
+	const AWAY_YD: f64 = 250.0;
+	const STEPS_AHEAD: usize = 40;
+	// (A finishing goal's spots this far from the loop's place for it are another ground's: area_work_steps'
+	// AREA_YD.)
+	const GROUND_YD: f64 = 700.0;
+	let field_re = re!(r"^\s+(kill|collect|interact)\s+(\d+)\b.*?\bquest\s+(\d+)(?:\.\d+)?\b");
+	let d = |a: Pt, b: Pt| if a.c == b.c { js_hypot(a.wx - b.wx, a.wy - b.wy) } else { f64::INFINITY };
+	let spawns_of = |line: &str| -> Vec<Pt> { cx.work_spawn_pts(line).into_iter().map(|s| s.3).collect() };
+	let nearest = |pts: &[Pt], from: Option<Pt>| -> Option<Pt> {
+		match from {
+			Some(f) => pts.iter().copied().min_by(|a, b| d(f, *a).total_cmp(&d(f, *b))),
+			None => pts.first().copied(),
+		}
+	};
+	// (An NPC's place: its spawn nearest `from`.)
+	let npc_at = |q: u32, accept: bool, from: Option<Pt>| -> Option<Pt> {
+		let qd = cx.data.quests.get(&q)?;
+		let e = if accept { qd.start.as_ref() } else { qd.end.as_ref() }?;
+		let [n] = e.npc.as_slice() else { return None };
+		nearest(&spawns_of(&format!("  kill {n}")), from)
+	};
+	let quest_line = |l: &str| re!(r"^\s+(accept|turnin)\s+(\d+)\b").captures(split_comment(l).0).and_then(|m| Some((m[1].to_string(), m[2].parse::<u32>().ok()?)));
+	// (Where a line leaves the player, roughly: its NPC, or its goal's nearest target.)
+	let place = |l: &str, from: Option<Pt>| -> Option<Pt> {
+		if let Some((t, q)) = quest_line(l) {
+			return npc_at(q, t == "accept", from);
+		}
+		if field_re.is_match(split_comment(l).0) {
+			return nearest(&spawns_of(split_comment(l).0), from);
+		}
+		None
+	};
+	let step_end = |lines: &[String], s: usize| (s + 1..lines.len()).find(|&k| is_step(&lines[k]) || starts_nonspace(&lines[k])).unwrap_or(lines.len());
+	'again: loop {
+		let heads: Vec<usize> = (0..lines.len()).filter(|&k| is_step(&lines[k])).collect();
+		for (hi, &s) in heads.iter().enumerate() {
+			let e = step_end(&lines, s);
+			let body = s + 1..e;
+			if body.clone().any(|k| re!(r"^\s+(along|only|loop)\b").is_match(&lines[k])) {
+				continue;
+			}
+			let field: Vec<usize> = body.clone().filter(|&k| field_re.is_match(split_comment(&lines[k]).0) && !re!(r"\s(optional|only)\b").is_match(split_comment(&lines[k]).0)).collect();
+			if field.len() < 2 {
+				continue;
+			}
+			let quest = |k: usize| field_re.captures(split_comment(&lines[k]).0).and_then(|m| m[3].parse::<u32>().ok());
+			// (The loop's path: from the last place before it, each goal at its target nearest the one before;
+			// every field goal of the step, the class-split ones too: the Vile Familiars `only !Warlock` and the
+			// Warlocks' imps are where everyone goes next.)
+			let path: Vec<usize> = body.clone().filter(|&k| field_re.is_match(split_comment(&lines[k]).0) && !re!(r"\soptional\b").is_match(split_comment(&lines[k]).0)).collect();
+			let mut cur = (0..s).rev().find_map(|k| place(&lines[k], None));
+			let pts: Vec<Option<Pt>> = path
+				.iter()
+				.map(|&k| {
+					let p = nearest(&spawns_of(split_comment(&lines[k]).0), cur);
+					cur = p.or(cur);
+					p
+				})
+				.collect();
+			let mut qs: Vec<u32> = field.iter().filter_map(|&k| quest(k)).collect();
+			qs.dedup();
+			for q in qs {
+				let c = (0..field.len()).rev().find(|&x| quest(field[x]) == Some(q)).unwrap();
+				let pc = path.iter().position(|&k| k == field[c]).unwrap();
+				let mentions = |l: &str| {
+					let code = split_comment(l).0;
+					re!(r"\bquest\s+(\d+)\b").captures_iter(code).any(|m| m[1].parse::<u32>().ok() == Some(q)) || quest_line(l).is_some_and(|x| x.1 == q)
+				};
+				// (Its hand-in in a later step, nothing of Q between.)
+				let Some(&s2) = heads[hi + 1..].iter().take(STEPS_AHEAD).find(|&&h| (h + 1..step_end(&lines, h)).any(|k| quest_line(&lines[k]) == Some(("turnin".into(), q)))) else { continue };
+				let e2 = step_end(&lines, s2);
+				let t = (s2 + 1..e2).find(|&k| quest_line(&lines[k]) == Some(("turnin".into(), q))).unwrap();
+				if (e..s2).any(|k| mentions(&lines[k])) || (s2 + 1..t).any(|k| is_goal(split_comment(&lines[k]).0)) {
+					continue;
+				}
+				let Some(npc) = npc_at(q, false, pts[pc]) else { continue };
+				// (Where Q may finish: every spot of its last goal on this loop's ground (within GROUND_YD of
+				// the loop's place for it; one for a named mob, Sarkoth, whose other spawn in the Barrens is
+				// another loop's).)
+				let Some(here) = pts[pc] else { continue };
+				let finish: Vec<Pt> = spawns_of(split_comment(&lines[field[c]]).0).into_iter().filter(|&p| d(p, here) <= GROUND_YD).collect();
+				if finish.is_empty() {
+					continue;
+				}
+				// (The follow-ups taken there with it; any other goal in that step: the walk is there anyway.)
+				let mut take = vec![t];
+				let mut other = false;
+				for k in t + 1..e2 {
+					let code = split_comment(&lines[k]).0;
+					if !is_goal(code) {
+						continue;
+					}
+					match quest_line(&lines[k]) {
+						Some((a, f))
+							if a == "accept"
+								&& take.last() == Some(&(k - 1))
+								&& npc_at(f, true, Some(npc)).is_some_and(|p| d(p, npc) < 5.0)
+								&& cx.data.quests.get(&f).is_some_and(|x| x.pre.iter().chain(x.pre_any.iter()).flatten().any(|v| v.as_f64() == Some(f64::from(q)))) =>
+						{
+							take.push(k)
+						}
+						_ => other = true,
+					}
+				}
+				if other {
+					continue;
+				}
+				// (A trip saved: the walk goes AWAY_YD from the NPC after Q's last goal, on the loop or
+				// between, or travels; not when the loop ends near the NPC and the next step hands Q in.)
+				let between = (e..s2).filter(|&k| place(&lines[k], Some(npc)).is_some() || re!(r"^\s+(fly|hearth|die)\b").is_match(&lines[k])).count();
+				let ends_there = between == 0 && pts.last().copied().flatten().is_some_and(|x| loop_yd(cx, x, npc) <= NEAR_YD);
+				let trip = pts[pc + 1..].iter().flatten().any(|&p| loop_yd(cx, p, npc) >= AWAY_YD)
+					|| (e..s2).any(|k| re!(r"^\s+(fly|hearth|die)\b").is_match(&lines[k]) || place(&lines[k], Some(npc)).is_some_and(|p| loop_yd(cx, p, npc) >= AWAY_YD));
+				if ends_there || !trip {
+					continue;
+				}
+				// (On the way from every spot Q may finish at: a spread camp where it depends on where the
+				// last one drops stays as it is.)
+				let next = path.get(pc + 1).map(|&k| spawns_of(split_comment(&lines[k]).0));
+				let worst = finish
+					.iter()
+					.map(|&a| {
+						let b = match &next {
+							Some(n) => nearest(n, Some(a)),
+							None => (e..s2).find_map(|k| place(&lines[k], Some(a))),
+						};
+						b.map_or(f64::INFINITY, |b| loop_detour(cx, a, npc, b))
+					})
+					.fold(f64::NEG_INFINITY, f64::max);
+				if worst > ON_THE_WAY_YD {
+					continue;
+				}
+				let moved: Vec<String> = take.iter().map(|&k| lines[k].clone()).collect();
+				for &k in take.iter().rev() {
+					lines.remove(k);
+				}
+				// (The hand-in's step left with no goal goes, with its blank line.)
+				let e2 = step_end(&lines, s2);
+				if !(s2 + 1..e2).any(|k| is_goal(split_comment(&lines[k]).0)) {
+					let end = if lines.get(e2).is_some_and(|l| l.trim().is_empty()) { e2 + 1 } else { e2 };
+					lines.drain(s2..end);
+				}
+				let at = field[c] + 1;
+				let follow: Vec<u32> = moved.iter().filter_map(|l| quest_line(l).filter(|x| x.0 == "accept").map(|x| x.1)).collect();
+				let n_moved = moved.len();
+				for (n, l) in moved.into_iter().enumerate() {
+					lines.insert(at + n, l);
+				}
+				// (A follow-up taken in the loop now is ready sooner: its hand-in goes to the first stop at its
+				// ender the route already makes before it (Sarkoth's 804 at Gornek on the Den return after the
+				// valley loop, not after the Burning Blade Coven), when nothing of it is between.)
+				for f in follow {
+					let from = at + n_moved;
+					let Some(tf) = (from..lines.len()).find(|&k| quest_line(&lines[k]) == Some(("turnin".into(), f))) else { continue };
+					if (from..tf).any(|k| {
+						let code = split_comment(&lines[k]).0;
+						re!(r"\bquest\s+(\d+)\b").captures_iter(code).any(|m| m[1].parse::<u32>().ok() == Some(f)) || quest_line(&lines[k]).is_some_and(|x| x.1 == f)
+					}) {
+						continue;
+					}
+					let Some(ender) = npc_at(f, false, None) else { continue };
+					let at_ender = |k: usize| quest_line(&lines[k]).is_some_and(|(t, x)| npc_at(x, t == "accept", Some(ender)).is_some_and(|p| d(p, ender) < 5.0));
+					let Some(stop) = (from..tf).find(|&k| is_step(&lines[k]) && (k + 1..step_end(&lines, k)).any(&at_ender)) else { continue };
+					if tf < step_end(&lines, stop) {
+						continue;
+					}
+					let last_goal = (stop + 1..step_end(&lines, stop)).rev().find(|&x| is_goal(split_comment(&lines[x]).0)).unwrap_or(stop);
+					let l = lines.remove(tf);
+					// (Its old step left with no goal goes, with its blank line.)
+					let s3 = (0..tf).rev().find(|&k| is_step(&lines[k])).unwrap_or(0);
+					let e3 = step_end(&lines, s3);
+					if s3 > last_goal && !(s3 + 1..e3).any(|k| is_goal(split_comment(&lines[k]).0)) {
+						let end = if lines.get(e3).is_some_and(|x| x.trim().is_empty()) { e3 + 1 } else { e3 };
+						lines.drain(s3..end);
+					}
+					lines.insert(last_goal + 1, l);
+				}
+				continue 'again;
+			}
+		}
+		break;
+	}
+	lines
 }
 
 /// Consecutive steps whose every goal is an accept or turn-in at one and the same NPC are one step,

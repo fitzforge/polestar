@@ -2,9 +2,10 @@
 //! (crate::hubs) read straight lines between its own steps, while the player walks the written
 //! guide, with its flight and dock walks, spawn spots, zone gotos and class detours (c13: the
 //! planner counted 9 walked-past on Orc's order, the check 40 on the written guides). So after the
-//! routes are written, the guides are written from them and the check's `walked-past`, `dup-trip`,
-//! `bounce` and `feel-return` (avoidable returns v1 does not make) read on them; each finding goes
-//! back to the route as a move (the quest's accept or hand-in done at the stop the walk passed, a
+//! routes are written, the guides are written from them and the check's `walked-past`,
+//! `finished-near`, `dup-trip`, `bounce` and `feel-return` (avoidable returns v1 does not make)
+//! read on them; each finding goes back to the route as a move (the quest's accept or hand-in done
+//! at the stop the walk passed, a hand-in made on a trip back done where its quest was finished, a
 //! return's work done on the visit before as one block: search::passby::flow_fixes), the routes and
 //! guides are written again, and the round is kept when the check finds fewer, at most FLOW_ROUNDS
 //! times.
@@ -17,10 +18,13 @@ use std::path::Path;
 pub const FLOW_ROUNDS: usize = 3;
 
 /// The rules read on the written guides.
-pub const FLOW_RULES: [&str; 4] = ["walked-past", "dup-trip", "bounce", "feel-return"];
+pub const FLOW_RULES: [&str; 5] = ["walked-past", "finished-near", "dup-trip", "bounce", "feel-return"];
 
 /// A rule whose finding is fixed by moving its lines together as one block (an avoidable return).
 pub const BLOCK_RULE: &str = "feel-return";
+/// The hand-in made on a trip back (crate::turnin): it and its follow-up accepts as one block, right
+/// after the line its quest was finished at.
+pub const NEAR_RULE: &str = "finished-near";
 /// One quest line of a written guide, as the route has it: (run kind K_ACCEPT, K_TASK or K_TURNIN,
 /// quest id).
 pub type Line = (u8, u32);

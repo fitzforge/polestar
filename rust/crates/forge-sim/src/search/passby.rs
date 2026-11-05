@@ -922,7 +922,7 @@ pub fn hub_sweep(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -930,28 +930,29 @@ pub fn hub_sweep(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<
 	// A fix refused is tried again after another move is kept (that move may be what it waited
 	// for: a follow-up handed in first), at most SWEEP_TRIES times; each kept move lowers the counts,
 	// so the rounds end.
-	let mut tried: rustc_hash::FxHashMap<(u8, u32, i32, bool), (u32, usize)> = Default::default();
+	let mut tried: rustc_hash::FxHashMap<(u8, u32, i32, std::mem::Discriminant<Fix>), (u32, usize)> = Default::default();
 	loop {
 		let (now, fixes) = hub_scan(p, h, m);
 		let mut any = false;
 		for fix in fixes {
 			let st = m.order.steps[fix.step()];
-			let t = tried.entry((st.kind, st.q, st.task, matches!(fix, Fix::Leg { .. }))).or_insert((0, usize::MAX));
+			let t = tried.entry((st.kind, st.q, st.task, std::mem::discriminant(&fix))).or_insert((0, usize::MAX));
 			// (Not again before another move is kept: `t.1` is the kept count it was last tried at.)
 			if t.0 >= SWEEP_TRIES || t.1 == kept.len() || plan_hearth(run, st) {
 				continue;
 			}
 			*t = (t.0 + 1, kept.len());
+			// (A hand-in made on a trip back moves only when the route is no slower for it: else waiting
+			// saves walking, crate::turnin's exception, priced by the replay.)
+			let allow = if matches!(fix, Fix::Near { .. }) { 0.0 } else { HUB_SWEEP_ALLOW_SEC };
 			for mv in sweep_moves(run, &m.order, fix) {
-				let got = match keep_seq(p, m, h, std::slice::from_ref(&mv), now, HUB_SWEEP_ALLOW_SEC, 0.0, |n, o| n.sum() < o.sum()) {
+				let got = match keep_seq(p, m, h, std::slice::from_ref(&mv), now, allow, 0.0, |n, o| n.sum() < o.sum()) {
 					// Its own quest's next step may need to follow (a hand-in ready once the accept
 					// moves, now passed on the way): the two together.
-					Tried::Retry(cand) => {
-						follow_ups(p, h, run, &cand, st.q).into_iter().find_map(|mv2| match keep_seq(p, m, h, &[mv.clone(), mv2], now, HUB_SWEEP_ALLOW_SEC, 0.0, |n, o| n.sum() < o.sum()) {
-							Tried::Kept(v) => Some(v),
-							_ => None,
-						})
-					}
+					Tried::Retry(cand) => follow_ups(p, h, run, &cand, st.q).into_iter().find_map(|mv2| match keep_seq(p, m, h, &[mv.clone(), mv2], now, allow, 0.0, |n, o| n.sum() < o.sum()) {
+						Tried::Kept(v) => Some(v),
+						_ => None,
+					}),
 					Tried::Kept(v) => Some(v),
 					Tried::No => None,
 				};
@@ -1031,7 +1032,7 @@ pub fn hub_batch(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1066,7 +1067,7 @@ pub fn hub_batch(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<
 				continue;
 			}
 			let (now, _) = hub_scan(p, h, m);
-			if let Tried::Kept(pks) = keep_seq(p, m, h, &[mv], now, HUB_BATCH_ALLOW_SEC, BATCH_LEVEL_SLACK, |n, o| n.left_ready <= o.left_ready && n.walked_past <= o.walked_past) {
+			if let Tried::Kept(pks) = keep_seq(p, m, h, &[mv], now, HUB_BATCH_ALLOW_SEC, BATCH_LEVEL_SLACK, |n, o| n.within(o)) {
 				for pk in pks {
 					log(&format!("hub batch at step {}: {:+.1} min", v.s, pk.added / 60.0));
 					kept.push(pk);
@@ -1098,7 +1099,7 @@ pub fn stay_on_continent(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str))
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1231,7 +1232,7 @@ pub fn trains_out_of_field(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1316,7 +1317,7 @@ pub fn hub_revisits(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1476,6 +1477,7 @@ fn judge_revisit(p: &Problem, m: &Member, check: &mut crate::order::Checker, h: 
 				("split work", b.split_work, c.split_work),
 				("left ready", hub_now.left_ready, hc.left_ready),
 				("walked past", hub_now.walked_past, hc.walked_past),
+				("finished near", hub_now.finished_near, hc.finished_near),
 			] {
 				if y > x {
 					raised += y - x;
@@ -1506,7 +1508,7 @@ pub fn defer_hard_work(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1613,7 +1615,7 @@ pub fn grind_topups(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1721,7 +1723,7 @@ pub fn grind_topups(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 		let (now, _) = hub_scan(p, h, m);
 		// A split may cost what it removes of the grind over TOPUP_MIN, up to TOPUP_SPLIT_ALLOW_SEC.
 		let allow = if g.explicit { (grind_excess(&gs) - grind_excess(&after)).clamp(TOPUP_ALLOW_SEC, TOPUP_SPLIT_ALLOW_SEC) } else { TOPUP_ALLOW_SEC };
-		if let Tried::Kept(pks) = keep_seq(p, m, h, &[mv], now, allow, 0.0, |n, o| n.left_ready <= o.left_ready && n.walked_past <= o.walked_past) {
+		if let Tried::Kept(pks) = keep_seq(p, m, h, &[mv], now, allow, 0.0, |n, o| n.within(o)) {
 			for pk in pks {
 				log(&format!("grind top-up at step {}: {:+.1} min", g.i, pk.added / 60.0));
 				kept.push(pk);
@@ -1814,7 +1816,7 @@ pub fn accept_gates(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 /// the stop the player walks past is worth what a quest taken where the player stands is).
 pub const FLOW_ALLOW_SEC: f64 = HUB_PICKUP_ALLOW_SEC;
 /// No bound from the planner's hub counts: they are what missed the finding (a hub batch undone).
-const NO_HUB_BOUND: HubCounts = HubCounts { left_ready: u32::MAX, walked_past: u32::MAX, passed_accepts: u32::MAX };
+const NO_HUB_BOUND: HubCounts = HubCounts { left_ready: u32::MAX, walked_past: u32::MAX, passed_accepts: u32::MAX, finished_near: u32::MAX };
 
 /// The written guides' findings (crate::flow: `walked-past`, `dup-trip`, `bounce`, `feel-return` on
 /// the guides the route was written as) as moves on the member's order, one at a time against the
@@ -1838,7 +1840,7 @@ pub fn flow_fixes(p: &Problem, m: &mut Member, findings: &[crate::flow::Finding]
 	let h = match &p.guard {
 		Some(g) => &g.data.hub,
 		None => {
-			own = HubData::new(run);
+			own = HubData::new(run).with_walks(run, p.walks);
 			&own
 		}
 	};
@@ -1873,8 +1875,10 @@ pub fn flow_fixes(p: &Problem, m: &mut Member, findings: &[crate::flow::Finding]
 		if fixed {
 			continue;
 		}
-		// An avoidable return: its lines together, right after the visit before's last line.
-		if f.rule == crate::flow::BLOCK_RULE {
+		// An avoidable return: its lines together, right after the visit before's last line. A hand-in
+		// made on a trip back (`finished-near`): it and its follow-up accepts, right after the line the
+		// quest was finished at.
+		if f.rule == crate::flow::BLOCK_RULE || f.rule == crate::flow::NEAR_RULE {
 			let mut js: Vec<usize> = f.lines.iter().filter_map(|&l| steps_of(&m.order, l).first().copied()).collect();
 			js.sort_unstable();
 			js.dedup();
@@ -1884,10 +1888,14 @@ pub fn flow_fixes(p: &Problem, m: &mut Member, findings: &[crate::flow::Finding]
 				continue;
 			}
 			let block: Vec<Step> = js.iter().map(|&j| m.order.steps[j]).collect();
-			let Some(mvs) = place_after(&m.order, m.order.steps[a], &block, "written check") else { continue };
+			let kind = if f.rule == crate::flow::NEAR_RULE { "hand in while there" } else { "written check" };
+			let Some(mvs) = place_after(&m.order, m.order.steps[a], &block, kind) else { continue };
 			let (now, _) = hub_scan(p, h, m);
-			if let Tried::Kept(pks) = keep_seq(p, m, h, &mvs, now, FLOW_ALLOW_SEC, 0.0, |_, _| true) {
-				log(&format!("written check, a return's work on the visit before ({}): {:+.1} min", f.text, pks.iter().map(|x| x.added).sum::<f64>() / 60.0));
+			// (A hand-in made on a trip back: only when the route is no slower for it, as the hub sweep.)
+			let allow = if f.rule == crate::flow::NEAR_RULE { 0.0 } else { FLOW_ALLOW_SEC };
+			if let Tried::Kept(pks) = keep_seq(p, m, h, &mvs, now, allow, 0.0, |_, _| true) {
+				let what = if f.rule == crate::flow::NEAR_RULE { "handed in while there" } else { "a return's work on the visit before" };
+				log(&format!("written check, {what} ({}): {:+.1} min", f.text, pks.iter().map(|x| x.added).sum::<f64>() / 60.0));
 				kept.extend(pks);
 			}
 			continue;
@@ -1981,6 +1989,7 @@ fn hub_scan(p: &Problem, h: &HubData, m: &Member) -> (HubCounts, Vec<Fix>) {
 		let f = match f {
 			Fix::Visit { j, s, e, after } if j >= off && e >= off && j - off < live => Fix::Visit { j: j - off, s: s.max(off) - off, e: e - off, after: after.max(off) - off },
 			Fix::Leg { j, i } if i >= off && j - off < live => Fix::Leg { j: j - off, i: i - off },
+			Fix::Near { j, n, to } if to >= off && j + n - off < live => Fix::Near { j: j - off, n, to: to - off },
 			_ => continue,
 		};
 		if !fixes.contains(&f) {
@@ -1999,6 +2008,7 @@ fn sweep_moves(run: &crate::run::Run, o: &Order, fix: Fix) -> Vec<Mv> {
 			cheapest_k(run, &o.steps, &loc, o.steps[j].pt, (s + 1).max(after + 1), e + 1, SWEEP_PLACES).into_iter().map(|to| Mv::Move { s: j, e: j, to, kind: "hub sweep" }).collect()
 		}
 		Fix::Leg { j, i } => vec![Mv::Move { s: j, e: j, to: i, kind: "on the way" }],
+		Fix::Near { j, n, to } => vec![Mv::Move { s: j, e: j + n, to, kind: "hand in while there" }],
 	}
 }
 
@@ -2017,6 +2027,7 @@ fn follow_ups(p: &Problem, h: &HubData, run: &crate::run::Run, cand: &Order, q: 
 		let f = match f {
 			Fix::Visit { j, s, e, after } if s >= off => Fix::Visit { j: j - off, s: s - off, e: e - off, after: after.max(off) - off },
 			Fix::Leg { j, i } if i >= off => Fix::Leg { j: j - off, i: i - off },
+			Fix::Near { j, n, to } if to >= off => Fix::Near { j: j - off, n, to: to - off },
 			_ => continue,
 		};
 		if !fixes.contains(&f) {
@@ -2072,7 +2083,7 @@ fn keep_seq(p: &Problem, m: &mut Member, h: &HubData, mvs: &[Mv], now_hub: HubCo
 	if !m.levels_ok_by(p, &cand, &next, slack) {
 		return Tried::No;
 	}
-	if hc.left_ready > now_hub.left_ready || hc.walked_past > now_hub.walked_past || !better(&hc, &now_hub) {
+	if !hc.within(&now_hub) || !better(&hc, &now_hub) {
 		return Tried::Retry(cand);
 	}
 	let lv = m.lv.clone();

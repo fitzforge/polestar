@@ -9,6 +9,9 @@
 //!   ready, went on more than [`LEAVE_YD`] away, and handed it in later.
 //! - [`left_ready`] (warn): a hub visit left with a takeable accept or a ready hand-in at one of its NPCs
 //!   that the walk comes back for later.
+//! - [`finished_near`] (blocker to level 30, warn above): a quest finished within
+//!   [`forge_sim::turnin::NEAR_YD`] of its ender, handed in only after the walk went
+//!   [`forge_sim::turnin::AWAY_YD`] away (info when waiting is right: forge_sim::turnin).
 
 use super::play::seg_dist;
 use super::*;
@@ -533,6 +536,107 @@ pub fn left_ready(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
 				),
 			));
 		}
+	}
+	out
+}
+
+/// A class's walk as forge_sim::turnin reads it: the goals where the walk is, straight yards.
+struct GoalLine<'a> {
+	goals: &'a [WalkGoal],
+	facts: &'a Facts,
+}
+
+impl forge_sim::turnin::Line for GoalLine<'_> {
+	fn len(&self) -> usize {
+		self.goals.len()
+	}
+	fn kind(&self, i: usize) -> forge_sim::turnin::Kind {
+		use forge_sim::turnin::Kind;
+		let g = &self.goals[i];
+		if !walk_here(g) {
+			return Kind::None;
+		}
+		match g.t.as_str() {
+			"accept" if g.q.is_some() => Kind::Accept,
+			"turnin" if g.q.is_some() => Kind::Turnin,
+			_ if g.q.is_some() && is_work_of(g, g.q.unwrap_or(0)) => Kind::Work,
+			_ if is_move(g) => Kind::Move,
+			_ if is_npc_line(g) => Kind::Npc,
+			_ => Kind::Move,
+		}
+	}
+	fn quest(&self, i: usize) -> u32 {
+		self.goals[i].q.and_then(|q| u32::try_from(q).ok()).unwrap_or(0)
+	}
+	fn yd(&self, a: usize, b: usize) -> f64 {
+		match (self.goals[a].w, self.goals[b].w) {
+			(Some(x), Some(y)) => dist(x, y),
+			_ => f64::INFINITY,
+		}
+	}
+	fn same_place(&self, a: usize, b: usize) -> bool {
+		self.yd(a, b) < 3.0
+	}
+	fn lvl_after(&self, i: usize) -> f64 {
+		self.goals[i].lvl_after.max(self.goals[i].lvl)
+	}
+	fn ready_after(&self, j: usize) -> Option<usize> {
+		let q = self.goals[j].q?;
+		let acc = self.goals[..j].iter().rposition(|x| x.t == "accept" && x.q == Some(q))?;
+		turnin_ready_after(self.goals, acc, j, q, self.facts)
+	}
+	fn min_level(&self, q: u32) -> f64 {
+		self.facts.quests.get(&i64::from(q)).and_then(|f| f.min_level).unwrap_or(0.0)
+	}
+	fn follows(&self, f: u32, q: u32) -> bool {
+		self.facts.quests.get(&i64::from(f)).is_some_and(|x| x.pre.contains(&i64::from(q)))
+	}
+}
+
+/// Rule `finished-near`: a hand-in made on a trip back. The quest was finished (ready as
+/// [`walked_past`] reads it) within [`forge_sim::turnin::NEAR_YD`] of its ender, and the walk went
+/// [`forge_sim::turnin::AWAY_YD`] or more away before handing it in (c19r Orc and Troll: Sarkoth
+/// killed 150 yd from Hana'zua, handed in after the Burning Blade Coven). A blocker where the quest
+/// was finished under level [`forge_sim::turnin::BLOCKER_UNDER`] (routes 1-30), a warning above; info
+/// when waiting is right: a follow-up taken with the hand-in needs a level not reached there, or the
+/// walk returns to the ender anyway (other lines at the hand-in's visit) and handing in now is a
+/// detour. Straight yards between the goals (the routes stage reads the walk store's).
+pub fn finished_near(goals: &[WalkGoal], facts: &Facts) -> Vec<Violation> {
+	finished_near_at(goals, facts).into_iter().map(|f| f.v).collect()
+}
+
+/// [`finished_near`] with where: the hand-in and its follow-up accepts, done right after the goal the
+/// quest was finished at.
+pub fn finished_near_at(goals: &[WalkGoal], facts: &Facts) -> Vec<FlowAt> {
+	use forge_sim::turnin::{scan, Line, Wait};
+	let l = GoalLine { goals, facts };
+	let mut out = Vec::new();
+	for x in scan(&l) {
+		let far = if x.far.is_finite() { format!("{:.0} yd away", x.far) } else { "to another continent".to_string() };
+		let at = &goals[x.at];
+		let mut message = format!(
+			"handed in on a trip back: {} was finished {:.0} yd from its ender at {}, then the walk went {far} ({} first): hand it in right after {}",
+			facts.title(goals[x.j].q.unwrap_or(0)),
+			l.yd(x.at, x.j),
+			line_of(at),
+			line_of(&goals[x.away]),
+			line_of(at)
+		);
+		let level = match x.wait {
+			Some(Wait::Level { q, min, lvl }) => {
+				message.push_str(&format!(" (waiting is right: {} taken with it needs level {min:.0}, the walk is at {lvl:.1} there)", facts.title(i64::from(q))));
+				Level::Info
+			}
+			Some(Wait::Returns { other, detour }) => {
+				message.push_str(&format!(" (waiting is right: the walk is back here anyway for {}, and handing in then saves a {detour:.0} yd detour)", line_of(&goals[other])));
+				Level::Info
+			}
+			None if x.blocker(&l) => Level::Blocker,
+			None => Level::Warn,
+		};
+		let before = (x.at + 1..goals.len()).find(|&k| walk_here(&goals[k])).unwrap_or(x.away);
+		let lines = std::iter::once(x.j).chain(x.follow.iter().copied()).collect();
+		out.push(FlowAt { v: Violation::at(&goals[x.j], "finished-near", level, message), lines, after: x.at, before });
 	}
 	out
 }

@@ -1087,3 +1087,48 @@ fn training_gap_is_more_than_four_levels_with_no_class_training() {
 	let v = training_gaps(&tail);
 	assert_eq!(v.iter().map(|v| v.line).collect::<Vec<_>>(), vec![101, 105], "{:?}", lines(&v));
 }
+
+#[test]
+fn finished_near_is_a_hand_in_made_on_a_trip_back() {
+	// c19r Orc: Sarkoth (790) killed 150 yd south of Hana'zua, the walk on to the Burning Blade Coven
+	// 370 yd away and back to Hana'zua for the hand-in and 804.
+	let (hana, sarkoth, coven, den) = (pt(0.0, 0.0, 1411, 1), pt(0.0, 15.0, 1411, 1), pt(37.0, 0.0, 1411, 1), pt(20.0, 10.0, 1411, 1));
+	let mut f = Facts::default();
+	open_quest(&mut f, 790, &[]);
+	open_quest(&mut f, 804, &[790]);
+	open_quest(&mut f, 794, &[]);
+	let trip = |lvl: f64| {
+		walk(vec![
+			at("accept", Some(790), hana, lvl),
+			at("collect", Some(790), sarkoth, lvl),
+			at("kill", Some(794), coven, lvl),
+			at("turnin", Some(790), hana, lvl),
+			at("accept", Some(804), hana, lvl),
+			at("turnin", Some(804), den, lvl),
+		])
+	};
+	let v = finished_near(&trip(3.0), &f);
+	assert_eq!(lines(&v), vec![("horde/01-durotar.guide".into(), 103, "finished-near".into())]);
+	assert_eq!(v[0].level, Level::Blocker, "{}", v[0].message);
+	assert!(v[0].message.contains("01-durotar.guide:101"), "{}", v[0].message);
+	// Where the routes stage hands it in: it and 804, right after the kill.
+	let at_ = finished_near_at(&trip(3.0), &f);
+	assert_eq!((at_[0].lines.clone(), at_[0].after), (vec![3, 4], 1));
+	// Above level 30 a warning.
+	assert_eq!(finished_near(&trip(40.0), &f)[0].level, Level::Warn);
+	// Handed in right after the kill: nothing.
+	let w = walk(vec![at("accept", Some(790), hana, 3.0), at("collect", Some(790), sarkoth, 3.0), at("turnin", Some(790), hana, 3.0), at("kill", Some(794), coven, 3.0)]);
+	assert!(finished_near(&w, &f).is_empty());
+	// 804 needs level 5, the walk is at 3 where Sarkoth dies: waiting is right (info).
+	f.quests.get_mut(&804).unwrap().min_level = Some(5.0);
+	assert_eq!(finished_near(&trip(3.0), &f)[0].level, Level::Info);
+	f.quests.get_mut(&804).unwrap().min_level = Some(1.0);
+	// The walk comes back to Hana'zua anyway (another quest's accept there): info.
+	open_quest(&mut f, 5, &[]);
+	let mut w = trip(3.0);
+	w.insert(3, at("accept", Some(5), hana, 3.0));
+	let w = walk(w);
+	let v = finished_near(&w, &f);
+	assert_eq!(v.len(), 1);
+	assert_eq!(v[0].level, Level::Info, "{}", v[0].message);
+}

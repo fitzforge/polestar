@@ -18,7 +18,9 @@
 //!    order, hours).
 //! 7. [`levels`] (warn): quest work more than [`UNDER_LEVELS`] levels under the quest, turn-ins grey.
 //! 8. [`hub_order`], [`walked_past`], [`left_ready`] (warn, `check/hub.rs`): a hub visit walked the
-//!    long way round, a ready hand-in walked past, a hub left with a ready line it comes back for.
+//!    long way round, a ready hand-in walked past, a hub left with a ready line it comes back for;
+//!    [`finished_near`] (blocker to level 30, warn above): a quest finished near its ender handed in
+//!    on a trip back.
 //! 9. [`slow_ways`] (warn): a travel stretch the model takes far longer than its best way between the
 //!    same two points.
 //!
@@ -1795,7 +1797,8 @@ mod native {
 			}
 			land_flights(&mut walk.goals, &data, &proj, &faction);
 			let g = &walk.goals;
-			for f in walked_past_at(g, &facts).into_iter().chain(dup_trips_at(g, &facts)).chain(bounces_at(g)) {
+			let finished = finished_near_at(g, &facts).into_iter().filter(|f| f.v.level != Level::Info);
+			for f in walked_past_at(g, &facts).into_iter().chain(finished).chain(dup_trips_at(g, &facts)).chain(bounces_at(g)) {
 				if !seen.insert((f.v.rule.clone(), f.v.file.clone(), f.v.line)) {
 					continue;
 				}
@@ -1905,7 +1908,7 @@ mod native {
 						let stream = if stream_file.is_file() { Some(crate::report::stream_goals(&read_json(&stream_file)?)) } else { None };
 						let title = |q: i64| facts.quests.get(&q).map_or_else(String::new, |x| x.title.clone());
 						let mut chain: FxHashSet<String> = FxHashSet::default();
-						let mut per: [Vec<(String, Vec<Violation>)>; 17] = Default::default();
+						let mut per: [Vec<(String, Vec<Violation>)>; 18] = Default::default();
 						for cls in &classes {
 							let ctx = Ctx::new(&faction, &race, Some(cls))?;
 							let mut walk = walk_chain(&guides, &|_| String::new(), Chain::Routes, &ctx, &proj, &lv, 61.0)?;
@@ -1932,6 +1935,7 @@ mod native {
 							per[13].push((cls.clone(), hub_order(g, &facts)));
 							per[14].push((cls.clone(), walked_past(g, &facts)));
 							per[15].push((cls.clone(), left_ready(g, &facts)));
+							per[17].push((cls.clone(), finished_near(g, &facts)));
 							// The walk as written (along goals at their own steps): how the steps play.
 							let (raw, _) = crate::walk::chain_goals(&guides, &|_| String::new(), &walk.chain, &ctx, &proj, true)?;
 							per[10].push((cls.clone(), merges(&raw, &loops)));
@@ -2051,9 +2055,10 @@ mod native {
 
 mod hub;
 mod play;
-pub use hub::{best_tour, hub_order, hub_visits, left_ready, walked_past, walked_past_at, EXACT_STOPS};
+pub use hub::{best_tour, finished_near, finished_near_at, hub_order, hub_visits, left_ready, walked_past, walked_past_at, EXACT_STOPS};
 /// The overlap of two field objectives' spawn areas (rule `merge`), for the writer to agree with it.
 pub use play::OVERLAP_YD;
+
 pub use play::{alongs, arrow_order, merges, ARROW_SLACK_YD};
 
 #[cfg(test)]

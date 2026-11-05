@@ -527,6 +527,47 @@ be compared byte for byte with the old JavaScript writer.
   of Xavaric's accept in Jadefire Run). A goal for a whole quest, with no
   objective number (`kill 423 quest 246`), is a field goal too (Lakeridge
   Highway's gnolls, poachers and thrashers).
+- **On the way**, for the next rule, is a detour, not a distance (Fitz): from
+  where the quest finishes to the loop's next goal (its spot nearest there),
+  going by the NPC adds at most 40 yards (`ON_THE_WAY_YD`; walking yards when
+  the walk store has all three legs, else straight). An NPC near the loop but
+  behind or beside the way it goes fails. The finish must be predictable: the
+  bound holds from **every** spot the quest's last goal may be finished at (one
+  for a named mob or a single object: Sarkoth); in a spread camp where it
+  depends on where the last one drops, the hand-in stays where it is. Hana'zua
+  between Sarkoth and the Vile Familiars: 150 + 228 - 348 = 29 yards.
+- Then, with route legs, **a hand-in the walk comes back for goes into the
+  loop** (`hand_ins_into_loops`; Fitz, c19r Durotar: Sarkoth's hand-in written
+  after the Burning Blade Coven). A step of two or more field goals (not a
+  loop, along or `only` step) that finishes quest Q (its last goal of Q, no
+  line of Q between it and Q's hand-in, within 40 steps) takes Q's hand-in, and
+  the follow-up accepts right after it at the same NPC, right after Q's last
+  goal when all of these hold:
+  - it saves a trip: the hand-in's step hands in or takes nothing else (a hub
+    the route passes anyway keeps it: the Den after the valley loop); after
+    Q's last goal the walk goes 250 yards or more from the NPC (on the loop's
+    later goals or the steps before the hand-in) or travels (fly, hearth,
+    die); and the loop does not end within 150 yards of the NPC with the very
+    next step handing Q in (Those Blasted Troggs! at the end of Dun Morogh's
+    trogg loop stays);
+  - it is on the way: the 40-yard detour above from every spot Q's last goal
+    may finish at, on to the loop's next goal (or to the place after the loop
+    when Q's goal is its last).
+
+  The hand-in's step, left with no goal, goes. The rule only takes a hand-in
+  into a loop where it removes a walk back and adds at most 40 yards, so a
+  route's walking never grows from it and no walk-back or duplicate trip is
+  added. On release-030's compiled guides, of the 174 loop hand-ins written
+  in a later step with the NPC within 150 yards of the loop's ground and the
+  loop reaching 250 yards away, these conditions move none by straight yards:
+  116 are at a hub step the route visits anyway, 17 work the quest again
+  before the hand-in, 12 are not area steps, 11 save no trip (the walk store
+  decides Searing Gorge's Flawless Flame, on the ledge below Thorium Point),
+  9 are detours over 40 yards from some spot they may finish at (Buzzbox 323
+  in Darkshore: the Moonstalker fangs drop all over the shore), 5 end their
+  loop at the NPC with the hand-in next (Those Blasted Troggs!), 4 finish the
+  quest on a goal that is not a field goal. Sarkoth is not among them: those
+  guides already hand it in right after the kill, inside the valley loop.
 
 ### 4. Travel
 
@@ -869,7 +910,8 @@ the count.
 
 ## Text: what the writer writes itself
 
-Titles, tips and notes are v1's, moved with their lines. A held class step is
+Step titles, tips and notes are v1's, moved with their lines (the guide's own
+`title` follows the rules under "Guide titles" below). A held class step is
 titled for its giver in the step's zone (the line's `npc`, else the giver with a
 spawn there). A tip sentence or clause naming an NPC of another piece of the same
 v1 step goes to that piece, from any of the step's tip lines, starting with a
@@ -899,6 +941,35 @@ fixed patterns:
 
 Lines that changed have no translation until a translator adds one. Lint lists
 them as warnings. That is expected after a rewrite.
+
+### Guide titles
+
+A leveling guide's `title` names the zones it quests in (`src/titles.rs`, on the
+guides as written, after riding at 40). v1's title is a list of places
+("Wetlands, Hillsbrad Foothills, Ironforge & Stormwind City"); the writer keeps
+its order and words and leaves places out, never adds one:
+
+- **No capitals**: Orgrimmar, Undercity, Thunder Bluff, Stormwind City, Ironforge
+  and Darnassus are stops for training and hand-ins, not where a guide quests.
+  A guide that is only capitals keeps them.
+- **No zone the guide hardly quests in**: a zone with under 5% of the guide's
+  quest goals and at most 3 of them goes ("Arathi Highlands, Badlands & The
+  Barrens", 1 goal in the Barrens: "Arathi Highlands & Badlands"; "Silithus,
+  Un'Goro Crater & Eastern Plaguelands", none in the first two: "Eastern
+  Plaguelands"). Quest goals are the lines that accept, hand in or work a quest
+  (`accept`, `turnin`, `complete`, a goal with `quest Q`), each in the zone the
+  header's `zone` or its step's last `zone` line names. Both limits hold
+  together: a big guide's 11 of 236 (Feralas in Western Plaguelands) is under
+  5% but a real visit, and a small guide's 3 of 60 is 5%. The writer never
+  leaves out every zone: then the one with most goals stays. A part that is no
+  zone ("the Plaguelands") stays.
+
+With nothing left out, the title stays exactly as written. The thresholds
+reproduce every zone list shipped by hand on 2026-11-04 from the titles before
+it, and change no other one. A changed title has no translation until one is
+added, like any changed line. A race's lead-in to the shared guide of its zone
+(the Orcs' and Trolls' Barrens) gets no title of its own: `forge guide publish`
+merges it into that guide ([routes.md](routes.md#publishing-every-start)).
 
 ## Running it
 
