@@ -830,43 +830,104 @@ impl Engine {
 	/// What the next upload holds: its summary, its records and the exact request bodies.
 	pub fn preview(&self) -> Preview {
 		let batches = self.pending();
-		let mut chunks = Vec::new();
-		let mut rows = Vec::new();
-		let mut problems = Vec::new();
-		let mut total_records = 0usize;
-		let mut requests = Vec::new();
-		for batch in &batches {
-			for chunk in &batch.chunks {
-				match record::decode_chunk(&chunk.text) {
-					Ok(decoded) => {
-						total_records += decoded.records.len();
-						for r in &decoded.records {
-							if rows.len() < PREVIEW_ROWS {
-								rows.push(RecordRow { seq: chunk.seq, kind: r.kind.to_string(), t: r.t, fields: r.kind.field_names().into_iter().map(str::to_owned).zip(r.fields.iter().cloned()).collect() });
-							}
-						}
-						chunks.push(decoded);
-					}
-					Err(e) => problems.push(format!("Chunk {} would be turned away: {e}", chunk.seq)),
-				}
-			}
-			requests.push(api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: batch.install.clone(), chunks: batch.chunks.clone() });
-		}
+		let reading = read_chunks(batches.iter().flat_map(|b| &b.chunks), "would be turned away");
+		let requests: Vec<api::UploadRequest> =
+			batches.iter().map(|b| api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: b.install.clone(), chunks: b.chunks.clone() }).collect();
 		let json = serde_json::to_string_pretty(&requests).unwrap_or_default();
 		Preview {
 			chunks: batches.iter().map(|b| b.chunks.len()).sum(),
 			bytes: requests.iter().map(|r| serde_json::to_vec(r).map(|v| v.len()).unwrap_or(0)).sum(),
 			requests: requests.len(),
-			summary: (!chunks.is_empty()).then(|| serde_json::to_value(summary::summarize_with_maps(&chunks, &self.maps())).unwrap_or_default()),
-			records: rows,
-			total_records,
-			problems,
+			summary: (!reading.decoded.is_empty()).then(|| serde_json::to_value(summary::summarize_with_maps(&reading.decoded, &self.maps())).unwrap_or_default()),
+			records: reading.rows,
+			total_records: reading.total_records,
+			problems: reading.problems,
+			json,
+		}
+	}
+
+	/// The uploads the server accepted that this PC still keeps (`sent.jsonl`: the last 8 days), newest first.
+	pub fn sent_uploads(&self) -> Vec<SentUpload> {
+		sent_uploads_of(&self.store.sent(now_ms()))
+	}
+
+	/// One of those uploads, for the window to show as it shows the next one. Its chunks are the
+	/// text that left this PC. `json` leaves out the request's `uploader`, which isn't kept.
+	pub fn sent_upload(&self, at: i64, install: &str) -> Preview {
+		let chunks: Vec<api::UploadChunk> =
+			self.store.sent(now_ms()).into_iter().filter(|c| c.at == at && c.install == install).map(|c| api::UploadChunk { seq: c.seq, text: c.text }).collect();
+		let reading = read_chunks(chunks.iter(), "can't be read by this version");
+		let bytes = request_bytes(install, &chunks);
+		let json = serde_json::to_string_pretty(&serde_json::json!({ "install": install, "chunks": chunks })).unwrap_or_default();
+		Preview {
+			chunks: chunks.len(),
+			bytes,
+			requests: 1,
+			summary: (!reading.decoded.is_empty()).then(|| serde_json::to_value(summary::summarize_with_maps(&reading.decoded, &self.maps())).unwrap_or_default()),
+			records: reading.rows,
+			total_records: reading.total_records,
+			problems: reading.problems,
 			json,
 		}
 	}
 }
 
 const PREVIEW_ROWS: usize = 5000;
+
+/// Chunks read back into what `Preview` shows. `verdict` ends the line for a chunk that doesn't decode.
+struct Reading {
+	decoded: Vec<record::Chunk>,
+	rows: Vec<RecordRow>,
+	total_records: usize,
+	problems: Vec<String>,
+}
+
+fn read_chunks<'a>(chunks: impl Iterator<Item = &'a api::UploadChunk>, verdict: &str) -> Reading {
+	let mut reading = Reading { decoded: Vec::new(), rows: Vec::new(), total_records: 0, problems: Vec::new() };
+	for chunk in chunks {
+		match record::decode_chunk(&chunk.text) {
+			Ok(decoded) => {
+				reading.total_records += decoded.records.len();
+				for r in &decoded.records {
+					if reading.rows.len() < PREVIEW_ROWS {
+						reading.rows.push(RecordRow { seq: chunk.seq, kind: r.kind.to_string(), t: r.t, fields: r.kind.field_names().into_iter().map(str::to_owned).zip(r.fields.iter().cloned()).collect() });
+					}
+				}
+				reading.decoded.push(decoded);
+			}
+			Err(e) => reading.problems.push(format!("Chunk {} {verdict}: {e}", chunk.seq)),
+		}
+	}
+	reading
+}
+
+/// Kept chunks as uploads, newest first: the chunks of one request share their `at` and `install`.
+fn sent_uploads_of(chunks: &[SentChunk]) -> Vec<SentUpload> {
+	let mut groups: BTreeMap<(std::cmp::Reverse<i64>, &str), Vec<&SentChunk>> = BTreeMap::new();
+	for c in chunks {
+		groups.entry((std::cmp::Reverse(c.at), &c.install)).or_default().push(c);
+	}
+	groups
+		.into_iter()
+		.map(|((at, install), group)| {
+			let body: Vec<api::UploadChunk> = group.iter().map(|c| api::UploadChunk { seq: c.seq, text: c.text.clone() }).collect();
+			SentUpload {
+				at: at.0,
+				install: install.to_owned(),
+				chunks: group.len(),
+				bytes: request_bytes(install, &body),
+				// The first line of a chunk is its header; every other line is one record.
+				records: group.iter().map(|c| c.text.lines().filter(|l| !l.is_empty()).count().saturating_sub(1)).sum(),
+			}
+		})
+		.collect()
+}
+
+/// The size of the request body that carried these chunks, the size Activity gives the same upload.
+/// The `uploader` it held isn't kept, so this client's version stands in for it.
+fn request_bytes(install: &str, chunks: &[api::UploadChunk]) -> usize {
+	serde_json::to_vec(&api::UploadRequest { uploader: env!("CARGO_PKG_VERSION").to_owned(), install: install.to_owned(), chunks: chunks.to_vec() }).map(|v| v.len()).unwrap_or(0)
+}
 
 impl Account {
 	fn new_empty(folder_name: &str, sv_path: &Path) -> Account {
@@ -1198,6 +1259,18 @@ pub struct Preview {
 	pub json: String,
 }
 
+/// An upload the server accepted, without its contents (`Engine::sent_upload` reads those).
+#[derive(Serialize, Debug, PartialEq, Eq)]
+#[serde(rename_all = "camelCase")]
+pub struct SentUpload {
+	/// Epoch milliseconds, as in `ActivityEntry`.
+	pub at: i64,
+	pub install: String,
+	pub chunks: usize,
+	pub bytes: usize,
+	pub records: usize,
+}
+
 /// A chunk as it leaves the PC: only lines of record kinds this client knows (each
 /// scrubbed of the account's character names); unknown kinds never leave. An error
 /// when it is over the server's caps (bytes or records): such a chunk is never sent,
@@ -1233,6 +1306,30 @@ fn is_temporary(status: reqwest::StatusCode) -> bool {
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn kept_chunks_group_into_uploads_newest_first() {
+		let chunk = |at, install: &str, seq, text: &str| SentChunk { at, install: install.to_owned(), seq, text: text.to_owned() };
+		let chunks = [
+			chunk(100, "a", 1, "chunk\t0\t1\nxp\t0\nkill\t1"),
+			chunk(100, "a", 2, "chunk\t0\t2\nxp\t2\n"),
+			chunk(100, "b", 1, "chunk\t0\t1"),
+			chunk(200, "a", 3, "chunk\t0\t3\nxp\t3"),
+		];
+		let body = |of: &[&SentChunk]| of.iter().map(|c| api::UploadChunk { seq: c.seq, text: c.text.clone() }).collect::<Vec<_>>();
+		let upload = |at, install: &str, of: &[&SentChunk], records| SentUpload { at, install: install.to_owned(), chunks: of.len(), bytes: request_bytes(install, &body(of)), records };
+		assert_eq!(
+			sent_uploads_of(&chunks),
+			[
+				upload(200, "a", &[&chunks[3]], 1),
+				// Two chunks of one request are one upload, and neither header counts as a record.
+				upload(100, "a", &[&chunks[0], &chunks[1]], 3),
+				// The same moment from another Recorder install is another upload.
+				upload(100, "b", &[&chunks[2]], 0),
+			]
+		);
+		assert_eq!(sent_uploads_of(&[]), []);
+	}
 
 	#[test]
 	fn timeouts_and_unavailable_are_temporary() {
