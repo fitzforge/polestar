@@ -2523,6 +2523,47 @@
 		},
 		"note": "The Missing Scholar: ends with Dondallion Whisperwind (npc 253204) and Fillion Flamebreeze (npc 253285); as its ender the merged data lacked Dondallion Whisperwind (npc 253204)."
 	},
+	"93927": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 254871,
+					"count": 1,
+					"text": "Bloody Note"
+				},
+				{
+					"type": "kill",
+					"id": 256966,
+					"count": 1,
+					"text": "Skypriest Aanders"
+				},
+				{
+					"type": "item",
+					"id": 263415,
+					"count": 1,
+					"text": "Raani's Lucky Feather"
+				},
+				{
+					"type": "item",
+					"id": 263418,
+					"count": 1,
+					"text": "Shadowsong Family Signet"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: \"Collect and read the note: 1/1\" is objective 1, seconds after the accept at the note; the Skypriest Aanders kill credits objective 2"
+			}
+		],
+		"note": "A Last Request (Zephras Isle) lists the Bloody Note first, then Skypriest Aanders, then Raani's feather and the Shadowsong signet. The merged data had the note and Aanders the other way round, so `quest 93927.1` named Aanders and the guide's note goal followed Aanders' quest-log line: it stayed open after the note was read (#825)."
+	},
 	"94373": {
 		"set": {
 			"next": 94374
@@ -2893,6 +2934,52 @@
 		},
 		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
 	},
+	"97225": {
+		"set": {
+			"pre": [
+				805
+			],
+			"preAny": [
+				805
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: 7 of 7 who took Forgotten Loa Idols handed in Report to Sen'jin Village (805) first, then went back to Master Vornal"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#796"
+			}
+		],
+		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
+	},
+	"97282": {
+		"set": {
+			"pre": [
+				97281
+			],
+			"preAny": [
+				97281
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Rezlak's quest window did not offer Stormy Potential with A Simmering Storm (97281) in the log, and offered it right after its hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#807"
+			}
+		],
+		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
+	},
 	"97289": {
 		"set": {
 			"pre": [
@@ -3046,6 +3133,27 @@
 			}
 		],
 		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
+	},
+	"98601": {
+		"set": {
+			"pre": [
+				364
+			],
+			"preAny": [
+				364
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: 15 times Deathknell's quest window did not offer A Difficult Path while The Mindless Ones (364) was in the log, never once offered it then"
+			}
+		],
+		"note": "A Difficult Path (Deathknell, the Undead Paladin's class quest) is offered once The Mindless Ones 364 is handed in. The merged data had no prerequisite, so the Tirisfal route asked Paladins for it before 364 was done."
 	},
 	"98815": {
 		"set": {
@@ -3223,6 +3331,27 @@
 			}
 		],
 		"note": "An Enticing Offer (Elwynn) needs 18 Duskweed Petals and 6 Vials of Animal Blood, and the quest log lists the blood first: in game the petal goal (objective 1) showed 3/6 and the blood goal (objective 2) 14/18 (issue #279), so each goal counted the other's objective."
+	},
+	"99142": {
+		"set": {
+			"pre": [
+				5482
+			],
+			"preAny": [
+				5482
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Apothecary Holland did not offer Tomb Weed 5 times at levels 5 and 6 without Doom Weed (5482) handed in, and offered it right after that hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#800"
+			}
+		],
+		"note": "Tomb Weed (Brill, Apothecary Holland) is offered once Doom Weed 5482 is handed in (#800: a Scourge Warrior at level 6 was sent to take it before Gloom Weed and Doom Weed were done). The merged data had no prerequisite, so the Tirisfal route took it at the first Brill stop."
 	},
 	"99144": {
 		"set": {

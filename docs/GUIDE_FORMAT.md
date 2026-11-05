@@ -440,8 +440,10 @@ Clicking one points the arrow at it, if it has a place, until it is done.
 "Then:" and Up next leave along steps out.
 
 With `along until <label>`, the list ends when the route reaches the step
-carrying `label <label>`, done or not. The label must be on a later step of
-the same guide.
+carrying `label <label>`, except for the goals of a quest that still has
+work open: those stay listed until that work is done (the labelled step is
+often the one that hands the quest in, and it shows what is left). The label
+must be on a later step of the same guide.
 
 ```
 step Boars on the way

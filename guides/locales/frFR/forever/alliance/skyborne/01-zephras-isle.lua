@@ -25,8 +25,8 @@ return {
 	["Listen to {npc:257554}"] = "Écouter {npc:257554}",
 
 	-- Step 4: Rorian the Dayseeker
-	-- {npc:251361} Rorian the Dayseeker
-	["Jump off the top of the watchtower and use Walk on Air to float down to {npc:251361}, west of the tower."] = "",
+	-- {spell:1259416} Walk on Air · {npc:251361} Rorian the Dayseeker
+	["Jump off the top of the watchtower and use {spell:1259416} to float down to {npc:251361}, west of the tower."] = "",
 	-- {npc:251361} Rorian the Dayseeker · {item:4100} Crumpled Note
 	["{npc:251361}: the {item:4100}"] = "{npc:251361} : {item:4100}",
 	-- {npc:251964} Blademaster Ren
@@ -56,11 +56,11 @@ return {
 	["{area:16622} turn-ins"] = "Quêtes à rendre à {area:16622}",
 
 	-- Step 7: Yala Windwatcher
-	-- {npc:249363} Yala Windwatcher · {npc:251143} Roiling Winds · {object:460002} Ley Line (no name in this language: may be words)
+	-- {npc:249363} Yala Windwatcher · {npc:251143} Roiling Winds · {object:460002} Ley Line (no name in this language: may be words) · {spell:1259705} Read Leyline
 	-- plural, as words: Al'Aketh Converts = {npc:251160} Al'Aketh Convert
-	["{npc:249363} keeps watch east of the grove. The {npc:251143} and Al'Aketh Converts gather just north of her; the {object:460002} rises further north: cast your Read Leyline racial ability at it."] = "",
-	-- {object:460002} Ley Line (no name in this language: may be words)
-	["Cast Read Leyline at the {object:460002}"] = "",
+	["{npc:249363} keeps watch east of the grove. The {npc:251143} and Al'Aketh Converts gather just north of her; the {object:460002} rises further north: cast your {spell:1259705} racial ability at it."] = "",
+	-- {spell:1259705} Read Leyline · {object:460002} Ley Line (no name in this language: may be words)
+	["Cast {spell:1259705} at the {object:460002}"] = "",
 
 	-- Step 9: Thendal Grove turn-ins
 	["Level 4 spells"] = "Sorts de niveau 4",
@@ -83,14 +83,18 @@ return {
 	-- Step 13: Shen'dar Village
 	-- {area:16624} Shen'dar Village · {npc:263664} Raan Wildwind · {npc:251523} Constable Aonda · {npc:251903} Rathiril Sunlance
 	["Follow the road south to {area:16624}. {npc:263664} camps by the fire west of the village; {npc:251523} and {npc:251903} stand in its middle."] = "Suivez la route vers le sud jusqu'à {area:16624}. {npc:263664} campe près du feu à l'ouest du village ; {npc:251523} et {npc:251903} se tiennent au centre.",
+	-- {npc:251903} Rathiril Sunlance
+	["Talk to {npc:251903}"] = "",
+	-- {npc:254089} Coriella Calmbreeze
+	["Talk to {npc:254089}"] = "",
 
 	-- Step 14: Windshaper Novice Seer on the way
 	-- {npc:257532} Windshaper Novice Seer
 	["{npc:257532} on the way"] = "{npc:257532} en chemin",
 
 	-- Step 15: Raan Wildwind
-	-- {npc:263664} Raan Wildwind
-	["/sit by {npc:263664}'s campfire until you get Boosted Rest"] = "",
+	-- {npc:263664} Raan Wildwind · {spell:1229451} Boosted Rest
+	["/sit by {npc:263664}'s campfire until you get {spell:1229451}"] = "",
 	-- {npc:251905} Zerril Softbreeze
 	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905} : la quête Camping 101 vous demande de l'apprendre",
 
@@ -146,8 +150,8 @@ return {
 	["{item:2450} in {zone:1455}; {area:16624} has no warlock trainer"] = "{item:2450} à {zone:1455} ; {area:16624} n'a pas de maître des démonistes",
 
 	-- Step 29: Falaath Village
-	-- {npc:257065} Missionary Jasaan · {quest:92529} Falaath Village
-	["{npc:257065} waits at the entrance to {quest:92529}, south of Shen'dar. The Mark of Akir lets you walk in among the faithful."] = "",
+	-- {npc:257065} Missionary Jasaan · {quest:92529} Falaath Village · {spell:1254832} Mark of Akir
+	["{npc:257065} waits at the entrance to {quest:92529}, south of Shen'dar. The {spell:1254832} lets you walk in among the faithful."] = "",
 	["Search the wardrobe"] = "Fouiller l'armoire",
 
 	-- Step 30: Vulgara the Insatiable
@@ -214,6 +218,8 @@ return {
 	["The {object:581822} lies by the path west of {area:16638}."] = "La {object:581822} se trouve près du chemin à l'ouest de {area:16638}.",
 	-- {object:581822} Bloodstained Satchel
 	["The {object:581822}"] = "{object:581822}",
+	-- {npc:253002} Fillion Flamebreeze
+	["Talk to {npc:253002}"] = "",
 
 	-- Step 44: Gustberry Lowlands
 	-- {npc:254588} Windsong Crawler · {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod
@@ -267,18 +273,15 @@ return {
 	["{npc:252373}, the mage trainer"] = "{npc:252373}, le maître des mages",
 
 	-- Step 55: Taming the Beast
-	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale
+	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches Beast Training."] = "",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "L'apprivoiser avec le {item:15908}",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Apprivoisez : {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
 	["Tame {npc:250874}"] = "Apprivoisez : {npc:250874}",
-	["Tame Beast"] = "",
-	-- {npc:254411} Quel'dora Quickgale
-	["{npc:254411}: Beast Training"] = "",
 
 	-- Step 56: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
@@ -337,8 +340,8 @@ return {
 	-- Step 69: Desperate times
 	-- {npc:253844} Valennia Stormfist
 	["Meet {npc:253844} at the gate"] = "Retrouvez {npc:253844} à la porte",
-	-- {npc:255853} Urs'endris · {area:16638} Valanaar
-	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: Bear Form"] = "",
+	-- {npc:255853} Urs'endris · {area:16638} Valanaar · {spell:5487} Bear Form
+	["{npc:255853}, by the falls north-east of {area:16638}, on the way north: {spell:5487}"] = "",
 
 	-- Step 70: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
@@ -407,10 +410,6 @@ return {
 	-- {npc:252475} Elaadrin Evengale · {npc:259084} Denaaris Stargale
 	["{npc:252475}: {npc:259084} waits by the Skyborne portal"] = "{npc:252475} : {npc:259084} attend près du portail éolide",
 
-	-- Step 83: Valanaar, the fate of Zephras
-	-- {npc:252377} Seena Skybreaker
-	["{npc:252377}: Defensive Stance"] = "",
-
 	-- Step 84: Leave Zephras Isle to Alterac Mountains
 	-- {zone:2521} Zephras Isle · {zone:1416} Alterac Mountains
 	["Leave {zone:2521} to {zone:1416}"] = "Quittez {zone:2521} pour {zone:1416}",
@@ -436,8 +435,8 @@ return {
 	["For {npc:234} at {area:108}"] = "Pour {npc:234} à {area:108}",
 
 	-- Step 88: Woo Ping
-	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Two-Handed Swords from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
+	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
+	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "",
 
 	-- Step 89: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
@@ -448,8 +447,8 @@ return {
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Pendant que vous y êtes : apprenez le maniement des épées auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; une épée en main droite fait progresser un Voleur régulièrement.",
 
 	-- Step 92: Sheldras Moontree
-	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {quest:94914} Moonglade · {npc:11802} Dendrite Starblaze · {zone:1439} Darkshore
-	["{npc:5504}, {zone:1453}'s druid trainer, teaches you Teleport: {quest:94914}. {npc:11802}'s welcome waits for your Cat Form trip at the end of {zone:1439}."] = "",
+	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1439} Darkshore
+	["{npc:5504}, {zone:1453}'s druid trainer, teaches you {spell:18960}. {npc:11802}'s welcome waits for your {spell:499} trip at the end of {zone:1439}."] = "",
 
 	-- Step 94: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake

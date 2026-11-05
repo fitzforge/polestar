@@ -222,28 +222,33 @@ step North Durotar
   when done razorhill
   tip Rezlak stands on the road north of Razor Hill, Misha Tor'kren at her farm west of it.
   accept 834                          -- Rezlak: Winds in the Desert, +100
-  accept 97282                        -- Stormy Potential, +100
   accept 816                          -- Misha Tor'kren: Lost But Not Forgotten, +100
 
 step Thunder Ridge and Razorwind Canyon
   when done razorhill
-  tip Fizzle Darkstorm keeps a Burning Blade camp in Thunder Ridge, south of Orgrimmar, among the thunder lizards. A Dull Storm Orb may drop from the lizards: use it to start A Simmering Storm. The supply sacks lie in Razorwind Canyon, north of Razor Hill. Kron's Amulet drops from the crocolisks along the river to the west, about one in ten.
+  tip Fizzle Darkstorm keeps a Burning Blade camp in Thunder Ridge, south of Orgrimmar, among the thunder lizards. The supply sacks lie in Razorwind Canyon, north of Razor Hill. Kron's Amulet drops from the crocolisks along the river to the west, about one in ten.
   collect 4869 quest 806.1            -- Fizzle's Claw
-  collect 277665 x5 quest 97282.1     -- Charged Thunder Lizard Organ
-  accept 97281 item 277661 optional   -- Dull Storm Orb: A Simmering Storm, +100
   collect 4918 x5 quest 834.1         -- Sack of Supplies
   collect 4891 quest 816.1            -- Kron's Amulet
 
 step Rezlak and Misha
   when done razorhill
   turnin 834
-  turnin 97282
-  turnin 97281 optional
   accept 835                          -- Securing the Lines, +100
+  tip A Dustwind Storm Witch may drop a Dull Storm Orb: use it to start A Simmering Storm. Once you hand that in, Rezlak offers Stormy Potential.
   kill 3117 x12 quest 835.1           -- Dustwind Savage, in Drygulch Ravine
   kill 3118 x8 quest 835.2            -- Dustwind Storm Witch
+  accept 97281 item 277661 optional   -- Dull Storm Orb: A Simmering Storm, +100
   turnin 835
+  turnin 97281 optional
+  accept 97282 optional               -- Stormy Potential, +100
   turnin 816
+
+step Stormy Potential
+  when done razorhill
+  tip The Charged Thunder Lizard Organs come from the thunder lizards on Thunder Ridge, just west of Rezlak.
+  collect 277665 x5 quest 97282.1     -- Charged Thunder Lizard Organ
+  turnin 97282
 
 step Razor Hill: Orgnil
   when done razorhill

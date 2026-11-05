@@ -285,8 +285,9 @@
 			"quest": 93461,
 			"objective": 1,
 			"write": true,
+			"label": "Talk to Rathiril Sunlance",
 			"faction": "Alliance",
-			"note": "Welcome to Shen'dar Village: Rathiril Sunlance.",
+			"note": "Welcome to Shen'dar Village: Rathiril Sunlance. The objective is talking to him; the data counts it as a kill, so the line reads \"Talk to\" (#802).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -305,6 +306,7 @@
 			"quest": 93461,
 			"objective": 2,
 			"write": true,
+			"label": "Talk to Coriella Calmbreeze",
 			"faction": "Alliance",
 			"at": {
 				"map": 2521,
@@ -312,7 +314,7 @@
 				"y": 43.3,
 				"frame": "live"
 			},
-			"note": "Welcome to Shen'dar Village: Coriella Calmbreeze, north-west of the village.",
+			"note": "Welcome to Shen'dar Village: Coriella Calmbreeze, the innkeeper, north-west of the village. The objective is talking to her; the data counts it as a kill, so the line reads \"Talk to\" (#802).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -331,8 +333,9 @@
 			"quest": 92849,
 			"objective": 1,
 			"write": true,
+			"label": "Talk to Fillion Flamebreeze",
 			"faction": "Alliance",
-			"note": "The Missing Scholar: Fillion Flamebreeze.",
+			"note": "The Missing Scholar: Fillion Flamebreeze. The objective is finding and talking to him; the data counts it as a kill, so the line reads \"Talk to\" (#802).",
 			"source": [
 				{
 					"kind": "in-game-check",

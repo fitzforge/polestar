@@ -246,7 +246,7 @@ return {
 	["{quest:91733} and {npc:330}"] = "{quest:91733}와(과) {npc:330}",
 	-- {item:247813} Waterlogged Saw · {npc:330} Princess · {area:62} Brackwell Pumpkin Patch · {npc:390} Porcine Entourage · {npc:248278} Croaky
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore along the river too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "",
+	["The {item:247813}, Axe and Toolbox lie in the river south of the bridge. {npc:330}, a big boar, roots in the {area:62} west of the river with her {npc:390}: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: {npc:248278} is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional."] = "",
 
 	-- Step 51: Downstream and Princess
 	-- {quest:91740} Croaky's Head
@@ -329,68 +329,59 @@ return {
 	-- {npc:328} Zaldimar Wefhellt · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{npc:328}: {npc:5497} in {zone:1453} takes it"] = "{npc:328}: {zone:1453}의 {npc:5497}이(가) 받습니다",
 
-	-- Step 70: The Applejack Still
-	-- {quest:91736} Applejack Still
-	["The {quest:91736}"] = "{quest:91736}",
-	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack
-	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "들판을 가로질러 북서쪽, {area:120} 북쪽의 {quest:91736}(으)로 가십시오. 윤기나는 빨간 사과 네 개를 넣으면 {item:247824}이(가) 나옵니다.",
-	-- {item:247824} Thunder Applejack
-	["{item:247824}, from the still"] = "{item:247824}, 증류기에서",
-
-	-- Step 71: Westbrook Garrison
+	-- Step 70: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer · {npc:955} Sergeant De Vries
 	["Back south to the {area:120}, by the road to {zone:1436}. {npc:963} stands outside the barracks, {npc:955} beside him."] = "{zone:1436}(으)로 가는 길가의 {area:120}(으)로 남쪽으로 돌아가십시오. {npc:963}은(는) 병영 밖에, {npc:955}은(는) 그 옆에 있습니다.",
 
-	-- Step 72: Westbrook Garrison
+	-- Step 71: Westbrook Garrison
 	-- {area:120} Westbrook Garrison · {zone:1436} Westfall · {npc:963} Deputy Rainer
 	["Follow the road west to the {area:120}, on the way into {zone:1436}. {npc:963} stands outside the barracks."] = "서쪽으로 도로를 따라 {zone:1436}으로 가는 길의 {area:120}으로 가세요. {npc:963}이 막사 밖에 서 있습니다.",
 	-- {npc:963} Deputy Rainer · {npc:234} Gryan Stoutmantle · {area:108} Sentinel Hill
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: {area:108}의 {npc:234}를 위해",
 
-	-- Step 74: Goldshire
+	-- Step 73: Goldshire
 	-- {area:87} Goldshire
 	["Follow the road west back to {area:87}."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오.",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}: {zone:1453}의 {npc:6122}이(가) 받습니다",
 
-	-- Step 76: Jennea Cannon
+	-- Step 75: Jennea Cannon
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["Follow the road north from {area:87} into {zone:1453}. {npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "길을 따라 북쪽으로 {area:87}에서 {zone:1453}(으)로 가십시오. {npc:5497}은(는) {object:2101}의 탑인 마법사의 성소에 있으며, {quest:1861} 폭포용 플라스크를 줍니다.",
 
-	-- Step 78: Gakin the Darkbinder
+	-- Step 77: Gakin the Darkbinder
 	-- {area:87} Goldshire · {zone:1453} Stormwind · {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["Follow the road north from {area:87} into {zone:1453}. {npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "길을 따라 북쪽으로 {area:87}에서 {zone:1453}(으)로 가십시오. {npc:6122}은(는) {object:2101} {object:2164}의 지하실에서 기다립니다.",
 
-	-- Step 79: Woo Ping
+	-- Step 78: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
 
-	-- Step 80: Mirror Lake
+	-- Step 79: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "정문으로 {zone:1453}을(를) 나가십시오. {quest:1861} 폭포는 성문 남서쪽, 서쪽 {zone:1436}(으)로 가는 길에 있습니다. 폭포 아래에서 {item:7207}을(를) 채우십시오.",
 
-	-- Step 81: Surena Caledon
+	-- Step 80: Surena Caledon
 	-- {area:87} Goldshire · {area:62} Brackwell Pumpkin Patch · {npc:881} Surena Caledon
 	["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "{area:87}을 통해 돌아 나와 도로를 따라 동쪽 {area:62}으로 가세요. {npc:881} (9레벨)이 농가 옆에 있습니다.",
 
-	-- Step 82: The Binding
+	-- Step 81: The Binding
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls."] = "{npc:6122}에게 돌아가십시오. {object:2164} 지하실의 소환진에서 {item:6928}을(를) 사용하고 소환된 공허방랑자를 쓰러뜨리십시오.",
 	["Subdue the voidwalker"] = "공허방랑자 제압",
 
-	-- Step 83: Back to Elwynn Forest
+	-- Step 82: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "",
 
-	-- Step 84: Forest's Edge
+	-- Step 83: Forest's Edge
 	-- {zone:1436} Westfall
 	-- plural, as words: Riverpaw Runts = {npc:97} Riverpaw Runt
 	["Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border."] = "",
 	-- plural, as words: Painted Gnoll Armbands = {item:782} Painted Gnoll Armband
 	["Painted Gnoll Armbands"] = "놀의 화려한 완장",
 
-	-- Step 87: Taming the Beast
+	-- Step 86: Taming the Beast
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {item:15908} Taming Rod · {area:64} Maclure Vineyards · {area:18} Crystal Lake
 	-- plural, as words: Rockhide Boars = {npc:524} Rockhide Boar · Young Forest Bears = {npc:822} Young Forest Bear
 	["{npc:251507} stands with the {area:87} trainers. Each of her quests hands you a {item:15908}: use it on the beast she names, then bring the rod back to her. Rockhide Boars and Young Forest Bears roam the hills south of the {area:64}, Gray Forest Wolves the woods east of {area:18}."] = "{npc:251507}은(는) {area:87} 상급자들과 함께 있습니다. 퀘스트마다 {item:15908}을(를) 주니, 지정한 야수에게 사용한 뒤 막대를 그녀에게 가져가십시오. 돌가죽멧돼지와 새끼곰은 {area:64} 남쪽 언덕에, 회색 숲늑대는 {area:18} 동쪽 숲에 있습니다.",
@@ -409,16 +400,30 @@ return {
 	-- {npc:258930} Isaac Chan · {spell:5149} Beast Training
 	["{npc:258930}, beside her: {spell:5149}"] = "",
 
-	-- Step 88: Maybell Maclure
+	-- Step 87: Maybell Maclure
 	-- {area:64} Maclure Vineyards
 	["South down the road to the {area:64}."] = "길을 따라 남쪽 {area:64}(으)로 가십시오.",
 
-	-- Step 89: The Stonefield Farm
+	-- Step 88: The Stonefield Farm
+	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "윤기나는 빨간 사과, {npc:894}에게서, {quest:91736}용",
 
-	-- Step 91: Westbrook Garrison
+	-- Step 89: The Applejack Still
+	-- {quest:91736} Applejack Still
+	["The {quest:91736}"] = "{quest:91736}",
+	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
+	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "",
+	-- {item:247824} Thunder Applejack
+	["{item:247824}, from the still"] = "{item:247824}, 증류기에서",
+
+	-- Step 90: Westbrook Garrison
+	-- {npc:955} Sergeant De Vries · {quest:91738} An Apple Treat · {item:247824} Thunder Applejack
+	["{npc:955} stands inside the barracks. He has {quest:91738} only while you carry the {item:247824}: talk to him and it goes straight to the hand-in."] = "",
 	-- {npc:955} Sergeant De Vries · {item:247824} Thunder Applejack
 	["{npc:955}: he wants your {item:247824}; inside"] = "",
 
@@ -432,6 +437,7 @@ return {
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "길을 따라 서쪽으로 서부 주둔지를 지나 {zone:1436}(으)로 간 뒤, 남쪽으로 따라가 {area:108}(으)로 가십시오. 그리폰 조련사 {npc:523}가 언덕 위에 있습니다.",
 	-- ["From the {quest:2998} he gives you"] = "그가 주는 {quest:2998}에서",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "{area:87}을 통해 돌아 나와 동쪽 {area:86}으로 가세요. {npc:6172}이 호수 남쪽에 있습니다: {item:6866}을 그에게 사용하세요. 주변의 디파이어스 불량 마법사들이 {item:6846}을 가지고 있습니다.",
+	-- ["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "들판을 가로질러 북서쪽, {area:120} 북쪽의 {quest:91736}(으)로 가십시오. 윤기나는 빨간 사과 네 개를 넣으면 {item:247824}이(가) 나옵니다.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오.",
 	-- ["Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. {npc:248278} roams the murloc shore too: right-click the head it drops. {npc:248278} is elite: grouping up is advised."] = "멀록 채집꾼과 멀록 잠복꾼이 다리 남쪽 강을 따라 있습니다. 데피아즈단인 {npc:473}이(가) 그 서쪽 {area:62}을(를) 돌아다닙니다. 가는 길에 굶주린 늑대와 새끼곰을 마저 처치하십시오. {npc:248278}도 멀록 해안을 돌아다닙니다: 떨어뜨리는 머리를 오른쪽 클릭하십시오. {npc:248278}은(는) 정예입니다: 파티를 권장합니다.",
 	-- ["Murlocs and the Collector"] = "멀록과 수집가",

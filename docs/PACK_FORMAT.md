@@ -606,7 +606,8 @@ The fields:
 | `z` | the height (world z, yards) of the NPC or object the goal's `x`,`y` stands for, so the walking route ends on its floor (an Undercity quarter rather than the street above it). Polestar 0.2.4 and later pass it to the walking engine while the arrow leads to that point, and ask again without it when the route found with it fails or ends more than 30 yards above or below it. A spot (`spots`) and a smart target's candidate (`candidates`) may carry their own `z`, which Polestar 0.2.5 and later pass the same way when the arrow leads there (#180). The compiler fills it in (GUIDE_FORMAT.md, "Heights"); a hand-written pack may leave it out. Older Polestar ignores it, so it does not change the format |
 | `area` | the AreaTable area ID (`C_Map.GetAreaInfo`) of the place a `sethome`, `hearth`, `fly` or `getfp` location or a `goto` label names. Polestar 0.2.5 and later complete a `hearth` or `fly` when the zone or subzone text is that area's name in the client's language, accept a `sethome` bind location that reads so, count a `goto` arrived when the player goes indoors in that subzone (a cave or mine past its mouth; never for a zone), and show that name in place of the English one. The compiler fills it in (GUIDE_FORMAT.md, "Places by ID"); without it the goal matches by its English name. Older Polestar ignores it, so it does not change the format |
 | `node` | on `getfp`: the taxi node ID (`C_TaxiMap` `nodeID`) of its flight point. Polestar 0.2.5 and later count the goal done once the flight map lists that node as known, instead of comparing names. Filled in like `area`; older Polestar ignores it |
-| `spots` | spawn places `{ { x, y, z, r, n, alt } }`: centre in the goal's map and frame, its height (optional, see `z`), radius in yards, spawn count; `alt = true` for another place the target spawns, which the arrow takes only when the player moves on to it (the world map marks it) |
+| `spots` | spawn places `{ { x, y, z, r, n, alt, lvl } }`: centre in the goal's map and frame, its height (optional, see `z`), radius in yards, spawn count; `alt = true` for another place the target spawns, which the arrow takes only when the player moves on to it (the world map marks it); `lvl` on a `kill` or `collect`'s place: the highest level of the mobs spawning there, so the arrow takes the places at the player's level first (Polestar 0.3.2 and later; older Polestar ignores it), written only where it differs from the goal's `lvl` |
+| `lvl` | on a `kill` or `collect` with `spots`, every place having a level: the level most of its places share (see `spots`) |
 | `spotsPacked` | format 8, Polestar's own pack: the same spots as one string instead of `spots` ([Format 8](#format-8)) |
 | `spread` | `true` with `spots`: an area objective, searched spot by spot |
 | `from`, `fromAlso`, `fromKind`, `fromRank`, `fromFaction` | a `collect`'s main source: name, a second source of the same kind dropping it at 50% or more, `"npc"` or `"object"`, rank (1 elite, 2 rare elite, 3 boss, 4 rare), faction `"A"`, `"H"` or `"AH"` |
@@ -704,10 +705,11 @@ memory; a community addon is written as before. Format 8 is format 7 with two
 changes, read by Polestar 0.3.0 and later:
 
 - **Packed spawn spots.** A goal carries its `spots` as one string,
-  `spotsPacked = "<spot>;<spot>;..."`, each spot its `x`, `y`, `z`, `r`, `n`
-  and `alt` in that order, separated by commas: numbers as `Guides.lua`
+  `spotsPacked = "<spot>;<spot>;..."`, each spot its `x`, `y`, `z`, `r`, `n`,
+  `alt` and `lvl` in that order, separated by commas: numbers as `Guides.lua`
   writes them, `alt` as `1`, an absent value empty and trailing empty values
-  left out (`"57.6,62.1,,33,4"`, `"43.5,9.2,-12.5,110,19,1"`). Polestar
+  left out (`"57.6,62.1,,33,4"`, `"43.5,9.2,-12.5,110,19,1"`,
+  `"51.1,47,,40,2,,12"`; `lvl` from Polestar 0.3.2). Polestar
   checks the string when the guide registers and builds the spot tables when
   the goal's `spots` is first read; they stay on the goal for the session. A
   table per spot costs about 250 bytes in the game, its text about 16.

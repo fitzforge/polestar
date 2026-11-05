@@ -10,7 +10,8 @@
 //!   line of its own lands on the quest's bare `complete`; with `write: true` the objective gets its
 //!   own goal line from the data (`kill`, `interact` or `collect` with `quest Q.N`) before that
 //!   `complete`, which goes once every objective has its line. `at` is optional then: the compiler
-//!   places a written objective from the data.
+//!   places a written objective from the data. `label` sets the objective line's goal text (`"Talk to
+//!   Rathiril Sunlance"` for an objective the data counts as a kill, #802).
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
@@ -258,6 +259,19 @@ fn write_objective(lines: &mut Vec<String>, found: &[usize], q: u32, n: u32, dat
 	(now, changed)
 }
 
+/// `line` (a goal line's code and comment) with `label` as its goal text: the quoted text replaced, or
+/// put right after `quest Q.N`.
+fn labelled(line: &str, label: &str) -> String {
+	let (code, rest) = split_comment(line);
+	let quoted = format!("\"{label}\"");
+	let code = if code.contains('"') {
+		re!(r#""[^"]*""#).replace(code, regex::NoExpand(&quoted)).into_owned()
+	} else {
+		re!(r"\bquest\s+\d+\.\d+").replace(code, |m: &regex::Captures| format!("{} {quoted}", &m[0])).into_owned()
+	};
+	format!("{code}{rest}")
+}
+
 fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option<&Data>) -> Vec<usize> {
 	let mut changed = Vec::new();
 	let mut found = found.to_vec();
@@ -266,6 +280,20 @@ fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option
 			let (now, ch) = write_objective(lines, &found, q as u32, n as u32, data);
 			found = now;
 			changed = ch;
+		}
+	}
+	if let (Some(label), Some(q), Some(n)) = (r["label"].as_str(), r["quest"].as_u64(), r["objective"].as_u64()) {
+		for &i in &found {
+			if !objective_line(&lines[i], q as u32, n as u32) {
+				continue;
+			}
+			let new = labelled(&lines[i], label);
+			if new != lines[i] {
+				lines[i] = new;
+				if !changed.contains(&i) {
+					changed.push(i);
+				}
+			}
 		}
 	}
 	let found = &found[..];
@@ -317,8 +345,17 @@ fn apply_place(lines: &mut Vec<String>, found: &[usize], r: &Value, data: Option
 	changed
 }
 
+/// Whether the step `s` is an `along` step.
+fn along_step(lines: &[String], s: (usize, usize)) -> bool {
+	(s.0 + 1..s.1).any(|k| re!(r"^\s+along\b").is_match(&lines[k]))
+}
+
 fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
 	let mut changed = Vec::new();
+	// A tip or gate is for the goal's own step: an along step's copy of it (an `early` take) keeps its
+	// own, unless the goal has no other line.
+	let own: Vec<usize> = found.iter().copied().filter(|&i| !step_of(lines, i).is_some_and(|s| along_step(lines, s))).collect();
+	let found = if own.is_empty() { found } else { &own[..] };
 	for &i0 in found.iter().rev() {
 		let mut i = i0;
 		let Some(mut step) = step_of(lines, i) else { continue };
@@ -378,6 +415,55 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 	changed
 }
 
+/// An `early` guide fix (#798): right after the step holding `early.after` (its last line before the
+/// anchor's step), an `along until <label>` step with the record's title, `when` and tip lists the
+/// anchor step's lines for the quest (its accept and objectives, without their notes) on the way
+/// there; the anchor's step gets `label q<quest>` when it has no label. -> the changed lines.
+fn apply_early(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> {
+	let e = &r["early"];
+	let (Some(q), Some(title)) = (r["at"]["quest"].as_u64(), e["title"].as_str()) else { return Vec::new() };
+	let Some(from) = fix_anchor(&serde_json::json!({ "at": e["after"] })) else { return Vec::new() };
+	// The quest's own step: its first accept outside an along step (the early step is one).
+	let Some((i, step)) = found.iter().filter_map(|&i| step_of(lines, i).map(|s| (i, s))).find(|&(_, s)| !along_step(lines, s)) else { return Vec::new() };
+	let Some(astep) = anchor_lines(lines, &from).into_iter().rev().find(|&k| k < step.0).and_then(|a| step_of(lines, a)) else { return Vec::new() };
+	let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
+	let qs = q.to_string();
+	let goals: Vec<String> = (step.0 + 1..step.1)
+		.filter_map(|k| {
+			let code = split_comment(&lines[k]).0.trim_end().to_string();
+			let accept = re!(r"^\s+accept\s+(\d+)(?:\s|$)").captures(&code).is_some_and(|m| m[1] == *qs);
+			let work = re!(r"^\s+(?:kill|collect|interact|use)\b.*?\bquest\s+(\d+)(?:\.\d+)?(?:\s|$)").captures(&code).is_some_and(|m| m[1] == *qs);
+			(accept || work).then_some(code)
+		})
+		.collect();
+	let label_line = (step.0 + 1..step.1).find(|&k| re!(r"^\s+label\s+\S").is_match(&lines[k]));
+	let label = label_line.map_or_else(|| format!("q{q}"), |k| lines[k].trim()["label".len()..].trim().to_string());
+	let mut block = vec![format!("step {title}"), format!("{ind}along until {label}")];
+	block.extend(e["when"].as_str().map(|w| format!("{ind}when {w}")));
+	block.extend(e["tip"].as_str().map(|t| format!("{ind}tip {t}")));
+	block.extend(goals);
+	let written = lines.windows(block.len()).any(|w| w.iter().zip(&block).all(|(a, b)| a.trim_end() == b));
+	if written && label_line.is_some() {
+		return Vec::new();
+	}
+	let mut changed = Vec::new();
+	if label_line.is_none() {
+		lines.insert(step.0 + 1, format!("{ind}label {label}"));
+		changed.push(step.0 + 1);
+	}
+	if !written {
+		// After the step's last line, before the blank and comment lines that close it.
+		let mut at = astep.1;
+		while at > astep.0 + 1 && (lines[at - 1].trim().is_empty() || lines[at - 1].trim_start().starts_with('#')) {
+			at -= 1;
+		}
+		let n = block.len();
+		lines.splice(at..at, std::iter::once(String::new()).chain(block));
+		changed.extend(at + 1..at + 1 + n);
+	}
+	changed
+}
+
 /// A line apply_fix drops once every found line is done.
 const GONE: &str = "\u{0}";
 
@@ -408,18 +494,20 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 	let mut recs: Vec<Rec> = Vec::new();
 	for r in rec.places.and_then(|d| d["places"].as_array()).into_iter().flatten() {
 		let anchor = place_anchor(r);
-		recs.push(Rec { file: "places", r, slot: format!("{anchor:?}"), want: format!("{}{}{}", r["at"], r["path"], r["write"]), anchor });
+		recs.push(Rec { file: "places", r, slot: format!("{anchor:?}"), want: format!("{}{}{}{}", r["at"], r["path"], r["write"], r["label"]), anchor });
 	}
 	for r in rec.guide_fixes.and_then(|d| d["fixes"].as_array()).into_iter().flatten() {
 		let anchor = fix_anchor(r);
-		let kind = if r.get("tip").is_some() {
+		let kind = if r.get("early").is_some() {
+			"early"
+		} else if r.get("tip").is_some() {
 			"tip"
 		} else if r.get("along").is_some() {
 			"along"
 		} else {
 			"level"
 		};
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}", r["tip"], r["level"], r["along"]), anchor });
+		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}", r["tip"], r["level"], r["along"], r["early"]), anchor });
 	}
 	let mut rows = Vec::new();
 	for (k, x) in recs.iter().enumerate() {
@@ -458,7 +546,13 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 				changed_any = true;
 				continue;
 			}
-			let changed = if x.file == "places" { apply_place(&mut lines, &found, x.r, data) } else { apply_fix(&mut lines, &found, x.r) };
+			let changed = if x.file == "places" {
+				apply_place(&mut lines, &found, x.r, data)
+			} else if x.r.get("early").is_some() {
+				apply_early(&mut lines, &found, x.r)
+			} else {
+				apply_fix(&mut lines, &found, x.r)
+			};
 			if !changed.is_empty() {
 				changed_any = true;
 				tree.insert(f.clone(), lines.join("\n"));
@@ -610,6 +704,30 @@ mod tests {
 	}
 
 	#[test]
+	fn a_talk_objective_the_data_counts_as_a_kill_reads_talk_to() {
+		// Visur's report (#802): Welcome to Shen'dar Village's "Speak with" objectives were written as
+		// bare kills ("Kill Coriella Calmbreeze"); the label goes on the written line, before its point.
+		let seed = "step Shen'dar\n  accept 93461\n  complete 93461                 -- Speak with both\n  turnin 93461\n";
+		let places = json!({ "places": [
+			{ "id": "703-a", "quest": 93461, "objective": 1, "write": true, "label": "Talk to Rathiril Sunlance" },
+			{ "id": "703-b", "quest": 93461, "objective": 2, "write": true, "label": "Talk to Coriella Calmbreeze", "at": { "map": 2521, "x": 43.05, "y": 43.3, "frame": "live" } }
+		] });
+		let (out, rows) = run(seed, places.clone(), json!({}), &[]);
+		assert_eq!(out, "step Shen'dar\n  accept 93461\n  kill 251903 quest 93461.1 \"Talk to Rathiril Sunlance\"\n  kill 254089 quest 93461.2 \"Talk to Coriella Calmbreeze\" @43.05,43.3 map 2521 live\n  turnin 93461\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, places.clone(), json!({}), &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+		// A guide written before the label: the label joins the line; a different label is replaced.
+		let old = "step Shen'dar\n  kill 251903 quest 93461.1           -- Rathiril\n  kill 254089 quest 93461.2 \"Coriella\" @43.05,43.3 map 2521 live\n";
+		let (out, _) = run(old, places, json!({}), &[]);
+		assert_eq!(
+			out,
+			"step Shen'dar\n  kill 251903 quest 93461.1 \"Talk to Rathiril Sunlance\"           -- Rathiril\n  kill 254089 quest 93461.2 \"Talk to Coriella Calmbreeze\" @43.05,43.3 map 2521 live\n"
+		);
+	}
+
+	#[test]
 	fn two_records_on_one_anchor_conflict() {
 		let places = json!({ "places": [
 			{ "id": "a", "quest": 3505, "objective": 1, "at": { "map": 1447, "x": 59.53, "y": 31.47 } },
@@ -618,6 +736,27 @@ mod tests {
 		let (out, rows) = run(SEED, places, json!({}), &[]);
 		assert_eq!(out, SEED);
 		assert!(rows.iter().all(|r| r.state == "conflicting"), "{rows:?}");
+	}
+
+	#[test]
+	fn an_early_take_lists_the_quest_on_the_way_to_its_own_step() {
+		// petllama (#798): a level 5 player walks past Gordo from Calvin to Brill; the route meets him
+		// later. An along step after Calvin's lists Gordo's Task until its own step, for level 5 and up.
+		let seed = "step Calvin Montague\n  accept 8\n\nstep Brill\n  turnin 8\n\n# ---- Brill\n\nstep Gordo\n  tip Gordo walks the road.\n  accept 5481\n  collect 12737 quest 5481.1          -- Gloom Weed\n\nstep Brill\n  turnin 5481\n";
+		let fixes = json!({ "fixes": [
+			{ "id": "674-gordo-tip", "at": { "quest": 5481, "goal": "accept" }, "tip": "Gordo walks the road." },
+			{ "id": "798", "at": { "quest": 5481, "goal": "accept" }, "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "Take Gordo's Task if you pass him." } }
+		] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+		assert_eq!(
+			out,
+			"step Calvin Montague\n  accept 8\n\nstep Gordo on the road to Brill\n  along until q5481\n  when level>=5\n  tip Take Gordo's Task if you pass him.\n  accept 5481\n  collect 12737 quest 5481.1\n\nstep Brill\n  turnin 8\n\n# ---- Brill\n\nstep Gordo\n  label q5481\n  tip Gordo walks the road.\n  accept 5481\n  collect 12737 quest 5481.1          -- Gloom Weed\n\nstep Brill\n  turnin 5481\n"
+		);
+		let st: Vec<(&str, &str)> = rows.iter().map(|r| (r.id.as_str(), r.state.as_str())).collect();
+		assert_eq!(st, [("674-gordo-tip", "redundant"), ("798", "applied")]);
+		let (again, rows) = run(&out, json!({}), fixes, &[]);
+		assert_eq!(again, out, "applied again: nothing left to do, the early step's own tip kept");
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
 	}
 
 	#[test]

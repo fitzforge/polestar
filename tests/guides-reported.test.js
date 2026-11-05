@@ -465,13 +465,18 @@ test(`${TIRISFAL}: Fitz's report (#736): A Light in the Darkness is handed to Ar
 });
 
 // WANTED: Maggot Eye needs level 6; Vital Intelligence, handed to Zygand in
-// front of the inn, gives it (data/route-fixes.json, #801).
+// front of the inn, gives it to some (data/route-fixes.json, #801). The
+// recordings still reach the poster at 5.94 on the first Brill stop, so it is
+// read on the second, after A Putrid Task, before Maggot Eye's camp.
 test(`${TIRISFAL}: petllama's report (#801): WANTED: Maggot Eye is taken from the poster after Vital Intelligence is handed in`, { skip }, () => {
 	for (const cls of ['WARRIOR', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK', 'PALADIN']) {
 		const list = goals(TIRISFAL).filter(forClass(cls));
 		const take = at(list, `accept 398 for a ${cls}`, is('accept', 398));
 		const vital = at(list, `turnin 383 for a ${cls}`, is('turnin', 383));
 		assert.ok(vital < take, `a ${cls} hands Vital Intelligence in before the Maggot Eye poster`);
+		const second = at(list, `turnin 404 for a ${cls}`, is('turnin', 404));
+		const paw = at(list, `collect 3635 for a ${cls}`, (g) => g.t === 'collect' && g.item === 3635);
+		assert.ok(second < take && take < paw, `a ${cls} reads the poster on the second Brill visit, before Maggot Eye`);
 	}
 });
 
@@ -558,6 +563,10 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 		// (Sylvanas is talked to on the Undercity trip of the Hillsbrad guide.)
 		['forever/horde/06-hillsbrad-foothills.guide', 93739, 4, 'Lady Sylvanas Windrunner'],
 		[ASHENVALE_HORDE, 93739, 3, 'Cairne Bloodhoof'],
+		// Visur (#802): the Alliance Skyborne's Welcome to Shen'dar Village and The Missing Scholar.
+		['forever/alliance/skyborne/01-zephras-isle.guide', 93461, 1, 'Rathiril Sunlance'],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 93461, 2, 'Coriella Calmbreeze'],
+		['forever/alliance/skyborne/01-zephras-isle.guide', 92849, 1, 'Fillion Flamebreeze'],
 	];
 	for (const [guide, quest, oi, name] of talks) {
 		const { goal } = goals(guide)[at(goals(guide), `${quest}.${oi} (${name})`, (g) => g.t === 'kill' && g.quest === quest && g.oi === oi)];
@@ -1019,6 +1028,17 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// mtbhuskies, Soulevoker and mcclaskiem (#792): Executor Arren did not
 		// offer The Adventurer at level 4 with Night Web's Hollow still open.
 		[TIRISFAL, 96656, [382]],
+		// Livnthedream (#800): Apothecary Holland offers Tomb Weed once Doom
+		// Weed is handed in; the recordings show Sarvis giving the Paladin's
+		// A Difficult Path only after The Mindless Ones.
+		[TIRISFAL, 99142, [5482]],
+		[TIRISFAL, 98601, [364]],
+		// kieran1188 (#796): Master Vornal offers Forgotten Loa Idols once
+		// Report to Sen'jin Village is handed in. Rohkin (#807): Rezlak offers
+		// Stormy Potential once A Simmering Storm (the Dull Storm Orb's) is
+		// handed in, so it is an optional extra.
+		...DUROTARS.map((g) => [g, 97225, [805]]),
+		...[...DUROTARS, 'forever/reputation/orgrimmar.guide', 'forever/reputation/darkspear-trolls.guide'].map((g) => [g, 97282, [97281], true]),
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -1027,6 +1047,88 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		for (const pre of after) {
 			assert.ok(at(list, `${guide}: turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${quest} is taken after ${pre} is handed in`);
 		}
+	}
+});
+
+// Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a
+// chance drop (the Storm Witches' Dull Storm Orb) starts: never a must-do, and
+// its hand-in at Rezlak only for those who took it.
+test('Rohkin\'s report (#807): Stormy Potential is an optional extra after the Dull Storm Orb\'s quest', { skip }, () => {
+	for (const guide of [...DUROTARS, 'forever/reputation/orgrimmar.guide', 'forever/reputation/darkspear-trolls.guide']) {
+		const accepts = goals(guide).filter(({ goal }) => is('accept', 97282)(goal));
+		assert.ok(accepts.length > 0, `${guide}: Stormy Potential is offered`);
+		for (const { goal } of accepts) assert.equal(goal.optional, true, `${guide}: accept 97282 is optional`);
+		assert.ok(goals(guide).some(({ goal }) => is('accept', 97281)(goal) && goal.optional), `${guide}: the orb's quest is optional too`);
+	}
+});
+
+// petllama (#798): from level 5, Gordo's Task is listed on the road from
+// Calvin Montague to Brill, until the later Gordo step that takes it for
+// everyone else (data/guide-fixes.json, 798-gordo-on-the-road-to-brill).
+test(`${TIRISFAL}: petllama's request (#798): Gordo's Task is taken on the road to Brill from level 5`, { skip }, () => {
+	const { steps } = compiled(TIRISFAL);
+	const has = (step, verb, quest) => step.goals.some((g) => is(verb, quest)(g));
+	const early = steps.findIndex((st) => st.along && has(st, 'accept', 5481));
+	assert.ok(early >= 0, 'an along step takes Gordo\'s Task');
+	const step = steps[early];
+	assert.deepEqual(step.when, [{ k: 'level', op: '>=', n: 5 }], 'from level 5 only');
+	assert.ok(step.goals.some((g) => g.t === 'collect' && g.item === 12737 && g.quest === 5481), 'with its Gloom Weed');
+	assert.ok(has(steps[early - 1], 'accept', 8), 'right after Calvin Montague');
+	const until = steps.findIndex((st) => st.label === step.along);
+	assert.ok(until > early && has(steps[until], 'accept', 5481) && !steps[until].along, 'until Gordo\'s own step, which still takes it');
+});
+
+// Onrevax (#820) and bob (#823): the Applejack Still (91736) never enters the
+// quest log: clicking it with four Shiny Red Apples hands it in on the spot
+// and gives the Thunder Applejack, which Sergeant De Vries needs for An Apple
+// Treat. The still comes once, after Homer Stonefield sells the apples, and no
+// step waits on `when onquest 91736`, which never holds.
+test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still comes once, after the Stonefield apples and before De Vries`, { skip }, () => {
+	const { steps } = compiled(ELWYNN);
+	const has = (st, pred) => st.goals.some(pred);
+	const still = steps.map((st, i) => [st, i]).filter(([st]) => has(st, (g) => g.quest === 91736));
+	assert.equal(still.length, 1, 'one step for the still');
+	const [step, at] = still[0];
+	assert.ok(has(step, is('accept', 91736)) && has(step, is('turnin', 91736)) && has(step, (g) => g.t === 'collect' && g.item === 247824), 'the still hands in and gives the Applejack in that step');
+	for (const st of steps) assert.ok(!(st.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(91736)), 'no step waits for 91736 in the quest log');
+	const apples = steps.findIndex((st) => has(st, (g) => g.t === 'buy' && g.item === 4536));
+	const deVries = steps.findIndex((st) => has(st, is('accept', 91738)));
+	assert.ok(steps.findIndex((st) => has(st, is('turnin', 87))) <= apples && apples < at && at < deVries, 'Stonefield apples, the still, then De Vries');
+});
+
+// Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
+// step (players' recordings). His head stays an optional extra (#221); the step
+// says he is an elite and to leave him without a group or below level 10.
+test(`${ELWYNN}: the step that lists Croaky's Head warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
+	const step = compiled(ELWYNN).steps.find((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
+	assert.ok(step, 'the head is still an optional goal');
+	const tip = [].concat(step.note || []).join(' ');
+	assert.match(tip, /level 11 elite/, tip);
+	assert.match(tip, /with a group or once you're level 10/, tip);
+});
+
+// Swelling Forces (98013, level 20 naga) needs Return to Onu (950), which only
+// the shared Darkshore hands in: the Night Elf start's own Darkshore left it
+// unoffered at about 13 and walked to the naga for it.
+test('Night Elf Darkshore: Swelling Forces waits for the shared Darkshore visit, after Return to Onu', { skip }, () => {
+	assert.ok(!goals('forever/alliance/nightelf/02-darkshore.guide').some(({ goal }) => goal.quest === 98013), 'not in the Night Elf start\'s own Darkshore');
+	const list = goals(DARKSHORE);
+	assert.ok(at(list, 'turnin 950', is('turnin', 950)) < at(list, 'accept 98013', is('accept', 98013)), 'the shared Darkshore takes it after Return to Onu');
+});
+
+// A Last Request (93927): the game's objective 1 is the Bloody Note ("Collect
+// and read the note"), 2 is Skypriest Aanders (players' recordings, Forever's
+// quest data). Written swapped, the note goal followed Aanders' line and stayed
+// open after the note was read.
+test('Zephras Isle: A Last Request\'s note and Skypriest Aanders count the objectives the game gives them (#825)', { skip }, () => {
+	const order = fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'data', 'quest_objective.jsonl'), 'utf8').split('\n').filter(Boolean).map((l) => JSON.parse(l)).filter((o) => o.quest === 93927);
+	const n = (target) => order.find((o) => o.target === target).n;
+	assert.deepEqual([n(254871), n(256966)], [1, 2], 'Forever\'s quest data: the note first, Aanders second');
+	for (const guide of ['forever/alliance/skyborne/01-zephras-isle.guide', 'forever/horde/skyborne/01-zephras-isle.guide']) {
+		const list = goals(guide);
+		const note = list[at(list, `${guide}: the Bloody Note`, (g) => g.t === 'collect' && g.item === 254871 && g.quest === 93927)].goal;
+		const aanders = list[at(list, `${guide}: Skypriest Aanders`, (g) => g.t === 'kill' && g.npc === 256966 && g.quest === 93927)].goal;
+		assert.deepEqual([note.oi, aanders.oi], [n(254871), n(256966)], guide);
 	}
 });
 

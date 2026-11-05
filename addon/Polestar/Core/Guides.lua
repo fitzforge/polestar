@@ -203,7 +203,7 @@ end
 -- chunk stays well inside Lua 5.1's cap on locals.
 local KEYS = {
 	only = { "classes", "races", "factions" },
-	goalNumbers = { "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank" },
+	goalNumbers = { "skillLine", "untilSkill", "criteria", "level", "profLine", "profRank", "lvl" },
 	goalRanks = { "rank", "qlvl" },
 	rewardLists = { "items", "choices" },
 	guideMaps = { "names", "written" },
@@ -301,7 +301,7 @@ end
 ---------------------------------------------------------------------------
 -- Packed spawn spots (format 8, Polestar's own pack; docs/PACK_FORMAT.md,
 -- "Format 8"). A compiled goal may carry its spots as one string,
--- `spotsPacked`: per spot "x,y,z,r,n,alt" (an absent value empty, trailing
+-- `spotsPacked`: per spot "x,y,z,r,n,alt,lvl" (an absent value empty, trailing
 -- empty values dropped, alt written 1), spots joined by ";". A table per
 -- spot costs about 250 bytes, its text about 16. The goal's first read of
 -- `spots` builds the same tables the compiler had (Own.PACKED) and keeps
@@ -313,7 +313,7 @@ local strfind, strbyte, gmatch = string.find, string.byte, string.gmatch
 local SEMICOLON = 59
 -- x, y, z (may be empty), r: the fields every spot has.
 local SPOT_HEAD = "^%-?%d+%.?%d*,%-?%d+%.?%d*,%-?%d*%.?%d*,%d+%.?%d*"
-local SPOT_FIELDS = { "x", "y", "z", "r", "n" }
+local SPOT_FIELDS = { "x", "y", "z", "r", "n", "alt", "lvl" }
 
 -- Whether s is packed spots, checked without building anything (validation
 -- runs over every goal at registration).
@@ -326,8 +326,12 @@ function Own.spotsPackedOk(s)
 		local _, n = strfind(s, "^,%d*%.?%d*", e + 1)
 		if n then
 			e = n
-			local _, alt = strfind(s, "^,1", e + 1)
-			if alt then e = alt end
+			local _, alt = strfind(s, "^,1?", e + 1)
+			if alt then
+				local _, lvl = strfind(s, "^,%d+", alt + 1)
+				-- An empty alt is written only before a level.
+				if lvl then e = lvl elseif alt > e + 1 then e = alt end
+			end
 		end
 		if e == last then return true end
 		if strbyte(s, e + 1) ~= SEMICOLON then return false end
@@ -335,8 +339,8 @@ function Own.spotsPackedOk(s)
 	end
 end
 
--- Packed spots -> { { x, y, z?, r, n?, alt? }, ... }, or nil when a value is
--- not a number.
+-- Packed spots -> { { x, y, z?, r, n?, alt?, lvl? }, ... }, or nil when a
+-- value is not a number.
 function Own.unpackSpots(s)
 	local out = {}
 	for rec in gmatch(s, "[^;]+") do
@@ -429,7 +433,7 @@ local function checkGoal(goal)
 		if type(spots) ~= "table" or #spots == 0 or not isNum(goal.map) then return "bad spots" end
 		for i = 1, #spots do
 			local s = spots[i]
-			if type(s) ~= "table" or not (isNum(s.x) and isNum(s.y) and isNum(s.r) and s.r >= 0) or (s.alt ~= nil and s.alt ~= true) then return "bad spot " .. i end
+			if type(s) ~= "table" or not (isNum(s.x) and isNum(s.y) and isNum(s.r) and s.r >= 0) or (s.alt ~= nil and s.alt ~= true) or (s.lvl ~= nil and not isNum(s.lvl)) then return "bad spot " .. i end
 		end
 	end
 	if goal.spread ~= nil and not (goal.spread == true and (spots ~= nil or packed ~= nil)) then return "bad spread" end

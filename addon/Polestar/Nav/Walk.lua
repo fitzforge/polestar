@@ -969,12 +969,19 @@ end
 --   One batch at a time; a new target cancels the old one's. None is started
 --     in combat (owed until it ends; the engine pauses a running one), with
 --     Walk real paths off, or while Shortest Path Forever guides.
+--   None for a target within MEASURE_NEAR yards of the player: its plan keeps
+--     the straight estimates (as before 0.3.0), and the arrow's own search
+--     still draws the walk. A batch costs about a second of router work and
+--     a guide sets a near waypoint at every turn-in, so measuring those
+--     stuttered the frame rate for little: a hearth or a flight seldom beats
+--     a walk that short. A target measured from farther keeps its measure.
 ---------------------------------------------------------------------------
 
 local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
 local MEASURE_MAX = 16      -- places measured, nearest first
 local MEASURE_KEEP = 4      -- targets whose measures are kept
 local START_NEAR = 50       -- yards from where the player's walk was measured: its measure holds
+local MEASURE_NEAR = 400    -- straight yards from the player: a nearer target is not measured
 
 local measures = {}         -- finished measures, oldest first
 local measuring             -- the measure being taken: { c, x, y, water, pts, si, sx, sy, job }
@@ -1094,6 +1101,17 @@ function Walk.Measure(c, x, y, water, places)
 	if measuring and not sameTarget(measuring, c, x, y, water) then cancelMeasure() end
 	local P = engine()
 	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return end
+	-- A near target: the straight estimates (the player's place is the plan's start).
+	for _, p in ipairs(places) do
+		if p.start then
+			local dx, dy = p.wx - x, p.wy - y
+			if dx * dx + dy * dy < MEASURE_NEAR * MEASURE_NEAR then
+				measureOwed = nil
+				return
+			end
+			break
+		end
+	end
 	if inCombat() then
 		measureOwed = { c = c, x = x, y = y, water = water, places = places }
 		return

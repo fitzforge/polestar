@@ -76,7 +76,8 @@ fn without_previous_coordinates_the_spawn_centroid_in_the_current_zone_is_used()
 #[test]
 fn collect_positions_at_the_item_drop_sources_preferring_the_current_zone_then_nearness_then_drop_chance() {
 	// Both droppers' spawns make the spawn areas: a pack of two and the lone one; nearest to the point first.
-	// The dominant source (50% or more) is named; `fromNpcs` names both droppers, the point's own first.
+	// The dominant source (50% or more) is named; `fromNpcs` names both droppers, the point's own first. Both
+	// are level 1: the goal's `lvl` (#827).
 	let pack = json!({ "x": 45.5, "y": 39, "r": 30, "n": 2 });
 	let lone = json!({ "x": 44, "y": 45, "r": 15, "n": 1 });
 	let timber = json!({ "npc": 69, "npcName": "Timber Wolf" });
@@ -84,14 +85,26 @@ fn collect_positions_at_the_item_drop_sources_preferring_the_current_zone_then_n
 	let alone = goals_of(&["step One", "  collect 750 x4"]).0[0].clone();
 	assert_eq!(
 		alone,
-		json!({ "t": "collect", "item": 750, "itemName": "Tough Wolf Meat", "from": "Timber Wolf", "fromId": 69, "fromKind": "npc", "fromFaction": "A", "count": 4, "map": 1429, "x": 44.5, "y": 42.5, "f": "e", "spots": [lone, pack], "fromNpcs": [timber, young] })
+		json!({ "t": "collect", "item": 750, "itemName": "Tough Wolf Meat", "from": "Timber Wolf", "fromId": 69, "fromKind": "npc", "fromFaction": "A", "count": 4, "map": 1429, "x": 44.5, "y": 42.5, "f": "e", "spots": [lone, pack], "lvl": 1, "fromNpcs": [timber, young] })
 	);
 	// After meeting Eagan (48.94,40.17) the nearest spawn of any source wins: a Young Wolf at 46,38.
 	let linked = goals_of(&["step One", "  accept 33", "  collect 750 quest 33"]).0[1].clone();
 	assert_eq!(
 		linked,
-		json!({ "t": "collect", "quest": 33, "title": "Wolves Across the Border", "item": 750, "itemName": "Tough Wolf Meat", "from": "Timber Wolf", "fromId": 69, "fromKind": "npc", "fromFaction": "A", "count": 8, "oi": 1, "map": 1429, "x": 46, "y": 38, "f": "e", "spots": [pack, lone], "fromNpcs": [young, timber] })
+		json!({ "t": "collect", "quest": 33, "title": "Wolves Across the Border", "item": 750, "itemName": "Tough Wolf Meat", "from": "Timber Wolf", "fromId": 69, "fromKind": "npc", "fromFaction": "A", "count": 8, "oi": 1, "map": 1429, "x": 46, "y": 38, "f": "e", "spots": [pack, lone], "lvl": 1, "fromNpcs": [young, timber] })
 	);
+}
+
+// #827: each spawn area of a kill or collect carries the highest level of the mobs spawning in it, so the arrow
+// can take those at the player's level first. Silk Cloth drops from Goldshire Rats (2), Cloth and Guardpost
+// Kobolds (5), a Lone Kobold (6) and the Ancient Kobolds (40), each in its own place: the goal's `lvl` is the
+// level most places share, and a place of another level carries its own. A kill's places share its mob's.
+#[test]
+fn each_spawn_area_carries_its_mobs_level_the_goal_the_one_most_share_827() {
+	let (goals, _) = goals_of(&["step One", "  collect 4306 x5", "  kill 6 x10"]);
+	let levels = |g: &Value| -> (Value, Vec<Value>) { (get(g, "lvl"), g["spots"].as_array().unwrap().iter().map(|s| get(s, "lvl")).collect()) };
+	assert_eq!(levels(&goals[0]), (json!(5), vec![json!(2), Value::Null, Value::Null, json!(6), json!(40)]));
+	assert_eq!(levels(&goals[1]), (json!(1), vec![Value::Null, Value::Null, Value::Null]));
 }
 
 #[test]

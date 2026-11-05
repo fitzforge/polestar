@@ -1083,7 +1083,18 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   stands in counts as not visited; all visited: the one visited longest ago),
   so the spots form a circuit. Spots with `alt` are never picked by these
   rules; they are reached by hand and, once picked, hold like any current spot
-  (camps: until another spot is 40 yd nearer). `Engine.CycleSpot(stepIndex,
+  (camps: until another spot is 40 yd nearer). Levels (#827): a kill or
+  collect goal's spot carries `lvl`, the highest level of the mobs spawning in
+  it (compiled from the data; with a level for every spot, the goal's own `lvl`
+  is the one most share and a spot carries `lvl` only when it differs; a
+  `loop` step's points carry none). While a goal
+  has a spot whose mobs are at most one level above the player
+  (`Spots.ABOVE`) and one above that, these rules leave the higher spots as
+  they leave alternatives (a current one above is left at once); with none at
+  the player's level every spot counts. A step with several open field goals
+  likewise leads to the nearest such spot of any of them (a spot without
+  `lvl`, or a goal without spots, counts as at the player's level), and only
+  with none to the nearest of all; a level up re-picks. `Engine.CycleSpot(stepIndex,
   goalIndex[, index])` moves on by hand to the nearest spot not visited lately,
   alternatives included (the current spot counts as visited), or to spot
   `index`; a spot picked that way holds until the player reaches it. It returns
@@ -2831,7 +2842,10 @@ reached by the chain's straight link and keeps its straight price). Rules: a
 place the engine finds no walk from (`false`: Thunder Bluff's flight
 master, on a tower it cannot snap from) and every place when none has a walk
 (the target snapped off the ground) or the batch failed keep the straight
-estimate; a place farther or beyond the nearest 16 keeps it too; the
+estimate; a place farther or beyond the nearest 16 keeps it too; a target
+within 400 yd of the player is not measured at all (its plan keeps the
+straight estimates, the arrow its own search: a batch is about a second of
+router work, and a guide sets such a waypoint at every turn-in); the
 player's measure holds within 50 yd of where it was taken. Farther, the
 player's walk counts as missing from the measure, so the next plan (at most
 once per replan) measures it again; meanwhile it is that measure less the
@@ -3328,7 +3342,7 @@ Polestar_Nav.toc        LoadOnDemand, Dependencies: Polestar
                         lifts: Chokepoints.lua's lift landings (bottom, pair = its top) as abstract vertices, the ride
                         175 (25 s at run speed) either way, joined to their cluster's entrances and to a start or goal
                         there by grid searches (a few numbers a landing kept, 64 at most)
-  Routing\PathJobs.lua  ours from his: the coroutine queue sharing Path.budget (2 ms) a frame
+  Routing\PathJobs.lua  ours from his: the coroutine queue sharing Path.budget (3 ms) a frame
   API.lua               Polestar_NavEngine = the Path table, plus Available(map); the memory ceilings
 ```
 
@@ -3400,11 +3414,16 @@ of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, 
 } }`) hostile to `profile` that the drawn line enters, each once, in path
 order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
-slices of `Path.budget` ms, wait out combat, and drop decoded clusters once
-the queue is empty, except the one `Path.SurfacesAt` reads (the player's
-floor, until `Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap
-them meanwhile, and `Idle` trims the decoded graph to `Path.graphRestKB`, all
-set in `API.lua`.
+slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
+100 fps, halving the frame rate while a search ran) and wait out combat. A
+decode yields at its slice points to its very end. Once the queue is empty
+the router rests: `Rest` trims the decoded graph to `Path.graphRestKB`, and
+decoded clusters, the decoder's scratch and the endpoint trees stay for the
+next search (a walk from nearby reads the same clusters: 0.3.1 decoded them
+again for every search); after `Path.restSeconds` (60) with no search `Idle`
+drops them, except the one `Path.SurfacesAt` reads (the player's floor, until
+`Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap them
+meanwhile, all set in `API.lua`.
 The maps are base64 zlib blocks decoded per cluster with `C_EncodingUtil`.
 `forge nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
 the sha256 of every file), and `Nav.xml` to it.
