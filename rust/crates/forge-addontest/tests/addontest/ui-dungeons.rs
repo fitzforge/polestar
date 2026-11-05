@@ -54,7 +54,17 @@ fn pack() -> CodexPack {
 		zones: v(&codex["zones"]),
 	};
 	let (journal, _) = build_journal(
-		&JournalInputs { maps: &maps, frames: &frames, fv_quests: &quests, fv_objects: &objects, fv_zones: &zones, fv_dungeons: &dungeons, journal_quests: &[], attunement_table: &attunements },
+		&JournalInputs {
+			maps: &maps,
+			frames: &frames,
+			fv_quests: &quests,
+			fv_objects: &objects,
+			fv_zones: &zones,
+			fv_dungeons: &dungeons,
+			journal_quests: &[],
+			attunement_table: &attunements,
+			store_xp: &Default::default(),
+		},
 		&c,
 	);
 	write_codex_pack(codex, &CodexOpts { extra_files: vec![("Dungeons1.lua".into(), emit_journal(&journal))], ..Default::default() })
