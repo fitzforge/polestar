@@ -1,6 +1,7 @@
 //! `along` steps at runtime (addon/Polestar/Core/Engine.lua; docs/GUIDE_FORMAT.md, "Along the way"): the route
 //! passes over an along step at once; while the live step is past it, Engine.GetAlong lists its open goals,
-//! until they are done or, with `along = "<label>"`, until the live step reaches the step so labelled.
+//! until they are done or, with `along = "<label>"`, until the live step reaches the step so labelled; a quest
+//! with work still open keeps its own goals listed past the label until that work is done (#797, #809).
 //! Engine.AimAlong leads the arrow to one of them. Core/Guides.lua checks `label` and `along`. Real Core
 //! manifest, stub world.
 
@@ -88,15 +89,21 @@ fn the_route_passes_over_along_steps_their_open_goals_are_listed_until_done_or_u
 	assert_eq!(out, vec![json!([1, ""]), json!([4, "2:1:0 2:2:0 3:1:0"]), json!("2:1:4 2:2:0 3:1:0"), json!("3:1:0"), json!("")]);
 }
 
+// Zyd's (#797, Iverron's Antidote) and jkw's (#809, Legging It) reports: the labelled step hands the quest in,
+// and its along goals vanished there, leaving "Turn in" for a quest with work left.
 #[test]
-fn reaching_the_step_until_names_ends_the_list_with_goals_still_open_a_plain_along_stays() {
+fn reaching_the_step_until_names_ends_the_list_but_a_quest_with_work_left_keeps_its_goals_until_done() {
 	let out = run(r#"
 		local w = stub.world
 		w.accept(7, { 10 }); flush()
 		w.accept(783, {}); flush()
-		emit({ E.GetLiveStep(), along() })
+		emit({ E.GetLiveStep(), along() })      -- at the hand-in of 7: its vermin stay, the candles (no quest) end
+		w.progress(7, 1, 6); flush()
+		emit(along())
+		w.progress(7, 1, 10); flush()
+		emit(along())                           -- 7 ready to hand in: step 2 is gone, the plain along stays
 	"#);
-	assert_eq!(out, vec![json!([5, "3:1:0"])]);
+	assert_eq!(out, vec![json!([5, "2:1:0 3:1:0"]), json!("2:1:6 3:1:0"), json!("3:1:0")]);
 }
 
 #[test]
@@ -162,9 +169,9 @@ fn the_arrow_s_along_choice_lapses_when_the_goal_is_done_and_holds_while_the_rou
 		emit(wp())
 		w.accept(783, {}); flush()              -- live step 5; step 3 (no until) is still listed
 		emit({ E.GetLiveStep(), wp() })
-		emit(E.AimAlong(2, 1))                  -- step 2 ended at its label (step 5)
+		emit({ E.AimAlong(2, 2), E.AimAlong(2, 1) })   -- past its label (step 5) step 2 keeps only quest 7's open vermin
 	"#);
-	assert_eq!(moved, vec![json!("3:1"), json!([5, "3:1"]), json!(false)]);
+	assert_eq!(moved, vec![json!("3:1"), json!([5, "3:1"]), json!([false, true])]);
 }
 
 #[test]

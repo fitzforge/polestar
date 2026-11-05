@@ -866,7 +866,10 @@ end
 -- `along` steps (format 4; docs/GUIDE_FORMAT.md, "Along the way"): the route
 -- passes over them (stepDone), and while the live step is past one, its open
 -- goals are listed under it (Engine.GetAlong) until they are done or, with
--- `along = "<label>"`, until the live step reaches the step so labelled.
+-- `along = "<label>"`, until the live step reaches the step so labelled. A
+-- quest whose work is still open there stays listed past the label (its
+-- goals only) until that work is done: the labelled step is often the one
+-- that hands it in (#797, #809), and "Turn in" alone hides what is left.
 -- Per guide: { labels = { name -> step }, along = { step, ... } }.
 Own.marks = setmetatable({}, { __mode = "k" })
 function Own.marksOf()
@@ -882,9 +885,19 @@ function Own.marksOf()
 	return m
 end
 
+-- Whether an along step's goal is held past its label: work for its quest
+-- (not its accept, hand-in or a note) that applies, the quest in the log and
+-- not ready to hand in. (On Own: the main chunk is at Lua's 200 locals.)
+function Own.alongHeld(goal)
+	if goal.quest == nil or goal.t == "accept" or goal.t == "turnin" or goal.t == "note" then return false end
+	local C = Compat()
+	return goalApplies(goal) and C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
+end
+
 -- Step s is an along step behind the live step whose goals are listed: it
 -- applies, the player did not skip it, and the live step has not reached the
--- step its `along` names.
+-- step its `along` names. -> true (every goal), "held" (past the label: only
+-- its Own.alongHeld goals, Own.alongShows) or false.
 function Own.alongListed(s)
 	local live = computed
 	if not (guide and live) or type(s) ~= "number" or s >= live then return false end
@@ -892,9 +905,21 @@ function Own.alongListed(s)
 	if not (step and step.along) or isSkipped(s) or not stepApplies(step) then return false end
 	if step.along ~= true then
 		local stop = Own.marksOf().labels[step.along]
-		if stop and live >= stop then return false end
+		if stop and live >= stop then
+			for _, goal in ipairs(step.goals) do
+				if Own.alongHeld(goal) then return "held" end
+			end
+			return false
+		end
 	end
 	return true
+end
+
+-- Whether goal `goal` of along step s is listed now (Own.alongListed).
+function Own.alongShows(s, goal)
+	local listed = Own.alongListed(s)
+	if listed == "held" then return Own.alongHeld(goal) end
+	return listed and true or false
 end
 
 -- The listed along step holding `goal`, and its index there, or nil.
@@ -903,7 +928,7 @@ function Own.alongOf(goal)
 	for _, s in ipairs(Own.marksOf().along) do
 		if Own.alongListed(s) then
 			for g, other in ipairs(guide.steps[s].goals) do
-				if other == goal then return s, g end
+				if other == goal and Own.alongShows(s, other) then return s, g end
 			end
 		end
 	end
@@ -5305,10 +5330,11 @@ function Engine.GetAlong()
 	if not guide then return out end
 	if not player then refreshPlayer() end
 	for _, s in ipairs(Own.marksOf().along) do
-		if Own.alongListed(s) then
+		local listed = Own.alongListed(s)
+		if listed then
 			local step, goals = guide.steps[s], {}
 			for g, goal in ipairs(step.goals) do
-				if goal.t ~= "note" then
+				if goal.t ~= "note" and (listed ~= "held" or Own.alongHeld(goal)) then
 					local view = goalView(s, g, goal, "current", nil)
 					if view.status == "active" then
 						view.step = s
@@ -5824,8 +5850,9 @@ end
 -- click under the step). The choice lasts while the goal is listed and open,
 -- also when the route moves on. True if the arrow can lead there.
 function Engine.AimAlong(stepIndex, goalIndex)
-	if not (guide and current) or not (Own.alongListed(stepIndex) or Own.pinListed(stepIndex, goalIndex)) then return false end
+	if not (guide and current) then return false end
 	local goal = Own.alongGoal(stepIndex, goalIndex)
+	if not (Own.pinListed(stepIndex, goalIndex) or goal and Own.alongShows(stepIndex, goal)) then return false end
 	if not goal or goal.t == "note" or not waypointOf(goalIndex, goal, nil, stepIndex) then return false end
 	aim = goal
 	evaluate()
