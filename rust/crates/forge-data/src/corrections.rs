@@ -1234,9 +1234,11 @@ fn check_places(ck: &mut Ck, d: &V) {
 }
 
 /// data/guide-fixes.json: `{ about, fixes: [{ id, at: { quest, goal: accept | turnin | complete |
-/// objective, objective? }, tip | level (after?) | along: false, note, source, issue, pr }] }`. `along: false` (an
+/// objective, objective? }, tip | level (after?) | along: false | early, note, source, issue, pr }] }`. `along: false` (an
 /// objective goal only): the writer never lists the objective "on the way" before its step. `after: true`
-/// (a level gate only): the gate goes right after the anchor goal, not before it.
+/// (a level gate only): the gate goes right after the anchor goal, not before it. `early: { after: { quest, goal:
+/// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
+/// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1248,7 +1250,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "early", "faction", "note", "source", "issue", "pr"]);
 		let after = r.get("after");
 		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
@@ -1271,8 +1273,27 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			}
 			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete or objective", show(&a.get("goal")))),
 		}
-		let (tip, level, along) = (r.get("tip"), r.get("level"), r.get("along"));
+		let (tip, level, along, early) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"));
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !early.is_undef() && along.is_undef() => {
+				ck.keys(&format!("{at}.early"), &early, &["after", "title", "when", "tip"]);
+				let from = early.get("after");
+				ck.keys(&format!("{at}.early.after"), &from, &["quest", "goal"]);
+				ck.refers(&format!("{at}.early.after.quest"), "quests", &from.get("quest"));
+				if !matches!(from.get("goal").as_str(), Some("accept" | "turnin")) {
+					ck.err(format!("{at}.early.after.goal"), "accept or turnin");
+				}
+				for k in ["title", "when", "tip"] {
+					let v = early.get(k);
+					if (k == "title" || !v.is_undef()) && (!has_text(&v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+						ck.err(format!("{at}.early.{k}"), "one line of text");
+					}
+				}
+				if a.get("goal").as_str() != Some("accept") {
+					ck.err(format!("{at}.at.goal"), "an `early` fix is on an accept");
+				}
+				"early"
+			}
 			(true, true) if !along.is_undef() => {
 				if !matches!(along, V::Bool(false)) {
 					ck.err(format!("{at}.along"), "`along` is false (the objective is never listed on the way)");
