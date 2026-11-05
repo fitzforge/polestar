@@ -645,14 +645,23 @@ ns.RegisterCommand("near", Nearby.Command,
 	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"])
 
 if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
+	-- Also on Quality of Life > Travel > Nearby services: one setting, a fresh
+	-- control per page (the registry keeps per-control state).
+	local function controls()
+		return {
 			{ kind = "toggle", key = "nav.nearbyMenu", label = L["Nearby services in map menus"],
+				search = "nearest vendor, repair, trainer, mailbox, bank, inn, find npc, tracking",
 				help = L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] },
 			{ kind = "toggle", key = "nav.nearbyButton", label = L["Nearby services button"],
+				search = "nearest vendor, repair, trainer, inn, flight master, find npc",
 				help = L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
+		}
+	end
+	for _, spec in ipairs({
+		{ page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"], controls = controls() },
+		{ page = L["Quality of Life"], tab = L["Travel"], section = L["Nearby services"], controls = controls() },
+	}) do
+		local ok, err = ns.RegisterOptions(spec)
+		if not ok and geterrorhandler then geterrorhandler()(err) end
+	end
 end

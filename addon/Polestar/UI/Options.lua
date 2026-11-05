@@ -181,12 +181,21 @@ local function declare(page, key, icon, order, subtitle, tabs)
 	return out
 end
 
+-- Guide > Automation's trainer reminders, also on Quality of Life > Vendors >
+-- Trainers: one setting, a fresh control per page (the registry keeps
+-- per-control state).
+local function trainReminder()
+	return { kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
+		search = "train, trainer, new spells, skills, abilities, level up, class trainer",
+		choices = { { value = "2", label = L["Every 2 levels"] }, { value = "1", label = L["Every level"] }, { value = "off", label = L["Off"] } } }
+end
+
 local BUILTIN = {
 	-- Following the guide: the window, the arrow and routes, automation.
 	{ page = GUIDE, key = "guide", icon = "window", order = 10, tab = L["Window"], section = L["What it shows"],
 		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."], controls = {
-		{ kind = "toggle", key = "ui.shown", label = L["Show the window"], help = L["Also /polestar, or the key binding."] },
-		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."] },
+		{ kind = "toggle", key = "ui.shown", label = L["Show the window"], help = L["Also /polestar, or the key binding."], search = "show guide, hide guide, toggle window, open window" },
+		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."], search = "minimal, small, smaller window, simple" },
 		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
 			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] },
 		{ kind = "slider", key = "ui.maxHeight", label = L["Maximum height"], min = 0.3, max = 0.9, step = 0.05, format = percent,
@@ -198,7 +207,7 @@ local BUILTIN = {
 		{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."] },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
-		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."],
+		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "fade", label = L["Fade out"] }, { value = "hide", label = L["Hide"] } } },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Dungeons"], controls = {
@@ -206,7 +215,7 @@ local BUILTIN = {
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Position"], controls = {
-		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."] },
+		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock" },
 		{ kind = "toggle", key = "ui.lockHud", label = L["Lock arrow and buttons"],
 			help = L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] },
 		{ kind = "toggle", key = "ui.growUp", label = L["Grow upward"], help = L["Keep the bottom edge in place, so longer steps extend the window up."] },
@@ -215,36 +224,45 @@ local BUILTIN = {
 		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], help = L["Put the guide window back in its corner."], onClick = function() ns.Set("ui.pos", nil) end },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are under Appearance, Arrow."] }),
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], help = L["Points to the current goal. Its look and colours are under Appearance, Arrow."],
+			search = "arrow, waypoint, pointer, direction, compass, navigation, hud" }),
 		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
 			child = true, disabled = function() return not ns.Get("nav.arrow") end }),
-		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."] }),
-		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."],
+		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time" }),
+		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, metric, distance",
 			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
-		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."] }),
+		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding" }),
 		H({ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
 			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
 			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
-		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."] }),
+		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
+			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way" }),
 		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know (a mage's city teleports, a druid's Moonglade) when it is faster. A city teleport needs a Rune of Teleportation in your bags."],
+			search = "teleport, portal, mage, druid, moonglade",
 			child = true, disabled = function() return not ns.Get("nav.travel") end }),
-		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."] }),
+		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
+			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains" }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+			search = "path line, route on map, sparkles, dots",
 			gear = { tip = L["Line style"], onClick = function() if UI.ShowLineStyle then UI.ShowLineStyle() end end } }),
-		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."] },
+		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
+			search = "boat, zeppelin, tram, ship, transport, schedule" },
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
-		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."] }),
-		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."] }),
+		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
+		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
 		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's."],
 			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
-		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."] },
-		{ kind = "toggle", key = "behavior.warnClosing", label = L["Warn about missable quests"], help = L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."] },
-		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."] },
+		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."],
+			search = "close quest window, auto close, skip quests" },
+		{ kind = "toggle", key = "behavior.warnClosing", label = L["Warn about missable quests"], help = L["Before you take a quest that closes another for good, says which in chat and leaves the accept to you."],
+			search = "missable, exclusive quests, breadcrumb, warning" },
+		{ kind = "toggle", key = "behavior.skipGrey", label = L["Skip grey quests"], help = L["Leaves out grey quests and their turn-ins, unless a later quest needs them first."],
+			search = "gray quests, low level quests, trivial, skip easy quests" },
 		-- The answer at a group quest (`when group`) not answered one by one
 		-- (Discovery > Group quests): ask at each, or do or skip them all.
 		{ kind = "dropdown", key = "behavior.groupQuests", label = L["Group quests"],
@@ -253,18 +271,17 @@ local BUILTIN = {
 			needs = function() local E = ns.Engine; return E and E.GroupQuests and #E.GroupQuests() > 0 end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
-		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."] },
+		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
 		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
 			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
 		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
 			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
 		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
-		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"],
+		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
 			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
 			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
 			disabled = function() return O.Hardcore() end },
-		{ kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
-			choices = { { value = "2", label = L["Every 2 levels"] }, { value = "1", label = L["Every level"] }, { value = "off", label = L["Off"] } } },
+		trainReminder(),
 		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
 			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
 		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide."], confirm = true,
@@ -286,7 +303,7 @@ local BUILTIN = {
 	{ page = LOOK, key = "appearance", icon = "palette", order = 20, tab = L["Colour & type"], section = L["Accent"],
 		preview = function(view) return O.LookPreview(view) end,
 		subtitle = L["Colours, type, window frames and the arrow. Everything repaints as you change it; right-click a setting to reset it."], controls = {
-		{ kind = "color", key = "ui.accent", label = L["Accent colour"], linked = { "ui.matchAccent", "ui.classAccent" },
+		{ kind = "color", key = "ui.accent", label = L["Accent colour"], linked = { "ui.matchAccent", "ui.classAccent" }, search = "theme colour, highlight colour, tint",
 			help = L["Click to pick your own, right-click to go back to the scheme's."],
 			shown = function() return Theme.Accent() end,
 			source = function()
@@ -297,7 +314,7 @@ local BUILTIN = {
 			help = L["The accent follows your class: warlock purple, shaman blue, druid orange. Picking your own accent turns this off."] },
 	} },
 	{ page = LOOK, tab = L["Colour & type"], section = L["Background"], controls = {
-		{ kind = "dropdown", key = "ui.scheme", label = L["Colour scheme"], disabled = houseOnly,
+		{ kind = "dropdown", key = "ui.scheme", label = L["Colour scheme"], disabled = houseOnly, search = "theme, dark mode, darker",
 			help = L["How deep the night runs. Dusk is the default, Night the darkest, Graphite a neutral grey; EllesmereUI takes its panel colour and accent."],
 			choices = function() return Theme.SchemeChoices() end },
 		{ kind = "color", key = "ui.bgColor", label = L["Background colour"], disabled = houseOnly,
@@ -310,7 +327,7 @@ local BUILTIN = {
 			help = L["The background opacity of every Polestar window: how much of the world shows through. Right-click to reset."] },
 	} },
 	{ page = LOOK, tab = L["Colour & type"], section = L["Type & motion"], controls = {
-		{ kind = "dropdown", key = "ui.font", label = L["Font"], help = L["The skin's font (Open Sans in Polestar, Fira Sans in Halo), or a font of your choice."],
+		{ kind = "dropdown", key = "ui.font", label = L["Font"], search = "typeface, text, letters", help = L["The skin's font (Open Sans in Polestar, Fira Sans in Halo), or a font of your choice."],
 			choices = function()
 				local list = { { value = "skin", label = L["The skin's font"] }, { value = "opensans", label = "Open Sans" }, { value = "game", label = L["Game font"] },
 					{ value = "inter", label = "Inter" }, { value = "fira", label = "Fira Sans" } }
@@ -326,15 +343,16 @@ local BUILTIN = {
 				ns.Set("ui.font", v)
 				if Theme.IsEllesmere() then ns.Set("ui.matchFont", false) end
 			end },
-		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent,
+		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent, search = "font size, bigger text, smaller text, readability",
 			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
-		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."] },
+		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
+			search = "animations, motion sickness, fps, performance, lag, stutter" },
 		{ kind = "toggle", key = "ui.classCardSound", label = L["Class quest chime"],
 			disabled = function() return not (UI.ClassCard and UI.ClassCard.GameSoundOn()) end,
 			help = L["A short chime the first time a class quest chain's card shows. Off while the game's sound effects are off."] },
 	} },
 	{ page = LOOK, tab = L["Windows"], section = L["Frame"], controls = {
-		{ kind = "dropdown", key = "ui.skin", label = L["Skin"],
+		{ kind = "dropdown", key = "ui.skin", label = L["Skin"], search = "theme, look, style, frame",
 			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
 			choices = function()
 				local list = {}
@@ -356,9 +374,9 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Windows"], section = L["Guide window"], controls = {
 		{ kind = "dropdown", key = "ui.style", label = L["Style"], help = L["Transparent drops every background and border; text is outlined and the controls appear when you hover the window."],
 			choices = { { value = "standard", label = L["Standard"] }, { value = "transparent", label = L["Transparent"] } } },
-		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent },
-		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d" },
-		{ kind = "slider", key = "ui.opacity", label = L["Window opacity"], min = 0.3, max = 1, step = 0.05, format = percent,
+		{ kind = "slider", key = "ui.scale", label = L["Window scale"], min = 0.6, max = 1.6, step = 0.05, format = percent, search = "size, bigger, smaller, zoom" },
+		{ kind = "slider", key = "ui.width", label = L["Width"], min = 260, max = 560, step = 10, format = "%d", search = "wide, wider, size" },
+		{ kind = "slider", key = "ui.opacity", label = L["Window opacity"], min = 0.3, max = 1, step = 0.05, format = percent, search = "transparency, alpha, see through",
 			help = L["The whole guide window, text included. The background's own opacity is under Colour & type."] },
 	} },
 	{ page = LOOK, tab = L["Windows"], section = L["Menus"], controls = {
@@ -368,8 +386,8 @@ local BUILTIN = {
 	{ page = LOOK, tab = L["Arrow"], section = L["Arrow"], controls = {
 		H({ kind = "dropdown", key = "nav.arrowStyle", label = L["Arrow style"], choices = { { value = "skin", label = L["The skin's arrow"] }, { value = "3d", label = L["3D"] }, { value = "flat", label = L["Flat"] },
 			{ value = "halo", label = L["Halo"] }, { value = "hearth", label = L["Hearth"] } } }),
-		H({ kind = "slider", key = "nav.arrowScale", label = L["Arrow scale"], min = 0.5, max = 2, step = 0.05, format = percent }),
-		H({ kind = "slider", key = "nav.arrowAlpha", label = L["Arrow opacity"], min = 0.2, max = 1, step = 0.05, format = percent }),
+		H({ kind = "slider", key = "nav.arrowScale", label = L["Arrow scale"], min = 0.5, max = 2, step = 0.05, format = percent, search = "arrow size, bigger arrow, smaller arrow" }),
+		H({ kind = "slider", key = "nav.arrowAlpha", label = L["Arrow opacity"], min = 0.2, max = 1, step = 0.05, format = percent, search = "arrow transparency, alpha" }),
 	} },
 	{ page = LOOK, tab = L["Arrow"], section = L["Colours"], controls = {
 		{ kind = "color", key = "nav.arrowColor", label = L["Arrow colour"],
@@ -395,9 +413,9 @@ local BUILTIN = {
 	-- Rares and Maps modules register their controls into them by name.
 	{ page = MAP, key = "map", icon = "icon-explore", order = 30, tab = L["Guide & quests"], section = L["Guide"],
 		subtitle = L["What Polestar draws on the world map and the minimap. Quest, rare and travel icons start off."], controls = {
-		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"],
+		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map",
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
-		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."] },
+		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap" },
 		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
 			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
@@ -427,19 +445,21 @@ for _, list in ipairs({
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"], L["History"] } },
 		{ L["Characters"], { L["Characters"] } },
 	}),
-	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: travel, invitations, merchants and trackers."], {
-		-- The quest automation toggles again (also on Questing > Quests): players look for them here (Fitz, 2026-11-05).
-		{ L["Quests"], { L["Faster questing"] } },
-		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Death"] } },
+	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
+		-- Conveniences that also live on their home pages (Questing, Guide, Map): players look for them here (Fitz, 2026-11-05).
+		{ L["Quests"], { L["Faster questing"], L["Quest rewards"], L["Action buttons"], L["Tooltips and quest log"] } },
+		{ L["Travel"], { L["Flight masters"], L["Hearthstone"], L["Flight timer"], L["Along the route"], L["Nearby services"], L["Death"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
-		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
+		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
 		{ L["Trackers"], { L["Experience"], L["Instances"], L["Instance limits"] } },
+		{ L["Map"], { L["Minimap"], L["Coordinates"] } },
 	}),
 }) do
 	for _, spec in ipairs(list) do BUILTIN[#BUILTIN + 1] = spec end
 end
 
 for _, spec in ipairs(BUILTIN) do add(spec, true) end
+add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trainReminder() } }, true)
 
 -- Integrations: a section per supported addon, each registered by its
 -- module with needs = the addon is present (Compat.AddOnPresent), so only
@@ -1056,38 +1076,309 @@ end
 
 ---------------------------------------------------------------------------
 -- Search: every searchable control across pages, as one page of results.
+--
+-- Forgiving, so a vague or misspelled hint still finds the setting
+-- (docs/ARCHITECTURE.md, "Options registry"). A control's words are worked
+-- out once (searchTokens): its label; its `search` terms (English synonyms)
+-- and its key's words ("autoAccept": auto, accept), with the English label
+-- on a translated client; its section, tab and page; its help. They are
+-- folded (lower case, accents off) and each two neighbours are also joined
+-- ("auto loot" gives "autoloot"). Every query word must match one of them, as
+-- the whole word, its start, a typo off (one letter for 4-7 letters, two for
+-- 8 or more) or inside it; filler words ("the", "turn", "off") only add to a
+-- match. The label counts most, then the search terms and key, then the
+-- section, tab and page, then the help; typos and inside-a-word matches least.
 ---------------------------------------------------------------------------
 
 local searchView
+local byte, find = string.byte, string.find
 
-local function matches(c, words)
-	local hay = ((labelOf(c) or "") .. " " .. (c.help or "") .. " " .. (c.page and c.page.name or "") .. " " .. (c.tab or "") .. " " .. (c.section or "")):lower()
-	for _, w in ipairs(words) do
-		if not hay:find(w, 1, true) then return false end
+-- Folding: ASCII lower case, Latin accents dropped (é -> e, ß -> ss), Cyrillic capitals lowered.
+local FOLD = {}
+do
+	local function span(from, to, out)
+		for b = from, to do FOLD[string.char(195, b)] = out end
 	end
-	return true
+	span(128, 133, "a"); span(134, 134, "ae"); span(135, 135, "c"); span(136, 139, "e"); span(140, 143, "i")
+	span(144, 144, "d"); span(145, 145, "n"); span(146, 150, "o"); span(152, 152, "o"); span(153, 156, "u")
+	span(157, 157, "y"); span(158, 158, "th"); span(159, 159, "ss")
+	span(160, 165, "a"); span(166, 166, "ae"); span(167, 167, "c"); span(168, 171, "e"); span(172, 175, "i")
+	span(176, 176, "d"); span(177, 177, "n"); span(178, 182, "o"); span(184, 184, "o"); span(185, 188, "u")
+	span(189, 189, "y"); span(190, 190, "th"); span(191, 191, "y")
+	FOLD["\197\146"], FOLD["\197\147"] = "oe", "oe"
+	for b = 144, 159 do FOLD[string.char(208, b)] = string.char(208, b + 32) end -- А-П
+	for b = 160, 175 do FOLD[string.char(208, b)] = string.char(209, b - 32) end -- Р-Я
+	FOLD["\208\129"] = "\209\145" -- Ё
 end
 
--- -> { { title = "Page · Tab", controls = { ... } }, ... }, count
-function O.Search(q)
-	local words = {}
-	for w in (q or ""):lower():gmatch("%S+") do words[#words + 1] = w end
-	local groups, count = {}, 0
-	if #words == 0 then return groups, 0 end
+local function fold(s)
+	return (s:lower():gsub("[\195\197\208][\128-\191]", FOLD))
+end
+
+-- American spellings and short forms, read as the words the labels use.
+local SPELLING = { color = "colour", colors = "colours", gray = "grey", meter = "metre", meters = "metres",
+	center = "centre", behavior = "behaviour", favorite = "favourite", coords = "coordinates" }
+
+-- Words a question carries ("how do I turn off the tracker"): they add to a
+-- control's score when one of its words is the same, and are not required.
+local FILLER = {}
+for w in ("a an the of to in on at and or for my me i is it how do can turn off enable disable toggle set setting settings option options where want"):gmatch("%S+") do FILLER[w] = true end
+
+local LABEL, KEY, TERMS, PLACE, HELP = 1, 2, 3, 4, 5
+-- By field, the score of a match inside a word, a typo off, the word's start, the whole word.
+local SCORE = { { 12, 30, 80, 100 }, { 10, 25, 65, 75 }, { 10, 25, 60, 70 }, { 8, 20, 45, 50 }, { 5, 0, 35, 40 } }
+-- Two query words that are one of the control's joined pairs ("minimap
+-- icon" for a "minimap icon" term) add this, by kind of match.
+local PHRASE = { 0, 10, 20, 40 }
+
+-- Translated text -> its English (the keys of L), built at the first search.
+local english
+local function englishOf(s)
+	if not english then
+		english = {}
+		for en, tr in pairs(L) do
+			if type(en) == "string" and type(tr) == "string" and tr ~= en then english[tr] = en end
+		end
+	end
+	return s and english[s]
+end
+
+local function addWords(words, fields, text, field, join)
+	if type(text) ~= "string" or text == "" then return end
+	local prev
+	for word in fold(text):gmatch("[%w\128-\255]+") do
+		local w = SPELLING[word] or word
+		words[#words + 1], fields[#fields + 1] = w, field
+		if join and prev then words[#words + 1], fields[#fields + 1] = prev .. w, field end
+		prev = w
+	end
+end
+
+-- A control's searchable words and the field of each, kept on the control
+-- until its label changes (a label function's name for the client).
+local function searchTokens(c)
+	local label = labelOf(c) or ""
+	local s = c.psFind
+	if s and s.label == label then return s end
+	s = { label = label, words = {}, fields = {} }
+	local w, f = s.words, s.fields
+	addWords(w, f, label, LABEL, true)
+	addWords(w, f, c.search, TERMS, true)
+	if type(c.key) == "string" then addWords(w, f, (c.key:match("[^.]+$"):gsub("(%l)(%u)", "%1 %2")), KEY, true) end
+	addWords(w, f, englishOf(label), TERMS, true)
+	addWords(w, f, c.section, PLACE, true)
+	addWords(w, f, c.tab, PLACE, true)
+	addWords(w, f, c.page and c.page.name, PLACE, true)
+	addWords(w, f, c.help, HELP, false)
+	c.psFind = s
+	return s
+end
+
+-- Optimal string alignment distance (a swap of two neighbours is one edit)
+-- between the bytes qb[1..lq] and the word t; cap + 1 once it is over cap.
+local rowA, rowB, rowC, tb = {}, {}, {}, {}
+local function distance(qb, lq, t, cap)
+	local lt = #t
+	if lt - lq > cap or lq - lt > cap then return cap + 1 end
+	for j = 1, lt do tb[j] = byte(t, j) end
+	local r0, r1, r2 = rowA, rowB, rowC
+	for j = 0, lt do r1[j] = j end
+	for i = 1, lq do
+		local a, low = qb[i], i
+		r2[0] = i
+		for j = 1, lt do
+			local b = tb[j]
+			local v = r1[j - 1] + (a == b and 0 or 1)
+			if r1[j] + 1 < v then v = r1[j] + 1 end
+			if r2[j - 1] + 1 < v then v = r2[j - 1] + 1 end
+			if i > 1 and j > 1 and a == tb[j - 1] and qb[i - 1] == b and r0[j - 2] + 1 < v then v = r0[j - 2] + 1 end
+			r2[j] = v
+			if v < low then low = v end
+		end
+		if low > cap then return cap + 1 end
+		r0, r1, r2 = r1, r2, r0
+	end
+	return r1[lt]
+end
+
+-- A query word and what it made of each word met so far (kinds), kept
+-- across keystrokes: typing on changes only the last word.
+local memo, memoCount = {}, 0
+local function wordMemo(q)
+	local m = memo[q]
+	if m then return m end
+	if memoCount >= 64 then memo, memoCount = {}, 0 end
+	local qb = {}
+	for i = 1, #q do qb[i] = byte(q, i) end
+	m = { q = q, qb = qb, n = #q, cap = #q >= 8 and 2 or 1, kinds = {} }
+	memo[q], memoCount = m, memoCount + 1
+	return m
+end
+
+-- 4 the whole word, 3 its start, 2 a typo off, 1 inside it, 0 no match.
+local function kindOf(m, t)
+	local k = m.kinds[t]
+	if k then return k end
+	local q, lq = m.q, m.n
+	if t == q then
+		k = 4
+	elseif #t > lq and find(t, q, 1, true) == 1 then
+		k = 3
+	elseif lq >= 4 and distance(m.qb, lq, t, m.cap) <= m.cap then
+		k = 2
+	elseif lq >= 3 and find(t, q, 1, true) then
+		k = 1
+	else
+		k = 0
+	end
+	m.kinds[t] = k
+	return k
+end
+
+local qwords, qfiller, qpairs, seen = {}, {}, {}, {}
+
+-- The query's words into qwords (memos) and qfiller, each word joined to
+-- the one before into qpairs. -> count
+local function parseQuery(q)
+	local n, needed, prev = 0, 0, nil
+	for word in fold(q or ""):gmatch("[%w\128-\255]+") do
+		local w = SPELLING[word] or word
+		n = n + 1
+		qwords[n], qfiller[n] = wordMemo(w), FILLER[w] or false
+		qpairs[n] = prev and wordMemo(prev .. w) or false
+		if not FILLER[w] then needed = needed + 1 end
+		prev = w
+	end
+	if needed == 0 then
+		for i = 1, n do qfiller[i] = false end
+	end
+	return n
+end
+
+-- A control's score for the query, 0 when a word it needs matches nothing.
+local function scoreOf(c, nw)
+	local s = searchTokens(c)
+	local tw, tf = s.words, s.fields
+	local total = 0
+	for i = 1, nw do
+		local m, filler, best, phrase = qwords[i], qfiller[i], 0, 0
+		local pair = qpairs[i]
+		for j = 1, #tw do
+			local k = kindOf(m, tw[j])
+			if k == 4 or (k > 0 and not filler) then
+				local v = SCORE[tf[j]][k]
+				if v > best then best = v end
+			end
+			if pair and tf[j] ~= HELP then
+				local pk = PHRASE[kindOf(pair, tw[j])] or 0
+				if pk > phrase then phrase = pk end
+			end
+		end
+		if best == 0 and not filler then return 0 end
+		total = total + best + phrase
+	end
+	return total
+end
+
+local function byScore(a, b)
+	if a.psScore ~= b.psScore then return a.psScore > b.psScore end
+	return a.psOrder < b.psOrder
+end
+
+local function byBest(a, b)
+	if a.best ~= b.best then return a.best > b.best end
+	return a.order < b.order
+end
+
+-- Up to three labels nearest a query nothing matched: each word scores as
+-- in a search, and a word further off than a typo by how close it comes to
+-- one of the control's words (help aside).
+local function suggest(nw)
+	local list = {}
 	for _, p in ipairs(pageList) do
 		for _, t in ipairs(p.tabs) do
-			local list = {}
-			for _, s in ipairs(t.sections) do
-				for _, c in ipairs(s.controls) do
-					if available(c) and matches(c, words) then list[#list + 1] = c end
+			for _, sec in ipairs(t.sections) do
+				for _, c in ipairs(sec.controls) do
+					if available(c) then
+						local s = searchTokens(c)
+						local total = 0
+						for i = 1, nw do
+							local m = qwords[i]
+							if not qfiller[i] and m.n >= 3 then
+								local cap, best = math.max(1, floor(m.n / 2)), 0
+								for j = 1, #s.words do
+									if s.fields[j] ~= HELP then
+										local k, v = kindOf(m, s.words[j]), 0
+										if k >= 2 then
+											v = SCORE[s.fields[j]][k]
+										else
+											local d = distance(m.qb, m.n, s.words[j], cap)
+											if d <= cap then v = 10 - floor(10 * d / (cap + 1)) end
+										end
+										if v > best then best = v end
+									end
+								end
+								total = total + best
+							end
+						end
+						if total > 0 then list[#list + 1] = { label = s.label, score = total, order = #list } end
+					end
 				end
 			end
-			if #list > 0 then
-				groups[#groups + 1] = { title = t.name ~= "" and (p.name .. "  \194\183  " .. t.name) or p.name, controls = list }
+		end
+	end
+	table.sort(list, function(a, b)
+		if a.score ~= b.score then return a.score > b.score end
+		return a.order < b.order
+	end)
+	local out, named = {}, {}
+	for _, e in ipairs(list) do
+		if #out == 3 then break end
+		if e.label ~= "" and not named[e.label] then
+			named[e.label] = true
+			out[#out + 1] = e.label
+		end
+	end
+	return out
+end
+
+-- -> { { title = "Page · Tab", controls = { ... } }, ... }, count, suggestions
+-- Each control once (a setting shown on two pages, under the first), the
+-- best first in its group, the group with the best match first. With no
+-- match, suggestions: up to three labels near the query.
+function O.Search(q)
+	local groups, count = {}, 0
+	local nw = parseQuery(q)
+	if nw == 0 then return groups, 0 end
+	for k in pairs(seen) do seen[k] = nil end
+	local order = 0
+	for _, p in ipairs(pageList) do
+		for _, t in ipairs(p.tabs) do
+			local list, best
+			for _, s in ipairs(t.sections) do
+				for _, c in ipairs(s.controls) do
+					order = order + 1
+					if available(c) and not (c.key and seen[c.key]) then
+						local score = scoreOf(c, nw)
+						if score > 0 then
+							if c.key then seen[c.key] = true end
+							c.psScore, c.psOrder = score, order
+							list = list or {}
+							list[#list + 1] = c
+							if not best or score > best then best = score end
+						end
+					end
+				end
+			end
+			if list then
+				table.sort(list, byScore)
+				groups[#groups + 1] = { title = t.name ~= "" and (p.name .. "  \194\183  " .. t.name) or p.name, controls = list, best = best, order = #groups + 1 }
 				count = count + #list
 			end
 		end
 	end
+	if count == 0 then return groups, 0, suggest(nw) end
+	table.sort(groups, byBest)
 	return groups, count
 end
 
@@ -1098,23 +1389,52 @@ local function renderSearch()
 		searchView:SetPoint("RIGHT", win.Body, "RIGHT", 0, 0)
 		searchView.cache, searchView.headers, searchView.panels = {}, {}, {}
 		searchView.Empty = W.Text(searchView, "note", "textMuted")
+		searchView.Hint = W.Text(searchView, "note", "textMuted")
+		searchView.Hint:SetText(L["Did you mean:"])
+		searchView.Links = {}
 	end
-	local groups, count = O.Search(query)
+	local groups, count, suggestions = O.Search(query)
 	local sections = {}
 	for i, g in ipairs(groups) do sections[i] = { name = g.title, controls = g.controls } end
 	local y = layoutSections(searchView, sections, 16)
 	searchView.Empty:SetShown(count == 0)
+	local links = searchView.Links
+	local shown = count == 0 and suggestions and #suggestions or 0
+	searchView.Hint:SetShown(shown > 0)
 	if count == 0 then
 		searchView.Empty:SetText(string.format(L["No settings match \226\128\156%s\226\128\157."], query))
 		searchView.Empty:ClearAllPoints()
 		searchView.Empty:SetPoint("TOPLEFT", searchView, "TOPLEFT", SH.pad, -24)
 		y = 80
+		if shown > 0 then
+			searchView.Hint:ClearAllPoints()
+			searchView.Hint:SetPoint("TOPLEFT", searchView, "TOPLEFT", SH.pad, -56)
+			-- Each suggestion a link that searches for it.
+			for i = 1, shown do
+				local link = links[i]
+				if not link then
+					link = W.Link(searchView, "", function(self)
+						win.Search:SetText(self.psQuery)
+						O.SetQuery(self.psQuery)
+					end)
+					link.psTip = nil
+					links[i] = link
+				end
+				link.psQuery = suggestions[i]
+				W.SetLinkText(link, suggestions[i])
+				link:ClearAllPoints()
+				link:SetPoint("TOPLEFT", searchView, "TOPLEFT", SH.pad, -(56 + 24 * i))
+				link:Show()
+			end
+			y = 56 + 24 * shown + 32
+		end
 	end
+	for i = shown + 1, #links do links[i]:Hide() end
 	W.ShellTitle(win, L["Search"], count == 1 and L["1 setting matches"] or string.format(L["%d settings match"], count))
 	W.ShellTabs(win, nil)
 	searchView:Show()
 	W.ShellBody(win, y + 16)
-	O.results = { groups = groups, count = count }
+	O.results = { groups = groups, count = count, suggestions = suggestions }
 	return groups, count
 end
 

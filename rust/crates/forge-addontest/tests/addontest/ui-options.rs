@@ -9,6 +9,21 @@ const FILES: [&str; 3] = ["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
 const MODS: [&str; 10] =
 	["Core/Core.xml", "Theme/Theme.xml", "Quests/Quests.xml", "Gear/Gear.xml", "Maps/Maps.xml", "QoL/QoL.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml", "UI/UI.xml", "Rares/Rares.xml"];
 
+// MODS and Nav: every module with settings on Quality of Life.
+const ALL: [&str; 11] = [
+	"Core/Core.xml",
+	"Theme/Theme.xml",
+	"Nav/Nav.xml",
+	"Quests/Quests.xml",
+	"Gear/Gear.xml",
+	"Maps/Maps.xml",
+	"QoL/QoL.xml",
+	"Lookup/Lookup.xml",
+	"Dungeons/Dungeons.xml",
+	"UI/UI.xml",
+	"Rares/Rares.xml",
+];
+
 fn run_opts(script: &str, install: &str, before: &str, between: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
@@ -83,10 +98,10 @@ fn pages_by_order_a_page_with_nothing_to_set_left_out_recorder_and_about_last_ta
 		"",
 		FAKE_PAGE,
 	);
-	// Questing, Discovery and Quality of Life fill from modules not loaded here; Gear registered no control: all
-	// left out of the list. Community guides (a custom page) and Integrations (which says when it has nothing) are
-	// always there.
-	assert_eq!(out["nav"], json!(["Guide", "Appearance", "Map", "Quests", "Integrations", "Community guides", "Gamepad", "Guiding Stars", "Recorder", "About"]));
+	// Questing and Discovery fill from modules not loaded here; Gear registered no control: all left out of the
+	// list. Quality of Life shows Guide's trainer reminders, declared with the built-in pages. Community guides (a
+	// custom page) and Integrations (which says when it has nothing) are always there.
+	assert_eq!(out["nav"], json!(["Guide", "Appearance", "Map", "Quests", "Quality of Life", "Integrations", "Community guides", "Gamepad", "Guiding Stars", "Recorder", "About"]));
 	assert_eq!(out["title"], "Guide");
 	assert_eq!(out["tabs"], json!(["Window", "Arrow & routes", "Automation"]));
 	let quests = out["pages"].as_array().unwrap().iter().find(|p| p["name"] == "Quests").cloned();
@@ -1002,4 +1017,143 @@ fn the_quest_automation_toggles_are_on_questing_and_quality_of_life_and_stay_in_
 	assert_eq!(out["after"], false, "the click on Quality of Life turned it off");
 	assert_eq!(out["questingShows"], false, "Questing shows the same setting");
 	assert_eq!(out["guideHas"], false, "no longer under Guide > Automation");
+}
+
+// The real addon's modules (the plain `run` loads the core alone), on a client in `before`'s locale.
+fn run_mods(before: &str, script: &str) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: before.into(),
+		addons: vec![Addon::files("Polestar", &ALL)],
+		script: format!("uistub.install()\nstub.login()\nlocal UI, O = Polestar.UI, Polestar.UI.Options\n{SEARCH_HELPERS}\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+const SEARCH_HELPERS: &str = r#"
+local function top(q)
+	local g, n = O.Search(q)
+	local c = g[1] and g[1].controls[1]
+	return { key = c and (c.key or c.label) or false, group = g[1] and g[1].title or false, n = n }
+end
+local function keys(q)
+	local out = {}
+	for _, g in ipairs((O.Search(q))) do for _, c in ipairs(g.controls) do out[#out + 1] = c.key or c.label end end
+	return out
+end
+"#;
+
+// Quality of Life also shows the conveniences players look for there, from the Questing, Guide and Map pages
+// (Fitz, 2026-11-05): each stays on its home page too, one setting in both places.
+#[test]
+fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_settings() {
+	let out = run_mods(
+		"",
+		r#"
+		UI.ShowOptions("qualityoflife")
+		local function missing(page, tab, list)
+			O.Select(page, tab)
+			local c, out = O.Controls(page, tab), {}
+			for _, k in ipairs(list) do if not c[k] then out[#out + 1] = k end end
+			return out
+		end
+		local r = { missing = {
+			quests = missing("qualityoflife", "Quests", { "behavior.autoAccept", "qol.instantQuestText", "qol.skipGossip", "qol.fastLoot", "qol.hideErrors",
+				"qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton", "qol.stepInteract", "qol.hideQuestTracker" }),
+			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.alerts", "nav.nearbyButton", "nav.nearbyMenu" }),
+			vendors = missing("qualityoflife", "Vendors", { "behavior.trainReminder", "qol.trainAll" }),
+			map = missing("qualityoflife", "Map", { "maps.minimapButton", "maps.coords", "maps.minimapCoords" }),
+			questing = missing("questing", "Quests", { "qol.fastLoot", "qol.hideQuestTracker" }),
+			buttons = missing("questing", "Buttons", { "qol.itemButton", "qol.stepInteract", "qol.hearthButton" }),
+			guide = missing("guide", "Automation", { "behavior.trainReminder" }),
+			mapPage = missing("map", "Guide & quests", { "maps.minimapButton" }),
+		} }
+		Polestar.Set("qol.fastLoot", false)
+		O.Select("qualityoflife", "Quests")
+		O.Controls("qualityoflife", "Quests")["qol.fastLoot"]:Click()
+		r.fastLoot = Polestar.Get("qol.fastLoot")
+		O.Select("questing", "Quests")
+		r.questingShows = O.Controls("questing", "Quests")["qol.fastLoot"].checked
+		local before = Polestar.Get("maps.minimapButton")
+		O.Select("qualityoflife", "Map")
+		O.Controls("qualityoflife", "Map")["maps.minimapButton"]:Click()
+		r.minimapFlipped = Polestar.Get("maps.minimapButton") ~= before
+		O.Select("map", "Guide & quests")
+		r.mapShows = O.Controls("map", "Guide & quests")["maps.minimapButton"].checked == Polestar.Get("maps.minimapButton")
+		emit(r)"#,
+	);
+	for (tab, v) in out["missing"].as_object().unwrap() {
+		assert!(v.as_array().is_some_and(|a| a.is_empty()) || v.as_object().is_some_and(|o| o.is_empty()), "{tab}: missing {v}");
+	}
+	assert_eq!(out["fastLoot"], true, "the click on Quality of Life turned it on");
+	assert_eq!(out["questingShows"], true, "Questing shows the same setting");
+	assert_eq!(out["minimapFlipped"], true);
+	assert_eq!(out["mapShows"], true, "the Map page shows the same minimap button setting");
+}
+
+// Search finds a setting from a loose hint: words run together or hyphenated, a typo, the start of words,
+// a synonym, a question; the label's own words rank first, and a setting on two pages comes once.
+#[test]
+fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_match_first() {
+	let out = run_mods(
+		"",
+		r#"
+		local once = 0
+		for _, k in ipairs(keys("autoaccept")) do if k == "behavior.autoAccept" then once = once + 1 end end
+		emit({
+			joined = top("autoaccept"), hyphen = top("auto-loot"), typo = top("auto acept"), prefixes = top("acc quest"),
+			fps = keys("fps"), minimap = top("minimap icon"), question = top("how do I turn off the quest tracker"),
+			american = top("sell gray"), repiar = keys("repiar"), once = once, upper = top("AUTOACCEPT"),
+		})"#,
+	);
+	assert_eq!(out["joined"], json!({ "key": "behavior.autoAccept", "group": "Questing  \u{b7}  Quests", "n": out["joined"]["n"] }));
+	assert_eq!(out["once"], 1, "shown on two pages, found once");
+	assert_eq!(out["upper"]["key"], "behavior.autoAccept");
+	assert_eq!(out["hyphen"]["key"], "qol.fastLoot");
+	assert_eq!(out["typo"]["key"], "behavior.autoAccept", "\"acept\" is one letter off");
+	assert_eq!(out["prefixes"]["key"], "behavior.autoAccept", "\"acc\" starts accept, \"quest\" quests");
+	assert!(includes(&out["fps"], "qol.questDB") && includes(&out["fps"], "ui.reduceMotion"), "fps: {}", out["fps"]);
+	assert_eq!(out["minimap"]["key"], "maps.minimapButton");
+	assert_eq!(out["question"]["key"], "qol.hideQuestTracker", "filler words are not needed");
+	assert_eq!(out["american"]["key"], "qol.sellJunk");
+	assert!(includes(&out["repiar"], "qol.autoRepair"), "a swap of two letters is one typo");
+}
+
+// On a German client the German label and help match as before, accents optional, and so do the English search
+// terms and the English label: players often type English.
+#[test]
+fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_label() {
+	let out = run_mods(
+		"function GetLocale() return \"deDE\" end",
+		r#"emit({ german = top("Plündern"), noAccent = top("plundern"), term = top("autoloot"), english = top("faster auto loot"), stone = top("ruhestein button") })"#,
+	);
+	for q in ["german", "noAccent", "term", "english"] {
+		assert_eq!(out[q]["key"], "qol.fastLoot", "{q}");
+	}
+	assert_eq!(out["stone"]["key"], "qol.hearthButton");
+}
+
+// A query nothing matches says so and offers up to three settings near it.
+#[test]
+fn search_with_no_match_suggests_the_nearest_settings() {
+	let out = run_mods(
+		"",
+		r#"
+		UI.ShowOptions()
+		local box = PolestarOptions.Search
+		box:SetText("hearthston xyzzy")
+		stub.RunScript(box, "OnTextChanged", true)
+		local r = { count = O.results.count, suggestions = O.results.suggestions, sub = PolestarOptions.Subtitle:GetText() }
+		local _, n, none = O.Search("qqqq")
+		r.nothing = { n = n, suggestions = none }
+		emit(r)"#,
+	);
+	assert_eq!(out["count"], 0);
+	assert_eq!(out["sub"], "0 settings match");
+	let s = out["suggestions"].as_array().unwrap();
+	assert!(!s.is_empty() && s.len() <= 3, "{s:?}");
+	assert!(includes(&out["suggestions"], "Hearthstone button"), "{s:?}");
+	assert_eq!(out["nothing"]["n"], 0);
+	assert_eq!(out["nothing"]["suggestions"], json!({}), "nothing near: no suggestion (an empty list)");
 }

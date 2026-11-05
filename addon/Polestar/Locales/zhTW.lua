@@ -596,6 +596,7 @@ L["Forgets recorded entries and runs (the server's own limit is not affected)."]
 L["Minimap button"] = "小地圖按鈕"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "小地圖邊緣的 Polestar 按鈕。左鍵點擊顯示或隱藏指南，右鍵點擊開啟設定，拖曳可移動。"
 -- L["Forget"] = ""
+L["Minimap"] = "小地圖"
 
 -- Maps/WorldMap.lua
 L["Player"] = "玩家"
@@ -1828,7 +1829,6 @@ L["Lookup, the dungeon journal and rares: finding things in the world."] = "查�
 L["When a rare shows up"] = "稀有出現時"
 L["How rares are noticed"] = "如何察覺稀有"
 L["History"] = "記錄"
-L["Small conveniences: travel, invitations, merchants and trackers."] = "小小的便利：旅行、邀請、商人與追蹤器。"
 L["Status"] = "狀態"
 L["Actions"] = "動作"
 L["Start recording"] = "開始記錄"
@@ -1951,6 +1951,8 @@ L["Maximum height"] = "最大高度"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "視窗最多能長到多高，以螢幕高度的比例計。較長的步驟可捲動查看。"
 L["Hide the arrow with the guide"] = "隨指南隱藏箭頭"
 L["When the guide window is hidden, hide the arrow too."] = "隱藏指南視窗時，也隱藏箭頭。"
+L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."] = "小小的便利：任務、旅行、邀請、商人、背包、追蹤器與地圖。"
+L["Did you mean:"] = "你是不是要找："
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
@@ -2863,3 +2865,4 @@ L["You sold %s, which %s still needs. Buy it back for %s?"] = "你賣出了 %s�
 -- L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."] = "開啟商人時賣出粗糙品質物品並顯示總額。絕不賣出其他物品。"
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it."] = "自動選擇沒有任務之 NPC 的唯一選項。按住 Shift 可閱讀。"
 -- L["Earlier quests of this chain are not listed."] = "未列出此任務鏈中較早的任務。"
+-- L["Small conveniences: travel, invitations, merchants and trackers."] = "小小的便利：旅行、邀請、商人與追蹤器。"

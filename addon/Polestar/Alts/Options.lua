@@ -11,7 +11,7 @@ if not (ns.Alts and ns.RegisterOptions) then return end
 local ok, err = ns.RegisterOptions({
 	page = L["Discovery"], tab = L["Characters"], section = L["Characters"],
 	controls = {
-		{ kind = "toggle", key = "alts.enabled", label = L["Characters"],
+		{ kind = "toggle", key = "alts.enabled", label = L["Characters"], search = "alts, alt characters, other characters, toons, roster",
 			help = L["Keep a note of each character you play, for the Characters page (/pole alts)."] },
 	},
 })

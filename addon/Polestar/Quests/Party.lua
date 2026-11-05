@@ -646,9 +646,9 @@ end
 Party.OPTIONS = {
 	page = L["Questing"], tab = L["Quests"], section = L["Party"],
 	controls = {
-		{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"],
+		{ kind = "toggle", key = "party.share", label = L["Share my quest progress with my party"], search = "group, party, sync, share progress, friends",
 			help = L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] },
-		{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"],
+		{ kind = "toggle", key = "party.show", label = L["Show my party's progress in the guide"], search = "group, party, sync, friends progress",
 			help = L["Their counts under your quest goals, and who lacks a quest you took."] },
 	},
 }
