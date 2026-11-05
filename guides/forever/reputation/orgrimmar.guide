@@ -235,7 +235,7 @@ step Orgrimmar: Thrall and Neeru
   tip Neeru Fireblade is in the Cleft of Shadow. Tell him he may speak openly and click through his story.
   turnin 5726                         -- Thrall
   accept 5727                         -- Hidden Enemies, +50
-  kill 3216 quest 5727.1              -- Neeru Fireblade: hear him out
+  talk 3216 quest 5727.1              -- Neeru Fireblade: hear him out
   turnin 5727                         -- Thrall
   accept 5728                         -- Hidden Enemies, +100
 

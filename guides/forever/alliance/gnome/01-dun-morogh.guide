@@ -378,7 +378,7 @@ step Earthseer Farsen
   accept 96392
 
 step Farsen's Watch
-  kill 264936 quest 96392.1 @64.9,58.5 map 1426
+  talk 264936 quest 96392.1 @64.9,58.5 map 1426
 
 step Earthseer Farsen
   turnin 96392

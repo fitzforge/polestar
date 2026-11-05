@@ -1486,6 +1486,23 @@
 		},
 		"note": "Elune's Grace: starts with Nara Meideros (npc 11397); as its giver the merged data also listed Laurna Morninglight (npc 3600)."
 	},
+	"5727": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 3216,
+					"count": 1,
+					"text": "Neeru Fireblade"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: the objective's line ticks as the player talks to Neeru Fireblade, with no kill"
+		},
+		"note": "Hidden Enemies: the objective is hearing Neeru Fireblade out (a talk), which the data counted as a kill of him."
+	},
 	"5944": {
 		"set": {
 			"end": {
@@ -2355,6 +2372,81 @@
 		},
 		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
 	},
+	"92640": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252383,
+					"count": 1,
+					"text": "Valennia Stormfist"
+				},
+				{
+					"type": "talk",
+					"id": 251968,
+					"count": 1,
+					"text": "Ayessa Dawnsinger"
+				},
+				{
+					"type": "talk",
+					"id": 252475,
+					"count": 1,
+					"text": "Elaadrin Evengale"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: one line at the accept, lines 2 and 3 tick as players talk to Ayessa and then Elaadrin, with no kill"
+		},
+		"note": "Desperate Times: the game lists one objective at the accept (talk to Valennia Stormfist) and reveals the next as each talk counts: Ayessa Dawnsinger (the Windshapers), then Elaadrin Evengale (the High Order). The data counted the three talks as kills (#859)."
+	},
+	"92679": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252800,
+					"count": 1,
+					"text": "Aamelia Windfield"
+				},
+				{
+					"type": "talk",
+					"id": 252448,
+					"count": 1,
+					"text": "Alvarion Windfield"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: both lines tick as players talk to Aamelia and Alvarion, with no kill"
+		},
+		"note": "Blood Tithe: finding Aamelia Windfield and the optional story from Alvarion Windfield are talks, which the data counted as kills."
+	},
+	"92693": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252800,
+					"count": 1,
+					"text": "Aamelia Windfield"
+				},
+				{
+					"type": "kill",
+					"id": 252863,
+					"count": null,
+					"text": "Ferauu the Bludgeon"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Aamelia; line 2 is revealed after it"
+		},
+		"note": "Standing Our Ground: the first objective is telling Aamelia Windfield you are ready (a talk, which the data counted as a kill of her); the game reveals the fight with Ferauu the Bludgeon after it."
+	},
 	"92742": {
 		"set": {
 			"races": 4294967373
@@ -2545,6 +2637,122 @@
 		},
 		"note": "Boughs in the Wind (Belann Windwood on Zephras Isle, the Windbough Wand) is a Mage quest on Forever: Forever limits it to Mages (class mask 128). The merged data had no class, so the class-quest card knew it only from the Mage guide that takes it."
 	},
+	"92849": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 253002,
+					"count": 1,
+					"text": "Fillion Flamebreeze"
+				},
+				{
+					"type": "object",
+					"id": 581820,
+					"count": null,
+					"text": "Dusty Bedroll"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players reach Fillion, with no kill"
+		},
+		"note": "The Missing Scholar: finding Fillion Flamebreeze is a talk (it counts as you reach him), which the data counted as a kill (#802)."
+	},
+	"92947": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 252762,
+					"count": 7,
+					"text": "Al'Aketh Guardian"
+				},
+				{
+					"type": "kill",
+					"id": 252763,
+					"count": 7,
+					"text": "Al'Aketh Spiritcaller"
+				},
+				{
+					"type": "kill",
+					"id": 252765,
+					"count": 7,
+					"text": "Al'Aketh Blademaster"
+				},
+				{
+					"type": "talk",
+					"id": 253576,
+					"count": 1,
+					"text": "Hyusaa Quickbreeze"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: a fourth line is revealed after the kills and ticks at Hyusaa, with no kill"
+		},
+		"note": "Making Our Move: after the three kill objectives the game reveals a fourth, reporting to Hyusaa Quickbreeze (a talk, which the data counted as a kill)."
+	},
+	"93461": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251903,
+					"count": 1,
+					"text": "Rathiril Sunlance"
+				},
+				{
+					"type": "talk",
+					"id": 254089,
+					"count": 1,
+					"text": "Coriella Calmbreeze"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as Rathiril's window opens, line 2 as players reach the innkeeper, with no kill"
+		},
+		"note": "Welcome to Shen'dar Village (Alliance): both objectives are talks, to Rathiril Sunlance and to the innkeeper Coriella Calmbreeze (who counts as you reach her), which the data counted as kills (#802)."
+	},
+	"93737": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 256083,
+					"count": 1,
+					"text": "Riaani Nightwind"
+				},
+				{
+					"type": "item",
+					"id": 260881,
+					"count": null,
+					"text": "Crystallized Lightning"
+				},
+				{
+					"type": "item",
+					"id": 260883,
+					"count": null,
+					"text": "Enchanted Gyrozephyr"
+				},
+				{
+					"type": "item",
+					"id": 260880,
+					"count": null,
+					"text": "Air Construct Core"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Riaani Nightwind, with no kill"
+		},
+		"note": "The Broken Construct: its first objective is listening to Riaani Nightwind (a talk), which the data counted as a kill."
+	},
 	"93927": {
 		"set": {
 			"objectives": [
@@ -2715,6 +2923,30 @@
 		],
 		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
 	},
+	"94489": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 258134,
+					"count": null,
+					"text": "Naaleos Leafwhisper",
+					"credit": [258134, 258137, 258138, 258275, 258277, 258288, 258289]
+				},
+				{
+					"type": "talk",
+					"id": 258130,
+					"count": 1,
+					"text": "Jorel Windsinger"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 2 ticks as players talk to Jorel Windsinger, with no kill of him"
+		},
+		"note": "The Wounds of Betrayal: after healing the druids the objective is finding Jorel Windsinger (a talk), which the data counted as a kill."
+	},
 	"95217": {
 		"set": {
 			"objectives": [
@@ -2863,6 +3095,23 @@
 		],
 		"note": "Nip 'Em in the Bud (Earthseer Farsen) asks for ten Dark Iron Spies only. QuestieDB's Forever store adds a Rockjaw Bonesnapper objective with no count; the players' caches and the world DB list only the spies. With it the c14 check held Farsen's turn-in for a Bonesnapper (R5 at 01-dun-morogh.guide:660) once The Public Servant's Bonesnappers had moved to the first quarry visit."
 	},
+	"96392": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 264936,
+					"count": 1,
+					"text": "Earthseer Farsen"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: the line ticks as players talk to Earthseer Farsen, with no kill"
+		},
+		"note": "Farsen's Watch: the objective is using Earthseer Farsen's far sight, through his gossip (a talk), which the data counted as a kill."
+	},
 	"96395": {
 		"set": {
 			"start": {
@@ -2991,6 +3240,29 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
+	},
+	"96897": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 267006,
+					"count": 8,
+					"text": "Dark Neophyte"
+				},
+				{
+					"type": "kill",
+					"id": 275437,
+					"count": 8,
+					"text": "Dark Enforcer"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: the game lists two objectives at the accept, and the quest completes with those two"
+		},
+		"note": "The Cult of the Damned: the game counts Dark Neophytes and Dark Enforcers only; the data's third objective, Decrepit Darkhounds, is not one (#859)."
 	},
 	"97225": {
 		"set": {
@@ -3526,6 +3798,29 @@
 			"ref": "#849"
 		},
 		"note": "The Wrath of Rath'mael (Deathguard Kristof, Tirisfal) is offered once the Rear Guard Patrol chain from Deathguard Linnea is handed in: Rear Guard Patrol 356, then 99156, which needs 356 itself. At level 15 with 356 still in the log, Pilk was not offered it; once the chain was done, Kristof offered it (#849). No quest data names this prerequisite, so the Ruins of Lordaeron pick-up guide sent players straight to Kristof."
+	},
+	"92514": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251902,
+					"count": 1,
+					"text": "Illaya Amberwind"
+				},
+				{
+					"type": "talk",
+					"id": 254089,
+					"count": 1,
+					"text": "Coriella Calmbreeze"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Illaya Amberwind and line 2 as they talk to the innkeeper, with no kill"
+		},
+		"note": "Welcome to Shen'dar Village (Horde): both objectives are talks, to Illaya Amberwind and to the innkeeper Coriella Calmbreeze, which the data counted as kills."
 	},
 	"92519": {
 		"set": {

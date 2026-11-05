@@ -555,7 +555,7 @@ fn shendar(ctx: &Ctx, c: &mut Check) {
 	c.ok(a < b, "taken before the talk to Illaya for The Windshapers, which counts for it too");
 	let Some(t) = at(c, &list, "turnin 92514", is("turnin", 92514)) else { return };
 	let step = list[t].s;
-	let talks: Vec<Option<f64>> = list.iter().filter(|r| r.s == step && r.goal.get("t").as_str() == Some("talk")).map(|r| num(&r.goal, "npc")).collect();
+	let talks: Vec<Option<f64>> = list.iter().filter(|r| r.s == step && r.goal.get("t").as_str() == Some("talk") && r.goal.get("quest").is_undef()).map(|r| num(&r.goal, "npc")).collect();
 	c.eq(talks, vec![], "no bare talk goal that only counts during the step");
 	let objectives = |c: &mut Check, illaya: f64, coriella: f64| {
 		step_view(ctx, c, ZEPHRAS_HORDE, &SKYBORNE_HORDE, step, |sim| {

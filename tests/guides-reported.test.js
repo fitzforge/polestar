@@ -574,8 +574,9 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Ca
 });
 
 test(`EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": the Skyborne visits to the Horde leaders`, { skip }, () => {
-	// The data counts these as kill credit on the NPC, so the goal stays a
-	// `kill` tracking the objective; its text is what the guide window shows.
+	// Where the data counts these as kill credit on the NPC, the goal stays a `kill` tracking the
+	// objective and its text is what the guide window shows; where the game's own objective list
+	// makes them talks (#859), the goal is a `talk` tracking the objective, which reads "Talk to".
 	const talks = [
 		// (Zarrin's Camping 101: Cooking is now done by training Cooking from him: #743.)
 		['forever/horde/03-silverpine-forest.guide', 93739, 1, 'Nazgrel'],
@@ -589,8 +590,9 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 		['forever/alliance/skyborne/01-zephras-isle.guide', 92849, 1, 'Fillion Flamebreeze'],
 	];
 	for (const [guide, quest, oi, name] of talks) {
-		const { goal } = goals(guide)[at(goals(guide), `${quest}.${oi} (${name})`, (g) => g.t === 'kill' && g.quest === quest && g.oi === oi)];
-		assert.equal(goal.text, `Talk to ${name}`, `${guide}: ${name}`);
+		const { goal } = goals(guide)[at(goals(guide), `${quest}.${oi} (${name})`, (g) => (g.t === 'kill' || g.t === 'talk') && g.quest === quest && g.oi === oi)];
+		if (goal.t === 'talk') assert.equal(goal.npcName, name, `${guide}: ${name}`);
+		else assert.equal(goal.text, `Talk to ${name}`, `${guide}: ${name}`);
 	}
 	// Every kill goal whose note says to speak with someone says so itself.
 	for (const guide of allGuides()) {
@@ -598,6 +600,34 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 			if (goal.t === 'kill' && /^Speak with /.test(goal.note || '')) {
 				assert.match(goal.text || '', /^Talk to /, `${guide}: ${goal.note}`);
 			}
+		}
+	}
+});
+
+test(`Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides`, { skip }, () => {
+	// The game lists one objective at the accept and reveals the next as each talk counts; the
+	// data counted the three talks as kills.
+	for (const guide of ['forever/alliance/skyborne/01-zephras-isle.guide', 'forever/horde/skyborne/01-zephras-isle.guide']) {
+		const list = goals(guide);
+		assert.equal(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 92640).length, 0, `${guide}: no kill goal for Desperate Times`);
+		const valennia = at(list, `${guide}: 92640.1 (Valennia)`, (g) => g.t === 'talk' && g.quest === 92640 && g.oi === 1 && g.npc === 252383);
+		const ayessa = at(list, `${guide}: 92640.2 (Ayessa)`, (g) => g.t === 'talk' && g.quest === 92640 && g.oi === 2 && g.npc === 251968);
+		const elaadrin = at(list, `${guide}: Elaadrin`, (g) => g.t === 'talk' && g.npc === 252475);
+		assert.ok(valennia < ayessa && ayessa < elaadrin, `${guide}: Valennia, then Ayessa, then Elaadrin`);
+		assert.ok(located(list[ayessa]), `${guide}: the arrow leads to Ayessa, west of town`);
+	}
+});
+
+test(`Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to`, { skip }, () => {
+	data = data || loadData(DATA);
+	// The Cult of the Damned counts Dark Neophytes and Dark Enforcers only.
+	assert.equal(goals(TIRISFAL).filter(({ goal }) => goal.quest === 96897 && goal.npc === 1547).length, 0, 'no Decrepit Darkhound goal for The Cult of the Damned');
+	for (const guide of allGuides()) {
+		for (const { goal } of goals(guide)) {
+			if (goal.t !== 'kill' || !goal.quest || !goal.oi) continue;
+			const o = ((data.quests[goal.quest] || {}).objectives || [])[goal.oi - 1];
+			assert.ok(o, `${guide}: ${goal.quest}.${goal.oi} is one of the quest's objectives`);
+			assert.notEqual(o.type, 'talk', `${guide}: ${goal.quest}.${goal.oi} is a talk to ${o.text}, not a kill`);
 		}
 	}
 });
@@ -1510,7 +1540,7 @@ test(`${ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its o
 	const list = goals(ZEPHRAS_HORDE);
 	assert.ok(at(list, 'accept 92514', is('accept', 92514)) < at(list, 'complete 92595 (talk to Illaya)', is('complete', 92595)), 'taken before the talk to Illaya for The Windshapers, which counts for it too');
 	const step = list[at(list, 'turnin 92514', is('turnin', 92514))].s;
-	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk').map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
+	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk' && !goal.quest).map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
 	const objectives = (illaya, coriella) => stepView(ZEPHRAS_HORDE, SKYBORNE_HORDE, step, `w.complete({ 92595 })
 		w.onQuest(92514, { { required = 1, fulfilled = ${illaya} }, { required = 1, fulfilled = ${coriella} } })`)
 		.goals.filter((g) => g.quest === 92514 && g.t !== 'turnin').sort((a, b) => a.oi - b.oi).map((g) => g.status);

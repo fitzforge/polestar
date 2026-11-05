@@ -638,8 +638,10 @@ fn talk_to(ctx: &Ctx, c: &mut Check) {
 	];
 	for (guide, quest, oi, name) in talks {
 		let list = goals!(ctx, c, guide);
-		let goal = &list[at!(c, &list, format!("{quest}.{oi} ({name})"), |g: &V| t(g, "kill") && n(g, "quest", quest as f64) && n(g, "oi", oi))].goal;
-		if !ok!(c, goal.get("text").as_str() == Some(format!("Talk to {name}").as_str()), &format!("{guide}: {name}")) {
+		// A `talk` tracking the objective once the game's own objective list makes it one (#859).
+		let goal = &list[at!(c, &list, format!("{quest}.{oi} ({name})"), |g: &V| (t(g, "kill") || t(g, "talk")) && n(g, "quest", quest as f64) && n(g, "oi", oi))].goal;
+		let reads = if t(goal, "talk") { goal.get("npcName").as_str() == Some(name) } else { goal.get("text").as_str() == Some(format!("Talk to {name}").as_str()) };
+		if !ok!(c, reads, &format!("{guide}: {name}")) {
 			return;
 		}
 	}
@@ -650,6 +652,42 @@ fn talk_to(ctx: &Ctx, c: &mut Check) {
 				&& note.as_str().is_some_and(|s| s.starts_with("Speak with "))
 				&& !ok!(c, r.goal.get("text").as_str().is_some_and(|s| s.starts_with("Talk to ")), &format!("{guide}: {}", note.to_js_string()))
 			{
+				return;
+			}
+		}
+	}
+}
+
+fn desperate_times(ctx: &Ctx, c: &mut Check) {
+	for guide in ["forever/alliance/skyborne/01-zephras-isle.guide", "forever/horde/skyborne/01-zephras-isle.guide"] {
+		let list = goals!(ctx, c, guide);
+		if !ok!(c, !list.iter().any(|r| t(&r.goal, "kill") && n(&r.goal, "quest", 92640.0)), &format!("{guide}: no kill goal for Desperate Times")) {
+			return;
+		}
+		let talk = |oi: f64, npc: f64| move |g: &V| t(g, "talk") && n(g, "quest", 92640.0) && n(g, "oi", oi) && n(g, "npc", npc);
+		let valennia = at!(c, &list, format!("{guide}: 92640.1 (Valennia)"), talk(1.0, 252383.0));
+		let ayessa = at!(c, &list, format!("{guide}: 92640.2 (Ayessa)"), talk(2.0, 251968.0));
+		let elaadrin = at!(c, &list, format!("{guide}: Elaadrin"), |g: &V| t(g, "talk") && n(g, "npc", 252475.0));
+		if !ok!(c, valennia < ayessa && ayessa < elaadrin, &format!("{guide}: Valennia, then Ayessa, then Elaadrin")) || !ok!(c, located(&list[ayessa]), &format!("{guide}: the arrow leads to Ayessa, west of town")) {
+			return;
+		}
+	}
+}
+
+fn uncounted_kills(ctx: &Ctx, c: &mut Check) {
+	let list = goals!(ctx, c, TIRISFAL);
+	if !ok!(c, !list.iter().any(|r| n(&r.goal, "quest", 96897.0) && n(&r.goal, "npc", 1547.0)), "no Decrepit Darkhound goal for The Cult of the Damned") {
+		return;
+	}
+	for guide in ctx.all_guides() {
+		for r in goals!(ctx, c, &guide) {
+			let g = &r.goal;
+			if !t(g, "kill") || !g.get("quest").truthy() || !g.get("oi").truthy() {
+				continue;
+			}
+			let o = ctx.data.quests.get(&g.get("quest").to_js_string()).get("objectives").get(&(g.get("oi").num() as i64 - 1).to_string());
+			let what = format!("{guide}: {}.{}", g.get("quest").to_js_string(), g.get("oi").to_js_string());
+			if !ok!(c, o.truthy(), &format!("{what} is one of the quest's objectives")) || !ok!(c, o.get("type").as_str() != Some("talk"), &format!("{what} is a talk to {}, not a kill", o.get("text").to_js_string())) {
 				return;
 			}
 		}
@@ -804,6 +842,8 @@ pub fn tests() -> Vec<SeedTest> {
 		(format!("{DUN_MOROGH}: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last"), kharanos),
 		(format!("{DUN_MOROGH}: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in"), camping),
 		(s("EpicTibbles's report (#532): an objective that is talking to someone reads \"Talk to\", not \"Kill\": the Skyborne visits to the Horde leaders"), talk_to),
+		(s("Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides"), desperate_times),
+		(s("Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to"), uncounted_kills),
 		(s("EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads \"Tame\", not \"Kill\", in every guide"), tame),
 		(format!("{DUN_MOROGH}: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram"), reports),
 		(format!("{DUN_MOROGH}: thmastin's report: kills on the way are counted on the way and finished after"), kills_on_the_way),
