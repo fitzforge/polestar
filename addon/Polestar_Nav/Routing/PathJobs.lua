@@ -67,25 +67,27 @@ local function nextJob()
 	return 1, #queue > 1
 end
 
--- The frame budget (ms): Path.budget, scaled out of a slow frame by the frame rate the client reports (more frames a
--- second, more headroom a frame): x1 at Path.budgetFps[1] fps or fewer, up to x4 at Path.budgetFps[2] or more,
--- never past Path.budgetMax (unless Path.budget itself is larger: a harness's math.huge). A pump that comes more than
--- Path.slowFrame ms after the last one (a hitch, a loading screen) keeps Path.budget, so a slow frame never grows.
-Path.budgetMax = 8
-Path.budgetFps = { 40, 100 }
-Path.slowFrame = 50
-local lastPump
-function Path.FrameBudget(fps, gap)
-	local base = Path.budget
-	if fps == nil then
-		fps = GetFramerate and GetFramerate() or 0
+-- The frame budget is Path.budget (PathGrid.lua) whatever the frame rate: a search costs a frame at most that much,
+-- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
+-- search ran).
+
+-- With the queue empty the router rests: decoded clusters and the decoder's scratch stay for the next search (a walk
+-- or measure from nearby reads the same clusters) until it has rested Path.restSeconds, then Grid.Idle drops them.
+Path.restSeconds = 60
+local rests = 0 -- times the queue emptied: a later rest makes an earlier rest's timer stale
+local function rest()
+	Grid.Rest()
+	rests = rests + 1
+	local mine = rests
+	if C_Timer and C_Timer.After then
+		C_Timer.After(Path.restSeconds, function()
+			if mine == rests and #queue == 0 then
+				Grid.Idle()
+			end
+		end)
+	else
+		Grid.Idle()
 	end
-	local lo, hi = Path.budgetFps[1], Path.budgetFps[2]
-	local scale = 1
-	if type(fps) == "number" and fps > lo and not (gap and gap > Path.slowFrame) then
-		scale = 1 + 3 * (math.min(fps, hi) - lo) / (hi - lo)
-	end
-	return math.min(base * scale, math.max(base, Path.budgetMax))
 end
 
 pump = function()
@@ -102,8 +104,7 @@ pump = function()
 		return
 	end
 	local now = clock()
-	local budget = Path.FrameBudget(nil, lastPump and now - lastPump)
-	lastPump = now
+	local budget = Path.budget
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
@@ -150,9 +151,8 @@ pump = function()
 		end
 	until clock() >= finish
 	if #queue == 0 then
-		-- Exact endpoint costs survive; decoded grids and local trees are only useful during active work.
-		lastPump = nil -- the next search's first frame is not a slow one
-		Grid.Idle()
+		-- Exact endpoint costs survive; local trees are only useful during active work.
+		rest()
 		Spare(nil)
 	end
 	schedule()

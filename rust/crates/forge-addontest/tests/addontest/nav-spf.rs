@@ -1169,6 +1169,38 @@ fn terrain_one_reversed_findmany_from_the_target_prices_the_walks_into_it_the_ro
 	assert_eq!(out["batches"], 1, "and ask for no second batch");
 }
 
+// A target within 400 yd of the player (MEASURE_NEAR) is not measured (0.3.2: a batch is about a second of router
+// work, and a guide sets such a waypoint at every turn-in): its plan keeps the straight estimate, and the arrow's own
+// walk is still searched and followed. A far target from the same spot is measured as before.
+#[test]
+fn terrain_a_target_within_400_yd_of_the_player_is_not_measured_its_arrow_still_follows_the_engines_walk_a_far_one_is() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		nav.place(200, 250)
+		target(0, 0)
+		N.Sample()
+		r.near = { batches = #fake.of(true), finds = #fake.of(false), route = route() }
+		local find = fake.of(false)[1]
+		fake.answer(find, 200, 250, 150, 50, 0, 0)
+		r.aim = aim()
+		target(0, -1000)
+		N.Sample()
+		r.far = { batches = #fake.of(true) }
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["near"]["batches"], 0, "no measure 320 yd from the target: {out}");
+	assert!(num(&out["near"]["finds"]) >= 1.0, "the arrow's own walk is searched: {out}");
+	assert_eq!(out["near"]["route"]["engine"], false, "the plan keeps the straight estimate: {out}");
+	assert_eq!(out["aim"][0], "travel", "{out}");
+	assert_eq!(out["aim"][1], 364, "the yards shown are the engine's walk (206 + 158): {out}");
+	assert_eq!(out["far"]["batches"], 1, "a target 1,266 yd away is measured: {out}");
+}
+
 #[test]
 fn terrain_a_measure_that_keeps_the_way_keeps_the_route_and_its_progress_its_later_walk_taking_the_measured_price_review_8() {
 	let out = run_many(

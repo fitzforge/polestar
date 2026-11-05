@@ -345,41 +345,96 @@ emit({{ frames = n, cost = got.cost, syncCost = syncCost, points = #got.points, 
 	let toc = read(&nav().join("Polestar_Nav.toc"));
 	assert!(toc.lines().any(|l| l == "## LoadOnDemand: 1"), "not loaded at startup");
 	let grid = read(&nav().join("Routing/PathGrid.lua"));
-	assert_eq!(Regex::new(r"(?m)^Path\.budget = (\d+)").unwrap().captures(&grid).unwrap()[1].to_string(), "2", "the 2 ms frame budget");
+	assert_eq!(Regex::new(r"(?m)^Path\.budget = (\d+)").unwrap().captures(&grid).unwrap()[1].to_string(), "3", "the 3 ms frame budget");
 	assert_eq!((got["cacheKB"].as_i64().unwrap(), got["graphKB"].as_i64().unwrap()), (8 * 1024, 16 * 1024));
 	assert!(Regex::new(r"(?m)^Path\.cacheKB = 8192 ").unwrap().is_match(&grid));
 }
 
+// The client's clock here is the VM's instructions (a count hook on every coroutine, 1 ms = 100,000; the stub decoder's
+// own are not counted: the client decodes in C), so how much one frame of router work runs is deterministic. Each
+// cluster round Orgrimmar, the Valley of Trials and Thunder Bluff is decoded by a surface prefetch (a decode and
+// nothing else) at 240 fps: no frame's work runs past Path.budget by more than half of it (0.3.1 grew the budget to
+// 8 ms at 100 fps or more, and the end of a decode, after its last slice point, ran 20 times the budget).
 #[test]
-fn c17_the_frame_budget_grows_with_the_frame_rate_out_of_a_slow_frame_never_past_path_budgetmax_and_keeps_2_ms_after_a_hitch() {
+fn c17_no_frame_of_router_work_runs_past_path_budget_at_any_frame_rate_decoding_included() {
 	let got = run(
 		r#"
 local Path = Polestar_NavEngine
-local out = {}
-for _, fps in ipairs({ 0, 20, 40, 60, 100, 240 }) do out[#out + 1] = Path.FrameBudget(fps, 16) end
-out.hitch = Path.FrameBudget(120, 80)
-out.first = Path.FrameBudget(120, nil)
-local was = Path.budget
-Path.budget = math.huge
-out.huge = Path.FrameBudget(120, 16) == math.huge
-Path.budget = 0.05
-out.small = Path.FrameBudget(100, 16)
-Path.budget = was
-emit(out)"#,
+GetFramerate = function() return 240 end
+local ticks, STEP = 0, 100
+local function hook() ticks = ticks + STEP end
+debug.sethook(hook, "", STEP)
+local create = coroutine.create
+coroutine.create = function(f) local co = create(f) debug.sethook(co, hook, "", STEP) return co end
+for _, name in ipairs({ "DecodeBase64", "DecompressString" }) do
+	local f = C_EncodingUtil[name]
+	C_EncodingUtil[name] = function(...) local t = ticks local r = f(...) ticks = t return r end
+end
+Path.clock = function() return ticks / 100000 end
+local frames, worst, pumps = {}, 0, 0
+Path.after = function(fn) frames[#frames + 1] = fn end
+local d0 = Path.decodes or 0
+for _, c in ipairs({ { 1630, -4400 }, { -607, -4251 }, { -1280, 130 } }) do
+	for dx = -2, 2 do
+		for dy = -2, 2 do
+			Path.Prefetch(1, c[1] + dx * 533, c[2] + dy * 533)
+			while #frames > 0 do
+				local t = ticks
+				table.remove(frames, 1)()
+				pumps = pumps + 1
+				if ticks - t > worst then worst = ticks - t end
+			end
+		end
+	end
+end
+debug.sethook()
+emit({ worst = worst / 100000, budget = Path.budget, pumps = pumps, decodes = (Path.decodes or 0) - d0 })"#,
 		"",
 		vec![Addon::name("Polestar_Nav")],
 	);
-	// A table with both array and hash parts emits as an object keyed "1".."6".
-	let budgets: Vec<Value> = (1..=6).map(|i| got[i.to_string()].clone()).collect();
-	assert_eq!(json!(budgets), json!([2, 2, 2, 4, 8, 8]));
-	assert_eq!(got["hitch"], 2, "a pump 80 ms after the last keeps the base budget");
-	assert_eq!(got["first"], 8, "the first pump of a search is not a slow frame");
-	assert_eq!(got["huge"], true, "a harness budget of math.huge stays unsliced");
-	assert!((got["small"].as_f64().unwrap() - 0.2).abs() < 1e-9, "a test budget scales the same way (x4)");
+	let (worst, budget) = (got["worst"].as_f64().unwrap(), got["budget"].as_f64().unwrap());
+	assert!(got["decodes"].as_i64().unwrap() >= 40, "the clusters decoded: {got}");
+	assert!(got["pumps"].as_i64().unwrap() > got["decodes"].as_i64().unwrap(), "decodes sliced over frames: {got}");
+	assert!(worst <= budget * 1.5, "a frame ran {worst:.2} ms of router work, budget {budget} ms: {got}");
+}
+
+// A search leaves its decoded clusters for the next one (a walk or measure from nearby reads the same clusters): a
+// second search over them, once the first is done and the queue empty, decodes nothing. After Path.restSeconds with
+// no search they are dropped (but the one the player stands in), and the same search decodes them again.
+#[test]
+fn a_search_s_clusters_stay_decoded_for_the_next_search_until_the_router_has_rested_path_restseconds() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local function drain() while #frames > 0 do table.remove(frames, 1)() end end
+local function walk()
+	local d0, got = Path.decodes or 0, nil
+	Path.Find(1, { x = -607.3, y = -4251.5, z = 39 }, { x = 280, y = -4740 }, function(points) got = points end, { profile = "Horde" })
+	drain()
+	return { found = got ~= nil and #got > 1, decodes = (Path.decodes or 0) - d0 }
+end
+local first = walk()
+stub.advance(Path.restSeconds - 5)
+local again = walk()
+stub.advance(Path.restSeconds + 1)
+local rested = walk()
+emit({ first = first, again = again, rested = rested, restSeconds = Path.restSeconds })"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	assert_eq!(got["restSeconds"], 60);
+	for k in ["first", "again", "rested"] {
+		assert_eq!(got[k]["found"], true, "{k}: {got}");
+	}
+	assert!(got["first"]["decodes"].as_i64().unwrap() > 0, "{got}");
+	assert_eq!(got["again"]["decodes"], 0, "the same walk again within the rest decodes nothing: {got}");
+	assert!(got["rested"]["decodes"].as_i64().unwrap() > 0, "after the rest the clusters were dropped: {got}");
 }
 
 #[test]
-fn memory_at_rest_a_search_may_decode_graph_up_to_path_graphkb_idle_trims_it_to_path_graphrestkb() {
+fn memory_at_rest_a_search_may_decode_graph_up_to_path_graphkb_the_rest_trims_it_to_path_graphrestkb() {
 	let tmp = TempDir::new("polestar-nav-rest-");
 	let keep = tmp.path().join("keep-ns.lua");
 	std::fs::write(&keep, "local _, ns = ...\nstub.navNs = ns\n").unwrap();
@@ -393,7 +448,7 @@ Path.graphRestKB = 512
 -- Tarren Mill to Brill (about 3,900 yd): a walk across many clusters' graphs.
 local pts = Path.FindSync(0, { x = -24.96, y = -878.613 }, { x = 2246.1, y = 239.8, z = 34.3 }, { profile = "Horde" })
 local searching = kb()
-G.Idle()
+G.Rest()
 emit({ found = pts ~= nil, searching = searching, resting = kb(), rest = rest, ceiling = Path.graphKB })"#,
 		"",
 		vec![Addon::Files("Polestar_Nav".into(), files)],

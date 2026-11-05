@@ -1077,8 +1077,10 @@ out.noname = Path.AreaName({MAP}, 0) or "nil""#
 }
 
 #[test]
-fn path_surfacesat_at_a_cluster_edge_keeps_a_and_b_goes_at_idle() {
-	let got = reader_route(&format!("\nread(10)\npump()\nout.a = read(10)\nout.b = read({C} + 10)\nout.back = read(10)\npump()\nout.kept = read(10)\nout.bAfter = read({C} + 10)"));
+fn path_surfacesat_at_a_cluster_edge_keeps_a_and_b_goes_once_the_router_has_rested() {
+	let got = reader_route(&format!(
+		"\nread(10)\npump()\nout.a = read(10)\nout.b = read({C} + 10)\nout.back = read(10)\npump()\nstub.advance(Path.restSeconds + 1)\nout.kept = read(10)\nout.bAfter = read({C} + 10)"
+	));
 	assert_eq!(got, json!({ "a": 1, "b": "nil", "back": 1, "kept": 1, "bAfter": "nil" }));
 }
 
