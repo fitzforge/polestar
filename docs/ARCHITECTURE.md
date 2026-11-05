@@ -4507,8 +4507,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   counted by verb in the order they come: quests, hand-ins, tasks), the
   field work "Then out here: 7 kills and items" (kills, items, else goals; a
   "Go to" counts only when nothing else is open), a later group already
-  done "✓ <name>". Past the first three such lines, the rest share one "+ N
-  more people · X quests, Y tasks" line (`CARD.ahead`). The groups done
+  done "✓ <name>". With one or two goals open the line names them instead
+  of counting ("Then: Marleth Barleybrew · Accept Bitter Rivals", "Then out
+  here: Kill Snow Leopards"; `UI.GoalText`, the quest in its colour; one
+  line, cut with "…" when too wide). Past the first three such lines, the
+  rest share one "+ N more people · X quests, Y tasks" line (`CARD.ahead`,
+  always counts). The groups done
   before the focus share one "✓ <name>, <name>" line, so a quest taken,
   handed in or not offered stays on the card when the focus moves on
   (#741/#739). A click on a line lists what it stands for under it (goals,

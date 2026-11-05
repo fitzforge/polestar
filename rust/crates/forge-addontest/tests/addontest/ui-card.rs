@@ -122,11 +122,11 @@ fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_pers
 		strings(&calm["items"]),
 		[
 			"Gretta's errand",
-			"[Then: Marleth Barleybrew  ·  1 quest]",
+			"[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]",
 			"[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]",
 			"[Then out here: 7 kills and items]",
 		],
-		"the person to talk to now in full; every other person and the field work on one line, counted"
+		"the person to talk to now in full; every other person and the field work on one line: one or two goals named, more counted"
 	);
 	assert!(calm["items"].as_array().unwrap().len() <= 5);
 	assert_eq!(calm["after"], false, "the lines already say who comes next");
@@ -158,7 +158,7 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 		strings(&out["opened"]),
 		[
 			"Gretta's errand",
-			"[Then: Marleth Barleybrew  ·  1 quest]",
+			"[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]",
 			"[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]+",
 			"Evershine",
 			"The Perfect Stout",
@@ -167,7 +167,7 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 		],
 		"a look ahead: Rejold's goals right under his line"
 	);
-	assert_eq!(strings(&out["closed"]), ["Gretta's errand", "[Then: Marleth Barleybrew  ·  1 quest]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]);
+	assert_eq!(strings(&out["closed"]), ["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]);
 	assert_eq!(out["person"], "Marleth Barleybrew");
 	assert_eq!(
 		strings(&out["moved"]),
@@ -443,9 +443,9 @@ fn past_three_persons_the_rest_of_a_hub_share_one_more_line_that_opens_and_close
 	.remove(0);
 	let closed = [
 		"Quest 1",
-		"[Then: Bram  ·  1 quest]",
-		"[Then: Cora  ·  1 quest]",
-		"[Then: Dain  ·  1 quest]",
+		"[Then: Bram  ·  Accept Quest 2]",
+		"[Then: Cora  ·  Accept Quest 3]",
+		"[Then: Dain  ·  Accept Quest 4]",
 		"[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]",
 	];
 	assert_eq!(strings(&out["closed"]), closed, "only the goals that apply and are still open are counted");
@@ -453,16 +453,46 @@ fn past_three_persons_the_rest_of_a_hub_share_one_more_line_that_opens_and_close
 		strings(&out["opened"]),
 		[
 			"Quest 1",
-			"[Then: Bram  ·  1 quest]",
-			"[Then: Cora  ·  1 quest]",
-			"[Then: Dain  ·  1 quest]",
+			"[Then: Bram  ·  Accept Quest 2]",
+			"[Then: Cora  ·  Accept Quest 3]",
+			"[Then: Dain  ·  Accept Quest 4]",
 			"[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]+",
-			"[Then: Edda  ·  1 quest]",
-			"[Then: Finn  ·  1 quest, 1 hand-in]",
+			"[Then: Edda  ·  Accept Quest 5]",
+			"[Then: Finn  ·  Accept Quest 6, Turn in Old Quest]",
 			"[Gil]",
-			"[Then: Hale  ·  1 task]",
+			"[Then: Hale  ·  Talk to Hale]",
 		]
 	);
 	assert!(strings(&out["deeper"]).contains(&"Quest 5".to_string()), "a line inside opens its goals too");
 	assert_eq!(strings(&out["again"]), closed);
+}
+
+// One or two goals left: the line names them, the quest in the quest colour as on a row; three or more: counts.
+#[test]
+fn a_summary_line_names_one_or_two_goals_and_counts_three_or_more() {
+	let out = run(r#"
+		local s = brewnall()
+		local goals = uistub.guides[uistub.elwynn].steps[s].goals
+		goals[1].status = "done"
+		-- Rejold: two goals left; the field work: one kill and the "Go to", which is not named beside it.
+		goals[4].status = "done"
+		for _, g in ipairs({ 6, 7, 8, 9, 11, 12 }) do goals[g].status = "done" end
+		uistub.setGuide(uistub.elwynn, s)
+		local two = items()
+		local rejold = lineFor("Rejold").Text:GetText()
+		goals[4].status = "pending"
+		goals[10].status = "done"
+		uistub.update()
+		emit({ two = two, rejold = rejold, quest = Polestar.Theme.Hex("quest"), three = items() })"#)
+	.remove(0);
+	assert_eq!(
+		strings(&out["two"]),
+		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  Turn in Evershine, Accept A Favor for Evershine]", "[Then out here: Kill Snow Leopards]"]
+	);
+	assert!(text(&out["rejold"]).contains(&format!("|c{}Evershine|r", text(&out["quest"]))), "the quest in the quest colour: {}", out["rejold"]);
+	assert_eq!(
+		strings(&out["three"]),
+		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: Go to Frostmane Hold]"],
+		"three goals: counted; with only the \"Go to\" left, it is named"
+	);
 }

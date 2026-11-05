@@ -204,7 +204,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge"]));
 	assert_eq!(first["dimmed"], json!([false, false]));
 	assert_eq!(first["subs"][0], false, "the focus's goals do not repeat the header");
-	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  1 hand-in", "Then: Brother Neals  ·  1 task"]);
+	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in Wolves Across the Border", "Then: Brother Neals  ·  Talk to Brother Neals"]);
 	assert!(is_match(text(&first["lines"][0]["text"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r"), "the person in the NPC colour");
 	assert_eq!(first["after"], false, "the lines name the persons to come: no second \"Then:\", no \"Person 1 of 3\"");
 	assert_eq!(first["mark"], true, "the arrow points at this person");
@@ -212,7 +212,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(rgb(&first["iconColor"]), rgb(&first["dim"]), "the person glyph steps back; the name carries the colour");
 	assert_eq!(second["person"], "Eagan Peltskinner");
 	assert_eq!(second["goals"], json!(["Wolves Across the Border"]));
-	assert_eq!(plain(&second["lines"]), ["Marshal McBride", "Then: Brother Neals  ·  1 task"], "the person done with stays on the card, on one line");
+	assert_eq!(plain(&second["lines"]), ["Marshal McBride", "Then: Brother Neals  ·  Talk to Brother Neals"], "the person done with stays on the card, on one line");
 	assert_eq!(second["lines"][0]["key"], "before");
 	assert_eq!(second["sliding"], true, "the next person slides in");
 	assert_eq!(third["person"], "Brother Neals");

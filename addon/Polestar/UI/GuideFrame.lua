@@ -2823,18 +2823,37 @@ local function fillCard(sameFocus)
 			if #list2 > 0 then later[#later + 1] = { gi = gi, list = list2, prev = groups[gi - 1].kind } end
 		end
 		local shown = #later > CARD.ahead + 1 and CARD.ahead or #later
+		-- One or two goals left: the line names them ("Accept Bitter Rivals",
+		-- the quest in its colour, a "Go to" only when nothing else is open);
+		-- three or more: counts. The line truncates with "…" when too wide.
+		local function namesOf(list2)
+			local open, places = {}, {}
+			for _, goal in ipairs(list2) do
+				if goal.status ~= "done" and goal.status ~= "skipped" then
+					local into = goal.t == "goto" and places or open
+					into[#into + 1] = goal
+				end
+			end
+			if #open == 0 then open = places end
+			if #open == 0 or #open > 2 then return nil end
+			local said = UI.GoalText(open[1])
+			if open[2] then said = said .. ", " .. UI.GoalText(open[2]) end
+			return said
+		end
 		local function groupLine(e)
 			local gi, grp, list2 = e.gi, groups[e.gi], e.list
 			local open = model.open[gi]
 			local here = grp.kind ~= "npc" and grp.kind ~= "object"
 			local counts = countsOf(list2, here)
+			local said = counts and namesOf(list2)
 			local name = UI.GroupName(view, grp)
+			local muted = Theme.Hex("textMuted")
 			if counts and here then
 				local label = (e.prev == "npc" or e.prev == "object") and L["Then out here:"] or L["Out here:"]
-				addLine(gi, "goto", "textDim", label .. " " .. counts, list2, name, open)
+				addLine(gi, "goto", "textDim", label .. " " .. (said or counts), list2, name, open)
 			elseif counts then
-				addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r|c" .. Theme.Hex("textMuted") .. DOT .. counts .. "|r",
-					list2, name, open)
+				local tail = said and ("|c" .. muted .. DOT .. "|r" .. said) or ("|c" .. muted .. DOT .. counts .. "|r")
+				addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r" .. tail, list2, name, open)
 			else
 				addLine(gi, "check", "success", "|c" .. nameHex(grp) .. name .. "|r", list2, name, open)
 			end
