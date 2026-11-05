@@ -91,3 +91,9 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
+
+// Visur's report (#848): only Fillion Flamebreeze (253285) takes The Missing Scholar; a correction
+// had added Dondallion Whisperwind (253204) as a second ender.
+test('No correction makes Dondallion Whisperwind an ender of The Missing Scholar (#848)', () => {
+	assert.ok(!(corrections.quests[92850]?.set?.end?.npc ?? []).includes(253204));
+});
