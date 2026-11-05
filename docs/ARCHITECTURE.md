@@ -4526,7 +4526,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   a step whose accept (else turn-in) is one of the character's class quests:
   `UI/ClassRewards.lua` limits the quest to a few classes, the character's
   among them. A step or goal `only <Class>` is a route choice and a Class
-  guide carries open errands, so neither makes a class quest. In the class colour
+  guide carries open errands, so neither makes a class quest. No card for a
+  chain whose reward the character already knows or owns
+  (`ClassToast.RewardKnown`). In the class colour
   (`Theme.ClassColor`; text lifted with `Theme.Legible`): border, 4 px
   stripe, a left-to-right glow; the chain's reward icon in a ring
   (`GetSpellTexture` on the reward spell, else the first item's
@@ -4548,6 +4550,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   guide quest that gives it, else its last quest.
   The step's class accept folds into the card ("Accept from <giver>, <zone>"
   with the step's tick box, `ClassCard.Fold`); GuideFrame lists no row for it.
+  A hand tick shows ticked and the card reads the accept's notice ("<quest>
+  isn't in your quest log": a tick never stands for the quest).
 - **Class quest heads-up** (`UI/ClassToast.lua`, `PolestarClassToast`): a
   card that lives on the guide window: as wide as it, in its panel, border,
   fonts and buttons, the class colour only on the stripe, the icon ring and

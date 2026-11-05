@@ -296,6 +296,74 @@ fn a_druid_only_step_of_an_open_quest_shows_no_card_a_data_limited_druid_quest_d
 	assert_eq!(out[1]["title"], "The Great Cat Spirit");
 }
 
+// A Skyborne Druid's report (0.3.2): at Zephras Isle's "Denaaris Stargale" the card for Child of
+// Nature (94912) said "Learn Bear Form" though he had learned it on the island 4 levels before
+// (The Great Ursera Spirit, 94006). A chain whose reward is known or owned shows no card, taken
+// or not; the accept is a row like any other.
+const ZEPHRAS: &str = r#"
+uistub.guides["test/zephras"] = { id = "test/zephras", pack = "guides", title = "Zephras Isle", faction = "Alliance", minLevel = 1, maxLevel = 10,
+	category = "Leveling", zone = 1416, zoneName = "Alterac Mountains", author = "Polestar", version = 1, steps = {
+	{ title = "Denaaris Stargale", goals = {
+		G("accept", { verb = "Accept", subject = "Child of Nature", subjectKind = "quest", quest = 94912, npc = 270459, npcName = "Alfina Nightgaze", minLevel = 10, only = DRUID, status = "active" }),
+		G("accept", { verb = "Accept", subject = "The Skyborne Portal", subjectKind = "quest", quest = 94947, npc = 270458, npcName = "Denaaris Stargale", status = "pending" }),
+	} },
+} }
+KNOWN = {}
+IsPlayerSpell = function(id) return KNOWN[id] == true end
+uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "Skyborne", 10
+local function box()
+	local c = CC.frame and CC.frame.Accept.Check
+	return { checked = c ~= nil and c:IsShown() and c:GetChecked() or false, line = CC.frame and CC.frame.Accept:IsShown() and CC.frame.Accept.Text:GetText() or nil }
+end
+"#;
+
+#[test]
+fn no_card_for_a_chain_whose_reward_the_character_already_knows() {
+	let out = run_card(&format!(
+		r#"{ZEPHRAS}
+		uistub.setGuide("test/zephras", 1)
+		emit(card())
+		KNOWN[5487] = true -- Bear Form
+		uistub.update()
+		emit(card())"#
+	));
+	assert_eq!(out[0]["shown"], true, "{}", out[0]);
+	assert_eq!(out[0]["learn"], "Learn |cfffe8f2fBear Form|r");
+	assert_eq!(out[1]["shown"], false, "{}", out[1]);
+	assert_eq!(out[1]["row"], "Accept |cffffd673Child of Nature|r");
+}
+
+// The same report: ticking the card's box "didn't do anything". The Engine keeps an accept open
+// until the quest is in the log (a tick never stands for the quest, #739) and says so on the
+// accept ("... isn't in your quest log"); the card showed neither the tick nor that line, so the
+// box sprang back unticked. It now shows both, and a second click undoes the tick.
+#[test]
+fn the_card_s_tick_box_ticks_the_accept_and_shows_it_ticked_and_why_it_stays_open() {
+	let out = run_card(&format!(
+		r#"{ZEPHRAS}
+		local toggled = {{}}
+		Polestar.Engine.ToggleGoal = function(s, g)
+			toggled[#toggled + 1] = s .. ":" .. g
+			local goal = uistub.goal(s, g)
+			goal.ticked = not goal.ticked
+			goal.noticeText = goal.ticked and "Child of Nature isn't in your quest log" or nil
+			uistub.update()
+			return true
+		end
+		uistub.setGuide("test/zephras", 1)
+		emit(box())
+		stub.RunScript(CC.frame.Accept.Check, "OnClick", "LeftButton")
+		emit(box())
+		stub.RunScript(CC.frame.Accept.Check, "OnClick", "LeftButton")
+		emit(box())
+		emit(toggled)"#
+	));
+	assert_eq!(out[0], json!({ "checked": false, "line": "Accept from Alfina Nightgaze" }));
+	assert_eq!(out[1], json!({ "checked": true, "line": "Child of Nature isn't in your quest log" }));
+	assert_eq!(out[2], json!({ "checked": false, "line": "Accept from Alfina Nightgaze" }));
+	assert_eq!(out[3], json!(["1:1", "1:1"]));
+}
+
 #[test]
 fn a_reward_choice_reads_as_one_line_and_the_card_shines_and_chimes_once_per_chain() {
 	let out = run_card(
