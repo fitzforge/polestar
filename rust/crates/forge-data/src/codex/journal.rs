@@ -661,7 +661,9 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		let cr = cg("rewards");
 		let r = Obj::new();
 		r.set("items", V::from(ritems));
-		r.set("xp", first_nn(q.get("xp"), if c.truthy() { cr.get("xp") } else { V::Undef }));
+		// forever-db's XP first, as on the plain pages (#842), then the list's, then the Codex's.
+		let store = inp.store_xp.get(&(qid.num() as i64)).map_or(V::Undef, |xp| V::Num(*xp));
+		r.set("xp", first_nn(store, first_nn(q.get("xp"), if c.truthy() { cr.get("xp") } else { V::Undef })));
 		r.set("money", first_nn(q.get("money"), if c.truthy() { cr.get("money") } else { V::Undef }));
 		r.set("rep", if c.truthy() { cr.get("rep") } else { V::arr() });
 		o.set("rewards", V::Obj(r.clone()));
