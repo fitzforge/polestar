@@ -1004,7 +1004,17 @@ fn curatedrepgates_a_collectible_guide_reaching_a_standing_before_it_buys_the_it
 	// standing (only Alliance) still gates the vendor.
 	std::fs::write(
 		dir.join("racial.guide"),
-		["guide x/racial", "collects 8631", "", "step Tiger Riding for other races", "  only Human,Dwarf,Gnome,Skyborne", "  rep \"Darnassus\" Exalted", "step Pick a colour", "  buy 8631 npc 4730 optional"].join("\n"),
+		[
+			"guide x/racial",
+			"collects 8631",
+			"",
+			"step Tiger Riding for other races",
+			"  only Human,Dwarf,Gnome,Skyborne",
+			"  rep \"Darnassus\" Exalted",
+			"step Pick a colour",
+			"  buy 8631 npc 4730 optional",
+		]
+		.join("\n"),
 	)
 	.unwrap();
 	std::fs::write(dir.join("side.guide"), ["guide x/side", "collects 19030", "", "step Exalted", "  only Alliance", "  rep 730 Exalted", "step Buy", "  buy 19030 npc 13216"].join("\n")).unwrap();
