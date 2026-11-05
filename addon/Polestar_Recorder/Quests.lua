@@ -1,8 +1,10 @@
 -- Quest records (docs/RECORDING.md, "Quests"): offer, detail, text, accept,
 -- objectives, progress (diffs of C_QuestLog.GetQuestObjectives, positioned
 -- at each increment), complete, turnin, abandon, the gossip option chosen,
--- and escort/timed quests. Also ns.Wanted(): the item objectives open now,
--- the drop-chance denominator of every `loot` record.
+-- escort/timed quests, and `fail` (C_QuestLog.IsFailed turning true for a
+-- quest in the log: its timer ran out, the escort died). Also ns.Wanted():
+-- the item objectives open now, the drop-chance denominator of every `loot`
+-- record.
 
 local ADDON, ns = ...
 
@@ -15,7 +17,7 @@ local OFFER_REPEAT = 60 -- a quest detail within this long of the same NPC's gos
 local INDEX_SLICE = 200 -- quests per step while building the NPC -> quests index
 local INDEX_STEP = 0.05
 
--- questID -> { cur = { [oi] = numFulfilled }, ready, fresh, listed (objectives recorded), escort }
+-- questID -> { cur = { [oi] = numFulfilled }, ready, fresh, listed (objectives recorded), escort, failed }
 local tracked = {}
 local turnedIn = {} -- questID -> GetTime() of QUEST_TURNED_IN
 local detail, completion -- NPC/position contexts of the open quest frame
@@ -90,7 +92,10 @@ local function timed(q)
 end
 
 local function failed(q)
-	return C_QuestLog.IsFailed and C_QuestLog.IsFailed(q) and true or false
+	local f = C_QuestLog.IsFailed
+	if type(f) ~= "function" then return false end
+	local ok, v = pcall(f, q)
+	return ok and ns.Value(v) and true or false
 end
 
 -- Snapshot a quest's objectives without recording progress. `fresh`: just
@@ -112,6 +117,8 @@ local function track(q, fresh)
 	end
 	if not fresh then st.listed = true end
 	st.ready = isReady(q)
+	-- a quest already failed when first seen never writes `fail`
+	st.failed = failed(q)
 	wantedDirty = true
 	return st
 end
@@ -156,7 +163,10 @@ local function scan()
 			local ready = isReady(q)
 			if st.ready == false and ready then ns.Rec("complete", q) end
 			st.ready = ready
-			local runs = timed(q) and not ready and not failed(q)
+			local isFailed = failed(q)
+			if isFailed and not st.failed then ns.Rec("fail", q, ns.P()) end
+			st.failed = isFailed
+			local runs = timed(q) and not ready and not isFailed
 			if runs or st.escort then escort(q, st, runs) end
 		end
 	end

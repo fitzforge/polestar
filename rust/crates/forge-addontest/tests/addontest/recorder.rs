@@ -45,8 +45,9 @@ local WIDTH = {
 	chunk = 3, session = 14, map = 8, level = 5, xp = 3, dropped = 1, mark = 4, pos = 5, zone = 5, ride = 4, taxi = 2,
 	land = 5, death = 5, revive = 4, combat = 4, afk = 1, rest = 2, offer = 10, detail = 7, text = 4, accept = 11,
 	objectives = 2, progress = 7, complete = 1, turnin = 10, abandon = 1, gossip = 7, cast = 7, escort = 5, kill = 10,
-	loot = 8, unit = 8, rare = 7, treasure = 4, enter = 6, encounter = 4, trainer = 5, vendor = 5, flightmaster = 6,
-	bind = 4, rep = 4, skill = 3, explore = 5, learn = 1, craft = 3, achieve = 1, step = 6,
+	loot = 8, gather = 7, unit = 8, rare = 7, treasure = 4, enter = 6, encounter = 4, trainer = 5, vendor = 5, flightmaster = 6,
+	bind = 4, rep = 4, skill = 3, explore = 5, learn = 1, craft = 3, achieve = 1, step = 6, group = 2, spawn = 5, fail = 4,
+	refuse = 6,
 }
 -- Records whose kind is unknown or whose field count is wrong, as "kind:count".
 local function malformed()
@@ -133,6 +134,7 @@ fn a_quest_with_kills_xp_loot_and_a_turn_in_is_exactly_this_chunk_text() {
 		"map|0|1429|3|1415|0|1800|1100|-1666.7|-4100",
 		"zone|0|1429|5000|5000|Elwynn Forest|Northshire Valley",
 		"xp|0|0|400|",
+		"group|0|0|0",
 		"accept|0|33|||1429|5000|5000|1||||",
 		"objectives|0|33|item:8:Tough Wolf Meat",
 		"offer|0|c|823|1429|4820|4190|7||33||",
@@ -143,12 +145,15 @@ fn a_quest_with_kills_xp_loot_and_a_turn_in_is_exactly_this_chunk_text() {
 		"unit|30|6|1|n|h|1429|4700|3500|t",
 		"progress|31|7|1|1|3|1429|4700|3500",
 		"kill|30|6|1|n|1429|4700|3500|25||0|7:1",
+		"spawn|30|6|0000000002|1429|4700|3500",
 		"progress|133|7|1|2|3|1429|4800|3500",
 		"kill|132|6|1|n|1429|4800|3500|50|25|0|7:1",
+		"spawn|132|6|0000000003|1429|4800|3500",
 		"unit|234|6|1|n|h|1429|4900|3500|t",
 		"progress|235|7|1|3|3|1429|4900|3500",
 		"complete|235|7",
 		"kill|234|6|1|n|1429|4900|3500|25||0|7:1",
+		"spawn|234|6|0000000004|1429|4900|3500",
 		"loot|336|c|6|1429|4900|3500||750:1|33:1",
 		"turnin|336|7|c|823|1429|4820|4190|1|170|35|2578",
 	]
@@ -296,9 +301,9 @@ fn a_chunk_closes_after_5_minutes_or_16_kib_and_is_refreshed_every_60_s_out_of_c
 			second = second, head = { head[1][1], head[1][2], head[1][3], head[2][1] }, third = third, size = size, bad = malformed() })"#);
 	assert_eq!(out["atOpen"], 2);
 	assert_eq!(out["before"], 2, "not written again before 60 s");
-	assert_eq!(out["refreshed"], 7, "chunk, session, map, zone, xp and both marks");
-	assert_eq!(out["inCombat"], 7, "no refresh in combat");
-	assert_eq!(out["after"], 8);
+	assert_eq!(out["refreshed"], 8, "chunk, session, map, zone, xp, group and both marks");
+	assert_eq!(out["inCombat"], 8, "no refresh in combat");
+	assert_eq!(out["after"], 9);
 	assert_eq!(out["second"], 2, "the 5-minute close opened chunk 2");
 	assert_eq!(out["head"], json!(["chunk", "0", "2", "session"]), "every chunk starts with chunk then session");
 	assert_eq!(out["third"], 3, "16 KiB closed chunk 2");
@@ -469,4 +474,80 @@ fn a_quest_s_text_is_recorded_once_per_character_with_the_player_s_name_race_and
 		Some(&format!("PolestarRecorderDB = {{ enabled = true, install = \"testinstall1\" }}; PolestarRecorderCharDB = {}", first["char"].as_str().unwrap())),
 	);
 	assert_eq!(again, 0, "textSeen is per character, across sessions");
+}
+
+#[test]
+fn a_tracked_quest_that_fails_writes_fail_once_a_quest_already_failed_when_first_seen_never() {
+	let out = run_with(
+		r#"
+		stub.moveTo(30, 40)
+		stub.world.timers[90] = 600
+		stub.acceptQuest(90, { title = "Escort", objectives = { { text = "Escort complete", type = "event", numRequired = 1 } } })
+		stub.advance(1)
+		stub.moveTo(31, 42)
+		stub.failQuest(90) -- the escort died
+		stub.advance(1)
+		stub.fire("QUEST_LOG_UPDATE") -- still failed: once per failure
+		stub.advance(1)
+		stub.acceptQuest(91, { title = "Too Late", failed = true }) -- failed already at accept
+		stub.advance(1)
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(1)
+		logout()
+		emit({ recs = recs("fail escort"), bad = malformed() })"#,
+		// failed already at login
+		r#"stub.world.log = { 92 }; stub.world.quests[92] = { title = "Failed Before", level = 1, objectives = {}, failed = true }"#,
+		true,
+		None,
+	);
+	assert_eq!(out["recs"], json!(["escort|90|1|1429|3000|4000", "fail|90|1429|3100|4200", "escort|90|0|1429|3100|4200"]));
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn a_refusal_is_recorded_by_its_error_constant_with_the_npc_or_object_never_its_text_at_most_ten_a_minute() {
+	let out = run(r#"
+		stub.world.gameMessages = {
+			[280] = "ERR_QUEST_NEED_PREREQS", [52] = "ERR_USE_LOCKED_WITH_ITEM_S", [301] = "SPELL_FAILED_REAGENTS",
+			[300] = "ERR_OUT_OF_RANGE", [302] = "ERR_QUEST_bad", [303] = "ERR_QUEST_" .. ("X"):rep(60),
+		}
+		stub.moveTo(20, 30)
+		local mcbride = stub.creature(197, "Marshal McBride")
+		stub.setUnit("npc", mcbride, "Marshal McBride")
+		stub.uiError(280, "Prerequisite quest not done.")
+		stub.uiError(280, "Prerequisite quest not done.") -- the same error at the same NPC within a minute
+		stub.setUnit("npc", nil)
+		stub.setUnit("target", (stub.gameObject(2843)), "Chest")
+		stub.uiError(52, "Requires Prerequisite Key")
+		stub.setUnit("target", "Player-1-00000002", "Otherchar") -- a player: no target
+		stub.uiError(301, "Missing Prerequisite reagent")
+		-- never: an error not on the list, no name, a name that is no constant, one too long, a secret type
+		stub.uiError(300, "Prerequisite out of range.")
+		stub.uiError(999, "Prerequisite unknown.")
+		stub.uiError(302, "Prerequisite bad name.")
+		stub.uiError(303, "Prerequisite long name.")
+		stub.uiError(stub.secret(), "Prerequisite secret.")
+		-- ten in a minute: three so far, seven of these twelve
+		for i = 1, 12 do
+			stub.setUnit("npc", (stub.creature(1000 + i)), "Npc " .. i)
+			stub.uiError(280, "Prerequisite quest not done.")
+		end
+		stub.advance(61)
+		stub.setUnit("npc", mcbride, "Marshal McBride")
+		stub.uiError(280, "Prerequisite quest not done.") -- a minute later: again
+		GetGameMessageInfo = nil
+		stub.setUnit("npc", (stub.creature(2000)), "Npc")
+		stub.uiError(280, "Prerequisite quest not done.") -- no constant name: nothing
+		logout()
+		emit({ recs = recs("refuse"), text = table.concat(recs(), "\n"):find("Prerequisite", 1, true) ~= nil, bad = malformed() })"#);
+	let mut want = vec![
+		"refuse|1429|2000|3000|c|197|ERR_QUEST_NEED_PREREQS".to_string(),
+		"refuse|1429|2000|3000|o|2843|ERR_USE_LOCKED_WITH_ITEM_S".to_string(),
+		"refuse|1429|2000|3000|||SPELL_FAILED_REAGENTS".to_string(),
+	];
+	want.extend((1001..=1007).map(|id| format!("refuse|1429|2000|3000|c|{id}|ERR_QUEST_NEED_PREREQS")));
+	want.push("refuse|1429|2000|3000|c|197|ERR_QUEST_NEED_PREREQS".to_string());
+	assert_eq!(out["recs"], json!(want));
+	assert_eq!(out["text"], false, "the message text is never recorded");
+	assert_eq!(out["bad"], json!({}));
 }

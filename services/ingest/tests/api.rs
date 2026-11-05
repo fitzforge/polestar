@@ -362,6 +362,39 @@ async fn accepts_then_reports_duplicates_and_rejects_malformed() {
 }
 
 #[tokio::test]
+async fn gathers_groups_spawns_fails_and_refusals_are_stored_and_counted() {
+	let app = app();
+	let a = register(&app, IP_A).await;
+	let text = [
+		chunk(1, 70532),
+		"group\t53\t2\t0".to_owned(),
+		"spawn\t53\t1501\t000043F59F\t1420\t3100\t6700".to_owned(),
+		"loot\t60\to\t1617\t1420\t3110\t6710\th\t765:2\t".to_owned(),
+		"gather\t60\t1617\t1420\t3110\t6710\th\t182\t57".to_owned(),
+		"fail\t70\t5821\t1420\t3120\t6720".to_owned(),
+		"refuse\t80\t1420\t3120\t6720\tc\t1568\tERR_QUEST_NEED_PREREQS".to_owned(),
+	]
+	.join("\n");
+	let (status, body) = upload(&app, &a, &[(1, text.clone())]).await;
+	assert_eq!(status, StatusCode::OK, "{body}");
+	assert_eq!(body, json!({ "accepted": [1], "duplicate": [], "rejected": [] }));
+	let (_, me) = send(&app, Method::GET, "/v1/me", Some(&a), None).await;
+	let me: Value = serde_json::from_str(&me).unwrap();
+	for kind in ["group", "spawn", "loot", "gather", "fail", "refuse"] {
+		assert_eq!(me["records"][kind], 1, "{kind}: {me}");
+	}
+	let (_, stats) = send(&app, Method::GET, "/v1/stats", None, None).await;
+	let stats: Value = serde_json::from_str(&stats).unwrap();
+	assert_eq!((stats["records"]["gather"].as_u64(), stats["records"]["refuse"].as_u64()), (Some(1), Some(1)));
+	// Stored whole (none is an unknown kind to drop) and exported.
+	let lines = export(&app, "").await;
+	assert_eq!(lines[0]["text"], text);
+	// A malformed one rejects its chunk, as for every known kind.
+	let (_, body) = upload(&app, &a, &[(2, format!("{}\ngather\t60\t1617\t\t\t\tz\t182\t57", chunk(2, 70532)))]).await;
+	assert_eq!(body["rejected"][0]["seq"], 2, "{body}");
+}
+
+#[tokio::test]
 async fn bad_requests() {
 	let app = app();
 	let a = register(&app, IP_A).await;
