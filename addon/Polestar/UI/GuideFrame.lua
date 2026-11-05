@@ -2156,7 +2156,7 @@ local function fillCard(sameFocus)
 		local escort = UI.EscortLine(goal) ~= nil
 		local who = rowWho(goal, groups, focus)
 		local raw = classHex and step and step.goals[goal.index]
-		local hex = raw and CC.Colours(guide, step, raw) and classHex or nil
+		local hex = raw and CC.Colours(raw) and classHex or nil
 		paintRow(r, goal, pop, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid, who,
 			focus ~= nil and goal.group ~= focus, hex)
 		if party then partySaid[party] = true end

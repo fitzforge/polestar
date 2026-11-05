@@ -4523,9 +4523,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   and dimmed, skipped ones dimmed, the live one marked with a chevron, the
   one on screen in the accent; a click looks at that step.
 - **Class-quest card** (`UI/ClassCard.lua`): over the person and goals of
-  a step whose accept (else turn-in) is one of the character's class quests
-  (the step or goal is `only <Class>`, the guide is a Class guide, or
-  `UI/ClassRewards.lua` limits the quest to the class). In the class colour
+  a step whose accept (else turn-in) is one of the character's class quests:
+  `UI/ClassRewards.lua` limits the quest to a few classes, the character's
+  among them. A step or goal `only <Class>` is a route choice and a Class
+  guide carries open errands, so neither makes a class quest. In the class colour
   (`Theme.ClassColor`; text lifted with `Theme.Legible`): border, 4 px
   stripe, a left-to-right glow; the chain's reward icon in a ring
   (`GetSpellTexture` on the reward spell, else the first item's

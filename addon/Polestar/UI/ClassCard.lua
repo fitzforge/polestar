@@ -1,6 +1,8 @@
 -- The class-quest card: above the goals of a step whose accept is one of
--- the character's class quests (the step or the goal is `only <Class>`, the
--- guide is a Class guide, or the quest data limits the quest to the class).
+-- the character's class quests: the quest data limits the quest to a few
+-- classes, the character's among them (UI/ClassRewards.lua). A step or goal
+-- `only <Class>` is a route choice, not a class quest (Mulgore's Druid trip
+-- to Thunder Bluff), and a Class guide carries open errands too.
 -- In the class colour: a border, a 4 px stripe on the left and a soft glow
 -- from it; the chain's reward icon in a ring (the spell it teaches, else the
 -- item it gives, else the class icon); "<CLASS> · LEVEL <n>", the quest's
@@ -90,23 +92,12 @@ local function matches(only, p)
 	return (only.classes == nil or lists(only.classes, p.class)) and (only.factions == nil or lists(only.factions, p.faction))
 end
 
--- Whether an `only` list makes its line a quest of `class`: it names the
--- class among a few. `only !Paladin` compiles to the eight other classes: a
--- line for every class but one is nobody's class quest (#812: a Mage was
--- shown Redemption, a Warrior the Warlock's Vile Familiars).
-local FEW = 4
-local function gate(only, class)
-	local list = type(only) == "table" and only.classes or nil
-	return type(list) == "table" and #list <= FEW and lists(list, class)
-end
-
--- Whether `goal` (a guide step's goal) is a quest of class `class`.
-local function classQuest(guide, step, goal, class)
-	if not goal.quest then return false end
-	if gate(step.only, class) or gate(goal.only, class) then return true end
-	local e = entry(goal.quest)
-	if e then return hasBit(e[1], CLASS_BIT[class]) end
-	return guide.category == "Class" and lists(guide.classes, class)
+-- Whether `goal` (a guide step's goal) is a quest of class `class`: its data
+-- names the class among a few (ClassRewards keeps no mask for a quest open
+-- to every class, or to every class but one, #812).
+local function classQuest(goal, class)
+	local e = goal.quest and entry(goal.quest)
+	return e ~= nil and hasBit(e[1], CLASS_BIT[class])
 end
 CC.ClassQuest = classQuest
 
@@ -131,11 +122,11 @@ end
 -- applies, else its first such turn-in. None once that accept is done and
 -- its quest handed in or its reward learned: the card is gone then, and the
 -- accept reads as a row like any other. -> goal index | nil
-local function cardGoal(guide, step, view, p)
+local function cardGoal(step, view, p)
 	local turnin
 	for gi, goal in ipairs(step.goals) do
 		local v = view.goals[gi]
-		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(guide, step, goal, p.class) then
+		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(goal, p.class) then
 			if goal.t == "accept" then
 				if v.status == "done" and finished(step, view, goal) then return nil end
 				return gi
@@ -456,7 +447,7 @@ function CC.Fill(guide, index, view)
 	CC.shown = nil
 	local step = guide and index and guide.steps and guide.steps[index]
 	local p = player()
-	local gi = step and view and p and p.class and cardGoal(guide, step, view, p)
+	local gi = step and view and p and p.class and cardGoal(step, view, p)
 	if not gi then
 		if F then F:Hide() end
 		return nil
@@ -542,17 +533,17 @@ end
 function CC.Fold(guide, view)
 	local step = guide and view and guide.steps and guide.steps[view.index]
 	local p = step and player()
-	local gi = p and p.class and cardGoal(guide, step, view, p)
+	local gi = p and p.class and cardGoal(step, view, p)
 	local goal, gv = gi and step.goals[gi], gi and view.goals[gi]
 	if not (goal and goal.t == "accept" and gv) then return nil end
 	if gv.status == "skipped" or gv.unavailable or gv.folded then return nil end
 	return gi
 end
 
--- Whether quest goal `goal` of step `step` takes the card's colour.
-function CC.Colours(guide, step, goal)
-	if not (shown and step and goal) then return false end
-	return classQuest(guide, step, goal, shown.class)
+-- Whether quest goal `goal` takes the card's colour.
+function CC.Colours(goal)
+	if not (shown and goal) then return false end
+	return classQuest(goal, shown.class)
 end
 
 -- Place the card at the top of the guide window's card, `width` wide. -> its height (0 hidden)
