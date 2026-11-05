@@ -73,8 +73,10 @@ const SOURCE_FIELDS = {
 // creatures drop also gets one `world` source with their level range.
 const CAP = { drop: 10, object: 6, vendor: 10, container: 6 };
 const WORLD_DROP_NPCS = 12;
-// Spawns: clusters per map, maps per entity.
-const SPAWN = { radius: 3, perMap: 5, maps: 4 };
+// Spawns: clusters per map, maps per entity. A map seen at `few` points or
+// more drops its stray clusters: `stray` points or fewer, where the biggest
+// cluster holds `dwarf` times as many or more (#852).
+const SPAWN = { radius: 3, perMap: 5, maps: 4, few: 10, stray: 2, dwarf: 4 };
 const SERVICE_ROLES = new Set(['vendor', 'repair', 'innkeeper', 'banker', 'auctioneer', 'flightmaster', 'battlemaster', 'spirithealer', 'stablemaster', 'trainer', 'weapon',
 	'sells:food', 'sells:arrows', 'sells:bullets', 'sells:ranged']);
 // What a vendor sells, by the item's class and subclass (Item.csv), for
@@ -320,6 +322,17 @@ function cluster(points, radius = SPAWN.radius) {
 		.sort((a, b) => b.n - a.n || a.x - b.x || a.y - b.y);
 }
 
+// A map's clusters (biggest first) without its strays. Riptear has 24 points
+// in north-east Tirisfal, 11 in his main haunt and two far south: a spot there
+// sent the arrow 265 yards off where he walks (#852). Spawns scattered in
+// small groups all stay.
+function mainClusters(clusters) {
+	const total = clusters.reduce((n, c) => n + c.n, 0);
+	if (total < SPAWN.few) return clusters;
+	const biggest = clusters[0].n;
+	return clusters.filter((c) => c.n > SPAWN.stray || c.n * SPAWN.dwarf > biggest);
+}
+
 // A map's frame, or null. `f`: the spawn's frame ('e': the Era frame, else
 // the live one).
 function frameOf(frames, map, f) {
@@ -361,10 +374,12 @@ function samePlace(a, b) {
 function spawnsOf(byMap, zones, frames, exact = false) {
 	const maps = Object.entries(byMap || {})
 		.filter(([map]) => !zones || zones[map])
-		.map(([map, s]) => ({ map: Number(map), f: s && s.f === 'e' ? 'e' : null,
-			clusters: exact ? reduceSpawns([...((s && s.pts) || []), ...((s && s.more) || [])], { cap: Infinity, dedupe: 0 }).pts.map(([x, y]) => ({ x, y, n: 1 })) : cluster((s && s.pts) || []) }))
+		.map(([map, s]) => {
+			const all = exact ? reduceSpawns([...((s && s.pts) || []), ...((s && s.more) || [])], { cap: Infinity, dedupe: 0 }).pts.map(([x, y]) => ({ x, y, n: 1 })) : cluster((s && s.pts) || []);
+			return { map: Number(map), f: s && s.f === 'e' ? 'e' : null, n: all.reduce((n, c) => n + c.n, 0), clusters: exact ? all : mainClusters(all) };
+		})
 		.filter((m) => m.clusters.length)
-		.sort((a, b) => b.clusters.reduce((n, c) => n + c.n, 0) - a.clusters.reduce((n, c) => n + c.n, 0) || a.map - b.map)
+		.sort((a, b) => b.n - a.n || a.map - b.map)
 		.slice(0, exact ? Infinity : SPAWN.maps);
 	if (frames) {
 		for (const m of maps) {
