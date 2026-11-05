@@ -198,10 +198,6 @@ return {
 	["{npc:8508}, on the dock"] = "{npc:8508}, am Steg",
 	-- {npc:1196} Ice Claw Bear
 	["{npc:1196}, on the way to the Hold"] = "{npc:1196}, auf dem Weg zur Feste",
-	-- {npc:1127} Elder Crag Boar
-	["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
-	-- {npc:1201} Snow Leopard
-	["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
 
 	-- Step 37: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village · {npc:1374} Rejold Barleybrew
@@ -505,4 +501,8 @@ return {
 	-- Step 115: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {area:40} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {area:40}: fill {item:7207} at its base."] = "",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
+	-- ["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
 }

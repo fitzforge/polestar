@@ -206,10 +206,6 @@ return {
 	["{npc:8508}, on the dock"] = "{npc:8508}, am Steg",
 	-- {npc:1196} Ice Claw Bear
 	["{npc:1196}, on the way to the Hold"] = "{npc:1196}, auf dem Weg zur Feste",
-	-- {npc:1127} Elder Crag Boar
-	["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
-	-- {npc:1201} Snow Leopard
-	["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
 
 	-- Step 38: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village · {npc:1374} Rejold Barleybrew
@@ -534,4 +530,8 @@ return {
 	-- {npc:6122} Gakin the Darkbinder · {item:6928} Bloodstone Choker · {object:2164} Slaughtered Lamb · {area:40} Westfall · {area:87} Goldshire
 	["Back to {npc:6122}. Use the {item:6928} at the summoning circle in the {object:2164}'s cellar and defeat the voidwalker it calls. {area:40} is next, west of {area:87}."] = "",
 	["Subdue the voidwalker"] = "Bezwinge den Leerwandler",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:1127}, on the way"] = "{npc:1127}, auf dem Weg",
+	-- ["{npc:1201}, on the way"] = "{npc:1201}, auf dem Weg",
 }
