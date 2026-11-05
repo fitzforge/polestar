@@ -275,6 +275,10 @@ local failed = false
 local failAt, failX, failY = 0, 0, 0
 local shape                  -- the live search's abstract route ({ xs, ys, n }; Find's coarse), drawn until the path is in
 local geomVersion = 0
+-- Rendering provenance is separate from navigation's reused points/state.
+local bakedTrail, bakedBinding
+local trailGeneration = 0
+local trailAt
 local pumpLegs              -- searches the route's later walks (below)
 local pumpShapes            -- draws the route's later walks' abstract routes at once (below)
 local release               -- lets the router drop the floor's cluster (below, "The walking floor")
@@ -309,7 +313,13 @@ local function dropSketch()
 	end
 end
 
+local function retireTrail()
+	bakedTrail, bakedBinding, trailAt = nil, nil, nil
+	trailGeneration = trailGeneration + 1
+end
+
 local function cancel()
+	retireTrail()
 	token = nil
 	if job then
 		local P = Nav.Path
@@ -337,6 +347,7 @@ function Walk.Clear()
 end
 
 local function took(points)
+	retireTrail()
 	local n = 0
 	for i = 1, #points do
 		local p = points[i]
@@ -735,6 +746,8 @@ end
 -- goal's height that finds nothing or ends off its floor, again without that
 -- (Z2, for good), the start as it was.
 local function ask(P, pc, px, py, flat)
+	-- Intent invalidates visuals even when combat retains the old arrow path.
+	retireTrail()
 	wanted = true
 	if inCombat() then return end -- after combat, on the next sample
 	wanted = false
@@ -838,6 +851,33 @@ local function takeBaked(pc, px, py)
 		if d < best then best, bk, bt = d, k, t end
 	end
 	if best > STRAY * STRAY then return false end
+	-- Copy before Split/changed callbacks (or any later decoder use) can reuse
+	-- the decoder's tables. Distances use the untrimmed decoded XY origin,
+	-- NOT BakedLeg.left (3D). Strip alignment in this domain is approximate:
+	-- the producer sampled before quantizing XY; the separate tail is unsampled.
+	local s = { c = leg.c, guide = leg.guide, step = leg.step, id = leg.id,
+		generation = trailGeneration, n = n, m = leg.m, stripYd = Nav.BAKED_STRIP_YD,
+		xs = {}, ys = {}, zs = {}, cls = {}, floor = {}, strip = {}, distances = {},
+		trimSegment = bk, trimT = bt, tail = leg.left[n], goalX = gx, goalY = gy }
+	local distance = 0
+	for i = 1, n do
+		s.xs[i], s.ys[i], s.zs[i] = xs[i], ys[i], zs[i]
+		if i > 1 then
+			local dx, dy = xs[i] - xs[i - 1], ys[i] - ys[i - 1]
+			distance = distance + sqrt(dx * dx + dy * dy)
+		end
+		s.distances[i] = distance
+		if i < n then s.cls[i], s.floor[i] = leg.cls[i], leg.floor[i] end
+	end
+	for i = 1, leg.m do s.strip[i] = leg.strip[i] end
+	s.trimOffset = s.distances[bk] + (s.distances[bk + 1] - s.distances[bk]) * bt
+	local legs, ci = Nav.GetRoute()
+	local target = Nav.GetTarget()
+	s.target = target and { map = target.map, x = target.x, y = target.y, f = target.f,
+		z = target.z, stepIndex = target.stepIndex, goalIndex = target.goalIndex }
+	bakedBinding = { guide = E.GetGuide and E.GetGuide(), target = target,
+		walk = legs and ci and legs[ci] }
+	bakedTrail = s
 	local za, zb = zs[bk], zs[bk + 1]
 	ptsX[1], ptsY[1], ptsZ[1] = xs[bk] + (xs[bk + 1] - xs[bk]) * bt, ys[bk] + (ys[bk + 1] - ys[bk]) * bt, za + (zb - za) * bt
 	local m = 1
@@ -859,6 +899,28 @@ local function takeBaked(pc, px, py)
 	changed()
 	pumpLegs()
 	return true
+end
+
+-- Travel may rebuild an ordinary leg while retaining this exact accepted
+-- path. Rebind only at a successful native sample, never in the getter.
+local function bindRetainedTrail()
+	local s, b = bakedTrail, bakedBinding
+	if not s or not b or wanted or token or count < 2 or fstate.idx > count then return end
+	local E = ns.Engine
+	local g = E and E.GetGuide and E.GetGuide()
+	local target, saved = Nav.GetTarget(), s.target
+	if not g or g ~= b.guide or g.id ~= s.guide or E.GetStepIndex() ~= s.step then return end
+	if not target or target ~= b.target or not saved then return end
+	if target.map ~= saved.map or target.x ~= saved.x or target.y ~= saved.y or target.f ~= saved.f
+		or target.z ~= saved.z or target.stepIndex ~= saved.stepIndex or target.goalIndex ~= saved.goalIndex then return end
+	if gc ~= s.c or gx ~= s.goalX or gy ~= s.goalY or s.generation ~= trailGeneration then return end
+	local legs, ci = Nav.GetRoute()
+	local leg = legs and ci and legs[ci]
+	local old = b.walk
+	if not old or old.kind ~= "walk" or old.handmade or old.parent or old.seg then return end
+	if not leg or leg.kind ~= "walk" or leg.handmade or leg.parent or leg.seg then return end
+	local to = leg.to
+	if to and to.c == gc and to.wx == gx and to.wy == gy then b.walk = leg end
 end
 
 function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
@@ -896,6 +958,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	local join = not (IsIndoors and IsIndoors()) and JOIN or nil
 	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join)
 	idx = fstate.idx
+	trailAt = GetTime()
 	if not ax then
 		lastLeft = nil
 		return nil
@@ -910,6 +973,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	-- projection moves on with the player, and past WINDOW yards the player is
 	-- off the path and STRAY asks again.)
 	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
+	bindRetainedTrail()
 	return pc, ax, ay, lastLeft
 end
 
@@ -928,6 +992,51 @@ end
 function Walk.Progress(c, x, y)
 	if not isGoal(c, x, y) or fstate.off == nil then return nil end
 	return fstate.along, fstate.off
+end
+
+-- Internal Polestar API (not a Blizzard API):
+-- Walk.WorldTrail() -> snapshot, progress | nil.
+-- snapshot is Walk-owned, stable and READ-ONLY to consumers, never rewritten
+-- after publication: {c, guide, step, id, generation} is its composite identity;
+-- xs/ys/zs[1..n], cls/floor[1..n-1], strip[1..m], stripYd, distances[1..n]
+-- (cumulative untrimmed XY yards), trimSegment/trimT/trimOffset, tail, goalX/Y;
+-- target = copied {map, x, y, f, z, stepIndex, goalIndex}. Identity is also
+-- bound privately to the accepted guide, target and current walk objects.
+-- A replacement ordinary walk is rebound only by fresh native Aim progress
+-- on the same accepted path and target. A lone direct walk is valid even though
+-- Travel.Active() is false (that function means a multi-leg travel plan).
+-- Empty strips are valid provenance, not drawable heights. Floor indices are
+-- local baked surface indices, not global floor identities. No floor safety
+-- or exact pre-quantization strip alignment is promised here.
+-- progress is a fresh detached table, read-only observation of the LAST Aim:
+-- {generation, idx, along, off, left, sourceAlong, at}; sourceAlong adds the
+-- fractional trimOffset to follower along, never globally reprojects XY.
+-- Re-fetch on each paint; retaining a snapshot does not establish eligibility.
+-- Progress older than FRESH (2 seconds), or a completed follower, is absent.
+-- Read-only is an internal caller contract, not a Lua metatable freeze.
+-- Split slices (parent/seg), handmade and nonwalk legs are unsupported here.
+-- No decoder, terrain reader, follower advance, load or search is called.
+function Walk.WorldTrail()
+	local s, b = bakedTrail, bakedBinding
+	if not s or not b or not engine() or count < 2 or wanted or token then return nil end
+	local E, C = ns.Engine, ns.Compat
+	local g = E and E.GetGuide and E.GetGuide()
+	if not g or g ~= b.guide or g.id ~= s.guide or E.GetStepIndex() ~= s.step then return nil end
+	local target, saved = Nav.GetTarget(), s.target
+	if not target or target ~= b.target or not saved then return nil end
+	if target.map ~= saved.map or target.x ~= saved.x or target.y ~= saved.y or target.f ~= saved.f
+		or target.z ~= saved.z or target.stepIndex ~= saved.stepIndex or target.goalIndex ~= saved.goalIndex then return nil end
+	if gc ~= s.c or gx ~= s.goalX or gy ~= s.goalY or s.generation ~= trailGeneration then return nil end
+	if not C or not C.GetPlayerWorldPosition or C.GetPlayerWorldPosition() ~= s.c then return nil end
+	if (C.IsOnTaxi and C.IsOnTaxi()) or (C.IsInInstance and C.IsInInstance()) then return nil end
+	local legs, ci = Nav.GetRoute()
+	local leg = legs and ci and legs[ci]
+	if not leg or leg ~= b.walk or leg.kind ~= "walk" or leg.handmade or leg.parent or leg.seg then return nil end
+	local to = leg.to
+	if not to or to.c ~= gc or to.wx ~= gx or to.wy ~= gy then return nil end
+	if not trailAt or GetTime() - trailAt > FRESH or fstate.off == nil or fstate.idx > count then return nil end
+	return s, { generation = s.generation, idx = fstate.idx, along = fstate.along,
+		off = fstate.off, left = fstate.left, sourceAlong = s.trimOffset + fstate.along, at = trailAt }
 end
 
 -- Has the player gone past segment `seg` of the path to (c, x, y)?
@@ -1826,6 +1935,9 @@ end)
 ---------------------------------------------------------------------------
 
 function Walk:OnTarget(target)
+	-- An earlier module may already have sampled/accepted this very target
+	-- during notification. Retire the previous target, not that fresh path.
+	if bakedBinding and bakedBinding.target ~= target then retireTrail() end
 	if not target then
 		Walk.Clear()
 		release()

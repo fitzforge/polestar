@@ -61,6 +61,44 @@ function Trail.BuildPaths(geometry, wholeRoute)
 	return out
 end
 
+-- Read-only adapter for Walk.WorldTrail's accepted, untrimmed snapshot.
+-- Strip spacing is in original 2D yards, not smoothed or 3D path distance.
+-- The producer sampled before XY quantization: this is approximate alignment.
+local function finite(v)
+	return type(v) == "number" and v == v and abs(v) < math.huge
+end
+function Trail.BakedPath(s)
+	if type(s) ~= "table" or type(s.xs) ~= "table" or type(s.ys) ~= "table"
+		or type(s.distances) ~= "table" or type(s.strip) ~= "table"
+		or not finite(s.n) or s.n < 2 or s.n % 1 ~= 0
+		or not finite(s.m) or s.m < 2 or s.m % 1 ~= 0
+		or not finite(s.stripYd) or s.stripYd <= 0 then return nil end
+	-- Validate once per snapshot, not once per sprite or paint. Missing values
+	-- cannot become a fabricated continuous profile in HeightsAhead().
+	if s.distances[1] ~= 0 then return nil end
+	for i = 1, s.n do
+		if not finite(s.xs[i]) or not finite(s.ys[i]) or not finite(s.distances[i])
+			or (i > 1 and s.distances[i] < s.distances[i - 1]) then return nil end
+	end
+	for i = 1, s.m do if not finite(s.strip[i]) then return nil end end
+	local total = s.distances[s.n]
+	if total <= 0 then return nil end
+	return { c = s.c, kind = "walk", current = true, xs = s.xs, ys = s.ys,
+		cum = s.distances, n = s.n, total = total, strip = s.strip, m = s.m,
+		stripYd = s.stripYd, coverage = math.min(total, (s.m - 1) * s.stripYd) }
+end
+
+function Trail.BakedHeight(path, along)
+	if not path or not path.strip or type(along) ~= "number" or along ~= along
+		or along < 0 or along > path.coverage then return nil end
+	local u = along / path.stripYd
+	local i = math.min(floor(u) + 1, path.m - 1)
+	local a, b = path.strip[i], path.strip[i + 1]
+	if type(a) ~= "number" or type(b) ~= "number" or a ~= a or b ~= b
+		or abs(a) == math.huge or abs(b) == math.huge then return nil end
+	return a + (b - a) * (u - (i - 1))
+end
+
 -- How far along the path (yards) the point nearest (x, y) is, and how far
 -- from the path that point is; nil when the path is on another continent.
 -- hint: yards along the path the point was last near; only the stretch around

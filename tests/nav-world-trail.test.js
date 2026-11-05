@@ -371,13 +371,52 @@ test('actual marker calibration, held pitch, scale/clamp fallback and unmeasured
  `)>0);
 });
 
-test("accepted renderer heights, bridge floor, fixed samples, sight spring and route-reader gates", () => { assert.ok(runtime(`
+// Opt-in only for the three migrated runtime fixtures. This is a mock of an
+// accepted walking snapshot, not an integration test of Nav.walk. Heights are
+// explicit fixture data: never acquired from Terrain or the engine read spies.
+const bakedFixture = `
+ local baked, bakedGeneration = nil, 0
+ local observedFloor
+ local function bake(strip, spacing)
+  local leg=W.route.legs[1]
+  bakedGeneration=bakedGeneration+1
+  local s={c=leg.pts[1][1],xs={},ys={},distances={},n=#leg.pts,generation=bakedGeneration}
+  local distance=0
+  for i,p in ipairs(leg.pts) do
+   s.xs[i],s.ys[i]=p[2],p[3]
+   if i>1 then distance=distance+math.sqrt((p[2]-s.xs[i-1])^2+(p[3]-s.ys[i-1])^2) end
+   s.distances[i]=distance
+  end
+  s.strip,s.stripYd=strip or {0,0},spacing or distance
+  s.m=#s.strip; baked=s
+ end
+ Polestar.Nav.walk={WorldTrail=function()
+  if not baked or not W.route or W.route.legs[1].kind~="walk" then return nil end
+  local c,x,y=Polestar.Compat.GetPlayerWorldPosition()
+  if c~=baked.c then return nil end
+  -- Fixture-only projection supplies fresh progress as the mock player moves.
+  -- Do not call production nearest/height helpers to manufacture input data.
+  local best,along=math.huge,0
+  for i=2,baked.n do
+   local ax,ay=baked.xs[i-1],baked.ys[i-1]
+   local dx,dy=baked.xs[i]-ax,baked.ys[i]-ay
+   local len2=dx*dx+dy*dy
+   local u=len2>0 and math.max(0,math.min(1,((x-ax)*dx+(y-ay)*dy)/len2)) or 0
+   local d2=(x-ax-u*dx)^2+(y-ay-u*dy)^2
+   if d2<best then best=d2; along=baked.distances[i-1]+u*math.sqrt(len2) end
+  end
+  return baked,{sourceAlong=along,off=math.sqrt(best),generation=baked.generation}
+ end,Floor=function(c,x,y) return observedFloor and observedFloor(c,x,y) end}
+`;
+
+test("accepted renderer heights, bridge floor, fixed samples, sight spring and route-reader gates", () => { assert.ok(runtime(bakedFixture + `
 
  ok(NS.Terrain~=nil,"terrain required")
  UIParent:SetSize(140,140)
  NS.ApplyPreset("lantern")
  W.py=2; W.facing=.6
  W.route={legs={{kind="walk",current=true,pts={{0,0,0},{0,60,0},{0,60,60}}}}}
+ bake() -- flat accepted route before the slope comparison
  enable(); frame(2.1)
 	local function spritesY()
 		for _, t in ipairs(NS.Render.GroundFrame().stars) do t:Hide() end
@@ -389,12 +428,17 @@ test("accepted renderer heights, bridge floor, fixed samples, sight spring and r
 	local flatY = spritesY()
 	local engine = W.engine
 	engine(function(c, x, y, out) out[1], out[2], out[-1], out[-2] = x * 0.2, x * 0.2 + 9, 0, 0; return 2 end)
+	-- The accepted route runs below the overpass; the other surface is LOS data only.
+	bake({0,2,4,6,8,10,12,12,12,12,12,12,12},10)
 	local hillY = spritesY()
 	local pr = NS.Render.Probe()
-	ok(pr.floor and math.abs(pr.floor - 2) < 1e-6, "the floor under the player is the lower surface: " .. tostring(pr.floor))
-	ok(pr.rise and pr.rise > 3 and pr.rise < 9, "the ground rises ahead, under the bridge: " .. tostring(pr.rise))
+	ok(pr.heightSource == "baked-strip" and pr.floorSource == "baked-strip estimate", "accepted strip supplies the baseline, not surface selection")
+	near(pr.sourceAlong,10,"fresh source progress")
+	near(pr.floor,2,"baked lower-route baseline under the bridge")
+	near(pr.rise,10,"full accepted coverage rises ahead below the overpass")
 	ok(flatY and hillY and hillY > flatY, "the trail climbs on screen: " .. tostring(flatY) .. " -> " .. tostring(hillY))
-	-- Walking over 4.17 yd cells that step up a yard each: the trail moves smoothly.
+	-- Known baked samples a yard higher every 4.17 yd: interpolation stays smooth.
+	-- Terrain-cell height acquisition/caching is no longer the renderer contract.
 	local getPos = Polestar.Compat.GetPlayerWorldPosition
 	local function walk()
 		local prevY, worst = nil, 0
@@ -402,18 +446,19 @@ test("accepted renderer heights, bridge floor, fixed samples, sight spring and r
 			local x = 10 + step * 0.25
 			Polestar.Compat.GetPlayerWorldPosition = function() return 0, x, 2 end
 			local y = spritesY()
+			ok(y ~= nil and R.Probe().heightSource == "baked-strip", "walking comparison draws accepted baked heights")
 			if prevY and y then worst = math.max(worst, math.abs(y - prevY)) end
 			prevY = y
 		end
 		return worst
 	end
-	engine(nil)
+	engine(nil); bake()
 	local flatWorst = walk()
-	engine(function(c, x, y, out) out[1] = math.floor(x / 4.17); return 1 end)
+	bake({0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29},4.17)
 	local stepWorst = walk()
 	Polestar.Compat.GetPlayerWorldPosition = getPos
 	ok(stepWorst < flatWorst + 0.6, "no jumps crossing cells: " .. stepWorst .. " px vs " .. flatWorst .. " on flat ground")
-	engine(nil)
+	engine(nil); bake()
 	-- Fit to view: a wall across the route 25 yards ahead. The drawn length eases
 	-- down to what is in sight, never jumping; taken away, it grows back only
 	-- after half a second, smoothly.
@@ -482,10 +527,14 @@ test("accepted renderer heights, bridge floor, fixed samples, sight spring and r
 	for _ = 1, 30 do frame(0.05) end
 	ok(reads == 0, "no map reads on a boat leg: " .. reads)
 	W.route = { legs = { { kind = "walk", current = true, pts = { { 0, 0, 0 }, { 0, 60, 0 }, { 0, 60, 60 } } } } }
+	bake() -- fresh accepted generation when the walking route resumes
 	Polestar.Fire("NAV_ROUTE_GEOMETRY")
 	for _ = 1, 10 do frame(0.05) end
 	ok(reads > 0, "and read again on a walk")
-	-- On a bridge (surfaces 0 and 9 under it), the floor followed up the ramp is kept when the route changes.
+	-- The accepted ramp/bridge strip and observed walking floor survive a route change.
+	local bridgeStrip={0,0,4.5,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9}
+	bake(bridgeStrip,4)
+	observedFloor=function(c,x,y) return math.max(0,math.min(9,(x-4)*9/8)) end
 	engine(function(c, x, y, out)
 		if x < 12 then out[1], out[-1] = math.max(0, (x - 4) * 1.2), 0; return 1 end -- the ramp up
 		out[1], out[2], out[-1], out[-2] = 0, 9, 0, 0; return 2                     -- the bridge over the road
@@ -496,10 +545,13 @@ test("accepted renderer heights, bridge floor, fixed samples, sight spring and r
 		frame(0.3)
 	end
 	ok(NS.Render.Probe().floor == 9, "on the bridge: " .. tostring(NS.Render.Probe().floor))
+	ok(NS.Render.Probe().heightSource == "baked-strip" and NS.Render.Probe().floorSource == "observed-walk-floor", "bridge baseline comes from the observational getter")
+	bake(bridgeStrip,4) -- new accepted snapshot, same bridge rather than the road below
 	Polestar.Fire("NAV_ROUTE_GEOMETRY")
 	for _ = 1, 5 do frame(0.3) end
 	ok(NS.Render.Probe().floor == 9, "still on the bridge after a route change: " .. tostring(NS.Render.Probe().floor))
 	engine(function(c, x, y, out) out[1], out[-1] = 0, 0; return 1 end)
+	observedFloor=nil; bake()
 	Polestar.Compat.GetPlayerWorldPosition = function() return 0, 10, 0 end
 	-- Polestar not reading its floor (arrow off, or arrived): the maps are not read.
 	local nreads = 0
@@ -517,11 +569,12 @@ test("accepted renderer heights, bridge floor, fixed samples, sight spring and r
 	for _ = 1, 10 do frame(0.05) end
 	ok(nreads > 0, "read again on the way")
 	Polestar.Get, Polestar.Nav.GetTarget, Polestar.Nav.TargetOffset = originalGet, nil, nil
-	-- With no maps at all the trail keeps its full length (nothing is judged).
+	-- With no LOS maps the accepted baked baseline still draws at full length.
 	engine(nil)
 	NS.db.groundLength = 40
 	for _ = 1, 40 do frame(0.05) end
 	ok(S.drawn and math.abs(S.drawn - 40) < 0.5, "no maps: the full length, not cut: " .. tostring(S.drawn))
+	ok(R.Probe().heightSource == "baked-strip", "missing LOS maps do not discard accepted heights")
 	NS.db.groundSight=false; frame(0.05)
 	ok(S.drawn == nil and NS.db.groundSight == false, "sight off: the set length")
 	NS.db.groundSight=true
@@ -551,9 +604,11 @@ test('terrain unknown/empty distinction, eviction stop and bounded cell cache', 
  `)>0);
 });
 test('reader gates cover route distance, arrival margin, taxi, routing, handoff and transports; disabled does no terrain work', () => {
- assert.ok(runtime(`
+ assert.ok(runtime(bakedFixture + `
+ bake()
  local reads=0
  enable(); frame(2.1)
+ ok(R.Probe().heightSource == "baked-strip", "reader gates start with a valid baked baseline")
  local function engine() W.engine(function(c,x,y,out) reads=reads+1; out[1],out[-1]=0,0; return 1 end) end
  local function blocked(note)
   engine(); reads=0; frame(.3); near(reads,0,note)
@@ -827,9 +882,10 @@ test('unmeasured right-drag pitch cannot reuse ground projection in a skyward vi
 });
 
 test('sight holds unknown reach and requires two nearer evaluations before shrinking', () => {
- assert.ok(runtime(`
+ assert.ok(runtime(bakedFixture + `
  UIParent:SetSize(140,140); NS.ApplyPreset("lantern"); Polestar.Set("nav.worldTrailLength",50)
  W.py=0; W.facing=.6; W.route={legs={{kind="walk",current=true,pts={{0,0,0},{0,60,0},{0,60,60}}}}}
+ bake()
  local wall=false
  local function cellX(x) return math.floor((x+29.5*1600/3)/(1600/3/128)) end
  W.engine(function(c,x,y,out)

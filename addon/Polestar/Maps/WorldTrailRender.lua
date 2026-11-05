@@ -279,7 +279,10 @@ local function pauseCameraTracking()
 	leftSince, lastTick, camState.moving = nil, nil, 0
 end
 
-local function reckoned()
+local function reckoned(zoom)
+	-- No measured pitch in first person: omit only this view, never latch on
+	-- mouse input. Zooming out restores the ordinary third-person estimate.
+	if zoom <= 0 then return nil, "no measured camera pitch in first person" end
 	if not GetPlayerFacing then return nil end
 	if camState.turned then return nil, "the camera may have been turned away from your character (right-drag to re-centre or bring the waypoint into view)" end
 	local facing = GetPlayerFacing()
@@ -287,138 +290,22 @@ local function reckoned()
 	return facing + (camState.offset or 0), camState.pitch
 end
 
--- The ground's height along the route ahead, from Polestar's walking maps.
--- The client gives addons no heights, but Polestar_Nav ships the walkable
--- surfaces of each 4.17 yd cell with their heights (Polestar_NavEngine,
--- Path.SurfacesAt, the reader Polestar's own floor tracking uses: decoded
--- clusters only, nil while one decodes). The floor under the player is the
--- surface nearest the last one (the lowest at first, as Polestar seeds it);
--- each point ahead takes the surface nearest the one before it, so a bridge
--- or a cave roof above the path is passed under, not climbed.
-local HEIGHT_STEP = 2      -- yards between height samples along the route
-local RISE = 4             -- yards a step up may climb (Polestar's floor rule)
-local HEIGHT_EASE = 0.3    -- seconds a newly read height takes to settle in
--- Heights are sampled at fixed points of the route (every HEIGHT_STEP yards
--- from its start), each read once and kept (heights.z), so a sample never
--- changes as the player walks. What is drawn (heights.d) eases toward them:
--- a sample read late (its map tile decoded after the player crossed into it)
--- slides in instead of popping, and samples not known yet carry on the slope
--- before them. The cells are 4.17 yd steps, so the trail uses the samples
--- smoothed with their neighbours. Cells come from Terrain.lua, which reads
--- Polestar's walking maps without disturbing Polestar.
-local heights = { z = {}, d = {}, path = nil, floor = nil }
+-- Only accepted baked strips supply route heights. Terrain is visibility-only.
+local heights = {}
+local bakedOf, bakedPath
+local fallbackOf, fallbackAlong
+local shownOf, shownFloor
+local HEIGHT_EASE = 0.3 -- settle observed floor-cell changes without changing strip data
 local Terrain = NS.Terrain
-
--- The floor under the player, followed as Polestar's own floor tracking
--- does: kept across route changes, the surface nearest it at most RISE up as
--- they move (any drop is a fall), unknown when none is. A new floor is the
--- surface the route itself runs on beside the player when there is one
--- within RISE (the walking router's paths keep to real floors: in Ironforge
--- the city, not the mountain top over it), else seeded as Polestar does.
-local function trackFloor(c, px, py, routeZ)
-	if heights.fc ~= c or not heights.fx or (px - heights.fx) ^ 2 + (py - heights.fy) ^ 2 > 30 * 30 then
-		heights.floor, heights.floorMarks, heights.floorShown = nil, nil, nil -- another continent, a hearth, a landing
-	end
-	heights.fc, heights.fx, heights.fy = c, px, py
-	local cell = Terrain.Cell(px, py)
-	if not cell then return end -- unknown or nothing walkable here: keep what we had
-	local z, marks
-	if heights.floor then z, marks = Terrain.Nearest(cell, heights.floor, RISE) end
-	if not z and routeZ then
-		local rz, rm = Terrain.Closest(cell, routeZ)
-		if rz and math.abs(rz - routeZ) <= RISE then z, marks = rz, rm end
-	end
-	if not z then z, marks = Terrain.Seed(cell, IsIndoors and IsIndoors()) end
-	heights.floor, heights.floorMarks = z, marks
-end
-
--- Reads the route's samples from the player's to `reach` yards on that can be known now.
-local function sampleHeights(path, along, reach)
-	if heights.path ~= path then heights.z, heights.d, heights.path = {}, {}, path end
-	heights.along = along
-	local first = math.floor(along / HEIGHT_STEP) - 1
-	local last = math.ceil((along + reach) / HEIGHT_STEP) + 1
-	heights.first, heights.last = first, last
-	local ref = heights.z[first - 1] or heights.floor
-	for i = first, last do
-		local z = heights.z[i]
-		if z == nil then
-			local wx, wy = Trail.PointAt(path, i * HEIGHT_STEP)
-			local cell = Terrain.Cell(wx, wy)
-			if cell == false then
-				z = ref -- nothing walkable on the route (a post, a stall): the height before it
-			elseif cell then
-				if ref then
-					z = Terrain.Nearest(cell, ref, RISE) or Terrain.Closest(cell, ref)
-				else
-					z = Terrain.Seed(cell, nil) or Terrain.Nearest(cell, nil, 0)
-				end
-			end
-			if z then heights.z[i] = z end
-		end
-		if z then ref = z end -- an unknown sample leaves a gap; the chain picks up after it
-	end
-end
-
--- Eases the drawn heights toward the samples; unknown samples carry the slope on.
-local function easeHeights(dt)
-	local first, last = heights.first, heights.last
-	if not first then return end
-	local k = 1 - math.exp(-dt / HEIGHT_EASE)
-	local z, d = heights.z, heights.d
-	local lastKnown, slope = nil, 0
-	for i = first, last do
-		local target = z[i]
-		if target ~= nil then
-			lastKnown = i
-			-- The mean slope over the last 8 yd known (single cells step by 2 yd).
-			local back = z[i - 4] and 4 or z[i - 2] and 2 or nil
-			slope = back and (target - z[i - back]) / back or 0
-			if slope > RISE / 4 then slope = RISE / 4 elseif slope < -RISE / 4 then slope = -RISE / 4 end
-		elseif lastKnown and d[lastKnown] then
-			-- Unknown: the slope carries on for a few samples, then levels off.
-			target = d[lastKnown] + slope * math.min(i - lastKnown, 4)
-		end
-		if target ~= nil then
-			local v = d[i]
-			d[i] = v and v + (target - v) * k or target
-		end
-	end
-end
-
-local function smoothed(i)
-	local d = heights.d
-	local c = d[i]
-	if c == nil then return nil end
-	local sum, w = c * 2, 2
-	for j = -2, 2 do
-		if j ~= 0 then
-			local v = d[i + j]
-			if v ~= nil and math.abs(v - c) < RISE * 2 then
-				local k = (j == -1 or j == 1) and 1.5 or 1
-				sum, w = sum + v * k, w + k
-			end
-		end
-	end
-	return sum / w
-end
-
--- The smoothed ground height `a` yards along the route, or nil where unknown.
 local function profileAt(a)
-	local u = a / HEIGHT_STEP
-	local i = math.floor(u)
-	local z0, z1 = smoothed(i), smoothed(i + 1)
-	if z0 and z1 then return z0 + (z1 - z0) * (u - i) end
-	return z0 or z1
+	return Trail.BakedHeight(heights.path, a)
 end
 
--- Diagnostics: yards of route ahead with heights read, and the rise over them.
+-- Diagnostics describe actual baked coverage, never an extrapolated tail.
 function Render.HeightsAhead()
 	local along = heights.along
 	if not along or not profileAt(along) then return nil end
-	local i, last = math.floor(along / HEIGHT_STEP), nil
-	while heights.z[i] ~= nil do last, i = i, i + 1 end
-	return last and math.max(0, last * HEIGHT_STEP - along) or nil
+	return heights.path.coverage - along
 end
 function Render.HeightsRise()
 	local ahead = Render.HeightsAhead()
@@ -506,7 +393,7 @@ local sight = { cutAt = nil, pending = nil, target = nil, drawn = nil, v = 0, at
 local function evaluateSight(path, px, py, along, maxLen, cam)
 	local fl = heights.floor
 	if not fl then return nil, true end
-	local eyeIndoor = Terrain.Indoor(heights.floorMarks)
+	local eyeIndoor = IsIndoors and IsIndoors() and true or false
 	local ox, oy, oz, boom = px, py, fl + EYE, false
 	if cam then
 		ox, oy, oz = px + cam.x, py + cam.y, fl + cam.z
@@ -552,17 +439,18 @@ local function spring(x, v, target, w, dt)
 end
 
 -- The trail's drawn length this frame.
-local function drawnLength(path, px, py, along, cam, dt)
+local function drawnLength(path, px, py, along, cam, dt, sightAllowed, sightReady)
 	local db = NS.db
 	local maxLen = db.groundLength
-	if not db.groundSight or not Terrain then
+	if not sightAllowed then
 		sight.cutAt, sight.pending, sight.target, sight.drawn, sight.visible, sight.v = nil, nil, nil, nil, nil, 0
 		return maxLen
 	end
 	if sight.path ~= path then sight.cutAt, sight.pending, sight.path = nil, nil, path end
 	if clock - sight.at >= SIGHT_EVERY or not sight.cutAt then
 		sight.at = clock
-		local visible, unknown = evaluateSight(path, px, py, along, maxLen, cam)
+		local visible, unknown = nil, true
+		if sightReady then visible, unknown = evaluateSight(path, px, py, along, maxLen, cam) end
 		sight.visible = visible
 		-- Ground not known yet (no floor, a map tile not read) neither grows nor
 		-- shrinks the trail: it keeps its length. Only a hidden point fixes the
@@ -612,10 +500,12 @@ end
 
 function Render.Sight() return sight end
 
--- Forgets the ground read so far (the maps themselves are cached in Terrain.lua).
+-- Forgets the accepted-strip adapter and this painter's visibility history.
 function Render.ResetGround()
-	heights.z, heights.d, heights.path, heights.floor, heights.floorMarks, heights.floorShown = {}, {}, nil, nil, nil, nil
-	heights.first, heights.last, heights.along = nil, nil, nil
+	wipe(heights)
+	bakedOf, bakedPath = nil, nil
+	fallbackOf, fallbackAlong = nil, nil
+	shownOf, shownFloor = nil, nil
 	sight.cutAt, sight.pending, sight.target, sight.drawn, sight.visible, sight.v, sight.over = nil, nil, nil, nil, nil, 0, 0
 end
 
@@ -626,8 +516,21 @@ local function drawCamera(width, height, ax, ay, d3, used, markerWhy)
 	trackCamera()
 	local dt = lastDraw and clock - lastDraw or 0
 	lastDraw = clock
-	local path = paths[1] and smoothPath(paths[1])
 	local c, px, py = playerPosition()
+	local walk = P.Nav and P.Nav.walk
+	local snapshot, progress = call(walk and walk.WorldTrail)
+	if snapshot ~= bakedOf then bakedOf, bakedPath = snapshot, Trail.BakedPath(snapshot) end
+	local path, along, dist
+	wipe(heights)
+	heights.source = "camera-estimate"
+	if bakedPath and bakedPath.c == c and progress and progress.generation == snapshot.generation
+		and Trail.BakedHeight(bakedPath, progress.sourceAlong)
+		and progress.sourceAlong + db.groundAhead < bakedPath.coverage then
+		path, along, dist = bakedPath, progress.sourceAlong, progress.off
+		heights.path, heights.along, heights.source = path, along, "baked-strip"
+	else
+		path = paths[1] and smoothPath(paths[1])
+	end
 	if not (c and path and path.c == c) then
 		why = not c and "no player position here" or "the route's current stretch is on another continent"
 		camState.yaw = nil return used
@@ -646,7 +549,7 @@ local function drawCamera(width, height, ax, ay, d3, used, markerWhy)
 		end
 	else
 		markerWhy = type(fromWhy) == "string" and fromWhy or markerWhy
-		yaw, pitch = reckoned()
+		yaw, pitch = reckoned(zoom)
 		if not yaw then
 			why = (type(pitch) == "string" and pitch or markerWhy or "no camera")
 			camState.yaw, camState.miss = nil, nil return used
@@ -658,8 +561,13 @@ local function drawCamera(width, height, ax, ay, d3, used, markerWhy)
 	d2 = d2 and d2 > 1 and d2 or 1
 	local cam = Trail.Camera(yaw, pitch, zoom, focal, width, height)
 	camState.cam = cam
-	local along, dist = Trail.Nearest(path, c, px, py, heights.path == path and heights.along or nil)
-	if not along or dist > NEAR_PATH then along, dist = 0, nil end
+	if not along then
+		along, dist = Trail.Nearest(path, c, px, py, fallbackOf == path and fallbackAlong or nil)
+		if not along or dist > NEAR_PATH then along, dist = 0, nil end
+		fallbackOf, fallbackAlong = path, dist and along or nil
+	else
+		fallbackOf, fallbackAlong = nil, nil
+	end
 	-- Off the route's line (it runs a few yards beside you): the trail leaves
 	-- from your feet and joins the route over MERGE yards.
 	local offX, offY = 0, 0
@@ -668,28 +576,26 @@ local function drawCamera(width, height, ax, ay, d3, used, markerWhy)
 		offX, offY = px - qx, py - qy
 	end
 	local spacing = db.groundGap
-	if Terrain and Terrain.Begin(c, px, py, clock, readsAllowed(path, dist, along)) then
-		local wasFloor = heights.floor
-		trackFloor(c, px, py, heights.path == path and heights.z[math.floor(along / HEIGHT_STEP)] or nil)
-		sampleHeights(path, along, db.groundLength + 4)
-		-- No floor yet: the route's chain started from its own lowest surfaces; take the floor from it.
-		if not wasFloor and not heights.floor then trackFloor(c, px, py, heights.z[math.floor(along / HEIGHT_STEP)]) end
+	-- Floor() observes navigation's existing floor; it never starts a floor read.
+	-- Without it, the strip at native progress is only an estimated baseline.
+	local baseZ
+	if heights.path then
+		baseZ = call(walk and walk.Floor, c, px, py)
+		if type(baseZ) ~= "number" or baseZ ~= baseZ or math.abs(baseZ) == math.huge then baseZ = nil end
+		heights.floorSource = baseZ and "observed-walk-floor" or "baked-strip estimate"
+		baseZ = baseZ or profileAt(along)
+		heights.floor = baseZ -- observation/estimate retained for LOS and diagnostics
+		shownFloor = shownOf == path and shownFloor
+			and shownFloor + (baseZ - shownFloor) * (1 - math.exp(-dt / HEIGHT_EASE)) or baseZ
+		shownOf, baseZ = path, shownFloor
+	else
+		shownOf, shownFloor = nil, nil
 	end
-	easeHeights(dt)
-	-- The height the trail is drawn from: the route's ground where the player
-	-- is, or, when they stand off the route (up a bank, down a gully), their
-	-- own floor, eased so the 4.17 yd cells don't show.
-	local routeZ = profileAt(along)
-	if heights.floor then
-		local fs = heights.floorShown
-		heights.floorShown = fs and fs + (heights.floor - fs) * (1 - math.exp(-dt / HEIGHT_EASE)) or heights.floor
-	end
-	local baseZ = routeZ
-	if heights.floorShown and (not routeZ or (dist and dist > 3)) then
-		local w = routeZ and math.min(1, ((dist or 10) - 3) / 7) or 1
-		baseZ = routeZ and routeZ + (heights.floorShown - routeZ) * w or heights.floorShown
-	end
-	local length = drawnLength(path, px, py, along, cam, dt)
+	local sightAllowed = db.groundSight and Terrain and heights.path and baseZ
+		and readsAllowed(path, dist, along)
+	local sightReady = sightAllowed and Terrain.Begin(c, px, py, clock, true)
+	local length = drawnLength(path, px, py, along, cam, dt, sightAllowed, sightReady)
+	if heights.path then length = math.min(length, path.coverage - along) end
 	local start = along + db.groundAhead
 	local stop = along + length
 	-- Sprites keep their size in the world, so a far camera sees them small
@@ -697,7 +603,6 @@ local function drawCamera(width, height, ax, ay, d3, used, markerWhy)
 	local near = NEAR_DEPTH
 	local size = style.size * 1.6
 	local limit = db.maxSparkles
-	local lastZ
 	Trail.Emit(path, start, spacing, groundPhase, SCAN_LIMIT, function(wx, wy, k, nx, ny, fade)
 		local a = (k + groundPhase) * spacing
 		local head = (a - start) / FADE_IN
@@ -713,10 +618,9 @@ local function drawCamera(width, height, ax, ay, d3, used, markerWhy)
 		fade = fade * Trail.DistanceFade(a - along, length, db.groundFade)
 		-- The ground here, once for all of this point's glints.
 		local pz = baseZ and profileAt(a)
-		if pz then lastZ = pz end
-		pz = pz or lastZ
-		-- Leaving from beside the route, the trail also starts at the player's own height.
-		if pz and m > 0 and heights.floorShown then pz = pz + (heights.floorShown - pz) * m end
+		-- XY merge and lateral scatter remain best-effort visuals, not sampled
+		-- ground away from the route. Do not extrapolate Z beyond strip coverage.
+		if heights.path and not pz then return false end
 		-- Near the character the trail is a wide scatter of glints; ahead it
 		-- narrows to a single thread and fades out.
 		local u = (a - along) / length
@@ -777,6 +681,7 @@ function Render.Probe()
 		flat = camState.d2, height = camState.dz, yaw = camState.yaw, pitch = camState.pitch,
 		miss = camState.miss, why = Render.Why(), source = camState.source, locked = camState.locked and not (IsMouselooking and IsMouselooking()), facing = GetPlayerFacing and GetPlayerFacing(), z = uz, fov = fov(), floor = heights.floor, ahead = Render.HeightsAhead(), rise = Render.HeightsRise(),
 		visible = sight.visible, drawn = sight.drawn,
+		heightSource = heights.source, floorSource = heights.floorSource, sourceAlong = heights.along,
 	}
 end
 

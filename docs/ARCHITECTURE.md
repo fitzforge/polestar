@@ -2568,15 +2568,43 @@ permission; `addon/Polestar_Nav/CREDITS.md`).
   `ApplyPreset`, `SaveLook` and `Reset` write only this feature's native settings.
   Looks change appearance and shape, not enabled/indoor/view policy. Reset also
   clears the saved custom look and turns the ground trail off.
-  The runtime consumes `Nav.GetRouteGeometry` directly, retaining raw-leg
-  current/jump filtering, the hinted nearest search and two-pass route smoothing.
-  It reuses RouteSparkle's shared point/emission/twinkle/style math but owns its
-  ground spacing, animation and bounded sprite pool. It draws no map overlays,
-  owns no waypoint and never changes the game's pin or supertracking state.
-  Camera and map-height placement are approximations, not native depth-buffer
-  occlusion. The terrain adapter's guarded use of Polestar_Nav's shared reader
-  and internal grid metadata is version-coupled; do not replace it with arbitrary
-  cross-tile surface queries or make this visual force-load navigation data.
+  `Nav.walk.WorldTrail()` exposes a read-only snapshot copied when navigation
+  actually accepts a baked walking leg, plus detached progress from its last
+  follower update. Guide, step, target, path generation and current walk identity
+  must still match. Search intent (including combat deferral), dynamic replacement
+  and Clear invalidate it. When a replan replaces an equivalent ordinary walk,
+  fresh native follower progress can rebind the same accepted path and target;
+  the getter remains closed until that update. Split/handmade walks are not
+  bound in this version. The getter neither decodes another leg nor advances
+  navigation, starts a search or reads terrain.
+  The renderer rechecks eligibility each paint. Baked XY and strip heights use
+  the original decoded 2D cumulative distance and fractional trim offset, not
+  global nearest-point reprojection, 3D distance or a smoothed path. Heights are
+  interpolated only between real strip samples, ending at the smaller of decoded
+  line length and last sample distance; no tail extension or length rescaling.
+  Producer sampling precedes XY quantization, so alignment remains approximate.
+  The player's baseline observes the existing `Walk.Floor` result when available,
+  otherwise estimates it from the strip at native progress. The drawn baseline
+  eases changes over 0.3 seconds; this does not manufacture new strip samples.
+  Missing, stale or unsupported metadata/coverage uses the existing visible
+  `Nav.GetRouteGeometry` camera estimate, retaining current/jump filtering,
+  hinted nearest search and two-pass smoothing. This fallback has **no measured
+  ground heights**, performs no terrain reads and is not a ground-accuracy
+  guarantee. `Render.Probe()` distinguishes `heightSource`, `floorSource` and
+  `sourceAlong`; height coverage/rise are absent for the fallback.
+  Terrain reads are optional line-of-sight only, never a source of trail heights.
+  They require baked baseline coverage and the existing native-reader eligibility
+  gates. With sight disabled, no Terrain entry point is called. The shared reader
+  and internal grid metadata remain version-coupled; do not introduce arbitrary
+  cross-tile reads or force-load navigation data for this visual.
+  RouteSparkle supplies shared point/emission/twinkle/style math; this painter
+  owns ground spacing, animation and a bounded sprite pool. It draws no map
+  overlays, owns no waypoint and never changes pin or supertracking state.
+  Camera pose, off-route merging, lateral scatter and wall occlusion remain
+  estimates. Unmeasured first-person fallback (zero camera zoom) is omitted only
+  while in that view; zooming out restores ordinary fallback immediately. This
+  does not detect skyward pitch in third person. There is no persistent right-
+  mouse/mouselook suppression: ordinary steering must retain a visible trail.
   Loading suppression and the full post-loading settle period must survive
   overlapping events. Disabled means no active drawing or terrain work. Local
   player settings transfer is separate from the contribution: upstream code
