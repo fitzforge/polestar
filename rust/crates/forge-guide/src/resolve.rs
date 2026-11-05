@@ -712,6 +712,56 @@ fn hand_spots(data: &Data, sources: &[V], map: &V, f: &V, x: f64, y: f64, near: 
 	out.into()
 }
 
+/// The level of a kill or collect goal's spawn areas: the highest level of the mobs of `sources` that spawn in
+/// each (within its radius), so the arrow can take the places at the player's level first (Engine, "Spawn
+/// areas"). When every area has one, the goal's `lvl` is the one most share and only an area of another level
+/// carries its own `lvl`; else each area with one carries it. An area holding only objects, or mobs of no
+/// known level, has none.
+fn spot_levels(data: &Data, goal: &V, sources: &[V], map: &V, f: &V) {
+	let mobs: Vec<(f64, Vec<V>)> = sources
+		.iter()
+		.filter(|s| s.get("kind").as_str() == Some("npc"))
+		.filter_map(|s| {
+			let n = data.npc(&s.get("id"));
+			if !n.truthy() {
+				return None;
+			}
+			let top = if n.get("levelMax").num() > 0.0 { n.get("levelMax").num() } else { n.get("level").num() };
+			(top > 0.0).then(|| (top, spawn_points_of(data, std::slice::from_ref(s), map, f)))
+		})
+		.collect();
+	if mobs.is_empty() {
+		return;
+	}
+	let spots = goal.get("spots").items();
+	let levels: Vec<f64> = spots
+		.iter()
+		.map(|spot| {
+			let (sx, sy, r) = (num(spot, "x"), num(spot, "y"), num(spot, "r"));
+			mobs.iter().filter(|(_, pts)| pts.iter().any(|p| distance(data, map, px(p), py(p), sx, sy) <= r + 1.0)).map(|(top, _)| *top).fold(0.0, f64::max)
+		})
+		.collect();
+	// With a level for every area, the goal's `lvl` is the one most of them share (the lowest of a tie) and an
+	// area of another level carries its own: a field in a spot table costs memory in the game (#693).
+	let base = if !levels.is_empty() && levels.iter().all(|&l| l > 0.0) {
+		let count = |l: f64| levels.iter().filter(|&&o| o == l).count();
+		levels.iter().copied().fold(None, |best: Option<f64>, l| match best {
+			Some(b) if count(b) > count(l) || (count(b) == count(l) && b <= l) => Some(b),
+			_ => Some(l),
+		})
+	} else {
+		None
+	};
+	if let Some(b) = base {
+		goal.set("lvl", b);
+	}
+	for (spot, &lvl) in spots.iter().zip(&levels) {
+		if lvl > 0.0 && Some(lvl) != base {
+			spot.set("lvl", lvl);
+		}
+	}
+}
+
 // ---- resolver state ----
 
 struct R<'a> {
@@ -842,6 +892,8 @@ fn apply_loop(step: &V, s: &V, r: &mut R) {
 			.collect();
 		goal.set("spots", spots);
 		goal.set("spread", true);
+		// The loop's points are the author's, not the mobs' places: no level orders them (written order).
+		goal.as_obj().unwrap().delete("lvl");
 		goal.as_obj().unwrap().delete("z");
 		set_if(goal, "z", crate::heights::goal_height(data, goal).unwrap_or_default());
 		for p in goal.get("spots").items() {
@@ -2596,6 +2648,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			let sp = spawn_spots(data, &srcs, &picked.get("map"), &picked.get("f"), picked.get("x").num(), picked.get("y").num(), &elites);
 			if let Some(sp) = sp {
 				goal.set("spots", sp.spots);
+				if v == "kill" || v == "collect" {
+					spot_levels(data, &goal, &srcs, &picked.get("map"), &picked.get("f"));
+				}
 				if sp.spread && area {
 					goal.set("spread", true);
 				}
@@ -2630,6 +2685,9 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			};
 			let (gx, gy, gf) = (goal.get("x").num(), goal.get("y").num(), goal.get("f"));
 			set_if(&goal, "spots", hand_spots(data, &sources, &gmap, &gf, gx, gy, near));
+			if v == "kill" || v == "collect" {
+				spot_levels(data, &goal, &sources, &gmap, &gf);
+			}
 			if v == "collect" && goal.get("npc").is_undef() {
 				let own = point_sources(data, &sources, &gmap, &gf, gx, gy, near);
 				let first = own.first().cloned().unwrap_or_default();
