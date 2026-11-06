@@ -1184,6 +1184,9 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[ASHENVALE, 98072, [471], true],
 		[THOUSAND_NEEDLES, 98072, [471]],
 		[ASHENVALE, 98219, [98191]],
+		// soockee (#1002) and jiskim (#984): Va'xug Firefure offers A Void Path
+		// only once Never Coming Back is handed in to him.
+		[STONETALON, 98252, [98251]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
