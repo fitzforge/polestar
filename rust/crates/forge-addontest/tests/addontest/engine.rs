@@ -1657,19 +1657,10 @@ fn a_quest_to_complete_shows_its_objectives_count_and_reads_as_its_objective_lin
 		..Default::default()
 	});
 	let (log, start, meat, fed) = (&out[0], &out[1], &out[2], &out[3]);
-	assert_eq!(
-		*start,
-		json!([{ "cur": 0, "max": 14, "kind": "count" }, ["Plainstrider Meat 0/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]])
-	);
-	assert_eq!(
-		*meat,
-		json!([{ "cur": 3, "max": 14, "kind": "count" }, ["Plainstrider Meat 3/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]])
-	);
+	assert_eq!(*start, json!([{ "cur": 0, "max": 14, "kind": "count" }, ["Plainstrider Meat 0/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
+	assert_eq!(*meat, json!([{ "cur": 3, "max": 14, "kind": "count" }, ["Plainstrider Meat 3/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
 	// Looting past the need counts the need; a finished objective stays a line, full.
-	assert_eq!(
-		*fed,
-		json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Meat 7/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]])
-	);
+	assert_eq!(*fed, json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Meat 7/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
 	assert_eq!(*log, json!(["STEP_UPDATED 1", "STEP_UPDATED 1"]), "each count change redraws the step");
 }
 

@@ -160,7 +160,8 @@ fn paging_never_lands_on_the_along_step_and_the_header_does_not_count_it() {
 				E.Goto(3); stub.advance(0.1)
 				local _, total = E.GetProgress()
 				emit({ ahead = ahead, back = back, gotoAlong = E.GetStepIndex(), total = total })"#;
-	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar")], script: "\n\t\t\t\t".to_string() + &loads + script, ..Default::default() });
+	let out =
+		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar")], script: "\n\t\t\t\t".to_string() + &loads + script, ..Default::default() });
 	assert_eq!(
 		out[0]["ahead"],
 		json!([[1, "1 / 4"], [2, "2 / 4"], [4, "3 / 4"], [5, "4 / 4"], [5, "4 / 4"], [5, "4 / 4"]]),

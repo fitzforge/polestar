@@ -304,7 +304,16 @@ fn a_saved_view_of_an_along_step_opens_on_the_next_step() {
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/along", pins = { ["test/along"] = { step = 3, done = false } } }"#.into())],
-		script: [TEST_PACK, TEST_SOURCE, &GUIDE.replace("ALONG2", ALONG2).replace("ALONG3", ALONG3), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, "emit({ E.GetStepIndex(), E.GetLiveStep() })"].join("\n"),
+		script: [
+			TEST_PACK,
+			TEST_SOURCE,
+			&GUIDE.replace("ALONG2", ALONG2).replace("ALONG3", ALONG3),
+			HELPERS,
+			"stub.login()",
+			r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#,
+			"emit({ E.GetStepIndex(), E.GetLiveStep() })",
+		]
+		.join("\n"),
 		..Default::default()
 	});
 	assert_eq!(out[0], json!([4, 1]), "the view saved on along step 3 opens on step 4, ahead of the live step 1");
