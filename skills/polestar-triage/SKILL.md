@@ -49,7 +49,7 @@ and note what you found:
 |---|---|
 | Already reported | `gh issue list --state all --search "<quest id>"`, then the quest's name and the guide's title. Leave the issue you are triaging out of the results. Link an earlier issue; a duplicate is closed in favour of it. |
 | Already being fixed | `gh pr list --state open --search "<issue number>"`, then the quest id and the guide's name, and the issue's "Pull requests for this issue" comment (label `has-pr`). Read the open pull request's diff: when it fixes the report, the verdict still stands but no second fix is started; say in your answer which pull request covers it. |
-| Already fixed | `git log --oneline -S "<quest id>" -- guides/`, CHANGELOG.md since their version, and `changes/` (fixes merged but not released yet). Compare the fix commit's date with the report's, and check which release carries it with `git tag --contains <commit>` (plain `vX.Y.Z` tags only; `-rc` and `-test` tags are candidates). An unreleased fix on `next` still counts as fixed. |
+| Already fixed | `git log --oneline -S "<quest id>" -- guides/`, CHANGELOG.md since their version, and `changes/` (fixes merged but not released yet). Compare the fix commit's date with the report's, and check which release carries it with `git tag --contains <commit>` (plain `vX.Y.Z` tags only; `-rc` and `-test` tags are candidates). An unreleased fix on `next` still counts as fixed. A data fix only counts once it reaches the files players load: the compiled guides, `Polestar_QuestDB`, or the Codex (`addon/Polestar_Codex`, whose `Meta.lua` says when it was built; a release can carry an older one). Lookup's pick-up guides read quest chains from the Codex alone. |
 | Old or mixed install | A version older than the latest release; addon folders from two versions; `Polestar_Guides` missing. |
 | The step was misread | Read the step on the version they run: `git show v<version>:<guide file>`. |
 | Another addon | Quest arrows, waypoints or objective text that Polestar does not draw (Questie, TomTom, other guide addons). The report's "Other addons" field lists them; an issue the bot filed from Discord has them in its "**Addons:**" line, under the player's words. |
@@ -112,7 +112,8 @@ gets its own issue.
 A human reads it before it goes up. Don't post it yourself, and don't write
 as a maintainer. Keep it plain, warm and short, evidence first:
 
-- Thank them, and say what you checked.
+- Thank them, and say what you checked. When they wrote in another
+  language, reply in that language.
 - The verdict in one sentence, then the evidence (step, quest id, file).
 - When Polestar is right: say so politely and ask for whatever would change
   the verdict, such as a `/polestar where` line at the right spot, a
@@ -122,7 +123,8 @@ as a maintainer. Keep it plain, warm and short, evidence first:
   Name a release only when CHANGELOG.md lists the fix under it, or
   `git tag --contains` shows a released tag that has it.
 - When it is already fixed: say which release has it and that updating
-  fixes it, and ask them to say if it still happens after updating.
+  fixes it (with the Polestar Client, the CurseForge app, or the zip from the
+  GitHub release), and ask them to say if it still happens after updating.
 
 Suggest the labels with the draft; a maintainer sets them:
 
