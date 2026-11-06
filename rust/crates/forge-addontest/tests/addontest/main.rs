@@ -40,6 +40,8 @@ mod dsl_smart;
 mod dsl_verbs;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-headsup-memory.rs"]
+mod dungeons_headsup_memory;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]

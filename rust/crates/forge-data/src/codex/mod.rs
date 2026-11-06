@@ -16,6 +16,7 @@ pub mod instances;
 pub mod journal;
 pub mod memory;
 pub mod merge;
+pub mod opens;
 pub mod pack;
 pub mod parity;
 pub mod rarescanner;

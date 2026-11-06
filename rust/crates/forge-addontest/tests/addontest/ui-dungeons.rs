@@ -5,7 +5,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::tmp::TempDir;
-use forge_addontest::{emitted, is_match, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, lua_value, Addon, RunAddon};
 use forge_data::codex::client::{Corpse, InstanceMap};
 use forge_data::codex::journal::{build_journal, emit_journal, Codex, JournalInputs};
 use forge_guide::js::{parse_json, V};
@@ -38,6 +38,11 @@ fn instance_map(m: &Value) -> InstanceMap {
 
 /// The fixture's Codex as a pack, with its Dungeons journal (`buildJournal(fixture.inputs, fixture.codex)`).
 fn pack() -> CodexPack {
+	pack_and_opens().0
+}
+
+/// The pack, and the dungeon heads-up's table built from the same journal (Dungeons/OpensData.lua's text).
+fn pack_and_opens() -> (CodexPack, String) {
 	let f = fixture("dungeons.json");
 	let (codex, inputs) = (&f["codex"], &f["inputs"]);
 	let maps: Vec<InstanceMap> = inputs["client"]["instanceMaps"].as_array().map(|a| a.iter().map(instance_map).collect()).unwrap_or_default();
@@ -67,7 +72,14 @@ fn pack() -> CodexPack {
 		},
 		&c,
 	);
-	write_codex_pack(codex, &CodexOpts { extra_files: vec![("Dungeons1.lua".into(), emit_journal(&journal))], ..Default::default() })
+	let (cq, cn, co) = (v(&codex["quests"]), v(&codex["npcs"]), v(&codex["objects"]));
+	let no_npcs = V::obj();
+	let opens = forge_data::codex::opens::emit(
+		&forge_data::codex::opens::Inputs { journal: &journal, quests: &cq, npcs: &cn, objects: &co, fv_quests: &quests, fv_npcs: &no_npcs, built_at: "fixture" },
+		"the dungeons fixture",
+	)
+	.0;
+	(write_codex_pack(codex, &CodexOpts { extra_files: vec![("Dungeons1.lua".into(), emit_journal(&journal))], ..Default::default() }), opens)
 }
 
 const SETUP: &str = r#"uistub.player.level, uistub.player.race, uistub.player.class, uistub.player.faction = 20, "Tauren", "DRUID", "Horde"
@@ -137,6 +149,19 @@ fn run_with(script: &str, with_pack: bool) -> Vec<Value> {
 
 fn run(script: &str) -> Vec<Value> {
 	run_with(script, true)
+}
+
+/// `run` with the heads-up's table built from the fixture in place of the shipped one (Dungeons/OpensData.lua, run
+/// again as the addon runs it). `Polestar.Codex.IsLoaded()` is false until something loads the pack.
+fn run_heads_up(script: &str) -> Vec<Value> {
+	let (pack, opens) = pack_and_opens();
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		script: format!("uistub.install()\nstub.login()\nassert(loadstring({}, \"OpensData\"))(\"Polestar\", Polestar)\n{SETUP}\n{script}", lua_value(&json!(opens))),
+		..Default::default()
+	})
 }
 
 fn strs(v: &Value) -> Vec<String> {
@@ -860,7 +885,7 @@ end
 
 #[test]
 fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_the_quests_in_a_new_tab() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		stub.sounds = {{}}
 		stub.fire("PLAYER_LEVEL_UP", 20)
@@ -903,7 +928,7 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 
 #[test]
 fn turn_these_off_stops_the_heads_ups_and_it_waits_for_combat_and_for_a_class_quest_card() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		local combat = true
 		Polestar.Compat.InCombat = function() return combat end
@@ -934,7 +959,7 @@ fn turn_these_off_stops_the_heads_ups_and_it_waits_for_combat_and_for_a_class_qu
 
 #[test]
 fn at_login_only_a_dungeon_whose_range_began_in_the_last_two_levels_is_told() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
 		emit({{ login20 = keys(DT.Candidates(20, "login")), login19 = keys(DT.Candidates(19, "login")), levelup20 = keys(DT.Candidates(20, "levelup")),
@@ -948,19 +973,20 @@ fn at_login_only_a_dungeon_whose_range_began_in_the_last_two_levels_is_told() {
 }
 
 // "Or a finished prerequisite" (#836): the fixture's Wailing Caverns has no page quest that opens another, so
-// its plan is wrapped to stand in for one: until Leaders of the Fang (914, on the page, in the log) is handed
+// its plan (Dungeons.Opens.Plan) is wrapped to stand in for one: until Leaders of the Fang (914, on the page, in the log) is handed
 // in, one quest waits for a later level (two to take: not told); once it is, a third opens (told).
 #[test]
 fn handing_in_a_quest_of_the_dungeons_page_tells_it_once_its_follow_ups_open() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
-		local plan = Polestar.Dungeons.PickupPlan
-		Polestar.Dungeons.PickupPlan = function(key)
-			local p = plan(key)
-			if p and key == "wailing-caverns" then
-				if done[914] then p.take[#p.take + 1] = {{ quest = {{ id = 90099 }} }} else p.later = 1 end
+		local O = Polestar.Dungeons.Opens
+		local plan = O.Plan
+		O.Plan = function(key, p)
+			local pl = plan(key, p)
+			if pl and key == "wailing-caverns" then
+				if done[914] then pl.take = pl.take + 1 else pl.later = 1 end
 			end
-			return p
+			return pl
 		end
 		levelUp(20)
 		emit({{ levelUp = card().shown }})
@@ -988,7 +1014,7 @@ fn handing_in_a_quest_of_the_dungeons_page_tells_it_once_its_follow_ups_open() {
 
 #[test]
 fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_without_a_level() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		local printed = {{}}
 		Polestar.Print = function(...) printed[#printed + 1] = table.concat({{ ... }}, " ") end
@@ -1009,7 +1035,7 @@ fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_with
 // under the actions, and no row runs past the card's edge.
 #[test]
 fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside_the_card() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		local w, f = Polestar.UI.GuideFrame.frame, nil
 		levelUp(20)
@@ -1041,7 +1067,7 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 // still waits for a later level (two to take: not enough to tell); at 18 all three are open.
 #[test]
 fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		log[914] = nil
 		local seen = {{}}
@@ -1059,7 +1085,7 @@ fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
 // The player's faction only: the Deadmines' one quest is the Alliance's, Leaders of the Fang the Horde's.
 #[test]
 fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for_it() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		log[914] = nil
 		local function list()
@@ -1080,7 +1106,7 @@ fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for
 // "Pick up the quests" builds the dungeon's real pick-up guide and opens it in a new tab beside the leveling guide.
 #[test]
 fn pick_up_the_quests_opens_the_dungeons_pick_up_guide_in_a_new_tab() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		Polestar.Dungeons.PickUp = pickUp
 		-- The fake Engine opens only its sample guides: let it open the registered pick-up guide too.
@@ -1106,7 +1132,7 @@ fn pick_up_the_quests_opens_the_dungeons_pick_up_guide_in_a_new_tab() {
 // The nudge to the Dungeons section: "Open in Dungeons" opens the dungeon's page in the hub.
 #[test]
 fn open_in_dungeons_shows_the_dungeons_page_in_the_hub() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		levelUp(20)
 		CT.frame.More:Click()
@@ -1119,7 +1145,7 @@ fn open_in_dungeons_shows_the_dungeons_page_in_the_hub() {
 // it has been on screen, so a /reload before then doesn't lose it.
 #[test]
 fn with_the_guide_window_hidden_the_card_waits_for_it_and_the_dungeon_is_told_once_shown() {
-	let out = run(&format!(
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
 		local w = Polestar.UI.GuideFrame.frame
 		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
@@ -1134,22 +1160,42 @@ fn with_the_guide_window_hidden_the_card_waits_for_it_and_the_dungeon_is_told_on
 	assert_eq!(out[1], json!({ "shown": "wailing-caverns", "told": true }));
 }
 
-// The Codex (7 MB) never loads for the login or hand-in checks: at login the check waits until something
-// else loads it (a level-up, Lookup, the dungeon page); a level-up loads it.
+// Players' memory (#836): the heads-up reads only Dungeons/OpensData.lua. Logging in, a level-up and a hand-in
+// show their cards (with what the quests are worth) without loading the Codex pack (about 7 MB) or the quest
+// database; only the card's buttons load them, as the pick-up guide and the dungeon page need them.
 #[test]
-fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_is_loaded() {
-	let out = run(&format!(
+fn no_codex_or_quest_database_load_on_login_level_up_or_hand_in_only_the_buttons_load_it() {
+	let out = run_heads_up(&format!(
 		r#"{HEADS_UP}
-		local X = Polestar.Codex
+		local X, Q = Polestar.Codex, Polestar.QuestDB
+		local function loaded() return {{ codex = X.IsLoaded(), questdb = (Q and Q.IsLoaded and Q.IsLoaded()) or false }} end
+		local function told() Polestar.CharState().dungeonToastSeen = nil end
 		uistub.player.level = 19
-		local start = X.IsLoaded()
-		stub.fire("QUEST_TURNED_IN", 914)
+		stub.fire("PLAYER_ENTERING_WORLD")
 		stub.advance(5)
-		emit({{ start = start, loaded = X.IsLoaded(), shown = card().shown }})
-		X.Load()
+		local login = card()
+		CT.Hide(); told()
+		levelUp(20)
+		local up = card()
+		CT.Hide(); told()
+		log[914], done[914] = nil, true
+		stub.fire("QUEST_TURNED_IN", 914)
 		stub.advance(2)
-		emit({{ loaded = X.IsLoaded(), shown = card().dungeon or false, head = card().head or false }})"#
+		local turnin = card()
+		emit({{ login = {{ login.dungeon or false, login.badge }}, up = {{ up.dungeon or false, up.line }}, turnin = turnin.dungeon or false, loaded = loaded() }})
+		CT.frame.More:Click()
+		local O, D = Polestar.Dungeons.Opens.QuestXP("wailing-caverns"), Polestar.Dungeons.QuestXP("wailing-caverns")
+		emit({{ loaded = loaded(), xp = {{ O.xp, O.levels }}, page = {{ D.xp, D.levels }} }})"#
 	));
-	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
-	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
+	assert_eq!(
+		out[0],
+		json!({
+			"login": ["wailing-caverns", "+27% OF A LEVEL"],
+			"up": ["wailing-caverns", "2 quests to pick up  ·  Levels 17–24  ·  The Barrens"],
+			"turnin": "wailing-caverns",
+			"loaded": { "codex": false, "questdb": false },
+		})
+	);
+	assert_eq!(out[1]["loaded"], json!({ "codex": true, "questdb": false }), "Open in Dungeons opens the page, which reads the Codex");
+	assert_eq!(out[1]["xp"], out[1]["page"], "the card's chip says what the page's says");
 }

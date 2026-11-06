@@ -194,6 +194,12 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			for r in &out.report {
 				println!("{r}");
 			}
+			// The dungeon heads-up's table, from this build (never from a --local-extras one, which stays local).
+			if !local_extras {
+				let lua = root.join("addon/Polestar/Dungeons/OpensData.lua");
+				let (n, bytes) = forge_data::codex::opens::write(&json_dir, &o.data_dir, &lua)?;
+				println!("headsup: {n} dungeons, {:.1} KiB -> {}", bytes as f64 / 1024.0, rel(&lua));
+			}
 		}
 		"professions" => {
 			let kv = pairs(args, &["--root", "--data", "--sources", "--build", "--out"])?;
@@ -352,6 +358,7 @@ fn run() -> Result<(), Fail> {
 		"names" => return names(args.collect()),
 		"talents" => return talents(args.collect()),
 		"maps" => return maps(args.collect()),
+		"headsup" => return headsup(args.collect()),
 		_ => {}
 	}
 	if cmd != "build" {
@@ -972,6 +979,31 @@ client's tables via wago.tools, so the zone art shows a map without fog of war
 
 Both take --root DIR (default: the checkout above the current folder).";
 
+pub(super) const HEADSUP_USAGE: &str = "usage: forge data headsup [--root DIR] [--codex DIR] [--data DIR] [--lua FILE]
+
+The dungeon heads-up's table (each dungeon's level range and, per side, the quests it can pick up)
+from a Codex build on disk -> addon/Polestar/Dungeons/OpensData.lua. `forge data codex` writes it
+after every release build; this rebuilds it without building the Codex again.
+  --codex DIR     the Codex build's JSON (default: <root>/data/forever/codex)
+  --data DIR      data/forever (quests.json, npcs.json: the quest database's sides)
+  --lua FILE      output (default: <root>/addon/Polestar/Dungeons/OpensData.lua)";
+
+fn headsup(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, _, pos) = opts(args, &["--root", "--codex", "--data", "--lua"], &[])?;
+	if let Some(p) = pos.first() {
+		return Err(usage(format!("unexpected {p}")));
+	}
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
+	let root = root_of(&kv)?;
+	let data = get("--data").map(abs).unwrap_or_else(|| root.join("data").join("forever"));
+	let codex = get("--codex").map(abs).unwrap_or_else(|| data.join("codex"));
+	let out = get("--lua").map(abs).unwrap_or_else(|| root.join("addon/Polestar/Dungeons/OpensData.lua"));
+	let (n, bytes) = forge_data::codex::opens::write(&codex, &data, &out)?;
+	println!("headsup: {n} dungeons, {:.1} KiB", bytes as f64 / 1024.0);
+	println!("wrote {}", rel(&out));
+	Ok(())
+}
+
 fn maps(args: Vec<String>) -> Result<(), Fail> {
 	let (kv, fl, pos) = opts(args, &["--root", "--data", "--lua", "--build", "--sources"], &["--offline"])?;
 	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
@@ -1021,6 +1053,7 @@ pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 		"names" => NAMES_USAGE,
 		"talents" => TALENTS_USAGE,
 		"maps" => MAPS_USAGE,
+		"headsup" => HEADSUP_USAGE,
 		"build" => USAGE,
 		_ => return None,
 	})

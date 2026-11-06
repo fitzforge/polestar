@@ -1,7 +1,7 @@
 -- The dungeon heads-up (#836): the class quest heads-up's card (UI/ClassToast.lua)
 -- for a dungeon whose quests have opened to this character. "LEVEL 18 ·
 -- DUNGEON", "Ragefire Chasm is open to you", how many quests there are to
--- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP);
+-- pick up and where, and what they are worth ("+1.4 LEVELS");
 -- "Pick up the quests" opens the dungeon's pickup guide in a new tab
 -- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
 -- Dungeons" opens the dungeon's page in the hub's Dungeons section
@@ -10,20 +10,22 @@
 -- The dungeon counts as told once the card is on screen or dismissed: a
 -- card waiting for a hidden guide window shows when the window does.
 --
+-- It reads only Dungeons.Opens (Dungeons/Opens.lua: a small table that is
+-- always loaded), so it never loads the Codex pack or the quest database;
+-- only its buttons do, as the pick-up guide and the dungeon page need them.
+--
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
--- in its range, with quests for the character's faction, not told before
--- (CharState().dungeonToastSeen, once per dungeon per character), whose
--- pickup plan (Dungeons.PickupPlan) has a quest to take now and either none
--- left for later levels or at least MIN_OPEN to take. At a level-up, after
+-- in its range, with quests for the character's side, not told before
+-- (CharState().dungeonToastSeen, once per dungeon per character), with a
+-- quest to pick up now (Dungeons.Opens.Plan, counted as Dungeons.PickupPlan
+-- does) and either none left for later levels or at least MIN_OPEN to pick
+-- up. At a level-up, after
 -- DELAY seconds so the class quest heads-up goes first; at login, only for a
 -- dungeon whose range began within LOGIN_LEVELS levels, after the class
 -- quest heads-up and the class guide banner; after a quest of a dungeon's
 -- page is handed in (a prerequisite: its follow-ups there may open), only for
 -- that dungeon, after DELAY seconds so the completed flag has caught up.
--- Only a level-up loads the Codex (the dungeons' pages and levels): the login
--- check waits until something loads it (CODEX_LOADED), and a hand-in before
--- then is told at the next level-up instead. Never in combat (the Codex may
--- have to load): it waits for combat to end, and while another heads-up is
+-- Never in combat: it waits for combat to end, and while another heads-up is
 -- on the card it waits for that one to be dismissed (HEADS_UP_HIDDEN). Of
 -- several, the one whose range began last.
 --
@@ -61,14 +63,6 @@ local function player()
 	return Lv and Lv.Player and Lv.Player() or {}
 end
 
--- Whether quest id is one of the dungeon's page quests.
-local function onPage(key, id)
-	for _, q in ipairs(D().Quests(key)) do
-		if q.id == id then return true end
-	end
-	return false
-end
-
 local function on()
 	local Dg = D()
 	return Dg and Dg.IsEnabled and Dg.IsEnabled() and ns.Get("dungeons.headsUp") and true or false
@@ -79,20 +73,20 @@ end
 -- command; "turnin": only dungeons whose page has questId): { key, name,
 -- zoneName, minLevel, maxLevel, take, level }.
 function DT.Candidates(level, mode, questId)
-	local Dg = D()
-	if not (on() and Dg.List and Dg.PickupPlan and Dg.Quests) then return {} end
+	local O = D().Opens
+	if not (on() and O) then return {} end
 	local p = player()
 	level = level or p.level
-	local side = SIDE[p.faction or ""]
-	if type(level) ~= "number" or not side then return {} end
+	if type(level) ~= "number" or not SIDE[p.faction or ""] then return {} end
+	p.level = level
 	local told, out = seen(), {}
-	for _, d in ipairs(Dg.List()) do
+	for _, d in ipairs(O.List()) do
 		local min, max = d.minLevel, d.maxLevel
-		if d.kind == "dungeon" and (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
-			and (d.quests[side] or 0) > 0 and (mode ~= "login" or level - min <= LOGIN_LEVELS)
-			and (mode ~= "turnin" or onPage(d.key, questId)) then
-			local plan = Dg.PickupPlan(d.key)
-			local take = plan and #plan.take or 0
+		if (mode == "any" or not told[d.key]) and min and level >= min and (not max or level <= max)
+			and (mode ~= "login" or level - min <= LOGIN_LEVELS)
+			and (mode ~= "turnin" or O.OnPage(d.key, questId, p)) then
+			local plan = O.Plan(d.key, p)
+			local take = plan and plan.take or 0
 			if take > 0 and (plan.later == 0 or take >= MIN_OPEN) then
 				out[#out + 1] = { key = d.key, name = d.name, zoneName = d.zoneName, minLevel = min, maxLevel = max, take = take, level = level }
 			end
@@ -117,8 +111,8 @@ function DT.Model(c)
 	if c.zoneName then where[#where + 1] = c.zoneName end
 	m.giver = table.concat(where, "  \194\183  ")
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
-	local Dg, LT = D(), UI.LevelTip
-	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
+	local O, LT = D().Opens, UI.LevelTip
+	local xs = O and O.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
 	m.act = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
 	m.more = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
@@ -198,18 +192,8 @@ end
 -- order, each once: a level-up and a turn-in while a card is shown both stay.
 local pending = {}
 
--- Modes that never load the Codex (DT.Check): its 7 MB load at every login
--- or at the first hand-in would cost every character, whatever its level.
-local NO_LOAD = { login = true, turnin = true }
-
-local function codexLoaded()
-	local X = ns.Codex
-	return X and X.IsLoaded and X.IsLoaded() and true or false
-end
-
 function DT.Check(level, mode, questId)
 	if not on() then return false end
-	if NO_LOAD[mode] and not codexLoaded() then return false end
 	local C, T = ns.Compat, CT()
 	if (C.InCombat and C.InCombat()) or (T and T.current) then
 		for _, p in ipairs(pending) do
@@ -240,33 +224,17 @@ end
 -- Events and the command
 ---------------------------------------------------------------------------
 
--- After the class quest heads-up (2 s) and the class guide banner (3 s);
--- without the Codex loaded, once something loads it.
-local loggedIn, loginDue = false, false
+-- After the class quest heads-up (2 s) and the class guide banner (3 s).
+local loggedIn = false
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	if loggedIn then return end
 	loggedIn = true
-	ns.After(4, function()
-		if codexLoaded() then
-			DT.Check(nil, "login")
-		else
-			loginDue = true
-		end
-	end)
+	ns.After(4, function() DT.Check(nil, "login") end)
 end)
 
-ns.On("CODEX_LOADED", function()
-	if not loginDue then return end
-	loginDue = false
-	ns.After(DELAY, function() DT.Check(nil, "login") end)
-end)
-
--- A level-up's check covers a login check still due.
 ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
 	local n = tonumber(level)
-	if not n then return end
-	loginDue = false
-	ns.After(DELAY, function() DT.Check(n, "levelup") end)
+	if n then ns.After(DELAY, function() DT.Check(n, "levelup") end) end
 end)
 
 -- A quest of a dungeon's page handed in may open its follow-ups there.
@@ -279,15 +247,15 @@ ns.RegisterEvent("PLAYER_REGEN_ENABLED", retry)
 ns.On("HEADS_UP_HIDDEN", retry)
 
 ns.RegisterCommand("dungeontoast", function(rest)
-	local Dg = D()
-	local key = rest and rest ~= "" and Dg and Dg.Find and Dg.Find(rest) or nil
+	local O = D().Opens
+	local key = rest and rest ~= "" and O and O.Find(rest) or nil
 	local c
 	for _, x in ipairs(DT.Candidates(nil, "any")) do
 		if not key or x.key == key then c = x break end
 	end
-	if not c and key and Dg.Get(key) then
-		local d, plan = Dg.Get(key), Dg.PickupPlan(key)
-		local take, level = plan and #plan.take or 0, player().level
+	if not c and key and O.Get(key) then
+		local d, plan = O.Get(key), O.Plan(key)
+		local take, level = plan and plan.take or 0, player().level
 		if take == 0 then return ns.Print(L["Nothing to pick up"]) end
 		if type(level) == "number" then
 			c = { key = key, name = d.name, zoneName = d.zoneName, minLevel = d.minLevel, maxLevel = d.maxLevel, take = take, level = level }

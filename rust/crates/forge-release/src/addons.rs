@@ -130,6 +130,24 @@ pub fn codex_data_warning(dir: &Path, data_dir: &Path) -> Option<String> {
 	})
 }
 
+/// The warning when the dungeon heads-up's table (`table`: Polestar's Dungeons/OpensData.lua) came from another
+/// Codex build than the one in `dir`, or None. The table is committed and the Codex is built locally, so they
+/// drift apart unless `forge data codex` (or `forge data headsup` from the shipped build) writes the table again:
+/// the heads-up would then count other quests than the pick-up guide it opens.
+pub fn headsup_table_warning(dir: &Path, table: &Path) -> Option<String> {
+	static META: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r#"\bbuiltAt = "([^"]*)""#).unwrap());
+	static TABLE: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r#"RegisterOpens\("([^"]*)""#).unwrap());
+	let codex = META.captures(&std::fs::read_to_string(dir.join("Meta.lua")).ok()?)?[1].to_string();
+	let text = std::fs::read_to_string(table).ok()?;
+	let from = TABLE.captures(&text).map(|c| c[1].to_string()).unwrap_or_default();
+	(from != codex).then(|| {
+		format!(
+			"{} came from the Codex of {from}, {CODEX} is from {codex}: the dungeon heads-up counts other quests than its pick-up guide until `forge data headsup` writes it from this build",
+			table.display()
+		)
+	})
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -243,5 +261,18 @@ mod tests {
 		// No data build to compare with: nothing to say.
 		std::fs::remove_file(data.join("meta.json")).unwrap();
 		assert_eq!(codex_data_warning(&dir, &data), None);
+	}
+
+	#[test]
+	fn the_pack_warns_when_the_heads_up_table_came_from_another_codex() {
+		let root = tmp("headsup-table");
+		let (dir, table) = (root.join(CODEX), root.join("OpensData.lua"));
+		std::fs::create_dir_all(&dir).unwrap();
+		std::fs::write(dir.join("Meta.lua"), "C.Register(\"meta\", {\n\tbuiltAt = \"2026-11-06T21:30:31.758Z\",\n})\n").unwrap();
+		std::fs::write(&table, "D.RegisterOpens(\"2026-11-02T16:05:25.128Z\", {\n})\n").unwrap();
+		let w = headsup_table_warning(&dir, &table).unwrap();
+		assert!(w.contains("came from the Codex of 2026-11-02T16:05:25.128Z, Polestar_Codex is from 2026-11-06T21:30:31.758Z"), "{w}");
+		std::fs::write(&table, "D.RegisterOpens(\"2026-11-06T21:30:31.758Z\", {\n})\n").unwrap();
+		assert_eq!(headsup_table_warning(&dir, &table), None);
 	}
 }

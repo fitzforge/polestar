@@ -54,7 +54,11 @@ another data build than `data/forever` (its `Meta.lua` `builtAt` against
 `data/forever/meta.json`'s): the pick-up guides' quest chains, NPC roles and
 the Dungeons journal read the Codex, so data fixes made since reach players
 only once `forge data codex` rebuilds it. Shipping an older Codex on purpose
-is allowed; the warning says what stays behind.
+is allowed; the warning says what stays behind. It also warns when the
+dungeon heads-up's table (`addon/Polestar/Dungeons/OpensData.lua`, committed)
+came from another Codex build than the one it packs: `forge data codex` writes
+it after each build (commit it with the release), and `forge data headsup`
+writes it from a build already on disk.
 
 All releases are built from `next`. A patch release (`x.y.Z`) is a smaller,
 sooner release following the same steps with a patch version bump.
@@ -99,7 +103,7 @@ version throughout.
    forge data build --kb                     # fetches the sources first (forge data sources)
    forge data questdb
    forge data itemdb && forge data gear
-   forge data sources --only builders && forge data codex   # release-safe inputs only
+   forge data sources --only builders && forge data codex   # release-safe inputs only; also Dungeons/OpensData.lua
    forge release credits                     # Guiding Stars: data/credits.json + merged PRs (needs gh)
    forge guide lint
    forge guide compile

@@ -4,4 +4,6 @@
 	<Script file="Handin.lua"/>
 	<Script file="Attune.lua"/>
 	<Script file="XP.lua"/>
+	<Script file="Opens.lua"/>
+	<Script file="OpensData.lua"/>
 </Ui>
