@@ -669,6 +669,75 @@ fn map_and_minimap_pins_are_smaller_zoomed_out_and_grow_with_the_zoom_within_bou
 	}
 }
 
+// Fitz (0.3.2, Auberdine): the marks around the minimap's centre hid his own arrow. The game draws that arrow
+// as part of the Minimap itself, under every frame an addon parents to it, so a mark can't go under it;
+// instead a mark fades the more of the arrow (a disc of 9 px radius at the centre) its footprint covers, down
+// to 30% when one of them lies inside the other, and is drawn in full again once it is clear.
+#[test]
+fn minimap_marks_over_the_player_s_arrow_fade_as_they_cover_it_and_come_back_once_clear() {
+	let out = run(r#"
+		nav.viewRadius = 200                                    -- 140 px minimap: 0.35 px a yard
+		nav.place(0, 0)
+		Pins.SetLayer("marks", {
+			at(0, 0, { icon = "map:quest-turnin", minimapSize = 14, tooltip = "On" }),
+			at(20, 0, { icon = "map:kill", minimapSize = 14, tooltip = "Near" }),    -- 7 px north
+			at(0, 100, { icon = "map:kill", minimapSize = 14, tooltip = "Clear" }),  -- 35 px west
+		})
+		local function alphas()
+			stub.advance(0.3)
+			local r = {}
+			for _, f in ipairs(Pins.GetMinimapFrames("marks")) do r[f.pin.tooltip] = { a = f:GetAlpha() or 1, foot = f.footPx } end
+			return r
+		end
+		local r = { here = alphas() }
+		nav.place(0, 100)                                       -- walk onto the third
+		r.walked = alphas()
+		emit(r)"#);
+	let a = |at: &str, pin: &str| num(&out[at][pin]["a"]);
+	let foot = num(&out["here"]["Near"]["foot"]);
+	assert_eq!(foot, 14.0, "a 14 px mark's medallion zoomed out");
+	// Near: its centre 7 px from the arrow's; covered depth (9 + 7 - 7) over the smaller disc's width (14).
+	let near = 1.0 - 0.7 * ((9.0 + foot / 2.0 - 7.0) / foot);
+	assert!((a("here", "On") - 0.3).abs() < 1e-9, "on the arrow: 30%, got {}", a("here", "On"));
+	assert!((a("here", "Near") - near).abs() < 1e-9, "half over it: {near}, got {}", a("here", "Near"));
+	assert_eq!(a("here", "Clear"), 1.0, "clear of the arrow: in full");
+	assert_eq!([a("walked", "On"), a("walked", "Near")], [1.0, 1.0], "walked away: in full again");
+	assert!((a("walked", "Clear") - 0.3).abs() < 1e-9, "walked onto it: 30%");
+}
+
+// Players: the minimap marks are too big for some. Options > Appearance > Arrow > Map icons, "Minimap icon size",
+// scales every minimap mark and its cap; the world map keeps its sizes.
+#[test]
+fn the_minimap_icon_size_setting_scales_minimap_marks_only() {
+	let out = run(r#"
+		nav.viewRadius = 200
+		Pins.SetLayer("marks", {
+			at(20, 20, { icon = "map:kill", size = 16, minimapSize = 14, tooltip = "Kill" }),
+			at(-20, 20, { icon = "map:quest-turnin", size = 16, minimapSize = 20, tooltip = "Turn in" }),
+		})
+		local function medals()
+			stub.advance(0.3)
+			local r = {}
+			for _, f in ipairs(Pins.GetMinimapFrames("marks")) do r[f.pin.tooltip] = f.medal.width end
+			return r
+		end
+		local r = { default = medals(), setting = Polestar.Get("nav.minimapIconSize") }
+		Polestar.Set("nav.minimapIconSize", 0.6)
+		r.small = medals()
+		stub.minimapZoom = 5
+		Polestar.Set("nav.minimapIconSize", 1.5)
+		r.bigClose = medals()
+		nav.showWorldMap(9000)
+		r.world = {}
+		for _, f in ipairs(nav.pins()) do r.world[f.data.pin.tooltip] = f.medal.width end
+		emit(r)"#);
+	assert_eq!(out["setting"], json!(1), "100% by default");
+	assert_eq!(out["default"], json!({ "Kill": 14, "Turn in": 20 }), "zoomed out, as before");
+	assert_eq!(out["small"], json!({ "Kill": 8, "Turn in": 12 }), "60%: marks of 5.88 and 8.4 px");
+	assert_eq!(out["bigClose"], json!({ "Kill": 30, "Turn in": 36 }), "150% at the closest zoom: 21 px, and 30 held to the 24 px cap scaled to 36");
+	assert_eq!(out["world"], json!({ "Kill": 22, "Turn in": 22 }), "the world map keeps its own size");
+}
+
 #[test]
 fn minimap_pins_follow_a_rotating_minimap_priority_stacks_tooltips_and_clicks_work() {
 	let out = run(r#"

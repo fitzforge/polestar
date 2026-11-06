@@ -2395,9 +2395,17 @@ on screen zoomed out, the game's 16 px POI icons; 19.8 zoomed in); on the
 minimap the size is 0.7 of it at zoom 0 (the widest, the default: a 14 px
 mark's medallion at 14) up to all of it at the closest zoom
 (`Minimap:GetZoom()` of `GetZoomLevels()`), the look laid out again when the
-zoom changes. A medallion is held to 28 on the world map's screen and 24 px on
-the minimap, and a pin takes the mouse over its medallion and at least 20
-(world map, on screen) or 14 px (minimap), through `SetHitRectInsets`.
+zoom changes. The player's `nav.minimapIconSize` (default 1, Options ›
+Appearance › Arrow › Map icons) scales minimap sizes and their cap. A medallion is held to
+28 on the world map's screen and 24 px (times that setting) on the minimap,
+and a pin takes the mouse over its medallion and at least 20 (world map, on
+screen) or 14 px (minimap), through `SetHitRectInsets`.
+
+The game draws the player's arrow as part of the Minimap itself, under every
+frame parented to it, so no pin can go under the arrow. A minimap pin fades
+instead (frame alpha), the more of the arrow (a disc of `ARROW_R` = 9 px at
+the centre) its footprint covers: in full while clear, 0.3 (`ARROW_FADE`)
+once one of the two lies inside the other.
 
 Pins are drawn on the world map for the map being viewed (converted through Compat
 for other maps). Optional `worldLayout(projected, view)` receives this layer's

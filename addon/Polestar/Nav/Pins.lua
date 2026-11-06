@@ -100,11 +100,17 @@ local WORLD_SIZE, MINIMAP_SIZE = 16, 14
 -- across. World map: a 16 px mark's 22 px medallion at 15.4 zoomed out (the
 -- game's 16 px POI icons), 19.8 zoomed in (the game's grow 1.2 times).
 -- Minimap: a 14 px mark's medallion at 14 at zoom 0 (as the game's blips), 20
--- at zoom 5.
+-- at zoom 5; nav.minimapIconSize scales both, and the max, on the minimap.
 local PIN_ZOOM = {
 	world = { wide = 0.7, close = 0.9, max = 28, hit = 20 },
 	minimap = { wide = 0.7, close = 1, max = 24, hit = 14 },
 }
+-- The game draws the player's arrow as part of the Minimap itself, under
+-- every frame parented to it, so no mark can go under the arrow (Fitz, 0.3.2:
+-- the marks around the centre hid it). A minimap mark fades instead, the more
+-- of the arrow (a disc of ARROW_R px at the centre) its footprint covers: in
+-- full while clear of it, ARROW_FADE once one of the two lies inside the other.
+local ARROW_R, ARROW_FADE = 9, 0.3
 local WATCH_INTERVAL = 0.1
 local DRIVE_INTERVAL = 1 / 30
 local IDLE_AFTER = 0.3
@@ -381,7 +387,7 @@ end
 -- (Media/Map/medallion-<pack>), or "bare" for the glyphs alone. "skin", the
 -- default, takes the skin's: Polestar's, Halo's, or Hearth's for Hearth and
 -- the game's own looks.
-ns.RegisterDefaults("nav", { mapIcons = "skin" })
+ns.RegisterDefaults("nav", { mapIcons = "skin", minimapIconSize = 1 })
 local MEDALS = {
 	polestar = MAP_MEDIA .. "medallion-polestar", halo = MAP_MEDIA .. "medallion-halo", hearth = MAP_MEDIA .. "medallion-hearth",
 }
@@ -1693,7 +1699,7 @@ local mmFree = {}     -- released frames
 local assigned = {}   -- pin table -> frame
 local gen = 0
 local driver, watcher
-local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK -- last drawn state
+local sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK -- last drawn state
 local dirty = true
 
 local function viewRadius()
@@ -2045,6 +2051,17 @@ local function hideHullsFrom(count)
 	mmHullCount = count
 end
 
+-- A minimap mark's opacity for its place (x, y px from the centre) and its
+-- footprint (px across): see ARROW_R.
+local function arrowFade(x, y, foot)
+	local r = (foot or 0) / 2
+	local depth = ARROW_R + r - sqrt(x * x + y * y)
+	if depth <= 0 then return 1 end
+	local covered = depth / (2 * min(r, ARROW_R))
+	if covered >= 1 then return ARROW_FADE end
+	return 1 - (1 - ARROW_FADE) * covered
+end
+
 -- Place every visible pin for the current state (sPc, sPx, ...).
 local function drawMinimap()
 	gen = gen + 1
@@ -2065,8 +2082,8 @@ local function drawMinimap()
 				if not layer.resolved then resolveLayer(layer) end
 				local pins, lx, ly = layer.pins, layer.wx, layer.wy
 				local edge = layer.edge
-				-- A pin's size at this zoom, its medallion held to the max.
-				local scale, most = layer.scale * sZoomK, PIN_ZOOM.minimap.max / MEDAL_SCALE
+				-- A pin's size at this zoom and the player's size, its medallion held to the max.
+				local scale, most = layer.scale * sZoomK * sSizeK, PIN_ZOOM.minimap.max / MEDAL_SCALE * sSizeK
 				local maxArea = layer.maxArea or 0
 				local list, n = nearPins(layer, maxArea > 0 and max(reach, view + maxArea) or reach)
 				stats.visited = stats.visited + n
@@ -2090,12 +2107,12 @@ local function drawMinimap()
 						local size = (tonumber(p.minimapSize) or tonumber(p.size) or MINIMAP_SIZE) * scale
 						local cap = p.state == "focus" and most / FOCUS_SCALE or most
 						if size > cap then size = cap end
-						if not f or f.layer ~= layer or f.version ~= layer.version or f.zoomK ~= sZoomK then
+						if not f or f.layer ~= layer or f.version ~= layer.version or f.zoomK ~= sZoomK or f.sizeK ~= sSizeK then
 							if not f then
 								f = acquireMinimap()
 								assigned[p] = f
 							end
-							f.pin, f.layer, f.version, f.zoomK = p, layer, layer.version, sZoomK
+							f.pin, f.layer, f.version, f.zoomK, f.sizeK = p, layer, layer.version, sZoomK, sSizeK
 							applyLook(f, p, size)
 							setHit(f, PIN_ZOOM.minimap.hit)
 							f:SetFrameLevel(base + max(0, tonumber(p.priority) or 0))
@@ -2109,6 +2126,11 @@ local function drawMinimap()
 							edge and (half - inset) or nil)
 						f:ClearAllPoints()
 						f:SetPoint("CENTER", Minimap, "CENTER", x, y)
+						local fade = clamped and 1 or arrowFade(x, y, f.footPx)
+						if fade ~= f.fade then
+							f.fade = fade
+							f:SetAlpha(fade)
+						end
 						if clamped ~= f.clamped then
 							f.clamped = clamped
 							showParts(f, p, clamped)
@@ -2153,11 +2175,13 @@ local function sample(force)
 	if t > 1 then t = 1 elseif t < 0 then t = 0 end
 	local z = PIN_ZOOM.minimap
 	local zoomK = z.wide + (z.close - z.wide) * t
+	local sizeK = tonumber(ns.Get and ns.Get("nav.minimapIconSize")) or 1
 	if not force and not dirty and pc == sPc and px == sPx and py == sPy and facing == sFacing
-		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare and zoomK == sZoomK then
+		and radius == sRadius and rotate == sRotate and half == sHalf and square == sSquare and zoomK == sZoomK
+		and sizeK == sSizeK then
 		return false
 	end
-	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK = pc, px, py, facing, radius, rotate, half, square, zoomK
+	sPc, sPx, sPy, sFacing, sRadius, sRotate, sHalf, sSquare, sZoomK, sSizeK = pc, px, py, facing, radius, rotate, half, square, zoomK, sizeK
 	dirty = false
 	drawMinimap()
 	return true
@@ -2390,6 +2414,11 @@ function Pins.GetTrailFrames(surface)
 	end
 	return out
 end
+
+-- nav.minimapIconSize redraws the minimap's marks.
+ns.On("SETTING_CHANGED", function(path)
+	if path == "" or path == "nav" or path == "nav.minimapIconSize" then refreshMinimap(true) end
+end)
 
 -- ui.reduceMotion stops or restarts the crawl at once.
 ns.On("SETTING_CHANGED", function(path)
