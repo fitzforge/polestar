@@ -840,11 +840,17 @@ local FIRA = {
 	medium = MEDIA .. "Fonts\\FiraSans-Medium.ttf",
 	semibold = MEDIA .. "Fonts\\FiraSans-SemiBold.ttf",
 }
-local FAMILIES = { inter = FACES, fira = FIRA }
+local OPEN_SANS_REGULAR = MEDIA .. "Fonts\\OpenSans-Regular.ttf"
+local OPEN_SANS = {
+	regular = OPEN_SANS_REGULAR,
+	medium = OPEN_SANS_REGULAR,
+	semibold = MEDIA .. "Fonts\\OpenSans-Bold.ttf",
+}
+local FAMILIES = { opensans = OPEN_SANS, inter = FACES, fira = FIRA }
 
 -- The font a skin starts with (ui.font "skin", the default): the house
--- style and Blizzard the game's own, Halo Fira Sans.
-local SKIN_FONT = { polestar = "game", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
+-- style uses Open Sans, Halo uses Fira Sans, and the others use the game's.
+local SKIN_FONT = { polestar = "opensans", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
 
 -- A skin's own sizes, where they differ from the ladder above (the handoff's
 -- typography: DIRECTION_B_HALO.md §2, the same in DIRECTION_A_BLIZZARD.md §2).
@@ -898,17 +904,18 @@ function Theme.Metric(key, house)
 	return v
 end
 
--- Inter and Fira Sans cover Latin, Greek and Cyrillic; these locales need
+-- The bundled fonts cover Latin, Greek and Cyrillic; these locales need
 -- the client font.
 local CJK = { zhCN = true, zhTW = true, koKR = true }
 
--- The face in use: "game", "inter" or "fira" (ui.font; "skin" follows the skin).
+local function gameFont()
+	return STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF"
+end
+
+-- The face in use (ui.font; "skin" follows the skin).
 function Theme.FontKey()
 	local f = get("ui.font")
 	local skin = Theme.SkinKey()
-	-- No setting at all (a Nav-only load, before UI registers its defaults):
-	-- Inter in the house style, as before skins.
-	if f == nil and skin == "polestar" then return "inter" end
 	if f == nil or f == "skin" or not (f == "game" or FAMILIES[f]) then f = SKIN_FONT[skin] end
 	return f
 end
@@ -931,12 +938,13 @@ function Theme.FontSpec(role)
 	local locale = GetLocale and GetLocale()
 	local face = Theme.FontKey()
 	-- The ruRU client font (FRIZQT___CYR) has no middle dot, which the UI and
-	-- guide text use as a separator; Fira Sans has it and covers Cyrillic.
-	-- Only when the skin picks the face: choosing "the game's" font keeps it.
+	-- guide text use as a separator, and Open Sans has no arrow (U+2192), which
+	-- the Russian guide texts use; Fira Sans has both and covers Cyrillic.
+	-- Only when the skin picks the face: a font the player chose stays.
 	local f = get("ui.font")
-	if face == "game" and locale == "ruRU" and (f == nil or f == "skin") then face = "fira" end
+	if (face == "game" or face == "opensans") and locale == "ruRU" and (f == nil or f == "skin") then face = "fira" end
 	if face == "game" or CJK[locale] then
-		return STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", size, ""
+		return gameFont(), size, ""
 	end
 	return FAMILIES[face][spec[1]], size, ""
 end
@@ -962,6 +970,19 @@ function Theme.ScriptFont(text)
 	local locale = GetLocale and GetLocale()
 	if script.locales[locale] then return nil end
 	return script.path
+end
+
+-- Keep a widget's typography when the face already matches (e.g. a colour
+-- refresh or a reused map pin). A missing font may return false or raise.
+function Theme.SetFace(fs, path, size, flags)
+	local current, height, outline = fs:GetFont()
+	if current == path and height == size and (outline or "") == flags then return end
+	local fallback = gameFont()
+	if path ~= fallback then
+		local ok, loaded = pcall(fs.SetFont, fs, path, size, flags)
+		if ok and loaded then return end
+	end
+	fs:SetFont(fallback, size, flags)
 end
 
 local fonted = setmetatable({}, { __mode = "k" }) -- fontString -> role
@@ -1010,9 +1031,7 @@ local function paintFont(fs, role)
 	-- EllesmereUI's brings its OUTLINE, and black round dark glyphs on a
 	-- bright accent smears them (#521). MONOCHROME and the like stay.
 	if flat[fs] and flags then flags = flags:gsub("THICKOUTLINE", ""):gsub("OUTLINE", ""):gsub("^,+", ""):gsub(",+$", ""):gsub(",,+", ",") end
-	if not fs:SetFont(path, size, flags) then
-		fs:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", size, flags)
-	end
+	Theme.SetFace(fs, path, size, flags)
 	paintShadow(fs)
 	textAgain(fs)
 end

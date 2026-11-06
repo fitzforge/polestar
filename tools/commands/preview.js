@@ -146,7 +146,7 @@ M.barContainers = { C }
 Polestar.QoL.XPMark.Refresh()`;
 }
 
-const FONT_FILES = ['Inter-Regular.ttf', 'Inter-Medium.ttf', 'Inter-SemiBold.ttf', 'FiraSans-Regular.ttf', 'FiraSans-Medium.ttf', 'FiraSans-SemiBold.ttf'];
+const FONT_FILES = ['OpenSans-Regular.ttf', 'OpenSans-Bold.ttf', 'Inter-Regular.ttf', 'Inter-Medium.ttf', 'Inter-SemiBold.ttf', 'FiraSans-Regular.ttf', 'FiraSans-Medium.ttf', 'FiraSans-SemiBold.ttf'];
 // Fonts the preview cannot ship (EllesmereUI's, the client's) are set in the
 // nearest Inter weight; widths are measured in the same face that is drawn.
 const FALLBACK = 'Inter-Medium.ttf';

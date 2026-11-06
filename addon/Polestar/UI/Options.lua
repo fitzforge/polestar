@@ -312,9 +312,9 @@ local BUILTIN = {
 			help = L["The background opacity of every Polestar window: how much of the world shows through. Right-click to reset."] },
 	} },
 	{ page = LOOK, tab = L["Colour & type"], section = L["Type & motion"], controls = {
-		{ kind = "dropdown", key = "ui.font", label = L["Font"], help = L["The skin's font (the default: the game's own, Fira Sans in Halo), the game's, Inter, Fira Sans, or EllesmereUI's."],
+		{ kind = "dropdown", key = "ui.font", label = L["Font"], help = L["The skin's font (Open Sans in Polestar, Fira Sans in Halo), or a font of your choice."],
 			choices = function()
-				local list = { { value = "skin", label = L["The skin's font"] }, { value = "game", label = L["Game font"] },
+				local list = { { value = "skin", label = L["The skin's font"] }, { value = "opensans", label = "Open Sans" }, { value = "game", label = L["Game font"] },
 					{ value = "inter", label = "Inter" }, { value = "fira", label = "Fira Sans" } }
 				if Theme.IsEllesmere() then list[#list + 1] = { value = "ellesmere", label = "EllesmereUI" } end
 				return list
