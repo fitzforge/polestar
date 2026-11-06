@@ -3,9 +3,12 @@
 -- DUNGEON", "Ragefire Chasm is open to you", how many quests there are to
 -- pick up and where, and what they are worth ("+1.4 LEVELS", Dungeons.QuestXP);
 -- "Pick up the quests" opens the dungeon's pickup guide in a new tab
--- (Dungeons.PickUp), so the leveling guide keeps its own; "Later" and the
--- close button dismiss it; "Turn these off" sets dungeons.headsUp off (also
--- under Options > Discovery > Dungeons).
+-- (Dungeons.PickUp), so the leveling guide keeps its own; "Open in
+-- Dungeons" opens the dungeon's page in the hub's Dungeons section
+-- (Dungeons.Open); "Later" and the close button dismiss it; "Turn these off"
+-- sets dungeons.headsUp off (also under Options > Discovery > Dungeons).
+-- The dungeon counts as told once the card is on screen or dismissed: a
+-- card waiting for a hidden guide window shows when the window does.
 --
 -- When it shows (DT.Candidates): a dungeon, not a raid, the character's level
 -- in its range, with quests for the character's faction, not told before
@@ -25,7 +28,7 @@
 --   UI.DungeonToast.Candidates(level, mode, questId)
 --       mode "levelup" | "login" | "turnin" (questId handed in) | "any"
 --   UI.DungeonToast.Check(level, mode, questId)  show the first candidate
---   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key)
+--   UI.DungeonToast.Show(candidate), .Model(candidate), .PickUp(key), .SeePage(key)
 --   /polestar dungeontoast [dungeon]         show it again
 
 local ADDON, ns = ...
@@ -116,16 +119,52 @@ function DT.Model(c)
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
 	m.act = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
+	m.more = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
 	return m
 end
 
--- Show the card for candidate c (marks the dungeon told). -> true when shown
+-- A card that waits for the hidden guide window (UI.ClassToast keeps it as
+-- .current and shows it with the window) counts as told once it is on
+-- screen.
+local hooked = false
+local function toldWhenShown()
+	local w = UI.GuideFrame and UI.GuideFrame.frame
+	if hooked or not w then return end
+	hooked = true
+	w:HookScript("OnShow", function()
+		local T = CT()
+		local m = T and T.current
+		if m and m.dungeon and T.frame and T.frame:IsShown() then seen()[m.dungeon] = true end
+	end)
+end
+
+-- Show the card for candidate c. -> true when on screen (the dungeon is told)
 function DT.Show(c)
 	local T = CT()
 	if not (c and T and T.ShowCard) then return false end
-	seen()[c.key] = true
-	return T.ShowCard(DT.Model(c))
+	local shown = T.ShowCard(DT.Model(c))
+	if shown then
+		seen()[c.key] = true
+	elseif T.current and T.current.dungeon == c.key then
+		toldWhenShown()
+	end
+	return shown
+end
+
+-- A dungeon card dismissed (Later, the close button, one of its buttons)
+-- counts as told.
+ns.On("HEADS_UP_HIDDEN", function(m)
+	if type(m) == "table" and m.dungeon then seen()[m.dungeon] = true end
+end)
+
+-- "Open in Dungeons": the dungeon's page in the hub, where its quests,
+-- bosses and entrance are.
+function DT.SeePage(key)
+	local Dg = D()
+	if not (Dg and Dg.Open and Dg.Open(key)) then return false end
+	CT().Hide()
+	return true
 end
 
 -- "Pick up the quests": the dungeon's pickup guide in a new tab, as its page's

@@ -338,8 +338,10 @@ local function build()
 	f.Open = W.Button(f, L["Open in a new tab"], function() CT.Open() end, { primary = true })
 	f.ShowMe = W.Button(f, L["Show me"], function() CT.ShowMe() end, { primary = true })
 	f.Later = W.Button(f, L["Later"], function() CT.Hide() end, { ghost = true })
-	-- Another heads-up's own action and its "stop these" (UI/DungeonToast.lua).
+	-- Another heads-up's own action, its second button and its "stop these"
+	-- (UI/DungeonToast.lua).
 	f.Act = W.Button(f, "", function() CT.Act() end, { primary = true })
+	f.More = W.Button(f, "", function() CT.More() end, { ghost = true })
 	f.Off = W.Button(f, "", function() CT.Off() end, { ghost = true })
 	f:Hide()
 	CT.frame = f
@@ -423,23 +425,34 @@ function layout(width)
 	f.Rule:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
 	f.Rule:SetPoint("TOPRIGHT", f, "TOPRIGHT", -PAD, -y)
 	y = y + 10
+	-- The buttons in one row: the action, another heads-up's second button
+	-- ("Open in Dungeons"), Later and its "stop these". When they don't all
+	-- fit in the card's width, Later and the rest start a row of their own,
+	-- and a button that still doesn't fit starts the next row.
 	local act = (f.Act:IsShown() and f.Act) or (f.Open:IsShown() and f.Open) or f.ShowMe
-	act:ClearAllPoints()
-	act:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
-	f.Later:ClearAllPoints()
-	f.Later:SetPoint("LEFT", act, "RIGHT", 8, 0)
-	f.Off:ClearAllPoints()
-	-- "Turn these off" beside Later, or on its own row under them when the
-	-- three don't fit in the card's width.
-	local row = act:GetWidth() + 8 + f.Later:GetWidth() + 4 + f.Off:GetWidth()
-	if f.Off:IsShown() and row > width - 2 * PAD - STRIPE then
-		y = y + act:GetHeight() + 4
-		f.Off:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
-		y = y + f.Off:GetHeight() + PAD
-	else
-		f.Off:SetPoint("LEFT", f.Later, "RIGHT", 4, 0)
-		y = y + act:GetHeight() + PAD
+	local row = { act }
+	local avail, total = width - 2 * PAD - STRIPE, act:GetWidth()
+	for _, b in ipairs({ f.More, f.Later, f.Off }) do
+		if b:IsShown() then
+			total = total + (#row == 1 and 8 or 4) + b:GetWidth()
+			row[#row + 1] = b
+		end
 	end
+	local left, used, prev = PAD + STRIPE, 0, nil
+	for _, b in ipairs(row) do
+		b:ClearAllPoints()
+		local gap = prev == act and 8 or 4
+		if prev and used + gap + b:GetWidth() <= avail and not (b == f.Later and total > avail) then
+			b:SetPoint("LEFT", prev, "RIGHT", gap, 0)
+			used = used + gap + b:GetWidth()
+		else
+			if prev then y = y + prev:GetHeight() + 4 end
+			b:SetPoint("TOPLEFT", f, "TOPLEFT", left, -y)
+			used = b:GetWidth()
+		end
+		prev = b
+	end
+	y = y + prev:GetHeight() + PAD
 	f:SetHeight(floor(y + 0.5))
 end
 
@@ -505,7 +518,8 @@ end
 -- Paint and place the card for model m: a class quest's (CT.Model) or
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
--- titleColor, iconColor, act = { label, run }, off = { label, run } }.
+-- titleColor, iconColor, act = { label, run }, more = { label, run },
+-- off = { label, run } }.
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -531,6 +545,8 @@ function CT.ShowCard(m)
 	f.Badge:SetShown(m.badge ~= nil)
 	f.Act:SetShown(m.act ~= nil)
 	if m.act then W.SetButtonText(f.Act, m.act.label) end
+	f.More:SetShown(m.more ~= nil)
+	if m.more then W.SetButtonText(f.More, m.more.label) end
 	f.Off:SetShown(m.off ~= nil)
 	if m.off then W.SetButtonText(f.Off, m.off.label) end
 	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
@@ -545,18 +561,26 @@ function CT.ShowCard(m)
 	return f:IsShown()
 end
 
--- Dismissing a card lets a heads-up that waited for it show (HEADS_UP_HIDDEN).
+-- Dismissing a card lets a heads-up that waited for it show
+-- (HEADS_UP_HIDDEN, with the model dismissed).
 function CT.Hide()
 	local was = CT.current
 	CT.current = nil
 	if f then f:Hide() end
-	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN") end
+	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN", was) end
 end
 
--- Another heads-up's action and its "stop these": the model's own.
+-- Another heads-up's action, its second button and its "stop these": the
+-- model's own.
 function CT.Act()
 	local m = CT.current
 	if m and m.act and m.act.run then return m.act.run(m) end
+	return false
+end
+
+function CT.More()
+	local m = CT.current
+	if m and m.more and m.more.run then return m.more.run(m) end
 	return false
 end
 

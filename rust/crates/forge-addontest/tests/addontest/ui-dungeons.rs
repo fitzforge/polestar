@@ -841,7 +841,7 @@ local DT, CT = Polestar.UI.DungeonToast, Polestar.UI.ClassToast
 -- The Druid's own class quest heads-up (Cat Form at 20) stays out of these; the card waiting for
 -- one is tested with a card shown by hand.
 CT.Check = function() return false end
-local asked = {}
+local asked, pickUp = {}, Polestar.Dungeons.PickUp
 Polestar.Dungeons.PickUp = function(key) asked[#asked + 1] = key return "lookup/pickup/" .. key end
 local function card()
 	local f = CT.frame
@@ -849,7 +849,8 @@ local function card()
 	if not on then return { shown = false } end
 	return { shown = true, dungeon = CT.current and CT.current.dungeon, head = f.Head:GetText(), title = f.Title:GetText(), line = f.Giver:GetText(),
 		badge = f.Badge:IsShown() and f.Badge.Text:GetText() or false, act = f.Act:IsShown() and f.Act.Label:GetText() or false,
-		off = f.Off:IsShown() and f.Off.Label:GetText() or false, later = f.Later:IsShown(), open = f.Open:IsShown(), showMe = f.ShowMe:IsShown() }
+		more = f.More:IsShown() and f.More.Label:GetText() or false, off = f.Off:IsShown() and f.Off.Label:GetText() or false, later = f.Later:IsShown(),
+		open = f.Open:IsShown(), showMe = f.ShowMe:IsShown() }
 end
 local function levelUp(level)
 	stub.fire("PLAYER_LEVEL_UP", level)
@@ -887,6 +888,7 @@ fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_th
 			"line": "2 quests to pick up  ·  Levels 17–24  ·  The Barrens",
 			"badge": "+25% OF A LEVEL",
 			"act": "Pick up the quests",
+			"more": "Open in Dungeons",
 			"off": "Turn these off",
 			"later": true,
 			"open": false,
@@ -1003,22 +1005,139 @@ fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_with
 
 // #869's screenshot: on the guide window at its narrowest the header ("LEVEL 19 · DUNGEON") wrapped and was cut
 // beside the chip, and "Turn these off" ran to the card's edge. Where they don't fit on one line, the chip goes
-// under the header and "Turn these off" under the other two buttons.
+// under the header; where the buttons don't fit in one row, Later and Turn these off take a row of their own
+// under the actions, and no row runs past the card's edge.
 #[test]
-fn on_a_narrow_window_the_chip_goes_under_the_header_and_turn_these_off_under_the_buttons() {
+fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside_the_card() {
 	let out = run(&format!(
 		r#"{HEADS_UP}
 		local w, f = Polestar.UI.GuideFrame.frame, nil
 		levelUp(20)
 		f = CT.frame
+		local names = {{ [f.Act] = "act", [f.More] = "more", [f.Later] = "later", [f.Off] = "off" }}
 		for _, width in ipairs({{ Polestar.UI.MAX_WIDTH, Polestar.UI.MIN_WIDTH }}) do
 			w:SetWidth(width)
 			CT.Place(false)
-			local point, off = f.Badge:GetPoint(1), f.Off:GetPoint(1)
-			emit({{ chip = point, oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(), off = off,
-				row = f.Act:GetWidth() + 8 + f.Later:GetWidth() + 4 + f.Off:GetWidth() <= width - 32 }})
+			local rows, sums, fits = {{ {{}} }}, {{}}, true
+			for _, b in ipairs({{ f.Act, f.More, f.Later, f.Off }}) do
+				local point = b:GetPoint(1)
+				if point == "TOPLEFT" and #rows[#rows] > 0 then rows[#rows + 1] = {{}} end
+				local r = rows[#rows]
+				local gap = #r == 0 and 0 or (r[#r] == "act" and 8 or 4)
+				sums[#rows] = (sums[#rows] or 0) + gap + b:GetWidth()
+				r[#r + 1] = names[b]
+			end
+			for _, s in ipairs(sums) do if s > width - 32 then fits = false end end
+			emit({{ chip = f.Badge:GetPoint(1), oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(),
+				rows = rows, fits = fits }})
 		end"#
 	));
-	assert_eq!(out[0], json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "off": "LEFT", "row": true }), "beside them on a wide window");
-	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "off": "TOPLEFT", "row": false }), "under them at the narrowest");
+	assert_eq!(
+		out[0],
+		json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }),
+		"beside them on a wide window"
+	);
+	assert_eq!(
+		out[1],
+		json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }),
+		"under them at the narrowest"
+	);
+}
+
+// Fitz's design for #836: the card comes at the level-up that opens the dungeon's quests. With Leaders of the
+// Fang (914, Horde, from 18) not yet taken, 16 is below Wailing Caverns' range and at 17 one of its three quests
+// still waits for a later level (two to take: not enough to tell); at 18 all three are open.
+#[test]
+fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		local seen = {{}}
+		for _, n in ipairs({{ 16, 17, 18 }}) do
+			uistub.player.level = n
+			levelUp(n)
+			local c = card()
+			seen[#seen + 1] = c.shown and c.line or false
+		end
+		emit(seen)"#
+	));
+	assert_eq!(out[0], json!([false, false, "3 quests to pick up  ·  Levels 17–24  ·  The Barrens"]));
+}
+
+// The player's faction only: the Deadmines' one quest is the Alliance's, Leaders of the Fang the Horde's.
+#[test]
+fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for_it() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		local function list()
+			local t = {{}}
+			for _, c in ipairs(DT.Candidates(20, "levelup")) do t[#t + 1] = {{ c.key, c.take }} end
+			return t
+		end
+		emit({{ horde = list() }})
+		uistub.player.race, uistub.player.class, uistub.player.faction = "Human", "WARRIOR", "Alliance"
+		UnitRace = function() return "Human", "Human", 1 end
+		UnitFactionGroup = function() return "Alliance", "Alliance" end
+		emit({{ alliance = list() }})"#
+	));
+	assert_eq!(out[0], json!({ "horde": [["wailing-caverns", 3]] }), "the Deadmines has nothing for the Horde");
+	assert_eq!(out[1], json!({ "alliance": [["deadmines", 1], ["wailing-caverns", 2]] }), "Leaders of the Fang is not the Alliance's");
+}
+
+// "Pick up the quests" builds the dungeon's real pick-up guide and opens it in a new tab beside the leveling guide.
+#[test]
+fn pick_up_the_quests_opens_the_dungeons_pick_up_guide_in_a_new_tab() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		Polestar.Dungeons.PickUp = pickUp
+		-- The fake Engine opens only its sample guides: let it open the registered pick-up guide too.
+		setmetatable(uistub.guides, {{ __index = function(_, k) return uistub.realGuides.Get(k) end }})
+		uistub.openTabs({{ {{ uistub.elwynn, 1 }} }}, 1)
+		levelUp(20)
+		CT.frame.Act:Click()
+		local g = Polestar.Engine.GetGuide()
+		local tabs, accepts = {{}}, {{}}
+		for i, t in ipairs(Polestar.Engine.GetTabs()) do tabs[i] = t.guideId end
+		for _, st in ipairs(g and g.steps or {{}}) do
+			for _, goal in ipairs(st.goals or {{}}) do if goal.t == "accept" then accepts[#accepts + 1] = goal.quest end end
+		end
+		table.sort(accepts)
+		emit({{ active = g and g.id or false, tabs = tabs, accepts = accepts, card = card().shown, ui = Polestar.Get("ui.shown") }})"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "active": "lookup/pickup/wailing-caverns", "tabs": ["forever/alliance/human/01-elwynn-forest", "lookup/pickup/wailing-caverns"], "accepts": [959, 1486], "card": false, "ui": true })
+	);
+}
+
+// The nudge to the Dungeons section: "Open in Dungeons" opens the dungeon's page in the hub.
+#[test]
+fn open_in_dungeons_shows_the_dungeons_page_in_the_hub() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		levelUp(20)
+		CT.frame.More:Click()
+		emit({{ section = P.Section(), page = DS.Page() or false, card = card().shown, seen = Polestar.CharState().dungeonToastSeen }})"#
+	));
+	assert_eq!(out[0], json!({ "section": "Dungeons", "page": "wailing-caverns", "card": false, "seen": { "wailing-caverns": true } }));
+}
+
+// A level-up while the guide window is hidden: the card waits for the window and the dungeon is told only once
+// it has been on screen, so a /reload before then doesn't lose it.
+#[test]
+fn with_the_guide_window_hidden_the_card_waits_for_it_and_the_dungeon_is_told_once_shown() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local w = Polestar.UI.GuideFrame.frame
+		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
+		w:Hide()
+		levelUp(20)
+		emit({{ shown = card().shown, told = told() }})
+		w:Show()
+		stub.advance(1)
+		emit({{ shown = card().dungeon or false, told = told() }})"#
+	));
+	assert_eq!(out[0], json!({ "shown": false, "told": false }));
+	assert_eq!(out[1], json!({ "shown": "wailing-caverns", "told": true }));
 }
