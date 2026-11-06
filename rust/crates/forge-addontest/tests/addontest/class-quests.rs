@@ -645,3 +645,21 @@ fn the_giver_is_the_one_for_the_characters_race_and_without_a_class_guide_show_m
 	assert_eq!(out[1], json!({ "orcStart": false, "undeadStart": true }));
 	assert_eq!(out[2], json!({ "target": "Ageron Kargal", "map": 1420, "shown": false }));
 }
+
+// Fitz, 2026-11-05: "NEW WEAPON" crowded the quest's name. With a badge the title starts
+// below the badge (10 down, 20 high) with a gap, never beside or under it.
+#[test]
+fn the_class_card_title_starts_below_the_reward_badge() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		local _, _, _, _, ty = f.Title:GetPoint(1)
+		local _, _, _, _, by = f.Badge:GetPoint(1)
+		emit({ badge = f.Badge:IsShown(), titleTop = -ty, badgeBottom = -by + f.Badge:GetHeight() })"#,
+	);
+	let r = &out[0];
+	assert_eq!(r["badge"], true, "{r}");
+	assert!(r["titleTop"].as_f64().unwrap() >= r["badgeBottom"].as_f64().unwrap() + 4.0, "{r}");
+}
