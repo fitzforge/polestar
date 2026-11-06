@@ -66,11 +66,7 @@ jobs:
       - name: Translations
         run: $FORGE i18n check --root .
 
-      # The textures are generated from code alone, so CI rebuilds them to
-      # verify the generators work. Committed copies are kept fresh by the
-      # maintainer after merging PRs that touch tools/media (polestar regen).
-      - name: Textures build clean
-        run: node tools/polestar.js media
+      # The textures build in textures.yml, only when their inputs change.
 
       # The UI renders are generated from the addon's Lua and frozen fixtures
       # (no reference data, no shipped guides). CI renders them to verify the

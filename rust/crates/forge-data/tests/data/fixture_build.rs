@@ -389,6 +389,49 @@ fn a_site_that_never_answers_fails_its_lookup_instead_of_stalling() {
 	held.join().unwrap();
 }
 
+/// A tiny HTTP server answering one request per status in `statuses`, in order; returns the URL and
+/// the User-Agent of each request.
+fn answering(statuses: &'static [u16]) -> (String, std::thread::JoinHandle<Vec<String>>) {
+	use std::io::{BufRead, Write};
+	let l = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
+	let url = format!("http://{}/db2/UiMap/csv?build=1.60.1.1", l.local_addr().unwrap());
+	let server = std::thread::spawn(move || {
+		let mut agents = Vec::new();
+		for status in statuses {
+			let (mut c, _) = l.accept().unwrap();
+			let mut r = std::io::BufReader::new(c.try_clone().unwrap());
+			let mut line = String::new();
+			while r.read_line(&mut line).unwrap() > 0 && line != "\r\n" {
+				if let Some(ua) = line.to_ascii_lowercase().strip_prefix("user-agent:") {
+					agents.push(ua.trim().to_string());
+				}
+				line.clear();
+			}
+			let body = "ID\n1\n";
+			write!(c, "HTTP/1.1 {status} X\r\ncontent-length: {}\r\nconnection: close\r\n\r\n{body}", body.len()).unwrap();
+		}
+		agents
+	});
+	(url, server)
+}
+
+#[test]
+fn a_wago_outage_status_is_retried_and_names_us_each_time() {
+	let ms = std::time::Duration::from_millis;
+	let (url, server) = answering(&[522, 500, 200]);
+	let http = forge_data::sources::Http::new(ms(2000), "polestar-data-build").retrying(vec![ms(10), ms(10)]);
+	assert_eq!(http.get(&url, 1024).unwrap().as_deref(), Some(&b"ID\n1\n"[..]));
+	assert_eq!(server.join().unwrap(), vec!["polestar-data-build"; 3]);
+	// Out of retries: the last status is the error; a 404 is not retried.
+	let (url, server) = answering(&[521, 503]);
+	let e = forge_data::sources::Http::new(ms(2000), "forge-test").retrying(vec![ms(10)]).get(&url, 1024).unwrap_err();
+	assert!(e.ends_with("HTTP 503"), "{e}");
+	server.join().unwrap();
+	let (url, server) = answering(&[404]);
+	assert_eq!(forge_data::sources::Http::new(ms(2000), "forge-test").retrying(vec![ms(10)]).get(&url, 1024).unwrap(), None);
+	server.join().unwrap();
+}
+
 #[test]
 fn the_source_cache_works_offline_once_filled_and_fails_clearly_without_it() {
 	// A cached table is read as it is, whatever the network (wago_table never fetches it again).

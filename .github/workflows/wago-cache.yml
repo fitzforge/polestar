@@ -1,0 +1,90 @@
+name: wago.tools cache
+
+# The client tables CI reads from wago.tools (data/sources/wago/<build>/<Table>.csv): the public
+# data build's (forge data sources --only wago) and GameArt.lua's atlas tables (polestar media
+# game-art). wago.tools is a free community site, so CI asks it once per client build: this
+# workflow fills the Actions cache, and Textures and Data corrections restore the newest copy and
+# read it offline. Their pull requests then make no request to wago.tools, and a wago.tools outage
+# blocks no merge.
+#
+# Weekly (a new client build is picked up within a week), by hand, and when the code that picks or
+# fetches the tables changes. It runs on next, whose caches every pull request can read. Each run
+# starts from the month's newest copy, so a cached build is never fetched again; a new month (or a
+# change to that code: the key holds its hash) starts empty, which drops old builds' tables. If
+# wago.tools is down, the run keeps the cached builds; if it fails, the consumers keep the copy
+# before it.
+on:
+  schedule:
+    - cron: "23 5 * * 1"
+  workflow_dispatch:
+  push:
+    branches: [next]
+    paths:
+      - "tools/lib/data/wago.js"
+      - "tools/media/game-art.js"
+      - "rust/crates/forge-data/src/sources.rs"
+      - "rust/crates/forge-data/src/tables.rs"
+      - ".github/workflows/wago-cache.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: wago-cache
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+
+jobs:
+  fill:
+    name: Fill the client tables cache
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      - uses: dtolnay/rust-toolchain@b725eda525362e7cf34af9a7243cac1e3f01a7ec # stable
+        with:
+          toolchain: stable
+
+      - uses: Swatinem/rust-cache@d1527c8f67ef9af357290475d4af4b0fab8f12e0 # v2.9.3
+        with:
+          workspaces: rust
+
+      - name: Build forge
+        working-directory: rust
+        run: cargo build --release --locked -p forge
+
+      # wago-<hash of the code that picks and fetches the tables>-<month>-<run>. The consumers
+      # restore by the hash prefix alone.
+      - name: Client tables key
+        id: key
+        run: |
+          prefix="wago-${{ hashFiles('tools/lib/data/wago.js', 'tools/media/game-art.js', 'rust/crates/forge-data/src/sources.rs', 'rust/crates/forge-data/src/tables.rs') }}-$(date -u +%Y-%m)-"
+          echo "prefix=$prefix" >> "$GITHUB_OUTPUT"
+
+      - name: Client tables (cache)
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/sources/wago
+          key: ${{ steps.key.outputs.prefix }}${{ github.run_id }}
+          restore-keys: ${{ steps.key.outputs.prefix }}
+
+      # Each asks wago.tools for its newest build list once, and fetches only the tables of a build
+      # not cached yet (a 429/5xx is retried; with wago.tools down, the newest cached build is kept).
+      - name: Data build tables
+        run: rust/target/release/forge data sources --root . --only wago --forever-tables wago
+
+      - name: Atlas tables
+        run: node tools/polestar.js media game-art
+
+      - name: Cached builds
+        run: du -sh data/sources/wago/* | tee -a "$GITHUB_STEP_SUMMARY"

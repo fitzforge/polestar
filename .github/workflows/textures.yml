@@ -1,0 +1,79 @@
+name: Textures
+
+# The textures are generated from code alone (and Theme/GameArt.lua from the client's atlas
+# tables), so CI rebuilds them to verify the generators work, when a generator or its inputs
+# change. Committed copies are kept fresh by the maintainer after merging PRs that touch
+# tools/media (polestar regen). The atlas tables come from the Actions cache wago-cache.yml fills
+# and are read offline: no request to wago.tools unless the pull request changed the code that
+# picks or fetches them (then it fetches what the cache lacks, as wago-cache.yml would).
+on:
+  push:
+    branches: [main, next]
+    paths:
+      - "tools/media/**"
+      - "tools/commands/media.js"
+      - "tools/lib/tga.js"
+      - "tools/lib/data/wago.js"
+      - "tools/lib/data/csv.js"
+      - "tools/lib/paths.js"
+      - "tools/preview/font.js"
+      - "addon/Polestar/Theme/**"
+      - ".github/workflows/textures.yml"
+  pull_request:
+    paths:
+      - "tools/media/**"
+      - "tools/commands/media.js"
+      - "tools/lib/tga.js"
+      - "tools/lib/data/wago.js"
+      - "tools/lib/data/csv.js"
+      - "tools/lib/paths.js"
+      - "tools/preview/font.js"
+      - "addon/Polestar/Theme/**"
+      - ".github/workflows/textures.yml"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: textures-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  textures:
+    name: Textures build clean
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
+        with:
+          node-version: 24
+
+      # The cache key's prefix for this code, as wago-cache.yml makes it.
+      - name: Client tables key
+        id: key
+        run: echo "prefix=wago-${{ hashFiles('tools/lib/data/wago.js', 'tools/media/game-art.js', 'rust/crates/forge-data/src/sources.rs', 'rust/crates/forge-data/src/tables.rs') }}-" >> "$GITHUB_OUTPUT"
+
+      # The newest copy made by this code; else the newest of any, which the online run starts from.
+      - name: Client tables (cache)
+        id: wago
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: data/sources/wago
+          key: ${{ steps.key.outputs.prefix }}
+          restore-keys: |
+            ${{ steps.key.outputs.prefix }}
+            wago-
+
+      - name: Textures build clean
+        env:
+          PREFIX: ${{ steps.key.outputs.prefix }}
+          MATCHED: ${{ steps.wago.outputs.cache-matched-key }}
+        run: |
+          case "$MATCHED" in
+            "$PREFIX"*) node tools/polestar.js media --offline ;;
+            *) node tools/polestar.js media ;;
+          esac

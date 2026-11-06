@@ -79,7 +79,7 @@ command and exit 2.
 | `codex parity` | The release Codex against the last `--local-extras` build, per kind: `data/local/codex-parity.{json,md}` |
 | `nav pack` / `nav check` | Moved to forge: `forge nav pack` writes Polestar's walking maps into `addon/Polestar_Nav`, `forge nav check` holds them to `PACK.json`; see [docs/forge/nav.md](../docs/forge/nav.md#the-walking-maps-forge-nav-pack-forge-nav-check) |
 | `nav eval` | The walking router run standalone on a folder's maps (`--nav`, default `addon/Polestar_Nav`): the route corpus with each route's metrics and expectations, `--sweep` the guide goals per zone and side, `--baseline` another folder or report with the acceptance checks A1-A8, `--style fastest\|balanced\|roads` (default balanced) the route style every search is priced in (the summary line names it), `--out` the whole report |
-| `media` | Regenerates the addon's textures from `tools/media/*.js` |
+| `media` | Regenerates the addon's textures from `tools/media/*.js`; `--offline` reads the client tables game-art needs from `data/sources/wago` only (no download) |
 | `readme brand` / `readme charts` | Redraws the README's art: the banners, emblem, logo, download, CurseForge and Polestar Client buttons and the CurseForge avatar / the route chart (from two `forge judge check` results); both also export the CurseForge listing's PNGs when `rsvg-convert` is installed |
 
 ### Translating
