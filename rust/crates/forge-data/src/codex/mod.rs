@@ -1,6 +1,7 @@
 //! `forge data codex` (the port of the JS `codex build`), offline: data/forever/*.json + the Forever
-//! client's cached wago.tools tables + the cached web facts + the installed ForeverLevelingBiS +
-//! Polestar's guides and curated tables -> data/forever/codex/*.json and the pack
+//! client's cached wago.tools tables + the cached web facts + the recorded item sources
+//! (data/codex/recorded.json) + Polestar's guides and curated tables -> data/forever/codex/*.json
+//! and the pack
 //! addon/Polestar_Codex. Byte for byte the JS build's output. `--local-extras` (`Options::local_extras`)
 //! also merges the installed AtlasLoot and RareScanner and dungeons.json, skips the web facts, and
 //! marks the build local (this machine only).
@@ -19,6 +20,7 @@ pub mod merge;
 pub mod pack;
 pub mod parity;
 pub mod rarescanner;
+pub mod recorded;
 pub mod spawns;
 pub mod util;
 
@@ -42,7 +44,7 @@ pub struct Options {
 	pub data_dir: PathBuf,
 	/// data/sources (default <root>/data/sources).
 	pub sources_dir: PathBuf,
-	/// The Forever client's Interface/AddOns (None: detected).
+	/// The Forever client's Interface/AddOns, read by a --local-extras build only (None: detected).
 	pub addons: Option<PathBuf>,
 	/// wago.tools Forever build (None: the newest cached one holding every table).
 	pub build: Option<String>,
@@ -116,13 +118,15 @@ pub struct Inputs {
 	pub atlasloot: Option<V>,
 	pub rarescanner: Option<V>,
 	pub local_extras: bool,
-	/// ForeverLevelingBiS: { meta, items, quests } (JS shapes).
-	pub flbis: Option<V>,
+	/// Item sources from players' recordings: data/codex/recorded.json (`recorded::load`).
+	pub recorded: V,
 	pub client: Option<ClientFacts>,
 	/// The cached web facts: { npc, object, item, spell, listed }.
 	pub web: Option<V>,
 	pub curated: Vec<f64>,
 	pub curated_gates: V,
+	/// The vendors our curated guides buy their items at (`curated_vendors`): { item: [npc] }.
+	pub curated_vendors: V,
 	pub entrances: Vec<GuideGoto>,
 	pub entrance_table: V,
 	pub rep_table: V,
@@ -321,6 +325,43 @@ fn curated_rep_gates(texts: &[String]) -> V {
 	V::Obj(out)
 }
 
+/// `curatedVendors(dir)`: in a guide that collects an item, every `buy <item> ... npc <id>` step
+/// names a vendor of it -> { item: [npc] } (a Forever-only mount the quest data has no vendor for:
+/// the Reins of the Striped Dawnsaber at Lelanai). A step for some races or classes only still
+/// names the vendor (the standing it may need is `curatedRepGates`').
+pub fn curated_vendors_in(dir: &Path) -> V {
+	curated_vendors(&guide_texts(dir))
+}
+
+fn curated_vendors(texts: &[String]) -> V {
+	static COMMENT: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\s--.*$").unwrap());
+	static BUY: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^buy\s+([0-9]+)(?-u:\b).*(?-u:\b)npc\s+([0-9]+)").unwrap());
+	let mut out: std::collections::BTreeMap<i64, Vec<f64>> = std::collections::BTreeMap::new();
+	for text in texts {
+		let collects = collects_of(text);
+		if collects.is_empty() {
+			continue;
+		}
+		for line in text.split('\n') {
+			let goal = COMMENT.replace(line.strip_suffix('\r').unwrap_or(line), "");
+			let Some(b) = BUY.captures(goal.trim_matches(util::is_js_space)) else { continue };
+			let item = forge_guide::js::str_to_num(&b[1]);
+			let npc = forge_guide::js::str_to_num(&b[2]);
+			if collects.contains(&item) {
+				let l = out.entry(item as i64).or_default();
+				if !l.contains(&npc) {
+					l.push(npc);
+				}
+			}
+		}
+	}
+	let o = Obj::new();
+	for (item, npcs) in out {
+		o.set(&item.to_string(), V::from(npcs.into_iter().map(V::Num).collect::<Vec<V>>()));
+	}
+	V::Obj(o)
+}
+
 /// `loadRepGateTable()`.
 fn load_rep_gate_table(file: &Path) -> Result<V, String> {
 	let out = Obj::new();
@@ -375,16 +416,15 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 	let web = if opts.local_extras { None } else { Some(load_web(&opts.sources_dir)?) };
 	let mut warnings = Vec::new();
 	let (mut atlasloot, mut rarescanner) = (None, None);
-	let dir = match &opts.addons {
-		Some(p) => p.is_dir().then(|| std::path::absolute(p).unwrap_or_else(|_| p.clone())),
-		None => crate::questie::search_addons_dirs().into_iter().next(),
-	};
-	let mut flbis = None;
-	match &dir {
-		None => warnings.push(format!("no Forever AddOns folder found (pass --addons): ForeverLevelingBiS{} skipped", if opts.local_extras { ", AtlasLoot and RareScanner" } else { "" })),
-		Some(dir) => {
-			log(&format!("reading addons in {}", dir.display()));
-			if opts.local_extras {
+	if opts.local_extras {
+		let dir = match &opts.addons {
+			Some(p) => p.is_dir().then(|| std::path::absolute(p).unwrap_or_else(|_| p.clone())),
+			None => crate::questie::search_addons_dirs().into_iter().next(),
+		};
+		match &dir {
+			None => warnings.push("no Forever AddOns folder found (pass --addons): AtlasLoot and RareScanner skipped".to_string()),
+			Some(dir) => {
+				log(&format!("reading addons in {}", dir.display()));
 				let al = atlasloot::read_atlasloot(dir)?;
 				let rs = rarescanner::read_rarescanner(dir)?;
 				for w in al.get("meta").get("warnings").items().into_iter().chain(rs.get("meta").get("warnings").items()) {
@@ -392,20 +432,6 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 				}
 				atlasloot = Some(al);
 				rarescanner = Some(rs);
-			}
-			let flb_dir = dir.join("ForeverLevelingBiS");
-			if let Some(refusal) = crate::gear::flb::not_mit_refusal(&flb_dir) {
-				return Err(refusal);
-			}
-			match crate::gear::flb::read_forever_leveling_bis(&flb_dir) {
-				Ok(f) => {
-					let o = Obj::new();
-					o.set("meta", V::Obj(f.meta));
-					o.set("items", V::Obj(f.items));
-					o.set("quests", V::Obj(f.quests));
-					flbis = Some(V::Obj(o));
-				}
-				Err(e) => warnings.push(e),
 			}
 		}
 	}
@@ -454,11 +480,12 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		atlasloot,
 		rarescanner,
 		local_extras: opts.local_extras,
-		flbis,
+		recorded: recorded::load(&lib.join(recorded::FILE))?,
 		client: Some(cl),
 		web,
 		curated: curated_collects(&texts),
 		curated_gates: curated_rep_gates(&texts),
+		curated_vendors: curated_vendors(&texts),
 		entrances: instances::curated_entrances(&guides),
 		entrance_table,
 		rep_table: load_rep_gate_table(&lib.join("repgates.json"))?,
@@ -487,7 +514,7 @@ fn sources_meta(inputs: &Inputs) -> V {
 	for s in inputs.forever.meta.get("sources").items() {
 		out.push(source(&s.get("name").to_js_string(), first_truthy(&[s.get("revision"), s.get("version")]), first_truthy(&[s.get("license"), s.get("licence")])));
 	}
-	for (x, name, licence) in [(&inputs.atlasloot, "AtlasLootClassic", "GPL-2.0"), (&inputs.rarescanner, "RareScanner", "All Rights Reserved"), (&inputs.flbis, "ForeverLevelingBiS", "MIT")] {
+	for (x, name, licence) in [(&inputs.atlasloot, "AtlasLootClassic", "GPL-2.0"), (&inputs.rarescanner, "RareScanner", "All Rights Reserved")] {
 		if let Some(x) = x {
 			let m = x.get("meta");
 			out.push(source(name, first_truthy(&[m.get("version")]), first_truthy(&[m.get("licence"), V::str(licence)])));
@@ -540,6 +567,9 @@ fn sources_meta(inputs: &Inputs) -> V {
 			V::str(&format!("{na} attunements")),
 			V::str("Facts only (quest and item ids), each entry with its sources"),
 		));
+	}
+	if let Some(s) = recorded::source_meta(&inputs.recorded) {
+		out.push(s);
 	}
 	let nj = inputs.journal_quests.len();
 	if nj > 0 {

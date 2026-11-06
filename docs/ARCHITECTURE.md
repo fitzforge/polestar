@@ -26,7 +26,7 @@ one into the other. The addons:
 | `Polestar` (`addon/Polestar/`) | The addon: engine, navigation, quests, gear, maps, quality of life, Lookup, Dungeons, Rares and every window | hand-written, plus a few generated data files | yes | yes |
 | `Polestar_Guides` (`addon/Polestar_Guides/`, with `Polestar_Guides_Alliance` and `Polestar_Guides_Horde`) | Polestar's own pack (pack id `guides`): the factionless guides, and each faction's in a part loaded on demand, the player's faction's with the pack (PACK_FORMAT, "Format 8") | `compile`, from `guides/` | yes (generated) | yes |
 | community addons | Addons by other authors (`X-Polestar-Pack` in their TOC; `docs/PACKS.md`, `docs/PACK_FORMAT.md`) | the same compiler, from their own repositories | in their own repositories | by their authors |
-| `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`), then `forge data gear` (`Forever.lua`) | yes (generated) | yes |
+| `Polestar_ItemDB` (`addon/Polestar_ItemDB/`) | Item stats and Forever reward choices for the gear advice; loaded on demand | `forge data itemdb` (`Items.lua`, Classic Era client tables), then `forge data gear` (`Forever.lua`: Forever's item stats from the Forever client's tables and its hotfixes, quest gear from the Codex) | yes (generated) | yes |
 | `Polestar_<locale>` (`addon/Polestar_deDE/` … `zhTW/`) | The language folder of one client language: our guides' texts (`Texts.lua`, for `Polestar.GuideTexts`) and the quest, NPC, object and item names (`Names.lua`, for `Polestar.Names`); loaded on demand, only the client's own, never in English. It replaced `Polestar_Guides_<locale>` and `Polestar_Names_<locale>` in 0.3.0 | `forge guide compile` (`Texts.lua`) and `forge data names` (`Names.lua`, from the client's tables, DingDB (pinned) and pfQuest); each writes the one TOC alike (`forge_guide::toc::language_toc`) and leaves the other's file alone | yes (generated) | yes |
 | `Polestar_QuestDB` (`addon/Polestar_QuestDB/`) | The quest database behind quest markers and tooltips; loaded on demand | `forge data questdb` | no (local, gitignored) | yes, when built |
 | `Polestar_Codex` (`addon/Polestar_Codex/`) | Lookup's Codex, and the Dungeons and Rares data; loaded on demand | `forge data codex`, from release-safe inputs (`--local-extras` builds a local-only one) | no (generated, gitignored) | yes, always: `pack` fails without it |
@@ -4474,7 +4474,7 @@ objective line in the client's language (`Dungeons.ObjectiveText`:
 `Polestar.Names`; an event's line is the quest's own objective summary from
 the names pack, kind `objective`), chain (every prerequisite and breadcrumb of the quest's side,
 all of `pre` and `preAny`, oldest first, at most 20), rewards (items with
-quality, count and choice from recordings and ForeverLevelingBiS, else
+quality, count and choice from recordings, else
 the quest list's rewards, choice versus fixed as the list files them; XP from
 `forever-db/data/quest.jsonl`, else `quests.json`; money, else the list's; reputation from the list's rewards, its
 "+1" placeholders left out, never the standing a quest asks for) and, with
@@ -5649,23 +5649,47 @@ registers through `ZoneArt.RegisterOverlays` the way `MapFrames.lua` and
 
 ### Codex (`codex build`)
 
-`forge data codex [--addons <dir>] [--build <version>] [--out <dir>] [--pack <dir>]` (the release build;
-`--local-extras` adds the local extras)
+`forge data codex [--build <version>] [--out <dir>] [--pack <dir>] [--recordings <dir>]` (the release build;
+`--local-extras [--addons <dir>]` adds the local extras)
 merges `data/forever/*.json` (pfQuest, QuestieDB facts, recordings,
 corrections, web quest list and web XP facts), the Forever client's tables
 (wago.tools, cached under `data/sources/wago/<build>/`: the newest 1.60+
 `wow_classic_beta` build wago.tools lists, as `data build` picks its
 `--forever-build` (`pickBuild` in `tools/lib/data/wago.js`); `--build`
 names one; offline or with wago.tools unreachable, the newest cached build
-holding every table the Codex reads; `meta.json` records it), the installed
-ForeverLevelingBiS (MIT) and Polestar's own guides into
+holding every table the Codex reads; `meta.json` records it), the item
+sources players' recordings show (`data/codex/recorded.json`) and Polestar's
+own guides into
 `data/forever/codex/*.json`, then emits the load-on-demand pack
 `addon/Polestar_Codex/` (`tools/lib/codex/pack.js`) with its
 `LICENSE-DATA.txt`, which lists every source with its version and licence.
 Both are build products (gitignored); the pack is part of the release:
 `pack` puts it in the zip and fails without it, `install` copies it when
-built.
+built. A release build reads no installed addon: ForeverLevelingBiS, once an
+input, went when its author relicensed it (2026-11); the shipped 0.3.2 Codex
+was already built without it.
 
+- Recorded item sources (`codex/recorded.rs`): `data/codex/recorded.json` is a
+  committed snapshot of what players' Recorder sessions saw, so every machine
+  builds the same Codex; `--recordings <dir>` (the maintainer's local archive,
+  or `data/recordings`) rewrites it before the build. Only players that count
+  go in, by the data build's own rule (`recordings::read_recordings`: an
+  Ingest contributor once established, 3 days of history and uploads on 3
+  days; the maintainer's own and vouched-for files always; `config.json`'s
+  `minBuild`, `minVoters`), and only facts without who saw them: per NPC or
+  object the items its loot windows held (NPC loot from a gathering skill
+  left out), with a chance (the median of each player's own share) only
+  when `minVoters` players with 10 loot windows each back it; per NPC its
+  merchant window's items (which also gives it the `vendor` and `sells:*`
+  roles); per quest the reward list most players' accept windows showed
+  (`trusted` when `minVoters` agree). Provenance `recordings`, ranked first.
+  A trusted reward list stands in for the web quest lists' for that quest;
+  an untrusted one only fills a quest no other input gives rewards for.
+- Curated vendors (`curated_vendors`): in a guide that `collects` an item,
+  each `buy <item> ... npc <id>` step is a vendor source (provenance
+  `guides`), whatever races the step is for: the Forever-only racial mounts
+  (the Reins of the Striped Dawnsaber, the White Kodo, the Black Skeletal
+  Horse) have no vendor in the quest data.
 - Release-safe by default. `--local-extras` also merges three inputs that
   may not be redistributed: AtlasLoot (GPL-2.0, incompatible with
   Polestar's GPL-3.0-only), RareScanner (All Rights Reserved) and
@@ -5675,15 +5699,14 @@ built.
   refuses a pack whose sources name any of the three
   (`releaseRefusal` in `tools/lib/codex/pack.js`). It exists for comparison
   on the developer's machine.
-- Importers, one per installed addon, all reading through
+- Importers for `--local-extras`, one per installed addon, all reading through
   `rust/crates/forge-data/src/gear/addonlua.rs` (`read_addon_lua`,
   `addon_version_in`: the installed addon's files run sandboxed in Lua 5.1
-  with the namespace the client passes them): `gear/flb.rs` (ForeverLevelingBiS
-  item sources: quest rewards, drops, crafts); with `--local-extras` also
-  `codex/atlasloot.rs` (DungeonsAndRaids incl. `forever.lua` and `droprate.lua`,
-  Collections, Crafting, Factions, PvP) and `codex/rarescanner.rs` (rares, their
-  loot, treasures, mount and pet items). Each returns plain JSON with a
-  `meta` naming its source, version and licence.
+  with the namespace the client passes them): `codex/atlasloot.rs`
+  (DungeonsAndRaids incl. `forever.lua` and `droprate.lua`, Collections,
+  Crafting, Factions, PvP) and `codex/rarescanner.rs` (rares, their loot,
+  treasures, mount and pet items). Each returns plain JSON with a `meta`
+  naming its source, version and licence.
 - Client tables: `Item`, `ItemSparse` (names, quality, levels, prices, the
   reputation and PvP rank an item requires: rep and pvp sources), `ItemEffect`,
   `ItemXItemEffect`, `SpellEffect`, `SpellName`, `SkillLine`,
@@ -5823,8 +5846,8 @@ built.
   repFaction, repStanding, reqSkill, reqSkillRank, status, sources }`; a source
   is `{ type: vendor|drop|object|quest|craft|rep|pvp|
   container|world, from, ... }`), `npcs.json`, `objects.json`, `quests.json`
-  (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings
-  and ForeverLevelingBiS, `xp` = the full XP reward from `data/forever/quests.json`
+  (with `pre` = every blocking prerequisite, `preAny`, rewards from recordings,
+  the curated tables and the web quest lists, `xp` = the full XP reward from `data/forever/quests.json`
   where known (what a guide or dungeon is worth in levels: Core/Levels.lua),
   and `web` on each quest Forever's zone,
   dungeon and raid lists carry: `{ zone, type, side, choices, items, money,

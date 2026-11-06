@@ -31,7 +31,7 @@ pub const SCHEMA: u32 = 1;
 pub const SIZE_BUDGET: usize = 1024 * 1024;
 pub const COMMAND: &str = "forge data itemdb";
 
-const EQUIPPABLE: [i64; 23] = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20, 21, 22, 23, 25, 26, 28];
+pub(crate) const EQUIPPABLE: [i64; 23] = [1, 2, 3, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 20, 21, 22, 23, 25, 26, 28];
 const SOD_ITEM_MIN: i64 = 190000;
 const ALL_MAGIC: i64 = 126;
 
@@ -62,7 +62,7 @@ fn school(m: i64) -> Option<&'static str> {
 }
 
 /// stats.js `int`: `Math.trunc(Number(v))`, 0 when not finite.
-fn int(r: &Row, c: &str) -> i64 {
+pub(crate) fn int(r: &Row, c: &str) -> i64 {
 	let n = crate::jsv::col_num(r, c);
 	if n.is_finite() {
 		n.trunc() as i64
@@ -71,9 +71,9 @@ fn int(r: &Row, c: &str) -> i64 {
 	}
 }
 
-type Stats = Vec<(String, f64)>;
+pub(crate) type Stats = Vec<(String, f64)>;
 
-fn add(stats: &mut Stats, key: &str, n: i64) {
+pub(crate) fn add(stats: &mut Stats, key: &str, n: i64) {
 	if n == 0 {
 		return;
 	}
@@ -83,15 +83,16 @@ fn add(stats: &mut Stats, key: &str, n: i64) {
 	}
 }
 
-/// One equip spell's aura effects -> stats.
-fn equip_stats(effects: &[&Row], stats: &mut Stats) {
+/// One equip spell's aura effects -> stats. The amount is EffectBasePoints + EffectDieSides (Era's
+/// columns), or EffectBasePointsF where the table has no EffectBasePoints (Forever's).
+pub(crate) fn equip_stats(effects: &[&Row], stats: &mut Stats) {
 	let mut auras: FxHashMap<i64, i64> = FxHashMap::default();
 	for e in effects {
 		if int(e, "Effect") != 6 || int(e, "DifficultyID") != 0 {
 			continue;
 		}
 		let aura = int(e, "EffectAura");
-		let amount = int(e, "EffectBasePoints") + int(e, "EffectDieSides");
+		let amount = if e.contains_key("EffectBasePoints") { int(e, "EffectBasePoints") + int(e, "EffectDieSides") } else { int(e, "EffectBasePointsF") };
 		let misc = int(e, "EffectMiscValue_0");
 		auras.insert(aura, amount);
 		match aura {
@@ -132,27 +133,42 @@ fn equip_stats(effects: &[&Row], stats: &mut Stats) {
 	}
 }
 
-struct Index<'a> {
-	class: FxHashMap<i64, (i64, i64)>,
-	equip: FxHashMap<i64, Vec<i64>>,
-	effects: FxHashMap<i64, Vec<&'a Row>>,
+pub(crate) struct Index<'a> {
+	pub class: FxHashMap<i64, (i64, i64)>,
+	pub equip: FxHashMap<i64, Vec<i64>>,
+	pub effects: FxHashMap<i64, Vec<&'a Row>>,
 }
 
-fn index_tables<'a>(item: &'a Rows, item_effect: &'a Rows, spell_effect: &'a Rows) -> Index<'a> {
+/// Item class/subclass, each item's on-equip spells and those spells' effects. Era names the item
+/// in ItemEffect.ParentItemID; Forever links them in ItemXItemEffect (`item_x`).
+pub(crate) fn index_tables<'a>(item: &'a Rows, item_effect: &'a Rows, item_x: Option<&'a Rows>, spell_effect: &'a Rows) -> Index<'a> {
 	let mut class = FxHashMap::default();
 	for r in item {
 		class.insert(int(r, "ID"), (int(r, "ClassID"), int(r, "SubclassID")));
 	}
 	let mut equip: FxHashMap<i64, Vec<i64>> = FxHashMap::default();
-	for r in item_effect {
-		if int(r, "TriggerType") != 1 {
-			continue;
+	let mut push = |it: i64, r: &Row| {
+		let spell = int(r, "SpellID");
+		if int(r, "TriggerType") == 1 && it != 0 && spell != 0 {
+			equip.entry(it).or_default().push(spell);
 		}
-		let (it, spell) = (int(r, "ParentItemID"), int(r, "SpellID"));
-		if it == 0 || spell == 0 {
-			continue;
+	};
+	match item_x {
+		Some(links) => {
+			let by_id: FxHashMap<i64, &Row> = item_effect.iter().map(|r| (int(r, "ID"), r)).collect();
+			let mut links: Vec<(i64, i64)> = links.iter().map(|r| (int(r, "ItemID"), int(r, "ItemEffectID"))).collect();
+			links.sort_unstable();
+			for (it, eff) in links {
+				if let Some(r) = by_id.get(&eff) {
+					push(it, r);
+				}
+			}
 		}
-		equip.entry(it).or_default().push(spell);
+		None => {
+			for r in item_effect {
+				push(int(r, "ParentItemID"), r);
+			}
+		}
 	}
 	let wanted: rustc_hash::FxHashSet<i64> = equip.values().flatten().copied().collect();
 	let mut effects: FxHashMap<i64, Vec<&Row>> = FxHashMap::default();
@@ -168,7 +184,7 @@ fn index_tables<'a>(item: &'a Rows, item_effect: &'a Rows, spell_effect: &'a Row
 	Index { class, equip, effects }
 }
 
-fn skip_name() -> regex::Regex {
+pub(crate) fn skip_name() -> regex::Regex {
 	regex::Regex::new(r"(?i)^Monster - |\bdeprecated\b|^(QA)?test\b|\[PH\]|\bunused\b|\bDEBUG\b").unwrap()
 }
 
@@ -224,7 +240,7 @@ fn extract_item(row: &Row, index: &Index, skip: &regex::Regex) -> Result<Rec, &'
 
 /// ItemSparse, Item, ItemEffect, SpellEffect rows -> (records by id, left out: reason -> count).
 pub fn extract_items(sparse: &Rows, item: &Rows, item_effect: &Rows, spell_effect: &Rows) -> (Vec<Rec>, BTreeMap<&'static str, usize>) {
-	let index = index_tables(item, item_effect, spell_effect);
+	let index = index_tables(item, item_effect, None, spell_effect);
 	let skip = skip_name();
 	let mut items = Vec::new();
 	let mut skipped = BTreeMap::new();

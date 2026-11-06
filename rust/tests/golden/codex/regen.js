@@ -5,7 +5,6 @@
 // - data: the world slice's data/forever plus the professions golden's professions.json (one folder);
 // - sources: input/sources (client table slices; no web quest database cache);
 // - guides: the guide golden's slice (../guide/slice/forever);
-// - addons: the gear golden's synthetic MIT ForeverLevelingBiS (../gear/input/AddOns);
 // - data/codex/*.json: the checkout's own (input/root/data/codex holds copies for the Rust);
 // - version 0.2.6, no pack memory measure (lua5.1), no parity build to compare with.
 // expected/: codex/*.json, Polestar_Codex/*, warnings.txt; files over 64 KiB gzipped (<name>.gz).
@@ -35,7 +34,6 @@ for (const f of fs.readdirSync(path.join(here, 'input/root/data/codex'))) {
 	fs.rmSync(out, { recursive: true, force: true });
 	process.chdir(tmp);
 	const res = await buildCodex({
-		addons: path.join(here, '../gear/input/AddOns'),
 		offline: true,
 		dataDir: data,
 		sourcesDir: path.join(here, 'input/sources'),

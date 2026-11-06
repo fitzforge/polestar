@@ -167,11 +167,17 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 		}
 		"codex" => {
 			// codex build: --data, --sources, --addons, --build, --out (json), --pack; --local-extras also
-			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only).
+			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only);
+			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder.
 			let local_extras = args.iter().any(|a| a == "--local-extras");
-			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack"])?;
+			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
+			if let Some(dir) = get("--recordings").map(abs) {
+				let file = root.join("data").join("codex").join(forge_data::codex::recorded::FILE);
+				std::fs::write(&file, forge_data::codex::recorded::export(&dir)?).map_err(|e| format!("{}: {e}", file.display()))?;
+				eprintln!("wrote {} from the recordings in {}", file.display(), dir.display());
+			}
 			let mut o = forge_data::codex::Options::new(&root);
 			if let Some(d) = get("--data") {
 				o.data_dir = abs(d);
@@ -225,15 +231,29 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			println!("{}", out.summary(&file));
 		}
 		_ => {
-			let kv = pairs(args, &["--root", "--addons", "--wowsims", "--built-at"])?;
+			let offline = args.iter().any(|a| a == "--offline");
+			let args: Vec<String> = args.into_iter().filter(|a| a != "--offline").collect();
+			let kv = pairs(args, &["--root", "--sources", "--data", "--build", "--hotfixes", "--wowsims", "--built-at"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
 			let built_at = match get("--built-at") {
 				Some(b) => build::parse_iso(&b)?,
 				None => build::now_iso(),
 			};
-			let o = forge_data::gear::Options { root: root.clone(), addons: get("--addons").map(abs), wowsims_cache: get("--wowsims").map(abs), built_at };
-			let out = forge_data::gear::build(&o)?;
+			let o = forge_data::gear::Options {
+				root: root.clone(),
+				sources: get("--sources").map(abs),
+				data: get("--data").map(abs),
+				build: get("--build"),
+				hotfixes: get("--hotfixes").map(abs),
+				offline,
+				wowsims_cache: get("--wowsims").map(abs),
+				built_at,
+			};
+			let out = forge_data::gear::build_logged(&o, &|m| eprintln!("{m}"))?;
+			for w in &out.warnings {
+				eprintln!("warning: {w}");
+			}
 			for (rel, text) in &out.files {
 				let f = root.join(rel);
 				std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;

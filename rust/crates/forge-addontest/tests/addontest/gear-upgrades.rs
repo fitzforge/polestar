@@ -210,8 +210,8 @@ fn reward_item_tooltips_best_pick_on_an_upgrade_pick_reward_pick_naming_it_on_th
 
 #[test]
 fn racials_mace_specialization_makes_a_dwarf_shaman_a_forever_pair_prefer_the_mace_an_orc_the_axe() {
-	const R: &str = r#"G.RACIALS[3] = { weaponCrit = { pct = 1, subclasses = { [4] = true, [5] = true } } }
-		G.RACIALS[2] = { weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } }
+	const R: &str = r#"G.RACIALS[3] = { { name = "Mace Specialization", weaponCrit = { pct = 1, subclasses = { [4] = true, [5] = true } } } }
+		G.RACIALS[2] = { { name = "Axe Specialization", weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } } }
 		G.RefreshPlayer()"#;
 	let dwarf = run_with(
 		&format!(r#"{R}; emit(G.ScoreItem("item:9106") > G.ScoreItem("item:9107"))"#),
@@ -225,6 +225,33 @@ fn racials_mace_specialization_makes_a_dwarf_shaman_a_forever_pair_prefer_the_ma
 	.remove(0);
 	assert_eq!(dwarf, true);
 	assert_eq!(orc, true);
+}
+
+// A race's traits apply to the classes in their classMask: Forever's Expansive Mind (+5% maximum mana) is for the
+// Gnome's mana classes only (mask 400: Priest, Mage, Warlock); traits multiply together.
+#[test]
+fn racial_traits_apply_to_their_classes_and_multiply_together() {
+	const R: &str = r#"G.RACIALS[7] = { { name = "Expansive Mind", classMask = 400, statMult = { int = 1.05 } }, { name = "Sharp", statMult = { int = 1.1, spi = 1.02 } } }
+		G.RefreshPlayer()
+		emit(G.GetRacial())"#;
+	let gnome = |cls: &'static str, class_name: &'static str, class_id: i32| Opts { cls, class_name, class_id, race: "Gnome", race_id: 7, faction: "Alliance", ..Default::default() };
+	let mage = run_with(R, gnome("MAGE", "Mage", 8)).remove(0);
+	let warrior = run_with(R, gnome("WARRIOR", "Warrior", 1)).remove(0);
+	assert!((mage["statMult"]["int"].as_f64().unwrap() - 1.155).abs() < 1e-9, "{mage}");
+	assert_eq!(warrior, json!({ "statMult": { "int": 1.1, "spi": 1.02 } }));
+}
+
+// The shipped traits (SpecData.lua, from the Forever client's racial spells) are lists of named traits.
+#[test]
+fn the_shipped_racial_traits_are_named_trait_lists() {
+	let out = run(r#"local bad = {}
+		for race, traits in pairs(G.RACIALS) do
+			if type(traits) ~= "table" or #traits == 0 then bad[#bad + 1] = race end
+			for _, t in ipairs(traits) do if type(t.name) ~= "string" or not (t.statMult or t.weaponCrit) then bad[#bad + 1] = race end end
+		end
+		emit({ bad = table.concat(bad, ","), any = next(G.RACIALS) ~= nil })"#)
+	.remove(0);
+	assert_eq!(out, json!({ "bad": "", "any": true }));
 }
 
 #[test]

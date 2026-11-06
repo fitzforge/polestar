@@ -59,7 +59,6 @@ function inputs() {
 		forever: { zones: { 1429: { id: 1429, name: 'Elwynn Forest' } }, factions: {}, mapFrames: { era: {}, forever: {} }, meta: {}, npcs, objects: {}, items, quests: {}, instances: {}, dungeons: null },
 		atlasloot: null,
 		rarescanner: null,
-		flbis: null,
 		client: null,
 		curated: [],
 		entrances: [],

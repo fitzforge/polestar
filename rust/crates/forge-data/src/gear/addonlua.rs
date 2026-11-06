@@ -1,9 +1,9 @@
 //! tools/lib/consume/lua.js: the shared reader for other addons' Lua data (`readAddonLua`,
-//! `pairsToObject`, `addonVersion`) over [`crate::lua::lua_to_value`].
+//! `addonVersion`) over [`crate::lua::lua_to_value`].
 
 use std::path::{Path, PathBuf};
 
-use forge_guide::js::{cmp_utf16, Obj, V};
+use forge_guide::js::{cmp_utf16, V};
 
 const HELPERS: &str = r#"
 local function POLESTAR_cmp(a, b)
@@ -111,13 +111,4 @@ pub fn read_addon_lua_with(files: &[PathBuf], addon_name: &str, prelude: &str, e
 		));
 	}
 	crate::lua::lua_to_value(&[], &format!("{HELPERS}\n{prelude}\n{}", loads.join("\n")), expr)
-}
-
-/// [[k, v], ...] (from POLESTAR_pairs) -> { k: v }.
-pub fn pairs_to_object(list: &V) -> Obj {
-	let out = Obj::new();
-	for p in list.items() {
-		out.set(&p.at(0).to_js_string(), p.at(1));
-	}
-	out
 }

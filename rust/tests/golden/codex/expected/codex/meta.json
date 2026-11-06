@@ -3,7 +3,7 @@
 	"builtAt": "2026-10-22T00:00:00.000Z",
 	"counts": {
 		"instance": 30,
-		"item": 447,
+		"item": 435,
 		"mount": 138,
 		"npc": 1539,
 		"object": 132,
@@ -16,13 +16,13 @@
 		"zone": 60
 	},
 	"coverage": {
-		"items": 679,
-		"share": 0.295,
-		"withSource": 200
+		"items": 667,
+		"share": 0.285,
+		"withSource": 190
 	},
 	"localExtras": false,
 	"pack": {
-		"bytes": 439105,
+		"bytes": 437848,
 		"files": 19,
 		"loadMs": null,
 		"memoryKB": null,
@@ -49,11 +49,6 @@
 			"licence": "GPL-3.0; spawn heights (z) only, used as facts like the transport periods: a guide goal, spawn spot or smart-target candidate at an NPC or object (and Core/ClassTrainers.lua's class trainers) carries its spawn's height",
 			"name": "CMaNGOS classic-db: creature and gameobject spawn heights",
 			"version": "22b51464f1625f6ef6275771de1f5466c6f5d19e"
-		},
-		{
-			"licence": "MIT License",
-			"name": "ForeverLevelingBiS",
-			"version": "v0.0.1-golden"
 		},
 		{
 			"licence": "Facts only (coordinates), each entry with its source",

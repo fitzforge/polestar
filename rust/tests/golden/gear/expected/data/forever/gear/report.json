@@ -1,44 +1,55 @@
 {
 	"builtAt": "2026-10-22T00:00:00.000Z",
-	"foreverLevelingBiS": {
-		"source": "ForeverLevelingBiS",
-		"author": "Thunder",
-		"url": "https://www.curseforge.com/wow/addons/forever-leveling-bis",
-		"licence": "MIT License",
-		"version": "v0.0.1-golden",
-		"generator": "tools/scraper/scrape.py",
-		"generated": "2026-10-22",
-		"files": [
-			"Data/Tables.lua",
-			"Data/Items.lua",
-			"Data/Quests.lua",
-			"Data/Overrides.lua",
-			"Racials.lua"
+	"foreverClient": {
+		"build": "1.60.1.70790",
+		"hotfixes": [
+			{
+				"table": "ItemSparse",
+				"replaced": 0,
+				"added": 3,
+				"deleted": 0
+			},
+			{
+				"table": "Item",
+				"replaced": 3,
+				"added": 0,
+				"deleted": 0
+			}
 		],
-		"counts": {
-			"items": 12,
-			"quests": 5,
-			"dungeons": 1,
-			"patterns": 1,
-			"races": 2
-		},
-		"unmapped": {
-			"frores": 1
+		"records": 19,
+		"skipped": {},
+		"unmappedStatTypes": {}
+	},
+	"forever": {
+		"codex": {
+			"build": "1.60.1.70532",
+			"builtAt": "2026-11-06T17:22:44.925Z"
 		},
 		"pack": {
-			"items": 11,
-			"newItems": 2,
-			"retuned": 7,
-			"unchanged": 2,
+			"items": 12,
+			"newItems": 4,
+			"retuned": 3,
+			"unchanged": 12,
 			"sources": {
-				"quest": 7,
-				"drop": 3,
-				"crafted": 2
+				"quest": 12,
+				"drop": 0,
+				"crafted": 0
 			},
-			"quests": 4,
-			"skippedSlot": 1
+			"quests": 9,
+			"notShipped": 0
 		},
-		"bytes": 2318
+		"bytes": 2792
+	},
+	"racials": {
+		"1": [
+			"The Human Spirit"
+		],
+		"6": [
+			"Endurance"
+		],
+		"7": [
+			"Expansive Mind"
+		]
 	},
 	"wowsims": {
 		"meta": {
@@ -122,6 +133,6 @@
 		},
 		"rejected": 4
 	},
-	"specDataBytes": 20314,
+	"specDataBytes": 20482,
 	"gaps": []
 }

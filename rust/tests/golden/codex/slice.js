@@ -7,7 +7,7 @@
 // - whole: SkillLine, Map, DungeonEncounter, LFGDungeons, MapDifficulty, ContentTuning,
 //   Mount, BattlePetSpecies (small);
 // - SkillLineAbility: the rows of SKILLS (First Aid, riding, companions);
-// - the items: the world slice's items.json, the gear golden's ForeverLevelingBiS items, and the items that teach the first MOUNTS mounts and PETS pets
+// - the items: the world slice's items.json and the items that teach the first MOUNTS mounts and PETS pets
 //   or SKILLS' spells; Item, ItemSparse, ItemEffect and ItemXItemEffect rows of those items;
 // - SpellEffect and SpellName rows of SKILLS' spells, the mount and pet spells, the spells those items
 //   cast and the spells they teach (SpellEffect 36).
@@ -68,7 +68,6 @@ const each = (t, fn) => {
 const items = new Set();
 const ids = (f) => Object.keys(JSON.parse(read(f))).map(Number);
 for (const id of ids(path.join(golden, 'world/root/data/forever/items.json'))) items.add(id);
-for (const m of read(path.join(golden, 'gear/input/AddOns/ForeverLevelingBiS/Data/Items.lua')).matchAll(/^\[(\d+)\]=/gm)) items.add(Number(m[1]));
 
 const spells = new Set();
 each('SkillLineAbility', (r) => SKILLS.has(int(r.SkillLine)) && spells.add(int(r.Spell)));

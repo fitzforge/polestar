@@ -85,6 +85,20 @@ fn itemdb_parses_entries_header_fields_stat_tokens_weapon_dps_class_mask_unique_
 	assert_eq!(*missing, true);
 }
 
+// Forever's crit, hit, dodge, parry and block come from ratings: forge data gear converts them to percent, so a
+// Forever.lua record can say crit0.5 (7 crit rating).
+#[test]
+fn itemdb_reads_decimal_stats_from_converted_ratings() {
+	let out = run(
+		r#"
+		Polestar.ItemDB.Register(nil, { [9900] = "1 51 46 3 4 2 agi9 armor120 crit0.5 spellCrit0.5 hit0.7 spellHit0.7" })
+		emit(Polestar.ItemDB.Get(9900).stats)
+	"#,
+		Opts::default(),
+	);
+	assert_eq!(out[0], json!({ "agi": 9, "armor": 120, "crit": 0.5, "spellCrit": 0.5, "hit": 0.7, "spellHit": 0.7 }));
+}
+
 #[test]
 fn client_stats_win_over_itemdb_for_base_stats_itemdb_fills_equip_bonuses_the_client_left_out() {
 	let out = run(
@@ -545,8 +559,11 @@ fn a_feral_druid_takes_the_harder_hitting_mace_over_a_caster_staff_with_more_sta
 // #833: an Orc Hunter at 13 with Rusty Hatchet (2.9 DPS, no stats) was told Jagged Dagger (6.0 DPS, +1 Strength)
 // is a big downgrade. Axe Specialization's 1% crit was worth the Hunter's whole crit weight (10, the bow's) on the
 // axe, against 0.5 per melee DPS: the axe scored 11.45, the dagger 3.1. A melee weapon's racial crit now counts
-// by the spec's melee share (0.5 of 6.5); an Orc Warrior's axe keeps it whole. The items are Polestar_ItemDB's.
+// by the spec's melee share (0.5 of 6.5); an Orc Warrior's axe keeps it whole. The items are Polestar_ItemDB's;
+// the trait is the one the Forever client had then (Forever's racials change between builds).
 const AXE_AND_DAGGER: &str = r#"
+		G.RACIALS[2] = { { name = "Axe Specialization", weaponCrit = { pct = 1, subclasses = { [0] = true, [1] = true } } } }
+		G.RefreshPlayer()
 		Polestar.ItemDB.Register(nil, {
 			[1416] = "21 9 4 0 2 0 dmin4 dmax8 speed2100",
 			[4947] = "13 11 0 2 2 15 str1 dmin6 dmax12 speed1500",

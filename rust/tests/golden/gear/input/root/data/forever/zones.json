@@ -1,0 +1,72 @@
+{
+	"1411": {
+		"areaId": 14,
+		"id": 1411,
+		"name": "Durotar",
+		"parent": 1414,
+		"type": 3
+	},
+	"1412": {
+		"areaId": 215,
+		"id": 1412,
+		"name": "Mulgore",
+		"parent": 1414,
+		"type": 3
+	},
+	"1413": {
+		"areaId": 17,
+		"id": 1413,
+		"name": "The Barrens",
+		"parent": 1414,
+		"type": 3
+	},
+	"1420": {
+		"areaId": 85,
+		"id": 1420,
+		"name": "Tirisfal Glades",
+		"parent": 1415,
+		"type": 3
+	},
+	"1426": {
+		"areaId": 1,
+		"id": 1426,
+		"name": "Dun Morogh",
+		"parent": 1415,
+		"type": 3
+	},
+	"1429": {
+		"areaId": 12,
+		"id": 1429,
+		"name": "Elwynn Forest",
+		"parent": 1415,
+		"type": 3
+	},
+	"1432": {
+		"areaId": 38,
+		"id": 1432,
+		"name": "Loch Modan",
+		"parent": 1415,
+		"type": 3
+	},
+	"1437": {
+		"areaId": 11,
+		"id": 1437,
+		"name": "Wetlands",
+		"parent": 1415,
+		"type": 3
+	},
+	"1438": {
+		"areaId": 141,
+		"id": 1438,
+		"name": "Teldrassil",
+		"parent": 1414,
+		"type": 3
+	},
+	"1458": {
+		"areaId": 1497,
+		"id": 1458,
+		"name": "Undercity",
+		"parent": 1415,
+		"type": 3
+	}
+}

@@ -140,7 +140,7 @@ end
 
 -- Same letters as FROM in tools/lib/codex/pack.js.
 local FROM = {
-	a = "atlasloot", c = "client", d = "dungeons", f = "flbis", g = "guides", j = "journal", l = "recordings",
+	a = "atlasloot", c = "client", d = "dungeons", g = "guides", j = "journal", l = "recordings",
 	p = "pfquest", q = "questie", r = "rarescanner", u = "curated", w = "web", e = "forever",
 }
 
