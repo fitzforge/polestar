@@ -33,7 +33,8 @@
 -- facing is taken off every frame: a new aim point swings the arrow round
 -- smoothly, while turning the camera moves it at once. Hidden states (no
 -- target, taxi, instance) are re-checked by Nav's once-a-second ticker. It
--- also goes with the guide window (ns.GuideShown).
+-- goes with the guide window only with nav.hideArrowWithGuide on, and never
+-- on the way back to your corpse (Nav.HiddenWithGuide).
 
 local ADDON, ns = ...
 local Nav = ns.Nav
@@ -445,7 +446,7 @@ end
 
 -- Shortest Path Forever's own arrow guides while the target is handed to it (Nav/Handoff.lua).
 local function shouldShow()
-	return ns.Get("nav.arrow") and ns.GuideShown() and Nav.GetTarget() ~= nil and not Nav.UsingTomTomArrow() and not Nav.HandedOff()
+	return ns.Get("nav.arrow") and not Nav.HiddenWithGuide() and Nav.GetTarget() ~= nil and not Nav.UsingTomTomArrow() and not Nav.HandedOff()
 end
 
 local function showSeconds(secs)

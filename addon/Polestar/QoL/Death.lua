@@ -3,7 +3,8 @@
 -- the arrow at the faster choice and say why in one line. A point picked
 -- before dying (a map click, /way, another addon's) comes back once alive,
 -- if the guide is still on the same step. The arrow's route to either is
--- planned like any target (Nav/Travel.lua walks a ghost there on foot).
+-- planned like any target (Nav/Travel.lua walks a ghost there on foot), and
+-- it shows even while the guide window is hidden with the arrow (Death.Guides).
 --
 -- Cost of each choice in seconds: the run (ghost run speed) and, for the
 -- Spirit Healer, resurrection sickness. That is the length the game last gave
@@ -183,6 +184,12 @@ local ticker
 local noted = false
 local previous -- the picked target (Nav override) the death helper replaced
 
+-- Whether `t` (a Nav target) is the way back the death helper set: that
+-- arrow shows even while the guide window hides it (Nav.HiddenWithGuide).
+function Death.Guides(t)
+	return t ~= nil and t == mine
+end
+
 -- Pure decision, for tests and the tick: choice, corpseSeconds, healerSeconds, sickness.
 -- `seen` as for Death.Sickness.
 function Death.Decide(corpseYards, healerYards, speed, level, previous, seen)
@@ -243,6 +250,9 @@ local function point(a)
 	end
 	current = a.choice
 	mine = ok and Nav.GetTarget and Nav.GetTarget() or nil
+	-- The arrow looked at the target before it was known as ours: once more,
+	-- so a guide hidden with the arrow still shows the way back.
+	if mine and Nav.Refresh then Nav.Refresh() end
 end
 
 local function tint(name)

@@ -218,6 +218,7 @@ L["Usage: /polestar way <x> <y> [label]"] = "Uso: /polestar way <x> <y> [etiquet
 L["Point the arrow at x y on your current map (no argument clears it)"] = "Apuntar la flecha a x y en tu mapa actual (sin argumentos la borra)"
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever está guiando un trayecto propio. La flecha de Polestar vuelve cuando termine."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Ceder la guía a Shortest Path Forever\" (Opciones, Integraciones) para usar la flecha de Polestar."
+L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "La guía está oculta y «Ocultar la flecha con la guía» está activado, así que la flecha también: /polestar show las vuelve a mostrar."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Busca aquí"
@@ -1947,6 +1948,8 @@ L["Show the whole step"] = "Mostrar el paso entero"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Todos los objetivos del paso a la vez, también los terminados, en lugar de una persona cada vez con las demás en una línea cada una."
 L["Maximum height"] = "Altura máxima"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Cuánto puede crecer la ventana, como parte de la pantalla. Un paso más largo se desplaza."
+L["Hide the arrow with the guide"] = "Ocultar la flecha con la guía"
+L["When the guide window is hidden, hide the arrow too."] = "Cuando la ventana de la guía está oculta, ocultar también la flecha."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"

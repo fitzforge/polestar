@@ -214,6 +214,7 @@ L["Point the arrow at x y on your current map (no argument clears it)"] = "Pfeil
 L["Greyed out while Shortest Path Forever guides: it does this itself."] = "Ausgegraut, solange Shortest Path Forever führt: Es erledigt das selbst."
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever führt eine eigene Reise. Polestars Pfeil kehrt zurück, wenn sie endet."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever führt. Schalte \"Führung an Shortest Path Forever abgeben\" aus (Optionen, Integrationen), um Polestars Pfeil zu nutzen."
+L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "Der Guide ist ausgeblendet und „Pfeil mit dem Guide ausblenden“ ist an, also ist auch der Pfeil ausgeblendet: /polestar show holt beide zurück."
 
 -- Nav/Travel.lua
 L["Go to %s"] = "Geh nach %s"
@@ -1125,6 +1126,8 @@ L["Show the whole step"] = "Ganzen Schritt zeigen"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Alle Ziele des Schritts auf einmal, erledigte bleiben stehen, statt einer Person nach der anderen mit den übrigen in je einer Zeile."
 L["Maximum height"] = "Maximale Höhe"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Wie hoch das Fenster werden darf, als Anteil am Bildschirm. Ein längerer Schritt wird gescrollt."
+L["Hide the arrow with the guide"] = "Pfeil mit dem Guide ausblenden"
+L["When the guide window is hidden, hide the arrow too."] = "Wenn das Guide-Fenster ausgeblendet ist, auch den Pfeil ausblenden."
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

@@ -219,6 +219,7 @@ L["Usage: /polestar way <x> <y> [label]"] = "Usage : /polestar way <x> <y> [libe
 L["Point the arrow at x y on your current map (no argument clears it)"] = "Pointer la flèche sur x y de votre carte (sans argument, l'efface)"
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever guide son propre trajet. La flèche de Polestar revient quand il se termine."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever guide. Désactivez \"Confier le guidage à Shortest Path Forever\" (Options, Intégrations) pour utiliser la flèche de Polestar."
+L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "Le guide est masqué et « Masquer la flèche avec le guide » est activé, donc la flèche l'est aussi : /polestar show les fait revenir."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Cherchez ici"
@@ -1948,6 +1949,8 @@ L["Show the whole step"] = "Afficher toute l'étape"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Tous les objectifs de l'étape d'un coup, ceux terminés compris, au lieu d'une personne à la fois avec les autres sur une ligne chacune."
 L["Maximum height"] = "Hauteur maximale"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Jusqu'où la fenêtre peut grandir, en part de l'écran. Une étape plus longue défile."
+L["Hide the arrow with the guide"] = "Masquer la flèche avec le guide"
+L["When the guide window is hidden, hide the arrow too."] = "Quand la fenêtre du guide est masquée, masquer aussi la flèche."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
