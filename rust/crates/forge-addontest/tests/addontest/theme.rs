@@ -664,7 +664,7 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 		out.savedForever = T.SkinKey()
 		emit(out)"#);
 	assert_eq!(out["key"], "polestar");
-	assert_eq!(out["choices"], json!(["polestar", "halo", "hearth", "forever", "blizzard", "classic"]));
+	assert_eq!(out["choices"], json!(["polestar", "halo", "hearth", "forever", "blizzard", "classic", "dark-xs"]));
 	assert_eq!(out["houseRow"], 40);
 	assert_eq!(out["houseHero"], 26, "the house ladder is unchanged");
 	let h = &out["halo"];
@@ -698,6 +698,32 @@ fn skins_polestar_by_default_halo_and_hearth_bring_their_tokens_fonts_sizes_and_
 	assert_eq!(b["font"], "Fonts\\FRIZQT__.TTF", "the game's font");
 	assert_eq!(out["unknown"], "polestar", "an unknown skin is the house style");
 	assert_eq!(out["savedForever"], "forever", "a saved \"forever\" choice draws the WoW Forever skin again (#306)");
+}
+
+#[test]
+fn dark_xs_is_offered_with_a_legible_palette_and_open_sans_explicit_font_choices_still_win() {
+	let out = run(r#"
+		local choice
+		for _, c in ipairs(T.SkinChoices()) do
+			if c.value == "dark-xs" then choice = c.text end
+		end
+		Polestar.Set("ui.skin", "dark-xs")
+		local out = { choice = choice, key = T.SkinKey(), palette = T.Palette(), title = (T.FontSpec("title")), body = (T.FontSpec("body")) }
+		Polestar.Set("ui.font", "inter")
+		out.inter = (T.FontSpec("title"))
+		Polestar.Set("ui.font", "game")
+		out.game = (T.FontSpec("title"))
+		Polestar.Set("ui.font", "skin")
+		out.restored = (T.FontSpec("title"))
+		emit(out)"#);
+	assert_eq!(out["choice"], "Dark XS");
+	assert_eq!(out["key"], "dark-xs");
+	assert_legible("Dark XS", &out["palette"]);
+	assert_eq!(out["title"], OPEN_SANS_BOLD);
+	assert_eq!(out["body"], OPEN_SANS_REGULAR);
+	assert_eq!(out["inter"], "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf");
+	assert_eq!(out["game"], "Fonts\\FRIZQT__.TTF");
+	assert_eq!(out["restored"], OPEN_SANS_BOLD);
 }
 
 #[test]

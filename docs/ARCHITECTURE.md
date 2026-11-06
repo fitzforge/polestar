@@ -1853,7 +1853,7 @@ Polestar.Theme.Skin(frame, kind)          -- "window","panel","inset","button","
 Polestar.Theme.Media(name) -> texturePath -- e.g. "icon-accept", "check", "white", "glow"
 Polestar.Theme.OnChanged(fn)              -- fn() on any scheme/colour/font change
 Polestar.Theme.IsEllesmere() -> bool
-Polestar.Theme.SkinKey() -> "polestar" | "halo" | "blizzard"   -- ui.skin
+Polestar.Theme.SkinKey() -> one of Polestar.Theme.SKIN_ORDER   -- ui.skin
 Polestar.Theme.SkinChoices() -> { { value, text }, ... }
 Polestar.Theme.Metric(key, house) -> n   -- a size in the skin in use; `house` in the house style
 Polestar.Theme.Icon(name) -> name        -- a glyph a skin draws its own way ("bug" -> "flag")
@@ -1865,7 +1865,9 @@ style everything below describes (the default); the two directions of the
 design handoff, `halo` (Forever · Halo: no frame, a dark veil with soft edges,
 an off-white ladder, the game's gold, Fira Sans) and `hearth` (Forever ·
 Hearth: warm game colours, a brown gradient window, the client's buttons, font
-and text colours); and the game's own looks, `forever`, `blizzard` and
+and text colours); Dark XS (`dark-xs`, a flat guide window with a separate
+header, a crimson active objective and a slim green progress bar); and the
+game's own looks, `forever`, `blizzard` and
 `classic` (below). `Theme.GameSkin()` is true for Hearth and the game's looks:
 the client's check boxes, sliders and red buttons, its font and hard shadow. A
 skin brings:
@@ -1884,12 +1886,16 @@ skin brings:
   hairline by default; no game frame) and the game's `UI-Panel-Button-*`. A
   frame painted in another skin is cleared first, so a switch and back leaves it
   as it was;
-- its fonts (`ui.font` "skin", the default: Open Sans in the house style,
+- its fonts (`ui.font` "skin", the default: Open Sans in the house style and Dark XS,
   Fira Sans in Halo, the game's in Hearth and the game's looks), its type sizes and text shadow;
 - its sizes (`Theme.Metric`): setting rows, buttons, menus, dropdowns,
   sliders, the guide window (`readMetrics` / `GF.ApplySkin`), the shell
   (`W.SHELL` reads them) and the guide menu. The big windows take them as they
   are built.
+
+Dark XS uses the same guide layout in both display modes. Compact hides
+only the guide tab strip. The active objective keeps its existing row and
+controls when the layout places it below the step details.
 
 The arrow follows the skin (`nav.arrowStyle` "skin", the default: 3D in the
 house style, the `halo` dart in Halo, the `hearth` dart in Hearth and the

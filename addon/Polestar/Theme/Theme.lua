@@ -162,6 +162,20 @@ Theme.HexColor = hex
 -- DIRECTION_A_BLIZZARD.md §1); the washes of a skin are its own colours, not
 -- the house ink at the house alphas.
 local SKIN_PALETTES = {
+	["dark-xs"] = {
+		bg = hex("121212"), panel = hex("171717"), panelAlt = hex("2D2D2D"),
+		sidebar = hex("121212"), footer = hex("121212"), sky = hex("050505"),
+		text = hex("F2F2F2"), textDim = hex("DDD7B2"), textMuted = hex("ADADAD"),
+		ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
+		scrim = hex("121212"), onAccent = hex("121212"), shadow = hex("000000", 0),
+		accent = hex("F3CB52"), quest = hex("F3CB52"), item = hex("F3CB52"), spell = hex("F3CB52"),
+		npc = hex("82BD76"), place = hex("82BD76"), area = hex("82BD76"), arrive = hex("82BD76"),
+		icon = hex("D6D6D6"), iconHover = hex("FFFFFF"), tabRest = hex("D6D6D6"),
+		guideTabs = hex("080808"), guideAction = hex("740B0F"), guideProgress = hex("00CE00"),
+		progress = hex("373737"), track = hex("373737"),
+		border = hex("FFFFFF", 0.09), windowEdge = hex("282828"), divider = hex("FFFFFF", 0.07),
+		hover = hex("FFFFFF", 0.08), selected = hex("FFFFFF", 0.12),
+	},
 	halo = {
 		bg = hex("080604", 0.84), panel = hex("120E0A", 0.97), panelAlt = hex("FFFFFF", 0.06),
 		sidebar = hex("080604", 0), footer = hex("080604", 0), sky = hex("080604", 0),
@@ -238,7 +252,7 @@ SKIN_PALETTES.classic = gamePalette({
 	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFFFFF", 0.08), selected = hex("FFD100", 0.14),
 })
 Theme.SKIN_PALETTES = SKIN_PALETTES
-Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "classic" }
+Theme.SKIN_ORDER = { "polestar", "halo", "hearth", "forever", "blizzard", "classic", "dark-xs" }
 -- Skins hidden from the picker while their issues are fixed. A saved value
 -- naming a hidden skin resolves to the house style at load; the raw saved
 -- value is left alone so the player's choice restores when the skin returns.
@@ -531,6 +545,7 @@ function Theme.SkinChoices()
 		{ value = "forever", text = ns.L["WoW Forever"] },
 		{ value = "blizzard", text = ns.L["Blizzard"] },
 		{ value = "classic", text = ns.L["Classic"] },
+		{ value = "dark-xs", text = "Dark XS" },
 	}
 end
 
@@ -562,6 +577,18 @@ local function resolveSkin(skin)
 	end
 	if r then out.accent = { r, g, b, 1 } end
 	r, g, b = out.accent[1], out.accent[2], out.accent[3]
+	if skin == "dark-xs" then
+		for name, alpha in pairs(WASH) do
+			if not out[name] then out[name] = { out.ink[1], out.ink[2], out.ink[3], alpha } end
+		end
+		for name, token in pairs(HOUSE_EXTRA) do
+			if not out[name] then out[name] = copy(out[token]) end
+		end
+		out.accentLine = { r, g, b, 0.35 }
+		out.padSelect = { r, g, b, 0.12 }
+		out.chipAccent = { r, g, b, 0.16 }
+		out.inputBg = { 0, 0, 0, 0.35 }
+	end
 	out.scheme, out.skin = skin, skin
 	local edge = get("ui.borderColor")
 	if isColor(edge) then
@@ -734,7 +761,7 @@ end
 -- Glyphs a skin draws its own way (DIRECTION_B_HALO.md §7: the report flag
 -- and the Nearby services house).
 local GAME_ICON = { bug = "flag", ["icon-goto"] = "house" }
-local SKIN_ICON = { halo = GAME_ICON, hearth = GAME_ICON, forever = GAME_ICON, blizzard = GAME_ICON, classic = GAME_ICON }
+local SKIN_ICON = { ["dark-xs"] = GAME_ICON, halo = GAME_ICON, hearth = GAME_ICON, forever = GAME_ICON, blizzard = GAME_ICON, classic = GAME_ICON }
 
 -- A glyph's name in the skin in use.
 function Theme.Icon(name)
@@ -828,11 +855,14 @@ local ROLES = {
 	note = { "regular", 12 },      -- tips and descriptions
 	small = { "medium", 11 },      -- secondary lines
 	number = { "semibold", 12 },   -- counters
+	guideHeader = { "semibold", 22 },
 	caption = { "semibold", 11 },  -- pills and chips
 	goal = { "medium", 14 },        -- the guide window's goal lines
 	name = { "semibold", 15 },     -- the person to talk to now
 	mono = { "medium", 12 },
 }
+ROLES.guideStep = ROLES.number
+ROLES.guideTab = ROLES.small
 
 -- Fira Sans (SIL OFL 1.1), the Halo skin's face: Latin, Greek and Cyrillic.
 local FIRA = {
@@ -850,11 +880,12 @@ local FAMILIES = { opensans = OPEN_SANS, inter = FACES, fira = FIRA }
 
 -- The font a skin starts with (ui.font "skin", the default): the house
 -- style uses Open Sans, Halo uses Fira Sans, and the others use the game's.
-local SKIN_FONT = { polestar = "opensans", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
+local SKIN_FONT = { polestar = "opensans", ["dark-xs"] = "opensans", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
 
 -- A skin's own sizes, where they differ from the ladder above (the handoff's
 -- typography: DIRECTION_B_HALO.md §2, the same in DIRECTION_A_BLIZZARD.md §2).
 local SKIN_ROLES = {
+	["dark-xs"] = { guideStep = { "regular", 16 }, guideTab = { "regular", 13 }, name = { "semibold", 14 } },
 	halo = { hero = { "semibold", 24 } },
 	hearth = { hero = { "semibold", 24 } },
 }
@@ -867,6 +898,14 @@ local SKIN_ROLES = {
 ---------------------------------------------------------------------------
 
 local METRICS = {
+	["dark-xs"] = {
+		guideHeader = 39, guideTabs = 24, guideNav = 26, guidePad = 5, guideIconGap = 7,
+		guideNavBtn = 22, guideNavIcon = 14, guideIconBtnW = 24, guideIconBtnH = 24, guideIcon = 16,
+		guideGoalIcon = 6, guideRow = 21, guideLinePad = 2, guideRowEnd = 2, guideCardEnd = 0,
+		guideSubGap = 2, guideTipPad = 2, guideTipGap = 0, guideTipSpacing = 1, guideTipIconY = 0,
+		guidePersonPad = 3, guidePersonEnd = 3, guidePersonIconY = 6,
+		guideProgress = 6, guideFoot = 19, guideTabInset = 11, guideTabGap = 4,
+	},
 	halo = {
 		row = 34, menuRow = 26, menuPad = 6, menuWidth = 260, servicesWidth = 290,
 		buttonH = 28, buttonPad = 14, dropdownW = 166, dropdownH = 26, chevron = 10, chevronInset = 8,
@@ -992,7 +1031,7 @@ local scripted = setmetatable({}, { __mode = "k" }) -- fontString -> its text's 
 -- Text shadows: the house style's soft 1, -1; Halo's 1 down at 90 % black
 -- (DIRECTION_B_HALO.md §2); Blizzard's hard 1, -1 black, as the game's.
 local HARD = { 1, -1, 1 }
-local SKIN_SHADOW = { halo = { 0, -1, 0.9 }, hearth = HARD, forever = HARD, blizzard = HARD, classic = HARD }
+local SKIN_SHADOW = { ["dark-xs"] = { 0, 0, 0 }, halo = { 0, -1, 0.9 }, hearth = HARD, forever = HARD, blizzard = HARD, classic = HARD }
 
 local function paintShadow(fs)
 	if not fs.SetShadowOffset then return end
@@ -1501,6 +1540,20 @@ local function veilAlpha(f, token)
 end
 
 local SKIN_PAINT = {
+	["dark-xs"] = {
+		window = function(f)
+			if f.psBare then return bare(f) end
+			local r, g, b = Theme.Color("bg")
+			fill(f):SetVertexColor(r, g, b, f.psBgAlpha or Theme.GroundAlpha())
+			local shown, size = Theme.WindowBorder()
+			if shown then
+				local br, bg, bb, ba = Theme.Color("windowBorder")
+				Theme.Border(f, br, bg, bb, ba, nil, size)
+			else
+				hideBorder(f)
+			end
+		end,
+	},
 	halo = {
 		window = function(f)
 			if f.psBare then return bare(f) end

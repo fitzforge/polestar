@@ -622,6 +622,91 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 }
 
 #[test]
+fn dark_xs_compact_only_hides_the_tabs_and_reclaims_their_height() {
+	let out = run(r#"
+		Polestar.Set("ui.upcoming", 2)
+		Polestar.Set("ui.upcomingOpen", true)
+		uistub.along = { { 2, { 1 } } }
+		uistub.openTabs(TABS, 1)
+		local P = GF.parts
+		local function snapshot()
+			local rows, actions, upcoming = {}, {}, {}
+			local actionAtBottom
+			for _, r in ipairs(visibleRows()) do
+				rows[#rows + 1] = r.Text:GetText()
+				if rawget(r, "Action") and r.Action:IsShown() then
+					actions[#actions + 1] = r.psGoal.subject
+					local _, parent, _, _, offset = r:GetPoint(1)
+					actionAtBottom = parent == P.body and r:GetHeight() - offset == P.body:GetHeight()
+				end
+			end
+			for _, r in ipairs(GF.upRows) do if r:IsVisible() then upcoming[#upcoming + 1] = r.Text:GetText() end end
+			local header = P.header
+			local footPoint, footParent, footRelative = P.foot:GetPoint(1)
+			return {
+				strip = P.strip:IsShown(), tabHeight = P.strip:GetHeight(), height = F:GetHeight(),
+				guide = {
+					header = header and header.Title:IsVisible() and header.Title:GetText() or false,
+					menu = header and header.Menu:IsVisible() or false,
+					close = header and header.Close:IsVisible() or false,
+					navTitle = P.nav.Title:IsShown(), step = P.nav.Steps.Count:GetText(),
+					navHeight = P.nav:GetHeight(), bodyHeight = P.body:GetHeight(), footHeight = P.foot:GetHeight(),
+					person = P.person:IsShown() and P.person.Name:GetText(), rows = rows, actions = actions, actionAtBottom = actionAtBottom,
+					tip = P.tip:IsShown() and P.tip.Text:GetText(), after = P.after:IsShown() and P.after.Text:GetText(),
+					along = P.along:IsShown(), upcoming = upcoming,
+					footAnchor = { footPoint, footParent == F, footRelative },
+					progress = { visible = P.line.Fill:IsVisible(), color = { P.line.Fill:GetVertexColor() }, pct = P.foot.Pct:GetText() },
+				},
+			}
+		end
+		Polestar.Set("ui.compact", true)
+		local house = snapshot()
+		Polestar.Set("ui.skin", "dark-xs")
+		local compact = snapshot()
+		Polestar.Set("ui.compact", false)
+		local normal = snapshot()
+		Polestar.Set("ui.compact", true)
+		local back = snapshot()
+		local green = { Polestar.Theme.Color("guideProgress") }
+		P.header.Menu:Click()
+		local menuOpened = W.MenuShown(P.header.Menu)
+		P.header.Menu:Click()
+		P.header.Close:Click()
+		local closed = not F:IsShown() and not Polestar.Get("ui.shown")
+		Polestar.Set("ui.shown", true)
+		Polestar.Set("ui.skin", "polestar")
+		emit({ compact = compact, normal = normal, back = back, house = house, restored = snapshot(), green = green,
+			menuOpened = menuOpened, closed = closed })"#)
+	.remove(0);
+	let (compact, normal) = (&out["compact"], &out["normal"]);
+	assert_eq!(compact["strip"], false);
+	assert_eq!(normal["strip"], true);
+	assert_eq!(f(&normal["height"]) - f(&compact["height"]), f(&normal["tabHeight"]));
+	assert_eq!(compact["guide"], normal["guide"]);
+	assert_eq!(&out["back"], compact, "toggling compact on an open Dark XS guide");
+	let guide = &normal["guide"];
+	assert_eq!(guide["header"], "POLESTAR");
+	for key in ["menu", "close", "along"] {
+		assert_eq!(guide[key], true, "{key} is shown in Dark XS");
+	}
+	assert_eq!(guide["step"], "3");
+	assert_eq!(guide["person"], "Kobold Camp");
+	assert_eq!(guide["rows"].as_array().unwrap().len(), 4);
+	assert_eq!(guide["actions"], json!(["Kobold Vermin"]), "the active objective is highlighted in both modes");
+	assert_eq!(guide["actionAtBottom"], true);
+	assert_eq!(guide["upcoming"].as_array().unwrap().len(), 2);
+	assert!(text(&guide["tip"]).starts_with("Kobolds wander"));
+	assert!(text(&guide["after"]).starts_with("Then:"));
+	assert_eq!(guide["footAnchor"], json!(["BOTTOMLEFT", true, "BOTTOMLEFT"]));
+	assert_eq!(guide["progress"], json!({ "visible": true, "color": out["green"], "pct": "29%" }));
+	assert_eq!(out["house"]["guide"]["header"], false);
+	assert_eq!(out["house"]["guide"]["tip"], false);
+	assert_eq!(out["restored"], out["house"], "changing skins restores the house compact layout");
+	assert_eq!(out["menuOpened"], true);
+	assert_eq!(out["closed"], true);
+}
+
+#[test]
 fn dragging_saves_the_position_the_grip_resizes_width_within_bounds() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 3)

@@ -35,8 +35,8 @@ ns.RegisterDefaults("ui", {
 	instance = "show", -- "show" | "hide": in dungeons and raids, until the player opens it there
 	reduceMotion = false,
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
-	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
-	font = "skin", -- "skin" (Open Sans in Polestar) | "opensans" | "game" | "inter" | "fira"
+	skin = "polestar", -- one of Theme.SKIN_ORDER
+	font = "skin", -- "skin" (Open Sans in Polestar and Dark XS) | "opensans" | "game" | "inter" | "fira"
 	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale
 	scheme = "dusk", -- "dusk" | "night" | "graphite" | "ellesmere" (Polestar.Theme.SCHEMES)
 	accent = false, -- false: the scheme's (or EllesmereUI's) accent; { r, g, b }: your own
@@ -58,6 +58,10 @@ ns.RegisterDefaults("ui", {
 })
 
 UI.MIN_WIDTH, UI.MAX_WIDTH = 260, 560
+
+function UI.HideGuideDetails()
+	return Theme.SkinKey() ~= "dark-xs" and ns.Get("ui.compact")
+end
 
 -- The player's faction through Compat, when Compat is there.
 function UI.PlayerFaction()
@@ -479,9 +483,9 @@ end
 -- "optional" in warning, so an extra is unmistakable and never reads as the
 -- route; one the player skipped ends in "skipped" in textMuted. questHex:
 -- the quest name's colour instead of the theme's (UI.GoalText).
-function UI.GoalLine(goal, questHex)
+function UI.GoalLine(goal, questHex, plainSubject)
 	local plain = goal.status == "done" or goal.status == "skipped"
-	local text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
+	local text = (plain or plainSubject) and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
 	local count = UI.GoalProgress(goal)
 	if count and goal.status ~= "skipped" then
 		local p = goal.progress

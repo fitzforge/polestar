@@ -186,7 +186,7 @@ local BUILTIN = {
 	{ page = GUIDE, key = "guide", icon = "window", order = 10, tab = L["Window"], section = L["What it shows"],
 		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."], controls = {
 		{ kind = "toggle", key = "ui.shown", label = L["Show the window"], help = L["Also /polestar, or the key binding."] },
-		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."] },
+		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Hide the guide tabs. Skins other than Dark XS also hide secondary step details."] },
 		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."] },
 		{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
@@ -306,7 +306,7 @@ local BUILTIN = {
 			help = L["The background opacity of every Polestar window: how much of the world shows through. Right-click to reset."] },
 	} },
 	{ page = LOOK, tab = L["Colour & type"], section = L["Type & motion"], controls = {
-		{ kind = "dropdown", key = "ui.font", label = L["Font"], help = L["The skin's font (Open Sans in Polestar, Fira Sans in Halo), or a font of your choice."],
+		{ kind = "dropdown", key = "ui.font", label = L["Font"], help = L["Use the skin's default font or choose a different font."],
 			choices = function()
 				local list = { { value = "skin", label = L["The skin's font"] }, { value = "opensans", label = "Open Sans" }, { value = "game", label = L["Game font"] },
 					{ value = "inter", label = "Inter" }, { value = "fira", label = "Fira Sans" } }
@@ -331,7 +331,7 @@ local BUILTIN = {
 	} },
 	{ page = LOOK, tab = L["Windows"], section = L["Frame"], controls = {
 		{ kind = "dropdown", key = "ui.skin", label = L["Skin"],
-			help = L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira Sans), Hearth (warm game colours), or the game's own art: WoW Forever, Blizzard and Classic. Style, compact mode and the colours you pick work in each."],
+			help = L["Change the look of Polestar's windows. Dark XS gives the guide a flat, compact layout."],
 			choices = function()
 				local list = {}
 				for i, c in ipairs(Theme.SkinChoices()) do list[i] = { value = c.value, label = c.text } end

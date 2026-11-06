@@ -52,8 +52,6 @@ local function text(parent, role, color)
 	return W.Text(parent, role, color)
 end
 
-local function compact() return ns.Get("ui.compact") and true or false end
-
 ---------------------------------------------------------------------------
 -- Which quests are class quests, and what their chain gives
 ---------------------------------------------------------------------------
@@ -482,7 +480,7 @@ function CC.Fill(guide, index, view)
 	local zones, n = trip(guide, index, chain, goal.quest, p)
 	local count = n == 1 and L["1 step"] or format(L["%d steps"], n)
 	F.Trip:SetText(#zones > 0 and (table.concat(zones, ARROW) .. DOT .. count) or count)
-	F.psCompact = compact()
+	F.psCompact = UI.HideGuideDetails()
 	-- The step's accept, folded into the card: "Accept from <giver>, <zone>"
 	-- with its tick box; GuideFrame lists no row of its own for it.
 	local fold = CC.Fold(guide, view)

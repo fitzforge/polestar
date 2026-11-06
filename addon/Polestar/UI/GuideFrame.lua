@@ -30,6 +30,7 @@
 -- shows only while the cursor is over the window: the step number fades with
 -- the chevrons that change it, so it never floats alone. Compact mode
 -- (ui.compact) keeps the navigator, the focus goals and the progress bar.
+-- Dark XS keeps every section except the tab strip.
 --
 -- Colour: the accent marks interaction and where you are (the active tab,
 -- the arrow's target mark, the current goal's glyph, primary buttons, the
@@ -60,6 +61,8 @@ local CHECK = 18
 -- A goal row's extra room above and below its lines, and its tick box's
 -- extra inset from the edge (a skin with a framed lit goal: WoW Forever).
 local ROW_PAD = 0
+local LINE_PAD, ROW_END, SUB_GAP = 4, 6, 3
+local darkXS
 local CHECK_IN = 0
 local CHECK_MID = false -- the tick box on the row's middle, not its first line
 local UP_ROW = 24
@@ -86,10 +89,14 @@ local function readMetrics()
 	TAB_H = Theme.Metric("guideTabs", 28)
 	NAV_H = Theme.Metric("guideNav", 34)
 	PROG_H = Theme.Metric("guideFoot", 26)
+	ICON = Theme.Metric("guideGoalIcon", 15)
 	TEXT_X = PAD + ICON + Theme.Metric("guideIconGap", 10)
 	ROW_MIN = Theme.Metric("guideRow", 24)
 	CHECK = Theme.Metric("guideCheck", 18)
 	ROW_PAD = Theme.Metric("guideRowPad", 0)
+	LINE_PAD = Theme.Metric("guideLinePad", 4)
+	ROW_END = Theme.Metric("guideRowEnd", 6)
+	SUB_GAP = Theme.Metric("guideSubGap", 3)
 	CHECK_IN = Theme.Metric("guideCheckIn", 0)
 	CHECK_MID = Theme.Metric("guideCheckMiddle", false) and true or false
 	UP_ROW = Theme.Metric("guideUpRow", 24)
@@ -100,7 +107,8 @@ local TAB_MAX_W = 150
 local GF = {}
 UI.GuideFrame = GF
 
-local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot
+local F, header, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot
+local buildHeader
 local rows, upRows, alongRows, tabButtons = {}, {}, {}, {}
 GF.rows, GF.upRows, GF.alongRows, GF.tabs = rows, upRows, alongRows, tabButtons -- the pools, for inspection (tests, preview)
 local view -- the step view on screen
@@ -117,6 +125,16 @@ local chrome = {} -- frames that hide in transparent mode until hovered
 local function Engine() return ns.Engine end
 local function compact() return ns.Get("ui.compact") and true or false end
 local function transparent() return ns.Get("ui.style") == "transparent" end
+
+-- Dark XS uses a solid strip for the same active goal the Engine highlights.
+local function paintAction(row, active)
+	row.psAction = darkXS and active and true or false
+	if row.psAction and not rawget(row, "Action") then
+		row.Action = W.Tex(row, "BACKGROUND", "white", "guideAction", -8)
+		row.Action:SetAllPoints(row)
+	end
+	if rawget(row, "Action") then row.Action:SetShown(row.psAction and not transparent()) end
+end
 
 -- A string that follows the window's style (outlined when transparent).
 local function T(parent, role, color, layer)
@@ -298,6 +316,11 @@ local function rowLeave(row)
 	W.HideTooltip(row)
 end
 
+local function placeGoalText(r)
+	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
+	r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -LINE_PAD - ROW_PAD)
+end
+
 local function goalRow(i)
 	local r = rows[i]
 	if r then return r end
@@ -319,11 +342,10 @@ local function goalRow(i)
 	r.Mark:Hide()
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(ICON, ICON)
-	r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
 	r.Text = T(r, "goal", "text")
 	r.Text:SetWordWrap(true)
 	r.Text:SetJustifyV("TOP")
-	r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
+	placeGoalText(r)
 	r.Sub = T(r, "small", "textMuted")
 	r.Sub:SetWordWrap(true)
 	r.Sub:SetJustifyV("TOP")
@@ -437,21 +459,23 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	local status = goal.status
 	local done = status == "done"
 	local skipped = status == "skipped"
-	r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
+	r.Icon:SetTexture(done and Theme.Media("check") or (goal.dismissed and Theme.Media("skip"))
+		or (darkXS and Theme.Media("circle")) or Theme.VerbIcon(goal.t))
+	paintAction(r, current and not done and not skipped)
 	if skipped then
 		W.Color(r.Icon, "textMuted", 0.8)
 	else
 		local gold = Theme.GameSkin() and (goal.t == "accept" or goal.t == "turnin")
-		W.Color(r.Icon, done and "success" or ((current or gold) and "accent" or "textDim"))
+		W.Color(r.Icon, done and "success" or (darkXS and "text") or ((current or gold) and "accent" or "textDim"))
 	end
 	-- The game's looks light the goal to do now with their own art.
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
-	r.Text:SetText(UI.GoalLine(goal, questHex))
+	r.Text:SetText(UI.GoalLine(goal, questHex, r.psAction))
 	-- White while it is to be done; done and skipped goals step back. The
 	-- turn-in of a quest the player pinned (#644) whose objectives are still
 	-- open: the warning colour, and its line says so.
 	local warn = goal.pinOpen and not done and not skipped
-	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
+	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or ((aside or darkXS and goal.t == "note") and "textDim" or "text")))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
 	if warn then sub = sub and (L["Pinned: its objectives are still open."] .. "\n" .. sub) or L["Pinned: its objectives are still open."] end
 	-- An unavailable quest's reason names its giver already.
@@ -459,13 +483,19 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	r.Sub:SetText(sub or "")
 	r.Sub:SetShown(sub ~= nil)
 	-- An unavailable quest's reason, or an accept's notice, is the point of the line: keep it readable.
-	W.Color(r.Sub, (goal.unavailable or goal.noticeText) and "textDim" or "textMuted")
+	W.Color(r.Sub, (darkXS or goal.unavailable or goal.noticeText) and "textDim" or "textMuted")
 	if UI.GearPick then UI.GearPick.Paint(r, goal) end
 	local alts = type(goal.alternatives) == "number" and goal.alternatives > 0 and Engine() and Engine().CycleCandidate
 	local spots = type(goal.spots) == "number" and goal.spots > 1 and Engine() and Engine().CycleSpot
 	r.Alt:SetShown((alts or spots) and not done and not skipped and true or false)
 	local frac, label = UI.GoalBar(goal)
-	if frac and not skipped then
+	if frac and not skipped and darkXS and label and goal.progress.kind ~= "wait" then
+		if r.psAction and goal.progress.kind == "skill" then
+			label = string.format("%d/%d", goal.progress.cur or 0, goal.progress.max)
+		end
+		r.Text:SetText(r.Text:GetText() .. " (" .. label .. ")")
+		if r.psBar then r.psBar:Hide() end
+	elseif frac and not skipped then
 		local b = rowBar(r)
 		b.Label:SetText(label or "")
 		b.Label:SetShown(label ~= nil)
@@ -535,7 +565,7 @@ local function measureRow(r, width)
 	end
 	local tw = max(40, width - TEXT_X - right)
 	r.Text:SetWidth(tw)
-	local h = 4 + r.Text:GetStringHeight()
+	local h = LINE_PAD + r.Text:GetStringHeight()
 	local above = r.Text
 	local b = r.psBar
 	if b and b:IsShown() then
@@ -549,10 +579,10 @@ local function measureRow(r, width)
 	if r.Sub:IsShown() then
 		r.Sub:SetWidth(tw)
 		r.Sub:ClearAllPoints()
-		r.Sub:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
-		h = h + 3 + r.Sub:GetStringHeight()
+		r.Sub:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -SUB_GAP)
+		h = h + SUB_GAP + r.Sub:GetStringHeight()
 	end
-	return max(ROW_MIN, floor(h + 6 + ROW_PAD * 2 + 0.5))
+	return max(ROW_MIN, floor(h + ROW_END + ROW_PAD * 2 + 0.5))
 end
 
 ---------------------------------------------------------------------------
@@ -597,6 +627,9 @@ local function paintPerson(group)
 	-- their own marks, except the "Go to" the header stands for.
 	person.psPerson = kind ~= "here"
 	person.Mark:SetShown(personMarked(targetOf()))
+	local goal = person.psHeaderGoal
+	paintAction(person, goal and goal.status == "active" and goal.index == view.current)
+	if person.psAction then W.Color(person.Name, "text") end
 end
 
 local function personEnter(self)
@@ -724,10 +757,10 @@ end
 -- range tells same-named guides apart, so it keeps its width and the title
 -- truncates; `pad` is the room kept at the right (more while the close button
 -- shows). Too narrow for even the range, the tab is its glyph alone.
-local TAB_TEXT_X = 27 -- the label's left edge: the glyph's inset, width and gap
 local TAB_RANGE_GAP = 4
 local function layoutTab(b, pad)
-	local room = b:GetWidth() - TAB_TEXT_X - pad
+	local inset, gap = Theme.Metric("guideTabInset", 9), Theme.Metric("guideTabGap", 6)
+	local room = b:GetWidth() - inset - 12 - gap - pad
 	local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
 	local fits = rangeW <= room
 	local titleW = fits and min(b.psTitleW, room - rangeW) or 0
@@ -735,7 +768,7 @@ local function layoutTab(b, pad)
 	if titleW >= 1 then b.Label:SetWidth(titleW) end
 	b.Range:SetShown(b.psRange and fits or false)
 	b.Range:ClearAllPoints()
-	b.Range:SetPoint("LEFT", b.Icon, "RIGHT", 6 + (titleW >= 1 and titleW + TAB_RANGE_GAP or 0), 0)
+	b.Range:SetPoint("LEFT", b.Icon, "RIGHT", gap + (titleW >= 1 and titleW + TAB_RANGE_GAP or 0), 0)
 end
 
 -- With ui.growUp and ui.barsBottom the tab strip and navigator sit at the
@@ -754,7 +787,10 @@ local function tabButton(i)
 	b.Selected = b:CreateTexture(nil, "BACKGROUND")
 	b.Selected:SetTexture(Theme.Media("white"))
 	b.Selected:SetAllPoints(b)
-	W.Painter(b.Selected, function(t) t:SetVertexColor(Theme.Wash("hover")) end)
+	W.Painter(b.Selected, function(t)
+		if Theme.SkinKey() == "dark-xs" then t:SetVertexColor(Theme.Color("panelAlt"))
+		else t:SetVertexColor(Theme.Wash("hover")) end
+	end)
 	W.Hover(b, 0.7)
 	b.Bar = b:CreateTexture(nil, "OVERLAY")
 	b.Bar:SetTexture(Theme.Media("white"))
@@ -766,7 +802,7 @@ local function tabButton(i)
 	b.Icon = b:CreateTexture(nil, "ARTWORK")
 	b.Icon:SetSize(12, 12)
 	b.Icon:SetPoint("LEFT", b, "LEFT", 9, 0)
-	b.Label = T(b, "small", "textDim")
+	b.Label = T(b, "guideTab", "textDim")
 	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 6, 0)
 	b.Range = T(b, "small", "textMuted")
 	b.Close = W.IconButton(b, "close", 16, L["Close tab"], function(self)
@@ -818,7 +854,7 @@ function GF.RenderTabs()
 	-- The active tab gets the room to read its title; the rest share the remainder.
 	local share = n > 0 and floor(avail / n) or 0
 	local activeW, otherW = share, share
-	if n >= 2 and active then
+	if not darkXS and n >= 2 and active then
 		activeW = min(TAB_MAX_W, max(share, floor(avail * (n == 2 and 0.55 or 0.42))))
 		otherW = floor((avail - activeW) / (n - 1))
 	end
@@ -839,7 +875,7 @@ function GF.RenderTabs()
 		b.Label:SetWidth(0) -- unbound, to measure the whole title
 		b.psTitleW = floor(b.Label:GetStringWidth() + 1)
 		local lv = guide and UI.LevelRange(guide.minLevel, guide.maxLevel)
-		b.psRange = lv and ("(" .. lv .. ")") or nil
+		b.psRange = not darkXS and lv and ("(" .. lv .. ")") or nil
 		b.Range:SetText(b.psRange or "")
 		b.Icon:SetTexture(Theme.Media(CATEGORY_ICON[t.category] or "icon-level"))
 		W.Color(b.Label, b.psActive and "text" or "textMuted")
@@ -858,7 +894,11 @@ function GF.RenderTabs()
 	end
 	for i = n + 1, #tabButtons do tabButtons[i]:Hide() end
 	strip.Add:ClearAllPoints()
-	strip.Add:SetPoint("LEFT", strip, "BOTTOMLEFT", x + 2, TAB_H / 2)
+	if darkXS then
+		strip.Add:SetPoint("RIGHT", strip, "RIGHT", 0, 0)
+	else
+		strip.Add:SetPoint("LEFT", strip, "BOTTOMLEFT", x + 2, TAB_H / 2)
+	end
 	local full = n >= 6
 	W.SetIconState(strip.Add, false, not full)
 	strip.Add.psTip = full and L["Six tabs is the limit"] or L["Open a guide in a new tab"]
@@ -1408,6 +1448,15 @@ local function stripShown()
 	return strip.psHasTabs and not compact()
 end
 
+local function placeRow(r, width, y)
+	local h = measureRow(r, width)
+	r:SetHeight(h)
+	r:ClearAllPoints()
+	r:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
+	r:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
+	return y + h
+end
+
 local function layoutCard(width)
 	local y = 0
 	local cw = width - PAD * 2
@@ -1415,36 +1464,33 @@ local function layoutCard(width)
 	local CC = UI.ClassCard
 	if CC then y = CC.Layout(width) end
 	if person:IsShown() then
-		local nameW = cw - ICON - 10
+		local nameW = darkXS and width - TEXT_X - PAD or cw - ICON - 10
 		person.Name:SetWidth(nameW)
 		person.Where:SetWidth(nameW)
-		local h = 10 + person.Name:GetStringHeight()
+		local inset = Theme.Metric("guidePersonPad", 10)
+		local h = inset + person.Name:GetStringHeight()
 		if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
-		h = floor(h + 8 + 0.5)
+		h = floor(h + Theme.Metric("guidePersonEnd", 8) + 0.5)
 		person:SetHeight(h)
 		person:ClearAllPoints()
 		person:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
 		person:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
 		y = y + h
 	end
-	for i = 1, #rows do
-		local r = rows[i]
+	local action
+	for _, r in ipairs(rows) do
 		if r:IsShown() then
-			local h = measureRow(r, width)
-			r:SetHeight(h)
-			r:ClearAllPoints()
-			r:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
-			r:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
-			y = y + h
+			if r.psAction and not transparent() then action = r else y = placeRow(r, width, y) end
 		end
 	end
 	local tip = card.Tip
 	if tip:IsShown() then
-		tip.Text:SetWidth(cw - 18)
+		tip.Text:SetWidth(darkXS and width - TEXT_X - PAD or cw - 18)
 		tip.Text:SetWordWrap(tipOpen)
 		tip.psOpen = tipOpen
 		local th = tipOpen and tip.Text:GetStringHeight() or min(tip.Text:GetStringHeight(), tip.Text:GetLineHeight())
-		local h = floor(6 + th + 6 + 0.5)
+		local pad, gap = Theme.Metric("guideTipPad", 6), Theme.Metric("guideTipGap", 2)
+		local h = floor(pad * 2 + th + 0.5)
 		-- The step's picture, under the opened tip: as wide as the text
 		-- column, its aspect kept, no taller than PICTURE_MAX_H.
 		local pic = tipOpen and tip.psImage or nil
@@ -1464,13 +1510,13 @@ local function layoutCard(width)
 		end
 		tip:SetHeight(h)
 		tip:ClearAllPoints()
-		tip:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -(y + 2))
-		tip:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -(y + 2))
-		y = y + 2 + h
+		tip:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -(y + gap))
+		tip:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -(y + gap))
+		y = y + gap + h
 	end
-	y = y + 6
+	y = y + Theme.Metric("guideCardEnd", 6)
 	card:SetHeight(y)
-	return y
+	return y, action
 end
 
 local function layoutAfter(width)
@@ -1561,7 +1607,7 @@ local function stackJourney(y, width)
 	local J = UI.JourneyPanel
 	local jf = J and J.frame
 	if not jf then return y end
-	if jf.psHas and not compact() then
+	if jf.psHas and not UI.HideGuideDetails() then
 		jf:Show()
 		return stack(jf, y, J.Layout(width))
 	end
@@ -1571,6 +1617,8 @@ end
 
 local function placeBars(showFoot)
 	local flip = barsBottom()
+	local top = darkXS and header or F
+	local topEdge = darkXS and "BOTTOM" or "TOP"
 	strip:ClearAllPoints()
 	nav:ClearAllPoints()
 	body:ClearAllPoints()
@@ -1586,19 +1634,23 @@ local function placeBars(showFoot)
 	if flip then
 		strip:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
 		strip:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
-		nav:SetPoint("BOTTOMLEFT", strip, "TOPLEFT", 0, 0)
-		nav:SetPoint("BOTTOMRIGHT", strip, "TOPRIGHT", 0, 0)
+		local below, edge = strip, "TOP"
+		if darkXS and not strip:IsShown() then below, edge = F, "BOTTOM" end
+		nav:SetPoint("BOTTOMLEFT", below, edge .. "LEFT", 0, 0)
+		nav:SetPoint("BOTTOMRIGHT", below, edge .. "RIGHT", 0, 0)
 		foot:SetPoint("BOTTOMLEFT", nav, "TOPLEFT", 0, 0)
 		foot:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 0, 0)
-		body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-		body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+		body:SetPoint("TOPLEFT", top, topEdge .. "LEFT", 0, 0)
+		body:SetPoint("TOPRIGHT", top, topEdge .. "RIGHT", 0, 0)
 		band:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1)
 		band:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
 	else
-		strip:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-		strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
-		nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
-		nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
+		strip:SetPoint("TOPLEFT", top, topEdge .. "LEFT", 0, 0)
+		strip:SetPoint("TOPRIGHT", top, topEdge .. "RIGHT", 0, 0)
+		local above, edge = top, topEdge
+		if not darkXS or strip:IsShown() then above, edge = strip, "BOTTOM" end
+		nav:SetPoint("TOPLEFT", above, edge .. "LEFT", 0, 0)
+		nav:SetPoint("TOPRIGHT", above, edge .. "RIGHT", 0, 0)
 		body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
 		body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
 		foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
@@ -1616,13 +1668,13 @@ end
 function GF.Layout()
 	if not F then return end
 	local width = F:GetWidth()
-	local isCompact = compact()
+	local hidePanels = UI.HideGuideDetails()
 	local showStrip = stripShown()
 	strip:SetShown(showStrip)
 	strip:SetHeight(showStrip and TAB_H or 0.01)
 	-- The guide's title sits in the navigator only when no tab names it.
 	local steps = nav.Steps:IsShown()
-	nav.Title:SetShown((not showStrip or not steps) and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "")
+	nav.Title:SetShown(not darkXS and (not showStrip or not steps) and nav.Title:GetText() ~= nil and nav.Title:GetText() ~= "")
 	local skipW = nav.Skip:IsShown() and nav.Skip:GetWidth() + 4 or 0
 	local reportW = nav.Report:IsShown() and nav.Report:GetWidth() or 0
 	local nearbyW = nav.Nearby:IsShown() and nav.Nearby:GetWidth() or 0
@@ -1630,6 +1682,7 @@ function GF.Layout()
 	card:SetWidth(width)
 
 	local y = 0
+	local action
 	if bannerNotice() and state ~= "noguide" and state ~= "noguides" then
 		y = stack(banner, y, GF.LayoutBanner(width))
 		banner:Show()
@@ -1638,7 +1691,8 @@ function GF.Layout()
 		banner.Jump.psDefault = nil
 	end
 	if state == "steps" then
-		local h = layoutCard(width)
+		local h
+		h, action = layoutCard(width)
 		-- The card animates its own offset; keep its anchor's base in step.
 		if Anim.IsRunning(card, "offset") then
 			card.psAnchor[5] = -y
@@ -1654,23 +1708,27 @@ function GF.Layout()
 		y = stack(empty, y, layoutEmpty(width))
 		y = stackJourney(y, width)
 	end
-	if GF.party.psText and not isCompact and state == "steps" then
+	if GF.party.psText and not hidePanels and state == "steps" then
 		GF.party:Show()
 		y = stack(GF.party, y, GF.party:GetHeight())
 	else
 		GF.party:Hide()
 	end
-	if GF.xp.psHas and not isCompact and state == "steps" then
+	if GF.xp.psHas and not hidePanels and state == "steps" then
 		GF.xp:Show()
 		y = stack(GF.xp, y, GF.xp:GetHeight())
 	else
 		GF.xp:Hide()
 	end
+	if action then
+		action:SetHeight(measureRow(action, width))
+		y = stack(action, y, action:GetHeight())
+	end
 	body:SetHeight(max(1, y))
 	local showFoot = state == "steps" or state == "complete"
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
-	F:SetHeight(floor(stripH + NAV_H + y + (showFoot and PROG_H or 0) + 0.5))
+	F:SetHeight(floor(Theme.Metric("guideHeader", 0) + stripH + NAV_H + y + (showFoot and PROG_H or 0) + 0.5))
 	placeBars(showFoot)
 	band:SetHeight(stripH + NAV_H)
 	local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
@@ -1696,7 +1754,7 @@ function GF.PaintProgress(animate)
 	local done, total = progress()
 	local frac = total > 0 and min(1, done / total) or 0
 	foot.Pct:SetText(floor(frac * 100 + 0.5) .. "%")
-	local w = F:GetWidth() - PAD * 2 - 44
+	local w = F:GetWidth() - PAD * 2 - (darkXS and 0 or 44)
 	foot.Line:SetWidth(max(1, w))
 	W.SetProgress(foot.Line, frac, w, animate)
 	GF.PaintStatus(frac, foot.Pct:GetText())
@@ -1899,7 +1957,7 @@ function GF.PaintSkip(shown, enabled)
 	b:SetShown(shown and true or false)
 	if enabled then b:Enable() else b:Disable() end
 	local a = enabled and 1 or 0.35
-	W.Color(b.Icon, "textDim", a)
+	W.Color(b.Icon, darkXS and "icon" or "textDim", a)
 	W.Color(b.Label, "textDim", a)
 end
 
@@ -1910,6 +1968,11 @@ local function anchorSkip()
 	nav.Skip:SetPoint("RIGHT", nav.Nearby:IsShown() and nav.Nearby or nav.Report, "LEFT", -2, 0)
 end
 
+local function stepText(index, count)
+	if darkXS then return tostring(index) end
+	return string.format("%d / %d", index, count)
+end
+
 local function navigatorFor(guide, index)
 	local E = Engine()
 	local count = guide and E.GetStepCount and E.GetStepCount() or 0
@@ -1917,7 +1980,8 @@ local function navigatorFor(guide, index)
 		-- While the catch-up shows the guides passed whole, the count and title
 		-- are its (GF.PlayCatchUp).
 		if GF.catchingUp ~= "guides" then
-			nav.Steps.Count:SetText(string.format("%d / %d", index or count, count))
+			if darkXS then nav.Steps.Count:SetWidth(0) end
+			nav.Steps.Count:SetText(stepText(index or count, count))
 			nav.Title:SetText(guide.title or guide.id)
 		end
 		nav.psMeta = UI.GuideMeta(guide)
@@ -1942,14 +2006,14 @@ local function navigatorFor(guide, index)
 		nav.Title:SetPoint("LEFT", nav, "LEFT", PAD, 0)
 	end
 	if GF.catchingUp == "guides" then return end
-	local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), 40)
+	local cw = max(floor(nav.Steps.Count:GetStringWidth() + 0.5), darkXS and 20 or 40)
 	nav.Steps.Count:SetWidth(cw)
-	nav.Steps:SetWidth(24 + cw + 24)
+	nav.Steps:SetWidth(darkXS and nav.Prev:GetWidth() + cw + nav.Next:GetWidth() or 24 + cw + 24)
 end
 
 local function fillUpcoming(E, index)
 	for i = 1, #upRows do upRows[i]:Hide() end
-	local want = compact() and 0 or (ns.Get("ui.upcoming") or 0)
+	local want = UI.HideGuideDetails() and 0 or (ns.Get("ui.upcoming") or 0)
 	local n, count = 0, E.GetStepCount and E.GetStepCount() or 0
 	local i = index + 1
 	while n < want and i <= count do
@@ -2005,7 +2069,7 @@ end
 -- ALONG_MAX rows, hidden in the compact window.
 local function fillAlong(E)
 	for i = 1, #alongRows do alongRows[i]:Hide() end
-	if compact() or not E.GetAlong then
+	if UI.HideGuideDetails() or not E.GetAlong then
 		along:Hide()
 		return
 	end
@@ -2029,7 +2093,7 @@ end
 
 -- "Then: Gazrog" and "Person 2 of 8".
 local function fillAfter(E, index, groups, focus)
-	if compact() then
+	if UI.HideGuideDetails() then
 		after:Hide()
 		return
 	end
@@ -2167,7 +2231,7 @@ local function fillCard(sameFocus)
 		rows[i].psGoal = nil
 		rows[i].psStatus = nil
 	end
-	local shown = ns.Get("ui.showNotes") and not compact()
+	local shown = ns.Get("ui.showNotes") and not UI.HideGuideDetails()
 	local note = shown and view.note or nil
 	if note == "" then note = nil end
 	-- The step's picture (a file in its pack's addon folder, Guides.lua): one
@@ -2358,11 +2422,18 @@ function GF.ApplyStyle()
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
+	nav.Fill:SetShown(darkXS and not clear)
+	strip.Fill:SetShown(darkXS and not clear)
+	if header then header.Fill:SetShown(not clear) end
+	for _, row in ipairs(rows) do
+		if rawget(row, "Action") then row.Action:SetShown(row.psAction and not clear) end
+	end
+	if rawget(person, "Action") then person.Action:SetShown(person.psAction and not clear) end
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
 	-- The quest tracker's header behind the focus (Forever, Blizzard).
 	Theme.KitHeader(person, not clear)
-	strip.Rule:SetShown(not clear)
+	strip.Rule:SetShown(not clear and not darkXS)
 	nav.Rule:SetShown(not clear)
 	W.Painter(foot.Line.Track, paintTrack)
 	for i = 1, #texts do Theme.SetOutline(texts[i], clear) end
@@ -2464,6 +2535,7 @@ end
 
 function GF.ApplyCompact()
 	if not F then return end
+	if darkXS then return GF.Layout() end
 	GF.Render()
 	GF.Layout()
 end
@@ -2549,7 +2621,10 @@ function GF.PaintTab(b)
 			f:SetVertexColor(top[1], top[2], top[3], 1)
 		end
 	end
-	if bliz or kit then
+	if darkXS then
+		b.Bar:Hide()
+		W.Color(b.Label, b.psActive and "text" or "tabRest")
+	elseif bliz or kit then
 		b.Selected:Hide()
 		b.Bar:Hide()
 		W.Color(b.Label, b.psActive and "title" or "tabRest")
@@ -2600,6 +2675,9 @@ function GF.ApplySkin()
 	readMetrics()
 	local skin = Theme.SkinKey()
 	skinShown = skin
+	darkXS = skin == "dark-xs"
+	if darkXS and not header then header = buildHeader() end
+	if header then header:SetShown(darkXS) end
 	F.psGuide = true
 	Theme.Repaint(F)
 	strip:SetHeight(TAB_H)
@@ -2628,8 +2706,12 @@ function GF.ApplySkin()
 		end
 	end
 	nav.Skip:SetHeight(nb)
+	nav.Skip.Label:SetShown(not darkXS)
+	nav.Skip:SetWidth(darkXS and iw or floor(31 + nav.Skip.Label:GetStringWidth() + 0.5))
+	nav.Skip.Icon:SetPoint("LEFT", nav.Skip, "LEFT", darkXS and floor((iw - 11) / 2) or 7, 0)
+	nav.Menu:SetPoint("RIGHT", nav, "RIGHT", darkXS and -4 or -8, 0)
 	nav.Steps:SetHeight(nb)
-	nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
+	nav.Steps:SetPoint("LEFT", nav, "LEFT", darkXS and 1 or PAD - 6, 0)
 	-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the
 	-- game's looks their separator.
 	W.Painter(nav.Rule, function(t)
@@ -2648,10 +2730,12 @@ function GF.ApplySkin()
 	-- Hearth: the person's name over a gold separator.
 	person.Rule:SetShown(skin == "hearth")
 	-- The focus parts at the skin's paddings.
-	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -11)
-	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
-	card.Tip.Text:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", TEXT_X, -6)
-	card.Tip.Toggle:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", PAD - 2, -3)
+	person.Icon:SetSize(ICON + 1, ICON + 1)
+	person.Icon:SetPoint("TOPLEFT", person, "TOPLEFT", PAD - 1, -Theme.Metric("guidePersonIconY", 11))
+	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -Theme.Metric("guidePersonPad", 10))
+	card.Tip.Text:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", TEXT_X, -Theme.Metric("guideTipPad", 6))
+	card.Tip.Text:SetSpacing(Theme.Metric("guideTipSpacing", 3))
+	card.Tip.Toggle:SetPoint("TOPLEFT", card.Tip, "TOPLEFT", PAD - 2, -Theme.Metric("guideTipIconY", 3))
 	for _, part in ipairs({ after, upnext.Toggle, GF.xp }) do
 		part.Rule:SetPoint("TOPLEFT", part, "TOPLEFT", PAD, 0)
 		part.Rule:SetPoint("TOPRIGHT", part, "TOPRIGHT", -PAD, 0)
@@ -2666,19 +2750,19 @@ function GF.ApplySkin()
 	banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
 	banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
 	for _, r in ipairs(rows) do
-		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
-		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
+		placeGoalText(r)
 		r.Check:SetSize(CHECK, CHECK)
 		placeCheck(r)
 		Theme.Repaint(r.Check)
 	end
 	-- The progress bar: the game's status bar in Hearth and the game's looks.
 	local bliz = Theme.GameSkin()
-	foot.Line:SetHeight(3)
+	foot.Line:SetHeight(darkXS and Theme.Metric("guideProgress", 6) or 3)
 	foot.Line:SetPoint("LEFT", foot, "LEFT", PAD, 0)
+	W.Color(foot.Line.Fill, darkXS and "guideProgress" or "accent")
 	foot.Pct:SetPoint("RIGHT", foot, "RIGHT", -PAD, 0)
 	foot.Line:SetShown(not bliz)
-	foot.Pct:SetShown(not bliz)
+	foot.Pct:SetShown(not bliz and not darkXS)
 	if bliz then
 		local b = footBar()
 		b:ClearAllPoints()
@@ -2781,6 +2865,11 @@ end
 -- Menu
 ---------------------------------------------------------------------------
 
+local function hideWindow()
+	ns.Set("ui.shown", false)
+	ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
+end
+
 local function openMenu(button)
 	if W.MenuShown(button) then return W.HideMenu() end
 	local E = Engine()
@@ -2805,10 +2894,7 @@ local function openMenu(button)
 		{ text = L["Reset guide progress"], icon = "reset", confirm = true, disabled = not hasGuide, tip = L["Clears your manual check-offs and skipped steps for this guide."],
 			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end },
 		{ text = L["Options"], icon = "gear", onClick = function() UI.ShowOptions() end },
-		{ text = L["Hide window"], icon = "close", onClick = function()
-			ns.Set("ui.shown", false)
-			ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
-		end },
+		{ text = L["Hide window"], icon = "close", onClick = hideWindow },
 	}) do items[#items + 1] = it end
 	-- The Recorder's window, while the Recorder addon is loaded.
 	if type(PolestarRecorder_Command) == "function" then
@@ -2941,6 +3027,26 @@ local function draggable(frame)
 	return hoverable(frame)
 end
 
+buildHeader = function()
+	local h = draggable(CreateFrame("Frame", nil, F))
+	h:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
+	h:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+	h:SetHeight(Theme.Metric("guideHeader", 39))
+	h.Fill = W.Tex(h, "BACKGROUND", "white", "sky")
+	h.Fill:SetAllPoints(h)
+	h.Menu = hoverable(W.IconButton(h, "compact", 32, L["Menu"], openMenu, 18))
+	h.Menu:SetPoint("LEFT", h, "LEFT", 1, 0)
+	h.Close = hoverable(W.IconButton(h, "close", 32, L["Hide window"], hideWindow, 21))
+	h.Close:SetPoint("RIGHT", h, "RIGHT", -1, 0)
+	h.Title = T(h, "guideHeader", "text")
+	h.Title:SetPoint("LEFT", h.Menu, "RIGHT", 4, 0)
+	h.Title:SetPoint("RIGHT", h.Close, "LEFT", -4, 0)
+	h.Title:SetJustifyH("CENTER")
+	h.Title:SetText("POLESTAR")
+	GF.parts.header = h
+	return h
+end
+
 local function build()
 	readMetrics()
 	F = CreateFrame("Frame", "PolestarGuideFrame", UIParent)
@@ -2964,6 +3070,9 @@ local function build()
 	strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
 	strip:SetHeight(TAB_H)
 	draggable(strip)
+	strip.Fill = W.Tex(strip, "BACKGROUND", "white", "guideTabs", -8)
+	strip.Fill:SetAllPoints(strip)
+	strip.Fill:Hide()
 	strip.Rule = W.Divider(strip)
 	strip.Rule:SetPoint("BOTTOMLEFT", strip, "BOTTOMLEFT", 0, 0)
 	strip.Rule:SetPoint("BOTTOMRIGHT", strip, "BOTTOMRIGHT", 0, 0)
@@ -2982,6 +3091,9 @@ local function build()
 	nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
 	nav:SetHeight(NAV_H)
 	draggable(nav)
+	nav.Fill = W.Tex(nav, "BACKGROUND", "white", "panelAlt", -8)
+	nav.Fill:SetAllPoints(nav)
+	nav.Fill:Hide()
 	nav.Rule = W.Divider(nav)
 	nav.Rule:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
 	nav.Rule:SetPoint("BOTTOMRIGHT", nav, "BOTTOMRIGHT", 0, 0)
@@ -3008,7 +3120,7 @@ local function build()
 	end)
 	nav.Prev.psTipLines = { L["A look back: nothing changes."] }
 	nav.Prev:SetPoint("LEFT", nav.Steps, "LEFT", 0, 0)
-	nav.Steps.Count = T(nav.Steps, "number", "text")
+	nav.Steps.Count = T(nav.Steps, "guideStep", "text")
 	nav.Steps.Count:SetJustifyH("CENTER")
 	nav.Steps.Count:SetPoint("LEFT", nav.Prev, "RIGHT", 0, 0)
 	nav.Next = W.IconButton(nav.Steps, "chevron-right", 24, L["Next step"], function()
@@ -3570,7 +3682,7 @@ function GF.PlayCatchUp(guideId, step, chain)
 	Count.psOnValue = function(o, v)
 		local t = titles[min(passed, floor(v) + 1)]
 		nav.Title:SetText(t[1])
-		o:SetText(string.format("%d / %d", t[2], t[2]))
+		o:SetText(stepText(t[2], t[2]))
 	end
 	Anim.To(Count, "value", 0, passed - 0.001, min(1.2, CATCH_GUIDE * passed), "linear", function()
 		if step > 1 then return roll() end
