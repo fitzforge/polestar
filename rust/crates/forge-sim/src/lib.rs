@@ -14,6 +14,7 @@ pub mod chain;
 pub mod eval;
 pub mod fixes;
 pub mod flow;
+pub mod gate;
 pub mod group;
 pub mod guards;
 pub mod hubs;
@@ -33,6 +34,7 @@ pub mod shared;
 #[cfg(feature = "native")]
 pub mod stage;
 pub mod travel;
+pub mod turnin;
 pub mod walks;
 pub mod widen;
 pub mod xp;

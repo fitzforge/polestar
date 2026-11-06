@@ -91,6 +91,9 @@ const SCRIPT: &str = r#"
 				Polestar.Set("ui.compact", false)
 				w.moveTo(1429, 47.6, 35.1)
 				stub.advance(1)
+				snap()
+				w.progress(7, 1, 10)
+				stub.advance(0.5)
 				snap()"#;
 
 #[test]
@@ -100,7 +103,7 @@ fn along_goals_show_under_the_card_while_the_route_is_past_them_then_and_up_next
 	let loads = format!("do local ns = {{}}\n{}\nend", lines.join("\n"));
 	let out =
 		emitted(&RunAddon { stubs: vec!["stub_world.lua"], before: BEFORE.into(), addons: vec![Addon::name("Polestar")], script: "\n\t\t\t\t".to_string() + &loads + SCRIPT, ..Default::default() });
-	let (login, on_seven, kills, target, compact, at_back) = (&out[0], &out[1], &out[2], &out[3], &out[4], &out[5]);
+	let (login, on_seven, kills, target, compact, at_back, done) = (&out[0], &out[1], &out[2], &out[3], &out[4], &out[5], &out[6]);
 
 	// Step 1: nothing is along yet; Up next leaves out the along step 3.
 	assert_eq!(login["step"], 1);
@@ -127,7 +130,10 @@ fn along_goals_show_under_the_card_while_the_route_is_past_them_then_and_up_next
 	// The compact window hides the section.
 	assert_eq!(compact["shown"], false);
 
-	// Arriving at the camp reaches the labelled step, which ends the list.
+	// Arriving at the camp reaches the labelled step, which hands quest 7 in: its kobolds stay listed while
+	// they are open (#797), so "Turn in" never hides what is left; done, the list ends.
 	assert_eq!(at_back["step"], 5);
-	assert_eq!(at_back["shown"], false);
+	assert_eq!(at_back["shown"], true);
+	assert!(is_match(text(&at_back["rows"][0]["text"]), r"4/10$"));
+	assert_eq!(done["shown"], false);
 }

@@ -1,6 +1,7 @@
 //! `along` steps at runtime (addon/Polestar/Core/Engine.lua; docs/GUIDE_FORMAT.md, "Along the way"): the route
 //! passes over an along step at once; while the live step is past it, Engine.GetAlong lists its open goals,
-//! until they are done or, with `along = "<label>"`, until the live step reaches the step so labelled.
+//! until they are done or, with `along = "<label>"`, until the live step reaches the step so labelled; a quest
+//! with work still open keeps its own goals listed past the label until that work is done (#797, #809).
 //! Engine.AimAlong leads the arrow to one of them. Core/Guides.lua checks `label` and `along`. Real Core
 //! manifest, stub world.
 
@@ -88,15 +89,37 @@ fn the_route_passes_over_along_steps_their_open_goals_are_listed_until_done_or_u
 	assert_eq!(out, vec![json!([1, ""]), json!([4, "2:1:0 2:2:0 3:1:0"]), json!("2:1:4 2:2:0 3:1:0"), json!("3:1:0"), json!("")]);
 }
 
+// Zyd's (#797, Iverron's Antidote) and jkw's (#809, Legging It) reports: the labelled step hands the quest in,
+// and its along goals vanished there, leaving "Turn in" for a quest with work left.
 #[test]
-fn reaching_the_step_until_names_ends_the_list_with_goals_still_open_a_plain_along_stays() {
+fn reaching_the_step_until_names_ends_the_list_but_a_quest_with_work_left_keeps_its_goals_until_done() {
 	let out = run(r#"
 		local w = stub.world
 		w.accept(7, { 10 }); flush()
 		w.accept(783, {}); flush()
-		emit({ E.GetLiveStep(), along() })
+		emit({ E.GetLiveStep(), along() })      -- at the hand-in of 7: its vermin stay, the candles (no quest) end
+		w.progress(7, 1, 6); flush()
+		emit(along())
+		w.progress(7, 1, 10); flush()
+		emit(along())                           -- 7 ready to hand in: step 2 is gone, the plain along stays
 	"#);
-	assert_eq!(out, vec![json!([5, "3:1:0"])]);
+	assert_eq!(out, vec![json!([5, "2:1:0 3:1:0"]), json!("2:1:6 3:1:0"), json!("3:1:0")]);
+}
+
+// Bill's (#853, Legging It) and striderZA's (#862, The Battleboars) reports: at the labelled step the arrow stood on the
+// turn-in while its along kills were open. Until the quest is ready the arrow leads to that work and the turn-in
+// says it is still open.
+#[test]
+fn before_a_turn_in_that_is_not_ready_the_arrow_leads_to_its_open_along_work_and_the_turn_in_says_so() {
+	let out = run(r#"
+		local w = stub.world
+		w.accept(7, { 10 }); flush()
+		w.accept(783, {}); flush()
+		emit({ E.GetLiveStep(), wp(), E.GetStepView(5).goals[1].pinOpen or false })
+		w.progress(7, 1, 10); flush()
+		emit({ wp(), E.GetStepView(5).goals[1].pinOpen or false })
+	"#);
+	assert_eq!(out, vec![json!([5, "2:1", "along"]), json!(["5:1", false])]);
 }
 
 #[test]
@@ -162,9 +185,9 @@ fn the_arrow_s_along_choice_lapses_when_the_goal_is_done_and_holds_while_the_rou
 		emit(wp())
 		w.accept(783, {}); flush()              -- live step 5; step 3 (no until) is still listed
 		emit({ E.GetLiveStep(), wp() })
-		emit(E.AimAlong(2, 1))                  -- step 2 ended at its label (step 5)
+		emit({ E.AimAlong(2, 2), E.AimAlong(2, 1) })   -- past its label (step 5) step 2 keeps only quest 7's open vermin
 	"#);
-	assert_eq!(moved, vec![json!("3:1"), json!([5, "3:1"]), json!(false)]);
+	assert_eq!(moved, vec![json!("3:1"), json!([5, "3:1"]), json!([false, true])]);
 }
 
 #[test]
@@ -181,4 +204,58 @@ fn guides_validate_refuses_a_bad_label_or_along() {
 		emit(Polestar.Guides.Validate(def({ { along = 3, goals = G } })))
 	"#);
 	assert_eq!(out, vec![json!(true), json!(true), json!("step 1: bad label"), json!("step 2: duplicate label a"), json!("step 1: bad along"), json!("step 2: bad along"), json!("step 1: bad along")]);
+}
+
+// #862, the guide as shipped (guides/forever/horde/tauren/01-mulgore.guide, compiled with data/forever; skipped
+// with a note without it): step 9 `along until q780` collects The Battleboars' snouts and flanks on the way,
+// step 12 (label q780) turns 780 in to Grull Hawkwind (2980). The reporter: a level 5 Tauren Druid at Red
+// Cloud Mesa, step 12 live, 757, 781, 3376 and 1656 ready, 780 at one of two objectives (here the 8 snouts
+// done, 3 of 8 flanks). The arrow leads to the flanks (step 9 goal 2), not to Grull (before: 12:1).
+#[test]
+fn mulgore_the_battleboars_half_done_at_camp_narache_the_arrow_leads_to_the_boars_not_to_grull() {
+	use forge_addontest::dsl::{compile_with, our_manifest, write_test_pack};
+	use forge_addontest::run::root;
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let file = "guides/forever/horde/tauren/01-mulgore.guide";
+	let text = std::fs::read_to_string(root().join(file)).unwrap();
+	let compiled = compile_with(&[(file, &text)], &data, None);
+	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
+	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
+	let f = data.map_frames.get("forever").get("1412");
+	let before = format!(
+		r#"local w = stub.world
+w.addMap(1412, {{ name = "Mulgore", c = {}, left = {}, right = {}, top = {}, bottom = {} }})
+w.race, w.raceName, w.class, w.className, w.faction, w.level = "Tauren", "Tauren", "DRUID", "DRUID", "Horde", 5
+w.moveTo(1412, 50.64, 83.03)
+w.complete({{ 752, 747, 753, 750, 3094, 755, 95805 }})
+w.onQuest(781, {{}}); w.onQuest(757, {{ {{ required = 12, fulfilled = 12 }} }}); w.onQuest(1656, {{}})
+w.onQuest(3376, {{ {{ required = 1, fulfilled = 1 }} }})
+w.onQuest(780, {{ {{ required = 8, fulfilled = 8 }}, {{ required = 8, fulfilled = 3 }} }})
+w.addItem(4770, 12); w.addItem(10459, 1); w.addItem(4848, 8); w.addItem(4849, 3)
+"#,
+		f.get("c").to_js_string(),
+		f.get("left").to_js_string(),
+		f.get("right").to_js_string(),
+		f.get("top").to_js_string(),
+		f.get("bottom").to_js_string()
+	);
+	let script = format!(
+		r#"do local ns = {{}}
+{}
+end
+stub.login()
+stub.fire("QUEST_LOG_UPDATE")
+{HELPERS}
+E.SetGuide("forever/horde/tauren/01-mulgore"); flush()
+emit({{ E.GetLiveStep(), wp() }})
+"#,
+		loads.join("\n")
+	);
+	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() });
+	assert_eq!(out, vec![json!([12, "9:2"])], "the flanks still to get (step 9 goal 2), not Grull Hawkwind's turn-in (12:1)");
 }

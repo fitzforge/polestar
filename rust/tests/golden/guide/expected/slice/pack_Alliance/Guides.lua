@@ -63,7 +63,7 @@ do
 					title = "Wolves",
 					note = "Young Wolves and Timber Wolves roam the fields right around the Abbey.",
 					goals = {
-						{ t = "collect", quest = 33, title = "Wolves Across the Border", item = 750, itemName = "Tough Wolf Meat", count = 8, oi = 1, map = 1429, x = 50.8, y = 44.1, f = "e", spotsPacked = "51.4,43.3,,53,11;52.5,39.3,,52,5;52.7,35.1,,40,1;49.4,37.4,,66,7;46.8,39.3,,49,17;46.1,35.9,,47,9;46,43.6,,40,9;49.5,49.3,,40,1;44.9,57.1,,44,3;42.9,55.4,,40,1;41.5,58.2,,40,1;42.7,62,,40,3;48.8,46.3,,48,9,1;47.9,34.3,,40,3,1", spread = true, from = "Timber Wolf", fromKind = "npc", fromAlso = "Young Wolf", fromId = 69, fromAlsoId = 299, fromNpcs = { { npc = 69, npcName = "Timber Wolf" }, { npc = 299, npcName = "Young Wolf" } } },
+						{ t = "collect", quest = 33, title = "Wolves Across the Border", item = 750, itemName = "Tough Wolf Meat", count = 8, oi = 1, map = 1429, x = 50.8, y = 44.1, f = "e", spotsPacked = "51.4,43.3,,53,11;52.5,39.3,,52,5;52.7,35.1,,40,1;49.4,37.4,,66,7;46.8,39.3,,49,17;46.1,35.9,,47,9;46,43.6,,40,9,,1;49.5,49.3,,40,1;44.9,57.1,,44,3,,1;42.9,55.4,,40,1,,1;41.5,58.2,,40,1,,1;42.7,62,,40,3,,1;48.8,46.3,,48,9,1;47.9,34.3,,40,3,1", spread = true, lvl = 2, from = "Timber Wolf", fromKind = "npc", fromAlso = "Young Wolf", fromId = 69, fromAlsoId = 299, fromNpcs = { { npc = 69, npcName = "Timber Wolf" }, { npc = 299, npcName = "Young Wolf" } } },
 					},
 				},
 				{
@@ -79,7 +79,7 @@ do
 					title = "The kobold camp",
 					note = "{npc:6} dig in the vineyards north-east of the Abbey. Now and then one drops a Nibbled-On Book: right-click it.",
 					goals = {
-						{ t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, map = 1429, x = 48.1, y = 36.9, z = 83, f = "e", spotsPacked = "48.4,36,81.4,53,18;51,36.7,83.1,42,11" },
+						{ t = "kill", quest = 7, title = "Kobold Camp Cleanup", target = "Kobold Vermin", npc = 6, count = 10, oi = 1, map = 1429, x = 48.1, y = 36.9, z = 83, f = "e", spotsPacked = "48.4,36,81.4,53,18;51,36.7,83.1,42,11", lvl = 2 },
 						{ t = "collect", item = 247834, count = 1, note = "Nibbled-On Book" },
 						{ t = "accept", quest = 91741 },
 					},
@@ -106,7 +106,7 @@ do
 					title = "{area:34}",
 					note = "Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.",
 					goals = {
-						{ t = "kill", quest = 15, title = "Investigate Echo Ridge", target = "Kobold Worker", npc = 257, count = 10, oi = 1, map = 1429, x = 51.1, y = 38.2, z = 82.4, f = "e", spotsPacked = "51.5,37,82.7,36,8;49.3,34.4,85.6,51,10;47.4,33.4,89.1,79,18" },
+						{ t = "kill", quest = 15, title = "Investigate Echo Ridge", target = "Kobold Worker", npc = 257, count = 10, oi = 1, map = 1429, x = 51.1, y = 38.2, z = 82.4, f = "e", spotsPacked = "51.5,37,82.7,36,8;49.3,34.4,85.6,51,10;47.4,33.4,89.1,79,18", lvl = 3 },
 						{ t = "collect", quest = 91743, item = 247839, note = "{object:83763}" },
 					},
 				},
@@ -131,7 +131,7 @@ do
 					title = "The Defias camp",
 					note = "Defias Thugs camp in the clearing east of the Abbey and along the valley's east side.",
 					goals = {
-						{ t = "collect", quest = 18, title = "Brotherhood of Thieves", item = 752, itemName = "Red Burlap Bandana", count = 12, oi = 1, map = 1429, x = 51.8, y = 47.5, f = "e", spotsPacked = "52.6,49.2,,61,22;54.6,45.9,,53,10;55.2,48.7,,49,10;54.4,51.3,,46,7;55.7,42.2,,56,15;57.4,48.1,,15,1,1", note = "Red Burlap Bandanas", from = "Defias Thug", fromKind = "npc", fromId = 38, fromNpcs = { { npc = 38, npcName = "Defias Thug" } } },
+						{ t = "collect", quest = 18, title = "Brotherhood of Thieves", item = 752, itemName = "Red Burlap Bandana", count = 12, oi = 1, map = 1429, x = 51.8, y = 47.5, f = "e", spotsPacked = "52.6,49.2,,61,22;54.6,45.9,,53,10;55.2,48.7,,49,10;54.4,51.3,,46,7;55.7,42.2,,56,15;57.4,48.1,,15,1,1", lvl = 4, note = "Red Burlap Bandanas", from = "Defias Thug", fromKind = "npc", fromId = 38, fromNpcs = { { npc = 38, npcName = "Defias Thug" } } },
 						{ t = "collect", quest = 1598, title = "The Stolen Tome", item = 6785, itemName = "Powers of the Void", count = 1, oi = 1, map = 1429, x = 56.7, y = 44, f = "e", only = { classes = { "WARLOCK" } }, note = "{item:6785}: the {object:83763} in the Defias camp", from = "Stolen Books", fromKind = "object", fromId = 83763 },
 					},
 				},
@@ -179,7 +179,7 @@ do
 					title = "Inside {area:34}",
 					note = "Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.",
 					goals = {
-						{ t = "kill", quest = 21, title = "Skirmish at Echo Ridge", target = "Kobold Laborer", npc = 80, count = 12, oi = 1, map = 1429, x = 47.8, y = 31.6, z = 92.1, f = "e", spotsPacked = "48.3,29.6,86.3,50,11;49.5,26.6,,37,9" },
+						{ t = "kill", quest = 21, title = "Skirmish at Echo Ridge", target = "Kobold Laborer", npc = 80, count = 12, oi = 1, map = 1429, x = 47.8, y = 31.6, z = 92.1, f = "e", spotsPacked = "48.3,29.6,86.3,50,11;49.5,26.6,,37,9", lvl = 4 },
 						{ t = "collect", quest = 91752, item = 247886, optional = true, note = "Shinyfinder Narf" },
 					},
 				},
@@ -246,8 +246,8 @@ do
 					title = "The murloc camp",
 					note = "Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp.",
 					goals = {
-						{ t = "kill", quest = 99128, target = "Murloc", npc = 285, map = 1429, x = 49.8, y = 66.4, z = 56.7, f = "e", spotsPacked = "50.7,67.1,58.6,59,7;55.3,66.5,56.6,57,18" },
-						{ t = "kill", quest = 99128, target = "Murloc Streamrunner", npc = 735, map = 1429, x = 50.5, y = 66.3, z = 56.6, f = "e", spotsPacked = "51.5,65.6,62.3,39,4;52.4,69.1,,33,4;54.3,63.1,59,42,3;56.3,69.6,,35,2;57.5,63.7,60.4,43,3;50.5,62.3,63.1,15,1,1;58.3,67.9,61.6,15,1,1" },
+						{ t = "kill", quest = 99128, target = "Murloc", npc = 285, map = 1429, x = 49.8, y = 66.4, z = 56.7, f = "e", spotsPacked = "50.7,67.1,58.6,59,7;55.3,66.5,56.6,57,18", lvl = 7 },
+						{ t = "kill", quest = 99128, target = "Murloc Streamrunner", npc = 735, map = 1429, x = 50.5, y = 66.3, z = 56.6, f = "e", spotsPacked = "51.5,65.6,62.3,39,4;52.4,69.1,,33,4;54.3,63.1,59,42,3;56.3,69.6,,35,2;57.5,63.7,60.4,43,3;50.5,62.3,63.1,15,1,1;58.3,67.9,61.6,15,1,1", lvl = 7 },
 						{ t = "collect", quest = 99143, item = 286209, note = "Shiny Junk" },
 					},
 				},
@@ -282,8 +282,8 @@ do
 					note = "The mine is west of the vineyards. Kobold Miners and Tunnelers fill both levels; Nimsy, a named kobold, holds the picture book in the lower tunnels. Nimsy is elite: grouping up is advised.",
 					goals = {
 						{ t = "complete", quest = 62, title = "The Fargodeep Mine", map = 1429, x = 40.6, y = 82.3, f = "e", note = "Walk through the mine" },
-						{ t = "collect", quest = 47, title = "Gold Dust Exchange", item = 773, itemName = "Gold Dust", count = 10, oi = 1, map = 1429, x = 40.3, y = 82.5, f = "e", spotsPacked = "38.7,82.5,,91,17;37.9,85.1,,52,5;37.5,79.3,,46,4;40.9,79.5,,57,36;58,59.8,,40,1;61.3,57,,65,7;64.1,56.3,,70,9;63.7,59.5,,40,5;61.1,50.8,,60,14", spread = true, from = "Kobold Miner", fromKind = "npc", fromAlso = "Goldtooth", fromId = 40, fromAlsoId = 327, fromNpcs = { { npc = 475, npcName = "Kobold Tunneler" }, { npc = 40, npcName = "Kobold Miner" }, { npc = 327, npcName = "Goldtooth" }, { npc = 476, npcName = "Kobold Geomancer" } } },
-						{ t = "collect", quest = 60, title = "Kobold Candles", item = 772, itemName = "Large Candle", count = 8, oi = 1, map = 1429, x = 40.3, y = 82.5, f = "e", spotsPacked = "38.7,82.5,,91,17;37.9,85.1,,52,5;37.5,79.3,,46,4;40.9,79.5,,57,36;58,59.8,,40,1;61.3,57,,65,7;64.1,56.3,,70,9;63.7,59.5,,40,5;61.1,50.8,,60,14", spread = true, note = "Large Candles", from = "Kobold Miner", fromKind = "npc", fromAlso = "Goldtooth", fromId = 40, fromAlsoId = 327, fromNpcs = { { npc = 475, npcName = "Kobold Tunneler" }, { npc = 40, npcName = "Kobold Miner" }, { npc = 327, npcName = "Goldtooth" }, { npc = 476, npcName = "Kobold Geomancer" } } },
+						{ t = "collect", quest = 47, title = "Gold Dust Exchange", item = 773, itemName = "Gold Dust", count = 10, oi = 1, map = 1429, x = 40.3, y = 82.5, f = "e", spotsPacked = "38.7,82.5,,91,17,,7;37.9,85.1,,52,5,,6;37.5,79.3,,46,4,,6;40.9,79.5,,57,36;58,59.8,,40,1,,7;61.3,57,,65,7;64.1,56.3,,70,9;63.7,59.5,,40,5;61.1,50.8,,60,14", spread = true, lvl = 8, from = "Kobold Miner", fromKind = "npc", fromAlso = "Goldtooth", fromId = 40, fromAlsoId = 327, fromNpcs = { { npc = 475, npcName = "Kobold Tunneler" }, { npc = 40, npcName = "Kobold Miner" }, { npc = 327, npcName = "Goldtooth" }, { npc = 476, npcName = "Kobold Geomancer" } } },
+						{ t = "collect", quest = 60, title = "Kobold Candles", item = 772, itemName = "Large Candle", count = 8, oi = 1, map = 1429, x = 40.3, y = 82.5, f = "e", spotsPacked = "38.7,82.5,,91,17,,7;37.9,85.1,,52,5,,6;37.5,79.3,,46,4,,6;40.9,79.5,,57,36;58,59.8,,40,1,,7;61.3,57,,65,7;64.1,56.3,,70,9;63.7,59.5,,40,5;61.1,50.8,,60,14", spread = true, lvl = 8, note = "Large Candles", from = "Kobold Miner", fromKind = "npc", fromAlso = "Goldtooth", fromId = 40, fromAlsoId = 327, fromNpcs = { { npc = 475, npcName = "Kobold Tunneler" }, { npc = 40, npcName = "Kobold Miner" }, { npc = 327, npcName = "Goldtooth" }, { npc = 476, npcName = "Kobold Geomancer" } } },
 						{ t = "collect", quest = 91775, item = 248001, optional = true, note = "Lost Books: Kobold Miners and Tunnelers" },
 						{ t = "collect", quest = 91775, item = 248002, optional = true, note = "Fun with Elementals: Nimsy" },
 					},
@@ -332,7 +332,7 @@ do
 					title = "Boar meat",
 					note = "Stonetusk Boars graze between the vineyards and the farm.",
 					goals = {
-						{ t = "collect", quest = 86, title = "Pie for Billy", item = 769, itemName = "Chunk of Boar Meat", count = 4, oi = 1, map = 1429, x = 42.8, y = 86.9, f = "e", spotsPacked = "41.7,87.1,,40,6;34.4,89.2,,46,4;31.6,81.3,,40,4;25.6,79.9,,40,1;20.8,86.9,,40,1;16.7,76.9,,40,1;39.6,69.9,,73,5;48.5,75.9,,42,4;56.4,75.2,,46,5;55.7,84.9,,40,2;65.9,76.7,,49,4;73.7,80.2,,47,5;45.1,88.3,,40,3,1;39.8,85.8,,43,2,1;40.3,90.3,,47,4,1;45.7,83.9,,42,3,1;43.9,80.4,,49,4,1;37.5,90,,55,6,1;43.3,77.9,,40,1,1;47.2,79.8,,46,6,1;38.8,78.6,,40,1,1;41.5,76.1,,40,3,1;38.1,76.3,,40,3,1;50.1,79.2,,40,2,1;42.6,73.2,,40,1,1;33.6,80.6,,40,2,1;32.2,85.5,,56,7,1;53.3,83.5,,53,5,1;43.1,70.7,,53,4,1;53.2,78.6,,41,3,1;54.8,80.4,,40,2,1;53.1,75.2,,53,5,1;57.6,81.6,,40,2,1;25,86.7,,40,2,1;25,83.1,,40,2,1;60.5,81.4,,40,1,1;58.9,74.4,,51,6,1;60.9,78.6,,40,5,1;63,75.8,,40,3,1;63.9,79.6,,40,4,1;66.5,81.2,,40,3,1;69.7,79.3,,40,2,1;70,73.9,,41,3,1;71.7,83,,43,3,1;72.4,75.9,,40,2,1", spread = true, note = "Chunks of Boar Meat", fromNpcs = { { npc = 113, npcName = "Stonetusk Boar" }, { npc = 119, npcName = "Longsnout" }, { npc = 524, npcName = "Rockhide Boar" }, { npc = 454, npcName = "Young Goretusk" }, { npc = 390, npcName = "Porcine Entourage" } } },
+						{ t = "collect", quest = 86, title = "Pie for Billy", item = 769, itemName = "Chunk of Boar Meat", count = 4, oi = 1, map = 1429, x = 42.8, y = 86.9, f = "e", spotsPacked = "41.7,87.1,,40,6,,6;34.4,89.2,,46,4,,6;31.6,81.3,,40,4,,6;25.6,79.9,,40,1,,11;20.8,86.9,,40,1,,13;16.7,76.9,,40,1,,13;39.6,69.9,,73,5,,6;48.5,75.9,,42,4;56.4,75.2,,46,5;55.7,84.9,,40,2;65.9,76.7,,49,4;73.7,80.2,,47,5;45.1,88.3,,40,3,1;39.8,85.8,,43,2,1,6;40.3,90.3,,47,4,1,6;45.7,83.9,,42,3,1;43.9,80.4,,49,4,1;37.5,90,,55,6,1,6;43.3,77.9,,40,1,1;47.2,79.8,,46,6,1;38.8,78.6,,40,1,1,6;41.5,76.1,,40,3,1,6;38.1,76.3,,40,3,1,6;50.1,79.2,,40,2,1;42.6,73.2,,40,1,1,6;33.6,80.6,,40,2,1,6;32.2,85.5,,56,7,1,6;53.3,83.5,,53,5,1;43.1,70.7,,53,4,1,6;53.2,78.6,,41,3,1;54.8,80.4,,40,2,1;53.1,75.2,,53,5,1;57.6,81.6,,40,2,1;25,86.7,,40,2,1,11;25,83.1,,40,2,1,11;60.5,81.4,,40,1,1;58.9,74.4,,51,6,1;60.9,78.6,,40,5,1;63,75.8,,40,3,1;63.9,79.6,,40,4,1;66.5,81.2,,40,3,1;69.7,79.3,,40,2,1,7;70,73.9,,41,3,1;71.7,83,,43,3,1;72.4,75.9,,40,2,1", spread = true, lvl = 8, note = "Chunks of Boar Meat", fromNpcs = { { npc = 113, npcName = "Stonetusk Boar" }, { npc = 119, npcName = "Longsnout" }, { npc = 524, npcName = "Rockhide Boar" }, { npc = 454, npcName = "Young Goretusk" }, { npc = 390, npcName = "Porcine Entourage" } } },
 					},
 				},
 				{
@@ -382,7 +382,7 @@ do
 					title = "{area:18} and the wolves",
 					note = "The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the {area:91}; Prowlers further east give pelts too.",
 					goals = {
-						{ t = "collect", quest = 112, title = "Collecting Kelp", item = 1256, itemName = "Crystal Kelp Frond", count = 4, oi = 1, map = 1429, x = 49.8, y = 66.4, f = "e", spotsPacked = "51.1,67,,66,13;54.3,66.9,,83,12;54.5,63.7,,42,4;56.1,68.9,,41,3;57,66.6,,55,8;57.2,63,,17,2;50.5,62.3,,15,1,1", note = "Crystal Kelp Fronds", fromNpcs = { { npc = 285, npcName = "Murloc" }, { npc = 735, npcName = "Murloc Streamrunner" } } },
+						{ t = "collect", quest = 112, title = "Collecting Kelp", item = 1256, itemName = "Crystal Kelp Frond", count = 4, oi = 1, map = 1429, x = 49.8, y = 66.4, f = "e", spotsPacked = "51.1,67,,66,13;54.3,66.9,,83,12;54.5,63.7,,42,4;56.1,68.9,,41,3;57,66.6,,55,8;57.2,63,,17,2;50.5,62.3,,15,1,1", lvl = 7, note = "Crystal Kelp Fronds", fromNpcs = { { npc = 285, npcName = "Murloc" }, { npc = 735, npcName = "Murloc Streamrunner" } } },
 						{ t = "collect", quest = 91751, item = 247877, optional = true, note = "Rough Wolf Pelts" },
 					},
 				},
@@ -412,8 +412,8 @@ do
 						{ t = "collect", quest = 91733, item = 247817, note = "Waterlogged Axe" },
 						{ t = "collect", quest = 91733, item = 247818, note = "Waterlogged Toolbox" },
 						{ t = "collect", quest = 88, title = "Princess Must Die!", item = 1006, itemName = "Brass Collar", oi = 1, map = 1429, x = 69.7, y = 79.6, f = "e", note = "{item:1006}: {npc:330}", from = "Princess", fromKind = "npc", fromId = 330, fromNpcs = { { npc = 330, npcName = "Princess" } } },
-						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 75.6, y = 76, z = 40.7, f = "e", spotsPacked = "76.4,75.9,40.9,49,6;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;87.4,78.4,,40,3;90.8,80.6,,40,2;85.9,72.3,57.5,40,1;84.8,61.3,63.4,69,5;77.9,62.1,65.5,66,5;72.2,65.3,55.8,40,4;66,44.3,,40,2;71.4,37.5,73.7,40,1;77.7,40.8,75.7,42,3;79.4,78.2,,53,5,1;80.4,81.8,35.3,48,8,1;83.8,72,54.6,40,1,1;85.4,84.1,34,40,3,1;81.2,60.9,,40,2,1;87.5,81.6,39.5,40,2,1;87.6,68.7,62.1,40,4,1;88.2,71.5,,40,2,1;86.9,64.5,,40,4,1;89.6,76.6,,40,3,1;70.7,40.7,,49,4,1;74.4,39.1,,55,7,1", spread = true, optional = true },
-						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Young Forest Bear", npc = 822, count = 5, oi = 2, map = 1429, x = 72.9, y = 80.9, z = 39.4, f = "e", spotsPacked = "72.9,80.9,39.4,79,1;62.7,78.7,,119,5;62.2,65.3,,114,3;69.6,63.8,,83,3;76.8,64.4,,96,4;87,65.6,,86,5;83.5,84.7,33.3,79,1;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;70.6,74.9,42.3,79,1,1;79.1,79.1,,101,4,1;87.7,79,,79,3,1;82.2,59.2,,79,1,1;55.4,75.7,,79,2,1;26.7,82.5,,80,2,1", spread = true, optional = true },
+						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 75.6, y = 76, z = 40.7, f = "e", spotsPacked = "76.4,75.9,40.9,49,6;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;87.4,78.4,,40,3;90.8,80.6,,40,2;85.9,72.3,57.5,40,1;84.8,61.3,63.4,69,5;77.9,62.1,65.5,66,5;72.2,65.3,55.8,40,4;66,44.3,,40,2;71.4,37.5,73.7,40,1;77.7,40.8,75.7,42,3;79.4,78.2,,53,5,1;80.4,81.8,35.3,48,8,1;83.8,72,54.6,40,1,1;85.4,84.1,34,40,3,1;81.2,60.9,,40,2,1;87.5,81.6,39.5,40,2,1;87.6,68.7,62.1,40,4,1;88.2,71.5,,40,2,1;86.9,64.5,,40,4,1;89.6,76.6,,40,3,1;70.7,40.7,,49,4,1;74.4,39.1,,55,7,1", spread = true, lvl = 10, optional = true },
+						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Young Forest Bear", npc = 822, count = 5, oi = 2, map = 1429, x = 72.9, y = 80.9, z = 39.4, f = "e", spotsPacked = "72.9,80.9,39.4,79,1;62.7,78.7,,119,5;62.2,65.3,,114,3;69.6,63.8,,83,3;76.8,64.4,,96,4;87,65.6,,86,5;83.5,84.7,33.3,79,1;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;70.6,74.9,42.3,79,1,1;79.1,79.1,,101,4,1;87.7,79,,79,3,1;82.2,59.2,,79,1,1;55.4,75.7,,79,2,1;26.7,82.5,,80,2,1", spread = true, lvl = 9, optional = true },
 					},
 				},
 				{
@@ -445,11 +445,11 @@ do
 					title = "{area:86}",
 					note = "Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore.",
 					goals = {
-						{ t = "collect", quest = 83, title = "Red Linen Goods", item = 1019, itemName = "Red Linen Bandana", count = 6, oi = 1, map = 1429, x = 72.5, y = 56.4, f = "e", spotsPacked = "73.3,55,,48,5;76.4,48,,40,2;71.3,76.7,,40,1;68.3,81.3,,40,2;48.7,81,,40,2;48.3,87.4,,40,3;47.6,74.1,,40,1;52.4,59,,40,3;34.4,55.8,,40,1;29.1,60.9,,47,6;30.7,65,,40,4;89.5,79.3,,40,9;73.6,51.2,,75,10,1;77,52.5,,40,2,1;73.5,46.7,,40,2,1;68.4,77.5,,40,4,1;70.9,80.4,,40,5,1;55.3,59.9,,40,1,1;50.3,83.4,,40,3,1;45.6,75.1,,46,4,1;47.5,83.7,,53,4,1;29.9,58.1,,41,4,1", spread = true, note = "Red Linen Bandanas", fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" }, { npc = 116, npcName = "Defias Bandit" }, { npc = 473, npcName = "Morgan the Collector" }, { npc = 583, npcName = "Defias Ambusher" }, { npc = 880, npcName = "Erlan Drudgemoor" } } },
+						{ t = "collect", quest = 83, title = "Red Linen Goods", item = 1019, itemName = "Red Linen Bandana", count = 6, oi = 1, map = 1429, x = 72.5, y = 56.4, f = "e", spotsPacked = "73.3,55,,48,5;76.4,48,,40,2;71.3,76.7,,40,1,,9;68.3,81.3,,40,2,,9;48.7,81,,40,2,,9;48.3,87.4,,40,3;47.6,74.1,,40,1,,9;52.4,59,,40,3;34.4,55.8,,40,1,,9;29.1,60.9,,47,6;30.7,65,,40,4,,9;89.5,79.3,,40,9;73.6,51.2,,75,10,1;77,52.5,,40,2,1;73.5,46.7,,40,2,1;68.4,77.5,,40,4,1,9;70.9,80.4,,40,5,1;55.3,59.9,,40,1,1,9;50.3,83.4,,40,3,1;45.6,75.1,,46,4,1,9;47.5,83.7,,53,4,1,9;29.9,58.1,,41,4,1", spread = true, lvl = 10, note = "Red Linen Bandanas", fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" }, { npc = 116, npcName = "Defias Bandit" }, { npc = 473, npcName = "Morgan the Collector" }, { npc = 583, npcName = "Defias Ambusher" }, { npc = 880, npcName = "Erlan Drudgemoor" } } },
 						{ t = "turnin", quest = 45, title = "Discover Rolf's Fate", object = 56, objName = "Rolf's corpse", map = 1429, x = 79.8, y = 55.5, z = 73.4, f = "e" },
 						{ t = "accept", quest = 71, title = "Report to Thomas", object = 56, objName = "Rolf's corpse", minLevel = 7, qlvl = 10, pre = { 45 }, preTitles = { [45] = "Discover Rolf's Fate" }, map = 1429, x = 79.8, y = 55.5, z = 73.4, f = "e" },
-						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 83.2, y = 59.6, z = 67.5, f = "e", spotsPacked = "84.8,61.3,63.4,69,5;87.6,68.7,62.1,40,4;83.8,72,54.6,40,1;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;89.6,76.6,,40,3;76.4,75.9,40.9,49,6;72.2,65.3,55.8,40,4;77.9,62.1,65.5,66,5;77.7,40.8,75.7,42,3;71.4,37.5,73.7,40,1;66,44.3,,40,2;81.2,60.9,,40,2,1;86.9,64.5,,40,4,1;85.9,72.3,57.5,40,1,1;88.2,71.5,,40,2,1;79.4,78.2,,53,5,1;87.4,78.4,,40,3,1;80.4,81.8,35.3,48,8,1;87.5,81.6,39.5,40,2,1;90.8,80.6,,40,2,1;74.4,39.1,,55,7,1;85.4,84.1,34,40,3,1;70.7,40.7,,49,4,1", spread = true, optional = true },
-						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Young Forest Bear", npc = 822, count = 5, oi = 2, map = 1429, x = 82.2, y = 59.2, f = "e", spotsPacked = "82.2,59.2,,79,1;87,65.6,,86,5;87.7,79,,79,3;72.9,80.9,39.4,79,1;62.7,78.7,,119,5;62.2,65.3,,114,3;69.6,63.8,,83,3;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;76.8,64.4,,96,4,1;79.1,79.1,,101,4,1;70.6,74.9,42.3,79,1,1;83.5,84.7,33.3,79,1,1;55.4,75.7,,79,2,1;26.7,82.5,,80,2,1", spread = true, optional = true },
+						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 83.2, y = 59.6, z = 67.5, f = "e", spotsPacked = "84.8,61.3,63.4,69,5;87.6,68.7,62.1,40,4;83.8,72,54.6,40,1;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;89.6,76.6,,40,3;76.4,75.9,40.9,49,6;72.2,65.3,55.8,40,4;77.9,62.1,65.5,66,5;77.7,40.8,75.7,42,3;71.4,37.5,73.7,40,1;66,44.3,,40,2;81.2,60.9,,40,2,1;86.9,64.5,,40,4,1;85.9,72.3,57.5,40,1,1;88.2,71.5,,40,2,1;79.4,78.2,,53,5,1;87.4,78.4,,40,3,1;80.4,81.8,35.3,48,8,1;87.5,81.6,39.5,40,2,1;90.8,80.6,,40,2,1;74.4,39.1,,55,7,1;85.4,84.1,34,40,3,1;70.7,40.7,,49,4,1", spread = true, lvl = 10, optional = true },
+						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Young Forest Bear", npc = 822, count = 5, oi = 2, map = 1429, x = 82.2, y = 59.2, f = "e", spotsPacked = "82.2,59.2,,79,1;87,65.6,,86,5;87.7,79,,79,3;72.9,80.9,39.4,79,1;62.7,78.7,,119,5;62.2,65.3,,114,3;69.6,63.8,,83,3;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;76.8,64.4,,96,4,1;79.1,79.1,,101,4,1;70.6,74.9,42.3,79,1,1;83.5,84.7,33.3,79,1,1;55.4,75.7,,79,2,1;26.7,82.5,,80,2,1", spread = true, lvl = 9, optional = true },
 					},
 				},
 				{
@@ -470,7 +470,7 @@ do
 					note = "The mine is south-west of the gnoll camps. Mining Tools lie near the entrance; Kobold Geomancers hold the tunnels.",
 					goals = {
 						{ t = "complete", quest = 76, title = "The Jasperlode Mine", map = 1429, x = 60.2, y = 49.2, f = "e", note = "Walk into the mine" },
-						{ t = "kill", quest = 91723, target = "Kobold Geomancer", npc = 476, map = 1429, x = 60.8, y = 49.6, z = 62.2, f = "e", spotsPacked = "61.1,50.7,,28,2;63.2,56.8,,77,5" },
+						{ t = "kill", quest = 91723, target = "Kobold Geomancer", npc = 476, map = 1429, x = 60.8, y = 49.6, z = 62.2, f = "e", spotsPacked = "61.1,50.7,,28,2;63.2,56.8,,77,5", lvl = 8 },
 						{ t = "collect", quest = 91732, item = 247816, note = "Mining Tools" },
 					},
 				},
@@ -543,7 +543,7 @@ do
 					title = "{area:60}",
 					note = "Riverpaw Runts and Outrunners hold the hills south of the garrison, along the {zone:1436} border. {npc:100}, a level 12 gnoll, walks among them and carries the {item:1307}: right-click it.",
 					goals = {
-						{ t = "collect", quest = 11, title = "Riverpaw Gnoll Bounty", item = 782, itemName = "Painted Gnoll Armband", count = 8, oi = 1, map = 1429, x = 27.4, y = 79.7, f = "e", spotsPacked = "27.4,81.2,,40,4;27.4,86.5,,52,8;30.9,89.1,,40,1;28.2,93.8,,40,2;25.1,93.4,,59,10;31.2,81.7,,40,2;68.6,54.8,,40,1;68.2,49.9,,40,2;68.1,45.1,,58,10;66.8,40.6,,52,14;72.9,38.3,,40,1;76.8,40.2,,40,1;27.9,88.5,,40,5,1;25.4,89,,48,7,1;69.1,39.1,,60,11,1", spread = true, note = "Painted Gnoll Armbands", fromNpcs = { { npc = 478, npcName = "Riverpaw Outrunner" }, { npc = 97, npcName = "Riverpaw Runt" } } },
+						{ t = "collect", quest = 11, title = "Riverpaw Gnoll Bounty", item = 782, itemName = "Painted Gnoll Armband", count = 8, oi = 1, map = 1429, x = 27.4, y = 79.7, f = "e", spotsPacked = "27.4,81.2,,40,4;27.4,86.5,,52,8;30.9,89.1,,40,1,,9;28.2,93.8,,40,2;25.1,93.4,,59,10;31.2,81.7,,40,2,,9;68.6,54.8,,40,1;68.2,49.9,,40,2;68.1,45.1,,58,10;66.8,40.6,,52,14;72.9,38.3,,40,1;76.8,40.2,,40,1;27.9,88.5,,40,5,1;25.4,89,,48,7,1;69.1,39.1,,60,11,1", spread = true, lvl = 10, note = "Painted Gnoll Armbands", fromNpcs = { { npc = 478, npcName = "Riverpaw Outrunner" }, { npc = 97, npcName = "Riverpaw Runt" } } },
 						{ t = "collect", item = 1307, itemName = "Gold Pickup Schedule", count = 1, map = 1429, x = 25.4, y = 89.8, f = "e", optional = true, note = "{item:1307}: {npc:100}", from = "Gruff Swiftbite", fromKind = "npc", fromRank = 4, fromId = 100, fromNpcs = { { npc = 100, npcName = "Gruff Swiftbite" } } },
 						{ t = "accept", quest = 123, title = "The Collector", item = 1307, itemName = "Gold Pickup Schedule", minLevel = 7, qlvl = 10, optional = true },
 					},
@@ -579,10 +579,10 @@ do
 					title = "Murlocs and the Collector",
 					note = "Murloc Foragers and Lurkers line the river south of the bridge. {npc:473}, a Defias, walks the {area:62} west of it. Finish the Prowlers and Young Forest Bears on the way. Croaky roams the murloc shore too: right-click the head it drops. Croaky is elite: grouping up is advised.",
 					goals = {
-						{ t = "collect", quest = 46, title = "Bounty on Murlocs", item = 780, itemName = "Torn Murloc Fin", count = 8, oi = 1, map = 1429, x = 76.5, y = 79.7, f = "e", spotsPacked = "77.1,81.7,,53,6;79.3,84.9,,40,3;82,87.1,,40,2;84.8,86.6,,40,1;91.6,82.3,,40,1;77.6,57.6,,46,5;78.7,44.8,,63,20;68.8,84.4,,43,3;64.6,83.4,,48,3;60.3,82.4,,40,2;56.7,84.7,,40,2;52.3,86.7,,40,1;76.5,85.5,,70,17,1;89.2,83.3,,40,2,1;61.9,80.6,,40,1,1;78.9,57.3,,69,14,1;79.4,54.8,,50,7,1;79.5,47.9,,65,6,1", spread = true, note = "Torn Murloc Fins", from = "Murloc Forager", fromKind = "npc", fromAlso = "Murloc Lurker", fromId = 46, fromAlsoId = 732, fromNpcs = { { npc = 732, npcName = "Murloc Lurker" }, { npc = 46, npcName = "Murloc Forager" } } },
+						{ t = "collect", quest = 46, title = "Bounty on Murlocs", item = 780, itemName = "Torn Murloc Fin", count = 8, oi = 1, map = 1429, x = 76.5, y = 79.7, f = "e", spotsPacked = "77.1,81.7,,53,6;79.3,84.9,,40,3;82,87.1,,40,2;84.8,86.6,,40,1;91.6,82.3,,40,1;77.6,57.6,,46,5;78.7,44.8,,63,20;68.8,84.4,,43,3;64.6,83.4,,48,3;60.3,82.4,,40,2;56.7,84.7,,40,2;52.3,86.7,,40,1;76.5,85.5,,70,17,1;89.2,83.3,,40,2,1;61.9,80.6,,40,1,1;78.9,57.3,,69,14,1;79.4,54.8,,50,7,1;79.5,47.9,,65,6,1", spread = true, lvl = 10, note = "Torn Murloc Fins", from = "Murloc Forager", fromKind = "npc", fromAlso = "Murloc Lurker", fromId = 46, fromAlsoId = 732, fromNpcs = { { npc = 732, npcName = "Murloc Lurker" }, { npc = 46, npcName = "Murloc Forager" } } },
 						{ t = "collect", quest = 147, title = "Manhunt", item = 2239, itemName = "The Collector's Ring", oi = 1, map = 1429, x = 71.1, y = 80.6, f = "e", note = "{item:2239}: {npc:473}", from = "Morgan the Collector", fromKind = "npc", fromId = 473, fromNpcs = { { npc = 473, npcName = "Morgan the Collector" } } },
-						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 75.6, y = 76, z = 40.7, f = "e", spotsPacked = "76.4,75.9,40.9,49,6;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;87.4,78.4,,40,3;90.8,80.6,,40,2;85.9,72.3,57.5,40,1;84.8,61.3,63.4,69,5;77.9,62.1,65.5,66,5;72.2,65.3,55.8,40,4;66,44.3,,40,2;71.4,37.5,73.7,40,1;77.7,40.8,75.7,42,3;79.4,78.2,,53,5,1;80.4,81.8,35.3,48,8,1;83.8,72,54.6,40,1,1;85.4,84.1,34,40,3,1;81.2,60.9,,40,2,1;87.5,81.6,39.5,40,2,1;87.6,68.7,62.1,40,4,1;88.2,71.5,,40,2,1;86.9,64.5,,40,4,1;89.6,76.6,,40,3,1;70.7,40.7,,49,4,1;74.4,39.1,,55,7,1", spread = true },
-						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Young Forest Bear", npc = 822, count = 5, oi = 2, map = 1429, x = 72.9, y = 80.9, z = 39.4, f = "e", spotsPacked = "72.9,80.9,39.4,79,1;62.7,78.7,,119,5;62.2,65.3,,114,3;69.6,63.8,,83,3;76.8,64.4,,96,4;87,65.6,,86,5;83.5,84.7,33.3,79,1;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;70.6,74.9,42.3,79,1,1;79.1,79.1,,101,4,1;87.7,79,,79,3,1;82.2,59.2,,79,1,1;55.4,75.7,,79,2,1;26.7,82.5,,80,2,1", spread = true },
+						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Prowler", npc = 118, count = 8, oi = 1, map = 1429, x = 75.6, y = 76, z = 40.7, f = "e", spotsPacked = "76.4,75.9,40.9,49,6;81.8,77.8,47.6,40,2;82.9,84.5,,40,3;87.4,78.4,,40,3;90.8,80.6,,40,2;85.9,72.3,57.5,40,1;84.8,61.3,63.4,69,5;77.9,62.1,65.5,66,5;72.2,65.3,55.8,40,4;66,44.3,,40,2;71.4,37.5,73.7,40,1;77.7,40.8,75.7,42,3;79.4,78.2,,53,5,1;80.4,81.8,35.3,48,8,1;83.8,72,54.6,40,1,1;85.4,84.1,34,40,3,1;81.2,60.9,,40,2,1;87.5,81.6,39.5,40,2,1;87.6,68.7,62.1,40,4,1;88.2,71.5,,40,2,1;86.9,64.5,,40,4,1;89.6,76.6,,40,3,1;70.7,40.7,,49,4,1;74.4,39.1,,55,7,1", spread = true, lvl = 10 },
+						{ t = "kill", quest = 52, title = "Protect the Frontier", target = "Young Forest Bear", npc = 822, count = 5, oi = 2, map = 1429, x = 72.9, y = 80.9, z = 39.4, f = "e", spotsPacked = "72.9,80.9,39.4,79,1;62.7,78.7,,119,5;62.2,65.3,,114,3;69.6,63.8,,83,3;76.8,64.4,,96,4;87,65.6,,86,5;83.5,84.7,33.3,79,1;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;70.6,74.9,42.3,79,1,1;79.1,79.1,,101,4,1;87.7,79,,79,3,1;82.2,59.2,,79,1,1;55.4,75.7,,79,2,1;26.7,82.5,,80,2,1", spread = true, lvl = 9 },
 						{ t = "collect", item = 247826, count = 1, optional = true, note = "Croaky's Head: Croaky" },
 						{ t = "accept", quest = 91740, optional = true },
 					},
@@ -613,7 +613,7 @@ do
 					title = "{area:86}",
 					note = "North-east of the logging camp. Defias Rogue Wizards camp on the shores of the lake.",
 					goals = {
-						{ t = "kill", quest = 91724, target = "Defias Rogue Wizard", npc = 474, map = 1429, x = 74, y = 55.6, z = 69.6, f = "e", spotsPacked = "73.3,55,,48,5;73.6,51.2,72.2,75,10;73.5,46.7,,40,2;76.4,48,,40,2;77,52.5,,40,2;89.4,79.7,,40,1;50.7,83.2,36,40,1;52.6,58.8,70.5,40,1;29.5,58.2,,40,1;29.2,61.7,,40,4", spread = true },
+						{ t = "kill", quest = 91724, target = "Defias Rogue Wizard", npc = 474, map = 1429, x = 74, y = 55.6, z = 69.6, f = "e", spotsPacked = "73.3,55,,48,5;73.6,51.2,72.2,75,10;73.5,46.7,,40,2;76.4,48,,40,2;77,52.5,,40,2;89.4,79.7,,40,1;50.7,83.2,36,40,1;52.6,58.8,70.5,40,1;29.5,58.2,,40,1;29.2,61.7,,40,4", spread = true, lvl = 10 },
 					},
 				},
 				{
@@ -648,13 +648,13 @@ do
 					only = { classes = { "HUNTER" } },
 					goals = {
 						{ t = "accept", quest = 94792, note = "Josephine Carson" },
-						{ t = "kill", quest = 94792, target = "Rockhide Boar", npc = 524, oi = 1, text = "Tame {npc:524}", map = 1429, x = 43.3, y = 77.9, z = 38.3, f = "e", spotsPacked = "43.3,77.9,38.3,40,1;48.5,75.9,,42,4;52.8,75.2,,40,4;58.3,73.6,,42,5;60.7,80.3,33.5,40,3;57.2,82.4,34,47,3;53.9,84.9,,44,4;45.1,88.3,,40,3;66.5,81.2,,40,3;66.2,76.7,,40,3;70.5,74.3,,50,4;73.6,79.6,,75,6;43.9,80.4,27.8,49,4,1;47.2,79.8,29.8,46,6,1;45.7,83.9,,42,3,1;50.8,78.8,,49,3,1;53.8,80.9,,45,5,1;55.6,75.9,,68,6,1;60.4,77.1,,51,5,1;63.5,76,46.7,55,4,1;63.9,79.6,,40,4,1;71.7,83,,43,3,1", spread = true, note = "{npc:524}: tame it with the Taming Rod" },
+						{ t = "kill", quest = 94792, target = "Rockhide Boar", npc = 524, oi = 1, text = "Tame {npc:524}", map = 1429, x = 43.3, y = 77.9, z = 38.3, f = "e", spotsPacked = "43.3,77.9,38.3,40,1;48.5,75.9,,42,4;52.8,75.2,,40,4;58.3,73.6,,42,5;60.7,80.3,33.5,40,3;57.2,82.4,34,47,3;53.9,84.9,,44,4;45.1,88.3,,40,3;66.5,81.2,,40,3;66.2,76.7,,40,3;70.5,74.3,,50,4;73.6,79.6,,75,6;43.9,80.4,27.8,49,4,1;47.2,79.8,29.8,46,6,1;45.7,83.9,,42,3,1;50.8,78.8,,49,3,1;53.8,80.9,,45,5,1;55.6,75.9,,68,6,1;60.4,77.1,,51,5,1;63.5,76,46.7,55,4,1;63.9,79.6,,40,4,1;71.7,83,,43,3,1", spread = true, lvl = 8, note = "{npc:524}: tame it with the Taming Rod" },
 						{ t = "turnin", quest = 94792 },
 						{ t = "accept", quest = 94863 },
-						{ t = "kill", quest = 94863, target = "Gray Forest Wolf", npc = 1922, oi = 1, text = "Tame {npc:1922}", map = 1429, x = 59.2, y = 69.4, z = 63.1, f = "e", spotsPacked = "60.2,67.5,,57,6;63.1,69,62.4,40,1;66.2,67.8,60.3,40,1;65,64.3,65.8,64,4;64.6,60.3,67.9,40,1;61,60.8,,40,3;67.8,63,,42,4;70.6,62.1,64.6,49,6;73.5,63.9,61.2,40,3;73.1,67.3,55.3,56,4;69.9,69.5,46.1,40,1;68,58.3,70,56,4;61.2,70.8,,40,3,1;59.8,64.4,73.7,73,10,1;68.7,65,60.6,40,3,1", spread = true, note = "{npc:1922}: tame it with the Taming Rod" },
+						{ t = "kill", quest = 94863, target = "Gray Forest Wolf", npc = 1922, oi = 1, text = "Tame {npc:1922}", map = 1429, x = 59.2, y = 69.4, z = 63.1, f = "e", spotsPacked = "60.2,67.5,,57,6;63.1,69,62.4,40,1;66.2,67.8,60.3,40,1;65,64.3,65.8,64,4;64.6,60.3,67.9,40,1;61,60.8,,40,3;67.8,63,,42,4;70.6,62.1,64.6,49,6;73.5,63.9,61.2,40,3;73.1,67.3,55.3,56,4;69.9,69.5,46.1,40,1;68,58.3,70,56,4;61.2,70.8,,40,3,1;59.8,64.4,73.7,73,10,1;68.7,65,60.6,40,3,1", spread = true, lvl = 8, note = "{npc:1922}: tame it with the Taming Rod" },
 						{ t = "turnin", quest = 94863 },
 						{ t = "accept", quest = 94864 },
-						{ t = "kill", quest = 94864, target = "Young Forest Bear", npc = 822, oi = 1, text = "Tame {npc:822}", map = 1429, x = 59.1, y = 66.9, z = 63.6, f = "e", spotsPacked = "62.2,65.3,,114,3;69.6,63.8,,83,3;72.9,80.9,39.4,79,1;62.7,78.7,,119,5;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;82.2,59.2,,79,1;87,65.6,,86,5;87.7,79,,79,3;55.4,75.7,,79,2,1;70.6,74.9,42.3,79,1,1;76.8,64.4,,96,4,1;79.1,79.1,,101,4,1;83.5,84.7,33.3,79,1,1;26.7,82.5,,80,2,1", spread = true, note = "{npc:822}: tame it with the Taming Rod" },
+						{ t = "kill", quest = 94864, target = "Young Forest Bear", npc = 822, oi = 1, text = "Tame {npc:822}", map = 1429, x = 59.1, y = 66.9, z = 63.6, f = "e", spotsPacked = "62.2,65.3,,114,3;69.6,63.8,,83,3;72.9,80.9,39.4,79,1;62.7,78.7,,119,5;53.5,84.7,,79,1;46.8,79.4,,136,8;37.3,89.3,,79,2;25.5,90.7,38.3,79,1;22.4,75.8,,79,1;82.2,59.2,,79,1;87,65.6,,86,5;87.7,79,,79,3;55.4,75.7,,79,2,1;70.6,74.9,42.3,79,1,1;76.8,64.4,,96,4,1;79.1,79.1,,101,4,1;83.5,84.7,33.3,79,1,1;26.7,82.5,,80,2,1", spread = true, lvl = 9, note = "{npc:822}: tame it with the Taming Rod" },
 						{ t = "turnin", quest = 94864, note = "Tame Beast" },
 						{ t = "accept", quest = 94793 },
 						{ t = "turnin", quest = 94793, note = "Isaac Chan, beside her: Beast Training" },
@@ -733,7 +733,7 @@ do
 						{ t = "complete", quest = 1786, title = "The Tome of Divinity", note = "Use the Symbol of Life on {npc:6172}" },
 						{ t = "turnin", quest = 1786, title = "The Tome of Divinity", npc = 6172, npcName = "Henze Faulk", map = 1429, x = 72.6, y = 51.4, z = 76.2, f = "e" },
 						{ t = "accept", quest = 1787, title = "The Tome of Divinity", npc = 6172, npcName = "Henze Faulk", minLevel = 12, qlvl = 13, pre = { 1786 }, preTitles = { [1786] = "The Tome of Divinity" }, map = 1429, x = 72.6, y = 51.4, z = 76.2, f = "e" },
-						{ t = "collect", quest = 1787, title = "The Tome of Divinity", item = 6846, itemName = "Defias Script", count = 1, oi = 1, map = 1429, x = 71.7, y = 52, f = "e", spotsPacked = "73.6,51.2,,75,10;73.3,55,,48,5;77,52.5,,40,2;76.4,48,,40,2;73.5,46.7,,40,2;52.6,58.8,,40,1;50.7,83.2,,40,1;29.2,61.7,,40,4;29.5,58.2,,40,1;89.4,79.7,,40,1", spread = true, note = "{item:6846}: Defias Rogue Wizards", from = "Defias Rogue Wizard", fromKind = "npc", fromId = 474, fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" } } },
+						{ t = "collect", quest = 1787, title = "The Tome of Divinity", item = 6846, itemName = "Defias Script", count = 1, oi = 1, map = 1429, x = 71.7, y = 52, f = "e", spotsPacked = "73.6,51.2,,75,10;73.3,55,,48,5;77,52.5,,40,2;76.4,48,,40,2;73.5,46.7,,40,2;52.6,58.8,,40,1;50.7,83.2,,40,1;29.2,61.7,,40,4;29.5,58.2,,40,1;89.4,79.7,,40,1", spread = true, lvl = 10, note = "{item:6846}: Defias Rogue Wizards", from = "Defias Rogue Wizard", fromKind = "npc", fromId = 474, fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" } } },
 					},
 				},
 				{

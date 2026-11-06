@@ -196,7 +196,7 @@ step Krakle
   note Krakle sends you to Donova Snowden in Winterspring: keep it.
 
 step Pawn Captures Queen
-  use 11833 @43.5,81.0 map 1449
+  use 11833 quest 4507.1 @43.5,81.0 map 1449
   collect 11835 quest 4507.1 @43.9,81.4 map 1449
 
 step Torwa Pathfinder
@@ -315,8 +315,6 @@ step Andorhal watchtowers and silos
   accept 4971                         -- Chromie, upstairs
   use 12815 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
-  use 12627 @45.2,62.8 map 1422
-  use 12627 @45.2,62.8 map 1422
   use 12627 @45.2,62.8 map 1422
   kill 10717 quest 4971.1
   kill 10904 quest 5098.3 "Mark Andorhal Tower Three with the Beacon Torch"

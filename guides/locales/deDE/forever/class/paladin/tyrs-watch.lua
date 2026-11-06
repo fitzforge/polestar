@@ -132,7 +132,9 @@ return {
 
 	-- Step 22: Redemption
 	-- {area:16602} Bandarion Keep · {npc:246378} Danitha Morr · {spell:7328} Redemption
-	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, {npc:246378} teaches you {spell:7328}."] = "",
+	["Back to {area:16602}, across the whole glades: Billmuth downstairs takes the plans, then {npc:246378}, back upstairs in the keep, teaches you {spell:7328}."] = "",
+	-- {npc:246378} Danitha Morr · {spell:7328} Redemption
+	["{npc:246378}, back upstairs: {spell:7328}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:16602}. {npc:246378} gives you the {item:6866}; {npc:257655} waits downstairs in the keep."] = "Zurück nach {area:16602}. {npc:246378} gibt dir {item:6866}; {npc:257655} wartet unten in der Feste.",

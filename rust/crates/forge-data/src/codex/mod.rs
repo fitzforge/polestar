@@ -28,6 +28,7 @@ use std::time::Instant;
 
 use forge_guide::js::{parse_json, stringify, Obj, V};
 use regex::Regex;
+use rustc_hash::FxHashMap;
 
 use client::{ClientFacts, ERA_BUILD, ERA_TABLES, TABLES};
 use instances::GuideGoto;
@@ -127,6 +128,8 @@ pub struct Inputs {
 	pub rep_table: V,
 	pub attunement_table: V,
 	pub journal_quests: Vec<V>,
+	/// forever-db's quest XP (`journal::load_store_xp`).
+	pub store_xp: FxHashMap<i64, f64>,
 	pub warnings: Vec<String>,
 }
 
@@ -255,6 +258,9 @@ fn curated_collects(texts: &[String]) -> Vec<f64> {
 
 /// `curatedRepGates(dir)`: the vendor gates the guides under `dir` state (in a guide that collects an
 /// item, the last `rep` goal before `buy <item> npc <id>`) -> { item: [{ npc, faction, factionName, standing }] }.
+/// A `rep` goal in a step for some races or classes only (`only Human,Dwarf,Gnome,Skyborne`: the other
+/// races' Exalted for a racial mount) holds back those characters, not the vendor, so it is no gate
+/// (#785: the Striped Frostsaber read as reputation-only); a step for one faction (`only Alliance`) still is.
 pub fn curated_rep_gates_in(dir: &Path) -> V {
 	curated_rep_gates(&guide_texts(dir))
 }
@@ -271,14 +277,21 @@ fn curated_rep_gates(texts: &[String]) -> V {
 			continue;
 		}
 		let mut rep: Option<(V, V, f64)> = None;
+		let mut some_only = false;
 		for line in text.split('\n') {
 			let line = line.strip_suffix('\r').unwrap_or(line);
 			let goal = COMMENT.replace(line, "");
 			let goal = goal.trim_matches(util::is_js_space);
+			if line.starts_with("step ") {
+				some_only = false;
+			} else if let Some(o) = goal.strip_prefix("only ") {
+				some_only = o.split(',').map(|c| c.trim_matches(util::is_js_space)).any(|c| c != "Alliance" && c != "Horde");
+				continue;
+			}
 			if let Some(r) = REP.captures(goal) {
 				let st = STANDINGS.iter().find(|(n, _)| *n == r[3].to_lowercase()).map(|(_, s)| *s);
 				if let Some(st) = st {
-					if r.get(1).is_some() || r.get(2).is_some() {
+					if (r.get(1).is_some() || r.get(2).is_some()) && !some_only {
 						rep = Some((r.get(1).map(|m| V::Num(forge_guide::js::str_to_num(m.as_str()))).unwrap_or(V::Null), r.get(2).map(|m| V::str(m.as_str())).unwrap_or(V::Null), st));
 						continue;
 					}
@@ -451,6 +464,7 @@ pub fn load_inputs(opts: &Options, log: &dyn Fn(&str)) -> Result<Inputs, String>
 		rep_table: load_rep_gate_table(&lib.join("repgates.json"))?,
 		attunement_table: V::Obj(attunement_table),
 		journal_quests,
+		store_xp: journal::load_store_xp(&opts.root.join("forever-db"))?,
 		warnings,
 	})
 }
@@ -478,6 +492,13 @@ fn sources_meta(inputs: &Inputs) -> V {
 			let m = x.get("meta");
 			out.push(source(name, first_truthy(&[m.get("version")]), first_truthy(&[m.get("licence"), V::str(licence)])));
 		}
+	}
+	if !inputs.store_xp.is_empty() {
+		out.push(source(
+			"Polestar's open Forever database (forever-db): quest XP",
+			V::from(format!("{} quests; forever-db/data/quest.jsonl", inputs.store_xp.len())),
+			V::from("See forever-db/NOTICE.md and datapackage.json"),
+		));
 	}
 	let d = &inputs.forever.dungeons;
 	if d.truthy() && d.get("source").truthy() {
@@ -649,6 +670,7 @@ fn build_from(opts: &Options, inputs: &Inputs, t0: Instant, log: &dyn Fn(&str)) 
 			fv_dungeons: &inputs.forever.dungeons,
 			journal_quests: &inputs.journal_quests,
 			attunement_table: &inputs.attunement_table,
+			store_xp: &inputs.store_xp,
 		},
 		&jc,
 	);

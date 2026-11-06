@@ -95,9 +95,6 @@
 		</button>
 		<div class="version small">
 			<span>Client <span class="num">{snapshot.version}</span></span>
-			{#if snapshot.update}
-				<button class="chip accent update" onclick={() => go('settings')}>Update to {snapshot.update}</button>
-			{/if}
 		</div>
 	</div>
 </aside>
@@ -280,8 +277,5 @@
 	}
 	.version .num {
 		font-size: 11px;
-	}
-	.update {
-		cursor: pointer;
 	}
 </style>

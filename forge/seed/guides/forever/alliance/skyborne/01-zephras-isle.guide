@@ -270,8 +270,8 @@ step The Western Watch
   complete 93926 @42.34,62.1                  -- Peacekeeper Vaaniel
   turnin 93926
   accept 93927
-  collect 254871 quest 93927.2                -- The Bloody Note
-  kill 256966 quest 93927.1                   -- Skypriest Aanders
+  collect 254871 quest 93927.1                -- The Bloody Note
+  kill 256966 quest 93927.2                   -- Skypriest Aanders
   collect 263415 quest 93927.3                -- Raani Windgazer
   collect 263418 quest 93927.4                -- Arvensus Shadowsong
 
@@ -386,7 +386,7 @@ step Standing our ground
 step Valanaar turn-ins
   hearth "Valanaar"                           -- Hearthstone on cooldown? Walk east back to town.
   turnin 92703                                -- Alvarion Windfield
-  turnin 92850                                -- Dondallion Whisperwind
+  turnin 92850                                -- Fillion Flamebreeze
   accept 99260                                -- Fillion Flamebreeze
   turnin 99260                                -- Elaadrin Evengale
   accept 92840

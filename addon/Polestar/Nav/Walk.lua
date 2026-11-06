@@ -131,7 +131,7 @@
 --     with none, the walk leg takes the path's yards and time, and goes back
 --     to its straight estimate when the path fails or is cleared (Travel.RestoreWalk)
 --   Walk.FollowsGoto(target) -> true when the guide's last located goal before
---     this target is a `goto`
+--     this target is a `goto` the player has reached (Engine.GoalDone)
 --   Walk.Clear()
 --   Walk.Measure(c, x, y, water, places): measure the walks into that target
 --     from the planner's places (one FindMany; Travel.Remeasured when in)
@@ -969,12 +969,19 @@ end
 --   One batch at a time; a new target cancels the old one's. None is started
 --     in combat (owed until it ends; the engine pauses a running one), with
 --     Walk real paths off, or while Shortest Path Forever guides.
+--   None for a target within MEASURE_NEAR yards of the player: its plan keeps
+--     the straight estimates (as before 0.3.0), and the arrow's own search
+--     still draws the walk. A batch costs about a second of router work and
+--     a guide sets a near waypoint at every turn-in, so measuring those
+--     stuttered the frame rate for little: a hearth or a flight seldom beats
+--     a walk that short. A target measured from farther keeps its measure.
 ---------------------------------------------------------------------------
 
 local MEASURE_YARDS = 3000  -- straight yards from the target: places farther keep the estimate
 local MEASURE_MAX = 16      -- places measured, nearest first
 local MEASURE_KEEP = 4      -- targets whose measures are kept
 local START_NEAR = 50       -- yards from where the player's walk was measured: its measure holds
+local MEASURE_NEAR = 400    -- straight yards from the player: a nearer target is not measured
 
 local measures = {}         -- finished measures, oldest first
 local measuring             -- the measure being taken: { c, x, y, water, pts, si, sx, sy, job }
@@ -1094,6 +1101,17 @@ function Walk.Measure(c, x, y, water, places)
 	if measuring and not sameTarget(measuring, c, x, y, water) then cancelMeasure() end
 	local P = engine()
 	if not (P and P.FindMany) or type(places) ~= "table" or not canSearch(P, c) then return end
+	-- A near target: the straight estimates (the player's place is the plan's start).
+	for _, p in ipairs(places) do
+		if p.start then
+			local dx, dy = p.wx - x, p.wy - y
+			if dx * dx + dy * dy < MEASURE_NEAR * MEASURE_NEAR then
+				measureOwed = nil
+				return
+			end
+			break
+		end
+	end
 	if inCombat() then
 		measureOwed = { c = c, x = x, y = y, water = water, places = places }
 		return
@@ -1633,34 +1651,42 @@ end
 -- Hand-made guide waypoints
 ---------------------------------------------------------------------------
 
-local gotoTarget, gotoAnswer
+local gotoTarget, gotoStep, gotoGoal
 
--- The guide's last located goal before this target is a `goto`: the
--- author's way in (a cave's mouth), so the arrow goes straight from there.
+-- The guide's last located goal before this target is a `goto` the player
+-- has reached (Engine.GoalDone): the author's way in (a cave's mouth), so
+-- the arrow goes straight from there. Until then the target is walked like
+-- any other, so a goal aimed at ahead of its way in never leads onto the
+-- hill above the cave (#914). The goto is found once per target; its state
+-- is asked every time.
 function Walk.FollowsGoto(target)
-	if target == gotoTarget then return gotoAnswer end
-	gotoTarget, gotoAnswer = target, false
-	if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
-	local E = ns.Engine
-	local guide = E and E.GetGuide and E.GetGuide()
-	local steps = type(guide) == "table" and guide.steps
-	if type(steps) ~= "table" then return false end
-	local s, g = target.stepIndex, target.goalIndex - 1
-	while s >= 1 do
-		local goals = steps[s] and steps[s].goals
-		if type(goals) == "table" then
-			if g == nil then g = #goals end
-			for k = g, 1, -1 do
-				local goal = goals[k]
-				if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
-					gotoAnswer = goal.t == "goto"
-					return gotoAnswer
+	if target ~= gotoTarget then
+		gotoTarget, gotoStep, gotoGoal = target, nil, nil
+		if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
+		local E = ns.Engine
+		local guide = E and E.GetGuide and E.GetGuide()
+		local steps = type(guide) == "table" and guide.steps
+		if type(steps) ~= "table" then return false end
+		local s, g = target.stepIndex, target.goalIndex - 1
+		while s >= 1 and not gotoStep do
+			local goals = steps[s] and steps[s].goals
+			if type(goals) == "table" then
+				if g == nil then g = #goals end
+				for k = g, 1, -1 do
+					local goal = goals[k]
+					if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
+						if goal.t == "goto" then gotoStep, gotoGoal = s, k end
+						s = 0
+						break
+					end
 				end
 			end
+			s, g = s - 1, nil
 		end
-		s, g = s - 1, nil
 	end
-	return false
+	if not gotoStep then return false end
+	local E = ns.Engine
+	return E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true or false
 end
 
 ---------------------------------------------------------------------------

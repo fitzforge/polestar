@@ -1,15 +1,13 @@
-guide forever/class/shaman/stalk-with-the-earthmother
+guide forever/miscellaneous/stalk-with-the-earthmother
 title Stalk With The Earthmother
-category Class
-class Warrior, Hunter, Shaman, Druid
-folder Shaman
+category Miscellaneous
 faction Horde
 race Tauren
 levels 8-12
 zone Thunder Bluff
-keywords Stalk With The Earthmother, Boarton Shadetotem, Hoof-Holstered Blade, Valley Cosh, Venture Co Disguise, Seaforium Mining Charge, Blasting Supplies, Windfury Cone, Mortar and Pestle, Raw Brilliant Smallfish, Knife Set, Fish Chunks, Venture Co. Mine, Windfury Ridge, Thunder Bluff, Shaman, weapon
+keywords Stalk With The Earthmother, Boarton Shadetotem, Hoof-Holstered Blade, Valley Cosh, Venture Co Disguise, Seaforium Mining Charge, Blasting Supplies, Windfury Cone, Mortar and Pestle, Raw Brilliant Smallfish, Knife Set, Fish Chunks, Venture Co. Mine, Windfury Ridge, Thunder Bluff, weapon
 reward item 277988 278002
-why A one-hand blade or mace at 11 from Boarton Shadetotem's three tests in and around Thunder Bluff.
+why A one-hand blade or mace at 11 from Boarton Shadetotem's three tests in and around Thunder Bluff, for a Tauren of any class.
 
 # Forever's Stalk With The Earthmother, three quests from Boarton Shadetotem in
 # Thunder Bluff (Season of Discovery's Dual Wield chain, reworked):
@@ -43,7 +41,12 @@ why A one-hand blade or mace at 11 from Boarton Shadetotem's three tests in and 
 # is stealthed (player notes).
 # The pool: Thunder Bluff's main mesa (Forever's quest notes: "from a vendor
 # or by fishing"); no vendor in the data sells the smallfish.
-# The leveling guide tauren/01-mulgore does not take this chain.
+# A Tauren side guide, not a class guide: every Tauren class takes the chain,
+# so it was nobody's class quest (as a Shaman class guide it showed Tauren
+# Warriors, Hunters, Shamans and Druids the class-quest card and heads-up).
+# The leveling guide tauren/01-mulgore does not take it: the route reaches
+# Thunder Bluff only after the Venture Co. Mine and Windfury Ridge (level
+# 11-12), and the chain needs Thunder Bluff before each of them.
 
 step Boarton Shadetotem
   zone Thunder Bluff

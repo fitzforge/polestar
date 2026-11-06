@@ -42,7 +42,9 @@
 -- Race and class are independent: Forever's new pairs (Undead Paladin,
 -- Dwarf Shaman, Skyborne of every class) score with their class's weights
 -- and proficiencies, plus their race's gear traits (weapon crit, stat
--- multipliers) from Gear.RACIALS.
+-- multipliers) from Gear.RACIALS. Weapon crit counts by how much the spec
+-- fights with that kind of weapon (weaponShare): whole for a Warrior's axe,
+-- a little for a Hunter's, whose crit weight is the bow's.
 
 local ADDON, ns = ...
 
@@ -495,15 +497,29 @@ end
 -- Scoring
 ---------------------------------------------------------------------------
 
+-- How much the spec fights with this kind of weapon, 0 to 1: the weights' DPS
+-- weight for its kind (melee `dps`, ranged `rdps`) against the larger of the
+-- two. A Warrior's melee weapon is 1; a Hunter's is 0.5 against 6.5, since
+-- the bow does the work and its crit weight is the bow's.
+local function weaponShare(info, w)
+	local melee, ranged = w.dps or 0, w.rdps or 0
+	local top = melee > ranged and melee or ranged
+	if top <= 0 then return 1 end
+	return (RANGED_INV[info.inv] and ranged or melee) / top
+end
+
 -- Racial gear traits: `weaponCrit` adds its percent of crit (and spell
--- crit) to a weapon of a listed subclass; `statMult` scales a stat.
+-- crit) to a weapon of a listed subclass, by how much the spec fights with
+-- that weapon (weaponShare: an Orc Hunter's axe gets a twelfth of it, so a
+-- 2.9 DPS axe no longer outscores a 6.0 DPS dagger, #833); `statMult` scales
+-- a stat.
 local function racialBonus(info, w, asOffhand)
 	local r = racial
 	if not r then return 0 end
 	local s = 0
 	local wc = r.weaponCrit
 	if wc and info.class == 2 and not asOffhand and wc.subclasses[info.subclass] then
-		s = s + ((w.crit or 0) + (w.spellCrit or 0)) * wc.pct
+		s = s + ((w.crit or 0) + (w.spellCrit or 0)) * wc.pct * weaponShare(info, w)
 	end
 	local m = r.statMult
 	if m then

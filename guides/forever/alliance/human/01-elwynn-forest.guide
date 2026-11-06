@@ -335,12 +335,9 @@ step Prowler on the way
 
 step Downstream and Princess
   label q52
-  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Croaky roams the murloc shore along the river too: right-click the head it drops. Croaky is elite: grouping up is advised.
+  tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
-  kill 118 quest 52
-  kill 118 quest 52 optional                  -- Prowler
-  kill 822 quest 52 optional                  -- Young Forest Bear
-  kill 822 quest 52 optional                  -- Young Forest Bear
+  kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247826 x1 optional                  -- Croaky's Head: Croaky
@@ -451,15 +448,9 @@ step Goldshire
   turnin 76
   accept 239
   accept 114                                  -- William Pestle
-  accept 5635 only Priest                     -- Priestess Josetta: High Priestess Laurena in Stormwind takes both
-  accept 94774 only Priest
+  accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson
-
-step The Applejack Still
-  tip Head north-west across the fields to the Applejack Still, north of the Westbrook Garrison. Hand it four Shiny Red Apples for a Thunder Applejack.
-  accept 91736 optional                       -- Applejack Still
-  collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
 step Westbrook Garrison
   tip Back south to the Westbrook Garrison, by the road to Westfall. Deputy Rainer stands outside the barracks, Sergeant De Vries beside him.
@@ -576,14 +567,18 @@ step Maybell Maclure
   turnin 114                          -- Inside
 
 step The Stonefield Farm
+  tip Homer Stonefield sells the Shiny Red Apples for the Applejack Still. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four.
   turnin 88                                   -- Ma Stonefield
   turnin 87                                   -- "Auntie" Bernice Stonefield
   buy 4536 x4 npc 894                         -- Shiny Red Apples, from Homer Stonefield, for the Applejack Still
 
 step The Applejack Still
-  when onquest 91736
+  tip The Applejack Still stands north of the Westbrook Garrison. Click it with four Shiny Red Apples in your bags: it takes them and gives you a Thunder Applejack on the spot (the quest never shows in your quest log). Keep the Applejack for Sergeant De Vries: don't drink it.
+  accept 91736 optional                       -- Applejack Still
   turnin 91736 optional
+  collect 247824 x1 @24.6,58.0                -- Thunder Applejack, from the still
 
 step Westbrook Garrison
+  tip Sergeant De Vries stands inside the barracks. He has An Apple Treat only while you carry the Thunder Applejack: talk to him and it goes straight to the hand-in.
   accept 91738                                -- Sergeant De Vries: he wants your Thunder Applejack; inside
   turnin 91738

@@ -866,7 +866,10 @@ end
 -- `along` steps (format 4; docs/GUIDE_FORMAT.md, "Along the way"): the route
 -- passes over them (stepDone), and while the live step is past one, its open
 -- goals are listed under it (Engine.GetAlong) until they are done or, with
--- `along = "<label>"`, until the live step reaches the step so labelled.
+-- `along = "<label>"`, until the live step reaches the step so labelled. A
+-- quest whose work is still open there stays listed past the label (its
+-- goals only) until that work is done: the labelled step is often the one
+-- that hands it in (#797, #809), and "Turn in" alone hides what is left.
 -- Per guide: { labels = { name -> step }, along = { step, ... } }.
 Own.marks = setmetatable({}, { __mode = "k" })
 function Own.marksOf()
@@ -882,9 +885,19 @@ function Own.marksOf()
 	return m
 end
 
+-- Whether an along step's goal is held past its label: work for its quest
+-- (not its accept, hand-in or a note) that applies, the quest in the log and
+-- not ready to hand in. (On Own: the main chunk is at Lua's 200 locals.)
+function Own.alongHeld(goal)
+	if goal.quest == nil or goal.t == "accept" or goal.t == "turnin" or goal.t == "note" then return false end
+	local C = Compat()
+	return goalApplies(goal) and C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
+end
+
 -- Step s is an along step behind the live step whose goals are listed: it
 -- applies, the player did not skip it, and the live step has not reached the
--- step its `along` names.
+-- step its `along` names. -> true (every goal), "held" (past the label: only
+-- its Own.alongHeld goals, Own.alongShows) or false.
 function Own.alongListed(s)
 	local live = computed
 	if not (guide and live) or type(s) ~= "number" or s >= live then return false end
@@ -892,9 +905,21 @@ function Own.alongListed(s)
 	if not (step and step.along) or isSkipped(s) or not stepApplies(step) then return false end
 	if step.along ~= true then
 		local stop = Own.marksOf().labels[step.along]
-		if stop and live >= stop then return false end
+		if stop and live >= stop then
+			for _, goal in ipairs(step.goals) do
+				if Own.alongHeld(goal) then return "held" end
+			end
+			return false
+		end
 	end
 	return true
+end
+
+-- Whether goal `goal` of along step s is listed now (Own.alongListed).
+function Own.alongShows(s, goal)
+	local listed = Own.alongListed(s)
+	if listed == "held" then return Own.alongHeld(goal) end
+	return listed and true or false
 end
 
 -- The listed along step holding `goal`, and its index there, or nil.
@@ -903,7 +928,7 @@ function Own.alongOf(goal)
 	for _, s in ipairs(Own.marksOf().along) do
 		if Own.alongListed(s) then
 			for g, other in ipairs(guide.steps[s].goals) do
-				if other == goal then return s, g end
+				if other == goal and Own.alongShows(s, other) then return s, g end
 			end
 		end
 	end
@@ -914,6 +939,21 @@ function Own.alongOf(goal)
 		end
 	end
 	return nil
+end
+
+-- Quest q's work in listed along steps while it is not ready to hand in
+-- (Own.alongHeld): { { step, goal index }, ... } in route order.
+function Own.alongWork(q)
+	local out = {}
+	if not (guide and q) then return out end
+	for _, s in ipairs(Own.marksOf().along) do
+		if Own.alongListed(s) then
+			for g, goal in ipairs(guide.steps[s].goals) do
+				if goal.quest == q and Own.alongHeld(goal) then out[#out + 1] = { s, g } end
+			end
+		end
+	end
+	return out
 end
 
 -- An optional goal the player skipped: CharState().skipped[guideId]["s:g"]
@@ -1317,12 +1357,20 @@ end
 -- Alternatives (`alt`): other places the target spawns. The automatic picks
 -- above never choose one; moving on by hand walks them too, so every place
 -- is reachable, and one picked that way holds like any other current spot.
+-- Levels (`lvl`: the highest level of the mobs spawning in a kill or collect
+-- goal's spot, #827; else the goal's `lvl`, the one most of its spots share): while
+-- the goal has a spot whose mobs are at most Spots.ABOVE levels above the
+-- player, the automatic picks leave the higher ones as they leave
+-- alternatives (a level-12 player searching the Harvester Gyrostabilizer's
+-- fields meets the Golems and Watchers, not the Reapers); with none at the
+-- player's level, every spot counts as before.
 ---------------------------------------------------------------------------
 
 local Spots = {
 	SWITCH = 40, -- yards
 	LEAVE = 4, -- yards past the arrival radius
 	FORGET = 300, -- seconds a visited spot is skipped
+	ABOVE = 1, -- levels above the player a spot's mobs may be
 	chosen = setmetatable({}, { __mode = "k" }), -- goal -> chosen spot
 	pinned = setmetatable({}, { __mode = "k" }), -- goal -> spot picked by hand, until reached
 	seen = setmetatable({}, { __mode = "k" }), -- spot -> GetTime() of the last visit
@@ -1342,6 +1390,24 @@ function Spots.edge(goal, s, c, px, py)
 	return d > 0 and d or 0
 end
 
+-- The highest spot level the automatic picks take for the goal (the
+-- player's level + ABOVE) while it has a spot (not an alternative) at or
+-- below it and one above it; nil: every spot. A spot's level is its own
+-- `lvl`, else the goal's.
+function Spots.cap(goal)
+	local top = player and player.level and player.level + Spots.ABOVE
+	if not top then return nil end
+	local lvl, low, high = goal.lvl, false, false
+	for _, s in ipairs(goal.spots) do
+		if not s.alt then
+			local l = s.lvl or lvl
+			if l and l > top then high = true else low = true end
+			if low and high then return top end
+		end
+	end
+	return nil
+end
+
 -- Re-pick a goal's spot from the player's world position (c nil: unknown).
 -- moveOn: leave the current spot (CycleSpot marked it visited first); spots
 -- visited lately are then skipped for camps too, so cycling walks them all.
@@ -1350,6 +1416,8 @@ function Spots.repick(goal, c, px, py, moveOn)
 	local now, spread, reach = GetTime(), goal.spread, goal.r or DEFAULT_RADIUS
 	local spots = goal.spots
 	local cur = Spots.chosen[goal]
+	local cap = not moveOn and Spots.cap(goal)
+	local lvl = goal.lvl
 	if cur and not c and not moveOn then return false end
 	local curD = cur and c and Spots.edge(goal, cur, c, px, py)
 	-- On another continent nothing is measurable: the spot holds (ranking by
@@ -1385,7 +1453,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	end
 	local best, bestKey, old, oldT
 	for i, s in ipairs(spots) do
-		if not (moveOn and s == cur) and (moveOn or not s.alt) then
+		if not (moveOn and s == cur) and (moveOn or not s.alt) and not (cap and (s.lvl or lvl or 0) > cap) then
 			if fresh(s) then
 				local d = c and Spots.edge(goal, s, c, px, py)
 				local key = d or (1e9 + (i - at - 1) % #spots)
@@ -1397,7 +1465,7 @@ function Spots.repick(goal, c, px, py, moveOn)
 	end
 	best = best or old
 	local new = cur
-	if best and (moveOn or not cur or not fresh(cur) or not curD or bestKey < curD - Spots.SWITCH) then new = best end
+	if best and (moveOn or not cur or not fresh(cur) or not curD or bestKey < curD - Spots.SWITCH or (cap and (cur.lvl or lvl or 0) > cap)) then new = best end
 	new = new or spots[1]
 	if new == cur then return false end
 	Spots.chosen[goal] = new
@@ -3031,6 +3099,24 @@ function Own.dealsWith(grp, goals, q)
 	return false
 end
 
+-- The arrow's place for a turn-in of quest q that is not ready while along
+-- steps hold its work (#853, #862): the nearest of those goals with a place
+-- (Own.fieldDistance; the first where nothing is measurable), as if the
+-- player had chosen it (Engine.AimAlong). Nil when none has one.
+function Own.alongAim(q)
+	local c, px, py = Compat().GetPlayerWorldPosition()
+	local best, bestD
+	for _, e in ipairs(Own.alongWork(q)) do
+		local goal = guide.steps[e[1]].goals[e[2]]
+		local wp = waypointOf(e[2], goal, nil, e[1])
+		if wp then
+			local d = c and Own.fieldDistance(goal, c, px, py)
+			if not best or (d and (not bestD or d < bestD)) then best, bestD = wp, d end
+		end
+	end
+	return best
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open; else the current goal's own place;
 -- else the header's; else the focus group's first open located goal
@@ -3041,7 +3127,8 @@ end
 -- optional goals are left open; nor has a Class guide the character cannot
 -- start yet (Own.startGate), or another race's starting zone the player has
 -- not reached (Own.awayStart), on its live step. An along goal the player
--- chose (Engine.AimAlong) leads while it is listed and open.
+-- chose (Engine.AimAlong) leads while it is listed and open; so does, before
+-- a turn-in that is not ready, its quest's work in along steps (Own.alongAim).
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -3060,6 +3147,10 @@ local function findWaypoint()
 	local grp = focus and groups[focus]
 	if not grp then return nil end
 	local cg, header = Own.currentGoal(current, groups, focus)
+	if cg and goals[cg].t == "turnin" then
+		local wp = Own.alongAim(goals[cg].quest)
+		if wp then return wp end
+	end
 	local wp = cg and waypointOf(cg, goals[cg])
 	if wp then return wp end
 	wp = header and waypointOf(header, goals[header])
@@ -3114,9 +3205,13 @@ end
 -- Field goals: work done out at a place, where a step can hold several
 -- (Garren's Haunt: the Graverobbers, the Mongrels, the Doom Weed). With two
 -- or more open, the arrow leads to the nearest (Own.currentGoal); written
--- order still orders the window's list. Sticky: another goal takes over
--- only once it is NEAR_SHARE of the current one's distance and NEAR_YARDS
--- nearer, or the current one is done; never while the player is in a fight.
+-- order still orders the window's list. Mobs at the player's level first
+-- (#827): the nearest place whose mobs are at most Spots.ABOVE levels above
+-- the player (a spot's `lvl`, else its goal's; a place with neither counts),
+-- of any open goal; only with no such place the nearest of all. Sticky: another goal
+-- takes over only once it is NEAR_SHARE of the current one's distance and
+-- NEAR_YARDS nearer, or the current one is done or has no place at the
+-- player's level while another has; never while the player is in a fight.
 Own.FIELD = { kill = true, collect = true, interact = true }
 Own.NEAR_SHARE, Own.NEAR_YARDS = 0.75, 40
 Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
@@ -3127,26 +3222,35 @@ end
 
 -- Yards from the player (c, px, py) to a field goal's nearest spawn area
 -- (its edge; alternatives left out, as the spot picks leave them), else to
--- its point; nil on another continent.
-function Own.fieldDistance(goal, c, px, py)
-	local best
+-- its point; nil on another continent. Second: the same to its nearest area
+-- whose mobs are at most `top` levels (its `lvl`, else the goal's; one with
+-- neither counts; nil without one, or with top nil).
+function Own.fieldDistance(goal, c, px, py, top)
+	local best, low
+	local lvl = goal.lvl
 	for _, s in ipairs(goal.spots or NONE) do
 		if not s.alt then
 			local d = Spots.edge(goal, s, c, px, py)
-			if d and (not best or d < best) then best = d end
+			if d then
+				if not best or d < best then best = d end
+				local l = s.lvl or lvl
+				if top and not (l and l > top) and (not low or d < low) then low = d end
+			end
 		end
 	end
-	if best or not (goal.map and goal.x and goal.y) then return best end
+	if best or not (goal.map and goal.x and goal.y) then return best, low end
 	local gc, gx, gy = goalWorld(goal)
 	if gc ~= c then return nil end
-	return ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+	local d = ((gx - px) ^ 2 + (gy - py) ^ 2) ^ 0.5
+	return d, top and not (lvl and lvl > top) and d or nil
 end
 
 -- Of step s's open field goals `list` (indexes, written order), the one the
 -- arrow is on: the one it was on while it is open and nothing is clearly
--- nearer, or the player fights; else the nearest. Where nothing is
--- measurable (no position, another continent), the first. Sets
--- Own.nearMoved when the pick changes (the arrival poll re-evaluates then).
+-- nearer, or the player fights; else the nearest, at the player's level
+-- first (Own.FIELD). Where nothing is measurable (no position, another
+-- continent), the first. Sets Own.nearMoved when the pick changes (the
+-- arrival poll re-evaluates then).
 function Own.nearestField(s, list)
 	local step = guide.steps[s]
 	local cur = Own.nearPick[step]
@@ -3159,12 +3263,16 @@ function Own.nearestField(s, list)
 	local fighting = UnitAffectingCombat and UnitAffectingCombat("player")
 	local pick = cur
 	if c and not (cur and fighting) then
-		local best, bestD, curD
+		local top = player and player.level and player.level + Spots.ABOVE
+		local best, bestD, curD, low, lowD, curLow
 		for _, g in ipairs(list) do
-			local d = Own.fieldDistance(step.goals[g], c, px, py)
-			if g == cur then curD = d end
+			local d, dl = Own.fieldDistance(step.goals[g], c, px, py, top)
+			if g == cur then curD, curLow = d, dl end
 			if d and (not bestD or d < bestD) then best, bestD = g, d end
+			if dl and (not lowD or dl < lowD) then low, lowD = g, dl end
 		end
+		-- A place at the player's level: measured to those places only.
+		if low then best, bestD, curD = low, lowD, curLow end
 		if best and (not cur or not curD or (bestD < curD * Own.NEAR_SHARE and bestD < curD - Own.NEAR_YARDS)) then pick = best end
 	end
 	pick = pick or list[1]
@@ -5231,7 +5339,7 @@ function Engine.GetStepView(i)
 	local goals = {}
 	for g, goal in ipairs(step.goals) do
 		goals[g] = goalView(i, g, goal, status, groupOf[g])
-		if Own.pinOpen(i, goal) then goals[g].pinOpen = true end
+		goals[g].pinOpen = Own.pinOpen(i, goal) or nil
 	end
 	-- A quest that starts from an item reads as one line, the accept, with how
 	-- to get the item under it (`starter`). Until the item is in the bags the
@@ -5305,10 +5413,11 @@ function Engine.GetAlong()
 	if not guide then return out end
 	if not player then refreshPlayer() end
 	for _, s in ipairs(Own.marksOf().along) do
-		if Own.alongListed(s) then
+		local listed = Own.alongListed(s)
+		if listed then
 			local step, goals = guide.steps[s], {}
 			for g, goal in ipairs(step.goals) do
-				if goal.t ~= "note" then
+				if goal.t ~= "note" and (listed ~= "held" or Own.alongHeld(goal)) then
 					local view = goalView(s, g, goal, "current", nil)
 					if view.status == "active" then
 						view.step = s
@@ -5500,13 +5609,17 @@ function Own.pinListed(s, g)
 	return false
 end
 
--- A step's turn-in of a pinned quest whose objectives are still open: goal
--- `goal` at step `s` (current or ahead) says so.
+-- A step's turn-in of a quest whose objectives are still open, at step `s`
+-- (current or ahead): true when the player pinned the quest, "along" when a
+-- listed along step holds its work (Own.alongWork, #853); else false.
 function Own.pinOpen(s, goal)
-	if goal.t ~= "turnin" or not goal.quest or not ns.CharState().pinnedQuests[goal.quest] then return false end
+	if goal.t ~= "turnin" or not goal.quest then return false end
 	if not current or s < current then return false end
-	local C = Compat()
-	return C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
+	if ns.CharState().pinnedQuests[goal.quest] then
+		local C = Compat()
+		return C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
+	end
+	return Own.alongWork(goal.quest)[1] and "along" or false
 end
 
 function Engine.GetWaypoint() return waypoint or nil end
@@ -5520,6 +5633,20 @@ end
 -- The live step: the first applicable, not skipped, not done one (nil when
 -- the guide is complete), whatever step the player is looking at.
 function Engine.GetLiveStep() return computed end
+
+-- Whether step i of the active guide is for this character (the step's
+-- `only` and `when`) and, given goal g, that goal too (its `only`,
+-- profession, quests the route leaves out): what the guide counts as
+-- applicable. False for a step or goal it does not have.
+function Engine.Applies(i, g)
+	local step = guide and guide.steps[i]
+	if not step then return false end
+	if not player then refreshPlayer() end
+	if not stepApplies(step) then return false end
+	if g == nil then return true end
+	local goal = step.goals[g]
+	return goal ~= nil and goalApplies(goal)
+end
 
 -- The level the guide expects next (QoL/XPMark): the first `level N` goal at
 -- or after the step shown that is for this character (the step's `only` and
@@ -5724,6 +5851,16 @@ function Engine.Prev()
 	end
 end
 
+-- Goal g of step s is done (by live state, arrival or check-off).
+function Engine.GoalDone(stepIndex, goalIndex)
+	if not guide then return false end
+	local step = guide.steps[stepIndex]
+	local goal = step and step.goals[goalIndex]
+	if not goal then return false end
+	if not player then refreshPlayer() end
+	return goalDone(stepIndex, goalIndex, goal) == true
+end
+
 -- Tick a goal done, or clear its check-off: any goal but a note, quest goals
 -- included (the player's word over the quest log). Saved as "tick" in
 -- CharState().manual. False when there is nothing to change (no such goal, a
@@ -5824,8 +5961,9 @@ end
 -- click under the step). The choice lasts while the goal is listed and open,
 -- also when the route moves on. True if the arrow can lead there.
 function Engine.AimAlong(stepIndex, goalIndex)
-	if not (guide and current) or not (Own.alongListed(stepIndex) or Own.pinListed(stepIndex, goalIndex)) then return false end
+	if not (guide and current) then return false end
 	local goal = Own.alongGoal(stepIndex, goalIndex)
+	if not (Own.pinListed(stepIndex, goalIndex) or goal and Own.alongShows(stepIndex, goal)) then return false end
 	if not goal or goal.t == "note" or not waypointOf(goalIndex, goal, nil, stepIndex) then return false end
 	aim = goal
 	evaluate()

@@ -117,8 +117,8 @@ step Shen'dar Village
   complete 92596 @44.99,46.28
   turnin 92596
   accept 94413
-  kill 251903 quest 93461.1
-  kill 254089 quest 93461.2 @43.05,43.3 map 2521 live
+  kill 251903 quest 93461.1 "Talk to Rathiril Sunlance"
+  kill 254089 quest 93461.2 "Talk to Coriella Calmbreeze" @43.05,43.3 map 2521 live
   turnin 96638                                -- Raan Wildwind
 
 step Windshaper Novice Seer on the way
@@ -229,8 +229,8 @@ step The Western Watch
   complete 93926 @42.34,62.1                  -- Peacekeeper Vaaniel
   turnin 93926
   accept 93927
-  collect 254871 quest 93927.2                -- The Bloody Note
-  kill 256966 quest 93927.1                   -- Skypriest Aanders
+  collect 254871 quest 93927.1                -- The Bloody Note
+  kill 256966 quest 93927.2                   -- Skypriest Aanders
   collect 263415 quest 93927.3                -- Raani Windgazer
   collect 263418 quest 93927.4                -- Arvensus Shadowsong
 
@@ -301,7 +301,7 @@ step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.
   turnin 92727                                -- The Bloodstained Satchel
   accept 92849
-  kill 253002 quest 92849.1           -- Below ground
+  kill 253002 quest 92849.1 "Talk to Fillion Flamebreeze"           -- Below ground
   interact 581820 quest 92849.2
 
 step Gustberry Lowlands
@@ -364,7 +364,7 @@ step Valanaar, the turncoat
   accept 94897
 
 step Valanaar turn-ins
-  turnin 92850                                -- Dondallion Whisperwind
+  turnin 92850                                -- Fillion Flamebreeze
   accept 99260                                -- Fillion Flamebreeze
   turnin 99260                                -- Elaadrin Evengale
   accept 92840

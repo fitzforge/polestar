@@ -1051,7 +1051,6 @@ t.guides["forever/alliance/human/01-elwynn-forest"] = (function() return {
 		["Fun with Elementals: {npc:248464}"] = "그림책: 정령과 놀기: {npc:248464}",
 		["He stands by the river west of the farm."] = "그는 농장 서쪽 강가에 있습니다.",
 		["Head back out through {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "{area:87}을 통해 돌아 나와 도로를 따라 동쪽 {area:62}으로 가세요. {npc:881} (9레벨)이 농가 옆에 있습니다.",
-		["Head north-west across the fields to the {quest:91736}, north of the {area:120}. Hand it four Shiny Red Apples for a {item:247824}."] = "들판을 가로질러 북서쪽, {area:120} 북쪽의 {quest:91736}(으)로 가십시오. 윤기나는 빨간 사과 네 개를 넣으면 {item:247824}이(가) 나옵니다.",
 		["Inside {area:34}"] = "{area:34} 안",
 		["It lies by the river north-west of the logging camp."] = "벌목장 북서쪽 강가에 있습니다.",
 		["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right."] = "코볼트 일꾼이 광산 안 터널에서 일합니다. {npc:248362}은(는) 두 번째 오른쪽 굽이 아래에서 기다립니다.",

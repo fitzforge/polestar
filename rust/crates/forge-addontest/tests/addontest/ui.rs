@@ -20,6 +20,18 @@ local function rowFor(subject)
 		if r.psGoal and r.psGoal.subject == subject then return r end
 	end
 end
+-- The card's summary lines on screen, top to bottom (UI/GuideFrame.lua: a person, the persons done, "N done").
+local function shownLines()
+	local out = {}
+	for _, l in ipairs(GF.lines) do
+		if l:IsShown() then
+			local t = l.Text:GetText() or ""
+			out[#out + 1] = { key = l.psKey, text = t, plain = (t:gsub("|c%x%x%x%x%x%x%x%x", "")):gsub("|r", ""),
+				icon = l.Icon:GetTexture():match("([%w-]+)$"), open = l.Chevron:GetTexture():match("chevron%-up") ~= nil }
+		end
+	end
+	return out
+end
 local function lastCall(name)
 	for i = #uistub.calls, 1, -1 do
 		if uistub.calls[i][1] == name then return uistub.calls[i] end
@@ -103,7 +115,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 			}
 		end
 		local P = GF.parts
-		emit({ rows = rows, accent = { Polestar.Theme.Accent() }, success = { Polestar.Theme.Color("success") },
+		emit({ rows = rows, lines = shownLines(), accent = { Polestar.Theme.Accent() }, success = { Polestar.Theme.Color("success") },
 			text = { Polestar.Theme.Color("text") }, muted = { Polestar.Theme.Color("textMuted") }, dim = { Polestar.Theme.Color("textDim") },
 			textHex = Polestar.Theme.Hex("text"), accentHex = Polestar.Theme.Hex("accent"),
 			person = P.person.Name:GetText(), where = P.person.Where:GetText(),
@@ -116,19 +128,18 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 	assert_eq!(out["where"], "Elwynn Forest");
 	assert_eq!(out["personIcon"], "icon-goto", "a field group is a place");
 	assert_eq!(out["count"], "3 / 8", "the navigator says where you are");
-	assert_eq!(
-		pluck(&out["rows"], "subject"),
-		json!(["Wolves Across the Border", "the Kobold Camp", "Kobold Vermin", "Tough Wolf Meat"]),
-		"every goal of the step: the quest taken from the earlier quest-giver stays listed (#741, #739)"
-	);
+	assert_eq!(pluck(&out["rows"], "subject"), json!(["Kobold Vermin", "Tough Wolf Meat"]), "the focus's open goals; the done ones fold into a line (#843)");
+	// The quest taken from the earlier quest-giver stays on the card (#741, #739), as the line of the persons
+	// done; the reached "Go to" is counted on the focus's done line.
+	let lines = out["lines"].as_array().unwrap();
+	assert_eq!(pluck(&out["lines"], "key"), json!(["before", "done"]));
+	assert!(is_match(text(&lines[0]["text"]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r$"), "the person done with, in the NPC colour");
+	assert_eq!(lines[0]["icon"], "check");
+	assert_eq!(lines[1]["text"], "1 done");
+	assert_eq!(lines[1]["icon"], "check");
 	let rows = out["rows"].as_array().unwrap();
-	let (taken, go, kill, collect) = (&rows[0], &rows[1], &rows[2], &rows[3]);
-	assert_eq!(taken["icon"], "check");
-	assert!(is_match(text(&taken["sub"]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r$"), "another person's goal names them, in the NPC colour");
-	assert_eq!(go["sub"], false, "the focus's own goals do not repeat the header");
-	assert_eq!(go["icon"], "check");
-	assert_eq!(go["iconColor"], rgb(&out["success"]));
-	assert_eq!(go["textColor"], rgb(&out["muted"]), "done goals dim");
+	let (kill, collect) = (&rows[0], &rows[1]);
+	assert_eq!(kill["sub"], false, "the focus's own goals do not repeat the header");
 	assert_eq!(kill["icon"], "icon-kill");
 	assert_eq!(kill["iconColor"], rgb(&out["accent"]), "the current goal's glyph alone takes the accent");
 	assert_eq!(collect["iconColor"], rgb(&out["dim"]), "the other open goals' glyphs sit in textDim");
@@ -147,7 +158,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 }
 
 #[test]
-fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_its_person_then_the_next_person() {
+fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each_then_the_next_person() {
 	let out = run(r#"
 		local function snap()
 			local P = GF.parts
@@ -161,8 +172,8 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_it
 			end
 			local nr, ng, nb = P.person.Name:GetTextColor()
 			return { person = P.person.Name:GetText(), color = { nr, ng, nb }, npc = { Polestar.Theme.Color("npc") },
-				icon = P.person.Icon:GetTexture():match("([%w-]+)$"), goals = names, subs = subs, dimmed = dimmed,
-				after = P.after.Text:GetText(), persons = P.after.Count:GetText(), mark = P.person.Mark:IsShown(),
+				icon = P.person.Icon:GetTexture():match("([%w-]+)$"), goals = names, subs = subs, dimmed = dimmed, lines = shownLines(),
+				after = P.after:IsShown() and P.after.Text:GetText() or false, persons = P.after.Count:GetText(), mark = P.person.Mark:IsShown(),
 				markW = P.person.Mark:GetWidth(), iconColor = { P.person.Icon:GetVertexColor() }, dim = { Polestar.Theme.Color("textDim") },
 				sliding = Polestar.Anim.IsRunning(P.card, "offset") }
 		end
@@ -180,29 +191,30 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_it
 		s.target = lastCall("SetTarget")
 		emit(s)"#);
 	let (first, second, third) = (&out[0], &out[1], &out[2]);
+	let plain = |v: &Value| -> Vec<String> { v.as_array().unwrap().iter().map(|l| text(&l["plain"]).to_string()).collect() };
 	assert_eq!(first["person"], "Marshal McBride");
 	assert_eq!(first["color"], rgb(&first["npc"]));
 	assert_eq!(first["icon"], "icon-talk");
-	// The whole hub stays listed (#741, #739): the focus's goals in the text colour, the other persons' named and
-	// stepped back while open.
-	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge", "Wolves Across the Border", "Brother Neals"]));
-	assert_eq!(first["dimmed"], json!([false, false, true, true]));
+	// The focus's goals in the text colour; every other person of the hub one line, what is left to do there
+	// counted (#843).
+	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge"]));
+	assert_eq!(first["dimmed"], json!([false, false]));
 	assert_eq!(first["subs"][0], false, "the focus's goals do not repeat the header");
-	assert!(is_match(text(&first["subs"][2]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r"), "another person's goal names them first");
-	assert!(is_match(text(&first["after"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r$"));
-	assert_eq!(first["persons"], "Person 1 of 3");
+	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in Wolves Across the Border", "Then: Brother Neals  ·  Talk to Brother Neals"]);
+	assert!(is_match(text(&first["lines"][0]["text"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r"), "the person in the NPC colour");
+	assert_eq!(first["after"], false, "the lines name the persons to come: no second \"Then:\", no \"Person 1 of 3\"");
 	assert_eq!(first["mark"], true, "the arrow points at this person");
 	assert_eq!(first["markW"], 2, "the 2px selection bar used across Polestar");
 	assert_eq!(rgb(&first["iconColor"]), rgb(&first["dim"]), "the person glyph steps back; the name carries the colour");
 	assert_eq!(second["person"], "Eagan Peltskinner");
-	assert_eq!(second["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge", "Wolves Across the Border", "Brother Neals"]), "done goals stay listed");
-	assert_eq!(second["dimmed"], json!([false, false, false, true]), "done goals dim to textMuted; the new focus reads in text");
-	assert!(is_match(text(&second["subs"][0]), r"^\|c[0-9a-f]{8}Marshal McBride\|r"), "the person done with is named on their rows");
-	assert_eq!(second["persons"], "Person 2 of 3");
+	assert_eq!(second["goals"], json!(["Wolves Across the Border"]));
+	assert_eq!(plain(&second["lines"]), ["Marshal McBride", "Then: Brother Neals  ·  Talk to Brother Neals"], "the person done with stays on the card, on one line");
+	assert_eq!(second["lines"][0]["key"], "before");
 	assert_eq!(second["sliding"], true, "the next person slides in");
 	assert_eq!(third["person"], "Brother Neals");
-	assert_eq!(third["persons"], "Person 3 of 3");
+	assert_eq!(plain(&third["lines"]), ["Marshal McBride, Eagan Peltskinner"]);
 	assert!(is_match(text(&third["after"]), r"^Then: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
+	assert_eq!(third["persons"], "");
 	assert_eq!(third["target"], json!(["SetTarget", 1429, 49.6, 40.4, "Brother Neals"]));
 }
 
@@ -613,7 +625,7 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 4, "foot": true }), "compact keeps the navigator, the step's goals and the progress bar");
+	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the focus's open goals and the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
@@ -872,7 +884,7 @@ fn without_the_engine_tabs_api_the_strip_stays_hidden_and_the_navigator_names_th
 		"{ noTabs = true }",
 	)
 	.remove(0);
-	assert_eq!(out, json!({ "strip": false, "title": "Elwynn Forest", "rows": 4 }), "the step's four goals, the earlier quest-giver's included");
+	assert_eq!(out, json!({ "strip": false, "title": "Elwynn Forest", "rows": 2 }), "the focus's two open goals");
 }
 
 #[test]
@@ -952,6 +964,42 @@ fn a_goal_with_alternative_trainers_shows_where_it_is_and_cycles_to_the_next() {
 	assert_eq!(out["alone"], "Elwynn Forest", "without a person above, the goal names its zone");
 }
 
+// Vendor is a page too (Nearby.VendorPage): what to buy, each to its nearest
+// seller; Back returns to the services.
+#[test]
+fn the_nearby_menu_opens_the_vendor_page_a_pick_goes_to_the_nearest_seller_of_it_back_returns() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.nearbyButton
+		local function rows()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r end end
+			return out
+		end
+		local function pick(text)
+			for _, r in ipairs(rows()) do if r.Text:GetText() == text then r:Click() return r end end
+		end
+		B:Click()
+		pick("Vendor  \226\128\186")
+		local page = {}
+		for _, r in ipairs(rows()) do page[#page + 1] = r.Text:GetText() end
+		pick("Arrows")
+		local go = lastCall("NearbyGo")
+		B:Click()
+		pick("Vendor  \226\128\186")
+		pick("Nearest")
+		local nearest = lastCall("NearbyGo")
+		B:Click()
+		pick("Vendor  \226\128\186")
+		pick("Back")
+		emit({ page = page, go = go, nearest = nearest, back = rows()[1].Text:GetText() })"#)
+	.remove(0);
+	assert_eq!(out["page"], json!(["Back", "Nearest", "Food & drink", "Arrows"]));
+	assert_eq!(out["go"], json!(["NearbyGo", "arrows"]));
+	assert_eq!(out["nearest"], json!(["NearbyGo", "vendor"]));
+	assert_eq!(out["back"], "Vendor  \u{203a}");
+}
+
 #[test]
 fn the_nearby_menu_opens_a_page_of_weapons_known_ones_and_those_not_yet_at_this_level_are_off_a_pick_goes_to_the_master_back_returns() {
 	let out = run(r#"
@@ -982,7 +1030,7 @@ fn the_nearby_menu_opens_a_page_of_weapons_known_ones_and_those_not_yet_at_this_
 	assert_eq!(out["page"], json!([["Back", false], ["Swords", false], ["Daggers (known)", true], ["Polearms (from level 20)", true]]));
 	assert_eq!(out["stillOpen"], true, "a weapon already known does nothing");
 	assert_eq!(out["go"], json!(["NearbyGo", "weapon", 43]));
-	assert_eq!(out["back"], "Vendor", "Back shows the services again");
+	assert_eq!(out["back"], "Vendor  \u{203a}", "Back shows the services again");
 }
 
 #[test]
@@ -1094,7 +1142,7 @@ fn the_header_carries_nearby_services_between_skip_and_the_bug_its_menu_points_t
 	.remove(0);
 	assert_eq!(out["noGuide"], json!({ "shown": true, "rel": true }), "without a guide it sits by the menu");
 	assert_eq!(out["order"], json!({ "skip": true, "nearby": true, "report": true }), "Skip, Nearby, the bug, the menu");
-	assert_eq!(out["items"], json!(["Vendor", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
+	assert_eq!(out["items"], json!(["Vendor  \u{203a}", "Innkeeper", "Mining trainer", "Weapon master  \u{203a}", "Bank"]));
 	assert_eq!(out["mining"], json!(["NearbyGo", "trainer", 186]));
 	assert_eq!(out["inn"], json!(["NearbyGo", "innkeeper"]));
 	assert_eq!(out["enabledInCombat"], 0, "in combat every entry is off");

@@ -319,3 +319,24 @@ fn breadcrumbs_rides_flights_services_casts_eating_zones_and_levels() {
 		])
 	);
 }
+
+#[test]
+fn group_is_written_at_every_session_start_and_whenever_the_party_or_raid_size_changes() {
+	let out = run_with(
+		r#"
+		stub.setGroup(1)       -- the same party: nothing
+		stub.setGroup(3)       -- two more joined
+		stub.setGroup(9, true) -- converted to a raid of 10
+		stub.setGroup(9, true)
+		stub.setGroup(0)       -- solo
+		stub.fire("PLAYER_ENTERING_WORLD", false, true) -- a reload: a new session says it again
+		stub.setGroup(0)
+		logout()
+		emit({ recs = recs("group"), bad = malformed() })"#,
+		"stub.world.group = { members = 1, raid = false }",
+		true,
+		None,
+	);
+	assert_eq!(out["recs"], json!(["group|1|0", "group|3|0", "group|10|1", "group|0|0", "group|0|0"]));
+	assert_eq!(out["bad"], json!({}));
+}

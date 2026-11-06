@@ -112,6 +112,7 @@ local function targetOf(unit) return unit == "target" and type(q.target) == "tab
 function UnitIsDead(unit) local t = targetOf(unit) return t and t.dead or false end
 function UnitIsPlayer(unit) local t = targetOf(unit) return t and t.player or false end
 function UnitCanAttack(_, unit) local t = targetOf(unit) return t and t.hostile or false end
+function UnitIsFriend(_, unit) local t = targetOf(unit) return t and t.friend or false end
 local unitName = UnitName
 function UnitName(unit)
 	local t = targetOf(unit)
@@ -268,7 +269,11 @@ function C_Item.GetItemCount(id)
 	return n
 end
 function C_Item.GetItemIconByID(id) return (q.items[id] and q.items[id].icon) or 134400 end
-function C_Item.IsItemInRange() return q.inRange end
+function C_Item.IsItemInRange(_, unit)
+	local t = targetOf(unit)
+	if stub.inCombat and not (t and t.friend) then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
+	return q.inRange
+end
 function C_Item.IsUsableItem(id) return true end
 -- Wearing lands a moment later, once the server answers: one copy leaves the
 -- bags for q.worn[slot] (slot -> item ID), BAG_UPDATE_DELAYED, then

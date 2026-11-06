@@ -39,9 +39,10 @@ local defaults = {
 	itemButton = true,       -- quest item button
 	bagGlow = true,          -- the step's item glows in the bags
 	targetButton = true,     -- target macro button
+	guideNameTarget = false, -- opt in: extend navigation clicks to targeting, with shared marking settings
 	rareButton = true,       -- target button for a rare the addon spotted
 	hearthButton = true,     -- Hearthstone button while a hearth goal is active
-	markTarget = false,      -- raid icon on what the target button and step key target
+	markTarget = false,      -- raid icon on what the target button, step key and objective clicks target
 	markMob = "8",           -- its icon on mobs (1-8, "cycle"): skull
 	markNpc = "1",           -- and on NPCs: star
 	stepInteract = false,    -- the step key talks to, loots and accepts with its target (QoL/Buttons.lua)
@@ -379,6 +380,8 @@ end
 -- true / false, or nil when range does not apply (no target, no range).
 function Client.ItemInRange(itemID)
 	if not (C_Item and C_Item.IsItemInRange and UnitExists and UnitExists("target")) then return nil end
+	-- The client blocks range checks on non-friendly units in combat.
+	if inLockdown() and not (UnitIsFriend and UnitIsFriend("player", "target")) then return nil end
 	return readable(C_Item.IsItemInRange(itemID, "target"))
 end
 

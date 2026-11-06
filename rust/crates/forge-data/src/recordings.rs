@@ -847,6 +847,9 @@ impl<'a> Overlay<'a> {
 					let role = match gather.as_str() {
 						Some("herb") => Some("herb"),
 						Some("mine") => Some("mine"),
+						// A catch the client names a pool as the source of (the Recorder leaves the
+						// bobber out): the pool.
+						Some("fish") => Some("fishing"),
 						_ if !gather.truthy() && list.iter().any(|i| !i.get("q").truthy()) => Some("chest"),
 						_ => None,
 					};
@@ -1955,6 +1958,19 @@ mod tests {
 		assert_eq!(t.npcs.get("70002").get("name").as_str(), Some("Fake Wolf"));
 		assert_eq!(t.items.get("80001").get("name").as_str(), Some("Fake Shard"));
 		assert_eq!(t.factions.get("2700").get("name").as_str(), Some("Fake Accord"));
+	}
+
+	#[test]
+	fn a_fishing_pool_a_catch_names_is_a_fishing_object_where_it_was_fished() {
+		let mut t = Tables::new(QUESTS, NPCS, "{}");
+		t.objects = obj(r#"{"180582":{"id":180582,"name":"Oily Blackmouth School","spawns":{}}}"#);
+		let catch = r#"{"t":1,"e":"drop","object":180582,"gather":"fish","items":[{"item":6358,"count":1}],"map":1413,"x":62.1,"y":45.3}"#;
+		let open_water = r#"{"t":2,"e":"drop","gather":"fish","items":[{"item":6291,"count":1}],"map":1413,"x":62.1,"y":45.3}"#;
+		t.apply(&from(&["sent-alice"], &[catch.into(), open_water.into()]));
+		let pool = t.objects.get("180582");
+		assert_eq!(j(&pool.get("roles")), r#"["fishing"]"#);
+		assert_eq!(pool.get("spawns").get("1413").get("f").as_str(), Some("l"));
+		assert_eq!(j(&t.items.get("6358").get("drops").get("object").get("180582")), "100");
 	}
 
 	#[test]

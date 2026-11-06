@@ -208,7 +208,7 @@ step Auberdine
   turnin 963                                  -- Cerellean Whiteclaw
   turnin 4722 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
   turnin 4723 only Dwarf,Gnome,Human,Skyborne
-  use 14338 @37.8,44.0 map 1439
+  use 14338 quest 4812.1 @37.8,44.0 map 1439
   collect 14339 quest 4812 only Dwarf,Gnome,Human,Skyborne -- Fill the tube at the moonwell in the village
   vendor nearest
 
@@ -273,7 +273,7 @@ step The red crystal
 
 step Cliffspring Falls
   tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
-  use 12350 @50.8,25.6 map 1439
+  use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   collect 15845 quest 6122.1 only NightElf,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727                                 -- Beached Sea Turtle
@@ -497,7 +497,7 @@ step Auberdine
 step Level 20
   when level<20
   tip Top up here to level 20 before the hand-ins at Stormwind City: they take you to level 21.
-  goto 33.3,40.7 map 1439 "Elder Darkshore Thresher"
+  goto 47.7,18.6 map 1439 "Elder Darkshore Thresher"
   level 20                          -- grind on Elder Darkshore Thresher
 
 step Auberdine flight master

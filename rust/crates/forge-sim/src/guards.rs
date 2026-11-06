@@ -69,7 +69,9 @@ fn node_dist(n: &AtlasNode, c: i64, x: f64, y: f64) -> f64 {
 }
 
 impl GuardData {
-	pub fn new(world: &World, run: &Run, rules: &forge_world::Rules, data: &GameData, atlas: &Atlas) -> GuardData {
+	/// The guards' data for a run; `walks`: the walk store's yards near quest enders (finished-near,
+	/// crate::hubs::HubData::with_walks).
+	pub fn new(world: &World, run: &Run, rules: &forge_world::Rules, data: &GameData, atlas: &Atlas, walks: &dyn crate::Walks) -> GuardData {
 		let pos: Vec<(i64, f64, f64)> = (0..run.pt_list.len()).map(|i| (run.p_c[i], run.p_x[i], run.p_y[i])).collect();
 		let locate = |id: u32, t: &str, oi: Option<usize>, p: u32| -> i32 {
 			let (c, wx, wy) = pos[p as usize];
@@ -164,7 +166,7 @@ impl GuardData {
 		});
 		let near_town = (0..run.pt_list.len() as u32).map(|p| run.towns.iter().any(|&t| run.straight(p, t) <= crate::profile::TOWN_TRAIN_YD)).collect();
 		let elite_rare = elite_rare_tasks_of(run, data);
-		GuardData { elite_rare, near_town, area_accept, area_turnin, area_task, item_areas, near, give_areas, pickup, closed_by, grid, hub: crate::hubs::HubData::new(run) }
+		GuardData { elite_rare, near_town, area_accept, area_turnin, area_task, item_areas, near, give_areas, pickup, closed_by, grid, hub: crate::hubs::HubData::new(run).with_walks(run, walks) }
 	}
 
 	fn step_area(&self, run: &Run, s: &Step) -> i32 {
@@ -222,6 +224,9 @@ pub struct GuardCounts {
 	/// Hand-ins whose ender the walk passed within reach while they were ready, then went away
 	/// (the check's `walked-past`; crate::hubs).
 	pub walked_past: u32,
+	/// Hand-ins made on a trip back though the quest was finished near its ender, with no reason
+	/// to wait (the check's `finished-near`; crate::turnin).
+	pub finished_near: u32,
 	/// Trips off the continent and back for quests LOW_TRIP_UNDER or more levels under the
 	/// character while an on-level quest is open where the route left (planner rule 2; low_trips).
 	pub low_trips: u32,
@@ -256,9 +261,9 @@ impl GuardCounts {
 	}
 
 	/// The hub guards: no accept or hand-in more left ready at a hub, no ready hand-in more walked
-	/// past.
+	/// past, no hand-in more made on a trip back (finished near).
 	pub fn hubs_within(&self, bound: &GuardCounts) -> bool {
-		self.left_ready <= bound.left_ready && self.walked_past <= bound.walked_past
+		self.left_ready <= bound.left_ready && self.walked_past <= bound.walked_past && self.finished_near <= bound.finished_near
 	}
 
 	/// The feedback guards (grind after the trip's hand-ins, no training bounce, no elite or
@@ -380,7 +385,7 @@ pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64],
 	c.low_trips = low_trips(&w);
 	passed_by(g, &w, walked, &mut c, None);
 	let h = crate::hubs::count(&g.hub, &w, walked, None);
-	(c.left_ready, c.walked_past) = (h.left_ready, h.walked_past);
+	(c.left_ready, c.walked_past, c.finished_near) = (h.left_ready, h.walked_past, h.finished_near);
 	c
 }
 

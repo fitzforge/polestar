@@ -464,17 +464,24 @@ applies them to the guides it writes, last:
 on the objective's goal line, on the `goto` right before it when the step leads there with one, or on
 the quest's bare `complete`. A `path` becomes a `loop` of `goto`s before the goal. `write: true`
 gives the objective its own goal line from the data (`kill`, `interact` or `collect … quest Q.N`)
-before the bare `complete`, which goes once every objective has one.
+before the bare `complete`, which goes once every objective has one. `label` sets that line's goal
+text, for an objective the data counts as a kill but the game asks you to talk to someone
+(`"label": "Talk to Rathiril Sunlance"`).
 
 ```json
 { "fixes": [
   { "id": "674-gordo-tip", "at": { "quest": 5481, "goal": "accept" }, "tip": "Gordo walks the road …", "…": "…" },
-  { "id": "698-sleeping-bag", "at": { "quest": 79008, "goal": "accept" }, "level": 14, "…": "…" } ] }
+  { "id": "698-sleeping-bag", "at": { "quest": 79008, "goal": "accept" }, "level": 14, "…": "…" },
+  { "id": "798-gordo-on-the-road-to-brill", "at": { "quest": 5481, "goal": "accept" },
+    "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" } ] }
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
 step's tip, `level` puts a `level N` gate right before the goal (with `"after": true`, right after
-it, so the hand-ins up to it count towards the level). A place with the same numbers as a goal's
+it, so the hand-ins up to it count towards the level). `early` (on an accept) is a take on the way:
+right after the step of `early.after`, an `along until` step (with the record's title, `when` and tip)
+lists the quest's accept and objectives until the quest's own step, which gets a `label` and still
+takes it for everyone else. A place with the same numbers as a goal's
 typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
 

@@ -17,6 +17,7 @@ pub mod post;
 pub mod run;
 pub mod shared;
 pub mod tips;
+pub mod titles;
 pub mod travel;
 pub mod weapons;
 

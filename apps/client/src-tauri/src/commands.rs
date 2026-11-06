@@ -10,7 +10,7 @@ use tauri_plugin_autostart::ManagerExt as _;
 use tauri_plugin_dialog::DialogExt;
 use tauri_plugin_opener::OpenerExt;
 
-use crate::engine::{now_ms, Engine, Preview, Snapshot, UNKNOWN_TOKEN};
+use crate::engine::{now_ms, Engine, Preview, SentUpload, Snapshot, UNKNOWN_TOKEN};
 use crate::manager::Changelog;
 use crate::store::{ActivityEntry, Channel, DEFAULT_SERVER};
 
@@ -178,8 +178,8 @@ pub async fn set_addon_prefs(engine: Engine_<'_>, channel: Option<Channel>, auto
 	Ok(())
 }
 
-/// Setup's "Continue": the game is found; the Addons page is ready to use.
-/// Recording stays off until the player opts in from the Recording section.
+/// Setup's "Continue": the game is found; the Addons page is ready to use. Sharing then turns on
+/// by default unless the player stopped it before or typed /psrec off (`engine::share_by_default`).
 #[tauri::command]
 pub fn finish_setup(engine: Engine_) -> Result<(), String> {
 	engine.save_settings(|s| s.setup_done = true)?;
@@ -187,7 +187,8 @@ pub fn finish_setup(engine: Engine_) -> Result<(), String> {
 	Ok(())
 }
 
-/// The Recording opt-in's "Start sharing" (true) and Settings' "Stop sharing" (false).
+/// The Recording page's "Start sharing" (true), and Stop sharing (false) in Settings and in the
+/// sharing notice. Either is the player's own choice, so the notice is done with too.
 #[tauri::command]
 pub fn set_sharing(engine: Engine_, enabled: bool) -> Result<(), String> {
 	engine.save_settings(|s| {
@@ -195,7 +196,16 @@ pub fn set_sharing(engine: Engine_, enabled: bool) -> Result<(), String> {
 		s.ever_shared |= enabled;
 		s.consent_at = enabled.then(now_ms);
 		s.paused = false;
+		s.share_notice_seen = true;
 	})?;
+	engine.publish();
+	Ok(())
+}
+
+/// The sharing notice's "Got it": it is not shown again.
+#[tauri::command]
+pub fn dismiss_share_notice(engine: Engine_) -> Result<(), String> {
+	engine.save_settings(|s| s.share_notice_seen = true)?;
 	engine.publish();
 	Ok(())
 }
@@ -274,6 +284,18 @@ pub fn activity(engine: Engine_) -> Vec<ActivityEntry> {
 pub async fn preview(engine: Engine_<'_>) -> Result<Preview, String> {
 	let engine = Arc::clone(&engine);
 	tauri::async_runtime::spawn_blocking(move || engine.preview()).await.map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub async fn sent_uploads(engine: Engine_<'_>) -> Result<Vec<SentUpload>, String> {
+	let engine = Arc::clone(&engine);
+	tauri::async_runtime::spawn_blocking(move || engine.sent_uploads()).await.map_err(|e| e.to_string())
+}
+
+#[tauri::command]
+pub async fn sent_upload(engine: Engine_<'_>, at: i64, install: String) -> Result<Preview, String> {
+	let engine = Arc::clone(&engine);
+	tauri::async_runtime::spawn_blocking(move || engine.sent_upload(at, &install)).await.map_err(|e| e.to_string())
 }
 
 #[tauri::command]

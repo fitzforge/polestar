@@ -249,7 +249,7 @@ step Level 54.1
 
 step The Jaedenar moonwell
   tip Back north to Jaedenar. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp.
-  use 12922 @35.2,59.8 map 1448
+  use 12922 quest 5157.1 @35.2,59.8 map 1448
   collect 12907 quest 5157 @35.2,59.8
 
 step Rakaiah
@@ -349,7 +349,7 @@ step Level 54.7
 
 step The Jadefire moonwell
   tip Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
-  use 12566 @32.3,66.6 map 1448
+  use 12566 quest 4505.1 @32.3,66.6 map 1448
   collect 12567 quest 4505 @32.3,66.6
 
 # ---------------------------------------------------------------- North to Winterspring

@@ -2,7 +2,7 @@
 // browser), the calls go to ./mock.ts instead; `import.meta.env.DEV` is false
 // in production builds, so that branch and the mock module are dropped.
 
-import type { ActivityEntry, AddonAction, Changelog, Channel, FolderCheck, PackAction, Preview, Snapshot } from './types';
+import type { ActivityEntry, AddonAction, Changelog, Channel, FolderCheck, PackAction, Preview, SentUpload, Snapshot } from './types';
 
 interface Bridge {
 	invoke<T>(cmd: string, args?: Record<string, unknown>): Promise<T>;
@@ -44,6 +44,7 @@ export const api = {
 	setAddonPrefs: (prefs: { channel?: Channel; autoCheck?: boolean; autoInstall?: boolean }) => call<void>('set_addon_prefs', prefs),
 	finishSetup: () => call<void>('finish_setup'),
 	setSharing: (enabled: boolean) => call<void>('set_sharing', { enabled }),
+	dismissShareNotice: () => call<void>('dismiss_share_notice'),
 	setPaused: (paused: boolean) => call<void>('set_paused', { paused }),
 	getAutostart: () => call<boolean>('get_autostart'),
 	setAutostart: (enabled: boolean) => call<void>('set_autostart', { enabled }),
@@ -51,6 +52,8 @@ export const api = {
 	deleteServerData: () => call<void>('delete_server_data'),
 	activity: () => call<ActivityEntry[]>('activity'),
 	preview: () => call<Preview>('preview'),
+	sentUploads: () => call<SentUpload[]>('sent_uploads'),
+	sentUpload: (at: number, install: string) => call<Preview>('sent_upload', { at, install }),
 	retryNow: () => call<void>('retry_now'),
 	openDataFolder: () => call<void>('open_data_folder'),
 	openLink: (url: string) => call<void>('open_link', { url }),

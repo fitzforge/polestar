@@ -702,7 +702,7 @@ function Journey.Way(message)
 		ns.Print(x)
 		return
 	end
-	Journey.PlanTo(map, x, y, title)
+	if Journey.PlanTo(map, x, y, title) then Nav.SayGuideHidden() end
 end
 
 -- Whether TomTom or another addon spells a command /way (globals SLASH_<NAME><n>).

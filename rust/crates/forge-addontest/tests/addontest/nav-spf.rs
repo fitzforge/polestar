@@ -504,7 +504,7 @@ fn hand_made_crossings_win_the_engine_walks_to_the_gate_the_crossing_itself_is_t
 }
 
 #[test]
-fn a_guide_goal_after_a_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_goto_itself_is_walked() {
+fn a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_goto_itself_is_walked() {
 	let out = run(r#"
 		local r = {}
 		local m, mx, my = nav.mapPoint(0, -400)     -- the mouth
@@ -515,11 +515,18 @@ fn a_guide_goal_after_a_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_g
 			{ goals = { { t = "accept", quest = 1 }, { t = "collect", map = m, x = ix, y = iy } } },
 			{ goals = { { t = "talk", map = m, x = ox, y = oy }, { t = "kill", map = m, x = ix, y = iy } } },
 		} }
+		local reached = false
 		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return reached and s == 1 and g == 1 end
 		nav.place(0, 0)
 		nav.setWaypoint({ map = m, x = mx, y = my, label = "Mouth", stepIndex = 1, goalIndex = 1, kind = "goto", r = 5 })
 		aim()
 		r.mouth = calls()
+		-- #914: the goal inside aimed at (a row click) before the mouth is reached
+		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 2, kind = "collect", r = 5 })
+		aim()
+		r.ahead = calls()
+		reached = true
 		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 2, kind = "collect", r = 5 })
 		r.inside = aim()
 		r.insideCalls = calls()
@@ -528,9 +535,10 @@ fn a_guide_goal_after_a_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_g
 		r.afterTalk = calls()
 		emit(r)"#);
 	assert_eq!(out["mouth"], 1, "the goto is a goal like any other");
-	assert_eq!(out["inside"], json!(["travel", 450, 0, -450]), "the goal after it is straight");
-	assert_eq!(out["insideCalls"], 1);
-	assert_eq!(out["afterTalk"], 2, "after a located goal that is no goto, the engine walks again");
+	assert_eq!(out["ahead"], 2, "before the goto is reached, the goal after it is walked by the engine");
+	assert_eq!(out["inside"], json!(["travel", 450, 0, -450]), "once it is reached, the goal after it is straight");
+	assert_eq!(out["insideCalls"], 2);
+	assert_eq!(out["afterTalk"], 3, "after a located goal that is no goto, the engine walks again");
 }
 
 #[test]
@@ -1169,6 +1177,38 @@ fn terrain_one_reversed_findmany_from_the_target_prices_the_walks_into_it_the_ro
 	assert_eq!(out["batches"], 1, "and ask for no second batch");
 }
 
+// A target within 400 yd of the player (MEASURE_NEAR) is not measured (0.3.2: a batch is about a second of router
+// work, and a guide sets such a waypoint at every turn-in): its plan keeps the straight estimate, and the arrow's own
+// walk is still searched and followed. A far target from the same spot is measured as before.
+#[test]
+fn terrain_a_target_within_400_yd_of_the_player_is_not_measured_its_arrow_still_follows_the_engines_walk_a_far_one_is() {
+	let out = run_many(
+		&[
+			TERRAIN,
+			r#"
+		local r = {}
+		nav.place(200, 250)
+		target(0, 0)
+		N.Sample()
+		r.near = { batches = #fake.of(true), finds = #fake.of(false), route = route() }
+		local find = fake.of(false)[1]
+		fake.answer(find, 200, 250, 150, 50, 0, 0)
+		r.aim = aim()
+		target(0, -1000)
+		N.Sample()
+		r.far = { batches = #fake.of(true) }
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["near"]["batches"], 0, "no measure 320 yd from the target: {out}");
+	assert!(num(&out["near"]["finds"]) >= 1.0, "the arrow's own walk is searched: {out}");
+	assert_eq!(out["near"]["route"]["engine"], false, "the plan keeps the straight estimate: {out}");
+	assert_eq!(out["aim"][0], "travel", "{out}");
+	assert_eq!(out["aim"][1], 364, "the yards shown are the engine's walk (206 + 158): {out}");
+	assert_eq!(out["far"]["batches"], 1, "a target 1,266 yd away is measured: {out}");
+}
+
 #[test]
 fn terrain_a_measure_that_keeps_the_way_keeps_the_route_and_its_progress_its_later_walk_taking_the_measured_price_review_8() {
 	let out = run_many(
@@ -1520,6 +1560,7 @@ fn review_3_the_last_walk_to_a_target_after_a_guide_goto_is_never_searched_drawn
 			{ goals = { { t = "collect", map = m, x = ix, y = iy } } },
 		} }
 		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the mouth reached (checked off)
 		nav.place(900, 800)
 		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 1, kind = "collect", r = 5 })
 		N.Sample()

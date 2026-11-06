@@ -54,7 +54,17 @@ fn pack() -> CodexPack {
 		zones: v(&codex["zones"]),
 	};
 	let (journal, _) = build_journal(
-		&JournalInputs { maps: &maps, frames: &frames, fv_quests: &quests, fv_objects: &objects, fv_zones: &zones, fv_dungeons: &dungeons, journal_quests: &[], attunement_table: &attunements },
+		&JournalInputs {
+			maps: &maps,
+			frames: &frames,
+			fv_quests: &quests,
+			fv_objects: &objects,
+			fv_zones: &zones,
+			fv_dungeons: &dungeons,
+			journal_quests: &[],
+			attunement_table: &attunements,
+			store_xp: &Default::default(),
+		},
 		&c,
 	);
 	write_codex_pack(codex, &CodexOpts { extra_files: vec![("Dungeons1.lua".into(), emit_journal(&journal))], ..Default::default() })
@@ -547,6 +557,38 @@ fn quests_one_block_per_quest_with_state_level_flags_objective_start_and_end_pin
 	assert_eq!(out["pins"][0], json!([1456, 75.6, 31.2, "Nara Wildmane"]));
 	assert_eq!(out["pins"][1], json!([1413, 52.2, 31.9, "Tonga Runetotem"]));
 	assert_eq!(out["tip"], true, "item hover shows the game tooltip");
+}
+
+// #837: Axe of Orgrimmar is blue on its tooltip in the game and green on the page, whose quality comes
+// from the client's tables. The fixture's Crescent Staff is quality 3 on the page; the game says green.
+#[test]
+fn a_reward_tile_takes_its_colour_from_the_games_tooltip_and_is_painted_again_when_the_item_arrives() {
+	let out = run(r#"
+		local loaded, asked = false, {}
+		ITEM_QUALITY_COLORS = { [3] = { r = 0, g = 0.44, b = 0.87 } }
+		Polestar.Compat.ItemTipColor = function() if loaded then return 0.12, 1, 0 end end
+		Polestar.Compat.RequestItem = function(id) asked[#asked + 1] = id return loaded end
+		local function border(t)
+			local r, g, b = t.Well.psBorder[1]:GetVertexColor()
+			return string.format("%.2f %.2f %.2f", r, g, b)
+		end
+		Polestar.Dungeons.Open("wailing-caverns")
+		local tile
+		for _, b in ipairs(DS.blocks) do
+			for _, t in ipairs(b.Tiles or {}) do if t.psID == 6505 and t:IsShown() then tile = t end end
+		end
+		local loading = border(tile)
+		local requested = false
+		for _, id in ipairs(asked) do if id == 6505 then requested = true end end
+		loaded = true
+		stub.fire("GET_ITEM_INFO_RECEIVED", 6505, true)
+		local arrived = border(tile)
+		emit({ loading = loading, requested = requested, arrived = arrived, name = tile.Name:GetText() })"#);
+	let out = &out[0];
+	assert_eq!(out["loading"], "0.00 0.44 0.87", "not loaded yet: the page's quality, never the red placeholder");
+	assert_eq!(out["requested"], true, "the item is asked for");
+	assert_eq!(out["arrived"], "0.12 1.00 0.00", "once it arrives: the game's own colour");
+	assert_eq!(out["name"], "Crescent Staff");
 }
 
 #[test]

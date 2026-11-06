@@ -7,6 +7,7 @@
 
 use std::path::{Path, PathBuf};
 
+pub mod audit;
 pub mod format;
 pub mod glossary;
 pub mod guides;

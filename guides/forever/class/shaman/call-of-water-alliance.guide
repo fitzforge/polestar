@@ -109,7 +109,7 @@ step Lost the Water Sapta?
 step Stendel's Pond
   zone Westfall
   tip Fly to Sentinel Hill and head south to Moonbrook: Stendel's Pond and the Forgotten Shrine lie just north of it. Drink the Water Sapta by the shrine to see the Corrupt Minor Manifestation of Water (level 22, Frost Shock and Frost Nova; one spawn, back three minutes after a kill), defeat it for its bracers (always dropped), then place them and the Remaining Drops of Purest Water on the Forgotten Shrine (this, not Norric, ends the quest). Click the shrine again: the Minor Manifestation of Water rises beside it; speak to it before you walk off (if it is gone, abandon and take the quest again at the shrine). It gives you the Shard of Water.
-  use 6637 @45.6,59.9                         -- Water Sapta
+  use 6637 quest 94502.1 @45.6,59.9           -- Water Sapta
   collect 7812 quest 94502.1 @45.6,59.9       -- Corrupt Manifestation's Bracers
   turnin 94502                                -- Forgotten Shrine
   accept 94503

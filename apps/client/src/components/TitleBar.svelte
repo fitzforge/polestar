@@ -17,8 +17,8 @@
 	let win = $state<Win | null>(null);
 
 	onMount(() => {
-		// The window is one fixed size (src-tauri/src/window.rs): it never maximizes, so its
-		// own hairline edge always shows.
+		// The window never maximizes (src-tauri/src/window.rs), so its own hairline edge
+		// always shows.
 		document.documentElement.classList.toggle('framed', !MAC);
 		if (!tauri) return;
 		void import('@tauri-apps/api/window').then(({ getCurrentWindow }) => (win = getCurrentWindow()));

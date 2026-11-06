@@ -2081,6 +2081,26 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78261": {
+		"set": {
+			"classes": 8
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
+		},
+		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+	},
+	"78307": {
+		"set": {
+			"classes": 8
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 8 (Rogue)"
+		},
+		"note": "The Horn of Xelthos (C's payment, from the same Dead Drop near Pyrewood Village: the Pyrewood Signet Ring) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8). The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+	},
 	"79358": {
 		"set": {
 			"end": {
@@ -2242,13 +2262,21 @@
 					7825
 				],
 				"object": []
+			},
+			"races": null,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: race mask 0, no class mask, seen in game"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+		],
+		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825). Forever opened this library book to everyone: its quest data has no race or class limit (Forever's change notes: classes none instead of Mage); the race limit is dropped on the factoruide row's race mask 0. The merged data kept Season of Discovery's Mage and Alliance limits, so Polestar showed it as a Mage class quest."
 	},
 	"84398": {
 		"set": {
@@ -2507,21 +2535,56 @@
 		],
 		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
 	},
-	"92850": {
+	"93797": {
 		"set": {
-			"end": {
-				"npc": [
-					253204,
-					253285
-				],
-				"object": []
-			}
+			"classes": 128
 		},
 		"source": {
 			"kind": "factoruide",
-			"ref": "Factoruide row sources: manual,questie"
+			"ref": "Factoruide row: class mask 128 (Mage)"
 		},
-		"note": "The Missing Scholar: ends with Dondallion Whisperwind (npc 253204) and Fillion Flamebreeze (npc 253285); as its ender the merged data lacked Dondallion Whisperwind (npc 253204)."
+		"note": "Boughs in the Wind (Belann Windwood on Zephras Isle, the Windbough Wand) is a Mage quest on Forever: Forever limits it to Mages (class mask 128). The merged data had no class, so the class-quest card knew it only from the Mage guide that takes it."
+	},
+	"93927": {
+		"set": {
+			"objectives": [
+				{
+					"type": "item",
+					"id": 254871,
+					"count": 1,
+					"text": "Bloody Note"
+				},
+				{
+					"type": "kill",
+					"id": 256966,
+					"count": 1,
+					"text": "Skypriest Aanders"
+				},
+				{
+					"type": "item",
+					"id": 263415,
+					"count": 1,
+					"text": "Raani's Lucky Feather"
+				},
+				{
+					"type": "item",
+					"id": 263418,
+					"count": 1,
+					"text": "Shadowsong Family Signet"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_objectives StorageIndex"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: \"Collect and read the note: 1/1\" is objective 1, seconds after the accept at the note; the Skypriest Aanders kill credits objective 2"
+			}
+		],
+		"note": "A Last Request (Zephras Isle) lists the Bloody Note first, then Skypriest Aanders, then Raani's feather and the Shadowsong signet. The merged data had the note and Aanders the other way round, so `quest 93927.1` named Aanders and the guide's note goal followed Aanders' quest-log line: it stayed open after the note was read (#825)."
 	},
 	"94373": {
 		"set": {
@@ -2631,6 +2694,27 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95216": {
+		"set": {
+			"pre": [
+				451
+			],
+			"preAny": [
+				451
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#867"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: every character Theodore Griffs offered The New Plague to (an Orc Warrior, a Troll Warlock, Undead Paladin and Priest, levels 17 to 19) had handed in 447, 450 and 451; the two he did not offer it to had handed in none of them"
+			}
+		],
+		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
+	},
 	"95217": {
 		"set": {
 			"objectives": [
@@ -2701,6 +2785,21 @@
 			"ref": "issue #65"
 		},
 		"note": "Her Name Is Olgra (Barrens, Mankrik) comes after Lost in Battle 4921, once you have found her body: in game Mankrik did not offer it beside Lost in Battle (issue #65). QuestieDB has no prerequisite."
+	},
+	"95981": {
+		"set": {
+			"pre": [
+				482
+			],
+			"preAny": [
+				482
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#872"
+		},
+		"note": "Watching the Roads (Silverpine, Shadow Priest Allister) is offered once Dalaran's Intentions 482 is handed in to Allister: a level 18 Tauren Shaman with Border Crossings done and 482 not yet handed in was not offered it, and was offered it right after the 482 hand-in (#872). QuestieDB has no prerequisite, so the 0.3.0 route asked for it at the first Sepulcher visit."
 	},
 	"95998": {
 		"set": {
@@ -2823,6 +2922,31 @@
 		},
 		"note": "Camping 101: Cooking: starts with Brakk (npc 265809); as its giver the merged data also listed Cook Torka (npc 3191)."
 	},
+	"96656": {
+		"set": {
+			"pre": [
+				382
+			],
+			"preAny": [
+				382
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.0.10 Forever store: pre"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#792"
+			}
+		],
+		"note": "The Adventurer (Tirisfal, Executor Arren) is offered once The Red Messenger 382 is handed in, per ForeverTDB and QuestieDB. Three players at level 4 with Night Web's Hollow 380 still open were not offered it (#792, #793, #794); petllama saw Arren offer it in game once 382 was handed in (#792). The merged data had no prerequisite, so the Undead route took it at step 8, long before 382."
+	},
 	"96821": {
 		"set": {
 			"objectives": [
@@ -2867,6 +2991,52 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
+	},
+	"97225": {
+		"set": {
+			"pre": [
+				805
+			],
+			"preAny": [
+				805
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: 7 of 7 who took Forgotten Loa Idols handed in Report to Sen'jin Village (805) first, then went back to Master Vornal"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#796"
+			}
+		],
+		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
+	},
+	"97282": {
+		"set": {
+			"pre": [
+				97281
+			],
+			"preAny": [
+				97281
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Rezlak's quest window did not offer Stormy Potential with A Simmering Storm (97281) in the log, and offered it right after its hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#807"
+			}
+		],
+		"note": "Stormy Potential (Durotar, Rezlak) is offered once A Simmering Storm 97281 is handed in, and A Simmering Storm starts from the Dull Storm Orb, a chance drop of the Dustwind Storm Witches. Three Orc and Troll players at Rezlak were not offered it (#807). The merged data had no prerequisite, so the routes took it as a must-do at the first Rezlak stop; with it, the writer makes it optional (a chain after a chance drop)."
 	},
 	"97289": {
 		"set": {
@@ -3021,6 +3191,75 @@
 			}
 		],
 		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
+	},
+	"98341": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98404": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98738": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98601": {
+		"set": {
+			"pre": [
+				364
+			],
+			"preAny": [
+				364
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: 15 times Deathknell's quest window did not offer A Difficult Path while The Mindless Ones (364) was in the log, never once offered it then"
+			}
+		],
+		"note": "A Difficult Path (Deathknell, the Undead Paladin's class quest) is offered once The Mindless Ones 364 is handed in. The merged data had no prerequisite, so the Tirisfal route asked Paladins for it before 364 was done."
 	},
 	"98815": {
 		"set": {
@@ -3199,6 +3438,27 @@
 		],
 		"note": "An Enticing Offer (Elwynn) needs 18 Duskweed Petals and 6 Vials of Animal Blood, and the quest log lists the blood first: in game the petal goal (objective 1) showed 3/6 and the blood goal (objective 2) 14/18 (issue #279), so each goal counted the other's objective."
 	},
+	"99142": {
+		"set": {
+			"pre": [
+				5482
+			],
+			"preAny": [
+				5482
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Apothecary Holland did not offer Tomb Weed 5 times at levels 5 and 6 without Doom Weed (5482) handed in, and offered it right after that hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#800"
+			}
+		],
+		"note": "Tomb Weed (Brill, Apothecary Holland) is offered once Doom Weed 5482 is handed in (#800: a Scourge Warrior at level 6 was sent to take it before Gloom Weed and Doom Weed were done). The merged data had no prerequisite, so the Tirisfal route took it at the first Brill stop."
+	},
 	"99144": {
 		"set": {
 			"objectives": [
@@ -3230,6 +3490,21 @@
 			"ref": "quest_template_addon PrevQuestID"
 		},
 		"note": "The second Rear Guard Patrol (Tirisfal, Deathguard Linnea) comes after the first, Rear Guard Patrol 356. QuestieDB has no prerequisite."
+	},
+	"92422": {
+		"set": {
+			"pre": [
+				99156
+			],
+			"preAny": [
+				99156
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#849"
+		},
+		"note": "The Wrath of Rath'mael (Deathguard Kristof, Tirisfal) is offered once the Rear Guard Patrol chain from Deathguard Linnea is handed in: Rear Guard Patrol 356, then 99156, which needs 356 itself. At level 15 with 356 still in the log, Pilk was not offered it; once the chain was done, Kristof offered it (#849). No quest data names this prerequisite, so the Ruins of Lordaeron pick-up guide sent players straight to Kristof."
 	},
 	"92519": {
 		"set": {

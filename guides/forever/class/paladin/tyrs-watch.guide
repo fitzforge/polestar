@@ -42,8 +42,8 @@ why Redemption to raise fallen allies, plus a weapon and a shield for a new Fors
 # (96896-96899, 98545), where every quest of this guide is in the Paladin
 # class category (141) and Undead-only. So the data has no class lock on
 # them (the paladin-only
-# private correction is gone); the Undead route offers them to Paladins as
-# normal steps and to other classes as optional ones. Their prerequisite is
+# private correction is gone); the Undead route offers them to every class
+# as optional steps. Their prerequisite is
 # Leonid's chain: one source gives 99152 the prerequisite A Righteous Cause
 # (96896), Ephram's text thanks you for the work against the cultists at the
 # remnants of the Naxxramas battle (Hadric Harlson's The Cult of the Damned
@@ -52,7 +52,8 @@ why Redemption to raise fallen allies, plus a weapon and a shield for a new Fors
 # the accepts are optional, as this guide does not take Leonid's chain, and
 # the later steps wait with `when onquest`, so a player without them loses
 # nothing.
-# INGAME: Do Hilda the Breaker (99152) and Ephram Barbaro (99153) offer their quests to Undead of other classes once A Righteous Cause (96896) is done? The paladin-only correction rests on one Scourge Mage's report (who may not have had 96896); Forever's quest page has no class gate.
+# Other classes take them too: players' in-game recordings show an Undead
+# Rogue taking and handing in 99152 and an Undead Warlock both.
 # The leveling route (forever/horde/undead/01-tirisfal-glades) does the
 # Deathknell quests, the keep's first three and Hilda's and Ephram's, and
 # leaves out the rest: three crossings of the glades for a spell solo leveling
@@ -202,7 +203,7 @@ step The Scarlet attack plans
   collect 264693 quest 94440.1        -- Scarlet Crusade Attack Plans
 
 step Redemption
-  tip Back to Bandarion Keep, across the whole glades: Billmuth downstairs takes the plans, Danitha teaches you Redemption.
-  turnin 94440                        -- Deathguard Billmuth
+  tip Back to Bandarion Keep, across the whole glades: Billmuth downstairs takes the plans, then Danitha, back upstairs in the keep, teaches you Redemption.
+  turnin 94440                        -- Deathguard Billmuth, downstairs
   accept 94441
-  turnin 94441                        -- Danitha Morr: Redemption
+  turnin 94441                        -- Danitha Morr, back upstairs: Redemption

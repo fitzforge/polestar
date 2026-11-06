@@ -81,7 +81,7 @@ step Brine
 
 step The Quilboar Watering Hole
   tip The muddy pond below Brine's hut. Step right into the puddle before you use the Empty Brown Waterskin (too far away and it refuses). Filling it calls a hostile Razormane Pathfinder (level 20): kill it, and watch for the quilboar hunter by the pond, who may start shooting afterwards.
-  use 7766 @44.3,76.8                         -- Empty Brown Waterskin, standing in the puddle
+  use 7766 quest 1535.1 @44.3,76.8            -- Empty Brown Waterskin, standing in the puddle
   collect 7769 quest 1535.1                   -- Filled Brown Waterskin
 
 step Brine
@@ -91,7 +91,7 @@ step Brine
 step The Spring Well
   zone Hillsbrad Foothills
   tip The Spring Well stands in the middle of Tarren Mill, just outside the church. From the Barrens: the zeppelin from Orgrimmar to Tirisfal Glades, then south past the Undercity and through Silverpine Forest (or fly once you have the Tarren Mill flight path). Hillsbrad is contested: Alliance players may attack. Stand beside the well and use the Empty Red Waterskin.
-  use 7768 @62.2,20.8                         -- Empty Red Waterskin, beside the well
+  use 7768 quest 1536.1 @62.2,20.8            -- Empty Red Waterskin, beside the well
   collect 7771 quest 1536.1                   -- Filled Red Waterskin
 
 step Brine
@@ -102,7 +102,7 @@ step Brine
 step The Ruins of Stardust
   zone Ashenvale
   tip The right fountain stands in a ring of standing stones on the island of the small green lake south of Astranaar, west of Lake Mystral (not the island in Lake Mystral itself). From the Barrens take the road north through the Mor'shan Rampart and on west. Water elementals and walking treants guard the lake and root you in place; an elite Wandering Protector roams Ashenvale and can pass close by. Use the Empty Blue Waterskin beside the fountain.
-  use 7767 @33.6,67.5                         -- Empty Blue Waterskin, beside the fountain
+  use 7767 quest 1534.1 @33.6,67.5            -- Empty Blue Waterskin, beside the fountain
   collect 7770 quest 1534.1                   -- Filled Blue Waterskin
 
 step Brine
@@ -126,7 +126,7 @@ step Lost the Water Sapta?
 step The Brazier of Everfount
   zone Silverpine Forest
   tip Fly to the Sepulcher. The shrine lies in a hollow just south-west of it: go round the back of the crypt to the thick tree between the two hills, hop past it onto the rocks and drop west down the slope to the pool (each drop costs a little health). Drink the Water Sapta beside the tall standing stone by the pool: several water elementals appear, and only the corrupt one near the middle can be attacked (Tab picks it). The Corrupt Minor Manifestation of Water is level 22 and casts Frost Shock and Frost Nova; if someone just killed it, it is back in about three minutes. Its bracers always drop.
-  use 6637 @38.3,44.6                         -- Water Sapta, beside the standing stone
+  use 6637 quest 63.1 @38.3,44.6              -- Water Sapta, beside the standing stone
   collect 7812 quest 63.1                     -- Corrupt Manifestation's Bracers
 
 step The Minor Manifestation of Water

@@ -415,6 +415,26 @@ function checkBareCompletes(g, data, diag) {
 	}
 }
 
+// A `use` without a quest before the line that collects for a quest (the
+// Crystal Phial filled at the moonwell, then `collect 5184 quest 921.1`): a
+// bare use is a check-off, and nothing ticks it, so it holds the step after
+// the objective is done (#875). A warning.
+function checkBareUses(g, diag) {
+	for (const step of g.steps) {
+		step.goals.forEach((goal, i) => {
+			const next = step.goals[i + 1];
+			if (goal.t !== 'use' || goal.quest !== undefined || goal.optional || !next || next.t !== 'collect' || next.quest === undefined) return;
+			const o = `${next.quest}.${next.oi ?? 1}`;
+			diag.warn(
+				g._ast.file,
+				goal._line,
+				`\`use ${goal.item}\` has no quest, but the next line collects for quest ${next.quest}: the use holds its step until ticked`,
+				`bind it: \`use ${goal.item} quest ${o}\``,
+			);
+		});
+	}
+}
+
 function validateGuides(guides, data, diag) {
 	const byId = new Map();
 	for (const g of guides) {
@@ -554,6 +574,7 @@ function validateGuides(guides, data, diag) {
 		checkRedundantGotos(g, data, diag);
 		checkTurninItems(g, ancestors(g), data, diag);
 		checkBareCompletes(g, data, diag);
+		checkBareUses(g, diag);
 		const accepted = new Set();
 		const turnedIn = new Set();
 		const whenOnly = new Set();

@@ -124,26 +124,7 @@ return {
 	-- {area:447} Ameth'Aran
 	["The flame burns in the south of {area:447}."] = "",
 
-	-- Step 31: The Grove of the Ancients
-	-- {area:448} Grove of the Ancients
-	["The {area:448}"] = "",
-	-- {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
-	["Follow the road south. Onu is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
-
-	-- Step 32: Auberdine
-	["Follow the road north."] = "",
-
-	-- Step 33: The naga
-	["The naga"] = "",
-	-- {area:443} Ruins of Mathystra
-	-- plural, as words: Mathystra Relics = {item:5273} Mathystra Relic · Stormscale Myrmidons = {npc:2181} Stormscale Myrmidon
-	["Follow the coast north-east to the {area:443}. Mathystra Relics lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them, and Stormscale Beastmistresses walk the shore."] = "",
-
-	-- Step 34: Back south
-	["Back south"] = "",
-	["Hearthstone on cooldown? Follow the coast road back south."] = "",
-
-	-- Step 38: Into Elwynn Forest
+	-- Step 33: Into Elwynn Forest
 	-- {area:12} Elwynn Forest
 	["Into {area:12}"] = "",
 

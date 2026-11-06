@@ -182,3 +182,122 @@ fn instance_entrances_keep_the_last_outdoor_position_inside_positions_are_empty_
 	assert_eq!(out["recs"], json!(["enter|36|party|1|1429|4250|7180", "unit|639|21|e|h||||t", "encounter|1736|1|1|5", "encounter|1737|0|1|5", "loot|c|639|||||5191:1|", "kill|639|21|e||||||0|",]));
 	assert_eq!(out["bad"], json!({}));
 }
+
+#[test]
+fn a_recorded_kill_carries_its_spawn_the_creature_guid_s_last_part_only_when_it_is_1_to_16_hex_digits() {
+	let out = run(r#"
+		local function kill(guid, x)
+			stub.moveTo(x, 60)
+			stub.partyKill(guid)
+			stub.advance(0.5)
+		end
+		stub.moveTo(40, 60)
+		local wolf = stub.creature(299, "Young Wolf")
+		stub.setUnit("target", wolf, "Young Wolf")
+		stub.fire("PLAYER_TARGET_CHANGED")
+		kill(wolf, 40)
+		kill("Creature-0-4372-0-12-6-0123456789abcdef", 41)   -- 16 hex digits: kept, in capitals
+		kill("Creature-0-4372-0-12-6-0123456789ABCDEF0", 42)  -- 17: not a spawn id, no `spawn`
+		kill("Creature-0-4372-0-12-6-00000000ZZ", 43)         -- not hex
+		kill("Creature-0-4372-0-12-6", 44)                     -- no spawn part
+		kill("Creature-0-4372-0-12-6-00000000AB-FF", 45)      -- eight parts: no part of it
+		-- a death the player had no part in: no kill, no spawn
+		stub.unitDied((stub.creature(113, "Stonetusk Boar")))
+		stub.advance(4)
+		logout()
+		emit({ recs = recs("kill spawn"), bad = malformed() })"#);
+	assert_eq!(
+		out["recs"],
+		json!([
+			"kill|299|1|n|1429|4000|6000|||0|",
+			"spawn|299|0000000001|1429|4000|6000",
+			"kill|6|||1429|4100|6000||||",
+			"spawn|6|0123456789ABCDEF|1429|4100|6000",
+			"kill|6|||1429|4200|6000||||",
+			"kill|6|||1429|4300|6000||||",
+			"kill|6|||1429|4400|6000||||",
+			"kill|6|||1429|4500|6000||||",
+		])
+	);
+	assert_eq!(out["bad"], json!({}));
+}
+
+const SKILLS: &str = r#"
+stub.skill({ id = 182, name = "Herbalism", rank = 57, max = 75 })
+stub.skill({ id = 186, name = "Mining", rank = 30, max = 75 })
+stub.skill({ id = 356, name = "Fishing", rank = 112, max = 150 })
+stub.skill({ id = 633, name = "Lockpicking", rank = 80, max = 100 })
+local function loot(slots) stub.world.loot = slots; stub.fire("LOOT_OPENED", false, false); stub.fire("LOOT_CLOSED") end
+local function cast(spell) stub.fire("UNIT_SPELLCAST_SUCCEEDED", "player", "Cast-1", spell) end
+"#;
+
+#[test]
+fn gathering_a_herb_ore_a_picked_lock_or_a_fishing_pool_writes_gather_with_the_skill_and_its_rank_read_live() {
+	let out = run(&format!(
+		"{SKILLS}{}",
+		r#"
+		stub.moveTo(30, 40)
+		local herb = stub.gameObject(1618, "Peacebloom")
+		cast(2366) -- Herb Gathering
+		loot({ { name = "Peacebloom", item = 2447, count = 2, src = { herb, 2 } } })
+		cast(2366) -- the same node again: nothing
+		loot({ { name = "Peacebloom", item = 2447, count = 2, src = { herb, 2 } } })
+		stub.moveTo(31, 40)
+		cast(2575) -- Mining
+		loot({ { name = "Copper Ore", item = 2770, src = { (stub.gameObject(1731, "Copper Vein")), 1 } } })
+		stub.moveTo(32, 40)
+		loot({ { name = "Linen Cloth", item = 2589, count = 2, src = { (stub.gameObject(2843, "Chest")), 2 } } }) -- no cast: a chest
+		stub.moveTo(33, 40)
+		cast(1804) -- Pick Lock
+		loot({ { name = "Silver Bar", item = 2842, src = { (stub.gameObject(2850, "Locked Chest")), 1 } } })
+		stub.moveTo(34, 40)
+		stub.world.fishing = true
+		local pool = stub.gameObject(180582, "Oily Blackmouth School")
+		loot({ { name = "Oily Blackmouth", item = 6358, src = { pool, 1 } } })
+		stub.advance(30)
+		loot({ { name = "Oily Blackmouth", item = 6358, src = { pool, 1 } } }) -- the same pool: loot only
+		loot({ { name = "Raw Brilliant Smallfish", item = 6291, src = { (stub.gameObject(35591, "Fishing Bobber")), 1 } } }) -- open water
+		stub.advance(300)
+		stub.setSkill(356, 113)
+		loot({ { name = "Oily Blackmouth", item = 6358, src = { pool, 1 } } }) -- five minutes on: a gather again
+		stub.world.fishing = false
+		logout()
+		emit({ recs = recs("loot gather"), bad = malformed() })"#
+	));
+	assert_eq!(
+		out["recs"],
+		json!([
+			"loot|o|1618|1429|3000|4000|h|2447:2|",
+			"gather|1618|1429|3000|4000|h|182|57",
+			"loot|o|1731|1429|3100|4000|m|2770:1|",
+			"gather|1731|1429|3100|4000|m|186|30",
+			"loot|o|2843|1429|3200|4000||2589:2|",
+			"loot|o|2850|1429|3300|4000||2842:1|",
+			"gather|2850|1429|3300|4000|l|633|80",
+			"loot|o|180582|1429|3400|4000|f|6358:1|",
+			"gather|180582|1429|3400|4000|f|356|112",
+			"loot|o|180582|1429|3400|4000|f|6358:1|",
+			"loot|||1429|3400|4000|f|6291:1|",
+			"loot|o|180582|1429|3400|4000|f|6358:1|",
+			"gather|180582|1429|3400|4000|f|356|113",
+		])
+	);
+	assert_eq!(out["bad"], json!({}));
+}
+
+#[test]
+fn at_most_20_gather_records_are_written_in_any_minute() {
+	let out = run(&format!(
+		"{SKILLS}{}",
+		r#"
+		for i = 1, 25 do
+			stub.moveTo(30 + i, 40)
+			cast(2366)
+			loot({ { name = "Peacebloom", item = 2447, src = { (stub.gameObject(1617, "Peacebloom")), 1 } } })
+			stub.advance(1)
+		end
+		logout()
+		emit({ loot = #recs("loot"), gather = #recs("gather"), bad = malformed() })"#
+	));
+	assert_eq!(out, json!({ "loot": 25, "gather": 20, "bad": {} }));
+}

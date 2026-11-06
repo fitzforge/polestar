@@ -17,9 +17,13 @@
 	import Settings from './screens/Settings.svelte';
 	import OptIn from './components/OptIn.svelte';
 	import Glyph from './components/Glyph.svelte';
+	import UpdateBanner from './components/UpdateBanner.svelte';
+	import ShareNotice from './components/ShareNotice.svelte';
+	import { shareNotice, updateBanner } from './lib/notices';
 
 	/** The sky turns a little with each page down the sidebar. */
 	const drift = $derived(SCREENS.indexOf(app.screen) * 48);
+	const update = $derived(updateBanner(app.snapshot));
 
 	/** An address's host, as the banner names it. */
 	function host(url: string): string {
@@ -59,6 +63,7 @@
 />
 
 <TitleBar />
+{#if update}<UpdateBanner version={update} shell={!!app.snapshot?.setupDone} />{/if}
 {#if diagnostics.frames}<FrameMeter />{/if}
 
 <div class="frame">
@@ -97,7 +102,9 @@
 					</svelte:boundary>
 				</div>
 			{/key}
-			<Toaster />
+			<Toaster>
+				{#if shareNotice(app.snapshot)}<ShareNotice />{/if}
+			</Toaster>
 		</main>
 	</div>
 {/if}

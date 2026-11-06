@@ -6,7 +6,7 @@ in this repository.
 
 | Part | Where | Job |
 |---|---|---|
-| Recorder addon | `addon/Polestar_Recorder/` | Writes compact records into `PolestarRecorderDB` while the player plays (opt-in). |
+| Recorder addon | `addon/Polestar_Recorder/` | Writes compact records into `PolestarRecorderDB` while the player plays: off until `/psrec on` or Polestar Client's share flag, which is on by default in the client (see "Ack file"). |
 | Recording library | `rust/crates/polestar-recording/` | Reads the SavedVariables file, decodes and validates records, finds WoW installs, scrubs text, writes the ack file, summarises. Shared by the three below. |
 | Polestar Client | `apps/client/` (Tauri) | Desktop app for Windows, macOS and Linux: finds the game, installs the Recorder, uploads new chunks, shows exactly what was sent. |
 | Ingest server | `services/ingest/` | Receives uploads, validates them with the library, stores them, serves stats, deletion and the maintainer export. |
@@ -15,9 +15,11 @@ in this repository.
 ## What is never collected
 
 Character names, realm names, account names, chat, whispers, guild, friends,
-other players' names, mail, auction or trade data, the player's typed text
-other than `/psrec mark` notes and `/psrec trail` labels, and anything from
-outside the game folder.
+other players' names, who is in the player's group (only how many), mail,
+auction or trade data, the text of the game's messages (only the constant
+name of a refusal, see `refuse`), the server, instance and zone parts of
+creature GUIDs, the player's typed text other than `/psrec mark` notes and
+`/psrec trail` labels, and anything from outside the game folder.
 Quest and gossip text has the player's name replaced with `$N` (and race and
 class with `$R`, `$C`) in the addon, and again in Polestar Client.
 
@@ -73,15 +75,22 @@ Polestar Client merges its entry into whatever the file holds. A lost ack
 only means a chunk is uploaded twice; the server ignores a repeated
 `(install, seq)`.
 
-`PolestarRecorderShare` is written only once the player has turned sharing on
-in Polestar Client at least once (before that the file has no flag, so a
-`/psrec on` of someone who never opted in is left alone). From then on it is
-`true` while sharing is on and uploads are not paused, `false` otherwise; the
-client writes it whenever that changes and with every ack. At login the
-Recorder reads it: `true` turns recording on (saying so once in chat) unless
-`optout` is set, `false` turns it off (without setting `optout`), and no flag
-leaves `enabled` as the player set it. So one opt-in, Start sharing in the client,
-is enough; `/psrec off` stays the player's last word until `/psrec on`.
+`PolestarRecorderShare` is written only once sharing has been on in Polestar
+Client at least once (before that the file has no flag, so a `/psrec on` of
+someone whose client never shared is left alone). Sharing is on by default in
+the client: once it has found the game, a player who never chose shares, as
+if they had pressed Start sharing, unless an account's `PolestarRecorderDB`
+says `optout` (`/psrec off`), and a notice in the client says once what is
+shared, with Stop sharing. A player who stopped sharing in the client stays
+off; it never turns back on by itself. From then on the flag is `true` while
+sharing is on and uploads are not paused, `false` otherwise; the client
+writes it whenever that changes and with every ack. At login the Recorder
+reads it: `true` turns recording on (saying so once in chat) unless `optout`
+is set, `false` turns it off (without setting `optout`), and no flag leaves
+`enabled` as the player set it. So the client's sharing is enough;
+`/psrec off` stays the player's last word until `/psrec on`. The Recorder's
+own default does not change: installed without Polestar Client (no flag), it
+stays off until `/psrec on`.
 
 ### Field encoding
 
@@ -101,9 +110,13 @@ is enough; `/psrec off` stays the player's last word until `/psrec on`.
   invalid.
 - `npcKind`: `c` creature, `o` game object, `i` item, `p` player (never
   stored beyond the kind), empty unknown.
+- `spawnUid`: 1–16 hex digits (`0-9`, `A-F`); `error`: a game constant's
+  name, 1–64 of `A-Z`, `0-9` and `_`.
 - Unknown record kinds are skipped by readers (forward compatible). A known
   kind with a malformed or extra field makes the whole chunk invalid; missing
   trailing optional fields read as empty (the addon always writes them all).
+  So a record gains information as a new kind, never as a new field: an older
+  server or Polestar Client drops the new kind and keeps the chunk.
 
 ### Record kinds
 
@@ -117,6 +130,7 @@ Context
 | `level` | level, P, playedSeconds | level up |
 | `xp` | xp, xpMax, rested | every 5 minutes and at level up |
 | `dropped` | count | after chunks were dropped for size |
+| `group` | size, raid (1/0) | at session start and whenever it changes: `size` 0 solo, the other party members (1–4) in a party, the raid's size (the player included) in a raid. Readers carry it onto the `kill`, `xp`, `progress` and `turnin` records after it. Never who is in the group |
 | `mark` | P, text | `/psrec mark <text>` |
 
 Movement
@@ -147,7 +161,9 @@ Quests
 | `complete` | q | all objectives done |
 | `turnin` | q, npcKind, npcId, P, level, xp, money, chosenItem | quest handed in (`xp`, `money` actually paid) |
 | `abandon` | q | quest abandoned |
+| `fail` | q, P | a quest in the log turns failed (its timer ran out, the escort died), as the client flags it (`C_QuestLog.IsFailed`); once per failure, never for a quest already failed at login |
 | `gossip` | npcKind, npcId, P, optionId, optionText | a gossip option is chosen |
+| `refuse` | P, targetKind, targetId, error | the game refuses something for a requirement (level, item, quest, skill, reputation, a lock): `error` is the game's constant name for the message (`ERR_QUEST_NEED_PREREQS`, from `GetGameMessageInfo`), never its text; the target is the NPC being talked to, else the creature or object targeted, when known. Only `ERR_QUEST_*`, `ERR_USE_LOCKED*`, `ERR_USE_CANT_OPEN`, `ERR_NOT_ENOUGH_MONEY`, `SPELL_FAILED_REAGENTS` and names with `LEVEL`, `SKILL`, `REQUIRE` or `REPUTATION`; the same one once a minute, at most 10 a minute |
 | `cast` | spellId, itemId, P, targetKind, targetId | the player uses a quest or usable item, or casts a spell that is not on the action bars' class spellbook (quest spells, summons); never combat rotation spells |
 | `escort` | q, on (1/0), P | an escort or event quest starts (timer or follower appears) and ends |
 
@@ -156,7 +172,9 @@ Fights and loot
 | Kind | Fields | When |
 |---|---|---|
 | `kill` | npcId, level, cls, P, xp, rested, tapped, q | a creature the player or pet killed (`PARTY_KILL`, `UNIT_DIED` when readable, else the XP line). `cls` `n` normal, `e` elite, `r` rare, `R` rare elite, `b` boss; `xp`/`rested` from the XP message (client format strings, any language); `tapped` 1 when another player had the tag; `q` = `questId:index` when an objective ticked within 3 s |
-| `loot` | srcKind, srcId, P, gather, items, wanted | a loot window, one per source. `gather` `h` herb, `m` mine, `s` skin, `f` fish (fishing has an empty `srcKind`/`srcId`), empty corpse/chest; `items` = `itemId:count` (empty = nothing); `wanted` = `questId:index` of every item objective open at that moment (the drop-chance denominator) |
+| `spawn` | npcId, spawnUid, P | right after a `kill`, when the creature's GUID has one: `spawnUid` is the GUID's last part only (`Creature-0-…-<npcId>-<spawnUid>`, 1–16 hex digits), never the server, instance or zone parts. The same spawn killed again tells how long it takes to come back |
+| `loot` | srcKind, srcId, P, gather, items, wanted | a loot window, one per source. `gather` `h` herb, `m` mine, `s` skin, `f` fish (a catch from a fishing pool has the pool as `o`/srcId; from open water the bobber is left out and `srcKind`/`srcId` are empty), empty corpse/chest; `items` = `itemId:count` (empty = nothing); `wanted` = `questId:index` of every item objective open at that moment (the drop-chance denominator) |
+| `gather` | objectId, P, how, skillLineId, rank | a world object gathered with a skill, right after its `loot` (which has the items): `how` `h` herb (Herbalism 182), `m` ore (Mining 186), `f` fishing pool (Fishing 356), `l` lock picked (Lockpicking 633); `rank` = the player's rank in that skill then (the node needs at most that). Once per object per 5 minutes (a pool gives many catches), at most 20 a minute |
 | `unit` | npcId, level, cls, react, P, src | a creature seen on a nameplate, target or mouseover: once per (npcId, level) per session, and once per 100 yd per npcId per session. `react` `h` hostile, `n` neutral, `f` friendly; `src` `p` plate, `t` target, `m` mouseover |
 | `rare` | npcId, level, cls, P, src | a rare or rare elite sighted (`src` `v` vignette, `p` plate, `t` target, `m` mouseover) |
 | `treasure` | objectId, P | a treasure vignette |
@@ -232,7 +250,8 @@ uploads are answered `503 {"error":"server busy, try later"}` with
 The plausibility checks: clock within the last 30 days and at most 10
 minutes ahead, a chunk spans at most 2 hours, seq within 400 of the
 install's highest, levels 1–60, kill XP within what the level allows, at
-most 40 kills and 60 loot windows a minute, ids below 1,000,000, and at most
+most 40 kills (and 40 `spawn` records), 60 loot windows, 30 `gather` and 30
+`refuse` records a minute, groups of at most 40, ids below 1,000,000, and at most
 100 yards a second between positions on one map (map sizes from the game's
 own map data, never from the upload).
 

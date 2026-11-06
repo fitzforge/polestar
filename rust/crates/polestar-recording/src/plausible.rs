@@ -24,6 +24,11 @@ pub const MAX_LEVEL: i64 = 60;
 /// Most kills, and most loot windows, in any 60 seconds.
 pub const MAX_KILLS_PER_MINUTE: usize = 40;
 pub const MAX_LOOTS_PER_MINUTE: usize = 60;
+/// Most `gather` and most `refuse` records in any 60 seconds (the addon writes at most 20 and 10).
+pub const MAX_GATHERS_PER_MINUTE: usize = 30;
+pub const MAX_REFUSES_PER_MINUTE: usize = 30;
+/// Largest group: a raid of 40.
+pub const MAX_GROUP: i64 = 40;
 /// Quest, creature, object and item ids are below this.
 pub const MAX_ID: u64 = 1_000_000;
 /// Fastest believable movement between two `pos` records on one map, in yards a second (a
@@ -43,8 +48,8 @@ pub struct Context {
 /// One failed check.
 #[derive(Clone, Debug, PartialEq)]
 pub struct Issue {
-	/// Short rule name (`epoch`, `span`, `seq`, `level`, `kill-xp`, `kill-rate`, `loot-rate`, `id`,
-	/// `speed`).
+	/// Short rule name (`epoch`, `span`, `seq`, `level`, `kill-xp`, `kill-rate`, `loot-rate`,
+	/// `gather-rate`, `refuse-rate`, `group`, `id`, `speed`).
 	pub rule: &'static str,
 	pub detail: String,
 }
@@ -113,6 +118,9 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 	let mut player_level: Option<i64> = None;
 	let mut kills = Vec::new();
 	let mut loots = Vec::new();
+	let mut spawns = Vec::new();
+	let mut gathers = Vec::new();
+	let mut refuses = Vec::new();
 	// The last `pos`: (map, x, y in percent, t).
 	let mut last_pos: Option<(u32, f64, f64, f64)> = None;
 	for r in &chunk.records {
@@ -148,6 +156,14 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 				}
 			}
 			Kind::Loot => loots.push(r.t),
+			Kind::Spawn => spawns.push(r.t),
+			Kind::Gather => gathers.push(r.t),
+			Kind::Refuse => refuses.push(r.t),
+			Kind::Group => {
+				if let Some(size) = r.int("size").filter(|s| *s > MAX_GROUP) {
+					issue("group", format!("group of {size}"));
+				}
+			}
 			Kind::Taxi | Kind::Land | Kind::Death | Kind::Revive | Kind::Zone | Kind::Ride | Kind::Enter | Kind::Cast => last_pos = None,
 			Kind::Pos => {
 				let Some(p) = r.pos() else {
@@ -169,15 +185,18 @@ pub fn check_chunk(chunk: &Chunk, ctx: &Context) -> Vec<Issue> {
 			_ => {}
 		}
 	}
-	kills.sort_by(f64::total_cmp);
-	loots.sort_by(f64::total_cmp);
-	let k = busiest_minute(&kills);
-	if k > MAX_KILLS_PER_MINUTE {
-		issue("kill-rate", format!("{k} kills in one minute"));
-	}
-	let l = busiest_minute(&loots);
-	if l > MAX_LOOTS_PER_MINUTE {
-		issue("loot-rate", format!("{l} loot windows in one minute"));
+	for (rule, what, mut times, max) in [
+		("kill-rate", "kills", kills, MAX_KILLS_PER_MINUTE),
+		("kill-rate", "spawns", spawns, MAX_KILLS_PER_MINUTE),
+		("loot-rate", "loot windows", loots, MAX_LOOTS_PER_MINUTE),
+		("gather-rate", "gathers", gathers, MAX_GATHERS_PER_MINUTE),
+		("refuse-rate", "refusals", refuses, MAX_REFUSES_PER_MINUTE),
+	] {
+		times.sort_by(f64::total_cmp);
+		let n = busiest_minute(&times);
+		if n > max {
+			issue(rule, format!("{n} {what} in one minute"));
+		}
 	}
 	issues
 }
@@ -281,6 +300,26 @@ mod tests {
 		let loots = |n: usize| (0..n).map(|i| format!("loot\t{i}\tc\t1501\t\t\t\t\t2589:1\t\n")).collect::<String>();
 		assert_eq!(rules(&chunk(&loots(MAX_LOOTS_PER_MINUTE)), &ctx()), [] as [&str; 0]);
 		assert_eq!(rules(&chunk(&loots(MAX_LOOTS_PER_MINUTE + 1)), &ctx()), ["loot-rate"]);
+	}
+
+	#[test]
+	fn gathers_refusals_and_spawns_per_minute_and_groups_up_to_forty() {
+		// n records of `rec` (its kind, then its fields), one a second.
+		let many = |n: usize, rec: &str| {
+			let (kind, fields) = rec.split_once('\t').unwrap();
+			(0..n).map(|i| format!("{kind}\t{}\t{fields}\n", i * 10)).collect::<String>()
+		};
+		let gather = "gather\t1617\t1420\t1300\t1400\th\t182\t57";
+		let refuse = "refuse\t1420\t1300\t1400\tc\t1568\tERR_QUEST_NEED_PREREQS";
+		let spawn = "spawn\t1501\t000043F59F\t1420\t1300\t1400";
+		assert_eq!(rules(&chunk(&many(MAX_GATHERS_PER_MINUTE, gather)), &ctx()), [] as [&str; 0]);
+		assert_eq!(rules(&chunk(&many(MAX_GATHERS_PER_MINUTE + 1, gather)), &ctx()), ["gather-rate"]);
+		assert_eq!(rules(&chunk(&many(MAX_REFUSES_PER_MINUTE, refuse)), &ctx()), [] as [&str; 0]);
+		assert_eq!(rules(&chunk(&many(MAX_REFUSES_PER_MINUTE + 1, refuse)), &ctx()), ["refuse-rate"]);
+		assert_eq!(rules(&chunk(&many(MAX_KILLS_PER_MINUTE + 1, spawn)), &ctx()), ["kill-rate"]);
+		assert_eq!(rules(&chunk("group\t5\t40\t1\n"), &ctx()), [] as [&str; 0]);
+		assert_eq!(rules(&chunk("group\t5\t41\t1\n"), &ctx()), ["group"]);
+		assert_eq!(rules(&chunk("gather\t5\t1000000\t\t\t\th\t182\t57\n"), &ctx()), ["id"]);
 	}
 
 	#[test]

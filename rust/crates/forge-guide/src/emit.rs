@@ -79,7 +79,7 @@ pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 69] = [
+pub const GOAL_KEYS: [&str; 70] = [
 	"t",
 	"class",
 	"spell",
@@ -128,6 +128,8 @@ pub const GOAL_KEYS: [&str; 69] = [
 	"r",
 	"spots",
 	"spread",
+	// A kill or collect's spawn areas' level, the one most share (an area of another level carries its own `lvl`).
+	"lvl",
 	"optional",
 	"only",
 	"profLine",
@@ -156,9 +158,10 @@ pub const CANDIDATE_KEYS: [&str; 13] = ["npc", "npcName", "map", "x", "y", "z", 
 /// A collect's `fromNpcs`: the creatures its point and spawn areas belong to.
 const SOURCE_NPC_KEYS: [&str; 2] = ["npc", "npcName"];
 /// Spawn areas: map-percent centre in the goal's map and frame, its height,
-/// radius in yards, spawn count, and `alt` for a place the arrow reaches only
-/// when moved on to it.
-const SPOT_KEYS: [&str; 6] = ["x", "y", "z", "r", "n", "alt"];
+/// radius in yards, spawn count, `alt` for a place the arrow reaches only
+/// when moved on to it, and `lvl`, the highest level of the mobs spawning in
+/// it (a kill or collect goal's).
+const SPOT_KEYS: [&str; 7] = ["x", "y", "z", "r", "n", "alt", "lvl"];
 /// A turn-in's `rewards = { choices, items, money, xp }`: item lists in this order.
 const REWARD_KEYS: [&str; 3] = ["item", "itemName", "quality"];
 /// A guide's `reward = { ... }`: an item (`choice` when one of several), a spell or words.

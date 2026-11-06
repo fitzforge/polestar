@@ -233,7 +233,7 @@ end
 -- One check; returns true when it alerted. Shortest Path Forever announces
 -- its own rides while the target is handed to it (Nav/Handoff.lua).
 function Alerts.Check()
-	if not ns.Get("nav.alerts") or Nav.HandedOff() then return false end
+	if not ns.Get("nav.alerts") or not ns.GuideShown() or Nav.HandedOff() then return false end
 	if InCombatLockdown and InCombatLockdown() then return false end
 	local X = ns.Transit
 	if type(X) ~= "table" then return false end

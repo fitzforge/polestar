@@ -58,7 +58,7 @@ step Onyxia's breath
 step Onyxia's corpse
   tip Kill Onyxia, then target her corpse and use the Heated Ancient Blade on it before the 20 minutes run out. It becomes the Treated Ancient Blade, with no time limit.
   kill 10184 @52.1,75.8 group 40              -- Onyxia
-  use 18488 @52.1,75.8                        -- Heated Ancient Blade, on her corpse
+  use 18488 quest 7509.1 @52.1,75.8           -- Heated Ancient Blade, on her corpse
   collect 18492 quest 7509.1 @52.1,75.8       -- Treated Ancient Blade
 
 step The Forging of Quel'Serrar

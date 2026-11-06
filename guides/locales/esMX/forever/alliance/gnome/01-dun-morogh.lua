@@ -198,10 +198,6 @@ return {
 	["{npc:8508}, on the dock"] = "",
 	-- {npc:1196} Ice Claw Bear
 	["{npc:1196}, on the way to the Hold"] = "",
-	-- {npc:1127} Elder Crag Boar
-	["{npc:1127}, on the way"] = "",
-	-- {npc:1201} Snow Leopard
-	["{npc:1201}, on the way"] = "",
 
 	-- Step 37: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village · {npc:1374} Rejold Barleybrew

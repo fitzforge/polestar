@@ -116,7 +116,7 @@ L["No Hearthstone in your bags: walk to the inn"] = "В сумках нет ка
 L["No Hearthstone in your bags"] = "В сумках нет камня возвращения"
 L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "Камень возвращения будет готов через %s: идите в таверну пешком или подождите"
 L["Hearthstone ready in %s"] = "Камень возвращения будет готов через %s"
--- L["%s isn't in your quest log"] = ""
+L["%s isn't in your quest log"] = "Задания «%s» нет в вашем журнале заданий"
 -- L["Not offered by %s? Report it with /polestar"] = ""
 -- L["The inn is only %s away: travel there and keep the Hearthstone"] = ""
 -- L["Hearthstone ready in %s; the trip takes %s: set off now"] = ""
@@ -354,7 +354,7 @@ L["Nearest %s: %s, %s."] = "Ближайший: %s — %s, %s."
 L["No profession called %s."] = "Нет профессии %s."
 L["Nearby services"] = "Ближайшие услуги"
 L["Nearest"] = "Ближайшее"
-L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master"] = "Навести стрелку на ближайшего учителя, учителя классовых навыков, ремонт, реагенты, торговца, хозяина таверны, банк, аукцион, распорядителя полетов или хозяина стойл"
+L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"] = "Навести стрелку на ближайшего учителя, учителя классовых навыков, ремонт, реагенты, торговца, хозяина таверны, банк, аукцион, распорядителя полетов или хозяина стойл"
 L["Nearby services in map menus"] = "Ближайшие услуги в меню карт"
 L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] = "Меню отслеживания на карте и мини-карте находят ближайших учителя, торговца, таверну, банк и прочее (/polestar near)."
 L["Weapon master"] = "Мастер оружия"
@@ -375,9 +375,14 @@ L["Thrown"] = "Метательное оружие"
 L["Weapon master (%s)"] = "Мастер оружия (%s)"
 L["At %s: the arrow is back on the guide."] = "%s: стрелка снова ведет по гайду."
 L["The arrow is back on the guide."] = "Стрелка снова ведет по гайду."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "Использование: /polestar near trainer [профессия] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Использование: /polestar near trainer [профессия] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "Кнопка «Услуги поблизости»"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Кнопка в заголовке окна гайда, слева от меню, находит ближайшего торговца, ремонт, трактир, распорядителя полетов или учителя и направляет туда стрелку."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "ПКМ — пропустить этот участок."
@@ -418,6 +423,7 @@ L["Not done"] = "Не готово"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Начинает задание"
+L["%d/%d (not accepted)"] = "%d/%d (не взято)"
 
 -- Quests/Options.lua
 L["Any level"] = "Любой уровень"
@@ -459,6 +465,10 @@ L["quests"] = "заданий"
 L["available now"] = "доступно сейчас"
 L["mobs tracked"] = "мобов отслеживается"
 L["Quest database status"] = "Состояние базы заданий"
+L["Quest marks in bags"] = "Метки заданий в сумках"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Помечает предметы в сумках, которые ещё нужны заданию в журнале или впереди в гайде, пока вы не сдадите задание."
+L["Offer to buy back quest items"] = "Предлагать выкуп предметов для заданий"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Если вы продадите предмет, который ещё нужен заданию, спросить, выкупить ли его у торговца."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
@@ -833,6 +843,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "Выбор цели щелчком по задачам"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "Щелчок по строке задачи или заголовку NPC вне боя также выбирает этого NPC целью, с теми же настройками меток, что и у кнопки цели. Текущая цель при этом заменяется; неудачный поиск сбрасывает её."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "Только Альянс"
@@ -881,7 +893,6 @@ L["Lookup is turned off (Options > Discovery > Lookup)."] = "Поиск выкл
 L["NPC"] = "NPC"
 L["First do the quest"] = "Сначала выполните задание"
 L["%s: inside %s."] = "%s: внутри %s."
-L["Earlier quests of this chain are not listed."] = "Ранние задания этой цепочки не указаны."
 L["Drop chance"] = "Шанс добычи"
 L["Enter"] = "Войти"
 L["Choose this reward:"] = "Выберите эту награду:"
@@ -1176,6 +1187,23 @@ L["%s complete — continuing with %s"] = "%s завершен — продол�
 L["You've reached the end of this guide."] = "Вы дошли до конца этого гайда."
 L["Choose where to go next"] = "Выбрать, куда дальше"
 L["Start %s"] = "Начать: %s"
+L["Click to fold them away"] = "Нажмите, чтобы свернуть"
+L["Click to list them"] = "Нажмите, чтобы показать"
+L["1 goal"] = "1 цель"
+L["%d goals"] = "целей: %d"
+L["1 kill"] = "1 убийство"
+L["1 item"] = "1 предмет"
+L["%d items"] = "предметов: %d"
+L["%d kills and items"] = "убийств и предметов: %d"
+L["1 hand-in"] = "1 сдача"
+L["%d hand-ins"] = "сдач: %d"
+L["1 task"] = "1 дело"
+L["%d tasks"] = "дел: %d"
+L["%d done"] = "готово: %d"
+L["Then out here:"] = "Затем на месте:"
+L["Out here:"] = "На месте:"
+L["+ %d more people"] = "+ ещё персонажей: %d"
+L["Later in this step"] = "Дальше в этом шаге"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1915,6 +1943,10 @@ L["Continue automatically"] = "Продолжать автоматически"
 -- L["%d KiB"] = ""
 -- L["%.1f MB"] = ""
 -- L["%d KB"] = ""
+L["Show the whole step"] = "Показывать весь шаг"
+L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Все цели шага сразу, вместе с выполненными, вместо одного персонажа за раз и остальных по строке на каждого."
+L["Maximum height"] = "Максимальная высота"
+L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -2770,6 +2802,22 @@ L["Next: %s"] = "Далее: %s"
 L["Pick a guide"] = "Выбрать гайд"
 L["Not now"] = "Не сейчас"
 
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "Щелкните, чтобы выбрать целью и пометить: %s (вне боя)."
+L["Click to target %s (out of combat)."] = "Щелкните, чтобы выбрать целью: %s (вне боя)."
+L["%s not found nearby."] = "%s не найден поблизости."
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Предметы заданий Polestar"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "Нужно для:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "Его больше нет в списке выкупа торговца."
+L["Not enough money to buy it back."] = "Недостаточно денег для выкупа."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "Вы продали %s, а он ещё нужен для «%s». Выкупить за %s?"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Вести через Shortest Path Forever, если он установлен\" (Настройки, Интеграции)."
@@ -2810,3 +2858,4 @@ L["Not now"] = "Не сейчас"
 -- L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator)."] = "Предмет, который использует текущий шаг, или собираемый предмет задания светится в сумках (и в Baganator)."
 -- L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."] = "Продает предметы низкого качества при открытии торговца и выводит сумму. Ничего другого не продает."
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it."] = "Выбирает единственный вариант у NPC без заданий. Удерживайте Shift, чтобы прочитать."
+-- L["Earlier quests of this chain are not listed."] = "Ранние задания этой цепочки не указаны."

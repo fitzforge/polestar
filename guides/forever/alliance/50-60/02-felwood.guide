@@ -162,7 +162,7 @@ step Jadefire Run: kill these as you meet them
 
 step Jaedenar again
   tip Use the Empty Canteen at the corrupted moonwell in the middle of Jaedenar. If you freed Arko'narin, go back into Shadow Hold for the succubus Rakaiah.
-  use 12922 @35.2,59.8 map 1448
+  use 12922 quest 5157.1 @35.2,59.8 map 1448
   collect 12907 quest 5157.1
 
 step Oozes

@@ -195,7 +195,12 @@ uistub.guides["test/darkshore"] = { id = "test/darkshore", pack = "guides", titl
 local function card()
 	local f = CC.frame
 	local on = f ~= nil and f:IsShown()
-	local row = GF.parts.card and uistub.findText(GF.parts.card, "Accept |c")
+	-- The accept's goal row (not a summary line naming another person's accept).
+	local row
+	for _, r in ipairs(GF.rows) do
+		local s = r:IsShown() and r.Text:GetText()
+		if s and s:find("Accept |c", 1, true) then row = r.Text break end
+	end
 	return { shown = on, head = on and f.Head:GetText() or nil, title = on and f.Title:GetText() or nil, learn = on and f.Learn:GetText() or nil,
 		badge = on and f.Badge:IsShown() and f.Badge.Text:GetText() or nil, trip = on and f.Trip:GetText() or nil,
 		only = on and f.Only:GetText() or nil, icon = on and f.Icon:GetTexture() or nil, row = row and row:GetText() or nil,
@@ -237,6 +242,128 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	let warrior = &out[1];
 	assert_eq!(warrior["shown"], false, "{warrior}");
 	assert_eq!(warrior["row"], "Accept |cffffd673The Great Cat Spirit|r");
+}
+
+// Only the quest data makes a class quest (UI/ClassRewards.lua's class mask), never a line's
+// `only`: Michael's report (#812) had `only !Paladin` lines taken for the reader's own class quest
+// (a Mage told to learn Redemption at Tirisfal's 99152, Warriors in Durotar carded for Vile
+// Familiars), and `only Paladin` beside them made 99152 a Paladin quest though every class takes it.
+#[test]
+fn only_the_quest_data_makes_a_class_quest_never_a_line_s_only() {
+	let out = run_card(
+		r#"
+		local function allBut(c)
+			local out = {}
+			for _, k in ipairs({ "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }) do
+				if k ~= c then out[#out + 1] = k end
+			end
+			return { classes = out }
+		end
+		emit({
+			mage = CC.ClassQuest({ t = "accept", quest = 99152, only = allBut("PALADIN") }, "MAGE"),
+			paladin = CC.ClassQuest({ t = "accept", quest = 99152, only = { classes = { "PALADIN" } } }, "PALADIN"),
+			warrior = CC.ClassQuest({ t = "accept", quest = 792, only = allBut("WARLOCK") }, "WARRIOR"),
+			druid = CC.ClassQuest({ t = "accept", quest = 6361, only = { classes = { "DRUID" } } }, "DRUID"),
+			catForm = CC.ClassQuest({ t = "accept", quest = 98393 }, "DRUID"),
+			catFormWarrior = CC.ClassQuest({ t = "accept", quest = 98393 }, "WARRIOR"),
+			stalk = CC.ClassQuest({ t = "accept", quest = 76160 }, "SHAMAN"),
+		})"#,
+	);
+	assert_eq!(out[0], json!({ "mage": false, "paladin": false, "warrior": false, "druid": false, "catForm": true, "catFormWarrior": false, "stalk": false }));
+}
+
+// The class-quest audit: Mulgore's Druids ride to Thunder Bluff for A Bundle of Hides (6361) on an
+// `only Druid` step, a detour of the route, and the card told them "it's your class's quest";
+// every class can take it. The data-limited Cat Form chain keeps its card.
+#[test]
+fn a_druid_only_step_of_an_open_quest_shows_no_card_a_data_limited_druid_quest_does() {
+	let out = run_card(
+		r#"
+		uistub.guides["test/mulgore"] = { id = "test/mulgore", pack = "guides", title = "Mulgore", faction = "Horde", minLevel = 1, maxLevel = 12,
+			category = "Leveling", zone = 1412, zoneName = "Mulgore", author = "Polestar", version = 1, steps = {
+			{ title = "Jahan Hawkwing", only = DRUID, goals = {
+				G("accept", { verb = "Accept", subject = "A Bundle of Hides", subjectKind = "quest", quest = 6361, npc = 3390, npcName = "Jahan Hawkwing", minLevel = 10, map = 1413, x = 44.8, y = 59.1, status = "active" }),
+			} },
+		} }
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "Tauren", 10
+		uistub.setGuide("test/mulgore", 1)
+		emit(card())
+		uistub.player.race, uistub.player.level = "NightElf", 20
+		uistub.setGuide("test/darkshore", 1)
+		emit(card())"#,
+	);
+	assert_eq!(out[0]["shown"], false, "{}", out[0]);
+	assert_eq!(out[0]["row"], "Accept |cffffd673A Bundle of Hides|r");
+	assert_eq!(out[1]["shown"], true, "{}", out[1]);
+	assert_eq!(out[1]["title"], "The Great Cat Spirit");
+}
+
+// A Skyborne Druid's report (0.3.2): at Zephras Isle's "Denaaris Stargale" the card for Child of
+// Nature (94912) said "Learn Bear Form" though he had learned it on the island 4 levels before
+// (The Great Ursera Spirit, 94006). A chain whose reward is known or owned shows no card, taken
+// or not; the accept is a row like any other.
+const ZEPHRAS: &str = r#"
+uistub.guides["test/zephras"] = { id = "test/zephras", pack = "guides", title = "Zephras Isle", faction = "Alliance", minLevel = 1, maxLevel = 10,
+	category = "Leveling", zone = 1416, zoneName = "Alterac Mountains", author = "Polestar", version = 1, steps = {
+	{ title = "Denaaris Stargale", goals = {
+		G("accept", { verb = "Accept", subject = "Child of Nature", subjectKind = "quest", quest = 94912, npc = 270459, npcName = "Alfina Nightgaze", minLevel = 10, only = DRUID, status = "active" }),
+		G("accept", { verb = "Accept", subject = "The Skyborne Portal", subjectKind = "quest", quest = 94947, npc = 270458, npcName = "Denaaris Stargale", status = "pending" }),
+	} },
+} }
+KNOWN = {}
+IsPlayerSpell = function(id) return KNOWN[id] == true end
+uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "Skyborne", 10
+local function box()
+	local c = CC.frame and CC.frame.Accept.Check
+	return { checked = c ~= nil and c:IsShown() and c:GetChecked() or false, line = CC.frame and CC.frame.Accept:IsShown() and CC.frame.Accept.Text:GetText() or nil }
+end
+"#;
+
+#[test]
+fn no_card_for_a_chain_whose_reward_the_character_already_knows() {
+	let out = run_card(&format!(
+		r#"{ZEPHRAS}
+		uistub.setGuide("test/zephras", 1)
+		emit(card())
+		KNOWN[5487] = true -- Bear Form
+		uistub.update()
+		emit(card())"#
+	));
+	assert_eq!(out[0]["shown"], true, "{}", out[0]);
+	assert_eq!(out[0]["learn"], "Learn |cfffe8f2fBear Form|r");
+	assert_eq!(out[1]["shown"], false, "{}", out[1]);
+	assert_eq!(out[1]["row"], "Accept |cffffd673Child of Nature|r");
+}
+
+// The same report: ticking the card's box "didn't do anything". The Engine keeps an accept open
+// until the quest is in the log (a tick never stands for the quest, #739) and says so on the
+// accept ("... isn't in your quest log"); the card showed neither the tick nor that line, so the
+// box sprang back unticked. It now shows both, and a second click undoes the tick.
+#[test]
+fn the_card_s_tick_box_ticks_the_accept_and_shows_it_ticked_and_why_it_stays_open() {
+	let out = run_card(&format!(
+		r#"{ZEPHRAS}
+		local toggled = {{}}
+		Polestar.Engine.ToggleGoal = function(s, g)
+			toggled[#toggled + 1] = s .. ":" .. g
+			local goal = uistub.goal(s, g)
+			goal.ticked = not goal.ticked
+			goal.noticeText = goal.ticked and "Child of Nature isn't in your quest log" or nil
+			uistub.update()
+			return true
+		end
+		uistub.setGuide("test/zephras", 1)
+		emit(box())
+		stub.RunScript(CC.frame.Accept.Check, "OnClick", "LeftButton")
+		emit(box())
+		stub.RunScript(CC.frame.Accept.Check, "OnClick", "LeftButton")
+		emit(box())
+		emit(toggled)"#
+	));
+	assert_eq!(out[0], json!({ "checked": false, "line": "Accept from Alfina Nightgaze" }));
+	assert_eq!(out[1], json!({ "checked": true, "line": "Child of Nature isn't in your quest log" }));
+	assert_eq!(out[2], json!({ "checked": false, "line": "Accept from Alfina Nightgaze" }));
+	assert_eq!(out[3], json!(["1:1", "1:1"]));
 }
 
 #[test]
@@ -286,7 +413,8 @@ local function slim()
 		only = on and f.Only:IsShown() and f.Only:GetText() or nil, trip = on and f.Trip:IsShown() or false,
 		line = on and f.Accept:IsShown() and f.Accept.Text:GetText() or nil, check = on and f.Accept.Check:IsShown() or false,
 		height = on and f:GetHeight() or 0, person = GF.parts.person.Name:GetText(),
-		row = uistub.findText(GF.parts.card, "Glyphic Memorandum") and true or false }
+		row = uistub.findText(GF.parts.card, "Glyphic Memorandum") and true or false,
+		giverLine = uistub.findText(GF.parts.card, "Sten Stoutarm") and true or false }
 end
 uistub.player.class, uistub.player.race, uistub.player.level = "MAGE", "Gnome", 1
 "#;
@@ -306,7 +434,7 @@ fn once_the_class_quest_is_taken_the_card_folds_to_one_line_naming_who_gets_it_a
 		uistub.goal(1, 1).ticked = true
 		uistub.update()
 		emit(slim())
-		-- Handed in: the card is gone, the accept a row like any other.
+		-- Handed in: the card is gone, the accept a goal like any other (on the persons-done line, #843).
 		uistub.goal(1, 1).ticked = false
 		uistub.goal(1, 3).status = "done"
 		uistub.update()
@@ -336,7 +464,7 @@ fn once_the_class_quest_is_taken_the_card_folds_to_one_line_naming_who_gets_it_a
 	assert_eq!(ticked["check"], true, "{ticked}");
 	let handed = &out[3];
 	assert_eq!(handed["shown"], false, "{handed}");
-	assert_eq!(handed["row"], true, "{handed}");
+	assert_eq!(handed["giverLine"], true, "the accept's giver stays on the card, on the line of the persons done: {handed}");
 }
 
 #[test]
@@ -618,4 +746,22 @@ fn the_giver_is_the_one_for_the_characters_race_and_without_a_class_guide_show_m
 	assert_eq!(t["showMe"], true);
 	assert_eq!(out[1], json!({ "orcStart": false, "undeadStart": true }));
 	assert_eq!(out[2], json!({ "target": "Ageron Kargal", "map": 1420, "shown": false }));
+}
+
+// Fitz, 2026-11-05: "NEW WEAPON" crowded the quest's name. With a badge the title starts
+// below the badge (10 down, 20 high) with a gap, never beside or under it.
+#[test]
+fn the_class_card_title_starts_below_the_reward_badge() {
+	let out = run_card(
+		r#"
+		uistub.player.class, uistub.player.race, uistub.player.level = "DRUID", "NightElf", 20
+		uistub.setGuide("test/darkshore", 1)
+		local f = CC.frame
+		local _, _, _, _, ty = f.Title:GetPoint(1)
+		local _, _, _, _, by = f.Badge:GetPoint(1)
+		emit({ badge = f.Badge:IsShown(), titleTop = -ty, badgeBottom = -by + f.Badge:GetHeight() })"#,
+	);
+	let r = &out[0];
+	assert_eq!(r["badge"], true, "{r}");
+	assert!(r["titleTop"].as_f64().unwrap() >= r["badgeBottom"].as_f64().unwrap() + 4.0, "{r}");
 }

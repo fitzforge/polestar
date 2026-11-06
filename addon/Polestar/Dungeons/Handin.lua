@@ -153,7 +153,7 @@ function Dungeons.HandinFollowUps(plan)
 end
 
 local function questGoal(t, id, title, at)
-	local goal = { t = t, quest = id, title = title, map = at.map, x = at.x, y = at.y, f = at.f }
+	local goal = { t = t, quest = id, title = title, map = at.map, x = at.x, y = at.y, f = at.f == "e" and "e" or nil }
 	if at.kind == "object" then
 		goal.object, goal.objName = at.id, at.name
 	else

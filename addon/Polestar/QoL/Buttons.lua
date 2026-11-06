@@ -34,6 +34,8 @@
 --     on a live hostile target (skull unless set) or an NPC (star), or a new
 --     one each press (Buttons.MarkLine).
 --
+-- All of them go with the guide window (ns.GuideShown); the step key stays.
+--
 -- The buttons hang off one holder: the bag and hearth above the item, target and rare
 -- below. A left-drag on any of them moves the set (out of combat; with
 -- ui.lockHud on, only a Shift-drag); the position is per character, so the
@@ -688,7 +690,7 @@ end
 
 local function applyBag(b)
 	local Space = QoL.Space
-	local j = Space and Space.Low() and Space.Junk()
+	local j = ns.GuideShown() and Space and Space.Low() and Space.Junk()
 	b.junk = j or nil
 	if j then
 		b.Icon:SetTexture(Client.ItemIcon(j.id) or media("icon-use"))
@@ -720,6 +722,43 @@ end
 
 -- Goals done with an NPC, whom the step key targets by name.
 local NPC_VERBS = { accept = true, turnin = true, talk = true, train = true, vendor = true, buy = true, sethome = true, getfp = true, learn = true }
+
+-- One clicked guide name, using the target button's macro and mark settings.
+-- The view's chosen NPC wins over the raw goal;
+-- collect subjects are items, so only their chosen or named NPC source can
+-- be targeted. No world-wide dropper lookup or other goal is consulted.
+function Buttons.GuideNameMacro(goal, raw)
+	if not QoL.On("guideNameTarget") or type(goal) ~= "table" then return nil end
+	raw = type(raw) == "table" and raw or goal
+	local t = goal.t
+	if t ~= "kill" and t ~= "collect" and not NPC_VERBS[t] then return nil end
+	local N = ns.Names
+	-- Keep a chosen name with its chosen ID: an unnamed/raw candidate must
+	-- not replace the view's named candidate with another localized NPC.
+	local chosen = goal.npc ~= nil or goal.npcName ~= nil
+	local npc, name
+	if chosen then npc, name = goal.npc, goal.npcName else npc, name = raw.npc, raw.npcName end
+	name = (npc and N and N.Npc and N.Npc(npc)) or name
+	if chosen and not name and t ~= "kill" then return nil end
+	if not name then
+		if t == "kill" then
+			name = goal.subject or raw.target
+		elseif t == "collect" then
+			local source = goal.source
+			if type(source) == "table" then
+				if source.kind == "npc" then name = source.name end
+			elseif raw.from and (raw.fromKind == nil or raw.fromKind == "npc") then
+				name = (raw.fromId and N and N.Npc and N.Npc(raw.fromId)) or raw.from
+			end
+		end
+	end
+	if not Buttons.MacroSafeName(name) then return nil end
+	local kind = (t == "kill" or t == "collect") and "mob" or "npc"
+	local macro = Buttons.TargetMacro({ name }, 1, Buttons.MarkLine(kind))
+	-- TargetMacro drops extra names to fit; a single long name cannot be trimmed.
+	if not macro or #macro > MACRO_LIMIT then return nil end
+	return macro, name, kind
+end
 
 -- What the step key does now. view, raw: QoL.CurrentStep()'s, when the
 -- caller has them. -> "item", itemID | "target", names (reused list) |
@@ -880,14 +919,25 @@ for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "PLAYER_REGEN_ENABLED", "UPDAT
 	ns.RegisterEvent(event, refreshInteract)
 end
 
+-- Every targeting entry point shares one mark cycle. Prepared secure macros
+-- change only when safe; guide name overlays listen for the new selection.
+function Buttons.AdvanceMark(kind)
+	if not nextMark(kind) then return false end
+	if targetButton then applyTarget(targetButton) end
+	if stepButton then applyStep(stepButton) end
+	ns.Fire("QOL_TARGET_MARK_CHANGED", kind)
+	return true
+end
+
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
 	local view, raw = QoL.CurrentStep()
-	applyItem(itemButton, QoL.On("itemButton") and view and Buttons.ChooseQuestItem(view, raw) or nil)
-	applyItem(hearthButton, QoL.On("hearthButton") and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
+	local guideShown = ns.GuideShown()
+	applyItem(itemButton, QoL.On("itemButton") and guideShown and view and Buttons.ChooseQuestItem(view, raw) or nil)
+	applyItem(hearthButton, QoL.On("hearthButton") and guideShown and view and Buttons.WantsHearth(view) and Client.HEARTHSTONE or nil)
 
-	local list = QoL.On("targetButton") and view and Buttons.TargetNames(view, raw) or {}
+	local list = QoL.On("targetButton") and guideShown and view and Buttons.TargetNames(view, raw) or {}
 	-- The mark settings are part of both signatures, so changing one re-applies.
 	local mark = QoL.On("markTarget") and (markSetting("mob") .. " " .. markSetting("npc") .. "\n") or ""
 	local sig = mark .. concat(list, "\n")
@@ -902,7 +952,7 @@ local function refresh()
 
 	-- Not tied to the step: a rare can turn up on any of them.
 	local R = ns.Rares
-	local rares = QoL.On("rareButton") and R and R.Nearby and R.Nearby() or {}
+	local rares = QoL.On("rareButton") and guideShown and R and R.Nearby and R.Nearby() or {}
 	local raresSig = concat(rares, "\n")
 	if raresSig ~= rare.sig then
 		rare.sig = raresSig
@@ -961,10 +1011,8 @@ local function create()
 		if down or self.dragging then return end
 		local n = #target.list
 		if n > 1 then target.cycle = target.cycle % n + 1 end
-		local marked = nextMark("mob")
-		if n > 1 or marked then applyTarget(targetButton) end
-		-- The step key shares the icon cycle.
-		if marked then applyStep(stepButton) end
+		local marked = Buttons.AdvanceMark("mob")
+		if n > 1 and not marked then applyTarget(targetButton) end
 	end)
 	rareButton = newButton("PolestarRareButton", rareTooltip)
 	rareButton.Icon:SetTexture(media("qol-target"))
@@ -999,9 +1047,8 @@ local function create()
 		local n = #step.list
 		local names = step.kind == "target" and n > 1
 		if names then step.cycle = step.cycle % n + 1 end
-		local marked = nextMark(STEP_MARK[step.kind])
-		if names or marked then applyStep(self) end
-		if marked then applyTarget(targetButton) end
+		local marked = Buttons.AdvanceMark(STEP_MARK[step.kind])
+		if names and not marked then applyStep(self) end
 	end)
 	Buttons.item, Buttons.hearth, Buttons.target, Buttons.rare, Buttons.step, Buttons.bag = itemButton, hearthButton, targetButton, rareButton, stepButton, bagButton
 	set = { bagButton, hearthButton, itemButton, targetButton, rareButton }
@@ -1047,7 +1094,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "qol.buttonTextSide" or path == "qol" or path == "" then
 		for i = 1, #set do placeLabel(set[i]) end
 	end
-	if path:sub(1, 4) == "qol." or path == "qol" or path == "" then refreshSoon() end
+	if path:sub(1, 4) == "qol." or path == "qol" or path == "ui.shown" or path == "ui" or path == "" then refreshSoon() end
 end)
 
 -- Back to the default spot (options button).

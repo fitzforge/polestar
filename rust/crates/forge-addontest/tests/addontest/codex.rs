@@ -8,7 +8,7 @@ use forge_addontest::run::root;
 use forge_addontest::tmp::TempDir;
 use forge_addontest::{emitted, is_match, truthy, Addon, RunAddon};
 use forge_data::codex::client::{client_facts, ClientFacts, ClientItem, Tables};
-use forge_data::codex::merge::{merge_codex, Merged};
+use forge_data::codex::merge::{merge_codex, sells_role, Merged};
 use forge_data::codex::pack::{emit_pack, fold_name, PackCodex};
 use forge_data::codex::{build_inputs, curated_rep_gates_in, Forever, Inputs, Options};
 use forge_guide::js::{parse_json, V};
@@ -699,6 +699,7 @@ fn inputs(s: Synth) -> Inputs {
 		entrance_table: V::obj(),
 		rep_table: V::obj(),
 		attunement_table: V::obj(),
+		store_xp: Default::default(),
 		journal_quests: Vec::new(),
 		warnings: Vec::new(),
 	}
@@ -848,6 +849,31 @@ emit(out)
 	assert!(each.as_object().unwrap().iter().filter(|(id, _)| !ids.contains(id)).all(|(_, v)| v.as_str().unwrap().starts_with("-/")));
 }
 
+// Nearby services' vendors by what they sell (Nav/Nearby.lua): every NPC an
+// item lists as its vendor gets a "sells:" role from the item's class.
+#[test]
+fn mergecodex_tags_vendors_by_what_they_sell_food_arrows_bullets_bows_and_guns() {
+	let roles: Vec<Option<&str>> =
+		[(0.0, 5.0), (6.0, 2.0), (6.0, 3.0), (2.0, 2.0), (2.0, 18.0), (2.0, 3.0), (2.0, 16.0), (0.0, 0.0), (15.0, 5.0)].iter().map(|&(c, sub)| sells_role(Some(c), Some(sub))).collect();
+	assert_eq!(roles, vec![Some("sells:food"), Some("sells:arrows"), Some("sells:bullets"), Some("sells:ranged"), Some("sells:ranged"), Some("sells:ranged"), None, None, None]);
+	assert_eq!(sells_role(None, Some(5.0)), None, "an item the client does not know");
+	let mut s = synthetic();
+	let base = like(s.client.items.values().next().unwrap(), "");
+	for (id, class_id, subclass_id, name) in [(2512, 6.0, 2.0, "Rough Arrow"), (2519, 6.0, 3.0, "Heavy Shot"), (2504, 2.0, 2.0, "Worn Shortbow"), (159, 0.0, 5.0, "Refreshing Spring Water")] {
+		s.forever["items"][id.to_string()] = json!({ "id": id, "name": name, "drops": { "npc": {}, "object": {} }, "vendors": [4730], "source": ["pfquest"] });
+		let mut it = like(&base, name);
+		it.class_id = Some(class_id);
+		it.subclass_id = Some(subclass_id);
+		it.inventory_type = Some(0.0);
+		it.quality = Some(1.0);
+		it.buy_price = Some(10.0);
+		(it.learn, it.use_, it.req_skill, it.min_faction) = (None, None, None, None);
+		s.client.items.insert(id, it);
+	}
+	let codex = merged(s);
+	assert_eq!(codex["npcs"]["4730"]["roles"], json!(["sells:arrows", "sells:bullets", "sells:food", "sells:ranged", "vendor"]));
+}
+
 #[test]
 fn mergecodex_builds_npcs_rares_instances_quests_spells_and_frames() {
 	let codex = merged(synthetic());
@@ -974,7 +1000,31 @@ fn curatedrepgates_a_collectible_guide_reaching_a_standing_before_it_buys_the_it
 	)
 	.unwrap();
 	std::fs::write(dir.join("plain.guide"), ["guide x/plain", "step A", "  rep 589 Honored", "  buy 5 npc 1"].join("\n")).unwrap();
-	assert_eq!(plain(&curated_rep_gates_in(dir)), json!({ "13086": [{ "npc": 10618, "faction": null, "factionName": "Wintersaber Trainers", "standing": 8 }] }));
+	// #785: the other races' Exalted for a racial mount holds back those races, not Lelanai; a faction's
+	// standing (only Alliance) still gates the vendor.
+	std::fs::write(
+		dir.join("racial.guide"),
+		[
+			"guide x/racial",
+			"collects 8631",
+			"",
+			"step Tiger Riding for other races",
+			"  only Human,Dwarf,Gnome,Skyborne",
+			"  rep \"Darnassus\" Exalted",
+			"step Pick a colour",
+			"  buy 8631 npc 4730 optional",
+		]
+		.join("\n"),
+	)
+	.unwrap();
+	std::fs::write(dir.join("side.guide"), ["guide x/side", "collects 19030", "", "step Exalted", "  only Alliance", "  rep 730 Exalted", "step Buy", "  buy 19030 npc 13216"].join("\n")).unwrap();
+	assert_eq!(
+		plain(&curated_rep_gates_in(dir)),
+		json!({
+			"13086": [{ "npc": 10618, "faction": null, "factionName": "Wintersaber Trainers", "standing": 8 }],
+			"19030": [{ "npc": 13216, "faction": 730, "factionName": null, "standing": 8 }]
+		})
+	);
 }
 
 #[test]

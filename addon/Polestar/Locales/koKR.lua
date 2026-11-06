@@ -116,7 +116,7 @@ L["No Hearthstone in your bags: walk to the inn"] = "가방에 귀환석 없음:
 L["No Hearthstone in your bags"] = "가방에 귀환석 없음"
 L["Hearthstone ready in %s: walk to the inn, or wait for it"] = "%s 후 귀환석 사용 가능: 여관까지 걸어가거나 기다리십시오"
 L["Hearthstone ready in %s"] = "%s 후 귀환석 사용 가능"
--- L["%s isn't in your quest log"] = ""
+L["%s isn't in your quest log"] = "%s 퀘스트가 퀘스트 목록에 없습니다"
 -- L["Not offered by %s? Report it with /polestar"] = ""
 -- L["The inn is only %s away: travel there and keep the Hearthstone"] = ""
 -- L["Hearthstone ready in %s; the trip takes %s: set off now"] = ""
@@ -354,7 +354,7 @@ L["Nearest %s: %s, %s."] = "가장 가까운 %s: %s, %s."
 L["No profession called %s."] = "%s 전문 기술이 없습니다."
 L["Nearby services"] = "주변 시설"
 L["Nearest"] = "가장 가까운 곳"
-L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, auction house, flight or stable master"] = "가장 가까운 상급자, 직업 상급자, 수리, 마법 재료, 상인, 여관주인, 은행, 경매장, 비행 조련사 또는 야수 관리인을 화살표로 가리킴"
+L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"] = "가장 가까운 상급자, 직업 상급자, 수리, 마법 재료, 상인, 여관주인, 은행, 경매장, 비행 조련사 또는 야수 관리인을 화살표로 가리킴"
 L["Nearby services in map menus"] = "지도 메뉴에 주변 시설"
 L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] = "지도와 미니맵의 추적 메뉴에서 가장 가까운 상급자, 상인, 여관, 은행 등을 찾습니다 (/polestar near)."
 L["Weapon master"] = "무기 전문가"
@@ -375,9 +375,14 @@ L["Thrown"] = "투척 무기"
 L["Weapon master (%s)"] = "무기 전문가 (%s)"
 L["At %s: the arrow is back on the guide."] = "%s 도착: 화살표가 다시 가이드를 따릅니다."
 L["The arrow is back on the guide."] = "화살표가 다시 가이드를 따릅니다."
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"] = "사용법: /polestar near trainer [전문 기술] | class | weapon | repair | reagents | vendor | innkeeper | bank | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "사용법: /polestar near trainer [전문 기술] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 L["Nearby services button"] = "주변 시설 버튼"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "가이드 창 머리글의 메뉴 왼쪽에 있는 버튼으로, 가장 가까운 상인, 수리, 여관, 비행 조련사 또는 전문가를 찾아 화살표가 그곳을 가리키게 합니다."
+-- L["Food & drink"] = ""
+-- L["Arrows"] = ""
+-- L["Bullets"] = ""
+-- L["Bows & guns"] = ""
+-- L["Mailbox"] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "오른쪽 클릭: 이 구간 건너뛰기."
@@ -418,6 +423,7 @@ L["Not done"] = "미완료"
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "퀘스트 시작"
+L["%d/%d (not accepted)"] = "%d/%d (수락 안 함)"
 
 -- Quests/Options.lua
 L["Any level"] = "모든 레벨"
@@ -459,6 +465,10 @@ L["quests"] = "퀘스트"
 L["available now"] = "지금 수락 가능"
 L["mobs tracked"] = "추적 중인 몹"
 L["Quest database status"] = "퀘스트 데이터베이스 상태"
+L["Quest marks in bags"] = "가방의 퀘스트 표시"
+L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "퀘스트 목록에 있거나 가이드에서 앞으로 진행할 퀘스트가 아직 필요로 하는 가방 아이템을 퀘스트를 완료할 때까지 표시합니다."
+L["Offer to buy back quest items"] = "퀘스트 아이템 재구매 제안"
+L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "퀘스트에 아직 필요한 아이템을 팔면 상인에게서 되살지 묻습니다."
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"
@@ -833,6 +843,8 @@ L["Hides the game's tracker on the right of the screen, with its quests, achieve
 -- L["Pick what the step asks for"] = ""
 -- L["At the step's NPC, picks the chat option the guide names, or opens the goods or training the step needs. Only on the step the guide is at. Hold Shift to choose yourself."] = ""
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it. Off, the game still skips some itself, Pick what the step asks for still picks the step's option, and flight masters follow Open the flight map."] = ""
+L["Click objectives to target"] = "임무 클릭으로 대상 지정"
+L["Clicking an objective row or NPC heading also targets its NPC outside combat, using the same marking settings as the Target button. This replaces your current target; a failed search clears it."] = "임무 줄이나 NPC 제목을 클릭하면 전투 중이 아닐 때 그 NPC도 대상으로 지정합니다. 징표 설정은 대상 버튼과 같습니다. 현재 대상이 바뀌며, 찾지 못하면 대상이 해제됩니다."
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "얼라이언스 전용"
@@ -881,7 +893,6 @@ L["Lookup is turned off (Options > Discovery > Lookup)."] = "찾아보기가 꺼
 L["NPC"] = "NPC"
 L["First do the quest"] = "먼저 할 퀘스트"
 L["%s: inside %s."] = "%s: %s 내부."
-L["Earlier quests of this chain are not listed."] = "이 연계의 이전 퀘스트는 표시하지 않습니다."
 L["Drop chance"] = "획득 확률"
 L["Enter"] = "입장"
 L["Choose this reward:"] = "이 보상 선택:"
@@ -1176,6 +1187,23 @@ L["%s complete — continuing with %s"] = "%s 완료 — %s(으)로 계속합니
 L["You've reached the end of this guide."] = "이 가이드의 끝에 도달했습니다."
 L["Choose where to go next"] = "다음 갈 곳 선택"
 L["Start %s"] = "%s 시작"
+L["Click to fold them away"] = "클릭하여 접기"
+L["Click to list them"] = "클릭하여 펼치기"
+L["1 goal"] = "목표 1개"
+L["%d goals"] = "목표 %d개"
+L["1 kill"] = "1마리 처치"
+L["1 item"] = "아이템 1개"
+L["%d items"] = "아이템 %d개"
+L["%d kills and items"] = "처치 및 아이템 %d개"
+L["1 hand-in"] = "제출 1개"
+L["%d hand-ins"] = "제출 %d개"
+L["1 task"] = "할 일 1개"
+L["%d tasks"] = "할 일 %d개"
+L["%d done"] = "%d개 완료"
+L["Then out here:"] = "그다음 필드:"
+L["Out here:"] = "필드:"
+L["+ %d more people"] = "+ %d명 더"
+L["Later in this step"] = "이 단계의 나머지"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1915,6 +1943,10 @@ L["Continue automatically"] = "자동으로 계속"
 -- L["%d KiB"] = ""
 -- L["%.1f MB"] = ""
 -- L["%d KB"] = ""
+L["Show the whole step"] = "단계 전체 표시"
+L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "한 번에 한 사람씩 보여주고 나머지를 한 줄씩 접는 대신, 완료한 목표까지 단계의 모든 목표를 한꺼번에 표시합니다."
+L["Maximum height"] = "최대 높이"
+L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "창이 커질 수 있는 높이(화면 대비 비율). 더 긴 단계는 스크롤됩니다."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -2770,6 +2802,22 @@ L["Next: %s"] = "다음: %s"
 L["Pick a guide"] = "가이드 선택"
 L["Not now"] = "나중에"
 
+-- UI/NameTargets.lua
+L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."
+L["Click to target %s (out of combat)."] = "클릭: %s 대상 지정 (전투 중이 아닐 때)."
+L["%s not found nearby."] = "근처에서 찾을 수 없음: %s"
+
+-- Quests/BagMarks.lua
+L["Polestar quest items"] = "Polestar 퀘스트 아이템"
+
+-- Quests/DeleteWarning.lua
+L["Needed for:"] = "필요한 퀘스트:"
+
+-- Quests/SellWarning.lua
+L["It is no longer in the vendor's buyback list."] = "상인의 되사기 목록에 더 이상 없습니다."
+L["Not enough money to buy it back."] = "되살 돈이 부족합니다."
+L["You sold %s, which %s still needs. Buy it back for %s?"] = "%s 아이템을 판매했지만 %s 퀘스트에 아직 필요합니다. %s에 되사시겠습니까?"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever가 안내 중입니다. Polestar의 화살표를 사용하려면 \"설치 시 Shortest Path Forever로 가이드\"(옵션, 연동)를 끄세요."
@@ -2810,3 +2858,4 @@ L["Not now"] = "나중에"
 -- L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator)."] = "현재 단계에서 사용하는 아이템이나 모으는 퀘스트 아이템이 가방에서 빛납니다 (Baganator 포함)."
 -- L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."] = "상인 창을 열면 하급 품질 아이템을 팔고 합계를 출력합니다. 다른 것은 절대 팔지 않습니다."
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it."] = "퀘스트가 없는 NPC의 유일한 선택지를 고릅니다. 읽으려면 Shift를 누르십시오."
+-- L["Earlier quests of this chain are not listed."] = "이 연계의 이전 퀘스트는 표시하지 않습니다."

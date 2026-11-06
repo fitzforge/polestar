@@ -2,9 +2,9 @@
 
 A small desktop app for Windows, macOS and Linux that keeps Polestar's
 addons for World of Warcraft: Forever installed and up to date, and takes
-part in Polestar's crowd recording program: once you agree, it uploads what
-the Polestar Recorder writes so Polestar's guides and data get better, and
-it shows exactly what it sends before it sends it.
+part in Polestar's crowd recording program: it uploads what the Polestar
+Recorder writes so Polestar's guides and data get better (on by default; one
+click stops it), and it shows exactly what it sends.
 
 [docs/RECORDING.md](../../docs/RECORDING.md) is the contract the recording
 side follows: the record kinds, the SavedVariables layout, the ack file and
@@ -20,10 +20,28 @@ the upload API, and the public list of what is never collected.
   that no longer works is said to be so, with why, and the installs found are
   still offered. The client folder chosen (`…/_forever_`) is what Settings
   keeps. Then the Addons page is ready to use.
-- **Recording is opt-in.** Until you press "Start sharing" on the Recording
-  section's "Help improve Polestar's guides" page (what is shared, what
-  never is), nothing is uploaded and the Recorder is not installed for you.
-  Settings has "Share my play" to stop again.
+- **Sharing is on by default.** Once Setup has found the game, a player who
+  never chose shares: the client turns sharing on as "Start sharing" does
+  (`engine::share_by_default`) and a notice at the foot of the window says,
+  once, what is shared (play data with no character, realm or account names;
+  the server sees the IP address, as any website does), that it makes the
+  guides and the Forever database better, where to see exactly what was sent
+  (What we send, Activity), with "Got it" and "Stop sharing". It is shown
+  once to players who already shared before 0.1.3 too. It never turns on for
+  a player who stopped sharing (Settings' "Share my play" or the notice:
+  `everShared` without `consent` in `settings.json`), nor while any account's
+  Recorder file says `/psrec off` (`optout`), nor while a file can't be read
+  (its opt-out is unknown). With sharing off, the Recording section's "Help
+  improve Polestar's guides" page (what is shared, what never is) offers
+  "Start sharing" again.
+- **Client updates** are looked for at launch and every 6 hours (Settings >
+  About also has "Check for client updates"). One waiting shows as a banner
+  in the title strip at the top of every page, "A new Polestar Client is
+  ready", with "What's new" (the release's page) and **Update to
+  <version>**, which downloads it, checks its signature, installs it and
+  restarts the app (`src-tauri/src/update.rs`); Settings > About has the same
+  button. The banner takes no room from the page and goes once the client is
+  the newest.
 - **Addons** lists Polestar, Polestar Recorder and LibForeverData: the
   version installed, the newest release on
   [GitHub](https://github.com/fitzforge/polestar/releases) (Polestar and the
@@ -139,13 +157,14 @@ the upload API, and the public list of what is never collected.
   It then records in
   `Interface/AddOns/Polestar_Recorder/Ack.lua` the highest chunk the server
   accepted or already had among the ones that request sent, per Recorder
-  install, so the addon can free the space. Once the player has turned
-  sharing on at least once (`everShared` in `settings.json`), the same file
-  carries `PolestarRecorderShare = true|false` (sharing on and not paused),
-  written whenever that changes and with every ack: Start sharing is the one
-  opt-in, and at the next login (or `/reload`) the Recorder turns itself on
-  and says so, unless the player typed `/psrec off` (docs/RECORDING.md "Ack
-  file"). **Status** says what it is doing (sharing on, sending, waiting for
+  install, so the addon can free the space. Once sharing has been on at least
+  once (`everShared` in `settings.json`: by default or by Start sharing), the
+  same file carries `PolestarRecorderShare = true|false` (sharing on and not
+  paused), written whenever that changes and with every ack: at the next
+  login (or `/reload`) the Recorder turns itself on and says so, unless the
+  player typed `/psrec off` (docs/RECORDING.md "Ack file"). A Recorder
+  installed without the client stays off until `/psrec on`. **Status** says
+  what it is doing (sharing on, sending, waiting for
   the game to save, can't reach the server and retrying, paused, some data
   skipped and why, or what needs your attention) and what this week's play
   added up to. While a file is still in the old format (schema 1) it offers
@@ -154,7 +173,10 @@ the upload API, and the public list of what is never collected.
   published Recorder records the new format yet it says the new one comes
   with the next Polestar update. **Activity** lists every upload and every
   addon change; **What we send** shows the next upload as a summary, event
-  by event, and as the raw JSON.
+  by event, and as the raw JSON, and its **Already sent** tab shows the uploads
+  the server accepted in the last 8 days the same way (read from `sent.jsonl`;
+  nothing is asked of the server). A chunk the server already had is not kept
+  there, and Activity lists uploads older than that.
 - **Settings** has sharing and pause, the addon update options, start with
   your computer, the game folder, "Delete my data from the server", the
   frame-rate overlay (Ctrl+Shift+F anywhere, or `POLESTAR_FRAME_METER=1`
@@ -175,8 +197,10 @@ the upload API, and the public list of what is never collected.
   window was shown and how smoothly the intro ran.
 - **The window.** On Linux and Windows it has no system frame: the app draws
   its own title bar (drag anywhere along the top) and window controls
-  (minimize, close to the tray). The window is one fixed size, 880×600,
-  smaller only where the screen's work area is (`src-tauri/src/window.rs`); macOS keeps its traffic lights over the sidebar. On
+  (minimize, close to the tray). The window opens at 880×600, smaller only
+  where the screen's work area is, and that size is its minimum: it can be
+  made larger (a tiling window manager sizes it to its tile) but does not
+  maximize (`src-tauri/src/window.rs`); macOS keeps its traffic lights over the sidebar. On
   Linux the page is drawn through WebKitGTK's DMA-BUF renderer on the GPU,
   except on NVIDIA drivers older than 560 and machines without a GPU render
   node, where it uses the shared-memory renderer (`src-tauri/src/render.rs`;
@@ -193,10 +217,10 @@ Everything lives in the app's data folder (Settings > Open data folder):
 | File | What |
 |---|---|
 | `tokens.json` | Per server address, the token that server gave this PC when it registered (64 hex digits), readable only by you. It is sent only to the server that made it; the server stores only its SHA-256. |
-| `settings.json` | Consent, pause, the game folder, the server address. |
+| `settings.json` | Sharing (`consent`, and `everShared`: sharing was on once, so off is the player's choice), whether the sharing notice was read, pause, the game folder, the server address. |
 | `progress.json` | Per Recorder install id: the last chunk sent and the last one the server confirmed. |
 | `activity.json` | The last 500 uploads. |
-| `sent.jsonl` | The chunks the server accepted in the last 8 days, for the Home page's week. |
+| `sent.jsonl` | The chunks the server accepted in the last 8 days, as they left: for the Home page's week and What we send's Already sent tab. |
 | `packs.json` | Per community site (its address normalized: lowercase host, default port dropped, no trailing slash), the last guide index accepted (its bytes, signature and ETag): the Community page works offline, and an older index is never accepted after it. |
 | `community.json` | Per installed guide, what it was pinned to at install (uid, publisher, folders), and the guides the site turned off or removed. |
 
@@ -220,7 +244,9 @@ In a plain browser `pnpm dev` answers the backend's commands from
 `src/lib/mock.ts`; pick a state with `?state=` (`setup`, `setup-two`,
 `setup-none`, `setup-problem`, `setup-saved`, `setup-scanning`, `optin`,
 `home`, `running`, `registering`, `uploading`, `offline`, `paused`,
-`attention`, `empty`); addon installs there run through their phases with
+`attention`, `empty`, `update` (a Client update waiting: the banner; its
+install fails after a moment, to show the retry), `notice` (the sharing
+notice)); addon installs there run through their phases with
 made-up timing. The mock is imported only behind `import.meta.env.DEV`, so it is
 not in production builds.
 

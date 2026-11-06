@@ -8386,6 +8386,42 @@ fn a_top_up_grinds_near_the_player_not_at_a_named_mobs_spot() {
 }
 
 #[test]
+fn a_top_up_goes_to_the_mob_it_names_when_that_mob_is_not_at_the_camp() {
+	// #924: Darkshore's level 20 named the Elder Darkshore Thresher (on level) but pointed at the camp of
+	// the lower Darkshore Threshers where the route got the Thresher Eyes both drop; the Elders spawn
+	// only on the coasts, more than a thousand yards off.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 15-20", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  collect 50 quest 1.1", "", "step Hub again", "  turnin 1", ""],
+		)],
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 19.0, "from": f("a", 7) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 19.2, "from": f("a", 10) },
+			{ "t": "level", "lvl": 19.6, "target": 20.0, "pt": 1, "from": "inserted" },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 20.0, "from": f("a", 13) }
+		] }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, 0, 300, 1411]], "zones": { "1411": "Durotar" },
+			"quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "item", "id": 50, "task": 0, "count": 8 }] }] }),
+		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "item", "id": 50 }] } }),
+		npcs: json!({
+			"8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } },
+			"20": { "name": "Thresher", "level": 12, "spawns": { "1411": { "f": "e", "pts": [[64, 50], [65, 50], [66, 50]] } } },
+			"21": { "name": "Elder Thresher", "level": 16, "spawns": { "1411": { "f": "e", "pts": [[10, 90], [80, 20], [90, 10], [20, 85]] } } }
+		}),
+		items: json!({ "50": { "drops": { "npc": { "20": 30, "21": 30 } } } }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let s = idx(&g, "step Level 20");
+	assert!(s >= 0, "{g:#?}");
+	let body: Vec<&String> = g[s as usize..].iter().take_while(|l| !l.is_empty()).collect();
+	// (The Elders' spawn nearest the camp, 670 yd off; the camp itself is 65.0,50.0.)
+	assert!(body.iter().any(|l| *l == "  goto 80.0,20.0 map 1411 \"Elder Thresher\""), "{g:#?}");
+	assert!(body.iter().any(|l| l.ends_with("-- grind on Elder Thresher")), "{g:#?}");
+}
+
+#[test]
 fn a_top_up_with_no_camp_behind_grinds_at_the_next_camp_near_the_player() {
 	// Rev15OrcTroll B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
 	// huts the route works next are 300 yd west.
@@ -9452,4 +9488,221 @@ fn v1s_training_with_other_quests_taken_elsewhere_trains_at_the_routes_city_for_
 	let t = g.iter().position(|l| m(l, r"^\s+train class")).unwrap_or_else(|| panic!("{g:#?}"));
 	let step = g[..t].iter().rev().find(|l| l.starts_with("step ")).unwrap();
 	assert!(step == "step Class trainer" && g[t].contains("only Warrior") && !g[t].contains("Shaman") && (t as i64) < idx(&g, "  accept 1"), "{g:#?}");
+}
+
+/// c19r's Valley of Trials as the route wrote it: the loop, back to the Den, the Burning Blade Coven
+/// (300 yd north of Hana'zua), then back to Hana'zua for Sarkoth's hand-in and 804. `hana`: where
+/// Hana'zua stands; `sarkoth`: the spots its claw drops at (Sarkoth's one, or a spread camp).
+fn valley_trip_case(hana: [f64; 2], sarkoth: Value) -> Case {
+	let lines = vec![
+		"guide t/a",
+		"title A",
+		"levels 1-6",
+		"zone Durotar",
+		"",
+		"step Den",
+		"  accept 789",
+		"  accept 4402",
+		"  accept 792",
+		"",
+		"step Hana'zua",
+		"  accept 790",
+		"",
+		"step Sarkoth",
+		"  collect 4905 quest 790.1",
+		"",
+		"step Scorpid Workers",
+		"  collect 4862 quest 789.1",
+		"",
+		"step Cactus Apples",
+		"  collect 11583 quest 4402.1",
+		"",
+		"step Vile Familiars",
+		"  kill 3101 quest 792.1",
+		"",
+		"step Back to the Den",
+		"  turnin 789",
+		"  turnin 4402",
+		"  turnin 792",
+		"  accept 794",
+		"",
+		"step Burning Blade Coven",
+		"  kill 3198 quest 794.1",
+		"",
+		"step Hana'zua again",
+		"  turnin 790",
+		"  accept 804",
+		"",
+		"step Den again",
+		"  turnin 794",
+		"  turnin 804",
+		"",
+	];
+	let at = |l: &str| f("a", lines.iter().rposition(|x| *x == l).unwrap() as u32 + 1);
+	// (Points: 0 the valley floor at 50,50; 1 the Den, 60,50; 2 the Coven, 52,35; 3 Hana'zua.)
+	let ev = |t: &str, q: u32, pt: u32, l: &str| if t == "task" { json!({ "t": t, "q": q, "task": 0, "pt": pt, "from": at(l) }) } else { json!({ "t": t, "q": q, "pt": pt, "from": at(l) }) };
+	let order = vec![
+		ev("accept", 789, 1, "  accept 789"),
+		ev("accept", 4402, 1, "  accept 4402"),
+		ev("accept", 792, 1, "  accept 792"),
+		ev("accept", 790, 3, "  accept 790"),
+		ev("task", 790, 0, "  collect 4905 quest 790.1"),
+		ev("task", 789, 0, "  collect 4862 quest 789.1"),
+		ev("task", 4402, 0, "  collect 11583 quest 4402.1"),
+		ev("task", 792, 0, "  kill 3101 quest 792.1"),
+		ev("turnin", 789, 1, "  turnin 789"),
+		ev("turnin", 4402, 1, "  turnin 4402"),
+		ev("turnin", 792, 1, "  turnin 792"),
+		ev("accept", 794, 1, "  accept 794"),
+		ev("task", 794, 2, "  kill 3198 quest 794.1"),
+		ev("turnin", 790, 3, "  turnin 790"),
+		ev("accept", 804, 3, "  accept 804"),
+		ev("turnin", 794, 1, "  turnin 794"),
+		ev("turnin", 804, 1, "  turnin 804"),
+	];
+	let w = |x: f64, y: f64| json!([1, 0, 1000.0 - 20.0 * y, -1000.0 + 20.0 * x, 1411]);
+	let pt_of = |q: u32, end: bool| if q == 790 || (q == 804 && !end) { 3 } else { 1 };
+	let quests: Vec<Value> = [789, 4402, 792, 790, 804, 794].iter().map(|&q| json!({ "id": q, "giver": pt_of(q, false), "ender": pt_of(q, true) })).collect();
+	let npc = |name: &str, pts: Value| json!({ "name": name, "level": 3, "spawns": { "1411": { "f": "e", "pts": pts } } });
+	let gornek = json!({ "npc": [3143] });
+	Case {
+		route: json!({ "diff": {}, "order": order }),
+		files: vec![("a", lines)],
+		world: json!({ "points": [w(50.0, 50.0), w(60.0, 50.0), w(52.0, 35.0), w(hana[0], hana[1])], "zones": { "1411": "Durotar" }, "quests": quests }),
+		npcs: json!({
+			"3287": npc("Hana'zua", json!([hana])),
+			"3143": npc("Gornek", json!([[60, 50]])),
+			"3124": npc("Scorpid Worker", json!([[51, 52], [52, 52], [51, 53]])),
+			"3281": npc("Sarkoth", sarkoth),
+			"3101": npc("Vile Familiar", json!([[51, 45], [52, 44], [53, 45]])),
+			"3198": npc("Burning Blade Apprentice", json!([[52, 35], [53, 35], [52, 34]]))
+		}),
+		objects: json!({ "171938": { "name": "Cactus Apple", "spawns": { "1411": { "f": "e", "pts": [[54, 53], [55, 53], [54, 54]] } } } }),
+		items: json!({
+			"4905": { "name": "Sarkoth's Mangled Claw", "drops": { "npc": { "3281": 100 } } },
+			"4862": { "name": "Scorpid Worker Tail", "drops": { "npc": { "3124": 50 } } },
+			"11583": { "name": "Cactus Apple", "drops": { "object": { "171938": 100 } } }
+		}),
+		quests: json!({
+			"789": { "title": "Sting of the Scorpid", "start": gornek, "end": gornek },
+			"4402": { "title": "Galgar's Cactus Apple Surprise", "start": gornek, "end": gornek },
+			"792": { "title": "Vile Familiars", "start": gornek, "end": gornek },
+			"794": { "title": "Burning Blade Medallion", "start": gornek, "end": gornek },
+			"790": { "title": "Sarkoth", "start": { "npc": [3287] }, "end": { "npc": [3287] } },
+			"804": { "title": "Sarkoth", "start": { "npc": [3287] }, "end": gornek, "pre": [790] }
+		}),
+		route_travel: true,
+		..Case::default()
+	}
+}
+
+/// The goal lines of a step's lines.
+fn goal_lines(b: &[String]) -> Vec<String> {
+	b.iter().filter(|l| m(l, r"^\s+(collect|kill|turnin|accept)\s")).cloned().collect()
+}
+
+#[test]
+fn a_hand_in_the_walk_comes_back_for_goes_into_the_loop_when_its_npc_is_on_the_way() {
+	// Fitz, c19r Durotar: Sarkoth's hand-in at Hana'zua was written after the Burning Blade Coven, a
+	// trip back; Hana'zua is on the loop's way from Sarkoth to the familiars (Sarkoth -> Hana'zua 150 yd
+	// -> familiars 102 yd, against 251 yd straight on: a 1 yd detour here). The valley loop as shipped
+	// by hand on talents-soon: scorpids, cactus apples, Sarkoth, Hana'zua's hand-in and 804, familiars.
+	let g = run(&valley_trip_case([50.0, 50.0], json!([[50, 57.5]])), None).read("a");
+	let b = area_step(&g);
+	assert_eq!(goal_lines(&b), vec!["  collect 4862 quest 789.1", "  collect 11583 quest 4402.1", "  collect 4905 quest 790.1", "  turnin 790", "  accept 804", "  kill 3101 quest 792.1"], "{g:#?}");
+	// (The trip back is gone; the Den, which the route passes anyway after the loop, keeps its hand-ins.)
+	assert_eq!(g.iter().filter(|l| *l == "  turnin 790").count(), 1, "{g:#?}");
+	assert!(!has(&g, "step Hana'zua again"), "{g:#?}");
+	assert!(idx(&g, "  turnin 789") > idx(&g, &b[0]) + b.len() as i64 - 1, "{g:#?}");
+	// (804, taken in the loop now, is handed in to Gornek on the Den return right after it, not after
+	// the Coven: no left-ready hand-in at the Den.)
+	let den = idx(&g, "step Back to the Den");
+	let t804 = idx(&g, "  turnin 804");
+	assert!(den < t804 && t804 < idx(&g, "step Burning Blade Coven"), "{g:#?}");
+}
+
+#[test]
+fn a_hand_in_whose_npc_is_near_but_behind_the_loops_way_stays_where_it_is() {
+	// Hana'zua 130 yd from Sarkoth but behind the way the loop goes on (to the scorpids): a 230 yd
+	// detour, so the hand-in stays on its own stop (no ping-pong inside the loop).
+	let g = run(&valley_trip_case([44.0, 60.0], json!([[50, 57.5]])), None).read("a");
+	let b = area_step(&g);
+	assert!(!goal_lines(&b).iter().any(|l| l == "  turnin 790"), "{g:#?}");
+	assert!(has(&g, "  turnin 790"), "{g:#?}");
+}
+
+#[test]
+fn a_hand_in_after_a_spread_camp_stays_unless_its_npc_is_on_the_way_from_every_spot() {
+	// Fitz: the finish point must be predictable. The claw from a camp spread from Sarkoth's slope east
+	// to 62,48: Hana'zua is on the way north from the slope (1 yd) but 170 yd out of the way from the
+	// east end, so where the last claw drops decides it: the hand-in stays where it is.
+	let g = run(&valley_trip_case([50.0, 50.0], json!([[50, 57.5], [60, 52], [62, 48]])), None).read("a");
+	let b = area_step(&g);
+	assert!(!goal_lines(&b).iter().any(|l| l == "  turnin 790"), "{g:#?}");
+	assert!(has(&g, "  turnin 790"), "{g:#?}");
+}
+
+#[test]
+fn a_step_never_lists_the_same_goal_twice() {
+	// #843, Dun Morogh's "Brewnall Village": v1's optional "on the way" kills for Rejold and the
+	// required kills the route works right there came into one step: the boars and the leopards twice.
+	// One line each: required, with its own note, else the optional copy's.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 5-8",
+				"zone Durotar",
+				"",
+				"step Brewnall Village",
+				"  accept 319",
+				"  kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold",
+				"  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way",
+				"  kill 1201 quest 319 optional                -- Snow Leopard, on the way",
+				"",
+				"step Brewnall Village",
+				"  accept 310",
+				"  kill 1127 quest 319",
+				"  kill 1201 quest 319                         -- Snow Leopard",
+				"",
+				"step Rejold Barleybrew",
+				"  turnin 319",
+				"  turnin 310",
+				"",
+			],
+		)],
+		// (Rejold and Marleth stand together: givers at points 0 and 1, 10 yd apart.)
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, 10, 0, 1411], [1, 1, 900, 900, 1411]], "zones": { "1411": "Durotar" }, "quests": [
+			{ "id": 319, "giver": 0, "ender": 2, "objs": [{ "oi": 0, "type": "kill", "id": 1196, "task": 0 }, { "oi": 1, "type": "kill", "id": 1127, "task": 1 }, { "oi": 2, "type": "kill", "id": 1201, "task": 2 }] },
+			{ "id": 310, "giver": 1, "ender": 2 }
+		] }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 319, "from": f("a", 7) },
+			{ "t": "task", "q": 319, "task": 0, "from": f("a", 8) },
+			{ "t": "accept", "q": 310, "from": f("a", 13) },
+			{ "t": "task", "q": 319, "task": 1, "from": f("a", 14) },
+			{ "t": "task", "q": 319, "task": 2, "from": f("a", 15) },
+			{ "t": "turnin", "q": 319, "from": f("a", 18) },
+			{ "t": "turnin", "q": 310, "from": f("a", 19) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	// (Each kill once in each step.)
+	let mut step = "";
+	let mut seen: Vec<(&str, &str)> = Vec::new();
+	for l in &g {
+		if l.starts_with("step ") {
+			step = l;
+		} else if let Some(k) = l.strip_prefix("  kill ") {
+			let id = k.split_whitespace().next().unwrap_or("");
+			assert!(!seen.contains(&(step, id)), "kill {id} twice in {step}: {g:#?}");
+			seen.push((step, id));
+		}
+	}
+	assert!(has(&g, "  kill 1127 quest 319                         -- Elder Crag Boar, on the way"), "{g:#?}");
+	assert!(has(&g, "  kill 1201 quest 319                         -- Snow Leopard"), "{g:#?}");
 }

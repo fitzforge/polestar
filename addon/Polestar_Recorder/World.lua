@@ -3,7 +3,10 @@
 -- zone changes, level-ups and the 5-minute `xp`, deaths with their killer,
 -- flight masters and flights (`flightmaster`, `taxi`, `land`), hearth binds,
 -- trainers' services and vendors' items, item and quest-spell casts
--- (`cast`), and eating/drinking (`rest`).
+-- (`cast`), eating/drinking (`rest`), the party or raid played in (`group`:
+-- GetNumSubgroupMembers, GetNumGroupMembers, IsInRaid, GROUP_ROSTER_UPDATE)
+-- and what the game refused the player (`refuse`: UI_ERROR_MESSAGE's error
+-- type named by GetGameMessageInfo, never the message text).
 
 local ADDON, ns = ...
 
@@ -516,9 +519,12 @@ end
 
 ns.On("UNIT_AURA", function(_, unit, info)
 	if unit ~= "player" or not ns.Recording() then return end
+	-- Restricted contexts pass secret values, which error on a boolean test:
+	-- wait for an update that can be read.
+	if type(info) == "table" and issecretvalue and issecretvalue(info.isFullUpdate) then return end
 	if type(info) ~= "table" or info.isFullUpdate then
 		-- a full update: rescan and end the auras no longer there
-		local present = {}
+		local present, unreadable = {}, false
 		if C_UnitAuras and C_UnitAuras.GetAuraDataByIndex then
 			for i = 1, 40 do
 				local a = C_UnitAuras.GetAuraDataByIndex("player", i, "HELPFUL")
@@ -528,11 +534,15 @@ ns.On("UNIT_AURA", function(_, unit, info)
 					present[id] = true
 					local kind = not resting[id] and restKind(a.name)
 					if kind then resting[id] = { kind = kind, at = GetTime() } end
+				else
+					unreadable = true
 				end
 			end
 		end
-		for id in pairs(resting) do
-			if not present[id] then endRest(id) end
+		if not unreadable then
+			for id in pairs(resting) do
+				if not present[id] then endRest(id) end
+			end
 		end
 		return
 	end
@@ -545,8 +555,95 @@ ns.On("UNIT_AURA", function(_, unit, info)
 	end
 	if type(info.removedAuraInstanceIDs) == "table" and next(resting) then
 		for _, id in ipairs(info.removedAuraInstanceIDs) do
-			if resting[id] then endRest(id) end
+			id = Num(id)
+			if id and resting[id] then endRest(id) end
 		end
+	end
+end)
+
+---------------------------------------------------------------------------
+-- Group: solo (0), a party (the other members, GetNumSubgroupMembers) or a
+-- raid (its size with the player, GetNumGroupMembers). Written at session
+-- start and whenever the size or the kind changes.
+---------------------------------------------------------------------------
+
+local lastGroup -- "size:raid" of the last `group` this session
+
+local function recordGroup()
+	if not ns.Recording() then return end
+	local raid = call(IsInRaid) == true
+	local size
+	if raid then size = Num(call(GetNumGroupMembers)) else size = Num(call(GetNumSubgroupMembers)) end
+	if not size then return end
+	local key = size .. (raid and ":1" or ":0")
+	if key == lastGroup then return end
+	if ns.Rec("group", size, raid) then lastGroup = key end
+end
+
+ns.On("GROUP_ROSTER_UPDATE", recordGroup)
+
+---------------------------------------------------------------------------
+-- Refusals: an error the game shows (UI_ERROR_MESSAGE) that says a quest,
+-- lock, level, skill, reputation, reagent or money requirement stopped the
+-- player, by its constant's name (GetGameMessageInfo), with the NPC or
+-- object it was about. Never the message text. One per error and target
+-- per REFUSE_AGAIN seconds, REFUSE_PER_MINUTE a minute.
+---------------------------------------------------------------------------
+
+local REFUSE_AGAIN = 60
+local REFUSE_PER_MINUTE = 10
+local REFUSE_MAX_NAME = 64
+local REFUSE_KEEP = {
+	"^ERR_QUEST_", "^ERR_USE_LOCKED", "^ERR_USE_CANT_OPEN", "LEVEL", "SKILL", "REQUIRE", "REPUTATION",
+	"^SPELL_FAILED_REAGENTS", "^ERR_NOT_ENOUGH_MONEY",
+}
+local refused = {} -- "error\tkind\tid" -> GetTime() of its last `refuse`
+local refuseTimes = {} -- GetTime() of the `refuse` records in the last minute
+
+-- The error constant's name for an error type when it is one worth keeping.
+local function errorName(errorType)
+	errorType = Num(errorType)
+	if not errorType or type(GetGameMessageInfo) ~= "function" then return nil end
+	local ok, name = pcall(GetGameMessageInfo, errorType)
+	name = ok and Str(name) or nil
+	if not name or #name > REFUSE_MAX_NAME or not name:find("^[A-Z0-9_]+$") then return nil end
+	for _, pattern in ipairs(REFUSE_KEEP) do
+		if name:find(pattern) then return name end
+	end
+	return nil
+end
+
+-- The NPC or object talked to, else the target, when a creature or object.
+local REFUSE_UNITS = { "npc", "target" }
+local function refuseTarget()
+	for _, unit in ipairs(REFUSE_UNITS) do
+		local kind, id = ns.Ref(unit)
+		if (kind == "c" or kind == "o") and id then return kind, id end
+	end
+	return nil, nil
+end
+
+ns.On("UI_ERROR_MESSAGE", function(_, errorType)
+	if not ns.Recording() then return end
+	local name = errorName(errorType)
+	if not name then return end
+	local kind, id = refuseTarget()
+	local now = GetTime()
+	local key = name .. "\t" .. (kind or "") .. "\t" .. (id or "")
+	local last = refused[key]
+	if last and now - last < REFUSE_AGAIN then return end
+	local recent = {}
+	for _, t in ipairs(refuseTimes) do
+		if now - t < 60 then recent[#recent + 1] = t end
+	end
+	refuseTimes = recent
+	if #recent >= REFUSE_PER_MINUTE then return end
+	for k, t in pairs(refused) do
+		if now - t >= REFUSE_AGAIN then refused[k] = nil end
+	end
+	if ns.Rec("refuse", ns.P(), kind, id, name) then
+		refused[key] = now
+		recent[#recent + 1] = now
 	end
 end)
 
@@ -560,9 +657,12 @@ ns.OnSession(function()
 	ride.on, ride.still, ride.map = false, 0, nil
 	fmSeen, trainersSeen, vendorsSeen = {}, {}, {}
 	resting = {}
+	refused = {}
+	lastGroup = nil
 	flight = onTaxi() and flight or nil
 	checkZone()
 	recordXP()
+	recordGroup()
 	if xpTicker then xpTicker:Cancel() end
 	xpTicker = C_Timer.NewTicker(XP_EVERY, recordXP)
 end)

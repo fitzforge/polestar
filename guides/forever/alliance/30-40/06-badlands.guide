@@ -195,7 +195,7 @@ step Mannoroc Coven
 step The Valley of Bones
   tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres.
   kill 11561 quest 261                -- Undead Ravager
-  use 15848 @63.5,91.6 map 1443
+  use 15848 quest 6134.1 @63.5,91.6 map 1443
   collect 15849 quest 6134            -- Ghost-o-plasm
 
 step Mannoroc Coven

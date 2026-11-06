@@ -113,7 +113,7 @@ step Tideress
 
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
-  use 16972 @56.4,63.5 map 1440
+  use 16972 quest 6621.1 @56.4,63.5 map 1440
   collect 16976 quest 6621
 
 step Torek's Assault
