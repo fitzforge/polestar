@@ -940,6 +940,14 @@ add({ id = "preview/tirisfal", pack = "guides", title = "Tirisfal Glades", facti
 uistub.player.class, uistub.player.level, uistub.player.faction = "WARLOCK", 10, "Horde"`;
 const ORC_TOAST = `${CLASS_TOAST}; uistub.player.race = "Orc"; uistub.openTabs({ { "preview/durotar", 1 } }, 1); Polestar.UI.ClassToast.Show(1506)`;
 const UNDEAD_TOAST = `${CLASS_TOAST}; uistub.player.race = "Scourge"; uistub.openTabs({ { "preview/tirisfal", 1 } }, 1); Polestar.UI.ClassToast.Show(1478)`;
+// The dungeon heads-up (UI/DungeonToast.lua) for the dungeons fixture's level 20 Tauren: Wailing Caverns.
+const DUNGEON_TOAST = `${CLASS_TOAST}
+${DUNGEONS_SETUP}
+uistub.openTabs({ { "preview/durotar", 1 } }, 1)
+local DT = Polestar.UI.DungeonToast
+log[914], ready[1486] = nil, nil
+DT.Show(DT.Candidates(20, "any")[1])`;
+const NARROW = 'Polestar.UI.GuideFrame.frame:SetWidth(Polestar.UI.MIN_WIDTH); Polestar.UI.ClassToast.Place(false)';
 const DRUID_CARD = `${CLASS_CARD}; uistub.player.class = "DRUID"; uistub.openTabs({ { "preview/darkshore-druid", 1 } }, 1)`;
 const WARRIOR_CARD = `${CLASS_CARD}; uistub.player.class, uistub.player.race, uistub.player.level = "WARRIOR", "Human", 30; uistub.openTabs({ { "preview/whirlwind", 1 } }, 1)`;
 const SCENES = [
@@ -1142,6 +1150,15 @@ Polestar.UI.Picker.Select("forever/class/shaman/call-of-earth-horde")`),
 		panels: [
 			{ roots: [...GUIDE, 'PolestarClassToast'], script: ORC_TOAST },
 			{ roots: [...GUIDE, 'PolestarClassToast'], script: `Polestar.Set("ui.scheme", "night"); ${UNDEAD_TOAST}` },
+		],
+		backdrop: 'terrain',
+	},
+	{
+		file: 'guide-dungeon-toast.svg',
+		title: 'The dungeon heads-up on the guide window: a level 20 Tauren told Wailing Caverns is open (Pick up the quests opens its pick-up guide in a new tab, Open in Dungeons its page); the same at the window\'s narrowest',
+		panels: [
+			{ dungeons: true, roots: [...GUIDE, 'PolestarClassToast'], script: DUNGEON_TOAST },
+			{ dungeons: true, roots: [...GUIDE, 'PolestarClassToast'], script: `${DUNGEON_TOAST}; ${NARROW}` },
 		],
 		backdrop: 'terrain',
 	},

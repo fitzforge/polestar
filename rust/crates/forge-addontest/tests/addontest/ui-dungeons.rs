@@ -829,3 +829,327 @@ emit({ D.Quest("wailing-caverns", 1486).start.name, C.Npc(639).name })"#
 	assert_eq!(out[1], json!(["Gryan Forte-Manteau", "Gryan Forte-Manteau", "Edwin VanCleef"]));
 	assert_eq!(out[2], json!(["Nalpak (client)", "Edwin VanCleef (client)"]), "an open page and decoded records pick up names learned in play");
 }
+
+// ---------------------------------------------------------------------------
+// The dungeon heads-up (UI/DungeonToast.lua, #836) on the class quest heads-up's card
+// ---------------------------------------------------------------------------
+
+// The level 20 Tauren: Wailing Caverns (17-24) has its two Horde quests to take now and none for later
+// levels; the Deadmines has none for the Horde; Blackmaw Hold is 55-60.
+const HEADS_UP: &str = r#"
+local DT, CT = Polestar.UI.DungeonToast, Polestar.UI.ClassToast
+-- The Druid's own class quest heads-up (Cat Form at 20) stays out of these; the card waiting for
+-- one is tested with a card shown by hand.
+CT.Check = function() return false end
+local asked, pickUp = {}, Polestar.Dungeons.PickUp
+Polestar.Dungeons.PickUp = function(key) asked[#asked + 1] = key return "lookup/pickup/" .. key end
+local function card()
+	local f = CT.frame
+	local on = f ~= nil and f:IsShown()
+	if not on then return { shown = false } end
+	return { shown = true, dungeon = CT.current and CT.current.dungeon, head = f.Head:GetText(), title = f.Title:GetText(), line = f.Giver:GetText(),
+		badge = f.Badge:IsShown() and f.Badge.Text:GetText() or false, act = f.Act:IsShown() and f.Act.Label:GetText() or false,
+		more = f.More:IsShown() and f.More.Label:GetText() or false, off = f.Off:IsShown() and f.Off.Label:GetText() or false, later = f.Later:IsShown(),
+		open = f.Open:IsShown(), showMe = f.ShowMe:IsShown() }
+end
+local function levelUp(level)
+	stub.fire("PLAYER_LEVEL_UP", level)
+	stub.advance(2)
+end
+"#;
+
+#[test]
+fn a_level_up_tells_once_that_wailing_caverns_is_open_and_its_button_picks_up_the_quests_in_a_new_tab() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		stub.sounds = {{}}
+		stub.fire("PLAYER_LEVEL_UP", 20)
+		emit({{ before = card().shown }})
+		stub.advance(2)
+		emit(card())
+		emit({{ sounds = #stub.sounds, seen = Polestar.CharState().dungeonToastSeen }})
+		CT.frame.Later:Click()
+		levelUp(20)
+		emit({{ again = card().shown }})
+		-- Shown again by the command, the button opens the pick-up guide and the card goes.
+		Polestar.RunCommand("dungeontoast wailing caverns")
+		local shown = card().shown
+		CT.frame.Act:Click()
+		emit({{ shown = shown, asked = asked, after = card().shown, ui = Polestar.Get("ui.shown") }})"#
+	));
+	assert_eq!(out[0], json!({ "before": false }), "it waits for the class quest heads-up's turn (DELAY)");
+	assert_eq!(
+		out[1],
+		json!({
+			"shown": true,
+			"dungeon": "wailing-caverns",
+			"head": "LEVEL 20 · DUNGEON",
+			"title": "Wailing Caverns is open to you",
+			"line": "2 quests to pick up  ·  Levels 17–24  ·  The Barrens",
+			"badge": "+25% OF A LEVEL",
+			"act": "Pick up the quests",
+			"more": "Open in Dungeons",
+			"off": "Turn these off",
+			"later": true,
+			"open": false,
+			"showMe": false,
+		}),
+		"the Deadmines has no Horde quests and Blackmaw Hold is out of range"
+	);
+	assert_eq!(out[2], json!({ "sounds": 1, "seen": { "wailing-caverns": true } }));
+	assert_eq!(out[3], json!({ "again": false }), "once per dungeon per character");
+	assert_eq!(out[4], json!({ "shown": true, "asked": ["wailing-caverns"], "after": false, "ui": true }));
+}
+
+#[test]
+fn turn_these_off_stops_the_heads_ups_and_it_waits_for_combat_and_for_a_class_quest_card() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local combat = true
+		Polestar.Compat.InCombat = function() return combat end
+		levelUp(20)
+		emit({{ inCombat = card().shown }})
+		combat = false
+		stub.fire("PLAYER_REGEN_ENABLED")
+		stub.advance(1)
+		emit({{ afterCombat = card().dungeon or false }})
+		-- A class quest card first: the dungeon one waits until it is dismissed.
+		Polestar.CharState().dungeonToastSeen = nil
+		CT.ShowCard({{ head = "LEVEL 20 · DRUID", title = "Cat Form ready", class = "DRUID", guideId = "x" }})
+		levelUp(20)
+		local class = card()
+		CT.Hide()
+		stub.advance(1)
+		emit({{ waited = class.title, open = class.open, act = class.act, thenShown = card().dungeon or false }})
+		CT.frame.Off:Click()
+		Polestar.CharState().dungeonToastSeen = nil
+		levelUp(20)
+		emit({{ setting = Polestar.Get("dungeons.headsUp"), shown = card().shown, candidates = #DT.Candidates(20, "levelup") }})"#
+	));
+	assert_eq!(out[0], json!({ "inCombat": false }));
+	assert_eq!(out[1], json!({ "afterCombat": "wailing-caverns" }), "shown once combat ends");
+	assert_eq!(out[2], json!({ "waited": "Cat Form ready", "open": true, "act": false, "thenShown": "wailing-caverns" }));
+	assert_eq!(out[3], json!({ "setting": false, "shown": false, "candidates": 0 }));
+}
+
+#[test]
+fn at_login_only_a_dungeon_whose_range_began_in_the_last_two_levels_is_told() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local function keys(list) local t = {{}} for _, c in ipairs(list) do t[#t + 1] = c.key end return t end
+		emit({{ login20 = keys(DT.Candidates(20, "login")), login19 = keys(DT.Candidates(19, "login")), levelup20 = keys(DT.Candidates(20, "levelup")),
+			below = keys(DT.Candidates(16, "levelup")), above = keys(DT.Candidates(25, "levelup")) }})"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "login20": {}, "login19": ["wailing-caverns"], "levelup20": ["wailing-caverns"], "below": {}, "above": {} }),
+		"17-24: three levels in at 20 is too old for a login heads-up, two at 19 is not"
+	);
+}
+
+// "Or a finished prerequisite" (#836): the fixture's Wailing Caverns has no page quest that opens another, so
+// its plan is wrapped to stand in for one: until Leaders of the Fang (914, on the page, in the log) is handed
+// in, one quest waits for a later level (two to take: not told); once it is, a third opens (told).
+#[test]
+fn handing_in_a_quest_of_the_dungeons_page_tells_it_once_its_follow_ups_open() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local plan = Polestar.Dungeons.PickupPlan
+		Polestar.Dungeons.PickupPlan = function(key)
+			local p = plan(key)
+			if p and key == "wailing-caverns" then
+				if done[914] then p.take[#p.take + 1] = {{ quest = {{ id = 90099 }} }} else p.later = 1 end
+			end
+			return p
+		end
+		levelUp(20)
+		emit({{ levelUp = card().shown }})
+		log[914], done[914] = nil, true
+		-- A quest that isn't on the page tells nothing, not even a dungeon that is due by now.
+		stub.fire("QUEST_TURNED_IN", 1490)
+		stub.advance(2)
+		emit({{ otherQuest = card().shown }})
+		-- Handed in while another card is shown: it waits for that one.
+		CT.ShowCard({{ head = "LEVEL 20 · DRUID", title = "Cat Form ready", class = "DRUID", guideId = "x" }})
+		stub.fire("QUEST_TURNED_IN", 914)
+		stub.advance(2)
+		local waiting = card().title
+		CT.Hide()
+		emit({{ waiting = waiting, before = card().shown }})
+		stub.advance(1)
+		local c = card()
+		emit({{ dungeon = c.dungeon, line = c.line }})"#
+	));
+	assert_eq!(out[0], json!({ "levelUp": false }), "two to take and one for later is not enough (MIN_OPEN)");
+	assert_eq!(out[1], json!({ "otherQuest": false }));
+	assert_eq!(out[2], json!({ "waiting": "Cat Form ready", "before": false }));
+	assert_eq!(out[3], json!({ "dungeon": "wailing-caverns", "line": "3 quests to pick up  ·  Levels 17–24  ·  The Barrens" }));
+}
+
+#[test]
+fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_without_a_level() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local printed = {{}}
+		Polestar.Print = function(...) printed[#printed + 1] = table.concat({{ ... }}, " ") end
+		Polestar.RunCommand("dungeontoast deadmines")
+		emit({{ shown = card().shown, printed = printed }})
+		printed = {{}}
+		Polestar.Levels.Player = function() return {{ faction = "Horde" }} end
+		Polestar.RunCommand("dungeontoast wailing caverns")
+		emit({{ shown = card().shown, printed = printed }})"#
+	));
+	assert_eq!(out[0], json!({ "shown": false, "printed": ["Nothing to pick up"] }), "the Deadmines has no Horde quests");
+	assert_eq!(out[1], json!({ "shown": false, "printed": ["No dungeon has opened up for this character."] }));
+}
+
+// #869's screenshot: on the guide window at its narrowest the header ("LEVEL 19 · DUNGEON") wrapped and was cut
+// beside the chip, and "Turn these off" ran to the card's edge. Where they don't fit on one line, the chip goes
+// under the header; where the buttons don't fit in one row, Later and Turn these off take a row of their own
+// under the actions, and no row runs past the card's edge.
+#[test]
+fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside_the_card() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local w, f = Polestar.UI.GuideFrame.frame, nil
+		levelUp(20)
+		f = CT.frame
+		local names = {{ [f.Act] = "act", [f.More] = "more", [f.Later] = "later", [f.Off] = "off" }}
+		for _, width in ipairs({{ Polestar.UI.MAX_WIDTH, Polestar.UI.MIN_WIDTH }}) do
+			w:SetWidth(width)
+			CT.Place(false)
+			local rows, sums, fits = {{ {{}} }}, {{}}, true
+			for _, b in ipairs({{ f.Act, f.More, f.Later, f.Off }}) do
+				local point = b:GetPoint(1)
+				if point == "TOPLEFT" and #rows[#rows] > 0 then rows[#rows + 1] = {{}} end
+				local r = rows[#rows]
+				local gap = #r == 0 and 0 or (r[#r] == "act" and 8 or 4)
+				sums[#rows] = (sums[#rows] or 0) + gap + b:GetWidth()
+				r[#r + 1] = names[b]
+			end
+			for _, s in ipairs(sums) do if s > width - 32 then fits = false end end
+			emit({{ chip = f.Badge:GetPoint(1), oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(),
+				rows = rows, fits = fits }})
+		end"#
+	));
+	assert_eq!(out[0], json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }), "beside them on a wide window");
+	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
+}
+
+// Fitz's design for #836: the card comes at the level-up that opens the dungeon's quests. With Leaders of the
+// Fang (914, Horde, from 18) not yet taken, 16 is below Wailing Caverns' range and at 17 one of its three quests
+// still waits for a later level (two to take: not enough to tell); at 18 all three are open.
+#[test]
+fn the_card_comes_at_the_level_up_that_opens_the_dungeons_quests_not_before() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		local seen = {{}}
+		for _, n in ipairs({{ 16, 17, 18 }}) do
+			uistub.player.level = n
+			levelUp(n)
+			local c = card()
+			seen[#seen + 1] = c.shown and c.line or false
+		end
+		emit(seen)"#
+	));
+	assert_eq!(out[0], json!([false, false, "3 quests to pick up  ·  Levels 17–24  ·  The Barrens"]));
+}
+
+// The player's faction only: the Deadmines' one quest is the Alliance's, Leaders of the Fang the Horde's.
+#[test]
+fn only_dungeons_with_quests_for_the_characters_faction_are_told_and_counted_for_it() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		log[914] = nil
+		local function list()
+			local t = {{}}
+			for _, c in ipairs(DT.Candidates(20, "levelup")) do t[#t + 1] = {{ c.key, c.take }} end
+			return t
+		end
+		emit({{ horde = list() }})
+		uistub.player.race, uistub.player.class, uistub.player.faction = "Human", "WARRIOR", "Alliance"
+		UnitRace = function() return "Human", "Human", 1 end
+		UnitFactionGroup = function() return "Alliance", "Alliance" end
+		emit({{ alliance = list() }})"#
+	));
+	assert_eq!(out[0], json!({ "horde": [["wailing-caverns", 3]] }), "the Deadmines has nothing for the Horde");
+	assert_eq!(out[1], json!({ "alliance": [["deadmines", 1], ["wailing-caverns", 2]] }), "Leaders of the Fang is not the Alliance's");
+}
+
+// "Pick up the quests" builds the dungeon's real pick-up guide and opens it in a new tab beside the leveling guide.
+#[test]
+fn pick_up_the_quests_opens_the_dungeons_pick_up_guide_in_a_new_tab() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		Polestar.Dungeons.PickUp = pickUp
+		-- The fake Engine opens only its sample guides: let it open the registered pick-up guide too.
+		setmetatable(uistub.guides, {{ __index = function(_, k) return uistub.realGuides.Get(k) end }})
+		uistub.openTabs({{ {{ uistub.elwynn, 1 }} }}, 1)
+		levelUp(20)
+		CT.frame.Act:Click()
+		local g = Polestar.Engine.GetGuide()
+		local tabs, accepts = {{}}, {{}}
+		for i, t in ipairs(Polestar.Engine.GetTabs()) do tabs[i] = t.guideId end
+		for _, st in ipairs(g and g.steps or {{}}) do
+			for _, goal in ipairs(st.goals or {{}}) do if goal.t == "accept" then accepts[#accepts + 1] = goal.quest end end
+		end
+		table.sort(accepts)
+		emit({{ active = g and g.id or false, tabs = tabs, accepts = accepts, card = card().shown, ui = Polestar.Get("ui.shown") }})"#
+	));
+	assert_eq!(
+		out[0],
+		json!({ "active": "lookup/pickup/wailing-caverns", "tabs": ["forever/alliance/human/01-elwynn-forest", "lookup/pickup/wailing-caverns"], "accepts": [959, 1486], "card": false, "ui": true })
+	);
+}
+
+// The nudge to the Dungeons section: "Open in Dungeons" opens the dungeon's page in the hub.
+#[test]
+fn open_in_dungeons_shows_the_dungeons_page_in_the_hub() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		levelUp(20)
+		CT.frame.More:Click()
+		emit({{ section = P.Section(), page = DS.Page() or false, card = card().shown, seen = Polestar.CharState().dungeonToastSeen }})"#
+	));
+	assert_eq!(out[0], json!({ "section": "Dungeons", "page": "wailing-caverns", "card": false, "seen": { "wailing-caverns": true } }));
+}
+
+// A level-up while the guide window is hidden: the card waits for the window and the dungeon is told only once
+// it has been on screen, so a /reload before then doesn't lose it.
+#[test]
+fn with_the_guide_window_hidden_the_card_waits_for_it_and_the_dungeon_is_told_once_shown() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local w = Polestar.UI.GuideFrame.frame
+		local function told() return (Polestar.CharState().dungeonToastSeen or {{}})["wailing-caverns"] or false end
+		w:Hide()
+		levelUp(20)
+		emit({{ shown = card().shown, told = told() }})
+		w:Show()
+		stub.advance(1)
+		emit({{ shown = card().dungeon or false, told = told() }})"#
+	));
+	assert_eq!(out[0], json!({ "shown": false, "told": false }));
+	assert_eq!(out[1], json!({ "shown": "wailing-caverns", "told": true }));
+}
+
+// The Codex (7 MB) never loads for the login or hand-in checks: at login the check waits until something
+// else loads it (a level-up, Lookup, the dungeon page); a level-up loads it.
+#[test]
+fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_is_loaded() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local X = Polestar.Codex
+		uistub.player.level = 19
+		local start = X.IsLoaded()
+		stub.fire("QUEST_TURNED_IN", 914)
+		stub.advance(5)
+		emit({{ start = start, loaded = X.IsLoaded(), shown = card().shown }})
+		X.Load()
+		stub.advance(2)
+		emit({{ loaded = X.IsLoaded(), shown = card().dungeon or false, head = card().head or false }})"#
+	));
+	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
+	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
+}

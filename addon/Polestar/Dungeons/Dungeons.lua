@@ -55,7 +55,8 @@
 --   Dungeons/Handin.lua. Attunements and keys (AttunementState, AttuneGuide,
 --   Attune): Dungeons/Attune.lua. What the quests are worth in levels
 --   (QuestXP): Dungeons/XP.lua.
--- Settings: dungeons.enabled; per character, the dungeons run in leveling
+-- Settings: dungeons.enabled, dungeons.headsUp (the heads-up when a
+-- dungeon opens up, UI/DungeonToast.lua); per character, the dungeons run in leveling
 -- guides (Dungeons.ROUTE, Engine.ChooseDungeon). Command: /polestar dungeons [name].
 
 local ADDON, ns = ...
@@ -68,7 +69,7 @@ local type, pairs, ipairs, pcall, tostring = type, pairs, ipairs, pcall, tostrin
 local find, lower, format, gsub = string.find, string.lower, string.format, string.gsub
 local sort = table.sort
 
-ns.RegisterDefaults("dungeons", { enabled = true })
+ns.RegisterDefaults("dungeons", { enabled = true, headsUp = true }) -- headsUp: UI/DungeonToast.lua
 
 local function enabled() return ns.Get("dungeons.enabled") and true or false end
 Dungeons.IsEnabled = enabled
@@ -405,6 +406,8 @@ if ns.RegisterOptions then
 		controls = {
 			{ kind = "toggle", key = "dungeons.enabled", label = L["Dungeons"],
 				help = L["A page per dungeon and raid: every quest with where to get it, its chain and rewards, the bosses and the entrance."] },
+			{ kind = "toggle", key = "dungeons.headsUp", label = L["Tell me when a dungeon opens up"], child = true, disabled = function() return not ns.Get("dungeons.enabled") end,
+				help = L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] },
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end
