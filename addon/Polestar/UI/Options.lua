@@ -382,6 +382,8 @@ local BUILTIN = {
 			help = L["The medallion under every mark on the world map and the minimap. The skin's: Polestar's, Halo's, or Hearth's for Hearth and the game's own looks. Glyphs only: no medallion."],
 			choices = { { value = "skin", label = L["The skin's icons"] }, { value = "polestar", label = L["Polestar"] },
 				{ value = "halo", label = L["Halo"] }, { value = "hearth", label = L["Hearth"] }, { value = "bare", label = L["Glyphs only"] } } },
+		{ kind = "slider", key = "nav.minimapIconSize", label = L["Minimap icon size"], min = 0.5, max = 1.5, step = 0.05, format = percent,
+			help = L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] },
 	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
