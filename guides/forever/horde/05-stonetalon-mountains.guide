@@ -277,18 +277,11 @@ step Druid trainer
   only Druid
   train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
 
-step Orgrimmar flight master
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar flight master"
-
 # ---------------------------------------------------------------- Orgrimmar at 23
 
 step Orgrimmar
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  tip Fly to Orgrimmar to train.
-  fly "Orgrimmar"
   train class
 
 step The Binding

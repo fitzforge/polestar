@@ -136,7 +136,9 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
   reads the zone the step before named (Thunder Bluff's Shaman stop is on
   Mulgore's map, and said Mulgore in the city), and a class trained once in a town
   visit (no flight, hearth or goto step between) is not trained again there
-  (the route's Shaman stop, then v1's Spirit Rise step). v1's `train class`
+  (the route's Shaman stop, then v1's Spirit Rise step; a step `only` some
+  classes reads its bare `train class` as theirs: the route's Thunder Bluff
+  stop, then v1's Druid step there, #964).
   line that the route takes before quest lines its v1 step writes ahead of it,
   the route going on to them in a row, goes after them, where v1 has it: some
   classes' trainers stand outside the building (Kharanos' distillery, trained
@@ -250,11 +252,15 @@ are then one line for all their races. `only` lists are read one way everywhere,
 repair and the judge alike (`forge_guide::conditions::Audience`: races, classes and factions each
 one-of, all three together, `!Class` every class but that one). A race's riding trainer or the Undercity zeppelin for one race's quest is never everyone's
 walk. In a run of such travel steps, the same step for several races with the same classes is one
-step `only` all of them, and a step for every race is everyone's. Travel steps alike but for their
-audiences (the step's `only` and the goals' own) whose audiences together are every character of the
-faction are one step for everyone, at the first one's place, else the last one's, when no character
-passes a step of its own on the way (the per-race and per-class copies of one Tirisfal goto and
-zeppelin out of the Eastern Plaguelands). The starts are played twice when the first pass wrote ways,
+step `only` all of them, at the first one's place when no character it adds passes a step of its own
+between, else at the last one's when none of the first one's does (the Dwarves', Gnomes', Night
+Elves' and Skyborne's flight from Booty Bay to Darkshire after every one of their boats from Ratchet,
+not before the Gnome Warriors' boat, #964), and a step for every race is everyone's. Travel steps
+alike but for their audiences (the step's `only` and the goals' own) whose audiences together are
+every character of the faction are one step for everyone, at the first one's place, else the last
+one's, when no character passes a step of its own on the way (the per-race and per-class copies of
+one Tirisfal goto and zeppelin out of the Eastern Plaguelands). The starts are played twice when
+the first pass wrote ways,
 so a start played before another's way changed a line it plays is played on it again; and on a
 shared guide a flight from no flight master is repaired even where the start's v1 breaks there too
 (the Dwarves' `fly "Astranaar"` from Maestra's Post).
@@ -641,8 +647,14 @@ portals and hearths. A lift counts as part of the walk.
   (else its zone's flight master) is over the sea, with a flight toward the
   dock first when that saves the walk, else the walk into the dock's zone; one
   that flies from where no flight master is gets the walk to the nearest one
-  first. Classes away on a detour of their own are left as they are; a class
-  that flew off to the other continent is not flown back over the sea.
+  first. One that flies to that very flight path flies nowhere: the flight goes,
+  with its tip's sentence sending them on it, and within 500 yards (in the town)
+  the walk to its flight master too (the Druids' "fly to Thunder Bluff and
+  train" written in Thunder Bluff after the route's own training there; the
+  training flights to Orgrimmar written in Orgrimmar; from Boulder Lode Mine
+  the walk to Orgrimmar's flight master stays, #964). Classes away on a detour
+  of their own are left as they are; a class that flew off to the other
+  continent is not flown back over the sea.
   A class's own v1 hearth back to the inn everyone is bound at stays: it is
   that class's way back (the Shamans' hearth to Grom'gol after Islen).
 - A step's gotos after its last named line are its way out, written with its
@@ -828,6 +840,14 @@ portals and hearths. A lift counts as part of the walk.
   (the shared Alliance route's Gnome Warlocks boarded the Booty Bay boat at
   Ratchet's dock, about 100 yards from Bragok, then walked from Theramore to
   Ratchet for their Felsteed at 44; the flight path sweep from #939).
+- The repair's way may learn a flight path at hand: a flight master whose path
+  they never learnt, within 500 yards of where the leg starts, whose flight is
+  quicker than the walk to the nearest known one or the walk on (the Tauren and
+  Skyborne Druids off the Tirisfal zeppelin at Orgrimmar learn the path from
+  Doras, ~480 yards away, and fly to Thunder Bluff, not a ~2,400 yard walk to
+  Ratchet's flight master, #964). The failures after such a way wait for the
+  next round, which plays the path learnt: their way back flies to Orgrimmar
+  for the zeppelin.
 
 `--no-route-legs` writes the old JavaScript writer's travel instead. It then
 runs that writer's travel repair: the honest playtest's R1 (see
