@@ -97,7 +97,7 @@ local function rowWidth()
 end
 
 local function fact(r, i, label)
-	local l = W.Text(r, "caption", "textMuted")
+	local l = W.Text(r, "small", "textMuted")
 	l:SetPoint("TOPLEFT", r, "TOPLEFT", COL_X, -(52 + (i - 1) * 15))
 	l:SetWidth(LABEL_W)
 	l:SetText(label)
