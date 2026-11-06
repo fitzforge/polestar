@@ -202,15 +202,11 @@ step Zeppelin to Orgrimmar
   zone Tirisfal Glades
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
 
-step The Barrens
-  only Skyborne,Tauren,Druid
-  zone The Barrens
-  goto 63.1,37.1 "The Barrens"
-
 step Fly to Thunder Bluff
   only Skyborne,Tauren,Druid
-  zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
+  zone Orgrimmar
+  goto 45.3,63.8 "Orgrimmar flight master"
+  getfp "Orgrimmar"
   fly "Thunder Bluff"
 
 step Thunder Bluff
@@ -253,10 +249,10 @@ step Back to Silverpine Forest
   zone Silverpine Forest
   goto 49.9,60.3 "Silverpine Forest"
 
-step Fly to Ratchet
+step Fly to Orgrimmar
   only Skyborne,Tauren,Druid
   zone Thunder Bluff
-  fly "Ratchet"
+  fly "Orgrimmar"
 
 step Zeppelin to Undercity
   only Skyborne,Tauren,Druid

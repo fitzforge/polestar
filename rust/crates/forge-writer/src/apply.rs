@@ -4581,6 +4581,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		back_only: None,
 		fac: train_fac,
 		trained_away: Vec::new(),
+		fly_here: None,
 		train_on_way: Vec::new(),
 		away: Vec::new(),
 		fresh_fps: FxHashSet::default(),
@@ -5141,6 +5142,28 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					let flown = if cx.route_travel { wr.class_way_to_step(*os) } else { None };
 					let n1 = wr.g.body.len();
 					wr.step_lines(*os, None, true, only_for.as_deref());
+					if let Some(name) = wr.fly_here.take() {
+						let to = format!("\"{name}\"");
+						if let Some(k) = (n1..wr.g.body.len()).find(|&k| wr.g.body[k].as_deref().is_some_and(|l| head_ws(l) == Some("fly") && l.contains(&to))) {
+							wr.g.body.remove(k);
+						}
+						// (The tip's sentences sending them on it: "Fly to Orgrimmar to train.")
+						let send = regex::Regex::new(&format!(r"(?i)\bfly (?:back |on )?to {}\b", regex::escape(&name))).unwrap();
+						let mut k = n1;
+						while k < wr.g.body.len() {
+							if let Some(tip) = wr.g.body[k].as_deref().filter(|l| head_ws(l) == Some("tip")).and_then(|l| l.strip_prefix("  tip ")) {
+								if send.is_match(tip) {
+									let kept: String = tip.split_inclusive(". ").filter(|s| !send.is_match(s)).collect();
+									if kept.trim().is_empty() {
+										wr.g.body.remove(k);
+										continue;
+									}
+									wr.g.body[k] = Some(format!("  tip {}", kept.trim_end()));
+								}
+							}
+							k += 1;
+						}
+					}
 					// (Its lines all held for a level not reached yet: no trip for nothing, the Rogues' flight
 					// from Ratchet to Orgrimmar and straight back for Shenthul at 19, c17.)
 					let did = |b: &[Option<String>]| b.iter().flatten().any(|l| is_goal(l) && !matches!(head_ws(l), Some("goto" | "fly" | "hearth" | "note")));
@@ -5561,6 +5584,9 @@ struct Writer<'c, 'a> {
 	/// Classes trained already on a detour of their own in a city with their trainer: left out of the
 	/// route's training stop being written.
 	trained_away: Vec<String>,
+	/// The class step being written flies to the flight path nearest where they stand (its name: the
+	/// flight goes): class_way_to_step.
+	fly_here: Option<String>,
 	/// The classes the route's training stop being travelled to cannot train, each with its own step
 	/// written after the stop (piece, class, title, training line): train_on_the_way.
 	train_on_way: Vec<(usize, String, String, String)>,
@@ -7149,9 +7175,20 @@ impl Writer<'_, '_> {
 		let mut out = None;
 		if is_head_ws(&first.text, "fly") {
 			if let Some(f) = cx.fp_near_known(from, &self.known) {
+				let name = cx.world.nodes[f].name.clone();
+				// (A flight to that very flight path flies nowhere: the flight and the tip sending them on
+				// it go, and in the town (within IN_TOWN_YD) the walk to its flight master too, the class
+				// step being where they stand; from farther the walk there is the way; the Druids' v1 "fly
+				// to Thunder Bluff and train" written in Thunder Bluff after the route's own training
+				// there, the Orgrimmar training flights written in Orgrimmar.)
+				const IN_TOWN_YD: f64 = 500.0;
+				let here_fp = re!(r#"^\s+fly\s+"([^"]+)""#).captures(&first.text).is_some_and(|m| m[1] == name);
+				if here_fp {
+					self.fly_here = Some(name.clone());
+				}
 				if let Some(fp) = cx.w(cx.world.nodes[f].pt) {
-					if fp.c == here.c && js_hypot(fp.wx - here.wx, fp.wy - here.wy) > AT_FM_YD {
-						let name = cx.world.nodes[f].name.clone();
+					let d = js_hypot(fp.wx - here.wx, fp.wy - here.wy);
+					if fp.c == here.c && d > AT_FM_YD && !(here_fp && d <= IN_TOWN_YD) {
 						self.goto_step(cx.world.nodes[f].pt, &format!("{name} flight master"), true);
 					}
 				}

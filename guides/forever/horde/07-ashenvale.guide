@@ -226,18 +226,6 @@ step Class trainer
   zone Thunder Bluff
   train class only Paladin,Priest,Shaman,Mage,Druid
 
-step Thunder Bluff flight master
-  only Druid
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-
-step Thunder Bluff
-  only Druid
-  zone Thunder Bluff
-  tip From Orgrimmar (zeppelin from the towers outside the Undercity) fly to Thunder Bluff and train on Elder Rise, then fly on to Camp Taurajo.
-  fly "Thunder Bluff"
-  train class
-
 # ---------------------------------------------------------------- Gloomrise, Mulgore
 
 step Thunder Bluff

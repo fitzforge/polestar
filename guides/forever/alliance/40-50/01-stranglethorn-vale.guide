@@ -233,12 +233,6 @@ step Boat to Booty Bay
   zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay"
 
-step Fly to Darkshire
-  only Dwarf,Gnome,NightElf,Skyborne
-  zone Stranglethorn Vale
-  goto 27.5,77.7 "Booty Bay flight master"
-  fly "Darkshire"
-
 step Boat to Booty Bay
   only Gnome
   zone The Barrens
@@ -283,6 +277,12 @@ step Boat to Booty Bay
   only Skyborne
   zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
+
+step Fly to Darkshire
+  only Dwarf,Gnome,NightElf,Skyborne
+  zone Stranglethorn Vale
+  goto 27.5,77.7 "Booty Bay flight master"
+  fly "Darkshire"
 
 step Duskwood
   zone Duskwood

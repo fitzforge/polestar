@@ -1795,9 +1795,15 @@ pub fn repeat_training(files: &mut [String]) {
 			}
 			let body = &lines[i + 1..j];
 			let gated = body.iter().any(|l| head_ws(l) == Some("only"));
+			// (A step some classes' alone, `only Druid`: its bare `train class` trains those classes.)
+			let step_classes: Option<Vec<String>> = body.iter().find(|l| head_ws(l) == Some("only")).and_then(|l| {
+				let cl: Vec<String> = trim(&re!(r"^\s+only\s+").replace(split_comment(l).0, "")).split(',').map(|c| trim(c).to_string()).collect();
+				cl.iter().all(|c| CLASSES.contains(&c.as_str())).then_some(cl)
+			});
+			let classes_of = |l: &str| -> Option<Vec<String>> { trained(l).and_then(|t| t.or_else(|| step_classes.clone())) };
 			let again = |l: &str| !gated && trained(l).zip(prev.as_ref()).is_some_and(|(t, p)| covered(p, &t));
 			// (A class's training line, all its classes trained already in this visit.)
-			let twice = |l: &str| gated && trained(l).flatten().is_some_and(|t| t.iter().all(|c| visit.contains(c)));
+			let twice = |l: &str| gated && classes_of(l).is_some_and(|t| t.iter().all(|c| visit.contains(c)));
 			if body.iter().any(|l| again(l) || twice(l)) {
 				changed = true;
 				let rest: Vec<&str> = body.iter().copied().filter(|l| !again(l) && !twice(l)).collect();
@@ -1827,7 +1833,7 @@ pub fn repeat_training(files: &mut [String]) {
 			if !gated {
 				prev = body.iter().find_map(|l| trained(l));
 			}
-			for t in body.iter().filter_map(|l| trained(l)) {
+			for t in body.iter().filter_map(|l| if gated { classes_of(l).map(Some).or_else(|| trained(l)) } else { trained(l) }) {
 				for c in t.unwrap_or_else(|| CLASSES.iter().map(|c| c.to_string()).collect()) {
 					if !visit.contains(&c) {
 						visit.push(c);
@@ -2775,6 +2781,22 @@ mod tests {
 		assert_eq!(f[0].matches("train class only Shaman").count(), 2, "{}", f[0]);
 		assert!(!f[0].contains("step Spirit Rise") && f[0].contains("step Turak\n  only Druid\n  zone Thunder Bluff\n  turnin 5926\n"), "{}", f[0]);
 		assert_eq!(f[0].matches("train class only Druid").count(), 1, "{}", f[0]);
+	}
+
+	#[test]
+	fn a_class_steps_bare_training_counts_as_its_classes_in_the_town_visit() {
+		// Horde 07-ashenvale:224-239: the route's Thunder Bluff stop trained the Druids, then v1's Druid
+		// step (`only Druid`, a bare `train class`) trained them again in the same visit.
+		let mut f = vec![[
+			"step Class trainer\n  only Paladin,Priest,Shaman,Mage,Druid\n  zone Thunder Bluff\n  train class only Paladin,Priest,Shaman,Mage,Druid",
+			"step Thunder Bluff\n  only Druid\n  zone Thunder Bluff\n  tip Train on Elder Rise.\n  train class",
+			"step Orgrimmar\n  only Tauren\n  train class",
+		]
+		.join("\n\n")];
+		repeat_training(&mut f);
+		assert!(!f[0].contains("step Thunder Bluff"), "{}", f[0]);
+		// (A step some races' alone is not some classes': its training stays.)
+		assert!(f[0].contains("step Orgrimmar\n  only Tauren\n  train class"), "{}", f[0]);
 	}
 
 	#[test]
