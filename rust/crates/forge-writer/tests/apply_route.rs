@@ -968,10 +968,7 @@ fn a_v1_training_the_step_writes_last_stays_after_the_steps_quest_lines() {
         ] }),
 		..Case::default()
 	};
-	assert_eq!(
-		pick(&run(&c, None).read("a"), r"^step|^\s+(accept|turnin|train)"),
-		vec!["step Distillery", "  accept 1", "  accept 2", "  accept 3", "  train class", "step Depot", "  turnin 1"]
-	);
+	assert_eq!(pick(&run(&c, None).read("a"), r"^step|^\s+(accept|turnin|train)"), vec!["step Distillery", "  accept 1", "  accept 2", "  accept 3", "  train class", "step Depot", "  turnin 1"]);
 }
 
 #[test]
