@@ -1064,6 +1064,27 @@ test(`${BARRENS}: DexeeXI's report (#907): Northwatch Hold is cleared before Gil
 	for (const { goal } of list.slice(accept + 1, done)) assert.ok(!goal.quest || goal.quest === 898, `nothing but the escort between its accept and its end (${goal.t} ${goal.quest})`);
 });
 
+// Rohkin (#957): the Bristleback camps step collected Mankrik's tusks
+// (Consumed by Hatred, 899) before Camp Taurajo, then the guide sent them back
+// into the same camps for Tribes at War (878) from Mangletooth. Every
+// Bristleback 878 asks for drops tusks, so the tusks are collected on 878's
+// step, after its accept; Mankrik's wife (Lost in Battle, 4921) stays on the
+// walk south.
+test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it`, { skip }, () => {
+	const list = goals(BARRENS);
+	const accept = at(list, 'accept 878 (Tribes at War)', is('accept', 878));
+	const tusks = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.quest === 899 && goal.t === 'collect');
+	assert.ok(tusks.length > 0, 'the tusks have a goal');
+	const kills = new Set(list.filter(({ goal }) => goal.quest === 878 && goal.t === 'kill').map(({ s }) => s));
+	assert.equal(kills.size, 1, 'the Tribes at War kills share one step');
+	for (const [{ s }, i] of tusks) {
+		assert.ok(i > accept, 'the tusks come after Tribes at War is taken');
+		assert.ok(kills.has(s), `the tusks are on the Tribes at War step ${[...kills][0]}, not step ${s}`);
+	}
+	const wife = at(list, 'Lost in Battle (4921)', (g) => g.quest === 4921 && g.t !== 'accept' && g.t !== 'turnin');
+	assert.ok(wife < accept, 'Mankrik\'s wife is found on the walk south, before Camp Taurajo');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
