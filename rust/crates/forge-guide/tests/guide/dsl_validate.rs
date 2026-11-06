@@ -583,7 +583,17 @@ fn talk_goals(r: &Compiled) -> Vec<Value> {
 
 #[test]
 fn a_talk_with_quest_compiles_to_a_quest_objective_goal_and_quest_q_takes_the_index_from_the_talk_or_legacy_kill_objective() {
-	let src = guide_text(&["step S", "  accept 9710", "  accept 9711", "  talk 823 quest 9710.2", "  talk 295 quest 9710", "  talk 152 quest 9711.1", "  talk 152 quest 9711", "  turnin 9710", "  turnin 9711"]);
+	let src = guide_text(&[
+		"step S",
+		"  accept 9710",
+		"  accept 9711",
+		"  talk 823 quest 9710.2",
+		"  talk 295 quest 9710",
+		"  talk 152 quest 9711.1",
+		"  talk 152 quest 9711",
+		"  turnin 9710",
+		"  turnin 9711",
+	]);
 	let r = compile_with(&src, &talk_data());
 	assert!(r.errors.is_empty(), "{}", r.text);
 	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
@@ -622,10 +632,10 @@ fn a_kill_with_quest_on_a_talk_objective_of_the_same_npc_compiles_and_takes_its_
 	assert!(r.errors.is_empty(), "{}", r.text);
 	assert!(only(&r.warnings, r"objective\(s\) in data|, not this npc|no objective for this").is_empty(), "{}", r.text);
 	let g = talk_goals(&r);
-	assert_eq!(g.iter().map(|g| (g["t"].clone(), g["npc"].clone(), g["quest"].clone(), g["oi"].clone())).collect::<Vec<_>>(), vec![
-		(json!("kill"), json!(823), json!(9710), json!(2)),
-		(json!("kill"), json!(197), json!(9710), json!(1)),
-	]);
+	assert_eq!(
+		g.iter().map(|g| (g["t"].clone(), g["npc"].clone(), g["quest"].clone(), g["oi"].clone())).collect::<Vec<_>>(),
+		vec![(json!("kill"), json!(823), json!(9710), json!(2)), (json!("kill"), json!(197), json!(9710), json!(1)),]
+	);
 }
 
 #[test]

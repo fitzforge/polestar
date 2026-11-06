@@ -2735,10 +2735,7 @@ mod tests {
 		];
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		t.apply(&from(&[A], &events));
-		assert_eq!(
-			j(&t.quest("93461").get("objectives")),
-			r#"[{"type":"talk","id":251903,"count":1,"text":"Rathiril Sunlance"},{"type":"talk","id":254089,"count":1,"text":"Coriella Calmbreeze"}]"#
-		);
+		assert_eq!(j(&t.quest("93461").get("objectives")), r#"[{"type":"talk","id":251903,"count":1,"text":"Rathiril Sunlance"},{"type":"talk","id":254089,"count":1,"text":"Coriella Calmbreeze"}]"#);
 		// Without the window nobody opened (Rathiril's talk elsewhere, 15 s earlier, does not count
 		// at the innkeeper's), she stays as the data has her.
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
@@ -2765,10 +2762,7 @@ mod tests {
 		];
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		t.apply(&from(&[A], &request));
-		assert_eq!(
-			j(&t.quest("93927").get("objectives")),
-			r#"[{"type":"item","id":254871,"count":1,"text":"Bloody Note"},{"type":"kill","id":256966,"count":null,"text":"Skypriest Aanders"}]"#
-		);
+		assert_eq!(j(&t.quest("93927").get("objectives")), r#"[{"type":"item","id":254871,"count":1,"text":"Bloody Note"},{"type":"kill","id":256966,"count":null,"text":"Skypriest Aanders"}]"#);
 		// A trainer's lesson or a skill raised by crafting beside him is no talk, even where and as
 		// his window opened (Camping 101: Tomas's line ticks as you learn cooking in his training
 		// window, or as a craft right after talking to him raises the skill).
@@ -2823,10 +2817,7 @@ mod tests {
 	fn an_objective_the_game_does_not_count_goes_once_a_player_completed_the_quest() {
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		let stats = t.apply(&from(&[A], &cult(true)));
-		assert_eq!(
-			j(&t.quest("96897").get("objectives")),
-			r#"[{"type":"kill","id":267006,"count":8,"text":"Dark Neophyte"},{"type":"kill","id":275437,"count":8,"text":"Dark Enforcer"}]"#
-		);
+		assert_eq!(j(&t.quest("96897").get("objectives")), r#"[{"type":"kill","id":267006,"count":8,"text":"Dark Neophyte"},{"type":"kill","id":275437,"count":8,"text":"Dark Enforcer"}]"#);
 		assert_eq!((stats.game_objective_quests, stats.talk_objectives, stats.dropped_objectives), (1, 0, 1));
 		// Until someone completes it, a later line could still be revealed: nothing goes.
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");

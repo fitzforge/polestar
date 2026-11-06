@@ -1288,10 +1288,7 @@ fn t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_
 		"#,
 		..Default::default()
 	});
-	assert_eq!(
-		out["trail"],
-		json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"])
-	);
+	assert_eq!(out["trail"], json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"]));
 	assert_eq!(out["at"], 2);
 	assert_eq!(out["text"], "Talk to Valennia");
 	assert_eq!(out["detail"], "for Desperate Times");

@@ -668,7 +668,9 @@ fn desperate_times(ctx: &Ctx, c: &mut Check) {
 		let valennia = at!(c, &list, format!("{guide}: 92640.1 (Valennia)"), talk(1.0, 252383.0));
 		let ayessa = at!(c, &list, format!("{guide}: 92640.2 (Ayessa)"), talk(2.0, 251968.0));
 		let elaadrin = at!(c, &list, format!("{guide}: Elaadrin"), |g: &V| t(g, "talk") && n(g, "npc", 252475.0));
-		if !ok!(c, valennia < ayessa && ayessa < elaadrin, &format!("{guide}: Valennia, then Ayessa, then Elaadrin")) || !ok!(c, located(&list[ayessa]), &format!("{guide}: the arrow leads to Ayessa, west of town")) {
+		if !ok!(c, valennia < ayessa && ayessa < elaadrin, &format!("{guide}: Valennia, then Ayessa, then Elaadrin"))
+			|| !ok!(c, located(&list[ayessa]), &format!("{guide}: the arrow leads to Ayessa, west of town"))
+		{
 			return;
 		}
 	}
@@ -687,7 +689,9 @@ fn uncounted_kills(ctx: &Ctx, c: &mut Check) {
 			}
 			let o = ctx.data.quests.get(&g.get("quest").to_js_string()).get("objectives").get(&(g.get("oi").num() as i64 - 1).to_string());
 			let what = format!("{guide}: {}.{}", g.get("quest").to_js_string(), g.get("oi").to_js_string());
-			if !ok!(c, o.truthy(), &format!("{what} is one of the quest's objectives")) || !ok!(c, o.get("type").as_str() != Some("talk"), &format!("{what} is a talk to {}, not a kill", o.get("text").to_js_string())) {
+			if !ok!(c, o.truthy(), &format!("{what} is one of the quest's objectives"))
+				|| !ok!(c, o.get("type").as_str() != Some("talk"), &format!("{what} is a talk to {}, not a kill", o.get("text").to_js_string()))
+			{
 				return;
 			}
 		}
