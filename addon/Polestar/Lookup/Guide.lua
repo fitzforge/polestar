@@ -22,8 +22,8 @@
 --       Lookup.Guide then build `kind` with it, whatever lookup.enabled says
 --       (the module gates itself), and its saved tabs come back after /reload.
 --       Dungeons' "pickup", "handin" and "attune" kinds are three (Dungeons/Pickup.lua, Handin.lua, Attune.lua).
---   Lookup.QuestChain(questId, player) -> { quest, ... }, truncated
---       the quest after its open prerequisites, in the order they are done
+--   Lookup.QuestChain(questId, player) -> { quest, ... }
+--       the quest after all its open prerequisites, in the order they are done
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
 --       is; with it the step is always whole (see questStep)
@@ -48,7 +48,6 @@ local planners = {} -- kind -> build(id): guide kinds other modules build
 
 local ITEM_KINDS = Lookup.ITEM_KINDS
 local PREFIX = "lookup/"
-local MAX_CHAIN, MAX_DEPTH = 12, 8
 local INSIDE_CHANCE = 10 -- percent: an inside source rarer than this is no place to send the player (itemSpot)
 
 local function Codex() return ns.Codex end
@@ -276,13 +275,14 @@ end
 
 -- Quests to do in order to get questId, prerequisites first: every one of
 -- `pre`, and of `preAny` (unless one is done) the first this character can
--- take. Done prerequisites are left out; the chain is bounded.
+-- take. Done prerequisites are left out. The chain is whole however long
+-- (Alba Fairmoon's to The State of the Mines is ten quests): a cut would drop
+-- the first quests to do. Each quest is visited once, so the walk ends.
 local function questChain(questId, player)
 	local C = Codex()
-	local order, seen, truncated = {}, {}, false
+	local order, seen = {}, {}
 	local function visit(qid, depth)
 		if seen[qid] then return end
-		if depth > MAX_DEPTH or #order >= MAX_CHAIN then truncated = true; return end
 		seen[qid] = true
 		local q = C.Quest(qid)
 		if not q then return end
@@ -307,7 +307,7 @@ local function questChain(questId, player)
 		order[#order + 1] = q
 	end
 	visit(questId, 0)
-	return order, truncated
+	return order
 end
 
 local function endGoal(t, q, e)
@@ -452,15 +452,12 @@ end
 local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
-	local chain, truncated = questChain(questId, player)
+	local chain = questChain(questId, player)
 	local steps = {}
 	for i, q in ipairs(chain) do
 		local step, err = questStep(q, from, q.id == questId)
 		if not step then return nil, err end
 		steps[#steps + 1] = step
-	end
-	if truncated and steps[1] then
-		steps[1].note = L["Earlier quests of this chain are not listed."]
 	end
 	return steps
 end

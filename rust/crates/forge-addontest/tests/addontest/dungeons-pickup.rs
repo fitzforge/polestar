@@ -550,6 +550,71 @@ emit({ take = take, carried = carried, pre = pre, steps = steps, notes = notes }
 	assert_eq!(honored["take"], json!([90403]), "Honored: Nara Wildmane is an errand again");
 }
 
+// A quest whose chain is ten quests long (#918: Alba Fairmoon's chain to The State of the Mines, Testing the
+// Wells ten quests before the Deadmines quest): the plan lists every open prerequisite, the first first, and no
+// "Earlier quests of this chain are not listed." note. A second branch makes it fifteen: still all of them,
+// each before the quest that needs it.
+#[test]
+fn a_ten_quest_chain_starts_at_its_first_quest_918_testing_the_wells_before_the_state_of_the_mines() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["90510"] = json!({
+		"id": 90510, "name": "Chain Giver", "level": 30, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "spawns": [{ "map": 1421, "x": 40, "y": 40, "f": "e" }],
+	});
+	let quest = |id: i32, pre: &[i32], pre_any: &[i32]| {
+		json!({
+			"id": id, "title": format!("Link {id}"), "level": 20, "minLevel": 10, "faction": "H", "races": null, "classes": null,
+			"start": { "npc": [90510], "object": [], "item": [] }, "end": { "npc": [90510], "object": [] },
+			"objectives": [{ "type": "kill", "id": 90511, "count": 1, "text": "Test Mob" }],
+			"pre": pre, "zone": 1421, "rewards": [], "choices": [], "preAny": pre_any,
+		})
+	};
+	// 90500 (Testing the Wells) .. 90509 (the dungeon quest); 90501 needs one of 90500, as The State of the
+	// Mines does.
+	c["quests"]["90500"] = quest(90500, &[], &[]);
+	c["quests"]["90501"] = quest(90501, &[], &[90500]);
+	for id in 90502..=90509 {
+		c["quests"][id.to_string()] = quest(id, &[id - 1], &[]);
+	}
+	i["forever"]["quests"]["90509"] = json!({ "area": 209 });
+	let script = k(r#"
+local pre = {}
+for _, t in ipairs(D.PickupPlan("{KEY}").take) do
+	if t.quest.id == 90509 then for _, r in ipairs(t.pre) do pre[#pre + 1] = r.id end end
+end
+local first, cut = {}, 0
+for _, s in ipairs(D.PickupGuide("{KEY}").steps) do
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90500 then first[#first + 1] = g.quest; break end
+	end
+	if s.note and s.note:find("not listed") then cut = cut + 1 end
+end
+emit({ pre = pre, first = first, cut = cut })"#);
+	let ten = pack_of(&c, &i);
+	let open = run(&ten, &script, Opts::default()).remove(0);
+	assert_eq!(open["pre"], json!((90500..=90508).collect::<Vec<_>>()), "all nine prerequisites, Testing the Wells first");
+	assert_eq!(open["first"], json!((90500..=90509).collect::<Vec<_>>()), "the guide starts at the first quest of the chain");
+	assert_eq!(open["cut"], 0, "nothing left out");
+	let wells_done = run(&ten, &script, Opts { done: vec![1098, 90500], ..Default::default() }).remove(0);
+	assert_eq!(wells_done["pre"], json!((90501..=90508).collect::<Vec<_>>()), "Testing the Wells done: the chain starts at the next quest");
+	drop(ten);
+
+	// The dungeon quest also needs 90524, the end of a second chain of five: fourteen open prerequisites.
+	c["quests"]["90509"]["pre"] = json!([90508, 90524]);
+	c["quests"]["90520"] = quest(90520, &[], &[]);
+	for id in 90521..=90524 {
+		c["quests"][id.to_string()] = quest(id, &[id - 1], &[]);
+	}
+	let fifteen = pack_of(&c, &i);
+	let both = run(&fifteen, &script, Opts::default()).remove(0);
+	let mut want: Vec<i32> = (90500..=90508).collect();
+	want.extend(90520..=90524);
+	assert_eq!(both["pre"], json!(want), "both chains whole, each in its order");
+	assert_eq!(both["cut"], 0);
+}
+
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
 // door, the Barrens a zeppelin away.
 const ZONE_TRAVEL: &str = r#"
