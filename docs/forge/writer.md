@@ -697,6 +697,14 @@ portals and hearths. A lift counts as part of the walk.
   after that hand-in; the quests its own hand-in opens follow it, and the
   quest's lines already in that guide before the hand-in go after it too (News
   of Dogran and Ken'zigla's Draught after Gan'rul's hand-in in the next guide).
+- A follow-up from the NPC a step has just handed its prerequisite to is taken
+  there, right after that hand-in and the other hand-ins to that NPC with it,
+  when the step went on to a goal more than 30 yards off for a character who
+  does both (Captain Vimes from the Theramore Lieutenant before the walk up to
+  Lady Jaina, The Atal'ai Exile from Fel'zerul before Dar; the Warriors' walk
+  to their trainer is no walk for a Hunter). It stays behind a `level` line, another of
+  its prerequisites, a quest it excludes, or a level the hand-ins between bring.
+  This runs after the class detours' hand-ins.
 - A v1 step the route did not place with nothing for everyone, only some races'
   lines (and a flight path), is those races' step: no walk there for the rest
   (v1's "To the Undercity" for the Skyborne's Sylvanas).

@@ -94,8 +94,8 @@ step Misty Reed Post
 step Stonard
   label q1424
   turnin 1424                           -- Fel'zerul, on the top floor
-  turnin 1430                           -- Dar, inside
   accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 48
+  turnin 1430                           -- Dar, inside
 
 step Hearth to Camp Mojache
   when bound "Camp Mojache"

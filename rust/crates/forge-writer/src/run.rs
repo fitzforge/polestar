@@ -177,6 +177,27 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			}
 		}
 	}
+	// (A follow-up from the NPC just handed its prerequisite is taken there, after the detours.)
+	{
+		let order = &inp.route.order;
+		let mut lvl_after: FxHashMap<u32, f64> = FxHashMap::default();
+		for (i, o) in order.iter().enumerate() {
+			if let (OrderT::Turnin, Some(q)) = (o.t, o.q) {
+				if let Some(l) = order[i + 1..].iter().find_map(|n| n.lvl) {
+					lvl_after.entry(q).or_insert(l);
+				}
+			}
+		}
+		let pairs = crate::hub::fix_pairs(inp.route.faction.as_deref());
+		for rel in &written {
+			if let Some(t) = tree.get(rel) {
+				let t2 = crate::post::follow_ups_at_their_giver(t.split('\n').map(str::to_string).collect(), inp.data, inp.world, &|q| lvl_after.get(&q).copied(), &pairs).join("\n");
+				if t2 != *t {
+					tree.insert(rel.clone(), t2);
+				}
+			}
+		}
+	}
 	// (Weapon skills where the route is in a capital anyway, #655: before the class lists are cut to
 	// the guide's races.)
 	if let (true, Some(fac)) = (opts.engine && opts.route_legs, inp.route.faction.as_deref()) {
