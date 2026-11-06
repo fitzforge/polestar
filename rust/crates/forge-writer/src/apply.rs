@@ -6816,6 +6816,25 @@ impl Writer<'_, '_> {
 			ins.push(Some(String::new()));
 			self.g.body.splice(at..at, ins);
 		}
+		// v1's own flight path for everyone among the lines written here is the route's arrival: v1's
+		// line, where v1 has it, not the route's first in the step (Sentinel Hill's after the tower's
+		// quests, the hill walked down once, #727).
+		if !self.g.arrival.is_empty() {
+			let fp = |t: &str| re!(r#"^\s+getfp\s+"([^"]+)""#).captures(split_comment(t).0).filter(|_| line_only(t).is_none()).map(|m| m[1].to_string());
+			let mine: Vec<String> = if whole {
+				s.lines.iter().filter(|l| l.kind == Kind::Goal && !cx.dropped_line(&l.text, Some(l.key())) && !cx.carried.contains(&l.key())).filter_map(|l| fp(&l.text)).collect()
+			} else {
+				keys.unwrap_or_default()
+					.iter()
+					.flat_map(|k| cx.before.get(k).into_iter().flatten().chain(s.line(k.1)).chain(cx.after.get(k).into_iter().flatten()))
+					.filter(|l| !self.skip.contains(&l.key()))
+					.filter_map(|l| fp(&l.text))
+					.collect()
+			};
+			if !mine.is_empty() {
+				self.g.arrival.retain(|a| fp(a).is_none_or(|p| !mine.contains(&p)));
+			}
+		}
 		// The route's arrival (its bind, its flight path) comes after the step's own travel there: a step
 		// that starts with v1's flight or walk to the place binds once arrived (the Darkshire bind after
 		// the flight to Darkshire).

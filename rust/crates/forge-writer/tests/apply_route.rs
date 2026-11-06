@@ -1772,6 +1772,49 @@ fn flight_path_learnt_by_v1_not_written_again() {
 }
 
 #[test]
+fn a_flight_path_v1_learns_in_the_step_it_arrives_for_stays_where_v1_has_it() {
+	// #727: Sentinel Hill's step learns the flight path after the tower's quests (accept 102); the
+	// route's flight path, written first in the step it arrives for, was kept and v1's line dropped
+	// as its double: the flight path came first, down the tower and back up.
+	for route_travel in [false, true] {
+		let c = Case {
+			files: vec![(
+				"a",
+				vec![
+					"guide t/a",
+					"title A",
+					"levels 1-5",
+					"zone Durotar",
+					"",
+					"step Road",
+					"  accept 1",
+					"",
+					"step Hill",
+					"  accept 2",
+					"  accept 3",
+					"  getfp \"Crossroads\"",
+					"  turnin 1",
+					"  accept 4",
+					"",
+				],
+			)],
+			world: travel_world(),
+			route: json!({ "diff": {}, "order": [
+                { "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+                { "t": "accept", "q": 2, "pt": 3, "from": f("a", 10), "items": [{ "t": "getfp", "node": 1 }] },
+                { "t": "accept", "q": 3, "pt": 3, "from": f("a", 11) },
+                { "t": "turnin", "q": 1, "pt": 3, "from": f("a", 13) },
+                { "t": "accept", "q": 4, "pt": 3, "from": f("a", 14) }
+            ] }),
+			route_travel,
+			..Case::default()
+		};
+		let g = run(&c, None).read("a");
+		assert_eq!(pick(&g, r"^\s+(accept|turnin|getfp)"), vec!["  accept 1", "  accept 2", "  accept 3", "  getfp \"Crossroads\"", "  turnin 1", "  accept 4"], "route_travel {route_travel}: {g:#?}");
+	}
+}
+
+#[test]
 fn reminder_of_an_objective_stays_in_its_step_before_the_turn_in() {
 	// The Raptor Horns among the Dry Hills lions (#274): the route works the horns later, but the
 	// Dry Hills step, visited before the turn-in, keeps v1's reminder, beside Vrang's hides.

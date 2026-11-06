@@ -767,7 +767,9 @@ portals and hearths. A lift counts as part of the walk.
 - A `getfp` is written at each flight master the route reaches, in an
   `Inn and flight master` step when it arrives there. v1's `getfp` for other
   races alone (the Skyborne's Rut'theran Village) is not the route's: its own
-  is still written.
+  is still written. In the step it arrives for, v1's own `getfp` for everyone
+  is the route's: written where v1 has it, not first in the step (Sentinel
+  Hill's after the tower's quests, #727).
 - v1's step that only learns a flight path, over the sea from where the route
   is, gets no crossing (v1's Ratchet stop between Theramore and Booty Bay, which
   the route reaches by air): the route learns that flight path where its own way
@@ -832,7 +834,10 @@ they matter to the player. They are not the judge's honest rules.
   step goes on after it (a hand-in already `optional` there never holds the
   step and stays). A hand-in of such a quest at the NPC another goal of the
   step is at (an accept or hand-in there) stays in the step, `optional`: the
-  player stands there anyway. A hearth to an inn bound in an earlier guide gets
+  player stands there anyway. One the guide takes only `optional` stays as
+  written: the addon holds it only for a player who took the quest, and
+  `optional` let one who did walk past its NPC (Harvesting the Harvesters at
+  Ozwin, #298). A hearth to an inn bound in an earlier guide gets
   `when bound "<inn>"`, and a walk there `when !bound "<inn>"` follows as a fallback.
   A way step for everyone into the zone of a `when onquest` step right after
   it (past other way steps) becomes that step's first goal, so only those on

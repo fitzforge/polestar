@@ -512,13 +512,14 @@ fn r3_hand_in_of_a_quest_picked_up_optionally_is_when_onquest_split_from_other_w
 	let after = run(&[("a", g)], "Orc", "Horde", &Opts { when: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
 	assert_eq!(a[idx(a, "step Back") + 1], "  when onquest 788", "{}", a.join("\n"));
-	// (Beside other work at the same NPC, Gornek's follow-up, the hand-in stays in its step, optional:
-	// the player stands there anyway, RevOrcTroll3 T7.)
+	// (Beside other work at the same NPC, Gornek's follow-up, the hand-in stays in its step, RevOrcTroll3
+	// T7, and as written: the addon holds the hand-in of a quest taken with an `optional` accept only for
+	// a player who took it, and one who did is not let past its NPC, #298.)
 	let den = idx(a, "step Den");
-	assert_eq!(a[den..den + 5], ["step Den", "  tip The trainer stands in the den.", "  train class", "  turnin 788 optional", "  accept 789"], "{}", a.join("\n"));
+	assert_eq!(a[den..den + 5], ["step Den", "  tip The trainer stands in the den.", "  train class", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
 	assert!(!a[idx(a, "step Boars")..].iter().take(2).any(|l| l.contains("when")), "the work is not a hand-in: {}", a.join("\n"));
 	let again = idx(a, "step Gornek again");
-	assert_eq!(a[again..again + 4], ["step Gornek again", "  tip He stands in the den.", "  turnin 788 optional", "  accept 789"], "{}", a.join("\n"));
+	assert_eq!(a[again..again + 4], ["step Gornek again", "  tip He stands in the den.", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
 }
 
 /// Gornek's den as a cellar: an indoor floor under open ground near his spawn, the open ground elsewhere.
