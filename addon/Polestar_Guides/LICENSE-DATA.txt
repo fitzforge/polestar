@@ -25,6 +25,13 @@ Revision: 22b51464f1625f6ef6275771de1f5466c6f5d19e
 License: GPL-3.0; quest objective counts only, used as facts: an objective whose count QuestieDB and pfQuest lack takes the matching quest_template count
 CMaNGOS (https://github.com/cmangos/classic-db)
 
+Forever TrinityCore world database (sniffed spawns, quest objectives, timers, loot, class and profession trainers)
+------------------------------------------------------------------------------------------------------------------
+URL: https://github.com/advocaite/TrinityCore/tree/forever
+Revision: forever-tdb-2026-10-14 + 367ac384fa20
+License: GPL-2.0; used as facts: objective counts, quest time limits and next quests, sniffed spawn positions (gathering nodes too), sniffed drop rates, class trainer lists and costs, profession trainers' learn ranks and costs
+TrinityCore (https://www.trinitycore.org) and the advocaite/TrinityCore `forever` branch
+
 pfQuest
 -------
 URL: https://github.com/shagu/pfQuest
@@ -77,8 +84,8 @@ Revision: wow_classic_era 1.15.9.70576
 License: Blizzard Entertainment game client data; factual map geometry, names and faction hierarchy only
 World of Warcraft (c) Blizzard Entertainment, Inc.
 
-World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName) read from the client (a saved copy of build 1.60.1.70532)
----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+World of Warcraft: Forever client tables (UiMap, UiMapAssignment, AreaTable, ChrRaces, ChrClasses, CharBaseInfo, Faction, Map, ItemSparse, SpellName, SpellEffect) read from the installed client
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 Revision: wow_classic_beta 1.60.1.70532
 License: Blizzard Entertainment game client data; factual map geometry, names, item durations and race/class combinations only
 World of Warcraft (c) Blizzard Entertainment, Inc.
