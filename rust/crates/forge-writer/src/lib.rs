@@ -11,6 +11,7 @@ pub mod guide;
 pub mod hub;
 pub mod input;
 pub mod jsre;
+pub mod level_fit;
 #[cfg(feature = "native")]
 pub mod native;
 pub mod objectives;
