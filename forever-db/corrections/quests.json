@@ -1599,6 +1599,28 @@
 		},
 		"note": "The Hunter's Path: starts with Sian'dur (npc 3407); as its giver the merged data also listed Lanka Farshot (npc 3061)."
 	},
+	"6121": {
+		"set": {
+			"start": {
+				"npc": [
+					4217
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables: Mathrengyl Bearwalker (4217) only; Alfina Nightgaze (270459) starts only Child of Nature (94912)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Alfina Nightgaze's window for level 14 Alliance Skyborne Druids listed Child of Nature or nothing, never Lessons Anew (7 windows, before and after Child of Nature was done)"
+			}
+		],
+		"note": "Lessons Anew (Druid Cure Poison, Alliance) starts with Mathrengyl Bearwalker (npc 4217) in Darnassus only; the merged data also listed Alfina Nightgaze (npc 270459), the Skyborne druid trainer by the Skyborne Portal west of Dalaran, so the Cure Poison guide sent level 14 Alliance Skyborne Druids through Alterac to a giver who does not offer it (#978)."
+	},
 	"6123": {
 		"set": {
 			"races": 4294967304

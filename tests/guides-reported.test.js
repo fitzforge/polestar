@@ -690,6 +690,24 @@ test(`#873: the druid Cure Poison guide's Curing the Sick goal reads the salve u
 	}
 });
 
+// #978: Alfina Nightgaze (270459), beside the Skyborne Portal west of Dalaran, does not give Lessons
+// Anew (6121): players' recordings show her window at level 14 listing Child of Nature and never
+// Lessons Anew for Alliance Skyborne Druids, and the game's quest starter data lists only Mathrengyl
+// Bearwalker (4217) in Darnassus. The guide sent Alliance Skyborne at 14 through level 30-40 country
+// to her.
+test(`#978: the druid Cure Poison guide sends Alliance Skyborne to Mathrengyl Bearwalker in Darnassus for Lessons Anew, not Alfina Nightgaze in Alterac`, { skip }, () => {
+	const fix = loadCorrections().quests['6121'];
+	assert.deepEqual(fix && fix.set.start && fix.set.start.npc, [4217], 'the correction leaves Mathrengyl Bearwalker as the only giver');
+	const fits = (o, race) => !o || ((!o.races || o.races.includes(race)) && (!o.factions || o.factions.includes('Alliance')));
+	for (const race of ['NightElf', 'Skyborne']) {
+		const list = goals('forever/class/druid/cure-poison.guide').filter(({ step, goal }) => fits(step.only, race) && fits(goal.only, race));
+		const accepts = list.filter(({ goal }) => is('accept', 6121)(goal));
+		assert.equal(accepts.length, 1, `${race}: one Lessons Anew accept`);
+		assert.equal(accepts[0].goal.npc, 4217, `${race}: from Mathrengyl Bearwalker`);
+		assert.equal(accepts[0].goal.map, 1457, `${race}: in Darnassus`);
+	}
+});
+
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram`, { skip }, () => {
 	const list = goals(DUN_MOROGH);
 	const accept = at(list, 'accept 291 (The Reports)', is('accept', 291));
