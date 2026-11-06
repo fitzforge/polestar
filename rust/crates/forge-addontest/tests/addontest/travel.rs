@@ -132,32 +132,70 @@ fn crosses_continents_by_boat() {
 	assert_eq!(out["boatSecs"], 90, "wait + ride");
 }
 
+// The Hearthstone's hour-long cooldown is spent only on a long haul (Fitz, 0.3.3: "a 2-minute walk is fine"):
+// a route hearths only when the way without it takes at least 8 minutes (Nav.HEARTH_MIN_TRIP) and hearthing
+// saves at least 5 (Nav.HEARTH_MARGIN), after its cast and loading screen. The boat waits `wait` seconds.
 #[test]
-fn hearths_only_when_the_stone_is_ready_and_it_is_actually_faster() {
+fn hearths_only_when_the_stone_is_ready_and_it_saves_a_long_haul() {
 	let out = run(r#"
 		local r = {}
+		local function trip(noHearth)
+			local m, x, y = nav.mapPoint(-520, -690)
+			return math.floor(N.EstimateTravel(nil, { map = m, x = x, y = y }, nil, noHearth) + 0.5)
+		end
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)              -- a 12-minute trip without the Hearthstone
 		nav.place(0, 0, 1)
 		target(-520, -690, "Innkeeper quest")
-		r.ready = route()
+		r.long = route()
+		r.longTrip = trip(true)
 		stub.advance(10)                          -- the client clock never reads 0
 		nav.hearthCooldown = { GetTime(), 3600 }
 		target(-520, -690, "Innkeeper quest")
 		r.cooldown = route()
 		nav.hearthCooldown = nil
-		nav.place(-300, -700, 0)                  -- 200 yd from the target: walking is faster
+		nav.useTravelWorld()                      -- the boat waits 30 s: about a 5-minute trip
+		target(-520, -690, "Innkeeper quest")
+		r.short = route()
+		r.shortTrip = trip(true)
+		nav.place(150, -690, 0)                   -- 670 yd from the target, the inn next to it: a 2-minute walk
 		target(-520, -690, "Innkeeper quest")
 		r.near = route()
 		nav.items[6948] = nil
+		nav.useTravelWorld(nil, 400)
 		nav.place(0, 0, 1)
 		target(-520, -690, "Innkeeper quest")
 		r.noStone = route()[2]
 		emit(r)"#);
-	assert_eq!(out["ready"], json!(["hearth|Hearth to Testshire Inn", "walk|Innkeeper quest"]));
+	assert!(out["longTrip"].as_i64().unwrap() >= 600, "the long trip takes {} s", out["longTrip"]);
+	assert_eq!(out["long"], json!(["hearth|Hearth to Testshire Inn: saves 10 min", "walk|Innkeeper quest"]));
 	assert_eq!(out["cooldown"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]));
+	let short = out["shortTrip"].as_i64().unwrap();
+	assert!(short < 480 && short > 240, "the short trip takes {short} s");
+	assert_eq!(out["short"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]), "a 5-minute trip keeps the Hearthstone");
 	assert_eq!(out["near"], json!(["walk|Innkeeper quest"]));
 	assert_eq!(out["noStone"], "boat|Take the boat to Testshire Docks");
+}
+
+// A long trip (8 minutes or more) where the Hearthstone lands far from the target saves under 5 minutes: no hearth.
+#[test]
+fn a_long_trip_the_hearthstone_shortens_by_under_five_minutes_keeps_it() {
+	let out = run(r#"
+		local function trip(noHearth)
+			local m, x, y = nav.mapPoint(-880, 300)
+			return math.floor(N.EstimateTravel(nil, { map = m, x = x, y = y }, nil, noHearth) + 0.5)
+		end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 300)
+		nav.place(0, 0, 1)
+		target(-880, 300, "By the docks")         -- 300 yd from the docks, 1070 yd from the inn
+		emit({ route = route(), without = trip(true), with = trip(false) })"#);
+	let without = out["without"].as_i64().unwrap();
+	assert!(without >= 480, "the trip takes {without} s");
+	assert_eq!(out["route"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|By the docks"]));
+	assert_eq!(out["with"], out["without"], "the estimate weighs the Hearthstone the same way");
 }
 
 #[test]
@@ -165,6 +203,7 @@ fn the_cooldown_running_out_triggers_a_new_plan_with_the_hearth() {
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)              -- a long haul: the Hearthstone pays
 		stub.advance(10)
 		nav.hearthCooldown = { GetTime(), 5 }
 		nav.place(0, 0, 1)
@@ -173,7 +212,7 @@ fn the_cooldown_running_out_triggers_a_new_plan_with_the_hearth() {
 		stub.advance(6.5)
 		emit({ before = before, after = route()[1] })"#);
 	assert_eq!(out["before"], "walk|Walk to the boat");
-	assert_eq!(out["after"], "hearth|Hearth to Testshire Inn");
+	assert_eq!(out["after"], "hearth|Hearth to Testshire Inn: saves 10 min");
 }
 
 // A hearth leg has no direction: the arrow's dial shows the Hearthstone glyph instead of an empty space above
@@ -183,11 +222,12 @@ fn a_hearth_instruction_shows_the_hearthstone_glyph_on_the_arrow_dial() {
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
 		nav.place(0, 0, 1)
 		target(-520, -690, "Innkeeper quest")
 		stub.advance(0.2)
 		emit({ A.GetMode(), A.distText:GetText(), A.dial:IsShown(), A.legIcon:IsShown(), (A.legIcon:GetTexture() or ""):match("[^\\]+$") })"#);
-	assert_eq!(out, json!(["instruction", "Hearth to Testshire Inn", true, true, "icon-hearth"]));
+	assert_eq!(out, json!(["instruction", "Hearth to Testshire Inn: saves 10 min", true, true, "icon-hearth"]));
 }
 
 #[test]
@@ -266,6 +306,7 @@ fn binding_at_an_innkeeper_teaches_nav_what_the_bind_location_means() {
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Lion's Den Tavern"              -- a name the data does not list
+		nav.useTravelWorld(nil, 400)
 		nav.place(0, 0, 1)
 		target(-520, -690, "Q")
 		local before = route()[1]
@@ -275,7 +316,7 @@ fn binding_at_an_innkeeper_teaches_nav_what_the_bind_location_means() {
 		target(-520, -690, "Q")
 		emit({ before = before, after = route()[1], learned = Polestar.CharState().flags.inn })"#);
 	assert_eq!(out["before"], "walk|Walk to the boat");
-	assert_eq!(out["after"], "hearth|Hearth to Lion's Den Tavern");
+	assert_eq!(out["after"], "hearth|Hearth to Lion's Den Tavern: saves 10 min");
 	assert_eq!(out["learned"], json!({ "lion's den tavern": 900 }));
 }
 
@@ -407,6 +448,7 @@ fn the_hearthstone_coming_off_cooldown_mid_ride_does_not_re_plan_from_the_boat()
 		nav.bind = "Testshire Inn"
 		stub.advance(10)
 		nav.hearthCooldown = { GetTime(), 30 }
+		nav.useTravelWorld(nil, 400)                     -- a long wait: the stone would pay
 		nav.place(395, 0, 1)                             -- at Farland Pier
 		target(-520, -690, "Q")
 		stub.advance(0.2)

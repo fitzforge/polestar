@@ -71,9 +71,14 @@ local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
+-- The Hearthstone's hour-long cooldown makes it worth spending only on a long
+-- haul (Fitz, 0.3.3: "a 2-minute walk is fine"): a route hearths only when
+-- the way without it takes at least HEARTH_MIN_TRIP and hearthing saves at
+-- least HEARTH_MARGIN after its cast and loading screen (HEARTH_SECONDS).
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
-local HEARTH_MARGIN = 120    -- an hour's cooldown is spent only to save at least this much
-Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN = HEARTH_SECONDS, HEARTH_MARGIN -- the Engine's hearth goal weighs it the same way
+local HEARTH_MARGIN = 300    -- seconds it must save: 5 minutes
+local HEARTH_MIN_TRIP = 480  -- seconds the way without it must take: 8 minutes
+Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -1637,7 +1642,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local inn, bindName
 	if from == nil and not ghost and not noHearth and hearthReady() then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
-		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from.map,
+		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
 		faction = playerFaction,
 		known = knownNodes(),
@@ -1819,8 +1824,27 @@ local function chainLifts(route)
 	return route
 end
 
+-- The search weighs the Hearthstone by HEARTH_MARGIN; a route it chose is
+-- held against the way without it, in seconds: kept only while that takes at
+-- least HEARTH_MIN_TRIP and the hearth saves at least HEARTH_MARGIN, its
+-- label then saying how much ("Hearth to Sentinel Hill: saves 6 min").
 function Nav.PlanRoute(p)
-	return chainLifts(planRoute(p))
+	local legs = planRoute(p)
+	local first = legs and legs[1]
+	if first and first.kind == "hearth" then
+		local q = {}
+		for k, v in pairs(p) do q[k] = v end
+		q.noHearth = true
+		local other = planRoute(q)
+		local trip = other and (other[1] and other[1].seconds + other[1].rest or 0)
+		local saved = trip and trip - (first.seconds + first.rest)
+		if trip and (trip < HEARTH_MIN_TRIP or saved < HEARTH_MARGIN) then
+			legs = other
+		elseif saved then
+			first.label = format(L["%s: saves %d min"], first.label, floor(saved / 60))
+		end
+	end
+	return chainLifts(legs)
 end
 
 local CHOKE_TO = {

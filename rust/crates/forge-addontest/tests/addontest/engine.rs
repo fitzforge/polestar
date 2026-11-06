@@ -686,7 +686,7 @@ fn check_offs_are_stored_per_guide_survive_recomputes_and_a_reload_and_toggle_of
 		Polestar.RegisterGuide({ id = "test/manual", pack = "test", title = "Manual", minLevel = 1, maxLevel = 10, steps = {
 			{ goals = { { t = "talk", npc = 197, npcName = "Marshal McBride" } } },
 			{ goals = { { t = "kill", target = "Young Wolf", count = 5 }, { t = "level", level = 2 } } },
-			{ goals = { { t = "hearth", location = "Goldshire" } } },
+			{ goals = { { t = "talk", npc = 295, npcName = "Innkeeper Farley" } } },
 		} })
 	"#;
 	let first = run1(Run {
@@ -1180,7 +1180,7 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			{ goals = { { t = "vendor", npc = 54, npcName = "Corina Steele" } } },
 			{ goals = { { t = "buy", item = 159, itemName = "Refreshing Spring Water", count = 5 } } },
 			{ goals = { { t = "collect", item = 750, itemName = "Tough Wolf Meat", count = 3 } } },
-			{ goals = { { t = "hearth", location = "Goldshire" } } },
+			{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
 			{ goals = { { t = "level", level = 99 } } },
 		} })
 	"#;
@@ -1429,8 +1429,9 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	let out = run1(Run {
 		guides: r#"
 			Polestar.RegisterGuide({ id = "test/hearth-cd", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
-				{ goals = { { t = "hearth", location = "Goldshire" } } },
-				{ goals = { { t = "hearth", location = "Nowhere Inn" } } },
+				-- A note beside the hearth keeps the step (a hearth-only step is hidden: Own.hearthOnly).
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "hearth", location = "Nowhere Inn" }, { t = "note", text = "Somewhere." } } },
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
@@ -1481,7 +1482,7 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 	let out = run1(Run {
 		guides: r#"
 			Polestar.RegisterGuide({ id = "test/hearth-trip", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
-				{ goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
@@ -1493,7 +1494,7 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 			-- The way to the inn without the Hearthstone, as Nav plans it (seconds); noHearth asked for.
 			local trip, asked = 9 * 60, {}
 			Polestar.Nav = Polestar.Nav or {}
-			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN = 15, 120
+			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN, Polestar.Nav.HEARTH_MIN_TRIP = 15, 300, 480
 			Polestar.Nav.FindInn = function(npc, name)
 				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
 			end
@@ -1512,6 +1513,8 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 			r.sooner = state()
 			hs.remaining = 0; trip = 90; changed()
 			r.close = state()
+			trip = 6 * 60; changed()
+			r.mid = state()
 			trip = 20 * 60; changed()
 			r.far = state()
 			r.asked = asked[1]
@@ -1522,8 +1525,54 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 	assert_eq!(out["longer"], json!({ "line": "Hearthstone ready in 20 min; the trip takes 9 min: set off now", "arrow": "Walk to Goldshire" }));
 	assert_eq!(out["sooner"], json!({ "line": "Hearthstone ready in 20 min, sooner than the 30 min trip: wait for it", "arrow": "Walk to Goldshire" }));
 	assert_eq!(out["close"], json!({ "line": "The inn is only 2 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }));
+	assert_eq!(out["mid"], json!({ "line": "The inn is only 6 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }), "under 8 minutes the cooldown is worth more");
 	assert_eq!(out["far"], json!({ "line": false, "arrow": false }), "a long trip with the Hearthstone ready: hearth");
 	assert_eq!(out["asked"], "noHearth");
+}
+
+// Fitz (0.3.3): hearthing is no step of its own. A step whose only goals are `hearth` is hidden like an along
+// step: no number, not counted, never paged to and never the live step (the arrow's route to the next step
+// hearths when it pays, Nav/Travel.lua). `sethome` stays a step; so does a hearth with another goal.
+#[test]
+fn a_hearth_only_step_is_never_paged_to_counted_or_live() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-hidden", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "talk", npc = 197, npcName = "Marshal McBride" } } },
+				{ title = "Hearth to Goldshire", goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "sethome", location = "Goldshire", npc = 295, npcName = "Innkeeper Farley" } } },
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "fly", location = "Stormwind City" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/hearth-hidden"); flush()
+			local function no(s) local n, hidden = E.StepNumber(s); return { n, hidden } end
+			local r = { numbers = { no(1), no(2), no(3), no(4), no(5) }, total = E.StepTotal() }
+			E.Next(); flush()
+			r.next = E.GetStepIndex()
+			E.Prev(); flush()
+			r.prev = E.GetStepIndex()
+			E.Goto(2); flush()
+			r.goto2 = E.GetStepIndex()
+			w.gossip(197, { options = { { name = "Tell me about Northshire." } } }); flush()
+			C_GossipInfo.SelectOption(1); flush(); w.close()
+			r.live = E.GetLiveStep()
+			local _, total = E.GetProgress()
+			r.progressTotal = total
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["numbers"], json!([[1, false], [2, true], [2, false], [3, false], [4, false]]));
+	assert_eq!(out["total"], 4);
+	assert_eq!(out["next"], 3, "Next from step 1 passes over the hearth");
+	assert_eq!(out["prev"], 1);
+	assert_eq!(out["goto2"], 1, "Goto refuses it");
+	assert_eq!(out["live"], 3, "talking to McBride moves the live step past the hearth to the sethome");
+	assert_eq!(out["progressTotal"], 4);
 }
 
 #[test]
@@ -1891,8 +1940,8 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	let out = run1(Run {
 		guides: r#"
 			Polestar.RegisterGuide({ id = "test/hearth-bound", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
-				{ goals = { { t = "hearth", location = "Goldshire" } } },
-				{ goals = { { t = "hearth", location = "Nowhere Inn" } } },
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "hearth", location = "Nowhere Inn" }, { t = "note", text = "Somewhere." } } },
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,

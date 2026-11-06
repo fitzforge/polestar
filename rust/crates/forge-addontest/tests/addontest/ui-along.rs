@@ -217,7 +217,7 @@ for s, step in ipairs(guide.steps) do
 	local mine = not step.along and G.Matches(step.only, me)
 	if mine and #step.goals > 0 then
 		mine = false
-		for _, goal in ipairs(step.goals) do if G.Matches(goal.only, me) then mine = true end end
+		for _, goal in ipairs(step.goals) do if G.Matches(goal.only, me) and goal.t ~= "hearth" then mine = true end end -- a hearth-only step is not hers either
 	end
 	if mine then visible = visible + 1 end
 	if step.along then along[#along + 1] = s end

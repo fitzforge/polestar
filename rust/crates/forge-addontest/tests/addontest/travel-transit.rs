@@ -128,6 +128,7 @@ fn t_11_skipping_a_hearth_leg_plans_this_target_without_the_hearthstone_another_
 		local r = {}
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)              -- a long haul: the Hearthstone pays
 		nav.place(0, 0, 1)
 		target(-520, -690, "Innkeeper quest")
 		r.before = route()
@@ -137,11 +138,11 @@ fn t_11_skipping_a_hearth_leg_plans_this_target_without_the_hearthstone_another_
 		target(-520, -680, "Other quest")
 		r.other = route()[1]
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["hearth|Hearth to Testshire Inn", "walk|Innkeeper quest"]));
+	assert_eq!(out["before"], json!(["hearth|Hearth to Testshire Inn: saves 10 min", "walk|Innkeeper quest"]));
 	assert_eq!(out["item"], 6948);
 	assert_eq!(out["skipped"], true);
 	assert_eq!(out["after"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]));
-	assert_eq!(out["other"], "hearth|Hearth to Testshire Inn");
+	assert_eq!(out["other"], "hearth|Hearth to Testshire Inn: saves 10 min");
 }
 
 #[test]
@@ -165,9 +166,10 @@ fn t_11_after_skipping_the_hearthstone_a_class_teleport_is_still_planned() {
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
 		Polestar.Transit = {
 			Now = function() return 0 end,
-			Teleports = function() return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 200,
+			Teleports = function() return { { spell = 3561, name = "Teleport: Testshire", cast = 10, ready = 500,
 				to = { name = "Testshire", c = 0, wx = -480, wy = -690, map = 9000, x = 84.5, y = 74 } } } end,
 		}
 		nav.place(0, 0, 1)
@@ -175,7 +177,7 @@ fn t_11_after_skipping_the_hearthstone_a_class_teleport_is_still_planned() {
 		local before = route()[1]
 		T.SkipLeg()
 		emit({ before, route()[1] })"#);
-	assert_eq!(out, json!(["hearth|Hearth to Testshire Inn", "teleport|Cast Teleport: Testshire"]));
+	assert_eq!(out, json!(["hearth|Hearth to Testshire Inn: saves 8 min", "teleport|Cast Teleport: Testshire"]));
 }
 
 #[test]
@@ -295,6 +297,7 @@ fn review_p2_4_progress_counts_a_ride_flight_or_hearth_down_from_when_it_became_
 	let out = run(r#"
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
+		nav.useTravelWorld(nil, 400)
 		nav.place(0, 0, 1)
 		target(-520, -690, "Innkeeper quest")
 		local T = Polestar.Nav.travel

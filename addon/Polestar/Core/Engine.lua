@@ -2048,7 +2048,9 @@ function Own.goalsDone(s)
 end
 
 local function stepDone(s)
-	if guide.steps[s].along then return true end -- the route passes over it (Own.alongListed)
+	-- The route passes over an along step (Own.alongListed) and a hearth-only
+	-- one (Own.hearthOnly: the arrow's route hearths when it pays).
+	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
 	return Own.goalsDone(s)
 end
@@ -2985,26 +2987,28 @@ function Own.hearthTrip(inn)
 end
 
 -- What a Hearthstone costs and is worth, as the route planner prices it
--- (Nav/Travel.lua): its cast and loading screen, and the time it must save
--- before its hour's cooldown is spent on a trip.
+-- (Nav/Travel.lua): its cast and loading screen, the time it must save, and
+-- how long the way without it must take before its hour's cooldown is spent
+-- on a trip (only on a long haul).
 function Own.hearthCost()
 	local nav = ns.Nav
-	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 120
+	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 300, (nav and nav.HEARTH_MIN_TRIP) or 480
 end
 
 -- How to make a hearth goal's trip now: wait (Own.hearthWait), the inn
 -- (Own.hearthInn), the trip there without the Hearthstone in seconds
 -- (Own.hearthTrip, only while the inn is known), and `go`: travel there
 -- yourself, as the Hearthstone waits, is missing or is bound at another inn
--- (Own.hearthElsewhere, #667), or, ready, saves less
--- than the planner's margin over the trip (the inn is close or a short
--- flight away). Never holds the step: arriving checks the goal off either way.
+-- (Own.hearthElsewhere, #667), or, ready, saves less than the planner's
+-- margin over the trip or the trip is shorter than its minimum (the inn is
+-- close or a short flight away). Never holds the step: arriving checks the
+-- goal off either way.
 function Own.hearthPlan(goal)
 	local wait = Own.hearthWait(goal)
 	local inn = goal.t == "hearth" and Own.hearthInn(goal) or nil
 	local trip = inn and Own.hearthTrip(inn)
-	local cast, margin = Own.hearthCost()
-	local go = wait ~= nil or Own.hearthElsewhere(goal) ~= nil or (trip ~= nil and trip <= cast + margin)
+	local cast, margin, minTrip = Own.hearthCost()
+	local go = wait ~= nil or Own.hearthElsewhere(goal) ~= nil or (trip ~= nil and (trip <= cast + margin or trip < minTrip))
 	return wait, inn, trip, go
 end
 
@@ -5397,18 +5401,35 @@ function Engine.GetStepIndex() return current end
 
 function Engine.GetStepCount() return guide and #guide.steps or 0 end
 
+-- A step whose only goals for this character are `hearth` (0.3.3, Fitz):
+-- hearthing is no step of its own. The arrow's route to the next step's work
+-- takes the Hearthstone when it clearly pays (Nav/Travel.lua, HEARTH_MARGIN
+-- and HEARTH_MIN_TRIP), wherever it is bound. `sethome` stays a step.
+function Own.hearthOnly(step)
+	local any = false
+	for _, goal in ipairs(step.goals) do
+		if Guides.Matches(goal.only, player) then
+			if goal.t ~= "hearth" then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- A step that is not a step of its own for this character (#942, Fitz): an
 -- along step, whose goals read under "Along the way" of the steps the player
 -- travels to (Engine.GetAlong); one whose `only` leaves out their class,
 -- race or faction, or every goal's `only` does (a Druid's Dendrite
--- Starblaze for a Mage). Paging never lands on it, it has no number and no
--- progress share, the arrow never leads to it, and nothing explains it. A
--- step that depends on what the player does (`when`) can apply later: it
--- keeps its number and says why it does not apply now (Own.stepWhy).
+-- Starblaze for a Mage); a hearth-only step (Own.hearthOnly). Paging never
+-- lands on it, it has no number and no progress share, the arrow never
+-- leads to it, and nothing explains it. A step that depends on what the
+-- player does (`when`) can apply later: it keeps its number and says why it
+-- does not apply now (Own.stepWhy).
 function Own.hiddenStep(step)
 	if step.along or not Guides.Matches(step.only, player) then return true end
 	local goals = step.goals
 	if #goals == 0 then return false end
+	if Own.hearthOnly(step) then return true end
 	for _, goal in ipairs(goals) do
 		if Guides.Matches(goal.only, player) then return false end
 	end

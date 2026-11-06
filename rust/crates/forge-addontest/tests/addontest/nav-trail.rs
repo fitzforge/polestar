@@ -279,7 +279,8 @@ fn no_dots_across_a_continent_change_or_along_a_hearthstone_jump() {
 		emit(r)
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
-		nav.place(800, 800, 0)
+		nav.useTravelWorld(nil, 400)                      -- a long boat wait: the Hearthstone pays
+		nav.place(0, 0, 1)
 		target(-200, -400, "Inn quest")
 		nav.showWorldMap(9000)
 		emit({ route = route(), runs = runsOf(), world = worldDots(9000) })"#);

@@ -290,6 +290,7 @@ L["Walk to the flight master"] = "Идти к распорядителю пол�
 L["Fly to %s"] = "Лететь в %s"
 L["Cast %s"] = "Применить %s"
 L["Hearth to %s"] = "Вернуться камнем в %s"
+L["%s: saves %d min"] = "%s: экономит %d мин"
 L["Through the gate into %s"] = "Через ворота в %s"
 L["Cross the bridge to %s"] = "По мосту в %s"
 L["Through the tunnel to %s"] = "Через туннель в %s"
