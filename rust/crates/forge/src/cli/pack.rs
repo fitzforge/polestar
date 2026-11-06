@@ -9,7 +9,7 @@ use forge_guide::data::Data;
 use forge_guide::diag::{Diag, Diagnostics};
 use forge_guide::js::V;
 use forge_guide::project::{build_pack, find_guide_files, find_pack_dir, load_project_data, no_reference_data, read_sources, same_path, BuildOpts, Context, FileContent};
-use forge_release::addons::{codex_refusal, guide_notice_refusal, notice_refusal, release_addons, retired_addons, toc_version, CODEX, RECORDER};
+use forge_release::addons::{codex_data_warning, codex_refusal, guide_notice_refusal, notice_refusal, release_addons, retired_addons, toc_version, CODEX, RECORDER};
 use forge_release::pack::{archive_entries, pack_entries, readme, sha256_hex};
 use forge_release::zip::{write_zip, Entry};
 use forge_release::{plural, shown};
@@ -135,6 +135,9 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 	// The Codex is part of Polestar (Lookup, Dungeons, Rares): built from release-safe inputs, or no release.
 	if let Some(why) = codex_refusal(&addons.join(CODEX)) {
 		return Err(format!("{CODEX} {why}").into());
+	}
+	if let Some(why) = codex_data_warning(&addons.join(CODEX), data_dir) {
+		eprintln!("warning: {why}");
 	}
 	if let Some(why) = notice_refusal(&addons, &product.names) {
 		return Err(why.into());

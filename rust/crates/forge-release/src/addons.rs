@@ -111,6 +111,25 @@ pub fn codex_refusal(dir: &Path) -> Option<String> {
 	named.map(|n| format!("its sources include a local-only input ({n}); rebuild it with {REBUILD}"))
 }
 
+/// The warning when the built Codex folder `dir` was built from another reference data build than
+/// `data_dir` (the Codex's Meta.lua `builtAt` is the builtAt of the data/forever it read), or None.
+/// Lookup's quest chains (the pick-up guides), NPC roles and the Dungeons journal read the Codex, so
+/// a data fix made since reaches players only with a Codex rebuilt from that data (#999). A warning,
+/// not a refusal: a release may ship an older Codex on purpose.
+pub fn codex_data_warning(dir: &Path, data_dir: &Path) -> Option<String> {
+	static BUILT: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r#"\bbuiltAt = "([^"]*)""#).unwrap());
+	let meta = std::fs::read_to_string(dir.join("Meta.lua")).ok()?;
+	let codex = BUILT.captures(&meta)?[1].to_string();
+	let data: serde_json::Value = serde_json::from_str(&std::fs::read_to_string(data_dir.join("meta.json")).ok()?).ok()?;
+	let data = data.get("builtAt")?.as_str()?;
+	(codex != data).then(|| {
+		format!(
+			"{CODEX} was built from the reference data of {codex}, {} is from {data}: quest chain (pick-up guides), NPC role and journal fixes made since reach players only once `forge data codex` rebuilds it",
+			data_dir.join("meta.json").display()
+		)
+	})
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -205,5 +224,24 @@ mod tests {
 		assert_eq!(guide_notice_refusal(&root, &names).unwrap(), "Polestar_Guides_Horde has no LICENSE-DATA.txt (rebuild it with `forge guide compile`)");
 		std::fs::write(root.join("Polestar_Guides_Horde").join("LICENSE-DATA.txt"), "notices\n").unwrap();
 		assert_eq!(guide_notice_refusal(&root, &names), None);
+	}
+
+	#[test]
+	fn the_pack_warns_when_the_codex_was_built_from_other_data() {
+		let root = tmp("codex-data");
+		let (dir, data) = (root.join(CODEX), root.join("forever"));
+		std::fs::create_dir_all(&dir).unwrap();
+		std::fs::create_dir_all(&data).unwrap();
+		std::fs::write(data.join("meta.json"), "{\"builtAt\": \"2026-11-05T23:10:00.000Z\"}").unwrap();
+		// #999: 0.3.3 shipped a Codex from the 2026-11-02 data; the Rath'mael prerequisite came later.
+		std::fs::write(dir.join("Meta.lua"), "C.Register(\"meta\", {\n\tbuiltAt = \"2026-11-02T16:05:25.128Z\",\n})\n").unwrap();
+		let w = codex_data_warning(&dir, &data).unwrap();
+		assert!(w.starts_with("Polestar_Codex was built from the reference data of 2026-11-02T16:05:25.128Z,"), "{w}");
+		assert!(w.contains("is from 2026-11-05T23:10:00.000Z") && w.contains("`forge data codex`"), "{w}");
+		std::fs::write(dir.join("Meta.lua"), "C.Register(\"meta\", {\n\tbuiltAt = \"2026-11-05T23:10:00.000Z\",\n})\n").unwrap();
+		assert_eq!(codex_data_warning(&dir, &data), None);
+		// No data build to compare with: nothing to say.
+		std::fs::remove_file(data.join("meta.json")).unwrap();
+		assert_eq!(codex_data_warning(&dir, &data), None);
 	}
 }
