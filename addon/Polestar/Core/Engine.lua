@@ -5851,6 +5851,16 @@ function Engine.Prev()
 	end
 end
 
+-- Goal g of step s is done (by live state, arrival or check-off).
+function Engine.GoalDone(stepIndex, goalIndex)
+	if not guide then return false end
+	local step = guide.steps[stepIndex]
+	local goal = step and step.goals[goalIndex]
+	if not goal then return false end
+	if not player then refreshPlayer() end
+	return goalDone(stepIndex, goalIndex, goal) == true
+end
+
 -- Tick a goal done, or clear its check-off: any goal but a note, quest goals
 -- included (the player's word over the quest log). Saved as "tick" in
 -- CharState().manual. False when there is nothing to change (no such goal, a
