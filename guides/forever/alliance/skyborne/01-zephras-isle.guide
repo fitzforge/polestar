@@ -364,7 +364,7 @@ step Valanaar, the turncoat
   accept 94897
 
 step Valanaar turn-ins
-  turnin 92850                                -- Dondallion Whisperwind
+  turnin 92850                                -- Fillion Flamebreeze
   accept 99260                                -- Fillion Flamebreeze
   turnin 99260                                -- Elaadrin Evengale
   accept 92840
