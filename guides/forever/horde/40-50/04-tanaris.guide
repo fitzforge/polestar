@@ -26,7 +26,7 @@ step Tanaris
 
 step Sandsorrow Watch
   tip West of Gadgetzan, use the Untapped Dowsing Widget beside the water hole in the troll camp.
-  use 8584 @39.0,29.2 map 1446
+  use 8584 quest 992.1 @39.0,29.2 map 1446
   collect 8585 quest 992.1 @39.0,29.2
 
 step Gadgetzan

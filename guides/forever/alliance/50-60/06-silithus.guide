@@ -117,13 +117,13 @@ step Un'Goro Crater
 step The Slithering Scar
   zone Un'Goro Crater
   tip Take the road west down into the crater and ride to the Slithering Scar, the silithid cave in the south. The Gorishi Hive Queen waits in its deepest chamber.
-  use 11833 @43.5,81.0 map 1449
+  use 11833 quest 4507.1 @43.5,81.0 map 1449
   collect 11835 quest 4507.1          -- Gorishi Hive Queen
 
 step Fire Plume Ridge
   tip Climb Fire Plume Ridge in the middle of the crater and use the Skeleton Key Mold by the lava lake at the top, with two Thorium Bars in your bags. Fill Laris's Empty Pure Sample Jars on the Primal Oozes in the pools around the ridge.
   collect 11954 quest 4513.1          -- Use the jars on slain oozes
-  use 14644 @48.9,47.0 map 1449
+  use 14644 quest 5801.1 @48.9,47.0 map 1449
   collect 14645 quest 5801.1 @48.9,47.0 -- Unfinished Skeleton Key
 
 step Marshal's Refuge

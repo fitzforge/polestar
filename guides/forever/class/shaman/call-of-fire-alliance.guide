@@ -68,7 +68,7 @@ step Lost the Fire Sapta?
 
 step The Shrine of Eternal Flame
   tip Climb on past Braldir to the peak. Drink the Fire Sapta beside the rock statue there to see the Minor Manifestation of Fire (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with Rockbiter Weapon and Earth Shock. Its Glowing Ember drops every time.
-  use 6636 @31.9,64.5                         -- Fire Sapta, beside the statue
+  use 6636 quest 94467.1 @31.9,64.5           -- Fire Sapta, beside the statue
   collect 6655 quest 94467.1                  -- Glowing Ember: Minor Manifestation of Fire
 
 step The Brazier of the Dormant Flame

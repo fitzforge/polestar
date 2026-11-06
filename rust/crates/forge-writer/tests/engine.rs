@@ -426,8 +426,27 @@ fn r2_use_at_the_place_nearest_the_routes_work() {
 	let g = guide("a", "Orc", "Horde", "Felwood", None, &["step Greta", "  accept 5157", "", "step Jaedenar", "  collect 12907 quest 5157 @35.2,59.8", "", "step Greta again", "  turnin 5157"]);
 	let after = run(&[("a", g)], "Orc", "Horde", &Opts { use_items: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
-	// (The fill itself gives no credit: not bound to the objective, PR542.)
-	assert!(a.iter().any(|l| l == "  use 12922 @35.2,59.8 map 1448"), "{}", a.join("\n"));
+	// (The fill gives no credit itself, PR542, but the collect it goes before is the objective's: bound
+	// to it, #875.)
+	assert!(a.iter().any(|l| l == "  use 12922 quest 5157.1 @35.2,59.8 map 1448"), "{}", a.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever and data/local/mechanics (or POLESTAR_V1)"]
+fn r2_use_that_makes_the_quests_collect_is_bound_to_it() {
+	// #875 The Balance of Nature's moonwell: the phial filled, collect 5184 done, and a bare
+	// `use 5185` held the step until ticked.
+	let g = guide(
+		"a",
+		"NightElf",
+		"Alliance",
+		"Teldrassil",
+		None,
+		&["step Tenaron", "  accept 921", "", "step Moonwell", "  collect 5184 quest 921.1 @60.0,33.0", "", "step Tenaron again", "  turnin 921"],
+	);
+	let after = run(&[("a", g)], "NightElf", "Alliance", &Opts { use_items: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	assert!(a.iter().any(|l| l == "  use 5185 quest 921.1 @60.0,33.0 map 1438"), "{}", a.join("\n"));
 }
 
 #[test]

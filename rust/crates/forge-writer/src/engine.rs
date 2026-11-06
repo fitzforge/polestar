@@ -1214,10 +1214,13 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 							// At the place, before the stand-in (kill/collect/interact), which stays: its kill or
 							// loot is the objective's credit and the knowledge base's step. A use that gives no
 							// credit itself (the bowl filled at the moonwell, PR542) is not the objective's line:
-							// bound to it, it would hold its step until the objective is done.
+							// bound to it, it would hold its step until the objective is done. Unless the line it
+							// goes before collects what it makes for the quest: that collect is the objective, and a
+							// bare use would hold the step until ticked (the Crystal Phial at the moonwell, #875).
 							let g = &seq[before_at.unwrap_or(work[0])];
 							let credit = p.get("credit") != Some(&Value::Bool(false));
-							let r = if kind == "summon-by-item" || !credit { format!("  use {item}{at}") } else { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) };
+							let makes_for_q = made_at.is_some() && made_at == before_at && g.quest == Some(q);
+							let r = if kind == "summon-by-item" || (!credit && !makes_for_q) { format!("  use {item}{at}") } else { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) };
 							edits[g.gi].before.entry(g.line as usize - 1).or_default().push(r);
 							rep.add("R2 use", 1);
 							written.insert((q, item));

@@ -105,7 +105,7 @@ step Auberdine
   turnin 98025
   turnin 4722                                 -- Gwennyth Bly'Leggonde
   turnin 4723
-  use 14338 @37.8,44.0 map 1439
+  use 14338 quest 4812.1 @37.8,44.0 map 1439
   collect 14339 quest 4812                    -- Fill the tube at the moonwell in the village
   vendor nearest
 

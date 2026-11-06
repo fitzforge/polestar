@@ -384,7 +384,7 @@ step Echeyakee
   zone The Barrens
   tip Echeyakee, a white lion, prowls the plains north of the Razormane camp.
   tip Careful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside Echeyakee, so clear them out before you blow the horn.
-  use 10327 @55.8,17.1 map 1413
+  use 10327 quest 881.1 @55.8,17.1 map 1413
   collect 5100 quest 881.1
 
 step Hearth to Ratchet

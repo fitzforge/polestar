@@ -355,7 +355,7 @@ step The Temple Gardens
   tip Herald Moonstalker and Gracina Spiritmight stand by the Temple of the Moon; fill Eridan's Vial at the moonwell inside.
   accept 1047                         -- Herald Moonstalker
   accept 4493                         -- Gracina Spiritmight: keep it for Gadgetzan
-  use 11682 @39.2,85.6 map 1457
+  use 11682 quest 4441.1 @39.2,85.6 map 1457
   collect 5646 quest 4441.1 @39.2,85.6 map 1457 -- Vial of Blessed Water
 
 # ---------------------------------------------------------------- Darnassus

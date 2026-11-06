@@ -166,7 +166,7 @@ step Western Pylon
   complete 4288
 
 step The Slithering Scar
-  use 11132 @48.7,85.3 map 1449
+  use 11132 quest 3883.1 @48.7,85.3 map 1449
   collect 11131 quest 3883            -- Hive Wall Sample
 
 step Eastern Pylon

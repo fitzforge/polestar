@@ -114,7 +114,7 @@ step Aldrassil
 
 step The moonwell and Iverron
   tip The moonwell sits north of Aldrassil.
-  use 5185 @60.0,33.0 map 1438
+  use 5185 quest 921.1 @60.0,33.0 map 1438
   collect 5184 quest 921.1 @60.0,33.0         -- Use the Crystal Phial at the moonwell
 
 step Tenaron Stormgrip
@@ -184,7 +184,7 @@ step Zenn Foulhoof
   turnin 488                                  -- Zenn Foulhoof
 
 step Starbreeze Village
-  use 5619 @63.4,58.1 map 1438
+  use 5619 quest 929.1 @63.4,58.1 map 1438
   collect 5639 quest 929.1 @63.4,58.1         -- Use the Jade Phial at the moonwell
   tip Gaerolas Talvethren stands in the village, east of the moonwell. Tallonkai's Dresser is in the house on the hill at the east end of the village.
   turnin 475                                  -- Gaerolas Talvethren
@@ -260,7 +260,7 @@ step Escaping Ban'ethil
 
 step The Pools of Arlithrien
   tip South-west of the barrow. The moonwell sits by the pools.
-  use 5621 @42.4,67.1 map 1438
+  use 5621 quest 933.1 @42.4,67.1 map 1438
   collect 5645 quest 933.1 @42.4,67.1         -- Use the Tourmaline Phial at the moonwell
 
 step Gnarlpine Hold
@@ -317,7 +317,7 @@ step The named harpies
 
 step The Oracle Glade
   accept 931                                  -- Strange Fronded Plant
-  use 18152 @38.4,34.1 map 1438
+  use 18152 quest 7383.1 @38.4,34.1 map 1438
   collect 18151 quest 7383.1 @38.4,34.1       -- Use the Amethyst Phial at the moonwell
 
 step Sentinel Arynia again
