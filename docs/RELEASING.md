@@ -49,7 +49,12 @@ and `Polestar_Codex`, nothing from AtlasLoot, RareScanner or DungeonJournal,
 and never the zone crossings pack (`forge release pack` leaves it out). The Codex is part of
 Polestar (Lookup, Dungeons and Rares read it): `forge release pack` stops when
 `Polestar_Codex` is not built, or was built with `--local-extras`, or names
-one of those three among its sources.
+one of those three among its sources. It warns when the Codex was built from
+another data build than `data/forever` (its `Meta.lua` `builtAt` against
+`data/forever/meta.json`'s): the pick-up guides' quest chains, NPC roles and
+the Dungeons journal read the Codex, so data fixes made since reach players
+only once `forge data codex` rebuilds it. Shipping an older Codex on purpose
+is allowed; the warning says what stays behind.
 
 All releases are built from `next`. A patch release (`x.y.Z`) is a smaller,
 sooner release following the same steps with a patch version bump.
