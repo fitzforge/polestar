@@ -1362,6 +1362,22 @@ const SKYBORNE_ALLIANCE = { race: 'Skyborne', raceName: 'Skyborne', faction: 'Al
 // Zephras Isle has no Era frame: points compare in map percent.
 const close = (a, b, pct) => a.map === b.map && Math.hypot(a.x - b.x, a.y - b.y) <= pct;
 
+// Visur's report (#848): Valanaar turn-ins sent the player to Dondallion Whisperwind for The
+// Missing Scholar (92850), but only Fillion Flamebreeze (253285), who stands beside him, takes it.
+// A correction had added Dondallion as a second ender; with the corrections applied, as
+// `data build` does, the hand-in leads to Fillion.
+test(`${ZEPHRAS_ALLIANCE}: Visur's report (#848): The Missing Scholar is handed in to Fillion Flamebreeze, not Dondallion Whisperwind`, { skip }, () => {
+	const corrected = loadData(DATA);
+	const fix = loadCorrections().quests['92850'];
+	if (fix) Object.assign(corrected.quest(92850), fix.set);
+	assert.deepEqual(corrected.quest(92850).end.npc, [253285], 'Fillion Flamebreeze is the only ender');
+	const file = path.join(OFFICIAL_DIR, ZEPHRAS_ALLIANCE);
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], corrected);
+	const turnin = guides[0].steps.flatMap((step) => step.goals).find(is('turnin', 92850));
+	assert.ok(turnin, 'The Missing Scholar is handed in');
+	assert.equal(turnin.npc, 253285, 'handed in to Fillion Flamebreeze');
+});
+
 // The Great Outdoors: /sit by Raan's campfire for Boosted Rest; nothing to click.
 test('Sato\'s report: The Great Outdoors on Zephras Isle is done by sitting at Raan\'s campfire, not by clicking it', { skip }, () => {
 	data = data || loadData(DATA);

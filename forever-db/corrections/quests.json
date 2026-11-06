@@ -2507,22 +2507,6 @@
 		],
 		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
 	},
-	"92850": {
-		"set": {
-			"end": {
-				"npc": [
-					253204,
-					253285
-				],
-				"object": []
-			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: manual,questie"
-		},
-		"note": "The Missing Scholar: ends with Dondallion Whisperwind (npc 253204) and Fillion Flamebreeze (npc 253285); as its ender the merged data lacked Dondallion Whisperwind (npc 253204)."
-	},
 	"93927": {
 		"set": {
 			"objectives": [
