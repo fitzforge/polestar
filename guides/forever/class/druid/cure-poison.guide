@@ -2,7 +2,7 @@ guide forever/class/druid/cure-poison
 title Cure Poison
 category Class
 folder Druid
-keywords Cure Poison, Lessons Anew, The Principal Source, Gathering the Cure, Curing the Sick, Power over Poison, Sickly Deer, Sickly Gazelle, Cliffspring Falls, Dreadmist Peak, Lunar Fungus, Earthroot, Kodo Horn, Alfina Nightgaze, Hana Lighthoof, Skyborne, Moonglade, class quest
+keywords Cure Poison, Lessons Anew, The Principal Source, Gathering the Cure, Curing the Sick, Power over Poison, Sickly Deer, Sickly Gazelle, Cliffspring Falls, Dreadmist Peak, Lunar Fungus, Earthroot, Kodo Horn, Mathrengyl Bearwalker, Hana Lighthoof, Skyborne, Moonglade, class quest
 reward spell 8946 "Cure Poison"
 reward item 15866
 why Cure Poison is no longer trained in Forever: this chain teaches it, with a medicine bag on the way.
@@ -14,8 +14,8 @@ zone Moonglade
 # (6125 Alliance, 6130 Horde) rewards it (Forever's druid class quest list:
 # "Rewards: adds Cure Poison").
 # - Night Elves and Alliance Skyborne: Lessons Anew (6121: Mathrengyl
-#   Bearwalker in Darnassus, or Alfina Nightgaze beside the Skyborne Portal
-#   west of Dalaran) -> Dendrite Starblaze in Moonglade -> The Principal
+#   Bearwalker in Darnassus; Alfina Nightgaze west of Dalaran does not give
+#   it, #978) -> Dendrite Starblaze in Moonglade -> The Principal
 #   Source (6122: fill the sampler at Cliffspring Falls) -> Alanndarian
 #   Nightsong in Auberdine: Gathering the Cure (6123: 5 Earthroot, 12 Lunar
 #   Fungus) and Curing the Sick (6124: ten Sickly Deer) -> Dendrite -> Power
@@ -54,10 +54,10 @@ step Lessons Anew
 
 step Lessons Anew
   only Skyborne,Alliance
-  zone Alterac Mountains
-  tip Alfina Nightgaze, the Skyborne druid trainer, stands beside the Skyborne Portal west of Dalaran (Mathrengyl Bearwalker in Darnassus gives the same quest). No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave; Alfina Nightgaze by the Skyborne Portal does not give this quest. Cast Teleport: Moonglade and take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
   level 14
-  accept 6121 npc 270459                -- Alfina Nightgaze
+  accept 6121 npc 4217                  -- Mathrengyl Bearwalker
 
 step Dendrite Starblaze
   only NightElf,Skyborne,Alliance

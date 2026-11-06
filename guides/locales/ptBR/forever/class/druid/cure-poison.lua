@@ -15,8 +15,8 @@ return {
 	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
 
 	-- Step 2: Lessons Anew
-	-- {npc:270459} Alfina Nightgaze · {area:279} Dalaran · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:270459}, the Skyborne druid trainer, stands beside the Skyborne Portal west of {area:279} ({npc:4217} in {zone:1457} gives the same quest). No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
+	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {npc:270459} Alfina Nightgaze · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {skill:182} Herbalism · {item:2449} Earthroot
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15844} Empty Cliffspring Falls Sampler · {area:442} Auberdine · {zone:1450} Moonglade
