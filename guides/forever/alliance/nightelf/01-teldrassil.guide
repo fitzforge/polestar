@@ -38,12 +38,12 @@ step Back at Aldrassil
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
+  accept 457                                  -- Conservator Ilthalaine
   accept 3116 only Warrior                    -- Conservator Ilthalaine: Simple Sigil
   accept 3117 only Hunter                     -- Conservator Ilthalaine: a sigil for Ayanna Everstride
   accept 3118 only Rogue                      -- Conservator Ilthalaine: Encrypted Sigil
   accept 3119 only Priest                     -- Conservator Ilthalaine: Hallowed Sigil
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
-  accept 457                                  -- Conservator Ilthalaine
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
   accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp; upstairs
   note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
