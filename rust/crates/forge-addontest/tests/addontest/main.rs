@@ -44,6 +44,8 @@ mod dungeons_attune;
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
 mod dungeons_runtime;
+#[path = "dungeons-sides.rs"]
+mod dungeons_sides;
 mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]

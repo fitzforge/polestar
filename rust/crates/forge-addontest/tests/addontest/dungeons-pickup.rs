@@ -189,11 +189,13 @@ struct Opts {
 	log: Vec<i32>,
 	ready: Vec<i32>,
 	saved: Option<String>,
+	/// Load the quest database module (Quests/QuestDB.lua) too; the script adds its records.
+	questdb: bool,
 }
 
 impl Default for Opts {
 	fn default() -> Self {
-		Opts { level: 21, race: "Scourge", faction: "Horde", cls: "WARLOCK", at: Some(UNDERCITY), done: vec![1098], log: vec![1013], ready: vec![], saved: None }
+		Opts { level: 21, race: "Scourge", faction: "Horde", cls: "WARLOCK", at: Some(UNDERCITY), done: vec![1098], log: vec![1013], ready: vec![], saved: None, questdb: false }
 	}
 }
 
@@ -215,7 +217,11 @@ fn run(pack: &CodexPack, script: &str, o: Opts) -> Vec<Value> {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before,
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml"])],
+		addons: vec![if o.questdb {
+			Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Quests/QuestDB.lua", "Dungeons/Dungeons.xml"])
+		} else {
+			Addon::files("Polestar", &["Core/Core.xml", "Lookup/Lookup.xml", "Dungeons/Dungeons.xml"])
+		}],
 		saved: o.saved.map(|s| ("Polestar".to_string(), s)).into_iter().collect(),
 		login: true,
 		script: format!("{DESCRIBE}\nlocal D = Polestar.Dungeons\n{script}"),
@@ -447,6 +453,76 @@ emit({ take = take, closedBy = closedBy })"#);
 	assert_eq!(turned_in["take"], json!([1014]), "Doan's quest turned in: no giver offers its breadcrumbs any more");
 	let carried = run(&own, &script, Opts { log: vec![1013, 1740], ..Default::default() }).remove(0);
 	assert_eq!(carried["take"], json!([1014]), "Doan's quest in the log: neither");
+}
+
+/// A quest of the fixture's page (area 209: Shadowfang Keep) in the Codex shape.
+fn page_quest(id: i32, title: &str, faction: Value, giver: i32, ender: i32) -> Value {
+	json!({
+		"id": id, "title": title, "level": 24, "minLevel": 18, "faction": faction, "races": null, "classes": null,
+		"start": { "npc": [giver], "object": [], "item": [] }, "end": { "npc": [ender], "object": [] },
+		"objectives": [], "pre": [], "zone": 1421, "rewards": [], "choices": [], "preAny": [],
+	})
+}
+
+/// An NPC of no faction (the Argent Dawn's, friendly to both sides) at a point of the fixture's maps.
+fn sideless_npc(id: i32, name: &str, map: i32, x: i32, y: i32) -> Value {
+	json!({ "id": id, "name": name, "level": 30, "levelMax": null, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] })
+}
+
+const TAKE: &str = r#"
+local plan = D.PickupPlan("{KEY}")
+local take = {}
+for i, t in ipairs(plan.take) do take[i] = t.quest.id end
+table.sort(take)
+local accepts = {}
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do if g.t == "accept" then accepts[#accepts + 1] = g.quest end end
+end
+table.sort(accepts)
+emit({ take = take, accepts = accepts })"#;
+
+#[test]
+fn a_quest_the_codex_gives_no_side_whose_follow_up_is_the_alliance_s_is_never_in_a_horde_pick_up_1026_in_search_of_thaelrid() {
+	// The 0.3.2 Codex's Blackfathom Deeps: In Search of Thaelrid has no side and its giver, Dawnwatcher
+	// Shaedlass, is the Argent Dawn's (no faction either); only its follow-up, Blackfathom Villainy, is the
+	// Alliance's, and the Codex does not even list the first as the second's prerequisite (the page does).
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9101"] = sideless_npc(9101, "Dawnwatcher Shaedlass", 1421, 60, 40);
+	c["npcs"]["9102"] = sideless_npc(9102, "Argent Guard Thaelrid", 1421, 44, 68);
+	c["quests"]["90400"] = page_quest(90400, "In Search of Thaelrid", Value::Null, 9101, 9102);
+	c["quests"]["90401"] = page_quest(90401, "Blackfathom Villainy", json!("A"), 9102, 9101);
+	i["forever"]["quests"]["90400"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90401"] = json!({ "area": 209, "pre": [90400] });
+	let own = pack_of(&c, &i);
+	let horde = run(&own, &k(TAKE), Opts::default()).remove(0);
+	assert_eq!(horde, json!({ "take": [1014, 1740], "accepts": [1010, 1011, 1014, 1740] }), "the Horde warlock is never sent to Shaedlass");
+	let human = run(&own, &k(TAKE), Opts { race: "Human", faction: "Alliance", cls: "MAGE", log: vec![], ..Default::default() }).remove(0);
+	assert_eq!(human["take"], json!([90400]), "an Alliance character still takes it (its follow-up after it)");
+}
+
+#[test]
+fn a_quest_the_codex_gives_no_side_takes_the_quest_database_s_the_horde_never_picks_up_an_alliance_quest_from_a_giver_of_no_faction_1026() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9101"] = sideless_npc(9101, "Argent Quartermaster", 1421, 60, 40);
+	c["quests"]["90410"] = page_quest(90410, "Argent Errand", Value::Null, 9101, 9101);
+	c["quests"]["90411"] = page_quest(90411, "Argent Call", Value::Null, 9101, 9101);
+	i["forever"]["quests"]["90410"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90411"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	// Layout: title, level, minLevel, races, classes, faction: 90410 the Alliance's, 90411 both sides'.
+	let script = format!(
+		"{}\nAddRecords(\"quests\", {{ [90410] = {{ \"Argent Errand\", 24, 18, 77, nil, 1 }}, [90411] = {{ \"Argent Call\", 24, 18 }} }})\nPolestar.QuestDB.SetMeta({{}})\n{}",
+		forge_addontest::questdb::ADD_RECORDS_LUA,
+		k(TAKE)
+	);
+	let horde = run(&own, &script, Opts { questdb: true, ..Default::default() }).remove(0);
+	assert_eq!(horde["take"], json!([1014, 1740, 90411]), "the quest database's Alliance quest is not the Horde's; the one of both sides is");
+	let human = run(&own, &script, Opts { race: "Human", faction: "Alliance", cls: "MAGE", log: vec![], questdb: true, ..Default::default() }).remove(0);
+	assert_eq!(human["take"], json!([90410, 90411]));
 }
 
 fn takes(v: &Value, id: i32) -> bool {

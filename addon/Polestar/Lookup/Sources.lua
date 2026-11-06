@@ -279,9 +279,24 @@ local function repGate(r, faction, need)
 	block(r, "reputation", L["Requires"] .. " " .. (ns.StandingName(need) or "") .. " (" .. name .. ")")
 end
 
+-- A quest's side: "A" | "H" | "AH" | nil (either). The Codex's faction,
+-- else the quest database's when it is loaded (its side comes from the
+-- corrected race mask, else the givers): a Codex built before a correction
+-- ships without the side (0.3.2's In Search of Thaelrid, #1026). Race masks
+-- that name both sides' races are left to maskBlocks.
+local QDB_SIDE = { "A", "H" }
+local function questSide(q)
+	if q.faction then return q.faction end
+	local Q = ns.QuestDB
+	local r = Q and q.id and Q.IsLoaded() and Q.QuestRecord(q.id)
+	return r and QDB_SIDE[r[Q.F.FACTION] or 0] or nil
+end
+Lookup.QuestSide = questSide
+
 -- Quest availability for this character: why, text | nil
 local function questBlock(q, p)
-	if q.faction and not sideOK(q.faction, p) then return "faction", sideText(q.faction) end
+	local side = questSide(q)
+	if side and not sideOK(side, p) then return "faction", sideText(side) end
 	if maskBlocks(q.races, RACE_BIT, p.race) then return "race", L["Not for your race"] end
 	if maskBlocks(q.classes, CLASS_BIT, p.class) then return "class", L["Not for your class"] end
 	if q.minLevel and q.minLevel > p.level then return "level", levelText(q.minLevel) end
