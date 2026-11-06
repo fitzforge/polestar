@@ -1,32 +1,46 @@
-//! `gear build` (tools/lib/gear/build.js): the inputs of Polestar's upgrade advice -> the addon's
-//! data, byte for byte as `node tools/polestar.js gear build` writes it:
-//!   addon/Polestar_ItemDB/Forever.lua      ForeverLevelingBiS: Forever item stats over the Era
-//!                                          table, quest reward choices
+//! `forge data gear`: the inputs of Polestar's upgrade advice -> the addon's data:
+//!   addon/Polestar_ItemDB/Forever.lua      Forever's item stats over the Era table (gear/forever.rs,
+//!                                          from the Forever client's tables), and which quests
+//!                                          reward which gear (gear/leveling.rs, from the Codex)
 //!   addon/Polestar_ItemDB/Polestar_ItemDB.toc, LICENSE-DATA.txt
-//!   addon/Polestar/Gear/SpecData.lua       weight bands (Polestar + wowsims), racials
+//!   addon/Polestar/Gear/SpecData.lua       weight bands (Polestar + wowsims), racial traits
+//!                                          (gear/racials.rs, from the Forever client's racial spells)
 //!   addon/Polestar/Gear/LICENSE-DATA.txt
 //!   data/forever/gear/report.json          counts and provenance (`builtAt` from Options)
-//! Reads the installed ForeverLevelingBiS, addon/Polestar_ItemDB/Items.lua (`forge data itemdb`),
-//! addon/Polestar/Gear/Weights.lua and the wowsims cache (data/sources/wowsims). Offline.
+//! Reads the Forever client's tables (cached wago.tools tables, the client's hotfixes over them:
+//! gear/client.rs), addon/Polestar_ItemDB/Items.lua (`forge data itemdb`), the Codex's output
+//! (data/forever/codex, `forge data codex`), addon/Polestar/Gear/Weights.lua and the wowsims cache.
 
 pub mod addonlua;
+pub mod client;
 pub mod flb;
+pub mod forever;
 pub mod leveling;
+pub mod racials;
 pub mod specdata;
 pub mod wowsims;
 
 use std::path::{Path, PathBuf};
 
 use forge_guide::js::{stringify, to_fixed, Arr, Obj, V};
+use rustc_hash::{FxHashMap, FxHashSet};
 
 pub const ITEMDB: &str = "Polestar_ItemDB";
 
 pub struct Options {
-	/// The checkout: addon/, package.json, data/sources/wowsims.
+	/// The checkout: addon/, package.json.
 	pub root: PathBuf,
-	/// The client's Interface/AddOns (None: detected, as tools/lib/addons.js resolveAddonsDir).
-	pub addons: Option<PathBuf>,
-	/// The wowsims cache (None: <root>/data/sources/wowsims).
+	/// The source cache (None: <root>/data/sources): wago.tools tables, hotfixes, wowsims.
+	pub sources: Option<PathBuf>,
+	/// data/forever (None: <root>/data/forever): the Codex under codex/, zones.json, meta.json.
+	pub data: Option<PathBuf>,
+	/// The Forever build (None: the newest cached holding every table; online the newest listed).
+	pub build: Option<String>,
+	/// The hotfix CSVs (None: <sources>/hotfix/<build> when it exists).
+	pub hotfixes: Option<PathBuf>,
+	/// Cached tables only.
+	pub offline: bool,
+	/// The wowsims cache (None: <sources>/wowsims).
 	pub wowsims_cache: Option<PathBuf>,
 	/// report.json builtAt (ISO 8601, as `new Date().toISOString()` prints it).
 	pub built_at: String,
@@ -81,17 +95,28 @@ fn read_text(p: &Path) -> Result<String, String> {
 	std::fs::read(p).map(|b| String::from_utf8_lossy(&b).into_owned()).map_err(|e| format!("{}: {e}", p.display()))
 }
 
-/// The AddOns folder: the given one (if a folder), else the first detected.
-fn resolve_addons_dir(explicit: Option<&Path>) -> Option<PathBuf> {
-	match explicit {
-		Some(p) => p.is_dir().then(|| std::path::absolute(p).unwrap_or_else(|_| p.to_path_buf())),
-		None => crate::questie::search_addons_dirs().into_iter().next(),
-	}
+/// pfQuest's licence notice as data/forever/meta.json records it (the Codex's sources include it).
+fn pfquest_notice(data: &Path) -> Option<String> {
+	let meta: serde_json::Value = serde_json::from_slice(&std::fs::read(data.join("meta.json")).ok()?).ok()?;
+	meta.get("sources")?.as_array()?.iter().find(|s| s.get("name").and_then(|n| n.as_str()) == Some("pfQuest"))?.get("notice")?.as_str().map(str::to_string)
 }
 
-/// buildGear -> the files and the report.
+const ITEMDB_NOTICE: &str = "Polestar_ItemDB: Items.lua and Forever.lua hold game data (c) Blizzard Entertainment, read from
+the Classic Era and Forever client tables and used as facts for interoperability. Forever.lua's
+quest rewards and item sources come from Polestar's Codex (`forge data codex`), built from
+release-safe sources only: the client tables, QuestieDB facts (credited, used with the Questie
+maintainers' agreement), pfQuest (MIT), the web quest database's per-entity Forever facts, and
+Polestar's own recordings and guides. See THIRD_PARTY.md.";
+
+/// The gear build -> the files and the report.
 pub fn build(opts: &Options) -> Result<Output, String> {
+	build_logged(opts, &|_| {})
+}
+
+pub fn build_logged(opts: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let root = &opts.root;
+	let sources = opts.sources.clone().unwrap_or_else(|| root.join("data").join("sources"));
+	let data = opts.data.clone().unwrap_or_else(|| root.join("data").join("forever"));
 	let mut gaps: Vec<String> = Vec::new();
 	let mut warnings: Vec<String> = Vec::new();
 	let item_dir = root.join("addon").join(ITEMDB);
@@ -100,18 +125,31 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 		return Err(format!("addon/{ITEMDB}/Items.lua missing: run `forge data itemdb` first"));
 	}
 
-	// 1. ForeverLevelingBiS -> Polestar_ItemDB/Forever.lua
-	let addons_root = resolve_addons_dir(opts.addons.as_deref());
-	let flb_dir = addons_root.clone().unwrap_or_default().join(flb::ADDON);
-	let flb = flb::read_forever_leveling_bis(&flb_dir)?;
-	let pack = leveling::build_forever_pack(&flb, &read_text(&era_file)?)?;
+	// 1. The Forever client's tables -> Forever's item records and racial traits.
+	let t = client::load(&sources, opts.build.as_deref(), opts.hotfixes.as_deref(), opts.offline, log)?;
+	warnings.extend(t.warnings.iter().cloned());
+	if t.hotfix_dir.is_none() {
+		gaps.push(format!("no client hotfixes for {} (sources/hotfix/{}): items the server pushed are missing", t.build, t.build));
+	}
+	let ex = forever::extract(&t);
+	let era = leveling::read_era_items(&read_text(&era_file)?)?;
+	let (overlay, ov) = forever::overlay(&ex.items, &era);
+	let gear: FxHashSet<u64> = era.keys().copied().chain(ex.items.iter().map(|r| r.id as u64)).collect();
+	let names: FxHashMap<u64, String> = t.get("ItemSparse").iter().map(|r| (crate::itemdb::int(r, "ID") as u64, crate::jsv::col_str(r, "Display_lang").to_string())).collect();
+	let rac = racials::racials(&t);
+
+	// 2. The Codex -> which quests reward which gear.
+	let codex = leveling::Codex::read(&data)?;
+	let pack = leveling::build_forever_pack(&overlay, ov, &gear, &names, &codex, &t.build)?;
 	warnings.extend(pack.warnings.iter().cloned());
 	let toc = emit_toc(&package_version(root), &["Items.lua", "Forever.lua"]);
-	let flb_licence = read_text(&flb_dir.join("LICENSE"))?;
-	let item_licence = notice("Forever.lua holds facts derived from ForeverLevelingBiS by Thunder:", &flb_licence);
+	let item_licence = match pfquest_notice(&data) {
+		Some(n) => format!("{ITEMDB_NOTICE}\n\n{}", notice("pfQuest:", &n)),
+		None => format!("{ITEMDB_NOTICE}\n"),
+	};
 
-	// 2. wowsims (the cache only)
-	let sim_cache = opts.wowsims_cache.clone().unwrap_or_else(|| root.join("data").join("sources").join("wowsims"));
+	// 3. wowsims (the cache only)
+	let sim_cache = opts.wowsims_cache.clone().unwrap_or_else(|| sources.join("wowsims"));
 	let ws = match wowsims::read_wowsims(&sim_cache) {
 		Ok(w) => Some(w),
 		Err(e) => {
@@ -121,11 +159,11 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 		}
 	};
 
-	// 3. SpecData.lua and its notices
+	// 4. SpecData.lua and its notices
 	let authored = specdata::authored_weights(&root.join("addon").join("Polestar").join("Gear").join("Weights.lua"))?;
 	let (bands, band_counts) = specdata::weight_bands(ws.as_ref(), &authored);
-	let spec_data = specdata::emit_spec_data(&bands, &specdata::racials(&flb.racials), ws.is_some(), &flb.meta.get("version"));
-	let mut parts = vec![notice("SpecData.lua: racial gear traits derived from ForeverLevelingBiS by Thunder:", &flb_licence)];
+	let spec_data = specdata::emit_spec_data(&bands, &rac, ws.is_some(), &t.build);
+	let mut parts = vec![format!("SpecData.lua: racial gear traits from the Forever client's racial spells (build {}), game data (c) Blizzard Entertainment, used as facts.\n", t.build)];
 	let ws_licence = sim_cache.join(wowsims::licence_rel());
 	if ws.is_some() && ws_licence.exists() {
 		parts.push(notice("SpecData.lua: stat weights derived from wowsims (https://github.com/wowsims):", &read_text(&ws_licence)?));
@@ -134,13 +172,54 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 
 	let report = Obj::new();
 	report.set("builtAt", V::str(&opts.built_at));
-	let fm = Obj::new();
-	for (k, v) in flb.meta.entries() {
-		fm.set_str(k, v);
+	let fc = Obj::new();
+	fc.set("build", V::str(&t.build));
+	fc.set("hotfixes", match &t.hotfix_dir {
+		Some(_) => V::Arr(Arr::from_vec(
+			t.applied
+				.iter()
+				.map(|a| {
+					let o = Obj::new();
+					o.set("table", V::str(&a.table));
+					o.set("replaced", V::Num(a.replaced as f64));
+					o.set("added", V::Num(a.added as f64));
+					o.set("deleted", V::Num(a.deleted as f64));
+					V::Obj(o)
+				})
+				.collect(),
+		)),
+		None => V::Null,
+	});
+	fc.set("records", V::Num(ex.items.len() as f64));
+	let sk = Obj::new();
+	for (k, n) in &ex.skipped {
+		sk.set(k, V::Num(*n as f64));
 	}
-	fm.set("pack", pack.counts.to_v());
-	fm.set("bytes", V::Num(pack.lua.len() as f64));
-	report.set("foreverLevelingBiS", V::Obj(fm.clone()));
+	fc.set("skipped", V::Obj(sk));
+	let un = Obj::new();
+	for (k, n) in &ex.unmapped {
+		un.set(&k.to_string(), V::Num(*n as f64));
+	}
+	fc.set("unmappedStatTypes", V::Obj(un));
+	report.set("foreverClient", V::Obj(fc));
+	let lv = Obj::new();
+	lv.set("codex", V::Obj({
+		let o = Obj::new();
+		for k in ["build", "builtAt"] {
+			if let Some(s) = codex.meta.get(k).and_then(|v| v.as_str()) {
+				o.set(k, V::str(s));
+			}
+		}
+		o
+	}));
+	lv.set("pack", pack.counts.to_v());
+	lv.set("bytes", V::Num(pack.lua.len() as f64));
+	report.set("forever", V::Obj(lv));
+	let rv = Obj::new();
+	for (race, traits) in &rac {
+		rv.set(&race.to_string(), V::Arr(Arr::from_vec(traits.iter().map(|t| V::str(&t.name)).collect())));
+	}
+	report.set("racials", V::Obj(rv));
 	report.set(
 		"wowsims",
 		match &ws {
@@ -162,16 +241,19 @@ pub fn build(opts: &Options) -> Result<Output, String> {
 	// The stdout of `gear build`.
 	let c = &pack.counts;
 	let mut summary = format!(
-		"ForeverLevelingBiS {} (data {}): {} items ({} Forever-only, {} retuned from Era, {} as in Era), {} quests; Forever.lua {} KiB\n",
-		fm.get("version").to_js_string(),
-		fm.get("generated").to_js_string(),
-		c.items,
-		c.new_items,
-		c.retuned,
-		c.unchanged,
+		"Forever client {}{}: {} item records ({} Forever-only, {} retuned from Era, {} as in Era); Codex {}: {} quests reward {} gear items; Forever.lua {} KiB\n",
+		t.build,
+		if t.hotfix_dir.is_some() { " with its hotfixes" } else { "" },
+		ex.items.len(),
+		c.overlay.new_items,
+		c.overlay.retuned,
+		c.overlay.unchanged,
+		codex.meta.get("builtAt").and_then(|v| v.as_str()).unwrap_or("?"),
 		c.quests,
+		c.items,
 		to_fixed(pack.lua.len() as f64 / 1024.0, 0)
 	);
+	summary.push_str(&format!("racial traits: {} races\n", rac.len()));
 	if let Some(w) = ws.as_ref() {
 		summary.push_str(&format!(
 			"wowsims: {} specs, {} level bands blended with a sim, {} authored only; {} sim sets rejected\n",

@@ -1,12 +1,15 @@
-//! tools/lib/gear/leveling.js (+ the itemdb/stats.js encode/decode it uses): ForeverLevelingBiS ->
-//! addon/Polestar_ItemDB/Forever.lua, Forever's item stats over the Era table and where each
-//! leveling item comes from.
+//! addon/Polestar_ItemDB/Forever.lua: Forever's item stats over the Era table (gear/forever.rs), and
+//! which quests reward which gear, with where those items come from, from the Codex's sources
+//! (data/forever/codex). Plus the ItemDB record format (itemdb/stats.js encode/decode).
 
-use forge_guide::js::{num_str, str_to_num, Obj, V};
+use std::path::Path;
+
+use forge_guide::js::{num_str, str_to_num, V};
 use rustc_hash::{FxHashMap, FxHashSet};
+use serde_json::Value;
 
-use super::flb::Flb;
-use crate::jsv::{math_round, to_int32};
+use super::forever::Overlay;
+use crate::jsv::math_round;
 
 /// itemdb/stats.js STAT_KEYS, in emission order.
 pub const STAT_KEYS: [&str; 29] = [
@@ -40,11 +43,6 @@ pub const STAT_KEYS: [&str; 29] = [
 	"block",
 	"blockValue",
 ];
-
-const SCRAPED: [&str; 21] =
-	["str", "agi", "sta", "int", "spi", "armor", "health", "mana", "ap", "rap", "sp", "heal", "spArcane", "spFire", "spFrost", "spHoly", "spNature", "spShadow", "defense", "dps", "rdps"];
-
-const EQUIPPABLE: [f64; 23] = [1.0, 2.0, 3.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13.0, 14.0, 15.0, 16.0, 17.0, 20.0, 21.0, 22.0, 23.0, 25.0, 26.0, 28.0];
 
 pub const PROFESSIONS: [&str; 13] =
 	["Alchemy", "Blacksmithing", "Enchanting", "Engineering", "Leatherworking", "Tailoring", "Jewelcrafting", "Mining", "Herbalism", "Skinning", "Cooking", "First Aid", "Fishing"];
@@ -130,7 +128,7 @@ pub fn encode(rec: &Rec) -> String {
 	parts.join(" ")
 }
 
-/// stats.js `decode`.
+/// stats.js `decode`. Stat values may carry decimals (ratings converted to percent: `crit0.5`).
 pub fn decode(id: f64, s: &str) -> Result<Rec, String> {
 	let parts: Vec<&str> = s.split(' ').collect();
 	let n = |i: usize| V::Num(parts.get(i).map(|p| str_to_num(p)).unwrap_or(f64::NAN));
@@ -139,7 +137,9 @@ pub fn decode(id: f64, s: &str) -> Result<Rec, String> {
 		let split = tok.find(|c: char| !c.is_ascii_alphabetic()).unwrap_or(tok.len());
 		let (name, num) = tok.split_at(split);
 		let digits = num.strip_prefix('-').unwrap_or(num);
-		if name.is_empty() || digits.is_empty() || !digits.bytes().all(|b| b.is_ascii_digit()) {
+		let (int_part, frac) = digits.split_once('.').unwrap_or((digits, "0"));
+		let all_digits = |d: &str| !d.is_empty() && d.bytes().all(|b| b.is_ascii_digit());
+		if name.is_empty() || !all_digits(int_part) || !all_digits(frac) {
 			return Err(format!("item {}: bad token \"{tok}\"", num_str(id)));
 		}
 		let v = str_to_num(num);
@@ -156,7 +156,7 @@ pub fn decode(id: f64, s: &str) -> Result<Rec, String> {
 }
 
 /// Era Items.lua text -> id -> record.
-fn read_era_items(text: &str) -> Result<FxHashMap<u64, Rec>, String> {
+pub fn read_era_items(text: &str) -> Result<FxHashMap<u64, Rec>, String> {
 	let re = regex::Regex::new(r#"\[(\d+)\]="([^"]*)""#).unwrap();
 	let mut out = FxHashMap::default();
 	for m in re.captures_iter(text) {
@@ -166,161 +166,78 @@ fn read_era_items(text: &str) -> Result<FxHashMap<u64, Rec>, String> {
 	Ok(out)
 }
 
-/// `a || b` over JS values.
-fn or(a: V, b: impl FnOnce() -> V) -> V {
-	if a.truthy() {
-		a
-	} else {
-		b()
+/// Codex providers that may not feed shipped data: the local extras (AtlasLoot, RareScanner, the
+/// dungeon journal addon) and ForeverLevelingBiS, which Polestar no longer uses. A source counts
+/// when at least one other provider has it.
+const NOT_SHIPPED: [&str; 4] = ["flbis", "atlasloot", "rarescanner", "journal"];
+
+fn release_safe(src: &Value) -> bool {
+	src.get("from").and_then(Value::as_array).is_some_and(|f| f.iter().filter_map(Value::as_str).any(|p| !NOT_SHIPPED.contains(&p)))
+}
+
+fn read_json(p: &Path) -> Result<Value, String> {
+	let b = std::fs::read(p).map_err(|e| format!("{}: {e} (run `forge data codex` first)", p.display()))?;
+	serde_json::from_slice(&b).map_err(|e| format!("{}: {e}", p.display()))
+}
+
+/// The Codex output the gear data reads: data/forever/codex/{items,quests,npcs,meta}.json and
+/// data/forever/zones.json (UiMap -> AreaTable area).
+pub struct Codex {
+	pub items: Value,
+	pub quests: Value,
+	pub npcs: Value,
+	pub meta: Value,
+	pub zones: Value,
+}
+
+impl Codex {
+	pub fn read(data: &Path) -> Result<Codex, String> {
+		let c = data.join("codex");
+		Ok(Codex { items: read_json(&c.join("items.json"))?, quests: read_json(&c.join("quests.json"))?, npcs: read_json(&c.join("npcs.json"))?, meta: read_json(&c.join("meta.json"))?, zones: read_json(&data.join("zones.json"))? })
+	}
+
+	/// A UiMap's AreaTable area (0: unknown).
+	fn area(&self, ui_map: Option<f64>) -> f64 {
+		ui_map.and_then(|m| self.zones.get(num_str(m)).and_then(|z| z.get("areaId")).and_then(Value::as_f64)).unwrap_or(0.0)
+	}
+
+	/// AreaTable area -> name (the first UiMap naming it).
+	fn area_name(&self, area: f64) -> Option<String> {
+		self.zones.as_object()?.values().find(|z| z.get("areaId").and_then(Value::as_f64) == Some(area)).and_then(|z| z.get("name")).and_then(Value::as_str).map(str::to_string)
 	}
 }
 
-fn record_of(it: &V, era: Option<&Rec>) -> Rec {
-	let mut stats: Vec<(String, f64)> = Vec::new();
-	if let Some(e) = era {
-		for (k, v) in &e.stats {
-			if !SCRAPED.contains(&k.as_str()) {
-				stats.push((k.clone(), *v));
-			}
-		}
-	}
-	let mut rec = Rec {
-		id: it.get("id").num(),
-		inv: it.get("slot"),
-		ilvl: or(it.get("itemLevel"), || or(era.map(|e| e.ilvl.clone()).unwrap_or(V::Undef), || V::Num(0.0))),
-		req: match era {
-			Some(e) => e.req.clone(),
-			None => or(it.get("reqLevel"), || V::Num(0.0)),
-		},
-		quality: {
-			let q = it.get("quality");
-			if !q.is_nullish() {
-				q
-			} else {
-				match era.map(|e| e.quality.clone()) {
-					Some(q) if !q.is_nullish() => q,
-					_ => V::Num(1.0),
-				}
-			}
-		},
-		cls: it.get("class"),
-		sub: match it.get("subclass") {
-			V::Num(n) if n < 0.0 => V::Num(0.0),
-			s => s,
-		},
-		allow: {
-			let mask = it.get("classMask");
-			if mask.truthy() && (to_int32(mask.num()) & 0x5df) != 0x5df {
-				mask
-			} else {
-				era.map(|e| e.allow.clone()).unwrap_or(V::Num(0.0))
-			}
-		},
-		unique: era.is_some_and(|e| e.unique),
-		stats,
-		dmin: None,
-		dmax: None,
-		speed: None,
-	};
-	for (k, v) in it.get("polestar").entries() {
-		if &*k == "dps" || &*k == "rdps" {
-			continue;
-		}
-		if STAT_KEYS.contains(&&*k) && v.truthy() {
-			rec.set_stat(&k, math_round(v.num()));
-		}
-	}
-	let w = it.get("weapon");
-	if w.truthy() && w.get("max").num() > 0.0 && w.get("speed").num() > 0.0 {
-		rec.dmin = Some(math_round(w.get("min").num()));
-		rec.dmax = Some(math_round(w.get("max").num()));
-		rec.speed = Some(math_round(w.get("speed").num() * 1000.0));
-	} else if let Some(e) = era.filter(|e| e.speed.is_some_and(truthy)) {
-		rec.dmin = e.dmin;
-		rec.dmax = e.dmax;
-		rec.speed = e.speed;
-	}
-	rec
-}
-
-/// A JS Map keyed by number, insertion ordered.
-#[derive(Default)]
-struct NumMap(Vec<(f64, V)>);
-impl NumMap {
-	fn set(&mut self, k: f64, v: V) {
-		match self.0.iter_mut().find(|e| e.0 == k || (e.0.is_nan() && k.is_nan())) {
-			Some(e) => e.1 = v,
-			None => self.0.push((k, v)),
-		}
-	}
-	fn sorted(&self) -> Vec<(f64, V)> {
-		let mut v = self.0.clone();
-		v.sort_by(|a, b| (a.0 - b.0).partial_cmp(&0.0).unwrap_or(std::cmp::Ordering::Equal));
-		v
-	}
-}
-
-fn source_tokens(it: &V, npcs: &mut NumMap, zones: &mut NumMap, warn: &mut Vec<String>) -> Vec<String> {
-	let mut out: Vec<String> = Vec::new();
-	for s in it.get("sources").items() {
-		let ty = s.get("type");
-		let ty = ty.as_str().unwrap_or("");
-		if ty == "quest" && s.get("id").truthy() {
-			out.push(format!("q{}", s.get("id").to_js_string()));
-		} else if ty == "drop" {
-			let npc = or(s.get("npcId"), || V::Num(0.0));
-			if npc.truthy() {
-				npcs.set(npc.num(), s.get("npc"));
-			}
-			if s.get("zoneId").truthy() && s.get("zone").truthy() {
-				zones.set(s.get("zoneId").num(), s.get("zone"));
-			}
-			let pct = or(s.get("pct"), || V::Num(0.0)).num();
-			out.push(format!("d{}x{}z{}", npc.to_js_string(), num_str(math_round(pct * 10.0)), or(s.get("zoneId"), || V::Num(0.0)).to_js_string()));
-		} else if ty == "crafted" && s.get("spellId").truthy() {
-			let prof = s.get("profession");
-			let p = prof.as_str().and_then(|n| PROFESSIONS.iter().position(|x| *x == n)).map(|i| i + 1).unwrap_or(0);
-			if p == 0 {
-				warn.push(format!("item {}: unknown profession {}", it.get("id").to_js_string(), prof.to_js_string()));
-			}
-			out.push(format!("c{}p{p}s{}", s.get("spellId").to_js_string(), or(s.get("skill"), || V::Num(0.0)).to_js_string()));
-		} else {
-			warn.push(format!("item {}: source type {} not kept", it.get("id").to_js_string(), s.get("type").to_js_string()));
-		}
-	}
-	let mut seen = FxHashSet::default();
-	out.retain(|t| seen.insert(t.clone()));
-	out
+fn num_of(v: &Value, k: &str) -> Option<f64> {
+	v.get(k).and_then(Value::as_f64)
 }
 
 #[derive(Default)]
 pub struct Counts {
 	pub items: usize,
-	pub new_items: usize,
-	pub retuned: usize,
-	pub unchanged: usize,
+	pub overlay: Overlay,
 	pub quest: usize,
 	pub drop: usize,
 	pub crafted: usize,
 	pub quests: usize,
-	pub skipped_slot: usize,
+	/// Codex sources left out as not release-safe.
+	pub not_shipped: usize,
 }
 
 impl Counts {
 	pub fn to_v(&self) -> V {
-		let o = Obj::new();
+		let o = forge_guide::js::Obj::new();
 		let n = |x: usize| V::Num(x as f64);
 		o.set("items", n(self.items));
-		o.set("newItems", n(self.new_items));
-		o.set("retuned", n(self.retuned));
-		o.set("unchanged", n(self.unchanged));
-		let s = Obj::new();
+		o.set("newItems", n(self.overlay.new_items));
+		o.set("retuned", n(self.overlay.retuned));
+		o.set("unchanged", n(self.overlay.unchanged));
+		let s = forge_guide::js::Obj::new();
 		s.set("quest", n(self.quest));
 		s.set("drop", n(self.drop));
 		s.set("crafted", n(self.crafted));
 		o.set("sources", V::Obj(s));
 		o.set("quests", n(self.quests));
-		o.set("skippedSlot", n(self.skipped_slot));
+		o.set("notShipped", n(self.not_shipped));
 		V::Obj(o)
 	}
 }
@@ -331,101 +248,147 @@ pub struct Pack {
 	pub warnings: Vec<String>,
 }
 
-fn sorted_num_keys(o: &Obj) -> Vec<(f64, forge_guide::js::Str)> {
-	let mut ids: Vec<(f64, forge_guide::js::Str)> = o.keys().into_iter().map(|k| (str_to_num(&k), k)).collect();
-	ids.sort_by(|a, b| (a.0 - b.0).partial_cmp(&0.0).unwrap_or(std::cmp::Ordering::Equal));
-	ids
-}
-
-/// buildForeverPack(flb, eraText).
-pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
-	let era = read_era_items(era_text)?;
+/// Forever.lua: `overlay` (Forever's records that differ from Era's) and the leveling sources of the
+/// gear quests reward. `gear` holds every item id with a record (Era or Forever); `names` is the
+/// Forever client's item names, for items the Codex has no name for; `build` the Forever build.
+pub fn build_forever_pack(overlay: &[Rec], overlay_counts: Overlay, gear: &FxHashSet<u64>, names: &FxHashMap<u64, String>, codex: &Codex, build: &str) -> Result<Pack, String> {
 	let mut warnings = Vec::new();
-	let mut overlay: Vec<Rec> = Vec::new();
-	let mut names: Vec<(f64, V)> = Vec::new();
-	let mut src: Vec<(f64, String)> = Vec::new();
-	let mut npcs = NumMap::default();
-	let mut zones = NumMap::default();
-	for (k, v) in flb.zones.entries() {
-		zones.set(str_to_num(&k), v);
-	}
-	let mut counts = Counts::default();
-	let mut used_quests: FxHashSet<u64> = FxHashSet::default();
-	for (id, key) in sorted_num_keys(&flb.items) {
-		let it = flb.items.get(&key);
-		if !matches!(it.get("slot"), V::Num(s) if EQUIPPABLE.contains(&s)) {
-			counts.skipped_slot += 1;
+	let mut counts = Counts { overlay: overlay_counts, ..Counts::default() };
+	let empty = serde_json::Map::new();
+	let items = codex.items.as_object().unwrap_or(&empty);
+
+	// Each gear item's release-safe quest sources: quest -> (choices, rewards) as the Codex lists them.
+	let mut offered: FxHashMap<u64, (Vec<u64>, Vec<u64>)> = FxHashMap::default();
+	for (id, it) in items {
+		let Ok(id) = id.parse::<u64>() else { continue };
+		if !gear.contains(&id) {
 			continue;
 		}
-		counts.items += 1;
-		let e = if id >= 0.0 && id.fract() == 0.0 { era.get(&(id as u64)) } else { None };
-		let rec = record_of(&it, e);
-		match e {
-			None => {
-				counts.new_items += 1;
-				overlay.push(rec);
+		for s in it.get("sources").and_then(Value::as_array).into_iter().flatten() {
+			if s.get("type").and_then(Value::as_str) != Some("quest") {
+				continue;
 			}
-			Some(e) if encode(&rec) != encode(e) => {
-				counts.retuned += 1;
-				overlay.push(rec);
+			if !release_safe(s) {
+				counts.not_shipped += 1;
+				continue;
 			}
-			Some(_) => counts.unchanged += 1,
+			let Some(q) = num_of(s, "quest") else { continue };
+			let e = offered.entry(q as u64).or_default();
+			if s.get("choice").and_then(Value::as_bool) == Some(true) {
+				e.0.push(id);
+			} else {
+				e.1.push(id);
+			}
 		}
-		names.push((id, it.get("name")));
-		let toks = source_tokens(&it, &mut npcs, &mut zones, &mut warnings);
+	}
+
+	// The quests, choices in the quest's own order (the Codex quest record), then any others by id.
+	let in_order = |listed: Option<&Value>, mut ids: Vec<u64>| -> Vec<u64> {
+		let mut out: Vec<u64> = listed.and_then(Value::as_array).into_iter().flatten().filter_map(Value::as_u64).filter(|i| ids.contains(i)).collect();
+		let mut seen: FxHashSet<u64> = FxHashSet::default();
+		out.retain(|i| seen.insert(*i));
+		ids.sort_unstable();
+		ids.dedup();
+		out.extend(ids.into_iter().filter(|i| !seen.contains(i)));
+		out
+	};
+	let mut quest_ids: Vec<u64> = offered.keys().copied().collect();
+	quest_ids.sort_unstable();
+	let mut quests: Vec<(u64, String)> = Vec::new();
+	let mut kept: Vec<u64> = Vec::new();
+	let mut item_quests: FxHashMap<u64, Vec<u64>> = FxHashMap::default();
+	for qid in quest_ids {
+		let (choices, rewards) = offered.remove(&qid).unwrap();
+		let q = codex.quests.get(qid.to_string()).cloned().unwrap_or(Value::Null);
+		let choices = in_order(q.get("choices"), choices);
+		let rewards = in_order(q.get("rewards"), rewards);
+		for &i in choices.iter().chain(rewards.iter()) {
+			kept.push(i);
+			item_quests.entry(i).or_default().push(qid);
+		}
+		let side = match q.get("faction").and_then(Value::as_str) {
+			Some("A") => 1.0,
+			Some("H") => 2.0,
+			_ => 3.0,
+		};
+		let head = [num_of(&q, "level").unwrap_or(0.0), num_of(&q, "minLevel").unwrap_or(0.0), side, codex.area(num_of(&q, "zone")), num_of(&q, "races").unwrap_or(0.0), num_of(&q, "classes").unwrap_or(0.0), 0.0]
+			.iter()
+			.map(|n| num_str(*n))
+			.collect::<Vec<_>>()
+			.join(" ");
+		let join = |l: &[u64]| l.iter().map(u64::to_string).collect::<Vec<_>>().join(",");
+		let title = q.get("title").and_then(Value::as_str).unwrap_or("");
+		quests.push((qid, format!("{head}|{}|{}|{title}", join(&choices), join(&rewards))));
+	}
+	counts.quests = quests.len();
+	kept.sort_unstable();
+	kept.dedup();
+	counts.items = kept.len();
+
+	// Names and sources of those items.
+	let mut item_names: Vec<(u64, String)> = Vec::new();
+	let mut src: Vec<(u64, String)> = Vec::new();
+	let mut npcs: FxHashMap<u64, String> = FxHashMap::default();
+	let mut zones: FxHashMap<u64, String> = FxHashMap::default();
+	for &id in &kept {
+		let it = items.get(&id.to_string());
+		let name = it.and_then(|i| i.get("name")).and_then(Value::as_str).map(str::to_string).or_else(|| names.get(&id).cloned()).unwrap_or_default();
+		item_names.push((id, name));
+		let mut toks: Vec<String> = item_quests.get(&id).into_iter().flatten().map(|q| format!("q{q}")).collect();
+		for s in it.and_then(|i| i.get("sources")).and_then(Value::as_array).into_iter().flatten() {
+			match s.get("type").and_then(Value::as_str) {
+				Some("drop") if release_safe(s) => {
+					let npc = num_of(s, "npc").unwrap_or(0.0);
+					let n = codex.npcs.get(num_str(npc));
+					let zone = codex.area(n.and_then(|n| n.get("spawns")).and_then(|s| s.get(0)).and_then(|s| num_of(s, "map")));
+					if let Some(name) = n.and_then(|n| n.get("name")).and_then(Value::as_str) {
+						npcs.insert(npc as u64, name.to_string());
+					}
+					if zone > 0.0 {
+						if let Some(z) = codex.area_name(zone) {
+							zones.insert(zone as u64, z);
+						}
+					}
+					toks.push(format!("d{}x{}z{}", num_str(npc), num_str(math_round(num_of(s, "chance").unwrap_or(0.0) * 10.0)), num_str(zone)));
+				}
+				Some("craft") if release_safe(s) => {
+					let prof = s.get("profession").and_then(Value::as_str);
+					let p = prof.and_then(|n| PROFESSIONS.iter().position(|x| *x == n)).map(|i| i + 1).unwrap_or(0);
+					if p == 0 {
+						warnings.push(format!("item {id}: unknown profession {}", prof.unwrap_or("?")));
+					}
+					toks.push(format!("c{}p{p}s{}", num_str(num_of(s, "spell").unwrap_or(0.0)), num_str(num_of(s, "skill").unwrap_or(0.0))));
+				}
+				_ => {}
+			}
+		}
+		let mut seen = FxHashSet::default();
+		toks.retain(|t| seen.insert(t.clone()));
 		for t in &toks {
 			match t.as_bytes()[0] {
-				b'q' => {
-					counts.quest += 1;
-					used_quests.insert(str_to_num(&t[1..]).to_bits());
-				}
+				b'q' => counts.quest += 1,
 				b'd' => counts.drop += 1,
 				_ => counts.crafted += 1,
 			}
 		}
-		if !toks.is_empty() {
-			src.push((id, toks.join(" ")));
+		src.push((id, toks.join(" ")));
+	}
+	for (_, q) in &quests {
+		let area = q.split(' ').nth(3).and_then(|z| z.parse::<f64>().ok()).unwrap_or(0.0);
+		if area > 0.0 {
+			if let Some(z) = codex.area_name(area) {
+				zones.insert(area as u64, z);
+			}
 		}
 	}
 
-	let kept: FxHashSet<u64> = names.iter().map(|(id, _)| id.to_bits()).collect();
-	let in_kept = |v: &V| matches!(v, V::Num(n) if kept.contains(&(if *n == 0.0 { 0.0f64 } else { *n }).to_bits()));
-	let mut quests: Vec<(f64, String)> = Vec::new();
-	for (qid, key) in sorted_num_keys(&flb.quests) {
-		let q = flb.quests.get(&key);
-		let r = or(q.get("rewards"), || V::Obj(Obj::new()));
-		let list = |k: &str| -> Vec<String> { or(r.get(k), || V::Arr(forge_guide::js::Arr::new())).items().into_iter().filter(|i| in_kept(i)).map(|i| i.to_js_string()).collect() };
-		let choices = list("choices");
-		let items = list("items");
-		if choices.is_empty() && items.is_empty() && !used_quests.contains(&qid.to_bits()) {
-			continue;
-		}
-		counts.quests += 1;
-		let start = q.get("start");
-		let zone = if start.truthy() { or(start.get("zoneId"), || V::Num(0.0)) } else { V::Num(0.0) };
-		let head = [
-			or(q.get("level"), || V::Num(0.0)),
-			or(q.get("reqLevel"), || V::Num(0.0)),
-			or(q.get("side"), || V::Num(3.0)),
-			zone,
-			or(q.get("reqRace"), || V::Num(0.0)),
-			or(q.get("reqClass"), || V::Num(0.0)),
-			V::Num(if q.get("type").as_str() == Some("Dungeon") { 1.0 } else { 0.0 }),
-		]
-		.iter()
-		.map(|v| if v.is_nullish() { String::new() } else { v.to_js_string() })
-		.collect::<Vec<_>>()
-		.join(" ");
-		quests.push((qid, format!("{head}|{}|{}|{}", choices.join(","), items.join(","), or(q.get("name"), || V::str("")).to_js_string())));
-	}
-
-	let m = &flb.meta;
-	let version = m.get("version").to_js_string();
-	let generated = m.get("generated");
+	let codex_build = codex.meta.get("build").and_then(Value::as_str).unwrap_or("?");
+	let built = codex.meta.get("builtAt").and_then(Value::as_str).map(|s| s.chars().take(10).collect::<String>()).unwrap_or_default();
 	let mut lines: Vec<String> = vec![
-		forge_guide::emit::header("lua", "forge data gear", &format!("ForeverLevelingBiS {version} by Thunder (data {}), MIT licence", or(generated.clone(), || V::str("?")).to_js_string())),
-		"-- See THIRD_PARTY.md. Facts only: Forever item stats over the Era table, and".into(),
-		"-- where each leveling item comes from.".into(),
+		forge_guide::emit::header("lua", "forge data gear", &format!("the Forever client's item tables ({build}) and the Codex ({built})")),
+		"-- See THIRD_PARTY.md. Facts only: Forever's item stats over the Era table, computed from".into(),
+		"-- the Forever client's tables as its tooltips are, and which quests reward which gear, from".into(),
+		"-- the Codex's release-safe sources (the game's tables, QuestieDB, pfQuest, recordings).".into(),
 		"--   items   \"<inv> <ilvl> <req> <quality> <class> <subclass> [tokens]\" (Items.lua format)".into(),
 		"--   src     q<quest> | d<npc>x<pct*10>z<zone> | c<spell>p<profession>s<skill>".into(),
 		"--   quests  \"<level> <req> <side> <zone> <reqRace> <reqClass> <dungeon>|<choices>|<items>|<name>\"".into(),
@@ -435,38 +398,40 @@ pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
 		String::new(),
 		"DB.Register(nil, {".into(),
 	];
-	for r in &overlay {
+	for r in overlay {
 		lines.push(format!("[{}]={},", num_str(r.id), lua_str(&encode(r))));
 	}
 	lines.push("})".into());
 	lines.push(String::new());
 	lines.push(format!(
-		"DB.RegisterLeveling({{ source = \"ForeverLevelingBiS\", version = {}, generated = {}, licence = \"MIT\", items = {}, quests = {} }}, {{",
-		lua_str(&version),
-		lua_str(&or(generated, || V::str("")).to_js_string()),
-		names.len(),
+		"DB.RegisterLeveling({{ source = \"Codex\", version = {}, generated = {}, items = {}, quests = {} }}, {{",
+		lua_str(codex_build),
+		lua_str(&built),
+		item_names.len(),
 		quests.len()
 	));
 	lines.push(format!("professions = {{ {} }},", PROFESSIONS.iter().map(|p| lua_str(p)).collect::<Vec<_>>().join(", ")));
 	lines.push("names = {".into());
-	for (id, n) in &names {
-		lines.push(format!("[{}]={},", num_str(*id), lua_str(&n.to_js_string())));
+	for (id, n) in &item_names {
+		lines.push(format!("[{id}]={},", lua_str(n)));
 	}
 	lines.push("},".into());
 	lines.push("src = {".into());
 	for (id, s) in &src {
-		lines.push(format!("[{}]={},", num_str(*id), lua_str(s)));
+		lines.push(format!("[{id}]={},", lua_str(s)));
 	}
 	lines.push("},".into());
 	lines.push("quests = {".into());
 	for (id, s) in &quests {
-		lines.push(format!("[{}]={},", num_str(*id), lua_str(s)));
+		lines.push(format!("[{id}]={},", lua_str(s)));
 	}
 	lines.push("},".into());
 	for (name, map) in [("npcs", &npcs), ("zones", &zones)] {
 		lines.push(format!("{name} = {{"));
-		for (id, n) in map.sorted() {
-			lines.push(format!("[{}]={},", num_str(id), lua_str(&n.to_js_string())));
+		let mut ids: Vec<(&u64, &String)> = map.iter().collect();
+		ids.sort();
+		for (id, n) in ids {
+			lines.push(format!("[{id}]={},", lua_str(n)));
 		}
 		lines.push("},".into());
 	}
@@ -478,12 +443,38 @@ pub fn build_forever_pack(flb: &Flb, era_text: &str) -> Result<Pack, String> {
 #[cfg(test)]
 mod tests {
 	use super::*;
+	use serde_json::json;
 
 	#[test]
 	fn encode_decode_round_trip() {
-		for s in ["13 31 26 3 2 15 agi7 dmin17 dmax33 speed1300 uniq1", "10 42 37 4 4 2 armor86 ap10 crit1 mpr4 cls8", "23 25 0 2 4 0"] {
+		for s in ["13 31 26 3 2 15 agi7 dmin17 dmax33 speed1300 uniq1", "10 42 37 4 4 2 armor86 ap10 crit1 mpr4 cls8", "23 25 0 2 4 0", "1 30 25 2 4 2 crit0.5 spellCrit0.5"] {
 			assert_eq!(encode(&decode(1.0, s).unwrap()), s);
 		}
 		assert!(decode(1.0, "1 2 3 4 5 6 x").is_err());
+		assert!(decode(1.0, "1 2 3 4 5 6 crit0.").is_err());
+		assert!(decode(1.0, "1 2 3 4 5 6 crit.5").is_err());
+	}
+
+	#[test]
+	fn quest_gear_comes_from_release_safe_codex_sources_only() {
+		let codex = Codex {
+			items: json!({
+				"100": { "name": "Choice A", "sources": [{ "type": "quest", "quest": 7, "choice": true, "from": ["web"] }, { "type": "drop", "npc": 5, "chance": 1.25, "from": ["questie", "pfquest"] }] },
+				"101": { "name": "Choice B", "sources": [{ "type": "quest", "quest": 7, "choice": true, "from": ["recordings"] }, { "type": "craft", "spell": 9, "profession": "Tailoring", "skill": 50, "from": ["forever"] }] },
+				"102": { "name": "Old list only", "sources": [{ "type": "quest", "quest": 8, "choice": true, "from": ["flbis"] }, { "type": "drop", "npc": 6, "chance": 2, "from": ["atlasloot"] }] },
+				"103": { "name": "Not gear", "sources": [{ "type": "quest", "quest": 7, "from": ["web"] }] }
+			}),
+			quests: json!({ "7": { "title": "Seven", "level": 10, "minLevel": 8, "faction": "A", "zone": 1429, "races": null, "classes": null, "choices": [101, 100], "rewards": [] } }),
+			npcs: json!({ "5": { "name": "Wolf", "spawns": [{ "map": 1429 }] } }),
+			meta: json!({ "build": "1.60.1.1", "builtAt": "2026-11-06T22:00:00.000Z" }),
+			zones: json!({ "1429": { "areaId": 12, "name": "Elwynn Forest" } }),
+		};
+		let gear: FxHashSet<u64> = [100, 101, 102].into_iter().collect();
+		let p = build_forever_pack(&[], Overlay::default(), &gear, &FxHashMap::default(), &codex, "1.60.1.1").unwrap();
+		assert!(p.lua.contains("[7]=\"10 8 1 12 0 0 0|101,100||Seven\",\n},"), "{}", p.lua);
+		assert!(p.lua.contains("[100]=\"q7 d5x13z12\",\n[101]=\"q7 c9p6s50\",\n},"), "{}", p.lua);
+		assert!(p.lua.contains("npcs = {\n[5]=\"Wolf\",\n},\nzones = {\n[12]=\"Elwynn Forest\",\n},"), "{}", p.lua);
+		assert!(!p.lua.contains("Old list only") && !p.lua.contains("[8]="), "{}", p.lua);
+		assert_eq!((p.counts.quests, p.counts.items, p.counts.not_shipped), (1, 2, 1));
 	}
 }
