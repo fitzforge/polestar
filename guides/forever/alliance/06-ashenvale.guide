@@ -323,7 +323,6 @@ step Spoils of War
 step James Halloran
   accept 98240
   tip James Halloran stands by the north gate.
-  accept 98072                        -- James Halloran
   turnin 98197                        -- Inside
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -514,7 +513,6 @@ step Cathedral of Light
   zone Stormwind City
   tip Take the Deeprun Tram from Tinker Town to Stormwind's Dwarven District, then walk to the Cathedral Square.
   accept 1274                             -- Thomas, in the Cathedral of Light
-  accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
 
 step Cathedral of Light
   zone Stormwind City
@@ -530,6 +528,7 @@ step Stormwind Keep
 
 step Lord Grayson Shadowbreaker
   turnin 98191 npc 928                    -- Lord Grayson Shadowbreaker
+  accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
 
 step Collin Mauren
   accept 1078
