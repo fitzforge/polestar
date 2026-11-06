@@ -402,7 +402,7 @@ step Around the Crossroads
   collect 12708 quest 5041.1          -- Crossroads' Supply Crates
   collect 276070 quest 97003.1        -- Chol'aruk's Head
   collect 5064 x8 quest 867.1         -- Witchwing Talon
-  kill 10668 quest 4921.1             -- Beaten Corpse: right-click it
+  talk 10668 quest 4921.1             -- Beaten Corpse: right-click it
 
 step The Crossroads: hand in
   when done crossroads
