@@ -124,13 +124,10 @@ end
 -- HUD text: the theme's typeface at a size chosen for reading over the 3D
 -- world, outlined so it survives bright terrain; the shadow stays dark (shade).
 function Nav.SetHudFont(fs, role, size)
-	local path
 	local T = ns.Theme
-	if type(T) == "table" and type(T.FontSpec) == "function" then
-		local ok, p = pcall(T.FontSpec, role)
-		if ok and type(p) == "string" then path = p end
-	end
-	if not (path and fs:SetFont(path, size, "OUTLINE")) then
+	if T and T.SetFace then
+		T.SetFace(fs, (T.FontSpec(role)), size, "OUTLINE")
+	else
 		fs:SetFont(STANDARD_TEXT_FONT, size, "OUTLINE")
 	end
 	local c = palette.shade

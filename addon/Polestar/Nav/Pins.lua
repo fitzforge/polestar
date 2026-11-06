@@ -421,11 +421,11 @@ local function applyBadge(f, text, medal, a)
 		b.rim[i]:SetVertexColor(0, 0, 0, a)
 	end
 	local T = ns.Theme
-	if type(T) == "table" and type(T.FontSpec) == "function" then
-		local ok, path = pcall(T.FontSpec, "body")
-		if ok and path then b.text:SetFont(path, 9, "") end
+	if T and T.SetFace then
+		T.SetFace(b.text, (T.FontSpec("body")), 9, "")
+	elseif not b.text:GetFont() then
+		b.text:SetFontObject("GameFontNormalSmall")
 	end
-	if not b.text:GetFont() then b.text:SetFontObject("GameFontNormalSmall") end
 	b.text:SetText(tostring(text))
 	b.text:SetTextColor(themeColor("onAccent", 0.04, 0.05, 0.08))
 	b.text:SetAlpha(a)
@@ -574,7 +574,12 @@ local function applyLook(f, p, size)
 	f.edge:SetVertexColor(r, g, b, a)
 	f.clamped = nil
 	if p.text then
-		f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", math.max(8, size * 0.6), "OUTLINE")
+		local T, height = ns.Theme, math.max(8, size * 0.6)
+		if T and T.SetFace then
+			T.SetFace(f.text, (T.FontSpec("number")), height, "OUTLINE")
+		else
+			f.text:SetFont(STANDARD_TEXT_FONT or "Fonts\\FRIZQT__.TTF", height, "OUTLINE")
+		end
 		f.text:SetText(p.text)
 		f.text:SetTextColor(1, 1, 1, a)
 	end

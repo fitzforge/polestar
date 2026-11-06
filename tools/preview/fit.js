@@ -1,7 +1,7 @@
 'use strict';
 // Translated text that does not fit. Every scene of `preview` and every
 // Options page and tab is laid out in each shipped locale (and English), in
-// the game font and in Inter, and every visible string is checked the way
+// Open Sans, the game font and Inter, and every visible string is checked the way
 // the client draws it:
 //
 //   cut      a one-line string wider than its box (the client ends it with
@@ -28,7 +28,11 @@ const { ROOT } = require('../lib/paths');
 
 const H = { LEFT: 0, CENTER: 0.5, RIGHT: 1, TOPLEFT: 0, TOP: 0.5, TOPRIGHT: 1, BOTTOMLEFT: 0, BOTTOM: 0.5, BOTTOMRIGHT: 1 };
 const V = { TOP: 0, CENTER: 0.5, BOTTOM: 1, TOPLEFT: 0, LEFT: 0.5, TOPRIGHT: 0, RIGHT: 0.5, BOTTOMLEFT: 1, BOTTOMRIGHT: 1 };
-const PASSES = [['game font', ''], ['Inter', 'Polestar.Set("ui.font", "inter")\n']];
+const PASSES = [
+	['Open Sans', 'Polestar.Set("ui.font", "opensans")\n'],
+	['game font', 'Polestar.Set("ui.font", "game")\n'],
+	['Inter', 'Polestar.Set("ui.font", "inter")\n'],
+];
 const LOCALE_DIR = path.join(ROOT, 'addon', 'Polestar', 'Locales');
 
 const wide = (cp) => (cp >= 0x1100 && cp <= 0x11ff) || (cp >= 0x2e80 && cp <= 0xa4cf) || (cp >= 0xa960 && cp <= 0xa97f) || (cp >= 0xac00 && cp <= 0xd7ff) || (cp >= 0xf900 && cp <= 0xfaff) || (cp >= 0xfe30 && cp <= 0xfe4f) || (cp >= 0xff00 && cp <= 0xff60) || (cp >= 0xffe0 && cp <= 0xffe6);

@@ -226,7 +226,7 @@ fn a_druid_on_a_druid_only_accept_sees_the_class_card_with_the_reward_spells_ico
 	assert_eq!(druid["icon"], "Interface\\Icons\\spell-768");
 	assert!(druid["learn"].as_str().unwrap().starts_with("Learn ") && druid["learn"].as_str().unwrap().contains("Cat Form"), "{druid}");
 	assert_eq!(druid["badge"], "NEW ABILITY");
-	assert_eq!(druid["trip"], "Darnassus  →  Moonglade  →  Darnassus  ·  3 steps");
+	assert_eq!(druid["trip"], "Darnassus  ›  Moonglade  ›  Darnassus  ·  3 steps");
 	assert_eq!(druid["only"], "Only you see this: it's your class's quest. Part of your route: just follow the guide.");
 	// The accept reads inside the card, with its giver and zone; no row repeats the quest's name.
 	assert_eq!(druid["accept"], "Accept from Mathrengyl Bearwalker, Darnassus");
