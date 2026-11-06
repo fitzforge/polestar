@@ -767,7 +767,9 @@ portals and hearths. A lift counts as part of the walk.
 - A `getfp` is written at each flight master the route reaches, in an
   `Inn and flight master` step when it arrives there. v1's `getfp` for other
   races alone (the Skyborne's Rut'theran Village) is not the route's: its own
-  is still written.
+  is still written. In the step it arrives for, v1's own `getfp` for everyone
+  is the route's: written where v1 has it, not first in the step (Sentinel
+  Hill's after the tower's quests, #727).
 - v1's step that only learns a flight path, over the sea from where the route
   is, gets no crossing (v1's Ratchet stop between Theramore and Booty Bay, which
   the route reaches by air): the route learns that flight path where its own way

@@ -46,11 +46,11 @@ step Goretusk Snout on the way
 
 step Sentinel Hill
   tip Gryan Stoutmantle and Captain Danuvin stand at the top of the stone tower. Quartermaster Lewis is in the tower, Scout Galiaan on the south side of the hill, next to the inn and Thor the gryphon master.
-  getfp "Sentinel Hill"
   turnin 109 only Human
   accept 12
   accept 102                                  -- Captain Danuvin
   accept 6181 only Human                      -- Quartermaster Lewis, inside
+  getfp "Sentinel Hill"
   turnin 6181 only Human                      -- Thor; skip the free flight it offers
   accept 153                                  -- Scout Galiaan
   accept 92742 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon, beside Scout Galiaan
