@@ -3210,3 +3210,23 @@ test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Fall
 	const nearest = Math.min(...here.flatMap((g) => crabs.map((c) => dist(point(g.map, g.x, g.y, g.f || 'l'), c))));
 	assert.ok(nearest <= 200, `Cliffspring Falls is ${Math.round(nearest)} yd from the nearest crab that drops the chunks`);
 });
+
+// --- Flight path sweep from #939 (the route walked past a flight master without learning its path,
+// then needed it): the shared Alliance route boards the Booty Bay boat at Ratchet's dock at 40, about
+// 100 yards from Bragok, and v1 learns Ratchet's flight path there; the route did not, so at 44 the
+// Gnome Warlocks' Felsteed trip could not fly from Theramore to Strahad Farsan in Ratchet and walked
+// there instead. The Gnome Warlocks learn the path at the dock and fly.
+test("Flight path sweep (#939): Gnome Warlocks learn Ratchet's flight path at the Booty Bay boat and fly from Theramore to Strahad Farsan", { skip }, () => {
+	const forGnome = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Gnome'));
+	const list = ['forever/alliance/40-50/01-stranglethorn-vale.guide', 'forever/alliance/40-50/02-badlands.guide']
+		.flatMap((g) => goals(g))
+		.filter(forGnome)
+		.filter(forClass('WARLOCK'));
+	const felsteed = at(list, "Strahad Farsan's hand-in of 4488", is('turnin', 4488));
+	const fp = list.findIndex(({ goal }) => goal.t === 'getfp' && goal.location === 'Ratchet');
+	const fly = list.findIndex(({ goal }, i) => i < felsteed && goal.t === 'fly' && goal.location === 'Ratchet');
+	assert.ok(fp >= 0, "Ratchet's flight path is learned before 40-50/02-badlands");
+	assert.ok(fp < fly, "the flight to Ratchet for Strahad Farsan comes after its flight path");
+	const walks = list.slice(fp + 1, felsteed).filter(({ goal }) => goal.t === 'goto' && goal.text === 'Ratchet');
+	assert.deepEqual(walks.map(({ step }) => step.title), [], 'no walk to Ratchet for the Felsteed');
+});

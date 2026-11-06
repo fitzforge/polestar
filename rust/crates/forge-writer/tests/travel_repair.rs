@@ -212,6 +212,26 @@ fn a_flight_from_no_flight_master_on_a_shared_guide_is_repaired_where_v1_has_it_
 	assert!(others_only(&g, "  fly \"Crossroads\""), "{}", g.join("\n"));
 }
 
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn a_flight_to_a_path_never_learnt_learns_it_where_the_chain_stood_by_its_flight_master() {
+	// #939's pattern, on the shared Alliance route at 40: the Gnome Warlocks took the Booty Bay boat at
+	// Ratchet's dock, about 100 yd from Bragok, without the flight path v1 learns there; their Felsteed
+	// trip's flight from Theramore to Ratchet at 44 was then gated off them and they walked to Ratchet.
+	// The flight path is learnt where they stood by its flight master, and the flight stays theirs.
+	let st = start(&["", "step Crossroads", "  zone The Barrens", "  goto 51.5,30.4 \"Crossroads\"", "  getfp \"Crossroads\"", ""]);
+	let head = ["", "step Ratchet", "  zone The Barrens", "  goto 63.4,38.5 \"Boat to Booty Bay\""];
+	let tail = ["", "step Crossroads", "  goto 51.5,30.4 \"Crossroads flight master\"", "  fly \"Ratchet\"", "", "step Gazlowe", "  goto 62.7,36.2 \"Gazlowe\"", ""];
+	let v1 = shared(&[&head[..], &["  getfp \"Ratchet\""], &tail[..]].concat());
+	let (r, g) = run(&st, &v1, &shared(&[&head[..], &tail[..]].concat()));
+	let learnt = g.iter().position(|l| l.starts_with("  getfp \"Ratchet\"")).unwrap_or_else(|| panic!("{}\n{:?}", g.join("\n"), r.log));
+	let dock = g.iter().position(|l| l.starts_with("  goto 63.4,38.5")).unwrap();
+	let step = g.iter().position(|l| l == "step Ratchet").unwrap();
+	assert!(step < learnt && learnt < dock, "{}", g.join("\n"));
+	assert!(g.iter().any(|l| l == "  fly \"Ratchet\""), "{}", g.join("\n"));
+	assert_eq!(r.left.len(), 0, "{:?}", r.left);
+}
+
 fn fly_away(then: &[&'static str]) -> Vec<String> {
 	let st = start(&["", "step Orgrimmar", "  zone Orgrimmar", "  goto 45.3,63.8 \"Orgrimmar flight master\"", "  getfp \"Orgrimmar\"", ""]);
 	let head = ["", "step Crossroads", "  zone The Barrens", "  goto 51.5,30.4 \"Crossroads\"", "  getfp \"Crossroads\"", ""];
