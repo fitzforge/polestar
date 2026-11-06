@@ -1,11 +1,13 @@
 -- Bag space (qol.bagSpace, on by default): how many bag slots are free, and
 -- a way to make room. Only bags that take any item count, not quivers, ammo
--- pouches, soul or profession bags. At qol.bagsLow free slots or fewer:
+-- pouches, soul or profession bags, or the reagent bag. At qol.bagsLow free
+-- slots or fewer:
 --   * the bag button (QoL/Buttons.lua, bindable) comes up, showing the free
---     slots and the cheapest junk in the bags: a grey item, or one marked as
---     junk (QoL/Marks.lua) of common quality or below; never one marked to
---     keep or one a later step needs. Its worth is the vendor price of the
---     stack (an item without one is worth nothing; one whose price the client
+--     slots and the cheapest junk in all the bags, the reagent bag too: a
+--     grey item, or one marked as junk (QoL/Marks.lua) of common quality or
+--     below; never one marked to keep or one a later step needs. Its worth
+--     is the vendor price of the stack (an item without one is worth
+--     nothing; one whose price the client
 --     has not loaded yet goes last).
 --   * while the live step has an open collect goal, the guide window's
 --     banner says so and offers the same delete (Space.Banner).
@@ -41,12 +43,12 @@ local armed        -- { bag, slot, id, at }
 local dismissed = false
 local sig
 
--- Free and total slots of the bags that take any item.
+-- Free and total slots of the bags that take any item (not the reagent bag).
 function Space.Count()
 	local f, t = 0, 0
 	for bag = 0, Client.NumBags() do
 		local n, family = Client.FreeSlots(bag)
-		if not family or family == 0 then
+		if (not family or family == 0) and not Client.IsReagentBag(bag) then
 			f = f + n
 			t = t + Client.NumSlots(bag)
 		end

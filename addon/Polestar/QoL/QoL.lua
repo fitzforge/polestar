@@ -313,8 +313,17 @@ Client.CLASS_QUEST = 12 -- Enum.ItemClass.Questitem
 Client.CLASS_PROJECTILE = 6 -- Enum.ItemClass.Projectile
 Client.RANGED_SLOT = 18
 
+-- The last bag index to scan: the backpack is 0, the bag slots 1 to
+-- NUM_BAG_SLOTS, and on a client with a reagent bag slot that one comes last
+-- (NUM_TOTAL_EQUIPPED_BAG_SLOTS, Enum.BagIndex.ReagentBag).
 function Client.NumBags()
-	return NUM_BAG_SLOTS or 4
+	return NUM_TOTAL_EQUIPPED_BAG_SLOTS or NUM_BAG_SLOTS or 4
+end
+
+-- The reagent bag slot: any bag past the regular slots. It takes only
+-- reagents, whatever family the client reports for it.
+function Client.IsReagentBag(bag)
+	return bag > (NUM_BAG_SLOTS or 4)
 end
 
 function Client.NumSlots(bag)

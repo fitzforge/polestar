@@ -59,7 +59,11 @@ local q = {
 }
 stub.qol = q
 
-for bag = 0, 4 do q.bags[bag] = { size = bag == 0 and 16 or 0, slots = {} } end
+-- The backpack (0), four bag slots and the reagent bag slot (5), as on the
+-- client: NUM_BAG_SLOTS counts the regular slots only.
+NUM_BAG_SLOTS, NUM_TOTAL_EQUIPPED_BAG_SLOTS = 4, 5
+Enum.BagIndex = { Backpack = 0, Bag_1 = 1, Bag_2 = 2, Bag_3 = 3, Bag_4 = 4, ReagentBag = 5 }
+for bag = 0, 5 do q.bags[bag] = { size = bag == 0 and 16 or 0, slots = {} } end
 
 local function call(...) table.insert(q.calls, { ... }) end
 
@@ -261,7 +265,7 @@ end
 C_Item = {}
 function C_Item.GetItemCount(id)
 	local n = 0
-	for bag = 0, 4 do
+	for bag = 0, 5 do
 		for _, s in pairs(q.bags[bag].slots) do
 			if s.itemID == id then n = n + s.stackCount end
 		end
@@ -285,7 +289,7 @@ function C_Item.EquipItemByName(item, slot)
 	local id = tonumber(tostring(item):match("item:(%d+)"))
 	if q.refuse[id] then return end
 	C_Timer.After(0.1, function()
-		for bag = 0, 4 do
+		for bag = 0, 5 do
 			for s, it in pairs(q.bags[bag].slots) do
 				if it.itemID == id then
 					q.bags[bag].slots[s] = nil
