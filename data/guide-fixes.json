@@ -1856,6 +1856,31 @@
 				}
 			],
 			"issue": 977
+		},
+		{
+			"id": "1024-clarice-foster-pools-of-vision-accept-264",
+			"faction": "Horde",
+			"at": {
+				"quest": 264,
+				"goal": "accept"
+			},
+			"tip": "Clarice Foster stands in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart.",
+			"note": "Clarice Foster (npc 5543) stands in the Pools of Vision under Spirit Rise in Thunder Bluff: spawn height 110.8, where the walking maps have the Pools of Vision's floor at 112; Spirit Rise above her is at 136-138. The arrow has no height for the player, so it counts Spirit Rise above her as arrived, and the step said nothing (the Mulgore guide's note on Xanis Flameweaver even reads as if she stood on Spirit Rise). Sweep after #1024 (Apothecary Zamah, also in the Pools of Vision). The two steps had no tip.",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "spawnz.json: npc 5543 [1, -1033.7, 215.3, 110.8]"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature 5543 position_z 110.769"
+				},
+				{
+					"kind": "client",
+					"ref": "Polestar_Nav (Leffe's maps) at her spawn: surfaces 136 and 138 outdoors, 112, 121 and 125 indoors in The Pools of Vision"
+				}
+			],
+			"pr": 1032
 		}
 	]
 }

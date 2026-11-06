@@ -47,7 +47,7 @@ step Teleport: Undercity
 
 step Teleport: Thunder Bluff
   zone Thunder Bluff
-  tip At 30. Thunder Bluff is in Mulgore: fly there from Orgrimmar or the Crossroads. Birgitte Cranston, the portal trainer, stands with the mage trainers on Spirit Rise and teaches Teleport: Thunder Bluff for 80 silver.
+  tip At 30. Thunder Bluff is in Mulgore: fly there from Orgrimmar or the Crossroads. Birgitte Cranston, the portal trainer, stands with the mage trainers in the Pools of Vision, the cave under Spirit Rise: go down inside, the arrow cannot tell the floors apart. She teaches Teleport: Thunder Bluff for 80 silver.
   level 30
   money 80s
   train 5957                                  -- Birgitte Cranston: Teleport: Thunder Bluff
@@ -63,7 +63,7 @@ step Portals to Orgrimmar and the Undercity
 
 step Portal: Thunder Bluff
   zone Thunder Bluff
-  tip At 50 Birgitte Cranston in Thunder Bluff teaches the last one, Portal: Thunder Bluff, for 3 gold 20 silver. Use your Teleport: Thunder Bluff to get there.
+  tip At 50 Birgitte Cranston, down in the Pools of Vision under Spirit Rise in Thunder Bluff, teaches the last one, Portal: Thunder Bluff, for 3 gold 20 silver. Use your Teleport: Thunder Bluff to get there.
   level 50
   money 3g20s
   train 5957                                  -- Birgitte Cranston: Portal: Thunder Bluff

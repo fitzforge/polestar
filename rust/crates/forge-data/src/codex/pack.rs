@@ -293,23 +293,31 @@ fn encode_item(rec: &V) -> Result<String, String> {
 	Ok(parts.join(";"))
 }
 
+/// A record's spawns as "map,f,x,y,x,y" groups (one per map and frame, in first-seen order), then its heights
+/// field: `z` and one height per point in the groups' order ("" for a point without one), only when some point
+/// has one (#1024; Lookup/Codex.lua decodeSpawns).
 fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
-	let mut groups: Vec<(String, Vec<String>)> = Vec::new();
+	let mut groups: Vec<(String, Vec<String>, Vec<String>)> = Vec::new();
+	let mut any_z = false;
 	for s in spawns.items() {
 		let f = s.get("f");
 		let fs = if f.truthy() { f.to_js_string() } else { String::new() };
 		let k = format!("{}|{}", s.get("map").to_js_string(), fs);
-		let i = match groups.iter().position(|(x, _)| *x == k) {
+		let i = match groups.iter().position(|(x, _, _)| *x == k) {
 			Some(i) => i,
 			None => {
-				groups.push((k, vec![num(&s.get("map"))?, fs.clone()]));
+				groups.push((k, vec![num(&s.get("map"))?, fs.clone()], Vec::new()));
 				groups.len() - 1
 			}
 		};
 		groups[i].1.push(coord(&s.get("x")));
 		groups[i].1.push(coord(&s.get("y")));
+		let z = num(&s.get("z"))?;
+		any_z |= !z.is_empty();
+		groups[i].2.push(z);
 	}
-	Ok(groups.into_iter().map(|(_, g)| g.join(",")).collect())
+	let heights = any_z.then(|| format!("z{}", groups.iter().flat_map(|(_, _, z)| z.iter().map(String::as_str)).collect::<Vec<_>>().join(",")));
+	Ok(groups.into_iter().map(|(_, g, _)| g.join(",")).chain(heights).collect())
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
