@@ -41,6 +41,14 @@ Polestar.RegisterGuide({ id = "test/offer", pack = "test", title = "Offer", fact
 		{ goals = { { t = "note", text = "Next: the Barrens." } } } } })
 Polestar.RegisterGuide({ id = "test/trainer", pack = "test", title = "Trainer", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
 	steps = { q(60, "One"), q(61, "Two"), { title = "Class trainer", goals = { { t = "train", class = true } } } } })
+-- The Barrens' Kolkar chain at Regthar Deathgate (#998): each hand-in opens the next quest, and the last
+-- step is the chain's last hand-in.
+local function at(t, id, pre)
+	return { t = t, quest = id, title = "Kolkar " .. id, npc = 3389, npcName = "Regthar Deathgate", map = 1413, x = 45, y = 28, pre = pre }
+end
+Polestar.RegisterGuide({ id = "test/kolkar", pack = "test", title = "Kolkar", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1413, next = "test/barrens",
+	steps = { { goals = { at("accept", 850) } }, { goals = { at("turnin", 850), at("accept", 851, { 850 }) } }, q(70, "Elsewhere"),
+		{ goals = { at("turnin", 851), at("accept", 852, { 851 }) } }, q(71, "Elsewhere too"), { goals = { at("turnin", 852) } } } })
 "#;
 
 const NEXT: &str = r#"next = "test/barrens","#;
@@ -284,4 +292,57 @@ fn trailing_optional_or_note_steps_are_not_the_end_and_a_class_trainer_visit_ahe
 			emit(takeLog())"#,
 	});
 	assert_eq!(trainer, json!({}));
+}
+
+// #998: Regthar Deathgate's window, opened to hand in Kolkar Leaders, does not offer Verog the Dervish yet (it
+// opens with the hand-in). That refusal is no mark: the chain after it, up to the guide's last step, stays open
+// and the guide does not end.
+#[test]
+fn a_giver_s_window_before_the_hand_in_that_opens_the_follow_up_does_not_end_the_guide() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/kolkar"); flush(); takeLog()
+			w.accept(850, {}); flush()
+			w.gossip(3389, { active = { { questID = 850, isComplete = true } }, available = {} }); flush()
+			local r = { window = takeLog(), live = E.GetLiveStep(), follow = E.GetStepView(2).goals[2].status,
+				chain = E.GetStepView(4).goals[1].status, last = E.GetStepView(6).goals[1].status, ended = E.GuideEnded("test/kolkar") }
+			w.turnIn(850); w.close(); flush()
+			w.questDetail(3389, 851); flush(); w.accept(851, {}); w.close(); flush()
+			r.after = { log = takeLog(), live = E.GetLiveStep() }
+			emit(r)"#,
+	});
+	assert_eq!(out["window"], json!({}), "no GUIDE_END at Regthar's window");
+	assert_eq!(out["ended"], false);
+	assert_eq!(out["live"], 2);
+	assert_eq!(out["follow"], "active", "Verog the Dervish waits for the hand-in, not passed over");
+	assert_eq!(out["chain"], "pending");
+	assert_eq!(out["last"], "pending");
+	assert_eq!(out["after"], json!({ "log": {}, "live": 3 }));
+}
+
+// A last step that only reads done because its quest is unavailable for now is no end. Here Regthar's window
+// comes before Barak's head is in the bag: Verog the Dervish is passed over (its prerequisite missing, as
+// before), which carries down the chain to the last hand-in. That comes back with the hand-in.
+#[test]
+fn a_last_step_that_only_reads_done_as_unavailable_for_now_does_not_end_the_guide() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/kolkar"); flush(); takeLog()
+			w.accept(850, { 1 }); flush()
+			w.gossip(3389, { active = { { questID = 850 } }, available = {} }); w.close(); flush()
+			local r = { refused = takeLog(), follow = E.GetStepView(2).goals[2].status, last = E.GetStepView(6).goals[1].status, ended = E.GuideEnded("test/kolkar") }
+			w.finish(850); w.turnIn(850); flush()
+			w.accept(851, {}); flush()
+			r.after = { log = takeLog(), live = E.GetLiveStep(), last = E.GetStepView(6).goals[1].status }
+			emit(r)"#,
+	});
+	assert_eq!(out["refused"], json!({}), "no GUIDE_END while the chain waits for Kolkar Leaders");
+	assert_eq!(out["ended"], false);
+	assert_eq!(out["follow"], "skipped", "Verog the Dervish is passed over for now, as before");
+	assert_eq!(out["last"], "skipped");
+	assert_eq!(out["after"], json!({ "log": {}, "live": 3, "last": "pending" }));
 }

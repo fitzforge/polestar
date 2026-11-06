@@ -1302,7 +1302,11 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   the arrow stay on that giver, and its view's `noticeText` reads "Not
   offered by <giver>? Report it with /polestar" (`Own.notListed`, for the
   session, until that giver's window lists the quest or it is taken; never
-  saved). The player can still skip it (Skip this quest). A detail window
+  saved). The player can still skip it (Skip this quest). Nor is a refusal
+  while the missing prerequisite is in the log ready to hand in
+  (`Own.preReady`): the window shows before the hand-in that opens the quest
+  (Regthar Deathgate offers Verog the Dervish once Kolkar Leaders is in,
+  #998), so nothing is marked or reported. A detail window
   says nothing about the NPC's other
   quests when it opens within 30 s of that NPC's gossip/greeting list, reward
   panel or turn-in (the quest picked from the list, or the follow-up the
@@ -1618,7 +1622,11 @@ and both of its values start on `"ask"`.
   seen open (`Own.lastOpen`), so a guide opened, or brought back by a login,
   already at its end does not ask, nor does a last step that reads done from
   the start (its quest not offered yet) until the rest is done; and once per
-  guide per character (`CharState().guideEnds`).
+  guide per character (`CharState().guideEnds`). The last step's work must
+  be really done (`Own.endWorkDone`, #998): a goal only passed over as
+  unavailable for now (a level, a missing prerequisite, a giver's refusal)
+  comes back, so it is no end; out for good (closed, skipped by the player)
+  passes, but a step of nothing else is void.
 - **Ahead of the live step** (`Own.endDoneAhead`), by goal kind: quest
   state, level, bags, flight paths as they are; goto and explore by arrival,
   polled out of turn for the last step (`Own.endWatch`: Dun Morogh's walk to

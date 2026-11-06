@@ -3843,6 +3843,28 @@ function Own.endDoneAhead(s)
 	return true
 end
 
+-- Whether the work of step s, the last one, was really done (#998): every
+-- goal that holds the route done, none of them only passed over as
+-- unavailable for now (a level not reached, a prerequisite missing, a
+-- giver's refusal); those come back, so the step is no end yet. Out for
+-- good (closed by another quest, skipped by the player) passes, but a step
+-- of nothing else is void, no end either.
+function Own.endWorkDone(s)
+	local goals, did = guide.steps[s].goals, false
+	for g = 1, #goals do
+		local goal = goals[g]
+		if blocks(goal) and goalApplies(goal) then
+			if goalDone(s, g, goal) then
+				did = true
+			else
+				local u = unavailableFor(goal)
+				if not (u and (u.reason == "closed" or u.reason == "skipped")) then return false end
+			end
+		end
+	end
+	return did
+end
+
 -- Loaded tab: mark arrived goals of step s; true if any. A "Go to" naming
 -- its step is the area the step's work is in: reaching the place of any
 -- other goal of the step (where the arrow leads) arrives there too.
@@ -4642,9 +4664,11 @@ function Own.noteEnd()
 		-- screen as any step), once that same step was seen open: one that
 		-- reads done from the start (its quest not offered to this character),
 		-- or a `when` step that applies late already done, ends the guide only
-		-- when the rest is done. Trailing steps of only optional goals or notes
-		-- are offered, not the end (Own.lastWork).
-		local done = last ~= nil and not isSkipped(last) and (last == current and stepDone(last) or last ~= current and Own.endDoneAhead(last))
+		-- when the rest is done; so does one whose work only reads done as
+		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
+		-- optional goals or notes are offered, not the end (Own.lastWork).
+		local done = last ~= nil and not isSkipped(last) and Own.endWorkDone(last)
+			and (last == current and stepDone(last) or last ~= current and Own.endDoneAhead(last))
 		if not done then
 			if last then Own.lastOpen[id] = last end
 			return
@@ -6515,7 +6539,10 @@ end
 -- server lacks would take the quest and its later steps out of the guide):
 -- the accept stays open, the arrow stays on the giver, and its line says
 -- "Not offered by <giver>? Report it with /polestar" (Own.notListed, this
--- session, until the giver's window lists the quest or it is taken). A
+-- session, until the giver's window lists the quest or it is taken). Nor is
+-- a refusal while the missing prerequisite is in the log ready to hand in
+-- (Own.preReady): the window shows before the hand-in that opens the quest
+-- (Regthar Deathgate, Kolkar Leaders then Verog the Dervish, #998). A
 -- detail window opened from that giver's list, popped up by a turn-in at
 -- that giver (the follow-up quest), or started by an item, says nothing
 -- about the others.
@@ -6528,6 +6555,24 @@ local function unavailableReason(goal)
 	if lvl and (player.level or 1) < lvl then return "level" end
 	if missingPre(goal) then return "pre" end
 	return nil
+end
+
+-- Whether the prerequisites accept `goal` lacks are in the log, ready to hand
+-- in: every missing one of `preAll`, and one of `pre` when none is done.
+function Own.preReady(goal)
+	local C = Compat()
+	if type(goal.preAll) == "table" then
+		for _, q in ipairs(goal.preAll) do
+			if not questDone(q) and not C.IsQuestReadyForTurnIn(q) then return false end
+		end
+	end
+	if type(goal.pre) == "table" and #goal.pre > 0 then
+		for _, q in ipairs(goal.pre) do
+			if questDone(q) or C.IsQuestReadyForTurnIn(q) then return true end
+		end
+		return false
+	end
+	return true
 end
 
 -- A level-up or a turn-in (either can unlock a quest) clears the marks, so
@@ -6611,9 +6656,11 @@ local function checkOffers(source, startItem)
 				if goal.t == "accept" and q and (goal.npc == npc or goal.object == npc) and goalApplies(goal)
 					and not offered[q] and not C.IsOnQuest(q) and not questDone(q) and not unavailable[q] then
 					local why = unavailableReason(goal)
-					if why then
+					-- Offered once its prerequisite is handed in: no mark, nothing to report.
+					local waits = why == "pre" and Own.preReady(goal)
+					if why and not waits then
 						unavailable[q] = { reason = why, accept = goal }
-					else
+					elseif not why then
 						Own.notListed[q] = goal
 					end
 				end
