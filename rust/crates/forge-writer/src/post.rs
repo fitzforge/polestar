@@ -11,6 +11,51 @@ use forge_core::jsnum::js_hypot;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::BTreeMap;
 
+/// Hearth advice is the arrow's (Polestar 0.3.3): a written guide never tells the player to hearth.
+/// Every `hearth` goal goes (the route still plans its hearth legs; the guide leads on to where the
+/// leg lands), and a step left with no goal with it (no_empty_steps, which names a "Hearth to X" step
+/// that keeps other work for X); a walk `when !bound "X"` is then for everyone, and a tip's sentence
+/// "Hearth to X." goes ("Hearth to X and cross to Elder Rise.": "Cross to Elder Rise."). `sethome`
+/// stays.
+pub fn no_hearths(text: &str) -> String {
+	let mut out: Vec<String> = Vec::new();
+	for l in text.split('\n') {
+		let code = split_comment(l).0;
+		if head_ws(code) == Some("hearth") || re!(r#"^\s+when\s+!bound\s+"[^"]+"\s*$"#).is_match(code) {
+			continue;
+		}
+		if let Some(m) = re!(r"^(\s+tip\s+)(.+)$").captures(l) {
+			let t = &m[2];
+			let mut parts: Vec<&str> = Vec::new();
+			let mut s = 0;
+			for (i, _) in t.match_indices(". ") {
+				parts.push(&t[s..=i]);
+				s = i + 2;
+			}
+			parts.push(&t[s..]);
+			if parts.iter().any(|p| p.starts_with("Hearth to ")) {
+				let kept: Vec<String> = parts
+					.into_iter()
+					.filter_map(|p| match p.strip_prefix("Hearth to ") {
+						Some(h) => h.find(" and ").map(|k| {
+							let rest = &h[k + 5..];
+							rest.chars().next().map_or(String::new(), |c| c.to_uppercase().chain(rest.chars().skip(1)).collect())
+						}),
+						None => Some(p.to_string()),
+					})
+					.filter(|p| !p.trim().is_empty())
+					.collect();
+				if !kept.is_empty() {
+					out.push(format!("{}{}", &m[1], kept.join(" ")));
+				}
+				continue;
+			}
+		}
+		out.push(l.to_string());
+	}
+	re!(r"\n{3,}").replace_all(&no_empty_steps(out).join("\n"), "\n\n").into_owned()
+}
+
 /// Lines less the steps left with no goal.
 pub fn no_empty_steps(out: Vec<String>) -> Vec<String> {
 	let mut res = Vec::with_capacity(out.len());
@@ -2664,6 +2709,18 @@ pub fn follow_ups_at_their_giver(mut lines: Vec<String>, data: &Data, world: &Wo
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn no_hearth_goal_is_written() {
+		// (R3's pair: the hearth step goes, the walk there is for everyone; a hearth for some races in
+		// a step of other work goes, the step named for the place; a tip's hearth sentence goes, what it
+		// says besides the hearth stays.)
+		let t = "step Hearth to Ratchet\n  when bound \"Ratchet\"\n  hearth \"Ratchet\"\n\nstep To Ratchet\n  when !bound \"Ratchet\"\n  goto 62.5,37.4 \"Ratchet\"\n\nstep Hearth to Auberdine\n  tip Hearth to Auberdine and cross the bridge. Buy food here.\n  hearth \"Auberdine\" only Human\n  vendor nearest\n\nstep Gadgetzan\n  tip Hearth to Gadgetzan.\n  sethome \"Gadgetzan\"\n";
+		assert_eq!(
+			no_hearths(t),
+			"step To Ratchet\n  goto 62.5,37.4 \"Ratchet\"\n\nstep Auberdine\n  tip Cross the bridge. Buy food here.\n  vendor nearest\n\nstep Gadgetzan\n  sethome \"Gadgetzan\"\n"
+		);
+	}
 
 	/// The writer's data and world for follow-up tests: (quest, giver npc, ender npc, pre) and points
 	/// per NPC (yards east).

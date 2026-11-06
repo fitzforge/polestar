@@ -180,11 +180,7 @@ step The Gaping Chasm
   tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
   collect 8593 x1 quest 10            -- Scrimshank's Surveying Gear; below ground
 
-step Hearth to Gadgetzan
-  hearth "Gadgetzan"
-
 step Gadgetzan
-  tip Hearth to Gadgetzan.
   turnin 2781                         -- Chief Engineer Bilgewhizzle
   turnin 10                           -- Senior Surveyor Fizzledowser
   accept 110

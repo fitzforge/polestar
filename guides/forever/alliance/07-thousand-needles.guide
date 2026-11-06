@@ -98,9 +98,6 @@ step Sven's Camp
   turnin 323                              -- Sven Yorgen
   accept 269                              -- For Bishop Farthing in Stormwind, in the next guide
 
-step Hearth to Darkshire
-  hearth "Darkshire"
-
 step Viktori Prism'Antras
   turnin 181                          -- Inside
 

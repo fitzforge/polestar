@@ -363,9 +363,6 @@ step Fenris Isle
   turnin 461 optional                 -- Dusty Shelf, inside the keep; upstairs
   level 17.65                          -- grind on Rot Hide Plague Weaver
 
-step Hearth to The Sepulcher
-  hearth "The Sepulcher"
-
 step The Sepulcher
   turnin 91920
   turnin 443                          -- Apothecary Renferrel

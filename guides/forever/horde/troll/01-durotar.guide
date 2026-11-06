@@ -557,9 +557,6 @@ step Zargh
   accept 6384
   getfp "Crossroads"
 
-step Hearth to Razor Hill
-  hearth "Razor Hill"
-
 step Razor Hill
   zone Durotar
   tip Back to Razor Hill.

@@ -388,9 +388,6 @@ step Echeyakee
   use 10327 quest 881.1 @55.8,17.1 map 1413
   collect 5100 quest 881.1
 
-step Hearth to Ratchet
-  hearth "Ratchet"
-
 step Ratchet
   tip East to Ratchet, on the coast.
   turnin 902                          -- Sputtervalve

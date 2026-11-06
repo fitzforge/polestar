@@ -567,10 +567,6 @@ step Buliwyf Stonehand
   tip While you're here: learn Two-Handed Axes from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Paladin fastest.
   train 11865                         -- Buliwyf Stonehand
 
-step Hearth to Thunderbrew Distillery
-  zone Dun Morogh
-  hearth "Thunderbrew Distillery"
-
 step Ironforge
   zone Ironforge
   goto 72.4,48.6 "Ironforge"

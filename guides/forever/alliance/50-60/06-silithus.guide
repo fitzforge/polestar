@@ -11,12 +11,7 @@ zone Silithus
 # Added here: Toxic Horrors (5086), Of Lost Honor (5845).
 # Left out: Taking Back Silithus (8275).
 
-step Hearth to Ratchet
-  when bound "Ratchet"
-  hearth "Ratchet"
-
 step To Ratchet
-  when !bound "Ratchet"
   zone The Barrens
   goto 62.0,39.4 "Ratchet"
 
@@ -97,7 +92,7 @@ step Fly to Gadgetzan
 
 step Gadgetzan
   zone Tanaris
-  tip Hearth to Ratchet and fly to Gadgetzan. Buy two Thorium Bars at the Auction House here for Fire Plume Forged.
+  tip Fly to Gadgetzan. Buy two Thorium Bars at the Auction House here for Fire Plume Forged.
   turnin 4496                         -- Alchemist Pestlezugg, inside
   accept 4507
   turnin 4504                         -- Tran'rek

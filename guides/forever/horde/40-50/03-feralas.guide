@@ -96,12 +96,7 @@ step Stonard
   accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 48
   turnin 1430                           -- Dar, inside
 
-step Hearth to Camp Mojache
-  when bound "Camp Mojache"
-  hearth "Camp Mojache"
-
 step To Camp Mojache
-  when !bound "Camp Mojache"
   zone Feralas
   goto 74.8,45.2 "Camp Mojache"
 
@@ -251,9 +246,6 @@ step Northspring harpies
   kill 5363 quest 3063.2
   kill 5364 quest 3063.3
   kill 5366 quest 3063.4
-
-step Hearth to Camp Mojache
-  hearth "Camp Mojache"
 
 step Camp Mojache
   turnin 2822                           -- Jangdor Swiftstrider, inside

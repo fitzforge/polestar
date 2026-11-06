@@ -12,12 +12,7 @@ next forever/horde/40-50/02-feralas
 # Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
 # Left out: The Bloodsail Buccaneers (608).
 
-step Hearth to Ratchet
-  when bound "Ratchet"
-  hearth "Ratchet"
-
 step To Ratchet
-  when !bound "Ratchet"
   zone The Barrens
   goto 62.0,39.4 "Ratchet"
 
@@ -242,9 +237,6 @@ step Zul'Kunda
   tip West of the expedition, the Bloodscalp chiefs Gan'zulah and Nezzliok stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.
   collect 3904 quest 584.1
   collect 3905 quest 584.2
-
-step Hearth to Grom'gol Base Camp
-  hearth "Grom'gol Base Camp"
 
 step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
