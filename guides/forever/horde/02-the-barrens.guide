@@ -303,8 +303,8 @@ step Ratchet
   accept 97253                        -- Wrenix the Wretched
   accept 894                          -- Sputtervalve: the console is in the Sludge Fen, later
   accept 895                          -- WANTED poster
-  sethome "Ratchet"
   accept 865                          -- Mebok Mizzyrix
+  sethome "Ratchet"
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig, on the dock
 
@@ -436,8 +436,8 @@ step The Crossroads
   turnin 881                          -- Sergra Darkthorn
   accept 905
   accept 4921
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 899                          -- Mankrik
+  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   turnin 870                          -- Tonga Runetotem
   accept 877
 

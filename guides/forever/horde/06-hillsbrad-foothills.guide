@@ -20,12 +20,12 @@ step Tarren Mill
   collect 7771 quest 1536 only Shaman -- Fill the Empty Red Waterskin at the Spring Well beside the inn
   accept 501
   accept 496                          -- Apothecary Lydon
-  sethome "Tarren Mill" npc 2388      -- Innkeeper Shay: the last guide binds here, so this usually ticks at once
   turnin 493                          -- Apothecary Lydon
   turnin 494 optional -- High Executor Darthalia
   accept 527                          -- High Executor Darthalia
   accept 549                          -- The WANTED poster by the inn
   accept 498                          -- Krusk, inside
+  sethome "Tarren Mill" npc 2388      -- Innkeeper Shay: the last guide binds here, so this usually ticks at once
   accept 567                          -- The Dangerous! poster: its targets come up along the way; inside
 
 step Serge Hinott
