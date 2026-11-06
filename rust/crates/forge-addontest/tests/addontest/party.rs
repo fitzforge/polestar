@@ -572,10 +572,7 @@ emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("pa
 		true,
 		None,
 	);
-	assert_eq!(
-		out[0],
-		json!(["Questing/Group/party.share", "Questing/Group/party.show", "Questing/Group/party.waitForGroup", "Questing/Group/party.lootNeeds", "Questing/Group/party.panel"])
-	);
+	assert_eq!(out[0], json!(["Questing/Group/party.share", "Questing/Group/party.show", "Questing/Group/party.waitForGroup", "Questing/Group/party.lootNeeds", "Questing/Group/party.panel"]));
 	assert_eq!(out[1], json!([true, true, true, true, false]));
 }
 
@@ -1145,7 +1142,7 @@ emit(P.ShareFor(goal) == nil)"#
 	));
 	assert_eq!(out[0], true, "not in your log: nothing to share");
 	assert_eq!(out[1], json!(["Dee"]), "Ana has it; Ben is too low, Cy another class");
-	assert_eq!(out[2], format!("Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee").as_str());
+	assert_eq!(out[2], "Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee");
 	assert_eq!(json!([&out[3], &out[4]]), json!([true, [33]]));
 	assert_eq!(out[5], true, "the game said Dee has done it");
 	assert_eq!(out[6], "Not on this quest: Ben (level 8, needs 10), Cy (another class), Dee (already done)");
@@ -1193,7 +1190,10 @@ p.disband()
 emit(PP.Frame():IsShown())"#
 	));
 	let ana = &out[0][0];
-	assert_eq!(json!([&ana["name"], &ana["class"], &ana["level"], &ana["xp"], &ana["polestar"], &ana["dead"], &ana["far"], &ana["offline"], &ana["step"]]), json!(["Ana", "MAGE", 12, 45, true, true, false, false, "Kobold Camp"]));
+	assert_eq!(
+		json!([&ana["name"], &ana["class"], &ana["level"], &ana["xp"], &ana["polestar"], &ana["dead"], &ana["far"], &ana["offline"], &ana["step"]]),
+		json!(["Ana", "MAGE", 12, 45, true, true, false, false, "Kobold Camp"])
+	);
 	assert_eq!(ana["needs"], json!([{ "what": "Kobold Vermin", "cur": 3, "max": 8 }]));
 	assert_eq!(out[1][0], json!(["Ana", "Level 12  \u{b7}  45% XP", "Kobold Camp  \u{b7}  Dead", "Still needs: Kobold Vermin 3/8"]));
 	assert_eq!(out[1][1], 1, "Ben runs no Polestar: no row");
