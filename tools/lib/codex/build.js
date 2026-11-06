@@ -9,7 +9,6 @@
 // inputs = {
 //   forever: { items, npcs, objects, quests, zones, factions, professions, trainers,
 //              mapFrames, meta, instances (recorded), dungeons|null },  (data/forever/*.json)
-//   flbis|null,                                           (rust/crates/forge-data/src/gear/flb.rs)
 //   atlasloot|null, rarescanner|null                      (--local-extras only)
 //   client: clientFacts(tables) + { instanceMaps, instances: instanceFacts() }|null,
 //   curated: [item ids guides collect], curatedGates: curatedRepGates(), entrances: curatedEntrances(),
@@ -21,7 +20,7 @@
 //
 // Precedence for one fact found in several inputs (docs/SUITE.md, "Data
 // layer"): recordings > client tables > Forever-specific (QuestieDB Forever,
-// ForeverLevelingBiS, RareScanner, DungeonJournal) > Era (pfQuest, AtlasLoot)
+// RareScanner, DungeonJournal) > Era (pfQuest, AtlasLoot)
 // > Forever's item data. Sources of one item dedupe by type + npc/object/quest/spell/
 // faction; each field comes from the highest-ranked input that has it and
 // `from` keeps every input.
@@ -51,7 +50,7 @@ const TABLES = [
 // curated: the cited reputation gate table (data/codex/repgates.json);
 // guides: Polestar's own curated guides (a collectible's `rep` before its
 // `buy`). A gate from the client beats the table, the table a guide's.
-const RANK = { recordings: 0, client: 1, curated: 2, guides: 3, questie: 4, flbis: 4, rarescanner: 4, dungeons: 4, journal: 4, forever: 4, pfquest: 5, atlasloot: 5, web: 6 };
+const RANK = { recordings: 0, client: 1, curated: 2, guides: 3, questie: 4, rarescanner: 4, dungeons: 4, journal: 4, forever: 4, pfquest: 5, atlasloot: 5, web: 6 };
 const RANK_UNKNOWN = 7;
 // gift: an NPC hands the item out (casts a spell that creates it).
 const KEY_FIELD = { vendor: 'npc', drop: 'npc', object: 'object', quest: 'quest', gift: 'npc', craft: 'spell', rep: 'faction', pvp: null, container: 'item', world: null };
@@ -527,7 +526,6 @@ function mergeCodex(inputs) {
 	const fv = inputs.forever || {};
 	const al = inputs.atlasloot || null;
 	const rs = inputs.rarescanner || null;
-	const flb = inputs.flbis || null;
 	const cl = inputs.client || null;
 	const zonesIn = fv.zones || {};
 	const warnings = [];
@@ -872,7 +870,7 @@ function mergeCodex(inputs) {
 	for (const [npc, loot] of Object.entries(rareLoot)) {
 		for (const it of loot) add(it, { type: 'drop', npc: Number(npc), from: ['rarescanner'] });
 	}
-	// Quest rewards (recordings, ForeverLevelingBiS quests, dungeons.json quests).
+	// Quest rewards (recordings, dungeons.json quests).
 	const questRewards = {}; // quest -> { rewards: Set, choices: Set }
 	const reward = (quest, item, choice) => {
 		const q = (questRewards[quest] = questRewards[quest] || { rewards: new Set(), choices: new Set() });
@@ -904,17 +902,6 @@ function mergeCodex(inputs) {
 			}
 			reward(g.quest, g.item, !!g.choice);
 			add(g.item, { type: 'quest', quest: g.quest, choice: g.choice ? true : null, from: ['curated'] });
-		}
-	}
-	const flbQuests = (flb && flb.quests) || {};
-	for (const [qid, q] of Object.entries(flbQuests)) {
-		for (const it of (q.rewards && q.rewards.items) || []) {
-			reward(qid, it, false);
-			add(it, { type: 'quest', quest: Number(qid), from: ['flbis'] });
-		}
-		for (const it of (q.rewards && q.rewards.choices) || []) {
-			reward(qid, it, true);
-			add(it, { type: 'quest', quest: Number(qid), choice: true, from: ['flbis'] });
 		}
 	}
 	const dungeonQuests = {};
@@ -950,7 +937,7 @@ function mergeCodex(inputs) {
 	}
 	for (const [id, x] of Object.entries(dungeonItems)) if (!names[id]) names[id] = x.name;
 	// Forever's quest lists (quests.json `web`, data build), last:
-	// the reward items no recording, ForeverLevelingBiS or dungeons.json row
+	// the reward items no recording or dungeons.json row
 	// names, each as Forever's data files it (one of `choices`, or every one of
 	// `items`). Its lists carry most dungeon quests' rewards these lack.
 	for (const [qid, q] of Object.entries(fv.quests || {})) {
@@ -966,22 +953,6 @@ function mergeCodex(inputs) {
 				if (known(it)) continue;
 				reward(qid, it, choice);
 				add(it, { type: 'quest', quest: Number(qid), choice: choice || null, from: ['web'] });
-			}
-		}
-	}
-	if (flb) {
-		for (const [id, it] of Object.entries(flb.items || {})) {
-			if (it.name && !names[id]) names[id] = it.name;
-			for (const s of it.sources || []) {
-				if (s.type === 'quest' && s.id) {
-					const choice = !!(flbQuests[s.id] && flbQuests[s.id].rewards && (flbQuests[s.id].rewards.choices || []).includes(Number(id)));
-					add(id, { type: 'quest', quest: s.id, choice: choice || null, from: ['flbis'] });
-				} else if (s.type === 'drop' && s.npcId) {
-					add(id, { type: 'drop', npc: s.npcId, chance: s.pct || null, instance: npcInstance[s.npcId] || null, from: ['flbis'] });
-				} else if (s.type === 'crafted' && s.spellId) {
-					const line = skillLineOf[s.profession] ?? null;
-					if (line !== null) add(id, { type: 'craft', spell: s.spellId, skillLine: line, profession: s.profession, skill: s.skill ?? null, from: ['flbis'] });
-				}
 			}
 		}
 	}
@@ -1257,19 +1228,18 @@ function mergeCodex(inputs) {
 			if (gate) Object.assign(quests[id], { repFaction: gate.faction, repStanding: gate.standing });
 			continue;
 		}
-		const f = flbQuests[id];
 		const d = dungeonQuests[id];
-		const title = (f && f.name) || (d && d.title);
+		const title = d && d.title;
 		if (!title) continue;
 		quests[id] = {
 			id,
 			title,
-			level: int((f && f.level) ?? (d && d.level)),
-			minLevel: int((f && (f.minLevel ?? f.reqLevel)) ?? (d && d.minLevel)),
-			faction: f ? sideOf(f.side) : d ? sideOf(d.faction) : null,
+			level: int(d.level),
+			minLevel: int(d.minLevel),
+			faction: sideOf(d.faction),
 			races: null,
 			classes: null,
-			start: { npc: f && f.start && f.start.id ? [f.start.id] : [], object: [], item: [] },
+			start: { npc: [], object: [], item: [] },
 			end: { npc: [], object: [] },
 			objectives: [],
 			pre: [],
@@ -1465,7 +1435,6 @@ function sourcesMeta(inputs) {
 	const imp = [
 		[inputs.atlasloot, 'AtlasLootClassic', 'GPL-2.0'],
 		[inputs.rarescanner, 'RareScanner', 'All Rights Reserved'],
-		[inputs.flbis, 'ForeverLevelingBiS', 'MIT'],
 	];
 	for (const [x, name, licence] of imp) if (x) out.push({ name, version: (x.meta && x.meta.version) || null, licence: (x.meta && x.meta.licence) || licence });
 	const d = inputs.forever.dungeons;

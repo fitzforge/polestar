@@ -76,7 +76,9 @@ Polestar's own code and guides are GPL-3.0 (see LICENSE). What a release
   facts in `data/forever` (XP, Forever change notes, corrections, each with
   its source),
   the cited reputation gates of `data/codex/repgates.json`, our own
-  recordings and our own guides. Its `LICENSE-DATA.txt` lists every
+  recordings (the committed snapshot `data/codex/recorded.json`: facts from
+  the players the data build counts, CC BY 4.0 like our other recordings)
+  and our own guides. Its `LICENSE-DATA.txt` lists every
   source with its version and licence. AtlasLoot (GPL-2.0, which GPL-3.0-only
   Polestar cannot take in), RareScanner (All Rights Reserved) and
   DungeonJournal (no licence) feed only `forge data codex --local-extras`, a

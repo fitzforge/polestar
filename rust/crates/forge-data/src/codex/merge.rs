@@ -1,6 +1,6 @@
 //! build.js `mergeCodex(inputs)` for a release build (no AtlasLoot, RareScanner or
-//! dungeons.json): data/forever + the client facts + the cached web facts + ForeverLevelingBiS +
-//! the curated tables -> the Codex.
+//! dungeons.json): data/forever + the client facts + the cached web facts + the recorded item
+//! sources + the curated tables and guides -> the Codex.
 
 use std::collections::BTreeSet;
 
@@ -13,13 +13,12 @@ use super::spawns::{spawns_of, spawns_v};
 use super::util::{by_num, int, junk, key, kstr, math_round, norm_name, nums, oentries, opt, or_m1, ord, round1, slug};
 use super::Inputs;
 
-const RANK: [(&str, f64); 13] = [
+const RANK: [(&str, f64); 12] = [
 	("recordings", 0.0),
 	("client", 1.0),
 	("curated", 2.0),
 	("guides", 3.0),
 	("questie", 4.0),
-	("flbis", 4.0),
 	("rarescanner", 4.0),
 	("dungeons", 4.0),
 	("journal", 4.0),
@@ -499,7 +498,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let al = inputs.atlasloot.as_ref();
 	let rs = inputs.rarescanner.as_ref();
 	let dungeon_list: Vec<V> = fv.dungeons.get("dungeons").items();
-	let flb = inputs.flbis.as_ref();
+	let recorded = &inputs.recorded;
 	let cl = inputs.client.as_ref();
 	let zones_in = &fv.zones;
 	let frames_in = &fv.map_frames;
@@ -1074,13 +1073,27 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		}
 	}
 	// Vendors by what they sell (sells_role): every NPC an item lists as its
-	// vendor, from the client's item class.
+	// vendor, from the client's item class; an NPC whose merchant window players
+	// recorded is a vendor of what it listed.
+	for (npc, list) in oentries(&recorded.get("vendors")) {
+		if list.is_empty() {
+			continue;
+		}
+		add_role(&mut npc_roles, &mut role_ix, &npc, "vendor");
+	}
 	if let Some(cl) = cl {
+		let role_of = |id: f64| cl.items.get(&(id as i64)).and_then(|c| sells_role(c.class_id, c.subclass_id));
 		for (id, it) in oentries(&fv.items) {
-			let Some(c) = cl.items.get(&(str_to_num(&id) as i64)) else { continue };
-			let Some(role) = sells_role(c.class_id, c.subclass_id) else { continue };
+			let Some(role) = role_of(str_to_num(&id)) else { continue };
 			for npc in it.get("vendors").items() {
 				add_role(&mut npc_roles, &mut role_ix, &kstr(&npc), role);
+			}
+		}
+		for (npc, list) in oentries(&recorded.get("vendors")) {
+			for it in list.items() {
+				if let Some(role) = role_of(it.num()) {
+					add_role(&mut npc_roles, &mut role_ix, &npc, role);
+				}
 			}
 		}
 	}
@@ -1191,6 +1204,42 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		}
 		for c in it.get("containers").items() {
 			add(idn, src("container", &[("item", V::Num(c.num()))], &from));
+		}
+	}
+	// Players' recordings (data/codex/recorded.json): loot windows and merchant windows.
+	let rec_from = from_v(&["recordings".to_string()]);
+	for (npc, r) in oentries(&recorded.get("drops")) {
+		if !npcs.has(&npc) {
+			continue;
+		}
+		for (item, e) in oentries(&r.get("items")) {
+			add(str_to_num(&item), src("drop", &[("npc", V::Num(str_to_num(&npc))), ("chance", e.get("chance").clone_nullish()), ("instance", nn_or_null(npc_instance.get(&npc)))], &rec_from));
+		}
+	}
+	for (obj, r) in oentries(&recorded.get("objects")) {
+		for (item, e) in oentries(&r.get("items")) {
+			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish())], &rec_from));
+		}
+	}
+	for (npc, list) in oentries(&recorded.get("vendors")) {
+		let n = npcs.get(&npc);
+		if !n.truthy() || n.get("spawns").items().is_empty() {
+			continue;
+		}
+		for it in list.items() {
+			let cost = cl_item(&kstr(&it)).and_then(|c| c.buy_price);
+			add(it.num(), src("vendor", &[("npc", V::Num(str_to_num(&npc))), ("cost", opt(cost))], &rec_from));
+		}
+	}
+	// Our curated guides' `buy <item> npc <id>` steps.
+	let guide_vendor_from = from_v(&["guides".to_string()]);
+	for (item, list) in oentries(&inputs.curated_vendors) {
+		for npc in list.items() {
+			let n = npcs.get(&kstr(&npc));
+			if n.truthy() && !n.get("spawns").items().is_empty() {
+				let cost = cl_item(&item).and_then(|c| c.buy_price);
+				add(str_to_num(&item), src("vendor", &[("npc", V::Num(npc.num())), ("cost", opt(cost))], &guide_vendor_from));
+			}
 		}
 	}
 	let web_from = from_v(&["web".to_string()]);
@@ -1345,18 +1394,6 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			add(g.get("item").num(), src("quest", &[("quest", g.get("quest")), ("choice", if g.get("choice").truthy() { V::Bool(true) } else { V::Null })], &curated_from));
 		}
 	}
-	let flb_quests = flb.map(|f| f.get("quests")).unwrap_or_else(|| empty.clone());
-	let flbis_from = from_v(&["flbis".to_string()]);
-	for (qid, q) in oentries(&flb_quests) {
-		for it in q.get("rewards").get("items").items() {
-			reward(&mut quest_rewards, &qid, it.num(), false);
-			add(it.num(), src("quest", &[("quest", V::Num(str_to_num(&qid)))], &flbis_from));
-		}
-		for it in q.get("rewards").get("choices").items() {
-			reward(&mut quest_rewards, &qid, it.num(), true);
-			add(it.num(), src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", V::Bool(true))], &flbis_from));
-		}
-	}
 	let mut dungeon_quests: Vec<(f64, V)> = Vec::new();
 	let mut dungeon_items: Vec<(f64, V, V)> = Vec::new(); // item -> (name, quality): Forever dungeon loot the other tables may lack
 	let dungeons_from = from_v(&["dungeons".to_string()]);
@@ -1404,58 +1441,43 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			names.set(&key(*id), name.clone());
 		}
 	}
-	for (qid, q) in oentries(quests_in) {
-		let w = q.get("web");
-		if !w.truthy() {
-			continue;
-		}
-		let had = quest_rewards.contains_key(&*qid);
-		for (list, choice) in [(w.get("choices"), true), (w.get("items"), false)] {
-			for pair in list.items() {
-				let it = pair.at(0).num();
-				if had {
-					let h = &quest_rewards[&*qid];
-					if h.0.contains(&it) || h.1.contains(&it) {
-						continue;
+	// A quest's reward list recorded on trusted evidence stands in for the web lists' (Forever may
+	// have changed it); an untrusted one only fills a quest nothing else gives rewards for, after them.
+	let mut rec_trusted: FxHashSet<String> = FxHashSet::default();
+	for pass in [true, false] {
+		if !pass {
+			for (qid, q) in oentries(quests_in) {
+				let w = q.get("web");
+				if !w.truthy() || rec_trusted.contains(&*qid) {
+					continue;
+				}
+				let had = quest_rewards.contains_key(&*qid);
+				for (list, choice) in [(w.get("choices"), true), (w.get("items"), false)] {
+					for pair in list.items() {
+						let it = pair.at(0).num();
+						if had {
+							let h = &quest_rewards[&*qid];
+							if h.0.contains(&it) || h.1.contains(&it) {
+								continue;
+							}
+						}
+						reward(&mut quest_rewards, &qid, it, choice);
+						add(it, src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &web_from));
 					}
 				}
-				reward(&mut quest_rewards, &qid, it, choice);
-				add(it, src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &web_from));
 			}
 		}
-	}
-	if let Some(flb) = flb {
-		for (id, it) in oentries(&flb.get("items")) {
-			if it.get("name").truthy() && !names.get(&id).truthy() {
-				names.set(&id, it.get("name"));
+		for (qid, r) in oentries(&recorded.get("rewards")) {
+			if r.get("trusted").truthy() != pass || !quests_in.get(&qid).truthy() || (!pass && quest_rewards.contains_key(&*qid)) {
+				continue;
 			}
-			let idn = str_to_num(&id);
-			for s in it.get("sources").items() {
-				let ty = s.get("type");
-				let ty = ty.as_str().unwrap_or("");
-				if ty == "quest" && s.get("id").truthy() {
-					let fq = flb_quests.get(&kstr(&s.get("id")));
-					let choice = fq.truthy() && fq.get("rewards").truthy() && fq.get("rewards").get("choices").items().iter().any(|c| matches!(c, V::Num(n) if *n == idn));
-					add(idn, src("quest", &[("quest", s.get("id")), ("choice", if choice { V::Bool(true) } else { V::Null })], &flbis_from));
-				} else if ty == "drop" && s.get("npcId").truthy() {
-					let pct = s.get("pct");
-					add(
-						idn,
-						src("drop", &[("npc", s.get("npcId")), ("chance", if pct.truthy() { pct } else { V::Null }), ("instance", nn_or_null(npc_instance.get(&kstr(&s.get("npcId")))))], &flbis_from),
-					);
-				} else if ty == "crafted" && s.get("spellId").truthy() {
-					let prof = s.get("profession").to_js_string();
-					if let Some((_, line)) = skill_line_of.iter().find(|(n, _)| *n == prof) {
-						let skill = s.get("skill");
-						add(
-							idn,
-							src(
-								"craft",
-								&[("spell", s.get("spellId")), ("skillLine", V::Num(*line)), ("profession", s.get("profession")), ("skill", if skill.is_nullish() { V::Null } else { skill })],
-								&flbis_from,
-							),
-						);
-					}
+			if pass {
+				rec_trusted.insert(qid.to_string());
+			}
+			for (list, choice) in [(r.get("choices"), true), (r.get("items"), false)] {
+				for it in list.items() {
+					reward(&mut quest_rewards, &qid, it.num(), choice);
+					add(it.num(), src("quest", &[("quest", V::Num(str_to_num(&qid))), ("choice", if choice { V::Bool(true) } else { V::Null })], &rec_from));
 				}
 			}
 		}
@@ -1981,49 +2003,20 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			quests.set(&ids, V::Obj(o));
 			continue;
 		}
-		let f = flb_quests.get(&ids);
 		let d = dungeon_quests.iter().find(|x| x.0 == idf).map(|x| x.1.clone()).unwrap_or(V::Undef);
-		let title = if f.truthy() && f.get("name").truthy() {
-			f.get("name")
-		} else if d.truthy() {
-			d.get("title")
-		} else {
-			V::Undef
-		};
-		if !title.truthy() {
+		if !d.truthy() || !d.get("title").truthy() {
 			continue;
 		}
-		// `(f && f.x) ?? (d && d.y)`
-		let pick = |fv: V, dk: &str| {
-			if f.truthy() && !fv.is_nullish() {
-				fv
-			} else if d.truthy() {
-				d.get(dk)
-			} else {
-				V::Undef
-			}
-		};
 		let o = Obj::new();
 		o.set("id", idf);
-		o.set("title", title);
-		o.set("level", opt(int(&pick(f.get("level"), "level"))));
-		let ml = f.get("minLevel");
-		o.set("minLevel", opt(int(&pick(if ml.is_nullish() { f.get("reqLevel") } else { ml }, "minLevel"))));
-		o.set(
-			"faction",
-			if f.truthy() {
-				side_of(&f.get("side"))
-			} else if d.truthy() {
-				side_of(&d.get("faction"))
-			} else {
-				V::Null
-			},
-		);
+		o.set("title", d.get("title"));
+		o.set("level", opt(int(&d.get("level"))));
+		o.set("minLevel", opt(int(&d.get("minLevel"))));
+		o.set("faction", side_of(&d.get("faction")));
 		o.set("races", V::Null);
 		o.set("classes", V::Null);
 		let start = Obj::new();
-		let sid = f.get("start").get("id");
-		start.set("npc", if f.get("start").truthy() && sid.truthy() { V::from(vec![sid]) } else { V::arr() });
+		start.set("npc", V::arr());
 		start.set("object", V::arr());
 		start.set("item", V::arr());
 		o.set("start", V::Obj(start));

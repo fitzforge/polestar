@@ -286,7 +286,7 @@ first.
 | `forge data travel` | `data/forever/travel.json`, `addon/Polestar/Nav/TravelData.lua`, `addon/Polestar/Maps/FlightPaths.lua`; the local `Polestar_Travel` addon when `data/local/crossings.json` exists | flight paths, boats and zeppelins with their timetables, inns, zone crossings (`data/crossings.json`), recorded paths, and the walking grid (`--grid DIR`, or `--grid none`) |
 | `forge data professions` | `data/forever/professions.json` (or `--out FILE`) | the game's profession tables, items, NPCs and vendor stock |
 | `forge data dungeons` | `data/forever/dungeons.json` (or `--out FILE`) | a dungeon journal addon installed in your client (`--source DIR`); only facts (ids, names, levels, places, rewards, chains), none of its text |
-| `forge data codex` | `data/forever/codex/*.json` and `addon/Polestar_Codex` | `data/forever`, the game's tables, Polestar's guides and curated tables, installed addons (`--addons DIR`) |
+| `forge data codex` | `data/forever/codex/*.json` and `addon/Polestar_Codex` | `data/forever`, the game's tables, Polestar's guides and curated tables, the recorded item sources `data/codex/recorded.json` (`--recordings DIR` rewrites it first from a recordings folder) |
 | `forge data gear` | `addon/Polestar_ItemDB/…`, `addon/Polestar/Gear/SpecData.lua`, `data/forever/gear/report.json` | an installed gear addon (`--addons DIR`), Polestar's item database and weights |
 | `forge data sim-inputs --out DIR` | the game-table and server-fact files the simulator's world reads beside `data/forever`, in the `data/sources` layout | the installed client (or the cached tables) and the cached server facts |
 | `forge data extracts --out DIR` | the server-fact extracts, rebuilt from the pinned database dump in `data/sources` | for checking the cached extracts |
@@ -301,6 +301,13 @@ first.
 `codex`, `professions` and `travel` read the cache only: `forge data sources --only builders` fills it.
 
 Codex and gear are addon side products. They are not route inputs.
+
+`data/codex/recorded.json` is the Codex's snapshot of players' recordings: the items NPCs and
+objects dropped, what vendors listed and the rewards quests showed, from the players the data
+build counts (established Ingest contributors, the maintainer's own and vouched-for files), facts
+only. It is committed, so every machine builds the same Codex; `forge data codex --recordings
+<dir>` rewrites it from a recordings folder (the maintainer's archive or `data/recordings`) before
+the build. ARCHITECTURE, "Codex", has the rules.
 
 `forge data codex --local-extras` builds a Codex for your machine only. On top of the release
 inputs it merges the installed AtlasLoot (GPL-2.0) and RareScanner (no redistribution) and

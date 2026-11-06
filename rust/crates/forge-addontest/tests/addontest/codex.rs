@@ -10,7 +10,7 @@ use forge_addontest::{emitted, is_match, truthy, Addon, RunAddon};
 use forge_data::codex::client::{client_facts, ClientFacts, ClientItem, Tables};
 use forge_data::codex::merge::{is_general_goods, merge_codex, sells_role, Merged};
 use forge_data::codex::pack::{emit_pack, fold_name, PackCodex};
-use forge_data::codex::{build_inputs, curated_rep_gates_in, Forever, Inputs, Options};
+use forge_data::codex::{build_inputs, curated_rep_gates_in, curated_vendors_in, Forever, Inputs, Options};
 use forge_guide::js::{parse_json, V};
 use regex::Regex;
 use serde_json::{json, Value};
@@ -468,7 +468,7 @@ fn a_missing_faction_part_of_our_guides_is_named_at_login_the_other_faction_s_is
 /// passed. The assertions on what they gave are kept.
 struct Synth {
 	forever: Value,
-	flbis: Value,
+	recorded: Value,
 	atlasloot: Option<Value>,
 	rarescanner: Option<Value>,
 	client: ClientFacts,
@@ -592,10 +592,14 @@ fn synthetic() -> Synth {
 		"mounts": {},
 		"pets": {},
 	});
-	let flbis = json!({
-		"meta": { "version": "v0.5.1-beta", "licence": "MIT" },
-		"items": { "2933": { "name": "Seal of Wrynn", "sources": [{ "type": "quest", "id": 176, "name": "Wanted: \"Hogger\"" }] } },
-		"quests": { "176": { "name": "Wanted: \"Hogger\"", "rewards": { "choices": [2933, 1933] } } },
+	// Players' recorded windows (data/codex/recorded.json): the Hogger reward choices three players saw
+	// and a loot window.
+	let recorded = json!({
+		"meta": { "sessions": 3, "counted": 3, "voters": 3, "minVoters": 3, "minWindows": 10, "through": null },
+		"drops": { "61": { "windows": 30, "items": { "2933": { "voters": 3, "chance": 12.5 } } } },
+		"objects": {},
+		"vendors": {},
+		"rewards": { "176": { "items": [], "choices": [1933, 2933], "voters": 3, "trusted": true } },
 	});
 	let mut t = Tables::default();
 	put(
@@ -666,7 +670,7 @@ fn synthetic() -> Synth {
 		],
 	);
 	let client = client_facts(&t, "1.60.1.70338");
-	Synth { forever, flbis, atlasloot: Some(atlasloot), rarescanner: Some(rarescanner), client, web: None, curated: Vec::new() }
+	Synth { forever, recorded, atlasloot: Some(atlasloot), rarescanner: Some(rarescanner), client, web: None, curated: Vec::new() }
 }
 
 fn inputs(s: Synth) -> Inputs {
@@ -690,11 +694,12 @@ fn inputs(s: Synth) -> Inputs {
 		atlasloot: s.atlasloot.as_ref().map(v),
 		rarescanner: s.rarescanner.as_ref().map(v),
 		local_extras: false,
-		flbis: Some(v(&s.flbis)),
+		recorded: v(&s.recorded),
 		client: Some(s.client),
 		web: s.web.as_ref().map(v),
 		curated: s.curated,
 		curated_gates: V::obj(),
+		curated_vendors: V::obj(),
 		entrances: Vec::new(),
 		entrance_table: V::obj(),
 		rep_table: V::obj(),
@@ -752,6 +757,57 @@ fn maps(spawns: &Value) -> Vec<Value> {
 	spawns.as_array().unwrap().iter().map(|s| s["map"].clone()).collect()
 }
 
+// Players' recorded windows (data/codex/recorded.json): a quest's reward list recorded on trusted evidence
+// stands in for the web lists' (Forever may have changed the quest), one a single player recorded only
+// fills a quest nothing else gives rewards for; a recorded merchant window is a vendor source.
+#[test]
+fn mergecodex_recorded_reward_windows_rank_over_the_web_lists_only_on_trusted_evidence() {
+	let mut s = synthetic();
+	s.forever["quests"]["176"]["web"] = json!({ "choices": [[1179, 1]], "items": [] });
+	s.forever["quests"]["9002"]["web"] = json!({ "choices": [], "items": [[20001, 1]] });
+	s.recorded = json!({
+		"meta": { "sessions": 4, "counted": 4, "voters": 4, "minVoters": 3, "minWindows": 10, "through": null },
+		"drops": {},
+		"objects": {},
+		"vendors": { "4730": [20001] },
+		"rewards": {
+			"176": { "items": [], "choices": [2933], "voters": 3, "trusted": true },
+			"9002": { "items": [17], "choices": [], "voters": 1, "trusted": false },
+			"6063": { "items": [], "choices": [17], "voters": 1, "trusted": false },
+			"9001": { "items": [1179], "choices": [], "voters": 1, "trusted": false },
+		},
+	});
+	let codex = merged(s);
+	let it = &codex["items"];
+	let quests_of = |id: &str| -> Vec<Value> { it[id]["sources"].as_array().unwrap().iter().filter(|x| x["type"] == "quest").cloned().collect() };
+	assert_eq!(quests_of("2933"), vec![json!({ "type": "quest", "quest": 176, "choice": true, "from": ["recordings"] })]);
+	assert_eq!(quests_of("1179"), Vec::<Value>::new(), "the web list's choice of 176 gives way to the trusted recorded list, and 9001's QuestieDB rewards keep out a single player's");
+	assert_eq!(codex["quests"]["176"]["choices"], json!([2933]));
+	assert_eq!(quests_of("20001"), vec![json!({ "type": "quest", "quest": 9002, "from": ["web"] })], "a single player's list does not stand in for the web list");
+	assert_eq!(quests_of("17"), vec![json!({ "type": "quest", "quest": 6063, "choice": true, "from": ["recordings"] })], "it fills a quest no other input gives rewards for");
+	assert_eq!(find_type(&it["20001"]["sources"], "vendor"), json!({ "type": "vendor", "npc": 4730, "from": ["recordings"] }));
+	assert!(codex["npcs"]["4730"]["roles"].as_array().unwrap().contains(&json!("vendor")));
+}
+
+// A Forever-only racial mount no quest data sells (the Reins of the Striped Dawnsaber) takes its vendor from
+// the collectible guide's `buy` step, whatever races the step is for.
+#[test]
+fn curatedvendors_a_collectible_guide_s_buy_step_is_a_vendor_source() {
+	let tmp = TempDir::new("polestar-codex-vendors-");
+	let dir = tmp.path();
+	std::fs::write(
+		dir.join("saber.guide"),
+		["guide x/saber", "collects 8631, 2933", "", "step Pick a colour", "  only NightElf", "  buy 2933 \"Seal of Wrynn\" npc 4730 optional -- new in Forever", "  buy 99 npc 4730"].join("\n"),
+	)
+	.unwrap();
+	std::fs::write(dir.join("plain.guide"), ["guide x/plain", "step A", "  buy 17 npc 4730"].join("\n")).unwrap();
+	assert_eq!(plain(&curated_vendors_in(dir)), json!({ "2933": [4730] }));
+	let mut i = inputs(synthetic());
+	i.curated_vendors = curated_vendors_in(dir);
+	let codex = codex_json(&merge_codex(&i));
+	assert_eq!(find_type(&codex["items"]["2933"]["sources"], "vendor"), json!({ "type": "vendor", "npc": 4730, "from": ["guides"] }));
+}
+
 #[test]
 fn mergecodex_applies_precedence_dedupes_sources_and_keeps_provenance() {
 	let codex = merged(synthetic());
@@ -788,8 +844,12 @@ fn mergecodex_applies_precedence_dedupes_sources_and_keeps_provenance() {
 	// A quest's full XP reward comes along from quests.json; none known, none written.
 	assert_eq!(codex["quests"]["176"]["xp"], 1050);
 	assert!(codex["quests"]["9001"]["xp"].is_null());
-	// Quest source from FLB items and FLB quest rewards dedupe (choice kept); RareScanner loot adds a drop.
-	assert_eq!(it["2933"]["sources"], json!([{ "type": "quest", "quest": 176, "choice": true, "from": ["flbis"] }, { "type": "drop", "npc": 61, "from": ["rarescanner"] }]));
+	// Quest source from the recorded reward window (choice kept); a recorded loot window and RareScanner's
+	// loot dedupe to one drop, with the recorded chance.
+	assert_eq!(
+		it["2933"]["sources"],
+		json!([{ "type": "quest", "quest": 176, "choice": true, "from": ["recordings"] }, { "type": "drop", "npc": 61, "chance": 12.5, "from": ["recordings", "rarescanner"] }])
+	);
 	assert_eq!(it["17"]["sources"].as_array().unwrap().len(), 0, "source-less items stay searchable");
 	// Client RequiredPVPRank (5..18) becomes the title rank (1..14) and dedupes with AtlasLoot's.
 	assert_eq!(it["18876"]["sources"], json!([{ "type": "pvp", "rank": 14, "from": ["client", "atlasloot"] }]));

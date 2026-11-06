@@ -26,11 +26,6 @@ CMaNGOS classic-db: creature and gameobject spawn heights
 Version: 22b51464f1625f6ef6275771de1f5466c6f5d19e
 Licence: GPL-3.0; spawn heights (z) only, used as facts like the transport periods: a guide goal, spawn spot or smart-target candidate at an NPC or object (and Core/ClassTrainers.lua's class trainers) carries its spawn's height
 
-ForeverLevelingBiS
-------------------
-Version: v0.0.1-golden
-Licence: MIT License
-
 Curated instance entrances (data/codex/entrances.json): QuestieDB Forever dungeon table, warcraft.wiki.gg, the web quest database (Forever pages)
 -------------------------------------------------------------------------------------------------------------------------------------------------
 Version: 30 entrances

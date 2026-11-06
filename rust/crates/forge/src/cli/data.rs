@@ -167,11 +167,17 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 		}
 		"codex" => {
 			// codex build: --data, --sources, --addons, --build, --out (json), --pack; --local-extras also
-			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only).
+			// merges the installed AtlasLoot, RareScanner and dungeons.json (this machine only);
+			// --recordings <dir> first rewrites data/codex/recorded.json from that recordings folder.
 			let local_extras = args.iter().any(|a| a == "--local-extras");
-			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack"])?;
+			let kv = pairs(args.into_iter().filter(|a| a != "--local-extras").collect(), &["--root", "--data", "--sources", "--addons", "--build", "--out", "--pack", "--recordings"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
+			if let Some(dir) = get("--recordings").map(abs) {
+				let file = root.join("data").join("codex").join(forge_data::codex::recorded::FILE);
+				std::fs::write(&file, forge_data::codex::recorded::export(&dir)?).map_err(|e| format!("{}: {e}", file.display()))?;
+				eprintln!("wrote {} from the recordings in {}", file.display(), dir.display());
+			}
 			let mut o = forge_data::codex::Options::new(&root);
 			if let Some(d) = get("--data") {
 				o.data_dir = abs(d);
