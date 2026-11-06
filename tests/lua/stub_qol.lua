@@ -56,6 +56,7 @@ local q = {
 	cooldowns = {},
 	inRange = nil,
 	target = false,
+	units = {}, -- other unit tokens ("nameplate1", ...) -> { name, dead }
 }
 stub.qol = q
 
@@ -109,10 +110,23 @@ function UnitXPMax(unit) if unit == "player" then return q.xpMax end end
 function GetXPExhaustion() return q.rested end
 function GetMaxPlayerLevel() return q.maxLevel end
 function UnitIsGhost(unit) return unit == "player" and q.ghost end
-function UnitExists(unit) if unit == "target" then return q.target end return unit == "player" end
+function UnitExists(unit)
+	if unit == "target" then return q.target end
+	if q.units[unit] then return true end
+	return unit == "player"
+end
 -- q.target as a table { name, npc, dead, hostile, player }: the target the
--- step key's interact stage reads.
-local function targetOf(unit) return unit == "target" and type(q.target) == "table" and q.target or nil end
+-- step key's interact stage reads. q.units[token] answers the same way for
+-- any other token, such as a nameplate.
+local function targetOf(unit)
+	if unit == "target" then return type(q.target) == "table" and q.target or nil end
+	return q.units[unit]
+end
+-- The portrait as "portrait:<name>", so a test can tell whose it is.
+function SetPortraitTexture(tex, unit)
+	local t = targetOf(unit)
+	tex:SetTexture(t and ("portrait:" .. tostring(t.name)) or nil)
+end
 function UnitIsDead(unit) local t = targetOf(unit) return t and t.dead or false end
 function UnitIsPlayer(unit) local t = targetOf(unit) return t and t.player or false end
 function UnitCanAttack(_, unit) local t = targetOf(unit) return t and t.hostile or false end

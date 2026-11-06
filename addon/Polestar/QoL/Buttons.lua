@@ -15,7 +15,8 @@
 --     that drop its collect items: the ones the guide sends you to for that
 --     goal (`fromNpcs`), then the item's own droppers (Polestar.QuestDB when
 --     loaded), passing over corpses; every click moves the next name to the
---     front.
+--     front. While one of them is close, the button shows its face
+--     (Buttons.PortraitUnit; the rare button does too).
 --   Rare: /targetexact for the rares in range (Polestar.Rares.Nearby): the
 --     button comes up when the addon spots one and goes when it dies or is
 --     out of sight; every click moves the next name to the front.
@@ -929,6 +930,63 @@ function Buttons.AdvanceMark(kind)
 	return true
 end
 
+-- Portraits: while a mob the target or rare button names is close, the
+-- button shows its face instead of the crosshair. Close is the player's
+-- target or a mob with a nameplate (with enemy nameplates on); a dead one
+-- does not count. Names are tried from the one the next click targets first.
+-- The face is a plain texture, so it changes in combat too; while the client
+-- hides a close unit's name, the button keeps what it shows.
+local PORTRAIT_UNITS = { "target" }
+for i = 1, 40 do PORTRAIT_UNITS[#PORTRAIT_UNITS + 1] = "nameplate" .. i end
+
+-- The unit whose face to show for list, starting at list[first]: nil when no
+-- named mob is close, "keep" when a close unit's name cannot be read.
+function Buttons.PortraitUnit(list, first)
+	local n = #list
+	if n == 0 then return nil end
+	local Compat = ns.Compat
+	local byName, hidden = {}, false
+	for _, unit in ipairs(PORTRAIT_UNITS) do
+		if Compat.Readable(UnitExists(unit)) and not Compat.Readable(UnitIsDead(unit)) and not Compat.Readable(UnitIsPlayer(unit)) then
+			local name = UnitName(unit)
+			if Compat.IsSecret(name) then
+				hidden = true
+			elseif name and not byName[name] then
+				byName[name] = unit
+			end
+		end
+	end
+	for k = 0, n - 1 do
+		local unit = byName[list[(first - 1 + k) % n + 1]]
+		if unit then return unit end
+	end
+	return hidden and "keep" or nil
+end
+
+local function paintPortrait(b, state, tint)
+	local unit = Buttons.PortraitUnit(state.list, state.cycle)
+	if unit == "keep" or (not unit and not b.portrait) then return end
+	b.portrait = unit
+	if unit and SetPortraitTexture then
+		SetPortraitTexture(b.Icon, unit, true)
+		b.Icon:SetVertexColor(1, 1, 1, 1)
+	else
+		b.portrait = nil
+		b.Icon:SetTexture(media("qol-target"))
+		color(b.Icon, tint)
+	end
+end
+
+local function paintPortraits()
+	if not targetButton then return end
+	paintPortrait(targetButton, target, "danger")
+	paintPortrait(rareButton, rare, "quest")
+end
+local paintPortraitsSoon = QoL.Coalesce(paintPortraits)
+for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED" }) do
+	ns.RegisterEvent(event, paintPortraitsSoon)
+end
+
 local function refresh()
 	if not itemButton then return end
 	-- One view of the current step for all three buttons.
@@ -982,6 +1040,7 @@ local function refresh()
 	applyInteract(Buttons.InteractStage(view, raw))
 
 	applyBag(bagButton)
+	paintPortraits()
 end
 local refreshSoon = QoL.Coalesce(refresh)
 Buttons.Refresh = refresh
@@ -1013,6 +1072,7 @@ local function create()
 		if n > 1 then target.cycle = target.cycle % n + 1 end
 		local marked = Buttons.AdvanceMark("mob")
 		if n > 1 and not marked then applyTarget(targetButton) end
+		paintPortraits()
 	end)
 	rareButton = newButton("PolestarRareButton", rareTooltip)
 	rareButton.Icon:SetTexture(media("qol-target"))
@@ -1024,6 +1084,7 @@ local function create()
 		if n > 1 then
 			rare.cycle = rare.cycle % n + 1
 			applyRare(rareButton)
+			paintPortraits()
 		end
 	end)
 	bagButton = newButton("PolestarBagButton", bagTooltip)
