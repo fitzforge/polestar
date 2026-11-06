@@ -1907,6 +1907,17 @@
 					898
 				],
 				"why": "#907 (DexeeXI): Gilthares Firebough (3465) is chained in the same Northwatch Hold keep as Captain Fairmount (3393) and the cannoneers (3455, 3454), and his escort Free From the Hold (898) walks straight back to Ratchet (it ends at 62.27,39.09). The route accepted 898 in the hold and then sent the escort through the Northwatch kills and medals (891), against the escort rule (only talks near the giver between an escort's accept and its task); the seed clears the hold first. All of 891's work comes before 898 is accepted."
+			},
+			{
+				"a": [
+					"accept",
+					747
+				],
+				"b": [
+					"accept",
+					752
+				],
+				"why": "Start-zone sweep (0.3.3): a new Tauren appears about 5 yd from Grull Hawkwind (747) and about 54 yd from Chief Hawkwind (752), inside the big tent. The guides before 0.3.0 took Grull first; the 0.3.0 route took the chief first, so the first arrow walked the player past Grull into the tent and back out. Grull first, then the chief."
 			}
 		],
 		"notes": [
