@@ -91,6 +91,11 @@ test('A Void Path waits for Never Coming Back, handed in to the same giver (#100
 	assert.deepEqual({ all, any }, { all: [], any: [98251] });
 });
 
+test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Mines (#991)', () => {
+	const { all, any } = blockingPrereqs({ id: 92747, start: { npc: [253092] }, ...corrections.quests[92747].set });
+	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
+});
+
 test('The New Plague waits for the A Recipe For Death chain, handed in to its last part (#867)', () => {
 	const entry = corrections.quests[95216];
 	assert.ok(entry, 'a correction for The New Plague');

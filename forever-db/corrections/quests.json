@@ -2689,7 +2689,13 @@
 	},
 	"92747": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"preAll": [
+				92744
+			],
+			"preAny": [
+				92745
+			]
 		},
 		"source": [
 			{
@@ -2699,9 +2705,17 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#991"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-06: Alba Fairmoon offered Moonbrook Espionage to 5 characters, each with both Murloc Gills 92744 and The State of the Mines 92745 handed in"
 			}
 		],
-		"note": "Moonbrook Espionage (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "Moonbrook Espionage (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Alba also offers it only once Murloc Gills (92744) is handed in, besides The State of the Mines (92745): a level 18 Skyborne druid with 92745 done and 92744 skipped (not in the log) was not offered it (#991, Polestar 0.3.2), and in players' recordings she offered it only to characters with both handed in. The quest page gives only the Toxic Soil storyline order (92742, 92744, 92745, 92747), no prerequisite."
 	},
 	"92748": {
 		"set": {
