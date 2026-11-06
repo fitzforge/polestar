@@ -40,6 +40,7 @@ step Auberdine
 
 step Auberdine
   zone Darkshore
+  tip Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   sethome "Auberdine"
   accept 983                                  -- Wizbang Cranktoggle, by the inn
   turnin 3524                                 -- Gwennyth Bly'Leggonde

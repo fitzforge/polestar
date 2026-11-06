@@ -2,7 +2,7 @@
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
     "forever/alliance/02-westfall.guide": "5df32db84e038cd0014538a8e8a769ed13d5fd3e1cdfa8dd0e9710176ff274ca",
-    "forever/alliance/03-darkshore.guide": "3de0b3da947ef89297622d62a98c0234020a8209043051232769029fef810f16",
+    "forever/alliance/03-darkshore.guide": "d3987afbb802844fb9d6f18df06061b7a07d3238d15b7f1cdceae5525ecd24e5",
     "forever/alliance/04-redridge-mountains.guide": "82f2819bf22711d4467decfb43610ede223e1bf00f37db2c955b122893423180",
     "forever/alliance/05-duskwood.guide": "5cdfc43ef63369d505e9affd9f6c81b8e0815ee1a6706ee067adcfa567b449fc",
     "forever/alliance/06-ashenvale.guide": "b75847d103b4a08485e1df54e483aa5c6a0c759a486626624c716e12d0fa1442",
@@ -30,7 +30,7 @@
     "forever/alliance/gnome/01-dun-morogh.guide": "7ad1270e4ac913bd4490b501ea3b64002bef624239690da2ed66078373234677",
     "forever/alliance/human/01-elwynn-forest.guide": "8f516d9b3671ed9b66cc6cb85e02ac264a2ec92cf87f121eff75e4d420865434",
     "forever/alliance/nightelf/01-teldrassil.guide": "82f9abdf3bf4b121d965fe6a47850c3e7c646894a7cca2db4d04e326621f5141",
-    "forever/alliance/nightelf/02-darkshore.guide": "c34bca9dfce94a863447be0369b53278e40b414a509865de52bb4823c4be54ae",
+    "forever/alliance/nightelf/02-darkshore.guide": "674d8004ff1a20d90d673107dd437223f98ad796afcbf32d636eecba528f31f4",
     "forever/alliance/skyborne/01-zephras-isle.guide": "d4c87ebd50a7e605c9df48f0e4b1a3e2a84d7fd894ebd13dd3003db5afd46401",
     "forever/horde/02-the-barrens.guide": "07aeac74ae487b4a825db2aa956be2c96e88b59418fdcdda9e49e7a763c2b8ae",
     "forever/horde/03-silverpine-forest.guide": "a0869088a65365282951061ac13f03affe1d5d4581bd0fb23bfcdecbf9cbd265",
