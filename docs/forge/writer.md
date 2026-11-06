@@ -136,7 +136,11 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
   reads the zone the step before named (Thunder Bluff's Shaman stop is on
   Mulgore's map, and said Mulgore in the city), and a class trained once in a town
   visit (no flight, hearth or goto step between) is not trained again there
-  (the route's Shaman stop, then v1's Spirit Rise step).
+  (the route's Shaman stop, then v1's Spirit Rise step). v1's `train class`
+  line that the route takes before quest lines its v1 step writes ahead of it,
+  the route going on to them in a row, goes after them, where v1 has it: some
+  classes' trainers stand outside the building (Kharanos' distillery, trained
+  last after Ragnar, Tannok and Maxan: thmastin's recorded Dwarf Hunter run).
 - **Riding at 40** (`post::riding_at_level`, on the guides as written, the travel repair's ways
   and the adopted shared guides included): a step that trains at a riding
   trainer (the data's "... Riding Instructor" or "... Riding Trainer", the

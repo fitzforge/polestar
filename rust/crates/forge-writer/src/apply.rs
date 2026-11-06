@@ -1596,6 +1596,30 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			o.key = Some(fin.key());
 		}
 	}
+	// v1's `train class` line that the route takes before quest lines its own v1 step writes ahead of
+	// it, the route going on to them in a row: the training goes after them, where v1 has it. Some
+	// classes' trainers stand outside the visit's building (thmastin's Kharanos report, a recorded
+	// Dwarf Hunter run: the 0.3.0 Dwarf route trained before Ragnar, Tannok and Maxan, and Grif
+	// Wildheart's Hunters walked out of the distillery and back in).
+	{
+		let mut i = 0;
+		while i < order0.len() {
+			let o = &order0[i];
+			let train_key = o.key.filter(|_| o.t == OrderT::Train && o.items().is_empty());
+			let Some(tk) = train_key.filter(|&k| step_line(&steps, &step_of, k).is_some_and(|l| re!(r"^\s+train\s+class\b").is_match(&l.text))) else {
+				i += 1;
+				continue;
+			};
+			let st = step_of[&tk];
+			let ahead = |x: &Order| x.key.is_some_and(|k| step_of.get(&k) == Some(&st) && k.1 < tk.1);
+			let n = order0[i + 1..].iter().take_while(|x| ahead(x)).count();
+			if n > 0 {
+				let t = order0.remove(i);
+				order0.insert(i + n, t);
+			}
+			i += n + 1;
+		}
+	}
 	// Two route events v1 does in one step, one right after the other: no travel between them.
 	let same_step = |a: Option<&Order>, b: Option<&Order>| -> bool {
 		let (Some(ka), Some(kb)) = (a.and_then(|o| o.key), b.and_then(|o| o.key)) else { return false };
