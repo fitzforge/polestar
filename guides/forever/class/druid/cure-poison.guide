@@ -100,7 +100,7 @@ step Sickly Deer
 step Curing the Sick
   only NightElf,Skyborne,Alliance
   zone Moonglade
-  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed) and the portal up to Darnassus.
+  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed) and the portal up to Darnassus. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 6124                           -- Dendrite Starblaze
   accept 6125
   fly "Rut'theran Village"
@@ -163,7 +163,7 @@ step Sickly Gazelles
 step Curing the Sick
   only Tauren,Skyborne,Horde
   zone Moonglade
-  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Bunthen Plainswind's flight to Thunder Bluff.
+  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Bunthen Plainswind's flight to Thunder Bluff. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 6129                           -- Dendrite Starblaze
   accept 6130
   fly "Thunder Bluff"

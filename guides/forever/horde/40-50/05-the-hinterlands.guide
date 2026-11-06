@@ -52,7 +52,7 @@ step Violet Tragan
 # ---------------------------------------------------------------- Revantusk Village
 
 step Revantusk Village
-  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast.
+  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast. Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
   accept 7839                           -- Smith Slagtree
   accept 7845
   sethome "Revantusk Village" npc 14731 -- Lard
@@ -168,6 +168,7 @@ step Jintha'Alor
   collect 19071 quest 7850.1
 
 step Revantusk Village
+  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
   turnin 7839                           -- Smith Slagtree
   turnin 7840                           -- Lard, inside
   turnin 7850                           -- Primal Torntusk

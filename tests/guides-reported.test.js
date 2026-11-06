@@ -3303,3 +3303,55 @@ test("Flight path sweep (#939): Gnome Warlocks learn Ratchet's flight path at th
 	const walks = list.slice(fp + 1, felsteed).filter(({ goal }) => goal.t === 'goto' && goal.text === 'Ratchet');
 	assert.deepEqual(walks.map(({ step }) => step.title), [], 'no walk to Ratchet for the Felsteed');
 });
+
+// #960, after #941: the givers the data puts on an upper floor (spawn heights from classic-db and
+// the Forever server agree; the walking grid has a floor under them and the ground floor below).
+// The arrow has no height, so every step at one of them says to go up, in a goal note or the tip.
+// #961 (Verium, Human Mage): the first `train class` in Northshire led a Mage to the Abbey's ground
+// floor under Khelden Bremen. A `train class` step whose nearest trainer for a class (to the step's
+// other goals) stands upstairs says so too.
+test('Upper-floor givers (#960, #961): every step at one says to go up, train-class steps included', { skip: skip || needs('spawnz.json') }, () => {
+	const givers = {
+		2104: 'Stoutfist', 4964: 'Samaul', 7879: 'Quintis', 2316: "Gol'dir", 2501: 'MacKinley', 3391: 'Gazlowe',
+		377: 'Josetta', 328: 'Zaldimar', 198: 'Khelden', 7880: 'Ginro', 7907: 'Daryn', 2107: 'Gaerolas',
+		11802: 'Dendrite', 15189: 'Beetix', 15190: 'Noggle', 5394: 'Neeka', 14736: 'Primal Torntusk',
+		// Class trainers: Goldshire's inn, Brill's inn, the ramps of Aldrassil.
+		917: 'Keryn Sylvius', 2128: 'Cain Firesong', 2129: 'Beryl', 2127: 'Rupert Boch', 2130: 'Marion Call',
+		3593: 'Alyissia', 3594: 'Frahun Shadewhisper', 3595: 'Shanda', 3596: 'Ayanna Everstride', 3597: 'Mardant Strongoak',
+	};
+	const near = (a, b) => {
+		const f = a.map === b.map && (a.f || 'l') === (b.f || 'l') && data.eraFrame(a.map);
+		return f ? Math.hypot(((f.right - f.left) * (a.x - b.x)) / 100, ((f.bottom - f.top) * (a.y - b.y)) / 100) : Infinity;
+	};
+	const up = /\b(upstairs|top floor|upper level|second level|on top of)\b/i;
+	const said = (step, npc) => {
+		const key = givers[npc];
+		const sentences = [].concat(step.note || []).join(' ').split(/(?<=\.)\s+/);
+		const he = /^(He|Dendrite) stands upstairs/;
+		return step.goals.some((g) => g.npc === npc && up.test(g.note || '')) || sentences.some((s) => up.test(s) && (s.includes(key) || (he.test(s) && sentences.join(' ').includes(key))));
+	};
+	const missing = [];
+	let seen = 0;
+	for (const guide of allGuides()) {
+		for (const step of compiled(guide).steps) {
+			if (step.along) continue;
+			const atNpc = new Set(step.goals.filter((g) => (g.t === 'accept' || g.t === 'turnin') && givers[g.npc]).map((g) => g.npc));
+			// The trainer each class walks to: the nearest candidate to the step's other goals, within 120 yd.
+			const here = step.goals.filter((g) => g.t !== 'train' && g.map != null && g.x != null);
+			for (const g of step.goals.filter((g) => g.t === 'train' && g.class && here.length)) {
+				const byClass = new Map();
+				for (const c of g.candidates || []) {
+					const d = Math.min(...here.map((h) => near(h, c)));
+					for (const cls of c.classes || []) if (!byClass.has(cls) || d < byClass.get(cls).d) byClass.set(cls, { npc: c.npc, d });
+				}
+				for (const { npc, d } of byClass.values()) if (d <= 120 && givers[npc]) atNpc.add(npc);
+			}
+			for (const npc of atNpc) {
+				seen++;
+				if (!said(step, npc)) missing.push(`${guide}: step "${step.title}" at ${givers[npc]}`);
+			}
+		}
+	}
+	assert.ok(seen > 50, `the givers' steps are found (${seen})`);
+	assert.deepEqual(missing, []);
+});

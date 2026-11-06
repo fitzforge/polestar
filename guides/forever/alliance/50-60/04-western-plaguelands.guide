@@ -531,7 +531,7 @@ step Silithus
 
 step Cenarion Hold
   zone Silithus
-  tip Ride out of the crater's north-western pass into Silithus and on to Cenarion Hold.
+  tip Ride out of the crater's north-western pass into Silithus and on to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   accept 8277                         -- Beetix Ficklespragg
   sethome "Cenarion Hold"
   accept 8280                         -- Windcaller Proudhorn
@@ -552,7 +552,7 @@ step Level 56.89
 
 step Cenarion Hold
   zone Silithus
-  tip Follow the road south-west out of the pass to Cenarion Hold.
+  tip Follow the road south-west out of the pass to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   accept 9415                         -- Rifleman Torrig, at the Alliance tents
   getfp "Cenarion Hold"
   turnin 8277
