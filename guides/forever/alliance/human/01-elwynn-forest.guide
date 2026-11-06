@@ -337,10 +337,7 @@ step Downstream and Princess
   label q52
   tip The Waterlogged Saw, Axe and Toolbox lie in the river south of the bridge. Princess, a big boar, roots in the Brackwell Pumpkin Patch west of the river with her Porcine Entourage: pull the piglets away first. Kill Prowlers and Young Forest Bears on the way. Careful: Croaky is a level 11 elite on the murloc shore. Only go for his head with a group or once you're level 10; otherwise leave him: it's optional.
   collect 247813 quest 91733                  -- Waterlogged Saw
-  kill 118 quest 52
-  kill 118 quest 52 optional                  -- Prowler
-  kill 822 quest 52 optional                  -- Young Forest Bear
-  kill 822 quest 52 optional                  -- Young Forest Bear
+  kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
   collect 247818 quest 91733                  -- Waterlogged Toolbox
   collect 247826 x1 optional                  -- Croaky's Head: Croaky

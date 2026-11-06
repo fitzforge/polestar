@@ -240,8 +240,6 @@ step Brewnall Village
   accept 315
   accept 319
   kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold
-  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way
-  kill 1201 quest 319 optional                -- Snow Leopard, on the way
   kill 1127 quest 319                         -- Elder Crag Boar
   kill 1201 quest 319                         -- Snow Leopard
   collect 3083 quest 412.1

@@ -316,8 +316,6 @@ step Andorhal watchtowers and silos
   use 12815 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
   use 12627 @45.2,62.8 map 1422
-  use 12627 @45.2,62.8 map 1422
-  use 12627 @45.2,62.8 map 1422
   kill 10717 quest 4971.1
   kill 10904 quest 5098.3 "Mark Andorhal Tower Three with the Beacon Torch"
   kill 10905 quest 5098.4 "Mark Andorhal Tower Four with the Beacon Torch"
