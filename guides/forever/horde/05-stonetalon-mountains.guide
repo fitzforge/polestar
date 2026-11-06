@@ -132,10 +132,10 @@ step Warsong Outrider
 step Va'xug Firefure
   tip On the way west, Va'xug Firefure is stuck in a ravine south of the main road, south-east of Astranaar. Shadowhorn Stags and Ashenvale Bears roam the woods all around it.
   accept 98251 @40.4,61.5             -- Va'xug Firefure
-  accept 98252
   kill 3817 quest 98251.1
   kill 3809 quest 98251.2
   turnin 98251
+  accept 98252
 
 step A Void Path
   tip Steer Va'xug's Eye of Kilrogg out of the ravine to the main road within four minutes; if the channel breaks, ask Va'xug again.

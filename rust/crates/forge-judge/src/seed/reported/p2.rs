@@ -21,6 +21,7 @@ const ARATHI: &str = "forever/alliance/30-40/05-arathi-highlands.guide";
 const DARKSHORE: &str = "forever/alliance/03-darkshore.guide";
 const THOUSAND_NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
 const BADLANDS: &str = "forever/alliance/30-40/06-badlands.guide";
+const STONETALON: &str = "forever/horde/05-stonetalon-mountains.guide";
 const STRANGLETHORN_HORDE: &str = "forever/horde/30-40/02-stranglethorn-vale.guide";
 const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const UN_GORO_ALLIANCE: &str = "forever/alliance/40-50/07-un-goro-crater.guide";
@@ -214,6 +215,8 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(SILVERPINE, 95981, &[482], false),
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley is handed in.
 		(SILVERPINE, 97275, &[97242], false),
+		// soockee (#1002), jiskim (#984): Va'xug Firefure offers A Void Path once Never Coming Back is handed in.
+		(STONETALON, 98252, &[98251], false),
 	];
 	for &(guide, quest, after, optional) in cases {
 		let list = ctx.goals(guide);

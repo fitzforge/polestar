@@ -84,6 +84,13 @@ test('The Wrath of Rath\'mael waits for the second Rear Guard Patrol, which wait
 	assert.deepEqual(corrections.quests[99156].set.preAny, [356]);
 });
 
+test('A Void Path waits for Never Coming Back, handed in to the same giver (#1002, #984)', () => {
+	const entry = corrections.quests[98252];
+	assert.ok(entry, 'a correction for A Void Path');
+	const { all, any } = blockingPrereqs({ id: 98252, start: { npc: [267214] }, ...entry.set });
+	assert.deepEqual({ all, any }, { all: [], any: [98251] });
+});
+
 test('The New Plague waits for the A Recipe For Death chain, handed in to its last part (#867)', () => {
 	const entry = corrections.quests[95216];
 	assert.ok(entry, 'a correction for The New Plague');
