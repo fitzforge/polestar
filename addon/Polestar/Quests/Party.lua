@@ -1399,7 +1399,7 @@ Party.OPTIONS = {
 			disabled = function() return not ns.Get("party.show") end,
 			help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
 		{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
-			help = L["Each party member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] },
+			help = L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] },
 	},
 }
 
