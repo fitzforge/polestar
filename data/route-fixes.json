@@ -1918,6 +1918,61 @@
 					752
 				],
 				"why": "Start-zone sweep (0.3.3): a new Tauren appears about 5 yd from Grull Hawkwind (747) and about 54 yd from Chief Hawkwind (752), inside the big tent. The guides before 0.3.0 took Grull first; the 0.3.0 route took the chief first, so the first arrow walked the player past Grull into the tent and back out. Grull first, then the chief."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3116
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3117
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3118
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3119
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3120
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
 			}
 		],
 		"notes": [

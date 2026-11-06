@@ -39,15 +39,10 @@ step Back at Aldrassil
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
   accept 3116 only Warrior                    -- Conservator Ilthalaine: Simple Sigil
-  turnin 3116 only Warrior                    -- Alyissia, the warrior trainer; inside
   accept 3117 only Hunter                     -- Conservator Ilthalaine: a sigil for Ayanna Everstride
-  turnin 3117 only Hunter                     -- Ayanna Everstride, the hunter trainer
   accept 3118 only Rogue                      -- Conservator Ilthalaine: Encrypted Sigil
-  turnin 3118 only Rogue                      -- Frahun Shadewhisper, the rogue trainer
   accept 3119 only Priest                     -- Conservator Ilthalaine: Hallowed Sigil
-  turnin 3119 only Priest                     -- Shanda, the priest trainer: in at the tree's front entrance and up the ramp
   accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
-  turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   accept 457                                  -- Conservator Ilthalaine
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
   accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp; upstairs
@@ -74,6 +69,11 @@ step Aldrassil
   accept 917
   turnin 3519                                 -- Dirania Silvershine
   accept 3521
+  turnin 3116 only Warrior                    -- Alyissia, the warrior trainer; inside
+  turnin 3117 only Hunter                     -- Ayanna Everstride, the hunter trainer
+  turnin 3118 only Rogue                      -- Frahun Shadewhisper, the rogue trainer
+  turnin 3119 only Priest                     -- Shanda, the priest trainer: in at the tree's front entrance and up the ramp
+  turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   train class
 
 step Moonpetal Lily on the way
