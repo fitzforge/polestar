@@ -2103,7 +2103,7 @@ fn a_waypoint_without_a_height_on_william_macgregors_house_routes_to_and_from_it
 }
 
 // ---- nav acceptance: the planner's half (tools/lib/nav/eval/acceptance.json holds the walks) ----
-// Open until the walking-map rebuild lands: #[ignore]d, so the suite stays green; run them with
+// The open ones are #[ignore]d, so the suite stays green; run them with
 // `cargo test -p forge-addontest --test addontest acceptance -- --ignored`.
 // A route on Teldrassil: its legs' kinds, the portal and boat it takes, and every walk leg joining Rut'theran
 // Village (within 450 yd of 8680,1000, at the foot of the tree) to the top of the tree, which no one can walk.
@@ -2138,14 +2138,24 @@ fn teldrassil_route(from: (i64, f64, f64), to: (i64, f64, f64, &str)) -> Value {
 }
 
 /// #568 / #579 (EpicTibbles): Dolanaar to the Darnassus fishing trainer walked down to Rut'theran and took the portal up.
+/// The new maps have no walk from the top of the tree to the portal; the planner priced it straight until the
+/// router's `unreachable` answer took the portal out (Travel.WalkUnreachable).
 #[test]
-#[ignore = "open: #579 holds the fix until the walking-map rebuild"]
 fn acceptance_568_from_dolanaar_to_the_darnassus_fishing_trainer_the_route_walks_in_through_the_gate_never_down_to_the_rutheran_portal() {
 	skip_unless_ready!();
 	let out = teldrassil_route((1438, 56.73, 61.90), (1457, 47.89, 56.65, "Fishing trainer"));
 	let kinds = strs(&out["kinds"]);
 	assert!(kinds.iter().all(|k| k == "walk") && !kinds.is_empty(), "it walks all the way ({})", kinds.join(", "));
 	assert_eq!(f(&out["treeWalks"]), 0.0, "no walk leg joins Rut'theran to the top of the tree");
+}
+
+/// #568: a player who does stand in Rut'theran Village keeps the portal up to the trainer (the router walks them to it).
+#[test]
+fn t_568_from_rutheran_village_to_the_darnassus_fishing_trainer_the_route_still_takes_the_portal_up() {
+	skip_unless_ready!();
+	let out = teldrassil_route((1438, 55.6, 90.6), (1457, 47.89, 56.65, "Fishing trainer"));
+	let kinds = strs(&out["kinds"]);
+	assert!(kinds.iter().any(|k| k == "portal"), "the portal up ({})", kinds.join(", "));
 }
 
 // Same pattern (controller handover): Dolanaar <-> Auberdine must not walk between the top of Teldrassil and the
@@ -2159,13 +2169,13 @@ fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {
 }
 
 #[test]
-#[ignore = "open until the walking-map rebuild"]
+#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_dolanaar_to_auberdine_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1438, 56.73, 61.9), (1439, 36.8, 44.3, "Auberdine"));
 }
 
 #[test]
-#[ignore = "open until the walking-map rebuild"]
+#[ignore = "open: the walk to the Rut'theran dock for the boat is still priced straight (portals: #568)"]
 fn acceptance_dolanaar_auberdine_from_auberdine_to_dolanaar_no_walk_leg_joins_the_top_of_teldrassil_to_rutheran() {
 	dolanaar_auberdine((1439, 36.8, 44.3), (1438, 55.9, 59.8, "Dolanaar"));
 }
