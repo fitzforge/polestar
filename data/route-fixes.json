@@ -2926,6 +2926,18 @@
 					4161
 				],
 				"why": "RevNightElf3 c13 read: Recipe of the Kaldorei's Small Spider Legs drop from the Webwood Lurkers that Zenn's Bidding kills for Webwood Spider Silk (both from Webwood Lurker 1998 in the game's loot data; the two task places are 226 yd apart east of Dolanaar), so both are collected in one Zenn loop. c13 killed the lurkers for the silk at 01-teldrassil:306 and again for the legs in a second pass at :337. An after rule, not together: #555's together (Zenn's Nightsaber Fangs, then the Soft Nightsaber Pelts) holds the step right after Zenn's Bidding (c14 RECORD CONFLICT, Main's call)"
+			},
+			{
+				"a": [
+					"accept",
+					710
+				],
+				"b": [
+					"task",
+					2500,
+					2
+				],
+				"why": "Sweep from #957 (PR #970): Badlands Reagent Run's Rock Elemental Shards (2500, objective 3) drop only from rock elementals, and none stand near Hammertoe's Digsite: the nearest are the Lesser Rock Elementals in the Dustbowl round Lotwil Veriatus, whose Study of the Elements: Rock (710) asks for their Small Stone Shards (both items from Lesser Rock Elemental 2735 in the game's loot data). The route collected the shards in the Hammertoe's Digsite step, before Lotwil, then sent the player back to the same elementals for 710 at Agmond's End (30-40/06-badlands); 2500 is handed in at Thelsamar after both. v1 has the shards after accept 710"
 			}
 		],
 		"stay": [
@@ -4786,6 +4798,19 @@
 				],
 				"faction": "Horde",
 				"why": "#957 (Rohkin): Mankrik's tusks (Consumed by Hatred, 899) drop from every Bristleback that Tribes at War (878) asks for (Water Seeker, Thornweaver, Geomancer: 40% each, the game's loot data), in the same camps north of Camp Taurajo. The route collected them before taking 878 from Mangletooth in Camp Taurajo, then cleared the camps again for it (04-the-barrens 'Bristleback camps', then 'Bramblescar'). Mankrik's wife (4921) stays on the walk south"
+			},
+			{
+				"a": [
+					"accept",
+					582
+				],
+				"b": [
+					"task",
+					596
+				],
+				"faction": "Horde",
+				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
+				"source": "#970"
 			}
 		]
 	}
