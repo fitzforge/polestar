@@ -1864,7 +1864,7 @@ Polestar.Theme.SkinKey() -> "polestar" | "halo" | "blizzard"   -- ui.skin
 Polestar.Theme.SkinChoices() -> { { value, text }, ... }
 Polestar.Theme.Metric(key, house) -> n   -- a size in the skin in use; `house` in the house style
 Polestar.Theme.Icon(name) -> name        -- a glyph a skin draws its own way ("bug" -> "flag")
-Polestar.Theme.FontKey() -> "game" | "inter" | "fira"   -- ui.font, "skin" resolved
+Polestar.Theme.FontKey() -> "opensans" | "game" | "inter" | "fira"   -- ui.font, "skin" resolved
 ```
 
 **Skins** (`ui.skin`, Appearance > Windows > Frame): `polestar`, the house
@@ -1891,8 +1891,8 @@ skin brings:
   hairline by default; no game frame) and the game's `UI-Panel-Button-*`. A
   frame painted in another skin is cleared first, so a switch and back leaves it
   as it was;
-- its fonts (`ui.font` "skin", the default: the game's in the house style and
-  Hearth and the game's looks, Fira Sans in Halo), its type sizes and text shadow;
+- its fonts (`ui.font` "skin", the default: Open Sans in the house style,
+  Fira Sans in Halo, the game's in Hearth and the game's looks), its type sizes and text shadow;
 - its sizes (`Theme.Metric`): setting rows, buttons, menus, dropdowns,
   sliders, the guide window (`readMetrics` / `GF.ApplySkin`), the shell
   (`W.SHELL` reads them) and the guide menu. The big windows take them as they
@@ -1967,8 +1967,8 @@ scheme.
   every ground is darkened together by the least lightness that restores it.
 - Ground opacity: `ui.bgOpacity` for every window skin.
 - Font: EllesmereUI's when `ui.matchFont` (default off) and installed, else
-  `ui.font` (`skin` by default: the skin's | `game` | `inter` | `fira`; CJK
-  clients always the game font). A string holding Hangul, kana or Chinese
+  `ui.font` (`skin` by default: the skin's | `opensans` | `game` | `inter` |
+  `fira`; CJK clients use the game font for bundled faces). A string holding Hangul, kana or Chinese
   characters on a client whose locale does not draw that script (a player's
   name in Chinese on an English client) takes the client's font for it
   (`Theme.ScriptFont`: Fonts\2002.TTF, Fonts\ARKai_T.ttf), checked again

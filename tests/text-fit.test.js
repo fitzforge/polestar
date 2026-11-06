@@ -3,7 +3,7 @@
 // preview` that shows one of Polestar's windows (the guide window, the hub on
 // each section, Options on every page and tab, the welcome, the route
 // choice, the rare alert, the report window and the copy window) is laid out
-// through the preview's frame dump, in the game font and in Inter, and every
+// through the preview's frame dump, in Open Sans, the game font and Inter, and every
 // visible string is checked against its window's edges and the frames that
 // clip it.
 //
