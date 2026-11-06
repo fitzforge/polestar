@@ -1031,6 +1031,7 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "護送：如果 
 -- L["%s XP to go"] = ""
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
+L["The object here"] = "這裡的物件"
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"

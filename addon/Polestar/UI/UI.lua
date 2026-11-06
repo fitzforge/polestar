@@ -506,10 +506,44 @@ function UI.StepGroups(view)
 	return { { kind = "here", goals = {} } }, 1
 end
 
--- How a group is named: a person or object by name; a field group by the
--- step title, else its first open goal.
+-- An object named after one of the quests it starts while it starts another
+-- too (Auberdine's poster, which Forever names "WANTED: Murkdeep!", gives
+-- WANTED: Jai'vhanel as well, #942) would head the other quest with a title
+-- not its own: the first of its goals' notes that names the object (shares
+-- a word of four letters or more with its name: "The WANTED poster outside
+-- the inn") stands for it, else a neutral label. -> name
+local function objectName(view, group)
+	local name, titled, quests = group.name, nil, {}
+	for _, gi in ipairs(group.goals or {}) do
+		local g = view.goals[gi]
+		if g and g.status ~= "na" and g.quest then
+			quests[g.quest] = true
+			if g.subjectKind == "quest" and g.subject == name then titled = g.quest end
+		end
+	end
+	quests[titled or false] = nil
+	if not titled or next(quests) == nil then return name end
+	local words = {}
+	for w in name:lower():gmatch("%w+") do
+		if #w >= 4 then words[w] = true end
+	end
+	for _, gi in ipairs(group.goals) do
+		local g = view.goals[gi]
+		if g and g.status ~= "na" and type(g.note) == "string" then
+			for w in g.note:lower():gmatch("%w+") do
+				if words[w] then return g.note end
+			end
+		end
+	end
+	return L["The object here"]
+end
+
+-- How a group is named: a person or object by name (objectName); a field
+-- group by the step title, else its first open goal.
 function UI.GroupName(view, group)
-	if group.kind ~= "here" and type(group.name) == "string" and group.name ~= "" then return group.name end
+	if group.kind ~= "here" and type(group.name) == "string" and group.name ~= "" then
+		return group.kind == "object" and objectName(view, group) or group.name
+	end
 	if view.title and view.title ~= "" then return view.title end
 	for _, gi in ipairs(group.goals or {}) do
 		local g = view.goals[gi]

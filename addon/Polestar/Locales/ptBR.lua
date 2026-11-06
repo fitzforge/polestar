@@ -1032,6 +1032,7 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "Escolta: se o PN
 L["%s XP to go"] = "Faltam %s de EXP"
 L["%d:%02d left"] = "%d:%02d restantes"
 L["%s and %s"] = "%s e %s"
+L["The object here"] = "O objeto aqui"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"

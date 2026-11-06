@@ -583,3 +583,28 @@ fn a_step_with_nothing_for_the_character_says_why_under_its_title() {
 	assert_eq!(out["skipped"]["name"], "Goldshire");
 	assert_eq!(out["field"], false);
 }
+
+// Darkshore's Auberdine (#942): WANTED: Jai'vhanel and WANTED: Murkdeep! start from one poster, which Forever names
+// "WANTED: Murkdeep!". Its header is the goal's note naming the poster, not the other quest's title.
+#[test]
+fn an_object_named_like_one_of_its_quests_is_headed_by_the_note_naming_it_or_a_neutral_label() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		local function poster(quest, subject, note)
+			return { t = "accept", verb = "Accept", subject = subject, subjectKind = "quest", quest = quest, object = 175320, objectName = "WANTED: Murkdeep!", note = note, map = 1439, x = 37.2, y = 44.2, status = "active" }
+		end
+		local function header(goals)
+			steps[#steps + 1] = { title = "Auberdine", goals = goals }
+			uistub.setGuide(uistub.elwynn, #steps)
+			return GF.parts.person.Name:GetText()
+		end
+		emit({
+			both = header({ poster(98025, "WANTED: Jai'vhanel", "The WANTED poster outside the inn"), poster(4740, "WANTED: Murkdeep!", "The WANTED poster") }),
+			bare = header({ poster(98025, "WANTED: Jai'vhanel"), poster(4740, "WANTED: Murkdeep!") }),
+			own = header({ poster(4740, "WANTED: Murkdeep!", "The WANTED poster") }),
+		})"#)
+	.remove(0);
+	assert_eq!(out["both"], "The WANTED poster outside the inn", "the note that names the poster");
+	assert_eq!(out["bare"], "The object here", "no such note: a neutral label");
+	assert_eq!(out["own"], "WANTED: Murkdeep!", "its only quest's own title is no confusion");
+}

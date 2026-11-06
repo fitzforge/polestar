@@ -4575,7 +4575,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   A step with nothing for this character says why: the step view's `why`
   (`Own.stepWhy`: another character's step, the `when` condition that
   fails, else the group quest it waits on, "Only if you do Book Return with
-  a group"). A click
+  a group").
+  An object named like one of its quests while it gives another too (one
+  poster for two WANTED quests) is headed by the first goal note that names
+  it, else "The object here" (`UI.GroupName`, #942). A click
   on a line lists what it stands for under it (goals,
   stepped back in textDim; the "more" line its persons' lines) and a second
   click folds them; a new focus or step closes every line and the new focus
