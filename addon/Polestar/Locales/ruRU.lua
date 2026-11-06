@@ -528,9 +528,9 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "Показывать, кому ещё нужна добыча для заданий"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "В окне добычи или при розыгрыше — строка под предметом задания, который ещё нужен участнику группы, но не вам. За вас ничего не передаётся и не пишется."
 L["Party panel"] = "Панель группы"
-L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Уровень и шаг каждого участника с Polestar и что ему ещё нужно из вашего шага; щелчок по имени наводит на него стрелку. /polestar party показывает или скрывает панель."
 L["Tell my party in chat when I finish a quest objective"] = "Сообщать группе в чат, когда я выполняю задачу задания"
 L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Одна строка в чате группы со ссылкой на задание, когда вы выполняете задачу, и ещё одна, когда задание можно сдать. Её видят все в группе, с Polestar или без. Никогда в одиночку или в рейде."
+-- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "большое улучшение"
@@ -2895,6 +2895,11 @@ L["Dead"] = "Мёртв"
 L["Far away"] = "Далеко"
 L["Still needs: %s"] = "Ещё нужно: %s"
 L["Show or hide the party panel"] = "Показать или скрыть панель группы"
+-- L["Party sync is off: turn it on in Options > Questing > Quests > Group."] = ""
+-- L["The party panel shows in a party (not a raid)."] = ""
+-- L["The party panel shows with the guide window."] = ""
+-- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
+-- L["The party panel comes back after combat."] = ""
 
 -- Quests/PartyChat.lua
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar сообщил группе, что вы выполнили задачу задания (выключить: Настройки > Задания > Задания > Группа)."
@@ -2945,3 +2950,4 @@ L["Finished: %s - %s"] = "Выполнено: %s - %s"
 -- L["Small conveniences: travel, invitations, merchants and trackers."] = "Мелкие удобства: перемещения, приглашения, торговцы и трекеры."
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "Участники группы с Polestar видят ваши счетчики под целями заданий. В чат ничего не уходит."
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "Их счетчики под вашими целями и кто не взял ваше задание."
+-- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Уровень и шаг каждого участника с Polestar и что ему ещё нужно из вашего шага; щелчок по имени наводит на него стрелку. /polestar party показывает или скрывает панель."

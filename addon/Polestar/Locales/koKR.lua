@@ -528,9 +528,9 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "퀘스트 전리품이 필요한 사람 알리기"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "전리품 창이나 주사위 굴림에서, 파티원은 아직 필요하지만 나는 필요 없는 퀘스트 아이템 아래에 한 줄을 표시합니다. 나 대신 포기하거나 말하는 것은 없습니다."
 L["Party panel"] = "파티 창"
-L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Polestar를 쓰는 각 파티원의 레벨, 단계, 내 단계에서 아직 필요한 것; 이름을 클릭하면 화살표가 그 파티원을 가리킵니다. /polestar party로 표시하거나 숨깁니다."
 L["Tell my party in chat when I finish a quest objective"] = "퀘스트 임무를 완료하면 채팅으로 파티에 알리기"
 L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "임무를 완료하면 퀘스트 링크와 함께 파티 채팅에 한 줄, 퀘스트를 제출할 수 있게 되면 한 줄을 보냅니다. Polestar 사용 여부와 관계없이 파티원 모두가 봅니다. 혼자일 때나 공격대에서는 보내지 않습니다."
+-- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -2895,6 +2895,11 @@ L["Dead"] = "사망"
 L["Far away"] = "멀리 있음"
 L["Still needs: %s"] = "아직 필요: %s"
 L["Show or hide the party panel"] = "파티 창 표시/숨기기"
+-- L["Party sync is off: turn it on in Options > Questing > Quests > Group."] = ""
+-- L["The party panel shows in a party (not a raid)."] = ""
+-- L["The party panel shows with the guide window."] = ""
+-- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
+-- L["The party panel comes back after combat."] = ""
 
 -- Quests/PartyChat.lua
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar가 파티에 퀘스트 임무 완료를 알렸습니다 (끄려면 설정 > 퀘스트 진행 > 퀘스트 > 파티)."
@@ -2945,3 +2950,4 @@ L["Finished: %s - %s"] = "완료: %s - %s"
 -- L["Small conveniences: travel, invitations, merchants and trackers."] = "작은 편의: 이동, 초대, 상인, 추적기."
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "Polestar를 쓰는 파티원이 자신의 퀘스트 목표 아래에서 내 수치를 봅니다. 대화창에는 아무것도 보내지 않습니다."
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "내 퀘스트 목표 아래에 파티원의 수치와, 내가 받은 퀘스트가 없는 파티원을 표시합니다."
+-- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Polestar를 쓰는 각 파티원의 레벨, 단계, 내 단계에서 아직 필요한 것; 이름을 클릭하면 화살표가 그 파티원을 가리킵니다. /polestar party로 표시하거나 숨깁니다."
