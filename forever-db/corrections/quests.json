@@ -3917,6 +3917,21 @@
 		},
 		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
 	},
+	"98252": {
+		"set": {
+			"pre": [
+				98251
+			],
+			"preAny": [
+				98251
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "#984"
+		},
+		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251 is handed in to him. In game, with 98251 accepted and its kills not done, Va'xug did not offer it: the player's Polestar report shows the accept step as not offered, and they reported it as the follow-up of Never Coming Back (#984). The merged data had no prerequisite, so the Stonetalon guide took both quests from him at once."
+	},
 	"98319": {
 		"set": {
 			"objectives": [
