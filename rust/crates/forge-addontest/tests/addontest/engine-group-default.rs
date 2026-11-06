@@ -31,6 +31,10 @@ Polestar.RegisterGuide({
 "#;
 
 fn run(all: Option<&str>, answers: Option<Value>, script: &str) -> Vec<Value> {
+	run_guide(GROUP_GUIDE, all, answers, script)
+}
+
+fn run_guide(guide: &str, all: Option<&str>, answers: Option<Value>, script: &str) -> Vec<Value> {
 	let mut char = json!({ "schema": 1, "guide": "test/group" });
 	if let Some(a) = answers {
 		char["groupQuests"] = a;
@@ -41,7 +45,7 @@ fn run(all: Option<&str>, answers: Option<Value>, script: &str) -> Vec<Value> {
 		before: WORLD.into(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".into(), format!("{account}PolestarCharDB = {}", lua_value(&char)))],
-		script: [TEST_PACK, TEST_SOURCE, GROUP_GUIDE, "E = Polestar.Engine", "function flush() stub.advance(0.25) end", "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script]
+		script: [TEST_PACK, TEST_SOURCE, guide, "E = Polestar.Engine", "function flush() stub.advance(0.25) end", "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, script]
 			.join("\n"),
 		..Default::default()
 	})
@@ -79,4 +83,44 @@ fn group_quests_changing_the_answer_for_all_re_evaluates_the_route() {
 	assert_eq!(asked["q"], 7);
 	assert_eq!(skipped["q"], false);
 	assert_eq!(skipped["at"], 2);
+}
+
+// Shaped like Elwynn's Goldshire (#942): the group quest's accept is optional, its hand-in has a step of its own
+// (`when group`), the solo way another (`when !group`), and a step needs a level. Looked at ahead, each step with
+// nothing for this character says why (GetStepView `why`); a step with something to do says nothing.
+const WHY_GUIDE: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/group", pack = "test", title = "Group", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Marshal McBride", goals = {
+			{ t = "turnin", quest = 783, title = "A Threat Within", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6 },
+		} },
+		{ title = "Group quest", when = { { k = "group", q = 7 } }, goals = {
+			{ t = "accept", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6, optional = true },
+		} },
+		{ title = "Goldshire", when = { { k = "group", q = 7 } }, goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 197, npcName = "Marshal McBride", map = 1429, x = 48.9, y = 41.6, optional = true },
+		} },
+		{ title = "The solo way", when = { { k = "group", q = 7, neg = true } }, goals = { { t = "task", text = "Pull one at a time" } } },
+		{ title = "Later", when = { { k = "level", op = ">=", n = 5 } }, goals = { { t = "task", text = "Train" } } },
+	},
+})
+"#;
+
+const WHY: &str = "local function why(s) return E.GetStepView(s).why or false end\nemit({ why(1), why(2), why(3), why(4), why(5) })";
+
+#[test]
+fn a_step_with_nothing_for_the_character_says_why_in_one_line() {
+	let ask = run_guide(WHY_GUIDE, None, None, WHY).remove(0);
+	assert_eq!(
+		ask,
+		json!([false, false, "Only if you do Kobold Camp Cleanup with a group", false, "Only from level 5"]),
+		"not answered yet: the hand-in's step has nothing (the optional accept is not taken) and names the question"
+	);
+	let skip = run_guide(WHY_GUIDE, Some("skip"), None, WHY).remove(0);
+	assert_eq!(skip[2], "Only if you do Kobold Camp Cleanup with a group", "skipped: its condition fails");
+	assert_eq!(skip[3], false);
+	let done = run_guide(WHY_GUIDE, Some("do"), None, WHY).remove(0);
+	assert_eq!(done[3], "Only if you skip the group quest Kobold Camp Cleanup");
+	assert_eq!(done[2], "Skipped for your character: none of its goals apply", "with a group but the accept not taken");
 }

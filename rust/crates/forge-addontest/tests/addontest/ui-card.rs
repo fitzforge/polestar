@@ -561,3 +561,25 @@ fn an_along_step_looked_at_says_it_is_done_along_the_way_until_its_labelled_step
 	assert_eq!(out["beach"]["why"], false, "a step of the route says nothing of the kind");
 	assert_eq!(out["done"]["why"], "Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done.");
 }
+
+// Elwynn's step 42, "Goldshire" (`when group 91775`, `turnin 91775 optional`, #942): looked at ahead, a step with
+// nothing for this character says why instead of showing only its title.
+#[test]
+fn a_step_with_nothing_for_the_character_says_why_under_its_title() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Goldshire", why = "Only if you do Book Return with a group", goals = {
+			{ t = "turnin", verb = "Turn in", subject = "Book Return", subjectKind = "quest", quest = 91775, npc = 295, npcName = "Innkeeper Farley", optional = true, status = "na" },
+		} }
+		local s = #steps
+		uistub.live = 1
+		uistub.setGuide(uistub.elwynn, s)
+		local P = GF.parts
+		local skipped = { why = P.person.Why:IsShown() and plain(P.person.Why:GetText()) or false, name = P.person.Name:GetText(), items = items() }
+		uistub.setGuide(uistub.elwynn, 3)
+		emit({ skipped = skipped, field = P.person.Why:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["skipped"]["why"], "Only if you do Book Return with a group");
+	assert_eq!(out["skipped"]["name"], "Goldshire");
+	assert_eq!(out["field"], false);
+}

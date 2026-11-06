@@ -2692,9 +2692,11 @@ end
 local DOT = "  \194\183  "
 
 -- The line under the header when the step is no stop of the route (#942):
--- an along step, done on the way and listed under the steps ahead until its
--- labelled step. nil on a step of the route.
+-- why it holds nothing for this character (the Engine's `why`), or that it
+-- is an along step, done on the way and listed under the steps ahead until
+-- its labelled step. nil on a step of the route.
 local function whyLine(v)
+	if v.why then return v.why end
 	if not v.along then return nil end
 	local n = v.alongUntil
 	if not n then return L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] end
@@ -3974,7 +3976,7 @@ local function build()
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
 	person.Where = T(person, "small", "textDim")
 	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
-	-- An along step: what it is (whyLine).
+	-- An along step, or one with nothing for this character: why (whyLine).
 	person.Why = T(person, "small", "textDim")
 	person.Why:SetJustifyH("LEFT")
 	person.Why:SetWordWrap(true)

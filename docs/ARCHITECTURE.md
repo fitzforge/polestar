@@ -4571,7 +4571,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   not offered stays on the card when the focus moves on (#741/#739).
   Under the header, one line says when the step is no stop of the route: an
   along step is done on the way and listed under the steps ahead until done
-  or until its `along until` step (the step view's `alongUntil`, #942). A click
+  or until its `along until` step (the step view's `alongUntil`, #942).
+  A step with nothing for this character says why: the step view's `why`
+  (`Own.stepWhy`: another character's step, the `when` condition that
+  fails, else the group quest it waits on, "Only if you do Book Return with
+  a group"). A click
   on a line lists what it stands for under it (goals,
   stepped back in textDim; the "more" line its persons' lines) and a second
   click folds them; a new focus or step closes every line and the new focus

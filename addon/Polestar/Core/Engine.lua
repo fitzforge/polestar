@@ -5357,6 +5357,48 @@ function Engine.GetStepIndex() return current end
 
 function Engine.GetStepCount() return guide and #guide.steps or 0 end
 
+-- `when` predicate p in one line for the window (Own.stepWhy): what has to
+-- hold for the step to apply. A kind with no wording of its own, a negated
+-- level, an `onquest` of several quests: the generic line.
+function Own.whenText(p)
+	local k, neg = p and p.k, p and p.neg
+	if k == "group" then
+		return (neg and L["Only if you skip the group quest %s"] or L["Only if you do %s with a group"]):format(titleOfQuest(p.q))
+	elseif k == "level" and not neg then
+		local n = tostring(p.n + (p.frac or 0))
+		local fmt = (p.op == "<" and L["Only below level %s"]) or (p.op == "<=" and L["Only up to level %s"])
+			or (p.op == ">" and L["Only above level %s"]) or L["Only from level %s"]
+		return fmt:format(n)
+	elseif k == "onquest" and type(p.q) == "table" and #p.q == 1 then
+		return (neg and L["Only without %s in your quest log"] or L["Only with %s in your quest log"]):format(titleOfQuest(p.q[1]))
+	elseif k == "turnedin" then
+		return (neg and L["Only before %s is handed in"] or L["Only once %s is handed in"]):format(titleOfQuest(p.q))
+	end
+	return L["Skipped for your character: its conditions do not hold"]
+end
+
+-- Why step `step` holds nothing for this character (Engine.GetStepView
+-- `why`), so a step looked at ahead does not read as an empty title: another
+-- character's step (`only`), the first `when` predicate that fails, or, when
+-- none of its goals applies (`goals`: its goal views), the group quest it
+-- waits on not answered "do" (Elwynn's Goldshire hand-in of Book Return),
+-- else that none applies. nil while a goal applies, or with no goals.
+function Own.stepWhy(step, goals)
+	if #goals == 0 then return nil end
+	if not Guides.Matches(step.only, player) then return L["Skipped for your character: not for your class or race"] end
+	if step.when and not Own.whenHolds(step) then
+		local p = Own.whenFails(step)
+		return p and Own.whenText(p) or nil
+	end
+	for _, gv in ipairs(goals) do
+		if gv.status ~= "na" then return nil end
+	end
+	for _, p in ipairs(step.when or NONE) do
+		if p.k == "group" and not p.neg and Own.groupAnswer(p.q) ~= "do" then return Own.whenText(p) end
+	end
+	return L["Skipped for your character: none of its goals apply"]
+end
+
 function Engine.GetStepView(i)
 	if not guide or type(i) ~= "number" then return nil end
 	local step = guide.steps[i]
@@ -5421,7 +5463,8 @@ function Engine.GetStepView(i)
 	-- `current`: the goal the window marks and the arrow leads to (the
 	-- current step only); `skipped`: the player skipped this step (Unskip);
 	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua);
-	-- `alongUntil`: an `along until` step's labelled step.
+	-- `alongUntil`: an `along until` step's labelled step; `why`: why the
+	-- step holds nothing for this character, one line (Own.stepWhy).
 	return {
 		index = i, title = step.title, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
@@ -5429,6 +5472,7 @@ function Engine.GetStepView(i)
 		skipped = isSkipped(i), live = computed,
 		along = step.along, label = step.label,
 		alongUntil = type(step.along) == "string" and Own.marksOf().labels[step.along] or nil,
+		why = Own.stepWhy(step, goals),
 	}
 end
 
