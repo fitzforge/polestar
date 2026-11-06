@@ -46,8 +46,8 @@ return {
 	-- Step 8: Sickly Deer
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
 	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
-	-- {npc:12298} Sickly Deer
-	["{npc:12298}: use the salve on them"] = "{npc:12298}：對牠們使用藥膏",
+	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
+	["Use the {item:15826} on {npc:12298}"] = "",
 
 	-- Step 9: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
@@ -97,8 +97,9 @@ return {
 	-- {item:15826} Curative Animal Salve · {area:380} Crossroads · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
-	-- {npc:12296} Sickly Gazelle
-	["{npc:12296}: use the salve on them"] = "{npc:12296}：對牠們使用藥膏",
+	-- {item:15826} Curative Animal Salve
+	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
+	["Use the {item:15826} on Sickly Gazelles"] = "",
 
 	-- Step 18: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -120,6 +121,8 @@ return {
 	-- ["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it from {npc:1313} (Alchemy Supplies) in {zone:1453} or on the Auction House."] = "月光蘑菇花生長在{area:442}東邊不遠處山丘中的梟獸洞穴裡；那裡的梟獸脾氣暴躁。{item:2449}需要{skill:182}：草藥師在{zone:1439}各處都能採到，其他人可向{zone:1453}的{npc:1313}（煉金用品）或拍賣場購買。",
 	-- ["Use the {item:15826} on Sickly Gazelles: they graze north of the road that runs east and west through the {area:380}."] = "對生病的瞪羚使用{item:15826}：牠們在穿過{area:380}的東西向道路北邊覓食。",
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "對{npc:12298}使用{item:15826}。牠們在{zone:1439}從北邊的{area:456}到南邊的{zone:1440}邊界一帶遊蕩。",
+	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}：對牠們使用藥膏",
+	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}：對牠們使用藥膏",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}站在{area:1639}。",
 	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448}站在{area:380}。沒有{skill:182}？幾步外的{npc:3490}販售{item:2449}，每次補貨前只有三個。",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}站在{area:1658}。",
