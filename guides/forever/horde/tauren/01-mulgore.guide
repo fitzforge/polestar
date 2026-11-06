@@ -16,8 +16,8 @@ next forever/horde/02-the-barrens
 
 step Camp Narache
   tip You start on the mesa of Camp Narache. Grull and the chief stand by the big tent in the middle.
-  accept 752                          -- Chief Hawkwind, inside
   accept 747                          -- Grull Hawkwind
+  accept 752                          -- Chief Hawkwind, inside
 
 step On the way
   along until q747

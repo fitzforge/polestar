@@ -949,6 +949,29 @@ fn bind_at_a_train_event_goes_to_the_inn_step() {
 }
 
 #[test]
+fn a_v1_training_the_step_writes_last_stays_after_the_steps_quest_lines() {
+	// thmastin's Kharanos report (32fc6ceac, a recorded Dwarf Hunter run): v1's distillery step trains
+	// last, after Ragnar, Tannok and Maxan, since some classes' trainers stand outside. The 0.3.0 Dwarf
+	// route put the training before them, and the guide sent the Hunter out to Grif Wildheart and back in.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 1-10", "zone Dun Morogh", "", "step Distillery", "  accept 1", "  accept 2", "  accept 3", "  train class", "", "step Depot", "  turnin 1", ""],
+		)],
+		world: json!({ "points": [[0, 0, 0, 0, 1426], [0, 0, 900, 900, 1426]], "zones": { "1426": "Dun Morogh" }, "quests": [], "inns": [], "nodes": [] }),
+		route: json!({ "diff": {}, "order": [
+            { "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+            { "t": "train", "pt": 0, "from": f("a", 10) },
+            { "t": "accept", "q": 2, "pt": 0, "from": f("a", 8) },
+            { "t": "accept", "q": 3, "pt": 0, "from": f("a", 9) },
+            { "t": "turnin", "q": 1, "pt": 1, "from": f("a", 13) }
+        ] }),
+		..Case::default()
+	};
+	assert_eq!(pick(&run(&c, None).read("a"), r"^step|^\s+(accept|turnin|train)"), vec!["step Distillery", "  accept 1", "  accept 2", "  accept 3", "  train class", "step Depot", "  turnin 1"]);
+}
+
+#[test]
 fn route_hearth_for_its_races_v1_for_the_others() {
 	let c = Case {
 		files: vec![

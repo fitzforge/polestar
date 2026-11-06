@@ -152,10 +152,10 @@ step Kharanos
   tip Tharek works the forge west of the distillery.
   accept 400                                  -- Tharek Blackstone
   tip Then go in: Tannok, the innkeeper, Maxan and Ragnar. Gremlock's Cooking lesson waits for the return with the ribs, when the copper is there for it.
-  train class                                 -- Last: some classes' trainers stand outside
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
   accept 99158                                -- Maxan Anvol, upstairs
+  train class                                 -- Last: some classes' trainers stand outside
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot below the Ironforge road.
