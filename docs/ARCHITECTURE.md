@@ -4562,7 +4562,11 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   of the screen's height (0.5; 0.3 to 0.9 in Options > Guide > Window, in
   the window's own units, so its scale and the UI scale count), the goals
   area giving up the difference (never below 72 px), the header, the tip
-  and everything under the card staying whole. Past the cap the wheel
+  and everything under the card staying whole. With Grow upward the cap is
+  also the height from the pinned bottom edge to the top of the screen (the
+  game would otherwise move the window down, bottom edge and all, #666);
+  when even the shortest goals area does not fit there, the body clips its
+  lower lines at the bars (at least 40 px of it stays). Past the cap the wheel
   scrolls the goals (48 px a notch; without more to see the wheel stays the
   camera's), a thin bar shows and fades out 1.5 s after the last scroll or
   hover, and the current goal glides into sight when the focus or the

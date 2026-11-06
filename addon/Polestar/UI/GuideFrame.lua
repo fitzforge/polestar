@@ -610,8 +610,25 @@ local area = { items = {}, h = {}, n = 0 }
 -- their y from its bottom in `rel`, `n` of them, `h` tall), the strip,
 -- navigator and foot (`outer`), and the room the cap leaves the goals
 -- (`room`, math.huge while the window fits). `from`: the card's bottom
--- while Layout stacks the frames under it.
+-- while Layout stacks the frames under it. `limit`: with ui.growUp, the
+-- height to the top of the screen (roomAbove; nil without Grow upward).
 local fit = { fixed = 0, top = 0, outer = 0, room = math.huge, below = {}, rel = {}, n = 0, h = 0 }
+
+-- The window's height for a body `y` tall under the bars (`fit.outer`).
+-- With Grow upward the game keeps a window on the screen by moving it
+-- down, which would move the bottom edge Grow upward keeps still (#666), so
+-- the window never passes `fit.limit`: past it, the body clips its lower
+-- lines at the bars; at least MIN_BODY_H of it stays.
+local MIN_BODY_H = 40
+local function sizeWindow(y)
+	local natural = floor(fit.outer + y + 0.5)
+	local height, limit = natural, fit.limit
+	if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
+	local cut = height < natural
+	if body.SetClipsChildren then body:SetClipsChildren(cut) end
+	body:SetHeight(max(1, cut and height - fit.outer or y))
+	F:SetHeight(height)
+end
 
 -- The goals folding now: one record per goal (pooled: `pool`), its
 -- collapse's start `at` (after the hold), its height share `k` and alpha
@@ -697,8 +714,7 @@ do
 			f:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, at)
 		end
 		y = y + fit.h
-		body:SetHeight(max(1, y))
-		F:SetHeight(floor(fit.outer + y + 0.5))
+		sizeWindow(y)
 	end
 
 	-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
@@ -2032,6 +2048,23 @@ local function placeBars(showFoot)
 	end
 end
 
+-- With ui.growUp, the height from the window's pinned bottom edge to the top
+-- of the screen, in the window's scale (nil without Grow upward): the
+-- window is never taller (fit.limit, #666).
+local function roomAbove()
+	if not ns.Get("ui.growUp") then return nil end
+	local top = UIParent:GetTop()
+	local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
+	if not (top and scale and uiScale and scale > 0) then return nil end
+	-- The pinned corner (GF.ApplyPosition), not where the game may have moved it.
+	local point, rel, relPoint, _, bottom = F:GetPoint(1)
+	if not (rel == UIParent and type(point) == "string" and point:find("^BOTTOM") and type(relPoint) == "string" and relPoint:find("^BOTTOM")) then
+		bottom = F:GetBottom()
+	end
+	if type(bottom) ~= "number" then return nil end
+	return top * uiScale / scale - bottom
+end
+
 function GF.Layout()
 	if not F then return end
 	local width = F:GetWidth()
@@ -2094,15 +2127,16 @@ function GF.Layout()
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
 	fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
+	fit.limit = roomAbove()
 	if fit.from then
-		-- Past the cap, the goals area gives up the difference and scrolls.
+		-- Past the cap (or the top of the screen with Grow upward), the goals
+		-- area gives up the difference and scrolls.
 		fit.h = y - fit.from
 		fit.from = nil
-		fit.room = capHeight() - (fit.outer + y - content)
+		fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
 		fitGoals()
 	else
-		body:SetHeight(max(1, y))
-		F:SetHeight(floor(fit.outer + y + 0.5))
+		sizeWindow(y)
 	end
 	placeBars(showFoot)
 	band:SetHeight(stripH + NAV_H)
@@ -3269,7 +3303,8 @@ local APPLY = {
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
-	["ui.pos"] = function() GF.ApplyPosition() end,
+	-- With Grow upward the room above the bottom edge sets the window's height.
+	["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") then GF.Layout() end end,
 	-- Re-pin by the other corner where the window stands now, so it does not jump.
 	["ui.growUp"] = function() GF.SavePosition(); GF.Layout() end,
 	["ui.barsBottom"] = function() GF.Layout() end,
