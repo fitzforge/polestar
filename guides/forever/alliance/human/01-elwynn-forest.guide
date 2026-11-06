@@ -343,8 +343,11 @@ step Downstream and Princess
   kill 118 quest 52                           -- Prowler
   kill 822 quest 52                           -- Young Forest Bear
   collect 247818 quest 91733                  -- Waterlogged Toolbox
-  collect 247826 x1 optional                  -- Croaky's Head: Croaky
   collect 247817 quest 91733                  -- Waterlogged Axe
+
+step Downstream and Princess
+  when group 91740
+  collect 247826 x1 optional                  -- Croaky's Head: Croaky
 
 step Downstream and Princess
   when group 91740

@@ -318,6 +318,7 @@ step Taskmaster Fizzule
 step Mission: Possible But Not Probable
   only Rogue
   zone The Barrens
+  when level>=23
   collect 8072 quest 2478.5 optional
   kill 7310 quest 2478.1 optional
   kill 7308 quest 2478.3 optional

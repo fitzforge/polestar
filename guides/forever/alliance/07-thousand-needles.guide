@@ -10,6 +10,7 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Look to the Stars (181), The Weathered Grave (225).
+# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), Load Lightening (1176), A Bump in the Road (1175).
 
 step Duskwood
   zone Duskwood
@@ -233,28 +234,17 @@ step Mirage Raceway
   accept 5762                             -- For Hemet Nesingwary in Stranglethorn, later
   accept 1110                             -- Kravel Koalbeard
   accept 1104                             -- Fizzle Brassbolts
-  accept 1105
   turnin 1179                             -- Wizzle Brassbolts
-  accept 1176                             -- Pozzik
-  accept 1175                             -- Trackmaster Zherin
 
 step Mirage Raceway: kill these as you meet them
   zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it.
+  tip Rocket Car Rubble lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south.
   collect 5794 quest 1104                 -- Salty Scorpid Venom
-  kill 4150 quest 1175                    -- Saltstone Gazer
-  collect 5795 quest 1105                 -- Hardened Tortoise Shell
-  kill 4151 quest 1175                    -- Saltstone Crystalhide
   collect 5798 quest 1110                 -- Rocket Car Parts
-  collect 5848 quest 1176                 -- Hollow Vulture Bone
-  kill 4147 quest 1175                    -- Saltstone Basilisk
 
 step Mirage Raceway
   turnin 1110                             -- Kravel Koalbeard
-  turnin 1105                             -- Wizzle Brassbolts
   turnin 1104                             -- Fizzle Brassbolts
   accept 1106                             -- Fizzle Brassbolts: for Martek in the Badlands, later
-  turnin 1176                             -- Pozzik
-  turnin 1175                             -- Trackmaster Zherin
 
 # ---------------------------------------------------------------- Back to Menethil

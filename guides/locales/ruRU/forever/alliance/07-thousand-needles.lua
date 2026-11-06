@@ -191,8 +191,8 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} – по всей равнине. Скорпиды-разорители, блестопанцирные черепахи и просоленные василиски бродят в северной части, просоленные хрусталиски, скорпиды-убийцы и блестопанцирные крепкохваты – в середине, а просоленные взорени (34-35, на пять уровней выше вас: по одному) – на дальнем юге. Над всем этим кружат стервятники соляных равнин.",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
 	-- Step 39: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -239,4 +239,5 @@ return {
 	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661} – у дома, где живет {npc:633}",
 	-- ["{npc:663}, by the town hall"] = "{npc:663} – у ратуши",
 	-- ["{npc:840}, at the north entrance of town"] = "{npc:840} – у северного въезда в город",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} – по всей равнине. Скорпиды-разорители, блестопанцирные черепахи и просоленные василиски бродят в северной части, просоленные хрусталиски, скорпиды-убийцы и блестопанцирные крепкохваты – в середине, а просоленные взорени (34-35, на пять уровней выше вас: по одному) – на дальнем юге. Над всем этим кружат стервятники соляных равнин.",
 }

@@ -191,8 +191,8 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868}散布在盐滩各处。恐蝎劫掠者、盐壳龟和盐石蜥蜴在北半部游荡，盐石水晶蜥蜴、恐蝎和盐壳钳嘴龟在中部，盐石凝视者（34-35级，比你高五级：一次一只）在最南端。秃鹫在整个盐滩上空盘旋。",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
 	-- Step 39: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -240,4 +240,5 @@ return {
 	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661}，在{npc:633}的房子旁",
 	-- ["{npc:663}, by the town hall"] = "{npc:663}，在市政厅旁",
 	-- ["{npc:840}, at the north entrance of town"] = "{npc:840}，在镇子北入口",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868}散布在盐滩各处。恐蝎劫掠者、盐壳龟和盐石蜥蜴在北半部游荡，盐石水晶蜥蜴、恐蝎和盐壳钳嘴龟在中部，盐石凝视者（34-35级，比你高五级：一次一只）在最南端。秃鹫在整个盐滩上空盘旋。",
 }

@@ -104,51 +104,35 @@ return {
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
 	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Volte para oeste pela estrada e depois para o norte até as colinas dos Yetis Cortifúria. Todo yeti daqui pode deixar cair um couro; um pode deixar cair um {quest:7735}, que {npc:7852} também paga.",
 
-	-- Step 30: Rockbiter
-	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Cavalgue para oeste até o gigante da montanha amistoso ao pé das colinas. Os Terrâmbulos e Gigantes do Penhasco ao redor dele são elite: mantenha distância.",
-
-	-- Step 31: Shay Leafrunner
-	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} vaga pelas colinas ao norte de {npc:7765}, entre as harpias da Nascente Norte; o sino dela está no baú ao lado.",
-
-	-- Step 32: Shay Leafrunner's escort
-	-- {npc:7774} Shay Leafrunner
-	["{npc:7774}'s escort"] = "A escolta de {npc:7774}",
-	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Toque o sino sempre que {npc:7774} parar para vagar e leve-a para o sul até {npc:7765}.",
-	-- {npc:7765} Rockbiter
-	["{npc:7765}'s camp"] = "",
-
-	-- Step 35: Feathermoon Stronghold
+	-- Step 32: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} então pede que você leve notícias a {zone:1457}: pule, {area:976} manda você lá em vez disso.",
 
-	-- Step 36: Grind to 45
+	-- Step 33: Grind to 45
 	["Grind to 45"] = "Farme até o 45",
 	-- {area:1108} Forgotten Coast · {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
 	["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "Barco para {area:1108} e cavalgue para leste até {area:1105}. As missões de {npc:14637} na costa exigem nível 45.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
 	["grind on {npc:5292} at {area:1105}, {area:357}"] = "",
 
-	-- Step 38: Zorbin Fandazzle
+	-- Step 35: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
 	["Ride back to the {area:1108}; the goblin stands by the dock."] = "Volte cavalgando para {area:1108}; o goblin fica junto à doca.",
 
-	-- Step 39: Forgotten Coast: kill these as you meet them
+	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
 	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "Costívagos, Fundívagos e Ondarilhos (gigantes elite) andam pela costa ao norte da doca: atinja um com {item:18904} e mate o gigante encolhido. Elementais do Mar e Borrifos do Mar flutuam na mesma rebentação.",
 
-	-- Step 40: Zorbin Fandazzle
+	-- Step 37: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "As recargas de {npc:14637} são de nível 55: pule-as.",
 	-- {area:1108} Forgotten Coast · {zone:1446} Tanaris
 	["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "Você termina na doca de {area:1108}: o guia de {zone:1446} começa com a viagem para leste a partir daqui.",
 
-	-- Step 41: Thalanaar
+	-- Step 38: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Cavalgue para nordeste até o posto avançado dos elfos noturnos na fronteira de {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -161,9 +145,13 @@ return {
 	-- ["Hearth to Feathermoon."] = "Pedra de Regresso para o Domínio de Plumaluna.",
 	-- ["Rage Scar yetis"] = "Yetis Cortifúria",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "Volte cavalgando para noroeste até a doca de {area:1108} e pegue o barco para a ilha.",
+	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "Cavalgue para oeste até o gigante da montanha amistoso ao pé das colinas. Os Terrâmbulos e Gigantes do Penhasco ao redor dele são elite: mantenha distância.",
+	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "Toque o sino sempre que {npc:7774} parar para vagar e leve-a para o sul até {npc:7765}.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "Fazer {area:978} em vez de farmar leva você lá mais rápido em grupo. A cidade troll fica no norte de {zone:1446}, a próxima zona da rota; depois volte a {npc:14637} em {area:1108}.",
 	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "Nade para o sul da ilha até {area:1121}. Serpentes Guardas Cristafúria e Feiticeiras Cristafúria a ocupam; {npc:8136} (nível 47) espera na caverna no extremo sul. Puxe os guardas dele primeiro.",
 	-- ["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "farme {npc:5292} em {area:1105}, {zone:1444}",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "se você trouxer {quest:1100} de {zone:1441}",
 	-- ["{area:978} instead of grinding"] = "{area:978} em vez de farmar",
+	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} vaga pelas colinas ao norte de {npc:7765}, entre as harpias da Nascente Norte; o sino dela está no baú ao lado.",
+	-- ["{npc:7774}'s escort"] = "A escolta de {npc:7774}",
 }

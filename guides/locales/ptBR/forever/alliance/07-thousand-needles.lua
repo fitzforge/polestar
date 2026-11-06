@@ -191,8 +191,8 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} está espalhado por toda a planície. Aniquiladores Escorpídeos, Tartarugas Quelobrilho e Basiliscos Sal-gema vagam pela metade norte; Cristaldermes, Terrores Escorpídeos e Tartaliscas, pelo meio; e os Observadores (34-35, cinco níveis acima de você: um de cada vez), pelo extremo sul. Abutres sobrevoam tudo.",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
 	-- Step 39: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -238,4 +238,5 @@ return {
 	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661}, junto à casa de {npc:633}",
 	-- ["{npc:663}, by the town hall"] = "{npc:663}, junto à prefeitura",
 	-- ["{npc:840}, at the north entrance of town"] = "{npc:840}, na entrada norte da cidade",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} está espalhado por toda a planície. Aniquiladores Escorpídeos, Tartarugas Quelobrilho e Basiliscos Sal-gema vagam pela metade norte; Cristaldermes, Terrores Escorpídeos e Tartaliscas, pelo meio; e os Observadores (34-35, cinco níveis acima de você: um de cada vez), pelo extremo sul. Abutres sobrevoam tudo.",
 }

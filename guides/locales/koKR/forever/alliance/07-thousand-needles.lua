@@ -191,8 +191,8 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. {npc:4140}, {npc:4142}, {npc:4147}은(는) 북쪽 절반을, 소금바위 수정바실리스크, {npc:4139}, 무쇠턱 소금껍질거북은 가운데를, 소금바위 큰눈바실리스크(34-35, 당신보다 5레벨 높음: 하나씩)는 맨 남쪽을 돌아다닙니다. 독수리는 그 모든 곳 위를 맴돕니다.",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
 	-- Step 39: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -239,4 +239,5 @@ return {
 	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661}, {npc:633}의 집 옆",
 	-- ["{npc:663}, by the town hall"] = "{npc:663}, 마을 회관 옆",
 	-- ["{npc:840}, at the north entrance of town"] = "{npc:840}, 마을 북쪽 입구",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868}은(는) 평원 곳곳에 흩어져 있습니다. {npc:4140}, {npc:4142}, {npc:4147}은(는) 북쪽 절반을, 소금바위 수정바실리스크, {npc:4139}, 무쇠턱 소금껍질거북은 가운데를, 소금바위 큰눈바실리스크(34-35, 당신보다 5레벨 높음: 하나씩)는 맨 남쪽을 돌아다닙니다. 독수리는 그 모든 곳 위를 맴돕니다.",
 }

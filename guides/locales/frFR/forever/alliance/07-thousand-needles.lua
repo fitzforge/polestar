@@ -37,8 +37,8 @@ return {
 	-- {npc:511} Insane Ghoul
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and the {npc:511}"] = "Crocs noirs Plaie-de-nuit et {npc:511}",
-	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul
-	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
+	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {npc:511} Insane Ghoul · {spell:8282} Curse of Blood
+	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}. The {npc:511} hides in the small crypt by the cemetery.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance."] = "",
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "{item:1946} ; à l'intérieur",
 
@@ -191,8 +191,8 @@ return {
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "{area:2240} : tuez-les au passage",
 	-- {object:19868} Rocket Car Rubble
-	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Sparkleshell Tortoises = {npc:4142} Sparkleshell Tortoise · Saltstone Basilisks = {npc:4147} Saltstone Basilisk · Scorpid Terrors = {npc:4139} Scorpid Terror
-	["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} jonchent les Salines. Les Scorpides ravageurs, Tortues nacrétoile et Basilics du sel gemme parcourent la moitié nord, les Peaux de cristal, Scorpides terrifiants et Mordeuses au milieu, et les Contemplateurs (34-35, cinq niveaux au-dessus de vous : un à la fois) à l'extrême sud. Des vautours tournoient au-dessus de tout cela.",
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
+	["{object:19868} lies all over the flats. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) of the middle and the far south."] = "",
 
 	-- Step 39: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
@@ -240,4 +240,5 @@ return {
 	-- ["{npc:661}, by {npc:633}'s house"] = "{npc:661}, près de la maison de {npc:633}",
 	-- ["{npc:663}, by the town hall"] = "{npc:663}, près de l'hôtel de ville",
 	-- ["{npc:840}, at the north entrance of town"] = "{npc:840}, à l'entrée nord de la ville",
+	-- ["{object:19868} lies all over the flats. Scorpid Reavers, Sparkleshell Tortoises and Saltstone Basilisks roam the north half, Crystalhides, Scorpid Terrors and Snappers the middle, and the Gazers (34-35, five levels above you: one at a time) the far south. Vultures circle over all of it."] = "{object:19868} jonchent les Salines. Les Scorpides ravageurs, Tortues nacrétoile et Basilics du sel gemme parcourent la moitié nord, les Peaux de cristal, Scorpides terrifiants et Mordeuses au milieu, et les Contemplateurs (34-35, cinq niveaux au-dessus de vous : un à la fois) à l'extrême sud. Des vautours tournoient au-dessus de tout cela.",
 }

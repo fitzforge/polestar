@@ -104,51 +104,35 @@ return {
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
 	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "沿道路向西骑回，然后向北进入怒痕山丘。这里的每个雪人都可能掉落毛皮；可能会掉落{quest:7735}，{npc:7852}也会收购。",
 
-	-- Step 30: Rockbiter
-	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "向西骑到山脚下友好的山岭巨人那里。他周围的{npc:5357}和{npc:5358}是精英：离它们远点。",
-
-	-- Step 31: Shay Leafrunner
-	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}在{npc:7765}北边的山丘上、北泉鹰身人之间游荡；她的铃铛在她旁边的箱子里。",
-
-	-- Step 32: Shay Leafrunner's escort
-	-- {npc:7774} Shay Leafrunner
-	["{npc:7774}'s escort"] = "护送{npc:7774}",
-	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
-	["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "每当{npc:7774}停下乱走时就摇铃，带她向南到{npc:7765}处。",
-	-- {npc:7765} Rockbiter
-	["{npc:7765}'s camp"] = "",
-
-	-- Step 35: Feathermoon Stronghold
+	-- Step 32: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936}接着会让你把消息带到{zone:1457}：跳过，{area:976}会让你去那里。",
 
-	-- Step 36: Grind to 45
+	-- Step 33: Grind to 45
 	["Grind to 45"] = "刷到45级",
 	-- {area:1108} Forgotten Coast · {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
 	["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "乘船前往{area:1108}，向东骑进{area:1105}。{npc:14637}在海岸的任务需要45级。",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
 	["grind on {npc:5292} at {area:1105}, {area:357}"] = "",
 
-	-- Step 38: Zorbin Fandazzle
+	-- Step 35: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
 	["Ride back to the {area:1108}; the goblin stands by the dock."] = "骑回{area:1108}；那个地精站在码头旁。",
 
-	-- Step 39: Forgotten Coast: kill these as you meet them
+	-- Step 36: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
 	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "{npc:5359}、{npc:5360}和{npc:5361}（精英巨人）在码头北边的海岸涉水：用{item:18904}电一只，然后杀掉缩小的巨人。{npc:5461}和{npc:5462}在同一片浪花中飘荡。",
 
-	-- Step 40: Zorbin Fandazzle
+	-- Step 37: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}的补充任务是55级：跳过。",
 	-- {area:1108} Forgotten Coast · {zone:1446} Tanaris
 	["You end at the {area:1108} dock: the {zone:1446} guide starts with the trip east from here."] = "你在{area:1108}的码头结束：{zone:1446}指南从这里向东出发开始。",
 
-	-- Step 41: Thalanaar
+	-- Step 38: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "向东北骑到{zone:1441}边境上的暗夜精灵前哨。",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -161,9 +145,13 @@ return {
 	-- ["Hearth to Feathermoon."] = "用炉石返回羽月要塞。",
 	-- ["Rage Scar yetis"] = "怒痕雪人",
 	-- ["Ride back north-west to the {area:1108} dock and take the boat to the island."] = "向西北骑回{area:1108}的码头，乘船前往岛上。",
+	-- ["Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room."] = "向西骑到山脚下友好的山岭巨人那里。他周围的{npc:5357}和{npc:5358}是精英：离它们远点。",
+	-- ["Ring the bell whenever {npc:7774} stops to wander, and lead her south to {npc:7765}."] = "每当{npc:7774}停下乱走时就摇铃，带她向南到{npc:7765}处。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in northern {zone:1446}, the next zone on the route; come back to {npc:14637} on the {area:1108} afterwards."] = "组队刷{area:978}代替刷怪升级更快。巨魔城市在{zone:1446}北部，也就是路线的下一个区域；之后回到{area:1108}找{npc:14637}。",
 	-- ["Swim south from the island to the {area:1121}. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "从岛上向南游到{area:1121}。{npc:5333}和憎世巫师占据着那里；{npc:8136}（47级）在南端的洞穴里等候。先拉他的卫兵。",
 	-- ["grind on {npc:5292} at {area:1105}, {zone:1444}"] = "在{zone:1444}的{area:1105}刷{npc:5292}",
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "仅当你带着来自{zone:1441}的{quest:1100}",
 	-- ["{area:978} instead of grinding"] = "用{area:978}代替刷怪",
+	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}在{npc:7765}北边的山丘上、北泉鹰身人之间游荡；她的铃铛在她旁边的箱子里。",
+	-- ["{npc:7774}'s escort"] = "护送{npc:7774}",
 }

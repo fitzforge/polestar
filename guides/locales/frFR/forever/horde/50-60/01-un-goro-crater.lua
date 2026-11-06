@@ -14,11 +14,7 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}, au fond de la grotte ; sous terre",
 
-	-- Step 3: Bloodpetal Thresher on the way
-	-- {npc:6511} Bloodpetal Thresher
-	["{npc:6511} on the way"] = "{npc:6511} en chemin",
-
-	-- Step 4: Out of the refuge
+	-- Step 3: Out of the refuge
 	["Out of the refuge"] = "Hors du refuge",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge entrance"] = "{npc:9998}, à l'entrée du refuge",
@@ -27,75 +23,75 @@ return {
 	-- {quest:3761} Un'Goro Soil
 	["From here on pick up every Power Crystal (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Dès maintenant, ramassez chaque Cristal de puissance (bleu, vert, rouge, jaune) et chaque tas de {quest:3761} sur votre route : 25 terres en tout, 20 pour Hamuul et 5 pour Pestlezugg.",
 
-	-- Step 5: Lakkari Tar Pits
+	-- Step 4: Lakkari Tar Pits
 	-- {item:11834} Super Sticky Tar
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast
 	["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Les fosses de goudron se trouvent juste au sud du refuge. Les Bêtes du goudron, les Rôdeurs et les Rampants lâchent le {item:11834}.",
 
-	-- Step 6: The Gorishi hive
+	-- Step 5: The Gorishi hive
 	["The Gorishi hive"] = "La ruche Gorishi",
 	-- {npc:9998} Shizzle
 	["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. Pterrordax nest on the cliffs above the hive; their scales are for {npc:9998}."] = "La ruche silithide occupe le sud du cratère. Les guêpes et les ouvriers Gorishi lâchent la glande odorante ; utilisez la Fiole de grattage sur la masse d'œufs dans la première salle. La Reine de la ruche, tout au fond, est un boss élite : n'entrez pas dans sa salle. Les ptérreurdactyles nichent sur les falaises au-dessus de la ruche ; leurs écailles sont pour {npc:9998}.",
 	["grind on Pterrordax"] = "tuez en boucle : ptérreurdactyles",
 
-	-- Step 7: Power Crystals and soil
+	-- Step 6: Power Crystals and soil
 	["Power Crystals and soil"] = "Cristaux de puissance et terre",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "Les amas de cristaux se dressent partout dans le cratère, beaucoup autour de {area:537}. Prenez-en quelques-uns de plus de chaque couleur pour les pylônes.",
 
-	-- Step 8: Lakkari Tar Pits: kill these as you meet them
+	-- Step 7: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "{area:538} : tuez-les au passage",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon · {npc:9167} Frenzied Pterrordax
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "Allez vers le sud-ouest jusqu'à {area:537}, le volcan au milieu du cratère. Les Écorcheurs Pétale-de-sang poussent à son pied.\nAu sud des sources chaudes, les stégodons paissent et les Os de dinosaure tombent sur eux ou jonchent le sol ; les diémétradons tout proches portent les écailles que veut {npc:9998}. Les ravasaures chassent en meute au sud-ouest : leurs griffes sont pour {npc:8659}, et de temps en temps l'un d'eux porte un Journal abîmé (butin rare : ne prenez sa quête que si vous en obtenez un). Évitez Gruff, un stégodon de niveau 57.\nAllez vers le sud-ouest le long des falaises de l'ouest. Des {npc:9167} survolent le côté ouest, et les Trappeurs Pétale-de-sang poussent dans la même jungle.",
 
-	-- Step 9: Research Equipment
+	-- Step 8: Research Equipment
 	["The expedition's lost equipment lies in the south-west jungle."] = "L'équipement perdu de l'expédition se trouve dans la jungle du sud-ouest.",
 
-	-- Step 10: The Slithering Scar
+	-- Step 9: The Slithering Scar
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Attention : les Ouvriers Gorishi qui passent sous 45 % de vie ont 50 % de chances d'appeler à l'aide leurs alliés à moins de 25 m.",
 	-- {npc:6551} Gorishi Wasp
 	["grind on {npc:6551}"] = "tuez en boucle : {npc:6551}",
 
-	-- Step 12: Stegodons and ravasaurs
+	-- Step 11: Stegodons and ravasaurs
 	["Stegodons and ravasaurs"] = "Stégodons et ravasaures",
 	-- {item:11116} A Mangled Journal
 	["{item:11116}, a rare drop"] = "{item:11116}, butin rare",
 	["Use the Mangled Journal to start it"] = "Utilisez Un journal abîmé pour la commencer",
 
-	-- Step 13: Torwa Pathfinder
+	-- Step 12: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["{npc:9619} camps in the south-east corner of the crater."] = "{npc:9619} campe dans le coin sud-est du cratère.",
 
-	-- Step 14: Fresh Threshadon Carcass
+	-- Step 13: Fresh Threshadon Carcass
 	["North of Torwa, a dead Threshadon lies by the water."] = "Au nord de Torwa, un battrodon mort gît au bord de l'eau.",
 
-	-- Step 16: Lar'korwi Mates
+	-- Step 15: Lar'korwi Mates
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates"] = "Compagnes de Lar'korwi ({npc:9683})",
 	-- {npc:9619} Torwa Pathfinder
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle north-west of {npc:9619}."] = "Les Compagnes de Lar'korwi ({npc:9683}) rôdent dans la jungle au nord-ouest de {npc:9619}.",
 
-	-- Step 17: A Wrecked Raft
+	-- Step 16: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "Le radeau est sur la rive du lac du sud-est ; le petit paquetage est dans l'eau à côté.",
 	["Underwater"] = "Sous l'eau",
 
-	-- Step 19: Lashers and Threshers
+	-- Step 18: Lashers and Threshers
 	["Lashers and Threshers"] = "Flagellants et Batteurs",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "Allez vers le nord le long du côté est. Les Flagellants et les Batteurs Pétale-de-sang remplissent la jungle.",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "tuez en boucle : {npc:6511}",
 
-	-- Step 20: Un'Goro Crater: kill these as you meet them
+	-- Step 19: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
 	["{area:490}: kill these as you meet them"] = "{area:490} : tuez-les au passage",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "La caisse de l'expédition se trouve dans un camp abandonné de la jungle de l'est.",
 
-	-- Step 21: Marshal's Refuge
+	-- Step 20: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}, à l'entrée",
 	-- {npc:9117} J.D. Collie
@@ -103,11 +99,11 @@ return {
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "Gardez la quête {quest:4147} de {npc:9118} et la lettre de {npc:8737} pour des guides ultérieurs.",
 
-	-- Step 22: Northern Pylon
+	-- Step 21: Northern Pylon
 	["Northern Pylon"] = "Pylône nord",
 	["The pylon stands on the slope east of the refuge."] = "Le pylône se dresse sur la pente à l'est du refuge.",
 
-	-- Step 23: Gorillas
+	-- Step 22: Gorillas
 	["Gorillas"] = "Gorilles",
 	-- {npc:9622} U'cha
 	["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Les gorilles vivent sur le plateau du nord-est. N'entrez pas dans la grotte la plus profonde : {npc:9622} y vit.",
@@ -116,72 +112,73 @@ return {
 	-- {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
 	["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "{npc:9623} veut ensuite une {item:10561}, un objet d'{skill:202}. Passez cette quête sauf si vous en avez une.",
 
-	-- Step 24: Level 51.81
+	-- Step 23: Level 51.81
 	["Level 51.81"] = "Niveau 51.81",
 	-- {area:16985} The Shaper's Terrace
 	["Top up here to level 51.81 before the hand-ins at {area:16985}: they take you to level 52."] = "Montez ici jusqu'au niveau 51.81 avant de rendre les quêtes ({area:16985}) : elles vous font passer au niveau 52.",
 	-- {npc:6509} Bloodpetal Lasher
 	["grind on {npc:6509}"] = "tuez en boucle : {npc:6509}",
 
-	-- Step 25: Un'Goro Crater: kill these as you meet them
+	-- Step 24: Un'Goro Crater: kill these as you meet them
+	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast Silithid Pox and Tunnelers and the Hive Guard use Tunneler Acid."] = "",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "",
 
-	-- Step 26: Eastern Pylon
+	-- Step 25: Eastern Pylon
 	["Eastern Pylon"] = "Pylône est",
 	["Ride down the east side of the crater to the pylon on the eastern cliffs."] = "Descendez le côté est du cratère jusqu'au pylône sur les falaises de l'est.",
 
-	-- Step 27: The Marshlands
+	-- Step 26: The Marshlands
 	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time."] = "Attention : de nombreux ravasaures parcourent la zone, il est donc facile d'en attirer plusieurs à la fois.",
 
-	-- Step 28: Western Pylon
+	-- Step 27: Western Pylon
 	["Western Pylon"] = "Pylône ouest",
 	["Cross the south of the crater to the pylon on the western cliffs."] = "Traversez le sud du cratère jusqu'au pylône sur les falaises de l'ouest.",
 
-	-- Step 29: J.D. Collie
+	-- Step 28: J.D. Collie
 	-- {area:541} Marshal's Refuge
 	["Ride north back to {area:541}."] = "Retournez au nord jusqu'au {area:541}.",
 	["Below ground"] = "Sous terre",
 
-	-- Step 30: Hearth to Gadgetzan
+	-- Step 29: Hearth to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
 
-	-- Step 31: To Gadgetzan
+	-- Step 30: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "Vers {area:976}",
 
-	-- Step 32: Gadgetzan
+	-- Step 31: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 	-- {npc:10041} Gorishi Hive Queen
 	["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "La quête suivante de Pestlezugg demande la {npc:10041}, un boss élite. Passez-la.",
 
-	-- Step 33: Orgrimmar
+	-- Step 32: Orgrimmar
 	-- {area:1637} Orgrimmar · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Volez jusqu'à {area:1637} et entraînez-vous avant le zeppelin de Grom'gol : l'arrêt à {zone:1458}, plus tard dans ce guide, n'a ni maître des chasseurs ni maître des chamans.",
 
-	-- Step 34: Back to Gadgetzan
+	-- Step 33: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "Retour à {area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
 
-	-- Step 35: Boat to Powderfuse Port
+	-- Step 34: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Bateau pour {area:16727}",
 
-	-- Step 36: Badlands
+	-- Step 35: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:3} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {area:3}."] = "Quittez {zone:2548} à pied vers le nord-ouest, au nord de {area:16685}, pour entrer dans les {area:3}.",
 
-	-- Step 37: Fly to Kargath
+	-- Step 36: Fly to Kargath
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "Voler jusqu'à {area:340}",
 	-- {zone:1454} Orgrimmar · {object:3202} Grom'gol (no name in this language: may be words) · {area:340} Kargath · {area:3} Badlands
 	["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "Volez jusqu'à {zone:1454}, prenez le zeppelin pour Grom'gol et volez de là jusqu'à {area:340}, bâtie dans les falaises du bord ouest des {area:3}.",
 
-	-- Step 38: Into the Searing Gorge
+	-- Step 37: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "Vers la {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -189,55 +186,55 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Pont vers le {area:254}",
 
-	-- Step 39: Flame Crest
+	-- Step 38: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "La montagne débouche près du {area:252}, plein d'orcs de niveau 55-57. Suivez la route vers l'est le long des falaises du nord jusqu'au camp de la Horde à la {area:251}.",
 
-	-- Step 40: Sha'ni Proudtusk
+	-- Step 39: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "Longez les falaises vers le sud jusqu'au {quest:3821}, la colline des ogres Brûlentrailles. Les restes de {npc:9136} gisent à son pied.",
 
-	-- Step 41: Krom'Grul
+	-- Step 40: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822} arpente les grottes et galeries de mine du {quest:3821} ; s'il est absent, tuez les ogres autour des entrées jusqu'à son retour.",
 
-	-- Step 42: Ruins of Thaurissan: kill these as you meet them
+	-- Step 41: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250} : tuez-les au passage",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Allez vers l'ouest jusqu'au site de fouilles. Des golems {npc:7039} (53) piétinent les environs et lâchent souvent les éclats ; la {quest:4296} se dresse au milieu, parmi les nains de Thaurissan. Copiez-la.\nLes Rejetons noirs nichent dans les collines juste à l'est de {area:251}. Utilisez l'{item:12284} de {npc:10267} sur un rejeton presque mort pour capturer son essence.",
 
-	-- Step 43: Flame Crest
+	-- Step 42: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "Retournez au nord-est à la {area:251}.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "Gardez la Lettre de {npc:10267} : {quest:4808} est à {area:2255}, {zone:1452}.",
 
-	-- Step 44: Kargath
+	-- Step 43: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "La course suivante de Theodora mène à Lotwil, à l'est de la ville, puis dans {area:1584} : passez-la.",
 
-	-- Step 45: Fly to Tarren Mill
+	-- Step 44: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Maître de vol de {area:340}",
 
-	-- Step 46: Apothecary Lydon
+	-- Step 45: Apothecary Lydon
 	["Inside"] = "À l'intérieur",
 
-	-- Step 47: Fly to Undercity
+	-- Step 46: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "Prendre un vol pour {area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Maître de vol de {area:272}",
 
-	-- Step 48: Oran Snakewrithe
+	-- Step 47: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825} se tient dans le {object:36082}.",
 
-	-- Step 49: Undercity
+	-- Step 48: Undercity
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}, {object:36078}, près du maître des chauves-souris",
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -245,13 +242,13 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
 
-	-- Step 51: The Bulwark
+	-- Step 50: The Bulwark
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85} jusqu'au {area:152}, le fort des Réprouvés à la frontière.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Prenez une {object:176092} dans la caisse à côté de Derrington pour {quest:5096}, à faire au retour. Équipez la {quest:5401} : les Pierres du Fléau ne tombent que si vous la portez.",
 
-	-- Step 52: Janice Felstone
+	-- Step 51: Janice Felstone
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark · {npc:10778} Janice Felstone
 	["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85}, au-delà du {area:152}. La ferme Felstone est la première le long de la route ; {npc:10778} attend dans la maison.",
 	["Upstairs"] = "À l'étage",
@@ -260,27 +257,27 @@ return {
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
 	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "Gardez le colis : le {npc:10781} est à {zone:1458}.",
 
-	-- Step 53: Scarlet forward camp
+	-- Step 52: Scarlet forward camp
 	["Scarlet forward camp"] = "Camp avancé écarlate",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau.",
 
-	-- Step 55: Augustus the Touched
+	-- Step 54: Augustus the Touched
 	-- {zone:1422} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
 
-	-- Step 56: Terrordale: kill these as you meet them
+	-- Step 55: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "{area:2627} : tuez-les au passage",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
 	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Le livre se trouve dans l'auberge en ruine de {area:2627}.\nLes Grandes termitières se dressent partout dans les collines à l'est de {area:2627}. Utilisez le {item:15042} sur chaque termitière que vous croisez.",
 
-	-- Step 57: Light's Hope Chapel
+	-- Step 56: Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Revenez au sud jusqu'à la route et suivez-la vers l'est à travers toute la zone jusqu'à la {area:2268}.",
 
-	-- Step 58: Eastern Plaguelands: kill these as you meet them
+	-- Step 57: Eastern Plaguelands: kill these as you meet them
 	-- {area:139} Eastern Plaguelands
 	["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
 	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
@@ -288,32 +285,32 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
 
-	-- Step 59: Pamela Redpath
+	-- Step 58: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Le fantôme de {npc:10926} se tient dans les ruines de {area:2262}, au sud-ouest.",
 
-	-- Step 60: Pamela's Doll
+	-- Step 59: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La tête de la poupée et ses deux côtés sont dans les maisons autour de {npc:10926} ; assemblez-les depuis vos sacs.",
 
-	-- Step 61: Pamela Redpath
+	-- Step 60: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Gardez {quest:5152} : Marlene vit à la {area:197}, dans les {zone:1422}.",
 
-	-- Step 62: Zaeldarr the Outcast
+	-- Step 61: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "Zaeldarr rôde juste à l'ouest de {area:2262}.",
 
-	-- Step 63: Pestilent Scar
+	-- Step 62: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Attention : l'{npc:10411} devient invisible hors combat et appelle des Gargouilles Aile-de-roc dès qu'un combat commence. Il n'en existe que 3, et elles réapparaissent toutes les 15 minutes.",
 
-	-- Step 64: Hearth to Light's Hope Chapel
+	-- Step 63: Hearth to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Hearth to {area:2268}"] = "Pierre de foyer vers la {area:2268}",
 
-	-- Step 65: Back to Light's Hope Chapel
+	-- Step 64: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "Retour à la {area:2268}",
 	["The next guide starts here, at the chapel's flight master."] = "Le guide suivant commence ici, au maître de vol de la chapelle.",
@@ -360,6 +357,7 @@ return {
 	-- ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} vous envoie voir {npc:9298} à {zone:1452} : gardez la quête.",
 	-- ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "Le gobelin {npc:10302} se trouve aux {area:543}, juste à l'est du pylône.",
 	-- ["{npc:12250} lurks just west of {area:2262}."] = "{npc:12250} rôde juste à l'ouest de {area:2262}.",
+	-- ["{npc:6511} on the way"] = "{npc:6511} en chemin",
 	-- ["{npc:8390}, the {object:36072}: the vials fill in {zone:1447} later"] = "{npc:8390}, {object:36072} : les fioles se remplissent plus tard en {zone:1447}",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}, au fond de la grotte",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "{npc:9619} demande maintenant la fourrure d'{npc:9622}, dans la grotte du nord-est : passez-la.",

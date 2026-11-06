@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), or a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), or a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "dun-morogh-shimmerweed-on-shimmer-ridge",
@@ -1838,6 +1838,24 @@
 				}
 			],
 			"pr": 972
+		},
+		{
+			"id": "977-venture-tower-from-23",
+			"faction": "Horde",
+			"at": {
+				"quest": 2478,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=23",
+			"note": "Mission: Possible But Not Probable (Rogues, optional): the Venture Co. tower's Mutated Venture Co. Drones are 25, its Lookouts 23 and Patrollers 22, and Grand Foreman Puzik Gallywix a 23 elite, and the guide sent Rogues there at the route's 20.3 (the shared Barrens guide's work step). Its step now shows from level 23, where the drones are at most level + 2 and Gallywix an elite at most level + 1 (the writer's level fit, #977); before that the class guide Poisons (Horde) holds it, as the step's tip says.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_template Classification of 7288 (Grand Foreman Puzik Gallywix: 1, elite); levels in the game's creature data: 7310 Mutated Venture Co. Drone 25, 7307 Venture Co. Lookout 23, 7308 Venture Co. Patroller 22, 7288 Gallywix 23"
+				}
+			],
+			"issue": 977
 		}
 	]
 }
