@@ -1275,10 +1275,7 @@ emit(other)
 			"nameplateIconSide": "left", "questLevels": true, "guideHighlight": true, "guideDim": false,
 		})
 	);
-	assert_eq!(
-		out[1]["Questing"],
-		json!(["qol.questDB+help", "qol.questTooltips+help", "qol.nameplateIcons+help", "qol.nameplateIconSide+help", "qol.questLevels+help"])
-	);
+	assert_eq!(out[1]["Questing"], json!(["qol.questDB+help", "qol.questTooltips+help", "qol.nameplateIcons+help", "qol.nameplateIconSide+help", "qol.questLevels+help"]));
 	assert_eq!(
 		out[1]["Map"],
 		json!([
