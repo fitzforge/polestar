@@ -2942,6 +2942,24 @@ test(`${ASHENVALE}: #424: the Horn of Awakening is taken from Kerlonian's Chest 
 	assert.equal(list[horn].goal.map, 1439, 'the chest is at the Grove of the Ancients in Darkshore');
 });
 
+// Fyurie (#920): The Sleeper Has Awakened (5321) was taken from Kerlonian
+// Evershade on the Darkshore visit at about 19, but his escort waits for the
+// Ashenvale guide at about 26, so players carried a timed escort for hours.
+// The Horn of Awakening lasts 25 minutes (item 13536, duration 1500 s). The
+// quest is taken from Kerlonian in the Ashenvale guide's Grove step, right
+// before his chest and the escort, and no step waits for it in the log first.
+test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken from Kerlonian right before his chest and the escort, not on the Darkshore visit`, { skip }, () => {
+	assert.ok(!goals(DARKSHORE).some(({ goal }) => goal.quest === 5321), 'the Darkshore visit leaves Kerlonian alone');
+	const list = goals(ASHENVALE);
+	const accept = at(list, 'accept 5321 (Kerlonian Evershade)', is('accept', 5321));
+	const horn = at(list, 'collect 13536 quest 5321 (Horn of Awakening)', (g) => g.t === 'collect' && g.item === 13536 && g.quest === 5321);
+	const turnin = at(list, 'turnin 5321', is('turnin', 5321));
+	assert.equal(list[accept].s, list[horn].s, 'the accept and the chest are one step at the Grove');
+	assert.ok(accept < horn && horn < turnin, 'accept, chest, then the hand-in at Maestra\'s Post');
+	assert.ok(!(list[accept].step.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(5321)), 'the step does not wait for 5321 in the quest log');
+	assert.equal(list[accept].goal.npc, 11218, 'from Kerlonian Evershade');
+});
+
 // A bare `complete` that opens its step has no place of its own and nothing
 // placed before it, so the arrow showed nothing until the quest was done
 // (#303's leftovers; #632 and #646 place the Horde ones). Each now leads to

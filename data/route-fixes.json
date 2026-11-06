@@ -4761,6 +4761,19 @@
 				],
 				"faction": "Horde",
 				"why": "ZoneFix c18 read (Horde 40-50): Raptor Mastery's last hunt before the walk into the Swamp of Sorrows (pair above; Orc.json order[1067-1068])"
+			},
+			{
+				"a": [
+					"turnin",
+					97926
+				],
+				"b": [
+					"accept",
+					5321
+				],
+				"faction": "Alliance",
+				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort.",
+				"source": "#920"
 			}
 		]
 	}
