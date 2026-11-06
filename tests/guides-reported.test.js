@@ -52,21 +52,23 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 });
 
 test('Horde Call of Fire: hand in the carried trainer lead at Kranal before starting the shared ritual', { skip }, () => {
-	for (const file of ['forever/horde/02-the-barrens.guide', 'forever/horde/orc/02-the-barrens.guide', 'forever/horde/troll/02-the-barrens.guide']) {
-		// An Orc or Troll Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the
-		// race's Durotar guide comes first.
-		const race = file.match(/\/(orc|troll)\//);
-		const list = [...(race ? goals(`forever/horde/${race[1]}/01-durotar.guide`) : []), ...goals(file)];
+	const file = 'forever/horde/02-the-barrens.guide';
+	for (const [race, durotar, carried] of [['Orc', ORC_DUROTAR, 2983], ['Troll', TROLL_DUROTAR, 2983], ['Tauren', null, 1523]]) {
+		// The Barrens guide is shared since 0.3.1 (only Orc / Troll / Tauren steps). An Orc or Troll
+		// Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the race's Durotar
+		// guide comes first.
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = [...(durotar ? goals(durotar) : []), ...goals(file)].filter(forRace).filter(forClass('SHAMAN'));
 		const start = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === 1524);
-		assert.ok(start >= 0, `${file}: the shared ritual is offered`);
+		assert.ok(start >= 0, `${race}: the shared ritual is offered`);
 		for (const quest of [1522, 1523, 2983, 2984]) {
 			const lead = list.slice(0, start).find(({ goal }) => goal.t === 'turnin' && goal.quest === quest);
-			assert.ok(lead, `${file}: carried trainer lead ${quest} is handed in before the shared ritual`);
-			if (quest !== (/\/(orc|troll)\//.test(file) ? 2983 : 1523)) {
-				assert.ok(lead.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${file}: an uncarried alternative never blocks the route`);
+			assert.ok(lead, `${race}: carried trainer lead ${quest} is handed in before the shared ritual`);
+			if (quest !== carried) {
+				assert.ok(lead.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${race}: an uncarried alternative never blocks the route`);
 			}
-			assert.equal(lead.goal.npc, 5907, `${file}: no trip to a different giver`);
-			for (const field of ['map', 'x', 'y']) assert.equal(lead.goal[field], list[start].goal[field], `${file}: the same Kranal stop`);
+			assert.equal(lead.goal.npc, 5907, `${race}: no trip to a different giver`);
+			for (const field of ['map', 'x', 'y']) assert.equal(lead.goal[field], list[start].goal[field], `${race}: the same Kranal stop`);
 		}
 	}
 });
