@@ -3921,7 +3921,7 @@
 				"ref": "98252 pre_all [98251]"
 			}
 		],
-		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23); Forever's quest data lists Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure)."
+		"note": "A Void Path (Ashenvale, Va'xug Firefure) is offered once Never Coming Back 98251, from the same giver, is handed in. Two players at Va'xug with Never Coming Back still in the log were not offered it (#1002 at level 25, #984 at 23), and the quest chain in the game's data has Never Coming Back as the step before it. The merged data had no prerequisite, so the Stonetalon guide took both at once (horde/05-stonetalon-mountains, step Va'xug Firefure)."
 	},
 	"98094": {
 		"set": {
