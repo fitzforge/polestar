@@ -1891,7 +1891,7 @@ skin brings:
   hairline by default; no game frame) and the game's `UI-Panel-Button-*`. A
   frame painted in another skin is cleared first, so a switch and back leaves it
   as it was;
-- its fonts (`ui.font` "skin", the default: Open Sans in the house style,
+- its fonts (`ui.font` "skin", the default: the game's in the house style,
   Fira Sans in Halo, the game's in Hearth and the game's looks), its type sizes and text shadow;
 - its sizes (`Theme.Metric`): setting rows, buttons, menus, dropdowns,
   sliders, the guide window (`readMetrics` / `GF.ApplySkin`), the shell

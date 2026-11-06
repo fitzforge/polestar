@@ -174,7 +174,7 @@ fn custom_ground_colour_and_brightness_repaint_live_and_can_never_make_text_ille
 }
 
 #[test]
-fn house_style_open_sans_by_default_and_inter_on_request_polestar_gold_a_user_accent_that_repaints_what_follows_it() {
+fn house_style_game_font_by_default_open_sans_and_inter_on_request_polestar_gold_a_user_accent_that_repaints_what_follows_it() {
 	let out = run(r#"
 		local fs = UIParent:CreateFontString()
 		T.Font(fs, "title")
@@ -185,17 +185,20 @@ fn house_style_open_sans_by_default_and_inter_on_request_polestar_gold_a_user_ac
 		local d = { T.Accent() }
 		Polestar.Set("ui.accent", { 1, 0.5, 0 })
 		local tr, tg, tb = tex:GetVertexColor()
+		Polestar.Set("ui.font", "opensans")
+		local openSans = { fs:GetFont() }
 		Polestar.Set("ui.font", "inter")
 		local inter = { fs:GetFont() }
 		Polestar.Set("ui.bgOpacity", 0.5)
 		local bgAlpha = select(4, PolestarGuideFrame.psSkin.bg:GetVertexColor())
 		T.SetOutline(fs, true)
 		local outlined = select(3, fs:GetFont())
-		emit({ before = before, inter = inter, default = d, tex = { tr, tg, tb }, fired = fired, eui = T.IsEllesmere(),
+		emit({ before = before, openSans = openSans, inter = inter, default = d, tex = { tr, tg, tb }, fired = fired, eui = T.IsEllesmere(),
 			border = PolestarGuideFrame.psBorder ~= nil, shadow = PolestarGuideFrame.psShadow:IsShown(), bgAlpha = bgAlpha,
 			outlined = outlined, media = T.Media("check"), verb = T.VerbIcon("kill"),
 			band = { T.BandCoords(720, 112) }, schemes = T.SchemeChoices() })"#);
-	assert_eq!(out["before"], json!([OPEN_SANS_BOLD, 15, ""]), "Open Sans Bold for the title by default");
+	assert_eq!(out["before"], json!(["Fonts\\FRIZQT__.TTF", 15, ""]), "the game font for the title by default");
+	assert_eq!(out["openSans"], json!([OPEN_SANS_BOLD, 15, ""]), "ui.font = opensans gives Open Sans Bold for the title");
 	assert_eq!(out["inter"], json!(["Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf", 15, ""]), "ui.font = inter re-fonts live");
 	assert_eq!(round(&out["default"]), vec![0.9, 0.73, 0.4], "Polestar gold");
 	assert_eq!(out["tex"], json!([1, 0.5, 0]));
@@ -235,6 +238,7 @@ fn fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russi
 		Polestar.Set("ui.font", "opensans")
 		out.openSansOnBlizzard = (T.FontSpec("body"))
 		Polestar.Set("ui.skin", "polestar")
+		out.openSans = (T.FontSpec("title"))
 		Polestar.Set("ui.font", "inter")
 		out.inter = (T.FontSpec("title"))
 		emit(out)"#,
@@ -243,7 +247,7 @@ fn fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russi
 	};
 
 	let ru = faces("ruRU");
-	// Open Sans has no arrow (U+2192), which the Russian guide texts use: the house look keeps Fira Sans there.
+	// The game's Cyrillic font has no middle dot: with the skin's font left unset, Fira Sans; a font picked stays.
 	assert_eq!(ru["default"], FIRA, "ruRU default");
 	assert_eq!(ru["skinChoice"], FIRA, "ruRU with the house font");
 	for skin in ["hearth", "forever", "blizzard", "classic"] {
@@ -251,6 +255,7 @@ fn fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russi
 	}
 	assert_eq!(ru["game"], GAME, "ruRU with \"the game's\" font picked");
 	assert_eq!(ru["gameBlizzard"], GAME, "ruRU with \"the game's\" font picked on a game skin");
+	assert_eq!(ru["openSans"], OPEN_SANS_BOLD, "ruRU with Open Sans picked");
 	assert_eq!(ru["inter"], INTER, "ruRU with Inter picked");
 
 	for locale in ["zhCN", "zhTW", "koKR"] {
@@ -261,7 +266,8 @@ fn fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russi
 	}
 
 	let en = faces("enUS");
-	assert_eq!(en["default"], OPEN_SANS_BOLD, "enUS default");
+	assert_eq!(en["default"], GAME, "enUS default: the game font");
+	assert_eq!(en["openSans"], OPEN_SANS_BOLD, "enUS with Open Sans picked");
 	assert_eq!(en["openSansOnBlizzard"], OPEN_SANS_REGULAR, "an explicit choice on another skin");
 	assert_eq!(en["game"], GAME, "enUS with the game font picked");
 	assert_eq!(en["inter"], INTER, "enUS with Inter picked");
@@ -365,7 +371,7 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 	assert_eq!(out["shellArt"], false);
 	assert_eq!(out["houseBg"], true);
 	assert_eq!(out["band"], true);
-	assert_eq!(out["followFont"], json!([OPEN_SANS_REGULAR, 13, ""]), "Open Sans by default, even with EllesmereUI");
+	assert_eq!(out["followFont"], json!(["Fonts\\FRIZQT__.TTF", 13, ""]), "the game font by default, even with EllesmereUI");
 	assert_eq!(round(&out["before"]), vec![0.05, 0.82, 0.62], "follows its accent by default");
 	assert_eq!(round(&out["after"]), vec![0.6, 0.48, 1.0], "S.OnLooksChanged repaints accent-coloured elements");
 	assert!(out["fired"].as_f64().unwrap() >= 1.0);
