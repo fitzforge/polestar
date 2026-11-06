@@ -13,7 +13,6 @@
 
 pub mod addonlua;
 pub mod client;
-pub mod flb;
 pub mod forever;
 pub mod leveling;
 pub mod racials;
@@ -174,22 +173,25 @@ pub fn build_logged(opts: &Options, log: &dyn Fn(&str)) -> Result<Output, String
 	report.set("builtAt", V::str(&opts.built_at));
 	let fc = Obj::new();
 	fc.set("build", V::str(&t.build));
-	fc.set("hotfixes", match &t.hotfix_dir {
-		Some(_) => V::Arr(Arr::from_vec(
-			t.applied
-				.iter()
-				.map(|a| {
-					let o = Obj::new();
-					o.set("table", V::str(&a.table));
-					o.set("replaced", V::Num(a.replaced as f64));
-					o.set("added", V::Num(a.added as f64));
-					o.set("deleted", V::Num(a.deleted as f64));
-					V::Obj(o)
-				})
-				.collect(),
-		)),
-		None => V::Null,
-	});
+	fc.set(
+		"hotfixes",
+		match &t.hotfix_dir {
+			Some(_) => V::Arr(Arr::from_vec(
+				t.applied
+					.iter()
+					.map(|a| {
+						let o = Obj::new();
+						o.set("table", V::str(&a.table));
+						o.set("replaced", V::Num(a.replaced as f64));
+						o.set("added", V::Num(a.added as f64));
+						o.set("deleted", V::Num(a.deleted as f64));
+						V::Obj(o)
+					})
+					.collect(),
+			)),
+			None => V::Null,
+		},
+	);
 	fc.set("records", V::Num(ex.items.len() as f64));
 	let sk = Obj::new();
 	for (k, n) in &ex.skipped {
@@ -203,15 +205,18 @@ pub fn build_logged(opts: &Options, log: &dyn Fn(&str)) -> Result<Output, String
 	fc.set("unmappedStatTypes", V::Obj(un));
 	report.set("foreverClient", V::Obj(fc));
 	let lv = Obj::new();
-	lv.set("codex", V::Obj({
-		let o = Obj::new();
-		for k in ["build", "builtAt"] {
-			if let Some(s) = codex.meta.get(k).and_then(|v| v.as_str()) {
-				o.set(k, V::str(s));
+	lv.set(
+		"codex",
+		V::Obj({
+			let o = Obj::new();
+			for k in ["build", "builtAt"] {
+				if let Some(s) = codex.meta.get(k).and_then(|v| v.as_str()) {
+					o.set(k, V::str(s));
+				}
 			}
-		}
-		o
-	}));
+			o
+		}),
+	);
 	lv.set("pack", pack.counts.to_v());
 	lv.set("bytes", V::Num(pack.lua.len() as f64));
 	report.set("forever", V::Obj(lv));

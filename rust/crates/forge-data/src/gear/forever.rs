@@ -361,25 +361,62 @@ mod tests {
 			"ItemSparse",
 			vec![
 				// a robe: int 4000/10000 x 9 = 3.6 -> 4, crit rating 7000 x 9 / 10000 = 6.3 -> 6 -> 0.43%
-				row(&[("ID", "1"), ("Display_lang", "Robe"), ("InventoryType", "20"), ("ItemLevel", "25"), ("OverallQualityID", "2"), ("RequiredLevel", "20"), ("AllowableClass", "-1"), ("StatModifier_bonusStat_0", "5"), ("StatPercentEditor_0", "4000"), ("StatModifier_bonusStat_1", "32"), ("StatPercentEditor_1", "7000"), ("StatModifier_bonusStat_2", "-1"), ("Flags_4", "0")]),
+				row(&[
+					("ID", "1"),
+					("Display_lang", "Robe"),
+					("InventoryType", "20"),
+					("ItemLevel", "25"),
+					("OverallQualityID", "2"),
+					("RequiredLevel", "20"),
+					("AllowableClass", "-1"),
+					("StatModifier_bonusStat_0", "5"),
+					("StatPercentEditor_0", "4000"),
+					("StatModifier_bonusStat_1", "32"),
+					("StatPercentEditor_1", "7000"),
+					("StatModifier_bonusStat_2", "-1"),
+					("Flags_4", "0"),
+				]),
 				// a caster staff: damage x 0.74, +18 spell damage and healing (2 x 9)
-				row(&[("ID", "2"), ("Display_lang", "Rod"), ("InventoryType", "17"), ("ItemLevel", "25"), ("OverallQualityID", "2"), ("ItemDelay", "3800"), ("DmgVariance", "0.4"), ("AllowableClass", "-1"), ("StatModifier_bonusStat_0", "-1"), ("Flags_4", "768")]),
+				row(&[
+					("ID", "2"),
+					("Display_lang", "Rod"),
+					("InventoryType", "17"),
+					("ItemLevel", "25"),
+					("OverallQualityID", "2"),
+					("ItemDelay", "3800"),
+					("DmgVariance", "0.4"),
+					("AllowableClass", "-1"),
+					("StatModifier_bonusStat_0", "-1"),
+					("Flags_4", "768"),
+				]),
 				// a sword: 10 DPS x 2.0 s, variance 0.6 -> 14-26
-				row(&[("ID", "3"), ("Display_lang", "Sword"), ("InventoryType", "13"), ("ItemLevel", "25"), ("OverallQualityID", "2"), ("ItemDelay", "2000"), ("DmgVariance", "0.6"), ("AllowableClass", "-1"), ("MaxCount", "1"), ("StatModifier_bonusStat_0", "-1"), ("Flags_4", "0")]),
+				row(&[
+					("ID", "3"),
+					("Display_lang", "Sword"),
+					("InventoryType", "13"),
+					("ItemLevel", "25"),
+					("OverallQualityID", "2"),
+					("ItemDelay", "2000"),
+					("DmgVariance", "0.6"),
+					("AllowableClass", "-1"),
+					("MaxCount", "1"),
+					("StatModifier_bonusStat_0", "-1"),
+					("Flags_4", "0"),
+				]),
 				row(&[("ID", "4"), ("Display_lang", "Monster - Sword"), ("InventoryType", "13")]),
 				row(&[("ID", "5"), ("Display_lang", "Shirt"), ("InventoryType", "4")]),
 			],
 		));
-		t.push(("Item", vec![row(&[("ID", "1"), ("ClassID", "4"), ("SubclassID", "1")]), row(&[("ID", "2"), ("ClassID", "2"), ("SubclassID", "10")]), row(&[("ID", "3"), ("ClassID", "2"), ("SubclassID", "7")])]));
+		t.push((
+			"Item",
+			vec![row(&[("ID", "1"), ("ClassID", "4"), ("SubclassID", "1")]), row(&[("ID", "2"), ("ClassID", "2"), ("SubclassID", "10")]), row(&[("ID", "3"), ("ClassID", "2"), ("SubclassID", "7")])],
+		));
 		t.push(("ItemEffect", vec![row(&[("ID", "50"), ("TriggerType", "1"), ("SpellID", "900")])]));
 		t.push(("ItemXItemEffect", vec![row(&[("ItemID", "1"), ("ItemEffectID", "50")])]));
 		t.push(("SpellEffect", vec![row(&[("SpellID", "900"), ("Effect", "6"), ("EffectAura", "85"), ("EffectBasePointsF", "3"), ("EffectMiscValue_0", "0"), ("EffectIndex", "0")])]));
 		let ex = extract(&tables(t));
 		let enc: Vec<String> = ex.items.iter().map(encode).collect();
-		assert_eq!(
-			enc,
-			vec!["20 25 20 2 4 1 int4 armor16 crit0.43 spellCrit0.43 mpr3", "17 25 0 2 2 10 sp18 heal18 dmin37 dmax57 speed3800", "13 25 0 2 2 7 dmin14 dmax26 speed2000 uniq1"]
-		);
+		assert_eq!(enc, vec!["20 25 20 2 4 1 int4 armor16 crit0.43 spellCrit0.43 mpr3", "17 25 0 2 2 10 sp18 heal18 dmin37 dmax57 speed3800", "13 25 0 2 2 7 dmin14 dmax26 speed2000 uniq1"]);
 		assert_eq!(ex.skipped.into_iter().collect::<Vec<_>>(), vec![("name", 1), ("slot", 1)]);
 		// The addon reads what encode writes, decimals included.
 		let back = crate::gear::leveling::decode(1.0, &enc[0]).unwrap();
@@ -388,7 +425,21 @@ mod tests {
 
 	#[test]
 	fn the_overlay_holds_forever_only_and_changed_items() {
-		let rec = |id: f64, ilvl: f64| Rec { id, inv: V::Num(1.0), ilvl: V::Num(ilvl), req: V::Num(0.0), quality: V::Num(2.0), cls: V::Num(4.0), sub: V::Num(1.0), allow: V::Num(0.0), unique: false, stats: Vec::new(), dmin: None, dmax: None, speed: None };
+		let rec = |id: f64, ilvl: f64| Rec {
+			id,
+			inv: V::Num(1.0),
+			ilvl: V::Num(ilvl),
+			req: V::Num(0.0),
+			quality: V::Num(2.0),
+			cls: V::Num(4.0),
+			sub: V::Num(1.0),
+			allow: V::Num(0.0),
+			unique: false,
+			stats: Vec::new(),
+			dmin: None,
+			dmax: None,
+			speed: None,
+		};
 		let era: FxHashMap<u64, Rec> = [(1, rec(1.0, 10.0)), (2, rec(2.0, 10.0))].into_iter().collect();
 		let (out, c) = overlay(&[rec(1.0, 10.0), rec(2.0, 12.0), rec(3.0, 5.0)], &era);
 		assert_eq!(out.iter().map(|r| r.id).collect::<Vec<_>>(), vec![2.0, 3.0]);
