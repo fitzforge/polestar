@@ -329,6 +329,35 @@ fn tabetha(race: &str, faction: &str, at: &[f64]) -> Value {
 		.remove(0)
 }
 
+const NEARBY_VENDORS: &str = r#"
+stub.login()
+local out = {}
+for _, key in ipairs({ "food", "general", "arrows", "bullets", "ranged" }) do
+	local place, why = Polestar.Nav.nearby.Find(key)
+	out[key] = place and { name = place.name, map = place.map } or { why = why or false }
+end
+emit(out)"#;
+
+// Nearby services' vendor rows (#695, #945) read the Codex's `sells:` roles: in Elwynn Forest, a Human finds a
+// food, a general goods, an arrow, a bullet and a bow and gun vendor (the 0.3.2 Codex had none of the roles).
+#[test]
+fn nearby_services_finds_a_food_general_goods_arrow_bullet_and_bow_vendor_near_goldshire() {
+	if skip() {
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: before("\"Human\"", "\"HUNTER\"", "\"Alliance\"", 12, &[1429.0, 42.0, 65.0]),
+		addons: vec!["Polestar".into()],
+		script: NEARBY_VENDORS.into(),
+		..Default::default()
+	})
+	.remove(0);
+	for key in ["food", "general", "arrows", "bullets", "ranged"] {
+		assert!(out[key]["name"].is_string(), "a {key} vendor: {}", serde_json::to_string(&out).unwrap());
+	}
+}
+
 #[test]
 fn tabetha_s_task_a_level_44_alliance_mage_in_stormwind_is_sent_to_an_alliance_mage_trainer_in_stormwind_a_horde_one_in_the_undercity_to_anastasia_hartwell() {
 	if skip() {
@@ -512,6 +541,22 @@ fn arachnit_s_report_the_ruins_of_lordaeron_pick_up_guide_of_a_level_23_orc_warr
 	let after = dungeon_quests("ruins-of-lordaeron", &Dq { ready: vec![97288], ..orc.clone() });
 	assert_eq!(after["hand"], json!([97288]), "the Abominable Head is handed in after the run");
 	assert_eq!(after["follow"], json!([97289]), "Faranell then gives the next Unending Torment");
+}
+
+// #999 (lif3l3ss): Deathguard Kristof offers The Wrath of Rath'mael (92422) only after Rear Guard Patrol (99156,
+// #879). The pick-up guide reads the chain from the Codex's `preAny`: a level 18 Scourge who has done neither
+// accepts Rear Guard Patrol first, never The Wrath of Rath'mael on its own (the 0.3.2 Codex lacked the link).
+#[test]
+fn lif3l3ss_s_report_the_ruins_of_lordaeron_pick_up_guide_takes_rear_guard_patrol_before_the_wrath_of_rathmael_999() {
+	if skip() {
+		return;
+	}
+	let scourge = Dq { race: "Scourge", faction: "Horde", cls: "PALADIN", level: 18, at: [1420.0, 65.25, 60.11], ready: vec![] };
+	let out = dungeon_quests("ruins-of-lordaeron", &scourge);
+	let accepts = nums(&out["accepts"]);
+	let patrol = accepts.iter().position(|q| *q == 99156);
+	let wrath = accepts.iter().position(|q| *q == 92422);
+	assert!(patrol.is_some() && wrath.is_some() && patrol < wrath, "Rear Guard Patrol is accepted before The Wrath of Rath'mael: {}", js_string(&out["accepts"]));
 }
 
 // The same shape in the Excavation Site (Wetlands): each side's Titan Relic drops inside and its quest's ender
