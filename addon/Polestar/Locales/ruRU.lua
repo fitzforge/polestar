@@ -218,6 +218,7 @@ L["Usage: /polestar way <x> <y> [label]"] = "Использование: /polest
 L["Point the arrow at x y on your current map (no argument clears it)"] = "Навести стрелку на x y на текущей карте (без аргументов — сбросить)"
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever ведет свой собственный путь. Стрелка Polestar вернется, когда он закончится."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Передать ведение Shortest Path Forever\" (Настройки, Интеграции)."
+L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "Гайд скрыт, и включено «Скрывать стрелку вместе с гайдом», поэтому стрелка тоже скрыта: /polestar show вернёт их."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Ищите здесь"
@@ -1947,6 +1948,8 @@ L["Show the whole step"] = "Показывать весь шаг"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Все цели шага сразу, вместе с выполненными, вместо одного персонажа за раз и остальных по строке на каждого."
 L["Maximum height"] = "Максимальная высота"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Насколько высоким может стать окно, в доле экрана. Более длинный шаг прокручивается."
+L["Hide the arrow with the guide"] = "Скрывать стрелку вместе с гайдом"
+L["When the guide window is hidden, hide the arrow too."] = "Когда окно гайда скрыто, скрывать и стрелку."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

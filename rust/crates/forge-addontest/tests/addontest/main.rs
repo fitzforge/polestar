@@ -145,6 +145,8 @@ mod guides_end;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
+#[path = "hide-with-guide.rs"]
+mod hide_with_guide;
 mod import;
 #[path = "import-safety.rs"]
 mod import_safety;

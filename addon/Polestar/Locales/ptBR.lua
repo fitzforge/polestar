@@ -218,6 +218,7 @@ L["Usage: /polestar way <x> <y> [label]"] = "Uso: /polestar way <x> <y> [rótulo
 L["Point the arrow at x y on your current map (no argument clears it)"] = "Apontar a seta para x y no mapa atual (sem argumento, limpa)"
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "O Shortest Path Forever está guiando uma jornada própria. A seta do Polestar volta quando ela terminar."
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Passar a guia ao Shortest Path Forever\" (Opções, Integrações) para usar a seta do Polestar."
+L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "O guia está oculto e \"Ocultar a seta com o guia\" está ligado, então a seta também está: /polestar show traz os dois de volta."
 
 -- Nav/Arrow.lua
 L["Search here"] = "Procure aqui"
@@ -1947,6 +1948,8 @@ L["Show the whole step"] = "Mostrar a etapa inteira"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "Todos os objetivos da etapa de uma vez, inclusive os concluídos, em vez de uma pessoa por vez com as outras em uma linha cada."
 L["Maximum height"] = "Altura máxima"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Até onde a janela pode crescer, como parte da tela. Uma etapa mais longa rola."
+L["Hide the arrow with the guide"] = "Ocultar a seta com o guia"
+L["When the guide window is hidden, hide the arrow too."] = "Quando a janela do guia estiver oculta, ocultar a seta também."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"

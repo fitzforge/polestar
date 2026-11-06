@@ -218,6 +218,7 @@ L["Usage: /polestar way <x> <y> [label]"] = "用法：/polestar way <x> <y> [标
 L["Point the arrow at x y on your current map (no argument clears it)"] = "让箭头指向当前地图上的 x y（无参数则清除）"
 L["Shortest Path Forever is guiding a journey of its own. Polestar's arrow comes back when it ends."] = "Shortest Path Forever 正在导航它自己的行程。行程结束后 Polestar 的箭头会回来。"
 L["Shortest Path Forever is guiding. Turn off \"Hand guiding to Shortest Path Forever\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"交由 Shortest Path Forever 导航\"（选项，整合）。"
+L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."] = "指南已隐藏，且“随指南隐藏箭头”已开启，所以箭头也已隐藏：/polestar show 可恢复显示。"
 
 -- Nav/Arrow.lua
 L["Search here"] = "在此搜索"
@@ -1947,6 +1948,8 @@ L["Show the whole step"] = "显示整个步骤"
 L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] = "一次显示步骤的全部目标（保留已完成的），而不是一次只显示一个人、其余每人一行。"
 L["Maximum height"] = "最大高度"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "窗口最多能长到多高，按屏幕高度的比例。更长的步骤可滚动查看。"
+L["Hide the arrow with the guide"] = "随指南隐藏箭头"
+L["When the guide window is hidden, hide the arrow too."] = "隐藏指南窗口时，也隐藏箭头。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
