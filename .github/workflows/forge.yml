@@ -2,7 +2,9 @@ name: Forge
 
 # The Rust pipeline (rust/): format, lints, tests, the minimum Rust version, the wasm32 build of
 # the crates the addon's browser tools use, and release builds of the forge binary on Linux,
-# Windows and macOS. A tag `forge-v*` also attaches the builds to a GitHub release. push and
+# Windows and macOS (on pushes to main and next and on tags only, not on pull requests: they test
+# nothing the check job doesn't, and the Windows build added 10-15 minutes to every pull request). A
+# tag `forge-v*` also attaches the builds to a GitHub release. push and
 # pull_request only: a pull request's code never runs with this repository's secrets or write token.
 # The tests include the addon's Lua tests (forge-addontest: addon/ on the client stub tests/lua), so
 # a change to the addon, the stub or the compiler's test fixtures runs them too; the committed data
@@ -135,6 +137,7 @@ jobs:
   build:
     name: Build ${{ matrix.name }}
     needs: check
+    if: github.event_name != 'pull_request'
     runs-on: ${{ matrix.os }}
     timeout-minutes: 60
     strategy:
