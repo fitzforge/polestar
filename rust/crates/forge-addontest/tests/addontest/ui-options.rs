@@ -879,8 +879,9 @@ fn distances_the_arrow_row_picks_yards_or_metres_right_click_restores_yards() {
 	assert_eq!(out, json!({ "before": "Yards (the game's unit)", "picked": "metres", "label": "Metres", "reset": "yards" }));
 }
 
+// Tangens (Discord): healing in Wailing Caverns, the window was in the way all run and the setting hard to find.
 #[test]
-fn guide_window_in_dungeons_keeps_the_window_or_hides_it_in_dungeons_and_raids_right_click_restores_keep_visible() {
+fn guide_window_in_dungeons_and_battlegrounds_hides_by_default_keep_visible_is_a_pick_right_click_restores_hide_and_search_finds_it() {
 	let out = run(r#"
 		UI.ShowOptions("guide")
 		local row = O.Controls("guide")["ui.instance"]
@@ -888,11 +889,20 @@ fn guide_window_in_dungeons_keeps_the_window_or_hides_it_in_dungeons_and_raids_r
 		row.Button:Click()
 		local choices = {}
 		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then choices[#choices + 1] = r.Text:GetText() end end
-		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Hide" then r:Click() end end
+		for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() and r.Text:GetText() == "Keep visible" then r:Click() end end
 		local picked = Polestar.Get("ui.instance")
 		row:Click("RightButton")
-		emit({ label = row.Label:GetText(), before = before, choices = choices, picked = picked, reset = Polestar.Get("ui.instance") })"#);
-	assert_eq!(out, json!({ "label": "In dungeons", "before": "Keep visible", "choices": ["Keep visible", "Hide"], "picked": "hide", "reset": "show" }));
+		local found = {}
+		for _, q in ipairs({ "dungeon", "raid", "battleground", "arena", "instance", "hide" }) do
+			found[q] = false
+			for _, g in ipairs((O.Search(q))) do for _, c in ipairs(g.controls) do if c.key == "ui.instance" then found[q] = true end end end
+		end
+		emit({ label = row.Label:GetText(), before = before, choices = choices, picked = picked, reset = Polestar.Get("ui.instance"), found = found })"#);
+	assert_eq!(
+		out,
+		json!({ "label": "In dungeons and battlegrounds", "before": "Hide", "choices": ["Keep visible", "Hide"], "picked": "show", "reset": "hide",
+			"found": { "dungeon": true, "raid": true, "battleground": true, "arena": true, "instance": true, "hide": true } })
+	);
 }
 
 // Discovery, Dungeons: which dungeons the leveling guides' `when dungeon` steps take this character through

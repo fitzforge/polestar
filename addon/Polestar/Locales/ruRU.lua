@@ -1265,6 +1265,7 @@ L["The step stops waiting for the party and moves on as usual."] = "Шаг пе�
 L["Click to show or hide the party panel."] = "Щёлкните, чтобы показать или скрыть панель группы."
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1944,8 +1945,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "Стрелка оформления"
 L["Lock arrow and buttons"] = "Закрепить стрелку и кнопки"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "Защищает стрелку, кнопки действий и таймеры полёта и подземелий от случайного перемещения. Перетаскивание с Shift остаётся доступным."
-L["In dungeons"] = "В подземельях"
-L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Поведение окна в подземельях и рейдах. Команда /polestar или назначенная клавиша откроет его до выхода из подземелья."
 L["Line style"] = "Стиль линии"
 L["Bar at the bottom"] = "Панели внизу"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "При росте окна вверх вкладки и панель шагов размещаются у нижнего края, рядом с точкой закрепления окна."
@@ -2014,6 +2013,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "Возможно, вы искали:"
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
@@ -2966,3 +2968,5 @@ L["Finished: %s - %s"] = "Выполнено: %s - %s"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "Участники группы с Polestar видят ваши счетчики под целями заданий. В чат ничего не уходит."
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "Их счетчики под вашими целями и кто не взял ваше задание."
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Уровень и шаг каждого участника с Polestar и что ему ещё нужно из вашего шага; щелчок по имени наводит на него стрелку. /polestar party показывает или скрывает панель."
+-- L["In dungeons"] = "В подземельях"
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Поведение окна в подземельях и рейдах. Команда /polestar или назначенная клавиша откроет его до выхода из подземелья."

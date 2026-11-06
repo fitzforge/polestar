@@ -1265,6 +1265,7 @@ L["The step stops waiting for the party and moves on as usual."] = "步骤不再
 L["Click to show or hide the party panel."] = "点击显示或隐藏小队面板。"
 -- L["Then out here"] = ""
 -- L["Out here"] = ""
+-- L["The guide window hides in dungeons and battlegrounds. Type /polestar to show it here, or change it in Options > Guide > Window."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -1944,8 +1945,6 @@ L["Polestar's own look (the default), Halo (no frame, a soft dark veil, Fira San
 L["The skin's arrow"] = "皮肤的箭头"
 L["Lock arrow and buttons"] = "锁定箭头和按钮"
 L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] = "防止误拖箭头、操作按钮、飞行计时器和副本计时器。仍可按住 Shift 拖动。"
-L["In dungeons"] = "副本内显示"
-L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "设置在地下城和团队副本中的窗口行为。使用 /polestar 或快捷键可临时打开，直到离开副本。"
 L["Line style"] = "路线样式"
 L["Bar at the bottom"] = "底部显示栏"
 L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."] = "启用向上展开时，将标签页和步骤栏放在窗口固定位置附近的底边。"
@@ -2014,6 +2013,9 @@ L["Small conveniences: questing, travel, invitations, merchants, bags, trackers 
 L["Did you mean:"] = "你是不是要找："
 -- L["Minimap icon size"] = ""
 -- L["Polestar's marks on the minimap; the world map keeps its own. A mark over your arrow fades so the arrow shows through it. Right-click to reset."] = ""
+-- L["Dungeons and battlegrounds"] = ""
+-- L["In dungeons and battlegrounds"] = ""
+-- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
@@ -2966,3 +2968,5 @@ L["Finished: %s - %s"] = "已完成：%s - %s"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "使用 Polestar 的小队成员会在其任务目标下看到你的计数。不会发送到聊天。"
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "在你的任务目标下显示他们的计数，以及谁没有接你已接的任务。"
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "每位使用 Polestar 的成员的等级、步骤以及还需要你的步骤中的什么；点击名字让箭头指向他们。/polestar party 显示或隐藏面板。"
+-- L["In dungeons"] = "副本内显示"
+-- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "设置在地下城和团队副本中的窗口行为。使用 /polestar 或快捷键可临时打开，直到离开副本。"
