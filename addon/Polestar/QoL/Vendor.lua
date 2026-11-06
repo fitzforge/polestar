@@ -1,6 +1,7 @@
 -- Merchant: sell grey items and repair, when a merchant opens, then buy
 -- what the step needs (QoL/Buy.lua). Holding Shift skips all three. Selling
--- goes a few slots per tick (the server throttles bursts)
+-- reads every bag, the reagent bag too, and goes a few slots per tick (the
+-- server throttles bursts)
 -- and re-reads every slot right before selling it, so an item moved or
 -- swapped in the meantime is never sold: only Poor-quality items with a
 -- vendor price ever are, and the items the player marked as junk
