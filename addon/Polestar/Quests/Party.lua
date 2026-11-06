@@ -1203,10 +1203,11 @@ end
 
 -- Every name the client gives for `unit`, and our roster key for it.
 local function sayNames(unit)
-	local C = ns.Compat
+	local NU = NameUtil
 	say(("%s: UnitName %s; UnitNameUnmodified %s"):format(unit, returns("UnitName", unit), returns("UnitNameUnmodified", unit)))
-	say(("  GetUnitName(true) %s; GetUnitName(false) %s; UnitFullName %s"):format(returns("GetUnitName", unit, true),
-		returns("GetUnitName", unit, false), returns("UnitFullName", unit)))
+	say(("  GetUnitName(true) %s; GetUnitName(false) %s; UnitFullName %s; NameUtil.GetUnmodifiedUnitFullName %s"):format(
+		returns("GetUnitName", unit, true), returns("GetUnitName", unit, false), returns("UnitFullName", unit),
+		call(type(NU) == "table" and NU.GetUnmodifiedUnitFullName, nil, unit)))
 	local key, short = memberKey(unit)
 	local line = ("  our roster key (Compat.UnitFullName) %s, shown as %s"):format(shown(key), shown(short))
 	local g = firstString("GetUnitName", unit, true)
@@ -1365,6 +1366,11 @@ function Party.SelfTest()
 		returns("IsInGroup"), returns("IsInGroup", LE_PARTY_CATEGORY_HOME), returns("IsInGroup", LE_PARTY_CATEGORY_INSTANCE),
 		returns("IsInRaid"), returns("GetNumSubgroupMembers"), call(CI.InChatMessagingLockdown, nil), tostring(liveOn),
 		tostring(ns.Get("party.share")), tostring(ns.Get("party.show"))))
+	-- Forever's surnames: the player's setting to show them (UnitName, the
+	-- display name, may follow it; UnitNameUnmodified is the name itself),
+	-- and the regional-unique-names switch FrameXML reads.
+	say(("C_PlayerInfo.ShouldDisplaySurname %s; RegionalUniqueNamesEnabled %s; GetNormalizedRealmName %s"):format(
+		call(C_PlayerInfo and C_PlayerInfo.ShouldDisplaySurname, nil), returns("RegionalUniqueNamesEnabled"), returns("GetNormalizedRealmName")))
 	-- (a) The prefix.
 	say("(a) RegisterAddonMessagePrefix " .. call(CI.RegisterAddonMessagePrefix, Enum and Enum.RegisterAddonMessagePrefixResult, Party.PREFIX)
 		.. "; IsAddonMessagePrefixRegistered " .. call(CI.IsAddonMessagePrefixRegistered, nil, Party.PREFIX))
