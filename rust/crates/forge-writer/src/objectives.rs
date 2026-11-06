@@ -117,11 +117,9 @@ fn plan(q: u32, side: Option<char>, data: &Data, mech: Option<&Value>) -> Option
 /// The quest's mechanics kinds of high or medium confidence.
 fn kinds(mech: Option<&Value>, q: u32) -> Vec<String> {
 	let Some(e) = mech.and_then(|m| m.get(q.to_string())) else { return Vec::new() };
-	e.get("kinds")
-		.and_then(Value::as_array)
-		.map_or(Vec::new(), |ks| {
-			ks.iter().filter(|k| matches!(k.get("confidence").and_then(Value::as_str), Some("high" | "medium"))).filter_map(|k| k.get("kind").and_then(Value::as_str).map(str::to_string)).collect()
-		})
+	e.get("kinds").and_then(Value::as_array).map_or(Vec::new(), |ks| {
+		ks.iter().filter(|k| matches!(k.get("confidence").and_then(Value::as_str), Some("high" | "medium"))).filter_map(|k| k.get("kind").and_then(Value::as_str).map(str::to_string)).collect()
+	})
 }
 
 /// The item used on NPC `npc` for quest `q`: the use-on-mob params' item for that NPC, else the item of
@@ -130,14 +128,13 @@ fn use_item(mech: Option<&Value>, q: u32, npc: u32) -> Option<u32> {
 	let e = mech?.get(q.to_string())?;
 	let id = |v: Option<&Value>| v.and_then(Value::as_u64).map(|x| x as u32);
 	let on = |p: &Value| p.get("npcs").and_then(Value::as_array).is_none_or(|a| a.iter().any(|x| id(Some(x)) == Some(npc)));
-	let from_params = e
-		.get("params")
-		.and_then(Value::as_array)
-		.and_then(|ps| ps.iter().find(|p| p.get("kind").and_then(Value::as_str) == Some("use-item-on-mob") && on(p)).and_then(|p| id(p.get("item"))));
+	let from_params =
+		e.get("params").and_then(Value::as_array).and_then(|ps| ps.iter().find(|p| p.get("kind").and_then(Value::as_str) == Some("use-item-on-mob") && on(p)).and_then(|p| id(p.get("item"))));
 	from_params.or_else(|| {
 		e.get("readSteps")?.as_array()?.iter().find_map(|s| {
 			let t = s.get("target")?;
-			(s.get("action").and_then(Value::as_str) == Some("use-item") && t.get("type").and_then(Value::as_str) == Some("npc") && id(t.get("id")) == Some(npc)).then(|| id(s.get("item")?.get("id")))?
+			(s.get("action").and_then(Value::as_str) == Some("use-item") && t.get("type").and_then(Value::as_str) == Some("npc") && id(t.get("id")) == Some(npc))
+				.then(|| id(s.get("item")?.get("id")))?
 		})
 	})
 }
