@@ -116,7 +116,10 @@ mod tests {
 	#[test]
 	fn reads_stat_multipliers_class_masks_and_only_weapon_limited_crit() {
 		let t: Vec<(&'static str, Rows)> = vec![
-			("SkillLine", vec![row(&[("ID", "754"), ("CategoryID", "9")]), row(&[("ID", "753"), ("CategoryID", "9")]), row(&[("ID", "125"), ("CategoryID", "9")]), row(&[("ID", "43"), ("CategoryID", "6")])]),
+			(
+				"SkillLine",
+				vec![row(&[("ID", "754"), ("CategoryID", "9")]), row(&[("ID", "753"), ("CategoryID", "9")]), row(&[("ID", "125"), ("CategoryID", "9")]), row(&[("ID", "43"), ("CategoryID", "6")])],
+			),
 			(
 				"SkillLineAbility",
 				vec![
@@ -137,7 +140,14 @@ mod tests {
 					row(&[("SpellID", "999"), ("Effect", "6"), ("EffectAura", "137"), ("EffectBasePointsF", "50"), ("EffectMiscValue_0", "0"), ("EffectIndex", "0")]),
 				],
 			),
-			("SpellName", vec![row(&[("ID", "20598"), ("Name_lang", "The Human Spirit")]), row(&[("ID", "20591"), ("Name_lang", "Expansive Mind")]), row(&[("ID", "20574"), ("Name_lang", "Axe Specialization")])]),
+			(
+				"SpellName",
+				vec![
+					row(&[("ID", "20598"), ("Name_lang", "The Human Spirit")]),
+					row(&[("ID", "20591"), ("Name_lang", "Expansive Mind")]),
+					row(&[("ID", "20574"), ("Name_lang", "Axe Specialization")]),
+				],
+			),
 			// The Orc's crit counts with axes (subclasses 0, 1); the Human's has no limit.
 			("SpellEquippedItems", vec![row(&[("SpellID", "20574"), ("EquippedItemClass", "2"), ("EquippedItemSubclass", "3")])]),
 		];

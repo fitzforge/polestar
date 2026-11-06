@@ -193,7 +193,13 @@ pub struct Codex {
 impl Codex {
 	pub fn read(data: &Path) -> Result<Codex, String> {
 		let c = data.join("codex");
-		Ok(Codex { items: read_json(&c.join("items.json"))?, quests: read_json(&c.join("quests.json"))?, npcs: read_json(&c.join("npcs.json"))?, meta: read_json(&c.join("meta.json"))?, zones: read_json(&data.join("zones.json"))? })
+		Ok(Codex {
+			items: read_json(&c.join("items.json"))?,
+			quests: read_json(&c.join("quests.json"))?,
+			npcs: read_json(&c.join("npcs.json"))?,
+			meta: read_json(&c.join("meta.json"))?,
+			zones: read_json(&data.join("zones.json"))?,
+		})
 	}
 
 	/// A UiMap's AreaTable area (0: unknown).
@@ -311,11 +317,19 @@ pub fn build_forever_pack(overlay: &[Rec], overlay_counts: Overlay, gear: &FxHas
 			Some("H") => 2.0,
 			_ => 3.0,
 		};
-		let head = [num_of(&q, "level").unwrap_or(0.0), num_of(&q, "minLevel").unwrap_or(0.0), side, codex.area(num_of(&q, "zone")), num_of(&q, "races").unwrap_or(0.0), num_of(&q, "classes").unwrap_or(0.0), 0.0]
-			.iter()
-			.map(|n| num_str(*n))
-			.collect::<Vec<_>>()
-			.join(" ");
+		let head = [
+			num_of(&q, "level").unwrap_or(0.0),
+			num_of(&q, "minLevel").unwrap_or(0.0),
+			side,
+			codex.area(num_of(&q, "zone")),
+			num_of(&q, "races").unwrap_or(0.0),
+			num_of(&q, "classes").unwrap_or(0.0),
+			0.0,
+		]
+		.iter()
+		.map(|n| num_str(*n))
+		.collect::<Vec<_>>()
+		.join(" ");
 		let join = |l: &[u64]| l.iter().map(u64::to_string).collect::<Vec<_>>().join(",");
 		let title = q.get("title").and_then(Value::as_str).unwrap_or("");
 		quests.push((qid, format!("{head}|{}|{}|{title}", join(&choices), join(&rewards))));
