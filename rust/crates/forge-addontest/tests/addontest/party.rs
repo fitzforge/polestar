@@ -566,14 +566,24 @@ Polestar.Widgets.OnOptionsRegistered(function(spec)
 	end
 end)
 emit(keys)
-emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel") })"#,
+emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("party.waitForGroup"), Polestar.Get("party.lootNeeds"), Polestar.Get("party.panel"), Polestar.Get("party.chat") })"#,
 		LIVE_STUBS,
 		SHOWN_FILES,
 		true,
 		None,
 	);
-	assert_eq!(out[0], json!(["Questing/Group/party.share", "Questing/Group/party.show", "Questing/Group/party.waitForGroup", "Questing/Group/party.lootNeeds", "Questing/Group/party.panel"]));
-	assert_eq!(out[1], json!([true, true, true, true, false]));
+	assert_eq!(
+		out[0],
+		json!([
+			"Questing/Group/party.share",
+			"Questing/Group/party.show",
+			"Questing/Group/party.waitForGroup",
+			"Questing/Group/party.lootNeeds",
+			"Questing/Group/party.panel",
+			"Questing/Group/party.chat"
+		])
+	);
+	assert_eq!(out[1], json!([true, true, true, true, false, true]));
 }
 
 // Found by the final review (Codex and a fresh reviewer).

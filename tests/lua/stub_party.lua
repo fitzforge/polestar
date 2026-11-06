@@ -22,8 +22,12 @@
 --   p.shared                          -- quest ids QuestLogPushQuest shared, in order
 --   p.pushable[33] = false            -- C_QuestLog.IsPushableQuest answers
 --   p.pushResult("Ana", "ERR_QUEST_PUSH_ALREADY_DONE_S")  -- the game's system line to a share (CHAT_MSG_SYSTEM)
+--   p.chat                            -- { { text, chatType, at }, ... } C_ChatInfo.SendChatMessage lines (at: GetTime())
+--   p.lockdown = true                 -- C_ChatInfo.InChatMessagingLockdown answers
+--   p.instance = true                 -- the group is an instance group (IsInGroup(LE_PARTY_CATEGORY_INSTANCE))
+--   p.noLinks = true                  -- GetQuestLink gives nothing (else "|cffffff00|Hquest:<id>:0|h[<title>]|h|r")
 
-local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {} }
+local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {}, chat = {}, lockdown = false, instance = false }
 stub.party = party
 
 local function memberOf(unit)
@@ -81,7 +85,14 @@ end
 
 UNKNOWNOBJECT = "Unknown"
 
-function IsInGroup() return #party.members > 0 end
+-- ChatInfo LE_PARTY_CATEGORY_*: no category means either group.
+LE_PARTY_CATEGORY_HOME, LE_PARTY_CATEGORY_INSTANCE = 1, 2
+function IsInGroup(category)
+	if #party.members == 0 then return false end
+	if category == LE_PARTY_CATEGORY_INSTANCE then return party.instance end
+	if category == LE_PARTY_CATEGORY_HOME then return not party.instance end
+	return true
+end
 function IsInRaid() return party.inRaid end
 function GetNumSubgroupMembers() return #party.members end
 function GetNumGroupMembers() return #party.members > 0 and #party.members + 1 or 0 end
@@ -121,6 +132,19 @@ end
 function C_ChatInfo.SendAddonMessage(prefix, text, chatType, target)
 	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType })
 	return party.result
+end
+-- ChatInfoDocumentation.lua SendChatMessage (no returns), InChatMessagingLockdown.
+function C_ChatInfo.SendChatMessage(text, chatType, languageID, target)
+	table.insert(party.chat, { text = text, chatType = chatType, at = GetTime() })
+end
+function C_ChatInfo.InChatMessagingLockdown() return party.lockdown end
+
+-- The client's quest link (Blizzard_UIPanels_Game Mainline QuestMapFrame's
+-- shift-click: GetQuestLink(questID)), for a quest in the log.
+function GetQuestLink(q)
+	local title = C_QuestLog.GetTitleForQuestID(q)
+	if party.noLinks or not (title and C_QuestLog.IsOnQuest(q)) then return nil end
+	return "|cffffff00|Hquest:" .. q .. ":0|h[" .. title .. "]|h|r"
 end
 
 function C_QuestLog.IsUnitOnQuest(unit, questID)

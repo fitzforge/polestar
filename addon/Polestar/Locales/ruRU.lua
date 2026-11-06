@@ -527,6 +527,8 @@ L["Say who still needs quest loot"] = "Показывать, кому ещё н�
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "В окне добычи или при розыгрыше — строка под предметом задания, который ещё нужен участнику группы, но не вам. За вас ничего не передаётся и не пишется."
 L["Party panel"] = "Панель группы"
 L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Уровень и шаг каждого участника с Polestar и что ему ещё нужно из вашего шага; щелчок по имени наводит на него стрелку. /polestar party показывает или скрывает панель."
+L["Tell my party in chat when I finish a quest objective"] = "Сообщать группе в чат, когда я выполняю задачу задания"
+L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Одна строка в чате группы со ссылкой на задание, когда вы выполняете задачу, и ещё одна, когда задание можно сдать. Её видят все в группе, с Polestar или без. Никогда в одиночку или в рейде."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "большое улучшение"
@@ -2887,6 +2889,11 @@ L["Dead"] = "Мёртв"
 L["Far away"] = "Далеко"
 L["Still needs: %s"] = "Ещё нужно: %s"
 L["Show or hide the party panel"] = "Показать или скрыть панель группы"
+
+-- Quests/PartyChat.lua
+L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar сообщил группе, что вы выполнили задачу задания (выключить: Настройки > Задания > Задания > Группа)."
+L["Ready to turn in: %s"] = "Можно сдать: %s"
+L["Finished: %s - %s"] = "Выполнено: %s - %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."

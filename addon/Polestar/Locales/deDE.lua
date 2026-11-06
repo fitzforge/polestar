@@ -2060,6 +2060,8 @@ L["Say who still needs quest loot"] = "Sagen, wer noch Questbeute braucht"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "Im Beutefenster oder bei einem Wurf eine Zeile zu einem Questgegenstand, den ein Gruppenmitglied noch braucht und du nicht. Nichts wird für dich gepasst oder gesagt."
 L["Party panel"] = "Gruppenfenster"
 L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Stufe und Schritt jedes Polestar-Mitglieds und was es von deinem Schritt noch braucht; ein Klick auf einen Namen richtet den Pfeil auf das Mitglied. /polestar party blendet das Fenster ein oder aus."
+L["Tell my party in chat when I finish a quest objective"] = "Meiner Gruppe im Chat sagen, wenn ich ein Questziel erledige"
+L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Eine Zeile im Gruppenchat mit dem Link der Quest, wenn du ein Ziel erledigst, und eine, wenn die Quest bereit zur Abgabe ist. Alle in der Gruppe sehen sie, ob mit Polestar oder ohne. Nie allein oder im Schlachtzug."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Aufzug nach %s"
@@ -2870,6 +2872,11 @@ L["Dead"] = "Tot"
 L["Far away"] = "Weit weg"
 L["Still needs: %s"] = "Braucht noch: %s"
 L["Show or hide the party panel"] = "Gruppenfenster ein- oder ausblenden"
+
+-- Quests/PartyChat.lua
+L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar hat deiner Gruppe gesagt, dass du ein Questziel erledigt hast (ausschalten unter Optionen > Questen > Quests > Gruppe)."
+L["Ready to turn in: %s"] = "Bereit zur Abgabe: %s"
+L["Finished: %s - %s"] = "Erledigt: %s - %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

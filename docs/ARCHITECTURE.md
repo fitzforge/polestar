@@ -3749,7 +3749,8 @@ Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires whe
   one-time notice) is of spoken members only; one who leaves is forgotten at
   once, holds and all. Older versions drop "1H|"/"1Y|" as malformed.
 - Settings (Questing → Quests → Group): `party.share`, `party.show`,
-  `party.waitForGroup`, `party.lootNeeds` on by default, `party.panel` off,
+  `party.waitForGroup`, `party.lootNeeds`, `party.chat` (Quests/PartyChat.lua,
+  below) on by default, `party.panel` off,
   `party.panelPos`. A player who turned one off has `false` stored (Set
   stores what differs from the default), so it stays off. Solo, only
   `GROUP_ROSTER_UPDATE` and `GROUP_LEFT` are registered; in a party
@@ -3803,6 +3804,45 @@ Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires whe
   counts), under the loot window.
 - A member on a newer Polestar, or a newer version of a guide pack you have,
   is said once a session each in chat.
+
+### Party chat: a finished objective said in the party — Quests/PartyChat.lua
+
+The one part of group play every party member sees, Polestar or not: a plain
+chat line. Nothing of Party.lua's addon messages reaches chat; this file
+shares nothing with them but the Group section.
+
+- Lines: `"[Polestar] " .. L["Finished: %s - %s"]` with the objective as
+  "Plagued Hide 5/5" (`Compat.ObjectiveLabel` of the log's text, then the
+  counts) and the quest's link, and `"[Polestar] " .. L["Ready to turn in: %s"]`.
+  The link is the client's `GetQuestLink(questID)` (what a shift-click on the
+  quest puts in chat, Mainline QuestMapFrame), else the title in brackets as
+  plain text; nothing goes out when neither can be read, nor for an
+  objective whose text is a secret value. Sent with `C_ChatInfo.SendChatMessage`
+  (the bare `SendChatMessage` is only Blizzard_DeprecatedChatInfo's fallback)
+  as `INSTANCE_CHAT` in an instance group (`IsInGroup(LE_PARTY_CATEGORY_INSTANCE)`),
+  else `PARTY`; never solo or in a raid.
+- Setting `party.chat`, on by default. With it on, `GROUP_ROSTER_UPDATE` and
+  `GROUP_LEFT` are registered; in a party also `QUEST_LOG_UPDATE` (one read
+  0.5 s after a burst) and `PLAYER_ENTERING_WORLD`. Leaving the party drops
+  what it knew and any line waiting.
+- A read walks the log (`C_QuestLog.GetInfo`, `Compat.GetQuestObjectives`)
+  and keeps per quest which objectives are `finished` (the client's verdict:
+  Forever can report 1/1 on one not done yet) and whether
+  `Compat.IsQuestReadyForTurnIn`. A quest first seen is learned, never said
+  (taken with the items already in the bags, or seen at login). Both are
+  sticky while the quest stays in the log, so a count that drops and comes
+  back says nothing; a quest gone from the log (`IsOnQuest` false) is
+  forgotten and starts over if taken again. The read in which the quest
+  becomes ready gives the ready line alone.
+- For 5 s after it starts listening (login, reload, joining a party, the
+  setting turned on) and after every `PLAYER_ENTERING_WORLD`, reads only
+  learn: the client fills counts in after login, and a loading screen can
+  read them as 0 for a moment.
+- Lines go out 1.5 s apart, at most 5 waiting. While
+  `C_ChatInfo.InChatMessagingLockdown()` (the client's chat restrictions in
+  encounters) a line waits, looked at every 2 s, and one older than 120 s is
+  dropped. The first line sent prints once per account
+  (`PolestarDB.partyChatTold`) where to turn it off.
 
 ## Gear — item stats, stat weights, upgrade tooltips, reward picks
 

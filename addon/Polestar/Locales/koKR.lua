@@ -527,6 +527,8 @@ L["Say who still needs quest loot"] = "퀘스트 전리품이 필요한 사람 �
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "전리품 창이나 주사위 굴림에서, 파티원은 아직 필요하지만 나는 필요 없는 퀘스트 아이템 아래에 한 줄을 표시합니다. 나 대신 포기하거나 말하는 것은 없습니다."
 L["Party panel"] = "파티 창"
 L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Polestar를 쓰는 각 파티원의 레벨, 단계, 내 단계에서 아직 필요한 것; 이름을 클릭하면 화살표가 그 파티원을 가리킵니다. /polestar party로 표시하거나 숨깁니다."
+L["Tell my party in chat when I finish a quest objective"] = "퀘스트 임무를 완료하면 채팅으로 파티에 알리기"
+L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "임무를 완료하면 퀘스트 링크와 함께 파티 채팅에 한 줄, 퀘스트를 제출할 수 있게 되면 한 줄을 보냅니다. Polestar 사용 여부와 관계없이 파티원 모두가 봅니다. 혼자일 때나 공격대에서는 보내지 않습니다."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "큰 향상"
@@ -2887,6 +2889,11 @@ L["Dead"] = "사망"
 L["Far away"] = "멀리 있음"
 L["Still needs: %s"] = "아직 필요: %s"
 L["Show or hide the party panel"] = "파티 창 표시/숨기기"
+
+-- Quests/PartyChat.lua
+L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar가 파티에 퀘스트 임무 완료를 알렸습니다 (끄려면 설정 > 퀘스트 진행 > 퀘스트 > 파티)."
+L["Ready to turn in: %s"] = "제출 가능: %s"
+L["Finished: %s - %s"] = "완료: %s - %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."
