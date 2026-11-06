@@ -5,7 +5,10 @@
 -- SendAddonMessageResult).
 --
 --   local p = stub.party
---   p.join("Ana"[, "OtherRealm"])     -- a party member (party1..4), GROUP_ROSTER_UPDATE
+--   p.join("Ana"[, "OtherRealm"[, "Smith"]])  -- a party member (party1..4), GROUP_ROSTER_UPDATE; with a
+--                                     -- surname, as Forever's characters have: UnitName gives it as
+--                                     -- its second return (FrameXML Camelot NameUtil.lua), where other
+--                                     -- clients give the realm
 --   p.leave("Ana"); p.disband()       -- GROUP_ROSTER_UPDATE (and GROUP_LEFT when empty)
 --   p.raid(true)                      -- the group is a raid
 --   p.receive("Ana-TestRealm", "1|33:5/8"[, channel[, prefix]])  -- CHAT_MSG_ADDON
@@ -35,8 +38,8 @@ local function memberOf(unit)
 	return i and party.members[i]
 end
 
-function party.join(name, realm)
-	table.insert(party.members, { name = name, realm = realm, online = true })
+function party.join(name, realm, surname)
+	table.insert(party.members, { name = name, realm = realm, surname = surname, online = true })
 	stub.fire("GROUP_ROSTER_UPDATE")
 end
 
@@ -111,8 +114,8 @@ function issecretvalue(v) return v == party.SECRET end
 local playerName = UnitName
 function UnitName(unit)
 	local m = memberOf(unit)
-	if m and party.secretNames then return party.SECRET, m.realm and party.SECRET end
-	if m then return m.name, m.realm end
+	if m and party.secretNames then return party.SECRET, (m.surname or m.realm) and party.SECRET end
+	if m then return m.name, m.surname or m.realm end
 	return playerName(unit)
 end
 
@@ -124,11 +127,33 @@ function Ambiguate(name, context)
 	return name
 end
 
+-- UnitIsUnit with a group member's name as a unit id, as the client takes
+-- it: "Ana Smith" (Forever, a surname) or "Ana"/"Ana-OtherRealm", with
+-- "-<this realm>" too. party.secretIsUnit = true: the answer is secret.
+local function unitOfName(x)
+	if x == "player" or memberOf(x) then return x end
+	local n, realm = x:match("^([^-]+)-(.+)$")
+	if n and realm == GetNormalizedRealmName() then x = n end
+	for i, m in ipairs(party.members) do
+		local full = m.surname and (m.name .. " " .. m.surname) or m.name
+		if x == full or (m.realm and not m.surname and x == m.name .. "-" .. m.realm:gsub("[%s%-]", "")) then return "party" .. i end
+	end
+	local me, second = UnitName("player")
+	if x == ((second and second ~= "") and (me .. " " .. second) or me) then return "player" end
+	return nil
+end
+function UnitIsUnit(a, b)
+	if party.secretIsUnit then return party.SECRET end
+	local ua, ub = unitOfName(a), unitOfName(b)
+	return ua ~= nil and ua == ub
+end
+
 C_ChatInfo = C_ChatInfo or {}
 function C_ChatInfo.RegisterAddonMessagePrefix(prefix)
 	party.prefixes[prefix] = true
 	return 0
 end
+function C_ChatInfo.IsAddonMessagePrefixRegistered(prefix) return party.prefixes[prefix] == true end
 function C_ChatInfo.SendAddonMessage(prefix, text, chatType, target)
 	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType })
 	return party.result

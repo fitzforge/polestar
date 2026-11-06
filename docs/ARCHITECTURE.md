@@ -3768,12 +3768,16 @@ Polestar.Party.Roster() -> rows                      -- the party panel's (UI/Pa
 Polestar.Party.PointAt(unit) -> bool                 -- the arrow at a member (Nav.SetTarget, followed every 3 s)
 Polestar.Party.ItemNeeds(itemID) -> { { name, unit, need }, ... }; NeedText(e)  -- UI/PartyLoot.lua
 Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires when it changes
+Polestar.Party.Debug() -> lines                      -- /polestar party debug: prefix, last send and result, messages heard, roster keys
+Polestar.Compat.UnitFullName(unit) -> full, first | nil | false  -- "Ana Smith" on Forever, "Ana"/"Ana-OtherRealm" elsewhere
+Polestar.Compat.SenderName(sender) / SenderIsUnit(sender, unit) / SenderIsMe(sender)
 ```
 
 - The handshake: group play runs only with party members who also run
-  Polestar. A roster read that knew nobody (joining a party, login or reload
-  in one, the settings back on) sends one "1H|" hello, 3-6 s later; a refused
-  one is said again when a member's quest log changes. A member is `spoken`
+  Polestar. A roster read that finds someone who has not spoken Polestar
+  (joining a party, login or reload in one, a new member, the settings back
+  on) sends one "1H|" hello, 3-6 s later; a refused one is tried again
+  10 s later (up to 5 times) and when a member's quest log changes. A member is `spoken`
   once any valid message of theirs arrives (hello, "1Y|", a snapshot, a
   position, a unit). Nothing of ours (snapshot, changes, position, unit)
   goes out before one has (`sharing()`); a hello is answered by a sharer
@@ -3782,9 +3786,20 @@ Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires whe
   line, holds, arrow, lacking and Share, panel rows, loot lines, the
   one-time notice) is of spoken members only; one who leaves is forgotten at
   once, holds and all. Older versions drop "1H|"/"1Y|" as malformed.
+- Names (#1018): Forever's characters carry a surname. Its UnitName gives a
+  party member's as the second return (where other clients give the realm),
+  the player's whole or split (UnitNameUnmodified splits it), and senders
+  read "Ana Smith" with "-Realm" from another realm. The roster is keyed by
+  `Compat.UnitFullName` and a sender matched by `Compat.SenderName`; one not
+  found re-reads the roster, then asks the client (`Compat.SenderIsUnit`,
+  UnitIsUnit with the sender as a unit id). Secret values are dropped. The
+  same full name keys the Characters page (`Alts.Key`, an entry under the
+  first name alone moves to it) and the instance log, and the Recorder
+  scrubs it.
 - Settings (Questing → Quests → Group): `party.share`, `party.show`,
   `party.waitForGroup`, `party.lootNeeds`, `party.chat` (Quests/PartyChat.lua,
-  below) on by default, `party.panel` off,
+  below) and `party.panel` on by default (the panel opens by itself once a
+  member is heard; closing it stores `false`),
   `party.panelPos`. A player who turned one off has `false` stored (Set
   stores what differs from the default), so it stays off. Solo, only
   `GROUP_ROSTER_UPDATE` and `GROUP_LEFT` are registered; in a party
@@ -3828,9 +3843,12 @@ Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires whe
   `QuestLogPushQuest`, after `IsPushableQuest` when the client has it).
 - The party panel (UI/PartyPanel.lua, `Maps.CompactFrame` at
   `party.panelPos`): a row per party member who has spoken Polestar, from
-  `Party.Roster`; shown with `party.panel` while `Party.IsLive()` and there
-  is such a member, hidden with the guide and in combat under `ui.combat`
-  "hide"; `/polestar party`.
+  `Party.Roster`; opens by itself with `party.panel` (on by default) while
+  `Party.IsLive()` and there is such a member, hidden with the guide and in
+  combat under `ui.combat` "hide". The party line's click and `/polestar
+  party` close an open panel (`party.panel` false, kept) or open a closed
+  one, and say in chat why it cannot show yet (sync off, no party, guide
+  hidden, nobody heard); `/polestar party debug` prints `Party.Debug()`.
 - Loot (UI/PartyLoot.lua, `party.lootNeeds`): on `LOOT_OPENED` and
   `START_LOOT_ROLL`, a line per item a member's counts are short of while
   yours are not (the item's log line from the active guide's collect goals,

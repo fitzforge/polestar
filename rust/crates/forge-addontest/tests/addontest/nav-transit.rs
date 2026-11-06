@@ -550,3 +550,15 @@ fn security_l4_a_query_is_answered_after_a_random_wait_and_not_when_another_repl
 }
 
 // KEPT IN JS: the CMaNGOS transport model: cruising, short hops and acceleration | expected wait over a uniform phase: half the gap plus boarding, and the sooner of independent loops | classic-db extraction: spawns, portal and teleport destinations from the SQL dump | lift tracks, portals and teleports from TransportAnimation, classic-db and the spell tables | `travel build` with timetable sources: Transit data in TravelData.lua, loaded by the addon, byte-identical on every run | the model reproduces every period CMaNGOS classic-db sniffed (local client tables) | review P3-16, security L9: the CMaNGOS dump is pinned by hash and size; a corrupt cached copy is fetched again | security L10: only digits-and-dots builds name a cache folder; a carriage return is escaped in generated Lua | second review L10b: wago.js takes only digits-and-dots builds from wago.tools; crossings Lua escapes a carriage return
+
+#[test]
+fn sync_your_own_echo_is_not_another_player_s_sighting_on_forever_whose_senders_read_first_last_1018() {
+	// Forever's names carry a surname: UnitName gives ("Testchar", "Brightwood"), senders "Testchar Brightwood-Realm".
+	let out = lua(r#"
+function Ambiguate(name) local n, realm = name:match("^([^-]+)-(.+)$"); if n and realm == GetNormalizedRealmName() then return n end; return name end
+local base = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar", "Brightwood" end return base(unit) end
+local f = T.fromThisRealm
+emit({ f("Testchar Brightwood-TestRealm"), f("Ana Smith-TestRealm"), f("Ana Smith-OtherRealm") })"#);
+	assert_eq!(out[0], json!([false, true, false]));
+}

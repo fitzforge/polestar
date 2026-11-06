@@ -582,3 +582,18 @@ Alts.Write()
 emit(PolestarDB.alts.chars["Testchar-Test Realm"].money)"#);
 	assert_eq!(out, 0);
 }
+
+#[test]
+fn on_forever_whose_names_carry_a_surname_the_entry_is_filed_under_the_full_name_and_a_0_3_3_entry_moves_to_it_1018() {
+	// Forever's UnitName gives (first name, surname) (FrameXML Camelot NameUtil.lua): two characters with one
+	// first name used to share "Name-Realm".
+	let out = run(r#"
+PolestarDB.alts = { chars = { ["Testchar-Test Realm"] = { key = "Testchar-Test Realm", name = "Testchar", realm = "Test Realm", tabs = { { guideId = "old" } } } } }
+local base = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar", "Brightwood" end return base(unit) end
+stub.advance(6)
+local c = PolestarDB.alts.chars
+local e = c["Testchar Brightwood-Test Realm"]
+emit({ key = Alts.Key(), old = c["Testchar-Test Realm"] == nil, entryKey = e and e.key, name = e and e.name, current = Alts.IsCurrent(e) })"#);
+	assert_eq!(out, json!({ "key": "Testchar Brightwood-Test Realm", "old": true, "entryKey": "Testchar Brightwood-Test Realm", "name": "Testchar Brightwood", "current": true }));
+}

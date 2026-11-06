@@ -4,10 +4,12 @@
 -- "Other guide"), what they still need of your live step, and whether they
 -- are dead, far away or offline. Nothing shows without such a member. A
 -- click on a row points the arrow at the member where the client gives
--- their place on the map (Party.PointAt). Shown with party.panel while party
--- sync listens in a party; hidden with the guide, and in combat when the
--- guide hides there. Toggled from the guide window's party line and
--- /polestar party; its place is kept in party.panelPos.
+-- their place on the map (Party.PointAt). Opens by itself once a member's
+-- Polestar is heard while party sync listens in a party, unless the player
+-- closed it (party.panel false); hidden with the guide, and in combat when
+-- the guide hides there. Toggled from the guide window's party line and
+-- /polestar party (which says why when nothing can show yet; "/polestar
+-- party debug" prints Party.Debug); its place is kept in party.panelPos.
 
 local ADDON, ns = ...
 local UI, Theme, W = ns.UI, ns.Theme, ns.Widgets
@@ -162,9 +164,35 @@ function PP.Sync()
 	if not ticker and C_Timer and C_Timer.NewTicker then ticker = ns.NewTicker(REFRESH, PP.Refresh) end
 end
 
--- The guide window's party line and /polestar party: the panel on or off.
-function PP.Toggle()
-	ns.Set("party.panel", not ns.Get("party.panel"))
+-- Why the panel cannot show now, or nil when it can.
+local function whyNot()
+	local P = ns.Party
+	if not (ns.Get("party.share") or ns.Get("party.show")) then
+		return L["Party sync is off: turn it on in Options > Questing > Quests > Group."]
+	end
+	if not (P and P.IsLive and P.IsLive()) then return L["The party panel shows in a party (not a raid)."] end
+	if not ns.GuideShown() then return L["The party panel shows with the guide window."] end
+	if #P.Roster() == 0 then
+		return L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."]
+	end
+	if inCombat and ns.Get("ui.combat") == "hide" then return L["The party panel comes back after combat."] end
+	return nil
+end
+
+-- The guide window's party line and /polestar party: an open panel closes
+-- (and stays closed: party.panel false), a closed one opens, or it says why
+-- it cannot yet. "/polestar party debug": Party.Debug's lines.
+function PP.Toggle(arg)
+	if type(arg) == "string" and arg:lower() == "debug" then
+		for _, line in ipairs(ns.Party.Debug()) do ns.Print(line) end
+		return
+	end
+	if F and F:IsShown() then return ns.Set("party.panel", false) end
+	ns.Set("party.panel", true)
+	if not (F and F:IsShown()) then
+		local why = whyNot()
+		if why then ns.Print(why) end
+	end
 end
 
 function PP.Frame() return F end

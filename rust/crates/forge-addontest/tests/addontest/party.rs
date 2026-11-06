@@ -2,7 +2,7 @@
 //! client (tests/lua/stub_world.lua for the quest log, tests/lua/stub_party.lua for the group and the addon
 //! channel). Quest IDs and counts only, so players on other guides or other languages agree.
 
-use forge_addontest::{emitted, is_match, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const FILES: &[&str] = &["Core/Core.xml", "Quests/Party.lua"];
@@ -46,12 +46,14 @@ function C_ChatInfo.SendAddonMessage(prefix, text, ...)
 	if (text:sub(1, 3) == "2U|" and not p.units) or (text:sub(1, 3) == "1H|" and not p.hellos) then return p.result end
 	return rawSend(prefix, text, ...)
 end
--- A member who joins runs Polestar and says hello, unless p.quiet[name].
+-- A member who joins runs Polestar and says hello, unless p.quiet[name]. With
+-- a surname (Forever) the sender reads "Ana Smith-TestRealm".
 p.quiet = {}
 local rawJoin = p.join
-function p.join(name, realm)
-	rawJoin(name, realm)
-	if not p.quiet[name] then p.receive(name .. "-" .. (realm and realm:gsub("[%s%-]", "") or "TestRealm"), "1H|0.0.1") end
+function p.join(name, realm, surname)
+	rawJoin(name, realm, surname)
+	local full = surname and (name .. " " .. surname) or name
+	if not p.quiet[name] then p.receive(full .. "-" .. (realm and realm:gsub("[%s%-]", "") or "TestRealm"), "1H|0.0.1") end
 end
 local function texts()
 	local out = {}
@@ -84,7 +86,7 @@ fn sent_members(rest: &str) -> String {
 }
 
 // What the guide shows, with the guide window's own files loaded.
-const SHOWN_FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml", "Quests/Party.lua"];
+const SHOWN_FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "Maps/Maps.lua", "UI/UI.xml", "Quests/Party.lua"];
 const DOT: &str = "  \u{b7}  ";
 
 fn shown(script: &str) -> Vec<Value> {
@@ -556,7 +558,7 @@ emit(Polestar.UI.GoalSubline({ t = "kill", quest = 33, oi = 1, status = "active"
 }
 
 #[test]
-fn party_the_group_section_has_its_switches_all_on_by_default_but_the_panel() {
+fn party_the_group_section_has_its_switches_all_on_by_default_the_panel_too_1018() {
 	let out = run_with(
 		r#"
 local keys = {}
@@ -583,7 +585,7 @@ emit({ Polestar.Get("party.share"), Polestar.Get("party.show"), Polestar.Get("pa
 			"Questing/Group/party.chat"
 		])
 	);
-	assert_eq!(out[1], json!([true, true, true, true, false, true]));
+	assert_eq!(out[1], json!([true, true, true, true, true, true]), "the panel opens by itself once a member is heard (#1018)");
 }
 
 // Found by the final review (Codex and a fresh reviewer).
@@ -1185,7 +1187,10 @@ emit(rows)
 local function plain(s) return s and (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) or false end
 local function texts(e) local a, b, c, d = PP.RowText(e); return { plain(a), b, c or false, d or false } end
 emit({ texts(rows[1]), #rows, (PP.RowText(rows[1])):sub(1, 4) == "|cff" })
+stub.advance(1)
 emit(PP.Frame() ~= nil and PP.Frame():IsShown())
+Polestar.RunCommand("party")
+emit({ PP.Frame():IsShown(), Polestar.Get("party.panel") })
 Polestar.RunCommand("party")
 emit(PP.Frame():IsShown())
 Polestar.Set("ui.combat", "hide")
@@ -1208,12 +1213,13 @@ emit(PP.Frame():IsShown())"#
 	assert_eq!(out[1][0], json!(["Ana", "Level 12  \u{b7}  45% XP", "Kobold Camp  \u{b7}  Dead", "Still needs: Kobold Vermin 3/8"]));
 	assert_eq!(out[1][1], 1, "Ben runs no Polestar: no row");
 	assert_eq!(out[1][2], true, "the name in its class colour");
-	assert_eq!(out[2], false, "off until asked for");
-	assert_eq!(out[3], true, "/polestar party");
-	assert_eq!(out[4], false, "hidden in combat when the guide hides there");
-	assert_eq!(out[5], true);
-	assert_eq!(out[6], json!([true, [1429, 40, 50, "Party: Ana"], false]), "Ben's place is not known: no arrow");
-	assert_eq!(out[7], false, "solo: hidden");
+	assert_eq!(out[2], true, "open by itself once Ana is heard");
+	assert_eq!(out[3], json!([false, false]), "/polestar party closes it, and that is kept");
+	assert_eq!(out[4], true, "and opens it again");
+	assert_eq!(out[5], false, "hidden in combat when the guide hides there");
+	assert_eq!(out[6], true);
+	assert_eq!(out[7], json!([true, [1429, 40, 50, "Party: Ana"], false]), "Ben's place is not known: no arrow");
+	assert_eq!(out[8], false, "solo: hidden");
 }
 
 #[test]
@@ -1271,4 +1277,119 @@ emit({ P.DecodeHello("1Q|") == nil, P.DecodeHello("1H|1|2") == nil, P.DecodeHell
 	assert_eq!(out[2], json!(["Y", "0.1.0-test"]));
 	assert_eq!(out[3], json!([true, true, true, true]), "the decoders of Polestar before the handshake drop both");
 	assert_eq!(out[4], json!([true, true, true]));
+}
+
+// Forever's characters carry a surname (#1018): its client's UnitName gives ("Ana", "Smith") where other
+// clients give (name, realm) (FrameXML Blizzard_FrameXMLUtil/Camelot/NameUtil.lua), and senders read
+// "Ana Smith-Realm", "Ana Smith" once Ambiguate drops this realm.
+const FOREVER: &str = r#"
+local baseName = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar", "Brightwood" end return baseName(unit) end
+"#;
+
+#[test]
+fn party_compat_names_a_unit_and_a_sender_alike_on_forever_first_last_and_elsewhere_name_realm_1018() {
+	let out = live(&format!(
+		"{SENT}{}",
+		r#"
+local C = Polestar.Compat
+p.quiet.Ben, p.quiet.Ana = true, true
+p.join("Ben", "Other Realm")
+emit({ C.UnitFullName("party1") })
+emit({ C.SenderName("Ben-OtherRealm"), C.SenderName("Ana-TestRealm"), C.SenderIsMe("Testchar-TestRealm"), C.SenderIsMe("Ana-TestRealm") })
+local baseName = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar", "Brightwood" end return baseName(unit) end
+p.join("Ana", nil, "Smith")
+emit({ C.UnitFullName("party2") }); emit({ C.UnitFullName("player") })
+emit({ C.SenderName("Ana Smith-TestRealm"), C.SenderName("Ana Smith-OtherRealm"), C.SenderIsMe("Testchar Brightwood-TestRealm"), C.SenderIsMe("Testchar-TestRealm") })
+p.secretNames = true
+emit(C.UnitFullName("party2"))"#
+	));
+	assert_eq!(out[0], json!(["Ben-OtherRealm", "Ben"]), "elsewhere the second part is the realm");
+	assert_eq!(out[1], json!(["Ben-OtherRealm", "Ana", true, false]));
+	assert_eq!(out[2], json!(["Ana Smith", "Ana"]), "on Forever it is the surname");
+	assert_eq!(out[3], json!(["Testchar Brightwood", "Testchar"]));
+	assert_eq!(out[4], json!(["Ana Smith", "Ana Smith", true, false]), "the realm left off, the first name alone is someone else");
+	assert_eq!(out[5], false, "a secret name");
+}
+
+#[test]
+fn party_forever_members_with_surnames_are_heard_and_synced_and_your_own_echo_is_no_member_1018() {
+	let out = live(&sent_members(&format!(
+		"{FOREVER}{}",
+		r#"
+w.onQuest(33, { 8 })
+p.join("Ana", nil, "Smith")
+stub.advance(6)
+emit(texts())
+p.receive("Ana Smith-TestRealm", "1|60:2/4")
+p.receive("Testchar Brightwood-TestRealm", "1|70:1/2")
+p.receive("Ana-TestRealm", "1|80:1/2")
+stub.advance(1)
+emit(members())
+emit({ P.Spoke("Ana Smith"), #P.Roster(), P.Roster()[1].name })"#
+	)));
+	assert_eq!(out[0], json!(["1R|33:0/8"]), "her hello was heard: our snapshot, asking hers");
+	assert_eq!(out[1], json!(["Ana 60:2/4"]), "hers counted; our own echo and another Ana are no member");
+	assert_eq!(out[2], json!([true, 1, "Ana"]));
+}
+
+#[test]
+fn party_the_party_command_says_why_nothing_shows_yet_and_debug_prints_what_goes_out_and_comes_in_1018() {
+	let out = group(&format!(
+		"{FOREVER}{}",
+		r#"
+stub.messages = {}
+Polestar.RunCommand("party")
+p.quiet.Ana = true
+p.join("Ana", nil, "Smith")
+stub.advance(6)
+Polestar.RunCommand("party")
+emit(stub.messages)
+stub.messages = {}
+p.receive("Ana Smith-TestRealm", "1H|0.3.3")
+stub.advance(1)
+Polestar.RunCommand("party debug")
+emit(stub.messages)
+emit(Polestar.UI.PartyPanel.Frame():IsShown())"#
+	));
+	let said = out[0].as_array().unwrap();
+	assert_eq!(said.len(), 2, "{said:?}");
+	assert!(is_match(text(&said[0]), r"shows in a party \(not a raid\)"), "{said:?}");
+	assert!(is_match(text(&said[1]), r"No one else in your party has been heard running Polestar yet"), "{said:?}");
+	let debug = out[1].as_array().unwrap().iter().map(|v| text(v).to_string()).collect::<Vec<_>>().join("\n");
+	assert!(is_match(&debug, r"prefix Polestar registered"), "{debug}");
+	assert!(is_match(&debug, r"sent \d+, last 1H\| result 0; received 1, from party members 1, last sender Ana Smith-TestRealm"), "{debug}");
+	assert!(is_match(&debug, r"you Testchar Brightwood"), "{debug}");
+	assert!(is_match(&debug, r"party1 Ana Smith: in roster true, spoke Polestar true"), "{debug}");
+	assert_eq!(out[2], true, "heard: the panel opened by itself");
+}
+
+#[test]
+fn party_forever_name_shapes_the_player_s_name_whole_senders_with_or_without_a_realm_the_client_s_unit_check_and_secrets_1018() {
+	let out = live(&sent_members(
+		r#"
+local C = Polestar.Compat
+-- UnitName gives the player's name whole and party members' split; UnitNameUnmodified splits the player's.
+local baseName = UnitName
+function UnitName(unit) if unit == "player" then return "Testchar Brightwood" end return baseName(unit) end
+function UnitNameUnmodified(unit) if unit == "player" then return "Testchar", "Brightwood" end return baseName(unit) end
+p.quiet.Ana = true
+p.join("Ana", nil, "Smith")
+emit({ C.UnitFullName("player") }); emit({ C.UnitFullName("party1") })
+emit({ C.SenderIsMe("Testchar Brightwood-TestRealm"), C.SenderIsMe("Testchar Brightwood"), C.SenderIsUnit("Ana Smith-TestRealm", "party1"), C.SenderIsUnit("Ana Smith", "player") })
+p.receive("Ana Smith", "1|33:1/8")
+p.receive("Testchar Brightwood", "1|60:1/4")
+stub.fire("CHAT_MSG_ADDON", "Polestar", p.SECRET, "PARTY", "Ana Smith-TestRealm", "", 0, 0, "", 0)
+stub.fire("CHAT_MSG_ADDON", "Polestar", "1|70:1/2", "PARTY", p.SECRET, "", 0, 0, "", 0)
+emit(members()); emit(#Polestar.Errors())
+p.secretIsUnit = true
+emit(C.SenderIsUnit("Ana Smith-TestRealm", "party1"))"#,
+	));
+	assert_eq!(out[0], json!(["Testchar Brightwood", "Testchar"]), "whole, its first name to show");
+	assert_eq!(out[1], json!(["Ana Smith", "Ana"]), "the player's whole name tells that the second part is a surname");
+	assert_eq!(out[2], json!([true, true, true, false]));
+	assert_eq!(out[3], json!(["Ana 33:1/8"]), "a sender without the realm counts; our echo and secret values do not");
+	assert_eq!(out[4], 0, "no error");
+	assert_eq!(out[5], false, "a secret answer is no");
 }

@@ -82,6 +82,83 @@ function Compat.GetPlayerInfo()
 	}
 end
 
+-- Character names. Forever's characters carry a surname. Its client gives
+-- a party member's as UnitName's second return, where other clients give
+-- the realm (Forever's FrameXML: Blizzard_FrameXMLUtil/Camelot/NameUtil.lua,
+-- `local name, surname = UnitName(unit)`); the player's own name comes
+-- either complete ("Ana Smith") or split the same way, and
+-- UnitNameUnmodified("player") splits it. Chat and addon-message senders
+-- read "Ana Smith" (Constants.CharacterNameSeparatorConsts'
+-- CHARACTERNAME_SURNAME_SEPARATOR, a space), with "-Realm" from another
+-- realm. RegionalUniqueNamesEnabled() is no guide (other addons on Forever
+-- found it off there). Other clients never name a realm for the player nor
+-- put a space in a name, so either of those for "player" means surnames.
+local function surnameSeparator()
+	local c = Constants and Constants.CharacterNameSeparatorConsts
+	local sep = c and c.CHARACTERNAME_SURNAME_SEPARATOR
+	return type(sep) == "string" and sep ~= "" and sep or " "
+end
+
+local function surnames()
+	for _, fn in ipairs({ UnitNameUnmodified or false, UnitName or false }) do
+		if fn then
+			local name, second = fn("player")
+			name, second = readable(name), readable(second)
+			if type(second) == "string" and second ~= "" then return true end
+			if type(name) == "string" and name:find(surnameSeparator(), 1, true) then return true end
+		end
+	end
+	return false
+end
+
+-- A unit's character name as chat senders give it once Ambiguate(sender,
+-- "none") has run: "Ana Smith" on Forever, "Ana" or "Ana-OtherRealm"
+-- (the realm without spaces or hyphens) elsewhere; and its first name, to
+-- show. nil while the client does not know it, false while it keeps it
+-- secret (identity restricted).
+function Compat.UnitFullName(unit)
+	if not UnitName then return nil end
+	local name, second = UnitName(unit)
+	if isSecret(name) or isSecret(second) then return false end
+	if type(name) ~= "string" or name == "" or name == UNKNOWNOBJECT then return nil end
+	local sep = surnameSeparator()
+	-- Already complete (Forever's player name).
+	local first = name:find(sep, 1, true) and name:sub(1, name:find(sep, 1, true) - 1)
+	if first and first ~= "" then return name, first end
+	if type(second) ~= "string" or second == "" then return name, name end
+	if surnames() then return name .. sep .. second, name end
+	return name .. "-" .. second:gsub("[%s%-]", ""), name
+end
+
+-- A chat or addon-message sender in Compat.UnitFullName's form, or nil.
+-- Forever's UnitName gives no realm, so there a sender's realm is left off.
+function Compat.SenderName(sender)
+	if type(sender) ~= "string" or isSecret(sender) or sender == "" then return nil end
+	local name = Ambiguate and Ambiguate(sender, "none") or sender
+	if type(name) ~= "string" or isSecret(name) then return nil end
+	if surnames() then name = name:match("^([^%-]+)") or name end
+	return name
+end
+
+-- Whether the client says a sender is `unit`: a group member's name is a
+-- unit id (other addons on Forever ask UnitInParty and UnitIsUnit with the
+-- "Ana Smith" sender). False when it cannot say or keeps the answer secret.
+function Compat.SenderIsUnit(sender, unit)
+	if type(sender) ~= "string" or isSecret(sender) or not UnitIsUnit then return false end
+	local name = Ambiguate and Ambiguate(sender, "none") or sender
+	if type(name) ~= "string" or isSecret(name) then return false end
+	local ok, same = pcall(UnitIsUnit, name, unit)
+	if not ok or isSecret(same) then return false end
+	return same and true or false
+end
+
+-- Whether a sender is the player (the game echoes group messages back).
+function Compat.SenderIsMe(sender)
+	local name = Compat.SenderName(sender)
+	if name ~= nil and name == Compat.UnitFullName("player") then return true end
+	return Compat.SenderIsUnit(sender, "player")
+end
+
 function Compat.GetPlayerFacing()
 	return GetPlayerFacing and GetPlayerFacing() or nil
 end
