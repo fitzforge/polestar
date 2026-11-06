@@ -1297,6 +1297,9 @@ L["Then out here:"] = "Después, en el terreno:"
 L["Out here:"] = "En el terreno:"
 L["+ %d more people"] = "+ %d personas más"
 L["Later in this step"] = "Más adelante en este paso"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "De camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta completarlo."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "De camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta el paso %d, %s."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "De camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta el paso %d."
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"

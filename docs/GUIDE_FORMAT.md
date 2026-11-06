@@ -437,7 +437,9 @@ route passes over the step at once. From then on its open goals are listed
 in the guide window under the current step, "Along the way" (up to six,
 with their progress; not in the compact window), until they are done.
 Clicking one points the arrow at it, if it has a place, until it is done.
-"Then:" and Up next leave along steps out.
+"Then:" and Up next leave along steps out. Looked at with the window's
+arrows, an along step says under its title that it is done along the way,
+not a stop of its own, and until which step its goals are listed.
 
 With `along until <label>`, the list ends when the route reaches the step
 carrying `label <label>`, except for the goals of a quest that still has

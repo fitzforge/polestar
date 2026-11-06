@@ -302,7 +302,8 @@ local function view(i)
 		end
 		goals[g] = v
 	end
-	local out = { index = i, title = step.title, note = step.note, image = step.image, status = stepStatus(i), goals = goals, skipped = uistub.skipped[i] or false }
+	local out = { index = i, title = step.title, note = step.note, image = step.image, status = stepStatus(i), goals = goals, skipped = uistub.skipped[i] or false,
+		along = step.along, label = step.label, alongUntil = step.alongUntil }
 	out.groups, out.focus = groupsOf(goals)
 	out.current = currentOf(out)
 	return out

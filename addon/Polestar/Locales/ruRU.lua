@@ -1207,6 +1207,9 @@ L["Then out here:"] = "Затем на месте:"
 L["Out here:"] = "На месте:"
 L["+ %d more people"] = "+ ещё персонажей: %d"
 L["Later in this step"] = "Дальше в этом шаге"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "Попутные цели: выполняется по пути, это не отдельная остановка. Показывается под следующими шагами, пока не будет выполнено."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "Попутные цели: выполняется по пути, это не отдельная остановка. Показывается под следующими шагами до шага %d, %s."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "Попутные цели: выполняется по пути, это не отдельная остановка. Показывается под следующими шагами до шага %d."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"

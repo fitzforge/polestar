@@ -1207,6 +1207,9 @@ L["Then out here:"] = "그다음 필드:"
 L["Out here:"] = "필드:"
 L["+ %d more people"] = "+ %d명 더"
 L["Later in this step"] = "이 단계의 나머지"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "가는 길에: 이동하면서 하는 것으로, 따로 들르는 곳이 아닙니다. 완료할 때까지 다음 단계들 아래에 표시됩니다."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "가는 길에: 이동하면서 하는 것으로, 따로 들르는 곳이 아닙니다. %d단계(%s)까지 다음 단계들 아래에 표시됩니다."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "가는 길에: 이동하면서 하는 것으로, 따로 들르는 곳이 아닙니다. %d단계까지 다음 단계들 아래에 표시됩니다."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"

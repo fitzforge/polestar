@@ -468,6 +468,9 @@ L["Then out here:"] = "Danach hier draußen:"
 L["Out here:"] = "Hier draußen:"
 L["+ %d more people"] = "+ %d weitere Personen"
 L["Later in this step"] = "Später in diesem Schritt"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "Nebenbei: unterwegs erledigt, kein eigener Halt. Steht bei den nächsten Schritten, bis es erledigt ist."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "Nebenbei: unterwegs erledigt, kein eigener Halt. Steht bei den nächsten Schritten bis Schritt %d, %s."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "Nebenbei: unterwegs erledigt, kein eigener Halt. Steht bei den nächsten Schritten bis Schritt %d."
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"

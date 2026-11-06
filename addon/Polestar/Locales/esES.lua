@@ -1207,6 +1207,9 @@ L["Then out here:"] = "Después, en el terreno:"
 L["Out here:"] = "En el terreno:"
 L["+ %d more people"] = "+ %d personas más"
 L["Later in this step"] = "Más adelante en este paso"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "Por el camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta completarlo."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "Por el camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta el paso %d, %s."
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "Por el camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta el paso %d."
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascensor a %s"

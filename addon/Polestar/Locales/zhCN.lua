@@ -1207,6 +1207,9 @@ L["Then out here:"] = "然后在野外："
 L["Out here:"] = "野外："
 L["+ %d more people"] = "+ 还有 %d 人"
 L["Later in this step"] = "本步骤稍后"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "顺路完成：路上顺便完成，不是单独的一站。在后续步骤下列出，直到完成。"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "顺路完成：路上顺便完成，不是单独的一站。在后续步骤下列出，直到步骤 %d（%s）。"
+L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "顺路完成：路上顺便完成，不是单独的一站。在后续步骤下列出，直到步骤 %d。"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"

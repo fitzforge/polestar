@@ -4568,7 +4568,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   at their first group after the focus, listing all their goals in written
   order, their groups done before the focus too. The groups done before the
   focus share one "✓ <name>, <name>" line, so a quest taken, handed in or
-  not offered stays on the card when the focus moves on (#741/#739). A click
+  not offered stays on the card when the focus moves on (#741/#739).
+  Under the header, one line says when the step is no stop of the route: an
+  along step is done on the way and listed under the steps ahead until done
+  or until its `along until` step (the step view's `alongUntil`, #942). A click
   on a line lists what it stands for under it (goals,
   stepped back in textDim; the "more" line its persons' lines) and a second
   click folds them; a new focus or step closes every line and the new focus

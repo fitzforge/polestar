@@ -259,3 +259,12 @@ emit({{ E.GetLiveStep(), wp() }})
 	let out = emitted(&RunAddon { stubs: vec!["stub_world.lua"], before, addons: vec![Addon::name("Polestar")], script, ..Default::default() });
 	assert_eq!(out, vec![json!([12, "9:2"])], "the flanks still to get (step 9 goal 2), not Grull Hawkwind's turn-in (12:1)");
 }
+
+// Paged to (#942), an along step's view says it is one and, for `along until`, which step ends it, for the window.
+#[test]
+fn an_along_step_s_view_names_the_step_its_list_ends_at() {
+	let out = run(r#"
+		local function v(s) local x = E.GetStepView(s); return { along = x.along or false, ["until"] = x.alongUntil or false } end
+		emit({ v(2), v(3), v(4) })"#);
+	assert_eq!(out[0], json!([{ "along": "back", "until": 5 }, { "along": true, "until": false }, { "along": false, "until": false }]));
+}

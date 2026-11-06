@@ -1829,8 +1829,14 @@ local function layoutCard(width)
 		local nameW = cw - ICON - 10
 		person.Name:SetWidth(nameW)
 		person.Where:SetWidth(nameW)
+		person.Why:SetWidth(nameW)
 		local h = 10 + person.Name:GetStringHeight()
 		if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
+		if person.Why:IsShown() then
+			person.Why:ClearAllPoints()
+			person.Why:SetPoint("TOPLEFT", person.Where:IsShown() and person.Where or person.Name, "BOTTOMLEFT", 0, -3)
+			h = h + 3 + person.Why:GetStringHeight()
+		end
 		h = floor(h + 8 + 0.5)
 		person:SetHeight(h)
 		person:ClearAllPoints()
@@ -2685,6 +2691,22 @@ end
 
 local DOT = "  \194\183  "
 
+-- The line under the header when the step is no stop of the route (#942):
+-- an along step, done on the way and listed under the steps ahead until its
+-- labelled step. nil on a step of the route.
+local function whyLine(v)
+	if not v.along then return nil end
+	local n = v.alongUntil
+	if not n then return L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] end
+	local E = Engine()
+	local guide = E and E.GetGuide and E.GetGuide()
+	local title = guide and guide.steps and guide.steps[n] and guide.steps[n].title
+	if type(title) == "string" and title ~= "" then
+		return string.format(L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."], n, title)
+	end
+	return string.format(L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."], n)
+end
+
 -- Fill the card from `view`: the focus group's header, its goals under
 -- "✓ N done", a summary line for every other person of the step, the tip
 -- (with "Show the whole step", or on a done step, every goal as written).
@@ -2697,6 +2719,9 @@ local function fillCard(sameFocus)
 	local _, header = shownGoals(view, g)
 	person.psHeaderGoal = header
 	paintPerson(g)
+	local why = whyLine(view)
+	person.Why:SetText(why or "")
+	person.Why:SetShown(why ~= nil)
 	person:Show()
 	-- A class quest's step: the class card, its colour on the step's quest names.
 	local CC, E = UI.ClassCard, Engine()
@@ -3949,6 +3974,11 @@ local function build()
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
 	person.Where = T(person, "small", "textDim")
 	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
+	-- An along step: what it is (whyLine).
+	person.Why = T(person, "small", "textDim")
+	person.Why:SetJustifyH("LEFT")
+	person.Why:SetWordWrap(true)
+	person.Why:Hide()
 	-- Blizzard: a gold separator under the person, above the goals.
 	person.Rule = person:CreateTexture(nil, "ARTWORK")
 	person.Rule:SetTexture(Theme.Media("white"))
