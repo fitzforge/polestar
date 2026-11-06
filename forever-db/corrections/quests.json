@@ -465,6 +465,16 @@
 		],
 		"note": "Rizzle's Schematics: starts with Rizzle's Unguarded Plans (object 20805); as its giver the merged data also listed Rizzle's Guarded Plans (object 179888)."
 	},
+	"1198": {
+		"set": {
+			"races": 4294967373
+		},
+		"source": {
+			"kind": "cmangos",
+			"ref": "classic-db: quest_template RequiredRaces 77 (every Alliance race)"
+		},
+		"note": "In Search of Thaelrid (Dawnwatcher Shaedlass, Darnassus; Blackfathom Deeps) is Alliance-only: the quest's giver and chain are Alliance-only in the game's data, and its follow-up Blackfathom Villainy (1200) already allows only the Alliance, while Horde characters take their own Blackfathom Villainy (6561) from Argent Guard Thaelrid inside. The merged data had no race limit, so Blackfathom Deeps' pick-up guide sent Horde characters to Darnassus. Issue #1026."
+	},
 	"1471": {
 		"set": {
 			"races": 146

@@ -150,14 +150,39 @@ local function errand(r, from, p)
 	return (e and e.spawn and not e.hostile) and true or false
 end
 
--- Why a page quest is not for this character (faction, race, class) | nil.
-local function notYours(pq, rec, p)
-	if rec then
-		local why = LK().QuestBlock(rec, p)
-		if NOT_YOURS[why] then return why end
-	elseif pq.faction and p.code and pq.faction ~= p.code then
-		return "faction"
+-- A page quest's side when neither the Codex nor the quest database knows
+-- it: that of the quests of this page it leads to (its `closedBy`, the page
+-- quests whose chain names it) when they are all one side's. In Search of
+-- Thaelrid leads only to the Alliance's Blackfathom Villainy (#1026).
+local function ledSide(key, pq)
+	local Lk, C = LK(), ns.Codex
+	local side
+	local function by(id)
+		local q = Dungeons.Quest(key, id)
+		local r = C.Quest(id)
+		local s = (r and Lk.QuestSide(r)) or (q and q.faction)
+		if s == "AH" or (side and s and s ~= side) then side = false end
+		if side ~= false and s then side = s end
 	end
+	for _, id in ipairs(type(pq.closedBy) == "table" and pq.closedBy or {}) do by(id) end
+	for _, q in ipairs(Dungeons.Quests(key)) do
+		for _, id in ipairs(q.chain or {}) do
+			if id == pq.id then by(q.id) end
+		end
+	end
+	return side or nil
+end
+
+-- Why a page quest is not for this character (faction, race, class) | nil.
+-- The character's own faction decides, never the page's filter.
+local function notYours(key, pq, rec, p)
+	local Lk = LK()
+	if rec then
+		local why = Lk.QuestBlock(rec, p)
+		if NOT_YOURS[why] then return why end
+	end
+	local side = (rec and Lk.QuestSide(rec)) or pq.faction or ledSide(key, pq)
+	if not Lk.SideOK(side, p) then return "faction" end
 	if not hasClass(pq.classes, p.class) then return "class" end
 	return nil
 end
@@ -167,6 +192,10 @@ function Dungeons.PickupPlan(key)
 	if not d then return nil, "unknown" end
 	local Lk, C = LK(), ns.Codex
 	if not (Lk and Lk.QuestChain and C) then return nil, "missing" end
+	-- The quest database knows the sides a Codex built before a correction
+	-- lacks (Lookup.QuestSide); it loads only while a quest feature wants it.
+	local Q = ns.QuestDB
+	if Q and Q.Load and not Q.IsLoaded() then Q.Load() end
 	local p = Lk.PlayerInfo()
 	local from = ns.PlayerPoint()
 	local reach = max(p.level or 1, d.minLevel or 1)
@@ -176,7 +205,7 @@ function Dungeons.PickupPlan(key)
 	local plan = { dungeon = d, take = {}, carried = {}, done = 0, later = 0 }
 	for _, pq in ipairs(quests) do
 		local rec = C.Quest(pq.id)
-		if not notYours(pq, rec, p) then
+		if not notYours(key, pq, rec, p) then
 			if done(pq.id) then
 				plan.done = plan.done + 1
 			elseif inLog(pq.id) then
