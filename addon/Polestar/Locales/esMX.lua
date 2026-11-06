@@ -143,7 +143,6 @@ L["Only with %s in your quest log"] = "Solo con %s en tu registro de misiones"
 L["Only before %s is handed in"] = "Solo antes de entregar %s"
 L["Only once %s is handed in"] = "Solo una vez entregada %s"
 L["Skipped for your character: its conditions do not hold"] = "Omitido para tu personaje: sus condiciones no se cumplen"
-L["Skipped for your character: not for your class or race"] = "Omitido para tu personaje: no es para tu clase o raza"
 L["Skipped for your character: none of its goals apply"] = "Omitido para tu personaje: ninguno de sus objetivos aplica"
 
 -- Core/Guides.lua
@@ -1310,9 +1309,7 @@ L["Then out here:"] = "Después, en el terreno:"
 L["Out here:"] = "En el terreno:"
 L["+ %d more people"] = "+ %d personas más"
 L["Later in this step"] = "Más adelante en este paso"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "De camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta completarlo."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "De camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta el paso %d, %s."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "De camino: se hace de paso, no es una parada propia. Aparece bajo los pasos siguientes hasta el paso %d."
+L["Along the way, until step %d"] = "De camino, hasta el paso %d"
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -1839,6 +1836,7 @@ L["Cancel"] = "Cancelar"
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "Paso %d de %d (paso %d de la guía): %s"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"

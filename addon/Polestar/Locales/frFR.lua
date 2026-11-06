@@ -137,7 +137,6 @@ L["Only with %s in your quest log"] = "Seulement avec %s dans votre journal des 
 L["Only before %s is handed in"] = "Seulement avant de rendre %s"
 L["Only once %s is handed in"] = "Seulement une fois %s rendue"
 L["Skipped for your character: its conditions do not hold"] = "Passée pour votre personnage : ses conditions ne sont pas remplies"
-L["Skipped for your character: not for your class or race"] = "Passée pour votre personnage : pas pour votre classe ou votre race"
 L["Skipped for your character: none of its goals apply"] = "Passée pour votre personnage : aucun de ses objectifs ne s'applique"
 
 -- Core/Closes.lua
@@ -1222,9 +1221,7 @@ L["Then out here:"] = "Ensuite, sur le terrain :"
 L["Out here:"] = "Sur le terrain :"
 L["+ %d more people"] = "+ %d autres personnes"
 L["Later in this step"] = "Plus loin dans cette étape"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "En chemin : à faire en route, pas une étape où s'arrêter. Listé sous les étapes suivantes jusqu'à ce que ce soit fait."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "En chemin : à faire en route, pas une étape où s'arrêter. Listé sous les étapes suivantes jusqu'à l'étape %d, %s."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "En chemin : à faire en route, pas une étape où s'arrêter. Listé sous les étapes suivantes jusqu'à l'étape %d."
+L["Along the way, until step %d"] = "En chemin, jusqu'à l'étape %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -1657,6 +1654,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "V
 L["Quest log %d/%d: %s"] = "Journal des quêtes %d/%d : %s"
 L["Settings: %s"] = "Réglages : %s"
 L["Log:"] = "Journal :"
+L["Step %d of %d (guide step %d): %s"] = "Étape %d sur %d (étape %d du guide) : %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "désactivé dans la liste des addons"

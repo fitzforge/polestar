@@ -523,43 +523,29 @@ fn a_summary_line_names_one_or_two_goals_and_counts_three_or_more() {
 	);
 }
 
-// Darkshore's step 3, "Fine Crab Chunks on the way" (#942): paged to with ‹ ›, an along step says it is done along
-// the way until its labelled step, so it does not read as a stop the route skipped.
+// Darkshore's "Fine Crab Chunks on the way" (#942): an along step has no card of its own; the steps after it list
+// its goals under "Along the way", whose heading says until which step when every row ends at the same one.
 #[test]
-fn an_along_step_looked_at_says_it_is_done_along_the_way_until_its_labelled_step() {
+fn along_the_way_says_until_which_step_its_goals_are_listed() {
 	let out = run(r#"
 		local steps = uistub.guides[uistub.elwynn].steps
-		local DS = 1439
-		local first = #steps + 1
-		steps[first] = { title = "Fine Crab Chunks on the way", along = "q1138", alongUntil = first + 2, goals = {
-			{ t = "collect", verb = "Collect", subject = "Fine Crab Chunks", subjectKind = "item", item = 12237, quest = 1138, progress = { cur = 0, max = 6 }, map = DS, x = 36.4, y = 47.0, status = "pending" },
+		local crab = #steps + 1
+		steps[crab] = { title = "Fine Crab Chunks on the way", along = "q1138", untilStep = 5, goals = {
+			{ t = "collect", verb = "Collect", subject = "Fine Crab Chunks", subjectKind = "item", item = 12237, quest = 1138, progress = { cur = 0, max = 6 }, map = 1439, x = 36.4, y = 47.0, status = "active" },
 		} }
-		steps[first + 1] = { title = "The beach", goals = {
-			{ t = "goto", verb = "Go to", subject = "The beach", subjectKind = "place", map = DS, x = 36.0, y = 46.0, status = "pending" },
+		steps[crab + 1] = { title = "Linen on the way", along = true, goals = {
+			{ t = "collect", verb = "Collect", subject = "Linen Cloth", subjectKind = "item", item = 2589, progress = { cur = 0, max = 1 }, status = "active" },
 		} }
-		steps[first + 2] = { title = "Darkshore: kill these as you meet them", label = "q1138", goals = {
-			{ t = "collect", verb = "Collect", subject = "Moonstalker Fang", subjectKind = "item", item = 5413, quest = 1002, progress = { cur = 0, max = 6 }, status = "pending" },
-		} }
-		steps[first + 3] = { title = "Linen on the way", along = true, goals = {
-			{ t = "collect", verb = "Collect", subject = "Linen Cloth", subjectKind = "item", item = 2589, progress = { cur = 0, max = 1 }, status = "pending" },
-		} }
-		local P = GF.parts
-		local function at(s)
-			uistub.setGuide(uistub.elwynn, s)
-			return { why = P.person.Why:IsShown() and plain(P.person.Why:GetText()) or false, name = P.person.Name:GetText(), items = items() }
-		end
-		emit({ until_ = at(first), beach = at(first + 1), done = at(first + 3), n = first + 2 })"#)
+		local A = GF.parts.along
+		uistub.along = { { crab, { 1 } } }
+		uistub.setGuide(uistub.elwynn, 3)
+		local one = { shown = A:IsShown(), heading = plain(A.Label:GetText()) }
+		uistub.along = { { crab, { 1 } }, { crab + 1, { 1 } } }
+		uistub.setGuide(uistub.elwynn, 4)
+		emit({ one = one, mixed = plain(A.Label:GetText()) })"#)
 	.remove(0);
-	let n = out["n"].as_i64().unwrap();
-	assert_eq!(
-		out["until_"]["why"],
-		format!("Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step {n}, Darkshore: kill these as you meet them."),
-		"the card says what the step is"
-	);
-	assert_eq!(out["until_"]["name"], "Fine Crab Chunks on the way");
-	assert_eq!(strings(&out["until_"]["items"]), ["Fine Crab Chunks"], "still browsable: its goal as written");
-	assert_eq!(out["beach"]["why"], false, "a step of the route says nothing of the kind");
-	assert_eq!(out["done"]["why"], "Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done.");
+	assert_eq!(out["one"], json!({ "shown": true, "heading": "Along the way, until step 5" }));
+	assert_eq!(out["mixed"], "Along the way", "rows ending at different steps (or when done): the plain heading");
 }
 
 // Elwynn's step 42, "Goldshire" (`when group 91775`, `turnin 91775 optional`, #942): looked at ahead, a step with

@@ -136,7 +136,6 @@ L["Only with %s in your quest log"] = "Только с «%s» в журнале 
 L["Only before %s is handed in"] = "Только пока «%s» не сдано"
 L["Only once %s is handed in"] = "Только после сдачи «%s»"
 L["Skipped for your character: its conditions do not hold"] = "Пропущено для вашего персонажа: условия не выполнены"
-L["Skipped for your character: not for your class or race"] = "Пропущено для вашего персонажа: не для вашего класса или расы"
 L["Skipped for your character: none of its goals apply"] = "Пропущено для вашего персонажа: ни одна цель не подходит"
 
 -- Core/Closes.lua
@@ -1221,9 +1220,7 @@ L["Then out here:"] = "Затем на месте:"
 L["Out here:"] = "На месте:"
 L["+ %d more people"] = "+ ещё персонажей: %d"
 L["Later in this step"] = "Дальше в этом шаге"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "Попутные цели: выполняется по пути, это не отдельная остановка. Показывается под следующими шагами, пока не будет выполнено."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "Попутные цели: выполняется по пути, это не отдельная остановка. Показывается под следующими шагами до шага %d, %s."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "Попутные цели: выполняется по пути, это не отдельная остановка. Показывается под следующими шагами до шага %d."
+L["Along the way, until step %d"] = "Попутные цели, до шага %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1656,6 +1653,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "Шаг %d из %d (шаг гайда %d): %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"

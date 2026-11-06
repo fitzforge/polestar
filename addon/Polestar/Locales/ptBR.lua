@@ -136,7 +136,6 @@ L["Only with %s in your quest log"] = "Só com %s no seu registro de missões"
 L["Only before %s is handed in"] = "Só antes de entregar %s"
 L["Only once %s is handed in"] = "Só depois de entregar %s"
 L["Skipped for your character: its conditions do not hold"] = "Pulada para o seu personagem: as condições não são atendidas"
-L["Skipped for your character: not for your class or race"] = "Pulada para o seu personagem: não é para a sua classe ou raça"
 L["Skipped for your character: none of its goals apply"] = "Pulada para o seu personagem: nenhum dos objetivos se aplica"
 
 -- Core/Closes.lua
@@ -1222,9 +1221,7 @@ L["Then out here:"] = "Depois, em campo:"
 L["Out here:"] = "Em campo:"
 L["+ %d more people"] = "+ %d pessoas a mais"
 L["Later in this step"] = "Mais adiante nesta etapa"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "No caminho: feito de passagem, não é uma parada própria. Aparece sob as próximas etapas até ser concluído."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "No caminho: feito de passagem, não é uma parada própria. Aparece sob as próximas etapas até a etapa %d, %s."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "No caminho: feito de passagem, não é uma parada própria. Aparece sob as próximas etapas até a etapa %d."
+L["Along the way, until step %d"] = "No caminho, até a etapa %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -1657,6 +1654,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "T
 L["Quest log %d/%d: %s"] = "Registro de missões %d/%d: %s"
 L["Settings: %s"] = "Configurações: %s"
 L["Log:"] = "Registro:"
+L["Step %d of %d (guide step %d): %s"] = "Etapa %d de %d (etapa %d do guia): %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desativado na lista de AddOns"

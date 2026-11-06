@@ -136,7 +136,6 @@ L["Only with %s in your quest log"] = "仅在任务日志中有%s时"
 L["Only before %s is handed in"] = "仅在交还%s之前"
 L["Only once %s is handed in"] = "仅在交还%s之后"
 L["Skipped for your character: its conditions do not hold"] = "你的角色已跳过：条件不满足"
-L["Skipped for your character: not for your class or race"] = "你的角色已跳过：不适用于你的职业或种族"
 L["Skipped for your character: none of its goals apply"] = "你的角色已跳过：没有适用的目标"
 
 -- Core/Closes.lua
@@ -1221,9 +1220,7 @@ L["Then out here:"] = "然后在野外："
 L["Out here:"] = "野外："
 L["+ %d more people"] = "+ 还有 %d 人"
 L["Later in this step"] = "本步骤稍后"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "顺路完成：路上顺便完成，不是单独的一站。在后续步骤下列出，直到完成。"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "顺路完成：路上顺便完成，不是单独的一站。在后续步骤下列出，直到步骤 %d（%s）。"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "顺路完成：路上顺便完成，不是单独的一站。在后续步骤下列出，直到步骤 %d。"
+L["Along the way, until step %d"] = "顺路完成，直到步骤 %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -1656,6 +1653,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "步骤 %d / %d（指南步骤 %d）：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件列表中关闭"

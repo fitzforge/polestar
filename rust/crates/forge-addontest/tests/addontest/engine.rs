@@ -1590,7 +1590,8 @@ fn slash_commands_drive_the_engine_and_report_status() {
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out["status"], json!(["|cff4fd1c5Polestar|r: Northshire Valley: step 3 of 6 (2/5 done)", "  [ ] Go to Kobold camp", "  [ ] Kill Kobold Vermin (4/10)"]));
+	// The Warrior's Mage training step is not his (#942): "of 5", as the player counts the steps.
+	assert_eq!(out["status"], json!(["|cff4fd1c5Polestar|r: Northshire Valley: step 3 of 5 (2/5 done)", "  [ ] Go to Kobold camp", "  [ ] Kill Kobold Vermin (4/10)"]));
 	assert_eq!(out["afterSkip"], 4);
 	assert_eq!(out["afterPrev"], 3);
 	assert_eq!(out["exact"], "test/02-elwynn");

@@ -122,8 +122,12 @@ end
 
 function Plan.Describe(result)
 	local r = result or { status = "noGuide" }
-	local where = r.step and L["step %d"]:format(r.step) or ""
-	local active = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
+	local E = ns.Engine
+	local active = E and E.GetGuide and E.GetGuide()
+	-- The step as the player counts it in its guide (#942: steps not theirs left out).
+	local g = r.guide and ns.Guides and ns.Guides.Get and ns.Guides.Get(r.guide) or active
+	local n = r.step and E and E.StepNumberOf and g and (E.StepNumberOf(g, r.step)) or r.step
+	local where = n and L["step %d"]:format(n) or ""
 	if r.guide and (not active or active.id ~= r.guide) then where = L["%s · %s"]:format(r.title or r.guide, where) end
 	local text
 	-- A numbered step can visit several NPCs. Being on that step does not

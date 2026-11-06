@@ -133,7 +133,6 @@ L["Only with %s in your quest log"] = "Nur mit %s im Questlog"
 L["Only before %s is handed in"] = "Nur bevor %s abgegeben ist"
 L["Only once %s is handed in"] = "Nur sobald %s abgegeben ist"
 L["Skipped for your character: its conditions do not hold"] = "Für deinen Charakter übersprungen: seine Bedingungen sind nicht erfüllt"
-L["Skipped for your character: not for your class or race"] = "Für deinen Charakter übersprungen: nicht für deine Klasse oder dein Volk"
 L["Skipped for your character: none of its goals apply"] = "Für deinen Charakter übersprungen: keines seiner Ziele trifft zu"
 
 -- Core/Guides.lua
@@ -481,9 +480,7 @@ L["Then out here:"] = "Danach hier draußen:"
 L["Out here:"] = "Hier draußen:"
 L["+ %d more people"] = "+ %d weitere Personen"
 L["Later in this step"] = "Später in diesem Schritt"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "Nebenbei: unterwegs erledigt, kein eigener Halt. Steht bei den nächsten Schritten, bis es erledigt ist."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "Nebenbei: unterwegs erledigt, kein eigener Halt. Steht bei den nächsten Schritten bis Schritt %d, %s."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "Nebenbei: unterwegs erledigt, kein eigener Halt. Steht bei den nächsten Schritten bis Schritt %d."
+L["Along the way, until step %d"] = "Nebenbei, bis Schritt %d"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -1700,6 +1697,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "D
 L["Quest log %d/%d: %s"] = "Questlog %d/%d: %s"
 L["Settings: %s"] = "Einstellungen: %s"
 L["Log:"] = "Protokoll:"
+L["Step %d of %d (guide step %d): %s"] = "Schritt %d von %d (Guide-Schritt %d): %s"
 
 -- Maps/Instances.lua
 L["Instance history cleared."] = "Instanzverlauf gelöscht."

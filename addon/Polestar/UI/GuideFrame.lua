@@ -1426,11 +1426,12 @@ function GF.ShowOverview(anchor)
 	scrubAt = nil
 	local live, count, items = E.GetLiveStep(), E.GetStepCount(), {}
 	for i = math.max(1, at - OVERVIEW_BEFORE), math.min(count, at + OVERVIEW_AFTER) do
-		local v = E.GetStepView(i)
+		local v = not UI.StepHidden(i) and E.GetStepView(i)
 		if v and v.status ~= "na" then
-			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], i)
+			local no = UI.StepNo(i)
+			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
 			items[#items + 1] = {
-				text = i .. "  " .. title,
+				text = no .. "  " .. title,
 				icon = i == live and "chevron-right" or nil,
 				checked = v.status == "done" or nil,
 				color = (v.status == "done" or v.status == "skipped") and "textMuted" or (i == at and "accent" or nil),
@@ -1547,7 +1548,7 @@ function GF.LayoutBanner(width)
 		banner.Close:Hide()
 	elseif kind == "stepSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
-		local what = string.format(L["Step %d"], n.step)
+		local what = string.format(L["Step %d"], UI.StepNo(n.step))
 		if n.title and n.title ~= "" then what = what .. "  \194\183  " .. n.title end
 		banner.Text:SetText(string.format(L["Skipped %s"], what))
 		placeLink(banner.Jump, L["Undo"], 0, -4)
@@ -1558,9 +1559,10 @@ function GF.LayoutBanner(width)
 			banner.Text:SetText(L["You skipped this step."])
 			placeLink(banner.Jump, L["Unskip it"], 0, -4)
 		else
+			local live = UI.StepNo(n.live)
 			banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
-				or L["Looking back. The guide is at step %d."], n.live))
-			placeLink(banner.Jump, string.format(L["Back to step %d"], n.live), 0, -4)
+				or L["Looking back. The guide is at step %d."], live))
+			placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 		end
 		banner.Close:Show()
 	elseif kind == "trip" then
@@ -2384,13 +2386,13 @@ local function anchorSkip()
 end
 
 local function navigatorFor(guide, index)
-	local E = Engine()
-	local count = guide and E.GetStepCount and E.GetStepCount() or 0
+	local count = guide and UI.StepTotal() or 0
 	if guide then
 		-- While the catch-up shows the guides passed whole, the count and title
-		-- are its (GF.PlayCatchUp).
+		-- are its (GF.PlayCatchUp). The numbers leave out the steps hidden
+		-- from the character (UI.StepNo, #942).
 		if GF.catchingUp ~= "guides" then
-			nav.Steps.Count:SetText(string.format("%d / %d", index or count, count))
+			nav.Steps.Count:SetText(string.format("%d / %d", index and UI.StepNo(index) or count, count))
 			nav.Title:SetText(guide.title or guide.id)
 		end
 		nav.psMeta = UI.GuideMeta(guide)
@@ -2427,7 +2429,7 @@ local function fillUpcoming(E, index)
 	local i = index + 1
 	while n < want and i <= count do
 		local v = E.GetStepView(i)
-		if v and v.status ~= "na" and not v.along then
+		if v and v.status ~= "na" and not v.along and not UI.StepHidden(i) then
 			n = n + 1
 			local r = upRow(n)
 			r.psIndex = i
@@ -2438,7 +2440,7 @@ local function fillUpcoming(E, index)
 				if gv.pinOpen then warn = warn == true or gv.pinOpen end
 			end
 			if warn then r.psSummary = r.psSummary .. " (" .. (warn == "along" and L["still open"] or L["pinned, still open"]) .. ")" end
-			r.Num:SetText(i)
+			r.Num:SetText(UI.StepNo(i))
 			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 			r.Text:SetText(r.psSummary)
 			W.Color(r.Text, warn and "warning" or "textDim")
@@ -2464,7 +2466,7 @@ local function nextOf(E, index, groups, focus)
 	for s = index + 1, count do
 		local v = E.GetStepView(s)
 		-- An along step never holds the route: "Then:" names the next step that does.
-		if v and v.status ~= "na" and not v.along then
+		if v and v.status ~= "na" and not v.along and not UI.StepHidden(s) then
 			local gs, f = UI.StepGroups(v)
 			local g = gs[f or 1] or gs[1]
 			if g then return UI.GroupName(v, g), g.kind end
@@ -2486,7 +2488,9 @@ end
 -- The open goals of along steps behind the live step (Engine.GetAlong), up to
 -- ALONG_MAX rows, hidden in the compact window. A goal the step on screen
 -- lists itself (the same quest objective, or the same kill or item for the
--- same quest) is not said twice.
+-- same quest) is not said twice. When every row is of `along until` steps
+-- ending at one step, the heading says so: "Along the way, until step 30"
+-- (#942: an along step has no card of its own).
 local function fillAlong(E)
 	for i = 1, #alongRows do alongRows[i]:Hide() end
 	if compact() or not E.GetAlong then
@@ -2501,12 +2505,14 @@ local function fillAlong(E)
 			if b then inStep[b] = true end
 		end
 	end
-	local n = 0
+	local n, untilStep, mixed = 0, nil, false
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
 			local a, b = alongKeys(gv)
 			if n < ALONG_MAX and not ((a and inStep[a]) or (b and inStep[b])) then
 				n = n + 1
+				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
+				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
 				r.psStep, r.psGoal, r.psTitle, r.psPin = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin
 				r.psPlace = gv.map and gv.x and gv.y and true or nil
@@ -2516,7 +2522,7 @@ local function fillAlong(E)
 			end
 		end
 	end
-	along.Label:SetText(L["Along the way"])
+	along.Label:SetText((untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
 	along:SetShown(n > 0)
 end
 
@@ -2691,24 +2697,6 @@ end
 
 local DOT = "  \194\183  "
 
--- The line under the header when the step is no stop of the route (#942):
--- why it holds nothing for this character (the Engine's `why`), or that it
--- is an along step, done on the way and listed under the steps ahead until
--- its labelled step. nil on a step of the route.
-local function whyLine(v)
-	if v.why then return v.why end
-	if not v.along then return nil end
-	local n = v.alongUntil
-	if not n then return L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] end
-	local E = Engine()
-	local guide = E and E.GetGuide and E.GetGuide()
-	local title = guide and guide.steps and guide.steps[n] and guide.steps[n].title
-	if type(title) == "string" and title ~= "" then
-		return string.format(L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."], n, title)
-	end
-	return string.format(L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."], n)
-end
-
 -- Fill the card from `view`: the focus group's header, its goals under
 -- "✓ N done", a summary line for every other person of the step, the tip
 -- (with "Show the whole step", or on a done step, every goal as written).
@@ -2721,7 +2709,9 @@ local function fillCard(sameFocus)
 	local _, header = shownGoals(view, g)
 	person.psHeaderGoal = header
 	paintPerson(g)
-	local why = whyLine(view)
+	-- Under the header: why a step that depends on what the player does
+	-- holds nothing for them now (the Engine's `why`, #942).
+	local why = view.why
 	person.Why:SetText(why or "")
 	person.Why:SetShown(why ~= nil)
 	person:Show()
@@ -4000,7 +3990,7 @@ local function build()
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
 	person.Where = T(person, "small", "textDim")
 	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
-	-- An along step, or one with nothing for this character: why (whyLine).
+	-- Why a step that depends on what the player does holds nothing now (fillCard).
 	person.Why = T(person, "small", "textDim")
 	person.Why:SetJustifyH("LEFT")
 	person.Why:SetWordWrap(true)
@@ -4313,8 +4303,8 @@ function GF.PaceText()
 	local pace = Lv and Lv.Pace and Lv.Pace()
 	if not pace then return nil end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
-	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, pace.step) end
-	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, pace.step)
+	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, UI.StepNo(pace.step)) end
+	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, UI.StepNo(pace.step))
 end
 
 -- XP pace from the QoL tracker and the route's pace (GF.PaceText). Hidden
@@ -4437,7 +4427,8 @@ function GF.PlayCatchUp(guideId, step, chain)
 		local shown
 		Count.psOnValue = function(_, v)
 			local i = max(1, min(step - 1, floor(v)))
-			if i ~= shown then
+			-- A step hidden from the character (#942) is not shown on the way.
+			if i ~= shown and not UI.StepHidden(i) then
 				shown = i
 				GF.catchUpIndex = i
 				GF.Render()

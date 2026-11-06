@@ -57,7 +57,8 @@ test('the bug in the navigator reports the step on screen: the player\'s words, 
 	assert.equal(lines[1], '```');
 	assert.equal(lines[lines.length - 1], '```', 'the details sit in one code block');
 	assert.ok(lines.includes('Guide: Elwynn Forest (forever/alliance/human/01-elwynn-forest)'), out.text);
-	assert.ok(lines.includes('Step 3 of 8: Kobold Camp'), out.text);
+	// As the player counts the steps, with the guide's own index for maintainers (#942).
+	assert.ok(lines.includes('Step 3 of 8 (guide step 3): Kobold Camp'), out.text);
 	const kill = lineWith(out.text, 'Kobold Vermin');
 	assert.ok(kill.startsWith('[>] Kill Kobold Vermin 7/10'), `the arrow's goal, with its count: ${kill}`);
 	for (const fact of ['quest 7', 'npc 6', 'map 1429 @47.60,35.10 live']) assert.ok(kill.includes(fact), `${fact} in ${kill}`);
@@ -437,10 +438,10 @@ test('the issue link holds the report taken when the window opened: the step on 
 		assert.equal(q.template, 'wrong-step.yml', 'a step was on screen when the window opened');
 		assert.equal(q.title, 'Wrong step: Elwynn Forest, step 3');
 		assert.equal(q.step, '3: Kobold Camp');
-		assert.match(q.wrong, /^Step 3 of 8: Kobold Camp$/m);
+		assert.match(q.wrong, /^Step 3 of 8 \(guide step 3\): Kobold Camp$/m);
 		assert.match(q.character, /^Human Warrior/);
 	}
-	assert.match(out.report, /^Step 3 of 8: Kobold Camp$/m);
+	assert.match(out.report, /^Step 3 of 8 \(guide step 3\): Kobold Camp$/m);
 });
 
 test('the issue link stays under GitHub\'s limit in every script: goals past the arrow\'s are left out first, then the report is cut, its code block kept closed', () => {

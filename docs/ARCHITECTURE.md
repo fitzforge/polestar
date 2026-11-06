@@ -1047,10 +1047,13 @@ Polestar.Engine.IsQuestSkipped(questID) -> bool
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
-Polestar.Engine.GetAlong() -> { { index, title, goals = { goal view, ... } }, ... }  -- open goals of along steps behind the live step
+Polestar.Engine.GetAlong() -> { { index, title, untilStep?, goals = { goal view, ... } }, ... }  -- open goals of along steps behind the live step; untilStep: an `along until` step's labelled step
 Polestar.Engine.AimAlong(stepIndex, goalIndex) -> bool     -- lead the arrow to one of them (row click); holds while it is listed
 Polestar.Engine.GetWaypoint() -> waypoint | nil
 Polestar.Engine.GetProgress() -> doneSteps, totalSteps
+Polestar.Engine.StepNumber(i) -> number, hidden     -- step i of the active guide as the player counts it (see "Steps the character has")
+Polestar.Engine.StepTotal() -> number               -- the steps the player sees
+Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTotalOf(guide) -> number  -- the same for any guide
 ```
 
 #### Smart logic
@@ -1420,6 +1423,24 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   view carries the chosen spot's `map`, `x`, `y`, `f`, `npcName`, `lvl` and
   `alternatives`, and `CycleCandidate` walks the ranking.
 
+#### Steps the character has
+
+Some steps are not the character's (#942, Fitz; `Own.hiddenStep`): an
+`along` step, whose goals read under "Along the way" of the steps after it,
+and a step whose `only` leaves out the character's class, race or faction,
+or every goal's `only` does (the Druids' Moonglade steps for a Mage). Such a
+step does not exist for them: Next, Prev and Goto never land on it
+(`Own.lookable`), it has no number, it counts in no progress, and nothing
+explains it; a view of it saved before (`CharState().pins`) opens on the
+next step they can look at. `Engine.StepNumber(i)` gives step i's number as
+the player counts it (a hidden step reads as the next shown step's number,
+with `hidden` true) and `Engine.StepTotal()` how many they see
+(`Own.numbersOf`, per guide and character). Every place that shows a step
+number uses them; the bug report adds the guide's own index ("Step 7 of 33
+(guide step 9)"). A step that depends on what the player does (`when`) is
+theirs: it keeps its number and says why it does not apply now
+(`Own.stepWhy`).
+
 #### Focus: one person at a time
 
 A step's goals form **groups**, walked in authored order: a goal joins the
@@ -1468,13 +1489,11 @@ the same person never splits that person's group.
   optional, then notes), else a quest's current goal at the place of the
   focus group (a goto already reached) or of the nearest group before it for
   the same quest (the giver of a bare `complete`), never of a later group;
-  nil on a done step (no focus). An along step never takes the arrow, the
-  route line or the target pin, looked at or (should it ever be) live: its
-  view has no `current`, and the arrow is the one of the stop the window's
-  "Then:" names (`Own.stopAfter`: the next step that applies and is not
-  along), as if that step were looked at; no earlier choice (`AimGoal`,
-  `AimAlong`) leads there. Its goals' spawn areas still show on the map
-  (#942). Reaching the place of
+  nil on a done step (no focus). An along step is never looked at
+  (`Own.lookable`, see "Steps the character has"), so neither the arrow, the
+  route line nor the target pin leads to it; its goals lead only when chosen
+  from Along the way (`AimAlong`) or before a turn-in that is not ready
+  (`Own.alongAim`), and their spawn areas show on the map. Reaching the place of
   any other goal of the step arrives at its header. A focus change fires
   `STEP_UPDATED(step)` and `WAYPOINT_CHANGED` like any other progress.
 - Out-of-order play still counts: finishing a later person's goals marks that
@@ -4578,13 +4597,18 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   focus person's own groups on the same visit, with only persons between
   (Thundris the focus, a vendor, Thundris again; not a hand-in after field
   work), read with the focus, in written order (#942).
-  Under the header, one line says when the step is no stop of the route: an
-  along step is done on the way and listed under the steps ahead until done
-  or until its `along until` step (the step view's `alongUntil`, #942).
-  A step with nothing for this character says why: the step view's `why`
-  (`Own.stepWhy`: another character's step, the `when` condition that
-  fails, else the group quest it waits on, "Only if you do Book Return with
-  a group").
+  Under the header, a step that depends on what the player does says in one
+  line why it holds nothing for them now: the step view's `why`
+  (`Own.stepWhy`: the `when` condition that fails, else the group quest it
+  waits on, "Only if you do Book Return with a group"; #942). Steps that are
+  not the character's (an along step, another class's or race's) are never
+  shown, numbered or explained: the navigator's "N / M", the step list,
+  Up next, the numbered pins, "Then:", "Back to step N", the XP pace line,
+  the bug report ("Step 7 of 33 (guide step 9)"), the tabs and menus all use
+  `Engine.StepNumber`/`StepTotal` (`UI.StepNo`, `UI.StepTotal`). An along
+  step's goals read under "Along the way" of the steps after it, its heading
+  "Along the way, until step N" when every row ends at the same labelled
+  step (`GetAlong` entries' `untilStep`).
   An object named like one of its quests while it gives another too (one
   poster for two WANTED quests) is headed by the first goal note that names
   it, else "The object here" (`UI.GroupName`, #942). A click

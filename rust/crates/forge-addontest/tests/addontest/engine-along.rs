@@ -133,9 +133,10 @@ fn an_along_step_that_does_not_apply_when_only_or_that_the_player_skipped_is_not
 		r#"along = true, when = { { k = "level", op = ">=", n = 50 } }"#,
 	);
 	assert_eq!(out, vec![json!([4, ""])]);
+	// A skip saved before #942: the window no longer pages to an along step, so it is not skipped from there.
 	let skipped = run(r#"
 		stub.world.accept(7, { 10 }); flush()
-		E.Goto(3); E.Skip(); flush()
+		Polestar.CharState().skipped["test/along"] = { [3] = true }
 		emit({ E.GetLiveStep(), along() })
 	"#);
 	assert_eq!(skipped, vec![json!([4, "2:1:0 2:2:0"])]);
@@ -260,43 +261,51 @@ emit({{ E.GetLiveStep(), wp() }})
 	assert_eq!(out, vec![json!([12, "9:2"])], "the flanks still to get (step 9 goal 2), not Grull Hawkwind's turn-in (12:1)");
 }
 
-// Paged to (#942), an along step's view says it is one and, for `along until`, which step ends it, for the window.
+// The window's "Along the way, until step N" (#942): each listed along step names the step its list ends at.
 #[test]
-fn an_along_step_s_view_names_the_step_its_list_ends_at() {
+fn get_along_names_the_step_each_list_ends_at() {
 	let out = run(r#"
-		local function v(s) local x = E.GetStepView(s); return { along = x.along or false, ["until"] = x.alongUntil or false } end
-		emit({ v(2), v(3), v(4) })"#);
-	assert_eq!(out[0], json!([{ "along": "back", "until": 5 }, { "along": true, "until": false }, { "along": false, "until": false }]));
+		stub.world.accept(7, { 10 }); flush()
+		local out = {}
+		for _, s in ipairs(E.GetAlong()) do out[#out + 1] = { s.index, s.untilStep or false } end
+		emit(out)"#);
+	assert_eq!(out[0], json!([[2, 5], [3, false]]));
 }
 
-// Darkshore's "Fine Crab Chunks on the way" paged to from step 6 (#942): the arrow went to the nearest crab spawn
-// far south. An along step never takes the arrow, nor the route line drawn to it: looked at, the arrow stays on the
-// stop the window's "Then:" names (the next step that applies and is not along), as if that step were looked at,
-// and no goal of the along step is marked current. A goal of it the player chose from Along the way before paging
-// does not lead either.
+// Fitz (#942): an along step is no step of its own. It has no number (it reads as the next step's), the count
+// leaves it out, Next, Prev and Goto never land on it, so the arrow never leads to it, and a view of it saved
+// before (CharState().pins) opens on the next step instead.
 #[test]
-fn an_along_step_looked_at_never_takes_the_arrow_it_stays_on_the_next_stop() {
+fn an_along_step_is_never_looked_at_numbered_or_pointed_at() {
 	let out = run(r#"
-		local w = stub.world
-		w.accept(7, { 10 }); flush()
-		local live = E.GetLiveStep()
-		local liveWp = wp()
+		stub.world.accept(7, { 10 }); flush()
+		local function no(s) local n, hidden = E.StepNumber(s); return { n, hidden } end
+		local numbers = { no(1), no(2), no(3), no(4), no(5), no(6) }
 		E.Goto(2); flush()
-		local at2 = { step = E.GetStepIndex(), wp = wp(), current = E.GetStepView(2).current or false }
-		E.Goto(3); flush()
-		local at3 = { wp = wp(), current = E.GetStepView(3).current or false }
-		E.Goto(live); flush()
-		E.AimAlong(2, 1); flush()
-		local aimed = wp()
-		E.Goto(2); flush()
-		local aimedAt2 = wp()
-		E.Goto(live); flush()
-		emit({ live = live, liveWp = liveWp, at2 = at2, at3 = at3, aimed = aimed, aimedAt2 = aimedAt2, back = wp() })"#);
-	assert_eq!(out[0]["live"], 4, "the route passed over both along steps");
-	assert_eq!(out[0]["liveWp"], "4:1");
-	assert_eq!(out[0]["at2"], json!({ "step": 2, "wp": "4:1", "current": false }), "looking at the along step: the arrow stays on Willem");
-	assert_eq!(out[0]["at3"], json!({ "wp": "4:1", "current": false }));
-	assert_eq!(out[0]["aimed"], "2:1", "chosen from Along the way on the live step, the kills lead");
-	assert_eq!(out[0]["aimedAt2"], "4:1", "but not while the along step itself is looked at");
-	assert_eq!(out[0]["back"], "2:1", "back on the live step, the choice leads again");
+		local goto2 = { E.GetStepIndex(), wp() }
+		E.Goto(1); flush()
+		E.Next(); flush()
+		local after1 = E.GetStepIndex()
+		E.Goto(5); flush()
+		E.Prev(); flush()
+		E.Prev(); flush()
+		emit({ numbers = numbers, total = E.StepTotal(), goto2 = goto2, after1 = after1, back = E.GetStepIndex() })"#);
+	assert_eq!(out[0]["numbers"], json!([[1, false], [2, true], [2, true], [2, false], [3, false], [4, false]]));
+	assert_eq!(out[0]["total"], 4);
+	assert_eq!(out[0]["goto2"], json!([4, "4:1"]), "Goto refuses it: the live step and its arrow stay");
+	assert_eq!(out[0]["after1"], 4, "Next from step 1 passes over both along steps");
+	assert_eq!(out[0]["back"], 1, "Prev from step 5 too");
+}
+
+#[test]
+fn a_saved_view_of_an_along_step_opens_on_the_next_step() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: WORLD.into(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".into(), r#"PolestarCharDB = { schema = 1, guide = "test/along", pins = { ["test/along"] = { step = 3, done = false } } }"#.into())],
+		script: [TEST_PACK, TEST_SOURCE, &GUIDE.replace("ALONG2", ALONG2).replace("ALONG3", ALONG3), HELPERS, "stub.login()", r#"stub.fire("QUEST_LOG_UPDATE"); stub.advance(0.6)"#, "emit({ E.GetStepIndex(), E.GetLiveStep() })"].join("\n"),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!([4, 1]), "the view saved on along step 3 opens on step 4, ahead of the live step 1");
 }

@@ -299,7 +299,10 @@ local function layout(m)
 	elseif m.complete then
 		W.SetButtonText(F.Later, L["Not now"])
 	else
-		W.SetButtonText(F.Later, format(L["Back to step %d"], m.live))
+		-- As the player counts that guide's steps (#942).
+		local E, g = ns.Engine, ns.Guides.Get(m.id)
+		local no = E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
+		W.SetButtonText(F.Later, format(L["Back to step %d"], no))
 	end
 	F:SetHeight(floor(y + PAD + FOOT_H + 0.5))
 	if W.LayoutRim then W.LayoutRim(F) end

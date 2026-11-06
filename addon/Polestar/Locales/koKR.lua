@@ -136,7 +136,6 @@ L["Only with %s in your quest log"] = "퀘스트 목록에 %s이(가) 있을 때
 L["Only before %s is handed in"] = "%s을(를) 제출하기 전에만"
 L["Only once %s is handed in"] = "%s을(를) 제출한 후에만"
 L["Skipped for your character: its conditions do not hold"] = "내 캐릭터는 건너뜀: 조건이 맞지 않습니다"
-L["Skipped for your character: not for your class or race"] = "내 캐릭터는 건너뜀: 내 직업이나 종족용이 아닙니다"
 L["Skipped for your character: none of its goals apply"] = "내 캐릭터는 건너뜀: 해당하는 목표가 없습니다"
 
 -- Core/Closes.lua
@@ -1221,9 +1220,7 @@ L["Then out here:"] = "그다음 필드:"
 L["Out here:"] = "필드:"
 L["+ %d more people"] = "+ %d명 더"
 L["Later in this step"] = "이 단계의 나머지"
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until done."] = "가는 길에: 이동하면서 하는 것으로, 따로 들르는 곳이 아닙니다. 완료할 때까지 다음 단계들 아래에 표시됩니다."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d, %s."] = "가는 길에: 이동하면서 하는 것으로, 따로 들르는 곳이 아닙니다. %d단계(%s)까지 다음 단계들 아래에 표시됩니다."
-L["Along the way: done as you go, not a stop of its own. Listed under the steps ahead until step %d."] = "가는 길에: 이동하면서 하는 것으로, 따로 들르는 곳이 아닙니다. %d단계까지 다음 단계들 아래에 표시됩니다."
+L["Along the way, until step %d"] = "가는 길에, %d단계까지"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1656,6 +1653,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "G
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"
