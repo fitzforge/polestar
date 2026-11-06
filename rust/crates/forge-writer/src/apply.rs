@@ -6132,10 +6132,62 @@ impl Writer<'_, '_> {
 		true
 	}
 
+	/// Before the route's hearth (the item `x`, on to `x.to`) to the inn at `inn`: v1's steps waiting in
+	/// the zone the player stands in, the inn in another, are written first, not walked or flown back
+	/// to after the hearth. When one of them learns a flight path there whose flight to the leg's end
+	/// beats the hearth and its way on by the route's estimates, that flight is the way on (the route
+	/// hearthed for want of a flight master there): Nighthaven's flight path after Umber in Moonglade,
+	/// then its flight to Rut'theran Village, not the hearth to Cenarion Hold, its flight to
+	/// Rut'theran and back into Moonglade for the flight path (found by Fitz). True when the flight is
+	/// written in place of the hearth.
+	fn before_hearth(&mut self, x: &Item, inn: Option<u32>) -> bool {
+		// (The hearth's cast.)
+		const HEARTH_S: f64 = 10.0;
+		let cx = self.cx;
+		if !cx.route_travel || self.pending_orphans.is_empty() {
+			return false;
+		}
+		let zone_of = |p: Option<u32>| cx.w(p).and_then(|w| cx.zone_name(Some(w.map)));
+		let here = zone_of(self.pos);
+		if here.is_none() || here == zone_of(inn) {
+			return false;
+		}
+		let before = self.known.clone();
+		let mut at = self.pos;
+		let ahead: Vec<String> = zone_of(x.to).into_iter().collect();
+		self.flush_orphans_at(&mut at, None, &ahead);
+		self.pos = at;
+		if self.known.len() == before.len() {
+			return false;
+		}
+		let yd = |a: Option<u32>, b: Option<u32>| cx.way_yd(a, b);
+		let Some((s, f0, f1)) = cx.best_flight_by(self.pos, x.to, &self.known, &yd).filter(|f| !before.contains(&f.1)) else { return false };
+		let hearth = HEARTH_S + cx.best_flight_by(inn, x.to, &before, &yd).map_or_else(|| yd(inn, x.to) / WALK_YPS, |f| f.0);
+		if s >= hearth {
+			return false;
+		}
+		self.rejoin(cx.world.nodes[f0].pt, false);
+		let name = cx.world.nodes[f1].name.clone();
+		self.fly_step(f0, &name);
+		let landed = cx.world.nodes[f1].pt;
+		if let (Some(l), Some(t)) = (cx.w(landed), cx.w(x.to)) {
+			if l.c == t.c && (l.map != t.map || js_hypot(l.wx - t.wx, l.wy - t.wy) > ZONE_STEP_YD) {
+				self.walk_goto(landed, x.to, &cx.zone_name(Some(t.map)).unwrap_or_else(|| "Onward".into()), true);
+			}
+		}
+		self.pos = x.to;
+		true
+	}
+
 	/// The route's items before the step they happen on the way to (see apply-route.js writeItems).
 	fn write_items(&mut self, its: &[Item], to_way: bool) {
 		let cx = self.cx;
+		// (The hearth's way on, its next item, after a hearth replaced by a flight: not written.)
+		let mut flown_instead = false;
 		for x in its {
+			if std::mem::take(&mut flown_instead) && x.t == ItemT::Network {
+				continue;
+			}
 			if x.t == ItemT::Bind {
 				self.home = x.inn;
 			}
@@ -6153,9 +6205,13 @@ impl Writer<'_, '_> {
 			}
 			match x.t {
 				ItemT::Hearth if cx.inn_name(x.inn).is_some() => {
+					let name = cx.inn_name(x.inn).unwrap().to_string();
+					if self.before_hearth(x, x.inn_pt.or_else(|| cx.inn_pt(&name))) {
+						flown_instead = true;
+						continue;
+					}
 					// (Everyone hearths, wherever they are.)
 					self.away.clear();
-					let name = cx.inn_name(x.inn).unwrap().to_string();
 					self.push("");
 					self.push(format!("step Hearth to {name}"));
 					let extra = self.g.item_only.clone();

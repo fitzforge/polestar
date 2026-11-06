@@ -330,19 +330,6 @@ step Umber
   accept 1185                         -- Umber walks around Nighthaven: look inside the circle on the map
   turnin 1185
 
-step Hearth to Cenarion Hold
-  hearth "Cenarion Hold"
-
-step Fly to Rut'theran Village
-  zone Silithus
-  goto 50.7,34.6 "Cenarion Hold flight master"
-  fly "Rut'theran Village"
-  zone Teldrassil
-
-step Moonglade
-  zone Moonglade
-  goto 48.1,67.3 "Moonglade"
-
 step Nighthaven
   zone Moonglade
   tip Take the flight path in Nighthaven and fly to Auberdine.

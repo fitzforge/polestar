@@ -9855,3 +9855,83 @@ fn a_step_never_lists_the_same_goal_twice() {
 	assert!(has(&g, "  kill 1127 quest 319                         -- Elder Crag Boar, on the way"), "{g:#?}");
 	assert!(has(&g, "  kill 1201 quest 319                         -- Snow Leopard"), "{g:#?}");
 }
+
+#[test]
+fn a_flight_path_step_in_the_zone_the_player_stands_in_is_not_reached_by_hearthing_out_and_back() {
+	// Silithus guide, Moonglade (found by Fitz): the route's way from Umber to Rut'theran Village is the
+	// hearth to Cenarion Hold and its flight (it never learns Nighthaven's flight path), but v1's
+	// Nighthaven step, 600 yd from Umber in the same zone, learns that flight path and flies on. The
+	// guide went Umber, hearth to Silithus, fly to Rut'theran, back into Moonglade for the flight path,
+	// fly to Rut'theran. The Nighthaven step comes right after Umber and its flight is the way on.
+	let world = json!({
+		"points": [
+			[1, 1, 0, 0, 1450], [1, 1, 0, 600, 1450],
+			[1, 1, 5000, -6000, 1451], [1, 1, 5010, -6000, 1451],
+			[1, 1, -6000, 3000, 1438], [1, 1, -6010, 3010, 1438],
+			[1, 1, -5000, 2000, 1439]
+		],
+		"zones": { "1450": "Moonglade", "1451": "Silithus", "1438": "Teldrassil", "1439": "Darkshore" }, "quests": [],
+		"inns": [{ "name": "Cenarion Hold", "pt": 2 }],
+		"nodes": [
+			{ "kind": "fp", "name": "Cenarion Hold", "pt": 3 }, { "kind": "fp", "name": "Rut'theran Village", "pt": 4 },
+			{ "kind": "fp", "name": "Moonglade", "pt": 1 }, { "kind": "fp", "name": "Auberdine", "pt": 6 }
+		]
+	});
+	let frame = json!({ "top": 10000, "bottom": -10000, "left": -10000, "right": 10000, "c": 1 });
+	let frames = json!({ "era": { "1450": frame, "1451": frame, "1438": frame, "1439": frame } });
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"race Human,Dwarf,Gnome,NightElf,Skyborne",
+				"levels 58-60",
+				"zone Silithus",
+				"",
+				"step Cenarion Hold",
+				"  sethome \"Cenarion Hold\"",
+				"  accept 3",
+				"",
+				"step Umber",
+				"  zone Moonglade",
+				"  accept 1",
+				"  turnin 1",
+				"",
+				"step Nighthaven",
+				"  getfp \"Moonglade\"",
+				"  fly \"Auberdine\"",
+				"",
+				"step Rut'theran Village",
+				"  zone Teldrassil",
+				"  turnin 3",
+				"",
+			],
+		)],
+		world,
+		frames,
+		quests: json!({ "1": { "title": "Umber's" }, "3": { "title": "Erelas'" } }),
+		route: json!({ "faction": "Alliance", "start": "Human", "diff": {}, "order": [
+			{ "t": "accept", "q": 3, "pt": 2, "from": f("a", 9), "items": [{ "t": "getfp", "node": 1 }, { "t": "getfp", "node": 0 }, { "t": "bind", "inn": 0, "pt": 2, "used": true, "innPt": 2 }] },
+			{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 13) },
+			{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 14) },
+			{ "t": "turnin", "q": 3, "pt": 5, "from": f("a", 22), "items": [
+				{ "t": "hearth", "inn": 0, "to": 5, "innPt": 2 },
+				{ "t": "network", "from": 2, "to": 5, "legs": [{ "k": "walk", "to": 3, "node": 0 }, { "k": "fly", "from": 0, "to": 1 }, { "k": "walk", "to": 5 }] }
+			] }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let (umber, getfp, hand) = (idx(&g, "  turnin 1"), idx(&g, "  getfp \"Moonglade\""), idx(&g, "  turnin 3"));
+	assert!(umber >= 0 && getfp > umber && hand > getfp, "{g:#?}");
+	// Nothing takes the player out of Moonglade between Umber and Nighthaven's flight path.
+	assert!(!g[umber as usize..getfp as usize].iter().any(|l| m(l, r"^\s+(hearth|fly)\s")), "{g:#?}");
+	// The flight from Nighthaven is the way on: no hearth, and the one flight after the flight path.
+	assert!(!g.iter().any(|l| l.starts_with("  hearth ")), "{g:#?}");
+	let fly = pick(&g, r"^\s+fly\s");
+	assert_eq!(fly, vec!["  fly \"Rut'theran Village\""], "{g:#?}");
+	let flies = idx(&g, "  fly \"Rut'theran Village\"");
+	assert!(flies > getfp && flies < hand, "{g:#?}");
+}
