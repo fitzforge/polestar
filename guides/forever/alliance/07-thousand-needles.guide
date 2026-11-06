@@ -159,6 +159,7 @@ step Menethil Harbor
   turnin 289                              -- First Mate Fitzsimmons
   accept 290
   turnin 471                              -- James Halloran
+  accept 98072
   vendor nearest
 
 step Captain Halyndor

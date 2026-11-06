@@ -1138,6 +1138,13 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley
 		// is handed in to Kor'geld beside him.
 		[SILVERPINE, 97275, [97242]],
+		// The #872 sweep: James Halloran's Crocs of the Sky is his last favor
+		// after Apprentice's Duties, and Lord Grayson Shadowbreaker's The
+		// Shamed Lieutenant thanks you for the statuette A Friend of the Family
+		// brings him.
+		[ASHENVALE, 98072, [471], true],
+		[THOUSAND_NEEDLES, 98072, [471]],
+		[ASHENVALE, 98219, [98191]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));

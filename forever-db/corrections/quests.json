@@ -3823,6 +3823,48 @@
 		],
 		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
 	},
+	"98072": {
+		"set": {
+			"pre": [
+				471
+			],
+			"preAny": [
+				471
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): quest text of Crocs of the Sky (98072) and Apprentice's Duties (471), and their required levels"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 471"
+			}
+		],
+		"note": "Crocs of the Sky (Menethil Harbor, James Halloran) is offered once Apprentice's Duties 471, from the same NPC, is handed in. Its text is a last favor after the earlier ones (\"You're quite the go-getter! I have just one more favor to ask\") and says the whelps are beyond his apprentice, the one mauled skinning crocolisks in Apprentice's Duties; its required level, 19, sits with that chain (471 needs 18), not with Highland Hides (24). The merged data had no prerequisite, so the Alliance route took it at Menethil (06-ashenvale:330) long before Apprentice's Duties (:447)."
+	},
+	"98219": {
+		"set": {
+			"pre": [
+				98191
+			],
+			"preAny": [
+				98191
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): quest text of The Shamed Lieutenant (98219) and A Friend of the Family (98191)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 98191"
+			}
+		],
+		"note": "The Shamed Lieutenant (Stormwind, Lord Grayson Shadowbreaker) is offered once A Friend of the Family 98191, which brings him King Terenas's statuette, is handed in to him: its text opens \"Thank you again for delivering the statuette safely\". The merged data had no prerequisite, so the Alliance route took it from him (06-ashenvale:522) before handing A Friend of the Family in to him in the same visit (:537)."
+	},
 	"98221": {
 		"set": {
 			"pre": [

@@ -91,6 +91,16 @@ test('The New Plague waits for the A Recipe For Death chain, handed in to its la
 	assert.deepEqual({ all, any }, { all: [], any: [451] });
 });
 
+test('Crocs of the Sky waits for Apprentice\'s Duties, and The Shamed Lieutenant for A Friend of the Family (#872 sweep)', () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	assert.deepEqual(blocks(98072, 2094), { all: [], any: [471] }, 'James Halloran, Menethil Harbor');
+	assert.deepEqual(blocks(98219, 928), { all: [], any: [98191] }, 'Lord Grayson Shadowbreaker, Stormwind');
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
