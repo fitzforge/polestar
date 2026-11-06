@@ -1205,7 +1205,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 			for a in steps.iter() {
 				// The route while it is open: the placed goals from the step after it up to its label's step
 				// (not the stops pattern 2 took out for it).
-				let first = ch.steps[gi].iter().position(|m| if a.after { m.line as usize - 1 > a.at } else { m.line as usize - 1 >= a.at }).unwrap_or(ch.steps[gi].len());
+				let first = ch.steps[gi].iter().position(|m| if a.after { m.line as usize - 1 > a.at } else { m.line as usize > a.at }).unwrap_or(ch.steps[gi].len());
 				let last = a.until_si.unwrap_or(ch.steps[gi].len().saturating_sub(1));
 				let in_span = |g: &G| g.gi == gi && g.si >= first && g.si <= last && !ch.steps[gi][g.si].along && !edits[gi].removed.contains(&(g.line as usize - 1));
 				let span: Vec<(usize, Wpt)> = seq.iter().filter(|g| in_span(g)).filter_map(|g| Some((g.si, g.w?))).collect();
