@@ -1032,16 +1032,8 @@ fn on_a_narrow_window_the_chip_goes_under_the_header_and_the_buttons_wrap_inside
 				rows = rows, fits = fits }})
 		end"#
 	));
-	assert_eq!(
-		out[0],
-		json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }),
-		"beside them on a wide window"
-	);
-	assert_eq!(
-		out[1],
-		json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }),
-		"under them at the narrowest"
-	);
+	assert_eq!(out[0], json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act", "more", "later", "off"]], "fits": true }), "beside them on a wide window");
+	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "rows": [["act"], ["more"], ["later", "off"]], "fits": true }), "under them at the narrowest");
 }
 
 // Fitz's design for #836: the card comes at the level-up that opens the dungeon's quests. With Leaders of the
@@ -1140,4 +1132,24 @@ fn with_the_guide_window_hidden_the_card_waits_for_it_and_the_dungeon_is_told_on
 	));
 	assert_eq!(out[0], json!({ "shown": false, "told": false }));
 	assert_eq!(out[1], json!({ "shown": "wailing-caverns", "told": true }));
+}
+
+// The Codex (7 MB) never loads for the login or hand-in checks: at login the check waits until something
+// else loads it (a level-up, Lookup, the dungeon page); a level-up loads it.
+#[test]
+fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_is_loaded() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local X = Polestar.Codex
+		uistub.player.level = 19
+		local start = X.IsLoaded()
+		stub.fire("QUEST_TURNED_IN", 914)
+		stub.advance(5)
+		emit({{ start = start, loaded = X.IsLoaded(), shown = card().shown }})
+		X.Load()
+		stub.advance(2)
+		emit({{ loaded = X.IsLoaded(), shown = card().dungeon or false, head = card().head or false }})"#
+	));
+	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
+	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
 }

@@ -19,8 +19,10 @@
 -- dungeon whose range began within LOGIN_LEVELS levels, after the class
 -- quest heads-up and the class guide banner; after a quest of a dungeon's
 -- page is handed in (a prerequisite: its follow-ups there may open), only for
--- that dungeon, after DELAY seconds so the completed flag has caught up. Never
--- in combat (the Codex may
+-- that dungeon, after DELAY seconds so the completed flag has caught up.
+-- Only a level-up loads the Codex (the dungeons' pages and levels): the login
+-- check waits until something loads it (CODEX_LOADED), and a hand-in before
+-- then is told at the next level-up instead. Never in combat (the Codex may
 -- have to load): it waits for combat to end, and while another heads-up is
 -- on the card it waits for that one to be dismissed (HEADS_UP_HIDDEN). Of
 -- several, the one whose range began last.
@@ -196,8 +198,18 @@ end
 -- order, each once: a level-up and a turn-in while a card is shown both stay.
 local pending = {}
 
+-- Modes that never load the Codex (DT.Check): its 7 MB load at every login
+-- or at the first hand-in would cost every character, whatever its level.
+local NO_LOAD = { login = true, turnin = true }
+
+local function codexLoaded()
+	local X = ns.Codex
+	return X and X.IsLoaded and X.IsLoaded() and true or false
+end
+
 function DT.Check(level, mode, questId)
 	if not on() then return false end
+	if NO_LOAD[mode] and not codexLoaded() then return false end
 	local C, T = ns.Compat, CT()
 	if (C.InCombat and C.InCombat()) or (T and T.current) then
 		for _, p in ipairs(pending) do
@@ -228,17 +240,33 @@ end
 -- Events and the command
 ---------------------------------------------------------------------------
 
-ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
-	local n = tonumber(level)
-	if n then ns.After(DELAY, function() DT.Check(n, "levelup") end) end
-end)
-
--- After the class quest heads-up (2 s) and the class guide banner (3 s).
-local loggedIn = false
+-- After the class quest heads-up (2 s) and the class guide banner (3 s);
+-- without the Codex loaded, once something loads it.
+local loggedIn, loginDue = false, false
 ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	if loggedIn then return end
 	loggedIn = true
-	ns.After(4, function() DT.Check(nil, "login") end)
+	ns.After(4, function()
+		if codexLoaded() then
+			DT.Check(nil, "login")
+		else
+			loginDue = true
+		end
+	end)
+end)
+
+ns.On("CODEX_LOADED", function()
+	if not loginDue then return end
+	loginDue = false
+	ns.After(DELAY, function() DT.Check(nil, "login") end)
+end)
+
+-- A level-up's check covers a login check still due.
+ns.RegisterEvent("PLAYER_LEVEL_UP", function(_, level)
+	local n = tonumber(level)
+	if not n then return end
+	loginDue = false
+	ns.After(DELAY, function() DT.Check(n, "levelup") end)
 end)
 
 -- A quest of a dungeon's page handed in may open its follow-ups there.

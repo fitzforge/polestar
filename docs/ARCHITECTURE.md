@@ -4883,7 +4883,10 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   heads-up has the card first; 4 s after login, then only for a dungeon
   whose range began within the last two levels; and 1.5 s after
   `QUEST_TURNED_IN` of a quest on a dungeon's page (a prerequisite whose
-  follow-ups there may open), then only for that dungeon. In combat (the Codex may
+  follow-ups there may open), then only for that dungeon. Only the level-up
+  check loads the Codex: the login one waits for `CODEX_LOADED` (a level-up
+  in the meantime covers it) and a hand-in before the Codex is loaded is
+  told at the next level-up. In combat (the Codex may
   have to load) or while another card is shown it waits for
   `PLAYER_REGEN_ENABLED` or `HEADS_UP_HIDDEN` (fired by `UI.ClassToast.Hide`);
   the waiting checks run in order until one shows a card.
