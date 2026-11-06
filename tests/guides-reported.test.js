@@ -612,7 +612,8 @@ test(`Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaad
 		assert.equal(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 92640).length, 0, `${guide}: no kill goal for Desperate Times`);
 		const valennia = at(list, `${guide}: 92640.1 (Valennia)`, (g) => g.t === 'talk' && g.quest === 92640 && g.oi === 1 && g.npc === 252383);
 		const ayessa = at(list, `${guide}: 92640.2 (Ayessa)`, (g) => g.t === 'talk' && g.quest === 92640 && g.oi === 2 && g.npc === 251968);
-		const elaadrin = at(list, `${guide}: Elaadrin`, (g) => g.t === 'talk' && g.npc === 252475);
+		// (Desperate Times' own talk: A Grand Adventure talks to Elaadrin before it, #956.)
+		const elaadrin = at(list, `${guide}: Elaadrin`, (g) => g.t === 'talk' && g.quest === 92640 && g.npc === 252475);
 		assert.ok(valennia < ayessa && ayessa < elaadrin, `${guide}: Valennia, then Ayessa, then Elaadrin`);
 		assert.ok(located(list[ayessa]), `${guide}: the arrow leads to Ayessa, west of town`);
 	}
