@@ -10,7 +10,7 @@
 
 Every race starts in its own zone, Zephras Isle for the Skyborne included, then joins one shared route for its faction all the way to 60. The routes are built from the game's data, played through the way you would follow them, read step by step, and every problem players report is fixed for good: whole towns in one visit, quests on the road picked up as you pass, training where you already are, elite quests with a solo way past.
 
-![The guide menu's leveling guides: the Alliance route from 1 to 30, the other starting zones, and Westfall's steps, quests and next guide](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/leveling.jpg)
+![The whole guide menu on Leveling: the rail and categories on the left, the Alliance route from 1 to 30 and the other starting zones, and Elwynn Forest's steps, quests and next guide](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/leveling.jpg)
 
 ## The arrow walks real paths
 

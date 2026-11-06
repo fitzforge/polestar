@@ -27,23 +27,24 @@ the source and the docs on GitHub, never to the releases page.
 
 Display sizes: the column is 836 px wide, and each picture is shown at the
 size of the addon's own windows (the guide window at about 390 px), never
-wider. The files hold 1.5x to 2x those pixels, so they stay sharp on
+wider; a window wider than the column (the guide menu, Options) is shown
+whole, a little smaller, never cropped. The files hold 1.5x to 2x those pixels, so they stay sharp on
 high-density screens.
 
 | File | Pixels | Shown at | Size |
 |---|---|---|---|
 | `images/banner.png` | 2560x640 | 836x209 | 293 KB |
-| `media/leveling.jpg` | 1824x1472 | 836x675 | 236 KB |
+| `media/leveling.jpg` | 1672x970 | 836x485 | 158 KB |
 | `media/arrow-walk.gif` | 1254x982, 7.5 s | 600x470 | 747 KB |
 | `media/journey.png` | 776x1122 | 388x561 | 333 KB |
 | `media/nearby.gif` | 978x789, 7.9 s | 652x526 | 379 KB |
 | `media/guide-fold.gif` | 792x890, 7.8 s | 396x445 | 359 KB |
 | `media/transparent.png` | 776x762 | 388x381 | 356 KB |
-| `media/picker.gif` | 1256x970, 7.2 s | 836x646 | 424 KB |
-| `media/lookup.jpg` | 1824x1464 | 836x671 | 213 KB |
-| `media/dungeons.jpg` | 1824x1464 | 836x671 | 243 KB |
+| `media/picker.gif` | 1672x965, 7.2 s | 836x483 | 497 KB |
+| `media/lookup.jpg` | 1672x965 | 836x483 | 138 KB |
+| `media/dungeons.jpg` | 1672x965 | 836x483 | 160 KB |
 | `media/worldmap.jpg` | 2084x1476 | 836x592 | 399 KB |
-| `media/quality-of-life.jpg` | 1504x1464 | 752x732 | 195 KB |
+| `media/quality-of-life.jpg` | 1672x1105 | 836x553 | 171 KB |
 | `media/questlog.png` | 856x944 | 428x472 | 330 KB |
 | `docs/assets/screenshots/client.webp` | 1375x950 | 760x525 | 59 KB |
 
