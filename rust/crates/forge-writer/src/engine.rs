@@ -1383,9 +1383,16 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 					.is_some_and(|n| idx.iter().any(|&j| j != i && matches!(seq[j].verb.as_str(), "accept" | "turnin") && !hand_lines.contains(&(seq[j].line as usize - 1)) && seq[j].npc == Some(n)))
 			};
 			if !hand.is_empty() && hand.iter().all(|&i| at_npc(i)) {
+				// (Not one the guide takes only `optional` before it: the addon holds that hand-in only for a
+				// player who took the quest, and `optional` let one who did walk past its NPC, Harvesting the
+				// Harvesters at Ozwin, #298.)
+				let opt_taken = |i: usize| {
+					let mut acc = seq[..i].iter().filter(|a| a.gi == gi && a.verb == "accept" && a.quest == seq[i].quest).peekable();
+					acc.peek().is_some() && acc.all(|a| re!(r"\boptional\b").is_match(code(a)))
+				};
 				for &i in &hand {
 					let l = seq[i].line as usize - 1;
-					if edits[gi].replaced.contains_key(&l) || edits[gi].removed.contains(&l) {
+					if edits[gi].replaced.contains_key(&l) || edits[gi].removed.contains(&l) || opt_taken(i) {
 						continue;
 					}
 					let (c, rest) = crate::jsre::split_comment(&texts[gi][l]);

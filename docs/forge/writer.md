@@ -834,7 +834,10 @@ they matter to the player. They are not the judge's honest rules.
   step goes on after it (a hand-in already `optional` there never holds the
   step and stays). A hand-in of such a quest at the NPC another goal of the
   step is at (an accept or hand-in there) stays in the step, `optional`: the
-  player stands there anyway. A hearth to an inn bound in an earlier guide gets
+  player stands there anyway. One the guide takes only `optional` stays as
+  written: the addon holds it only for a player who took the quest, and
+  `optional` let one who did walk past its NPC (Harvesting the Harvesters at
+  Ozwin, #298). A hearth to an inn bound in an earlier guide gets
   `when bound "<inn>"`, and a walk there `when !bound "<inn>"` follows as a fallback.
   A way step for everyone into the zone of a `when onquest` step right after
   it (past other way steps) becomes that step's first goal, so only those on

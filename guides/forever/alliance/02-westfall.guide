@@ -79,7 +79,7 @@ step Westfall: kill these as you meet them
 step Saldean's Farm
   turnin 9                                    -- Farmer Saldean
   turnin 92909                                -- Ozwin Ironsprocket
-  turnin 92910 optional
+  turnin 92910
 
 step The Jansen Stead
   only Dwarf,Gnome,NightElf,Skyborne
