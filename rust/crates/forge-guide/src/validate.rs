@@ -138,7 +138,7 @@ pub fn level_at(xp: f64) -> f64 {
 	l as f64
 }
 
-const OBJECTIVE_VERBS: &[&str] = &["kill", "collect", "interact", "use"];
+const OBJECTIVE_VERBS: &[&str] = &["kill", "collect", "interact", "use", "talk"];
 
 fn guide_layer(g: &V) -> V {
 	let l = V::obj();
@@ -470,7 +470,7 @@ fn placed(data: &Data, kind: &str, id: &V) -> bool {
 /// The objectives of quest `id` that have a place to point at, as `7.1 = kill …` labels.
 fn placed_objectives(data: &Data, id: &V) -> Vec<String> {
 	let kind_of = |k: &V| match k.as_str() {
-		Some("kill") => Some("npc"),
+		Some("kill") | Some("talk") => Some("npc"),
 		Some("object") => Some("object"),
 		Some("item") => Some("item"),
 		_ => None,
@@ -1226,7 +1226,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 	}
 }
 
-const SOLO_GOALS: &[&str] = &["accept", "turnin", "complete", "kill", "collect", "interact", "use"];
+const SOLO_GOALS: &[&str] = &["accept", "turnin", "complete", "kill", "collect", "interact", "use", "talk"];
 
 fn solo_exclusion(e: &V) -> Option<String> {
 	let category = e.get("category");

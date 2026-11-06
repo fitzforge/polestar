@@ -59,7 +59,7 @@ const MODS = {
 	kill: [...COMMON, ...COORDS, 'npc', 'quest', 'count'],
 	collect: [...COMMON, ...COORDS, 'npc', 'quest', 'count', 'nearest'],
 	goto: [...COMMON, 'map', 'r', 'frame'],
-	talk: [...COMMON, ...COORDS, 'gossip'],
+	talk: [...COMMON, ...COORDS, 'gossip', 'quest'],
 	interact: [...COMMON, ...COORDS, 'quest'],
 	use: [...COMMON, ...COORDS, 'quest'],
 	sethome: [...COMMON, ...COORDS, 'npc'],

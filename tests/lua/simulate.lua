@@ -8,7 +8,7 @@ local G = SIM_GUIDE or E.GetGuide()
 -- every line one: the engine reads a quest collect with no item line from the
 -- bags, which the simulator does not fill.
 local objs, kinds = {}, {}
-local KIND = { kill = "monster", collect = "item", interact = "object" }
+local KIND = { kill = "monster", collect = "item", interact = "object", talk = "monster" }
 for _, s in ipairs(G.steps) do
 	for _, g in ipairs(s.goals) do
 		if g.quest and g.oi then
@@ -64,12 +64,12 @@ local function act(i, g, r)
 		if w.log[q] then w.abandon(q) end
 	elseif t == "destroy" then
 		if g.item then w.removeItem(g.item) end
-	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact") then
+	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then
 			local o = w.log[q].objectives[g.oi]
 			if o then w.progress(q, g.oi, o.numRequired) else w.finish(q) end
 		end
-	elseif q and (t == "kill" or t == "collect" or t == "use" or t == "interact") then
+	elseif q and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then w.finish(q) end
 	elseif (t == "collect" or t == "buy") and g.item then
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)

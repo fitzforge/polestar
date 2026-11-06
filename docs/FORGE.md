@@ -463,10 +463,11 @@ applies them to the guides it writes, last:
 `objective` is the objective's number (as in `quest 3505.3`), `"giver"` or `"ender"`. The point goes
 on the objective's goal line, on the `goto` right before it when the step leads there with one, or on
 the quest's bare `complete`. A `path` becomes a `loop` of `goto`s before the goal. `write: true`
-gives the objective its own goal line from the data (`kill`, `interact` or `collect … quest Q.N`)
-before the bare `complete`, which goes once every objective has one. `label` sets that line's goal
-text, for an objective the data counts as a kill but the game asks you to talk to someone
-(`"label": "Talk to Rathiril Sunlance"`).
+gives the objective its own goal line from the data (`kill`, `talk`, `interact` or `collect … quest
+Q.N`), in the objectives' order among the step's lines, before the bare `complete`, which goes once
+every objective has one. `label` sets that line's goal text. Lines written before the data knew
+follow its objectives: a `kill` of an objective the data has as a `talk` becomes a `talk`, and a
+line of an objective the quest no longer has goes (#859).
 
 ```json
 { "fixes": [

@@ -94,7 +94,7 @@ step Elegael's next tasks
 step The Nightfang Den and Commander Haalien
   tip The Nightfang Den is the cave north across the clearing from Elegael. Heal the seven injured druids inside (Naaleos Leafwhisper among them) and find Jorel Windsinger. Commander Haalien stands east of the den: he drops his head and a Ripped Missive; right-click the missive to start its quest.
   kill 258134 quest 94489.1
-  kill 258130 quest 94489.2
+  talk 258130 quest 94489.2
   collect 265475 quest 94488.1
   accept 94490 item 265476                    -- from Commander Haalien
 

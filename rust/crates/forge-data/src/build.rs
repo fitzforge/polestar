@@ -607,6 +607,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		}
 	}
 
+	if !rec.objective_conflicts.is_empty() {
+		warnings.push(format!(
+			"players' recordings list different objectives for quest(s) {}: the data's objectives kept",
+			rec.objective_conflicts.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
+		));
+	}
 	lap("recordings");
 	// Forever's gathering nodes from the TDB's sniffs that our sources lack (Zephras Isle, nodes Forever
 	// moved): a normal input, so the public data has them; the knowledge base reads the same extract.
@@ -975,6 +981,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	c("recordedTreasures", n(rec.recorded_treasures));
 	c("recordedInstances", n(rec.recorded_instances));
 	c("recordedEncounters", n(rec.recorded_encounters));
+	c("gameObjectiveQuests", n(rec.game_objective_quests));
+	c("talkObjectives", n(rec.talk_objectives));
+	c("droppedObjectives", n(rec.dropped_objectives));
 	c("spawnCap", n(o.cap));
 	c("correctionsPrivate", n(private_applied));
 	if let Some(q) = &qstats {

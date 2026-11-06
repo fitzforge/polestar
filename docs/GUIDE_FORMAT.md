@@ -131,10 +131,10 @@ A step must contain at least one goal.
 | `turnin` | `<questId> ["Title"]` | Turn-in NPC/object from data. |
 | `complete` | `<questId> ["Title"]` | Finish all objectives. |
 | `abandon` | `<questId> ["Title"]` | Drop a quest from the log (a quest the guide takes only to turn it in elsewhere, a chain you skip). Done once the quest is out of the log, and it stays done for the rest of its step. The quest's `accept` stays done too, so abandoning on the guide's say-so does not send the route back to the giver. A character that does not have the quest has it done at once, and once the route has passed the step it stays done: taking the quest again later does not reopen it. Lint counts it as the end of the quest, like a turn-in. Pack format 5. |
-| `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective. |
+| `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective (`talk` takes it too, for an objective that is speaking with someone). |
 | `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per kill and spawn count; at most 16 per continent, spread over safety and 10-level bands. The engine picks one by the player's level, faction and travel time. |
 | `goto` | `<x>,<y> ["Label"]` | Coordinates are mandatory here. A label that is a subzone's name as the game spells it (`"Fargodeep Mine"`, not `"Fargodeep Mine's mouth"`) gets its area ("Places by ID"); at a cave's or mine's mouth the goto then also counts as arrived once the player walks into it past the point (in that subzone and indoors). |
-| `talk` | `<npcId>` | |
+| `talk` | `<npcId>` | Speak with an NPC. With `quest Q.O` it is that quest objective ("Speak with Valennia"): done once the quest log line is finished or the quest is ready to hand in, and the guide window reads "Talk to <npc>" for the quest; `quest Q` takes the index from the objective for that NPC. A line the game shows only once the one before it is done ticks when the player talks to the NPC. A `kill … quest Q.O` naming the same NPC's talk objective (older guides) still compiles. |
 | `interact` | `<objectId>` | Click a game object. |
 | `use` | `<itemId> ["Item name"]` | |
 | `destroy` | `<itemId> ["Item name"]` | Delete an item from the bags (a start-zone Hearthstone to free a slot, a quest item that is no use any more). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. The guide window reads "Destroy Hearthstone". Pack format 5. |
@@ -464,10 +464,10 @@ needed before going on, hand the quest in at the labelled step, as here: the
 turn-in waits for the kills.
 
 Along suits goals the game counts wherever the player is: quest objectives
-(`kill`, `collect`, `interact`, `use` with `quest`), quests taken or handed
-in, bag counts (`collect`, `buy`), `level`, `skill`, `explore`. A goal
-Polestar checks off only on the step the route is on (`goto`, `talk`,
-`hearth`, `getfp`, `fly`, `vendor`, `train` but a profession's, and `kill`,
+(`kill`, `collect`, `interact`, `use`, `talk` with `quest`), quests taken or
+handed in, bag counts (`collect`, `buy`), `level`, `skill`, `explore`. A goal
+Polestar checks off only on the step the route is on (`goto`, `hearth`,
+`getfp`, `fly`, `vendor`, `train` but a profession's, and `kill`, `talk`,
 `interact` or `use` without `quest`) never checks off in an along step and
 warns.
 
@@ -1066,6 +1066,7 @@ line but not the file, so an imported guide shows no picture.
 
 ```
   talk 295 optional
+  talk 252383 quest 92640.1           -- Valennia: "Speak with Valennia"
   interact 176793 quest 5545.1        -- Bundles of wood lie under the trees
   use 5411 quest 754.1 @51.8,68.4     -- Winterhoof Cleansing Totem
   cast 818 "Basic Campfire"

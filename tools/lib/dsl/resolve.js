@@ -885,6 +885,8 @@ function checkLabels(steps, err) {
 // quest (the player ticks those). In an along step they never check off.
 const ON_STEP_ONLY = new Set(['goto', 'talk', 'hearth', 'die', 'getfp', 'fly', 'vendor', 'task']);
 function onStepOnly(goal) {
+	// A quest talk is an objective the game counts wherever the player is.
+	if (goal.t === 'talk' && goal.quest !== undefined) return false;
 	if (ON_STEP_ONLY.has(goal.t)) return true;
 	if (goal.t === 'train') return goal.skillLine === undefined;
 	return (goal.t === 'kill' || goal.t === 'interact' || goal.t === 'use') && goal.quest === undefined;
@@ -1434,6 +1436,7 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			goal.npcName = requireName('npc', g.npc, g.npcName, 'NPC name') || undefined;
 			candidates = [{ kind: 'npc', id: g.npc }];
 			checkKinds = candidates;
+			questFields = true;
 			break;
 		}
 		case 'sethome':
@@ -1683,8 +1686,15 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 					q.objectives.length ? `write \`quest ${g.quest}.<n>\` with one of these (\`polestar find ${g.quest}\` lists them)` : `drop the \`.${oi}\`: write \`quest ${g.quest}\``,
 				);
 			}
-			const kind = v === 'kill' ? 'kill' : v === 'collect' ? 'item' : v === 'interact' ? 'object' : null;
-			const id = v === 'kill' ? g.npc : v === 'interact' ? g.object : g.item;
+			const kind = v === 'kill' ? 'kill' : v === 'collect' ? 'item' : v === 'interact' ? 'object' : v === 'talk' ? 'talk' : null;
+			const id = v === 'kill' || v === 'talk' ? g.npc : v === 'interact' ? g.object : g.item;
+			const noun = v === 'kill' || v === 'talk' ? 'npc' : v === 'interact' ? 'object' : 'item';
+			// Kill and talk on the same npc are one credit: a talk objective is data
+			// kind `talk`, or the legacy `kill` credit; older kill lines may name a
+			// `talk` objective.
+			const other = v === 'talk' ? 'kill' : v === 'kill' ? 'talk' : null;
+			const sameKind = (k) => k === kind || (other !== null && k === other);
+			const find = (id) => objectiveFor(q, kind, id) || (other !== null ? objectiveFor(q, other, id) : null);
 			// `quest Q.O` naming an objective of the same kind for another
 			// target: progress and count would follow that one. When the target
 			// is another objective of the quest, the index is swapped, which is
@@ -1696,9 +1706,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 			const used = v === 'collect' && id !== undefined && ((q.requiredItems || []).includes(id) || q.sourceItem === id);
 			const bagHint = `the quest uses item ${id} without counting it: drop \`quest ${g.quest}${oi !== undefined ? `.${oi}` : ''}\` so the step counts it in the bags`;
 			const named = oi !== undefined && kind && id !== undefined ? data.questObjectives(g.quest)[oi - 1] : null;
-			if (named && named.kind === kind && named.id != null && named.id !== id) {
-				const right = objectiveFor(q, kind, id);
-				const noun = v === 'kill' ? 'npc' : v === 'interact' ? 'object' : 'item';
+			if (named && sameKind(named.kind) && named.id != null && named.id !== id) {
+				const right = find(id);
 				const own = right ? data.questObjectives(g.quest)[right - 1] : null;
 				(right ? err : warn)(
 					ln,
@@ -1711,9 +1720,9 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 				warn(ln, `${objectiveLabel(g.quest, named).replace(/^(\S+) = /, 'quest $1 is ')}, not an item`, right ? `write \`quest ${g.quest}.${right}\`, or \`quest ${g.quest}\` to take the index from the item` : used ? bagHint : `its objectives: ${listed()}`);
 			}
 			if (oi === undefined) {
-				if (id !== undefined) oi = objectiveFor(q, kind, id) || undefined;
+				if (id !== undefined) oi = find(id) || undefined;
 				if (oi === undefined && q.objectives.length) {
-					warn(ln, `quest ${g.quest} has no objective for this ${v === 'kill' ? 'npc' : v === 'interact' ? 'object' : 'item'}${used ? '' : `; write \`quest ${g.quest}.<objective>\``}`, used ? bagHint : `its objectives: ${listed()}`);
+					warn(ln, `quest ${g.quest} has no objective for this ${noun}${used ? '' : `; write \`quest ${g.quest}.<objective>\``}`, used ? bagHint : `its objectives: ${listed()}`);
 				}
 			}
 			if (oi !== undefined && g.count === undefined && (v === 'kill' || v === 'collect')) {

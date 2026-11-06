@@ -343,7 +343,7 @@ fn goal_names(goal: &V, data: &Data) -> Vec<Named> {
 	if is_int(&quest) {
 		for o in data.quest_objectives(&quest) {
 			let kind = match o.get("kind").as_str() {
-				Some("kill") => Some("npc"),
+				Some("kill") | Some("talk") => Some("npc"),
 				Some("item") => Some("item"),
 				Some("object") => Some("object"),
 				_ => None,

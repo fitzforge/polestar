@@ -285,9 +285,8 @@
 			"quest": 93461,
 			"objective": 1,
 			"write": true,
-			"label": "Talk to Rathiril Sunlance",
 			"faction": "Alliance",
-			"note": "Welcome to Shen'dar Village: Rathiril Sunlance. The objective is talking to him; the data counts it as a kill, so the line reads \"Talk to\" (#802).",
+			"note": "Welcome to Shen'dar Village: Rathiril Sunlance. The objective is talking to him: the game's own objective list makes it a talk (#802, #859).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -306,7 +305,6 @@
 			"quest": 93461,
 			"objective": 2,
 			"write": true,
-			"label": "Talk to Coriella Calmbreeze",
 			"faction": "Alliance",
 			"at": {
 				"map": 2521,
@@ -314,7 +312,7 @@
 				"y": 43.3,
 				"frame": "live"
 			},
-			"note": "Welcome to Shen'dar Village: Coriella Calmbreeze, the innkeeper, north-west of the village. The objective is talking to her; the data counts it as a kill, so the line reads \"Talk to\" (#802).",
+			"note": "Welcome to Shen'dar Village: Coriella Calmbreeze, the innkeeper, north-west of the village. The objective is talking to her: the game's own objective list makes it a talk (#802, #859).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -333,9 +331,8 @@
 			"quest": 92849,
 			"objective": 1,
 			"write": true,
-			"label": "Talk to Fillion Flamebreeze",
 			"faction": "Alliance",
-			"note": "The Missing Scholar: Fillion Flamebreeze. The objective is finding and talking to him; the data counts it as a kill, so the line reads \"Talk to\" (#802).",
+			"note": "The Missing Scholar: Fillion Flamebreeze. The objective is finding and talking to him: the game's own objective list makes it a talk (#802, #859).",
 			"source": [
 				{
 					"kind": "in-game-check",
@@ -433,6 +430,7 @@
 			"id": "703-92640-2",
 			"quest": 92640,
 			"objective": 2,
+			"write": true,
 			"faction": "Alliance",
 			"at": {
 				"map": 2521,
@@ -440,7 +438,7 @@
 				"y": 79.73,
 				"frame": "live"
 			},
-			"note": "Desperate Times: Ayessa Dawnsinger, west of town. The data has her for the other faction only, so she gets no goal line of her own (a kill would read as an elite to fight): the quest's complete leads there.",
+			"note": "Desperate Times: Ayessa Dawnsinger, west of town. Talking to her is the objective the game reveals after Valennia's, and Elaadrin's only after hers, so she gets her own talk line (#859).",
 			"source": [
 				{
 					"kind": "in-game-check",

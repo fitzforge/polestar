@@ -98,6 +98,16 @@ fn a_goal_polestar_checks_off_only_on_the_routes_own_step_warns_in_an_along_step
 	assert_match(warned[2], r"`kill` without `quest`.*until the step labelled back");
 }
 
+#[test]
+fn a_talk_with_quest_counts_in_an_along_step_a_bare_talk_still_warns() {
+	let text = guide_text(&["step McBride", "  accept 7", "step On the way", "  along", "  talk 6 quest 7.1", "  talk 197", "step Back", "  turnin 7"]);
+	let r = compile(&text);
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let warned: Vec<&String> = r.warnings.iter().filter(|w| w.contains("in an `along` step never checks off")).collect();
+	assert_eq!(warned.len(), 1, "{}", r.text);
+	assert_match(warned[0], &format!(r"^test\.guide:{}: `talk` in an `along` step", line_of(&text, "talk 197")));
+}
+
 const HDR: [&str; 6] = ["guide mini/a", "title A", "faction Alliance", "levels 1-10", "zone Elwynn Forest", ""];
 
 fn pack(l: &[&str]) -> (Vec<V>, std::collections::BTreeMap<String, String>) {

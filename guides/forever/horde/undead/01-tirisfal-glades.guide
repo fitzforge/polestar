@@ -378,10 +378,6 @@ step Hadric Harlson
   accept 96897
   accept 96898
 
-step Decrepit Darkhound on the way
-  along until q96897
-  kill 1547 quest 96897.3
-
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way.
@@ -411,7 +407,6 @@ step Tirisfal Glades: kill these as you meet them
   label q96897
   zone Tirisfal Glades
   collect 278243 quest 97558.2
-  kill 1547 quest 96897.3 @68.4,57.8 map 1420
 
 step Deathguard Linnea's camp
   label q356

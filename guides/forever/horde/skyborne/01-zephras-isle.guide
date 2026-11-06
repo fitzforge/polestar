@@ -132,8 +132,8 @@ step Shen'dar Village
   accept 94411
 
 step Welcome to Shen'dar Village
-  kill 254089 quest 92514.2 @43.05,43.3 "Talk to Coriella Calmbreeze"
-  kill 251902 quest 92514.1 "Talk to Illaya Amberwind" @43.5,44.8 map 2521 live
+  talk 254089 quest 92514.2 @43.05,43.3
+  talk 251902 quest 92514.1 @43.5,44.8 map 2521 live
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 93951                        -- Taleen Shimmerthread
@@ -286,7 +286,7 @@ step Nyalah and Alvarion
   tip Nyalah Brightfire waits inside a house on Valanaar's western edge; Alvarion Windfield is close by.
   sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                        -- Alvarion Windfield
-  kill 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 94978 only Hunter            -- Quel'ana Quickgale, a few steps west of Nyalah: Taming the Beast, the first rod
   accept 93317                        -- Nyalah Brightfire, inside
 
@@ -294,14 +294,14 @@ step Riaani Nightwind
   tip Riaani stands in the Gustberry Lowlands just north-west of town.
   turnin 93735
   accept 93737
-  kill 256083 quest 93737.1 "Listen to Riaani Nightwind"
+  talk 256083 quest 93737.1 "Listen to Riaani Nightwind"
   accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
 
 # ---------------------------------------------------------------- Windfield Orchard
 
 step Windfield Orchard
   tip Windfield Orchard is west of Valanaar along the coast road.
-  kill 252800 quest 92679.1 @46.7,81.95 "Talk to Aamelia Windfield"
+  talk 252800 quest 92679.1 @46.7,81.95
   turnin 92679                        -- Aamelia Windfield
   accept 92682
   accept 92683
@@ -348,7 +348,7 @@ step Enchanted Gyrozephyr
 step Standing Our Ground
   turnin 92685                        -- Aamelia Windfield
   accept 92693
-  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
+  talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
   accept 92703
@@ -480,10 +480,9 @@ step Unfortunate News
   accept 92640
 
 step Desperate Times
-  kill 252383 quest 92640.1 "Talk to Valennia Stormfist" -- Upstairs
-  kill 251968 quest 92640.2 "Talk to Ayessa Dawnsinger"
-  talk 252475                         -- Elaadrin Evengale
-  complete 92640 @66.59,79.92
+  talk 252383 quest 92640.1 -- Upstairs
+  talk 251968 quest 92640.2
+  talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065
 
@@ -533,7 +532,7 @@ step The Al'Aketh camp
   accept 93165                        -- Vayn Moongaze
   collect 265475 quest 94488.1
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
-  kill 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
+  talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
   collect 258771 quest 93165.1
   turnin 93165
   collect 265476 optional
@@ -578,7 +577,7 @@ step The Shrine of Akir
   kill 252762 quest 92947.1 @64.0,52.1 map 2521 live
   kill 252763 quest 92947.2 @63.0,50.3 map 2521 live
   kill 252765 quest 92947.3 @62.9,50.3 map 2521 live
-  kill 253576 quest 92947.4 @63.77,50.51 "Talk to Hyusaa Quickbreeze"
+  talk 253576 quest 92947.4 @63.77,50.51
   turnin 92947                        -- Hyusaa Quickbreeze
   accept 93958
   turnin 93958                        -- Valennia Stormfist, upstairs

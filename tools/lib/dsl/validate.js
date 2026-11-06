@@ -44,7 +44,7 @@ function levelAt(xp) {
 	return l;
 }
 
-const OBJECTIVE_VERBS = new Set(['kill', 'collect', 'interact', 'use']);
+const OBJECTIVE_VERBS = new Set(['kill', 'collect', 'interact', 'use', 'talk']);
 
 function guideLayer(g) {
 	return { factions: g.faction ? [g.faction] : null, races: g.races || null, classes: g.classes || null };
@@ -286,7 +286,7 @@ function placed(data, kind, id) {
 
 // The objectives of quest `id` that have a place to point at, as `7.1 = kill …` labels.
 function placedObjectives(data, id) {
-	const KIND = { kill: 'npc', object: 'object', item: 'item' };
+	const KIND = { kill: 'npc', talk: 'npc', object: 'object', item: 'item' };
 	return data
 		.questObjectives(id)
 		.filter((o) => KIND[o.kind] && o.id != null && placed(data, KIND[o.kind], o.id))

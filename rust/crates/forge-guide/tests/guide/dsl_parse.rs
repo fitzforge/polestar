@@ -280,3 +280,13 @@ fn folder_and_keywords_the_folder_is_the_rest_of_the_line_keywords_split_on_comm
 	assert_eq!(warnings.len(), 1);
 	assert!(warnings[0].starts_with(&format!("{}: `keywords` lists \"pinto bridle\" twice", line_of(&text, "keywords Pinto Bridle, chestnut mare,pinto bridle"))), "{}", warnings[0]);
 }
+
+#[test]
+fn talk_takes_quest_q_or_q_o_like_kill_with_its_name_and_gossip() {
+	let (ast, errors, warnings) = parse3(&guide_text(&["step S", "  talk 823 quest 7.2", "  talk 197 \"Marshal McBride\" quest 7 gossip 1", "  talk 295"]));
+	assert!(errors.is_empty() && warnings.is_empty(), "{errors:?} {warnings:?}");
+	let g = goals(&ast);
+	assert_eq!(json!([g[0]["verb"], g[0]["npc"], g[0]["quest"], g[0]["oi"]]), json!(["talk", 823, 7, 2]));
+	assert_eq!(json!([g[1]["npc"], g[1]["npcName"], g[1]["quest"], g[1].get("oi")]), json!([197, "Marshal McBride", 7, null]));
+	assert!(g[2].get("quest").is_none());
+}
