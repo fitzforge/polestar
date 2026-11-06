@@ -125,6 +125,11 @@ local texts = {} -- every string the window draws, for transparent-mode outlines
 local chrome = {} -- frames that hide in transparent mode until hovered
 
 local function Engine() return ns.Engine end
+-- Step i as this character counts it (Engine.StepNumber): no gaps for steps of another class.
+local function stepNum(i)
+	local E = Engine()
+	return E and E.StepNumber and (E.StepNumber(i)) or i
+end
 local function compact() return ns.Get("ui.compact") and true or false end
 local function transparent() return ns.Get("ui.style") == "transparent" end
 
@@ -1412,9 +1417,10 @@ function GF.ShowOverview(anchor)
 	for i = math.max(1, at - OVERVIEW_BEFORE), math.min(count, at + OVERVIEW_AFTER) do
 		local v = E.GetStepView(i)
 		if v and v.status ~= "na" then
-			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], i)
+			local num = stepNum(i)
+			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], num)
 			items[#items + 1] = {
-				text = i .. "  " .. title,
+				text = num .. "  " .. title,
 				icon = i == live and "chevron-right" or nil,
 				checked = v.status == "done" or nil,
 				color = (v.status == "done" or v.status == "skipped") and "textMuted" or (i == at and "accent" or nil),
@@ -1531,7 +1537,7 @@ function GF.LayoutBanner(width)
 		banner.Close:Hide()
 	elseif kind == "stepSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
-		local what = string.format(L["Step %d"], n.step)
+		local what = string.format(L["Step %d"], stepNum(n.step))
 		if n.title and n.title ~= "" then what = what .. "  \194\183  " .. n.title end
 		banner.Text:SetText(string.format(L["Skipped %s"], what))
 		placeLink(banner.Jump, L["Undo"], 0, -4)
@@ -1542,9 +1548,10 @@ function GF.LayoutBanner(width)
 			banner.Text:SetText(L["You skipped this step."])
 			placeLink(banner.Jump, L["Unskip it"], 0, -4)
 		else
+			local live = stepNum(n.live)
 			banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
-				or L["Looking back. The guide is at step %d."], n.live))
-			placeLink(banner.Jump, string.format(L["Back to step %d"], n.live), 0, -4)
+				or L["Looking back. The guide is at step %d."], live))
+			placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 		end
 		banner.Close:Show()
 	elseif kind == "trip" then
@@ -2345,12 +2352,13 @@ end
 
 local function navigatorFor(guide, index)
 	local E = Engine()
-	local count = guide and E.GetStepCount and E.GetStepCount() or 0
+	local num, count = index, guide and E.GetStepCount and E.GetStepCount() or 0
+	if guide and E.StepNumber then num, count = E.StepNumber(index) end
 	if guide then
 		-- While the catch-up shows the guides passed whole, the count and title
 		-- are its (GF.PlayCatchUp).
 		if GF.catchingUp ~= "guides" then
-			nav.Steps.Count:SetText(string.format("%d / %d", index or count, count))
+			nav.Steps.Count:SetText(string.format("%d / %d", num or count, count))
 			nav.Title:SetText(guide.title or guide.id)
 		end
 		nav.psMeta = UI.GuideMeta(guide)
@@ -2398,7 +2406,7 @@ local function fillUpcoming(E, index)
 				if gv.pinOpen then warn = warn == true or gv.pinOpen end
 			end
 			if warn then r.psSummary = r.psSummary .. " (" .. (warn == "along" and L["still open"] or L["pinned, still open"]) .. ")" end
-			r.Num:SetText(i)
+			r.Num:SetText(stepNum(i))
 			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 			r.Text:SetText(r.psSummary)
 			W.Color(r.Text, warn and "warning" or "textDim")
@@ -4222,8 +4230,9 @@ function GF.PaceText()
 	local pace = Lv and Lv.Pace and Lv.Pace()
 	if not pace then return nil end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
-	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, pace.step) end
-	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, pace.step)
+	local step = stepNum(pace.step)
+	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, step) end
+	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, step)
 end
 
 -- XP pace from the QoL tracker and the route's pace (GF.PaceText). Hidden

@@ -72,6 +72,30 @@ function Guides.Matches(only, player)
 		and listMatches(only.factions, player.faction)
 end
 
+-- The step numbers a character sees. Only the steps for it (`only`) count,
+-- so a step for another class or race leaves no gap: step 15 is followed by
+-- step 16, not 19. `when` does not count, since it can change during play and
+-- a number must not move under the player. The step's index in the guide
+-- stays its identity everywhere else (saved state, skipto, bug reports).
+-- -> number of step i (nil for a step not for the character), total
+local numbering = setmetatable({}, { __mode = "k" })
+function Guides.StepNumber(g, i, player)
+	if type(g) ~= "table" or type(g.steps) ~= "table" or type(player) ~= "table" then return nil, 0 end
+	local key = tostring(player.class) .. "|" .. tostring(player.race) .. "|" .. tostring(player.faction)
+	local n = numbering[g]
+	if not (n and n.key == key and n.steps == g.steps) then
+		n = { key = key, steps = g.steps, at = {}, total = 0 }
+		for s, step in ipairs(g.steps) do
+			if Guides.Matches(step.only, player) then
+				n.total = n.total + 1
+				n.at[s] = n.total
+			end
+		end
+		numbering[g] = n
+	end
+	return n.at[i], n.total
+end
+
 local function guideMatches(g, player)
 	if g.faction and player.faction and g.faction:lower() ~= player.faction:lower() then return false end
 	return listMatches(g.races, player.race, normRace) and listMatches(g.classes, player.class)

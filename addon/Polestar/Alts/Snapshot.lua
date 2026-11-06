@@ -103,7 +103,7 @@ local function tabList()
 	local out = {}
 	for i = 1, min(#list, MAX_TABS) do
 		local t = list[i]
-		out[i] = { id = t.guideId, title = t.title, step = t.stepIndex, count = t.stepCount, complete = t.complete or nil }
+		out[i] = { id = t.guideId, title = t.title, step = t.stepNumber or t.stepIndex, count = t.stepTotal or t.stepCount, complete = t.complete or nil }
 	end
 	if #out == 0 then return nil end
 	return out, active

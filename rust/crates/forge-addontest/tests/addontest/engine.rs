@@ -201,6 +201,35 @@ fn an_alt_with_quests_already_done_starts_at_the_first_step_that_is_not_done() {
 	);
 }
 
+// The step numbers a character sees count only its own steps: Northshire's Warrior and Mage training
+// steps (4 and 5) leave no gap, so a Mage goes from step 3 to step 4 (index 5) and the guide has 5 steps
+// for each class, not 6. The index stays the step's identity (GetStepIndex, GetStepCount).
+#[test]
+fn step_numbers_count_only_the_steps_for_this_character_so_another_class_s_step_leaves_no_gap() {
+	let numbers = |before: &str| {
+		run1(Run {
+			before,
+			script: r#"
+				local n, totals = {}, {}
+				for i = 1, E.GetStepCount() do n[i], totals[i] = E.StepNumber(i) end
+				local tabs = E.GetTabs()
+				emit({ numbers = n, total = totals[1], count = E.GetStepCount(), tab = { tabs[1].stepNumber, tabs[1].stepTotal } })
+			"#,
+			..Default::default()
+		})
+	};
+	assert_eq!(
+		numbers(r#"w.complete({ 783 }); w.onQuest(7, { { required = 10, fulfilled = 10 } })"#),
+		json!({ "numbers": [1, 2, 3, 4, 5, 5], "total": 5, "count": 6, "tab": [4, 5] }),
+		"a Warrior: the Mage step keeps its index, the last step is 5 of 5"
+	);
+	assert_eq!(
+		numbers(r#"w.class = "MAGE"; w.className = "Mage"; w.complete({ 783 }); w.onQuest(7, { { required = 10, fulfilled = 10 } })"#),
+		json!({ "numbers": [1, 2, 3, 4, 4, 5], "total": 5, "count": 6, "tab": [4, 5] }),
+		"a Mage on its training step (index 5) sees step 4 of 5"
+	);
+}
+
 #[test]
 fn only_on_steps_and_goals_filters_by_class_and_race() {
 	let out = run1(Run {
@@ -1514,7 +1543,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out["status"], json!(["|cff4fd1c5Polestar|r: Northshire Valley: step 3 of 6 (2/5 done)", "  [ ] Go to Kobold camp", "  [ ] Kill Kobold Vermin (4/10)"]));
+	assert_eq!(out["status"], json!(["|cff4fd1c5Polestar|r: Northshire Valley: step 3 of 5 (2/5 done)", "  [ ] Go to Kobold camp", "  [ ] Kill Kobold Vermin (4/10)"]));
 	assert_eq!(out["afterSkip"], 4);
 	assert_eq!(out["afterPrev"], 3);
 	assert_eq!(out["exact"], "test/02-elwynn");

@@ -299,7 +299,7 @@ local function layout(m)
 	elseif m.complete then
 		W.SetButtonText(F.Later, L["Not now"])
 	else
-		W.SetButtonText(F.Later, format(L["Back to step %d"], m.live))
+		W.SetButtonText(F.Later, format(L["Back to step %d"], ns.Engine and ns.Engine.StepNumber and ns.Engine.StepNumber(m.live) or m.live))
 	end
 	F:SetHeight(floor(y + PAD + FOOT_H + 0.5))
 	if W.LayoutRim then W.LayoutRim(F) end

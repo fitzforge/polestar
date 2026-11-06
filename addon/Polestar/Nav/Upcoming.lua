@@ -43,8 +43,9 @@ function Upcoming.Build()
 			n = n + 1
 			for _, gv in ipairs(v.goals or {}) do
 				if gv.map and gv.x and gv.y and (gv.status == "active" or gv.status == "pending") then
-					local title = (v.title and v.title ~= "") and v.title or L["Step %d"]:format(s)
-					local line = L["Step %d"]:format(s) .. ": " .. title
+					local label = L["Step %d"]:format(E.StepNumber and (E.StepNumber(s)) or s)
+					local title = (v.title and v.title ~= "") and v.title or label
+					local line = label .. ": " .. title
 					local shared
 					for _, p in ipairs(pins) do
 						if p.map == gv.map and math.abs(p.x - gv.x) < NEAR and math.abs(p.y - gv.y) < NEAR then shared = p break end

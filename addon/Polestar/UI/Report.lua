@@ -121,14 +121,18 @@ local function character()
 end
 
 -- The guide on screen, its title as it reads, its step count and the step
--- on screen: its index and its view, nil past the last step.
+-- on screen: its index and its view, nil past the last step; with the
+-- number and count this character sees (Engine.StepNumber).
 local function onScreen()
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
 	if not guide then return {} end
 	local index = E.GetStepIndex and E.GetStepIndex()
+	local count = E.GetStepCount and E.GetStepCount() or 0
+	local number, total = index, count
+	if E.StepNumber then number, total = E.StepNumber(index) end
 	return { guide = guide, title = plain(guide.title or guide.id), index = index,
-		view = index and E.GetStepView and E.GetStepView(index), count = E.GetStepCount and E.GetStepCount() or 0 }
+		view = index and E.GetStepView and E.GetStepView(index), count = count, number = number, total = total }
 end
 
 -- "Step 3 of 8 · Kobold Camp · Elwynn Forest": what the report is about.
@@ -136,7 +140,7 @@ local function context(on)
 	if not on.guide then return L["No guide open"] end
 	local parts = {}
 	if on.view then
-		parts[#parts + 1] = (L["Step %d of %d"]):format(on.index, on.count)
+		parts[#parts + 1] = (L["Step %d of %d"]):format(on.number or on.index, on.total or on.count)
 		if on.view.title and on.view.title ~= "" then parts[#parts + 1] = plain(on.view.title) end
 	end
 	parts[#parts + 1] = on.title
@@ -159,6 +163,8 @@ local function guideLines(d, on)
 		return
 	end
 	local step = (L["Step %d of %d: %s"]):format(index, on.count, plain(view.title or ""))
+	-- The index finds the step in the guide; the player saw its own number.
+	if on.number and on.number ~= index then step = step .. SEP .. (L["shown as step %d of %d"]):format(on.number, on.total) end
 	if view.skipped then step = step .. SEP .. L["skipped"] end
 	local live = E.GetLiveStep and E.GetLiveStep()
 	if live and live ~= index then

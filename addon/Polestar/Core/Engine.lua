@@ -3585,6 +3585,9 @@ function Engine.GetTabs()
 			guideId = g.id, title = g.title, category = g.category or "Leveling",
 			stepIndex = t.current, stepCount = #g.steps, done = done, total = total, complete = t.computed == nil,
 		}
+		-- The numbers the tab shows: this character's (Engine.StepNumber).
+		local n, own = Guides.StepNumber(g, t.current, player)
+		out[i].stepNumber, out[i].stepTotal = n or t.current, own
 	end
 	useActive()
 	return out, activeIndex
@@ -5328,6 +5331,16 @@ end
 function Engine.GetStepIndex() return current end
 
 function Engine.GetStepCount() return guide and #guide.steps or 0 end
+
+-- Step i as this character counts it, and how many steps it has: only the
+-- steps for it count (Guides.StepNumber), so a step for another class leaves
+-- no gap. A step not for it (or no step) keeps its index. -> number, total
+function Engine.StepNumber(i)
+	if not guide then return i, 0 end
+	if not player then refreshPlayer() end
+	local n, total = Guides.StepNumber(guide, i, player)
+	return n or i, total
+end
 
 function Engine.GetStepView(i)
 	if not guide or type(i) ~= "number" then return nil end

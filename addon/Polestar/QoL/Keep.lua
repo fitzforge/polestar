@@ -56,6 +56,8 @@ end
 function QoL.KeptLine(itemID)
 	local s = QoL.Kept(itemID)
 	if not s then return nil end
+	local E = ns.Engine
+	if E and E.StepNumber then s = E.StepNumber(s) end
 	if atMerchant then return format(L["Don't sell: the guide needs it at step %d"], s), color("warning", 1, 0.6, 0.25) end
 	return format(L["Kept for the guide: step %d needs it"], s), color("accent", 1, 0.82, 0)
 end

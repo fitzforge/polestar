@@ -75,7 +75,7 @@ local function build(active)
 					if goal.t == "turnin" and goal.quest and G.Matches(goal.only, player) then
 						local entries = index[goal.quest] or {}
 						index[goal.quest] = entries
-						entries[#entries + 1] = { guide = g.id, title = g.title, step = si, goal = gi,
+						entries[#entries + 1] = { guide = g.id, title = g.title, step = si, number = (G.StepNumber(g, si, player)), goal = gi,
 							chapter = chapter, optional = goal.optional or step.optional or false }
 					end
 				end
@@ -122,7 +122,7 @@ end
 
 function Plan.Describe(result)
 	local r = result or { status = "noGuide" }
-	local where = r.step and L["step %d"]:format(r.step) or ""
+	local where = r.step and L["step %d"]:format(r.number or r.step) or ""
 	local active = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
 	if r.guide and (not active or active.id ~= r.guide) then where = L["%s · %s"]:format(r.title or r.guide, where) end
 	local text

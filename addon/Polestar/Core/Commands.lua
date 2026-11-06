@@ -106,7 +106,8 @@ ns.RegisterCommand("status", function()
 		return
 	end
 	local view = Engine.GetStepView(i)
-	ns.Print((L["%s: step %d of %d (%d/%d done)"]):format(g.title, i, Engine.GetStepCount(), done, total))
+	local n, count = Engine.StepNumber(i)
+	ns.Print((L["%s: step %d of %d (%d/%d done)"]):format(g.title, n, count, done, total))
 	for _, goal in ipairs(view.goals) do
 		if goal.status ~= "na" then
 			local mark = goal.status == "done" and "|cff4fd1c5[x]|r " or "[ ] "
@@ -125,7 +126,7 @@ ns.RegisterCommand("tabs", function()
 	ns.Print(L["Open guides:"])
 	for i, t in ipairs(list) do
 		local mark = i == active and "|cff4fd1c5>|r " or "  "
-		local state = t.complete and L["complete"] or (L["step %d of %d"]):format(t.stepIndex or 0, t.stepCount)
+		local state = t.complete and L["complete"] or (L["step %d of %d"]):format(t.stepNumber or 0, t.stepTotal or 0)
 		DEFAULT_CHAT_FRAME:AddMessage(("%s%d. %s  |cff8a8f98%s|r"):format(mark, i, t.title, state))
 	end
 end, L["List the open guide tabs"])
