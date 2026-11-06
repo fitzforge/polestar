@@ -408,6 +408,14 @@ function Compat.IsQuestTrivial(qlvl, level)
 	return qlvl <= greyLevel(level)
 end
 
+-- A quest's level as the game shows it (the "[12]" before its title in the
+-- log: C_QuestLog.GetQuestDifficultyLevel), or nil when the client can't say.
+function Compat.GetQuestLevel(questID)
+	local QL = C_QuestLog
+	local level = QL and QL.GetQuestDifficultyLevel and Compat.Readable(QL.GetQuestDifficultyLevel(questID))
+	return type(level) == "number" and level > 0 and level or nil
+end
+
 -- includeBank: the bank's too (a key left there still counts as owned).
 function Compat.GetItemCount(itemID, includeBank)
 	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount

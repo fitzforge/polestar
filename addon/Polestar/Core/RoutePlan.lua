@@ -151,23 +151,36 @@ end
 
 local NEVER = { missed = true, skipped = true, unplanned = true }
 
--- The quests in the log the route never hands in: { { quest, title, status
--- = "missed" | "skipped" | "unplanned" }, ... } in log order; nil while the
--- plan cannot say (no guide, a route choice to make, a guide not loaded).
+-- Grey for the character now: no experience any more (Compat.IsQuestTrivial,
+-- as Skip grey quests reads it).
+local function grey(C, q, level)
+	local qlvl = level and C.GetQuestLevel and C.GetQuestLevel(q)
+	return qlvl and C.IsQuestTrivial(qlvl, level) or false
+end
+
+-- The quests in the log the route doesn't need: { { quest, title, status
+-- = "missed" | "skipped" | "unplanned" | "grey" }, ... } in log order; nil
+-- while the plan cannot say (no guide, a route choice to make, a guide not
+-- loaded). Those it never hands in, and the grey ones it doesn't hand in
+-- in this chapter (one it does is still worth its reward or its chain);
+-- "grey" wins over the other three.
 function Plan.Unneeded()
 	local C, out = ns.Compat, {}
+	local level = (C.GetPlayerInfo() or {}).level
 	for _, q in ipairs(C.GetLogQuests() or {}) do
 		local r = Plan.GetTurnIn(q)
 		if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
-		if NEVER[r.status] then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status } end
+		local status = r.status
+		if (NEVER[status] or status == "later") and grey(C, q, level) then status = "grey" end
+		if NEVER[status] or status == "grey" then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
 	end
 	return out
 end
 
 -- The live step's open accepts would not fit in the log: { take = accepts
 -- open, free = room left, drop = { { quest, title }, ... } }, else nil. drop
--- names enough quests to make room: the ones the route never hands in, then
--- the ones it hands in last, never one the live step needs.
+-- names enough quests to make room: the ones the route doesn't need
+-- (Unneeded), then the ones it hands in last, never one the live step needs.
 function Plan.LogOverflow()
 	local E, C = ns.Engine, ns.Compat
 	local live = E and E.GetLiveStep and E.GetLiveStep()
@@ -183,8 +196,13 @@ function Plan.LogOverflow()
 	local free = (C.GetLogCap() or 40) - #log
 	if take <= free then return nil end
 	local drop, want = {}, take - math.max(free, 0)
+	-- here: the live step's quests, then each one named, so a grey quest
+	-- handed in later (Unneeded lists it) is not named twice.
 	for _, u in ipairs(Plan.Unneeded() or {}) do
-		if #drop < want and not here[u.quest] then drop[#drop + 1] = { quest = u.quest, title = u.title } end
+		if #drop < want and not here[u.quest] then
+			drop[#drop + 1] = { quest = u.quest, title = u.title }
+			here[u.quest] = true
+		end
 	end
 	if #drop < want then
 		local later = {}

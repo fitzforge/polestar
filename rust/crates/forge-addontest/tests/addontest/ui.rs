@@ -1258,6 +1258,37 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	assert_eq!(out["pickerAfter"], false, "one dialog at a time");
 }
 
+#[test]
+fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_is_nothing_to_clean() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local list = { { quest = 77, title = "Stray", status = "unplanned" }, { quest = 78, title = "Old", status = "grey" } }
+		Polestar.RoutePlan.Unneeded = function() return list end
+		local function items()
+			GF.menuButton:Click()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			GF.menuButton:Click()
+			return out
+		end
+		local two = items()
+		local before = PolestarQuestRoom and PolestarQuestRoom:IsShown() or false
+		menuPick("Clean up quest log (2)")
+		local opened = PolestarQuestRoom and PolestarQuestRoom:IsShown() or false
+		PolestarQuestRoom:Hide()
+		list = {}
+		local none = items()
+		Polestar.RoutePlan.Unneeded = function() return nil end
+		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
+	.remove(0);
+	assert_eq!(out["two"][4], "Clean up quest log (2)", "right after Report a problem");
+	assert_eq!(out["before"], false);
+	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
+	for key in ["none", "unsettled"] {
+		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no entry with nothing to list");
+	}
+}
+
 // The catch-up (GUIDE_PLACED, fired for a guide just opened): the window shows each step before the one placed
 // in turn, in full, then that one; not for a single step. The Engine's step never moves.
 #[test]

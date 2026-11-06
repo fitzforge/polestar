@@ -2821,7 +2821,11 @@ L["No names here yet."] = "아직 이름이 없습니다."
 -- L["Abandon it from your quest log."] = ""
 -- L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = ""
 -- L["The route hands in every quest in your log."] = ""
--- L["The route never hands these in. Abandon asks in the game's own window first."] = ""
+L["Clean up quest log (%d)"] = "퀘스트 목록 정리 (%d)"
+L["Clean up quest log"] = "퀘스트 목록 정리"
+L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "퀘스트 목록에서 경로에 필요 없는 퀘스트를 보여 줍니다: 경로가 완료하지 않는 퀘스트와 더 이상 경험치를 주지 않는 회색 퀘스트입니다. 각각 먼저 확인하는 포기 버튼이 있습니다. 그런 퀘스트가 있는 동안 가이드 창 메뉴에도 나타납니다."
 
 -- UI/ClassCard.lua
 -- L["NEW ABILITY"] = ""

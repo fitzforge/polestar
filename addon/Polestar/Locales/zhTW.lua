@@ -2821,7 +2821,11 @@ L["No names here yet."] = "尚無名單。"
 -- L["Abandon it from your quest log."] = ""
 -- L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = ""
 -- L["The route hands in every quest in your log."] = ""
--- L["The route never hands these in. Abandon asks in the game's own window first."] = ""
+L["Clean up quest log (%d)"] = "清理任務日誌 (%d)"
+L["Clean up quest log"] = "清理任務日誌"
+L["Grey: no XP any more"] = "灰色：不再給予經驗值"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "列出任務日誌中路線不需要的任務：它從不交付的，以及不再給予經驗值的灰色任務。每個都有一個會先確認的放棄按鈕。只要有這樣的任務，指南視窗的選單裡也有此項。"
 
 -- UI/ClassCard.lua
 -- L["NEW ABILITY"] = ""

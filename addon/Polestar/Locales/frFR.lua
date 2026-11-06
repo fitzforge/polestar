@@ -2822,7 +2822,11 @@ L["Make room in your quest log"] = "Faire de la place dans le journal des quête
 L["Abandon it from your quest log."] = "Abandonnez-la depuis votre journal des quêtes."
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "L'itinéraire à venir n'est pas encore fixé (un guide à choisir ou à charger) : impossible de dire quelles quêtes il laisse de côté."
 L["The route hands in every quest in your log."] = "L'itinéraire rend toutes les quêtes de votre journal."
-L["The route never hands these in. Abandon asks in the game's own window first."] = "L'itinéraire ne rend jamais celles-ci. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
+L["Clean up quest log (%d)"] = "Nettoyer le journal des quêtes (%d)"
+L["Clean up quest log"] = "Nettoyer le journal des quêtes"
+L["Grey: no XP any more"] = "Grise : plus d'XP"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Liste les quêtes de votre journal dont l'itinéraire n'a pas besoin : celles qu'il ne rend jamais, et les grises qui ne donnent plus d'XP. Chacune a un bouton Abandonner qui demande d'abord confirmation. Le menu de la fenêtre du guide le propose aussi tant qu'il y en a."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOUVELLE TECHNIQUE"

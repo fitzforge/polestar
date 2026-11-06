@@ -1246,6 +1246,22 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_experience() {
 	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers", "section": "Experience" } }));
 }
 
+#[test]
+fn options_open_the_quest_log_cleanup_from_tooltips_and_quest_log() {
+	let out = run(r#"
+		local found, asked
+		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
+			for _, c in ipairs(spec.controls) do
+				if c.kind == "button" and c.label == "Clean up quest log" then found = { page = spec.page, tab = spec.tab, section = spec.section, c = c } end
+			end
+		end
+		Polestar.On("SHOW_QUEST_ROOM", function() asked = true end)
+		if found then found.c.onClick(); found.c = nil end
+		emit({ where = found or "none", asked = asked or false })
+	"#);
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Tooltips and quest log" }, "asked": true }));
+}
+
 // ---------------------------------------------------------------------------
 // Merchant
 // ---------------------------------------------------------------------------

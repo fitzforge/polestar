@@ -154,6 +154,9 @@ register(QUESTING, L["Quests"], L["Faster questing"], {
 
 register(QUESTING, L["Quests"], L["Tooltips and quest log"], {
 	C.hideQuestTracker(),
+	{ kind = "button", button = L["Show"], label = L["Clean up quest log"],
+		help = L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."],
+		onClick = function() ns.Fire("SHOW_QUEST_ROOM") end },
 })
 
 register(QOL, L["Quests"], L["Faster questing"], { C.autoAccept(), C.autoTurnin(), C.instantQuestText(), C.skipGossip(), C.fastLoot(), C.hideErrors() })
