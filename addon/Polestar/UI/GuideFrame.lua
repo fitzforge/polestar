@@ -1127,12 +1127,15 @@ end
 
 -- A tab's label: the title, then its level range in a dimmer string. The
 -- range tells same-named guides apart, so it keeps its width and the title
--- truncates; `pad` is the room kept at the right (more while the close button
--- shows). Too narrow for even the range, the tab is its glyph alone.
+-- truncates, clear of the close button at the right (TAB_CLOSE_PAD).
+-- Too narrow for even the range, the tab is its glyph alone.
 local TAB_TEXT_X = 27 -- the label's left edge: the glyph's inset, width and gap
 local TAB_RANGE_GAP = 4
-local function layoutTab(b, pad)
-	local room = b:GetWidth() - TAB_TEXT_X - pad
+local TAB_CLOSE_PAD = 20
+-- The close button at rest: faint, so players find it; in full under the pointer.
+local TAB_CLOSE_REST = 0.35
+local function layoutTab(b)
+	local room = b:GetWidth() - TAB_TEXT_X - TAB_CLOSE_PAD
 	local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
 	local fits = rangeW <= room
 	local titleW = fits and min(b.psTitleW, room - rangeW) or 0
@@ -1179,9 +1182,9 @@ local function tabButton(i)
 		if E and E.CloseTab then E.CloseTab(self:GetParent().psIndex) end
 	end, 9)
 	b.Close:SetPoint("RIGHT", b, "RIGHT", -3, 0)
-	b.Close:SetAlpha(0)
+	b.Close:SetAlpha(TAB_CLOSE_REST)
 	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
-	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(0) end end
+	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end
 	b:SetScript("OnClick", function(self, button)
 		local E = Engine()
 		if not E then return end
@@ -1191,7 +1194,6 @@ local function tabButton(i)
 	end)
 	b:SetScript("OnEnter", function(self)
 		self.Close:SetAlpha(1)
-		layoutTab(self, 20)
 		local lines = {}
 		if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
 		if self.psProgress then lines[#lines + 1] = self.psProgress end
@@ -1200,8 +1202,7 @@ local function tabButton(i)
 		GF.HoverIn()
 	end)
 	b:SetScript("OnLeave", function(self)
-		self.Close:SetAlpha(0)
-		layoutTab(self, 8)
+		if not self.Close:IsMouseOver() then self.Close:SetAlpha(TAB_CLOSE_REST) end
 		W.HideTooltip(self)
 	end)
 	tabButtons[i] = b
@@ -1255,7 +1256,7 @@ function GF.RenderTabs()
 		GF.PaintTab(b)
 		local w = b.psActive and activeW or otherW
 		b:SetWidth(w)
-		layoutTab(b, b:IsMouseOver() and 20 or 8)
+		layoutTab(b)
 		b:ClearAllPoints()
 		b:SetPoint("BOTTOMLEFT", strip, "BOTTOMLEFT", x, 0)
 		x = x + w

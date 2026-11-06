@@ -892,6 +892,35 @@ fn a_tab_s_right_click_menu_has_choose_guide_it_makes_that_tab_active_and_opens_
 	assert_eq!(out["newTab"], false, "the picked guide replaces the tab's guide instead of opening another tab");
 }
 
+// A player on Discord asked how to close a guide tab: the strip's close button was invisible until hovered. It shows
+// faintly at rest, in full under the pointer, and still closes its tab.
+#[test]
+fn a_tab_s_close_button_shows_faintly_at_rest_and_in_full_under_the_pointer() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local b = shownTabs()[2]
+		local r = { rest = b.Close:GetAlpha(), shown = b.Close:IsShown() }
+		stub.RunScript(b, "OnEnter")
+		r.hover = b.Close:GetAlpha()
+		stub.RunScript(b, "OnLeave")
+		r.left = b.Close:GetAlpha()
+		stub.RunScript(b.Close, "OnEnter")
+		r.overButton = b.Close:GetAlpha()
+		stub.RunScript(b.Close, "OnLeave")
+		r.offButton = b.Close:GetAlpha()
+		b.Close:Click()
+		r.call = lastCall("CloseTab")
+		emit(r)"#)
+	.remove(0);
+	assert_eq!(out["shown"], true);
+	assert!(f(&out["rest"]) > 0.2 && f(&out["rest"]) < 0.6, "faint at rest: {}", out["rest"]);
+	assert_eq!(out["hover"], 1.0);
+	assert_eq!(out["left"], out["rest"]);
+	assert_eq!(out["overButton"], 1.0);
+	assert_eq!(out["offButton"], out["rest"]);
+	assert_eq!(out["call"], json!(["CloseTab", 2]));
+}
+
 #[test]
 fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_the_close_button_shown() {
 	let out = run(r#"
@@ -910,7 +939,8 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 		stub.RunScript(b, "OnLeave")
 		emit({ rest = rest, hover = hover, after = measure() })"#)
 	.remove(0);
-	for (state, pad) in [("rest", 8.0), ("hover", 20.0), ("after", 8.0)] {
+	// The close button shows at rest now (faintly), so the label clears it in every state.
+	for (state, pad) in [("rest", 20.0), ("hover", 20.0), ("after", 20.0)] {
 		let m = &out[state];
 		assert_eq!(m["range"], "(1–13)", "{state}");
 		assert_eq!(m["rangeWhole"], true, "{state}: the range is not cut");

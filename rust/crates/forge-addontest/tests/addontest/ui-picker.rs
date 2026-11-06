@@ -658,10 +658,134 @@ fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects
 	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 10 is within
 	// two levels of its follow-up (12).
 	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
-	assert_eq!(out["shown"], 3);
-	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"], ["Stormwind Reputation", "Step 2 of 2", "50%", "Tab 3"],]));
+	// One row of cards: three tabs leave the third behind "Show all (3)".
+	assert_eq!(out["shown"], 2);
+	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"],]));
 	assert_eq!(out["selected"], json!(["forever/professions/tailoring", "Tailoring 1-300", true]));
 	assert_eq!(out["continued"], json!([["SetGuide", "forever/professions/tailoring"], 2, false]));
+}
+
+// The Continue cards under a test's eye: the shown ones, in the order they are laid out (top to bottom, left to right).
+const CARDS: &str = r#"
+local function cards()
+	local out = {}
+	for _, f in ipairs(stub.frames) do
+		if f.psIndex and rawget(f, "Pct") and f:IsShown() and f:GetParent() == PolestarPicker.Scroll.Child then out[#out + 1] = f end
+	end
+	table.sort(out, function(a, b)
+		local _, _, _, ax, ay = a:GetPoint(1)
+		local _, _, _, bx, by = b:GetPoint(1)
+		if ay ~= by then return ay > by end
+		return ax < bx
+	end)
+	return out
+end
+local function cardTitles()
+	local out = {}
+	for i, c in ipairs(cards()) do out[i] = c.Title:GetText() .. " | " .. c.Note:GetText() end
+	return out
+end
+local function more() return PolestarPicker.CardsMore:IsShown() and PolestarPicker.CardsMore.Label:GetText() or false end
+local SIX = {}
+for i = 1, 6 do SIX[i] = { uistub.order[i], 1 } end
+"#;
+
+// A player on Discord asked how to close a guide tab: the strip's close button was invisible until hovered. Each
+// Continue card closes its tab with its own close button (on hover) or from its right-click menu; the list follows
+// at once.
+#[test]
+fn a_continue_card_closes_its_tab_from_its_close_button_or_its_right_click_menu_and_the_list_follows() {
+	let out = run(&format!(
+		"{CARDS}{}",
+		r#"
+		uistub.openTabs(TABS, 1)
+		UI.ShowPicker()
+		local c = cards()[2]
+		local r = { before = cardTitles(), rest = c.Close:GetAlpha() }
+		stub.RunScript(c, "OnEnter")
+		r.hover = c.Close:GetAlpha()
+		r.tip = GameTooltip.lines
+		stub.RunScript(c, "OnLeave")
+		r.left = c.Close:GetAlpha()
+		c.Close:Click()
+		r.closed = { lastCall("CloseTab"), cardTitles(), folders()[1], P.shown.cards }
+		-- Right-click: the tab's options, as on the guide window's tab strip.
+		stub.RunScript(cards()[1], "OnClick", "RightButton")
+		local items = {}
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() then items[#items + 1] = m.Text:GetText() end end
+		r.items = items
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Move right" then m:Click() end end
+		r.moved = lastCall("MoveTab")
+		stub.RunScript(cards()[1], "OnClick", "RightButton")
+		for _, m in ipairs(PolestarMenu.rows) do if m:IsShown() and m.Text:GetText() == "Close tab" then m:Click() end end
+		r.menuClosed = { lastCall("CloseTab"), cardTitles() }
+		emit(r)"#
+	));
+	assert_eq!(out["before"], json!(["Elwynn Forest | Tab 1", "Tailoring 1-300 | Tab 2"]));
+	assert_eq!(out["rest"], 0.0, "the card's close button waits for the pointer");
+	assert_eq!(out["hover"], 1.0);
+	assert!(out["tip"].to_string().contains("Right-click for tab options"), "{}", out["tip"]);
+	assert_eq!(out["left"], 0.0);
+	assert_eq!(out["closed"], json!([["CloseTab", 2], ["Elwynn Forest | Tab 1", "Stormwind Reputation | Tab 2"], "Continue 2", 2]));
+	assert_eq!(out["items"], json!(["Close tab", "Move left", "Move right"]));
+	assert_eq!(out["moved"], json!(["MoveTab", 1, 2]));
+	// Elwynn Forest moved to tab 2 and stays active, so it still leads; its menu closes tab 2.
+	assert_eq!(out["menuClosed"], json!([["CloseTab", 2], ["Stormwind Reputation | Tab 1"]]));
+}
+
+// With six tabs open Home shows one row of cards (two at the default width): the active tab, then the most recently
+// used; "Show all (6)" lays out every tab and stays so for the session.
+#[test]
+fn continue_shows_one_row_active_tab_then_most_recent_show_all_expands_and_is_remembered_for_the_session() {
+	let out = run(&format!(
+		"{CARDS}{}",
+		r#"
+		uistub.openTabs(SIX, 1)
+		Polestar.Fire("GUIDE_CHANGED", SIX[5][1])
+		Polestar.Fire("GUIDE_CHANGED", SIX[3][1])
+		Polestar.Fire("GUIDE_CHANGED", SIX[1][1])
+		UI.ShowPicker()
+		local r = { folder = folders()[1], row = cardTitles(), more = more() }
+		PolestarPicker.CardsMore:Click()
+		r.all = cardTitles()
+		r.less = more()
+		PolestarPicker:Hide()
+		UI.ShowPicker()
+		r.again = #cards()
+		PolestarPicker.CardsMore:Click()
+		r.back = { #cards(), more() }
+		emit(r)"#
+	));
+	assert_eq!(out["folder"], "Continue 6");
+	let titles: Vec<String> = out["row"].as_array().unwrap().iter().map(|t| text(t).to_string()).collect();
+	assert_eq!(titles.len(), 2, "{titles:?}");
+	assert!(titles[0].ends_with("| Tab 1"), "the active tab first: {titles:?}");
+	assert!(titles[1].ends_with("| Tab 3"), "then the one used last: {titles:?}");
+	assert_eq!(out["more"], "Show all (6)");
+	let all: Vec<String> = out["all"].as_array().unwrap().iter().map(|t| text(t).to_string()).collect();
+	let tabs: Vec<&str> = all.iter().map(|t| t.rsplit("| ").next().unwrap()).collect();
+	assert_eq!(tabs, ["Tab 1", "Tab 3", "Tab 5", "Tab 2", "Tab 4", "Tab 6"]);
+	assert_eq!(out["less"], "Show fewer");
+	assert_eq!(out["again"], 6, "the choice holds for the session");
+	assert_eq!(out["back"], json!([2, "Show all (6)"]));
+}
+
+// A wider guide menu (a skin's pickerW) fits more cards in its one row.
+#[test]
+fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
+	let out = run(&format!(
+		"{CARDS}{}",
+		r#"
+		local metric = Polestar.Theme.Metric
+		Polestar.Theme.Metric = function(key, default, ...)
+			if key == "pickerW" then return 1500 end
+			return metric(key, default, ...)
+		end
+		uistub.openTabs(SIX, 1)
+		UI.ShowPicker()
+		emit({ n = #cards(), more = more() })"#
+	));
+	assert_eq!(out, json!({ "n": 3, "more": "Show all (6)" }));
 }
 
 // "Suggested for you" always names the guide for the player's level, even when it is open; a follow-up only joins
