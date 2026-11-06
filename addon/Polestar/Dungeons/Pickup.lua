@@ -244,7 +244,7 @@ end
 
 local function acceptGoal(pq, rec, g)
 	local goal = { t = "accept", quest = pq.id, title = pq.title or (rec and rec.title),
-		map = g.map, x = g.x, y = g.y, f = g.f, minLevel = (rec and rec.minLevel) or pq.minLevel,
+		map = g.map, x = g.x, y = g.y, f = g.f == "e" and "e" or nil, minLevel = (rec and rec.minLevel) or pq.minLevel,
 		closedBy = type(pq.closedBy) == "table" and pq.closedBy or nil }
 	if g.kind == "object" then
 		goal.object, goal.objName = g.id, g.name
