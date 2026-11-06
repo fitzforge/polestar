@@ -3156,10 +3156,19 @@ end
 -- not reached (Own.awayStart), on its live step. An along goal the player
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
 -- a turn-in that is not ready, its quest's work in along steps (Own.alongAim).
+-- An along step never takes the arrow (#942: looked at, Darkshore's crabs
+-- sent the player to the nearest spawn far away): on one, the arrow is that
+-- of the stop the window's "Then:" names (Own.stopAfter), as if that step
+-- were looked at, and no choice made before leads.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
-	local goals = guide.steps[current].goals
-	if aim then
+	local s = current
+	if guide.steps[s].along then
+		s = Own.stopAfter(s)
+		if not s then return nil end
+	end
+	local goals = guide.steps[s].goals
+	if aim and s == current then
 		for g, goal in ipairs(goals) do
 			if goal == aim then
 				local wp = waypointOf(g, goal)
@@ -3170,23 +3179,23 @@ local function findWaypoint()
 		local wp = as and waypointOf(ag, aim, nil, as)
 		if wp then return wp end
 	end
-	local groups, focus = stepGroups(current)
+	local groups, focus = stepGroups(s)
 	local grp = focus and groups[focus]
 	if not grp then return nil end
-	local cg, header = Own.currentGoal(current, groups, focus)
+	local cg, header = Own.currentGoal(s, groups, focus)
 	if cg and goals[cg].t == "turnin" then
 		local wp = Own.alongAim(goals[cg].quest)
 		if wp then return wp end
 	end
-	local wp = cg and waypointOf(cg, goals[cg])
+	local wp = cg and waypointOf(cg, goals[cg], nil, s)
 	if wp then return wp end
-	wp = header and waypointOf(header, goals[header])
+	wp = header and waypointOf(header, goals[header], nil, s)
 	if wp then return wp end
 	for rank = 1, 3 do
 		for _, g in ipairs(grp.goals) do
 			local goal = goals[g]
 			if waypointRank(goal) == rank then
-				wp = waypointOf(g, goal)
+				wp = waypointOf(g, goal, nil, s)
 				if wp then return wp end
 			end
 		end
@@ -3199,11 +3208,21 @@ local function findWaypoint()
 	-- lead to the objective.
 	local quest = cg and goals[cg].quest
 	if quest then
-		if grp.map then return waypointOf(cg, goals[cg], grp) end
+		if grp.map then return waypointOf(cg, goals[cg], grp, s) end
 		for i = focus - 1, 1, -1 do
 			local before = groups[i]
-			if before.map and Own.dealsWith(before, goals, quest) then return waypointOf(cg, goals[cg], before) end
+			if before.map and Own.dealsWith(before, goals, quest) then return waypointOf(cg, goals[cg], before, s) end
 		end
+	end
+	return nil
+end
+
+-- The stop after step s: the next step that applies and is not along, the
+-- one the window's "Then:" names; nil when none is left.
+function Own.stopAfter(s)
+	for i = s + 1, #guide.steps do
+		local step = guide.steps[i]
+		if not step.along and stepApplies(step) then return i end
 	end
 	return nil
 end
@@ -5461,14 +5480,15 @@ function Engine.GetStepView(i)
 		}
 	end
 	-- `current`: the goal the window marks and the arrow leads to (the
-	-- current step only); `skipped`: the player skipped this step (Unskip);
+	-- current step only, never an along step: findWaypoint); `skipped`: the
+	-- player skipped this step (Unskip);
 	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua);
 	-- `alongUntil`: an `along until` step's labelled step; `why`: why the
 	-- step holds nothing for this character, one line (Own.stepWhy).
 	return {
 		index = i, title = step.title, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
-		current = status == "current" and (Own.currentGoal(i, groups, focus)) or nil,
+		current = status == "current" and not step.along and (Own.currentGoal(i, groups, focus)) or nil,
 		skipped = isSkipped(i), live = computed,
 		along = step.along, label = step.label,
 		alongUntil = type(step.along) == "string" and Own.marksOf().labels[step.along] or nil,

@@ -1468,7 +1468,13 @@ the same person never splits that person's group.
   optional, then notes), else a quest's current goal at the place of the
   focus group (a goto already reached) or of the nearest group before it for
   the same quest (the giver of a bare `complete`), never of a later group;
-  nil on a done step (no focus). Reaching the place of
+  nil on a done step (no focus). An along step never takes the arrow, the
+  route line or the target pin, looked at or (should it ever be) live: its
+  view has no `current`, and the arrow is the one of the stop the window's
+  "Then:" names (`Own.stopAfter`: the next step that applies and is not
+  along), as if that step were looked at; no earlier choice (`AimGoal`,
+  `AimAlong`) leads there. Its goals' spawn areas still show on the map
+  (#942). Reaching the place of
   any other goal of the step arrives at its header. A focus change fires
   `STEP_UPDATED(step)` and `WAYPOINT_CHANGED` like any other progress.
 - Out-of-order play still counts: finishing a later person's goals marks that

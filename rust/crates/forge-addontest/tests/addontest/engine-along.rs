@@ -268,3 +268,35 @@ fn an_along_step_s_view_names_the_step_its_list_ends_at() {
 		emit({ v(2), v(3), v(4) })"#);
 	assert_eq!(out[0], json!([{ "along": "back", "until": 5 }, { "along": true, "until": false }, { "along": false, "until": false }]));
 }
+
+// Darkshore's "Fine Crab Chunks on the way" paged to from step 6 (#942): the arrow went to the nearest crab spawn
+// far south. An along step never takes the arrow, nor the route line drawn to it: looked at, the arrow stays on the
+// stop the window's "Then:" names (the next step that applies and is not along), as if that step were looked at,
+// and no goal of the along step is marked current. A goal of it the player chose from Along the way before paging
+// does not lead either.
+#[test]
+fn an_along_step_looked_at_never_takes_the_arrow_it_stays_on_the_next_stop() {
+	let out = run(r#"
+		local w = stub.world
+		w.accept(7, { 10 }); flush()
+		local live = E.GetLiveStep()
+		local liveWp = wp()
+		E.Goto(2); flush()
+		local at2 = { step = E.GetStepIndex(), wp = wp(), current = E.GetStepView(2).current or false }
+		E.Goto(3); flush()
+		local at3 = { wp = wp(), current = E.GetStepView(3).current or false }
+		E.Goto(live); flush()
+		E.AimAlong(2, 1); flush()
+		local aimed = wp()
+		E.Goto(2); flush()
+		local aimedAt2 = wp()
+		E.Goto(live); flush()
+		emit({ live = live, liveWp = liveWp, at2 = at2, at3 = at3, aimed = aimed, aimedAt2 = aimedAt2, back = wp() })"#);
+	assert_eq!(out[0]["live"], 4, "the route passed over both along steps");
+	assert_eq!(out[0]["liveWp"], "4:1");
+	assert_eq!(out[0]["at2"], json!({ "step": 2, "wp": "4:1", "current": false }), "looking at the along step: the arrow stays on Willem");
+	assert_eq!(out[0]["at3"], json!({ "wp": "4:1", "current": false }));
+	assert_eq!(out[0]["aimed"], "2:1", "chosen from Along the way on the live step, the kills lead");
+	assert_eq!(out[0]["aimedAt2"], "4:1", "but not while the along step itself is looked at");
+	assert_eq!(out[0]["back"], "2:1", "back on the live step, the choice leads again");
+}
