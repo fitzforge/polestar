@@ -833,6 +833,39 @@ pub fn load_spawn_heights(sources: &Path, sim: bool) -> Result<Heights, String> 
 	Ok(Heights { text: serialize_spawn_heights(&data), npc: data.get("npc"), object: data.get("object") })
 }
 
+/// The Forever TDB's sniffed spawns (its extract's `spawns`) as the heights of the NPCs and objects
+/// classic-db has none for (Forever's own, or one classic-db lacks); an id classic-db has keeps its
+/// own. The same 15-yard rule against the goal's point applies when the compiler reads them. -> ids added
+pub fn add_tdb_heights(h: &mut Heights, tdb: &V) -> usize {
+	let mut added = 0;
+	for (ki, kind) in ["npc", "object"].iter().enumerate() {
+		let table = if ki == 0 { &mut h.npc } else { &mut h.object };
+		if !table.is_obj() {
+			*table = V::obj();
+		}
+		for (id, rows) in tdb.get("spawns").get(kind).entries() {
+			if table.get(&id).truthy() {
+				continue;
+			}
+			// [map, x, y, z, respawn]: an object's row carries no respawn in spawnz.json.
+			let width = if ki == 0 { 5 } else { 4 };
+			let pts: Vec<V> = rows.items().iter().map(|r| arr(r.items().into_iter().take(width).collect())).collect();
+			if pts.is_empty() {
+				continue;
+			}
+			table.set(&id, arr(pts));
+			added += 1;
+		}
+	}
+	if added > 0 {
+		let db = Obj::new();
+		db.set("npc", h.npc.clone());
+		db.set("object", h.object.clone());
+		h.text = serialize_spawn_heights(&V::Obj(db));
+	}
+	added
+}
+
 /// Creature walks: moves.json's text (see extract_moves).
 pub fn load_moves(sources: &Path) -> Result<String, String> {
 	Ok(serialize_moves(&cached_extract(sources, "moves.json", &|lines| Ok(serialize_moves(&extract_moves(lines))))?))
