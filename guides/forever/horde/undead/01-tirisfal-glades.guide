@@ -215,6 +215,7 @@ step Hearth to Gallows' End Tavern
   hearth "Gallows' End Tavern"
 
 step Brill
+  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 5481                         -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 5482
   turnin 404                          -- Deathguard Dillinger
@@ -252,6 +253,7 @@ step Tirisfal Glades: kill these as you meet them
   collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
 
 step Brill
+  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 5482                         -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 99142
   turnin 368                          -- Apothecary Johaan, inside
@@ -310,6 +312,7 @@ step Vile Fin shore
   collect 278244 quest 97558.3
 
 step Brill
+  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 426                          -- Deathguard Dillinger
   turnin 365                          -- Apothecary Johaan, inside
   accept 407
@@ -417,7 +420,7 @@ step Deathguard Linnea's camp
   turnin 97558                        -- Shelene Rhobart
 
 step Brill
-  tip Back up the road to Brill.
+  tip Back up the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 369                          -- Apothecary Johaan, inside
   accept 492
   turnin 371                          -- Executor Zygand

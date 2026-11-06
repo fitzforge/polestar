@@ -230,7 +230,7 @@ step Moonglade
 step Trial of the Lake
   only Tauren,Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade; Dendrite Starblaze is in Nighthaven. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
+  tip Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
   turnin 27 only Tauren -- Dendrite Starblaze
   turnin 6126 only Tauren
   accept 6127 only Tauren -- The Principal Source: Dreadmist Peak, next guide

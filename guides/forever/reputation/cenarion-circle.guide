@@ -84,7 +84,7 @@ step Vyral the Vile
   turnin 8321 optional
 
 step Silithus quests at Cenarion Hold
-  tip Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. Securing the Supply Lines needs Taking Back Silithus first. Deathclasp is an elite scorpid with two guards (group of 2 or 3). Calandrath's Desert Recipe is for Cooks: its recipe makes the Smoked Desert Dumplings he wants.
+  tip Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. Securing the Supply Lines needs Taking Back Silithus first. Deathclasp is an elite scorpid with two guards (group of 2 or 3). Calandrath's Desert Recipe is for Cooks: its recipe makes the Smoked Desert Dumplings he wants. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   accept 8277                         -- Beetix Ficklespragg
   accept 8280 optional                -- Windcaller Proudhorn, after Taking Back Silithus
   accept 8284                         -- Geologist Larksbane
@@ -103,6 +103,7 @@ step Around Cenarion Hold
   accept 8313 optional
 
 step Back at the Hold
+  tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8277
   accept 8278
   turnin 8280 optional
@@ -120,6 +121,7 @@ step Stonelash and Dredge Crushers
   craft 24801 x10 optional            -- Smoked Desert Dumplings, from Sandworm Meat and Soothing Spices
 
 step Noggle and Proudhorn
+  tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
   turnin 8278
   accept 8282                         -- Noggle Ficklespragg
   turnin 8281 optional
@@ -155,6 +157,7 @@ step Bronzebeard's Encampment
   collect 20385 quest 8283.1 optional @45.1,92.3 -- Deathclasp's Pincer, elite: group of 2 or 3
 
 step Back to Cenarion Hold with news
+  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8287                         -- Commander Mar'alith
   turnin 8304
   accept 8306 optional                -- Natalia, elite: group up

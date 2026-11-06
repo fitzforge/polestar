@@ -32,6 +32,7 @@ step Bruuz
   collect 253710 quest 92706.1 optional @63.7,38.7 group 2
 
 step Ratchet
+  tip Gazlowe stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   when group 92706
   turnin 92706 optional
 
@@ -687,7 +688,7 @@ step The Great Cat Spirit
 step Moonglade
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven.
+  tip Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   collect 15885 quest 30.1 only Tauren -- Pendant of the Sea Lion: use a half at the Shrine of Remulos
   turnin 30 only Tauren               -- Dendrite Starblaze
   accept 31 only Tauren
@@ -702,6 +703,7 @@ step Moonglade
 step Moonglade
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   turnin 98340 only Skyborne,Tauren -- Dendrite Starblaze
   accept 98405 only Tauren
   accept 98341 only Skyborne
@@ -709,6 +711,7 @@ step Moonglade
 step Moonglade
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   when onquest 94913
   turnin 94913 only Skyborne          -- Dendrite Starblaze: the welcome from Turak
 
@@ -734,6 +737,7 @@ step The Stormrage Barrow Dens
 step Dendrite Starblaze
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   turnin 98739 only Tauren            -- Dendrite Starblaze, Nighthaven
   turnin 98738 only Skyborne
   accept 98362 only Skyborne,Tauren

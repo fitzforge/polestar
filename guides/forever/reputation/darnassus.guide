@@ -193,7 +193,7 @@ step Dolanaar
 
 step Dolanaar: Denalan and the lake
   when done dn-dolanaar
-  tip Denalan tends his garden on the south-east shore of Lake Al'Ameth; Gaerolas Talvethren stands in the Ban'ethil Hollow east of the village.
+  tip Denalan tends his garden on the south-east shore of Lake Al'Ameth; Gaerolas Talvethren stands upstairs in a house in Starbreeze Village, east of Dolanaar: go up inside, the arrow cannot tell the floors apart.
   turnin 997
   accept 918
   accept 919

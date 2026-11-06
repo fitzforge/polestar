@@ -653,6 +653,969 @@
 				}
 			],
 			"issue": 957
+		},
+		{
+			"id": "upstairs-captain-stoutfist-turnin-474",
+			"faction": "Alliance",
+			"at": {
+				"quest": 474,
+				"goal": "turnin"
+			},
+			"tip": "Captain Stoutfist stands on the top floor of Menethil Keep: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Captain Stoutfist (npc 2104) stands on Menethil Keep's top floor: spawn height 26.8, the keep's lower floors at about 12 and 20, the ground outside at about 10. The guide's other Stoutfist steps already say so. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2104 position_z 26.8"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 4.3, 11.5 and 28.1 under the roof at 44.6, all indoors"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-priestess-josetta-accept-94774",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94774,
+				"goal": "accept"
+			},
+			"tip": "Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-khelden-bremen-turnin-3104",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3104,
+				"goal": "turnin"
+			},
+			"tip": "Tordrin Sternblade stands behind the Abbey, by the stables. Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Khelden Bremen (npc 198) stands on Northshire Abbey's upper floor: spawn height 89.5; the abbey's ground floor is at 82, where Priestess Anetta stands 5 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 198 position_z 89.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: abbey floors 81.9 and 89.3, both indoors"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-ginro-hearthkindle-turnin-4124",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4124,
+				"goal": "turnin"
+			},
+			"tip": "Feathermoon Stronghold stands on Sardor Isle, off the Forgotten Coast: the boat from the coast's dock crosses to it. Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Ginro Hearthkindle (npc 7880) stands on his building's upper floor: spawn height 23.2; its ground floor is at 13.7, where Troyas Moonbreeze and the other Feathermoon givers stand. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 7880 position_z 23.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 13.7 and 23.1 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-ginro-hearthkindle-turnin-4127",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4127,
+				"goal": "turnin"
+			},
+			"tip": "Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Ginro Hearthkindle (npc 7880) stands on his building's upper floor: spawn height 23.2; its ground floor is at 13.7, where Troyas Moonbreeze and the other Feathermoon givers stand. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 7880 position_z 23.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 13.7 and 23.1 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-ginro-hearthkindle-turnin-4265",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4265,
+				"goal": "turnin"
+			},
+			"tip": "Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Ginro Hearthkindle (npc 7880) stands on his building's upper floor: spawn height 23.2; its ground floor is at 13.7, where Troyas Moonbreeze and the other Feathermoon givers stand. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 7880 position_z 23.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 13.7 and 23.1 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-daryn-lightwind-turnin-2939",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2939,
+				"goal": "turnin"
+			},
+			"tip": "Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Daryn Lightwind (npc 7907) stands on his building's upper floor: spawn height 23.6; its ground floor is at 14.1, where Erelas Ambersky stands 8 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 7907 position_z 23.6"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 14.1 and 23.5 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-daryn-lightwind-turnin-2944",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "turnin"
+			},
+			"tip": "Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Daryn Lightwind (npc 7907) stands on his building's upper floor: spawn height 23.6; its ground floor is at 14.1, where Erelas Ambersky stands 8 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 7907 position_z 23.6"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 14.1 and 23.5 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-gaerolas-talvethren-turnin-475",
+			"faction": "Alliance",
+			"at": {
+				"quest": 475,
+				"goal": "turnin"
+			},
+			"tip": "Gaerolas Talvethren stands upstairs in a house in the village, east of the moonwell: go up inside, the arrow cannot tell the floors apart. Tallonkai's Dresser is in the house on the hill at the east end of the village.",
+			"note": "Gaerolas Talvethren (npc 2107) stands on the upper floor of a house in Starbreeze Village: spawn height 1317.3; the house's ground floor is at 1307.8, the ground outside at about 1305. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2107 position_z 1317.3"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 1307.8 and 1317.2 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-98393",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98393,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-94914",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94914,
+				"goal": "turnin"
+			},
+			"tip": "Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-98731",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98731,
+				"goal": "turnin"
+			},
+			"tip": "Back to Dendrite Starblaze in Nighthaven, then Silva Fil'naveth there flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-272",
+			"faction": "Alliance",
+			"at": {
+				"quest": 272,
+				"goal": "turnin"
+			},
+			"tip": "Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-5921",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5921,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village, no flight path needed. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-beetix-ficklespragg-accept-8277-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8277,
+				"goal": "accept"
+			},
+			"tip": "Ride out of the crater's north-western pass into Silithus and on to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15189 position_z 55.1"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-beetix-ficklespragg-turnin-8277-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8277,
+				"goal": "turnin"
+			},
+			"tip": "Follow the road south-west out of the pass to Cenarion Hold. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15189 position_z 55.1"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-beetix-ficklespragg-turnin-8278-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8278,
+				"goal": "turnin"
+			},
+			"tip": "Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15189 position_z 55.1"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-noggle-ficklespragg-accept-8282",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8282,
+				"goal": "accept"
+			},
+			"tip": "Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15190 position_z 56.0"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-noggle-ficklespragg-turnin-8282-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8282,
+				"goal": "turnin"
+			},
+			"tip": "Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15190 position_z 56.0"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-gazlowe-turnin-92706",
+			"faction": "Horde",
+			"at": {
+				"quest": 92706,
+				"goal": "turnin"
+			},
+			"tip": "Gazlowe stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Gazlowe (npc 3391) stands on his building's upper floor in Ratchet: spawn height 26.4; its ground floor is at 19.9. The guide's other Gazlowe steps already say upstairs. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 3391 position_z 26.4"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 19.9 and 26.3, both indoors"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-27",
+			"faction": "Horde",
+			"at": {
+				"quest": 27,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-30",
+			"faction": "Horde",
+			"at": {
+				"quest": 30,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-98340",
+			"faction": "Horde",
+			"at": {
+				"quest": 98340,
+				"goal": "turnin"
+			},
+			"tip": "Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-94913",
+			"faction": "Horde",
+			"at": {
+				"quest": 94913,
+				"goal": "turnin"
+			},
+			"tip": "Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-98739",
+			"faction": "Horde",
+			"at": {
+				"quest": 98739,
+				"goal": "turnin"
+			},
+			"tip": "Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-5922",
+			"faction": "Horde",
+			"at": {
+				"quest": 5922,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the north-western woods. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-beetix-ficklespragg-accept-8277-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 8277,
+				"goal": "accept"
+			},
+			"tip": "Ride west to the walled hold in the middle of the desert. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15189 position_z 55.1"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-beetix-ficklespragg-turnin-8277-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 8277,
+				"goal": "turnin"
+			},
+			"tip": "Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15189 position_z 55.1"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-beetix-ficklespragg-turnin-8278-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 8278,
+				"goal": "turnin"
+			},
+			"tip": "Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15189 position_z 55.1; creature 15190 position_z 56.0"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-noggle-ficklespragg-turnin-8282-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 8282,
+				"goal": "turnin"
+			},
+			"tip": "Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.",
+			"note": "Beetix (npc 15189, spawn height 55.1) and Noggle Ficklespragg (npc 15190, 56.0) stand on their building's upper floor at Cenarion Hold: its ground floor is at 45.7, the Hold's ground at 42.6. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 15190 position_z 56.0"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 45.7 and 55.05 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-neeka-bloodscar-accept-1419",
+			"faction": "Horde",
+			"at": {
+				"quest": 1419,
+				"goal": "accept"
+			},
+			"tip": "Kargath is the Horde fortress built into the cliffs at the zone's western edge. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.",
+			"note": "Neeka Bloodscar (npc 5394) stands on Kargath's upper level beside Warlord Goretooth (both at spawn height 278.6), 34 yards above the flight master and the inn (244.2). Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 5394 position_z 278.6"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: wooden levels at 265.4 (a ramp) and 272.1 under her own at 278.5, outdoors"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-neeka-bloodscar-turnin-1419",
+			"faction": "Horde",
+			"at": {
+				"quest": 1419,
+				"goal": "turnin"
+			},
+			"tip": "Head north back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.",
+			"note": "Neeka Bloodscar (npc 5394) stands on Kargath's upper level beside Warlord Goretooth (both at spawn height 278.6), 34 yards above the flight master and the inn (244.2). Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 5394 position_z 278.6"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: wooden levels at 265.4 (a ramp) and 272.1 under her own at 278.5, outdoors"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-primal-torntusk-accept-7850",
+			"faction": "Horde",
+			"at": {
+				"quest": 7850,
+				"goal": "accept"
+			},
+			"tip": "Follow the roads east across the Hinterlands to the troll village on the eastern coast. Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.",
+			"note": "Primal Torntusk (npc 14736) stands on top of Revantusk's inn: spawn height 27.8; the inn's floor is under him at 11.7, where Lard stands 6 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 14736 position_z 27.8"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: the inn's indoor floor at 11.7, then the open roof at 27.7"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-primal-torntusk-turnin-7850",
+			"faction": "Horde",
+			"at": {
+				"quest": 7850,
+				"goal": "turnin"
+			},
+			"tip": "Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.",
+			"note": "Primal Torntusk (npc 14736) stands on top of Revantusk's inn: spawn height 27.8; the inn's floor is under him at 11.7, where Lard stands 6 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 14736 position_z 27.8"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: the inn's indoor floor at 11.7, then the open roof at 27.7"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-dendrite-starblaze-turnin-26",
+			"faction": "Alliance",
+			"at": {
+				"quest": 26,
+				"goal": "turnin"
+			},
+			"tip": "Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.",
+			"note": "Dendrite Starblaze (npc 11802) stands on his building's upper floor in Nighthaven: spawn height 524.5; its ground floor is at 515.1, where Kharedon stands, the ground outside at about 512. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 11802 position_z 524.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
+				}
+			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-khelden-bremen-accept-18",
+			"faction": "Alliance",
+			"at": {
+				"quest": 18,
+				"goal": "accept"
+			},
+			"tip": "Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "#961 (Verium, Human Mage, 0.3.2): this step's train class led a Mage outside the Abbey, not in. Khelden Bremen (npc 198), the mage trainer, stands on Northshire Abbey's upper floor: spawn height 89.5; the abbey's ground floor is at 82, where Priestess Anetta stands 5 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 198 position_z 89.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: abbey floors 81.9 and 89.3, both indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#961"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-khelden-bremen-turnin-21",
+			"faction": "Alliance",
+			"at": {
+				"quest": 21,
+				"goal": "turnin"
+			},
+			"tip": "Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "#961 (Verium, Human Mage, 0.3.2): this step's train class led a Mage outside the Abbey, not in. Khelden Bremen (npc 198), the mage trainer, stands on Northshire Abbey's upper floor: spawn height 89.5; the abbey's ground floor is at 82, where Priestess Anetta stands 5 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 198 position_z 89.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: abbey floors 81.9 and 89.3, both indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#961"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-goldshire-inn-trainers-turnin-96626",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96626,
+				"goal": "turnin"
+			},
+			"tip": "Tomas cooks in the inn's kitchen. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-goldshire-inn-trainers-turnin-62",
+			"faction": "Alliance",
+			"at": {
+				"quest": 62,
+				"goal": "turnin"
+			},
+			"tip": "Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-goldshire-inn-trainers-accept-1685",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1685,
+				"goal": "accept"
+			},
+			"tip": "Follow the road west back to Goldshire. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-5481",
+			"faction": "Horde",
+			"at": {
+				"quest": 5481,
+				"goal": "turnin"
+			},
+			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-5482",
+			"faction": "Horde",
+			"at": {
+				"quest": 5482,
+				"goal": "turnin"
+			},
+			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-426",
+			"faction": "Horde",
+			"at": {
+				"quest": 426,
+				"goal": "turnin"
+			},
+			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-369",
+			"faction": "Horde",
+			"at": {
+				"quest": 369,
+				"goal": "turnin"
+			},
+			"tip": "Back up the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-aldrassil-trainers-turnin-916",
+			"faction": "Alliance",
+			"at": {
+				"quest": 916,
+				"goal": "turnin"
+			},
+			"tip": "The trainers stand upstairs inside Aldrassil, along the ramp that winds up the tree: Alyissia and Frahun Shadewhisper on the first level, Shanda above them, Ayanna Everstride and Mardant Strongoak at the top. The arrow cannot tell the levels apart.",
+			"note": "Shadowglen's class trainers stand up inside Aldrassil, on the ramp that winds up the tree: Alyissia (npc 3593) and Frahun Shadewhisper (3594) at spawn height 1329.7, Shanda (3595) at 1346.8, Ayanna Everstride (3596) and Mardant Strongoak (3597) at 1381; the ground at the tree's foot is at about 1316. This step hands in their class letters and trains. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 3593 position_z 1329.7; creature 3594 position_z 1329.7; creature 3595 position_z 1346.8; creature 3596 position_z 1381.0; creature 3597 position_z 1381.0"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: the tree's surfaces at 1313-1333 under them, no indoor flag"
+				}
+			],
+			"issue": 961,
+			"pr": 960
 		}
 	]
 }
