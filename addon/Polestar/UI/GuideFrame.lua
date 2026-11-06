@@ -626,6 +626,15 @@ local CARD = {
 }
 GF.CARD = CARD
 
+-- Look-ahead text (the card's summary lines, Along the way, Up next) wraps
+-- to two lines (SetWordWrap, SetMaxLines 2) and only past them ends in "…";
+-- its row grows by the second line. -> the text's top inset in a row `rowH`
+-- tall for one line (one line sits in its middle), and the row's height.
+local function twoLines(fs, rowH)
+	local inset = max(0, (rowH - fs:GetLineHeight()) / 2)
+	return inset, max(rowH, floor(fs:GetStringHeight() + inset * 2 + 0.5))
+end
+
 -- What the card keeps for one guide, step and focus (cleared when any of
 -- them moves): the goals folded into the done line, each goal's status at
 -- the last fill (a goal turning done folds; one already done when the focus
@@ -845,9 +854,10 @@ do
 		l.Icon:SetSize(13, 13)
 		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
 		l.Text = T(l, "label", "textDim")
-		l.Text:SetWordWrap(false)
+		l.Text:SetWordWrap(true)
+		l.Text:SetMaxLines(2)
 		l.Text:SetJustifyH("LEFT")
-		l.Text:SetPoint("LEFT", l, "TOPLEFT", TEXT_X, -lh / 2)
+		l.Text:SetPoint("TOPLEFT", l, "TOPLEFT", TEXT_X, -twoLines(l.Text, lh))
 		l.Chevron = l:CreateTexture(nil, "ARTWORK")
 		l.Chevron:SetSize(10, 10)
 		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
@@ -1069,13 +1079,12 @@ local function upRow(i)
 	r.Num = T(r, "number", "textMuted")
 	r.Num:SetJustifyH("RIGHT")
 	r.Num:SetWidth(22)
-	r.Num:SetPoint("LEFT", r, "LEFT", PAD - 10, 0)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(13, 13)
-	r.Icon:SetPoint("LEFT", r, "LEFT", TEXT_X - 2, 0)
 	W.Color(r.Icon, "textMuted")
 	r.Text = T(r, "label", "textDim")
-	r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 9, 0)
+	r.Text:SetWordWrap(true)
+	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self)
 		local E = Engine()
 		if E and E.Goto and self.psIndex then E.Goto(self.psIndex) end
@@ -1107,10 +1116,10 @@ local function alongRow(i)
 	W.Hover(r)
 	r.Icon = r:CreateTexture(nil, "ARTWORK")
 	r.Icon:SetSize(13, 13)
-	r.Icon:SetPoint("LEFT", r, "LEFT", TEXT_X - 2, 0)
 	W.Color(r.Icon, "textMuted")
 	r.Text = T(r, "label", "textDim")
-	r.Text:SetPoint("LEFT", r.Icon, "RIGHT", 9, 0)
+	r.Text:SetWordWrap(true)
+	r.Text:SetMaxLines(2)
 	r:SetScript("OnClick", function(self, button)
 		local E = Engine()
 		-- A pinned quest's row unpins it on a right-click (#644).
@@ -1892,7 +1901,9 @@ local function layoutCard(width)
 		local h
 		if f.psLine then
 			f.Text:SetWidth(max(40, width - TEXT_X - PAD - 18))
-			h = CARD.lineH
+			local inset
+			inset, h = twoLines(f.Text, CARD.lineH)
+			f.Text:SetPoint("TOPLEFT", f, "TOPLEFT", TEXT_X, -inset)
 		else
 			h = measureRow(f, width)
 		end
@@ -1937,49 +1948,58 @@ local function layoutCard(width)
 	return y + 6
 end
 
+-- "Then: <next step's person>": a long name wraps to a second line, the
+-- line growing by it (twoLines), its text and count kept in the middle.
 local function layoutAfter(width)
 	after.Text:SetWidth(width - PAD * 2 - after.Count:GetStringWidth() - 12)
-	after:SetHeight(28)
-	return 28
+	local _, h = twoLines(after.Text, 28)
+	after:SetHeight(h)
+	return h
 end
 
-local function layoutUpnext(width)
-	upnext.Toggle:ClearAllPoints()
-	upnext.Toggle:SetPoint("TOPLEFT", upnext, "TOPLEFT", 0, 0)
-	upnext.Toggle:SetPoint("TOPRIGHT", upnext, "TOPRIGHT", 0, 0)
-	local y = -UP_TOGGLE
-	if upcomingOpen() then
-		for i = 1, #upRows do
-			local r = upRows[i]
-			if r:IsShown() then
-				r.Text:SetWidth(width - TEXT_X - 14 - PAD)
-				r:ClearAllPoints()
-				r:SetPoint("TOPLEFT", upnext, "TOPLEFT", 0, y)
-				r:SetPoint("TOPRIGHT", upnext, "TOPRIGHT", 0, y)
-				y = y - UP_ROW
+local layoutUpnext, layoutAlong
+do
+	-- An Up next or Along the way row at y in its frame, `width` wide: its
+	-- number (Up next) and glyph on the first line, the text wrapping. -> its height
+	local function placeRow(r, parent, y, width)
+		if parent == upnext then r.Num:SetPoint("LEFT", r, "TOPLEFT", PAD - 10, -UP_ROW / 2) end
+		r.Icon:SetPoint("LEFT", r, "TOPLEFT", TEXT_X - 2, -UP_ROW / 2)
+		r.Text:SetWidth(width - TEXT_X - 14 - PAD)
+		local inset, h = twoLines(r.Text, UP_ROW)
+		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X - 2 + 13 + 9, -inset)
+		r:SetHeight(h)
+		r:ClearAllPoints()
+		r:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, y)
+		r:SetPoint("TOPRIGHT", parent, "TOPRIGHT", 0, y)
+		return h
+	end
+
+	function layoutUpnext(width)
+		upnext.Toggle:ClearAllPoints()
+		upnext.Toggle:SetPoint("TOPLEFT", upnext, "TOPLEFT", 0, 0)
+		upnext.Toggle:SetPoint("TOPRIGHT", upnext, "TOPRIGHT", 0, 0)
+		local y = -UP_TOGGLE
+		if upcomingOpen() then
+			for i = 1, #upRows do
+				local r = upRows[i]
+				if r:IsShown() then y = y - placeRow(r, upnext, y, width) end
 			end
+			y = y - 6
+		end
+		upnext:SetHeight(-y)
+		return -y
+	end
+
+	function layoutAlong(width)
+		local y = -UP_TOGGLE
+		for i = 1, #alongRows do
+			local r = alongRows[i]
+			if r:IsShown() then y = y - placeRow(r, along, y, width) end
 		end
 		y = y - 6
+		along:SetHeight(-y)
+		return -y
 	end
-	upnext:SetHeight(-y)
-	return -y
-end
-
-local function layoutAlong(width)
-	local y = -UP_TOGGLE
-	for i = 1, #alongRows do
-		local r = alongRows[i]
-		if r:IsShown() then
-			r.Text:SetWidth(width - TEXT_X - 14 - PAD)
-			r:ClearAllPoints()
-			r:SetPoint("TOPLEFT", along, "TOPLEFT", 0, y)
-			r:SetPoint("TOPRIGHT", along, "TOPRIGHT", 0, y)
-			y = y - UP_ROW
-		end
-	end
-	y = y - 6
-	along:SetHeight(-y)
-	return -y
 end
 
 local function layoutEmpty(width)
@@ -2977,7 +2997,9 @@ local function fillCard(sameFocus)
 		local shown = #later > CARD.ahead + 1 and CARD.ahead or #later
 		-- One or two goals left: the line names them ("Accept Bitter Rivals",
 		-- the quest in its colour, a "Go to" only when nothing else is open);
-		-- three or more: counts. The line truncates with "…" when too wide.
+		-- three or more: counts. The line wraps to two lines, then ends in "…".
+		-- Opened, it is only the person or "Then out here": its goals are the
+		-- rows right under it.
 		local function namesOf(list2)
 			local open, places = {}, {}
 			for _, goal in ipairs(list2) do
@@ -3001,11 +3023,13 @@ local function fillCard(sameFocus)
 			local name = UI.GroupName(view, grp)
 			local muted = Theme.Hex("textMuted")
 			if counts and here then
-				local label = (e.prev == "npc" or e.prev == "object") and L["Then out here:"] or L["Out here:"]
-				addLine(gi, "goto", "textDim", label .. " " .. (said or counts), list2, name, open)
+				local prev = e.prev == "npc" or e.prev == "object"
+				local label = open and (prev and L["Then out here"] or L["Out here"])
+					or ((prev and L["Then out here:"] or L["Out here:"]) .. " " .. (said or counts))
+				addLine(gi, "goto", "textDim", label, list2, name, open)
 			elseif counts then
 				local tail = said and ("|c" .. muted .. DOT .. "|r" .. said) or ("|c" .. muted .. DOT .. counts .. "|r")
-				addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r" .. tail, list2, name, open)
+				addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r" .. (open and "" or tail), list2, name, open)
 			else
 				addLine(gi, "check", "success", "|c" .. nameHex(grp) .. name .. "|r", list2, name, open)
 			end
@@ -3552,7 +3576,7 @@ function GF.ApplySkin()
 	for _, l in ipairs(lines) do
 		local lh = CARD.lineH
 		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
-		l.Text:SetPoint("LEFT", l, "TOPLEFT", TEXT_X, -lh / 2)
+		l.Text:SetPoint("TOPLEFT", l, "TOPLEFT", TEXT_X, -twoLines(l.Text, lh))
 		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
 	end
 	for _, r in ipairs(rows) do
@@ -4076,6 +4100,8 @@ local function build()
 	after.Rule:SetPoint("TOPLEFT", after, "TOPLEFT", PAD, 0)
 	after.Rule:SetPoint("TOPRIGHT", after, "TOPRIGHT", -PAD, 0)
 	after.Text = T(after, "label", "textDim")
+	after.Text:SetWordWrap(true)
+	after.Text:SetMaxLines(2)
 	after.Text:SetPoint("LEFT", after, "LEFT", PAD, 0)
 	after.Count = T(after, "small", "textMuted")
 	after.Count:SetJustifyH("RIGHT")

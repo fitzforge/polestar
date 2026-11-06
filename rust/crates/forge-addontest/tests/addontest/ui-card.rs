@@ -154,13 +154,13 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 		[
 			"Gretta's errand",
 			"[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]",
-			"[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]+",
+			"[Then: Rejold Barleybrew]+",
 			"Evershine",
 			"The Perfect Stout",
 			"A Favor for Evershine",
 			"[Then out here: 7 kills and items]",
 		],
-		"a look ahead: Rejold's goals right under his line"
+		"a look ahead: Rejold's goals right under his line, which then names only him"
 	);
 	assert_eq!(
 		strings(&out["closed"]),
@@ -209,7 +209,7 @@ fn a_person_whose_goals_another_person_splits_reads_on_one_summary_line() {
 	);
 	assert_eq!(
 		strings(&out["opened"]),
-		["[Gorbold Steelhand]", "The Tower of Althalaxx", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]+", "Bashal'Aran", "Expanding Horizons", "Tools of the Highborne",],
+		["[Gorbold Steelhand]", "The Tower of Althalaxx", "[Then: Thundris Windweaver]+", "Bashal'Aran", "Expanding Horizons", "Tools of the Highborne",],
 		"opened, his line lists all his goals in written order"
 	);
 }
@@ -687,4 +687,132 @@ fn a_complete_goal_reads_as_its_objectives_with_use_item_first() {
 	);
 	assert_eq!(out["hunt"]["text"], "Plainstrider Meat  3/7\nPlainstrider Feathers  7/7", "a line per objective, each with its count, not the sum");
 	assert_eq!(out["humble"]["text"], "Complete A Humble Task", "no objective text: the old label");
+}
+
+// The Warlock's "The Binding" in Stormwind, as a player on Discord saw it in 0.3.3: Gakin the Darkbinder, then the
+// Bloodstone Choker and the Voidwalker out at the circle, then Gakin again.
+const BINDING: &str = r#"
+	local function G(t, f) f.t = t; return f end
+	local SW = 1453
+	local steps = uistub.guides[uistub.elwynn].steps
+	steps[#steps + 1] = { title = "The Binding", goals = {
+		G("turnin", { verb = "Turn in", subject = "Surena Caledon", subjectKind = "quest", quest = 1688, npc = 6122, npcName = "Gakin the Darkbinder", map = SW, x = 25.4, y = 78.6, status = "active" }),
+		G("use", { verb = "Use", subject = "Bloodstone Choker", subjectKind = "item", item = 6928, quest = 1689, map = SW, x = 25.0, y = 77.4, status = "pending" }),
+		G("kill", { verb = "Kill", subject = "Summoned Voidwalker", subjectKind = "npc", npc = 5676, quest = 1689, progress = { cur = 0, max = 1 }, status = "pending" }),
+		G("turnin", { verb = "Turn in", subject = "The Binding", subjectKind = "quest", quest = 1689, npc = 6122, npcName = "Gakin the Darkbinder", map = SW, x = 25.4, y = 78.6, status = "pending" }),
+	} }
+	local s = #steps
+	uistub.setGuide(uistub.elwynn, s)
+	-- A string's lines as drawn, whether it is cut short with "…", its row's height and where the next item starts.
+	local function measure(l, nextOf)
+		local fs = l.Text
+		local nxt = nextOf and nextOf(l)
+		return { text = plain(fs:GetText()), wrap = fs:GetWordWrap(), lines = math.floor(fs:GetStringHeight() / fs:GetLineHeight() + 0.5),
+			cut = fs:IsTruncated(), h = l:GetHeight(), gap = nxt and (nxt - l:GetHeight()) or false }
+	end
+	local function cardNext(l) return GF.ItemTop(GF.CardItems()[l.psAt + 1]) - GF.ItemTop(l) end
+"#;
+
+// A player on Discord (0.3.3): "is there a way to have text wrap?" The look-ahead lines cut off mid-word:
+// "Then out here: Use Bloodstone Choker, Kill …", "Then: Gakin the Darkbinder · Turn in The Bi…". A line too
+// long for one line wraps to a second, its row growing by it and the rows under it moving down; only text
+// longer than two lines ends in "…".
+#[test]
+fn a_look_ahead_line_too_long_for_one_line_wraps_to_two_and_only_past_two_ends_in_an_ellipsis() {
+	let out = run(&format!(
+		r#"{BINDING}
+		local here = lineFor("out here")
+		local out = {{ here = measure(here, cardNext), gakin = measure(lineFor("Gakin"), false), lineH = GF.CARD.lineH, one = here.Text:GetLineHeight() }}
+		uistub.goal(s, 2).subject = "Bloodstone Choker of the Very Long Name That Goes On and On Past Any Window"
+		uistub.goal(s, 3).subject = "Summoned Voidwalker of the Equally Long Name That Goes On Past Any Window"
+		uistub.update()
+		out.long = measure(lineFor("out here"), false)
+		emit(out)"#
+	))
+	.remove(0);
+	let here = &out["here"];
+	assert_eq!(here["text"], "Then out here: Use Bloodstone Choker, Kill Summoned Voidwalker");
+	assert_eq!(here["wrap"], true, "the line wraps: {here}");
+	assert_eq!(here["lines"], 2, "on two lines: {here}");
+	assert_eq!(here["cut"], false, "nothing cut off with \u{2026}: {here}");
+	assert_eq!(f(&here["h"]), f(&out["lineH"]) + f(&out["one"]), "the row is one line taller: {here}");
+	assert_eq!(f(&here["gap"]), 0.0, "the next item starts right under the taller row: {here}");
+	let gakin = &out["gakin"];
+	assert_eq!(gakin["text"], "Then: Gakin the Darkbinder  \u{b7}  Turn in The Binding");
+	assert_eq!(gakin["cut"], false, "Gakin's line is whole too: {gakin}");
+	let long = &out["long"];
+	assert_eq!(long["lines"], 2, "never more than two lines: {long}");
+	assert_eq!(long["cut"], true, "past two lines it ends in \u{2026}: {long}");
+	assert_eq!(long["h"], here["h"]);
+}
+
+// A player on Discord (0.3.3): "there's some duplication with this way". Opened, a look-ahead line repeated
+// the goals listed right under it ("Then out here: Use Bloodstone Choker, Kill Summoned Voidwalker" over "Use
+// Bloodstone Choker" and "Kill Summoned Voidwalker"). Opened, the line is only the place or the person.
+#[test]
+fn an_opened_look_ahead_line_names_only_the_place_or_person_and_no_goal_reads_twice() {
+	let out = run(&format!(
+		r#"{BINDING}
+		stub.RunScript(lineFor("out here"), "OnClick", "LeftButton")
+		local here = items()
+		stub.RunScript(lineFor("out here"), "OnClick", "LeftButton")
+		stub.RunScript(lineFor("Gakin"), "OnClick", "LeftButton")
+		emit({{ here = here, gakin = items() }})"#
+	))
+	.remove(0);
+	assert_eq!(
+		strings(&out["here"]),
+		["Surena Caledon", "[Then out here]+", "Bloodstone Choker", "Summoned Voidwalker", "[Then: Gakin the Darkbinder  \u{b7}  Turn in The Binding]"]
+	);
+	assert_eq!(strings(&out["gakin"]), ["Surena Caledon", "[Then out here: Use Bloodstone Choker, Kill Summoned Voidwalker]", "[Then: Gakin the Darkbinder]+", "The Binding"]);
+	for case in ["here", "gakin"] {
+		let items = strings(&out[case]);
+		let opened = items.iter().position(|s| s.ends_with("]+")).unwrap();
+		for row in items[opened + 1..].iter().take_while(|s| !s.starts_with('[')) {
+			assert!(!items[opened].contains(row.as_str()), "{row} reads on the opened line too: {}", items[opened]);
+		}
+	}
+}
+
+// The window's other look-ahead rows (Along the way, Up next, the "Then:" line naming the next step) wrap the
+// same way instead of cutting the goal or the step's name off mid-word.
+#[test]
+fn along_the_way_up_next_and_the_next_step_s_line_wrap_to_two_lines() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[7].title = "Echo Ridge Mine, the kobold tunnels past the Northshire vineyards"
+		steps[#steps + 1] = { title = "On the way", goals = {
+			{ t = "kill", verb = "Kill", subject = "Kobold Vermin at the Echo Ridge Mine entrance", subjectKind = "npc", npc = 6, quest = 7, progress = { cur = 7, max = 10 }, status = "active" },
+			{ t = "kill", verb = "Kill", subject = "Young Wolf", subjectKind = "npc", npc = 299, quest = 33, progress = { cur = 0, max = 4 }, status = "active" },
+		} }
+		uistub.along = { { #steps, { 1, 2 } } }
+		Polestar.Set("ui.upcoming", 3)
+		Polestar.Set("ui.upcomingOpen", true)
+		uistub.setGuide(uistub.elwynn, 5)
+		local function measure(r, fs, nxt)
+			return { text = plain(fs:GetText()), lines = math.floor(fs:GetStringHeight() / fs:GetLineHeight() + 0.5), cut = fs:IsTruncated(), h = r:GetHeight(),
+				gap = (nxt and nxt:IsShown()) and select(5, r:GetPoint(1)) - select(5, nxt:GetPoint(1)) - r:GetHeight() or false }
+		end
+		local function row(pool, i) return measure(pool[i], pool[i].Text, pool[i + 1]) end
+		local after = GF.parts.after
+		emit({ along = row(GF.alongRows, 1), up = row(GF.upRows, 1), short = row(GF.alongRows, 2), upShort = row(GF.upRows, 2),
+			after = measure(after, after.Text, nil), afterShown = after:IsShown() })"#)
+	.remove(0);
+	for (case, short) in [("along", "short"), ("up", "upShort"), ("after", "")] {
+		let r = &out[case];
+		assert_eq!(r["lines"], 2, "{case} wraps to two lines: {r}");
+		assert_eq!(r["cut"], false, "{case} is not cut off: {r}");
+		if !short.is_empty() {
+			assert_eq!(out[short]["lines"], 1, "a short row stays one line: {}", out[short]);
+			assert!(f(&r["h"]) > f(&out[short]["h"]), "{case}'s row grows by its second line: {r}");
+		}
+		if r["gap"] != false {
+			assert_eq!(f(&r["gap"]), 0.0, "the next row starts right under it: {r}");
+		}
+	}
+	assert!(text(&out["along"]["text"]).contains("Echo Ridge Mine entrance"), "{}", out["along"]);
+	assert!(text(&out["up"]["text"]).contains("Northshire vineyards"), "{}", out["up"]);
+	assert_eq!(out["afterShown"], true);
+	assert_eq!(out["after"]["text"], "Then: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
+	assert!(f(&out["after"]["h"]) > 28.0, "the line grows by its second line: {}", out["after"]);
 }
