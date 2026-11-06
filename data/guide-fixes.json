@@ -583,8 +583,8 @@
 				"quest": 983,
 				"goal": "accept"
 			},
-			"tip": "Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.",
-			"note": "Buzzbox 827: Wizbang Cranktoggle (npc 3666) stands on the inn's upper floor (spawn height 24, the ground floor at about 9), but the note said 'by the inn' and the arrow, which has no height, counts the ground floor below him as arrived. The writer's where-note (R9) missed him because the walking grid has no indoor flag on Auberdine's inn. The tip keeps the Auberdine step's flight master line it replaces.",
+			"tip": "The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Buzzbox 827: Wizbang Cranktoggle (npc 3666) stands on the inn's upper floor (spawn height 24, the ground floor at about 9), but the note said 'by the inn' and the arrow, which has no height, counts the ground floor below him as arrived. The writer's where-note (R9) missed him because the walking grid has no indoor flag on Auberdine's inn. The tip keeps the Auberdine step's whole tip it replaces, the Wizbang sentence added.",
 			"source": [
 				{
 					"kind": "in-game-check",

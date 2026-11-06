@@ -3045,6 +3045,7 @@ test("Fitz's in-game check (2026-11-06): Darkshore's step offering Buzzbox 827 s
 		assert.ok(step, `${guide}: Buzzbox 827 is offered`);
 		const tip = [].concat(step.note || []).join(' ');
 		assert.match(tip, /Wizbang Cranktoggle stands upstairs in the inn/, `${guide}: ${tip}`);
+		assert.match(tip, /The boat docks west of the village/, `${guide}: the old tip is kept`);
 		const goal = step.goals.find((g) => g.t === 'accept' && g.quest === 983);
 		assert.ok(Math.abs(goal.z - 24) < 3, `${guide}: z ${goal.z} is the inn's upper floor`);
 	}
