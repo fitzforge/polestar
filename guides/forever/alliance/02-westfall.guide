@@ -199,7 +199,6 @@ step High Priestess Laurena
   only Human,Priest
   zone Stormwind City
   tip Fly or walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.
-  turnin 5635 only Dwarf,Human -- Desperate Prayer
   turnin 94774 only Human -- Divine Grace
 
 step Stormwind City

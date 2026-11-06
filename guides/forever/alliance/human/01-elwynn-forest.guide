@@ -448,8 +448,7 @@ step Goldshire
   turnin 76
   accept 239
   accept 114                                  -- William Pestle
-  accept 5635 only Priest                     -- Priestess Josetta: High Priestess Laurena in Stormwind takes both
-  accept 94774 only Priest
+  accept 94774 only Priest                    -- Priestess Josetta: High Priestess Laurena in Stormwind takes it
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
   accept 94792 only Hunter -- Josephine Carson
 
