@@ -2656,6 +2656,27 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95216": {
+		"set": {
+			"pre": [
+				451
+			],
+			"preAny": [
+				451
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#867"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: every character Theodore Griffs offered The New Plague to (an Orc Warrior, a Troll Warlock, Undead Paladin and Priest, levels 17 to 19) had handed in 447, 450 and 451; the two he did not offer it to had handed in none of them"
+			}
+		],
+		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
+	},
 	"95217": {
 		"set": {
 			"objectives": [
