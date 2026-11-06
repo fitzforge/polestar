@@ -941,6 +941,21 @@ function Own.alongOf(goal)
 	return nil
 end
 
+-- Quest q's work in listed along steps while it is not ready to hand in
+-- (Own.alongHeld): { { step, goal index }, ... } in route order.
+function Own.alongWork(q)
+	local out = {}
+	if not (guide and q) then return out end
+	for _, s in ipairs(Own.marksOf().along) do
+		if Own.alongListed(s) then
+			for g, goal in ipairs(guide.steps[s].goals) do
+				if goal.quest == q and Own.alongHeld(goal) then out[#out + 1] = { s, g } end
+			end
+		end
+	end
+	return out
+end
+
 -- An optional goal the player skipped: CharState().skipped[guideId]["s:g"]
 -- (next to the step skips, which use the step number).
 function Own.goalSkipped(s, g)
@@ -3084,6 +3099,24 @@ function Own.dealsWith(grp, goals, q)
 	return false
 end
 
+-- The arrow's place for a turn-in of quest q that is not ready while along
+-- steps hold its work (#853, #862): the nearest of those goals with a place
+-- (Own.fieldDistance; the first where nothing is measurable), as if the
+-- player had chosen it (Engine.AimAlong). Nil when none has one.
+function Own.alongAim(q)
+	local c, px, py = Compat().GetPlayerWorldPosition()
+	local best, bestD
+	for _, e in ipairs(Own.alongWork(q)) do
+		local goal = guide.steps[e[1]].goals[e[2]]
+		local wp = waypointOf(e[2], goal, nil, e[1])
+		if wp then
+			local d = c and Own.fieldDistance(goal, c, px, py)
+			if not best or (d and (not bestD or d < bestD)) then best, bestD = wp, d end
+		end
+	end
+	return best
+end
+
 -- The arrow's goal: the one the player chose in the current step (a row
 -- click, the next spot), while it is open; else the current goal's own place;
 -- else the header's; else the focus group's first open located goal
@@ -3094,7 +3127,8 @@ end
 -- optional goals are left open; nor has a Class guide the character cannot
 -- start yet (Own.startGate), or another race's starting zone the player has
 -- not reached (Own.awayStart), on its live step. An along goal the player
--- chose (Engine.AimAlong) leads while it is listed and open.
+-- chose (Engine.AimAlong) leads while it is listed and open; so does, before
+-- a turn-in that is not ready, its quest's work in along steps (Own.alongAim).
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -3113,6 +3147,10 @@ local function findWaypoint()
 	local grp = focus and groups[focus]
 	if not grp then return nil end
 	local cg, header = Own.currentGoal(current, groups, focus)
+	if cg and goals[cg].t == "turnin" then
+		local wp = Own.alongAim(goals[cg].quest)
+		if wp then return wp end
+	end
 	local wp = cg and waypointOf(cg, goals[cg])
 	if wp then return wp end
 	wp = header and waypointOf(header, goals[header])
@@ -5301,7 +5339,7 @@ function Engine.GetStepView(i)
 	local goals = {}
 	for g, goal in ipairs(step.goals) do
 		goals[g] = goalView(i, g, goal, status, groupOf[g])
-		if Own.pinOpen(i, goal) then goals[g].pinOpen = true end
+		goals[g].pinOpen = Own.pinOpen(i, goal) or nil
 	end
 	-- A quest that starts from an item reads as one line, the accept, with how
 	-- to get the item under it (`starter`). Until the item is in the bags the
@@ -5571,13 +5609,17 @@ function Own.pinListed(s, g)
 	return false
 end
 
--- A step's turn-in of a pinned quest whose objectives are still open: goal
--- `goal` at step `s` (current or ahead) says so.
+-- A step's turn-in of a quest whose objectives are still open, at step `s`
+-- (current or ahead): true when the player pinned the quest, "along" when a
+-- listed along step holds its work (Own.alongWork, #853); else false.
 function Own.pinOpen(s, goal)
-	if goal.t ~= "turnin" or not goal.quest or not ns.CharState().pinnedQuests[goal.quest] then return false end
+	if goal.t ~= "turnin" or not goal.quest then return false end
 	if not current or s < current then return false end
-	local C = Compat()
-	return C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
+	if ns.CharState().pinnedQuests[goal.quest] then
+		local C = Compat()
+		return C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
+	end
+	return Own.alongWork(goal.quest)[1] and "along" or false
 end
 
 function Engine.GetWaypoint() return waypoint or nil end

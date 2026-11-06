@@ -1219,7 +1219,12 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   Their statuses are in the step signature, so progress fires
   `STEP_UPDATED`. `Engine.AimAlong` sets `aim` to such a goal: `findWaypoint`
   leads there (`waypointOf` with the goal's own step) while it is listed and
-  open, and a step change keeps it. The guide window lists them under "Then:"
+  open, and a step change keeps it. When the current goal is a `turnin` of
+  a quest that is not ready while listed along steps hold its work
+  (`Own.alongWork`: goals past their label kept by `Own.alongHeld`, #853),
+  `findWaypoint` leads to the nearest of those with a place
+  (`Own.alongAim`) instead, until the quest is ready; that turn-in's goal
+  view has `pinOpen = "along"`. The guide window lists them under "Then:"
   ("Along the way", `fillAlong`, at most six rows, not in compact mode);
   "Then:" and Up next skip along steps (`GetStepView(i).along`).
 - **Pinned quests** (#644). The player pins a quest of the log as along the
@@ -1239,8 +1244,9 @@ Polestar.Engine.GetProgress() -> doneSteps, totalSteps
   and the target button (QoL/Buttons `TargetNames`) take the Along the way
   goals after the step's. Their statuses are in the step signature. A
   `turnin` at or after the current step of a pinned quest whose lines are
-  open has `pinOpen` in its goal view: its row and its Up next line show in
-  the warning colour and say so.
+  open has `pinOpen` (true) in its goal view: its row and its Up next line
+  show in the warning colour and say so ("along": the same, without
+  "Pinned").
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
