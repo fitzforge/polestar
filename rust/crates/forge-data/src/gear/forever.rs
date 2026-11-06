@@ -8,8 +8,10 @@
 //!            0 head/chest/legs/two-hand/robe, 1 shoulder/waist/feet/hands/trinket, 2 neck/wrist/
 //!            finger/shield/back/held in off-hand, 3 one-hand weapons, 4 ranged/thrown/relic.
 //!   ratings  crit, hit, dodge, parry and block come as ratings: converted to the percent Polestar's
-//!            weights use at the level-60 rates Era's items were converted with (14 crit = 1%, 10 hit,
-//!            12 dodge, 15 parry, 5 block). Crit and hit ratings count for spells too.
+//!            weights use at the client's rates, the same at every level (gametables/combatratings.txt,
+//!            and combatratingsmultbyilvl.txt is 1 for every item level): 14 crit = 1%, 10 hit, 12 dodge,
+//!            15 parry, 5 block. Crit and hit ratings count for spells too. Haste and expertise (10 per
+//!            1%) are left out: Polestar's weights have no key for them.
 //!   armor    ItemArmorTotal[ilvl].<material> x ArmorLocation[slot] x ItemArmorQuality[ilvl], rounded;
 //!            shields ItemArmorShield[ilvl]; plus any bonus armor stat.
 //!   weapons  DPS from ItemDamageOneHand/TwoHand/Ranged/Thrown/Wand[ilvl][quality]; min = floor(DPS x
