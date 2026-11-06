@@ -371,6 +371,27 @@ local function goalRow(i)
 		W.HideTooltip(b)
 	end)
 	r.Skip:Hide()
+	-- "Share": the goal's quest, for party members who lack it and can take
+	-- it (Party.ShareFor); the game's own share, with its rules.
+	r.Share = CreateFrame("Button", nil, r)
+	r.Share:SetHeight(18)
+	W.Hover(r.Share, 0.7)
+	r.Share.Label = T(r.Share, "small", "accent")
+	r.Share.Label:SetPoint("CENTER", r.Share, "CENTER", 0, 0)
+	r.Share:SetScript("OnClick", function(b)
+		local P, goal = ns.Party, r.psGoal
+		if P and goal and goal.quest then P.Share(goal.quest) end
+	end)
+	r.Share:SetScript("OnEnter", function(b)
+		W.Color(b.Label, "text")
+		W.Tooltip(b, "ANCHOR_TOP", L["Share with your party"], { L["Not on it: %s"]:format(table.concat(b.psNames or {}, ", ")) })
+		GF.HoverIn()
+	end)
+	r.Share:SetScript("OnLeave", function(b)
+		W.Color(b.Label, "accent")
+		W.HideTooltip(b)
+	end)
+	r.Share:Hide()
 	placeCheck(r)
 	-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
 	-- with spawn areas, the next spot. The arrow follows the goal there: the
@@ -508,6 +529,14 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 		r.Skip.Label:SetText((goal.dismissed or questSkipped) and L["Undo"] or L["Skip"])
 		r.Skip:SetWidth(floor(r.Skip.Label:GetStringWidth() + 12 + 0.5))
 	end
+	-- Party members lack the quest and can take it: Share, once per card.
+	local shareTo = not noMissing and ns.Party and ns.Party.ShareFor and ns.Party.ShareFor(goal) or nil
+	r.Share.psNames = shareTo
+	r.Share:SetShown(shareTo ~= nil)
+	if shareTo then
+		r.Share.Label:SetText(L["Share"])
+		r.Share:SetWidth(floor(r.Share.Label:GetStringWidth() + 12 + 0.5))
+	end
 	if pop then
 		Anim.To(r.Icon, "size", ICON * 0.55, ICON, Anim.BASE, "back")
 		Anim.To(r.Icon, "alpha", 0.2, 1, Anim.FAST, "out")
@@ -541,6 +570,11 @@ local function measureRow(r, width)
 		r.Skip:ClearAllPoints()
 		r.Skip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
 		right = right + r.Skip:GetWidth() + 2
+	end
+	if r.Share:IsShown() then
+		r.Share:ClearAllPoints()
+		r.Share:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
+		right = right + r.Share:GetWidth() + 2
 	end
 	if r.Alt:IsShown() then
 		r.Alt:ClearAllPoints()
@@ -4094,8 +4128,9 @@ local function build()
 	xp:Hide()
 	GF.xp = xp
 
-	-- The party's place on this guide (Quests/Party.lua, Party.StepLine); a
-	-- click shares the quest of the step a member lacks.
+	-- The party's place on this guide and the group's wait (Quests/Party.lua,
+	-- Party.StepLine); a click shows or hides the party panel. While the
+	-- group waits on the step: "Go on without them" (Party.GoOn).
 	local party = CreateFrame("Button", nil, body)
 	party:SetHeight(28)
 	party.Rule = W.Divider(party)
@@ -4104,16 +4139,22 @@ local function build()
 	party.Icon = W.Tex(party, "ARTWORK", "icon-talk", "textMuted")
 	party.Icon:SetSize(11, 11)
 	party.Icon:SetPoint("LEFT", party, "LEFT", PAD, -1)
+	party.GoOn = W.Link(party, L["Go on without them"], function()
+		if ns.Party and ns.Party.GoOn then ns.Party.GoOn() end
+	end, { role = "small" })
+	party.GoOn.psTip = L["The step stops waiting for the party and moves on as usual."]
+	party.GoOn:SetPoint("RIGHT", party, "RIGHT", -PAD, -1)
+	party.GoOn:Hide()
 	party.Text = T(party, "small", "textDim")
 	party.Text:SetPoint("LEFT", party.Icon, "RIGHT", 7, 0)
 	party.Text:SetPoint("RIGHT", party, "RIGHT", -PAD, 0)
 	party.Text:SetJustifyH("LEFT")
 	party.Text:SetWordWrap(false)
-	party:SetScript("OnClick", function(self)
-		if self.psShare then ns.Compat.ShareQuest(self.psShare) end
+	party:SetScript("OnClick", function()
+		if UI.PartyPanel then UI.PartyPanel.Toggle() end
 	end)
 	party:SetScript("OnEnter", function(self)
-		if self.psShare then W.Tooltip(self, tooltipAnchor(), L["Party"], { L["Click to share the quest with your party."] }) end
+		W.Tooltip(self, tooltipAnchor(), L["Party"], { L["Click to show or hide the party panel."] })
 		GF.HoverIn()
 	end)
 	party:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -4346,15 +4387,19 @@ ns.On("QOL_XP_UPDATED", whenReady(function(stats) GF.UpdateXP(stats) end))
 ns.OnLogin(function() GF.UpdateXP() end)
 ns.On("STEP_CHANGED", whenReady(function() GF.UpdateXP() end))
 
--- The party line (Quests/Party.lua, Party.StepLine): hidden without one.
+-- The party line (Quests/Party.lua, Party.StepLine): hidden without one;
+-- "Go on without them" at its end while the group waits on the step.
 function GF.UpdateParty()
 	if not GF.party then return end
 	local P = ns.Party
-	local text, share
-	if P and P.StepLine then text, share = P.StepLine() end
+	local text, holding
+	if P and P.StepLine then text, holding = P.StepLine() end
 	local had = GF.party.psText ~= nil
-	GF.party.psText, GF.party.psShare = text, share
+	GF.party.psText, GF.party.psHolding = text, holding and true or false
 	if text then GF.party.Text:SetText(text) end
+	local goOn = GF.party.GoOn
+	goOn:SetShown(holding and true or false)
+	GF.party.Text:SetPoint("RIGHT", holding and goOn or GF.party, holding and "LEFT" or "RIGHT", holding and -8 or -PAD, 0)
 	if had ~= (text ~= nil) then GF.Layout() end
 end
 for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do

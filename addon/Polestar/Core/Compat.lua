@@ -643,6 +643,34 @@ function Compat.GetPlayerMapPosition()
 	return map, x * 100, y * 100
 end
 
+-- Where a party unit stands on its best map, as GetPlayerMapPosition gives
+-- it (map, x and y in 0-100); nil where the client does not say (an
+-- instance, a member out of the world, a client without party positions).
+function Compat.GetUnitMapPosition(unit)
+	if not (C_Map and C_Map.GetBestMapForUnit and C_Map.GetPlayerMapPosition) then return nil end
+	local map = C_Map.GetBestMapForUnit(unit)
+	if not map then return nil end
+	local pos = C_Map.GetPlayerMapPosition(map, unit)
+	local x, y = xyOf(pos)
+	if not x or not y or (x == 0 and y == 0) then return nil end
+	return map, x * 100, y * 100
+end
+
+-- The zone (Enum.UIMapType.Zone = 3) a unit is in: its best map, climbed
+-- through the parentMapID chain past caves, towns and other micro maps; nil
+-- when the client does not say (an instance, no C_Map).
+local ZONE_TYPE = 3
+function Compat.GetUnitZone(unit)
+	local map = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit(unit)
+	if not map then return nil end
+	for _ = 1, 12 do
+		local info = C_Map.GetMapInfo and C_Map.GetMapInfo(map)
+		if not info or (info.mapType or ZONE_TYPE) <= ZONE_TYPE or not info.parentMapID or info.parentMapID == 0 then break end
+		map = info.parentMapID
+	end
+	return map
+end
+
 -- Where the player stands, as guide lines ready to paste into a step: the
 -- map (`zone map <uiMapID>`) and a goal there (`goto x,y live`, two decimals
 -- like the compiler writes), then `x,y live` for the hint; nil where the

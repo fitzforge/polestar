@@ -216,6 +216,8 @@ mod packs_registry;
 #[path = "packs-visibility.rs"]
 mod packs_visibility;
 mod party;
+#[path = "party-group.rs"]
+mod party_group;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;

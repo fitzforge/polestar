@@ -16,8 +16,14 @@
 --   p.connect("Ana", false)          -- UNIT_CONNECTION: offline / back online
 --   p.questLogChanged("Ana")          -- UNIT_QUEST_LOG_CHANGED for her unit
 --   p.secretNames = true              -- UnitName gives party units' names as secret values
+--   p.set("Ana", { level = 12, class = "MAGE", classID = 8, race = "Human", raceID = 1, sex = 3,
+--     dead = true, map = 1429, x = 40, y = 50 })  -- what the client says of her unit (UnitLevel,
+--     UnitClass, UnitRace, UnitSex, UnitIsDeadOrGhost; C_Map.GetBestMapForUnit/GetPlayerMapPosition)
+--   p.shared                          -- quest ids QuestLogPushQuest shared, in order
+--   p.pushable[33] = false            -- C_QuestLog.IsPushableQuest answers
+--   p.pushResult("Ana", "ERR_QUEST_PUSH_ALREADY_DONE_S")  -- the game's system line to a share (CHAT_MSG_SYSTEM)
 
-local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {} }
+local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {} }
 stub.party = party
 
 local function memberOf(unit)
@@ -125,3 +131,68 @@ function C_QuestLog.IsUnitOnQuest(unit, questID)
 end
 
 Enum.SendAddonMessageResult = { Success = 0, InvalidPrefix = 1, InvalidMessage = 2, AddonMessageThrottle = 3, NotInGroup = 5, ChannelThrottle = 8, AddOnMessageLockdown = 11 }
+
+-- What the client says of a member's unit.
+function party.set(name, facts)
+	for _, m in ipairs(party.members) do
+		if m.name == name then
+			for k, v in pairs(facts) do m[k] = v end
+		end
+	end
+end
+
+local baseLevel, baseClass, baseRace = UnitLevel, UnitClass, UnitRace
+function UnitLevel(unit)
+	local m = memberOf(unit)
+	if m then return m.level or 0 end
+	return baseLevel(unit)
+end
+function UnitClass(unit)
+	local m = memberOf(unit)
+	if m then return m.class, m.class, m.classID end
+	return baseClass(unit)
+end
+function UnitRace(unit)
+	local m = memberOf(unit)
+	if m then return m.race, m.race, m.raceID end
+	return baseRace(unit)
+end
+function UnitSex(unit)
+	local m = memberOf(unit)
+	return m and m.sex or 1
+end
+function UnitIsDeadOrGhost(unit)
+	local m = memberOf(unit)
+	return m and m.dead or false
+end
+
+local baseBest, basePos = C_Map.GetBestMapForUnit, C_Map.GetPlayerMapPosition
+function C_Map.GetBestMapForUnit(unit)
+	local m = memberOf(unit)
+	if m then return m.map end
+	return baseBest(unit)
+end
+function C_Map.GetPlayerMapPosition(map, unit)
+	local m = memberOf(unit)
+	if m then
+		if m.map and map == m.map and m.x then return CreateVector2D(m.x / 100, m.y / 100) end
+		return nil
+	end
+	return basePos(map, unit)
+end
+
+-- Sharing a quest (QuestLogFrame's Share button: C_QuestLog.SetSelectedQuest, QuestLogPushQuest).
+local selected
+function C_QuestLog.SetSelectedQuest(q) selected = q end
+function C_QuestLog.IsPushableQuest(q) return party.pushable[q] ~= false end
+function QuestLogPushQuest() table.insert(party.shared, selected) end
+
+-- GlobalStrings' answers to a share, as the client words them.
+ERR_QUEST_PUSH_ALREADY_DONE_S = "%s has completed that quest."
+ERR_QUEST_PUSH_LOG_FULL_S = "%s's quest log is full."
+ERR_QUEST_PUSH_INVALID_S = "%s is not eligible for that quest."
+ERR_QUEST_PUSH_TOO_FAR_S = "%s is too far away to receive your quest."
+ERR_QUEST_PUSH_ONQUEST_S = "%s is already on that quest."
+function party.pushResult(name, global)
+	stub.fire("CHAT_MSG_SYSTEM", _G[global]:format(name))
+end

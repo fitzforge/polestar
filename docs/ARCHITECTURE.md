@@ -672,6 +672,8 @@ Compat.GetMapName(uiMapID)      -> string | nil
 Compat.MapName(uiMapID)         -> string | nil   (the client's name, else the Codex zone's)
 Compat.GetAreaName(areaID)      -> string | nil   (C_Map.GetAreaInfo: the area's name in the client's language)
 Compat.GetContinentMap(uiMapID) -> continent uiMapID | nil
+Compat.GetUnitMapPosition(unit) -> uiMapID, x, y | nil      (a party unit's place, 0-100; nil in instances / unknown)
+Compat.GetUnitZone(unit)        -> zone uiMapID | nil        (its best map climbed to Enum.UIMapType.Zone)
 Compat.GetPlayerFacing()        -> radians | nil   (0 = north, counter-clockwise positive)
 Compat.GetZoneText()            -> zone, subzone
 Compat.IsQuestCompleted(questID)       -> bool   (flagged completed / turned in)
@@ -3710,28 +3712,95 @@ The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 `minimapObjectives`) and `objectiveAreas` default to off (Map → Guide & quests →
 Quest markers); `guideHighlight` only restyles markers those layers draw.
 
-### Party: where each member is on the guide — Quests/Party.lua
+### Party: where each member is on the guide, and group play — Quests/Party.lua
 
 ```lua
+Polestar.Party.EncodeHello(reply) / DecodeHello(text)  -- "1H|<version>" hello, "1Y|<version>" its bare answer -> "H"|"Y", version
+Polestar.Party.Spoke(key) -> bool                  -- the member has spoken Polestar
 Polestar.Party.EncodePos(pos) / DecodePos(text)  -- "1P|<live step>|<Polestar version>|<pack id>|<pack version>|<guide id>"
+Polestar.Party.EncodeUnit(u) / DecodeUnit(text)  -- "2U|<level>|<XP %>|<class id>|<race id>"; later fields ignored
 Polestar.Party.MyPos() -> { step, addon, pack, packVersion, guide } | nil
+Polestar.Party.MyUnit() -> { level, xp, class, race }
 Polestar.Party.Newer(a, b) -> bool                 -- dotted versions; a dev build compares as neither
-Polestar.Party.StepLine() -> text, questID | nil   -- the guide window's party row and the quest its click shares
+Polestar.Party.StepLine() -> text, holding | nil   -- the guide window's party row; holding: the group waits on the step
+Polestar.Party.Waiting(goal) -> { { name, cur, max }, ... } | nil  -- members the group waits for short of goal's line
+Polestar.Party.HoldsQuest(q) -> bool                -- a member the group waits for has q unfinished
+Polestar.Party.StepWait() -> names, ready | nil     -- the live step's wait
+Polestar.Party.GoOn()                              -- "Go on without them": the live step's quests stop waiting
+Polestar.Party.Lacking(q) -> { { name, unit, key, why, blocked }, ... }  -- Missing(q) gives the names
+Polestar.Party.ShareFor(goal) -> names | nil        -- who a row's Share reaches; Share(q) shares
+Polestar.Party.UnitInfo(unit, key) -> { level, xp, class, race }
+Polestar.Party.Roster() -> rows                      -- the party panel's (UI/PartyPanel.lua)
+Polestar.Party.PointAt(unit) -> bool                 -- the arrow at a member (Nav.SetTarget, followed every 3 s)
+Polestar.Party.ItemNeeds(itemID) -> { { name, unit, need }, ... }; NeedText(e)  -- UI/PartyLoot.lua
+Polestar.Party.IsLive() -> bool                     -- PARTY_LIVE (on) fires when it changes
 ```
 
+- The handshake: group play runs only with party members who also run
+  Polestar. A roster read that knew nobody (joining a party, login or reload
+  in one, the settings back on) sends one "1H|" hello, 3-6 s later; a refused
+  one is said again when a member's quest log changes. A member is `spoken`
+  once any valid message of theirs arrives (hello, "1Y|", a snapshot, a
+  position, a unit). Nothing of ours (snapshot, changes, position, unit)
+  goes out before one has (`sharing()`); a hello is answered by a sharer
+  with its snapshot asking theirs ("1R|"), by anyone else with "1Y|"; a
+  member first heard otherwise gets our snapshot. Everything shown (party
+  line, holds, arrow, lacking and Share, panel rows, loot lines, the
+  one-time notice) is of spoken members only; one who leaves is forgotten at
+  once, holds and all. Older versions drop "1H|"/"1Y|" as malformed.
+- Settings (Questing → Quests → Group): `party.share`, `party.show`,
+  `party.waitForGroup`, `party.lootNeeds` on by default, `party.panel` off,
+  `party.panelPos`. A player who turned one off has `false` stored (Set
+  stores what differs from the default), so it stays off. Solo, only
+  `GROUP_ROSTER_UPDATE` and `GROUP_LEFT` are registered; in a party
+  (`wantLive`) the addon channel, the quest log, XP and level, connections
+  and zone changes, and a 5 s look at who holds the wait (sends nothing). The
+  first message from a member who runs Polestar prints, once per account
+  (`PolestarDB.partySyncTold`), that party sync is on and where to turn it
+  off. The options carry `search`, more words the settings search reads.
 - With `party.share`, the position goes out with every snapshot and, two
   seconds after `STEP_CHANGED`/`STEP_UPDATED`/`GUIDE_CHANGED`, only when it
-  changed. Older clients drop "1P|" as malformed.
-- With `party.show`, a member's position is kept beside their counts. The
-  guide window's party row (`GF.party`, over the XP row, not in compact mode)
-  reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step behind", "Cy: on
-  this step" for members on the same guide and pack version; "Still at it:
-  Ana" when the live step's objectives are done for you and a member's
-  counts on them are not (a hint, never a hold); and "Share <quest> with
-  Ben" for the first quest of the step you have that a member lacks
-  (`Party.Missing`), which a click on the row shares
-  (`Compat.ShareQuest`: `C_QuestLog.SetSelectedQuest`, `QuestLogPushQuest`,
-  after `IsPushableQuest` when the client has it).
+  changed. Older clients drop "1P|" as malformed. "2U|" goes out with every
+  snapshot and, two seconds after `PLAYER_XP_UPDATE`/`PLAYER_LEVEL_UP`, when
+  its text changed (a whole percent); version 1 decoders drop it.
+- With `party.show`, a member's position and unit are kept beside their
+  counts. The guide window's party row (`GF.party`, over the XP row, not in
+  compact mode) reads `StepLine`: "Ana: 3 steps ahead", "Ben: 1 step
+  behind", "Cy: on this step" for members on the same guide and pack
+  version, "Dee: other guide" on another; then the wait ("Waiting on Ana",
+  "Everyone's ready"), or with nobody holding the step "Still at it: Ana" (a
+  hint). A click toggles the party panel; while the step is held, "Go on
+  without them" sits at its end.
+- The wait (`party.waitForGroup`): the members the group waits for are
+  those in your zone (`Compat.GetUnitZone`; unknown counts as here) and
+  those offline under 2 minutes (kept apart from `Members`). The Engine asks
+  `Party.Waiting` for the live step only (`computeCurrent`: a done step that
+  `Own.partyHold` holds stays live), refuses a held quest's turn-in to
+  Automation (`wantsFrom`), and with every goal of the step done but held
+  turn-ins aims at the nearest objective a member still needs
+  (`Own.partyAim`, `Own.nearestField`, label "For Ana: ..."). It
+  re-evaluates on `PARTY_PROGRESS`.
+- Goal rows (`Party.Line`): "Ana 5/8", "Ben done", on a collect "Ana still
+  needs 2 Boar Ribs", done for you "Waiting on Ana: 3/8 Boar Ribs"; on a
+  turn-in ready for you "Waiting on Ana" or "Everyone's ready"; on a quest
+  you have, "Not on this quest: Ben (level 8, needs 10)" with the reason
+  when known: the game's answer to a share (`ERR_QUEST_PUSH_*_S` on
+  `CHAT_MSG_SYSTEM`, read 10 s after `Party.Share`), else the quest
+  database's class and race masks and minimum level against the member's
+  (`UnitClass`/`UnitRace`/`UnitLevel`, else "2U|"). The row's Share button
+  (`r.Share`, once per card) shows for members with no reason against
+  (`Party.ShareFor`), through `Compat.ShareQuest` (`C_QuestLog.SetSelectedQuest`,
+  `QuestLogPushQuest`, after `IsPushableQuest` when the client has it).
+- The party panel (UI/PartyPanel.lua, `Maps.CompactFrame` at
+  `party.panelPos`): a row per party member who has spoken Polestar, from
+  `Party.Roster`; shown with `party.panel` while `Party.IsLive()` and there
+  is such a member, hidden with the guide and in combat under `ui.combat`
+  "hide"; `/polestar party`.
+- Loot (UI/PartyLoot.lua, `party.lootNeeds`): on `LOOT_OPENED` and
+  `START_LOOT_ROLL`, a line per item a member's counts are short of while
+  yours are not (the item's log line from the active guide's collect goals,
+  else the quest database's objectives when they number as the member's
+  counts), under the loot window.
 - A member on a newer Polestar, or a newer version of a guide pack you have,
   is said once a session each in chat.
 
