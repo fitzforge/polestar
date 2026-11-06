@@ -43,6 +43,9 @@ const RIDE_S: f64 = 300.0;
 const WALK_YD: f64 = 2000.0;
 // A flight is the wrong way when it leaves them this much farther from their next goal.
 const WRONG_WAY_YD: f64 = 500.0;
+/// A flight to a path never learnt whose flight master the chain stood this near earlier learns the
+/// path there (forge-sim's NEAR_HUB: a flight master this close is learned).
+const PASSED_FP_YD: f64 = 200.0;
 
 /// What the repair needs of the route (apply_route's Output.travel).
 #[derive(Clone, Debug, Default)]
@@ -1087,6 +1090,35 @@ impl Repair<'_> {
 			let all: Vec<Finding> =
 				play(tree, self.data, t).into_iter().filter(|f| (!self.v1_keys.contains(&key_of(f, tree)) || ours(f)) && f.state.as_ref().is_some_and(|s| s.at.is_some()) && !own_walk(f)).collect();
 			let found: Vec<&Finding> = all.iter().filter(|f| !self.tried.contains(&key_of(f, tree))).collect();
+			// A flight to a path never learnt, whose flight master the chain stood by earlier: the path is
+			// learnt there and the flight stays theirs (the flight path sweep from #939: the Gnome
+			// Warlocks boarded the Booty Bay boat at Ratchet's dock, about 100 yd from Bragok, then walked
+			// from Theramore to Ratchet for their Felsteed at 44). A round of its own: the lines it adds
+			// move the line numbers of the other failures, found again next round.
+			let learn = self.passed_flight_masters(tree, &found);
+			if !learn.is_empty() {
+				let mut by_file: BTreeMap<String, Vec<(u32, String)>> = BTreeMap::new();
+				for (key, file, line, l) in learn {
+					self.tried.insert(key);
+					by_file.entry(file).or_default().push((line, l));
+				}
+				let mut did = 0;
+				for (file, mut ins) in by_file {
+					let mut text: Vec<String> = tree[&file].split('\n').map(str::to_string).collect();
+					// (From the bottom up: line numbers hold.)
+					ins.sort_by(|a, b| b.cmp(a));
+					ins.dedup();
+					for (line, l) in ins {
+						rep.log.push(format!("  {file}:{line} learns the flight path a later flight needs | {}", trim(&l)));
+						text.insert(line as usize - 1, l);
+						did += 1;
+					}
+					tree.insert(file, text.join("\n"));
+				}
+				rep.fixed += did;
+				rep.log.push(format!("travel repair round {}: {did} flight paths learnt where the chain stood by their flight masters", rep.rounds));
+				continue;
+			}
 			for f in &found {
 				self.tried.insert(key_of(f, tree));
 			}
@@ -1125,6 +1157,34 @@ impl Repair<'_> {
 				break;
 			}
 		}
+	}
+
+	/// Each failure `fly to X: its flight path was never learnt` whose flight master X the chain stood
+	/// within PASSED_FP_YD of before it (a goal played earlier left the character there): (the
+	/// failure's key, the file and line of that goal, the `getfp` line to write before it). A flight in
+	/// a shared guide learns its path in a shared guide only (a start's own guide is not kept there).
+	fn passed_flight_masters(&self, tree: &BTreeMap<String, String>, found: &[&Finding]) -> Vec<(String, String, u32, String)> {
+		let t = self.t;
+		let wanted: Vec<(&Finding, String)> =
+			found.iter().filter_map(|f| re!(r"^fly to (.+): its flight path was never learnt$").captures(&f.reason).map(|m| (*f, m[1].to_lowercase()))).collect();
+		if wanted.is_empty() {
+			return Vec::new();
+		}
+		let trace = play_traced(tree, self.data, t, true).1;
+		let mut out = Vec::new();
+		for (f, name) in wanted {
+			let ways = &self.ways;
+			let Some(node) = ways.nodes.iter().find(|x| ways.usable(&x.get("faction")) && (x.get("short").to_js_string().to_lowercase() == name || x.get("name").to_js_string().to_lowercase() == name)) else { continue };
+			let Some(k) = trace.iter().position(|r| r.file == f.file && r.line == f.line && r.verb == "fly") else { continue };
+			let Some(r) = trace[..k].iter().find(|r| dist(r.after, wpt(node)) <= PASSED_FP_YD) else { continue };
+			let shared = t.shared.contains(&r.file);
+			if t.shared.contains(&f.file) && !shared {
+				continue;
+			}
+			let only = if shared && !t.other_races.is_empty() { format!(" only {}", t.route_races.join(",")) } else { String::new() };
+			out.push((key_of(f, tree), r.file.clone(), r.line, format!("  getfp \"{}\"{only}", node.get("short").to_js_string())));
+		}
+		out
 	}
 
 	fn repair_one(&self, text: &mut Vec<String>, file: &str, f: &Finding, is_shared: bool, only_route: &[String], rep: &mut Report) -> usize {

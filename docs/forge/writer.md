@@ -810,6 +810,14 @@ portals and hearths. A lift counts as part of the walk.
   `only` the trip's classes (the flight from Orgrimmar to the Crossroads after
   the training, not shown to the Druids and Paladins already back at the
   Crossroads from Thunder Bluff, c19 Horde 30-40/03-arathi-highlands:449).
+- A flight to a path the player never learnt, at a flight master the chain
+  stood within 200 yards of earlier (a goal played there left the player
+  that close), learns the path there instead: a `getfp` before that goal,
+  `only` the route's races (and class) on a shared guide, and the flight stays
+  theirs. Before, the flight went to the other races and the player walked
+  (the shared Alliance route's Gnome Warlocks boarded the Booty Bay boat at
+  Ratchet's dock, about 100 yards from Bragok, then walked from Theramore to
+  Ratchet for their Felsteed at 44; the flight path sweep from #939).
 
 `--no-route-legs` writes the old JavaScript writer's travel instead. It then
 runs that writer's travel repair: the honest playtest's R1 (see

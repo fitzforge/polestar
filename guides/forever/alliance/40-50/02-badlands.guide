@@ -132,7 +132,7 @@ step Theramore flight master
   goto 67.5,51.2 "Theramore flight master"
 
 step Ratchet
-  only Gnome,Human,Warlock
+  only Human,Warlock
   zone The Barrens
   goto 63.1,37.1 "Ratchet"
 
@@ -140,7 +140,7 @@ step Warlock: Summon Felsteed
   only Warlock
   zone The Barrens
   tip Fly to Ratchet; Strahad Farsan teaches in the house by the bank. Fly back to Theramore afterwards.
-  fly "Ratchet" only Dwarf,NightElf,Skyborne
+  fly "Ratchet" only Dwarf,Gnome,NightElf,Skyborne
   turnin 4488                         -- Strahad Farsan
   accept 4490
   turnin 4490
