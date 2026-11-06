@@ -181,12 +181,15 @@ end
 
 -- The guide window's party line and /polestar party: an open panel closes
 -- (and stays closed: party.panel false), a closed one opens, or it says why
--- it cannot yet. "/polestar party debug": Party.Debug's lines.
+-- it cannot yet. "/polestar party debug": Party.Debug's lines;
+-- "/polestar party selftest": Party.SelfTest, the check with nobody else.
 function PP.Toggle(arg)
-	if type(arg) == "string" and arg:lower() == "debug" then
+	local sub = type(arg) == "string" and arg:lower() or ""
+	if sub == "debug" then
 		for _, line in ipairs(ns.Party.Debug()) do ns.Print(line) end
 		return
 	end
+	if sub == "selftest" then return ns.Party.SelfTest() end
 	if F and F:IsShown() then return ns.Set("party.panel", false) end
 	ns.Set("party.panel", true)
 	if not (F and F:IsShown()) then

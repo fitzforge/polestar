@@ -624,12 +624,22 @@ local function tellOnce()
 	ns.Print(ns.L["Party sync is on: your party sees your quest progress (Options > Questing > Quests > Group to turn it off)."])
 end
 
+-- `/polestar party selftest` (Party.SelfTest) runs a message through
+-- onAddonMessage as a party member's: `rehearsal` records what it reached,
+-- and while it is set nothing goes out, nothing is scheduled or told, and
+-- the roster is not read again. nil the rest of the time.
+local rehearsal
+
 -- A member spoke Polestar (any valid message). One new to us is told once
 -- (the notice, on the first found) and gets our snapshot unless their
 -- message already asks for it. True when they are new.
 local function heard(key, asks)
 	if spoken[key] then return false end
 	spoken[key] = true
+	if rehearsal then
+		rehearsal.heard = true
+		return true
+	end
 	tellOnce()
 	progressChanged()
 	if not asks and ns.Get("party.share") then scheduleSnapshot(false) end
@@ -637,33 +647,45 @@ local function heard(key, asks)
 end
 
 local function onAddonMessage(_, prefix, text, channel, sender)
-	local C = ns.Compat
+	local C, r = ns.Compat, rehearsal
 	if C.IsSecret(prefix) or C.IsSecret(channel) or C.IsSecret(text) then return end
 	if prefix ~= Party.PREFIX or channel ~= "PARTY" or type(sender) ~= "string" then return end
 	local key = C.SenderName(sender)
 	if not key then return end
+	if r then r.key = key end
 	diag.heard, diag.lastSender = diag.heard + 1, sender
-	if C.SenderIsMe(sender) then return end
+	-- (A rehearsal of the player's own message plays it as a member's.)
+	local me = C.SenderIsMe(sender)
+	if r then r.me = me end
+	if me and not (r and r.self) then return end
 	local short = roster[key]
 	if not short then
 		-- Only party members speak on the party channel: one not in the
 		-- roster is a read that missed them (a name the client did not
 		-- have yet), or a name spelled otherwise than the roster's: read it
 		-- again, then ask the client which member the sender is.
-		readRoster()
+		if not r then readRoster() end
 		short = roster[key]
 		for k, unit in pairs(units) do
 			if short then break end
-			if roster[k] and C.SenderIsUnit(sender, unit) then key, short = k, roster[k] end
+			if roster[k] and C.SenderIsUnit(sender, unit) then
+				key, short = k, roster[k]
+				if r then r.byUnit = unit end
+			end
 		end
 		if not short then return end
 	end
+	if r then r.member = key end
 	diag.matched = diag.matched + 1
 	local mark = Party.DecodeHello(text)
 	if mark == "H" then
 		-- A hello (they joined, logged in or reloaded): a sharer answers with
 		-- its snapshot, asking theirs; anyone else with a bare answer.
 		heard(key, true)
+		if r then
+			r.answer = ns.Get("party.share") and "our snapshot" or Party.EncodeHello(true)
+			return
+		end
 		if ns.Get("party.share") then
 			scheduleSnapshot(true)
 		else
@@ -1113,6 +1135,270 @@ function Party.Debug()
 			tostring(key and roster[key] ~= nil or false), tostring(key and spoken[key] or false)))
 	end
 	return out
+end
+
+---------------------------------------------------------------------------
+-- `/polestar party selftest`: party sync checked alone
+---------------------------------------------------------------------------
+
+-- Prints, for a player with nobody to test with: the prefix registration;
+-- every name the client gives for you and each party member; a hello sent
+-- over WHISPER to your own name (and over PARTY, or INSTANCE_CHAT, in a
+-- group) with each send's raw result; for SELFTEST_LISTEN seconds, every
+-- argument of each addon message that arrives for our prefix and what the
+-- receive path makes of its sender; then each hello that arrived played
+-- through onAddonMessage as a party member's (rehearse), PASS or FAIL per
+-- step. Kept in the saved variables too (partySelfTest), the last run only.
+-- Nothing of normal play changes: the rehearsal puts the roster back.
+local SELFTEST_LISTEN, SELFTEST_SHOWN = 10, 6
+local ARG_NAMES = { "prefix", "text", "channel", "sender", "target", "zoneChannelID", "localID", "name", "instanceID" }
+local selfTest -- the run under way: { lines, at, got, others, heard, sent }
+
+local function pack(...) return { n = select("#", ...), ... } end
+
+-- A value as the self-test prints it; a secret one is never read.
+local function shown(v)
+	if ns.Compat.IsSecret(v) then return "<secret>" end
+	if type(v) == "string" then return ("%q"):format(v) end
+	return tostring(v)
+end
+
+-- A result code with its name in `enum` (Enum.SendAddonMessageResult...).
+local function named(v, enum)
+	if ns.Compat.IsSecret(v) or type(v) ~= "number" or type(enum) ~= "table" then return shown(v) end
+	for k, n in pairs(enum) do
+		if n == v then return ("%d (%s)"):format(v, k) end
+	end
+	return shown(v)
+end
+
+-- Every return of a pcall, printed: "missing" for no function.
+local function call(fn, enum, ...)
+	if type(fn) ~= "function" then return "missing" end
+	local res = pack(pcall(fn, ...))
+	if not res[1] then return "error " .. tostring(res[2]) end
+	if res.n == 1 then return "(no return)" end
+	local out = {}
+	for i = 2, res.n do out[#out + 1] = named(res[i], enum) end
+	return concat(out, ", ")
+end
+local function returns(name, ...) return call(_G[name], nil, ...) end
+
+-- The first return of client function `name`, when a readable string.
+local function firstString(name, ...)
+	local fn = _G[name]
+	if type(fn) ~= "function" then return nil end
+	local ok, v = pcall(fn, ...)
+	if ok and type(v) == "string" and not ns.Compat.IsSecret(v) and v ~= "" then return v end
+	return nil
+end
+
+local function say(line)
+	local t = selfTest
+	if t then t.lines[#t.lines + 1] = line end
+	ns.Print(line)
+end
+
+-- Every name the client gives for `unit`, and our roster key for it.
+local function sayNames(unit)
+	local C = ns.Compat
+	say(("%s: UnitName %s; UnitNameUnmodified %s"):format(unit, returns("UnitName", unit), returns("UnitNameUnmodified", unit)))
+	say(("  GetUnitName(true) %s; GetUnitName(false) %s; UnitFullName %s"):format(returns("GetUnitName", unit, true),
+		returns("GetUnitName", unit, false), returns("UnitFullName", unit)))
+	local key, short = memberKey(unit)
+	local line = ("  our roster key (Compat.UnitFullName) %s, shown as %s"):format(shown(key), shown(short))
+	local g = firstString("GetUnitName", unit, true)
+	if g then
+		line = line .. ("; UnitIsUnit(GetUnitName(true), %s) %s; UnitInParty(GetUnitName(true)) %s"):format(unit,
+			returns("UnitIsUnit", g, unit), returns("UnitInParty", g))
+	end
+	say(line)
+end
+
+-- `text` from `sender` through onAddonMessage on the party channel, as the
+-- event would bring it. `self`: the sender is the player, put in the roster
+-- the way readRoster keys a unit (memberKey("player")), so the matching and
+-- decoding run as for a member. -> what it reached (rehearsal's fields).
+local function rehearse(text, sender, self)
+	local function copy(t)
+		local c = {}
+		for k, v in pairs(t) do c[k] = v end
+		return c
+	end
+	local r = { self = self }
+	local was = { roster, units, spoken, members, diag.heard, diag.matched, diag.lastSender }
+	roster, units, spoken, members = copy(roster), copy(units), {}, copy(members)
+	if self then
+		local key, short = memberKey("player")
+		r.rosterKey = key
+		if key then roster[key], units[key] = short, "player" end
+	end
+	rehearsal = r
+	local ok, err = pcall(onAddonMessage, "CHAT_MSG_ADDON", Party.PREFIX, text, "PARTY", sender)
+	rehearsal = nil
+	roster, units, spoken, members = was[1], was[2], was[3], was[4]
+	diag.heard, diag.matched, diag.lastSender = was[5], was[6], was[7]
+	if not ok then r.error = tostring(err) end
+	return r
+end
+
+-- PASS/FAIL per step of a rehearsal; true when all passed.
+local function sayRehearsal(r, rosterKey)
+	if r.error then
+		say("  FAIL the receive path threw: " .. r.error)
+		return false
+	end
+	if not r.key then
+		say("  1 read the sender: FAIL Compat.SenderName gave nothing for it")
+		return false
+	end
+	say("  1 read the sender: PASS, as " .. shown(r.key))
+	if r.me and not r.self then
+		say("  2 matched to a party member: FAIL, taken for your own echo (Compat.SenderIsMe)")
+		return false
+	end
+	if not r.member then
+		say(("  2 matched to a party member: FAIL, %s is not the roster key %s, and UnitIsUnit(sender, unit) said no for every member"):format(
+			shown(r.key), shown(rosterKey)))
+		return false
+	end
+	if r.byUnit then
+		say(("  2 matched to a party member: PASS, but only through UnitIsUnit(sender, %s): the sender reads %s, the roster key %s"):format(
+			r.byUnit, shown(r.key), shown(r.member)))
+	else
+		say("  2 matched to a party member: PASS, by its roster key " .. shown(r.member))
+	end
+	if not r.heard then
+		say("  3 decoded as a Polestar hello: FAIL")
+		return false
+	end
+	say("  3 decoded as a Polestar hello: PASS; it would answer with " .. tostring(r.answer))
+	return true
+end
+
+local function onSelfTestMessage(_, ...)
+	local t = selfTest
+	if not t then return end
+	local C = ns.Compat
+	local prefix, text, channel, sender = ...
+	if not C.IsSecret(prefix) and prefix ~= Party.PREFIX then
+		t.others = t.others + 1
+		return
+	end
+	t.got = t.got + 1
+	if t.got > SELFTEST_SHOWN then return end
+	say(("(c) message %d arrived %.1f s after sending:"):format(t.got, GetTime() - t.at))
+	for i = 1, select("#", ...) do
+		local v = select(i, ...)
+		local ok, kind = pcall(type, v)
+		say(("  arg%d %s: %s%s %s"):format(i, ARG_NAMES[i] or "?", ok and kind or "?", C.IsSecret(v) and " SECRET" or "", shown(v)))
+	end
+	if C.IsSecret(sender) or type(sender) ~= "string" then
+		say("(d) FAIL the sender is " .. (C.IsSecret(sender) and "a secret value" or type(sender)) .. ": the receive path drops the message")
+		return
+	end
+	say(("(d) Compat.SenderName %s; SenderIsMe %s; SenderIsUnit(sender, player) %s"):format(shown(C.SenderName(sender)),
+		shown(C.SenderIsMe(sender)), shown(C.SenderIsUnit(sender, "player"))))
+	say(("  UnitFullName(player) %s; Compat.UnitFullName(player) %s"):format(returns("UnitFullName", "player"), call(C.UnitFullName, nil, "player")))
+	say(("  UnitNameUnmodified(player) %s; GetUnitName(player, true) %s"):format(returns("UnitNameUnmodified", "player"), returns("GetUnitName", "player", true)))
+	say(("  Ambiguate none %s; short %s; all %s; mail %s"):format(returns("Ambiguate", sender, "none"), returns("Ambiguate", sender, "short"),
+		returns("Ambiguate", sender, "all"), returns("Ambiguate", sender, "mail")))
+	say(("  UnitIsUnit(sender, player) %s; UnitInParty(sender) %s"):format(returns("UnitIsUnit", sender, "player"), returns("UnitInParty", sender)))
+	if not C.IsSecret(text) and not C.IsSecret(channel) and Party.DecodeHello(text) == "H" then
+		t.heard[#t.heard + 1] = { text = text, sender = sender, channel = channel }
+	end
+end
+
+local function finishSelfTest()
+	local t = selfTest
+	if not t then return end
+	ns.UnregisterEvent("CHAT_MSG_ADDON", onSelfTestMessage)
+	if t.got == 0 then
+		say(("(c) FAIL nothing arrived for our prefix in %d s (%d messages of other prefixes did)"):format(SELFTEST_LISTEN, t.others))
+	elseif t.got > SELFTEST_SHOWN then
+		say(("(c) %d messages arrived for our prefix, the first %d shown"):format(t.got, SELFTEST_SHOWN))
+	end
+	local all = true
+	local heardHere = t.heard
+	if #heardHere == 0 then
+		local mine = memberKey("player")
+		if type(mine) == "string" then
+			heardHere = { { text = Party.EncodeHello(false), sender = mine, made = true } }
+		end
+	end
+	for i, h in ipairs(heardHere) do
+		say(("(e) hello %d from %s%s, played as a party member's on PARTY:"):format(i, shown(h.sender),
+			h.made and " (made up from your name: nothing arrived)" or (h.channel ~= "PARTY" and (" (it came on " .. tostring(h.channel) .. ")") or "")))
+		local r = rehearse(h.text, h.sender, true)
+		if not sayRehearsal(r, r.rosterKey) then all = false end
+	end
+	if #heardHere == 0 then
+		say("(e) FAIL no hello to play: your own name is unknown or secret (Compat.UnitFullName(player))")
+		all = false
+	end
+	-- In a group: a sender spelled as the client's GetUnitName(unit, true),
+	-- against the real roster.
+	for i = 1, (grouped() and GetNumSubgroupMembers and GetNumSubgroupMembers() or 0) do
+		local unit = "party" .. i
+		local g = firstString("GetUnitName", unit, true)
+		if g then
+			say(("(e) %s: a hello from %s (GetUnitName(%s, true)) against the roster:"):format(unit, shown(g), unit))
+			if not sayRehearsal(rehearse(Party.EncodeHello(false), g, false), (memberKey(unit))) then all = false end
+		end
+	end
+	say(("RESULT: send %s; receive %s; receive path %s"):format(t.sent and "PASS" or "FAIL",
+		t.got > 0 and ("PASS (" .. t.got .. " arrived)") or "FAIL (nothing arrived)", all and "PASS" or "FAIL"))
+	selfTest = nil
+end
+
+function Party.SelfTest()
+	if selfTest then return ns.Print("A party self-test is already running.") end
+	local C = ns.Compat
+	local t = { lines = {}, got = 0, others = 0, heard = {}, sent = false }
+	selfTest = t
+	ns.DB().partySelfTest = { at = date and date("%Y-%m-%d %H:%M:%S") or "", lines = t.lines }
+	say(("Party self-test: Polestar %s; client %s"):format(tostring(ns.version), returns("GetBuildInfo")))
+	local CI = C_ChatInfo or {}
+	say(("IsInGroup %s, home %s, instance %s; IsInRaid %s; members %s; chat lockdown %s; live %s, share %s, show %s"):format(
+		returns("IsInGroup"), returns("IsInGroup", LE_PARTY_CATEGORY_HOME), returns("IsInGroup", LE_PARTY_CATEGORY_INSTANCE),
+		returns("IsInRaid"), returns("GetNumSubgroupMembers"), call(CI.InChatMessagingLockdown, nil), tostring(liveOn),
+		tostring(ns.Get("party.share")), tostring(ns.Get("party.show"))))
+	-- (a) The prefix.
+	say("(a) RegisterAddonMessagePrefix " .. call(CI.RegisterAddonMessagePrefix, Enum and Enum.RegisterAddonMessagePrefixResult, Party.PREFIX)
+		.. "; IsAddonMessagePrefixRegistered " .. call(CI.IsAddonMessagePrefixRegistered, nil, Party.PREFIX))
+	sayNames("player")
+	for i = 1, (GetNumSubgroupMembers and GetNumSubgroupMembers() or 0) do sayNames("party" .. i) end
+	ns.RegisterEvent("CHAT_MSG_ADDON", onSelfTestMessage)
+	t.at = GetTime()
+	-- (b) The hello, to yourself by every spelling of your name, and to the group.
+	local fn = CI.SendAddonMessage
+	if type(fn) ~= "function" then
+		say("(b) FAIL the client has no C_ChatInfo.SendAddonMessage")
+	else
+		local results = Enum and Enum.SendAddonMessageResult
+		local success = results and results.Success or 0
+		local hello = Party.EncodeHello(false)
+		local function try(chatType, target)
+			local res = pack(pcall(fn, Party.PREFIX, hello, chatType, target))
+			local r = res[2]
+			if res[1] and not C.IsSecret(r) and (r == nil or r == true or r == success) then t.sent = true end
+			say(("(b) %s%s: %s"):format(chatType, target and (" to " .. shown(target)) or "",
+				res[1] and (res.n == 1 and "(no return)" or named(r, results)) or ("error " .. tostring(r))))
+		end
+		local seen = {}
+		local mine = memberKey("player")
+		for _, target in ipairs({ type(mine) == "string" and mine or false, firstString("GetUnitName", "player", true) or false,
+			firstString("UnitName", "player") or false }) do
+			if target and not seen[target] then
+				seen[target] = true
+				try("WHISPER", target)
+			end
+		end
+		if IsInGroup and IsInGroup() then try("PARTY") end
+		if LE_PARTY_CATEGORY_INSTANCE and IsInGroup and IsInGroup(LE_PARTY_CATEGORY_INSTANCE) then try("INSTANCE_CHAT") end
+	end
+	say(("Listening %d s for what arrives..."):format(SELFTEST_LISTEN))
+	if C_Timer then ns.After(SELFTEST_LISTEN, finishSelfTest) else finishSelfTest() end
 end
 
 -- Registers what the settings need and nothing else; at login and whenever

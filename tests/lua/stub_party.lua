@@ -12,7 +12,7 @@
 --   p.leave("Ana"); p.disband()       -- GROUP_ROSTER_UPDATE (and GROUP_LEFT when empty)
 --   p.raid(true)                      -- the group is a raid
 --   p.receive("Ana-TestRealm", "1|33:5/8"[, channel[, prefix]])  -- CHAT_MSG_ADDON
---   p.sent                            -- { { prefix, text, chatType }, ... } every send attempt
+--   p.sent                            -- { { prefix, text, chatType, target }, ... } every send attempt
 --   p.result = 3                      -- what SendAddonMessage returns (0 = Success)
 --   p.onQuest.Ana = { [33] = true }   -- C_QuestLog.IsUnitOnQuest answers
 --   p.noUnitQuestAPI()                -- a client without C_QuestLog.IsUnitOnQuest
@@ -155,7 +155,7 @@ function C_ChatInfo.RegisterAddonMessagePrefix(prefix)
 end
 function C_ChatInfo.IsAddonMessagePrefixRegistered(prefix) return party.prefixes[prefix] == true end
 function C_ChatInfo.SendAddonMessage(prefix, text, chatType, target)
-	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType })
+	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType, target = target })
 	return party.result
 end
 -- ChatInfoDocumentation.lua SendChatMessage (no returns), InChatMessagingLockdown.
