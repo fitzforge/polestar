@@ -1,4 +1,4 @@
--- French (frFR): the guide forever/class/shaman/stalk-with-the-earthmother (forever/class/shaman/stalk-with-the-earthmother.guide).
+-- French (frFR): the guide forever/miscellaneous/stalk-with-the-earthmother (forever/miscellaneous/stalk-with-the-earthmother.guide).
 -- Written by `forge i18n guides sync frFR`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
 -- name there in French (the English is listed above the line). A name the English has in the plural, as words,

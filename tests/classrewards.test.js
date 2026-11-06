@@ -37,3 +37,13 @@ test('a quest for every class but one is no class quest: Durotar\'s Vile Familia
 	assert.deepEqual(out.map((e) => e.q), [10]);
 	assert.deepEqual(starts.map((s) => s.q), [10]);
 });
+
+test('only the data\'s class limit makes a class quest: a class guide\'s errand every class can take is none', () => {
+	// The Dread Mage Hat guide (Warlock) starts with A Noble Brew, an errand for any
+	// Alliance player (no class in the data), before the Warlock's own quest.
+	const quests = { 335: { ...quest(335, 10, 25, ROBE), classes: null, next: 397 }, 397: { ...quest(397, -61, 25, ROBE), pre: [335] } };
+	const guides = [{ file: 'dread-mage-hat.guide', mask: 256, reward: { items: [ROBE] }, quests: [335, 397] }];
+	const { starts, quests: out } = buildClassRewards({ quests, tdb: null, table, guides, npcs: { 1: giver }, objects: {}, races });
+	assert.deepEqual(out.map((e) => e.q), [397]);
+	assert.deepEqual(starts.map((s) => s.q), [397]);
+});

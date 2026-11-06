@@ -2081,6 +2081,26 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78261": {
+		"set": {
+			"classes": 8
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
+		},
+		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+	},
+	"78307": {
+		"set": {
+			"classes": 8
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 8 (Rogue)"
+		},
+		"note": "The Horn of Xelthos (C's payment, from the same Dead Drop near Pyrewood Village: the Pyrewood Signet Ring) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8). The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+	},
 	"79358": {
 		"set": {
 			"end": {
@@ -2242,13 +2262,21 @@
 					7825
 				],
 				"object": []
+			},
+			"races": null,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: race mask 0, no class mask, seen in game"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+		],
+		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825). Forever opened this library book to everyone: its quest data has no race or class limit (Forever's change notes: classes none instead of Mage); the race limit is dropped on the factoruide row's race mask 0. The merged data kept Season of Discovery's Mage and Alliance limits, so Polestar showed it as a Mage class quest."
 	},
 	"84398": {
 		"set": {
@@ -2506,6 +2534,16 @@
 			}
 		],
 		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+	},
+	"93797": {
+		"set": {
+			"classes": 128
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 128 (Mage)"
+		},
+		"note": "Boughs in the Wind (Belann Windwood on Zephras Isle, the Windbough Wand) is a Mage quest on Forever: Forever limits it to Mages (class mask 128). The merged data had no class, so the class-quest card knew it only from the Mage guide that takes it."
 	},
 	"93927": {
 		"set": {
@@ -3153,6 +3191,54 @@
 			}
 		],
 		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
+	},
+	"98341": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98404": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98738": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
 	},
 	"98601": {
 		"set": {

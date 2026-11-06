@@ -1,6 +1,8 @@
 -- The class-quest card: above the goals of a step whose accept is one of
--- the character's class quests (the step or the goal is `only <Class>`, the
--- guide is a Class guide, or the quest data limits the quest to the class).
+-- the character's class quests: the quest data limits the quest to a few
+-- classes, the character's among them (UI/ClassRewards.lua). A step or goal
+-- `only <Class>` is a route choice, not a class quest (Mulgore's Druid trip
+-- to Thunder Bluff), and a Class guide carries open errands too.
 -- In the class colour: a border, a 4 px stripe on the left and a soft glow
 -- from it; the chain's reward icon in a ring (the spell it teaches, else the
 -- item it gives, else the class icon); "<CLASS> · LEVEL <n>", the quest's
@@ -90,30 +92,27 @@ local function matches(only, p)
 	return (only.classes == nil or lists(only.classes, p.class)) and (only.factions == nil or lists(only.factions, p.faction))
 end
 
--- Whether an `only` list makes its line a quest of `class`: it names the
--- class among a few. `only !Paladin` compiles to the eight other classes: a
--- line for every class but one is nobody's class quest (#812: a Mage was
--- shown Redemption, a Warrior the Warlock's Vile Familiars).
-local FEW = 4
-local function gate(only, class)
-	local list = type(only) == "table" and only.classes or nil
-	return type(list) == "table" and #list <= FEW and lists(list, class)
-end
-
--- Whether `goal` (a guide step's goal) is a quest of class `class`.
-local function classQuest(guide, step, goal, class)
-	if not goal.quest then return false end
-	if gate(step.only, class) or gate(goal.only, class) then return true end
-	local e = entry(goal.quest)
-	if e then return hasBit(e[1], CLASS_BIT[class]) end
-	return guide.category == "Class" and lists(guide.classes, class)
+-- Whether `goal` (a guide step's goal) is a quest of class `class`: its data
+-- names the class among a few (ClassRewards keeps no mask for a quest open
+-- to every class, or to every class but one, #812).
+local function classQuest(goal, class)
+	local e = goal.quest and entry(goal.quest)
+	return e ~= nil and hasBit(e[1], CLASS_BIT[class])
 end
 CC.ClassQuest = classQuest
 
--- Whether the class quest of accept goal `goal` is behind the character: the
--- quest handed in (the game says so, or the step's own turn-in of it is done)
--- or the chain's reward already known or owned.
-local function finished(step, view, goal)
+-- Whether the chain of class quest `quest` gives what the character already
+-- knows or owns (CT.RewardKnown): a Skyborne Druid who learned Bear Form on
+-- Zephras Isle is not told to learn it at Child of Nature.
+local function rewardKnown(quest)
+	local e, d, CT = entry(quest), ns.ClassRewards, UI.ClassToast
+	local reward = e and e[3] and e[3] > 0 and d and d.rewards and d.rewards[e[3]] or nil
+	return reward ~= nil and CT ~= nil and CT.RewardKnown ~= nil and CT.RewardKnown(reward) or false
+end
+
+-- Whether the class quest of accept goal `goal` is handed in: the game says
+-- so, or the step's own turn-in of it is done.
+local function handedIn(step, view, goal)
 	local C = ns.Compat
 	local ok, done = false, false
 	if C and C.IsQuestCompleted then ok, done = pcall(C.IsQuestCompleted, goal.quest) end
@@ -122,22 +121,21 @@ local function finished(step, view, goal)
 		local v = view.goals[gi]
 		if g.t == "turnin" and g.quest == goal.quest and v and v.status == "done" then return true end
 	end
-	local e, d, CT = entry(goal.quest), ns.ClassRewards, UI.ClassToast
-	local reward = e and e[3] and e[3] > 0 and d and d.rewards and d.rewards[e[3]] or nil
-	return reward ~= nil and CT ~= nil and CT.RewardKnown ~= nil and CT.RewardKnown(reward) or false
+	return false
 end
 
 -- The step's class quest the card is for: its first accept of one that
--- applies, else its first such turn-in. None once that accept is done and
--- its quest handed in or its reward learned: the card is gone then, and the
--- accept reads as a row like any other. -> goal index | nil
-local function cardGoal(guide, step, view, p)
+-- applies, else its first such turn-in. None for a chain whose reward the
+-- character already knows or owns, nor once the accept is done and its quest
+-- handed in: the card is gone then, and the accept reads as a row like any
+-- other. -> goal index | nil
+local function cardGoal(step, view, p)
 	local turnin
 	for gi, goal in ipairs(step.goals) do
 		local v = view.goals[gi]
-		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(guide, step, goal, p.class) then
+		if (goal.t == "accept" or goal.t == "turnin") and v and v.status ~= "na" and matches(goal.only, p) and classQuest(goal, p.class) and not rewardKnown(goal.quest) then
 			if goal.t == "accept" then
-				if v.status == "done" and finished(step, view, goal) then return nil end
+				if v.status == "done" and handedIn(step, view, goal) then return nil end
 				return gi
 			end
 			turnin = turnin or gi
@@ -456,7 +454,7 @@ function CC.Fill(guide, index, view)
 	CC.shown = nil
 	local step = guide and index and guide.steps and guide.steps[index]
 	local p = player()
-	local gi = step and view and p and p.class and cardGoal(guide, step, view, p)
+	local gi = step and view and p and p.class and cardGoal(step, view, p)
 	if not gi then
 		if F then F:Hide() end
 		return nil
@@ -507,6 +505,11 @@ function CC.Fill(guide, index, view)
 			else
 				line = format(L["%s quest taken"], className)
 			end
+		elseif gv.noticeText then
+			-- Ticked by hand while the quest is not in the log (the tick
+			-- never stands for the quest), or not listed by its giver: the
+			-- game's word, as the accept's own row would say it.
+			line = gv.noticeText
 		else
 			local where = goal.map and UI.MapName(goal.map)
 			local N = ns.Names
@@ -522,10 +525,13 @@ function CC.Fill(guide, index, view)
 		end
 		F.Accept.psGoal = gv
 		-- The box ticks the accept only. Taken, it stays just for a hand tick
-		-- to undo: the quest log already says the quest is taken.
+		-- to undo: the quest log already says the quest is taken. A hand tick
+		-- shows ticked, so it can be seen and undone, though the accept stays
+		-- open until the quest is in the log.
 		F.Accept.Check:SetShown(gv.tickable and (not slim or gv.ticked) and true or false)
-		F.Accept.Check.psChecked = done
-		F.Accept.Check:SetChecked(done)
+		local on = done or gv.ticked and true or false
+		F.Accept.Check.psChecked = on
+		F.Accept.Check:SetChecked(on)
 		local locked = done and not gv.ticked
 		if locked then F.Accept.Check:Disable() else F.Accept.Check:Enable() end
 		F.Accept.Check:SetAlpha(locked and 0.45 or 1)
@@ -542,17 +548,17 @@ end
 function CC.Fold(guide, view)
 	local step = guide and view and guide.steps and guide.steps[view.index]
 	local p = step and player()
-	local gi = p and p.class and cardGoal(guide, step, view, p)
+	local gi = p and p.class and cardGoal(step, view, p)
 	local goal, gv = gi and step.goals[gi], gi and view.goals[gi]
 	if not (goal and goal.t == "accept" and gv) then return nil end
 	if gv.status == "skipped" or gv.unavailable or gv.folded then return nil end
 	return gi
 end
 
--- Whether quest goal `goal` of step `step` takes the card's colour.
-function CC.Colours(guide, step, goal)
-	if not (shown and step and goal) then return false end
-	return classQuest(guide, step, goal, shown.class)
+-- Whether quest goal `goal` takes the card's colour.
+function CC.Colours(goal)
+	if not (shown and goal) then return false end
+	return classQuest(goal, shown.class)
 end
 
 -- Place the card at the top of the guide window's card, `width` wide. -> its height (0 hidden)

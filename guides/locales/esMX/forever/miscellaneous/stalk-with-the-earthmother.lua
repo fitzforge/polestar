@@ -1,9 +1,9 @@
--- Chinese (traditional) (zhTW): the guide forever/class/shaman/stalk-with-the-earthmother (forever/class/shaman/stalk-with-the-earthmother.guide).
--- Written by `forge i18n guides sync zhTW`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
+-- Spanish (Latin America) (esMX): the guide forever/miscellaneous/stalk-with-the-earthmother (forever/miscellaneous/stalk-with-the-earthmother.guide).
+-- Written by `forge i18n guides sync esMX`, which keeps every translation (docs/TRANSLATING.md, "Guide texts").
 -- Translate the right-hand sides; "" shows the English. Keep each {kind:id} as it is: the game shows its
--- name there in Chinese (traditional) (the English is listed above the line). A name the English has in the plural, as words,
+-- name there in Spanish (Latin America) (the English is listed above the line). A name the English has in the plural, as words,
 -- may be written with the singular's token from its "plural, as words" line: "Bandidos ({npc:251918})", "{npc:251918} ×8".
--- A token marked "no name in this language" would show in English: write that name in Chinese (traditional) words instead.
+-- A token marked "no name in this language" would show in English: write that name in Spanish (Latin America) words instead.
 -- The comments are rewritten by sync.
 return {
 	-- Guide

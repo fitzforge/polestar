@@ -104,3 +104,14 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
 });
+
+test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
+	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
+	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
+	assert.equal(classes(93797), 128, 'Boughs in the Wind: Mage');
+	assert.deepEqual([98341, 98404, 98738].map(classes), [1024, 1024, 1024], 'the Great Windborne Cat Spirit chain: Druid');
+	const lava = corrections.quests[84396].set;
+	assert.ok('classes' in lava && lava.classes === null, 'Magma or Lava?: no class limit');
+	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
+	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
+});

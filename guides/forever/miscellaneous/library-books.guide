@@ -67,8 +67,10 @@ zone Stormwind City
 #   Forever's data has no spawn for them. Undead Potatoes, The Knight and the
 #   Lady and Scourge: Undead Menace or Misunderstood? (84395, 84400, 84401) are
 #   on Forever's quest pages but not in data/forever, so the guide collects
-#   their books and names the hand-in in a tip. Magma or Lava? (84396) is for
-#   mages only in Forever's quest data. In-game check: each spot.
+#   their books and names the hand-in in a tip. Magma or Lava? (84396) was a
+#   mage quest in Season of Discovery; Forever opened it to every class (its
+#   change notes: "Classes none instead of Mage"; forever-db/corrections).
+#   In-game check: each spot.
 # INGAME: does Oran Snakewrithe take the level 60 books from the Horde?
 #   Forever's quest pages list them for both sides and end them at him too;
 #   data/forever gives them Alliance race masks, so the Horde step is a `talk`.
@@ -404,9 +406,8 @@ step Level 60 books: Everlook
   collect 228136 @60.7,37.7                  -- Ka-Boom!
 
 step Level 60 books: Blackrock Mountain
-  only Mage
   zone Burning Steppes
-  tip Magma or Lava? lies inside Blackrock Mountain, in the mine passage towards Blackrock Depths beyond the Molten Core quest giver; its quest is for mages only. The waypoint marks the mountain.
+  tip Magma or Lava? lies inside Blackrock Mountain, in the mine passage towards Blackrock Depths beyond the Molten Core quest giver. The waypoint marks the mountain.
   collect 228133 @28.96,28.93                -- Magma or Lava?
 
 step The level 60 books: Jennea Cannon
@@ -421,8 +422,8 @@ step The level 60 books: Jennea Cannon
   turnin 84397 npc 5497
   accept 84399 npc 5497
   turnin 84399 npc 5497
-  accept 84396 npc 5497 only Mage
-  turnin 84396 npc 5497 only Mage
+  accept 84396 npc 5497
+  turnin 84396 npc 5497
 
 step The level 60 books: Oran Snakewrithe
   only Horde
