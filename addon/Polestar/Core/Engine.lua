@@ -2985,26 +2985,28 @@ function Own.hearthTrip(inn)
 end
 
 -- What a Hearthstone costs and is worth, as the route planner prices it
--- (Nav/Travel.lua): its cast and loading screen, and the time it must save
--- before its hour's cooldown is spent on a trip.
+-- (Nav/Travel.lua): its cast and loading screen, the time it must save, and
+-- how long the way without it must take before its hour's cooldown is spent
+-- on a trip (only on a long haul).
 function Own.hearthCost()
 	local nav = ns.Nav
-	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 120
+	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 300, (nav and nav.HEARTH_MIN_TRIP) or 480
 end
 
 -- How to make a hearth goal's trip now: wait (Own.hearthWait), the inn
 -- (Own.hearthInn), the trip there without the Hearthstone in seconds
 -- (Own.hearthTrip, only while the inn is known), and `go`: travel there
 -- yourself, as the Hearthstone waits, is missing or is bound at another inn
--- (Own.hearthElsewhere, #667), or, ready, saves less
--- than the planner's margin over the trip (the inn is close or a short
--- flight away). Never holds the step: arriving checks the goal off either way.
+-- (Own.hearthElsewhere, #667), or, ready, saves less than the planner's
+-- margin over the trip or the trip is shorter than its minimum (the inn is
+-- close or a short flight away). Never holds the step: arriving checks the
+-- goal off either way.
 function Own.hearthPlan(goal)
 	local wait = Own.hearthWait(goal)
 	local inn = goal.t == "hearth" and Own.hearthInn(goal) or nil
 	local trip = inn and Own.hearthTrip(inn)
-	local cast, margin = Own.hearthCost()
-	local go = wait ~= nil or Own.hearthElsewhere(goal) ~= nil or (trip ~= nil and trip <= cast + margin)
+	local cast, margin, minTrip = Own.hearthCost()
+	local go = wait ~= nil or Own.hearthElsewhere(goal) ~= nil or (trip ~= nil and (trip <= cast + margin or trip < minTrip))
 	return wait, inn, trip, go
 end
 
