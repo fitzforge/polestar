@@ -719,6 +719,15 @@ portals and hearths. A lift counts as part of the walk.
   a class's own flight off is written at the flight master the path walks
   away from, when that flight master flies there. A step for other races
   than some of the route's does not gate the route's way to it.
+  Those waiting in the zone the player stands in when the route hearths to an
+  inn in another zone are written before the hearth, not walked or flown back
+  to after it. When one of them learns a flight path there whose flight to the
+  leg's end beats the hearth and its way on (the route's estimates: a 10 s
+  cast, walks at 7 yd/s, a flight at 25 yd/s plus a minute), that flight is
+  the way on and the hearth goes: the route hearthed only for want of a
+  flight master there (Nighthaven's flight path after Umber in Moonglade,
+  then the flight to Rut'theran Village, not the hearth to Cenarion Hold, its
+  flight to Rut'theran and a trip back into Moonglade for the flight path).
 - The route's own boat or zeppelin step replaces v1's goto to the same pier
   written since the last travel line in a step for everyone: it is the last
   thing in that town.

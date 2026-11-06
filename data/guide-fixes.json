@@ -592,6 +592,23 @@
 				}
 			],
 			"pr": 941
+		},
+		{
+			"id": "silithus-rutheran-by-air",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4901,
+				"goal": "turnin"
+			},
+			"tip": "The flight lands in Rut'theran Village. Erelas Ambersky stands a short walk north-west of the flight master.",
+			"note": "Guardians of the Altar: the Silithus guide now flies from Nighthaven straight to Rut'theran Village (the flight goes through Auberdine without landing), but the hand-in step kept the seed tip for its old way, the boat from Auberdine. Erelas Ambersky (npc 7916) stands at 8707.5,988.9 and the flight master Vesprystus (npc 3838) at 8640.6,841.1, about 160 yd apart, Erelas to the north-west (Teldrassil 55.5,92.0 and 58.4,93.9). Found by Fitz.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature spawns of 7916 (Erelas Ambersky) and 3838 (Vesprystus), map 1"
+				}
+			],
+			"pr": 953
 		}
 	]
 }
