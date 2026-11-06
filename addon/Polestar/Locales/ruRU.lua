@@ -125,6 +125,18 @@ L["%s isn't in your quest log"] = "Задания «%s» нет в вашем ж
 -- L["%d seconds"] = ""
 -- L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = ""
 -- L["Your Hearthstone is bound to %s, not %s"] = ""
+L["Only if you skip the group quest %s"] = "Только если вы пропускаете групповое задание «%s»"
+L["Only if you do %s with a group"] = "Только если вы выполняете «%s» в группе"
+L["Only below level %s"] = "Только ниже уровня %s"
+L["Only up to level %s"] = "Только до уровня %s включительно"
+L["Only above level %s"] = "Только выше уровня %s"
+L["Only from level %s"] = "Только с уровня %s"
+L["Only without %s in your quest log"] = "Только без «%s» в журнале заданий"
+L["Only with %s in your quest log"] = "Только с «%s» в журнале заданий"
+L["Only before %s is handed in"] = "Только пока «%s» не сдано"
+L["Only once %s is handed in"] = "Только после сдачи «%s»"
+L["Skipped for your character: its conditions do not hold"] = "Пропущено для вашего персонажа: условия не выполнены"
+L["Skipped for your character: none of its goals apply"] = "Пропущено для вашего персонажа: ни одна цель не подходит"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Взяв %s, вы навсегда закроете %s."
@@ -1018,6 +1030,8 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "Сопровож
 -- L["%s XP to go"] = ""
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
+L["The object here"] = "Объект здесь"
+L["Use %s:"] = "Используйте «%s»:"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -1207,6 +1221,7 @@ L["Then out here:"] = "Затем на месте:"
 L["Out here:"] = "На месте:"
 L["+ %d more people"] = "+ ещё персонажей: %d"
 L["Later in this step"] = "Дальше в этом шаге"
+L["Along the way, until step %d"] = "Попутные цели, до шага %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -1639,6 +1654,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "Шаг %d из %d (шаг гайда %d): %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"

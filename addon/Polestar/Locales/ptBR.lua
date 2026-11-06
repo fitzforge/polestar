@@ -125,6 +125,18 @@ L["Wait"] = "Esperar"
 L["%d seconds"] = "%d segundos"
 L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = "Sua Pedra de Regresso está vinculada a %s, não a %s: vá a pé até a estalagem"
 L["Your Hearthstone is bound to %s, not %s"] = "Sua Pedra de Regresso está vinculada a %s, não a %s"
+L["Only if you skip the group quest %s"] = "Só se você pular a missão de grupo %s"
+L["Only if you do %s with a group"] = "Só se você fizer %s em grupo"
+L["Only below level %s"] = "Só abaixo do nível %s"
+L["Only up to level %s"] = "Só até o nível %s"
+L["Only above level %s"] = "Só acima do nível %s"
+L["Only from level %s"] = "Só a partir do nível %s"
+L["Only without %s in your quest log"] = "Só sem %s no seu registro de missões"
+L["Only with %s in your quest log"] = "Só com %s no seu registro de missões"
+L["Only before %s is handed in"] = "Só antes de entregar %s"
+L["Only once %s is handed in"] = "Só depois de entregar %s"
+L["Skipped for your character: its conditions do not hold"] = "Pulada para o seu personagem: as condições não são atendidas"
+L["Skipped for your character: none of its goals apply"] = "Pulada para o seu personagem: nenhum dos objetivos se aplica"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Pegar %s fecha %s para sempre."
@@ -1019,6 +1031,8 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "Escolta: se o PN
 L["%s XP to go"] = "Faltam %s de EXP"
 L["%d:%02d left"] = "%d:%02d restantes"
 L["%s and %s"] = "%s e %s"
+L["The object here"] = "O objeto aqui"
+L["Use %s:"] = "Use %s:"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"
@@ -1208,6 +1222,7 @@ L["Then out here:"] = "Depois, em campo:"
 L["Out here:"] = "Em campo:"
 L["+ %d more people"] = "+ %d pessoas a mais"
 L["Later in this step"] = "Mais adiante nesta etapa"
+L["Along the way, until step %d"] = "No caminho, até a etapa %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -1640,6 +1655,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "T
 L["Quest log %d/%d: %s"] = "Registro de missões %d/%d: %s"
 L["Settings: %s"] = "Configurações: %s"
 L["Log:"] = "Registro:"
+L["Step %d of %d (guide step %d): %s"] = "Etapa %d de %d (etapa %d do guia): %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desativado na lista de AddOns"

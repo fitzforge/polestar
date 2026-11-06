@@ -1897,6 +1897,26 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					r.warn(&ln, format!("quest {} is not in data; using the explicit title (new Forever content?)", g.get("quest")), None);
 				}
 				goal.set("title", or_undef(title));
+				if v == "complete" && q.truthy() {
+					// What the guide window reads before the quest is in the log, and its "Use <item>:" (#942):
+					// the data's objectives (text, count) and the item the quest hands over when taken.
+					let objs: V = V::arr();
+					for o in q.get("objectives").items() {
+						if o.get("text").truthy() {
+							let e: V = V::obj();
+							e.set("text", V::from(o.get("text").to_js_string()));
+							e.set("count", if o.get("count").num() > 0.0 { o.get("count").num() } else { 1.0 });
+							objs.push(e);
+						}
+					}
+					if !objs.items().is_empty() {
+						goal.set("objs", objs);
+					}
+					if q.get("sourceItem").truthy() {
+						goal.set("startItem", q.get("sourceItem"));
+						set_if(&goal, "startItemName", opt_str(name_of(data, "item", &q.get("sourceItem"))));
+					}
+				}
 				if v == "complete" || v == "abandon" {
 					break 'sw;
 				}

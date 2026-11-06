@@ -125,6 +125,18 @@ L["%s isn't in your quest log"] = "%s 퀘스트가 퀘스트 목록에 없습니
 -- L["%d seconds"] = ""
 -- L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = ""
 -- L["Your Hearthstone is bound to %s, not %s"] = ""
+L["Only if you skip the group quest %s"] = "파티 퀘스트 %s을(를) 건너뛸 때만"
+L["Only if you do %s with a group"] = "%s을(를) 파티와 함께 할 때만"
+L["Only below level %s"] = "%s레벨 미만일 때만"
+L["Only up to level %s"] = "%s레벨 이하일 때만"
+L["Only above level %s"] = "%s레벨 초과일 때만"
+L["Only from level %s"] = "%s레벨 이상일 때만"
+L["Only without %s in your quest log"] = "퀘스트 목록에 %s이(가) 없을 때만"
+L["Only with %s in your quest log"] = "퀘스트 목록에 %s이(가) 있을 때만"
+L["Only before %s is handed in"] = "%s을(를) 제출하기 전에만"
+L["Only once %s is handed in"] = "%s을(를) 제출한 후에만"
+L["Skipped for your character: its conditions do not hold"] = "내 캐릭터는 건너뜀: 조건이 맞지 않습니다"
+L["Skipped for your character: none of its goals apply"] = "내 캐릭터는 건너뜀: 해당하는 목표가 없습니다"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "%s 퀘스트를 받으면 %s 퀘스트는 영영 받을 수 없습니다."
@@ -1018,6 +1030,8 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "호위: NPC가 �
 -- L["%s XP to go"] = ""
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
+L["The object here"] = "이곳의 물체"
+L["Use %s:"] = "%s 사용:"
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"
@@ -1207,6 +1221,7 @@ L["Then out here:"] = "그다음 필드:"
 L["Out here:"] = "필드:"
 L["+ %d more people"] = "+ %d명 더"
 L["Later in this step"] = "이 단계의 나머지"
+L["Along the way, until step %d"] = "가는 길에, %d단계까지"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -1639,6 +1654,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "G
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"

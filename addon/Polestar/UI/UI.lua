@@ -189,12 +189,40 @@ local KIND_COLOR = {
 	skill = "skill", spell = "spell", faction = "faction", area = "area", achievement = "achievement",
 }
 
+-- A `complete` goal reads as its quest's objectives (#942: "Complete Plagued
+-- Lands" said nothing; the Engine's `objectiveLines`): one line each in the
+-- game's words, with `counters` its count after it as other goals show one
+-- ("Rabid Thistle Bear Captured  0/1"), else the lines joined by commas;
+-- "Use Tharnariun's Hope:" first while the item the quest hands over is in
+-- the bags (`useItem`). nil for any other goal, or one with no objective
+-- text (it keeps "Complete <quest>").
+local function objectiveText(goal, counters)
+	local lines = goal.t == "complete" and goal.objectiveLines
+	if type(lines) ~= "table" or #lines == 0 then return nil end
+	local out = {}
+	for i, o in ipairs(lines) do
+		local s = o.text
+		if counters and type(o.max) == "number" and o.max > 0 then
+			local cur = o.cur or 0
+			local full = goal.status == "done" or cur >= o.max
+			s = s .. "  |c" .. Theme.Hex(full and "success" or "text") .. format("%d/%d", cur, o.max) .. "|r"
+		end
+		out[i] = s
+	end
+	local text = table.concat(out, counters and "\n" or ", ")
+	if goal.useItem then text = format(L["Use %s:"], goal.useItem) .. " " .. text end
+	return text
+end
+
 -- The goal's main line. The Engine's `text` is the truth (it carries author
 -- overrides and counts such as "Kill 5 Young Wolf"); the subject is coloured
 -- by its kind wherever it appears in that text (a quest's in `questHex`, an
 -- "ffrrggbb", when given: the class-quest card's class colour). Done goals
--- render plain (the row colours them muted).
+-- render plain (the row colours them muted). A `complete` goal: its
+-- objectives (objectiveText).
 function UI.GoalText(goal, questHex)
+	local objectives = objectiveText(goal, false)
+	if objectives then return objectives end
 	local text = goal.text
 	local verb, subject = goal.verb, goal.subject
 	if type(text) ~= "string" or text == "" then
@@ -215,6 +243,8 @@ end
 
 -- The goal's main line without colour codes (skipped goals).
 function UI.PlainGoalText(goal)
+	local objectives = objectiveText(goal, false)
+	if objectives then return objectives end
 	local text = goal.text
 	if type(text) ~= "string" or text == "" then
 		local verb, subject = goal.verb, goal.subject
@@ -417,8 +447,8 @@ end
 -- that it is an escort, how to get the item a quest starts from, which later
 -- quest a grey accept "Skip grey quests" keeps opens, whom an item is got
 -- from, that an area objective's mobs are all over its area, which mobs a
--- farm spot is, where a chosen trainer/vendor is, the open objectives of a quest to
--- complete that has several, the goal's own note, and an open turn-in's
+-- farm spot is, where a chosen trainer/vendor is, the goal's own note (a
+-- `complete` goal's objectives are its main line), and an open turn-in's
 -- rewards. The rest of the detail ("for Kobold Camp Cleanup")
 -- lives in the tooltip.
 -- `shownMap`: a zone the window already names above (the person's), not repeated.
@@ -455,9 +485,6 @@ function UI.GoalSubline(goal, shownMap, noParty, noMissing, noEscort)
 		local zone = UI.MapName(goal.map)
 		if zone then parts[#parts + 1] = zone end
 	end
-	if type(goal.objectives) == "table" then
-		for i = 1, #goal.objectives do parts[#parts + 1] = goal.objectives[i] end
-	end
 	-- A note that only names the source or the item says nothing new.
 	local note = goal.note
 	if note and source and (note == goal.source.name or note == goal.subject) then note = nil end
@@ -480,15 +507,19 @@ end
 -- font string; it keeps the line's role.) An open optional goal ends in
 -- "optional" in warning, so an extra is unmistakable and never reads as the
 -- route; one the player skipped ends in "skipped" in textMuted. questHex:
--- the quest name's colour instead of the theme's (UI.GoalText).
+-- the quest name's colour instead of the theme's (UI.GoalText). A `complete`
+-- goal: a line per objective, each with its own counter (objectiveText).
 function UI.GoalLine(goal, questHex)
 	local plain = goal.status == "done" or goal.status == "skipped"
-	local text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
-	local count = UI.GoalProgress(goal)
-	if count and goal.status ~= "skipped" then
-		local p = goal.progress
-		local full = goal.status == "done" or (p.cur or 0) >= p.max
-		text = text .. "  |c" .. Theme.Hex(full and "success" or "text") .. count .. "|r"
+	local text = objectiveText(goal, goal.status ~= "skipped")
+	if not text then
+		text = plain and UI.PlainGoalText(goal) or UI.GoalText(goal, questHex)
+		local count = UI.GoalProgress(goal)
+		if count and goal.status ~= "skipped" then
+			local p = goal.progress
+			local full = goal.status == "done" or (p.cur or 0) >= p.max
+			text = text .. "  |c" .. Theme.Hex(full and "success" or "text") .. count .. "|r"
+		end
 	end
 	if goal.dismissed then
 		text = text .. "  |c" .. Theme.Hex("textMuted") .. L["skipped"] .. "|r"
@@ -496,6 +527,26 @@ function UI.GoalLine(goal, questHex)
 		text = text .. "  |c" .. Theme.Hex("warning") .. L["optional"] .. "|r"
 	end
 	return text
+end
+
+-- Step i of the active guide as the player counts it: steps that do not
+-- exist for the character (another class's or race's, Engine.StepNumber)
+-- left out (#942); whether it is such a step; how many the player sees.
+function UI.StepNo(i)
+	local E = ns.Engine
+	if E and E.StepNumber and type(i) == "number" then return (E.StepNumber(i)) end
+	return i
+end
+function UI.StepHidden(i)
+	local E = ns.Engine
+	if not (E and E.StepNumber and type(i) == "number") then return false end
+	local _, hidden = E.StepNumber(i)
+	return hidden == true
+end
+function UI.StepTotal()
+	local E = ns.Engine
+	if E and E.StepTotal then return E.StepTotal() end
+	return E and E.GetStepCount and E.GetStepCount() or 0
 end
 
 -- The groups of a step view (docs/ARCHITECTURE.md, "Focus: one person at a
@@ -506,10 +557,44 @@ function UI.StepGroups(view)
 	return { { kind = "here", goals = {} } }, 1
 end
 
--- How a group is named: a person or object by name; a field group by the
--- step title, else its first open goal.
+-- An object named after one of the quests it starts while it starts another
+-- too (Auberdine's poster, which Forever names "WANTED: Murkdeep!", gives
+-- WANTED: Jai'vhanel as well, #942) would head the other quest with a title
+-- not its own: the first of its goals' notes that names the object (shares
+-- a word of four letters or more with its name: "The WANTED poster outside
+-- the inn") stands for it, else a neutral label. -> name
+local function objectName(view, group)
+	local name, titled, quests = group.name, nil, {}
+	for _, gi in ipairs(group.goals or {}) do
+		local g = view.goals[gi]
+		if g and g.status ~= "na" and g.quest then
+			quests[g.quest] = true
+			if g.subjectKind == "quest" and g.subject == name then titled = g.quest end
+		end
+	end
+	quests[titled or false] = nil
+	if not titled or next(quests) == nil then return name end
+	local words = {}
+	for w in name:lower():gmatch("%w+") do
+		if #w >= 4 then words[w] = true end
+	end
+	for _, gi in ipairs(group.goals) do
+		local g = view.goals[gi]
+		if g and g.status ~= "na" and type(g.note) == "string" then
+			for w in g.note:lower():gmatch("%w+") do
+				if words[w] then return g.note end
+			end
+		end
+	end
+	return L["The object here"]
+end
+
+-- How a group is named: a person or object by name (objectName); a field
+-- group by the step title, else its first open goal.
 function UI.GroupName(view, group)
-	if group.kind ~= "here" and type(group.name) == "string" and group.name ~= "" then return group.name end
+	if group.kind ~= "here" and type(group.name) == "string" and group.name ~= "" then
+		return group.kind == "object" and objectName(view, group) or group.name
+	end
 	if view.title and view.title ~= "" then return view.title end
 	for _, gi in ipairs(group.goals or {}) do
 		local g = view.goals[gi]

@@ -122,6 +122,18 @@ L["Wait"] = "Warten"
 L["%d seconds"] = "%d Sekunden"
 L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = "Dein Ruhestein ist an %s gebunden, nicht an %s: Geh zum Gasthaus"
 L["Your Hearthstone is bound to %s, not %s"] = "Dein Ruhestein ist an %s gebunden, nicht an %s"
+L["Only if you skip the group quest %s"] = "Nur wenn du die Gruppenquest %s überspringst"
+L["Only if you do %s with a group"] = "Nur wenn du %s mit einer Gruppe machst"
+L["Only below level %s"] = "Nur unter Stufe %s"
+L["Only up to level %s"] = "Nur bis Stufe %s"
+L["Only above level %s"] = "Nur über Stufe %s"
+L["Only from level %s"] = "Nur ab Stufe %s"
+L["Only without %s in your quest log"] = "Nur ohne %s im Questlog"
+L["Only with %s in your quest log"] = "Nur mit %s im Questlog"
+L["Only before %s is handed in"] = "Nur bevor %s abgegeben ist"
+L["Only once %s is handed in"] = "Nur sobald %s abgegeben ist"
+L["Skipped for your character: its conditions do not hold"] = "Für deinen Charakter übersprungen: seine Bedingungen sind nicht erfüllt"
+L["Skipped for your character: none of its goals apply"] = "Für deinen Charakter übersprungen: keines seiner Ziele trifft zu"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -468,6 +480,7 @@ L["Then out here:"] = "Danach hier draußen:"
 L["Out here:"] = "Hier draußen:"
 L["+ %d more people"] = "+ %d weitere Personen"
 L["Later in this step"] = "Später in diesem Schritt"
+L["Along the way, until step %d"] = "Nebenbei, bis Schritt %d"
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -596,6 +609,8 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "Eskorte: Ist der
 L["%s XP to go"] = "Noch %s EP"
 L["%d:%02d left"] = "Noch %d:%02d"
 L["%s and %s"] = "%s und %s"
+L["The object here"] = "Das Objekt hier"
+L["Use %s:"] = "Benutze %s:"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"
@@ -1683,6 +1698,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "D
 L["Quest log %d/%d: %s"] = "Questlog %d/%d: %s"
 L["Settings: %s"] = "Einstellungen: %s"
 L["Log:"] = "Protokoll:"
+L["Step %d of %d (guide step %d): %s"] = "Schritt %d von %d (Guide-Schritt %d): %s"
 
 -- Maps/Instances.lua
 L["Instance history cleared."] = "Instanzverlauf gelöscht."

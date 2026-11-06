@@ -549,7 +549,7 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 |---|---|---|
 | `accept` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `item`/`itemName`, `minLevel`, `qlvl`, `pre`, `preAll`, `closedBy`, `preTitles` |
 | `turnin` | `quest`, `title` | `npc`/`npcName`, `object`/`objName`, `rewards = { choices = { { item, itemName, quality } }, items = { ... }, xp, money }`, `direct` |
-| `complete` | `quest`, `title` | — |
+| `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName` |
 | `abandon` | `quest`, `title` (format 5) | — |
 | `destroy` | `item`, `itemName` (format 5) | — |
 | `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread` |
@@ -620,6 +620,8 @@ The fields:
 | `gossip` | On a `talk`, `vendor` or `train`: the `gossipOptionID` Polestar picks at that NPC on the live step |
 | `seconds` | A `wait` goal's countdown, 1 to 3600 |
 | `escort` | `true` on the accept, `complete` and objective goals of an escort quest: the guide window says under the goal that the NPC may have to respawn (GUIDE_FORMAT.md, "Escort quests"). Older Polestar ignores it |
+| `objs` | on a `complete`: its quest's objectives from the quest data, `{ { text, count } }`, which the guide window shows while the quest is not in the log (looked at ahead); in the log it shows the game's own lines. Older Polestar ignores it |
+| `startItem`, `startItemName` | on a `complete`: the item its quest hands over when taken (Tharnariun's Hope for Plagued Lands), id and name; while it is in the bags and usable the guide window starts the goal with "Use <item>:". Older Polestar ignores them |
 | `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
 
 Polestar 0.1.0 reads every verb above; 0.2.4 and later read the `group`

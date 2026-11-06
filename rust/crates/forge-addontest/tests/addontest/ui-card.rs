@@ -522,3 +522,169 @@ fn a_summary_line_names_one_or_two_goals_and_counts_three_or_more() {
 		"three goals: counted; with only the \"Go to\" left, it is named"
 	);
 }
+
+// Darkshore's "Fine Crab Chunks on the way" (#942): an along step has no card of its own; the steps after it list
+// its goals under "Along the way", whose heading says until which step when every row ends at the same one.
+#[test]
+fn along_the_way_says_until_which_step_its_goals_are_listed() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		local crab = #steps + 1
+		steps[crab] = { title = "Fine Crab Chunks on the way", along = "q1138", untilStep = 5, goals = {
+			{ t = "collect", verb = "Collect", subject = "Fine Crab Chunks", subjectKind = "item", item = 12237, quest = 1138, progress = { cur = 0, max = 6 }, map = 1439, x = 36.4, y = 47.0, status = "active" },
+		} }
+		steps[crab + 1] = { title = "Linen on the way", along = true, goals = {
+			{ t = "collect", verb = "Collect", subject = "Linen Cloth", subjectKind = "item", item = 2589, progress = { cur = 0, max = 1 }, status = "active" },
+		} }
+		local A = GF.parts.along
+		uistub.along = { { crab, { 1 } } }
+		uistub.setGuide(uistub.elwynn, 3)
+		local one = { shown = A:IsShown(), heading = plain(A.Label:GetText()) }
+		uistub.along = { { crab, { 1 } }, { crab + 1, { 1 } } }
+		uistub.setGuide(uistub.elwynn, 4)
+		emit({ one = one, mixed = plain(A.Label:GetText()) })"#)
+	.remove(0);
+	assert_eq!(out["one"], json!({ "shown": true, "heading": "Along the way, until step 5" }));
+	assert_eq!(out["mixed"], "Along the way", "rows ending at different steps (or when done): the plain heading");
+}
+
+// Elwynn's step 42, "Goldshire" (`when group 91775`, `turnin 91775 optional`, #942): looked at ahead, a step with
+// nothing for this character says why instead of showing only its title.
+#[test]
+fn a_step_with_nothing_for_the_character_says_why_under_its_title() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Goldshire", why = "Only if you do Book Return with a group", goals = {
+			{ t = "turnin", verb = "Turn in", subject = "Book Return", subjectKind = "quest", quest = 91775, npc = 295, npcName = "Innkeeper Farley", optional = true, status = "na" },
+		} }
+		local s = #steps
+		uistub.live = 1
+		uistub.setGuide(uistub.elwynn, s)
+		local P = GF.parts
+		local skipped = { why = P.person.Why:IsShown() and plain(P.person.Why:GetText()) or false, name = P.person.Name:GetText(), items = items() }
+		uistub.setGuide(uistub.elwynn, 3)
+		emit({ skipped = skipped, field = P.person.Why:IsShown() })"#)
+	.remove(0);
+	assert_eq!(out["skipped"]["why"], "Only if you do Book Return with a group");
+	assert_eq!(out["skipped"]["name"], "Goldshire");
+	assert_eq!(out["field"], false);
+}
+
+// Darkshore's Auberdine (#942): WANTED: Jai'vhanel and WANTED: Murkdeep! start from one poster, which Forever names
+// "WANTED: Murkdeep!". Its header is the goal's note naming the poster, not the other quest's title.
+#[test]
+fn an_object_named_like_one_of_its_quests_is_headed_by_the_note_naming_it_or_a_neutral_label() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		local function poster(quest, subject, note)
+			return { t = "accept", verb = "Accept", subject = subject, subjectKind = "quest", quest = quest, object = 175320, objectName = "WANTED: Murkdeep!", note = note, map = 1439, x = 37.2, y = 44.2, status = "active" }
+		end
+		local function header(goals)
+			steps[#steps + 1] = { title = "Auberdine", goals = goals }
+			uistub.setGuide(uistub.elwynn, #steps)
+			return GF.parts.person.Name:GetText()
+		end
+		emit({
+			both = header({ poster(98025, "WANTED: Jai'vhanel", "The WANTED poster outside the inn"), poster(4740, "WANTED: Murkdeep!", "The WANTED poster") }),
+			bare = header({ poster(98025, "WANTED: Jai'vhanel"), poster(4740, "WANTED: Murkdeep!") }),
+			own = header({ poster(4740, "WANTED: Murkdeep!", "The WANTED poster") }),
+		})"#)
+	.remove(0);
+	assert_eq!(out["both"], "The WANTED poster outside the inn", "the note that names the poster");
+	assert_eq!(out["bare"], "The object here", "no such note: a neutral label");
+	assert_eq!(out["own"], "WANTED: Murkdeep!", "its only quest's own title is no confusion");
+}
+
+// Darkshore's Auberdine step (#942): Thundris Windweaver is the focus, then Naram's vendor goal, then Thundris again.
+// His later accept reads with him, not on a second "Then: Thundris Windweaver" line under the focus.
+#[test]
+fn the_focus_person_s_later_goals_read_with_the_focus_not_on_a_line_of_their_own() {
+	let out = run(r#"
+		local function G(t, f) f.t = t; f.map = 1439; return f end
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Auberdine", goals = {
+			G("accept", { verb = "Accept", subject = "Bashal'Aran", subjectKind = "quest", quest = 954, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Expanding Horizons", subjectKind = "quest", quest = 97914, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("vendor", { verb = "Sell junk at", subject = "Naram Longclaw", subjectKind = "npc", npc = 6034, npcName = "Naram Longclaw", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Tools of the Highborne", subjectKind = "quest", quest = 958, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Deep Ocean, Vast Sea", subjectKind = "quest", quest = 982, npc = 6301, npcName = "Gorbold Steelhand", status = "active" }),
+		} }
+		local s = #steps
+		uistub.setGuide(uistub.elwynn, s)
+		local focus = { person = GF.parts.person.Name:GetText(), items = items() }
+		uistub.goal(s, 4).status = "done"
+		uistub.setGuide(uistub.elwynn, 3)
+		uistub.setGuide(uistub.elwynn, s)
+		local took = items()
+		uistub.goal(s, 1).status = "done"
+		uistub.goal(s, 2).status = "done"
+		uistub.goal(s, 4).status = "active"
+		uistub.update()
+		local naram = { person = GF.parts.person.Name:GetText(), items = items() }
+		-- Field work between: coming back to him is another visit, a line of its own as before.
+		steps[#steps + 1] = { title = "Marshal McBride", goals = {
+			G("accept", { verb = "Accept", subject = "The Vineyard Walk", subjectKind = "quest", quest = 9700, npc = 197, npcName = "Marshal McBride", status = "active" }),
+			G("kill", { verb = "Kill", subject = "Kobold Vermin", subjectKind = "npc", npc = 6, quest = 9700, progress = { cur = 0, max = 3 }, status = "active" }),
+			G("turnin", { verb = "Turn in", subject = "The Vineyard Walk", subjectKind = "quest", quest = 9700, npc = 197, npcName = "Marshal McBride", status = "active" }),
+		} }
+		uistub.setGuide(uistub.elwynn, #steps)
+		emit({ focus = focus, took = took, naram = naram, trip = items() })"#)
+	.remove(0);
+	assert_eq!(out["focus"]["person"], "Thundris Windweaver");
+	assert_eq!(
+		strings(&out["focus"]["items"]),
+		["Bashal'Aran", "Expanding Horizons", "Tools of the Highborne", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		"all three of his accepts under him, the vendor after"
+	);
+	assert_eq!(
+		strings(&out["took"]),
+		["[1 done]", "Bashal'Aran", "Expanding Horizons", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		"one of them taken folds with the focus's done goals"
+	);
+	assert_eq!(out["naram"]["person"], "Naram Longclaw");
+	assert_eq!(
+		strings(&out["naram"]["items"]),
+		["Naram Longclaw", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		"once his first goals are done and the focus moves on, what he still has reads after it as before"
+	);
+	assert_eq!(
+		strings(&out["trip"]),
+		["The Vineyard Walk", "[Then out here: Kill Kobold Vermin]", "[Then: Marshal McBride  ·  Turn in The Vineyard Walk]"],
+		"with field work between, the hand-in is a later visit"
+	);
+}
+
+// Darkshore's "Plagued bears" (#942): `complete 2118` read "Complete Plagued Lands", which says nothing. A
+// `complete` goal reads as its quest's objective lines (the Engine's `objectiveLines`), each with its count,
+// "Use Tharnariun's Hope:" first while the item the quest hands over is in the bags (`useItem`); the guide's note
+// stays the line under it. Without either it keeps "Complete <quest>".
+#[test]
+fn a_complete_goal_reads_as_its_objectives_with_use_item_first() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		local function complete(f)
+			f.t, f.verb, f.subject, f.subjectKind, f.status = "complete", "Complete", f.subject, "quest", "active"
+			return f
+		end
+		steps[#steps + 1] = { title = "Plagued bears", goals = {
+			complete({ subject = "Plagued Lands", quest = 2118, note = "the Rabid Thistle Bears nearest Tharnariun", useItem = "Tharnariun's Hope",
+				objectiveLines = { { text = "Rabid Thistle Bear Captured", cur = 0, max = 1 } }, progress = { cur = 0, max = 1 } }),
+			complete({ subject = "The Hunt Begins", quest = 747, objectiveLines = { { text = "Plainstrider Meat", cur = 3, max = 7 }, { text = "Plainstrider Feathers", cur = 7, max = 7 } },
+				progress = { cur = 10, max = 14 } }),
+			complete({ subject = "A Humble Task", quest = 752 }),
+		} }
+		uistub.setGuide(uistub.elwynn, #steps)
+		local function row(subject)
+			local r = rowFor(subject)
+			return { text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false }
+		end
+		emit({ bears = row("Plagued Lands"), hunt = row("The Hunt Begins"), humble = row("A Humble Task") })"#)
+	.remove(0);
+	assert_eq!(
+		out["bears"],
+		json!({ "text": "Use Tharnariun's Hope: Rabid Thistle Bear Captured  0/1", "sub": "the Rabid Thistle Bears nearest Tharnariun" }),
+		"the game's objective, the item to use first, the guide's note under it"
+	);
+	assert_eq!(out["hunt"]["text"], "Plainstrider Meat  3/7\nPlainstrider Feathers  7/7", "a line per objective, each with its count, not the sum");
+	assert_eq!(out["humble"]["text"], "Complete A Humble Task", "no objective text: the old label");
+}

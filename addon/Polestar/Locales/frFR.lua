@@ -126,6 +126,18 @@ L["Wait"] = "Attendre"
 L["%d seconds"] = "%d secondes"
 L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = "Votre pierre de foyer est liée à %s, pas à %s : allez à pied à l'auberge"
 L["Your Hearthstone is bound to %s, not %s"] = "Votre pierre de foyer est liée à %s, pas à %s"
+L["Only if you skip the group quest %s"] = "Seulement si vous passez la quête de groupe %s"
+L["Only if you do %s with a group"] = "Seulement si vous faites %s en groupe"
+L["Only below level %s"] = "Seulement sous le niveau %s"
+L["Only up to level %s"] = "Seulement jusqu'au niveau %s"
+L["Only above level %s"] = "Seulement au-dessus du niveau %s"
+L["Only from level %s"] = "Seulement à partir du niveau %s"
+L["Only without %s in your quest log"] = "Seulement sans %s dans votre journal des quêtes"
+L["Only with %s in your quest log"] = "Seulement avec %s dans votre journal des quêtes"
+L["Only before %s is handed in"] = "Seulement avant de rendre %s"
+L["Only once %s is handed in"] = "Seulement une fois %s rendue"
+L["Skipped for your character: its conditions do not hold"] = "Passée pour votre personnage : ses conditions ne sont pas remplies"
+L["Skipped for your character: none of its goals apply"] = "Passée pour votre personnage : aucun de ses objectifs ne s'applique"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "Prendre %s ferme %s pour de bon."
@@ -1019,6 +1031,8 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "Escorte : si le 
 L["%s XP to go"] = "Encore %s XP"
 L["%d:%02d left"] = "Reste %d:%02d"
 L["%s and %s"] = "%s et %s"
+L["The object here"] = "L'objet ici"
+L["Use %s:"] = "Utilisez %s :"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"
@@ -1208,6 +1222,7 @@ L["Then out here:"] = "Ensuite, sur le terrain :"
 L["Out here:"] = "Sur le terrain :"
 L["+ %d more people"] = "+ %d autres personnes"
 L["Later in this step"] = "Plus loin dans cette étape"
+L["Along the way, until step %d"] = "En chemin, jusqu'à l'étape %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -1640,6 +1655,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "V
 L["Quest log %d/%d: %s"] = "Journal des quêtes %d/%d : %s"
 L["Settings: %s"] = "Réglages : %s"
 L["Log:"] = "Journal :"
+L["Step %d of %d (guide step %d): %s"] = "Étape %d sur %d (étape %d du guide) : %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "désactivé dans la liste des addons"

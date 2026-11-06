@@ -129,7 +129,7 @@ A step must contain at least one goal.
 |---|---|---|
 | `accept` | `<questId> ["Title"]` | Title and quest giver from data; a quoted title overrides it (required if the quest is not in data). |
 | `turnin` | `<questId> ["Title"]` | Turn-in NPC/object from data. |
-| `complete` | `<questId> ["Title"]` | Finish all objectives. |
+| `complete` | `<questId> ["Title"]` | Finish all objectives. The guide window shows the quest's objective lines from the quest log in the game's words, each with its count ("Rabid Thistle Bear Captured 0/1"), starting with "Use Tharnariun's Hope:" while the item the quest hands over is in the bags and usable; looked at ahead, before the quest is in the log, the quest data's objectives (the compiler writes them, and the item, onto the goal); "Complete <quest>" only when neither has any. A `--` note stays the line under it. |
 | `abandon` | `<questId> ["Title"]` | Drop a quest from the log (a quest the guide takes only to turn it in elsewhere, a chain you skip). Done once the quest is out of the log, and it stays done for the rest of its step. The quest's `accept` stays done too, so abandoning on the guide's say-so does not send the route back to the giver. A character that does not have the quest has it done at once, and once the route has passed the step it stays done: taking the quest again later does not reopen it. Lint counts it as the end of the quest, like a turn-in. Pack format 5. |
 | `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective (`talk` takes it too, for an objective that is speaking with someone). |
 | `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per kill and spawn count; at most 16 per continent, spread over safety and 10-level bands. The engine picks one by the player's level, faction and travel time. |
@@ -437,7 +437,10 @@ route passes over the step at once. From then on its open goals are listed
 in the guide window under the current step, "Along the way" (up to six,
 with their progress; not in the compact window), until they are done.
 Clicking one points the arrow at it, if it has a place, until it is done.
-"Then:" and Up next leave along steps out.
+An along step is no step of its own for the player: the window never pages
+to it, it has no number in "N / M" or the progress, and "Then:" and Up next
+leave it out. With `along until`, the heading reads "Along the way, until
+step N" while every goal listed ends at the same labelled step.
 
 With `along until <label>`, the list ends when the route reaches the step
 carrying `label <label>`, except for the goals of a quest that still has

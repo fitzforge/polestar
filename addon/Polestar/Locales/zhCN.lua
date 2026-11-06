@@ -125,6 +125,18 @@ L["%s isn't in your quest log"] = "%s 不在你的任务日志中"
 -- L["%d seconds"] = ""
 -- L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = ""
 -- L["Your Hearthstone is bound to %s, not %s"] = ""
+L["Only if you skip the group quest %s"] = "仅在你跳过小队任务%s时"
+L["Only if you do %s with a group"] = "仅在你组队完成%s时"
+L["Only below level %s"] = "仅在等级低于%s时"
+L["Only up to level %s"] = "仅在等级不高于%s时"
+L["Only above level %s"] = "仅在等级高于%s时"
+L["Only from level %s"] = "仅在等级达到%s起"
+L["Only without %s in your quest log"] = "仅在任务日志中没有%s时"
+L["Only with %s in your quest log"] = "仅在任务日志中有%s时"
+L["Only before %s is handed in"] = "仅在交还%s之前"
+L["Only once %s is handed in"] = "仅在交还%s之后"
+L["Skipped for your character: its conditions do not hold"] = "你的角色已跳过：条件不满足"
+L["Skipped for your character: none of its goals apply"] = "你的角色已跳过：没有适用的目标"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"
@@ -1018,6 +1030,8 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "护送：如果 
 -- L["%s XP to go"] = ""
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
+L["The object here"] = "这里的物体"
+L["Use %s:"] = "使用%s："
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1207,6 +1221,7 @@ L["Then out here:"] = "然后在野外："
 L["Out here:"] = "野外："
 L["+ %d more people"] = "+ 还有 %d 人"
 L["Later in this step"] = "本步骤稍后"
+L["Along the way, until step %d"] = "顺路完成，直到步骤 %d"
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -1639,6 +1654,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "步骤 %d / %d（指南步骤 %d）：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件列表中关闭"

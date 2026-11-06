@@ -709,7 +709,7 @@ local function layoutCards(tabs, active, byId, y)
 		if t.complete then
 			c.Step:SetText(ns.LC("guide status", "Completed"))
 		elseif t.stepIndex then
-			c.Step:SetText(string.format(L["Step %d of %d"], t.stepIndex, t.stepCount or 0))
+			c.Step:SetText(string.format(L["Step %d of %d"], t.stepNumber or t.stepIndex, t.stepTotal or t.stepCount or 0))
 		else
 			c.Step:SetText("")
 		end
@@ -1113,7 +1113,7 @@ local function renderDetails(byId, tabs, active)
 	if state == "done" then
 		label = L["Finished"]
 	elseif tab then
-		label = tab.stepIndex and string.format(L["Open in tab %d  \194\183  step %d of %d"], tabIndex, tab.stepIndex, tab.stepCount or 0)
+		label = tab.stepIndex and string.format(L["Open in tab %d  \194\183  step %d of %d"], tabIndex, tab.stepNumber or tab.stepIndex, tab.stepTotal or tab.stepCount or 0)
 			or string.format(L["Open in tab %d"], tabIndex)
 	elseif state == "started" then
 		label = L["Started"]
@@ -1246,8 +1246,13 @@ local function renderDetails(byId, tabs, active)
 	local pitch = g.pitch
 	if questContext then
 		local text = {}
+		local E, full = ns.Engine, ns.Guides.Get(g.id)
+		local numbered = E and E.StepNumberOf and full
 		for _, hit in ipairs(questSteps(g)) do
-			text[#text + 1] = string.format(L["Step %d of %d: %s"], hit.index, g.stepCount or 0, hit.step.title or questContext.query)
+			-- As the player counts the steps (#942).
+			local no = numbered and (E.StepNumberOf(full, hit.index)) or hit.index
+			local total = numbered and E.StepTotalOf(full) or g.stepCount or 0
+			text[#text + 1] = string.format(L["Step %d of %d: %s"], no, total, hit.step.title or questContext.query)
 			if type(hit.step.note) == "string" and hit.step.note ~= "" then text[#text + 1] = hit.step.note end
 		end
 		if #text > 0 then

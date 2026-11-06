@@ -1716,26 +1716,54 @@ function Own.talkCounts(goal)
 end
 
 -- A `complete` goal's quest in the log: its objectives' counts summed, each
--- capped at what it needs ("Plainstrider Meat 3/7, Feathers 5/7": 8/14), and
--- with `open`, when it has more than one, the open ones in the game's words
--- ("Plainstrider Meat: 3/7"; the count alone says it for one). Nil when the
--- quest is not in the log. (On Own: the main chunk is at 200 locals.)
-function Own.completeState(q, open)
+-- capped at what it needs ("Plainstrider Meat 3/7, Feathers 5/7": 8/14), the
+-- goal's progress (the window shows each line: Own.objectiveLines). Nil when
+-- the quest is not in the log. (On Own: the main chunk is at 200 locals.)
+function Own.completeState(q)
 	local objs = Compat().GetQuestObjectives(q)
 	if not objs then return nil end
-	local cur, max, list = 0, 0, nil
+	local cur, max = 0, 0
 	for i = 1, #objs do
 		local o = objs[i]
 		max = max + o.numRequired
 		cur = cur + math.min(o.numFulfilled, o.numRequired)
-		if open and #objs > 1 and not o.finished and o.text ~= "" then
-			local text = o.text
-			if not text:find("%d+%s*/%s*%d+") then text = ("%s %d/%d"):format(text, o.numFulfilled, o.numRequired) end
-			list = list or {}
-			list[#list + 1] = text
+	end
+	return cur, max
+end
+
+-- What a `complete` goal reads as (#942: "Complete Plagued Lands" said
+-- nothing): its quest's objectives, { text, cur, max } each, in the game's
+-- words from the log, the counts cut off the text (Compat.ObjectiveLabel:
+-- "Rabid Thistle Bear Captured: 0/1" -> "Rabid Thistle Bear Captured", 0,
+-- 1). With the quest not in the log (looked at ahead), the compiled
+-- objectives (`objs`: the quest data's text and count), at 0, or every one
+-- in once the goal is done; nil with neither (the window keeps "Complete
+-- <quest>").
+function Own.objectiveLines(goal, done)
+	local C, out = Compat(), {}
+	for _, o in ipairs(C.GetQuestObjectives(goal.quest) or NONE) do
+		local text = C.ObjectiveLabel(o.text)
+		if text ~= "" then out[#out + 1] = { text = text, cur = math.min(o.numFulfilled, o.numRequired), max = o.numRequired } end
+	end
+	if #out > 0 then return out end
+	for _, o in ipairs(type(goal.objs) == "table" and goal.objs or NONE) do
+		if type(o.text) == "string" and o.text ~= "" then
+			local max = tonumber(o.count) or 1
+			out[#out + 1] = { text = o.text, cur = done and max or 0, max = max }
 		end
 	end
-	return cur, max, list
+	return #out > 0 and out or nil
+end
+
+-- The name of the item a `complete` goal's quest hands over (`startItem`,
+-- the compiler's from the quest data: Tharnariun's Hope for Plagued Lands)
+-- while it is in the bags and usable: the window says "Use <item>:" first.
+function Own.useItemName(goal)
+	local id = goal.startItem
+	if not id then return nil end
+	local C = Compat()
+	if (C.GetItemCount(id) or 0) <= 0 or not C.ItemUsable(id) then return nil end
+	return ns.Names.Item(id) or goal.startItemName
 end
 
 local function countState(goal)
@@ -2875,7 +2903,10 @@ local function goalView(s, g, goal, stepStatus, group)
 		standing = goal.standing, standingName = goal.standing and standingName(goal.standing) or nil,
 		achievement = goal.achievement, criteria = goal.criteria,
 		rewards = goal.rewards,
-		objectives = goal.t == "complete" and (status == "active" or status == "pending") and select(3, Own.completeState(goal.quest, true)) or nil,
+		-- A `complete` goal reads as its quest's objectives (Own.objectiveLines),
+		-- "Use <item>:" first while the item the quest hands over is in the bags.
+		objectiveLines = goal.t == "complete" and status ~= "na" and Own.objectiveLines(goal, status == "done") or nil,
+		useItem = goal.t == "complete" and (status == "active" or status == "pending") and Own.useItemName(goal) or nil,
 		-- Group content (compiled `group`: elite, dungeon, raid or an author's
 		-- group size); `group` above is the goal's field group.
 		party = type(goal.group) == "table" and type(goal.group.kind) == "string" and goal.group or nil,
@@ -3580,7 +3611,7 @@ local function progressLoaded()
 	end
 	local done, total = 0, 0
 	for s, step in ipairs(guide.steps) do
-		if stepApplies(step) then
+		if stepApplies(step) and not Own.numbersOf(guide).hidden[s] then
 			total = total + 1
 			if (not computed or s < computed) or isSkipped(s) or stepDone(s) then done = done + 1 end
 		end
@@ -3611,6 +3642,8 @@ function Engine.GetTabs()
 		out[i] = {
 			guideId = g.id, title = g.title, category = g.category or "Leveling",
 			stepIndex = t.current, stepCount = #g.steps, done = done, total = total, complete = t.computed == nil,
+			-- As the player counts them (Engine.StepNumberOf): what tabs and menus show.
+			stepNumber = t.current and (Engine.StepNumberOf(g, t.current)) or nil, stepTotal = Engine.StepTotalOf(g),
 		}
 	end
 	useActive()
@@ -4613,9 +4646,16 @@ local function evaluateLoaded(active)
 	-- The view of another step: released once it is the live step (or no
 	-- longer applies); while the step looked at gets done it follows forward,
 	-- behind the live step up to it, ahead of it to the next open step, its
-	-- transient goals latched like any step the route moves past.
+	-- transient goals latched like any step the route moves past. A step
+	-- hidden from the character (a saved view from before #942, an along
+	-- step) gives way to the next one they can look at.
 	local oldPin = pin
-	if pin and ((computed and pin == computed) or not guide.steps[pin] or not stepApplies(guide.steps[pin])) then pin = nil end
+	if pin and guide.steps[pin] and Own.numbersOf(guide).hidden[pin] then
+		local s = pin
+		repeat s = nextApplicable(s) until not s or Own.lookable(s)
+		pin = s
+	end
+	if pin and ((computed and pin == computed) or not Own.lookable(pin)) then pin = nil end
 	if pin then
 		local done = stepDone(pin)
 		if done and not pinDone then
@@ -5357,6 +5397,113 @@ function Engine.GetStepIndex() return current end
 
 function Engine.GetStepCount() return guide and #guide.steps or 0 end
 
+-- A step that is not a step of its own for this character (#942, Fitz): an
+-- along step, whose goals read under "Along the way" of the steps the player
+-- travels to (Engine.GetAlong); one whose `only` leaves out their class,
+-- race or faction, or every goal's `only` does (a Druid's Dendrite
+-- Starblaze for a Mage). Paging never lands on it, it has no number and no
+-- progress share, the arrow never leads to it, and nothing explains it. A
+-- step that depends on what the player does (`when`) can apply later: it
+-- keeps its number and says why it does not apply now (Own.stepWhy).
+function Own.hiddenStep(step)
+	if step.along or not Guides.Matches(step.only, player) then return true end
+	local goals = step.goals
+	if #goals == 0 then return false end
+	for _, goal in ipairs(goals) do
+		if Guides.Matches(goal.only, player) then return false end
+	end
+	return true
+end
+
+-- The numbers the player sees for guide g's steps (Own.hiddenStep left out):
+-- { of = { [step] = number }, hidden = { [step] = true }, total }. A hidden
+-- step reads as the number of the next step shown. Per guide and character
+-- (class, race and faction do not change in a session).
+Own.numbering = setmetatable({}, { __mode = "k" })
+function Own.numbersOf(g)
+	if not player then refreshPlayer() end
+	local key = tostring(player.class) .. "/" .. tostring(player.race) .. "/" .. tostring(player.faction)
+	local n = Own.numbering[g]
+	if n and n.key == key then return n end
+	n = { key = key, of = {}, hidden = {}, total = 0 }
+	for s, step in ipairs(g.steps) do
+		if Own.hiddenStep(step) then
+			n.hidden[s] = true
+			n.of[s] = n.total + 1
+		else
+			n.total = n.total + 1
+			n.of[s] = n.total
+		end
+	end
+	Own.numbering[g] = n
+	return n
+end
+
+-- Step i of guide g as the player counts it, and whether it is hidden from
+-- them (Own.hiddenStep); the number of steps they see. The window, the bug
+-- report, the tabs and every "step N" line use these.
+function Engine.StepNumberOf(g, i)
+	if type(g) ~= "table" or type(g.steps) ~= "table" or type(i) ~= "number" then return i, false end
+	local n = Own.numbersOf(g)
+	return n.of[i] or (n.total + 1), n.hidden[i] == true
+end
+function Engine.StepTotalOf(g)
+	if type(g) ~= "table" or type(g.steps) ~= "table" then return 0 end
+	return Own.numbersOf(g).total
+end
+function Engine.StepNumber(i) return Engine.StepNumberOf(guide, i) end
+function Engine.StepTotal() return Engine.StepTotalOf(guide) end
+
+-- Whether the player can look at step i of the loaded guide: it applies and
+-- is not hidden from them (Next, Prev, Goto).
+function Own.lookable(i)
+	local step = guide.steps[i]
+	return step ~= nil and stepApplies(step) and not Own.numbersOf(guide).hidden[i]
+end
+
+-- `when` predicate p in one line for the window (Own.stepWhy): what has to
+-- hold for the step to apply. A kind with no wording of its own, a negated
+-- level, an `onquest` of several quests: the generic line.
+function Own.whenText(p)
+	local k, neg = p and p.k, p and p.neg
+	if k == "group" then
+		return (neg and L["Only if you skip the group quest %s"] or L["Only if you do %s with a group"]):format(titleOfQuest(p.q))
+	elseif k == "level" and not neg then
+		local n = tostring(p.n + (p.frac or 0))
+		local fmt = (p.op == "<" and L["Only below level %s"]) or (p.op == "<=" and L["Only up to level %s"])
+			or (p.op == ">" and L["Only above level %s"]) or L["Only from level %s"]
+		return fmt:format(n)
+	elseif k == "onquest" and type(p.q) == "table" and #p.q == 1 then
+		return (neg and L["Only without %s in your quest log"] or L["Only with %s in your quest log"]):format(titleOfQuest(p.q[1]))
+	elseif k == "turnedin" then
+		return (neg and L["Only before %s is handed in"] or L["Only once %s is handed in"]):format(titleOfQuest(p.q))
+	end
+	return L["Skipped for your character: its conditions do not hold"]
+end
+
+-- Why step `step` holds nothing for this character now (Engine.GetStepView
+-- `why`), so a step looked at ahead does not read as an empty title: only a
+-- step that depends on what the player does (`when`) says it. The first
+-- `when` predicate that fails, or, when none of its goals applies (`goals`:
+-- its goal views), the group quest it waits on not answered "do" (Elwynn's
+-- Goldshire hand-in of Book Return), else that none applies. nil while a
+-- goal applies, for a step hidden from the character (Own.hiddenStep), or
+-- with no goals or no `when`.
+function Own.stepWhy(step, goals)
+	if #goals == 0 or not step.when or Own.hiddenStep(step) then return nil end
+	if not Own.whenHolds(step) then
+		local p = Own.whenFails(step)
+		return p and Own.whenText(p) or nil
+	end
+	for _, gv in ipairs(goals) do
+		if gv.status ~= "na" then return nil end
+	end
+	for _, p in ipairs(step.when) do
+		if p.k == "group" and not p.neg and Own.groupAnswer(p.q) ~= "do" then return Own.whenText(p) end
+	end
+	return L["Skipped for your character: none of its goals apply"]
+end
+
 function Engine.GetStepView(i)
 	if not guide or type(i) ~= "number" then return nil end
 	local step = guide.steps[i]
@@ -5420,22 +5567,26 @@ function Engine.GetStepView(i)
 	end
 	-- `current`: the goal the window marks and the arrow leads to (the
 	-- current step only); `skipped`: the player skipped this step (Unskip);
-	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua).
+	-- `image`: the step's picture ({ file, w, h, texture }, Guides.lua);
+	-- `why`: why the step holds nothing for this character now, one line
+	-- (Own.stepWhy).
 	return {
 		index = i, title = step.title, note = step.note, image = step.image, status = status, goals = goals,
 		groups = outGroups, focus = focus,
 		current = status == "current" and (Own.currentGoal(i, groups, focus)) or nil,
 		skipped = isSkipped(i), live = computed,
 		along = step.along, label = step.label,
+		why = Own.stepWhy(step, goals),
 	}
 end
 
 -- The open goals of the along steps behind the live step (Own.alongListed),
 -- in step order, then those of the quests the player pinned (Own.pinGoals):
--- { { index = step, title, goals = { goal view, ... } }, ... }; a pinned
--- quest's entry has `pin` (the quest) and no index, each goal view its
--- `step` (Engine.AimAlong, Engine.AlongGoal). Notes are left out; a step or
--- quest with nothing open is not listed.
+-- { { index = step, title, untilStep, goals = { goal view, ... } }, ... };
+-- `untilStep`: an `along until` step's labelled step (the window's "Along
+-- the way, until step N"); a pinned quest's entry has `pin` (the quest) and
+-- no index, each goal view its `step` (Engine.AimAlong, Engine.AlongGoal).
+-- Notes are left out; a step or quest with nothing open is not listed.
 function Engine.GetAlong()
 	local out = {}
 	if not guide then return out end
@@ -5453,7 +5604,10 @@ function Engine.GetAlong()
 					end
 				end
 			end
-			if #goals > 0 then out[#out + 1] = { index = s, title = step.title, goals = goals } end
+			if #goals > 0 then
+				local untilStep = type(step.along) == "string" and Own.marksOf().labels[step.along] or nil
+				out[#out + 1] = { index = s, title = step.title, untilStep = untilStep, goals = goals }
+			end
 		end
 	end
 	for _, q in ipairs(Own.pinList()) do
@@ -5836,6 +5990,7 @@ function Engine.Next()
 	refreshPlayer()
 	placing = nil
 	local s = nextApplicable(current)
+	while s and not Own.lookable(s) do s = nextApplicable(s) end
 	if not s then return end
 	Own.view(s)
 	evaluate()
@@ -5846,7 +6001,7 @@ end
 function Engine.Goto(i)
 	if not guide or type(i) ~= "number" or not guide.steps[i] then return end
 	refreshPlayer()
-	if not stepApplies(guide.steps[i]) then return end
+	if not Own.lookable(i) then return end
 	placing = nil
 	local sk = skippedFor(guide.id)
 	if sk and sk[i] then
@@ -5870,7 +6025,7 @@ function Engine.Prev()
 	refreshPlayer()
 	placing = nil
 	for s = (current or #guide.steps + 1) - 1, 1, -1 do
-		if stepApplies(guide.steps[s]) then
+		if Own.lookable(s) then
 			if current and current == computed then clearInStep(current) end
 			Own.view(s)
 			evaluate()

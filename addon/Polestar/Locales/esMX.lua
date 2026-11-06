@@ -132,6 +132,18 @@ L["%s isn't in your quest log"] = "%s no está en tu registro de misiones"
 -- L["%d seconds"] = ""
 -- L["Your Hearthstone is bound to %s, not %s: walk to the inn"] = ""
 -- L["Your Hearthstone is bound to %s, not %s"] = ""
+L["Only if you skip the group quest %s"] = "Solo si omites la misión de grupo %s"
+L["Only if you do %s with a group"] = "Solo si haces %s en grupo"
+L["Only below level %s"] = "Solo por debajo del nivel %s"
+L["Only up to level %s"] = "Solo hasta el nivel %s"
+L["Only above level %s"] = "Solo por encima del nivel %s"
+L["Only from level %s"] = "Solo desde el nivel %s"
+L["Only without %s in your quest log"] = "Solo sin %s en tu registro de misiones"
+L["Only with %s in your quest log"] = "Solo con %s en tu registro de misiones"
+L["Only before %s is handed in"] = "Solo antes de entregar %s"
+L["Only once %s is handed in"] = "Solo una vez entregada %s"
+L["Skipped for your character: its conditions do not hold"] = "Omitido para tu personaje: sus condiciones no se cumplen"
+L["Skipped for your character: none of its goals apply"] = "Omitido para tu personaje: ninguno de sus objetivos aplica"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Requiere Polestar %s o posterior."
@@ -1297,6 +1309,7 @@ L["Then out here:"] = "Después, en el terreno:"
 L["Out here:"] = "En el terreno:"
 L["+ %d more people"] = "+ %d personas más"
 L["Later in this step"] = "Más adelante en este paso"
+L["Along the way, until step %d"] = "De camino, hasta el paso %d"
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -1823,6 +1836,7 @@ L["Cancel"] = "Cancelar"
 -- L["Quest log %d/%d: %s"] = ""
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
+L["Step %d of %d (guide step %d): %s"] = "Paso %d de %d (paso %d de la guía): %s"
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Justo aquí"
@@ -1894,6 +1908,8 @@ L["Druid"] = "Druida"
 -- L["%s XP to go"] = ""
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
+L["The object here"] = "El objeto de aquí"
+L["Use %s:"] = "Usa %s:"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"
