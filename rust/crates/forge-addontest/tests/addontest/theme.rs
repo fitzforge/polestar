@@ -243,8 +243,9 @@ fn fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russi
 	};
 
 	let ru = faces("ruRU");
-	assert_eq!(ru["default"], OPEN_SANS_BOLD, "ruRU default");
-	assert_eq!(ru["skinChoice"], OPEN_SANS_BOLD, "ruRU with the house font");
+	// Open Sans has no arrow (U+2192), which the Russian guide texts use: the house look keeps Fira Sans there.
+	assert_eq!(ru["default"], FIRA, "ruRU default");
+	assert_eq!(ru["skinChoice"], FIRA, "ruRU with the house font");
 	for skin in ["hearth", "forever", "blizzard", "classic"] {
 		assert_eq!(ru[skin], FIRA, "ruRU {skin} by default");
 	}

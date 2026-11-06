@@ -938,10 +938,11 @@ function Theme.FontSpec(role)
 	local locale = GetLocale and GetLocale()
 	local face = Theme.FontKey()
 	-- The ruRU client font (FRIZQT___CYR) has no middle dot, which the UI and
-	-- guide text use as a separator; Fira Sans has it and covers Cyrillic.
-	-- Only when the skin picks the face: choosing "the game's" font keeps it.
+	-- guide text use as a separator, and Open Sans has no arrow (U+2192), which
+	-- the Russian guide texts use; Fira Sans has both and covers Cyrillic.
+	-- Only when the skin picks the face: a font the player chose stays.
 	local f = get("ui.font")
-	if face == "game" and locale == "ruRU" and (f == nil or f == "skin") then face = "fira" end
+	if (face == "game" or face == "opensans") and locale == "ruRU" and (f == nil or f == "skin") then face = "fira" end
 	if face == "game" or CJK[locale] then
 		return gameFont(), size, ""
 	end
