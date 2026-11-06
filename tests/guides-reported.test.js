@@ -2384,7 +2384,9 @@ test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the
 // 40 (tools/lib/nav/move.js MOUNT_LEVEL), so a guide that starts below it
 // never tells the player to ride somewhere. Riding a boat, zeppelin, tram,
 // lift, airship, flight or Zephras Isle's wind currents is fine ("ride it"
-// names the transport just before).
+// names the transport just before). A step gated to level 40 or more
+// (`when level>=40`), or any step after a `level` goal of 40 or more, is
+// played with riding learned, so it may say ride.
 const RIDING_LEVEL = 40;
 const RIDE_TRANSPORT = /\bride (?:it\b|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|wind current|bat|taxi))/gi;
 test("Pynte's report (#404): guides played below riding level never tell you to ride somewhere", { skip }, () => {
@@ -2393,11 +2395,16 @@ test("Pynte's report (#404): guides played below riding level never tell you to 
 		if (guide.startsWith('forever/collectibles/')) continue;
 		const g = compiled(guide);
 		if (!(g.minLevel < RIDING_LEVEL)) continue;
+		let mounted = false;
 		for (const step of g.steps) {
-			for (const text of [step.note, ...step.goals.map((goal) => goal.note)]) {
-				if (typeof text !== 'string') continue;
-				if (/\b(?:ride|rides|riding|rode)\b/i.test(text.replace(RIDE_TRANSPORT, ''))) offenders.push(`${guide} (from level ${g.minLevel}), step ${step.title}: ${text}`);
+			const gated = (step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= RIDING_LEVEL);
+			if (!mounted && !gated) {
+				for (const text of [step.note, ...step.goals.map((goal) => goal.note)]) {
+					if (typeof text !== 'string') continue;
+					if (/\b(?:ride|rides|riding|rode)\b/i.test(text.replace(RIDE_TRANSPORT, ''))) offenders.push(`${guide} (from level ${g.minLevel}), step ${step.title}: ${text}`);
+				}
 			}
+			if (step.goals.some((goal) => goal.t === 'level' && goal.level >= RIDING_LEVEL)) mounted = true;
 		}
 	}
 	assert.deepEqual(offenders, [], 'travel by riding in a guide played before level 40');

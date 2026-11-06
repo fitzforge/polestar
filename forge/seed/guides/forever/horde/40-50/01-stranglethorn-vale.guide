@@ -183,7 +183,7 @@ step Venture Co. mine
 # ---------------------------------------------------------------- Grom'gol and the north
 
 step Grom'gol Base Camp
-  tip Ride north-west to Grom'gol.
+  tip Head north-west to Grom'gol.
   sethome "Grom'gol Base Camp" npc 5814 -- Innkeeper Thulbek
   accept 573                            -- Far Seer Mok'thardin
   accept 584                            -- Nimboya
@@ -192,7 +192,7 @@ step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
 
 step Nesingwary's Expedition
-  tip Ride north up the road; the hunters camp on the hill above the river.
+  tip Head north up the road; the hunters camp on the hill above the river.
   accept 196                            -- Hemet Nesingwary
 
 step Zul'Kunda
@@ -219,7 +219,7 @@ step Naga shore and the Holy Spring
   collect 737 quest 573.2 @29.0,61.9
 
 step Booty Bay
-  tip Ride south to Booty Bay. Shaky Phillipe waits on the docks.
+  tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   sethome "Booty Bay" npc 6807          -- Innkeeper Skindle
   turnin 617                            -- Privateer Bloads
   turnin 606                            -- "Shaky" Phillipe
@@ -243,7 +243,7 @@ step Pirate ghosts
   collect 3926 quest 609.3
 
 step Zul'Mamwe
-  tip Ride north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
+  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. Ana'thek the Cruel guards the south-western ruins, and one pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all.
   kill 669 quest 586.1
   kill 781 quest 586.2
   kill 783 quest 586.3
@@ -258,11 +258,11 @@ step Balia'mah Ruins
   collect 3906 quest 585.1
 
 step Ziata'jai Ruins
-  tip The last skulls are in the ruins a short ride west, on the way back to Grom'gol.
+  tip The last skulls are in the ruins a short walk west, on the way back to Grom'gol.
   collect 3907 quest 585.2
 
 step Grom'gol Base Camp
-  tip Ride west to Grom'gol.
+  tip Head west to Grom'gol.
   turnin 573                            -- Far Seer Mok'thardin
   turnin 586                            -- the Bubbling Cauldron
   turnin 585
@@ -277,18 +277,18 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 step Nesingwary's Expedition
-  tip Ride north up the road to the hunters' camp.
+  tip Head north up the road to the hunters' camp.
   turnin 196                            -- Hemet Nesingwary
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
 step Into the Swamp of Sorrows
   zone Swamp of Sorrows
-  tip Keep riding north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
+  tip Keep going north into Duskwood, then east along the road through Deadwind Pass into the swamp. Magtoor waits at the Harborage, the draenei camp near the way in from Deadwind Pass.
   accept 1389                           -- Magtoor
 
 step Stonard
-  tip Ride east to Stonard, in the reeds south of the road.
+  tip Head east to Stonard, in the reeds south of the road.
   getfp "Stonard" npc 6026              -- Breyk
   turnin 1420                           -- Helgrum the Swift
   accept 698                            -- Dar
