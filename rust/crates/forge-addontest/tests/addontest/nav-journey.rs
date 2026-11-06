@@ -814,12 +814,14 @@ fn nearby_the_vendor_page_food_and_drink_arrows_bullets_bows_and_guns_by_class_t
 		npcs[7] = { id = 7, name = "Keina", subName = "Bowyer", faction = "A", spawns = { { map = 9000, x = 62, y = 50 } } }
 		npcs[8] = { id = 8, name = "Fanorran", subName = "Junior Mining Trainer", faction = "A", spawns = { { map = 9000, x = 50.5, y = 50 } } }
 		npcs[9] = { id = 9, name = "Dellylah", subName = "Food & Drink Vendor", faction = "A", spawns = { { map = 9000, x = 65, y = 50 } } }
+		npcs[10] = { id = 10, name = "Brewer", subName = "General Goods", faction = "A", spawns = { { map = 9000, x = 68, y = 50 } } }
 		npcs[1].subName = "Blacksmith"
-		roles.vendor = { 1, 5, 7, 8, 9 }
+		roles.vendor = { 1, 5, 7, 8, 9, 10 }
 		roles.trainer = { 6, 8 }
 		roles["sells:arrows"] = { 7 }
 		roles["sells:ranged"] = { 7 }
 		roles["sells:food"] = { 8, 9 }
+		roles["sells:general"] = { 10 }
 		local C = Polestar.Compat
 		local info = { name = "Testchar", level = 12, faction = "Alliance", class = "HUNTER" }
 		C.GetPlayerInfo = function() return info end
@@ -841,18 +843,24 @@ fn nearby_the_vendor_page_food_and_drink_arrows_bullets_bows_and_guns_by_class_t
 		local food = label()
 		Near.Command("bow")
 		local bow = label()
+		Near.Go("general")
+		local general = { label(), said("Nearest general goods: Brewer (General Goods)") }
+		Near.Command("goods")
+		local goods = label()
 		info.class = "MAGE"
-		emit({ hunter = hunter, mage = page(), vendor = vendor, arrows = arrows, food = food, bow = bow, bullets = Near.Go("bullets") })
+		emit({ hunter = hunter, mage = page(), vendor = vendor, arrows = arrows, food = food, bow = bow, general = general, goods = goods, bullets = Near.Go("bullets") })
 	"#,
 	]
 	.concat());
 	let out = &out[0];
-	assert_eq!(out["hunter"], json!(["vendor", "food", "arrows", "bullets", "ranged"]), "Nearest first, then what a hunter can use");
-	assert_eq!(out["mage"], json!(["vendor", "food"]), "a mage uses no bow, gun or crossbow");
+	assert_eq!(out["hunter"], json!(["vendor", "food", "general", "arrows", "bullets", "ranged"]), "Nearest first, then what a hunter can use");
+	assert_eq!(out["mage"], json!(["vendor", "food", "general"]), "a mage uses no bow, gun or crossbow");
 	assert_eq!(out["vendor"], "Near Smith (Blacksmith)", "Fanorran is nearer, but a trainer");
 	assert_eq!(out["arrows"], json!(["Keina (Bowyer)", true]));
 	assert_eq!(out["food"], "Dellylah (Food & Drink Vendor)", "a trainer the data lists as selling food is left out too");
 	assert_eq!(out["bow"], "Keina (Bowyer)");
+	assert_eq!(out["general"], json!(["Brewer (General Goods)", true]));
+	assert_eq!(out["goods"], "Brewer (General Goods)", "the command's other word for it");
 	assert_eq!(out["bullets"], false, "nobody sells bullets here");
 }
 

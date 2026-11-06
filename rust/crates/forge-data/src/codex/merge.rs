@@ -32,7 +32,7 @@ const RANK_UNKNOWN: f64 = 7.0;
 const TYPE_ORDER: [&str; 10] = ["vendor", "quest", "gift", "craft", "rep", "pvp", "drop", "object", "container", "world"];
 const WORLD_DROP_NPCS: usize = 12;
 const LOOT_CAP: usize = 150;
-const SERVICE_ROLES: [&str; 15] = [
+const SERVICE_ROLES: [&str; 16] = [
 	"vendor",
 	"repair",
 	"innkeeper",
@@ -48,6 +48,7 @@ const SERVICE_ROLES: [&str; 15] = [
 	"sells:arrows",
 	"sells:bullets",
 	"sells:ranged",
+	"sells:general",
 ];
 const STANDING_FLOOR: [f64; 8] = [-42000.0, -6000.0, -3000.0, 0.0, 3000.0, 9000.0, 21000.0, 42000.0];
 
@@ -108,6 +109,15 @@ pub fn sells_role(class_id: Option<f64>, subclass_id: Option<f64>) -> Option<&'s
 		(c, s) if c == 2.0 && (s == 2.0 || s == 3.0 || s == 18.0) => Some("sells:ranged"),
 		_ => None,
 	}
+}
+
+/// `isGeneralGoods(subName)`: the title of a general goods vendor, for Nearby
+/// services' vendor page. By title, as no item tells one apart: cooks sell
+/// their flint and wood, innkeepers their water, and general goods have no
+/// item class. "General Trade Goods" sellers are trade suppliers, so no match.
+pub fn is_general_goods(sub_name: &str) -> bool {
+	let title = sub_name.to_lowercase();
+	["general goods", "general supplies", "general & trade"].iter().any(|t| title.contains(t))
 }
 
 /// `fromLabels(list)`.
@@ -1103,6 +1113,9 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			if has_word(&title, "weapon master") {
 				set.add("weapon");
 			}
+		}
+		if set.has("vendor") && npc.get("subName").truthy() && is_general_goods(&npc.get("subName").to_js_string()) {
+			set.add("sells:general");
 		}
 		let mut roles = set.0.clone();
 		roles.sort_by(|a, b| forge_guide::js::cmp_utf16(a, b));
