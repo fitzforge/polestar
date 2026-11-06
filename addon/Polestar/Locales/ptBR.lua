@@ -977,6 +977,8 @@ L["Dungeons in leveling guides"] = "Masmorras nos guias de evolução"
 L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = "Desativado: o guia pula esta missão de grupo e segue a rota solo. Até você escolher, ele pergunta ao chegar lá."
 L["Group quests"] = "Missões de grupo"
 L["Group quests in leveling guides"] = "Missões de grupo nos guias de evolução"
+-- L["Tell me when a dungeon opens up"] = ""
+-- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Recrutador de missões"
@@ -1261,6 +1263,8 @@ L["Share"] = "Compartilhar"
 L["Go on without them"] = "Seguir sem eles"
 L["The step stops waiting for the party and moves on as usual."] = "A etapa para de esperar o grupo e segue como de costume."
 L["Click to show or hide the party panel."] = "Clique para mostrar ou ocultar o painel do grupo."
+-- L["Then out here"] = ""
+-- L["Out here"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -2905,6 +2909,17 @@ L["Show or hide the party panel"] = "Mostrar ou ocultar o painel do grupo"
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "O Polestar avisou seu grupo que você concluiu um objetivo de missão (Opções > Missões > Missões > Grupo para desligar)."
 L["Ready to turn in: %s"] = "Pronta para entregar: %s"
 L["Finished: %s - %s"] = "Concluído: %s - %s"
+
+-- UI/DungeonToast.lua
+-- L["LEVEL %d · DUNGEON"] = ""
+-- L["%s is open to you"] = ""
+-- L["1 quest to pick up"] = ""
+-- L["%d quests to pick up"] = ""
+-- L["Open in Dungeons"] = ""
+-- L["Turn these off"] = ""
+-- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
+-- L["No dungeon has opened up for this character."] = ""
+-- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desative \"Guiar com Shortest Path Forever quando instalado\" (Opções, Seta e rotas) para usar a seta do Polestar."

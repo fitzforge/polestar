@@ -492,6 +492,8 @@ L["Share"] = "Teilen"
 L["Go on without them"] = "Ohne sie weiter"
 L["The step stops waiting for the party and moves on as usual."] = "Der Schritt wartet nicht mehr auf die Gruppe und geht wie gewohnt weiter."
 L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ein- oder auszublenden."
+-- L["Then out here"] = ""
+-- L["Out here"] = ""
 
 -- UI/Lookup.lua
 L["Both factions"] = "Beide Fraktionen"
@@ -2435,6 +2437,8 @@ L["Dungeons in leveling guides"] = "Dungeons in Leveling-Guides"
 L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = "Aus: Der Guide überspringt diese Gruppenquest und bleibt auf der Solo-Route. Bis du dich entscheidest, fragt er nach, wenn er dort ankommt."
 L["Group quests"] = "Gruppenquests"
 L["Group quests in leveling guides"] = "Gruppenquests in Leveling-Guides"
+-- L["Tell me when a dungeon opens up"] = ""
+-- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
 
 -- Dungeons/Attune.lua
 L["Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths."] = "Lässt dich Lothos Riftwaker im Blackrock zum Geschmolzenen Kern schicken; ohne ihn läufst du durch die Blackrocktiefen hinein."
@@ -2888,6 +2892,17 @@ L["Show or hide the party panel"] = "Gruppenfenster ein- oder ausblenden"
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar hat deiner Gruppe gesagt, dass du ein Questziel erledigt hast (ausschalten unter Optionen > Questen > Quests > Gruppe)."
 L["Ready to turn in: %s"] = "Bereit zur Abgabe: %s"
 L["Finished: %s - %s"] = "Erledigt: %s - %s"
+
+-- UI/DungeonToast.lua
+-- L["LEVEL %d · DUNGEON"] = ""
+-- L["%s is open to you"] = ""
+-- L["1 quest to pick up"] = ""
+-- L["%d quests to pick up"] = ""
+-- L["Open in Dungeons"] = ""
+-- L["Turn these off"] = ""
+-- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
+-- L["No dungeon has opened up for this character."] = ""
+-- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

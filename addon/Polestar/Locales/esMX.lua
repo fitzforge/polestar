@@ -227,6 +227,8 @@ L["Use %s"] = "Usa %s"
 -- L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = ""
 -- L["Group quests"] = ""
 -- L["Group quests in leveling guides"] = ""
+-- L["Tell me when a dungeon opens up"] = ""
+-- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Aún sin terminar: %s"
@@ -1323,6 +1325,8 @@ L["Share"] = "Compartir"
 L["Go on without them"] = "Seguir sin ellos"
 L["The step stops waiting for the party and moves on as usual."] = "El paso deja de esperar al grupo y avanza como siempre."
 L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar el panel del grupo."
+-- L["Then out here"] = ""
+-- L["Out here"] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -2904,6 +2908,17 @@ L["Show or hide the party panel"] = "Mostrar u ocultar el panel del grupo"
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar le avisó a tu grupo que completaste un objetivo de misión (Opciones > Misiones > Misiones > Grupo para desactivarlo)."
 L["Ready to turn in: %s"] = "Lista para entregar: %s"
 L["Finished: %s - %s"] = "Completado: %s - %s"
+
+-- UI/DungeonToast.lua
+-- L["LEVEL %d · DUNGEON"] = ""
+-- L["%s is open to you"] = ""
+-- L["1 quest to pick up"] = ""
+-- L["%d quests to pick up"] = ""
+-- L["Open in Dungeons"] = ""
+-- L["Turn these off"] = ""
+-- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
+-- L["No dungeon has opened up for this character."] = ""
+-- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
