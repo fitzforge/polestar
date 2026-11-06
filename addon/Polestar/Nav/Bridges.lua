@@ -4,9 +4,11 @@
 --   Blizzard's user waypoint (nav.blizzardWaypoint, off by default):
 --     C_Map.SetUserWaypoint plus C_SuperTrack, cleared only if we set it.
 --     With Waypoint UI loaded (its public WaypointUIAPI.Navigation), which
---     draws the game's tracked target in the world: a quest goal whose quest
---     is in the log (an objective, a turn-in) tracks the quest itself, so
---     Waypoint UI shows its own quest marker; any other target is a pin named
+--     draws the game's tracked target in the world: a turn-in, or an objective
+--     at one spot, whose quest is in the log tracks the quest itself, so
+--     Waypoint UI shows its own quest marker (an objective over an area, a kill
+--     or collect among spawns, is not: the game points nowhere while you are in
+--     it, where Polestar's target is a spot); any other target is a pin named
 --     after the target, set through Waypoint UI (flag "Polestar"), which sets
 --     the game's pin and tracking itself. Only what Polestar set is cleared:
 --     a pin flagged as ours, the quest we tracked while still tracked.
@@ -109,11 +111,21 @@ local function clearWaypointUI(W)
 	end
 end
 
+-- A quest goal the game's own quest tracking points at: a turn-in, or an
+-- objective at one spot. Not an accept (not in the log yet), nor an objective
+-- over an area or among spawns (the game has no point to show inside it).
+local function questTrackable(target)
+	local q = tonumber(target.quest)
+	if not q or target.kind == "accept" or not inLog(q) then return nil end
+	if target.kind ~= "turnin" and (target.area or target.spots or target.search) then return nil end
+	return q
+end
+
 -- With Waypoint UI: true when the target is shown through it.
 local function syncWaypointUI(W, target)
 	local ST = C_SuperTrack
-	local q = tonumber(target.quest)
-	if q and target.kind ~= "accept" and inLog(q) and ST and ST.SetSuperTrackedQuestID then
+	local q = questTrackable(target)
+	if q and ST and ST.SetSuperTrackedQuestID then
 		if wuiSet then
 			wuiSet = false
 			if W.IsUserNavigationFlagged(FLAG) then W.ClearUserNavigation() end
@@ -130,9 +142,22 @@ local function syncWaypointUI(W, target)
 	return true
 end
 
+local retrying = false
+
 local function syncBlizzard(target)
 	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff()
 	local W = waypointUI()
+	-- Waypoint UI loads after Polestar and fills its API late: look again once
+	-- (the first target after login is set before it is ready).
+	local C = ns.Compat
+	local present = type(WaypointUIAPI) == "table" or (C and C.AddOnPresent and C.AddOnPresent("WaypointUI"))
+	if on and not W and not retrying and present then
+		retrying = true
+		ns.After(2, function()
+			retrying = false
+			if waypointUI() then syncBlizzard(Nav.GetTarget()) end
+		end)
+	end
 	-- Waypoint UI loaded: the tracked quest or a named pin, through it.
 	if on and W and syncWaypointUI(W, target) then
 		blizzardSet = false -- Waypoint UI replaced any plain pin of ours

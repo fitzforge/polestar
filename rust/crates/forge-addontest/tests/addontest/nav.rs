@@ -1180,6 +1180,43 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 }
 
 #[test]
+fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_not_the_quest() {
+	let out = run(&format!(r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[756] = true
+		-- Collecting among spawns: the game points nowhere inside the area, Polestar's target is a spot.
+		nav.setWaypoint(wp(100, 0, "Collect Plainstrider Beak", {{ kind = "collect", quest = 756, area = 60 }}))
+		-- The turn-in is one NPC: the quest is tracked.
+		nav.setWaypoint(wp(0, 100, "Turn in Rite of Strength", {{ kind = "turnin", quest = 756, area = 0 }}))
+		emit({{ calls = calls }})"#));
+	assert_eq!(
+		out["calls"],
+		json!([
+			["pin", "Collect Plainstrider Beak", 9000, 50, 45, "Polestar", true],
+			["clear pin"],
+			["quest", 756]
+		])
+	);
+}
+
+#[test]
+fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
+	let out = run(&format!(r#"{WAYPOINT_UI}
+		-- Waypoint UI is loaded but has not filled its API yet.
+		local api = WaypointUIAPI.Navigation
+		WaypointUIAPI.Navigation = nil
+		Polestar.Set("nav.blizzardWaypoint", true)
+		target(100, 0, "Talk to Executor Arren")
+		local before = #calls
+		WaypointUIAPI.Navigation = api
+		stub.advance(2.1)
+		emit({{ before = before, calls = calls, native = #nav.userWaypoints }})"#));
+	assert_eq!(out["before"], 0);
+	assert_eq!(out["calls"], json!([["pin", "Talk to Executor Arren", 9000, 50, 45, "Polestar", true]]));
+	assert_eq!(out["native"], 2, "the plain pin first (set and tracked), then Waypoint UI's");
+}
+
+#[test]
 fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
 	let out = run(r#"
 		Polestar.Set("nav.blizzardWaypoint", true)
