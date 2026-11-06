@@ -276,7 +276,20 @@ function Methods.GetStringHeight(self)
 end
 function Methods.GetLineHeight(self) return (self.font and self.font[2]) or 12 end
 function Methods.GetNumLines(self) return math.max(1, math.floor(self:GetStringHeight() / self:GetLineHeight())) end
-function Methods.IsTruncated() return false end
+-- As in the client: a single-line string wider than its width, or text
+-- wrapping past its SetMaxLines, is drawn cut short with "…".
+function Methods.IsTruncated(self)
+	local w = self.width or 0
+	if w <= 0 then return false end
+	if self.wordWrap == false then return self:GetUnboundedStringWidth() > w end
+	if (self.maxLines or 0) <= 0 then return false end
+	local size = (self.font and self.font[2]) or 12
+	local lines = 0
+	for line in (tostring(self.text or "") .. "\n"):gmatch("([^\n]*)\n") do
+		lines = lines + math.max(1, math.ceil(#line * size * 0.5 / w))
+	end
+	return lines > self.maxLines
+end
 
 -- Textures
 function Methods.CreateTexture(self, name, layer, _template, sub)

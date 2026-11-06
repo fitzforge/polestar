@@ -4750,9 +4750,12 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   "Go to" counts only when nothing else is open), a later group already
   done "✓ <name>". With one or two goals open the line names them instead
   of counting ("Then: Marleth Barleybrew · Accept Bitter Rivals", "Then out
-  here: Kill Snow Leopards"; `UI.GoalText`, the quest in its colour; one
-  line, cut with "…" when too wide). Past the first three such lines, the
-  rest share one "+ N more people · X quests, Y tasks" line (`CARD.ahead`,
+  here: Kill Snow Leopards"; `UI.GoalText`, the quest in its colour). A
+  line too wide wraps to a second line, its row growing by it, and only
+  past two lines ends in "…"; opened, it is only "Then: <name>" or "Then out
+  here", since its goals are the rows under it (#1021). Along the way and
+  Up next rows wrap the same way. Past the first three such lines, the rest
+  share one "+ N more people · X quests, Y tasks" line (`CARD.ahead`,
   always counts). A person whose goals another person's goal splits
   (Auberdine's Thundris Windweaver, a vendor, Thundris again) is one line,
   at their first group after the focus, listing all their goals in written
