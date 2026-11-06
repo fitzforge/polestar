@@ -233,16 +233,6 @@ step Regthar Deathgate
   turnin 850
   accept 851
 
-step Stonetalon Mountains
-  only Warlock
-  zone Stonetalon Mountains
-  goto 73.2,95.1 "Stonetalon Mountains"
-
-step Back to The Barrens
-  only Warlock
-  zone The Barrens
-  goto 43.8,12.2 "The Barrens"
-
 step Vrang Wildgore
   zone The Barrens
   tip North to the Dry Hills. Vrang Wildgore camps below the hills; Walton, the hermit on the ridge behind him, has work for you only once Vrang sends you up.
