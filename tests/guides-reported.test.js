@@ -2230,6 +2230,22 @@ test('forever/horde/04-the-barrens.guide: Fitz\'s report (#274): the Dry Hills s
 	assert.ok(horns < at(list, 'the Raptor Horns turn-in', is('turnin', 865)), 'before the horns are handed in at Ratchet');
 });
 
+// Rohkin (#947): after Regthar, a Warlock walked into Stonetalon Mountains and straight back to the
+// Barrens with nothing to do there. Their Ken'zigla quests in Malaka'jin come later in the guide.
+test(`${BARRENS}: Rohkin's report (#947): a Warlock is never sent into another zone and straight back with nothing done there`, { skip }, () => {
+	const forUndeadWarlock = ({ only }) => !only || ((!only.classes || only.classes.includes('WARLOCK')) && (!only.races || only.races.includes('Undead')));
+	const steps = compiled(BARRENS).steps.filter(forUndeadWarlock).filter((step) => step.goals.length);
+	const travel = (step) => step.goals.every((g) => g.t === 'goto' || g.t === 'fly');
+	const mapOf = (step) => step.goals.at(-1).map;
+	for (let i = 1; i < steps.length; i++) {
+		const from = mapOf(steps[i - 1]);
+		if (!travel(steps[i]) || mapOf(steps[i]) === from) continue;
+		for (let j = i + 1; j < steps.length && travel(steps[j]); j++) {
+			assert.notEqual(mapOf(steps[j]), from, `"${steps[i].title}" to "${steps[j].title}": into map ${mapOf(steps[i])} and back to map ${from} with no goal there`);
+		}
+	}
+});
+
 // Avtom (#280): "Kill Ribchaser (rare) or Redridge Brute for Iron Pike" led to
 // the Redridge Mongrels' camp, where no Brute stands. Ribchaser, a rare, shares
 // the Mongrels' spawn points and drops the quest's Iron Pike and Iron Rivet at

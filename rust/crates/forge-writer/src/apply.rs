@@ -5437,6 +5437,9 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		}
 		// (Last: the merges above can bring one goal into a step twice.)
 		*t = post::one_goal_each(t.split('\n').map(str::to_string).collect()).join("\n");
+		// (Again after the passes above: one that takes a class step's goals elsewhere leaves its walk
+		// there and back for nothing, the Warlocks' Ken'zigla hand-in before its accept, #947.)
+		*t = post::no_class_round_trips(t.split('\n').map(str::to_string).collect()).join("\n");
 		*t = re!(r"\n{3,}").replace_all(t, "\n\n").into_owned();
 	}
 	for (f, t) in files.iter_mut().zip(texts) {

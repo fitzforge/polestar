@@ -129,23 +129,34 @@ pub fn no_dead_end_legs(out: Vec<String>) -> Vec<String> {
 	out.into_iter().enumerate().filter(|(i, _)| !drop.iter().any(|&(a, b)| (a..b).contains(i))).map(|(_, l)| l).collect()
 }
 
-/// A class's trip that does nothing: its travel-only step out (`only Warlock`, goto and fly) and its
-/// travel-only step back for the same classes, with no step between for any of them, both go (the
-/// Warlocks' and Rogues' Ratchet -> Orgrimmar -> Ratchet flights whose class step the route holds for
-/// a later visit, FlowDiag 1). A step between for everyone, or one naming any of those classes or
-/// any race, ends the search.
+/// A class's trip that does nothing: its travel-only steps out (`only Warlock`, goto and fly) and back
+/// for the same classes, with no step between for any of them, all go: the Warlocks' and Rogues'
+/// Ratchet -> Orgrimmar -> Ratchet flights whose class step the route holds for a later visit (FlowDiag
+/// 1), and a walk into another zone and back to the zone it left (#947: the Warlocks' walk from the
+/// Barrens to Ken'zigla in Malaka'jin and back, their step there emptied by premature_class_turnins).
+/// A walk on into another zone, to stay there, is no trip. A step between for everyone, or one naming
+/// any of those classes or any race, ends the search.
 pub fn no_class_round_trips(out: Vec<String>) -> Vec<String> {
 	struct S {
 		start: usize,
 		end: usize,
 		only: Option<Vec<String>>,
 		travel: bool,
+		fly: bool,
+		/// The zone before the step and after it (its last `zone` line).
+		zone_in: Option<String>,
+		zone: Option<String>,
 	}
 	let only_re = crate::re!(r"^\s+only\s+([A-Za-z,!]+)\s*$");
+	let zone_re = crate::re!(r"^\s*zone\s+(.+)$");
 	let mut steps: Vec<S> = Vec::new();
+	let mut zone: Option<String> = None;
 	let mut i = 0;
 	while i < out.len() {
 		if !is_step(&out[i]) {
+			if let Some(m) = zone_re.captures(split_comment(&out[i]).0) {
+				zone = Some(trim(&m[1]).to_string());
+			}
 			i += 1;
 			continue;
 		}
@@ -156,30 +167,44 @@ pub fn no_class_round_trips(out: Vec<String>) -> Vec<String> {
 		let body = &out[i + 1..j];
 		let only = body.iter().find_map(|l| only_re.captures(split_comment(l).0).map(|m| m[1].split(',').map(|x| trim(x).to_string()).collect::<Vec<_>>()));
 		let goals: Vec<&String> = body.iter().filter(|l| is_goal(l)).collect();
-		let travel = !goals.is_empty() && goals.iter().all(|l| matches!(head_ws(l), Some("goto" | "fly")) && line_only(l).is_none()) && goals.iter().any(|l| head_ws(l) == Some("fly"));
-		steps.push(S { start: i, end: j, only, travel });
+		let travel = !goals.is_empty() && goals.iter().all(|l| matches!(head_ws(l), Some("goto" | "fly")) && line_only(l).is_none());
+		let fly = goals.iter().any(|l| head_ws(l) == Some("fly"));
+		let zone_in = zone.clone();
+		if let Some(z) = body.iter().rev().find_map(|l| zone_re.captures(split_comment(l).0).map(|m| trim(&m[1]).to_string())) {
+			zone = Some(z);
+		}
+		steps.push(S { start: i, end: j, only, travel, fly, zone_in, zone: zone.clone() });
 		i = j;
 	}
 	fn classes_only(o: &Option<Vec<String>>) -> Option<&Vec<String>> {
 		o.as_ref().filter(|v| v.iter().all(|c| CLASSES.contains(&c.as_str())))
 	}
+	let disjoint = |o: &Option<Vec<String>>, cl: &Vec<String>| classes_only(o).is_some_and(|v| !v.iter().any(|c| cl.contains(c)));
 	let mut drop: Vec<(usize, usize)> = Vec::new();
 	let mut used = vec![false; steps.len()];
 	for a in 0..steps.len() {
 		let Some(cl) = classes_only(&steps[a].only).filter(|_| steps[a].travel && !used[a]) else { continue };
+		// (Where those classes were before the trip: the zone after the last step they played.)
+		let left = (0..a).rev().find(|&k| !disjoint(&steps[k].only, cl)).map_or(&steps[a].zone_in, |k| &steps[k].zone);
+		let mut run = vec![a];
 		for b in a + 1..steps.len() {
 			let o = &steps[b].only;
-			let disjoint = classes_only(o).is_some_and(|v| !v.iter().any(|c| cl.contains(c)));
-			if disjoint {
+			if disjoint(o, cl) {
 				continue;
 			}
-			if steps[b].travel && o.as_ref() == Some(cl) && !used[b] {
-				used[a] = true;
-				used[b] = true;
-				drop.push((steps[a].start, steps[a].end));
-				drop.push((steps[b].start, steps[b].end));
+			if !(steps[b].travel && o.as_ref() == Some(cl) && !used[b]) {
+				break;
 			}
-			break;
+			run.push(b);
+			let flown_back = steps[a].fly && steps[b].fly;
+			let walked_back = left.is_some() && steps[a].zone != *left && steps[b].zone == *left;
+			if flown_back || walked_back {
+				for &k in &run {
+					used[k] = true;
+					drop.push((steps[k].start, steps[k].end));
+				}
+				break;
+			}
 		}
 	}
 	if drop.is_empty() {
@@ -3053,6 +3078,97 @@ mod tests {
 	fn a_class_trip_with_everyones_step_between_stays() {
 		let g = lines(&["step Out", "  only Warlock", "  fly \"Orgrimmar\"", "", "step Everyone", "  accept 3", "", "step Back", "  only Warlock", "  fly \"Ratchet\""]);
 		assert_eq!(no_class_round_trips(g.clone()), g);
+	}
+
+	#[test]
+	fn a_class_walk_out_and_back_with_nothing_done_goes() {
+		// #947, the Horde's Barrens: the Warlocks' walk to Ken'zigla in Malaka'jin and back after
+		// Regthar. Their Ken'zigla step held only the hand-in of 1510, before its accept (the route takes
+		// 1510 later), so premature_class_turnins took it out and the empty step went; the walks there
+		// and back stayed, for nothing.
+		let g = lines(&[
+			"zone The Barrens",
+			"",
+			"step Regthar Deathgate",
+			"  turnin 850",
+			"  accept 851",
+			"",
+			"step Stonetalon Mountains",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  goto 73.2,95.1 \"Stonetalon Mountains\"",
+			"",
+			"step Ken'zigla",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  turnin 1510",
+			"",
+			"step Back to The Barrens",
+			"  only Warlock",
+			"  zone The Barrens",
+			"  goto 43.8,12.2 \"The Barrens\"",
+			"",
+			"step Vrang Wildgore",
+			"  zone The Barrens",
+			"  accept 95494",
+			"",
+			"step Gazrog",
+			"  accept 1510 only Warlock",
+			"",
+			"step Stonetalon Mountains",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  goto 73.3,95.1 \"Stonetalon Mountains\"",
+			"",
+			"step Ken'zigla",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  turnin 1510",
+			"",
+			"step Back to The Barrens",
+			"  only Warlock",
+			"  zone The Barrens",
+			"  goto 53.1,41.7 \"The Barrens\"",
+			"",
+			"step Verog the Dervish",
+			"  zone The Barrens",
+			"  accept 851",
+		]);
+		let mut files = vec![g.join("\n")];
+		premature_class_turnins(&mut files, &[1510].into_iter().collect());
+		let out = no_class_round_trips(files[0].split('\n').map(str::to_string).collect());
+		let titles: Vec<&str> = out.iter().filter(|l| is_step(l)).map(String::as_str).collect();
+		assert_eq!(
+			titles,
+			["step Regthar Deathgate", "step Vrang Wildgore", "step Gazrog", "step Stonetalon Mountains", "step Ken'zigla", "step Back to The Barrens", "step Verog the Dervish"],
+			"{out:#?}"
+		);
+		assert!(out.contains(&"  goto 73.3,95.1 \"Stonetalon Mountains\"".to_string()), "{out:#?}");
+	}
+
+	#[test]
+	fn a_class_walk_on_into_another_zone_stays() {
+		// Over a crossing and on, with their step after it, or on to stay in another zone: no trip back.
+		let way = lines(&[
+			"zone Thousand Needles",
+			"",
+			"step Into The Barrens",
+			"  only Warlock",
+			"  zone The Barrens",
+			"  goto 44.0,90.0 \"Into The Barrens\"",
+			"",
+			"step Stonetalon Mountains",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  goto 73.2,95.1 \"Stonetalon Mountains\"",
+			"",
+			"step Ken'zigla",
+			"  only Warlock",
+			"  turnin 1510",
+		]);
+		assert_eq!(no_class_round_trips(way.clone()), way);
+		let on = lines(&["zone Durotar", "", "step Orgrimmar", "  only Warlock", "  zone Orgrimmar", "  goto 1,1 \"Orgrimmar\"", "", "step Durotar", "  accept 1"]);
+		assert_eq!(no_class_round_trips(on.clone()), on);
 	}
 
 	#[test]
