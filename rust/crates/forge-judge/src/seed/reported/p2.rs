@@ -197,7 +197,7 @@ fn follow_ups(ctx: &Ctx, c: &mut Check) {
 		(TIRISFAL, 96899, &[96897, 96898], false),
 		(TIRISFAL, 99156, &[356], true),
 		(REDRIDGE, 98386, &[89], false),
-		(WESTFALL, 92745, &[92742], false),
+		(WESTFALL, 92745, &[92742, 92744], false),
 		(WESTFALL, 92747, &[92745, 92744], false),
 		(HILLSBRAD_HORDE, 98094, &[528], false),
 		(SILVERPINE, 91920, &[430], false),
