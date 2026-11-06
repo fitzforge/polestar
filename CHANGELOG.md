@@ -1,5 +1,100 @@
 # Changelog
 
+## 0.3.4 (2026-11-06)
+
+### For players
+
+- Ashenvale: Va'xug Firefure's A Void Path is taken once Never Coming Back is
+  handed in to him, on the same visit, instead of together with it, when he
+  doesn't offer it yet (thanks soockee and jiskim, and CDVolvik for the same
+  fix in the quest data).
+- Druid Cat Form: the arrow for the Great Cat Spirit's quests leads to where it
+  stands, on the hill by the bridge in southern Moonglade, instead of a spot
+  about 90 yards east of it (Cat Form guide, Darkshore and The Barrens)
+  (thanks Snowiee, #1003).
+- Ratchet, the Crossroads, Sun Rock Retreat and Tarren Mill: the guide binds
+  your hearthstone at the inn after the givers beside the ones you just
+  visited (Mebok Mizzyrix's Raptor Horns by the WANTED poster, Mankrik,
+  Maggran Earthbinder, Apothecary Lydon), instead of sending you up to the inn
+  and back to them (thanks Bill).
+- Dungeons: "Pick up the quests" follows your own faction for every quest and
+  giver, whatever the page's Horde / Alliance / All switch shows. Blackfathom
+  Deeps no longer sends Horde characters to Darnassus for the Alliance's In
+  Search of Thaelrid (thanks jiskim, #1026).
+- When a level-up, or a quest you hand in, opens a dungeon's quests to you, a
+  card on the guide window says so, once per dungeon ("Wailing Caverns is open
+  to you: 3 quests to pick up"). Pick up the quests opens a guide for them in
+  a new tab, and Open in Dungeons shows the dungeon's page. Turn it off on the
+  card or under Options > Discovery > Dungeons (thanks mcclaskiem, #836).
+- Arrow: from Rut'theran Village to the top of Teldrassil, the route takes the
+  portal up to Darnassus and walks on from there. It no longer draws a walk
+  straight up the tree, or sends you back down the portal once you're in
+  Darnassus, round and round (thanks Dante).
+- The Deadmines pick-up guide sends you for Murloc Gills before Moonbrook
+  Espionage: Alba Fairmoon offers Moonbrook Espionage only once both Murloc
+  Gills and The State of the Mines are handed in (thanks Slugstur, #991).
+- Nameplate icons: a new setting, Options > Questing > Quests > Nameplate icon
+  position, moves the quest skull and your progress (3/10) from the left of
+  the health bar to its right or above the name, so another addon's quest
+  icon no longer covers them (thanks VenoMan).
+- The "You've reached the end" window no longer opens in the middle of a
+  guide when you talk to a quest giver before handing in the quest that
+  unlocks their next one (Regthar Deathgate and Kolkar Leaders in The
+  Barrens, with 46 steps still to go). A guide's last step now ends the
+  guide early only when you have really done it, not when its quest is just
+  out of reach for the moment. A class or race quest done elsewhere no
+  longer ends a leveling guide either: Cat Form, the last step of The
+  Barrens (19-23) for Druids, done early in its class guide used to end
+  The Barrens halfway. (thanks MrM00se)
+- The Codex behind Lookup, Nearby services and the Dungeons pages is rebuilt
+  only from sources we're allowed to ship (the game client, Questie's quest
+  data, our recordings and public facts) and catches up with this month's
+  fixes: Nearby services now finds food and drink, arrow, bullet, bow and gun
+  and general goods vendors, pick-up guides follow quest chains such as The
+  Wrath of Rath'mael's (thanks lif3l3ss and boldarblood37), dungeon pages
+  show each quest's XP, Onyxia's attunement can be guided, lookups leave out
+  stray spawns, and your own race's vendor mounts no longer ask for Exalted.
+  The Forever-only racial mounts (the Reins of the Striped Dawnsaber, the
+  White Kodo, the Black Skeletal Horse) now name their vendor.
+- Quest data: The State of the Mines (Deadmines) now needs both Testing the
+  Wells and Murloc Gills, and the Moonsilver Blade quests before Old Fire-Eye
+  (Shadowfang Keep) are listed in their order, as players' recordings show.
+- The guide window's look-ahead lines ("Then out here: …", "Then: Gakin the
+  Darkbinder · Turn in The Binding"), Along the way and Up next wrap onto a
+  second line instead of cutting names off with "…". Opened, a look-ahead
+  line names only the place or the person, since its goals are listed right
+  under it (thanks to a player on Discord).
+- Party play works on Forever: Polestar now recognises party members by
+  their full first and last name, so party sync, the party line and the
+  party panel see each other. In a group with someone else running
+  Polestar, nothing needs turning on: sync starts by itself and the party
+  panel opens the first time their Polestar is heard (close it and it stays
+  closed; `/polestar party` brings it back and says why when nothing can
+  show yet). The Characters page keeps two characters with the same first
+  name apart, and the Recorder leaves out your last name too. (thanks
+  uNBEx)
+- With Waypoint UI installed and Options > Navigation > Blizzard waypoint on,
+  its marker in the world now follows the guide by name: a turn-in, or a quest
+  objective at one spot, tracks the quest itself (Waypoint UI's own quest
+  marker); any other goal, a kill or collect among spawns included, is a pin
+  named after the step ("Talk to Executor Arren") at Polestar's spot instead of
+  "Map Pin". Polestar only clears the pin or tracked quest it set, never one
+  you chose. Without Waypoint UI nothing changes.
+
+### Forge
+
+- `forge release pack` warns when `Polestar_Codex` was built from another
+  reference data build than `data/forever`: the pick-up guides' quest chains
+  read the Codex, so a prerequisite fixed since (The Wrath of Rath'mael after
+  the Rear Guard Patrol chain) reaches players only with a rebuilt Codex
+  (thanks lif3l3ss and boldarblood37).
+- `forge data codex` no longer reads ForeverLevelingBiS or any installed addon
+  for a release build. It reads the item sources players' recordings show
+  from the committed snapshot `data/codex/recorded.json` (only players the
+  data build counts; `--recordings <dir>` rewrites it from a recordings
+  folder), and a collectible guide's `buy` step names the item's vendor.
+  `forge release pack` refuses a Codex that still names ForeverLevelingBiS.
+
 ## 0.3.3 (2026-11-06)
 
 ### For players
