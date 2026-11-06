@@ -128,11 +128,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 	assert_eq!(out["where"], "Elwynn Forest");
 	assert_eq!(out["personIcon"], "icon-goto", "a field group is a place");
 	assert_eq!(out["count"], "3 / 8", "the navigator says where you are");
-	assert_eq!(
-		pluck(&out["rows"], "subject"),
-		json!(["Kobold Vermin", "Tough Wolf Meat"]),
-		"the focus's open goals; the done ones fold into a line (#843)"
-	);
+	assert_eq!(pluck(&out["rows"], "subject"), json!(["Kobold Vermin", "Tough Wolf Meat"]), "the focus's open goals; the done ones fold into a line (#843)");
 	// The quest taken from the earlier quest-giver stays on the card (#741, #739), as the line of the persons
 	// done; the reached "Go to" is counted on the focus's done line.
 	let lines = out["lines"].as_array().unwrap();

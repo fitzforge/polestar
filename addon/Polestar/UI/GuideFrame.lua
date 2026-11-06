@@ -2730,6 +2730,14 @@ local function fillCard(sameFocus)
 	local function nameHex(grp)
 		return Theme.Hex((grp.kind == "npc" or grp.kind == "object") and grp.kind or "text")
 	end
+	-- Who a group is done with, so one person reads on one summary line even
+	-- when another person's goal splits their goals (Thundris Windweaver, a
+	-- vendor, Thundris again); nil for field work, which never merges.
+	local function personOf(grp)
+		if grp.kind == "npc" and grp.npc then return "npc:" .. grp.npc end
+		if grp.kind == "object" and grp.object then return "object:" .. grp.object end
+		return nil
+	end
 	fold.grow = nil
 	if wholeStep() or not focus then
 		-- Every goal of the step in written order, the other persons' named
@@ -2738,15 +2746,51 @@ local function fillCard(sameFocus)
 			addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
 		end
 	else
-		-- The persons done before the focus: one line naming them.
-		local before, names = {}, {}
+		-- Every person after the focus, in the order they first come: all
+		-- their groups share one entry, read as one summary line below.
+		local later, laterOf = {}, {}
+		for gi = focus + 1, #groups do
+			local grp = groups[gi]
+			local list2 = goalsOf(grp)
+			if #list2 > 0 then
+				local who = personOf(grp)
+				local e = who and laterOf[who]
+				if e then
+					for _, goal in ipairs(list2) do e.list[#e.list + 1] = goal end
+				else
+					e = { gi = gi, list = list2, prev = groups[gi - 1].kind }
+					later[#later + 1] = e
+					if who then laterOf[who] = e end
+				end
+			end
+		end
+		-- The persons done before the focus: one line naming them. A person
+		-- still to come after the focus reads on their own line instead, with
+		-- these goals first.
+		local before, names, named, early = {}, {}, {}, {}
 		for gi = 1, focus - 1 do
 			local grp = groups[gi]
 			local list = goalsOf(grp)
-			if #list > 0 then
+			local who = personOf(grp)
+			local e = who and laterOf[who]
+			if #list > 0 and e then
+				local into = early[e]
+				if not into then
+					into = {}
+					early[e] = into
+				end
+				for _, goal in ipairs(list) do into[#into + 1] = goal end
+			elseif #list > 0 then
 				for _, goal in ipairs(list) do before[#before + 1] = goal end
-				names[#names + 1] = "|c" .. nameHex(grp) .. UI.GroupName(view, grp) .. "|r"
+				if not (who and named[who]) then
+					names[#names + 1] = "|c" .. nameHex(grp) .. UI.GroupName(view, grp) .. "|r"
+					if who then named[who] = true end
+				end
 			end
+		end
+		for e, into in pairs(early) do
+			for _, goal in ipairs(e.list) do into[#into + 1] = goal end
+			e.list = into
 		end
 		if #before > 0 then
 			addLine("before", "check", "success", table.concat(names, ", "), before, L["Done"], model.open.before)
@@ -2814,14 +2858,9 @@ local function fillCard(sameFocus)
 				addRow(goal, nil, false)
 			end
 		end
-		-- Every group after the focus: one line, its goals in place once
+		-- Every person after the focus: one line, their goals in place once
 		-- opened. Past CARD.ahead lines the rest share one "+ N more people"
 		-- line, which opens them in place.
-		local later = {}
-		for gi = focus + 1, #groups do
-			local list2 = goalsOf(groups[gi])
-			if #list2 > 0 then later[#later + 1] = { gi = gi, list = list2, prev = groups[gi - 1].kind } end
-		end
 		local shown = #later > CARD.ahead + 1 and CARD.ahead or #later
 		-- One or two goals left: the line names them ("Accept Bitter Rivals",
 		-- the quest in its colour, a "Go to" only when nothing else is open);

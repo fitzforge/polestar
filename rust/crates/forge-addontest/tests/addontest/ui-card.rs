@@ -120,12 +120,7 @@ fn a_brewnall_hub_shows_the_first_person_s_goal_and_one_line_for_each_other_pers
 	assert_eq!(calm["person"], "Gretta Ganter");
 	assert_eq!(
 		strings(&calm["items"]),
-		[
-			"Gretta's errand",
-			"[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]",
-			"[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]",
-			"[Then out here: 7 kills and items]",
-		],
+		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]",],
 		"the person to talk to now in full; every other person and the field work on one line: one or two goals named, more counted"
 	);
 	assert!(calm["items"].as_array().unwrap().len() <= 5);
@@ -167,12 +162,55 @@ fn a_summary_line_opens_its_person_s_goals_in_place_a_second_click_or_the_focus_
 		],
 		"a look ahead: Rejold's goals right under his line"
 	);
-	assert_eq!(strings(&out["closed"]), ["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]);
+	assert_eq!(
+		strings(&out["closed"]),
+		["Gretta's errand", "[Then: Marleth Barleybrew  ·  Accept Bitter Rivals]", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"]
+	);
 	assert_eq!(out["person"], "Marleth Barleybrew");
 	assert_eq!(
 		strings(&out["moved"]),
 		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  1 hand-in, 2 quests]", "[Then out here: 7 kills and items]"],
 		"the next person opens by itself; the one opened by hand closes; the person done is one line"
+	);
+}
+
+#[test]
+fn a_person_whose_goals_another_person_splits_reads_on_one_summary_line() {
+	// Shaped like Darkshore's Auberdine step: Thundris Windweaver's accepts with another person's between them.
+	let out = run(r#"
+		local function G(t, f) f.t = t; f.subjectKind = "quest"; f.map = 1439; return f end
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Auberdine", goals = {
+			G("accept", { verb = "Accept", subject = "Deep Ocean, Vast Sea", quest = 982, npc = 6301, npcName = "Gorbold Steelhand", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Bashal'Aran", quest = 954, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Expanding Horizons", quest = 97914, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("accept", { verb = "Accept", subject = "The Tower of Althalaxx", quest = 965, npc = 3657, npcName = "Sentinel Elissa Starbreeze", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Tools of the Highborne", quest = 958, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+		} }
+		local s = #steps
+		uistub.setGuide(uistub.elwynn, s)
+		local ahead = items()
+		for gi = 1, 3 do uistub.goal(s, gi).status = "done" end
+		uistub.update()
+		local between = items()
+		stub.RunScript(lineFor("Thundris"), "OnClick", "LeftButton")
+		emit({ ahead = ahead, between = between, opened = items(), person = GF.parts.person.Name:GetText() })"#)
+	.remove(0);
+	assert_eq!(
+		strings(&out["ahead"]),
+		["Deep Ocean, Vast Sea", "[Then: Thundris Windweaver  ·  3 quests]", "[Then: Sentinel Elissa Starbreeze  ·  Accept The Tower of Althalaxx]"],
+		"Thundris's three accepts on his one line, before the person who splits them"
+	);
+	assert_eq!(out["person"], "Sentinel Elissa Starbreeze");
+	assert_eq!(
+		strings(&out["between"]),
+		["[Gorbold Steelhand]", "The Tower of Althalaxx", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]"],
+		"Thundris still has a quest to give: not a done person, one line for him"
+	);
+	assert_eq!(
+		strings(&out["opened"]),
+		["[Gorbold Steelhand]", "The Tower of Althalaxx", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]+", "Bashal'Aran", "Expanding Horizons", "Tools of the Highborne",],
+		"opened, his line lists all his goals in written order"
 	);
 }
 
@@ -409,10 +447,7 @@ fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() 
 	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
 	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
 	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(
-		out["found"]["ui.maxHeight"],
-		json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" })
-	);
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
 	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
 }
 
@@ -441,13 +476,7 @@ fn past_three_persons_the_rest_of_a_hub_share_one_more_line_that_opens_and_close
 		stub.RunScript(lineFor("more people"), "OnClick", "LeftButton")
 		emit({ closed = closed, opened = opened, deeper = deeper, again = items() })"#)
 	.remove(0);
-	let closed = [
-		"Quest 1",
-		"[Then: Bram  ·  Accept Quest 2]",
-		"[Then: Cora  ·  Accept Quest 3]",
-		"[Then: Dain  ·  Accept Quest 4]",
-		"[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]",
-	];
+	let closed = ["Quest 1", "[Then: Bram  ·  Accept Quest 2]", "[Then: Cora  ·  Accept Quest 3]", "[Then: Dain  ·  Accept Quest 4]", "[+ 4 more people  ·  2 quests, 1 hand-in, 1 task]"];
 	assert_eq!(strings(&out["closed"]), closed, "only the goals that apply and are still open are counted");
 	assert_eq!(
 		strings(&out["opened"]),
@@ -485,10 +514,7 @@ fn a_summary_line_names_one_or_two_goals_and_counts_three_or_more() {
 		uistub.update()
 		emit({ two = two, rejold = rejold, quest = Polestar.Theme.Hex("quest"), three = items() })"#)
 	.remove(0);
-	assert_eq!(
-		strings(&out["two"]),
-		["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  Turn in Evershine, Accept A Favor for Evershine]", "[Then out here: Kill Snow Leopards]"]
-	);
+	assert_eq!(strings(&out["two"]), ["[Gretta Ganter]", "Bitter Rivals", "[Then: Rejold Barleybrew  ·  Turn in Evershine, Accept A Favor for Evershine]", "[Then out here: Kill Snow Leopards]"]);
 	assert!(text(&out["rejold"]).contains(&format!("|c{}Evershine|r", text(&out["quest"]))), "the quest in the quest colour: {}", out["rejold"]);
 	assert_eq!(
 		strings(&out["three"]),

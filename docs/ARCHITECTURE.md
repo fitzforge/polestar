@@ -4512,10 +4512,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   here: Kill Snow Leopards"; `UI.GoalText`, the quest in its colour; one
   line, cut with "…" when too wide). Past the first three such lines, the
   rest share one "+ N more people · X quests, Y tasks" line (`CARD.ahead`,
-  always counts). The groups done
-  before the focus share one "✓ <name>, <name>" line, so a quest taken,
-  handed in or not offered stays on the card when the focus moves on
-  (#741/#739). A click on a line lists what it stands for under it (goals,
+  always counts). A person whose goals another person's goal splits
+  (Auberdine's Thundris Windweaver, a vendor, Thundris again) is one line,
+  at their first group after the focus, listing all their goals in written
+  order, their groups done before the focus too. The groups done before the
+  focus share one "✓ <name>, <name>" line, so a quest taken, handed in or
+  not offered stays on the card when the focus moves on (#741/#739). A click
+  on a line lists what it stands for under it (goals,
   stepped back in textDim; the "more" line its persons' lines) and a second
   click folds them; a new focus or step closes every line and the new focus
   shows in full. Finished goals of the focus fold into a "✓ N done" line at
