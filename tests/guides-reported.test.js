@@ -375,6 +375,10 @@ test(`${TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of D
 // asked for again on the turn-in step, from the same vendor (`nearest`: a
 // vendor of the guide's faction), so a player who passed the first buy is
 // not sent to the giver empty-handed. Done at once with the item in the bags.
+// A buy earlier in the same town visit (every stop from it to the giver
+// within a town's reach, no flight or hearth), or a tip on the turn-in step
+// saying where to buy another, does the same.
+const TOWN_YARDS = 200;
 const BUY_AT_TURNIN = [
 	// [guide, quest, item, count, vendor npc or 'H' for `nearest` on the Horde, what]
 	['forever/alliance/30-40/01-hillsbrad-foothills.guide', 555, 3713, 1, 2381, 'the Soothing Spices for Chef Jessen'],
@@ -389,8 +393,13 @@ for (const [guide, quest, item, count, vendor, what] of BUY_AT_TURNIN) {
 	test(`${guide}: the same pattern as #365, ${what}: asked for again on the step that hands in ${quest}`, { skip }, () => {
 		const list = goals(guide);
 		const hand = at(list, `turnin ${quest}`, is('turnin', quest));
-		const buy = list.findIndex(({ goal, s }) => s === list[hand].s && goal.t === 'buy' && goal.item === item);
-		assert.ok(buy >= 0 && buy < hand, `the turn-in step buys item ${item} before handing in ${quest}`);
+		const buy = list.slice(0, hand).findLastIndex(({ goal }) => goal.t === 'buy' && goal.item === item);
+		assert.ok(buy >= 0, `item ${item} is bought before handing in ${quest}`);
+		const sameVisit = list.slice(buy, hand + 1).every(({ goal }) => !['fly', 'hearth'].includes(goal.t)
+			&& (!['accept', 'turnin', 'buy', 'goto', 'train'].includes(goal.t) || !located({ goal })
+				|| (goal.map === list[hand].goal.map && yards(goal, list[hand].goal) < TOWN_YARDS)));
+		const tip = typeof list[hand].step.note === 'string' && /\bbuy\b/i.test(list[hand].step.note);
+		assert.ok(list[buy].s === list[hand].s || sameVisit || tip, `the turn-in step, its town visit or its tip buys item ${item} before handing in ${quest}`);
 		const { goal } = list[buy];
 		assert.ok((goal.count || 1) >= count, `at least the ${count} the quest needs`);
 		if (vendor === 'H') {
