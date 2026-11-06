@@ -527,6 +527,8 @@ L["Say who still needs quest loot"] = "显示谁还需要任务战利品"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "在拾取窗口或掷骰时，在小队成员还需要而你不需要的任务物品下显示一行。不会替你放弃或发言。"
 L["Party panel"] = "小队面板"
 L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "每位使用 Polestar 的成员的等级、步骤以及还需要你的步骤中的什么；点击名字让箭头指向他们。/polestar party 显示或隐藏面板。"
+L["Tell my party in chat when I finish a quest objective"] = "完成任务目标时在聊天中告诉小队"
+L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "完成一个目标时，在小队聊天中发一行带任务链接的消息；任务可交还时再发一行。小队里每个人都能看到，无论是否使用 Polestar。单人或团队中从不发送。"
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -2887,6 +2889,11 @@ L["Dead"] = "死亡"
 L["Far away"] = "距离太远"
 L["Still needs: %s"] = "还需要：%s"
 L["Show or hide the party panel"] = "显示或隐藏小队面板"
+
+-- Quests/PartyChat.lua
+L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar 已告诉你的小队你完成了一个任务目标（在 选项 > 做任务 > 任务 > 小队 中关闭）。"
+L["Ready to turn in: %s"] = "可交还：%s"
+L["Finished: %s - %s"] = "已完成：%s - %s"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

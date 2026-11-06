@@ -245,7 +245,8 @@ end
 -- (the once-per-account notice says so); from now on Set stores a `false`,
 -- so turning it off stays off.
 -- panel: the party panel (UI/PartyPanel.lua), panelPos: its place once dragged.
-ns.RegisterDefaults("party", { share = true, show = true, waitForGroup = true, lootNeeds = true, panel = false, panelPos = false })
+-- chat: a party chat line for a finished objective (Quests/PartyChat.lua).
+ns.RegisterDefaults("party", { share = true, show = true, waitForGroup = true, lootNeeds = true, panel = false, panelPos = false, chat = true })
 
 local DEBOUNCE = 2 -- seconds after a quest log change
 local JOIN_MIN, JOIN_SPREAD = 3, 3 -- snapshot 3-6 s after the roster gains someone
@@ -1400,6 +1401,8 @@ Party.OPTIONS = {
 			help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
 		{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
 			help = L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] },
+		{ kind = "toggle", key = "party.chat", label = L["Tell my party in chat when I finish a quest objective"], search = SEARCH .. ", chat, announce, objective, tell",
+			help = L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] },
 	},
 }
 

@@ -216,6 +216,8 @@ mod packs_registry;
 #[path = "packs-visibility.rs"]
 mod packs_visibility;
 mod party;
+#[path = "party-chat.rs"]
+mod party_chat;
 #[path = "party-group.rs"]
 mod party_group;
 mod qol;

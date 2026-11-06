@@ -581,9 +581,10 @@ guides you there instead.
 
 Group play works only with party members who also run Polestar. On joining
 a party Polestar sends one small hidden hello; a member who answers is synced,
-and everything below is about them. With friends who don't run Polestar
-nothing shows and nothing more is sent. Turn each part off under Options >
-Questing > Quests > Group; nothing of it runs solo or in a raid.
+and everything below but the chat line is about them. With friends who don't
+run Polestar nothing shows and nothing more is sent, apart from that line.
+Turn each part off under Options > Questing > Quests > Group; nothing of it
+runs solo or in a raid.
 
 - **Party sync**: each member's count shows under the quest goals you share
   ("Ana 5/8", "Ben done"), and on a quest you took, which of them lacks it.
@@ -615,6 +616,14 @@ Questing > Quests > Group; nothing of it runs solo or in a raid.
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,
   rolled or said for you.
+- **Tell my party in chat** (on by default): the one part everyone in the
+  party sees, Polestar or not. When you finish one of a quest's objectives,
+  one party chat line with the quest's link ("[Polestar] Finished: Plagued
+  Hide 5/5 - [Plagued Lands]"), and when the quest is ready to turn in,
+  "[Polestar] Ready to turn in: [Plagued Lands]". Nothing for what was
+  already done when you log in, reload or join, and never the same line
+  twice. During a boss fight, while the game holds chat back, a line waits
+  up to two minutes. The first line says once where to turn it off.
 
 ### Gear advice
 
