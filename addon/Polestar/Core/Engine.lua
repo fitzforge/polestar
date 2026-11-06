@@ -3087,7 +3087,7 @@ local function waypointOf(g, goal, at, s, held)
 	return {
 		map = map, x = x, y = y, f = f, z = z,
 		label = walk and L["Walk to %s"]:format(subject) or (goalText(goal, verb, subject, detail)),
-		stepIndex = s, goalIndex = g, kind = goal.t,
+		stepIndex = s, goalIndex = g, kind = goal.t, quest = goal.quest,
 		r = goal.r or DEFAULT_RADIUS, area = area,
 		search = area and goal.spread or nil,
 		spots = many and goal.spots or nil, spot = many and Spots.index(goal) or nil,

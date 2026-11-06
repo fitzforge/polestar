@@ -3,6 +3,13 @@
 --     nav.useTomTomArrow hands the arrow over to TomTom's.
 --   Blizzard's user waypoint (nav.blizzardWaypoint, off by default):
 --     C_Map.SetUserWaypoint plus C_SuperTrack, cleared only if we set it.
+--     With Waypoint UI loaded (its public WaypointUIAPI.Navigation), which
+--     draws the game's tracked target in the world: a quest goal whose quest
+--     is in the log (an objective, a turn-in) tracks the quest itself, so
+--     Waypoint UI shows its own quest marker; any other target is a pin named
+--     after the target, set through Waypoint UI (flag "Polestar"), which sets
+--     the game's pin and tracking itself. Only what Polestar set is cleared:
+--     a pin flagged as ours, the quest we tracked while still tracked.
 -- Both take live-frame map percent, so Era-frame targets are converted first.
 -- Neither mirrors while the target is handed to Shortest Path Forever
 -- (Nav/Handoff.lua): its TomTom stand-in would start a second journey, and
@@ -16,6 +23,25 @@ Nav.bridges = Bridges
 
 local tomtomUid      -- TomTom waypoint we own
 local blizzardSet = false
+local wuiSet = false   -- a Waypoint UI pin of ours
+local questSet         -- the quest we super-tracked
+
+local FLAG = "Polestar"
+
+-- Waypoint UI's public navigation API, when the addon is loaded.
+local function waypointUI()
+	local api = type(WaypointUIAPI) == "table" and WaypointUIAPI.Navigation
+	if type(api) == "table" and type(api.NewUserNavigation) == "function" and type(api.ClearUserNavigation) == "function"
+		and type(api.IsUserNavigationFlagged) == "function" then
+		return api
+	end
+end
+
+local function inLog(q)
+	local C = ns.Compat
+	if C and C.IsOnQuest then return C.IsOnQuest(q) end
+	return C_QuestLog and C_QuestLog.IsOnQuest and C_QuestLog.IsOnQuest(q) and true or false
+end
 
 -- Real TomTom only: Nav/Journey.lua's stand-in answers other addons' calls
 -- by setting our target, so mirroring into it would loop. Shortest Path
@@ -68,8 +94,53 @@ local function makePoint(map, x, y)
 	if CreateVector2D then return { uiMapID = map, position = CreateVector2D(x, y) } end
 end
 
+-- Clears what Polestar set through Waypoint UI or as a tracked quest, never the player's own.
+local function clearWaypointUI(W)
+	if wuiSet then
+		wuiSet = false
+		if W and W.IsUserNavigationFlagged(FLAG) then W.ClearUserNavigation() end
+	end
+	if questSet then
+		local ST = C_SuperTrack
+		if ST and ST.GetSuperTrackedQuestID and ST.SetSuperTrackedQuestID and ST.GetSuperTrackedQuestID() == questSet then
+			ST.SetSuperTrackedQuestID(0)
+		end
+		questSet = nil
+	end
+end
+
+-- With Waypoint UI: true when the target is shown through it.
+local function syncWaypointUI(W, target)
+	local ST = C_SuperTrack
+	local q = tonumber(target.quest)
+	if q and target.kind ~= "accept" and inLog(q) and ST and ST.SetSuperTrackedQuestID then
+		if wuiSet then
+			wuiSet = false
+			if W.IsUserNavigationFlagged(FLAG) then W.ClearUserNavigation() end
+		end
+		ST.SetSuperTrackedQuestID(q)
+		questSet = q
+		return true
+	end
+	local map, x, y = Nav.LiveCoords(target)
+	if not map or (C_Map and C_Map.CanSetUserWaypointOnMap and not C_Map.CanSetUserWaypointOnMap(map)) then return false end
+	if questSet then clearWaypointUI(nil) end
+	W.NewUserNavigation({ name = target.label, mapID = map, x = x, y = y, flags = FLAG, suppressAudio = true })
+	wuiSet = true
+	return true
+end
+
 local function syncBlizzard(target)
-	if ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff() and C_Map and C_Map.SetUserWaypoint then
+	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff()
+	local W = waypointUI()
+	-- Waypoint UI loaded: the tracked quest or a named pin, through it.
+	if on and W and syncWaypointUI(W, target) then
+		blizzardSet = false -- Waypoint UI replaced any plain pin of ours
+		return
+	end
+	if wuiSet or questSet then clearWaypointUI(W) end
+	-- Without Waypoint UI: the game's own pin, unnamed.
+	if on and not W and C_Map and C_Map.SetUserWaypoint then
 		local map, x, y = Nav.LiveCoords(target)
 		if map and (not C_Map.CanSetUserWaypointOnMap or C_Map.CanSetUserWaypointOnMap(map)) then
 			local point = makePoint(map, x / 100, y / 100)
