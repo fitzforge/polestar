@@ -3465,3 +3465,51 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		}
 	}
 });
+
+// --- Fyurie's report (#977, Discord): Redridge "suddenly jumped from level 20/21 mobs to Fangore
+// and a bunch of 24-25 mobs". The route took WANTED: Lieutenant Fangore (180, Fangore 26) and
+// Solomon's Law (91) in Galardell Valley, whose Shadowhide gnolls are a median 24 (22-26), at the
+// model's 21.4, and Bellygrub (34, level 24) at 20.3; the Old Lion Statue of A Watchful Eye (94) and
+// Looking Further (248) stands among the same gnolls. The writer's level fit (docs/forge/writer.md,
+// "Work at the player's level") leaves out work more than two levels above the player when the route
+// never comes back to it at a level that fits; the statue's quests are route-fixes skips.
+const LEVEL_FIT = [
+	// [guide, quests left out, npcs no goal may send the player to]
+	['forever/alliance/04-redridge-mountains.guide', [34, 91, 180, 94, 248], [345, 703, 429, 431, 432, 433, 434, 568, 579]],
+	['forever/alliance/07-thousand-needles.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
+	['forever/horde/07-ashenvale.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
+	['forever/alliance/40-50/03-feralas.guide', [2844, 2845], [7774]],
+	['forever/horde/50-60/01-un-goro-crater.guide', [5509], []],
+];
+for (const [guide, gone, mobs] of LEVEL_FIT) {
+	test(`Fyurie's report (#977): ${guide.replace(/^forever\//, '')} sends nobody to work far above their level`, { skip }, () => {
+		for (const { step, goal } of goals(guide)) {
+			assert.ok(!gone.includes(goal.quest), `${guide}: "${step.title}" ${goal.t} ${goal.quest} is left out for the level`);
+			assert.ok(!mobs.includes(goal.npc), `${guide}: "${step.title}" ${goal.t} targets npc ${goal.npc}`);
+			const from = goal.fromNpcs || [];
+			assert.ok(!(from.length && from.every((n) => mobs.includes(n.npc))), `${guide}: "${step.title}" ${goal.t} ${goal.item} drops only from ${from.map((n) => n.npcName).join(', ')}`);
+		}
+		if (guide.includes('redridge')) {
+			assert.ok(!goals(guide).some(({ goal }) => goal.object === 31), 'no goal at the Old Lion Statue in Galardell Valley');
+		}
+	});
+}
+
+test("Recordings (#977): Croaky's Head, a level 11 elite's drop, is collected only by players grouping for it, not in Elwynn's step for everyone", { skip }, () => {
+	// 12 recorded deaths to Croaky at levels 8-9 with the optional head in the solo step.
+	const list = goals('forever/alliance/human/01-elwynn-forest.guide');
+	const heads = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 247826);
+	assert.ok(heads.length > 0, "the head is still collected by groups");
+	for (const { step } of heads) {
+		assert.ok([].concat(step.when || []).some((w) => w.k === 'group'), `"${step.title}" collects the head without asking for a group`);
+	}
+});
+
+test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const work = list.filter(({ goal }) => goal.quest === 2478 && ['kill', 'collect'].includes(goal.t));
+	assert.ok(work.length > 0, 'the tower work is in the guide');
+	for (const { step } of work) {
+		assert.ok([].concat(step.when || []).some((w) => w.k === 'level' && w.op === '>=' && w.n >= 23), `"${step.title}" shows before level 23`);
+	}
+});

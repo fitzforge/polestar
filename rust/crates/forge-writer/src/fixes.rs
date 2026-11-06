@@ -395,6 +395,20 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 				}
 			}
 		}
+		// (A `when`: the goal's step shows only from that level, after its title and `only`/`zone`.)
+		if let Some(w) = r["when"].as_str() {
+			let line = format!("{ind}when {w}");
+			if !(step.0 + 1..step.1).any(|k| trim(&lines[k]) == trim(&line)) {
+				let mut k = step.0 + 1;
+				while k < step.1 && re!(r"^\s+(only|zone|when)\s").is_match(&lines[k]) {
+					k += 1;
+				}
+				lines.insert(k, line);
+				changed.push(k);
+				i += 1;
+				step.1 += 1;
+			}
+		}
 		if let Some(lv) = r["level"].as_u64() {
 			let gate = format!("{ind}level {lv}");
 			if r["after"] == true {
@@ -579,10 +593,12 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"tip"
 		} else if r.get("along").is_some() {
 			"along"
+		} else if r.get("when").is_some() {
+			"when"
 		} else {
 			"level"
 		};
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}", r["tip"], r["level"], r["along"], r["early"]), anchor });
+		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}", r["tip"], r["level"], r["along"], r["early"], r["when"]), anchor });
 	}
 	let mut rows = Vec::new();
 	for (k, x) in recs.iter().enumerate() {
@@ -735,6 +751,20 @@ mod tests {
 		] });
 		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
 		assert_eq!(out, "step Menethil\n  tip Level 28 first.\n  turnin 484\n  turnin 98282                 -- Caitlin\n  level 28\n  vendor nearest\n\nstep Ironforge\n  accept 1179\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn a_when_fix_shows_the_goals_step_only_from_its_level() {
+		// #977: the Rogues' Venture Co. tower (Mission: Possible But Not Probable, drones 25 and Gallywix
+		// a 23 elite) at the route's 20.3: shown from 23; the class guide Poisons (Horde) holds it before.
+		let seed = "step Mission: Possible But Not Probable\n  only Rogue\n  zone The Barrens\n  collect 8072 quest 2478.5 optional\n  kill 7310 quest 2478.1 optional\n";
+		let fixes = json!({ "fixes": [{ "id": "977-tower", "at": { "quest": 2478, "goal": "objective", "objective": 1 }, "when": "level>=23" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+		assert_eq!(out, "step Mission: Possible But Not Probable\n  only Rogue\n  zone The Barrens\n  when level>=23\n  collect 8072 quest 2478.5 optional\n  kill 7310 quest 2478.1 optional\n");
 		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
 		let (again, rows) = run(&out, json!({}), fixes, &[]);
 		assert_eq!(again, out);

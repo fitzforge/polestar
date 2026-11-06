@@ -45,7 +45,7 @@ A route is only as good as the way the addon plays it, so the writer writes for 
 | walk store | `walks-<faction>.bin`, walking yards between world points (around hills, not straight lines) | beside the world file |
 | v1's guides | a guides folder holding `forever/` | `<root>/guides` |
 | game data | `quests.json`, `npcs.json`, `objects.json`, `items.json`, `zones.json`, `map-frames.json` and the compiler's data | `<root>/data/forever` |
-| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates) | `<checkout>/data/` (`--checkout`, default `--root`) |
+| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`) | `<checkout>/data/` (`--checkout`, default `--root`) |
 
 Each `order` item is one event: `t` is `accept`, `turnin`, `task` (work on an
 objective), `train`, `level` (with its fractional grind `target`) or `ride`
@@ -292,6 +292,34 @@ be compared byte for byte with the old JavaScript writer.
 
 ### 2. Put the goals in the route's order
 
+- **Work at the player's level** (`src/level_fit.rs`, #977) comes first. The writer knows the
+  player's predicted level at every event: the route's `lvl`, the planner's level model (players'
+  recordings run at or a little ahead of it through the 20s). A task fits a player of level P (that
+  level rounded down) when its easiest target is at most P + 2 (an elite at most P + 1) and so is the
+  ground it sends the player into: the median level of the attackable mobs (no faction, level 2 or
+  more, no title or service) within 100 yd of the task's target spawns within 300 yd of the route's
+  work point, each spawn counted evenly over its levels. Fyurie's Redridge (#977) had Lieutenant
+  Fangore (26) and the Shadowhide gnolls of Galardell Valley (median 24) at 21.4. A task that does
+  not fit where the route has it is never planted somewhere new; it goes:
+  - to the route's **later visit to the same place** (an event within 250 yd of the work point) where
+    it fits and the quest still pays its full XP (the player at most 5 levels over it), right after
+    that event, so it joins that visit's step (the area merge below makes the camps one step). Its
+    accept goes with it when the route stands by the giver again on the way there (within 120 yd),
+    else stays where it is and the work waits for that visit. A hand-in the route had before that
+    visit goes to the route's next stop by the ender after it, with the follow-ups taken right after
+    the hand-in at the ender; another event of a follow-up before then leaves the quest out;
+  - **out of the route** when no later visit fits anywhere in the start's chain: the quest, its
+    hand-in and every quest after it in its chain. The guide's header names them
+    (`# Left out for the level (...): WANTED: Lieutenant Fangore (180), ...`) and the log says why
+    (`level fit: ... left out (target 26 at 21.5, ground 24; no later visit there at a level that
+    fits)`).
+
+  A later visit's level is read without the planner's grind inside work the rule takes away on the
+  way, that task's own included: above `workGap` the model grinds to the mobs' level - 3 inside the
+  task (Fangore's event raises its level from 21.46 to 23.01), a grind no guide writes. Group
+  families, the route fixes' optional quests and the quests they keep or include are left to their
+  records; an old route with no levels is not judged. Its records are the rule itself; a route build
+  that should plan the levels without the quests gets `overrides.skip` lines too.
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within
@@ -962,7 +990,9 @@ they matter to the player. They are not the judge's honest rules.
   the step holds only that family's lines and no `when`, else those lines move
   to a copy of the step right after it, headed `when group <root>` (R5's
   placement; several families, in the step's order: Sprogger's hand-in of
-  8553 before his accept of 8554). The family's work is never listed along the way. Its first step
+  8553 before his accept of 8554). A bag collect of the item that starts a family's quest is
+  that quest's line (Croaky's Head, a level 11 elite's drop, sat in Elwynn's step for
+  everyone: 12 recorded deaths at 8-9, #977). The family's work is never listed along the way. Its first step
   that does the root's work (else its accept step) gets one tip: "These are
   elite mobs: grouping up is encouraged, look for people to do it with." then
   how hard (size 1: "Sarkoth is a level 10 elite: most classes solo it at

@@ -10,7 +10,7 @@ next forever/alliance/40-50/04-tanaris
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rise of the Silithid (4267).
-# Left out: Lonebrow's Journal (1100).
+# Left out: Lonebrow's Journal (1100), The Giant Guardian (2844), Wandering Shay (2845).
 
 step Into The Barrens
   zone The Barrens
@@ -168,21 +168,6 @@ step High Wilderness: kill these as you meet them
 step Rage Scar Hold
   collect 18969 optional              -- Pristine Yeti Hide
   accept 7735 optional
-
-step Rockbiter
-  tip Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room.
-  accept 2844 lvl 44
-
-step Shay Leafrunner
-  tip Shay wanders the hills north of Rockbiter, among the Northspring harpies; her bell is in the chest beside her.
-  turnin 2844
-  accept 2845
-  collect 9189 x1 quest 2845          -- Shay's Bell
-
-step Shay's escort
-  tip Ring the bell whenever Shay stops to wander, and lead her south to Rockbiter.
-  complete 2845 @42.33,21.85 map 1444 era -- Rockbiter's camp
-  turnin 2845                         -- Rockbiter
 
 step Feathermoon Stronghold
   tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.

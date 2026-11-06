@@ -1293,18 +1293,30 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	};
 	let data = inp.data;
 	let world = inp.world;
-	// With the route's own legs, the order walks each hub in one sweep (hub.rs).
 	let mut log = Vec::new();
+	// Work too far above the player's level where the route has it goes to a later visit there where it
+	// fits, else its quest is left out (level_fit.rs, #977).
+	let level_fit = {
+		let mut ex = crate::level_fit::Exempt::default();
+		ex.quests.extend(inp.route.groups.iter().filter_map(|g| g.q).chain(inp.route.groups.iter().flat_map(|g| g.quests.iter().copied())));
+		ex.quests.extend(crate::hub::fix_optional(inp.route.faction.as_deref()));
+		ex.quests.extend(crate::hub::fix_kept(inp.route.faction.as_deref()));
+		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex)
+	};
+	log.extend(level_fit.log);
+	let level_left: Vec<u32> = level_fit.left_out;
+	let fitted = Route { order: level_fit.order, ..inp.route.clone() };
+	// With the route's own legs, the order walks each hub in one sweep (hub.rs).
 	let toured;
 	let route = if inp.route_travel {
 		let pinned = anchor_lines(inp);
 		let (order, moved) =
-			crate::hub::tour(inp.route.order.clone(), world, data, &|o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k)), &crate::hub::fix_pairs(inp.route.faction.as_deref()));
+			crate::hub::tour(fitted.order.clone(), world, data, &|o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k)), &crate::hub::fix_pairs(inp.route.faction.as_deref()));
 		log.extend(moved);
-		toured = Route { order, ..inp.route.clone() };
+		toured = Route { order, ..fitted.clone() };
 		&toured
 	} else {
-		inp.route
+		&fitted
 	};
 	let quest = |q: u32| data.quests.get(&q);
 	let dedup = |xs: &[u32]| -> Vec<u32> {
@@ -1390,6 +1402,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			}
 		}
 		dropped_list.retain(|q| !follows.contains(q));
+	}
+	// (The level fit's quests go whatever v1 gates them with.)
+	for &q in &level_left {
+		if !dropped_list.contains(&q) {
+			dropped_list.push(q);
+		}
 	}
 	let dropped: FxHashSet<u32> = dropped_list.iter().copied().collect();
 
@@ -5271,8 +5289,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		if !add_q.is_empty() {
 			note.push(format!("# Added here: {}.", add_q.iter().map(title).collect::<Vec<_>>().join(", ")));
 		}
-		if !drop_here.is_empty() {
-			note.push(format!("# Left out: {}.", drop_here.iter().map(title).collect::<Vec<_>>().join(", ")));
+		let (for_level, plain): (Vec<u32>, Vec<u32>) = drop_here.iter().partition(|q| level_left.contains(q));
+		if !plain.is_empty() {
+			note.push(format!("# Left out: {}.", plain.iter().map(title).collect::<Vec<_>>().join(", ")));
+		}
+		if !for_level.is_empty() {
+			note.push(format!("# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): {}.", for_level.iter().map(title).collect::<Vec<_>>().join(", ")));
 		}
 		// (A blank line after it: the seed's notes above the first step are not read as its own.)
 		note.push(String::new());

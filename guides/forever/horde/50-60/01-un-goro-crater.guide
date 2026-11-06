@@ -11,6 +11,7 @@ next forever/horde/50-60/02-felwood
 # into this file.
 # Added here: Pawn Captures Queen (4507).
 # Left out: Uncle Carlin (5241).
+# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Invader's Scourgestones (5509).
 
 step Un'Goro Crater
   zone Un'Goro Crater
@@ -433,14 +434,12 @@ step Light's Hope Chapel
   sethome "Light's Hope Chapel"
   accept 5211                         -- Carlin Redpath
   accept 5510 optional
-  accept 5509 optional                -- Duke Nicholas Zverenhoff
   accept 6021                         -- Caretaker Alen
 
 step Eastern Plaguelands: kill these as you meet them
   zone Eastern Plaguelands
   tip With Carlin's quest in your log, slain Scourge sometimes leave a Darrowshire Spirit; talk to it to free it. Kill undead on the ride south-west to Darrowshire.
   kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
-  collect 12841 quest 5509 optional
 
 step Pamela Redpath
   tip Pamela's ghost stands in the ruins of Darrowshire, in the south-west.
@@ -469,6 +468,5 @@ step Pestilent Scar
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
   turnin 5211
-  turnin 5509 optional                -- Duke Nicholas Zverenhoff
   turnin 5510 optional
   note The next guide starts here, at the chapel's flight master.

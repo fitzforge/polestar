@@ -9987,3 +9987,179 @@ fn a_class_steps_flight_to_the_flight_path_where_they_stand_goes() {
 		assert!(t.iter().any(|l| l == "  tip Searn Firewarder is in the Valley of Wisdom."), "{t:?}");
 	}
 }
+
+/// Level fit (#977): a camp of `n` spawns of `npc` around map point (x, y) on 1411.
+fn camp(id: u32, name: &str, lo: u32, hi: u32, x: f64, y: f64, n: usize) -> (String, Value) {
+	let pts: Vec<Value> = (0..n).map(|i| json!([x + 0.5 * ((i % 3) as f64 - 1.0), y + 0.5 * ((i / 3) as f64 - 1.0)])).collect();
+	(id.to_string(), json!({ "id": id, "name": name, "level": lo, "levelMax": hi, "spawns": { "1411": { "f": "e", "pts": pts } } }))
+}
+
+fn level_world(quests: Value) -> Value {
+	// Hub (20, 50), camp (70, 50), elsewhere (40, 20) on 1411's frame (1000 yd a side).
+	json!({ "points": [[1, 1, 0, -600, 1411], [1, 1, 0, 400, 1411], [1, 1, 600, -200, 1411]], "zones": { "1411": "Durotar" }, "quests": quests })
+}
+
+fn kill_quest(id: u32, npc: u32, lvl: u32, pre: &[u32]) -> Value {
+	json!({ "id": id, "pre": pre, "objs": [{ "oi": 0, "type": "kill", "id": npc, "task": 0 }], "tasks": [{ "work": [["kill", lvl, 5, 0, 0, npc]] }] })
+}
+
+#[test]
+fn level_fit_moves_work_to_the_later_visit_where_it_fits() {
+	// Quest 1's gnolls (16) at level 10 do not fit; the route is back at the same camp at 14 for the
+	// wolves: the gnolls go there, and their hand-in to the hub stop after it.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 10-15",
+		"zone Durotar",
+		"",
+		"step Hub",
+		"  accept 1",
+		"  accept 2",
+		"  accept 3",
+		"",
+		"step Gnolls",
+		"  kill 10 quest 1.1",
+		"",
+		"step Elsewhere",
+		"  kill 13 quest 3.1",
+		"",
+		"step Hub again",
+		"  turnin 1",
+		"  turnin 3",
+		"",
+		"step Wolves",
+		"  kill 12 quest 2.1",
+		"",
+		"step Hub last",
+		"  turnin 2",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(10, "Gnoll", 16, 16, 70.0, 50.0, 5), camp(12, "Wolf", 14, 14, 70.0, 51.0, 5), camp(13, "Boar", 11, 11, 40.0, 20.0, 5)].into_iter().collect();
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 10.0, "from": f("a", 7) }, { "t": "accept", "q": 2, "pt": 0, "lvl": 10.0, "from": f("a", 8) },
+			{ "t": "accept", "q": 3, "pt": 0, "lvl": 10.0, "from": f("a", 9) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 10.2, "from": f("a", 12) },
+			{ "t": "task", "q": 3, "task": 0, "pt": 2, "lvl": 10.5, "from": f("a", 15) },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 11.0, "from": f("a", 18) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 11.5, "from": f("a", 19) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 14.2, "from": f("a", 22) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 15.0, "from": f("a", 25) }
+		] }),
+		world: level_world(json!([kill_quest(1, 10, 16, &[]), kill_quest(2, 12, 14, &[]), kill_quest(3, 13, 11, &[])])),
+		quests: json!({ "1": { "title": "One", "level": 16 }, "2": { "title": "Two", "level": 14 }, "3": { "title": "Three", "level": 11 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	assert_eq!(
+		pick(&r.read("a"), r"^\s+(accept|turnin|kill)"),
+		vec!["  accept 2", "  accept 3", "  kill 13 quest 3.1", "  turnin 3", "  accept 1", "  kill 12 quest 2.1", "  kill 10 quest 1.1", "  turnin 2", "  turnin 1"],
+		"{:#?}",
+		r.out.log
+	);
+	assert!(r.out.log.iter().any(|l| l.starts_with("level fit: One (1) task 1 moved after task two (2)")), "{:#?}", r.out.log);
+}
+
+#[test]
+fn level_fit_leaves_out_work_no_later_visit_fits() {
+	// Fangore's Galardell Valley (#977): Lieutenant Fangore (26) among gnolls of 22-25 at level 21.4, and the
+	// route never comes back at a level that fits: the quest, its hand-in and its follow-up go, and the
+	// header says why.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 20-24",
+		"zone Durotar",
+		"",
+		"step Town",
+		"  accept 4",
+		"  accept 7",
+		"",
+		"step Galardell Valley",
+		"  kill 20 quest 4.1",
+		"",
+		"step Blackrock camps",
+		"  kill 13 quest 7.1",
+		"",
+		"step Back to town",
+		"  turnin 4",
+		"  accept 5",
+		"  turnin 7",
+		"",
+		"step Follow-up",
+		"  kill 13 quest 5.1",
+		"  turnin 5",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> =
+		[camp(20, "Lieutenant Fangore", 26, 26, 70.0, 50.0, 1), camp(21, "Shadowhide Gnoll", 22, 25, 70.5, 50.5, 9), camp(13, "Blackrock Grunt", 21, 22, 40.0, 20.0, 6)].into_iter().collect();
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Alliance", "diff": {}, "order": [
+			{ "t": "accept", "q": 4, "pt": 0, "lvl": 21.0, "from": f("a", 7) }, { "t": "accept", "q": 7, "pt": 0, "lvl": 21.0, "from": f("a", 8) },
+			{ "t": "task", "q": 4, "task": 0, "pt": 1, "lvl": 21.46, "from": f("a", 11) },
+			{ "t": "task", "q": 7, "task": 0, "pt": 2, "lvl": 23.0, "from": f("a", 14) },
+			{ "t": "turnin", "q": 4, "pt": 0, "lvl": 23.2, "from": f("a", 17) }, { "t": "accept", "q": 5, "pt": 0, "lvl": 23.3, "from": f("a", 18) },
+			{ "t": "turnin", "q": 7, "pt": 0, "lvl": 23.3, "from": f("a", 19) },
+			{ "t": "task", "q": 5, "task": 0, "pt": 2, "lvl": 23.4, "from": f("a", 22) }, { "t": "turnin", "q": 5, "pt": 0, "lvl": 23.6, "from": f("a", 23) }
+		] }),
+		world: level_world(json!([kill_quest(4, 20, 26, &[]), kill_quest(5, 13, 22, &[4]), kill_quest(7, 13, 22, &[])])),
+		quests: json!({ "4": { "title": "WANTED: Lieutenant Fangore", "level": 26 }, "5": { "title": "Five", "level": 23, "pre": [4] }, "7": { "title": "Blackrock Menace", "level": 21 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	let g = r.read("a");
+	assert_eq!(pick(&g, r"^\s+(accept|turnin|kill)"), vec!["  accept 7", "  kill 13 quest 7.1", "  turnin 7"], "{g:#?}");
+	assert!(has(&g, "# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): WANTED: Lieutenant Fangore (4), Five (5)."), "{g:#?}");
+	assert!(
+		r.out.log.iter().any(|l| l.starts_with("level fit: WANTED: Lieutenant Fangore (4) left out (target 26 at 21.5, ground 24; no later visit there at a level that fits)")),
+		"{:#?}",
+		r.out.log
+	);
+}
+
+#[test]
+fn level_fit_judges_the_ground_not_only_the_target() {
+	// A target at the player's level (21) inside a camp of 25s: the ground's median decides. Without
+	// a level on the route (an old route) nothing is judged.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 20-24",
+		"zone Durotar",
+		"",
+		"step Town",
+		"  accept 6",
+		"  accept 8",
+		"",
+		"step Camp",
+		"  kill 31 quest 6.1",
+		"",
+		"step Town again",
+		"  turnin 6",
+		"  turnin 8",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(31, "Rabid Gnoll", 21, 21, 70.0, 50.0, 3), camp(32, "Gnoll Darkweaver", 25, 25, 70.2, 50.2, 9)].into_iter().collect();
+	let mut c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Alliance", "diff": {}, "order": [
+			{ "t": "accept", "q": 6, "pt": 0, "lvl": 21.0, "from": f("a", 7) }, { "t": "accept", "q": 8, "pt": 0, "lvl": 21.0, "from": f("a", 8) },
+			{ "t": "task", "q": 6, "task": 0, "pt": 1, "lvl": 21.3, "from": f("a", 11) },
+			{ "t": "turnin", "q": 6, "pt": 0, "lvl": 21.8, "from": f("a", 14) }, { "t": "turnin", "q": 8, "pt": 0, "lvl": 21.9, "from": f("a", 15) }
+		] }),
+		world: level_world(json!([kill_quest(6, 31, 21, &[])])),
+		quests: json!({ "6": { "title": "Six", "level": 22 }, "8": { "title": "Eight", "level": 21 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 8", "  turnin 8"], "{:#?}", r.out.log);
+	for o in c.route["order"].as_array_mut().unwrap() {
+		o.as_object_mut().unwrap().remove("lvl");
+	}
+	assert_eq!(pick(&run(&c, None).read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 6", "  accept 8", "  kill 31 quest 6.1", "  turnin 6", "  turnin 8"]);
+}
