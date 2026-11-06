@@ -1242,12 +1242,18 @@ test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still c
 });
 
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
-// step (players' recordings). His head stays an optional extra (#221); the step
-// says he is an elite and to leave him without a group or below level 10.
-test(`${ELWYNN}: the step that lists Croaky's Head warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
-	const step = compiled(ELWYNN).steps.find((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
-	assert.ok(step, 'the head is still an optional goal');
-	const tip = [].concat(step.note || []).join(' ');
+// step (players' recordings; 12 deaths in the archive by #977). His head stays an
+// optional extra (#221), collected only in the steps for players who group for it
+// (#979); the river step everyone plays still says he is an elite and to leave him
+// without a group or below level 10.
+test(`${ELWYNN}: Croaky's Head is collected only by groups, and the river step warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
+	const steps = compiled(ELWYNN).steps;
+	const heads = steps.filter((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
+	assert.ok(heads.length > 0, 'the head is still an optional goal');
+	for (const st of heads) assert.ok((st.when || []).some((p) => p.k === 'group'), `"${st.title}" collects the head without asking for a group`);
+	const river = steps.find((st) => !(st.when || []).length && st.goals.some(is('collect', 91733)));
+	assert.ok(river, "the river step of Ormin Pelford's Waterlogged tools");
+	const tip = [].concat(river.note || []).join(' ');
 	assert.match(tip, /level 11 elite/, tip);
 	assert.match(tip, /with a group or once you're level 10/, tip);
 });
@@ -2002,11 +2008,12 @@ test(`${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from
 // shore south of the Eastvale bridge, along the river where the first east
 // loop searches for Ormin Pelford's Waterlogged tools. Its head starts Croaky's
 // Head for Merell Ross at Ridgepoint Tower, a short way east. The loot is an
-// optional goal of that river step; the accept (optional) and the Ridgepoint
-// Tower turn-in are steps of their own for a player who answers the group
-// question with "do" (as one who loots the head does when the route asks),
-// and the turn-in holds only a player who took the quest (an optional accept
-// vouches for nobody who did not).
+// optional goal of a step of its own for players who group for it (#979: in the
+// river step for everyone it cost 12 recorded deaths at 8-9); the accept
+// (optional) and the Ridgepoint Tower turn-in are steps of their own for a
+// player who answers the group question with "do" (as one who loots the head
+// does when the route asks), and the turn-in holds only a player who took the
+// quest (an optional accept vouches for nobody who did not).
 
 test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head`, { skip }, () => {
 	const pack = buildSimPack([ELWYNN]);
@@ -2060,7 +2067,7 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 			const who = `${head ? 'with the head' : 'without the head'}, answering ${groups}`;
 			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
 			assert.ok(out.done, `${who}: plays to the end`);
-			assert.deepEqual(got.murlocs, ['collect true', 'accept true'], `${who}: the head is an optional goal of the murloc step, its accept optional`);
+			assert.deepEqual(got.murlocs, ['accept true'], `${who}: the head is no goal of the river step (groups only, #979), its accept optional`);
 			assert.equal(got.done, head, `${who}: Croaky's Head ${head ? 'is' : 'is not'} handed in`);
 			if (head) {
 				assert.equal(got.ridge && got.ridge.title, 'Ridgepoint Tower', 'with the head: handed in at the Ridgepoint Tower step');
@@ -2709,14 +2716,18 @@ test(`Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standin
 // Alther's Mill, about ten normal Blackrock spawns that Tazul found too few
 // and too slow to respawn. The camps at the south end of Galardell Valley,
 // east of Stonewatch Keep, hold some forty, with no elite among them. The
-// arrow leads there, on the way down from the gnolls, not to the mill.
+// arrow leads there, on the way south-east from the mill, not to the mill.
+// Galardell Valley's own gnolls (Solomon's Law, Fangore) are out of the route
+// since #979: 22-26 at about 21 (#977).
 test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill`, { skip }, () => {
 	data = data || loadData(DATA);
 	const { point } = makeProjector(data.mapFrames);
 	const list = goals(REDRIDGE);
 	const axes = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
 	const { goal } = list[axes];
-	assert.ok(at(list, 'Shadowhide Pendant', (g) => g.t === 'collect' && g.item === 1075) < axes, 'after the Galardell gnolls');
+	assert.ok(at(list, "Alther's Mill tarantulas", is('kill', 98386)) < axes, "after Alther's Mill, on the way south-east");
+	assert.ok(!list.some(({ goal: g }) => [91, 180].includes(g.quest)), 'Galardell Valley (Solomon\'s Law, Fangore) is out of the route');
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, REDRIDGE), 'utf8'), /^# Left out for the level \(.*\): .*Solomon's Law \(91\).*Lieutenant Fangore \(180\)/m, 'the header says why');
 	const here = point(goal.map, goal.x, goal.y, goal.f || 'l');
 	const near = { normal: 0, elite: 0 };
 	for (const id of Object.keys(data.item(3014).drops.npc)) {
@@ -3066,14 +3077,18 @@ test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken fr
 // A bare `complete` that opens its step has no place of its own and nothing
 // placed before it, so the arrow showed nothing until the quest was done
 // (#303's leftovers; #632 and #646 place the Horde ones). Each now leads to
-// its objective: the bears, Shay's destination, the Faulk brothers (their
-// `use` of the Symbol of Life since #956).
+// its objective: the bears, the Faulk brothers (their `use` of the Symbol of
+// Life since #956). Wandering Shay (2845, Rockbiter's camp) is out of the route
+// since #979: Shay wanders among the level 49 harpies, at about 44 (#977).
 test('Alliance: a quest objective that opens its step leads the arrow to the objective (#303 leftovers)', { skip }, () => {
 	data = data || loadData(DATA);
+	const feralas = 'forever/alliance/40-50/03-feralas.guide';
+	assert.ok(!goals(feralas).some(({ goal }) => goal.quest === 2845 || goal.quest === 2844), 'Wandering Shay and The Giant Guardian are out of Feralas');
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, feralas), 'utf8'), /^# Left out: .*The Giant Guardian \(2844\), Wandering Shay \(2845\)/m, 'the header names them');
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.skip.some((s) => s.q === 2845 && /harpies/.test(s.reason)), 'the route fixes skip Wandering Shay, saying why');
 	const work = (quest) => (g) => g.quest === quest && ['complete', 'use'].includes(g.t);
 	for (const [file, quest, target] of [
 		['forever/alliance/03-darkshore.guide', 2118, { npc: 2164 }], // Plagued Lands: Rabid Thistle Bears
-		['forever/alliance/40-50/03-feralas.guide', 2845, { event: 2845 }], // Wandering Shay: Rockbiter's camp
 		[DWARF_DUN_MOROGH, 1783, { npc: 6177 }], // The Tome of Divinity: Narm Faulk
 		[REDRIDGE, 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
 	]) {
