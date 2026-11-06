@@ -1156,7 +1156,7 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", {{ kind = "kill", quest = 376 }}))
 		nav.setWaypoint(wp(-100, 0, "Turn in The Damned", {{ kind = "turnin", quest = 376 }}))
 		-- A quest goal whose quest is not in the log: a pin.
-		nav.setWaypoint(wp(0, -100, "Kill Duskbats", {{ kind = "kill", quest = 999 }}))
+		nav.setWaypoint(wp(0, -100, "Kill for a quest not in the log", {{ kind = "kill", quest = 999 }}))
 		-- Tracked by us, then by the player: we untrack only our own.
 		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", {{ kind = "kill", quest = 376 }}))
 		tracked = 404
@@ -1170,7 +1170,7 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 			// The objective, then the turn-in of the same quest: tracked once.
 			["quest", 376],
 			["quest", 0],
-			["pin", "Kill Duskbats", 9000, 55, 50, "Polestar", true],
+			["pin", "Kill for a quest not in the log", 9000, 55, 50, "Polestar", true],
 			["clear pin"],
 			["quest", 376],
 			["pin", "Go to Deathknell", 9000, 50, 45, "Polestar", true]
@@ -1185,14 +1185,14 @@ fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[756] = true
 		-- Collecting among spawns: the game points nowhere inside the area, Polestar's target is a spot.
-		nav.setWaypoint(wp(100, 0, "Collect Plainstrider Beak", {{ kind = "collect", quest = 756, area = 60 }}))
+		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", {{ kind = "collect", quest = 756, area = 60 }}))
 		-- The turn-in is one NPC: the quest is tracked.
-		nav.setWaypoint(wp(0, 100, "Turn in Rite of Strength", {{ kind = "turnin", quest = 756, area = 0 }}))
+		nav.setWaypoint(wp(0, 100, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756, area = 0 }}))
 		emit({{ calls = calls }})"#));
 	assert_eq!(
 		out["calls"],
 		json!([
-			["pin", "Collect Plainstrider Beak", 9000, 50, 45, "Polestar", true],
+			["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true],
 			["clear pin"],
 			["quest", 756]
 		])
@@ -1223,24 +1223,24 @@ fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
 		log[756] = true
 		local collect = {{ kind = "collect", quest = 756, area = 60, search = 40 }}
 		-- The engine announces the same spot again (progress, a refresh): one pin.
-		nav.setWaypoint(wp(100, 0, "Collect Plainstrider Beak", collect))
-		nav.setWaypoint(wp(100, 0, "Collect Plainstrider Beak", collect))
+		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", collect))
+		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", collect))
 		N.Reapply()
 		-- The search moves to the next spot: the pin follows.
-		nav.setWaypoint(wp(0, 100, "Collect Plainstrider Beak", collect))
+		nav.setWaypoint(wp(0, 100, "Collect for Thunderhorn Totem", collect))
 		-- Waypoint UI lost our pin (the player cleared it): the next announcement sets it again.
 		current = nil
-		nav.setWaypoint(wp(0, 100, "Collect Plainstrider Beak", collect))
+		nav.setWaypoint(wp(0, 100, "Collect for Thunderhorn Totem", collect))
 		-- A tracked quest re-announced is not tracked again.
-		nav.setWaypoint(wp(-100, 0, "Turn in Rite of Strength", {{ kind = "turnin", quest = 756 }}))
-		nav.setWaypoint(wp(-100, 0, "Turn in Rite of Strength", {{ kind = "turnin", quest = 756 }}))
+		nav.setWaypoint(wp(-100, 0, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756 }}))
+		nav.setWaypoint(wp(-100, 0, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756 }}))
 		emit({{ calls = calls }})"#));
 	assert_eq!(
 		out["calls"],
 		json!([
-			["pin", "Collect Plainstrider Beak", 9000, 50, 45, "Polestar", true],
-			["pin", "Collect Plainstrider Beak", 9000, 45, 50, "Polestar", true],
-			["pin", "Collect Plainstrider Beak", 9000, 45, 50, "Polestar", true],
+			["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true],
+			["pin", "Collect for Thunderhorn Totem", 9000, 45, 50, "Polestar", true],
+			["pin", "Collect for Thunderhorn Totem", 9000, 45, 50, "Polestar", true],
 			["clear pin"],
 			["quest", 756]
 		])
