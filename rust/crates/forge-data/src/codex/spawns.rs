@@ -10,6 +10,11 @@ const RADIUS: f64 = 3.0;
 const PER_MAP: usize = 5;
 const MAPS: usize = 4;
 const INNER_MAX: f64 = 1500.0;
+// A map seen at FEW points or more drops its stray clusters: STRAY points or
+// fewer, where the biggest cluster holds DWARF times as many or more (#852).
+const FEW: f64 = 10.0;
+const STRAY: f64 = 2.0;
+const DWARF: f64 = 4.0;
 const SAME_PLACE: f64 = 50.0;
 
 #[derive(Clone, Copy, Debug, PartialEq)]
@@ -75,6 +80,19 @@ fn cluster(points: &[V]) -> Vec<Cluster> {
 		super::util::ord(d)
 	});
 	out
+}
+
+/// `mainClusters(clusters)`: a map's clusters (biggest first) without its
+/// strays. Riptear has 24 points in north-east Tirisfal, 11 in his main haunt
+/// and two far south: a spot there sent the arrow 265 yards off where he walks
+/// (#852). Spawns scattered in small groups all stay.
+fn main_clusters(mut clusters: Vec<Cluster>) -> Vec<Cluster> {
+	let total: f64 = clusters.iter().map(|c| c.n).sum();
+	if total >= FEW {
+		let biggest = clusters[0].n;
+		clusters.retain(|c| c.n > STRAY || c.n * DWARF > biggest);
+	}
+	clusters
 }
 
 #[derive(Clone, Copy)]
@@ -154,6 +172,7 @@ fn same_place(a: Option<World>, b: Option<World>) -> bool {
 struct MapPlaces {
 	map: f64,
 	era: bool,
+	n: f64,
 	clusters: Vec<Cluster>,
 	at: Option<World>,
 	bx: Option<BoxW>,
@@ -177,11 +196,12 @@ pub fn spawns_of(by_map: &V, zones: &V, frames: &V, exact: bool) -> Vec<Spawn> {
 		if clusters.is_empty() {
 			continue;
 		}
-		maps.push(MapPlaces { map: forge_guide::js::str_to_num(&map), era, clusters, at: None, bx: None });
+		let n = clusters.iter().map(|c| c.n).sum::<f64>();
+		let clusters = if exact { clusters } else { main_clusters(clusters) };
+		maps.push(MapPlaces { map: forge_guide::js::str_to_num(&map), era, n, clusters, at: None, bx: None });
 	}
-	let total = |m: &MapPlaces| m.clusters.iter().map(|c| c.n).sum::<f64>();
 	maps.sort_by(|a, b| {
-		let d = total(b) - total(a);
+		let d = b.n - a.n;
 		super::util::ord(if d != 0.0 { d } else { a.map - b.map })
 	});
 	if !exact {
@@ -218,4 +238,20 @@ pub fn spawns_of(by_map: &V, zones: &V, frames: &V, exact: bool) -> Vec<Spawn> {
 /// Spawns back from a record's `spawns` value.
 pub fn spawns_from(v: &V) -> Vec<Spawn> {
 	v.items().iter().map(|s| Spawn { map: s.get("map").num(), x: s.get("x").num(), y: s.get("y").num(), era: s.get("f").as_str() == Some("e") }).collect()
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+
+	// Riptear (276020) on Tirisfal Glades (1420), as Forever's quest data has him:
+	// he walks around 80-86, 40-48, with two points far south near 85,53 (#852).
+	const RIPTEAR: &str = r#"{"1420":{"f":"e","pts":[[80.31,45.52],[81.24,45.74],[81.27,40.76],[81.51,43.25],[81.62,44.72],[82.18,41.36],[82.21,46.13],[82.45,43.95],[82.59,45.29],[83.36,43.28],[83.38,47.83],[83.52,41.77],[83.69,44.83],[83.84,46.26],[83.87,53.24],[84.09,39.47],[84.46,49.17],[84.88,44.1],[85.27,42.86],[85.57,45.41],[85.71,44.38],[85.75,48.96],[86.02,39.99],[86.47,53.4]]}}"#;
+
+	#[test]
+	fn a_rare_keeps_where_it_is_usually_seen_not_a_two_point_stray() {
+		let by_map = forge_guide::js::parse_json(RIPTEAR).unwrap();
+		let spots: Vec<(f64, f64)> = spawns_of(&by_map, &V::Undef, &V::Undef, false).iter().map(|s| (s.x, s.y)).collect();
+		assert_eq!(spots, vec![(82.5, 44.8), (82.8, 40.8), (84.5, 48.7), (85.5, 44.2)]);
+	}
 }
