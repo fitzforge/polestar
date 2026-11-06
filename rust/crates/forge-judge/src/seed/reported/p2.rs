@@ -6,6 +6,7 @@ use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTes
 use forge_guide::js::V;
 
 const DUROTAR: &str = "forever/horde/orc-troll/01-durotar.guide";
+const BARRENS_12: &str = "forever/horde/02-the-barrens.guide";
 const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const MULGORE: &str = "forever/horde/tauren/01-mulgore.guide";
@@ -405,6 +406,35 @@ fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 	c.ok(list[buy].goal.get("optional").strict_eq(&V::Bool(true)), "the buy is optional");
 }
 
+/// Bill (#1004): a town's bind never sends you back to the giver you just left (Ratchet's Raptor
+/// Horns by the WANTED poster; the sweep's Crossroads, Sun Rock and Tarren Mill).
+fn bind_after_givers(ctx: &Ctx, c: &mut Check) {
+	let cases: &[(&str, &str, &[i64])] =
+		&[(BARRENS_12, "Ratchet", &[865]), (BARRENS_12, "The Crossroads", &[4921, 899]), (STONETALON, "Sun Rock Retreat", &[86576, 5881]), (HILLSBRAD_HORDE, "Tarren Mill", &[496, 493])];
+	let talk = |g: &V| t_is(g, "accept") || t_is(g, "turnin");
+	for &(guide, place, before) in cases {
+		let list = ctx.goals(guide);
+		let last = *before.last().unwrap();
+		let Some(visit) = list.iter().find(|r| talk(&r.goal) && num(&r.goal, "quest") == Some(last as f64)) else {
+			c.ok(false, &format!("{guide}: quest {last} is in the guide"));
+			continue;
+		};
+		let s = visit.s;
+		let Some(bind) = list.iter().position(|r| r.s == s && t_is(&r.goal, "sethome") && r.goal.get("location").as_str() == Some(place)) else {
+			c.ok(false, &format!("{guide}: the bind at {place} is in the step of quest {last}"));
+			continue;
+		};
+		for &q in before {
+			let i = list.iter().position(|r| r.s == s && talk(&r.goal) && num(&r.goal, "quest") == Some(q as f64));
+			c.ok(i.is_some_and(|i| i < bind), &format!("{guide}: quest {q} at {place} comes before the bind there"));
+		}
+		let npc = |r: &Row| num(&r.goal, "npc");
+		let before_npcs: Vec<f64> = list.iter().enumerate().filter(|(i, r)| r.s == s && *i < bind).filter_map(|(_, r)| npc(r)).collect();
+		let back = list.iter().enumerate().filter(|(i, r)| r.s == s && *i > bind && npc(r).is_some_and(|n| before_npcs.contains(&n))).count();
+		c.eq(back, 0, &format!("{guide}: back to an NPC of the step after binding at {place}"));
+	}
+}
+
 pub fn tests() -> Vec<SeedTest> {
 	let t = |n: String, f: fn(&Ctx, &mut Check)| (n, f);
 	vec![
@@ -431,5 +461,6 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{TELDRASSIL}: Pynte's report: each class's sigil is handed to its trainer at the training stop after Shadowthread Cave"), sigils),
 		t(format!("{TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)"), escaping_banethil),
 		t(format!("{NEEDLES}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step"), bronze_tube),
+		t("Bill's report (#1004): a town's bind never sends you back to the giver you just left".into(), bind_after_givers),
 	]
 }
