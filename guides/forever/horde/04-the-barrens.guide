@@ -432,9 +432,8 @@ step Verog the Dervish
   kill 12296 quest 6129.1 only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
-  tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Every Bristleback drops a tusk; Mankrik's wife lies at the north edge. Keep one Blood Shard. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
+  tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Mankrik's wife lies at their north edge, on your way south. Leave the quilboar for now: Mangletooth in Camp Taurajo wants the same camps cleared. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
   talk 10668 quest 4921.1 @49.3,50.3
-  collect 5085 quest 899.1
 
 step Camp Taurajo
   tip Follow the Gold Road south to Camp Taurajo.
@@ -449,9 +448,11 @@ step Camp Taurajo
   accept 882
 
 step Bramblescar
+  tip Back north into the Bristleback camps. Any Bristleback can drop a tusk for Mankrik, so collect them while you kill these for Mangletooth. Keep one Blood Shard.
   kill 3260 quest 878.1
   kill 3261 quest 878.2
   kill 3263 quest 878.3
+  collect 5085 quest 899.1
 
 step The Barrens
   only Warlock

@@ -609,6 +609,50 @@
 				}
 			],
 			"pr": 953
+		},
+		{
+			"id": "957-bristleback-camps-wife-on-the-way",
+			"faction": "Horde",
+			"at": {
+				"quest": 4921,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Mankrik's wife lies at their north edge, on your way south. Leave the quilboar for now: Mangletooth in Camp Taurajo wants the same camps cleared. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.",
+			"note": "Rohkin (#957): the camps step collected Mankrik's tusks (899) before Camp Taurajo, where Mangletooth gives Tribes at War (878) for the same camps, so the camps were cleared twice. The tusks moved to the Tribes at War step (route-fixes pair accept 878 before task 899); Mankrik's wife (10668, 49.3,50.3) stays here, at the camps' north edge on the walk south to Camp Taurajo. The tip replaces the step's tip, its tusk sentence moved to the Tribes at War step.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_loot_template item 5085 (Bristleback Quilboar Tusk): Bristleback Water Seeker 3260, Thornweaver 3261 and Geomancer 3263 at 40%, Hunter 3258 at 40%, 3259 and 3262 at 80%"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: Consumed by Hatred (899) tusk ticks on kills of 3258 (19), 3260 (12), 3261 (8) and 3263 (5)"
+				}
+			],
+			"issue": 957
+		},
+		{
+			"id": "957-tusks-with-tribes-at-war",
+			"faction": "Horde",
+			"at": {
+				"quest": 878,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Back north into the Bristleback camps. Any Bristleback can drop a tusk for Mankrik, so collect them while you kill these for Mangletooth. Keep one Blood Shard.",
+			"note": "Rohkin (#957): every Bristleback Tribes at War (878) asks for drops Mankrik's tusks (899), so the tusks are collected on that step, after Mangletooth is met in Camp Taurajo, not in the same camps before.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature_loot_template item 5085 (Bristleback Quilboar Tusk): Bristleback Water Seeker 3260, Thornweaver 3261 and Geomancer 3263 at 40%, Hunter 3258 at 40%, 3259 and 3262 at 80%"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: Consumed by Hatred (899) tusk ticks on kills of 3258 (19), 3260 (12), 3261 (8) and 3263 (5)"
+				}
+			],
+			"issue": 957
 		}
 	]
 }
