@@ -34,7 +34,8 @@ UI.ClassCard = CC
 
 local CLASS_BIT = { WARRIOR = 1, PALADIN = 2, HUNTER = 4, ROGUE = 8, PRIEST = 16, SHAMAN = 64, MAGE = 128, WARLOCK = 256, DRUID = 1024 }
 local BADGE = { ability = L["NEW ABILITY"], pet = L["NEW PET"], mount = L["NEW MOUNT"], weapon = L["NEW WEAPON"], armor = L["NEW ARMOR"] }
-local ARROW = "  \226\134\146  "
+-- "›", not "→": the game's font has no arrow glyph and drew a box between the route's places.
+local ARROW = "  \226\128\186  "
 local DOT = "  \194\183  "
 local INSET = 8   -- the card's margin in the window
 local RING = 40

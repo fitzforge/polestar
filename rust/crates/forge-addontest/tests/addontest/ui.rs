@@ -1867,6 +1867,30 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 	assert_eq!(out["unskip"], json!(["Unskip", 3]));
 }
 
+// Fitz, testing 0.3.3: the "Looking ahead" banner's Dismiss button did nothing (GF.DismissBanner took the banner for
+// one that is answered, never dismissed). Dismissed, it stays away on that step; another step brings it back.
+#[test]
+fn dismiss_closes_the_looking_ahead_banner_for_that_step_and_another_step_brings_it_back() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local N, B = GF.parts.nav, GF.parts.banner
+		uistub.live = 3
+		N.Next:Click()
+		local ahead = { B:IsShown(), B.Close:IsShown() }
+		B.Close:Click()
+		local dismissed = B:IsShown()
+		uistub.update()
+		local stays = B:IsShown()
+		N.Next:Click()
+		local next = B:IsShown() and B.Text:GetText()
+		emit({ ahead = ahead, dismissed = dismissed, stays = stays, next = next })"#)
+	.remove(0);
+	assert_eq!(out["ahead"], json!([true, true]), "the banner and its Dismiss button");
+	assert_eq!(out["dismissed"], false, "Dismiss closes it");
+	assert_eq!(out["stays"], false, "it stays closed on that step");
+	assert_eq!(out["next"], "Looking ahead. The guide is at step 3.", "the next step has its own banner");
+}
+
 #[test]
 fn the_next_spot_of_an_area_objective_takes_the_arrow_there_over_a_point_picked_by_hand() {
 	let out = run(r#"

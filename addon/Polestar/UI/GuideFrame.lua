@@ -1763,7 +1763,10 @@ function GF.DismissBanner(later)
 	local kind, n = bannerNotice()
 	if kind == "trip" then
 		ns.Nav.nearby.EndTrip()
-	elseif kind == "away" or kind == "group" or kind == "lost" then
+	elseif kind == "away" then
+		-- Looking ahead or back: closed for this step (awayNotice), another step has its own
+		notices.away = n.guideId .. ":" .. n.index
+	elseif kind == "group" or kind == "lost" then
 		-- a group quest or a lost one is answered, never dismissed
 	elseif kind == "log" then
 		notices.logSeen = n.key
