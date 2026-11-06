@@ -977,6 +977,8 @@ L["Dungeons in leveling guides"] = "升級指南中的地城"
 L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = "關閉：指南會跳過此小隊任務並維持單人路線。在你做出選擇前，指南會在進行到該處時詢問你。"
 L["Group quests"] = "小隊任務"
 L["Group quests in leveling guides"] = "練等指南中的小隊任務"
+-- L["Tell me when a dungeon opens up"] = ""
+-- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "任務給予者"
@@ -1261,6 +1263,8 @@ L["Share"] = "分享"
 L["Go on without them"] = "不等他們繼續"
 L["The step stops waiting for the party and moves on as usual."] = "步驟不再等待隊伍，照常繼續。"
 L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板。"
+-- L["Then out here"] = ""
+-- L["Out here"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2905,6 +2909,17 @@ L["Show or hide the party panel"] = "顯示或隱藏隊伍面板"
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar 已告訴你的隊伍你完成了一個任務目標（在 選項 > 解任務 > 任務 > 小隊 中關閉）。"
 L["Ready to turn in: %s"] = "可繳交：%s"
 L["Finished: %s - %s"] = "已完成：%s - %s"
+
+-- UI/DungeonToast.lua
+-- L["LEVEL %d · DUNGEON"] = ""
+-- L["%s is open to you"] = ""
+-- L["1 quest to pick up"] = ""
+-- L["%d quests to pick up"] = ""
+-- L["Open in Dungeons"] = ""
+-- L["Turn these off"] = ""
+-- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
+-- L["No dungeon has opened up for this character."] = ""
+-- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在導引。關閉「已安裝時以 Shortest Path Forever 導引」（「選項」>「箭頭與路線」）即可使用 Polestar 的箭頭。"

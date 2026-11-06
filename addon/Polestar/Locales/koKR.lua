@@ -977,6 +977,8 @@ L["Dungeons in leveling guides"] = "레벨업 가이드의 던전"
 L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = "끄면: 가이드가 이 파티 퀘스트를 건너뛰고 솔로 경로를 따릅니다. 선택하기 전까지는 해당 지점에 도달하면 물어봅니다."
 L["Group quests"] = "파티 퀘스트"
 L["Group quests in leveling guides"] = "레벨업 가이드의 파티 퀘스트"
+-- L["Tell me when a dungeon opens up"] = ""
+-- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "퀘스트 제공자"
@@ -1261,6 +1263,8 @@ L["Share"] = "공유"
 L["Go on without them"] = "그들 없이 계속"
 L["The step stops waiting for the party and moves on as usual."] = "단계가 파티를 더 이상 기다리지 않고 평소처럼 진행합니다."
 L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시하거나 숨깁니다."
+-- L["Then out here"] = ""
+-- L["Out here"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "%s행 승강기"
@@ -2905,6 +2909,17 @@ L["Show or hide the party panel"] = "파티 창 표시/숨기기"
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar가 파티에 퀘스트 임무 완료를 알렸습니다 (끄려면 설정 > 퀘스트 진행 > 퀘스트 > 파티)."
 L["Ready to turn in: %s"] = "제출 가능: %s"
 L["Finished: %s - %s"] = "완료: %s - %s"
+
+-- UI/DungeonToast.lua
+-- L["LEVEL %d · DUNGEON"] = ""
+-- L["%s is open to you"] = ""
+-- L["1 quest to pick up"] = ""
+-- L["%d quests to pick up"] = ""
+-- L["Open in Dungeons"] = ""
+-- L["Turn these off"] = ""
+-- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
+-- L["No dungeon has opened up for this character."] = ""
+-- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever가 가이드 중입니다. Polestar 화살표를 쓰려면 \"설치 시 Shortest Path Forever로 가이드\"를 끄십시오(설정, 화살표 및 경로)."

@@ -978,6 +978,8 @@ L["Dungeons in leveling guides"] = "Donjons dans les guides de montée en niveau
 L["Off: the guide skips this group quest and keeps to the solo route. Until you choose, it asks when it gets there."] = "Désactivé : le guide passe cette quête de groupe et s'en tient à l'itinéraire solo. Tant que vous n'avez pas choisi, il pose la question en y arrivant."
 L["Group quests"] = "Quêtes de groupe"
 L["Group quests in leveling guides"] = "Quêtes de groupe dans les guides de montée en niveau"
+-- L["Tell me when a dungeon opens up"] = ""
+-- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Donneur de quête"
@@ -1262,6 +1264,8 @@ L["Share"] = "Partager"
 L["Go on without them"] = "Continuer sans eux"
 L["The step stops waiting for the party and moves on as usual."] = "L'étape n'attend plus le groupe et avance comme d'habitude."
 L["Click to show or hide the party panel."] = "Cliquez pour afficher ou masquer le panneau du groupe."
+-- L["Then out here"] = ""
+-- L["Out here"] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -2906,6 +2910,17 @@ L["Show or hide the party panel"] = "Afficher ou masquer le panneau du groupe"
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar a prévenu votre groupe que vous avez terminé un objectif de quête (à désactiver dans Options > Quêtes > Quêtes > Groupe)."
 L["Ready to turn in: %s"] = "Prête à rendre : %s"
 L["Finished: %s - %s"] = "Terminé : %s - %s"
+
+-- UI/DungeonToast.lua
+-- L["LEVEL %d · DUNGEON"] = ""
+-- L["%s is open to you"] = ""
+-- L["1 quest to pick up"] = ""
+-- L["%d quests to pick up"] = ""
+-- L["Open in Dungeons"] = ""
+-- L["Turn these off"] = ""
+-- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
+-- L["No dungeon has opened up for this character."] = ""
+-- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
