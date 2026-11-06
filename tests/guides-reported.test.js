@@ -1354,6 +1354,28 @@ test('#213: quests whose giver the route already stands at are taken there, not 
 	}
 });
 
+// --- Sweep from Rohkin's #957 (PR #970): an item collected from mobs before the
+// quest that kills the same mobs is taken, then those mobs cleared again for it.
+// Badlands: Hammertoe's Digsite asked for the Rock Elemental Shards (Badlands
+// Reagent Run, 2500.3), whose only droppers are rock elementals far from the dig;
+// the Dustbowl's Lesser Rock Elementals are killed after Lotwil's Study of the
+// Elements: Rock (710) at Agmond's End. Stranglethorn (Horde): Nesingwary's step
+// asked for all 25 Bloody Bone Necklaces (596) from the Bloodscalps that Bloodscalp
+// Ears (189) and Headhunting (582) kill again later; the Ruins of Zul'Kunda step,
+// before the hand-in, finishes them.
+test('Sweep from #957: a drop is collected with the later quest that kills the same mobs, not in a clear before it', { skip }, () => {
+	for (const [guide, item, quest, take, what] of [
+		[BADLANDS, 7848, 2500, 710, "Rock Elemental Shards after Lotwil's Study of the Elements: Rock"],
+		[STRANGLETHORN_HORDE, 3915, 596, 582, "Bloody Bone Necklaces after Nimboya's Headhunting"],
+	]) {
+		const list = working(goals(guide));
+		const accept = at(list, `${guide}: accept ${take}`, is('accept', take));
+		const work = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'collect' && goal.quest === quest && goal.item === item);
+		assert.ok(work.length > 0, `${guide}: the ${what} have a goal`);
+		for (const [{ step }, i] of work) assert.ok(i > accept, `${guide}: ${what}, not in "${step.title}"`);
+	}
+});
+
 // Every leveling guide with a profession quest still plays to the end for a
 // character who already has the profession (tests/guides.test.js plays them
 // all without one).
