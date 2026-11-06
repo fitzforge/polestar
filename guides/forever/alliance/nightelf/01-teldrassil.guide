@@ -65,6 +65,7 @@ step North to Shadowthread Cave
   accept 3519
 
 step Aldrassil
+  tip The trainers stand upstairs inside Aldrassil, along the ramp that winds up the tree: Alyissia and Frahun Shadewhisper on the first level, Shanda above them, Ayanna Everstride and Mardant Strongoak at the top. The arrow cannot tell the levels apart.
   turnin 916                                  -- Gilshalan Windwalker
   accept 917
   turnin 3519                                 -- Dirania Silvershine

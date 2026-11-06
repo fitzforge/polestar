@@ -29,6 +29,7 @@ step Wolves
   collect 750 quest 33                        -- Tough Wolf Meat
 
 step Deputy Willem
+  tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   accept 18                                   -- Deputy Willem, back at the Abbey steps
   train class
 
@@ -119,6 +120,7 @@ step Inside Echo Ridge Mine
   collect 247886 quest 91752 optional group 2 -- Shinyfinder Narf
 
 step Northshire Abbey
+  tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 21                                   -- Marshal McBride, inside
   accept 54
   accept 96627
@@ -198,7 +200,7 @@ step Jason Mathers
   accept 99129
 
 step Goldshire
-  tip Tomas cooks in the inn's kitchen.
+  tip Tomas cooks in the inn's kitchen. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   train Cooking npc 1430                      -- Tomas: Camping 101 asks you to learn it; below ground
   complete 96626 @44.4,66.0
   turnin 96626                                -- Tomas
@@ -280,6 +282,7 @@ step Goldtooth
   accept 184 optional
 
 step Goldshire
+  tip Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 47                                   -- Remy "Two Times"
   turnin 99130
   accept 99131
@@ -439,7 +442,7 @@ step Crystal Lake: kill these as you meet them
 # ---------------------------------------------------------------- Goldshire, the farms and Westbrook
 
 step Goldshire
-  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests) and Zaldimar Wefhellt (mages) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 91751 optional                       -- Helene Peltskinner, inside
   turnin 99131                                -- Jason Mathers
   train class
@@ -469,7 +472,7 @@ step Elwynn Forest
   goto 44.5,66.3 "Elwynn Forest"
 
 step Goldshire
-  tip Follow the road west back to Goldshire.
+  tip Follow the road west back to Goldshire. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
   train class
 

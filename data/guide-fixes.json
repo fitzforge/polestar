@@ -621,16 +621,16 @@
 				"quest": 94774,
 				"goal": "accept"
 			},
-			"tip": "Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests) and Zaldimar Wefhellt (mages) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
-			"note": "Priestess Josetta (npc 377) and Zaldimar Wefhellt (npc 328) stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where William Pestle stands a yard from Josetta. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived, and the writer's where-note (R9) did not say so on this step. The tip keeps the step's old tip, the sentence added.",
+			"tip": "Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
 			"source": [
 				{
 					"kind": "tdb",
-					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9"
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
 				},
 				{
 					"kind": "client",
-					"ref": "walking grid (nav4) at the spawn: inn floors 57.0 and 63.8, both indoors"
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
 				}
 			],
 			"pr": 960
@@ -1326,6 +1326,234 @@
 					"ref": "walking grid (nav4) at the spawn: floors 515.1 and 524.45 under the roof, no indoor flag"
 				}
 			],
+			"pr": 960
+		},
+		{
+			"id": "upstairs-khelden-bremen-accept-18",
+			"faction": "Alliance",
+			"at": {
+				"quest": 18,
+				"goal": "accept"
+			},
+			"tip": "Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "#961 (Verium, Human Mage, 0.3.2): this step's train class led a Mage outside the Abbey, not in. Khelden Bremen (npc 198), the mage trainer, stands on Northshire Abbey's upper floor: spawn height 89.5; the abbey's ground floor is at 82, where Priestess Anetta stands 5 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 198 position_z 89.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: abbey floors 81.9 and 89.3, both indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#961"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-khelden-bremen-turnin-21",
+			"faction": "Alliance",
+			"at": {
+				"quest": 21,
+				"goal": "turnin"
+			},
+			"tip": "Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "#961 (Verium, Human Mage, 0.3.2): this step's train class led a Mage outside the Abbey, not in. Khelden Bremen (npc 198), the mage trainer, stands on Northshire Abbey's upper floor: spawn height 89.5; the abbey's ground floor is at 82, where Priestess Anetta stands 5 yards away. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 198 position_z 89.5"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: abbey floors 81.9 and 89.3, both indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#961"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-goldshire-inn-trainers-turnin-96626",
+			"faction": "Alliance",
+			"at": {
+				"quest": 96626,
+				"goal": "turnin"
+			},
+			"tip": "Tomas cooks in the inn's kitchen. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-goldshire-inn-trainers-turnin-62",
+			"faction": "Alliance",
+			"at": {
+				"quest": 62,
+				"goal": "turnin"
+			},
+			"tip": "Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-goldshire-inn-trainers-accept-1685",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1685,
+				"goal": "accept"
+			},
+			"tip": "Follow the road west back to Goldshire. Priestess Josetta (priests), Zaldimar Wefhellt (mages) and Keryn Sylvius (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Priestess Josetta (npc 377), Zaldimar Wefhellt (npc 328) and Keryn Sylvius (npc 917), the priest, mage and rogue trainers, stand on the upper floor of Goldshire's inn: spawn height 63.9; the inn's ground floor is at 57, where Innkeeper Farley stands 5 yards from Keryn and William Pestle a yard from Josetta. This step trains (train class) or takes their quests. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 377 position_z 63.9; creature 328 position_z 63.9; creature 917 position_z 63.9"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: inn floors 57.0/58.1 and 63.8 at each, indoors"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-5481",
+			"faction": "Horde",
+			"at": {
+				"quest": 5481,
+				"goal": "turnin"
+			},
+			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-5482",
+			"faction": "Horde",
+			"at": {
+				"quest": 5482,
+				"goal": "turnin"
+			},
+			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-426",
+			"faction": "Horde",
+			"at": {
+				"quest": 426,
+				"goal": "turnin"
+			},
+			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-369",
+			"faction": "Horde",
+			"at": {
+				"quest": 369,
+				"goal": "turnin"
+			},
+			"tip": "Back up the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+				}
+			],
+			"issue": 961,
+			"pr": 960
+		},
+		{
+			"id": "upstairs-aldrassil-trainers-turnin-916",
+			"faction": "Alliance",
+			"at": {
+				"quest": 916,
+				"goal": "turnin"
+			},
+			"tip": "The trainers stand upstairs inside Aldrassil, along the ramp that winds up the tree: Alyissia and Frahun Shadewhisper on the first level, Shanda above them, Ayanna Everstride and Mardant Strongoak at the top. The arrow cannot tell the levels apart.",
+			"note": "Shadowglen's class trainers stand up inside Aldrassil, on the ramp that winds up the tree: Alyissia (npc 3593) and Frahun Shadewhisper (3594) at spawn height 1329.7, Shanda (3595) at 1346.8, Ayanna Everstride (3596) and Mardant Strongoak (3597) at 1381; the ground at the tree's foot is at about 1316. This step hands in their class letters and trains. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 3593 position_z 1329.7; creature 3594 position_z 1329.7; creature 3595 position_z 1346.8; creature 3596 position_z 1381.0; creature 3597 position_z 1381.0"
+				},
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4) at the spawns: the tree's surfaces at 1313-1333 under them, no indoor flag"
+				}
+			],
+			"issue": 961,
 			"pr": 960
 		}
 	]
