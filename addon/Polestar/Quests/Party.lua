@@ -1193,10 +1193,12 @@ local function firstString(name, ...)
 	return nil
 end
 
+-- A line to chat (its "|" doubled, so "1H|0.3.4" shows as sent rather than
+-- as an escape code) and to the run's saved lines (as it is).
 local function say(line)
 	local t = selfTest
 	if t then t.lines[#t.lines + 1] = line end
-	ns.Print(line)
+	ns.Print((line:gsub("|", "||")))
 end
 
 -- Every name the client gives for `unit`, and our roster key for it.
