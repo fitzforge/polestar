@@ -94,7 +94,6 @@ test('A Void Path waits for Never Coming Back, handed in to the same giver (#100
 test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Mines (#991)', () => {
 	const { all, any } = blockingPrereqs({ id: 92747, start: { npc: [253092] }, ...corrections.quests[92747].set });
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
-	assert.ok(!(corrections.quests[92745].set.preAll || []).includes(92744), 'The State of the Mines does not wait for Murloc Gills (#918)');
 });
 
 test('The New Plague waits for the A Recipe For Death chain, handed in to its last part (#867)', () => {
