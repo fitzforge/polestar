@@ -935,23 +935,27 @@ end
 -- target or a mob with a nameplate (with enemy nameplates on); a dead one
 -- does not count. Names are tried from the one the next click targets first.
 -- The face is a plain texture, so it changes in combat too; while the client
--- hides a close unit's name, the button keeps what it shows.
+-- hides whether a close unit exists, is dead or a player, or its name, the
+-- button keeps what it shows.
 local PORTRAIT_UNITS = { "target" }
 for i = 1, 40 do PORTRAIT_UNITS[#PORTRAIT_UNITS + 1] = "nameplate" .. i end
 
 -- The unit whose face to show for list, starting at list[first]: nil when no
--- named mob is close, "keep" when a close unit's name cannot be read.
+-- named mob is close, "keep" when what a close unit is cannot be read.
 function Buttons.PortraitUnit(list, first)
 	local n = #list
 	if n == 0 then return nil end
-	local Compat = ns.Compat
+	local secret = ns.Compat.IsSecret
 	local byName, hidden = {}, false
 	for _, unit in ipairs(PORTRAIT_UNITS) do
-		if Compat.Readable(UnitExists(unit)) and not Compat.Readable(UnitIsDead(unit)) and not Compat.Readable(UnitIsPlayer(unit)) then
-			local name = UnitName(unit)
-			if Compat.IsSecret(name) then
+		local exists = UnitExists(unit)
+		if secret(exists) then
+			hidden = true
+		elseif exists then
+			local dead, player, name = UnitIsDead(unit), UnitIsPlayer(unit), UnitName(unit)
+			if secret(dead) or secret(player) or secret(name) then
 				hidden = true
-			elseif name and not byName[name] then
+			elseif not dead and not player and name and not byName[name] then
 				byName[name] = unit
 			end
 		end
@@ -983,9 +987,15 @@ local function paintPortraits()
 	paintPortrait(rareButton, rare, "quest")
 end
 local paintPortraitsSoon = QoL.Coalesce(paintPortraits)
-for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED" }) do
+for _, event in ipairs({ "PLAYER_TARGET_CHANGED", "NAME_PLATE_UNIT_ADDED", "NAME_PLATE_UNIT_REMOVED", "UNIT_NAME_UPDATE" }) do
 	ns.RegisterEvent(event, paintPortraitsSoon)
 end
+-- A target that dies stays the target, and no event above says so; its
+-- health does. Only while a button shows the target's face.
+ns.RegisterEvent("UNIT_HEALTH", function(_, unit)
+	if ns.Compat.Readable(unit) ~= "target" or not targetButton then return end
+	if targetButton.portrait == "target" or rareButton.portrait == "target" then paintPortraitsSoon() end
+end)
 
 local function refresh()
 	if not itemButton then return end

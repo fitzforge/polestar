@@ -65,6 +65,40 @@ test('target portrait: the current target counts; dead mobs, other names and unr
 	assert.deepEqual(out[3], ['portrait:Wolf', 1]);
 });
 
+test('target portrait: a target that dies while targeted gives the crosshair back', () => {
+	const out = run(`
+		q.step({ { t = "kill", target = "Wolf" } })
+		q.target = { name = "Wolf", hostile = true }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		show()
+		q.target.dead = true
+		stub.fire("UNIT_HEALTH", "target")
+		show()
+	`);
+	assert.deepEqual(out[0], ['portrait:Wolf', 1]);
+	assert.match(out[1][0], /qol-target/);
+});
+
+test('target portrait: a hidden "exists", "dead" or "player" keeps what the button shows', () => {
+	const out = run(`
+		local SECRET = {}
+		issecretvalue = function(v) return v == SECRET end
+		q.step({ { t = "kill", target = "Wolf" } })
+		q.target = { name = "Wolf", hostile = true }
+		stub.fire("PLAYER_TARGET_CHANGED")
+		show()
+		local exists = UnitExists
+		UnitExists = function(unit) if unit == "target" then return SECRET end return exists(unit) end
+		stub.fire("PLAYER_TARGET_CHANGED")
+		show()
+		UnitExists = exists
+		q.target.dead = SECRET
+		stub.fire("PLAYER_TARGET_CHANGED")
+		show()
+	`);
+	assert.deepEqual(out, [['portrait:Wolf', 1], ['portrait:Wolf', 1], ['portrait:Wolf', 1]]);
+});
+
 test('target portrait: a new step without the mob puts the crosshair back', () => {
 	const out = run(`
 		q.step({ { t = "kill", target = "Wolf" } })
