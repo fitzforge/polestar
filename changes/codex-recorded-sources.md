@@ -6,3 +6,4 @@ section: forge
   from the committed snapshot `data/codex/recorded.json` (only players the
   data build counts; `--recordings <dir>` rewrites it from a recordings
   folder), and a collectible guide's `buy` step names the item's vendor.
+  `forge release pack` refuses a Codex that still names ForeverLevelingBiS.
