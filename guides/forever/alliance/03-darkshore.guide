@@ -544,8 +544,8 @@ step The relics of the Barrow Dens
   zone Moonglade
   only Druid
   tip The Great Cat Spirit (Night Elves) and the Avatar of Saeyleenan (Skyborne) wait in southern Moonglade. The three relics lie in the Stormrage Barrow Dens, east of them. Reports from the first weeks say a relic gives no loot while another player is looting it: wait a moment and try again.
-  turnin 98394 only NightElf                  -- Great Cat Spirit
-  accept 98396 only NightElf
+  turnin 98394 only NightElf @54.5,75 map 1450 era -- Great Cat Spirit
+  accept 98396 only NightElf @54.5,75 map 1450 era
   turnin 98341 only Skyborne                  -- Avatar of Saeyleenan
   accept 98404 only Skyborne
   collect 280502 quest 98396.1 @72.4,66.0 only NightElf -- Relic of the Fang
@@ -554,8 +554,8 @@ step The relics of the Barrow Dens
   collect 280502 quest 98404.1 @72.4,66.0 only Skyborne -- Relic of the Fang
   collect 280679 quest 98404.2 @75.2,67.2 only Skyborne -- Relic of the Claw
   collect 280680 quest 98404.3 @74.4,65.4 only Skyborne -- Relic of the Silent Shadow
-  turnin 98396 only NightElf                  -- Great Cat Spirit
-  accept 98731 only NightElf
+  turnin 98396 only NightElf @54.5,75 map 1450 era -- Great Cat Spirit
+  accept 98731 only NightElf @54.5,75 map 1450 era
   turnin 98404 only Skyborne                  -- Avatar of Saeyleenan
   accept 98738 only Skyborne
 

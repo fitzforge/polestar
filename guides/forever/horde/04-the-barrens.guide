@@ -714,8 +714,8 @@ step The Stormrage Barrow Dens
   only Druid
   zone Moonglade
   tip Tauren: the Great Cat Spirit waits on the southern hill above the bridge. Skyborne: the Avatar of Saeyleenan stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the Relic of the Silent Shadow lies at the foot of the white cat statue.
-  turnin 98405 only Tauren            -- Great Cat Spirit
-  accept 98342 only Tauren
+  turnin 98405 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
+  accept 98342 only Tauren @54.5,75 map 1450 era
   turnin 98341 only Skyborne          -- Avatar of Saeyleenan
   accept 98404 only Skyborne
   collect 280502 quest 98342.1 @72.4,66.0 only Tauren
@@ -724,8 +724,8 @@ step The Stormrage Barrow Dens
   collect 280502 quest 98404.1 @72.4,66.0 only Skyborne
   collect 280679 quest 98404.2 @75.2,67.2 only Skyborne
   collect 280680 quest 98404.3 @74.4,65.4 only Skyborne
-  turnin 98342 only Tauren            -- Great Cat Spirit
-  accept 98739 only Tauren
+  turnin 98342 only Tauren @54.5,75 map 1450 era -- Great Cat Spirit
+  accept 98739 only Tauren @54.5,75 map 1450 era
   turnin 98404 only Skyborne          -- Avatar of Saeyleenan
   accept 98738 only Skyborne
 

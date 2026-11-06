@@ -52,8 +52,8 @@ step Dendrite Starblaze
 step The relics of the Barrow Dens
   only NightElf,Skyborne,Alliance
   tip The Great Cat Spirit (Night Elves) waits on the hill above the bridge in southern Moonglade; the Avatar of Saeyleenan (Skyborne) stands on high ground past the twin bridges, south-west of Nighthaven: climb up to it. The relics lie in the Stormrage Barrow Dens east of the lake: leave your form and click the statue at the den's entrance for a short stealth (five minutes), then go deep into the cave and over the bridge. Enraged spirits guard the relics and attack anything they see: stay in the statue's stealth and keep moving. Each relic is a small orb beside a cat statue in an alcove: the Fang and the Claw have one spot each, the Silent Shadow two, and it is the one players camp. A relic shows as unusable while another player loots it: wait a moment and try again. Stealth gone? Walk back to the entrance statue for more.
-  turnin 98394 only NightElf            -- Great Cat Spirit
-  accept 98396 only NightElf
+  turnin 98394 @54.5,75.0 only NightElf -- Great Cat Spirit
+  accept 98396 @54.5,75.0 only NightElf
   turnin 98341 only Skyborne            -- Avatar of Saeyleenan
   accept 98404 only Skyborne
   collect 280502 quest 98396.1 @72.4,66.0 only NightElf -- Relic of the Fang
@@ -62,8 +62,8 @@ step The relics of the Barrow Dens
   collect 280502 quest 98404.1 @72.4,66.0 only Skyborne -- Relic of the Fang
   collect 280679 quest 98404.2 @75.2,67.2 only Skyborne -- Relic of the Claw
   collect 280680 quest 98404.3 @74.4,65.4 only Skyborne -- Relic of the Silent Shadow
-  turnin 98396 only NightElf            -- Great Cat Spirit
-  accept 98731 only NightElf
+  turnin 98396 @54.5,75.0 only NightElf -- Great Cat Spirit
+  accept 98731 @54.5,75.0 only NightElf
   turnin 98404 only Skyborne            -- Avatar of Saeyleenan
   accept 98738 only Skyborne
 
@@ -101,8 +101,8 @@ step Dendrite Starblaze
 step The Stormrage Barrow Dens
   only Tauren,Skyborne,Horde
   tip The Great Cat Spirit (Tauren) waits on the hill above the bridge in southern Moonglade; the Avatar of Saeyleenan (Skyborne) stands on high ground past the twin bridges, south-west of Nighthaven: climb up to it. The relics lie in the Stormrage Barrow Dens east of the lake: leave your form and click the statue at the den's entrance for a short stealth (five minutes), then go deep into the cave and over the bridge. Enraged spirits guard the relics and attack anything they see: stay in the statue's stealth and keep moving. Each relic is a small orb beside a cat statue in an alcove: the Fang and the Claw have one spot each, the Silent Shadow two, and it is the one players camp. A relic shows as unusable while another player loots it: wait a moment and try again. Stealth gone? Walk back to the entrance statue for more.
-  turnin 98405 only Tauren              -- Great Cat Spirit
-  accept 98342 only Tauren
+  turnin 98405 @54.5,75.0 only Tauren   -- Great Cat Spirit
+  accept 98342 @54.5,75.0 only Tauren
   turnin 98341 only Skyborne            -- Avatar of Saeyleenan
   accept 98404 only Skyborne
   collect 280502 quest 98342.1 @72.4,66.0 only Tauren -- Relic of the Fang
@@ -111,8 +111,8 @@ step The Stormrage Barrow Dens
   collect 280502 quest 98404.1 @72.4,66.0 only Skyborne -- Relic of the Fang
   collect 280679 quest 98404.2 @75.2,67.2 only Skyborne -- Relic of the Claw
   collect 280680 quest 98404.3 @74.4,65.4 only Skyborne -- Relic of the Silent Shadow
-  turnin 98342 only Tauren              -- Great Cat Spirit
-  accept 98739 only Tauren
+  turnin 98342 @54.5,75.0 only Tauren   -- Great Cat Spirit
+  accept 98739 @54.5,75.0 only Tauren
   turnin 98404 only Skyborne            -- Avatar of Saeyleenan
   accept 98738 only Skyborne
 
