@@ -477,61 +477,43 @@ impl<'a> Ctx<'a> {
 		})
 	}
 
-	/// Where a class's trainer of the faction nearest a point stands (on its continent first).
-	fn nearest_trainer_pt(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<Pt> {
+	/// A class's trainer spawn of the faction nearest a point (on its continent first): where it
+	/// stands, the trainer and its spawn's map. Spawns on a live frame count too (Stormwind's Druid
+	/// trainers, not Alfina Nightgaze in Alterac for the Goldshire stop, #912).
+	fn nearest_trainer_spawn(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(Pt, &Entity, u32)> {
 		let p = self.w(pt)?;
-		let mut best: Option<(f64, Pt)> = None;
+		let mut best: Option<(f64, Pt, &Entity, u32)> = None;
 		for n in self.data.npcs.values() {
 			if n.sub_name.as_deref().and_then(|s| s.strip_suffix(" Trainer")) != Some(cl) || !n.faction.as_deref().is_some_and(|f| f.contains(fac)) {
 				continue;
 			}
 			for (&map, sp) in &n.spawns {
-				if sp.f.as_deref() == Some("l") {
-					continue;
-				}
+				let f = if sp.f.as_deref() == Some("l") { Frame::Live } else { Frame::Era };
 				for q in &sp.pts {
 					let c = |i: usize| q.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
-					let w = self.proj.point(map, c(0), c(1), Some(Frame::Era));
-					if !w.wx.is_finite() {
-						continue;
-					}
-					let d = js_hypot(w.wx - p.wx, w.wy - p.wy) + if w.c == p.c { 0.0 } else { 1e6 };
-					if best.as_ref().is_none_or(|b| d < b.0) {
-						best = Some((d, Pt { c: w.c, wx: w.wx, wy: w.wy, map: w.map }));
-					}
-				}
-			}
-		}
-		best.map(|b| b.1)
-	}
-
-	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
-	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
-		let p = self.w(pt)?;
-		let mut best: Option<(f64, String, String)> = None;
-		for n in self.data.npcs.values() {
-			if n.sub_name.as_deref().and_then(|s| s.strip_suffix(" Trainer")) != Some(cl) || !n.faction.as_deref().is_some_and(|f| f.contains(fac)) {
-				continue;
-			}
-			for (&map, sp) in &n.spawns {
-				if sp.f.as_deref() == Some("l") {
-					continue;
-				}
-				for q in &sp.pts {
-					let c = |i: usize| q.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
-					let w = self.proj.point(map, c(0), c(1), Some(Frame::Era));
+					let w = self.proj.point(map, c(0), c(1), Some(f));
 					if !w.wx.is_finite() {
 						continue;
 					}
 					// (Another continent counts as far.)
 					let d = js_hypot(w.wx - p.wx, w.wy - p.wy) + if w.c == p.c { 0.0 } else { 1e6 };
 					if best.as_ref().is_none_or(|b| d < b.0) {
-						best = Some((d, n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()));
+						best = Some((d, Pt { c: w.c, wx: w.wx, wy: w.wy, map: w.map }, n, map));
 					}
 				}
 			}
 		}
-		best.map(|b| (b.1, b.2))
+		best.map(|b| (b.1, b.2, b.3))
+	}
+
+	/// Where a class's trainer of the faction nearest a point stands (on its continent first).
+	fn nearest_trainer_pt(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<Pt> {
+		self.nearest_trainer_spawn(pt, fac, cl).map(|b| b.0)
+	}
+
+	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
+	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
+		self.nearest_trainer_spawn(pt, fac, cl).map(|(_, n, map)| (n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()))
 	}
 
 	/// How many spawns a work line's target has (a camp of mobs; one is a named mob or a single object).
@@ -1311,18 +1293,30 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	};
 	let data = inp.data;
 	let world = inp.world;
-	// With the route's own legs, the order walks each hub in one sweep (hub.rs).
 	let mut log = Vec::new();
+	// Work too far above the player's level where the route has it goes to a later visit there where it
+	// fits, else its quest is left out (level_fit.rs, #977).
+	let level_fit = {
+		let mut ex = crate::level_fit::Exempt::default();
+		ex.quests.extend(inp.route.groups.iter().filter_map(|g| g.q).chain(inp.route.groups.iter().flat_map(|g| g.quests.iter().copied())));
+		ex.quests.extend(crate::hub::fix_optional(inp.route.faction.as_deref()));
+		ex.quests.extend(crate::hub::fix_kept(inp.route.faction.as_deref()));
+		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex)
+	};
+	log.extend(level_fit.log);
+	let level_left: Vec<u32> = level_fit.left_out;
+	let fitted = Route { order: level_fit.order, ..inp.route.clone() };
+	// With the route's own legs, the order walks each hub in one sweep (hub.rs).
 	let toured;
 	let route = if inp.route_travel {
 		let pinned = anchor_lines(inp);
 		let (order, moved) =
-			crate::hub::tour(inp.route.order.clone(), world, data, &|o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k)), &crate::hub::fix_pairs(inp.route.faction.as_deref()));
+			crate::hub::tour(fitted.order.clone(), world, data, &|o: &Order| rel_of(o.from.as_deref()).is_some_and(|k| pinned.contains(&k)), &crate::hub::fix_pairs(inp.route.faction.as_deref()));
 		log.extend(moved);
-		toured = Route { order, ..inp.route.clone() };
+		toured = Route { order, ..fitted.clone() };
 		&toured
 	} else {
-		inp.route
+		&fitted
 	};
 	let quest = |q: u32| data.quests.get(&q);
 	let dedup = |xs: &[u32]| -> Vec<u32> {
@@ -1408,6 +1402,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			}
 		}
 		dropped_list.retain(|q| !follows.contains(q));
+	}
+	// (The level fit's quests go whatever v1 gates them with.)
+	for &q in &level_left {
+		if !dropped_list.contains(&q) {
+			dropped_list.push(q);
+		}
 	}
 	let dropped: FxHashSet<u32> = dropped_list.iter().copied().collect();
 
@@ -1594,6 +1594,30 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				continue;
 			}
 			o.key = Some(fin.key());
+		}
+	}
+	// v1's `train class` line that the route takes before quest lines its own v1 step writes ahead of
+	// it, the route going on to them in a row: the training goes after them, where v1 has it. Some
+	// classes' trainers stand outside the visit's building (thmastin's Kharanos report, a recorded
+	// Dwarf Hunter run: the 0.3.0 Dwarf route trained before Ragnar, Tannok and Maxan, and Grif
+	// Wildheart's Hunters walked out of the distillery and back in).
+	{
+		let mut i = 0;
+		while i < order0.len() {
+			let o = &order0[i];
+			let train_key = o.key.filter(|_| o.t == OrderT::Train && o.items().is_empty());
+			let Some(tk) = train_key.filter(|&k| step_line(&steps, &step_of, k).is_some_and(|l| re!(r"^\s+train\s+class\b").is_match(&l.text))) else {
+				i += 1;
+				continue;
+			};
+			let st = step_of[&tk];
+			let ahead = |x: &Order| x.key.is_some_and(|k| step_of.get(&k) == Some(&st) && k.1 < tk.1);
+			let n = order0[i + 1..].iter().take_while(|x| ahead(x)).count();
+			if n > 0 {
+				let t = order0.remove(i);
+				order0.insert(i + n, t);
+			}
+			i += n + 1;
 		}
 	}
 	// Two route events v1 does in one step, one right after the other: no travel between them.
@@ -4575,6 +4599,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		back_only: None,
 		fac: train_fac,
 		trained_away: Vec::new(),
+		fly_here: None,
+		train_on_way: Vec::new(),
 		away: Vec::new(),
 		fresh_fps: FxHashSet::default(),
 		away_undo: Vec::new(),
@@ -4756,7 +4782,9 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 							wr.train_away(z.as_deref(), lines);
 						}
 					}
+					wr.train_on_way = if cx.route_travel { away_trainings(&pieces, j) } else { Vec::new() };
 					wr.write_items(&h, false);
+					wr.train_on_way.clear();
 					wr.pending_orphans.clear();
 					wr.fp_on_way.clear();
 					pieces[j].items = Some(rest);
@@ -4976,7 +5004,9 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				let from = wr.route_pt;
 				let saved = wr.class_legs(&p.kind);
 				let gated = if saved.is_empty() { wr.g.item_only.first().map(|l| trim(&re!(r"^\s+only\s+").replace(l, "")).to_string()) } else { None };
+				wr.train_on_way = if cx.route_travel { away_trainings(&pieces, i) } else { Vec::new() };
 				wr.write_items(its, to_way);
+				wr.train_on_way.clear();
 				wr.g.item_only = saved;
 				// (The route's way to a class's own stop leaves the other classes where they were: they
 				// come on to where the route goes on from, the Warrior's flight to Ratchet for The Affray.)
@@ -5130,6 +5160,28 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					let flown = if cx.route_travel { wr.class_way_to_step(*os) } else { None };
 					let n1 = wr.g.body.len();
 					wr.step_lines(*os, None, true, only_for.as_deref());
+					if let Some(name) = wr.fly_here.take() {
+						let to = format!("\"{name}\"");
+						if let Some(k) = (n1..wr.g.body.len()).find(|&k| wr.g.body[k].as_deref().is_some_and(|l| head_ws(l) == Some("fly") && l.contains(&to))) {
+							wr.g.body.remove(k);
+						}
+						// (The tip's sentences sending them on it: "Fly to Orgrimmar to train.")
+						let send = regex::Regex::new(&format!(r"(?i)\bfly (?:back |on )?to {}\b", regex::escape(&name))).unwrap();
+						let mut k = n1;
+						while k < wr.g.body.len() {
+							if let Some(tip) = wr.g.body[k].as_deref().filter(|l| head_ws(l) == Some("tip")).and_then(|l| l.strip_prefix("  tip ")) {
+								if send.is_match(tip) {
+									let kept: String = tip.split_inclusive(". ").filter(|s| !send.is_match(s)).collect();
+									if kept.trim().is_empty() {
+										wr.g.body.remove(k);
+										continue;
+									}
+									wr.g.body[k] = Some(format!("  tip {}", kept.trim_end()));
+								}
+							}
+							k += 1;
+						}
+					}
 					// (Its lines all held for a level not reached yet: no trip for nothing, the Rogues' flight
 					// from Ratchet to Orgrimmar and straight back for Shenthul at 19, c17.)
 					let did = |b: &[Option<String>]| b.iter().flatten().any(|l| is_goal(l) && !matches!(head_ws(l), Some("goto" | "fly" | "hearth" | "note")));
@@ -5237,8 +5289,12 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		if !add_q.is_empty() {
 			note.push(format!("# Added here: {}.", add_q.iter().map(title).collect::<Vec<_>>().join(", ")));
 		}
-		if !drop_here.is_empty() {
-			note.push(format!("# Left out: {}.", drop_here.iter().map(title).collect::<Vec<_>>().join(", ")));
+		let (for_level, plain): (Vec<u32>, Vec<u32>) = drop_here.iter().partition(|q| level_left.contains(q));
+		if !plain.is_empty() {
+			note.push(format!("# Left out: {}.", plain.iter().map(title).collect::<Vec<_>>().join(", ")));
+		}
+		if !for_level.is_empty() {
+			note.push(format!("# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): {}.", for_level.iter().map(title).collect::<Vec<_>>().join(", ")));
 		}
 		// (A blank line after it: the seed's notes above the first step are not read as its own.)
 		note.push(String::new());
@@ -5424,6 +5480,11 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			*t = sweep_goals(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
 			*t = hand_ins_into_loops(&cx, t.split('\n').map(str::to_string).collect()).join("\n");
 		}
+		// (Last: the merges above can bring one goal into a step twice.)
+		*t = post::one_goal_each(t.split('\n').map(str::to_string).collect()).join("\n");
+		// (Again after the passes above: one that takes a class step's goals elsewhere leaves its walk
+		// there and back for nothing, the Warlocks' Ken'zigla hand-in before its accept, #947.)
+		*t = post::no_class_round_trips(t.split('\n').map(str::to_string).collect()).join("\n");
 		*t = re!(r"\n{3,}").replace_all(t, "\n\n").into_owned();
 	}
 	for (f, t) in files.iter_mut().zip(texts) {
@@ -5479,6 +5540,22 @@ struct GuideState {
 	goal_only: String,
 }
 
+/// A route training stop's (piece `j`) classes with no trainer there, each a step of its own right
+/// after it (`<Class> trainer`, `train class only <Class> -- ...`): (piece, class, title, line).
+fn away_trainings(pieces: &[Piece], j: usize) -> Vec<(usize, String, String, String)> {
+	let PieceKind::Ins { t: Some(OrderT::Train), pt: stop, .. } = &pieces[j].kind else { return Vec::new() };
+	let mut out = Vec::new();
+	for (k, p) in pieces.iter().enumerate().skip(j + 1) {
+		let PieceKind::Ins { t: Some(OrderT::Train), pt, title: Some(title), lines, .. } = &p.kind else { break };
+		let cl = title.strip_suffix(" trainer").filter(|c| CLASSES.contains(c));
+		match (cl, lines.as_slice()) {
+			(Some(cl), [line]) if pt == stop && p.items.is_none() && line.starts_with(&format!("  train class only {cl} -- ")) => out.push((k, cl.to_string(), title.clone(), line.clone())),
+			_ => break,
+		}
+	}
+	out
+}
+
 struct Writer<'c, 'a> {
 	cx: &'c Ctx<'a>,
 	/// The route's last point, across guides.
@@ -5529,6 +5606,12 @@ struct Writer<'c, 'a> {
 	/// Classes trained already on a detour of their own in a city with their trainer: left out of the
 	/// route's training stop being written.
 	trained_away: Vec<String>,
+	/// The class step being written flies to the flight path nearest where they stand (its name: the
+	/// flight goes): class_way_to_step.
+	fly_here: Option<String>,
+	/// The classes the route's training stop being travelled to cannot train, each with its own step
+	/// written after the stop (piece, class, title, training line): train_on_the_way.
+	train_on_way: Vec<(usize, String, String, String)>,
 	/// Classes on a detour of their own (their `only` list, where they flew).
 	away: Vec<(String, Option<String>)>,
 	/// The flight paths the items being written learn.
@@ -6097,10 +6180,62 @@ impl Writer<'_, '_> {
 		true
 	}
 
+	/// Before the route's hearth (the item `x`, on to `x.to`) to the inn at `inn`: v1's steps waiting in
+	/// the zone the player stands in, the inn in another, are written first, not walked or flown back
+	/// to after the hearth. When one of them learns a flight path there whose flight to the leg's end
+	/// beats the hearth and its way on by the route's estimates, that flight is the way on (the route
+	/// hearthed for want of a flight master there): Nighthaven's flight path after Umber in Moonglade,
+	/// then its flight to Rut'theran Village, not the hearth to Cenarion Hold, its flight to
+	/// Rut'theran and back into Moonglade for the flight path (found by Fitz). True when the flight is
+	/// written in place of the hearth.
+	fn before_hearth(&mut self, x: &Item, inn: Option<u32>) -> bool {
+		// (The hearth's cast.)
+		const HEARTH_S: f64 = 10.0;
+		let cx = self.cx;
+		if !cx.route_travel || self.pending_orphans.is_empty() {
+			return false;
+		}
+		let zone_of = |p: Option<u32>| cx.w(p).and_then(|w| cx.zone_name(Some(w.map)));
+		let here = zone_of(self.pos);
+		if here.is_none() || here == zone_of(inn) {
+			return false;
+		}
+		let before = self.known.clone();
+		let mut at = self.pos;
+		let ahead: Vec<String> = zone_of(x.to).into_iter().collect();
+		self.flush_orphans_at(&mut at, None, &ahead);
+		self.pos = at;
+		if self.known.len() == before.len() {
+			return false;
+		}
+		let yd = |a: Option<u32>, b: Option<u32>| cx.way_yd(a, b);
+		let Some((s, f0, f1)) = cx.best_flight_by(self.pos, x.to, &self.known, &yd).filter(|f| !before.contains(&f.1)) else { return false };
+		let hearth = HEARTH_S + cx.best_flight_by(inn, x.to, &before, &yd).map_or_else(|| yd(inn, x.to) / WALK_YPS, |f| f.0);
+		if s >= hearth {
+			return false;
+		}
+		self.rejoin(cx.world.nodes[f0].pt, false);
+		let name = cx.world.nodes[f1].name.clone();
+		self.fly_step(f0, &name);
+		let landed = cx.world.nodes[f1].pt;
+		if let (Some(l), Some(t)) = (cx.w(landed), cx.w(x.to)) {
+			if l.c == t.c && (l.map != t.map || js_hypot(l.wx - t.wx, l.wy - t.wy) > ZONE_STEP_YD) {
+				self.walk_goto(landed, x.to, &cx.zone_name(Some(t.map)).unwrap_or_else(|| "Onward".into()), true);
+			}
+		}
+		self.pos = x.to;
+		true
+	}
+
 	/// The route's items before the step they happen on the way to (see apply-route.js writeItems).
 	fn write_items(&mut self, its: &[Item], to_way: bool) {
 		let cx = self.cx;
+		// (The hearth's way on, its next item, after a hearth replaced by a flight: not written.)
+		let mut flown_instead = false;
 		for x in its {
+			if std::mem::take(&mut flown_instead) && x.t == ItemT::Network {
+				continue;
+			}
 			if x.t == ItemT::Bind {
 				self.home = x.inn;
 			}
@@ -6118,9 +6253,13 @@ impl Writer<'_, '_> {
 			}
 			match x.t {
 				ItemT::Hearth if cx.inn_name(x.inn).is_some() => {
+					let name = cx.inn_name(x.inn).unwrap().to_string();
+					if self.before_hearth(x, x.inn_pt.or_else(|| cx.inn_pt(&name))) {
+						flown_instead = true;
+						continue;
+					}
 					// (Everyone hearths, wherever they are.)
 					self.away.clear();
-					let name = cx.inn_name(x.inn).unwrap().to_string();
 					self.push("");
 					self.push(format!("step Hearth to {name}"));
 					let extra = self.g.item_only.clone();
@@ -6298,19 +6437,20 @@ impl Writer<'_, '_> {
 					// reaches later is written there, not taken along by a step for a place it reaches first
 					// (the Orgrimmar trainer stays for Orgrimmar, not written at the Tirisfal dock before the
 					// zeppelin to it because the Undead's riding step after it is in Tirisfal).
-					let stop_zones: Vec<Option<String>> = {
+					let (stop_pts, stop_zones): (Vec<Option<u32>>, Vec<Option<String>>) = {
 						let mut p = at;
-						let mut zs = Vec::with_capacity(legs.len() + 1);
+						let mut ps = Vec::with_capacity(legs.len() + 1);
 						for l in &legs {
-							zs.push(cx.w(p).and_then(|w| cx.zone_name(Some(w.map))));
+							ps.push(p);
 							p = match l.k.as_deref() {
 								Some("fly") => l.to.and_then(|b| cx.world.nodes.get(b as usize)).and_then(|n| n.pt),
 								Some("ride") => l.ride.and_then(|r| cx.world.rides.get(r)).and_then(|r| r.b).and_then(|i| cx.world.nodes.get(i)).and_then(|n| n.pt),
 								_ => l.node.and_then(|n| cx.world.nodes.get(n)).and_then(|n| n.pt).or(l.to).or(x.to),
 							};
 						}
-						zs.push(cx.w(x.to).and_then(|w| cx.zone_name(Some(w.map))));
-						zs
+						ps.push(x.to);
+						let zs = ps.iter().map(|&p| cx.w(p).and_then(|w| cx.zone_name(Some(w.map)))).collect();
+						(ps, zs)
 					};
 					for (k, l) in legs.iter().enumerate() {
 						self.pos = at;
@@ -6334,6 +6474,11 @@ impl Writer<'_, '_> {
 							// v1's own line flies it.
 							at = l.to.and_then(|b| cx.world.nodes.get(b as usize)).and_then(|n| n.pt);
 							continue;
+						}
+						// (Before the leg out of a town the way passes: the classes the stop cannot train whose
+						// trainer stands there train there.)
+						if !self.train_on_way.is_empty() && stop_zones[k].is_some() && stop_zones[k + 1] != stop_zones[k] {
+							self.train_on_the_way(&stop_pts[..=k], &stop_zones[..=k]);
 						}
 						// The classes off on a detour of their own (a class step just written on the way) rejoin
 						// before everyone's next leg, not after it (A9: the Druids' Thunder Bluff flight before
@@ -6790,6 +6935,25 @@ impl Writer<'_, '_> {
 			ins.push(Some(String::new()));
 			self.g.body.splice(at..at, ins);
 		}
+		// v1's own flight path for everyone among the lines written here is the route's arrival: v1's
+		// line, where v1 has it, not the route's first in the step (Sentinel Hill's after the tower's
+		// quests, the hill walked down once, #727).
+		if !self.g.arrival.is_empty() {
+			let fp = |t: &str| re!(r#"^\s+getfp\s+"([^"]+)""#).captures(split_comment(t).0).filter(|_| line_only(t).is_none()).map(|m| m[1].to_string());
+			let mine: Vec<String> = if whole {
+				s.lines.iter().filter(|l| l.kind == Kind::Goal && !cx.dropped_line(&l.text, Some(l.key())) && !cx.carried.contains(&l.key())).filter_map(|l| fp(&l.text)).collect()
+			} else {
+				keys.unwrap_or_default()
+					.iter()
+					.flat_map(|k| cx.before.get(k).into_iter().flatten().chain(s.line(k.1)).chain(cx.after.get(k).into_iter().flatten()))
+					.filter(|l| !self.skip.contains(&l.key()))
+					.filter_map(|l| fp(&l.text))
+					.collect()
+			};
+			if !mine.is_empty() {
+				self.g.arrival.retain(|a| fp(a).is_none_or(|p| !mine.contains(&p)));
+			}
+		}
 		// The route's arrival (its bind, its flight path) comes after the step's own travel there: a step
 		// that starts with v1's flight or walk to the place binds once arrived (the Darkshire bind after
 		// the flight to Darkshire).
@@ -7033,9 +7197,20 @@ impl Writer<'_, '_> {
 		let mut out = None;
 		if is_head_ws(&first.text, "fly") {
 			if let Some(f) = cx.fp_near_known(from, &self.known) {
+				let name = cx.world.nodes[f].name.clone();
+				// (A flight to that very flight path flies nowhere: the flight and the tip sending them on
+				// it go, and in the town (within IN_TOWN_YD) the walk to its flight master too, the class
+				// step being where they stand; from farther the walk there is the way; the Druids' v1 "fly
+				// to Thunder Bluff and train" written in Thunder Bluff after the route's own training
+				// there, the Orgrimmar training flights written in Orgrimmar.)
+				const IN_TOWN_YD: f64 = 500.0;
+				let here_fp = re!(r#"^\s+fly\s+"([^"]+)""#).captures(&first.text).is_some_and(|m| m[1] == name);
+				if here_fp {
+					self.fly_here = Some(name.clone());
+				}
 				if let Some(fp) = cx.w(cx.world.nodes[f].pt) {
-					if fp.c == here.c && js_hypot(fp.wx - here.wx, fp.wy - here.wy) > AT_FM_YD {
-						let name = cx.world.nodes[f].name.clone();
+					let d = js_hypot(fp.wx - here.wx, fp.wy - here.wy);
+					if fp.c == here.c && d > AT_FM_YD && !(here_fp && d <= IN_TOWN_YD) {
 						self.goto_step(cx.world.nodes[f].pt, &format!("{name} flight master"), true);
 					}
 				}
@@ -7262,6 +7437,38 @@ impl Writer<'_, '_> {
 			self.g.zone = None;
 			self.trained_away.extend(cls);
 		}
+	}
+
+	/// The way to the route's training stop leaving a town (`zones`' last) it stood in (`pts`, the
+	/// places it stood on the way so far, `zones` theirs): each class the stop cannot train (its own
+	/// step after the stop, train_on_way) whose trainer stands within CITY_TRAINER_YD of where the way
+	/// stood in that town trains there now, that step written here instead (the Night Elf Druids in
+	/// Stormwind off the Darkshore boat, not sent back to it from Goldshire, #912).
+	fn train_on_the_way(&mut self, pts: &[Option<u32>], zones: &[Option<String>]) {
+		let cx = self.cx;
+		let Some(z) = zones.last().cloned().flatten() else { return };
+		let town: Vec<Option<u32>> = pts.iter().zip(zones).rev().take_while(|(_, zz)| zz.as_deref() == Some(z.as_str())).map(|(&p, _)| p).collect();
+		let fac = self.fac;
+		let mut later = Vec::new();
+		for (i, cl, title, line) in std::mem::take(&mut self.train_on_way) {
+			let Some(&at) = town.iter().find(|&&p| cx.trainer_classes_near(p, fac, CITY_TRAINER_YD).contains(cl.as_str())) else {
+				later.push((i, cl, title, line));
+				continue;
+			};
+			// (The line names the trainer nearest the stop: one in another town, Alodan in Thunder Bluff
+			// for the Paladins' Orgrimmar stop, is this town's nearest instead.)
+			let line = match (re!(r" -- (.+?) in ([^;]+)(;.*)?$").captures(&line), cx.nearest_trainer(at, fac, &cl)) {
+				(Some(m), Some((name, zone))) if m[2] != *z => format!("  train class only {cl} -- {name} in {zone}{}", m.get(3).map_or("", |x| x.as_str())),
+				_ => line,
+			};
+			self.push("");
+			self.push(format!("step {title}"));
+			self.push(format!("  zone {z}"));
+			self.push(line);
+			self.g.zone = None;
+			self.written.insert(i);
+		}
+		self.train_on_way = later;
 	}
 
 	fn come_back(&mut self, to: Option<u32>) {
@@ -7734,7 +7941,7 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 	let o = &order[oi];
 	let lvl = o.target.filter(|_| o.key.is_none())?;
 	let n = level_str(lvl);
-	let (target, pt, _) = grind_camp(cx, order, oi, oi + 1, o.pt, false);
+	let (target, pt, _, spot) = grind_camp(cx, order, oi, oi + 1, o.pt, false);
 	let mut lines = vec![format!("  when level<{n}")];
 	// The hand-ins it tops up for: the turn-ins that follow it, where they are.
 	let hub = order[oi + 1..]
@@ -7758,19 +7965,22 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		(None, Some(h)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
 		(None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
 	});
-	lines.extend(grind_lines(cx, &target, pt, &n));
-	Some(Ins { title: format!("Level {n}"), lines, map: cx.map_of_pt(pt) })
+	lines.extend(grind_lines(cx, &target, pt, spot.as_ref(), &n));
+	Some(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) })
 }
 
 /// Where a grind between the route's events `order[..before]` and `order[after..]` is made: its camp
-/// (the camp's mob) and point, and whether the camp is local. The camp: an objective worked shortly
+/// (the camp's mob) and point, whether the camp is local, and the camp mob's spawn nearest the point
+/// when none is near it (the arrow goes there). The camp: an objective worked shortly
 /// before it whose mobs are many (not one named or rare mob's spot: the Bloodtalon Matriarch on the
 /// Echo Isles, Rev14OrcTroll B3), hostile and about the player's level, near where the player is, else
 /// the route's nearest one in the player's zone (local); else the route's next such camp, never in a
 /// city; else where the player is. `own`: the route's own point for the grind. `solo`: for a player
 /// alone, no camp of elites or of a group family's work.
-fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<String>, Option<u32>, bool) {
+fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<String>, Option<u32>, bool, Option<Near>) {
 	const CAMP_NEAR_YD: f64 = 800.0;
+	/// Yards from the grind's point within which its camp mob spawns, else the arrow goes to the mob.
+	const CAMP_AT_YD: f64 = 400.0;
 	const CAMP_BACK: usize = 12;
 	const MANY_SPAWNS: usize = 3;
 	/// Events looked through for the route's next (or last) camp on the continent.
@@ -7798,7 +8008,7 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 	// top-up, nor one far under the player, Teldrassil's at 52, c17 RevA 3.)
 	let hostile = |e: &Entity| !e.faction.as_deref().is_some_and(|f| f.contains(cx.fac));
 	let on_level = |e: &Entity| lvl.zip(e.level).is_none_or(|(l, m)| m + CAMP_LVL_GAP >= l);
-	let camp = |w: &Order| -> Option<String> {
+	let camp = |w: &Order| -> Option<&Entity> {
 		if solo && w.group.is_some() {
 			return None;
 		}
@@ -7808,7 +8018,7 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 		// (A mob with few spawns, Goldtooth or Morgan the Collector among an item's droppers, last.)
 		let few = |e: &&Entity| e.spawns.values().map(|s| s.pts.len()).sum::<usize>() < MANY_SPAWNS;
 		let d = |e: &&Entity| cx.spawn_near(&[*e], w.pt).map_or(f64::INFINITY, |n| n.d);
-		ents.into_iter().filter(|e| !named(e, one) && !elite(e) && hostile(e) && on_level(e)).min_by(|a, b| few(a).cmp(&few(b)).then(d(a).total_cmp(&d(b)))).map(|e| e.name.clone().unwrap_or_default())
+		ents.into_iter().filter(|e| !named(e, one) && !elite(e) && hostile(e) && on_level(e)).min_by(|a, b| few(a).cmp(&few(b)).then(d(a).total_cmp(&d(b))))
 	};
 	let in_city = |p: Option<u32>| cx.w(p).is_some_and(|w| CITY_MAPS.contains(&w.map));
 	let near_here = |p: Option<u32>| matches!((cx.w(p), here), (Some(a), Some(b)) if a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= CAMP_NEAR_YD) && !in_city(p);
@@ -7836,16 +8046,23 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 			},
 		);
 	let work = local.or_else(|| order[after..].iter().take(CAMP_FAR).filter(task_camp).find(|w| cx.w(w.pt).is_some() && !in_city(w.pt)));
-	let target = work.and_then(camp).filter(|s| !s.is_empty());
+	let mob = work.and_then(camp).filter(|e| e.name.as_deref().is_some_and(|s| !s.is_empty()));
+	let target = mob.and_then(|e| e.name.clone());
 	// (The route's own point for it, when near the player; else the camp's, else where the player is.)
 	let pt = own.filter(|&p| near_here(Some(p))).or_else(|| work.and_then(|w| w.pt)).or_else(|| order[..before].iter().rev().find_map(|x| x.pt.filter(|_| cx.w(x.pt).is_some())));
-	(target, pt, local.is_some())
+	// (The mob named is the one about the player's level, which need not spawn at that point: Darkshore's
+	// level 20 named the Elder Darkshore Threshers, who drop the Thresher Eyes too, at the lower
+	// Darkshore Threshers' camp by Auberdine; the Elders are on the coasts, #924. Its spawn nearest the
+	// point, on the point's continent.)
+	let spot = mob.filter(|_| cx.w(pt).is_some()).and_then(|e| cx.spawn_near(&[e], pt)).filter(|s| s.d > CAMP_AT_YD && s.d < 1e9);
+	(target, pt, local.is_some(), spot)
 }
 
-/// A grind's way to its camp and its `level N` goal (`n`: level_str of its target).
-fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, n: &str) -> Vec<String> {
+/// A grind's way to its camp and its `level N` goal (`n`: level_str of its target): to `spot`, the camp
+/// mob's spawn, when grind_camp gave one, else to the grind's point.
+fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, spot: Option<&Near>, n: &str) -> Vec<String> {
 	let mut lines = Vec::with_capacity(2);
-	let at = cx.coords_of(pt);
+	let at = spot.map_or_else(|| cx.coords_of(pt), |s| s.at.clone());
 	if !at.is_empty() {
 		let label = target.as_deref().unwrap_or("Grind spot");
 		lines.push(format!("  goto {} \"{label}\"", at.trim_start().trim_start_matches('@')));
@@ -7864,13 +8081,13 @@ fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, n: &str) -> V
 /// and has no "Top up here" tip).
 fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str, target: f64) -> (Ins, Option<u32>) {
 	let n = level_str(target);
-	let (camp, pt, _) = grind_camp(cx, order, p + 1, p + 1, None, true);
+	let (camp, pt, _, spot) = grind_camp(cx, order, p + 1, p + 1, None, true);
 	// (A title's quotes, Wanted: "Hogger", are no quote of the tip's: the pack reads a quoted part and
 	// refuses the comma after it, C14Plan.)
 	let plain = re!(r"\s+").replace_all(&title.replace('"', ""), " ").into_owned();
 	let mut lines = vec![format!("  when !group {root}"), format!("  when level<{n}"), format!("  tip If you skipped {plain}, grind here to level {n} to stay on the route's plan.")];
-	lines.extend(grind_lines(cx, &camp, pt, &n));
-	(Ins { title: format!("Level {n}"), lines, map: cx.map_of_pt(pt) }, pt)
+	lines.extend(grind_lines(cx, &camp, pt, spot.as_ref(), &n));
+	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
 }
 
 /// Minutes under which a route top-up is never a step of its own: folded into a farm step, else

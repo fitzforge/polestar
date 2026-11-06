@@ -150,7 +150,7 @@ step Zoram'gar Outpost
 
 step Zoram'gar Outpost
   zone Ashenvale
-  tip Fly from Ratchet to Zoram'gar Outpost on the Ashenvale coast.
+  tip Learn the flight path here while you pick up the outpost's quests.
   accept 6462                         -- Mitsuwa
   getfp "Zoram'gar Outpost"
   collect 16763 quest 6543.2 @12.22,34.22 -- Warsong Runner
@@ -232,9 +232,6 @@ step Stonetalon Mountains: kill these as you meet them
   kill 4057 quest 1087.1
   kill 4051 quest 1087.3
 
-step Hearth to Sun Rock Retreat
-  hearth "Sun Rock Retreat"
-
 step Sun Rock Retreat
   turnin 6301                         -- Tammra Windfield
   accept 6381
@@ -280,18 +277,11 @@ step Druid trainer
   only Druid
   train class only Druid -- Sheal Runetotem in Mulgore; Orgrimmar has no druid trainer
 
-step Orgrimmar flight master
-  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-  zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar flight master"
-
 # ---------------------------------------------------------------- Orgrimmar at 23
 
 step Orgrimmar
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  tip Fly to Orgrimmar to train.
-  fly "Orgrimmar"
   train class
 
 step The Binding
@@ -324,7 +314,7 @@ step Silverpine Forest
 
 step Beren's Peril
   zone Silverpine Forest
-  tip If you already know the Tarren Mill flight path, fly there and skip to Tarren Mill. Otherwise fly from the Undercity to the Sepulcher and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
+  tip From the zeppelin towers, run south through Tirisfal into Silverpine and down the road past the Sepulcher and Pyrewood. The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
   accept 95883                        -- Below ground
 
 step The Offering of Blood

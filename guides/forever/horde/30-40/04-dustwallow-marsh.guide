@@ -113,10 +113,6 @@ step Swamp Eye Jarl
 
 # ---------------------------------------------------------------- Back west
 
-step Theramore Infiltrator on the way
-  along until q1201
-  kill 4834 quest 1201 -- Theramore Infiltrator along the way to Brackenwall Village
-
 step Brackenwall Village: kill these as you meet them
   zone Dustwallow Marsh
   tip Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.
@@ -126,9 +122,9 @@ step Brackenwall Village: kill these as you meet them
   tip Careful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them.
   collect 5959 quest 1322
   collect 5884 quest 1206
+  kill 4834 quest 1201
 
 step Brackenwall Village
-  label q1201
   turnin 1238
   turnin 1201                         -- Nazeer Bloodpike
   accept 1202
@@ -246,7 +242,7 @@ step Portals of the Legion
 
 step The Valley of Bones
   tip Head south-east from the coven to the bone fields of the Valley of Bones, where Undead Ravagers roam. At the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres: they drop the ghost-o-plasm.
-  use 15848 @63.5,91.6 map 1443
+  use 15848 quest 6134.1 @63.5,91.6 map 1443
   collect 15849 quest 6134            -- Ghost-o-plasm
 
 step Ghost Walker Post

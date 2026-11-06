@@ -10,6 +10,7 @@ next forever/horde/30-40/01-desolace
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Broodmother (96261), Hypercapacitor Gizmo (5151).
+# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), A Bump in the Road (1175), Load Lightening (1176).
 
 step Fly to Zoram'gar Outpost
   zone The Barrens
@@ -79,11 +80,6 @@ step Ursangous
   collect 16303
   accept 23 item 16303
 
-step Befouled Water Elemental on the way
-  along until q25
-  when onquest 25
-  kill 3917 quest 25.1
-
 step Alonso
   tip Alonso, a Forever addition, stands on the west shore of Mystral Lake with three quick Dragonslayer quests.
   goto 42.4,70 "Alonso"
@@ -113,7 +109,7 @@ step Tideress
 
 step King of the Foulweald
   tip The Foulweald furbolgs hold the woods east of Mystral Lake, south of the road. Place Karang's Banner on the Foulweald Totem Mound and guard it: the furbolgs come to tear it down. Chief Murgut comes last; his totem drops in the basket.
-  use 16972 @56.4,63.5 map 1440
+  use 16972 quest 6621.1 @56.4,63.5 map 1440
   collect 16976 quest 6621
 
 step Torek's Assault
@@ -158,15 +154,11 @@ step Shadumbra
   accept 24 item 16304
 
 step Mystral Lake
-  label q25
   when onquest 25
   tip Back south-west to Mystral Lake. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
   kill 3917 quest 25.1                -- Underwater
   goto 48.9,69.6 "Gazebo"
   complete 25
-
-step Hearth to Splintertree Post
-  hearth "Splintertree Post"
 
 step Splintertree Post
   turnin 25                           -- Mastok Wrilehiss
@@ -232,17 +224,6 @@ step Class trainer
   zone Thunder Bluff
   train class only Paladin,Priest,Shaman,Mage,Druid
 
-step Thunder Bluff flight master
-  only Druid
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-
-step Thunder Bluff
-  only Druid
-  zone Thunder Bluff
-  tip From Orgrimmar (zeppelin from the towers outside the Undercity) fly to Thunder Bluff and train on Elder Rise, then fly on to Camp Taurajo.
-  fly "Thunder Bluff"
-  train class
 
 # ---------------------------------------------------------------- Gloomrise, Mulgore
 
@@ -351,7 +332,7 @@ step Freewind Post flight master
 step Brine
   only Shaman
   zone The Barrens
-  tip Fly from Thunder Bluff to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.
+  tip Fly to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.
   fly "Camp Taurajo"
   turnin 1534                         -- Brine
   accept 220                          -- for Islen Waterseer, south of Ratchet: next guide
@@ -432,32 +413,17 @@ step Mirage Raceway
   accept 1110                         -- Kravel Koalbeard
   accept 5762                         -- His crate is for Stranglethorn, later on the route
   accept 1104                         -- Fizzle Brassbolts
-  accept 1105                         -- Wizzle Brassbolts
-  accept 1175                         -- Trackmaster Zherin
-  accept 1176                         -- Pozzik
-
-step Saltstone Crystalhide on the way
-  along until q1175
-  kill 4151 quest 1175.2 -- Saltstone Crystalhide along the way to Mirage Raceway
 
 step Mirage Raceway: kill these as you meet them
   zone Thousand Needles
-  tip Rocket Car Rubble lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south.
-  collect 5795 quest 1105
+  tip Rocket Car Rubble lies all over the flats north of the raceway. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) west of the track, in the middle and the far south.
   collect 5794 quest 1104
-  kill 4147 quest 1175.1
   collect 5798 quest 1110
-  collect 5848 quest 1176
-  kill 4150 quest 1175.3
 
 step Mirage Raceway
-  label q1175
   turnin 1110                         -- Kravel Koalbeard
   turnin 1104                         -- Fizzle Brassbolts
   accept 1106                         -- Fizzle Brassbolts: his letter goes to Martek in the Badlands, around level 38
-  turnin 1105                         -- Wizzle Brassbolts
-  turnin 1176                         -- Pozzik
-  turnin 1175                         -- Trackmaster Zherin
 
 step Freewind Post
   note The next guide flies on from here to Orgrimmar.

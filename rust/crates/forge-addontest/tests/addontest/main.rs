@@ -145,6 +145,8 @@ mod guides_end;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;
+#[path = "hide-with-guide.rs"]
+mod hide_with_guide;
 mod import;
 #[path = "import-safety.rs"]
 mod import_safety;
@@ -214,6 +216,10 @@ mod packs_registry;
 #[path = "packs-visibility.rs"]
 mod packs_visibility;
 mod party;
+#[path = "party-chat.rs"]
+mod party_chat;
+#[path = "party-group.rs"]
+mod party_group;
 mod qol;
 #[path = "qol-bagglow.rs"]
 mod qol_bagglow;
@@ -251,6 +257,8 @@ mod travel_transit;
 mod ui;
 #[path = "ui-along.rs"]
 mod ui_along;
+#[path = "ui-card.rs"]
+mod ui_card;
 #[path = "ui-dungeons.rs"]
 mod ui_dungeons;
 #[path = "ui-guide-end.rs"]

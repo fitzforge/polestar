@@ -15,8 +15,8 @@ return {
 	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
 
 	-- Step 2: Lessons Anew
-	-- {npc:270459} Alfina Nightgaze · {area:279} Dalaran · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:270459}, the Skyborne druid trainer, stands beside the Skyborne Portal west of {area:279} ({npc:4217} in {zone:1457} gives the same quest). No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
+	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {npc:270459} Alfina Nightgaze · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {skill:182} Herbalism · {item:2449} Earthroot
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
 
 	-- Step 3: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15844} Empty Cliffspring Falls Sampler · {area:442} Auberdine · {zone:1450} Moonglade
@@ -46,8 +46,8 @@ return {
 	-- Step 8: Sickly Deer
 	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
 	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
-	-- {npc:12298} Sickly Deer
-	["{npc:12298}: use the salve on them"] = "{npc:12298}: 연고를 사용하십시오",
+	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
+	["Use the {item:15826} on {npc:12298}"] = "",
 
 	-- Step 9: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
@@ -97,8 +97,9 @@ return {
 	-- {item:15826} Curative Animal Salve · {area:380} Crossroads · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
-	-- {npc:12296} Sickly Gazelle
-	["{npc:12296}: use the salve on them"] = "{npc:12296}: 연고를 사용하십시오",
+	-- {item:15826} Curative Animal Salve
+	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
+	["Use the {item:15826} on Sickly Gazelles"] = "",
 
 	-- Step 18: Curing the Sick
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
@@ -120,6 +121,8 @@ return {
 	-- ["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else buys it from {npc:1313} (Alchemy Supplies) in {zone:1453} or on the Auction House."] = "{object:177750}은(는) {area:442} 바로 동쪽 언덕의 달빛야수 동굴에 자랍니다. 그곳 달빛야수는 공격적입니다. {item:2449}에는 {skill:182}이(가) 필요합니다. 약초채집가는 {zone:1439} 곳곳에서 채집하고, 그 외에는 {zone:1453}의 {npc:1313}(연금술 용품)이나 경매장에서 사세요.",
 	-- ["Use the {item:15826} on Sickly Gazelles: they graze north of the road that runs east and west through the {area:380}."] = "병든 가젤에게 {item:15826}을(를) 사용하십시오: {area:380}을(를) 동서로 가로지르는 길 북쪽에서 풀을 뜯고 있습니다.",
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "{npc:12298}에게 {item:15826}을(를) 사용하십시오. 북쪽 {area:456}에서 남쪽 {zone:1440} 경계까지 {zone:1439}을(를) 돌아다닙니다.",
+	-- ["{npc:12296}: use the salve on them"] = "{npc:12296}: 연고를 사용하십시오",
+	-- ["{npc:12298}: use the salve on them"] = "{npc:12298}: 연고를 사용하십시오",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033}은(는) {area:1639}에 있습니다.",
 	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448}은(는) {area:380}에 있습니다. {skill:182}이(가) 없다면 몇 걸음 떨어진 {npc:3490}이(가) {item:2449}을(를) 팝니다. 재입고될 때까지 한 번에 세 개씩입니다.",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217}은(는) {area:1658}에 있습니다.",

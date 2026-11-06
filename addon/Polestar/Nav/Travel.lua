@@ -71,9 +71,14 @@ local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
+-- The Hearthstone's hour-long cooldown makes it worth spending only on a long
+-- haul (Fitz, 0.3.3: "a 2-minute walk is fine"): a route hearths only when
+-- the way without it takes at least HEARTH_MIN_TRIP and hearthing saves at
+-- least HEARTH_MARGIN after its cast and loading screen (HEARTH_SECONDS).
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
-local HEARTH_MARGIN = 120    -- an hour's cooldown is spent only to save at least this much
-Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN = HEARTH_SECONDS, HEARTH_MARGIN -- the Engine's hearth goal weighs it the same way
+local HEARTH_MARGIN = 300    -- seconds it must save: 5 minutes
+local HEARTH_MIN_TRIP = 480  -- seconds the way without it must take: 8 minutes
+Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -822,7 +827,7 @@ local function planRoute(p)
 	-- A straight walk from u to v of `s` seconds (yards x1.25 at run speed):
 	-- its cost takes the share of its length in zones far above the player,
 	-- x3 dangerous, x20 far above (p.walkDanger, Nav/Danger.lua Danger.Along:
-	-- the zone every 100 yd, its two ends' zones never counting); its time
+	-- the zone every 100 yd; the player's and the target's zones never count); its time
 	-- stays. The zone danger idea and its 4-level threshold come from Ding! by
 	-- Yendi (ding-travel 2bccf01). The factor is at least 1, so a walk that
 	-- cannot beat v's cost unscaled is not looked at (unless a hook may lower it).
@@ -1310,6 +1315,8 @@ local planAt, planC, planX, planY = 0, nil, 0, 0 -- when and where the route was
 local lastMoveCheck = 0
 local skipFor      -- the target the skipped legs below were for
 local skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} } -- left out of its plans
+local noWalkFor    -- the target the portals below were found for
+local noWalk = {}  -- [portal] = true: the walking engine found no walk from the player to its entrance (Travel.WalkUnreachable)
 local progressYards -- yards left on the current walk leg at the last Aim (nil: not measured)
 local legSince = 0 -- GetTime() when the current leg became current
 local remeasureOwed = false -- the engine's measures came in on a flight or boat: weighed after it
@@ -1514,6 +1521,18 @@ local function plan(target)
 	local places = W and W.Measure and {} or nil
 	local pz, pfloors = W and W.Floor and W.Floor(pc, px, py) or nil, W and W.Floors and W.Floors(pc, px, py) or nil
 	floorless = pz == nil and pfloors == nil
+	local walkCost = W and W.Measured and W.Measured(tc, twx, twy, ghost) or nil
+	-- A portal whose entrance the engine found no walk to from the player
+	-- (Travel.WalkUnreachable) is left out while the engine has a walk from the
+	-- player to the target: the player stands on ground the target is joined to
+	-- and the entrance does not (Rut'theran Village under Teldrassil, #568).
+	-- Off that ground (the measure taken again finds no walk) it counts again.
+	local skip = skipped
+	if noWalkFor == target and next(noWalk) and walkCost and type(walkCost(pc, px, py, true)) == "number" then
+		skip = { hearth = skipped.hearth, spells = skipped.spells, transports = {}, taxi = skipped.taxi, cross = skipped.cross }
+		for t in pairs(skipped.transports) do skip.transports[t] = true end
+		for t in pairs(noWalk) do skip.transports[t] = true end
+	end
 	local route = Nav.PlanRoute({
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors,
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
@@ -1526,11 +1545,11 @@ local function plan(target)
 		hearth = inn,
 		hearthName = bindName,
 		noHearth = skipped.hearth,
-		skip = skipped,
+		skip = skip,
 		teleports = not ghost and teleportList() or nil,
 		departure = departureFn(),
 		walkOnly = ghost,
-		walkCost = W and W.Measured and W.Measured(tc, twx, twy, ghost) or nil,
+		walkCost = walkCost,
 		walkHooks = walkHooks,
 		walkDanger = walkDanger(pc, px, py, tc, twx, twy),
 		places = places,
@@ -1623,7 +1642,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local inn, bindName
 	if from == nil and not ghost and not noHearth and hearthReady() then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
-		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from.map,
+		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
 		faction = playerFaction,
 		known = knownNodes(),
@@ -1805,8 +1824,27 @@ local function chainLifts(route)
 	return route
 end
 
+-- The search weighs the Hearthstone by HEARTH_MARGIN; a route it chose is
+-- held against the way without it, in seconds: kept only while that takes at
+-- least HEARTH_MIN_TRIP and the hearth saves at least HEARTH_MARGIN, its
+-- label then saying how much ("Hearth to Sentinel Hill: saves 6 min").
 function Nav.PlanRoute(p)
-	return chainLifts(planRoute(p))
+	local legs = planRoute(p)
+	local first = legs and legs[1]
+	if first and first.kind == "hearth" then
+		local q = {}
+		for k, v in pairs(p) do q[k] = v end
+		q.noHearth = true
+		local other = planRoute(q)
+		local trip = other and (other[1] and other[1].seconds + other[1].rest or 0)
+		local saved = trip and trip - (first.seconds + first.rest)
+		if trip and (trip < HEARTH_MIN_TRIP or saved < HEARTH_MARGIN) then
+			legs = other
+		elseif saved then
+			first.label = format(L["%s: saves %d min"], first.label, floor(saved / 60))
+		end
+	end
+	return chainLifts(legs)
 end
 
 local CHOKE_TO = {
@@ -1990,6 +2028,33 @@ function Travel.RestoreWalk(c, x, y)
 	leg.straightYards, leg.straightSeconds = nil, nil
 	relink()
 	return true
+end
+
+-- The walking engine found no walk at all from the player to (c, x, y) (its
+-- "unreachable": the two lie on parts of the maps no walk joins). When that
+-- is the current walk's end and a portal is taken there, the portal is noted
+-- for this target and the way planned again, as a measure landing would
+-- (Travel.Remeasured); plan() leaves it out while the player can walk to the
+-- target. Rides keep their walks: a ship's deck need not join its pier on the
+-- maps. -> true when the route changed.
+function Travel.WalkUnreachable(c, x, y)
+	local leg = legs and legs[ci]
+	if not (leg and leg.kind == "walk") then return false end
+	local parent = leg.parent
+	local to = (parent and parent.leg or leg).to
+	if to.c ~= c or (to.wx - x) * (to.wx - x) + (to.wy - y) * (to.wy - y) > 1 then return false end
+	local m = ci
+	if parent then
+		while legs[m + 1] and legs[m + 1].parent == parent do m = m + 1 end
+	end
+	local nextLeg = legs[m + 1]
+	local portal = nextLeg and nextLeg.kind == "portal" and nextLeg.transport
+	if not portal then return false end
+	local target = Nav.GetTarget()
+	if noWalkFor ~= target then noWalkFor, noWalk = target, {} end
+	if noWalk[portal] then return false end
+	noWalk[portal] = true
+	return Travel.Remeasured()
 end
 
 -- Whether skipping `leg` plans the rest of the way without it (a hearth,

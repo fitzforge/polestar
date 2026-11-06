@@ -6,6 +6,8 @@ use forge_addontest::{emitted, is_match, text, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
 
 const FILES: &[&str] = &["Core/Core.xml", "Theme/Theme.xml", "UI/UI.xml"];
+const OPEN_SANS_REGULAR: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\OpenSans-Regular.ttf";
+const OPEN_SANS_BOLD: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\OpenSans-Bold.ttf";
 
 fn run_with(script: &str, before: &str) -> Value {
 	emitted(&RunAddon {
@@ -172,7 +174,7 @@ fn custom_ground_colour_and_brightness_repaint_live_and_can_never_make_text_ille
 }
 
 #[test]
-fn house_style_the_game_s_font_by_default_and_inter_on_request_polestar_gold_a_user_accent_that_repaints_what_follows_it() {
+fn house_style_game_font_by_default_open_sans_and_inter_on_request_polestar_gold_a_user_accent_that_repaints_what_follows_it() {
 	let out = run(r#"
 		local fs = UIParent:CreateFontString()
 		T.Font(fs, "title")
@@ -183,17 +185,20 @@ fn house_style_the_game_s_font_by_default_and_inter_on_request_polestar_gold_a_u
 		local d = { T.Accent() }
 		Polestar.Set("ui.accent", { 1, 0.5, 0 })
 		local tr, tg, tb = tex:GetVertexColor()
+		Polestar.Set("ui.font", "opensans")
+		local openSans = { fs:GetFont() }
 		Polestar.Set("ui.font", "inter")
 		local inter = { fs:GetFont() }
 		Polestar.Set("ui.bgOpacity", 0.5)
 		local bgAlpha = select(4, PolestarGuideFrame.psSkin.bg:GetVertexColor())
 		T.SetOutline(fs, true)
 		local outlined = select(3, fs:GetFont())
-		emit({ before = before, inter = inter, default = d, tex = { tr, tg, tb }, fired = fired, eui = T.IsEllesmere(),
+		emit({ before = before, openSans = openSans, inter = inter, default = d, tex = { tr, tg, tb }, fired = fired, eui = T.IsEllesmere(),
 			border = PolestarGuideFrame.psBorder ~= nil, shadow = PolestarGuideFrame.psShadow:IsShown(), bgAlpha = bgAlpha,
 			outlined = outlined, media = T.Media("check"), verb = T.VerbIcon("kill"),
 			band = { T.BandCoords(720, 112) }, schemes = T.SchemeChoices() })"#);
-	assert_eq!(out["before"], json!(["Fonts\\FRIZQT__.TTF", 15, ""]), "the game's own font by default");
+	assert_eq!(out["before"], json!(["Fonts\\FRIZQT__.TTF", 15, ""]), "the game font for the title by default");
+	assert_eq!(out["openSans"], json!([OPEN_SANS_BOLD, 15, ""]), "ui.font = opensans gives Open Sans Bold for the title");
 	assert_eq!(out["inter"], json!(["Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf", 15, ""]), "ui.font = inter re-fonts live");
 	assert_eq!(round(&out["default"]), vec![0.9, 0.73, 0.4], "Polestar gold");
 	assert_eq!(out["tex"], json!([1, 0.5, 0]));
@@ -209,10 +214,8 @@ fn house_style_the_game_s_font_by_default_and_inter_on_request_polestar_gold_a_u
 	assert_eq!(values(&out["schemes"]), json!(["dusk", "night", "graphite"]), "EllesmereUI is offered only when installed");
 }
 
-// The ruRU game font has no middle dot, so the skin's face becomes Fira Sans there; a face the player picked,
-// and the other locales, are left alone.
 #[test]
-fn fonts_ruru_swaps_the_skin_s_game_font_for_fira_sans_an_explicit_pick_and_other_locales_keep_theirs() {
+fn fonts_keep_skin_and_user_choices_with_client_fonts_for_cjk_and_fira_for_russian_game_skins() {
 	const GAME: &str = "Fonts\\FRIZQT__.TTF";
 	const FIRA: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\FiraSans-SemiBold.ttf";
 	const INTER: &str = "Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf";
@@ -232,7 +235,10 @@ fn fonts_ruru_swaps_the_skin_s_game_font_for_fira_sans_an_explicit_pick_and_othe
 		out.game = (T.FontSpec("title"))
 		Polestar.Set("ui.skin", "blizzard")
 		out.gameBlizzard = (T.FontSpec("title"))
+		Polestar.Set("ui.font", "opensans")
+		out.openSansOnBlizzard = (T.FontSpec("body"))
 		Polestar.Set("ui.skin", "polestar")
+		out.openSans = (T.FontSpec("title"))
 		Polestar.Set("ui.font", "inter")
 		out.inter = (T.FontSpec("title"))
 		emit(out)"#,
@@ -241,25 +247,56 @@ fn fonts_ruru_swaps_the_skin_s_game_font_for_fira_sans_an_explicit_pick_and_othe
 	};
 
 	let ru = faces("ruRU");
+	// The game's Cyrillic font has no middle dot: with the skin's font left unset, Fira Sans; a font picked stays.
 	assert_eq!(ru["default"], FIRA, "ruRU default");
-	assert_eq!(ru["skinChoice"], FIRA, "ruRU with the skin's own font");
+	assert_eq!(ru["skinChoice"], FIRA, "ruRU with the house font");
 	for skin in ["hearth", "forever", "blizzard", "classic"] {
 		assert_eq!(ru[skin], FIRA, "ruRU {skin} by default");
 	}
 	assert_eq!(ru["game"], GAME, "ruRU with \"the game's\" font picked");
 	assert_eq!(ru["gameBlizzard"], GAME, "ruRU with \"the game's\" font picked on a game skin");
+	assert_eq!(ru["openSans"], OPEN_SANS_BOLD, "ruRU with Open Sans picked");
 	assert_eq!(ru["inter"], INTER, "ruRU with Inter picked");
 
-	for locale in ["zhCN", "koKR"] {
+	for locale in ["zhCN", "zhTW", "koKR"] {
 		let cjk = faces(locale);
 		assert_eq!(cjk["default"], GAME, "{locale} default");
 		assert_eq!(cjk["inter"], GAME, "{locale} with Inter picked");
+		assert_eq!(cjk["openSansOnBlizzard"], GAME, "{locale} with Open Sans picked");
 	}
 
 	let en = faces("enUS");
-	assert_eq!(en["default"], GAME, "enUS default");
+	assert_eq!(en["default"], GAME, "enUS default: the game font");
+	assert_eq!(en["openSans"], OPEN_SANS_BOLD, "enUS with Open Sans picked");
+	assert_eq!(en["openSansOnBlizzard"], OPEN_SANS_REGULAR, "an explicit choice on another skin");
 	assert_eq!(en["game"], GAME, "enUS with the game font picked");
 	assert_eq!(en["inter"], INTER, "enUS with Inter picked");
+}
+
+#[test]
+fn font_application_keeps_size_and_outline_on_failure_and_skips_unchanged_fonts() {
+	let out = run(r#"
+		local fs = UIParent:CreateFontString()
+		local apply, calls = fs.SetFont, 0
+		function fs:SetFont(path, size, flags)
+			calls = calls + 1
+			if path:find("OpenSans%-Regular") then return false end
+			if path:find("OpenSans%-Bold") then error("unavailable font asset") end
+			return apply(self, path, size, flags)
+		end
+		T.Font(fs, "body")
+		T.SetOutline(fs, true)
+		local body = { fs:GetFont() }
+		T.Font(fs, "title")
+		local title = { fs:GetFont() }
+		Polestar.Set("ui.font", "inter")
+		calls = 0
+		T.Refresh()
+		emit({ body = body, title = title, inter = { fs:GetFont() }, repeated = calls })"#);
+	assert_eq!(out["body"], json!(["Fonts\\FRIZQT__.TTF", 13, "OUTLINE"]));
+	assert_eq!(out["title"], json!(["Fonts\\FRIZQT__.TTF", 15, "OUTLINE"]));
+	assert_eq!(out["inter"], json!(["Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-SemiBold.ttf", 15, "OUTLINE"]));
+	assert_eq!(out["repeated"], 0);
 }
 
 #[test]
@@ -334,7 +371,7 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 	assert_eq!(out["shellArt"], false);
 	assert_eq!(out["houseBg"], true);
 	assert_eq!(out["band"], true);
-	assert_eq!(out["followFont"], json!(["Fonts\\FRIZQT__.TTF", 13, ""]), "the game's font by default, even with EllesmereUI");
+	assert_eq!(out["followFont"], json!(["Fonts\\FRIZQT__.TTF", 13, ""]), "the game font by default, even with EllesmereUI");
 	assert_eq!(round(&out["before"]), vec![0.05, 0.82, 0.62], "follows its accent by default");
 	assert_eq!(round(&out["after"]), vec![0.6, 0.48, 1.0], "S.OnLooksChanged repaints accent-coloured elements");
 	assert!(out["fired"].as_f64().unwrap() >= 1.0);
@@ -353,8 +390,8 @@ fn ellesmereui_an_optional_scheme_and_follow_toggles_never_a_lock() {
 	assert_eq!(out["own"], false);
 	assert_eq!(out["rematched"]["accent"], false, "following again drops your own accent");
 	assert_eq!(round(&out["rematched"]["live"]), vec![0.6, 0.48, 1.0]);
-	assert_eq!(out["fontLabel"], "The skin's font", "the skin picks the font by default: the game's in the house style");
-	assert_eq!(out["items"], json!(["The skin's font", "Game font", "Inter", "Fira Sans", "EllesmereUI"]));
+	assert_eq!(out["fontLabel"], "The skin's font", "the skin picks the font by default");
+	assert_eq!(out["items"], json!(["The skin's font", "Open Sans", "Game font", "Inter", "Fira Sans", "EllesmereUI"]));
 	assert_eq!(out["inter"]["match"], false, "choosing another font turns following off");
 	assert_eq!(out["inter"]["font"], json!(["Interface\\AddOns\\Polestar\\Media\\Fonts\\Inter-Medium.ttf", 13, ""]));
 	assert_eq!(out["inter"]["label"], "Inter");

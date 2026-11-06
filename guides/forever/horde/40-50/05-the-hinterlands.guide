@@ -52,7 +52,7 @@ step Violet Tragan
 # ---------------------------------------------------------------- Revantusk Village
 
 step Revantusk Village
-  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast.
+  tip Follow the roads east across the Hinterlands to the troll village on the eastern coast. Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
   accept 7839                           -- Smith Slagtree
   accept 7845
   sethome "Revantusk Village" npc 14731 -- Lard
@@ -71,13 +71,11 @@ step Revantusk Village
   when group 7816
   accept 7816
 
-step On the way
+# ---------------------------------------------------------------- The north coast
+
+step Silvermane Stalker on the way
   along until q7828
   kill 2926 quest 7828.1
-  kill 4466 quest 7844.1
-  kill 4467 quest 7844.2
-
-# ---------------------------------------------------------------- The north coast
 
 step The Overlook Cliffs: kill these as you meet them
   zone The Hinterlands
@@ -104,6 +102,11 @@ step Cortello's Riddle
   turnin 626                          -- Underwater
 
 # ---------------------------------------------------------------- The temples and the central hills
+
+step On the way
+  along until q7828
+  kill 4466 quest 7844.1
+  kill 4467 quest 7844.2
 
 step Shaol'watha: kill these as you meet them
   label q7828
@@ -165,6 +168,7 @@ step Jintha'Alor
   collect 19071 quest 7850.1
 
 step Revantusk Village
+  tip Primal Torntusk stands up on top of the inn, above Lard: go up, the arrow cannot tell the levels apart.
   turnin 7839                           -- Smith Slagtree
   turnin 7840                           -- Lard, inside
   turnin 7850                           -- Primal Torntusk
@@ -213,9 +217,6 @@ step Aerie Peak
   tip Ride all the way west to the Wildhammer town of Aerie Peak and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out.
   goto 14.3,48.1 "Aerie Peak well"
   complete 7843
-
-step Hearth to Revantusk Village
-  hearth "Revantusk Village"
 
 step Revantusk Village
   tip The next guide starts here, at Revantusk Village.

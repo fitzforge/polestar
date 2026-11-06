@@ -44,13 +44,10 @@ step Rorian's errands
   turnin 92474
   accept 92464
   accept 92532 only Warrior           -- Rorian the Dayseeker: the Crumpled Note
-  turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
   accept 92482 only Hunter            -- Rorian the Dayseeker: a note from your trainer
   accept 92484 only Shaman            -- Rorian: examine the Humming Recall Crystal
   accept 92485 only Druid             -- Rorian: A Student of Nature
   accept 92483 only Rogue             -- Rorian the Dayseeker: read the Simple Note
-  turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
-  turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
   turnin 92484 only Shaman            -- Windshaper Boro, beside Rorian
   turnin 92485 only Druid             -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
   train class only Shaman,Druid       -- Boro and Xyton, while you stand beside them
@@ -81,6 +78,9 @@ step Thendal Village turn-ins
   turnin 92463                        -- Elatrell Featherlight
   turnin 92598                        -- Ventaari Brightwish
   turnin 92469                        -- Rorian the Dayseeker
+  turnin 92482 only Hunter            -- Tai'ree Farsight, beside Rorian
+  turnin 92483 only Rogue             -- Akeri Duskblade, in the watchtower
+  turnin 92532 only Warrior           -- Blademaster Ren, in the watchtower
   accept 92471
   turnin 92471                        -- Aetheen of the Gales
   accept 92470
@@ -127,13 +127,13 @@ step Shen'dar Village
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
-  complete 92595 @43.53,44.78         -- talk to Illaya Amberwind
+  talk 251902 quest 92595.1 @43.53,44.78 -- talk to Illaya Amberwind
   turnin 92595
   accept 94411
 
 step Welcome to Shen'dar Village
-  kill 254089 quest 92514.2 @43.05,43.3 "Talk to Coriella Calmbreeze"
-  kill 251902 quest 92514.1 "Talk to Illaya Amberwind" @43.5,44.8 map 2521 live
+  talk 254089 quest 92514.2 @43.05,43.3
+  talk 251902 quest 92514.1 @43.5,44.8 map 2521 live
   turnin 92514                        -- Constable Aonda
   accept 92517
   accept 93951                        -- Taleen Shimmerthread
@@ -214,7 +214,7 @@ step Danarii Bellowveil
 
 step The West Pylon Watchtower
   tip Head south-west to the West Pylon Watchtower. Peacekeeper Vaaniel is at the top; the Bloody Note lies beside him.
-  complete 93926 @42.34,62.1          -- talk to Peacekeeper Vaaniel
+  talk 252155 quest 93926.1 @42.34,62.1 -- talk to Peacekeeper Vaaniel
   turnin 93926
   accept 93927
   collect 254871 quest 93927.1
@@ -225,13 +225,10 @@ step Skypriest Aanders
   collect 263415 quest 93927.3
   collect 263418 quest 93927.4
 
-step Hippogryph Youth on the way
-  along until q92516
-  kill 251291 quest 92516.1 -- Hippogryph Youth along the way to Shen'dar Village hand-ins
-
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The hippogryph nests are north-west of the West Pylon Watchtower, west of Falaath Village. The Matriarch sits at their western end; Hippogryph Down lies on the ground around the nests.
+  kill 251291 quest 92516.1
   kill 251284 quest 92516.2
   collect 263493 quest 93951.1
   kill 251261 quest 92516.3
@@ -246,7 +243,6 @@ step Raan's campfire
   turnin 96646                        -- Zerril Softbreeze
 
 step Shen'dar Village hand-ins
-  label q92516
   turnin 92516                        -- Teeri Wellwind
   turnin 93951                        -- Taleen Shimmerthread
   turnin 92551                        -- Danarii Bellowveil
@@ -286,7 +282,7 @@ step Nyalah and Alvarion
   tip Nyalah Brightfire waits inside a house on Valanaar's western edge; Alvarion Windfield is close by.
   sethome "Valanaar" npc 255940       -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                        -- Alvarion Windfield
-  kill 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 94978 only Hunter            -- Quel'ana Quickgale, a few steps west of Nyalah: Taming the Beast, the first rod
   accept 93317                        -- Nyalah Brightfire, inside
 
@@ -294,14 +290,14 @@ step Riaani Nightwind
   tip Riaani stands in the Gustberry Lowlands just north-west of town.
   turnin 93735
   accept 93737
-  kill 256083 quest 93737.1 "Listen to Riaani Nightwind"
+  talk 256083 quest 93737.1 "Listen to Riaani Nightwind"
   accept 94003 only Warrior           -- Seena Skybreaker, beside Riaani: The Skybreaker Bulwark
 
 # ---------------------------------------------------------------- Windfield Orchard
 
 step Windfield Orchard
   tip Windfield Orchard is west of Valanaar along the coast road.
-  kill 252800 quest 92679.1 @46.7,81.95 "Talk to Aamelia Windfield"
+  talk 252800 quest 92679.1 @46.7,81.95
   turnin 92679                        -- Aamelia Windfield
   accept 92682
   accept 92683
@@ -348,13 +344,10 @@ step Enchanted Gyrozephyr
 step Standing Our Ground
   turnin 92685                        -- Aamelia Windfield
   accept 92693
-  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
+  talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
   accept 92703
-
-step Hearth to Valanaar
-  hearth "Valanaar"
 
 step Alvarion and Riaani
   turnin 92703                        -- Alvarion Windfield
@@ -480,10 +473,9 @@ step Unfortunate News
   accept 92640
 
 step Desperate Times
-  kill 252383 quest 92640.1 "Talk to Valennia Stormfist" -- Upstairs
-  kill 251968 quest 92640.2 "Talk to Ayessa Dawnsinger"
-  talk 252475                         -- Elaadrin Evengale
-  complete 92640 @66.59,79.92
+  talk 252383 quest 92640.1 -- Upstairs
+  talk 251968 quest 92640.2
+  talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065
 
@@ -491,7 +483,7 @@ step Back to Valanaar
   train class
 
 step Desperate Times
-  complete 93065 @61.18,70.95         -- talk to Valennia Stormfist
+  talk 253844 quest 93065.1 @61.18,70.95 -- talk to Valennia Stormfist
   turnin 93065
   accept 92947
 
@@ -533,7 +525,7 @@ step The Al'Aketh camp
   accept 93165                        -- Vayn Moongaze
   collect 265475 quest 94488.1
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
-  kill 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
+  talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
   collect 258771 quest 93165.1
   turnin 93165
   collect 265476 optional
@@ -548,7 +540,7 @@ step Elegael Thornpaw, last time
 step The Strange Hermit
   tip The hermit lives at Windsong Lake's west shore. Zephyrseed cones grow south of him; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for Endaria's Unwelcome Spirits.
   accept 93159                        -- Strange Hermit
-  complete 93159 @53.96,38.9          -- talk to Strange Hermit
+  talk 251684 quest 93159.1 @53.96,38.9 -- talk to Strange Hermit
   turnin 93159
   accept 93160
   accept 93172
@@ -578,7 +570,7 @@ step The Shrine of Akir
   kill 252762 quest 92947.1 @64.0,52.1 map 2521 live
   kill 252763 quest 92947.2 @63.0,50.3 map 2521 live
   kill 252765 quest 92947.3 @62.9,50.3 map 2521 live
-  kill 253576 quest 92947.4 @63.77,50.51 "Talk to Hyusaa Quickbreeze"
+  talk 253576 quest 92947.4 @63.77,50.51
   turnin 92947                        -- Hyusaa Quickbreeze
   accept 93958
   turnin 93958                        -- Valennia Stormfist, upstairs
@@ -595,9 +587,6 @@ step Confront Lorthuna
   goto 74.9,53.0
   complete 92646 @74.8,53.4
 
-step Hearth to Valanaar
-  hearth "Valanaar"
-
 step The Fate of Zephras
   turnin 92646                        -- Ayessa Dawnsinger
   accept 93836
@@ -610,7 +599,7 @@ step Seena Skybreaker
 
 step Valanaar
   tip Ayessa sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on Valanaar's south-west edge: it flies to northern Mulgore, where Alaana Stormwalker waits.
-  complete 93836 @66.17,76.51         -- talk to Talaanis Shadowsong
+  talk 252476 quest 93836.1 @66.17,76.51 -- talk to Talaanis Shadowsong
   turnin 93836                        -- Talaanis Shadowsong, upstairs
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker

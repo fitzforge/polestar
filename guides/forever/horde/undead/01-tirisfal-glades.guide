@@ -211,10 +211,8 @@ step Calvin Montague
   complete 590 @38.2,56.8             -- Beat Calvin in the duel
   turnin 590
 
-step Hearth to Gallows' End Tavern
-  hearth "Gallows' End Tavern"
-
 step Brill
+  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 5481                         -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 5482
   turnin 404                          -- Deathguard Dillinger
@@ -252,6 +250,7 @@ step Tirisfal Glades: kill these as you meet them
   collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
 
 step Brill
+  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 5482                         -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 99142
   turnin 368                          -- Apothecary Johaan, inside
@@ -310,6 +309,7 @@ step Vile Fin shore
   collect 278244 quest 97558.3
 
 step Brill
+  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 426                          -- Deathguard Dillinger
   turnin 365                          -- Apothecary Johaan, inside
   accept 407
@@ -378,10 +378,6 @@ step Hadric Harlson
   accept 96897
   accept 96898
 
-step Decrepit Darkhound on the way
-  along until q96897
-  kill 1547 quest 96897.3
-
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way.
@@ -411,7 +407,6 @@ step Tirisfal Glades: kill these as you meet them
   label q96897
   zone Tirisfal Glades
   collect 278243 quest 97558.2
-  kill 1547 quest 96897.3 @68.4,57.8 map 1420
 
 step Deathguard Linnea's camp
   label q356
@@ -422,7 +417,7 @@ step Deathguard Linnea's camp
   turnin 97558                        -- Shelene Rhobart
 
 step Brill
-  tip Back up the road to Brill.
+  tip Back up the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 369                          -- Apothecary Johaan, inside
   accept 492
   turnin 371                          -- Executor Zygand
@@ -437,11 +432,9 @@ step Leonid Barthalomew the Revered
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
-  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Paladins take both quests; anyone else takes them if they are offered, and walks on if not. Both send you into the cellar under Shadowvale, the next stop.
-  accept 99152 optional only !Paladin -- Hilda the Breaker
-  accept 99152 only Paladin -- Hilda the Breaker
-  accept 99153 optional only !Paladin -- Ephram Barbaro
-  accept 99153 only Paladin -- Ephram Barbaro
+  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Every class can take both quests once A Righteous Cause is handed in (level 10); take them if they are offered. They send you into the cellar under Shadowvale, the next stop.
+  accept 99152 optional               -- Hilda the Breaker
+  accept 99153 optional               -- Ephram Barbaro
 
 # Bandarion Keep for Paladins with Leonid's visit:
 # Breton Samuels, Hilda and Ephram stand within 60 yd of Leonid, and the
@@ -477,17 +470,11 @@ step Shadowvale
   collect 286269 quest 99153.1        -- the Glowing Crystal Fragment, at the basement's south end
   collect 286259 quest 99152.1        -- the Shadowvale Lurchers and Mystics drop the bones; below ground
 
-# The others' lines carry `only !Paladin` on the line, not on the step: the
-# writer puts the Paladins' own accept and hand-in beside the route's line of
-# the same event, and c16 and c17 put them into an `only !Paladin` step, so a
-# Paladin never took 99152/99153 (judge R3 blockers in Shadowvale).
 step Hilda and Ephram
   when onquest 99152,99153
   tip Back up to the forest's edge south of the keep's gate: Hilda and Ephram take the bones and the crystal.
-  turnin 99153 optional only !Paladin -- Ephram Barbaro
-  turnin 99153 only Paladin -- Ephram Barbaro
-  turnin 99152 optional only !Paladin -- Hilda the Breaker
-  turnin 99152 only Paladin -- Hilda the Breaker
+  turnin 99153 optional               -- Ephram Barbaro
+  turnin 99152 optional               -- Hilda the Breaker
 
 step Paladin: Bandarion Keep
   only Paladin
@@ -498,9 +485,6 @@ step Paladin: Bandarion Keep
   talk 246393                         -- Jorin Croge
   talk 246394                         -- Ander Solliden
   turnin 91294                        -- Danitha Morr, inside the keep
-
-step Hearth to Gallows' End Tavern
-  hearth "Gallows' End Tavern"
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
 # a class step waits for the next step the route names, and after the Brill

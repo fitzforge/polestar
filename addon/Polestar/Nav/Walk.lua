@@ -131,7 +131,7 @@
 --     with none, the walk leg takes the path's yards and time, and goes back
 --     to its straight estimate when the path fails or is cleared (Travel.RestoreWalk)
 --   Walk.FollowsGoto(target) -> true when the guide's last located goal before
---     this target is a `goto`
+--     this target is a `goto` the player has reached (Engine.GoalDone)
 --   Walk.Clear()
 --   Walk.Measure(c, x, y, water, places): measure the walks into that target
 --     from the planner's places (one FindMany; Travel.Remeasured when in)
@@ -757,7 +757,7 @@ local function ask(P, pc, px, py, flat)
 	floorAsk = false
 	if sz == nil and not flat then flatAt = GetTime() else flatAt = nil end
 	local o = opts(ghost, pc, px, py, gx, gy) -- a ghost walks on water
-	local ok, handle = pcall(P.Find, pc, { x = px, y = py, z = sz, floors = floors }, { x = gx, y = gy, z = z }, function(points, _, answer)
+	local ok, handle = pcall(P.Find, pc, { x = px, y = py, z = sz, floors = floors }, { x = gx, y = gy, z = z }, function(points, reason, answer)
 		if token ~= mine then return end
 		token, job = nil, nil
 		dropSketch()
@@ -781,6 +781,9 @@ local function ask(P, pc, px, py, flat)
 			failed, failAt, failX, failY = true, GetTime(), px, py
 			count, hubs, shape = 0, nil, nil
 			restore(gc, gx, gy)
+			-- No walk joins the player to the goal at all: a portal there may be out of reach (Travel.WalkUnreachable).
+			local T = Nav.travel
+			if reason == "unreachable" and T and T.WalkUnreachable then T.WalkUnreachable(gc, gx, gy) end
 		end
 		changed()
 		pumpLegs()
@@ -1651,34 +1654,42 @@ end
 -- Hand-made guide waypoints
 ---------------------------------------------------------------------------
 
-local gotoTarget, gotoAnswer
+local gotoTarget, gotoStep, gotoGoal
 
--- The guide's last located goal before this target is a `goto`: the
--- author's way in (a cave's mouth), so the arrow goes straight from there.
+-- The guide's last located goal before this target is a `goto` the player
+-- has reached (Engine.GoalDone): the author's way in (a cave's mouth), so
+-- the arrow goes straight from there. Until then the target is walked like
+-- any other, so a goal aimed at ahead of its way in never leads onto the
+-- hill above the cave (#914). The goto is found once per target; its state
+-- is asked every time.
 function Walk.FollowsGoto(target)
-	if target == gotoTarget then return gotoAnswer end
-	gotoTarget, gotoAnswer = target, false
-	if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
-	local E = ns.Engine
-	local guide = E and E.GetGuide and E.GetGuide()
-	local steps = type(guide) == "table" and guide.steps
-	if type(steps) ~= "table" then return false end
-	local s, g = target.stepIndex, target.goalIndex - 1
-	while s >= 1 do
-		local goals = steps[s] and steps[s].goals
-		if type(goals) == "table" then
-			if g == nil then g = #goals end
-			for k = g, 1, -1 do
-				local goal = goals[k]
-				if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
-					gotoAnswer = goal.t == "goto"
-					return gotoAnswer
+	if target ~= gotoTarget then
+		gotoTarget, gotoStep, gotoGoal = target, nil, nil
+		if type(target) ~= "table" or not (target.stepIndex and target.goalIndex) then return false end
+		local E = ns.Engine
+		local guide = E and E.GetGuide and E.GetGuide()
+		local steps = type(guide) == "table" and guide.steps
+		if type(steps) ~= "table" then return false end
+		local s, g = target.stepIndex, target.goalIndex - 1
+		while s >= 1 and not gotoStep do
+			local goals = steps[s] and steps[s].goals
+			if type(goals) == "table" then
+				if g == nil then g = #goals end
+				for k = g, 1, -1 do
+					local goal = goals[k]
+					if type(goal) == "table" and goal.map ~= nil and goal.x ~= nil then
+						if goal.t == "goto" then gotoStep, gotoGoal = s, k end
+						s = 0
+						break
+					end
 				end
 			end
+			s, g = s - 1, nil
 		end
-		s, g = s - 1, nil
 	end
-	return false
+	if not gotoStep then return false end
+	local E = ns.Engine
+	return E and E.GoalDone and E.GoalDone(gotoStep, gotoGoal) == true or false
 end
 
 ---------------------------------------------------------------------------

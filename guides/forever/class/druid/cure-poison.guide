@@ -2,7 +2,7 @@ guide forever/class/druid/cure-poison
 title Cure Poison
 category Class
 folder Druid
-keywords Cure Poison, Lessons Anew, The Principal Source, Gathering the Cure, Curing the Sick, Power over Poison, Sickly Deer, Sickly Gazelle, Cliffspring Falls, Dreadmist Peak, Lunar Fungus, Earthroot, Kodo Horn, Alfina Nightgaze, Hana Lighthoof, Skyborne, Moonglade, class quest
+keywords Cure Poison, Lessons Anew, The Principal Source, Gathering the Cure, Curing the Sick, Power over Poison, Sickly Deer, Sickly Gazelle, Cliffspring Falls, Dreadmist Peak, Lunar Fungus, Earthroot, Kodo Horn, Mathrengyl Bearwalker, Hana Lighthoof, Skyborne, Moonglade, class quest
 reward spell 8946 "Cure Poison"
 reward item 15866
 why Cure Poison is no longer trained in Forever: this chain teaches it, with a medicine bag on the way.
@@ -14,8 +14,8 @@ zone Moonglade
 # (6125 Alliance, 6130 Horde) rewards it (Forever's druid class quest list:
 # "Rewards: adds Cure Poison").
 # - Night Elves and Alliance Skyborne: Lessons Anew (6121: Mathrengyl
-#   Bearwalker in Darnassus, or Alfina Nightgaze beside the Skyborne Portal
-#   west of Dalaran) -> Dendrite Starblaze in Moonglade -> The Principal
+#   Bearwalker in Darnassus; Alfina Nightgaze west of Dalaran does not give
+#   it, #978) -> Dendrite Starblaze in Moonglade -> The Principal
 #   Source (6122: fill the sampler at Cliffspring Falls) -> Alanndarian
 #   Nightsong in Auberdine: Gathering the Cure (6123: 5 Earthroot, 12 Lunar
 #   Fungus) and Curing the Sick (6124: ten Sickly Deer) -> Dendrite -> Power
@@ -54,10 +54,10 @@ step Lessons Anew
 
 step Lessons Anew
   only Skyborne,Alliance
-  zone Alterac Mountains
-  tip Alfina Nightgaze, the Skyborne druid trainer, stands beside the Skyborne Portal west of Dalaran (Mathrengyl Bearwalker in Darnassus gives the same quest). No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
+  zone Darnassus
+  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave; Alfina Nightgaze by the Skyborne Portal does not give this quest. Cast Teleport: Moonglade and take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up. No Herbalism? Buy five Earthroot on the Auction House first: you need them later.
   level 14
-  accept 6121 npc 270459                -- Alfina Nightgaze
+  accept 6121 npc 4217                  -- Mathrengyl Bearwalker
 
 step Dendrite Starblaze
   only NightElf,Skyborne,Alliance
@@ -71,7 +71,7 @@ step Cliffspring Falls
   only NightElf,Skyborne,Alliance
   zone Darkshore
   tip Head north-east from Auberdine to Cliffspring Falls. Stand at the cave mouth at the top of the waterfall, not in the river below, and use the Empty Cliffspring Falls Sampler (not the Empty Sampling Tube of another quest). Naga line the climb, a caster waits on the far bank, and filling the sampler calls two more (a Wave Rider and a Toxicologist, level 15): clear the way first and be ready to fight.
-  use 15844 @54.9,33.3                  -- Empty Cliffspring Falls Sampler, at the cave mouth
+  use 15844 quest 6122.1 @54.9,33.3       -- Empty Cliffspring Falls Sampler, at the cave mouth
   collect 15845 quest 6122.1            -- Filled Cliffspring Falls Sampler
 
 step Alanndarian Nightsong
@@ -95,12 +95,12 @@ step Alanndarian Nightsong
 step Sickly Deer
   only NightElf,Skyborne,Alliance
   tip Use the Curative Animal Salve on living Sickly Deer (level 5, a green cloud over them): they roam Darkshore from the Cliffspring River to the Ashenvale border, many around the Blackwood furbolg camp north-east of Auberdine. Druid trick: root a deer with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from Alanndarian for a fresh salve.
-  kill 12298 quest 6124.1               -- Sickly Deer: use the salve on them
+  kill 12298 quest 6124.1 "Use the Curative Animal Salve on Sickly Deer"
 
 step Curing the Sick
   only NightElf,Skyborne,Alliance
   zone Moonglade
-  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed) and the portal up to Darnassus.
+  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed) and the portal up to Darnassus. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 6124                           -- Dendrite Starblaze
   accept 6125
   fly "Rut'theran Village"
@@ -133,7 +133,7 @@ step Dreadmist Peak
   zone The Barrens
   tip From the Crossroads head north to Dreadmist Peak and climb to the bubbling Dreadmist Peak Pool on its summit. Burning Blade cultists camp around it: pull them one or two at a time. Stand in the water and use the Empty Dreadmist Peak Sampler: three Burning Blade Toxicologists (level 13-14, curses and warlock spells) appear and attack. You need not kill them: once the sampler is full, run.
   fly "Crossroads"
-  use 15842 @48.4,18.9                  -- Empty Dreadmist Peak Sampler, standing in the pool
+  use 15842 quest 6127.1 @48.4,18.9       -- Empty Dreadmist Peak Sampler, standing in the pool
   collect 15843 quest 6127.1            -- Filled Dreadmist Peak Sampler
 
 step Tonga Runetotem
@@ -158,12 +158,12 @@ step Tonga Runetotem
 step Sickly Gazelles
   only Tauren,Skyborne,Horde
   tip Use the Curative Animal Salve on living Sickly Gazelles (level 3): they graze on both sides of the road north of the Crossroads up to the Ashenvale border, north-west of the Crossroads and west of Ratchet. Druid trick: root a gazelle with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from Tonga for a fresh salve.
-  kill 12296 quest 6129.1               -- Sickly Gazelle: use the salve on them
+  kill 12296 quest 6129.1 "Use the Curative Animal Salve on Sickly Gazelles"
 
 step Curing the Sick
   only Tauren,Skyborne,Horde
   zone Moonglade
-  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Bunthen Plainswind's flight to Thunder Bluff.
+  tip Cast Teleport: Moonglade and see Dendrite Starblaze, then take Bunthen Plainswind's flight to Thunder Bluff. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 6129                           -- Dendrite Starblaze
   accept 6130
   fly "Thunder Bluff"

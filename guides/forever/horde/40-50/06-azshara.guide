@@ -26,7 +26,7 @@ step Fly to Grom'gol
 
 step To Grom'gol
   zone Stranglethorn Vale
-  tip Fly from Valormok to Orgrimmar, walk out of the main gate to the zeppelin towers and take the zeppelin to Grom'gol.
+  tip The flight from Stonard lands at Grom'gol Base Camp.
   goto 32.2,27.7 "Grom'gol Base Camp"
 
 step Grom'gol Base Camp
@@ -326,9 +326,6 @@ step The Forgotten Coast: kill these as you meet them
 step Zorbin Fandazzle
   turnin 7725
   turnin 7726
-
-step Hearth to Camp Mojache
-  hearth "Camp Mojache"
 
 step Back to Camp Mojache
   turnin 3127                         -- Witch Doctor Uzer'i

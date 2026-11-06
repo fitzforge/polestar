@@ -185,14 +185,13 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 	};
 
 	// Class quests and their own rewards: { teach, spell, items, choice, show }.
+	// Only the data's class limit makes a class quest: a class guide also takes
+	// quests every class can do (the errands before a class quest, Tauren
+	// chains), and those are nobody's class quest.
 	const mask = new Map();
 	for (const [k, v] of Object.entries(quests)) {
 		const m = classMask(v.classes);
 		if (m) mask.set(Number(k), m);
-	}
-	for (const g of guides) for (const q of g.quests) {
-		// A guide's class quest the data leaves open to every class: the guide's class.
-		if (!mask.has(q) && quests[q] && quests[q].classes == null) mask.set(q, g.mask);
 	}
 	const tq = (tdb && tdb.quests) || {};
 	const own = new Map();

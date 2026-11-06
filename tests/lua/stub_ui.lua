@@ -302,7 +302,8 @@ local function view(i)
 		end
 		goals[g] = v
 	end
-	local out = { index = i, title = step.title, note = step.note, image = step.image, status = stepStatus(i), goals = goals, skipped = uistub.skipped[i] or false }
+	local out = { index = i, title = step.title, note = step.note, image = step.image, status = stepStatus(i), goals = goals, skipped = uistub.skipped[i] or false,
+		along = step.along, label = step.label, why = step.why }
 	out.groups, out.focus = groupsOf(goals)
 	out.current = currentOf(out)
 	return out
@@ -473,7 +474,7 @@ function Engine.GetAlong()
 		if v then
 			local goals = {}
 			for _, g in ipairs(a[2]) do goals[#goals + 1] = v.goals[g] end
-			out[#out + 1] = { index = a[1], title = v.title, goals = goals }
+			out[#out + 1] = { index = a[1], title = v.title, untilStep = guide.steps[a[1]].untilStep, goals = goals }
 		end
 	end
 	return out

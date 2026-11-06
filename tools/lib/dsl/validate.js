@@ -44,7 +44,7 @@ function levelAt(xp) {
 	return l;
 }
 
-const OBJECTIVE_VERBS = new Set(['kill', 'collect', 'interact', 'use']);
+const OBJECTIVE_VERBS = new Set(['kill', 'collect', 'interact', 'use', 'talk']);
 
 function guideLayer(g) {
 	return { factions: g.faction ? [g.faction] : null, races: g.races || null, classes: g.classes || null };
@@ -286,7 +286,7 @@ function placed(data, kind, id) {
 
 // The objectives of quest `id` that have a place to point at, as `7.1 = kill …` labels.
 function placedObjectives(data, id) {
-	const KIND = { kill: 'npc', object: 'object', item: 'item' };
+	const KIND = { kill: 'npc', talk: 'npc', object: 'object', item: 'item' };
 	return data
 		.questObjectives(id)
 		.filter((o) => KIND[o.kind] && o.id != null && placed(data, KIND[o.kind], o.id))
@@ -410,6 +410,26 @@ function checkBareCompletes(g, data, diag) {
 				goal._line,
 				`\`complete\` for quest ${questName(data, goal.quest, goal.title)} has no place, but its objectives do (${places.join(', ')}): the arrow has nowhere to point`,
 				`write a goal per objective (\`kill <npc> quest ${goal.quest}.<n>\`, \`collect <item> quest ${goal.quest}.<n>\`), or give the \`complete\` a \`goto\` or coordinates`,
+			);
+		});
+	}
+}
+
+// A `use` without a quest before the line that collects for a quest (the
+// Crystal Phial filled at the moonwell, then `collect 5184 quest 921.1`): a
+// bare use is a check-off, and nothing ticks it, so it holds the step after
+// the objective is done (#875). A warning.
+function checkBareUses(g, diag) {
+	for (const step of g.steps) {
+		step.goals.forEach((goal, i) => {
+			const next = step.goals[i + 1];
+			if (goal.t !== 'use' || goal.quest !== undefined || goal.optional || !next || next.t !== 'collect' || next.quest === undefined) return;
+			const o = `${next.quest}.${next.oi ?? 1}`;
+			diag.warn(
+				g._ast.file,
+				goal._line,
+				`\`use ${goal.item}\` has no quest, but the next line collects for quest ${next.quest}: the use holds its step until ticked`,
+				`bind it: \`use ${goal.item} quest ${o}\``,
 			);
 		});
 	}
@@ -554,6 +574,7 @@ function validateGuides(guides, data, diag) {
 		checkRedundantGotos(g, data, diag);
 		checkTurninItems(g, ancestors(g), data, diag);
 		checkBareCompletes(g, data, diag);
+		checkBareUses(g, diag);
 		const accepted = new Set();
 		const turnedIn = new Set();
 		const whenOnly = new Set();

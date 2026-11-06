@@ -8,7 +8,7 @@ use forge_addontest::run::root;
 use forge_addontest::tmp::TempDir;
 use forge_addontest::{emitted, is_match, truthy, Addon, RunAddon};
 use forge_data::codex::client::{client_facts, ClientFacts, ClientItem, Tables};
-use forge_data::codex::merge::{merge_codex, sells_role, Merged};
+use forge_data::codex::merge::{is_general_goods, merge_codex, sells_role, Merged};
 use forge_data::codex::pack::{emit_pack, fold_name, PackCodex};
 use forge_data::codex::{build_inputs, curated_rep_gates_in, Forever, Inputs, Options};
 use forge_guide::js::{parse_json, V};
@@ -870,8 +870,21 @@ fn mergecodex_tags_vendors_by_what_they_sell_food_arrows_bullets_bows_and_guns()
 		(it.learn, it.use_, it.req_skill, it.min_faction) = (None, None, None, None);
 		s.client.items.insert(id, it);
 	}
+	s.forever["npcs"]["4730"]["subName"] = json!("General Goods");
 	let codex = merged(s);
-	assert_eq!(codex["npcs"]["4730"]["roles"], json!(["sells:arrows", "sells:bullets", "sells:food", "sells:ranged", "vendor"]));
+	assert_eq!(codex["npcs"]["4730"]["roles"], json!(["sells:arrows", "sells:bullets", "sells:food", "sells:general", "sells:ranged", "vendor"]));
+}
+
+// General goods go by the vendor's title: their items tell nothing, cooks sell
+// the same flint and wood. "General Trade Goods" sellers are trade suppliers.
+#[test]
+fn a_general_goods_vendor_is_told_by_its_title() {
+	for title in ["General Goods", "General Goods Vendor", "General Supplies", "General & Trade Supplies", "Engineering & General Goods Supplier"] {
+		assert!(is_general_goods(title), "{title}");
+	}
+	for title in ["General Trade Goods Vendor", "General Trade Supplier", "Trade Goods", "Cooking Supplier", "Innkeeper", ""] {
+		assert!(!is_general_goods(title), "{title}");
+	}
 }
 
 #[test]
@@ -1000,7 +1013,31 @@ fn curatedrepgates_a_collectible_guide_reaching_a_standing_before_it_buys_the_it
 	)
 	.unwrap();
 	std::fs::write(dir.join("plain.guide"), ["guide x/plain", "step A", "  rep 589 Honored", "  buy 5 npc 1"].join("\n")).unwrap();
-	assert_eq!(plain(&curated_rep_gates_in(dir)), json!({ "13086": [{ "npc": 10618, "faction": null, "factionName": "Wintersaber Trainers", "standing": 8 }] }));
+	// #785: the other races' Exalted for a racial mount holds back those races, not Lelanai; a faction's
+	// standing (only Alliance) still gates the vendor.
+	std::fs::write(
+		dir.join("racial.guide"),
+		[
+			"guide x/racial",
+			"collects 8631",
+			"",
+			"step Tiger Riding for other races",
+			"  only Human,Dwarf,Gnome,Skyborne",
+			"  rep \"Darnassus\" Exalted",
+			"step Pick a colour",
+			"  buy 8631 npc 4730 optional",
+		]
+		.join("\n"),
+	)
+	.unwrap();
+	std::fs::write(dir.join("side.guide"), ["guide x/side", "collects 19030", "", "step Exalted", "  only Alliance", "  rep 730 Exalted", "step Buy", "  buy 19030 npc 13216"].join("\n")).unwrap();
+	assert_eq!(
+		plain(&curated_rep_gates_in(dir)),
+		json!({
+			"13086": [{ "npc": 10618, "faction": null, "factionName": "Wintersaber Trainers", "standing": 8 }],
+			"19030": [{ "npc": 13216, "faction": 730, "factionName": null, "standing": 8 }]
+		})
+	);
 }
 
 #[test]

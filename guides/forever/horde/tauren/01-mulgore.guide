@@ -16,8 +16,8 @@ next forever/horde/02-the-barrens
 
 step Camp Narache
   tip You start on the mesa of Camp Narache. Grull and the chief stand by the big tent in the middle.
-  accept 752                          -- Chief Hawkwind, inside
   accept 747                          -- Grull Hawkwind
+  accept 752                          -- Chief Hawkwind, inside
 
 step On the way
   along until q747
@@ -152,10 +152,6 @@ step On the way
   collect 4807 quest 766.4
   collect 4809 quest 771.2
 
-step Well Stone on the way
-  along until q771
-  collect 4808 quest 771.1
-
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
   complete 96661 @44.92,61.67 map 1412 live
@@ -171,6 +167,7 @@ step Poison Water
   collect 4759 quest 748.2            -- Plainstrider Talon
   collect 4804 quest 766.1
   collect 4809 quest 771.2
+  collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village
   train class
@@ -190,7 +187,6 @@ step Mull Thunderhorn
 # ---------------------------------------------------------------- Thunderhorn Water Well
 
 step Thunderhorn Water Well
-  label q771
   tip The well lies north of the village. Well Stones sit around the well, Ambercorn lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for Mazzranache and Swoop Hunting; the plainstriders also drop the Tender Strider Meat for Kyle.
   collect 4809 quest 771.2            -- Ambercorn
   collect 4808 quest 771.1
@@ -221,7 +217,7 @@ step Bloodhoof Village
   accept 772
   turnin 758                          -- Mull Thunderhorn
   accept 759
-  complete 99411                      -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
+  use 287505 quest 99411.1            -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
   turnin 99411                        -- Ahab Wheathoof, at the north end of the village
 
 step Morin Cloudstalker
@@ -277,8 +273,9 @@ step Galak centaurs
 step The Venture Co. Mine
   tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
   goto 64.9,43.3 "The Venture Co. Mine"
-  complete 764
-  complete 765
+  kill 2978 quest 764.1
+  kill 2979 quest 764.2
+  collect 4819 quest 765.1
   collect 281031 optional             -- Below ground
   accept 98424 optional
   complete 98424
@@ -448,7 +445,7 @@ step Turak Runetotem
 step Moonglade
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the north-western woods.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the north-western woods. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 5922
   accept 5930
   complete 5930 @39.1,27.5
@@ -458,8 +455,7 @@ step Moonglade
 step Back to Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Hearth to Thunder Bluff and cross to Elder Rise.
-  hearth "Thunder Bluff" only Druid
+  tip Cross to Elder Rise.
   turnin 5932                         -- Turak Runetotem
   accept 6002
 

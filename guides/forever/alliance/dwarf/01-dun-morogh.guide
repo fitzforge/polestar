@@ -152,10 +152,10 @@ step Kharanos
   tip Tharek works the forge west of the distillery.
   accept 400                                  -- Tharek Blackstone
   tip Then go in: Tannok, the innkeeper, Maxan and Ragnar. Gremlock's Cooking lesson waits for the return with the ribs, when the copper is there for it.
-  train class                                 -- Last: some classes' trainers stand outside
   accept 384                                  -- Ragnar Thunderbrew
   turnin 2160                                 -- Tannok Frosthammer, inside
   accept 99158                                -- Maxan Anvol, upstairs
+  train class                                 -- Last: some classes' trainers stand outside
 
 step Steelgrill's Depot
   tip Follow the road north-east from Kharanos to the depot below the Ironforge road.
@@ -244,8 +244,6 @@ step Brewnall Village
   accept 315
   accept 319
   kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold
-  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way
-  kill 1201 quest 319 optional                -- Snow Leopard, on the way
   kill 1127 quest 319                         -- Elder Crag Boar
   kill 1201 quest 319                         -- Snow Leopard
   collect 3083 quest 412.1
@@ -399,7 +397,7 @@ step Earthseer Farsen
   accept 96392
 
 step Farsen's Watch
-  kill 264936 quest 96392.1 @64.9,58.5 map 1426
+  talk 264936 quest 96392.1 @64.9,58.5 map 1426
 
 step Earthseer Farsen
   turnin 96392
@@ -569,10 +567,6 @@ step Buliwyf Stonehand
   tip While you're here: learn Two-Handed Axes from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Paladin fastest.
   train 11865                         -- Buliwyf Stonehand
 
-step Hearth to Thunderbrew Distillery
-  zone Dun Morogh
-  hearth "Thunderbrew Distillery"
-
 step Ironforge
   zone Ironforge
   goto 72.4,48.6 "Ironforge"
@@ -601,7 +595,7 @@ step The Tome of Divinity
   accept 1779
   turnin 1779                                 -- Muiredon Battleforge
   accept 1783
-  complete 1783 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
+  use 6866 quest 1783.1 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
   turnin 1783 only Paladin -- Narm Faulk
 
 step Narm Faulk
@@ -643,7 +637,7 @@ step Class trainer
 
 step Druid trainer
   only Druid
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Dun Morogh has no druid trainer
+  train class only Druid -- Theridran in Stormwind City; Dun Morogh has no druid trainer
 
 step Buliwyf Stonehand
   only Warrior

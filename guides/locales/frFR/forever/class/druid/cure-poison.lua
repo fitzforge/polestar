@@ -15,12 +15,12 @@ return {
 	["{npc:4217} stands upstairs in the druids' building of the {area:1658}. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:4217} se tient à l'étage du bâtiment des druides, dans {area:1658}. Pas d'{skill:182} ? Achetez d'abord cinq {item:2449} à l'hôtel des ventes : il vous en faudra plus tard.",
 
 	-- Step 2: Lessons Anew
-	-- {npc:270459} Alfina Nightgaze · {area:279} Dalaran · {npc:4217} Mathrengyl Bearwalker · {zone:1457} Darnassus · {skill:182} Herbalism · {item:2449} Earthroot
-	["{npc:270459}, the Skyborne druid trainer, stands beside the Skyborne Portal west of {area:279} ({npc:4217} in {zone:1457} gives the same quest). No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:270459}, la maîtresse des druides éolides, se tient à côté du portail éolide, à l'ouest de {area:279} ({npc:4217} à {zone:1457} donne la même quête). Pas d'{skill:182} ? Achetez d'abord cinq {item:2449} à l'hôtel des ventes : il vous en faudra plus tard.",
+	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {npc:270459} Alfina Nightgaze · {spell:18960} Teleport: Moonglade · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {skill:182} Herbalism · {item:2449} Earthroot
+	["{npc:4217} stands upstairs in the druids' building of the {area:1658}; {npc:270459} by the Skyborne Portal does not give this quest. Cast {spell:18960} and take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed), then the portal up. No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "",
 
 	-- Step 3: Dendrite Starblaze
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {item:15844} Empty Cliffspring Falls Sampler · {area:442} Auberdine
-	["Cast Teleport: {zone:1450}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15844}. Then fly to {area:442} (learn the {zone:1450} flight path at Sindrayl first if you have not)."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15844} Empty Cliffspring Falls Sampler · {area:442} Auberdine · {zone:1450} Moonglade
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15844}. Then fly to {area:442} (learn the {zone:1450} flight path at Sindrayl first if you have not)."] = "",
 
 	-- Step 4: Cliffspring Falls
 	-- {area:442} Auberdine · {area:445} Cliffspring Falls · {item:15844} Empty Cliffspring Falls Sampler · {item:12350} Empty Sampling Tube
@@ -44,14 +44,14 @@ return {
 	["She hands you the {item:15826}: ten doses, one per deer. Destroy any leftover {item:15851}."] = "Elle vous remet le {item:15826} : dix doses, une par cerf. Détruisez les {item:15851} qui vous restent.",
 
 	-- Step 8: Sickly Deer
-	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {npc:3702} Alanndarian Nightsong
-	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
-	-- {npc:12298} Sickly Deer
-	["{npc:12298}: use the salve on them"] = "{npc:12298} : utilisez le baume sur eux",
+	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer · {zone:1439} Darkshore · {area:456} Cliffspring River · {zone:1440} Ashenvale · {area:442} Auberdine · {spell:339} Entangling Roots · {npc:3702} Alanndarian Nightsong
+	["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "",
+	-- {item:15826} Curative Animal Salve · {npc:12298} Sickly Deer
+	["Use the {item:15826} on {npc:12298}"] = "",
 
 	-- Step 9: Curing the Sick
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["Cast Teleport: {zone:1450} and see {npc:11802}, then take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed) and the portal up to {zone:1457}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11800} Silva Fil'naveth · {area:2361} Nighthaven · {area:702} Rut'theran Village · {zone:1457} Darnassus
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11800}'s flight from the middle of {area:2361} (she flies druids to {area:702}, no flight path needed) and the portal up to {zone:1457}."] = "",
 
 	-- Step 10: Power over Poison
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:8946} Cure Poison
@@ -64,8 +64,8 @@ return {
 	["{npc:3033}, or {npc:262560} in northern {zone:1412}"] = "{npc:3033}, ou {npc:262560} au nord de {zone:1412}",
 
 	-- Step 12: Dendrite Starblaze
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:380} Crossroads
-	["Cast Teleport: {zone:1450}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the {area:380} from there."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {item:15842} Empty Dreadmist Peak Sampler · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff · {area:380} Crossroads
+	["Cast {spell:18960}: {npc:11802} stands upstairs in the building beside you. He hands you the {item:15842}. {npc:11798} flies druids to {area:1638}; fly on to the {area:380} from there."] = "",
 
 	-- Step 13: Dreadmist Peak
 	-- {area:380} Crossroads · {area:384} Dreadmist Peak · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {item:15842} Empty Dreadmist Peak Sampler
@@ -94,15 +94,16 @@ return {
 	-- Step 17: Sickly Gazelles
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
 	["Sickly Gazelles"] = "Gazelles malades",
-	-- {item:15826} Curative Animal Salve · {area:380} Crossroads · {zone:1440} Ashenvale · {area:392} Ratchet · {npc:3448} Tonga Runetotem
+	-- {item:15826} Curative Animal Salve · {area:380} Crossroads · {zone:1440} Ashenvale · {area:392} Ratchet · {spell:339} Entangling Roots · {npc:3448} Tonga Runetotem
 	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
-	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with Entangling Roots, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
-	-- {npc:12296} Sickly Gazelle
-	["{npc:12296}: use the salve on them"] = "{npc:12296} : utilisez le baume sur elles",
+	["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "",
+	-- {item:15826} Curative Animal Salve
+	-- plural, as words: Sickly Gazelles = {npc:12296} Sickly Gazelle
+	["Use the {item:15826} on Sickly Gazelles"] = "",
 
 	-- Step 18: Curing the Sick
-	-- {zone:1450} Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast Teleport: {zone:1450} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "",
+	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
+	["Cast {spell:18960} and see {npc:11802}, then take {npc:11798}'s flight to {area:1638}."] = "",
 
 	-- Step 19: Power over Poison
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:8946} Cure Poison
@@ -130,6 +131,9 @@ return {
 	-- ["Use the {item:15826} on living Sickly Gazelles (level 3): they graze on both sides of the road north of the {area:380} up to the {zone:1440} border, north-west of the {area:380} and west of {area:392}. Druid trick: root a gazelle with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time, so five gazelles can do. Lost a dose? Abandon and retake the quest from {npc:3448} for a fresh salve."] = "Utilisez le {item:15826} sur des Gazelles malades vivantes (niveau 3) : elles broutent des deux côtés de la route au nord de {area:380} jusqu'à la frontière d'{zone:1440}, au nord-ouest de {area:380} et à l'ouest de {area:392}. Astuce de druide : immobilisez une gazelle avec {spell:339}, appliquez le baume avant que les racines ne fassent des dégâts, et la mort par les racines compte une seconde fois : cinq gazelles peuvent donc suffire. Perdu une dose ? Abandonnez la quête et reprenez-la auprès de {npc:3448} pour un baume neuf.",
 	-- ["Use the {item:15826} on living {npc:12298} (level 5, a green cloud over them): they roam {zone:1439} from the {area:456} to the {zone:1440} border, many around the Blackwood furbolg camp north-east of {area:442}. Druid trick: root a deer with {spell:339}, apply the salve before the roots tick, and the root kill counts a second time. Lost a dose on a deer that did not count? Abandon the quest and take it again from {npc:3702} for a fresh salve."] = "Utilisez le {item:15826} sur des {npc:12298} vivants (niveau 5, un nuage vert au-dessus d'eux) : ils errent en {zone:1439}, de la {area:456} jusqu'à la frontière d'{zone:1440}, nombreux autour du camp des furbolgs Noirbois au nord-est d'{area:442}. Astuce de druide : immobilisez un cerf avec {spell:339}, appliquez le baume avant que les racines ne fassent des dégâts, et la mort par les racines compte une seconde fois. Perdu une dose sur un cerf qui n'a pas compté ? Abandonnez la quête et reprenez-la auprès de {npc:3702} pour un baume neuf.",
 	-- ["Use the {item:15826} on {npc:12298}. They roam {zone:1439} from the {area:456} in the north to the {zone:1440} border in the south."] = "Utilisez le {item:15826} sur les {npc:12298}. Ils parcourent {zone:1439}, de {area:456} au nord jusqu'à la frontière d'{zone:1440} au sud.",
+	-- ["{npc:12296}: use the salve on them"] = "{npc:12296} : utilisez le baume sur elles",
+	-- ["{npc:12298}: use the salve on them"] = "{npc:12298} : utilisez le baume sur eux",
+	-- ["{npc:270459}, the Skyborne druid trainer, stands beside the Skyborne Portal west of {area:279} ({npc:4217} in {zone:1457} gives the same quest). No {skill:182}? Buy five {item:2449} on the Auction House first: you need them later."] = "{npc:270459}, la maîtresse des druides éolides, se tient à côté du portail éolide, à l'ouest de {area:279} ({npc:4217} à {zone:1457} donne la même quête). Pas d'{skill:182} ? Achetez d'abord cinq {item:2449} à l'hôtel des ventes : il vous en faudra plus tard.",
 	-- ["{npc:3033} stands on {area:1639}."] = "{npc:3033} se trouve sur {area:1639}.",
 	-- ["{npc:3448} stands in the {area:380}. No {skill:182}? {npc:3490}, a few steps away, sells {item:2449}, three at a time until he restocks."] = "{npc:3448} se trouve à {area:380}. Pas d'{skill:182} ? {npc:3490}, à quelques pas, vend de la {item:2449}, trois à la fois jusqu'à son réapprovisionnement.",
 	-- ["{npc:4217} stands in the {area:1658}."] = "{npc:4217} se trouve dans {area:1658}.",

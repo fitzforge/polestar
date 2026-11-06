@@ -144,7 +144,7 @@ function routeStep(q, chain, p)
 			for _, goal in ipairs(step.goals or {}) do
 				if ofChain(goal, q, chain) and C.Matches(goal.only, p) then
 					local title = step.title
-					if type(title) ~= "string" or title == "" then title = format(L["Step %d"], s) end
+					if type(title) ~= "string" or title == "" then title = format(L["Step %d"], UI.StepNo(s)) end
 					return s, title
 				end
 			end

@@ -227,14 +227,15 @@ fn options_with_a_gamepad_down_moves_a_switches_a_toggle_y_restores_its_default_
 		end
 		local before = Polestar.Get(slider.psPath)
 		stub.press("PADDRIGHT")
-		emit({ path = slider.psPath, before = before, after = Polestar.Get(slider.psPath) })
+		emit({ path = slider.psPath, before = before, after = Polestar.Get(slider.psPath), step = slider.psStep })
 	"#);
 	let (toggled, dropdown, tabs, slider) = (&out[0], &out[1], &out[2], &out[3]);
 	assert_eq!(toggled, &json!({ "line": "Button hints", "off": false, "bar": false, "back": true }));
 	assert_eq!(dropdown, &json!({ "line": "Button names", "one": "xbox", "two": "playstation", "back": "xbox" }));
 	assert_eq!(tabs["keys"], "Next step", "RB: the Key bindings tab, its first row");
 	assert_ne!(tabs["page"], "gamepad", "LB past the first tab: the page before");
-	assert_eq!(slider["after"].as_f64().unwrap(), slider["before"].as_f64().unwrap() + 1.0);
+	let (before, after, step) = (slider["before"].as_f64().unwrap(), slider["after"].as_f64().unwrap(), slider["step"].as_f64().unwrap());
+	assert!((after - (before + step)).abs() < 1e-9, "one step right: {slider}");
 }
 
 #[test]
@@ -272,6 +273,22 @@ fn the_guide_menu_the_focus_starts_on_the_selected_guide_lb_rb_step_the_rail_s_s
 	assert_eq!(sections["back"], "Guides");
 	let selected = start["selected"].clone();
 	assert_eq!(loaded, &json!({ "calls": [["SetGuide", selected]], "shown": false, "overrides": 0 }));
+}
+
+// The guide menu's Continue cards close their tab with Y, as the close button does with the mouse.
+#[test]
+fn the_guide_menu_y_on_a_continue_card_closes_that_tab() {
+	let out = run(r#"
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		UI.ShowPicker()
+		stub.advance(0.3)
+		local w = G.Focused(PolestarPicker)
+		emit({ card = w and rawget(w, "Pct") ~= nil, index = w and w.psIndex })
+		stub.press("PAD4")
+		emit({ calls = uistub.calls, shown = PolestarPicker:IsShown() })
+	"#);
+	assert_eq!(out[0], json!({ "card": true, "index": 1 }));
+	assert_eq!(out[1], json!({ "calls": [["CloseTab", 1]], "shown": true }));
 }
 
 #[test]

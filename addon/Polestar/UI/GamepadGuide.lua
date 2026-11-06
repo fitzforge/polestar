@@ -315,7 +315,7 @@ ns.RegisterOptions({
 				{ value = "xbox", label = L["Xbox (A, B, X, Y)"] },
 				{ value = "playstation", label = L["PlayStation (shapes)"] },
 			} },
-		{ kind = "toggle", key = "gamepad.navigate", label = L["Navigate Polestar's windows"],
+		{ kind = "toggle", key = "gamepad.navigate", label = L["Navigate Polestar's windows"], search = "controller, gamepad, steam deck, console, joystick",
 			help = L["While a Polestar window is open, the D-pad moves through it, A selects, B closes, LB and RB change tabs, Y restores a default. Out of combat; the game gets every button back when the window closes."] },
 		{ kind = "toggle", key = "gamepad.hints", label = L["Button hints"],
 			help = L["A bar under the window says what each button does, and B sits on the close button."] },

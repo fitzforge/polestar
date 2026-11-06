@@ -109,12 +109,11 @@ step Level 53.02
   goto 45.7,46.0 map 1422 "Diseased Wolf"
   level 53.02                          -- grind on Diseased Wolf
 
-step Diseased Grizzly on the way
-  along until q4985
-  kill 1816 quest 4985 -- Diseased Grizzly along the way to Mulgris Deepriver
+step Diseased Grizzlies
+  tip The bears roam the hills north and east of the Writhing Haunt.
+  kill 1816 quest 4985
 
 step Mulgris Deepriver
-  label q4985
   turnin 4985                         -- Inside
   accept 4987
   note Keep the branch: Nara Wildmane is in Thunder Bluff.
@@ -162,6 +161,11 @@ step Tirisfal Glades
   zone Tirisfal Glades
   goto 61.8,59.2 "Tirisfal Glades"
 
+step Paladin trainer
+  only Paladin
+  zone Tirisfal Glades
+  train class only Paladin -- Shari Stilwell in Tirisfal Glades; Orgrimmar has no paladin trainer
+
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
@@ -173,10 +177,6 @@ step Orgrimmar
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
 step Druid trainer
   only Druid
@@ -249,7 +249,7 @@ step Level 54.1
 
 step The Jaedenar moonwell
   tip Back north to Jaedenar. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp.
-  use 12922 @35.2,59.8 map 1448
+  use 12922 quest 5157.1 @35.2,59.8 map 1448
   collect 12907 quest 5157 @35.2,59.8
 
 step Rakaiah
@@ -349,7 +349,7 @@ step Level 54.7
 
 step The Jadefire moonwell
   tip Ride back south past Jaedenar to the corrupted moonwell of the Jadefire satyrs and fill Winna's flasket there.
-  use 12566 @32.3,66.6 map 1448
+  use 12566 quest 4505.1 @32.3,66.6 map 1448
   collect 12567 quest 4505 @32.3,66.6
 
 # ---------------------------------------------------------------- North to Winterspring

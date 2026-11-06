@@ -13,14 +13,17 @@ use forge_writer::tips::{Floors, Surface};
 use forge_writer::travel::Travel;
 use rustc_hash::FxHashMap;
 use std::collections::BTreeMap;
+use std::rc::Rc;
 
 thread_local! {
-	// The data is not Sync (its tables share Rc); one copy per test thread.
-	static REF: &'static Ref = Box::leak(Box::new(common::engine_ref()));
+	// The data is not Sync (its tables share Rc): one copy per test thread, dropped when the test's
+	// thread ends (libtest runs every test on a thread of its own), so a run holds at most
+	// --test-threads copies of $POLESTAR_V1's full data (~0.5 GB each), not one per test.
+	static REF: Rc<Ref> = Rc::new(common::engine_ref());
 }
 
-fn reference() -> &'static Ref {
-	REF.with(|r| *r)
+fn reference() -> Rc<Ref> {
+	REF.with(Rc::clone)
 }
 
 fn guide(id: &str, race: &str, faction: &str, zone: &str, next: Option<&str>, body: &[&str]) -> String {
@@ -36,7 +39,7 @@ fn guide(id: &str, race: &str, faction: &str, zone: &str, next: Option<&str>, bo
 
 /// Runs the rules on guides `files` (name, text) as the route's race; -> the files after, as lines.
 fn run(files: &[(&str, String)], race: &str, faction: &str, opts: &Opts, accept_lvl: &FxHashMap<u32, f64>) -> BTreeMap<String, Vec<String>> {
-	run_on(reference(), files, race, faction, opts, accept_lvl, None, None)
+	run_on(&reference(), files, race, faction, opts, accept_lvl, None, None)
 }
 
 /// `run` on the reference `r`, with R9's floors and R10's quest notes.
@@ -108,7 +111,27 @@ fn idx(g: &[String], l: &str) -> usize {
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r1_gloom_weed_along_the_road_to_brill() {
-	let g = guide("a", "Undead", "Horde", "Tirisfal Glades", None, &["step Gordo", "  accept 5481", "  collect 12737 quest 5481.1", "", "step Brill", "  turnin 5481"]);
+	let g = guide(
+		"a",
+		"Undead",
+		"Horde",
+		"Tirisfal Glades",
+		None,
+		&[
+			"step Gordo",
+			"  accept 5481",
+			"  collect 12737 quest 5481.1",
+			"",
+			"step Road",
+			"  goto 48.7,54.9 \"Road\"",
+			"",
+			"step Road east",
+			"  goto 56.19,50.83 \"Road east\"",
+			"",
+			"step Brill",
+			"  turnin 5481",
+		],
+	);
 	let before = run(&[("a", g.clone())], "Undead", "Horde", &off(), &FxHashMap::default());
 	assert!(!before["a"].iter().any(|l| l.contains("along")));
 	let after = run(&[("a", g)], "Undead", "Horde", &Opts { along: true, ..off() }, &FxHashMap::default());
@@ -173,6 +196,110 @@ fn r1_work_walked_past_before_its_step_is_listed_from_the_accept() {
 
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r1_along_step_opens_where_its_mobs_come_within_reach() {
+	// Fitz: Darkshore's Fine Crab Chunks (Fruit of the Sea) were listed from Gubber Blump's accept in
+	// Auberdine, but only the Reef and Encrusted Tide Crawlers of the north coast and the far south drop
+	// them; the beach south of Auberdine, the next stop, has none. Listed from the first step that comes
+	// within reach of a crab: the walk past a Reef Crawler.
+	let r = reference();
+	let sp = r.data.npcs.get("2235").get("spawns").get("1439").get("pts").at(9);
+	let (x, y) = (sp.at(0).num(), sp.at(1).num());
+	assert!(y < 30.0, "a Reef Crawler of the north coast: {x},{y}");
+	let body: Vec<String> = vec![
+		"step Auberdine".into(),
+		"  accept 1138".into(),
+		"".into(),
+		"step The beach".into(),
+		"  goto 36.4,50.9 \"Beach\"".into(),
+		"".into(),
+		"step Back in Auberdine".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step Walk".into(),
+		format!("  goto {:.2},{:.2} \"West\"", x - 1.0, y),
+		"".into(),
+		"step Walk on".into(),
+		format!("  goto {:.2},{:.2} \"East\"", x + 1.0, y),
+		"".into(),
+		"step Far".into(),
+		"  goto 40.0,60.0 \"South\"".into(),
+		"".into(),
+		"step Crabs".into(),
+		"  collect 12237 quest 1138.1".into(),
+		"".into(),
+		"step Gubber Blump".into(),
+		"  turnin 1138".into(),
+	];
+	let body: Vec<&str> = body.iter().map(String::as_str).collect();
+	let g = guide("a", "Human", "Alliance", "Darkshore", None, &body);
+	let after = run(&[("a", g)], "Human", "Alliance", &Opts { along: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	let s = idx(a, "step Fine Crab Chunks on the way");
+	assert!(idx(a, "step Back in Auberdine") < s && s < idx(a, "step Walk"), "{}", a.join("\n"));
+	assert_eq!(a[s + 1], "  along until q1138");
+	assert_eq!(a[idx(a, "step Crabs") + 1], "  label q1138");
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r1_a_list_whose_walk_does_not_pass_its_work_is_a_goal_at_the_stop_with_most_of_it() {
+	// Fitz in game: Darkshore's Fine Crab Chunks were listed along the way for ten stops of which three
+	// had crabs, six walks of nineteen passing one. A list is along only when half its walks (at least
+	// two) pass its work; else the chunks are a goal at the stop with most crabs near, saying where.
+	let r = reference();
+	let sp = r.data.npcs.get("2235").get("spawns").get("1439").get("pts").at(9);
+	let (x, y) = (sp.at(0).num(), sp.at(1).num());
+	let body: Vec<String> = vec![
+		"step Auberdine".into(),
+		"  accept 1138".into(),
+		"".into(),
+		"step The beach".into(),
+		"  goto 36.4,50.9 \"Beach\"".into(),
+		"".into(),
+		"step Back in Auberdine".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step Cliffspring".into(),
+		format!("  goto {:.2},{:.2} \"West\"", x - 1.0, y),
+		"".into(),
+		"step Cliffspring east".into(),
+		format!("  goto {:.2},{:.2} \"East\"", x + 1.0, y),
+		"".into(),
+		"step Ameth'Aran".into(),
+		"  goto 43.0,58.0 \"Ameth'Aran\"".into(),
+		"".into(),
+		"step Bashal'Aran".into(),
+		"  goto 44.6,38.6 \"Bashal'Aran\"".into(),
+		"".into(),
+		"step Auberdine again".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step The Grove".into(),
+		"  goto 43.5,76.0 \"Grove\"".into(),
+		"".into(),
+		"step Auberdine once more".into(),
+		"  goto 37.4,44.0 \"Auberdine\"".into(),
+		"".into(),
+		"step Crabs".into(),
+		"  collect 12237 quest 1138.1".into(),
+		"".into(),
+		"step Gubber Blump".into(),
+		"  turnin 1138".into(),
+	];
+	let body: Vec<&str> = body.iter().map(String::as_str).collect();
+	let g = guide("a", "Human", "Alliance", "Darkshore", None, &body);
+	let after = run(&[("a", g)], "Human", "Alliance", &Opts { along: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	assert!(!a.iter().any(|l| l.contains("along") || l.contains("label q1138")), "{}", a.join("\n"));
+	// (At the crawler: the east point, with more of them within 200 yd than the west one.)
+	let s = idx(a, "step Cliffspring east");
+	let goal = a[s + 1..].iter().take_while(|l| !l.is_empty()).find(|l| l.starts_with("  collect 12237 quest 1138")).unwrap_or_else(|| panic!("the chunks at Cliffspring:\n{}", a.join("\n")));
+	assert!(goal.contains("-- Fine Crab Chunks from Reef Crawler"), "{goal}");
+	assert_eq!(a.iter().filter(|l| l.starts_with("  collect 12237")).count(), 2, "and still at Crabs, its own step: {}", a.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r1_carried_quest_gets_its_along_step_in_each_guide_it_crosses() {
 	let r = reference();
 	let sp = r.data.npcs.get("3256").get("spawns").get("1413").get("pts").at(0);
@@ -223,6 +350,17 @@ fn r2_use_for_an_item_summon() {
 	let a = &after["a"];
 	let u = idx(a, "  use 10338 @60.0,30.2 map 1413");
 	assert_eq!(a[u + 1], "  collect 5101 quest 882.1", "the use summons Ishamuhale, the kill drops the fang: {}", a.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever and data/local/mechanics (or POLESTAR_V1)"]
+fn r2_one_use_per_quest_item() {
+	// #843: A Matter of Time's mechanics list the Temporal Displacer's summon three times; Andorhal's
+	// step had `use 12627` three times.
+	let g = guide("a", "Undead", "Horde", "Western Plaguelands", None, &["step Chromie", "  accept 4971", "", "step Andorhal", "  kill 10717 quest 4971.1", "", "step Chromie again", "  turnin 4971"]);
+	let after = run(&[("a", g)], "Undead", "Horde", &Opts { use_items: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	assert_eq!(a.iter().filter(|l| l.starts_with("  use 12627")).count(), 1, "{}", a.join("\n"));
 }
 
 #[test]
@@ -353,6 +491,12 @@ fn r1_onward_along_step_for_a_quest_taken_earlier_goes_before_its_stop() {
 			"  goto 43.1,54.7 \"Gordo\"",
 			"  collect 12737 quest 5481.1",
 			"",
+			"step Road",
+			"  goto 48.7,54.9 \"Road\"",
+			"",
+			"step Brill road",
+			"  goto 56.19,50.83 \"Brill road\"",
+			"",
 			"step Brill",
 			"  turnin 5481",
 		],
@@ -415,8 +559,27 @@ fn r2_use_at_the_place_nearest_the_routes_work() {
 	let g = guide("a", "Orc", "Horde", "Felwood", None, &["step Greta", "  accept 5157", "", "step Jaedenar", "  collect 12907 quest 5157 @35.2,59.8", "", "step Greta again", "  turnin 5157"]);
 	let after = run(&[("a", g)], "Orc", "Horde", &Opts { use_items: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
-	// (The fill itself gives no credit: not bound to the objective, PR542.)
-	assert!(a.iter().any(|l| l == "  use 12922 @35.2,59.8 map 1448"), "{}", a.join("\n"));
+	// (The fill gives no credit itself, PR542, but the collect it goes before is the objective's: bound
+	// to it, #875.)
+	assert!(a.iter().any(|l| l == "  use 12922 quest 5157.1 @35.2,59.8 map 1448"), "{}", a.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever and data/local/mechanics (or POLESTAR_V1)"]
+fn r2_use_that_makes_the_quests_collect_is_bound_to_it() {
+	// #875 The Balance of Nature's moonwell: the phial filled, collect 5184 done, and a bare
+	// `use 5185` held the step until ticked.
+	let g = guide(
+		"a",
+		"NightElf",
+		"Alliance",
+		"Teldrassil",
+		None,
+		&["step Tenaron", "  accept 921", "", "step Moonwell", "  collect 5184 quest 921.1 @60.0,33.0", "", "step Tenaron again", "  turnin 921"],
+	);
+	let after = run(&[("a", g)], "NightElf", "Alliance", &Opts { use_items: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	assert!(a.iter().any(|l| l == "  use 5185 quest 921.1 @60.0,33.0 map 1438"), "{}", a.join("\n"));
 }
 
 #[test]
@@ -482,13 +645,14 @@ fn r3_hand_in_of_a_quest_picked_up_optionally_is_when_onquest_split_from_other_w
 	let after = run(&[("a", g)], "Orc", "Horde", &Opts { when: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
 	assert_eq!(a[idx(a, "step Back") + 1], "  when onquest 788", "{}", a.join("\n"));
-	// (Beside other work at the same NPC, Gornek's follow-up, the hand-in stays in its step, optional:
-	// the player stands there anyway, RevOrcTroll3 T7.)
+	// (Beside other work at the same NPC, Gornek's follow-up, the hand-in stays in its step, RevOrcTroll3
+	// T7, and as written: the addon holds the hand-in of a quest taken with an `optional` accept only for
+	// a player who took it, and one who did is not let past its NPC, #298.)
 	let den = idx(a, "step Den");
-	assert_eq!(a[den..den + 5], ["step Den", "  tip The trainer stands in the den.", "  train class", "  turnin 788 optional", "  accept 789"], "{}", a.join("\n"));
+	assert_eq!(a[den..den + 5], ["step Den", "  tip The trainer stands in the den.", "  train class", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
 	assert!(!a[idx(a, "step Boars")..].iter().take(2).any(|l| l.contains("when")), "the work is not a hand-in: {}", a.join("\n"));
 	let again = idx(a, "step Gornek again");
-	assert_eq!(a[again..again + 4], ["step Gornek again", "  tip He stands in the den.", "  turnin 788 optional", "  accept 789"], "{}", a.join("\n"));
+	assert_eq!(a[again..again + 4], ["step Gornek again", "  tip He stands in the den.", "  turnin 788", "  accept 789"], "{}", a.join("\n"));
 }
 
 /// Gornek's den as a cellar: an indoor floor under open ground near his spawn, the open ground elsewhere.
@@ -509,9 +673,9 @@ impl Floors for Den {
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r9_a_goal_below_ground_says_so_and_one_at_a_walking_npc_says_where_he_walks() {
 	let g = guide("a", "Orc", "Horde", "Durotar", None, &["step Gornek", "  accept 788", "", "step Boars", "  kill 3098 quest 788.1"]);
-	let before = run_on(reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), Some(&Den), None);
+	let before = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), Some(&Den), None);
 	assert!(before["a"].iter().any(|l| l == "  accept 788"));
-	let after = run_on(reference(), &[("a", g.clone())], "Orc", "Horde", &Opts { tips: true, ..off() }, &FxHashMap::default(), Some(&Den), None);
+	let after = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &Opts { tips: true, ..off() }, &FxHashMap::default(), Some(&Den), None);
 	let a = &after["a"];
 	assert_eq!(a[idx(a, "step Gornek") + 1], format!("{:<37} -- Below ground", "  accept 788"), "{}", a.join("\n"));
 	assert!(a.iter().any(|l| l == "  kill 3098 quest 788.1"), "the boars roam the open ground: {}", a.join("\n"));
@@ -523,7 +687,7 @@ fn r9_a_goal_below_ground_says_so_and_one_at_a_walking_npc_says_where_he_walks()
 	assert_eq!(a[idx(a, "step Gornek") + 1], format!("{:<37} -- Gornek walks around here: look inside the circle on the map", "  accept 788"), "{}", a.join("\n"));
 	// Alonso, found at three places some 90 yd apart in Astranaar's square: the map marks them.
 	let g = guide("b", "Human", "Alliance", "Ashenvale", None, &["step Alonso", "  accept 78132"]);
-	let after = run_on(reference(), &[("b", g)], "Human", "Alliance", &Opts { tips: true, ..off() }, &FxHashMap::default(), None, None);
+	let after = run_on(&reference(), &[("b", g)], "Human", "Alliance", &Opts { tips: true, ..off() }, &FxHashMap::default(), None, None);
 	let b = &after["b"];
 	assert_eq!(b[idx(b, "step Alonso") + 1], format!("{:<37} -- Alonso walks around here: the map marks where to look", "  accept 78132"), "{}", b.join("\n"));
 }
@@ -536,9 +700,9 @@ fn r10_a_quests_ambush_note_is_a_careful_tip_on_the_step_that_does_its_work() {
 		{ "kind": "danger", "basis": "game-data", "fact": "Two boars ambush you at the den." },
 		{ "kind": "tip", "basis": "game-data", "fact": "The boars are easy." },
 	]}});
-	let before = run_on(reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, Some(&notes));
+	let before = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, Some(&notes));
 	assert!(!before["a"].iter().any(|l| l.contains("Careful")));
-	let after = run_on(reference(), &[("a", g)], "Orc", "Horde", &Opts { warnings: true, ..off() }, &FxHashMap::default(), None, Some(&notes));
+	let after = run_on(&reference(), &[("a", g)], "Orc", "Horde", &Opts { warnings: true, ..off() }, &FxHashMap::default(), None, Some(&notes));
 	let a = &after["a"];
 	let b = idx(a, "step Boars");
 	assert_eq!(a[b + 1..b + 4], ["  zone Durotar", "  tip Careful: Two boars ambush you at the den.", "  kill 3098 quest 788.1"], "{}", a.join("\n"));
@@ -674,9 +838,9 @@ fn groups_a_family_is_asked_on_every_step_with_its_size_and_tip() {
 		"quests": [790, 804]
 	}))
 	.unwrap();
-	let before = run_groups(reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, None, std::slice::from_ref(&fam), &of);
+	let before = run_groups(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, None, std::slice::from_ref(&fam), &of);
 	assert!(!before["a"].iter().any(|l| l.contains("group")), "{}", before["a"].join("\n"));
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
 	let at = |title: &str, n: usize| -> Vec<String> {
 		let s = a.iter().enumerate().filter(|(_, l)| *l == &format!("step {title}")).nth(n).map(|(i, _)| i).unwrap_or_else(|| panic!("no step {title} #{n} in\n{}", a.join("\n")));
@@ -708,7 +872,7 @@ fn groups_two_families_on_one_step_keep_the_steps_order() {
 	let fam = |q: u32| -> Group {
 		serde_json::from_value(serde_json::json!({ "q": q, "title": "T", "size": 3, "level": 10, "mobs": [{ "npc": 3281, "name": "Sarkoth", "level": 10, "rank": 1 }], "quests": [q] })).unwrap()
 	};
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam(790), fam(804)], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam(790), fam(804)], &of);
 	let a = &after["a"];
 	let (t, c) = (idx(a, "  turnin 790"), idx(a, "  accept 804"));
 	assert!(t < c, "{}", a.join("\n"));
@@ -721,7 +885,7 @@ fn groups_a_soloable_elite_says_most_classes_solo_it_two_levels_up() {
 	let fam: Group =
 		serde_json::from_value(serde_json::json!({ "q": 790, "title": "Sarkoth", "size": 1, "level": 10, "mobs": [{ "npc": 3281, "name": "Sarkoth", "level": 10, "rank": 1 }], "quests": [790, 804] }))
 			.unwrap();
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
 	let tip = "  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Sarkoth is a level 10 elite: most classes solo it at level 12, but you may need help. Skip it if you are alone: the route has you grind the XP back.";
 	assert_eq!(a[idx(a, "step Sarkoth's cave") + 2], tip, "{}", a.join("\n"));
@@ -734,8 +898,48 @@ fn groups_a_title_with_double_quotes_is_written_with_single_quotes() {
 	// (Wanted:  "Hogger": a tip's text ends at a double quote, and the pack refused the guide.)
 	let (g, of) = sarkoth();
 	let fam: Group = serde_json::from_value(serde_json::json!({ "q": 790, "title": "Wanted:  \"Sarkoth\"", "size": 3, "level": 10, "mobs": [], "quests": [790, 804] })).unwrap();
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
 	let tip = &a[idx(a, "step Sarkoth's cave") + 2];
 	assert!(tip.contains("Wanted:  'Sarkoth' needs a group of 3.") && !tip.contains('"'), "{}", a.join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn groups_the_drop_that_starts_a_family_quest_is_asked_for() {
+	// Croaky's Head (#977): the level 11 elite's drop starts Croaky's Head (91740, a group family), but its
+	// bag collect sat in Elwynn's step for everyone (12 recorded deaths at 8-9): it goes with the family.
+	let g = guide(
+		"a",
+		"Human",
+		"Alliance",
+		"Elwynn Forest",
+		None,
+		&[
+			"step Downstream and Princess",
+			"  collect 247813 quest 91733",
+			"  collect 247826 x1 optional",
+			"  collect 247817 quest 91733",
+			"",
+			"step Downstream and Princess",
+			"  when group 91740",
+			"  accept 91740 optional",
+			"",
+			"step Ormin Pelford",
+			"  turnin 91733",
+		],
+	);
+	let fam: Group = serde_json::from_value(
+		serde_json::json!({ "q": 91740, "title": "Croaky's Head", "size": 2, "level": 11, "mobs": [{ "npc": 330, "name": "Croaky", "level": 11, "rank": 1 }], "quests": [91740] }),
+	)
+	.unwrap();
+	let of: FxHashMap<u32, u32> = [(91740, 91740)].into_iter().collect();
+	let before = run_groups(&reference(), &[("a", g.clone())], "Human", "Alliance", &off(), &FxHashMap::default(), None, None, std::slice::from_ref(&fam), &of);
+	assert!(before["a"][..idx(&before["a"], "  when group 91740")].iter().any(|l| l == "  collect 247826 x1 optional"), "{}", before["a"].join("\n"));
+	let after = run_groups(&reference(), &[("a", g)], "Human", "Alliance", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let a = &after["a"];
+	let head = idx(a, "  collect 247826 x1 optional");
+	let asked = a[..head].iter().rposition(|l| l.starts_with("step ")).unwrap();
+	assert_eq!(a[asked + 1], "  when group 91740", "{}", a.join("\n"));
+	assert!(idx(a, "  collect 247817 quest 91733") < head, "{}", a.join("\n"));
 }

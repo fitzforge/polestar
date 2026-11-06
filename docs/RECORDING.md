@@ -293,7 +293,13 @@ their own client, so nothing trusts a single upload.
   drop chance) changes only on the evidence of 3 distinct counted voters
   (for a drop chance, each with 10 kills of their own), or of `local` or
   `sent-*`; one counted voter fills only gaps no other source has.
-  Objectives are added or reordered only on trusted evidence. New quests,
+  Objectives are added or reordered only on trusted evidence, except by the
+  game's own objective list: the `objectives` record at the accept, the lines
+  the game reveals later and what ticked each line (kill credits, a window
+  opened with an NPC where and when a line ticked) set a quest's objective
+  count, order and talks from one counted voter, since the list is the
+  client's own; voters whose lists disagree leave the data's objectives, and
+  the build lists the quest. New quests,
   NPCs, objects, items, factions and zones come only from `local` or
   `sent-*`, and map frames only from `local` (for maps the game's own data
   lacks). Numbers several voters recorded are the median of each voter's own

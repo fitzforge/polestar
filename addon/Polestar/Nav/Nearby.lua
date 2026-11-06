@@ -66,8 +66,10 @@ local KINDS = {
 	{ key = "repair", role = "repair", label = L["Repair"] },
 	{ key = "reagents", role = "vendor", only = "reagentVendors", label = L["Reagents"] },
 	{ key = "vendor", role = "vendor", without = "trainer", titled = true, label = L["Vendor"] },
-	-- By what they sell (the Codex's "sells:" roles, from the item's class).
+	-- By what they sell (the Codex's "sells:" roles, from the item's class;
+	-- general goods from the NPC's title).
 	{ key = "food", role = "sells:food", without = "trainer", titled = true, under = "vendor", label = L["Food & drink"] },
+	{ key = "general", role = "sells:general", without = "trainer", titled = true, under = "vendor", label = L["General goods"] },
 	{ key = "arrows", role = "sells:arrows", without = "trainer", titled = true, under = "vendor", uses = { 2, 18 }, label = L["Arrows"] },
 	{ key = "bullets", role = "sells:bullets", without = "trainer", titled = true, under = "vendor", uses = { 3 }, label = L["Bullets"] },
 	{ key = "ranged", role = "sells:ranged", without = "trainer", titled = true, under = "vendor", uses = { 2, 3, 18 }, label = L["Bows & guns"] },
@@ -85,7 +87,7 @@ local ALIAS = {
 	flightmaster = "flight", stablemaster = "stable", reagent = "reagents", trainers = "trainer",
 	drink = "food", water = "food", arrow = "arrows", bullet = "bullets", ammo = "arrows",
 	bow = "ranged", bows = "ranged", gun = "ranged", guns = "ranged", crossbow = "ranged",
-	mail = "mailbox", post = "mailbox",
+	mail = "mailbox", post = "mailbox", goods = "general", supplies = "general",
 }
 Nearby.KINDS = KINDS
 
@@ -491,7 +493,7 @@ function Nearby.Go(key, line)
 	if not place then
 		local why = seconds
 		if why == "kind" then
-			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
+			ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
 		elseif why == "combat" then
 			ns.Print(L["Nearby services can be looked up after combat."])
 		elseif why == "missing" then
@@ -529,7 +531,7 @@ function Nearby.Command(rest)
 	local text = lower((rest or ""):match("^%s*(.-)%s*$"))
 	local word, more = text:match("^(%S+)%s*(.-)$")
 	if not word then
-		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
+		ns.Print(L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"])
 		return
 	end
 	local key = ALIAS[word] or word
@@ -643,14 +645,23 @@ ns.RegisterCommand("near", Nearby.Command,
 	L["Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master"])
 
 if ns.RegisterOptions then
-	local ok, err = ns.RegisterOptions({
-		page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"],
-		controls = {
+	-- Also on Quality of Life > Travel > Nearby services: one setting, a fresh
+	-- control per page (the registry keeps per-control state).
+	local function controls()
+		return {
 			{ kind = "toggle", key = "nav.nearbyMenu", label = L["Nearby services in map menus"],
+				search = "nearest vendor, repair, trainer, mailbox, bank, inn, find npc, tracking",
 				help = L["The world map's and minimap's tracking menus find the nearest trainer, vendor, inn, bank and more (/polestar near)."] },
 			{ kind = "toggle", key = "nav.nearbyButton", label = L["Nearby services button"],
+				search = "nearest vendor, repair, trainer, inn, flight master, find npc",
 				help = L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] },
-		},
-	})
-	if not ok and geterrorhandler then geterrorhandler()(err) end
+		}
+	end
+	for _, spec in ipairs({
+		{ page = L["Guide"], tab = L["Arrow & routes"], section = L["Routes"], controls = controls() },
+		{ page = L["Quality of Life"], tab = L["Travel"], section = L["Nearby services"], controls = controls() },
+	}) do
+		local ok, err = ns.RegisterOptions(spec)
+		if not ok and geterrorhandler then geterrorhandler()(err) end
+	end
 end

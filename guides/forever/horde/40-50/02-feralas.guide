@@ -196,7 +196,7 @@ step Gadgetzan flight master
 step Thunder Bluff
   only Druid,Paladin
   zone Thunder Bluff
-  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins). Fly there from Orgrimmar, then on to Freewind Post.
+  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins). Fly there from Gadgetzan, then back to Gadgetzan.
   fly "Thunder Bluff"
   train class
 
@@ -341,7 +341,7 @@ step Camp Mojache
 
 step Gordunni Outpost
   tip North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.
-  use 9466 @74.5,30.2 map 1444
+  use 9466 quest 2987.1 @74.5,30.2 map 1444
   collect 9463 quest 2987.1
   kill 5229 quest 2975.1
   kill 5237 quest 2975.2
@@ -396,9 +396,6 @@ step Ruins of Isildien: kill these as you meet them
   kill 5240 quest 2980.2
   kill 5236 quest 2980.1
   collect 9371 quest 2979.1
-
-step Hearth to Camp Mojache
-  hearth "Camp Mojache"
 
 step Camp Mojache
   turnin 2974                           -- Krueg Skullsplitter

@@ -22,7 +22,7 @@ step Moonglade
 step Aquatic Form
   only NightElf,Druid
   zone Moonglade
-  tip Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village.
+  tip Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   collect 15885 quest 272.1 only NightElf,Skyborne -- Pendant of the Sea Lion: join the two halves
   turnin 272 only NightElf,Skyborne -- Dendrite Starblaze
   accept 5061 only NightElf
@@ -79,10 +79,10 @@ step Boat to Auberdine
   turnin 97926 optional                       -- Thundris Windweaver: Alexston's reply, if you took it in Stormwind
 
 step Kerlonian Evershade
-  when onquest 5321
   tip Kerlonian sleeps at the Grove of the Ancients in southern Darkshore. Use the Horn of Awakening to wake him and lead him south along the road into Ashenvale to Liladris Moonriver at Maestra's Post; blow the horn again whenever he falls asleep.
   tip Careful: Scripted ambushes of three mobs each attack along the road: furbolgs on the Darkshore stretch and undead nearer Maestra's Post.
   goto 44.4,76.4 "Grove of the Ancients"
+  accept 5321                                 -- Kerlonian Evershade
   collect 13536 quest 5321.1                  -- Kerlonian's Chest, beside him
   goto 44.4,76.4 "Kerlonian Evershade"
   note Escort Kerlonian to Maestra's Post in Ashenvale.
@@ -164,9 +164,6 @@ step Talen
 
 step Maestra's Post
   turnin 973                              -- Delgren the Purifier
-
-step Hearth to Astranaar
-  hearth "Astranaar"
 
 step Astranaar
   turnin 1023                             -- Raene Wolfrunner
@@ -313,10 +310,6 @@ step Menethil Harbor
   accept 305                              -- Tarrel Rockweaver, by the north gate
   accept 484                              -- James Halloran, by the north gate
 
-step Sida's Bag on the way
-  along until q470
-  collect 3349 quest 470
-
 # ---------------------------------------------------------------- Menethil Harbor
 
 step Spoils of War
@@ -327,7 +320,6 @@ step Spoils of War
 step James Halloran
   accept 98240
   tip James Halloran stands by the north gate.
-  accept 98072                        -- James Halloran
   turnin 98197                        -- Inside
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -412,7 +404,6 @@ step Rethiel the Greenwarden
   accept 277
 
 step Wetlands: kill these as you meet them
-  label q470
   zone Wetlands
   tip Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
   tip Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of Rethiel; almost every one drops flint.
@@ -434,9 +425,6 @@ step The Green Belt: kill these as you meet them
 
 step Rethiel the Greenwarden
   turnin 275
-
-step Hearth to Deepwater Tavern
-  hearth "Deepwater Tavern"
 
 step Karl Boran
   turnin 286
@@ -519,7 +507,6 @@ step Cathedral of Light
   zone Stormwind City
   tip Take the Deeprun Tram from Tinker Town to Stormwind's Dwarven District, then walk to the Cathedral Square.
   accept 1274                             -- Thomas, in the Cathedral of Light
-  accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
 
 step Cathedral of Light
   zone Stormwind City
@@ -535,6 +522,7 @@ step Stormwind Keep
 
 step Lord Grayson Shadowbreaker
   turnin 98191 npc 928                    -- Lord Grayson Shadowbreaker
+  accept 98219 npc 928                    -- For Lieutenant Farren Orinelle in Southshore: keep it
 
 step Collin Mauren
   accept 1078

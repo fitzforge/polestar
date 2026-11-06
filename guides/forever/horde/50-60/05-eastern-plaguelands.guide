@@ -176,9 +176,6 @@ step Duskwing, Oh How I Hate Thee...
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Duskwing is a level 60 elite: most classes solo it at level 62, but you may need help. Skip it if you are alone: the route has you grind the XP back.
   collect 15850 quest 6135.1 @26.1,59.0 map 1423 live
 
-step Hearth to Light's Hope Chapel
-  hearth "Light's Hope Chapel"
-
 step Carlin Redpath
   turnin 5181
 
@@ -213,7 +210,7 @@ step Fly to Thunder Bluff
 step Fly to Thunder Bluff
   only Druid,Paladin
   zone Thunder Bluff
-  tip Fly to the Undercity, take the zeppelin to Orgrimmar and fly on to Thunder Bluff.
+  tip The flight from Bloodvenom Post lands in Thunder Bluff: Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
 
 step Rumstag Proudstrider

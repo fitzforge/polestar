@@ -5,6 +5,8 @@
 	<Script file="ZoneArtOverlays.lua"/>
 	<Script file="NameTargets.lua"/>
 	<Script file="GuideFrame.lua"/>
+	<Script file="PartyPanel.lua"/>
+	<Script file="PartyLoot.lua"/>
 	<Script file="ClassRewards.lua"/>
 	<Script file="ClassCard.lua"/>
 	<Script file="ClassToast.lua"/>

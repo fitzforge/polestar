@@ -76,12 +76,7 @@ step Gadgetzan
   turnin 1690                         -- Chief Engineer Bilgewhizzle
   accept 1691
 
-step Wastewander Water Pouch on the way
-  along until q1878
-  collect 8483 quest 1878
-
 step Waterspring Field
-  label q1878
   tip The tougher Wastewander rogues, shadow mages and assassins camp south-east of Gadgetzan, south of the bandits. Leave Caliph Scorpidsting in the middle of the southern camp for later.
   tip Careful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.
   kill 5617 quest 1691                -- Wastewander Shadow Mage
@@ -185,11 +180,7 @@ step The Gaping Chasm
   tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
   collect 8593 x1 quest 10            -- Scrimshank's Surveying Gear; below ground
 
-step Hearth to Gadgetzan
-  hearth "Gadgetzan"
-
 step Gadgetzan
-  tip Hearth to Gadgetzan.
   turnin 2781                         -- Chief Engineer Bilgewhizzle
   turnin 10                           -- Senior Surveyor Fizzledowser
   accept 110

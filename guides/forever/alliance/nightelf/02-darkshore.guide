@@ -40,8 +40,9 @@ step Auberdine
 
 step Auberdine
   zone Darkshore
+  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   sethome "Auberdine"
-  accept 983                                  -- Wizbang Cranktoggle, by the inn
+  accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   turnin 3524                                 -- Gwennyth Bly'Leggonde
   accept 4681
   accept 4811 only NightElf                   -- Sentinel Glynda Nal'Shea
@@ -92,9 +93,8 @@ step Bashal'Aran
   accept 957
   accept 4723                                 -- Beached Sea Creature
 
-step Hearth to Auberdine
+step Auberdine
   turnin 958
-  hearth "Auberdine" only Human,Dwarf,Gnome,Skyborne
   turnin 984                                  -- Terenthis
   accept 985
 
@@ -105,7 +105,7 @@ step Auberdine
   turnin 98025
   turnin 4722                                 -- Gwennyth Bly'Leggonde
   turnin 4723
-  use 14338 @37.8,44.0 map 1439
+  use 14338 quest 4812.1 @37.8,44.0 map 1439
   collect 14339 quest 4812                    -- Fill the tube at the moonwell in the village
   vendor nearest
 
@@ -159,6 +159,11 @@ step Woo Ping
   tip While you're here: learn Swords from Woo Ping (Trade District, 10 silver); a sword in the main hand levels a Rogue steadily.
   train 11867                         -- Woo Ping
 
+step Druid trainer
+  only Druid
+  zone Stormwind City
+  train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer
+
 step Elwynn Forest
   only NightElf
   zone Elwynn Forest
@@ -173,19 +178,11 @@ step Shaman trainer
   only Shaman
   train class only Shaman -- Teo Hammerstorm in Dun Morogh; Goldshire has no shaman trainer
 
-step Druid trainer
-  only Druid
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Goldshire has no druid trainer
-
 step Remy "Two Times"
   zone Darkshore
   accept 40
   turnin 40
   accept 35
-
-step Hearth to Auberdine
-  only NightElf
-  hearth "Auberdine"
 
 step Darkshore
   only NightElf
@@ -201,8 +198,7 @@ step Bashal'Aran
   zone Darkshore
   turnin 957                                  -- Asterion
 
-step Hearth to Auberdine
-  hearth "Auberdine" only Human,Dwarf,Gnome,Skyborne
+step Auberdine
   vendor nearest
 
 step Darkshore

@@ -209,7 +209,8 @@ step Kharanos: the hills and the depot
   turnin 5541
   turnin 98322
   accept 98319
-  interact 460004 quest 98319.1       -- Mountaineer Cornelius
+  goto 42.9,49.6 "Mountaineer Cornelius"
+  complete 98319
   turnin 98319
   accept 98323
 

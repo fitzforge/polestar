@@ -193,7 +193,7 @@ step Lord Grayson Shadowbreaker
   tip Lord Grayson hands you Lord Grayson's Satchel: open it for the Divination Scryer and the Blessed Arcanite Barding. Keep both.
   turnin 7646                         -- Lord Grayson Shadowbreaker
   accept 7647
-  use 18804 @48.43,50.22 live         -- Lord Grayson's Satchel
+  use 18804 quest 7647.2 @48.43,50.22 live -- Lord Grayson's Satchel
   collect 18792 quest 7647.2 @48.43,50.22 live -- Blessed Arcanite Barding, from the satchel
 
 step The Great Ossuary
@@ -201,6 +201,6 @@ step The Great Ossuary
   tip Scholomance lies under Caer Darrow, the island town in the south-east of the Western Plaguelands; the door needs the Skeleton Key (The Key to Scholomance). Clear the Great Ossuary, Rattlegore's room in the basement, then use the Divination Scryer at its centre. Four waves of spirits come, each ending with an Aspect: players judge them with Seal of Wisdom, Justice, Righteousness and then Light, which stuns them. Death Knight Darkreaver (level 62 elite) comes after the last; he mind-controls players. Loot the Charger's Lost Soul, use it inside the Ossuary to redeem it, and give it and the Blessed Arcanite Barding to Darkreaver's Fallen Charger. If the group wipes, the gates lock and the scryer is gone: abandon the quest and take it again from Lord Grayson for a new satchel. A group of five at 60. Again Into the Great Ossuary, after the mount, lets you fight him again.
   goto 69.7,73.2 "Scholomance"
   collect 18749 @69.7,73.2            -- Charger's Lost Soul: Death Knight Darkreaver
-  use 18749 @69.7,73.2                -- Charger's Lost Soul, inside the Great Ossuary
+  use 18749 quest 7647.1 @69.7,73.2   -- Charger's Lost Soul, inside the Great Ossuary
   collect 18799 quest 7647.1 @69.7,73.2 -- Charger's Redeemed Soul
   turnin 7647 @69.7,73.2              -- Darkreaver's Fallen Charger: Summon Charger

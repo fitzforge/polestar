@@ -17,7 +17,7 @@ Polestar.RegisterGuide({ id = "test/ns", pack = "test", title = "Northshire", fa
 	{ goals = { { t = "accept", quest = 783, title = "A Threat Within" } } },
 	{ goals = { { t = "talk", npc = 197, npcName = "Marshal McBride" } } },
 	{ only = { classes = { "WARRIOR" } }, goals = { { t = "train", npc = 911, npcName = "Llane Beshere" } } },
-	{ goals = { { t = "hearth", location = "Northshire Abbey" } } },
+	{ goals = { { t = "hearth", location = "Northshire Abbey" }, { t = "note", text = "Back to the abbey." } } }, -- a note keeps it a step (Own.hearthOnly)
 	{ goals = { { t = "turnin", quest = 783, title = "A Threat Within" } } },
 	{ goals = { { t = "accept", quest = 7, title = "Kobold Camp Cleanup" } } },
 	{ goals = { { t = "talk", npc = 6, npcName = "Someone" } } },

@@ -411,6 +411,24 @@ fn generated_guides_no_guide_for_sources_without_a_place_disabled_module() {
 	assert_eq!(disabled, json!({ "id": false, "why": "disabled" }));
 }
 
+// #785: the Codex marks a live-frame point "l"; a guide goal knows only "e" (Era) or no frame (live), so
+// the Alliance Drakefire Amulet's guide failed with "unknown frame l".
+#[test]
+fn generated_guides_a_live_frame_point_is_a_goal_without_a_frame_an_era_one_keeps_e() {
+	let [live, era] = first::<2>(run(r#"
+		local q = { id = 1, title = "Test", start = { npc = { 777001 } }, ["end"] = { npc = { 777001 } }, objectives = {} }
+		local function frames(f)
+			local step = Polestar.Lookup.QuestStep(q, { map = 9001, x = 50, y = 50 }, { inside = function() return { map = 9001, x = 40, y = 40, f = f, name = "Inside" } end })
+			local out = {}
+			for i, g in ipairs(step.goals) do out[i] = { g.t, g.f or false } end
+			return out
+		end
+		emit(frames("l")); emit(frames("e"))
+	"#));
+	assert_eq!(live, json!([["accept", false], ["turnin", false]]));
+	assert_eq!(era, json!([["accept", "e"], ["turnin", "e"]]));
+}
+
 // A guide built from a mount's best source would leave out level 40, riding and the gold: only a
 // curated mount guide (by `collects`, or a class mount's spell by `keywords`) is offered.
 const MOUNT_GUIDE_LUA: &str = r#"

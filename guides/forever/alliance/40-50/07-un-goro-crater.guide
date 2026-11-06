@@ -35,18 +35,13 @@ step Sprinkle
 
 step Gadgetzan
   zone Tanaris
-  tip From Ratchet, fly to Gadgetzan.
+  tip The flight from Theramore lands in Gadgetzan.
   accept 4504                         -- Tran'rek
   turnin 2941
 
 step Gadgetzan
   when group 2944
   accept 2944
-
-step Super Sticky Tar on the way
-  along
-  zone Un'Goro Crater
-  collect 11834 quest 4504.1
 
 step Un'Goro Crater
   zone Un'Goro Crater
@@ -86,14 +81,9 @@ step Marshal's Refuge
   turnin 3884 optional                -- Williden Marshal
   accept 4284                         -- J.D. Collie, at the back of the cave; below ground
 
-step Webbed Diemetradon Scale on the way
-  along until q4503
-  collect 11830 quest 4503
-
 # ---------------------------------------------------------------- Loop 1: the middle and the east
 
 step Fire Plume Ridge and the eastern jungle
-  label q4503
   tip Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's Crate of Foodstuffs sits at an abandoned camp in the eastern jungle.
   collect 11316 quest 4141            -- Bloodpetal
   collect 11830 quest 4503
@@ -128,9 +118,10 @@ step Marshal's Refuge
 step Northern Pylon
   tip The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop Shizzle's scales.
   goto 56.5,12.5 "Northern Crystal Pylon"
-  complete 4285
+  interact 164955 quest 4285.1
   collect 11831 quest 4503            -- Webbed Pterrordax Scale
   collect 11830 quest 4503
+  collect 11834 quest 4504.1                  -- Super Sticky Tar from Tar Lurker and Tar Lord, 60 yd south
 
 step A-Me 01
   tip Ride north to Ironstone Plateau, where the robot stands among the gorillas. Stay out of the deep cave there.
@@ -163,16 +154,16 @@ step Un'Goro Crater: kill these as you meet them
 step Western Pylon
   tip The pylon stands on the western cliffs. Frenzied Pterrordax fly over the whole west side.
   goto 23.9,59.2 "Western Crystal Pylon"
-  complete 4288
+  interact 164956 quest 4288.1
 
 step The Slithering Scar
-  use 11132 @48.7,85.3 map 1449
+  use 11132 quest 3883.1 @48.7,85.3 map 1449
   collect 11131 quest 3883            -- Hive Wall Sample
 
 step Eastern Pylon
   tip The pylon stands on the eastern cliffs.
   goto 77.2,50.0 "Eastern Crystal Pylon"
-  complete 4287
+  interact 164957 quest 4287.1
 
 step Crate of Foodstuffs
   collect 11113 quest 3881            -- Crate of Foodstuffs
@@ -189,12 +180,7 @@ step Marshal's Refuge
   accept 4321
   turnin 4321
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 

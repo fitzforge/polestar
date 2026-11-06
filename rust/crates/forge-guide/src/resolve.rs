@@ -1297,6 +1297,10 @@ fn check_labels(steps: &[V], r: &mut R) {
 
 fn on_step_only(goal: &V) -> bool {
 	let t = goal.get("t").to_js_string();
+	// A quest talk is an objective the game counts wherever the player is.
+	if t == "talk" && !goal.get("quest").is_undef() {
+		return false;
+	}
 	if ON_STEP_ONLY.contains(&t.as_str()) {
 		return true;
 	}
@@ -1893,6 +1897,26 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					r.warn(&ln, format!("quest {} is not in data; using the explicit title (new Forever content?)", g.get("quest")), None);
 				}
 				goal.set("title", or_undef(title));
+				if v == "complete" && q.truthy() {
+					// What the guide window reads before the quest is in the log, and its "Use <item>:" (#942):
+					// the data's objectives (text, count) and the item the quest hands over when taken.
+					let objs: V = V::arr();
+					for o in q.get("objectives").items() {
+						if o.get("text").truthy() {
+							let e: V = V::obj();
+							e.set("text", V::from(o.get("text").to_js_string()));
+							e.set("count", if o.get("count").num() > 0.0 { o.get("count").num() } else { 1.0 });
+							objs.push(e);
+						}
+					}
+					if !objs.items().is_empty() {
+						goal.set("objs", objs);
+					}
+					if q.get("sourceItem").truthy() {
+						goal.set("startItem", q.get("sourceItem"));
+						set_if(&goal, "startItemName", opt_str(name_of(data, "item", &q.get("sourceItem"))));
+					}
+				}
 				if v == "complete" || v == "abandon" {
 					break 'sw;
 				}
@@ -2139,6 +2163,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				goal.set("npcName", or_undef(require_name(r, "npc", &g.get("npc"), &g.get("npcName"), "NPC name")));
 				candidates = vec![cand("npc", g.get("npc"))];
 				check_kinds = Some(candidates.clone());
+				quest_fields = true;
 			}
 			"sethome" | "getfp" | "train" | "vendor" => {
 				let loc = g.get("location");
@@ -2481,13 +2506,23 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				"kill" => Some("kill"),
 				"collect" => Some("item"),
 				"interact" => Some("object"),
+				"talk" => Some("talk"),
 				_ => None,
 			};
 			let id = match v {
-				"kill" => g.get("npc"),
+				"kill" | "talk" => g.get("npc"),
 				"interact" => g.get("object"),
 				_ => g.get("item"),
 			};
+			// Kill and talk on the same npc are one credit: a talk objective is data kind `talk`,
+			// or the legacy `kill` credit; older kill lines may name a `talk` objective.
+			let other = match v {
+				"talk" => Some("kill"),
+				"kill" => Some("talk"),
+				_ => None,
+			};
+			let same_kind = |k: &V| k.as_str() == kind || (other.is_some() && k.as_str() == other);
+			let find = |id: &V| objective_for(&q, kind, id).or_else(|| other.and_then(|o| objective_for(&q, Some(o), id)));
 			let used = v == "collect" && !id.is_undef() && (includes(&q.get("requiredItems").items(), &id) || q.get("sourceItem").strict_eq(&id));
 			let bag_hint =
 				format!("the quest uses item {} without counting it: drop `quest {}{}` so the step counts it in the bags", id, gq, if !oi.is_undef() { format!(".{oi}") } else { String::new() });
@@ -2502,12 +2537,12 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 				V::Null
 			};
 			let noun = match v {
-				"kill" => "npc",
+				"kill" | "talk" => "npc",
 				"interact" => "object",
 				_ => "item",
 			};
-			if named.truthy() && named.get("kind").as_str() == kind && !named.get("id").is_nullish() && !named.get("id").strict_eq(&id) {
-				let right = objective_for(&q, kind, &id);
+			if named.truthy() && same_kind(&named.get("kind")) && !named.get("id").is_nullish() && !named.get("id").strict_eq(&id) {
+				let right = find(&id);
 				let own = right.and_then(|ri| data.quest_objectives(&gq).get(ri - 1).cloned());
 				let own_part = match (&own, right) {
 					(Some(o), Some(ri)) => {
@@ -2539,7 +2574,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 			}
 			if oi.is_undef() {
 				if !id.is_undef() {
-					oi = objective_for(&q, kind, &id).map(V::from).unwrap_or_default();
+					oi = find(&id).map(V::from).unwrap_or_default();
 				}
 				if oi.is_undef() && olen > 0 {
 					let tail = if used { String::new() } else { format!("; write `quest {gq}.<objective>`") };

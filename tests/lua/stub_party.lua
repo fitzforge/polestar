@@ -16,8 +16,18 @@
 --   p.connect("Ana", false)          -- UNIT_CONNECTION: offline / back online
 --   p.questLogChanged("Ana")          -- UNIT_QUEST_LOG_CHANGED for her unit
 --   p.secretNames = true              -- UnitName gives party units' names as secret values
+--   p.set("Ana", { level = 12, class = "MAGE", classID = 8, race = "Human", raceID = 1, sex = 3,
+--     dead = true, map = 1429, x = 40, y = 50 })  -- what the client says of her unit (UnitLevel,
+--     UnitClass, UnitRace, UnitSex, UnitIsDeadOrGhost; C_Map.GetBestMapForUnit/GetPlayerMapPosition)
+--   p.shared                          -- quest ids QuestLogPushQuest shared, in order
+--   p.pushable[33] = false            -- C_QuestLog.IsPushableQuest answers
+--   p.pushResult("Ana", "ERR_QUEST_PUSH_ALREADY_DONE_S")  -- the game's system line to a share (CHAT_MSG_SYSTEM)
+--   p.chat                            -- { { text, chatType, at }, ... } C_ChatInfo.SendChatMessage lines (at: GetTime())
+--   p.lockdown = true                 -- C_ChatInfo.InChatMessagingLockdown answers
+--   p.instance = true                 -- the group is an instance group (IsInGroup(LE_PARTY_CATEGORY_INSTANCE))
+--   p.noLinks = true                  -- GetQuestLink gives nothing (else "|cffffff00|Hquest:<id>:0|h[<title>]|h|r")
 
-local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {} }
+local party = { members = {}, sent = {}, result = 0, onQuest = {}, inRaid = false, prefixes = {}, shared = {}, pushable = {}, chat = {}, lockdown = false, instance = false }
 stub.party = party
 
 local function memberOf(unit)
@@ -75,7 +85,14 @@ end
 
 UNKNOWNOBJECT = "Unknown"
 
-function IsInGroup() return #party.members > 0 end
+-- ChatInfo LE_PARTY_CATEGORY_*: no category means either group.
+LE_PARTY_CATEGORY_HOME, LE_PARTY_CATEGORY_INSTANCE = 1, 2
+function IsInGroup(category)
+	if #party.members == 0 then return false end
+	if category == LE_PARTY_CATEGORY_INSTANCE then return party.instance end
+	if category == LE_PARTY_CATEGORY_HOME then return not party.instance end
+	return true
+end
 function IsInRaid() return party.inRaid end
 function GetNumSubgroupMembers() return #party.members end
 function GetNumGroupMembers() return #party.members > 0 and #party.members + 1 or 0 end
@@ -116,6 +133,19 @@ function C_ChatInfo.SendAddonMessage(prefix, text, chatType, target)
 	table.insert(party.sent, { prefix = prefix, text = text, chatType = chatType })
 	return party.result
 end
+-- ChatInfoDocumentation.lua SendChatMessage (no returns), InChatMessagingLockdown.
+function C_ChatInfo.SendChatMessage(text, chatType, languageID, target)
+	table.insert(party.chat, { text = text, chatType = chatType, at = GetTime() })
+end
+function C_ChatInfo.InChatMessagingLockdown() return party.lockdown end
+
+-- The client's quest link (Blizzard_UIPanels_Game Mainline QuestMapFrame's
+-- shift-click: GetQuestLink(questID)), for a quest in the log.
+function GetQuestLink(q)
+	local title = C_QuestLog.GetTitleForQuestID(q)
+	if party.noLinks or not (title and C_QuestLog.IsOnQuest(q)) then return nil end
+	return "|cffffff00|Hquest:" .. q .. ":0|h[" .. title .. "]|h|r"
+end
 
 function C_QuestLog.IsUnitOnQuest(unit, questID)
 	local m = memberOf(unit)
@@ -125,3 +155,68 @@ function C_QuestLog.IsUnitOnQuest(unit, questID)
 end
 
 Enum.SendAddonMessageResult = { Success = 0, InvalidPrefix = 1, InvalidMessage = 2, AddonMessageThrottle = 3, NotInGroup = 5, ChannelThrottle = 8, AddOnMessageLockdown = 11 }
+
+-- What the client says of a member's unit.
+function party.set(name, facts)
+	for _, m in ipairs(party.members) do
+		if m.name == name then
+			for k, v in pairs(facts) do m[k] = v end
+		end
+	end
+end
+
+local baseLevel, baseClass, baseRace = UnitLevel, UnitClass, UnitRace
+function UnitLevel(unit)
+	local m = memberOf(unit)
+	if m then return m.level or 0 end
+	return baseLevel(unit)
+end
+function UnitClass(unit)
+	local m = memberOf(unit)
+	if m then return m.class, m.class, m.classID end
+	return baseClass(unit)
+end
+function UnitRace(unit)
+	local m = memberOf(unit)
+	if m then return m.race, m.race, m.raceID end
+	return baseRace(unit)
+end
+function UnitSex(unit)
+	local m = memberOf(unit)
+	return m and m.sex or 1
+end
+function UnitIsDeadOrGhost(unit)
+	local m = memberOf(unit)
+	return m and m.dead or false
+end
+
+local baseBest, basePos = C_Map.GetBestMapForUnit, C_Map.GetPlayerMapPosition
+function C_Map.GetBestMapForUnit(unit)
+	local m = memberOf(unit)
+	if m then return m.map end
+	return baseBest(unit)
+end
+function C_Map.GetPlayerMapPosition(map, unit)
+	local m = memberOf(unit)
+	if m then
+		if m.map and map == m.map and m.x then return CreateVector2D(m.x / 100, m.y / 100) end
+		return nil
+	end
+	return basePos(map, unit)
+end
+
+-- Sharing a quest (QuestLogFrame's Share button: C_QuestLog.SetSelectedQuest, QuestLogPushQuest).
+local selected
+function C_QuestLog.SetSelectedQuest(q) selected = q end
+function C_QuestLog.IsPushableQuest(q) return party.pushable[q] ~= false end
+function QuestLogPushQuest() table.insert(party.shared, selected) end
+
+-- GlobalStrings' answers to a share, as the client words them.
+ERR_QUEST_PUSH_ALREADY_DONE_S = "%s has completed that quest."
+ERR_QUEST_PUSH_LOG_FULL_S = "%s's quest log is full."
+ERR_QUEST_PUSH_INVALID_S = "%s is not eligible for that quest."
+ERR_QUEST_PUSH_TOO_FAR_S = "%s is too far away to receive your quest."
+ERR_QUEST_PUSH_ONQUEST_S = "%s is already on that quest."
+function party.pushResult(name, global)
+	stub.fire("CHAT_MSG_SYSTEM", _G[global]:format(name))
+end

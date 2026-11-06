@@ -37,7 +37,7 @@ step Layo Starstrike
 # ---------------------------------------------------------------- Cenarion Hold
 
 step Cenarion Hold
-  tip Ride west to the walled hold in the middle of the desert.
+  tip Ride west to the walled hold in the middle of the desert. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   sethome "Cenarion Hold"
   accept 8277                         -- Beetix Ficklespragg
   turnin 8276                         -- Windcaller Proudhorn
@@ -59,6 +59,7 @@ step Twilight Base Camp
   collect 20378 quest 8284.1
 
 step Cenarion Hold
+  tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8284                         -- Geologist Larksbane
   accept 8285
   turnin 8280                         -- Windcaller Proudhorn
@@ -66,14 +67,13 @@ step Cenarion Hold
   turnin 8277                         -- Beetix Ficklespragg
   accept 8278
 
-step On the way
-  along until q8278
-  collect 20375 quest 8278.1
-  collect 20377 quest 8278.3
-
 step Hive in the Tower
   tip Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the Encrusted Silithid Object.
   collect 17346 quest 1126.1
+
+step Stonelash Flayer Stinger on the way
+  along until q8278
+  collect 20375 quest 8278.1
 
 step The Spirits of Southwind
   collect 22201 quest 5527.1          -- Inside
@@ -84,6 +84,7 @@ step Hermit Ortell
   tip Ride south-east to Ortell's Hideout under the Un'Goro cliffs.
   turnin 8285                         -- Below ground
   accept 8279
+  collect 20377 quest 8278.3                  -- Rock Stalker Fang from Rock Stalker, 130 yd south-west
 
 step Dredge Crushers and Pincers
   label q8278
@@ -125,6 +126,7 @@ step Twilight Outpost
   collect 20404 x20
 
 step Cenarion Hold
+  tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
   turnin 8318
   accept 8304
   turnin 8281                         -- Windcaller Proudhorn
@@ -151,6 +153,7 @@ step Twilight Base Camp
   collect 20404 quest 8323.1          -- The spare texts from the cultists
 
 step Back to Cenarion Hold
+  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8287                         -- Commander Mar'alith
   turnin 8304
   turnin 8282                         -- Noggle Ficklespragg
@@ -196,7 +199,7 @@ step Krakle
   note Krakle sends you to Donova Snowden in Winterspring: keep it.
 
 step Pawn Captures Queen
-  use 11833 @43.5,81.0 map 1449
+  use 11833 quest 4507.1 @43.5,81.0 map 1449
   collect 11835 quest 4507.1 @43.9,81.4 map 1449
 
 step Torwa Pathfinder
@@ -315,8 +318,6 @@ step Andorhal watchtowers and silos
   accept 4971                         -- Chromie, upstairs
   use 12815 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
-  use 12627 @45.2,62.8 map 1422
-  use 12627 @45.2,62.8 map 1422
   use 12627 @45.2,62.8 map 1422
   kill 10717 quest 4971.1
   kill 10904 quest 5098.3 "Mark Andorhal Tower Three with the Beacon Torch"

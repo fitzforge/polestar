@@ -38,17 +38,12 @@ step Back at Aldrassil
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
-  accept 3116 only Warrior                    -- Conservator Ilthalaine: Simple Sigil
-  turnin 3116 only Warrior                    -- Alyissia, the warrior trainer; inside
-  accept 3117 only Hunter                     -- Conservator Ilthalaine: a sigil for Ayanna Everstride
-  turnin 3117 only Hunter                     -- Ayanna Everstride, the hunter trainer
-  accept 3118 only Rogue                      -- Conservator Ilthalaine: Encrypted Sigil
-  turnin 3118 only Rogue                      -- Frahun Shadewhisper, the rogue trainer
-  accept 3119 only Priest                     -- Conservator Ilthalaine: Hallowed Sigil
-  turnin 3119 only Priest                     -- Shanda, the priest trainer: in at the tree's front entrance and up the ramp
-  accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
-  turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   accept 457                                  -- Conservator Ilthalaine
+  accept 3116 only Warrior                    -- Conservator Ilthalaine: Simple Sigil
+  accept 3117 only Hunter                     -- Conservator Ilthalaine: a sigil for Ayanna Everstride
+  accept 3118 only Rogue                      -- Conservator Ilthalaine: Encrypted Sigil
+  accept 3119 only Priest                     -- Conservator Ilthalaine: Hallowed Sigil
+  accept 3120 only Druid                      -- Conservator Ilthalaine: Verdant Sigil
   accept 916                                  -- Gilshalan Windwalker, on the tree's ramp
   accept 97979                                -- Shanda: in at the tree's front entrance and up the ramp; upstairs
   note "The Goddess Provides: cast Elune's Light and Shadowmeld, then hand it back to Shanda"
@@ -70,22 +65,23 @@ step North to Shadowthread Cave
   accept 3519
 
 step Aldrassil
+  tip The trainers stand upstairs inside Aldrassil, along the ramp that winds up the tree: Alyissia and Frahun Shadewhisper on the first level, Shanda above them, Ayanna Everstride and Mardant Strongoak at the top. The arrow cannot tell the levels apart.
   turnin 916                                  -- Gilshalan Windwalker
   accept 917
   turnin 3519                                 -- Dirania Silvershine
   accept 3521
+  turnin 3116 only Warrior                    -- Alyissia, the warrior trainer; inside
+  turnin 3117 only Hunter                     -- Ayanna Everstride, the hunter trainer
+  turnin 3118 only Rogue                      -- Frahun Shadewhisper, the rogue trainer
+  turnin 3119 only Priest                     -- Shanda, the priest trainer: in at the tree's front entrance and up the ramp
+  turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   train class
-
-step Moonpetal Lily on the way
-  along until q3521-2
-  collect 10641 quest 3521.2
 
 step Hyacinth Mushroom on the way
   along until q3521
   collect 10639 quest 3521.1 -- Hyacinth Mushroom along the way to Aldrassil
 
 step Webwood Egg and the antidote
-  label q3521-2
   tip The Webwood Eggs lie at the back of Shadowthread Cave: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of Aldrassil.
   collect 10641 quest 3521.2
 
@@ -114,7 +110,7 @@ step Aldrassil
 
 step The moonwell and Iverron
   tip The moonwell sits north of Aldrassil.
-  use 5185 @60.0,33.0 map 1438
+  use 5185 quest 921.1 @60.0,33.0 map 1438
   collect 5184 quest 921.1 @60.0,33.0         -- Use the Crystal Phial at the moonwell
 
 step Tenaron Stormgrip
@@ -184,9 +180,9 @@ step Zenn Foulhoof
   turnin 488                                  -- Zenn Foulhoof
 
 step Starbreeze Village
-  use 5619 @63.4,58.1 map 1438
+  use 5619 quest 929.1 @63.4,58.1 map 1438
   collect 5639 quest 929.1 @63.4,58.1         -- Use the Jade Phial at the moonwell
-  tip Gaerolas Talvethren stands in the village, east of the moonwell. Tallonkai's Dresser is in the house on the hill at the east end of the village.
+  tip Gaerolas Talvethren stands upstairs in a house in the village, east of the moonwell: go up inside, the arrow cannot tell the floors apart. Tallonkai's Dresser is in the house on the hill at the east end of the village.
   turnin 475                                  -- Gaerolas Talvethren
   accept 476
   collect 8048 quest 2438.1 @68.0,59.6        -- Tallonkai's Dresser; inside
@@ -260,15 +256,12 @@ step Escaping Ban'ethil
 
 step The Pools of Arlithrien
   tip South-west of the barrow. The moonwell sits by the pools.
-  use 5621 @42.4,67.1 map 1438
+  use 5621 quest 933.1 @42.4,67.1 map 1438
   collect 5645 quest 933.1 @42.4,67.1         -- Use the Tourmaline Phial at the moonwell
 
 step Gnarlpine Hold
   tip South of the pools. The Strange Fruited Plant grows by the Hold.
   accept 930                                  -- Strange Fruited Plant
-
-step Hearth to Dolanaar
-  hearth "Dolanaar"
 
 # ---------------------------------------------------------------- Back to Dolanaar
 
@@ -317,7 +310,7 @@ step The named harpies
 
 step The Oracle Glade
   accept 931                                  -- Strange Fronded Plant
-  use 18152 @38.4,34.1 map 1438
+  use 18152 quest 7383.1 @38.4,34.1 map 1438
   collect 18151 quest 7383.1 @38.4,34.1       -- Use the Amethyst Phial at the moonwell
 
 step Sentinel Arynia again
@@ -504,7 +497,7 @@ step Auberdine
 step Moonglade
   only Druid
   zone Darkshore
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village, no flight path needed.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village, no flight path needed. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   zone Moonglade
   turnin 5921                                 -- Dendrite Starblaze
   accept 5929

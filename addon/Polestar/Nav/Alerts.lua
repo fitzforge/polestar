@@ -277,17 +277,23 @@ function Alerts.ShowSample()
 end
 
 ---------------------------------------------------------------------------
--- Options: Guide > Arrow & routes > Along the route
+-- Options: Guide > Arrow & routes > Along the route; the alerts' switch also
+-- on Quality of Life > Travel > Along the route (one setting, a fresh control
+-- per page: the registry keeps per-control state).
 ---------------------------------------------------------------------------
 
 if ns.RegisterOptions then
 	local function off() return not ns.Get("nav.alerts") end
 	local H = Nav.HandoffOption
+	local function alerts()
+		return H({ kind = "toggle", key = "nav.alerts", label = L["Transport alerts"],
+			search = "boat, ship, zeppelin, tram, transport, departure, arrival, warning",
+			help = L["Before your boat, zeppelin or tram comes in: 30 seconds ahead at the dock, 20 before the next stop on board. Never for lifts or in combat."] })
+	end
 	local ok, err = ns.RegisterOptions({
 		page = L["Guide"], tab = L["Arrow & routes"], section = L["Along the route"],
 		controls = {
-			H({ kind = "toggle", key = "nav.alerts", label = L["Transport alerts"],
-				help = L["Before your boat, zeppelin or tram comes in: 30 seconds ahead at the dock, 20 before the next stop on board. Never for lifts or in combat."] }),
+			alerts(),
 			H({ kind = "toggle", key = "nav.alertBanner", label = L["Show a banner"], disabled = off,
 				help = L["A small card near the top of the screen with a countdown. Click it to dismiss."] }),
 			H({ kind = "toggle", key = "nav.alertSound", label = L["Play the transport's sound"], disabled = off,
@@ -299,5 +305,7 @@ if ns.RegisterOptions then
 				onClick = function() Alerts.ShowSample() end },
 		},
 	})
+	if not ok and geterrorhandler then geterrorhandler()(err) end
+	ok, err = ns.RegisterOptions({ page = L["Quality of Life"], tab = L["Travel"], section = L["Along the route"], controls = { alerts() } })
 	if not ok and geterrorhandler then geterrorhandler()(err) end
 end

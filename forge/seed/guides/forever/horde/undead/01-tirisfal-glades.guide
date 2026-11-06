@@ -98,12 +98,10 @@ next forever/horde/02-the-barrens
 # Forever's server quest answers file both as Tirisfal zone quests with the
 # race mask of Hadric's any-class chain (the keep's paladin quests are in the
 # Paladin category) and every class can take them after 96896.
-# So no class lock in the data: Paladins take them as normal steps; the other
-# classes get them as optional accepts beside Leonid, and the bones, the
-# crystal and the hand-ins hold only those who took them. MadReign_Ltd
-# (Paladin, 0.2.5) found Hilda and Ephram without them at 9 and with them at
-# 12 after 96896. The open question is the INGAME line in
-# forever/class/paladin/tyrs-watch.
+# So no class lock in the data, and every class takes them beside Leonid:
+# players' in-game recordings since launch show an Undead Rogue (99152) and
+# Warlock (both) taking and handing them in, as Paladins do. MadReign_Ltd (Paladin, 0.2.5)
+# found Hilda and Ephram without them at 9 and with them at 12 after 96896.
 #
 # Paladins take the start of the Bandarion Keep chain with Leonid's visit: A
 # Second Home (91282) from Shari in Brill, Murlocs at the Gates (91285) and
@@ -548,9 +546,9 @@ step Leonid Barthalomew
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
 
 step Hilda and Ephram
-  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Paladins take both quests; anyone else takes them if they are offered, and walks on if not. Both send you into the cellar under Shadowvale, the next stop.
-  accept 99152 optional only !Paladin -- Hilda the Breaker
-  accept 99153 optional only !Paladin -- Ephram Barbaro
+  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Every class can take both quests once A Righteous Cause is handed in (level 10); take them if they are offered. They send you into the cellar under Shadowvale, the next stop.
+  accept 99152 optional               -- Hilda the Breaker
+  accept 99153 optional               -- Ephram Barbaro
 
 # Bandarion Keep for Paladins with Leonid's visit:
 # Breton Samuels, Hilda and Ephram stand within 60 yd of Leonid, and the
@@ -564,8 +562,6 @@ step Paladin: Bandarion Keep
   tip Breton Samuels waits at the keep's gate beside Leonid.
   turnin 91282                        -- Breton Samuels
   accept 91285
-  accept 99152                        -- Hilda the Breaker
-  accept 99153                        -- Ephram Barbaro
 
 step Paladin: Murlocs at the Gates
   only Paladin
@@ -588,21 +584,15 @@ step Shadowvale
   collect 286259 quest 99152.1        -- the Shadowvale Lurchers and Mystics drop the bones
   collect 286269 quest 99153.1        -- the Glowing Crystal Fragment, at the basement's south end
 
-# The others' lines carry `only !Paladin` on the line, not on the step: the
-# writer puts the Paladins' own accept and hand-in beside the route's line of
-# the same event, and c16 and c17 put them into an `only !Paladin` step, so a
-# Paladin never took 99152/99153 (judge R3 blockers in Shadowvale).
 step Hilda and Ephram
   when onquest 99152,99153
   tip Back up to the forest's edge south of the keep's gate: Hilda and Ephram take the bones and the crystal.
-  turnin 99153 optional only !Paladin -- Ephram Barbaro
-  turnin 99152 optional only !Paladin -- Hilda the Breaker
+  turnin 99153 optional               -- Ephram Barbaro
+  turnin 99152 optional               -- Hilda the Breaker
 
 step Paladin: Bandarion Keep
   only Paladin
   tip Ephram and Hilda at the forest's edge, Breton Samuels at the gate, Jorin Croge and Ander Solliden nearby, Danitha Morr inside.
-  turnin 99153                        -- Ephram Barbaro
-  turnin 99152                        -- Hilda the Breaker
   turnin 91285 choose 246164 246165   -- Breton Samuels
   accept 91294
   talk 246389                         -- Hilda the Breaker

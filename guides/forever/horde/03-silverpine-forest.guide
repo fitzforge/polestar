@@ -182,7 +182,6 @@ step The Sepulcher
   accept 477                          -- Shadow Priest Allister
   accept 421
   tip Swim back and follow the road west to the Sepulcher.
-  accept 95981                        -- Shadow Priest Allister
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
   sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
@@ -192,10 +191,6 @@ step The Sepulcher
   zone Silverpine Forest
   when onquest 264
   turnin 264 only Skyborne,Tauren
-
-step Moonrage Whitescalp on the way
-  along until q421
-  kill 1769 quest 421.1
 
 step Tirisfal Glades
   only Skyborne,Tauren,Druid
@@ -207,15 +202,11 @@ step Zeppelin to Orgrimmar
   zone Tirisfal Glades
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
 
-step The Barrens
-  only Skyborne,Tauren,Druid
-  zone The Barrens
-  goto 63.1,37.1 "The Barrens"
-
 step Fly to Thunder Bluff
   only Skyborne,Tauren,Druid
-  zone The Barrens
-  goto 63.1,37.1 "Ratchet flight master"
+  zone Orgrimmar
+  goto 45.3,63.8 "Orgrimmar flight master"
+  getfp "Orgrimmar"
   fly "Thunder Bluff"
 
 step Thunder Bluff
@@ -235,7 +226,7 @@ step Moonglade
 step Trial of the Lake
   only Tauren,Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade; Dendrite Starblaze is in Nighthaven. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
+  tip Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
   turnin 27 only Tauren -- Dendrite Starblaze
   turnin 6126 only Tauren
   accept 6127 only Tauren -- The Principal Source: Dreadmist Peak, next guide
@@ -258,10 +249,10 @@ step Back to Silverpine Forest
   zone Silverpine Forest
   goto 49.9,60.3 "Silverpine Forest"
 
-step Fly to Ratchet
+step Fly to Orgrimmar
   only Skyborne,Tauren,Druid
   zone Thunder Bluff
-  fly "Ratchet"
+  fly "Orgrimmar"
 
 step Zeppelin to Undercity
   only Skyborne,Tauren,Druid
@@ -316,7 +307,6 @@ step Rane Yorick
   accept 449
 
 step Prove Your Worth
-  label q421
   kill 1769 quest 421.1 @53.0,26.7 map 1421
 
 step The Sepulcher
@@ -333,6 +323,7 @@ step The Sepulcher
   turnin 429
   accept 430
   turnin 482                          -- Shadow Priest Allister
+  accept 95981                        -- Shadow Priest Allister
   accept 479                          -- Ambermill comes later, on the southern loop
 
 # ---------------------------------------------------------------- The Decrepit Ferry
@@ -367,9 +358,6 @@ step Fenris Isle
   accept 461 optional
   turnin 461 optional                 -- Dusty Shelf, inside the keep; upstairs
   level 17.65                          -- grind on Rot Hide Plague Weaver
-
-step Hearth to The Sepulcher
-  hearth "The Sepulcher"
 
 step The Sepulcher
   turnin 91920
@@ -482,8 +470,6 @@ step Druid trainer
 step The Drag
   tip Kor'geld and Yelmak run the alchemy shop in the Drag; Whuut is next door.
   accept 97242                        -- Kor'geld
-  accept 97275                        -- Yelmak
-  turnin 97275                        -- Whuut
 
 step Valley of Honor
   tip The cattails and speargrass grow along the water in the Valley of Honor, east of the Drag.
@@ -493,6 +479,8 @@ step Valley of Honor
 
 step Kor'geld
   turnin 97242
+  accept 97275                        -- Yelmak
+  turnin 97275                        -- Whuut
 
 step Valley of Wisdom
   tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at Doras, the wind rider master in the Valley of Strength.

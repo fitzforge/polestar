@@ -240,8 +240,6 @@ step Brewnall Village
   accept 315
   accept 319
   kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold
-  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way
-  kill 1201 quest 319 optional                -- Snow Leopard, on the way
   kill 1127 quest 319                         -- Elder Crag Boar
   kill 1201 quest 319                         -- Snow Leopard
   collect 3083 quest 412.1
@@ -380,7 +378,7 @@ step Earthseer Farsen
   accept 96392
 
 step Farsen's Watch
-  kill 264936 quest 96392.1 @64.9,58.5 map 1426
+  talk 264936 quest 96392.1 @64.9,58.5 map 1426
 
 step Earthseer Farsen
   turnin 96392
@@ -551,10 +549,6 @@ step Buliwyf Stonehand
   tip While you're here: learn Two-Handed Axes from Buliwyf Stonehand (Military Ward, 10 silver); two-handers level a Paladin fastest.
   train 11865                         -- Buliwyf Stonehand
 
-step Hearth to Thunderbrew Distillery
-  zone Dun Morogh
-  hearth "Thunderbrew Distillery"
-
 step Ironforge
   zone Ironforge
   goto 72.4,48.6 "Ironforge"
@@ -600,7 +594,7 @@ step Class trainer
 
 step Druid trainer
   only Druid
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Dun Morogh has no druid trainer
+  train class only Druid -- Theridran in Stormwind City; Dun Morogh has no druid trainer
 
 step Buliwyf Stonehand
   only Warrior

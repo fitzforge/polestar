@@ -445,7 +445,7 @@ A fix goes into a record the next build applies, whoever builds:
 | whether the route takes a quest; an order players asked for | `data/route-fixes.json` (`overrides`, `deliberate`) |
 | the check that pins it | `tests/guides-reported.test.js` |
 | an arrow point: where an objective is done, or where a giver or ender stands; a road the target walks; an objective that needs its own goal line | `data/places.json` |
-| a step's tip, or a `level` gate before a goal | `data/guide-fixes.json` |
+| a step's tip, a `level` gate before a goal, or a `when` (`level>=N`: the goal's step shows only from that level) | `data/guide-fixes.json` |
 
 Places and guide fixes are anchored on a quest's goal, never on a line or a step, and the writer
 applies them to the guides it writes, last:
@@ -463,10 +463,11 @@ applies them to the guides it writes, last:
 `objective` is the objective's number (as in `quest 3505.3`), `"giver"` or `"ender"`. The point goes
 on the objective's goal line, on the `goto` right before it when the step leads there with one, or on
 the quest's bare `complete`. A `path` becomes a `loop` of `goto`s before the goal. `write: true`
-gives the objective its own goal line from the data (`kill`, `interact` or `collect … quest Q.N`)
-before the bare `complete`, which goes once every objective has one. `label` sets that line's goal
-text, for an objective the data counts as a kill but the game asks you to talk to someone
-(`"label": "Talk to Rathiril Sunlance"`).
+gives the objective its own goal line from the data (`kill`, `talk`, `interact` or `collect … quest
+Q.N`), in the objectives' order among the step's lines, before the bare `complete`, which goes once
+every objective has one. `label` sets that line's goal text. Lines written before the data knew
+follow its objectives: a `kill` of an objective the data has as a `talk` becomes a `talk`, and a
+line of an objective the quest no longer has goes (#859).
 
 ```json
 { "fixes": [

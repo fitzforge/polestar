@@ -4,32 +4,27 @@ category Class
 class Rogue
 folder Rogue
 faction Alliance
-levels 16-22
+levels 16-20
 zone Stormwind City
-keywords Certificate of Thievery, Lockpicking, Pick Lock, Thieves' Tools, Renzik The Shiv, Redridge Rendezvous, Lucius, Alther's Mill, Lucius's Lockbox, Practice Lockbox, Token of Thievery, Erion Shadewhisper, Erion's Behest, To Hulfdan!, Kingly Shakedown, SI:7, Lakeshire, Horns of Nez'ra, Arantir, Blackrock, Thistle Tea, Rogue, lockpicking quest
+keywords Certificate of Thievery, Lockpicking, Pick Lock, Thieves' Tools, Renzik The Shiv, Redridge Rendezvous, Lucius, Alther's Mill, Lucius's Lockbox, Practice Lockbox, Token of Thievery, Erion Shadewhisper, Erion's Behest, To Hulfdan!, Kingly Shakedown, SI:7, Lakeshire, Rogue, lockpicking quest
 reward item 7907
-reward item 7676
-why Your first lockpicking job at 16: Lucius's lockbox at Alther's Mill, for SI:7, then Thistle Tea from Arantir.
+why Your first lockpicking job at 16: Lucius's lockbox at Alther's Mill, for SI:7.
 
 # The Alliance Rogue level 16 lockpicking chain: one breadcrumb per home town
 # to Renzik "The Shiv" at SI:7 in Stormwind (SI:7 2300 from Keryn Sylvius in
 # Goldshire; To Hulfdan! and Kingly Shakedown 2299, 2298 from Hogral Bakkan
 # in Kharanos; Erion Shadewhisper and Erion's Behest 2259, 2260 from Jannok
 # Breezesong in Dolanaar), then Redridge Rendezvous (2281) and Alther's Mill
-# (2282, the Certificate of Thievery) with Lucius in Lakeshire, and Horns of
-# Nez'ra (2358) for Arantir beside him.
+# (2282, the Certificate of Thievery) with Lucius in Lakeshire.
 # Sources: Forever's Rogue class quest list
 # (data/local/quest-audit/) for which quests Forever
 # has, the rewards and Forever's changes (none for this chain);
 # quests.json, npcs.json, objects.json and items.json for the givers, drops
 # and places.
-# Horns of Nez'ra (2358): not on Forever's Rogue class quest list, but in
-# quests.json (pre 2282, Arantir 7009), in the client (KB in_client yes),
-# on a Forever quest site built from the beta client (build 70658, checked
-# 2026-10-29) and in Forever's server data with ten Thistle Tea (7676) as
-# reward. The KB drops table: the Horns drop 100% from the Blackrock orcs of
-# Redridge (npcs.json: Grunts 19 and Outrunners 20 east of Lakeshire,
-# Renegades 21, Champions 24; Shadowcasters 22 and Gath'Ilzogg 26 elite).
+# Horns of Nez'ra (2358, Arantir beside Lucius) is not in the game on
+# Forever: Arantir offers nothing after Alther's Mill (#948), it is not on
+# Forever's Rogue class quest list, and forever-db/corrections removes it
+# from the data.
 # Forever's server data (gameobject_template): Lucius's Lockbox uses the
 # same lock as the Horde's Jewel of the Southsea (about 25 Lockpicking by
 # players' notes); the Practice Lockboxes the lowest lock.
@@ -105,9 +100,3 @@ step Alther's Mill
 
 step Back to Lucius
   turnin 2282 reward 7907                     -- Lucius: Certificate of Thievery
-
-step Horns of Nez'ra
-  tip Arantir, beside Lucius, wants the Horns of Nez'ra, which the Blackrock orcs of Redridge carry: the first one you kill drops them. The easiest are the Blackrock Grunts (level 19) and Outrunners (20) east of Lakeshire; the Shadowcasters (22) and Gath'Ilzogg (26) are elite.
-  accept 2358                                 -- Arantir
-  collect 7906 quest 2358.1                   -- Horns of Nez'ra: any Blackrock orc
-  turnin 2358 reward 7676                     -- Arantir: ten Thistle Tea

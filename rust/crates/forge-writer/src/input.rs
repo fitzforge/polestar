@@ -565,6 +565,12 @@ pub struct Entity {
 	/// An npc's level (its lowest).
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub level: Option<f64>,
+	/// An npc's highest level (none: `level`).
+	#[serde(default, rename = "levelMax", deserialize_with = "lenient_num")]
+	pub level_max: Option<f64>,
+	/// An npc's services (`vendor`, `trainer`, ...) and `rare`.
+	#[serde(default, deserialize_with = "lenient_vec")]
+	pub roles: Vec<String>,
 	/// An npc's rank: 1 elite, 2 rare elite, 3 boss, 4 rare.
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub rank: Option<f64>,

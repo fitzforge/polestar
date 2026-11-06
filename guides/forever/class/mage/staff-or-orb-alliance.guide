@@ -98,7 +98,7 @@ step The Mirror Lake waterfall
   when onquest 1861
   zone Elwynn Forest
   tip Leave Stormwind by the main gate and head south-west to the waterfall that feeds Mirror Lake. Wade in under the falling water to the rock behind it and use Jennea's Flask there (a 5 second cast); it fails anywhere else. Level 10 Defias casters stand on the rocks either side of the falls and shoot from range: pull them one at a time or fill the flask from the water.
-  use 7207 @28.57,61.39                       -- Jennea's Flask, under the falls
+  use 7207 quest 1861.1 @28.57,61.39          -- Jennea's Flask, under the falls
   collect 7206 quest 1861.1                   -- Mirror Lake Water Sample
 
 step Back to Jennea

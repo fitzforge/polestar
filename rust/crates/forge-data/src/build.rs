@@ -607,6 +607,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		}
 	}
 
+	if !rec.objective_conflicts.is_empty() {
+		warnings.push(format!(
+			"players' recordings list different objectives for quest(s) {}: the data's objectives kept",
+			rec.objective_conflicts.iter().map(i64::to_string).collect::<Vec<_>>().join(", ")
+		));
+	}
 	lap("recordings");
 	// Forever's gathering nodes from the TDB's sniffs that our sources lack (Zephras Isle, nodes Forever
 	// moved): a normal input, so the public data has them; the knowledge base reads the same extract.
@@ -631,6 +637,11 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			None
 		}
 	};
+	let mut tdb_heights = 0;
+	if let (Some(h), Some(t)) = (heights.as_mut(), &tdb) {
+		tdb_heights = crate::cmangos::add_tdb_heights(h, t);
+		log(&format!("spawn heights: {tdb_heights} NPCs and objects classic-db lacks, from the Forever TDB's sniffed spawns"));
+	}
 	let moves = match crate::cmangos::load_moves(&o.sources) {
 		Ok(m) => Some(m),
 		Err(e) => {
@@ -643,7 +654,7 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	let mut training_doc: Option<V> = None;
 	let mut trainers_doc: Option<V> = None;
 	let mut kb: Option<crate::kb::KbOut> = None;
-	let mut tdb_used = nodes_added > 0;
+	let mut tdb_used = nodes_added > 0 || tdb_heights > 0;
 	match crate::cmangos::load_training(&o.sources) {
 		Ok(t) => training_doc = Some(obj_of(vec![("schema", V::Num(1.0)), ("source", s(&format!("cmangos classic-db {}", &crate::cmangos::DB_REV[..12]))), ("classes", t.get("classes"))])),
 		Err(e) => warnings.push(format!("CMaNGOS classic-db training costs unavailable ({e}); training.json not written")),
@@ -970,6 +981,9 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	c("recordedTreasures", n(rec.recorded_treasures));
 	c("recordedInstances", n(rec.recorded_instances));
 	c("recordedEncounters", n(rec.recorded_encounters));
+	c("gameObjectiveQuests", n(rec.game_objective_quests));
+	c("talkObjectives", n(rec.talk_objectives));
+	c("droppedObjectives", n(rec.dropped_objectives));
 	c("spawnCap", n(o.cap));
 	c("correctionsPrivate", n(private_applied));
 	if let Some(q) = &qstats {

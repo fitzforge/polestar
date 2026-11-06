@@ -35,6 +35,8 @@ ns.RegisterDefaults("nav", {
 	arrowScale = 1,
 	arrowAlpha = 1,
 	arrowEta = true,
+	-- Hiding the guide window (ui.shown) hides the arrow too (Nav.HiddenWithGuide).
+	hideArrowWithGuide = false,
 	worldPins = true,
 	minimapPins = true,
 	trailDots = true,
@@ -124,13 +126,10 @@ end
 -- HUD text: the theme's typeface at a size chosen for reading over the 3D
 -- world, outlined so it survives bright terrain; the shadow stays dark (shade).
 function Nav.SetHudFont(fs, role, size)
-	local path
 	local T = ns.Theme
-	if type(T) == "table" and type(T.FontSpec) == "function" then
-		local ok, p = pcall(T.FontSpec, role)
-		if ok and type(p) == "string" then path = p end
-	end
-	if not (path and fs:SetFont(path, size, "OUTLINE")) then
+	if T and T.SetFace then
+		T.SetFace(fs, (T.FontSpec(role)), size, "OUTLINE")
+	else
 		fs:SetFont(STANDARD_TEXT_FONT, size, "OUTLINE")
 	end
 	local c = palette.shade
@@ -508,7 +507,7 @@ ns.On("SETTING_CHANGED", function(path)
 	if path == "" or path == "nav" or (type(path) == "string" and path:sub(1, 4) == "nav.") then
 		notify("OnSettings")
 	elseif path == "ui.shown" or path == "ui" then
-		Nav.Refresh() -- the arrow and travel button go and come back with the guide
+		Nav.Refresh() -- the travel button (and the arrow, Nav.HiddenWithGuide) go and come back with the guide
 	end
 end)
 
@@ -573,11 +572,21 @@ function Nav.HandoffOption(c)
 	return c
 end
 
--- A command that asked for the arrow while the guide is hidden still takes
+-- Whether hiding the guide window (ui.shown) hides the arrow now: only with
+-- nav.hideArrowWithGuide on, and never on the way back to your corpse or a
+-- Spirit Healer (QoL/Death.lua). The travel button goes with the window
+-- either way (Nav/Prompts.lua).
+function Nav.HiddenWithGuide()
+	if ns.GuideShown() or not ns.Get("nav.hideArrowWithGuide") then return false end
+	local D = ns.QoL and ns.QoL.Death
+	return not (D and D.Guides and D.Guides(target))
+end
+
+-- A command that asked for the arrow while the guide hides it still takes
 -- effect: says why nothing shows yet.
 function Nav.SayGuideHidden()
-	if not ns.GuideShown() then
-		ns.Print(L["The guide is hidden, so the arrow is too: /polestar show brings them back."])
+	if Nav.HiddenWithGuide() then
+		ns.Print(L["The guide is hidden and \"Hide the arrow with the guide\" is on, so the arrow is hidden too: /polestar show brings them back."])
 	end
 end
 

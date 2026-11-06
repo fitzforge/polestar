@@ -134,7 +134,7 @@ version throughout.
    smoke=$(mktemp -d)
    unzip -q dist/Polestar-0.2.0.zip -d "$smoke/AddOns"
    unzip -q dist/Polestar_Recorder-0.2.0.zip -d "$smoke/AddOns"
-   (cd rust && POLESTAR_ADDON_DIR="$smoke/AddOns" cargo test --release -p forge-addontest --test release)
+   (cd rust && POLESTAR_ADDON_DIR="$smoke/AddOns" cargo test --release -p forge-addontest --test addontest release::)
    rm -rf "$smoke"
    ```
 

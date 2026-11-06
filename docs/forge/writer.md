@@ -45,7 +45,7 @@ A route is only as good as the way the addon plays it, so the writer writes for 
 | walk store | `walks-<faction>.bin`, walking yards between world points (around hills, not straight lines) | beside the world file |
 | v1's guides | a guides folder holding `forever/` | `<root>/guides` |
 | game data | `quests.json`, `npcs.json`, `objects.json`, `items.json`, `zones.json`, `map-frames.json` and the compiler's data | `<root>/data/forever` |
-| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates) | `<checkout>/data/` (`--checkout`, default `--root`) |
+| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`) | `<checkout>/data/` (`--checkout`, default `--root`) |
 
 Each `order` item is one event: `t` is `accept`, `turnin`, `task` (work on an
 objective), `train`, `level` (with its fractional grind `target`) or `ride`
@@ -136,7 +136,19 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
   reads the zone the step before named (Thunder Bluff's Shaman stop is on
   Mulgore's map, and said Mulgore in the city), and a class trained once in a town
   visit (no flight, hearth or goto step between) is not trained again there
-  (the route's Shaman stop, then v1's Spirit Rise step).
+  (the route's Shaman stop, then v1's Spirit Rise step; a step `only` some
+  classes reads its bare `train class` as theirs: the route's Thunder Bluff
+  stop, then v1's Druid step there, #964).
+  line that the route takes before quest lines its v1 step writes ahead of it,
+  the route going on to them in a row, goes after them, where v1 has it: some
+  classes' trainers stand outside the building (Kharanos' distillery, trained
+  last after Ragnar, Tannok and Maxan: thmastin's recorded Dwarf Hunter run).
+  A class the stop cannot train whose trainer
+  stands within 500 yd (CITY_TRAINER_YD) of where the way into the stop stands in a town of another zone trains
+  in that town instead, a step of its own before the way's leg out of it, naming that town's trainer
+  when the stop's nearest is elsewhere: the Night Elf Druids in Stormwind off the Darkshore boat,
+  before the walk to Goldshire (they walked to Goldshire, back to Stormwind and back, #912); the
+  Paladins of Felwood's Orgrimmar stop with Shari Stilwell in Brill, before the zeppelin.
 - **Riding at 40** (`post::riding_at_level`, on the guides as written, the travel repair's ways
   and the adopted shared guides included): a step that trains at a riding
   trainer (the data's "... Riding Instructor" or "... Riding Trainer", the
@@ -240,11 +252,15 @@ are then one line for all their races. `only` lists are read one way everywhere,
 repair and the judge alike (`forge_guide::conditions::Audience`: races, classes and factions each
 one-of, all three together, `!Class` every class but that one). A race's riding trainer or the Undercity zeppelin for one race's quest is never everyone's
 walk. In a run of such travel steps, the same step for several races with the same classes is one
-step `only` all of them, and a step for every race is everyone's. Travel steps alike but for their
-audiences (the step's `only` and the goals' own) whose audiences together are every character of the
-faction are one step for everyone, at the first one's place, else the last one's, when no character
-passes a step of its own on the way (the per-race and per-class copies of one Tirisfal goto and
-zeppelin out of the Eastern Plaguelands). The starts are played twice when the first pass wrote ways,
+step `only` all of them, at the first one's place when no character it adds passes a step of its own
+between, else at the last one's when none of the first one's does (the Dwarves', Gnomes', Night
+Elves' and Skyborne's flight from Booty Bay to Darkshire after every one of their boats from Ratchet,
+not before the Gnome Warriors' boat, #964), and a step for every race is everyone's. Travel steps
+alike but for their audiences (the step's `only` and the goals' own) whose audiences together are
+every character of the faction are one step for everyone, at the first one's place, else the last
+one's, when no character passes a step of its own on the way (the per-race and per-class copies of
+one Tirisfal goto and zeppelin out of the Eastern Plaguelands). The starts are played twice when
+the first pass wrote ways,
 so a start played before another's way changed a line it plays is played on it again; and on a
 shared guide a flight from no flight master is repaired even where the start's v1 breaks there too
 (the Dwarves' `fly "Astranaar"` from Maestra's Post).
@@ -276,6 +292,34 @@ be compared byte for byte with the old JavaScript writer.
 
 ### 2. Put the goals in the route's order
 
+- **Work at the player's level** (`src/level_fit.rs`, #977) comes first. The writer knows the
+  player's predicted level at every event: the route's `lvl`, the planner's level model (players'
+  recordings run at or a little ahead of it through the 20s). A task fits a player of level P (that
+  level rounded down) when its easiest target is at most P + 2 (an elite at most P + 1) and so is the
+  ground it sends the player into: the median level of the attackable mobs (no faction, level 2 or
+  more, no title or service) within 100 yd of the task's target spawns within 300 yd of the route's
+  work point, each spawn counted evenly over its levels. Fyurie's Redridge (#977) had Lieutenant
+  Fangore (26) and the Shadowhide gnolls of Galardell Valley (median 24) at 21.4. A task that does
+  not fit where the route has it is never planted somewhere new; it goes:
+  - to the route's **later visit to the same place** (an event within 250 yd of the work point) where
+    it fits and the quest still pays its full XP (the player at most 5 levels over it), right after
+    that event, so it joins that visit's step (the area merge below makes the camps one step). Its
+    accept goes with it when the route stands by the giver again on the way there (within 120 yd),
+    else stays where it is and the work waits for that visit. A hand-in the route had before that
+    visit goes to the route's next stop by the ender after it, with the follow-ups taken right after
+    the hand-in at the ender; another event of a follow-up before then leaves the quest out;
+  - **out of the route** when no later visit fits anywhere in the start's chain: the quest, its
+    hand-in and every quest after it in its chain. The guide's header names them
+    (`# Left out for the level (...): WANTED: Lieutenant Fangore (180), ...`) and the log says why
+    (`level fit: ... left out (target 26 at 21.5, ground 24; no later visit there at a level that
+    fits)`).
+
+  A later visit's level is read without the planner's grind inside work the rule takes away on the
+  way, that task's own included: above `workGap` the model grinds to the mobs' level - 3 inside the
+  task (Fangore's event raises its level from 21.46 to 23.01), a grind no guide writes. Group
+  families, the route fixes' optional quests and the quests they keep or include are left to their
+  records; an old route with no levels is not judged. Its records are the rule itself; a route build
+  that should plan the levels without the quests gets `overrides.skip` lines too.
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within
@@ -444,6 +488,16 @@ be compared byte for byte with the old JavaScript writer.
   route does not name are not written at all, nor a v1 step left with only
   such lines and notes.
 - Hearths and duplicate `only` lines are fixed per audience (see the layout above).
+- **No hearth goals** (Polestar 0.3.3, Fitz: telling the player to hearth is
+  the arrow's job, not the guide's). The route still plans with the
+  Hearthstone, and every pass above sees its hearth legs, but the last pass of
+  the guides stage (after the travel repair, the travel check and the engine
+  rules) takes every `hearth` line out of the written guides. A step left with
+  no goal goes; a `Hearth to X` step that keeps other work is named `X`; R3's
+  walk `when !bound "X"` is for everyone; a tip's sentence "Hearth to X." goes,
+  and "Hearth to X and cross to Elder Rise." keeps "Cross to Elder Rise.". The
+  step after the leg leads straight to where it lands, and the arrow says
+  whether to hearth there. `sethome` (the bind) stays.
 - A tip or note carried from a guide played at riding level (40) into one
   played below it no longer tells you to ride: "ride" becomes "head", "riding"
   becomes "walking". Rides on boats, zeppelins, trams and flights stay, and so
@@ -568,6 +622,13 @@ be compared byte for byte with the old JavaScript writer.
   loop at the NPC with the hand-in next (Those Blasted Troggs!), 4 finish the
   quest on a goal that is not a field goal. Sarkoth is not among them: those
   guides already hand it in right after the kill, inside the valley loop.
+- Last, **one line per goal in a step** (`post::one_goal_each`, #843): a
+  `kill`, `collect`, `use` or `interact` a step lists twice (the same target
+  for the same quest objective and characters; `optional`, coordinates and
+  `live` aside) is one line: the first required one, else the first, with its
+  own note, else a copy's. The merges above bring them together: v1's
+  optional "on the way" boars and leopards of Dun Morogh's Brewnall Village
+  beside the required kills the route works there.
 
 ### 4. Travel
 
@@ -614,8 +675,14 @@ portals and hearths. A lift counts as part of the walk.
   (else its zone's flight master) is over the sea, with a flight toward the
   dock first when that saves the walk, else the walk into the dock's zone; one
   that flies from where no flight master is gets the walk to the nearest one
-  first. Classes away on a detour of their own are left as they are; a class
-  that flew off to the other continent is not flown back over the sea.
+  first. One that flies to that very flight path flies nowhere: the flight goes,
+  with its tip's sentence sending them on it, and within 500 yards (in the town)
+  the walk to its flight master too (the Druids' "fly to Thunder Bluff and
+  train" written in Thunder Bluff after the route's own training there; the
+  training flights to Orgrimmar written in Orgrimmar; from Boulder Lode Mine
+  the walk to Orgrimmar's flight master stays, #964). Classes away on a detour
+  of their own are left as they are; a class that flew off to the other
+  continent is not flown back over the sea.
   A class's own v1 hearth back to the inn everyone is bound at stays: it is
   that class's way back (the Shamans' hearth to Grom'gol after Islen).
 - A step's gotos after its last named line are its way out, written with its
@@ -686,6 +753,14 @@ portals and hearths. A lift counts as part of the walk.
   after that hand-in; the quests its own hand-in opens follow it, and the
   quest's lines already in that guide before the hand-in go after it too (News
   of Dogran and Ken'zigla's Draught after Gan'rul's hand-in in the next guide).
+- A follow-up from the NPC a step has just handed its prerequisite to is taken
+  there, right after that hand-in and the other hand-ins to that NPC with it,
+  when the step went on to a goal more than 30 yards off for a character who
+  does both (Captain Vimes from the Theramore Lieutenant before the walk up to
+  Lady Jaina, The Atal'ai Exile from Fel'zerul before Dar; the Warriors' walk
+  to their trainer is no walk for a Hunter). It stays behind a `level` line, another of
+  its prerequisites, a quest it excludes, or a level the hand-ins between bring.
+  This runs after the class detours' hand-ins.
 - A v1 step the route did not place with nothing for everyone, only some races'
   lines (and a flight path), is those races' step: no walk there for the rest
   (v1's "To the Undercity" for the Skyborne's Sylvanas).
@@ -694,6 +769,15 @@ portals and hearths. A lift counts as part of the walk.
   a class's own flight off is written at the flight master the path walks
   away from, when that flight master flies there. A step for other races
   than some of the route's does not gate the route's way to it.
+  Those waiting in the zone the player stands in when the route hearths to an
+  inn in another zone are written before the hearth, not walked or flown back
+  to after it. When one of them learns a flight path there whose flight to the
+  leg's end beats the hearth and its way on (the route's estimates: a 10 s
+  cast, walks at 7 yd/s, a flight at 25 yd/s plus a minute), that flight is
+  the way on and the hearth goes: the route hearthed only for want of a
+  flight master there (Nighthaven's flight path after Umber in Moonglade,
+  then the flight to Rut'theran Village, not the hearth to Cenarion Hold, its
+  flight to Rut'theran and a trip back into Moonglade for the flight path).
 - The route's own boat or zeppelin step replaces v1's goto to the same pier
   written since the last travel line in a step for everyone: it is the last
   thing in that town.
@@ -756,7 +840,9 @@ portals and hearths. A lift counts as part of the walk.
 - A `getfp` is written at each flight master the route reaches, in an
   `Inn and flight master` step when it arrives there. v1's `getfp` for other
   races alone (the Skyborne's Rut'theran Village) is not the route's: its own
-  is still written.
+  is still written. In the step it arrives for, v1's own `getfp` for everyone
+  is the route's: written where v1 has it, not first in the step (Sentinel
+  Hill's after the tower's quests, #727).
 - v1's step that only learns a flight path, over the sea from where the route
   is, gets no crossing (v1's Ratchet stop between Theramore and Booty Bay, which
   the route reaches by air): the route learns that flight path where its own way
@@ -774,6 +860,22 @@ portals and hearths. A lift counts as part of the walk.
   `only` the trip's classes (the flight from Orgrimmar to the Crossroads after
   the training, not shown to the Druids and Paladins already back at the
   Crossroads from Thunder Bluff, c19 Horde 30-40/03-arathi-highlands:449).
+- A flight to a path the player never learnt, at a flight master the chain
+  stood within 200 yards of earlier (a goal played there left the player
+  that close), learns the path there instead: a `getfp` before that goal,
+  `only` the route's races (and class) on a shared guide, and the flight stays
+  theirs. Before, the flight went to the other races and the player walked
+  (the shared Alliance route's Gnome Warlocks boarded the Booty Bay boat at
+  Ratchet's dock, about 100 yards from Bragok, then walked from Theramore to
+  Ratchet for their Felsteed at 44; the flight path sweep from #939).
+- The repair's way may learn a flight path at hand: a flight master whose path
+  they never learnt, within 500 yards of where the leg starts, whose flight is
+  quicker than the walk to the nearest known one or the walk on (the Tauren and
+  Skyborne Druids off the Tirisfal zeppelin at Orgrimmar learn the path from
+  Doras, ~480 yards away, and fly to Thunder Bluff, not a ~2,400 yard walk to
+  Ratchet's flight master, #964). The failures after such a way wait for the
+  next round, which plays the path learnt: their way back flies to Orgrimmar
+  for the zeppelin.
 
 `--no-route-legs` writes the old JavaScript writer's travel instead. It then
 runs that writer's travel repair: the honest playtest's R1 (see
@@ -789,7 +891,14 @@ guides predate. The writer adds them where the route needs them
 they matter to the player. They are not the judge's honest rules.
 
 - **R1 `along until <label>`**: work the route does while walking past,
-  before the step that lists it, is listed "along the way" from the accept on.
+  before the step that lists it, is listed "along the way" from the accept on,
+  but no sooner than the route comes within reach of it: the along step goes
+  right before the first step from the accept's on with a placed goal within
+  300 yards (a trip, the judge's `TRIP_YD`) of a spawn of the work's sources
+  (the mobs, the item's droppers at 10% or more and the objects holding it;
+  the objective's own spawn points when there are none), or before the step
+  the walk passes them on the way to, whichever comes first, and right
+  before the step that ends its list at the latest.
   Work whose spawns line the walk on to the turn-in is listed from its stop's
   step: before that step when the quest was taken earlier, so the stop's own
   end (a cave's mouth) stays the last place before the turn-in. Either way the
@@ -802,11 +911,29 @@ they matter to the player. They are not the judge's honest rules.
   beside its nearest goal, and the list ends there: the Rot Hide Graverobbers
   and their ichor north of Brill are worked in the Doom Weed step. Not ahead
   of an order the route fixes keep.
+  Either way a list is written only when the walk while it is open passes its
+  work: of its legs (straight lines between consecutive placed goals, from the
+  step after it up to its label's step, 30 yards or longer) at least two, and
+  at least half, pass within 100 yards of a spawn of the work's sources, as
+  Tirisfal's Doom Weed lines the road. Otherwise its goals become ordinary
+  goals at the stop of that span with the most source spawns within 200 yards
+  of its placed goals (the earliest of equals; only steps for the list's own
+  characters; pattern 2's own stop is one and gets its line back), before
+  that stop's hand-in of the quest, with a note naming the sources near and
+  where they are from the stop ("Frenzied Plaguehound, 170 yd north-east";
+  "by this stop" within 60 yards); none is added where the stop already works
+  the objective, and a label made only for such a list goes. Darkshore's Fine
+  Crab Chunks, open for ten stops of which three had crabs, are collected at
+  Cliffspring Falls ("Fine Crab Chunks from Encrusted Tide Crawler and Reef
+  Crawler, by this stop"). A list with no stop near its work at all stays a
+  list.
 - **R2 `use <item>`**: a quest done by using an item gets its `use` line, at
   the item's place nearest the route's work. A use that gives no credit itself
   (a bowl filled at a moonwell) is not bound to the objective; one that makes
   an item a line collects goes right before that line (the empty bowl at the
   Auberdine moonwell, not at the furbolg camp after the filled bowl, #302).
+  One use per quest and item, however often the mechanics list it (A Matter
+  of Time's Temporal Displacer, #843).
 - **R3 guards**: travel steps for quests carried from an earlier guide get
   `when onquest`, except a step that also trains, learns a flight path or
   binds, or holds lines for some races or classes only (the Ironforge training
@@ -819,8 +946,13 @@ they matter to the player. They are not the judge's honest rules.
   step goes on after it (a hand-in already `optional` there never holds the
   step and stays). A hand-in of such a quest at the NPC another goal of the
   step is at (an accept or hand-in there) stays in the step, `optional`: the
-  player stands there anyway. A hearth to an inn bound in an earlier guide gets
-  `when bound "<inn>"`, and a walk there `when !bound "<inn>"` follows as a fallback.
+  player stands there anyway. One the guide takes only `optional` stays as
+  written: the addon holds it only for a player who took the quest, and
+  `optional` let one who did walk past its NPC (Harvesting the Harvesters at
+  Ozwin, #298). A hearth to an inn bound in an earlier guide gets
+  `when bound "<inn>"`, and a walk there `when !bound "<inn>"` follows as a
+  fallback (the no-hearth pass then takes the hearth step out, and the walk is
+  for everyone).
   A way step for everyone into the zone of a `when onquest` step right after
   it (past other way steps) becomes that step's first goal, so only those on
   the quest walk it (the walk into Ashenvale for Forest Song after the flight
@@ -858,7 +990,9 @@ they matter to the player. They are not the judge's honest rules.
   the step holds only that family's lines and no `when`, else those lines move
   to a copy of the step right after it, headed `when group <root>` (R5's
   placement; several families, in the step's order: Sprogger's hand-in of
-  8553 before his accept of 8554). The family's work is never listed along the way. Its first step
+  8553 before his accept of 8554). A bag collect of the item that starts a family's quest is
+  that quest's line (Croaky's Head, a level 11 elite's drop, sat in Elwynn's step for
+  everyone: 12 recorded deaths at 8-9, #977). The family's work is never listed along the way. Its first step
   that does the root's work (else its accept step) gets one tip: "These are
   elite mobs: grouping up is encouraged, look for people to do it with." then
   how hard (size 1: "Sarkoth is a level 10 elite: most classes solo it at
@@ -904,6 +1038,34 @@ it) or `conflicting`; `forge writer apply-route` prints the counts and the lines
 it changed, and `forge build` writes them to `guides/<start>.fixes.json` for the
 fixes ledger ([FORGE.md](../FORGE.md#fixing-a-generated-guide) has the formats).
 
+Then a bare `complete <quest>` becomes the quest's objective goals
+(`src/objectives.rs`), so the guide window shows the target, its spawn areas
+and the objective's progress: `kill <npc> quest Q.O`, `collect <item> quest
+Q.O`, `interact <object> quest Q.O` and `talk <npc> quest Q.O`, one per
+objective in the data's order, each with the `complete` line's place and words
+(`@x,y`, `map`, `only`, `optional`), its note on the first. An objective the
+guide already tracks elsewhere is left out (the Shrine of Akir's kills before
+Hyusaa's talk). A quest done by using an item on an NPC (quest mechanics
+`use-item-on-mob`) gets `use <item> quest Q.O` for that NPC instead of a kill:
+the Symbol of Life on Henze Faulk, the strider meat for Kyle. The `complete`
+stays when the window could not show it truly:
+
+- the quest starts from an item, is an escort (`escort`), or has an event
+  objective (corrections mark the ones the game lists as events: the Great
+  Outdoors' campfire, the Great Bear Spirit);
+- its mechanics (high or medium confidence) are an escort, a timer, an event
+  started on accept, an item used at a place (other than on the mob), a
+  summon, a crafted item or several steps in one objective;
+- a kill objective names an NPC friendly to the guide's side (a fight that
+  ends in a surrender, a salute, a story to hear, a trainer to learn from) and
+  no item is used on it;
+- an item objective nothing drops, holds or sells, or one more than 20 kinds
+  of mob drop (the Green Hills pages).
+
+A talk objective the data counts as a kill becomes a talk through a
+`forever-db/corrections` record from players' recordings (the objective ticks
+at the NPC's window, with no kill).
+
 With the engine features on, the writer ends with a travel check: the judge's
 honest R1 on the written chain. It logs each R1 failure v1 does not have, then
 the count.
@@ -928,16 +1090,16 @@ fixed patterns:
 | training stop | step `Class trainer`; `train class` |
 | zone change | `zone <Zone>` |
 | flight | `goto x,y "<Name> flight master"` (when not standing there), `fly "<Destination>"` |
-| hearth | `hearth "<Inn>"`; with R3: step `Hearth to <Inn>` + `when bound "<Inn>"`, then step `To <Inn>` + `when !bound "<Inn>"` + `goto` |
+| hearth | none written (the no-hearth pass above); the step after leads to where the leg lands. R3's walk: step `To <Inn>` + `goto`, for everyone |
 | ride | `goto x,y "<Boat or zeppelin>"` at the dock |
 | arrival | step `Inn and flight master`; `getfp "<Name>"` |
 | engine rules | `along until <label>`, `label <label>`, `when onquest Q`, `use <item> quest Q.N`, `when group Q`, `task "Emote at <target>"` / `task "Wait for <target>"`, `cast <spell> "<target>"`, `abandon Q`, `skipto <label> when !onquest Q` |
 | where and walks (R9) | the goal's note `-- <Name>, upstairs` (or the phrase alone, or after the author's note with `; `); `-- <Name> walks around <area>: look inside the circle on the map` |
 | warnings (R10) | `tip Careful: <the quest notes' words>` after the step's opening lines |
 | grind | `level N.FF` (the share of the level, whole percent) |
-| grind top-up (inserted `level`) | step `Level N.FF`; `when level<N.FF`, `tip Top up here to level N.FF before the hand-ins at <place>: they take you to level N+1.`, `goto x,y "<the mob worked before it>"` at the route's point, `level N.FF -- grind on <mob>`. The camp: hostile mobs no more than 6 levels under the player (of an item's droppers, the one nearest the work's place), by the player or the route's nearest in their zone, else the route's next camp; never a capital city's map |
+| grind top-up (inserted `level`) | step `Level N.FF`; `when level<N.FF`, `tip Top up here to level N.FF before the hand-ins at <place>: they take you to level N+1.`, `goto x,y "<the mob worked before it>"` at the route's point, `level N.FF -- grind on <mob>`. The camp: hostile mobs no more than 6 levels under the player (of an item's droppers, the one nearest the work's place), by the player or the route's nearest in their zone, else the route's next camp; never a capital city's map. When the mob named has no spawn within 400 yd of that point (the work's lower mob is under the player's level, an on-level dropper of the same item lives elsewhere: Darkshore's Elder Darkshore Threshers, #924), the `goto` is that mob's spawn nearest the point |
 | group family | `when group <root>` on its steps, `tip These are elite mobs: ...` on its first work step, `group N` on its kills and collections (size 2 or more) |
-| solo fallback | step `Level N.FF`; `when !group <root>`, `when level<N.FF`, `tip If you skipped <title>, grind here to level N.FF to stay on the route's plan.`, `goto x,y "<mob>"`, `level N.FF -- grind on <mob>` |
+| solo fallback | step `Level N.FF`; `when !group <root>`, `when level<N.FF`, `tip If you skipped <title>, grind here to level N.FF to stay on the route's plan.`, `goto x,y "<mob>"` (placed as a top-up's), `level N.FF -- grind on <mob>` |
 
 Lines that changed have no translation until a translator adds one. Lint lists
 them as warnings. That is expected after a rewrite.

@@ -138,7 +138,7 @@ pub fn level_at(xp: f64) -> f64 {
 	l as f64
 }
 
-const OBJECTIVE_VERBS: &[&str] = &["kill", "collect", "interact", "use"];
+const OBJECTIVE_VERBS: &[&str] = &["kill", "collect", "interact", "use", "talk"];
 
 fn guide_layer(g: &V) -> V {
 	let l = V::obj();
@@ -470,7 +470,7 @@ fn placed(data: &Data, kind: &str, id: &V) -> bool {
 /// The objectives of quest `id` that have a place to point at, as `7.1 = kill …` labels.
 fn placed_objectives(data: &Data, id: &V) -> Vec<String> {
 	let kind_of = |k: &V| match k.as_str() {
-		Some("kill") => Some("npc"),
+		Some("kill") | Some("talk") => Some("npc"),
 		Some("object") => Some("object"),
 		Some("item") => Some("item"),
 		_ => None,
@@ -634,6 +634,28 @@ fn check_bare_completes(g: &V, data: &Data, diag: &mut Diagnostics) {
 				line(goal),
 				format!("`complete` for quest {} has no place, but its objectives do ({}): the arrow has nowhere to point", quest_name(data, &quest, &goal.get("title")), places.join(", ")),
 				Some(format!("write a goal per objective (`kill <npc> quest {qs}.<n>`, `collect <item> quest {qs}.<n>`), or give the `complete` a `goto` or coordinates")),
+			);
+		}
+	}
+}
+
+/// A `use` without a quest before the line that collects for a quest (the Crystal Phial at the
+/// moonwell, then `collect 5184 quest 921.1`): a bare use is a check-off nothing ticks, so it holds
+/// its step after the objective is done (#875). A warning.
+fn check_bare_uses(g: &V, diag: &mut Diagnostics) {
+	for step in g.get("steps").items() {
+		let goals = step.get("goals").items();
+		for (goal, next) in goals.iter().zip(goals.iter().skip(1)) {
+			if t_of(goal) != "use" || !goal.get("quest").is_undef() || goal.get("optional").truthy() || t_of(next) != "collect" || next.get("quest").is_undef() {
+				continue;
+			}
+			let (item, q) = (ts(&goal.get("item")), ts(&next.get("quest")));
+			let oi = if next.get("oi").is_undef() { "1".to_string() } else { ts(&next.get("oi")) };
+			diag.warn(
+				&ast_file(g),
+				line(goal),
+				format!("`use {item}` has no quest, but the next line collects for quest {q}: the use holds its step until ticked"),
+				Some(format!("bind it: `use {item} quest {q}.{oi}`")),
 			);
 		}
 	}
@@ -878,6 +900,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 		check_redundant_gotos(g, data, diag);
 		check_turnin_items(g, &ctx.ancestors(g), data, diag);
 		check_bare_completes(g, data, diag);
+		check_bare_uses(g, diag);
 		let mut accepted: FxHashSet<Key> = FxHashSet::default();
 		let mut turned_in: FxHashSet<Key> = FxHashSet::default();
 		let mut when_only: FxHashSet<Key> = FxHashSet::default();
@@ -1203,7 +1226,7 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 	}
 }
 
-const SOLO_GOALS: &[&str] = &["accept", "turnin", "complete", "kill", "collect", "interact", "use"];
+const SOLO_GOALS: &[&str] = &["accept", "turnin", "complete", "kill", "collect", "interact", "use", "talk"];
 
 fn solo_exclusion(e: &V) -> Option<String> {
 	let category = e.get("category");

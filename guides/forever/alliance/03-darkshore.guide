@@ -98,7 +98,7 @@ step Boat to Auberdine
 
 step Auberdine
   zone Darkshore
-  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
+  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   accept 954 only Dwarf,Gnome,Human,Skyborne -- Thundris Windweaver, north end of the village
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
   vendor nearest
@@ -112,16 +112,12 @@ step Auberdine
   accept 98025 only Dwarf,Gnome,Human,Skyborne -- The WANTED poster outside the inn
   accept 4740                                 -- The WANTED poster
   getfp "Auberdine"
-  accept 983                                  -- Wizbang Cranktoggle, by the inn
+  accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   accept 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
   accept 1138                                 -- Gubber Blump
   accept 963                                  -- Cerellean Whiteclaw, on the pier
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 729                                  -- Archaeologist Hollee
-
-step Fine Crab Chunks on the way
-  along until q1138
-  collect 12237 quest 1138
 
 # ---------------------------------------------------------------- The beach
 
@@ -208,7 +204,7 @@ step Auberdine
   turnin 963                                  -- Cerellean Whiteclaw
   turnin 4722 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
   turnin 4723 only Dwarf,Gnome,Human,Skyborne
-  use 14338 @37.8,44.0 map 1439
+  use 14338 quest 4812.1 @37.8,44.0 map 1439
   collect 14339 quest 4812 only Dwarf,Gnome,Human,Skyborne -- Fill the tube at the moonwell in the village
   vendor nearest
 
@@ -237,7 +233,7 @@ step Moonglade
 step Trial of the Lake
   only NightElf,Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.
   turnin 26 only NightElf -- Dendrite Starblaze
   turnin 6121 only NightElf
   accept 6122 only NightElf -- The Principal Source: fill the sampler at Cliffspring Falls
@@ -273,11 +269,12 @@ step The red crystal
 
 step Cliffspring Falls
   tip Follow the hills north to the Cliffspring River and up to the falls. Two more beached remains lie on the north shore: near the Ruins of Mathystra and north of Bashal'Aran.
-  use 12350 @50.8,25.6 map 1439
+  use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   collect 15845 quest 6122.1 only NightElf,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727                                 -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle
+  collect 12237 quest 1138                    -- Fine Crab Chunks from Encrusted Tide Crawler and Reef Crawler, by this stop
 
 step Bashal'Aran
   turnin 957 only Dwarf,Gnome,Human,Skyborne -- Asterion
@@ -314,7 +311,6 @@ step Bashal'Aran
   accept 1002
 
 step Darkshore: kill these as you meet them
-  label q1138
   zone Darkshore
   tip Moonstalkers prowl the hills between Bashal'Aran and the tower. Buzzbox 323 stands on the hill west of the tower.
   collect 5413 quest 1002                     -- Moonstalker Fangs
@@ -323,10 +319,6 @@ step Darkshore: kill these as you meet them
 step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
   accept 1003
-
-step Grizzled Scalp on the way
-  along until q1003
-  collect 5414 quest 1003
 
 step The cave and the Den Mother
   tip The cave lies south of the falls: Scaber Stalks grow all through it, the Death Cap at the very back. The Den Mother lairs in the hills south of the falls.
@@ -362,7 +354,6 @@ step Onu
   tip Onu is the ancient at the Grove; Arbal and Kerlonian Evershade sleep beside him.
   turnin 948                                  -- Onu
   accept 944
-  accept 5321                                 -- Kerlonian Evershade: his escort to Maestra's Post is done on the Ashenvale leg
 
 # ---------------------------------------------------------------- Fourth loop: the south
 
@@ -373,7 +364,6 @@ step Lunar Fungus and Earthroot
   collect 15851 x12 quest 6123.2 only NightElf -- Lunar Fungus
 
 step The Grove of the Ancients
-  label q1003
   tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
   collect 5414 quest 1003 @41.1,81.3 map 1439 -- Grizzled Scalps
   turnin 1003                                 -- Buzzbox 525
@@ -420,10 +410,6 @@ step The Grove of the Ancients
   zone Darkshore
   accept 98013                                -- Arbal
 
-step On the way
-  along until q98013
-  kill 2181 quest 98013
-  kill 2182 quest 98013
 step Auberdine
   zone Darkshore
   tip Follow the road north.
@@ -442,6 +428,11 @@ step Auberdine
   vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
+
+step On the way
+  along until q98013
+  kill 2181 quest 98013
+  kill 2182 quest 98013
 
 step The Tower of Althalaxx
   tip Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.
@@ -474,9 +465,6 @@ step Mist's Edge: kill these as you meet them
   kill 2183 quest 98013
   collect 280686 quest 87760                  -- Rod of Deep Dominion: Stormscale Beastmistress
 
-step Hearth to Auberdine
-  hearth "Auberdine"
-
 step Back south
   turnin 87760                                -- Gwennyth Bly'Leggonde
   turnin 951                                  -- Onu, at the Grove
@@ -497,7 +485,7 @@ step Auberdine
 step Level 20
   when level<20
   tip Top up here to level 20 before the hand-ins at Stormwind City: they take you to level 21.
-  goto 33.3,40.7 map 1439 "Elder Darkshore Thresher"
+  goto 47.7,18.6 map 1439 "Elder Darkshore Thresher"
   level 20                          -- grind on Elder Darkshore Thresher
 
 step Auberdine flight master
@@ -533,7 +521,7 @@ step Moonglade
 step Dendrite Starblaze
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; learn the flight path there if you do not have it.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.
   turnin 98393 only NightElf,Skyborne -- Dendrite Starblaze
   accept 98394 only NightElf
   turnin 6124 only NightElf                   -- Dendrite Starblaze
@@ -543,6 +531,7 @@ step Dendrite Starblaze
 step Dendrite Starblaze
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   when onquest 94914
   turnin 94914 only Skyborne                  -- Dendrite Starblaze: the welcome from Sheldras
 
@@ -573,7 +562,7 @@ step The relics of the Barrow Dens
 step Back to Dendrite
   zone Moonglade
   only Druid
-  tip Back to Dendrite Starblaze in Nighthaven, then Silva Fil'naveth there flies Druids straight to Rut'theran Village.
+  tip Back to Dendrite Starblaze in Nighthaven, then Silva Fil'naveth there flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 98731 only NightElf                  -- Dendrite Starblaze
   turnin 98738 only Skyborne
   level 20 only Druid

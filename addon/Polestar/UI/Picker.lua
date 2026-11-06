@@ -9,9 +9,11 @@
 -- Legacy, Collectibles, Miscellaneous, Favorites). A category with no guide for any faction
 -- is left out; one empty only for this faction fades and says how to reach
 -- its guides. Dungeons have their own hub section, not a category.
--- Middle: tabs (Home: Continue cards for the open tabs and the suggested
--- guides; Browse: the last category or the search; Current: the open tabs;
--- Recent: the last guides loaded), one always active, over one line per
+-- Middle: tabs (Home: Continue cards for the open tabs, one row of them,
+-- the active tab first, then the most recently used, with "Show all (N)"
+-- for the rest, and the suggested guides; Browse: the last category or the
+-- search; Current: the open tabs; Recent: the last guides loaded), one
+-- always active, over one line per
 -- guide, "Title (min-max)", a "Group" chip on a guide with group content
 -- (elites, dungeons, raids: the compiled `group`; on the Continue cards
 -- too), a check on finished guides and a muted "Tab N"
@@ -29,6 +31,9 @@
 -- the zones in route order, what comes next), pitch, pros and cons,
 -- the favourite star, "Load guide" (into the current tab) and "Open in new
 -- tab"; on an open guide Load reads "Continue" and the new-tab button goes.
+-- A Continue card closes its tab: the close button in its corner (under the
+-- pointer), its right-click menu (Close tab, Move left, Move right) or Y on a
+-- gamepad.
 --
 -- Selecting shows details; loading is explicit: the buttons, a double-click,
 -- or Enter in the search box (a row's tooltip says so). Opened from the guide
@@ -63,6 +68,7 @@ end
 local ROW_X = 12 -- where list rows' grounds start in the middle pane
 local TEXT_X = SH.pad - ROW_X -- text inside a row, on the column's x=32 edge
 local ROW_H, FOLDER_H, CARD_H, CARD_GAP = 28, 32, 78, 10
+local CARD_MIN_W = 220 -- the narrowest a Continue card reads well: two to a row at the default width
 local ART_H = SH.top -- the art ends on the tab row's hairline
 local DPAD = SH.side -- details pane inset, the sidebar's
 local FACT_W, FACT_GAP = 84, 10 -- the facts' label column and row gap
@@ -86,6 +92,7 @@ local category = "All"
 local view = "home" -- "home" | "current" | "recent" | "browse"
 local newTabMode = false
 local visibleIds = {} -- guide ids in the middle pane, top to bottom (arrow keys)
+local allCards = false -- "Show all (N)": every open tab's card, not one row; this session
 
 local FACTIONS = { "Alliance", "Horde", "All" }
 local VIEWS = { "home", "browse", "current", "recent" }
@@ -652,10 +659,51 @@ local function paintRow(r, g, note, width)
 	r:SetWidth(width)
 end
 
+-- A Continue card's tab, closed (Engine.CloseTab hands an active tab over to
+-- its neighbour); TABS_CHANGED draws the list again.
+local function closeCard(c)
+	local E = ns.Engine
+	if E and E.CloseTab and c.psIndex then E.CloseTab(c.psIndex) end
+end
+
+-- A card's right-click: its tab's options, as on the guide window's strip.
+local function cardMenu(c)
+	local E = ns.Engine
+	local i = c.psIndex
+	if not (E and E.CloseTab and i) then return end
+	local tabs = tabsInfo() or {}
+	W.ShowMenu(c, {
+		{ text = L["Close tab"], icon = "close", onClick = function() E.CloseTab(i) end },
+		{ text = L["Move left"], icon = "chevron-left", disabled = i <= 1 or not E.MoveTab, onClick = function() E.MoveTab(i, i - 1) end },
+		{ text = L["Move right"], icon = "chevron-right", disabled = i >= #tabs or not E.MoveTab, onClick = function() E.MoveTab(i, i + 1) end },
+	}, { point = "TOPLEFT", relPoint = "BOTTOMLEFT", x = 0, y = -2 })
+end
+
+local function cardClick(self, button)
+	if button == "RightButton" then return cardMenu(self) end
+	rowClick(self)
+end
+
+local function cardDoubleClick(self, button)
+	if button == nil or button == "LeftButton" then rowDoubleClick(self) end
+end
+
+-- The close button shows under the pointer, on the card or on itself.
+local function cardEnter(self)
+	self.Close:SetAlpha(1)
+	W.SimpleTip(self)
+end
+
+local function cardLeave(self)
+	if not self.Close:IsMouseOver() then self.Close:SetAlpha(0) end
+	W.HideTip(self)
+end
+
 local function card(i)
 	local c = cardPool[i]
 	if c then return c end
 	c = CreateFrame("Button", nil, win.Body)
+	c.psCard = true
 	c:SetHeight(CARD_H)
 	Theme.Skin(c, "button")
 	c.Ring = W.Tex(c, "OVERLAY", "white", "accent")
@@ -683,23 +731,55 @@ local function card(i)
 	c.Line = W.ProgressLine(c, 2)
 	c.Line:SetPoint("BOTTOMLEFT", c, "BOTTOMLEFT", TEXT_X, 14)
 	c.Line:SetPoint("BOTTOMRIGHT", c, "BOTTOMRIGHT", -TEXT_X, 14)
-	c:SetScript("OnClick", rowClick)
-	c:SetScript("OnDoubleClick", rowDoubleClick)
-	c:SetScript("OnEnter", W.SimpleTip)
-	c:SetScript("OnLeave", W.HideTip)
+	-- Closes its tab; in the corner, clear of the tab note under it.
+	c.Close = W.IconButton(c, "close", 16, L["Close tab"], function(self) closeCard(self:GetParent()) end, 9)
+	c.Close:SetPoint("TOPRIGHT", c, "TOPRIGHT", -2, -2)
+	c.Close:SetAlpha(0)
+	c.Close.psOnEnter = function(b) b:SetAlpha(1) end
+	c.Close.psOnLeave = function(b) if not b:GetParent():IsMouseOver() then b:SetAlpha(0) end end
+	c:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	c:SetScript("OnClick", cardClick)
+	c:SetScript("OnDoubleClick", cardDoubleClick)
+	c:SetScript("OnEnter", cardEnter)
+	c:SetScript("OnLeave", cardLeave)
 	cardPool[i] = c
 	return c
 end
 
+-- The open tabs in the order their cards show: the active one, then the most
+-- recently used (P.Recent, kept on GUIDE_CHANGED), then the rest as the tabs run.
+local function cardOrder(tabs, active)
+	local order, taken, at = {}, {}, {}
+	local function take(i)
+		if i and tabs[i] and not taken[i] then
+			taken[i] = true
+			order[#order + 1] = i
+		end
+	end
+	for i, t in ipairs(tabs) do at[t.guideId] = at[t.guideId] or i end
+	take(active)
+	for _, id in ipairs(P.Recent()) do take(at[id]) end
+	for i = 1, #tabs do take(i) end
+	return order
+end
+
+-- One row of cards, as many as fit at CARD_MIN_W (two at the default width),
+-- then "Show all (N)" while more tabs are open; every card once shown all.
+-- -> the y under them, the number of cards shown
 local function layoutCards(tabs, active, byId, y)
-	local per = 2
 	local x0 = ROW_X
+	local per = max(2, floor((MID_W - x0 * 2 + CARD_GAP) / (CARD_MIN_W + CARD_GAP)))
 	local cw = floor((MID_W - x0 * 2 - CARD_GAP * (per - 1)) / per)
-	for i, t in ipairs(tabs) do
-		local c = card(i)
+	local order = cardOrder(tabs, active)
+	local shown = allCards and #order or min(#order, per)
+	for n = 1, shown do
+		local i = order[n]
+		local t = tabs[i]
+		local c = card(n)
 		c.psIndex = i
 		c.psGuide = byId[t.guideId] or { id = t.guideId, title = t.title }
 		c.psTip = loadHint()
+		c.psTipLines = { { L["Right-click for tab options"], Theme.Accent() } }
 		local sel = P.Selected() == t.guideId
 		c.Ring:SetShown(sel)
 		c.Icon:SetTexture(Theme.Media(CATEGORY_ICON[t.category] or "icon-level"))
@@ -709,7 +789,7 @@ local function layoutCards(tabs, active, byId, y)
 		if t.complete then
 			c.Step:SetText(ns.LC("guide status", "Completed"))
 		elseif t.stepIndex then
-			c.Step:SetText(string.format(L["Step %d of %d"], t.stepIndex, t.stepCount or 0))
+			c.Step:SetText(string.format(L["Step %d of %d"], t.stepNumber or t.stepIndex, t.stepTotal or t.stepCount or 0))
 		else
 			c.Step:SetText("")
 		end
@@ -722,14 +802,25 @@ local function layoutCards(tabs, active, byId, y)
 		c.Group:SetShown(groupW > 0)
 		local room = cw - TEXT_X * 2 - 14 - 8 - c.Note:GetStringWidth() - 8 - groupW
 		c.Title:SetWidth(max(40, floor(room)))
-		local col, line = (i - 1) % per, floor((i - 1) / per)
+		local col, line = (n - 1) % per, floor((n - 1) / per)
 		c:ClearAllPoints()
 		c:SetPoint("TOPLEFT", win.Body, "TOPLEFT", x0 + col * (cw + CARD_GAP), -(y + line * (CARD_H + CARD_GAP)))
 		c:Show()
 	end
-	for i = #tabs + 1, #cardPool do cardPool[i]:Hide() end
-	local lines = floor((#tabs + per - 1) / per)
-	return y + lines * (CARD_H + CARD_GAP)
+	for n = shown + 1, #cardPool do cardPool[n]:Hide() end
+	y = y + floor((shown + per - 1) / per) * (CARD_H + CARD_GAP)
+	local more = win.CardsMore
+	if #order > per then
+		W.SetButtonText(more, allCards and L["Show fewer"] or string.format(L["Show all (%d)"], #order))
+		more:ClearAllPoints()
+		-- Its label on the text column.
+		more:SetPoint("TOPLEFT", win.Body, "TOPLEFT", x0 + TEXT_X - 8, -(y - 4))
+		more:Show()
+		y = y + more:GetHeight()
+	else
+		more:Hide()
+	end
+	return y, shown
 end
 
 ---------------------------------------------------------------------------
@@ -1113,7 +1204,7 @@ local function renderDetails(byId, tabs, active)
 	if state == "done" then
 		label = L["Finished"]
 	elseif tab then
-		label = tab.stepIndex and string.format(L["Open in tab %d  \194\183  step %d of %d"], tabIndex, tab.stepIndex, tab.stepCount or 0)
+		label = tab.stepIndex and string.format(L["Open in tab %d  \194\183  step %d of %d"], tabIndex, tab.stepNumber or tab.stepIndex, tab.stepTotal or tab.stepCount or 0)
 			or string.format(L["Open in tab %d"], tabIndex)
 	elseif state == "started" then
 		label = L["Started"]
@@ -1246,8 +1337,13 @@ local function renderDetails(byId, tabs, active)
 	local pitch = g.pitch
 	if questContext then
 		local text = {}
+		local E, full = ns.Engine, ns.Guides.Get(g.id)
+		local numbered = E and E.StepNumberOf and full
 		for _, hit in ipairs(questSteps(g)) do
-			text[#text + 1] = string.format(L["Step %d of %d: %s"], hit.index, g.stepCount or 0, hit.step.title or questContext.query)
+			-- As the player counts the steps (#942).
+			local no = numbered and (E.StepNumberOf(full, hit.index)) or hit.index
+			local total = numbered and E.StepTotalOf(full) or g.stepCount or 0
+			text[#text + 1] = string.format(L["Step %d of %d: %s"], no, total, hit.step.title or questContext.query)
 			if type(hit.step.note) == "string" and hit.step.note ~= "" then text[#text + 1] = hit.step.note end
 		end
 		if #text > 0 then
@@ -1689,8 +1785,8 @@ function P.Render()
 		if tabs and #tabs > 0 then
 			folder(L["Continue"], #tabs)
 			y = y + 4
-			y = layoutCards(tabs, active, byId, y) + 6
-			nc = #tabs
+			y, nc = layoutCards(tabs, active, byId, y)
+			y = y + 6
 		end
 		local sugg = suggestions(byId, tabs, openIndex)
 		if #sugg > 0 then
@@ -1720,6 +1816,7 @@ function P.Render()
 	end
 	if view ~= "home" or nc == 0 then
 		for _, c in ipairs(cardPool) do c:Hide() end
+		win.CardsMore:Hide()
 	end
 	for i = ng + 1, #rowPool do rowPool[i]:Hide() end
 	for i = nf + 1, #folderPool do folderPool[i]:Hide() end
@@ -1849,6 +1946,13 @@ local function build()
 	win.Empty:SetJustifyV("TOP")
 	win.Empty:SetWidth(win.BodyWidth)
 	win.Empty:Hide()
+	-- Home's "Show all (N)" / "Show fewer" under the Continue cards.
+	win.CardsMore = W.Button(win.Body, "", function()
+		allCards = not allCards
+		P.Render()
+	end, { ghost = true, height = 24 })
+	win.CardsMore.psTight = true
+	win.CardsMore:Hide()
 	W.ShellFooter(win, nil, nil)
 
 	-- The faction filter, at the right of the tab row, centred in it; its
@@ -1876,7 +1980,8 @@ local function build()
 	buildDetails()
 	win:HookScript("OnShow", function() P.Render() end)
 	-- A gamepad moves through the hub (UI/Gamepad.lua): LB / RB step the
-	-- rail's sections, X loads the guide on a focused row.
+	-- rail's sections, X loads the guide on a focused row, Y closes a
+	-- Continue card's tab.
 	if ns.Gamepad and ns.Gamepad.Register then
 		ns.Gamepad.Register(win, {
 			initial = function(rows)
@@ -1901,6 +2006,12 @@ local function build()
 				end
 			end,
 			xLabel = function(w) return w.psGuide and L["Load guide"] or nil end,
+			reset = function(w)
+				if not (w and w.psCard) then return false end
+				closeCard(w)
+				return true
+			end,
+			resetLabel = function(w) return w and w.psCard and L["Close tab"] or nil end,
 		})
 	end
 end

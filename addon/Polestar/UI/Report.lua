@@ -121,14 +121,16 @@ local function character()
 end
 
 -- The guide on screen, its title as it reads, its step count and the step
--- on screen: its index and its view, nil past the last step.
+-- on screen: its index and its view, nil past the last step; `number` and
+-- `total` as the player counts them (UI.StepNo, #942).
 local function onScreen()
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
 	if not guide then return {} end
 	local index = E.GetStepIndex and E.GetStepIndex()
 	return { guide = guide, title = plain(guide.title or guide.id), index = index,
-		view = index and E.GetStepView and E.GetStepView(index), count = E.GetStepCount and E.GetStepCount() or 0 }
+		view = index and E.GetStepView and E.GetStepView(index), count = E.GetStepCount and E.GetStepCount() or 0,
+		number = index and UI.StepNo(index), total = UI.StepTotal() }
 end
 
 -- "Step 3 of 8 · Kobold Camp · Elwynn Forest": what the report is about.
@@ -136,7 +138,7 @@ local function context(on)
 	if not on.guide then return L["No guide open"] end
 	local parts = {}
 	if on.view then
-		parts[#parts + 1] = (L["Step %d of %d"]):format(on.index, on.count)
+		parts[#parts + 1] = (L["Step %d of %d"]):format(on.number, on.total)
 		if on.view.title and on.view.title ~= "" then parts[#parts + 1] = plain(on.view.title) end
 	end
 	parts[#parts + 1] = on.title
@@ -158,11 +160,12 @@ local function guideLines(d, on)
 		out[#out + 1] = L["Step: none, the guide is complete"]
 		return
 	end
-	local step = (L["Step %d of %d: %s"]):format(index, on.count, plain(view.title or ""))
+	-- The guide's own step index too, which maintainers find the step by.
+	local step = (L["Step %d of %d (guide step %d): %s"]):format(on.number, on.total, index, plain(view.title or ""))
 	if view.skipped then step = step .. SEP .. L["skipped"] end
 	local live = E.GetLiveStep and E.GetLiveStep()
 	if live and live ~= index then
-		step = step .. SEP .. (L["the guide is at step %d"]):format(live)
+		step = step .. SEP .. (L["the guide is at step %d"]):format(UI.StepNo(live))
 	elseif E.GetLiveStep and not live then
 		step = step .. SEP .. L["the guide is complete"]
 	end

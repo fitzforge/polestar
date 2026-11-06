@@ -47,3 +47,38 @@ fn a_tree_the_pack_check_refuses_is_an_error() {
 	assert!(e.contains("forever/a.guide:") && e.contains("`tip` needs text"), "{e}");
 	std::fs::remove_dir_all(&dir).unwrap();
 }
+
+/// Hearth advice is the arrow's (Polestar 0.3.3): the route still plans its hearth leg, but the
+/// written guide has no `hearth` goal; the step it shared with other work keeps that work under the
+/// place's name, and a tip's "Hearth to ..." sentence goes. `sethome` stays.
+#[test]
+fn a_route_hearth_writes_no_hearth_goal() {
+	let dir = std::env::temp_dir().join(format!("forge-writer-run-paths-hearth-{}", std::process::id()));
+	let p = case(&dir, |t| {
+		t.replacen(
+			"step Deputy Willem\n  accept 783\n  turnin 783\n",
+			"step Deputy Willem\n  sethome \"Goldshire\"\n  accept 783\n\nstep Hearth to Goldshire\n  tip Hearth to Goldshire and walk north. Willem waits by the abbey.\n  hearth \"Goldshire\"\n  turnin 783\n",
+			1,
+		)
+	});
+	std::fs::write(
+		dir.join("routes/Human.json"),
+		r#"{"diff": {}, "order": [
+			{ "t": "accept", "q": 783, "pt": 0, "from": "guides/forever/a.guide:11", "items": [{ "t": "bind", "inn": 0, "pt": 0, "used": true }] },
+			{ "t": "turnin", "q": 783, "pt": 1, "from": "guides/forever/a.guide:16", "items": [{ "t": "hearth", "inn": 0, "to": 1 }] }
+		]}"#,
+	)
+	.unwrap();
+	std::fs::write(
+		dir.join("world-alliance.json"),
+		r#"{"points": [[1, 1, 0, 0, 1429], [1, 1, 500, 500, 1429]], "zones": { "1429": "Elwynn Forest" }, "quests": [], "inns": [{ "name": "Goldshire", "pt": 0 }]}"#,
+	)
+	.unwrap();
+	let out = run_paths(&p, &RunOpts::default(), &SharedCache::default()).expect("written");
+	let a = &out.tree["forever/a.guide"];
+	assert!(!a.lines().any(|l| l.trim_start().starts_with("hearth")), "{a}");
+	assert!(a.contains("  sethome \"Goldshire\""), "{a}");
+	assert!(a.contains("step Goldshire\n  tip Walk north. Willem waits by the abbey.\n"), "{a}");
+	assert!(!a.contains("Hearth to"), "{a}");
+	std::fs::remove_dir_all(&dir).unwrap();
+}

@@ -504,7 +504,7 @@ fn hand_made_crossings_win_the_engine_walks_to_the_gate_the_crossing_itself_is_t
 }
 
 #[test]
-fn a_guide_goal_after_a_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_goto_itself_is_walked() {
+fn a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_goto_itself_is_walked() {
 	let out = run(r#"
 		local r = {}
 		local m, mx, my = nav.mapPoint(0, -400)     -- the mouth
@@ -515,11 +515,18 @@ fn a_guide_goal_after_a_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_g
 			{ goals = { { t = "accept", quest = 1 }, { t = "collect", map = m, x = ix, y = iy } } },
 			{ goals = { { t = "talk", map = m, x = ox, y = oy }, { t = "kill", map = m, x = ix, y = iy } } },
 		} }
+		local reached = false
 		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return reached and s == 1 and g == 1 end
 		nav.place(0, 0)
 		nav.setWaypoint({ map = m, x = mx, y = my, label = "Mouth", stepIndex = 1, goalIndex = 1, kind = "goto", r = 5 })
 		aim()
 		r.mouth = calls()
+		-- #914: the goal inside aimed at (a row click) before the mouth is reached
+		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 2, kind = "collect", r = 5 })
+		aim()
+		r.ahead = calls()
+		reached = true
 		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 2, kind = "collect", r = 5 })
 		r.inside = aim()
 		r.insideCalls = calls()
@@ -528,9 +535,10 @@ fn a_guide_goal_after_a_guide_goto_keeps_the_straight_arrow_from_the_mouth_the_g
 		r.afterTalk = calls()
 		emit(r)"#);
 	assert_eq!(out["mouth"], 1, "the goto is a goal like any other");
-	assert_eq!(out["inside"], json!(["travel", 450, 0, -450]), "the goal after it is straight");
-	assert_eq!(out["insideCalls"], 1);
-	assert_eq!(out["afterTalk"], 2, "after a located goal that is no goto, the engine walks again");
+	assert_eq!(out["ahead"], 2, "before the goto is reached, the goal after it is walked by the engine");
+	assert_eq!(out["inside"], json!(["travel", 450, 0, -450]), "once it is reached, the goal after it is straight");
+	assert_eq!(out["insideCalls"], 2);
+	assert_eq!(out["afterTalk"], 3, "after a located goal that is no goto, the engine walks again");
 }
 
 #[test]
@@ -1552,6 +1560,7 @@ fn review_3_the_last_walk_to_a_target_after_a_guide_goto_is_never_searched_drawn
 			{ goals = { { t = "collect", map = m, x = ix, y = iy } } },
 		} }
 		Polestar.Engine.GetGuide = function() return guide end
+		Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the mouth reached (checked off)
 		nav.place(900, 800)
 		nav.setWaypoint({ map = m, x = ix, y = iy, label = "Inside", stepIndex = 2, goalIndex = 1, kind = "collect", r = 5 })
 		N.Sample()
@@ -2471,9 +2480,11 @@ fn zone_danger_a_level_up_drops_the_walks_re_plans_at_once_and_measures_and_sear
 // The planner's straight estimates (Nav/Danger.lua Danger.Along, Nav/Travel.lua):
 // the zone every 100 yd along a straight walk (the middle of each 100 yd
 // piece), its share in a dangerous zone x3, in a far-above one x20; the
-// zones of its two ends never count, nor the player's and the target's.
+// zones of its own two ends count like any other (#566: a walk between two
+// crossings inside Western Plaguelands); the table leaves out the player's and
+// the target's.
 #[test]
-fn zone_danger_danger_along_samples_a_straight_line_every_100_yd_its_ends_zones_never_counting_without_a_table_path_zoneat_or_length_it_is_1() {
+fn zone_danger_danger_along_samples_a_straight_line_every_100_yd_its_ends_zones_counting_too_without_a_table_path_zoneat_or_length_it_is_1() {
 	let out = run_many(
 		&[
 			DANGER,
@@ -2499,7 +2510,7 @@ fn zone_danger_danger_along_samples_a_straight_line_every_100_yd_its_ends_zones_
 		layout(1416)
 		r.dangerous = D.Along(far, 0, 0, 0, 1200, 0)
 		layout(1422)
-		r.endsNever = D.Along({ [1421] = 20, [1422] = 20, [1424] = 20 }, 0, 0, 0, 1200, 0)
+		r.ends = D.Along({ [1421] = 20, [1422] = 20, [1424] = 20 }, 0, 0, 0, 1200, 0)
 		r.fromInside = D.Along(far, 0, 150, 0, 1350, 0)
 		r.noTable = D.Along(nil, 0, 0, 0, 1200, 0)
 		r.still = D.Along(far, 0, 300, 0, 300, 0)
@@ -2514,9 +2525,9 @@ fn zone_danger_danger_along_samples_a_straight_line_every_100_yd_its_ends_zones_
 	);
 	assert_eq!(out["far"], 0.5 * 20.0 + 0.5, "half its 12 samples in a far-above zone");
 	assert_eq!(out["dangerous"], 0.5 * 3.0 + 0.5, "half in a dangerous one");
-	assert_eq!(out["endsNever"], 0.5 * 20.0 + 0.5, "the zones of its two ends never count");
-	assert_eq!(json!([out["again"], out["asked"], out["askedAgain"]]), json!([10.5, 14, 14]), "its two ends and 12 samples asked once; the same line again asks nothing");
-	assert_eq!(out["fromInside"], 1, "a line from inside the far-above zone: its own start zone");
+	assert_eq!(out["ends"], 20.0, "the zones of its two ends count too (#566)");
+	assert_eq!(json!([out["again"], out["asked"], out["askedAgain"]]), json!([10.5, 12, 12]), "its 12 samples asked once; the same line again asks nothing");
+	assert!((out["fromInside"].as_f64().unwrap() - (5.0 * 20.0 + 7.0) / 12.0).abs() < 1e-9, "a line from inside the far-above zone: its 5 samples there count (#566): {}", out["fromInside"]);
 	assert_eq!(out["noTable"], 1);
 	assert_eq!(out["still"], 1, "no length");
 	assert_eq!(out["noZoneAt"], 1, "no maps: today's estimate");

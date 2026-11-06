@@ -1896,6 +1896,116 @@
 					98013
 				],
 				"why": "High-level-areas sweep (0.3.2): Swelling Forces (98013, quest level 20; the Stormscale naga at the Ruins of Mathystra are 18-21) needs Return to Onu (950) handed in, which the Night Elf start's own Darkshore guide never does. nightelf/02-darkshore took it at the Grove at about 13 (the judge: accepted before its prerequisite) and sent the player north to the naga and back south for it; the shared 03-darkshore takes it right after 950 at about 19. With 950 first, the Night Elf start leaves it to the shared visit"
+			},
+			{
+				"a": [
+					"task",
+					891
+				],
+				"b": [
+					"accept",
+					898
+				],
+				"why": "#907 (DexeeXI): Gilthares Firebough (3465) is chained in the same Northwatch Hold keep as Captain Fairmount (3393) and the cannoneers (3455, 3454), and his escort Free From the Hold (898) walks straight back to Ratchet (it ends at 62.27,39.09). The route accepted 898 in the hold and then sent the escort through the Northwatch kills and medals (891), against the escort rule (only talks near the giver between an escort's accept and its task); the seed clears the hold first. All of 891's work comes before 898 is accepted."
+			},
+			{
+				"a": [
+					"accept",
+					747
+				],
+				"b": [
+					"accept",
+					752
+				],
+				"why": "Start-zone sweep (0.3.3): a new Tauren appears about 5 yd from Grull Hawkwind (747) and about 54 yd from Chief Hawkwind (752), inside the big tent. The guides before 0.3.0 took Grull first; the 0.3.0 route took the chief first, so the first arrow walked the player past Grull into the tent and back out. Grull first, then the chief."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3116
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3117
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3118
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3119
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					916
+				],
+				"b": [
+					"turnin",
+					3120
+				],
+				"why": "Pynte's report (back since 0.3.0): each class's sigil (3116-3120) is handed to its trainer at Aldrassil on the visit after Shadowthread Cave (turnin 916), where the class trains, as the seed has it. The 0.3.0 route handed it in at level 2 with nothing to learn, then walked 204 yd back to Conservator Ilthalaine for The Balance of Nature (457)."
+			},
+			{
+				"a": [
+					"turnin",
+					92469
+				],
+				"b": [
+					"turnin",
+					92532
+				],
+				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					92469
+				],
+				"b": [
+					"turnin",
+					92483
+				],
+				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					92469
+				],
+				"b": [
+					"turnin",
+					92482
+				],
+				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
 			}
 		],
 		"notes": [
@@ -2816,6 +2926,18 @@
 					4161
 				],
 				"why": "RevNightElf3 c13 read: Recipe of the Kaldorei's Small Spider Legs drop from the Webwood Lurkers that Zenn's Bidding kills for Webwood Spider Silk (both from Webwood Lurker 1998 in the game's loot data; the two task places are 226 yd apart east of Dolanaar), so both are collected in one Zenn loop. c13 killed the lurkers for the silk at 01-teldrassil:306 and again for the legs in a second pass at :337. An after rule, not together: #555's together (Zenn's Nightsaber Fangs, then the Soft Nightsaber Pelts) holds the step right after Zenn's Bidding (c14 RECORD CONFLICT, Main's call)"
+			},
+			{
+				"a": [
+					"accept",
+					710
+				],
+				"b": [
+					"task",
+					2500,
+					2
+				],
+				"why": "Sweep from #957 (PR #970): Badlands Reagent Run's Rock Elemental Shards (2500, objective 3) drop only from rock elementals, and none stand near Hammertoe's Digsite: the nearest are the Lesser Rock Elementals in the Dustbowl round Lotwil Veriatus, whose Study of the Elements: Rock (710) asks for their Small Stone Shards (both items from Lesser Rock Elemental 2735 in the game's loot data). The route collected the shards in the Hammertoe's Digsite step, before Lotwil, then sent the player back to the same elementals for 710 at Agmond's End (30-40/06-badlands); 2500 is handed in at Thelsamar after both. v1 has the shards after accept 710"
 			}
 		],
 		"stay": [
@@ -3309,6 +3431,11 @@
 		],
 		"skip": [
 			{
+				"q": 5635,
+				"reason": "#844: Desperate Prayer is a Dwarf priest quest in Forever (race mask Dwarf, letters name High Priest Rohan in Ironforge); Priestess Josetta never offered it to Human priests in players' recordings (levels 5-10) or to the reporter at 12. Humans take Divine Grace (94774) from her instead",
+				"issue": 844
+			},
+			{
 				"q": 46,
 				"reason": "Rev17 AS c17 read: Bounty on Murlocs opens only once Deliver Thomas' Report (39) is handed to Marshal Dughan in Goldshire after the east loop (Forever's chain, world pre [39]), so c17 walked Goldshire -> the Eastvale bridge -> the river murlocs -> back west at 10.6 for this quest alone (Human order[156-159], 01-elwynn-forest:595-603). c15w left it out (chain not open where v1 had it)",
 				"issue": ""
@@ -3434,6 +3561,69 @@
 				"faction": "Alliance",
 				"reason": "ZoneFix c18 read (Alliance 50-60): the Super Egg-O-Matic's Hippogryph Egg is in southern Feralas, which the Alliance reach only at Feathermoon by boat or at Thalanaar, and v1 drops it for that (06-silithus header: 'Feralas (The Super Egg-O-Matic 2741 ...'). c18 inserted it: a flight to Thalanaar for the egg and a hearth back at 58 (Human 50-60/06-silithus:209-225; Human.json order[2215-2216])",
 				"issue": ""
+			},
+			{
+				"q": 180,
+				"faction": "Alliance",
+				"reason": "Level fit (#977, Fyurie): WANTED: Lieutenant Fangore. Fangore is 26 and Galardell Valley's Shadowhide gnolls a median 24 where the route takes it at 21.5 (c19r Human order[418]; the model grinds 1.55 levels inside that task, which no guide writes); the route never comes back to Galardell at a level that fits. 2,650 XP, about 0.1 level at 23: no later task stops fitting without it. The writer's level fit leaves it out on its own; this lets the route search plan the levels without it",
+				"issue": 977
+			},
+			{
+				"q": 91,
+				"faction": "Alliance",
+				"reason": "Level fit (#977, Fyurie): Solomon's Law's Shadowhide Pendants drop in Galardell Valley, whose gnolls are a median 24 (22-26) at the route's 21.3 (c19r Human order[415]); no later visit fits. 1,850 XP",
+				"issue": 977
+			},
+			{
+				"q": 34,
+				"faction": "Alliance",
+				"reason": "Level fit (#977): An Unwelcome Guest's Bellygrub is 24 at the route's 20.3 (c19r Human order[402]); the route is never back by his pen and Martie Jainrose at a level that fits. 1,950 XP",
+				"issue": 977
+			},
+			{
+				"q": 94,
+				"faction": "Alliance",
+				"reason": "Level fit (#977): A Watchful Eye is handed in at the Old Lion Statue, which stands among Galardell Valley's Shadowhide gnolls (median 25 within 100 yd) at the route's 21.4 (c19r Human order[416]). The writer's level fit judges quest work, not hand-ins, so this record holds it out. 1,250 XP",
+				"issue": 977
+			},
+			{
+				"q": 248,
+				"faction": "Alliance",
+				"reason": "Level fit (#977): Looking Further is taken at the Old Lion Statue in Galardell Valley (gnolls a median 25 at 21.4) after A Watchful Eye (94), which this file skips. 1,300 XP",
+				"issue": 977
+			},
+			{
+				"q": 1175,
+				"reason": "Level fit (#977): A Bump in the Road's Saltstone Gazers are 34-35 and its ground a median 34 at the route's 30.2-30.4 (c19r Human order and Orc order, Mirage Raceway); no later visit. 2,650 XP. The writer's level fit leaves it out on its own",
+				"issue": 977
+			},
+			{
+				"q": 1105,
+				"reason": "Level fit (#977): Hardened Shells' Sparkleshell tortoises (32 the easiest) stand in ground a median 33 at the route's 30.0 (Mirage Raceway); no later visit. 2,450 XP",
+				"issue": 977
+			},
+			{
+				"q": 1176,
+				"reason": "Level fit (#977): Load Lightening's vultures fly over ground a median 33 at the route's 29.9-30.2 (Mirage Raceway); no later visit. 1,850 XP",
+				"issue": 977
+			},
+			{
+				"q": 2844,
+				"faction": "Alliance",
+				"reason": "Level fit (#977): The Giant Guardian is handed in to Shay Leafrunner, who wanders among the Northspring harpies (median 49) at the route's 44.1 (Feralas); its follow-up Wandering Shay (2845) is an escort through them. The writer's level fit judges quest work, not hand-ins and escorts. 3,400 XP",
+				"issue": 977
+			},
+			{
+				"q": 2845,
+				"faction": "Alliance",
+				"reason": "Level fit (#977): Wandering Shay, the escort from the Northspring harpies' hills (median 49) at the route's 44.1, after The Giant Guardian (2844), skipped with it. 4,550 XP",
+				"issue": 977
+			},
+			{
+				"q": 5509,
+				"faction": "Horde",
+				"reason": "Level fit (#977): Invader's Scourgestones (optional) drop from Eastern Plaguelands Scourge of 57 (ground a median 58) at the route's 52.4 (c19r Orc order, 50-60/01-un-goro-crater); no later visit fits while it pays full XP. The writer's level fit leaves it out on its own",
+				"issue": 977
 			}
 		],
 		"revert": [
@@ -4646,6 +4836,44 @@
 				],
 				"faction": "Horde",
 				"why": "ZoneFix c18 read (Horde 40-50): Raptor Mastery's last hunt before the walk into the Swamp of Sorrows (pair above; Orc.json order[1067-1068])"
+			},
+			{
+				"a": [
+					"turnin",
+					97926
+				],
+				"b": [
+					"accept",
+					5321
+				],
+				"faction": "Alliance",
+				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort.",
+				"source": "#920"
+			},
+			{
+				"a": [
+					"accept",
+					878
+				],
+				"b": [
+					"task",
+					899
+				],
+				"faction": "Horde",
+				"why": "#957 (Rohkin): Mankrik's tusks (Consumed by Hatred, 899) drop from every Bristleback that Tribes at War (878) asks for (Water Seeker, Thornweaver, Geomancer: 40% each, the game's loot data), in the same camps north of Camp Taurajo. The route collected them before taking 878 from Mangletooth in Camp Taurajo, then cleared the camps again for it (04-the-barrens 'Bristleback camps', then 'Bramblescar'). Mankrik's wife (4921) stays on the walk south"
+			},
+			{
+				"a": [
+					"accept",
+					582
+				],
+				"b": [
+					"task",
+					596
+				],
+				"faction": "Horde",
+				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
+				"source": "#970"
 			}
 		]
 	}

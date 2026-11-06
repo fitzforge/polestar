@@ -345,6 +345,22 @@ pub fn fix_optional(faction: Option<&str>) -> rustc_hash::FxHashSet<u32> {
 		.collect()
 }
 
+/// The quests the route fixes hold in the route (`deliberate.keep`, `overrides.include`): the maintainer's
+/// to take out, not the level fit's.
+pub fn fix_kept(faction: Option<&str>) -> rustc_hash::FxHashSet<u32> {
+	if forge_sim::fixes::path().is_none() {
+		return rustc_hash::FxHashSet::default();
+	}
+	let doc = forge_sim::fixes::get();
+	[&doc["deliberate"]["keep"], &doc["overrides"]["include"]]
+		.into_iter()
+		.filter_map(|v| v.as_array())
+		.flatten()
+		.filter(|p| p["faction"].as_str().is_none_or(|f| faction.is_none_or(|g| f.eq_ignore_ascii_case(g))))
+		.filter_map(|p| u32::try_from(p["q"].as_u64()?).ok())
+		.collect()
+}
+
 /// [`fix_pairs`] of a route fixes document.
 fn pairs_of(doc: &serde_json::Value, faction: Option<&str>) -> Vec<(PairEv, PairEv)> {
 	let ev = |v: &serde_json::Value| -> Option<PairEv> {

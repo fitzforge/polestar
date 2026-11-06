@@ -84,6 +84,23 @@ test('The Wrath of Rath\'mael waits for the second Rear Guard Patrol, which wait
 	assert.deepEqual(corrections.quests[99156].set.preAny, [356]);
 });
 
+test('The New Plague waits for the A Recipe For Death chain, handed in to its last part (#867)', () => {
+	const entry = corrections.quests[95216];
+	assert.ok(entry, 'a correction for The New Plague');
+	const { all, any } = blockingPrereqs({ id: 95216, start: { npc: [11835] }, ...entry.set });
+	assert.deepEqual({ all, any }, { all: [], any: [451] });
+});
+
+test('Crocs of the Sky waits for Apprentice\'s Duties, and The Shamed Lieutenant for A Friend of the Family (#872 sweep)', () => {
+	const blocks = (id, npc) => {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		return blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set });
+	};
+	assert.deepEqual(blocks(98072, 2094), { all: [], any: [471] }, 'James Halloran, Menethil Harbor');
+	assert.deepEqual(blocks(98219, 928), { all: [], any: [98191] }, 'Lord Grayson Shadowbreaker, Stormwind');
+});
+
 test('Seeking Caitlin is closed by Lost in the Thicket Things, its breadcrumb target (#533)', () => {
 	const quests = { 95737: { id: 95737, ...corrections.quests[95737].set }, 95647: { id: 95647 } };
 	assert.deepEqual(closedByOf(95737, quests), [95647]);
@@ -96,4 +113,15 @@ test('Daily Delivery is closed by Young Crocolisk Skins, its breadcrumb target (
 
 test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 	assert.deepEqual(corrections.objects[3239].set.lock, { item: 4882 });
+});
+
+test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
+	const classes = (id) => corrections.quests[id] && corrections.quests[id].set.classes;
+	assert.deepEqual([78261, 78307].map(classes), [8, 8], 'The Horn of Xelthos: Rogue');
+	assert.equal(classes(93797), 128, 'Boughs in the Wind: Mage');
+	assert.deepEqual([98341, 98404, 98738].map(classes), [1024, 1024, 1024], 'the Great Windborne Cat Spirit chain: Druid');
+	const lava = corrections.quests[84396].set;
+	assert.ok('classes' in lava && lava.classes === null, 'Magma or Lava?: no class limit');
+	assert.ok('races' in lava && lava.races === null, 'Magma or Lava?: no race limit');
+	assert.deepEqual(lava.end, { npc: [5497, 7825], object: [] }, 'its enders stay');
 });

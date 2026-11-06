@@ -169,3 +169,25 @@ fn folder_keywords_and_collects_compile_into_the_guide_table_and_load_in_the_add
 	let pack = write_our_test_pack(&r.guides);
 	assert_eq!(load_pack(&pack)["guides"], Value::Array(r.guides.iter().map(plain).collect()));
 }
+
+// Darkshore's Plagued Lands (#942): a `complete` goal carries its quest's objectives from the data (`objs`: text,
+// count), which the guide window reads before the quest is in the log, and the item the quest hands over
+// (`startItem`, `startItemName`: Tharnariun's Hope), for "Use Tharnariun's Hope:".
+#[test]
+fn a_complete_goal_carries_its_quest_s_objectives_and_start_item_from_the_data() {
+	let data_dir = root().join("data/forever");
+	if !data_dir.join("quests.json").exists() {
+		eprintln!("skipped: no reference data at data/forever");
+		return;
+	}
+	let data = forge_guide::data::load_data(&data_dir).expect("data/forever");
+	let source = guide_text(&["guide forever/test/plagued", "title Plagued", "faction Alliance", "levels 10-20", "zone Darkshore", "", "step Plagued bears", "  accept 2118", "  complete 2118"]);
+	let r = forge_addontest::dsl::compile_with(&[("plagued.guide", &source)], &data, None);
+	let pack = write_test_pack(&r.guides, &data, &our_manifest());
+	let out = load_pack(&pack);
+	let goals = &out["guides"][0]["steps"][0]["goals"];
+	assert_eq!(goals[0]["objs"], Value::Null, "an accept carries none");
+	assert_eq!(goals[1]["objs"], json!([{ "text": "Rabid Thistle Bear", "count": 1 }]));
+	assert_eq!(goals[1]["startItem"], 7586);
+	assert_eq!(goals[1]["startItemName"], "Tharnariun's Hope");
+}

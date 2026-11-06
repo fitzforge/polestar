@@ -5,14 +5,22 @@
 --   navigator      prev, "8 / 29", next, Skip, the bug (UI/Report.lua), menu
 --   banner         why the guide skipped a quest / out-levelled / training due
 --   focus          the person to talk to now: icon, name in NPC colour, where;
---                  under it only that person's goals, one line each, the
---                  counter right after the text. A field step shows its few
---                  objectives under the step title. Done goals check and dim;
---                  a done step (viewed with Prev) lists all its goals.
+--                  under it that person's open goals, one line each, the
+--                  counter right after the text, and "✓ 3 done" folding the
+--                  finished ones (a goal turning done pops, holds, then folds
+--                  into that line). Every other person of the step is one
+--                  summary line ("Then: Gazrog · 1 hand-in, 2 quests", "Then
+--                  out here: 7 kills and items", "✓ Gazrog"); a click lists
+--                  its goals in place. The persons already done share one
+--                  "✓" line. The goals scroll inside a height cap
+--                  (ui.maxHeight, a share of the screen); "Show the whole
+--                  step" (ui.wholeStep) lists every goal as before. A done
+--                  step (viewed with Prev) lists all its goals.
 --                  The author's tip, collapsed to one line.
 --   journey        the travel route's steps and times (UI/JourneyPanel.lua),
 --                  while the route has more than one leg
---   then           "Then: <next person>" and "Person 2 of 8"
+--   then           "Then: <next step's person>" once this step has no one
+--                  else; with "Show the whole step" also "Person 2 of 8"
 --   up next        off by default (ui.upcoming)
 --   xp             the QoL module's XP pace, when on
 --   progress       the guide's progress bar and percent
@@ -39,8 +47,10 @@
 --
 -- Rows are pooled and filled in place, so STEP_UPDATED (a kill, a loot)
 -- repaints existing rows instead of rebuilding anything. Nothing runs per
--- frame except a short tween (Polestar.Anim), an active drag-resize, the
--- name-target hitbox position watch, or the transparent window's hover watch.
+-- frame except a short tween (Polestar.Anim), a goal folding away (one
+-- driver for every fold, stopped when none is left), an active drag-resize,
+-- the name-target hitbox position watch, or the transparent window's hover
+-- watch.
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -100,9 +110,9 @@ local TAB_MAX_W = 150
 local GF = {}
 UI.GuideFrame = GF
 
-local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot
-local rows, upRows, alongRows, tabButtons = {}, {}, {}, {}
-GF.rows, GF.upRows, GF.alongRows, GF.tabs = rows, upRows, alongRows, tabButtons -- the pools, for inspection (tests, preview)
+local F, strip, nav, body, card, person, after, along, upnext, empty, grip, band, banner, foot, goals
+local rows, upRows, alongRows, tabButtons, lines = {}, {}, {}, {}, {}
+GF.rows, GF.upRows, GF.alongRows, GF.tabs, GF.lines = rows, upRows, alongRows, tabButtons, lines -- the pools, for inspection (tests, preview)
 local view -- the step view on screen
 local focusGroup -- the group on screen
 local shownIndex, shownGuide, shownFocus -- what the card shows, to tell a change from an update
@@ -291,6 +301,7 @@ local function rowEnter(row)
 	if goal and ((goal.x and goal.map) or goal.tickable) then row.Hover:Show() end
 	goalTooltip(row)
 	GF.HoverIn()
+	GF.BarWake()
 end
 
 local function rowLeave(row)
@@ -301,7 +312,7 @@ end
 local function goalRow(i)
 	local r = rows[i]
 	if r then return r end
-	r = CreateFrame("Button", nil, card)
+	r = CreateFrame("Button", nil, goals.Child)
 	r:RegisterForClicks("LeftButtonUp", "RightButtonUp")
 	r.Hover = r:CreateTexture(nil, "BACKGROUND")
 	r.Hover:SetTexture(Theme.Media("white"))
@@ -360,6 +371,27 @@ local function goalRow(i)
 		W.HideTooltip(b)
 	end)
 	r.Skip:Hide()
+	-- "Share": the goal's quest, for party members who lack it and can take
+	-- it (Party.ShareFor); the game's own share, with its rules.
+	r.Share = CreateFrame("Button", nil, r)
+	r.Share:SetHeight(18)
+	W.Hover(r.Share, 0.7)
+	r.Share.Label = T(r.Share, "small", "accent")
+	r.Share.Label:SetPoint("CENTER", r.Share, "CENTER", 0, 0)
+	r.Share:SetScript("OnClick", function(b)
+		local P, goal = ns.Party, r.psGoal
+		if P and goal and goal.quest then P.Share(goal.quest) end
+	end)
+	r.Share:SetScript("OnEnter", function(b)
+		W.Color(b.Label, "text")
+		W.Tooltip(b, "ANCHOR_TOP", L["Share with your party"], { L["Not on it: %s"]:format(table.concat(b.psNames or {}, ", ")) })
+		GF.HoverIn()
+	end)
+	r.Share:SetScript("OnLeave", function(b)
+		W.Color(b.Label, "accent")
+		W.HideTooltip(b)
+	end)
+	r.Share:Hide()
 	placeCheck(r)
 	-- "Other": the next-nearest trainer, vendor, inn or farm spot; for a goal
 	-- with spawn areas, the next spot. The arrow follows the goal there: the
@@ -448,12 +480,15 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 	Theme.KitRowLit(r, current and not done and not skipped and not transparent(), nil, Theme.Metric("guideLitInset", 4))
 	r.Text:SetText(UI.GoalLine(goal, questHex))
 	-- White while it is to be done; done and skipped goals step back. The
-	-- turn-in of a quest the player pinned (#644) whose objectives are still
-	-- open: the warning colour, and its line says so.
+	-- turn-in of a quest whose objectives are still open, pinned (#644) or
+	-- worked along the way (#853): the warning colour, and its line says so.
 	local warn = goal.pinOpen and not done and not skipped
 	W.Color(r.Text, (done or skipped) and "textMuted" or (warn and "warning" or (aside and "textDim" or "text")))
 	local sub = UI.GoalSubline(goal, person.Where:IsShown() and person.psPlace and person.psPlace.map or nil, noParty, noMissing, noEscort)
-	if warn then sub = sub and (L["Pinned: its objectives are still open."] .. "\n" .. sub) or L["Pinned: its objectives are still open."] end
+	if warn then
+		local open = goal.pinOpen == "along" and L["Its objectives are still open."] or L["Pinned: its objectives are still open."]
+		sub = sub and (open .. "\n" .. sub) or open
+	end
 	-- An unavailable quest's reason names its giver already.
 	if who and not goal.unavailable then sub = sub and (who .. "  \194\183  " .. sub) or who end
 	r.Sub:SetText(sub or "")
@@ -494,6 +529,14 @@ local function paintRow(r, goal, pop, sameStep, current, noParty, noMissing, noE
 		r.Skip.Label:SetText((goal.dismissed or questSkipped) and L["Undo"] or L["Skip"])
 		r.Skip:SetWidth(floor(r.Skip.Label:GetStringWidth() + 12 + 0.5))
 	end
+	-- Party members lack the quest and can take it: Share, once per card.
+	local shareTo = not noMissing and ns.Party and ns.Party.ShareFor and ns.Party.ShareFor(goal) or nil
+	r.Share.psNames = shareTo
+	r.Share:SetShown(shareTo ~= nil)
+	if shareTo then
+		r.Share.Label:SetText(L["Share"])
+		r.Share:SetWidth(floor(r.Share.Label:GetStringWidth() + 12 + 0.5))
+	end
 	if pop then
 		Anim.To(r.Icon, "size", ICON * 0.55, ICON, Anim.BASE, "back")
 		Anim.To(r.Icon, "alpha", 0.2, 1, Anim.FAST, "out")
@@ -528,6 +571,11 @@ local function measureRow(r, width)
 		r.Skip:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
 		right = right + r.Skip:GetWidth() + 2
 	end
+	if r.Share:IsShown() then
+		r.Share:ClearAllPoints()
+		r.Share:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -3 - ROW_PAD)
+		right = right + r.Share:GetWidth() + 2
+	end
 	if r.Alt:IsShown() then
 		r.Alt:ClearAllPoints()
 		r.Alt:SetPoint("TOPRIGHT", r, "TOPRIGHT", -(right - 4), -2 - ROW_PAD)
@@ -553,6 +601,397 @@ local function measureRow(r, width)
 		h = h + 3 + r.Sub:GetStringHeight()
 	end
 	return max(ROW_MIN, floor(h + 6 + ROW_PAD * 2 + 0.5))
+end
+
+---------------------------------------------------------------------------
+-- The goals area: the focus's rows, a summary line for each other person
+-- of the step, "✓ 3 done", the folding of finished goals, the height cap's
+-- scroll
+---------------------------------------------------------------------------
+
+-- A goal turning done: its check pops (paintRow), it holds `hold` seconds so
+-- the player sees it, then its row folds shut over `time` (ease-out) while
+-- its text and glyph fade in the first `fade` share of that, the rows below
+-- gliding up; then "✓ N done" counts it, the line's text glowing from the
+-- accent back to textDim over `glow`. Goals done together (a turn-in batch)
+-- start `stagger` apart, so they close as one movement. Reduced motion: the
+-- hold, a fade of `reducedFade`, then the row is gone and the count changes.
+local CARD = {
+	hold = 0.75, stagger = 0.08, time = 0.3, fade = 0.6, reducedFade = 0.2, glow = 0.6,
+	lineH = 24, -- a summary line
+	minView = 72, -- the goals area under the cap: never shorter than three lines
+	ahead = 3, -- summary lines after the focus before the rest share a "+ N more people" line
+	scrollStep = 48, -- one wheel notch
+	barIdle = 1.5, -- seconds the scroll bar stays after the last scroll
+}
+GF.CARD = CARD
+
+-- What the card keeps for one guide, step and focus (cleared when any of
+-- them moves): the goals folded into the done line, each goal's status at
+-- the last fill (a goal turning done folds; one already done when the focus
+-- came is folded from the start), the groups a click opened (`before`: the
+-- persons done), whether the done line is opened, and its count.
+local model = { folded = {}, last = {}, open = {}, doneOpen = false, doneN = 0 }
+
+-- The goals area's contents, top to bottom (goal rows and lines; f.psAt is
+-- the place), and their heights at full size (`h`, layoutCard). A folding
+-- row's f.psK (1 open .. 0 shut) scales its height; each sits under the one
+-- before, so a fold moves the rows below without placing them.
+local area = { items = {}, h = {}, n = 0 }
+
+-- The window around the goals area (Layout): the card without it (`fixed`),
+-- the card's y in the body (`top`), the frames under the card (`below`,
+-- their y from its bottom in `rel`, `n` of them, `h` tall), the strip,
+-- navigator and foot (`outer`), and the room the cap leaves the goals
+-- (`room`, math.huge while the window fits). `from`: the card's bottom
+-- while Layout stacks the frames under it. `limit`: with ui.growUp, the
+-- height to the top of the screen (roomAbove; nil without Grow upward).
+local fit = { fixed = 0, top = 0, outer = 0, room = math.huge, below = {}, rel = {}, n = 0, h = 0 }
+
+-- The window's height for a body `y` tall under the bars (`fit.outer`).
+-- With Grow upward the game keeps a window on the screen by moving it
+-- down, which would move the bottom edge Grow upward keeps still (#666), so
+-- the window never passes `fit.limit`: past it, the body clips its lower
+-- lines at the bars; at least MIN_BODY_H of it stays.
+local MIN_BODY_H = 40
+local function sizeWindow(y)
+	local natural = floor(fit.outer + y + 0.5)
+	local height, limit = natural, fit.limit
+	if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
+	local cut = height < natural
+	if body.SetClipsChildren then body:SetClipsChildren(cut) end
+	body:SetHeight(max(1, cut and height - fit.outer or y))
+	F:SetHeight(height)
+end
+
+-- The goals folding now: one record per goal (pooled: `pool`), its
+-- collapse's start `at` (after the hold), its height share `k` and alpha
+-- `a` as last drawn, the row showing it (fillCard sets it; rows are
+-- reassigned on every fill). `of`: goal index -> record; `last`: the latest
+-- start, for the stagger; `grow`: the done line growing in with the first
+-- fold; `glow`, `glowAt`: the done line whose count just went up.
+local fold = { list = {}, n = 0, of = {}, pool = {}, last = 0, serial = 0, glowAt = 0, driver = CreateFrame("Frame") }
+
+local wholeStep, resetModel, contentHeight, fitGoals, followCurrent, inSight, cardLine, goalsWheel
+do
+	function wholeStep() return ns.Get("ui.wholeStep") and true or false end
+
+	local function refreshTargets()
+		if UI.NameTargets then UI.NameTargets.Refresh() end
+	end
+
+	function contentHeight()
+		local h, items, hs = 0, area.items, area.h
+		for i = 1, area.n do h = h + hs[i] * (items[i].psK or 1) end
+		return h
+	end
+
+	-- The y of item `f` from the top of the goals area; nil when not listed.
+	local function itemTop(f)
+		local y, items, hs = 0, area.items, area.h
+		for i = 1, area.n do
+			local o = items[i]
+			if o == f then return y end
+			y = y + hs[i] * (o.psK or 1)
+		end
+		return nil
+	end
+	GF.ItemTop = itemTop
+
+	-- The goals area's items, top to bottom (tests, preview).
+	function GF.CardItems()
+		local out = {}
+		for i = 1, area.n do out[i] = area.items[i] end
+		return out
+	end
+
+	-- The scroll bar shows while there is more to scroll, and fades
+	-- CARD.barIdle after the last wheel, scroll or the cursor on a goal.
+	local barIdleAt = 0
+	local function barFade()
+		local bar = goals.Bar
+		if GetTime() + 0.01 < barIdleAt or (bar.IsMouseOver and bar:IsMouseOver()) then return end
+		Anim.To(bar, "alpha", bar:GetAlpha(), 0, 0.4, "out")
+	end
+	local function barWake()
+		if not goals.psOver then return end
+		local bar = goals.Bar
+		if bar:GetAlpha() < 1 then Anim.To(bar, "alpha", bar:GetAlpha(), 1, Anim.FAST, "out") end
+		barIdleAt = GetTime() + CARD.barIdle
+		ns.After(CARD.barIdle, barFade)
+	end
+	GF.BarWake = barWake
+
+	-- Size the goals area to its contents within the cap, then the card, the
+	-- frames under it and the window to that. Runs every frame a row folds,
+	-- so it only sets sizes and points.
+	function fitGoals()
+		local content = contentHeight()
+		local viewH = min(content, max(CARD.minView, fit.room))
+		goals:SetHeight(max(0.01, viewH))
+		goals.psContentH, goals.psViewH = content, viewH
+		W.SetScrollContent(goals, content, viewH)
+		local over = content > viewH + 0.5
+		if over ~= goals.psOver then
+			goals.psOver = over
+			-- Without more to see, the wheel stays the camera's.
+			goals:EnableMouseWheel(over)
+			barWake()
+		end
+		local cardH = fit.fixed + viewH
+		card:SetHeight(cardH)
+		local y = fit.top + cardH
+		local below, rel = fit.below, fit.rel
+		for i = 1, fit.n do
+			local f, at = below[i], -(y + rel[i])
+			f:SetPoint("TOPLEFT", body, "TOPLEFT", 0, at)
+			f:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, at)
+		end
+		y = y + fit.h
+		sizeWindow(y)
+	end
+
+	-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
+	local function scrollTo(to, snap)
+		local cur = goals:GetVerticalScroll()
+		to = min(max(0, (goals.psContentH or 0) - (goals.psViewH or 0)), max(0, to))
+		if abs(to - cur) < 0.5 then return end
+		barWake()
+		if snap then
+			Anim.Stop(goals, "value")
+			W.ScrollTo(goals, to)
+			refreshTargets()
+		else
+			Anim.To(goals, "value", cur, to, Anim.BASE, "out", refreshTargets)
+		end
+	end
+
+	function goalsWheel(self, delta)
+		Anim.Stop(self, "value")
+		scrollTo(self:GetVerticalScroll() - delta * CARD.scrollStep, true)
+	end
+
+	-- Keep the current goal in sight: from the top for a new focus, else
+	-- scrolled just far enough to show its row whole.
+	function followCurrent(top)
+		if not goals.psOver then
+			if goals:GetVerticalScroll() ~= 0 then W.ScrollTo(goals, 0) end
+			return
+		end
+		if top then
+			Anim.Stop(goals, "value")
+			W.ScrollTo(goals, 0)
+		end
+		local to = goals:GetVerticalScroll()
+		for i = 1, area.n do
+			local o = area.items[i]
+			if o.psGoal and view and o.psGoal.index == view.current and not o.psFold then
+				local y, h, viewH = itemTop(o), area.h[i], goals.psViewH
+				if y < to then
+					to = y
+				elseif y + h > to + viewH then
+					to = y + h - viewH
+				end
+				break
+			end
+		end
+		scrollTo(to, false)
+	end
+
+	-- Whether item `f` shows whole in the goals area (scrolled into sight).
+	function inSight(f)
+		if not goals.psOver then return true end
+		local y = itemTop(f)
+		if not y then return false end
+		local top = goals:GetVerticalScroll()
+		return y >= top - 0.5 and y + area.h[f.psAt] <= top + goals.psViewH + 0.5
+	end
+
+	-- Summary lines: a person of the step other than the focus, the persons
+	-- done ("before") or the focus's finished goals ("done"); a click opens
+	-- or closes the goals it stands for in place.
+	local function lineClick(self)
+		local key = self.psKey
+		if key == "done" then
+			model.doneOpen = not model.doneOpen
+		else
+			model.open[key] = (not model.open[key]) or nil
+		end
+		W.HideTooltip(self)
+		GF.Refill()
+	end
+
+	local function lineEnter(self)
+		local tips, list = {}, self.psGoals
+		for i = 1, list and min(#list, 12) or 0 do tips[#tips + 1] = UI.GoalLine(list[i]) end
+		local open = (self.psKey == "done" and model.doneOpen) or (self.psKey ~= "done" and model.open[self.psKey])
+		tips[#tips + 1] = { open and L["Click to fold them away"] or L["Click to list them"], Theme.Accent() }
+		W.Tooltip(self, tooltipAnchor(), self.psTitle or "", tips)
+		GF.HoverIn()
+		barWake()
+	end
+
+	local function lineLeave(self) W.HideTooltip(self) end
+
+	function cardLine(i)
+		local l = lines[i]
+		if l then return l end
+		local lh = CARD.lineH
+		l = CreateFrame("Button", nil, goals.Child)
+		l:SetHeight(lh)
+		l.psLine = true
+		W.Hover(l, 0.7)
+		l.Icon = l:CreateTexture(nil, "ARTWORK")
+		l.Icon:SetSize(13, 13)
+		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
+		l.Text = T(l, "label", "textDim")
+		l.Text:SetWordWrap(false)
+		l.Text:SetJustifyH("LEFT")
+		l.Text:SetPoint("LEFT", l, "TOPLEFT", TEXT_X, -lh / 2)
+		l.Chevron = l:CreateTexture(nil, "ARTWORK")
+		l.Chevron:SetSize(10, 10)
+		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
+		W.Color(l.Chevron, "textMuted")
+		l:SetScript("OnClick", lineClick)
+		l:SetScript("OnEnter", lineEnter)
+		l:SetScript("OnLeave", lineLeave)
+		lines[i] = l
+		return l
+	end
+
+	local EASE_OUT = Anim.EASE.out
+
+	-- One frame of every fold and of the done line's glow; the window's
+	-- sizes follow (fitGoals). A fold that lands refills the card once,
+	-- which drops its row and counts it.
+	function fold.step()
+		local now = GetTime()
+		local reduced = Anim.Reduced()
+		local dur = reduced and CARD.reducedFade or CARD.time
+		local list = fold.list
+		local moved, landed = false, false
+		local i = 1
+		while i <= fold.n do
+			local rec = list[i]
+			local r = rec.row
+			if r and r.psFold ~= rec then r = nil end
+			local t = now - rec.at
+			if t >= dur then
+				list[i] = list[fold.n]
+				list[fold.n] = nil
+				fold.n = fold.n - 1
+				fold.of[rec.goal] = nil
+				model.folded[rec.goal] = true
+				if r then
+					r:SetAlpha(0)
+					r.psFold = nil
+				end
+				rec.row = nil
+				fold.pool[#fold.pool + 1] = rec
+				landed = true
+			else
+				if t > 0 and r then
+					local p = t / dur
+					if reduced then
+						rec.a = 1 - p
+						r:SetAlpha(rec.a)
+					else
+						-- Cubic ease-out: a calmer start than the house quart.
+						local u = 1 - p
+						local k = u * u * u
+						rec.k, rec.a = k, max(0, 1 - p / CARD.fade)
+						r:SetAlpha(rec.a)
+						r.psK = k
+						r:SetHeight(max(0.01, area.h[r.psAt] * k))
+						local g = fold.grow
+						if rec.grow and g then
+							g.psK = 1 - k
+							g:SetHeight(max(0.01, CARD.lineH * (1 - k)))
+							g:SetAlpha(1 - k)
+						end
+						moved = true
+					end
+				end
+				i = i + 1
+			end
+		end
+		local gl = fold.glow
+		if gl then
+			local p = (now - fold.glowAt) / CARD.glow
+			if p >= 1 then
+				W.Color(gl.Text, "textDim")
+				fold.glow = nil
+			else
+				local e = EASE_OUT(p)
+				local ar, ag, ab = Theme.Accent()
+				local dr, dg, db = Theme.Color("textDim")
+				gl.Text:SetTextColor(ar + (dr - ar) * e, ag + (dg - ag) * e, ab + (db - ab) * e)
+			end
+		end
+		if moved then fitGoals() end
+		if landed then GF.Refill() end
+		if fold.n == 0 and not fold.glow then fold.driver:SetScript("OnUpdate", nil) end
+	end
+
+	function fold.run()
+		fold.tick = fold.tick or ns.Safe(fold.step)
+		if fold.driver:GetScript("OnUpdate") ~= fold.tick then fold.driver:SetScript("OnUpdate", fold.tick) end
+	end
+
+	-- Goal gi just turned done: its fold, after the hold and behind any
+	-- fold already waiting. -> the record
+	function fold.start(gi)
+		local pool = fold.pool
+		local rec = pool[#pool]
+		if rec then pool[#pool] = nil else rec = {} end
+		local at = max(GetTime() + CARD.hold, fold.last + CARD.stagger)
+		fold.last = at
+		rec.goal, rec.at, rec.row, rec.grow, rec.k, rec.a, rec.pop = gi, at, nil, nil, nil, nil, true
+		fold.n = fold.n + 1
+		fold.list[fold.n] = rec
+		fold.of[gi] = rec
+		fold.run()
+		return rec
+	end
+
+	-- A folding goal open again (unticked), gone from the card, or the
+	-- card moving on: its row back to full.
+	function fold.drop(rec)
+		local r = rec.row
+		if r and r.psFold == rec then
+			r.psFold, r.psK = nil, nil
+			r:SetAlpha(1)
+		end
+		rec.row = nil
+		fold.of[rec.goal] = nil
+		local list = fold.list
+		for i = 1, fold.n do
+			if list[i] == rec then
+				list[i] = list[fold.n]
+				list[fold.n] = nil
+				fold.n = fold.n - 1
+				break
+			end
+		end
+		fold.pool[#fold.pool + 1] = rec
+	end
+
+	-- Whether the fold driver runs (tests: it stops once nothing moves).
+	function GF.Folding() return fold.driver:GetScript("OnUpdate") ~= nil end
+
+	local function wipe(t) for k in pairs(t) do t[k] = nil end end
+
+	-- A new guide, step or focus: nothing folded, opened or folding.
+	function resetModel()
+		while fold.n > 0 do fold.drop(fold.list[fold.n]) end
+		wipe(model.folded)
+		wipe(model.last)
+		wipe(model.open)
+		model.doneOpen, model.doneN = false, 0
+		fold.grow, fold.last = nil, 0
+		if fold.glow then W.Color(fold.glow.Text, "textDim") end
+		fold.glow = nil
+	end
 end
 
 ---------------------------------------------------------------------------
@@ -722,12 +1161,15 @@ end
 
 -- A tab's label: the title, then its level range in a dimmer string. The
 -- range tells same-named guides apart, so it keeps its width and the title
--- truncates; `pad` is the room kept at the right (more while the close button
--- shows). Too narrow for even the range, the tab is its glyph alone.
+-- truncates, clear of the close button at the right (TAB_CLOSE_PAD).
+-- Too narrow for even the range, the tab is its glyph alone.
 local TAB_TEXT_X = 27 -- the label's left edge: the glyph's inset, width and gap
 local TAB_RANGE_GAP = 4
-local function layoutTab(b, pad)
-	local room = b:GetWidth() - TAB_TEXT_X - pad
+local TAB_CLOSE_PAD = 20
+-- The close button at rest: faint, so players find it; in full under the pointer.
+local TAB_CLOSE_REST = 0.35
+local function layoutTab(b)
+	local room = b:GetWidth() - TAB_TEXT_X - TAB_CLOSE_PAD
 	local rangeW = b.psRange and (floor(b.Range:GetStringWidth() + 1) + TAB_RANGE_GAP) or 0
 	local fits = rangeW <= room
 	local titleW = fits and min(b.psTitleW, room - rangeW) or 0
@@ -774,9 +1216,9 @@ local function tabButton(i)
 		if E and E.CloseTab then E.CloseTab(self:GetParent().psIndex) end
 	end, 9)
 	b.Close:SetPoint("RIGHT", b, "RIGHT", -3, 0)
-	b.Close:SetAlpha(0)
+	b.Close:SetAlpha(TAB_CLOSE_REST)
 	b.Close.psOnEnter = function(c) c:SetAlpha(1) end
-	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(0) end end
+	b.Close.psOnLeave = function(c) if not c:GetParent():IsMouseOver() then c:SetAlpha(TAB_CLOSE_REST) end end
 	b:SetScript("OnClick", function(self, button)
 		local E = Engine()
 		if not E then return end
@@ -786,7 +1228,6 @@ local function tabButton(i)
 	end)
 	b:SetScript("OnEnter", function(self)
 		self.Close:SetAlpha(1)
-		layoutTab(self, 20)
 		local lines = {}
 		if self.psMeta and self.psMeta ~= "" then lines[#lines + 1] = self.psMeta end
 		if self.psProgress then lines[#lines + 1] = self.psProgress end
@@ -795,8 +1236,7 @@ local function tabButton(i)
 		GF.HoverIn()
 	end)
 	b:SetScript("OnLeave", function(self)
-		self.Close:SetAlpha(0)
-		layoutTab(self, 8)
+		if not self.Close:IsMouseOver() then self.Close:SetAlpha(TAB_CLOSE_REST) end
 		W.HideTooltip(self)
 	end)
 	tabButtons[i] = b
@@ -850,7 +1290,7 @@ function GF.RenderTabs()
 		GF.PaintTab(b)
 		local w = b.psActive and activeW or otherW
 		b:SetWidth(w)
-		layoutTab(b, b:IsMouseOver() and 20 or 8)
+		layoutTab(b)
 		b:ClearAllPoints()
 		b:SetPoint("BOTTOMLEFT", strip, "BOTTOMLEFT", x, 0)
 		x = x + w
@@ -1021,11 +1461,12 @@ function GF.ShowOverview(anchor)
 	scrubAt = nil
 	local live, count, items = E.GetLiveStep(), E.GetStepCount(), {}
 	for i = math.max(1, at - OVERVIEW_BEFORE), math.min(count, at + OVERVIEW_AFTER) do
-		local v = E.GetStepView(i)
+		local v = not UI.StepHidden(i) and E.GetStepView(i)
 		if v and v.status ~= "na" then
-			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], i)
+			local no = UI.StepNo(i)
+			local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
 			items[#items + 1] = {
-				text = i .. "  " .. title,
+				text = no .. "  " .. title,
 				icon = i == live and "chevron-right" or nil,
 				checked = v.status == "done" or nil,
 				color = (v.status == "done" or v.status == "skipped") and "textMuted" or (i == at and "accent" or nil),
@@ -1142,7 +1583,7 @@ function GF.LayoutBanner(width)
 		banner.Close:Hide()
 	elseif kind == "stepSkip" then
 		banner.Icon:SetTexture(Theme.Media("skip"))
-		local what = string.format(L["Step %d"], n.step)
+		local what = string.format(L["Step %d"], UI.StepNo(n.step))
 		if n.title and n.title ~= "" then what = what .. "  \194\183  " .. n.title end
 		banner.Text:SetText(string.format(L["Skipped %s"], what))
 		placeLink(banner.Jump, L["Undo"], 0, -4)
@@ -1153,9 +1594,10 @@ function GF.LayoutBanner(width)
 			banner.Text:SetText(L["You skipped this step."])
 			placeLink(banner.Jump, L["Unskip it"], 0, -4)
 		else
+			local live = UI.StepNo(n.live)
 			banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
-				or L["Looking back. The guide is at step %d."], n.live))
-			placeLink(banner.Jump, string.format(L["Back to step %d"], n.live), 0, -4)
+				or L["Looking back. The guide is at step %d."], live))
+			placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 		end
 		banner.Close:Show()
 	elseif kind == "trip" then
@@ -1374,7 +1816,10 @@ function GF.DismissBanner(later)
 	local kind, n = bannerNotice()
 	if kind == "trip" then
 		ns.Nav.nearby.EndTrip()
-	elseif kind == "away" or kind == "group" or kind == "lost" then
+	elseif kind == "away" then
+		-- Looking ahead or back: closed for this step (awayNotice), another step has its own
+		notices.away = n.guideId .. ":" .. n.index
+	elseif kind == "group" or kind == "lost" then
 		-- a group quest or a lost one is answered, never dismissed
 	elseif kind == "log" then
 		notices.logSeen = n.key
@@ -1408,6 +1853,9 @@ local function stripShown()
 	return strip.psHasTabs and not compact()
 end
 
+-- Measure and place the card's parts; the goals area's own height is left
+-- to fitGoals (its contents, within the cap). -> the card's height without
+-- the goals area
 local function layoutCard(width)
 	local y = 0
 	local cw = width - PAD * 2
@@ -1418,8 +1866,14 @@ local function layoutCard(width)
 		local nameW = cw - ICON - 10
 		person.Name:SetWidth(nameW)
 		person.Where:SetWidth(nameW)
+		person.Why:SetWidth(nameW)
 		local h = 10 + person.Name:GetStringHeight()
 		if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
+		if person.Why:IsShown() then
+			person.Why:ClearAllPoints()
+			person.Why:SetPoint("TOPLEFT", person.Where:IsShown() and person.Where or person.Name, "BOTTOMLEFT", 0, -3)
+			h = h + 3 + person.Why:GetStringHeight()
+		end
 		h = floor(h + 8 + 0.5)
 		person:SetHeight(h)
 		person:ClearAllPoints()
@@ -1427,16 +1881,28 @@ local function layoutCard(width)
 		person:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
 		y = y + h
 	end
-	for i = 1, #rows do
-		local r = rows[i]
-		if r:IsShown() then
-			local h = measureRow(r, width)
-			r:SetHeight(h)
-			r:ClearAllPoints()
-			r:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
-			r:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
-			y = y + h
+	-- The goals area: its rows and lines, each under the one before.
+	goals:ClearAllPoints()
+	goals:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -y)
+	goals:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -y)
+	goals.Child:SetWidth(width)
+	local prev = goals.Child
+	for i = 1, area.n do
+		local f = area.items[i]
+		local h
+		if f.psLine then
+			f.Text:SetWidth(max(40, width - TEXT_X - PAD - 18))
+			h = CARD.lineH
+		else
+			h = measureRow(f, width)
 		end
+		area.h[i] = h
+		f:SetHeight(max(0.01, h * (f.psK or 1)))
+		f:ClearAllPoints()
+		local edge = prev == goals.Child and "TOP" or "BOTTOM"
+		f:SetPoint("TOPLEFT", prev, edge .. "LEFT", 0, 0)
+		f:SetPoint("TOPRIGHT", prev, edge .. "RIGHT", 0, 0)
+		prev = f
 	end
 	local tip = card.Tip
 	if tip:IsShown() then
@@ -1464,13 +1930,11 @@ local function layoutCard(width)
 		end
 		tip:SetHeight(h)
 		tip:ClearAllPoints()
-		tip:SetPoint("TOPLEFT", card, "TOPLEFT", 0, -(y + 2))
-		tip:SetPoint("TOPRIGHT", card, "TOPRIGHT", 0, -(y + 2))
+		tip:SetPoint("TOPLEFT", goals, "BOTTOMLEFT", 0, -2)
+		tip:SetPoint("TOPRIGHT", goals, "BOTTOMRIGHT", 0, -2)
 		y = y + 2 + h
 	end
-	y = y + 6
-	card:SetHeight(y)
-	return y
+	return y + 6
 end
 
 local function layoutAfter(width)
@@ -1547,13 +2011,27 @@ local function layoutEmpty(width)
 	return -y
 end
 
--- Place `frame` in the body at y; returns the new y.
+-- Place `frame` in the body at y; returns the new y. Under the card (while
+-- Layout sets fit.from) the frame is kept for fitGoals to move.
 local function stack(frame, y, h)
 	frame:ClearAllPoints()
 	frame:SetPoint("TOPLEFT", body, "TOPLEFT", 0, -y)
 	frame:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, -y)
+	if fit.from then
+		fit.n = fit.n + 1
+		fit.below[fit.n], fit.rel[fit.n] = frame, y - fit.from
+	end
 	return y + h
 end
+
+-- The tallest the window may be: ui.maxHeight of the screen's height, in
+-- the window's own units (its scale and the game's UI scale applied).
+local function capHeight()
+	local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
+	local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
+	return screen * share / max(0.01, F:GetEffectiveScale())
+end
+GF.CapHeight = function() return F and capHeight() or nil end
 
 -- The journey (UI/JourneyPanel.lua) right under the focus it leads to;
 -- never in compact mode. Returns the new y.
@@ -1613,6 +2091,23 @@ local function placeBars(showFoot)
 	end
 end
 
+-- With ui.growUp, the height from the window's pinned bottom edge to the top
+-- of the screen, in the window's scale (nil without Grow upward): the
+-- window is never taller (fit.limit, #666).
+local function roomAbove()
+	if not ns.Get("ui.growUp") then return nil end
+	local top = UIParent:GetTop()
+	local scale, uiScale = F:GetEffectiveScale(), UIParent:GetEffectiveScale()
+	if not (top and scale and uiScale and scale > 0) then return nil end
+	-- The pinned corner (GF.ApplyPosition), not where the game may have moved it.
+	local point, rel, relPoint, _, bottom = F:GetPoint(1)
+	if not (rel == UIParent and type(point) == "string" and point:find("^BOTTOM") and type(relPoint) == "string" and relPoint:find("^BOTTOM")) then
+		bottom = F:GetBottom()
+	end
+	if type(bottom) ~= "number" then return nil end
+	return top * uiScale / scale - bottom
+end
+
 function GF.Layout()
 	if not F then return end
 	local width = F:GetWidth()
@@ -1637,15 +2132,20 @@ function GF.Layout()
 		banner:Hide()
 		banner.Jump.psDefault = nil
 	end
+	fit.n = 0
+	local content = 0
 	if state == "steps" then
-		local h = layoutCard(width)
+		fit.fixed = layoutCard(width)
+		fit.top = y
 		-- The card animates its own offset; keep its anchor's base in step.
 		if Anim.IsRunning(card, "offset") then
 			card.psAnchor[5] = -y
 		else
 			Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", 0, -y)
 		end
-		y = y + h
+		content = contentHeight()
+		y = y + fit.fixed + content
+		fit.from = y
 		y = stackJourney(y, width)
 		if after:IsShown() then y = stack(after, y, layoutAfter(width)) end
 		if along:IsShown() then y = stack(along, y, layoutAlong(width)) end
@@ -1666,11 +2166,21 @@ function GF.Layout()
 	else
 		GF.xp:Hide()
 	end
-	body:SetHeight(max(1, y))
 	local showFoot = state == "steps" or state == "complete"
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
-	F:SetHeight(floor(stripH + NAV_H + y + (showFoot and PROG_H or 0) + 0.5))
+	fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
+	fit.limit = roomAbove()
+	if fit.from then
+		-- Past the cap (or the top of the screen with Grow upward), the goals
+		-- area gives up the difference and scrolls.
+		fit.h = y - fit.from
+		fit.from = nil
+		fit.room = min(capHeight(), fit.limit or math.huge) - (fit.outer + y - content)
+		fitGoals()
+	else
+		sizeWindow(y)
+	end
 	placeBars(showFoot)
 	band:SetHeight(stripH + NAV_H)
 	local x0, x1, y0, y1 = Theme.BandCoords(width - 2, stripH + NAV_H, 30)
@@ -1911,13 +2421,13 @@ local function anchorSkip()
 end
 
 local function navigatorFor(guide, index)
-	local E = Engine()
-	local count = guide and E.GetStepCount and E.GetStepCount() or 0
+	local count = guide and UI.StepTotal() or 0
 	if guide then
 		-- While the catch-up shows the guides passed whole, the count and title
-		-- are its (GF.PlayCatchUp).
+		-- are its (GF.PlayCatchUp). The numbers leave out the steps hidden
+		-- from the character (UI.StepNo, #942).
 		if GF.catchingUp ~= "guides" then
-			nav.Steps.Count:SetText(string.format("%d / %d", index or count, count))
+			nav.Steps.Count:SetText(string.format("%d / %d", index and UI.StepNo(index) or count, count))
 			nav.Title:SetText(guide.title or guide.id)
 		end
 		nav.psMeta = UI.GuideMeta(guide)
@@ -1954,18 +2464,18 @@ local function fillUpcoming(E, index)
 	local i = index + 1
 	while n < want and i <= count do
 		local v = E.GetStepView(i)
-		if v and v.status ~= "na" and not v.along then
+		if v and v.status ~= "na" and not v.along and not UI.StepHidden(i) then
 			n = n + 1
 			local r = upRow(n)
 			r.psIndex = i
 			r.psSummary = UI.StepSummary(v)
-			-- It turns in a pinned quest still open (#644): warning colour, and says so.
+			-- It turns in a quest still open, pinned (#644) or worked along the way (#853): warning colour, and says so.
 			local warn = false
 			for _, gv in ipairs(v.goals) do
-				if gv.pinOpen then warn = true end
+				if gv.pinOpen then warn = warn == true or gv.pinOpen end
 			end
-			if warn then r.psSummary = r.psSummary .. " (" .. L["pinned, still open"] .. ")" end
-			r.Num:SetText(i)
+			if warn then r.psSummary = r.psSummary .. " (" .. (warn == "along" and L["still open"] or L["pinned, still open"]) .. ")" end
+			r.Num:SetText(UI.StepNo(i))
 			r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 			r.Text:SetText(r.psSummary)
 			W.Color(r.Text, warn and "warning" or "textDim")
@@ -1991,7 +2501,7 @@ local function nextOf(E, index, groups, focus)
 	for s = index + 1, count do
 		local v = E.GetStepView(s)
 		-- An along step never holds the route: "Then:" names the next step that does.
-		if v and v.status ~= "na" and not v.along then
+		if v and v.status ~= "na" and not v.along and not UI.StepHidden(s) then
 			local gs, f = UI.StepGroups(v)
 			local g = gs[f or 1] or gs[1]
 			if g then return UI.GroupName(v, g), g.kind end
@@ -2001,19 +2511,43 @@ local function nextOf(E, index, groups, focus)
 	return nil
 end
 
+-- A goal's identities for Along the way: its quest objective, and its verb
+-- with its mob, item or object for that quest. -> key, key (either nil)
+local function alongKeys(g)
+	local a = g.quest and g.oi and ("q" .. g.quest .. ":" .. g.oi) or nil
+	local id = g.npc or g.item or g.object
+	local b = id and ((g.t or "") .. ":" .. id .. ":" .. (g.quest or "")) or nil
+	return a, b
+end
+
 -- The open goals of along steps behind the live step (Engine.GetAlong), up to
--- ALONG_MAX rows, hidden in the compact window.
+-- ALONG_MAX rows, hidden in the compact window. A goal the step on screen
+-- lists itself (the same quest objective, or the same kill or item for the
+-- same quest) is not said twice. When every row is of `along until` steps
+-- ending at one step, the heading says so: "Along the way, until step 30"
+-- (#942: an along step has no card of its own).
 local function fillAlong(E)
 	for i = 1, #alongRows do alongRows[i]:Hide() end
 	if compact() or not E.GetAlong then
 		along:Hide()
 		return
 	end
-	local n = 0
+	local inStep = {}
+	for _, g in ipairs(view and view.goals or {}) do
+		if g.status ~= "na" then
+			local a, b = alongKeys(g)
+			if a then inStep[a] = true end
+			if b then inStep[b] = true end
+		end
+	end
+	local n, untilStep, mixed = 0, nil, false
 	for _, s in ipairs(E.GetAlong()) do
 		for _, gv in ipairs(s.goals) do
-			if n < ALONG_MAX then
+			local a, b = alongKeys(gv)
+			if n < ALONG_MAX and not ((a and inStep[a]) or (b and inStep[b])) then
 				n = n + 1
+				if not s.untilStep or (untilStep and untilStep ~= s.untilStep) then mixed = true end
+				untilStep = untilStep or s.untilStep
 				local r = alongRow(n)
 				r.psStep, r.psGoal, r.psTitle, r.psPin = gv.step or s.index, gv.index, s.title or UI.GoalLine(gv), s.pin
 				r.psPlace = gv.map and gv.x and gv.y and true or nil
@@ -2023,15 +2557,27 @@ local function fillAlong(E)
 			end
 		end
 	end
-	along.Label:SetText(L["Along the way"])
+	along.Label:SetText((untilStep and not mixed) and string.format(L["Along the way, until step %d"], UI.StepNo(untilStep)) or L["Along the way"])
 	along:SetShown(n > 0)
 end
 
--- "Then: Gazrog" and "Person 2 of 8".
+-- "Then: Gazrog": the next step's first person, once this step has no one
+-- else open (its summary lines name the persons still to come). With "Show
+-- the whole step" it names the next person of this step too, and "Person 2
+-- of 8" counts them.
 local function fillAfter(E, index, groups, focus)
 	if compact() then
 		after:Hide()
 		return
+	end
+	local whole = wholeStep() or not focus
+	if not whole then
+		for gi = focus + 1, #groups do
+			if not groups[gi].done then
+				after:Hide()
+				return
+			end
+		end
 	end
 	local persons, at = 0, nil
 	for gi, g in ipairs(groups) do
@@ -2040,6 +2586,7 @@ local function fillAfter(E, index, groups, focus)
 			if gi == focus then at = persons end
 		end
 	end
+	if not whole then at = nil end
 	local name, kind = nextOf(E, index, groups, focus)
 	if name and name ~= "" then
 		local hex = Theme.Hex(kind == "npc" and "npc" or (kind == "object" and "object" or "textDim"))
@@ -2119,23 +2666,100 @@ local function rowWho(goal, groups, focus)
 	return "|c" .. Theme.Hex(grp.kind) .. grp.name .. "|r"
 end
 
--- Fill the card from `view`: the focus group's header, the step's goals, the
--- tip. sameFocus = repaint in place; goals that just turned done pop.
+-- What a summary line says for a group's open goals, by kind in the order
+-- they first come: "1 hand-in, 2 quests" at a person; out here "7 kills and
+-- items", "3 kills", "2 items" or "4 goals" (a "Go to" counts only when
+-- nothing else is open). nil when none is open.
+local function countsOf(list, here)
+	if here then
+		local kills, items, other, gotos = 0, 0, 0, 0
+		for _, g in ipairs(list) do
+			if g.status ~= "done" and g.status ~= "skipped" then
+				if g.t == "kill" then
+					kills = kills + 1
+				elseif g.t == "collect" then
+					items = items + 1
+				elseif g.t == "goto" then
+					gotos = gotos + 1
+				else
+					other = other + 1
+				end
+			end
+		end
+		local all = kills + items + other
+		if all == 0 then all = gotos end
+		if all == 0 then return nil end
+		if other > 0 or kills + items == 0 then return all == 1 and L["1 goal"] or string.format(L["%d goals"], all) end
+		if items == 0 then return kills == 1 and L["1 kill"] or string.format(L["%d kills"], kills) end
+		if kills == 0 then return items == 1 and L["1 item"] or string.format(L["%d items"], items) end
+		return string.format(L["%d kills and items"], all)
+	end
+	local n, kinds = { quest = 0, handin = 0, task = 0 }, {}
+	for _, g in ipairs(list) do
+		if g.status ~= "done" and g.status ~= "skipped" then
+			local k = (g.t == "accept" and "quest") or (g.t == "turnin" and "handin") or "task"
+			if n[k] == 0 then kinds[#kinds + 1] = k end
+			n[k] = n[k] + 1
+		end
+	end
+	if #kinds == 0 then return nil end
+	for i, k in ipairs(kinds) do
+		local c = n[k]
+		if k == "quest" then
+			kinds[i] = c == 1 and L["1 quest"] or string.format(L["%d quests"], c)
+		elseif k == "handin" then
+			kinds[i] = c == 1 and L["1 hand-in"] or string.format(L["%d hand-ins"], c)
+		else
+			kinds[i] = c == 1 and L["1 task"] or string.format(L["%d tasks"], c)
+		end
+	end
+	return table.concat(kinds, ", ")
+end
+
+-- Paint a summary line: `icon` a verb glyph or "check"; `list` the goals
+-- its tooltip names; `open` whether its goals are listed under it.
+local function paintLine(l, key, icon, iconColor, text, list, title, open)
+	l.psKey, l.psGoals, l.psTitle = key, list, title
+	l.Icon:SetTexture(icon == "check" and Theme.Media("check") or Theme.VerbIcon(icon))
+	W.Color(l.Icon, iconColor)
+	l.Text:SetText(text)
+	if l ~= fold.glow then W.Color(l.Text, "textDim") end
+	l.Chevron:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
+	l.psK = nil
+	l:SetAlpha(1)
+	l:Show()
+end
+
+local DOT = "  \194\183  "
+
+-- Fill the card from `view`: the focus group's header, its goals under
+-- "✓ N done", a summary line for every other person of the step, the tip
+-- (with "Show the whole step", or on a done step, every goal as written).
+-- sameFocus = repaint in place; a goal that just turned done pops and folds.
 local function fillCard(sameFocus)
 	local groups, focus = UI.StepGroups(view)
 	local g = shownGroup(view, groups, focus)
 	focusGroup = g
-	local list, header = cardGoals(view, groups, focus)
+	if not sameFocus then resetModel() end
+	local _, header = shownGoals(view, g)
 	person.psHeaderGoal = header
 	paintPerson(g)
+	-- Under the header: why a step that depends on what the player does
+	-- holds nothing for them now (the Engine's `why`, #942).
+	local why = view.why
+	person.Why:SetText(why or "")
+	person.Why:SetShown(why ~= nil)
 	person:Show()
 	-- A class quest's step: the class card, its colour on the step's quest names.
 	local CC, E = UI.ClassCard, Engine()
 	local guide = E and E.GetGuide and E.GetGuide()
 	local step = guide and guide.steps and guide.steps[view.index]
 	local classHex = CC and CC.Fill(guide, view.index, view) or nil
+	-- A class quest's accept reads inside the class card (UI/ClassCard.lua).
+	local classFold = CC and guide and CC.Fold(guide, view)
 	local t = targetOf()
-	local n = 0
+	local n, m = 0, 0
+	area.n = 0
 	-- A group line ("Dungeon: Dire Maul") reads once, on the first open
 	-- goal that carries it, not under every goal of the same run.
 	local partySaid = {}
@@ -2144,28 +2768,277 @@ local function fillCard(sameFocus)
 	-- The current goal (the Engine's `current`: the first open blocking goal
 	-- of the focus, else its first open optional one) takes the accent; it
 	-- is the goal the arrow leads to. The header stands for its "Go to".
-	for _, goal in ipairs(list) do
+	-- `rec`: the goal's fold, while it folds.
+	local function addRow(goal, who, aside, rec)
 		n = n + 1
 		local r = goalRow(n)
-		local pop = sameFocus and goal.status == "done" and r.psStatus and r.psStatus ~= "done" and r.psGoal and r.psGoal.index == goal.index
+		local last = model.last[goal.index]
+		local pop = (rec and rec.pop) or (not rec and sameFocus and goal.status == "done" and last ~= nil and last ~= "done")
+		if rec then rec.pop = nil end
 		local isCurrent = view.current ~= nil and goal.index == view.current and goal.status == "active"
 		local party = UI.GroupLine(goal)
 		local escort = UI.EscortLine(goal) ~= nil
-		local who = rowWho(goal, groups, focus)
 		local raw = classHex and step and step.goals[goal.index]
-		local hex = raw and CC.Colours(guide, step, raw) and classHex or nil
-		paintRow(r, goal, pop, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid, who,
-			focus ~= nil and goal.group ~= focus, hex)
+		local hex = raw and CC.Colours(raw) and classHex or nil
+		paintRow(r, goal, pop and true or false, sameFocus, isCurrent, party and partySaid[party], goal.quest and missingSaid[goal.quest], escort and escortSaid, who, aside, hex)
 		if party then partySaid[party] = true end
 		if escort then escortSaid = true end
 		if goal.quest and goal.oi and goal.status ~= "skipped" then missingSaid[goal.quest] = true end
 		r.Mark:SetShown(goal.status ~= "done" and goal.status ~= "skipped" and isTarget(goal, t) and not person.Mark:IsShown())
+		r.psFold = rec
+		if rec then
+			rec.row = r
+			r.psK = rec.k
+			r:SetAlpha(rec.a or 1)
+		else
+			r.psK = nil
+			r:SetAlpha(1)
+		end
 		r:Show()
+		area.n = area.n + 1
+		area.items[area.n], r.psAt = r, area.n
 	end
+	local function addLine(key, icon, iconColor, text, list, title, open)
+		m = m + 1
+		local l = cardLine(m)
+		paintLine(l, key, icon, iconColor, text, list, title, open)
+		area.n = area.n + 1
+		area.items[area.n], l.psAt = l, area.n
+		return l
+	end
+	-- A group's rows as painted (shownGoals), the class card's accept left out.
+	local function goalsOf(grp)
+		local list = shownGoals(view, grp)
+		if classFold then
+			for i = #list, 1, -1 do
+				if list[i].index == classFold then table.remove(list, i) end
+			end
+		end
+		return list
+	end
+	local function nameHex(grp)
+		return Theme.Hex((grp.kind == "npc" or grp.kind == "object") and grp.kind or "text")
+	end
+	-- Who a group is done with, so one person reads on one summary line even
+	-- when another person's goal splits their goals (Thundris Windweaver, a
+	-- vendor, Thundris again); nil for field work, which never merges.
+	local function personOf(grp)
+		if grp.kind == "npc" and grp.npc then return "npc:" .. grp.npc end
+		if grp.kind == "object" and grp.object then return "object:" .. grp.object end
+		return nil
+	end
+	fold.grow = nil
+	if wholeStep() or not focus then
+		-- Every goal of the step in written order, the other persons' named
+		-- on their rows and stepped back while open.
+		for _, goal in ipairs(cardGoals(view, groups, focus)) do
+			addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
+		end
+	else
+		-- The focus person's other groups on the same visit (Thundris
+		-- Windweaver, a vendor, Thundris again: only persons between, no
+		-- field work) read with the focus, in written order: the player is in
+		-- front of them now (#942). Every other person after the focus, in the
+		-- order they first come: all their groups share one entry, read as
+		-- one summary line below.
+		local me, mine = personOf(g), {}
+		if me then
+			for gi = focus + 1, #groups do
+				local who = personOf(groups[gi])
+				if not who then break end
+				if who == me then mine[gi] = true end
+			end
+			for gi = focus - 1, 1, -1 do
+				local who = personOf(groups[gi])
+				if not who then break end
+				if who == me then mine[gi] = true end
+			end
+		end
+		local mineBefore, mineAfter = {}, {}
+		local later, laterOf = {}, {}
+		for gi = focus + 1, #groups do
+			local grp = groups[gi]
+			local list2 = goalsOf(grp)
+			if #list2 > 0 then
+				local who = personOf(grp)
+				local e = who and laterOf[who]
+				if mine[gi] then
+					for _, goal in ipairs(list2) do mineAfter[#mineAfter + 1] = goal end
+				elseif e then
+					for _, goal in ipairs(list2) do e.list[#e.list + 1] = goal end
+				else
+					e = { gi = gi, list = list2, prev = groups[gi - 1].kind }
+					later[#later + 1] = e
+					if who then laterOf[who] = e end
+				end
+			end
+		end
+		-- The persons done before the focus: one line naming them. A person
+		-- still to come after the focus reads on their own line instead, with
+		-- these goals first; the focus person's read with the focus.
+		local before, names, named, early = {}, {}, {}, {}
+		for gi = 1, focus - 1 do
+			local grp = groups[gi]
+			local list = goalsOf(grp)
+			local who = personOf(grp)
+			local e = who and laterOf[who]
+			if #list > 0 and mine[gi] then
+				for _, goal in ipairs(list) do mineBefore[#mineBefore + 1] = goal end
+			elseif #list > 0 and e then
+				local into = early[e]
+				if not into then
+					into = {}
+					early[e] = into
+				end
+				for _, goal in ipairs(list) do into[#into + 1] = goal end
+			elseif #list > 0 then
+				for _, goal in ipairs(list) do before[#before + 1] = goal end
+				if not (who and named[who]) then
+					names[#names + 1] = "|c" .. nameHex(grp) .. UI.GroupName(view, grp) .. "|r"
+					if who then named[who] = true end
+				end
+			end
+		end
+		for e, into in pairs(early) do
+			for _, goal in ipairs(e.list) do into[#into + 1] = goal end
+			e.list = into
+		end
+		if #before > 0 then
+			addLine("before", "check", "success", table.concat(names, ", "), before, L["Done"], model.open.before)
+			if model.open.before then
+				for _, goal in ipairs(before) do addRow(goal, rowWho(goal, groups, focus), true) end
+			end
+		end
+		-- The focus: its finished goals folded into "✓ N done", the rest as rows.
+		fold.serial = fold.serial + 1
+		local list = mineBefore
+		for _, goal in ipairs(goalsOf(g)) do list[#list + 1] = goal end
+		for _, goal in ipairs(mineAfter) do list[#list + 1] = goal end
+		local kept, doneList, first = {}, {}, nil
+		for i, goal in ipairs(list) do
+			local gi = goal.index
+			local rec = fold.of[gi]
+			if goal.status == "done" then
+				if not rec and not model.folded[gi] then
+					local last = model.last[gi]
+					if sameFocus and last and last ~= "done" then
+						rec = fold.start(gi)
+					else
+						model.folded[gi] = true
+					end
+				end
+				if rec then
+					rec.seen = fold.serial
+					if not first or rec.at < first.at then first = rec end
+				else
+					doneList[#doneList + 1] = goal
+				end
+				kept[i] = rec or false
+			else
+				model.folded[gi] = nil
+				if rec then fold.drop(rec) end
+				kept[i] = true
+			end
+		end
+		for i = fold.n, 1, -1 do
+			if fold.list[i].seen ~= fold.serial then fold.drop(fold.list[i]) end
+		end
+		local done = #doneList
+		if done > 0 or first then
+			local l = addLine("done", "check", "success", string.format(L["%d done"], max(done, 1)), doneList, L["Done"], model.doneOpen)
+			for i = 1, fold.n do fold.list[i].grow = nil end
+			if done == 0 then
+				-- The first goal to fold: the line grows in as its row shuts.
+				fold.grow = l
+				first.grow = true
+				local k = first.k or 1
+				l.psK = 1 - k
+				l:SetAlpha(1 - k)
+			elseif sameFocus and done > model.doneN and not Anim.Reduced() then
+				fold.glow, fold.glowAt = l, GetTime()
+				W.Color(l.Text, "accent")
+				fold.run()
+			end
+		end
+		model.doneN = done
+		for i, goal in ipairs(list) do
+			local k = kept[i]
+			if k == true then
+				addRow(goal, nil, false)
+			elseif k then
+				addRow(goal, nil, false, k)
+			elseif model.doneOpen then
+				addRow(goal, nil, false)
+			end
+		end
+		-- Every person after the focus: one line, their goals in place once
+		-- opened. Past CARD.ahead lines the rest share one "+ N more people"
+		-- line, which opens them in place.
+		local shown = #later > CARD.ahead + 1 and CARD.ahead or #later
+		-- One or two goals left: the line names them ("Accept Bitter Rivals",
+		-- the quest in its colour, a "Go to" only when nothing else is open);
+		-- three or more: counts. The line truncates with "…" when too wide.
+		local function namesOf(list2)
+			local open, places = {}, {}
+			for _, goal in ipairs(list2) do
+				if goal.status ~= "done" and goal.status ~= "skipped" then
+					local into = goal.t == "goto" and places or open
+					into[#into + 1] = goal
+				end
+			end
+			if #open == 0 then open = places end
+			if #open == 0 or #open > 2 then return nil end
+			local said = UI.GoalText(open[1])
+			if open[2] then said = said .. ", " .. UI.GoalText(open[2]) end
+			return said
+		end
+		local function groupLine(e)
+			local gi, grp, list2 = e.gi, groups[e.gi], e.list
+			local open = model.open[gi]
+			local here = grp.kind ~= "npc" and grp.kind ~= "object"
+			local counts = countsOf(list2, here)
+			local said = counts and namesOf(list2)
+			local name = UI.GroupName(view, grp)
+			local muted = Theme.Hex("textMuted")
+			if counts and here then
+				local label = (e.prev == "npc" or e.prev == "object") and L["Then out here:"] or L["Out here:"]
+				addLine(gi, "goto", "textDim", label .. " " .. (said or counts), list2, name, open)
+			elseif counts then
+				local tail = said and ("|c" .. muted .. DOT .. "|r" .. said) or ("|c" .. muted .. DOT .. counts .. "|r")
+				addLine(gi, GROUP_VERB[grp.kind], "textDim", L["Then:"] .. " |c" .. nameHex(grp) .. name .. "|r" .. tail, list2, name, open)
+			else
+				addLine(gi, "check", "success", "|c" .. nameHex(grp) .. name .. "|r", list2, name, open)
+			end
+			if open then
+				for _, goal in ipairs(list2) do addRow(goal, nil, true) end
+			end
+		end
+		for i = 1, shown do groupLine(later[i]) end
+		if shown < #later then
+			local rest = {}
+			for i = shown + 1, #later do
+				for _, goal in ipairs(later[i].list) do rest[#rest + 1] = goal end
+			end
+			local counts = countsOf(rest, false)
+			local text = string.format(L["+ %d more people"], #later - shown)
+			if counts then text = text .. "|c" .. Theme.Hex("textMuted") .. DOT .. counts .. "|r" end
+			addLine("more", "talk", "textDim", text, rest, L["Later in this step"], model.open.more)
+			if model.open.more then
+				for i = shown + 1, #later do groupLine(later[i]) end
+			end
+		end
+	end
+	for gi, goal in ipairs(view.goals) do model.last[gi] = goal.status end
 	for i = n + 1, #rows do
-		rows[i]:Hide()
-		rows[i].psGoal = nil
-		rows[i].psStatus = nil
+		local r = rows[i]
+		r:Hide()
+		r.psGoal, r.psStatus, r.psFold, r.psK = nil, nil, nil, nil
+	end
+	for i = m + 1, #lines do lines[i]:Hide() end
+	local i = area.n + 1
+	while area.items[i] do
+		area.items[i] = nil
+		i = i + 1
 	end
 	local shown = ns.Get("ui.showNotes") and not compact()
 	local note = shown and view.note or nil
@@ -2246,6 +3119,7 @@ function GF.Render()
 	fillUpcoming(E, index)
 	showSteps(true)
 	GF.Layout()
+	followCurrent(focusChanged)
 	GF.PaintProgress(shownGuide == guide.id)
 	if focusChanged and F:IsVisible() and not GF.catchingUp then
 		-- The next person (or step) slides up 6px into place as it fades in.
@@ -2261,8 +3135,8 @@ end
 function GF.ShownStep() return shownIndex end
 
 -- STEP_UPDATED: same step, new goal status/progress. When the focus moved
--- to the next person this re-renders (with the slide); otherwise rows are
--- refilled in place.
+-- to the next person this re-renders (with the slide); otherwise the card is
+-- refilled in place (a goal turning done folds).
 function GF.Update()
 	if not F or state ~= "steps" or not view then return GF.Render() end
 	local E = Engine()
@@ -2272,16 +3146,22 @@ function GF.Update()
 	if not v then return GF.Render() end
 	local groups, focus = UI.StepGroups(v)
 	if focus ~= shownFocus then return GF.Render() end
-	local visible = #cardGoals(v, groups, focus)
-	local current = 0
-	for i = 1, #rows do if rows[i]:IsShown() then current = current + 1 end end
-	if visible ~= current then return GF.Render() end
 	view = v
 	fillCard(true)
 	fillAfter(E, index, groups, focus)
 	fillAlong(E)
 	GF.Layout()
 	GF.PaintProgress(true)
+	followCurrent(false)
+end
+
+-- The card again from the view it shows: a summary line opened or closed,
+-- a fold that landed.
+function GF.Refill()
+	if not F or state ~= "steps" or not view then return end
+	fillCard(true)
+	GF.Layout()
+	followCurrent(false)
 end
 
 function GF.UpdateTargets()
@@ -2499,7 +3379,8 @@ local APPLY = {
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
-	["ui.pos"] = function() GF.ApplyPosition() end,
+	-- With Grow upward the room above the bottom edge sets the window's height.
+	["ui.pos"] = function() GF.ApplyPosition(); if ns.Get("ui.growUp") then GF.Layout() end end,
 	-- Re-pin by the other corner where the window stands now, so it does not jump.
 	["ui.growUp"] = function() GF.SavePosition(); GF.Layout() end,
 	["ui.barsBottom"] = function() GF.Layout() end,
@@ -2507,6 +3388,9 @@ local APPLY = {
 	["ui.upcomingOpen"] = function() GF.Render() end,
 	["ui.showNotes"] = function() GF.Render() end,
 	["ui.notesOpen"] = function() tipOpen = ns.Get("ui.notesOpen") and true or false; GF.Render() end,
+	["ui.maxHeight"] = function() GF.Layout() end,
+	-- Another way of reading the card: nothing kept from the one before.
+	["ui.wholeStep"] = function() resetModel(); GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,
 	["ui.font"] = function() GF.Layout() end,
 	["nav.nearbyButton"] = function()
@@ -2665,6 +3549,12 @@ function GF.ApplySkin()
 	GF.party.Icon:SetPoint("LEFT", GF.party, "LEFT", PAD, -1)
 	banner.Icon:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD, -10)
 	banner.Text:SetPoint("TOPLEFT", banner, "TOPLEFT", PAD + 21, -9)
+	for _, l in ipairs(lines) do
+		local lh = CARD.lineH
+		l.Icon:SetPoint("CENTER", l, "TOPLEFT", PAD + ICON / 2, -lh / 2)
+		l.Text:SetPoint("LEFT", l, "TOPLEFT", TEXT_X, -lh / 2)
+		l.Chevron:SetPoint("CENTER", l, "TOPRIGHT", -PAD - 5, -lh / 2)
+	end
 	for _, r in ipairs(rows) do
 		r.Icon:SetPoint("CENTER", r, "TOPLEFT", PAD + ICON / 2, -12 - ROW_PAD)
 		r.Text:SetPoint("TOPLEFT", r, "TOPLEFT", TEXT_X, -4 - ROW_PAD)
@@ -2797,6 +3687,11 @@ local function openMenu(button)
 	local pins = GF.PinItems(view)
 	for _, it in ipairs(pins) do items[#items + 1] = it end
 	if #pins > 0 then items[#items + 1] = { separator = true } end
+	-- The quest log cleanup (UI/QuestRoom.lua), while it has quests to list.
+	local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
+	if unneeded and #unneeded > 0 then
+		table.insert(items, 5, { text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
+	end
 	for _, it in ipairs({
 		{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
 		{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
@@ -3096,6 +3991,17 @@ local function build()
 	card = CreateFrame("Frame", nil, body)
 	Anim.Anchor(card, "TOPLEFT", body, "TOPLEFT", 0, 0)
 
+	-- The goals: rows and summary lines in a scroll area that grows with
+	-- them up to the cap (fitGoals); its bar shows only while there is more.
+	goals = W.Scroll(card)
+	goals:SetHeight(0.01)
+	goals:EnableMouseWheel(false)
+	goals:SetScript("OnMouseWheel", goalsWheel)
+	goals.psOnValue = W.ScrollTo
+	goals.Bar:SetAlpha(0)
+	goals.Bar:HookScript("OnEnter", function() barWake() end)
+	goals.Bar:HookScript("OnLeave", function() barWake() end)
+
 	-- The focus header: who (or what) the goals below belong to.
 	person = CreateFrame("Button", nil, card)
 	person:RegisterForClicks("LeftButtonUp")
@@ -3124,6 +4030,11 @@ local function build()
 	person.Name:SetPoint("TOPLEFT", person, "TOPLEFT", TEXT_X, -10)
 	person.Where = T(person, "small", "textDim")
 	person.Where:SetPoint("TOPLEFT", person.Name, "BOTTOMLEFT", 0, -3)
+	-- Why a step that depends on what the player does holds nothing now (fillCard).
+	person.Why = T(person, "small", "textDim")
+	person.Why:SetJustifyH("LEFT")
+	person.Why:SetWordWrap(true)
+	person.Why:Hide()
 	-- Blizzard: a gold separator under the person, above the goals.
 	person.Rule = person:CreateTexture(nil, "ARTWORK")
 	person.Rule:SetTexture(Theme.Media("white"))
@@ -3223,8 +4134,9 @@ local function build()
 	xp:Hide()
 	GF.xp = xp
 
-	-- The party's place on this guide (Quests/Party.lua, Party.StepLine); a
-	-- click shares the quest of the step a member lacks.
+	-- The party's place on this guide and the group's wait (Quests/Party.lua,
+	-- Party.StepLine); a click shows or hides the party panel. While the
+	-- group waits on the step: "Go on without them" (Party.GoOn).
 	local party = CreateFrame("Button", nil, body)
 	party:SetHeight(28)
 	party.Rule = W.Divider(party)
@@ -3233,16 +4145,22 @@ local function build()
 	party.Icon = W.Tex(party, "ARTWORK", "icon-talk", "textMuted")
 	party.Icon:SetSize(11, 11)
 	party.Icon:SetPoint("LEFT", party, "LEFT", PAD, -1)
+	party.GoOn = W.Link(party, L["Go on without them"], function()
+		if ns.Party and ns.Party.GoOn then ns.Party.GoOn() end
+	end, { role = "small" })
+	party.GoOn.psTip = L["The step stops waiting for the party and moves on as usual."]
+	party.GoOn:SetPoint("RIGHT", party, "RIGHT", -PAD, -1)
+	party.GoOn:Hide()
 	party.Text = T(party, "small", "textDim")
 	party.Text:SetPoint("LEFT", party.Icon, "RIGHT", 7, 0)
 	party.Text:SetPoint("RIGHT", party, "RIGHT", -PAD, 0)
 	party.Text:SetJustifyH("LEFT")
 	party.Text:SetWordWrap(false)
-	party:SetScript("OnClick", function(self)
-		if self.psShare then ns.Compat.ShareQuest(self.psShare) end
+	party:SetScript("OnClick", function()
+		if UI.PartyPanel then UI.PartyPanel.Toggle() end
 	end)
 	party:SetScript("OnEnter", function(self)
-		if self.psShare then W.Tooltip(self, tooltipAnchor(), L["Party"], { L["Click to share the quest with your party."] }) end
+		W.Tooltip(self, tooltipAnchor(), L["Party"], { L["Click to show or hide the party panel."] })
 		GF.HoverIn()
 	end)
 	party:SetScript("OnLeave", function(self) W.HideTooltip(self) end)
@@ -3345,6 +4263,7 @@ local function build()
 	GF.parts = {
 		strip = strip, nav = nav, body = body, card = card, person = person, tip = tip, after = after,
 		along = along, upnext = upnext, empty = empty, band = band, banner = banner, foot = foot, line = foot.Line,
+		goals = goals,
 	}
 	GF.chrome = chrome
 
@@ -3364,7 +4283,9 @@ local function build()
 			local g = E and E.GetGuide and E.GetGuide()
 			local raw = g and g.steps and g.steps[view.index]
 			for _, row in ipairs(rows) do
-				if row:IsShown() and row.psGoal then
+				-- Not a row scrolled out of sight (a folding row keeps its
+				-- target until the fold lands and the card refills).
+				if row:IsShown() and row.psGoal and inSight(row) then
 					entries[#entries + 1] = { owner = row, region = row, wholeRow = true, goal = row.psGoal, right = true,
 						controls = { row.Check, row.Skip, row.Alt, row.psGearPick },
 						raw = raw and raw.goals and raw.goals[row.psGoal.index] }
@@ -3416,6 +4337,10 @@ ns.On("GUIDES_REGISTERED", whenReady(GF.Render))
 ns.On("PACKS_CHANGED", whenReady(GF.Render))
 ns.On("GUIDE_COMPLETED", whenReady(GF.Render))
 ns.On("WAYPOINT_CHANGED", whenReady(GF.UpdateTargets))
+-- The screen's height changed (resolution, the game's UI scale): the
+-- height cap follows.
+ns.RegisterEvent("DISPLAY_SIZE_CHANGED", whenReady(function() GF.Layout() end))
+ns.RegisterEvent("UI_SCALE_CHANGED", whenReady(function() GF.Layout() end))
 
 -- The route's pace against the guide's next level target (Core/Levels.lua,
 -- Levels.Pace): "On pace for level 14 by step 32", "About 6 bars short of
@@ -3425,8 +4350,8 @@ function GF.PaceText()
 	local pace = Lv and Lv.Pace and Lv.Pace()
 	if not pace then return nil end
 	local level = pace.target % 1 == 0 and string.format("%d", pace.target) or string.format("%.1f", pace.target)
-	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, pace.step) end
-	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, pace.step)
+	if pace.bars == 0 then return string.format(L["On pace for level %s by step %d"], level, UI.StepNo(pace.step)) end
+	return string.format(L["About %d bars short of level %s by step %d"], pace.bars, level, UI.StepNo(pace.step))
 end
 
 -- XP pace from the QoL tracker and the route's pace (GF.PaceText). Hidden
@@ -3468,15 +4393,19 @@ ns.On("QOL_XP_UPDATED", whenReady(function(stats) GF.UpdateXP(stats) end))
 ns.OnLogin(function() GF.UpdateXP() end)
 ns.On("STEP_CHANGED", whenReady(function() GF.UpdateXP() end))
 
--- The party line (Quests/Party.lua, Party.StepLine): hidden without one.
+-- The party line (Quests/Party.lua, Party.StepLine): hidden without one;
+-- "Go on without them" at its end while the group waits on the step.
 function GF.UpdateParty()
 	if not GF.party then return end
 	local P = ns.Party
-	local text, share
-	if P and P.StepLine then text, share = P.StepLine() end
+	local text, holding
+	if P and P.StepLine then text, holding = P.StepLine() end
 	local had = GF.party.psText ~= nil
-	GF.party.psText, GF.party.psShare = text, share
+	GF.party.psText, GF.party.psHolding = text, holding and true or false
 	if text then GF.party.Text:SetText(text) end
+	local goOn = GF.party.GoOn
+	goOn:SetShown(holding and true or false)
+	GF.party.Text:SetPoint("RIGHT", holding and goOn or GF.party, holding and "LEFT" or "RIGHT", holding and -8 or -PAD, 0)
 	if had ~= (text ~= nil) then GF.Layout() end
 end
 for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do
@@ -3549,7 +4478,8 @@ function GF.PlayCatchUp(guideId, step, chain)
 		local shown
 		Count.psOnValue = function(_, v)
 			local i = max(1, min(step - 1, floor(v)))
-			if i ~= shown then
+			-- A step hidden from the character (#942) is not shown on the way.
+			if i ~= shown and not UI.StepHidden(i) then
 				shown = i
 				GF.catchUpIndex = i
 				GF.Render()

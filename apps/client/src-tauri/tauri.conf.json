@@ -16,7 +16,7 @@
         "title": "Polestar Client",
         "width": 880,
         "height": 600,
-        "resizable": false,
+        "resizable": true,
         "maximizable": false,
         "center": true,
         "visible": false,

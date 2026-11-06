@@ -282,8 +282,10 @@ Most are published on [polestar.guide](https://polestar.guide/community), which
 keeps them safe to play and fair to their authors:
 
 - **Plain text, built by Polestar.** An author publishes the guide files, never
-  code: the site builds every version with Polestar's own compiler and checks
-  every step against the game data, so no author's code runs in your game.
+  code: the site builds every version with Polestar's own compiler, so no
+  author's code runs in your game. It also checks every step against the game
+  data and gives the author its notes; what to change is the author's call,
+  and the notes never hold a version back.
 - **Scanned and reviewed.** Every version is scanned on VirusTotal before it is
   published, and its page links the report. A moderator reviews each author's
   first version, and any later one that changes owner or installs different
@@ -475,11 +477,12 @@ its source is in [apps/client](apps/client).
   takes you there, routed like any goal; Alt-click works over map icons.
   Click the spot again to let it go.
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
-  class, weapon, reagents, vendor, food, arrows, bullets, ranged, innkeeper,
+  class, weapon, reagents, vendor, food, general, arrows, bullets, ranged,
+  innkeeper,
   bank, mailbox, auction, flight, stable) points the arrow at the quickest one to
   reach, naming a vendor's trade; the map's tracking menu and the guide
   window's Nearby services button list them, the button with a page of
-  vendors (food and drink, and the ammunition and bows or guns your class
+  vendors (food and drink, general goods, and the ammunition and bows or guns your class
   can use) and one of the weapons a weapon master can teach you. Once you get there,
   the arrow is back on the guide.
 - **OpenMap.** On [OpenMap](https://www.curseforge.com/wow/addons/openmap)'s
@@ -573,6 +576,54 @@ guides you there instead.
   target — a skull and a star by default, configurable — leaving icons
   already placed alone. Either can be set to "A new one each press", so the
   last few targets keep theirs. Your party sees the icons.
+
+### Playing in a party
+
+Group play works only with party members who also run Polestar. On joining
+a party Polestar sends one small hidden hello; a member who answers is synced,
+and everything below but the chat line is about them. With friends who don't
+run Polestar nothing shows and nothing more is sent, apart from that line.
+Turn each part off under Options > Questing > Quests > Group; nothing of it
+runs solo or in a raid.
+
+- **Party sync**: each member's count shows under the quest goals you share
+  ("Ana 5/8", "Ben done"), and on a quest you took, which of them lacks it.
+  It is on by default; the first time a party member answers as a Polestar
+  user, Polestar says so once in chat. What goes out: quest IDs and counts,
+  level, XP %, class and race, your step, your guide (and pack) and your
+  Polestar version, as hidden addon messages to your party, never to chat.
+  Up to v0.3.2 it was off by default and that choice wasn't stored, so if
+  you had it off, this update turns it on once (the chat notice tells you);
+  from this version on, turned off, it stays off.
+- **Wait for the group**: when you finish an objective a party member on the
+  same quest still needs ("Waiting on Ana: 3/8 Boar Ribs"), the step and its
+  turn-in wait for them (nothing is handed in automatically meanwhile), and
+  the arrow leads to the nearest place they still need. "Everyone's ready"
+  shows once they are done. A member in another zone, or offline for more
+  than 2 minutes, doesn't hold you, and the guide window's party line offers
+  "Go on without them".
+- **Share a missing quest**: a Share button on the goal of a quest you have
+  that a member lacks, using the game's own sharing. When Polestar knows why
+  they can't take it, it says so ("Ben (level 8, needs 10)", "another class",
+  "already done").
+- **Party panel**: a click on the guide window's party line, or `/polestar
+  party`, opens a small movable panel with each Polestar member's level and
+  XP, the step they are on, what they still need of yours, and whether they
+  are dead, far away or offline. Click a name to point the arrow at them
+  where the game gives their place on the map. Without a Polestar member in
+  the party it stays hidden.
+- **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
+  collect goal, and on a loot window or roll with a quest item a member still
+  needs and you don't, "For Ana: she still needs 2". Nothing is passed,
+  rolled or said for you.
+- **Tell my party in chat** (on by default): the one part everyone in the
+  party sees, Polestar or not. When you finish one of a quest's objectives,
+  one party chat line with the quest's link ("[Polestar] Finished: Plagued
+  Hide 5/5 - [Plagued Lands]"), and when the quest is ready to turn in,
+  "[Polestar] Ready to turn in: [Plagued Lands]". Nothing for what was
+  already done when you log in, reload or join, and never the same line
+  twice. During a boss fight, while the game holds chat back, a line waits
+  up to two minutes. The first line says once where to turn it off.
 
 ### Gear advice
 
@@ -732,7 +783,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | Command | What it does |
 |---|---|
 | `help` | List every command |
-| `show`, `hide` | Show or hide the guide window, with the arrow, the action buttons and the rare and transport alerts |
+| `show`, `hide` | Show or hide the guide window, with the action buttons and the rare and transport alerts; the arrow too only with **Hide the arrow with the guide** (Options, Guide, Arrow & routes), and never the arrow back to your corpse or a Spirit Healer |
 | `guides` | Open the hub on Guides |
 | `options [page]` | Open the settings, optionally on a page |
 | `next`, `prev` | Look at the next or previous step (nothing is skipped) |
@@ -745,9 +796,10 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `skipleg` | Skip the travel route's current leg (a Hearthstone, flight or portal: plan the rest without it; a walk or lift: mark it done) |
 | `near <service>` | Point the arrow at the nearest trainer, class trainer, repair, reagents, vendor, innkeeper, bank, mailbox, auction house, flight or stable master |
 | `way <x> <y> [label]` | Point the arrow at x y on your current map (no argument clears it) |
-| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide is hidden the arrow is too, and these commands say so |
+| `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**), these commands, `way` and `near` say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
+| `party` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need) |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |

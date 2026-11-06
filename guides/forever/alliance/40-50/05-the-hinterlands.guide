@@ -141,6 +141,7 @@ step Teldrassil
 
 step Rut'theran Village
   zone Teldrassil
+  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
   getfp "Rut'theran Village"
   turnin 2939                         -- Daryn Lightwind
   note Daryn's next errand goes to Tanaris: skip it.

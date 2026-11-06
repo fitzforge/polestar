@@ -235,7 +235,7 @@ step Orgrimmar: Thrall and Neeru
   tip Neeru Fireblade is in the Cleft of Shadow. Tell him he may speak openly and click through his story.
   turnin 5726                         -- Thrall
   accept 5727                         -- Hidden Enemies, +50
-  kill 3216 quest 5727.1              -- Neeru Fireblade: hear him out
+  talk 3216 quest 5727.1              -- Neeru Fireblade: hear him out
   turnin 5727                         -- Thrall
   accept 5728                         -- Hidden Enemies, +100
 
@@ -402,7 +402,7 @@ step Around the Crossroads
   collect 12708 quest 5041.1          -- Crossroads' Supply Crates
   collect 276070 quest 97003.1        -- Chol'aruk's Head
   collect 5064 x8 quest 867.1         -- Witchwing Talon
-  kill 10668 quest 4921.1             -- Beaten Corpse: right-click it
+  talk 10668 quest 4921.1             -- Beaten Corpse: right-click it
 
 step The Crossroads: hand in
   when done crossroads

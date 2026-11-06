@@ -686,7 +686,7 @@ fn check_offs_are_stored_per_guide_survive_recomputes_and_a_reload_and_toggle_of
 		Polestar.RegisterGuide({ id = "test/manual", pack = "test", title = "Manual", minLevel = 1, maxLevel = 10, steps = {
 			{ goals = { { t = "talk", npc = 197, npcName = "Marshal McBride" } } },
 			{ goals = { { t = "kill", target = "Young Wolf", count = 5 }, { t = "level", level = 2 } } },
-			{ goals = { { t = "hearth", location = "Goldshire" } } },
+			{ goals = { { t = "talk", npc = 295, npcName = "Innkeeper Farley" } } },
 		} })
 	"#;
 	let first = run1(Run {
@@ -1180,7 +1180,7 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			{ goals = { { t = "vendor", npc = 54, npcName = "Corina Steele" } } },
 			{ goals = { { t = "buy", item = 159, itemName = "Refreshing Spring Water", count = 5 } } },
 			{ goals = { { t = "collect", item = 750, itemName = "Tough Wolf Meat", count = 3 } } },
-			{ goals = { { t = "hearth", location = "Goldshire" } } },
+			{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
 			{ goals = { { t = "level", level = 99 } } },
 		} })
 	"#;
@@ -1229,6 +1229,82 @@ fn talk_sethome_getfp_fly_vendor_buy_collect_and_hearth_complete_from_interactio
 			"Hearth to Goldshire",
 		])
 	);
+}
+
+// #859: Desperate Times (92640) asks to speak with Valennia, then the Windshapers (Ayessa), then the High
+// Order (Elaadrin), and the client lists each line only once the one before it is done. A quest `talk` goal
+// reads its quest-log line; talking checks it off only on a line the client does not list yet, with every
+// line before it finished.
+const DESPERATE_TIMES: &str = r#"
+	Polestar.RegisterGuide({ id = "test/talkq", pack = "test", title = "Talk objectives", minLevel = 1, maxLevel = 90, steps = {
+		{ goals = {
+			{ t = "talk", npc = 252383, npcName = "Valennia", quest = 92640, title = "Desperate Times", oi = 1 },
+			{ t = "talk", npc = 251968, npcName = "Ayessa", quest = 92640, title = "Desperate Times", oi = 2 },
+			{ t = "talk", npc = 252475, npcName = "Elaadrin", quest = 92640, title = "Desperate Times", oi = 3 },
+		} },
+		{ goals = { { t = "level", level = 99 } } },
+	} })
+"#;
+
+#[test]
+fn t_859_a_quest_talk_goal_ticks_from_its_quest_log_line_and_a_talk_counts_only_on_a_line_the_client_does_not_list_yet() {
+	let out = run1(Run {
+		guides: DESPERATE_TIMES,
+		before: r#"w.titles[92640] = "Desperate Times"; w.onQuest(92640, { { text = "Speak with Valennia", required = 1 } })"#,
+		script: r#"
+			local w = stub.world
+			-- The game's ready flag, not the stub's (every listed line finished): a line not revealed yet is open.
+			C_QuestLog.ReadyForTurnIn = function() return false end
+			C_QuestLog.IsComplete = C_QuestLog.ReadyForTurnIn
+			local trail = {}
+			local function mark(label)
+				local s = ""
+				for _, g in ipairs(E.GetStepView(1).goals) do s = s .. (g.status == "done" and "x" or "-") end
+				trail[#trail + 1] = label .. "=" .. s
+			end
+			local function talk(npc)
+				w.gossip(npc, { options = { { name = "I am ready." } } }); flush()
+				C_GossipInfo.SelectOption(1); w.close(); flush()
+			end
+			local TEXT = { "Speak with Valennia", "Recruit the Windshapers", "Recruit the High Order" }
+			local function lines(...)
+				local objs = {}
+				for i, n in ipairs({ ... }) do
+					objs[i] = { text = TEXT[i], type = "monster", numRequired = 1, numFulfilled = n, finished = n >= 1 }
+				end
+				w.log[92640].objectives = objs
+				stub.fire("QUEST_LOG_UPDATE"); flush()
+			end
+			local view = E.GetStepView(1).goals[1]
+			mark("start")
+			talk(252475); mark("elaadrin-first")     -- line 3 not listed, line 1 open: the game does not count it
+			talk(252383); mark("valennia")           -- line 1 listed: its state decides
+			lines(1, 0); mark("line1")
+			talk(252475); mark("elaadrin-early")     -- line 2 still open
+			talk(251968); mark("ayessa")             -- line 2 listed: its state decides
+			lines(1, 1); mark("line2")
+			talk(252475); mark("elaadrin")           -- line 3 not listed yet, lines 1 and 2 finished
+			emit({ trail = trail, at = E.GetStepIndex(), text = view.text, detail = view.detail })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["trail"], json!(["start=---", "elaadrin-first=---", "valennia=---", "line1=x--", "elaadrin-early=x--", "ayessa=x--", "line2=xx-", "elaadrin=xxx"]));
+	assert_eq!(out["at"], 2);
+	assert_eq!(out["text"], "Talk to Valennia");
+	assert_eq!(out["detail"], "for Desperate Times");
+
+	// The quest ready for turn-in: every talk goal is done, the lines the client never listed too.
+	let ready = run1(Run {
+		guides: DESPERATE_TIMES,
+		before: r#"w.titles[92640] = "Desperate Times"; w.onQuest(92640, { { required = 1, fulfilled = 1 }, { required = 1, fulfilled = 1 } })"#,
+		script: r#"
+			local s = {}
+			for i, g in ipairs(E.GetStepView(1).goals) do s[i] = g.status end
+			emit({ s = s, at = E.GetStepIndex() })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(ready, json!({ "s": ["done", "done", "done"], "at": 2 }));
 }
 
 #[test]
@@ -1353,8 +1429,9 @@ fn hotline_s_report_576_a_hearth_step_while_the_hearthstone_waits_says_how_long_
 	let out = run1(Run {
 		guides: r#"
 			Polestar.RegisterGuide({ id = "test/hearth-cd", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
-				{ goals = { { t = "hearth", location = "Goldshire" } } },
-				{ goals = { { t = "hearth", location = "Nowhere Inn" } } },
+				-- A note beside the hearth keeps the step (a hearth-only step is hidden: Own.hearthOnly).
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "hearth", location = "Nowhere Inn" }, { t = "note", text = "Somewhere." } } },
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
@@ -1405,7 +1482,7 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 	let out = run1(Run {
 		guides: r#"
 			Polestar.RegisterGuide({ id = "test/hearth-trip", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
-				{ goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
@@ -1417,7 +1494,7 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 			-- The way to the inn without the Hearthstone, as Nav plans it (seconds); noHearth asked for.
 			local trip, asked = 9 * 60, {}
 			Polestar.Nav = Polestar.Nav or {}
-			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN = 15, 120
+			Polestar.Nav.HEARTH_SECONDS, Polestar.Nav.HEARTH_MARGIN, Polestar.Nav.HEARTH_MIN_TRIP = 15, 300, 480
 			Polestar.Nav.FindInn = function(npc, name)
 				if name == "Goldshire" then return { map = 1429, x = 43.8, y = 65.8, f = "e", npc = 295 } end
 			end
@@ -1436,6 +1513,8 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 			r.sooner = state()
 			hs.remaining = 0; trip = 90; changed()
 			r.close = state()
+			trip = 6 * 60; changed()
+			r.mid = state()
 			trip = 20 * 60; changed()
 			r.far = state()
 			r.asked = asked[1]
@@ -1446,8 +1525,54 @@ fn a_hearth_step_weighs_the_hearthstone_against_the_trip_set_off_while_it_waits_
 	assert_eq!(out["longer"], json!({ "line": "Hearthstone ready in 20 min; the trip takes 9 min: set off now", "arrow": "Walk to Goldshire" }));
 	assert_eq!(out["sooner"], json!({ "line": "Hearthstone ready in 20 min, sooner than the 30 min trip: wait for it", "arrow": "Walk to Goldshire" }));
 	assert_eq!(out["close"], json!({ "line": "The inn is only 2 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }));
+	assert_eq!(out["mid"], json!({ "line": "The inn is only 6 min away: travel there and keep the Hearthstone", "arrow": "Walk to Goldshire" }), "under 8 minutes the cooldown is worth more");
 	assert_eq!(out["far"], json!({ "line": false, "arrow": false }), "a long trip with the Hearthstone ready: hearth");
 	assert_eq!(out["asked"], "noHearth");
+}
+
+// Fitz (0.3.3): hearthing is no step of its own. A step whose only goals are `hearth` is hidden like an along
+// step: no number, not counted, never paged to and never the live step (the arrow's route to the next step
+// hearths when it pays, Nav/Travel.lua). `sethome` stays a step; so does a hearth with another goal.
+#[test]
+fn a_hearth_only_step_is_never_paged_to_counted_or_live() {
+	let out = run1(Run {
+		guides: r#"
+			Polestar.RegisterGuide({ id = "test/hearth-hidden", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
+				{ goals = { { t = "talk", npc = 197, npcName = "Marshal McBride" } } },
+				{ title = "Hearth to Goldshire", goals = { { t = "hearth", location = "Goldshire" } } },
+				{ goals = { { t = "sethome", location = "Goldshire", npc = 295, npcName = "Innkeeper Farley" } } },
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "fly", location = "Stormwind City" } } },
+				{ goals = { { t = "level", level = 99 } } },
+			} })
+		"#,
+		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/hearth-hidden"); flush()
+			local function no(s) local n, hidden = E.StepNumber(s); return { n, hidden } end
+			local r = { numbers = { no(1), no(2), no(3), no(4), no(5) }, total = E.StepTotal() }
+			E.Next(); flush()
+			r.next = E.GetStepIndex()
+			E.Prev(); flush()
+			r.prev = E.GetStepIndex()
+			E.Goto(2); flush()
+			r.goto2 = E.GetStepIndex()
+			w.gossip(197, { options = { { name = "Tell me about Northshire." } } }); flush()
+			C_GossipInfo.SelectOption(1); flush(); w.close()
+			r.live = E.GetLiveStep()
+			local _, total = E.GetProgress()
+			r.progressTotal = total
+			emit(r)
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out["numbers"], json!([[1, false], [2, true], [2, false], [3, false], [4, false]]));
+	assert_eq!(out["total"], 4);
+	assert_eq!(out["next"], 3, "Next from step 1 passes over the hearth");
+	assert_eq!(out["prev"], 1);
+	assert_eq!(out["goto2"], 1, "Goto refuses it");
+	assert_eq!(out["live"], 3, "talking to McBride moves the live step past the hearth to the sethome");
+	assert_eq!(out["progressTotal"], 4);
 }
 
 #[test]
@@ -1514,7 +1639,8 @@ fn slash_commands_drive_the_engine_and_report_status() {
 		"#,
 		..Default::default()
 	});
-	assert_eq!(out["status"], json!(["|cff4fd1c5Polestar|r: Northshire Valley: step 3 of 6 (2/5 done)", "  [ ] Go to Kobold camp", "  [ ] Kill Kobold Vermin (4/10)"]));
+	// The Warrior's Mage training step is not his (#942): "of 5", as the player counts the steps.
+	assert_eq!(out["status"], json!(["|cff4fd1c5Polestar|r: Northshire Valley: step 3 of 5 (2/5 done)", "  [ ] Go to Kobold camp", "  [ ] Kill Kobold Vermin (4/10)"]));
 	assert_eq!(out["afterSkip"], 4);
 	assert_eq!(out["afterPrev"], 3);
 	assert_eq!(out["exact"], "test/02-elwynn");
@@ -1534,7 +1660,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 }
 
 // A `complete` goal counts its quest's objectives from the log (summed, so the window redraws on every loot or
-// kill) and, for a quest with several, lists the open ones in the game's words under the goal (a player's
+// kill) and reads as each of them in the game's words with its own count (`objectiveLines`, #942; a player's
 // report: The Hunt Begins showed no x of y).
 const HUNT: &str = r#"
 Polestar.RegisterGuide({
@@ -1552,7 +1678,7 @@ Polestar.RegisterGuide({
 "#;
 
 #[test]
-fn a_quest_to_complete_shows_its_objectives_count_and_the_open_ones_when_it_has_several() {
+fn a_quest_to_complete_shows_its_objectives_count_and_reads_as_its_objective_lines() {
 	let guides = format!("{NORTHSHIRE}{HUNT}");
 	let out = run(Run {
 		guides: &guides,
@@ -1561,9 +1687,14 @@ fn a_quest_to_complete_shows_its_objectives_count_and_the_open_ones_when_it_has_
 		script: r#"
 			local w = stub.world
 			E.SetGuide("test/hunt"); flush(); takeLog()
+			local function lines(gv)
+				local out = {}
+				for _, o in ipairs(gv.objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+				return out
+			end
 			local function goals()
 				local v = E.GetStepView(1)
-				return { v.goals[1].progress, v.goals[1].objectives or false, v.goals[2].progress or false, v.goals[2].objectives or false }
+				return { v.goals[1].progress, lines(v.goals[1]), v.goals[2].progress or false, lines(v.goals[2]) }
 			end
 			local start = goals()
 			w.progress(747, 1, 3); flush()
@@ -1575,11 +1706,59 @@ fn a_quest_to_complete_shows_its_objectives_count_and_the_open_ones_when_it_has_
 		..Default::default()
 	});
 	let (log, start, meat, fed) = (&out[0], &out[1], &out[2], &out[3]);
-	assert_eq!(*start, json!([{ "cur": 0, "max": 14, "kind": "count" }, ["Plainstrider Meat 0/7", "Plainstrider Feathers: 0/7"], { "cur": 0, "max": 1, "kind": "count" }, false]));
-	assert_eq!(*meat, json!([{ "cur": 3, "max": 14, "kind": "count" }, ["Plainstrider Meat 3/7", "Plainstrider Feathers: 0/7"], { "cur": 0, "max": 1, "kind": "count" }, false]));
-	// Looting past the need counts the need; a finished objective leaves the list.
-	assert_eq!(*fed, json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Feathers: 0/7"], { "cur": 0, "max": 1, "kind": "count" }, false]));
+	assert_eq!(*start, json!([{ "cur": 0, "max": 14, "kind": "count" }, ["Plainstrider Meat 0/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
+	assert_eq!(*meat, json!([{ "cur": 3, "max": 14, "kind": "count" }, ["Plainstrider Meat 3/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
+	// Looting past the need counts the need; a finished objective stays a line, full.
+	assert_eq!(*fed, json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Meat 7/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]]));
 	assert_eq!(*log, json!(["STEP_UPDATED 1", "STEP_UPDATED 1"]), "each count change redraws the step");
+}
+
+// Darkshore's Plagued Lands (#942): looked at before the quest is taken, its `complete` goal reads as the
+// compiled objectives (`objs`, the quest data's); taken, as the game's own line, "Use Tharnariun's Hope:" first
+// while the trap the quest hands over (`startItem`) is in the bags.
+const PLAGUED: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/plagued", pack = "test", title = "Auberdine", faction = "Alliance", minLevel = 1, maxLevel = 20, zone = 1429,
+	steps = {
+		{ title = "Tharnariun", goals = {
+			{ t = "accept", quest = 2118, title = "Plagued Lands", npc = 3701, npcName = "Tharnariun Treetender" },
+		} },
+		{ title = "Plagued bears", goals = {
+			{ t = "complete", quest = 2118, title = "Plagued Lands", note = "the Rabid Thistle Bears nearest Tharnariun",
+				objs = { { text = "Rabid Thistle Bear", count = 1 } }, startItem = 7586, startItemName = "Tharnariun's Hope" },
+		} },
+		{ title = "Tharnariun", goals = {
+			{ t = "turnin", quest = 2118, title = "Plagued Lands", npc = 3701, npcName = "Tharnariun Treetender" },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn a_complete_goal_reads_the_data_s_objectives_ahead_then_the_game_s_line_with_its_start_item_to_use() {
+	let guides = format!("{NORTHSHIRE}{PLAGUED}");
+	let out = run(Run {
+		guides: &guides,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/plagued"); flush()
+			local function goal()
+				local gv = E.GetStepView(2).goals[1]
+				local out = {}
+				for _, o in ipairs(gv.objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+				return { lines = out, use = gv.useItem or false }
+			end
+			local ahead = goal()
+			w.onQuest(2118, { { text = "Rabid Thistle Bear Captured: 0/1", required = 1 } }); flush()
+			local taken = goal()
+			w.addItem(7586, 1); flush()
+			emit({ ahead = ahead, taken = taken, trap = goal() })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0]["ahead"], json!({ "lines": ["Rabid Thistle Bear 0/1"], "use": false }), "not in the log: the quest data's objective");
+	assert_eq!(out[0]["taken"], json!({ "lines": ["Rabid Thistle Bear Captured 0/1"], "use": false }), "in the log: the game's line, its count cut off the text");
+	assert_eq!(out[0]["trap"], json!({ "lines": ["Rabid Thistle Bear Captured 0/1"], "use": "Tharnariun's Hope" }), "the trap in the bags: use it first");
 }
 
 // An objective goal reads the quest-log line named after its target, not the position it was compiled with
@@ -1761,8 +1940,8 @@ fn a_hearth_step_whose_hearthstone_is_bound_at_another_inn_says_so_and_walks_the
 	let out = run1(Run {
 		guides: r#"
 			Polestar.RegisterGuide({ id = "test/hearth-bound", pack = "test", title = "Hearth", minLevel = 1, maxLevel = 10, steps = {
-				{ goals = { { t = "hearth", location = "Goldshire" } } },
-				{ goals = { { t = "hearth", location = "Nowhere Inn" } } },
+				{ goals = { { t = "hearth", location = "Goldshire" }, { t = "note", text = "The inn by the road." } } },
+				{ goals = { { t = "hearth", location = "Nowhere Inn" }, { t = "note", text = "Somewhere." } } },
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,

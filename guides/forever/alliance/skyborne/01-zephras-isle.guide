@@ -37,19 +37,19 @@ step Rorian the Dayseeker
   tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
   turnin 92461                                -- Rorian the Dayseeker
   turnin 92474
+  accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note
+  accept 92482 only Hunter                    -- Rorian the Dayseeker: a note from your trainer
+  accept 92483 only Rogue                     -- Rorian the Dayseeker: read the Simple Note
+  accept 92481 only Mage                      -- Rorian the Dayseeker: A Student of the Arcane
+  accept 92485 only Druid                     -- Rorian: A Student of Nature
   accept 92464
   accept 92597                                -- Falorne Fallwind
   turnin 92462                                -- Elatrell Featherlight
   accept 92463
-  accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note
   turnin 92532 only Warrior                   -- Blademaster Ren, in the watchtower
-  accept 92482 only Hunter                    -- Rorian the Dayseeker: a note from your trainer
   turnin 92482 only Hunter                    -- Tai'ree Farsight
-  accept 92483 only Rogue                     -- Rorian the Dayseeker: read the Simple Note
   turnin 92483 only Rogue                     -- Akeri Duskblade, in the watchtower
-  accept 92481 only Mage                      -- Rorian the Dayseeker: A Student of the Arcane
   turnin 92481 only Mage                      -- Dorii Brightwhisper, the mage trainer: read the Glowing Recall Crystal first
-  accept 92485 only Druid                     -- Rorian: A Student of Nature
   turnin 92485 only Druid                     -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
   train class                                 -- The class trainers stand together in the grove
   accept 93552                                -- Dalia the Collector
@@ -114,11 +114,11 @@ step Shen'dar Village
   turnin 92472                                -- Constable Aonda
   accept 93461                                -- Constable Aonda
   accept 92596                                -- Rathiril Sunlance
-  complete 92596 @44.99,46.28
+  talk 251903 quest 92596.1 @44.99,46.28
   turnin 92596
   accept 94413
-  kill 251903 quest 93461.1 "Talk to Rathiril Sunlance"
-  kill 254089 quest 93461.2 "Talk to Coriella Calmbreeze" @43.05,43.3 map 2521 live
+  talk 251903 quest 93461.1
+  talk 254089 quest 93461.2 @43.05,43.3 map 2521 live
   turnin 96638                                -- Raan Wildwind
 
 step Windshaper Novice Seer on the way
@@ -226,7 +226,7 @@ step Shen'dar Highlands: kill these as you meet them
 
 step The Western Watch
   tip Peacekeeper Vaaniel holds the western watch, south-west of Falaath. Skypriest Aanders and the fallen guards lie just south of her.
-  complete 93926 @42.34,62.1                  -- Peacekeeper Vaaniel
+  talk 252155 quest 93926.1 @42.34,62.1       -- Peacekeeper Vaaniel
   turnin 93926
   accept 93927
   collect 254871 quest 93927.1                -- The Bloody Note
@@ -266,7 +266,7 @@ step Valanaar
   accept 93949
   turnin 92699                                -- Elaadrin Evengale
   accept 92709
-  complete 92709 @66.59,79.92
+  talk 252475 quest 92709.1 @66.59,79.92
   turnin 92709
   accept 92727                                -- Dondallion Whisperwind
 
@@ -286,7 +286,7 @@ step The road to Valanaar
   accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
   sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
   accept 92679                                -- Alvarion Windfield
-  kill 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
+  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 93317                                -- Nyalah Brightfire, inside
 
 step Class trainer
@@ -301,7 +301,7 @@ step The missing scholar
   tip The Bloodstained Satchel lies by the path west of Valanaar.
   turnin 92727                                -- The Bloodstained Satchel
   accept 92849
-  kill 253002 quest 92849.1 "Talk to Fillion Flamebreeze"           -- Below ground
+  talk 253002 quest 92849.1           -- Below ground
   interact 581820 quest 92849.2
 
 step Gustberry Lowlands
@@ -318,7 +318,7 @@ step The missing scholar
 
 step Aamelia Windfield
   tip Aamelia Windfield runs the farm in the south-west lowlands.
-  kill 252800 quest 92679.1 @46.7,81.95 "Talk to Aamelia Windfield"
+  talk 252800 quest 92679.1 @46.7,81.95
   turnin 92679
   accept 92682
   accept 92683
@@ -347,13 +347,10 @@ step Bandit Highwaymen
 step Standing our ground
   turnin 92685                                -- Aamelia Windfield
   accept 92693
-  kill 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
+  talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
   kill 252863 quest 92693.2
   turnin 92693
   accept 92703
-
-step Hearth to Valanaar
-  hearth "Valanaar"
 
 step Valanaar turn-ins
   turnin 92703                                -- Alvarion Windfield
@@ -364,7 +361,7 @@ step Valanaar, the turncoat
   accept 94897
 
 step Valanaar turn-ins
-  turnin 92850                                -- Dondallion Whisperwind
+  turnin 92850                                -- Fillion Flamebreeze
   accept 99260                                -- Fillion Flamebreeze
   turnin 99260                                -- Elaadrin Evengale
   accept 92840
@@ -446,9 +443,9 @@ step Desperate times
   complete 94568 @66.17,76.51
   turnin 94568
   accept 92640
-  kill 252383 quest 92640.1           -- Upstairs
-  kill 252475 quest 92640.3
-  complete 92640 @59.15,79.73 map 2521 live -- Rally Valennia, Ayessa Dawnsinger (west of town) and Elaadrin
+  talk 252383 quest 92640.1           -- Upstairs
+  talk 251968 quest 92640.2 @59.15,79.73 map 2521 live
+  talk 252475 quest 92640.3
   turnin 92640                                -- Valennia Stormfist
   accept 93065
 
@@ -473,7 +470,7 @@ step Warlock trainer
   train class only Warlock -- Briarthorn in Ironforge; Valanaar has no warlock trainer
 
 step Desperate times
-  complete 93065 @61.18,70.95                 -- Meet Valennia at the gate
+  talk 253844 quest 93065.1 @61.18,70.95      -- Meet Valennia at the gate
   turnin 93065
   accept 92947
   turnin 94638 only Druid                     -- Urs'endris, by the falls north-east of Valanaar, on the way north: Bear Form
@@ -508,7 +505,7 @@ step Vayn Moongaze
   accept 94490 optional
   collect 265475 quest 94488.1                -- Commander Haalien's Severed Head
   kill 258134 quest 94489.1 "Heal the injured druids in the Nightfang Den" -- Below ground
-  kill 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
+  talk 258130 quest 94489.2 "Find Jorel Windsinger" -- Below ground
   collect 258771 quest 93165.1
   turnin 93165
 
@@ -521,7 +518,7 @@ step Elegael Thornpaw, the missive
 step The Strange Hermit
   tip The Strange Hermit lives west of Elegael. The Zephyrseed Cones lie in the woods between his hut and Elegael.
   accept 93159                                -- Strange Hermit
-  complete 93159 @53.96,38.9
+  talk 251684 quest 93159.1 @53.96,38.9
   turnin 93159
   accept 93160
   accept 93172
@@ -546,7 +543,7 @@ step The Shrine of Akir
   kill 252762 quest 92947.1 @64.0,52.1 map 2521 live
   kill 252763 quest 92947.2 @63.0,50.3 map 2521 live
   kill 252765 quest 92947.3 @62.9,50.3 map 2521 live
-  complete 92947 @63.77,50.51                 -- Hyusaa Quickbreeze
+  talk 253576 quest 92947.4 @63.77,50.51      -- Hyusaa Quickbreeze
   turnin 92947
   accept 93958
   turnin 93958                                -- Valennia Stormfist, in the sanctum; upstairs
@@ -569,7 +566,7 @@ step Valanaar, the fate of Zephras
   turnin 94897
   turnin 93835                                -- Elaadrin Evengale
   accept 94369
-  complete 94369 @66.17,76.51                 -- Talaanis Shadowsong
+  talk 252476 quest 94369.1 @66.17,76.51      -- Talaanis Shadowsong
   turnin 94369                        -- Upstairs
   accept 93089
   turnin 93089                                -- Elaadrin Evengale

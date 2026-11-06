@@ -12,12 +12,7 @@ next forever/horde/30-40/02-stranglethorn-vale
 # Added here: Bracers of Binding (557), Dalaran Patrols (545).
 # Left out: Bodyguard for Hire (5821).
 
-step Hearth to Freewind Post
-  when bound "Freewind Post"
-  hearth "Freewind Post"
-
 step To Freewind Post
-  when !bound "Freewind Post"
   zone Thousand Needles
   goto 46.1,51.5 "Freewind Post"
 
@@ -274,12 +269,6 @@ step Shadowprey Village
   accept 6142                         -- Mai'Lahii
   getfp "Shadowprey Village"
 
-step On the way
-  along
-  kill 4714 quest 6143.1
-  kill 4711 quest 6143.2
-  kill 4712 quest 6143.3
-
 step Clam beds
   tip Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat.
   collect 15924 quest 6142            -- Underwater
@@ -295,6 +284,9 @@ step Slitherblade Oracles
 step Ethel Rethor
   tip Azore Aldamort waits in the ruined tower of Ethel Rethor, inland to the south-east.
   accept 5741                         -- Azore Aldamort
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2                      -- Slitherblade Naga, 130 yd north-west
+  kill 4712 quest 6143.3                      -- Slitherblade Sorceress, 130 yd west
 
 step Ghost Walker Post
   tip Head south-east to the post.
@@ -329,7 +321,7 @@ step Orgrimmar flight master
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly to Thunder Bluff from Shadowprey and train with Turak Runetotem on Elder Rise, then fly on to Orgrimmar.
+  tip Fly from Orgrimmar to Thunder Bluff and train with Turak Runetotem on Elder Rise, then fly back to Orgrimmar.
   fly "Thunder Bluff"
   train class
 
@@ -479,9 +471,6 @@ step The Dalaran traitors
   collect 3690 quest 544.3            -- Alina
   collect 3688 quest 544.4            -- Kegan Darkmar
   collect 3714 quest 556
-
-step Hearth to Tarren Mill
-  hearth "Tarren Mill"
 
 step Tarren Mill
   zone Hillsbrad Foothills

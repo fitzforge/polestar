@@ -72,7 +72,7 @@ step Duskwood writ customers
 step Stranglethorn Vale writ customers
   when onquest 94226,94235,94244,94217,94253
   zone Stranglethorn Vale
-  tip Booty Bay holds three customers: "Sea Wolf" MacKinley, Scooty, the goblin transporter's engineer, and Narkk. Short John Mithril stands at the Gurubashi Arena, about 800 yards south of Grom'gol; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
+  tip Booty Bay holds three customers: "Sea Wolf" MacKinley (on the inn's top floor), Scooty, the goblin transporter's engineer, and Narkk. Short John Mithril stands at the Gurubashi Arena, about 800 yards south of Grom'gol; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
   turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
   turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
   turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation
@@ -193,7 +193,7 @@ step Duskwood writ customers again
 step Stranglethorn Vale writ customers again
   when onquest 94226,94235,94244,94217,94253
   zone Stranglethorn Vale
-  tip Booty Bay holds three customers: "Sea Wolf" MacKinley, Scooty at the zeppelin-style transporter pad and Narkk. Short John Mithril stands about 800 yards south of Grom'gol, by the Gurubashi Arena; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
+  tip Booty Bay holds three customers: "Sea Wolf" MacKinley (on the inn's top floor), Scooty at the zeppelin-style transporter pad and Narkk. Short John Mithril stands about 800 yards south of Grom'gol, by the Gurubashi Arena; Hekshi is in northern Stranglethorn. Customers show no quest mark: right-click them anyway.
   turnin 94226 npc 2501                       -- Green Iron Gauntlets, 75 reputation
   turnin 94235 npc 7853                       -- Gnomish Universal Remote, 75 reputation
   turnin 94244 npc 2663                       -- Dark Leather Shoulders, 75 reputation

@@ -11,6 +11,51 @@ use forge_core::jsnum::js_hypot;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::BTreeMap;
 
+/// Hearth advice is the arrow's (Polestar 0.3.3): a written guide never tells the player to hearth.
+/// Every `hearth` goal goes (the route still plans its hearth legs; the guide leads on to where the
+/// leg lands), and a step left with no goal with it (no_empty_steps, which names a "Hearth to X" step
+/// that keeps other work for X); a walk `when !bound "X"` is then for everyone, and a tip's sentence
+/// "Hearth to X." goes ("Hearth to X and cross to Elder Rise.": "Cross to Elder Rise."). `sethome`
+/// stays.
+pub fn no_hearths(text: &str) -> String {
+	let mut out: Vec<String> = Vec::new();
+	for l in text.split('\n') {
+		let code = split_comment(l).0;
+		if head_ws(code) == Some("hearth") || re!(r#"^\s+when\s+!bound\s+"[^"]+"\s*$"#).is_match(code) {
+			continue;
+		}
+		if let Some(m) = re!(r"^(\s+tip\s+)(.+)$").captures(l) {
+			let t = &m[2];
+			let mut parts: Vec<&str> = Vec::new();
+			let mut s = 0;
+			for (i, _) in t.match_indices(". ") {
+				parts.push(&t[s..=i]);
+				s = i + 2;
+			}
+			parts.push(&t[s..]);
+			if parts.iter().any(|p| p.starts_with("Hearth to ")) {
+				let kept: Vec<String> = parts
+					.into_iter()
+					.filter_map(|p| match p.strip_prefix("Hearth to ") {
+						Some(h) => h.find(" and ").map(|k| {
+							let rest = &h[k + 5..];
+							rest.chars().next().map_or(String::new(), |c| c.to_uppercase().chain(rest.chars().skip(1)).collect())
+						}),
+						None => Some(p.to_string()),
+					})
+					.filter(|p| !p.trim().is_empty())
+					.collect();
+				if !kept.is_empty() {
+					out.push(format!("{}{}", &m[1], kept.join(" ")));
+				}
+				continue;
+			}
+		}
+		out.push(l.to_string());
+	}
+	re!(r"\n{3,}").replace_all(&no_empty_steps(out).join("\n"), "\n\n").into_owned()
+}
+
 /// Lines less the steps left with no goal.
 pub fn no_empty_steps(out: Vec<String>) -> Vec<String> {
 	let mut res = Vec::with_capacity(out.len());
@@ -129,23 +174,34 @@ pub fn no_dead_end_legs(out: Vec<String>) -> Vec<String> {
 	out.into_iter().enumerate().filter(|(i, _)| !drop.iter().any(|&(a, b)| (a..b).contains(i))).map(|(_, l)| l).collect()
 }
 
-/// A class's trip that does nothing: its travel-only step out (`only Warlock`, goto and fly) and its
-/// travel-only step back for the same classes, with no step between for any of them, both go (the
-/// Warlocks' and Rogues' Ratchet -> Orgrimmar -> Ratchet flights whose class step the route holds for
-/// a later visit, FlowDiag 1). A step between for everyone, or one naming any of those classes or
-/// any race, ends the search.
+/// A class's trip that does nothing: its travel-only steps out (`only Warlock`, goto and fly) and back
+/// for the same classes, with no step between for any of them, all go: the Warlocks' and Rogues'
+/// Ratchet -> Orgrimmar -> Ratchet flights whose class step the route holds for a later visit (FlowDiag
+/// 1), and a walk into another zone and back to the zone it left (#947: the Warlocks' walk from the
+/// Barrens to Ken'zigla in Malaka'jin and back, their step there emptied by premature_class_turnins).
+/// A walk on into another zone, to stay there, is no trip. A step between for everyone, or one naming
+/// any of those classes or any race, ends the search.
 pub fn no_class_round_trips(out: Vec<String>) -> Vec<String> {
 	struct S {
 		start: usize,
 		end: usize,
 		only: Option<Vec<String>>,
 		travel: bool,
+		fly: bool,
+		/// The zone before the step and after it (its last `zone` line).
+		zone_in: Option<String>,
+		zone: Option<String>,
 	}
 	let only_re = crate::re!(r"^\s+only\s+([A-Za-z,!]+)\s*$");
+	let zone_re = crate::re!(r"^\s*zone\s+(.+)$");
 	let mut steps: Vec<S> = Vec::new();
+	let mut zone: Option<String> = None;
 	let mut i = 0;
 	while i < out.len() {
 		if !is_step(&out[i]) {
+			if let Some(m) = zone_re.captures(split_comment(&out[i]).0) {
+				zone = Some(trim(&m[1]).to_string());
+			}
 			i += 1;
 			continue;
 		}
@@ -156,30 +212,44 @@ pub fn no_class_round_trips(out: Vec<String>) -> Vec<String> {
 		let body = &out[i + 1..j];
 		let only = body.iter().find_map(|l| only_re.captures(split_comment(l).0).map(|m| m[1].split(',').map(|x| trim(x).to_string()).collect::<Vec<_>>()));
 		let goals: Vec<&String> = body.iter().filter(|l| is_goal(l)).collect();
-		let travel = !goals.is_empty() && goals.iter().all(|l| matches!(head_ws(l), Some("goto" | "fly")) && line_only(l).is_none()) && goals.iter().any(|l| head_ws(l) == Some("fly"));
-		steps.push(S { start: i, end: j, only, travel });
+		let travel = !goals.is_empty() && goals.iter().all(|l| matches!(head_ws(l), Some("goto" | "fly")) && line_only(l).is_none());
+		let fly = goals.iter().any(|l| head_ws(l) == Some("fly"));
+		let zone_in = zone.clone();
+		if let Some(z) = body.iter().rev().find_map(|l| zone_re.captures(split_comment(l).0).map(|m| trim(&m[1]).to_string())) {
+			zone = Some(z);
+		}
+		steps.push(S { start: i, end: j, only, travel, fly, zone_in, zone: zone.clone() });
 		i = j;
 	}
 	fn classes_only(o: &Option<Vec<String>>) -> Option<&Vec<String>> {
 		o.as_ref().filter(|v| v.iter().all(|c| CLASSES.contains(&c.as_str())))
 	}
+	let disjoint = |o: &Option<Vec<String>>, cl: &Vec<String>| classes_only(o).is_some_and(|v| !v.iter().any(|c| cl.contains(c)));
 	let mut drop: Vec<(usize, usize)> = Vec::new();
 	let mut used = vec![false; steps.len()];
 	for a in 0..steps.len() {
 		let Some(cl) = classes_only(&steps[a].only).filter(|_| steps[a].travel && !used[a]) else { continue };
+		// (Where those classes were before the trip: the zone after the last step they played.)
+		let left = (0..a).rev().find(|&k| !disjoint(&steps[k].only, cl)).map_or(&steps[a].zone_in, |k| &steps[k].zone);
+		let mut run = vec![a];
 		for b in a + 1..steps.len() {
 			let o = &steps[b].only;
-			let disjoint = classes_only(o).is_some_and(|v| !v.iter().any(|c| cl.contains(c)));
-			if disjoint {
+			if disjoint(o, cl) {
 				continue;
 			}
-			if steps[b].travel && o.as_ref() == Some(cl) && !used[b] {
-				used[a] = true;
-				used[b] = true;
-				drop.push((steps[a].start, steps[a].end));
-				drop.push((steps[b].start, steps[b].end));
+			if !(steps[b].travel && o.as_ref() == Some(cl) && !used[b]) {
+				break;
 			}
-			break;
+			run.push(b);
+			let flown_back = steps[a].fly && steps[b].fly;
+			let walked_back = left.is_some() && steps[a].zone != *left && steps[b].zone == *left;
+			if flown_back || walked_back {
+				for &k in &run {
+					used[k] = true;
+					drop.push((steps[k].start, steps[k].end));
+				}
+				break;
+			}
 		}
 	}
 	if drop.is_empty() {
@@ -1625,6 +1695,55 @@ pub fn one_service_line(files: &mut [String]) {
 	}
 }
 
+/// One line per field goal in a step (#843): a `kill`, `collect`, `use` or `interact` the step lists
+/// twice, the same target for the same quest objective and characters (`optional`, the coordinates
+/// and `live` aside), is one line: the first required one, else the first, with its own note, else
+/// the first note of a copy (v1's optional "on the way" kills of Dun Morogh's Brewnall Village beside
+/// the required kills the route works there).
+pub fn one_goal_each(mut out: Vec<String>) -> Vec<String> {
+	let goal = |l: &str| -> Option<String> {
+		let code = split_comment(l).0;
+		if !re!(r"^\s+(kill|collect|use|interact)\s").is_match(code) {
+			return None;
+		}
+		let code = re!(r"\s@\s*[\d.,]+(\s+map\s+\d+)?").replace_all(code, "");
+		let code = re!(r"\s+(optional|live)\b").replace_all(&code, "");
+		Some(code.split_whitespace().collect::<Vec<_>>().join(" "))
+	};
+	let optional = |l: &str| re!(r"\soptional\b").is_match(split_comment(l).0);
+	let mut drop: FxHashSet<usize> = FxHashSet::default();
+	let mut start = 0;
+	for i in 0..=out.len() {
+		if i < out.len() && !is_step(&out[i]) {
+			continue;
+		}
+		// (The step's lines, by goal, in order.)
+		let mut groups: Vec<(String, Vec<usize>)> = Vec::new();
+		for b in start..i {
+			let Some(g) = goal(&out[b]) else { continue };
+			match groups.iter_mut().find(|(k, _)| *k == g) {
+				Some((_, v)) => v.push(b),
+				None => groups.push((g, vec![b])),
+			}
+		}
+		for (_, v) in groups.iter().filter(|(_, v)| v.len() > 1) {
+			let keep = v.iter().copied().find(|&b| !optional(&out[b])).unwrap_or(v[0]);
+			let line = out[keep].clone();
+			let (code, note) = split_comment(&line);
+			let carry = v.iter().map(|&b| split_comment(&out[b])).find(|(_, n)| !n.is_empty()).map(|(c, n)| (c.len(), n.to_string()));
+			if let (true, Some((width, note))) = (note.is_empty(), carry) {
+				out[keep] = format!("{:<width$}{note}", trim_end(code));
+			}
+			drop.extend(v.iter().copied().filter(|&b| b != keep));
+		}
+		start = i;
+	}
+	if drop.is_empty() {
+		return out;
+	}
+	out.into_iter().enumerate().filter(|(i, _)| !drop.contains(i)).map(|(_, l)| l).collect()
+}
+
 /// In a step with a `level` gate before a class accept (written where the route is below the
 /// accept's level), the step's hand-ins after the gate go before it: their experience is what tops
 /// the level up (c14 Razor Hill, `level 10 only Warrior` and four level-10 class accepts before
@@ -1721,9 +1840,15 @@ pub fn repeat_training(files: &mut [String]) {
 			}
 			let body = &lines[i + 1..j];
 			let gated = body.iter().any(|l| head_ws(l) == Some("only"));
+			// (A step some classes' alone, `only Druid`: its bare `train class` trains those classes.)
+			let step_classes: Option<Vec<String>> = body.iter().find(|l| head_ws(l) == Some("only")).and_then(|l| {
+				let cl: Vec<String> = trim(&re!(r"^\s+only\s+").replace(split_comment(l).0, "")).split(',').map(|c| trim(c).to_string()).collect();
+				cl.iter().all(|c| CLASSES.contains(&c.as_str())).then_some(cl)
+			});
+			let classes_of = |l: &str| -> Option<Vec<String>> { trained(l).and_then(|t| t.or_else(|| step_classes.clone())) };
 			let again = |l: &str| !gated && trained(l).zip(prev.as_ref()).is_some_and(|(t, p)| covered(p, &t));
 			// (A class's training line, all its classes trained already in this visit.)
-			let twice = |l: &str| gated && trained(l).flatten().is_some_and(|t| t.iter().all(|c| visit.contains(c)));
+			let twice = |l: &str| gated && classes_of(l).is_some_and(|t| t.iter().all(|c| visit.contains(c)));
 			if body.iter().any(|l| again(l) || twice(l)) {
 				changed = true;
 				let rest: Vec<&str> = body.iter().copied().filter(|l| !again(l) && !twice(l)).collect();
@@ -1753,7 +1878,7 @@ pub fn repeat_training(files: &mut [String]) {
 			if !gated {
 				prev = body.iter().find_map(|l| trained(l));
 			}
-			for t in body.iter().filter_map(|l| trained(l)) {
+			for t in body.iter().filter_map(|l| if gated { classes_of(l).map(Some).or_else(|| trained(l)) } else { trained(l) }) {
 				for c in t.unwrap_or_else(|| CLASSES.iter().map(|c| c.to_string()).collect()) {
 					if !visit.contains(&c) {
 						visit.push(c);
@@ -2491,9 +2616,193 @@ pub fn detour_hand_ins(files: &mut [(String, Vec<String>)], world: &World) -> us
 	n
 }
 
+/// How far another NPC stands for a walk to it and back to count: the guide test's reach.
+const FOLLOW_UP_YD: f64 = 30.0;
+
+/// A follow-up from the NPC a step has just handed its prerequisite to is taken there, right after
+/// that hand-in (and the other hand-ins to that NPC with it), not after a walk to someone else and
+/// back (Captain Vimes 1220 from the Theramore Lieutenant after the trip up to Lady Jaina, The Atal'ai
+/// Exile 1429 from Fel'zerul after Dar, the Skyborne class letters from Rorian after Falorne and
+/// Elatrell). The walk counts when a character who does both does a goal between, at an NPC further
+/// than the test's reach. It stays when something between it needs: a `level` gate, another of its
+/// prerequisites (or its parent), a quest it excludes, a level the hand-ins between bring
+/// (`lvl_after(q)`: the route's level after its hand-in of `q`), or a route fixes pair that puts a goal
+/// between before it (`pairs`: Marshal Dughan's turn-ins while William Pestle brews The Escape, #613).
+pub fn follow_ups_at_their_giver(mut lines: Vec<String>, data: &Data, world: &World, lvl_after: &dyn Fn(u32) -> Option<f64>, pairs: &[(crate::hub::PairEv, crate::hub::PairEv)]) -> Vec<String> {
+	use forge_guide::conditions::Audience;
+	let quest = |l: &str, verb: &str| -> Option<u32> { crate::jsre::compile(&format!(r"^\s+{verb}\s+(\d+)\b")).captures(split_comment(l).0).and_then(|m| m[1].parse().ok()) };
+	let wq: FxHashMap<u32, &crate::input::WQuest> = world.quests.iter().map(|q| (q.id, q)).collect();
+	let pt = |p: Option<u32>| p.and_then(|i| world.points.get(i as usize)).filter(|p| p.wx.is_finite());
+	let givers = |q: u32| data.quests.get(&q).and_then(|r| r.start.as_ref()).map_or(&[][..], |e| &e.npc[..]);
+	let enders = |q: u32| data.quests.get(&q).and_then(|r| r.end.as_ref()).map_or(&[][..], |e| &e.npc[..]);
+	// A goal line's point: an accept's giver, a turn-in's ender.
+	let person = |l: &str| -> Option<&crate::input::Pt> {
+		if let Some(q) = quest(l, "accept") {
+			return pt(wq.get(&q).and_then(|w| w.giver));
+		}
+		quest(l, "turnin").and_then(|q| pt(wq.get(&q).and_then(|w| w.ender)))
+	};
+	let meets = |a: &[u32], b: &[u32]| a.iter().any(|n| b.contains(n));
+	let audience = |l: &str| line_only(l).map(Audience::parse).unwrap_or_default();
+	let nobody = |a: &Audience| a.races.as_ref().is_some_and(Vec::is_empty) || a.classes.as_ref().is_some_and(Vec::is_empty) || a.factions.as_ref().is_some_and(Vec::is_empty);
+	// Its prerequisites and parent.
+	let needs = |q: u32| -> FxHashSet<u32> {
+		let Some(r) = data.quests.get(&q) else { return FxHashSet::default() };
+		let ids = |v: &Option<Vec<serde_json::Value>>| -> Vec<u32> { v.iter().flatten().filter_map(|x| x.as_i64()).map(|p| p.unsigned_abs() as u32).collect() };
+		ids(&r.pre).into_iter().chain(ids(&r.pre_any)).chain(r.parent.map(|p| p as u32)).collect()
+	};
+	let excludes =
+		|a: u32, b: u32| wq.get(&a).is_some_and(|w| w.excl.iter().any(|&e| e.unsigned_abs() as u32 == b)) || wq.get(&b).is_some_and(|w| w.excl.iter().any(|&e| e.unsigned_abs() as u32 == a));
+	let mut moved: FxHashSet<u32> = FxHashSet::default();
+	'scan: loop {
+		let mut s0 = 0;
+		while s0 < lines.len() {
+			if !is_step(&lines[s0]) {
+				s0 += 1;
+				continue;
+			}
+			let mut s1 = s0 + 1;
+			while s1 < lines.len() && !is_step(&lines[s1]) && !starts_nonspace(&lines[s1]) {
+				s1 += 1;
+			}
+			for k in s0 + 1..s1 {
+				let Some(y) = quest(&lines[k], "accept").filter(|y| !moved.contains(y)) else { continue };
+				let (giver, Some(at)) = (givers(y), pt(wq.get(&y).and_then(|w| w.giver))) else { continue };
+				let need = needs(y);
+				// The prerequisite handed to its giver earlier in the step.
+				let Some((t, x)) = (s0 + 1..k).find_map(|t| quest(&lines[t], "turnin").filter(|x| need.contains(x) && meets(enders(*x), giver)).map(|x| (t, x))) else { continue };
+				let both = audience(&lines[k]).and(&audience(&lines[t]));
+				let away = (t + 1..k).any(|j| person(&lines[j]).is_some_and(|p| p.c != at.c || js_hypot(p.wx - at.wx, p.wy - at.wy) > FOLLOW_UP_YD) && !nobody(&both.and(&audience(&lines[j]))));
+				if !away {
+					continue;
+				}
+				// After the hand-ins to that NPC right after it, and the follow-ups moved there before.
+				let mut r = t;
+				while r + 1 < k && quest(&lines[r + 1], "turnin").is_some_and(|q| meets(enders(q), giver)) {
+					r += 1;
+				}
+				let last_turnin = quest(&lines[r], "turnin").unwrap_or(x);
+				while r + 1 < k && quest(&lines[r + 1], "accept").is_some_and(|q| moved.contains(&q) && meets(givers(q), giver)) {
+					r += 1;
+				}
+				let paired = |l: &str| {
+					let ev = quest(l, "accept").map(|q| (OrderT::Accept, q)).or_else(|| quest(l, "turnin").map(|q| (OrderT::Turnin, q)));
+					ev.is_some_and(|e| pairs.contains(&(e, (OrderT::Accept, y))))
+				};
+				let held = (r + 1..k).any(|j| {
+					let l = &lines[j];
+					head_ws(l) == Some("level")
+						|| paired(l) || re!(r"\b(?:accept|turnin|complete|quest)\s+(\d+)")
+						.captures_iter(split_comment(l).0)
+						.filter_map(|m| m[1].parse::<u32>().ok())
+						.any(|q| (q != x && need.contains(&q)) || excludes(q, y))
+				});
+				let min = data.quests.get(&y).and_then(|r| r.min_level).unwrap_or(0.0);
+				if held || lvl_after(last_turnin).is_some_and(|l| l.floor() < min) {
+					continue;
+				}
+				let l = lines.remove(k);
+				lines.insert(r + 1, l);
+				moved.insert(y);
+				continue 'scan;
+			}
+			s0 = s1;
+		}
+		return lines;
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn no_hearth_goal_is_written() {
+		// (R3's pair: the hearth step goes, the walk there is for everyone; a hearth for some races in
+		// a step of other work goes, the step named for the place; a tip's hearth sentence goes, what it
+		// says besides the hearth stays.)
+		let t = "step Hearth to Ratchet\n  when bound \"Ratchet\"\n  hearth \"Ratchet\"\n\nstep To Ratchet\n  when !bound \"Ratchet\"\n  goto 62.5,37.4 \"Ratchet\"\n\nstep Hearth to Auberdine\n  tip Hearth to Auberdine and cross the bridge. Buy food here.\n  hearth \"Auberdine\" only Human\n  vendor nearest\n\nstep Gadgetzan\n  tip Hearth to Gadgetzan.\n  sethome \"Gadgetzan\"\n";
+		assert_eq!(
+			no_hearths(t),
+			"step To Ratchet\n  goto 62.5,37.4 \"Ratchet\"\n\nstep Auberdine\n  tip Cross the bridge. Buy food here.\n  vendor nearest\n\nstep Gadgetzan\n  sethome \"Gadgetzan\"\n"
+		);
+	}
+
+	/// The writer's data and world for follow-up tests: (quest, giver npc, ender npc, pre) and points
+	/// per NPC (yards east).
+	fn follow_up_fixture(quests: &[(u32, u32, u32, &[u32])], at: &[(u32, f64)]) -> (Data, World) {
+		let mut data = Data::default();
+		let idx = |n: u32| at.iter().position(|a| a.0 == n).unwrap();
+		let mut wqs = Vec::new();
+		for &(q, g, e, pre) in quests {
+			data.quests.insert(q, serde_json::from_value(serde_json::json!({ "pre": pre, "start": { "npc": [g] }, "end": { "npc": [e] } })).unwrap());
+			wqs.push(serde_json::json!({ "id": q, "giver": idx(g), "ender": idx(e) }));
+		}
+		let points: Vec<serde_json::Value> = at.iter().map(|a| serde_json::json!([1, 1, a.1, 0, 1445])).collect();
+		(data, serde_json::from_value(serde_json::json!({ "points": points, "quests": wqs })).unwrap())
+	}
+
+	#[test]
+	fn a_follow_up_is_taken_right_after_its_prerequisite_at_the_same_giver() {
+		// 0.3.0 Stranglethorn Vale: Captain Vimes (1220) from the Theramore Lieutenant was taken after the
+		// trip up to Tervosh and Lady Jaina, though The Orc Report (1219) went to the Lieutenant first.
+		let (data, world) = follow_up_fixture(
+			&[(1219, 9, 4947, &[]), (1220, 4947, 4944, &[1219]), (1324, 9, 4967, &[]), (1267, 4968, 4968, &[1324])],
+			&[(9, 5000.0), (4947, 0.0), (4967, 60.0), (4968, 98.0), (4944, 200.0)],
+		);
+		let g = lines(&["step Theramore", "  turnin 1219                         -- Theramore Lieutenant", "  turnin 1324", "  accept 1267", "  turnin 1267", "  accept 1220", "  turnin 1220"]);
+		let out = follow_ups_at_their_giver(g, &data, &world, &|_| None, &[]);
+		assert_eq!(out[2], "  accept 1220", "{out:#?}");
+		assert_eq!(out[3], "  turnin 1324", "{out:#?}");
+		// (Not ahead of a level the hand-ins between bring.)
+		let g = lines(&["step Theramore", "  turnin 1219", "  turnin 1324", "  accept 1220"]);
+		let mut d2 = data.clone();
+		d2.quests.get_mut(&1220).unwrap().min_level = Some(36.0);
+		let out = follow_ups_at_their_giver(g.clone(), &d2, &world, &|q| (q == 1219).then_some(35.9), &[]);
+		assert_eq!(out, g);
+		// (Nor across a `level` gate.)
+		let g = lines(&["step Theramore", "  turnin 1219", "  turnin 1324", "  level 36", "  accept 1220"]);
+		assert_eq!(follow_ups_at_their_giver(g.clone(), &data, &world, &|_| None, &[]), g);
+		// (Nor ahead of a goal a route fixes pair puts before it: The Escape while William Pestle brews.)
+		let g = lines(&["step Theramore", "  turnin 1219", "  turnin 1324", "  accept 1220"]);
+		assert_eq!(follow_ups_at_their_giver(g.clone(), &data, &world, &|_| None, &[((OrderT::Turnin, 1324), (OrderT::Accept, 1220))]), g);
+	}
+
+	#[test]
+	fn follow_ups_from_one_giver_keep_their_order_and_a_class_letter_waits_for_nobody() {
+		// 0.3.0 Teldrassil and Zephras Isle: The Balance of Nature (457) after the class sigils' trips to
+		// the trainers; a Hunter's sigil after the Warriors' hand-in is no walk for the Hunter.
+		let (data, world) = follow_up_fixture(
+			&[(456, 2079, 2079, &[]), (457, 2079, 2079, &[456]), (3116, 2079, 3593, &[456]), (3117, 2079, 3596, &[456]), (99, 2079, 2079, &[456]), (5, 7, 2079, &[])],
+			&[(2079, 0.0), (3593, 80.0), (3596, 120.0), (7, 3000.0)],
+		);
+		let g = lines(&[
+			"step Aldrassil",
+			"  turnin 456                -- Conservator Ilthalaine",
+			"  turnin 5",
+			"  accept 3116 only Warrior",
+			"  turnin 3116 only Warrior",
+			"  accept 3117 only Hunter",
+			"  turnin 3117 only Hunter",
+			"  accept 457",
+			"  accept 99",
+		]);
+		let out = follow_ups_at_their_giver(g, &data, &world, &|_| None, &[]);
+		assert_eq!(
+			out,
+			lines(&[
+				"step Aldrassil",
+				"  turnin 456                -- Conservator Ilthalaine",
+				"  turnin 5",
+				"  accept 457",
+				"  accept 99",
+				"  accept 3116 only Warrior",
+				"  turnin 3116 only Warrior",
+				"  accept 3117 only Hunter",
+				"  turnin 3117 only Hunter",
+			])
+		);
+	}
 
 	#[test]
 	fn work_of_a_quest_handed_in_already_goes() {
@@ -2529,6 +2838,22 @@ mod tests {
 		assert_eq!(f[0].matches("train class only Shaman").count(), 2, "{}", f[0]);
 		assert!(!f[0].contains("step Spirit Rise") && f[0].contains("step Turak\n  only Druid\n  zone Thunder Bluff\n  turnin 5926\n"), "{}", f[0]);
 		assert_eq!(f[0].matches("train class only Druid").count(), 1, "{}", f[0]);
+	}
+
+	#[test]
+	fn a_class_steps_bare_training_counts_as_its_classes_in_the_town_visit() {
+		// Horde 07-ashenvale:224-239: the route's Thunder Bluff stop trained the Druids, then v1's Druid
+		// step (`only Druid`, a bare `train class`) trained them again in the same visit.
+		let mut f = vec![[
+			"step Class trainer\n  only Paladin,Priest,Shaman,Mage,Druid\n  zone Thunder Bluff\n  train class only Paladin,Priest,Shaman,Mage,Druid",
+			"step Thunder Bluff\n  only Druid\n  zone Thunder Bluff\n  tip Train on Elder Rise.\n  train class",
+			"step Orgrimmar\n  only Tauren\n  train class",
+		]
+		.join("\n\n")];
+		repeat_training(&mut f);
+		assert!(!f[0].contains("step Thunder Bluff"), "{}", f[0]);
+		// (A step some races' alone is not some classes': its training stays.)
+		assert!(f[0].contains("step Orgrimmar\n  only Tauren\n  train class"), "{}", f[0]);
 	}
 
 	#[test]
@@ -2832,6 +3157,97 @@ mod tests {
 	fn a_class_trip_with_everyones_step_between_stays() {
 		let g = lines(&["step Out", "  only Warlock", "  fly \"Orgrimmar\"", "", "step Everyone", "  accept 3", "", "step Back", "  only Warlock", "  fly \"Ratchet\""]);
 		assert_eq!(no_class_round_trips(g.clone()), g);
+	}
+
+	#[test]
+	fn a_class_walk_out_and_back_with_nothing_done_goes() {
+		// #947, the Horde's Barrens: the Warlocks' walk to Ken'zigla in Malaka'jin and back after
+		// Regthar. Their Ken'zigla step held only the hand-in of 1510, before its accept (the route takes
+		// 1510 later), so premature_class_turnins took it out and the empty step went; the walks there
+		// and back stayed, for nothing.
+		let g = lines(&[
+			"zone The Barrens",
+			"",
+			"step Regthar Deathgate",
+			"  turnin 850",
+			"  accept 851",
+			"",
+			"step Stonetalon Mountains",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  goto 73.2,95.1 \"Stonetalon Mountains\"",
+			"",
+			"step Ken'zigla",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  turnin 1510",
+			"",
+			"step Back to The Barrens",
+			"  only Warlock",
+			"  zone The Barrens",
+			"  goto 43.8,12.2 \"The Barrens\"",
+			"",
+			"step Vrang Wildgore",
+			"  zone The Barrens",
+			"  accept 95494",
+			"",
+			"step Gazrog",
+			"  accept 1510 only Warlock",
+			"",
+			"step Stonetalon Mountains",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  goto 73.3,95.1 \"Stonetalon Mountains\"",
+			"",
+			"step Ken'zigla",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  turnin 1510",
+			"",
+			"step Back to The Barrens",
+			"  only Warlock",
+			"  zone The Barrens",
+			"  goto 53.1,41.7 \"The Barrens\"",
+			"",
+			"step Verog the Dervish",
+			"  zone The Barrens",
+			"  accept 851",
+		]);
+		let mut files = vec![g.join("\n")];
+		premature_class_turnins(&mut files, &[1510].into_iter().collect());
+		let out = no_class_round_trips(files[0].split('\n').map(str::to_string).collect());
+		let titles: Vec<&str> = out.iter().filter(|l| is_step(l)).map(String::as_str).collect();
+		assert_eq!(
+			titles,
+			["step Regthar Deathgate", "step Vrang Wildgore", "step Gazrog", "step Stonetalon Mountains", "step Ken'zigla", "step Back to The Barrens", "step Verog the Dervish"],
+			"{out:#?}"
+		);
+		assert!(out.contains(&"  goto 73.3,95.1 \"Stonetalon Mountains\"".to_string()), "{out:#?}");
+	}
+
+	#[test]
+	fn a_class_walk_on_into_another_zone_stays() {
+		// Over a crossing and on, with their step after it, or on to stay in another zone: no trip back.
+		let way = lines(&[
+			"zone Thousand Needles",
+			"",
+			"step Into The Barrens",
+			"  only Warlock",
+			"  zone The Barrens",
+			"  goto 44.0,90.0 \"Into The Barrens\"",
+			"",
+			"step Stonetalon Mountains",
+			"  only Warlock",
+			"  zone Stonetalon Mountains",
+			"  goto 73.2,95.1 \"Stonetalon Mountains\"",
+			"",
+			"step Ken'zigla",
+			"  only Warlock",
+			"  turnin 1510",
+		]);
+		assert_eq!(no_class_round_trips(way.clone()), way);
+		let on = lines(&["zone Durotar", "", "step Orgrimmar", "  only Warlock", "  zone Orgrimmar", "  goto 1,1 \"Orgrimmar\"", "", "step Durotar", "  accept 1"]);
+		assert_eq!(no_class_round_trips(on.clone()), on);
 	}
 
 	#[test]

@@ -31,12 +31,8 @@ step Bruuz
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bruuz (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
   collect 253710 quest 92706.1 optional @63.7,38.7 group 2
 
-step Intact Raptor Horn on the way
-  along until q865
-  when onquest 865
-  collect 5055 quest 865.1
-
 step Ratchet
+  tip Gazlowe stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   when group 92706
   turnin 92706 optional
 
@@ -165,10 +161,6 @@ step Ratchet
   zone The Barrens
   vendor nearest
 
-step Free From the Hold
-  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
-  accept 898                          -- Inside
-
 step Northwatch Hold: kill these as you meet them
   zone The Barrens
   tip Northwatch Hold, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
@@ -177,6 +169,10 @@ step Northwatch Hold: kill these as you meet them
   kill 3393 quest 891.1               -- On the top floor
   kill 3455 quest 891.2               -- On the top floor
   kill 3454 quest 891.3               -- Upstairs
+
+step Free From the Hold
+  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
+  accept 898                          -- Inside
 
 step Ratchet
   goto 62.3,39.1
@@ -188,7 +184,6 @@ step Ratchet
 
 # ---------------------------------------------------------------- East: the silver, Ratchet, Ishamuhale
 step Raptor Grounds: kill these as you meet them
-  label q865
   zone The Barrens
   tip Sunscale Scytheclaws hunt the plains south of the Crossroads, around the Raptor Grounds; they drop the horns. Hand them in on your next pass through Ratchet.
   tip East across the plains toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
@@ -232,16 +227,6 @@ step Barak Kodobane
 step Regthar Deathgate
   turnin 850
   accept 851
-
-step Stonetalon Mountains
-  only Warlock
-  zone Stonetalon Mountains
-  goto 73.2,95.1 "Stonetalon Mountains"
-
-step Back to The Barrens
-  only Warlock
-  zone The Barrens
-  goto 43.8,12.2 "The Barrens"
 
 step Vrang Wildgore
   zone The Barrens
@@ -333,6 +318,7 @@ step Taskmaster Fizzule
 step Mission: Possible But Not Probable
   only Rogue
   zone The Barrens
+  when level>=23
   collect 8072 quest 2478.5 optional
   kill 7310 quest 2478.1 optional
   kill 7308 quest 2478.3 optional
@@ -348,9 +334,7 @@ step Orgrimmar
 step Orgrimmar
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  tip Fly to Orgrimmar to train your level 20 ranks. Sorek is in the Valley of Honor, Searn Firewarder in the Valley of Wisdom.
-  fly "Orgrimmar" only Tauren
-  fly "Orgrimmar" only Undead,Troll,Skyborne,Orc,Warrior,Hunter,Priest,Shaman,Mage,Warlock
+  tip Sorek is in the Valley of Honor, Searn Firewarder in the Valley of Wisdom.
   train class
   accept 1823 only Warrior            -- Sorek
   accept 1528 only Shaman             -- Searn Firewarder
@@ -406,10 +390,10 @@ step Back to Crossroads
 step the Crossroads
   zone The Barrens
   turnin 876                          -- Darsok Swiftdagger
+  accept 1060
   turnin 6128 only Tauren,Druid       -- Tonga Runetotem
   accept 6129 only Tauren,Druid       -- He gives you the Curative Animal Salve
   turnin 1509 only Warlock -- Gazrog
-  accept 1060
 
 step Gazrog
   only Warlock
@@ -448,9 +432,8 @@ step Verog the Dervish
   kill 12296 quest 6129.1 only Tauren,Druid -- Sickly Gazelle: use the Curative Animal Salve on them; they roam the plains all around the Crossroads
 
 step Bristleback camps
-  tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Every Bristleback drops a tusk; Mankrik's wife lies at the north edge. Keep one Blood Shard. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
-  complete 4921 @49.3,50.3
-  collect 5085 quest 899.1
+  tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Mankrik's wife lies at their north edge, on your way south. Leave the quilboar for now: Mangletooth in Camp Taurajo wants the same camps cleared. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
+  talk 10668 quest 4921.1 @49.3,50.3
 
 step Camp Taurajo
   tip Follow the Gold Road south to Camp Taurajo.
@@ -465,9 +448,11 @@ step Camp Taurajo
   accept 882
 
 step Bramblescar
+  tip Back north into the Bristleback camps. Any Bristleback can drop a tusk for Mankrik, so collect them while you kill these for Mangletooth. Keep one Blood Shard.
   kill 3260 quest 878.1
   kill 3261 quest 878.2
   kill 3263 quest 878.3
+  collect 5085 quest 899.1
 
 step The Barrens
   only Warlock
@@ -611,15 +596,11 @@ step Sulhasa
   turnin 1535 only Shaman
   accept 1536 only Shaman             -- Keep it: the Spring Well is beside Tarren Mill
 
-step Stormhide on the way
-  along until q98093
-  kill 3238 quest 98093.2 -- Stormhide along the way to Sulhasa
-
 step Southern Barrens
   kill 4128 quest 98093.1             -- Hecklefang Stalker walks around Southern Barrens: look inside the circle on the map
 
 step Sulhasa
-  label q98093
+  kill 3238 quest 98093.2                     -- Stormhide, by this stop
   turnin 98093 @47.8,77.6             -- Sulhasa
 
 step Bael'dun fortress
@@ -643,13 +624,9 @@ step Gann Stonespire
 step Twitching Antennae
   zone The Barrens
   only Warrior
-  tip The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then hearth to Camp Taurajo straight away.
+  tip The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo.
   tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
   collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
-
-step Hearth to Camp Taurajo
-  zone The Barrens
-  hearth "Camp Taurajo"
 
 # ---------------------------------------------------------------- Back north
 
@@ -706,7 +683,7 @@ step The Great Cat Spirit
 step Moonglade
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven.
+  tip Cast Teleport: Moonglade. Tauren: join the two pendant halves at the Shrine of Remulos, on the north-west shore of the lake, before you see Dendrite Starblaze in Nighthaven. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   collect 15885 quest 30.1 only Tauren -- Pendant of the Sea Lion: use a half at the Shrine of Remulos
   turnin 30 only Tauren               -- Dendrite Starblaze
   accept 31 only Tauren
@@ -721,6 +698,7 @@ step Moonglade
 step Moonglade
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   turnin 98340 only Skyborne,Tauren -- Dendrite Starblaze
   accept 98405 only Tauren
   accept 98341 only Skyborne
@@ -728,6 +706,7 @@ step Moonglade
 step Moonglade
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   when onquest 94913
   turnin 94913 only Skyborne          -- Dendrite Starblaze: the welcome from Turak
 
@@ -753,6 +732,7 @@ step The Stormrage Barrow Dens
 step Dendrite Starblaze
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   turnin 98739 only Tauren            -- Dendrite Starblaze, Nighthaven
   turnin 98738 only Skyborne
   accept 98362 only Skyborne,Tauren

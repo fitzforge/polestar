@@ -272,39 +272,17 @@ fn compiled_escort_quests_say_once_per_card_under_the_accepts_and_then_the_compl
 	let out = &run_pack(&pack.scripts, ESCORT_SCRIPT)[0];
 	const LINE: &str = "Escort: if the NPC is not there, wait for it to respawn";
 	let row = |t: &str, quest: i32, sub: &str, coloured: bool| json!({ "t": t, "quest": quest, "sub": sub, "coloured": coloured });
-	// The card lists the whole step (the later visit to the Marshal named on its rows). Once per card, under the
-	// first escort; not under The Vigil, an event.
-	let mcbride = "Marshal McBride";
-	assert_eq!(
-		out["before"],
-		json!([
-			row("accept", 9700, LINE, true),
-			row("accept", 9704, "", false),
-			row("accept", 9701, "", false),
-			row("complete", 9700, "", false),
-			row("complete", 9701, "", false),
-			row("turnin", 9700, mcbride, false),
-			row("turnin", 9701, mcbride, false),
-		])
-	);
-	// Accepted: the completes say it once, before the open objectives; the accepts stay listed, done.
-	let objectives = "Escort Brother Danil to the vineyard 0/1  ·  Kobold Vermin slain: 0/3";
-	assert_eq!(
-		out["accepted"],
-		json!([
-			row("accept", 9700, mcbride, false),
-			row("accept", 9704, mcbride, false),
-			row("accept", 9701, mcbride, false),
-			row("complete", 9700, &format!("{LINE}  ·  {objectives}"), true),
-			row("complete", 9701, "", false),
-			row("turnin", 9700, mcbride, false),
-			row("turnin", 9701, mcbride, false),
-		])
-	);
-	// The walks are over: nothing says the escort line any more.
+	// The card lists the focus's goals (the later visit to the Marshal and the completes are a line each, #843).
+	// Once per card, under the first escort; not under The Vigil, an event.
+	assert_eq!(out["before"], json!([row("accept", 9700, LINE, true), row("accept", 9704, "", false), row("accept", 9701, "", false)]));
+	// Accepted: the completes are the focus and say it once (their objectives are the goal's own line now, #942;
+	// Out of the Abbey has none: done at once, it is on the done line).
+	assert_eq!(out["accepted"], json!([row("complete", 9700, LINE, true)]));
+	// The walks are over: the turn-ins, and nothing says the escort line any more.
 	let finished = out["finished"].as_array().unwrap();
-	assert_eq!(finished.len(), 7);
+	assert_eq!(finished.len(), 2);
 	for r in finished {
+		assert_eq!(r["t"], "turnin");
 		assert!(!text(&r["sub"]).contains("Escort"), "{} {}: {}", text(&r["t"]), r["quest"], text(&r["sub"]));
 	}
 }

@@ -26,6 +26,15 @@ const { makeProjector, dist } = require('../tools/lib/route/geo');
 
 const skip = needs('quests.json', 'npcs.json', 'objects.json', 'map-frames.json');
 
+test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, from the Forever TDB when classic-db lacks him (#855)", { skip: skip || needs('spawnz.json') }, () => {
+	const list = goals('forever/class/paladin/tyrs-watch.guide');
+	for (const pred of [is('turnin', 94434), is('accept', 94435)]) {
+		const { goal } = list[at(list, 'Tanis Alderwood', pred)];
+		assert.equal(goal.npc, 257648);
+		assert.ok(Math.abs(goal.z - -43) < 3, `${goal.t} ${goal.quest}: z ${goal.z} is the city level, not the ruins above`);
+	}
+});
+
 test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/04-azshara.guide', 3505, 1447, null],
@@ -43,21 +52,23 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 });
 
 test('Horde Call of Fire: hand in the carried trainer lead at Kranal before starting the shared ritual', { skip }, () => {
-	for (const file of ['forever/horde/02-the-barrens.guide', 'forever/horde/orc/02-the-barrens.guide', 'forever/horde/troll/02-the-barrens.guide']) {
-		// An Orc or Troll Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the
-		// race's Durotar guide comes first.
-		const race = file.match(/\/(orc|troll)\//);
-		const list = [...(race ? goals(`forever/horde/${race[1]}/01-durotar.guide`) : []), ...goals(file)];
+	const file = 'forever/horde/02-the-barrens.guide';
+	for (const [race, durotar, carried] of [['Orc', ORC_DUROTAR, 2983], ['Troll', TROLL_DUROTAR, 2983], ['Tauren', null, 1523]]) {
+		// The Barrens guide is shared since 0.3.1 (only Orc / Troll / Tauren steps). An Orc or Troll
+		// Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the race's Durotar
+		// guide comes first.
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = [...(durotar ? goals(durotar) : []), ...goals(file)].filter(forRace).filter(forClass('SHAMAN'));
 		const start = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === 1524);
-		assert.ok(start >= 0, `${file}: the shared ritual is offered`);
+		assert.ok(start >= 0, `${race}: the shared ritual is offered`);
 		for (const quest of [1522, 1523, 2983, 2984]) {
 			const lead = list.slice(0, start).find(({ goal }) => goal.t === 'turnin' && goal.quest === quest);
-			assert.ok(lead, `${file}: carried trainer lead ${quest} is handed in before the shared ritual`);
-			if (quest !== (/\/(orc|troll)\//.test(file) ? 2983 : 1523)) {
-				assert.ok(lead.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${file}: an uncarried alternative never blocks the route`);
+			assert.ok(lead, `${race}: carried trainer lead ${quest} is handed in before the shared ritual`);
+			if (quest !== carried) {
+				assert.ok(lead.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${race}: an uncarried alternative never blocks the route`);
 			}
-			assert.equal(lead.goal.npc, 5907, `${file}: no trip to a different giver`);
-			for (const field of ['map', 'x', 'y']) assert.equal(lead.goal[field], list[start].goal[field], `${file}: the same Kranal stop`);
+			assert.equal(lead.goal.npc, 5907, `${race}: no trip to a different giver`);
+			for (const field of ['map', 'x', 'y']) assert.equal(lead.goal[field], list[start].goal[field], `${race}: the same Kranal stop`);
 		}
 	}
 });
@@ -366,6 +377,10 @@ test(`${TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of D
 // asked for again on the turn-in step, from the same vendor (`nearest`: a
 // vendor of the guide's faction), so a player who passed the first buy is
 // not sent to the giver empty-handed. Done at once with the item in the bags.
+// A buy earlier in the same town visit (every stop from it to the giver
+// within a town's reach, no flight or hearth), or a tip on the turn-in step
+// saying where to buy another, does the same.
+const TOWN_YARDS = 200;
 const BUY_AT_TURNIN = [
 	// [guide, quest, item, count, vendor npc or 'H' for `nearest` on the Horde, what]
 	['forever/alliance/30-40/01-hillsbrad-foothills.guide', 555, 3713, 1, 2381, 'the Soothing Spices for Chef Jessen'],
@@ -380,8 +395,13 @@ for (const [guide, quest, item, count, vendor, what] of BUY_AT_TURNIN) {
 	test(`${guide}: the same pattern as #365, ${what}: asked for again on the step that hands in ${quest}`, { skip }, () => {
 		const list = goals(guide);
 		const hand = at(list, `turnin ${quest}`, is('turnin', quest));
-		const buy = list.findIndex(({ goal, s }) => s === list[hand].s && goal.t === 'buy' && goal.item === item);
-		assert.ok(buy >= 0 && buy < hand, `the turn-in step buys item ${item} before handing in ${quest}`);
+		const buy = list.slice(0, hand).findLastIndex(({ goal }) => goal.t === 'buy' && goal.item === item);
+		assert.ok(buy >= 0, `item ${item} is bought before handing in ${quest}`);
+		const sameVisit = list.slice(buy, hand + 1).every(({ goal }) => !['fly', 'hearth'].includes(goal.t)
+			&& (!['accept', 'turnin', 'buy', 'goto', 'train'].includes(goal.t) || !located({ goal })
+				|| (goal.map === list[hand].goal.map && yards(goal, list[hand].goal) < TOWN_YARDS)));
+		const tip = typeof list[hand].step.note === 'string' && /\bbuy\b/i.test(list[hand].step.note);
+		assert.ok(list[buy].s === list[hand].s || sameVisit || tip, `the turn-in step, its town visit or its tip buys item ${item} before handing in ${quest}`);
 		const { goal } = list[buy];
 		assert.ok((goal.count || 1) >= count, `at least the ${count} the quest needs`);
 		if (vendor === 'H') {
@@ -538,10 +558,10 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Kh
 	assert.ok(eric < tharek && tharek < tannok, 'Eric\'s campfire, then Tharek\'s forge, then inside');
 	const inside = list.filter(({ step }) => step === list[tannok].step);
 	assert.equal(inside[inside.length - 1].goal.t, 'train', 'class training is the last goal of the distillery visit');
-	// The bind is made on a Kharanos visit (the first or the return), before the hearth that needs it.
+	// The bind is made on a Kharanos visit (the first or the return), for the arrow's hearth back to it.
 	const bind = at(list, 'sethome (the Thunderbrew Distillery)', (g) => g.t === 'sethome');
 	assert.ok(located(list[bind]), 'the bind leads to the innkeeper');
-	assert.ok(tannok < bind && bind < at(list, 'hearth', (g) => g.t === 'hearth'), 'bound in Kharanos before the hearth back to it');
+	assert.ok(tannok < bind, 'bound in Kharanos');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in`, { skip }, () => {
@@ -554,8 +574,9 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Ca
 });
 
 test(`EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": the Skyborne visits to the Horde leaders`, { skip }, () => {
-	// The data counts these as kill credit on the NPC, so the goal stays a
-	// `kill` tracking the objective; its text is what the guide window shows.
+	// Where the data counts these as kill credit on the NPC, the goal stays a `kill` tracking the
+	// objective and its text is what the guide window shows; where the game's own objective list
+	// makes them talks (#859), the goal is a `talk` tracking the objective, which reads "Talk to".
 	const talks = [
 		// (Zarrin's Camping 101: Cooking is now done by training Cooking from him: #743.)
 		['forever/horde/03-silverpine-forest.guide', 93739, 1, 'Nazgrel'],
@@ -569,8 +590,9 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 		['forever/alliance/skyborne/01-zephras-isle.guide', 92849, 1, 'Fillion Flamebreeze'],
 	];
 	for (const [guide, quest, oi, name] of talks) {
-		const { goal } = goals(guide)[at(goals(guide), `${quest}.${oi} (${name})`, (g) => g.t === 'kill' && g.quest === quest && g.oi === oi)];
-		assert.equal(goal.text, `Talk to ${name}`, `${guide}: ${name}`);
+		const { goal } = goals(guide)[at(goals(guide), `${quest}.${oi} (${name})`, (g) => (g.t === 'kill' || g.t === 'talk') && g.quest === quest && g.oi === oi)];
+		if (goal.t === 'talk') assert.equal(goal.npcName, name, `${guide}: ${name}`);
+		else assert.equal(goal.text, `Talk to ${name}`, `${guide}: ${name}`);
 	}
 	// Every kill goal whose note says to speak with someone says so itself.
 	for (const guide of allGuides()) {
@@ -578,6 +600,35 @@ test(`EpicTibbles's report (#532): an objective that is talking to someone reads
 			if (goal.t === 'kill' && /^Speak with /.test(goal.note || '')) {
 				assert.match(goal.text || '', /^Talk to /, `${guide}: ${goal.note}`);
 			}
+		}
+	}
+});
+
+test(`Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides`, { skip }, () => {
+	// The game lists one objective at the accept and reveals the next as each talk counts; the
+	// data counted the three talks as kills.
+	for (const guide of ['forever/alliance/skyborne/01-zephras-isle.guide', 'forever/horde/skyborne/01-zephras-isle.guide']) {
+		const list = goals(guide);
+		assert.equal(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 92640).length, 0, `${guide}: no kill goal for Desperate Times`);
+		const valennia = at(list, `${guide}: 92640.1 (Valennia)`, (g) => g.t === 'talk' && g.quest === 92640 && g.oi === 1 && g.npc === 252383);
+		const ayessa = at(list, `${guide}: 92640.2 (Ayessa)`, (g) => g.t === 'talk' && g.quest === 92640 && g.oi === 2 && g.npc === 251968);
+		// (Desperate Times' own talk: A Grand Adventure talks to Elaadrin before it, #956.)
+		const elaadrin = at(list, `${guide}: Elaadrin`, (g) => g.t === 'talk' && g.quest === 92640 && g.npc === 252475);
+		assert.ok(valennia < ayessa && ayessa < elaadrin, `${guide}: Valennia, then Ayessa, then Elaadrin`);
+		assert.ok(located(list[ayessa]), `${guide}: the arrow leads to Ayessa, west of town`);
+	}
+});
+
+test(`Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to`, { skip }, () => {
+	data = data || loadData(DATA);
+	// The Cult of the Damned counts Dark Neophytes and Dark Enforcers only.
+	assert.equal(goals(TIRISFAL).filter(({ goal }) => goal.quest === 96897 && goal.npc === 1547).length, 0, 'no Decrepit Darkhound goal for The Cult of the Damned');
+	for (const guide of allGuides()) {
+		for (const { goal } of goals(guide)) {
+			if (goal.t !== 'kill' || !goal.quest || !goal.oi) continue;
+			const o = ((data.quests[goal.quest] || {}).objectives || [])[goal.oi - 1];
+			assert.ok(o, `${guide}: ${goal.quest}.${goal.oi} is one of the quest's objectives`);
+			assert.notEqual(o.type, 'talk', `${guide}: ${goal.quest}.${goal.oi} is a talk to ${o.text}, not a kill`);
 		}
 	}
 });
@@ -610,6 +661,51 @@ test(`EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads "Tame
 		}
 	}
 	assert.ok(seen >= 21, `the seven Hunter starting guides' 21 tames (found ${seen})`);
+});
+
+// The data counts the salve's cure and the yeti's fright as kill credit, so the goal stays a `kill`
+// tracking the objective; its text says what to do. The hand-written druid guide says it itself; the
+// generated leveling guides get it from data/places.json on the next build.
+const USE_ITEM_873 = {
+	'6124.1': 'Use the Curative Animal Salve on Sickly Deer',
+	'6129.1': 'Use the Curative Animal Salve on Sickly Gazelles',
+	'5163.1': "Use Umi's Mechanical Yeti beside Legacki",
+	'5163.2': "Use Umi's Mechanical Yeti beside Sprinkle",
+	'5163.3': "Use Umi's Mechanical Yeti beside Quixxil",
+};
+
+test(`#873: data/places.json labels the Curing the Sick and Are We There, Yeti? objectives with the item use, not "Kill"`, () => {
+	const { places } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
+	for (const [key, label] of Object.entries(USE_ITEM_873)) {
+		const [quest, objective] = key.split('.').map(Number);
+		assert.equal(places.find((p) => p.quest === quest && p.objective === objective && p.label)?.label, label, `data/places.json labels ${key}`);
+	}
+});
+
+test(`#873: the druid Cure Poison guide's Curing the Sick goal reads the salve use, not "Kill"`, { skip }, () => {
+	for (const quest of [6124, 6129]) {
+		const list = goals('forever/class/druid/cure-poison.guide');
+		const { goal } = list[at(list, `${quest}.1`, (g) => g.t === 'kill' && g.quest === quest && g.oi === 1)];
+		assert.equal(goal.text, USE_ITEM_873[`${quest}.1`]);
+	}
+});
+
+// #978: Alfina Nightgaze (270459), beside the Skyborne Portal west of Dalaran, does not give Lessons
+// Anew (6121): players' recordings show her window at level 14 listing Child of Nature and never
+// Lessons Anew for Alliance Skyborne Druids, and the game's quest starter data lists only Mathrengyl
+// Bearwalker (4217) in Darnassus. The guide sent Alliance Skyborne at 14 through level 30-40 country
+// to her.
+test(`#978: the druid Cure Poison guide sends Alliance Skyborne to Mathrengyl Bearwalker in Darnassus for Lessons Anew, not Alfina Nightgaze in Alterac`, { skip }, () => {
+	const fix = loadCorrections().quests['6121'];
+	assert.deepEqual(fix && fix.set.start && fix.set.start.npc, [4217], 'the correction leaves Mathrengyl Bearwalker as the only giver');
+	const fits = (o, race) => !o || ((!o.races || o.races.includes(race)) && (!o.factions || o.factions.includes('Alliance')));
+	for (const race of ['NightElf', 'Skyborne']) {
+		const list = goals('forever/class/druid/cure-poison.guide').filter(({ step, goal }) => fits(step.only, race) && fits(goal.only, race));
+		const accepts = list.filter(({ goal }) => is('accept', 6121)(goal));
+		assert.equal(accepts.length, 1, `${race}: one Lessons Anew accept`);
+		assert.equal(accepts[0].goal.npc, 4217, `${race}: from Mathrengyl Bearwalker`);
+		assert.equal(accepts[0].goal.map, 1457, `${race}: in Darnassus`);
+	}
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram`, { skip }, () => {
@@ -971,6 +1067,42 @@ test(`${BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use 
 	assert.ok(yards(list[use].goal, tree) <= 20, `the carcass is used at the Dead Tree, not ${Math.round(yards(list[use].goal, tree))} yd off`);
 });
 
+// DexeeXI (#907): the guide took Free From the Hold (898) from Gilthares
+// Firebough in Northwatch Hold, then sent the escort through the Northwatch
+// kills (891), though Gilthares walks straight back to Ratchet. The hold is
+// cleared first; the escort is accepted after the last 891 objective and
+// nothing else is worked before it ends in Ratchet.
+test(`${BARRENS}: DexeeXI's report (#907): Northwatch Hold is cleared before Gilthares's escort, and the escort runs straight to Ratchet`, { skip }, () => {
+	const list = goals(BARRENS);
+	const accept = at(list, 'accept 898 (Free From the Hold)', is('accept', 898));
+	const done = at(list, 'complete 898 (the escort to Ratchet)', is('complete', 898));
+	const kills = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.quest === 891 && ['kill', 'collect'].includes(goal.t));
+	assert.equal(kills.length, 4, 'the four Northwatch objectives');
+	for (const [{ goal }, i] of kills) assert.ok(i < accept, `${goal.t} ${goal.npc || goal.item} for 891 comes before the escort is accepted`);
+	for (const { goal } of list.slice(accept + 1, done)) assert.ok(!goal.quest || goal.quest === 898, `nothing but the escort between its accept and its end (${goal.t} ${goal.quest})`);
+});
+
+// Rohkin (#957): the Bristleback camps step collected Mankrik's tusks
+// (Consumed by Hatred, 899) before Camp Taurajo, then the guide sent them back
+// into the same camps for Tribes at War (878) from Mangletooth. Every
+// Bristleback 878 asks for drops tusks, so the tusks are collected on 878's
+// step, after its accept; Mankrik's wife (Lost in Battle, 4921) stays on the
+// walk south.
+test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it`, { skip }, () => {
+	const list = goals(BARRENS);
+	const accept = at(list, 'accept 878 (Tribes at War)', is('accept', 878));
+	const tusks = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.quest === 899 && goal.t === 'collect');
+	assert.ok(tusks.length > 0, 'the tusks have a goal');
+	const kills = new Set(list.filter(({ goal }) => goal.quest === 878 && goal.t === 'kill').map(({ s }) => s));
+	assert.equal(kills.size, 1, 'the Tribes at War kills share one step');
+	for (const [{ s }, i] of tusks) {
+		assert.ok(i > accept, 'the tusks come after Tribes at War is taken');
+		assert.ok(kills.has(s), `the tusks are on the Tribes at War step ${[...kills][0]}, not step ${s}`);
+	}
+	const wife = at(list, 'Lost in Battle (4921)', (g) => g.quest === 4921 && g.t !== 'accept' && g.t !== 'turnin');
+	assert.ok(wife < accept, 'Mankrik\'s wife is found on the walk south, before Camp Taurajo');
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
@@ -1042,6 +1174,16 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// DexeeXI (#872): Shadow Priest Allister offers Watching the Roads only
 		// once Dalaran's Intentions is handed in to him.
 		[SILVERPINE, 95981, [482]],
+		// DexeeXI (#891): Yelmak offers Whuut's the Rush once Yelmak's Medley
+		// is handed in to Kor'geld beside him.
+		[SILVERPINE, 97275, [97242]],
+		// The #872 sweep: James Halloran's Crocs of the Sky is his last favor
+		// after Apprentice's Duties, and Lord Grayson Shadowbreaker's The
+		// Shamed Lieutenant thanks you for the statuette A Friend of the Family
+		// brings him.
+		[ASHENVALE, 98072, [471], true],
+		[THOUSAND_NEEDLES, 98072, [471]],
+		[ASHENVALE, 98219, [98191]],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -1100,12 +1242,18 @@ test(`${ELWYNN}: Onrevax's and bob's reports (#820, #823): the Applejack Still c
 });
 
 // Croaky (level 11 elite) killed players 4 times at levels 8-9 on the Downstream
-// step (players' recordings). His head stays an optional extra (#221); the step
-// says he is an elite and to leave him without a group or below level 10.
-test(`${ELWYNN}: the step that lists Croaky's Head warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
-	const step = compiled(ELWYNN).steps.find((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
-	assert.ok(step, 'the head is still an optional goal');
-	const tip = [].concat(step.note || []).join(' ');
+// step (players' recordings; 12 deaths in the archive by #977). His head stays an
+// optional extra (#221), collected only in the steps for players who group for it
+// (#979); the river step everyone plays still says he is an elite and to leave him
+// without a group or below level 10.
+test(`${ELWYNN}: Croaky's Head is collected only by groups, and the river step warns he is a level 11 elite, for a group or from level 10`, { skip }, () => {
+	const steps = compiled(ELWYNN).steps;
+	const heads = steps.filter((st) => st.goals.some((g) => g.t === 'collect' && g.item === 247826));
+	assert.ok(heads.length > 0, 'the head is still an optional goal');
+	for (const st of heads) assert.ok((st.when || []).some((p) => p.k === 'group'), `"${st.title}" collects the head without asking for a group`);
+	const river = steps.find((st) => !(st.when || []).length && st.goals.some(is('collect', 91733)));
+	assert.ok(river, "the river step of Ormin Pelford's Waterlogged tools");
+	const tip = [].concat(river.note || []).join(' ');
 	assert.match(tip, /level 11 elite/, tip);
 	assert.match(tip, /with a group or once you're level 10/, tip);
 });
@@ -1186,6 +1334,41 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
 });
 
+// --- Darkshore (lax, #924): "Level 20" said "grind on Elder Darkshore
+// Thresher" but its arrow led to 33.3,40.7 by Auberdine, a camp of the lower
+// Darkshore Threshers (both drop the Thresher Eyes worked there). The Elders
+// spawn only on the south and north coasts; players' recordings see them only
+// there. The same pattern everywhere: a grind's arrow is at the mob it names.
+
+test(`lax's report (#924): every grind's arrow leads to a spawn of the mob it names`, { skip }, () => {
+	data = data || loadData(DATA);
+	const byName = new Map();
+	for (const n of Object.values(data.npcs)) if (n.name) byName.set(n.name, [...(byName.get(n.name) || []), n.id]);
+	const world = (map, x, y, f) => {
+		const fr = (f === 'e' ? data.mapFrames.era : data.mapFrames.forever || {})[map] || data.eraFrame(map);
+		return fr && { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100, wy: fr.left + ((fr.right - fr.left) * x) / 100 };
+	};
+	const offenders = [];
+	let grinds = 0;
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		for (const step of compiled(guide).steps) {
+			step.goals.forEach((goal, i) => {
+				const next = step.goals[i + 1];
+				if (goal.t !== 'goto' || goal.map == null || !next || next.t !== 'level' || next.note !== `grind on ${goal.text}`) return;
+				grinds++;
+				const g = world(goal.map, goal.x, goal.y, goal.f);
+				const yd = Math.min(...(byName.get(goal.text) || []).flatMap((id) => data.spawns('npc', id)).flatMap((s) => s.pts.map((p) => {
+					const w = world(s.map, p[0], p[1], s.f);
+					return w && g && w.c === g.c ? Math.hypot(w.wx - g.wx, w.wy - g.wy) : Infinity;
+				})));
+				if (!(yd <= 400)) offenders.push(`${guide} step ${step.title}: ${goal.text} at ${goal.x},${goal.y} map ${goal.map} (${Math.round(yd)} yd off)`);
+			});
+		}
+	}
+	assert.ok(grinds > 20, 'the grinds are found');
+	assert.deepEqual(offenders, [], 'grind arrows away from the mob they name');
+});
+
 test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)`, { skip }, () => {
 	const list = goals(TELDRASSIL);
 	const take = at(list, "accept 488 (Zenn's Bidding)", is('accept', 488));
@@ -1221,6 +1404,28 @@ test('#213: quests whose giver the route already stands at are taken there, not 
 		const steps = withGoals.map((p) => list.findIndex(({ goal }) => p(goal))).filter((i) => i >= 0).map((i) => list[i].step);
 		assert.ok(steps.length > 0, `${guide}: ${what} is in the guide`);
 		assert.ok(steps.includes(list[take].step), `${guide}: ${quest} is taken at ${what}`);
+	}
+});
+
+// --- Sweep from Rohkin's #957 (PR #970): an item collected from mobs before the
+// quest that kills the same mobs is taken, then those mobs cleared again for it.
+// Badlands: Hammertoe's Digsite asked for the Rock Elemental Shards (Badlands
+// Reagent Run, 2500.3), whose only droppers are rock elementals far from the dig;
+// the Dustbowl's Lesser Rock Elementals are killed after Lotwil's Study of the
+// Elements: Rock (710) at Agmond's End. Stranglethorn (Horde): Nesingwary's step
+// asked for all 25 Bloody Bone Necklaces (596) from the Bloodscalps that Bloodscalp
+// Ears (189) and Headhunting (582) kill again later; the Ruins of Zul'Kunda step,
+// before the hand-in, finishes them.
+test('Sweep from #957: a drop is collected with the later quest that kills the same mobs, not in a clear before it', { skip }, () => {
+	for (const [guide, item, quest, take, what] of [
+		[BADLANDS, 7848, 2500, 710, "Rock Elemental Shards after Lotwil's Study of the Elements: Rock"],
+		[STRANGLETHORN_HORDE, 3915, 596, 582, "Bloody Bone Necklaces after Nimboya's Headhunting"],
+	]) {
+		const list = working(goals(guide));
+		const accept = at(list, `${guide}: accept ${take}`, is('accept', take));
+		const work = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'collect' && goal.quest === quest && goal.item === item);
+		assert.ok(work.length > 0, `${guide}: the ${what} have a goal`);
+		for (const [{ step }, i] of work) assert.ok(i > accept, `${guide}: ${what}, not in "${step.title}"`);
 	}
 });
 
@@ -1362,6 +1567,22 @@ const SKYBORNE_ALLIANCE = { race: 'Skyborne', raceName: 'Skyborne', faction: 'Al
 // Zephras Isle has no Era frame: points compare in map percent.
 const close = (a, b, pct) => a.map === b.map && Math.hypot(a.x - b.x, a.y - b.y) <= pct;
 
+// Visur's report (#848): Valanaar turn-ins sent the player to Dondallion Whisperwind for The
+// Missing Scholar (92850), but only Fillion Flamebreeze (253285), who stands beside him, takes it.
+// A correction had added Dondallion as a second ender; with the corrections applied, as
+// `data build` does, the hand-in leads to Fillion.
+test(`${ZEPHRAS_ALLIANCE}: Visur's report (#848): The Missing Scholar is handed in to Fillion Flamebreeze, not Dondallion Whisperwind`, { skip }, () => {
+	const corrected = loadData(DATA);
+	const fix = loadCorrections().quests['92850'];
+	if (fix) Object.assign(corrected.quest(92850), fix.set);
+	assert.deepEqual(corrected.quest(92850).end.npc, [253285], 'Fillion Flamebreeze is the only ender');
+	const file = path.join(OFFICIAL_DIR, ZEPHRAS_ALLIANCE);
+	const { guides } = compileSources([{ file, text: fs.readFileSync(file, 'utf8') }], corrected);
+	const turnin = guides[0].steps.flatMap((step) => step.goals).find(is('turnin', 92850));
+	assert.ok(turnin, 'The Missing Scholar is handed in');
+	assert.equal(turnin.npc, 253285, 'handed in to Fillion Flamebreeze');
+});
+
 // The Great Outdoors: /sit by Raan's campfire for Boosted Rest; nothing to click.
 test('Sato\'s report: The Great Outdoors on Zephras Isle is done by sitting at Raan\'s campfire, not by clicking it', { skip }, () => {
 	data = data || loadData(DATA);
@@ -1392,9 +1613,9 @@ test('Sato\'s report: the Skysight and Read Ley Line objectives tell you to cast
 // Welcome to Shen'dar Village: talking to Illaya before the step counts.
 test(`${ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk`, { skip }, () => {
 	const list = goals(ZEPHRAS_HORDE);
-	assert.ok(at(list, 'accept 92514', is('accept', 92514)) < at(list, 'complete 92595 (talk to Illaya)', is('complete', 92595)), 'taken before the talk to Illaya for The Windshapers, which counts for it too');
+	assert.ok(at(list, 'accept 92514', is('accept', 92514)) < at(list, 'talk 251902 quest 92595.1 (Illaya)', is('talk', 92595)), 'taken before the talk to Illaya for The Windshapers, which counts for it too');
 	const step = list[at(list, 'turnin 92514', is('turnin', 92514))].s;
-	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk').map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
+	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk' && !goal.quest).map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
 	const objectives = (illaya, coriella) => stepView(ZEPHRAS_HORDE, SKYBORNE_HORDE, step, `w.complete({ 92595 })
 		w.onQuest(92514, { { required = 1, fulfilled = ${illaya} }, { required = 1, fulfilled = ${coriella} } })`)
 		.goals.filter((g) => g.quest === 92514 && g.t !== 'turnin').sort((a, b) => a.oi - b.oi).map((g) => g.status);
@@ -1738,39 +1959,28 @@ test("Fitz's playtest: typed coordinates are on the zone of every character who 
 	assert.deepEqual(offenders, [], 'typed coordinates on a zone some of their characters are not in');
 });
 
-// --- Hearths on another guide's bind (#171): Hillsbrad's "Hearth to Tarren
-// Mill" relied on the bind the Stonetalon guide makes, so a player who
-// skipped it, or started Hillsbrad from the picker, was told to hearth with a
-// Hearthstone set to Camp Taurajo. A guide that hearths to an inn binds there
-// itself first, on a step everyone plays (a goal that ticks at once for a
-// player already bound). The guides below never pass the inn before their
-// hearth, so a bind there would add a detour; they still rely on the guide
-// before them.
-const HEARTH_ON_AN_EARLIER_BIND = new Set([
-	// Enters the Badlands from Ironband's dig site in south-east Loch Modan; Thelsamar is off the way.
-	'forever/alliance/30-40/06-badlands.guide Stoutlager Inn',
-	// Starts at the Broken Pillar and goes down into the crater; Gadgetzan is to the north.
-	'forever/horde/50-60/01-un-goro-crater.guide Gadgetzan',
-]);
-
-test('#171: every hearth is to an inn the guide binds at first', { skip }, () => {
+// --- Hearth advice is the arrow's (Fitz, 0.3.3): the guides never tell the
+// player to hearth. The route still plans its hearth legs and the guide binds
+// (`sethome`), but the step after leads straight to the next stop; whether to
+// hearth there is the arrow's call, by the Hearthstone's cooldown and where it
+// is set. Westfall's "Hearth to Sentinel Hill" after Moonbrook was one of 64.
+// (This replaces #171's check that every hearth went to an inn the guide bound
+// at: there are no hearths left to check.)
+test('Fitz (0.3.3): no guide of ours has a hearth goal; Westfall walks from Moonbrook back to Sentinel Hill', { skip }, () => {
 	const offenders = [];
 	for (const guide of allGuides()) {
-		const bound = new Set();
-		// The characters a goal is for (its own `only`, else its step's): a bind under `only` covers a
-		// hearth for the same characters.
-		const whose = ({ step, goal }) => JSON.stringify(goal.only || step.only || null);
 		for (const { step, goal } of goals(guide)) {
-			if (goal.t === 'sethome') bound.add(everyone({ step, goal }) ? goal.location : `${goal.location} ${whose({ step, goal })}`);
-			const key = `${guide} ${goal.location}`;
-			// A hearth only a player bound there sees (`when bound "<inn>"`, the walk there for the others
-			// after it) is the guide's own guard for a bind made in an earlier guide.
-			const guarded = (step.when || []).some((p) => p.k === 'bound' && !p.neg && p.name === goal.location);
-			const isBound = bound.has(goal.location) || bound.has(`${goal.location} ${whose({ step, goal })}`);
-			if (goal.t === 'hearth' && !guarded && !isBound && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
+			if (goal.t === 'hearth') offenders.push(`${guide} (step ${step.title})`);
 		}
 	}
-	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
+	assert.deepEqual(offenders, [], 'hearth goals');
+	const list = goals(WESTFALL);
+	assert.ok(!list.some(({ step }) => /^Hearth to/.test(step.title)), 'no "Hearth to" step');
+	const moonbrook = list.findIndex(({ step }) => step.title === 'Moonbrook and the Defias hills');
+	assert.ok(moonbrook >= 0, 'the Moonbrook step is in the guide');
+	const next = list.slice(moonbrook).find(({ step }) => step !== list[moonbrook].step);
+	assert.equal(next.step.title, 'Back to Sentinel Hill', 'the step after Moonbrook leads back to Sentinel Hill');
+	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && goal.location === 'Sentinel Hill'), 'the bind at Sentinel Hill stays');
 });
 
 // An Enticing Offer: the quest log lists the blood before the petals, so each
@@ -1798,11 +2008,12 @@ test(`${ELWYNN}: Zepheriel's report (#310): Skirmish at Echo Ridge is taken from
 // shore south of the Eastvale bridge, along the river where the first east
 // loop searches for Ormin Pelford's Waterlogged tools. Its head starts Croaky's
 // Head for Merell Ross at Ridgepoint Tower, a short way east. The loot is an
-// optional goal of that river step; the accept (optional) and the Ridgepoint
-// Tower turn-in are steps of their own for a player who answers the group
-// question with "do" (as one who loots the head does when the route asks),
-// and the turn-in holds only a player who took the quest (an optional accept
-// vouches for nobody who did not).
+// optional goal of a step of its own for players who group for it (#979: in the
+// river step for everyone it cost 12 recorded deaths at 8-9); the accept
+// (optional) and the Ridgepoint Tower turn-in are steps of their own for a
+// player who answers the group question with "do" (as one who loots the head
+// does when the route asks), and the turn-in holds only a player who took the
+// quest (an optional accept vouches for nobody who did not).
 
 test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridgepoint Tower holds and leads the arrow only with the head`, { skip }, () => {
 	const pack = buildSimPack([ELWYNN]);
@@ -1856,7 +2067,7 @@ test(`${ELWYNN}: Syfin's report (#221): Croaky's Head is an optional extra; Ridg
 			const who = `${head ? 'with the head' : 'without the head'}, answering ${groups}`;
 			assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
 			assert.ok(out.done, `${who}: plays to the end`);
-			assert.deepEqual(got.murlocs, ['collect true', 'accept true'], `${who}: the head is an optional goal of the murloc step, its accept optional`);
+			assert.deepEqual(got.murlocs, ['accept true'], `${who}: the head is no goal of the river step (groups only, #979), its accept optional`);
 			assert.equal(got.done, head, `${who}: Croaky's Head ${head ? 'is' : 'is not'} handed in`);
 			if (head) {
 				assert.equal(got.ridge && got.ridge.title, 'Ridgepoint Tower', 'with the head: handed in at the Ridgepoint Tower step');
@@ -2084,6 +2295,22 @@ test('forever/horde/04-the-barrens.guide: Fitz\'s report (#274): the Dry Hills s
 	assert.ok(horns < at(list, 'the Raptor Horns turn-in', is('turnin', 865)), 'before the horns are handed in at Ratchet');
 });
 
+// Rohkin (#947): after Regthar, a Warlock walked into Stonetalon Mountains and straight back to the
+// Barrens with nothing to do there. Their Ken'zigla quests in Malaka'jin come later in the guide.
+test(`${BARRENS}: Rohkin's report (#947): a Warlock is never sent into another zone and straight back with nothing done there`, { skip }, () => {
+	const forUndeadWarlock = ({ only }) => !only || ((!only.classes || only.classes.includes('WARLOCK')) && (!only.races || only.races.includes('Undead')));
+	const steps = compiled(BARRENS).steps.filter(forUndeadWarlock).filter((step) => step.goals.length);
+	const travel = (step) => step.goals.every((g) => g.t === 'goto' || g.t === 'fly');
+	const mapOf = (step) => step.goals.at(-1).map;
+	for (let i = 1; i < steps.length; i++) {
+		const from = mapOf(steps[i - 1]);
+		if (!travel(steps[i]) || mapOf(steps[i]) === from) continue;
+		for (let j = i + 1; j < steps.length && travel(steps[j]); j++) {
+			assert.notEqual(mapOf(steps[j]), from, `"${steps[i].title}" to "${steps[j].title}": into map ${mapOf(steps[i])} and back to map ${from} with no goal there`);
+		}
+	}
+});
+
 // Avtom (#280): "Kill Ribchaser (rare) or Redridge Brute for Iron Pike" led to
 // the Redridge Mongrels' camp, where no Brute stands. Ribchaser, a rare, shares
 // the Mongrels' spawn points and drops the quest's Iron Pike and Iron Rivet at
@@ -2282,7 +2509,9 @@ test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the
 // 40 (tools/lib/nav/move.js MOUNT_LEVEL), so a guide that starts below it
 // never tells the player to ride somewhere. Riding a boat, zeppelin, tram,
 // lift, airship, flight or Zephras Isle's wind currents is fine ("ride it"
-// names the transport just before).
+// names the transport just before). A step gated to level 40 or more
+// (`when level>=40`), or any step after a `level` goal of 40 or more, is
+// played with riding learned, so it may say ride.
 const RIDING_LEVEL = 40;
 const RIDE_TRANSPORT = /\bride (?:it\b|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|wind current|bat|taxi))/gi;
 test("Pynte's report (#404): guides played below riding level never tell you to ride somewhere", { skip }, () => {
@@ -2291,11 +2520,16 @@ test("Pynte's report (#404): guides played below riding level never tell you to 
 		if (guide.startsWith('forever/collectibles/')) continue;
 		const g = compiled(guide);
 		if (!(g.minLevel < RIDING_LEVEL)) continue;
+		let mounted = false;
 		for (const step of g.steps) {
-			for (const text of [step.note, ...step.goals.map((goal) => goal.note)]) {
-				if (typeof text !== 'string') continue;
-				if (/\b(?:ride|rides|riding|rode)\b/i.test(text.replace(RIDE_TRANSPORT, ''))) offenders.push(`${guide} (from level ${g.minLevel}), step ${step.title}: ${text}`);
+			const gated = (step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= RIDING_LEVEL);
+			if (!mounted && !gated) {
+				for (const text of [step.note, ...step.goals.map((goal) => goal.note)]) {
+					if (typeof text !== 'string') continue;
+					if (/\b(?:ride|rides|riding|rode)\b/i.test(text.replace(RIDE_TRANSPORT, ''))) offenders.push(`${guide} (from level ${g.minLevel}), step ${step.title}: ${text}`);
+				}
 			}
+			if (step.goals.some((goal) => goal.t === 'level' && goal.level >= RIDING_LEVEL)) mounted = true;
 		}
 	}
 	assert.deepEqual(offenders, [], 'travel by riding in a guide played before level 40');
@@ -2482,14 +2716,18 @@ test(`Phear's report (#395): on Zephras Isle, The Wounds of Betrayal and Standin
 // Alther's Mill, about ten normal Blackrock spawns that Tazul found too few
 // and too slow to respawn. The camps at the south end of Galardell Valley,
 // east of Stonewatch Keep, hold some forty, with no elite among them. The
-// arrow leads there, on the way down from the gnolls, not to the mill.
+// arrow leads there, on the way south-east from the mill, not to the mill.
+// Galardell Valley's own gnolls (Solomon's Law, Fangore) are out of the route
+// since #979: 22-26 at about 21 (#977).
 test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill`, { skip }, () => {
 	data = data || loadData(DATA);
 	const { point } = makeProjector(data.mapFrames);
 	const list = goals(REDRIDGE);
 	const axes = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
 	const { goal } = list[axes];
-	assert.ok(at(list, 'Shadowhide Pendant', (g) => g.t === 'collect' && g.item === 1075) < axes, 'after the Galardell gnolls');
+	assert.ok(at(list, "Alther's Mill tarantulas", is('kill', 98386)) < axes, "after Alther's Mill, on the way south-east");
+	assert.ok(!list.some(({ goal: g }) => [91, 180].includes(g.quest)), 'Galardell Valley (Solomon\'s Law, Fangore) is out of the route');
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, REDRIDGE), 'utf8'), /^# Left out for the level \(.*\): .*Solomon's Law \(91\).*Lieutenant Fangore \(180\)/m, 'the header says why');
 	const here = point(goal.map, goal.x, goal.y, goal.f || 'l');
 	const near = { normal: 0, elite: 0 };
 	for (const id of Object.keys(data.item(3014).drops.npc)) {
@@ -2603,7 +2841,6 @@ test(`${ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menet
 	for (const quest of [306, 484, 470, 98282]) {
 		assert.ok(at(list, `turnin ${quest}`, is('turnin', quest)) < grind, `the Menethil hand-in ${quest} counts towards 28`);
 	}
-	assert.ok(at(list, 'hearth to Menethil', (g) => g.t === 'hearth' && g.location === 'Deepwater Tavern') < grind, 'the grind is after the hearth');
 	assert.ok(grind < at(list, 'accept 1179', is('accept', 1179)), 'level 28 before Pilot Longbeard');
 });
 
@@ -2819,26 +3056,74 @@ test(`${ASHENVALE}: #424: the Horn of Awakening is taken from Kerlonian's Chest 
 	assert.equal(list[horn].goal.map, 1439, 'the chest is at the Grove of the Ancients in Darkshore');
 });
 
+// Fyurie (#920): The Sleeper Has Awakened (5321) was taken from Kerlonian
+// Evershade on the Darkshore visit at about 19, but his escort waits for the
+// Ashenvale guide at about 26, so players carried a timed escort for hours.
+// The Horn of Awakening lasts 25 minutes (item 13536, duration 1500 s). The
+// quest is taken from Kerlonian in the Ashenvale guide's Grove step, right
+// before his chest and the escort, and no step waits for it in the log first.
+test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken from Kerlonian right before his chest and the escort, not on the Darkshore visit`, { skip }, () => {
+	assert.ok(!goals(DARKSHORE).some(({ goal }) => goal.quest === 5321), 'the Darkshore visit leaves Kerlonian alone');
+	const list = goals(ASHENVALE);
+	const accept = at(list, 'accept 5321 (Kerlonian Evershade)', is('accept', 5321));
+	const horn = at(list, 'collect 13536 quest 5321 (Horn of Awakening)', (g) => g.t === 'collect' && g.item === 13536 && g.quest === 5321);
+	const turnin = at(list, 'turnin 5321', is('turnin', 5321));
+	assert.equal(list[accept].s, list[horn].s, 'the accept and the chest are one step at the Grove');
+	assert.ok(accept < horn && horn < turnin, 'accept, chest, then the hand-in at Maestra\'s Post');
+	assert.ok(!(list[accept].step.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(5321)), 'the step does not wait for 5321 in the quest log');
+	assert.equal(list[accept].goal.npc, 11218, 'from Kerlonian Evershade');
+});
+
 // A bare `complete` that opens its step has no place of its own and nothing
 // placed before it, so the arrow showed nothing until the quest was done
 // (#303's leftovers; #632 and #646 place the Horde ones). Each now leads to
-// its objective: the bears, Shay's destination, the Faulk brothers.
+// its objective: the bears, the Faulk brothers (their `use` of the Symbol of
+// Life since #956). Wandering Shay (2845, Rockbiter's camp) is out of the route
+// since #979: Shay wanders among the level 49 harpies, at about 44 (#977).
 test('Alliance: a quest objective that opens its step leads the arrow to the objective (#303 leftovers)', { skip }, () => {
 	data = data || loadData(DATA);
+	const feralas = 'forever/alliance/40-50/03-feralas.guide';
+	assert.ok(!goals(feralas).some(({ goal }) => goal.quest === 2845 || goal.quest === 2844), 'Wandering Shay and The Giant Guardian are out of Feralas');
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, feralas), 'utf8'), /^# Left out: .*The Giant Guardian \(2844\), Wandering Shay \(2845\)/m, 'the header names them');
+	assert.ok(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.skip.some((s) => s.q === 2845 && /harpies/.test(s.reason)), 'the route fixes skip Wandering Shay, saying why');
+	const work = (quest) => (g) => g.quest === quest && ['complete', 'use'].includes(g.t);
 	for (const [file, quest, target] of [
 		['forever/alliance/03-darkshore.guide', 2118, { npc: 2164 }], // Plagued Lands: Rabid Thistle Bears
-		['forever/alliance/40-50/03-feralas.guide', 2845, { event: 2845 }], // Wandering Shay: Rockbiter's camp
 		[DWARF_DUN_MOROGH, 1783, { npc: 6177 }], // The Tome of Divinity: Narm Faulk
-		['forever/alliance/04-redridge-mountains.guide', 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
+		[REDRIDGE, 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
 	]) {
 		const list = goals(file);
-		const { goal } = list[at(list, `complete ${quest}`, is('complete', quest))];
-		assert.ok(located({ goal }), `${file}: complete ${quest} has a place for the arrow`);
+		const { goal } = list[at(list, `the objective of ${quest}`, work(quest))];
+		assert.ok(located({ goal }), `${file}: ${goal.t} ${quest} has a place for the arrow`);
 		const places = target.npc
 			? data.npcs[target.npc].spawns[goal.map].pts.map(([x, y]) => ({ map: goal.map, x, y }))
 			: data.quests[target.event].objectives.filter((o) => o.type === 'event').map((o) => ({ map: o.map, x: o.x, y: o.y }));
 		const near = Math.min(...places.map((p) => yards(goal, p)));
-		assert.ok(near < 30, `${file}: complete ${quest} leads to its objective (${near.toFixed(0)} yd away)`);
+		assert.ok(near < 30, `${file}: ${goal.t} ${quest} leads to its objective (${near.toFixed(0)} yd away)`);
+	}
+});
+
+// A bare `complete` gave the window no target, spawn area or progress for a
+// quest whose objective is a plain one (#956). The Tome of Divinity's
+// objective is a kill credit for using the Symbol of Life on Henze Faulk: the
+// step uses it on him, tracked from the quest log, and never reads "Kill".
+// The Northern Pylon is an object to click.
+test(`${REDRIDGE}: the Henze Faulk step tracks 1786.1 with an objective goal, not \`complete\` (#956)`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	assert.ok(!list.some(({ goal }) => is('complete', 1786)(goal)), 'no bare complete 1786');
+	const i = at(list, 'use 6866 quest 1786.1', (g) => g.t === 'use' && g.quest === 1786 && g.oi === 1);
+	assert.equal(list[i].step.title, 'Henze Faulk');
+	assert.equal(list[i].goal.item, 6866, 'the Symbol of Life');
+	const paladin = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'PALADIN', className: 'Paladin', level: 12 };
+	const line = (fulfilled) => stepView(REDRIDGE, paladin, list[i].s, `w.onQuest(1786, { { required = 1, fulfilled = ${fulfilled} } })`).goals.find((g) => g.quest === 1786 && g.t === 'use');
+	assert.ok(!/\bKill\b/.test(line(0).text), `"${line(0).text}" does not read Kill`);
+	assert.notEqual(line(0).status, 'done', 'open while the quest log has Henze to do');
+	assert.equal(line(1).status, 'done', 'done once the quest log counts him');
+	for (const guide of [UN_GORO_ALLIANCE, 'forever/horde/50-60/01-un-goro-crater.guide']) {
+		const pylon = goals(guide);
+		assert.ok(!pylon.some(({ goal }) => is('complete', 4285)(goal)), `${guide}: no bare complete 4285`);
+		const { goal } = pylon[at(pylon, 'interact 164955 quest 4285.1', (g) => g.t === 'interact' && g.quest === 4285 && g.oi === 1)];
+		assert.equal(goal.object, 164955, `${guide}: the Northern Crystal Pylon`);
 	}
 });
 
@@ -2922,4 +3207,324 @@ test(`Hotline's report (#718): the Undead's Silverpine fishing step leads to Lor
 	const [x, y] = data.npcs[6570].spawns[1421].pts[0];
 	const ferry = point(1421, x, y, data.npcs[6570].spawns[1421].f);
 	assert.ok(dist(point(arrow.goal.map, arrow.goal.x, arrow.goal.y, arrow.goal.f || 'l'), ferry) < 80, 'within 80 yards of Fenwick Thatros at the Decrepit Ferry on the lake');
+});
+
+// Dingus's report (#844): Josetta does not offer Desperate Prayer to Human priests; they take Divine Grace.
+test(`${ELWYNN}: no Desperate Prayer for a Human priest (#844)`, { skip }, () => {
+	for (const g of [ELWYNN, 'forever/alliance/02-westfall.guide']) {
+		const list = goals(g).filter(forClass('PRIEST'));
+		assert.equal(list.findIndex(({ goal }) => goal.quest === 5635), -1, `${g}: no 5635`);
+	}
+	assert.ok(goals(ELWYNN).filter(forClass('PRIEST')).some(({ goal }) => is('accept', 94774)(goal)), 'Divine Grace is still taken from Josetta');
+});
+
+// Fitz's in-game check (2026-11-06): Wizbang Cranktoggle (Buzzbox 827) stands
+// upstairs in Auberdine's inn; the arrow has no height and counted the ground
+// floor as arrived. The step that offers his quest says he is upstairs, and his
+// goal keeps the upper floor's height.
+test("Fitz's in-game check (2026-11-06): Darkshore's step offering Buzzbox 827 says Wizbang Cranktoggle is upstairs in the inn", { skip: skip || needs('spawnz.json') }, () => {
+	for (const guide of [DARKSHORE, 'forever/alliance/nightelf/02-darkshore.guide']) {
+		const step = compiled(guide).steps.find((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 983));
+		assert.ok(step, `${guide}: Buzzbox 827 is offered`);
+		const tip = [].concat(step.note || []).join(' ');
+		assert.match(tip, /Wizbang Cranktoggle stands upstairs in the inn/, `${guide}: ${tip}`);
+		assert.match(tip, /The boat docks west of the village/, `${guide}: the old tip is kept`);
+		const goal = step.goals.find((g) => g.t === 'accept' && g.quest === 983);
+		assert.ok(Math.abs(goal.z - 24) < 3, `${guide}: z ${goal.z} is the inn's upper floor`);
+	}
+});
+
+// --- Snowiee's report (#912): the Night Elves' Goldshire training stop has no
+// Druid trainer, so the Druids walked from Stormwind Harbor to Goldshire, back
+// to Stormwind to train and back to Goldshire. A class the stop cannot train
+// trains in the town the way to it passes, a few hundred yards from its
+// trainer, before the way leaves that town: the Druids in Stormwind, the
+// Paladins of the Felwood stop in Brill before the zeppelin to Orgrimmar.
+test("Snowiee's report (#912): a class the training stop cannot train trains in the town the way passes with its trainer, before leaving it", { skip }, () => {
+	for (const [guide, cls, after, before] of [
+		['forever/alliance/nightelf/02-darkshore.guide', 'DRUID', (g) => g.t === 'getfp' && g.location === 'Stormwind', (g) => g.t === 'goto' && g.text === 'Elwynn Forest'],
+		['forever/horde/50-60/02-felwood.guide', 'PALADIN', (g) => g.t === 'goto' && g.text === 'Tirisfal Glades', (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar'],
+	]) {
+		const mine = goals(guide).filter(forClass(cls));
+		const into = at(mine, `${guide}: the way into town`, after);
+		const train = mine.findIndex(({ goal }, i) => i > into && goal.t === 'train' && goal.class);
+		assert.ok(train >= 0, `${guide}: the ${cls}s train after the way reaches the town`);
+		assert.ok(train < at(mine, `${guide}: the way out of town`, before), `${guide}: the ${cls}s train before the way leaves the town`);
+	}
+});
+
+// Erá's report (#948): Arantir offers no Horns of Nez'ra (2358) after Alther's
+// Mill; the quest is not in the game on Forever. The Rogue's Certificate of
+// Thievery ends when Lucius takes the token back.
+test("Erá's report (#948): the Rogue's Certificate of Thievery ends at Lucius, with no Horns of Nez'ra", { skip }, () => {
+	const list = goals('forever/class/rogue/certificate-of-thievery.guide');
+	assert.equal(list.findIndex(({ goal }) => goal.quest === 2358), -1, 'no goal for Horns of Nez\'ra');
+	assert.ok(is('turnin', 2282)(list[list.length - 1].goal), 'the guide ends with Alther\'s Mill handed in to Lucius');
+});
+
+// --- Found by Fitz (2026-11-06): after the Moonglade quests (Umber's Under the
+// Chitin Was..., 1185) the Silithus guide hearthed everyone to Cenarion Hold, flew
+// them to Rut'theran Village and sent them back into Moonglade for Nighthaven's
+// flight path, 600 yards from Umber. The flight path comes straight after Umber,
+// with no hearth or flight between, and its flight is the way on: straight to
+// Rut'theran Village, so neither the flight path's step nor Erelas Ambersky's
+// hand-in (4901) sends the player by Auberdine (its old way, the boat from there).
+test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide takes Nighthaven's flight path without leaving Moonglade first", { skip }, () => {
+	const guide = 'forever/alliance/50-60/06-silithus.guide';
+	const list = goals(guide);
+	const umber = at(list, `${guide}: Umber's hand-in of 1185`, is('turnin', 1185));
+	const fp = list.findIndex(({ goal }, i) => i > umber && goal.t === 'getfp' && goal.location === 'Moonglade');
+	assert.ok(fp > umber, `${guide}: Nighthaven's flight path is learned after Umber`);
+	for (const { goal, step } of list.slice(umber + 1, fp)) {
+		assert.ok(goal.t !== 'hearth' && goal.t !== 'fly', `${guide}: "${step.title}" ${goal.t}s out of Moonglade before its flight path`);
+		assert.ok(goal.map == null || goal.map === 1450, `${guide}: "${step.title}" leads to map ${goal.map}, not Moonglade`);
+	}
+	const hand = at(list, `${guide}: Erelas Ambersky's hand-in of 4901`, is('turnin', 4901));
+	assert.ok(hand > fp, `${guide}: Rut'theran Village comes after Nighthaven's flight path`);
+	for (const { step } of [list[fp], list[hand]]) {
+		const tip = [].concat(step.note || []).join(' ');
+		assert.doesNotMatch(tip, /Auberdine/, `${guide}: "${step.title}" tip: ${tip}`);
+	}
+});
+
+test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
+	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
+	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the
+	// stop with most of them near is Cliffspring Falls, where they are collected, the note saying where.
+	const steps = compiled('forever/alliance/03-darkshore.guide').steps;
+	assert.ok(!steps.some((s) => s.along && s.goals.some(is('collect', 1138))), 'no along step lists the chunks');
+	const accept = steps.findIndex((s) => s.goals.some(is('accept', 1138)));
+	const falls = steps.findIndex((s) => s.title === 'Cliffspring Falls');
+	assert.ok(accept >= 0 && falls > accept, 'Fruit of the Sea is taken before Cliffspring Falls');
+	const goal = steps[falls].goals.find(is('collect', 1138));
+	assert.ok(goal && goal.item === 12237, 'Cliffspring Falls collects the Fine Crab Chunks');
+	assert.match(goal.note || '', /Reef Crawler/, 'its note names the crabs and where they are');
+	const { point } = makeProjector(data.mapFrames);
+	const crabs = Object.keys(data.items[12237].drops.npc).flatMap((npc) => {
+		const sp = data.npcs[npc].spawns[1439];
+		return sp ? sp.pts.map(([x, y]) => point(1439, x, y, sp.f)) : [];
+	});
+	const here = steps[falls].goals.filter((g) => located({ goal: g }) && g !== goal);
+	const nearest = Math.min(...here.flatMap((g) => crabs.map((c) => dist(point(g.map, g.x, g.y, g.f || 'l'), c))));
+	assert.ok(nearest <= 200, `Cliffspring Falls is ${Math.round(nearest)} yd from the nearest crab that drops the chunks`);
+});
+
+// --- Flight path sweep from #939 (the route walked past a flight master without learning its path,
+// then needed it): the shared Alliance route boards the Booty Bay boat at Ratchet's dock at 40, about
+// 100 yards from Bragok, and v1 learns Ratchet's flight path there; the route did not, so at 44 the
+// Gnome Warlocks' Felsteed trip could not fly from Theramore to Strahad Farsan in Ratchet and walked
+// there instead. The Gnome Warlocks learn the path at the dock and fly.
+test("Flight path sweep (#939): Gnome Warlocks learn Ratchet's flight path at the Booty Bay boat and fly from Theramore to Strahad Farsan", { skip }, () => {
+	const forGnome = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Gnome'));
+	const list = ['forever/alliance/40-50/01-stranglethorn-vale.guide', 'forever/alliance/40-50/02-badlands.guide']
+		.flatMap((g) => goals(g))
+		.filter(forGnome)
+		.filter(forClass('WARLOCK'));
+	const felsteed = at(list, "Strahad Farsan's hand-in of 4488", is('turnin', 4488));
+	const fp = list.findIndex(({ goal }) => goal.t === 'getfp' && goal.location === 'Ratchet');
+	const fly = list.findIndex(({ goal }, i) => i < felsteed && goal.t === 'fly' && goal.location === 'Ratchet');
+	assert.ok(fp >= 0, "Ratchet's flight path is learned before 40-50/02-badlands");
+	assert.ok(fp < fly, "the flight to Ratchet for Strahad Farsan comes after its flight path");
+	const walks = list.slice(fp + 1, felsteed).filter(({ goal }) => goal.t === 'goto' && goal.text === 'Ratchet');
+	assert.deepEqual(walks.map(({ step }) => step.title), [], 'no walk to Ratchet for the Felsteed');
+});
+
+// #960, after #941: the givers the data puts on an upper floor (spawn heights from classic-db and
+// the Forever server agree; the walking grid has a floor under them and the ground floor below).
+// The arrow has no height, so every step at one of them says to go up, in a goal note or the tip.
+// #961 (Verium, Human Mage): the first `train class` in Northshire led a Mage to the Abbey's ground
+// floor under Khelden Bremen. A `train class` step whose nearest trainer for a class (to the step's
+// other goals) stands upstairs says so too.
+test('Upper-floor givers (#960, #961): every step at one says to go up, train-class steps included', { skip: skip || needs('spawnz.json') }, () => {
+	const givers = {
+		2104: 'Stoutfist', 4964: 'Samaul', 7879: 'Quintis', 2316: "Gol'dir", 2501: 'MacKinley', 3391: 'Gazlowe',
+		377: 'Josetta', 328: 'Zaldimar', 198: 'Khelden', 7880: 'Ginro', 7907: 'Daryn', 2107: 'Gaerolas',
+		11802: 'Dendrite', 15189: 'Beetix', 15190: 'Noggle', 5394: 'Neeka', 14736: 'Primal Torntusk',
+		// Class trainers: Goldshire's inn, Brill's inn, the ramps of Aldrassil.
+		917: 'Keryn Sylvius', 2128: 'Cain Firesong', 2129: 'Beryl', 2127: 'Rupert Boch', 2130: 'Marion Call',
+		3593: 'Alyissia', 3594: 'Frahun Shadewhisper', 3595: 'Shanda', 3596: 'Ayanna Everstride', 3597: 'Mardant Strongoak',
+	};
+	const near = (a, b) => {
+		const f = a.map === b.map && (a.f || 'l') === (b.f || 'l') && data.eraFrame(a.map);
+		return f ? Math.hypot(((f.right - f.left) * (a.x - b.x)) / 100, ((f.bottom - f.top) * (a.y - b.y)) / 100) : Infinity;
+	};
+	const up = /\b(upstairs|top floor|upper level|second level|on top of)\b/i;
+	const said = (step, npc) => {
+		const key = givers[npc];
+		const sentences = [].concat(step.note || []).join(' ').split(/(?<=\.)\s+/);
+		const he = /^(He|Dendrite) stands upstairs/;
+		return step.goals.some((g) => g.npc === npc && up.test(g.note || '')) || sentences.some((s) => up.test(s) && (s.includes(key) || (he.test(s) && sentences.join(' ').includes(key))));
+	};
+	const missing = [];
+	let seen = 0;
+	for (const guide of allGuides()) {
+		for (const step of compiled(guide).steps) {
+			if (step.along) continue;
+			const atNpc = new Set(step.goals.filter((g) => (g.t === 'accept' || g.t === 'turnin') && givers[g.npc]).map((g) => g.npc));
+			// The trainer each class walks to: the nearest candidate to the step's other goals, within 120 yd.
+			const here = step.goals.filter((g) => g.t !== 'train' && g.map != null && g.x != null);
+			for (const g of step.goals.filter((g) => g.t === 'train' && g.class && here.length)) {
+				const byClass = new Map();
+				for (const c of g.candidates || []) {
+					const d = Math.min(...here.map((h) => near(h, c)));
+					for (const cls of c.classes || []) if (!byClass.has(cls) || d < byClass.get(cls).d) byClass.set(cls, { npc: c.npc, d });
+				}
+				for (const { npc, d } of byClass.values()) if (d <= 120 && givers[npc]) atNpc.add(npc);
+			}
+			for (const npc of atNpc) {
+				seen++;
+				if (!said(step, npc)) missing.push(`${guide}: step "${step.title}" at ${givers[npc]}`);
+			}
+		}
+	}
+	assert.ok(seen > 50, `the givers' steps are found (${seen})`);
+	assert.deepEqual(missing, []);
+});
+
+// --- Travel follow-ups of the flight path sweep (#964).
+const forRaceOf = (race) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+
+// The Tauren and Skyborne Druids took the zeppelin to Orgrimmar for their Thunder Bluff training at 16,
+// then walked about 2,400 yards to Ratchet's flight master and back to the zeppelin afterwards, though
+// Doras stands about 480 yards from the zeppelin. They learn Orgrimmar's flight path off the zeppelin,
+// fly from it to Thunder Bluff and back to it.
+test('Flight path sweep (#964): Silverpine Druids learn Orgrimmar off the zeppelin and fly from it, not from Ratchet', { skip }, () => {
+	for (const race of ['Tauren', 'Skyborne']) {
+		const list = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const zep = at(list, `${race}: the zeppelin to Orgrimmar`, (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar');
+		// (The guide opens with everyone's Undercity zeppelin from Durotar: the one after the trip.)
+		const back = list.findIndex(({ goal }, i) => i > zep && goal.t === 'goto' && goal.text === 'Zeppelin to Undercity');
+		assert.ok(back > zep, `${race}: the zeppelin back to the Undercity after the trip`);
+		const trip = list.slice(zep, back).map(({ goal }) => goal);
+		const fp = trip.findIndex((g) => g.t === 'getfp' && g.location === 'Orgrimmar');
+		const out = trip.findIndex((g) => g.t === 'fly' && g.location === 'Thunder Bluff');
+		assert.ok(fp >= 0 && fp < out, `${race}: Orgrimmar's flight path is learned before the flight to Thunder Bluff`);
+		assert.ok(trip.slice(out).some((g) => g.t === 'fly' && g.location === 'Orgrimmar'), `${race}: the way back flies to Orgrimmar for the zeppelin`);
+		assert.deepEqual(trip.filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
+	}
+});
+
+// After the route's Thunder Bluff training, the Druids' own step walked them to Tal and flew them to
+// Thunder Bluff, where they already stood, to train again. They train once and go on with everyone.
+test(`${ASHENVALE_HORDE}: Flight path sweep (#964): the Druids train in Thunder Bluff once, with no flight to where they stand`, { skip }, () => {
+	for (const race of ['Tauren', 'Skyborne']) {
+		const list = goals(ASHENVALE_HORDE).filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const train = at(list, `${race}: the Thunder Bluff training`, (g) => g.t === 'train');
+		assert.deepEqual(list.slice(train).filter(({ goal }) => goal.t === 'train' && !goal.npc).map(({ s }) => s), [list[train].s], `${race}: one class training in Thunder Bluff`);
+		const next = list.slice(train).find(({ goal }) => goal.t === 'fly');
+		assert.equal(next && next.goal.location, 'Camp Taurajo', `${race}: the next flight leaves Thunder Bluff`);
+	}
+});
+
+// The same pattern at Orgrimmar: the Warriors' (and the other classes') training step flew them to
+// Orgrimmar from Orgrimmar's flight master, after the Crossroads flight there (Stonetalon) or the walk
+// there from Boulder Lode Mine (the Barrens). They train where they stand.
+test('Flight path sweep (#964): the Orgrimmar training steps of the Barrens and Stonetalon do not fly to Orgrimmar from Orgrimmar', { skip }, () => {
+	for (const [file, race] of [['forever/horde/04-the-barrens.guide', 'Tauren'], ['forever/horde/04-the-barrens.guide', 'Orc'], [STONETALON, 'Undead']]) {
+		const list = goals(file).filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+		const train = list.findIndex(({ goal, step }) => goal.t === 'train' && !goal.npc && step.title === 'Orgrimmar');
+		assert.ok(train > 0, `${file} ${race}: the Orgrimmar training`);
+		const last = list.slice(0, train + 1).reverse().find(({ goal }) => ['fly', 'goto'].includes(goal.t));
+		assert.ok(last && (last.goal.t === 'fly' ? last.goal.location === 'Orgrimmar' && last.s < list[train].s : last.goal.map === 1454), `${file} ${race}: they reach Orgrimmar before the training step, which flies nowhere`);
+	}
+});
+
+// The Gnomes', Night Elves' and Skyborne's flight from Booty Bay to Darkshire was written before their
+// own boat from Ratchet: Warriors, Mages, Warlocks and Druids were sent to Booty Bay's flight master
+// from the Barrens. Every race's boat comes first.
+test('Flight path sweep (#964): Stranglethorn 40: every race and class takes the Booty Bay boat before the flight to Darkshire', { skip }, () => {
+	for (const race of ['Dwarf', 'Gnome', 'NightElf', 'Skyborne']) {
+		for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID']) {
+			const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide').filter(forRaceOf(race)).filter(forClass(cls));
+			const fly = list.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Darkshire');
+			if (fly < 0) continue;
+			const boat = list.findIndex(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+			assert.ok(boat >= 0 && boat < fly, `${race} ${cls}: the boat to Booty Bay comes before the flight to Darkshire`);
+		}
+	}
+});
+
+// --- Flight path sweep (#964), travel tips: tips kept from the seed sent players on
+// flights they can't take where they stand: from a flight master in another zone, or
+// to or from a flight path no chain of that side has learned by then (Ratchet and
+// Talonbranch Glade for the Alliance at those levels, Zoram'gar, Undercity and Tarren
+// Mill for the Horde, Stormwind for Humans in Westfall). Each tip now names the way
+// the guide goes. Read from the guide files: a step is found by a line it holds.
+test('flight path sweep (#972): travel tips name only flights the player can take there', () => {
+	const cases = [
+		['alliance/40-50/07-un-goro-crater', 'accept 4504', /From Ratchet/],
+		['alliance/50-60/02-felwood', 'turnin 5156', /Talonbranch/],
+		['alliance/50-60/03-winterspring', 'turnin 6028', /Timbermaw|Auberdine/],
+		['alliance/50-60/04-western-plaguelands', 'turnin 5158', /^Fly to Ratchet/],
+		['alliance/50-60/05-silithus', 'turnin 4502', /Cenarion Hold/],
+		['alliance/40-50/02-badlands', 'turnin 4488', /^Fly to Ratchet|Fly back to Theramore/],
+		['alliance/02-westfall', 'accept 1638', /Fly or walk/],
+		['alliance/02-westfall', 'turnin 94774', /Fly or walk/],
+		['alliance/02-westfall', 'train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid', /Fly or walk/],
+		['horde/05-stonetalon-mountains', 'accept 6462', /Fly from Ratchet/],
+		['horde/05-stonetalon-mountains', 'accept 95883', /Tarren Mill flight path|fly from the Undercity/],
+		['horde/06-hillsbrad-foothills', 'accept 4542', /Fly from Thunder Bluff/],
+		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
+		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
+		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins). Fly there', /from Orgrimmar/],
+		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff', /from Shadowprey/],
+		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
+	];
+	for (const [guide, anchor, wrong] of cases) {
+		const text = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', `${guide}.guide`), 'utf8');
+		const steps = text.split('\nstep ').filter((s) => anchor.split('|').some((a) => s.includes(a)));
+		assert.ok(steps.length > 0, `${guide}: a step with "${anchor}"`);
+		for (const s of steps) {
+			const tip = (s.match(/^\s+tip (.*)$/m) || [])[1] || '';
+			assert.doesNotMatch(tip, wrong, `${guide}, step "${s.split('\n')[0]}": tip "${tip}"`);
+		}
+	}
+});
+
+// --- Fyurie's report (#977, Discord): Redridge "suddenly jumped from level 20/21 mobs to Fangore
+// and a bunch of 24-25 mobs". The route took WANTED: Lieutenant Fangore (180, Fangore 26) and
+// Solomon's Law (91) in Galardell Valley, whose Shadowhide gnolls are a median 24 (22-26), at the
+// model's 21.4, and Bellygrub (34, level 24) at 20.3; the Old Lion Statue of A Watchful Eye (94) and
+// Looking Further (248) stands among the same gnolls. The writer's level fit (docs/forge/writer.md,
+// "Work at the player's level") leaves out work more than two levels above the player when the route
+// never comes back to it at a level that fits; the statue's quests are route-fixes skips.
+const LEVEL_FIT = [
+	// [guide, quests left out, npcs no goal may send the player to]
+	['forever/alliance/04-redridge-mountains.guide', [34, 91, 180, 94, 248], [345, 703, 429, 431, 432, 433, 434, 568, 579]],
+	['forever/alliance/07-thousand-needles.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
+	['forever/horde/07-ashenvale.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
+	['forever/alliance/40-50/03-feralas.guide', [2844, 2845], [7774]],
+	['forever/horde/50-60/01-un-goro-crater.guide', [5509], []],
+];
+for (const [guide, gone, mobs] of LEVEL_FIT) {
+	test(`Fyurie's report (#977): ${guide.replace(/^forever\//, '')} sends nobody to work far above their level`, { skip }, () => {
+		for (const { step, goal } of goals(guide)) {
+			assert.ok(!gone.includes(goal.quest), `${guide}: "${step.title}" ${goal.t} ${goal.quest} is left out for the level`);
+			assert.ok(!mobs.includes(goal.npc), `${guide}: "${step.title}" ${goal.t} targets npc ${goal.npc}`);
+			const from = goal.fromNpcs || [];
+			assert.ok(!(from.length && from.every((n) => mobs.includes(n.npc))), `${guide}: "${step.title}" ${goal.t} ${goal.item} drops only from ${from.map((n) => n.npcName).join(', ')}`);
+		}
+		if (guide.includes('redridge')) {
+			assert.ok(!goals(guide).some(({ goal }) => goal.object === 31), 'no goal at the Old Lion Statue in Galardell Valley');
+		}
+	});
+}
+
+test("Recordings (#977): Croaky's Head, a level 11 elite's drop, is collected only by players grouping for it, not in Elwynn's step for everyone", { skip }, () => {
+	// 12 recorded deaths to Croaky at levels 8-9 with the optional head in the solo step.
+	const list = goals('forever/alliance/human/01-elwynn-forest.guide');
+	const heads = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 247826);
+	assert.ok(heads.length > 0, "the head is still collected by groups");
+	for (const { step } of heads) {
+		assert.ok([].concat(step.when || []).some((w) => w.k === 'group'), `"${step.title}" collects the head without asking for a group`);
+	}
+});
+
+test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23 elite) shows from level 23, not at the route\'s 20', { skip }, () => {
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const work = list.filter(({ goal }) => goal.quest === 2478 && ['kill', 'collect'].includes(goal.t));
+	assert.ok(work.length > 0, 'the tower work is in the guide');
+	for (const { step } of work) {
+		assert.ok([].concat(step.when || []).some((w) => w.k === 'level' && w.op === '>=' && w.n >= 23), `"${step.title}" shows before level 23`);
+	}
 });

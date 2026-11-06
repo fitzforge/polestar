@@ -46,7 +46,7 @@ step Uthel'nay (Orgrimmar)
 step Cain Firesong (Brill)
   only Undead
   zone Tirisfal Glades
-  tip Cain Firesong is the Brill mage trainer, in the Gallows' End Tavern.
+  tip Cain Firesong is the Brill mage trainer, upstairs in the Gallows' End Tavern: take the stairs inside, the arrow cannot tell the floors apart.
   level 15
   accept 1959 npc 2128                        -- Cain Firesong
 

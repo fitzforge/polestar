@@ -34,7 +34,6 @@ step Hammertoe's Digsite: kill these as you meet them
   collect 7846 quest 2500             -- Crag Coyote Fang
   collect 4616 quest 719              -- Ryedol's Lucky Pick
   collect 7847 quest 2500             -- Buzzard Gizzard
-  collect 7848 quest 2500             -- Rock Elemental Shard
 
 step The excavation crate
   tip Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres.
@@ -85,10 +84,6 @@ step Agmond's End: kill these as you meet them
   collect 7848 quest 2500             -- Rock Elemental Shard
   collect 4626 quest 710              -- Small Stone Shard
 
-step Stonevault Bonesnapper on the way
-  along
-  kill 2893 quest 739
-
 step Lotwil Veriatus
   turnin 710
   accept 711
@@ -106,6 +101,7 @@ step Theldurin the Lost
   tip Head south to Agmond's End.
   turnin 709
   accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
+  kill 2893 quest 739                         -- Stonevault Bonesnapper, 130 yd north
 
 step Rock Elementals
   tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west.
@@ -121,13 +117,7 @@ step Lucien Tosselwrench
   zone Badlands
   accept 716 optional                 -- Lucien Tosselwrench, beside Lotwil
   turnin 716 optional                 -- only if you carry Patterned Bronze Bracers (a blacksmith's craft)
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  zone Badlands
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 
@@ -195,7 +185,7 @@ step Mannoroc Coven
 step The Valley of Bones
   tip Undead Ravagers roam the bone fields south of the Magram village, east of the Coven; at the far south-east, use the Crate of Ghost Magnets to draw the Magrami Spectres.
   kill 11561 quest 261                -- Undead Ravager
-  use 15848 @63.5,91.6 map 1443
+  use 15848 quest 6134.1 @63.5,91.6 map 1443
   collect 15849 quest 6134            -- Ghost-o-plasm
 
 step Mannoroc Coven
@@ -218,9 +208,6 @@ step Karnitol's Chest
 step Claim Rackmore's Treasure!
   accept 6161 only Dwarf
   collect 15878 quest 6161.1 @34.7,33.5 map 1443 only Dwarf -- Underwater
-
-step Hearth to Nijel's Point
-  hearth "Nijel's Point"
 
 step Nijel's Point
   tip Follow the road north to Nijel's Point.

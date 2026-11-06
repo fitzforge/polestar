@@ -85,9 +85,6 @@ step Hillsbrad Fields: kill these as you meet them
   collect 3692 quest 546.1 @30.3,40.3 -- Hillsbrad Human Skull: the Peasants in the fields
   kill 2267 quest 528.1
 
-step Hearth to Tarren Mill
-  hearth "Tarren Mill"
-
 step Tarren Mill
   turnin 546                          -- Deathguard Samsa
   turnin 528                          -- High Executor Darthalia
@@ -275,12 +272,9 @@ step Great Lift
 
 step The Great Lift
   zone Thousand Needles
-  tip Fly from Thunder Bluff to Camp Taurajo and take the road south to the Great Lift at the bottom of the Barrens.
+  tip Brave Moonhorn stands at the top of the Great Lift, beside Grish Longrunner.
   goto 44.2,92.2 map 1413 "The Great Lift"
   accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift
-
-step Hearth to Camp Taurajo
-  hearth "Camp Taurajo"
 
 step Fly to Ratchet
   zone The Barrens
@@ -294,7 +288,7 @@ step Ratchet
 
 step Merchant Coast
   zone The Barrens
-  tip Hearth to Camp Taurajo and fly to Ratchet. Mahren Skyseer camps on the shore north of Ratchet.
+  tip Fly to Ratchet. Mahren Skyseer camps on the shore north of Ratchet.
   turnin 874                          -- Mahren Skyseer
   accept 873
 

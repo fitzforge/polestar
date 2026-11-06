@@ -8,10 +8,9 @@
 //!   `loop` of `goto`s before the goal). The point goes on the goal line (`@x,y map M frame`), or on
 //!   the `goto` right before it when the step leads the arrow there with one. An objective without a
 //!   line of its own lands on the quest's bare `complete`; with `write: true` the objective gets its
-//!   own goal line from the data (`kill`, `interact` or `collect` with `quest Q.N`) before that
-//!   `complete`, which goes once every objective has its line. `at` is optional then: the compiler
-//!   places a written objective from the data. `label` sets the objective line's goal text (`"Talk to
-//!   Rathiril Sunlance"` for an objective the data counts as a kill, #802).
+//!   own goal line from the data (`kill`, `talk`, `interact` or `collect` with `quest Q.N`) before
+//!   that `complete`, which goes once every objective has its line. `at` is optional then: the
+//!   compiler places a written objective from the data. `label` sets the objective line's goal text.
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
@@ -230,6 +229,7 @@ fn write_objective(lines: &mut Vec<String>, found: &[usize], q: u32, n: u32, dat
 	let Some(quest) = data.and_then(|d| d.quests.get(&q)) else { return (found.to_vec(), Vec::new()) };
 	let verb = |k: Option<&str>| match k {
 		Some("kill") => Some("kill"),
+		Some("talk") => Some("talk"),
 		Some("object") => Some("interact"),
 		Some("item") => Some("collect"),
 		_ => None,
@@ -244,7 +244,11 @@ fn write_objective(lines: &mut Vec<String>, found: &[usize], q: u32, n: u32, dat
 		}
 		let Some(step) = step_of(lines, i) else { continue };
 		let ind = lines[i][..lines[i].len() - lines[i].trim_start().len()].to_string();
-		lines.insert(i, format!("{ind}{v} {} quest {q}.{n}", id as u64));
+		// In the objectives' order: before the step's first line of a later objective of the quest
+		// (Desperate Times' Ayessa before Elaadrin), else before the complete.
+		let later = |l: &String| re!(r"\bquest\s+(\d+)\.(\d+)(?:\s|$)").captures(split_comment(l).0).is_some_and(|m| m[1] == *q.to_string() && m[2].parse::<u32>().is_ok_and(|k| k > n));
+		let at = (step.0 + 1..i).find(|&j| later(&lines[j])).unwrap_or(i);
+		lines.insert(at, format!("{ind}{v} {} quest {q}.{n}", id as u64));
 		let complete = i + 1;
 		let step = (step.0, step.1 + 1);
 		// Every objective with a target has its own line in the step: the bare complete goes.
@@ -253,8 +257,8 @@ fn write_objective(lines: &mut Vec<String>, found: &[usize], q: u32, n: u32, dat
 		if all {
 			lines.remove(complete);
 		}
-		now.push(i);
-		changed.push(i);
+		now.push(at);
+		changed.push(at);
 	}
 	(now, changed)
 }
@@ -391,6 +395,20 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 				}
 			}
 		}
+		// (A `when`: the goal's step shows only from that level, after its title and `only`/`zone`.)
+		if let Some(w) = r["when"].as_str() {
+			let line = format!("{ind}when {w}");
+			if !(step.0 + 1..step.1).any(|k| trim(&lines[k]) == trim(&line)) {
+				let mut k = step.0 + 1;
+				while k < step.1 && re!(r"^\s+(only|zone|when)\s").is_match(&lines[k]) {
+					k += 1;
+				}
+				lines.insert(k, line);
+				changed.push(k);
+				i += 1;
+				step.1 += 1;
+			}
+		}
 		if let Some(lv) = r["level"].as_u64() {
 			let gate = format!("{ind}level {lv}");
 			if r["after"] == true {
@@ -480,6 +498,68 @@ pub fn no_along(rec: &Records, faction: Option<&str>) -> rustc_hash::FxHashSet<(
 		.collect()
 }
 
+/// Objective lines follow the data's objectives (#859): the game's own objective list makes the
+/// data's talk credits `talk` objectives and drops those the game does not count (forge-data
+/// recordings::game_objectives), and a guide line written before says otherwise. A `kill <npc>
+/// quest Q.N` whose objective N is a `talk` on that NPC becomes `talk <npc> quest Q.N` (a `"Talk to
+/// …"` text it carried goes: a talk reads so itself; any other text stays); a `kill` or `talk` line
+/// of an objective past the quest's last, on an NPC none of its objectives has, goes, and so does a
+/// step it leaves without a goal (one with a `label` stays: another step may name it). -> whether a
+/// line changed.
+fn follow_objectives(lines: &mut Vec<String>, data: &Data) -> bool {
+	let mut changed = false;
+	let mut i = 0;
+	while i < lines.len() {
+		let (code, rest) = split_comment(&lines[i]);
+		let Some(m) = re!(r"^(\s+)(kill|talk)\s+(\d+)\b").captures(code) else {
+			i += 1;
+			continue;
+		};
+		let Some(qm) = re!(r"\bquest\s+(\d+)\.(\d+)(?:\s|$)").captures(code) else {
+			i += 1;
+			continue;
+		};
+		let (verb, npc) = (m[2].to_string(), m[3].parse::<f64>().unwrap_or(f64::NAN));
+		let (Ok(q), Ok(n)) = (qm[1].parse::<u32>(), qm[2].parse::<usize>()) else {
+			i += 1;
+			continue;
+		};
+		let Some(quest) = data.quests.get(&q) else {
+			i += 1;
+			continue;
+		};
+		let count = quest.objectives().count();
+		if count > 0 && n > count && !quest.objectives().any(|o| o.id == Some(npc)) {
+			let step = step_of(lines, i);
+			lines.remove(i);
+			changed = true;
+			if let Some((start, end)) = step.map(|(s, e)| (s, e - 1)) {
+				let body = &lines[start + 1..end];
+				let goal = |l: &String| trim(l).split_whitespace().next().is_some_and(|w| forge_guide::parse::VERBS.contains(&w));
+				if !body.iter().any(goal) && !body.iter().any(|l| re!(r"^\s+label\s").is_match(l)) {
+					lines.drain(start..end);
+					i = start;
+				}
+			}
+			continue;
+		}
+		let want = match quest.objective(n.wrapping_sub(1)) {
+			Some(o) if o.id == Some(npc) && o.kind.as_deref() == Some("talk") => "talk",
+			_ => verb.as_str(),
+		};
+		if want != verb {
+			let mut code = format!("{}{want}{}", &m[1], &code[m[2].len() + m[1].len()..]);
+			if want == "talk" {
+				code = re!(r#"\s+"Talk to [^"]*""#).replace(&code, "").into_owned();
+			}
+			lines[i] = format!("{code}{rest}");
+			changed = true;
+		}
+		i += 1;
+	}
+	changed
+}
+
 /// Applies the records to `files` of `tree` (the guides the route was written into); `quests`: the
 /// route's quests (a record for another quest is not for this start).
 pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &HashSet<u32>, faction: Option<&str>, rec: Records, data: Option<&Data>) -> Vec<FixRow> {
@@ -490,6 +570,15 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		/// What a conflict compares: the same kind of change on the same anchor.
 		slot: String,
 		want: String,
+	}
+	if let Some(d) = data {
+		for f in files {
+			let Some(text) = tree.get(f) else { continue };
+			let mut lines: Vec<String> = text.split('\n').map(str::to_string).collect();
+			if follow_objectives(&mut lines, d) {
+				tree.insert(f.clone(), lines.join("\n"));
+			}
+		}
 	}
 	let mut recs: Vec<Rec> = Vec::new();
 	for r in rec.places.and_then(|d| d["places"].as_array()).into_iter().flatten() {
@@ -504,10 +593,12 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			"tip"
 		} else if r.get("along").is_some() {
 			"along"
+		} else if r.get("when").is_some() {
+			"when"
 		} else {
 			"level"
 		};
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}", r["tip"], r["level"], r["along"], r["early"]), anchor });
+		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}", r["tip"], r["level"], r["along"], r["early"], r["when"]), anchor });
 	}
 	let mut rows = Vec::new();
 	for (k, x) in recs.iter().enumerate() {
@@ -598,8 +689,13 @@ mod tests {
 	use serde_json::json;
 
 	fn run(text: &str, places: Value, fixes: Value, quests: &[u32]) -> (String, Vec<FixRow>) {
+		run_on(text, places, fixes, quests, json!([{ "type": "kill", "id": 251903 }, { "type": "kill", "id": 254089 }]))
+	}
+
+	/// `run` with quest 93461's data objectives `objectives`.
+	fn run_on(text: &str, places: Value, fixes: Value, quests: &[u32], objectives: Value) -> (String, Vec<FixRow>) {
 		let mut tree = BTreeMap::from([("forever/a.guide".to_string(), text.to_string())]);
-		let quest: crate::input::Quest = serde_json::from_value(json!({ "objectives": [{ "type": "kill", "id": 251903 }, { "type": "kill", "id": 254089 }] })).unwrap();
+		let quest: crate::input::Quest = serde_json::from_value(json!({ "objectives": objectives })).unwrap();
 		let data = Data { quests: BTreeMap::from([(93461, quest)]), ..Default::default() };
 		let rows = apply(&mut tree, &["forever/a.guide".into()], &quests.iter().copied().collect(), Some("Horde"), Records { places: Some(&places), guide_fixes: Some(&fixes) }, Some(&data));
 		(tree["forever/a.guide"].clone(), rows)
@@ -662,6 +758,20 @@ mod tests {
 	}
 
 	#[test]
+	fn a_when_fix_shows_the_goals_step_only_from_its_level() {
+		// #977: the Rogues' Venture Co. tower (Mission: Possible But Not Probable, drones 25 and Gallywix
+		// a 23 elite) at the route's 20.3: shown from 23; the class guide Poisons (Horde) holds it before.
+		let seed = "step Mission: Possible But Not Probable\n  only Rogue\n  zone The Barrens\n  collect 8072 quest 2478.5 optional\n  kill 7310 quest 2478.1 optional\n";
+		let fixes = json!({ "fixes": [{ "id": "977-tower", "at": { "quest": 2478, "goal": "objective", "objective": 1 }, "when": "level>=23" }] });
+		let (out, rows) = run(seed, json!({}), fixes.clone(), &[]);
+		assert_eq!(out, "step Mission: Possible But Not Probable\n  only Rogue\n  zone The Barrens\n  when level>=23\n  collect 8072 quest 2478.5 optional\n  kill 7310 quest 2478.1 optional\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+		let (again, rows) = run(&out, json!({}), fixes, &[]);
+		assert_eq!(again, out);
+		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
 	fn a_place_with_the_same_numbers_on_another_map_is_still_applied() {
 		// #303: Narm Faulk's 78.32,58.09 is on Dun Morogh's map; typed bare in an Ironforge step it read
 		// as Tinker Town, and the record counted as already written.
@@ -701,6 +811,56 @@ mod tests {
 		let (again, rows) = run(&out, places, json!({}), &[]);
 		assert_eq!(again, out);
 		assert!(rows.iter().all(|r| r.state == "redundant"), "{rows:?}");
+	}
+
+	#[test]
+	fn an_objective_the_game_counts_as_a_talk_gets_a_talk_line() {
+		// #859: the data build gives talk credits the type `talk` (forge-data
+		// recordings::game_objectives), so a written objective line talks to the NPC.
+		let seed = "step Shen'dar\n  accept 93461\n  complete 93461\n  turnin 93461\n";
+		let places = json!({ "places": [
+			{ "id": "703-a", "quest": 93461, "objective": 1, "write": true },
+			{ "id": "703-b", "quest": 93461, "objective": 2, "write": true }
+		] });
+		let (out, rows) = run_on(seed, places, json!({}), &[], json!([{ "type": "talk", "id": 251903 }, { "type": "talk", "id": 254089 }]));
+		assert_eq!(out, "step Shen'dar\n  accept 93461\n  talk 251903 quest 93461.1\n  talk 254089 quest 93461.2\n  turnin 93461\n");
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
+	}
+
+	#[test]
+	fn kill_lines_of_talk_objectives_become_talks_and_lines_the_game_does_not_count_go() {
+		// #859: lines written before the data knew (a kill labelled "Talk to", one with its own
+		// text) follow the data's talks; a kill line past the quest's last objective (a credit the
+		// game never counts, The Cult of the Damned's Darkhounds) goes.
+		let seed = "step Shen'dar\n  accept 93461\n  kill 251903 quest 93461.1 \"Talk to Rathiril Sunlance\" -- Upstairs\n  kill 254089 quest 93461.2 \"Tell her you're ready\" @43.05,43.3 map 2521 live\n  kill 1547 quest 93461.3           -- Darkhounds\n  turnin 93461\n";
+		let (out, rows) = run_on(seed, json!({}), json!({}), &[], json!([{ "type": "talk", "id": 251903 }, { "type": "talk", "id": 254089 }]));
+		assert_eq!(out, "step Shen'dar\n  accept 93461\n  talk 251903 quest 93461.1 -- Upstairs\n  talk 254089 quest 93461.2 \"Tell her you're ready\" @43.05,43.3 map 2521 live\n  turnin 93461\n");
+		assert!(rows.is_empty(), "{rows:?}");
+		// Kill objectives keep their kill lines.
+		let kills = "step Shen'dar\n  kill 251903 quest 93461.1\n  kill 254089 quest 93461.2\n";
+		assert_eq!(run(kills, json!({}), json!({}), &[]).0, kills);
+		// An along step left with no goal goes; one with a label stays.
+		let along = "step Hadric\n  accept 93461\n\nstep Darkhounds on the way\n  along until q1\n  kill 1547 quest 93461.3\n\nstep Farm\n  label q1\n  kill 1547 quest 93461.3 @68.4,57.8 map 1420\n\nstep Back\n  turnin 93461\n";
+		let (out, _) = run_on(along, json!({}), json!({}), &[], json!([{ "type": "kill", "id": 267006 }, { "type": "kill", "id": 275437 }]));
+		assert_eq!(out, "step Hadric\n  accept 93461\n\nstep Farm\n  label q1\n\nstep Back\n  turnin 93461\n");
+	}
+
+	#[test]
+	fn a_written_talk_goes_in_the_objectives_order() {
+		// #859, Desperate Times: the step had Valennia's and Elaadrin's lines; Ayessa's, written for
+		// her place, goes between them (the game reveals Elaadrin's only after hers), and with every
+		// objective on a line the bare complete goes.
+		let seed = "step Desperate Times\n  kill 252383 quest 93461.1           -- Upstairs\n  kill 252475 quest 93461.3\n  complete 93461 @59.15,79.73 map 2521 live -- Rally them\n  turnin 93461\n";
+		let places = json!({ "places": [
+			{ "id": "859-ayessa", "quest": 93461, "objective": 2, "write": true, "at": { "map": 2521, "x": 59.15, "y": 79.73, "frame": "live" } }
+		] });
+		let talks = json!([{ "type": "talk", "id": 252383 }, { "type": "talk", "id": 251968 }, { "type": "talk", "id": 252475 }]);
+		let (out, rows) = run_on(seed, places, json!({}), &[], talks);
+		assert_eq!(
+			out,
+			"step Desperate Times\n  talk 252383 quest 93461.1           -- Upstairs\n  talk 251968 quest 93461.2 @59.15,79.73 map 2521 live\n  talk 252475 quest 93461.3\n  turnin 93461\n"
+		);
+		assert!(rows.iter().all(|r| r.state == "applied"), "{rows:?}");
 	}
 
 	#[test]

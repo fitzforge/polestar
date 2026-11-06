@@ -39,12 +39,15 @@ function Upcoming.Build()
 	for s = live + 1, count do
 		if n >= want then break end
 		local v = E.GetStepView(s)
-		if v and v.status ~= "na" and v.status ~= "done" and v.status ~= "skipped" then
+		-- Numbered as the player counts the steps; one not theirs never shows (#942).
+		local no, hidden = s, false
+		if E.StepNumber then no, hidden = E.StepNumber(s) end
+		if v and not hidden and v.status ~= "na" and v.status ~= "done" and v.status ~= "skipped" then
 			n = n + 1
 			for _, gv in ipairs(v.goals or {}) do
 				if gv.map and gv.x and gv.y and (gv.status == "active" or gv.status == "pending") then
-					local title = (v.title and v.title ~= "") and v.title or L["Step %d"]:format(s)
-					local line = L["Step %d"]:format(s) .. ": " .. title
+					local title = (v.title and v.title ~= "") and v.title or L["Step %d"]:format(no)
+					local line = L["Step %d"]:format(no) .. ": " .. title
 					local shared
 					for _, p in ipairs(pins) do
 						if p.map == gv.map and math.abs(p.x - gv.x) < NEAR and math.abs(p.y - gv.y) < NEAR then shared = p break end
@@ -54,7 +57,7 @@ function Upcoming.Build()
 						shared.lines[#shared.lines + 1] = line
 					else
 						local a = want > 1 and 1 - (1 - FADE_TO) * (n - 1) / (want - 1) or 1
-						pins[#pins + 1] = { map = gv.map, x = gv.x, y = gv.y, f = gv.f, text = tostring(s), size = SIZE,
+						pins[#pins + 1] = { map = gv.map, x = gv.x, y = gv.y, f = gv.f, text = tostring(no), size = SIZE,
 							color = { r, g, b, a }, priority = 1, steps = { s }, lines = { line } }
 					end
 					break

@@ -20,6 +20,18 @@ local function rowFor(subject)
 		if r.psGoal and r.psGoal.subject == subject then return r end
 	end
 end
+-- The card's summary lines on screen, top to bottom (UI/GuideFrame.lua: a person, the persons done, "N done").
+local function shownLines()
+	local out = {}
+	for _, l in ipairs(GF.lines) do
+		if l:IsShown() then
+			local t = l.Text:GetText() or ""
+			out[#out + 1] = { key = l.psKey, text = t, plain = (t:gsub("|c%x%x%x%x%x%x%x%x", "")):gsub("|r", ""),
+				icon = l.Icon:GetTexture():match("([%w-]+)$"), open = l.Chevron:GetTexture():match("chevron%-up") ~= nil }
+		end
+	end
+	return out
+end
 local function lastCall(name)
 	for i = #uistub.calls, 1, -1 do
 		if uistub.calls[i][1] == name then return uistub.calls[i] end
@@ -103,7 +115,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 			}
 		end
 		local P = GF.parts
-		emit({ rows = rows, accent = { Polestar.Theme.Accent() }, success = { Polestar.Theme.Color("success") },
+		emit({ rows = rows, lines = shownLines(), accent = { Polestar.Theme.Accent() }, success = { Polestar.Theme.Color("success") },
 			text = { Polestar.Theme.Color("text") }, muted = { Polestar.Theme.Color("textMuted") }, dim = { Polestar.Theme.Color("textDim") },
 			textHex = Polestar.Theme.Hex("text"), accentHex = Polestar.Theme.Hex("accent"),
 			person = P.person.Name:GetText(), where = P.person.Where:GetText(),
@@ -116,19 +128,18 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 	assert_eq!(out["where"], "Elwynn Forest");
 	assert_eq!(out["personIcon"], "icon-goto", "a field group is a place");
 	assert_eq!(out["count"], "3 / 8", "the navigator says where you are");
-	assert_eq!(
-		pluck(&out["rows"], "subject"),
-		json!(["Wolves Across the Border", "the Kobold Camp", "Kobold Vermin", "Tough Wolf Meat"]),
-		"every goal of the step: the quest taken from the earlier quest-giver stays listed (#741, #739)"
-	);
+	assert_eq!(pluck(&out["rows"], "subject"), json!(["Kobold Vermin", "Tough Wolf Meat"]), "the focus's open goals; the done ones fold into a line (#843)");
+	// The quest taken from the earlier quest-giver stays on the card (#741, #739), as the line of the persons
+	// done; the reached "Go to" is counted on the focus's done line.
+	let lines = out["lines"].as_array().unwrap();
+	assert_eq!(pluck(&out["lines"], "key"), json!(["before", "done"]));
+	assert!(is_match(text(&lines[0]["text"]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r$"), "the person done with, in the NPC colour");
+	assert_eq!(lines[0]["icon"], "check");
+	assert_eq!(lines[1]["text"], "1 done");
+	assert_eq!(lines[1]["icon"], "check");
 	let rows = out["rows"].as_array().unwrap();
-	let (taken, go, kill, collect) = (&rows[0], &rows[1], &rows[2], &rows[3]);
-	assert_eq!(taken["icon"], "check");
-	assert!(is_match(text(&taken["sub"]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r$"), "another person's goal names them, in the NPC colour");
-	assert_eq!(go["sub"], false, "the focus's own goals do not repeat the header");
-	assert_eq!(go["icon"], "check");
-	assert_eq!(go["iconColor"], rgb(&out["success"]));
-	assert_eq!(go["textColor"], rgb(&out["muted"]), "done goals dim");
+	let (kill, collect) = (&rows[0], &rows[1]);
+	assert_eq!(kill["sub"], false, "the focus's own goals do not repeat the header");
 	assert_eq!(kill["icon"], "icon-kill");
 	assert_eq!(kill["iconColor"], rgb(&out["accent"]), "the current goal's glyph alone takes the accent");
 	assert_eq!(collect["iconColor"], rgb(&out["dim"]), "the other open goals' glyphs sit in textDim");
@@ -147,7 +158,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 }
 
 #[test]
-fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_its_person_then_the_next_person() {
+fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each_then_the_next_person() {
 	let out = run(r#"
 		local function snap()
 			local P = GF.parts
@@ -161,8 +172,8 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_it
 			end
 			local nr, ng, nb = P.person.Name:GetTextColor()
 			return { person = P.person.Name:GetText(), color = { nr, ng, nb }, npc = { Polestar.Theme.Color("npc") },
-				icon = P.person.Icon:GetTexture():match("([%w-]+)$"), goals = names, subs = subs, dimmed = dimmed,
-				after = P.after.Text:GetText(), persons = P.after.Count:GetText(), mark = P.person.Mark:IsShown(),
+				icon = P.person.Icon:GetTexture():match("([%w-]+)$"), goals = names, subs = subs, dimmed = dimmed, lines = shownLines(),
+				after = P.after:IsShown() and P.after.Text:GetText() or false, persons = P.after.Count:GetText(), mark = P.person.Mark:IsShown(),
 				markW = P.person.Mark:GetWidth(), iconColor = { P.person.Icon:GetVertexColor() }, dim = { Polestar.Theme.Color("textDim") },
 				sliding = Polestar.Anim.IsRunning(P.card, "offset") }
 		end
@@ -180,29 +191,30 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_every_goal_listed_with_it
 		s.target = lastCall("SetTarget")
 		emit(s)"#);
 	let (first, second, third) = (&out[0], &out[1], &out[2]);
+	let plain = |v: &Value| -> Vec<String> { v.as_array().unwrap().iter().map(|l| text(&l["plain"]).to_string()).collect() };
 	assert_eq!(first["person"], "Marshal McBride");
 	assert_eq!(first["color"], rgb(&first["npc"]));
 	assert_eq!(first["icon"], "icon-talk");
-	// The whole hub stays listed (#741, #739): the focus's goals in the text colour, the other persons' named and
-	// stepped back while open.
-	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge", "Wolves Across the Border", "Brother Neals"]));
-	assert_eq!(first["dimmed"], json!([false, false, true, true]));
+	// The focus's goals in the text colour; every other person of the hub one line, what is left to do there
+	// counted (#843).
+	assert_eq!(first["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge"]));
+	assert_eq!(first["dimmed"], json!([false, false]));
 	assert_eq!(first["subs"][0], false, "the focus's goals do not repeat the header");
-	assert!(is_match(text(&first["subs"][2]), r"^\|c[0-9a-f]{8}Eagan Peltskinner\|r"), "another person's goal names them first");
-	assert!(is_match(text(&first["after"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r$"));
-	assert_eq!(first["persons"], "Person 1 of 3");
+	assert_eq!(plain(&first["lines"]), ["Then: Eagan Peltskinner  ·  Turn in Wolves Across the Border", "Then: Brother Neals  ·  Talk to Brother Neals"]);
+	assert!(is_match(text(&first["lines"][0]["text"]), r"^Then: \|c[0-9a-f]{8}Eagan Peltskinner\|r"), "the person in the NPC colour");
+	assert_eq!(first["after"], false, "the lines name the persons to come: no second \"Then:\", no \"Person 1 of 3\"");
 	assert_eq!(first["mark"], true, "the arrow points at this person");
 	assert_eq!(first["markW"], 2, "the 2px selection bar used across Polestar");
 	assert_eq!(rgb(&first["iconColor"]), rgb(&first["dim"]), "the person glyph steps back; the name carries the colour");
 	assert_eq!(second["person"], "Eagan Peltskinner");
-	assert_eq!(second["goals"], json!(["Kobold Camp Cleanup", "Investigate Echo Ridge", "Wolves Across the Border", "Brother Neals"]), "done goals stay listed");
-	assert_eq!(second["dimmed"], json!([false, false, false, true]), "done goals dim to textMuted; the new focus reads in text");
-	assert!(is_match(text(&second["subs"][0]), r"^\|c[0-9a-f]{8}Marshal McBride\|r"), "the person done with is named on their rows");
-	assert_eq!(second["persons"], "Person 2 of 3");
+	assert_eq!(second["goals"], json!(["Wolves Across the Border"]));
+	assert_eq!(plain(&second["lines"]), ["Marshal McBride", "Then: Brother Neals  ·  Talk to Brother Neals"], "the person done with stays on the card, on one line");
+	assert_eq!(second["lines"][0]["key"], "before");
 	assert_eq!(second["sliding"], true, "the next person slides in");
 	assert_eq!(third["person"], "Brother Neals");
-	assert_eq!(third["persons"], "Person 3 of 3");
+	assert_eq!(plain(&third["lines"]), ["Marshal McBride, Eagan Peltskinner"]);
 	assert!(is_match(text(&third["after"]), r"^Then: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
+	assert_eq!(third["persons"], "");
 	assert_eq!(third["target"], json!(["SetTarget", 1429, 49.6, 40.4, "Brother Neals"]));
 }
 
@@ -613,7 +625,7 @@ fn settings_apply_live_scale_opacity_lock_compact_upcoming_shown() {
 	assert_eq!(out["movedWhileLocked"], false);
 	let mut compact = out["compact"].clone();
 	compact.as_object_mut().unwrap().remove("h");
-	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 4, "foot": true }), "compact keeps the navigator, the step's goals and the progress bar");
+	assert_eq!(compact, json!({ "strip": false, "after": false, "tip": false, "rows": 2, "foot": true }), "compact keeps the navigator, the focus's open goals and the progress bar");
 	assert!(f(&out["compact"]["h"]) < f(&out["h0"]), "compact mode is shorter");
 	assert_eq!(out["upcoming"], json!([4, 5, 7, 8]));
 	assert_eq!(out["afterToggle"], false);
@@ -700,6 +712,51 @@ fn bar_at_the_bottom_needs_grow_upward_then_the_tabs_navigator_and_progress_stac
 	assert_eq!(pt(&out["withoutGrow"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "without grow upward the option changes nothing");
 	assert_eq!(pt(&out["flipped"]), json!(["BOTTOMLEFT", "TOPLEFT", "BOTTOMLEFT"]), "flipped: tabs at the bottom, the navigator and the foot stacked above them");
 	assert_eq!(pt(&out["back"]), json!(["TOPLEFT", "BOTTOMLEFT", "TOPLEFT"]), "turning it off restores the order");
+}
+
+// thmastin (#666): with Grow upward the window is pinned by its bottom edge.
+// A step that would push its top past the top of the screen made the game
+// move the whole window down (its screen clamp), bar and all. The window now
+// ends at the top of the screen: the goals area scrolls, as under the height
+// cap, and when even that is too tall the step list is clipped at the bars.
+#[test]
+fn grow_upward_the_window_ends_at_the_top_of_the_screen_and_keeps_its_bottom_edge_where_it_is_pinned() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		Polestar.Set("ui.maxHeight", 0.9)
+		Polestar.Set("ui.growUp", true)
+		Polestar.Set("ui.barsBottom", true)
+		Polestar.Set("ui.pos", { 1500, 100 })
+		local goals = GF.parts.goals
+		local full, fullOver = F:GetHeight(), goals.psOver
+		local clips = {}
+		GF.parts.body.SetClipsChildren = function(_, on) clips[#clips + 1] = on end
+		local function at(y)
+			Polestar.Set("ui.pos", { 1500, y })
+			local p, _, rp, _, py = F:GetPoint(1)
+			return { y = y, h = F:GetHeight(), point = { p, rp, py }, over = goals.psOver, cut = clips[#clips] }
+		end
+		local top = UIParent:GetTop()
+		local near = at(top - full + 20)
+		local tight = at(top - 150)
+		local back = at(100)
+		emit({ full = full, fullOver = fullOver, top = top, near = near, tight = tight, back = back })"#)
+	.remove(0);
+	let top = f(&out["top"]);
+	assert!(f(&out["full"]) >= 160.0, "the step is tall enough to be cut: {}", out["full"]);
+	assert_eq!(out["fullOver"], false, "with room the goals area shows everything");
+	for k in ["near", "tight"] {
+		let s = &out[k];
+		assert_eq!(f(&s["h"]), top - f(&s["y"]), "{k}: the window ends at the top of the screen, not past it ({s})");
+		assert_eq!(s["point"][0], "BOTTOMLEFT", "{k}: still pinned by its bottom-left corner");
+		assert_eq!(s["point"][2], s["y"], "{k}: where the player put it");
+	}
+	assert_eq!(out["near"]["over"], true, "20 px short: the goals area scrolls ({})", out["near"]);
+	assert_eq!(out["near"]["cut"], false, "and nothing is clipped");
+	assert_eq!(out["tight"]["cut"], true, "150 px of room: the step list is clipped at the bars ({})", out["tight"]);
+	assert_eq!(out["back"]["h"], out["full"], "with room again the window has its full height");
+	assert_eq!(out["back"]["over"], false, "the goals area shows everything again");
+	assert_eq!(out["back"]["cut"], false, "and nothing is clipped");
 }
 
 #[test]
@@ -835,6 +892,35 @@ fn a_tab_s_right_click_menu_has_choose_guide_it_makes_that_tab_active_and_opens_
 	assert_eq!(out["newTab"], false, "the picked guide replaces the tab's guide instead of opening another tab");
 }
 
+// A player on Discord asked how to close a guide tab: the strip's close button was invisible until hovered. It shows
+// faintly at rest, in full under the pointer, and still closes its tab.
+#[test]
+fn a_tab_s_close_button_shows_faintly_at_rest_and_in_full_under_the_pointer() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local b = shownTabs()[2]
+		local r = { rest = b.Close:GetAlpha(), shown = b.Close:IsShown() }
+		stub.RunScript(b, "OnEnter")
+		r.hover = b.Close:GetAlpha()
+		stub.RunScript(b, "OnLeave")
+		r.left = b.Close:GetAlpha()
+		stub.RunScript(b.Close, "OnEnter")
+		r.overButton = b.Close:GetAlpha()
+		stub.RunScript(b.Close, "OnLeave")
+		r.offButton = b.Close:GetAlpha()
+		b.Close:Click()
+		r.call = lastCall("CloseTab")
+		emit(r)"#)
+	.remove(0);
+	assert_eq!(out["shown"], true);
+	assert!(f(&out["rest"]) > 0.2 && f(&out["rest"]) < 0.6, "faint at rest: {}", out["rest"]);
+	assert_eq!(out["hover"], 1.0);
+	assert_eq!(out["left"], out["rest"]);
+	assert_eq!(out["overButton"], 1.0);
+	assert_eq!(out["offButton"], out["rest"]);
+	assert_eq!(out["call"], json!(["CloseTab", 2]));
+}
+
 #[test]
 fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_the_close_button_shown() {
 	let out = run(r#"
@@ -853,7 +939,8 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 		stub.RunScript(b, "OnLeave")
 		emit({ rest = rest, hover = hover, after = measure() })"#)
 	.remove(0);
-	for (state, pad) in [("rest", 8.0), ("hover", 20.0), ("after", 8.0)] {
+	// The close button shows at rest now (faintly), so the label clears it in every state.
+	for (state, pad) in [("rest", 20.0), ("hover", 20.0), ("after", 20.0)] {
 		let m = &out[state];
 		assert_eq!(m["range"], "(1–13)", "{state}");
 		assert_eq!(m["rangeWhole"], true, "{state}: the range is not cut");
@@ -872,7 +959,7 @@ fn without_the_engine_tabs_api_the_strip_stays_hidden_and_the_navigator_names_th
 		"{ noTabs = true }",
 	)
 	.remove(0);
-	assert_eq!(out, json!({ "strip": false, "title": "Elwynn Forest", "rows": 4 }), "the step's four goals, the earlier quest-giver's included");
+	assert_eq!(out, json!({ "strip": false, "title": "Elwynn Forest", "rows": 2 }), "the focus's two open goals");
 }
 
 #[test]
@@ -1169,6 +1256,37 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 	assert_eq!(out["picker"], true);
 	assert_eq!(out["options"], true);
 	assert_eq!(out["pickerAfter"], false, "one dialog at a time");
+}
+
+#[test]
+fn the_menu_offers_the_quest_log_cleanup_with_its_count_and_hides_it_when_there_is_nothing_to_clean() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local list = { { quest = 77, title = "Stray", status = "unplanned" }, { quest = 78, title = "Old", status = "grey" } }
+		Polestar.RoutePlan.Unneeded = function() return list end
+		local function items()
+			GF.menuButton:Click()
+			local out = {}
+			for _, r in ipairs(PolestarMenu.rows) do if r:IsShown() then out[#out + 1] = r.Text:GetText() end end
+			GF.menuButton:Click()
+			return out
+		end
+		local two = items()
+		local before = PolestarQuestRoom and PolestarQuestRoom:IsShown() or false
+		menuPick("Clean up quest log (2)")
+		local opened = PolestarQuestRoom and PolestarQuestRoom:IsShown() or false
+		PolestarQuestRoom:Hide()
+		list = {}
+		local none = items()
+		Polestar.RoutePlan.Unneeded = function() return nil end
+		emit({ two = two, before = before, opened = opened, none = none, unsettled = items() })"#)
+	.remove(0);
+	assert_eq!(out["two"][4], "Clean up quest log (2)", "right after Report a problem");
+	assert_eq!(out["before"], false);
+	assert_eq!(out["opened"], true, "the entry opens the cleanup window");
+	for key in ["none", "unsettled"] {
+		assert!(!joined(&out[key]).contains("Clean up quest log"), "{key}: no entry with nothing to list");
+	}
 }
 
 // The catch-up (GUIDE_PLACED, fired for a guide just opened): the window shows each step before the one placed
@@ -1855,6 +1973,30 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 	assert_eq!(out["unskip"], json!(["Unskip", 3]));
 }
 
+// Fitz, testing 0.3.3: the "Looking ahead" banner's Dismiss button did nothing (GF.DismissBanner took the banner for
+// one that is answered, never dismissed). Dismissed, it stays away on that step; another step brings it back.
+#[test]
+fn dismiss_closes_the_looking_ahead_banner_for_that_step_and_another_step_brings_it_back() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local N, B = GF.parts.nav, GF.parts.banner
+		uistub.live = 3
+		N.Next:Click()
+		local ahead = { B:IsShown(), B.Close:IsShown() }
+		B.Close:Click()
+		local dismissed = B:IsShown()
+		uistub.update()
+		local stays = B:IsShown()
+		N.Next:Click()
+		local next = B:IsShown() and B.Text:GetText()
+		emit({ ahead = ahead, dismissed = dismissed, stays = stays, next = next })"#)
+	.remove(0);
+	assert_eq!(out["ahead"], json!([true, true]), "the banner and its Dismiss button");
+	assert_eq!(out["dismissed"], false, "Dismiss closes it");
+	assert_eq!(out["stays"], false, "it stays closed on that step");
+	assert_eq!(out["next"], "Looking ahead. The guide is at step 3.", "the next step has its own banner");
+}
+
 #[test]
 fn the_next_spot_of_an_area_objective_takes_the_arrow_there_over_a_point_picked_by_hand() {
 	let out = run(r#"
@@ -1924,14 +2066,15 @@ fn a_collect_whose_line_already_names_its_source_has_no_source_line_under_it_aut
 }
 
 #[test]
-fn a_quest_to_complete_with_several_objectives_lists_the_open_ones_under_it_before_its_note() {
+fn a_quest_to_complete_reads_as_its_objectives_each_with_its_count_and_keeps_its_note_under_it() {
 	let out = run(r#"
 		local goal = { t = "complete", quest = 747, status = "active", progress = { cur = 3, max = 14, kind = "count" },
-			objectives = { "Plainstrider Meat: 3/7", "Plainstrider Feathers: 0/7" }, note = "Plainstriders roam the grass" }
-		emit({ sub = UI.GoalSubline(goal), count = UI.GoalProgress(goal) })"#)
+			objectiveLines = { { text = "Plainstrider Meat", cur = 3, max = 7 }, { text = "Plainstrider Feathers", cur = 0, max = 7 } }, note = "Plainstriders roam the grass" }
+		local function plain(s) return (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+		emit({ line = plain(UI.GoalLine(goal)), sub = UI.GoalSubline(goal) })"#)
 	.remove(0);
-	assert_eq!(out["sub"], "Plainstrider Meat: 3/7  \u{b7}  Plainstrider Feathers: 0/7  \u{b7}  Plainstriders roam the grass");
-	assert_eq!(out["count"], "3/14");
+	assert_eq!(out["line"], "Plainstrider Meat  3/7\nPlainstrider Feathers  0/7", "#942: the objectives are the goal's line, not the sum");
+	assert_eq!(out["sub"], "Plainstriders roam the grass");
 }
 
 // "Up next" on a finished guide is where the hand-off goes now (Engine.NextGuide): the remembered or only option

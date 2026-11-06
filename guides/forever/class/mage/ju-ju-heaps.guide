@@ -50,7 +50,7 @@ step Un'thuwa
 step Cain Firesong (Brill)
   only Undead
   zone Tirisfal Glades
-  tip At 10 Cain Firesong, the Brill mage trainer in the Gallows' End Tavern, sends you to Anastasia Hartwell in the Undercity. Taking it shuts out Ju-Ju Heaps; if Speak with Un'thuwa (from Orgrimmar or Thunder Bluff) is in your log, abandon it first or Cain cannot give you this one. (A Troll who took this one in Brill follows the Balnir steps; an Undead who took Ju-Ju Heaps in Sen'jin, the Echo Isles steps.)
+  tip At 10 Cain Firesong, the Brill mage trainer upstairs in the Gallows' End Tavern, sends you to Anastasia Hartwell in the Undercity. Taking it shuts out Ju-Ju Heaps; if Speak with Un'thuwa (from Orgrimmar or Thunder Bluff) is in your log, abandon it first or Cain cannot give you this one. (A Troll who took this one in Brill follows the Balnir steps; an Undead who took Ju-Ju Heaps in Sen'jin, the Echo Isles steps.)
   level 10
   accept 1881 npc 2128                        -- Cain Firesong
 

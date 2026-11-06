@@ -11,12 +11,7 @@ next forever/alliance/30-40/02-desolace
 # into this file.
 # Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683).
 
-step Hearth to Deepwater Tavern
-  when bound "Deepwater Tavern"
-  hearth "Deepwater Tavern"
-
 step To Deepwater Tavern
-  when !bound "Deepwater Tavern"
   zone Wetlands
   goto 10.7,61.0 "Deepwater Tavern"
 
@@ -106,6 +101,7 @@ step Menethil Harbor
   turnin 98223                        -- On the top floor
 
 step Menethil Harbor
+  tip Captain Stoutfist stands on the top floor of Menethil Keep: go up inside, the arrow cannot tell the floors apart.
   when group 474
   turnin 474
 
@@ -143,16 +139,9 @@ step Southshore
   accept 505                          -- Magistrate Henry Maleb, inside
   accept 92432 "An Alarming Request" npc 247264 lvl 30 -- Emissary Jacques
 
-step On the way
-  along until q505
-  zone Alterac Mountains
-  kill 2240 quest 505.1
-  kill 2241 quest 505.2
-
 # ---------------------------------------------------------------- The coast
 
 step Torn Fin murlocs
-  zone Hillsbrad Foothills
   tip The Torn Fin murlocs crowd the Western Strand, south-west of Southshore.
   tip Careful: One camp holds a tight cluster of Oracles that all aggro together.
   kill 2377 quest 536.1               -- Torn Fin Tidehunter
@@ -199,6 +188,12 @@ step Yeti cave
   tip The yetis live in the cave in the hills north of Southshore, on your way back south.
   collect 3720 quest 565.4            -- Yeti Fur
   note Bartolo also wants a Hillman's Cloak, a Bolt of Woolen Cloth and Fine Thread: crafted or bought; the cloak is turned in when you are back in Southshore later.
+
+step On the way
+  along until q505
+  zone Alterac Mountains
+  kill 2240 quest 505.1
+  kill 2241 quest 505.2
 
 step Alterac Mountains
   zone Alterac Mountains

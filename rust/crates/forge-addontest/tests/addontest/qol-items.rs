@@ -155,6 +155,35 @@ fn marks_ctrl_alt_click_cycles_junk_keep_and_clear_junk_is_sold_kept_greys_are_n
 	assert_eq!(out[2], json!({ "fangs": 1, "shell": 0, "cloth": 13, "ring": 0 }), "junk-marked cloth sells; the kept shell and the ring stay");
 }
 
+// #946: junk marked in the reagent bag (bag 5, past NUM_BAG_SLOTS) is the bag button's cheapest junk and sells at a
+// merchant, while the reagent bag's free slots stay out of the free count (it takes only reagents).
+#[test]
+fn junk_in_the_reagent_bag_is_the_cheapest_junk_and_sells_but_its_free_slots_never_count() {
+	let out = run(&[
+		BAGS,
+		r#"
+		local M, S = QoL.Marks, QoL.Space
+		q.items[6] = { name = "Coarse Thread", quality = 1, price = 1 }
+		q.bags[5] = { size = 4, slots = {} }
+		fill(2)
+		q.addItem(5, 1, 6, 1)
+		M.Set(6, "junk")
+		bagsChanged()
+		local f, t = S.Free()
+		local j = S.Junk()
+		emit({ free = f, total = t, junk = j and j.id or false, bag = j and j.bag or false })
+		q.openMerchant()
+		stub.advance(3)
+		local sold = {}
+		for _, id in ipairs(q.sold or {}) do sold[id] = (sold[id] or 0) + 1 end
+		emit({ thread = sold[6] or 0, left = q.bags[5].slots[1] ~= nil })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "free": 2, "total": 16, "junk": 6, "bag": 5 }), "the thread (1c) is the cheapest; the reagent bag's three free slots never count");
+	assert_eq!(out[1], json!({ "thread": 1, "left": false }), "sold from the reagent bag");
+}
+
 #[test]
 fn bag_banner_only_while_the_live_step_collects_and_dismissed_until_the_bags_have_room_again() {
 	let out = run(&[

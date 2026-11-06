@@ -726,6 +726,20 @@
 		},
 		"note": "Nether-lace Garment (Kil'hala, after 1945) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450) and Forever's quest page sets none (reqrace 0); the merged data had Classic's Undead and Troll."
 	},
+	"2358": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#948: after Alther's Mill (2282) was handed in, Arantir shows no quest mark; the maintainer confirmed the quest is not in the game"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever server data: never seen offered (sniffed false)"
+			}
+		],
+		"note": "Horns of Nez'ra (Rogue, Arantir in Lakeshire) is not in the game on Forever: Arantir does not offer it after Alther's Mill, and it is not on Forever's Rogue class quest list. The quest leaves the data; its item stays in the item tables but drops only to a player on the quest."
+	},
 	"2523": {
 		"set": {
 			"start": {
@@ -1369,6 +1383,23 @@
 		],
 		"note": "Guardians of the Altar (Winterspring; Ranshalla gives it) is an escort: you protect Ranshalla while she relights the torches of the Altar of Elune. Its text never says escort, so the guide compiler's escort rule misses it; CMaNGOS scripts it as an escort with a waypoint path, and QuestieDB flags it PARTY_ACCEPT like the other escorts."
 	},
+	"4921": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 10668,
+					"count": 1,
+					"text": "Beaten Corpse"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T165024Z-b20cb0d60e9c2b53-5w3iooebc3gf-9dh7b8tbn1): the objective's line ticks while Beaten Corpse's window is open, with no kill"
+		},
+		"note": "Lost in Battle: the objective (\"Find Mankrik's Wife\") ticks as the player opens the Beaten Corpse's window, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
 	"5057": {
 		"set": {
 			"end": {
@@ -1486,6 +1517,57 @@
 		},
 		"note": "Elune's Grace: starts with Nara Meideros (npc 11397); as its giver the merged data also listed Laurna Morninglight (npc 3600)."
 	},
+	"5727": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 3216,
+					"count": 1,
+					"text": "Neeru Fireblade"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: the objective's line ticks as the player talks to Neeru Fireblade, with no kill"
+		},
+		"note": "Hidden Enemies: the objective is hearing Neeru Fireblade out (a talk), which the data counted as a kill of him."
+	},
+	"5929": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear."
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T233513Z-9fd4e249b274cab3-0ntqshrpqqyu-fwvooilzhf, 20261105T081945Z-41b277df15449810-dxn9pk0e4yll-93hn4vw6jp): the game lists the objective as an event at the accept"
+		},
+		"note": "Great Bear Spirit (Alliance Druids): the objective is going through the Great Bear Spirit's dialogue, an event in the game's quest log; the data counted it as a kill of the spirit. The guides keep `complete` for it (#956)."
+	},
+	"5930": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear."
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt, 20261106T065852Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091): the game lists the objective as an event at the accept"
+		},
+		"note": "Great Bear Spirit (Horde Druids): the objective is going through the Great Bear Spirit's dialogue, an event in the game's quest log; the data counted it as a kill of the spirit. The guides keep `complete` for it (#956)."
+	},
 	"5944": {
 		"set": {
 			"end": {
@@ -1516,6 +1598,28 @@
 			"ref": "Factoruide row sources: questie"
 		},
 		"note": "The Hunter's Path: starts with Sian'dur (npc 3407); as its giver the merged data also listed Lanka Farshot (npc 3061)."
+	},
+	"6121": {
+		"set": {
+			"start": {
+				"npc": [
+					4217
+				],
+				"object": [],
+				"item": []
+			}
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest starter tables: Mathrengyl Bearwalker (4217) only; Alfina Nightgaze (270459) starts only Child of Nature (94912)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings: Alfina Nightgaze's window for level 14 Alliance Skyborne Druids listed Child of Nature or nothing, never Lessons Anew (7 windows, before and after Child of Nature was done)"
+			}
+		],
+		"note": "Lessons Anew (Druid Cure Poison, Alliance) starts with Mathrengyl Bearwalker (npc 4217) in Darnassus only; the merged data also listed Alfina Nightgaze (npc 270459), the Skyborne druid trainer by the Skyborne Portal west of Dalaran, so the Cure Poison guide sent level 14 Alliance Skyborne Druids through Alterac to a giver who does not offer it (#978)."
 	},
 	"6123": {
 		"set": {
@@ -2081,6 +2185,26 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78261": {
+		"set": {
+			"classes": 8
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
+		},
+		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+	},
+	"78307": {
+		"set": {
+			"classes": 8
+		},
+		"source": {
+			"kind": "factoruide",
+			"ref": "Factoruide row: class mask 8 (Rogue)"
+		},
+		"note": "The Horn of Xelthos (C's payment, from the same Dead Drop near Pyrewood Village: the Pyrewood Signet Ring) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8). The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+	},
 	"79358": {
 		"set": {
 			"end": {
@@ -2242,13 +2366,21 @@
 					7825
 				],
 				"object": []
+			},
+			"races": null,
+			"classes": null
+		},
+		"source": [
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row sources: questie"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: race mask 0, no class mask, seen in game"
 			}
-		},
-		"source": {
-			"kind": "factoruide",
-			"ref": "Factoruide row sources: questie"
-		},
-		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825)."
+		],
+		"note": "Magma or Lava?: ends with Jennea Cannon (npc 5497) and Oran Snakewrithe (npc 7825); as its ender the merged data lacked Oran Snakewrithe (npc 7825). Forever opened this library book to everyone: its quest data has no race or class limit (Forever's change notes: classes none instead of Mage); the race limit is dropped on the factoruide row's race mask 0. The merged data kept Season of Discovery's Mage and Alliance limits, so Polestar showed it as a Mage class quest."
 	},
 	"84398": {
 		"set": {
@@ -2326,6 +2458,172 @@
 			"ref": "quest_template_addon PrevQuestID"
 		},
 		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
+	},
+	"92595": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251902,
+					"count": 1,
+					"text": "Illaya Amberwind"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T000307Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T004219Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7): the objective's line ticks while Illaya Amberwind's window is open, with no kill"
+		},
+		"note": "The Windshapers: the objective (\"Listen to Illaya\") ticks as the player talks to Illaya Amberwind, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"92596": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251903,
+					"count": 1,
+					"text": "Rathiril Sunlance"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T232208Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261104T235118Z-4c82236cc9ec1275-hraqce9f5yqb-jpmxvvz26h, 20261105T201717Z-4c82236cc9ec1275-hraqce9f5yqb-aigwee5mju): the objective's line ticks while Rathiril Sunlance's window is open, with no kill"
+		},
+		"note": "The High Order: the objective (\"Listen to Rathiril Sunlance\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"92640": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252383,
+					"count": 1,
+					"text": "Valennia Stormfist"
+				},
+				{
+					"type": "talk",
+					"id": 251968,
+					"count": 1,
+					"text": "Ayessa Dawnsinger"
+				},
+				{
+					"type": "talk",
+					"id": 252475,
+					"count": 1,
+					"text": "Elaadrin Evengale"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: one line at the accept, lines 2 and 3 tick as players talk to Ayessa and then Elaadrin, with no kill"
+		},
+		"note": "Desperate Times: the game lists one objective at the accept (talk to Valennia Stormfist) and reveals the next as each talk counts: Ayessa Dawnsinger (the Windshapers), then Elaadrin Evengale (the High Order). The data counted the three talks as kills (#859)."
+	},
+	"92643": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Find the secluded house in Shen'dar Highlands"
+				},
+				{
+					"type": "talk",
+					"id": 253372,
+					"count": 1,
+					"text": "Dead Cultist"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T052705Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek): line 1 ticks on reaching the house with no kill and no window; line 2 ticks while the Dead Cultist's window is open"
+		},
+		"note": "The Turncoat: the first objective is finding the house (the data's \"DNT KILL CREDIT\" kill, an area credit), the second is searching the dead cultist there (a talk the data counted as a kill). The guides keep `complete` for it (#956)."
+	},
+	"92679": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252800,
+					"count": 1,
+					"text": "Aamelia Windfield"
+				},
+				{
+					"type": "talk",
+					"id": 252448,
+					"count": 1,
+					"text": "Alvarion Windfield"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: both lines tick as players talk to Aamelia and Alvarion, with no kill"
+		},
+		"note": "Blood Tithe: finding Aamelia Windfield and the optional story from Alvarion Windfield are talks, which the data counted as kills."
+	},
+	"92693": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252800,
+					"count": 1,
+					"text": "Aamelia Windfield"
+				},
+				{
+					"type": "kill",
+					"id": 252863,
+					"count": null,
+					"text": "Ferauu the Bludgeon"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Aamelia; line 2 is revealed after it"
+		},
+		"note": "Standing Our Ground: the first objective is telling Aamelia Windfield you are ready (a talk, which the data counted as a kill of her); the game reveals the fight with Ferauu the Bludgeon after it."
+	},
+	"92708": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251968,
+					"count": 1,
+					"text": "Ayessa Dawnsinger"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T004219Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7, 20261105T042256Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T090005Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox): the objective's line ticks while Ayessa Dawnsinger's window is open, with no kill"
+		},
+		"note": "A Grand Adventure (Horde): the objective (\"Listen to Ayessa\") ticks as the player talks to Ayessa Dawnsinger, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"92709": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252475,
+					"count": 1,
+					"text": "Elaadrin Evengale"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T235118Z-4c82236cc9ec1275-hraqce9f5yqb-jpmxvvz26h, 20261105T201717Z-4c82236cc9ec1275-hraqce9f5yqb-aigwee5mju): the objective's line ticks while Elaadrin Evengale's window is open, with no kill"
+		},
+		"note": "A Grand Adventure (Alliance): the objective (\"Listen to Elaadrin\") ticks as the player talks to Elaadrin Evengale, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
 	"92742": {
 		"set": {
@@ -2507,21 +2805,199 @@
 		],
 		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
 	},
-	"92850": {
+	"93065": {
 		"set": {
-			"end": {
-				"npc": [
-					253204,
-					253285
-				],
-				"object": []
-			}
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 253844,
+					"count": 1,
+					"text": "Valennia Stormfist"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T052705Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek): the objective's line ticks while Valennia Stormfist's window is open, with no kill"
+		},
+		"note": "Prepare for Battle: the objective (\"Find Valennia on the Road\") ticks as the player talks to Valennia Stormfist at the gate, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"93159": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251684,
+					"count": 1,
+					"text": "Strange Hermit"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T125027Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7): the objective's line ticks while Strange Hermit's window is open, with no kill"
+		},
+		"note": "The Strange Hermit: the objective (\"Learn more about the Strange Hermit\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"93797": {
+		"set": {
+			"classes": 128
 		},
 		"source": {
 			"kind": "factoruide",
-			"ref": "Factoruide row sources: manual,questie"
+			"ref": "Factoruide row: class mask 128 (Mage)"
 		},
-		"note": "The Missing Scholar: ends with Dondallion Whisperwind (npc 253204) and Fillion Flamebreeze (npc 253285); as its ender the merged data lacked Dondallion Whisperwind (npc 253204)."
+		"note": "Boughs in the Wind (Belann Windwood on Zephras Isle, the Windbough Wand) is a Mage quest on Forever: Forever limits it to Mages (class mask 128). The merged data had no class, so the class-quest card knew it only from the Mage guide that takes it."
+	},
+	"92849": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 253002,
+					"count": 1,
+					"text": "Fillion Flamebreeze"
+				},
+				{
+					"type": "object",
+					"id": 581820,
+					"count": null,
+					"text": "Dusty Bedroll"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players reach Fillion, with no kill"
+		},
+		"note": "The Missing Scholar: finding Fillion Flamebreeze is a talk (it counts as you reach him), which the data counted as a kill (#802)."
+	},
+	"92947": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 252762,
+					"count": 7,
+					"text": "Al'Aketh Guardian"
+				},
+				{
+					"type": "kill",
+					"id": 252763,
+					"count": 7,
+					"text": "Al'Aketh Spiritcaller"
+				},
+				{
+					"type": "kill",
+					"id": 252765,
+					"count": 7,
+					"text": "Al'Aketh Blademaster"
+				},
+				{
+					"type": "talk",
+					"id": 253576,
+					"count": 1,
+					"text": "Hyusaa Quickbreeze"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: a fourth line is revealed after the kills and ticks at Hyusaa, with no kill"
+		},
+		"note": "Making Our Move: after the three kill objectives the game reveals a fourth, reporting to Hyusaa Quickbreeze (a talk, which the data counted as a kill)."
+	},
+	"93461": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251903,
+					"count": 1,
+					"text": "Rathiril Sunlance"
+				},
+				{
+					"type": "talk",
+					"id": 254089,
+					"count": 1,
+					"text": "Coriella Calmbreeze"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as Rathiril's window opens, line 2 as players reach the innkeeper, with no kill"
+		},
+		"note": "Welcome to Shen'dar Village (Alliance): both objectives are talks, to Rathiril Sunlance and to the innkeeper Coriella Calmbreeze (who counts as you reach her), which the data counted as kills (#802)."
+	},
+	"93737": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 256083,
+					"count": 1,
+					"text": "Riaani Nightwind"
+				},
+				{
+					"type": "item",
+					"id": 260881,
+					"count": null,
+					"text": "Crystallized Lightning"
+				},
+				{
+					"type": "item",
+					"id": 260883,
+					"count": null,
+					"text": "Enchanted Gyrozephyr"
+				},
+				{
+					"type": "item",
+					"id": 260880,
+					"count": null,
+					"text": "Air Construct Core"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Riaani Nightwind, with no kill"
+		},
+		"note": "The Broken Construct: its first objective is listening to Riaani Nightwind (a talk), which the data counted as a kill."
+	},
+	"93836": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252476,
+					"count": 1,
+					"text": "Talaanis Shadowsong"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T233907Z-9db3c499b2ac9ba1-laofdktkyi4l-pklme8z748): the objective's line ticks while Talaanis Shadowsong's window is open, with no kill"
+		},
+		"note": "The Fate of Zephras (Horde): the objective (\"Speak with Talaanis Shadowsong\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"93926": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252155,
+					"count": 1,
+					"text": "Peacekeeper Vaaniel"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T232208Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261104T232352Z-bd7db8b1683b964e-11cqui4f17c2-mm6wut9mwn, 20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1): the objective's line ticks while Peacekeeper Vaaniel's window is open, with no kill"
+		},
+		"note": "The Western Watch: the objective (\"Check in on the Western Watchtower\") ticks as the player talks to Peacekeeper Vaaniel, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
 	"93927": {
 		"set": {
@@ -2563,6 +3039,23 @@
 			}
 		],
 		"note": "A Last Request (Zephras Isle) lists the Bloody Note first, then Skypriest Aanders, then Raani's feather and the Shadowsong signet. The merged data had the note and Aanders the other way round, so `quest 93927.1` named Aanders and the guide's note goal followed Aanders' quest-log line: it stayed open after the note was read (#825)."
+	},
+	"94369": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252476,
+					"count": 1,
+					"text": "Talaanis Shadowsong"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T143604Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261105T164150Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261106T023527Z-bd7db8b1683b964e-11cqui4f17c2-mm6wut9mwn): the objective's line ticks while Talaanis Shadowsong's window is open, with no kill"
+		},
+		"note": "The Fate of Zephras (Alliance): the objective (\"Speak with Talaanis Shadowsong\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
 	"94373": {
 		"set": {
@@ -2672,6 +3165,51 @@
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
 	},
+	"95216": {
+		"set": {
+			"pre": [
+				451
+			],
+			"preAny": [
+				451
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#867"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: every character Theodore Griffs offered The New Plague to (an Orc Warrior, a Troll Warlock, Undead Paladin and Priest, levels 17 to 19) had handed in 447, 450 and 451; the two he did not offer it to had handed in none of them"
+			}
+		],
+		"note": "The New Plague (Undercity, Theodore Griffs) is offered once the A Recipe For Death chain (447, 450, 451) is handed in: Pilk, a Tauren Druid, was not offered it at level 16, and was offered it at level 17 once the chain was completed (#867). The merged data had no prerequisite, so the Ruins of Lordaeron pick-up guide sent players to Theodore Griffs before the chain."
+	},
+	"94489": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 258134,
+					"count": null,
+					"text": "Naaleos Leafwhisper",
+					"credit": [258134, 258137, 258138, 258275, 258277, 258288, 258289]
+				},
+				{
+					"type": "talk",
+					"id": 258130,
+					"count": 1,
+					"text": "Jorel Windsinger"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 2 ticks as players talk to Jorel Windsinger, with no kill of him"
+		},
+		"note": "The Wounds of Betrayal: after healing the druids the objective is finding Jorel Windsinger (a talk), which the data counted as a kill."
+	},
 	"95217": {
 		"set": {
 			"objectives": [
@@ -2766,7 +3304,21 @@
 				],
 				"object": [],
 				"item": []
-			}
+			},
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
 		},
 		"source": [
 			{
@@ -2776,9 +3328,36 @@
 			{
 				"kind": "tdb",
 				"ref": "quest starter tables"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231149Z-7c557f2702b0b70b-dkguk8rpp6a8-jgsaalrgm7, 20261104T231242Z-c5f8cae2cfaaa29a-ed9qx2wn8ian-17xk7hel2s, 20261104T231324Z-48ad08dd58b6409a-7edg0cgrs6gg-abe9o8ext8): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253)."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96101": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231158Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261104T231706Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox, 20261104T232121Z-5cb2d0b39f961aef-jkjmx18lujvv-5mpnaby7ge): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
 	},
 	"96243": {
 		"set": {
@@ -2820,6 +3399,23 @@
 		],
 		"note": "Nip 'Em in the Bud (Earthseer Farsen) asks for ten Dark Iron Spies only. QuestieDB's Forever store adds a Rockjaw Bonesnapper objective with no count; the players' caches and the world DB list only the spies. With it the c14 check held Farsen's turn-in for a Bonesnapper (R5 at 01-dun-morogh.guide:660) once The Public Servant's Bonesnappers had moved to the first quarry visit."
 	},
+	"96392": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 264936,
+					"count": 1,
+					"text": "Earthseer Farsen"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: the line ticks as players talk to Earthseer Farsen, with no kill"
+		},
+		"note": "Farsen's Watch: the objective is using Earthseer Farsen's far sight, through his gossip (a talk), which the data counted as a kill."
+	},
 	"96395": {
 		"set": {
 			"start": {
@@ -2848,6 +3444,75 @@
 		],
 		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
 	},
+	"96604": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231052Z-4d004155964992bc-xer0elrxvlpz-ykzshyaxdi, 20261104T231115Z-393c799db23f1aed-ck5nv2mx4gk3-b77l9bbshx, 20261104T231717Z-2dea17d83f0a53ac-ufi7fhjdwp58-2ed708dozh): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96605": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231308Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091, 20261104T231707Z-c7c1676602f96700-mzwfbhydidtm-aeo3x67q3r, 20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96606": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T231630Z-74e1f22415d07c26-ophl7p6vkebl-pfuf2h9n1p, 20261104T231922Z-ab351786de0672c8-hijimn9x1nw7-zw7iub6xr2): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
 	"96607": {
 		"set": {
 			"pre": [
@@ -2855,13 +3520,56 @@
 			],
 			"preAny": [
 				96656
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231310Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz, 20261104T231622Z-8bba550a7cd44bb5-roxpo93fzpkh-tgrecl06yt, 20261104T231818Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			}
+		],
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96608": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
 			]
 		},
 		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261104T232848Z-28c07733fef17d53-mnvhmrdot3xh-8k3axghh9n): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
 		},
-		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in."
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
 	},
 	"96655": {
 		"set": {
@@ -2949,6 +3657,29 @@
 		},
 		"note": "This Fruit Could Bite Back: starts with Cook Torka (npc 3191); as its giver the merged data also listed Grimtak (npc 3881)."
 	},
+	"96897": {
+		"set": {
+			"objectives": [
+				{
+					"type": "kill",
+					"id": 267006,
+					"count": 8,
+					"text": "Dark Neophyte"
+				},
+				{
+					"type": "kill",
+					"id": 275437,
+					"count": 8,
+					"text": "Dark Enforcer"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: the game lists two objectives at the accept, and the quest completes with those two"
+		},
+		"note": "The Cult of the Damned: the game counts Dark Neophytes and Dark Enforcers only; the data's third objective, Decrepit Darkhounds, is not one (#859)."
+	},
 	"97225": {
 		"set": {
 			"pre": [
@@ -2969,6 +3700,27 @@
 			}
 		],
 		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
+	},
+	"97275": {
+		"set": {
+			"pre": [
+				97242
+			],
+			"preAny": [
+				97242
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Yelmak's window had nothing for an Undead Rogue who had not taken Yelmak's Medley (97242); an Undead Warlock who handed the Medley in to Kor'geld was offered Whuut's the Rush at Yelmak 18 s later (a window at 10 s did not show it yet)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#891"
+			}
+		],
+		"note": "Whuut's the Rush (Orgrimmar, Yelmak) is offered once Yelmak's Medley 97242 is handed in to Kor'geld beside him: a level 19 Tauren Shaman with the Medley still in the log was not offered it (#891). No quest data names this prerequisite, so the Silverpine route took it right after accepting the Medley."
 	},
 	"97282": {
 		"set": {
@@ -3093,6 +3845,48 @@
 		],
 		"note": "Making Do (Stormwind, Baros Alexston) is offered only after Expanding Horizons 97914 is handed to him: in game, a player without the letter was not offered it (issue #453). The merged data had no prerequisite; the route held only through route-fixes pairs."
 	},
+	"98072": {
+		"set": {
+			"pre": [
+				471
+			],
+			"preAny": [
+				471
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): quest text of Crocs of the Sky (98072) and Apprentice's Duties (471), and their required levels"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 471"
+			}
+		],
+		"note": "Crocs of the Sky (Menethil Harbor, James Halloran) is offered once Apprentice's Duties 471, from the same NPC, is handed in. Its text is a last favor after the earlier ones (\"You're quite the go-getter! I have just one more favor to ask\") and says the whelps are beyond his apprentice, the one mauled skinning crocolisks in Apprentice's Duties; its required level, 19, sits with that chain (471 needs 18), not with Highland Hides (24). The merged data had no prerequisite, so the Alliance route took it at Menethil (06-ashenvale:330) long before Apprentice's Duties (:447)."
+	},
+	"98219": {
+		"set": {
+			"pre": [
+				98191
+			],
+			"preAny": [
+				98191
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link): quest text of The Shamed Lieutenant (98219) and A Friend of the Family (98191)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any 98191"
+			}
+		],
+		"note": "The Shamed Lieutenant (Stormwind, Lord Grayson Shadowbreaker) is offered once A Friend of the Family 98191, which brings him King Terenas's statuette, is handed in to him: its text opens \"Thank you again for delivering the statuette safely\". The merged data had no prerequisite, so the Alliance route took it from him (06-ashenvale:522) before handing A Friend of the Family in to him in the same visit (:537)."
+	},
 	"98221": {
 		"set": {
 			"pre": [
@@ -3123,6 +3917,23 @@
 		},
 		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
 	},
+	"98319": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Mountaineer Cornelius found"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261105T014628Z-28c07733fef17d53-mnvhmrdot3xh-sykntogm9l): the game lists the objective as an event (\"Mountaineer Cornelius found\") at the accept, and it ticks with no object clicked"
+		},
+		"note": "Secure the Mountain: finding Mountaineer Cornelius in the Grizzled Den is an event in the game's quest log; the data had it as clicking an object named after him. The guides keep `complete` for it (#956)."
+	},
 	"98389": {
 		"set": {
 			"pre": [
@@ -3148,6 +3959,54 @@
 			}
 		],
 		"note": "A Light in the Darkness (Tirisfal, Aramis Hammerhand) is offered only after The Damned 376 is handed in: checked in game on a Scourge Warlock, who was not offered it at level 2, at level 3 before the first turn-ins or after Rattling the Rattlecages 3901, and was offered it once The Damned was handed in. Its objective is \"Webbed Forsaken freed\" x6, credited by the Webbed Forsaken 271961 (the game's quest data: a monster objective), freed by attacking their cocoons in Night's Web Hollow (issue #735, with a screenshot of the attackable cocoon); the merged data has no objective."
+	},
+	"98341": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98404": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, the three relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+	},
+	"98738": {
+		"set": {
+			"classes": 1024
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon AllowableClasses 1024 (Forever world database of 2026-10-30)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "Factoruide row: class mask 1024 (Druid)"
+			}
+		],
+		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
 	},
 	"98601": {
 		"set": {
@@ -3414,6 +4273,29 @@
 			"ref": "#849"
 		},
 		"note": "The Wrath of Rath'mael (Deathguard Kristof, Tirisfal) is offered once the Rear Guard Patrol chain from Deathguard Linnea is handed in: Rear Guard Patrol 356, then 99156, which needs 356 itself. At level 15 with 356 still in the log, Pilk was not offered it; once the chain was done, Kristof offered it (#849). No quest data names this prerequisite, so the Ruins of Lordaeron pick-up guide sent players straight to Kristof."
+	},
+	"92514": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251902,
+					"count": 1,
+					"text": "Illaya Amberwind"
+				},
+				{
+					"type": "talk",
+					"id": 254089,
+					"count": 1,
+					"text": "Coriella Calmbreeze"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Illaya Amberwind and line 2 as they talk to the innkeeper, with no kill"
+		},
+		"note": "Welcome to Shen'dar Village (Horde): both objectives are talks, to Illaya Amberwind and to the innkeeper Coriella Calmbreeze, which the data counted as kills."
 	},
 	"92519": {
 		"set": {

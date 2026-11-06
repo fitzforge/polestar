@@ -129,17 +129,17 @@ A step must contain at least one goal.
 |---|---|---|
 | `accept` | `<questId> ["Title"]` | Title and quest giver from data; a quoted title overrides it (required if the quest is not in data). |
 | `turnin` | `<questId> ["Title"]` | Turn-in NPC/object from data. |
-| `complete` | `<questId> ["Title"]` | Finish all objectives. |
+| `complete` | `<questId> ["Title"]` | Finish all objectives. The guide window shows the quest's objective lines from the quest log in the game's words, each with its count ("Rabid Thistle Bear Captured 0/1"), starting with "Use Tharnariun's Hope:" while the item the quest hands over is in the bags and usable; looked at ahead, before the quest is in the log, the quest data's objectives (the compiler writes them, and the item, onto the goal); "Complete <quest>" only when neither has any. A `--` note stays the line under it. |
 | `abandon` | `<questId> ["Title"]` | Drop a quest from the log (a quest the guide takes only to turn it in elsewhere, a chain you skip). Done once the quest is out of the log, and it stays done for the rest of its step. The quest's `accept` stays done too, so abandoning on the guide's say-so does not send the route back to the giver. A character that does not have the quest has it done at once, and once the route has passed the step it stays done: taking the quest again later does not reopen it. Lint counts it as the end of the quest, like a turn-in. Pack format 5. |
-| `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective. |
+| `kill` | `<npcId>` or `"Target name"` | Pair with `quest Q.O` to track a quest objective (`talk` takes it too, for an objective that is speaking with someone). |
 | `collect` | `<itemId> ["Item name"]` | Pair with `quest Q.O` when the item is one of the quest's objectives; otherwise tracked by bag count `xN` (an item the quest only uses). `npc <id>` names the NPC who hands the item over, for an item nothing drops and no data lists a source for (a quest report given in a gossip window): the target button then has someone to target, and the point is that NPC's spawn unless you place it. `collect <item> xN nearest` (no `quest`) compiles to farm spots: clusters of normal or rare mobs that drop the item at 2% or more, outside towns and guard posts, each with the zone's safety (`A`/`H` faction zone, `AH` contested), mob level range, items per kill and spawn count; at most 16 per continent, spread over safety and 10-level bands. The engine picks one by the player's level, faction and travel time. |
 | `goto` | `<x>,<y> ["Label"]` | Coordinates are mandatory here. A label that is a subzone's name as the game spells it (`"Fargodeep Mine"`, not `"Fargodeep Mine's mouth"`) gets its area ("Places by ID"); at a cave's or mine's mouth the goto then also counts as arrived once the player walks into it past the point (in that subzone and indoors). |
-| `talk` | `<npcId>` | |
+| `talk` | `<npcId>` | Speak with an NPC. With `quest Q.O` it is that quest objective ("Speak with Valennia"): done once the quest log line is finished or the quest is ready to hand in, and the guide window reads "Talk to <npc>" for the quest; `quest Q` takes the index from the objective for that NPC. A line the game shows only once the one before it is done ticks when the player talks to the NPC. A `kill … quest Q.O` naming the same NPC's talk objective (older guides) still compiles. |
 | `interact` | `<objectId>` | Click a game object. |
 | `use` | `<itemId> ["Item name"]` | |
 | `destroy` | `<itemId> ["Item name"]` | Delete an item from the bags (a start-zone Hearthstone to free a slot, a quest item that is no use any more). Done once the bags hold none of it, and it stays done for the rest of its step; a character that never held it has it done at once. The guide window reads "Destroy Hearthstone". Pack format 5. |
 | `sethome` | `"Location"` or `nearest` | Inn location as the game names it (the bind location it reports), e.g. `"Goldshire"`. Without `npc` the compiler names the inn's innkeeper, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. `sethome nearest` binds at the nearest own-faction inn when the step comes up. Lint warns about a location no inn has (`polestar find --kind inn`). Completes on every client language: binding at the inn's innkeeper, or a bind location the client names as the inn's area (see "Places by ID"). A player with "Set your home at the guide's inn" on (Quality of Life, Travel; off by default) has Polestar bind and confirm when they talk to that innkeeper (for `nearest`, any innkeeper the compiler listed for it), never at another inn. |
-| `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Lint warns about any other name. While the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Where Polestar knows the trip there (walks, flights and boats as the arrow plans them), it says whether to set off now (the trip takes no longer than the wait) or wait for the Hearthstone, and with the Hearthstone ready but the inn within the planner's two-minute margin of hearthing, it suggests travelling there and keeping the Hearthstone, the arrow leading the way. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound first, and the arrow leads to the step's inn the same way. None of this holds the step: arriving checks the goal off either way. |
+| `hearth` | `"Location"` | Done when the zone or subzone where you land has that name: an inn's location or the zone it is in, in the client's language when the compiler finds its area ("Places by ID"). Lint warns about any other name. A step with nothing but `hearth` is not shown: hearthing is no step of its own, the guide moves on to the next step, and the arrow's route there takes the Hearthstone when it saves a long haul (the trip without it at least 8 minutes, at least 5 saved), wherever the Hearthstone is bound. Beside other goals, while the Hearthstone is on cooldown (or not in the bags), the goal says how long until it is ready and the arrow leads to that inn on foot, so a "Hearthstone on cooldown?" note is not needed. Where Polestar knows the trip there (walks, flights and boats as the arrow plans them), it says whether to set off now (the trip takes no longer than the wait) or wait for the Hearthstone, and with the Hearthstone ready but the trip under 8 minutes or saving under 5, it suggests travelling there and keeping the Hearthstone, the arrow leading the way. Bound at another inn (as `sethome` tells, from the inns Polestar knows), the goal says where it is bound first, and the arrow leads to the step's inn the same way. None of this holds the step: arriving checks the goal off either way. |
 | `die` | `"Graveyard"` | A deathskip: die on purpose, release and take the Spirit Healer's resurrection at that graveyard (the name is what the guide window shows). Needs `@x,y` at the graveyard's Spirit Healer, which lint checks against the healers' spawns; the arrow leads there. Done once the player is back alive within 40 yards of it, never as a ghost standing there. Only for players who turned on "Use deathskips" (Options, Automation, Guides; off by default, and always off on a Hardcore character): for everyone else the goal does not apply, its step passes and the next step's travel takes them there, so the guide must read right without it. A guide that uses it is written in pack format 5. |
 | `getfp` | `"Location"` | Discover a flight path: the flight point's name (`"Stormwind, Elwynn"`) or its part before the comma (`"Stormwind"`). The compiler adds its taxi node, so it completes on every client language ("Places by ID"), and without `npc` that node's flight master, so the arrow leads to them ("What the compiler fills in"); `npc <id>` picks one yourself. Lint warns about a name no flight point has (`polestar find --kind flight`). |
 | `fly` | `"Location"` | Take a flight: the flight point's town (`"Stormwind"`), as the flight map picks the node by it. Done when the zone or subzone where you land has that name (in the client's language when the compiler finds its area, "Places by ID"); where the landing area is named differently (`"Stormwind City"`), the goal checks off only through a later goal of its step. Lint warns about a name that is no flight point's town, inn location or zone they are in. |
@@ -437,7 +437,10 @@ route passes over the step at once. From then on its open goals are listed
 in the guide window under the current step, "Along the way" (up to six,
 with their progress; not in the compact window), until they are done.
 Clicking one points the arrow at it, if it has a place, until it is done.
-"Then:" and Up next leave along steps out.
+An along step is no step of its own for the player: the window never pages
+to it, it has no number in "N / M" or the progress, and "Then:" and Up next
+leave it out. With `along until`, the heading reads "Along the way, until
+step N" while every goal listed ends at the same labelled step.
 
 With `along until <label>`, the list ends when the route reaches the step
 carrying `label <label>`, except for the goals of a quest that still has
@@ -464,10 +467,10 @@ needed before going on, hand the quest in at the labelled step, as here: the
 turn-in waits for the kills.
 
 Along suits goals the game counts wherever the player is: quest objectives
-(`kill`, `collect`, `interact`, `use` with `quest`), quests taken or handed
-in, bag counts (`collect`, `buy`), `level`, `skill`, `explore`. A goal
-Polestar checks off only on the step the route is on (`goto`, `talk`,
-`hearth`, `getfp`, `fly`, `vendor`, `train` but a profession's, and `kill`,
+(`kill`, `collect`, `interact`, `use`, `talk` with `quest`), quests taken or
+handed in, bag counts (`collect`, `buy`), `level`, `skill`, `explore`. A goal
+Polestar checks off only on the step the route is on (`goto`, `hearth`,
+`getfp`, `fly`, `vendor`, `train` but a profession's, and `kill`, `talk`,
 `interact` or `use` without `quest`) never checks off in an along step and
 warns.
 
@@ -698,11 +701,13 @@ See docs/ARCHITECTURE.md, Smart logic, "Spawn areas".
 tower's floors) a point on the map is several places, and the walking route
 ends on whichever floor its engine picks. So a goal whose point stands for an
 NPC or object gets that entity's height, `z` (world yards), from
-`data/forever/spawnz.json` (CMaNGOS classic-db's spawn positions, which
-`data build` writes): the z of the entity's nearest spawn on the goal's
-instance map (its world point's, in the goal's frame), when that spawn is
-within 15 yards of the point. Nothing is guessed: an NPC only Forever has, or
-one Forever moved more than 15 yards, gets none, and without `spawnz.json` no
+`data/forever/spawnz.json`, which `data build` writes from CMaNGOS
+classic-db's spawn positions and, for an NPC or object classic-db lacks (one
+only Forever has), the Forever TrinityCore world database's sniffed spawn
+positions: the z of the entity's nearest spawn on the goal's instance map
+(its world point's, in the goal's frame), when that spawn is within 15 yards
+of the point. Nothing is guessed: an NPC neither source places, or one
+Forever moved more than 15 yards, gets none, and without `spawnz.json` no
 goal gets one. These goals can get one, their point being the NPC's or
 object's (its spawn, or your `@x,y` at it):
 
@@ -877,6 +882,9 @@ Warnings:
   on a quest whose objectives have places (an npc or object with spawns, an
   item with a placed dropper or vendor): the arrow has nowhere to point; write a
   goal per objective
+- a `use` with no quest (and not `optional`) right before a `collect … quest
+  Q.O`: nothing ticks a bare use, so it holds the step after the item is
+  collected; bind it to the objective (`use <item> quest Q.O`)
 - explicit coordinates more than 50 yards from every known spawn of the entity
 - ids missing from data but given explicit names/coordinates (new Forever content)
 - objective-capable goals with no coordinates
@@ -1061,6 +1069,7 @@ line but not the file, so an imported guide shows no picture.
 
 ```
   talk 295 optional
+  talk 252383 quest 92640.1           -- Valennia: "Speak with Valennia"
   interact 176793 quest 5545.1        -- Bundles of wood lie under the trees
   use 5411 quest 754.1 @51.8,68.4     -- Winterhoof Cleansing Totem
   cast 818 "Basic Campfire"

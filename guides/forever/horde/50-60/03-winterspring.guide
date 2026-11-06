@@ -11,11 +11,6 @@ next forever/horde/50-60/04-azshara
 # into this file.
 # Left out: A Little Luck (6606), A Strange One (6605).
 
-step Ragged Owlbeast on the way
-  along until q4521-2
-  when onquest 4521
-  kill 7450 quest 4521.2
-
 step Into Winterspring
   zone Winterspring
   goto 28.0,34.6 "Into Winterspring"

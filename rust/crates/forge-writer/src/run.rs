@@ -114,6 +114,28 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 	for f in fixes.iter().filter(|f| f.state != "applied" && f.state != "redundant" && f.state != "not for this start") {
 		log.push(format!("fixes: {} {}: {} ({})", f.file, f.id, f.state, f.detail));
 	}
+	// (A bare `complete` of plain kills, items, objects and talks becomes their objective goals, before
+	// the engine: its rules read them as the player gets them.)
+	let mut objective_lines = 0;
+	for rel in &written {
+		let side = if rel.starts_with("forever/alliance/") {
+			Some('A')
+		} else if rel.starts_with("forever/horde/") {
+			Some('H')
+		} else {
+			None
+		};
+		if let Some(t) = tree.get(rel) {
+			let (t2, n) = crate::objectives::objective_goals(t, side, inp.gdata, inp.mechanics);
+			if n > 0 {
+				objective_lines += n;
+				tree.insert(rel.clone(), t2);
+			}
+		}
+	}
+	if objective_lines > 0 {
+		log.push(format!("objective goals: {objective_lines} complete lines"));
+	}
 	let mut eng = None;
 	let mut check = None;
 	if opts.engine {
@@ -174,6 +196,27 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			log.push(format!("detour hand-ins: {n}"));
 			for (f, ls) in chain {
 				tree.insert(f, ls.join("\n"));
+			}
+		}
+	}
+	// (A follow-up from the NPC just handed its prerequisite is taken there, after the detours.)
+	{
+		let order = &inp.route.order;
+		let mut lvl_after: FxHashMap<u32, f64> = FxHashMap::default();
+		for (i, o) in order.iter().enumerate() {
+			if let (OrderT::Turnin, Some(q)) = (o.t, o.q) {
+				if let Some(l) = order[i + 1..].iter().find_map(|n| n.lvl) {
+					lvl_after.entry(q).or_insert(l);
+				}
+			}
+		}
+		let pairs = crate::hub::fix_pairs(inp.route.faction.as_deref());
+		for rel in &written {
+			if let Some(t) = tree.get(rel) {
+				let t2 = crate::post::follow_ups_at_their_giver(t.split('\n').map(str::to_string).collect(), inp.data, inp.world, &|q| lvl_after.get(&q).copied(), &pairs).join("\n");
+				if t2 != *t {
+					tree.insert(rel.clone(), t2);
+				}
 			}
 		}
 	}
@@ -247,6 +290,16 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		for rel in &written {
 			if let Some(t) = tree.get(rel).and_then(|t| crate::post::playable_only(t, &playable)) {
 				tree.insert(rel.clone(), t);
+			}
+		}
+	}
+	// (No `hearth` goal in a written guide: the arrow gives the hearth advice, 0.3.3. Last, so every
+	// pass before, the travel repair and check included, still sees the route's hearth legs.)
+	for rel in &written {
+		if let Some(t) = tree.get(rel) {
+			let t2 = crate::post::no_hearths(t);
+			if t2 != *t {
+				tree.insert(rel.clone(), t2);
 			}
 		}
 	}

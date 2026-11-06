@@ -386,7 +386,7 @@ step Standing our ground
 step Valanaar turn-ins
   hearth "Valanaar"                           -- Hearthstone on cooldown? Walk east back to town.
   turnin 92703                                -- Alvarion Windfield
-  turnin 92850                                -- Dondallion Whisperwind
+  turnin 92850                                -- Fillion Flamebreeze
   accept 99260                                -- Fillion Flamebreeze
   turnin 99260                                -- Elaadrin Evengale
   accept 92840

@@ -73,7 +73,7 @@ step Witherbark trolls and the Bolt Charged Bramble
   zone Arathi Highlands
   tip The Witherbark trolls (level 30-36) hold the villages in south-eastern Arathi and south of Hammerfall; every kind of them drops a Witherbark Totem Stick about two times in five: you need ten. Then go to the Circle of Outer Binding (the outer one, not the Inner circle). Three elementals (level 33-39) stand around its middle stone: pull them one at a time and clear them first. Stand at the middle stone and use a totem stick; about ten seconds later the Bolt Charged Bramble forms on the stone: click it. If you die before you pick it up, the bramble and the sticks are lost and you need ten more.
   collect 7273 x10                            -- Witherbark Totem Stick
-  use 7273 @52.04,50.74                       -- at the middle stone of the Circle of Outer Binding
+  use 7273 quest 1948.2 @52.04,50.74          -- at the middle stone of the Circle of Outer Binding
   collect 7272 quest 1948.2 @52.04,50.74      -- Bolt Charged Bramble
 
 step Jade

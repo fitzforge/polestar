@@ -20,11 +20,8 @@ step Shadowsong Shrine
   getfp "Talrendis Point"
   accept 5535                         -- Loh'atu
   accept 5536
-
-step On the way
-  along until q5535
-  kill 6116 quest 5535.1 -- Highborne Apparition along the way to Shadowsong Shrine
-  kill 6117 quest 5535.2 -- Highborne Lichling along the way to Shadowsong Shrine
+  kill 6116 quest 5535.1              -- Highborne Apparition
+  kill 6117 quest 5535.2              -- Highborne Lichling
 
 step Azshara: kill these as you meet them
   zone Azshara
@@ -34,7 +31,6 @@ step Azshara: kill these as you meet them
   kill 6125 quest 5536.1              -- Haldarr Satyr
 
 step Shadowsong Shrine
-  label q5535
   turnin 5535                         -- Loh'atu
   turnin 5536
 
@@ -122,12 +118,7 @@ step Level 50.89
   goto 48.8,43.4 map 1447 "Spitelash Myrmidon"
   level 50.89                          -- grind on Spitelash Myrmidon
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 
@@ -272,12 +263,7 @@ step Kum'isha the Collector
   collect 10593 quest 3501.1
   turnin 3501
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 
@@ -365,6 +351,7 @@ step Back to Teldrassil
   goto 55.4,92.2 "Teldrassil"
 
 step Daryn Lightwind
+  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
   when group 2944
   zone Teldrassil
   turnin 2944

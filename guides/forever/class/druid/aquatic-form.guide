@@ -78,7 +78,7 @@ step Half Pendant of Aquatic Endurance
 step Pendant of the Sea Lion
   only NightElf,Skyborne,Alliance
   zone Moonglade
-  tip Cast Teleport: Moonglade. With both halves in your bags, stand by the Shrine of Remulos on the north-west shore and use the Half Pendant of Aquatic Agility to join them, then cast Teleport: Moonglade again (it works inside Moonglade) to land by Dendrite Starblaze. Afterwards Silva Fil'naveth, in the middle of Nighthaven, flies druids straight to Rut'theran Village.
+  tip Cast Teleport: Moonglade. With both halves in your bags, stand by the Shrine of Remulos on the north-west shore and use the Half Pendant of Aquatic Agility to join them, then cast Teleport: Moonglade again (it works inside Moonglade) to land by Dendrite Starblaze. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Afterwards Silva Fil'naveth, in the middle of Nighthaven, flies druids straight to Rut'theran Village.
   collect 15885 quest 272.1             -- Pendant of the Sea Lion: join the halves at the shrine
   turnin 272                            -- Dendrite Starblaze
   accept 5061
@@ -126,7 +126,7 @@ step Half Pendant of Aquatic Agility
 step Pendant of the Sea Lion
   only Tauren,Skyborne,Horde
   zone Moonglade
-  tip Cast Teleport: Moonglade. With both halves in your bags, stand by the Shrine of Remulos on the north-west shore and use the Half Pendant of Aquatic Agility to join them, then cast Teleport: Moonglade again (it works inside Moonglade) to land by Dendrite Starblaze. Bunthen Plainswind flies druids to Thunder Bluff.
+  tip Cast Teleport: Moonglade. With both halves in your bags, stand by the Shrine of Remulos on the north-west shore and use the Half Pendant of Aquatic Agility to join them, then cast Teleport: Moonglade again (it works inside Moonglade) to land by Dendrite Starblaze. He stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. Bunthen Plainswind flies druids to Thunder Bluff.
   collect 15885 quest 30.1              -- Pendant of the Sea Lion: join the halves at the shrine
   turnin 30                             -- Dendrite Starblaze
   accept 31

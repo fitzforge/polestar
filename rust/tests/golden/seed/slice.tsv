@@ -27,6 +27,8 @@ not ok	Sato's report: The Great Outdoors on Zephras Isle is done by sitting at R
 not ok	Sato's report: the Scrawny Ursera step leads to the slope west of Thendal Village
 not ok	Sato's report: the Skysight and Read Ley Line objectives tell you to cast the racial, and tick from the quest log
 not ok	Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll
+not ok	Visur's report (#859): Desperate Times talks to Valennia, Ayessa and Elaadrin, in the order the game reveals them, on both Zephras Isle guides
+not ok	Visur's report (#859): no guide asks for a kill the game's objectives do not count, or for a kill of someone it asks you to talk to
 not ok	Zerkness's and Ioney's reports (#383, #396): every player is led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides
 not ok	a Priest's report: an event or escort objective holds its step until the quest is complete
 not ok	a quest with objectives is completed or collected between its accept and its turn-in

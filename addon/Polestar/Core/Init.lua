@@ -486,8 +486,9 @@ function ns.DragLocked()
 	return ns.Get("ui.lockHud") and not ns.Compat.IsShiftKeyDown() and true or false
 end
 
--- The guide window's on/off (ui.shown): the arrow, the action buttons and the
--- rare and transport alerts go with it. A combat or instance hide leaves them.
+-- The guide window's on/off (ui.shown): the action buttons and the rare and
+-- transport alerts go with it, the arrow only with nav.hideArrowWithGuide on
+-- (Nav.HiddenWithGuide). A combat or instance hide leaves them.
 function ns.GuideShown()
 	return ns.Get("ui.shown") ~= false
 end

@@ -78,13 +78,13 @@ step Murlocs of the Misty Reed
 
 # ---------------------------------------------------------------- Pool of Tears and the coast
 
-step Atal'ai Artifact on the way
-  along until q1424
-  collect 6175 quest 1424.1 -- Atal'ai Artifact along the way to Stonard
-
 step Swamp of Sorrows
   zone Swamp of Sorrows
   goto 83.8,80.4 "Swamp of Sorrows"
+
+step Pool of Tears
+  tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
+  collect 6175 quest 1424.1
 
 step Misty Reed Post
   turnin 1426                           -- Katar
@@ -92,17 +92,11 @@ step Misty Reed Post
   turnin 1427                           -- Tok'Kar
 
 step Stonard
-  label q1424
   turnin 1424                           -- Fel'zerul, on the top floor
-  turnin 1430                           -- Dar, inside
   accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 48
-
-step Hearth to Camp Mojache
-  when bound "Camp Mojache"
-  hearth "Camp Mojache"
+  turnin 1430                           -- Dar, inside
 
 step To Camp Mojache
-  when !bound "Camp Mojache"
   zone Feralas
   goto 74.8,45.2 "Camp Mojache"
 
@@ -158,7 +152,7 @@ step Brackenwall Village
 step Onyxia's eggs
   tip The Eggs of Onyxia lie in the dragon caves in the Wyrmbog's south-east, guarded by the scalebanes; smash five.
   goto 53.4,74.7 "Dragon caves"
-  complete 1172
+  interact 20359 quest 1172.1
 
 step Brackenwall Village
   tip Ride back north to Brackenwall.
@@ -252,9 +246,6 @@ step Northspring harpies
   kill 5363 quest 3063.2
   kill 5364 quest 3063.3
   kill 5366 quest 3063.4
-
-step Hearth to Camp Mojache
-  hearth "Camp Mojache"
 
 step Camp Mojache
   turnin 2822                           -- Jangdor Swiftstrider, inside

@@ -1973,6 +1973,19 @@ pub fn build_world(d: &GameData, opts: &BuildOptions, floors: &dyn Floors) -> Re
 						break;
 					}
 				}
+				// Talking to an NPC the game counts (the data's kill credit the client never counts as a
+				// kill, forge-data recordings::game_objectives): at its spawn, like a friendly kill credit.
+				"talk" => {
+					let Some(e) = b.sites(Kind::Npc, oid_i) else {
+						missing = Some(format!("talk objective npc {} has no open-world spawns", oid.map_or("null".into(), js_to_string)));
+						missing_code = "unplaceable";
+						outside = true;
+						break;
+					};
+					let s = b.best_site(&e, Some(giver));
+					located.push(Located { pt: s.pt, work: Work::Use(1.0), ois: vec![oi] });
+					add_obj(&mut obj_list, oi, "talk", oid, Some(1.0), None, false, Vec::new(), Vec::new());
+				}
 				"event" => {
 					events.push(o);
 					event_ois.push(oi);

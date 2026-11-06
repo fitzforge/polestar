@@ -47,9 +47,6 @@ step Islen Waterseer
   accept 5159
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
 
-step Hearth to Orgrimmar
-  hearth "Orgrimmar"
-
 step Vehena
   zone Orgrimmar
   tip In the Valley of Spirits. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest.

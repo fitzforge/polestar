@@ -63,5 +63,26 @@
 			"kind": "in-game-check",
 			"ref": "#619"
 		}
+	},
+	"97275": {
+		"params": [
+			{
+				"kind": "delayed-offer",
+				"after": 97242,
+				"npc": 3347,
+				"sec": 90
+			}
+		],
+		"note": "Whuut's the Rush: Yelmak (3347) offers it only a while after Yelmak's Medley (97242) is handed in to Kor'geld beside him. In one player's recording Yelmak's window still had nothing 42 and 89 seconds after the hand-in and offered it at 94 seconds; sec is that estimate.",
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: a Troll Shaman handed in 97242, was refused 97275 by Yelmak at +42 s and +89 s, and offered it at +94 s"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#891"
+			}
+		]
 	}
 }

@@ -189,7 +189,7 @@ function Dungeons.PickupPlan(key)
 				local giver = Dungeons.Giver(pq, from, rec)
 				local pre, ok = {}, giver ~= nil
 				if ok and rec then
-					local chain, truncated = Lk.QuestChain(pq.id, p)
+					local chain = Lk.QuestChain(pq.id, p)
 					for i = 1, #chain - 1 do
 						local r = chain[i]
 						-- A follow-up of another quest here is taken after the
@@ -198,7 +198,6 @@ function Dungeons.PickupPlan(key)
 						if (onPage[r.id] and not errand(r, from, p)) or NOT_YOURS[Lk.QuestBlock(r, p)] then ok = false end
 						pre[#pre + 1] = r
 					end
-					pre.truncated = truncated
 				end
 				if ok then plan.take[#plan.take + 1] = { quest = pq, rec = rec, giver = giver, pre = pre } end
 			end
@@ -244,7 +243,7 @@ end
 
 local function acceptGoal(pq, rec, g)
 	local goal = { t = "accept", quest = pq.id, title = pq.title or (rec and rec.title),
-		map = g.map, x = g.x, y = g.y, f = g.f, minLevel = (rec and rec.minLevel) or pq.minLevel,
+		map = g.map, x = g.x, y = g.y, f = g.f == "e" and "e" or nil, minLevel = (rec and rec.minLevel) or pq.minLevel,
 		closedBy = type(pq.closedBy) == "table" and pq.closedBy or nil }
 	if g.kind == "object" then
 		goal.object, goal.objName = g.id, g.name
@@ -407,7 +406,7 @@ local function stopsOf(plan, from)
 			if not byKey[k] then
 				local start = endPoint(Lk.QuestEnd(r.start, from))
 				local finish = endPoint(Lk.QuestEnd(r["end"], start or from))
-				add({ key = k, rec = r, inP = start, outP = finish or start, deps = {}, truncated = t.pre.truncated })
+				add({ key = k, rec = r, inP = start, outP = finish or start, deps = {} })
 			end
 			local s = stops[byKey[k]]
 			if prev and prev ~= byKey[k] then
@@ -488,11 +487,7 @@ local function route(key, plan)
 			for _, t in ipairs(s.accepts) do step.goals[#step.goals + 1] = acceptGoal(t.quest, t.rec, s.giver) end
 			lastGiver = s.giverKey
 		else
-			local step = Lk.QuestStep(s.rec, s.inP or pos)
-			if s.truncated and #s.deps == 0 then
-				step.note = L["Earlier quests of this chain are not listed."]
-			end
-			steps[#steps + 1] = step
+			steps[#steps + 1] = Lk.QuestStep(s.rec, s.inP or pos)
 			lastGiver = nil
 		end
 		pos = s.outP or pos

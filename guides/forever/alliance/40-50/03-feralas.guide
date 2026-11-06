@@ -10,7 +10,7 @@ next forever/alliance/40-50/04-tanaris
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rise of the Silithid (4267).
-# Left out: Lonebrow's Journal (1100).
+# Left out: Lonebrow's Journal (1100), The Giant Guardian (2844), Wandering Shay (2845).
 
 step Into The Barrens
   zone The Barrens
@@ -32,7 +32,7 @@ step Boat to Feathermoon Stronghold
 # ---------------------------------------------------------------- Feathermoon
 
 step Feathermoon Stronghold
-  tip Feathermoon Stronghold stands on Sardor Isle, off the Forgotten Coast: the boat from the coast's dock crosses to it.
+  tip Feathermoon Stronghold stands on Sardor Isle, off the Forgotten Coast: the boat from the coast's dock crosses to it. Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   getfp "Feathermoon" npc 8019        -- Fyldren Moonfeather
   accept 2821                         -- Pratt McGrubben
   accept 2866                         -- Shandris Feathermoon, beside him
@@ -88,10 +88,8 @@ step Feral Scar Vale
   tip Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; Bloodroar the Stalker (level 48) prowls the middle.
   collect 8973 quest 2821             -- Thick Yeti Hide
 
-step Hearth to Feathermoon Stronghold
-  hearth "Feathermoon Stronghold"
-
 step Feathermoon Stronghold
+  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
   turnin 2821                         -- Pratt McGrubben
@@ -171,25 +169,8 @@ step Rage Scar Hold
   collect 18969 optional              -- Pristine Yeti Hide
   accept 7735 optional
 
-step Rockbiter
-  tip Ride west to the friendly mountain giant at the foot of the hills. Land Walkers and Cliff Giants around him are elite: give them room.
-  accept 2844 lvl 44
-
-step Shay Leafrunner
-  tip Shay wanders the hills north of Rockbiter, among the Northspring harpies; her bell is in the chest beside her.
-  turnin 2844
-  accept 2845
-  collect 9189 x1 quest 2845          -- Shay's Bell
-
-step Shay's escort
-  tip Ring the bell whenever Shay stops to wander, and lead her south to Rockbiter.
-  complete 2845 @42.33,21.85 map 1444 era -- Rockbiter's camp
-  turnin 2845                         -- Rockbiter
-
-step Hearth to Feathermoon Stronghold
-  hearth "Feathermoon Stronghold"
-
 step Feathermoon Stronghold
+  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 4265                         -- Ginro Hearthkindle
   accept 4266
   turnin 4266                         -- Shandris Feathermoon

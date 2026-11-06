@@ -77,14 +77,12 @@ step The Shady Rest Inn
   accept 1253
   accept 1252 @29.8,48.2              -- Theramore Guard Badge
 
-step Hearth to Theramore Isle
-  hearth "Theramore Isle"
-
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
   tip Follow the road east back to Theramore. Tervosh, Lady Jaina and the officers are in the tower and Foothold Citadel.
   turnin 1219                         -- Theramore Lieutenant
+  accept 1220
   turnin 1324                         -- Archmage Tervosh, upstairs
   accept 1267                         -- Lady Jaina Proudmoore, on the top floor
   turnin 1267
@@ -93,7 +91,6 @@ step Theramore
   turnin 1259                         -- Adjutant Tesoran, on the top floor
   turnin 1284
   turnin 1253
-  accept 1220
   accept 1285
   turnin 1285                         -- Captain Garran Vimes
   turnin 1220                         -- Captain Garran Vimes
@@ -233,12 +230,6 @@ step Boat to Booty Bay
   zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay"
 
-step Fly to Darkshire
-  only Dwarf,Gnome,NightElf,Skyborne
-  zone Stranglethorn Vale
-  goto 27.5,77.7 "Booty Bay flight master"
-  fly "Darkshire"
-
 step Boat to Booty Bay
   only Gnome
   zone The Barrens
@@ -257,6 +248,7 @@ step Boat to Booty Bay
 step The Barrens
   only Gnome,Warlock
   zone The Barrens
+  getfp "Ratchet"
   goto 63.4,38.5 "The Barrens"
 
 step Boat to Booty Bay
@@ -283,6 +275,12 @@ step Boat to Booty Bay
   only Skyborne
   zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
+
+step Fly to Darkshire
+  only Dwarf,Gnome,NightElf,Skyborne
+  zone Stranglethorn Vale
+  goto 27.5,77.7 "Booty Bay flight master"
+  fly "Darkshire"
 
 step Duskwood
   zone Duskwood
@@ -394,11 +392,6 @@ step Maury and Jon-Jon
   tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
 
-step Jungle Stalker on the way
-  along until q196
-  when onquest 196
-  kill 687 quest 196.1
-
 step Cold Eye Basilisks
   tip The Cold Eye Basilisks lie on the rocks west of the mine.
   collect 2476 quest 212              -- Chilled Basilisk Haunch
@@ -431,9 +424,6 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   collect 1524 quest 209              -- Skullsplitter Tusk
   collect 3917 quest 600              -- Singing Blue Crystal
 
-step Hearth to Booty Bay
-  hearth "Booty Bay"
-
 step Booty Bay
   turnin 611                          -- Baron Revilgaz
   note Crank's next Zanzil errand starts in Thousand Needles: skip it.
@@ -444,7 +434,6 @@ step Booty Bay
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
 
 step Raptor Mastery
-  label q196
   kill 687 quest 196.1 @32.1,43.1 map 1434
 
 step Hemet Nesingwary

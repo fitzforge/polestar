@@ -949,6 +949,29 @@ fn bind_at_a_train_event_goes_to_the_inn_step() {
 }
 
 #[test]
+fn a_v1_training_the_step_writes_last_stays_after_the_steps_quest_lines() {
+	// thmastin's Kharanos report (32fc6ceac, a recorded Dwarf Hunter run): v1's distillery step trains
+	// last, after Ragnar, Tannok and Maxan, since some classes' trainers stand outside. The 0.3.0 Dwarf
+	// route put the training before them, and the guide sent the Hunter out to Grif Wildheart and back in.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 1-10", "zone Dun Morogh", "", "step Distillery", "  accept 1", "  accept 2", "  accept 3", "  train class", "", "step Depot", "  turnin 1", ""],
+		)],
+		world: json!({ "points": [[0, 0, 0, 0, 1426], [0, 0, 900, 900, 1426]], "zones": { "1426": "Dun Morogh" }, "quests": [], "inns": [], "nodes": [] }),
+		route: json!({ "diff": {}, "order": [
+            { "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+            { "t": "train", "pt": 0, "from": f("a", 10) },
+            { "t": "accept", "q": 2, "pt": 0, "from": f("a", 8) },
+            { "t": "accept", "q": 3, "pt": 0, "from": f("a", 9) },
+            { "t": "turnin", "q": 1, "pt": 1, "from": f("a", 13) }
+        ] }),
+		..Case::default()
+	};
+	assert_eq!(pick(&run(&c, None).read("a"), r"^step|^\s+(accept|turnin|train)"), vec!["step Distillery", "  accept 1", "  accept 2", "  accept 3", "  train class", "step Depot", "  turnin 1"]);
+}
+
+#[test]
 fn route_hearth_for_its_races_v1_for_the_others() {
 	let c = Case {
 		files: vec![
@@ -1746,6 +1769,49 @@ fn flight_path_learnt_by_v1_not_written_again() {
 		..Case::default()
 	};
 	assert_eq!(run(&c, None).read("a").iter().filter(|l| l.contains("getfp")).count(), 1);
+}
+
+#[test]
+fn a_flight_path_v1_learns_in_the_step_it_arrives_for_stays_where_v1_has_it() {
+	// #727: Sentinel Hill's step learns the flight path after the tower's quests (accept 102); the
+	// route's flight path, written first in the step it arrives for, was kept and v1's line dropped
+	// as its double: the flight path came first, down the tower and back up.
+	for route_travel in [false, true] {
+		let c = Case {
+			files: vec![(
+				"a",
+				vec![
+					"guide t/a",
+					"title A",
+					"levels 1-5",
+					"zone Durotar",
+					"",
+					"step Road",
+					"  accept 1",
+					"",
+					"step Hill",
+					"  accept 2",
+					"  accept 3",
+					"  getfp \"Crossroads\"",
+					"  turnin 1",
+					"  accept 4",
+					"",
+				],
+			)],
+			world: travel_world(),
+			route: json!({ "diff": {}, "order": [
+                { "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+                { "t": "accept", "q": 2, "pt": 3, "from": f("a", 10), "items": [{ "t": "getfp", "node": 1 }] },
+                { "t": "accept", "q": 3, "pt": 3, "from": f("a", 11) },
+                { "t": "turnin", "q": 1, "pt": 3, "from": f("a", 13) },
+                { "t": "accept", "q": 4, "pt": 3, "from": f("a", 14) }
+            ] }),
+			route_travel,
+			..Case::default()
+		};
+		let g = run(&c, None).read("a");
+		assert_eq!(pick(&g, r"^\s+(accept|turnin|getfp)"), vec!["  accept 1", "  accept 2", "  accept 3", "  getfp \"Crossroads\"", "  turnin 1", "  accept 4"], "route_travel {route_travel}: {g:#?}");
+	}
 }
 
 #[test]
@@ -8386,6 +8452,42 @@ fn a_top_up_grinds_near_the_player_not_at_a_named_mobs_spot() {
 }
 
 #[test]
+fn a_top_up_goes_to_the_mob_it_names_when_that_mob_is_not_at_the_camp() {
+	// #924: Darkshore's level 20 named the Elder Darkshore Thresher (on level) but pointed at the camp of
+	// the lower Darkshore Threshers where the route got the Thresher Eyes both drop; the Elders spawn
+	// only on the coasts, more than a thousand yards off.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 15-20", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  collect 50 quest 1.1", "", "step Hub again", "  turnin 1", ""],
+		)],
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 19.0, "from": f("a", 7) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 19.2, "from": f("a", 10) },
+			{ "t": "level", "lvl": 19.6, "target": 20.0, "pt": 1, "from": "inserted" },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 20.0, "from": f("a", 13) }
+		] }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, 0, 300, 1411]], "zones": { "1411": "Durotar" },
+			"quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "item", "id": 50, "task": 0, "count": 8 }] }] }),
+		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "item", "id": 50 }] } }),
+		npcs: json!({
+			"8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } },
+			"20": { "name": "Thresher", "level": 12, "spawns": { "1411": { "f": "e", "pts": [[64, 50], [65, 50], [66, 50]] } } },
+			"21": { "name": "Elder Thresher", "level": 16, "spawns": { "1411": { "f": "e", "pts": [[10, 90], [80, 20], [90, 10], [20, 85]] } } }
+		}),
+		items: json!({ "50": { "drops": { "npc": { "20": 30, "21": 30 } } } }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let s = idx(&g, "step Level 20");
+	assert!(s >= 0, "{g:#?}");
+	let body: Vec<&String> = g[s as usize..].iter().take_while(|l| !l.is_empty()).collect();
+	// (The Elders' spawn nearest the camp, 670 yd off; the camp itself is 65.0,50.0.)
+	assert!(body.iter().any(|l| *l == "  goto 80.0,20.0 map 1411 \"Elder Thresher\""), "{g:#?}");
+	assert!(body.iter().any(|l| l.ends_with("-- grind on Elder Thresher")), "{g:#?}");
+}
+
+#[test]
 fn a_top_up_with_no_camp_behind_grinds_at_the_next_camp_near_the_player() {
 	// Rev15OrcTroll B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
 	// huts the route works next are 300 yd west.
@@ -9362,6 +9464,89 @@ fn a_city_trainer_a_few_hundred_yards_from_the_stop_counts_as_there() {
 }
 
 #[test]
+fn a_class_whose_trainer_the_way_to_the_stop_passes_trains_there_before_the_way_leaves_town() {
+	// #912, Night Elf 02-darkshore: the boat lands in Stormwind Harbor, a few hundred yards from its
+	// Druid trainers, and the route walks on to its Goldshire training, which has none: the Druids were
+	// sent back from Goldshire to Stormwind and back. They train in Stormwind, before the walk out.
+	let mut c = Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 12-14", "zone Darkshore", "", "step Hub", "  accept 1", "", "step Later", "  accept 2", ""])],
+		world: json!({
+			"points": [[0, 1, 0, 0, 1439], [0, 1, 0, 3000, 1453], [0, 1, 0, 3800, 1453], [0, 1, 0, 5000, 1429], [0, 1, 100, 5000, 1429]],
+			"zones": { "1439": "Darkshore", "1453": "Stormwind City", "1429": "Elwynn Forest" }, "quests": []
+		}),
+		frames: json!({ "era": {
+			"1439": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 },
+			"1453": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 },
+			"1429": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 }
+		} }),
+		npcs: json!({
+			"5504": { "name": "Sheldras Moontree", "subName": "Druid Trainer", "faction": "A", "spawns": { "1453": { "f": "e", "pts": [[76.67, 50]] } } },
+			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[91.67, 50]] } } }
+		}),
+		route: json!({ "faction": "Alliance", "start": "NightElf", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 12.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "train", "lvl": 12.2, "pt": 3, "from": "train stop", "items": [{ "t": "network", "from": 0, "to": 3, "legs": [{ "k": "walk", "to": 1 }, { "k": "walk", "to": 2 }, { "k": "walk", "to": 3 }] }] },
+			{ "t": "accept", "q": 2, "lvl": 12.3, "pt": 4, "from": f("a", 10) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let druid = idx(&g, "step Druid trainer");
+	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*"Elwynn Forest""#)).map_or(-1, |i| i as i64);
+	let stop = idx(&g, "step Class trainer");
+	assert!(druid >= 0 && into_elwynn > druid && stop > into_elwynn, "{g:#?}");
+	assert!(g[druid as usize..].iter().take_while(|l| !l.is_empty()).any(|l| l == "  zone Stormwind City"), "{g:#?}");
+	assert_eq!(g.iter().filter(|l| m(l, r"^\s+train class only Druid\b")).count(), 1, "{g:#?}");
+	assert!(g.iter().any(|l| l.starts_with("  train class only Druid -- Sheldras Moontree in Stormwind City")), "{g:#?}");
+	// (A trainer in another town nearer the stop, named by the stop's line: the line names the town's.)
+	c.world["zones"]["1436"] = json!("Westfall");
+	c.frames["era"]["1436"] = json!({ "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 });
+	c.npcs["542"] = json!({ "name": "Califex", "subName": "Druid Trainer", "faction": "A", "spawns": { "1436": { "f": "e", "pts": [[100, 41.67]] } } });
+	let g = run(&c, None).read("a");
+	assert!(g.iter().any(|l| l == "  train class only Druid -- Sheldras Moontree in Stormwind City; Elwynn Forest has no druid trainer"), "{g:#?}");
+	// (A trainer 600 yd from where the way stands in the town: the Druids train after the stop, as before.)
+	c.npcs.as_object_mut().unwrap().remove("542");
+	c.npcs["5504"]["spawns"]["1453"]["pts"] = json!([[76.67, 45]]);
+	let g = run(&c, None).read("a");
+	assert!(idx(&g, "step Druid trainer") > idx(&g, "step Class trainer") && idx(&g, "step Class trainer") >= 0, "{g:#?}");
+}
+
+#[test]
+fn a_class_trainer_in_a_citys_live_frame_counts_as_its_nearest() {
+	// #912: the Goldshire stop's Druids were sent to Alfina Nightgaze in Alterac, past Stormwind's Druid
+	// trainers, whose spawns are on the city's live frame.
+	let c = Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 12-14", "zone Elwynn Forest", "", "step Hub", "  accept 1", "", "step Later", "  accept 2", ""])],
+		world: json!({
+			"points": [[0, 1, 0, 5000, 1429], [0, 1, 100, 5000, 1429]],
+			"zones": { "1453": "Stormwind City", "1429": "Elwynn Forest", "1416": "Alterac Mountains" }, "quests": []
+		}),
+		frames: json!({
+			"era": {
+				"1429": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 },
+				"1416": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 }
+			},
+			"forever": { "1453": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 } }
+		}),
+		npcs: json!({
+			"5504": { "name": "Sheldras Moontree", "subName": "Druid Trainer", "faction": "A", "spawns": { "1453": { "f": "l", "pts": [[81.67, 50]] } } },
+			"270459": { "name": "Alfina Nightgaze", "subName": "Druid Trainer", "faction": "A", "spawns": { "1416": { "f": "e", "pts": [[91.67, 25]] } } },
+			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[91.67, 50]] } } }
+		}),
+		route: json!({ "faction": "Alliance", "start": "NightElf", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 12.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "train", "lvl": 12.2, "pt": 0, "from": "train stop" },
+			{ "t": "accept", "q": 2, "lvl": 12.3, "pt": 1, "from": f("a", 10) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(g.iter().any(|l| l.starts_with("  train class only Druid -- Sheldras Moontree in Stormwind City")), "{g:#?}");
+}
+
+#[test]
 fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
 	// c15 Alliance 50-60 (Rev15A2 A5): the Druids' Darnassus training closing 01-burning-steppes, after
 	// Rut'theran Village, was written in Felwood after the Emerald Sanctuary, at the route's later take of
@@ -9604,4 +9789,377 @@ fn a_hand_in_after_a_spread_camp_stays_unless_its_npc_is_on_the_way_from_every_s
 	let b = area_step(&g);
 	assert!(!goal_lines(&b).iter().any(|l| l == "  turnin 790"), "{g:#?}");
 	assert!(has(&g, "  turnin 790"), "{g:#?}");
+}
+
+#[test]
+fn a_step_never_lists_the_same_goal_twice() {
+	// #843, Dun Morogh's "Brewnall Village": v1's optional "on the way" kills for Rejold and the
+	// required kills the route works right there came into one step: the boars and the leopards twice.
+	// One line each: required, with its own note, else the optional copy's.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 5-8",
+				"zone Durotar",
+				"",
+				"step Brewnall Village",
+				"  accept 319",
+				"  kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold",
+				"  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way",
+				"  kill 1201 quest 319 optional                -- Snow Leopard, on the way",
+				"",
+				"step Brewnall Village",
+				"  accept 310",
+				"  kill 1127 quest 319",
+				"  kill 1201 quest 319                         -- Snow Leopard",
+				"",
+				"step Rejold Barleybrew",
+				"  turnin 319",
+				"  turnin 310",
+				"",
+			],
+		)],
+		// (Rejold and Marleth stand together: givers at points 0 and 1, 10 yd apart.)
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, 10, 0, 1411], [1, 1, 900, 900, 1411]], "zones": { "1411": "Durotar" }, "quests": [
+			{ "id": 319, "giver": 0, "ender": 2, "objs": [{ "oi": 0, "type": "kill", "id": 1196, "task": 0 }, { "oi": 1, "type": "kill", "id": 1127, "task": 1 }, { "oi": 2, "type": "kill", "id": 1201, "task": 2 }] },
+			{ "id": 310, "giver": 1, "ender": 2 }
+		] }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 319, "from": f("a", 7) },
+			{ "t": "task", "q": 319, "task": 0, "from": f("a", 8) },
+			{ "t": "accept", "q": 310, "from": f("a", 13) },
+			{ "t": "task", "q": 319, "task": 1, "from": f("a", 14) },
+			{ "t": "task", "q": 319, "task": 2, "from": f("a", 15) },
+			{ "t": "turnin", "q": 319, "from": f("a", 18) },
+			{ "t": "turnin", "q": 310, "from": f("a", 19) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	// (Each kill once in each step.)
+	let mut step = "";
+	let mut seen: Vec<(&str, &str)> = Vec::new();
+	for l in &g {
+		if l.starts_with("step ") {
+			step = l;
+		} else if let Some(k) = l.strip_prefix("  kill ") {
+			let id = k.split_whitespace().next().unwrap_or("");
+			assert!(!seen.contains(&(step, id)), "kill {id} twice in {step}: {g:#?}");
+			seen.push((step, id));
+		}
+	}
+	assert!(has(&g, "  kill 1127 quest 319                         -- Elder Crag Boar, on the way"), "{g:#?}");
+	assert!(has(&g, "  kill 1201 quest 319                         -- Snow Leopard"), "{g:#?}");
+}
+
+#[test]
+fn a_flight_path_step_in_the_zone_the_player_stands_in_is_not_reached_by_hearthing_out_and_back() {
+	// Silithus guide, Moonglade (found by Fitz): the route's way from Umber to Rut'theran Village is the
+	// hearth to Cenarion Hold and its flight (it never learns Nighthaven's flight path), but v1's
+	// Nighthaven step, 600 yd from Umber in the same zone, learns that flight path and flies on. The
+	// guide went Umber, hearth to Silithus, fly to Rut'theran, back into Moonglade for the flight path,
+	// fly to Rut'theran. The Nighthaven step comes right after Umber and its flight is the way on.
+	let world = json!({
+		"points": [
+			[1, 1, 0, 0, 1450], [1, 1, 0, 600, 1450],
+			[1, 1, 5000, -6000, 1451], [1, 1, 5010, -6000, 1451],
+			[1, 1, -6000, 3000, 1438], [1, 1, -6010, 3010, 1438],
+			[1, 1, -5000, 2000, 1439]
+		],
+		"zones": { "1450": "Moonglade", "1451": "Silithus", "1438": "Teldrassil", "1439": "Darkshore" }, "quests": [],
+		"inns": [{ "name": "Cenarion Hold", "pt": 2 }],
+		"nodes": [
+			{ "kind": "fp", "name": "Cenarion Hold", "pt": 3 }, { "kind": "fp", "name": "Rut'theran Village", "pt": 4 },
+			{ "kind": "fp", "name": "Moonglade", "pt": 1 }, { "kind": "fp", "name": "Auberdine", "pt": 6 }
+		]
+	});
+	let frame = json!({ "top": 10000, "bottom": -10000, "left": -10000, "right": 10000, "c": 1 });
+	let frames = json!({ "era": { "1450": frame, "1451": frame, "1438": frame, "1439": frame } });
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"race Human,Dwarf,Gnome,NightElf,Skyborne",
+				"levels 58-60",
+				"zone Silithus",
+				"",
+				"step Cenarion Hold",
+				"  sethome \"Cenarion Hold\"",
+				"  accept 3",
+				"",
+				"step Umber",
+				"  zone Moonglade",
+				"  accept 1",
+				"  turnin 1",
+				"",
+				"step Nighthaven",
+				"  getfp \"Moonglade\"",
+				"  fly \"Auberdine\"",
+				"",
+				"step Rut'theran Village",
+				"  zone Teldrassil",
+				"  turnin 3",
+				"",
+			],
+		)],
+		world,
+		frames,
+		quests: json!({ "1": { "title": "Umber's" }, "3": { "title": "Erelas'" } }),
+		route: json!({ "faction": "Alliance", "start": "Human", "diff": {}, "order": [
+			{ "t": "accept", "q": 3, "pt": 2, "from": f("a", 9), "items": [{ "t": "getfp", "node": 1 }, { "t": "getfp", "node": 0 }, { "t": "bind", "inn": 0, "pt": 2, "used": true, "innPt": 2 }] },
+			{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 13) },
+			{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 14) },
+			{ "t": "turnin", "q": 3, "pt": 5, "from": f("a", 22), "items": [
+				{ "t": "hearth", "inn": 0, "to": 5, "innPt": 2 },
+				{ "t": "network", "from": 2, "to": 5, "legs": [{ "k": "walk", "to": 3, "node": 0 }, { "k": "fly", "from": 0, "to": 1 }, { "k": "walk", "to": 5 }] }
+			] }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let (umber, getfp, hand) = (idx(&g, "  turnin 1"), idx(&g, "  getfp \"Moonglade\""), idx(&g, "  turnin 3"));
+	assert!(umber >= 0 && getfp > umber && hand > getfp, "{g:#?}");
+	// Nothing takes the player out of Moonglade between Umber and Nighthaven's flight path.
+	assert!(!g[umber as usize..getfp as usize].iter().any(|l| m(l, r"^\s+(hearth|fly)\s")), "{g:#?}");
+	// The flight from Nighthaven is the way on: no hearth, and the one flight after the flight path.
+	assert!(!g.iter().any(|l| l.starts_with("  hearth ")), "{g:#?}");
+	let fly = pick(&g, r"^\s+fly\s");
+	assert_eq!(fly, vec!["  fly \"Rut'theran Village\""], "{g:#?}");
+	let flies = idx(&g, "  fly \"Rut'theran Village\"");
+	assert!(flies > getfp && flies < hand, "{g:#?}");
+}
+
+#[test]
+fn a_class_steps_flight_to_the_flight_path_where_they_stand_goes() {
+	// Horde 07-ashenvale:229-239: v1's Druid step "fly to Thunder Bluff and train", written after the
+	// route's own training in Thunder Bluff, walked the Druids to Tal and flew them to Thunder Bluff.
+	// At Orgrimmar's flight master the Shamans' flight there goes, with the tip's sentence sending them
+	// on it, and their training stays; from a camp 1,000 yd off, whose nearest flight master it is, the
+	// walk there stays and the flight goes (the Barrens' Orgrimmar training after Boulder Lode Mine).
+	let c = |at: u32| Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 1-5",
+				"zone Durotar",
+				"",
+				"step Hub",
+				"  accept 1",
+				"",
+				"step Trainer",
+				"  only Shaman",
+				"  tip Fly to Orgrimmar to train. Searn Firewarder is in the Valley of Wisdom.",
+				"  fly \"Orgrimmar\"",
+				"  train class",
+				"",
+				"step Camp",
+				"  turnin 1",
+				"",
+			],
+		)],
+		world: {
+			let mut w = travel_world();
+			w["points"].as_array_mut().unwrap().push(json!([1, 1, -700, -700, 1411]));
+			w
+		},
+		route: json!({ "diff": {}, "order": [
+            { "t": "accept", "q": 1, "pt": at, "from": f("a", 7), "items": [{ "t": "getfp", "node": 0 }, { "t": "getfp", "node": 1 }] },
+            { "t": "turnin", "q": 1, "pt": at, "from": f("a", 16) }
+        ] }),
+		route_travel: true,
+		..Case::default()
+	};
+	for at in [2, 4] {
+		let t = run(&c(at), None).read("a");
+		assert!(!t.iter().any(|l| l.starts_with("  fly ")), "{t:?}");
+		assert_eq!(t.iter().any(|l| l.contains("\"Orgrimmar flight master\"")), at == 4, "{t:?}");
+		let s = t.iter().position(|l| l == "step Trainer").unwrap_or_else(|| panic!("{t:?}"));
+		assert!(t[s + 1..].iter().take_while(|l| !l.starts_with("step ")).any(|l| l == "  train class"), "{t:?}");
+		assert!(t.iter().any(|l| l == "  tip Searn Firewarder is in the Valley of Wisdom."), "{t:?}");
+	}
+}
+
+/// Level fit (#977): a camp of `n` spawns of `npc` around map point (x, y) on 1411.
+fn camp(id: u32, name: &str, lo: u32, hi: u32, x: f64, y: f64, n: usize) -> (String, Value) {
+	let pts: Vec<Value> = (0..n).map(|i| json!([x + 0.5 * ((i % 3) as f64 - 1.0), y + 0.5 * ((i / 3) as f64 - 1.0)])).collect();
+	(id.to_string(), json!({ "id": id, "name": name, "level": lo, "levelMax": hi, "spawns": { "1411": { "f": "e", "pts": pts } } }))
+}
+
+fn level_world(quests: Value) -> Value {
+	// Hub (20, 50), camp (70, 50), elsewhere (40, 20) on 1411's frame (1000 yd a side).
+	json!({ "points": [[1, 1, 0, -600, 1411], [1, 1, 0, 400, 1411], [1, 1, 600, -200, 1411]], "zones": { "1411": "Durotar" }, "quests": quests })
+}
+
+fn kill_quest(id: u32, npc: u32, lvl: u32, pre: &[u32]) -> Value {
+	json!({ "id": id, "pre": pre, "objs": [{ "oi": 0, "type": "kill", "id": npc, "task": 0 }], "tasks": [{ "work": [["kill", lvl, 5, 0, 0, npc]] }] })
+}
+
+#[test]
+fn level_fit_moves_work_to_the_later_visit_where_it_fits() {
+	// Quest 1's gnolls (16) at level 10 do not fit; the route is back at the same camp at 14 for the
+	// wolves: the gnolls go there, and their hand-in to the hub stop after it.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 10-15",
+		"zone Durotar",
+		"",
+		"step Hub",
+		"  accept 1",
+		"  accept 2",
+		"  accept 3",
+		"",
+		"step Gnolls",
+		"  kill 10 quest 1.1",
+		"",
+		"step Elsewhere",
+		"  kill 13 quest 3.1",
+		"",
+		"step Hub again",
+		"  turnin 1",
+		"  turnin 3",
+		"",
+		"step Wolves",
+		"  kill 12 quest 2.1",
+		"",
+		"step Hub last",
+		"  turnin 2",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(10, "Gnoll", 16, 16, 70.0, 50.0, 5), camp(12, "Wolf", 14, 14, 70.0, 51.0, 5), camp(13, "Boar", 11, 11, 40.0, 20.0, 5)].into_iter().collect();
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 10.0, "from": f("a", 7) }, { "t": "accept", "q": 2, "pt": 0, "lvl": 10.0, "from": f("a", 8) },
+			{ "t": "accept", "q": 3, "pt": 0, "lvl": 10.0, "from": f("a", 9) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 10.2, "from": f("a", 12) },
+			{ "t": "task", "q": 3, "task": 0, "pt": 2, "lvl": 10.5, "from": f("a", 15) },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 11.0, "from": f("a", 18) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 11.5, "from": f("a", 19) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 14.2, "from": f("a", 22) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 15.0, "from": f("a", 25) }
+		] }),
+		world: level_world(json!([kill_quest(1, 10, 16, &[]), kill_quest(2, 12, 14, &[]), kill_quest(3, 13, 11, &[])])),
+		quests: json!({ "1": { "title": "One", "level": 16 }, "2": { "title": "Two", "level": 14 }, "3": { "title": "Three", "level": 11 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	assert_eq!(
+		pick(&r.read("a"), r"^\s+(accept|turnin|kill)"),
+		vec!["  accept 2", "  accept 3", "  kill 13 quest 3.1", "  turnin 3", "  accept 1", "  kill 12 quest 2.1", "  kill 10 quest 1.1", "  turnin 2", "  turnin 1"],
+		"{:#?}",
+		r.out.log
+	);
+	assert!(r.out.log.iter().any(|l| l.starts_with("level fit: One (1) task 1 moved after task two (2)")), "{:#?}", r.out.log);
+}
+
+#[test]
+fn level_fit_leaves_out_work_no_later_visit_fits() {
+	// Fangore's Galardell Valley (#977): Lieutenant Fangore (26) among gnolls of 22-25 at level 21.4, and the
+	// route never comes back at a level that fits: the quest, its hand-in and its follow-up go, and the
+	// header says why.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 20-24",
+		"zone Durotar",
+		"",
+		"step Town",
+		"  accept 4",
+		"  accept 7",
+		"",
+		"step Galardell Valley",
+		"  kill 20 quest 4.1",
+		"",
+		"step Blackrock camps",
+		"  kill 13 quest 7.1",
+		"",
+		"step Back to town",
+		"  turnin 4",
+		"  accept 5",
+		"  turnin 7",
+		"",
+		"step Follow-up",
+		"  kill 13 quest 5.1",
+		"  turnin 5",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> =
+		[camp(20, "Lieutenant Fangore", 26, 26, 70.0, 50.0, 1), camp(21, "Shadowhide Gnoll", 22, 25, 70.5, 50.5, 9), camp(13, "Blackrock Grunt", 21, 22, 40.0, 20.0, 6)].into_iter().collect();
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Alliance", "diff": {}, "order": [
+			{ "t": "accept", "q": 4, "pt": 0, "lvl": 21.0, "from": f("a", 7) }, { "t": "accept", "q": 7, "pt": 0, "lvl": 21.0, "from": f("a", 8) },
+			{ "t": "task", "q": 4, "task": 0, "pt": 1, "lvl": 21.46, "from": f("a", 11) },
+			{ "t": "task", "q": 7, "task": 0, "pt": 2, "lvl": 23.0, "from": f("a", 14) },
+			{ "t": "turnin", "q": 4, "pt": 0, "lvl": 23.2, "from": f("a", 17) }, { "t": "accept", "q": 5, "pt": 0, "lvl": 23.3, "from": f("a", 18) },
+			{ "t": "turnin", "q": 7, "pt": 0, "lvl": 23.3, "from": f("a", 19) },
+			{ "t": "task", "q": 5, "task": 0, "pt": 2, "lvl": 23.4, "from": f("a", 22) }, { "t": "turnin", "q": 5, "pt": 0, "lvl": 23.6, "from": f("a", 23) }
+		] }),
+		world: level_world(json!([kill_quest(4, 20, 26, &[]), kill_quest(5, 13, 22, &[4]), kill_quest(7, 13, 22, &[])])),
+		quests: json!({ "4": { "title": "WANTED: Lieutenant Fangore", "level": 26 }, "5": { "title": "Five", "level": 23, "pre": [4] }, "7": { "title": "Blackrock Menace", "level": 21 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	let g = r.read("a");
+	assert_eq!(pick(&g, r"^\s+(accept|turnin|kill)"), vec!["  accept 7", "  kill 13 quest 7.1", "  turnin 7"], "{g:#?}");
+	assert!(has(&g, "# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): WANTED: Lieutenant Fangore (4), Five (5)."), "{g:#?}");
+	assert!(
+		r.out.log.iter().any(|l| l.starts_with("level fit: WANTED: Lieutenant Fangore (4) left out (target 26 at 21.5, ground 24; no later visit there at a level that fits)")),
+		"{:#?}",
+		r.out.log
+	);
+}
+
+#[test]
+fn level_fit_judges_the_ground_not_only_the_target() {
+	// A target at the player's level (21) inside a camp of 25s: the ground's median decides. Without
+	// a level on the route (an old route) nothing is judged.
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 20-24",
+		"zone Durotar",
+		"",
+		"step Town",
+		"  accept 6",
+		"  accept 8",
+		"",
+		"step Camp",
+		"  kill 31 quest 6.1",
+		"",
+		"step Town again",
+		"  turnin 6",
+		"  turnin 8",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(31, "Rabid Gnoll", 21, 21, 70.0, 50.0, 3), camp(32, "Gnoll Darkweaver", 25, 25, 70.2, 50.2, 9)].into_iter().collect();
+	let mut c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Alliance", "diff": {}, "order": [
+			{ "t": "accept", "q": 6, "pt": 0, "lvl": 21.0, "from": f("a", 7) }, { "t": "accept", "q": 8, "pt": 0, "lvl": 21.0, "from": f("a", 8) },
+			{ "t": "task", "q": 6, "task": 0, "pt": 1, "lvl": 21.3, "from": f("a", 11) },
+			{ "t": "turnin", "q": 6, "pt": 0, "lvl": 21.8, "from": f("a", 14) }, { "t": "turnin", "q": 8, "pt": 0, "lvl": 21.9, "from": f("a", 15) }
+		] }),
+		world: level_world(json!([kill_quest(6, 31, 21, &[])])),
+		quests: json!({ "6": { "title": "Six", "level": 22 }, "8": { "title": "Eight", "level": 21 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	assert_eq!(pick(&r.read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 8", "  turnin 8"], "{:#?}", r.out.log);
+	for o in c.route["order"].as_array_mut().unwrap() {
+		o.as_object_mut().unwrap().remove("lvl");
+	}
+	assert_eq!(pick(&run(&c, None).read("a"), r"^\s+(accept|turnin|kill)"), vec!["  accept 6", "  accept 8", "  kill 31 quest 6.1", "  turnin 6", "  turnin 8"]);
 }

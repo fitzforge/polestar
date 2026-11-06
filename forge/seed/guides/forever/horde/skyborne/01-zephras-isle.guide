@@ -557,8 +557,7 @@ step Unfortunate News
 step Desperate Times
   kill 252383 quest 92640.1 "Talk to Valennia Stormfist"
   kill 251968 quest 92640.2 "Talk to Ayessa Dawnsinger"
-  talk 252475                         -- Elaadrin Evengale
-  complete 92640 @66.59,79.92
+  talk 252475 quest 92640.3 @66.59,79.92 -- Elaadrin Evengale
   turnin 92640                        -- Valennia Stormfist
   accept 93065
   complete 93065 @61.18,70.95         -- talk to Valennia Stormfist

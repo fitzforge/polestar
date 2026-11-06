@@ -131,7 +131,7 @@ step Lost the Fire Sapta?
 step The Minor Manifestation of Fire
   only Orc,Troll,Tauren
   tip Drink the Fire Sapta beside the Shaman Shrine, the big grey stone just below the summit, then climb to the plateau. Of the fire elementals there only the one in the middle can be attacked: it is level 12, immune to fire and grows stronger the longer the fight lasts, so open at once with Rockbiter Weapon and Earth Shock and leave the others alone. Its Glowing Ember drops every time.
-  use 6636 @38.1,58.5                         -- Fire Sapta, beside the Shaman Shrine
+  use 6636 quest 1526.1 @38.1,58.5            -- Fire Sapta, beside the Shaman Shrine
   collect 6655 quest 1526.1                   -- Glowing Ember: Minor Manifestation of Fire
 
 step The Brazier of the Dormant Flame
