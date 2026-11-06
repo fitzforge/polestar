@@ -135,7 +135,7 @@
 --   Walk.Clear()
 --   Walk.Measure(c, x, y, water, places): measure the walks into that target
 --     from the planner's places (one FindMany; Travel.Remeasured when in)
---   Walk.Measured(c, x, y, water) -> walkCost(c, wx, wy, start) -> cost, yards | nil, or nil
+--   Walk.Measured(c, x, y, water) -> walkCost(c, wx, wy, start) -> cost, yards | false | nil, or nil
 --   Walk.LegPath(from, to) -> yards along that later walk's searched path, its hubs | nil
 --   Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ... },
 --     current, choke }, ... } } or nil without a target or while handed off
@@ -1030,16 +1030,23 @@ end
 
 -- The walk from (c, wx, wy) to the measure's target (the player's walk when
 -- start): its cost (chooses) and its yards (times it; FindMany's job.yards[i],
--- the cost itself from a router without them), or nil for the straight
+-- the cost itself from a router without them), false when the engine found
+-- no walk from there (unreachable, or off its maps), or nil for the straight
 -- estimate. The player's walk measured more than START_NEAR yards away is
 -- that walk's yards less the yards moved, never below the straight distance,
--- its cost scaled alike.
+-- its cost scaled alike (and no answer when none was found).
 local function measuredCost(e, c, wx, wy, start)
 	if c ~= e.c then return nil end
 	local costs, yards = e.costs, e.yards
 	local i
 	if start then i = e.si else i = placeIndex(e, wx, wy) end
 	local m = i and costs[i]
+	if m == false then
+		if not start then return false end
+		local dx, dy = wx - e.sx, wy - e.sy
+		if dx * dx + dy * dy <= START_NEAR * START_NEAR then return false end
+		return nil
+	end
 	if type(m) ~= "number" then return nil end
 	local y = yards and yards[i]
 	if type(y) ~= "number" then y = m end
@@ -1055,7 +1062,7 @@ local function measuredCost(e, c, wx, wy, start)
 	return y * rate, y
 end
 
--- The target's measured walks for the planner: walkCost(c, wx, wy, start) -> cost, yards | nil, or nil (none).
+-- The target's measured walks for the planner: walkCost(c, wx, wy, start) -> cost, yards | false (no walk) | nil, or nil (none).
 function Walk.Measured(c, x, y, water)
 	if not engine() then return nil end
 	local e = findMeasure(c, x, y, water or false)

@@ -2158,6 +2158,49 @@ fn t_568_from_rutheran_village_to_the_darnassus_fishing_trainer_the_route_still_
 	assert!(kinds.iter().any(|k| k == "portal"), "the portal up ({})", kinds.join(", "));
 }
 
+/// #989 (Dante): off the Auberdine boat in Rut'theran Village, bound for Melithar Staghelm (The Woodland
+/// Protector, Teldrassil 59.92,42.47), the route walked straight up the tree; through the portal up to
+/// Darnassus, it sent the player back down the portal, and so on. The Rut'theran landing's walk was
+/// priced straight while the engine had found none. One target throughout, as in the game.
+#[test]
+fn t_989_rutheran_village_to_teldrassil_takes_the_portal_up_and_from_its_landing_never_the_portal_down() {
+	skip_unless_ready!();
+	let out = run(
+		&format!(
+			r#"{TELDRASSIL_ROUTE}
+			w.faction = "Alliance"
+			local function at(map, x, y)
+				local c, wx, wy = C.MapToWorld(map, x, y, "e")
+				place(map, wx, wy)
+				for _ = 1, 400 do stub.advance(0.05); aim() end
+				local legs, ci = N.GetRoute()
+				local r = {{ kinds = {{}}, transports = {{}}, treeWalks = 0 }}
+				for i = ci or 1, #(legs or {{}}) do
+					local l = legs[i]
+					r.kinds[#r.kinds + 1] = l.kind
+					if l.transport then r.transports[#r.transports + 1] = tostring(l.transport.id) end
+					if l.kind == "walk" and l.from and l.to then
+						local lowA = dist(l.from.wx, l.from.wy, RUT[1], RUT[2]) < 450
+						local lowB = dist(l.to.wx, l.to.wy, RUT[1], RUT[2]) < 450
+						if lowA ~= lowB then r.treeWalks = r.treeWalks + 1 end
+					end
+				end
+				return r
+			end
+			N.SetTarget(1438, 59.92, 42.47, "Melithar Staghelm", "e")
+			local up = at(1438, 56.01, 89.84)
+			local down = at(1457, 30.75, 41.39)
+			emit({{ up = up, down = down }})"#
+		),
+		true,
+	);
+	let (up, down) = (&out["up"], &out["down"]);
+	assert!(strs(&up["transports"]).iter().any(|t| t == "portal-darnassus"), "from Rut'theran: the portal up ({})", strs(&up["kinds"]).join(", "));
+	assert_eq!(f(&up["treeWalks"]), 0.0, "from Rut'theran: no walk leg up the tree ({})", strs(&up["kinds"]).join(", "));
+	assert!(strs(&down["transports"]).is_empty(), "from the landing in Darnassus: no portal ({})", strs(&down["transports"]).join(", "));
+	assert_eq!(f(&down["treeWalks"]), 0.0, "from Darnassus: no walk leg joins Rut'theran to the top of the tree");
+}
+
 // Same pattern (controller handover): Dolanaar <-> Auberdine must not walk between the top of Teldrassil and the
 // Rut'theran dock; the way is Darnassus' portal and the boat (or a flight from Rut'theran).
 fn dolanaar_auberdine(from: (i64, f64, f64), to: (i64, f64, f64, &str)) {

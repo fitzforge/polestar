@@ -363,12 +363,17 @@ end
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
 --       walkOnly = true: walking only (a ghost),
---       walkCost = function(c, wx, wy, start) -> cost, yards | nil: the
+--       walkCost = function(c, wx, wy, start) -> cost, yards | false | nil: the
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
 --         running yards, priced by ground and the player's faction: a road
 --         walk costs less than its yards) chooses, its yards time it and
---         measure the leg; nil keeps its straight estimate,
+--         measure the leg; false: the engine found no walk from there, so a
+--         portal's end walks on only by the portal (its landing is ground the
+--         game puts the player on, not a deck off its pier; #989); nil keeps
+--         its straight estimate,
+--       noDirect = true: no walk from the player straight to the target (the
+--         engine found none from where they stand: Travel.WalkUnreachable),
 --       walkHooks = { fn(walk, cost) -> cost, ... } or nil (Travel.WalkCostHook):
 --         each walk's cost in seconds is handed to every hook in turn, with
 --         walk = { from = { c, wx, wy }, to = { c, wx, wy }, seconds } (one
@@ -555,7 +560,7 @@ local function planRoute(p)
 			taxiV[node.id] = add(TAXI, node.c, node.wx, node.wy, node, node.map)
 		end
 	end
-	local rideTo, rideCost, dockEnd, dockOf, dockSide = {}, {}, {}, {}, {}
+	local rideTo, rideCost, dockEnd, dockOf, dockSide, portalV = {}, {}, {}, {}, {}, {}
 	for _, t in ipairs(walkOnly and {} or transports) do
 		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
 			-- The dock: the end's board point on the deck when its ship lies off the pier.
@@ -578,6 +583,7 @@ local function planRoute(p)
 			dockEnd[va], dockEnd[vb] = t.a, t.b
 			dockOf[va], dockOf[vb] = t, t
 			dockSide[va], dockSide[vb] = "a", "b"
+			portalV[va], portalV[vb] = true, true
 		end
 	end
 	local departure = p.departure
@@ -688,12 +694,17 @@ local function planRoute(p)
 
 	-- The walks to the target the walking engine measured (p.walkCost, Nav/Walk.lua):
 	-- tw[v] = the walk's cost from key vertex v (chooses), ty[v] its yards
-	-- (times and measures it); nil to keep the straight estimate.
+	-- (times and measures it); nil to keep the straight estimate. nw[v]: no
+	-- walk from v to the target at all (a portal's end the engine found no
+	-- walk from, p.noDirect's start): the Rut'theran portal's landing priced
+	-- straight up the tree sent players in Darnassus back down the portal, and
+	-- up again (#989).
 	-- p.places collects the places a walk to the target can start from, for
 	-- Walk.Measure: the player, flight masters, docks and portal ends, the inn and
 	-- teleport landings, crossing ends and chain mouths (a walk from those stays
 	-- hand-made, drawn straight; only its price is the engine's).
-	local tw, ty = {}, {}
+	local tw, ty, nw = {}, {}, {}
+	if p.noDirect then nw[1] = true end
 	local walkCost, places = p.walkCost, p.places
 	if walkCost or places then
 		for v = 1, keys do
@@ -704,6 +715,8 @@ local function planRoute(p)
 					local cost, yd = walkCost(vc[v], vx[v], vy[v], v == 1)
 					if type(cost) == "number" then
 						tw[v], ty[v] = cost, type(yd) == "number" and yd or cost
+					elseif cost == false and portalV[v] then
+						nw[v] = true
 					end
 				end
 			end
@@ -848,6 +861,8 @@ local function planRoute(p)
 			local v = list[i]
 			if v == 2 and mu then
 				walk(u, 2, mu / speed, ty[u] / speed, du, tu)
+			elseif v == 2 and nw[u] then
+				-- no walk from u to the target
 			elseif v ~= u then
 				local dx, dy = vx[v] - xu, vy[v] - yu
 				straight(u, v, sqrt(dx * dx + dy * dy) * walkRate, du, tu)
@@ -883,6 +898,8 @@ local function planRoute(p)
 				for v = 2, keys do
 					if v == 2 and mu then
 						walk(u, 2, mu / speed, ty[u] / speed, du, tu)
+					elseif v == 2 and nw[u] then
+						-- no walk from u to the target
 					elseif v ~= u and vc[v] == cu and vkind[v] ~= INN then
 						local dx, dy = vx[v] - xu, vy[v] - yu
 						straight(u, v, sqrt(dx * dx + dy * dy) * walkRate, du, tu)
@@ -1317,6 +1334,7 @@ local skipFor      -- the target the skipped legs below were for
 local skipped = { hearth = false, spells = {}, transports = {}, taxi = {}, cross = {} } -- left out of its plans
 local noWalkFor    -- the target the portals below were found for
 local noWalk = {}  -- [portal] = true: the walking engine found no walk from the player to its entrance (Travel.WalkUnreachable)
+local noDirect = false -- the walking engine found no walk from the player to the target itself (Travel.WalkUnreachable)
 local progressYards -- yards left on the current walk leg at the last Aim (nil: not measured)
 local legSince = 0 -- GetTime() when the current leg became current
 local remeasureOwed = false -- the engine's measures came in on a flight or boat: weighed after it
@@ -1533,6 +1551,11 @@ local function plan(target)
 		for t in pairs(skipped.transports) do skip.transports[t] = true end
 		for t in pairs(noWalk) do skip.transports[t] = true end
 	end
+	-- No walk straight to the target while the engine found none from the player
+	-- (Travel.WalkUnreachable) and its measure from where they stand agrees:
+	-- from Rut'theran Village, under the tree, the way to Teldrassil's top is
+	-- the portal up, not a walk drawn straight up the trunk (#989).
+	local direct = noWalkFor == target and noDirect and walkCost and walkCost(pc, px, py, true) == false
 	local route = Nav.PlanRoute({
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors,
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
@@ -1546,6 +1569,7 @@ local function plan(target)
 		hearthName = bindName,
 		noHearth = skipped.hearth,
 		skip = skip,
+		noDirect = direct or nil,
 		teleports = not ghost and teleportList() or nil,
 		departure = departureFn(),
 		walkOnly = ghost,
@@ -2032,12 +2056,23 @@ end
 
 -- The walking engine found no walk at all from the player to (c, x, y) (its
 -- "unreachable": the two lie on parts of the maps no walk joins). When that
--- is the current walk's end and a portal is taken there, the portal is noted
--- for this target and the way planned again, as a measure landing would
--- (Travel.Remeasured); plan() leaves it out while the player can walk to the
--- target. Rides keep their walks: a ship's deck need not join its pier on the
--- maps. -> true when the route changed.
+-- is the target itself, the walk straight to it is noted for this target
+-- (also before any route is planned: the arrow may ask first) and the way
+-- planned again, as a measure landing would (Travel.Remeasured); plan()
+-- leaves that walk out while the measure finds no walk from the player
+-- either (#989). When it is the current walk's end and a portal is taken
+-- there, the portal is noted the same way; plan() leaves it out while the
+-- player can walk to the target. Rides keep their walks: a ship's deck need
+-- not join its pier on the maps. -> true when the route changed.
 function Travel.WalkUnreachable(c, x, y)
+	local target = Nav.GetTarget()
+	local tc, tx, ty = Nav.GetTargetWorld()
+	if target and tc == c and (tx - x) * (tx - x) + (ty - y) * (ty - y) <= 1 then
+		if noWalkFor ~= target then noWalkFor, noWalk, noDirect = target, {}, false end
+		if noDirect then return false end
+		noDirect = true
+		return Travel.Remeasured()
+	end
 	local leg = legs and legs[ci]
 	if not (leg and leg.kind == "walk") then return false end
 	local parent = leg.parent
@@ -2050,8 +2085,7 @@ function Travel.WalkUnreachable(c, x, y)
 	local nextLeg = legs[m + 1]
 	local portal = nextLeg and nextLeg.kind == "portal" and nextLeg.transport
 	if not portal then return false end
-	local target = Nav.GetTarget()
-	if noWalkFor ~= target then noWalkFor, noWalk = target, {} end
+	if noWalkFor ~= target then noWalkFor, noWalk, noDirect = target, {}, false end
 	if noWalk[portal] then return false end
 	noWalk[portal] = true
 	return Travel.Remeasured()
