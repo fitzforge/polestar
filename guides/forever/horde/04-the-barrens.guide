@@ -165,10 +165,6 @@ step Ratchet
   zone The Barrens
   vendor nearest
 
-step Free From the Hold
-  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
-  accept 898                          -- Inside
-
 step Northwatch Hold: kill these as you meet them
   zone The Barrens
   tip Northwatch Hold, on the coast further south. The Theramore Marines and Preservers (15-16) drop the medals; Captain Fairmount (20) and the two cannoneers (19) stand in the keep and on its walls, and they are why the hold waits until now.
@@ -177,6 +173,10 @@ step Northwatch Hold: kill these as you meet them
   kill 3393 quest 891.1               -- On the top floor
   kill 3455 quest 891.2               -- On the top floor
   kill 3454 quest 891.3               -- Upstairs
+
+step Free From the Hold
+  tip Gilthares Firebough is chained inside the hold. Talk to him to start the escort and stay close: Theramore soldiers attack on the way out. He walks you back to Ratchet.
+  accept 898                          -- Inside
 
 step Ratchet
   goto 62.3,39.1

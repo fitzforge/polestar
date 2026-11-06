@@ -971,6 +971,21 @@ test(`${BARRENS}: Miguel Antunes's report (#592): loot a zhevra carcass and use 
 	assert.ok(yards(list[use].goal, tree) <= 20, `the carcass is used at the Dead Tree, not ${Math.round(yards(list[use].goal, tree))} yd off`);
 });
 
+// DexeeXI (#907): the guide took Free From the Hold (898) from Gilthares
+// Firebough in Northwatch Hold, then sent the escort through the Northwatch
+// kills (891), though Gilthares walks straight back to Ratchet. The hold is
+// cleared first; the escort is accepted after the last 891 objective and
+// nothing else is worked before it ends in Ratchet.
+test(`${BARRENS}: DexeeXI's report (#907): Northwatch Hold is cleared before Gilthares's escort, and the escort runs straight to Ratchet`, { skip }, () => {
+	const list = goals(BARRENS);
+	const accept = at(list, 'accept 898 (Free From the Hold)', is('accept', 898));
+	const done = at(list, 'complete 898 (the escort to Ratchet)', is('complete', 898));
+	const kills = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.quest === 891 && ['kill', 'collect'].includes(goal.t));
+	assert.equal(kills.length, 4, 'the four Northwatch objectives');
+	for (const [{ goal }, i] of kills) assert.ok(i < accept, `${goal.t} ${goal.npc || goal.item} for 891 comes before the escort is accepted`);
+	for (const { goal } of list.slice(accept + 1, done)) assert.ok(!goal.quest || goal.quest === 898, `nothing but the escort between its accept and its end (${goal.t} ${goal.quest})`);
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),

@@ -1896,6 +1896,17 @@
 					98013
 				],
 				"why": "High-level-areas sweep (0.3.2): Swelling Forces (98013, quest level 20; the Stormscale naga at the Ruins of Mathystra are 18-21) needs Return to Onu (950) handed in, which the Night Elf start's own Darkshore guide never does. nightelf/02-darkshore took it at the Grove at about 13 (the judge: accepted before its prerequisite) and sent the player north to the naga and back south for it; the shared 03-darkshore takes it right after 950 at about 19. With 950 first, the Night Elf start leaves it to the shared visit"
+			},
+			{
+				"a": [
+					"task",
+					891
+				],
+				"b": [
+					"accept",
+					898
+				],
+				"why": "#907 (DexeeXI): Gilthares Firebough (3465) is chained in the same Northwatch Hold keep as Captain Fairmount (3393) and the cannoneers (3455, 3454), and his escort Free From the Hold (898) walks straight back to Ratchet (it ends at 62.27,39.09). The route accepted 898 in the hold and then sent the escort through the Northwatch kills and medals (891), against the escort rule (only talks near the giver between an escort's accept and its task); the seed clears the hold first. All of 891's work comes before 898 is accepted."
 			}
 		],
 		"notes": [
