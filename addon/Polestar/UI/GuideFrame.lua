@@ -2810,8 +2810,26 @@ local function fillCard(sameFocus)
 			addRow(goal, rowWho(goal, groups, focus), focus ~= nil and goal.group ~= focus)
 		end
 	else
-		-- Every person after the focus, in the order they first come: all
-		-- their groups share one entry, read as one summary line below.
+		-- The focus person's other groups on the same visit (Thundris
+		-- Windweaver, a vendor, Thundris again: only persons between, no
+		-- field work) read with the focus, in written order: the player is in
+		-- front of them now (#942). Every other person after the focus, in the
+		-- order they first come: all their groups share one entry, read as
+		-- one summary line below.
+		local me, mine = personOf(g), {}
+		if me then
+			for gi = focus + 1, #groups do
+				local who = personOf(groups[gi])
+				if not who then break end
+				if who == me then mine[gi] = true end
+			end
+			for gi = focus - 1, 1, -1 do
+				local who = personOf(groups[gi])
+				if not who then break end
+				if who == me then mine[gi] = true end
+			end
+		end
+		local mineBefore, mineAfter = {}, {}
 		local later, laterOf = {}, {}
 		for gi = focus + 1, #groups do
 			local grp = groups[gi]
@@ -2819,7 +2837,9 @@ local function fillCard(sameFocus)
 			if #list2 > 0 then
 				local who = personOf(grp)
 				local e = who and laterOf[who]
-				if e then
+				if mine[gi] then
+					for _, goal in ipairs(list2) do mineAfter[#mineAfter + 1] = goal end
+				elseif e then
 					for _, goal in ipairs(list2) do e.list[#e.list + 1] = goal end
 				else
 					e = { gi = gi, list = list2, prev = groups[gi - 1].kind }
@@ -2830,14 +2850,16 @@ local function fillCard(sameFocus)
 		end
 		-- The persons done before the focus: one line naming them. A person
 		-- still to come after the focus reads on their own line instead, with
-		-- these goals first.
+		-- these goals first; the focus person's read with the focus.
 		local before, names, named, early = {}, {}, {}, {}
 		for gi = 1, focus - 1 do
 			local grp = groups[gi]
 			local list = goalsOf(grp)
 			local who = personOf(grp)
 			local e = who and laterOf[who]
-			if #list > 0 and e then
+			if #list > 0 and mine[gi] then
+				for _, goal in ipairs(list) do mineBefore[#mineBefore + 1] = goal end
+			elseif #list > 0 and e then
 				local into = early[e]
 				if not into then
 					into = {}
@@ -2864,7 +2886,9 @@ local function fillCard(sameFocus)
 		end
 		-- The focus: its finished goals folded into "✓ N done", the rest as rows.
 		fold.serial = fold.serial + 1
-		local list = goalsOf(g)
+		local list = mineBefore
+		for _, goal in ipairs(goalsOf(g)) do list[#list + 1] = goal end
+		for _, goal in ipairs(mineAfter) do list[#list + 1] = goal end
 		local kept, doneList, first = {}, {}, nil
 		for i, goal in ipairs(list) do
 			local gi = goal.index

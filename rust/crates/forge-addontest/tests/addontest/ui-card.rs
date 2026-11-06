@@ -608,3 +608,62 @@ fn an_object_named_like_one_of_its_quests_is_headed_by_the_note_naming_it_or_a_n
 	assert_eq!(out["bare"], "The object here", "no such note: a neutral label");
 	assert_eq!(out["own"], "WANTED: Murkdeep!", "its only quest's own title is no confusion");
 }
+
+// Darkshore's Auberdine step (#942): Thundris Windweaver is the focus, then Naram's vendor goal, then Thundris again.
+// His later accept reads with him, not on a second "Then: Thundris Windweaver" line under the focus.
+#[test]
+fn the_focus_person_s_later_goals_read_with_the_focus_not_on_a_line_of_their_own() {
+	let out = run(r#"
+		local function G(t, f) f.t = t; f.map = 1439; return f end
+		local steps = uistub.guides[uistub.elwynn].steps
+		steps[#steps + 1] = { title = "Auberdine", goals = {
+			G("accept", { verb = "Accept", subject = "Bashal'Aran", subjectKind = "quest", quest = 954, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Expanding Horizons", subjectKind = "quest", quest = 97914, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("vendor", { verb = "Sell junk at", subject = "Naram Longclaw", subjectKind = "npc", npc = 6034, npcName = "Naram Longclaw", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Tools of the Highborne", subjectKind = "quest", quest = 958, npc = 3649, npcName = "Thundris Windweaver", status = "active" }),
+			G("accept", { verb = "Accept", subject = "Deep Ocean, Vast Sea", subjectKind = "quest", quest = 982, npc = 6301, npcName = "Gorbold Steelhand", status = "active" }),
+		} }
+		local s = #steps
+		uistub.setGuide(uistub.elwynn, s)
+		local focus = { person = GF.parts.person.Name:GetText(), items = items() }
+		uistub.goal(s, 4).status = "done"
+		uistub.setGuide(uistub.elwynn, 3)
+		uistub.setGuide(uistub.elwynn, s)
+		local took = items()
+		uistub.goal(s, 1).status = "done"
+		uistub.goal(s, 2).status = "done"
+		uistub.goal(s, 4).status = "active"
+		uistub.update()
+		local naram = { person = GF.parts.person.Name:GetText(), items = items() }
+		-- Field work between: coming back to him is another visit, a line of its own as before.
+		steps[#steps + 1] = { title = "Marshal McBride", goals = {
+			G("accept", { verb = "Accept", subject = "The Vineyard Walk", subjectKind = "quest", quest = 9700, npc = 197, npcName = "Marshal McBride", status = "active" }),
+			G("kill", { verb = "Kill", subject = "Kobold Vermin", subjectKind = "npc", npc = 6, quest = 9700, progress = { cur = 0, max = 3 }, status = "active" }),
+			G("turnin", { verb = "Turn in", subject = "The Vineyard Walk", subjectKind = "quest", quest = 9700, npc = 197, npcName = "Marshal McBride", status = "active" }),
+		} }
+		uistub.setGuide(uistub.elwynn, #steps)
+		emit({ focus = focus, took = took, naram = naram, trip = items() })"#)
+	.remove(0);
+	assert_eq!(out["focus"]["person"], "Thundris Windweaver");
+	assert_eq!(
+		strings(&out["focus"]["items"]),
+		["Bashal'Aran", "Expanding Horizons", "Tools of the Highborne", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		"all three of his accepts under him, the vendor after"
+	);
+	assert_eq!(
+		strings(&out["took"]),
+		["[1 done]", "Bashal'Aran", "Expanding Horizons", "[Then: Naram Longclaw  ·  Sell junk at Naram Longclaw]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		"one of them taken folds with the focus's done goals"
+	);
+	assert_eq!(out["naram"]["person"], "Naram Longclaw");
+	assert_eq!(
+		strings(&out["naram"]["items"]),
+		["Naram Longclaw", "[Then: Thundris Windweaver  ·  Accept Tools of the Highborne]", "[Then: Gorbold Steelhand  ·  Accept Deep Ocean, Vast Sea]"],
+		"once his first goals are done and the focus moves on, what he still has reads after it as before"
+	);
+	assert_eq!(
+		strings(&out["trip"]),
+		["The Vineyard Walk", "[Then out here: Kill Kobold Vermin]", "[Then: Marshal McBride  ·  Turn in The Vineyard Walk]"],
+		"with field work between, the hand-in is a later visit"
+	);
+}
