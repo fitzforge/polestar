@@ -935,9 +935,9 @@ fixed patterns:
 | where and walks (R9) | the goal's note `-- <Name>, upstairs` (or the phrase alone, or after the author's note with `; `); `-- <Name> walks around <area>: look inside the circle on the map` |
 | warnings (R10) | `tip Careful: <the quest notes' words>` after the step's opening lines |
 | grind | `level N.FF` (the share of the level, whole percent) |
-| grind top-up (inserted `level`) | step `Level N.FF`; `when level<N.FF`, `tip Top up here to level N.FF before the hand-ins at <place>: they take you to level N+1.`, `goto x,y "<the mob worked before it>"` at the route's point, `level N.FF -- grind on <mob>`. The camp: hostile mobs no more than 6 levels under the player (of an item's droppers, the one nearest the work's place), by the player or the route's nearest in their zone, else the route's next camp; never a capital city's map |
+| grind top-up (inserted `level`) | step `Level N.FF`; `when level<N.FF`, `tip Top up here to level N.FF before the hand-ins at <place>: they take you to level N+1.`, `goto x,y "<the mob worked before it>"` at the route's point, `level N.FF -- grind on <mob>`. The camp: hostile mobs no more than 6 levels under the player (of an item's droppers, the one nearest the work's place), by the player or the route's nearest in their zone, else the route's next camp; never a capital city's map. When the mob named has no spawn within 400 yd of that point (the work's lower mob is under the player's level, an on-level dropper of the same item lives elsewhere: Darkshore's Elder Darkshore Threshers, #924), the `goto` is that mob's spawn nearest the point |
 | group family | `when group <root>` on its steps, `tip These are elite mobs: ...` on its first work step, `group N` on its kills and collections (size 2 or more) |
-| solo fallback | step `Level N.FF`; `when !group <root>`, `when level<N.FF`, `tip If you skipped <title>, grind here to level N.FF to stay on the route's plan.`, `goto x,y "<mob>"`, `level N.FF -- grind on <mob>` |
+| solo fallback | step `Level N.FF`; `when !group <root>`, `when level<N.FF`, `tip If you skipped <title>, grind here to level N.FF to stay on the route's plan.`, `goto x,y "<mob>"` (placed as a top-up's), `level N.FF -- grind on <mob>` |
 
 Lines that changed have no translation until a translator adds one. Lint lists
 them as warnings. That is expected after a rewrite.
