@@ -597,6 +597,7 @@ L["Forgets recorded entries and runs (the server's own limit is not affected)."]
 L["Minimap button"] = "Bouton de la minicarte"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Un bouton Polestar au bord de la minicarte. Cliquez pour afficher ou masquer le guide, clic droit pour les réglages, faites-le glisser pour le déplacer."
 L["Forget"] = "Oublier"
+L["Minimap"] = "Minicarte"
 
 -- Maps/WorldMap.lua
 L["Player"] = "Joueur"
@@ -1829,7 +1830,6 @@ L["Lookup, the dungeon journal and rares: finding things in the world."] = "Rech
 L["When a rare shows up"] = "Quand un rare apparaît"
 L["How rares are noticed"] = "Détection des rares"
 L["History"] = "Historique"
-L["Small conveniences: travel, invitations, merchants and trackers."] = "Petites commodités : voyages, invitations, marchands et suivis."
 L["Status"] = "État"
 L["Actions"] = "Actions"
 L["Start recording"] = "Démarrer l'enregistrement"
@@ -1952,6 +1952,8 @@ L["Maximum height"] = "Hauteur maximale"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Jusqu'où la fenêtre peut grandir, en part de l'écran. Une étape plus longue défile."
 L["Hide the arrow with the guide"] = "Masquer la flèche avec le guide"
 L["When the guide window is hidden, hide the arrow too."] = "Quand la fenêtre du guide est masquée, masquer aussi la flèche."
+L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."] = "Petites commodités : quêtes, voyages, invitations, marchands, sacs, suivis et la carte."
+L["Did you mean:"] = "Vouliez-vous dire :"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
@@ -2904,3 +2906,4 @@ L["You sold %s, which %s still needs. Buy it back for %s?"] = "Vous avez vendu %
 -- L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."] = "Vend les objets de qualité médiocre à l'ouverture d'un marchand et affiche le total. Ne vend jamais rien d'autre."
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it."] = "Choisit l'unique option des PNJ sans quête. Maintenez Maj pour la lire."
 -- L["Earlier quests of this chain are not listed."] = "Les quêtes précédentes de cette suite ne sont pas listées."
+-- L["Small conveniences: travel, invitations, merchants and trackers."] = "Petites commodités : voyages, invitations, marchands et suivis."

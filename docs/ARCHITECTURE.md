@@ -4431,7 +4431,8 @@ Polestar.RegisterOptions({
   key = "quests",                                           -- optional: the page's stable key (default: made from page)
   tab = "Map", section = "Markers",                         -- tab row entry and section header
   controls = {
-    { kind = "toggle",   key = "qol.mapObjectives", label = "Objective markers", help = "One line." },
+    { kind = "toggle",   key = "qol.mapObjectives", label = "Objective markers", help = "One line.",
+      search = "map pins, icons, markers" },                            -- optional: English words players may search with
     { kind = "slider",   key = "qol.markerScale", label = "Marker size", min = 0.5, max = 2, step = 0.05, format = "%.2f\195\151", -- example key
       release = true },                                                 -- optional: write when the drag ends
     { kind = "dropdown", key = "gear.spec", label = "Weights", choices = { { value = "auto", label = "Automatic" }, ... } }, -- example key (the real one is gear.spec.<CLASS>)
@@ -4447,7 +4448,7 @@ Polestar.RegisterOptions({
 ```
 
 Controls read and write `Polestar.Get/Set`; `disabled = function() return bool end` is optional;
-registered labels and help are searchable. A `label` may be a function, asked
+registered labels and help are searchable (below, "Settings search"). A `label` may be a function, asked
 when the control is drawn or searched (a name in the client's language that
 is not loaded at registration, `Names.Instance`). A toggle with `get()` and
 `set(on)` and no `key` holds state that is no setting (per character): it
@@ -4459,11 +4460,42 @@ fixed, so the list is not built from the dungeons the loaded guides name. Pages 
 About always close the list. A page or tab with no available control is left
 out of the sidebar and tab row. Every row resets to its default on right-click.
 
+One setting may show on two pages: a convenience on its home page and on
+Quality of Life, where players look for it (the quest automation toggles,
+Faster auto-loot, the quest item button, the minimap button, …). Each page
+gets its own control table for the same key (a function that returns a
+fresh one, `C.*` in QoL/Options.lua), as the registry keeps per-control
+state; both read and write the one setting.
+
+**Settings search** (`O.Search`, UI/Options.lua) finds a setting from a
+vague or misspelled hint. Each control's words are worked out once and kept
+on it (`psFind`, again only when a label function names it anew): its label;
+its key's words (`autoAccept`: auto, accept); its `search` terms and, on a
+translated client, its English label (the key of `L` it was looked up
+with); its section, tab and page; its help. Words are folded (lower case,
+Latin accents dropped, Cyrillic capitals lowered, a few American spellings
+read as the labels' British ones), and each two neighbours are also kept
+joined ("auto loot" gives "autoloot"). A query word matches a word whole,
+as its start, a typo off (optimal string alignment distance 1 for 4-7
+letters, 2 for 8 or more; not against help) or inside it (4 bytes or more,
+so "lag" is not found in "flag"; a query word still holding non-ASCII text
+after folding, such as one Chinese, Korean or Cyrillic letter, has no floor); filler words
+("the", "how", "turn", "off") only add to a match, the others must each
+match something. Scores, highest first: the label's whole word 100 and start
+80, the key 75/65, search terms and English label 70/60, section, tab and
+page 50/45, help 40/35, typos 30 to 20, inside a word 12 to 5; two query
+words that are one joined pair of the control's add up to 40. Results keep
+their page and tab groups, the best first in each and the group with the
+best match first; a setting on two pages comes once, under the first. What
+a query word makes of each word is remembered while it is typed on
+(64 words at most). With no match the page says so and offers up to three
+labels nearest the query as links that search for them.
+
 The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Appearance** (20: Colour & type,
 Windows, Arrow), **Map** (30), **Questing** (40: Quests, Rewards & gear,
 Talents, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Characters), **Quality of Life** (60:
-Travel, Social, Vendors, Trackers), **Community guides** (70, a custom page:
+Quests, Travel, Social, Vendors, Trackers, Map), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: the top supporter and top contributor on podiums, then both
@@ -4477,8 +4509,9 @@ and the options' headers, opening the page), Recorder, About. The options window
 declares every tab and section of the module-filled pages, in order, and the
 modules register their controls into them by name (`page = L["Questing"]`,
 `tab = L["Rewards & gear"]`, `section = L["Gear advice"]`): Quests, QoL,
-Gear and Talents fill Questing; Lookup, Dungeons, Rares and Characters fill Discovery; QoL and Maps
-(flight timer, instances) fill Quality of Life. On the **Map** page (Guide &
+Gear and Talents fill Questing; Lookup, Dungeons, Rares and Characters fill Discovery; QoL, Maps
+(flight timer, instances, coordinates, minimap button), Nav (travel button, transport alerts, nearby
+services) and the options window (trainer reminders) fill Quality of Life. On the **Map** page (Guide &
 quests: Guide, Quest markers; Rares & travel: Rares and treasures, Dungeons and
 travel; Zones: Zones, Coordinates) Nav, Quests, Rares and Maps place every map
 and minimap setting.

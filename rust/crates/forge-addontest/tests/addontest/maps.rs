@@ -595,5 +595,9 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	.collect();
 	want.sort();
 	assert_eq!(sorted_strings(&out["pages"]["Map"]), want);
-	assert_eq!(sorted_strings(&out["pages"]["Quality of Life"]), vec!["maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.perDay", "maps.perHour"]);
+	// The flight timer and instances live there; coordinates and the minimap button are there too, as the same settings.
+	assert_eq!(
+		sorted_strings(&out["pages"]["Quality of Life"]),
+		vec!["maps.coords", "maps.flightTimer", "maps.instanceDisplay", "maps.instances", "maps.minimapButton", "maps.minimapCoords", "maps.perDay", "maps.perHour"]
+	);
 }

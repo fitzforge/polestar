@@ -466,6 +466,7 @@ L["Forgets recorded entries and runs (the server's own limit is not affected)."]
 L["Minimap button"] = "Botón del minimapa"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Un botón de Polestar en el borde del minimapa. Haz clic para mostrar u ocultar la guía, clic derecho para los ajustes, arrastra para moverlo."
 -- L["Forget"] = ""
+L["Minimap"] = "Minimapa"
 
 -- Maps/TravelPins.lua
 L["Flight master, known"] = "Maestro de vuelo, conocido"
@@ -1529,7 +1530,6 @@ L["Guide pin on the minimap"] = "Marcador de la guía en el minimapa"
 L["Trail dots along the travel route"] = "Puntos de rastro en la ruta de viaje"
 L["Quest information, rewards and gear advice, and the quest buttons."] = "Información de misiones, recompensas y consejos de equipo, y los botones de misión."
 L["Lookup, the dungeon journal and rares: finding things in the world."] = "El Buscador, el diario de calabozos y los raros: encontrar cosas en el mundo."
-L["Small conveniences: travel, invitations, merchants and trackers."] = "Pequeñas comodidades: viajes, invitaciones, mercaderes y rastreadores."
 L["Status"] = "Estado"
 L["Actions"] = "Acciones"
 L["Start recording"] = "Empezar a grabar"
@@ -1671,6 +1671,8 @@ L["Maximum height"] = "Altura máxima"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Cuánto puede crecer la ventana, como parte de la pantalla. Un paso más largo se desplaza."
 L["Hide the arrow with the guide"] = "Ocultar la flecha con la guía"
 L["When the guide window is hidden, hide the arrow too."] = "Cuando la ventana de la guía está oculta, ocultar también la flecha."
+L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."] = "Pequeñas comodidades: misiones, viajes, invitaciones, mercaderes, bolsas, rastreadores y el mapa."
+L["Did you mean:"] = "Tal vez buscabas:"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -2897,3 +2899,4 @@ L["You sold %s, which %s still needs. Buy it back for %s?"] = "Vendiste %s, que 
 -- L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."] = "Vende los objetos de calidad Pobre al abrir un mercader y muestra el total. Nunca vende nada más."
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it."] = "Elige la única opción de los PNJ sin misiones. Mantén presionado Mayús para leerla."
 -- L["Earlier quests of this chain are not listed."] = "Las misiones anteriores de esta cadena no aparecen."
+-- L["Small conveniences: travel, invitations, merchants and trackers."] = "Pequeñas comodidades: viajes, invitaciones, mercaderes y rastreadores."
