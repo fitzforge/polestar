@@ -215,7 +215,7 @@ step Marshal's Refuge
 step Northern Pylon
   tip The pylon stands on the slope east of the refuge.
   goto 56.5,12.5 "Northern Crystal Pylon"
-  complete 4285
+  interact 164955 quest 4285.1
 
 step Gorillas
   tip The gorillas live on the north-east plateau. Stay out of the deepest cave: U'cha lives there.
@@ -237,7 +237,7 @@ step Un'Goro Crater: kill these as you meet them
 step Eastern Pylon
   tip Ride down the east side of the crater to the pylon on the eastern cliffs.
   goto 77.2,50.0 "Eastern Crystal Pylon"
-  complete 4287
+  interact 164957 quest 4287.1
 
 step The Marshlands
   tip Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time.
@@ -246,7 +246,7 @@ step The Marshlands
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
   goto 23.9,59.2 "Western Crystal Pylon"
-  complete 4288
+  interact 164956 quest 4288.1
 
 step J.D. Collie
   tip Ride north back to Marshal's Refuge.

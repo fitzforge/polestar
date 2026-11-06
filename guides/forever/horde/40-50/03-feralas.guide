@@ -157,7 +157,7 @@ step Brackenwall Village
 step Onyxia's eggs
   tip The Eggs of Onyxia lie in the dragon caves in the Wyrmbog's south-east, guarded by the scalebanes; smash five.
   goto 53.4,74.7 "Dragon caves"
-  complete 1172
+  interact 20359 quest 1172.1
 
 step Brackenwall Village
   tip Ride back north to Brackenwall.

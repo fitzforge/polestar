@@ -127,7 +127,7 @@ step Shen'dar Village
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
-  complete 92595 @43.53,44.78         -- talk to Illaya Amberwind
+  talk 251902 quest 92595.1 @43.53,44.78 -- talk to Illaya Amberwind
   turnin 92595
   accept 94411
 
@@ -214,7 +214,7 @@ step Danarii Bellowveil
 
 step The West Pylon Watchtower
   tip Head south-west to the West Pylon Watchtower. Peacekeeper Vaaniel is at the top; the Bloody Note lies beside him.
-  complete 93926 @42.34,62.1          -- talk to Peacekeeper Vaaniel
+  talk 252155 quest 93926.1 @42.34,62.1 -- talk to Peacekeeper Vaaniel
   turnin 93926
   accept 93927
   collect 254871 quest 93927.1
@@ -486,7 +486,7 @@ step Back to Valanaar
   train class
 
 step Desperate Times
-  complete 93065 @61.18,70.95         -- talk to Valennia Stormfist
+  talk 253844 quest 93065.1 @61.18,70.95 -- talk to Valennia Stormfist
   turnin 93065
   accept 92947
 
@@ -543,7 +543,7 @@ step Elegael Thornpaw, last time
 step The Strange Hermit
   tip The hermit lives at Windsong Lake's west shore. Zephyrseed cones grow south of him; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for Endaria's Unwelcome Spirits.
   accept 93159                        -- Strange Hermit
-  complete 93159 @53.96,38.9          -- talk to Strange Hermit
+  talk 251684 quest 93159.1 @53.96,38.9 -- talk to Strange Hermit
   turnin 93159
   accept 93160
   accept 93172
@@ -605,7 +605,7 @@ step Seena Skybreaker
 
 step Valanaar
   tip Ayessa sends you on to Kalimdor. Once you have trained, board the skycutter at the dock on Valanaar's south-west edge: it flies to northern Mulgore, where Alaana Stormwalker waits.
-  complete 93836 @66.17,76.51         -- talk to Talaanis Shadowsong
+  talk 252476 quest 93836.1 @66.17,76.51 -- talk to Talaanis Shadowsong
   turnin 93836                        -- Talaanis Shadowsong, upstairs
   accept 93090
   turnin 94896                        -- Ealaane Nimbuswalker

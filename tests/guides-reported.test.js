@@ -1538,7 +1538,7 @@ test('Sato\'s report: the Skysight and Read Ley Line objectives tell you to cast
 // Welcome to Shen'dar Village: talking to Illaya before the step counts.
 test(`${ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk`, { skip }, () => {
 	const list = goals(ZEPHRAS_HORDE);
-	assert.ok(at(list, 'accept 92514', is('accept', 92514)) < at(list, 'complete 92595 (talk to Illaya)', is('complete', 92595)), 'taken before the talk to Illaya for The Windshapers, which counts for it too');
+	assert.ok(at(list, 'accept 92514', is('accept', 92514)) < at(list, 'talk 251902 quest 92595.1 (Illaya)', is('talk', 92595)), 'taken before the talk to Illaya for The Windshapers, which counts for it too');
 	const step = list[at(list, 'turnin 92514', is('turnin', 92514))].s;
 	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk' && !goal.quest).map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
 	const objectives = (illaya, coriella) => stepView(ZEPHRAS_HORDE, SKYBORNE_HORDE, step, `w.complete({ 92595 })
@@ -3009,23 +3009,49 @@ test(`${ASHENVALE}: Fyurie's report (#920): The Sleeper Has Awakened is taken fr
 // A bare `complete` that opens its step has no place of its own and nothing
 // placed before it, so the arrow showed nothing until the quest was done
 // (#303's leftovers; #632 and #646 place the Horde ones). Each now leads to
-// its objective: the bears, Shay's destination, the Faulk brothers.
+// its objective: the bears, Shay's destination, the Faulk brothers (their
+// `use` of the Symbol of Life since #956).
 test('Alliance: a quest objective that opens its step leads the arrow to the objective (#303 leftovers)', { skip }, () => {
 	data = data || loadData(DATA);
+	const work = (quest) => (g) => g.quest === quest && ['complete', 'use'].includes(g.t);
 	for (const [file, quest, target] of [
 		['forever/alliance/03-darkshore.guide', 2118, { npc: 2164 }], // Plagued Lands: Rabid Thistle Bears
 		['forever/alliance/40-50/03-feralas.guide', 2845, { event: 2845 }], // Wandering Shay: Rockbiter's camp
 		[DWARF_DUN_MOROGH, 1783, { npc: 6177 }], // The Tome of Divinity: Narm Faulk
-		['forever/alliance/04-redridge-mountains.guide', 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
+		[REDRIDGE, 1786, { npc: 6172 }], // The Tome of Divinity: Henze Faulk, on the road east to Redridge
 	]) {
 		const list = goals(file);
-		const { goal } = list[at(list, `complete ${quest}`, is('complete', quest))];
-		assert.ok(located({ goal }), `${file}: complete ${quest} has a place for the arrow`);
+		const { goal } = list[at(list, `the objective of ${quest}`, work(quest))];
+		assert.ok(located({ goal }), `${file}: ${goal.t} ${quest} has a place for the arrow`);
 		const places = target.npc
 			? data.npcs[target.npc].spawns[goal.map].pts.map(([x, y]) => ({ map: goal.map, x, y }))
 			: data.quests[target.event].objectives.filter((o) => o.type === 'event').map((o) => ({ map: o.map, x: o.x, y: o.y }));
 		const near = Math.min(...places.map((p) => yards(goal, p)));
-		assert.ok(near < 30, `${file}: complete ${quest} leads to its objective (${near.toFixed(0)} yd away)`);
+		assert.ok(near < 30, `${file}: ${goal.t} ${quest} leads to its objective (${near.toFixed(0)} yd away)`);
+	}
+});
+
+// A bare `complete` gave the window no target, spawn area or progress for a
+// quest whose objective is a plain one (#956). The Tome of Divinity's
+// objective is a kill credit for using the Symbol of Life on Henze Faulk: the
+// step uses it on him, tracked from the quest log, and never reads "Kill".
+// The Northern Pylon is an object to click.
+test(`${REDRIDGE}: the Henze Faulk step tracks 1786.1 with an objective goal, not \`complete\` (#956)`, { skip }, () => {
+	const list = goals(REDRIDGE);
+	assert.ok(!list.some(({ goal }) => is('complete', 1786)(goal)), 'no bare complete 1786');
+	const i = at(list, 'use 6866 quest 1786.1', (g) => g.t === 'use' && g.quest === 1786 && g.oi === 1);
+	assert.equal(list[i].step.title, 'Henze Faulk');
+	assert.equal(list[i].goal.item, 6866, 'the Symbol of Life');
+	const paladin = { race: 'Human', raceName: 'Human', faction: 'Alliance', cls: 'PALADIN', className: 'Paladin', level: 12 };
+	const line = (fulfilled) => stepView(REDRIDGE, paladin, list[i].s, `w.onQuest(1786, { { required = 1, fulfilled = ${fulfilled} } })`).goals.find((g) => g.quest === 1786 && g.t === 'use');
+	assert.ok(!/\bKill\b/.test(line(0).text), `"${line(0).text}" does not read Kill`);
+	assert.notEqual(line(0).status, 'done', 'open while the quest log has Henze to do');
+	assert.equal(line(1).status, 'done', 'done once the quest log counts him');
+	for (const guide of [UN_GORO_ALLIANCE, 'forever/horde/50-60/01-un-goro-crater.guide']) {
+		const pylon = goals(guide);
+		assert.ok(!pylon.some(({ goal }) => is('complete', 4285)(goal)), `${guide}: no bare complete 4285`);
+		const { goal } = pylon[at(pylon, 'interact 164955 quest 4285.1', (g) => g.t === 'interact' && g.quest === 4285 && g.oi === 1)];
+		assert.equal(goal.object, 164955, `${guide}: the Northern Crystal Pylon`);
 	}
 });
 

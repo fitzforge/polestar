@@ -1383,6 +1383,23 @@
 		],
 		"note": "Guardians of the Altar (Winterspring; Ranshalla gives it) is an escort: you protect Ranshalla while she relights the torches of the Altar of Elune. Its text never says escort, so the guide compiler's escort rule misses it; CMaNGOS scripts it as an escort with a waypoint path, and QuestieDB flags it PARTY_ACCEPT like the other escorts."
 	},
+	"4921": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 10668,
+					"count": 1,
+					"text": "Beaten Corpse"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T165024Z-b20cb0d60e9c2b53-5w3iooebc3gf-9dh7b8tbn1): the objective's line ticks while Beaten Corpse's window is open, with no kill"
+		},
+		"note": "Lost in Battle: the objective (\"Find Mankrik's Wife\") ticks as the player opens the Beaten Corpse's window, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
 	"5057": {
 		"set": {
 			"end": {
@@ -1516,6 +1533,40 @@
 			"ref": "players' in-game recordings since launch: the objective's line ticks as the player talks to Neeru Fireblade, with no kill"
 		},
 		"note": "Hidden Enemies: the objective is hearing Neeru Fireblade out (a talk), which the data counted as a kill of him."
+	},
+	"5929": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear."
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T233513Z-9fd4e249b274cab3-0ntqshrpqqyu-fwvooilzhf, 20261105T081945Z-41b277df15449810-dxn9pk0e4yll-93hn4vw6jp): the game lists the objective as an event at the accept"
+		},
+		"note": "Great Bear Spirit (Alliance Druids): the objective is going through the Great Bear Spirit's dialogue, an event in the game's quest log; the data counted it as a kill of the spirit. The guides keep `complete` for it (#956)."
+	},
+	"5930": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Seek out the Great Bear Spirit and learn what it has to share with you about the nature of the bear."
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt, 20261106T065852Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091): the game lists the objective as an event at the accept"
+		},
+		"note": "Great Bear Spirit (Horde Druids): the objective is going through the Great Bear Spirit's dialogue, an event in the game's quest log; the data counted it as a kill of the spirit. The guides keep `complete` for it (#956)."
 	},
 	"5944": {
 		"set": {
@@ -2386,6 +2437,40 @@
 		},
 		"note": "Return to Quinn (Again) (Silverpine, Apothecary Renferrel) comes after Wild Eyes 91920, whose new potion it brings back. QuestieDB has no prerequisite."
 	},
+	"92595": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251902,
+					"count": 1,
+					"text": "Illaya Amberwind"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T000307Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T004219Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7): the objective's line ticks while Illaya Amberwind's window is open, with no kill"
+		},
+		"note": "The Windshapers: the objective (\"Listen to Illaya\") ticks as the player talks to Illaya Amberwind, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"92596": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251903,
+					"count": 1,
+					"text": "Rathiril Sunlance"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T232208Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261104T235118Z-4c82236cc9ec1275-hraqce9f5yqb-jpmxvvz26h, 20261105T201717Z-4c82236cc9ec1275-hraqce9f5yqb-aigwee5mju): the objective's line ticks while Rathiril Sunlance's window is open, with no kill"
+		},
+		"note": "The High Order: the objective (\"Listen to Rathiril Sunlance\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
 	"92640": {
 		"set": {
 			"objectives": [
@@ -2414,6 +2499,29 @@
 			"ref": "players' in-game recordings since launch: one line at the accept, lines 2 and 3 tick as players talk to Ayessa and then Elaadrin, with no kill"
 		},
 		"note": "Desperate Times: the game lists one objective at the accept (talk to Valennia Stormfist) and reveals the next as each talk counts: Ayessa Dawnsinger (the Windshapers), then Elaadrin Evengale (the High Order). The data counted the three talks as kills (#859)."
+	},
+	"92643": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Find the secluded house in Shen'dar Highlands"
+				},
+				{
+					"type": "talk",
+					"id": 253372,
+					"count": 1,
+					"text": "Dead Cultist"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T052705Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek): line 1 ticks on reaching the house with no kill and no window; line 2 ticks while the Dead Cultist's window is open"
+		},
+		"note": "The Turncoat: the first objective is finding the house (the data's \"DNT KILL CREDIT\" kill, an area credit), the second is searching the dead cultist there (a talk the data counted as a kill). The guides keep `complete` for it (#956)."
 	},
 	"92679": {
 		"set": {
@@ -2460,6 +2568,40 @@
 			"ref": "players' in-game recordings since launch: line 1 ticks as players talk to Aamelia; line 2 is revealed after it"
 		},
 		"note": "Standing Our Ground: the first objective is telling Aamelia Windfield you are ready (a talk, which the data counted as a kill of her); the game reveals the fight with Ferauu the Bludgeon after it."
+	},
+	"92708": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251968,
+					"count": 1,
+					"text": "Ayessa Dawnsinger"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T004219Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7, 20261105T042256Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T090005Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox): the objective's line ticks while Ayessa Dawnsinger's window is open, with no kill"
+		},
+		"note": "A Grand Adventure (Horde): the objective (\"Listen to Ayessa\") ticks as the player talks to Ayessa Dawnsinger, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"92709": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252475,
+					"count": 1,
+					"text": "Elaadrin Evengale"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T235118Z-4c82236cc9ec1275-hraqce9f5yqb-jpmxvvz26h, 20261105T201717Z-4c82236cc9ec1275-hraqce9f5yqb-aigwee5mju): the objective's line ticks while Elaadrin Evengale's window is open, with no kill"
+		},
+		"note": "A Grand Adventure (Alliance): the objective (\"Listen to Elaadrin\") ticks as the player talks to Elaadrin Evengale, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
 	"92742": {
 		"set": {
@@ -2641,6 +2783,40 @@
 		],
 		"note": "Destruction in Deadmines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
 	},
+	"93065": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 253844,
+					"count": 1,
+					"text": "Valennia Stormfist"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T052705Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek): the objective's line ticks while Valennia Stormfist's window is open, with no kill"
+		},
+		"note": "Prepare for Battle: the objective (\"Find Valennia on the Road\") ticks as the player talks to Valennia Stormfist at the gate, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"93159": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 251684,
+					"count": 1,
+					"text": "Strange Hermit"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T125027Z-48c8029ca8645ffb-99ebprqpcga7-zfeuqxcdw7): the objective's line ticks while Strange Hermit's window is open, with no kill"
+		},
+		"note": "The Strange Hermit: the objective (\"Learn more about the Strange Hermit\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
 	"93797": {
 		"set": {
 			"classes": 128
@@ -2767,6 +2943,40 @@
 		},
 		"note": "The Broken Construct: its first objective is listening to Riaani Nightwind (a talk), which the data counted as a kill."
 	},
+	"93836": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252476,
+					"count": 1,
+					"text": "Talaanis Shadowsong"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1, 20261105T072856Z-36c9abb02fa069b1-pbu5alejvk4i-2rqs9laoek, 20261105T233907Z-9db3c499b2ac9ba1-laofdktkyi4l-pklme8z748): the objective's line ticks while Talaanis Shadowsong's window is open, with no kill"
+		},
+		"note": "The Fate of Zephras (Horde): the objective (\"Speak with Talaanis Shadowsong\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
+	"93926": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252155,
+					"count": 1,
+					"text": "Peacekeeper Vaaniel"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T232208Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261104T232352Z-bd7db8b1683b964e-11cqui4f17c2-mm6wut9mwn, 20261104T234000Z-e58a9328e3b08b89-uzkcjm2q67g6-roib86drc1): the objective's line ticks while Peacekeeper Vaaniel's window is open, with no kill"
+		},
+		"note": "The Western Watch: the objective (\"Check in on the Western Watchtower\") ticks as the player talks to Peacekeeper Vaaniel, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
+	},
 	"93927": {
 		"set": {
 			"objectives": [
@@ -2807,6 +3017,23 @@
 			}
 		],
 		"note": "A Last Request (Zephras Isle) lists the Bloody Note first, then Skypriest Aanders, then Raani's feather and the Shadowsong signet. The merged data had the note and Aanders the other way round, so `quest 93927.1` named Aanders and the guide's note goal followed Aanders' quest-log line: it stayed open after the note was read (#825)."
+	},
+	"94369": {
+		"set": {
+			"objectives": [
+				{
+					"type": "talk",
+					"id": 252476,
+					"count": 1,
+					"text": "Talaanis Shadowsong"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T143604Z-c9147630aaf109e8-tztw0unyrg05-77rbcudpjx, 20261105T164150Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261106T023527Z-bd7db8b1683b964e-11cqui4f17c2-mm6wut9mwn): the objective's line ticks while Talaanis Shadowsong's window is open, with no kill"
+		},
+		"note": "The Fate of Zephras (Alliance): the objective (\"Speak with Talaanis Shadowsong\") ticks as the player talks to him, with no kill; the data counted it as a kill. Guides track it as a talk (#956)."
 	},
 	"94373": {
 		"set": {
@@ -3055,7 +3282,21 @@
 				],
 				"object": [],
 				"item": []
-			}
+			},
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
 		},
 		"source": [
 			{
@@ -3065,9 +3306,36 @@
 			{
 				"kind": "tdb",
 				"ref": "quest starter tables"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231149Z-7c557f2702b0b70b-dkguk8rpp6a8-jgsaalrgm7, 20261104T231242Z-c5f8cae2cfaaa29a-ed9qx2wn8ian-17xk7hel2s, 20261104T231324Z-48ad08dd58b6409a-7edg0cgrs6gg-abe9o8ext8): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
 			}
 		],
-		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253)."
+		"note": "The Great Outdoors: starts with Sam Sarsaparilla (npc 263399); as its giver the merged data also listed William Pestle (npc 253). The Great Outdoors (Elwynn Forest, Sam Sarsaparilla): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96101": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231158Z-e0f702625a494e4c-lheb1o7i0m1g-k92q1ls4tu, 20261104T231706Z-d06f192cd2893c2c-sklrl4cy2cll-x6hnz051ox, 20261104T232121Z-5cb2d0b39f961aef-jkjmx18lujvv-5mpnaby7ge): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Zephras Isle, Raan Wildwind): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
 	},
 	"96243": {
 		"set": {
@@ -3154,6 +3422,75 @@
 		],
 		"note": "An Ancient Grudge (The Hall of Thanes) starts and ends inside with the Ghostly Attendant 265002. QuestieDB has no giver or ender."
 	},
+	"96604": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231052Z-4d004155964992bc-xer0elrxvlpz-ykzshyaxdi, 20261104T231115Z-393c799db23f1aed-ck5nv2mx4gk3-b77l9bbshx, 20261104T231717Z-2dea17d83f0a53ac-ufi7fhjdwp58-2ed708dozh): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Durotar, Brakk): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96605": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231308Z-0d4b1ec3b4db1afb-o2vokrnm57ik-7yf14jv091, 20261104T231707Z-c7c1676602f96700-mzwfbhydidtm-aeo3x67q3r, 20261104T231916Z-61fc8ceaa41acb96-cozqfy0ds8xv-cg0o5vr0mt): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Mulgore, Kaga Wildhoof): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96606": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231552Z-0a57c3bc4bfa30fa-m2wze6d8fqub-rjaqhquzne, 20261104T231630Z-74e1f22415d07c26-ophl7p6vkebl-pfuf2h9n1p, 20261104T231922Z-ab351786de0672c8-hijimn9x1nw7-zw7iub6xr2): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+		},
+		"note": "The Great Outdoors (Teldrassil, Lyreena): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
 	"96607": {
 		"set": {
 			"pre": [
@@ -3161,13 +3498,56 @@
 			],
 			"preAny": [
 				96656
+			],
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261104T231310Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz, 20261104T231622Z-8bba550a7cd44bb5-roxpo93fzpkh-tgrecl06yt, 20261104T231818Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
+			}
+		],
+		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in. The Great Outdoors (Tirisfal Glades, Eleanor Shackleton): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
+	},
+	"96608": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Sit near the campfire (Optional)"
+				},
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Gain the Boosted Rest buff"
+				}
 			]
 		},
 		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID"
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261104T232848Z-28c07733fef17d53-mnvhmrdot3xh-8k3axghh9n): the two lines (\"Sit near the campfire\", \"Gain the Boosted Rest buff\") tick while the player sits by the fire, with nothing clicked"
 		},
-		"note": "The Great Outdoors (Tirisfal, Eleanor Shackleton) is offered once The Adventurer 96656, which ends with her, is handed in; the merged data had no prerequisite, so the Undead route took it before handing The Adventurer in."
+		"note": "The Great Outdoors (Dun Morogh, Eric Brighthammer): both objectives are done by sitting by the campfire until the Boosted Rest buff comes, not by clicking an object (the data listed the Basic Campfire object twice). The guides keep `complete` for it (#956)."
 	},
 	"96655": {
 		"set": {
@@ -3472,6 +3852,23 @@
 			"ref": "issue #148"
 		},
 		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
+	},
+	"98319": {
+		"set": {
+			"objectives": [
+				{
+					"type": "event",
+					"id": null,
+					"count": 1,
+					"text": "Mountaineer Cornelius found"
+				}
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261104T231032Z-b914dc197bb56706-fzetkz4ki3yp-c8wxu40hc8, 20261104T232008Z-0508863063f76280-pcepd0f6fv0w-hxo575rpds, 20261105T014628Z-28c07733fef17d53-mnvhmrdot3xh-sykntogm9l): the game lists the objective as an event (\"Mountaineer Cornelius found\") at the accept, and it ticks with no object clicked"
+		},
+		"note": "Secure the Mountain: finding Mountaineer Cornelius in the Grizzled Den is an event in the game's quest log; the data had it as clicking an object named after him. The guides keep `complete` for it (#956)."
 	},
 	"98389": {
 		"set": {

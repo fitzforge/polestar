@@ -201,7 +201,7 @@ step Salfa
 step Beads for Salfa
   tip Any Winterfall furbolg can carry the beads; the camps just south of Salfa are the closest.
   goto 31.6,36.6 "Frostfire Winterfall camp"
-  complete 8469
+  collect 21383 quest 8469.1
 
 step Salfa
   turnin 8469

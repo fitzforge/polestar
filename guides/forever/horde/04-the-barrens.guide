@@ -433,7 +433,7 @@ step Verog the Dervish
 
 step Bristleback camps
   tip The Bristleback quilboar camps spread over the plains north of Camp Taurajo, either side of the Gold Road. Every Bristleback drops a tusk; Mankrik's wife lies at the north edge. Keep one Blood Shard. Lakota'mani, a grey kodo, sometimes wanders here: his hoof starts a quest.
-  complete 4921 @49.3,50.3
+  talk 10668 quest 4921.1 @49.3,50.3
   collect 5085 quest 899.1
 
 step Camp Taurajo

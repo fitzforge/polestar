@@ -217,7 +217,7 @@ step Bloodhoof Village
   accept 772
   turnin 758                          -- Mull Thunderhorn
   accept 759
-  complete 99411                      -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
+  use 287505 quest 99411.1            -- Kyle the Frenzied runs around the village: give him the Tender Strider Meat
   turnin 99411                        -- Ahab Wheathoof, at the north end of the village
 
 step Morin Cloudstalker
@@ -273,8 +273,9 @@ step Galak centaurs
 step The Venture Co. Mine
   tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
   goto 64.9,43.3 "The Venture Co. Mine"
-  complete 764
-  complete 765
+  kill 2978 quest 764.1
+  kill 2979 quest 764.2
+  collect 4819 quest 765.1
   collect 281031 optional             -- Below ground
   accept 98424 optional
   complete 98424
