@@ -824,6 +824,8 @@ L["Quest marks in bags"] = "Marcas de misión en las bolsas"
 L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Marca los objetos de las bolsas que una misión aún necesita, en tu registro o más adelante en tu guía, hasta que entregues la misión."
 L["Offer to buy back quest items"] = "Ofrecer recomprar objetos de misión"
 L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Si vendes un objeto que una misión aún necesita, pregunta si quieres recomprárselo al mercader."
+L["Nameplate icon position"] = "Posición del icono en placas de nombre"
+L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."] = "Dónde se muestran el icono de misión y tu progreso en una placa de nombre: a la izquierda o a la derecha de la barra de salud, o encima del nombre. Muévelos si el icono de otro addon los tapa."
 
 -- Quests/Tooltips.lua
 L["Starts a quest"] = "Inicia una misión"

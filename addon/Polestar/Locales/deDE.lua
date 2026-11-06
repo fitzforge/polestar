@@ -1628,6 +1628,8 @@ L["Quest marks in bags"] = "Quest-Markierungen in den Taschen"
 L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Markiert Gegenstände in den Taschen, die eine Quest noch braucht, in deinem Questlog oder weiter vorn in deinem Guide, bis du die Quest abgibst."
 L["Offer to buy back quest items"] = "Rückkauf von Questgegenständen anbieten"
 L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Verkaufst du einen Gegenstand, den eine Quest noch braucht, wird gefragt, ob du ihn vom Händler zurückkaufen willst."
+L["Nameplate icon position"] = "Position der Namensplaketten-Symbole"
+L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."] = "Wo das Quest-Symbol und dein Fortschritt auf einer Namensplakette sitzen: links oder rechts vom Lebensbalken oder über dem Namen. Verschiebe sie, wenn das Symbol eines anderen Addons sie verdeckt."
 
 -- UI/Packs.lua (the pack report lines stay English: authors read them)
 L["turned off in the AddOns list"] = "in der AddOn-Liste ausgeschaltet"

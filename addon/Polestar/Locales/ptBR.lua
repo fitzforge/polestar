@@ -485,6 +485,8 @@ L["Quest marks in bags"] = "Marcas de missão nas bolsas"
 L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Marca os itens das bolsas de que uma missão ainda precisa, no seu registro ou mais adiante no seu guia, até você entregar a missão."
 L["Offer to buy back quest items"] = "Oferecer recompra de itens de missão"
 L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Se você vender um item de que uma missão ainda precisa, pergunta se quer recomprá-lo do vendedor."
+L["Nameplate icon position"] = "Posição do ícone nas placas de identificação"
+L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."] = "Onde o ícone de missão e seu progresso ficam na placa de identificação: à esquerda ou à direita da barra de vida, ou acima do nome. Mova-os se o ícone de outro addon os cobrir."
 
 -- Quests/Party.lua
 L["%s done"] = "%s concluiu"

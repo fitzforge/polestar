@@ -485,6 +485,8 @@ L["Quest marks in bags"] = "Метки заданий в сумках"
 L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "Помечает предметы в сумках, которые ещё нужны заданию в журнале или впереди в гайде, пока вы не сдадите задание."
 L["Offer to buy back quest items"] = "Предлагать выкуп предметов для заданий"
 L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "Если вы продадите предмет, который ещё нужен заданию, спросить, выкупить ли его у торговца."
+L["Nameplate icon position"] = "Положение значка на индикаторах"
+L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."] = "Где показывать значок задания и ваш прогресс на индикаторе: слева или справа от полосы здоровья или над именем. Передвиньте их, если их закрывает значок другого аддона."
 
 -- Quests/Party.lua
 L["%s done"] = "%s: готово"
