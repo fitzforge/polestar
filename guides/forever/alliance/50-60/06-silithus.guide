@@ -332,7 +332,7 @@ step Umber
 
 step Nighthaven
   zone Moonglade
-  tip Take the flight path in Nighthaven and fly to Auberdine.
+  tip Learn the flight path in Nighthaven.
   getfp "Moonglade"
 
 # ---------------------------------------------------------------- Teldrassil and Darnassus
@@ -343,7 +343,7 @@ step Fly to Rut'theran Village
 
 step Rut'theran Village
   zone Teldrassil
-  tip Take the boat from Auberdine to Rut'theran Village.
+  tip The flight lands in Rut'theran Village. Erelas Ambersky stands a short walk north-west of the flight master.
   turnin 4901                         -- Erelas Ambersky
   accept 4902
 

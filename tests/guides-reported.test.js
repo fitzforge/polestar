@@ -3168,7 +3168,9 @@ test("Erá's report (#948): the Rogue's Certificate of Thievery ends at Lucius, 
 // Chitin Was..., 1185) the Silithus guide hearthed everyone to Cenarion Hold, flew
 // them to Rut'theran Village and sent them back into Moonglade for Nighthaven's
 // flight path, 600 yards from Umber. The flight path comes straight after Umber,
-// with no hearth or flight between, and its flight is the way on.
+// with no hearth or flight between, and its flight is the way on: straight to
+// Rut'theran Village, so neither the flight path's step nor Erelas Ambersky's
+// hand-in (4901) sends the player by Auberdine (its old way, the boat from there).
 test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide takes Nighthaven's flight path without leaving Moonglade first", { skip }, () => {
 	const guide = 'forever/alliance/50-60/06-silithus.guide';
 	const list = goals(guide);
@@ -3178,5 +3180,11 @@ test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide ta
 	for (const { goal, step } of list.slice(umber + 1, fp)) {
 		assert.ok(goal.t !== 'hearth' && goal.t !== 'fly', `${guide}: "${step.title}" ${goal.t}s out of Moonglade before its flight path`);
 		assert.ok(goal.map == null || goal.map === 1450, `${guide}: "${step.title}" leads to map ${goal.map}, not Moonglade`);
+	}
+	const hand = at(list, `${guide}: Erelas Ambersky's hand-in of 4901`, is('turnin', 4901));
+	assert.ok(hand > fp, `${guide}: Rut'theran Village comes after Nighthaven's flight path`);
+	for (const { step } of [list[fp], list[hand]]) {
+		const tip = [].concat(step.note || []).join(' ');
+		assert.doesNotMatch(tip, /Auberdine/, `${guide}: "${step.title}" tip: ${tip}`);
 	}
 });

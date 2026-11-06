@@ -293,7 +293,7 @@ step Umber
   turnin 1185
 
 step Nighthaven
-  tip Take the flight path in Nighthaven and fly to Auberdine.
+  tip Learn the flight path in Nighthaven.
   getfp "Moonglade"
   fly "Auberdine"
 
