@@ -3013,6 +3013,27 @@
 		],
 		"note": "Forgotten Loa Idols (Sen'jin Village, Master Vornal) is offered once Report to Sen'jin Village 805 is handed in: a Troll Shaman with 805 complete but not handed in was not offered it (#796), and every recorded player took it only after handing 805 in. No quest data names this prerequisite, so the Orc and Troll routes asked for it one goal before the hand-in."
 	},
+	"97275": {
+		"set": {
+			"pre": [
+				97242
+			],
+			"preAny": [
+				97242
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings since launch: Yelmak's window had nothing for an Undead Rogue who had not taken Yelmak's Medley (97242); an Undead Warlock who handed the Medley in to Kor'geld was offered Whuut's the Rush at Yelmak 18 s later (a window at 10 s did not show it yet)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#891"
+			}
+		],
+		"note": "Whuut's the Rush (Orgrimmar, Yelmak) is offered once Yelmak's Medley 97242 is handed in to Kor'geld beside him: a level 19 Tauren Shaman with the Medley still in the log was not offered it (#891). No quest data names this prerequisite, so the Silverpine route took it right after accepting the Medley."
+	},
 	"97282": {
 		"set": {
 			"pre": [
