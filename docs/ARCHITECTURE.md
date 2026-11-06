@@ -4169,7 +4169,7 @@ Polestar.Lookup.IsMount(record) -> bool              -- a Codex item or spell re
 Polestar.Lookup.UnitMount(unit) -> { spell, item, name, icon, class } | nil
 Polestar.Lookup.Show(query, kind, id)                 -- SHOW_LOOKUP(query, kind, id) for UI/Lookup.lua
 Polestar.Lookup.RegisterPlanner(kind, build)          -- build(id) -> { title, steps, ... } | nil, reason: another module's guide kind
-Polestar.Lookup.QuestChain(questId, player) -> { quest, ... }, truncated  -- open prerequisites first, the quest last
+Polestar.Lookup.QuestChain(questId, player) -> { quest, ... }  -- every open prerequisite first, the quest last
 Polestar.Lookup.QuestStep(quest, from) -> step         -- accept, objectives, turn-in
 ```
 
@@ -4302,7 +4302,8 @@ NPC or object this character may use: Hamuul Runetotem and Nara Wildmane
 before Leaders of the Fang), which are then done on the way as its prerequisites; a quest done on the way
 to another is neither a take of its own nor carried; each with its open
 prerequisites (`Lookup.QuestChain`: all of `pre`, one
-of `preAny` this character can take, in the order they are done). The giver
+of `preAny` this character can take, in the order they are done, the whole
+chain however long: each quest once, so a cycle in the data ends the walk). The giver
 is `Dungeons.Giver(pq, from)`: the page keeps one (the Codex's first), so a
 quest several NPCs give goes to the one of the character's side nearest the
 player (`Lookup.QuestEnd`, which takes an NPC of the other side only when no

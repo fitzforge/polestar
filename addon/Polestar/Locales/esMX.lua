@@ -227,7 +227,6 @@ L["Where it is turned in is not known: %s."] = "No se sabe dónde se entrega: %s
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Asignador de misiones"
-L["Earlier quests of this chain are not listed."] = "Las misiones anteriores de esta cadena no aparecen."
 L["In your log already: %s"] = "Ya está en tu registro: %s"
 L["Enter"] = "Entra a"
 L["%s: pick up the quests"] = "%s: recoge las misiones"
@@ -2872,3 +2871,4 @@ L["You sold %s, which %s still needs. Buy it back for %s?"] = "Vendiste %s, que 
 -- L["The item the current step uses, or a quest item it collects, glows in your bags (and in Baganator)."] = "El objeto que usa el paso actual, o un objeto de misión que recoge, brilla en tus bolsas (y en Baganator)."
 -- L["Sells Poor-quality items when a merchant opens and prints the total. Never sells anything else."] = "Vende los objetos de calidad Pobre al abrir un mercader y muestra el total. Nunca vende nada más."
 -- L["Picks the only option of NPCs without quests. Hold Shift to read it."] = "Elige la única opción de los PNJ sin misiones. Mantén presionado Mayús para leerla."
+-- L["Earlier quests of this chain are not listed."] = "Las misiones anteriores de esta cadena no aparecen."
