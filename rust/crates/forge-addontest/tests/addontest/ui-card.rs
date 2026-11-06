@@ -760,10 +760,7 @@ fn an_opened_look_ahead_line_names_only_the_place_or_person_and_no_goal_reads_tw
 		emit({{ here = here, gakin = items() }})"#
 	))
 	.remove(0);
-	assert_eq!(
-		strings(&out["here"]),
-		["Surena Caledon", "[Then out here]+", "Bloodstone Choker", "Summoned Voidwalker", "[Then: Gakin the Darkbinder  \u{b7}  Turn in The Binding]"]
-	);
+	assert_eq!(strings(&out["here"]), ["Surena Caledon", "[Then out here]+", "Bloodstone Choker", "Summoned Voidwalker", "[Then: Gakin the Darkbinder  \u{b7}  Turn in The Binding]"]);
 	assert_eq!(strings(&out["gakin"]), ["Surena Caledon", "[Then out here: Use Bloodstone Choker, Kill Summoned Voidwalker]", "[Then: Gakin the Darkbinder]+", "The Binding"]);
 	for case in ["here", "gakin"] {
 		let items = strings(&out[case]);
