@@ -636,7 +636,6 @@ L["Forgets recorded entries and runs (the server's own limit is not affected)."]
 L["Minimap button"] = "Botão do minimapa"
 L["A Polestar button on the edge of the minimap. Click to show or hide the guide, right-click for settings, drag to move it."] = "Um botão do Polestar na borda do minimapa. Clique para mostrar ou ocultar o guia, clique com o botão direito para as configurações, arraste para movê-lo."
 L["Forget"] = "Esquecer"
--- L["Forget"] = ""
 L["Minimap"] = "Minimapa"
 
 -- Maps/WorldMap.lua
@@ -2005,9 +2004,6 @@ L["Maximum height"] = "Altura máxima"
 L["How tall the window may grow, as a share of the screen. A longer step scrolls."] = "Até onde a janela pode crescer, como parte da tela. Uma etapa mais longa rola."
 L["Hide the arrow with the guide"] = "Ocultar a seta com o guia"
 L["When the guide window is hidden, hide the arrow too."] = "Quando a janela do guia estiver oculta, ocultar a seta também."
--- L["%d KiB"] = ""
--- L["%.1f MB"] = ""
--- L["%d KB"] = ""
 L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."] = "Pequenas conveniências: missões, viagem, convites, mercadores, bolsas, rastreadores e o mapa."
 L["Did you mean:"] = "Você quis dizer:"
 -- L["Minimap icon size"] = ""
