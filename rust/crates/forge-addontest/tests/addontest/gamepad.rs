@@ -275,6 +275,22 @@ fn the_guide_menu_the_focus_starts_on_the_selected_guide_lb_rb_step_the_rail_s_s
 	assert_eq!(loaded, &json!({ "calls": [["SetGuide", selected]], "shown": false, "overrides": 0 }));
 }
 
+// The guide menu's Continue cards close their tab with Y, as the close button does with the mouse.
+#[test]
+fn the_guide_menu_y_on_a_continue_card_closes_that_tab() {
+	let out = run(r#"
+		uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 } }, 1)
+		UI.ShowPicker()
+		stub.advance(0.3)
+		local w = G.Focused(PolestarPicker)
+		emit({ card = w and rawget(w, "Pct") ~= nil, index = w and w.psIndex })
+		stub.press("PAD4")
+		emit({ calls = uistub.calls, shown = PolestarPicker:IsShown() })
+	"#);
+	assert_eq!(out[0], json!({ "card": true, "index": 1 }));
+	assert_eq!(out[1], json!({ "calls": [["CloseTab", 1]], "shown": true }));
+}
+
 #[test]
 fn a_menu_over_a_window_holds_the_gamepad_until_b_then_the_window_has_it_back_where_it_was() {
 	let out = run(r#"

@@ -4654,7 +4654,9 @@ rail does not move.
 
 Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 
-- **Guide window** (`UI/GuideFrame.lua`): tab strip, a slim navigator (prev,
+- **Guide window** (`UI/GuideFrame.lua`): tab strip (each tab's close button
+  faint at rest, full under the pointer; right-click for Choose guide, Close
+  tab, Move left/right; middle-click closes), a slim navigator (prev,
   step number, next, Skip, the bug that opens the report window, menu), one
   focus header from the step view's `groups`/`focus` (the person to talk to
   now, or a field step's place) over that group's open goals (#843), counters
@@ -4864,6 +4866,14 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `why`, "Guide data"), progress, pitch, pros and cons, a favourite
   star, "Load guide" and "Open in new tab". Selecting never loads; the buttons,
   a double-click or Enter do.
+  Home's Continue cards (one per open tab) show one row: as many as fit at
+  220px (two at the default width), the active tab first, then the most
+  recently used (`recentGuides`), then the rest in tab order; "Show all (N)"
+  lays out every tab and "Show fewer" folds them again (kept for the
+  session, not saved). A card closes its tab (`Engine.CloseTab`, which hands
+  the active tab over) from the close button in its corner (under the
+  pointer), its right-click menu (Close tab, Move left, Move right) or Y on
+  a gamepad.
   `UI.Picker.ShowQuest(questID)` opens this search with the client's quest
   title, matching the exact ID in applicable guide goals. Its details put
   those steps and their tips before the pitch; selecting loads nothing.
