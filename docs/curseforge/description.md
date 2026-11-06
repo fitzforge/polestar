@@ -2,107 +2,99 @@
 
 # Routes that make sense.
 
-**Polestar is a free, open-source guide addon for World of Warcraft: Forever.** Every race, 1 to 60, with a guide window that keeps up with you and an arrow that walks real paths. Every step is the one you'd pick yourself, with nothing pointless in between.
+**Polestar is a free, open-source guide addon for World of Warcraft: Forever.** Every race from 1 to 60, a guide window that keeps up with you, and an arrow that walks real paths. Every step is one you would pick yourself, with nothing pointless in between.
 
-**New in 0.3.7:** the fixes from your reports since 0.3.6, quieter play with no stutter indoors, a Train All button, a row for timed quests your guide doesn't hand in, a Lookup button and Browse all steps in the guide window, profession guides rebuilt on Forever's trainers, and a notice when a newer version is out.
+## What's new in 0.3.3
+
+*   **A calmer guide window:** one person at a time, finished goals fold away, and the window stops at half the screen.
+*   **Only your steps:** another class's or race's steps are never shown or counted.
+*   **Along the way** sits under the steps you walk to, and says until which step.
+*   **Nearby services** finds the nearest vendor by what it sells, general goods and the nearest mailbox.
+*   **Quest log cleanup** from the guide window's menu, now with grey quests.
+*   **Group play** on by default with party members who also run Polestar.
 
 ***
 
-## Leveling routes that make sense
+## The arrow walks real paths
 
-![The guide window on a step in Elwynn Forest, with its goals and counters, tabs for a profession and a reputation guide](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/guide.webp)
+Around cliffs, through town gates, into caves and onto boats. The arrow follows the path worked out for every step, with the distance and the time left, and the step ticks off when you arrive.
 
-*   **Your race's own start, then one route for your faction.** Every race levels through its own starting zone (Zephras Isle for the Skyborne included), then joins the Horde route from the Barrens or the Alliance route from Westfall, all the way to 60.
-*   **Towns in one visit.** Everything ready in a town is picked up and handed in while you're there, including where a flight or your hearth lands you. No running back for one quest.
-*   **Work on the way.** Quests that share the same ground are done together, and quests on the road are picked up as you pass.
-*   **Training where you already are,** weapon trainers "while you're here", and riding at 40 on a visit the route makes anyway.
-*   **The hearthstone used properly:** set where you'll need it, never asked for while it's cooling down.
-*   **Elite and group quests, your call,** always with a solo way past. **Rare drops never hold you up.**
-*   **Built from player reports.** Every route was checked step by step the way you'd play it, and every problem players reported is fixed for good.
+![The arrow leading out of Auberdine along the walking path to the Blackwood furbolgs: the distance counts down, the arrow turns at the corners, says Arrived, and the step ticks off](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/arrow-walk.gif)
 
-## A guide that keeps up with you
+## A guide window that stays calm
 
-*   **Steps tick off when the game confirms them:** quests taken and handed in, kills, loot, places reached, trainers visited. Your place is worked out from your quest log, so it survives a lost save.
-*   **One person at a time.** In a quest hub the window shows who to talk to now ("Person 2 of 8") while the arrow points at them.
-*   **Your way through a route.** Skip a single quest (with undo), look ahead without losing your place, pin quests "along the way", answer group quests once, and let Polestar pick the chat option, goods, training or flight the step asks for.
-*   **It looks after you.** A full quest log helper, items a later step needs kept safe from selling, a hearth helper, a trainer reminder that knows your route, and warnings before ambushes and linked pulls.
-*   **Class quests in their own tab,** with a heads-up when one opens at your level.
-*   **Tabs and gamepad.** Up to six guides open at once, and every window answers a gamepad.
+The person to talk to now shows in full; everyone after them waits on one line. Finished people fold away, and every trip is timed: walks, flights, boats and your Hearthstone, waits included.
 
-## Finding the way
+![The guide window in Auberdine: Terenthis's goals tick off, he folds into one done line, and Sentinel Glynda Nal'Shea moves up](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/guide-fold.gif)
 
-![The waypoint arrow: 1412 yd, Go to Westfall](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/waypoint-arrow.webp)
+![The guide window's Journey: go to Stormwind, walk to the boat, take the boat to Auberdine with its average wait, then hand in Plagued Lands](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/journey.png)
 
-![Quest markers on the Elwynn Forest map: the step's mobs ringed in gold inside the step's area, other quests' mobs and turn-ins](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/quest-markers.webp)
+## Only your steps
 
-*   **A 3D waypoint arrow** with distance and ETA that walks paths worked out for every step: round cliffs and walls, through town gates, into caves, up and down lifts, and out of the capitals by their streets.
-*   **The travel planner** uses flight paths, boats, zeppelins, the tram, portals, class teleports and your Hearthstone when they're faster, on their real timetables.
-*   **Quest markers** on the map and minimap, new icons sized like the game's own, tooltip lines on the mobs and items a quest needs, and nameplate icons on the mobs you still need.
+A Druid's Moonglade trip never shows up for a Mage. The window counts and pages only your own steps, and work you can do on the way sits under the steps you walk to.
+
+## Nearby services
+
+The nearest vendor, repair, innkeeper, flight master, trainer or mailbox, one click from the guide window. The arrow names who you are walking to.
+
+![Nearby services in the guide window: Vendor, then Nearest, and the arrow turns to the nearest vendor and names him](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/nearby.gif)
 
 ## Every guide in one place
 
-![The Polestar hub on its Guides section: the guides by category, with a leveling guide's zone, steps and quests](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/hub.webp)
+Leveling for every race and start, class quests, professions, reputations, mounts, pets and exploration. Open a guide in its own tab and keep your place in the others.
 
-*   **Leveling** for every race and both factions, 1 to 60.
-*   **Class quests** for every class: spells, pets, totems, forms, class items and class mounts.
-*   **Professions:** gathering, secondary and crafting, with the cheapest sensible path and where every material comes from.
-*   **Reputations,** ten new factions among them, with what every turn-in, kill or run pays.
-*   **Mounts, pets, exploration,** the Legacy challenges and the Library Books.
-*   **Community guides** from other players, credited to their authors.
+![The guide menu: Browse, pick Westfall, Open in new tab, and Westfall is open in tab 2](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/picker.gif)
 
 ## Lookup, Dungeons and Rares
 
-![Lookup searching swift: mounts, items, recipes, quests, NPCs and rares, with the Swift Brown Steed's vendors](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/lookup-search.webp)
+Lookup answers "how do I get that?" for any item, mount, recipe, quest, NPC or rare. Dungeons lists every quest with its chain and rewards, and Rares tells you when one shows up.
 
-![Wailing Caverns in the dungeon journal: its quests, who starts and ends them, and their rewards](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/dungeon-journal.webp)
+![Lookup searching swift: guides, mounts and items, with the Swift Ram selected](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/lookup.jpg)
 
-*   **Lookup** answers "how do I get that?" for any item, mount, pet, NPC, quest or zone, with the sources ranked for your character.
-*   **Dungeons:** every quest, its chain and rewards, the bosses and the entrance, and one button that guides you round to pick the quests up.
-*   **Rares:** rares and treasures by zone, with an alert when one shows up.
+## A tidy quest log
+
+Quests the route no longer needs, and grey ones that give no XP, in one list. Abandon asks the game first. Open it from the guide window's menu.
+
+![Make room in your quest log: six grey Elwynn quests and one the route never hands in, each with Abandon](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/media/questlog.png)
+
+## Play together
+
+With friends who also run Polestar, the step waits until everyone has what they need, the arrow leads to what they still need, and a Share button offers a quest someone is missing. Friends without Polestar see nothing.
 
 ## Quality of life
 
-*   **Characters page** with every character on your account at a glance, and **restock** that buys each character's food, drink and ammo.
-*   **Gear advice** on tooltips and quest rewards, with an offer to put an upgrade on, and your own stat weights from a Pawn scale.
-*   **Bags:** junk and keep marks, a warning when they're nearly full.
-*   **XP per hour, time to level** and whether you'll reach the guide's next level on time.
-*   Quest item, target and Hearthstone buttons, selling greys and repairing, the best quest reward, instant quest text, flight map and death helpers.
-*   **Playing with friends:** see where each of them is on the guide, share a quest someone is missing, and offer your step to the party with "Sync to my guide".
-
-## Your look
-
-Skins (Polestar's own, Halo, Hearth, WoW Forever, Blizzard and Classic), colour schemes with your own accent or class colour, standard, compact or transparent windows, text size, and EllesmereUI's accent and font when it's installed.
-
-**Every language:** English, German, French, Spanish (Spain and Latin America), Brazilian Portuguese, Russian, Korean and Chinese (Simplified and Traditional), with every NPC, place, item and quest named as your game names it.
+*   **Items a quest still needs** are marked in your bags and kept from selling.
+*   **XP per hour and time to level,** with a heads-up when a class quest opens.
+*   **Gear advice** on tooltips and quest rewards.
+*   **Your look:** skins, colour schemes, compact or transparent windows, and every window works with a gamepad.
+*   **Every language** the game ships, with names as your game shows them.
 
 ***
 
-## Polestar Client and polestar.guide
-
-![The Polestar Client: installed community guides with their authors and versions, and an Update button](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/client.webp)
-
-![The guide library on polestar.guide: every guide that ships inside Polestar, searchable](https://raw.githubusercontent.com/fitzforge/polestar/main/docs/assets/screenshots/site-library.webp)
-
-*   **[Polestar Client](https://polestar.guide/client)** is a small app for Windows, macOS and Linux that finds WoW: Forever, installs and updates Polestar for you, and installs community guides in one click.
-*   **[polestar.guide](https://polestar.guide)** has every guide readable step by step, the community guides, and the docs.
-*   **Help improve the routes:** the optional Polestar Recorder makes small, anonymous recordings, sent only with your consent through the Client.
-
-## Install
-
-**With Polestar Client or the CurseForge app:** install Polestar, then restart the game completely.
-
-**By hand:** download the zip from the Files tab and unzip it into `World of Warcraft/_forever_/Interface/AddOns/`, so the Polestar folders sit directly inside it. Restart the game completely (a `/reload` doesn't load new addons). To update, delete the old Polestar folders first.
-
-**Coming from 0.2.6?** Delete the old `Polestar_Guides_<language>` and `Polestar_Names_<language>` folders; Polestar reminds you once.
-
 ## Getting started
 
-*   A short **welcome** opens on each new character with the guide Polestar suggests (`/polestar welcome` shows it again).
-*   **`/polestar guides`** opens the hub, **`/polestar`** shows the guide window, **`/polestar options`** holds every setting, **`/polestar help`** lists every command.
+1. **Install** with the [Polestar Client](https://polestar.guide/client) or the CurseForge app, then restart the game completely.
+2. **Open the guide menu** with `/polestar guides` (a welcome opens on each new character too).
+3. **Pick your start** and follow the arrow. Goals tick off by themselves as you play.
 
-## Beta
+Installing by hand: unzip into `World of Warcraft/_forever_/Interface/AddOns/` so the Polestar folders sit directly inside it, and restart the game. Delete the old Polestar folders before an update.
 
-Polestar is in beta and grows with your reports. A step in the wrong order, or a quest that isn't where the guide says? Tell us on the [Polestar Discord](https://discord.gg/vMbee6F2e9) or [open an issue on GitHub](https://github.com/fitzforge/polestar/issues), with the guide, the step and what you saw. Every report becomes a fix the next build keeps.
+## FAQ
+
+**How do I close a guide tab?**  
+Point at the tab in the guide window and click its ×. In the guide menu's Home, each Continue card has one too.
+
+**How do I clean up my quest log?**  
+Open the guide window's ⋯ menu and choose Clean up quest log, or type `/polestar questlog`.
+
+**Which commands are there?**  
+`/polestar` shows the guide window, `/polestar guides` opens the guide menu, `/polestar options` holds every setting, `/polestar near vendor` points at the nearest vendor, and `/polestar help` lists the rest.
+
+**A step is wrong. How do I report it?**  
+Click the bug button on the guide window (or type `/polestar report`), copy the report, and post it on the [Polestar Discord](https://discord.gg/vMbee6F2e9) or as a [GitHub issue](https://github.com/fitzforge/polestar/issues).
+
+**How do recordings help, and how do I opt out?**  
+The optional Polestar Recorder notes what happens as you play, with no character, realm or account names, and the Polestar Client sends it so the routes can be fixed from real play. Stop sharing in the Client at any time, or don't install the Recorder.
 
 ***
 
@@ -120,6 +112,6 @@ Polestar is free and stays free, with no ads and nothing locked. If it saves you
 
 ## Licence and credits
 
-Free and open source under the [GNU GPL, version 3](https://github.com/fitzforge/polestar/blob/main/LICENSE). The walking paths use Leffe's navigation maps and Polestar's own, with a router that started from Cillian Berragan's [Shortest Path Forever](https://github.com/cjber/shortest-path-forever), used with his kind permission. Every data source is credited with its licence in [THIRD\_PARTY.md](https://github.com/fitzforge/polestar/blob/main/THIRD_PARTY.md). No game art ships with Polestar; the screenshots show the game (© Blizzard Entertainment).
+Free and open source under the [GNU GPL, version 3](https://github.com/fitzforge/polestar/blob/main/LICENSE). The walking paths use Leffe's navigation maps and Polestar's own, with a router that started from Cillian Berragan's [Shortest Path Forever](https://github.com/cjber/shortest-path-forever), used with his kind permission. Every data source is credited with its licence in [THIRD_PARTY.md](https://github.com/fitzforge/polestar/blob/main/THIRD_PARTY.md). No game art ships with Polestar; the pictures show the game (© Blizzard Entertainment).
 
 _World of Warcraft is a trademark of Blizzard Entertainment. Polestar is a community project, not affiliated with or endorsed by Blizzard._
