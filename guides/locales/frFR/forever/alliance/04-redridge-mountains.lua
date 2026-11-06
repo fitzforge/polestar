@@ -133,28 +133,24 @@ return {
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
 	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "",
 
-	-- Step 29: Hearth to Lakeshire
-	-- {area:69} Lakeshire
-	["Hearth to {area:69}"] = "Pierre de foyer vers {area:69}",
-
-	-- Step 30: Back to Lakeshire
+	-- Step 29: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "Retour à {area:69}",
 
-	-- Step 31: Render's Valley
+	-- Step 30: Render's Valley
 	-- {area:69} Lakeshire · {area:95} Redridge Canyons · {area:997} Render's Valley
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Allez au nord hors de {area:69} par {area:95} jusqu'à {area:997}. Des Champions Blackrock campent dans la vallée.",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "{npc:435}, sous terre",
 
-	-- Step 32: Corporal Keeshan
+	-- Step 31: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan se cache tout au nord de la vallée, près de la frontière de {zone:1428}. Escortez-le jusqu'à {area:69} ; des orcs Blackrock vous tendent des embuscades en chemin.",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "{npc:349}, sous terre",
 
-	-- Step 33: Lakeshire
+	-- Step 32: Lakeshire
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, près des griffons au sud du pont",
 	-- {zone:1431} Duskwood · {area:1002} Three Corners · {area:42} Darkshire
@@ -168,6 +164,7 @@ return {
 	-- ["For {npc:3649}, on the return to {area:442} (06-ashenvale)"] = "Pour {npc:3649}, au retour à {area:442} (06-ashenvale)",
 	-- ["Gnolls toward {area:1002}"] = "Gnolls vers {area:1002}",
 	-- ["Greater Tarantulas crawl on the slopes around the mill north-east of the lake; Blackrock Renegades hold the mill itself."] = "Des Grandes tarentules rampent sur les pentes autour du moulin, au nord-est du lac ; des Renégats Blackrock occupent le moulin.",
+	-- ["Hearth to {area:69}"] = "Pierre de foyer vers {area:69}",
 	-- ["Lake murlocs"] = "Murlocs du lac",
 	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "Des Dévoreurs murlocs et des Maîtres des flots murlocs bordent la rive sud à l'est du pont. Chacun peut porter un {item:1467} ou une nageoire.",
 	-- ["On the top floor"] = "Au dernier étage",

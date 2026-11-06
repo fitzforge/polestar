@@ -19,6 +19,8 @@ return {
 	["Young Wolves and Timber Wolves roam the fields right around the Abbey."] = "幼狼和森林狼在修道院周圍的田野遊蕩。",
 
 	-- Step 3: Deputy Willem
+	-- {npc:198} Khelden Bremen
+	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:823} Deputy Willem
 	["{npc:823}, back at the Abbey steps"] = "{npc:823}，回到修道院台階",
 
@@ -40,8 +42,8 @@ return {
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "沿著小路向北前往礦坑。狗頭人勞工聚集在礦坑外；山谷中的每個狗頭人都可能掉落{object:83763}。",
 
 	-- Step 7: Northshire Abbey
-	-- {npc:248415} Tordrin Sternblade
-	["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}站在修道院後方的馬廄旁。",
+	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
+	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:911} Llane Beshere
 	["{npc:911}, the warrior trainer; inside"] = "",
 	-- {npc:925} Brother Sammuel
@@ -142,8 +144,8 @@ return {
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "魚人和魚人士兵佔據東岸；垃圾堆在牠們的營地裡。",
 
 	-- Step 29: Goldshire
-	-- {npc:1430} Tomas
-	["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430}在旅店廚房裡做菜。",
+	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
 
@@ -205,6 +207,8 @@ return {
 	["{item:981}; below ground"] = "",
 
 	-- Step 41: Goldshire
+	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{zone:1453}的{npc:279}接收此任務（02-westfall）",
 
@@ -318,8 +322,8 @@ return {
 	["Crystal Kelp Fronds"] = "水晶藻葉",
 
 	-- Step 70: Goldshire
-	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner
-	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "沿著道路向西回到{area:87}；{npc:6306}和傑生站在城鎮前的湖岸邊。",
+	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, inside"] = "",
 	-- {npc:240} Marshal Dughan
@@ -340,8 +344,8 @@ return {
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}：給{area:108}的{npc:234}",
 
 	-- Step 74: Goldshire
-	-- {area:87} Goldshire
-	["Follow the road west back to {area:87}."] = "沿著道路向西回到{area:87}。",
+	-- {area:87} Goldshire · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["Follow the road west back to {area:87}. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}：由{zone:1453}的{npc:6122}接收",
 
@@ -433,6 +437,8 @@ return {
 	-- ["Boar meat"] = "野豬肉",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "沿著道路向東經過{area:91}走到橋邊。",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "沿著道路從{area:87}向北進入{zone:1453}。{npc:6171}和{npc:6173}在光明大教堂裡；{npc:6174}站在{object:2100}，向你要十塊{item:2589}（人型生物會掉落；拍賣場也有賣）。",
+	-- ["Follow the road west back to {area:87}."] = "沿著道路向西回到{area:87}。",
+	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "沿著道路向西回到{area:87}；{npc:6306}和傑生站在城鎮前的湖岸邊。",
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "沿著道路向西經過西泉要塞進入{zone:1436}，再沿路向南前往{area:108}。獅鷲管理員{npc:523}站在山丘上。",
 	-- ["From the {quest:2998} he gives you"] = "來自他給你的{quest:2998}",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "穿過{area:87}返回，向東到{area:86}。{npc:6172}躺在湖南邊：對他使用{item:6866}。他周圍的{npc:474}帶著{item:6846}。",
@@ -457,8 +463,10 @@ return {
 	-- ["{area:57}'s mouth"] = "{area:57}入口",
 	-- ["{item:1006}: Princess"] = "{item:1006}：公主",
 	-- ["{item:6846}: Defias Rogue Wizards"] = "{item:6846}：迪菲亞流浪巫師",
+	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430}在旅店廚房裡做菜。",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}，在圖書室",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}在魚人河岸東邊的{area:798}站崗。之後往西北回到橋邊。",
+	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}站在修道院後方的馬廄旁。",
 	-- ["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}，在她旁邊：{spell:5149}",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}：兩個都由{zone:1453}的{npc:376}接收",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}：救贖",

@@ -133,28 +133,24 @@ return {
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
 	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "",
 
-	-- Step 29: Hearth to Lakeshire
-	-- {area:69} Lakeshire
-	["Hearth to {area:69}"] = "",
-
-	-- Step 30: Back to Lakeshire
+	-- Step 29: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "回到{area:69}",
 
-	-- Step 31: Render's Valley
+	-- Step 30: Render's Valley
 	-- {area:69} Lakeshire · {area:95} Redridge Canyons · {area:997} Render's Valley
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "从{area:69}向北出发，沿{area:95}上行到{area:997}。黑石勇士在山谷中扎营。",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "",
 
-	-- Step 32: Corporal Keeshan
+	-- Step 31: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "基沙恩下士躲在山谷最北端，靠近{zone:1428}边界。护送他下山回到{area:69}；途中会遭到黑石兽人伏击。",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "",
 
-	-- Step 33: Lakeshire
+	-- Step 32: Lakeshire
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}，在桥南的狮鹫旁",
 	-- {zone:1431} Duskwood · {area:1002} Three Corners · {area:42} Darkshire

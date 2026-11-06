@@ -19,6 +19,8 @@ return {
 	["Young Wolves and Timber Wolves roam the fields right around the Abbey."] = "Lobos Jovens e Lobos Silvestres vagam pelos campos bem ao redor da Abadia.",
 
 	-- Step 3: Deputy Willem
+	-- {npc:198} Khelden Bremen
+	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:823} Deputy Willem
 	["{npc:823}, back at the Abbey steps"] = "{npc:823}, de volta à escadaria da Abadia",
 
@@ -40,8 +42,8 @@ return {
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Siga a trilha para o norte até a mina. Trabalhadores Kobold enxameiam do lado de fora; qualquer kobold do vale pode soltar {object:83763}.",
 
 	-- Step 7: Northshire Abbey
-	-- {npc:248415} Tordrin Sternblade
-	["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} fica atrás da Abadia, perto dos estábulos.",
+	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
+	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:911} Llane Beshere
 	["{npc:911}, the warrior trainer; inside"] = "",
 	-- {npc:925} Brother Sammuel
@@ -142,8 +144,8 @@ return {
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "Murlocs e Murlocs Corredores ocupam a margem leste; as Pilhas de Sucata ficam no acampamento deles.",
 
 	-- Step 29: Goldshire
-	-- {npc:1430} Tomas
-	["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430} cozinha na cozinha da estalagem.",
+	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
 
@@ -205,6 +207,8 @@ return {
 	["{item:981}; below ground"] = "",
 
 	-- Step 41: Goldshire
+	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{npc:279} em {zone:1453} recebe (02-westfall)",
 
@@ -318,8 +322,8 @@ return {
 	["Crystal Kelp Fronds"] = "Folhas de Cristalga",
 
 	-- Step 70: Goldshire
-	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner
-	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "Siga a estrada para o oeste de volta a {area:87}; {npc:6306} e Jasão ficam na margem do lago antes da cidade.",
+	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, inside"] = "",
 	-- {npc:240} Marshal Dughan
@@ -340,8 +344,8 @@ return {
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: para {npc:234} em {area:108}",
 
 	-- Step 74: Goldshire
-	-- {area:87} Goldshire
-	["Follow the road west back to {area:87}."] = "Siga a estrada para o oeste de volta a {area:87}.",
+	-- {area:87} Goldshire · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["Follow the road west back to {area:87}. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}: {npc:6122} em {zone:1453} recebe",
 
@@ -433,6 +437,8 @@ return {
 	-- ["Boar meat"] = "Carne de javali",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Siga a estrada para o leste, passando por {area:91}, até a ponte.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Siga a estrada para o norte, de {area:87} até {zone:1453}. {npc:6171} e {npc:6173} estão na Catedral da Luz; {npc:6174} fica em {object:2100} e pede dez {item:2589} (humanoides soltam; a Casa de Leilões vende).",
+	-- ["Follow the road west back to {area:87}."] = "Siga a estrada para o oeste de volta a {area:87}.",
+	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "Siga a estrada para o oeste de volta a {area:87}; {npc:6306} e Jasão ficam na margem do lago antes da cidade.",
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "Siga a estrada para o oeste, passando pela Ribeira d'Oeste, até {zone:1436}; depois, para o sul por ela até {area:108}. {npc:523}, o mestre de grifos, fica no morro.",
 	-- ["From the {quest:2998} he gives you"] = "Do {quest:2998} que ele lhe dá",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Volte por {area:87} e siga para leste até {area:86}. {npc:6172} está ao sul do lago: use o {item:6866} nele. Os Magos Desonestos Defias ao redor carregam o {item:6846}.",
@@ -456,8 +462,10 @@ return {
 	-- ["{area:57}'s mouth"] = "Boca de {area:57}",
 	-- ["{item:1006}: Princess"] = "{item:1006}: Princesa",
 	-- ["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Teurgos Proscritos Défias",
+	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430} cozinha na cozinha da estalagem.",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, na biblioteca",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277} fica de guarda em {area:798}, a leste da margem dos murlocs. Depois volte para o noroeste até a ponte.",
+	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415} fica atrás da Abadia, perto dos estábulos.",
 	-- ["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, ao lado dela: {spell:5149}",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: {npc:376} em {zone:1453} recebe as duas",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: Redenção",

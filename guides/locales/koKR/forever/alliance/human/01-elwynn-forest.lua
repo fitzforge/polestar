@@ -19,6 +19,8 @@ return {
 	["Young Wolves and Timber Wolves roam the fields right around the Abbey."] = "새끼 늑대와 회색 늑대가 대성당 바로 주변 들판을 돌아다닙니다.",
 
 	-- Step 3: Deputy Willem
+	-- {npc:198} Khelden Bremen
+	["Mages: {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:823} Deputy Willem
 	["{npc:823}, back at the Abbey steps"] = "{npc:823}, 대성당 계단으로 돌아가기",
 
@@ -40,8 +42,8 @@ return {
 	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "길을 따라 북쪽 광산으로 가십시오. 코볼트 잡역부가 광산 밖에 몰려 있으며, 골짜기의 모든 코볼트가 {object:83763}을(를) 떨어뜨릴 수 있습니다.",
 
 	-- Step 7: Northshire Abbey
-	-- {npc:248415} Tordrin Sternblade
-	["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}은(는) 대성당 뒤 마구간 옆에 있습니다.",
+	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
+	["{npc:248415} stands behind the Abbey, by the stables. {npc:198}, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:911} Llane Beshere
 	["{npc:911}, the warrior trainer; inside"] = "",
 	-- {npc:925} Brother Sammuel
@@ -142,8 +144,8 @@ return {
 	["Murlocs and Murloc Streamrunners hold the east shore; the Junk Piles lie in their camp."] = "멀록과 멀록 길잡이가 동쪽 기슭을 차지하고 있으며, 잡동사니 더미는 그들의 야영지에 있습니다.",
 
 	-- Step 29: Goldshire
-	-- {npc:1430} Tomas
-	["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430}은(는) 여관 부엌에서 요리합니다.",
+	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:1430} Tomas
 	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
 
@@ -205,6 +207,8 @@ return {
 	["{item:981}; below ground"] = "",
 
 	-- Step 41: Goldshire
+	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind
 	["{npc:279} in {zone:1453} takes it (02-westfall)"] = "{zone:1453}의 {npc:279}이(가) 받습니다 (02-westfall)",
 
@@ -318,8 +322,8 @@ return {
 	["Crystal Kelp Fronds"] = "투명한 해초 잎",
 
 	-- Step 70: Goldshire
-	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner
-	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오. {npc:6306}와(과) 제이슨은 마을 앞 호숫가에 있습니다.",
+	-- {area:87} Goldshire · {npc:6306} Helene Peltskinner · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6306} Helene Peltskinner
 	["{npc:6306}, inside"] = "",
 	-- {npc:240} Marshal Dughan
@@ -340,8 +344,8 @@ return {
 	["{npc:963}: for {npc:234} at {area:108}"] = "{npc:963}: {area:108}의 {npc:234}를 위해",
 
 	-- Step 74: Goldshire
-	-- {area:87} Goldshire
-	["Follow the road west back to {area:87}."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오.",
+	-- {area:87} Goldshire · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
+	["Follow the road west back to {area:87}. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:6121} Remen Marcot · {npc:6122} Gakin the Darkbinder · {zone:1453} Stormwind
 	["{npc:6121}: {npc:6122} in {zone:1453} takes it"] = "{npc:6121}: {zone:1453}의 {npc:6122}이(가) 받습니다",
 
@@ -434,6 +438,8 @@ return {
 	-- ["Boar meat"] = "멧돼지 고기",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "길을 따라 북쪽으로 {area:87}에서 {zone:1453}(으)로 가십시오. {npc:6171}와(과) {npc:6173}은(는) 빛의 대성당에 있으며, {npc:6174}은(는) {object:2100}에서 {item:2589} 10개를 요구합니다(인간형 몹이 떨어뜨리고, 경매장에서도 판매합니다).",
+	-- ["Follow the road west back to {area:87}."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오.",
+	-- ["Follow the road west back to {area:87}; {npc:6306} and Jason stand on the lake shore before town."] = "길을 따라 서쪽 {area:87}(으)로 돌아가십시오. {npc:6306}와(과) 제이슨은 마을 앞 호숫가에 있습니다.",
 	-- ["Follow the road west past Westbrook into {zone:1436}, then south along it to {area:108}. {npc:523}, the gryphon master, stands on the hill."] = "길을 따라 서쪽으로 서부 주둔지를 지나 {zone:1436}(으)로 간 뒤, 남쪽으로 따라가 {area:108}(으)로 가십시오. 그리폰 조련사 {npc:523}가 언덕 위에 있습니다.",
 	-- ["From the {quest:2998} he gives you"] = "그가 주는 {quest:2998}에서",
 	-- ["Head back out through {area:87} and east to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "{area:87}을 통해 돌아 나와 동쪽 {area:86}으로 가세요. {npc:6172}이 호수 남쪽에 있습니다: {item:6866}을 그에게 사용하세요. 주변의 디파이어스 불량 마법사들이 {item:6846}을 가지고 있습니다.",
@@ -458,8 +464,10 @@ return {
 	-- ["{area:57}'s mouth"] = "{area:57} 입구",
 	-- ["{item:1006}: Princess"] = "{item:1006}: 공주",
 	-- ["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: 데피아즈단 견습마술사",
+	-- ["{npc:1430} cooks in the inn's kitchen."] = "{npc:1430}은(는) 여관 부엌에서 요리합니다.",
 	-- ["{npc:247229}, in the library"] = "{npc:247229}, 도서관 안",
 	-- ["{npc:248277} keeps watch at {area:798}, east of the murloc shore. Then head north-west back to the bridge."] = "{npc:248277}은(는) 멀록 해안 동쪽 {area:798}에서 경계를 서고 있습니다. 그다음 북서쪽으로 다리까지 돌아가십시오.",
+	-- ["{npc:248415} stands behind the Abbey, by the stables."] = "{npc:248415}은(는) 대성당 뒤 마구간 옆에 있습니다.",
 	-- ["{npc:258930}, beside her: {spell:5149}"] = "{npc:258930}, 그녀 옆: {spell:5149}",
 	-- ["{npc:377}: {npc:376} in {zone:1453} takes both"] = "{npc:377}: {zone:1453}의 {npc:376}이(가) 둘 다 받습니다",
 	-- ["{npc:6171}: Redemption"] = "{npc:6171}: 구원",

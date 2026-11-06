@@ -20,6 +20,10 @@ return {
 	-- {npc:209797} Bruuz
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
+	-- Step 5: Ratchet
+	-- {npc:3391} Gazlowe
+	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+
 	-- Step 6: Level 19.43
 	["Level 19.43"] = "",
 	-- {quest:92706} WANTED: Bruuz
@@ -134,8 +138,8 @@ return {
 	["Fizzule is by the Venture Co. tower north of the {area:382}. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
 
 	-- Step 38: Orgrimmar
-	-- {area:1637} Orgrimmar · {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
-	["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "Летите сюда: {area:1637} – изучить ранги 20-го уровня. {npc:3354} – здесь: {object:172958}; {npc:5892} – здесь: {object:172957}.",
+	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
+	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "",
 
 	-- Step 40: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -185,8 +189,8 @@ return {
 
 	-- Step 53: Bristleback camps
 	["Bristleback camps"] = "Лагеря Дыбогривых",
-	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {item:5075} Blood Shard · {quest:883} Lakota'mani
-	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "Лагеря дыбогривых свинобразов раскинулись по равнинам к северу от места {area:378}, по обе стороны дороги ({area:458}). Бивень падает с каждого Дыбогривого; жена NPC {npc:3432} лежит у северного края. Сохраните один предмет: {item:5075}. Здесь иногда бродит серый кодо {quest:883}: его копыто начинает задание.",
+	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {npc:3430} Mangletooth · {quest:883} Lakota'mani
+	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "",
 
 	-- Step 54: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
@@ -197,6 +201,10 @@ return {
 	["{npc:3430}, in the cage"] = "{npc:3430}, в клетке",
 	-- {npc:6394} Ruga Ragetotem
 	["{npc:6394}, inside"] = "",
+
+	-- Step 55: Bramblescar
+	-- {npc:3432} Mankrik · {npc:3430} Mangletooth · {item:5075} Blood Shard
+	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "",
 
 	-- Step 57: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "Догран закован в цепи в лагере свинобразов к западу от дороги.",
@@ -305,52 +313,52 @@ return {
 
 	-- Step 87: Twitching Antennae
 	["Twitching Antennae"] = "Дергающиеся усики",
-	-- {area:390} Field of Giants · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
+	-- {area:390} Field of Giants · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
-	["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
+	["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
 	["Twitching Antennae from the silithid"] = "Дергающиеся усики с силитидов",
 
-	-- Step 88: Hearth to Camp Taurajo
-	-- {area:378} Camp Taurajo
-	["Hearth to {area:378}"] = "",
-
-	-- Step 90: Fly to Crossroads
+	-- Step 89: Fly to Crossroads
 	-- {area:380} Crossroads
 	["Fly to {area:380}"] = "",
 
-	-- Step 93: Crossroads flight master
+	-- Step 92: Crossroads flight master
 	-- {area:380} Crossroads
 	["{area:380} flight master"] = "",
 
-	-- Step 94: Thunder Bluff
+	-- Step 93: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
 	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "",
 
-	-- Step 96: The Great Cat Spirit
+	-- Step 95: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Летите сюда: {area:1638} – на обучение: {npc:3033} – здесь: {area:1639}.",
 
-	-- Step 97: Moonglade
+	-- Step 96: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}."] = "",
+	["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: используйте половинку здесь: {area:2362}",
 
-	-- Step 98: Moonglade
+	-- Step 97: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 100: Moonglade
+	-- Step 98: Moonglade
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+
+	-- Step 99: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}: приветствие от {npc:3033}",
 
-	-- Step 101: The Stormrage Barrow Dens
+	-- Step 100: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Таурены: {npc:11957} ждет на южном холме над мостом. Небеснорожденные: {npc:272054} стоит к югу от двух мостов. Затем – логова к востоку от озера: выйдите из облика, щелкните по статуе у входа, чтобы получить пять минут незаметности, держитесь подальше от духов внутри и возьмите по одной реликвии каждого вида; {item:280680} лежит у подножия статуи белой кошки.",
 
-	-- Step 103: Turak Runetotem
+	-- Step 102: Turak Runetotem
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} ({area:2361}) отправляет туда друидов по воздуху",
 
@@ -363,6 +371,7 @@ return {
 	-- ["East to the {area:382}. {npc:3439} stands inside the Venture Co. camp; {npc:3445} carries the key."] = "На восток. Цель: {area:382}. {npc:3439} стоит в лагере Торговой компании; ключ – у NPC {npc:3445}.",
 	-- ["Fizzule runs the Venture Co. camp at the east end of the {area:382}. He attacks strangers: target him and /salute before he does."] = "Физзул руководит лагерем Торговой компании в восточном конце места {area:382}. Он нападает на чужаков: выберите его целью и введите /salute, пока он не напал.",
 	-- ["Fly back to the {area:380}. The next guide starts here and takes the road north to the {area:1703} and {zone:1440}."] = "Летите обратно. Цель: {area:380}. Отсюда начинается следующий гайд: дорога на север к месту {area:1703} и в зону {zone:1440}.",
+	-- ["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "Летите сюда: {area:1637} – изучить ранги 20-го уровня. {npc:3354} – здесь: {object:172958}; {npc:5892} – здесь: {object:172957}.",
 	-- ["Fly to {area:1637} to train."] = "Летите сюда: {area:1637} – на обучение.",
 	-- ["Hearth to the {area:380}"] = "Вернуться камнем: {area:380}",
 	-- ["Level 20"] = "20-й уровень",
@@ -373,6 +382,7 @@ return {
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "Оставайтесь незаметными: ключ от башни – у NPC {npc:7287}; Нервотреп и его денежный ящик – наверху. Нервотреп – элита: лучше собрать группу.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "Яркочешуйчатые смертехваты охотятся на равнинах к югу (ориентир: {area:380}), вокруг места {area:1697}; с них падают рога. Сдайте их, когда в следующий раз будете здесь: {area:392}.",
 	-- ["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them."] = "Солдаты, ружейники и офицеры Бейл'дана охраняют крепость на восточной стороне раскопок; все три предмета падают с них.",
+	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "Лагеря дыбогривых свинобразов раскинулись по равнинам к северу от места {area:378}, по обе стороны дороги ({area:458}). Бивень падает с каждого Дыбогривого; жена NPC {npc:3432} лежит у северного края. Сохраните один предмет: {item:5075}. Здесь иногда бродит серый кодо {quest:883}: его копыто начинает задание.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "Усики исчезают через пятнадцать минут после выпадения, поэтому соберите их сейчас, по пути на север: убивайте членистоногов Силитида и ползучих силитидов у курганов ({area:390}), пока не наберете пять, затем сразу возвращайтесь камнем. Цель: {area:378}.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "Классовые задания 20-го уровня в городе {zone:1454} ({npc:3354}, {npc:5892}, учителя чернокнижников и разбойников) выдаются только с 20-го уровня, поэтому доберите уровень здесь, прежде чем лететь. Ближайшие подходящие противники – птенцы грозового змея (18) на равнинах к юго-западу (ориентир: {area:380}) и кентавры из племени Колкар (14-15), здесь: {area:388}; нужно гораздо меньше уровня.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Пираты стоят лагерем на пляже к югу (ориентир: {area:392}); {npc:3467} – в его южном конце.",

@@ -20,6 +20,10 @@ return {
 	-- {npc:209797} Bruuz
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
+	-- Step 5: Ratchet
+	-- {npc:3391} Gazlowe
+	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+
 	-- Step 6: Level 19.43
 	["Level 19.43"] = "",
 	-- {quest:92706} WANTED: Bruuz
@@ -134,8 +138,8 @@ return {
 	["Fizzule is by the Venture Co. tower north of the {area:382}. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
 
 	-- Step 38: Orgrimmar
-	-- {area:1637} Orgrimmar · {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
-	["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "Flieg nach {area:1637}, um deine Ränge der Stufe 20 zu trainieren. {npc:3354} ist im {object:172958}, {npc:5892} im {object:172957}.",
+	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
+	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "",
 
 	-- Step 40: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -185,8 +189,8 @@ return {
 
 	-- Step 53: Bristleback camps
 	["Bristleback camps"] = "Lager der Borstennacken",
-	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {item:5075} Blood Shard · {quest:883} Lakota'mani
-	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "Die Lager der Borstennacken verteilen sich über die Ebenen nördlich vom {area:378}, zu beiden Seiten der {area:458}. Jeder Borstennacken lässt einen Hauer fallen; die Frau von {npc:3432} liegt am Nordrand. Behalte einen {item:5075}. {quest:883}, ein grauer Kodo, wandert manchmal hier: Sein Huf startet eine Quest.",
+	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {npc:3430} Mangletooth · {quest:883} Lakota'mani
+	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "",
 
 	-- Step 54: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
@@ -197,6 +201,10 @@ return {
 	["{npc:3430}, in the cage"] = "{npc:3430}, im Käfig",
 	-- {npc:6394} Ruga Ragetotem
 	["{npc:6394}, inside"] = "",
+
+	-- Step 55: Bramblescar
+	-- {npc:3432} Mankrik · {npc:3430} Mangletooth · {item:5075} Blood Shard
+	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "",
 
 	-- Step 57: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "Dogran ist im Stacheleberlager westlich der Straße angekettet.",
@@ -305,52 +313,52 @@ return {
 
 	-- Step 87: Twitching Antennae
 	["Twitching Antennae"] = "Zuckende Fühler",
-	-- {area:390} Field of Giants · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
+	-- {area:390} Field of Giants · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
-	["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
+	["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
 	["Twitching Antennae from the silithid"] = "Zuckende Fühler von den Silithiden",
 
-	-- Step 88: Hearth to Camp Taurajo
-	-- {area:378} Camp Taurajo
-	["Hearth to {area:378}"] = "",
-
-	-- Step 90: Fly to Crossroads
+	-- Step 89: Fly to Crossroads
 	-- {area:380} Crossroads
 	["Fly to {area:380}"] = "",
 
-	-- Step 93: Crossroads flight master
+	-- Step 92: Crossroads flight master
 	-- {area:380} Crossroads
 	["{area:380} flight master"] = "",
 
-	-- Step 94: Thunder Bluff
+	-- Step 93: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
 	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "{npc:246344} lehrt Paladine in {area:1638}. Du hast dort noch keinen Flugpunkt: Flieg nach {area:378}, geh nach Westen durch {zone:1412} und einen Aufzug hinauf und nimm den Flugpunkt bei {npc:2995} auf der mittleren Anhöhe.",
 
-	-- Step 96: The Great Cat Spirit
+	-- Step 95: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "Flieg zum Trainieren nach {area:1638}: {npc:3033} ist auf der {area:1639}.",
 
-	-- Step 97: Moonglade
+	-- Step 96: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}."] = "",
+	["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: Benutze eine Hälfte beim {area:2362}",
 
-	-- Step 98: Moonglade
+	-- Step 97: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 100: Moonglade
+	-- Step 98: Moonglade
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+
+	-- Step 99: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}: der Willkommensgruß von {npc:3033}",
 
-	-- Step 101: The Stormrage Barrow Dens
+	-- Step 100: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "Tauren: {npc:11957} wartet auf dem südlichen Hügel über der Brücke. Himmelsgeborene: {npc:272054} steht südlich der Zwillingsbrücken. Dann die Grabhügel östlich des Sees: Verlass deine Gestalt, klick die Statue am Eingang an für fünf Minuten Verstohlenheit, halte dich von den Geistern darin fern und nimm von jedem Relikt eins; {item:280680} liegt am Fuß der weißen Katzenstatue.",
 
-	-- Step 103: Turak Runetotem
+	-- Step 102: Turak Runetotem
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{npc:11798} in {area:2361} fliegt Druiden dorthin",
 
@@ -364,6 +372,7 @@ return {
 	-- ["Fizzule is by the Venture Co. tower north of the {area:382}. Use {item:8051} to fire TWO flares before approaching him, then target him and /salute. Keep that order: he attacks strangers who have not signalled first."] = "Fizzule ist beim Turm der Venture Co. nördlich des {area:382}. Benutze {item:8051}, um ZWEI Leuchtkugeln abzufeuern, bevor du dich ihm näherst, wähle ihn dann als Ziel und tippe /salute. Halte diese Reihenfolge ein: Er greift Fremde an, die nicht zuerst ein Signal gegeben haben.",
 	-- ["Fizzule runs the Venture Co. camp at the east end of the {area:382}. He attacks strangers: target him and /salute before he does."] = "Fizzule leitet das Lager der Venture Co. am Ostende von {area:382}. Er greift Fremde an: Nimm ihn ins Ziel und mach /salute, bevor er es tut.",
 	-- ["Fly back to the {area:380}. The next guide starts here and takes the road north to the {area:1703} and {zone:1440}."] = "Flieg zurück nach {area:380}. Der nächste Guide beginnt hier und nimmt die Straße nach Norden zum {area:1703} und nach {zone:1440}.",
+	-- ["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "Flieg nach {area:1637}, um deine Ränge der Stufe 20 zu trainieren. {npc:3354} ist im {object:172958}, {npc:5892} im {object:172957}.",
 	-- ["Fly to {area:1637} to train."] = "Flieg zum Trainieren nach {area:1637}.",
 	-- ["Hearth to the {area:380}"] = "Ruhestein nach {area:380}",
 	-- ["Level 20"] = "Stufe 20",
@@ -374,6 +383,7 @@ return {
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "Bleib verstohlen: {npc:7287} trägt den Schlüssel zum Turm; Gallywix und seine Schließkassette sind oben. Gallywix ist Elite: Such dir am besten eine Gruppe.",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "Bluthornsensenklauen jagen auf den Ebenen südlich von {area:380}, um {area:1697}; sie lassen die Hörner fallen. Gib sie ab, wenn du das nächste Mal durch {area:392} kommst.",
 	-- ["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them."] = "Die Soldaten, Scharfschützen und Offiziere von Bael'dun bewachen die Festung auf der Ostseite der Grabung; alle drei Gegenstände kommen von ihnen.",
+	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "Die Lager der Borstennacken verteilen sich über die Ebenen nördlich vom {area:378}, zu beiden Seiten der {area:458}. Jeder Borstennacken lässt einen Hauer fallen; die Frau von {npc:3432} liegt am Nordrand. Behalte einen {item:5075}. {quest:883}, ein grauer Kodo, wandert manchmal hier: Sein Huf startet eine Quest.",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "Die Fühler verschwinden fünfzehn Minuten nachdem sie fallen, also sammle sie jetzt, auf dem Rückweg nach Norden: Töte die Silithidschwärmer und Silithidkrabbler an den Buckeln im {area:390}, bis du fünf hast, und nimm dann sofort deinen Ruhestein zum {area:378}.",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "Die Klassenquests der Stufe 20 in {zone:1454} ({npc:3354}, {npc:5892}, die Lehrer für Hexenmeister und Schurken) gibt es erst ab Stufe 20, also schließ die Stufe hier ab, bevor du fliegst. Die Donnerfalkenjungtiere (18) auf den Ebenen südwestlich von {area:380} und die Kolkar (14-15) an {area:388} sind die nächsten Gegner, die sich lohnen; dir fehlt deutlich weniger als eine Stufe.",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "Die Piraten lagern am Strand südlich von {area:392}; {npc:3467} steht an seinem Südende.",

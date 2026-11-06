@@ -140,45 +140,41 @@ return {
 	["Ride north back to {area:541}."] = "Retournez au nord jusqu'au {area:541}.",
 	["Below ground"] = "Sous terre",
 
-	-- Step 29: Hearth to Gadgetzan
-	-- {area:976} Gadgetzan
-	["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
-
-	-- Step 30: To Gadgetzan
+	-- Step 29: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "Vers {area:976}",
 
-	-- Step 31: Gadgetzan
+	-- Step 30: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, à l'intérieur",
 	-- {npc:10041} Gorishi Hive Queen
 	["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "La quête suivante de Pestlezugg demande la {npc:10041}, un boss élite. Passez-la.",
 
-	-- Step 32: Orgrimmar
+	-- Step 31: Orgrimmar
 	-- {area:1637} Orgrimmar · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Volez jusqu'à {area:1637} et entraînez-vous avant le zeppelin de Grom'gol : l'arrêt à {zone:1458}, plus tard dans ce guide, n'a ni maître des chasseurs ni maître des chamans.",
 
-	-- Step 33: Back to Gadgetzan
+	-- Step 32: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "Retour à {area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maître de vol d'{zone:1454}",
 
-	-- Step 34: Boat to Powderfuse Port
+	-- Step 33: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Bateau pour {area:16727}",
 
-	-- Step 35: Badlands
+	-- Step 34: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:3} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {area:3}."] = "Quittez {zone:2548} à pied vers le nord-ouest, au nord de {area:16685}, pour entrer dans les {area:3}.",
 
-	-- Step 36: Fly to Kargath
+	-- Step 35: Fly to Kargath
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "Voler jusqu'à {area:340}",
 	-- {zone:1454} Orgrimmar · {object:3202} Grom'gol (no name in this language: may be words) · {area:340} Kargath · {area:3} Badlands
 	["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "Volez jusqu'à {zone:1454}, prenez le zeppelin pour Grom'gol et volez de là jusqu'à {area:340}, bâtie dans les falaises du bord ouest des {area:3}.",
 
-	-- Step 37: Into the Searing Gorge
+	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "Vers la {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -186,55 +182,55 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Pont vers le {area:254}",
 
-	-- Step 38: Flame Crest
+	-- Step 37: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "La montagne débouche près du {area:252}, plein d'orcs de niveau 55-57. Suivez la route vers l'est le long des falaises du nord jusqu'au camp de la Horde à la {area:251}.",
 
-	-- Step 39: Sha'ni Proudtusk
+	-- Step 38: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "Longez les falaises vers le sud jusqu'au {quest:3821}, la colline des ogres Brûlentrailles. Les restes de {npc:9136} gisent à son pied.",
 
-	-- Step 40: Krom'Grul
+	-- Step 39: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822} arpente les grottes et galeries de mine du {quest:3821} ; s'il est absent, tuez les ogres autour des entrées jusqu'à son retour.",
 
-	-- Step 41: Ruins of Thaurissan: kill these as you meet them
+	-- Step 40: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250} : tuez-les au passage",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "Allez vers l'ouest jusqu'au site de fouilles. Des golems {npc:7039} (53) piétinent les environs et lâchent souvent les éclats ; la {quest:4296} se dresse au milieu, parmi les nains de Thaurissan. Copiez-la.\nLes Rejetons noirs nichent dans les collines juste à l'est de {area:251}. Utilisez l'{item:12284} de {npc:10267} sur un rejeton presque mort pour capturer son essence.",
 
-	-- Step 42: Flame Crest
+	-- Step 41: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "Retournez au nord-est à la {area:251}.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "Gardez la Lettre de {npc:10267} : {quest:4808} est à {area:2255}, {zone:1452}.",
 
-	-- Step 43: Kargath
+	-- Step 42: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "La course suivante de Theodora mène à Lotwil, à l'est de la ville, puis dans {area:1584} : passez-la.",
 
-	-- Step 44: Fly to Tarren Mill
+	-- Step 43: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Maître de vol de {area:340}",
 
-	-- Step 45: Apothecary Lydon
+	-- Step 44: Apothecary Lydon
 	["Inside"] = "À l'intérieur",
 
-	-- Step 46: Fly to Undercity
+	-- Step 45: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "Prendre un vol pour {area:1497}",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "Maître de vol de {area:272}",
 
-	-- Step 47: Oran Snakewrithe
+	-- Step 46: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825} se tient dans le {object:36082}.",
 
-	-- Step 48: Undercity
+	-- Step 47: Undercity
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}, {object:36078}, près du maître des chauves-souris",
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -242,13 +238,13 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}, {object:36073}",
 
-	-- Step 50: The Bulwark
+	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85} jusqu'au {area:152}, le fort des Réprouvés à la frontière.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "Prenez une {object:176092} dans la caisse à côté de Derrington pour {quest:5096}, à faire au retour. Équipez la {quest:5401} : les Pierres du Fléau ne tombent que si vous la portez.",
 
-	-- Step 51: Janice Felstone
+	-- Step 50: Janice Felstone
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark · {npc:10778} Janice Felstone
 	["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "Quittez {zone:1458} et allez vers l'est par la route à travers les {area:85}, au-delà du {area:152}. La ferme Felstone est la première le long de la route ; {npc:10778} attend dans la maison.",
 	["Upstairs"] = "À l'étage",
@@ -257,27 +253,27 @@ return {
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
 	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "Gardez le colis : le {npc:10781} est à {zone:1458}.",
 
-	-- Step 52: Scarlet forward camp
+	-- Step 51: Scarlet forward camp
 	["Scarlet forward camp"] = "Camp avancé écarlate",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec les {object:176092} et plantez la bannière du Fléau.",
 
-	-- Step 54: Augustus the Touched
+	-- Step 53: Augustus the Touched
 	-- {zone:1422} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
 
-	-- Step 55: Terrordale: kill these as you meet them
+	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "{area:2627} : tuez-les au passage",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
 	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Le livre se trouve dans l'auberge en ruine de {area:2627}.\nLes Grandes termitières se dressent partout dans les collines à l'est de {area:2627}. Utilisez le {item:15042} sur chaque termitière que vous croisez.",
 
-	-- Step 56: Light's Hope Chapel
+	-- Step 55: Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "Revenez au sud jusqu'à la route et suivez-la vers l'est à travers toute la zone jusqu'à la {area:2268}.",
 
-	-- Step 57: Eastern Plaguelands: kill these as you meet them
+	-- Step 56: Eastern Plaguelands: kill these as you meet them
 	-- {area:139} Eastern Plaguelands
 	["{area:139}: kill these as you meet them"] = "{area:139} : tuez-les au passage",
 	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
@@ -285,32 +281,28 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
 
-	-- Step 58: Pamela Redpath
+	-- Step 57: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "Le fantôme de {npc:10926} se tient dans les ruines de {area:2262}, au sud-ouest.",
 
-	-- Step 59: Pamela's Doll
+	-- Step 58: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "La tête de la poupée et ses deux côtés sont dans les maisons autour de {npc:10926} ; assemblez-les depuis vos sacs.",
 
-	-- Step 60: Pamela Redpath
+	-- Step 59: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "Gardez {quest:5152} : Marlene vit à la {area:197}, dans les {zone:1422}.",
 
-	-- Step 61: Zaeldarr the Outcast
+	-- Step 60: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "Zaeldarr rôde juste à l'ouest de {area:2262}.",
 
-	-- Step 62: Pestilent Scar
+	-- Step 61: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Attention : l'{npc:10411} devient invisible hors combat et appelle des Gargouilles Aile-de-roc dès qu'un combat commence. Il n'en existe que 3, et elles réapparaissent toutes les 15 minutes.",
 
-	-- Step 63: Hearth to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Hearth to {area:2268}"] = "Pierre de foyer vers la {area:2268}",
-
-	-- Step 64: Back to Light's Hope Chapel
+	-- Step 62: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "Retour à la {area:2268}",
 	["The next guide starts here, at the chapel's flight master."] = "Le guide suivant commence ici, au maître de vol de la chapelle.",
@@ -328,6 +320,8 @@ return {
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière vers les {zone:1423} ; quittez-la vers le nord pour {area:2627}, la ville en ruine du nord-ouest. {npc:12384} est assis dans une cabane à sa lisière.",
 	-- ["From the {area:1938} ride west to the long ramp that winds down into {zone:1449}, then follow the crater's north wall to {area:541}, a camp in the cliff caves. Everyone here is neutral."] = "Depuis le {area:1938}, chevauchez vers l'ouest jusqu'à la longue rampe qui descend dans le {zone:1449}, puis longez la paroi nord du cratère jusqu'au {area:541}, un camp dans les grottes de la falaise. Tout le monde ici est neutre.",
 	-- ["Gorillas"] = "Gorilles",
+	-- ["Hearth to {area:2268}"] = "Pierre de foyer vers la {area:2268}",
+	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",
 	-- ["Into {zone:1449}"] = "Vers le {zone:1449}",
 	-- ["Keep the bait: {npc:9684} is level 56, and the second loop passes his lair."] = "Gardez l'appât : {npc:9684} est de niveau 56, et la seconde boucle passe par son repaire.",
 	-- ["Lashers and Threshers"] = "Flagellants et Batteurs",

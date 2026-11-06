@@ -140,45 +140,41 @@ return {
 	["Ride north back to {area:541}."] = "向北骑回{area:541}。",
 	["Below ground"] = "",
 
-	-- Step 29: Hearth to Gadgetzan
-	-- {area:976} Gadgetzan
-	["Hearth to {area:976}"] = "",
-
-	-- Step 30: To Gadgetzan
+	-- Step 29: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "",
 
-	-- Step 31: Gadgetzan
+	-- Step 30: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:10041} Gorishi Hive Queen
 	["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "匹斯特苏格的下一个任务需要击败精英首领{npc:10041}。跳过它。",
 
-	-- Step 32: Orgrimmar
+	-- Step 31: Orgrimmar
 	-- {area:1637} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
 
-	-- Step 33: Back to Gadgetzan
+	-- Step 32: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 34: Boat to Powderfuse Port
+	-- Step 33: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 
-	-- Step 35: Badlands
+	-- Step 34: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:3} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {area:3}."] = "",
 
-	-- Step 36: Fly to Kargath
+	-- Step 35: Fly to Kargath
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "飞往{area:340}",
 	-- {zone:1454} Orgrimmar · {object:3202} Grom'gol · {area:340} Kargath · {area:3} Badlands
 	["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "",
 
-	-- Step 37: Into the Searing Gorge
+	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "进入{zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -186,55 +182,55 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "通往{area:254}的桥",
 
-	-- Step 38: Flame Crest
+	-- Step 37: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "从山里出来就在{area:252}旁边，那里满是55-57级的兽人。沿北边悬崖的道路向东，前往部落营地{area:251}。",
 
-	-- Step 39: Sha'ni Proudtusk
+	-- Step 38: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "沿悬崖向南前往火腹食人魔的山丘{quest:3821}。{npc:9136}的遗骸在山脚下。",
 
-	-- Step 40: Krom'Grul
+	-- Step 39: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822}在{quest:3821}的洞穴和矿道里走动；如果他不在，就清理入口周围的食人魔，直到他回来。",
 
-	-- Step 41: Ruins of Thaurissan: kill these as you meet them
+	-- Step 40: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "",
 
-	-- Step 42: Flame Crest
+	-- Step 41: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "向东北回到{area:251}。",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "留着{npc:10267}的信：{quest:4808}在{zone:1452}的{area:2255}。",
 
-	-- Step 43: Kargath
+	-- Step 42: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "",
 
-	-- Step 44: Fly to Tarren Mill
+	-- Step 43: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "",
 
-	-- Step 45: Apothecary Lydon
+	-- Step 44: Apothecary Lydon
 	["Inside"] = "",
 
-	-- Step 46: Fly to Undercity
+	-- Step 45: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 47: Oran Snakewrithe
+	-- Step 46: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "",
 
-	-- Step 48: Undercity
+	-- Step 47: Undercity
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}，在{object:36078}的蝙蝠管理员旁边",
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -242,13 +238,13 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{npc:6522}，在{object:36073}",
 
-	-- Step 50: The Bulwark
+	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5401}：只有佩戴它时才会掉落天灾石。",
 
-	-- Step 51: Janice Felstone
+	-- Step 50: Janice Felstone
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark · {npc:10778} Janice Felstone
 	["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
 	["Upstairs"] = "",
@@ -257,27 +253,27 @@ return {
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
 	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
 
-	-- Step 52: Scarlet forward camp
+	-- Step 51: Scarlet forward camp
 	["Scarlet forward camp"] = "",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "",
 
-	-- Step 54: Augustus the Touched
+	-- Step 53: Augustus the Touched
 	-- {zone:1422} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
 
-	-- Step 55: Terrordale: kill these as you meet them
+	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
 	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "",
 
-	-- Step 56: Light's Hope Chapel
+	-- Step 55: Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "向南骑回道路，沿路向东穿过整个地区前往{area:2268}。",
 
-	-- Step 57: Eastern Plaguelands: kill these as you meet them
+	-- Step 56: Eastern Plaguelands: kill these as you meet them
 	-- {area:139} Eastern Plaguelands
 	["{area:139}: kill these as you meet them"] = "",
 	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
@@ -285,32 +281,28 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "释放达隆郡居民的灵魂：和它们交谈",
 
-	-- Step 58: Pamela Redpath
+	-- Step 57: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}的鬼魂站在西南边{area:2262}的废墟里。",
 
-	-- Step 59: Pamela's Doll
+	-- Step 58: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "洋娃娃的脑袋和两半身体在{npc:10926}周围的房子里；在背包里把它们拼起来。",
 
-	-- Step 60: Pamela Redpath
+	-- Step 59: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "留着{quest:5152}：玛莱恩住在{zone:1422}的{area:197}。",
 
-	-- Step 61: Zaeldarr the Outcast
+	-- Step 60: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "",
 
-	-- Step 62: Pestilent Scar
+	-- Step 61: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 
-	-- Step 63: Hearth to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Hearth to {area:2268}"] = "",
-
-	-- Step 64: Back to Light's Hope Chapel
+	-- Step 62: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "返回{area:2268}",
 	["The next guide starts here, at the chapel's flight master."] = "下一个指南从这里的教堂飞行管理员处开始。",

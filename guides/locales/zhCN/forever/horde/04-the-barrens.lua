@@ -20,6 +20,10 @@ return {
 	-- {npc:209797} Bruuz
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:209797} (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
+	-- Step 5: Ratchet
+	-- {npc:3391} Gazlowe
+	["{npc:3391} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+
 	-- Step 6: Level 19.43
 	["Level 19.43"] = "",
 	-- {quest:92706} WANTED: Bruuz
@@ -134,8 +138,8 @@ return {
 	["Fizzule is by the Venture Co. tower north of the {area:382}. Before you go near him, use {item:8051} to fire two flares, then target him and /salute: he attacks anyone who comes in without signalling first."] = "",
 
 	-- Step 38: Orgrimmar
-	-- {area:1637} Orgrimmar · {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
-	["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "飞往{area:1637}训练20级技能。{npc:3354}在{object:172958}，{npc:5892}在{object:172957}。",
+	-- {npc:3354} Sorek · {object:172958} Valley of Honor · {npc:5892} Searn Firewarder · {object:172957} Valley of Wisdom
+	["{npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "",
 
 	-- Step 40: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -185,8 +189,8 @@ return {
 
 	-- Step 53: Bristleback camps
 	["Bristleback camps"] = "刺背野猪人营地",
-	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {item:5075} Blood Shard · {quest:883} Lakota'mani
-	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "刺背野猪人的营地遍布{area:378}北边的平原，位于{area:458}两侧。每个刺背野猪人都会掉落獠牙；{npc:3432}的妻子躺在北缘。留一个{item:5075}。{quest:883}是一头灰色科多兽，有时会在这里游荡：它的蹄子可以开始一个任务。",
+	-- {area:378} Camp Taurajo · {area:458} Gold Road · {npc:3432} Mankrik · {npc:3430} Mangletooth · {quest:883} Lakota'mani
+	["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. {npc:3432}'s wife lies at their north edge, on your way south. Leave the quilboar for now: {npc:3430} in {area:378} wants the same camps cleared. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "",
 
 	-- Step 54: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
@@ -197,6 +201,10 @@ return {
 	["{npc:3430}, in the cage"] = "{npc:3430}，在笼子里",
 	-- {npc:6394} Ruga Ragetotem
 	["{npc:6394}, inside"] = "",
+
+	-- Step 55: Bramblescar
+	-- {npc:3432} Mankrik · {npc:3430} Mangletooth · {item:5075} Blood Shard
+	["Back north into the Bristleback camps. Any Bristleback can drop a tusk for {npc:3432}, so collect them while you kill these for {npc:3430}. Keep one {item:5075}."] = "",
 
 	-- Step 57: Grunt Dogran
 	["Dogran is chained up in the quilboar camp west of the road."] = "多格兰被锁在道路西边的野猪人营地里。",
@@ -305,52 +313,52 @@ return {
 
 	-- Step 87: Twitching Antennae
 	["Twitching Antennae"] = "颤抖的触角",
-	-- {area:390} Field of Giants · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
+	-- {area:390} Field of Giants · {npc:6394} Ruga Ragetotem · {area:378} Camp Taurajo · {npc:4196} Silithid Swarm · {npc:5781} Silithid Creeper Egg
 	-- plural, as words: Silithid Swarmers = {npc:3252} Silithid Swarmer · Silithid Creepers = {npc:3250} Silithid Creeper
-	["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
+	["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then take them straight to {npc:6394} in {area:378}.\nCareful: Silithid Swarmers (level 21-22) cast {npc:4196} both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast {npc:5781} in combat, which spawns extra adds."] = "",
 	["Twitching Antennae from the silithid"] = "从异种蝎身上获取颤抖的触角",
 
-	-- Step 88: Hearth to Camp Taurajo
-	-- {area:378} Camp Taurajo
-	["Hearth to {area:378}"] = "",
-
-	-- Step 90: Fly to Crossroads
+	-- Step 89: Fly to Crossroads
 	-- {area:380} Crossroads
 	["Fly to {area:380}"] = "",
 
-	-- Step 93: Crossroads flight master
+	-- Step 92: Crossroads flight master
 	-- {area:380} Crossroads
 	["{area:380} flight master"] = "",
 
-	-- Step 94: Thunder Bluff
+	-- Step 93: Thunder Bluff
 	-- {npc:246344} Alodan the Hopeful · {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {npc:2995} Tal
 	["{npc:246344} teaches Paladins in {area:1638}. You have no flight path there yet: fly to {area:378}, head west through {zone:1412} and up a lift, and take the flight path from {npc:2995} on the central rise."] = "",
 
-	-- Step 96: The Great Cat Spirit
+	-- Step 95: The Great Cat Spirit
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
 	["Fly to {area:1638} to train: {npc:3033} is on {area:1639}."] = "飞往{area:1638}训练：{npc:3033}在{area:1639}。",
 
-	-- Step 97: Moonglade
+	-- Step 96: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {area:2362} Shrine of Remulos · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}."] = "",
+	["Cast {spell:18960}. Tauren: join the two pendant halves at the {area:2362}, on the north-west shore of the lake, before you see {npc:11802} in {area:2361}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {item:15885} Pendant of the Sea Lion · {area:2362} Shrine of Remulos
 	["{item:15885}: use a half at the {area:2362}"] = "{item:15885}：在{area:2362}使用其中一半",
 
-	-- Step 98: Moonglade
+	-- Step 97: Moonglade
 	-- {spell:18960} Teleport: Moonglade
 	["Cast {spell:18960}"] = "",
 
-	-- Step 100: Moonglade
+	-- Step 98: Moonglade
+	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "",
+
+	-- Step 99: Moonglade
 	-- {npc:11802} Dendrite Starblaze · {npc:3033} Turak Runetotem
 	["{npc:11802}: the welcome from {npc:3033}"] = "{npc:11802}：{npc:3033}的问候",
 
-	-- Step 101: The Stormrage Barrow Dens
+	-- Step 100: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
 	["The {area:2363}"] = "{area:2363}",
 	-- {npc:11957} Great Cat Spirit · {npc:272054} Avatar of Saeyleenan · {item:280680} Relic of the Silent Shadow
 	["Tauren: the {npc:11957} waits on the southern hill above the bridge. Skyborne: the {npc:272054} stands south of the twin bridges. Then the dens east of the lake: leave your form, click the statue at the entrance for five minutes of stealth, keep clear of the spirits inside and take one of each relic; the {item:280680} lies at the foot of the white cat statue."] = "牛头人：{npc:11957}在桥上方的南边山丘上等候。天裔：{npc:272054}站在双桥南边。然后前往湖东边的兽穴：解除变形，点击入口处的雕像获得五分钟潜行，避开里面的灵魂，每种遗物各拿一件；{item:280680}在白色猎豹雕像脚下。",
 
-	-- Step 103: Turak Runetotem
+	-- Step 102: Turak Runetotem
 	-- {npc:11798} Bunthen Plainswind · {area:2361} Nighthaven
 	["{npc:11798} in {area:2361} flies druids there"] = "{area:2361}的{npc:11798}载德鲁伊飞往那里",
 
@@ -364,6 +372,7 @@ return {
 	-- ["Fizzule is by the Venture Co. tower north of the {area:382}. Use {item:8051} to fire TWO flares before approaching him, then target him and /salute. Keep that order: he attacks strangers who have not signalled first."] = "菲兹尔位于{area:382}以北的风险投资公司塔楼附近。先用{item:8051}发射两次信号弹，再靠近、选中他并输入/salute。务必按此顺序操作，没有先打信号就靠近会被他攻击。",
 	-- ["Fizzule runs the Venture Co. camp at the east end of the {area:382}. He attacks strangers: target him and /salute before he does."] = "费苏勒管理着{area:382}东端的风险投资公司营地。他会攻击陌生人：在他动手前选中他并 /salute。",
 	-- ["Fly back to the {area:380}. The next guide starts here and takes the road north to the {area:1703} and {zone:1440}."] = "飞回{area:380}。下一个指南从这里开始，沿道路向北前往{area:1703}和{zone:1440}。",
+	-- ["Fly to {area:1637} to train your level 20 ranks. {npc:3354} is in the {object:172958}, {npc:5892} in the {object:172957}."] = "飞往{area:1637}训练20级技能。{npc:3354}在{object:172958}，{npc:5892}在{object:172957}。",
 	-- ["Fly to {area:1637} to train."] = "飞往{area:1637}训练。",
 	-- ["Hearth to the {area:380}"] = "用炉石回到{area:380}",
 	-- ["Level 20"] = "20级",
@@ -374,6 +383,7 @@ return {
 	-- ["Stay stealthed: {npc:7287} carries the key to the tower; Gallywix and his lockbox are at the top. Gallywix is elite: grouping up is advised."] = "保持潜行：{npc:7287}带着塔的钥匙；加里维克斯和他的保险箱在塔顶。加里维克斯是精英：建议组队。",
 	-- ["Sunscale Scytheclaws hunt the plains south of the {area:380}, around the {area:1697}; they drop the horns. Hand them in on your next pass through {area:392}."] = "赤鳞镰爪龙在{area:380}南边的平原上、{area:1697}一带捕猎；它们掉落角。下次路过{area:392}时交还。",
 	-- ["The Bael'dun Soldiers, Riflemen and Officers guard the fortress on the east side of the dig; all three items drop from them."] = "巴尔丹士兵、巴尔丹火枪手和巴尔丹军官守卫着挖掘场东侧的城堡；三样物品都由他们掉落。",
+	-- ["The Bristleback quilboar camps spread over the plains north of {area:378}, either side of the {area:458}. Every Bristleback drops a tusk; {npc:3432}'s wife lies at the north edge. Keep one {item:5075}. {quest:883}, a grey kodo, sometimes wanders here: his hoof starts a quest."] = "刺背野猪人的营地遍布{area:378}北边的平原，位于{area:458}两侧。每个刺背野猪人都会掉落獠牙；{npc:3432}的妻子躺在北缘。留一个{item:5075}。{quest:883}是一头灰色科多兽，有时会在这里游荡：它的蹄子可以开始一个任务。",
 	-- ["The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the {area:390}' mounds until you have five, then hearth to {area:378} straight away."] = "触角掉落十五分钟后就会消失，所以趁现在北返时收集：在{area:390}的土丘旁杀异种群居蝎和异种爬行者，直到拿到五个，然后立刻用炉石回到{area:378}。",
 	-- ["The level-20 class quests in {zone:1454} ({npc:3354}, {npc:5892}, the Warlock and Rogue trainers) are only offered from level 20, so finish the level here before you fly. The Thunderhawk Hatchlings (18) on the plains south-west of the {area:380} and the Kolkar (14-15) at the {area:388} are the nearest mobs worth killing; you need well under a level."] = "{zone:1454}的20级职业任务（{npc:3354}、{npc:5892}、术士和潜行者训练师）20级才提供，所以飞走前先在这里升到20级。{area:380}西南平原上的雷鹰雏鸟（18级）和{area:388}的科卡尔半人马（14-15级）是最近的值得击杀的怪物；你需要的经验远不到一级。",
 	-- ["The pirates camp on the beach south of {area:392}; {npc:3467} stands at its southern end."] = "海盗在{area:392}南边的海滩上扎营；{npc:3467}站在营地南端。",

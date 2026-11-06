@@ -103,22 +103,18 @@ return {
 	["Underwater"] = "",
 	["Gazebo"] = "瞭望台",
 
-	-- Step 25: Hearth to Splintertree Post
-	-- {area:431} Splintertree Post
-	["Hearth to {area:431}"] = "",
-
-	-- Step 29: Fly to Camp Taurajo
+	-- Step 28: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "",
 	-- {area:2897} Zoram'gar Outpost
 	["{area:2897} flight master"] = "",
 
-	-- Step 32: The Earthen Ring
+	-- Step 31: The Earthen Ring
 	["The Earthen Ring"] = "大地之环",
 	-- {zone:1456} Thunder Bluff · {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury
 	["Take a lift down from {zone:1456}. The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}."] = "从{zone:1456}乘升降梯下去。大地之环的营地在高崖北边：{npc:264074}、{npc:264072}和{npc:259118}。",
 
-	-- Step 33: Gloomrise: kill these as you meet them
+	-- Step 32: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "",
 	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -130,26 +126,18 @@ return {
 	-- plural, as words: Gloomrise Toxin Samples = {item:273001} Gloomrise Toxin Sample · Gnawed Corpses = {npc:264096} Gnawed Corpse
 	["Gloomrise Toxin Samples, from the Gnawed Corpses"] = "暮升毒液样本，从{npc:264096}获取",
 
-	-- Step 34: Gloomrise
+	-- Step 33: Gloomrise
 	-- {item:273658} Bloody Parchment · {npc:264082} Broodmother Valraxx
 	["{item:273658}, from {npc:264082}"] = "{item:273658}，从{npc:264082}获取",
 
-	-- Step 35: The Earthen Ring
+	-- Step 34: The Earthen Ring
 	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
 	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "向南回到营地，然后上到{zone:1456}，飞往{area:378}。",
 
-	-- Step 36: Class trainer
+	-- Step 35: Class trainer
 	["Class trainer"] = "",
 
-	-- Step 37: Thunder Bluff flight master
-	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
-
-	-- Step 38: Thunder Bluff
-	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {area:1638} Thunder Bluff · {area:1639} Elder Rise · {area:378} Camp Taurajo
-	["From {zone:1454} (zeppelin from the towers outside the {zone:1458}) fly to {area:1638} and train on {area:1639}, then fly on to {area:378}."] = "",
-
-	-- Step 40: Thunder Bluff
+	-- Step 37: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {area:215} Mulgore · {area:222} Bloodhoof Village · {npc:2995} Tal
 	["Fly to {area:1638} if you know the flight path. If not, fly to {area:378}, head west into {area:215} past {area:222} to {area:1638} and take its flight path from {npc:2995} on the central rise."] = "",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
@@ -157,11 +145,15 @@ return {
 	-- {npc:3057} Cairne Bloodhoof
 	["Talk to {npc:3057}"] = "",
 
-	-- Step 41: Ansekhwa
+	-- Step 38: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "",
 
-	-- Step 45: Freewind Post
+	-- Step 39: Fly to Camp Taurajo
+	-- {zone:1456} Thunder Bluff
+	["{zone:1456} flight master"] = "",
+
+	-- Step 42: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "乘升降梯下去，然后沿道路向东穿过峡谷前往{area:484}，那是一座建在石柱顶上的牛头人村庄。它的升降梯在北侧。",
 	-- {npc:10377} Elu
@@ -171,25 +163,25 @@ return {
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside"] = "",
 
-	-- Step 46: Alien Egg
+	-- Step 43: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "乘升降梯下去。蛋在峡谷底部的一个巢里，位于三个地点之一：石柱东南（52.3,55.2）、东边（56.4,50.4）或西南（37.6,56.1）。",
 
-	-- Step 47: Galak centaurs
+	-- Step 44: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post
 	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks between the camps: kill him when you meet him, his note starts a quest for {area:2237}."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}在营地之间走动：遇到就杀死他，他的信件可以开始一个{area:2237}的任务。",
 
-	-- Step 48: Dorn Plainstalker
+	-- Step 45: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}站在加拉克营地东边的一座石柱顶上。做{quest:1149}时，从他旁边的木板尽头走下去：你会安全落地。",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "",
 
-	-- Step 50: Rok'Alim the Pounder
+	-- Step 47: Rok'Alim the Pounder
 	-- {npc:4499} Rok'Alim the Pounder · {area:482} Highperch
 	["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}是一个攻击力很高的石元素，在{area:482}的悬崖上走动。{npc:4499}是精英：建议组队。",
 
-	-- Step 53: Darkcloud Pinnacle
+	-- Step 50: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "在乱风岗西边，恐怖图腾的营地在{area:2097}下方。密信在东南、西南和西北营地的文件箱里。",
@@ -200,78 +192,78 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, south-east camp"] = "{object:176344}，东南营地",
 
-	-- Step 54: Lakota Windsong
+	-- Step 51: Lakota Windsong
 	-- {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
 	["Climb the path to the top of {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "沿小路爬上{area:2097}顶部。{npc:10646}被囚禁在{npc:10896}（29级）旁边：先清掉守卫和{npc:10896}，再救出她并在下山路上保护她；途中会有恐怖图腾伏击者袭击你。",
 
-	-- Step 55: Freewind Post flight master
+	-- Step 52: Freewind Post flight master
 	-- {area:484} Freewind Post
 	["{area:484} flight master"] = "",
 
-	-- Step 56: Brine
+	-- Step 53: Brine
 	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {npc:5899} Brine · {area:485} Great Lift
 	["Fly from {zone:1456} to {area:378}. {npc:5899}'s hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the {area:485}."] = "",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "交给{area:392}南边的{npc:5901}：见下一个指南",
 
-	-- Step 57: Back to Freewind Post
+	-- Step 54: Back to Freewind Post
 	-- {area:484} Freewind Post
 	["Back to {area:484}"] = "",
 	-- {area:378} Camp Taurajo
 	["{area:378} flight master"] = "",
 
-	-- Step 58: Highperch
+	-- Step 55: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "",
 
-	-- Step 59: Wizlo Bearingshiner
+	-- Step 56: Wizlo Bearingshiner
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一个任务（生命圣火）在{zone:1456}结束，不在本路线上。跳过它。",
 
-	-- Step 61: Hypercapacitor Gizmo
+	-- Step 58: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 62: Whitereach Post
+	-- Step 59: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "杀死前来袭击{npc:10638}的{npc:10720}",
 
-	-- Step 65: Level 29.49
+	-- Step 62: Level 29.49
 	["Level 29.49"] = "",
 	-- {quest:5151} Hypercapacitor Gizmo
 	["If you skipped {quest:5151}, grind here to level 29.49 to stay on the route's plan."] = "",
 	-- {npc:4101} Screeching Roguefeather
 	["grind on {npc:4101}"] = "",
 
-	-- Step 66: The Screeching Canyon: kill these as you meet them
+	-- Step 63: The Screeching Canyon: kill these as you meet them
 	-- {area:483} The Screeching Canyon
 	["{area:483}: kill these as you meet them"] = "",
 	-- {area:487} Roguefeather Den · {npc:4490} Grenka Bloodscreech · {npc:4877} Jandia
 	["South of Darkcloud, the harpies of {area:487}. {npc:4490} (31) walks among them: thin out the harpies around her before you pull her. The Screeching Harpies, Roguefeathers and Windcallers there are {npc:4877}'s."] = "在黑云峰南边是{area:487}的鹰身人。{npc:4490}（31级）在它们中间走动：引她之前先清掉她周围的鹰身人。那里的尖啸的鹰身人、尖啸的游荡者和尖啸的唤风者是{npc:4877}要的。",
 
-	-- Step 68: Freewind Post
+	-- Step 65: Freewind Post
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "",
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside"] = "",
 
-	-- Step 69: Mirage Raceway
+	-- Step 66: Mirage Raceway
 	-- {area:2240} Mirage Raceway
 	["Follow the canyon east out of the mesas onto the salt flats. The goblins and gnomes of the {area:2240} are neutral and give quests to both factions."] = "沿峡谷向东离开石柱区，来到盐滩。{area:2240}的地精和侏儒是中立的，为两个阵营提供任务。",
 	["His crate is for Stranglethorn, later on the route"] = "他的箱子要送去荆棘谷，在路线后面",
 
-	-- Step 70: Mirage Raceway: kill these as you meet them
+	-- Step 67: Mirage Raceway: kill these as you meet them
 	-- {area:2240} Mirage Raceway
 	["{area:2240}: kill these as you meet them"] = "",
 	-- {object:19868} Rocket Car Rubble
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver · Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers roam the north half; keep to it, away from the Saltstone Basilisks, Crystalhides and Gazers (32-35) west of the track, in the middle and the far south."] = "",
 
-	-- Step 71: Mirage Raceway
+	-- Step 68: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands
 	["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}：他的信要交给{zone:1418}的马特克，大约38级时",
 
-	-- Step 72: Freewind Post
+	-- Step 69: Freewind Post
 	-- {zone:1454} Orgrimmar
 	["The next guide flies on from here to {zone:1454}."] = "下一个指南从这里飞往{zone:1454}。",
 

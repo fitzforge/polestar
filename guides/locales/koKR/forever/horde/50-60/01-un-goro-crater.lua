@@ -140,45 +140,41 @@ return {
 	["Ride north back to {area:541}."] = "북쪽 {area:541}(으)로 돌아가세요.",
 	["Below ground"] = "",
 
-	-- Step 29: Hearth to Gadgetzan
-	-- {area:976} Gadgetzan
-	["Hearth to {area:976}"] = "",
-
-	-- Step 30: To Gadgetzan
+	-- Step 29: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "",
 
-	-- Step 31: Gadgetzan
+	-- Step 30: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "",
 	-- {npc:10041} Gorishi Hive Queen
 	["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "페슬저그의 다음 퀘스트는 정예 우두머리 {npc:10041}이(가) 필요합니다. 건너뛰세요.",
 
-	-- Step 32: Orgrimmar
+	-- Step 31: Orgrimmar
 	-- {area:1637} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the {object:3202} zeppelin: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "",
 
-	-- Step 33: Back to Gadgetzan
+	-- Step 32: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 34: Boat to Powderfuse Port
+	-- Step 33: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 
-	-- Step 35: Badlands
+	-- Step 34: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {area:3} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {area:3}."] = "",
 
-	-- Step 36: Fly to Kargath
+	-- Step 35: Fly to Kargath
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "{area:340}(으)로 비행",
 	-- {zone:1454} Orgrimmar · {object:3202} Grom'gol · {area:340} Kargath · {area:3} Badlands
 	["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "",
 
-	-- Step 37: Into the Searing Gorge
+	-- Step 36: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "{zone:1427}(으)로",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
@@ -186,55 +182,55 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "{area:254}(으)로 가는 다리",
 
-	-- Step 38: Flame Crest
+	-- Step 37: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "산을 나오면 55-57 오크로 가득한 {area:252} 옆입니다. 북쪽 절벽을 따라 동쪽 길로 {area:251}의 호드 야영지로 가세요.",
 
-	-- Step 39: Sha'ni Proudtusk
+	-- Step 38: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "절벽을 따라 남쪽, 불자루 오우거의 언덕인 {quest:3821}(으)로 가세요. {npc:9136}의 유해는 언덕 기슭에 있습니다.",
 
-	-- Step 40: Krom'Grul
+	-- Step 39: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822}은(는) {quest:3821}의 동굴과 갱도를 돌아다닙니다. 없으면 돌아올 때까지 입구 주변 오우거를 처치하세요.",
 
-	-- Step 41: Ruins of Thaurissan: kill these as you meet them
+	-- Step 40: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "",
 	-- {npc:7039} War Reaver · {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "",
 
-	-- Step 42: Flame Crest
+	-- Step 41: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "북동쪽 {area:251}(으)로 돌아가세요.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "{npc:10267}의 편지는 보관하세요. {quest:4808}은(는) {zone:1452}의 {area:2255}에 있습니다.",
 
-	-- Step 43: Kargath
+	-- Step 42: Kargath
 	-- {area:1584} Blackrock Depths
 	["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "",
 
-	-- Step 44: Fly to Tarren Mill
+	-- Step 43: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "",
 
-	-- Step 45: Apothecary Lydon
+	-- Step 44: Apothecary Lydon
 	["Inside"] = "",
 
-	-- Step 46: Fly to Undercity
+	-- Step 45: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "",
 	-- {area:272} Tarren Mill
 	["{area:272} flight master"] = "",
 
-	-- Step 47: Oran Snakewrithe
+	-- Step 46: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "",
 
-	-- Step 48: Undercity
+	-- Step 47: Undercity
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{object:36078}, 박쥐 조련사 옆의 {npc:10879}",
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
@@ -242,13 +238,13 @@ return {
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522}, the {object:36073}"] = "{object:36073}의 {npc:6522}",
 
-	-- Step 50: The Bulwark
+	-- Step 49: The Bulwark
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5401} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요. 돌아오는 길에 완료합니다. {quest:5401}을(를) 착용하세요. 착용 중에만 스컬지석이 나옵니다.",
 
-	-- Step 51: Janice Felstone
+	-- Step 50: Janice Felstone
 	-- {zone:1458} Undercity · {area:85} Tirisfal Glades · {area:152} The Bulwark · {npc:10778} Janice Felstone
 	["Leave the {zone:1458} and ride east along the road through {area:85}, past the {area:152}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "",
 	["Upstairs"] = "",
@@ -257,27 +253,27 @@ return {
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity
 	["Keep the parcel: {npc:10781} is in the {zone:1458}."] = "",
 
-	-- Step 52: Scarlet forward camp
+	-- Step 51: Scarlet forward camp
 	["Scarlet forward camp"] = "",
 	-- {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "",
 
-	-- Step 54: Augustus the Touched
+	-- Step 53: Augustus the Touched
 	-- {zone:1422} Western Plaguelands · {area:139} Eastern Plaguelands · {area:2627} Terrordale · {npc:12384} Augustus the Touched
 	["Follow the road east through the {zone:1422} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "",
 
-	-- Step 55: Terrordale: kill these as you meet them
+	-- Step 54: Terrordale: kill these as you meet them
 	-- {area:2627} Terrordale
 	["{area:2627}: kill these as you meet them"] = "",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Large Termite Mounds = {object:177464} Large Termite Mound
 	["The book lies in the ruined inn of {area:2627}.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "",
 
-	-- Step 56: Light's Hope Chapel
+	-- Step 55: Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "남쪽 길로 돌아가 지역을 가로질러 동쪽 {area:2268}까지 가세요.",
 
-	-- Step 57: Eastern Plaguelands: kill these as you meet them
+	-- Step 56: Eastern Plaguelands: kill these as you meet them
 	-- {area:139} Eastern Plaguelands
 	["{area:139}: kill these as you meet them"] = "",
 	-- {npc:11063} Carlin Redpath · {npc:11064} Darrowshire Spirit · {area:2262} Darrowshire
@@ -285,32 +281,28 @@ return {
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "다로우샤이어 영혼 해방: 말 걸기",
 
-	-- Step 58: Pamela Redpath
+	-- Step 57: Pamela Redpath
 	-- {npc:10926} Pamela Redpath · {area:2262} Darrowshire
 	["{npc:10926}'s ghost stands in the ruins of {area:2262}, in the south-west."] = "{npc:10926}의 유령은 남서쪽 {area:2262} 폐허에 있습니다.",
 
-	-- Step 59: Pamela's Doll
+	-- Step 58: Pamela's Doll
 	-- {npc:10926} Pamela Redpath
 	["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "인형의 머리와 양쪽 몸통은 {npc:10926} 주변 집들에 있습니다. 가방에서 합치세요.",
 
-	-- Step 60: Pamela Redpath
+	-- Step 59: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:197} Sorrow Hill · {zone:1422} Western Plaguelands
 	["Keep {quest:5152}: Marlene lives at {area:197} in the {zone:1422}."] = "{quest:5152}은(는) 보관하세요. 말레네는 {zone:1422}의 {area:197}에 삽니다.",
 
-	-- Step 61: Zaeldarr the Outcast
+	-- Step 60: Zaeldarr the Outcast
 	-- {area:2262} Darrowshire
 	["Zaeldarr lurks just west of {area:2262}."] = "",
 
-	-- Step 62: Pestilent Scar
+	-- Step 61: Pestilent Scar
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 
-	-- Step 63: Hearth to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Hearth to {area:2268}"] = "",
-
-	-- Step 64: Back to Light's Hope Chapel
+	-- Step 62: Back to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
 	["Back to {area:2268}"] = "{area:2268}(으)로 돌아가기",
 	["The next guide starts here, at the chapel's flight master."] = "다음 가이드는 여기 예배당의 비행 조련사에서 시작합니다.",
