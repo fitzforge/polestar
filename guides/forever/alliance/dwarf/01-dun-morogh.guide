@@ -599,7 +599,7 @@ step The Tome of Divinity
   accept 1779
   turnin 1779                                 -- Muiredon Battleforge
   accept 1783
-  complete 1783 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
+  use 6866 quest 1783.1 only Paladin @78.32,58.09 map 1426 era -- Use the Symbol of Life on Narm Faulk
   turnin 1783 only Paladin -- Narm Faulk
 
 step Narm Faulk

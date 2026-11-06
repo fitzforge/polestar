@@ -118,7 +118,7 @@ step Marshal's Refuge
 step Northern Pylon
   tip The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop Shizzle's scales.
   goto 56.5,12.5 "Northern Crystal Pylon"
-  complete 4285
+  interact 164955 quest 4285.1
   collect 11831 quest 4503            -- Webbed Pterrordax Scale
   collect 11830 quest 4503
   collect 11834 quest 4504.1                  -- Super Sticky Tar from Tar Lurker and Tar Lord, 60 yd south
@@ -154,7 +154,7 @@ step Un'Goro Crater: kill these as you meet them
 step Western Pylon
   tip The pylon stands on the western cliffs. Frenzied Pterrordax fly over the whole west side.
   goto 23.9,59.2 "Western Crystal Pylon"
-  complete 4288
+  interact 164956 quest 4288.1
 
 step The Slithering Scar
   use 11132 quest 3883.1 @48.7,85.3 map 1449
@@ -163,7 +163,7 @@ step The Slithering Scar
 step Eastern Pylon
   tip The pylon stands on the eastern cliffs.
   goto 77.2,50.0 "Eastern Crystal Pylon"
-  complete 4287
+  interact 164957 quest 4287.1
 
 step Crate of Foodstuffs
   collect 11113 quest 3881            -- Crate of Foodstuffs

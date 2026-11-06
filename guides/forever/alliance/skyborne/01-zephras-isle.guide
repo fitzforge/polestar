@@ -114,7 +114,7 @@ step Shen'dar Village
   turnin 92472                                -- Constable Aonda
   accept 93461                                -- Constable Aonda
   accept 92596                                -- Rathiril Sunlance
-  complete 92596 @44.99,46.28
+  talk 251903 quest 92596.1 @44.99,46.28
   turnin 92596
   accept 94413
   talk 251903 quest 93461.1
@@ -226,7 +226,7 @@ step Shen'dar Highlands: kill these as you meet them
 
 step The Western Watch
   tip Peacekeeper Vaaniel holds the western watch, south-west of Falaath. Skypriest Aanders and the fallen guards lie just south of her.
-  complete 93926 @42.34,62.1                  -- Peacekeeper Vaaniel
+  talk 252155 quest 93926.1 @42.34,62.1       -- Peacekeeper Vaaniel
   turnin 93926
   accept 93927
   collect 254871 quest 93927.1                -- The Bloody Note
@@ -266,7 +266,7 @@ step Valanaar
   accept 93949
   turnin 92699                                -- Elaadrin Evengale
   accept 92709
-  complete 92709 @66.59,79.92
+  talk 252475 quest 92709.1 @66.59,79.92
   turnin 92709
   accept 92727                                -- Dondallion Whisperwind
 
@@ -473,7 +473,7 @@ step Warlock trainer
   train class only Warlock -- Briarthorn in Ironforge; Valanaar has no warlock trainer
 
 step Desperate times
-  complete 93065 @61.18,70.95                 -- Meet Valennia at the gate
+  talk 253844 quest 93065.1 @61.18,70.95      -- Meet Valennia at the gate
   turnin 93065
   accept 92947
   turnin 94638 only Druid                     -- Urs'endris, by the falls north-east of Valanaar, on the way north: Bear Form
@@ -521,7 +521,7 @@ step Elegael Thornpaw, the missive
 step The Strange Hermit
   tip The Strange Hermit lives west of Elegael. The Zephyrseed Cones lie in the woods between his hut and Elegael.
   accept 93159                                -- Strange Hermit
-  complete 93159 @53.96,38.9
+  talk 251684 quest 93159.1 @53.96,38.9
   turnin 93159
   accept 93160
   accept 93172
@@ -546,7 +546,7 @@ step The Shrine of Akir
   kill 252762 quest 92947.1 @64.0,52.1 map 2521 live
   kill 252763 quest 92947.2 @63.0,50.3 map 2521 live
   kill 252765 quest 92947.3 @62.9,50.3 map 2521 live
-  complete 92947 @63.77,50.51                 -- Hyusaa Quickbreeze
+  talk 253576 quest 92947.4 @63.77,50.51      -- Hyusaa Quickbreeze
   turnin 92947
   accept 93958
   turnin 93958                                -- Valennia Stormfist, in the sanctum; upstairs
@@ -569,7 +569,7 @@ step Valanaar, the fate of Zephras
   turnin 94897
   turnin 93835                                -- Elaadrin Evengale
   accept 94369
-  complete 94369 @66.17,76.51                 -- Talaanis Shadowsong
+  talk 252476 quest 94369.1 @66.17,76.51      -- Talaanis Shadowsong
   turnin 94369                        -- Upstairs
   accept 93089
   turnin 93089                                -- Elaadrin Evengale

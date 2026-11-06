@@ -968,6 +968,34 @@ it) or `conflicting`; `forge writer apply-route` prints the counts and the lines
 it changed, and `forge build` writes them to `guides/<start>.fixes.json` for the
 fixes ledger ([FORGE.md](../FORGE.md#fixing-a-generated-guide) has the formats).
 
+Then a bare `complete <quest>` becomes the quest's objective goals
+(`src/objectives.rs`), so the guide window shows the target, its spawn areas
+and the objective's progress: `kill <npc> quest Q.O`, `collect <item> quest
+Q.O`, `interact <object> quest Q.O` and `talk <npc> quest Q.O`, one per
+objective in the data's order, each with the `complete` line's place and words
+(`@x,y`, `map`, `only`, `optional`), its note on the first. An objective the
+guide already tracks elsewhere is left out (the Shrine of Akir's kills before
+Hyusaa's talk). A quest done by using an item on an NPC (quest mechanics
+`use-item-on-mob`) gets `use <item> quest Q.O` for that NPC instead of a kill:
+the Symbol of Life on Henze Faulk, the strider meat for Kyle. The `complete`
+stays when the window could not show it truly:
+
+- the quest starts from an item, is an escort (`escort`), or has an event
+  objective (corrections mark the ones the game lists as events: the Great
+  Outdoors' campfire, the Great Bear Spirit);
+- its mechanics (high or medium confidence) are an escort, a timer, an event
+  started on accept, an item used at a place (other than on the mob), a
+  summon, a crafted item or several steps in one objective;
+- a kill objective names an NPC friendly to the guide's side (a fight that
+  ends in a surrender, a salute, a story to hear, a trainer to learn from) and
+  no item is used on it;
+- an item objective nothing drops, holds or sells, or one more than 20 kinds
+  of mob drop (the Green Hills pages).
+
+A talk objective the data counts as a kill becomes a talk through a
+`forever-db/corrections` record from players' recordings (the objective ticks
+at the NPC's window, with no kill).
+
 With the engine features on, the writer ends with a travel check: the judge's
 honest R1 on the written chain. It logs each R1 failure v1 does not have, then
 the count.

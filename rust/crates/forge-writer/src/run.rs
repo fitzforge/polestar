@@ -114,6 +114,28 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 	for f in fixes.iter().filter(|f| f.state != "applied" && f.state != "redundant" && f.state != "not for this start") {
 		log.push(format!("fixes: {} {}: {} ({})", f.file, f.id, f.state, f.detail));
 	}
+	// (A bare `complete` of plain kills, items, objects and talks becomes their objective goals, before
+	// the engine: its rules read them as the player gets them.)
+	let mut objective_lines = 0;
+	for rel in &written {
+		let side = if rel.starts_with("forever/alliance/") {
+			Some('A')
+		} else if rel.starts_with("forever/horde/") {
+			Some('H')
+		} else {
+			None
+		};
+		if let Some(t) = tree.get(rel) {
+			let (t2, n) = crate::objectives::objective_goals(t, side, inp.gdata, inp.mechanics);
+			if n > 0 {
+				objective_lines += n;
+				tree.insert(rel.clone(), t2);
+			}
+		}
+	}
+	if objective_lines > 0 {
+		log.push(format!("objective goals: {objective_lines} complete lines"));
+	}
 	let mut eng = None;
 	let mut check = None;
 	if opts.engine {
