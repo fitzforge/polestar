@@ -227,14 +227,15 @@ fn options_with_a_gamepad_down_moves_a_switches_a_toggle_y_restores_its_default_
 		end
 		local before = Polestar.Get(slider.psPath)
 		stub.press("PADDRIGHT")
-		emit({ path = slider.psPath, before = before, after = Polestar.Get(slider.psPath) })
+		emit({ path = slider.psPath, before = before, after = Polestar.Get(slider.psPath), step = slider.psStep })
 	"#);
 	let (toggled, dropdown, tabs, slider) = (&out[0], &out[1], &out[2], &out[3]);
 	assert_eq!(toggled, &json!({ "line": "Button hints", "off": false, "bar": false, "back": true }));
 	assert_eq!(dropdown, &json!({ "line": "Button names", "one": "xbox", "two": "playstation", "back": "xbox" }));
 	assert_eq!(tabs["keys"], "Next step", "RB: the Key bindings tab, its first row");
 	assert_ne!(tabs["page"], "gamepad", "LB past the first tab: the page before");
-	assert_eq!(slider["after"].as_f64().unwrap(), slider["before"].as_f64().unwrap() + 1.0);
+	let (before, after, step) = (slider["before"].as_f64().unwrap(), slider["after"].as_f64().unwrap(), slider["step"].as_f64().unwrap());
+	assert!((after - (before + step)).abs() < 1e-9, "one step right: {slider}");
 }
 
 #[test]

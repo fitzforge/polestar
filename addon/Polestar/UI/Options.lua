@@ -187,6 +187,10 @@ local BUILTIN = {
 		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."], controls = {
 		{ kind = "toggle", key = "ui.shown", label = L["Show the window"], help = L["Also /polestar, or the key binding."] },
 		{ kind = "toggle", key = "ui.compact", label = L["Compact mode"], help = L["Only the header and the current step's goals."] },
+		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
+			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."] },
+		{ kind = "slider", key = "ui.maxHeight", label = L["Maximum height"], min = 0.3, max = 0.9, step = 0.05, format = percent,
+			help = L["How tall the window may grow, as a share of the screen. A longer step scrolls."] },
 		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."] },
 		{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
 			child = true, disabled = function() return not ns.Get("ui.showNotes") end },
