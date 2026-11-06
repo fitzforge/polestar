@@ -225,13 +225,10 @@ step Skypriest Aanders
   collect 263415 quest 93927.3
   collect 263418 quest 93927.4
 
-step Hippogryph Youth on the way
-  along until q92516
-  kill 251291 quest 92516.1 -- Hippogryph Youth along the way to Shen'dar Village hand-ins
-
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The hippogryph nests are north-west of the West Pylon Watchtower, west of Falaath Village. The Matriarch sits at their western end; Hippogryph Down lies on the ground around the nests.
+  kill 251291 quest 92516.1
   kill 251284 quest 92516.2
   collect 263493 quest 93951.1
   kill 251261 quest 92516.3
@@ -246,7 +243,6 @@ step Raan's campfire
   turnin 96646                        -- Zerril Softbreeze
 
 step Shen'dar Village hand-ins
-  label q92516
   turnin 92516                        -- Teeri Wellwind
   turnin 93951                        -- Taleen Shimmerthread
   turnin 92551                        -- Danarii Bellowveil

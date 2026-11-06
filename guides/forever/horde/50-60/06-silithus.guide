@@ -79,14 +79,11 @@ step The Spirits of Southwind
 
 # ---------------------------------------------------------------- The south and the west
 
-step Rock Stalker Fang on the way
-  along until q8278
-  collect 20377 quest 8278.3
-
 step Hermit Ortell
   tip Ride south-east to Ortell's Hideout under the Un'Goro cliffs.
   turnin 8285                         -- Below ground
   accept 8279
+  collect 20377 quest 8278.3                  -- Rock Stalker Fang from Rock Stalker, 130 yd south-west
 
 step Dredge Crushers and Pincers
   label q8278

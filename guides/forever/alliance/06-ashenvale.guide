@@ -353,10 +353,6 @@ step The Bluegill hovels
   turnin 285 @13.9,34.8                   -- Half-buried Barrel
   accept 286
 
-step Sida's Bag on the way
-  along until q470
-  collect 3349 quest 470
-
 step Whelgar's Excavation Site
   tip The excavation site sits on the hill south of the road.
   turnin 305                              -- Merrin Rockweaver, below ground
@@ -412,7 +408,6 @@ step Rethiel the Greenwarden
   accept 277
 
 step Wetlands: kill these as you meet them
-  label q470
   zone Wetlands
   tip Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
   tip Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of Rethiel; almost every one drops flint.

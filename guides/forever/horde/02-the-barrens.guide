@@ -308,10 +308,6 @@ step Ratchet
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig, on the dock
 
-step Intact Raptor Horn on the way
-  along
-  collect 5055 quest 865.1
-
 step The Barrens: kill these as you meet them
   zone The Barrens
   tip The pirates camp on the beach south of Ratchet. The piles of complicated parts lie in the sand among them.
@@ -471,6 +467,7 @@ step Nugget Slugs
 step Ignition
   tip East to the Sludge Fen. Wizzlecrank's Shredder stands inside the Venture Co. camp; Supervisor Lugwizzle carries the key.
   accept 858
+  collect 5055 quest 865.1                    -- Intact Raptor Horn from Sunscale Scytheclaw, 100 yd north-east
 
 # ---------------------------------------------------------------- The Sludge Fen
 

@@ -54,10 +54,6 @@ step Azore Aldamort
   tip Azore's tower stands on the hill west of Thunder Axe Fortress: take his quest first, the sceptre he wants is in the fortress.
   accept 5741
 
-step Aged Kodo Hide on the way
-  along until q1459
-  collect 6249 quest 1459.2
-
 step Dalinda Malem
   tip Dalinda hides inside the Burning Blade's fortress south-west of Nijel's Point.
   turnin 1438                         -- Inside
@@ -80,7 +76,6 @@ step Smeed Scrabblescrew
   accept 5561
 
 step Kodo Graveyard
-  label q1459
   tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides.
   goto 51.7,56.7
   kill 4700 quest 5561.1

@@ -253,10 +253,6 @@ step Light's Hope Chapel
   accept 5168
   accept 5181
 
-step Frenzied Plaguehound on the way
-  along until q5542
-  kill 8598 quest 5542.3
-
 step Aurora Skycaller
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.
   turnin 5245
@@ -284,9 +280,9 @@ step Augustus the Touched
 step Augustus the Touched
   collect 15884 quest 6164.1 @14.0,24.2 map 1423 live -- Upstairs
   turnin 6164                         -- Inside
+  kill 8598 quest 5542.3                      -- Frenzied Plaguehound, 170 yd north-east
 
 step Plaguewood: kill these as you meet them
-  label q5542
   zone Eastern Plaguelands
   collect 15043 quest 5903.1          -- Plagueland Termites
   kill 8598 quest 5542.3              -- Frenzied Plaguehound

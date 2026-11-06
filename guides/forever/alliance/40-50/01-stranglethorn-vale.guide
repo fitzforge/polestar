@@ -394,11 +394,6 @@ step Maury and Jon-Jon
   tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
 
-step Jungle Stalker on the way
-  along until q196
-  when onquest 196
-  kill 687 quest 196.1
-
 step Cold Eye Basilisks
   tip The Cold Eye Basilisks lie on the rocks west of the mine.
   collect 2476 quest 212              -- Chilled Basilisk Haunch
@@ -444,7 +439,6 @@ step Booty Bay
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
 
 step Raptor Mastery
-  label q196
   kill 687 quest 196.1 @32.1,43.1 map 1434
 
 step Hemet Nesingwary

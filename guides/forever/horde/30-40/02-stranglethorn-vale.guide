@@ -187,12 +187,7 @@ step Grom'gol
   turnin 581                          -- Nimboya
   accept 582
 
-step Bloodscalp Ear on the way
-  along until q189
-  collect 1519 quest 189
-
 step Young Panther
-  label q189
   kill 683 quest 190
   collect 1519 quest 189
 
@@ -281,14 +276,11 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 # ---------------------------------------------------------------- Raptors, Mosh'Ogg, Shadowmaw
-step Lashtail Raptor on the way
-  along until q568
-  kill 686 quest 568 -- Lashtail Raptor along the way to Grom'gol
-
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
   tip The Lashtail Raptors (35-36) hunt the jungle just north-east of Grom'gol.
   kill 686 quest 195 @38.2,20.5 map 1434
+  kill 686 quest 568
 
 # ---------------------------------------------------------------- The Vile Reef and the Bloodscalp ruins
 
@@ -306,7 +298,6 @@ step Ruins of Zul'Kunda: kill these as you meet them
 # ---------------------------------------------------------------- Booty Bay
 
 step Grom'gol
-  label q568
   turnin 582                          -- Nimboya
   accept 2932                           -- for later: the Hinterlands, around level 48
   turnin 596                          -- Kin'weelay

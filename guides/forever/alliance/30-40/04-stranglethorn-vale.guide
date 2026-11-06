@@ -143,10 +143,6 @@ step Sin'Dall and the Lashtail raptors
 
 # ---------------------------------------------------------------- Booty Bay
 
-step Shadowmaw Panther on the way
-  along until q192
-  kill 684 quest 192
-
 step Down to Booty Bay
   tip Follow the main road south the length of the jungle, past the Grom'gol turn-off, to Booty Bay on the southern cape.
   getfp "Booty Bay"
@@ -207,7 +203,6 @@ step Booty Bay
   turnin 189                          -- Kebok, upstairs
 
 step Snapjaw Crocolisks
-  label q192
   tip Snapjaw Crocolisks bask on the shore and islands along the coast north of Booty Bay.
   collect 4104 quest 577              -- Snapjaw Crocolisk Skin
   kill 684 quest 192

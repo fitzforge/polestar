@@ -165,13 +165,10 @@ step Sen'jin Village
   accept 826                          -- Master Gadrin
   accept 823
   accept 97223                        -- Xar'Ti
+  kill 266850 quest 96821.1
+  kill 266849 quest 96821.2
 
 # ---------------------------------------------------------------- Sen'jin and Razor Hill
-
-step On the way
-  along until q96821
-  kill 266850 quest 96821.1 -- Ridgeshade Creeper along the way to Razor Hill
-  kill 266849 quest 96821.2 -- Ridgeshade Lurker along the way to Razor Hill
 
 step Brakk's campfire
   tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
@@ -182,7 +179,6 @@ step Brakk's campfire
   accept 96655
 
 step Razor Hill
-  label q96821
   accept 96822                        -- Turroc, on the east side of town; inside
   turnin 823                          -- Orgnil Soulscar
   accept 784

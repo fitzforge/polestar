@@ -192,10 +192,6 @@ step The Sepulcher
   when onquest 264
   turnin 264 only Skyborne,Tauren
 
-step Moonrage Whitescalp on the way
-  along until q421
-  kill 1769 quest 421.1
-
 step Tirisfal Glades
   only Skyborne,Tauren,Druid
   zone Tirisfal Glades
@@ -315,7 +311,6 @@ step Rane Yorick
   accept 449
 
 step Prove Your Worth
-  label q421
   kill 1769 quest 421.1 @53.0,26.7 map 1421
 
 step The Sepulcher

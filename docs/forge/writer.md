@@ -832,10 +832,7 @@ they matter to the player. They are not the judge's honest rules.
   (the mobs, the item's droppers at 10% or more and the objects holding it;
   the objective's own spawn points when there are none), or before the step
   the walk passes them on the way to, whichever comes first, and right
-  before the step that ends its list at the latest. Darkshore's Fine Crab
-  Chunks drop only from the crabs of the north coast and the far south: they
-  are listed from the southern beaches on, not from Auberdine, whose beach
-  has only Pygmy Tide Crawlers.
+  before the step that ends its list at the latest.
   Work whose spawns line the walk on to the turn-in is listed from its stop's
   step: before that step when the quest was taken earlier, so the stop's own
   end (a cave's mouth) stays the last place before the turn-in. Either way the
@@ -848,6 +845,22 @@ they matter to the player. They are not the judge's honest rules.
   beside its nearest goal, and the list ends there: the Rot Hide Graverobbers
   and their ichor north of Brill are worked in the Doom Weed step. Not ahead
   of an order the route fixes keep.
+  Either way a list is written only when the walk while it is open passes its
+  work: of its legs (straight lines between consecutive placed goals, from the
+  step after it up to its label's step, 30 yards or longer) at least two, and
+  at least half, pass within 100 yards of a spawn of the work's sources, as
+  Tirisfal's Doom Weed lines the road. Otherwise its goals become ordinary
+  goals at the stop of that span with the most source spawns within 200 yards
+  of its placed goals (the earliest of equals; only steps for the list's own
+  characters; pattern 2's own stop is one and gets its line back), before
+  that stop's hand-in of the quest, with a note naming the sources near and
+  where they are from the stop ("Frenzied Plaguehound, 170 yd north-east";
+  "by this stop" within 60 yards); none is added where the stop already works
+  the objective, and a label made only for such a list goes. Darkshore's Fine
+  Crab Chunks, open for ten stops of which three had crabs, are collected at
+  Cliffspring Falls ("Fine Crab Chunks from Encrusted Tide Crawler and Reef
+  Crawler, by this stop"). A list with no stop near its work at all stays a
+  list.
 - **R2 `use <item>`**: a quest done by using an item gets its `use` line, at
   the item's place nearest the route's work. A use that gives no credit itself
   (a bowl filled at a moonwell) is not bound to the objective; one that makes

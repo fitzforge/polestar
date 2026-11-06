@@ -274,12 +274,6 @@ step Shadowprey Village
   accept 6142                         -- Mai'Lahii
   getfp "Shadowprey Village"
 
-step On the way
-  along
-  kill 4714 quest 6143.1
-  kill 4711 quest 6143.2
-  kill 4712 quest 6143.3
-
 step Clam beds
   tip Head north up the coast. Giant Softshell Clams lie in the shallows and the Enraged Reef Crawlers walk the beach; open each clam in your bags for its meat.
   collect 15924 quest 6142            -- Underwater
@@ -295,6 +289,9 @@ step Slitherblade Oracles
 step Ethel Rethor
   tip Azore Aldamort waits in the ruined tower of Ethel Rethor, inland to the south-east.
   accept 5741                         -- Azore Aldamort
+  kill 4714 quest 6143.1
+  kill 4711 quest 6143.2                      -- Slitherblade Naga, 130 yd north-west
+  kill 4712 quest 6143.3                      -- Slitherblade Sorceress, 130 yd west
 
 step Ghost Walker Post
   tip Head south-east to the post.

@@ -78,13 +78,13 @@ step Murlocs of the Misty Reed
 
 # ---------------------------------------------------------------- Pool of Tears and the coast
 
-step Atal'ai Artifact on the way
-  along until q1424
-  collect 6175 quest 1424.1 -- Atal'ai Artifact along the way to Stonard
-
 step Swamp of Sorrows
   zone Swamp of Sorrows
   goto 83.8,80.4 "Swamp of Sorrows"
+
+step Pool of Tears
+  tip Back east past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears.
+  collect 6175 quest 1424.1
 
 step Misty Reed Post
   turnin 1426                           -- Katar
@@ -92,7 +92,6 @@ step Misty Reed Post
   turnin 1427                           -- Tok'Kar
 
 step Stonard
-  label q1424
   turnin 1424                           -- Fel'zerul, on the top floor
   accept 1429                           -- for the Atal'ai Exile in the Hinterlands, around level 48
   turnin 1430                           -- Dar, inside

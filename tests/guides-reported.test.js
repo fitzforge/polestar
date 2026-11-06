@@ -3189,22 +3189,24 @@ test("Fitz's find (2026-11-06): after the Moonglade quests the Silithus guide ta
 	}
 });
 
-test("Fitz's report: Darkshore's Fine Crab Chunks are listed along the way from where the crabs that drop them live, not from Auberdine", { skip }, () => {
+test("Fitz's report: Darkshore's Fine Crab Chunks are a goal at Cliffspring Falls, by the crabs that drop them, not a list along ten stops", { skip }, () => {
 	// Only Reef Crawlers and Encrusted Tide Crawlers drop the chunks, on the north coast and the far
-	// south; the beach by Auberdine, the route's next stop after Gubber Blump, has only Pygmy Tide
-	// Crawlers. The along step opens at the first step within reach (300 yd) of one of them.
+	// south. Listed along the way, the chunks were open for ten stops of which three had crabs; the
+	// stop with most of them near is Cliffspring Falls, where they are collected, the note saying where.
 	const steps = compiled('forever/alliance/03-darkshore.guide').steps;
+	assert.ok(!steps.some((s) => s.along && s.goals.some(is('collect', 1138))), 'no along step lists the chunks');
 	const accept = steps.findIndex((s) => s.goals.some(is('accept', 1138)));
-	const along = steps.findIndex((s) => s.along && s.goals.some(is('collect', 1138)));
-	assert.ok(accept >= 0 && along > accept, 'Fruit of the Sea is taken, then its chunks are listed along the way');
-	assert.ok(steps.findIndex((s) => s.label === steps[along].along) > along, 'until the step that works it');
+	const falls = steps.findIndex((s) => s.title === 'Cliffspring Falls');
+	assert.ok(accept >= 0 && falls > accept, 'Fruit of the Sea is taken before Cliffspring Falls');
+	const goal = steps[falls].goals.find(is('collect', 1138));
+	assert.ok(goal && goal.item === 12237, 'Cliffspring Falls collects the Fine Crab Chunks');
+	assert.match(goal.note || '', /Reef Crawler/, 'its note names the crabs and where they are');
 	const { point } = makeProjector(data.mapFrames);
 	const crabs = Object.keys(data.items[12237].drops.npc).flatMap((npc) => {
 		const sp = data.npcs[npc].spawns[1439];
 		return sp ? sp.pts.map(([x, y]) => point(1439, x, y, sp.f)) : [];
 	});
-	assert.ok(crabs.length > 0, 'the chunks drop from crabs in Darkshore');
-	const next = steps.slice(along + 1).find((s) => !s.along && s.goals.some((goal) => located({ goal })));
-	const nearest = Math.min(...next.goals.filter((goal) => located({ goal })).flatMap((g) => crabs.map((c) => dist(point(g.map, g.x, g.y, g.f || 'l'), c))));
-	assert.ok(nearest <= 300, `"${next.title}", where the list opens, is ${Math.round(nearest)} yd from the nearest crab that drops the chunks`);
+	const here = steps[falls].goals.filter((g) => located({ goal: g }) && g !== goal);
+	const nearest = Math.min(...here.flatMap((g) => crabs.map((c) => dist(point(g.map, g.x, g.y, g.f || 'l'), c))));
+	assert.ok(nearest <= 200, `Cliffspring Falls is ${Math.round(nearest)} yd from the nearest crab that drops the chunks`);
 });

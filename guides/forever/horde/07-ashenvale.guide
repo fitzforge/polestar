@@ -79,11 +79,6 @@ step Ursangous
   collect 16303
   accept 23 item 16303
 
-step Befouled Water Elemental on the way
-  along until q25
-  when onquest 25
-  kill 3917 quest 25.1
-
 step Alonso
   tip Alonso, a Forever addition, stands on the west shore of Mystral Lake with three quick Dragonslayer quests.
   goto 42.4,70 "Alonso"
@@ -158,7 +153,6 @@ step Shadumbra
   accept 24 item 16304
 
 step Mystral Lake
-  label q25
   when onquest 25
   tip Back south-west to Mystral Lake. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost.
   kill 3917 quest 25.1                -- Underwater

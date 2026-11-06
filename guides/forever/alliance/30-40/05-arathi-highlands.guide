@@ -158,12 +158,7 @@ step Refuge Pointe
   turnin 690                          -- Skuerto
   accept 691                          -- Apprentice Kryten
 
-step Witherbark Medicine Pouch on the way
-  along until q691
-  collect 4522 quest 691.2
-
 step Witherbark Village
-  label q691
   tip The Witherbark trolls live in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley.
   collect 4503 quest 691.1            -- Witherbark Tusk
   collect 4522 quest 691.2
@@ -230,18 +225,14 @@ step Shards of Myzrael
   turnin 635 optional                 -- Only if Gluggle gave you the pendant in Stranglethorn
   accept 642
 
-step Mote of Myzrael on the way
-  along until q642
-  collect 4435 quest 642 -- Mote of Myzrael along the way to Iridescent Shards
-
 step Drywhisker Gorge: kill these as you meet them
   zone Arathi Highlands
   tip The Drywhisker kobolds dig in the gorge east of Hammerfall (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.
   tip Careful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them.
   collect 4278 quest 627              -- Lesser Bloodstone Ore
+  collect 4435 quest 642                      -- Mote of Myzrael from Drywhisker Kobold, Drywhisker Surveyor and Drywhisker Digger, by this stop
 
 step Iridescent Shards
-  label q642
   tip The shards lie at the far end of Drywhisker Gorge.
   turnin 642                          -- Below ground
   accept 651

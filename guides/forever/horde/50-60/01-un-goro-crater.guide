@@ -104,12 +104,7 @@ step Out of the refuge
   accept 4243                         -- Karna Remtravel, just outside
   note From here on pick up every Power Crystal (blue, green, red, yellow) and every Un'Goro Soil pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg.
 
-step Bloodpetal Thresher on the way
-  along until q4145
-  kill 6511 quest 4145.4
-
 step Lakkari Tar Pits
-  label q4145
   tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar.
   collect 11834 quest 4504
   kill 6511 quest 4145.4
