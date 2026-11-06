@@ -381,10 +381,11 @@ L["The arrow is back on the guide."] = "La flèche revient au guide."
 L["Nearby services button"] = "Bouton des services à proximité"
 L["A button in the guide window's header, left of the menu, finds the nearest vendor, repair, inn, flight master or trainer and points the arrow there."] = "Un bouton dans l'en-tête de la fenêtre du guide, à gauche du menu, trouve le marchand, la réparation, l'auberge, le maître de vol ou le maître le plus proche et y dirige la flèche."
 L["Food & drink"] = "Nourriture et boissons"
+L["General goods"] = "Fournitures générales"
 L["Arrows"] = "Flèches"
 L["Bullets"] = "Balles"
 L["Bows & guns"] = "Arcs et armes à feu"
-L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Utilisation : /polestar near trainer [métier] | class | weapon | repair | reagents | vendor | food | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
+L["Usage: /polestar near trainer [profession] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"] = "Utilisation : /polestar near trainer [métier] | class | weapon | repair | reagents | vendor | food | general | arrows | bullets | ranged | innkeeper | bank | mailbox | auction | flight | stable"
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Clic droit pour passer ce tronçon."

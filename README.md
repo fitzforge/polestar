@@ -477,11 +477,12 @@ its source is in [apps/client](apps/client).
   takes you there, routed like any goal; Alt-click works over map icons.
   Click the spot again to let it go.
 - **Nearby services.** `/polestar near repair` (trainer, a profession,
-  class, weapon, reagents, vendor, food, arrows, bullets, ranged, innkeeper,
+  class, weapon, reagents, vendor, food, general, arrows, bullets, ranged,
+  innkeeper,
   bank, mailbox, auction, flight, stable) points the arrow at the quickest one to
   reach, naming a vendor's trade; the map's tracking menu and the guide
   window's Nearby services button list them, the button with a page of
-  vendors (food and drink, and the ammunition and bows or guns your class
+  vendors (food and drink, general goods, and the ammunition and bows or guns your class
   can use) and one of the weapons a weapon master can teach you. Once you get there,
   the arrow is back on the guide.
 - **OpenMap.** On [OpenMap](https://www.curseforge.com/wow/addons/openmap)'s

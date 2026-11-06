@@ -78,7 +78,7 @@ const WORLD_DROP_NPCS = 12;
 // cluster holds `dwarf` times as many or more (#852).
 const SPAWN = { radius: 3, perMap: 5, maps: 4, few: 10, stray: 2, dwarf: 4 };
 const SERVICE_ROLES = new Set(['vendor', 'repair', 'innkeeper', 'banker', 'auctioneer', 'flightmaster', 'battlemaster', 'spirithealer', 'stablemaster', 'trainer', 'weapon',
-	'sells:food', 'sells:arrows', 'sells:bullets', 'sells:ranged']);
+	'sells:food', 'sells:arrows', 'sells:bullets', 'sells:ranged', 'sells:general']);
 // What a vendor sells, by the item's class and subclass (Item.csv), for
 // Nav/Nearby.lua's kinds: food & drink (consumable 0/5), arrows and bullets
 // (projectile 6/2, 6/3), bows, crossbows and guns (weapon 2/2, 2/18, 2/3).
@@ -88,6 +88,12 @@ function sellsRole(classId, subclassId) {
 	if (classId === 6 && subclassId === 3) return 'sells:bullets';
 	if (classId === 2 && (subclassId === 2 || subclassId === 3 || subclassId === 18)) return 'sells:ranged';
 	return null;
+}
+// A general goods vendor, by title: no item tells one apart (cooks sell their
+// flint and wood, innkeepers their water). "General Trade Goods" sellers are
+// trade suppliers, so no match.
+function isGeneralGoods(subName) {
+	return /general goods|general supplies|general & trade/i.test(subName || '');
 }
 // Loot listed on a rare NPC or treasure (Codex.Loot; the Rares view picks its
 // signature drop from it): its own drops (items nothing else drops or holds)
@@ -784,6 +790,7 @@ function mergeCodex(inputs) {
 			for (const [name, cls] of Object.entries(CLASSES)) if (new RegExp(`\\b${name}\\b`).test(title)) set.add(`class:${cls.file}`);
 			if (/\bweapon master\b/.test(title)) set.add('weapon');
 		}
+		if (set.has('vendor') && isGeneralGoods(npc.subName)) set.add('sells:general');
 		npc.roles = [...set].sort();
 		// A service waypoint must be an actual spawn, never a cluster's midpoint.
 		if (source && npc.roles.some((role) => SERVICE_ROLES.has(role))) {
@@ -1563,4 +1570,4 @@ function writeParity(ours, theirs, dir, verify = null) {
 	return { report, files };
 }
 
-module.exports = { sellsRole, buildCodex, mergeCodex, clientFacts, cluster, slug, writeParity, pickForeverBuild, TABLES };
+module.exports = { sellsRole, isGeneralGoods, buildCodex, mergeCodex, clientFacts, cluster, slug, writeParity, pickForeverBuild, TABLES };
