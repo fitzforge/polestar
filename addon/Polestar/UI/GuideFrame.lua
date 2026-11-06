@@ -3999,8 +3999,8 @@ local function build()
 	goals:SetScript("OnMouseWheel", goalsWheel)
 	goals.psOnValue = W.ScrollTo
 	goals.Bar:SetAlpha(0)
-	goals.Bar:HookScript("OnEnter", function() barWake() end)
-	goals.Bar:HookScript("OnLeave", function() barWake() end)
+	goals.Bar:HookScript("OnEnter", function() GF.BarWake() end)
+	goals.Bar:HookScript("OnLeave", function() GF.BarWake() end)
 
 	-- The focus header: who (or what) the goals below belong to.
 	person = CreateFrame("Button", nil, card)
