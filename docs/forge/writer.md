@@ -825,7 +825,17 @@ guides predate. The writer adds them where the route needs them
 they matter to the player. They are not the judge's honest rules.
 
 - **R1 `along until <label>`**: work the route does while walking past,
-  before the step that lists it, is listed "along the way" from the accept on.
+  before the step that lists it, is listed "along the way" from the accept on,
+  but no sooner than the route comes within reach of it: the along step goes
+  right before the first step from the accept's on with a placed goal within
+  300 yards (a trip, the judge's `TRIP_YD`) of a spawn of the work's sources
+  (the mobs, the item's droppers at 10% or more and the objects holding it;
+  the objective's own spawn points when there are none), or before the step
+  the walk passes them on the way to, whichever comes first, and right
+  before the step that ends its list at the latest. Darkshore's Fine Crab
+  Chunks drop only from the crabs of the north coast and the far south: they
+  are listed from the southern beaches on, not from Auberdine, whose beach
+  has only Pygmy Tide Crawlers.
   Work whose spawns line the walk on to the turn-in is listed from its stop's
   step: before that step when the quest was taken earlier, so the stop's own
   end (a cave's mouth) stays the last place before the turn-in. Either way the

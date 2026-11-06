@@ -313,10 +313,6 @@ step Menethil Harbor
   accept 305                              -- Tarrel Rockweaver, by the north gate
   accept 484                              -- James Halloran, by the north gate
 
-step Sida's Bag on the way
-  along until q470
-  collect 3349 quest 470
-
 # ---------------------------------------------------------------- Menethil Harbor
 
 step Spoils of War
@@ -356,6 +352,10 @@ step The Bluegill hovels
   accept 285
   turnin 285 @13.9,34.8                   -- Half-buried Barrel
   accept 286
+
+step Sida's Bag on the way
+  along until q470
+  collect 3349 quest 470
 
 step Whelgar's Excavation Site
   tip The excavation site sits on the hill south of the road.

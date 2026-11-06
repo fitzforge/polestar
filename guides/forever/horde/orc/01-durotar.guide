@@ -189,10 +189,6 @@ step Razor Hill
   turnin 96821                        -- Gar'Thok
   accept 815
 
-step Taillasher Egg on the way
-  along until q815
-  collect 4890 quest 815.1
-
 # ---------------------------------------------------------------- Razor Hill and the north
 
 step Razor Hill
@@ -239,6 +235,10 @@ step Sen'jin Village
   accept 786                          -- Lar Prowltusk
 
 # ---------------------------------------------------------------- The coast and Sen'jin
+step Taillasher Egg on the way
+  along until q815
+  collect 4890 quest 815.1
+
 step Scuttle Coast: kill these as you meet them
   label q815
   zone Durotar

@@ -119,10 +119,6 @@ step Auberdine
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 729                                  -- Archaeologist Hollee
 
-step Fine Crab Chunks on the way
-  along until q1138
-  collect 12237 quest 1138
-
 # ---------------------------------------------------------------- The beach
 
 step The beach
@@ -257,6 +253,10 @@ step Blackwood furbolgs
   kill 2167 quest 985 only Dwarf,Gnome,Human,Skyborne
   kill 2324 quest 985 only Dwarf,Gnome,Human,Skyborne
 
+step Fine Crab Chunks on the way
+  along until q1138
+  collect 12237 quest 1138
+
 step The southern beaches
   tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
   accept 4728 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Creature
@@ -324,14 +324,14 @@ step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
   accept 1003
 
-step Grizzled Scalp on the way
-  along until q1003
-  collect 5414 quest 1003
-
 step The cave and the Den Mother
   tip The cave lies south of the falls: Scaber Stalks grow all through it, the Death Cap at the very back. The Den Mother lairs in the hills south of the falls.
   collect 5271 quest 947                      -- Scaber Stalks; below ground
   collect 5270 quest 947                      -- Death Cap; below ground
+
+step Grizzled Scalp on the way
+  along until q1003
+  collect 5414 quest 1003
 
 step The northern Blackwood camp
   tip The furbolg camp south of the Cliffspring River keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the Filled Cleansing Bowl in your bags (the Empty Cleansing Bowl is filled at the Auberdine Moonwell), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the Talisman of Corruption lies in his Demon Bag.
@@ -419,10 +419,6 @@ step The Grove of the Ancients
   zone Darkshore
   accept 98013                                -- Arbal
 
-step On the way
-  along until q98013
-  kill 2181 quest 98013
-  kill 2182 quest 98013
 step Auberdine
   zone Darkshore
   tip Follow the road north.
@@ -441,6 +437,11 @@ step Auberdine
   vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
+
+step On the way
+  along until q98013
+  kill 2181 quest 98013
+  kill 2182 quest 98013
 
 step The Tower of Althalaxx
   tip Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.

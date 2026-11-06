@@ -2,8 +2,9 @@
 //! written chain after the travel repair, in order of player impact:
 //!
 //! - R1 `along until <label>`: work the route walks past before the step that does it is listed "along the
-//!   way" from right after the accept (pattern 1), or, when the work's spawns line the walk on to the
-//!   turn-in, the stop for it becomes an along step that ends at the turn-in (pattern 2, Gloom Weed).
+//!   way" from the accept on, from the first step that comes within reach of its sources (pattern 1), or,
+//!   when the work's spawns line the walk on to the turn-in, the stop for it becomes an along step that
+//!   ends at the turn-in (pattern 2, Gloom Weed).
 //!   Along lists are per guide: a quest carried into another guide gets its along step there, `when
 //!   onquest`.
 //! - R2 `use <item>`: a quest done by using an item (quest mechanics, high confidence) gets its `use`.
@@ -199,18 +200,28 @@ fn id(v: &V) -> Option<u32> {
 	num(v).filter(|n| *n >= 0.0 && n.fract() == 0.0).map(|n| n as u32)
 }
 
-/// A field goal's own spawn points on `map` inside its spots: the target NPC's or object's spawns, or
-/// for an item those of its droppers (at least [`DROP_MIN`] percent, or of unknown odds) and of the
-/// objects that hold it. The spot centres when the data places none there.
+/// A field goal's own spawn points on `map` inside its spots: [`source_spawns`] there. The spot centres
+/// when the data places none there.
 fn spawn_points(data: &Data, goal: &V, map: f64, spots: &[Spot], world: &dyn Fn(f64, f64, f64, &V) -> Option<Wpt>) -> Vec<Wpt> {
+	let mut out = source_spawns(data, id(&goal.get("npc")), id(&goal.get("object")), id(&goal.get("item")), map, world);
+	out.retain(|w| spots.iter().any(|sp| dist(sp.w, *w) <= sp.r + 1.0));
+	if out.is_empty() {
+		out = spots.iter().map(|s| s.w).collect();
+	}
+	out
+}
+
+/// The spawn points on `map` of a goal's sources: the target NPC's or object's, or for an item those of
+/// its droppers (at least [`DROP_MIN`] percent, or of unknown odds) and of the objects that hold it.
+fn source_spawns(data: &Data, npc: Option<u32>, object: Option<u32>, item: Option<u32>, map: f64, world: &dyn Fn(f64, f64, f64, &V) -> Option<Wpt>) -> Vec<Wpt> {
 	let mut sources: Vec<(&str, V)> = Vec::new();
-	for kind in ["npc", "object"] {
-		if num(&goal.get(kind)).is_some() {
-			sources.push((kind, goal.get(kind)));
+	for (kind, x) in [("npc", npc), ("object", object)] {
+		if let Some(x) = x {
+			sources.push((kind, V::Num(x as f64)));
 		}
 	}
-	if let Some(item) = num(&goal.get("item")) {
-		let drops = data.item(&V::Num(item)).get("drops");
+	if let Some(item) = item {
+		let drops = data.item(&V::Num(item as f64)).get("drops");
 		for kind in ["npc", "object"] {
 			let by = drops.get(kind);
 			for k in by.keys() {
@@ -230,15 +241,10 @@ fn spawn_points(data: &Data, goal: &V, map: f64, spots: &[Spot], world: &dyn Fn(
 			let f = s.get("f");
 			for p in s.get("pts").items().into_iter().chain(s.get("more").items()) {
 				if let Some(w) = world(map, p.at(0).num(), p.at(1).num(), &f) {
-					if spots.iter().any(|sp| dist(sp.w, w) <= sp.r + 1.0) {
-						out.push(w);
-					}
+					out.push(w);
 				}
 			}
 		}
-	}
-	if out.is_empty() {
-		out = spots.iter().map(|s| s.w).collect();
 	}
 	out
 }
@@ -771,6 +777,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 	if opts.along {
 		// The route fixes' orders (a before b), which a merge or an along line must not break.
 		let pairs = crate::hub::fix_pairs(t.faction.as_deref());
+		let geo = Geo::new(&data.map_frames);
 		let first_of = |t: crate::input::OrderT, qa: u32| -> Option<usize> {
 			match t {
 				crate::input::OrderT::Accept => first_accept.get(&qa).copied(),
@@ -1043,6 +1050,32 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				}
 			}
 			let end_si = host_si.unwrap_or(wg.si);
+			// (From the accept's step, listed from where the work comes within reach: the first step with a
+			// placed goal within a trip (TRIP_YD) of a spawn of the work's sources, or the step the walk
+			// passes them on the way to, whichever comes first; right before the list's end at the latest.
+			// Darkshore's Fine Crab Chunks drop from the crabs of the north coast and the far south: listed
+			// from the southern beaches on, not from Auberdine, whose beach has only Pygmy Tide Crawlers, Fitz.)
+			let (at, after, from_si) = if carried {
+				(at, after, from_si)
+			} else {
+				let world = |map: f64, x: f64, y: f64, f: &V| -> Option<Wpt> { geo.to_world(map as i64, x, y, f.as_str() == Some("e")) };
+				// (No source the data drops it from at DROP_MIN, a Swoop Gizzard: the objective's own points.)
+				let all = source_spawns(data, wg.npc, wg.object, wg.item, wg.map, &world);
+				let src: &[Wpt] = if all.is_empty() { &wg.spawns } else { &all };
+				let end = if wg.gi == gi { end_si } else { ch.steps[gi].len() };
+				let near = seq
+					.iter()
+					.filter(|g| g.gi == gi && g.si >= from_si && g.si < end && !ch.steps[gi][g.si].along)
+					.find(|g| g.w.is_some_and(|w| src.iter().any(|s| dist(*s, w) <= forge_judge::check::TRIP_YD)))
+					.map(|g| g.si);
+				let start = near.unwrap_or(end).min(cur.si).min(end);
+				if start <= from_si + 1 {
+					(at, after, from_si)
+				} else {
+					rep.log.push(format!("R1 along from where its work is within reach: {} quest {q}.{oi} from the step at line {}", ch.files[gi], ch.steps[gi][start].line));
+					(ch.steps[gi][start].line as usize - 1, false, start - 1)
+				}
+			};
 			let (until, until_si) = if wg.gi == gi { (Some(labels.of(&ch, gi, end_si, q)), Some(end_si)) } else { (None, None) };
 			let text = line_text(wg).to_string();
 			let line = strip_place(split_comment(&text).0);

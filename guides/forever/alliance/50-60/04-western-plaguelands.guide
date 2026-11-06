@@ -222,10 +222,6 @@ step Slab of Carrion Worm Meat on the way
   along until q5544
   collect 13853 quest 5544.1
 
-step Frenzied Plaguehound on the way
-  along until q5542
-  kill 8598 quest 5542.3
-
 # ---------------------------------------------------------------- Gahrron's Withering
 
 step Gahrron's Withering cauldron
@@ -256,6 +252,10 @@ step Light's Hope Chapel
   turnin 5210                         -- Carlin Redpath
   accept 5168
   accept 5181
+
+step Frenzied Plaguehound on the way
+  along until q5542
+  kill 8598 quest 5542.3
 
 step Aurora Skycaller
   tip Ride north-west to Quel'Lithien Lodge, at the edge of the Plaguewood.

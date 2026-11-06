@@ -173,6 +173,52 @@ fn r1_work_walked_past_before_its_step_is_listed_from_the_accept() {
 
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r1_along_step_opens_where_its_mobs_come_within_reach() {
+	// Fitz: Darkshore's Fine Crab Chunks (Fruit of the Sea) were listed from Gubber Blump's accept in
+	// Auberdine, but only the Reef and Encrusted Tide Crawlers of the north coast and the far south drop
+	// them; the beach south of Auberdine, the next stop, has none. Listed from the first step that comes
+	// within reach of a crab: the walk past a Reef Crawler.
+	let r = reference();
+	let sp = r.data.npcs.get("2235").get("spawns").get("1439").get("pts").at(9);
+	let (x, y) = (sp.at(0).num(), sp.at(1).num());
+	assert!(y < 30.0, "a Reef Crawler of the north coast: {x},{y}");
+	let body: Vec<String> = vec![
+		"step Auberdine".into(),
+		"  accept 1138".into(),
+		"".into(),
+		"step The beach".into(),
+		"  goto 36.4,50.9 \"Beach\"".into(),
+		"".into(),
+		"step Back in Auberdine".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step Walk".into(),
+		format!("  goto {:.2},{:.2} \"West\"", x - 1.0, y),
+		"".into(),
+		"step Walk on".into(),
+		format!("  goto {:.2},{:.2} \"East\"", x + 1.0, y),
+		"".into(),
+		"step Far".into(),
+		"  goto 40.0,60.0 \"South\"".into(),
+		"".into(),
+		"step Crabs".into(),
+		"  collect 12237 quest 1138.1".into(),
+		"".into(),
+		"step Gubber Blump".into(),
+		"  turnin 1138".into(),
+	];
+	let body: Vec<&str> = body.iter().map(String::as_str).collect();
+	let g = guide("a", "Human", "Alliance", "Darkshore", None, &body);
+	let after = run(&[("a", g)], "Human", "Alliance", &Opts { along: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	let s = idx(a, "step Fine Crab Chunks on the way");
+	assert!(idx(a, "step Back in Auberdine") < s && s < idx(a, "step Walk"), "{}", a.join("\n"));
+	assert_eq!(a[s + 1], "  along until q1138");
+	assert_eq!(a[idx(a, "step Crabs") + 1], "  label q1138");
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r1_carried_quest_gets_its_along_step_in_each_guide_it_crosses() {
 	let r = reference();
 	let sp = r.data.npcs.get("3256").get("spawns").get("1413").get("pts").at(0);

@@ -31,10 +31,6 @@ step Fly to Grom'gol
   accept 629
   accept 596                          -- Kin'weelay
 
-step Bloody Bone Necklace on the way
-  along until q190
-  collect 3915 quest 596
-
 # Consensus route (Horde Tauren export), visit 24 (Stranglethorn Vale
 # 32.9-37.4), plus the export's earlier Stranglethorn stop (visit 17,
 # level 30.4), shared by every Horde start. Era + known Forever quests only.
@@ -135,6 +131,11 @@ step Zeppelin to Grom'gol
   zone Durotar
   goto 50.7,12.9 "Zeppelin to Grom'gol"
 
+step Bloody Bone Necklace on the way
+  along until q190
+  zone Stranglethorn Vale
+  collect 3915 quest 596
+
 step Nesingwary's camp
   zone Stranglethorn Vale
   tip Follow the road north out of Grom'gol; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of The Green Hills of Stranglethorn you loot: Barnil asks for them later.
@@ -174,14 +175,6 @@ step Booty Bay
   accept 201                          -- Krazek, upstairs
   sethome "Booty Bay"                 -- Upstairs
 
-step Bloodscalp Ear on the way
-  along until q189
-  collect 1519 quest 189
-
-step Tumbled Crystal on the way
-  along until q213
-  collect 4106 quest 213
-
 # ---------------------------------------------------------------- Booty Bay and the Venture Co.
 
 step Fly to Grom'gol
@@ -193,6 +186,10 @@ step Grom'gol
   tip Follow the road south to Grom'gol.
   turnin 581                          -- Nimboya
   accept 582
+
+step Bloodscalp Ear on the way
+  along until q189
+  collect 1519 quest 189
 
 step Young Panther
   label q189
@@ -213,6 +210,10 @@ step Nesingwary's camp
   turnin 190                          -- Sir S. J. Erlgadin
   accept 191
 
+step Tumbled Crystal on the way
+  along until q213
+  collect 4106 quest 213
+
 step Stranglethorn Vale: kill these as you meet them
   label q213
   zone Stranglethorn Vale
@@ -232,10 +233,6 @@ step Nesingwary's camp
   accept 341 optional
   accept 342 optional
 
-step Shadowmaw Panther on the way
-  along until q192
-  kill 684 quest 192
-
 step Elder tigers and Lashtail raptors
   tip The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp; the Lashtail Raptors (35-36) hunt further south, towards Grom'gol.
   tip Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly.
@@ -245,6 +242,10 @@ step Nesingwary's camp
   tip Back north to the camp.
   turnin 187                          -- Ajeck Rouack
   accept 188
+
+step Shadowmaw Panther on the way
+  along until q192
+  kill 684 quest 192
 
 step The Savage Coast: kill these as you meet them
   label q192

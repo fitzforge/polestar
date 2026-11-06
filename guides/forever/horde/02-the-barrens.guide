@@ -53,7 +53,6 @@ step On the way
   along until crossroads
   kill 3267 quest 871.1
   kill 3268 quest 871.2
-  kill 3265 quest 871.3
 
 # ---------------------------------------------------------------- Razormane camp and Ratchet
 
@@ -99,6 +98,12 @@ step Drygulch Ravine
   only Orc,Troll,Shaman
   zone Durotar
   collect 6652 quest 1525.2 only Shaman
+
+step Razormane Hunter on the way
+  only Orc,Troll
+  along until crossroads
+  zone The Barrens
+  kill 3265 quest 871.3
 
 step Razormane camp
   only Orc,Troll,Warrior,Shaman
