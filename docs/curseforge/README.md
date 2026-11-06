@@ -38,7 +38,7 @@ high-density screens.
 | `media/journey.png` | 776x1122 | 388x561 | 334 KB |
 | `media/nearby.gif` | 978x789, 7.9 s | 652x526 | 379 KB |
 | `media/picker.gif` | 1256x970, 7.2 s | 836x646 | 424 KB |
-| `media/lookup.jpg` | 1824x1472 | 836x675 | 293 KB |
+| `media/lookup.jpg` | 1824x1472 | 836x675 | 282 KB |
 | `media/questlog.png` | 856x944 | 428x472 | 331 KB |
 
 The banner and avatar are drawn in code: `node tools/polestar.js readme

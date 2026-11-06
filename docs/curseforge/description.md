@@ -6,12 +6,25 @@
 
 ## What's new in 0.3.3
 
-*   **A calmer guide window:** one person at a time, finished goals fold away, and the window stops at half the screen.
+**Windows**
+
+*   **Calmer:** one person at a time, finished goals fold away, and the window stops at half the screen.
 *   **Only your steps:** another class's or race's steps are never shown or counted.
 *   **Along the way** sits under the steps you walk to, and says until which step.
-*   **Nearby services** finds the nearest vendor by what it sells, general goods and the nearest mailbox.
+*   **Tabs close easily:** the × shows on every tab, and the cards on the guide menu's Home close too.
+*   **The game's font** stays the default; Open Sans is a choice under Look › Colour & type.
+
+**Getting around**
+
+*   **Your Hearthstone when it pays:** the arrow suggests it only on long trips and says how much it saves; the guides no longer have hearth steps.
+*   **Safer walks:** without a known flight path, long walks keep out of zones far above your level.
+*   **Nearby services** finds a vendor by what it sells, general goods and the nearest mailbox.
+
+**Questing and friends**
+
 *   **Quest log cleanup** from the guide window's menu, now with grey quests.
-*   **Group play** on by default with party members who also run Polestar.
+*   **Group play** is on by default with party members who also run Polestar.
+*   **Party chat:** Polestar tells your party when you finish an objective or a quest is ready to hand in.
 
 ***
 
@@ -82,10 +95,13 @@ Installing by hand: unzip into `World of Warcraft/_forever_/Interface/AddOns/` s
 ## FAQ
 
 **How do I close a guide tab?**  
-Point at the tab in the guide window and click its ×. In the guide menu's Home, each Continue card has one too.
+Click the × on the tab in the guide window. On the guide menu's Home, point at a card under Continue and click its ×, or right-click the card and choose Close tab.
 
 **How do I clean up my quest log?**  
 Open the guide window's ⋯ menu and choose Clean up quest log, or type `/polestar questlog`.
+
+**How do I stop the party messages?**  
+Options › Questing › Quests › Group: turn off "Tell my party in chat when I finish a quest objective".
 
 **Which commands are there?**  
 `/polestar` shows the guide window, `/polestar guides` opens the guide menu, `/polestar options` holds every setting, `/polestar near vendor` points at the nearest vendor, and `/polestar help` lists the rest.
