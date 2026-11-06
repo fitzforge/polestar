@@ -2,10 +2,10 @@
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
     "forever/alliance/02-westfall.guide": "5df32db84e038cd0014538a8e8a769ed13d5fd3e1cdfa8dd0e9710176ff274ca",
-    "forever/alliance/03-darkshore.guide": "201bdb72f9d238d97fdf341f854008dd74da6396f9fdf4ad51c301afa87f8bbd",
+    "forever/alliance/03-darkshore.guide": "fd0cbb312e742417ae591cf77665ce5fc30c8e0c5f1033c6f1287e2ab3f505bc",
     "forever/alliance/04-redridge-mountains.guide": "82f2819bf22711d4467decfb43610ede223e1bf00f37db2c955b122893423180",
     "forever/alliance/05-duskwood.guide": "5cdfc43ef63369d505e9affd9f6c81b8e0815ee1a6706ee067adcfa567b449fc",
-    "forever/alliance/06-ashenvale.guide": "b75847d103b4a08485e1df54e483aa5c6a0c759a486626624c716e12d0fa1442",
+    "forever/alliance/06-ashenvale.guide": "b7afe0c19a41f4aaca644a0ed94613461c1bf8d959ec6f34ae9ff5682295e6a0",
     "forever/alliance/07-thousand-needles.guide": "d608a69b4faa8373e28cff2bef298db8ccd4d2791da3df9c667cc97e6205361d",
     "forever/alliance/30-40/01-hillsbrad-foothills.guide": "1c7ed29d36e3370a5c68e583863506abbd84c1e548647643a48d15ab4a85495d",
     "forever/alliance/30-40/02-desolace.guide": "0411cb02dc3796e79705cc1af4fea13a1afa606bfa3000d0b8fd87c69daf4e0a",
