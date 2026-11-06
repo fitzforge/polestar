@@ -195,7 +195,12 @@ uistub.guides["test/darkshore"] = { id = "test/darkshore", pack = "guides", titl
 local function card()
 	local f = CC.frame
 	local on = f ~= nil and f:IsShown()
-	local row = GF.parts.card and uistub.findText(GF.parts.card, "Accept |c")
+	-- The accept's goal row (not a summary line naming another person's accept).
+	local row
+	for _, r in ipairs(GF.rows) do
+		local s = r:IsShown() and r.Text:GetText()
+		if s and s:find("Accept |c", 1, true) then row = r.Text break end
+	end
 	return { shown = on, head = on and f.Head:GetText() or nil, title = on and f.Title:GetText() or nil, learn = on and f.Learn:GetText() or nil,
 		badge = on and f.Badge:IsShown() and f.Badge.Text:GetText() or nil, trip = on and f.Trip:GetText() or nil,
 		only = on and f.Only:GetText() or nil, icon = on and f.Icon:GetTexture() or nil, row = row and row:GetText() or nil,
