@@ -2089,7 +2089,7 @@
 			"kind": "factoruide",
 			"ref": "Factoruide row: class mask 8 (Rogue), seen in game"
 		},
-		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever's quest data limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
 	},
 	"78307": {
 		"set": {
@@ -2099,7 +2099,7 @@
 			"kind": "factoruide",
 			"ref": "Factoruide row: class mask 8 (Rogue)"
 		},
-		"note": "The Horn of Xelthos (C's payment, from the same Dead Drop near Pyrewood Village: the Pyrewood Signet Ring) is a Rogue quest on Forever: Forever's quest data limits it to Rogues (class mask 8). The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
+		"note": "The Horn of Xelthos (C's payment, from the same Dead Drop near Pyrewood Village: the Pyrewood Signet Ring) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8). The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it."
 	},
 	"79358": {
 		"set": {
@@ -2543,7 +2543,7 @@
 			"kind": "factoruide",
 			"ref": "Factoruide row: class mask 128 (Mage)"
 		},
-		"note": "Boughs in the Wind (Belann Windwood on Zephras Isle, the Windbough Wand) is a Mage quest on Forever: Forever's quest data limits it to Mages (class mask 128). The merged data had no class, so the class-quest card knew it only from the Mage guide that takes it."
+		"note": "Boughs in the Wind (Belann Windwood on Zephras Isle, the Windbough Wand) is a Mage quest on Forever: Forever limits it to Mages (class mask 128). The merged data had no class, so the class-quest card knew it only from the Mage guide that takes it."
 	},
 	"93927": {
 		"set": {

@@ -264,10 +264,7 @@ fn only_the_quest_data_makes_a_class_quest_never_a_line_s_only() {
 			stalk = CC.ClassQuest({ t = "accept", quest = 76160 }, "SHAMAN"),
 		})"#,
 	);
-	assert_eq!(
-		out[0],
-		json!({ "mage": false, "paladin": false, "warrior": false, "druid": false, "catForm": true, "catFormWarrior": false, "stalk": false })
-	);
+	assert_eq!(out[0], json!({ "mage": false, "paladin": false, "warrior": false, "druid": false, "catForm": true, "catFormWarrior": false, "stalk": false }));
 }
 
 // The class-quest audit: Mulgore's Druids ride to Thunder Bluff for A Bundle of Hides (6361) on an
