@@ -160,9 +160,6 @@ step Moonbrook and the Defias hills
   kill 122 quest 14
   collect 254676 quest 92747.1 only Dwarf,Gnome,NightElf,Skyborne -- Suspicious Industrial Supplies, from the crates around Moonbrook
 
-step Hearth to Sentinel Hill
-  hearth "Sentinel Hill"
-
 step Back to Sentinel Hill
   turnin 14                                   -- Gryan Stoutmantle
   turnin 92747 only Dwarf,Gnome,NightElf,Skyborne -- Alba Fairmoon

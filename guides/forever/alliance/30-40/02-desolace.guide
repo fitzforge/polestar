@@ -99,9 +99,6 @@ step Kolkar Village
   tip The Kolkar roam the plains around Kolkar Village; their ears are for Corporal Melkins.
   collect 6067 quest 1387             -- Centaur Ear
 
-step Hearth to Nijel's Point
-  hearth "Nijel's Point"
-
 # ---------------------------------------------------------------- Nijel's Point
 
 step Nijel's Point

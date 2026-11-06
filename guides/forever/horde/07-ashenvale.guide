@@ -159,9 +159,6 @@ step Mystral Lake
   goto 48.9,69.6 "Gazebo"
   complete 25
 
-step Hearth to Splintertree Post
-  hearth "Splintertree Post"
-
 step Splintertree Post
   turnin 25                           -- Mastok Wrilehiss
   turnin 2 optional -- Senani Thunderheart

@@ -118,12 +118,7 @@ step Level 50.89
   goto 48.8,43.4 map 1447 "Spitelash Myrmidon"
   level 50.89                          -- grind on Spitelash Myrmidon
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 
@@ -268,12 +263,7 @@ step Kum'isha the Collector
   collect 10593 quest 3501.1
   turnin 3501
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 

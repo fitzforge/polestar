@@ -11,12 +11,7 @@ next forever/alliance/40-50/07-un-goro-crater
 # into this file.
 # Added here: WANTED: Overseer Maltorius (7701), The Flame's Casing (3452), The Horn of the Beast (3181).
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 

@@ -88,9 +88,6 @@ step Feral Scar Vale
   tip Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; Bloodroar the Stalker (level 48) prowls the middle.
   collect 8973 quest 2821             -- Thick Yeti Hide
 
-step Hearth to Feathermoon Stronghold
-  hearth "Feathermoon Stronghold"
-
 step Feathermoon Stronghold
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
@@ -185,9 +182,6 @@ step Shay's escort
   tip Ring the bell whenever Shay stops to wander, and lead her south to Rockbiter.
   complete 2845 @42.33,21.85 map 1444 era -- Rockbiter's camp
   turnin 2845                         -- Rockbiter
-
-step Hearth to Feathermoon Stronghold
-  hearth "Feathermoon Stronghold"
 
 step Feathermoon Stronghold
   turnin 4265                         -- Ginro Hearthkindle

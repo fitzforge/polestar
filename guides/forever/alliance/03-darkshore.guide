@@ -465,9 +465,6 @@ step Mist's Edge: kill these as you meet them
   kill 2183 quest 98013
   collect 280686 quest 87760                  -- Rod of Deep Dominion: Stormscale Beastmistress
 
-step Hearth to Auberdine
-  hearth "Auberdine"
-
 step Back south
   turnin 87760                                -- Gwennyth Bly'Leggonde
   turnin 951                                  -- Onu, at the Grove

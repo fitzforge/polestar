@@ -11,12 +11,7 @@ next forever/alliance/30-40/02-desolace
 # into this file.
 # Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683).
 
-step Hearth to Deepwater Tavern
-  when bound "Deepwater Tavern"
-  hearth "Deepwater Tavern"
-
 step To Deepwater Tavern
-  when !bound "Deepwater Tavern"
   zone Wetlands
   goto 10.7,61.0 "Deepwater Tavern"
 

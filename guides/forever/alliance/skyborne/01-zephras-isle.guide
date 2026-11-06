@@ -352,9 +352,6 @@ step Standing our ground
   turnin 92693
   accept 92703
 
-step Hearth to Valanaar
-  hearth "Valanaar"
-
 step Valanaar turn-ins
   turnin 92703                                -- Alvarion Windfield
   turnin 93317                                -- Nyalah Brightfire, inside

@@ -118,13 +118,7 @@ step Lucien Tosselwrench
   zone Badlands
   accept 716 optional                 -- Lucien Tosselwrench, beside Lotwil
   turnin 716 optional                 -- only if you carry Patterned Bronze Bracers (a blacksmith's craft)
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  zone Badlands
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 
@@ -215,9 +209,6 @@ step Karnitol's Chest
 step Claim Rackmore's Treasure!
   accept 6161 only Dwarf
   collect 15878 quest 6161.1 @34.7,33.5 map 1443 only Dwarf -- Underwater
-
-step Hearth to Nijel's Point
-  hearth "Nijel's Point"
 
 step Nijel's Point
   tip Follow the road north to Nijel's Point.

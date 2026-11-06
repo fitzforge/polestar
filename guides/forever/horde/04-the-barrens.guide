@@ -623,13 +623,9 @@ step Gann Stonespire
 step Twitching Antennae
   zone The Barrens
   only Warrior
-  tip The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then hearth to Camp Taurajo straight away.
+  tip The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo.
   tip Careful: Silithid Swarmers (level 21-22) cast Silithid Swarm both in and out of combat, which brings several small adds. Silithid Creepers (level 20-21) periodically cast Silithid Creeper Egg in combat, which spawns extra adds.
   collect 7119 quest 1824.1           -- Twitching Antennae from the silithid
-
-step Hearth to Camp Taurajo
-  zone The Barrens
-  hearth "Camp Taurajo"
 
 # ---------------------------------------------------------------- Back north
 

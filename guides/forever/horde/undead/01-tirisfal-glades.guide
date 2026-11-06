@@ -211,9 +211,6 @@ step Calvin Montague
   complete 590 @38.2,56.8             -- Beat Calvin in the duel
   turnin 590
 
-step Hearth to Gallows' End Tavern
-  hearth "Gallows' End Tavern"
-
 step Brill
   turnin 5481                         -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
   accept 5482
@@ -485,9 +482,6 @@ step Paladin: Bandarion Keep
   talk 246393                         -- Jorin Croge
   talk 246394                         -- Ander Solliden
   turnin 91294                        -- Danitha Morr, inside the keep
-
-step Hearth to Gallows' End Tavern
-  hearth "Gallows' End Tavern"
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
 # a class step waits for the next step the route names, and after the Brill

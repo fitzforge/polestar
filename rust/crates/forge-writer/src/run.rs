@@ -293,6 +293,16 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			}
 		}
 	}
+	// (No `hearth` goal in a written guide: the arrow gives the hearth advice, 0.3.3. Last, so every
+	// pass before, the travel repair and check included, still sees the route's hearth legs.)
+	for rel in &written {
+		if let Some(t) = tree.get(rel) {
+			let t2 = crate::post::no_hearths(t);
+			if t2 != *t {
+				tree.insert(rel.clone(), t2);
+			}
+		}
+	}
 	// (The seed's notes above each written guide's first step go, once every pass has run.)
 	for rel in &written {
 		if let Some(t) = tree.get(rel) {

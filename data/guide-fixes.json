@@ -609,6 +609,24 @@
 				}
 			],
 			"pr": 953
+		},
+		{
+			"id": "barrens-antennae-no-hearth",
+			"faction": "Horde",
+			"at": {
+				"quest": 1824,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "The antennae vanish fifteen minutes after they drop, so gather them now, on the way back north: kill the Silithid Swarmers and Creepers at the Field of Giants' mounds until you have five, then take them straight to Ruga Ragetotem in Camp Taurajo.",
+			"note": "Trial at the Field of Giants (Warrior): the seed tip ended 'then hearth to Camp Taurajo straight away'. The guides no longer tell the player to hearth (the arrow gives that advice, Polestar 0.3.3); the tip keeps the fifteen-minute warning and names where the antennae go (turnin 1824 to Ruga Ragetotem, the step after).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "Fitz 2026-11-06: hearth advice is the arrow's, not the guide's"
+				}
+			],
+			"pr": 969
 		}
 	]
 }

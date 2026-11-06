@@ -454,6 +454,16 @@ be compared byte for byte with the old JavaScript writer.
   route does not name are not written at all, nor a v1 step left with only
   such lines and notes.
 - Hearths and duplicate `only` lines are fixed per audience (see the layout above).
+- **No hearth goals** (Polestar 0.3.3, Fitz: telling the player to hearth is
+  the arrow's job, not the guide's). The route still plans with the
+  Hearthstone, and every pass above sees its hearth legs, but the last pass of
+  the guides stage (after the travel repair, the travel check and the engine
+  rules) takes every `hearth` line out of the written guides. A step left with
+  no goal goes; a `Hearth to X` step that keeps other work is named `X`; R3's
+  walk `when !bound "X"` is for everyone; a tip's sentence "Hearth to X." goes,
+  and "Hearth to X and cross to Elder Rise." keeps "Cross to Elder Rise.". The
+  step after the leg leads straight to where it lands, and the arrow says
+  whether to hearth there. `sethome` (the bind) stays.
 - A tip or note carried from a guide played at riding level (40) into one
   played below it no longer tells you to ride: "ride" becomes "head", "riding"
   becomes "walking". Rides on boats, zeppelins, trams and flights stay, and so
@@ -884,7 +894,9 @@ they matter to the player. They are not the judge's honest rules.
   written: the addon holds it only for a player who took the quest, and
   `optional` let one who did walk past its NPC (Harvesting the Harvesters at
   Ozwin, #298). A hearth to an inn bound in an earlier guide gets
-  `when bound "<inn>"`, and a walk there `when !bound "<inn>"` follows as a fallback.
+  `when bound "<inn>"`, and a walk there `when !bound "<inn>"` follows as a
+  fallback (the no-hearth pass then takes the hearth step out, and the walk is
+  for everyone).
   A way step for everyone into the zone of a `when onquest` step right after
   it (past other way steps) becomes that step's first goal, so only those on
   the quest walk it (the walk into Ashenvale for Forest Song after the flight
@@ -1020,7 +1032,7 @@ fixed patterns:
 | training stop | step `Class trainer`; `train class` |
 | zone change | `zone <Zone>` |
 | flight | `goto x,y "<Name> flight master"` (when not standing there), `fly "<Destination>"` |
-| hearth | `hearth "<Inn>"`; with R3: step `Hearth to <Inn>` + `when bound "<Inn>"`, then step `To <Inn>` + `when !bound "<Inn>"` + `goto` |
+| hearth | none written (the no-hearth pass above); the step after leads to where the leg lands. R3's walk: step `To <Inn>` + `goto`, for everyone |
 | ride | `goto x,y "<Boat or zeppelin>"` at the dock |
 | arrival | step `Inn and flight master`; `getfp "<Name>"` |
 | engine rules | `along until <label>`, `label <label>`, `when onquest Q`, `use <item> quest Q.N`, `when group Q`, `task "Emote at <target>"` / `task "Wait for <target>"`, `cast <spell> "<target>"`, `abandon Q`, `skipto <label> when !onquest Q` |

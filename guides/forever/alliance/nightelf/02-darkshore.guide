@@ -93,9 +93,8 @@ step Bashal'Aran
   accept 957
   accept 4723                                 -- Beached Sea Creature
 
-step Hearth to Auberdine
+step Auberdine
   turnin 958
-  hearth "Auberdine" only Human,Dwarf,Gnome,Skyborne
   turnin 984                                  -- Terenthis
   accept 985
 
@@ -185,10 +184,6 @@ step Remy "Two Times"
   turnin 40
   accept 35
 
-step Hearth to Auberdine
-  only NightElf
-  hearth "Auberdine"
-
 step Darkshore
   only NightElf
   zone Darkshore
@@ -203,8 +198,7 @@ step Bashal'Aran
   zone Darkshore
   turnin 957                                  -- Asterion
 
-step Hearth to Auberdine
-  hearth "Auberdine" only Human,Dwarf,Gnome,Skyborne
+step Auberdine
   vendor nearest
 
 step Darkshore

@@ -211,9 +211,6 @@ step Sven's Camp
   turnin 230                              -- Sven Yorgen
   accept 262
 
-step Hearth to Darkshire
-  hearth "Darkshire"
-
 step Back to Darkshire
   tip Head back east to Darkshire.
   turnin 262                              -- Madame Eva, inside

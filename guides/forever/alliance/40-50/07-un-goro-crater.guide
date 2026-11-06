@@ -180,12 +180,7 @@ step Marshal's Refuge
   accept 4321
   turnin 4321
 
-step Hearth to Stoutlager Inn
-  when bound "Stoutlager Inn"
-  hearth "Stoutlager Inn"
-
 step To Stoutlager Inn
-  when !bound "Stoutlager Inn"
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
 

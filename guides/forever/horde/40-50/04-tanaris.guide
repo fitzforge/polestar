@@ -155,9 +155,6 @@ step Scrimshank's gear
   tip Careful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds.
   collect 8593 quest 10.1 @56.0,71.2  -- Below ground
 
-step Hearth to Gadgetzan
-  hearth "Gadgetzan"
-
 step OOX-17/TN
   tip Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to Steamwheedle Port; its reward waits with Oglethorpe in Booty Bay.
   tip Careful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44.

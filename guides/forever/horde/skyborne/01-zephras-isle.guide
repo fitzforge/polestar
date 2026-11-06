@@ -349,9 +349,6 @@ step Standing Our Ground
   turnin 92693
   accept 92703
 
-step Hearth to Valanaar
-  hearth "Valanaar"
-
 step Alvarion and Riaani
   turnin 92703                        -- Alvarion Windfield
 
@@ -589,9 +586,6 @@ step Confront Lorthuna
   tip Take the Portal to Rohashi Spires in the shrine up to the heights. Fight east along the ledge to the Peacekeepers at its end, ride the wind current up to the upper terrace and tell Elaadrin you are ready. Leave the Portal to Valanaar up there alone until Rohash has withdrawn; then it takes you straight back to town.
   goto 74.9,53.0
   complete 92646 @74.8,53.4
-
-step Hearth to Valanaar
-  hearth "Valanaar"
 
 step The Fate of Zephras
   turnin 92646                        -- Ayessa Dawnsinger

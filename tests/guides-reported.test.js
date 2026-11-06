@@ -558,10 +558,10 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Kh
 	assert.ok(eric < tharek && tharek < tannok, 'Eric\'s campfire, then Tharek\'s forge, then inside');
 	const inside = list.filter(({ step }) => step === list[tannok].step);
 	assert.equal(inside[inside.length - 1].goal.t, 'train', 'class training is the last goal of the distillery visit');
-	// The bind is made on a Kharanos visit (the first or the return), before the hearth that needs it.
+	// The bind is made on a Kharanos visit (the first or the return), for the arrow's hearth back to it.
 	const bind = at(list, 'sethome (the Thunderbrew Distillery)', (g) => g.t === 'sethome');
 	assert.ok(located(list[bind]), 'the bind leads to the innkeeper');
-	assert.ok(tannok < bind && bind < at(list, 'hearth', (g) => g.t === 'hearth'), 'bound in Kharanos before the hearth back to it');
+	assert.ok(tannok < bind, 'bound in Kharanos');
 });
 
 for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in`, { skip }, () => {
@@ -1885,39 +1885,28 @@ test("Fitz's playtest: typed coordinates are on the zone of every character who 
 	assert.deepEqual(offenders, [], 'typed coordinates on a zone some of their characters are not in');
 });
 
-// --- Hearths on another guide's bind (#171): Hillsbrad's "Hearth to Tarren
-// Mill" relied on the bind the Stonetalon guide makes, so a player who
-// skipped it, or started Hillsbrad from the picker, was told to hearth with a
-// Hearthstone set to Camp Taurajo. A guide that hearths to an inn binds there
-// itself first, on a step everyone plays (a goal that ticks at once for a
-// player already bound). The guides below never pass the inn before their
-// hearth, so a bind there would add a detour; they still rely on the guide
-// before them.
-const HEARTH_ON_AN_EARLIER_BIND = new Set([
-	// Enters the Badlands from Ironband's dig site in south-east Loch Modan; Thelsamar is off the way.
-	'forever/alliance/30-40/06-badlands.guide Stoutlager Inn',
-	// Starts at the Broken Pillar and goes down into the crater; Gadgetzan is to the north.
-	'forever/horde/50-60/01-un-goro-crater.guide Gadgetzan',
-]);
-
-test('#171: every hearth is to an inn the guide binds at first', { skip }, () => {
+// --- Hearth advice is the arrow's (Fitz, 0.3.3): the guides never tell the
+// player to hearth. The route still plans its hearth legs and the guide binds
+// (`sethome`), but the step after leads straight to the next stop; whether to
+// hearth there is the arrow's call, by the Hearthstone's cooldown and where it
+// is set. Westfall's "Hearth to Sentinel Hill" after Moonbrook was one of 64.
+// (This replaces #171's check that every hearth went to an inn the guide bound
+// at: there are no hearths left to check.)
+test('Fitz (0.3.3): no guide of ours has a hearth goal; Westfall walks from Moonbrook back to Sentinel Hill', { skip }, () => {
 	const offenders = [];
 	for (const guide of allGuides()) {
-		const bound = new Set();
-		// The characters a goal is for (its own `only`, else its step's): a bind under `only` covers a
-		// hearth for the same characters.
-		const whose = ({ step, goal }) => JSON.stringify(goal.only || step.only || null);
 		for (const { step, goal } of goals(guide)) {
-			if (goal.t === 'sethome') bound.add(everyone({ step, goal }) ? goal.location : `${goal.location} ${whose({ step, goal })}`);
-			const key = `${guide} ${goal.location}`;
-			// A hearth only a player bound there sees (`when bound "<inn>"`, the walk there for the others
-			// after it) is the guide's own guard for a bind made in an earlier guide.
-			const guarded = (step.when || []).some((p) => p.k === 'bound' && !p.neg && p.name === goal.location);
-			const isBound = bound.has(goal.location) || bound.has(`${goal.location} ${whose({ step, goal })}`);
-			if (goal.t === 'hearth' && !guarded && !isBound && !HEARTH_ON_AN_EARLIER_BIND.has(key)) offenders.push(`${key} (step ${step.title})`);
+			if (goal.t === 'hearth') offenders.push(`${guide} (step ${step.title})`);
 		}
 	}
-	assert.deepEqual(offenders, [], 'hearths to an inn the guide has not bound at');
+	assert.deepEqual(offenders, [], 'hearth goals');
+	const list = goals(WESTFALL);
+	assert.ok(!list.some(({ step }) => /^Hearth to/.test(step.title)), 'no "Hearth to" step');
+	const moonbrook = list.findIndex(({ step }) => step.title === 'Moonbrook and the Defias hills');
+	assert.ok(moonbrook >= 0, 'the Moonbrook step is in the guide');
+	const next = list.slice(moonbrook).find(({ step }) => step !== list[moonbrook].step);
+	assert.equal(next.step.title, 'Back to Sentinel Hill', 'the step after Moonbrook leads back to Sentinel Hill');
+	assert.ok(list.some(({ goal }) => goal.t === 'sethome' && goal.location === 'Sentinel Hill'), 'the bind at Sentinel Hill stays');
 });
 
 // An Enticing Offer: the quest log lists the blood before the petals, so each
@@ -2773,7 +2762,6 @@ test(`${ASHENVALE}: Ioney's report (#617): the grind to 28 comes after the Menet
 	for (const quest of [306, 484, 470, 98282]) {
 		assert.ok(at(list, `turnin ${quest}`, is('turnin', quest)) < grind, `the Menethil hand-in ${quest} counts towards 28`);
 	}
-	assert.ok(at(list, 'hearth to Menethil', (g) => g.t === 'hearth' && g.location === 'Deepwater Tavern') < grind, 'the grind is after the hearth');
 	assert.ok(grind < at(list, 'accept 1179', is('accept', 1179)), 'level 28 before Pilot Longbeard');
 });
 

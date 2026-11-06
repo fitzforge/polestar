@@ -256,12 +256,7 @@ step J.D. Collie
   accept 4321
   turnin 4321
 
-step Hearth to Gadgetzan
-  when bound "Gadgetzan"
-  hearth "Gadgetzan"
-
 step To Gadgetzan
-  when !bound "Gadgetzan"
   zone Tanaris
   goto 52.5,27.9 "Gadgetzan"
 
@@ -470,9 +465,6 @@ step Zaeldarr the Outcast
 step Pestilent Scar
   tip Careful: Eye of Naxxramas goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min.
   collect 12840 quest 5510 optional
-
-step Hearth to Light's Hope Chapel
-  hearth "Light's Hope Chapel"
 
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen

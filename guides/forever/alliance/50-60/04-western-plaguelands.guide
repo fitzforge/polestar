@@ -470,9 +470,6 @@ step Rabine Saturna
   accept 5527
   accept 1124                         -- For Silithus: keep it
 
-step Hearth to Ratchet
-  hearth "Ratchet"
-
 step Fly to Gadgetzan
   zone The Barrens
   goto 63.1,37.1 "Ratchet flight master"

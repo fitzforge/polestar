@@ -217,9 +217,6 @@ step Aerie Peak
   goto 14.3,48.1 "Aerie Peak well"
   complete 7843
 
-step Hearth to Revantusk Village
-  hearth "Revantusk Village"
-
 step Revantusk Village
   tip The next guide starts here, at Revantusk Village.
   turnin 7843                           -- Otho Moji'ko

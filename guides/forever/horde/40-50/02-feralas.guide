@@ -397,9 +397,6 @@ step Ruins of Isildien: kill these as you meet them
   kill 5236 quest 2980.1
   collect 9371 quest 2979.1
 
-step Hearth to Camp Mojache
-  hearth "Camp Mojache"
-
 step Camp Mojache
   turnin 2974                           -- Krueg Skullsplitter
   accept 2976                           -- for Orgrimmar, around level 45

@@ -77,9 +77,6 @@ step The Shady Rest Inn
   accept 1253
   accept 1252 @29.8,48.2              -- Theramore Guard Badge
 
-step Hearth to Theramore Isle
-  hearth "Theramore Isle"
-
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
@@ -425,9 +422,6 @@ step Ruins of Zul'Mamwe: kill these as you meet them
   tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
   collect 1524 quest 209              -- Skullsplitter Tusk
   collect 3917 quest 600              -- Singing Blue Crystal
-
-step Hearth to Booty Bay
-  hearth "Booty Bay"
 
 step Booty Bay
   turnin 611                          -- Baron Revilgaz

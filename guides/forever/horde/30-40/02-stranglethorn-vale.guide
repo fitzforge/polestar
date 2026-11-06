@@ -259,9 +259,6 @@ step Nesingwary's camp
   accept 195
   turnin 188                          -- Ajeck Rouack
 
-step Hearth to Booty Bay
-  hearth "Booty Bay"
-
 step Fly to Booty Bay
   tip Head south down the coast to Grom'gol and fly to Booty Bay.
   turnin 575                          -- Drizzlik, inside
