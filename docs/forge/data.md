@@ -327,7 +327,7 @@ single-file form, and a checkout without the folder still has its
 
 | Section (file) | Keyed by | What an entry can do |
 |---|---|---|
-| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, …); `escort`: `true` or `false` when the quest's own text gets it wrong |
+| `quests` | quest ID | `set`: replace fields (races, classes, prerequisites, objectives, …); `escort`: `true` or `false` when the quest's own text gets it wrong; `remove: true`, alone: the quest is not in the game, so it leaves the data and every other quest's link to it (`pre`, `preAny`, `preAll`, `excl`, `next`, breadcrumbs, `children`, `parent`) goes |
 | `npcs`, `objects` | NPC or object ID | `set`: replace fields (an elite or rare `rank`; an object's `lock: { item }`, the key that opens it); `addSpawns`: `{ "<uiMapID>": { f, pts } }` adds a map's spawn points, or replaces that map's points |
 | `items` | item ID | `removeDrops`: `{ npc: [ids], object: [ids] }`; `removeVendors`: `[ids]` (drop wrong sources the merge kept) |
 | `mechanics` | quest ID | `params`: `[{ kind, … }]` adds or replaces a mechanic (for example `delayed-offer` with `after`, `npc`, `sec`); `steps`: `{ "<n>": { set } }` changes step `n` |

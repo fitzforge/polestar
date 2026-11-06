@@ -726,6 +726,20 @@
 		},
 		"note": "Nether-lace Garment (Kil'hala, after 1945) is open to every Horde Mage: Orc, Undead and Troll. Forever's server sets no race limit (raceMask all, builds 70205-70450) and Forever's quest page sets none (reqrace 0); the merged data had Classic's Undead and Troll."
 	},
+	"2358": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#948: after Alther's Mill (2282) was handed in, Arantir shows no quest mark; the maintainer confirmed the quest is not in the game"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever server data: never seen offered (sniffed false)"
+			}
+		],
+		"note": "Horns of Nez'ra (Rogue, Arantir in Lakeshire) is not in the game on Forever: Arantir does not offer it after Alther's Mill, and it is not on Forever's Rogue class quest list. The quest leaves the data; its item stays in the item tables but drops only to a player on the quest."
+	},
 	"2523": {
 		"set": {
 			"start": {

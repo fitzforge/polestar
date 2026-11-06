@@ -3154,3 +3154,12 @@ test("Snowiee's report (#912): a class the training stop cannot train trains in 
 		assert.ok(train < at(mine, `${guide}: the way out of town`, before), `${guide}: the ${cls}s train before the way leaves the town`);
 	}
 });
+
+// Erá's report (#948): Arantir offers no Horns of Nez'ra (2358) after Alther's
+// Mill; the quest is not in the game on Forever. The Rogue's Certificate of
+// Thievery ends when Lucius takes the token back.
+test("Erá's report (#948): the Rogue's Certificate of Thievery ends at Lucius, with no Horns of Nez'ra", { skip }, () => {
+	const list = goals('forever/class/rogue/certificate-of-thievery.guide');
+	assert.equal(list.findIndex(({ goal }) => goal.quest === 2358), -1, 'no goal for Horns of Nez\'ra');
+	assert.ok(is('turnin', 2282)(list[list.length - 1].goal), 'the guide ends with Alther\'s Mill handed in to Lucius');
+});
