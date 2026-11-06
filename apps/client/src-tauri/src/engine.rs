@@ -1034,14 +1034,20 @@ fn old_recorder(installed: Option<&str>, latest: Option<&str>) -> (&'static str,
 	}
 }
 
+/// The game's own executables (WoW: Forever runs as Wow.exe). Matched whole, so another program
+/// whose name starts with "wow", such as WowUp-CF.exe, is not the game.
+const GAME_EXES: &[&str] = &["wow.exe", "wowt.exe", "wowb.exe", "wowclassic.exe", "wowclassict.exe", "wowclassicb.exe"];
+
 /// Is World of Warcraft running? (Under Wine the game shows up as its .exe.)
 fn game_running(system: &mut sysinfo::System) -> bool {
 	use sysinfo::{ProcessRefreshKind, ProcessesToUpdate};
 	system.refresh_processes_specifics(ProcessesToUpdate::All, true, ProcessRefreshKind::nothing());
-	system.processes().values().any(|p| {
-		let name = p.name().to_string_lossy().to_ascii_lowercase();
-		(name.starts_with("wow") && name.ends_with(".exe")) || name.starts_with("world of warcraft")
-	})
+	system.processes().values().any(|p| is_game_process(&p.name().to_string_lossy()))
+}
+
+fn is_game_process(name: &str) -> bool {
+	let name = name.to_ascii_lowercase();
+	GAME_EXES.contains(&name.as_str()) || name.starts_with("world of warcraft")
 }
 
 fn status(state: &State, game: &GameView, pending: u64, now: i64) -> StatusView {
@@ -1306,6 +1312,17 @@ fn is_temporary(status: reqwest::StatusCode) -> bool {
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	#[test]
+	fn only_the_game_counts_as_the_game() {
+		for name in ["Wow.exe", "WowClassic.exe", "WowT.exe", "World of Warcraft"] {
+			assert!(is_game_process(name), "{name}");
+		}
+		// Addon managers and other tools named after the game are not the game.
+		for name in ["WowUp-CF.exe", "WowUp.exe", "wowup.exe", "Battle.net.exe", "polestar-client.exe"] {
+			assert!(!is_game_process(name), "{name}");
+		}
+	}
 
 	#[test]
 	fn kept_chunks_group_into_uploads_newest_first() {
