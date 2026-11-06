@@ -66,14 +66,13 @@ step Cenarion Hold
   turnin 8277                         -- Beetix Ficklespragg
   accept 8278
 
-step On the way
-  along until q8278
-  collect 20375 quest 8278.1
-  collect 20377 quest 8278.3
-
 step Hive in the Tower
   tip Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the Encrusted Silithid Object.
   collect 17346 quest 1126.1
+
+step Stonelash Flayer Stinger on the way
+  along until q8278
+  collect 20375 quest 8278.1
 
 step The Spirits of Southwind
   collect 22201 quest 5527.1          -- Inside
@@ -84,6 +83,7 @@ step Hermit Ortell
   tip Ride south-east to Ortell's Hideout under the Un'Goro cliffs.
   turnin 8285                         -- Below ground
   accept 8279
+  collect 20377 quest 8278.3                  -- Rock Stalker Fang from Rock Stalker, 130 yd south-west
 
 step Dredge Crushers and Pincers
   label q8278

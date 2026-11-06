@@ -10,11 +10,6 @@ next forever/alliance/50-60/04-western-plaguelands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 
-step Moontouched Feather on the way
-  along until q978
-  when onquest 978
-  collect 12383 quest 978.1
-
 step Into Winterspring
   zone Winterspring
   goto 28.0,34.6 "Into Winterspring"
@@ -36,6 +31,7 @@ step Everlook
   accept 6604                         -- Harlo Wigglesworth
   accept 6603                         -- Meggi Peppinrocker walks around Everlook: look inside the circle on the map
   accept 3783                         -- Umi Rumplesnicker
+  collect 12383 quest 978.1                   -- Moontouched Feather, 110 yd north
 
 step Wynd Nightchaser
   turnin 5249
@@ -54,7 +50,6 @@ step Ice Thistle Hills: kill these as you meet them
   collect 12444 quest 4809.1          -- Uncracked Chillwind Horn
 
 step The Ruins of Kel'Theril
-  label q978
   tip The ruins lie around the frozen lake south of Starfall Village. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam.
   collect 12897 quest 5245.2          -- Second Relic Fragment
   collect 12383 quest 978.1           -- Moontouched Feather
@@ -125,12 +120,11 @@ step Winterfall Village
 step Optional: Sunken Temple
   note Short of level 54 after the yetis? Running the Sunken Temple (50-54) instead of grinding gets you there faster in a group. Come back to Everlook afterwards.
 
-step Pristine Yeti Horn on the way
-  along until q977
-  collect 12367 quest 977.1 -- Pristine Yeti Horn along the way to Everlook
+step Pristine Yeti Horns
+  tip Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that.
+  collect 12367 quest 977.1
 
 step Everlook
-  label q977
   turnin 977
   accept 5163
   use 12928 @61.5,38.6 "Umi's Mechanical Yeti" -- On Legacki, by the inn

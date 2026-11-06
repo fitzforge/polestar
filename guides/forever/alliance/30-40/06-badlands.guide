@@ -85,10 +85,6 @@ step Agmond's End: kill these as you meet them
   collect 7848 quest 2500             -- Rock Elemental Shard
   collect 4626 quest 710              -- Small Stone Shard
 
-step Stonevault Bonesnapper on the way
-  along
-  kill 2893 quest 739
-
 step Lotwil Veriatus
   turnin 710
   accept 711
@@ -106,6 +102,7 @@ step Theldurin the Lost
   tip Head south to Agmond's End.
   turnin 709
   accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
+  kill 2893 quest 739                         -- Stonevault Bonesnapper, 130 yd north
 
 step Rock Elementals
   tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west.

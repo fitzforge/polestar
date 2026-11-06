@@ -119,10 +119,6 @@ step Auberdine
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 729                                  -- Archaeologist Hollee
 
-step Fine Crab Chunks on the way
-  along until q1138
-  collect 12237 quest 1138
-
 # ---------------------------------------------------------------- The beach
 
 step The beach
@@ -278,6 +274,7 @@ step Cliffspring Falls
   collect 15845 quest 6122.1 only NightElf,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727                                 -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle
+  collect 12237 quest 1138                    -- Fine Crab Chunks from Encrusted Tide Crawler and Reef Crawler, by this stop
 
 step Bashal'Aran
   turnin 957 only Dwarf,Gnome,Human,Skyborne -- Asterion
@@ -314,7 +311,6 @@ step Bashal'Aran
   accept 1002
 
 step Darkshore: kill these as you meet them
-  label q1138
   zone Darkshore
   tip Moonstalkers prowl the hills between Bashal'Aran and the tower. Buzzbox 323 stands on the hill west of the tower.
   collect 5413 quest 1002                     -- Moonstalker Fangs
@@ -323,10 +319,6 @@ step Darkshore: kill these as you meet them
 step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
   accept 1003
-
-step Grizzled Scalp on the way
-  along until q1003
-  collect 5414 quest 1003
 
 step The cave and the Den Mother
   tip The cave lies south of the falls: Scaber Stalks grow all through it, the Death Cap at the very back. The Den Mother lairs in the hills south of the falls.
@@ -372,7 +364,6 @@ step Lunar Fungus and Earthroot
   collect 15851 x12 quest 6123.2 only NightElf -- Lunar Fungus
 
 step The Grove of the Ancients
-  label q1003
   tip Grizzled Thistle Bears roam the hills around the Grove; Buzzbox 525 stands west of it among them.
   collect 5414 quest 1003 @41.1,81.3 map 1439 -- Grizzled Scalps
   turnin 1003                                 -- Buzzbox 525
@@ -419,10 +410,6 @@ step The Grove of the Ancients
   zone Darkshore
   accept 98013                                -- Arbal
 
-step On the way
-  along until q98013
-  kill 2181 quest 98013
-  kill 2182 quest 98013
 step Auberdine
   zone Darkshore
   tip Follow the road north.
@@ -441,6 +428,11 @@ step Auberdine
   vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
+
+step On the way
+  along until q98013
+  kill 2181 quest 98013
+  kill 2182 quest 98013
 
 step The Tower of Althalaxx
   tip Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.

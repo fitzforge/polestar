@@ -108,7 +108,27 @@ fn idx(g: &[String], l: &str) -> usize {
 #[test]
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r1_gloom_weed_along_the_road_to_brill() {
-	let g = guide("a", "Undead", "Horde", "Tirisfal Glades", None, &["step Gordo", "  accept 5481", "  collect 12737 quest 5481.1", "", "step Brill", "  turnin 5481"]);
+	let g = guide(
+		"a",
+		"Undead",
+		"Horde",
+		"Tirisfal Glades",
+		None,
+		&[
+			"step Gordo",
+			"  accept 5481",
+			"  collect 12737 quest 5481.1",
+			"",
+			"step Road",
+			"  goto 48.7,54.9 \"Road\"",
+			"",
+			"step Road east",
+			"  goto 56.19,50.83 \"Road east\"",
+			"",
+			"step Brill",
+			"  turnin 5481",
+		],
+	);
 	let before = run(&[("a", g.clone())], "Undead", "Horde", &off(), &FxHashMap::default());
 	assert!(!before["a"].iter().any(|l| l.contains("along")));
 	let after = run(&[("a", g)], "Undead", "Horde", &Opts { along: true, ..off() }, &FxHashMap::default());
@@ -169,6 +189,110 @@ fn r1_work_walked_past_before_its_step_is_listed_from_the_accept() {
 	let held = run(&[("a", g2)], "Orc", "Horde", &Opts { along: true, ..off() }, &FxHashMap::default());
 	forge_sim::fixes::set(serde_json::json!({}));
 	assert!(!held["a"].iter().any(|l| l.contains("along")), "{}", held["a"].join("\n"));
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r1_along_step_opens_where_its_mobs_come_within_reach() {
+	// Fitz: Darkshore's Fine Crab Chunks (Fruit of the Sea) were listed from Gubber Blump's accept in
+	// Auberdine, but only the Reef and Encrusted Tide Crawlers of the north coast and the far south drop
+	// them; the beach south of Auberdine, the next stop, has none. Listed from the first step that comes
+	// within reach of a crab: the walk past a Reef Crawler.
+	let r = reference();
+	let sp = r.data.npcs.get("2235").get("spawns").get("1439").get("pts").at(9);
+	let (x, y) = (sp.at(0).num(), sp.at(1).num());
+	assert!(y < 30.0, "a Reef Crawler of the north coast: {x},{y}");
+	let body: Vec<String> = vec![
+		"step Auberdine".into(),
+		"  accept 1138".into(),
+		"".into(),
+		"step The beach".into(),
+		"  goto 36.4,50.9 \"Beach\"".into(),
+		"".into(),
+		"step Back in Auberdine".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step Walk".into(),
+		format!("  goto {:.2},{:.2} \"West\"", x - 1.0, y),
+		"".into(),
+		"step Walk on".into(),
+		format!("  goto {:.2},{:.2} \"East\"", x + 1.0, y),
+		"".into(),
+		"step Far".into(),
+		"  goto 40.0,60.0 \"South\"".into(),
+		"".into(),
+		"step Crabs".into(),
+		"  collect 12237 quest 1138.1".into(),
+		"".into(),
+		"step Gubber Blump".into(),
+		"  turnin 1138".into(),
+	];
+	let body: Vec<&str> = body.iter().map(String::as_str).collect();
+	let g = guide("a", "Human", "Alliance", "Darkshore", None, &body);
+	let after = run(&[("a", g)], "Human", "Alliance", &Opts { along: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	let s = idx(a, "step Fine Crab Chunks on the way");
+	assert!(idx(a, "step Back in Auberdine") < s && s < idx(a, "step Walk"), "{}", a.join("\n"));
+	assert_eq!(a[s + 1], "  along until q1138");
+	assert_eq!(a[idx(a, "step Crabs") + 1], "  label q1138");
+}
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn r1_a_list_whose_walk_does_not_pass_its_work_is_a_goal_at_the_stop_with_most_of_it() {
+	// Fitz in game: Darkshore's Fine Crab Chunks were listed along the way for ten stops of which three
+	// had crabs, six walks of nineteen passing one. A list is along only when half its walks (at least
+	// two) pass its work; else the chunks are a goal at the stop with most crabs near, saying where.
+	let r = reference();
+	let sp = r.data.npcs.get("2235").get("spawns").get("1439").get("pts").at(9);
+	let (x, y) = (sp.at(0).num(), sp.at(1).num());
+	let body: Vec<String> = vec![
+		"step Auberdine".into(),
+		"  accept 1138".into(),
+		"".into(),
+		"step The beach".into(),
+		"  goto 36.4,50.9 \"Beach\"".into(),
+		"".into(),
+		"step Back in Auberdine".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step Cliffspring".into(),
+		format!("  goto {:.2},{:.2} \"West\"", x - 1.0, y),
+		"".into(),
+		"step Cliffspring east".into(),
+		format!("  goto {:.2},{:.2} \"East\"", x + 1.0, y),
+		"".into(),
+		"step Ameth'Aran".into(),
+		"  goto 43.0,58.0 \"Ameth'Aran\"".into(),
+		"".into(),
+		"step Bashal'Aran".into(),
+		"  goto 44.6,38.6 \"Bashal'Aran\"".into(),
+		"".into(),
+		"step Auberdine again".into(),
+		"  goto 37.4,40.1 \"Auberdine\"".into(),
+		"".into(),
+		"step The Grove".into(),
+		"  goto 43.5,76.0 \"Grove\"".into(),
+		"".into(),
+		"step Auberdine once more".into(),
+		"  goto 37.4,44.0 \"Auberdine\"".into(),
+		"".into(),
+		"step Crabs".into(),
+		"  collect 12237 quest 1138.1".into(),
+		"".into(),
+		"step Gubber Blump".into(),
+		"  turnin 1138".into(),
+	];
+	let body: Vec<&str> = body.iter().map(String::as_str).collect();
+	let g = guide("a", "Human", "Alliance", "Darkshore", None, &body);
+	let after = run(&[("a", g)], "Human", "Alliance", &Opts { along: true, ..off() }, &FxHashMap::default());
+	let a = &after["a"];
+	assert!(!a.iter().any(|l| l.contains("along") || l.contains("label q1138")), "{}", a.join("\n"));
+	// (At the crawler: the east point, with more of them within 200 yd than the west one.)
+	let s = idx(a, "step Cliffspring east");
+	let goal = a[s + 1..].iter().take_while(|l| !l.is_empty()).find(|l| l.starts_with("  collect 12237 quest 1138")).unwrap_or_else(|| panic!("the chunks at Cliffspring:\n{}", a.join("\n")));
+	assert!(goal.contains("-- Fine Crab Chunks from Reef Crawler"), "{goal}");
+	assert_eq!(a.iter().filter(|l| l.starts_with("  collect 12237")).count(), 2, "and still at Crabs, its own step: {}", a.join("\n"));
 }
 
 #[test]
@@ -363,6 +487,12 @@ fn r1_onward_along_step_for_a_quest_taken_earlier_goes_before_its_stop() {
 			"step Weed",
 			"  goto 43.1,54.7 \"Gordo\"",
 			"  collect 12737 quest 5481.1",
+			"",
+			"step Road",
+			"  goto 48.7,54.9 \"Road\"",
+			"",
+			"step Brill road",
+			"  goto 56.19,50.83 \"Brill road\"",
 			"",
 			"step Brill",
 			"  turnin 5481",

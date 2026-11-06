@@ -71,13 +71,11 @@ step Revantusk Village
   when group 7816
   accept 7816
 
-step On the way
+# ---------------------------------------------------------------- The north coast
+
+step Silvermane Stalker on the way
   along until q7828
   kill 2926 quest 7828.1
-  kill 4466 quest 7844.1
-  kill 4467 quest 7844.2
-
-# ---------------------------------------------------------------- The north coast
 
 step The Overlook Cliffs: kill these as you meet them
   zone The Hinterlands
@@ -104,6 +102,11 @@ step Cortello's Riddle
   turnin 626                          -- Underwater
 
 # ---------------------------------------------------------------- The temples and the central hills
+
+step On the way
+  along until q7828
+  kill 4466 quest 7844.1
+  kill 4467 quest 7844.2
 
 step Shaol'watha: kill these as you meet them
   label q7828

@@ -152,10 +152,6 @@ step On the way
   collect 4807 quest 766.4
   collect 4809 quest 771.2
 
-step Well Stone on the way
-  along until q771
-  collect 4808 quest 771.1
-
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
   complete 96661 @44.92,61.67 map 1412 live
@@ -171,6 +167,7 @@ step Poison Water
   collect 4759 quest 748.2            -- Plainstrider Talon
   collect 4804 quest 766.1
   collect 4809 quest 771.2
+  collect 4808 quest 771.1                    -- Well Stone, 170 yd east
 
 step Bloodhoof Village
   train class
@@ -190,7 +187,6 @@ step Mull Thunderhorn
 # ---------------------------------------------------------------- Thunderhorn Water Well
 
 step Thunderhorn Water Well
-  label q771
   tip The well lies north of the village. Well Stones sit around the well, Ambercorn lies under the trees nearby. Kill wolves, cougars, plainstriders and swoops on the way for Mazzranache and Swoop Hunting; the plainstriders also drop the Tender Strider Meat for Kyle.
   collect 4809 quest 771.2            -- Ambercorn
   collect 4808 quest 771.1

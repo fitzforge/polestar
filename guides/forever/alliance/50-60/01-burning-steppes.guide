@@ -20,11 +20,8 @@ step Shadowsong Shrine
   getfp "Talrendis Point"
   accept 5535                         -- Loh'atu
   accept 5536
-
-step On the way
-  along until q5535
-  kill 6116 quest 5535.1 -- Highborne Apparition along the way to Shadowsong Shrine
-  kill 6117 quest 5535.2 -- Highborne Lichling along the way to Shadowsong Shrine
+  kill 6116 quest 5535.1              -- Highborne Apparition
+  kill 6117 quest 5535.2              -- Highborne Lichling
 
 step Azshara: kill these as you meet them
   zone Azshara
@@ -34,7 +31,6 @@ step Azshara: kill these as you meet them
   kill 6125 quest 5536.1              -- Haldarr Satyr
 
 step Shadowsong Shrine
-  label q5535
   turnin 5535                         -- Loh'atu
   turnin 5536
 

@@ -53,7 +53,6 @@ step On the way
   along until crossroads
   kill 3267 quest 871.1
   kill 3268 quest 871.2
-  kill 3265 quest 871.3
 
 # ---------------------------------------------------------------- Razormane camp and Ratchet
 
@@ -99,6 +98,12 @@ step Drygulch Ravine
   only Orc,Troll,Shaman
   zone Durotar
   collect 6652 quest 1525.2 only Shaman
+
+step Razormane Hunter on the way
+  only Orc,Troll
+  along until crossroads
+  zone The Barrens
+  kill 3265 quest 871.3
 
 step Razormane camp
   only Orc,Troll,Warrior,Shaman
@@ -303,10 +308,6 @@ step Ratchet
   turnin 1492                         -- Wharfmaster Dizzywig, on the dock
   accept 896                          -- Wharfmaster Dizzywig, on the dock
 
-step Intact Raptor Horn on the way
-  along
-  collect 5055 quest 865.1
-
 step The Barrens: kill these as you meet them
   zone The Barrens
   tip The pirates camp on the beach south of Ratchet. The piles of complicated parts lie in the sand among them.
@@ -466,6 +467,7 @@ step Nugget Slugs
 step Ignition
   tip East to the Sludge Fen. Wizzlecrank's Shredder stands inside the Venture Co. camp; Supervisor Lugwizzle carries the key.
   accept 858
+  collect 5055 quest 865.1                    -- Intact Raptor Horn from Sunscale Scytheclaw, 100 yd north-east
 
 # ---------------------------------------------------------------- The Sludge Fen
 

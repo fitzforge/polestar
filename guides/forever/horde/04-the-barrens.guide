@@ -31,11 +31,6 @@ step Bruuz
   tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bruuz (level 20 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.
   collect 253710 quest 92706.1 optional @63.7,38.7 group 2
 
-step Intact Raptor Horn on the way
-  along until q865
-  when onquest 865
-  collect 5055 quest 865.1
-
 step Ratchet
   when group 92706
   turnin 92706 optional
@@ -188,7 +183,6 @@ step Ratchet
 
 # ---------------------------------------------------------------- East: the silver, Ratchet, Ishamuhale
 step Raptor Grounds: kill these as you meet them
-  label q865
   zone The Barrens
   tip Sunscale Scytheclaws hunt the plains south of the Crossroads, around the Raptor Grounds; they drop the horns. Hand them in on your next pass through Ratchet.
   tip East across the plains toward the coast: the stolen silver lies in a raptor nest north-west of Northwatch Hold.
@@ -601,15 +595,11 @@ step Sulhasa
   turnin 1535 only Shaman
   accept 1536 only Shaman             -- Keep it: the Spring Well is beside Tarren Mill
 
-step Stormhide on the way
-  along until q98093
-  kill 3238 quest 98093.2 -- Stormhide along the way to Sulhasa
-
 step Southern Barrens
   kill 4128 quest 98093.1             -- Hecklefang Stalker walks around Southern Barrens: look inside the circle on the map
 
 step Sulhasa
-  label q98093
+  kill 3238 quest 98093.2                     -- Stormhide, by this stop
   turnin 98093 @47.8,77.6             -- Sulhasa
 
 step Bael'dun fortress

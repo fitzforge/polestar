@@ -76,16 +76,11 @@ step Aldrassil
   turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   train class
 
-step Moonpetal Lily on the way
-  along until q3521-2
-  collect 10641 quest 3521.2
-
 step Hyacinth Mushroom on the way
   along until q3521
   collect 10639 quest 3521.1 -- Hyacinth Mushroom along the way to Aldrassil
 
 step Webwood Egg and the antidote
-  label q3521-2
   tip The Webwood Eggs lie at the back of Shadowthread Cave: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of Aldrassil.
   collect 10641 quest 3521.2
 

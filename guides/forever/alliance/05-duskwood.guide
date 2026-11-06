@@ -116,10 +116,6 @@ step Darkshire
   accept 57
   vendor nearest
 
-step Skeletal Fiend on the way
-  along until q57
-  kill 531 quest 57
-
 step Skeletal Horror on the way
   along until q57-2
   kill 202 quest 57
@@ -129,6 +125,10 @@ step Skeletal Horror on the way
 step Watcher Dodds
   tip Watcher Dodds stands south of the road, at the Yorgen Farmstead.
   accept 245
+
+step Skeletal Fiend on the way
+  along until q57
+  kill 531 quest 57
 
 step Raven Hill
   tip Continue west to Raven Hill. The Memory of Valor glows by the ruined house south of the road.

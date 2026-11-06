@@ -137,10 +137,6 @@ step Nesingwary's Expedition
   turnin 194                          -- Hemet Nesingwary
   accept 195
 
-step Shadowmaw Panther on the way
-  along until q192
-  kill 684 quest 192
-
 step Sin'Dall and the Lashtail raptors
   tip Sin'Dall, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to Booty Bay.
   kill 686 quest 195                  -- Lashtail Raptor
@@ -207,7 +203,6 @@ step Booty Bay
   turnin 189                          -- Kebok, upstairs
 
 step Snapjaw Crocolisks
-  label q192
   tip Snapjaw Crocolisks bask on the shore and islands along the coast north of Booty Bay.
   collect 4104 quest 577              -- Snapjaw Crocolisk Skin
   kill 684 quest 192

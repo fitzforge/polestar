@@ -76,12 +76,7 @@ step Gadgetzan
   turnin 1690                         -- Chief Engineer Bilgewhizzle
   accept 1691
 
-step Wastewander Water Pouch on the way
-  along until q1878
-  collect 8483 quest 1878
-
 step Waterspring Field
-  label q1878
   tip The tougher Wastewander rogues, shadow mages and assassins camp south-east of Gadgetzan, south of the bandits. Leave Caliph Scorpidsting in the middle of the southern camp for later.
   tip Careful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.
   kill 5617 quest 1691                -- Wastewander Shadow Mage

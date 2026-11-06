@@ -313,10 +313,6 @@ step Menethil Harbor
   accept 305                              -- Tarrel Rockweaver, by the north gate
   accept 484                              -- James Halloran, by the north gate
 
-step Sida's Bag on the way
-  along until q470
-  collect 3349 quest 470
-
 # ---------------------------------------------------------------- Menethil Harbor
 
 step Spoils of War
@@ -412,7 +408,6 @@ step Rethiel the Greenwarden
   accept 277
 
 step Wetlands: kill these as you meet them
-  label q470
   zone Wetlands
   tip Black, Crimson and Monstrous Oozes fill Ironbeard's Tomb, just west of the road to Dun Modr and north of Einar's camp. Any ooze there may hold Sida's bag.
   tip Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of Rethiel; almost every one drops flint.

@@ -99,17 +99,12 @@ step Into Un'Goro Crater
   accept 3881                         -- Williden Marshal
   accept 4145                         -- Larion
 
-step Bloodpetal Thresher on the way
-  along until q4145
-  kill 6511 quest 4145.4
-
 step Out of the refuge
   accept 4503                         -- Shizzle, at the refuge entrance
   accept 4243                         -- Karna Remtravel, just outside
   note From here on pick up every Power Crystal (blue, green, red, yellow) and every Un'Goro Soil pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg.
 
 step Lakkari Tar Pits
-  label q4145
   tip The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the Super Sticky Tar.
   collect 11834 quest 4504
   kill 6511 quest 4145.4
