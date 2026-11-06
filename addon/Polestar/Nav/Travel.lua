@@ -1642,7 +1642,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local inn, bindName
 	if from == nil and not ghost and not noHearth and hearthReady() then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
-		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from.map,
+		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
 		target = { c = tc, wx = twx, wy = twy, map = to.map },
 		faction = playerFaction,
 		known = knownNodes(),

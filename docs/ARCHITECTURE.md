@@ -891,7 +891,7 @@ as on a bag item (`W.ItemClick`: Shift links, Ctrl tries it on, Alt guides;
 | `interact` | `object`, `objName` | `quest`, `oi` | objective state if `quest` (the line named after the object, else `oi`); else manual |
 | `use` | `item`, `itemName` | `quest`, `oi` | objective state if `quest`; else manual |
 | `sethome` | `location` | `npc`, `npcName`, `area` | bound at the goal's inn (`npc`'s, else the inn `location` names, in Nav/Travel.lua's data), by any of: the inn Travel finds for `GetBindLocation()` (`Nav.BoundInn`: the innkeeper learned at bind time in `flags.inn`, else the inn whose `area` the client names so, else its names); `GetBindLocation()` equal to the client's name of that inn's or the goal's `area` (`Compat.GetAreaName`); last, equal to `location` (case-insensitive). Binding at that innkeeper during the step latches it. `Engine.IsSethomeInnkeeper(goal, npc)` says whether `npc` is that innkeeper (for `sethome nearest`, one of its candidates); QoL's bind helper asks it |
-| `hearth` | `location` | `area` | zone or subzone equals the client's name of `area` (without one, `location`), else manual; latched once it lands in its live step. Its view's `hearthText` (`Own.hearthPlan`): with the Hearthstone waiting or missing, the time left and, where `Nav.EstimateTravel(nil, inn, nil, true)` knows the trip, "set off now" (trip ≤ wait + its 15 s cast) or "wait for it"; ready, "travel there" when the trip is within `Nav.HEARTH_SECONDS + Nav.HEARTH_MARGIN` (the planner's own price), the arrow then leading to the inn as while it waits |
+| `hearth` | `location` | `area` | zone or subzone equals the client's name of `area` (without one, `location`), else manual; latched once it lands in its live step. A step whose only goals are `hearth` is hidden and passed over (`Own.hearthOnly`, see "Steps the character has"). Its view's `hearthText` (`Own.hearthPlan`): with the Hearthstone waiting or missing, the time left and, where `Nav.EstimateTravel(nil, inn, nil, true)` knows the trip, "set off now" (trip ≤ wait + its 15 s cast) or "wait for it"; ready, "travel there" when the trip is within `Nav.HEARTH_SECONDS + Nav.HEARTH_MARGIN` or under `Nav.HEARTH_MIN_TRIP` (the planner's own long-haul rule), the arrow then leading to the inn as while it waits |
 | `die` | `location`, `map`, `x`, `y` | — | back alive (never a ghost) within `Own.DIE_RADIUS` (40 yd) of the Spirit Healer; applies only while `Own.deathskips()`: `behavior.deathskips` on (Options, Automation > Guides, "Use deathskips"; off by default) and not Hardcore (`C_GameRules.IsHardcoreActive`), else its step passes |
 | `getfp` | `location` | `npc`, `npcName`, `node`, `area` | with `node`: that taxi node among the known ones (`flags.taxi`, recorded by Nav/Travel.lua from the flight map); without: taxi map opened at a flight master of that name (persisted in `flags.fp`); else manual |
 | `fly` | `location` | `area`, `node` | as `hearth`, including the in-step latch (`node`: the flight point, named in the client's language where no `area` names the place) |
@@ -1427,8 +1427,13 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
 
 Some steps are not the character's (#942, Fitz; `Own.hiddenStep`): an
 `along` step, whose goals read under "Along the way" of the steps after it,
-and a step whose `only` leaves out the character's class, race or faction,
-or every goal's `only` does (the Druids' Moonglade steps for a Mage). Such a
+a step whose `only` leaves out the character's class, race or faction,
+or every goal's `only` does (the Druids' Moonglade steps for a Mage), and a
+step whose only goals for them are `hearth` (0.3.3, Fitz; `Own.hearthOnly`):
+hearthing is no step of its own, the route passes over it like an along
+step (`stepDone`), and the arrow's route to the next step's work takes the
+Hearthstone when it pays (see the travel planner's long-haul rule).
+`sethome` stays a step, and so does a hearth beside another goal. Such a
 step does not exist for them: Next, Prev and Goto never land on it
 (`Own.lookable`), it has no number, it counts in no progress, and nothing
 explains it; a view of it saved before (`CharState().pins`) opens on the
@@ -2640,8 +2645,8 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. It orders by
-a cost (the Hearthstone carries a 120 s margin on top of its time, a
-teleport 10 s) and keeps the real seconds of every leg apart, so
+a cost (the Hearthstone carries a `HEARTH_MARGIN` of 300 s on top of its
+time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
 timetable's (`Transit.NextDeparture(kind, id, now, side)`) for the moment
@@ -2653,6 +2658,15 @@ wait, never stops planning. `Transit.Teleports(now)` lists the castable teleport
 planned like the Hearthstone from the start. While a ride waits, the leg's
 caption gains `Transit.Caption` ("Next boat in 1:20"), refreshed every
 second; a crossing at a lift (`Transit.LiftNear`) the same.
+The Hearthstone's hour-long cooldown is spent only on a long haul (0.3.3,
+Fitz: "a 2-minute walk is fine"): a route `Nav.PlanRoute` chose with a
+hearth leg is planned again without it (`noHearth`) and kept only while the
+way without it takes at least `HEARTH_MIN_TRIP` (480 s) and the hearth saves
+at least `HEARTH_MARGIN` (300 s) after its cast and loading screen
+(`HEARTH_SECONDS`, 15 s); its label then says what it saves ("Hearth to
+Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
+bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
+`hearth` goal (`Own.hearthPlan`, via `Nav.HEARTH_*`) weigh it the same way.
 A transport end is its ship's stop; where the ship lies in the water off
 its pier, the end carries a board point on the deck (TravelData's `board`,
 below), and the dock vertex is there: the walk to the boat ends on the

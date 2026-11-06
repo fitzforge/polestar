@@ -99,7 +99,7 @@ Polestar.RegisterGuide({ id = "test/darkshire", pack = "test", title = "Darkshir
 	{ goals = { { t = "sethome", npc = 6790, npcName = "Innkeeper Trelayne", location = "Darkshire", area = 42 } } },
 	{ goals = { { t = "getfp", npc = 2409, npcName = "Felicia Maline", location = "Darkshire", node = 12, area = 42 } } },
 	{ goals = { { t = "fly", location = "Stormwind City", area = 1519 } } },
-	{ goals = { { t = "hearth", location = "Darkshire", area = 42 } } },
+	{ goals = { { t = "hearth", location = "Darkshire", area = 42 }, { t = "note", text = "Back to the inn." } } }, -- a note keeps it a step (Own.hearthOnly)
 	{ goals = { { t = "level", level = 60 } } },
 } })
 "#;
@@ -218,7 +218,7 @@ fn a_goal_the_compiler_left_without_an_id_keeps_matching_by_its_english_name_set
 	const GUIDE: &str = r#"
 Polestar.RegisterGuide({ id = "test/names", pack = "test", title = "Names", faction = "Alliance", minLevel = 1, maxLevel = 60, steps = {
 	{ goals = { { t = "sethome", location = "Darkshire" } } },
-	{ goals = { { t = "hearth", location = "Darkshire" } } },
+	{ goals = { { t = "hearth", location = "Darkshire" }, { t = "note", text = "Back to the inn." } } }, -- a note keeps it a step (Own.hearthOnly)
 	{ goals = { { t = "getfp", location = "Darkshire" } } },
 	{ goals = { { t = "level", level = 60 } } },
 } })

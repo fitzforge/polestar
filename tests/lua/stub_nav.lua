@@ -122,10 +122,12 @@ end
 -- replacing the generated TravelData:
 --   1 West Hold (0, 790)  2 East Hold (0, -800)  Alliance; 3 Horde Roost (500, -800) Horde
 --   flights 1 <-> 2 (`flightYards`), 1 <-> 3
---   a boat between Testshire Docks (-900, 0) and Farland Pier (c1: 400, 0)
+--   a boat between Testshire Docks (-900, 0) and Farland Pier (c1: 400, 0),
+--   waiting `boatWait` seconds (30) at each end
 --   an inn, "Testshire Inn", innkeeper 900 at (-500, -700)
-function nav.useTravelWorld(flightYards)
+function nav.useTravelWorld(flightYards, boatWait)
 	flightYards = flightYards or 1700
+	boatWait = boatWait or 30
 	Polestar.Nav.RegisterTravelData({
 		build = "test",
 		taxi = {
@@ -135,7 +137,7 @@ function nav.useTravelWorld(flightYards)
 		},
 		flights = { 1, 2, flightYards, 2, 1, flightYards, 1, 3, 1700, 3, 1, 1700 },
 		transports = {
-			{ id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = 30, waitB = 30,
+			{ id = "boat-test", kind = "boat", faction = 3, ab = 60, ba = 60, waitA = boatWait, waitB = boatWait,
 				a = { "Testshire Docks", 0, -900, 0, 9000, 50, 95 }, b = { "Farland Pier", 1, 400, 0, 9001, 50, 10 } },
 		},
 		inns = { { names = { "Testshire Inn" }, npc = 900, c = 0, wx = -500, wy = -700, map = 9000, x = 85, y = 75, f = "e" } },

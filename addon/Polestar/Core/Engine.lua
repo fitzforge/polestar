@@ -2048,7 +2048,9 @@ function Own.goalsDone(s)
 end
 
 local function stepDone(s)
-	if guide.steps[s].along then return true end -- the route passes over it (Own.alongListed)
+	-- The route passes over an along step (Own.alongListed) and a hearth-only
+	-- one (Own.hearthOnly: the arrow's route hearths when it pays).
+	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
 	return Own.goalsDone(s)
 end
@@ -5399,18 +5401,35 @@ function Engine.GetStepIndex() return current end
 
 function Engine.GetStepCount() return guide and #guide.steps or 0 end
 
+-- A step whose only goals for this character are `hearth` (0.3.3, Fitz):
+-- hearthing is no step of its own. The arrow's route to the next step's work
+-- takes the Hearthstone when it clearly pays (Nav/Travel.lua, HEARTH_MARGIN
+-- and HEARTH_MIN_TRIP), wherever it is bound. `sethome` stays a step.
+function Own.hearthOnly(step)
+	local any = false
+	for _, goal in ipairs(step.goals) do
+		if Guides.Matches(goal.only, player) then
+			if goal.t ~= "hearth" then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- A step that is not a step of its own for this character (#942, Fitz): an
 -- along step, whose goals read under "Along the way" of the steps the player
 -- travels to (Engine.GetAlong); one whose `only` leaves out their class,
 -- race or faction, or every goal's `only` does (a Druid's Dendrite
--- Starblaze for a Mage). Paging never lands on it, it has no number and no
--- progress share, the arrow never leads to it, and nothing explains it. A
--- step that depends on what the player does (`when`) can apply later: it
--- keeps its number and says why it does not apply now (Own.stepWhy).
+-- Starblaze for a Mage); a hearth-only step (Own.hearthOnly). Paging never
+-- lands on it, it has no number and no progress share, the arrow never
+-- leads to it, and nothing explains it. A step that depends on what the
+-- player does (`when`) can apply later: it keeps its number and says why it
+-- does not apply now (Own.stepWhy).
 function Own.hiddenStep(step)
 	if step.along or not Guides.Matches(step.only, player) then return true end
 	local goals = step.goals
 	if #goals == 0 then return false end
+	if Own.hearthOnly(step) then return true end
 	for _, goal in ipairs(goals) do
 		if Guides.Matches(goal.only, player) then return false end
 	end
