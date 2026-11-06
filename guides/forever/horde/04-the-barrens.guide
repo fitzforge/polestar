@@ -406,10 +406,10 @@ step Back to Crossroads
 step the Crossroads
   zone The Barrens
   turnin 876                          -- Darsok Swiftdagger
+  accept 1060
   turnin 6128 only Tauren,Druid       -- Tonga Runetotem
   accept 6129 only Tauren,Druid       -- He gives you the Curative Animal Salve
   turnin 1509 only Warlock -- Gazrog
-  accept 1060
 
 step Gazrog
   only Warlock

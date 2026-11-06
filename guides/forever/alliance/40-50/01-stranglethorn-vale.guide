@@ -85,6 +85,7 @@ step Hearth to Theramore Isle
 step Theramore
   tip Follow the road east back to Theramore. Tervosh, Lady Jaina and the officers are in the tower and Foothold Citadel.
   turnin 1219                         -- Theramore Lieutenant
+  accept 1220
   turnin 1324                         -- Archmage Tervosh, upstairs
   accept 1267                         -- Lady Jaina Proudmoore, on the top floor
   turnin 1267
@@ -93,7 +94,6 @@ step Theramore
   turnin 1259                         -- Adjutant Tesoran, on the top floor
   turnin 1284
   turnin 1253
-  accept 1220
   accept 1285
   turnin 1285                         -- Captain Garran Vimes
   turnin 1220                         -- Captain Garran Vimes

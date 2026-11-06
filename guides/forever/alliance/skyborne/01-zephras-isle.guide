@@ -37,19 +37,19 @@ step Rorian the Dayseeker
   tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
   turnin 92461                                -- Rorian the Dayseeker
   turnin 92474
+  accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note
+  accept 92482 only Hunter                    -- Rorian the Dayseeker: a note from your trainer
+  accept 92483 only Rogue                     -- Rorian the Dayseeker: read the Simple Note
+  accept 92481 only Mage                      -- Rorian the Dayseeker: A Student of the Arcane
+  accept 92485 only Druid                     -- Rorian: A Student of Nature
   accept 92464
   accept 92597                                -- Falorne Fallwind
   turnin 92462                                -- Elatrell Featherlight
   accept 92463
-  accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note
   turnin 92532 only Warrior                   -- Blademaster Ren, in the watchtower
-  accept 92482 only Hunter                    -- Rorian the Dayseeker: a note from your trainer
   turnin 92482 only Hunter                    -- Tai'ree Farsight
-  accept 92483 only Rogue                     -- Rorian the Dayseeker: read the Simple Note
   turnin 92483 only Rogue                     -- Akeri Duskblade, in the watchtower
-  accept 92481 only Mage                      -- Rorian the Dayseeker: A Student of the Arcane
   turnin 92481 only Mage                      -- Dorii Brightwhisper, the mage trainer: read the Glowing Recall Crystal first
-  accept 92485 only Druid                     -- Rorian: A Student of Nature
   turnin 92485 only Druid                     -- Xyton Silverwind, the druid trainer, on the ground floor of the tree behind Rorian
   train class                                 -- The class trainers stand together in the grove
   accept 93552                                -- Dalia the Collector

@@ -2540,9 +2540,181 @@ pub fn detour_hand_ins(files: &mut [(String, Vec<String>)], world: &World) -> us
 	n
 }
 
+/// How far another NPC stands for a walk to it and back to count: the guide test's reach.
+const FOLLOW_UP_YD: f64 = 30.0;
+
+/// A follow-up from the NPC a step has just handed its prerequisite to is taken there, right after
+/// that hand-in (and the other hand-ins to that NPC with it), not after a walk to someone else and
+/// back (Captain Vimes 1220 from the Theramore Lieutenant after the trip up to Lady Jaina, The Atal'ai
+/// Exile 1429 from Fel'zerul after Dar, the Skyborne class letters from Rorian after Falorne and
+/// Elatrell). The walk counts when a character who does both does a goal between, at an NPC further
+/// than the test's reach. It stays when something between it needs: a `level` gate, another of its
+/// prerequisites (or its parent), a quest it excludes, a level the hand-ins between bring
+/// (`lvl_after(q)`: the route's level after its hand-in of `q`), or a route fixes pair that puts a goal
+/// between before it (`pairs`: Marshal Dughan's turn-ins while William Pestle brews The Escape, #613).
+pub fn follow_ups_at_their_giver(mut lines: Vec<String>, data: &Data, world: &World, lvl_after: &dyn Fn(u32) -> Option<f64>, pairs: &[(crate::hub::PairEv, crate::hub::PairEv)]) -> Vec<String> {
+	use forge_guide::conditions::Audience;
+	let quest = |l: &str, verb: &str| -> Option<u32> { crate::jsre::compile(&format!(r"^\s+{verb}\s+(\d+)\b")).captures(split_comment(l).0).and_then(|m| m[1].parse().ok()) };
+	let wq: FxHashMap<u32, &crate::input::WQuest> = world.quests.iter().map(|q| (q.id, q)).collect();
+	let pt = |p: Option<u32>| p.and_then(|i| world.points.get(i as usize)).filter(|p| p.wx.is_finite());
+	let givers = |q: u32| data.quests.get(&q).and_then(|r| r.start.as_ref()).map_or(&[][..], |e| &e.npc[..]);
+	let enders = |q: u32| data.quests.get(&q).and_then(|r| r.end.as_ref()).map_or(&[][..], |e| &e.npc[..]);
+	// A goal line's point: an accept's giver, a turn-in's ender.
+	let person = |l: &str| -> Option<&crate::input::Pt> {
+		if let Some(q) = quest(l, "accept") {
+			return pt(wq.get(&q).and_then(|w| w.giver));
+		}
+		quest(l, "turnin").and_then(|q| pt(wq.get(&q).and_then(|w| w.ender)))
+	};
+	let meets = |a: &[u32], b: &[u32]| a.iter().any(|n| b.contains(n));
+	let audience = |l: &str| line_only(l).map(Audience::parse).unwrap_or_default();
+	let nobody = |a: &Audience| a.races.as_ref().is_some_and(Vec::is_empty) || a.classes.as_ref().is_some_and(Vec::is_empty) || a.factions.as_ref().is_some_and(Vec::is_empty);
+	// Its prerequisites and parent.
+	let needs = |q: u32| -> FxHashSet<u32> {
+		let Some(r) = data.quests.get(&q) else { return FxHashSet::default() };
+		let ids = |v: &Option<Vec<serde_json::Value>>| -> Vec<u32> { v.iter().flatten().filter_map(|x| x.as_i64()).map(|p| p.unsigned_abs() as u32).collect() };
+		ids(&r.pre).into_iter().chain(ids(&r.pre_any)).chain(r.parent.map(|p| p as u32)).collect()
+	};
+	let excludes =
+		|a: u32, b: u32| wq.get(&a).is_some_and(|w| w.excl.iter().any(|&e| e.unsigned_abs() as u32 == b)) || wq.get(&b).is_some_and(|w| w.excl.iter().any(|&e| e.unsigned_abs() as u32 == a));
+	let mut moved: FxHashSet<u32> = FxHashSet::default();
+	'scan: loop {
+		let mut s0 = 0;
+		while s0 < lines.len() {
+			if !is_step(&lines[s0]) {
+				s0 += 1;
+				continue;
+			}
+			let mut s1 = s0 + 1;
+			while s1 < lines.len() && !is_step(&lines[s1]) && !starts_nonspace(&lines[s1]) {
+				s1 += 1;
+			}
+			for k in s0 + 1..s1 {
+				let Some(y) = quest(&lines[k], "accept").filter(|y| !moved.contains(y)) else { continue };
+				let (giver, Some(at)) = (givers(y), pt(wq.get(&y).and_then(|w| w.giver))) else { continue };
+				let need = needs(y);
+				// The prerequisite handed to its giver earlier in the step.
+				let Some((t, x)) = (s0 + 1..k).find_map(|t| quest(&lines[t], "turnin").filter(|x| need.contains(x) && meets(enders(*x), giver)).map(|x| (t, x))) else { continue };
+				let both = audience(&lines[k]).and(&audience(&lines[t]));
+				let away = (t + 1..k).any(|j| person(&lines[j]).is_some_and(|p| p.c != at.c || js_hypot(p.wx - at.wx, p.wy - at.wy) > FOLLOW_UP_YD) && !nobody(&both.and(&audience(&lines[j]))));
+				if !away {
+					continue;
+				}
+				// After the hand-ins to that NPC right after it, and the follow-ups moved there before.
+				let mut r = t;
+				while r + 1 < k && quest(&lines[r + 1], "turnin").is_some_and(|q| meets(enders(q), giver)) {
+					r += 1;
+				}
+				let last_turnin = quest(&lines[r], "turnin").unwrap_or(x);
+				while r + 1 < k && quest(&lines[r + 1], "accept").is_some_and(|q| moved.contains(&q) && meets(givers(q), giver)) {
+					r += 1;
+				}
+				let paired = |l: &str| {
+					let ev = quest(l, "accept").map(|q| (OrderT::Accept, q)).or_else(|| quest(l, "turnin").map(|q| (OrderT::Turnin, q)));
+					ev.is_some_and(|e| pairs.contains(&(e, (OrderT::Accept, y))))
+				};
+				let held = (r + 1..k).any(|j| {
+					let l = &lines[j];
+					head_ws(l) == Some("level")
+						|| paired(l) || re!(r"\b(?:accept|turnin|complete|quest)\s+(\d+)")
+						.captures_iter(split_comment(l).0)
+						.filter_map(|m| m[1].parse::<u32>().ok())
+						.any(|q| (q != x && need.contains(&q)) || excludes(q, y))
+				});
+				let min = data.quests.get(&y).and_then(|r| r.min_level).unwrap_or(0.0);
+				if held || lvl_after(last_turnin).is_some_and(|l| l.floor() < min) {
+					continue;
+				}
+				let l = lines.remove(k);
+				lines.insert(r + 1, l);
+				moved.insert(y);
+				continue 'scan;
+			}
+			s0 = s1;
+		}
+		return lines;
+	}
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
+
+	/// The writer's data and world for follow-up tests: (quest, giver npc, ender npc, pre) and points
+	/// per NPC (yards east).
+	fn follow_up_fixture(quests: &[(u32, u32, u32, &[u32])], at: &[(u32, f64)]) -> (Data, World) {
+		let mut data = Data::default();
+		let idx = |n: u32| at.iter().position(|a| a.0 == n).unwrap();
+		let mut wqs = Vec::new();
+		for &(q, g, e, pre) in quests {
+			data.quests.insert(q, serde_json::from_value(serde_json::json!({ "pre": pre, "start": { "npc": [g] }, "end": { "npc": [e] } })).unwrap());
+			wqs.push(serde_json::json!({ "id": q, "giver": idx(g), "ender": idx(e) }));
+		}
+		let points: Vec<serde_json::Value> = at.iter().map(|a| serde_json::json!([1, 1, a.1, 0, 1445])).collect();
+		(data, serde_json::from_value(serde_json::json!({ "points": points, "quests": wqs })).unwrap())
+	}
+
+	#[test]
+	fn a_follow_up_is_taken_right_after_its_prerequisite_at_the_same_giver() {
+		// 0.3.0 Stranglethorn Vale: Captain Vimes (1220) from the Theramore Lieutenant was taken after the
+		// trip up to Tervosh and Lady Jaina, though The Orc Report (1219) went to the Lieutenant first.
+		let (data, world) = follow_up_fixture(
+			&[(1219, 9, 4947, &[]), (1220, 4947, 4944, &[1219]), (1324, 9, 4967, &[]), (1267, 4968, 4968, &[1324])],
+			&[(9, 5000.0), (4947, 0.0), (4967, 60.0), (4968, 98.0), (4944, 200.0)],
+		);
+		let g = lines(&["step Theramore", "  turnin 1219                         -- Theramore Lieutenant", "  turnin 1324", "  accept 1267", "  turnin 1267", "  accept 1220", "  turnin 1220"]);
+		let out = follow_ups_at_their_giver(g, &data, &world, &|_| None, &[]);
+		assert_eq!(out[2], "  accept 1220", "{out:#?}");
+		assert_eq!(out[3], "  turnin 1324", "{out:#?}");
+		// (Not ahead of a level the hand-ins between bring.)
+		let g = lines(&["step Theramore", "  turnin 1219", "  turnin 1324", "  accept 1220"]);
+		let mut d2 = data.clone();
+		d2.quests.get_mut(&1220).unwrap().min_level = Some(36.0);
+		let out = follow_ups_at_their_giver(g.clone(), &d2, &world, &|q| (q == 1219).then_some(35.9), &[]);
+		assert_eq!(out, g);
+		// (Nor across a `level` gate.)
+		let g = lines(&["step Theramore", "  turnin 1219", "  turnin 1324", "  level 36", "  accept 1220"]);
+		assert_eq!(follow_ups_at_their_giver(g.clone(), &data, &world, &|_| None, &[]), g);
+		// (Nor ahead of a goal a route fixes pair puts before it: The Escape while William Pestle brews.)
+		let g = lines(&["step Theramore", "  turnin 1219", "  turnin 1324", "  accept 1220"]);
+		assert_eq!(follow_ups_at_their_giver(g.clone(), &data, &world, &|_| None, &[((OrderT::Turnin, 1324), (OrderT::Accept, 1220))]), g);
+	}
+
+	#[test]
+	fn follow_ups_from_one_giver_keep_their_order_and_a_class_letter_waits_for_nobody() {
+		// 0.3.0 Teldrassil and Zephras Isle: The Balance of Nature (457) after the class sigils' trips to
+		// the trainers; a Hunter's sigil after the Warriors' hand-in is no walk for the Hunter.
+		let (data, world) = follow_up_fixture(
+			&[(456, 2079, 2079, &[]), (457, 2079, 2079, &[456]), (3116, 2079, 3593, &[456]), (3117, 2079, 3596, &[456]), (99, 2079, 2079, &[456]), (5, 7, 2079, &[])],
+			&[(2079, 0.0), (3593, 80.0), (3596, 120.0), (7, 3000.0)],
+		);
+		let g = lines(&[
+			"step Aldrassil",
+			"  turnin 456                -- Conservator Ilthalaine",
+			"  turnin 5",
+			"  accept 3116 only Warrior",
+			"  turnin 3116 only Warrior",
+			"  accept 3117 only Hunter",
+			"  turnin 3117 only Hunter",
+			"  accept 457",
+			"  accept 99",
+		]);
+		let out = follow_ups_at_their_giver(g, &data, &world, &|_| None, &[]);
+		assert_eq!(
+			out,
+			lines(&[
+				"step Aldrassil",
+				"  turnin 456                -- Conservator Ilthalaine",
+				"  turnin 5",
+				"  accept 457",
+				"  accept 99",
+				"  accept 3116 only Warrior",
+				"  turnin 3116 only Warrior",
+				"  accept 3117 only Hunter",
+				"  turnin 3117 only Hunter",
+			])
+		);
+	}
 
 	#[test]
 	fn work_of_a_quest_handed_in_already_goes() {
