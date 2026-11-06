@@ -1085,8 +1085,9 @@ end
 -- folded (lower case, accents off) and each two neighbours are also joined
 -- ("auto loot" gives "autoloot"). Every query word must match one of them, as
 -- the whole word, its start, a typo off (one letter for 4-7 letters, two for
--- 8 or more) or inside it (a word of 4 letters or more: "lag" is not in
--- "flag"); filler words ("the", "turn", "off") only add to a
+-- 8 or more) or inside it (4 bytes for ASCII: "lag" is not in "flag"; a
+-- query word still holding non-ASCII text after folding, such as one Chinese
+-- character, has no floor); filler words ("the", "turn", "off") only add to a
 -- match. The label counts most, then the search terms and key, then the
 -- section, tab and page, then the help; typos and inside-a-word matches least.
 ---------------------------------------------------------------------------
@@ -1211,7 +1212,7 @@ local function wordMemo(q)
 	if memoCount >= 64 then memo, memoCount = {}, 0 end
 	local qb = {}
 	for i = 1, #q do qb[i] = byte(q, i) end
-	m = { q = q, qb = qb, n = #q, cap = #q >= 8 and 2 or 1, kinds = {} }
+	m = { q = q, qb = qb, n = #q, cap = #q >= 8 and 2 or 1, nonAscii = find(q, "[\128-\255]") ~= nil, kinds = {} }
 	memo[q], memoCount = m, memoCount + 1
 	return m
 end
@@ -1227,7 +1228,7 @@ local function kindOf(m, t)
 		k = 3
 	elseif lq >= 4 and distance(m.qb, lq, t, m.cap) <= m.cap then
 		k = 2
-	elseif lq >= 4 and find(t, q, 1, true) then
+	elseif (lq >= 4 or m.nonAscii) and find(t, q, 1, true) then
 		k = 1
 	else
 		k = 0

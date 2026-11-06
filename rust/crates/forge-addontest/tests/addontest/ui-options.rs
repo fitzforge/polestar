@@ -1114,7 +1114,7 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 		for _, q in ipairs({ "fps", "performance", "lag", "stutter", "cpu", "frame rate", "slow" }) do perf[q] = best(q) end
 		emit({ perf = perf,
 			joined = top("autoaccept"), hyphen = top("auto-loot"), typo = top("auto acept"), prefixes = top("acc quest"),
-			minimap = top("minimap icon"), question = top("how do I turn off the quest tracker"),
+			minimap = keys("minimap icon"), question = top("how do I turn off the quest tracker"),
 			american = top("sell gray"), repiar = keys("repiar"), once = once, upper = top("AUTOACCEPT"),
 		})"#,
 	);
@@ -1135,7 +1135,9 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 		assert_eq!(k[2], "ui.reduceMotion", "{q}: {k:?}");
 		assert!(!k.contains(&"qol.questDB"), "{q}: {k:?}");
 	}
-	assert_eq!(out["minimap"]["key"], "maps.minimapButton");
+	// "Minimap icon size" says both words in its label, so it leads; the minimap button is found by its search terms.
+	assert_eq!(out["minimap"][0], "nav.minimapIconSize");
+	assert!(includes(&out["minimap"], "maps.minimapButton"), "{}", out["minimap"]);
 	assert_eq!(out["question"]["key"], "qol.hideQuestTracker", "filler words are not needed");
 	assert_eq!(out["american"]["key"], "qol.sellJunk");
 	assert!(includes(&out["repiar"], "qol.autoRepair"), "a swap of two letters is one typo");
@@ -1153,6 +1155,37 @@ fn search_on_a_german_client_matches_german_labels_and_the_english_terms_and_lab
 		assert_eq!(out[q]["key"], "qol.fastLoot", "{q}");
 	}
 	assert_eq!(out["stone"]["key"], "qol.hearthButton");
+}
+
+// One Chinese, Korean or Cyrillic character is a whole meaningful fragment inside a translated
+// label; the 4-byte floor that keeps "lag" out of "flag" must not reject its UTF-8 bytes.
+#[test]
+fn search_finds_single_non_ascii_characters_inside_translated_labels() {
+	for (locale, query, expected) in [("zhCN", "图", "maps.minimapButton"), ("zhTW", "圖", "maps.minimapButton"), ("koKR", "템", "qol.itemButton"), ("ruRU", "ш", "nav.arrowScale")] {
+		let out = run_mods(&format!("function GetLocale() return \"{locale}\" end"), &format!("emit(keys(\"{query}\"))"));
+		assert!(out.as_array().is_some_and(|keys| keys.iter().any(|key| key.as_str() == Some(expected))), "{locale}: {query:?} did not find {expected}: {out}");
+	}
+}
+
+// Short ASCII fragments, also ones that fold to ASCII ("lág"), still stay out of other words.
+#[test]
+fn non_ascii_search_keeps_short_ascii_and_folded_latin_fragments_out() {
+	let out = run_mods(
+		"",
+		r#"
+		Polestar.RegisterDefaults("searchFragment", { flag = true, submarine = true })
+		Polestar.RegisterOptions({ page = "Search fragments", controls = {
+			{ kind = "toggle", key = "searchFragment.flag", label = "Flag display" },
+			{ kind = "toggle", key = "searchFragment.submarine", label = "Submarine" },
+		} })
+		local function has(query, key)
+			for _, found in ipairs(keys(query)) do if found == key then return true end end
+			return false
+		end
+		emit({ short = has("lag", "searchFragment.flag"), folded = has("lág", "searchFragment.flag"),
+			long = has("mari", "searchFragment.submarine") })"#,
+	);
+	assert_eq!(out, json!({ "short": false, "folded": false, "long": true }));
 }
 
 // A query nothing matches says so and offers up to three settings near it.

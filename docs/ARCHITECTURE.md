@@ -4477,8 +4477,9 @@ Latin accents dropped, Cyrillic capitals lowered, a few American spellings
 read as the labels' British ones), and each two neighbours are also kept
 joined ("auto loot" gives "autoloot"). A query word matches a word whole,
 as its start, a typo off (optimal string alignment distance 1 for 4-7
-letters, 2 for 8 or more; not against help) or inside it (4 letters or more,
-so "lag" is not found in "flag"); filler words
+letters, 2 for 8 or more; not against help) or inside it (4 bytes or more,
+so "lag" is not found in "flag"; a query word still holding non-ASCII text
+after folding, such as one Chinese, Korean or Cyrillic letter, has no floor); filler words
 ("the", "how", "turn", "off") only add to a match, the others must each
 match something. Scores, highest first: the label's whole word 100 and start
 80, the key 75/65, search terms and English label 70/60, section, tab and
