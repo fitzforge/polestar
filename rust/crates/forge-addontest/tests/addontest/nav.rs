@@ -1117,7 +1117,8 @@ const WAYPOINT_UI: &str = r#"
 
 #[test]
 fn with_waypoint_ui_a_target_is_a_pin_named_after_it_and_only_ours_is_cleared() {
-	let out = run(&format!(r#"{WAYPOINT_UI}
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		target(100, 0, "Talk to Executor Arren")
 		target(0, 100, "Walk to Brill")
@@ -1128,7 +1129,8 @@ fn with_waypoint_ui_a_target_is_a_pin_named_after_it_and_only_ours_is_cleared() 
 		N.ClearTarget()
 		target(-100, 0, "Fourth")
 		Polestar.Set("nav.blizzardWaypoint", false)
-		emit({{ calls = calls, native = #nav.userWaypoints }})"#));
+		emit({{ calls = calls, native = #nav.userWaypoints }})"#
+	));
 	assert_eq!(
 		out["calls"],
 		json!([
@@ -1147,7 +1149,8 @@ fn with_waypoint_ui_a_target_is_a_pin_named_after_it_and_only_ours_is_cleared() 
 
 #[test]
 fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we_tracked_is_untracked() {
-	let out = run(&format!(r#"{WAYPOINT_UI}
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[376] = true
 		-- Accepting: the quest is not in the log yet, so a named pin.
@@ -1161,7 +1164,8 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", {{ kind = "kill", quest = 376 }}))
 		tracked = 404
 		nav.setWaypoint(wp(100, 0, "Go to Deathknell"))
-		emit({{ calls = calls, tracked = tracked }})"#));
+		emit({{ calls = calls, tracked = tracked }})"#
+	));
 	assert_eq!(
 		out["calls"],
 		json!([
@@ -1181,27 +1185,23 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 
 #[test]
 fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_not_the_quest() {
-	let out = run(&format!(r#"{WAYPOINT_UI}
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[756] = true
 		-- Collecting among spawns: the game points nowhere inside the area, Polestar's target is a spot.
 		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", {{ kind = "collect", quest = 756, area = 60 }}))
 		-- The turn-in is one NPC: the quest is tracked.
 		nav.setWaypoint(wp(0, 100, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756, area = 0 }}))
-		emit({{ calls = calls }})"#));
-	assert_eq!(
-		out["calls"],
-		json!([
-			["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true],
-			["clear pin"],
-			["quest", 756]
-		])
-	);
+		emit({{ calls = calls }})"#
+	));
+	assert_eq!(out["calls"], json!([["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true], ["clear pin"], ["quest", 756]]));
 }
 
 #[test]
 fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
-	let out = run(&format!(r#"{WAYPOINT_UI}
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
 		-- Waypoint UI is loaded but has not filled its API yet.
 		local api = WaypointUIAPI.Navigation
 		WaypointUIAPI.Navigation = nil
@@ -1210,7 +1210,8 @@ fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 		local before = #calls
 		WaypointUIAPI.Navigation = api
 		stub.advance(2.1)
-		emit({{ before = before, calls = calls, native = #nav.userWaypoints }})"#));
+		emit({{ before = before, calls = calls, native = #nav.userWaypoints }})"#
+	));
 	assert_eq!(out["before"], 0);
 	assert_eq!(out["calls"], json!([["pin", "Talk to Executor Arren", 9000, 50, 45, "Polestar", true]]));
 	assert_eq!(out["native"], 2, "the plain pin first (set and tracked), then Waypoint UI's");
@@ -1218,7 +1219,8 @@ fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 
 #[test]
 fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
-	let out = run(&format!(r#"{WAYPOINT_UI}
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
 		Polestar.Set("nav.blizzardWaypoint", true)
 		log[756] = true
 		local collect = {{ kind = "collect", quest = 756, area = 60, search = 40 }}
@@ -1234,7 +1236,8 @@ fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
 		-- A tracked quest re-announced is not tracked again.
 		nav.setWaypoint(wp(-100, 0, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756 }}))
 		nav.setWaypoint(wp(-100, 0, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756 }}))
-		emit({{ calls = calls }})"#));
+		emit({{ calls = calls }})"#
+	));
 	assert_eq!(
 		out["calls"],
 		json!([
