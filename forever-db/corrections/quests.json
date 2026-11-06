@@ -2673,7 +2673,16 @@
 	},
 	"92745": {
 		"set": {
-			"races": 4294967373
+			"races": 4294967373,
+			"pre": [
+				92742,
+				92744
+			],
+			"preAll": [
+				92742,
+				92744
+			],
+			"preAny": []
 		},
 		"source": [
 			{
@@ -2683,9 +2692,13 @@
 			{
 				"kind": "in-game-check",
 				"ref": "Forever dialog captures: a Human paladin handing in Moonbrook Espionage 92747 to Alba Fairmoon and taking Explosive Consultation 92748 and both Detonation at a Distance quests, client 1.60.1.70245"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (20261105T120850Z-ebbdcba586d21118-66ohidx7acie-9cfulxow9a, 20261105T212224Z-41b277df15449810-dxn9pk0e4yll-93hn4vw6jp): Alba Fairmoon refuses 92745 with only one of 92742 and 92744 handed in, and offers it in the window after the other's turn-in"
 			}
 		],
-		"note": "The State of the Mines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29."
+		"note": "The State of the Mines (Alba Fairmoon's Toxic Soil chain, Westfall) is open to every Alliance race, Humans included: the server's race mask in players' caches is the Alliance mask with Human in every build from 1.60.1.70170 to 70450, and a Human paladin's dialog captures show him doing the chain at Alba and in Stormwind. The merged data had Dwarf, Night Elf, Gnome and Skyborne only (4294967372) from Forever's quest page, whose race lists leave Humans out of a whole group of Forever's new Alliance quests the server opens to them (#144, #389). Checked 2026-10-29. Alba offers it only once both Testing the Wells (92742) and Murloc Gills (92744) are handed in: a level 16 Night Elf druid with 92742 done and 92744 in the log was refused it, and offered it two seconds later, right after handing in 92744; a level 17 Night Elf druid with 92744 done was refused it until 92742 was handed in. The merged data had 92742 only. An offer window that opens within a second of a turn-in still lists the handed-in quest in the log, so it does not show 92745 offered without 92744."
 	},
 	"92747": {
 		"set": {
@@ -3188,6 +3201,66 @@
 			}
 		],
 		"note": "Call of Fire (Dun Morogh, Dwarf Shaman) lists Fire Tar first, then the Reagent Pouch. The merged data had the two the other way round, so `quest 94466.1` named the pouch."
+	},
+	"95036": {
+		"set": {
+			"pre": [
+				95034
+			],
+			"preAny": [
+				95034
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T164302Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 259620 refuses 95036 while 95034 is in the log and offers it on 95034's turn-in, at the same level"
+		},
+		"note": "A Moon-Kissed Blade (the Moonsilver Blade chain before Old Fire-Eye, Shadowfang Keep) comes after The Debt (95034): a level 21 Undead paladin was refused it at the giver while The Debt was in the log, and took it a second after handing The Debt in, still level 21. The merged data had no prerequisite."
+	},
+	"95111": {
+		"set": {
+			"pre": [
+				95036
+			],
+			"preAny": [
+				95036
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T164302Z-2a82cac44db7bb61-3larxebwnkcp-mhbaorogqr, 20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 248840 refuses 95111 while 95036 is in the log and offers it on 95036's turn-in, at the same level"
+		},
+		"note": "An Underrated Talent (Moonsilver Blade chain, Shadowfang Keep) comes after A Moon-Kissed Blade (95036): its giver did not offer it to a level 21 and a level 26 Undead paladin while 95036 was in their log, and the level 26 one took it three seconds after handing 95036 in. The merged data had no prerequisite."
+	},
+	"95125": {
+		"set": {
+			"pre": [
+				95111
+			],
+			"preAny": [
+				95111
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 3539 does not offer 95125 while 95111 is in the log and offers it on 95111's turn-in, at the same level"
+		},
+		"note": "Ott's Masterwork (Moonsilver Blade chain, Shadowfang Keep) comes after An Underrated Talent (95111): Ott did not offer it to two Undead paladins (levels 23 and 26) while 95111 was in their log, and both took it within two seconds of handing 95111 in. The merged data had no prerequisite."
+	},
+	"95126": {
+		"set": {
+			"pre": [
+				95125
+			],
+			"preAny": [
+				95125
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61-0pv36jv9vm2s-z3eglcvv4z, 20261105T180948Z-0d2765f9112b8dda-x8ar3defw5ib-p4we4xwboz): npc 3539 does not offer 95126 with 95111 done and 95125 in the log, and offers it on 95125's turn-in, at the same level"
+		},
+		"note": "The Moonsilver Blade (Shadowfang Keep) comes after Ott's Masterwork (95125): with An Underrated Talent done and 95125 in the log, Ott did not offer it to two Undead paladins, who took it within three seconds of handing 95125 in, at the same level. The merged data had no prerequisite."
 	},
 	"95216": {
 		"set": {

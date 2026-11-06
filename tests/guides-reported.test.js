@@ -1137,7 +1137,7 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		[TIRISFAL, 96899, [96897, 96898]],
 		[TIRISFAL, 99156, [356], true],
 		[REDRIDGE, 98386, [89]],
-		[WESTFALL, 92745, [92742]],
+		[WESTFALL, 92745, [92742, 92744]],
 		[WESTFALL, 92747, [92745, 92744]],
 		[HILLSBRAD_HORDE, 98094, [528]],
 		[SILVERPINE, 91920, [430]],

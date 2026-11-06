@@ -96,6 +96,20 @@ test('Moonbrook Espionage waits for Murloc Gills as well as The State of the Min
 	assert.deepEqual({ all, any }, { all: [92744], any: [92745] });
 });
 
+test('The State of the Mines waits for both Testing the Wells and Murloc Gills (dungeon pre-quest sweep)', () => {
+	const { all, any } = blockingPrereqs({ id: 92745, start: { npc: [253092] }, ...corrections.quests[92745].set });
+	assert.deepEqual({ all, any }, { all: [92742, 92744], any: [] });
+});
+
+test('the Moonsilver Blade chain before Old Fire-Eye is taken in order (dungeon pre-quest sweep)', () => {
+	const chain = [[95036, 259620, 95034], [95111, 248840, 95036], [95125, 3539, 95111], [95126, 3539, 95125]];
+	for (const [id, npc, pre] of chain) {
+		const entry = corrections.quests[id];
+		assert.ok(entry, `a correction for ${id}`);
+		assert.deepEqual(blockingPrereqs({ id, start: { npc: [npc] }, ...entry.set }), { all: [], any: [pre] }, `${id} after ${pre}`);
+	}
+});
+
 test('The New Plague waits for the A Recipe For Death chain, handed in to its last part (#867)', () => {
 	const entry = corrections.quests[95216];
 	assert.ok(entry, 'a correction for The New Plague');
