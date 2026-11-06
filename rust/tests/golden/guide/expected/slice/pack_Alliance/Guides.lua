@@ -701,7 +701,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 1688, title = "Surena Caledon", npc = 6122, npcName = "Gakin the Darkbinder", map = 1453, x = 25.3, y = 78.6, z = 101.5, f = "e" },
 						{ t = "accept", quest = 1689, title = "The Binding", npc = 6122, npcName = "Gakin the Darkbinder", minLevel = 10, qlvl = 10, pre = { 1688 }, preTitles = { [1688] = "Surena Caledon" }, map = 1453, x = 25.3, y = 78.6, z = 101.5, f = "e" },
-						{ t = "complete", quest = 1689, title = "The Binding", note = "Subdue the voidwalker" },
+						{ t = "complete", quest = 1689, title = "The Binding", note = "Subdue the voidwalker", objs = { { text = "Summoned Voidwalker", count = 1 } } },
 						{ t = "turnin", quest = 1689, title = "The Binding", npc = 6122, npcName = "Gakin the Darkbinder", map = 1453, x = 25.3, y = 78.6, z = 101.5, f = "e", note = "Summon Voidwalker" },
 					},
 				},

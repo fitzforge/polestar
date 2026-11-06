@@ -1716,26 +1716,54 @@ function Own.talkCounts(goal)
 end
 
 -- A `complete` goal's quest in the log: its objectives' counts summed, each
--- capped at what it needs ("Plainstrider Meat 3/7, Feathers 5/7": 8/14), and
--- with `open`, when it has more than one, the open ones in the game's words
--- ("Plainstrider Meat: 3/7"; the count alone says it for one). Nil when the
--- quest is not in the log. (On Own: the main chunk is at 200 locals.)
-function Own.completeState(q, open)
+-- capped at what it needs ("Plainstrider Meat 3/7, Feathers 5/7": 8/14), the
+-- goal's progress (the window shows each line: Own.objectiveLines). Nil when
+-- the quest is not in the log. (On Own: the main chunk is at 200 locals.)
+function Own.completeState(q)
 	local objs = Compat().GetQuestObjectives(q)
 	if not objs then return nil end
-	local cur, max, list = 0, 0, nil
+	local cur, max = 0, 0
 	for i = 1, #objs do
 		local o = objs[i]
 		max = max + o.numRequired
 		cur = cur + math.min(o.numFulfilled, o.numRequired)
-		if open and #objs > 1 and not o.finished and o.text ~= "" then
-			local text = o.text
-			if not text:find("%d+%s*/%s*%d+") then text = ("%s %d/%d"):format(text, o.numFulfilled, o.numRequired) end
-			list = list or {}
-			list[#list + 1] = text
+	end
+	return cur, max
+end
+
+-- What a `complete` goal reads as (#942: "Complete Plagued Lands" said
+-- nothing): its quest's objectives, { text, cur, max } each, in the game's
+-- words from the log, the counts cut off the text (Compat.ObjectiveLabel:
+-- "Rabid Thistle Bear Captured: 0/1" -> "Rabid Thistle Bear Captured", 0,
+-- 1). With the quest not in the log (looked at ahead), the compiled
+-- objectives (`objs`: the quest data's text and count), at 0, or every one
+-- in once the goal is done; nil with neither (the window keeps "Complete
+-- <quest>").
+function Own.objectiveLines(goal, done)
+	local C, out = Compat(), {}
+	for _, o in ipairs(C.GetQuestObjectives(goal.quest) or NONE) do
+		local text = C.ObjectiveLabel(o.text)
+		if text ~= "" then out[#out + 1] = { text = text, cur = math.min(o.numFulfilled, o.numRequired), max = o.numRequired } end
+	end
+	if #out > 0 then return out end
+	for _, o in ipairs(type(goal.objs) == "table" and goal.objs or NONE) do
+		if type(o.text) == "string" and o.text ~= "" then
+			local max = tonumber(o.count) or 1
+			out[#out + 1] = { text = o.text, cur = done and max or 0, max = max }
 		end
 	end
-	return cur, max, list
+	return #out > 0 and out or nil
+end
+
+-- The name of the item a `complete` goal's quest hands over (`startItem`,
+-- the compiler's from the quest data: Tharnariun's Hope for Plagued Lands)
+-- while it is in the bags and usable: the window says "Use <item>:" first.
+function Own.useItemName(goal)
+	local id = goal.startItem
+	if not id then return nil end
+	local C = Compat()
+	if (C.GetItemCount(id) or 0) <= 0 or not C.ItemUsable(id) then return nil end
+	return ns.Names.Item(id) or goal.startItemName
 end
 
 local function countState(goal)
@@ -2875,7 +2903,10 @@ local function goalView(s, g, goal, stepStatus, group)
 		standing = goal.standing, standingName = goal.standing and standingName(goal.standing) or nil,
 		achievement = goal.achievement, criteria = goal.criteria,
 		rewards = goal.rewards,
-		objectives = goal.t == "complete" and (status == "active" or status == "pending") and select(3, Own.completeState(goal.quest, true)) or nil,
+		-- A `complete` goal reads as its quest's objectives (Own.objectiveLines),
+		-- "Use <item>:" first while the item the quest hands over is in the bags.
+		objectiveLines = goal.t == "complete" and status ~= "na" and Own.objectiveLines(goal, status == "done") or nil,
+		useItem = goal.t == "complete" and (status == "active" or status == "pending") and Own.useItemName(goal) or nil,
 		-- Group content (compiled `group`: elite, dungeon, raid or an author's
 		-- group size); `group` above is the goal's field group.
 		party = type(goal.group) == "table" and type(goal.group.kind) == "string" and goal.group or nil,

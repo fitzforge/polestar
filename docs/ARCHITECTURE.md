@@ -4577,7 +4577,13 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   now, or a field step's place) over that group's open goals (#843), counters
   right after the goal text (in text, success once complete; the accent is
   kept for the current goal's glyph, the arrow's target mark, tabs, primary
-  buttons and the progress fill). Every other group of the step is a
+  buttons and the progress fill). A `complete` goal reads as its quest's
+  objectives, a line each with its own counter (the goal view's
+  `objectiveLines`: the quest log's lines in the game's words, counts cut
+  off by `Compat.ObjectiveLabel`; before the quest is in the log the
+  compiled `objs`), "Use <item>:" first while the item its quest hands over
+  (`startItem`) is in the bags and usable (`useItem`), and "Complete
+  <quest>" only with neither (#942). Every other group of the step is a
   summary line in written order: a later person "Then: <name> · 1 hand-in, 2
   quests" (the name in the NPC or object colour, open goals that apply
   counted by verb in the order they come: quests, hand-ins, tasks), the

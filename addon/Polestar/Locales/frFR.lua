@@ -1032,6 +1032,7 @@ L["%s XP to go"] = "Encore %s XP"
 L["%d:%02d left"] = "Reste %d:%02d"
 L["%s and %s"] = "%s et %s"
 L["The object here"] = "L'objet ici"
+L["Use %s:"] = "Utilisez %s :"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"

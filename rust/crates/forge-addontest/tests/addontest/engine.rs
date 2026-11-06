@@ -1611,7 +1611,7 @@ fn slash_commands_drive_the_engine_and_report_status() {
 }
 
 // A `complete` goal counts its quest's objectives from the log (summed, so the window redraws on every loot or
-// kill) and, for a quest with several, lists the open ones in the game's words under the goal (a player's
+// kill) and reads as each of them in the game's words with its own count (`objectiveLines`, #942; a player's
 // report: The Hunt Begins showed no x of y).
 const HUNT: &str = r#"
 Polestar.RegisterGuide({
@@ -1629,7 +1629,7 @@ Polestar.RegisterGuide({
 "#;
 
 #[test]
-fn a_quest_to_complete_shows_its_objectives_count_and_the_open_ones_when_it_has_several() {
+fn a_quest_to_complete_shows_its_objectives_count_and_reads_as_its_objective_lines() {
 	let guides = format!("{NORTHSHIRE}{HUNT}");
 	let out = run(Run {
 		guides: &guides,
@@ -1638,9 +1638,14 @@ fn a_quest_to_complete_shows_its_objectives_count_and_the_open_ones_when_it_has_
 		script: r#"
 			local w = stub.world
 			E.SetGuide("test/hunt"); flush(); takeLog()
+			local function lines(gv)
+				local out = {}
+				for _, o in ipairs(gv.objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+				return out
+			end
 			local function goals()
 				local v = E.GetStepView(1)
-				return { v.goals[1].progress, v.goals[1].objectives or false, v.goals[2].progress or false, v.goals[2].objectives or false }
+				return { v.goals[1].progress, lines(v.goals[1]), v.goals[2].progress or false, lines(v.goals[2]) }
 			end
 			local start = goals()
 			w.progress(747, 1, 3); flush()
@@ -1652,11 +1657,68 @@ fn a_quest_to_complete_shows_its_objectives_count_and_the_open_ones_when_it_has_
 		..Default::default()
 	});
 	let (log, start, meat, fed) = (&out[0], &out[1], &out[2], &out[3]);
-	assert_eq!(*start, json!([{ "cur": 0, "max": 14, "kind": "count" }, ["Plainstrider Meat 0/7", "Plainstrider Feathers: 0/7"], { "cur": 0, "max": 1, "kind": "count" }, false]));
-	assert_eq!(*meat, json!([{ "cur": 3, "max": 14, "kind": "count" }, ["Plainstrider Meat 3/7", "Plainstrider Feathers: 0/7"], { "cur": 0, "max": 1, "kind": "count" }, false]));
-	// Looting past the need counts the need; a finished objective leaves the list.
-	assert_eq!(*fed, json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Feathers: 0/7"], { "cur": 0, "max": 1, "kind": "count" }, false]));
+	assert_eq!(
+		*start,
+		json!([{ "cur": 0, "max": 14, "kind": "count" }, ["Plainstrider Meat 0/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]])
+	);
+	assert_eq!(
+		*meat,
+		json!([{ "cur": 3, "max": 14, "kind": "count" }, ["Plainstrider Meat 3/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]])
+	);
+	// Looting past the need counts the need; a finished objective stays a line, full.
+	assert_eq!(
+		*fed,
+		json!([{ "cur": 7, "max": 14, "kind": "count" }, ["Plainstrider Meat 7/7", "Plainstrider Feathers 0/7"], { "cur": 0, "max": 1, "kind": "count" }, ["Water Pitcher 0/1"]])
+	);
 	assert_eq!(*log, json!(["STEP_UPDATED 1", "STEP_UPDATED 1"]), "each count change redraws the step");
+}
+
+// Darkshore's Plagued Lands (#942): looked at before the quest is taken, its `complete` goal reads as the
+// compiled objectives (`objs`, the quest data's); taken, as the game's own line, "Use Tharnariun's Hope:" first
+// while the trap the quest hands over (`startItem`) is in the bags.
+const PLAGUED: &str = r#"
+Polestar.RegisterGuide({
+	id = "test/plagued", pack = "test", title = "Auberdine", faction = "Alliance", minLevel = 1, maxLevel = 20, zone = 1429,
+	steps = {
+		{ title = "Tharnariun", goals = {
+			{ t = "accept", quest = 2118, title = "Plagued Lands", npc = 3701, npcName = "Tharnariun Treetender" },
+		} },
+		{ title = "Plagued bears", goals = {
+			{ t = "complete", quest = 2118, title = "Plagued Lands", note = "the Rabid Thistle Bears nearest Tharnariun",
+				objs = { { text = "Rabid Thistle Bear", count = 1 } }, startItem = 7586, startItemName = "Tharnariun's Hope" },
+		} },
+		{ title = "Tharnariun", goals = {
+			{ t = "turnin", quest = 2118, title = "Plagued Lands", npc = 3701, npcName = "Tharnariun Treetender" },
+		} },
+	},
+})
+"#;
+
+#[test]
+fn a_complete_goal_reads_the_data_s_objectives_ahead_then_the_game_s_line_with_its_start_item_to_use() {
+	let guides = format!("{NORTHSHIRE}{PLAGUED}");
+	let out = run(Run {
+		guides: &guides,
+		script: r#"
+			local w = stub.world
+			E.SetGuide("test/plagued"); flush()
+			local function goal()
+				local gv = E.GetStepView(2).goals[1]
+				local out = {}
+				for _, o in ipairs(gv.objectiveLines or {}) do out[#out + 1] = o.text .. " " .. o.cur .. "/" .. o.max end
+				return { lines = out, use = gv.useItem or false }
+			end
+			local ahead = goal()
+			w.onQuest(2118, { { text = "Rabid Thistle Bear Captured: 0/1", required = 1 } }); flush()
+			local taken = goal()
+			w.addItem(7586, 1); flush()
+			emit({ ahead = ahead, taken = taken, trap = goal() })
+		"#,
+		..Default::default()
+	});
+	assert_eq!(out[0]["ahead"], json!({ "lines": ["Rabid Thistle Bear 0/1"], "use": false }), "not in the log: the quest data's objective");
+	assert_eq!(out[0]["taken"], json!({ "lines": ["Rabid Thistle Bear Captured 0/1"], "use": false }), "in the log: the game's line, its count cut off the text");
+	assert_eq!(out[0]["trap"], json!({ "lines": ["Rabid Thistle Bear Captured 0/1"], "use": "Tharnariun's Hope" }), "the trap in the bags: use it first");
 }
 
 // An objective goal reads the quest-log line named after its target, not the position it was compiled with

@@ -653,3 +653,38 @@ fn the_focus_person_s_later_goals_read_with_the_focus_not_on_a_line_of_their_own
 		"with field work between, the hand-in is a later visit"
 	);
 }
+
+// Darkshore's "Plagued bears" (#942): `complete 2118` read "Complete Plagued Lands", which says nothing. A
+// `complete` goal reads as its quest's objective lines (the Engine's `objectiveLines`), each with its count,
+// "Use Tharnariun's Hope:" first while the item the quest hands over is in the bags (`useItem`); the guide's note
+// stays the line under it. Without either it keeps "Complete <quest>".
+#[test]
+fn a_complete_goal_reads_as_its_objectives_with_use_item_first() {
+	let out = run(r#"
+		local steps = uistub.guides[uistub.elwynn].steps
+		local function complete(f)
+			f.t, f.verb, f.subject, f.subjectKind, f.status = "complete", "Complete", f.subject, "quest", "active"
+			return f
+		end
+		steps[#steps + 1] = { title = "Plagued bears", goals = {
+			complete({ subject = "Plagued Lands", quest = 2118, note = "the Rabid Thistle Bears nearest Tharnariun", useItem = "Tharnariun's Hope",
+				objectiveLines = { { text = "Rabid Thistle Bear Captured", cur = 0, max = 1 } }, progress = { cur = 0, max = 1 } }),
+			complete({ subject = "The Hunt Begins", quest = 747, objectiveLines = { { text = "Plainstrider Meat", cur = 3, max = 7 }, { text = "Plainstrider Feathers", cur = 7, max = 7 } },
+				progress = { cur = 10, max = 14 } }),
+			complete({ subject = "A Humble Task", quest = 752 }),
+		} }
+		uistub.setGuide(uistub.elwynn, #steps)
+		local function row(subject)
+			local r = rowFor(subject)
+			return { text = plain(r.Text:GetText()), sub = r.Sub:IsShown() and plain(r.Sub:GetText()) or false }
+		end
+		emit({ bears = row("Plagued Lands"), hunt = row("The Hunt Begins"), humble = row("A Humble Task") })"#)
+	.remove(0);
+	assert_eq!(
+		out["bears"],
+		json!({ "text": "Use Tharnariun's Hope: Rabid Thistle Bear Captured  0/1", "sub": "the Rabid Thistle Bears nearest Tharnariun" }),
+		"the game's objective, the item to use first, the guide's note under it"
+	);
+	assert_eq!(out["hunt"]["text"], "Plainstrider Meat  3/7\nPlainstrider Feathers  7/7", "a line per objective, each with its count, not the sum");
+	assert_eq!(out["humble"]["text"], "Complete A Humble Task", "no objective text: the old label");
+}

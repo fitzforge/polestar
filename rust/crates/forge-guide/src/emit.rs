@@ -79,7 +79,7 @@ pub const WHEN_KEYS: [&str; 17] = ["k", "neg", "op", "n", "frac", "q", "item", "
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 70] = [
+pub const GOAL_KEYS: [&str; 73] = [
 	"t",
 	"class",
 	"spell",
@@ -151,8 +151,15 @@ pub const GOAL_KEYS: [&str; 70] = [
 	"gossip",
 	"seconds",
 	"escort",
+	// A `complete` goal's quest objectives from the data (text, count) and the item the quest hands over: what
+	// the window reads before the quest is in the log, and "Use <item>:" (#942).
+	"objs",
+	"startItem",
+	"startItemName",
 ];
 const REAGENT_KEYS: [&str; 3] = ["item", "itemName", "count"];
+/// A `complete` goal's `objs`: each objective's text and count.
+const OBJ_KEYS: [&str; 2] = ["text", "count"];
 /// `z` (heights.js) follows y in candidates and spawn areas as in goals.
 pub const CANDIDATE_KEYS: [&str; 13] = ["npc", "npcName", "map", "x", "y", "z", "f", "faction", "races", "classes", "lvl", "rate", "spawns"];
 /// A collect's `fromNpcs`: the creatures its point and spawn areas belong to.
@@ -180,6 +187,7 @@ fn list_decimals(k: &str) -> usize {
 pub fn list_keys(k: &str) -> Option<&'static [&'static str]> {
 	Some(match k {
 		"reagents" => &REAGENT_KEYS,
+		"objs" => &OBJ_KEYS,
 		"candidates" => &CANDIDATE_KEYS,
 		"fromNpcs" => &SOURCE_NPC_KEYS,
 		"spots" => &SPOT_KEYS,

@@ -1031,6 +1031,7 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "호위: NPC가 �
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
 L["The object here"] = "이곳의 물체"
+L["Use %s:"] = "%s 사용:"
 
 -- UI/GuideFrame.lua
 L["Location"] = "위치"

@@ -2005,14 +2005,15 @@ fn a_collect_whose_line_already_names_its_source_has_no_source_line_under_it_aut
 }
 
 #[test]
-fn a_quest_to_complete_with_several_objectives_lists_the_open_ones_under_it_before_its_note() {
+fn a_quest_to_complete_reads_as_its_objectives_each_with_its_count_and_keeps_its_note_under_it() {
 	let out = run(r#"
 		local goal = { t = "complete", quest = 747, status = "active", progress = { cur = 3, max = 14, kind = "count" },
-			objectives = { "Plainstrider Meat: 3/7", "Plainstrider Feathers: 0/7" }, note = "Plainstriders roam the grass" }
-		emit({ sub = UI.GoalSubline(goal), count = UI.GoalProgress(goal) })"#)
+			objectiveLines = { { text = "Plainstrider Meat", cur = 3, max = 7 }, { text = "Plainstrider Feathers", cur = 0, max = 7 } }, note = "Plainstriders roam the grass" }
+		local function plain(s) return (s:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")) end
+		emit({ line = plain(UI.GoalLine(goal)), sub = UI.GoalSubline(goal) })"#)
 	.remove(0);
-	assert_eq!(out["sub"], "Plainstrider Meat: 3/7  \u{b7}  Plainstrider Feathers: 0/7  \u{b7}  Plainstriders roam the grass");
-	assert_eq!(out["count"], "3/14");
+	assert_eq!(out["line"], "Plainstrider Meat  3/7\nPlainstrider Feathers  0/7", "#942: the objectives are the goal's line, not the sum");
+	assert_eq!(out["sub"], "Plainstriders roam the grass");
 }
 
 // "Up next" on a finished guide is where the hand-off goes now (Engine.NextGuide): the remembered or only option

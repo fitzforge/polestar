@@ -1031,6 +1031,7 @@ L["Druid"] = "Druida"
 -- L["%d:%02d left"] = ""
 -- L["%s and %s"] = ""
 L["The object here"] = "El objeto de aquí"
+L["Use %s:"] = "Usa %s:"
 
 -- UI/GuideFrame.lua
 L["Location"] = "Ubicación"

@@ -610,6 +610,7 @@ L["%s XP to go"] = "Noch %s EP"
 L["%d:%02d left"] = "Noch %d:%02d"
 L["%s and %s"] = "%s und %s"
 L["The object here"] = "Das Objekt hier"
+L["Use %s:"] = "Benutze %s:"
 
 -- UI/Welcome.lua
 L["level %d %s"] = "Stufe %d, %s"

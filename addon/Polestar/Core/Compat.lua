@@ -415,6 +415,14 @@ function Compat.GetItemCount(itemID, includeBank)
 	return fn(itemID, includeBank and true or nil) or 0
 end
 
+-- Whether an item does something when used (it has a spell): Tharnariun's
+-- Hope, a quest's trap. True where the client cannot tell.
+function Compat.ItemUsable(itemID)
+	local fn = (C_Item and C_Item.GetItemSpell) or GetItemSpell
+	if not fn then return true end
+	return fn(itemID) ~= nil
+end
+
 -- The client's quality for an item (0 poor .. 7 heirloom), or nil while the
 -- item is not cached.
 function Compat.GetItemQuality(itemID)
