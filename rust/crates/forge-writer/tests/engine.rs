@@ -13,14 +13,17 @@ use forge_writer::tips::{Floors, Surface};
 use forge_writer::travel::Travel;
 use rustc_hash::FxHashMap;
 use std::collections::BTreeMap;
+use std::rc::Rc;
 
 thread_local! {
-	// The data is not Sync (its tables share Rc); one copy per test thread.
-	static REF: &'static Ref = Box::leak(Box::new(common::engine_ref()));
+	// The data is not Sync (its tables share Rc): one copy per test thread, dropped when the test's
+	// thread ends (libtest runs every test on a thread of its own), so a run holds at most
+	// --test-threads copies of $POLESTAR_V1's full data (~0.5 GB each), not one per test.
+	static REF: Rc<Ref> = Rc::new(common::engine_ref());
 }
 
-fn reference() -> &'static Ref {
-	REF.with(|r| *r)
+fn reference() -> Rc<Ref> {
+	REF.with(Rc::clone)
 }
 
 fn guide(id: &str, race: &str, faction: &str, zone: &str, next: Option<&str>, body: &[&str]) -> String {
@@ -36,7 +39,7 @@ fn guide(id: &str, race: &str, faction: &str, zone: &str, next: Option<&str>, bo
 
 /// Runs the rules on guides `files` (name, text) as the route's race; -> the files after, as lines.
 fn run(files: &[(&str, String)], race: &str, faction: &str, opts: &Opts, accept_lvl: &FxHashMap<u32, f64>) -> BTreeMap<String, Vec<String>> {
-	run_on(reference(), files, race, faction, opts, accept_lvl, None, None)
+	run_on(&reference(), files, race, faction, opts, accept_lvl, None, None)
 }
 
 /// `run` on the reference `r`, with R9's floors and R10's quest notes.
@@ -670,9 +673,9 @@ impl Floors for Den {
 #[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
 fn r9_a_goal_below_ground_says_so_and_one_at_a_walking_npc_says_where_he_walks() {
 	let g = guide("a", "Orc", "Horde", "Durotar", None, &["step Gornek", "  accept 788", "", "step Boars", "  kill 3098 quest 788.1"]);
-	let before = run_on(reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), Some(&Den), None);
+	let before = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), Some(&Den), None);
 	assert!(before["a"].iter().any(|l| l == "  accept 788"));
-	let after = run_on(reference(), &[("a", g.clone())], "Orc", "Horde", &Opts { tips: true, ..off() }, &FxHashMap::default(), Some(&Den), None);
+	let after = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &Opts { tips: true, ..off() }, &FxHashMap::default(), Some(&Den), None);
 	let a = &after["a"];
 	assert_eq!(a[idx(a, "step Gornek") + 1], format!("{:<37} -- Below ground", "  accept 788"), "{}", a.join("\n"));
 	assert!(a.iter().any(|l| l == "  kill 3098 quest 788.1"), "the boars roam the open ground: {}", a.join("\n"));
@@ -684,7 +687,7 @@ fn r9_a_goal_below_ground_says_so_and_one_at_a_walking_npc_says_where_he_walks()
 	assert_eq!(a[idx(a, "step Gornek") + 1], format!("{:<37} -- Gornek walks around here: look inside the circle on the map", "  accept 788"), "{}", a.join("\n"));
 	// Alonso, found at three places some 90 yd apart in Astranaar's square: the map marks them.
 	let g = guide("b", "Human", "Alliance", "Ashenvale", None, &["step Alonso", "  accept 78132"]);
-	let after = run_on(reference(), &[("b", g)], "Human", "Alliance", &Opts { tips: true, ..off() }, &FxHashMap::default(), None, None);
+	let after = run_on(&reference(), &[("b", g)], "Human", "Alliance", &Opts { tips: true, ..off() }, &FxHashMap::default(), None, None);
 	let b = &after["b"];
 	assert_eq!(b[idx(b, "step Alonso") + 1], format!("{:<37} -- Alonso walks around here: the map marks where to look", "  accept 78132"), "{}", b.join("\n"));
 }
@@ -697,9 +700,9 @@ fn r10_a_quests_ambush_note_is_a_careful_tip_on_the_step_that_does_its_work() {
 		{ "kind": "danger", "basis": "game-data", "fact": "Two boars ambush you at the den." },
 		{ "kind": "tip", "basis": "game-data", "fact": "The boars are easy." },
 	]}});
-	let before = run_on(reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, Some(&notes));
+	let before = run_on(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, Some(&notes));
 	assert!(!before["a"].iter().any(|l| l.contains("Careful")));
-	let after = run_on(reference(), &[("a", g)], "Orc", "Horde", &Opts { warnings: true, ..off() }, &FxHashMap::default(), None, Some(&notes));
+	let after = run_on(&reference(), &[("a", g)], "Orc", "Horde", &Opts { warnings: true, ..off() }, &FxHashMap::default(), None, Some(&notes));
 	let a = &after["a"];
 	let b = idx(a, "step Boars");
 	assert_eq!(a[b + 1..b + 4], ["  zone Durotar", "  tip Careful: Two boars ambush you at the den.", "  kill 3098 quest 788.1"], "{}", a.join("\n"));
@@ -835,9 +838,9 @@ fn groups_a_family_is_asked_on_every_step_with_its_size_and_tip() {
 		"quests": [790, 804]
 	}))
 	.unwrap();
-	let before = run_groups(reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, None, std::slice::from_ref(&fam), &of);
+	let before = run_groups(&reference(), &[("a", g.clone())], "Orc", "Horde", &off(), &FxHashMap::default(), None, None, std::slice::from_ref(&fam), &of);
 	assert!(!before["a"].iter().any(|l| l.contains("group")), "{}", before["a"].join("\n"));
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
 	let at = |title: &str, n: usize| -> Vec<String> {
 		let s = a.iter().enumerate().filter(|(_, l)| *l == &format!("step {title}")).nth(n).map(|(i, _)| i).unwrap_or_else(|| panic!("no step {title} #{n} in\n{}", a.join("\n")));
@@ -869,7 +872,7 @@ fn groups_two_families_on_one_step_keep_the_steps_order() {
 	let fam = |q: u32| -> Group {
 		serde_json::from_value(serde_json::json!({ "q": q, "title": "T", "size": 3, "level": 10, "mobs": [{ "npc": 3281, "name": "Sarkoth", "level": 10, "rank": 1 }], "quests": [q] })).unwrap()
 	};
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam(790), fam(804)], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam(790), fam(804)], &of);
 	let a = &after["a"];
 	let (t, c) = (idx(a, "  turnin 790"), idx(a, "  accept 804"));
 	assert!(t < c, "{}", a.join("\n"));
@@ -882,7 +885,7 @@ fn groups_a_soloable_elite_says_most_classes_solo_it_two_levels_up() {
 	let fam: Group =
 		serde_json::from_value(serde_json::json!({ "q": 790, "title": "Sarkoth", "size": 1, "level": 10, "mobs": [{ "npc": 3281, "name": "Sarkoth", "level": 10, "rank": 1 }], "quests": [790, 804] }))
 			.unwrap();
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
 	let tip = "  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Sarkoth is a level 10 elite: most classes solo it at level 12, but you may need help. Skip it if you are alone: the route has you grind the XP back.";
 	assert_eq!(a[idx(a, "step Sarkoth's cave") + 2], tip, "{}", a.join("\n"));
@@ -895,7 +898,7 @@ fn groups_a_title_with_double_quotes_is_written_with_single_quotes() {
 	// (Wanted:  "Hogger": a tip's text ends at a double quote, and the pack refused the guide.)
 	let (g, of) = sarkoth();
 	let fam: Group = serde_json::from_value(serde_json::json!({ "q": 790, "title": "Wanted:  \"Sarkoth\"", "size": 3, "level": 10, "mobs": [], "quests": [790, 804] })).unwrap();
-	let after = run_groups(reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let after = run_groups(&reference(), &[("a", g)], "Orc", "Horde", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
 	let a = &after["a"];
 	let tip = &a[idx(a, "step Sarkoth's cave") + 2];
 	assert!(tip.contains("Wanted:  'Sarkoth' needs a group of 3.") && !tip.contains('"'), "{}", a.join("\n"));
