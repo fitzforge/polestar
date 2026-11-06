@@ -163,7 +163,7 @@ step Woo Ping
 step Druid trainer
   only Druid
   zone Stormwind City
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Goldshire has no druid trainer
+  train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer
 
 step Elwynn Forest
   only NightElf

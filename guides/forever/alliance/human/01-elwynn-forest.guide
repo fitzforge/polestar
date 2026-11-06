@@ -315,7 +315,7 @@ step Shaman trainer
 
 step Druid trainer
   only Druid
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Goldshire has no druid trainer
+  train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer
 
 step The Tower of Azora
   tip Hamish Bergwort and Blixie Fitzwink stand at the foot of the tower.

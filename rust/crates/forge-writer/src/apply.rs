@@ -477,61 +477,43 @@ impl<'a> Ctx<'a> {
 		})
 	}
 
-	/// Where a class's trainer of the faction nearest a point stands (on its continent first).
-	fn nearest_trainer_pt(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<Pt> {
+	/// A class's trainer spawn of the faction nearest a point (on its continent first): where it
+	/// stands, the trainer and its spawn's map. Spawns on a live frame count too (Stormwind's Druid
+	/// trainers, not Alfina Nightgaze in Alterac for the Goldshire stop, #912).
+	fn nearest_trainer_spawn(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(Pt, &Entity, u32)> {
 		let p = self.w(pt)?;
-		let mut best: Option<(f64, Pt)> = None;
+		let mut best: Option<(f64, Pt, &Entity, u32)> = None;
 		for n in self.data.npcs.values() {
 			if n.sub_name.as_deref().and_then(|s| s.strip_suffix(" Trainer")) != Some(cl) || !n.faction.as_deref().is_some_and(|f| f.contains(fac)) {
 				continue;
 			}
 			for (&map, sp) in &n.spawns {
-				if sp.f.as_deref() == Some("l") {
-					continue;
-				}
+				let f = if sp.f.as_deref() == Some("l") { Frame::Live } else { Frame::Era };
 				for q in &sp.pts {
 					let c = |i: usize| q.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
-					let w = self.proj.point(map, c(0), c(1), Some(Frame::Era));
-					if !w.wx.is_finite() {
-						continue;
-					}
-					let d = js_hypot(w.wx - p.wx, w.wy - p.wy) + if w.c == p.c { 0.0 } else { 1e6 };
-					if best.as_ref().is_none_or(|b| d < b.0) {
-						best = Some((d, Pt { c: w.c, wx: w.wx, wy: w.wy, map: w.map }));
-					}
-				}
-			}
-		}
-		best.map(|b| b.1)
-	}
-
-	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
-	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
-		let p = self.w(pt)?;
-		let mut best: Option<(f64, String, String)> = None;
-		for n in self.data.npcs.values() {
-			if n.sub_name.as_deref().and_then(|s| s.strip_suffix(" Trainer")) != Some(cl) || !n.faction.as_deref().is_some_and(|f| f.contains(fac)) {
-				continue;
-			}
-			for (&map, sp) in &n.spawns {
-				if sp.f.as_deref() == Some("l") {
-					continue;
-				}
-				for q in &sp.pts {
-					let c = |i: usize| q.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
-					let w = self.proj.point(map, c(0), c(1), Some(Frame::Era));
+					let w = self.proj.point(map, c(0), c(1), Some(f));
 					if !w.wx.is_finite() {
 						continue;
 					}
 					// (Another continent counts as far.)
 					let d = js_hypot(w.wx - p.wx, w.wy - p.wy) + if w.c == p.c { 0.0 } else { 1e6 };
 					if best.as_ref().is_none_or(|b| d < b.0) {
-						best = Some((d, n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()));
+						best = Some((d, Pt { c: w.c, wx: w.wx, wy: w.wy, map: w.map }, n, map));
 					}
 				}
 			}
 		}
-		best.map(|b| (b.1, b.2))
+		best.map(|b| (b.1, b.2, b.3))
+	}
+
+	/// Where a class's trainer of the faction nearest a point stands (on its continent first).
+	fn nearest_trainer_pt(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<Pt> {
+		self.nearest_trainer_spawn(pt, fac, cl).map(|b| b.0)
+	}
+
+	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
+	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
+		self.nearest_trainer_spawn(pt, fac, cl).map(|(_, n, map)| (n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()))
 	}
 
 	/// How many spawns a work line's target has (a camp of mobs; one is a named mob or a single object).

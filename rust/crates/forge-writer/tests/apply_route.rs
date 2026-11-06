@@ -9513,6 +9513,40 @@ fn a_class_whose_trainer_the_way_to_the_stop_passes_trains_there_before_the_way_
 }
 
 #[test]
+fn a_class_trainer_in_a_citys_live_frame_counts_as_its_nearest() {
+	// #912: the Goldshire stop's Druids were sent to Alfina Nightgaze in Alterac, past Stormwind's Druid
+	// trainers, whose spawns are on the city's live frame.
+	let c = Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 12-14", "zone Elwynn Forest", "", "step Hub", "  accept 1", "", "step Later", "  accept 2", ""])],
+		world: json!({
+			"points": [[0, 1, 0, 5000, 1429], [0, 1, 100, 5000, 1429]],
+			"zones": { "1453": "Stormwind City", "1429": "Elwynn Forest", "1416": "Alterac Mountains" }, "quests": []
+		}),
+		frames: json!({
+			"era": {
+				"1429": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 },
+				"1416": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 }
+			},
+			"forever": { "1453": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 } }
+		}),
+		npcs: json!({
+			"5504": { "name": "Sheldras Moontree", "subName": "Druid Trainer", "faction": "A", "spawns": { "1453": { "f": "l", "pts": [[81.67, 50]] } } },
+			"270459": { "name": "Alfina Nightgaze", "subName": "Druid Trainer", "faction": "A", "spawns": { "1416": { "f": "e", "pts": [[91.67, 25]] } } },
+			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[91.67, 50]] } } }
+		}),
+		route: json!({ "faction": "Alliance", "start": "NightElf", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 12.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "train", "lvl": 12.2, "pt": 0, "from": "train stop" },
+			{ "t": "accept", "q": 2, "lvl": 12.3, "pt": 1, "from": f("a", 10) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(g.iter().any(|l| l.starts_with("  train class only Druid -- Sheldras Moontree in Stormwind City")), "{g:#?}");
+}
+
+#[test]
 fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
 	// c15 Alliance 50-60 (Rev15A2 A5): the Druids' Darnassus training closing 01-burning-steppes, after
 	// Rut'theran Village, was written in Felwood after the Emerald Sanctuary, at the route's later take of

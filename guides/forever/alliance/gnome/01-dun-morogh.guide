@@ -598,7 +598,7 @@ step Class trainer
 
 step Druid trainer
   only Druid
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Dun Morogh has no druid trainer
+  train class only Druid -- Theridran in Stormwind City; Dun Morogh has no druid trainer
 
 step Buliwyf Stonehand
   only Warrior
