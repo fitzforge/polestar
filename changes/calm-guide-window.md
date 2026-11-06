@@ -8,4 +8,5 @@ section: players
   3 done" line instead of piling up, and the window stops at half the screen
   and scrolls past that (Options > Guide > Window: "Maximum height", and "Show
   the whole step" for the full list). "Along the way" no longer repeats goals
-  the step already lists (thanks Phear).
+  the step already lists (thanks Phear for the report, and Totowora, whose
+  pull request for hiding finished goals, #903, helped shape the fold).
