@@ -182,7 +182,6 @@ step The Sepulcher
   accept 477                          -- Shadow Priest Allister
   accept 421
   tip Swim back and follow the road west to the Sepulcher.
-  accept 95981                        -- Shadow Priest Allister
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
   sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
@@ -333,6 +332,7 @@ step The Sepulcher
   turnin 429
   accept 430
   turnin 482                          -- Shadow Priest Allister
+  accept 95981                        -- Shadow Priest Allister
   accept 479                          -- Ambermill comes later, on the southern loop
 
 # ---------------------------------------------------------------- The Decrepit Ferry
