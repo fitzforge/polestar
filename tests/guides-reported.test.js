@@ -3089,3 +3089,22 @@ test("Fitz's in-game check (2026-11-06): Darkshore's step offering Buzzbox 827 s
 		assert.ok(Math.abs(goal.z - 24) < 3, `${guide}: z ${goal.z} is the inn's upper floor`);
 	}
 });
+
+// --- Snowiee's report (#912): the Night Elves' Goldshire training stop has no
+// Druid trainer, so the Druids walked from Stormwind Harbor to Goldshire, back
+// to Stormwind to train and back to Goldshire. A class the stop cannot train
+// trains in the town the way to it passes, a few hundred yards from its
+// trainer, before the way leaves that town: the Druids in Stormwind, the
+// Paladins of the Felwood stop in Brill before the zeppelin to Orgrimmar.
+test("Snowiee's report (#912): a class the training stop cannot train trains in the town the way passes with its trainer, before leaving it", { skip }, () => {
+	for (const [guide, cls, after, before] of [
+		['forever/alliance/nightelf/02-darkshore.guide', 'DRUID', (g) => g.t === 'getfp' && g.location === 'Stormwind', (g) => g.t === 'goto' && g.text === 'Elwynn Forest'],
+		['forever/horde/50-60/02-felwood.guide', 'PALADIN', (g) => g.t === 'goto' && g.text === 'Tirisfal Glades', (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar'],
+	]) {
+		const mine = goals(guide).filter(forClass(cls));
+		const into = at(mine, `${guide}: the way into town`, after);
+		const train = mine.findIndex(({ goal }, i) => i > into && goal.t === 'train' && goal.class);
+		assert.ok(train >= 0, `${guide}: the ${cls}s train after the way reaches the town`);
+		assert.ok(train < at(mine, `${guide}: the way out of town`, before), `${guide}: the ${cls}s train before the way leaves the town`);
+	}
+});

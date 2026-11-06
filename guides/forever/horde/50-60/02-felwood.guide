@@ -162,6 +162,11 @@ step Tirisfal Glades
   zone Tirisfal Glades
   goto 61.8,59.2 "Tirisfal Glades"
 
+step Paladin trainer
+  only Paladin
+  zone Tirisfal Glades
+  train class only Paladin -- Shari Stilwell in Tirisfal Glades; Orgrimmar has no paladin trainer
+
 step Zeppelin to Orgrimmar
   zone Tirisfal Glades
   goto 60.7,58.9 "Zeppelin to Orgrimmar"
@@ -173,10 +178,6 @@ step Orgrimmar
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
 step Druid trainer
   only Druid

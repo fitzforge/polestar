@@ -477,61 +477,43 @@ impl<'a> Ctx<'a> {
 		})
 	}
 
-	/// Where a class's trainer of the faction nearest a point stands (on its continent first).
-	fn nearest_trainer_pt(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<Pt> {
+	/// A class's trainer spawn of the faction nearest a point (on its continent first): where it
+	/// stands, the trainer and its spawn's map. Spawns on a live frame count too (Stormwind's Druid
+	/// trainers, not Alfina Nightgaze in Alterac for the Goldshire stop, #912).
+	fn nearest_trainer_spawn(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(Pt, &Entity, u32)> {
 		let p = self.w(pt)?;
-		let mut best: Option<(f64, Pt)> = None;
+		let mut best: Option<(f64, Pt, &Entity, u32)> = None;
 		for n in self.data.npcs.values() {
 			if n.sub_name.as_deref().and_then(|s| s.strip_suffix(" Trainer")) != Some(cl) || !n.faction.as_deref().is_some_and(|f| f.contains(fac)) {
 				continue;
 			}
 			for (&map, sp) in &n.spawns {
-				if sp.f.as_deref() == Some("l") {
-					continue;
-				}
+				let f = if sp.f.as_deref() == Some("l") { Frame::Live } else { Frame::Era };
 				for q in &sp.pts {
 					let c = |i: usize| q.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
-					let w = self.proj.point(map, c(0), c(1), Some(Frame::Era));
-					if !w.wx.is_finite() {
-						continue;
-					}
-					let d = js_hypot(w.wx - p.wx, w.wy - p.wy) + if w.c == p.c { 0.0 } else { 1e6 };
-					if best.as_ref().is_none_or(|b| d < b.0) {
-						best = Some((d, Pt { c: w.c, wx: w.wx, wy: w.wy, map: w.map }));
-					}
-				}
-			}
-		}
-		best.map(|b| b.1)
-	}
-
-	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
-	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
-		let p = self.w(pt)?;
-		let mut best: Option<(f64, String, String)> = None;
-		for n in self.data.npcs.values() {
-			if n.sub_name.as_deref().and_then(|s| s.strip_suffix(" Trainer")) != Some(cl) || !n.faction.as_deref().is_some_and(|f| f.contains(fac)) {
-				continue;
-			}
-			for (&map, sp) in &n.spawns {
-				if sp.f.as_deref() == Some("l") {
-					continue;
-				}
-				for q in &sp.pts {
-					let c = |i: usize| q.get(i).map_or(f64::NAN, |v| v.unwrap_or(0.0));
-					let w = self.proj.point(map, c(0), c(1), Some(Frame::Era));
+					let w = self.proj.point(map, c(0), c(1), Some(f));
 					if !w.wx.is_finite() {
 						continue;
 					}
 					// (Another continent counts as far.)
 					let d = js_hypot(w.wx - p.wx, w.wy - p.wy) + if w.c == p.c { 0.0 } else { 1e6 };
 					if best.as_ref().is_none_or(|b| d < b.0) {
-						best = Some((d, n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()));
+						best = Some((d, Pt { c: w.c, wx: w.wx, wy: w.wy, map: w.map }, n, map));
 					}
 				}
 			}
 		}
-		best.map(|b| (b.1, b.2))
+		best.map(|b| (b.1, b.2, b.3))
+	}
+
+	/// Where a class's trainer of the faction nearest a point stands (on its continent first).
+	fn nearest_trainer_pt(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<Pt> {
+		self.nearest_trainer_spawn(pt, fac, cl).map(|b| b.0)
+	}
+
+	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
+	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
+		self.nearest_trainer_spawn(pt, fac, cl).map(|(_, n, map)| (n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()))
 	}
 
 	/// How many spawns a work line's target has (a camp of mobs; one is a named mob or a single object).
@@ -4599,6 +4581,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		back_only: None,
 		fac: train_fac,
 		trained_away: Vec::new(),
+		train_on_way: Vec::new(),
 		away: Vec::new(),
 		fresh_fps: FxHashSet::default(),
 		away_undo: Vec::new(),
@@ -4780,7 +4763,9 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 							wr.train_away(z.as_deref(), lines);
 						}
 					}
+					wr.train_on_way = if cx.route_travel { away_trainings(&pieces, j) } else { Vec::new() };
 					wr.write_items(&h, false);
+					wr.train_on_way.clear();
 					wr.pending_orphans.clear();
 					wr.fp_on_way.clear();
 					pieces[j].items = Some(rest);
@@ -5000,7 +4985,9 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				let from = wr.route_pt;
 				let saved = wr.class_legs(&p.kind);
 				let gated = if saved.is_empty() { wr.g.item_only.first().map(|l| trim(&re!(r"^\s+only\s+").replace(l, "")).to_string()) } else { None };
+				wr.train_on_way = if cx.route_travel { away_trainings(&pieces, i) } else { Vec::new() };
 				wr.write_items(its, to_way);
+				wr.train_on_way.clear();
 				wr.g.item_only = saved;
 				// (The route's way to a class's own stop leaves the other classes where they were: they
 				// come on to where the route goes on from, the Warrior's flight to Ratchet for The Affray.)
@@ -5505,6 +5492,22 @@ struct GuideState {
 	goal_only: String,
 }
 
+/// A route training stop's (piece `j`) classes with no trainer there, each a step of its own right
+/// after it (`<Class> trainer`, `train class only <Class> -- ...`): (piece, class, title, line).
+fn away_trainings(pieces: &[Piece], j: usize) -> Vec<(usize, String, String, String)> {
+	let PieceKind::Ins { t: Some(OrderT::Train), pt: stop, .. } = &pieces[j].kind else { return Vec::new() };
+	let mut out = Vec::new();
+	for (k, p) in pieces.iter().enumerate().skip(j + 1) {
+		let PieceKind::Ins { t: Some(OrderT::Train), pt, title: Some(title), lines, .. } = &p.kind else { break };
+		let cl = title.strip_suffix(" trainer").filter(|c| CLASSES.contains(c));
+		match (cl, lines.as_slice()) {
+			(Some(cl), [line]) if pt == stop && p.items.is_none() && line.starts_with(&format!("  train class only {cl} -- ")) => out.push((k, cl.to_string(), title.clone(), line.clone())),
+			_ => break,
+		}
+	}
+	out
+}
+
 struct Writer<'c, 'a> {
 	cx: &'c Ctx<'a>,
 	/// The route's last point, across guides.
@@ -5555,6 +5558,9 @@ struct Writer<'c, 'a> {
 	/// Classes trained already on a detour of their own in a city with their trainer: left out of the
 	/// route's training stop being written.
 	trained_away: Vec<String>,
+	/// The classes the route's training stop being travelled to cannot train, each with its own step
+	/// written after the stop (piece, class, title, training line): train_on_the_way.
+	train_on_way: Vec<(usize, String, String, String)>,
 	/// Classes on a detour of their own (their `only` list, where they flew).
 	away: Vec<(String, Option<String>)>,
 	/// The flight paths the items being written learn.
@@ -6324,19 +6330,20 @@ impl Writer<'_, '_> {
 					// reaches later is written there, not taken along by a step for a place it reaches first
 					// (the Orgrimmar trainer stays for Orgrimmar, not written at the Tirisfal dock before the
 					// zeppelin to it because the Undead's riding step after it is in Tirisfal).
-					let stop_zones: Vec<Option<String>> = {
+					let (stop_pts, stop_zones): (Vec<Option<u32>>, Vec<Option<String>>) = {
 						let mut p = at;
-						let mut zs = Vec::with_capacity(legs.len() + 1);
+						let mut ps = Vec::with_capacity(legs.len() + 1);
 						for l in &legs {
-							zs.push(cx.w(p).and_then(|w| cx.zone_name(Some(w.map))));
+							ps.push(p);
 							p = match l.k.as_deref() {
 								Some("fly") => l.to.and_then(|b| cx.world.nodes.get(b as usize)).and_then(|n| n.pt),
 								Some("ride") => l.ride.and_then(|r| cx.world.rides.get(r)).and_then(|r| r.b).and_then(|i| cx.world.nodes.get(i)).and_then(|n| n.pt),
 								_ => l.node.and_then(|n| cx.world.nodes.get(n)).and_then(|n| n.pt).or(l.to).or(x.to),
 							};
 						}
-						zs.push(cx.w(x.to).and_then(|w| cx.zone_name(Some(w.map))));
-						zs
+						ps.push(x.to);
+						let zs = ps.iter().map(|&p| cx.w(p).and_then(|w| cx.zone_name(Some(w.map)))).collect();
+						(ps, zs)
 					};
 					for (k, l) in legs.iter().enumerate() {
 						self.pos = at;
@@ -6360,6 +6367,11 @@ impl Writer<'_, '_> {
 							// v1's own line flies it.
 							at = l.to.and_then(|b| cx.world.nodes.get(b as usize)).and_then(|n| n.pt);
 							continue;
+						}
+						// (Before the leg out of a town the way passes: the classes the stop cannot train whose
+						// trainer stands there train there.)
+						if !self.train_on_way.is_empty() && stop_zones[k].is_some() && stop_zones[k + 1] != stop_zones[k] {
+							self.train_on_the_way(&stop_pts[..=k], &stop_zones[..=k]);
 						}
 						// The classes off on a detour of their own (a class step just written on the way) rejoin
 						// before everyone's next leg, not after it (A9: the Druids' Thunder Bluff flight before
@@ -7307,6 +7319,38 @@ impl Writer<'_, '_> {
 			self.g.zone = None;
 			self.trained_away.extend(cls);
 		}
+	}
+
+	/// The way to the route's training stop leaving a town (`zones`' last) it stood in (`pts`, the
+	/// places it stood on the way so far, `zones` theirs): each class the stop cannot train (its own
+	/// step after the stop, train_on_way) whose trainer stands within CITY_TRAINER_YD of where the way
+	/// stood in that town trains there now, that step written here instead (the Night Elf Druids in
+	/// Stormwind off the Darkshore boat, not sent back to it from Goldshire, #912).
+	fn train_on_the_way(&mut self, pts: &[Option<u32>], zones: &[Option<String>]) {
+		let cx = self.cx;
+		let Some(z) = zones.last().cloned().flatten() else { return };
+		let town: Vec<Option<u32>> = pts.iter().zip(zones).rev().take_while(|(_, zz)| zz.as_deref() == Some(z.as_str())).map(|(&p, _)| p).collect();
+		let fac = self.fac;
+		let mut later = Vec::new();
+		for (i, cl, title, line) in std::mem::take(&mut self.train_on_way) {
+			let Some(&at) = town.iter().find(|&&p| cx.trainer_classes_near(p, fac, CITY_TRAINER_YD).contains(cl.as_str())) else {
+				later.push((i, cl, title, line));
+				continue;
+			};
+			// (The line names the trainer nearest the stop: one in another town, Alodan in Thunder Bluff
+			// for the Paladins' Orgrimmar stop, is this town's nearest instead.)
+			let line = match (re!(r" -- (.+?) in ([^;]+)(;.*)?$").captures(&line), cx.nearest_trainer(at, fac, &cl)) {
+				(Some(m), Some((name, zone))) if m[2] != *z => format!("  train class only {cl} -- {name} in {zone}{}", m.get(3).map_or("", |x| x.as_str())),
+				_ => line,
+			};
+			self.push("");
+			self.push(format!("step {title}"));
+			self.push(format!("  zone {z}"));
+			self.push(line);
+			self.g.zone = None;
+			self.written.insert(i);
+		}
+		self.train_on_way = later;
 	}
 
 	fn come_back(&mut self, to: Option<u32>) {

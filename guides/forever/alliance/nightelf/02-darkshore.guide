@@ -160,6 +160,11 @@ step Woo Ping
   tip While you're here: learn Swords from Woo Ping (Trade District, 10 silver); a sword in the main hand levels a Rogue steadily.
   train 11867                         -- Woo Ping
 
+step Druid trainer
+  only Druid
+  zone Stormwind City
+  train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer
+
 step Elwynn Forest
   only NightElf
   zone Elwynn Forest
@@ -173,10 +178,6 @@ step Class trainer
 step Shaman trainer
   only Shaman
   train class only Shaman -- Teo Hammerstorm in Dun Morogh; Goldshire has no shaman trainer
-
-step Druid trainer
-  only Druid
-  train class only Druid -- Alfina Nightgaze in Alterac Mountains; Goldshire has no druid trainer
 
 step Remy "Two Times"
   zone Darkshore
