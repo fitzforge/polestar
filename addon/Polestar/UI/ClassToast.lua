@@ -381,16 +381,22 @@ function layout(width)
 	f.Ring:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -PAD)
 	f.Close:ClearAllPoints()
 	f.Close:SetPoint("TOPRIGHT", f, "TOPRIGHT", -6, -6)
-	local badgeW = 0
+	-- The chip sits beside the header; on a window too narrow for both on
+	-- one line ("LEVEL 19 · DUNGEON" and "+1.1 LEVELS"), under it.
+	local headW = width - x - closeW - 4
+	local badgeW, beside = 0, true
 	if f.Badge:IsShown() then
 		badgeW = floor(W.TextWidth(f.Badge.Text) + 14 + 0.5)
 		f.Badge:SetSize(badgeW, 18)
 		f.Badge:ClearAllPoints()
-		f.Badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(closeW + 4), -PAD + 2)
-		badgeW = badgeW + 8
+		beside = W.TextWidth(f.Head) <= headW - badgeW - 8
+		if beside then
+			f.Badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -(closeW + 4), -PAD + 2)
+			headW = headW - badgeW - 8
+		end
 	end
 	local tw = max(60, width - x - PAD)
-	f.Head:SetWidth(max(40, width - x - closeW - badgeW - 4))
+	f.Head:SetWidth(max(40, headW))
 	f.Title:SetWidth(max(60, width - x - closeW))
 	f.Giver:SetWidth(tw)
 	f.Route:SetWidth(tw)
@@ -398,6 +404,10 @@ function layout(width)
 	f.Head:ClearAllPoints()
 	f.Head:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
 	y = y + f.Head:GetStringHeight() + 4
+	if not beside then
+		f.Badge:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
+		y = y + f.Badge:GetHeight() + 4
+	end
 	f.Title:ClearAllPoints()
 	f.Title:SetPoint("TOPLEFT", f, "TOPLEFT", x, -y)
 	y = y + f.Title:GetStringHeight() + 4
@@ -419,8 +429,17 @@ function layout(width)
 	f.Later:ClearAllPoints()
 	f.Later:SetPoint("LEFT", act, "RIGHT", 8, 0)
 	f.Off:ClearAllPoints()
-	f.Off:SetPoint("LEFT", f.Later, "RIGHT", 4, 0)
-	y = y + act:GetHeight() + PAD
+	-- "Turn these off" beside Later, or on its own row under them when the
+	-- three don't fit in the card's width.
+	local row = act:GetWidth() + 8 + f.Later:GetWidth() + 4 + f.Off:GetWidth()
+	if f.Off:IsShown() and row > width - 2 * PAD - STRIPE then
+		y = y + act:GetHeight() + 4
+		f.Off:SetPoint("TOPLEFT", f, "TOPLEFT", PAD + STRIPE, -y)
+		y = y + f.Off:GetHeight() + PAD
+	else
+		f.Off:SetPoint("LEFT", f.Later, "RIGHT", 4, 0)
+		y = y + act:GetHeight() + PAD
+	end
 	f:SetHeight(floor(y + 0.5))
 end
 

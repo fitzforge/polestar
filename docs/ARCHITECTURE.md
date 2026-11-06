@@ -4568,7 +4568,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
 - **Dungeon heads-up** (`UI/DungeonToast.lua`, #836): the class quest
   heads-up's card (`UI.ClassToast.ShowCard(model)`, a model with its own
   `act` and `off` buttons and no class: the accent's stripe, ring and
-  header) for a dungeon whose quests have opened to this character: "LEVEL
+  header; on a window too narrow for them, the chip goes under the header
+  and the "stop" button under the other two) for a dungeon whose quests
+  have opened to this character: "LEVEL
   20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
   17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
   of `Dungeons.QuestXP`), **Pick up the quests** (`Dungeons.PickUp`: the

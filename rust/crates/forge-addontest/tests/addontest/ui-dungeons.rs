@@ -1000,3 +1000,25 @@ fn the_command_says_so_for_a_dungeon_with_nothing_to_pick_up_or_a_character_with
 	assert_eq!(out[0], json!({ "shown": false, "printed": ["Nothing to pick up"] }), "the Deadmines has no Horde quests");
 	assert_eq!(out[1], json!({ "shown": false, "printed": ["No dungeon has opened up for this character."] }));
 }
+
+// #869's screenshot: on the guide window at its narrowest the header ("LEVEL 19 · DUNGEON") wrapped and was cut
+// beside the chip, and "Turn these off" ran to the card's edge. Where they don't fit on one line, the chip goes
+// under the header and "Turn these off" under the other two buttons.
+#[test]
+fn on_a_narrow_window_the_chip_goes_under_the_header_and_turn_these_off_under_the_buttons() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local w, f = Polestar.UI.GuideFrame.frame, nil
+		levelUp(20)
+		f = CT.frame
+		for _, width in ipairs({{ Polestar.UI.MAX_WIDTH, Polestar.UI.MIN_WIDTH }}) do
+			w:SetWidth(width)
+			CT.Place(false)
+			local point, off = f.Badge:GetPoint(1), f.Off:GetPoint(1)
+			emit({{ chip = point, oneLine = f.Head:GetUnboundedStringWidth() <= f.Head:GetWidth(), badge = f.Badge.Text:GetText(), off = off,
+				row = f.Act:GetWidth() + 8 + f.Later:GetWidth() + 4 + f.Off:GetWidth() <= width - 32 }})
+		end"#
+	));
+	assert_eq!(out[0], json!({ "chip": "TOPRIGHT", "oneLine": true, "badge": "+25% OF A LEVEL", "off": "LEFT", "row": true }), "beside them on a wide window");
+	assert_eq!(out[1], json!({ "chip": "TOPLEFT", "oneLine": true, "badge": "+25% OF A LEVEL", "off": "TOPLEFT", "row": false }), "under them at the narrowest");
+}
