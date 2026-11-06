@@ -436,7 +436,14 @@ fn r2_use_at_the_place_nearest_the_routes_work() {
 fn r2_use_that_makes_the_quests_collect_is_bound_to_it() {
 	// #875 The Balance of Nature's moonwell: the phial filled, collect 5184 done, and a bare
 	// `use 5185` held the step until ticked.
-	let g = guide("a", "NightElf", "Alliance", "Teldrassil", None, &["step Tenaron", "  accept 921", "", "step Moonwell", "  collect 5184 quest 921.1 @60.0,33.0", "", "step Tenaron again", "  turnin 921"]);
+	let g = guide(
+		"a",
+		"NightElf",
+		"Alliance",
+		"Teldrassil",
+		None,
+		&["step Tenaron", "  accept 921", "", "step Moonwell", "  collect 5184 quest 921.1 @60.0,33.0", "", "step Tenaron again", "  turnin 921"],
+	);
 	let after = run(&[("a", g)], "NightElf", "Alliance", &Opts { use_items: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
 	assert!(a.iter().any(|l| l == "  use 5185 quest 921.1 @60.0,33.0 map 1438"), "{}", a.join("\n"));
