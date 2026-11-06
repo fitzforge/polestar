@@ -142,6 +142,8 @@ mod gear_upgrades;
 mod guides_compiled;
 #[path = "guides-end.rs"]
 mod guides_end;
+#[path = "guides-end-early.rs"]
+mod guides_end_early;
 #[path = "guides-memory.rs"]
 mod guides_memory;
 mod harness;

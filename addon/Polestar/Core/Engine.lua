@@ -3765,9 +3765,10 @@ function Own.enteredPlace(goals, g, goal)
 end
 
 -- The end of a leveling guide reached ahead of the live step (a player who
--- skipped ahead: Own.noteEnd). Its last step for the character is
--- Own.endLast(), with behavior.guideEnd "ask", before the end was told, and
--- while the live step is an earlier one. Its goals count by kind:
+-- skipped ahead: Own.noteEnd). Its last step for everyone (a class's or a
+-- race's own steps are not the end: Own.forSome) is Own.endLast(), with
+-- behavior.guideEnd "ask", before the end was told, and while the live step
+-- is an earlier one. Its goals count by kind:
 -- - quest state, level, bags, flight paths, spells: as they are;
 -- - goto and explore: by arrival, watched out of turn (Own.endWatch: Dun
 --   Morogh's walk on to Westfall), or a later goal of the step;
@@ -3780,7 +3781,7 @@ end
 --   turn; it counts once the step is on screen, or ticked.
 function Own.endLast()
 	if not (guide and computed) or not Own.endAsks(guide) or ns.CharState().guideEnds[guide.id] then return nil end
-	local s = Own.lastWork(computed)
+	local s = Own.lastWork(computed, true)
 	return s
 end
 
@@ -3841,6 +3842,28 @@ function Own.endDoneAhead(s)
 		end
 	end
 	return true
+end
+
+-- Whether the work of step s, the last one, was really done (#998): every
+-- goal that holds the route done, none of them only passed over as
+-- unavailable for now (a level not reached, a prerequisite missing, a
+-- giver's refusal); those come back, so the step is no end yet. Out for
+-- good (closed by another quest, skipped by the player) passes, but a step
+-- of nothing else is void, no end either.
+function Own.endWorkDone(s)
+	local goals, did = guide.steps[s].goals, false
+	for g = 1, #goals do
+		local goal = goals[g]
+		if blocks(goal) and goalApplies(goal) then
+			if goalDone(s, g, goal) then
+				did = true
+			else
+				local u = unavailableFor(goal)
+				if not (u and (u.reason == "closed" or u.reason == "skipped")) then return false end
+			end
+		end
+	end
+	return did
 end
 
 -- Loaded tab: mark arrived goals of step s; true if any. A "Go to" naming
@@ -4614,12 +4637,13 @@ end
 -- The last step of the loaded guide with work for the character, after step
 -- `after` (0: any): it applies, is not an along step, and has a goal that
 -- applies and is neither a note nor optional (a closing note-only step, or a
--- class's training step another class reads empty, is no end). -> index | nil
-function Own.lastWork(after)
+-- class's training step another class reads empty, is no end). `forAll`:
+-- not a step only for some characters either (Own.forSome). -> index | nil
+function Own.lastWork(after, forAll)
 	local steps = guide.steps
 	for s = #steps, after + 1, -1 do
 		local step = steps[s]
-		if not step.along and stepApplies(step) then
+		if not step.along and stepApplies(step) and not (forAll and Own.forSome(step)) then
 			for _, goal in ipairs(step.goals) do
 				if goal.t ~= "note" and not goal.optional and goalApplies(goal) then return s end
 			end
@@ -4628,13 +4652,47 @@ function Own.lastWork(after)
 	return nil
 end
 
+-- A class's or a race's own step: its `only` names classes or races, or each
+-- goal of its work does, or is a class quest by the quest database (Cat Form
+-- at the end of The Barrens for Druids). Such quests and trips are also done
+-- in class guides and on their own schedule, so they are never a leveling
+-- guide's end done ahead (Fitz, 2026-11-06). (On Own: the main chunk is at
+-- Lua's 200 locals.)
+function Own.someOnly(only)
+	return type(only) == "table" and ((type(only.classes) == "table" and #only.classes > 0) or (type(only.races) == "table" and #only.races > 0))
+end
+Own.ALL_CLASSES = 1503 -- the class bits of the quest database's masks (QuestDB CLASS_BIT)
+function Own.classQuest(q)
+	local Q = ns.QuestDB
+	local r = q and Q and Q.IsLoaded and Q.IsLoaded() and Q.QuestRecord(q)
+	local mask = r and r[Q.F.CLASSES]
+	if not mask then return false end
+	local band = bit and bit.band
+	return not band or band(mask, Own.ALL_CLASSES) ~= Own.ALL_CLASSES
+end
+function Own.forSome(step)
+	if Own.someOnly(step.only) then return true end
+	local any = false
+	for _, goal in ipairs(step.goals) do
+		if goal.t ~= "note" and not goal.optional and goalApplies(goal) then
+			if not (Own.someOnly(goal.only) or Own.classQuest(goal.quest)) then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
 	if placing or not Own.endAsks(guide) then return end
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
 	if ends[id] then return end
-	local last = Own.lastWork(0)
+	-- The end done ahead is judged on the last step for everyone (Own.forSome).
+	-- With the live step past it, a class's or race's own steps after it
+	-- still to come (Own.lastWork from the live step) are no end yet: the end
+	-- comes with them.
+	local last = Own.lastWork(0, true)
 	if computed then
 		-- Seen unfinished once placed: finishing it from now on reaches its end.
 		Own.endOpen[id] = true
@@ -4642,9 +4700,12 @@ function Own.noteEnd()
 		-- screen as any step), once that same step was seen open: one that
 		-- reads done from the start (its quest not offered to this character),
 		-- or a `when` step that applies late already done, ends the guide only
-		-- when the rest is done. Trailing steps of only optional goals or notes
-		-- are offered, not the end (Own.lastWork).
-		local done = last ~= nil and not isSkipped(last) and (last == current and stepDone(last) or last ~= current and Own.endDoneAhead(last))
+		-- when the rest is done; so does one whose work only reads done as
+		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
+		-- optional goals or notes are offered, not the end (Own.lastWork).
+		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1) ~= nil
+		local done = last ~= nil and not waits and not isSkipped(last) and Own.endWorkDone(last)
+			and (last == current and stepDone(last) or last ~= current and Own.endDoneAhead(last))
 		if not done then
 			if last then Own.lastOpen[id] = last end
 			return
@@ -6515,7 +6576,10 @@ end
 -- server lacks would take the quest and its later steps out of the guide):
 -- the accept stays open, the arrow stays on the giver, and its line says
 -- "Not offered by <giver>? Report it with /polestar" (Own.notListed, this
--- session, until the giver's window lists the quest or it is taken). A
+-- session, until the giver's window lists the quest or it is taken). Nor is
+-- a refusal while the missing prerequisite is in the log ready to hand in
+-- (Own.preReady): the window shows before the hand-in that opens the quest
+-- (Regthar Deathgate, Kolkar Leaders then Verog the Dervish, #998). A
 -- detail window opened from that giver's list, popped up by a turn-in at
 -- that giver (the follow-up quest), or started by an item, says nothing
 -- about the others.
@@ -6528,6 +6592,24 @@ local function unavailableReason(goal)
 	if lvl and (player.level or 1) < lvl then return "level" end
 	if missingPre(goal) then return "pre" end
 	return nil
+end
+
+-- Whether the prerequisites accept `goal` lacks are in the log, ready to hand
+-- in: every missing one of `preAll`, and one of `pre` when none is done.
+function Own.preReady(goal)
+	local C = Compat()
+	if type(goal.preAll) == "table" then
+		for _, q in ipairs(goal.preAll) do
+			if not questDone(q) and not C.IsQuestReadyForTurnIn(q) then return false end
+		end
+	end
+	if type(goal.pre) == "table" and #goal.pre > 0 then
+		for _, q in ipairs(goal.pre) do
+			if questDone(q) or C.IsQuestReadyForTurnIn(q) then return true end
+		end
+		return false
+	end
+	return true
 end
 
 -- A level-up or a turn-in (either can unlock a quest) clears the marks, so
@@ -6611,9 +6693,11 @@ local function checkOffers(source, startItem)
 				if goal.t == "accept" and q and (goal.npc == npc or goal.object == npc) and goalApplies(goal)
 					and not offered[q] and not C.IsOnQuest(q) and not questDone(q) and not unavailable[q] then
 					local why = unavailableReason(goal)
-					if why then
+					-- Offered once its prerequisite is handed in: no mark, nothing to report.
+					local waits = why == "pre" and Own.preReady(goal)
+					if why and not waits then
 						unavailable[q] = { reason = why, accept = goal }
-					else
+					elseif not why then
 						Own.notListed[q] = goal
 					end
 				end

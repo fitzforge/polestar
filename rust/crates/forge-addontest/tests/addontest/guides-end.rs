@@ -2,7 +2,9 @@
 //! (behavior.guideEnd "ask"; Engine, Own.noteEnd / Own.endDoneAhead): the guides compiled from guides/ with
 //! the reference data (data/forever; skipped with a note without it), loaded by the full addon on the stub
 //! world. Per guide one character it serves (its first race and class, at its first level and first located
-//! goal), and one more of a class its last step is only for. With the live step left early, only the last
+//! goal), and one more of a class its last step is only for. The last step is the last one for everyone: a
+//! class's or a race's own steps after it (Own.forSome: Cat Form at the end of The Barrens for Druids) are no
+//! end; done ahead first, they must not end the guide (`own`). With the live step left early, only the last
 //! applicable step's goals are done the way the game does them (quest state, the level, bags, flight paths
 //! from the flight map, position for goto and explore, the zone text for a flight's landing, the named NPC's
 //! window for train, vendor and talk); then GUIDE_END must fire with steps left undone and the guide stay.
@@ -28,10 +30,26 @@ E.SetGuide(@ID@)
 stub.advance(3)
 local g = G.Get(@ID@)
 local live = E.GetLiveStep()
-local function lastWork(below)
+local function someOnly(o)
+	return type(o) == "table" and ((o.classes and #o.classes > 0) or (o.races and #o.races > 0))
+end
+-- A class's or a race's own step (Engine, Own.forSome): its `only`, or that of each goal of its work.
+local function forSome(s, v)
+	if someOnly(g.steps[s].only) then return true end
+	local any = false
+	for gi, goal in ipairs(g.steps[s].goals) do
+		if goal.t ~= "note" and not goal.optional and v.goals[gi] and v.goals[gi].status ~= "na" then
+			if not someOnly(goal.only) then return false end
+			any = true
+		end
+	end
+	return any
+end
+-- forAll: the last step for everyone.
+local function lastWork(below, forAll)
 	for s = (below or #g.steps + 1) - 1, 1, -1 do
 		local v = E.GetStepView(s)
-		if v and v.status ~= "na" and not g.steps[s].along then
+		if v and v.status ~= "na" and not g.steps[s].along and not (forAll and forSome(s, v)) then
 			for gi, goal in ipairs(g.steps[s].goals) do
 				if goal.t ~= "note" and not goal.optional and v.goals[gi] and v.goals[gi].status ~= "na" then return s end
 			end
@@ -43,8 +61,10 @@ local function statuses(s)
 	for gi, gv in ipairs(E.GetStepView(s).goals) do st[gi] = gv.status end
 	return table.concat(st, ",")
 end
-local r = { id = @ID@, live = live or false, last = lastWork() or false, kinds = {}, unhandled = {} }
+local r = { id = @ID@, live = live or false, last = lastWork(nil, true) or false, kinds = {}, unhandled = {} }
 if not (live and r.last and r.last > live) then emit(r) return end
+r.own = lastWork()
+if r.own == r.last then r.own = nil end
 r.before = statuses(r.last)
 do
 	local req, v = {}, E.GetStepView(r.last)
@@ -89,14 +109,24 @@ local function satisfy(s, again)
 		end
 	end
 end
+-- A class's or race's own steps after the last step for everyone, done
+-- ahead first (Cat Form in the class guide): no end.
+if r.own then
+	for i = r.last + 1, #g.steps do
+		local v = E.GetStepView(i)
+		if v and v.status ~= "na" then satisfy(i, true) end
+	end
+	stub.advance(2)
+	r.ownEnded = ENDS[1] ~= nil
+end
 -- A last step whose `when` stops holding once done (`level<N`) leaves the
 -- step before it as the last: that one next, a few times.
-local s = lastWork()
+local s = lastWork(nil, true)
 for _ = 1, 3 do
 	if not s or s <= live or ENDS[1] then break end
 	satisfy(s)
 	stub.advance(2)
-	local now = lastWork()
+	local now = lastWork(nil, true)
 	if not (now and now < s) then break end
 	s = now
 end
@@ -109,7 +139,7 @@ if not ENDS[1] then
 	end
 	E.Goto(live)
 	stub.advance(1)
-	local s = lastWork()
+	local s = lastWork(nil, true)
 	if s and s > live then
 		satisfy(s, true)
 		stub.advance(2)
@@ -220,13 +250,18 @@ fn every_leveling_guide_ends_when_its_last_step_is_done_ahead_of_the_live_step()
 			let r: Value = out.into_iter().next().unwrap_or(Value::Null);
 			let kinds: Vec<String> = r["kinds"].as_array().map(|a| a.iter().map(|k| k.as_str().unwrap_or("").to_string()).collect()).unwrap_or_default();
 			let who = format!("{id} ({race} {class})");
-			let verdict = if r["before"].is_null() {
+			let own = if r["own"].is_null() { String::new() } else { format!(" (own steps from {} done ahead first: no end)", r["last"].as_i64().unwrap_or(0) + 1) };
+			let verdict = if r["ownEnded"] == true {
+				let v = format!("FAIL  {who}: a class's or race's own last steps done ahead ended the guide {r}");
+				fails.push(v.clone());
+				v
+			} else if r["before"].is_null() {
 				format!("skip  {who}: live {} last {}", r["live"], r["last"])
 			} else if r["ended"] == true && r["stays"] == true && r["undone"].as_f64().unwrap_or(0.0) > 0.0 {
 				if r["guarded"] == true {
 					format!("guard {who}: [{}] (ends once the open steps in that place are behind: {})", kinds.join(", "), r["before"])
 				} else {
-					format!("pass  {who}: [{}]", kinds.join(", "))
+					format!("pass  {who}: [{}]{own}", kinds.join(", "))
 				}
 			} else if r["required"].as_str().is_some_and(|b| b.split(',').all(|x| x == "done" || x == "skipped")) {
 				format!("ready {who}: [{}] (reads done from the start, {}: ends when the rest is done)", kinds.join(", "), r["before"])

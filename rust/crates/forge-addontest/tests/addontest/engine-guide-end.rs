@@ -41,6 +41,25 @@ Polestar.RegisterGuide({ id = "test/offer", pack = "test", title = "Offer", fact
 		{ goals = { { t = "note", text = "Next: the Barrens." } } } } })
 Polestar.RegisterGuide({ id = "test/trainer", pack = "test", title = "Trainer", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
 	steps = { q(60, "One"), q(61, "Two"), { title = "Class trainer", goals = { { t = "train", class = true } } } } })
+-- The Barrens' Kolkar chain at Regthar Deathgate (#998): each hand-in opens the next quest, and the last
+-- step is the chain's last hand-in.
+local function at(t, id, pre)
+	return { t = t, quest = id, title = "Kolkar " .. id, npc = 3389, npcName = "Regthar Deathgate", map = 1413, x = 45, y = 28, pre = pre }
+end
+Polestar.RegisterGuide({ id = "test/kolkar", pack = "test", title = "Kolkar", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1413, next = "test/barrens",
+	steps = { { goals = { at("accept", 850) } }, { goals = { at("turnin", 850), at("accept", 851, { 850 }) } }, q(70, "Elsewhere"),
+		{ goals = { at("turnin", 851), at("accept", 852, { 851 }) } }, q(71, "Elsewhere too"), { goals = { at("turnin", 852) } } } })
+-- The end of The Barrens (19-23) for a Druid: the last step for everyone (Regthar), then the class's own trip
+-- (Cat Form, done in its class guide as well), here for the character's class (Warrior).
+local mine = { classes = { "WARRIOR" } }
+Polestar.RegisterGuide({ id = "test/catform", pack = "test", title = "Cat Form", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(90, "One"), q(91, "Two"), q(92, "Regthar"),
+		{ title = "Moonglade", only = mine, goals = { { t = "accept", quest = 93, title = "To Thunder Bluff", map = 1413, x = 60, y = 60 } } },
+		{ title = "Turak Runetotem", only = mine, goals = { { t = "turnin", quest = 93, title = "To Thunder Bluff", map = 1413, x = 61, y = 61 } } } } })
+-- Stranglethorn's end for a Dwarf: the last step for everyone, then a trip home only that race takes.
+Polestar.RegisterGuide({ id = "test/home", pack = "test", title = "Home", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(94, "One"), q(95, "Two"), q(96, "Last for everyone"),
+		{ title = "Home", goals = { { t = "goto", map = 1413, x = 70, y = 70, text = "Home", only = { races = { "Orc" } } } } } } })
 "#;
 
 const NEXT: &str = r#"next = "test/barrens","#;
@@ -284,4 +303,114 @@ fn trailing_optional_or_note_steps_are_not_the_end_and_a_class_trainer_visit_ahe
 			emit(takeLog())"#,
 	});
 	assert_eq!(trainer, json!({}));
+}
+
+// #998: Regthar Deathgate's window, opened to hand in Kolkar Leaders, does not offer Verog the Dervish yet (it
+// opens with the hand-in). That refusal is no mark: the chain after it, up to the guide's last step, stays open
+// and the guide does not end.
+#[test]
+fn a_giver_s_window_before_the_hand_in_that_opens_the_follow_up_does_not_end_the_guide() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/kolkar"); flush(); takeLog()
+			w.accept(850, {}); flush()
+			w.gossip(3389, { active = { { questID = 850, isComplete = true } }, available = {} }); flush()
+			local r = { window = takeLog(), live = E.GetLiveStep(), follow = E.GetStepView(2).goals[2].status,
+				chain = E.GetStepView(4).goals[1].status, last = E.GetStepView(6).goals[1].status, ended = E.GuideEnded("test/kolkar") }
+			w.turnIn(850); w.close(); flush()
+			w.questDetail(3389, 851); flush(); w.accept(851, {}); w.close(); flush()
+			r.after = { log = takeLog(), live = E.GetLiveStep() }
+			emit(r)"#,
+	});
+	assert_eq!(out["window"], json!({}), "no GUIDE_END at Regthar's window");
+	assert_eq!(out["ended"], false);
+	assert_eq!(out["live"], 2);
+	assert_eq!(out["follow"], "active", "Verog the Dervish waits for the hand-in, not passed over");
+	assert_eq!(out["chain"], "pending");
+	assert_eq!(out["last"], "pending");
+	assert_eq!(out["after"], json!({ "log": {}, "live": 3 }));
+}
+
+// A last step that only reads done because its quest is unavailable for now is no end. Here Regthar's window
+// comes before Barak's head is in the bag: Verog the Dervish is passed over (its prerequisite missing, as
+// before), which carries down the chain to the last hand-in. That comes back with the hand-in.
+#[test]
+fn a_last_step_that_only_reads_done_as_unavailable_for_now_does_not_end_the_guide() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/kolkar"); flush(); takeLog()
+			w.accept(850, { 1 }); flush()
+			w.gossip(3389, { active = { { questID = 850 } }, available = {} }); w.close(); flush()
+			local r = { refused = takeLog(), follow = E.GetStepView(2).goals[2].status, last = E.GetStepView(6).goals[1].status, ended = E.GuideEnded("test/kolkar") }
+			w.finish(850); w.turnIn(850); flush()
+			w.accept(851, {}); flush()
+			r.after = { log = takeLog(), live = E.GetLiveStep(), last = E.GetStepView(6).goals[1].status }
+			emit(r)"#,
+	});
+	assert_eq!(out["refused"], json!({}), "no GUIDE_END while the chain waits for Kolkar Leaders");
+	assert_eq!(out["ended"], false);
+	assert_eq!(out["follow"], "skipped", "Verog the Dervish is passed over for now, as before");
+	assert_eq!(out["last"], "skipped");
+	assert_eq!(out["after"], json!({ "log": {}, "live": 3, "last": "pending" }));
+}
+
+// The Skyborne Druid's Barrens (recorded on 0.3.2): Cat Form, the guide's last hand-in for a Druid, done early
+// in the class guide ended The Barrens at step 48 of 107. A class's own last steps are never the end done
+// ahead: the last step for everyone is. Done ahead, it ends the guide as before; played in order, the class's
+// steps after it still come first, and the end comes with them.
+#[test]
+fn a_class_quest_done_elsewhere_never_ends_a_leveling_guide_the_last_step_for_everyone_does() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/catform"); flush(); takeLog()
+			w.accept(93, {}); flush(); w.turnIn(93); flush()
+			local r = { classQuest = takeLog(), live = E.GetLiveStep() }
+			w.accept(92, {}); flush()
+			r.lastForEveryone = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["classQuest"], json!({}), "Cat Form done in the class guide is no end");
+	assert_eq!(out["live"], 1);
+	assert_eq!(out["lastForEveryone"], json!(["GUIDE_END test/catform undone=2 live=1 next=test/barrens choose=nil"]));
+
+	let in_order = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/catform"); flush(); takeLog()
+			for q = 90, 92 do w.accept(q, {}); flush() end
+			local r = { atTheTrip = takeLog(), live = E.GetLiveStep() }
+			w.accept(93, {}); flush(); w.turnIn(93); flush()
+			r.done = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(in_order["atTheTrip"], json!({}), "the class's own steps after the last step for everyone still come");
+	assert_eq!(in_order["live"], 4);
+	assert_eq!(in_order["done"], json!(["GUIDE_COMPLETED test/catform", "GUIDE_END test/catform undone=0 live=nil next=test/barrens choose=nil"]));
+}
+
+// The same for a race's own last step (Stranglethorn's trips home for Dwarves and Gnomes at 40): being there
+// ahead of the live step is no end; the last step for everyone done ahead is.
+#[test]
+fn a_race_s_own_last_step_reached_ahead_is_no_end_either() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/home"); flush(); takeLog()
+			w.moveTo(1413, 60, 60); stub.advance(1.5)
+			w.moveTo(1413, 70, 70); stub.advance(1.5)
+			local r = { home = takeLog() }
+			w.accept(96, {}); flush()
+			r.lastForEveryone = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["home"], json!({}));
+	assert_eq!(out["lastForEveryone"], json!(["GUIDE_END test/home undone=3 live=1 next=test/barrens choose=nil"]));
 }
