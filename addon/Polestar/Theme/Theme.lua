@@ -849,8 +849,8 @@ local OPEN_SANS = {
 local FAMILIES = { opensans = OPEN_SANS, inter = FACES, fira = FIRA }
 
 -- The font a skin starts with (ui.font "skin", the default): the house
--- style uses Open Sans, Halo uses Fira Sans, and the others use the game's.
-local SKIN_FONT = { polestar = "opensans", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
+-- style and the others use the game's, Halo uses Fira Sans.
+local SKIN_FONT = { polestar = "game", halo = "fira", hearth = "game", forever = "game", blizzard = "game", classic = "game" }
 
 -- A skin's own sizes, where they differ from the ladder above (the handoff's
 -- typography: DIRECTION_B_HALO.md §2, the same in DIRECTION_A_BLIZZARD.md §2).
