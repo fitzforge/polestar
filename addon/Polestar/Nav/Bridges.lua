@@ -26,6 +26,7 @@ Nav.bridges = Bridges
 local tomtomUid      -- TomTom waypoint we own
 local blizzardSet = false
 local wuiSet = false   -- a Waypoint UI pin of ours
+local wuiLast         -- the pin last set: label, map, x, y (an unchanged target is not sent again)
 local questSet         -- the quest we super-tracked
 
 local FLAG = "Polestar"
@@ -98,6 +99,7 @@ end
 
 -- Clears what Polestar set through Waypoint UI or as a tracked quest, never the player's own.
 local function clearWaypointUI(W)
+	wuiLast = nil
 	if wuiSet then
 		wuiSet = false
 		if W and W.IsUserNavigationFlagged(FLAG) then W.ClearUserNavigation() end
@@ -127,18 +129,28 @@ local function syncWaypointUI(W, target)
 	local q = questTrackable(target)
 	if q and ST and ST.SetSuperTrackedQuestID then
 		if wuiSet then
-			wuiSet = false
+			wuiSet, wuiLast = false, nil
 			if W.IsUserNavigationFlagged(FLAG) then W.ClearUserNavigation() end
 		end
-		ST.SetSuperTrackedQuestID(q)
+		-- Already the tracked quest: nothing to tell the game (or Waypoint UI) again.
+		if not (questSet == q and ST.GetSuperTrackedQuestID and ST.GetSuperTrackedQuestID() == q) then
+			ST.SetSuperTrackedQuestID(q)
+		end
 		questSet = q
 		return true
 	end
 	local map, x, y = Nav.LiveCoords(target)
 	if not map or (C_Map and C_Map.CanSetUserWaypointOnMap and not C_Map.CanSetUserWaypointOnMap(map)) then return false end
 	if questSet then clearWaypointUI(nil) end
+	-- The same pin again (the target re-announced, an area's spot unchanged):
+	-- Waypoint UI is not asked to redraw it while it still holds ours.
+	local L = wuiLast
+	if wuiSet and L and L.label == target.label and L.map == map and math.abs(L.x - x) < 0.05 and math.abs(L.y - y) < 0.05
+		and W.IsUserNavigationFlagged(FLAG) then
+		return true
+	end
 	W.NewUserNavigation({ name = target.label, mapID = map, x = x, y = y, flags = FLAG, suppressAudio = true })
-	wuiSet = true
+	wuiSet, wuiLast = true, { label = target.label, map = map, x = x, y = y }
 	return true
 end
 

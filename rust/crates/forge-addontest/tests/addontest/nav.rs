@@ -1167,7 +1167,7 @@ fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we
 		json!([
 			["pin", "Accept The Damned", 9000, 50, 45, "Polestar", true],
 			["clear pin"],
-			["quest", 376],
+			// The objective, then the turn-in of the same quest: tracked once.
 			["quest", 376],
 			["quest", 0],
 			["pin", "Kill Duskbats", 9000, 55, 50, "Polestar", true],
@@ -1214,6 +1214,37 @@ fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 	assert_eq!(out["before"], 0);
 	assert_eq!(out["calls"], json!([["pin", "Talk to Executor Arren", 9000, 50, 45, "Polestar", true]]));
 	assert_eq!(out["native"], 2, "the plain pin first (set and tracked), then Waypoint UI's");
+}
+
+#[test]
+fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
+	let out = run(&format!(r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[756] = true
+		local collect = {{ kind = "collect", quest = 756, area = 60, search = 40 }}
+		-- The engine announces the same spot again (progress, a refresh): one pin.
+		nav.setWaypoint(wp(100, 0, "Collect Plainstrider Beak", collect))
+		nav.setWaypoint(wp(100, 0, "Collect Plainstrider Beak", collect))
+		N.Reapply()
+		-- The search moves to the next spot: the pin follows.
+		nav.setWaypoint(wp(0, 100, "Collect Plainstrider Beak", collect))
+		-- Waypoint UI lost our pin (the player cleared it): the next announcement sets it again.
+		current = nil
+		nav.setWaypoint(wp(0, 100, "Collect Plainstrider Beak", collect))
+		-- A tracked quest re-announced is not tracked again.
+		nav.setWaypoint(wp(-100, 0, "Turn in Rite of Strength", {{ kind = "turnin", quest = 756 }}))
+		nav.setWaypoint(wp(-100, 0, "Turn in Rite of Strength", {{ kind = "turnin", quest = 756 }}))
+		emit({{ calls = calls }})"#));
+	assert_eq!(
+		out["calls"],
+		json!([
+			["pin", "Collect Plainstrider Beak", 9000, 50, 45, "Polestar", true],
+			["pin", "Collect Plainstrider Beak", 9000, 45, 50, "Polestar", true],
+			["pin", "Collect Plainstrider Beak", 9000, 45, 50, "Polestar", true],
+			["clear pin"],
+			["quest", 756]
+		])
+	);
 }
 
 #[test]
