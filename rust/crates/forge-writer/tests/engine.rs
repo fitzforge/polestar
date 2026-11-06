@@ -903,3 +903,43 @@ fn groups_a_title_with_double_quotes_is_written_with_single_quotes() {
 	let tip = &a[idx(a, "step Sarkoth's cave") + 2];
 	assert!(tip.contains("Wanted:  'Sarkoth' needs a group of 3.") && !tip.contains('"'), "{}", a.join("\n"));
 }
+
+#[test]
+#[ignore = "needs data/forever (forge data build, or POLESTAR_V1)"]
+fn groups_the_drop_that_starts_a_family_quest_is_asked_for() {
+	// Croaky's Head (#977): the level 11 elite's drop starts Croaky's Head (91740, a group family), but its
+	// bag collect sat in Elwynn's step for everyone (12 recorded deaths at 8-9): it goes with the family.
+	let g = guide(
+		"a",
+		"Human",
+		"Alliance",
+		"Elwynn Forest",
+		None,
+		&[
+			"step Downstream and Princess",
+			"  collect 247813 quest 91733",
+			"  collect 247826 x1 optional",
+			"  collect 247817 quest 91733",
+			"",
+			"step Downstream and Princess",
+			"  when group 91740",
+			"  accept 91740 optional",
+			"",
+			"step Ormin Pelford",
+			"  turnin 91733",
+		],
+	);
+	let fam: Group = serde_json::from_value(
+		serde_json::json!({ "q": 91740, "title": "Croaky's Head", "size": 2, "level": 11, "mobs": [{ "npc": 330, "name": "Croaky", "level": 11, "rank": 1 }], "quests": [91740] }),
+	)
+	.unwrap();
+	let of: FxHashMap<u32, u32> = [(91740, 91740)].into_iter().collect();
+	let before = run_groups(&reference(), &[("a", g.clone())], "Human", "Alliance", &off(), &FxHashMap::default(), None, None, std::slice::from_ref(&fam), &of);
+	assert!(before["a"][..idx(&before["a"], "  when group 91740")].iter().any(|l| l == "  collect 247826 x1 optional"), "{}", before["a"].join("\n"));
+	let after = run_groups(&reference(), &[("a", g)], "Human", "Alliance", &Opts { groups: true, ..off() }, &FxHashMap::default(), None, None, &[fam], &of);
+	let a = &after["a"];
+	let head = idx(a, "  collect 247826 x1 optional");
+	let asked = a[..head].iter().rposition(|l| l.starts_with("step ")).unwrap();
+	assert_eq!(a[asked + 1], "  when group 91740", "{}", a.join("\n"));
+	assert!(idx(a, "  collect 247817 quest 91733") < head, "{}", a.join("\n"));
+}

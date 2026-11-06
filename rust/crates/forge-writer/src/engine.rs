@@ -552,13 +552,15 @@ fn with_word(line: &str, word: &str) -> String {
 /// (`fam`: quest -> the root quest asked about) gets `when group <root>`: in place when the step holds
 /// only that family's goals and no `when`, else the family's goals move to a copy of the step right
 /// after it, headed `when group <root>` (with the step's `only`). `tips`: the lines a family's step
-/// gains after its `when`, by step.
+/// gains after its `when`, by step. `gq`: a goal's quest (a bag collect of the item that starts a family
+/// quest is that quest's: Croaky's Head, #977).
 #[allow(clippy::too_many_arguments)]
 fn ask_group(
 	ch: &Chain,
 	texts: &[Vec<String>],
 	by_step: &BTreeMap<(usize, usize), Vec<usize>>,
 	fam: &dyn Fn(u32) -> Option<u32>,
+	gq: &dyn Fn(&G) -> Option<u32>,
 	tips: &FxHashMap<(usize, usize), Vec<(u32, String)>>,
 	step_only: &dyn Fn(usize, u32) -> Option<String>,
 	edits: &mut [Edits],
@@ -570,7 +572,7 @@ fn ask_group(
 	for (&(gi, si), idx) in by_step {
 		let meta = &ch.steps[gi][si];
 		let mut roots: Vec<u32> = Vec::new();
-		for r in idx.iter().filter_map(|&i| seq[i].quest.and_then(fam)) {
+		for r in idx.iter().filter_map(|&i| gq(&seq[i]).and_then(fam)) {
 			if !roots.contains(&r) {
 				roots.push(r);
 			}
@@ -579,8 +581,8 @@ fn ask_group(
 			continue;
 		}
 		let tip = |r: u32| tips.get(&(gi, si)).into_iter().flatten().filter(move |t| t.0 == r).map(|t| t.1.clone());
-		let all: Vec<usize> = idx.iter().copied().filter(|&i| seq[i].quest.is_some()).collect();
-		if roots.len() == 1 && !meta.when && !touched.contains(&(gi, si)) && all.iter().all(|&i| seq[i].quest.and_then(fam) == Some(roots[0])) {
+		let all: Vec<usize> = idx.iter().copied().filter(|&i| gq(&seq[i]).is_some()).collect();
+		if roots.len() == 1 && !meta.when && !touched.contains(&(gi, si)) && all.iter().all(|&i| gq(&seq[i]).and_then(fam) == Some(roots[0])) {
 			let at = edits[gi].after.entry(meta.line as usize - 1).or_default();
 			at.push(format!("  when group {}", roots[0]));
 			at.extend(tip(roots[0]));
@@ -601,7 +603,7 @@ fn ask_group(
 				b.push(o);
 			}
 			b.extend(tip(r));
-			for &i in all.iter().filter(|&&i| seq[i].quest.and_then(fam) == Some(r)) {
+			for &i in all.iter().filter(|&&i| gq(&seq[i]).and_then(fam) == Some(r)) {
 				let l = seq[i].line as usize - 1;
 				if edits[gi].removed.insert(l) {
 					b.push(edits[gi].line(&texts[gi], l));
@@ -1724,7 +1726,12 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 				}
 			}
 		}
-		ask_group(&ch, &texts, &by_step, &fam, &tips, &step_only, &mut edits, &mut touched, &mut rep, "groups when group");
+		// (A bag collect of the item that starts a family quest is that quest's work: Croaky's Head, the
+		// level 11 elite's drop, written in Elwynn's solo step for everyone, 12 recorded deaths, #977.)
+		let started: FxHashMap<u32, u32> =
+			inp.group_of.keys().flat_map(|&q| quest_v(inp.data, q).get("start").get("item").items().iter().filter_map(id).map(move |it| (it, q)).collect::<Vec<_>>()).collect();
+		let gq = |g: &G| g.quest.or_else(|| if g.verb == "collect" { g.item.and_then(|it| started.get(&it).copied()) } else { None });
+		ask_group(&ch, &texts, &by_step, &fam, &gq, &tips, &step_only, &mut edits, &mut touched, &mut rep, "groups when group");
 	}
 
 	// ---- pack format 5 (Polestar 0.3.0) ----
@@ -1733,7 +1740,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		// asked for: the accept, the work and the turn-in (the player who skips it skips all of it). (A
 		// quest of the route's group families is theirs.)
 		let groups: FxHashSet<u32> = first_accept.keys().copied().filter(|q| first_turnin.contains_key(q) && group(*q) && !(opts.groups && inp.group_of.contains_key(q))).collect();
-		ask_group(&ch, &texts, &by_step, &|q| groups.contains(&q).then_some(q), &FxHashMap::default(), &step_only, &mut edits, &mut touched, &mut rep, "R5 when group");
+		ask_group(&ch, &texts, &by_step, &|q| groups.contains(&q).then_some(q), &|g: &G| g.quest, &FxHashMap::default(), &step_only, &mut edits, &mut touched, &mut rep, "R5 when group");
 		// R6: emotes and waits as tasks, class spells as casts, before a turn-in nothing else tracks.
 		if let Some(steps) = inp.steps {
 			for (&q, &ti) in &first_turnin {

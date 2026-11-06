@@ -45,7 +45,7 @@ A route is only as good as the way the addon plays it, so the writer writes for 
 | walk store | `walks-<faction>.bin`, walking yards between world points (around hills, not straight lines) | beside the world file |
 | v1's guides | a guides folder holding `forever/` | `<root>/guides` |
 | game data | `quests.json`, `npcs.json`, `objects.json`, `items.json`, `zones.json`, `map-frames.json` and the compiler's data | `<root>/data/forever` |
-| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates) | `<checkout>/data/` (`--checkout`, default `--root`) |
+| fix records | `data/places.json` (arrow points, roads, objectives' own lines) and `data/guide-fixes.json` (tips, level gates, `when` lines: a goal's step shown only from `level>=N`) | `<checkout>/data/` (`--checkout`, default `--root`) |
 
 Each `order` item is one event: `t` is `accept`, `turnin`, `task` (work on an
 objective), `train`, `level` (with its fractional grind `target`) or `ride`
@@ -990,7 +990,9 @@ they matter to the player. They are not the judge's honest rules.
   the step holds only that family's lines and no `when`, else those lines move
   to a copy of the step right after it, headed `when group <root>` (R5's
   placement; several families, in the step's order: Sprogger's hand-in of
-  8553 before his accept of 8554). The family's work is never listed along the way. Its first step
+  8553 before his accept of 8554). A bag collect of the item that starts a family's quest is
+  that quest's line (Croaky's Head, a level 11 elite's drop, sat in Elwynn's step for
+  everyone: 12 recorded deaths at 8-9, #977). The family's work is never listed along the way. Its first step
   that does the root's work (else its accept step) gets one tip: "These are
   elite mobs: grouping up is encouraged, look for people to do it with." then
   how hard (size 1: "Sarkoth is a level 10 elite: most classes solo it at
