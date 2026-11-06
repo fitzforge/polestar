@@ -139,7 +139,7 @@ step Ratchet
 step Warlock: Summon Felsteed
   only Warlock
   zone The Barrens
-  tip Fly to Ratchet; Strahad Farsan teaches in the house by the bank. Fly back to Theramore afterwards.
+  tip From Theramore, ride north into the Barrens to Ratchet, or fly if you know its flight path. Strahad Farsan teaches in the house by the bank.
   fly "Ratchet" only Dwarf,Gnome,NightElf,Skyborne
   turnin 4488                         -- Strahad Farsan
   accept 4490

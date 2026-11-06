@@ -115,7 +115,7 @@ step Riding at 40
 step Thunder Bluff
   only Druid,Paladin
   zone Thunder Bluff
-  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins). Fly there from Orgrimmar, then on to Freewind Post.
+  tip Your trainer is in Thunder Bluff: Turak Runetotem (Druids) on Elder Rise, Alodan the Hopeful (Paladins). Fly there from Gadgetzan, then back to Gadgetzan.
   fly "Thunder Bluff"
   train class
 

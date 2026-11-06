@@ -26,7 +26,7 @@ step Fly to Grom'gol
 
 step To Grom'gol
   zone Stranglethorn Vale
-  tip Fly from Valormok to Orgrimmar, walk out of the main gate to the zeppelin towers and take the zeppelin to Grom'gol.
+  tip The flight from Stonard lands at Grom'gol Base Camp.
   goto 32.2,27.7 "Grom'gol Base Camp"
 
 step Grom'gol Base Camp

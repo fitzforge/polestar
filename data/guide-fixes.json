@@ -1634,6 +1634,210 @@
 				}
 			],
 			"pr": 969
+		},
+		{
+			"id": "ungoro-gadgetzan-from-theramore",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4504,
+				"goal": "accept"
+			},
+			"tip": "The flight from Theramore lands in Gadgetzan.",
+			"note": "The Alliance Un'Goro guide reaches Gadgetzan by the boat from Menethil Harbor and Theramore's flight (`fly \"Gadgetzan\"` from the Theramore flight master, the step before), but Tran'rek's step kept the seed tip \"From Ratchet, fly to Gadgetzan.\": no Alliance chain has learned Ratchet's flight path by then.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "felwood-emerald-sanctuary-from-jaedenar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5156,
+				"goal": "turnin"
+			},
+			"tip": "Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.",
+			"note": "The Alliance Felwood guide comes to Taronn Redfeather (npc 10921, Felwood 50.9,81.6) straight from Jaedenar, but the step kept the seed tip \"Fly from Talonbranch Glade to the Sanctuary's end of the road\": the player is not at Talonbranch Glade and no Alliance chain learns its flight path.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "winterspring-chillwind-from-southshore",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6028,
+				"goal": "turnin"
+			},
+			"tip": "From Southshore, ride north up the road through Alterac to Chillwind Camp.",
+			"note": "The Alliance Winterspring guide flies from Everlook to Theramore, takes the boat to Menethil Harbor and flies to Southshore before Argent Officer Pureheart's step, which kept the seed tip about walking through Timbermaw Hold and flying from Felwood via Auberdine, a way the guide no longer goes.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "wpl-ratchet-by-road-from-theramore",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5158,
+				"goal": "turnin"
+			},
+			"tip": "From Theramore, ride west into the Barrens and north up the coast to Ratchet.",
+			"note": "The Alliance guide flies from Thalanaar to Theramore and rides into the Barrens to Islen Waterseer and Ratchet, where it learns Ratchet's flight path (the same step's getfp); the seed tip \"Fly to Ratchet.\" named a flight path no Alliance chain has learned there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "silithus-ratchet-from-marshals-refuge",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4502,
+				"goal": "turnin"
+			},
+			"tip": "Fly from Marshal's Refuge to Ratchet.",
+			"note": "The Silithus guide starts where the previous guide ends, with Spraggle Frock at Marshal's Refuge in Un'Goro (its flight path learned when the guide flew there from Gadgetzan), and its first step flies to Ratchet from there; the seed tip \"Ride back to Cenarion Hold and fly to Ratchet.\" sent the player to Silithus first.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "badlands-felsteed-ratchet-by-road",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4488,
+				"goal": "turnin"
+			},
+			"tip": "From Theramore, ride north into the Barrens to Ratchet, or fly if you know its flight path. Strahad Farsan teaches in the house by the bank.",
+			"note": "Summon Felsteed: from Theramore, Warlocks who have not learned Ratchet's flight path walk to Ratchet (the guide's `step Ratchet` goto for them), and the next guide goes on from the Barrens to Thalanaar, not back to Theramore. The seed tip said \"Fly to Ratchet ... Fly back to Theramore afterwards.\"",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "ashenvale-zoramgar-already-there",
+			"faction": "Horde",
+			"at": {
+				"quest": 6462,
+				"goal": "accept"
+			},
+			"tip": "Learn the flight path here while you pick up the outpost's quests.",
+			"note": "The Horde Stonetalon guide walks across Ashenvale to Zoram'gar Outpost (the step before, Marukai) and learns its flight path in this step; the seed tip \"Fly from Ratchet to Zoram'gar Outpost\" named a flight to a path not learned yet, from a town the player is not in.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "silverpine-berens-peril-by-road",
+			"faction": "Horde",
+			"at": {
+				"quest": 95883,
+				"goal": "accept"
+			},
+			"tip": "From the zeppelin towers, run south through Tirisfal into Silverpine and down the road past the Sepulcher and Pyrewood. The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.",
+			"note": "The Horde guide takes the zeppelin from Durotar to Tirisfal and rides to Beren's Peril: no Horde chain has learned the Undercity's or Tarren Mill's flight path by then, so the seed tip's flights (\"If you already know the Tarren Mill flight path, fly there ... Otherwise fly from the Undercity to the Sepulcher\") were not open.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "thousand-needles-moonhorn-at-the-lift",
+			"faction": "Horde",
+			"at": {
+				"quest": 4542,
+				"goal": "accept"
+			},
+			"tip": "Brave Moonhorn stands at the top of the Great Lift, beside Grish Longrunner.",
+			"note": "The guide reaches the Great Lift from Bael Modan and Grish Longrunner (npc 12576, Barrens 44,92); Brave Moonhorn (npc 10079) stands at 44.2,92.2 beside him. The seed tip \"Fly from Thunder Bluff to Camp Taurajo and take the road south\" sent the player away from where they stand, and Orc, Troll and Undead have not learned Thunder Bluff's flight path there.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "needles-brine-from-freewind",
+			"faction": "Horde",
+			"at": {
+				"quest": 1534,
+				"goal": "turnin"
+			},
+			"tip": "Fly to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.",
+			"note": "The Shaman's Brine step flies to Camp Taurajo from the Freewind Post flight master (the step before goes to it), not from Thunder Bluff as the seed tip said.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "westfall-human-warrior-walk-to-stormwind",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1638,
+				"goal": "accept"
+			},
+			"tip": "Walk to Stormwind. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug.",
+			"note": "Human Warriors (The Shieldsmith) come to Stormwind from Westfall on foot: Humans learn Stormwind's flight path only later in this guide (`getfp \"Stormwind\"`, line 261), so the seed tip's \"Fly or walk to Stormwind\" offered a flight they cannot take.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
+		},
+		{
+			"id": "westfall-human-priest-walk-to-stormwind",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94774,
+				"goal": "turnin"
+			},
+			"tip": "Walk to Stormwind. High Priestess Laurena is in the Cathedral of Light.",
+			"note": "Human Priests (Divine Grace) come to Stormwind from Westfall on foot: Humans learn Stormwind's flight path only later in this guide (`getfp \"Stormwind\"`, line 261), so the seed tip's \"Fly or walk to Stormwind\" offered a flight they cannot take.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				}
+			],
+			"pr": 972
 		}
 	]
 }

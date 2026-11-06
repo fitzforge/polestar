@@ -223,6 +223,7 @@ step Class trainer
   zone Thunder Bluff
   train class only Paladin,Priest,Shaman,Mage,Druid
 
+
 # ---------------------------------------------------------------- Gloomrise, Mulgore
 
 step Thunder Bluff
@@ -330,7 +331,7 @@ step Freewind Post flight master
 step Brine
   only Shaman
   zone The Barrens
-  tip Fly from Thunder Bluff to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.
+  tip Fly to Camp Taurajo. Brine's hut stands on the ridge above the quilboar watering hole south of the camp, on the road to the Great Lift.
   fly "Camp Taurajo"
   turnin 1534                         -- Brine
   accept 220                          -- for Islen Waterseer, south of Ratchet: next guide

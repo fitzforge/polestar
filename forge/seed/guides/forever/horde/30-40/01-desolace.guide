@@ -291,7 +291,7 @@ step Shadowprey Village
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly to Thunder Bluff from Shadowprey and train with Turak Runetotem on Elder Rise, then fly on to Orgrimmar.
+  tip Fly from Orgrimmar to Thunder Bluff and train with Turak Runetotem on Elder Rise, then fly back to Orgrimmar.
   fly "Thunder Bluff"
   train class
 

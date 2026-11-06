@@ -181,7 +181,7 @@ step Jaedenar
 # ---------------------------------------------------------------- Back south
 
 step The Emerald Sanctuary
-  tip Fly from Talonbranch Glade to the Sanctuary's end of the road, or ride south along it.
+  tip Ride south-east from Jaedenar to the Emerald Sanctuary, the druids' camp by the road in southern Felwood.
   turnin 5156                         -- Taronn Redfeather
   accept 5249
 

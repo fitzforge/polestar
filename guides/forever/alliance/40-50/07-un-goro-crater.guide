@@ -35,7 +35,7 @@ step Sprinkle
 
 step Gadgetzan
   zone Tanaris
-  tip From Ratchet, fly to Gadgetzan.
+  tip The flight from Theramore lands in Gadgetzan.
   accept 4504                         -- Tran'rek
   turnin 2941
 

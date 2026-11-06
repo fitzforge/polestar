@@ -15,7 +15,7 @@ next forever/alliance/50-60/06-silithus
 
 step Ratchet
   zone The Barrens
-  tip Ride back to Cenarion Hold and fly to Ratchet.
+  tip Fly from Marshal's Refuge to Ratchet.
   fly "Ratchet"
   sethome "Ratchet"
   turnin 4502                         -- Liv Rizzlefix, inside

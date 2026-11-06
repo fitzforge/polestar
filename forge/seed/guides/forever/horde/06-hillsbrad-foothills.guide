@@ -232,7 +232,7 @@ step Orgrimmar
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip From Orgrimmar (zeppelin from the towers outside the Undercity) fly to Thunder Bluff and train on Elder Rise, then fly on to Camp Taurajo.
+  tip Turak Runetotem trains you on Elder Rise; then fly on to Camp Taurajo.
   fly "Thunder Bluff"
   train class
 

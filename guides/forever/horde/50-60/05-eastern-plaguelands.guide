@@ -210,7 +210,7 @@ step Fly to Thunder Bluff
 step Fly to Thunder Bluff
   only Druid,Paladin
   zone Thunder Bluff
-  tip Fly to the Undercity, take the zeppelin to Orgrimmar and fly on to Thunder Bluff.
+  tip The flight from Bloodvenom Post lands in Thunder Bluff: Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) in the city too.
   train class only Druid,Paladin      -- Turak Runetotem on Elder Rise; Alodan the Hopeful
 
 step Rumstag Proudstrider

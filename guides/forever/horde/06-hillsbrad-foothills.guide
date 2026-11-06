@@ -272,7 +272,7 @@ step Great Lift
 
 step The Great Lift
   zone Thousand Needles
-  tip Fly from Thunder Bluff to Camp Taurajo and take the road south to the Great Lift at the bottom of the Barrens.
+  tip Brave Moonhorn stands at the top of the Great Lift, beside Grish Longrunner.
   goto 44.2,92.2 map 1413 "The Great Lift"
   accept 4542 npc 10079               -- Brave Moonhorn, at the top of the lift
 
