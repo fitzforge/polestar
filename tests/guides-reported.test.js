@@ -3428,3 +3428,40 @@ test('Flight path sweep (#964): Stranglethorn 40: every race and class takes the
 		}
 	}
 });
+
+// --- Flight path sweep (#964), travel tips: tips kept from the seed sent players on
+// flights they can't take where they stand: from a flight master in another zone, or
+// to or from a flight path no chain of that side has learned by then (Ratchet and
+// Talonbranch Glade for the Alliance at those levels, Zoram'gar, Undercity and Tarren
+// Mill for the Horde, Stormwind for Humans in Westfall). Each tip now names the way
+// the guide goes. Read from the guide files: a step is found by a line it holds.
+test('flight path sweep (#972): travel tips name only flights the player can take there', () => {
+	const cases = [
+		['alliance/40-50/07-un-goro-crater', 'accept 4504', /From Ratchet/],
+		['alliance/50-60/02-felwood', 'turnin 5156', /Talonbranch/],
+		['alliance/50-60/03-winterspring', 'turnin 6028', /Timbermaw|Auberdine/],
+		['alliance/50-60/04-western-plaguelands', 'turnin 5158', /^Fly to Ratchet/],
+		['alliance/50-60/05-silithus', 'turnin 4502', /Cenarion Hold/],
+		['alliance/40-50/02-badlands', 'turnin 4488', /^Fly to Ratchet|Fly back to Theramore/],
+		['alliance/02-westfall', 'accept 1638', /Fly or walk/],
+		['alliance/02-westfall', 'turnin 94774', /Fly or walk/],
+		['alliance/02-westfall', 'train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid', /Fly or walk/],
+		['horde/05-stonetalon-mountains', 'accept 6462', /Fly from Ratchet/],
+		['horde/05-stonetalon-mountains', 'accept 95883', /Tarren Mill flight path|fly from the Undercity/],
+		['horde/06-hillsbrad-foothills', 'accept 4542', /Fly from Thunder Bluff/],
+		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
+		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
+		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins). Fly there', /from Orgrimmar/],
+		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff', /from Shadowprey/],
+		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
+	];
+	for (const [guide, anchor, wrong] of cases) {
+		const text = fs.readFileSync(path.join(__dirname, '..', 'guides', 'forever', `${guide}.guide`), 'utf8');
+		const steps = text.split('\nstep ').filter((s) => anchor.split('|').some((a) => s.includes(a)));
+		assert.ok(steps.length > 0, `${guide}: a step with "${anchor}"`);
+		for (const s of steps) {
+			const tip = (s.match(/^\s+tip (.*)$/m) || [])[1] || '';
+			assert.doesNotMatch(tip, wrong, `${guide}, step "${s.split('\n')[0]}": tip "${tip}"`);
+		}
+	}
+});

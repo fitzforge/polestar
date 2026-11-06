@@ -437,7 +437,7 @@ step The Barrens
 
 step Ratchet
   zone The Barrens
-  tip Fly to Ratchet.
+  tip From Theramore, ride west into the Barrens and north up the coast to Ratchet.
   turnin 5158                         -- Islen Waterseer, on the coast north of town
   accept 5159                         -- For Felwood: keep it
   getfp "Ratchet"
