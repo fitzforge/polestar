@@ -14,7 +14,7 @@
 use forge_addontest::run::{addons_dir, join, root};
 use forge_addontest::{emitted, lua_value, truthy, Addon, RunAddon};
 use serde_json::{json, Value};
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 
 fn codex_dir() -> PathBuf {
 	std::env::var_os("POLESTAR_CODEX_DIR").map_or_else(|| addons_dir().join("Polestar_Codex"), PathBuf::from)
@@ -29,7 +29,7 @@ fn frames() -> PathBuf {
 }
 
 /// A pack folder's TOC files as a Lua list of absolute paths, empty when it has no TOC.
-fn toc_list(dir: &PathBuf, toc: &str) -> String {
+fn toc_list(dir: &Path, toc: &str) -> String {
 	let Ok(text) = std::fs::read_to_string(dir.join(toc)) else { return "{}".into() };
 	let files: Vec<String> = text.lines().map(str::trim).filter(|l| !l.is_empty() && !l.starts_with('#')).map(|f| serde_json::to_string(&join(dir, f).to_string_lossy()).unwrap()).collect();
 	format!("{{ {} }}", files.join(", "))
@@ -152,8 +152,10 @@ emit({ bad = bad, sideless = sideless, pickups = n.pickups, handins = n.handins,
 /// (race, class, faction, map, x, y)
 type Character = (&'static str, &'static str, &'static str, i32, i32, i32);
 
-const HORDE: [Character; 4] = [("Orc", "WARRIOR", "Horde", 1454, 50, 70), ("Scourge", "WARLOCK", "Horde", 1458, 66, 44), ("Tauren", "DRUID", "Horde", 1456, 45, 55), ("Troll", "SHAMAN", "Horde", 1454, 50, 70)];
-const ALLIANCE: [Character; 4] = [("Human", "PALADIN", "Alliance", 1453, 60, 70), ("Dwarf", "HUNTER", "Alliance", 1455, 30, 60), ("NightElf", "DRUID", "Alliance", 1457, 40, 50), ("Gnome", "MAGE", "Alliance", 1453, 60, 70)];
+const HORDE: [Character; 4] =
+	[("Orc", "WARRIOR", "Horde", 1454, 50, 70), ("Scourge", "WARLOCK", "Horde", 1458, 66, 44), ("Tauren", "DRUID", "Horde", 1456, 45, 55), ("Troll", "SHAMAN", "Horde", 1454, 50, 70)];
+const ALLIANCE: [Character; 4] =
+	[("Human", "PALADIN", "Alliance", 1453, 60, 70), ("Dwarf", "HUNTER", "Alliance", 1455, 30, 60), ("NightElf", "DRUID", "Alliance", 1457, 40, 50), ("Gnome", "MAGE", "Alliance", 1453, 60, 70)];
 
 fn skip() -> bool {
 	let s = !codex_dir().join("Polestar_Codex.toc").exists() || !frames().exists();

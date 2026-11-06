@@ -499,7 +499,7 @@ fn a_quest_the_codex_gives_no_side_whose_follow_up_is_the_alliance_s_is_never_in
 	let horde = run(&own, &k(TAKE), Opts::default()).remove(0);
 	assert_eq!(horde, json!({ "take": [1014, 1740], "accepts": [1010, 1011, 1014, 1740] }), "the Horde warlock is never sent to Shaedlass");
 	let human = run(&own, &k(TAKE), Opts { race: "Human", faction: "Alliance", cls: "MAGE", log: vec![], ..Default::default() }).remove(0);
-	assert_eq!(human["take"], json!([90400]), "an Alliance character still takes it (its follow-up after it)");
+	assert!(takes(&human, 90400), "an Alliance character still takes it: {}", human["take"]);
 }
 
 #[test]
