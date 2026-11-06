@@ -1,8 +1,6 @@
 //! `codex build --offline` (release build: data/forever/codex/*.json, the Polestar_Codex pack and the
-//! warnings) against the JavaScript's output on the world slice (+ the professions golden's
-//! professions.json), client table slices, the guide slice and the gear golden's synthetic MIT
-//! ForeverLevelingBiS: rust/tests/golden/codex (README there). Without an MIT ForeverLevelingBiS the
-//! build goes on without its facts.
+//! warnings) on the world slice (+ the professions golden's professions.json), client table slices and
+//! the guide slice: rust/tests/golden/codex (README there).
 
 use crate::common;
 
@@ -21,11 +19,10 @@ fn setup(name: &str) -> (PathBuf, PathBuf) {
 	(root, data)
 }
 
-fn options(root: &Path, data: &Path, addons: PathBuf) -> Options {
+fn options(root: &Path, data: &Path) -> Options {
 	let mut o = Options::new(root);
 	o.data_dir = data.to_path_buf();
 	o.sources_dir = common::golden("codex").join("input/sources");
-	o.addons = Some(addons);
 	o.version = Some("0.2.6".into());
 	o.parity_against = None;
 	o.measure = false;
@@ -36,7 +33,7 @@ fn options(root: &Path, data: &Path, addons: PathBuf) -> Options {
 #[test]
 fn codex_matches_golden() {
 	let (root, data) = setup("codex");
-	let out = codex::build_logged(&options(&root, &data, common::golden("gear").join("input/AddOns")), &|_| {}).unwrap();
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
 	let want = common::golden("codex").join("expected");
 	let mut check = common::Check::new();
 	for (dir, files) in [("codex", &out.json), (codex::pack::ADDON, &out.pack)] {
@@ -50,16 +47,6 @@ fn codex_matches_golden() {
 	let warnings: String = out.warnings.iter().map(|w| format!("warning: {w}\n")).collect();
 	check.file("warnings.txt", &warnings, &want.join("warnings.txt"));
 	check.finish("codex build");
-}
-
-#[test]
-fn codex_refuses_a_foreverlevelingbis_that_is_not_mit() {
-	let (root, data) = setup("codex-not-mit");
-	let addons = root.join("AddOns");
-	common::copy_tree(&common::golden("gear").join("input/AddOns"), &addons);
-	std::fs::write(addons.join("ForeverLevelingBiS/LICENSE"), "Copyright (c) 2026 Thunder. All rights reserved.\n").unwrap();
-	let err = codex::build_logged(&options(&root, &data, addons), &|_| {}).err().expect("a non-MIT ForeverLevelingBiS is refused");
-	assert_eq!(err, "ForeverLevelingBiS v0.0.1-golden is not MIT-licensed; the gear data stays as last built from an MIT version");
 }
 
 /// Every quest on the release build's dungeon pages: (id, its XP).
@@ -79,7 +66,6 @@ fn page_xp(journal: &str) -> Vec<(i64, Option<f64>)> {
 #[test]
 fn dungeon_pages_take_forever_dbs_xp_first() {
 	let (root, data) = setup("codex-store-xp");
-	let addons = common::golden("gear").join("input/AddOns");
 	let golden = std::fs::read_to_string(common::golden("codex").join("expected/codex/journal.json")).unwrap();
 	let ids: Vec<i64> = page_xp(&golden).into_iter().map(|(id, _)| id).collect();
 	let (in_store, not_in_store, corrected) = (ids[0], ids[1], ids[2]);
@@ -100,7 +86,7 @@ fn dungeon_pages_take_forever_dbs_xp_first() {
 	let corrections = format!("{{\"_about\":\"not a quest\",\"{in_store}\":{{\"set\":{{\"pre\":[1]}}}},\"{corrected}\":{{\"set\":{{\"xp\":5000}}}}}}");
 	std::fs::write(db.join("corrections/quests.json"), corrections).unwrap();
 
-	let out = codex::build_logged(&options(&root, &data, addons), &|_| {}).unwrap();
+	let out = codex::build_logged(&options(&root, &data), &|_| {}).unwrap();
 	let after = page_xp(&out.json.iter().find(|(n, _)| n == "journal.json").unwrap().1);
 	let shows = |quest: i64, want: f64| after.iter().filter(|(id, _)| *id == quest).all(|(_, xp)| *xp == Some(want));
 	assert!(shows(in_store, 4600.0), "{in_store} takes forever-db's XP: {after:?}");

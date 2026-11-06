@@ -88,7 +88,8 @@ pub fn guide_notice_refusal(addons: &Path, names: &[String]) -> Option<String> {
 
 /// Why the built Codex folder `dir` may not ship, or None when it may: it must be built, carry its
 /// Meta.lua and LICENSE-DATA.txt, and come from release-safe inputs only (never a `--local-extras` build,
-/// nor one naming AtlasLoot, RareScanner, DungeonJournal or dungeons.json among its sources).
+/// nor one naming AtlasLoot, RareScanner, DungeonJournal or dungeons.json among its sources), and never
+/// one built while it still merged ForeverLevelingBiS (relicensed; named in its sources or notices).
 pub fn codex_refusal(dir: &Path) -> Option<String> {
 	const REBUILD: &str = "`forge data codex`";
 	if !dir.join(format!("{CODEX}.toc")).exists() {
@@ -101,11 +102,16 @@ pub fn codex_refusal(dir: &Path) -> Option<String> {
 		return Some(format!("LICENSE-DATA.txt is missing (rebuild it with {REBUILD})"));
 	}
 	let meta = std::fs::read_to_string(dir.join("Meta.lua")).unwrap_or_default();
+	let notices = std::fs::read_to_string(dir.join("LICENSE-DATA.txt")).unwrap_or_default();
 	static LOCAL: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r"\blocalExtras = true\b").unwrap());
 	static NAME: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r#"\bname = "([^"]*)""#).unwrap());
 	static LOCAL_ONLY: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r"(?i)AtlasLoot|RareScanner|DungeonJournal|dungeons\.json").unwrap());
+	static FLBIS: std::sync::LazyLock<regex::Regex> = std::sync::LazyLock::new(|| regex::Regex::new(r"(?i)ForeverLevelingBiS").unwrap());
 	if LOCAL.is_match(&meta) {
 		return Some(format!("it is a --local-extras build (AtlasLoot, RareScanner, DungeonJournal); rebuild it with {REBUILD}"));
+	}
+	if FLBIS.is_match(&meta) || FLBIS.is_match(&notices) {
+		return Some(format!("its sources include ForeverLevelingBiS, which the Codex no longer ships; rebuild it with {REBUILD}"));
 	}
 	let named = NAME.captures_iter(&meta).map(|c| c[1].to_string()).find(|n| LOCAL_ONLY.is_match(n));
 	named.map(|n| format!("its sources include a local-only input ({n}); rebuild it with {REBUILD}"))
@@ -201,6 +207,23 @@ mod tests {
 		// An older local build that predates the flag still names its inputs.
 		std::fs::write(dir.join("Meta.lua"), "C.Register(\"meta\", {\n\tsources = {\n\t\t{\n\t\t\tlicence = \"GPL-2.0\",\n\t\t\tname = \"AtlasLootClassic\",\n\t\t},\n\t},\n})\n").unwrap();
 		assert_eq!(codex_refusal(&dir).unwrap(), "its sources include a local-only input (AtlasLootClassic); rebuild it with `forge data codex`");
+	}
+
+	// A Codex built while it still merged ForeverLevelingBiS (the Oct 17 build in an old checkout's addon/):
+	// its author relicensed it, and the Codex no longer ships its rows, whatever the version.
+	#[test]
+	fn a_codex_built_with_foreverlevelingbis_never_ships() {
+		let root = tmp("codex-flbis");
+		let dir = root.join(CODEX);
+		addon(&root, CODEX);
+		std::fs::write(dir.join("LICENSE-DATA.txt"), "Polestar Codex: third-party notices\n").unwrap();
+		let flbis = "C.Register(\"meta\", {\n\tlocalExtras = false,\n\tsources = {\n\t\t{\n\t\t\tlicence = \"MIT\",\n\t\t\tname = \"ForeverLevelingBiS\",\n\t\t\tversion = \"v0.12.0-beta\",\n\t\t},\n\t},\n})\n";
+		std::fs::write(dir.join("Meta.lua"), flbis).unwrap();
+		assert_eq!(codex_refusal(&dir).unwrap(), "its sources include ForeverLevelingBiS, which the Codex no longer ships; rebuild it with `forge data codex`");
+		// Named only in its notices.
+		std::fs::write(dir.join("Meta.lua"), "C.Register(\"meta\", {\n\tlocalExtras = false,\n})\n").unwrap();
+		std::fs::write(dir.join("LICENSE-DATA.txt"), "Polestar Codex: third-party notices\n\nForeverLevelingBiS\n------------------\nVersion: v0.12.0-beta\nLicence: MIT\n").unwrap();
+		assert!(codex_refusal(&dir).unwrap().starts_with("its sources include ForeverLevelingBiS"));
 	}
 
 	#[test]

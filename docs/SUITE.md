@@ -59,8 +59,8 @@ their versions in its `meta`.
   Lua-literal reader (`lua.js`); QuestieDB is read by `forge data build`,
   DungeonJournal by `forge data dungeons`. Each returns plain JSON. Web sources are
   cached under `data/sources/` and only fetched when asked.
-- `forge data codex` merges ForeverLevelingBiS,
-  `data/forever/*.json` and the Forever client's tables into
+- `forge data codex` merges `data/forever/*.json`, the Forever client's
+  tables, the recorded item sources (`data/codex/recorded.json`) and our guides into
   `data/forever/codex/*.json` and the `Polestar_Codex` pack, which ships in
   every release (release-safe inputs only; ARCHITECTURE, "Codex"). With
   `--local-extras` it also merges AtlasLoot, RareScanner and DungeonJournal:

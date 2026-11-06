@@ -151,7 +151,7 @@ test("curatedEntrances reads every goto with a label from the guides, with its z
 	assert.deepEqual(curatedEntrances(dir), [{ label: 'Stratholme Service Entrance', map: null, zone: 'Eastern Plaguelands', x: 47.9, y: 23.8 }]);
 });
 
-// A release build's inputs: data/forever, FLBiS and the client; no AtlasLoot,
+// A release build's inputs: data/forever and the client; no AtlasLoot,
 // RareScanner or dungeons.json.
 function releaseInputs() {
 	const npcs = {
@@ -206,7 +206,6 @@ function releaseInputs() {
 		},
 		atlasloot: null,
 		rarescanner: null,
-		flbis: null,
 		client,
 		curated: [8631],
 		entrances: [],

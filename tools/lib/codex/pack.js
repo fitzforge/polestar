@@ -73,7 +73,6 @@ const FROM = {
 	atlasloot: 'a',
 	client: 'c',
 	dungeons: 'd',
-	flbis: 'f',
 	journal: 'j',
 	guides: 'g',
 	curated: 'u',

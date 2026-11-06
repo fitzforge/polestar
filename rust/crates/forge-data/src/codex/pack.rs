@@ -16,7 +16,6 @@ fn from_letter(f: &str) -> Result<char, String> {
 		"atlasloot" => 'a',
 		"client" => 'c',
 		"dungeons" => 'd',
-		"flbis" => 'f',
 		"journal" => 'j',
 		"guides" => 'g',
 		"curated" => 'u',

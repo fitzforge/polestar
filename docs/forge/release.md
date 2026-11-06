@@ -49,7 +49,8 @@ parts, and its texts in the language folders `Polestar_<locale>`), then writes t
 | `SHA256SUMS` | both zips' checksums, as `sha256sum -c` reads them |
 
 It stops before writing anything when the Codex is not built (`forge data codex`), was built with local
-extras, or names a local-only source; when an addon's TOC is missing; when the guides have errors; or
+extras, names a local-only source, or names ForeverLevelingBiS (a Codex built before it left, 2026-11);
+when an addon's TOC is missing; when the guides have errors; or
 without reference data (`forge data build`). A TOC whose version is not `package.json`'s is a warning.
 
 The zips are reproducible on every machine: entries in a fixed order (each folder, then its files by

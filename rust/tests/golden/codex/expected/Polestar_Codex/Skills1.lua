@@ -5,4 +5,4 @@
 local C = Polestar and Polestar.Codex
 if not (C and C.Register) then return end
 
-C.Register("skill", "\n129\t\tFirst Aid\n165\t\tLeatherworking\n171\t\tAlchemy\n185\t\tCooking\n186\t\tMining", nil, 129, 186)
+C.Register("skill", "\n129\t\tFirst Aid\n171\t\tAlchemy\n185\t\tCooking\n186\t\tMining", nil, 129, 186)
