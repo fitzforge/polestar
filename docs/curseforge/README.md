@@ -4,15 +4,15 @@ Everything the Polestar project on CurseForge needs, in one folder:
 
 | File | What it is |
 |---|---|
-| [description.html](description.html) | The project description for CurseForge's WYSIWYG editor: paste it whole into its HTML source view. Every image has its width and height, so each shows near its natural size |
+| [description.html](description.html) | The project description for CurseForge's WYSIWYG editor: paste it whole into its HTML source view. An evergreen overview of the whole addon (no version numbers or "new in"; what changed lives in CHANGELOG.md and the Files tab). Every image has its width and height, so each shows near its natural size |
 | [description.md](description.md) | The same text for the Markdown editor, if the HTML one is ever unusable (images then run at the column's full width) |
 | [preview.html](preview.html) | A local preview: description.html at CurseForge's description width (836 px) with CurseForge's own description styles; open it in a browser |
 | `media/*.gif` | The description's animations, recorded from the real addon (below); `.mp4` and `.webm` copies of each for anywhere that takes video |
-| `media/journey.png`, `media/questlog.png`, `media/lookup.jpg` | The description's still pictures |
+| `media/*.jpg`, `media/*.png` | The description's still pictures |
 | `gallery/*.jpg` | The gallery: ten 1920x1080 pictures, uploaded by hand (titles below) |
 | `images/logo-1024.png`, `images/logo-400.png` | The project avatar: the gold emblem on a night tile, no text |
 | `images/banner.png` | The banner at the top of the description (the README's dark banner at 2x) |
-| `images/starts.png` | The route chart at 2x |
+| `images/starts.png` | The route chart at 2x (not in the description: it compares two versions) |
 
 The description's images and links point at `main` on GitHub
 (`https://raw.githubusercontent.com/fitzforge/polestar/main/...` and
@@ -33,13 +33,19 @@ high-density screens.
 | File | Pixels | Shown at | Size |
 |---|---|---|---|
 | `images/banner.png` | 2560x640 | 836x209 | 293 KB |
-| `media/arrow-walk.gif` | 1254x982, 7.5 s | 600x470 | 748 KB |
-| `media/guide-fold.gif` | 792x890, 7.8 s | 396x445 | 359 KB |
-| `media/journey.png` | 776x1122 | 388x561 | 334 KB |
+| `media/leveling.jpg` | 1824x1472 | 836x675 | 236 KB |
+| `media/arrow-walk.gif` | 1254x982, 7.5 s | 600x470 | 747 KB |
+| `media/journey.png` | 776x1122 | 388x561 | 333 KB |
 | `media/nearby.gif` | 978x789, 7.9 s | 652x526 | 379 KB |
+| `media/guide-fold.gif` | 792x890, 7.8 s | 396x445 | 359 KB |
+| `media/transparent.png` | 776x762 | 388x381 | 356 KB |
 | `media/picker.gif` | 1256x970, 7.2 s | 836x646 | 424 KB |
-| `media/lookup.jpg` | 1824x1472 | 836x675 | 282 KB |
-| `media/questlog.png` | 856x944 | 428x472 | 331 KB |
+| `media/lookup.jpg` | 1824x1464 | 836x671 | 213 KB |
+| `media/dungeons.jpg` | 1824x1464 | 836x671 | 243 KB |
+| `media/worldmap.jpg` | 2084x1476 | 836x592 | 399 KB |
+| `media/quality-of-life.jpg` | 1504x1464 | 752x732 | 195 KB |
+| `media/questlog.png` | 856x944 | 428x472 | 330 KB |
+| `docs/assets/screenshots/client.webp` | 1375x950 | 760x525 | 59 KB |
 
 The banner and avatar are drawn in code: `node tools/polestar.js readme
 brand` writes `docs/assets/avatar.svg` and, with `rsvg-convert` (librsvg)
@@ -48,13 +54,15 @@ installed, those PNGs; `readme charts` re-exports the chart (tools/README.md,
 
 The animations, stills and the gallery's windows are the real addon, run in
 `polestar play` (the playground: the addon's Lua against the simulated world)
-with client map art, a Level 14-18 Human Warrior on the Darkshore and
-Elwynn Forest guides. Each frame is the playground's own render, cropped and
+with client map art, a level 12-18 Human Warrior on the Elwynn Forest and
+Darkshore guides. Each frame is the playground's own render, cropped and
 scaled with `rsvg-convert`, set on a blurred game scene from polestar.guide's
 press art, and joined with ffmpeg (a palette per GIF, MP4 and WebM beside
 it). Walking in `arrow-walk` is sped up; the route is the one the addon
-walks. The gallery adds a title and one line in polestar.guide's type over
-press art (© Blizzard Entertainment, credited in each picture).
+walks. The version line in the guide menu and options is blanked before each
+capture, so no picture dates itself. The gallery adds a title and one line in
+polestar.guide's type over press art (© Blizzard Entertainment, credited in
+each picture).
 
 ## Summary
 
@@ -113,7 +121,7 @@ indicator.
 The files in `gallery/`, 1920x1080, in this order, each with its title and
 description (CurseForge's gallery shows them large, so each holds one idea
 with the window at a readable size). They replace every earlier gallery
-image; the first one was still the 0.2.0 guide menu.
+image. Like the description they show no version, so they stay true.
 
 | File | Title | Description |
 |---|---|---|
@@ -131,13 +139,14 @@ image; the first one was still the 0.2.0 guide menu.
 ## For a new release
 
 1. Upload the new zip as above, with its changelog.
-2. Read [description.html](description.html) against the release: "What's
-   new" lists the release's main player changes (CHANGELOG.md, "For
-   players"), and every feature section still says what the addon does.
-   Make the same change in [description.md](description.md), and paste the
-   new description.html between the markers in [preview.html](preview.html)
-   with the `https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/`
-   prefix taken off.
+2. The description is evergreen: it says what Polestar is and does, never
+   which version did what, so a release usually needs no change to it. Only
+   when a release adds a whole feature or removes one, or a section no longer
+   says what the addon does, edit [description.html](description.html), make
+   the same change in [description.md](description.md), and paste the new
+   description.html between the markers in [preview.html](preview.html) with
+   the `https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/`
+   prefix taken off (and `…/main/docs/` made `../`).
 3. If the chart was redrawn (`readme charts`) or the brand art changed
    (`readme brand`), commit the new PNGs too. A picture that no longer shows
    the addon as it is gets recorded again the same way (above).
@@ -145,4 +154,4 @@ image; the first one was still the 0.2.0 guide menu.
 5. On CurseForge, open the description in the WYSIWYG editor, switch it to
    its HTML source view, replace everything with description.html, save, and
    check that each picture shows at its size (the GIFs move, two pictures
-   sit side by side under "A guide window that stays calm").
+   sit side by side under "A guide window that keeps up with you").
