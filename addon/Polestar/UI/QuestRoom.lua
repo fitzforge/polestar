@@ -1,8 +1,10 @@
 -- Make room in the quest log: a small window listing the quests in the log
--- that the selected route never hands in (RoutePlan.Unneeded), each with its
--- own Abandon button. A press asks through the game's own confirmation
--- (Compat.AskAbandonQuest); nothing is ever abandoned without it. Opened by
--- the guide window's full-log notice and /polestar questlog.
+-- that the selected route doesn't need (RoutePlan.Unneeded: never handed in,
+-- or grey), each with its reason and its own Abandon button. A press asks
+-- through the game's own confirmation (Compat.AskAbandonQuest); nothing is
+-- ever abandoned without it. Opened by the guide window's full-log notice
+-- and menu ("Clean up quest log (N)"), the Options button and
+-- /polestar questlog.
 -- UI.ShowQuestRoom(), or SHOW_QUEST_ROOM from Core.
 --
 -- Built on first use; colours are Theme tokens only.
@@ -23,6 +25,7 @@ local WHY = {
 	missed = L["The route passed its hand-in"],
 	skipped = L["You skipped its hand-in"],
 	unplanned = L["Not handed in on this route"],
+	grey = L["Grey: no XP any more"],
 }
 
 local function build()
@@ -99,7 +102,7 @@ function UI.LayoutQuestRoom()
 	elseif #list == 0 then
 		F.Hint:SetText(L["The route hands in every quest in your log."])
 	else
-		F.Hint:SetText(L["The route never hands these in. Abandon asks in the game's own window first."])
+		F.Hint:SetText(L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."])
 	end
 	local y = HEAD_H + 12 + F.Hint:GetStringHeight() + 12
 	for i, u in ipairs(list or {}) do

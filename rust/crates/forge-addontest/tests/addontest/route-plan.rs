@@ -522,3 +522,43 @@ fn an_accept_step_past_the_log_s_cap_names_what_to_drop_unneeded_first_then_the_
 	);
 	assert_eq!(out, json!({ "full": [2, 0, ["One", "Stray"]], "one": ["One"], "later": ["Five"], "fits": true }));
 }
+
+// Grey quests at level 20 (grey up to 13): 3 (handed in later in this chapter), 5 (handed in in the next
+// chapter) and 77 (never handed in) are level 10; 1 (hand-in passed) is level 18.
+const GREY: &str = r#"
+    local levels = { [1] = 18, [3] = 10, [5] = 10, [77] = 10 }
+    C_QuestLog.GetQuestDifficultyLevel = function(q) return levels[q] or 0 end
+    P.Compat.GetPlayerInfo = function() return {cls="DRUID", class="DRUID", race="NightElf", faction="Alliance", level=20} end
+"#;
+
+#[test]
+fn grey_quests_are_listed_as_grey_unless_the_route_hands_them_in_this_chapter() {
+	let out = run(
+		&format!(
+			"{ROOM}{GREY}{}",
+			r#"
+    local list = R.Unneeded()
+    local why = {}
+    for i, u in ipairs(list) do why[i] = u.status end
+    emit({ titles = titles(list), why = why })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out, json!({ "titles": ["One", "Five", "Stray"], "why": ["missed", "grey", "grey"] }));
+}
+
+#[test]
+fn a_grey_quest_handed_in_later_is_named_once_when_the_log_overflows() {
+	let out = run(
+		&format!(
+			"{ROOM}{GREY}{}",
+			r#"
+    w.abandon(1); w.abandon(77); cap = 2
+    emit(titles(R.LogOverflow().drop))
+  "#
+		),
+		false,
+	);
+	assert_eq!(out, json!(["Five", "Three"]));
+}

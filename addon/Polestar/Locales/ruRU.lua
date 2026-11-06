@@ -2819,7 +2819,11 @@ L["No names here yet."] = "Здесь пока нет имён."
 -- L["Abandon it from your quest log."] = ""
 -- L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = ""
 -- L["The route hands in every quest in your log."] = ""
--- L["The route never hands these in. Abandon asks in the game's own window first."] = ""
+L["Clean up quest log (%d)"] = "Очистить журнал заданий (%d)"
+L["Clean up quest log"] = "Очистить журнал заданий"
+L["Grey: no XP any more"] = "Серое: опыта больше нет"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Маршруту они не нужны: он их не сдаёт, или они больше не дают опыта. «Отказаться» сначала спрашивает в окне самой игры."
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Показывает задания в журнале, которые маршруту не нужны: те, что он никогда не сдаёт, и серые, которые больше не дают опыта. У каждого есть кнопка «Отказаться», которая сначала спрашивает. Пока такие есть, это есть и в меню окна гайда."
 
 -- UI/ClassCard.lua
 -- L["NEW ABILITY"] = ""

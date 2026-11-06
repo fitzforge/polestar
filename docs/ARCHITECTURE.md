@@ -1352,15 +1352,24 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
 - **Room in the quest log** (`Core/RoutePlan.lua`; nothing is ever
   abandoned for the player). `RoutePlan.Unneeded()` lists the log's quests
   the selected route never hands in (`GetTurnIn` status `missed`, `skipped`
-  or `unplanned`), or nil while the plan cannot say (no guide, a route
-  choice to make, a guide not loaded). `RoutePlan.LogOverflow()` is
+  or `unplanned`) and the grey ones it doesn't hand in in this chapter
+  (status `grey`, which also replaces those three: `Compat.IsQuestTrivial`
+  on `Compat.GetQuestLevel`, the client's `GetQuestDifficultyLevel`, at the
+  character's level; a grey quest the route hands in later in this chapter
+  stays, still worth its reward or its chain), or nil while the plan
+  cannot say (no guide, a route choice to make, a guide not loaded).
+  `RoutePlan.LogOverflow()` is
   `{ take, free, drop }` when the live step's open accepts outnumber the
   free slots (`Compat.GetLogCap`: the client's `GetMaxNumQuestsCanAccept`,
   else Forever's 40): `drop` names enough quests to make room, the unneeded
-  ones first, then the ones handed in last, never one of the live step's.
+  ones first, then the ones handed in last, never one of the live step's,
+  and each once.
   The guide window's banner says so on the live step ("Quest log full …",
   dismissed per step) and its Make room opens `UI/QuestRoom.lua`
-  (`/polestar questlog`, `SHOW_QUEST_ROOM`): the unneeded quests, each with
+  (`/polestar questlog`, `SHOW_QUEST_ROOM`; also the guide window menu's
+  "Clean up quest log (N)", shown while `Unneeded()` lists any, and the
+  button under Questing > Quests > Tooltips and quest log): the unneeded
+  quests, each with its reason and
   an Abandon button that asks through the game's own confirmation
   (`Compat.AskAbandonQuest`: `C_QuestLog.SetSelectedQuest`,
   `SetAbandonQuest`, then the `ABANDON_QUEST` popup).

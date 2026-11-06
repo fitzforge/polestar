@@ -2823,7 +2823,11 @@ L["Make room in your quest log"] = "Liberar espaço no registro de missões"
 L["Abandon it from your quest log."] = "Abandone-a pelo registro de missões."
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "A rota à frente ainda não está definida (falta escolher ou carregar um guia), então não dá para dizer quais missões ela deixa para trás."
 L["The route hands in every quest in your log."] = "A rota entrega todas as missões do seu registro."
-L["The route never hands these in. Abandon asks in the game's own window first."] = "A rota nunca entrega estas. Abandonar pergunta antes na janela do próprio jogo."
+L["Clean up quest log (%d)"] = "Limpar registro de missões (%d)"
+L["Clean up quest log"] = "Limpar registro de missões"
+L["Grey: no XP any more"] = "Cinza: não dá mais EXP"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "A rota não precisa destas: nunca as entrega, ou não dão mais EXP. Abandonar pergunta antes na janela do próprio jogo."
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Lista as missões do seu registro de que a rota não precisa: as que ela nunca entrega e as cinzas que não dão mais EXP. Cada uma tem um botão Abandonar que pergunta antes. O menu da janela do guia também mostra isso enquanto houver alguma."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NOVA HABILIDADE"

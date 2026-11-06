@@ -2799,7 +2799,11 @@ L["Make room in your quest log"] = "Platz in deinem Questlog schaffen"
 L["Abandon it from your quest log."] = "Brich sie in deinem Questlog ab."
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "Die Route voraus steht noch nicht fest (ein Guide ist zu wählen oder zu laden), darum kann sie nicht sagen, welche Quests sie zurücklässt."
 L["The route hands in every quest in your log."] = "Die Route gibt jede Quest in deinem Log ab."
-L["The route never hands these in. Abandon asks in the game's own window first."] = "Die Route gibt diese nie ab. „Abbrechen“ fragt zuerst im eigenen Fenster des Spiels nach."
+L["Clean up quest log (%d)"] = "Questlog aufräumen (%d)"
+L["Clean up quest log"] = "Questlog aufräumen"
+L["Grey: no XP any more"] = "Grau: keine EP mehr"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Die Route braucht diese nicht: Sie gibt sie nie ab, oder sie bringen keine EP mehr. „Abbrechen“ fragt zuerst im eigenen Fenster des Spiels nach."
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Listet die Quests in deinem Questlog, die die Route nicht braucht: die sie nie abgibt, und graue, die keine EP mehr bringen. Jede hat einen Button „Abbrechen“, der zuerst nachfragt. Das Menü des Guide-Fensters bietet es auch an, solange es welche gibt."
 
 -- UI/ClassCard.lua
 L["NEW ABILITY"] = "NEUE FÄHIGKEIT"

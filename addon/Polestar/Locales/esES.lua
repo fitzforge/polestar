@@ -2819,7 +2819,11 @@ L["No names here yet."] = "Aún no hay nombres."
 -- L["Abandon it from your quest log."] = ""
 -- L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = ""
 -- L["The route hands in every quest in your log."] = ""
--- L["The route never hands these in. Abandon asks in the game's own window first."] = ""
+L["Clean up quest log (%d)"] = "Limpiar el registro de misiones (%d)"
+L["Clean up quest log"] = "Limpiar el registro de misiones"
+L["Grey: no XP any more"] = "Gris: ya no da XP"
+L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "La ruta no las necesita: nunca las entrega o ya no dan XP. Abandonar pregunta antes en la propia ventana del juego."
+L["Lists the quests in your log the route doesn't need: those it never hands in, and grey ones that give no XP any more. Each has an Abandon button that asks first. The guide window's menu has it too while there are any."] = "Muestra las misiones de tu registro que la ruta no necesita: las que nunca entrega y las grises que ya no dan XP. Cada una tiene un botón Abandonar que pregunta antes. El menú de la ventana de la guía también lo ofrece mientras haya alguna."
 
 -- UI/ClassCard.lua
 -- L["NEW ABILITY"] = ""

@@ -3687,6 +3687,11 @@ local function openMenu(button)
 	local pins = GF.PinItems(view)
 	for _, it in ipairs(pins) do items[#items + 1] = it end
 	if #pins > 0 then items[#items + 1] = { separator = true } end
+	-- The quest log cleanup (UI/QuestRoom.lua), while it has quests to list.
+	local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
+	if unneeded and #unneeded > 0 then
+		table.insert(items, 5, { text = L["Clean up quest log (%d)"]:format(#unneeded), icon = "cross", onClick = function() UI.ShowQuestRoom() end })
+	end
 	for _, it in ipairs({
 		{ text = L["Compact mode"], icon = "compact", checked = compact(), onClick = function() ns.Set("ui.compact", not compact()) end },
 		{ text = L["Transparent"], icon = "layers", checked = clear, onClick = function() ns.Set("ui.style", clear and "standard" or "transparent") end },
