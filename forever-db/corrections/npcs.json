@@ -47,6 +47,30 @@
 		},
 		"note": "Lady Sylvanas Windrunner stands only in the Undercity's Royal Quarter. The Silverpine Forest point 74.6,13.4 (map 1421) is the same spot read in Silverpine's map frame (the city lies under that corner of the map), so the written guide titled her step Lordamere Lake and called it underwater (Skyborne's Exploring the Horde, c15 writer-only, Rev15SkyH)."
 	},
+	"11957": {
+		"addSpawns": {
+			"1450": {
+				"f": "e",
+				"pts": [
+					[
+						54.5,
+						75
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+			}
+		],
+		"note": "The Great Cat Spirit (npc 11957), giver and ender of the druids' Cat Form quests (98394, 98396, 98731 for Night Elves; 98405, 98342, 98739 for Tauren), stands on the hill by the bridge in southern Moonglade at 54.5,75.0 (map 1450). The merged data had 58.39,73.52, about 90 yards east, where players found nobody. Replaces the map's points."
+	},
 	"209797": {
 		"set": {
 			"rank": 1

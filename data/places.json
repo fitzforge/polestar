@@ -640,6 +640,190 @@
 				}
 			],
 			"issue": 873
+		},
+		{
+			"id": "1003-98394-ender",
+			"quest": 98394,
+			"objective": "ender",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "The Great Cat Spirit (Night Elf): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98396-giver",
+			"quest": 98396,
+			"objective": "giver",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "The Great Cat Spirit (Night Elf): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98396-ender",
+			"quest": 98396,
+			"objective": "ender",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "The Great Cat Spirit (Night Elf): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98731-giver",
+			"quest": 98731,
+			"objective": "giver",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "Blessings of the Great Cat Spirit (Night Elf): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98405-ender",
+			"quest": 98405,
+			"objective": "ender",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "The Great Cat Spirit (Tauren): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98342-giver",
+			"quest": 98342,
+			"objective": "giver",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "The Great Cat Spirit (Tauren): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98342-ender",
+			"quest": 98342,
+			"objective": "ender",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "The Great Cat Spirit (Tauren): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
+		},
+		{
+			"id": "1003-98739-giver",
+			"quest": 98739,
+			"objective": "giver",
+			"at": {
+				"map": 1450,
+				"x": 54.5,
+				"y": 75,
+				"frame": "era"
+			},
+			"note": "Blessings of the Great Cat Spirit (Tauren): the Great Cat Spirit (npc 11957) stands on the hill by the bridge in southern Moonglade at 54.5,75.0; the merged data had 58.39,73.52, about 90 yards east, so the arrow led past it (#1003). forever-db/corrections/npcs.json carries the same spawn.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "session 20261105T225430Z (Night Elf Druid): turn-ins of 98394 at Moonglade 54.30,75.01 and 98396 at 54.69,75.01"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1003: the reporter stood at the spirit at 54.60,75.07"
+				}
+			],
+			"issue": 1003
 		}
 	]
 }

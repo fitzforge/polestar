@@ -3528,3 +3528,24 @@ test('Level fit (#977): the Rogues\' Venture Co. tower (drones 25, Gallywix a 23
 		assert.ok([].concat(step.when || []).some((w) => w.k === 'level' && w.op === '>=' && w.n >= 23), `"${step.title}" shows before level 23`);
 	}
 });
+
+test("Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins point to where it stands in Moonglade, by the bridge", { skip }, () => {
+	// Recorded hand-ins of 98394 and 98396 at Moonglade 54.30,75.01 and 54.69,75.01; the reporter stood
+	// by it at 54.60,75.07. The merged data had 58.39,73.52, about 90 yards east.
+	const spirit = { map: 1450, x: 54.5, y: 75 };
+	const spawn = (loadCorrections().npcs[11957] || {}).addSpawns;
+	assert.deepEqual(spawn && spawn[spirit.map].pts, [[spirit.x, spirit.y]], 'the correction places the spirit');
+	// The generated guides keep the point through a build from data/places.json (giver and ender of each quest).
+	const { places } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8'));
+	for (const [quest, objective] of [[98394, 'ender'], [98396, 'giver'], [98396, 'ender'], [98731, 'giver'], [98405, 'ender'], [98342, 'giver'], [98342, 'ender'], [98739, 'giver']]) {
+		const rec = places.find((p) => p.quest === quest && p.objective === objective);
+		assert.deepEqual(rec && rec.at, { ...spirit, frame: 'era' }, `data/places.json places the ${objective} of ${quest}`);
+	}
+	for (const guide of ['forever/class/druid/cat-form.guide', 'forever/alliance/03-darkshore.guide', 'forever/horde/04-the-barrens.guide']) {
+		const list = goals(guide).filter(({ goal }) => goal.npc === 11957 && ['accept', 'turnin'].includes(goal.t));
+		assert.ok(list.length >= 4, `${guide}: the spirit's goals are in the guide`);
+		for (const { goal } of list) {
+			assert.deepEqual({ map: goal.map, x: goal.x, y: goal.y }, spirit, `${guide}: ${goal.t} ${goal.quest}`);
+		}
+	}
+});
