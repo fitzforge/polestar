@@ -291,9 +291,6 @@ step Blackrock camps
   tip South down the valley's east side to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite.
   collect 3014 quest 20 @71,70.5 map 1433 live -- Battleworn Axe
 
-step Hearth to Lakeshire
-  hearth "Lakeshire"
-
 step Back to Lakeshire
   turnin 92                                   -- Chef Breanna, inside
   turnin 150                                  -- Dockmaster Baren

@@ -327,9 +327,6 @@ step Zorbin Fandazzle
   turnin 7725
   turnin 7726
 
-step Hearth to Camp Mojache
-  hearth "Camp Mojache"
-
 step Back to Camp Mojache
   turnin 3127                         -- Witch Doctor Uzer'i
   accept 3129

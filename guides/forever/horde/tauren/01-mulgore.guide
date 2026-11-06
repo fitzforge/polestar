@@ -455,8 +455,7 @@ step Moonglade
 step Back to Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Hearth to Thunder Bluff and cross to Elder Rise.
-  hearth "Thunder Bluff" only Druid
+  tip Cross to Elder Rise.
   turnin 5932                         -- Turak Runetotem
   accept 6002
 

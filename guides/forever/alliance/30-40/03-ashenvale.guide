@@ -122,9 +122,6 @@ step Krolg
   accept 1046
   complete 1046
 
-step Hearth to Astranaar
-  hearth "Astranaar"
-
 step Raene Wolfrunner
   turnin 1046
 

@@ -165,9 +165,6 @@ step Talen
 step Maestra's Post
   turnin 973                              -- Delgren the Purifier
 
-step Hearth to Astranaar
-  hearth "Astranaar"
-
 step Astranaar
   turnin 1023                             -- Raene Wolfrunner
   accept 1024
@@ -428,9 +425,6 @@ step The Green Belt: kill these as you meet them
 
 step Rethiel the Greenwarden
   turnin 275
-
-step Hearth to Deepwater Tavern
-  hearth "Deepwater Tavern"
 
 step Karl Boran
   turnin 286

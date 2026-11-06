@@ -179,9 +179,6 @@ step The Stone of Inner Binding
   turnin 651
   note The stone's next task needs Fozruk, a level 42 elite: leave it.
 
-step Hearth to Hammerfall
-  hearth "Hammerfall"
-
 # ---------------------------------------------------------------- Hammerfall, Boulderfist Hall
 
 step Back to Hammerfall

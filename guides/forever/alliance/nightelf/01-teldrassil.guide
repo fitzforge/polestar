@@ -263,9 +263,6 @@ step Gnarlpine Hold
   tip South of the pools. The Strange Fruited Plant grows by the Hold.
   accept 930                                  -- Strange Fruited Plant
 
-step Hearth to Dolanaar
-  hearth "Dolanaar"
-
 # ---------------------------------------------------------------- Back to Dolanaar
 
 step Dolanaar

@@ -298,9 +298,6 @@ step Sen'jin Village
 step Echo Isles
   collect 4890 quest 815.1
 
-step Hearth to Razor Hill
-  hearth "Razor Hill"
-
 step Razor Hill
   accept 99048
   turnin 825                          -- Gar'Thok

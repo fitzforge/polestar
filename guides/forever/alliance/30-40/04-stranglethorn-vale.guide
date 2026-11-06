@@ -192,9 +192,6 @@ step Nesingwary's Expedition
   turnin 188                          -- Ajeck Rouack
   complete 201 @35.65,10.59           -- Investigate the Camp: just look around the hunters' camp
 
-step Hearth to Booty Bay
-  hearth "Booty Bay"
-
 step Booty Bay
   turnin 575                          -- Drizzlik, inside
   accept 577
@@ -280,9 +277,6 @@ step Jungle Stalker on the way
 step Skullsplitter trolls
   tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
   collect 2466 quest 205              -- Skullsplitter Fetish
-
-step Hearth to Booty Bay
-  hearth "Booty Bay"
 
 # ---------------------------------------------------------------- Booty Bay
 

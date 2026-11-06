@@ -232,9 +232,6 @@ step Stonetalon Mountains: kill these as you meet them
   kill 4057 quest 1087.1
   kill 4051 quest 1087.3
 
-step Hearth to Sun Rock Retreat
-  hearth "Sun Rock Retreat"
-
 step Sun Rock Retreat
   turnin 6301                         -- Tammra Windfield
   accept 6381
