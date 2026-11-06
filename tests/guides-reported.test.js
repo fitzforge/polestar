@@ -3154,3 +3154,34 @@ test("Snowiee's report (#912): a class the training stop cannot train trains in 
 		assert.ok(train < at(mine, `${guide}: the way out of town`, before), `${guide}: the ${cls}s train before the way leaves the town`);
 	}
 });
+
+// #960, after #941: the givers the data puts on an upper floor (spawn heights from classic-db and
+// the Forever server agree; the walking grid has a floor under them and the ground floor below).
+// The arrow has no height, so every step at one of them says to go up, in a goal note or the tip.
+test('Upper-floor givers (#960): every step at one says to go up', { skip: skip || needs('spawnz.json') }, () => {
+	const givers = {
+		2104: 'Stoutfist', 4964: 'Samaul', 7879: 'Quintis', 2316: "Gol'dir", 2501: 'MacKinley', 3391: 'Gazlowe',
+		377: 'Josetta', 328: 'Zaldimar', 198: 'Khelden', 7880: 'Ginro', 7907: 'Daryn', 2107: 'Gaerolas',
+		11802: 'Dendrite', 15189: 'Beetix', 15190: 'Noggle', 5394: 'Neeka', 14736: 'Primal Torntusk',
+	};
+	const up = /\b(upstairs|top floor|upper level|on top of)\b/i;
+	const said = (step, npc) => {
+		const key = givers[npc];
+		const sentences = [].concat(step.note || []).join(' ').split(/(?<=\.)\s+/);
+		const he = /^(He|Dendrite) stands upstairs/;
+		return step.goals.some((g) => g.npc === npc && up.test(g.note || '')) || sentences.some((s) => up.test(s) && (s.includes(key) || (he.test(s) && sentences.join(' ').includes(key))));
+	};
+	const missing = [];
+	let seen = 0;
+	for (const guide of allGuides()) {
+		for (const step of compiled(guide).steps) {
+			if (step.along) continue;
+			for (const npc of new Set(step.goals.filter((g) => (g.t === 'accept' || g.t === 'turnin') && givers[g.npc]).map((g) => g.npc))) {
+				seen++;
+				if (!said(step, npc)) missing.push(`${guide}: step "${step.title}" at ${givers[npc]}`);
+			}
+		}
+	}
+	assert.ok(seen > 50, `the givers' steps are found (${seen})`);
+	assert.deepEqual(missing, []);
+});

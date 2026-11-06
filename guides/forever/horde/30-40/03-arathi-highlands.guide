@@ -217,7 +217,7 @@ step Valley of Fangs
   accept 703                          -- Rigglefuzz
 
 step Kargath
-  tip Kargath is the Horde fortress built into the cliffs at the zone's western edge.
+  tip Kargath is the Horde fortress built into the cliffs at the zone's western edge. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   getfp "Kargath"
   sethome "Kargath"
   accept 1419                         -- Neeka Bloodscar
@@ -291,7 +291,7 @@ step The Dustbowl
   turnin 716 optional
 
 step Kargath
-  tip Head north back to Kargath.
+  tip Head north back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   turnin 1419                         -- Neeka Bloodscar
   turnin 2258                         -- Jarkal Mossmeld, inside
   vendor nearest

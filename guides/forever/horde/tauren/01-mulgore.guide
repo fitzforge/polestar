@@ -448,7 +448,7 @@ step Turak Runetotem
 step Moonglade
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the north-western woods.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the north-western woods. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 5922
   accept 5930
   complete 5930 @39.1,27.5

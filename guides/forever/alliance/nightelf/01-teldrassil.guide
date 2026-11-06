@@ -186,7 +186,7 @@ step Zenn Foulhoof
 step Starbreeze Village
   use 5619 quest 929.1 @63.4,58.1 map 1438
   collect 5639 quest 929.1 @63.4,58.1         -- Use the Jade Phial at the moonwell
-  tip Gaerolas Talvethren stands in the village, east of the moonwell. Tallonkai's Dresser is in the house on the hill at the east end of the village.
+  tip Gaerolas Talvethren stands upstairs in a house in the village, east of the moonwell: go up inside, the arrow cannot tell the floors apart. Tallonkai's Dresser is in the house on the hill at the east end of the village.
   turnin 475                                  -- Gaerolas Talvethren
   accept 476
   collect 8048 quest 2438.1 @68.0,59.6        -- Tallonkai's Dresser; inside
@@ -504,7 +504,7 @@ step Auberdine
 step Moonglade
   only Druid
   zone Darkshore
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village, no flight path needed.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village, no flight path needed. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   zone Moonglade
   turnin 5921                                 -- Dendrite Starblaze
   accept 5929

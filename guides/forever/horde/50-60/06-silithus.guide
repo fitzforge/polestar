@@ -37,7 +37,7 @@ step Layo Starstrike
 # ---------------------------------------------------------------- Cenarion Hold
 
 step Cenarion Hold
-  tip Ride west to the walled hold in the middle of the desert.
+  tip Ride west to the walled hold in the middle of the desert. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   sethome "Cenarion Hold"
   accept 8277                         -- Beetix Ficklespragg
   turnin 8276                         -- Windcaller Proudhorn
@@ -59,6 +59,7 @@ step Twilight Base Camp
   collect 20378 quest 8284.1
 
 step Cenarion Hold
+  tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8284                         -- Geologist Larksbane
   accept 8285
   turnin 8280                         -- Windcaller Proudhorn
@@ -125,6 +126,7 @@ step Twilight Outpost
   collect 20404 x20
 
 step Cenarion Hold
+  tip Beetix and Noggle Ficklespragg stand upstairs in their building: go up inside, the arrow cannot tell the floors apart.
   turnin 8318
   accept 8304
   turnin 8281                         -- Windcaller Proudhorn
@@ -151,6 +153,7 @@ step Twilight Base Camp
   collect 20404 quest 8323.1          -- The spare texts from the cultists
 
 step Back to Cenarion Hold
+  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8287                         -- Commander Mar'alith
   turnin 8304
   turnin 8282                         -- Noggle Ficklespragg

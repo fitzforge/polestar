@@ -106,6 +106,7 @@ step Menethil Harbor
   turnin 98223                        -- On the top floor
 
 step Menethil Harbor
+  tip Captain Stoutfist stands on the top floor of Menethil Keep: go up inside, the arrow cannot tell the floors apart.
   when group 474
   turnin 474
 

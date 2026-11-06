@@ -61,7 +61,7 @@ step Echo Ridge Mine: kill these as you meet them
   kill 257 quest 15                           -- Kobold Worker
 
 step Northshire Abbey
-  tip Tordrin Sternblade stands behind the Abbey, by the stables.
+  tip Tordrin Sternblade stands behind the Abbey, by the stables. Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 15                                   -- Marshal McBride, inside
   accept 21
   turnin 91743 optional -- Brother Paxton
@@ -439,7 +439,7 @@ step Crystal Lake: kill these as you meet them
 # ---------------------------------------------------------------- Goldshire, the farms and Westbrook
 
 step Goldshire
-  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town.
+  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town. Priestess Josetta (priests) and Zaldimar Wefhellt (mages) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 91751 optional                       -- Helene Peltskinner, inside
   turnin 99131                                -- Jason Mathers
   train class

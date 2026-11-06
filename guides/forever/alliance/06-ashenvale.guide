@@ -22,7 +22,7 @@ step Moonglade
 step Aquatic Form
   only NightElf,Druid
   zone Moonglade
-  tip Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village.
+  tip Take the boat from Stormwind Harbor to Auberdine. Join the two half pendants into the Pendant of the Sea Lion and cast Teleport: Moonglade: Dendrite Starblaze is in Nighthaven. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   collect 15885 quest 272.1 only NightElf,Skyborne -- Pendant of the Sea Lion: join the two halves
   turnin 272 only NightElf,Skyborne -- Dendrite Starblaze
   accept 5061 only NightElf

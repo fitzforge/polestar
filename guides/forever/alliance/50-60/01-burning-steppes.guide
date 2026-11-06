@@ -365,6 +365,7 @@ step Back to Teldrassil
   goto 55.4,92.2 "Teldrassil"
 
 step Daryn Lightwind
+  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
   when group 2944
   zone Teldrassil
   turnin 2944

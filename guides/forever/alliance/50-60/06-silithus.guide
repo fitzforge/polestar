@@ -140,6 +140,7 @@ step Fly to Cenarion Hold
   zone Silithus
 
 step Cenarion Hold
+  tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8281
   turnin 8278
 
@@ -168,6 +169,7 @@ step Cenarion Hold
 
 step Cenarion Hold
   zone Silithus
+  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   sethome "Cenarion Hold"
   accept 8282                         -- Noggle Ficklespragg
 
@@ -206,6 +208,7 @@ step Hermit Ortell
   turnin 8323
 
 step Cenarion Hold
+  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8282                         -- Noggle Ficklespragg
   vendor nearest
   turnin 8304                         -- Commander Mar'alith

@@ -32,7 +32,7 @@ step Boat to Feathermoon Stronghold
 # ---------------------------------------------------------------- Feathermoon
 
 step Feathermoon Stronghold
-  tip Feathermoon Stronghold stands on Sardor Isle, off the Forgotten Coast: the boat from the coast's dock crosses to it.
+  tip Feathermoon Stronghold stands on Sardor Isle, off the Forgotten Coast: the boat from the coast's dock crosses to it. Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   getfp "Feathermoon" npc 8019        -- Fyldren Moonfeather
   accept 2821                         -- Pratt McGrubben
   accept 2866                         -- Shandris Feathermoon, beside him
@@ -92,6 +92,7 @@ step Hearth to Feathermoon Stronghold
   hearth "Feathermoon Stronghold"
 
 step Feathermoon Stronghold
+  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
   turnin 2821                         -- Pratt McGrubben
@@ -190,6 +191,7 @@ step Hearth to Feathermoon Stronghold
   hearth "Feathermoon Stronghold"
 
 step Feathermoon Stronghold
+  tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 4265                         -- Ginro Hearthkindle
   accept 4266
   turnin 4266                         -- Shandris Feathermoon

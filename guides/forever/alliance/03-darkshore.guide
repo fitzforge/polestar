@@ -237,7 +237,7 @@ step Moonglade
 step Trial of the Lake
   only NightElf,Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Shrine Baubles lie in the containers on the floor of Lake Elune'ara, below Nighthaven: take one to the Shrine of Remulos in the north-west, use it there and speak to Tajarri. Then fly back to Auberdine from Nighthaven.
   turnin 26 only NightElf -- Dendrite Starblaze
   turnin 6121 only NightElf
   accept 6122 only NightElf -- The Principal Source: fill the sampler at Cliffspring Falls
@@ -532,7 +532,7 @@ step Moonglade
 step Dendrite Starblaze
   only Druid
   zone Moonglade
-  tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; learn the flight path there if you do not have it.
+  tip Cast Teleport: Moonglade. Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it.
   turnin 98393 only NightElf,Skyborne -- Dendrite Starblaze
   accept 98394 only NightElf
   turnin 6124 only NightElf                   -- Dendrite Starblaze
@@ -542,6 +542,7 @@ step Dendrite Starblaze
 step Dendrite Starblaze
   only Druid
   zone Moonglade
+  tip Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart.
   when onquest 94914
   turnin 94914 only Skyborne                  -- Dendrite Starblaze: the welcome from Sheldras
 
@@ -572,7 +573,7 @@ step The relics of the Barrow Dens
 step Back to Dendrite
   zone Moonglade
   only Druid
-  tip Back to Dendrite Starblaze in Nighthaven, then Silva Fil'naveth there flies Druids straight to Rut'theran Village.
+  tip Back to Dendrite Starblaze in Nighthaven, then Silva Fil'naveth there flies Druids straight to Rut'theran Village. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 98731 only NightElf                  -- Dendrite Starblaze
   turnin 98738 only Skyborne
   level 20 only Druid
