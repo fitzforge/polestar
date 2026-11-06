@@ -52,21 +52,23 @@ test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking
 });
 
 test('Horde Call of Fire: hand in the carried trainer lead at Kranal before starting the shared ritual', { skip }, () => {
-	for (const file of ['forever/horde/02-the-barrens.guide', 'forever/horde/orc/02-the-barrens.guide', 'forever/horde/troll/02-the-barrens.guide']) {
-		// An Orc or Troll Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the
-		// race's Durotar guide comes first.
-		const race = file.match(/\/(orc|troll)\//);
-		const list = [...(race ? goals(`forever/horde/${race[1]}/01-durotar.guide`) : []), ...goals(file)];
+	const file = 'forever/horde/02-the-barrens.guide';
+	for (const [race, durotar, carried] of [['Orc', ORC_DUROTAR, 2983], ['Troll', TROLL_DUROTAR, 2983], ['Tauren', null, 1523]]) {
+		// The Barrens guide is shared since 0.3.1 (only Orc / Troll / Tauren steps). An Orc or Troll
+		// Shaman hands Swart's lead (2983) to Kranal on a trip out of Durotar, so the race's Durotar
+		// guide comes first.
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = [...(durotar ? goals(durotar) : []), ...goals(file)].filter(forRace).filter(forClass('SHAMAN'));
 		const start = list.findIndex(({ goal }) => goal.t === 'accept' && goal.quest === 1524);
-		assert.ok(start >= 0, `${file}: the shared ritual is offered`);
+		assert.ok(start >= 0, `${race}: the shared ritual is offered`);
 		for (const quest of [1522, 1523, 2983, 2984]) {
 			const lead = list.slice(0, start).find(({ goal }) => goal.t === 'turnin' && goal.quest === quest);
-			assert.ok(lead, `${file}: carried trainer lead ${quest} is handed in before the shared ritual`);
-			if (quest !== (/\/(orc|troll)\//.test(file) ? 2983 : 1523)) {
-				assert.ok(lead.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${file}: an uncarried alternative never blocks the route`);
+			assert.ok(lead, `${race}: carried trainer lead ${quest} is handed in before the shared ritual`);
+			if (quest !== carried) {
+				assert.ok(lead.step.when.some((p) => p.k === 'onquest' && !p.neg && p.q.includes(quest)), `${race}: an uncarried alternative never blocks the route`);
 			}
-			assert.equal(lead.goal.npc, 5907, `${file}: no trip to a different giver`);
-			for (const field of ['map', 'x', 'y']) assert.equal(lead.goal[field], list[start].goal[field], `${file}: the same Kranal stop`);
+			assert.equal(lead.goal.npc, 5907, `${race}: no trip to a different giver`);
+			for (const field of ['map', 'x', 'y']) assert.equal(lead.goal[field], list[start].goal[field], `${race}: the same Kranal stop`);
 		}
 	}
 });
@@ -375,6 +377,10 @@ test(`${TIRISFAL}: Onrevax's report (#365): the Coarse Thread for The Chill of D
 // asked for again on the turn-in step, from the same vendor (`nearest`: a
 // vendor of the guide's faction), so a player who passed the first buy is
 // not sent to the giver empty-handed. Done at once with the item in the bags.
+// A buy earlier in the same town visit (every stop from it to the giver
+// within a town's reach, no flight or hearth), or a tip on the turn-in step
+// saying where to buy another, does the same.
+const TOWN_YARDS = 200;
 const BUY_AT_TURNIN = [
 	// [guide, quest, item, count, vendor npc or 'H' for `nearest` on the Horde, what]
 	['forever/alliance/30-40/01-hillsbrad-foothills.guide', 555, 3713, 1, 2381, 'the Soothing Spices for Chef Jessen'],
@@ -389,8 +395,13 @@ for (const [guide, quest, item, count, vendor, what] of BUY_AT_TURNIN) {
 	test(`${guide}: the same pattern as #365, ${what}: asked for again on the step that hands in ${quest}`, { skip }, () => {
 		const list = goals(guide);
 		const hand = at(list, `turnin ${quest}`, is('turnin', quest));
-		const buy = list.findIndex(({ goal, s }) => s === list[hand].s && goal.t === 'buy' && goal.item === item);
-		assert.ok(buy >= 0 && buy < hand, `the turn-in step buys item ${item} before handing in ${quest}`);
+		const buy = list.slice(0, hand).findLastIndex(({ goal }) => goal.t === 'buy' && goal.item === item);
+		assert.ok(buy >= 0, `item ${item} is bought before handing in ${quest}`);
+		const sameVisit = list.slice(buy, hand + 1).every(({ goal }) => !['fly', 'hearth'].includes(goal.t)
+			&& (!['accept', 'turnin', 'buy', 'goto', 'train'].includes(goal.t) || !located({ goal })
+				|| (goal.map === list[hand].goal.map && yards(goal, list[hand].goal) < TOWN_YARDS)));
+		const tip = typeof list[hand].step.note === 'string' && /\bbuy\b/i.test(list[hand].step.note);
+		assert.ok(list[buy].s === list[hand].s || sameVisit || tip, `the turn-in step, its town visit or its tip buys item ${item} before handing in ${quest}`);
 		const { goal } = list[buy];
 		assert.ok((goal.count || 1) >= count, `at least the ${count} the quest needs`);
 		if (vendor === 'H') {
@@ -2387,7 +2398,9 @@ test('forever/horde/05-stonetalon-mountains.guide: Hotline\'s report (#278): the
 // 40 (tools/lib/nav/move.js MOUNT_LEVEL), so a guide that starts below it
 // never tells the player to ride somewhere. Riding a boat, zeppelin, tram,
 // lift, airship, flight or Zephras Isle's wind currents is fine ("ride it"
-// names the transport just before).
+// names the transport just before). A step gated to level 40 or more
+// (`when level>=40`), or any step after a `level` goal of 40 or more, is
+// played with riding learned, so it may say ride.
 const RIDING_LEVEL = 40;
 const RIDE_TRANSPORT = /\bride (?:it\b|(?:the |a |on the |up a |down the )?(?:boat|ferry|zeppelin|tram|Deeprun Tram|lift|elevator|airship|flight|hippogryph|gryphon|wind rider|wind current|bat|taxi))/gi;
 test("Pynte's report (#404): guides played below riding level never tell you to ride somewhere", { skip }, () => {
@@ -2396,11 +2409,16 @@ test("Pynte's report (#404): guides played below riding level never tell you to 
 		if (guide.startsWith('forever/collectibles/')) continue;
 		const g = compiled(guide);
 		if (!(g.minLevel < RIDING_LEVEL)) continue;
+		let mounted = false;
 		for (const step of g.steps) {
-			for (const text of [step.note, ...step.goals.map((goal) => goal.note)]) {
-				if (typeof text !== 'string') continue;
-				if (/\b(?:ride|rides|riding|rode)\b/i.test(text.replace(RIDE_TRANSPORT, ''))) offenders.push(`${guide} (from level ${g.minLevel}), step ${step.title}: ${text}`);
+			const gated = (step.when || []).some((p) => p.k === 'level' && p.op === '>=' && !p.neg && p.n >= RIDING_LEVEL);
+			if (!mounted && !gated) {
+				for (const text of [step.note, ...step.goals.map((goal) => goal.note)]) {
+					if (typeof text !== 'string') continue;
+					if (/\b(?:ride|rides|riding|rode)\b/i.test(text.replace(RIDE_TRANSPORT, ''))) offenders.push(`${guide} (from level ${g.minLevel}), step ${step.title}: ${text}`);
+				}
 			}
+			if (step.goals.some((goal) => goal.t === 'level' && goal.level >= RIDING_LEVEL)) mounted = true;
 		}
 	}
 	assert.deepEqual(offenders, [], 'travel by riding in a guide played before level 40');
