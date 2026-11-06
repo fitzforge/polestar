@@ -1143,6 +1143,78 @@ emit(out)
 	);
 }
 
+// #995: another addon's quest icon sits at the left end of the bar, on top of
+// ours; qol.nameplateIconSide moves the skull and its count right of the bar
+// (past Blizzard's level badge) or above the name, and a change moves the
+// icons already shown.
+#[test]
+fn nameplate_icon_position_moves_the_icon_and_its_count_right_or_above() {
+	let db = fixture();
+	let out = run(
+		&db,
+		r#"
+Polestar.Set("qol.nameplateIcons", true)
+w.accept(7, { { text = "Kobold Vermin slain: 3/10", type = "monster", required = 10 } })
+w.progress(7, 1, 3)
+stub.advance(0.3)
+local function frame(kind, parent, label, level, wd, ht)
+	local f = CreateFrame(kind, nil, parent)
+	f.label, f.level = label, level
+	if wd then f:SetSize(wd, ht) end
+	return f
+end
+local function blizzard(plate)
+	plate.label, plate.level = "base", 3
+	local uf = frame("Frame", plate, "unitframe", 4)
+	plate.UnitFrame = uf
+	uf.healthBar = frame("StatusBar", uf, "blizzard bar", 5, 120, 8)
+	uf.name = uf:CreateFontString(nil, "OVERLAY")
+	uf.name.label = "name"
+	uf.name:SetText("Kobold Vermin")
+	uf.PlayerLevelDiffFrame = frame("Frame", uf, "level", 5, 15, 15)
+end
+local function rel(r) return r and (r.label or "?") or "nil" end
+local function where(unit)
+	local f = Q.NameplateIcon(unit)
+	local point, r, relPoint, x, y = f:GetPoint(1)
+	local cp, cr, crp, cx = f.count:GetPoint(1)
+	return { icon = point .. " " .. rel(r) .. " " .. relPoint .. " " .. x .. "," .. y,
+		count = cp .. " " .. (cr == f and "icon" or rel(cr)) .. " " .. crp .. " " .. cx }
+end
+emit(Polestar.GetDefault("qol.nameplateIconSide"))
+sq.addPlate("nameplate1", 6, false, blizzard)
+local seen = { left = where("nameplate1") }
+Polestar.Set("qol.nameplateIconSide", "right")
+seen.right = where("nameplate1")
+Polestar.Set("qol.nameplateIconSide", "above")
+seen.above = where("nameplate1")
+-- a new plate takes the side too; with no level badge, the bar's end
+sq.addPlate("nameplate2", 6, false, function(plate) blizzard(plate); plate.UnitFrame.PlayerLevelDiffFrame:Hide() end)
+seen.newAbove = where("nameplate2")
+Polestar.Set("qol.nameplateIconSide", "right")
+seen.noBadge = where("nameplate2")
+Polestar.Set("qol.nameplateIconSide", "nonsense")
+seen.unknown = where("nameplate2")
+emit(seen)
+emit(Q.NameplateCount("nameplate1"))
+"#,
+		"w.complete({ 783 })",
+	);
+	assert_eq!(out[0], json!("left"), "default keeps the icon where it was");
+	assert_eq!(
+		out[1],
+		json!({
+			"left": { "icon": "RIGHT blizzard bar LEFT -3,0", "count": "RIGHT icon LEFT -2" },
+			"right": { "icon": "LEFT level RIGHT 3,0", "count": "LEFT icon RIGHT 2" },
+			"above": { "icon": "BOTTOM name TOP 0,3", "count": "LEFT icon RIGHT 2" },
+			"newAbove": { "icon": "BOTTOM name TOP 0,3", "count": "LEFT icon RIGHT 2" },
+			"noBadge": { "icon": "LEFT blizzard bar RIGHT 3,0", "count": "LEFT icon RIGHT 2" },
+			"unknown": { "icon": "RIGHT blizzard bar LEFT -3,0", "count": "RIGHT icon LEFT -2" },
+		})
+	);
+	assert_eq!(out[2], json!("3/10"), "the count still shows");
+}
+
 #[test]
 fn turning_the_database_off_clears_every_layer() {
 	let db = fixture();
@@ -1171,7 +1243,7 @@ fn registers_its_settings_on_the_questing_page_and_its_markers_on_the_map_page()
 		&db,
 		r#"
 local keys = { "questDB", "mapObjectives", "minimapObjectives", "objectiveAreas", "turnInMarkers", "availableQuests",
-	"lowLevelQuests", "questLevelWindow", "questTooltips", "nameplateIcons", "questLevels", "guideHighlight", "guideDim" }
+	"lowLevelQuests", "questLevelWindow", "questTooltips", "nameplateIcons", "nameplateIconSide", "questLevels", "guideHighlight", "guideDim" }
 local d, mine = {}, {}
 for _, k in ipairs(keys) do d[k] = Polestar.GetDefault("qol." .. k); mine["qol." .. k] = true end
 emit(d)
@@ -1200,10 +1272,10 @@ emit(other)
 		json!({
 			"questDB": true, "mapObjectives": false, "minimapObjectives": false, "objectiveAreas": false, "turnInMarkers": false,
 			"availableQuests": false, "lowLevelQuests": false, "questLevelWindow": 5, "questTooltips": true, "nameplateIcons": false,
-			"questLevels": true, "guideHighlight": true, "guideDim": false,
+			"nameplateIconSide": "left", "questLevels": true, "guideHighlight": true, "guideDim": false,
 		})
 	);
-	assert_eq!(out[1]["Questing"], json!(["qol.questDB+help", "qol.questTooltips+help", "qol.nameplateIcons+help", "qol.questLevels+help"]));
+	assert_eq!(out[1]["Questing"], json!(["qol.questDB+help", "qol.questTooltips+help", "qol.nameplateIcons+help", "qol.nameplateIconSide+help", "qol.questLevels+help"]));
 	assert_eq!(
 		out[1]["Map"],
 		json!([

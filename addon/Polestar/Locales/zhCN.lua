@@ -485,6 +485,8 @@ L["Quest marks in bags"] = "背包中的任务标记"
 L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "标记背包中任务仍需要的物品（在任务日志中，或在指南后续步骤中），直到你交还任务。"
 L["Offer to buy back quest items"] = "提示回购任务物品"
 L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "出售任务仍需要的物品时，询问是否从商人处回购。"
+L["Nameplate icon position"] = "姓名板图标位置"
+L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."] = "任务图标和进度在姓名板上的位置：血条左侧、右侧或名字上方。如果被其他插件的图标挡住，可以移开。"
 
 -- Quests/Party.lua
 L["%s done"] = "%s 已完成"

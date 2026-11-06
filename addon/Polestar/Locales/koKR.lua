@@ -485,6 +485,8 @@ L["Quest marks in bags"] = "가방의 퀘스트 표시"
 L["Mark bag items a quest still needs, in your log or ahead in your guide, until you hand the quest in."] = "퀘스트 목록에 있거나 가이드에서 앞으로 진행할 퀘스트가 아직 필요로 하는 가방 아이템을 퀘스트를 완료할 때까지 표시합니다."
 L["Offer to buy back quest items"] = "퀘스트 아이템 재구매 제안"
 L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] = "퀘스트에 아직 필요한 아이템을 팔면 상인에게서 되살지 묻습니다."
+L["Nameplate icon position"] = "이름표 아이콘 위치"
+L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."] = "이름표에서 퀘스트 아이콘과 진행도를 표시할 위치: 생명력 바의 왼쪽이나 오른쪽, 또는 이름 위. 다른 애드온의 아이콘이 가리면 옮기세요."
 
 -- Quests/Party.lua
 L["%s done"] = "%s 완료"

@@ -12,6 +12,7 @@ local function dbOff() return not ns.Get("qol.questDB") end
 local function availableOff() return not ns.Get("qol.questDB") or not ns.Get("qol.availableQuests") end
 local function objectivesOff() return not ns.Get("qol.questDB") or not ns.Get("qol.mapObjectives") end
 local function guideOff() return not ns.Get("qol.questDB") or not ns.Get("qol.guideHighlight") end
+local function platesOff() return not ns.Get("qol.questDB") or not ns.Get("qol.nameplateIcons") end
 
 -- "Your level", "+5", "Any level" at the top of the slider.
 local function levelWindow(v)
@@ -65,6 +66,10 @@ Q.OPTIONS = {
 				help = L["If you sell an item a quest still needs, ask whether to buy it back from the vendor."] },
 			{ kind = "toggle", key = "qol.nameplateIcons", label = L["Nameplate icons"], disabled = dbOff, search = "nameplates, quest mobs, plates, progress",
 				help = L["Show a quest icon and your progress, like 3/10, on nameplates of mobs you still need."] },
+			{ kind = "dropdown", key = "qol.nameplateIconSide", label = L["Nameplate icon position"], disabled = platesOff, child = true,
+				search = "nameplates, move icon, overlap, quest icon, counter",
+				help = L["Where the quest icon and your progress sit on a nameplate: left or right of the health bar, or above the name. Move them if another addon's icon covers them."],
+				choices = { { value = "left", label = L["Left"] }, { value = "right", label = L["Right"] }, { value = "above", label = L["Above"] } } },
 			{ kind = "toggle", key = "qol.questLevels", label = L["Quest levels"], search = "quest log, level numbers, show level",
 				help = L["Show quest levels, like [12], wherever the game lists quests without them."] },
 		},

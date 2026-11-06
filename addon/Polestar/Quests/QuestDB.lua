@@ -27,6 +27,7 @@ ns.RegisterDefaults("qol", {
 	questSellWarning = true, -- at a vendor, offer to buy back a sold item a quest needs
 	questBagMarks = true, -- a quest mark on bag items a quest (in the log or ahead in the guide) still needs
 	nameplateIcons = false, -- quest icon on nameplates of objective mobs
+	nameplateIconSide = "left", -- ... left or right of the health bar, or above the name
 	questLevels = true, -- "[12]" before quest titles the client lists without a level (gossip, greeting, details)
 	guideHighlight = true, -- the active guide step's quests stand out on the maps
 	guideDim = false, -- ... and every other quest marker dims while a guide runs

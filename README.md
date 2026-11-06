@@ -557,7 +557,7 @@ guides you there instead.
   levels in the log. Nameplate icons mark the mobs you still need, with a
   live kill or loot count beside the quest icon ("3/10", "3/10 · 1/8" for
   two quests), beside the health bar of EllesmereUI and other replacement
-  nameplates too.
+  nameplates too: left or right of the bar, or above the name, as you choose.
 - **Rare and treasure spawns, dungeon entrances, flight masters, docks and
   inns** can mark the map too. Every map icon is off by default and turns on
   under **Map** in the options; the arrow's target, its route and the

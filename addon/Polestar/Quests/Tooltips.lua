@@ -260,10 +260,19 @@ end
 -- then the base plate itself. Every access is guarded; a failure falls back
 -- to the base plate.
 local ICON_SIZE, ICON_MIN, ICON_MAX = 16, 14, 20
-local ICON_GAP = 3 -- px between the icon and the left end of the bar
+local ICON_GAP = 3 -- px between the icon and the end of the bar (or the name below it)
 local ICON_LIFT = 5 -- frame levels above the frame the icon sits on
 local COUNT_GAP = 2 -- px between the progress and the icon
 local isIcon = setmetatable({}, { __mode = "k" })
+
+-- Which side of the health bar the icon and its count sit on
+-- (qol.nameplateIconSide): left (the default), right, or above the name.
+-- Another addon's quest icon often takes the left end of the bar (#995).
+local SIDES = { left = true, right = true, above = true }
+local function iconSide()
+	local s = ns.Get("qol.nameplateIconSide")
+	return SIDES[s] and s or "left"
+end
 
 -- Walk `frame` and its children to depth `d`, looking for a visible FontString
 -- (other than our own icon frames) whose text matches an "N/M" objective count.
@@ -365,7 +374,9 @@ local function blizzardPlate(plate)
 end
 
 -- owner (icon parent), ref (frame the icon must sit above), bar, above (what
--- the icon sits on when there is no bar), replaced (a replacement plate found).
+-- the icon sits on when there is no bar), replaced (a replacement plate found),
+-- name (the unit's name text over the bar, if shown), level (Blizzard's level
+-- badge right of the bar, if shown).
 local function locate(plate, unit)
 	local host, bar = knownPlate(plate, unit)
 	if not host then host, bar = genericPlate(plate) end
@@ -373,22 +384,35 @@ local function locate(plate, unit)
 		-- Parented to the replacement frame: it follows that frame's alpha and
 		-- scale (non-target fading, target scaling) and hides with it.
 		if not shown(bar) then bar = nil end
-		local name = not bar and host.name
-		return host, bar or host, bar, shown(name) and name or host, true
+		local name = shown(host.name) and host.name or nil
+		return host, bar or host, bar, not bar and name or host, true, name, nil
 	end
 	local uf
 	uf, bar = blizzardPlate(plate)
 	if uf then
-		local name = not bar and uf.name
-		return plate, bar or uf, bar, shown(name) and name or plate, false
+		local name = shown(uf.name) and uf.name or nil
+		local level = shown(uf.PlayerLevelDiffFrame) and uf.PlayerLevelDiffFrame or shown(uf.LevelFrame) and uf.LevelFrame or nil
+		return plate, bar or uf, bar, not bar and name or plate, false, name, level
 	end
-	return plate, plate, nil, plate, false
+	return plate, plate, nil, plate, false, nil, nil
+end
+
+-- The progress goes on the far side of the icon from the bar: left of it
+-- when the icon is left of the bar, right of it otherwise.
+local function placeCount(f, side)
+	f.count:ClearAllPoints()
+	if side == "left" then
+		f.count:SetPoint("RIGHT", f, "LEFT", -COUNT_GAP, 0)
+	else
+		f.count:SetPoint("LEFT", f, "RIGHT", COUNT_GAP, 0)
+	end
 end
 
 -- Anchors `f` to what the player sees on `plate`. Returns ok, replaced.
 local function place(f, plate, unit)
-	local found, owner, ref, bar, above, replaced = pcall(locate, plate, unit)
-	if not found then owner, ref, bar, above, replaced = plate, plate, nil, plate, false end
+	local found, owner, ref, bar, above, replaced, name, level = pcall(locate, plate, unit)
+	if not found then owner, ref, bar, above, replaced, name, level = plate, plate, nil, plate, false, nil, nil end
+	local side = iconSide()
 	local ok = pcall(function()
 		f:SetParent(owner)
 		f:ClearAllPoints()
@@ -396,7 +420,13 @@ local function place(f, plate, unit)
 			local s = math.floor(bar:GetHeight() + 0.5)
 			if s < ICON_MIN then s = ICON_MIN elseif s > ICON_MAX then s = ICON_MAX end
 			f:SetSize(s, s)
-			f:SetPoint("RIGHT", bar, "LEFT", -ICON_GAP, 0)
+			if side == "right" then
+				f:SetPoint("LEFT", level or bar, "RIGHT", ICON_GAP, 0)
+			elseif side == "above" then
+				f:SetPoint("BOTTOM", name or bar, "TOP", 0, ICON_GAP)
+			else
+				f:SetPoint("RIGHT", bar, "LEFT", -ICON_GAP, 0)
+			end
 		else
 			f:SetSize(ICON_SIZE, ICON_SIZE)
 			f:SetPoint("BOTTOM", above, "TOP", 0, above == plate and -2 or 2)
@@ -404,6 +434,7 @@ local function place(f, plate, unit)
 		f:SetFrameStrata(ref:GetFrameStrata())
 		f:SetFrameLevel(ref:GetFrameLevel() + ICON_LIFT)
 	end)
+	placeCount(f, side)
 	f._hasBar = bar ~= nil
 	f._countChecked = nil
 	if ok or owner == plate then return ok, ok and replaced end
@@ -436,7 +467,6 @@ local function acquire(plate, unit)
 		else
 			fs:SetFontObject("GameFontHighlightSmall")
 		end
-		fs:SetPoint("RIGHT", f, "LEFT", -COUNT_GAP, 0)
 		fs:SetWordWrap(false)
 		f.count = fs
 		isIcon[f] = true
@@ -575,6 +605,15 @@ end
 
 ns.On("QUESTDB_UPDATED", refreshAll)
 ns.On("QUESTDB_STARTED", refreshAll)
+-- A new side moves the icons already on plates at once.
+local function replaceIcons()
+	for unit, f in pairs(icons) do
+		local plate = plateFor(unit)
+		if plate then place(f, plate, unit) end
+	end
+end
+
 ns.On("SETTING_CHANGED", function(path)
+	if path == "qol.nameplateIconSide" or path == "qol" or path == "" then replaceIcons() end
 	if path == "qol.nameplateIcons" or path == "qol.questTooltips" or path == "qol.questDB" or path == "qol" or path == "" then refreshAll() end
 end)

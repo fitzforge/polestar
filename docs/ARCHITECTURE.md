@@ -3701,22 +3701,29 @@ tracker already show it, so it adds there only when missing).
 (camelot is Forever's game type in Blizzard's UI source: the files the Forever client loads carry `AllowLoadGameType camelot`, and its own overrides sit in `Camelot/` folders.)
 
 Nameplate icons (`qol.nameplateIcons`): a mob an open objective still needs
-gets a 16px objective icon (14–20) 3px left of the health bar the player
+gets a 16px objective icon (14–20) 3px from the health bar the player
 sees: EllesmereUI Nameplates' unit frame, Plater/ElvUI/oUF, KuiNameplates or
 Threat Plates when present, else the shown child of the base plate holding
 the largest status bar, else Blizzard's health bar, else the plate itself;
-parented to that frame so it follows its fading and scaling. Beside it, left,
-a font string of the icon frame (`.count`) shows the progress of the open
-objectives with a count above 1 (`Q.ProgressText`, by quest, joined with
-" · "), re-read on every `QUESTDB_UPDATED`; hidden when none has one. Every
-access is guarded; `Quests.NameplateIcon(unit)` returns the icon and
-`Quests.NameplateCount(unit)` the progress shown (tests).
+parented to that frame so it follows its fading and scaling. Which side is
+`qol.nameplateIconSide` (#995, for another addon's icon at the bar's left
+end): `left` (default) left of the bar; `right` right of it, past Blizzard's
+level badge (`PlayerLevelDiffFrame` or `LevelFrame`) when shown; `above` over
+the unit's `.name` when shown, else over the bar. A change re-anchors the
+icons already shown. Beside the icon, on the side away from the bar (left
+for `left`, right otherwise), a font string of the icon frame (`.count`)
+shows the progress of the open objectives with a count above 1
+(`Q.ProgressText`, by quest, joined with " · "), re-read on every
+`QUESTDB_UPDATED`; hidden when none has one. Every access is guarded;
+`Quests.NameplateIcon(unit)` returns the icon and `Quests.NameplateCount(unit)`
+the progress shown (tests).
 
 Settings (`qol.*`, Questing → Quests; the markers under Map → Guide & quests →
 Quest markers): `questDB`, `availableQuests`,
 `questLevelWindow` (0–10, 10 = any; default 5), `lowLevelQuests`,
 `mapObjectives`, `objectiveAreas`, `turnInMarkers`, `minimapObjectives`,
-`guideHighlight`, `guideDim`, `questTooltips`, `nameplateIcons`, `questLevels`.
+`guideHighlight`, `guideDim`, `questTooltips`, `nameplateIcons`,
+`nameplateIconSide` (`left` | `right` | `above`), `questLevels`.
 The four marker layers (`availableQuests`, `mapObjectives`, `turnInMarkers`,
 `minimapObjectives`) and `objectiveAreas` default to off (Map → Guide & quests →
 Quest markers); `guideHighlight` only restyles markers those layers draw.
