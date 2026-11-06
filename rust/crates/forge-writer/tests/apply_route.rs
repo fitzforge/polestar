@@ -9464,6 +9464,55 @@ fn a_city_trainer_a_few_hundred_yards_from_the_stop_counts_as_there() {
 }
 
 #[test]
+fn a_class_whose_trainer_the_way_to_the_stop_passes_trains_there_before_the_way_leaves_town() {
+	// #912, Night Elf 02-darkshore: the boat lands in Stormwind Harbor, a few hundred yards from its
+	// Druid trainers, and the route walks on to its Goldshire training, which has none: the Druids were
+	// sent back from Goldshire to Stormwind and back. They train in Stormwind, before the walk out.
+	let mut c = Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 12-14", "zone Darkshore", "", "step Hub", "  accept 1", "", "step Later", "  accept 2", ""])],
+		world: json!({
+			"points": [[0, 1, 0, 0, 1439], [0, 1, 0, 3000, 1453], [0, 1, 0, 3800, 1453], [0, 1, 0, 5000, 1429], [0, 1, 100, 5000, 1429]],
+			"zones": { "1439": "Darkshore", "1453": "Stormwind City", "1429": "Elwynn Forest" }, "quests": []
+		}),
+		frames: json!({ "era": {
+			"1439": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 },
+			"1453": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 },
+			"1429": { "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 }
+		} }),
+		npcs: json!({
+			"5504": { "name": "Sheldras Moontree", "subName": "Druid Trainer", "faction": "A", "spawns": { "1453": { "f": "e", "pts": [[76.67, 50]] } } },
+			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[91.67, 50]] } } }
+		}),
+		route: json!({ "faction": "Alliance", "start": "NightElf", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 12.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "train", "lvl": 12.2, "pt": 3, "from": "train stop", "items": [{ "t": "network", "from": 0, "to": 3, "legs": [{ "k": "walk", "to": 1 }, { "k": "walk", "to": 2 }, { "k": "walk", "to": 3 }] }] },
+			{ "t": "accept", "q": 2, "lvl": 12.3, "pt": 4, "from": f("a", 10) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let druid = idx(&g, "step Druid trainer");
+	let into_elwynn = g.iter().position(|l| m(l, r#"^\s+goto .*"Elwynn Forest""#)).map_or(-1, |i| i as i64);
+	let stop = idx(&g, "step Class trainer");
+	assert!(druid >= 0 && into_elwynn > druid && stop > into_elwynn, "{g:#?}");
+	assert!(g[druid as usize..].iter().take_while(|l| !l.is_empty()).any(|l| l == "  zone Stormwind City"), "{g:#?}");
+	assert_eq!(g.iter().filter(|l| m(l, r"^\s+train class only Druid\b")).count(), 1, "{g:#?}");
+	assert!(g.iter().any(|l| l.starts_with("  train class only Druid -- Sheldras Moontree in Stormwind City")), "{g:#?}");
+	// (A trainer in another town nearer the stop, named by the stop's line: the line names the town's.)
+	c.world["zones"]["1436"] = json!("Westfall");
+	c.frames["era"]["1436"] = json!({ "top": 6000, "bottom": -6000, "left": -6000, "right": 6000, "c": 0 });
+	c.npcs["542"] = json!({ "name": "Califex", "subName": "Druid Trainer", "faction": "A", "spawns": { "1436": { "f": "e", "pts": [[100, 41.67]] } } });
+	let g = run(&c, None).read("a");
+	assert!(g.iter().any(|l| l == "  train class only Druid -- Sheldras Moontree in Stormwind City; Elwynn Forest has no druid trainer"), "{g:#?}");
+	// (A trainer 600 yd from where the way stands in the town: the Druids train after the stop, as before.)
+	c.npcs.as_object_mut().unwrap().remove("542");
+	c.npcs["5504"]["spawns"]["1453"]["pts"] = json!([[76.67, 45]]);
+	let g = run(&c, None).read("a");
+	assert!(idx(&g, "step Druid trainer") > idx(&g, "step Class trainer") && idx(&g, "step Class trainer") >= 0, "{g:#?}");
+}
+
+#[test]
 fn a_class_step_closing_a_guide_stays_after_its_last_named_step() {
 	// c15 Alliance 50-60 (Rev15A2 A5): the Druids' Darnassus training closing 01-burning-steppes, after
 	// Rut'theran Village, was written in Felwood after the Emerald Sanctuary, at the route's later take of

@@ -141,6 +141,12 @@ v1's leveling guides are laid out like this, and the writer keeps the layout:
   the route going on to them in a row, goes after them, where v1 has it: some
   classes' trainers stand outside the building (Kharanos' distillery, trained
   last after Ragnar, Tannok and Maxan: thmastin's recorded Dwarf Hunter run).
+  A class the stop cannot train whose trainer
+  stands within 500 yd (CITY_TRAINER_YD) of where the way into the stop stands in a town of another zone trains
+  in that town instead, a step of its own before the way's leg out of it, naming that town's trainer
+  when the stop's nearest is elsewhere: the Night Elf Druids in Stormwind off the Darkshore boat,
+  before the walk to Goldshire (they walked to Goldshire, back to Stormwind and back, #912); the
+  Paladins of Felwood's Orgrimmar stop with Shari Stilwell in Brill, before the zeppelin.
 - **Riding at 40** (`post::riding_at_level`, on the guides as written, the travel repair's ways
   and the adopted shared guides included): a step that trains at a riding
   trainer (the data's "... Riding Instructor" or "... Riding Trainer", the
