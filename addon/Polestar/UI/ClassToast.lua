@@ -39,6 +39,9 @@ local PAD = 14
 local RING = 40
 local STRIPE = 4
 local SLIDE = 0.25
+-- The space between the card and the window's edge, so the card reads as a
+-- heads-up of its own and not as the top of the goals.
+local GAP = 6
 local LOGIN_LEVELS = 2 -- on login, chains opened within this many levels
 local CLASS_BIT = { WARRIOR = 1, PALADIN = 2, HUNTER = 4, ROGUE = 8, PRIEST = 16, SHAMAN = 64, MAGE = 128, WARLOCK = 256, DRUID = 1024 }
 local SIDE = { Alliance = "A", Horde = "H" }
@@ -475,12 +478,12 @@ function CT.Place(animate)
 	local h = f:GetHeight()
 	local top, room = w:GetTop(), UIParent:GetTop()
 	local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
-	local above = not (top and room) or (top + h) * s <= room * us
+	local above = not (top and room) or (top + GAP + h) * s <= room * us
 	CT.side = above and "above" or "below"
 	if above then
-		Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, -1)
+		Anim.Anchor(f, "BOTTOMLEFT", w, "TOPLEFT", 0, GAP)
 	else
-		Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, 1)
+		Anim.Anchor(f, "TOPLEFT", w, "BOTTOMLEFT", 0, -GAP)
 	end
 	local wasShown = f:IsShown()
 	f:Show()
@@ -488,6 +491,20 @@ function CT.Place(animate)
 		Anim.To(f, "offset", above and -h or h, 0, SLIDE, "out")
 		Anim.To(f, "alpha", 0, 1, SLIDE, "out")
 	end
+end
+
+-- The height the card takes beside the window while it shows, gap included,
+-- in the window's units (the card has the window's scale). The guide window
+-- keeps window and card within ui.maxHeight together (GuideFrame.Layout).
+function CT.Reserved()
+	if not (f and CT.current and f:IsShown()) then return 0 end
+	return (f:GetHeight() or 0) + GAP
+end
+
+-- The window makes room for the card, or takes it back.
+local function relayout()
+	local G = UI.GuideFrame
+	if G and G.Layout and G.frame then G.Layout() end
 end
 
 -- Show the card for quest q (marks its reward told). -> true when shown
@@ -552,6 +569,7 @@ function CT.ShowCard(m)
 	f.Open:SetShown(m.act == nil and m.guideId ~= nil)
 	f.ShowMe:SetShown(m.act == nil and m.guideId == nil)
 	CT.Place(not wasShown)
+	relayout()
 	if not wasShown and f:IsShown() then
 		local C = CC()
 		if ns.Get("ui.classCardSound") and C.GameSoundOn() and PlaySound then
@@ -565,8 +583,10 @@ end
 -- (HEADS_UP_HIDDEN, with the model dismissed).
 function CT.Hide()
 	local was = CT.current
+	local wasShown = f and f:IsShown() and was ~= nil
 	CT.current = nil
 	if f then f:Hide() end
+	if wasShown then relayout() end
 	if was and ns.Fire then ns.Fire("HEADS_UP_HIDDEN", was) end
 end
 
