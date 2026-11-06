@@ -92,7 +92,7 @@ step Auberdine
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
   getfp "Auberdine"
   sethome "Auberdine"
-  accept 983                                  -- Wizbang Cranktoggle, by the inn
+  accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   accept 4811                                 -- Sentinel Glynda Nal'Shea
   accept 98025                                -- The WANTED poster outside the inn
   accept 3524                                 -- Gwennyth Bly'Leggonde

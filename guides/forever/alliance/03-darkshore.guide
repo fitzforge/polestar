@@ -98,7 +98,7 @@ step Boat to Auberdine
 
 step Auberdine
   zone Darkshore
-  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street.
+  tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   accept 954 only Dwarf,Gnome,Human,Skyborne -- Thundris Windweaver, north end of the village
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
   vendor nearest
@@ -112,7 +112,7 @@ step Auberdine
   accept 98025 only Dwarf,Gnome,Human,Skyborne -- The WANTED poster outside the inn
   accept 4740                                 -- The WANTED poster
   getfp "Auberdine"
-  accept 983                                  -- Wizbang Cranktoggle, by the inn
+  accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
   accept 3524 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
   accept 1138                                 -- Gubber Blump
   accept 963                                  -- Cerellean Whiteclaw, on the pier

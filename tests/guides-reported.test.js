@@ -3055,3 +3055,19 @@ test(`${ELWYNN}: no Desperate Prayer for a Human priest (#844)`, { skip }, () =>
 	}
 	assert.ok(goals(ELWYNN).filter(forClass('PRIEST')).some(({ goal }) => is('accept', 94774)(goal)), 'Divine Grace is still taken from Josetta');
 });
+
+// Fitz's in-game check (2026-11-06): Wizbang Cranktoggle (Buzzbox 827) stands
+// upstairs in Auberdine's inn; the arrow has no height and counted the ground
+// floor as arrived. The step that offers his quest says he is upstairs, and his
+// goal keeps the upper floor's height.
+test("Fitz's in-game check (2026-11-06): Darkshore's step offering Buzzbox 827 says Wizbang Cranktoggle is upstairs in the inn", { skip: skip || needs('spawnz.json') }, () => {
+	for (const guide of [DARKSHORE, 'forever/alliance/nightelf/02-darkshore.guide']) {
+		const step = compiled(guide).steps.find((st) => st.goals.some((g) => g.t === 'accept' && g.quest === 983));
+		assert.ok(step, `${guide}: Buzzbox 827 is offered`);
+		const tip = [].concat(step.note || []).join(' ');
+		assert.match(tip, /Wizbang Cranktoggle stands upstairs in the inn/, `${guide}: ${tip}`);
+		assert.match(tip, /The boat docks west of the village/, `${guide}: the old tip is kept`);
+		const goal = step.goals.find((g) => g.t === 'accept' && g.quest === 983);
+		assert.ok(Math.abs(goal.z - 24) < 3, `${guide}: z ${goal.z} is the inn's upper floor`);
+	}
+});
