@@ -8386,6 +8386,42 @@ fn a_top_up_grinds_near_the_player_not_at_a_named_mobs_spot() {
 }
 
 #[test]
+fn a_top_up_goes_to_the_mob_it_names_when_that_mob_is_not_at_the_camp() {
+	// #924: Darkshore's level 20 named the Elder Darkshore Thresher (on level) but pointed at the camp of
+	// the lower Darkshore Threshers where the route got the Thresher Eyes both drop; the Elders spawn
+	// only on the coasts, more than a thousand yards off.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 15-20", "zone Durotar", "", "step Hub", "  accept 1", "", "step Camp", "  collect 50 quest 1.1", "", "step Hub again", "  turnin 1", ""],
+		)],
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 19.0, "from": f("a", 7) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 1, "lvl": 19.2, "from": f("a", 10) },
+			{ "t": "level", "lvl": 19.6, "target": 20.0, "pt": 1, "from": "inserted" },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 20.0, "from": f("a", 13) }
+		] }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411], [1, 1, 0, 300, 1411]], "zones": { "1411": "Durotar" },
+			"quests": [{ "id": 1, "objs": [{ "oi": 0, "type": "item", "id": 50, "task": 0, "count": 8 }] }] }),
+		quests: json!({ "1": { "title": "One", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "item", "id": 50 }] } }),
+		npcs: json!({
+			"8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } },
+			"20": { "name": "Thresher", "level": 12, "spawns": { "1411": { "f": "e", "pts": [[64, 50], [65, 50], [66, 50]] } } },
+			"21": { "name": "Elder Thresher", "level": 16, "spawns": { "1411": { "f": "e", "pts": [[10, 90], [80, 20], [90, 10], [20, 85]] } } }
+		}),
+		items: json!({ "50": { "drops": { "npc": { "20": 30, "21": 30 } } } }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let s = idx(&g, "step Level 20");
+	assert!(s >= 0, "{g:#?}");
+	let body: Vec<&String> = g[s as usize..].iter().take_while(|l| !l.is_empty()).collect();
+	// (The Elders' spawn nearest the camp, 670 yd off; the camp itself is 65.0,50.0.)
+	assert!(body.iter().any(|l| *l == "  goto 80.0,20.0 map 1411 \"Elder Thresher\""), "{g:#?}");
+	assert!(body.iter().any(|l| l.ends_with("-- grind on Elder Thresher")), "{g:#?}");
+}
+
+#[test]
 fn a_top_up_with_no_camp_behind_grinds_at_the_next_camp_near_the_player() {
 	// Rev15OrcTroll B3: the Orcs' level 10 was "Grind spot" in the middle of Razor Hill; the Razormane
 	// huts the route works next are 300 yd west.

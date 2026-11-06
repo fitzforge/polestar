@@ -1237,6 +1237,41 @@ test(`${DARKSHORE}: XooVe's report: the Beached Sea Creature by Bashal'Aran is t
 	assert.ok(handIn < at(list, 'accept 4728', is('accept', 4728)), 'before the second loop');
 });
 
+// --- Darkshore (lax, #924): "Level 20" said "grind on Elder Darkshore
+// Thresher" but its arrow led to 33.3,40.7 by Auberdine, a camp of the lower
+// Darkshore Threshers (both drop the Thresher Eyes worked there). The Elders
+// spawn only on the south and north coasts; players' recordings see them only
+// there. The same pattern everywhere: a grind's arrow is at the mob it names.
+
+test(`lax's report (#924): every grind's arrow leads to a spawn of the mob it names`, { skip }, () => {
+	data = data || loadData(DATA);
+	const byName = new Map();
+	for (const n of Object.values(data.npcs)) if (n.name) byName.set(n.name, [...(byName.get(n.name) || []), n.id]);
+	const world = (map, x, y, f) => {
+		const fr = (f === 'e' ? data.mapFrames.era : data.mapFrames.forever || {})[map] || data.eraFrame(map);
+		return fr && { c: fr.c, wx: fr.top + ((fr.bottom - fr.top) * y) / 100, wy: fr.left + ((fr.right - fr.left) * x) / 100 };
+	};
+	const offenders = [];
+	let grinds = 0;
+	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
+		for (const step of compiled(guide).steps) {
+			step.goals.forEach((goal, i) => {
+				const next = step.goals[i + 1];
+				if (goal.t !== 'goto' || goal.map == null || !next || next.t !== 'level' || next.note !== `grind on ${goal.text}`) return;
+				grinds++;
+				const g = world(goal.map, goal.x, goal.y, goal.f);
+				const yd = Math.min(...(byName.get(goal.text) || []).flatMap((id) => data.spawns('npc', id)).flatMap((s) => s.pts.map((p) => {
+					const w = world(s.map, p[0], p[1], s.f);
+					return w && g && w.c === g.c ? Math.hypot(w.wx - g.wx, w.wy - g.wy) : Infinity;
+				})));
+				if (!(yd <= 400)) offenders.push(`${guide} step ${step.title}: ${goal.text} at ${goal.x},${goal.y} map ${goal.map} (${Math.round(yd)} yd off)`);
+			});
+		}
+	}
+	assert.ok(grinds > 20, 'the grinds are found');
+	assert.deepEqual(offenders, [], 'grind arrows away from the mob they name');
+});
+
 test(`${TELDRASSIL}: Pynte's report: Zenn's Bidding is taken on the walk down to Dolanaar that passes Zenn (#89)`, { skip }, () => {
 	const list = goals(TELDRASSIL);
 	const take = at(list, "accept 488 (Zenn's Bidding)", is('accept', 488));

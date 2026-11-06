@@ -7736,7 +7736,7 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 	let o = &order[oi];
 	let lvl = o.target.filter(|_| o.key.is_none())?;
 	let n = level_str(lvl);
-	let (target, pt, _) = grind_camp(cx, order, oi, oi + 1, o.pt, false);
+	let (target, pt, _, spot) = grind_camp(cx, order, oi, oi + 1, o.pt, false);
 	let mut lines = vec![format!("  when level<{n}")];
 	// The hand-ins it tops up for: the turn-ins that follow it, where they are.
 	let hub = order[oi + 1..]
@@ -7760,19 +7760,22 @@ fn level_ins(cx: &Ctx, order: &[Order], oi: usize) -> Option<Ins> {
 		(None, Some(h)) => format!("  tip Top up here to level {n} before the hand-ins at {h}: they take you to level {next}."),
 		(None, None) => format!("  tip Top up here to level {n} before the hand-ins that follow: they take you to level {next}."),
 	});
-	lines.extend(grind_lines(cx, &target, pt, &n));
-	Some(Ins { title: format!("Level {n}"), lines, map: cx.map_of_pt(pt) })
+	lines.extend(grind_lines(cx, &target, pt, spot.as_ref(), &n));
+	Some(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) })
 }
 
 /// Where a grind between the route's events `order[..before]` and `order[after..]` is made: its camp
-/// (the camp's mob) and point, and whether the camp is local. The camp: an objective worked shortly
+/// (the camp's mob) and point, whether the camp is local, and the camp mob's spawn nearest the point
+/// when none is near it (the arrow goes there). The camp: an objective worked shortly
 /// before it whose mobs are many (not one named or rare mob's spot: the Bloodtalon Matriarch on the
 /// Echo Isles, Rev14OrcTroll B3), hostile and about the player's level, near where the player is, else
 /// the route's nearest one in the player's zone (local); else the route's next such camp, never in a
 /// city; else where the player is. `own`: the route's own point for the grind. `solo`: for a player
 /// alone, no camp of elites or of a group family's work.
-fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<String>, Option<u32>, bool) {
+fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Option<u32>, solo: bool) -> (Option<String>, Option<u32>, bool, Option<Near>) {
 	const CAMP_NEAR_YD: f64 = 800.0;
+	/// Yards from the grind's point within which its camp mob spawns, else the arrow goes to the mob.
+	const CAMP_AT_YD: f64 = 400.0;
 	const CAMP_BACK: usize = 12;
 	const MANY_SPAWNS: usize = 3;
 	/// Events looked through for the route's next (or last) camp on the continent.
@@ -7800,7 +7803,7 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 	// top-up, nor one far under the player, Teldrassil's at 52, c17 RevA 3.)
 	let hostile = |e: &Entity| !e.faction.as_deref().is_some_and(|f| f.contains(cx.fac));
 	let on_level = |e: &Entity| lvl.zip(e.level).is_none_or(|(l, m)| m + CAMP_LVL_GAP >= l);
-	let camp = |w: &Order| -> Option<String> {
+	let camp = |w: &Order| -> Option<&Entity> {
 		if solo && w.group.is_some() {
 			return None;
 		}
@@ -7810,7 +7813,7 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 		// (A mob with few spawns, Goldtooth or Morgan the Collector among an item's droppers, last.)
 		let few = |e: &&Entity| e.spawns.values().map(|s| s.pts.len()).sum::<usize>() < MANY_SPAWNS;
 		let d = |e: &&Entity| cx.spawn_near(&[*e], w.pt).map_or(f64::INFINITY, |n| n.d);
-		ents.into_iter().filter(|e| !named(e, one) && !elite(e) && hostile(e) && on_level(e)).min_by(|a, b| few(a).cmp(&few(b)).then(d(a).total_cmp(&d(b)))).map(|e| e.name.clone().unwrap_or_default())
+		ents.into_iter().filter(|e| !named(e, one) && !elite(e) && hostile(e) && on_level(e)).min_by(|a, b| few(a).cmp(&few(b)).then(d(a).total_cmp(&d(b))))
 	};
 	let in_city = |p: Option<u32>| cx.w(p).is_some_and(|w| CITY_MAPS.contains(&w.map));
 	let near_here = |p: Option<u32>| matches!((cx.w(p), here), (Some(a), Some(b)) if a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= CAMP_NEAR_YD) && !in_city(p);
@@ -7838,16 +7841,23 @@ fn grind_camp(cx: &Ctx, order: &[Order], before: usize, after: usize, own: Optio
 			},
 		);
 	let work = local.or_else(|| order[after..].iter().take(CAMP_FAR).filter(task_camp).find(|w| cx.w(w.pt).is_some() && !in_city(w.pt)));
-	let target = work.and_then(camp).filter(|s| !s.is_empty());
+	let mob = work.and_then(camp).filter(|e| e.name.as_deref().is_some_and(|s| !s.is_empty()));
+	let target = mob.and_then(|e| e.name.clone());
 	// (The route's own point for it, when near the player; else the camp's, else where the player is.)
 	let pt = own.filter(|&p| near_here(Some(p))).or_else(|| work.and_then(|w| w.pt)).or_else(|| order[..before].iter().rev().find_map(|x| x.pt.filter(|_| cx.w(x.pt).is_some())));
-	(target, pt, local.is_some())
+	// (The mob named is the one about the player's level, which need not spawn at that point: Darkshore's
+	// level 20 named the Elder Darkshore Threshers, who drop the Thresher Eyes too, at the lower
+	// Darkshore Threshers' camp by Auberdine; the Elders are on the coasts, #924. Its spawn nearest the
+	// point, on the point's continent.)
+	let spot = mob.filter(|_| cx.w(pt).is_some()).and_then(|e| cx.spawn_near(&[e], pt)).filter(|s| s.d > CAMP_AT_YD && s.d < 1e9);
+	(target, pt, local.is_some(), spot)
 }
 
-/// A grind's way to its camp and its `level N` goal (`n`: level_str of its target).
-fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, n: &str) -> Vec<String> {
+/// A grind's way to its camp and its `level N` goal (`n`: level_str of its target): to `spot`, the camp
+/// mob's spawn, when grind_camp gave one, else to the grind's point.
+fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, spot: Option<&Near>, n: &str) -> Vec<String> {
 	let mut lines = Vec::with_capacity(2);
-	let at = cx.coords_of(pt);
+	let at = spot.map_or_else(|| cx.coords_of(pt), |s| s.at.clone());
 	if !at.is_empty() {
 		let label = target.as_deref().unwrap_or("Grind spot");
 		lines.push(format!("  goto {} \"{label}\"", at.trim_start().trim_start_matches('@')));
@@ -7866,13 +7876,13 @@ fn grind_lines(cx: &Ctx, target: &Option<String>, pt: Option<u32>, n: &str) -> V
 /// and has no "Top up here" tip).
 fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str, target: f64) -> (Ins, Option<u32>) {
 	let n = level_str(target);
-	let (camp, pt, _) = grind_camp(cx, order, p + 1, p + 1, None, true);
+	let (camp, pt, _, spot) = grind_camp(cx, order, p + 1, p + 1, None, true);
 	// (A title's quotes, Wanted: "Hogger", are no quote of the tip's: the pack reads a quoted part and
 	// refuses the comma after it, C14Plan.)
 	let plain = re!(r"\s+").replace_all(&title.replace('"', ""), " ").into_owned();
 	let mut lines = vec![format!("  when !group {root}"), format!("  when level<{n}"), format!("  tip If you skipped {plain}, grind here to level {n} to stay on the route's plan.")];
-	lines.extend(grind_lines(cx, &camp, pt, &n));
-	(Ins { title: format!("Level {n}"), lines, map: cx.map_of_pt(pt) }, pt)
+	lines.extend(grind_lines(cx, &camp, pt, spot.as_ref(), &n));
+	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
 }
 
 /// Minutes under which a route top-up is never a step of its own: folded into a farm step, else
