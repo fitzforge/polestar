@@ -583,7 +583,8 @@ Polestar.RegisterGuideTexts(locale, packId, { pack = {...}, guides = { [id] = {.
 
 UI, Nav and Engine read the client's quests, map, units and items through
 `Polestar.Compat`, with these exceptions that call the client themselves:
-Nav's Blizzard user waypoint (`C_Map`, `C_SuperTrack`; `Nav/Bridges.lua`),
+Nav's Blizzard user waypoint (`C_Map`, `C_SuperTrack`, and Waypoint UI's
+`WaypointUIAPI.Navigation` when that addon is loaded; `Nav/Bridges.lua`),
 the minimap's radius, shape, rotation and indoors state (`Nav/Pins.lua`;
 `Maps/RouteLines.lua` reads them through `Pins.MinimapView()`), the gamepad's
 map cursor and A (`SoftCursor`, `IsKeyDown`; `Nav/Pins.lua`), the map frames

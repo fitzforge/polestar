@@ -1096,6 +1096,169 @@ fn tomtom_mirrors_the_target_one_waypoint_replaced_on_change_removed_when_cleare
 	assert_eq!(out["arrowAfter"], true, "ours returns when the bridge is off");
 }
 
+// Waypoint UI's public API (WaypointUIAPI.Navigation) and the game's quest tracking, recording
+// what Polestar asks of them. `log` = quests in the quest log.
+const WAYPOINT_UI: &str = r#"
+	local calls, current, log, tracked = {}, nil, {}, 0
+	WaypointUIAPI = { Navigation = {
+		NewUserNavigation = function(o)
+			current = o
+			calls[#calls + 1] = { "pin", o.name, o.mapID, o.x, o.y, o.flags, o.suppressAudio }
+			return o
+		end,
+		ClearUserNavigation = function() current = nil; calls[#calls + 1] = { "clear pin" } end,
+		IsUserNavigationFlagged = function(flag) return current ~= nil and current.flags == flag end,
+	} }
+	C_QuestLog = C_QuestLog or {}
+	C_QuestLog.IsOnQuest = function(q) return log[q] == true end
+	C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = { "quest", q } end
+	C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
+"#;
+
+#[test]
+fn with_waypoint_ui_a_target_is_a_pin_named_after_it_and_only_ours_is_cleared() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		target(100, 0, "Talk to Executor Arren")
+		target(0, 100, "Walk to Brill")
+		N.ClearTarget()
+		-- The player picks their own waypoint in Waypoint UI: Polestar leaves it alone.
+		target(-100, 0, "Third")
+		current = {{ name = "Mine", flags = "TomTom_Waypoint" }}
+		N.ClearTarget()
+		target(-100, 0, "Fourth")
+		Polestar.Set("nav.blizzardWaypoint", false)
+		emit({{ calls = calls, native = #nav.userWaypoints }})"#
+	));
+	assert_eq!(
+		out["calls"],
+		json!([
+			// A new target replaces our pin; clearing the target clears it.
+			["pin", "Talk to Executor Arren", 9000, 50, 45, "Polestar", true],
+			["pin", "Walk to Brill", 9000, 45, 50, "Polestar", true],
+			["clear pin"],
+			["pin", "Third", 9000, 50, 55, "Polestar", true],
+			["pin", "Fourth", 9000, 50, 55, "Polestar", true],
+			["clear pin"]
+		])
+	);
+	// Waypoint UI sets and clears the game's own pin itself.
+	assert_eq!(out["native"], 0);
+}
+
+#[test]
+fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_a_quest_we_tracked_is_untracked() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[376] = true
+		-- Accepting: the quest is not in the log yet, so a named pin.
+		nav.setWaypoint(wp(100, 0, "Accept The Damned", {{ kind = "accept", quest = 376 }}))
+		-- Its objective, then its turn-in: the quest itself is tracked.
+		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", {{ kind = "kill", quest = 376 }}))
+		nav.setWaypoint(wp(-100, 0, "Turn in The Damned", {{ kind = "turnin", quest = 376 }}))
+		-- A quest goal whose quest is not in the log: a pin.
+		nav.setWaypoint(wp(0, -100, "Kill for a quest not in the log", {{ kind = "kill", quest = 999 }}))
+		-- Tracked by us, then by the player: we untrack only our own.
+		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", {{ kind = "kill", quest = 376 }}))
+		tracked = 404
+		nav.setWaypoint(wp(100, 0, "Go to Deathknell"))
+		emit({{ calls = calls, tracked = tracked }})"#
+	));
+	assert_eq!(
+		out["calls"],
+		json!([
+			["pin", "Accept The Damned", 9000, 50, 45, "Polestar", true],
+			["clear pin"],
+			// The objective, then the turn-in of the same quest: tracked once.
+			["quest", 376],
+			["quest", 0],
+			["pin", "Kill for a quest not in the log", 9000, 55, 50, "Polestar", true],
+			["clear pin"],
+			["quest", 376],
+			["pin", "Go to Deathknell", 9000, 50, 45, "Polestar", true]
+		])
+	);
+	assert_eq!(out["tracked"], 404, "the player's own tracked quest stays tracked");
+}
+
+#[test]
+fn with_waypoint_ui_an_objective_over_an_area_is_a_named_pin_at_polestar_s_spot_not_the_quest() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[756] = true
+		-- Collecting among spawns: the game points nowhere inside the area, Polestar's target is a spot.
+		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", {{ kind = "collect", quest = 756, area = 60 }}))
+		-- The turn-in is one NPC: the quest is tracked.
+		nav.setWaypoint(wp(0, 100, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756, area = 0 }}))
+		emit({{ calls = calls }})"#
+	));
+	assert_eq!(out["calls"], json!([["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true], ["clear pin"], ["quest", 756]]));
+}
+
+#[test]
+fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		-- Waypoint UI is loaded but has not filled its API yet.
+		local api = WaypointUIAPI.Navigation
+		WaypointUIAPI.Navigation = nil
+		Polestar.Set("nav.blizzardWaypoint", true)
+		target(100, 0, "Talk to Executor Arren")
+		local before = #calls
+		WaypointUIAPI.Navigation = api
+		stub.advance(2.1)
+		emit({{ before = before, calls = calls, native = #nav.userWaypoints }})"#
+	));
+	assert_eq!(out["before"], 0);
+	assert_eq!(out["calls"], json!([["pin", "Talk to Executor Arren", 9000, 50, 45, "Polestar", true]]));
+	assert_eq!(out["native"], 2, "the plain pin first (set and tracked), then Waypoint UI's");
+}
+
+#[test]
+fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[756] = true
+		local collect = {{ kind = "collect", quest = 756, area = 60, search = 40 }}
+		-- The engine announces the same spot again (progress, a refresh): one pin.
+		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", collect))
+		nav.setWaypoint(wp(100, 0, "Collect for Thunderhorn Totem", collect))
+		N.Reapply()
+		-- The search moves to the next spot: the pin follows.
+		nav.setWaypoint(wp(0, 100, "Collect for Thunderhorn Totem", collect))
+		-- Waypoint UI lost our pin (the player cleared it): the next announcement sets it again.
+		current = nil
+		nav.setWaypoint(wp(0, 100, "Collect for Thunderhorn Totem", collect))
+		-- A tracked quest re-announced is not tracked again.
+		nav.setWaypoint(wp(-100, 0, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756 }}))
+		nav.setWaypoint(wp(-100, 0, "Turn in Thunderhorn Totem", {{ kind = "turnin", quest = 756 }}))
+		emit({{ calls = calls }})"#
+	));
+	assert_eq!(
+		out["calls"],
+		json!([
+			["pin", "Collect for Thunderhorn Totem", 9000, 50, 45, "Polestar", true],
+			["pin", "Collect for Thunderhorn Totem", 9000, 45, 50, "Polestar", true],
+			["pin", "Collect for Thunderhorn Totem", 9000, 45, 50, "Polestar", true],
+			["clear pin"],
+			["quest", 756]
+		])
+	);
+}
+
+#[test]
+fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
+	let out = run(r#"
+		Polestar.Set("nav.blizzardWaypoint", true)
+		nav.setWaypoint(wp(0, 100, "Kill Young Scavengers", { kind = "kill", quest = 376 }))
+		emit({ native = nav.userWaypoints })"#);
+	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
+}
+
 #[test]
 fn the_arrow_takes_the_mouse_on_its_dial_only_and_the_hover_wash_sits_behind_the_dial() {
 	let out = run(r#"

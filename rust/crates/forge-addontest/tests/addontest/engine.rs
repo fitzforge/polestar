@@ -172,7 +172,7 @@ fn accept_objectives_and_turn_in_advance_the_steps_and_fire_messages_in_order() 
 	assert_eq!(view3["goals"][1]["oi"], 1);
 	assert_eq!(view3["goals"][1]["npc"], 6);
 	// The camp's Go to names the step (its header): the arrow leads to the kobolds.
-	assert_eq!(*wp, json!({ "map": 1429, "x": 47.6, "y": 35.1, "label": "Kill Kobold Vermin", "stepIndex": 3, "goalIndex": 2, "kind": "kill", "r": 8 }));
+	assert_eq!(*wp, json!({ "map": 1429, "x": 47.6, "y": 35.1, "label": "Kill Kobold Vermin", "stepIndex": 3, "goalIndex": 2, "kind": "kill", "quest": 7, "r": 8 }));
 }
 
 #[test]
