@@ -1613,11 +1613,17 @@ guides); every other guide hands off by itself as before. It replaced the
 and both of its values start on `"ask"`.
 
 - **The end** (`Own.noteEnd`): every step done, or the guide's last step
-  with work for the character (`Own.lastWork`: it applies, is not an `along`
+  with work for everyone (`Own.lastWork`: it applies, is not an `along`
   step, and has a goal that applies and is neither a note nor optional;
-  trailing steps that only offer, such as riding at 40, are not the end)
+  trailing steps that only offer, such as riding at 40, are not the end;
+  nor is a class's or a race's own step, `Own.forSome`: its `only`, or that
+  of each goal of its work, names classes or races, or the quest database
+  says its quest is a class quest, as Cat Form closing The Barrens for
+  Druids, done in the class guide too)
   done ahead of the live step, whatever steps before it were skipped or left
-  open. It counts once the guide was seen unfinished after placement this
+  open. With the live step past that step, such own steps still to come are
+  no end; the end comes with them (completion). It counts once the guide
+  was seen unfinished after placement this
   session (`Own.endOpen`), and for the last step done ahead, that same step
   seen open (`Own.lastOpen`), so a guide opened, or brought back by a login,
   already at its end does not ask, nor does a last step that reads done from
@@ -1636,7 +1642,10 @@ and both of its values start on `"ask"`.
   (`Own.placeClear`: Darkshore visits Elwynn before it ends there), so
   passing by never ends a guide. `train class` (any class trainer) never
   counts out of turn, only on screen. tests/addontest/guides-end.rs plays
-  every leveling guide's last step ahead (with the reference data).
+  every leveling guide's last step ahead (with the reference data), a
+  class's or race's own last steps first (no end), and guides-end-early.rs
+  plays every one in order, each hand-in after its giver's window (no end
+  while a step is live).
 - **Ask:** no hand-off by itself (the catch-up still passes guides done
   whole); `GUIDE_END` fires after the evaluation and the guide-end window
   (`UI/GuideEnd.lua`, frame `PolestarGuideEnd`) says "You've completed

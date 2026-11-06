@@ -49,6 +49,17 @@ end
 Polestar.RegisterGuide({ id = "test/kolkar", pack = "test", title = "Kolkar", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1413, next = "test/barrens",
 	steps = { { goals = { at("accept", 850) } }, { goals = { at("turnin", 850), at("accept", 851, { 850 }) } }, q(70, "Elsewhere"),
 		{ goals = { at("turnin", 851), at("accept", 852, { 851 }) } }, q(71, "Elsewhere too"), { goals = { at("turnin", 852) } } } })
+-- The end of The Barrens (19-23) for a Druid: the last step for everyone (Regthar), then the class's own trip
+-- (Cat Form, done in its class guide as well), here for the character's class (Warrior).
+local mine = { classes = { "WARRIOR" } }
+Polestar.RegisterGuide({ id = "test/catform", pack = "test", title = "Cat Form", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(90, "One"), q(91, "Two"), q(92, "Regthar"),
+		{ title = "Moonglade", only = mine, goals = { { t = "accept", quest = 93, title = "To Thunder Bluff", map = 1413, x = 60, y = 60 } } },
+		{ title = "Turak Runetotem", only = mine, goals = { { t = "turnin", quest = 93, title = "To Thunder Bluff", map = 1413, x = 61, y = 61 } } } } })
+-- Stranglethorn's end for a Dwarf: the last step for everyone, then a trip home only that race takes.
+Polestar.RegisterGuide({ id = "test/home", pack = "test", title = "Home", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+	steps = { q(94, "One"), q(95, "Two"), q(96, "Last for everyone"),
+		{ title = "Home", goals = { { t = "goto", map = 1413, x = 70, y = 70, text = "Home", only = { races = { "Orc" } } } } } } })
 "#;
 
 const NEXT: &str = r#"next = "test/barrens","#;
@@ -345,4 +356,61 @@ fn a_last_step_that_only_reads_done_as_unavailable_for_now_does_not_end_the_guid
 	assert_eq!(out["follow"], "skipped", "Verog the Dervish is passed over for now, as before");
 	assert_eq!(out["last"], "skipped");
 	assert_eq!(out["after"], json!({ "log": {}, "live": 3, "last": "pending" }));
+}
+
+// The Skyborne Druid's Barrens (recorded on 0.3.2): Cat Form, the guide's last hand-in for a Druid, done early
+// in the class guide ended The Barrens at step 48 of 107. A class's own last steps are never the end done
+// ahead: the last step for everyone is. Done ahead, it ends the guide as before; played in order, the class's
+// steps after it still come first, and the end comes with them.
+#[test]
+fn a_class_quest_done_elsewhere_never_ends_a_leveling_guide_the_last_step_for_everyone_does() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/catform"); flush(); takeLog()
+			w.accept(93, {}); flush(); w.turnIn(93); flush()
+			local r = { classQuest = takeLog(), live = E.GetLiveStep() }
+			w.accept(92, {}); flush()
+			r.lastForEveryone = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["classQuest"], json!({}), "Cat Form done in the class guide is no end");
+	assert_eq!(out["live"], 1);
+	assert_eq!(out["lastForEveryone"], json!(["GUIDE_END test/catform undone=2 live=1 next=test/barrens choose=nil"]));
+
+	let in_order = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/catform"); flush(); takeLog()
+			for q = 90, 92 do w.accept(q, {}); flush() end
+			local r = { atTheTrip = takeLog(), live = E.GetLiveStep() }
+			w.accept(93, {}); flush(); w.turnIn(93); flush()
+			r.done = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(in_order["atTheTrip"], json!({}), "the class's own steps after the last step for everyone still come");
+	assert_eq!(in_order["live"], 4);
+	assert_eq!(in_order["done"], json!(["GUIDE_COMPLETED test/catform", "GUIDE_END test/catform undone=0 live=nil next=test/barrens choose=nil"]));
+}
+
+// The same for a race's own last step (Stranglethorn's trips home for Dwarves and Gnomes at 40): being there
+// ahead of the live step is no end; the last step for everyone done ahead is.
+#[test]
+fn a_race_s_own_last_step_reached_ahead_is_no_end_either() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.SetGuide("test/home"); flush(); takeLog()
+			w.moveTo(1413, 60, 60); stub.advance(1.5)
+			w.moveTo(1413, 70, 70); stub.advance(1.5)
+			local r = { home = takeLog() }
+			w.accept(96, {}); flush()
+			r.lastForEveryone = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["home"], json!({}));
+	assert_eq!(out["lastForEveryone"], json!(["GUIDE_END test/home undone=3 live=1 next=test/barrens choose=nil"]));
 }

@@ -3765,9 +3765,10 @@ function Own.enteredPlace(goals, g, goal)
 end
 
 -- The end of a leveling guide reached ahead of the live step (a player who
--- skipped ahead: Own.noteEnd). Its last step for the character is
--- Own.endLast(), with behavior.guideEnd "ask", before the end was told, and
--- while the live step is an earlier one. Its goals count by kind:
+-- skipped ahead: Own.noteEnd). Its last step for everyone (a class's or a
+-- race's own steps are not the end: Own.forSome) is Own.endLast(), with
+-- behavior.guideEnd "ask", before the end was told, and while the live step
+-- is an earlier one. Its goals count by kind:
 -- - quest state, level, bags, flight paths, spells: as they are;
 -- - goto and explore: by arrival, watched out of turn (Own.endWatch: Dun
 --   Morogh's walk on to Westfall), or a later goal of the step;
@@ -3780,7 +3781,7 @@ end
 --   turn; it counts once the step is on screen, or ticked.
 function Own.endLast()
 	if not (guide and computed) or not Own.endAsks(guide) or ns.CharState().guideEnds[guide.id] then return nil end
-	local s = Own.lastWork(computed)
+	local s = Own.lastWork(computed, true)
 	return s
 end
 
@@ -4636,12 +4637,13 @@ end
 -- The last step of the loaded guide with work for the character, after step
 -- `after` (0: any): it applies, is not an along step, and has a goal that
 -- applies and is neither a note nor optional (a closing note-only step, or a
--- class's training step another class reads empty, is no end). -> index | nil
-function Own.lastWork(after)
+-- class's training step another class reads empty, is no end). `forAll`:
+-- not a step only for some characters either (Own.forSome). -> index | nil
+function Own.lastWork(after, forAll)
 	local steps = guide.steps
 	for s = #steps, after + 1, -1 do
 		local step = steps[s]
-		if not step.along and stepApplies(step) then
+		if not step.along and stepApplies(step) and not (forAll and Own.forSome(step)) then
 			for _, goal in ipairs(step.goals) do
 				if goal.t ~= "note" and not goal.optional and goalApplies(goal) then return s end
 			end
@@ -4650,13 +4652,47 @@ function Own.lastWork(after)
 	return nil
 end
 
+-- A class's or a race's own step: its `only` names classes or races, or each
+-- goal of its work does, or is a class quest by the quest database (Cat Form
+-- at the end of The Barrens for Druids). Such quests and trips are also done
+-- in class guides and on their own schedule, so they are never a leveling
+-- guide's end done ahead (Fitz, 2026-11-06). (On Own: the main chunk is at
+-- Lua's 200 locals.)
+function Own.someOnly(only)
+	return type(only) == "table" and ((type(only.classes) == "table" and #only.classes > 0) or (type(only.races) == "table" and #only.races > 0))
+end
+Own.ALL_CLASSES = 1503 -- the class bits of the quest database's masks (QuestDB CLASS_BIT)
+function Own.classQuest(q)
+	local Q = ns.QuestDB
+	local r = q and Q and Q.IsLoaded and Q.IsLoaded() and Q.QuestRecord(q)
+	local mask = r and r[Q.F.CLASSES]
+	if not mask then return false end
+	local band = bit and bit.band
+	return not band or band(mask, Own.ALL_CLASSES) ~= Own.ALL_CLASSES
+end
+function Own.forSome(step)
+	if Own.someOnly(step.only) then return true end
+	local any = false
+	for _, goal in ipairs(step.goals) do
+		if goal.t ~= "note" and not goal.optional and goalApplies(goal) then
+			if not (Own.someOnly(goal.only) or Own.classQuest(goal.quest)) then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
 	if placing or not Own.endAsks(guide) then return end
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
 	if ends[id] then return end
-	local last = Own.lastWork(0)
+	-- The end done ahead is judged on the last step for everyone (Own.forSome).
+	-- With the live step past it, a class's or race's own steps after it
+	-- still to come (Own.lastWork from the live step) are no end yet: the end
+	-- comes with them.
+	local last = Own.lastWork(0, true)
 	if computed then
 		-- Seen unfinished once placed: finishing it from now on reaches its end.
 		Own.endOpen[id] = true
@@ -4667,7 +4703,8 @@ function Own.noteEnd()
 		-- when the rest is done; so does one whose work only reads done as
 		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
 		-- optional goals or notes are offered, not the end (Own.lastWork).
-		local done = last ~= nil and not isSkipped(last) and Own.endWorkDone(last)
+		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1) ~= nil
+		local done = last ~= nil and not waits and not isSkipped(last) and Own.endWorkDone(last)
 			and (last == current and stepDone(last) or last ~= current and Own.endDoneAhead(last))
 		if not done then
 			if last then Own.lastOpen[id] = last end
