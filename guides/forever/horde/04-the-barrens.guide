@@ -333,9 +333,7 @@ step Orgrimmar
 step Orgrimmar
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  tip Fly to Orgrimmar to train your level 20 ranks. Sorek is in the Valley of Honor, Searn Firewarder in the Valley of Wisdom.
-  fly "Orgrimmar" only Tauren
-  fly "Orgrimmar" only Undead,Troll,Skyborne,Orc,Warrior,Hunter,Priest,Shaman,Mage,Warlock
+  tip Sorek is in the Valley of Honor, Searn Firewarder in the Valley of Wisdom.
   train class
   accept 1823 only Warrior            -- Sorek
   accept 1528 only Shaman             -- Searn Firewarder

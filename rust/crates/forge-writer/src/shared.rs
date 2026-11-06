@@ -16,6 +16,7 @@
 use crate::guide::{is_goal, next_of, races_of};
 use crate::input::{Order, OrderT, Route, SoloFallback};
 use crate::jsre::{head_ws, is_step, split_comment, starts_nonspace};
+use crate::re;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::{BTreeMap, BTreeSet};
 
@@ -1230,7 +1231,9 @@ pub fn merge_gated_lines(text: &str) -> String {
 /// In a run of travel steps each `only` some races (goals `goto`, `fly`, `hearth`; nothing but
 /// comments and blank lines between), a step with the same title and lines and the same classes as an
 /// earlier one in the run goes, its races added to that one's (the zeppelin to the Undercity for
-/// Undead and Skyborne: one step); a step for every race of the faction is for everyone.
+/// Undead and Skyborne: one step); a step for every race of the faction is for everyone. Not past a
+/// step of its own races between (theirs would come before their way there): then the earlier one
+/// goes, its races added to the later one's, when none of its characters has a step between.
 pub fn merge_gated_steps(text: &str, all_races: &[String]) -> String {
 	let only_re = regex::Regex::new(r"^\s+only\s+([A-Za-z,]+)\s*$").unwrap();
 	let is_class = |x: &str| forge_core::class_by_file(&x.to_uppercase()).is_some();
@@ -1278,27 +1281,53 @@ pub fn merge_gated_steps(text: &str, all_races: &[String]) -> String {
 			Part::Line(_) | Part::Step { gate: None, .. } => run.clear(),
 			Part::Step { gate: Some((rest, r, c)), .. } => {
 				let (rest, r, c) = (rest.clone(), r.clone(), c.clone());
-				// (Not past a flight or hearth of its own races between: the Gnomes' flight to Thelsamar before
-				// their walk into the Badlands, which the Dwarves walk first.)
-				let theirs_between = |e: usize| {
-					run.iter().any(|&m| {
-						m > e
-							&& matches!(&parts[m], Part::Step { gate: Some((mrest, mr, _)), .. } if mr.iter().any(|x| r.contains(x)) && mrest.iter().any(|l| matches!(head_ws(l), Some("fly" | "hearth"))))
-					})
+				// (Whether a step's lines leave: a flight, a hearth, or the goto to a boat, zeppelin or tram.)
+				let leaves = |ls: &[String]| ls.iter().any(|l| matches!(head_ws(l), Some("fly" | "hearth")) || (head_ws(l) == Some("goto") && re!(r#""(Boat|Zeppelin|Tram|Ship) to "#).is_match(l)));
+				let flies = |ls: &[String]| ls.iter().any(|l| matches!(head_ws(l), Some("fly" | "hearth")));
+				// (Some of the characters of races `r` and classes `c` see step m, a flight or hearth of
+				// theirs, or any travel of theirs when the step merged leaves: its races and classes meet
+				// theirs, a list without classes being every class.)
+				let departs = leaves(&rest);
+				let meets = |m: usize, r: &[String], c: &[String]| matches!(&parts[m], Part::Step { gate: Some((mrest, mr, mc)), .. } if mr.iter().any(|x| r.contains(x)) && (mc.is_empty() || c.is_empty() || mc.iter().any(|x| c.contains(x))) && (departs || flies(mrest)));
+				// (A step of its own characters between: the Gnomes' flight to Thelsamar before their walk
+				// into the Badlands, which the Dwarves walk first; the Gnome Warriors' boat from Ratchet
+				// before their flight from Booty Bay to Darkshire, which the Dwarves take first.)
+				let between = |e: usize, r: &[String], c: &[String]| run.iter().any(|&m| m > e && meets(m, r, c));
+				let same = run.iter().copied().find(|&e| matches!(&parts[e], Part::Step { gate: Some((er, _, ec)), .. } if *er == rest && *ec == c));
+				let races_of = |e: usize| match &parts[e] {
+					Part::Step { gate: Some((_, er, _)), .. } => er.clone(),
+					_ => Vec::new(),
 				};
-				let into = run.iter().copied().find(|&e| matches!(&parts[e], Part::Step { gate: Some((er, _, ec)), .. } if *er == rest && *ec == c) && !theirs_between(e));
-				match into {
-					Some(e) => {
-						if let Part::Step { gate: Some((_, er, _)), .. } = &mut parts[e] {
-							for x in r {
-								if !er.contains(&x) {
-									er.push(x);
-								}
-							}
+				// (e's races, then those of k it lacks.)
+				let both = |e: usize| {
+					let mut er = races_of(e);
+					for x in &r {
+						if !er.contains(x) {
+							er.push(x.clone());
+						}
+					}
+					er
+				};
+				match same {
+					Some(e) if !between(e, &r, &c) => {
+						let er = both(e);
+						if let Part::Step { gate: Some((_, x, _)), .. } = &mut parts[e] {
+							*x = er;
 						}
 						drop.insert(k);
 					}
-					None => run.push(k),
+					// (The earlier copy at the later one's place: everyone it was for passes nothing of
+					// theirs on the way there.)
+					Some(e) if !between(e, &races_of(e), &c) => {
+						let er = both(e);
+						if let Part::Step { gate: Some((_, x, _)), .. } = &mut parts[k] {
+							*x = er;
+						}
+						drop.insert(e);
+						run.retain(|&m| m != e);
+						run.push(k);
+					}
+					_ => run.push(k),
 				}
 			}
 		}
@@ -1640,6 +1669,20 @@ mod tests {
 		let out = merge_gated_steps(text, &races);
 		let fly = out.find("fly \"Thelsamar\"").unwrap();
 		assert!(out[fly..].contains("goto 50.9,62.4"), "{out}");
+	}
+
+	#[test]
+	fn the_same_way_merged_past_another_races_own_ride_stands_after_it() {
+		// Alliance 40-50/01-stranglethorn-vale:181-286: the Gnomes' flight from Booty Bay to Darkshire
+		// was merged into the Dwarves', before the Gnome Warriors' boat from Ratchet to Booty Bay: they
+		// were sent to Booty Bay's flight master while still in the Barrens. The one step stands after
+		// every race's boat.
+		let races: Vec<String> = ["Human", "Dwarf", "Gnome"].iter().map(|s| s.to_string()).collect();
+		let text = "step Boat to Booty Bay\n  only Dwarf\n  goto 63.4,38.5 \"Boat to Booty Bay\"\n\nstep Fly to Darkshire\n  only Dwarf\n  goto 27.5,77.7 \"Booty Bay flight master\"\n  fly \"Darkshire\"\n\nstep Boat to Booty Bay\n  only Gnome,Warrior\n  goto 63.4,38.5 \"Boat to Booty Bay\"\n\nstep Fly to Darkshire\n  only Gnome\n  goto 27.5,77.7 \"Booty Bay flight master\"\n  fly \"Darkshire\"\n";
+		let out = merge_gated_steps(text, &races);
+		assert_eq!(out.matches("fly \"Darkshire\"").count(), 1, "{out}");
+		let fly = out.find("step Fly to Darkshire\n  only Dwarf,Gnome\n").unwrap_or_else(|| panic!("{out}"));
+		assert!(out[..fly].contains("only Gnome,Warrior\n  goto 63.4,38.5"), "{out}");
 	}
 
 	#[test]

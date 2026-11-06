@@ -27,6 +27,7 @@ use forge_guide::js::{str_to_num, V};
 use forge_guide::project::{resolve_sources, Source};
 use forge_judge::honest::{play_chain, play_chain_traced, Finding, Geo, HonestOpts, NodeKey, Persona, Place, Severity, TraceRow, Wpt};
 use rustc_hash::FxHashSet;
+use std::cell::Cell;
 use std::collections::BTreeMap;
 
 const MAX_ROUNDS: usize = 6;
@@ -46,6 +47,11 @@ const WRONG_WAY_YD: f64 = 500.0;
 /// A flight to a path never learnt whose flight master the chain stood this near earlier learns the
 /// path there (forge-sim's NEAR_HUB: a flight master this close is learned).
 const PASSED_FP_YD: f64 = 200.0;
+/// A flight master whose path they never learnt this near where a leg starts is at hand: the way may
+/// learn its path there and fly from it, when that beats the walk to the nearest known one (the Tauren
+/// and Skyborne Druids off the zeppelin at Orgrimmar, Doras ~480 yd away, walked ~2,400 yd to
+/// Ratchet's flight master for Thunder Bluff and back).
+const AT_HAND_YD: f64 = 500.0;
 
 /// What the repair needs of the route (apply_route's Output.travel).
 #[derive(Clone, Debug, Default)]
@@ -111,6 +117,8 @@ struct Near {
 struct Leg {
 	s: f64,
 	fly: Option<(Near, Near)>,
+	/// The flight leaves from a flight master at hand whose path is learnt there first.
+	learn: bool,
 }
 
 fn wpt(v: &V) -> Option<Wpt> {
@@ -214,21 +222,33 @@ impl Ways<'_> {
 		best
 	}
 	/// A leg on one continent: walked, or flown between the known flight paths nearest its ends
-	/// when that is quicker.
-	fn leg(&self, a: Option<At>, b: Option<At>, kn: &[V]) -> Leg {
-		let walk = self.walk_yd(a, b) / WALK_YPS;
-		if let (Some(f0), Some(f1)) = (Self::nearest(kn, a.map(|x| x.w)), Self::nearest(kn, b.map(|x| x.w))) {
-			if !same_node(&f0.n, &f1.n) {
-				let fly = (self.walk_yd(a, at_v(&f0.n)) + self.walk_yd(at_v(&f1.n), b)) / WALK_YPS + dist(wpt(&f0.n), wpt(&f1.n)) / FLY_YPS + FLY_S;
-				if fly < walk {
-					return Leg { s: fly, fly: Some((f0, f1)) };
-				}
+	/// when that is quicker, or from a flight master at hand (`hand`: the paths not learnt) whose path
+	/// is learnt there when that is quicker still.
+	fn leg(&self, a: Option<At>, b: Option<At>, kn: &[V], hand: &[V]) -> Leg {
+		let mut best = Leg { s: self.walk_yd(a, b) / WALK_YPS, fly: None, learn: false };
+		let Some(f1) = Self::nearest(kn, b.map(|x| x.w)) else { return best };
+		let fly_s = |f0: &V, w0: f64| (w0 + self.walk_yd(at_v(&f1.n), b)) / WALK_YPS + dist(wpt(f0), wpt(&f1.n)) / FLY_YPS + FLY_S;
+		if let Some(f0) = Self::nearest(kn, a.map(|x| x.w)).filter(|f0| !same_node(&f0.n, &f1.n)) {
+			let s = fly_s(&f0.n, self.walk_yd(a, at_v(&f0.n)));
+			if s < best.s {
+				best = Leg { s, fly: Some((f0, Near { n: f1.n.clone(), d: f1.d })), learn: false };
 			}
 		}
-		Leg { s: walk, fly: None }
+		for u in hand {
+			let w0 = self.walk_yd(a, at_v(u));
+			if w0 > AT_HAND_YD {
+				continue;
+			}
+			let s = fly_s(u, w0);
+			if s < best.s {
+				best = Leg { s, fly: Some((Near { n: u.clone(), d: dist(a.map(|x| x.w), wpt(u)) }, Near { n: f1.n.clone(), d: f1.d })), learn: true };
+			}
+		}
+		best
 	}
-	/// The flight from f0 to f1, from `from` (a long walk to the flight master: into its zone first).
-	fn fly_steps(&self, from: &Pt, (f0, f1): &(Near, Near)) -> Vec<WayStep> {
+	/// The flight from f0 to f1, from `from` (a long walk to the flight master: into its zone first);
+	/// `learn`: f0's path is learnt there first.
+	fn fly_steps(&self, from: &Pt, (f0, f1): &(Near, Near), learn: bool) -> Vec<WayStep> {
 		let mut out = Vec::new();
 		let (fx, fy) = (f0.n.get("x").num(), f0.n.get("y").num());
 		let z0 = self.zone_of(f0.n.get("map").num());
@@ -241,8 +261,11 @@ impl Ways<'_> {
 		}
 		let mut lines = Vec::new();
 		let s0 = f0.n.get("short").to_js_string();
-		if f0.d > 60.0 {
+		if f0.d > 60.0 || learn {
 			lines.push(format!("  goto {} \"{s0} flight master\"", Self::xy(fx, fy)));
+		}
+		if learn {
+			lines.push(format!("  getfp \"{s0}\""));
 		}
 		lines.push(format!("  fly \"{}\"", f1.n.get("short").to_js_string()));
 		out.push(WayStep { title: format!("Fly to {}", f1.n.get("short").to_js_string()), zone: z0, lines });
@@ -278,18 +301,18 @@ impl Ways<'_> {
 		out.extend(self.goto_step(b, label));
 		out
 	}
-	fn same_way(&self, a: &Pt, b: &Pt, kn: &[V], label: Option<&str>) -> Vec<WayStep> {
-		let l = self.leg(self.at_pt(a), self.at_pt(b), kn);
+	fn same_way(&self, a: &Pt, b: &Pt, kn: &[V], hand: &[V], label: Option<&str>) -> Vec<WayStep> {
+		let l = self.leg(self.at_pt(a), self.at_pt(b), kn, hand);
 		if let Some(f) = &l.fly {
-			return self.fly_steps(a, f);
+			return self.fly_steps(a, f, l.learn);
 		}
 		self.walk_steps(a, b, label)
 	}
 	/// The quickest way, by a boat or zeppelin between the continents.
-	fn way(&self, a: &Pt, b: &Pt, kn: &[V], label: Option<&str>) -> Vec<WayStep> {
+	fn way(&self, a: &Pt, b: &Pt, kn: &[V], hand: &[V], label: Option<&str>) -> Vec<WayStep> {
 		let (Some(pa), Some(pb)) = (self.at_pt(a), self.at_pt(b)) else { return Vec::new() };
 		if pa.w.c == pb.w.c {
-			return self.same_way(a, b, kn, label);
+			return self.same_way(a, b, kn, hand, label);
 		}
 		struct Best {
 			s: f64,
@@ -308,8 +331,8 @@ impl Ways<'_> {
 				if dep.get("c").num() != pa.w.c || arr.get("c").num() != pb.w.c {
 					continue;
 				}
-				let l0 = self.leg(Some(pa), at_v(&dep), kn);
-				let l1 = self.leg(at_v(&arr), Some(pb), kn);
+				let l0 = self.leg(Some(pa), at_v(&dep), kn, hand);
+				let l1 = self.leg(at_v(&arr), Some(pb), kn, hand);
 				let s = l0.s + RIDE_S + l1.s;
 				if best.as_ref().is_none_or(|b| s < b.s) {
 					best = Some(Best { s, dep, arr, kind: t.get("kind").to_js_string(), l0, l1 });
@@ -324,7 +347,7 @@ impl Ways<'_> {
 		let arr = Pt::of_v(&best.arr);
 		let mut steps = Vec::new();
 		if let Some(f) = &best.l0.fly {
-			steps.extend(self.fly_steps(a, f));
+			steps.extend(self.fly_steps(a, f, best.l0.learn));
 		} else if dist(Some(pa.w), wpt(&best.dep)) > WALK_YD {
 			steps.extend(self.crossing_steps(a, &dep));
 			if let Some(s) = self.goto_step(&dep, None) {
@@ -333,7 +356,7 @@ impl Ways<'_> {
 		}
 		steps.push(WayStep { title: ride.clone(), zone: self.zone_of(dep.map), lines: vec![format!("  goto {} \"{ride}\"{}", Self::xy(dep.x, dep.y), Self::live(&dep))] });
 		if let Some(f) = &best.l1.fly {
-			steps.extend(self.fly_steps(&arr, f));
+			steps.extend(self.fly_steps(&arr, f, best.l1.learn));
 		} else if dist(wpt(&best.arr), Some(pb.w)) > WALK_YD {
 			steps.extend(self.walk_steps(&arr, b, label));
 		}
@@ -1064,6 +1087,8 @@ struct Repair<'a> {
 	data: &'a Data,
 	v1_keys: FxHashSet<String>,
 	tried: FxHashSet<String>,
+	/// The last repair's way learnt a flight path at hand.
+	learnt: Cell<bool>,
 }
 
 impl Repair<'_> {
@@ -1126,33 +1151,28 @@ impl Repair<'_> {
 			if found.is_empty() {
 				break;
 			}
-			// One repair per line, each file from the bottom up (line numbers hold).
-			let mut by_file: Vec<(String, Vec<&Finding>)> = Vec::new();
-			for f in &found {
-				let e = match by_file.iter().position(|(file, _)| *file == f.file) {
-					Some(i) => i,
-					None => {
-						by_file.push((f.file.clone(), Vec::new()));
-						by_file.len() - 1
+			// One repair per line, each file from the bottom up (line numbers hold). A way that learns a
+			// flight path at hand: the failures after it wait for the next round, which plays that path
+			// learnt (the Druids' way back from Thunder Bluff to the zeppelin flies to Orgrimmar, whose
+			// path their way out learnt off the zeppelin).
+			let log0 = rep.log.len();
+			let mut upto = found.len();
+			let did = loop {
+				let (did, learnt, before) = self.repair_some(tree, &found[..upto], &shared, rep);
+				match learnt.filter(|&k| k + 1 < upto) {
+					Some(k) => {
+						tree.extend(before);
+						for f in &found[k + 1..upto] {
+							self.tried.remove(&key_of(f, tree));
+						}
+						rep.log.truncate(log0);
+						upto = k + 1;
 					}
-				};
-				if !by_file[e].1.iter().any(|g| g.line == f.line) {
-					by_file[e].1.push(f);
+					None => break did,
 				}
-			}
-			let mut did = 0;
-			for (file, mut by_line) in by_file {
-				let mut text: Vec<String> = tree.get(&file).map_or(String::new(), |s| s.clone()).split('\n').map(str::to_string).collect();
-				let is_shared = shared.contains(file.as_str());
-				let only_route: Vec<String> = if is_shared && !t.other_races.is_empty() { vec![format!("  only {}", rr.join(","))] } else { Vec::new() };
-				by_line.sort_by_key(|x| std::cmp::Reverse(x.line));
-				for f in by_line {
-					did += self.repair_one(&mut text, &file, f, is_shared, &only_route, rep);
-				}
-				tree.insert(file, no_empty_steps(text).join("\n"));
-			}
+			};
 			rep.fixed += did;
-			rep.log.push(format!("travel repair round {}: {} new R1 failures, {did} repaired", rep.rounds, found.len()));
+			rep.log.push(format!("travel repair round {}: {upto} new R1 failures, {did} repaired", rep.rounds));
 			if did == 0 {
 				break;
 			}
@@ -1165,8 +1185,7 @@ impl Repair<'_> {
 	/// a shared guide learns its path in a shared guide only (a start's own guide is not kept there).
 	fn passed_flight_masters(&self, tree: &BTreeMap<String, String>, found: &[&Finding]) -> Vec<(String, String, u32, String)> {
 		let t = self.t;
-		let wanted: Vec<(&Finding, String)> =
-			found.iter().filter_map(|f| re!(r"^fly to (.+): its flight path was never learnt$").captures(&f.reason).map(|m| (*f, m[1].to_lowercase()))).collect();
+		let wanted: Vec<(&Finding, String)> = found.iter().filter_map(|f| re!(r"^fly to (.+): its flight path was never learnt$").captures(&f.reason).map(|m| (*f, m[1].to_lowercase()))).collect();
 		if wanted.is_empty() {
 			return Vec::new();
 		}
@@ -1174,7 +1193,11 @@ impl Repair<'_> {
 		let mut out = Vec::new();
 		for (f, name) in wanted {
 			let ways = &self.ways;
-			let Some(node) = ways.nodes.iter().find(|x| ways.usable(&x.get("faction")) && (x.get("short").to_js_string().to_lowercase() == name || x.get("name").to_js_string().to_lowercase() == name)) else { continue };
+			let Some(node) =
+				ways.nodes.iter().find(|x| ways.usable(&x.get("faction")) && (x.get("short").to_js_string().to_lowercase() == name || x.get("name").to_js_string().to_lowercase() == name))
+			else {
+				continue;
+			};
 			let Some(k) = trace.iter().position(|r| r.file == f.file && r.line == f.line && r.verb == "fly") else { continue };
 			let Some(r) = trace[..k].iter().find(|r| dist(r.after, wpt(node)) <= PASSED_FP_YD) else { continue };
 			let shared = t.shared.contains(&r.file);
@@ -1185,6 +1208,44 @@ impl Repair<'_> {
 			out.push((key_of(f, tree), r.file.clone(), r.line, format!("  getfp \"{}\"{only}", node.get("short").to_js_string())));
 		}
 		out
+	}
+
+	/// Repairs `found` (in play order) on `tree`: (the repairs made, the first of `found` whose way
+	/// learnt a flight path at hand, the files' texts before).
+	fn repair_some(&self, tree: &mut BTreeMap<String, String>, found: &[&Finding], shared: &FxHashSet<&str>, rep: &mut Report) -> (usize, Option<usize>, Vec<(String, String)>) {
+		let t = self.t;
+		let rr = &t.route_races;
+		let mut by_file: Vec<(String, Vec<usize>)> = Vec::new();
+		for (k, f) in found.iter().enumerate() {
+			let e = match by_file.iter().position(|(file, _)| *file == f.file) {
+				Some(i) => i,
+				None => {
+					by_file.push((f.file.clone(), Vec::new()));
+					by_file.len() - 1
+				}
+			};
+			if !by_file[e].1.iter().any(|&g| found[g].line == f.line) {
+				by_file[e].1.push(k);
+			}
+		}
+		let (mut did, mut learnt, mut before) = (0, None::<usize>, Vec::new());
+		for (file, mut by_line) in by_file {
+			let old = tree.get(&file).cloned().unwrap_or_default();
+			let mut text: Vec<String> = old.split('\n').map(str::to_string).collect();
+			let is_shared = shared.contains(file.as_str());
+			let only_route: Vec<String> = if is_shared && !t.other_races.is_empty() { vec![format!("  only {}", rr.join(","))] } else { Vec::new() };
+			by_line.sort_by_key(|&k| std::cmp::Reverse(found[k].line));
+			for k in by_line {
+				self.learnt.set(false);
+				did += self.repair_one(&mut text, &file, found[k], is_shared, &only_route, rep);
+				if self.learnt.get() {
+					learnt = Some(learnt.map_or(k, |l| l.min(k)));
+				}
+			}
+			tree.insert(file.clone(), no_empty_steps(text).join("\n"));
+			before.push((file, old));
+		}
+		(did, learnt, before)
 	}
 
 	fn repair_one(&self, text: &mut Vec<String>, file: &str, f: &Finding, is_shared: bool, only_route: &[String], rep: &mut Report) -> usize {
@@ -1261,6 +1322,9 @@ impl Repair<'_> {
 		}
 		let state = f.state.as_ref().unwrap();
 		let kn: Vec<V> = ways.nodes.iter().filter(|n| state.known.contains(&NodeKey::of(&n.get("id"))) && ways.usable(&n.get("faction"))).cloned().collect();
+		// The flight masters whose paths they have not learnt, for a way that passes one at hand.
+		let hand: Vec<V> = ways.nodes.iter().filter(|n| !state.known.contains(&NodeKey::of(&n.get("id"))) && ways.usable(&n.get("faction"))).cloned().collect();
+		let learns = |steps: &[WayStep]| steps.iter().any(|s| s.lines.iter().any(|l| l.starts_with("  getfp ")));
 		let fl = re!(r#"^\s+fly\s+"([^"]+)""#).captures(&line).map(|m| m[1].to_string());
 		if let Some(g) = re!(r"^fly from (.+): its flight path was never learnt$").captures(&f.reason) {
 			let only = if only_route.is_empty() { String::new() } else { format!(" only {}", rr.join(",")) };
@@ -1317,7 +1381,8 @@ impl Repair<'_> {
 			let theirs = step_re(&text[s]) && st.visible && st.goals.iter().any(|l| own_only(l).is_none_or(|m| Audience::parse(&m[1]).class_in(cls)));
 			if let Some((d, name)) = dest.filter(|_| theirs) {
 				let at = Pt::of_place(state.at.as_ref().unwrap());
-				let ins = ways.way(&at, &d, &kn, Some(&name));
+				let ins = ways.way(&at, &d, &kn, &hand, Some(&name));
+				self.learnt.set(learns(&ins));
 				if !ins.is_empty() {
 					let dz = ways.zone_of(d.map);
 					insert_way(text, i, &ins, only_route, dz.as_deref(), rr);
@@ -1341,7 +1406,8 @@ impl Repair<'_> {
 			insert_way(text, i, &[way], only_route, dz.as_deref(), rr);
 			return 1;
 		}
-		let steps = ways.way(&Pt::of_place(state.at.as_ref().unwrap()), &to, &kn, None);
+		let steps = ways.way(&Pt::of_place(state.at.as_ref().unwrap()), &to, &kn, &hand, None);
+		self.learnt.set(learns(&steps));
 		if steps.is_empty() {
 			return 0;
 		}
@@ -1375,7 +1441,7 @@ pub fn repair_travel(tree: &mut BTreeMap<String, String>, v1: &BTreeMap<String, 
 	let rr = t.route_races.clone();
 	rep.fixed = pass(tree, t, &mut |text, _| binds_at_v1(text, &rr));
 	rep.fixed += route_events_first(tree, t);
-	let mut r = Repair { ways, t, data, v1_keys, tried: FxHashSet::default() };
+	let mut r = Repair { ways, t, data, v1_keys, tried: FxHashSet::default(), learnt: Cell::new(false) };
 	r.rounds(tree, &mut rep);
 	// v1's travel the route's own way replaces, and steps left with nothing of theirs: the other races'.
 	// A flight that takes them away from their next goal: the other races'. Flights v1 makes so too stay.
@@ -1437,7 +1503,7 @@ pub fn repair_rounds(tree: &mut BTreeMap<String, String>, v1: &BTreeMap<String, 
 	let mut rep = Report::default();
 	let ways = Ways { data, geo: Geo::new(&data.map_frames), nodes: class_nodes(data, t), side: if t.faction.as_deref() == Some("Alliance") { 1.0 } else { 2.0 }, walks };
 	let v1_keys: FxHashSet<String> = play(v1, data, t).iter().map(|f| key_of(f, v1)).collect();
-	let mut r = Repair { ways, t, data, v1_keys, tried: FxHashSet::default() };
+	let mut r = Repair { ways, t, data, v1_keys, tried: FxHashSet::default(), learnt: Cell::new(false) };
 	r.rounds(tree, &mut rep);
 	rep
 }

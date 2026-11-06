@@ -9935,3 +9935,55 @@ fn a_flight_path_step_in_the_zone_the_player_stands_in_is_not_reached_by_hearthi
 	let flies = idx(&g, "  fly \"Rut'theran Village\"");
 	assert!(flies > getfp && flies < hand, "{g:#?}");
 }
+
+#[test]
+fn a_class_steps_flight_to_the_flight_path_where_they_stand_goes() {
+	// Horde 07-ashenvale:229-239: v1's Druid step "fly to Thunder Bluff and train", written after the
+	// route's own training in Thunder Bluff, walked the Druids to Tal and flew them to Thunder Bluff.
+	// At Orgrimmar's flight master the Shamans' flight there goes, with the tip's sentence sending them
+	// on it, and their training stays; from a camp 1,000 yd off, whose nearest flight master it is, the
+	// walk there stays and the flight goes (the Barrens' Orgrimmar training after Boulder Lode Mine).
+	let c = |at: u32| Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 1-5",
+				"zone Durotar",
+				"",
+				"step Hub",
+				"  accept 1",
+				"",
+				"step Trainer",
+				"  only Shaman",
+				"  tip Fly to Orgrimmar to train. Searn Firewarder is in the Valley of Wisdom.",
+				"  fly \"Orgrimmar\"",
+				"  train class",
+				"",
+				"step Camp",
+				"  turnin 1",
+				"",
+			],
+		)],
+		world: {
+			let mut w = travel_world();
+			w["points"].as_array_mut().unwrap().push(json!([1, 1, -700, -700, 1411]));
+			w
+		},
+		route: json!({ "diff": {}, "order": [
+            { "t": "accept", "q": 1, "pt": at, "from": f("a", 7), "items": [{ "t": "getfp", "node": 0 }, { "t": "getfp", "node": 1 }] },
+            { "t": "turnin", "q": 1, "pt": at, "from": f("a", 16) }
+        ] }),
+		route_travel: true,
+		..Case::default()
+	};
+	for at in [2, 4] {
+		let t = run(&c(at), None).read("a");
+		assert!(!t.iter().any(|l| l.starts_with("  fly ")), "{t:?}");
+		assert_eq!(t.iter().any(|l| l.contains("\"Orgrimmar flight master\"")), at == 4, "{t:?}");
+		let s = t.iter().position(|l| l == "step Trainer").unwrap_or_else(|| panic!("{t:?}"));
+		assert!(t[s + 1..].iter().take_while(|l| !l.starts_with("step ")).any(|l| l == "  train class"), "{t:?}");
+		assert!(t.iter().any(|l| l == "  tip Searn Firewarder is in the Valley of Wisdom."), "{t:?}");
+	}
+}

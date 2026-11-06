@@ -3365,3 +3365,66 @@ test('Upper-floor givers (#960, #961): every step at one says to go up, train-cl
 	assert.ok(seen > 50, `the givers' steps are found (${seen})`);
 	assert.deepEqual(missing, []);
 });
+
+// --- Travel follow-ups of the flight path sweep (#964).
+const forRaceOf = (race) => ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+
+// The Tauren and Skyborne Druids took the zeppelin to Orgrimmar for their Thunder Bluff training at 16,
+// then walked about 2,400 yards to Ratchet's flight master and back to the zeppelin afterwards, though
+// Doras stands about 480 yards from the zeppelin. They learn Orgrimmar's flight path off the zeppelin,
+// fly from it to Thunder Bluff and back to it.
+test('Flight path sweep (#964): Silverpine Druids learn Orgrimmar off the zeppelin and fly from it, not from Ratchet', { skip }, () => {
+	for (const race of ['Tauren', 'Skyborne']) {
+		const list = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const zep = at(list, `${race}: the zeppelin to Orgrimmar`, (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar');
+		// (The guide opens with everyone's Undercity zeppelin from Durotar: the one after the trip.)
+		const back = list.findIndex(({ goal }, i) => i > zep && goal.t === 'goto' && goal.text === 'Zeppelin to Undercity');
+		assert.ok(back > zep, `${race}: the zeppelin back to the Undercity after the trip`);
+		const trip = list.slice(zep, back).map(({ goal }) => goal);
+		const fp = trip.findIndex((g) => g.t === 'getfp' && g.location === 'Orgrimmar');
+		const out = trip.findIndex((g) => g.t === 'fly' && g.location === 'Thunder Bluff');
+		assert.ok(fp >= 0 && fp < out, `${race}: Orgrimmar's flight path is learned before the flight to Thunder Bluff`);
+		assert.ok(trip.slice(out).some((g) => g.t === 'fly' && g.location === 'Orgrimmar'), `${race}: the way back flies to Orgrimmar for the zeppelin`);
+		assert.deepEqual(trip.filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
+	}
+});
+
+// After the route's Thunder Bluff training, the Druids' own step walked them to Tal and flew them to
+// Thunder Bluff, where they already stood, to train again. They train once and go on with everyone.
+test(`${ASHENVALE_HORDE}: Flight path sweep (#964): the Druids train in Thunder Bluff once, with no flight to where they stand`, { skip }, () => {
+	for (const race of ['Tauren', 'Skyborne']) {
+		const list = goals(ASHENVALE_HORDE).filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const train = at(list, `${race}: the Thunder Bluff training`, (g) => g.t === 'train');
+		assert.deepEqual(list.slice(train).filter(({ goal }) => goal.t === 'train' && !goal.npc).map(({ s }) => s), [list[train].s], `${race}: one class training in Thunder Bluff`);
+		const next = list.slice(train).find(({ goal }) => goal.t === 'fly');
+		assert.equal(next && next.goal.location, 'Camp Taurajo', `${race}: the next flight leaves Thunder Bluff`);
+	}
+});
+
+// The same pattern at Orgrimmar: the Warriors' (and the other classes') training step flew them to
+// Orgrimmar from Orgrimmar's flight master, after the Crossroads flight there (Stonetalon) or the walk
+// there from Boulder Lode Mine (the Barrens). They train where they stand.
+test('Flight path sweep (#964): the Orgrimmar training steps of the Barrens and Stonetalon do not fly to Orgrimmar from Orgrimmar', { skip }, () => {
+	for (const [file, race] of [['forever/horde/04-the-barrens.guide', 'Tauren'], ['forever/horde/04-the-barrens.guide', 'Orc'], [STONETALON, 'Undead']]) {
+		const list = goals(file).filter(forRaceOf(race)).filter(forClass('WARRIOR'));
+		const train = list.findIndex(({ goal, step }) => goal.t === 'train' && !goal.npc && step.title === 'Orgrimmar');
+		assert.ok(train > 0, `${file} ${race}: the Orgrimmar training`);
+		const last = list.slice(0, train + 1).reverse().find(({ goal }) => ['fly', 'goto'].includes(goal.t));
+		assert.ok(last && (last.goal.t === 'fly' ? last.goal.location === 'Orgrimmar' && last.s < list[train].s : last.goal.map === 1454), `${file} ${race}: they reach Orgrimmar before the training step, which flies nowhere`);
+	}
+});
+
+// The Gnomes', Night Elves' and Skyborne's flight from Booty Bay to Darkshire was written before their
+// own boat from Ratchet: Warriors, Mages, Warlocks and Druids were sent to Booty Bay's flight master
+// from the Barrens. Every race's boat comes first.
+test('Flight path sweep (#964): Stranglethorn 40: every race and class takes the Booty Bay boat before the flight to Darkshire', { skip }, () => {
+	for (const race of ['Dwarf', 'Gnome', 'NightElf', 'Skyborne']) {
+		for (const cls of ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID']) {
+			const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide').filter(forRaceOf(race)).filter(forClass(cls));
+			const fly = list.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Darkshire');
+			if (fly < 0) continue;
+			const boat = list.findIndex(({ goal }) => goal.t === 'goto' && goal.text === 'Boat to Booty Bay');
+			assert.ok(boat >= 0 && boat < fly, `${race} ${cls}: the boat to Booty Bay comes before the flight to Darkshire`);
+		}
+	}
+});
