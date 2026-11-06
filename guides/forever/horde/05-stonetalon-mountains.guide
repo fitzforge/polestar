@@ -210,8 +210,8 @@ step Sun Rock Retreat
   accept 6562                         -- Je'neu Sancrea at Zoram'gar, at 27
   accept 6282
   accept 86576                        -- Maggran Earthbinder: Glittering Sunstones from the Bloodfury harpies
-  sethome "Sun Rock Retreat"
   accept 5881                         -- Maggran Earthbinder: Grish is at the Great Lift, in the next guide
+  sethome "Sun Rock Retreat"
   accept 1087                         -- Braelyn Firehand, outside the gate
   accept 6301                         -- Tammra Windfield
   vendor nearest

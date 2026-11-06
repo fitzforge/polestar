@@ -3552,3 +3552,33 @@ test("Snowiee's report (#1003): the Great Cat Spirit's accepts and turn-ins poin
 		}
 	}
 });
+
+// Bill (#1004): at Ratchet the guide sent you up to the inn to bind, then back
+// to Mebok Mizzyrix, who stands by the WANTED poster you had just read. The
+// bind comes after the givers next to the ones before it; the same sweep found
+// the inn wedged between two goals at one NPC at the Crossroads (Mankrik), Sun
+// Rock (Maggran Earthbinder) and Tarren Mill (Apothecary Lydon).
+test("Bill's report (#1004): a town's bind never sends you back to the giver you just left", { skip }, () => {
+	for (const [guide, place, before] of [
+		['forever/horde/02-the-barrens.guide', 'Ratchet', [865]],
+		['forever/horde/02-the-barrens.guide', 'The Crossroads', [4921, 899]],
+		['forever/horde/05-stonetalon-mountains.guide', 'Sun Rock Retreat', [86576, 5881]],
+		['forever/horde/06-hillsbrad-foothills.guide', 'Tarren Mill', [496, 493]],
+	]) {
+		const list = goals(guide);
+		const visit = list.find(({ goal }) => ['accept', 'turnin'].includes(goal.t) && goal.quest === before[before.length - 1]);
+		assert.ok(visit, `${guide}: quest ${before[before.length - 1]} is in the guide`);
+		const bind = list.findIndex(({ step, goal }) => step === visit.step && goal.t === 'sethome' && goal.location === place);
+		assert.ok(bind >= 0, `${guide}: the bind at ${place} is in the step of quest ${before[before.length - 1]}`);
+		const bindStep = visit.step;
+		for (const q of before) {
+			const i = list.findIndex(({ step, goal }) => step === bindStep && goal.t !== 'sethome' && goal.quest === q && ['accept', 'turnin'].includes(goal.t));
+			assert.ok(i >= 0 && i < bind, `${guide}: quest ${q} at ${place} comes before the bind there`);
+		}
+		// No NPC on both sides of the bind in its step.
+		const inStep = list.map((e, i) => [e, i]).filter(([{ step }]) => step === bindStep);
+		const npcsBefore = new Set(inStep.filter(([, i]) => i < bind).map(([{ goal }]) => goal.npc).filter(Boolean));
+		const back = inStep.filter(([, i]) => i > bind).map(([{ goal }]) => goal).filter((g) => g.npc && npcsBefore.has(g.npc));
+		assert.deepEqual(back.map((g) => `${g.t} ${g.quest} (${g.npcName})`), [], `${guide}: back to an NPC of the step after binding at ${place}`);
+	}
+});

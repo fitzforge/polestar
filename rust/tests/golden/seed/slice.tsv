@@ -7,6 +7,7 @@ ok	#289: a quest item picked up from objects is collected at one of the objects'
 not ok	#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides
 not ok	Alx-Ryan's report (#363): on Zephras Isle, the watchtower quests come before Rorian, who takes Harmony in Balance and Falling With Style on one visit
 not ok	Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone
+not ok	Bill's report (#1004): a town's bind never sends you back to the giver you just left
 not ok	EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": the Skyborne visits to the Horde leaders
 not ok	EpicTibbles's report (#565): a Hunter's Taming the Beast beast reads "Tame", not "Kill", in every guide
 ok	Fitz's playtest: every goto at a boat, zeppelin or tram stop is on its deck or pier, not in the water
