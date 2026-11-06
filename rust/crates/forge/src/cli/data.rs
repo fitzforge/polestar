@@ -231,15 +231,29 @@ fn other(cmd: &str, args: Vec<String>) -> Result<(), Fail> {
 			println!("{}", out.summary(&file));
 		}
 		_ => {
-			let kv = pairs(args, &["--root", "--addons", "--wowsims", "--built-at"])?;
+			let offline = args.iter().any(|a| a == "--offline");
+			let args: Vec<String> = args.into_iter().filter(|a| a != "--offline").collect();
+			let kv = pairs(args, &["--root", "--sources", "--data", "--build", "--hotfixes", "--wowsims", "--built-at"])?;
 			let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| v.clone());
 			let root = get("--root").map(abs).or(root).ok_or_else(|| usage("--root <dir> is required (no checkout above here)"))?;
 			let built_at = match get("--built-at") {
 				Some(b) => build::parse_iso(&b)?,
 				None => build::now_iso(),
 			};
-			let o = forge_data::gear::Options { root: root.clone(), addons: get("--addons").map(abs), wowsims_cache: get("--wowsims").map(abs), built_at };
-			let out = forge_data::gear::build(&o)?;
+			let o = forge_data::gear::Options {
+				root: root.clone(),
+				sources: get("--sources").map(abs),
+				data: get("--data").map(abs),
+				build: get("--build"),
+				hotfixes: get("--hotfixes").map(abs),
+				offline,
+				wowsims_cache: get("--wowsims").map(abs),
+				built_at,
+			};
+			let out = forge_data::gear::build_logged(&o, &|m| eprintln!("{m}"))?;
+			for w in &out.warnings {
+				eprintln!("warning: {w}");
+			}
 			for (rel, text) in &out.files {
 				let f = root.join(rel);
 				std::fs::create_dir_all(f.parent().unwrap()).map_err(|e| e.to_string())?;

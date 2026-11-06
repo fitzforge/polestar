@@ -1,10 +1,11 @@
 //! tools/lib/gear/specdata.js: addon/Polestar/Gear/SpecData.lua, stat weight bands per spec and
-//! level (Polestar's authored weights blended with wowsims) and racial gear traits.
+//! level (Polestar's authored weights blended with wowsims) and racial gear traits (gear/racials.rs).
 
 use std::path::Path;
 
-use forge_guide::js::{cmp_utf16, json_quote, num_str, str_to_num, stringify, Arr, Obj, V};
+use forge_guide::js::{cmp_utf16, json_quote, num_str, stringify, Arr, Obj, V};
 
+use super::racials::Racials;
 use super::wowsims::{Entry, Wowsims};
 use crate::jsv::math_round;
 
@@ -207,30 +208,6 @@ pub fn weight_bands(wowsims: Option<&Wowsims>, authored: &V) -> (Bands, V) {
 	(out, V::Obj(counts))
 }
 
-/// FLB Racials.lua (by race ID) -> Gear.RACIALS.
-pub fn racials(flb_racials: &Obj) -> Obj {
-	let out = Obj::new();
-	for (id, r) in flb_racials.entries() {
-		let rec = Obj::new();
-		let wc = r.get("weaponCrit");
-		if wc.truthy() {
-			let w = Obj::new();
-			w.set("pct", wc.get("pct"));
-			let mut subs: Vec<f64> = wc.get("subclasses").keys().iter().map(|k| str_to_num(k)).collect();
-			subs.sort_by(|a, b| (a - b).partial_cmp(&0.0).unwrap_or(std::cmp::Ordering::Equal));
-			w.set("subclasses", V::Arr(Arr::from_vec(subs.into_iter().map(V::Num).collect())));
-			w.set("name", wc.get("name"));
-			rec.set("weaponCrit", V::Obj(w));
-		}
-		let sm = r.get("statMult");
-		if sm.truthy() {
-			rec.set("statMult", sm);
-		}
-		out.set_str(id, V::Obj(rec));
-	}
-	out
-}
-
 fn lua(v: &V) -> String {
 	match v {
 		V::Null | V::Undef => "nil".into(),
@@ -265,13 +242,13 @@ fn lua(v: &V) -> String {
 	}
 }
 
-/// emitSpecData -> SpecData.lua text.
-pub fn emit_spec_data(bands: &Bands, rac: &Obj, wowsims_meta: bool, flb_version: &V) -> String {
+/// emitSpecData -> SpecData.lua text (`build`: the Forever build the racial traits come from).
+pub fn emit_spec_data(bands: &Bands, rac: &Racials, wowsims_meta: bool, build: &str) -> String {
 	let mut l: Vec<String> = vec![
-		forge_guide::emit::header("lua", "forge data gear", "Polestar's leveling weights, wowsims and ForeverLevelingBiS"),
+		forge_guide::emit::header("lua", "forge data gear", "Polestar's leveling weights, wowsims and the Forever client's racial spells"),
 		"-- Stat weight bands: Polestar's leveling weights (Weights.lua) blended with wowsims".into(),
 		format!("-- simulations (MIT, https://github.com/wowsims; {}).", if wowsims_meta { "see each band's source" } else { "not available" }),
-		format!("-- Racial gear traits: ForeverLevelingBiS {} by Thunder (MIT), Racials.lua.", flb_version.to_js_string()),
+		format!("-- Racial gear traits: the Forever client's racial spells (build {build})."),
 		"-- See THIRD_PARTY.md.".into(),
 		String::new(),
 		"local ADDON, ns = ...".into(),
@@ -297,23 +274,28 @@ pub fn emit_spec_data(bands: &Bands, rac: &Obj, wowsims_meta: bool, flb_version:
 	}
 	l.push("}".into());
 	l.push(String::new());
-	l.push("-- Racial gear traits by race ID: weaponCrit (percent crit with these weapon subclasses), statMult.".into());
+	l.push("-- Racial gear traits by race ID, each one spell: statMult (stat multipliers) or weaponCrit (percent".into());
+	l.push("-- crit with these weapon subclasses), for the classes in classMask (none: every class).".into());
 	l.push("Gear.RACIALS = {".into());
-	let mut ids = rac.keys();
-	ids.sort_by(|a, b| (str_to_num(a) - str_to_num(b)).partial_cmp(&0.0).unwrap_or(std::cmp::Ordering::Equal));
-	for id in ids {
-		let r = rac.get(&id);
-		let mut parts = Vec::new();
-		let wc = r.get("weaponCrit");
-		if wc.truthy() {
-			let subs = wc.get("subclasses").items().iter().map(|s| format!("[{}] = true", s.to_js_string())).collect::<Vec<_>>().join(", ");
-			parts.push(format!("weaponCrit = {{ pct = {}, subclasses = {{ {subs} }}, name = {} }}", wc.get("pct").to_js_string(), lua(&wc.get("name"))));
-		}
-		let sm = r.get("statMult");
-		if sm.truthy() {
-			parts.push(format!("statMult = {}", lua(&sm)));
-		}
-		l.push(format!("\t[{id}] = {{ {} }},", parts.join(", ")));
+	for (race, traits) in rac {
+		let list: Vec<String> = traits
+			.iter()
+			.map(|t| {
+				let mut parts = vec![format!("name = {}", lua(&V::str(&t.name)))];
+				if t.class_mask != 0 {
+					parts.push(format!("classMask = {}", t.class_mask));
+				}
+				if let Some((pct, subs)) = &t.weapon_crit {
+					let subs = subs.iter().map(|s| format!("[{s}] = true")).collect::<Vec<_>>().join(", ");
+					parts.push(format!("weaponCrit = {{ pct = {}, subclasses = {{ {subs} }} }}", num_str(*pct)));
+				}
+				if !t.stat_mult.is_empty() {
+					parts.push(format!("statMult = {{ {} }}", t.stat_mult.iter().map(|(k, m)| format!("{k} = {}", num_str(*m))).collect::<Vec<_>>().join(", ")));
+				}
+				format!("{{ {} }}", parts.join(", "))
+			})
+			.collect();
+		l.push(format!("\t[{race}] = {{ {} }},", list.join(", ")));
 	}
 	l.push("}".into());
 	l.push(String::new());
