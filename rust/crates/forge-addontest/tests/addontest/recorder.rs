@@ -551,3 +551,17 @@ fn a_refusal_is_recorded_by_its_error_constant_with_the_npc_or_object_never_its_
 	assert_eq!(out["text"], false, "the message text is never recorded");
 	assert_eq!(out["bad"], json!({}));
 }
+
+#[test]
+fn on_forever_the_player_s_full_name_with_its_surname_is_put_back_as_the_name_token_1018() {
+	// Forever's names carry a surname: UnitName("player") gives ("Testchar", "Brightwood").
+	let out = run(r#"
+		local base = UnitName
+		function UnitName(unit) if unit == "player" then return "Testchar", "Brightwood" end return base(unit) end
+		stub.world.questText = "Well met, Testchar Brightwood."
+		stub.world.questDetail = "Testchar, they say."
+		stub.offerQuest(7, (stub.creature(823, "Deputy Willem")), "Deputy Willem", "Kobold Camp Cleanup")
+		logout()
+		emit({ text = recs("text") })"#);
+	assert_eq!(out["text"], json!(["text|7|Kobold Camp Cleanup|Well met, $N.|$N, they say."]));
+}

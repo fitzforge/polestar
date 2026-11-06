@@ -564,11 +564,23 @@ local function plain(s) return (gsub(s, "[%%%^%$%(%)%.%[%]%*%+%-%?]", "%%%0")) e
 
 -- Quest and gossip text with the player's name, race and class put back as
 -- the client's $N, $R, $C (lowercase $r, $c where the client wrote them
--- lowercase).
+-- lowercase). On Forever names carry a surname: UnitName("player") gives
+-- it complete ("Ana Smith") or split ("Ana", "Smith"), after the client's
+-- surname separator, a space. The full name goes first, then the first name
+-- alone, so no surname is left beside $N.
 function ns.Scrub(text)
 	if not (usable(text) and type(text) == "string") or text == "" then return text end
-	local name = UnitName and UnitName("player")
-	if usable(name) and type(name) == "string" and #name > 1 then text = gsub(text, plain(name), "$N") end
+	local name, surname
+	if UnitName then name, surname = UnitName("player") end
+	if usable(name) and type(name) == "string" and #name > 1 then
+		local c = Constants and Constants.CharacterNameSeparatorConsts
+		local sep = c and type(c.CHARACTERNAME_SURNAME_SEPARATOR) == "string" and c.CHARACTERNAME_SURNAME_SEPARATOR or " "
+		if usable(surname) and type(surname) == "string" and surname ~= "" then name = name .. sep .. surname end
+		text = gsub(text, plain(name), "$N")
+		local at = name:find(sep, 1, true)
+		local first = at and name:sub(1, at - 1)
+		if first and #first > 1 then text = gsub(text, plain(first), "$N") end
+	end
 	local race = UnitRace and UnitRace("player")
 	if usable(race) and type(race) == "string" and #race > 1 then
 		text = gsub(text, plain(race), "$R")

@@ -606,12 +606,14 @@ runs solo or in a raid.
   that a member lacks, using the game's own sharing. When Polestar knows why
   they can't take it, it says so ("Ben (level 8, needs 10)", "another class",
   "already done").
-- **Party panel**: a click on the guide window's party line, or `/polestar
-  party`, opens a small movable panel with each Polestar member's level and
+- **Party panel**: a small movable panel that opens by itself the first time
+  another Polestar member in the party is heard, with each one's level and
   XP, the step they are on, what they still need of yours, and whether they
   are dead, far away or offline. Click a name to point the arrow at them
-  where the game gives their place on the map. Without a Polestar member in
-  the party it stays hidden.
+  where the game gives their place on the map. Close it and it stays
+  closed; a click on the guide window's party line or `/polestar party`
+  brings it back (and says why when nothing can show yet). Without a
+  Polestar member in the party it stays hidden.
 - **Loot a friend needs**: "Ana still needs 2 Scalding Mornbrew" under a
   collect goal, and on a loot window or roll with a quest item a member still
   needs and you don't, "For Ana: she still needs 2". Nothing is passed,
@@ -799,7 +801,7 @@ settings instead, and Polestar keeps out of the game's own windows.
 | `arrow show\|hide\|reset` | The waypoint arrow (drag it to move it); while the guide hides it (**Hide the arrow with the guide**), these commands, `way` and `near` say so |
 | `reset` | Clear ticks and skips for the current guide |
 | `xp` | XP per hour, time to level and level splits |
-| `party` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need) |
+| `party [debug]` | Show or hide the party panel: each party member who also runs Polestar (level, step, what they still need); `debug` prints what party sync sends and hears, for a report |
 | `gear [item link]` | Gear advice: the weights in use, or compare an item |
 | `gear import [string]` | Import a Pawn scale: opens the paste box, or imports the string given |
 | `gear scales` | Open the window that manages your custom stat-weight scales |

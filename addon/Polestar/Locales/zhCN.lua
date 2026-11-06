@@ -528,9 +528,9 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "显示谁还需要任务战利品"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "在拾取窗口或掷骰时，在小队成员还需要而你不需要的任务物品下显示一行。不会替你放弃或发言。"
 L["Party panel"] = "小队面板"
-L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "每位使用 Polestar 的成员的等级、步骤以及还需要你的步骤中的什么；点击名字让箭头指向他们。/polestar party 显示或隐藏面板。"
 L["Tell my party in chat when I finish a quest objective"] = "完成任务目标时在聊天中告诉小队"
 L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "完成一个目标时，在小队聊天中发一行带任务链接的消息；任务可交还时再发一行。小队里每个人都能看到，无论是否使用 Polestar。单人或团队中从不发送。"
+-- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
 
 -- Gear/Gear.lua
 L["big upgrade"] = "大幅提升"
@@ -2895,6 +2895,11 @@ L["Dead"] = "死亡"
 L["Far away"] = "距离太远"
 L["Still needs: %s"] = "还需要：%s"
 L["Show or hide the party panel"] = "显示或隐藏小队面板"
+-- L["Party sync is off: turn it on in Options > Questing > Quests > Group."] = ""
+-- L["The party panel shows in a party (not a raid)."] = ""
+-- L["The party panel shows with the guide window."] = ""
+-- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
+-- L["The party panel comes back after combat."] = ""
 
 -- Quests/PartyChat.lua
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar 已告诉你的小队你完成了一个任务目标（在 选项 > 做任务 > 任务 > 小队 中关闭）。"
@@ -2945,3 +2950,4 @@ L["Finished: %s - %s"] = "已完成：%s - %s"
 -- L["Small conveniences: travel, invitations, merchants and trackers."] = "小便利：旅行、邀请、商人和追踪器。"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "使用 Polestar 的小队成员会在其任务目标下看到你的计数。不会发送到聊天。"
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "在你的任务目标下显示他们的计数，以及谁没有接你已接的任务。"
+-- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "每位使用 Polestar 的成员的等级、步骤以及还需要你的步骤中的什么；点击名字让箭头指向他们。/polestar party 显示或隐藏面板。"

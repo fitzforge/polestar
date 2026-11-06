@@ -1154,7 +1154,10 @@ end
 function Guides.ScanInstalled()
 	local A = C_AddOns
 	if not (A and A.GetNumAddOns and A.GetAddOnInfo and A.GetAddOnMetadata and A.IsAddOnLoaded) then return end
-	local player = UnitName and UnitName("player") or nil
+	-- The character as the client's own AddOn list names it (its GUID): a
+	-- name alone is not one character on Forever, whose names carry a surname.
+	local C = ns.Compat
+	local player = C.Readable(UnitGUID and UnitGUID("player")) or C.Readable(UnitName and UnitName("player")) or nil
 	for i = 1, A.GetNumAddOns() do
 		local name, _, _, _, reason = A.GetAddOnInfo(i)
 		local id = type(name) == "string" and meta(name, "X-Polestar-Pack") or nil

@@ -4,11 +4,14 @@
 -- or client languages agree on what they share.
 --
 -- Rules: hidden addon messages to the party only (never chat, never a raid),
--- and only once a member has shown they run Polestar. Joining a party (or
--- logging in or reloading in one) sends one hello, "1H|<version>"; a member
+-- and only once a member has shown they run Polestar. Joining a party,
+-- logging in or reloading in one, and someone joining who has not spoken
+-- Polestar yet send one hello, "1H|<version>"; a member
 -- who answers (their snapshot, a bare "1Y|<version>", or any valid message)
 -- gets the full sync, members who never answer get nothing more, and
--- everything the guide shows of the party is of members who answered. Then
+-- everything the guide shows of the party is of members who answered.
+-- Senders are matched to party members by Compat.SenderName and
+-- Compat.UnitFullName (Forever's names carry a surname). Then
 -- progress goes out when a count changes (QUEST_LOG_UPDATE, 2 s debounce)
 -- and as a full snapshot a few seconds after a member answers; never on a
 -- timer. Settings party.share (send) and party.show (receive and show), both
@@ -244,9 +247,12 @@ end
 -- it, so a player who had it off gets it switched on once by this version
 -- (the once-per-account notice says so); from now on Set stores a `false`,
 -- so turning it off stays off.
--- panel: the party panel (UI/PartyPanel.lua), panelPos: its place once dragged.
+-- panel: the party panel (UI/PartyPanel.lua), which opens by itself once a
+-- member's Polestar is heard; false once the player closes it (0.3.3 had it
+-- off by default and stored nothing for an untouched one, so those players
+-- get it too). panelPos: its place once dragged.
 -- chat: a party chat line for a finished objective (Quests/PartyChat.lua).
-ns.RegisterDefaults("party", { share = true, show = true, waitForGroup = true, lootNeeds = true, panel = false, panelPos = false, chat = true })
+ns.RegisterDefaults("party", { share = true, show = true, waitForGroup = true, lootNeeds = true, panel = true, panelPos = false, chat = true })
 
 local DEBOUNCE = 2 -- seconds after a quest log change
 local JOIN_MIN, JOIN_SPREAD = 3, 3 -- snapshot 3-6 s after the roster gains someone
@@ -279,6 +285,10 @@ local function countsOf(s)
 	return out
 end
 
+-- What `/polestar party debug` reports (Party.Debug): the prefix's
+-- registration, the last send and its result, the messages heard.
+local diag = { sends = 0, heard = 0, matched = 0 }
+
 -- Sends `msgs` in order and stops at the first the client refuses (a
 -- throttle, or a lockdown in an instance): returns how many went out.
 local function send(msgs)
@@ -288,6 +298,7 @@ local function send(msgs)
 	local ok = results and results.Success or 0
 	for i, m in ipairs(msgs) do
 		local r = fn(Party.PREFIX, m, "PARTY")
+		diag.sends, diag.lastSend, diag.lastResult = diag.sends + 1, m:sub(1, 3), r
 		if r == false or (type(r) == "number" and r ~= ok) then return i - 1 end
 	end
 	return #msgs
@@ -401,16 +412,26 @@ local function scheduleSnapshot(asks)
 	ns.After(JOIN_MIN + math.random() * JOIN_SPREAD, function() snapshot(pendingAsks) end)
 end
 
--- The hello: once on joining a party (the roster was empty), JOIN_MIN-6 s
--- later so the others' clients listen by then. A refused one is owed and
--- sent again when a member's quest log changes.
-local helloPending, helloOwed = false, false
+-- The hello: on joining a party, at login or reload in one, and when
+-- someone joins who has not spoken Polestar yet, JOIN_MIN-6 s later so the
+-- others' clients listen by then. A refused one is owed: tried again
+-- HELLO_RETRY seconds later (up to HELLO_TRIES times) and when a member's
+-- quest log changes.
+local HELLO_RETRY, HELLO_TRIES = 10, 5
+local helloPending, helloOwed, helloTries = false, false, 0
+local scheduleHello
 local function hello()
 	helloPending = false
 	if not grouped() or not (ns.Get("party.share") or ns.Get("party.show")) then return end
 	helloOwed = send({ Party.EncodeHello(false) }) == 0
+	if not helloOwed then
+		helloTries = 0
+	elseif helloTries < HELLO_TRIES and C_Timer then
+		helloTries = helloTries + 1
+		ns.After(HELLO_RETRY, function() if helloOwed then scheduleHello() end end)
+	end
 end
-local function scheduleHello()
+scheduleHello = function()
 	if helloPending or not C_Timer then return end
 	helloPending = true
 	ns.After(JOIN_MIN + math.random() * JOIN_SPREAD, hello)
@@ -468,33 +489,27 @@ end
 local function forgetAll()
 	local had = next(members) ~= nil or next(roster) ~= nil or next(gone) ~= nil
 	roster, lastSent, members, owed, shared, askOwed, posSent, unitSent = {}, {}, {}, nil, false, false, nil, nil
-	gone, units, released, spoken, helloOwed = {}, {}, {}, {}, false
+	gone, units, released, spoken, helloOwed, helloTries = {}, {}, {}, {}, false, 0
 	if wantLive then wantLive() end
 	if had then progressChanged() end
 end
 
--- The roster key a party unit's messages arrive under: chat senders carry
--- the normalized realm (no spaces or hyphens); nil while the name is unknown,
--- false while the client keeps it secret (identity restricted).
-local function memberKey(unit)
-	local name, realm = UnitName(unit)
-	if ns.Compat.IsSecret(name) or ns.Compat.IsSecret(realm) then return false end
-	if not name or name == "" or name == UNKNOWNOBJECT then return nil end
-	if realm and realm ~= "" then return name .. "-" .. realm:gsub("[%s%-]", ""), name end
-	return name, name
-end
+-- The roster key a party unit's messages arrive under (Compat.UnitFullName:
+-- "Ana Smith" on Forever, "Ana" or "Ana-OtherRealm" elsewhere) and its first
+-- name; nil while the name is unknown, false while the client keeps it
+-- secret (identity restricted).
+local function memberKey(unit) return ns.Compat.UnitFullName(unit) end
 
 -- Offline members are left out: they drop off the line and count as new
 -- when back (what they sent is kept GONE_GRACE seconds for the group's
--- wait). A roster read when we knew nobody (login, reload, joining from
--- solo, the settings back on) says hello; the members who answer are
--- synced, the others get nothing more. Members who leave are forgotten
--- at once, holds and all.
+-- wait). A roster read that finds someone who has not spoken Polestar yet
+-- (login, reload, joining, a new member, the settings back on) says hello;
+-- the members who answer are synced, the others get nothing more. Members
+-- who leave are forgotten at once, holds and all.
 local function readRoster()
 	if not grouped() then return forgetAll() end
 	if wantLive then wantLive() end
-	local wasEmpty = next(roster) == nil
-	local now, offline, unitOf, gained, changed = {}, {}, {}, false, false
+	local now, offline, unitOf, gained, changed, fresh = {}, {}, {}, false, false, false
 	local n = GetNumSubgroupMembers and GetNumSubgroupMembers() or 0
 	for i = 1, n do
 		local unit = "party" .. i
@@ -507,7 +522,10 @@ local function readRoster()
 				offline[key] = true
 			else
 				now[key] = short
-				if not roster[key] then gained = true end
+				if not roster[key] then
+					gained = true
+					if not spoken[key] then fresh = true end
+				end
 				-- Back within the grace: what they sent holds until their
 				-- snapshot replaces it, so the wait does not let go meanwhile.
 				local g = gone[key]
@@ -536,7 +554,7 @@ local function readRoster()
 		if not (now[key] or offline[key]) then spoken[key] = nil end
 	end
 	if gained or changed then progressChanged() end
-	if gained and wasEmpty then scheduleHello() end
+	if fresh then scheduleHello() end
 end
 
 local function onRoster() readRoster() end
@@ -619,10 +637,28 @@ local function heard(key, asks)
 end
 
 local function onAddonMessage(_, prefix, text, channel, sender)
+	local C = ns.Compat
+	if C.IsSecret(prefix) or C.IsSecret(channel) or C.IsSecret(text) then return end
 	if prefix ~= Party.PREFIX or channel ~= "PARTY" or type(sender) ~= "string" then return end
-	local key = Ambiguate and Ambiguate(sender, "none") or sender
+	local key = C.SenderName(sender)
+	if not key then return end
+	diag.heard, diag.lastSender = diag.heard + 1, sender
+	if C.SenderIsMe(sender) then return end
 	local short = roster[key]
-	if not short then return end
+	if not short then
+		-- Only party members speak on the party channel: one not in the
+		-- roster is a read that missed them (a name the client did not
+		-- have yet), or a name spelled otherwise than the roster's: read it
+		-- again, then ask the client which member the sender is.
+		readRoster()
+		short = roster[key]
+		for k, unit in pairs(units) do
+			if short then break end
+			if roster[k] and C.SenderIsUnit(sender, unit) then key, short = k, roster[k] end
+		end
+		if not short then return end
+	end
+	diag.matched = diag.matched + 1
 	local mark = Party.DecodeHello(text)
 	if mark == "H" then
 		-- A hello (they joined, logged in or reloaded): a sharer answers with
@@ -1056,6 +1092,29 @@ end
 -- Whether party sync is listening: a party, and sharing or showing on.
 function Party.IsLive() return liveOn end
 
+-- `/polestar party debug`: the lines that say whether the party's messages
+-- go out and come in, for a player to paste into a report: the last
+-- sender's name as it arrived beside each member's as the roster keys it.
+function Party.Debug()
+	local C, out = ns.Compat, {}
+	local function add(s) out[#out + 1] = s end
+	local registered = C_ChatInfo and C_ChatInfo.IsAddonMessagePrefixRegistered and C_ChatInfo.IsAddonMessagePrefixRegistered(Party.PREFIX)
+	add(("version %s; prefix %s registered %s (result %s)"):format(tostring(ns.version), Party.PREFIX, tostring(registered), tostring(diag.prefixResult)))
+	add(("grouped %s, raid %s, live %s, share %s, show %s, panel %s"):format(tostring(grouped()), tostring(IsInRaid and IsInRaid() or false),
+		tostring(liveOn), tostring(ns.Get("party.share")), tostring(ns.Get("party.show")), tostring(ns.Get("party.panel"))))
+	add(("sent %d, last %s result %s; received %d, from party members %d, last sender %s"):format(diag.sends, tostring(diag.lastSend),
+		tostring(diag.lastResult), diag.heard, diag.matched, tostring(diag.lastSender)))
+	local me = C.UnitFullName("player")
+	add(("you %s"):format(tostring(me)))
+	local n = GetNumSubgroupMembers and GetNumSubgroupMembers() or 0
+	for i = 1, n do
+		local key = memberKey("party" .. i)
+		add(("party%d %s: in roster %s, spoke Polestar %s"):format(i, key == false and "(secret)" or tostring(key),
+			tostring(key and roster[key] ~= nil or false), tostring(key and spoken[key] or false)))
+	end
+	return out
+end
+
 -- Registers what the settings need and nothing else; at login and whenever
 -- a party setting changes. Sharing turned off in a group sends one empty
 -- snapshot when the party has counts of ours, so it drops them rather than
@@ -1085,7 +1144,7 @@ function Party.Apply()
 	if waitChanged then progressChanged() end
 	if not prefixed and C_ChatInfo and C_ChatInfo.RegisterAddonMessagePrefix then
 		prefixed = true
-		C_ChatInfo.RegisterAddonMessagePrefix(Party.PREFIX)
+		diag.prefixResult = C_ChatInfo.RegisterAddonMessagePrefix(Party.PREFIX)
 	end
 	if turnedOn and grouped() then
 		lastSent = {}
@@ -1400,7 +1459,7 @@ Party.OPTIONS = {
 			disabled = function() return not ns.Get("party.show") end,
 			help = L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] },
 		{ kind = "toggle", key = "party.panel", label = L["Party panel"], search = SEARCH,
-			help = L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] },
+			help = L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] },
 		{ kind = "toggle", key = "party.chat", label = L["Tell my party in chat when I finish a quest objective"], search = SEARCH .. ", chat, announce, objective, tell",
 			help = L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] },
 	},

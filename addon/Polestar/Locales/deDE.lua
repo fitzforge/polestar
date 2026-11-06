@@ -2061,9 +2061,9 @@ L["When a party member on your quest still needs an objective you finished, the 
 L["Say who still needs quest loot"] = "Sagen, wer noch Questbeute braucht"
 L["On a loot window or roll, a line under a quest item a party member still needs and you don't. Nothing is passed or said for you."] = "Im Beutefenster oder bei einem Wurf eine Zeile zu einem Questgegenstand, den ein Gruppenmitglied noch braucht und du nicht. Nichts wird für dich gepasst oder gesagt."
 L["Party panel"] = "Gruppenfenster"
-L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Stufe und Schritt jedes Polestar-Mitglieds und was es von deinem Schritt noch braucht; ein Klick auf einen Namen richtet den Pfeil auf das Mitglied. /polestar party blendet das Fenster ein oder aus."
 L["Tell my party in chat when I finish a quest objective"] = "Meiner Gruppe im Chat sagen, wenn ich ein Questziel erledige"
 L["One party chat line with the quest's link when you finish an objective, and one when the quest is ready to turn in. Everyone in the party sees it, Polestar or not. Never solo or in a raid."] = "Eine Zeile im Gruppenchat mit dem Link der Quest, wenn du ein Ziel erledigst, und eine, wenn die Quest bereit zur Abgabe ist. Alle in der Gruppe sehen sie, ob mit Polestar oder ohne. Nie allein oder im Schlachtzug."
+-- L["Opens by itself when someone in your party runs Polestar too: each member's level, step and what they still need of yours; click a name to point the arrow at them. Closed, it stays closed; /polestar party opens it again."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Aufzug nach %s"
@@ -2878,6 +2878,11 @@ L["Dead"] = "Tot"
 L["Far away"] = "Weit weg"
 L["Still needs: %s"] = "Braucht noch: %s"
 L["Show or hide the party panel"] = "Gruppenfenster ein- oder ausblenden"
+-- L["Party sync is off: turn it on in Options > Questing > Quests > Group."] = ""
+-- L["The party panel shows in a party (not a raid)."] = ""
+-- L["The party panel shows with the guide window."] = ""
+-- L["No one else in your party has been heard running Polestar yet. The panel opens by itself as soon as someone is."] = ""
+-- L["The party panel comes back after combat."] = ""
 
 -- Quests/PartyChat.lua
 L["Polestar told your party you finished a quest objective (Options > Questing > Quests > Group to turn it off)."] = "Polestar hat deiner Gruppe gesagt, dass du ein Questziel erledigt hast (ausschalten unter Optionen > Questen > Quests > Gruppe)."
@@ -2996,3 +3001,4 @@ L["your next stop"] = "deinem nächsten Halt"
 -- L["Party members who run Polestar see your counts under their quest goals. Nothing goes to chat."] = "Gruppenmitglieder, die Polestar nutzen, sehen deine Zählstände unter ihren Questzielen. Nichts geht in den Chat."
 -- L["Their counts under your quest goals, and who lacks a quest you took."] = "Ihre Zählstände unter deinen Questzielen und wem eine Quest fehlt, die du genommen hast."
 -- L["Share %s with %s"] = "%s mit %s teilen"
+-- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Stufe und Schritt jedes Polestar-Mitglieds und was es von deinem Schritt noch braucht; ein Klick auf einen Namen richtet den Pfeil auf das Mitglied. /polestar party blendet das Fenster ein oder aus."

@@ -248,9 +248,8 @@ pub fn parse_emitted(stdout: &str) -> Result<Vec<Value>, String> {
 	stdout.split('\n').filter_map(|l| l.strip_prefix("@@JSON ")).map(|j| serde_json::from_str(j).map_err(|e| format!("emitted JSON {j}: {e}"))).collect()
 }
 
-/// Runs the program; a Lua error (with its file:line and traceback) and the output so far are the Err.
-pub fn run_addon_output(opts: &RunAddon) -> Result<Output, String> {
-	let program = build_program(opts)?;
+/// A Lua state with the test harness's `io.write`, `print` and `os.clock`, and what it has written so far.
+fn new_state() -> Result<(mlua::Lua, Rc<RefCell<Vec<u8>>>), String> {
 	let fail = |e: mlua::Error| format!("Lua failed:\n{e}");
 	// SAFETY: the standard libraries as the standalone interpreter loads them (the stub reads debug.getinfo);
 	// the code is the repository's own.
@@ -294,12 +293,54 @@ pub fn run_addon_output(opts: &RunAddon) -> Result<Output, String> {
 	// thread's CPU time here, as it was the run's own process under the standalone interpreter.
 	let os: mlua::Table = lua.globals().get("os").map_err(fail)?;
 	os.raw_set("clock", lua.create_function(|_, ()| Ok(thread_cpu_seconds())).map_err(fail)?).map_err(fail)?;
+	Ok((lua, out))
+}
+
+/// Runs the program; a Lua error (with its file:line and traceback) and the output so far are the Err.
+pub fn run_addon_output(opts: &RunAddon) -> Result<Output, String> {
+	let program = build_program(opts)?;
+	let (lua, out) = new_state()?;
 	let result = lua.load(&program).set_name("=test program").exec();
 	let stdout = String::from_utf8_lossy(&out.borrow()).into_owned();
 	if let Err(e) = result {
-		return Err(format!("{}\n{stdout}", fail(e)));
+		return Err(format!("Lua failed:\n{e}\n{stdout}"));
 	}
 	Ok(Output { emitted: parse_emitted(&stdout)?, stdout })
+}
+
+/// A client kept running between scripts, for tests that play two clients side by side (each its own Lua
+/// state, so each its own addon, saved variables and fake world), the test carrying what one sends to the
+/// other. Each script is a chunk of its own: what the next one needs goes in globals.
+pub struct Session {
+	lua: mlua::Lua,
+	out: Rc<RefCell<Vec<u8>>>,
+	read: usize,
+}
+
+impl Session {
+	/// Loads the stubs and addons, logs in with `opts.login` and runs `opts.script`.
+	pub fn open(opts: &RunAddon) -> Result<Session, String> {
+		let (lua, out) = new_state()?;
+		let mut s = Session { lua, out, read: 0 };
+		s.exec(&build_program(opts)?)?;
+		Ok(s)
+	}
+
+	/// Runs `script`: the values it emitted, in order; Err on a Lua error.
+	pub fn exec(&mut self, script: &str) -> Result<Vec<Value>, String> {
+		let result = self.lua.load(script).set_name("=test program").exec();
+		let stdout = String::from_utf8_lossy(&self.out.borrow()[self.read..]).into_owned();
+		self.read = self.out.borrow().len();
+		if let Err(e) = result {
+			return Err(format!("Lua failed:\n{e}\n{stdout}"));
+		}
+		parse_emitted(&stdout)
+	}
+
+	/// [`Session::exec`] for tests: a Lua error panics with its message.
+	pub fn run(&mut self, script: &str) -> Vec<Value> {
+		self.exec(script).unwrap_or_else(|e| panic!("{e}"))
+	}
 }
 
 /// The values the run emitted, in order; Err on a Lua error.

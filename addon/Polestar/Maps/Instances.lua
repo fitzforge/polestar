@@ -92,11 +92,14 @@ local function runs()
 	return Maps.CharTable("instanceRuns")
 end
 
+-- "Name-Realm" as Alts.Key() forms it (Compat.UnitFullName: "Ana Smith" on
+-- Forever).
 local function charName()
 	local C = ns.Compat
 	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
-	if not info then return nil end
-	return info.realm and (info.name .. "-" .. info.realm) or info.name
+	local name = C and C.UnitFullName and C.UnitFullName("player")
+	if not (info and name) then return nil end
+	return info.realm and (name .. "-" .. info.realm) or name
 end
 
 local function prune(now)

@@ -206,11 +206,15 @@ for _, r in ipairs(GF.rows or {}) do
 	if r:IsShown() and r.Share:IsShown() then shares[#shares + 1] = r.psGoal.index end
 end
 emit(shares)
+local PP = Polestar.UI.PartyPanel
+emit(PP.Frame() ~= nil and PP.Frame():IsShown())
 GF.party:Click()
-emit(Polestar.Get("party.panel"))
-emit(Polestar.UI.PartyPanel.Frame() and Polestar.UI.PartyPanel.Frame():IsShown())"#,
+emit({ Polestar.Get("party.panel"), PP.Frame():IsShown() })
+GF.party:Click()
+emit({ Polestar.Get("party.panel"), PP.Frame():IsShown() })"#,
 	);
 	assert_eq!(out[0], json!([1]), "once, on the kobolds' row");
-	assert_eq!(out[1], true);
-	assert_eq!(out[2], true);
+	assert_eq!(out[1], true, "the panel opened by itself once a member was heard");
+	assert_eq!(out[2], json!([false, false]), "a click on the party line closes it");
+	assert_eq!(out[3], json!([true, true]), "and opens it again");
 }

@@ -656,12 +656,12 @@ local function inPvp()
 	return inside and (kind == "pvp" or kind == "arena") or false
 end
 
--- Whether a sender is someone else on this realm.
+-- Whether a sender is someone else on this realm (the player's own echo is
+-- not: Compat.SenderIsMe, Forever's "First Last" senders included).
 local function fromThisRealm(sender)
 	if type(sender) ~= "string" or sender == "" then return false end
+	if ns.Compat.SenderIsMe(sender) then return false end
 	local name = Ambiguate and Ambiguate(sender, "none") or sender
-	local me = UnitName and UnitName("player")
-	if me and name == me then return false end
 	local realm = name:match("%-(.+)$")
 	if not realm then return true end
 	local mine = GetNormalizedRealmName and GetNormalizedRealmName()
