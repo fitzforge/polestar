@@ -1371,6 +1371,10 @@ function Party.SelfTest()
 	-- and the regional-unique-names switch FrameXML reads.
 	say(("C_PlayerInfo.ShouldDisplaySurname %s; RegionalUniqueNamesEnabled %s; GetNormalizedRealmName %s"):format(
 		call(C_PlayerInfo and C_PlayerInfo.ShouldDisplaySurname, nil), returns("RegionalUniqueNamesEnabled"), returns("GetNormalizedRealmName")))
+	-- Forever's trial and veteran accounts cannot send addon messages (its
+	-- 1.60.1 beta notes), and invited friends may play on one.
+	say(("IsTrialAccount %s; IsVeteranTrialAccount %s; IsRestrictedAccount %s; GameLimitedMode_IsActive %s"):format(
+		returns("IsTrialAccount"), returns("IsVeteranTrialAccount"), returns("IsRestrictedAccount"), returns("GameLimitedMode_IsActive")))
 	-- (a) The prefix.
 	say("(a) RegisterAddonMessagePrefix " .. call(CI.RegisterAddonMessagePrefix, Enum and Enum.RegisterAddonMessagePrefixResult, Party.PREFIX)
 		.. "; IsAddonMessagePrefixRegistered " .. call(CI.IsAddonMessagePrefixRegistered, nil, Party.PREFIX))
