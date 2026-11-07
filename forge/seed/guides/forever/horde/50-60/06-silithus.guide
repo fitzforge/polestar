@@ -191,7 +191,7 @@ step Layo Starstrike
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave; J.D. Collie is inside it.
+  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave, and Collie inside it.
   kill 10977 quest 5163.3             -- Use Umi's Mechanical Yeti on Quixxil
   turnin 3914                         -- Linken
   accept 3941
@@ -327,5 +327,5 @@ step Chromie
 
 step The Bulwark
   zone Tirisfal Glades
-  tip West to the Bulwark. The next guide starts in the Undercity, a short ride west.
+  tip West to the Bulwark.
   turnin 6390                         -- Mickey Levine
