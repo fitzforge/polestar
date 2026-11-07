@@ -1025,10 +1025,18 @@ impl<'a> Sim<'a> {
 			}
 			T::Kill | T::Interact | T::Use => {
 				if q.is_some() {
-					self.objective_state(goal)
-				} else {
-					Done::no()
+					return self.objective_state(goal);
 				}
+				// One with no quest (#1120): done once a later quest goal of the step is, so the work it led to,
+				// done or handed in, never leaves it holding the step.
+				let goals = &gd.step(s).goals;
+				for j in g + 1..=goals.len() {
+					let later = &goals[j - 1];
+					if is_quest_goal(later) && !later.optional && self.goal_applies(s, j) && self.goal_done(s, j).done {
+						return Done::yes();
+					}
+				}
+				Done::no()
 			}
 			T::Collect => {
 				if q.is_some() {
