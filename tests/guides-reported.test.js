@@ -575,6 +575,33 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Ca
 	assert.equal(list[camping].step, list[at(list, 'turnin 384 (Beer Basted Boar Ribs)', is('turnin', 384))].step, 'on the same visit as the ribs');
 });
 
+// --- Flow audit (2026-11-07): Dun Morogh's quarry was stopped at up to six
+// times (each of Those Blasted Troggs!, the powder keg, the powder, the smith's
+// hides and The Public Servant handed in on a stop of its own), with the
+// Bonesnappers listed along the way though they share the quarry with the
+// Skullthumpers; Kharanos was entered four times in a row for Senir, the malt,
+// Tognus, the malt again and the cooking lesson; Razzle's cogs were listed along
+// the whole walk west and twice more. Now the quarry troggs are one step,
+// Foreman Stonebrow, Senator Mehr and Thesten take their quests on the first
+// return before Helm's Bed Lake, Kharanos is one stop with one malt, and the
+// cogs are collected with the Leper Gnomes.
+for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: flow audit: the quarry troggs in one step and handed in on the first return, Kharanos once, no along lists for the cogs or the Bonesnappers`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const skull = at(list, 'kill 1115 (Skullthumpers)', (g) => g.t === 'kill' && g.quest === 432);
+	const bone = at(list, 'kill 1117 (Bonesnappers)', (g) => g.t === 'kill' && g.quest === 433);
+	assert.equal(list[bone].step, list[skull].step, 'the Bonesnappers with the Skullthumpers');
+	const t432 = at(list, 'turnin 432', is('turnin', 432));
+	assert.equal(list[at(list, 'turnin 433', is('turnin', 433))].step, list[t432].step, 'Stonebrow and Mehr on one stop');
+	assert.ok(t432 < at(list, 'the Stolen Blasting Powder', (g) => g.t === 'collect' && g.item === 267415), 'before the powder');
+	assert.ok(t432 < at(list, 'kill 6123 (Dark Iron Spies)', (g) => g.t === 'kill' && g.quest === 96390), 'before the spies');
+	assert.equal(list.filter(({ goal }) => goal.t === 'buy' && goal.item === 2894).length, 1, 'one Rhapsody Malt');
+	const senir = at(list, 'turnin 98323', is('turnin', 98323));
+	assert.equal(list[senir].step, list[at(list, 'accept 287', is('accept', 287))].step, 'Senir once: Secure the Mountain in, Frostmane Hold out');
+	const { steps } = compiled(DUN_MOROGH);
+	assert.deepEqual(steps.filter((st) => st.along && st.goals.some((g) => [412, 433].includes(g.quest))).map((st) => st.title), [], 'no along list for the cogs or the Bonesnappers');
+	assert.equal(list.filter(({ goal }) => goal.t === 'collect' && goal.item === 3083).length, 1, 'the cogs listed once');
+});
+
 test(`EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": the Skyborne visits to the Horde leaders`, { skip }, () => {
 	// Where the data counts these as kill credit on the NPC, the goal stays a `kill` tracking the
 	// objective and its text is what the guide window shows; where the game's own objective list
