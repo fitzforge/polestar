@@ -252,7 +252,7 @@ pub const RETURN_COST_SEC: f64 = 300.0;
 pub const FLOW_COUNT_SEC: f64 = 120.0;
 /// Seconds of model time a move may cost before its replay under `revisit`: the most flow price
 /// it can win back is a few counts.
-pub const FLOW_HEAD_SEC: f64 = 2.0 * RETURN_COST_SEC;
+pub const FLOW_HEAD_SEC: f64 = RETURN_COST_SEC;
 
 /// The flow price of an order's guard counts (seconds; 0 without the `revisit` flag): what the
 /// search and the passes add to the cost to 60 when they compare orders.
