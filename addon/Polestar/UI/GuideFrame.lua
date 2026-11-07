@@ -3241,9 +3241,10 @@ function GF.TabsOf(E) return tabsOf(E) end
 local watcher = CreateFrame("Frame")
 local hovering = false
 
-local function chromeAlpha()
-	if not transparent() then return 1 end
-	return hovering and 1 or 0
+-- ui.barShown keeps a transparent window's tabs and step bar on screen (not the grip).
+local function chromeAlpha(c)
+	if not transparent() or hovering then return 1 end
+	return (ns.Get("ui.barShown") and c ~= grip) and 1 or 0
 end
 
 local function fadeChrome(to)
@@ -3252,7 +3253,7 @@ local function fadeChrome(to)
 		if to == 1 then
 			Anim.To(c, "alpha", c:GetAlpha(), 1, Anim.FAST, "out")
 		else
-			Anim.To(c, "alpha", c:GetAlpha(), 0, Anim.BASE, "out")
+			Anim.To(c, "alpha", c:GetAlpha(), chromeAlpha(c), Anim.BASE, "out")
 		end
 	end
 end
@@ -3293,6 +3294,7 @@ function GF.ApplyStyle()
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
+	band.Shade:SetShown(clear and ns.Get("ui.barShown") and true or false)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
@@ -3308,7 +3310,7 @@ function GF.ApplyStyle()
 	end
 	for i = 1, #chrome do
 		Anim.Stop(chrome[i], "alpha")
-		chrome[i]:SetAlpha(chromeAlpha())
+		chrome[i]:SetAlpha(chromeAlpha(chrome[i]))
 	end
 	GF.Layout()
 end
@@ -3434,6 +3436,7 @@ local APPLY = {
 	["ui.opacity"] = function() GF.ApplyAlpha(false) end,
 	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
 	["ui.style"] = function() GF.ApplyStyle() end,
+	["ui.barShown"] = function() GF.ApplyStyle() end,
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
@@ -3910,6 +3913,11 @@ local function build()
 	band = Theme.Band(F, "BACKGROUND", -5)
 	band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 	band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
+	-- ui.barShown: a dark strip behind a transparent window's tabs and step bar, so they read over the world.
+	band.Shade = W.Tex(F, "BACKGROUND", nil, nil, -6)
+	band.Shade:SetVertexColor(0, 0, 0, 0.55)
+	band.Shade:SetAllPoints(band)
+	band.Shade:Hide()
 
 	-- Tab strip
 	strip = CreateFrame("Frame", nil, F)
