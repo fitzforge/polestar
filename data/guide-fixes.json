@@ -2764,14 +2764,14 @@
 				"mention": "Plainstriders here count toward the beaks.",
 				"finish": {
 					"title": "Finish the Plainstrider Beaks",
-					"tip": "Still short of seven? The plains north-west of the Crossroads hold the most plainstriders.",
+					"tip": "Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north.",
 					"map": 1413,
-					"x": 50,
+					"x": 53,
 					"y": 21
 				}
 			},
 			"faction": "Horde",
-			"note": "Plainstrider Menace: a slow, zone-wide collection, worked over the stay instead of in a step of its own (Fitz on #1135). Players' recordings: 266 beaks ticked from 906 kills of Greater, Fleeting and Ornery Plainstriders while the quest was open (26%, 26% and 18% a kill), a median 21 kills for the seven, up to 49; 16% of those kills already came in other steps. The plainstriders spawn in four clusters across the Barrens. The finish point is the densest plainstrider ground near the Crossroads (40 spawn points within 250 yd). The Raptor Heads of the same report (about three in four Sunscale raptors, a median 13 kills) stay a step.",
+			"note": "Plainstrider Menace: a slow, zone-wide collection, worked over the stay instead of in a step of its own (Fitz on #1135). Players' recordings: 266 beaks ticked from 906 kills of Greater, Fleeting and Ornery Plainstriders while the quest was open (26%, 26% and 18% a kill), a median 21 kills for the seven, up to 49; 16% of those kills already came in other steps; a median 31 s between plainstrider kills while on it, 176 s at p90. The plainstriders spawn in four clusters across the Barrens. The finish point is the best-sampled plainstrider ground near the Crossroads by kills a minute while on the quest (1.9 a minute, 45 kills in 23 minutes, 22 spawn points within 250 yd).",
 			"source": [
 				{
 					"kind": "recording",
@@ -2780,6 +2780,44 @@
 				{
 					"kind": "tdb",
 					"ref": "creature: the spawns of 3244, 3245 and 3246 in the Barrens"
+				}
+			],
+			"issue": 1135
+		},
+		{
+			"id": "1135-raptor-heads",
+			"at": {
+				"quest": 869,
+				"goal": "objective",
+				"objective": 1
+			},
+			"background": {
+				"title": "Raptor Heads as you go",
+				"tip": "Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health.",
+				"mobs": [
+					3254,
+					3255,
+					3256
+				],
+				"mention": "Sunscale raptors here count toward the heads.",
+				"finish": {
+					"title": "Finish the Raptor Heads",
+					"tip": "Still short of twelve? The Sunscale Screechers are thickest on the plains around Echeyakee's lair, north of the Razormane camp.",
+					"map": 1413,
+					"x": 56,
+					"y": 15
+				}
+			},
+			"faction": "Horde",
+			"note": "Raptor Thieves: the heads drop often (about three Sunscale raptors in four), but the raptors are sparse and contested where the route goes: players' recordings show a median 77 s between raptor kills while on the quest, 447 s at p90, and a median 76 minutes from the accept to the twelfth head (up to 697), so it is worked over the stay instead of in a step of its own (Fitz on #1135). Per kill: Screecher 314 heads from 425 kills, Lashtail 73 from 99, Scytheclaw 29 from 82 (level 16-18, in the south). The finish point is the best raptor ground by kills a minute while on the quest (1.0 to 1.3 a minute around 55-57,13-17), which the route already crosses at Samophlange and Echeyakee.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: 38 runs of 869 (35 finished), the kill, position and progress lines of Raptor Head"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature: the spawns of 3254, 3255 and 3256 in the Barrens"
 				}
 			],
 			"issue": 1135

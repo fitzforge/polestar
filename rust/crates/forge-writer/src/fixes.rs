@@ -549,7 +549,11 @@ fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> 
 		let body = &lines[s.0 + 1..s.1 - 1];
 		let has_goal = body.iter().any(|l| trim(l).split_whitespace().next().is_some_and(|w| forge_guide::parse::VERBS.contains(&w)));
 		if !has_goal && !body.iter().any(|l| re!(r"^\s+label\s").is_match(l)) {
-			lines.drain(s.0..s.1 - 1);
+			// (Through its last line and the blank after it: a section comment that follows stays.)
+			let end = s.1 - 1;
+			let last = (s.0..end).rev().find(|&k| !lines[k].trim().is_empty() && !lines[k].trim_start().starts_with('#')).unwrap_or(s.0);
+			let to = if last + 1 < end && lines[last + 1].trim().is_empty() { last + 2 } else { last + 1 };
+			lines.drain(s.0..to);
 		}
 	}
 	let Some((a, t)) = ends(lines.as_slice()) else { return Vec::new() };
@@ -1130,5 +1134,23 @@ mod tests {
 		let (again, rows) = go(&out);
 		assert_eq!(again, out, "applied again: nothing left to do");
 		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant"]);
+	}
+
+	#[test]
+	fn a_work_step_a_background_objective_leaves_empty_goes_and_the_section_comment_after_it_stays() {
+		// #1135: the Raptor Heads' own step held only the heads and its tips.
+		let seed = "guide forever/a\nzone The Barrens\n\nstep The Crossroads\n  accept 869\n\nstep The Barrens: kill these as you meet them\n  tip Raptors roam the plains.\n  collect 5062 quest 869.1\n\n# ---- East\n\nstep Echeyakee\n  goto 55.8,17.1\n\nstep The Crossroads\n  turnin 869\n";
+		let fixes = json!({ "fixes": [{ "id": "1135-heads", "at": { "quest": 869, "goal": "objective", "objective": 1 }, "background": {
+			"title": "Raptor Heads as you go", "mobs": [3255], "finish": { "title": "Finish the Raptor Heads", "map": 1413, "x": 56, "y": 15 }
+		} }] });
+		let quest: crate::input::Quest = serde_json::from_value(json!({ "objectives": [{ "type": "item", "id": 5062, "count": 12 }] })).unwrap();
+		let data = Data { quests: BTreeMap::from([(869, quest)]), ..Default::default() };
+		let mut tree = BTreeMap::from([("forever/a.guide".to_string(), seed.to_string())]);
+		let rows = apply(&mut tree, &["forever/a.guide".into()], &HashSet::new(), Some("Horde"), Records { places: None, guide_fixes: Some(&fixes) }, Some(&data));
+		assert_eq!(
+			tree["forever/a.guide"],
+			"guide forever/a\nzone The Barrens\n\nstep The Crossroads\n  accept 869\n\nstep Raptor Heads as you go\n  along until q869\n  background\n  collect 5062 quest 869.1\n\n# ---- East\n\nstep Echeyakee\n  goto 55.8,17.1\n\nstep Finish the Raptor Heads\n  when !has 5062 x12\n  collect 5062 quest 869.1 @56,15 map 1413 era\n\nstep The Crossroads\n  label q869\n  turnin 869\n"
+		);
+		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["applied"]);
 	}
 }

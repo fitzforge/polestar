@@ -4299,30 +4299,34 @@ test("Rohkin's report (#1123): Mountain Lion Blood on the walk back from Hillsbr
 });
 
 // #1135 (Fitz, Undead Warlock 12): the Raptor Heads and Plainstrider Beaks sat in a step of their own right
-// after the Crossroads accepts, the arrow on the plainstriders. The beaks are a slow, zone-wide collection
-// (players' recordings: about one plainstrider in four drops one, a median 21 kills for seven, up to 49):
-// a background goal (docs/GUIDE_FORMAT.md, "Background goals"), listed on the way from the Crossroads until
-// the stop that hands them in, after the Razormane camp, with a finish step right before it. The heads
-// (about three raptors in four, a median 13 kills) stay a step.
-test("Fitz's report (#1135): the Plainstrider Beaks are worked on the way to a later hand-in, with a finish step before it", { skip }, () => {
+// after the Crossroads accepts, the arrow on the plainstriders, and he spent an hour there. Players'
+// recordings: about one plainstrider in four drops a beak (a median 21 kills for seven, up to 49); the heads
+// drop from three raptors in four, but the raptors are sparse and contested (a median 77 s between raptor
+// kills, 447 s at p90). Both are background goals (docs/GUIDE_FORMAT.md, "Background goals"): listed on the
+// way from the Crossroads until a later stop that hands them in (the beaks after the Razormane camp, the
+// heads after Echeyakee), each with a finish step right before it that only a player still short gets.
+test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked on the way to later hand-ins, each with a finish step before it", { skip }, () => {
 	const file = 'forever/horde/02-the-barrens.guide';
 	const g = compiled(file);
 	const list = goals(file);
-	const beak = (goal) => goal.t === 'collect' && goal.quest === 844 && goal.oi === 1;
-	const handIn = at(list, 'turnin 844', is('turnin', 844));
-	const turnStep = list[handIn].step;
 	const crossroads = g.steps.findIndex((s) => s.label === 'crossroads');
 	assert.ok(crossroads >= 0, 'the shared Crossroads step');
-	const along = g.steps.findIndex((s) => s.along && s.goals.some(beak));
-	assert.equal(along, crossroads + 1, 'the beaks are listed on the way right after the Crossroads accepts');
-	assert.equal(g.steps[along].along, turnStep.label, 'until the step that hands them in');
-	const workers = list.filter(({ step, goal }) => beak(goal) && !step.along);
-	assert.equal(workers.length, 1, 'one step of the route works the beaks: the finish step');
-	const finish = workers[0];
-	assert.equal(g.steps.indexOf(finish.step) + 1, g.steps.indexOf(turnStep), 'the finish step comes right before the hand-in');
-	assert.ok(located(finish), 'the finish step leads to the plainstriders');
-	const camp = at(list, 'kill 3265 quest 871.3', (goal) => goal.t === 'kill' && goal.quest === 871 && goal.oi === 3);
-	assert.ok(camp < handIn, 'Sergra takes the beaks after the Razormane camp');
-	const heads = list.find(({ step, goal }) => goal.t === 'collect' && goal.quest === 869 && !step.along);
-	assert.ok(heads && heads.s < list[handIn].s, 'the Raptor Heads stay a step of their own, before it');
+	for (const [quest, item, count, what, after, afterWhat] of [
+		[844, 5087, 7, 'beaks', (goal) => goal.t === 'kill' && goal.quest === 871 && goal.oi === 3, 'the Razormane camp'],
+		[869, 5062, 12, 'heads', (goal) => goal.quest === 881 && goal.oi === 1, 'Echeyakee'],
+	]) {
+		const mine = (goal) => goal.t === 'collect' && goal.item === item && goal.quest === quest && goal.oi === 1;
+		const handIn = at(list, `turnin ${quest}`, is('turnin', quest));
+		const turnStep = list[handIn].step;
+		const along = g.steps.findIndex((s) => s.along && s.goals.some(mine));
+		assert.ok(along > crossroads && along <= crossroads + 2, `the ${what} are listed on the way right after the Crossroads accepts`);
+		assert.equal(g.steps[along].along, turnStep.label, `the ${what}: until the step that hands them in`);
+		const workers = list.filter(({ step, goal }) => mine(goal) && !step.along);
+		assert.equal(workers.length, 1, `one step of the route works the ${what}: the finish step`);
+		const finish = workers[0];
+		assert.equal(g.steps.indexOf(finish.step) + 1, g.steps.indexOf(turnStep), `the ${what}' finish step comes right before the hand-in`);
+		assert.ok(located(finish), `the ${what}' finish step leads to the mobs`);
+		assert.ok(finish.step.when.some((p) => p.k === 'has' && p.neg), `the ${what}' finish step is only for a player still short of ${count}`);
+		assert.ok(at(list, afterWhat, after) < handIn, `the ${what} are handed in after ${afterWhat}`);
+	}
 });

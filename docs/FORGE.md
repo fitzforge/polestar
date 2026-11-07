@@ -492,8 +492,9 @@ step an `along until … background` step with the record's title and tip lists 
 (labelled `q<quest>` when it has none); right before it a finish step with `finish`'s title and tip
 works it at `finish`'s point (for an item, `when !has <item> x<count>`: only a player still short
 gets it); and each step in between with a point within 2 map percent of a spawn
-of `mobs` gets the tip `mention`. Keep it for objectives the recordings show as a slog: a low drop
-rate and the droppers spread along the route. A place with the same numbers as a goal's
+of `mobs` gets the tip `mention`. Keep it for objectives the recordings show as a slog: many kills
+for the count, or a long search between kills of sparse or contested droppers, with the droppers spread
+along the route; `finish` is where players got the most kills a minute. A place with the same numbers as a goal's
 typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
 

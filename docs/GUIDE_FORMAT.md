@@ -524,11 +524,14 @@ step The Crossroads
   turnin 844
 ```
 
-Keep `background` for real slogs: the players' recordings show a low drop
-rate (many kills for the count) and the dropping mobs spread along the
-route. Anything one area finishes stays a step of its own. For the
-generated guides, a `background` record in `data/guide-fixes.json` writes
-all of this (docs/FORGE.md, "Fixing a generated guide").
+Keep `background` for real slogs, where the players' recordings show either
+many kills for the count (a low drop rate) or a long search between kills
+(sparse or contested mobs: minutes between kills of the droppers), with the
+dropping mobs spread along the route. Anything one area finishes quickly
+stays a step of its own. Put the finish step where players get the most
+kills a minute, not merely where the spawns are densest. For the generated
+guides, a `background` record in `data/guide-fixes.json` writes all of this
+(docs/FORGE.md, "Fixing a generated guide").
 
 `background` changes nothing in the compiled guide: Polestar reads the step
 as the along step it is, so a pack with it is written in pack format 4, like

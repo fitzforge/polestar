@@ -138,21 +138,17 @@ step The Crossroads
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 870                          -- Tonga Runetotem
 
+step Raptor Heads as you go
+  along until q869
+  background
+  tip Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health.
+  collect 5062 quest 869.1
+
 step Plainstrider Beaks as you go
   along until q844
   background
   tip Plainstriders roam the plains all over the Barrens, and about one in four drops a beak: kill the ones you pass on the way.
   collect 5087 quest 844.1
-
-step The Barrens: kill these as you meet them
-  zone The Barrens
-  tip Plainstriders and Sunscale raptors roam the plains all around the Crossroads, thickest to the north.
-  tip Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors.
-  collect 5062 quest 869.1
-
-step The Crossroads
-  turnin 869                          -- Gazrog
-  accept 3281                         -- Gazrog
 
 # ---------------------------------------------------------------- East: the Razormane and Far Watch
 
@@ -166,8 +162,8 @@ step Razormane camp
 
 step Finish the Plainstrider Beaks
   when !has 5087 x7
-  tip Still short of seven? The plains north-west of the Crossroads hold the most plainstriders.
-  collect 5087 quest 844.1 @50,21 map 1413 era
+  tip Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north.
+  collect 5087 quest 844.1 @53,21 map 1413 era
 
 step The Crossroads
   label q844
@@ -313,6 +309,7 @@ step Ratchet
 
 step Stolen Booty
   tip Back down the beach, past the pirate camp: the crate of boots and the fragile crate with the lens sit at its south end.
+  tip Sunscale raptors here count toward the heads.
   collect 5076 quest 888.1 @62.6,49.6
   collect 5077 quest 888.2 @63.6,49.3
 
@@ -370,6 +367,7 @@ step Echeyakee
   zone The Barrens
   tip Echeyakee, a white lion, prowls the plains north of the Razormane camp.
   tip Careful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside Echeyakee, so clear them out before you blow the horn.
+  tip Sunscale raptors here count toward the heads.
   use 10327 quest 881.1 @55.8,17.1 map 1413
   collect 5100 quest 881.1
 
@@ -405,6 +403,7 @@ step Telf Joolam
 step The Barrens
   only Tauren,Shaman
   zone The Barrens
+  tip Sunscale raptors here count toward the heads.
   goto 56.0,19.9 "The Barrens"
 
 step Kranal Fiss
@@ -412,9 +411,17 @@ step Kranal Fiss
   zone The Barrens
   turnin 1527 reward 5176 263412 only Tauren -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
+step Finish the Raptor Heads
+  when !has 5062 x12
+  tip Still short of twelve? The Sunscale Screechers are thickest on the plains around Echeyakee's lair, north of the Razormane camp.
+  collect 5062 quest 869.1 @56,15 map 1413 era
+
 step The Crossroads
+  label q869
   zone The Barrens
   turnin 848                          -- Apothecary Helbrim
+  turnin 869                          -- Gazrog
+  accept 3281                         -- Gazrog
   turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
