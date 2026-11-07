@@ -784,6 +784,36 @@ fn z1_a_guide_goal_at_andron_gant_is_walked_to_his_floor_with_his_height_without
 	assert!((f(&out["withoutZ"]["endZ"]) - end_z).abs() <= 4.0, "and ends on his floor as well, by the lift ({})", out["withoutZ"]["endZ"]);
 }
 
+// #1024 (Pilk): Apothecary Zamah stands in the Pools of Vision, under Spirit Rise in Thunder Bluff (her spawn
+// height 112; the shaman trainers' hut right above her at 138). On the shipped maps her point has four surfaces:
+// Spirit Rise (138, outdoors), the Pools of Vision (112 and 126, indoors) and a roof (158). Walked to from the
+// flight master with her height the path ends in the Pools; without it (the pick-up guide's goals had none) it
+// ends up on Spirit Rise, out of the cave.
+#[test]
+fn z1_a_walk_to_apothecary_zamah_with_her_height_ends_in_the_pools_of_vision_without_it_on_spirit_rise_above_1024() {
+	skip_unless_ready!();
+	let script = r#"
+local Path = Polestar_NavEngine
+local ZAMAH = { -995.4, 278.6, 112 } -- her CMaNGOS spawn (the Forever server's agrees)
+local FLIGHT = { -1196.8, 29.1 }     -- Thunder Bluff's flight master, on the mesa
+local s, a, n = {}, {}, nil
+for _ = 1, 50 do n = Path.SurfacesAt(1, ZAMAH[1], ZAMAH[2], s, a); if n then break end; stub.advance(0.1) end
+local surfaces = {}
+for i = 1, n or 0 do surfaces[i] = { z = s[i], area = Path.AreaName(1, a[i]) or false } end
+local function lastZ(z)
+	local pts = Path.FindSync(1, { x = FLIGHT[1], y = FLIGHT[2] }, { x = ZAMAH[1], y = ZAMAH[2], z = z })
+	return pts and #pts >= 3 and pts[#pts - 1].z or false
+end
+emit({ surfaces = surfaces, withZ = lastZ(ZAMAH[3]), withoutZ = lastZ(nil) })"#;
+	let out = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], addons: vec![Addon::name("Polestar_Nav")], script: script.into(), ..Default::default() }).remove(0);
+	eprintln!("{out}");
+	let pools: Vec<f64> = out["surfaces"].as_array().unwrap().iter().filter(|s| s["area"] == "The Pools of Vision").map(|s| f(&s["z"])).collect();
+	assert!(pools.iter().any(|z| (z - 112.0).abs() <= 4.0), "her point has the Pools of Vision's floor at her height: {}", out["surfaces"]);
+	let (with_z, without_z) = (f(&out["withZ"]), f(&out["withoutZ"]));
+	assert!((with_z - 112.0).abs() <= 8.0, "with her height the walk ends in the Pools of Vision ({with_z})");
+	assert!(without_z > 130.0, "without it, on Spirit Rise above her ({without_z})");
+}
+
 #[test]
 fn k1_a_walk_into_a_cave_is_split_at_its_mouth_from_polestar_navs_chokepoints_lua_the_step_named_by_the_cave() {
 	skip_unless_ready!();

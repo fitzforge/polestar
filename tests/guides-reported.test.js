@@ -3617,3 +3617,29 @@ test("Bill's report (#1004): a town's bind never sends you back to the giver you
 		assert.deepEqual(back.map((g) => `${g.t} ${g.quest} (${g.npcName})`), [], `${guide}: back to an NPC of the step after binding at ${place}`);
 	}
 });
+
+// #1024 (Pilk, Tauren Druid): Apothecary Zamah's arrow led up out of the Pools of Vision, the cave under
+// Spirit Rise in Thunder Bluff. The NPCs down there (spawn heights 97 to 112; Spirit Rise above them at about
+// 135-138): every step at one says so, since the arrow cannot tell the floors apart. Birgitte Cranston's tip
+// had her "with the mage trainers on Spirit Rise".
+test('Pools of Vision NPCs (#1024): every step at one says they stand down in the cave under Spirit Rise', { skip: skip || needs('spawnz.json') }, () => {
+	const below = {
+		3419: 'Apothecary Zamah', 3044: 'Miles Welsh', 3045: 'Malakai Cross', 3046: 'Father Cobb', 3047: 'Archmage Shymm',
+		3048: 'Ursyn Ghull', 3049: 'Thurston Xane', 5543: 'Clarice Foster', 5957: 'Birgitte Cranston',
+	};
+	const down = /\b(Pools of Vision|cave under Spirit Rise)\b/;
+	const missing = [];
+	let seen = 0;
+	for (const guide of allGuides()) {
+		for (const step of compiled(guide).steps) {
+			const at = step.goals.filter((g) => ['accept', 'turnin', 'talk', 'train'].includes(g.t) && below[g.npc]);
+			if (at.length === 0) continue;
+			seen++;
+			const text = [].concat(step.note || [], at.map((g) => g.note || '')).join(' ');
+			if (!down.test(text)) missing.push(`${guide}: step "${step.title}" at ${below[at[0].npc]}`);
+			if (/\bon Spirit Rise\b/.test(text)) missing.push(`${guide}: step "${step.title}" puts ${below[at[0].npc]} on Spirit Rise`);
+		}
+	}
+	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
+	assert.deepEqual(missing, []);
+});

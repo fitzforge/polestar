@@ -27,6 +27,12 @@
 --   Lookup.QuestStep(quest, from, opts) -> step   -- accept, objectives, turn-in
 --       opts.inside(kind, id): where an NPC or object without a known spawn
 --       is; with it the step is always whole (see questStep)
+--   Lookup.SpawnZ(kind, id, point) -> z | nil
+--       the height of NPC or object `id`'s Codex spawn at point { map, x, y, f }
+--       (kind "npc" | "object"): its spawn on that map and frame nearest the
+--       point, within SPAWN_Z_YARDS. A goal at an NPC or object carries its
+--       spawn's height as `z`, so the arrow walks to its floor (#1024: Apothecary
+--       Zamah in the Pools of Vision, under Spirit Rise)
 --
 -- Generated guides are not saved. A tab holding one survives /reload: at
 -- ADDON_LOADED (before the Engine reopens saved tabs at login) every saved
@@ -141,11 +147,34 @@ local function frame(f)
 	return f == "e" and "e" or nil
 end
 
+-- A goal at point p: its map, x, y, f, and z, the height of the spawn p is
+-- (Codex spawns carry it, #1024).
 local function at(goal, p)
 	if p and p.map and p.x and p.y then
-		goal.map, goal.x, goal.y, goal.f = p.map, p.x, p.y, frame(p.f)
+		goal.map, goal.x, goal.y, goal.f, goal.z = p.map, p.x, p.y, frame(p.f), p.z
 	end
 	return goal
+end
+
+local SPAWN_Z_YARDS = 15
+
+function Lookup.SpawnZ(kind, id, p)
+	local C = Codex()
+	if not (C and p and p.map and p.x and p.y) then return nil end
+	local rec = (kind == "npc" and C.Npc(id)) or (kind == "object" and C.Object(id)) or nil
+	if not (rec and rec.spawns) then return nil end
+	local toWorld, f = ns.Compat.MapToWorld, frame(p.f)
+	local c0, px, py = toWorld(p.map, p.x, p.y, f)
+	if not c0 then return nil end
+	local best, bestD
+	for _, s in ipairs(rec.spawns) do
+		if s.z and s.map == p.map and frame(s.f) == f then
+			local c, wx, wy = toWorld(s.map, s.x, s.y, f)
+			local d = c == c0 and ((wx - px) ^ 2 + (wy - py) ^ 2) ^ 0.5 or nil
+			if d and d <= SPAWN_Z_YARDS and (not bestD or d < bestD) then best, bestD = s.z, d end
+		end
+	end
+	return best
 end
 
 local function located(p)

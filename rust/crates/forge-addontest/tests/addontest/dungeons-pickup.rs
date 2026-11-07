@@ -287,6 +287,35 @@ fn the_route_starts_where_the_player_stands_another_class_gets_no_class_quest() 
 	assert_eq!(mage, json!([f[0], f[1], f[2], f[4]]));
 }
 
+// #1024 (Pilk, Tauren Druid, Wailing Caverns): the arrow to Apothecary Zamah led up out of the Pools of Vision,
+// because the pick-up guide's goals had no height and a walk without one ends on the top surface. Every goal at
+// an NPC now carries the height of that NPC's Codex spawn there: a page giver's accept (Doan Karhan), a
+// prerequisite's accept (Bethor Iceshard, under the Undercity's ruins); an NPC without one stays without.
+#[test]
+fn the_pick_up_guide_s_goals_at_an_npc_carry_the_height_of_its_spawn_so_the_arrow_walks_to_its_floor_1024() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	c["npcs"]["1498"]["spawns"][0]["z"] = json!(-43.2);
+	c["npcs"]["6247"]["spawns"][0]["z"] = json!(91.3);
+	let pack = pack_of(&c, &inputs);
+	let out = run(
+		&pack,
+		&k(r#"
+local z = {}
+for _, s in ipairs(D.PickupGuide("{KEY}").steps) do
+	for _, g in ipairs(s.goals) do
+		if g.quest then z[g.t .. ":" .. g.quest] = g.z or false end
+	end
+end
+emit(z)"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["accept:1740"], json!(91.3), "Doan Karhan, the page's giver: his height");
+	assert_eq!(out["accept:1010"], json!(-43.2), "Bethor Iceshard, a prerequisite's giver: his height");
+	assert_eq!(out["turnin:1010"], json!(false), "Apothecary Renferrel has no height in the Codex: none");
+}
+
 #[test]
 fn a_quest_several_npcs_of_both_sides_give_tabetha_s_task_the_character_s_side_s_giver_nearest_the_player_never_the_other_side_s_though_the_page_names_the_first() {
 	let (codex, inputs) = fixture_parts();

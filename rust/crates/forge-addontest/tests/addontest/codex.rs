@@ -689,6 +689,7 @@ fn inputs(s: Synth) -> Inputs {
 			map_frames: v(&f["mapFrames"]),
 			meta: v(&f["meta"]),
 			instances: V::obj(),
+			spawnz: v(&f["spawnz"]),
 			dungeons: v(&f["dungeons"]),
 		},
 		atlasloot: s.atlasloot.as_ref().map(v),
@@ -1050,6 +1051,62 @@ fn buildcodex_writes_deterministic_json_and_a_pack_whose_memory_it_measures() {
 	assert!(is_match(toc, r"(?m)^Meta\.lua$"));
 	let licence = &a.pack.iter().find(|(f, _)| f == "LICENSE-DATA.txt").unwrap().1;
 	assert!(licence.contains("LOCAL BUILD (--local-extras)"), "{licence}");
+}
+
+// #1024: a Codex place takes the height of the NPC's spawn within 15 yd of it (spawnz.json), as the guides'
+// goals do; a place with no spawn that near has none, and the pack writes the heights field only then.
+#[test]
+fn buildcodex_gives_each_npc_place_the_height_of_its_spawn_within_15_yards_1024() {
+	let mut s = synthetic();
+	// Lelanai's places on Teldrassil: 25.2,50.1 and 25.3,50.2 lie a few yards from her spawn at the world point
+	// (1992.5, -1011.5); 70,70 is far from it.
+	s.forever["spawnz"] = json!({ "npc": { "4730": [[1, 1992.5, -1011.5, 1234.5]] }, "object": {} });
+	let mut o = Options::new(root());
+	o.version = Some("1.0.0".into());
+	let out = build_inputs(&o, &inputs(s)).unwrap_or_else(|e| panic!("{e}"));
+	let npcs: Value = serde_json::from_str(&out.json.iter().find(|(f, _)| f == "npcs.json").unwrap().1).unwrap();
+	let spawns = npcs["4730"]["spawns"].as_array().unwrap().clone();
+	assert_eq!(spawns.iter().map(|p| p["z"].clone()).collect::<Vec<_>>(), vec![json!(1234.5), json!(1234.5), Value::Null], "{spawns:?}");
+	let text: String = out.pack.iter().filter(|(f, _)| f.starts_with("Npcs")).map(|(_, t)| t.as_str()).collect();
+	assert!(is_match(&text, r";z1234\.5,1234\.5,[;\\]"), "the pack carries her heights, none for the far place");
+	assert_eq!(text.matches(";z").count(), 1, "and no other NPC gets a heights field");
+}
+
+// #1024: the heights field round-trips through Lookup/Codex.lua, each height on its own point when a record's
+// points span maps (the pack groups them by map), before a title or a mailbox field; a record without heights
+// decodes with none.
+#[test]
+fn spawn_heights_round_trip_through_codex_lua_on_the_point_they_belong_to_1024() {
+	let mut codex = sample_codex();
+	codex["npcs"]["3419"] = json!({ "id": 3419, "name": "Apothecary Zamah", "level": 22, "levelMax": null, "faction": "H", "rare": false, "elite": false, "boss": false,
+		"instance": null, "roles": [], "loot": [], "subName": "Royal Apothecary Society", "spawns": [
+			{ "map": 1456, "x": 22.8, "y": 20.9, "f": "e", "z": 112 },
+			{ "map": 1412, "x": 34.4, "y": 21.1, "f": "e" },
+			{ "map": 1456, "x": 30, "y": 30, "f": "e", "z": 135.5 } ] });
+	codex["objects"]["143981"] = json!({ "id": 143981, "name": "Mailbox", "treasure": false, "loot": [], "mailbox": true, "faction": "H",
+		"spawns": [{ "map": 1456, "x": 46, "y": 50, "f": "e", "z": 131.2 }] });
+	let pack = write_codex_pack(&codex, &CodexOpts::default());
+	let out = run(
+		r#"
+local C = Polestar.Codex
+C.Load()
+local function pts(r)
+	local o = {}
+	for i, s in ipairs(r.spawns) do o[i] = { map = s.map, x = s.x, y = s.y, z = s.z or false } end
+	return o
+end
+local z, box, d = C.Npc(3419), C.Object(143981), C.Npc(240)
+emit({ zamah = pts(z), title = z.subName, box = pts(box), mailbox = box.mailbox, faction = box.faction, dughan = pts(d) })
+"#,
+		"",
+		Some(&pack),
+	);
+	let got = &out[0];
+	assert_eq!(got["zamah"], json!([{ "map": 1456, "x": 22.8, "y": 20.9, "z": 112 }, { "map": 1456, "x": 30, "y": 30, "z": 135.5 }, { "map": 1412, "x": 34.4, "y": 21.1, "z": false }]));
+	assert_eq!(got["title"], "Royal Apothecary Society");
+	assert_eq!(got["box"], json!([{ "map": 1456, "x": 46, "y": 50, "z": 131.2 }]));
+	assert_eq!((&got["mailbox"], &got["faction"]), (&json!(true), &json!("H")));
+	assert!(got["dughan"].as_array().unwrap().iter().all(|p| p["z"] == false), "a record without heights has none");
 }
 
 #[test]
