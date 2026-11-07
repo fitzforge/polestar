@@ -160,7 +160,7 @@ step Nathanos Blightcaller
 step Corin's Crossing
   tip Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
-  goto 26.5,74.7
+  goto 52.3,58.2 "Corin's Crossing" live
   collect 15447 x7
   complete 6022
 

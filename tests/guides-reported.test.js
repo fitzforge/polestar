@@ -4260,3 +4260,34 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	assert.ok(at(ret, 'turnin 57 on the return', is('turnin', 57)) < at(ret, 'accept 58', is('accept', 58)), '57 handed in on the return before 58');
 	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
 });
+
+// Fitz's report (#1149): The Barrens' "The Zhevra" step sent the arrow to `goto 52.5,27.5 "Zhevra"` by the
+// Crossroads, then 432 yards on to the nearest Zhevra Runner: a goto from the hand-written v1 route with nothing to
+// do at it. In a written guide a goto right before a kill or collect leads to that work: its nearest spot is within
+// 200 yards, or the goto is a way in (a cave or subzone, with its area). The others (the Razormane camp's prowler
+// claws, Feralas' forest walkers, Corin's Crossing pointing at Nathanos) went with it.
+test("Fitz's report (#1149): a goto before a kill or collect in a written guide leads to that work", { skip }, () => {
+	data = data || loadData(DATA);
+	const { point } = makeProjector(data.mapFrames);
+	const at2 = (map, x, y, f) => point(map, x, y, f === 'e' ? 'e' : 'l');
+	const bad = [];
+	for (const guide of allGuides()) {
+		if (!fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').startsWith('# Generated')) continue;
+		for (const step of compiled(guide).steps) {
+			const gs = step.goals;
+			for (let i = 0; i + 1 < gs.length; i++) {
+				const a = gs[i], b = gs[i + 1];
+				if (a.t !== 'goto' || a.map == null || a.area || !['kill', 'collect'].includes(b.t)) continue;
+				const spots = b.spots && b.spots.length ? b.spots.map((p) => ({ map: p.map || b.map, ...p })) : b.map != null ? [b] : [];
+				const from = at2(a.map, a.x, a.y, a.f);
+				let best = Infinity;
+				for (const p of spots) {
+					const to = at2(p.map || b.map, p.x, p.y, p.f || b.f);
+					if (to.c === from.c) best = Math.min(best, dist(from, to));
+				}
+				if (best > 200 && best < Infinity) bad.push(`${guide}: step "${step.title}": goto ${a.x},${a.y} is ${Math.round(best)} yd from ${b.t} ${b.quest || ''} ${b.item || b.npc || ''}`);
+			}
+		}
+	}
+	assert.deepEqual(bad, []);
+});

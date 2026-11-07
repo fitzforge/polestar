@@ -153,7 +153,6 @@ step The Crossroads
 
 step The Zhevra
   tip Zhevra Runners graze north and east of town.
-  goto 52.5,27.5 "Zhevra"
   collect 5086 quest 845.1
 
 step The Crossroads
@@ -168,7 +167,6 @@ step Razormane camp
   kill 3268 quest 871.2
   collect 12708 quest 5041.1 @58.8,25.8
   kill 3265 quest 871.3
-  goto 55.0,26.0 "Razormane camp"
   collect 5096 quest 903.1
 
 # Turn in a carried alternative here before starting the shared ritual;
