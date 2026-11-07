@@ -316,6 +316,37 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 	}
 });
 
+// Flow audit, Troll Durotar (#1077): the Troll guide went on to the Crossroads (Meats to Orgrimmar,
+// Crossroads Conscription, the flight path), then walked 2,490 yd back to Razor Hill to hand Threat from
+// Below to Orgnil, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the
+// player had stood next to. Razor Hill comes on the walk from Margoz to Far Watch Post, as in Orc's guide;
+// both races hand Crossroads Conscription to Sergra on the Barrens guide's first stop, with the five quests.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
+	const kargal = at(list, 'the Conscript of the Horde turn-in', is('turnin', 840));
+	assert.ok(threat < kargal, 'Orgnil in Razor Hill before Kargal at Far Watch Post');
+	const orgnil = list[threat].goal.npc;
+	assert.deepEqual(list.slice(kargal).filter(({ goal }) => goal.npc === orgnil && !goal.optional).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil after Far Watch Post');
+	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
+});
+
+test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads quests on the stop they arrive at from Far Watch Post`, { skip }, () => {
+	for (const race of ['Orc', 'Troll']) {
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
+		const first = list[0].step;
+		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
+			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
+		}
+		assert.ok(list.some(({ step, goal }) => step === first && goal.t === 'getfp' && goal.location === 'Crossroads'), `${race}: the Crossroads flight path on that stop`);
+	}
+});
+
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: no "along the way" lists (Fitz: "They should just be steps")`, { skip }, () => {
+	assert.deepEqual(compiled(DUROTAR).steps.filter((step) => step.along && step.goals.some((g) => [789, 4402, 97225, 837].includes(g.quest))).map((step) => step.title), []);
+});
+
 // --- The starting glens: one delivery quest no longer sends you off and back.
 
 test(`${TELDRASSIL}: Dolanaar Delivery is taken from Porthannius after the Shadowglen quests, on the way out to Dolanaar`, { skip }, () => {
@@ -1092,6 +1123,54 @@ test(`${BARRENS}: DexeeXI's report (#907): Northwatch Hold is cleared before Gil
 // Bristleback 878 asks for drops tusks, so the tusks are collected on 878's
 // step, after its accept; Mankrik's wife (Lost in Battle, 4921) stays on the
 // walk south.
+// Flow audit, The Barrens (#1078). 12-16: Orcs and Trolls walked to Ratchet for its flight path alone and
+// back to the Crossroads, 25 minutes before the route went to Ratchet anyway; Kolkar Leaders' Regthar was
+// passed at 0 yd and Barak's camp walked through, the quest taken 326 minutes later in the 19-23 guide.
+// 19-23: Raptor Horns was walked past at Mebok on the first Ratchet stop and handed in on the second, 149
+// minutes later; a Warrior was sent from Camp Taurajo to Thun'grim (2,300 yd) and back for one hand-in.
+const BARRENS_12 = 'forever/horde/02-the-barrens.guide';
+test(`${BARRENS_12}: Orcs and Trolls learn Ratchet's flight path on the Ratchet visit, with no trip there and back before it`, { skip }, () => {
+	for (const race of ['Orc', 'Troll']) {
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = goals(BARRENS_12).filter(forRace);
+		const gazlowe = at(list, `${race}: accept 887 (Southsea Freebooters)`, is('accept', 887));
+		assert.deepEqual(list.slice(0, gazlowe).filter(({ goal }) => (goal.t === 'getfp' && goal.location === 'Ratchet') || (goal.t === 'goto' && goal.x > 60 && goal.y > 34)).map(({ goal }) => `${goal.t} ${goal.location || goal.text}`), [], `${race}: nothing at Ratchet before its first stop`);
+	}
+});
+
+test(`${BARRENS_12}: Kolkar Leaders is taken, worked and handed in on Regthar's first loop, with Centaur Bracers`, { skip }, () => {
+	const list = goals(BARRENS_12);
+	const bracers = at(list, 'accept 855', is('accept', 855));
+	const accept = at(list, 'accept 850', is('accept', 850));
+	assert.equal(list[accept].s, list[bracers].s, 'taken from Regthar with Centaur Bracers');
+	const head = at(list, "Barak's head", (g) => g.t === 'collect' && g.quest === 850);
+	const turnin = at(list, 'turnin 850', is('turnin', 850));
+	assert.equal(list[turnin].s, list[at(list, 'turnin 855', is('turnin', 855))].s, 'handed in with the bracers');
+	assert.ok(accept < head && head < turnin && turnin < at(list, 'turnin 870', is('turnin', 870)), "Barak on that loop, before Tonga's Forgotten Pools hand-in");
+	assert.ok(list.some(({ s, goal }) => s === list[turnin].s && is('accept', 851)(goal)), 'Verog the Dervish taken at the hand-in');
+	assert.ok(!goals(BARRENS).some(({ goal }) => goal.quest === 850), 'nothing of Kolkar Leaders is left for the 19-23 guide');
+});
+
+test(`${BARRENS_12}: no "along the way" lists`, { skip }, () => {
+	assert.deepEqual(compiled(BARRENS_12).steps.filter((step) => step.along).map((step) => step.title), []);
+});
+
+test(`${BARRENS}: Raptor Horns is handed to Mebok on the first Ratchet stop when the horns are done`, { skip }, () => {
+	const list = goals(BARRENS);
+	const early = at(list, 'turnin 865', is('turnin', 865));
+	assert.ok(early < at(list, 'accept 891', is('accept', 891)), 'before Northwatch Hold');
+	assert.ok(list[early].step.when.some((p) => p.k === 'complete' && !p.neg && p.q === 865), 'only when the horns are done');
+});
+
+test(`${BARRENS}: a Warrior hands Speak with Thun'grim to Thun'grim on the last Crossroads loop, not from Camp Taurajo`, { skip }, () => {
+	const list = goals(BARRENS).filter(forClass('WARRIOR'));
+	const accept = at(list, 'accept 1825', is('accept', 1825));
+	const turnin = at(list, 'turnin 1825', is('turnin', 1825));
+	assert.notEqual(list[turnin].s, list[accept].s, 'not in the Camp Taurajo step');
+	assert.ok(turnin > at(list, 'turnin 868', is('turnin', 868)), "after the flight back to the Crossroads (Korran's Egg Hunt)");
+	assert.ok(turnin > at(list, 'turnin 893', is('turnin', 893)), "after Tatternack's hand-in at Camp Taurajo");
+});
+
 test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tribes at War, not before it`, { skip }, () => {
 	const list = goals(BARRENS);
 	const accept = at(list, 'accept 878 (Tribes at War)', is('accept', 878));
@@ -2392,7 +2471,13 @@ test('forever/horde/04-the-barrens.guide: Fitz\'s report (#274): the Dry Hills s
 	for (const p of [goal, ...(goal.spots || []).filter((spot) => !spot.alt)]) {
 		assert.ok(p.x >= 40 && p.x <= 52 && p.y >= 10 && p.y <= 22, `the horns' arrow at ${p.x},${p.y} is in the Dry Hills`);
 	}
-	assert.ok(horns < at(list, 'the Raptor Horns turn-in', is('turnin', 865)), 'before the horns are handed in at Ratchet');
+	// The first Ratchet stop hands the horns in only when they are done (#1078); the unconditional
+	// hand-in, on the second pass, comes after the Dry Hills.
+	const last = list.map(({ goal }, i) => [goal, i]).filter(([g]) => is('turnin', 865)(g)).pop()[1];
+	assert.ok(horns < last, 'before the horns are handed in at Ratchet');
+	for (const [{ step }, i] of list.map((e, i) => [e, i]).filter(([{ goal }], i) => is('turnin', 865)(goal) && i < horns)) {
+		assert.ok(step.when.some((p) => p.k === 'complete' && !p.neg && p.q === 865), `the hand-in at goal ${i}, before the Dry Hills, waits for the horns to be done`);
+	}
 });
 
 // Rohkin (#947): after Regthar, a Warlock walked into Stonetalon Mountains and straight back to the

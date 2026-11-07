@@ -17,9 +17,8 @@ L["Unknown command '%s'."] = "알 수 없는 명령어 '%s'."
 
 -- Core/Data.lua
 L["%s not installed"] = "%s 미설치"
-L["%s from another version"] = "다른 버전의 %s"
-L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 설치가 불완전합니다: %s. 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤, 최신 Polestar zip을 그곳에 압축 해제하십시오(CurseForge 또는 GitHub Releases, \"Source code\" 아님)."
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar는 더 이상 이전 폴더인 Polestar_Guides_<language> 및 Polestar_Names_<language>(%s)를 사용하지 않습니다. 이제 Polestar_<language>에 두 폴더의 내용이 모두 들어 있습니다. 게임을 종료하고 Interface/AddOns에서 해당 폴더를 삭제하세요."
+L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "설치가 섞여 있거나 불완전합니다(%s). 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤 Polestar를 다시 설치하십시오: Polestar Client, CurseForge 앱, 또는 GitHub Releases의 최신 zip(\"Source code\" 아님)."
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Polestar %s 이상이 필요합니다."
@@ -1699,6 +1698,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "G
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
 L["Step %d of %d (guide step %d): %s"] = "%d단계 / %d (가이드 %d단계): %s"
+L["Install: %s"] = "설치: %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "애드온 목록에서 꺼짐"
@@ -2970,3 +2970,5 @@ L["Finished: %s - %s"] = "완료: %s - %s"
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Polestar를 쓰는 각 파티원의 레벨, 단계, 내 단계에서 아직 필요한 것; 이름을 클릭하면 화살표가 그 파티원을 가리킵니다. /polestar party로 표시하거나 숨깁니다."
 -- L["In dungeons"] = "던전에서"
 -- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "던전 및 공격대에서 창의 동작입니다. /polestar 또는 단축키로 열면 나갈 때까지 열려 있습니다."
+-- L["%s from another version"] = "다른 버전의 %s"
+-- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 설치가 불완전합니다: %s. 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤, 최신 Polestar zip을 그곳에 압축 해제하십시오(CurseForge 또는 GitHub Releases, \"Source code\" 아님)."

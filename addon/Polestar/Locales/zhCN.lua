@@ -17,9 +17,8 @@ L["Unknown command '%s'."] = "未知命令“%s”。"
 
 -- Core/Data.lua
 L["%s not installed"] = "%s 未安装"
-L["%s from another version"] = "%s 来自其他版本"
-L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 安装不完整：%s。请关闭游戏，删除 Interface/AddOns 中所有 Polestar 文件夹，再把最新的 Polestar 压缩包解压到那里（从 CurseForge 或 GitHub Releases 下载，不要用“Source code”）。"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar 不再使用旧文件夹 Polestar_Guides_<语言> 和 Polestar_Names_<语言>（%s）：现在两者都包含在 Polestar_<语言> 中。请关闭游戏，并从 Interface/AddOns 中删除这些旧文件夹。"
+L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "你的安装混杂了不同版本或不完整（%s）。请关闭游戏，删除 Interface/AddOns 中所有 Polestar 文件夹，然后重新安装 Polestar：使用 Polestar Client、CurseForge 应用，或 GitHub Releases 上最新的压缩包（不要用“Source code”）。"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "需要 Polestar %s 或更新版本。"
@@ -1699,6 +1698,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
 L["Step %d of %d (guide step %d): %s"] = "步骤 %d / %d（指南步骤 %d）：%s"
+L["Install: %s"] = "安装：%s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "已在插件列表中关闭"
@@ -2970,3 +2970,5 @@ L["Finished: %s - %s"] = "已完成：%s - %s"
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "每位使用 Polestar 的成员的等级、步骤以及还需要你的步骤中的什么；点击名字让箭头指向他们。/polestar party 显示或隐藏面板。"
 -- L["In dungeons"] = "副本内显示"
 -- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "设置在地下城和团队副本中的窗口行为。使用 /polestar 或快捷键可临时打开，直到离开副本。"
+-- L["%s from another version"] = "%s 来自其他版本"
+-- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s 安装不完整：%s。请关闭游戏，删除 Interface/AddOns 中所有 Polestar 文件夹，再把最新的 Polestar 压缩包解压到那里（从 CurseForge 或 GitHub Releases 下载，不要用“Source code”）。"
