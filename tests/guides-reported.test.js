@@ -4973,3 +4973,15 @@ test('forever/alliance/50-60/01-burning-steppes.guide: final review: Pebblebitty
 	const trip = list.find(({ goal }) => goal.t === 'goto' && goal.map === 1432 && goal.x === 18.2);
 	assert.ok(trip && (trip.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(3181)), 'the Pebblebitty trip is the group\'s');
 });
+
+// Final route review, Alliance 40-60: Salfa where Timbermaw Hold's tunnel comes out (as on the Horde side); the western
+// Winterfall camp a step, not lists.
+test('forever/alliance/50-60/03-winterspring.guide: final review: Salfa where the tunnel comes out, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const salfa = at(list, 'turnin 8465', is('turnin', 8465));
+	assert.ok(salfa < at(list, 'accept 3783', is('accept', 3783)), 'before Everlook');
+	assert.equal(list[salfa].s, list[at(list, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+	const kills = new Set(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 5082).map((e) => e.s));
+	assert.equal(kills.size, 1, 'the western camp in one step');
+});

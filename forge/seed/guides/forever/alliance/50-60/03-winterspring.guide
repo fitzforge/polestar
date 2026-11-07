@@ -1,5 +1,6 @@
 # Winterspring and Eastern Plaguelands, Alliance ~53 to ~55 (consensus visits 64 and 65).
-# Flow: Everlook -> west along the road: Starfall Village, the Ruins of Kel'Theril, Donova Snowden, Salfa and the
+# Flow: (Speak to Salfa handed in at the tunnel's exit on the way in, in the previous guide) -> Everlook -> west
+# along the road: Starfall Village, the Ruins of Kel'Theril, Donova Snowden and the
 # western Winterfall camp -> hearth Everlook -> Winterfall Village and the Ice Thistle Hills -> Everlook -> the
 # hills again -> Everlook -> Starfall Village -> south to Jaron's crate and wagon, Darkwhisper Gorge -> back to Starfall,
 # Donova and Salfa -> out through Timbermaw Hold to the Eastern Kingdoms -> Southshore, Alterac, Chillwind Camp ->
@@ -75,11 +76,6 @@ step Donova Snowden
   turnin 6603
   accept 4842
   accept 5082
-
-step Salfa
-  tip Salfa guards the mouth of Timbermaw Hold, north-west of Donova.
-  turnin 8465
-  accept 8464
 
 step The Winterfall camp
   tip The western Winterfall camp sits in the hills between Salfa and Donova. Any furbolg here can drop an Empty Firewater Flask (about one in ten) and, rarely, a Winterfall Ritual Totem: right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh.

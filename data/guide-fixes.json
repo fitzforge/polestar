@@ -3018,6 +3018,91 @@
 					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "a4060-ws-den-watchers-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8464,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Winterfall Activity: Den Watchers live in the western camp by the hot springs (the Frostfire step) and in Winterfall Village; the along list duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-ursa-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 8464,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Winterfall Activity: Winterfall Ursa live only in Winterfall Village (npcs.json, map 1452: 65-69,37-40), killed on that step; the along list put them by the hot springs.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-pathfinders-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Threat of the Winterfall: the Pathfinders hold the western camp by the hot springs, between Salfa and Donova (the Frostfire step).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-den-watchers-5082-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Threat of the Winterfall: the Den Watchers of the western camp, on the Frostfire step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-ws-totemics-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Threat of the Winterfall: the Totemics of the western camp, on the Frostfire step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
 		}
 	]
 }

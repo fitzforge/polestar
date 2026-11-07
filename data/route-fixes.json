@@ -7555,6 +7555,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the south-west bones before the Western Pylon, then north to the refuge."
+			},
+			{
+				"a": [
+					"turnin",
+					8465
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride from Donova (as on the Horde side)."
 			}
 		]
 	}
