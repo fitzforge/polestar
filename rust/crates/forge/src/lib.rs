@@ -624,6 +624,7 @@ fn stage(cache: &Cache, name: &'static str, key: String, log: &mut dyn FnMut(&st
 	cache.forget(name);
 	log(&format!("{name}: building ({})", &key[..12]));
 	let outputs = f(log)?;
+	release_freed_memory();
 	cache.store(name, &key, &outputs)?;
 	let seconds = t0.elapsed().as_secs_f64();
 	log(&format!("{name}: done in {seconds:.1} s, {} files", outputs.len()));
@@ -635,6 +636,18 @@ fn stage(cache: &Cache, name: &'static str, key: String, log: &mut dyn FnMut(&st
 		std::fs::write(&p, serde_json::to_string_pretty(&rows).map_err(|e| e.to_string())?).map_err(|e| format!("{}: {e}", p.display()))?;
 	}
 	Ok(StageRun { stage: name, key, skipped: false, seconds, outputs })
+}
+
+/// Hands the heap's free pages back to the system once a stage is done. glibc's malloc keeps what a
+/// stage freed in its arenas (one per thread that allocated): after a 3-start routes stage the build
+/// stayed at 7.1 GB resident, under the second walks pass that came on top of it (peak 18.1 GB, over
+/// a 16 GB scope).
+fn release_freed_memory() {
+	// SAFETY: malloc_trim returns only free pages of glibc's own heap; no live allocation is touched.
+	#[cfg(all(target_os = "linux", target_env = "gnu"))]
+	unsafe {
+		libc::malloc_trim(0);
+	}
 }
 
 /// The extra walk pairs file's name in `<out>/walks/` (BuildOpts::walk_pairs).
