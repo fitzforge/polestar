@@ -32,7 +32,7 @@ ns.RegisterDefaults("ui", {
 	upcoming = 0, -- Up next is off by default (the reading flow names the next person instead)
 	upcomingOpen = false, -- when on, upcoming steps start listed instead of collapsed
 	showNotes = true,
-	notesOpen = true, -- a step's tip starts in full; off, it starts on one line (players asked for it open)
+	notesOpen = false, -- a step's tip starts on one line until clicked; on, it starts in full (Fitz, 2026-11-07: the full tip was a wall of text)
 	combat = "show", -- "show" | "fade" | "hide"; steady by default, a fade on every pull distracts
 	instance = "hide", -- "show" | "hide": in dungeons, raids, battlegrounds and arenas, until the player opens it there; hidden by default, a healer asked for it out of the way
 	reduceMotion = false,
@@ -338,6 +338,58 @@ function UI.GoalRewards(goal)
 	if type(r.money) == "number" and r.money > 0 then parts[#parts + 1] = money(r.money) end
 	if #parts == 0 then return nil end
 	return table.concat(parts, "  \194\183  ")
+end
+
+-- What doing a quest opens up (Unlocks.For), as tooltip lines appended to
+-- `lines`: "Leads to" with up to UNLOCKS_SHOWN follow-ups ("The Defias
+-- Brotherhood (part 2 of 7)", "Solomon's Law, from Magistrate Solomon"),
+-- "+N more", then the chain's last quest and its reward. Nothing when the
+-- quest opens nothing known.
+local UNLOCKS_SHOWN = 4
+local function unlockLabel(e)
+	local label = e.title
+	if e.part then label = format(L["%s (part %d of %d)"], label, e.part, e.of) end
+	if e.giver then label = format(L["%s, from %s"], label, e.giver) end
+	return label
+end
+function UI.UnlockLines(quest, lines)
+	local U = ns.Unlocks
+	local u = U and U.For(quest)
+	if not u then return lines end
+	for i, e in ipairs(u.next) do
+		if i > UNLOCKS_SHOWN then
+			lines[#lines + 1] = { left = "", right = format(L["+%d more"], #u.next - UNLOCKS_SHOWN) }
+			break
+		end
+		lines[#lines + 1] = { left = i == 1 and L["Leads to"] or "", right = unlockLabel(e) }
+	end
+	local last = u.last
+	if last then
+		lines[#lines + 1] = { left = L["Chain ends with"], right = format(L["%s (part %d)"], last.title, last.part) }
+		local rewards = last.rewards and UI.GoalRewards({ rewards = last.rewards })
+		if rewards then lines[#lines + 1] = { left = L["Final reward"], right = rewards } end
+	end
+	return lines
+end
+
+-- Engine.SkipLoses' list as one line: "Skipping also skips: A, B, C, D and 2
+-- more", the parts of a series under one title ("The People's Militia (2
+-- parts)"); nil for none.
+function UI.SkipLosesText(list)
+	if type(list) ~= "table" or #list == 0 then return nil end
+	local titles, count = {}, {}
+	for _, e in ipairs(list) do
+		if not count[e.title] then titles[#titles + 1] = e.title end
+		count[e.title] = (count[e.title] or 0) + 1
+	end
+	local names = {}
+	for i = 1, math.min(#titles, UNLOCKS_SHOWN) do
+		local t = titles[i]
+		names[i] = count[t] > 1 and format(L["%s (%d parts)"], t, count[t]) or t
+	end
+	local text = table.concat(names, ", ")
+	if #titles > UNLOCKS_SHOWN then text = format(L["%s and %d more"], text, #titles - UNLOCKS_SHOWN) end
+	return format(L["Skipping also skips: %s"], text)
 end
 
 -- An area objective (mobs spread over a wide area, `spread` with its spot

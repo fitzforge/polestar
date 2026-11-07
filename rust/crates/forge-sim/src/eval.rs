@@ -41,8 +41,10 @@ pub const POOL_YD: f64 = 200.0;
 pub const BIND_AT_YD: f64 = 200.0;
 /// Yards from a flight master a stop is at it: v1's planned flight path is learnt there only.
 pub const FP_AT_YD: f64 = 300.0;
-/// Seconds a hearth the route chooses (no v1 hearth line there) must save over the leg.
-pub const FREE_HEARTH_GAIN_SEC: f64 = 180.0;
+/// Seconds a hearth the route chooses (no v1 hearth line there) must save over the leg, and the
+/// least the leg must take: the addon's rule (Nav/Travel.lua HEARTH_MARGIN, HEARTH_MIN_TRIP; #1096).
+pub const FREE_HEARTH_GAIN_SEC: f64 = 120.0;
+pub const FREE_HEARTH_MIN_TRIP_SEC: f64 = 180.0;
 /// Seconds a deathskip must save over the leg (the walk, or the network's way): a clear margin,
 /// v1's own for a hearth over the leg (the gate's model) and the old planner's for a deathskip,
 /// about the death's own uncertainty (deathskipSec's spread).
@@ -841,7 +843,7 @@ impl<'a> Evaluator<'a> {
 			let better = if self.plan_hearth {
 				h < c + PLAN_HEARTH_SLACK
 			} else if free {
-				h + FREE_HEARTH_GAIN_SEC < c
+				c >= FREE_HEARTH_MIN_TRIP_SEC && h + FREE_HEARTH_GAIN_SEC <= c
 			} else {
 				h + 30.0 < c
 			};
