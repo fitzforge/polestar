@@ -5931,6 +5931,53 @@
 				],
 				"reason": "Quest volume, 2026-11-07: Gatehouse Goods (level 15, from 9, 800 XP) is taken on a visit the route already makes: Elaine Trias gives it on the same stop; the door is up the stairs of her shop. Recordings: offered to 2 characters, 2 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 490,
+				"reason": "Quest volume, 2026-11-07: Bounty: Gnarlpine Furbolg (level 8, from 5, 700 XP) is taken on a visit the route already makes: Sentinel Shayla Nightbreeze stands on the road to the Darnassus gate, which the west loop walks; every Gnarlpine furbolg of the barrow and Gnarlpine Hold drops the fangs, and she is passed again on the way to the city. Recordings: offered to 12 characters, 11 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 923,
+				"after": [
+					"turnin",
+					922
+				],
+				"reason": "Quest volume, 2026-11-07: Tumors (level 9, from 4, 980 XP) is taken on a visit the route already makes: Rellian Greenspyre gives it when Denalan's letter (922) is handed in on the early Darnassus visit of the west loop; the timberlings drop the tumors on the walk into the Oracle Glade. Recordings: offered to 16 characters, 11 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2519,
+				"reason": "Quest volume, 2026-11-07: The Temple of the Moon (level 10, from 5, 85 XP) is taken on a visit the route already makes: Sister Aquinne in Darnassus, on the early city visit of the west loop (The Sisterhood of Elune is handed to her there). Recordings: offered to 15 characters, 13 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2518,
+				"after": [
+					"turnin",
+					2519
+				],
+				"reason": "Quest volume, 2026-11-07: Tears of the Moon (level 12, from 5, 1150 XP) is taken on a visit the route already makes: Priestess A'moora, beside Aquinne's errand on the early Darnassus visit; Lady Sathrah lurks just north of the Oracle Glade loop. Recordings: offered to 12 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 2520,
+				"after": [
+					"turnin",
+					2518
+				],
+				"reason": "Quest volume, 2026-11-07: Sathrah's Sacrifice (level 12, from 5, 910 XP) is taken on a visit the route already makes: Priestess A'moora on the last Darnassus visit; the fountain is inside her temple. Recordings: offered to 6 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 98067,
+				"reason": "Quest volume, 2026-11-07: Eyes of the Sentinels (level 11, from 1, 660 XP) is taken on a visit the route already makes: Sentinel Dalia Sunblade in the Temple of the Moon on the early Darnassus visit; the four owl spots are on the city walks. Recordings: offered to 9 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 938,
+				"reason": "Quest volume, 2026-11-07: Mist (level 12, from 7, 910 XP) is taken on a visit the route already makes: Mist lies by the Oracle Glade's west wall among the harpies the loop kills; Sentinel Arynia takes her at the moonwell. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
 			}
 		],
 		"skip": [
