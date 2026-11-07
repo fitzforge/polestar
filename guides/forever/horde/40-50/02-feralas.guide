@@ -81,7 +81,7 @@ step Orgrimmar
 # Steamwheedle Port, around 46.7), Deliver to MacKinley (2874) in Booty Bay
 # around level 50, A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
-# Hinterlands.
+# Hinterlands, Improved Quality (7734) on the next Feralas visit.
 #
 # Optional: Find OOX-22/FE! (2766) and Rescue OOX-22/FE! (2767): the distress
 # beacon drops about one kill in forty; the reward waits in Booty Bay.
@@ -409,6 +409,10 @@ step Ruins of Isildien: kill these as you meet them
   kill 5236 quest 2980.1
   collect 9371 quest 2979.1
 
+step Feral Scar Vale yetis
+  tip North-west of the ruins, the yetis den in Feral Scar Vale; every yeti there can drop a thick hide.
+  collect 8973 quest 2822.1
+
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale, just north-west of the ruins. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
   tip Careful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock.
@@ -421,6 +425,8 @@ step Camp Mojache
   turnin 7730                           -- Hadoken Swiftstrider
   turnin 7731
   vendor nearest
+  turnin 2822                           -- Jangdor Swiftstrider, inside
+  accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   turnin 2979 optional -- Rok Orhan

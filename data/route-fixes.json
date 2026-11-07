@@ -2838,6 +2838,54 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): Zukk'ash Infestation and Stinglasher are handed in on the Mojache stop after the ruins, with The Ogres of Feralas and Dark Ceremony, not on a return of their own"
+			},
+			{
+				"a": [
+					"task",
+					2822
+				],
+				"b": [
+					"turnin",
+					7730
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): The Mark of Quality's Thick Yeti Hides drop from the Feral Scar yetis (52-55,56-60), beside OOX-22/FE's cave on the same sweep; handed in on that Mojache stop, so Improved Quality comes along and its Rage Scar yetis fall on the next visit's ride back from the Northspring harpies"
+			},
+			{
+				"a": [
+					"task",
+					1424
+				],
+				"b": [
+					"task",
+					1426
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Swamp of Sorrows 45-47, #1166): the Pool of Tears (70.7,52.8) comes on the ride east from the Soggy Scroll, before the coast and Misty Reed Post; the order went to Misty Reed Post for the murlocs, rode north to the pool and came back to Misty Reed for Katar's hand-ins before riding west to Stonard"
+			},
+			{
+				"a": [
+					"task",
+					3063
+				],
+				"b": [
+					"task",
+					7734
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): Improved Quality's Rage Scar yetis (53,32) live by the road back south-east from the Northspring harpies; done on that ride, and handed in on the one Mojache stop after it, instead of a ride out from the camp and back at the end of the guide"
+			},
+			{
+				"a": [
+					"task",
+					7734
+				],
+				"b": [
+					"turnin",
+					3063
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): one Camp Mojache stop after the north-west sweep: Natural Materials, Vengeance on the Northspring and Improved Quality together"
 			}
 		],
 		"notes": [
@@ -3535,18 +3583,6 @@
 			{
 				"a": [
 					"task",
-					2822
-				],
-				"b": [
-					"task",
-					3128,
-					2
-				],
-				"why": "Rev15H2 c15 read (Horde Feralas II): Natural Materials' third objective is worked 390 yd from the Feral Scar yetis of The Mark of Quality; done with them, so the Feralas II loop is one ride west (c14 B4, still open in c15)"
-			},
-			{
-				"a": [
-					"task",
 					3520
 				],
 				"b": [
@@ -3928,6 +3964,34 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Arathi 30-40, #1157): the Witherbark Medicine Pouches drop only from Witherbark Witch Doctors (33%): 21 stand in Witherbark Village, where the Shadow Hunter Knife drops, against 3 west of Refuge Pointe."
+			},
+			{
+				"a": [
+					"task",
+					3128,
+					1
+				],
+				"b": [
+					"task",
+					3128,
+					0
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): Natural Materials' Encrusted Minerals (sprite darters, 68,47.5) and Splintered Logs (a Wandering Forest Walker at 54,47) are gathered on the ride west out of Camp Mojache, one after the other"
+			},
+			{
+				"a": [
+					"task",
+					3128,
+					3
+				],
+				"b": [
+					"task",
+					3128,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): the Resilient Sinew and the Metallic Fragments both drop from the Frayfeather hippogryphs and stagwings (80% each in the loot data), so they are one stay. Supersedes Rev15H2's 'sinew with the Feral Scar yetis': The Mark of Quality's yetis are now done in the previous guide"
 			}
 		],
 		"after": [
