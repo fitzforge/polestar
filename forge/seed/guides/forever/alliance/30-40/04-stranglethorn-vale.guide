@@ -1,6 +1,6 @@
 # Stranglethorn Vale, Alliance ~34 to ~38: the consensus Stranglethorn visit
-# (34.2-37.8). Flow: Menethil Harbor > fly to Ironforge for class training
-# (Druids take the tram to Stormwind) > fly to Darkshire and ride south >
+# (34.2-37.8). Flow: Menethil Harbor > fly to Stormwind (Druids train with
+# Sheldras Moontree there) > ride south through Elwynn and Duskwood >
 # Nesingwary's Expedition (the first hunting tiers) >
 # Rebel Camp and Kurzen's Compound (Bookie Herod) > Nesingwary again > Booty
 # Bay (flight path, bind) > the west coast (Bloodscalp trolls, crocolisks,
@@ -24,6 +24,15 @@
 # visit and handed to Krazek on the first Booty Bay stop, where Favor for
 # Krazek (627) is taken (re-seeded for flow, 0.3.5: both waited for the
 # second visits).
+# The Stone of the Tides (578) is reached on the first jungle loop, from the
+# Crystalvein Mine, and handed in on the Booty Bay return; Water Elementals
+# (601) are done at the same island on the northern loop and the Snapjaw
+# crocolisks (577, on the river mid-jungle) on the way to the Skullsplitter
+# ruins, all handed in on the last Booty Bay stop (re-seeded for flow, 0.3.5:
+# a round trip from Booty Bay to the crocolisks and a walk from Booty Bay
+# back to the island, then Westfall and a flight to Booty Bay, are gone).
+# Druids train in Stormwind after the flight there from Menethil (re-seeded,
+# 0.3.5: they were sent to Ironforge, the tram, and back to Menethil).
 # Deviations: none in the quest set. Hemet Nesingwary (5762) is carried from
 # Thousand Needles; characters without it skip the turn-in. Favor for Krazek
 # (627) and Magical Analysis (602) are carried on: the ore drops in Arathi,
@@ -37,22 +46,16 @@ next forever/alliance/30-40/05-arathi-highlands
 
 # ---------------------------------------------------------------- Getting there
 
-step Ironforge
-  zone Ironforge
-  tip Fly from Menethil Harbor to Ironforge and train.
-  fly "Ironforge"                     -- Shellei Brondir, Menethil Harbor
-  train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+step Stormwind
+  zone Stormwind City
+  tip Fly from Menethil Harbor to Stormwind, then take the road south through Elwynn and Duskwood.
+  fly "Stormwind"                     -- Shellei Brondir, Menethil Harbor
 
 step Druid training
   only Druid
   zone Stormwind City
-  tip Ironforge has no druid trainer: take the Deeprun Tram from Tinker Town to Stormwind and train with Sheldras Moontree.
+  tip Sheldras Moontree, the druid trainer, stands in Stormwind: train with him before the road south.
   train class
-
-step Darkshire
-  zone Duskwood
-  tip Fly to Darkshire: Gryth Thurden in Ironforge's Great Forge, or Dungar Longdrink in Stormwind's Trade District.
-  fly "Darkshire"
 
 # ---------------------------------------------------------------- Nesingwary's Expedition
 
@@ -153,13 +156,21 @@ step Down to Booty Bay
   turnin 210                          -- Krazek
   accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
   accept 189                          -- Kebok, in the tavern
+  accept 213                          -- Kebok
   vendor nearest
+  accept 616                          -- Krazek
+  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
+  accept 578
 
 # ---------------------------------------------------------------- The jungle loop
 
 step Crystalvein Mine
   tip Walk back north; the Crystalvein Mine lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.
   collect 3918 quest 605              -- Singing Crystal Shard
+
+step The haunted island
+  tip The haunted island lies just off the coast south-west of the mine. Just reach it.
+  complete 578 @20.8,23.2
 
 step Bloodscalp trolls
   tip The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp.
@@ -181,27 +192,14 @@ step River crocolisks
 step Booty Bay
   hearth "Booty Bay"
   turnin 575                          -- Drizzlik
-  accept 577
+  accept 577                          -- The Snapjaw Crocolisks bask on the river in the middle of the jungle, on the next loop
   turnin 605                          -- Crank Fizzlebub
   turnin 201                          -- Krazek
   turnin 189                          -- Kebok
-
-step Snapjaw Crocolisks
-  tip Snapjaw Crocolisks bask on the shore and islands along the coast north of Booty Bay.
-  collect 4104 quest 577              -- Snapjaw Crocolisk Skin
-
-step Booty Bay
-  turnin 577                          -- Drizzlik
-  accept 213                          -- Kebok
-  accept 616                          -- Krazek
-  turnin 616                          -- Baron Revilgaz, upstairs in the tavern
-  accept 578
+  turnin 578                          -- Baron Revilgaz
+  accept 601                          -- The water elementals rise around the haunted island, on the next loop
 
 # ---------------------------------------------------------------- North again
-
-step The haunted island
-  tip Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it.
-  complete 578 @20.8,23.2
 
 step Nesingwary's Expedition
   tip Barnil collects the Green Hills of Stranglethorn: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go.
@@ -234,6 +232,10 @@ step The jungle ruins
   complete 341                        -- Chapter III
   complete 342                        -- Chapter IV
 
+step Water Elementals
+  tip The Lesser Water Elementals rise from the water around the haunted island off the shore west of Nesingwary's camp.
+  collect 3923 quest 601              -- Water Elemental Bracers
+
 step Rebel Camp
   turnin 574                          -- Lieutenant Doren
   turnin 207                          -- Brother Nimetz
@@ -247,6 +249,10 @@ step Nesingwary's Expedition
   turnin 338
   turnin 192                          -- Sir S. J. Erlgadin
 
+step Snapjaw Crocolisks
+  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins.
+  collect 4104 quest 577              -- Snapjaw Crocolisk Skin
+
 step Skullsplitter trolls
   tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
   collect 2466 quest 205              -- Skullsplitter Fetish
@@ -258,13 +264,7 @@ step Brother Nimetz
 
 step Booty Bay
   hearth "Booty Bay"
-  turnin 578                          -- Baron Revilgaz
-  accept 601
-  turnin 213                          -- Kebok
-
-step Water Elementals
-  collect 3923 quest 601              -- Water Elemental Bracers
-
-step Baron Revilgaz
-  turnin 601
+  turnin 577                          -- Drizzlik
+  turnin 601                          -- Baron Revilgaz
   accept 602                          -- For Archmage Ansirem in Alterac Mountains
+  turnin 213                          -- Kebok

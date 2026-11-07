@@ -3201,6 +3201,54 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+			},
+			{
+				"a": [
+					"task",
+					578
+				],
+				"b": [
+					"turnin",
+					605
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the haunted island of The Stone of the Tides (20.8,23.2) lies about 300 yd south-west of the Crystalvein Mine (24.2,17.7), where the first jungle loop gathers the Singing Crystal Shards; it is reached then, instead of on the northern loop after the second Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					578
+				],
+				"b": [
+					"task",
+					207
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): The Stone of the Tides is handed to Baron Revilgaz on the Booty Bay return of the first jungle loop, so Water Elementals (601, its follow-up) is done at the same island on the northern loop; it was handed in on the last Booty Bay stop, then the player walked from Booty Bay back to the island for the elementals, on to Westfall and flew to Booty Bay for the hand-in."
+			},
+			{
+				"a": [
+					"task",
+					601
+				],
+				"b": [
+					"turnin",
+					574
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the Lesser Water Elementals (21.5,24.7) rise around the haunted island beside the second troll legend (24.8,22.9) the northern loop passes; done there, before the Rebel Camp, and handed in on the last Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					192
+				],
+				"b": [
+					"task",
+					577
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the Snapjaw Crocolisks (37.9-40.2,23.6-32.6) lie on the river mid-jungle, between Nesingwary's camp and the Skullsplitter ruins the route walks to next; done on that walk and handed to Drizzlik on the last Booty Bay stop, instead of a round trip of about 2,000 yd each way from Booty Bay."
 			}
 		],
 		"notes": [

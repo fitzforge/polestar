@@ -11,27 +11,17 @@ next forever/alliance/30-40/05-arathi-highlands
 # into this file.
 # Added here: Panther Mastery (193), Raptor Mastery (196).
 
-step Ironforge
-  only Druid
-  zone Ironforge
-  goto 78.0,51.4 "Ironforge"
-
-step Tram to Stormwind
-  only Druid
-  zone Ironforge
-  goto 78.0,51.4 "Tram to Stormwind"
-
-step Druid training
-  only Druid
-  zone Stormwind City
-  tip Ironforge has no druid trainer: take the Deeprun Tram from Tinker Town to Stormwind and train with Sheldras Moontree.
-  train class
-
 step Fly to Stormwind
   zone Wetlands
   goto 9.5,59.7 "Menethil Harbor flight master"
   fly "Stormwind"
   zone Stormwind City
+
+step Druid training
+  only Druid
+  zone Stormwind City
+  tip Sheldras Moontree, the druid trainer, stands in Stormwind: train with him before the road south.
+  train class
 
 step Stranglethorn Vale
   zone Stranglethorn Vale
@@ -177,8 +167,9 @@ step Stranglethorn Vale
 step The Savage Coast: kill these as you meet them
   zone Stranglethorn Vale
   tip Walk back north; the Crystalvein Mine lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.
-  tip The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp.
+  tip The haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north.
   collect 3918 quest 605 @24.2,17.7 map 1434 -- Singing Crystal Shard
+  complete 578 @20.8,23.2             -- The haunted island
   collect 1519 quest 189              -- Bloodscalp Ear
   collect 3879 quest 188              -- Paw of Sin'Dall
 
@@ -197,18 +188,12 @@ step Nesingwary's Expedition
 
 step Booty Bay
   turnin 575                          -- Drizzlik, inside
-  accept 577
+  accept 577                          -- The Snapjaw Crocolisks bask on the river in the middle of the jungle, on the next loop
   turnin 605                          -- Crank Fizzlebub, inside
   turnin 201                          -- Krazek, upstairs
   turnin 189                          -- Kebok, upstairs
-
-step Snapjaw Crocolisks
-  tip Snapjaw Crocolisks bask on the shore and islands along the coast north of Booty Bay.
-  collect 4104 quest 577              -- Snapjaw Crocolisk Skin
-  kill 684 quest 192
-
-step Booty Bay
-  turnin 577                          -- Drizzlik, inside
+  turnin 578                          -- Baron Revilgaz, upstairs in the tavern
+  accept 601                          -- The water elementals rise around the haunted island, on the next loop
 
 step Fly to Darkshire
   zone Stranglethorn Vale
@@ -237,10 +222,9 @@ step The jungle ruins
 
 # ---------------------------------------------------------------- North again
 
-step The haunted island
-  tip Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it.
-  goto 20.8,23.2
-  complete 578 @20.8,23.2
+step Water Elementals
+  tip Follow the west coast north to the haunted island off the shore west of Nesingwary's camp: the Lesser Water Elementals rise from the water around it.
+  collect 3923 quest 601              -- Water Elemental Bracers
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
@@ -272,9 +256,9 @@ step Nesingwary's Expedition
   when group 193
   accept 193
 
-step Jungle Stalker on the way
-  along
-  kill 687 quest 196.1
+step Snapjaw Crocolisks
+  tip Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins.
+  collect 4104 quest 577              -- Snapjaw Crocolisk Skin
 
 step Skullsplitter trolls
   tip The Skullsplitter trolls hold the ruins east of the road between Nesingwary and Grom'gol.
@@ -283,34 +267,12 @@ step Skullsplitter trolls
 # ---------------------------------------------------------------- Booty Bay
 
 step Booty Bay
-  turnin 578                          -- Baron Revilgaz
-  accept 601
-
-step Booty Bay
   zone Stranglethorn Vale
   tip The Salty Sailor Tavern is the tall building over the harbour; most of the quest givers are on its floors or the docks below.
+  turnin 577                          -- Drizzlik, inside
+  turnin 601                          -- Baron Revilgaz, upstairs in the tavern
+  accept 602                          -- For Archmage Ansirem in Alterac Mountains
   accept 209                          -- Kebok, upstairs
   turnin 213                          -- Kebok
   accept 600                          -- Crank Fizzlebub, inside
   accept 606                          -- "Sea Wolf" MacKinley, on the top floor
-
-step Water Elementals
-  collect 3923 quest 601              -- Water Elemental Bracers
-
-step Into Westfall
-  zone Westfall
-  goto 73.0,77.1 "Into Westfall"
-
-step Westfall
-  zone Westfall
-  goto 56.6,52.7 "Westfall"
-
-step Fly to Booty Bay
-  zone Westfall
-  goto 56.6,52.7 "Sentinel Hill flight master"
-  fly "Booty Bay"
-  zone Stranglethorn Vale
-
-step Baron Revilgaz
-  turnin 601
-  accept 602                          -- For Archmage Ansirem in Alterac Mountains
