@@ -5639,6 +5639,14 @@
 			{
 				"q": 712,
 				"why": "Rev15H2 c15 read: Study of the Elements: Rock needs bracers from the Greater Rock Elementals (42-44, one kill in five) at about 38; v1 marks it optional, c15 counted it"
+			},
+			{
+				"q": 3786,
+				"why": "Final route review (2026-11-07, Horde Winterspring 55-56): Morrowgrain Research wants ten Morrowgrain; the Evergreen Pouch takes a Tharlendis seed packet and two Un'Goro Soil a try, has a ten-minute cooldown and only sometimes gives Morrowgrain (Forever's quest notes), and the route gathers 25 soil, all spent on Un'Goro Soil and Bungle in the Jungle. The guide accepted, completed and handed it in on one Thunder Bluff step, which no player can do; optional as on the Alliance side (3785)"
+			},
+			{
+				"q": 3804,
+				"why": "Final route review (2026-11-07, Horde Winterspring 55-56): Morrowgrain to Thunder Bluff, the repeatable ten-Morrowgrain hand-in after Morrowgrain Research (3786); optional with it, as on the Alliance side (3803)"
 			}
 		],
 		"group": [
