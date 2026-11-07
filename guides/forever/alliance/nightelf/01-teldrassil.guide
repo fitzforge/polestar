@@ -361,7 +361,6 @@ step Sentinel Eralya Leafshadow
 step Into Darnassus
   only Warrior
   zone Darnassus
-  goto 85.7,35.9 "Into Darnassus"
   accept 6344                                 -- Mydrannul, on the Craftsmen's Terrace just inside the city
 
 step Darnassus
