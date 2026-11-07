@@ -1024,7 +1024,7 @@
 					"turnin",
 					97926
 				],
-				"why": "Nittepitte #453: Making Do handed in after Duskwood, at the next Auberdine visit (30-40/02-desolace since the 2026-11-07 Ashenvale split)"
+				"why": "Nittepitte #453: Making Do handed in after Duskwood, at the next Auberdine visit (the end of 30-40/01-hillsbrad-foothills since the 2026-11-07 Ashenvale split)"
 			},
 			{
 				"a": [
@@ -4924,7 +4924,7 @@
 					5321
 				],
 				"faction": "Alliance",
-				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort. Since the 2026-11-07 Ashenvale split, Ashenvale follows Darkshore at once and Making Do is handed in later (30-40/02-desolace): the anchor is Expanding Horizons (97914), taken from Thundris at 03-darkshore's last Auberdine stop, right before the walk south to the Grove.",
+				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort. Since the 2026-11-07 Ashenvale split, Ashenvale follows Darkshore at once and Making Do is handed in later (the end of 30-40/01-hillsbrad-foothills): the anchor is Expanding Horizons (97914), taken from Thundris at 03-darkshore's last Auberdine stop, right before the walk south to the Grove.",
 				"source": "#920"
 			},
 			{

@@ -2890,16 +2890,17 @@ test("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's
 // --- Making Do (Nittepitte, #453): Baros Alexston offers Making Do only to a
 // player who handed him Expanding Horizons (97914), taken at the end of
 // Darkshore. The project data has no prerequisite for it, and the sources
-// disagree, so the accept and its turn-in in Auberdine (on the way to
-// Desolace since the 2026-11-07 Ashenvale split) are optional: a player
-// without Expanding Horizons is not held at Baros or Thundris.
-test(`Nittepitte's report (#453): Making Do is optional in Redridge and Desolace, and taken only after Expanding Horizons is handed in`, { skip }, () => {
+// disagree, so the accept and its turn-in in Auberdine (at the end of
+// 30-40/01-hillsbrad-foothills since the 2026-11-07 Ashenvale split) are
+// optional: a player without Expanding Horizons is not held at Baros or
+// Thundris.
+test(`Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in`, { skip }, () => {
 	const list = goals(REDRIDGE);
 	const take = at(list, 'accept 97926', is('accept', 97926));
 	assert.ok(list[take].goal.optional, 'accept 97926 is optional');
 	assert.ok(at(list, 'turnin 97914', is('turnin', 97914)) < take, 'Expanding Horizons is handed in first');
-	const desolace = goals('forever/alliance/30-40/02-desolace.guide');
-	assert.ok(desolace[at(desolace, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
+	const auberdine = goals(HILLSBRAD_ALLIANCE);
+	assert.ok(auberdine[at(auberdine, 'turnin 97926', is('turnin', 97926))].goal.optional, 'turnin 97926 is optional');
 });
 
 // Ioney (#524): "quest not available from Tarrel Rockweaver until completing

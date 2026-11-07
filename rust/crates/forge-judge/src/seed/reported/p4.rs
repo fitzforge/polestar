@@ -25,7 +25,7 @@ const TANARIS_ALLIANCE: &str = "forever/alliance/40-50/04-tanaris.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const WETLANDS: &str = "forever/alliance/06-wetlands.guide";
-const DESOLACE: &str = "forever/alliance/30-40/02-desolace.guide";
+const HILLSBRAD: &str = "forever/alliance/30-40/01-hillsbrad-foothills.guide";
 
 pub fn tests() -> Vec<SeedTest> {
 	let t = |name: &str, f: fn(&Ctx, &mut Check)| (name.to_string(), f);
@@ -44,7 +44,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(&format!("{REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackrock camps east of Stonewatch Keep, not to Alther's Mill"), battleworn_axes),
 		t(&format!("{DUROTAR}: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins"), encroachment),
 		t("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's and Isaac's hearts each read their own line of Hearts of the Lovers", hearts_of_the_lovers),
-		t("Nittepitte's report (#453): Making Do is optional in Redridge and Desolace, and taken only after Expanding Horizons is handed in", making_do),
+		t("Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in", making_do),
 		t(
 			&format!("{ASHENVALE}: Ioney's report (#524): Unrequited Love is handed to Tarrel Rockweaver before In Search of the Excavation Team, and taken in Auberdine before the boat"),
 			unrequited_love,
@@ -609,9 +609,9 @@ fn making_do(ctx: &Ctx, c: &mut Check) {
 	c.ok(list[take].goal.get("optional").truthy(), "accept 97926 is optional");
 	let Some(horizons) = at(c, &list, "turnin 97914", is("turnin", 97914)) else { return };
 	c.ok(horizons < take, "Expanding Horizons is handed in first");
-	let Some(desolace) = goals(ctx, c, DESOLACE) else { return };
-	let Some(give) = at(c, &desolace, "turnin 97926", is("turnin", 97926)) else { return };
-	c.ok(desolace[give].goal.get("optional").truthy(), "turnin 97926 is optional");
+	let Some(auberdine) = goals(ctx, c, HILLSBRAD) else { return };
+	let Some(give) = at(c, &auberdine, "turnin 97926", is("turnin", 97926)) else { return };
+	c.ok(auberdine[give].goal.get("optional").truthy(), "turnin 97926 is optional");
 }
 
 fn unrequited_love(ctx: &Ctx, c: &mut Check) {
