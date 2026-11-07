@@ -2513,6 +2513,24 @@
 				}
 			],
 			"pr": 1100
+		},
+		{
+			"id": "1106-badlands-indurium-flakes-at-agmonds-end",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1108,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Indurium: the Stonevault Bonesnappers and Shamans that drop the flakes dig at Agmond's End's trogg camp, which the Agmond's End sweep works; an along list from the Valley of Fangs kept them on screen through the walk to Lotwil and back.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1106
 		}
 	]
 }

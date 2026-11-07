@@ -2394,6 +2394,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): Stormwind: Elling Trias (Trade District) takes The Missing Diplomat after the Cathedral, on the way to the Mage Quarter and the harbour, instead of a walk back east from the Mage Quarter (278 yd) and then 603 yd west to the boat."
+			},
+			{
+				"a": [
+					"accept",
+					709
+				],
+				"b": [
+					"accept",
+					710
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Agmond's End (the skeleton, the ogres, the buzzards, the troggs, Theldurin) is worked in one sweep from the Valley of Fangs, then Lotwil in the Dustbowl; the route went to the skeleton, walked 800 yd west to Lotwil for his quest only, back 700 yd to Agmond's End for the sweep, and west again for the Lesser Rock Elementals."
 			}
 		],
 		"notes": [
@@ -3417,6 +3429,19 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1100): the Syndicate Footpads and Thieves for Syndicate Assassins stand at the camp that holds the Syndicate Documents: one visit, as the seed has it. The route listed them on the way, sent players to a point in north-west Alterac (29.6,37.5, about 1,000 yd past the camp) and back to the camp for them after the turtles."
+			},
+			{
+				"a": [
+					"task",
+					710
+				],
+				"b": [
+					"task",
+					2500,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): the Lesser Rock Elementals west of Lotwil drop Ghak's Rock Elemental Shards too: collected in the same step as the Small Stone Shards."
 			}
 		],
 		"after": [
