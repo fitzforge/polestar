@@ -488,6 +488,8 @@ step The Long Wash
 
 step Auberdine
   zone Darkshore
+  turnin 3524                                 -- Gwennyth Bly'Leggonde
+  accept 4681
   accept 954                                  -- Thundris Windweaver, north end of the village
   accept 958
   accept 984                                  -- Terenthis
