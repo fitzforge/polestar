@@ -14,3 +14,10 @@ section: forge
   leaving a zone with its on-level quests undone; under `steps`, the route
   check's `along` rule warns on along lists instead of on work left to its own
   step.
+- Forge: a route-fixes `include` with no anchor is taken where the level meets
+  its minimum, and its hand-in on the same stop when the ender stands beside
+  it (#1052's A Watchful Eye, #1050's Speak with Sevren). A `use` right before
+  the line that collects for its quest is bound to that objective (#888). A
+  class chain's steps stay in order when one waits for a later pass of the
+  route (Call of Fire), and a training stop after a v1 `train class` still
+  sends the classes that town cannot train to their own trainer (#912).

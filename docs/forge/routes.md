@@ -919,8 +919,11 @@ is part of the routes stage's cache key, so changing it rebuilds the routes.
 (The quest ids above are made up.)
 
 - **`include`**: the quest goes into the route and stays. Its accept goes right after the `after` step
-  (kind and quest) when given, else after the stop nearest its giver. Its tasks and turn-in go at
-  their cheapest places within 300 steps after it.
+  (kind and quest) when given, else after the stop nearest its giver among those where the level meets
+  its minimum (A Watchful Eye, minimum 20: not at the level-9 stop nearest Theocritus, where the gate
+  refused it and the pickup pass never brought it back, #1052). Its tasks and turn-in go at the first
+  place within 100 straight yards of detour of their cheapest, within 300 steps after it (Speak with
+  Sevren handed in at the town hall beside Coleman, not on a Brill visit a guide later, #1050).
 - **`skip`**: the quest is never in the route, never inserted and never picked up. An optional `faction`
   (`Alliance` or `Horde`) holds the skip for that side's routes only, as for `pairs`.
 - **`revert`** undoes one edit. Copy the `revert` line from the edit ledger:

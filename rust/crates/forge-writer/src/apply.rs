@@ -3241,29 +3241,41 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				continue;
 			};
 			let p = cx.w(o.pt);
-			// A training stop right after another one, or after a v1 step that trains, adds nothing.
+			// A training stop right after another one, or after a v1 step that trains, adds nothing; but
+			// after a v1 step's `train class` the classes this town cannot train still get their own
+			// trainer's step (Goldshire's Druids to Stormwind, #912: lost when the route's stop came
+			// right after v1's Goldshire step).
+			let mut v1_trained = false;
 			if o.t == OrderT::Train {
 				if let Some(last) = pieces.last() {
-					let skip = match &last.kind {
-						PieceKind::Ins { t, .. } => *t == Some(OrderT::Train),
-						PieceKind::Step { step, keys } => keys.iter().any(|k| re!(r"^\s+train class\b").is_match(&cx.steps[*step].line(k.1).unwrap().text)),
-						PieceKind::Orphan(_) => false,
+					let (skip, v1) = match &last.kind {
+						PieceKind::Ins { t, .. } => (*t == Some(OrderT::Train), false),
+						PieceKind::Step { step, keys } => {
+							let trains = keys.iter().any(|k| re!(r"^\s+train class\b").is_match(&cx.steps[*step].line(k.1).unwrap().text));
+							(trains, trains)
+						}
+						PieceKind::Orphan(_) => (false, false),
 					};
-					if skip {
+					if skip && !(v1 && cx.route_travel) {
 						deferred.entry(oi).or_default().extend(held_pull);
 						oi += 1;
 						continue;
 					}
+					v1_trained = skip;
 				}
 			}
 			let mut x = x;
 			// (Classes kept for their own trainer trip: (title, line).)
 			let mut away_train: Vec<(String, String)> = Vec::new();
-			let (mut pull, dup) = if o.t == OrderT::Train { train_orphans(&order, oi + 1, o.lvl, o.pt, None, &pulled) } else { (Vec::new(), Vec::new()) };
+			let (mut pull, dup) = if o.t == OrderT::Train && !v1_trained { train_orphans(&order, oi + 1, o.lvl, o.pt, None, &pulled) } else { (Vec::new(), Vec::new()) };
 			pulled.extend(dup);
-			for s in held_pull {
-				if !pull.contains(&s) {
-					pull.push(s);
+			if v1_trained {
+				deferred.entry(oi).or_default().extend(held_pull);
+			} else {
+				for s in held_pull {
+					if !pull.contains(&s) {
+						pull.push(s);
+					}
 				}
 			}
 			if !pull.is_empty() {
@@ -3374,13 +3386,15 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					}
 				}
 			}
-			let merged = match pieces.last_mut() {
-				Some(Piece { kind: PieceKind::Ins { pt, title, lines, .. }, .. }) if pull.is_empty() && *pt == o.pt && title.as_deref() == Some(x.title.as_str()) && o.items().is_empty() => {
-					lines.extend(x.lines.iter().cloned());
-					true
-				}
-				_ => false,
-			};
+			// (After v1's training step only the away trainings are written: v1's line trains the rest.)
+			let merged = v1_trained
+				|| match pieces.last_mut() {
+					Some(Piece { kind: PieceKind::Ins { pt, title, lines, .. }, .. }) if pull.is_empty() && *pt == o.pt && title.as_deref() == Some(x.title.as_str()) && o.items().is_empty() => {
+						lines.extend(x.lines.iter().cloned());
+						true
+					}
+					_ => false,
+				};
 			if !merged {
 				pieces.push(Piece {
 					gi: -1,
@@ -3587,6 +3601,22 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				// Paladins' Undercity trainer and the Shamans' Sepulcher brazier at the route's own
 				// Undercity stop, not after the Tarren Mill accepts.) Not v1's way steps, nor travel only.
 				let st = &cx.steps[os];
+				// (A step naming a quest an earlier step of its guide names, that step still waiting for a
+				// later pass or event of the route: it waits with it, right after it, so the chain keeps its
+				// order. Telf's hand-in of Call of Fire and his accept of the next after Kranal Fiss's accept
+				// at the Barrens pass, not at an earlier Durotar stop before it, candidate v1 Orc.)
+				let my_q: FxHashSet<u32> = st.lines.iter().filter_map(|l| quest_of(&l.text)).collect();
+				let shares = |w: usize| w < os && cx.steps[w].file == st.file && cx.steps[w].lines.iter().filter_map(|l| quest_of(&l.text)).any(|q| my_q.contains(&q));
+				if !my_q.is_empty() {
+					if let Some(k) = deferred.iter().filter(|(_, v)| v.iter().any(|&w| shares(w))).map(|(&k, _)| k).max() {
+						deferred.entry(k).or_default().push(os);
+						continue;
+					}
+					if let Some(k) = reorph.iter().filter(|(_, v)| v.iter().any(|&w| shares(w))).map(|(&k, _)| k).max() {
+						reorph.entry(k).or_default().push(os);
+						continue;
+					}
+				}
 				let movable = !st.way && st.lines.iter().any(|l| l.kind == Kind::Goal && !re!(r"^\s+(goto|fly|hearth)\b").is_match(&l.text));
 				// (A step of a class's own run, written right after the run's step before it: it stays with its
 				// run, in v1's order, the Druids' Body and Heart before the boat, N1.)

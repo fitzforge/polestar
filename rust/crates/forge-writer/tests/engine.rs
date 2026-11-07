@@ -348,7 +348,8 @@ fn r2_use_for_an_item_summon() {
 	assert!(!before["a"].iter().any(|l| l.contains("use 10338")));
 	let after = run(&[("a", g)], "Orc", "Horde", &Opts { use_items: true, ..off() }, &FxHashMap::default());
 	let a = &after["a"];
-	let u = idx(a, "  use 10338 @60.0,30.2 map 1413");
+	// (Bound to the fang's objective: a bare use would hold the step after the fang is in the bags, #888.)
+	let u = idx(a, "  use 10338 quest 882.1 @60.0,30.2 map 1413");
 	assert_eq!(a[u + 1], "  collect 5101 quest 882.1", "the use summons Ishamuhale, the kill drops the fang: {}", a.join("\n"));
 }
 

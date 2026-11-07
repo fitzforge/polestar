@@ -1471,9 +1471,12 @@ fn gate_repair(run: &Run, ev: &mut Evaluator, was: &[u32], next: Order, what: &s
 }
 
 /// The order with the overrides applied: skipped quests out; included quests in (the accept
-/// after its anchor, else at the stop nearest its giver; each task and the turn-in at the
-/// cheapest place by straight detour within INCLUDE_SPAN steps after the accept).
-pub fn apply_overrides(run: &Run, seed: &Order, o: &Overrides) -> Order {
+/// after its anchor, else at the stop nearest its giver, with `ev`, among the stops where the level
+/// meets its minimum; each task and the turn-in at the first place within INCLUDE_SLACK_YD of the
+/// cheapest by straight detour, within INCLUDE_SPAN steps after the accept). An include holds whatever it costs: placed under its
+/// minimum, the gate would refuse it and the pickup pass, over its allowance, never bring it back
+/// (#1052: A Watchful Eye's giver on the Elwynn road nearest a stop at level 9, minimum 20).
+pub fn apply_overrides(run: &Run, seed: &Order, o: &Overrides, mut ev: Option<&mut Evaluator>) -> Order {
 	let keep: Vec<bool> = seed.steps.iter().map(|s| !(matches!(s.kind, K_ACCEPT | K_TASK | K_TURNIN) && o.skip.contains(&s.q))).collect();
 	let mut out = Order { steps: seed.steps.iter().zip(&keep).filter(|x| *x.1).map(|x| *x.0).collect(), origin: seed.origin.iter().zip(&keep).filter(|x| *x.1).map(|x| *x.0).collect() };
 	let d = |a: u32, b: u32| {
@@ -1490,9 +1493,14 @@ pub fn apply_overrides(run: &Run, seed: &Order, o: &Overrides) -> Order {
 		}
 		let quest = crate::seq::quest_steps(run, q);
 		let giver = run.q_giver[q as usize];
+		// (The level before each place an accept may go after step i: lv[i + 1], or the last step's.)
+		let lv: Option<Vec<f64>> = ev.as_deref_mut().map(|e| crate::gate::levels(e, &out.steps));
+		let min = f64::from(run.q_min_level[q as usize]);
+		let level_ok = |i: usize| lv.as_ref().is_none_or(|l| l.get(i + 1).or(l.last()).is_some_and(|&x| x + crate::gate::EPS >= min));
+		let nearest = |ok: &dyn Fn(usize) -> bool| (0..out.len()).filter(|&i| out.steps[i].kind != K_GRIND && ok(i)).min_by(|&a, &b| d(out.steps[a].pt, giver).total_cmp(&d(out.steps[b].pt, giver)));
 		let acc = match after.and_then(|(k, a)| out.steps.iter().rposition(|s| s.kind == k && s.q == a)) {
 			Some(i) => i + 1,
-			None => (0..out.len()).filter(|&i| out.steps[i].kind != K_GRIND).min_by(|&a, &b| d(out.steps[a].pt, giver).total_cmp(&d(out.steps[b].pt, giver))).map_or(out.len(), |i| i + 1),
+			None => nearest(&level_ok).or_else(|| nearest(&|_| true)).map_or(out.len(), |i| i + 1),
 		};
 		out.steps.insert(acc, quest[0]);
 		out.origin.insert(acc, INSERTED);
@@ -1500,28 +1508,26 @@ pub fn apply_overrides(run: &Run, seed: &Order, o: &Overrides) -> Order {
 		for &x in &quest[1..] {
 			let lo = if x.kind == K_TASK { acc + 1 } else { latest + 1 };
 			let hi = (lo + INCLUDE_SPAN).min(out.len());
-			let mut best = (f64::INFINITY, lo.min(out.len()));
+			let mut costs: Vec<f64> = Vec::new();
 			let mut prev = out.steps[..lo.min(out.len())].iter().rev().find(|s| s.kind != K_GRIND).map_or(run.start_pt, |s| s.pt);
 			for j in lo.min(out.len())..=hi {
 				// A grind step has no point (u32::MAX): inserting before it costs the leg there only.
 				let next = out.steps.get(j).filter(|s| s.kind != K_GRIND).map(|s| s.pt);
-				let c = match next {
+				costs.push(match next {
 					Some(n) => d(prev, x.pt) + d(x.pt, n) - d(prev, n),
 					None => d(prev, x.pt),
-				};
-				if c < best.0 {
-					best = (c, j);
-				}
+				});
 				if let Some(s) = out.steps.get(j).filter(|s| s.kind != K_GRIND) {
 					prev = s.pt;
 				}
 			}
-			out.steps.insert(best.1, x);
-			out.origin.insert(best.1, INSERTED);
+			let at = lo.min(out.len()) + earliest_cheap(&costs, INCLUDE_SLACK_YD);
+			out.steps.insert(at, x);
+			out.origin.insert(at, INSERTED);
 			if x.kind == K_TASK {
-				latest = latest.max(best.1);
+				latest = latest.max(at);
 			} else {
-				latest = best.1;
+				latest = at;
 			}
 		}
 	}
@@ -1530,6 +1536,16 @@ pub fn apply_overrides(run: &Run, seed: &Order, o: &Overrides) -> Order {
 
 /// Steps after an included quest's accept its tasks and turn-in may go.
 pub const INCLUDE_SPAN: usize = 300;
+/// Straight yards of detour over the cheapest place an included quest's task or turn-in may cost
+/// to be done at an earlier place: a walk to an NPC beside the stop and back (#1050: Speak with
+/// Sevren handed in at the town hall 40 yd from Coleman, not on a Brill visit a guide later).
+pub const INCLUDE_SLACK_YD: f64 = 100.0;
+
+/// The first place (index into `costs`) whose detour is within `slack` of the cheapest (0 when empty).
+pub fn earliest_cheap(costs: &[f64], slack: f64) -> usize {
+	let min = costs.iter().copied().fold(f64::INFINITY, f64::min);
+	costs.iter().position(|&c| c <= min + slack).unwrap_or(0)
+}
 
 /// The route fixes' `deliberate` `optional` quests (run indices) with why.
 pub fn deliberate_optional_why(run: &Run) -> Vec<(u32, String)> {
