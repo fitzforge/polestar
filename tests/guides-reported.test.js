@@ -2930,6 +2930,26 @@ test(`${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas befor
 	assert.ok(located(list[necklace]), 'the arrow leads to Ferocitas for the necklace');
 });
 
+// --- Flow audit (2026-11-07): Teldrassil killed Ferocitas' mystics, went on
+// to the Oracle Glade, Ursal and Lake Al'Ameth, then walked back east to the
+// same camp for Ferocitas' necklace and the jewel, and back to Dolanaar for
+// Tallonkai alone. The necklace and the jewel come with the mystics, Tallonkai
+// takes the jewel on the next Dolanaar stop with Ursal the Mauler. The guide's
+// last step told Night Elves to take the boat to Stormwind before their own
+// Darkshore guide: it goes, the boat is that guide's.
+test(`${TELDRASSIL}: flow audit: Ferocitas' camp once, Tallonkai's jewel on the next Dolanaar stop, no boat before Darkshore`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const mystics = at(list, 'kill 7235 (Gnarlpine Mystics)', (g) => g.t === 'kill' && g.quest === 2459);
+	const jewel = at(list, 'collect 8050 (Tallonkai\'s Jewel)', (g) => g.t === 'collect' && g.item === 8050);
+	assert.equal(list[jewel].s, list[mystics].s, 'the jewel on the mystics\' step');
+	const tallonkai = at(list, 'turnin 2459', is('turnin', 2459));
+	assert.equal(list[tallonkai].s, list[at(list, 'turnin 486', is('turnin', 486))].s, 'Tallonkai on the Dolanaar stop that hands in Ursal the Mauler');
+	assert.ok(tallonkai < at(list, 'collect 286017 (Dewy Lasher Frond)', (g) => g.t === 'collect' && g.item === 286017), 'before Lake Al\'Ameth');
+	const { steps } = compiled(TELDRASSIL);
+	assert.ok(!steps.some((st) => /boat/i.test(st.title || '')), 'no boat step in Teldrassil');
+	assert.ok(steps.at(-1).goals.length > 0, 'the last step has something to do');
+});
+
 test('#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides', { skip }, () => {
 	for (const guide of [TANARIS_ALLIANCE, 'forever/horde/40-50/02-feralas.guide']) {
 		const list = goals(guide);
