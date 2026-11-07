@@ -5787,4 +5787,12 @@ test('Desolace (Horde 30): a Shaman flies from Freewind Post straight to Sun Roc
 	assert.equal(flights[at + 1], 'Sun Rock Retreat', flights.join(', '));
 });
 
+test('The Barrens (Horde 12-16): Druids fly from Ratchet straight to Thunder Bluff for training, not back to the Crossroads first (#1191)', { skip }, () => {
+	for (const [cls, to] of [['DRUID', 'Thunder Bluff'], ['SHAMAN', 'Crossroads']]) {
+		const list = goals('forever/horde/02-the-barrens.guide').filter(forClass(cls));
+		const drohn = at(list, 'turnin 819', is('turnin', 819));
+		const next = list.slice(drohn + 1).find(({ goal }) => goal.t === 'fly');
+		assert.equal(next && next.goal.location, to, `${cls}: the flight after Brewmaster Drohn`);
+	}
+});
 // --- end of flights with nothing to do in between
