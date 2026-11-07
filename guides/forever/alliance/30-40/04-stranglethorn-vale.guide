@@ -90,6 +90,7 @@ step Rebel Camp
   accept 200
   accept 203                          -- Sergeant Yohwa
   accept 204
+  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
 
 step Bookie Herod
   tip Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth.
@@ -153,6 +154,8 @@ step Down to Booty Bay
   accept 198                          -- Krazek, in the tavern; upstairs
   accept 201
   accept 616                          -- Krazek
+  turnin 210                          -- Krazek
+  accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
   accept 213                          -- Kebok, upstairs
   accept 189                          -- Kebok, in the tavern
   vendor nearest
@@ -253,7 +256,6 @@ step Stranglethorn Vale: kill these as you meet them
 
 step Rebel Camp
   turnin 574                          -- Lieutenant Doren
-  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
   turnin 207                          -- Brother Nimetz
   accept 205
 
@@ -289,8 +291,6 @@ step Booty Bay
   tip The Salty Sailor Tavern is the tall building over the harbour; most of the quest givers are on its floors or the docks below.
   accept 209                          -- Kebok, upstairs
   turnin 213                          -- Kebok
-  turnin 210                          -- Krazek, upstairs
-  accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
   accept 600                          -- Crank Fizzlebub, inside
   accept 606                          -- "Sea Wolf" MacKinley, on the top floor
 
