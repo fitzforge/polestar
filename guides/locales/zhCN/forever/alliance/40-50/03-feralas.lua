@@ -77,9 +77,9 @@ return {
 
 	-- Step 19: Grimtotem camp
 	["Grimtotem camp"] = "恐怖图腾营地",
-	-- {area:1108} Forgotten Coast · {area:357} Feralas · {npc:7956} Kindal Moonweaver
+	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["Boat to the {area:1108} and ride east across {area:357} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
 
 	-- Step 20: Grimtotem tauren
 	["Grimtotem tauren"] = "恐怖图腾牛头人",
@@ -106,10 +106,10 @@ return {
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936}接着会让你把消息带到{zone:1457}：跳过，{area:976}会让你去那里。",
 
-	-- Step 27: Grind to 45
+	-- Step 28: Grind to 45
 	["Grind to 45"] = "刷到45级",
-	-- {area:1108} Forgotten Coast · {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
-	["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "乘船前往{area:1108}，向东骑进{area:1105}。{npc:14637}在海岸的任务需要45级。",
+	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
 	["grind on {npc:5292} at {area:1105}, {area:357}"] = "",
 
@@ -138,6 +138,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "乘船前往{area:1108}，向东骑过{zone:1444}，到道路北边的恐怖图腾营地。{npc:7956}在营地外等候；解救中间围栏里的{npc:5278}，保证{npc:7956}和至少六只精灵龙存活。",
+	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "乘船前往{area:1108}，向东骑进{area:1105}。{npc:14637}在海岸的任务需要45级。",
 	-- ["From Theramore, fly to {area:608} and ride south out of {zone:1443} into {zone:1444}; the road leads west to the {area:1108} dock, where the boat crosses to Feathermoon on {area:1120}."] = "从塞拉摩岛飞往{area:608}，向南骑出{zone:1443}进入{zone:1444}；道路向西通往{area:1108}的码头，船会渡海前往{area:1120}的羽月要塞。",
 	-- ["Giants and elementals"] = "巨人和元素",
 	-- ["Hearth to Feathermoon."] = "用炉石返回羽月要塞。",

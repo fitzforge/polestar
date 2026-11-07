@@ -171,7 +171,7 @@ return {
 
 	-- Step 29: Northshire: last hand-in
 	["Northshire: last hand-in"] = "",
-	-- {object:563442} Kobold Tracks (no name in this language: may be words)
+	-- {object:563442} Kobold Tracks
 	["{object:563442}, east of the abbey"] = "",
 
 	-- Step 30: Northshire: the books end in Goldshire

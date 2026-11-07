@@ -168,7 +168,7 @@ return {
 	-- Step 33: Elwynn Forest: kill these as you meet them
 	-- {area:12} Elwynn Forest
 	["{area:12}: kill these as you meet them"] = "{area:12}：遇到就杀",
-	-- {object:694855} Overgrown Duskweed (no name in this language: may be words)
+	-- {object:694855} Overgrown Duskweed
 	-- plural, as words: Stonetusk Boars = {npc:113} Stonetusk Boar
 	["{object:694855} grows in the fields around the vineyards and the Stonefield farm; Stonetusk Boars around them give the blood.\nStonetusk Boars graze between the vineyards and the farm."] = "{object:694855}生长在葡萄园和斯通菲尔德农场周围的田野里；周围的石牙野猪提供血液。\n石牙野猪在葡萄园和农场之间吃草。",
 	-- {item:286215} Vial of Animal Blood

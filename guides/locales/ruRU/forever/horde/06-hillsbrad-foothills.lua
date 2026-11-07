@@ -40,24 +40,20 @@ return {
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "",
 
-	-- Step 5: Tarren Mill
-	-- {area:272} Tarren Mill
-	["Follow the road east along the river, then north-east up into the hills to {area:272}."] = "",
-
-	-- Step 6: Hillsbrad Fields
+	-- Step 5: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
 	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "Фермы к востоку от городка {area:287}. {npc:232} работает на поле у северного фермерского дома, {npc:2403} — на поле юго-восточнее; батраки и фермеры повсюду. {npc:2451} ухаживает за полем к югу от ферм.",
 	-- {npc:2451} Farmer Kalaba · {area:286} Hillsbrad Fields
 	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "",
 
-	-- Step 7: Mountain Lion Blood
+	-- Step 6: Mountain Lion Blood
 	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
 
-	-- Step 9: Stanley
+	-- Step 8: Stanley
 	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
 	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274} — собака NPC {npc:232}, у северного фермерского дома ({area:286}).",
 
-	-- Step 10: Hillsbrad Fields: kill these as you meet them
+	-- Step 9: Hillsbrad Fields: kill these as you meet them
 	-- {area:286} Hillsbrad Fields
 	["{area:286}: kill these as you meet them"] = "",
 	-- {area:287} Hillsbrad
@@ -65,11 +61,11 @@ return {
 	-- {item:3692} Hillsbrad Human Skull
 	["{item:3692}: the Peasants in the fields"] = "{item:3692}: хилсбрадские крестьяне на полях",
 
-	-- Step 11: Tarren Mill
+	-- Step 10: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: приказы для NPC {npc:270438}, по пути к Дарнхольду",
 
-	-- Step 12: Durnholde Keep: kill these as you meet them
+	-- Step 11: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
@@ -80,30 +76,36 @@ return {
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Ядро и цепь: {npc:2238}",
 
-	-- Step 13: Mudsnout Blossoms
+	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "К юго-западу от Дарнхольда на склонах над рекой растет {item:3502}.",
 
-	-- Step 14: Deathstalker Masoj
+	-- Step 13: Deathstalker Masoj
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Масодж прячется на склоне над местом {area:290}, к югу от Дарнхольда, по пути вниз к цветам.",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}, после сдачи задания {quest:98094}",
 
-	-- Step 15: The southern peak
+	-- Step 14: The southern peak
 	["The southern peak"] = "Южная вершина",
 	-- {area:290} Dun Garok
 	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "Масоджу нужно, чтобы на трех вершинах поставили склянки аптекаря. Южная — холм над местом {area:290}, сразу к югу от него: используйте склянку на вершине.",
 
-	-- Step 16: The smithy
+	-- Step 15: The smithy
 	["The smithy"] = "Кузница",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
 	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "Кузница стоит в центре городка {area:287}. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит по улице к северу от нее.",
 
-	-- Step 17: The western peak
+	-- Step 16: The western peak
 	["The western peak"] = "Западная вершина",
 	-- {area:287} Hillsbrad
 	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "Из городка {area:287} идите на север в предгорья Альтерака: западная склянка ставится на холме сразу за границей.",
+
+	-- Step 17: Back to Tarren Mill
+	-- {area:272} Tarren Mill
+	["Back to {area:272}"] = "",
+	-- {area:272} Tarren Mill
+	["East along the foothills, then down into {area:272}."] = "",
 
 	-- Step 18: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -118,11 +120,15 @@ return {
 	-- {area:290} Dun Garok
 	["Back down to Masoj on the hillside above {area:290}."] = "Спуститесь обратно к Масоджу на склон над местом {area:290}.",
 
+	-- Step 23: Raleigh Andrean
+	-- {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben
+	["{npc:7683}, on the way down to the Apothecarium: {npc:11044} stands beside Faranell"] = "",
+
 	-- Step 24: To the Undercity
 	-- {zone:1458} Undercity
 	["To the {zone:1458}"] = "",
-	-- {area:380} Crossroads · {zone:1454} Orgrimmar · {area:85} Tirisfal Glades · {zone:1458} Undercity · {area:153} Ruins of Lordaeron · {object:36078} Trade Quarter
-	["Head east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {area:85}; the {zone:1458} lies below the {area:153}. The bat handler is in the {object:36078}."] = "",
+	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
+	["{object:1661} lies under the {area:153}; {npc:10181} holds court in the {object:36126}."] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
 	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner
@@ -135,6 +141,8 @@ return {
 	-- Step 26: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}, в Аптекарии",
+	-- {npc:11044} Doctor Martin Felben
+	["{npc:11044}, beside Faranell"] = "",
 	-- {area:287} Hillsbrad
 	["Keep it: the {area:287} coast, later on the route"] = "Сохраните его: побережье ({area:287}), позже по маршруту",
 

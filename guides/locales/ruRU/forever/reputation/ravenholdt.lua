@@ -40,7 +40,7 @@ return {
 	-- Step 5: Northfold Manor: a uniform
 	-- {area:313} Northfold Manor
 	["{area:313}: a uniform"] = "",
-	-- {object:656157} Syndicate Footlocker (no name in this language: may be words) · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
+	-- {object:656157} Syndicate Footlocker · {area:313} Northfold Manor · {quest:96783} A Way In · {item:275706} Syndicate Uniform
 	["The {object:656157} stands among the Syndicate camps of {area:313}, north of Stromgarde. Open it to finish {quest:96783} and take the {item:275706}."] = "",
 
 	-- Step 6: Stromgarde: Anastasia Miller

@@ -87,120 +87,112 @@ return {
 	-- {npc:9177} Oralius
 	["{npc:9177}: the Blackrock orcs drop the medallions, keep it open all through the Steppes"] = "{npc:9177}: медальоны падают с орков из клана Черной Горы, держите задание открытым всё время в Пылающих степях",
 
-	-- Step 26: Blackrock Medallion on the way
-	-- {item:11467} Blackrock Medallion
-	["{item:11467} on the way"] = "",
-
-	-- Step 27: Thaurissan Relic on the way
-	-- {object:153556} Thaurissan Relic
-	["{object:153556} on the way"] = "",
-
-	-- Step 28: Level 51.39
+	-- Step 26: Level 51.39
 	["Level 51.39"] = "",
 	-- {area:251} Flame Crest
 	["Top up here to level 51.39 before the hand-ins at {area:251}: they take you to level 52."] = "",
 	-- {npc:7034} Firegut Ogre Mage
 	["grind on {npc:7034}"] = "",
 
-	-- Step 29: Flame Crest
+	-- Step 27: Flame Crest
 	-- {area:251} Flame Crest
 	["Follow the road west, then climb north to the goblin camp on {area:251}."] = "Идите по дороге на запад, затем поднимитесь на север к лагерю гоблинов: {area:251}.",
 
-	-- Step 30: Level 52
+	-- Step 28: Level 52
 	["Level 52"] = "",
 	-- {area:251} Flame Crest
 	["Top up here to level 52 before the hand-ins at {area:251}: they take you to level 53."] = "",
 
-	-- Step 31: Ruins of Thaurissan: kill these as you meet them
+	-- Step 29: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "",
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {object:147516} Dark Iron · {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling
 	["The relics are the carved stones scattered through the {area:250} around {area:251}: click them until the information is recovered.\nRead the tablet in the {object:147516} camp among the ruins, south-west of {area:251}, to copy the transcript.\nUse the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "",
 
-	-- Step 32: Flame Crest
+	-- Step 30: Flame Crest
 	-- {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Ends with {quest:4808} in {area:2255}, {zone:1452}: keep it"] = "Завершается заданием «{quest:4808}» ({area:2255}, {zone:1452}): сохраните",
 
-	-- Step 33: Cyrus Therepentous
+	-- Step 31: Cyrus Therepentous
 	["Below ground"] = "",
 
-	-- Step 34: A Taste of Flame
+	-- Step 32: A Taste of Flame
 	-- {npc:9461} Frenzied Black Drake
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:9461} is a level 54 elite: most classes solo it at level 56, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 36: Level 52.08
+	-- Step 34: Level 52.08
 	["Level 52.08"] = "",
 	-- {quest:4022} A Taste of Flame
 	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan."] = "",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "",
 
-	-- Step 37: Blackrock Stronghold
+	-- Step 35: Blackrock Stronghold
 	-- {npc:9176} Gor'tesh · {area:254} Blackrock Mountain · {area:251} Flame Crest
 	["{npc:9176} and the Blackrock orcs hold the camps and the stronghold at the foot of {area:254}, west of {area:251}. Pull them one at a time; every orc and worg may drop a medallion, so kill them until you have fifty.\nCareful: {npc:9176} has a guard linked to him that joins the fight, and a second soldier patrols close by; clear the patrol before pulling."] = "",
 	-- {item:11467} Blackrock Medallion
 	["{item:11467}; inside"] = "",
 
-	-- Step 38: Morgan's Vigil
+	-- Step 36: Morgan's Vigil
 	["Ride back east along the road to the Vigil."] = "Езжайте по дороге назад на восток к Дозору.",
 
-	-- Step 39: Dreadmaul Rock
+	-- Step 37: Dreadmaul Rock
 	-- {area:249} Dreadmaul Rock
 	["Climb to the top of {area:249} and plant the head in the soft dirt mound."] = "Поднимитесь на вершину скалы ({area:249}) и посадите голову в кучу мягкой земли.",
 
-	-- Step 41: Fly to Nethergarde Keep
+	-- Step 39: Fly to Nethergarde Keep
 	-- {area:1438} Nethergarde Keep
 	["Fly to {area:1438}"] = "",
 	-- {area:2418} Morgan's Vigil
 	["{area:2418} flight master"] = "",
 
-	-- Step 42: Kum'isha the Collector
-	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear (no name in this language: may be words) · {spell:10854} Flames of Chaos
+	-- Step 40: Kum'isha the Collector
+	-- {area:2517} Rise of the Defiler · {zone:1419} Blasted Lands · {npc:7664} Razelikh the Defiler · {spell:2691} Mana Burn · {spell:8255} Strong Cleave · {object:141891} Razelikh's Tear · {spell:10854} Flames of Chaos
 	-- plural, as words: Imperfect Draenethyst Fragments = {item:10593} Imperfect Draenethyst Fragment
 	["Kum'isha waits at the {area:2517}, the hill south-west of the keep. The {zone:1419} mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have.\nCareful: Felcular, {npc:7664} and Ilifar are all level 60 elites. Razelikh casts {spell:2691}, {spell:8255} and Decimate, and as its health drops it adds {object:141891}, {spell:10854} and then Enrage at 15%."] = "",
 	-- {npc:7363} Kum'isha the Collector
 	["{npc:7363} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 50: Fly to Aerie Peak
+	-- Step 48: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "",
 
-	-- Step 51: Wildkin feathers
+	-- Step 49: Wildkin feathers
 	["Wildkin feathers"] = "Перья диких совухов",
 	-- {area:47} Hinterlands · {area:348} Aerie Peak
 	-- plural, as words: Wildkin Feathers = {item:10819} Wildkin Feather
 	["The Wildkin Feathers lie on the ground across the {area:47}, south and east of {area:348}, where the owlbeasts roam; the mobs here are well below you now."] = "",
 
-	-- Step 52: The Super Snapper FX
+	-- Step 50: The Super Snapper FX
 	-- {npc:7977} Gammerita
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 54: Fly to Southshore
+	-- Step 52: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "",
 	-- {area:348} Aerie Peak
 	["{area:348} flight master"] = "",
 
-	-- Step 56: Fly to Rut'theran Village
+	-- Step 54: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
 	["Fly to {area:702}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 57: Rut'theran Village
+	-- Step 55: Rut'theran Village
 	-- {zone:1452} Winterspring
 	["The wildkin are in {zone:1452}: keep it"] = "Дикие совухи – в зоне {zone:1452}: сохраните",
 
-	-- Step 58: Druid training
+	-- Step 56: Druid training
 	["Druid training"] = "Обучение друида",
 	-- {zone:1455} Ironforge · {zone:1457} Darnassus · {area:1658} Cenarion Enclave · {area:702} Rut'theran Village
 	["{zone:1455} has no druid trainer: take the portal up to {zone:1457} and train in the {area:1658}, then come back down to {area:702}."] = "В городе {zone:1455} нет учителя друидов: поднимитесь порталом в город {zone:1457}, обучитесь в анклаве ({area:1658}) и спуститесь назад: {area:702}.",
 
-	-- Step 59: Back to Teldrassil
+	-- Step 57: Back to Teldrassil
 	-- {area:141} Teldrassil
 	["Back to {area:141}"] = "",
 
-	-- Step 60: Daryn Lightwind
+	-- Step 58: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} стоит наверху, над NPC {npc:7916}: поднимитесь внутри здания, стрелка не различает этажи.",
 

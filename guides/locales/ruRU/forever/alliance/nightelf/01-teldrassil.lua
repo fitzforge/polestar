@@ -139,8 +139,8 @@ return {
 	["Webwood Lurkers"] = "Чащобные тенетники",
 
 	-- Step 20: Zenn Foulhoof
-	-- {npc:2150} Zenn Foulhoof · {area:186} Dolanaar
-	["North from the lake to {npc:2150}, on the road back to {area:186}."] = "",
+	-- {npc:2150} Zenn Foulhoof · {area:186} Dolanaar · {area:260} Starbreeze Village
+	["{npc:2150} sits by the road just east of {area:186}, between {area:186} and {area:260}."] = "",
 
 	-- Step 21: Starbreeze Village
 	-- {npc:2107} Gaerolas Talvethren · {object:126158} Tallonkai's Dresser
@@ -240,9 +240,9 @@ return {
 
 	-- Step 40: Sentinel Arynia again
 	["Sentinel Arynia again"] = "Снова часовой Арания",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words)
+	-- {object:673378} Oracle Tree Bark
 	["{object:673378}, just west of the moonwell"] = "{object:673378} – чуть западнее лунного колодца",
-	-- {object:673378} Oracle Tree Bark (no name in this language: may be words) · {zone:1457} Darnassus
+	-- {object:673378} Oracle Tree Bark · {zone:1457} Darnassus
 	["the same {object:673378}: Fandral in {zone:1457} takes it"] = "",
 
 	-- Step 41: Ursal the Mauler

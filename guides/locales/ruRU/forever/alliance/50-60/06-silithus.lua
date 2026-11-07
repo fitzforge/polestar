@@ -283,55 +283,47 @@ return {
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "",
 
-	-- Step 66: Fly to Ironforge
-	-- {area:1537} Ironforge
-	["Fly to {area:1537}"] = "",
+	-- Step 66: Fly to Stormwind
+	-- {zone:1453} Stormwind
+	["Fly to {zone:1453}"] = "",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 67: Fly to Stormwind
-	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
-	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
-
-	-- Step 68: Stormwind
-	-- {npc:14722} Clavicus Knavingham · {quest:6031} Runecloth
-	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {quest:6031}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
+	-- Step 67: Stormwind
+	-- {npc:14722} Clavicus Knavingham · {item:14047} Runecloth
+	["{npc:14722} takes sixty Silk, sixty Mageweave and sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {item:4306} Silk Cloth
 	["{item:4306}, from your bags"] = "",
 	-- {item:4338} Mageweave Cloth
 	["{item:4338}, from your bags"] = "",
 	-- {npc:14722} Clavicus Knavingham · {object:2096} Trade District
 	["{npc:14722}, in the {object:2096}"] = "{npc:14722} – здесь: {object:2096}",
-
-	-- Step 69: Ironforge
-	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth · {spell:7992} Slowing Poison · {area:1997} Bloodvenom Post
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
-	["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest.\nCareful: Jadefire Shadowstalkers are level 51-52 and move stealthed. They use {spell:7992} and are found about 550 yd south of {area:1997}.\nCareful: Jadefire Shadowstalkers sneak around and use {spell:7992}."] = "",
 	-- {item:2592} Wool Cloth
 	["{item:2592}, from your bags"] = "",
 	-- {item:14047} Runecloth
 	["{item:14047}, from your bags"] = "",
+
+	-- Step 68: Tram to Ironforge
+	-- {zone:1455} Ironforge
+	["Tram to {zone:1455}"] = "",
+
+	-- Step 69: Ironforge
+	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge · {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
+	["Take the {area:2257} to {zone:1455}. {npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {zone:1453} Stormwind
 	["{zone:1453} has no shaman trainer"] = "В городе {zone:1453} нет учителя шаманов",
 
-	-- Step 71: Stormwind City
-	["Stormwind City"] = "",
-	-- {item:2592} Wool Cloth
-	["Sixty {item:2592}, if you carry them"] = "",
-
-	-- Step 73: Fly to Southshore
+	-- Step 70: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "",
-	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	-- {zone:1455} Ironforge
+	["{zone:1455} flight master"] = "",
 
-	-- Step 77: Chillwind Camp
+	-- Step 74: Chillwind Camp
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} – элитный противник 61-го уровня",
 
-	-- Step 78: Andorhal
+	-- Step 75: Andorhal
 	["Andorhal"] = "Андорал",
 	-- {npc:10667} Chromie · {npc:1852} Araj the Summoner
 	["{npc:10667} waits in the ruined inn on the west side of Andorhal, the ruined city north of the camp. {npc:1852} guards his phylactery in the middle of the town."] = "{npc:10667} ждет в разрушенной таверне в западной части Андорала – разрушенного города к северу от лагеря. {npc:1852} охраняет свою филактерию в центре города.",
@@ -339,25 +331,25 @@ return {
 	-- {npc:10667} Chromie
 	["{npc:10667}, upstairs"] = "",
 
-	-- Step 79: Felstone Field
+	-- Step 76: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of Andorhal. The Jabbering Ghouls in the field carry the other half of the charm: combine the two halves."] = "Призрак {npc:10778} бродит у дома ({area:199}) к западу от Андорала. Вторую половину амулета носят болтливые вурдалаки на поле: соедините обе половины.",
 	["Upstairs"] = "",
 
-	-- Step 80: Northridge Lumber Camp
+	-- Step 77: Northridge Lumber Camp
 	["Ride north up the road to the lumber mill and set the termite barrel down in the middle of it."] = "Езжайте по дороге на север к лесопилке и поставьте бочку с термитами в ее центре.",
 
-	-- Step 81: Tirion Fordring (optional)
+	-- Step 78: Tirion Fordring (optional)
 	-- {npc:1855} Tirion Fordring
 	["{npc:1855} (optional)"] = "{npc:1855} (по желанию)",
 	-- {npc:1855} Tirion Fordring · {quest:5781} Of Forgotten Memories
 	["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} живет в маленькой хижине у пограничной реки, к северо-востоку от лесопилки. Сдайте задание «{quest:5781}», если выполнили его.",
 
-	-- Step 83: Of Lost Honor
+	-- Step 80: Of Lost Honor
 	["Underwater"] = "",
 
-	-- Step 86: Scholomance (optional)
+	-- Step 83: Scholomance (optional)
 	-- {area:2057} Scholomance
 	["{area:2057} (optional)"] = "{area:2057} (по желанию)",
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {area:28} Western Plaguelands · {area:2279} Stratholme
@@ -365,7 +357,7 @@ return {
 	-- {area:2057} Scholomance · {quest:5505} The Key to Scholomance · {area:3197} Chillwind Camp
 	["{area:2057} fits levels 58 to 60; {quest:5505} is handed in at {area:3197} below."] = "{area:2057} подходит для 58–60 уровней; задание «{quest:5505}» сдается ниже ({area:3197}).",
 
-	-- Step 87: Grind to 60
+	-- Step 84: Grind to 60
 	["Grind to 60"] = "Качайтесь до 60-го уровня",
 	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
@@ -373,7 +365,7 @@ return {
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {area:139} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {area:139}"] = "",
 
-	-- Step 89: Chillwind Camp
+	-- Step 86: Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Ride back south-west to {area:3197}."] = "Езжайте назад на юго-запад: {area:3197}.",
 

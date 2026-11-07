@@ -65,8 +65,8 @@ return {
 	["{area:35} flight master"] = "",
 
 	-- Step 11: Grom'gol
-	-- {object:3202} Grom'gol
-	["Follow the road south to {object:3202}."] = "Идите по дороге на юг: {object:3202}.",
+	-- {npc:2497} Nimboya · {object:3202} Grom'gol
+	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "",
 
 	-- Step 13: The camp by the river
 	["The camp by the river"] = "Лагерь у реки",
@@ -174,6 +174,7 @@ return {
 	-- ["East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}."] = "К востоку от огров тенебрюхие пантеры (37-38) крадутся незаметно, пока не нападут; там же бродят тигрицы Тернистой долины, иногда роняющие безупречный клык. Кроколиски-хрустогрызы лежат вдоль реки чуть западнее джунглей; сохраните их шкуры для NPC {npc:2495}.",
 	-- ["Follow the road north to the camp."] = "Идите по дороге на север к лагерю.",
 	-- ["Follow the road on south into {area:35}."] = "Идите по дороге дальше на юг: {area:35}.",
+	-- ["Follow the road south to {object:3202}."] = "Идите по дороге на юг: {object:3202}.",
 	-- ["Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it."] = "Идите на запад мимо лагеря. Ящеры Тернистой долины (33-34) охотятся на полянах, а тролли из племени Кровавого Скальпа занимают руины на побережье: с любого из них может выпасть бивень. {item:4614} падает с них очень редко: если выпадет, прочтите ее.",
 	-- ["Hearth to {area:35}"] = "Используйте Камень возвращения: {area:35}",
 	-- ["Hearth to {object:3202}"] = "Используйте Камень возвращения: {object:3202}",

@@ -40,24 +40,20 @@ return {
 	-- {npc:2230} Umpi
 	["{npc:2230}, next to Lydon; inside"] = "",
 
-	-- Step 5: Tarren Mill
-	-- {area:272} Tarren Mill
-	["Follow the road east along the river, then north-east up into the hills to {area:272}."] = "",
-
-	-- Step 6: Hillsbrad Fields
+	-- Step 5: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz · {npc:2451} Farmer Kalaba
 	["The farms east of {area:287} town. {npc:232} works the field by the northern farmhouse, {npc:2403} the one further south-east; Farmhands and Farmers are everywhere. {npc:2451} tends the field south of the farms."] = "{area:287}镇东边的农场。{npc:232}在北边农舍旁的田里干活，{npc:2403}在更东南的那片田；到处都是希尔斯布莱德雇农和希尔斯布莱德农夫。{npc:2451}照料农场南边的田地。",
 	-- {npc:2451} Farmer Kalaba · {area:286} Hillsbrad Fields
 	["{npc:2451} walks around {area:286}: look inside the circle on the map"] = "",
 
-	-- Step 7: Mountain Lion Blood
+	-- Step 6: Mountain Lion Blood
 	["Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight."] = "",
 
-	-- Step 9: Stanley
+	-- Step 8: Stanley
 	-- {npc:2274} Stanley · {npc:232} Farmer Ray · {area:286} Hillsbrad Fields
 	["{npc:2274} is {npc:232}'s dog, at the northern farmhouse in {area:286}."] = "{npc:2274}是{npc:232}的狗，在{area:286}北边的农舍旁。",
 
-	-- Step 10: Hillsbrad Fields: kill these as you meet them
+	-- Step 9: Hillsbrad Fields: kill these as you meet them
 	-- {area:286} Hillsbrad Fields
 	["{area:286}: kill these as you meet them"] = "",
 	-- {area:287} Hillsbrad
@@ -65,11 +61,11 @@ return {
 	-- {item:3692} Hillsbrad Human Skull
 	["{item:3692}: the Peasants in the fields"] = "{item:3692}：田里的希尔斯布莱德农民",
 
-	-- Step 11: Tarren Mill
+	-- Step 10: Tarren Mill
 	-- {npc:2215} High Executor Darthalia · {npc:270438} Deathstalker Masoj
 	["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}：给{npc:270438}的命令，在前往敦霍尔德城堡的路上",
 
-	-- Step 12: Durnholde Keep: kill these as you meet them
+	-- Step 11: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
 	["{area:275}: kill these as you meet them"] = "",
 	-- {npc:2238} Tog'thar · {area:275} Durnholde Keep · {area:272} Tarren Mill
@@ -80,30 +76,36 @@ return {
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的镣铐",
 
-	-- Step 13: Mudsnout Blossoms
+	-- Step 12: Mudsnout Blossoms
 	-- {item:3502} Mudsnout Blossoms
 	["South-west of Durnholde, the {item:3502} grow on the hillsides above the river."] = "在敦霍尔德城堡西南，{item:3502}长在河上方的山坡上。",
 
-	-- Step 14: Deathstalker Masoj
+	-- Step 13: Deathstalker Masoj
 	-- {area:290} Dun Garok
 	["Masoj hides on the hillside above {area:290}, south of Durnholde, on the way down to the blossoms."] = "Masoj躲在{area:290}上方的山坡上，位于敦霍尔德城堡南边，就在下去采花的路上。",
 	-- {npc:270438} Deathstalker Masoj · {quest:98094} Scout Support
 	["{npc:270438}, once {quest:98094} is in"] = "{npc:270438}，接到{quest:98094}后",
 
-	-- Step 15: The southern peak
+	-- Step 14: The southern peak
 	["The southern peak"] = "南边的山峰",
 	-- {area:290} Dun Garok
 	["Masoj wants an Apothecary Vial placed on three peaks. The southern one is the hilltop above {area:290}, just south of him: use a vial at the top."] = "马索吉要你在三座山峰上各放一个药剂师之瓶。南边那座是{area:290}上方的山顶，就在他南边：在山顶使用药瓶。",
 
-	-- Step 16: The smithy
+	-- Step 15: The smithy
 	["The smithy"] = "铁匠铺",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes
 	["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "铁匠铺在{area:287}镇中央。{npc:2404}和他的希尔斯布莱德见习铁匠在熔炉旁干活；{object:1736}堆在旁边。{npc:2449}在它北边的街上走动。",
 
-	-- Step 17: The western peak
+	-- Step 16: The western peak
 	["The western peak"] = "西边的山峰",
 	-- {area:287} Hillsbrad
 	["From {area:287} town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border."] = "从{area:287}镇向北进入奥特兰克山麓：西边的药瓶放在刚过边界的山顶上。",
+
+	-- Step 17: Back to Tarren Mill
+	-- {area:272} Tarren Mill
+	["Back to {area:272}"] = "",
+	-- {area:272} Tarren Mill
+	["East along the foothills, then down into {area:272}."] = "",
 
 	-- Step 18: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -118,11 +120,15 @@ return {
 	-- {area:290} Dun Garok
 	["Back down to Masoj on the hillside above {area:290}."] = "下山回到{area:290}上方山坡上的马索吉那里。",
 
+	-- Step 23: Raleigh Andrean
+	-- {npc:7683} Alessandro Luca · {npc:11044} Doctor Martin Felben
+	["{npc:7683}, on the way down to the Apothecarium: {npc:11044} stands beside Faranell"] = "",
+
 	-- Step 24: To the Undercity
 	-- {zone:1458} Undercity
 	["To the {zone:1458}"] = "",
-	-- {area:380} Crossroads · {zone:1454} Orgrimmar · {area:85} Tirisfal Glades · {zone:1458} Undercity · {area:153} Ruins of Lordaeron · {object:36078} Trade Quarter
-	["Head east to the {area:380} and fly to {zone:1454}. Take the zeppelin from the towers outside {zone:1454} to {area:85}; the {zone:1458} lies below the {area:153}. The bat handler is in the {object:36078}."] = "",
+	-- {object:1661} The Undercity · {area:153} Ruins of Lordaeron · {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter
+	["{object:1661} lies under the {area:153}; {npc:10181} holds court in the {object:36126}."] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner · {object:36126} Royal Quarter · {quest:93739} Exploring the Horde
 	["Speak with {npc:10181}, in the {object:36126}: {quest:93739}"] = "",
 	-- {npc:10181} Lady Sylvanas Windrunner
@@ -135,6 +141,8 @@ return {
 	-- Step 26: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell
 	["{npc:2055}, in the Apothecarium"] = "{npc:2055}，在炼金房",
+	-- {npc:11044} Doctor Martin Felben
+	["{npc:11044}, beside Faranell"] = "",
 	-- {area:287} Hillsbrad
 	["Keep it: the {area:287} coast, later on the route"] = "留着它：{area:287}海岸，路线后面会去",
 

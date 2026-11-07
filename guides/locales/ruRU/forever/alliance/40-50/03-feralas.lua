@@ -77,9 +77,9 @@ return {
 
 	-- Step 19: Grimtotem camp
 	["Grimtotem camp"] = "Лагерь Зловещего Тотема",
-	-- {area:1108} Forgotten Coast · {area:357} Feralas · {npc:7956} Kindal Moonweaver
+	-- {area:489} Thalanaar · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["Boat to the {area:1108} and ride east across {area:357} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["From {area:489} ride west along the road to the Grimtotem camp north of it. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
 
 	-- Step 20: Grimtotem tauren
 	["Grimtotem tauren"] = "Таурены из племени Зловещего Тотема",
@@ -106,10 +106,10 @@ return {
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
 	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "Затем {npc:3936} просит отнести вести в {zone:1457}: пропустите, {area:976} сам отправит вас туда.",
 
-	-- Step 27: Grind to 45
+	-- Step 28: Grind to 45
 	["Grind to 45"] = "Гринд до 45",
-	-- {area:1108} Forgotten Coast · {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
-	["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "Плывите на корабле сюда: {area:1108}, и езжайте на восток: {area:1105}. Заданиям {npc:14637} на побережье нужен 45-й уровень.",
+	-- {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
+	["Ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
 	["grind on {npc:5292} at {area:1105}, {area:357}"] = "",
 
@@ -138,6 +138,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Плывите на корабле сюда: {area:1108}, и езжайте на восток через {zone:1444} к лагерю Зловещего Тотема к северу от дороги. {npc:7956} ждет снаружи; освободите летучих хамелеонов из загона в центре и сохраните жизнь NPC {npc:7956} и хотя бы шести из них.",
+	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "Плывите на корабле сюда: {area:1108}, и езжайте на восток: {area:1105}. Заданиям {npc:14637} на побережье нужен 45-й уровень.",
 	-- ["From Theramore, fly to {area:608} and ride south out of {zone:1443} into {zone:1444}; the road leads west to the {area:1108} dock, where the boat crosses to Feathermoon on {area:1120}."] = "Из Терамора летите в {area:608} и езжайте на юг из зоны {zone:1443} в {zone:1444}; дорога ведет на запад к причалу ({area:1108}), откуда корабль идет в Крепость Оперенной Луны ({area:1120}).",
 	-- ["Giants and elementals"] = "Великаны и элементали",
 	-- ["Hearth to Feathermoon."] = "Используйте Камень возвращения: Крепость Оперенной Луны.",
