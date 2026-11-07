@@ -158,6 +158,22 @@ fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidde
 }
 
 #[test]
+fn pmm_is_registered_only_with_the_keyboard_and_mouse_interface() {
+	let slash = |style: u8| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			before: format!("{FAKES}\nEnum.InputDeviceInterfaceType = {{ Mkb = 0, Gamepad = 1 }}\nC_InputInterfaceStyle = {{ GetCurrentStyle = function() return {style} end }}"),
+			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "Nav/Nav.xml"]), Addon::name("Polestar_Mob_Markers")],
+			saved: vec![],
+			login: true,
+			script: "emit({ SlashCmdList.POLESTARMOBMARKERS ~= nil, SLASH_POLESTARMOBMARKERS1 ~= nil })".into(),
+		})
+	};
+	assert_eq!(slash(0), vec![json!([true, true])]);
+	assert_eq!(slash(1), vec![json!([false, false])], "a command from the gamepad interface's chat box blocks the gamepad");
+}
+
+#[test]
 fn the_old_settings_move_into_polestars_once_and_turned_in_quests_leave_the_hidden_list() {
 	let out = run(
 		"stub.mm.turnedIn[999] = true\nPolestarMobMarkersDB = { worldSize = 14, minimapButton = true, hidden = { [100] = true, [999] = true } }",

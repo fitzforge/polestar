@@ -929,9 +929,7 @@ local function openOptions()
 end
 
 -- /mobmarkers: what the addon sees, for when nothing shows. /mobmarkers config: its options.
-SLASH_POLESTARMOBMARKERS1 = "/mobmarkers"
-SLASH_POLESTARMOBMARKERS2 = "/pmm"
-SlashCmdList.POLESTARMOBMARKERS = function(msg)
+local function command(msg)
 	if msg and msg:lower():match("^%s*config") then return openOptions() end
 	if msg and msg:lower():match("^%s*preview") then
 		preview = not preview
@@ -946,4 +944,11 @@ SlashCmdList.POLESTARMOBMARKERS = function(msg)
 	Polestar.Print(("Mob Markers: map %s, %d spawn marks on %d maps, %d on this map, %d markers drawn (overlaps merged)."):format(
 		tostring(id), total, maps, id and marks[id] and #marks[id] or 0, placed)
 		.. (id and boundsOf(id) and " Map bounds: live." or " Map bounds: unavailable (zone-only fallback)."))
+end
+-- Not with Forever's gamepad interface: a command from its chat box blocks the gamepad until a reload
+-- (Polestar's Core/Init.lua, GamepadUI). Its options are in Polestar's window either way.
+if not Polestar.GamepadUI() then
+	SLASH_POLESTARMOBMARKERS1 = "/mobmarkers"
+	SLASH_POLESTARMOBMARKERS2 = "/pmm"
+	SlashCmdList.POLESTARMOBMARKERS = command
 end
