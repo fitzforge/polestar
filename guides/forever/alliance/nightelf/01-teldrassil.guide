@@ -22,19 +22,15 @@ step Aldrassil
   accept 459
   accept 97977
 
-step Young Thistle Boar on the way
-  along until q456
-  kill 1984 quest 456.2 -- Young Thistle Boar along the way to Back at Aldrassil
-
 step Shadowglen: kill these as you meet them
   zone Teldrassil
   tip Young Nightsabers and Young Thistle Boars roam around Aldrassil. Grells carry Fel Moss in the woods west of the tree, where the Gnarlpine Totems stand.
   kill 2031 quest 456.1
+  kill 1984 quest 456.2
   collect 3297 quest 459.1
   collect 279082 quest 97977.1
 
 step Back at Aldrassil
-  label q456
   turnin 459                                  -- Tarindrella
   turnin 97977
   turnin 456                                  -- Conservator Ilthalaine
@@ -51,15 +47,9 @@ step Back at Aldrassil
   accept 4495                                 -- Dirania Silvershine, east of the tree
 
 step North to Shadowthread Cave
-  tip Mangy Nightsabers and Thistle Boars roam north of Aldrassil, on the way to the cave. Githyiss the Vile sits deep inside.
+  tip Mangy Nightsabers and Thistle Boars roam north of Aldrassil, on the way to the cave. Githyiss the Vile sits deep inside. Iverron waits in the trees west of the cave mouth.
   kill 2032 quest 457.1
   kill 1985 quest 457.2
-
-step Aldrassil
-  turnin 457                                  -- Conservator Ilthalaine
-
-step North to Shadowthread Cave
-  tip Iverron waits in the trees west of the cave mouth.
   collect 5166 quest 916.1                    -- Webwood Spiders; below ground
   turnin 4495                                 -- Iverron
   accept 3519
@@ -68,6 +58,7 @@ step Aldrassil
   tip The trainers stand upstairs inside Aldrassil, along the ramp that winds up the tree: Alyissia and Frahun Shadewhisper on the first level, Shanda above them, Ayanna Everstride and Mardant Strongoak at the top. The arrow cannot tell the levels apart.
   turnin 916                                  -- Gilshalan Windwalker
   accept 917
+  turnin 457                                  -- Conservator Ilthalaine
   turnin 3519                                 -- Dirania Silvershine
   accept 3521
   turnin 3116 only Warrior                    -- Alyissia, the warrior trainer; inside
@@ -77,12 +68,9 @@ step Aldrassil
   turnin 3120 only Druid                      -- Mardant Strongoak, the druid trainer at Aldrassil
   train class
 
-step Hyacinth Mushroom on the way
-  along until q3521
-  collect 10639 quest 3521.1 -- Hyacinth Mushroom along the way to Aldrassil
-
 step Webwood Egg and the antidote
   tip The Webwood Eggs lie at the back of Shadowthread Cave: take the central path, then left where it splits, up to the high ledge. Hyacinth Mushrooms drop from Grells, Moonpetal Lilies grow by the ponds north of Aldrassil.
+  collect 10639 quest 3521.1                  -- Grells
   collect 10641 quest 3521.2
 
 # Shadowthread Cave's mouth: where the walk in from Aldrassil first steps
@@ -99,7 +87,6 @@ step Shadowglen
   collect 10641 quest 3521.2
 
 step Aldrassil
-  label q3521
   turnin 97236 optional
   turnin 917                                  -- Gilshalan Windwalker
   accept 920
@@ -147,9 +134,9 @@ step The Great Outdoors
   accept 4161                                 -- Zarrin
 
 step Dolanaar
-  sethome "Dolanaar" npc 6736                 -- Innkeeper Keldamyr
   turnin 928                                  -- Corithras Moonrage, south of the inn
   accept 929
+  sethome "Dolanaar" npc 6736                 -- Innkeeper Keldamyr
   turnin 2159                                 -- Innkeeper Keldamyr
   accept 99046                                -- Sentinel Kyra Starsong
   train class
@@ -199,6 +186,7 @@ step Lake Al'Ameth
   turnin 919
 
 step Dolanaar
+  turnin 4161                                 -- Zarrin
   turnin 929                                  -- Corithras Moonrage
   accept 933
   accept 489                                  -- Sentinel Kyra Starsong
@@ -207,12 +195,6 @@ step Dolanaar
   accept 2459
   turnin 476                                  -- Athridas Bearmantle
   accept 483
-  turnin 4161                                 -- Zarrin
-
-step Seek Redemption!
-  collect 3418 quest 489.1 @61.6,53.4 map 1438
-
-step Dolanaar
   train class
 
 # ---------------------------------------------------------------- West: Fel Rock to Gnarlpine Hold
@@ -267,16 +249,17 @@ step Gnarlpine Hold
 
 step Dolanaar
   tip Moon Priestess Amara patrols the road west of the village: if she isn't at the arrow, follow the road until you meet her.
-  turnin 99053                                -- Sentinel Kyra Starsong
-  turnin 933                                  -- Corithras Moonrage
-  accept 7383
   turnin 487                                  -- Moon Priestess Amara
   turnin 932                                  -- Tallonkai Swiftroot, upstairs
   turnin 483                                  -- Athridas Bearmantle
   accept 486
+  turnin 99053                                -- Sentinel Kyra Starsong
+  turnin 933                                  -- Corithras Moonrage
+  accept 7383
 
 step Seek Redemption!
   tip Fel Cones lie under the trees all around Dolanaar and Zenn: pick them up on the road east and hand them to Zenn on the way to Ferocitas.
+  collect 3418 quest 489.1 @61.6,53.4 map 1438
   turnin 489                                  -- Zenn Foulhoof
 
 step Ferocitas the Dream Eater
@@ -286,9 +269,15 @@ step Ferocitas the Dream Eater
   collect 8049                                -- Gnarlpine Necklace, from Ferocitas
   collect 8050 quest 2459.2 @69.4,53.4
 
+step Dolanaar
+  tip The road west to the Oracle Glade runs through Dolanaar: hand Tallonkai the jewel on the way.
+  turnin 2459                                 -- Tallonkai Swiftroot, upstairs
+
 step The Oracle Glade
   tip The moonwell is in the middle of the glade. The Strange Fronded Plant grows at its north end.
   accept 937                                  -- Sentinel Arynia Cloudsbreak, by the moonwell
+  use 18152 quest 7383.1 @38.4,34.1 map 1438
+  collect 18151 quest 7383.1 @38.4,34.1       -- Use the Amethyst Phial at the moonwell
   turnin 99046
   accept 99047
 
@@ -312,8 +301,6 @@ step The named harpies
 
 step The Oracle Glade
   accept 931                                  -- Strange Fronded Plant
-  use 18152 quest 7383.1 @38.4,34.1 map 1438
-  collect 18151 quest 7383.1 @38.4,34.1       -- Use the Amethyst Phial at the moonwell
 
 step Sentinel Arynia again
   turnin 98392
@@ -332,7 +319,6 @@ step Dolanaar
   accept 99050
   buy 3371 x1 npc 3614                        -- Empty Vial from Narret Shadowgrove, beside Byancie
   accept 5629 only Priest                     -- Laurna Morninglight: Priestess Alathea in Darnassus takes it
-  turnin 2459                                 -- Tallonkai Swiftroot, upstairs
   turnin 486                                  -- Athridas Bearmantle
   train class
   buy 159 x1 npc 6736                         -- Refreshing Spring Water from Innkeeper Keldamyr, for Byancie
@@ -376,6 +362,7 @@ step Into Darnassus
   only Warrior
   zone Darnassus
   goto 85.7,35.9 "Into Darnassus"
+  accept 6344                                 -- Mydrannul, on the Craftsmen's Terrace just inside the city
 
 step Darnassus
   only Warrior
@@ -406,7 +393,7 @@ step Darnassus
   zone Darnassus
   tip Follow the road west into Darnassus. Mydrannul stands on the Craftsmen's Terrace just inside the city. Arch Druid Fandral Staghelm is in the Cenarion Enclave at the north end of the city, Rellian Greenspyre just south of it; Lariia and Tyrande Whisperwind are in the Temple of the Moon at the south end. Sister Aquinne is in the west of the city, on the way to the pink portal down to Rut'theran.
   turnin 1683 only Warrior                    -- Elanaria, on the Warrior's Terrace: Defensive Stance
-  accept 6344                                 -- Mydrannul
+  accept 6344 only !Warrior                   -- Mydrannul
   turnin 935                                  -- Arch Druid Fandral Staghelm, in the Cenarion Enclave
   turnin 940
   accept 952
