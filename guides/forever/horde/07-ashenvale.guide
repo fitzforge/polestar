@@ -119,8 +119,15 @@ step Torek's Assault
   accept 6544
   complete 6544
 
+# Splintertree from the road in: Ertog and Pixel by the gate, Senani, Mastok,
+# then the inn once (Yama and the innkeeper stand inside it together).
 step Splintertree Post
+  turnin 6544                         -- Ertog Ragetusk
   accept 6441                         -- Pixel
+
+step Splintertree Post
+  when onquest 23
+  turnin 23                           -- Senani Thunderheart
 
 step Splintertree Post
   when onquest 1918
@@ -131,16 +138,9 @@ step Splintertree Post
   turnin 25                           -- Mastok Wrilehiss
 
 step Splintertree Post
-  accept 824
-  turnin 6482                         -- Yama Snowhoof, inside
-
-step Splintertree Post
-  when onquest 23
-  turnin 23                           -- Senani Thunderheart
-
-step Splintertree Post
-  sethome "Splintertree Post"
-  turnin 6544                         -- Ertog Ragetusk
+  accept 824                          -- Mastok Wrilehiss
+  turnin 6482                         -- Yama Snowhoof, inside the inn
+  sethome "Splintertree Post"         -- Innkeeper Kaylisk, beside her
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
   vendor nearest
@@ -270,11 +270,11 @@ step Freewind Post
   getfp "Freewind Post"
   accept 4767                         -- Elu, by the wind rider master
   accept 4821                         -- Hagar Lightninghoof
-  sethome "Freewind Post"
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside
+  accept 98070                        -- Jandia, the trade supplies vendor: the Screeching harpies of Roguefeather Den; inside the inn
+  sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
 
 step Alien Egg
   tip Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1).
