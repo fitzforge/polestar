@@ -3726,6 +3726,352 @@
 				"q": 180,
 				"reason": "WANTED: Lieutenant Fangore on Redridge's second pass (05-duskwood's end, about 25-26), where Fangore (26) and Galardell's gnolls fit (#977 left it out of the first pass at 21.5); finished at 21-23 by four players in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
 				"issue": "#1052"
+			},
+			{
+				"q": 98067,
+				"reason": "Flow coverage, 2026-11-07: Eyes of the Sentinels (level 11, from 1) is offered by Sentinel Dalia Sunblade, whom the Darnassus visit already passes; recorded players take it (8 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 6261,
+				"reason": "Flow coverage, 2026-11-07: Dungar Longdrink (level 10, from 10) is offered by Osric Strang, whom the Stormwind City visit already passes; recorded players take it (7 accepts, 9 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6281
+				]
+			},
+			{
+				"q": 6285,
+				"reason": "Flow coverage, 2026-11-07: Return to Lewis (level 10, from 10) is offered by Dungar Longdrink, whom the Stormwind City visit already passes; recorded players take it (6 accepts, 7 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6261
+				]
+			},
+			{
+				"q": 353,
+				"reason": "Flow coverage, 2026-11-07: Stormpike's Delivery (level 15, from 9) is offered by Grimand Elmore, whom the Stormwind City visit already passes; recorded players take it (13 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1097
+				]
+			},
+			{
+				"q": 399,
+				"reason": "Flow coverage, 2026-11-07: Humble Beginnings (level 15, from 10) is offered by Baros Alexston, whom the Stormwind City visit already passes; recorded players take it (12 accepts, 4 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 141,
+				"reason": "Flow coverage, 2026-11-07: The Defias Brotherhood (level 18, from 14) is offered by Master Mathias Shaw, whom the Stormwind City visit already passes; recorded players take it (6 accepts, 13 hand-ins). Solo in Forever's quest data. The route left it out. A chain across Lakeshire, Sentinel Hill and Stormwind: the planner places each part on a pass.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					135
+				]
+			},
+			{
+				"q": 6281,
+				"reason": "Flow coverage, 2026-11-07: Continue to Stormwind (level 10, from 10) is offered by Thor, whom the 02-westfall visit already passes; recorded players take it (8 accepts, 9 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6181
+				]
+			},
+			{
+				"q": 135,
+				"reason": "Flow coverage, 2026-11-07: The Defias Brotherhood (level 18, from 14) is offered by Gryan Stoutmantle, whom the 02-westfall visit already passes; recorded players take it (7 accepts, 14 hand-ins). Solo in Forever's quest data. The route left it out. A chain across Lakeshire, Sentinel Hill and Stormwind: the planner places each part on a pass.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					132
+				]
+			},
+			{
+				"q": 142,
+				"reason": "Flow coverage, 2026-11-07: The Defias Brotherhood (level 18, from 14) is offered by Gryan Stoutmantle, whom the 02-westfall visit already passes; recorded players take it (6 accepts, 12 hand-ins). Solo in Forever's quest data. The route left it out. A chain across Lakeshire, Sentinel Hill and Stormwind: the planner places each part on a pass.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					141
+				]
+			},
+			{
+				"q": 132,
+				"reason": "Flow coverage, 2026-11-07: The Defias Brotherhood (level 18, from 14) is offered by Wiley the Black, whom the 04-redridge-mountains visit already passes; recorded players take it (7 accepts, 15 hand-ins). Solo in Forever's quest data. The route left it out. A chain across Lakeshire, Sentinel Hill and Stormwind: the planner places each part on a pass.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					65
+				]
+			},
+			{
+				"q": 414,
+				"reason": "Flow coverage, 2026-11-07: Stout to Kadrell (level 10, from 8) is offered by Mountaineer Barleybrew, whom the 01-dun-morogh visit already passes; recorded players take it (8 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					413
+				]
+			},
+			{
+				"q": 416,
+				"reason": "Flow coverage, 2026-11-07: Rat Catching (level 11, from 10) is offered by Mountaineer Kadrell, whom the 01-dun-morogh visit already passes; recorded players take it (7 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 1339,
+				"reason": "Flow coverage, 2026-11-07: Mountaineer Stormpike's Task (level 15, from 9) is offered by Mountaineer Kadrell, whom the 01-dun-morogh visit already passes; recorded players take it (7 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 1097,
+				"reason": "Flow coverage, 2026-11-07: Elmore's Task (level 15, from 9) is offered by Verner Osgood, whom the 01-elwynn-forest visit already passes; recorded players take it (13 accepts, 13 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 490,
+				"reason": "Flow coverage, 2026-11-07: Bounty: Gnarlpine Furbolg (level 8, from 5) is offered by Sentinel Shayla Nightbreeze, whom the 01-teldrassil visit already passes; recorded players take it (8 accepts, 9 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 923,
+				"reason": "Flow coverage, 2026-11-07: Tumors (level 9, from 4) is offered by Rellian Greenspyre, whom the 01-teldrassil visit already passes; recorded players take it (10 accepts, 4 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					922
+				]
+			},
+			{
+				"q": 2519,
+				"reason": "Flow coverage, 2026-11-07: The Temple of the Moon (level 10, from 5) is offered by Sister Aquinne, whom the 01-teldrassil visit already passes; recorded players take it (13 accepts, 10 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 2518,
+				"reason": "Flow coverage, 2026-11-07: Tears of the Moon (level 12, from 5) is offered by Priestess A'moora, whom the 01-teldrassil visit already passes; recorded players take it (9 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					2519
+				]
+			},
+			{
+				"q": 2520,
+				"reason": "Flow coverage, 2026-11-07: Sathrah's Sacrifice (level 12, from 5) is offered by Priestess A'moora, whom the 01-teldrassil visit already passes; recorded players take it (5 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					2518
+				]
+			},
+			{
+				"q": 2178,
+				"reason": "Flow coverage, 2026-11-07: Easy Strider Living (level 12, from 9) is offered by Alanndarian Nightsong, whom the 02-darkshore visit already passes; recorded players take it (4 accepts, 2 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 6385,
+				"reason": "Flow coverage, 2026-11-07: Doras the Wind Rider Master (level 10, from 10) is offered by Innkeeper Gryshka, whom the Orgrimmar visit already passes; recorded players take it (12 accepts, 10 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6384
+				]
+			},
+			{
+				"q": 6386,
+				"reason": "Flow coverage, 2026-11-07: Return to the Crossroads (level 10, from 10) is offered by Doras, whom the Orgrimmar visit already passes; recorded players take it (10 accepts, 9 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6385
+				]
+			},
+			{
+				"q": 1358,
+				"reason": "Flow coverage, 2026-11-07: Sample for Helbrim (level 15, from 10) is offered by Apothecary Zinge, whom the Undercity visit already passes; recorded players take it (6 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1359
+				]
+			},
+			{
+				"q": 854,
+				"reason": "Flow coverage, 2026-11-07: Journey to the Crossroads (level 12, from 9) is offered by Kirge Sternhorn, whom the 02-the-barrens visit already passes; recorded players take it (4 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 809,
+				"reason": "Flow coverage, 2026-11-07: Ak'Zeloth (level 13, from 4) is offered by Neeru Fireblade in Orgrimmar's Cleft of Shadow, on the way through Orgrimmar to the Barrens, and leads to The Demon Seed (924) at Ak'Zeloth beside the road to the Crossroads; recorded players take it (12 accepts, 10 hand-ins). Solo in Forever's quest data.",
+				"issue": "-"
+			},
+			{
+				"q": 924,
+				"reason": "Flow coverage, 2026-11-07: The Demon Seed (level 14, from 9) is offered by Ak'Zeloth, whom the 02-the-barrens visit already passes; recorded players take it (10 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					809
+				]
+			},
+			{
+				"q": 853,
+				"reason": "Flow coverage, 2026-11-07: Apothecary Zamah (level 15, from 10) is offered by Apothecary Helbrim, whom the 02-the-barrens visit already passes; recorded players take it (11 accepts, 10 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					848
+				]
+			},
+			{
+				"q": 422,
+				"reason": "Flow coverage, 2026-11-07: Arugal's Folly (level 11, from 9) is offered by Dalar Dawnweaver, whom the 03-silverpine-forest visit already passes; recorded players take it (7 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out. Grey at Silverpine's 16-19 but it opens Arugal's Folly 423/424 (level 14-15).",
+				"issue": "-",
+				"after": [
+					"turnin",
+					421
+				]
+			},
+			{
+				"q": 447,
+				"reason": "Flow coverage, 2026-11-07: A Recipe For Death (level 12, from 9) is offered by Apothecary Renferrel, whom the 03-silverpine-forest visit already passes; recorded players take it (13 accepts, 13 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 423,
+				"reason": "Flow coverage, 2026-11-07: Arugal's Folly (level 14, from 9) is offered by Dalar Dawnweaver, whom the 03-silverpine-forest visit already passes; recorded players take it (5 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					422
+				]
+			},
+			{
+				"q": 424,
+				"reason": "Flow coverage, 2026-11-07: Arugal's Folly (level 15, from 9) is offered by Dalar Dawnweaver, whom the 03-silverpine-forest visit already passes; recorded players take it (5 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					423
+				]
+			},
+			{
+				"q": 1359,
+				"reason": "Flow coverage, 2026-11-07: Zinge's Delivery (level 15, from 10) is offered by Apothecary Renferrel, whom the 03-silverpine-forest visit already passes; recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					3221
+				]
+			},
+			{
+				"q": 6548,
+				"reason": "Flow coverage, 2026-11-07: Avenge My Village (level 18, from 12) is offered by Makaba Flathoof, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 6629,
+				"reason": "Flow coverage, 2026-11-07: Kill Grundig Darkcloud (level 18, from 12) is offered by Makaba Flathoof, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 2 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					6548
+				]
+			},
+			{
+				"q": 1062,
+				"reason": "Flow coverage, 2026-11-07: Goblin Invaders (level 19, from 13) is offered by Seereth Stonebreak, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 2 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					1061
+				]
+			},
+			{
+				"q": 4021,
+				"reason": "Flow coverage, 2026-11-07: Counterattack! (level 20, from 11) is offered by Regthar Deathgate, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					852
+				]
+			},
+			{
+				"q": 6461,
+				"reason": "Flow coverage, 2026-11-07: Blood Feeders (level 19, from 13) is offered by Xen'Zilla, whom the 05-stonetalon-mountains visit already passes; recorded players take it (3 accepts, 4 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 812,
+				"reason": "Flow coverage, 2026-11-07: Need for a Cure (level 9, from 7) is offered by Rhinag, whom the 01-durotar visit already passes; recorded players take it (4 accepts, 2 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 768,
+				"reason": "Flow coverage, 2026-11-07: Gathering Leather (level 8, from 4) is offered by Veren Tallstrider, whom the 01-mulgore visit already passes; recorded players take it (5 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
+			},
+			{
+				"q": 357,
+				"reason": "Flow coverage, 2026-11-07: The Lich's Identity (level 8, from 5) is offered by Bethor Iceshard, whom the 01-tirisfal-glades visit already passes; recorded players take it (8 accepts, 7 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					405
+				]
+			},
+			{
+				"q": 366,
+				"reason": "Flow coverage, 2026-11-07: Return the Book (level 8, from 5) is offered by Bethor Iceshard, whom the 01-tirisfal-glades visit already passes; recorded players take it (6 accepts, 7 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					357
+				]
+			},
+			{
+				"q": 405,
+				"reason": "Flow coverage, 2026-11-07: The Prodigal Lich (level 8, from 5) is offered by Magistrate Sevren, whom the 01-tirisfal-glades visit already passes; recorded players take it (12 accepts, 9 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					358
+				]
+			},
+			{
+				"q": 445,
+				"reason": "Flow coverage, 2026-11-07: Delivery to Silverpine Forest (level 10, from 9) is offered by Apothecary Johaan, whom the 01-tirisfal-glades visit already passes; recorded players take it (12 accepts, 4 hand-ins). Solo in Forever's quest data. The route left it out. Handed in at the Sepulcher on the Silverpine visit.",
+				"issue": "-"
+			},
+			{
+				"q": 409,
+				"reason": "Flow coverage, 2026-11-07: Proving Allegiance (level 12, from 5) is offered by Gunther Arcanus, whom the 01-tirisfal-glades visit already passes; recorded players take it (6 accepts, 6 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					366
+				]
+			},
+			{
+				"q": 411,
+				"reason": "Flow coverage, 2026-11-07: The Prodigal Lich Returns (level 12, from 5) is offered by Gunther Arcanus, whom the 01-tirisfal-glades visit already passes; recorded players take it (6 accepts, 5 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-",
+				"after": [
+					"turnin",
+					409
+				]
+			},
+			{
+				"q": 98545,
+				"reason": "Flow coverage, 2026-11-07: Leonid's Letter (level 13, from 10) is offered by Leonid Barthalomew the Revered, whom the 01-tirisfal-glades visit already passes; recorded players take it (14 accepts, 10 hand-ins). Solo in Forever's quest data. The route left it out.",
+				"issue": "-"
 			}
 		],
 		"skip": [

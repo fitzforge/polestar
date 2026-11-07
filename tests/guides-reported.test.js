@@ -3972,3 +3972,65 @@ test('Pools of Vision NPCs (#1024): every step at one says they stand down in th
 	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
 	assert.deepEqual(missing, []);
 });
+
+// --- Flow coverage (2026-11-07): quests that recorded players take on their own, whose givers our
+// loops already pass, are in the route (data/route-fixes.json, overrides.include, "Flow coverage").
+// Each is taken in the guide whose visit passes its giver, and handed in in that guide or a later one
+// of the chain; the town quests are somewhere in the faction's leveling guides.
+
+const COVERAGE = {
+	'forever/alliance/02-westfall.guide': [6281, 135, 142], // Continue to Stormwind; The Defias Brotherhood; The Defias Brotherhood
+	'forever/alliance/04-redridge-mountains.guide': [132], // The Defias Brotherhood
+	'forever/alliance/dwarf/01-dun-morogh.guide': [414, 416, 1339], // Stout to Kadrell; Rat Catching; Mountaineer Stormpike's Task
+	'forever/alliance/gnome/01-dun-morogh.guide': [414, 416, 1339], // Stout to Kadrell; Rat Catching; Mountaineer Stormpike's Task
+	'forever/alliance/nightelf/01-teldrassil.guide': [490, 923, 2519, 2518, 2520], // Bounty: Gnarlpine Furbolg; Tumors; The Temple of the Moon; Tears of the Moon; Sathrah's Sacrifice
+	'forever/alliance/nightelf/02-darkshore.guide': [2178], // Easy Strider Living
+	'forever/horde/02-the-barrens.guide': [854, 924, 853], // Journey to the Crossroads; The Demon Seed; Apothecary Zamah
+	'forever/horde/03-silverpine-forest.guide': [447, 423, 1359, 424, 422], // A Recipe For Death; Arugal's Folly; Zinge's Delivery; Arugal's Folly; Arugal's Folly
+	'forever/horde/04-the-barrens.guide': [6548, 6629, 1062, 4021], // Avenge My Village; Kill Grundig Darkcloud; Goblin Invaders; Counterattack!
+	'forever/horde/05-stonetalon-mountains.guide': [6461], // Blood Feeders
+	'forever/horde/orc/01-durotar.guide': [812], // Need for a Cure
+	'forever/horde/tauren/01-mulgore.guide': [768], // Gathering Leather
+	'forever/horde/troll/01-durotar.guide': [812], // Need for a Cure
+	'forever/horde/undead/01-tirisfal-glades.guide': [405, 357, 366, 445, 409, 411, 98545], // The Prodigal Lich; The Lich's Identity; Return the Book; Delivery to Silverpine Forest; Proving Allegiance; The Prodigal Lich Returns; Leonid's Letter
+};
+const COVERAGE_TOWNS = {
+	Alliance: [98067, 6261, 6285, 353, 399, 141, 1097], // Eyes of the Sentinels; Dungar Longdrink; Return to Lewis; Stormpike's Delivery; Humble Beginnings; The Defias Brotherhood; Elmore's Task
+	Horde: [6385, 6386, 1358, 809], // Doras the Wind Rider Master; Return to the Crossroads; Sample for Helbrim; Ak'Zeloth
+};
+
+// The guide and every guide its `next` leads to, in order.
+function chainFrom(guide) {
+	const out = [];
+	for (let g = guide; g && !out.includes(g); ) {
+		out.push(g);
+		const next = compiled(g).next;
+		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
+		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
+	}
+	return out;
+}
+
+for (const [guide, quests] of Object.entries(COVERAGE)) test(`${guide}: flow coverage: the quests whose givers its loops pass are taken there and handed in`, { skip }, () => {
+	const here = goals(guide);
+	const later = chainFrom(guide).flatMap((g) => goals(g));
+	for (const q of quests) {
+		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `accept ${q} is in ${guide}`);
+		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `turnin ${q} is in ${guide} or a guide after it`);
+	}
+});
+
+for (const [faction, quests] of Object.entries(COVERAGE_TOWNS)) test(`${faction}: flow coverage: the town quests recorded players take are in the leveling guides`, { skip }, () => {
+	const leveling = allGuides().filter((g) => g.startsWith(`forever/${faction.toLowerCase()}/`) && !/\/(class|reputation|professions|dungeons)\//.test(g));
+	const all = leveling.flatMap((g) => goals(g));
+	for (const q of quests) {
+		assert.ok(all.some(({ goal }) => goal.t === 'accept' && goal.quest === q), `accept ${q} is in the ${faction} leveling guides`);
+		assert.ok(all.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `turnin ${q} is in the ${faction} leveling guides`);
+	}
+});
+
+test('flow coverage: every covered quest has its include record in the route fixes', () => {
+	const inc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include;
+	const want = [...Object.values(COVERAGE).flat(), ...Object.values(COVERAGE_TOWNS).flat()];
+	for (const q of new Set(want)) assert.ok(inc.some((e) => e.q === q && /Flow coverage/.test(e.reason)), `include ${q} is recorded`);
+});
