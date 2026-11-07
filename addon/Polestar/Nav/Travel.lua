@@ -71,13 +71,15 @@ local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 local WALK_DETOUR = 1.25     -- straight lines are not walkable; learned paths are
 Travel.WALK_DETOUR = WALK_DETOUR -- Nav/Walk.lua's floor for the player's measured walk
 local HEARTH_ITEM = 6948
--- The Hearthstone's hour-long cooldown makes it worth spending only on a long
--- haul (Fitz, 0.3.3: "a 2-minute walk is fine"): a route hearths only when
--- the way without it takes at least HEARTH_MIN_TRIP and hearthing saves at
--- least HEARTH_MARGIN after its cast and loading screen (HEARTH_SECONDS).
+-- The Hearthstone's hour-long cooldown is spent once a trip is long enough
+-- for it to clearly pay (Fitz, #1096: hearth a trip over 3 minutes that it
+-- shortens by 2 or more; 0.3.3's 8 and 5 walked where a hearth was better):
+-- a route hearths only when the way without it takes at least
+-- HEARTH_MIN_TRIP and hearthing saves at least HEARTH_MARGIN after its cast
+-- and loading screen (HEARTH_SECONDS).
 local HEARTH_SECONDS = 15    -- 10 s cast plus the loading screen
-local HEARTH_MARGIN = 300    -- seconds it must save: 5 minutes
-local HEARTH_MIN_TRIP = 480  -- seconds the way without it must take: 8 minutes
+local HEARTH_MARGIN = 120    -- seconds it must save: 2 minutes
+local HEARTH_MIN_TRIP = 180  -- seconds the way without it must take: 3 minutes
 Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEARTH_MARGIN, HEARTH_MIN_TRIP -- the Engine's hearth goal weighs it the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
