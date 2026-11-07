@@ -4721,3 +4721,11 @@ test('forever/horde/50-60/05-eastern-plaguelands.guide: flow re-order: Corin\'s 
 	assert.ok(at(list, 'turnin 6029', is('turnin', 6029)) < at(list, 'turnin 5229', is('turnin', 5229)), 'the Bulwark on the way to Felstone Field');
 	assert.ok(!goals('forever/horde/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 6029)(goal)), 'not carried to the Silithus guide');
 });
+
+// Flow review, Horde 40-60 (#1166): Chromie offers Counting Out Time on A Matter of Time's hand-in and the lockboxes are
+// around her inn; it waited for a return to Chromie later in the guide.
+test('forever/horde/50-60/06-silithus.guide: flow re-order: Counting Out Time on the first Chromie visit', { skip }, () => {
+	const list = goals('forever/horde/50-60/06-silithus.guide');
+	assert.equal(list[at(list, 'accept 4972', is('accept', 4972))].s, list[at(list, 'turnin 4971', is('turnin', 4971))].s, 'taken on A Matter of Time\'s hand-in');
+	assert.ok(at(list, 'collect 12638', (g) => g.t === 'collect' && g.item === 12638) < at(list, 'turnin 5098', is('turnin', 5098)), 'the lockboxes before the Bulwark');
+});
