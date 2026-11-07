@@ -2322,6 +2322,35 @@ fn rewards_auto_pick_takes_the_best_when_on_shift_quest_cost_and_a_disabled_gear
 }
 
 #[test]
+fn rewards_auto_pick_waits_for_automation_delay_and_shift_or_a_closed_window_stops_it() {
+	let out = run(r#"
+		q.items[11] = { name = "Cloak", price = 120 }
+		q.items[12] = { name = "Ring", price = 400 }
+		q.choices = { { id = 11 }, { id = 12 } }
+		Polestar.Automation = { Delay = function() return 0.3 end }
+		set("rewardAutoPick", true)
+		q.questComplete(); stub.runTimers()
+		emit(#calls("GetQuestReward"))
+		stub.advance(0.35)
+		emit(calls("GetQuestReward"))
+		q.calls = {}
+		q.questComplete(); stub.runTimers()
+		stub.keys.shift = true
+		stub.advance(0.35)
+		stub.keys.shift = false
+		emit(#calls("GetQuestReward"))
+		q.questComplete(); stub.runTimers()
+		stub.fire("QUEST_FINISHED")
+		stub.advance(0.35)
+		emit(#calls("GetQuestReward"))
+	"#);
+	assert_eq!(out[0], 0, "the reward stays on screen through the wait");
+	assert_eq!(out[1], json!([2]), "then the best is taken");
+	assert_eq!(out[2], 0, "Shift held when the wait ends leaves it to the player");
+	assert_eq!(out[3], 0, "a window closed during the wait takes nothing");
+}
+
+#[test]
 fn rewards_auto_pick_leaves_the_choice_to_the_player_when_a_price_is_still_unknown_after_every_retry() {
 	let out = run(r#"
 		q.items[11] = { name = "Cloak", price = 120 }

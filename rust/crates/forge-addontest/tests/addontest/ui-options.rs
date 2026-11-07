@@ -122,6 +122,21 @@ const SHOW: &str = r#"
 			nav = navLabels() })"#;
 
 #[test]
+fn integrations_lists_spoken_with_its_wait_off_only_while_spoken_quests_is_there() {
+	let script = r#"
+		UI.ShowOptions("integrations")
+		local headers = {}
+		for _, h in ipairs(O.view.headers) do if h:IsShown() then headers[#headers + 1] = h.Text:GetText() end end
+		local c = O.Controls("integrations")
+		local function shown(key) return c[key] ~= nil and c[key]:IsShown() or false end
+		emit({ headers = headers, toggle = shown("behavior.spokenDelay"), on = Polestar.Get("behavior.spokenDelay") })"#;
+	let without = run(script);
+	assert_eq!(without["toggle"], false);
+	let with = run(&format!("stub.addonsLoaded.Spoken_Quests = true\n{script}"));
+	assert_eq!(with, json!({ "headers": ["Spoken"], "toggle": true, "on": true }));
+}
+
+#[test]
 fn integrations_lists_questie_only_when_it_is_installed_or_loaded_else_says_none_is() {
 	let none = run(SHOW);
 	assert_eq!(none["title"], "Integrations");

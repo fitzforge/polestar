@@ -22,6 +22,7 @@ function botConfig(env = process.env) {
 		mediaBranch: (env.MEDIA_BRANCH || 'bug-media').trim(),
 		mediaToken: (env.MEDIA_TOKEN || env.GITHUB_TOKEN).trim(),
 		since: sinceMs,
+		exemptIds: (env.RATE_EXEMPT_IDS || '').split(/[\s,]+/).filter(Boolean),
 	};
 }
 
