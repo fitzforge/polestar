@@ -51,9 +51,18 @@ fn an_include_with_no_anchor_goes_where_the_level_meets_its_minimum() {
 	let has = |ord: &forge_sim::order::Order, q: u32| ord.steps.iter().any(|s| s.kind == K_ACCEPT && s.q == q);
 	let mut ev = m.evaluator(&o.walks);
 	let under = |ev: &mut forge_sim::Evaluator, ord: &forge_sim::order::Order| forge_sim::gate::under_min(run, &ord.steps, &forge_sim::gate::levels(ev, &ord.steps));
-	// A quest v1 leaves out, with no prerequisite, that the stop nearest its giver takes under its minimum.
+	// A quest v1 leaves out, with no prerequisite and a minimum v1's order reaches, that the stop
+	// nearest its giver takes under that minimum.
+	let top = forge_sim::gate::levels(&mut ev, &seed.steps).last().copied().unwrap_or(1.0);
 	let (q, ovr) = (0..run.n_quests() as u32)
-		.filter(|&q| !has(&seed, q) && run.q_pre[q as usize].is_empty() && run.q_all[q as usize].is_empty() && run.q_parent[q as usize] < 0 && run.q_min_level[q as usize] >= 8)
+		.filter(|&q| {
+			!has(&seed, q)
+				&& run.q_pre[q as usize].is_empty()
+				&& run.q_all[q as usize].is_empty()
+				&& run.q_parent[q as usize] < 0
+				&& run.q_min_level[q as usize] >= 4
+				&& f64::from(run.q_min_level[q as usize]) < top - 1.0
+		})
 		.find_map(|q| {
 			let ovr = overrides_for(run, &json!({ "include": [{ "q": run.q_id[q as usize], "reason": "test" }] }));
 			let plain = apply_overrides(run, &seed, &ovr, None);
@@ -62,7 +71,9 @@ fn an_include_with_no_anchor_goes_where_the_level_meets_its_minimum() {
 		.expect("a quest the nearest stop takes under its minimum");
 	let with = apply_overrides(run, &seed, &ovr, Some(&mut ev));
 	assert!(has(&with, q), "the include puts the quest in");
-	assert!(!under(&mut ev, &with).contains(&run.q_id[q as usize]), "at its minimum");
+	let acc = with.steps.iter().position(|s| s.kind == K_ACCEPT && s.q == q).unwrap();
+	let lv = forge_sim::gate::levels(&mut ev, &with.steps);
+	assert!(!under(&mut ev, &with).contains(&run.q_id[q as usize]), "at its minimum {}: accept at {acc}, level {:?} of {}", run.q_min_level[q as usize], lv.get(acc), lv.len());
 }
 
 #[test]

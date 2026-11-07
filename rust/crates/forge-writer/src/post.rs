@@ -1831,9 +1831,15 @@ pub fn hand_ins_before_level_gate(files: &mut [String]) {
 /// some classes' lines is theirs (`only Hunter,Priest,Shaman`); one it leaves with nothing goes.
 pub fn repeat_training(files: &mut [String]) {
 	// (The classes a training line is for: None for everyone; not a training line, or for some
-	// races: no set.)
+	// races: no set. A class sent to its own trainer elsewhere, `-- Sheldras Moontree in Stormwind
+	// City; Goldshire has no druid trainer`, is a trip of its own, never a repeat: the town's
+	// `train class` before it did not train them, #912.)
 	let trained = |l: &str| -> Option<Option<Vec<String>>> {
-		let m = re!(r"^\s+train\s+class(?:\s+only\s+(\S+))?\s*$").captures(split_comment(l).0)?;
+		let (code, note) = split_comment(l);
+		if note.contains(" has no ") && note.contains(" trainer") {
+			return None;
+		}
+		let m = re!(r"^\s+train\s+class(?:\s+only\s+(\S+))?\s*$").captures(code)?;
 		match m.get(1) {
 			None => Some(None),
 			Some(list) => {
@@ -2892,6 +2898,20 @@ mod tests {
 		assert_eq!(f[0].matches("train class only Shaman").count(), 2, "{}", f[0]);
 		assert!(!f[0].contains("step Spirit Rise") && f[0].contains("step Turak\n  only Druid\n  zone Thunder Bluff\n  turnin 5926\n"), "{}", f[0]);
 		assert_eq!(f[0].matches("train class only Druid").count(), 1, "{}", f[0]);
+	}
+
+	#[test]
+	fn a_class_sent_to_its_own_trainer_after_the_towns_training_is_no_repeat() {
+		// #912: Goldshire's `train class`, then the Druids' own step to Sheldras Moontree in Stormwind:
+		// the town's line did not train them, so their step stays.
+		let mut f = vec![[
+			"step Goldshire\n  accept 1\n  train class",
+			"step Druid trainer\n  only Druid\n  train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer",
+			"step Far\n  turnin 1",
+		]
+		.join("\n\n")];
+		repeat_training(&mut f);
+		assert!(f[0].contains("step Druid trainer\n  only Druid\n  train class only Druid -- Sheldras Moontree"), "{}", f[0]);
 	}
 
 	#[test]

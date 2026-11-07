@@ -4767,7 +4767,8 @@ fn the_routes_bind_where_v1_binds_is_one_line() {
 fn a_training_stop_after_a_v1_step_that_trains_still_sends_the_away_classes() {
 	// #912, candidate v1 Human Elwynn: the route's training stop came right after v1's Goldshire step
 	// with its `train class`, so the stop wrote nothing, and its "Druid trainer" step (Sheldras
-	// Moontree in Stormwind) was lost with it. v1's line trains the rest; the Druids get their step.
+	// Moontree in Stormwind) was lost with it. v1's line trains the rest; the away class gets its step.
+	// (Mages here: the test data's races play no Human Druid, and the class lists keep only theirs.)
 	let c = Case {
 		files: vec![("a", vec!["guide t/a", "title A", "levels 8-11", "zone Elwynn Forest", "", "step Goldshire", "  accept 1", "  train class", "", "step Far", "  turnin 1", ""])],
 		world: json!({ "points": [[0, 0, 0, 0, 1429], [0, 0, -800, 800, 1429]], "zones": { "1429": "Elwynn Forest", "1453": "Stormwind City" }, "quests": [] }),
@@ -4777,7 +4778,7 @@ fn a_training_stop_after_a_v1_step_that_trains_still_sends_the_away_classes() {
 		} }),
 		npcs: json!({
 			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[50, 50]] } } },
-			"5504": { "name": "Sheldras Moontree", "subName": "Druid Trainer", "faction": "A", "spawns": { "1453": { "f": "e", "pts": [[50, 50]] } } }
+			"5498": { "name": "Elsharin", "subName": "Mage Trainer", "faction": "A", "spawns": { "1453": { "f": "e", "pts": [[50, 50]] } } }
 		}),
 		route: json!({ "faction": "Alliance", "start": "Human", "diff": {}, "order": [
 			{ "t": "accept", "q": 1, "lvl": 10.0, "pt": 0, "from": f("a", 7) },
@@ -4788,8 +4789,8 @@ fn a_training_stop_after_a_v1_step_that_trains_still_sends_the_away_classes() {
 		..Case::default()
 	};
 	let g = run(&c, None).read("a");
-	let druid = g.iter().position(|l| l.starts_with("  train class only Druid -- Sheldras Moontree")).unwrap_or_else(|| panic!("{g:#?}"));
-	assert!(idx(&g, "  train class") < druid as i64, "after v1's training: {g:#?}");
+	let away = g.iter().position(|l| l.starts_with("  train class only Mage -- Elsharin")).unwrap_or_else(|| panic!("{g:#?}"));
+	assert!(idx(&g, "  train class") < away as i64, "after v1's training: {g:#?}");
 	assert!(!g.iter().any(|l| l == "step Class trainer"), "v1's line trains the rest: {g:#?}");
 }
 

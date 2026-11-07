@@ -1825,7 +1825,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		}
 	}
 	// A bind waits for the goals right after its event that stand beside it or at the inn (#1008).
-	bind_after_beside(&mut together, world);
+	bind_after_beside(&mut together, world, &|a, b| same_step(Some(a), Some(b)));
 	// v1's crossings: `goto x,y "Boat to Stormwind"` and its zone.
 	let mut v1_piers = Vec::new();
 	for st in &steps {
@@ -8147,8 +8147,10 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 /// never splits two goals at one NPC or two NPCs that stand together, and the inn's own goals come
 /// before the bind (#1008: Mebok after the Ratchet poster, Mankrik's two quests at the Crossroads,
 /// Maggran's at Sun Rock, Lydon's and the inn's at Tarren Mill). It stops at the first event that is
-/// not a goal there (the route moves on), carries travel or another item, or is a `train`.
-fn bind_after_beside(order: &mut [Order], world: &World) {
+/// not a goal there (the route moves on), carries travel or another item, is a `train`, or is written in
+/// another v1 step than the bind's event (`same_step`: v1's steps between, a class's hearth home that
+/// needs the bind, would come before it).
+fn bind_after_beside(order: &mut [Order], world: &World, same_step: &dyn Fn(&Order, &Order) -> bool) {
 	let p_of = |pt: Option<u32>| pt.and_then(|p| world.points.get(p as usize).copied()).filter(|p| p.wx.is_finite());
 	let near = |a: Option<Pt>, b: Option<Pt>| matches!((a, b), (Some(a), Some(b)) if a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= BIND_BESIDE_YD);
 	let goal = |o: &Order| matches!(o.t, OrderT::Accept | OrderT::Turnin | OrderT::Task);
@@ -8167,7 +8169,7 @@ fn bind_after_beside(order: &mut [Order], world: &World) {
 			let mut j = i;
 			while let Some(n) = order.get(j + 1) {
 				let at = p_of(n.pt);
-				if !goal(n) || !n.items().is_empty() || !(near(at, here) || near(at, before) || near(at, inn)) {
+				if !goal(n) || !n.items().is_empty() || !same_step(&order[i], n) || !(near(at, here) || near(at, before) || near(at, inn)) {
 					break;
 				}
 				j += 1;
@@ -10454,7 +10456,7 @@ mod tests {
 				serde_json::from_value(json!({ "t": t, "q": q, "pt": pt, "items": items })).unwrap()
 			})
 			.collect();
-		bind_after_beside(&mut order, &world);
+		bind_after_beside(&mut order, &world, &|_, _| true);
 		let mut out = Vec::new();
 		for o in &order {
 			out.push(format!("{} {}", if o.t == OrderT::Accept { "accept" } else { "turnin" }, o.q.unwrap()));
