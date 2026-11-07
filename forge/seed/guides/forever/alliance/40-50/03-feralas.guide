@@ -9,6 +9,11 @@
 # (Grimtotem camp, Woodpaw gnolls and the Writhing Deep, Thalanaar, the Rage
 # Scar yetis, Rockbiter and Shay), a short grind and a last stop at the
 # Forgotten Coast dock for Zorbin's giants.
+# Lord Shalzaru closes the southern mainland loop: from the Feral Scar yetis
+# the walk goes on to the Isle of Dread and swims back to Sardor Isle, so
+# Feathermoon takes the loop's hand-ins and Shalzaru's on one visit
+# (re-seeded for flow, 0.3.5: a Feathermoon visit and a boat trip each way
+# went between them).
 #
 # Deviations from the export (local order only): The Mark of Quality (2821)
 # and In Search of Knowledge (2939) are taken on the first Feathermoon visit,
@@ -90,6 +95,10 @@ step Feral Scar Vale
   tip Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; Bloodroar the Stalker (level 48) prowls the middle.
   collect 8973 quest 2821             -- Thick Yeti Hide
 
+step Lord Shalzaru
+  tip The Isle of Dread is the island just south of Sardor Isle: swim over. Hatecrest Serpent Guards and Sorceresses hold it; Lord Shalzaru (level 47) waits in the cave at its south end. Pull his guards first.
+  collect 9248 quest 2870             -- Mysterious Relic
+
 step Feathermoon Stronghold
   turnin 4127                         -- Ginro Hearthkindle
   accept 4129
@@ -100,13 +109,6 @@ step Feathermoon Stronghold
   turnin 2982                         -- Angelas Moonbreeze
   turnin 2821                         -- Pratt McGrubben
   accept 7733
-
-step Lord Shalzaru
-  tip The Isle of Dread is the island just south of Sardor Isle: swim over. Hatecrest Serpent Guards and Sorceresses hold it; Lord Shalzaru (level 47) waits in the cave at its south end. Pull his guards first.
-  collect 9248 quest 2870             -- Mysterious Relic
-
-step Feathermoon Stronghold
-  hearth "Feathermoon Stronghold"
   turnin 2870                         -- Latronicus Moonspear
   accept 2871
   turnin 2871                         -- Vestia Moonspear

@@ -87,6 +87,11 @@ step Gordunni ogres
 step Feral Scar Vale
   tip Ride north into the yeti valley. Every Feral Scar yeti can drop a thick hide; Bloodroar the Stalker (level 48) prowls the middle.
   collect 8973 quest 2821             -- Thick Yeti Hide
+  collect 6259 quest 1452.3 @57.5,56.5 map 1444 -- Groddoc Liver
+
+step Isle of Dread
+  tip The Isle of Dread is the island just south of Sardor Isle: swim over. Hatecrest Serpent Guards and Sorceresses hold it; Lord Shalzaru (level 47) waits in the cave at its south end. Pull his guards first.
+  collect 9248 quest 2870 @28.5,70.5 map 1444 -- Mysterious Relic; below ground
 
 step Feathermoon Stronghold
   tip Ginro Hearthkindle stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
@@ -99,24 +104,6 @@ step Feathermoon Stronghold
   turnin 4130                         -- Ginro Hearthkindle
   accept 4131
   turnin 2982                         -- Angelas Moonbreeze
-
-step Boat to The Forgotten Coast
-  zone Feralas
-  goto 31.0,39.8 "Boat to The Forgotten Coast"
-
-step Feralas
-  zone Feralas
-  goto 28.5,70.5 "Feralas"
-
-step Isle of Dread
-  tip The Isle of Dread is the island just south of Sardor Isle: swim over. Hatecrest Serpent Guards and Sorceresses hold it; Lord Shalzaru (level 47) waits in the cave at its south end. Pull his guards first.
-  collect 9248 quest 2870 @28.5,70.5 map 1444 -- Mysterious Relic; below ground
-
-step Boat to Feathermoon Stronghold
-  zone Feralas
-  goto 43.3,42.7 "Boat to Feathermoon Stronghold"
-
-step Feathermoon Stronghold
   turnin 2870                         -- Latronicus Moonspear
   accept 2871
   turnin 2871                         -- Vestia Moonspear
@@ -162,7 +149,6 @@ step High Wilderness: kill these as you meet them
   zone Feralas
   tip Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a Pristine Yeti Hide, which Pratt pays for too.
   collect 6258 quest 1452.2 @53.2,47.3 map 1444
-  collect 6259 quest 1452.3 @56.9,54.5 map 1444
   collect 18947 quest 7733            -- Rage Scar Yeti Hide
 
 step Rage Scar Hold
