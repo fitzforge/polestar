@@ -23,6 +23,10 @@ step Ratchet
   accept 92706 optional               -- WANTED poster
 
 step Ratchet
+  when complete 865
+  turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
+
+step Ratchet
   zone The Barrens
   accept 891                          -- Captain Thalo'thas Brightsun
 
@@ -48,8 +52,8 @@ step Level 19.43
 #
 # Flow: Orgrimmar -> fly to Ratchet -> the Southsea beach and Northwatch Hold
 # (Gilthares' escort back to Ratchet) -> raptor horns on the way to the
-# Crossroads (bind) -> Orgrimmar for level 20 training and back -> Barak
-# Kodobane -> the Dry Hills (Serena Bloodfeather, Walton and Vrang) -> the
+# Crossroads (bind) -> Orgrimmar for level 20 training and back -> the Dry
+# Hills (Serena Bloodfeather, Walton and Vrang) -> the
 # Sludge Fen shredder and the Boulder Lode Mine -> hearth to the Crossroads ->
 # Verog -> Camp Taurajo (flight path) -> the Bristleback camps -> Camp Taurajo
 # -> east: the Stolen Silver, Ratchet, Ishamuhale -> the Crossroads -> Regthar,
@@ -64,8 +68,9 @@ step Level 19.43
 #   three times. Here: bind at the Crossroads, hearth back from the Boulder Lode
 #   Mine; bind at Camp Taurajo, hearth back from Bael Modan. Ratchet is
 #   visited twice, both on the way.
-# - Raptor Horns (865), Miner's Fortune (896) and The Escape (863) are handed
-#   in on the second pass through Ratchet; Egg Hunt (868) and Ziz Fizziks
+# - Raptor Horns (865) is handed to Mebok on the first Ratchet stop when the
+#   previous guide's horns are done (else on the second pass); Miner's Fortune
+#   (896) and The Escape (863) on the second pass; Egg Hunt (868) and Ziz Fizziks
 #   (1483) are taken on the first Crossroads and Ratchet stops, so the export's
 #   last Crossroads-Ratchet-Crossroads tour is gone.
 # - Hezrul Bloodmark (852) is handed in to Regthar on the final Crossroads stop
@@ -212,21 +217,13 @@ step Dreadmist Peak
   accept 6128 only Tauren
   buy 2449 x5 npc 3490 optional       -- Earthroot from Hula'mahi; herbalists pick it on the plains
 
-# ---------------------------------------------------------------- North-west: Barak and the Dry Hills
+# ---------------------------------------------------------------- North-west: the Dry Hills
 
-step Regthar Deathgate
-  tip Regthar stands at the Kolkar watch post just west of the Crossroads.
-  accept 850
-
-step Barak Kodobane
-  tip Barak stands in the Kolkar camp north-west of Regthar.
-  collect 5022 quest 850.1
-  collect 15852 x5 quest 6128.2 only Tauren,Druid -- Kodo Horn: Lost Barrens Kodos on the plains around the Kolkar camp
-  collect 2449 x5 quest 6128.1 only Tauren,Druid -- Earthroot: herbalists pick it here
-
-step Regthar Deathgate
-  turnin 850
-  accept 851
+step Kolkar camp
+  only Tauren,Druid
+  tip Lost Barrens Kodos roam the plains around the Kolkar camp north-west of Regthar; herbalists pick Earthroot there too.
+  collect 15852 x5 quest 6128.2       -- Kodo Horn
+  collect 2449 x5 quest 6128.1        -- Earthroot
 
 step Vrang Wildgore
   zone The Barrens
@@ -504,11 +501,6 @@ step Ishamuhale
   use 10338 quest 882.1 @59.95,30.21  -- At the Dead Tree: summons Ishamuhale
   collect 5101 quest 882.1
 
-step Thun'grim Firegaze
-  only Warrior
-  tip Thun'grim camps beside the road east of the Crossroads.
-  note He offers Brutal Armor next (1838, level 30): it needs Razorfen Kraul and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide Brutal Armor covers it.
-
 step The Crossroads
   turnin 899                          -- Mankrik
   turnin 4921
@@ -637,7 +629,6 @@ step Camp Taurajo
   turnin 885 optional                 -- Jorn Skyseer
   turnin 1824 only Warrior            -- Ruga Ragetotem, inside
   accept 1825 only Warrior
-  turnin 1825 only Warrior
   vendor nearest
   turnin 893                          -- Tatternack Steelforge
 
@@ -650,6 +641,12 @@ step The Crossroads
   turnin 95774                        -- Mankrik
   turnin 906                          -- Thork, at the top of the tower
   turnin 868                          -- Korran
+
+step Thun'grim Firegaze
+  only Warrior
+  tip Thun'grim camps beside the road east of the Crossroads.
+  turnin 1825                         -- Thun'grim Firegaze
+  note He offers Brutal Armor next (1838, level 30): it needs Razorfen Kraul and sends you all over Kalimdor and the Eastern Kingdoms. The Warrior class guide Brutal Armor covers it.
 
 step Regthar Deathgate
   turnin 852
