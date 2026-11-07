@@ -5351,6 +5351,17 @@
 					1825
 				],
 				"why": "#1078: Warriors hand Speak with Thun'grim to Thun'grim, east of the Crossroads, on the last Crossroads loop; the guide put the hand-in in the Camp Taurajo step, a 2,300 yd walk there and back before Tatternack's hand-in"
+			},
+			{
+				"a": [
+					"turnin",
+					842
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
 			}
 		]
 	}
