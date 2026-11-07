@@ -1,7 +1,7 @@
 {
   "about": "The leveling guides Forge starts from, cut from guides/ by `forge guide seed` once, when Forge took them over (a re-seed resets every route's baseline). Never edit them: a fix goes into the checkout's fix records (docs/FORGE.md, \"Fixing a generated guide\"). files: path under forge/seed/guides -> SHA-256.",
   "from": {
-    "commit": "1650fce34bb134f001303d6c3b46c204a4139d3b"
+    "commit": "65ae70599d4ed546f37d37f309df7aed5c29b533"
   },
   "files": {
     "forever/alliance/02-westfall.guide": "49d12e5d0fb348a48f1122bbbfb33c44f6c3741e07ebc3fc81eaf41c32889bbc",
@@ -35,13 +35,13 @@
     "forever/alliance/nightelf/01-teldrassil.guide": "56fe5bc68610948b0904d41d77e522542491a2aa937de0a1535e61e50d811e21",
     "forever/alliance/nightelf/02-darkshore.guide": "11bea7a9242b28ef2835786f25b41b3298cfb9778f43fb85402f73e2e9c6cfc6",
     "forever/alliance/skyborne/01-zephras-isle.guide": "244d3e7d732690dc61d8e5e6713bce2eed2b9739e545d63d22c5627b6cc2f7bd",
-    "forever/horde/02-the-barrens.guide": "335987bb2357a574af478eb4ce3ed822642d9a39c247c9a5af32b9372fe3cefc",
+    "forever/horde/02-the-barrens.guide": "565a71a0efd30b593ce5f57827073e7f375c21d68aec8c65ccf20982e2af7208",
     "forever/horde/03-silverpine-forest.guide": "5a36d3a4e23a32590331c967429ef18d635e15d93917bd1ca942d4525dadbf98",
-    "forever/horde/04-the-barrens.guide": "7e6f72361dd9f828ff5c8eb1001fe009271634eebc60eb60073f1271fea50542",
+    "forever/horde/04-the-barrens.guide": "e4e288db5b3947c8972288f954e00f275a140085f4eb4fab1220227506091646",
     "forever/horde/05-stonetalon-mountains.guide": "a463826a8e90a97a5f83c732bd124202fc2f00aabeda812feb86bf9cd097e520",
-    "forever/horde/06-hillsbrad-foothills.guide": "4e971f090be58a3587e6b450147003949998914c245f83065bf30710ad9a310b",
+    "forever/horde/06-hillsbrad-foothills.guide": "5fafc00aad8d8f787421a89dda0f4433ab33c77b69b98314cd9624befeb80fca",
     "forever/horde/07-ashenvale.guide": "4dd2ff22d3da612c1175846288220b1bd0a202c7aa432745ca25b1fad68cc5b3",
-    "forever/horde/30-40/01-desolace.guide": "59f6a7013971100c78fbed0466b2a4e6c8376e7387305c04c3b9d10407740db7",
+    "forever/horde/30-40/01-desolace.guide": "72fea433958763f68cc0fb1f7deee1f4162045e080d66faffd9f33668ab5a775",
     "forever/horde/30-40/02-stranglethorn-vale.guide": "29663a88088a73a6d4bea374aecb3b373fdcdae0d13dd704a4cbc1772b787d1e",
     "forever/horde/30-40/03-arathi-highlands.guide": "d336b875af52698ede6f91a19c113e760714306fcab18d559070693c007d932d",
     "forever/horde/30-40/04-dustwallow-marsh.guide": "1c66a16914e0488e7ee0678cbe77656d39d39e9d1a30cfcf890078d0fcc23a78",
@@ -58,10 +58,10 @@
     "forever/horde/50-60/05-eastern-plaguelands.guide": "5621da2427495b606689006bfead3685af219c5b75ad066047a71edd16d78095",
     "forever/horde/50-60/06-silithus.guide": "71ec22aef1216ae27946fd9e3f6fe67407b41ad2ec212249dbe04694a0d7fab2",
     "forever/horde/50-60/07-felwood.guide": "85a633f4139e809218dd7a0b7a20359dd0a2df46c7b50a7687c23b404a9d4257",
-    "forever/horde/orc/01-durotar.guide": "42c42d0e37739b9873ed9c7cbb249fb0700f9258ae97a86d80d57af77b629f88",
+    "forever/horde/orc/01-durotar.guide": "ad474a98dace5499cd7eac45eae3ea2400d63a7b6b7bbb6c547853a4d88d377d",
     "forever/horde/skyborne/01-zephras-isle.guide": "ed28fbaa2664e32b36c7f3bae9f6b24b81185c8705b22dfc00202a68ee7be811",
     "forever/horde/tauren/01-mulgore.guide": "0c5e3e11c62de03b01ac57c760ff7afaeb539e9ad1702953336b25640706f943",
-    "forever/horde/troll/01-durotar.guide": "b91ef4a86a74d14feec8c3cf9acc886ecde62aa02e63df1d77e58df1ad3376c7",
+    "forever/horde/troll/01-durotar.guide": "e7cbd159b820409ad9c43bfe723138dfe9dbfdfc71ba648d8d63d2d0e31e7d64",
     "forever/horde/undead/01-tirisfal-glades.guide": "36d4a2e70bea246c475286c5b2e84189a703467c4ac82cfdd808145e15d77cba"
   }
 }
