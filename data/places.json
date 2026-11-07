@@ -118,7 +118,7 @@
 					],
 					[
 						49.7,
-						58.0
+						58
 					],
 					[
 						47.3,
@@ -170,7 +170,7 @@
 					],
 					[
 						49.7,
-						58.0
+						58
 					],
 					[
 						51.8,
@@ -505,7 +505,7 @@
 			"objective": 1,
 			"at": {
 				"map": 1433,
-				"x": 71.0,
+				"x": 71,
 				"y": 70.5,
 				"frame": "live"
 			},
@@ -911,6 +911,66 @@
 				}
 			],
 			"pr": 1157
+		},
+		{
+			"id": "flow-feralas-oox22-beacon",
+			"quest": 2766,
+			"objective": "giver",
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 53.4,
+				"y": 55.7,
+				"frame": "era"
+			},
+			"note": "Find OOX-22/FE!: the distress beacon drops from nearly every beast, gnoll and ogre in Feralas (about one kill in a hundred), so it is used at the robot's cave in Feral Scar Vale on the sweep, not on a ride to the Forgotten Coast's crawlers for it.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 8705 OOX-22/FE Distress Beacon: drops from about fifty Feralas creatures (Gordunni 5229-5240, Woodpaw 5258, Feral Scar yetis 5292-5295, ...), 1-2.5% each"
+				}
+			],
+			"pr": 1166
+		},
+		{
+			"id": "flow-feralas-materials-minerals",
+			"quest": 3128,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 68.0,
+				"y": 47.5,
+				"frame": "era"
+			},
+			"note": "Natural Materials: the Encrusted Minerals come from the sprite darters in the grove just west of Camp Mojache (21 spawns around 68,47.5).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 9589 Encrusted Minerals: Sprite Darter 5278 80%; npcs.json 5278: 21 spawns on map 1444, mean 68.0,47.5"
+				}
+			],
+			"pr": 1166
+		},
+		{
+			"id": "flow-feralas-materials-logs",
+			"quest": 3128,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 54.0,
+				"y": 47.2,
+				"frame": "era"
+			},
+			"note": "Natural Materials: the Splintered Logs drop from the Wandering Forest Walkers; the one at 54.0,47.2 stands on the ride west from the darters to the hippogryphs.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 9590 Splintered Log: Wandering Forest Walker 7584 80%; npcs.json 7584 spawns on map 1444: 44.0,23.0 54.0,47.2 57.4,73.3 73.5,54.6 73.9,38.8"
+				}
+			],
+			"pr": 1166
 		}
 	]
 }

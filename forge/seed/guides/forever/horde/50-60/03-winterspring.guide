@@ -7,9 +7,10 @@ next forever/horde/50-60/04-azshara
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 74-79) and machine-checked with lint; not play-tested on Forever yet.
 #
-# Flow: Everlook (Gregor, Felnok, Harlo, Umi, Meggi) -> Ice Thistle yetis ->
-# Chillwind chimaeras -> Everlook -> ride west (Raging Owlbeasts) -> Donova
-# Snowden -> Salfa -> Frostfire Winterfall camps -> Salfa -> Donova ->
+# Flow: (Speak to Salfa handed in at the tunnel's exit on the way in, in the
+# previous guide) -> Everlook (Gregor, Felnok, Harlo, Umi, Meggi) -> Ice
+# Thistle yetis -> Chillwind chimaeras -> Everlook -> ride west (Raging
+# Owlbeasts) -> Donova Snowden -> Frostfire Winterfall camps -> Salfa -> Donova ->
 # Darkwhisper Gorge -> Winterfall Village -> Donova -> Salfa (beads) ->
 # hearth to Everlook -> grind to 55 -> Mau'ari -> fly to Camp Mojache
 # (Videre Elixir, Talo) -> Thunder Bluff (Morrowgrain, Hamuul, Nara, cloth
@@ -108,11 +109,6 @@ step Donova Snowden
   accept 4842
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
-
-step Salfa
-  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
-  turnin 8465
-  accept 8464
 
 step Frostfire Winterfall camps
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.

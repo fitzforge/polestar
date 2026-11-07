@@ -231,6 +231,10 @@ L["Use %s"] = "Usa %s"
 -- L["Group quests in leveling guides"] = ""
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Aún sin terminar: %s"
@@ -581,6 +585,7 @@ L["Hostile town: %s"] = "Ciudad hostil: %s"
 -- L["Ride the elevator up"] = ""
 -- L["Ride the elevator down"] = ""
 -- L["Ride the elevator"] = ""
+-- L["%s Inn"] = ""
 
 -- QoL/Buttons.lua
 L["Target"] = "Objetivo"
@@ -1353,6 +1358,8 @@ L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar e
 -- L["Not now (right-click)"] = ""
 -- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
 -- L["Right-click: not now, for the rest of this zone."] = ""
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -1739,6 +1746,8 @@ L["Did you mean:"] = "Tal vez buscabas:"
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
 -- L["While you're here sound"] = ""
 -- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -1964,6 +1973,16 @@ L["Druid"] = "Druida"
 -- L["%s and %s"] = ""
 L["The object here"] = "El objeto de aquí"
 L["Use %s:"] = "Usa %s:"
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"

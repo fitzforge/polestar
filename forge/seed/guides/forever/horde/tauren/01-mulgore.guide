@@ -457,19 +457,19 @@ step The Barrens
 
 step The Crossroads
   zone The Barrens
-  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Sergra Darkthorn stands by the inn, Tonga Runetotem at the south gate. The Barrens guide starts here.
-  turnin 860                          -- Sergra Darkthorn
+  tip Leave Mulgore by the south-eastern pass and follow the road to the Crossroads. Tonga Runetotem stands at the south gate, Sergra Darkthorn by the inn; Darsok, Thork and Devrak on the tower platform, then Helbrim and Gazrog by the north gate and the inn. The Barrens guide starts here.
   turnin 886                          -- Tonga Runetotem
-  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
-  getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
-  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 870                          -- Tonga Runetotem
+  turnin 860                          -- Sergra Darkthorn
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
   accept 5041
   accept 871                          -- Thork
+  getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
   accept 1492
   accept 848                          -- Apothecary Helbrim
   accept 869                          -- Gazrog
+  tip The Crossroads is your base for this guide. Everyone you need stands within a few steps of the inn.
+  sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
 # ---------------------------------------------------------------- The Crossroads
 
 step Jahan Hawkwing

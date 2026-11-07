@@ -323,6 +323,7 @@ L["Hostile town: %s"] = "敌对城镇：%s"
 L["Ride the elevator up"] = "乘坐升降梯上去"
 L["Ride the elevator down"] = "乘坐升降梯下去"
 L["Ride the elevator"] = "乘坐升降梯"
+-- L["%s Inn"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -988,6 +989,10 @@ L["Group quests"] = "小队任务"
 L["Group quests in leveling guides"] = "升级指南中的小队任务"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "任务给予者"
@@ -1073,6 +1078,16 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "护送：如果 
 -- L["%s and %s"] = ""
 L["The object here"] = "这里的物体"
 L["Use %s:"] = "使用%s："
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1291,6 +1306,8 @@ L["(step %d)"] = "（步骤 %d）"
 L["Not now (right-click)"] = "暂不（右键）"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "步骤 %d 稍后会做这件事；现在完成，到那个步骤时它会更短或直接跳过。"
 L["Right-click: not now, for the rest of this zone."] = "右键：暂不，在这个地区内不再提示。"
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "乘升降梯前往%s"
@@ -2049,6 +2066,8 @@ L["Include nearby hand-ins"] = "包括附近的交任务"
 L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
 L["While you're here sound"] = "顺便完成提示音"
 L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "出现提示行时播放轻柔的提示音，最多每 30 秒一次，使用游戏的音效音量。"
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

@@ -13,10 +13,13 @@ next forever/horde/40-50/04-tanaris
 # murlocs -> hearth Stonard -> fly Grom'gol -> zeppelin to Orgrimmar
 # (training, turn-ins) -> fly Brackenwall Village -> the Wyrmbog ->
 # Brackenwall -> Onyxia's eggs -> Brackenwall -> fly Camp Mojache (bind) ->
-# sprite darters, forest walkers, Feral Scar Vale and the hippogryphs ->
+# sprite darters, forest walkers and the hippogryphs ->
 # Zorbin Fandazzle and the Forgotten Coast -> the Northspring harpies ->
-# hearth Camp Mojache -> Rage Scar yetis -> Camp Mojache, where the next
-# guide flies on to Gadgetzan.
+# Rage Scar yetis on the way back -> Camp Mojache, where the next
+# guide flies on to Gadgetzan. (Re-seeded for flow in 0.3.5: the Thick Yeti
+# Hides are gathered in the previous guide, so Improved Quality comes along
+# and its yetis are done on the way back from the harpies instead of a ride
+# out from the camp and back.)
 #
 # Deviations from the export:
 # - Threat From the Sea (1426): the export kills part of the murlocs here,
@@ -190,7 +193,6 @@ step Camp Mojache
   turnin 3122                           -- Witch Doctor Uzer'i
   accept 3123                           -- for the Hinterlands owlbeasts, around level 48
   accept 3128
-  accept 2822                           -- Jangdor Swiftstrider
   accept 3063                           -- Talo Thornhoof
   accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
 
@@ -199,10 +201,6 @@ step Sprite darters and forest walkers
   collect 9589 quest 3128.2
   goto 60.6,47.4 "Forest walkers"
   collect 9590 quest 3128.1
-
-step Feral Scar Vale
-  tip South-west, the yetis den in Feral Scar Vale; every yeti there can drop a thick hide.
-  collect 8973 quest 2822.1
 
 step Frayfeather hippogryphs
   tip South of the vale the Frayfeather hippogryphs roost on the slopes; nearly every one drops sinew and metallic fragments.
@@ -232,20 +230,15 @@ step Northspring harpies
   kill 5366 quest 3063.4
   kill 5364 quest 3063.3
 
-step Camp Mojache
-  hearth "Camp Mojache"
-  turnin 2822                           -- Jangdor Swiftstrider
-  accept 7734
-  turnin 3128                           -- Witch Doctor Uzer'i
-  turnin 3063                           -- Talo Thornhoof
-
 step Rage Scar yetis
-  tip North-west along the road, the Rage Scar yetis live around the caves in the hills. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
+  tip On the way back south-east from the harpies, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
   collect 18947 quest 7734.1
   collect 18972 optional                -- Perfect Yeti Hide, a rare drop
   accept 7738 optional
 
 step Camp Mojache
-  tip Ride back east to the camp. Stay here: the next guide starts with the flight to Gadgetzan.
+  tip Stay here: the next guide starts with the flight to Gadgetzan.
+  turnin 3128                           -- Witch Doctor Uzer'i
+  turnin 3063                           -- Talo Thornhoof
   turnin 7734                           -- Jangdor Swiftstrider
   turnin 7738 optional

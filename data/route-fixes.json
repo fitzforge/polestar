@@ -2802,6 +2802,162 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Stranglethorn 30-40, #1157): Krazek's Cookery is handed to Krazek on the first Booty Bay stop, where Krazek gives his other quests, instead of waiting for the last Booty Bay visit."
+			},
+			{
+				"a": [
+					"accept",
+					606
+				],
+				"b": [
+					"turnin",
+					595
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Stranglethorn 40-50, #1166): \"Sea Wolf\" MacKinley offers Scaring Shaky on the first Booty Bay stop, where Stoley's Debt is taken from him; the order passed him there (0 yd) and took it on the next Booty Bay stop, after the Bloodsail note"
+			},
+			{
+				"a": [
+					"task",
+					7730
+				],
+				"b": [
+					"task",
+					2980
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep (75.6,60.9), then the Gordunni at the Ruins of Isildien (60,63) and the yetis of Feral Scar Vale (53,57), with one return to Mojache for every hand-in. The order did the ruins with the Grimtotem loop and rode out to the hive and back to Mojache on a trip of its own"
+			},
+			{
+				"a": [
+					"task",
+					2980
+				],
+				"b": [
+					"turnin",
+					7730
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): Zukk'ash Infestation and Stinglasher are handed in on the Mojache stop after the ruins, with The Ogres of Feralas and Dark Ceremony, not on a return of their own"
+			},
+			{
+				"a": [
+					"task",
+					2822
+				],
+				"b": [
+					"turnin",
+					7730
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 43-45, #1166): The Mark of Quality's Thick Yeti Hides drop from the Feral Scar yetis (52-55,56-60), beside OOX-22/FE's cave on the same sweep; handed in on that Mojache stop, so Improved Quality comes along and its Rage Scar yetis fall on the next visit's ride back from the Northspring harpies"
+			},
+			{
+				"a": [
+					"task",
+					1424
+				],
+				"b": [
+					"task",
+					1426
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Swamp of Sorrows 45-47, #1166): the Pool of Tears (70.7,52.8) comes on the ride east from the Soggy Scroll, before the coast and Misty Reed Post; the order went to Misty Reed Post for the murlocs, rode north to the pool and came back to Misty Reed for Katar's hand-ins before riding west to Stonard"
+			},
+			{
+				"a": [
+					"task",
+					3063
+				],
+				"b": [
+					"task",
+					7734
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): Improved Quality's Rage Scar yetis (53,32) live by the road back south-east from the Northspring harpies; done on that ride, and handed in on the one Mojache stop after it, instead of a ride out from the camp and back at the end of the guide"
+			},
+			{
+				"a": [
+					"task",
+					7734
+				],
+				"b": [
+					"turnin",
+					3063
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): one Camp Mojache stop after the north-west sweep: Natural Materials, Vengeance on the Northspring and Improved Quality together"
+			},
+			{
+				"a": [
+					"turnin",
+					4449
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point; the order carried it and came back to the dig site at the end of the guide (the optional Key to Freedom keeps its own step)"
+			},
+			{
+				"a": [
+					"turnin",
+					8465
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Winterspring 55-56, #1166): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride back west from Everlook"
+			},
+			{
+				"a": [
+					"turnin",
+					5158
+				],
+				"b": [
+					"accept",
+					91899
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Barrens 56, #1166): the flight lands in Ratchet: Liv Rizzlefix and Islen Waterseer first, then the ride north to Dokimi in the Crossroads, whose flight goes on to Orgrimmar; the order flew to Ratchet, rode north to the Crossroads and back south to Ratchet"
+			},
+			{
+				"a": [
+					"task",
+					6022
+				],
+				"b": [
+					"turnin",
+					6133
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Eastern Plaguelands 56-57, #1166): Corin's Crossing (52.3,58.2) lies on the ride south from Quel'Lithien Lodge; To Kill With Purpose is done there and handed to Nathanos with The Ranger Lord's Behest and Un-Life's Little Annoyances, instead of a ride from the Marris Stead to the crossing and back"
+			},
+			{
+				"a": [
+					"turnin",
+					6029
+				],
+				"b": [
+					"turnin",
+					5229
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Western Plaguelands 56, #1166): The Everlook Report goes to Argent Officer Garush at the Bulwark, which the ride from the Undercity into the Western Plaguelands passes; the order carried it to a Bulwark stop two guides later"
+			},
+			{
+				"a": [
+					"task",
+					4972
+				],
+				"b": [
+					"turnin",
+					5098
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Western Plaguelands 57-59, #1166): Chromie offers Counting Out Time when A Matter of Time is handed in; the lockboxes are in Andorhal's houses around her inn, so it is done then, instead of on a return to Chromie later in the guide"
 			}
 		],
 		"notes": [
@@ -3499,18 +3655,6 @@
 			{
 				"a": [
 					"task",
-					2822
-				],
-				"b": [
-					"task",
-					3128,
-					2
-				],
-				"why": "Rev15H2 c15 read (Horde Feralas II): Natural Materials' third objective is worked 390 yd from the Feral Scar yetis of The Mark of Quality; done with them, so the Feralas II loop is one ride west (c14 B4, still open in c15)"
-			},
-			{
-				"a": [
-					"task",
 					3520
 				],
 				"b": [
@@ -3892,6 +4036,48 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Arathi 30-40, #1157): the Witherbark Medicine Pouches drop only from Witherbark Witch Doctors (33%): 21 stand in Witherbark Village, where the Shadow Hunter Knife drops, against 3 west of Refuge Pointe."
+			},
+			{
+				"a": [
+					"task",
+					3128,
+					1
+				],
+				"b": [
+					"task",
+					3128,
+					0
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): Natural Materials' Encrusted Minerals (sprite darters, 68,47.5) and Splintered Logs (a Wandering Forest Walker at 54,47) are gathered on the ride west out of Camp Mojache, one after the other"
+			},
+			{
+				"a": [
+					"task",
+					3128,
+					3
+				],
+				"b": [
+					"task",
+					3128,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): the Resilient Sinew and the Metallic Fragments both drop from the Frayfeather hippogryphs and stagwings (80% each in the loot data), so they are one stay. Supersedes Rev15H2's 'sinew with the Feral Scar yetis': The Mark of Quality's yetis are now done in the previous guide"
+			},
+			{
+				"a": [
+					"task",
+					3443,
+					0
+				],
+				"b": [
+					"task",
+					7728,
+					0
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): the Smithing Tuyere drops from the Dark Iron Steamsmiths at the furnaces, the same mobs as Forging the Shaft's Thorium Plated Daggers, so both are one stay; the order came back to the furnaces for the tuyere after the Slag Pit and the lookouts"
 			}
 		],
 		"after": [
@@ -4242,13 +4428,6 @@
 					1179
 				],
 				"why": "#617 Ioney: Pilot Longbeard's The Brassbolts Brothers stays after the grind to 28"
-			},
-			{
-				"s": [
-					"task",
-					903
-				],
-				"why": "r7b read (Orc): Prowler Claws on v1's road past the prowlers"
 			},
 			{
 				"s": [
@@ -6857,6 +7036,114 @@
 				],
 				"faction": "Horde",
 				"why": "Fitz's report (#1135): the Raptor Heads are a background goal (data/guide-fixes.json 1135-raptor-heads), worked on the way from the Crossroads accept, so Gazrog takes them on the Crossroads stop after Samophlange and Echeyakee, whose ground holds the most Sunscale Screechers, not right after a step of their own. Players' recordings: the raptors are sparse and contested where the route goes (a median 77 s between raptor kills while on the quest, 447 s at p90; a median 76 minutes from the accept to the twelfth head)"
+			},
+			{
+				"a": [
+					"task",
+					888
+				],
+				"b": [
+					"turnin",
+					845
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest"
+			},
+			{
+				"a": [
+					"accept",
+					855
+				],
+				"b": [
+					"task",
+					903
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: Savannah Prowlers roam the plains between Regthar Deathgate and the Dry Hills (the game's spawn data: 40.4,20.2 and 40.9,26.3), the west loop the route walks anyway; the claws are taken there. This replaces the r7b read that kept them on the road east past the Razormane camp, a walk the order no longer makes"
+			},
+			{
+				"a": [
+					"task",
+					880
+				],
+				"b": [
+					"task",
+					875
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the last loop goes round once: south-west to Lushwater Oasis, north-west to the Witchwing Slayers in the Dry Hills, north-east to Wenikee and the Sludge Fen, then south past Echeyakee's lair back to the Crossroads, where everything is handed in. Echeyakee now opens on the big Crossroads visit (Prowlers of the Barrens' hand-in), so the loop runs this way round to end at his lair on the way home"
+			},
+			{
+				"a": [
+					"turnin",
+					3922
+				],
+				"b": [
+					"task",
+					881
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: Echeyakee's lair (55.9,17.2) lies on the walk back south from Wenikee to the Crossroads; the hunt and the last raptor heads (#1135, after Echeyakee) come there, both handed in on the final Crossroads visit"
+			},
+			{
+				"a": [
+					"task",
+					865
+				],
+				"b": [
+					"turnin",
+					3921
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the Sunscale Scytheclaws for Raptor Horns prowl the plains east of the Dry Hills (44.1,14.4), which the last loop crosses on its way north-east to Wenikee; the horn is taken there, not past the Sludge Fen after the walk has crossed them"
+			},
+			{
+				"a": [
+					"turnin",
+					840
+				],
+				"b": [
+					"task",
+					1498
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Orc and Troll Durotar: Warriors hand Conscript of the Horde to Kargal Battlescar, 3 yd from Uzzek, on their first Far Watch stop, instead of walking past him to the thunder lizards and back"
+			},
+			{
+				"a": [
+					"accept",
+					870
+				],
+				"b": [
+					"turnin",
+					860
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Mulgore: arriving at the Crossroads from Mulgore, Tonga Runetotem at the south gate is first: The Barrens Oases is handed in and The Forgotten Pools taken from her at once (the order handed in to Sergra, came back to Tonga, then crossed the town twice more), then Sergra, the tower platform, Helbrim, Gazrog and the inn, in walking order"
+			},
+			{
+				"a": [
+					"accept",
+					1819
+				],
+				"b": [
+					"turnin",
+					362
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Tirisfal Glades: Warriors take Ulag the Cleaver from Deathguard Dillinger when they hand him The Mills Overrun on the Brill visit, before going into the inn; the order walked past him and came back for it"
+			},
+			{
+				"a": [
+					"turnin",
+					92470
+				],
+				"b": [
+					"accept",
+					92544
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Zephras Isle: Valreaa's and Aetheen's hand-ins in Thendal Village come after the den and before Hanaa Nightwind, whose camp is on the road south to Shen'dar; the order went to Hanaa first and walked back north to the village"
 			}
 		]
 	}

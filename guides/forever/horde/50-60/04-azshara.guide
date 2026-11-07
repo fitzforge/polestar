@@ -27,15 +27,6 @@ step Fly to Ratchet
 
 # ---------------------------------------------------------------- The Barrens
 
-step Dokimi's crates
-  tip Dokimi stands in the Crossroads. Open each crate she hands you and bring back what is inside.
-  accept 91899
-  complete 91899
-  turnin 91899
-  accept 91904
-  complete 91904
-  turnin 91904
-
 step Liv Rizzlefix
   tip Liv's workshop is at the north end of Ratchet's docks; Marvon's Chest stands inside it.
   turnin 4147                         -- Inside
@@ -46,6 +37,15 @@ step Islen Waterseer
   turnin 5158
   accept 5159
   note Cleansed Water goes to the Emerald Sanctuary in Felwood: keep it for later.
+
+step Dokimi's crates
+  tip Ride north up the road to the Crossroads; Dokimi stands there. Open each crate she hands you and bring back what is inside. Fly on to Orgrimmar from the Crossroads.
+  accept 91899
+  complete 91899
+  turnin 91899
+  accept 91904
+  complete 91904
+  turnin 91904
 
 step Vehena
   zone Orgrimmar

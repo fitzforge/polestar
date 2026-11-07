@@ -1048,8 +1048,19 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 		page.set("map", if !imap.is_nullish() { imap } else { m.map(|m| V::Num(m.id)).unwrap_or(V::Null) });
 		page.set("kind", if inst.get("kind").as_str() == Some("raid") || m.is_some_and(|m| m.raid) { "raid" } else { "dungeon" });
 		page.set("forever", inst.get("forever").truthy());
-		page.set("minLevel", if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null });
-		page.set("maxLevel", if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null });
+		let min_level = if lv.truthy() { first_nn(&[lv.at(1), lv.at(0)]) } else { V::Null };
+		let mut max_level = if lv.truthy() { first_nn(&[lv.at(2), lv.at(1), lv.at(0)]) } else { V::Null };
+		// An instance whose bosses have no level (Forever's own: Ruins of Lordaeron, The Hall of
+		// Thanes) came out as a one-level range (15-15), so "For your level" dropped it a level past
+		// its minimum. Its quests' highest level is then the top of the range.
+		if !min_level.is_nullish() && (max_level.is_nullish() || max_level.num() <= min_level.num()) {
+			let top = quests.iter().map(|q| q.get("level")).filter(|l| l.truthy()).map(|l| l.num()).fold(f64::NEG_INFINITY, f64::max);
+			if top > min_level.num() {
+				max_level = V::Num(top);
+			}
+		}
+		page.set("minLevel", min_level);
+		page.set("maxLevel", max_level);
 		page.set("players", m.and_then(|m| m.players).map(V::Num).unwrap_or(V::Null));
 		page.set("zone", zone);
 		page.set("zoneName", zname);

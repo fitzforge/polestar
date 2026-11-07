@@ -323,6 +323,7 @@ L["Hostile town: %s"] = "Враждебный город: %s"
 L["Ride the elevator up"] = "Подняться на лифте"
 L["Ride the elevator down"] = "Спуститься на лифте"
 L["Ride the elevator"] = "Проехать на лифте"
+-- L["%s Inn"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -988,6 +989,10 @@ L["Group quests"] = "Групповые задания"
 L["Group quests in leveling guides"] = "Групповые задания в гайдах по прокачке"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Дающий задание"
@@ -1073,6 +1078,16 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "Сопровож
 -- L["%s and %s"] = ""
 L["The object here"] = "Объект здесь"
 L["Use %s:"] = "Используйте «%s»:"
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Место"
@@ -1291,6 +1306,8 @@ L["(step %d)"] = "(шаг %d)"
 L["Not now (right-click)"] = "Не сейчас (правый клик)"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "Шаг %d делает это позже; сделаете сейчас, и этот шаг будет короче или пропустится, когда вы до него дойдёте."
 L["Right-click: not now, for the rest of this zone."] = "Правый клик: не сейчас, до конца пребывания в этой зоне."
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Подъемник до %s"
@@ -2049,6 +2066,8 @@ L["Include nearby hand-ins"] = "Включая сдачу заданий ряд�
 L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
 L["While you're here sound"] = "Звук «Пока вы здесь»"
 L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

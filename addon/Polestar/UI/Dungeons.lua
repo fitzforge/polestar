@@ -1023,6 +1023,14 @@ local function factLines(fs, facts, width)
 	return concat(lines, "\n")
 end
 
+-- The enemy-territory warning (Dungeons.EnemyEntrance) for the filter's side,
+-- this character's under All, in the warning colour; nil when it needs none.
+local function enemyWarning(d, f)
+	local side = SIDE[f] or SIDE[UI.PlayerFaction() or ""]
+	local text = D().EnemyEntrance and D().EnemyEntrance(d.key, side)
+	return text and ("|c" .. Theme.Hex("warning") .. text .. "|r") or nil
+end
+
 local function paintCard(c, d, f, plevel, key)
 	c.psKey, c.psEntry = d.key, d
 	c.Name:SetText(d.name)
@@ -1066,7 +1074,10 @@ local function paintCard(c, d, f, plevel, key)
 	end
 	local statsW = max(60, cw - (PAD - CARD_X) - right - 6)
 	c.Stats:SetWidth(statsW)
-	c.Stats:SetText(factLines(c.Stats, facts, statsW))
+	local text = factLines(c.Stats, facts, statsW)
+	local warn = enemyWarning(d, f)
+	if warn then text = text .. "\n" .. warn end
+	c.Stats:SetText(text)
 	W.Color(c.Stats, n > 0 and "textDim" or "textMuted")
 end
 
@@ -1766,6 +1777,8 @@ local function renderMap(key, d, f)
 		local z = mapName(e.map) or d.zoneName or ""
 		local text = format(L["The entrance, on %s (%.1f, %.1f)."], z, e.x or 0, e.y or 0)
 		if n > 0 then text = text .. " " .. (n == 1 and L["The quest giver nearby is marked; hover for their quests."] or format(L["The %d quest givers nearby are marked; hover for their quests."], n)) end
+		local warn = enemyWarning(d, f)
+		if warn then text = warn .. "\n" .. text end
 		pg.MapNote:SetText(text)
 	else
 		pg.MapNote:SetText(L["The entrance of this dungeon is not known yet."])

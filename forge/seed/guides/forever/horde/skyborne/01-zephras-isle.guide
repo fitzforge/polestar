@@ -209,6 +209,19 @@ step Scrawny Ursera
   tip Scrawny Ursera prowl the slopes south-west of the village, on the way to Hanaa.
   collect 251918 quest 92473.1 @41.4,26.4
 
+step Urs'anah
+  tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
+  kill 250937 quest 92470.1
+  collect 252665 quest 92470.2
+
+step Back to Thendal Village
+  tip Back up from the den to Valreaa and Aetheen in the village before heading south-west to Hanaa: the road from her camp leads on south to Shen'dar.
+  turnin 92473                        -- Valreaa Valewind
+  turnin 92470                        -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
+
 step Hanaa Nightwind
   tip Hanaa waits in Thendal Grove, south-west of the village. The Al'Aketh camp is just beyond her; Malduko Cloudcrush leads it.
   accept 92544                        -- Hanaa Nightwind
@@ -218,17 +231,9 @@ step Hanaa Nightwind
   collect 251924 quest 92466.1 only Shaman -- Signet of Akir: the Al'Aketh in Hanaa's camp carry it
   turnin 92544
 
-step Urs'anah
-  tip The Ursera den is west of the village. Urs'anah, their matriarch, sits at its far end.
-  kill 250937 quest 92470.1
-  collect 252665 quest 92470.2
-
-step Leaving Thendal Village
-  turnin 92473                        -- Valreaa Valewind
-  turnin 92470                        -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class
+step Windshaper Boro
+  only Shaman
+  tip Back to Boro in Thendal Village with the Signet.
   turnin 92466 only Shaman            -- Windshaper Boro
   accept 92467 only Shaman
   turnin 92467 only Shaman            -- drink the Earth Sapta at the Rise of Spirits, just east of the village, to see the Minor Manifestation of Earth

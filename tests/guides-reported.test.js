@@ -4573,3 +4573,159 @@ test(`${ARATHI}: flow re-order: Worth Its Weight in Gold in one visit to Witherb
 	assert.deepEqual(work.map(({ goal }) => goal.item).sort(), [4503, 4522, 5040], 'tusks, pouches and knife listed once each');
 	assert.equal(new Set(work.map(({ s }) => s)).size, 1, 'all three on one step');
 });
+
+// Flow review, The Barrens 12-16: after the camp loop the guide walked north of the Crossroads for the zhevra,
+// back to Sergra, then east to the Razormane camp for the prowlers, and Echeyakee sat between the Sludge Fen
+// console and Ratchet. Now the zhevra on the road out to Ratchet, the prowlers on the west loop by Regthar,
+// and the last loop goes round once, Lushwater to the Dry Hills to Wenikee, ending at Echeyakee on the way
+// home (the raptor heads after him, #1135).
+test(`${BARRENS_12}: flow review: the zhevra toward Ratchet, the prowlers by Regthar, one last loop ending at Echeyakee`, { skip }, () => {
+	const list = goals(BARRENS_12);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const work = (q) => list.find(({ step, goal }) => !step.along && goal.t === 'collect' && goal.quest === q).s;
+	const zhevra = work(845);
+	assert.ok(stepOf('accept', 845) < zhevra && zhevra < stepOf('accept', 887), 'the zhevra between the camp loop and Ratchet');
+	assert.ok(!list.filter(everyone).some(({ s, goal }) => s > zhevra && s < stepOf('accept', 887) && goal.t === 'turnin' && goal.npc === 3338), 'no visit to Sergra on the way');
+	assert.ok(stepOf('turnin', 845) > stepOf('turnin', 888) && stepOf('accept', 903) === stepOf('turnin', 845), 'The Zhevra handed in and Prowlers taken on the return from Ratchet');
+	assert.ok(work(903) > stepOf('accept', 855), 'the prowlers on the west loop');
+	const eche = work(881);
+	assert.ok(work(880) < work(875) && work(875) < stepOf('turnin', 3921) && stepOf('turnin', 3922) < eche, 'Lushwater, the Dry Hills, Wenikee, then Echeyakee');
+	const last = stepOf('turnin', 869);
+	assert.ok(eche < last, 'the raptor heads after Echeyakee');
+	for (const [t, q] of [['turnin', 881], ['turnin', 880], ['turnin', 875]]) assert.equal(stepOf(t, q), last, `${t} ${q} on the final Crossroads visit`);
+});
+
+// Flow review, Durotar: Warriors walked past Kargal Battlescar, 3 yd from Uzzek, to the thunder lizards
+// and back for Conscript of the Horde. Troll Durotar: Lar Prowltusk on the first Sen'jin stop (as the
+// Orc guide), Razor Hill once after Tiragarde Keep, the eggs and tiger fur where the coast walk meets them.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: flow review: Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop`, { skip }, () => {
+	const list = goals(DUROTAR).filter(forClass('WARRIOR'));
+	assert.equal(list[at(list, 'turnin 840', is('turnin', 840))].s, list[at(list, 'turnin 1505', is('turnin', 1505))].s, 'with Uzzek, before the lizards');
+});
+
+test(`${TROLL_DUROTAR}: flow review: Lar Prowltusk on the first Sen'jin stop, Razor Hill once after the keep, eggs and fur on the coast walk`, { skip }, () => {
+	const list = goals(TROLL_DUROTAR);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.equal(stepOf('accept', 786), stepOf('turnin', 805), "Lar with Master Gadrin on the first Sen'jin stop");
+	assert.equal(stepOf('turnin', 96822), stepOf('turnin', 784), 'Turroc and Gar\'Thok on one Razor Hill visit');
+	const coast = list.find(({ goal }) => goal.t === 'collect' && goal.quest === 825).s;
+	assert.equal(list.find(({ goal }) => goal.t === 'collect' && goal.quest === 815).s, coast, 'the eggs on the coast walk');
+	assert.ok(list.find(({ goal }) => goal.t === 'collect' && goal.quest === 817).s < list.find(({ goal }) => goal.t === 'collect' && goal.quest === 826).s, 'the tiger fur on the first isle, before the southern isles');
+});
+
+// Flow review, Mulgore: arriving at the Crossroads, the guide handed in to Sergra, went back to Tonga
+// at the south gate, then crossed the town twice. Tonga is first, both quests at once, then northward.
+test(`${MULGORE}: flow review: the Crossroads arrival starts with both of Tonga's quests`, { skip }, () => {
+	const list = goals(MULGORE);
+	const tonga = at(list, 'turnin 886', is('turnin', 886));
+	assert.equal(at(list, 'accept 870', is('accept', 870)), tonga + 1, 'The Forgotten Pools right after The Barrens Oases');
+	assert.ok(tonga < at(list, 'turnin 860', is('turnin', 860)), 'before Sergra');
+});
+
+// Flow review, Tirisfal Glades: Warriors walked past Deathguard Dillinger with The Mills Overrun and came
+// back for Ulag the Cleaver.
+test(`${TIRISFAL}: flow review: Ulag the Cleaver is taken with The Mills Overrun's hand-in`, { skip }, () => {
+	const list = goals(TIRISFAL).filter(forClass('WARRIOR'));
+	assert.equal(at(list, 'accept 1819', is('accept', 1819)), at(list, 'turnin 426', is('turnin', 426)) + 1);
+});
+
+// Flow review, Zephras Isle (Horde): Hanaa's camp lies on the road south to Shen'dar; the guide went there
+// from the den and walked back north to the village for Valreaa and Aetheen.
+test('forever/horde/skyborne/01-zephras-isle.guide: flow review: the village hand-ins before Hanaa Nightwind', { skip }, () => {
+	const list = goals('forever/horde/skyborne/01-zephras-isle.guide');
+	const hanaa = at(list, 'accept 92544', is('accept', 92544));
+	assert.ok(at(list, 'turnin 92470', is('turnin', 92470)) < hanaa && at(list, 'turnin 92473', is('turnin', 92473)) < hanaa);
+	assert.ok(at(list, 'turnin 92470', is('turnin', 92470)) > at(list, "Urs'anah", (g) => g.t === 'kill' && g.quest === 92470), 'after the den');
+});
+
+// Flow review, Horde 40-60 (#1166): "Sea Wolf" MacKinley offers Scaring Shaky on the first Booty Bay stop, where the
+// guide already takes Stoley's Debt from him; it waited for the next Booty Bay stop after the Bloodsail note.
+test('forever/horde/40-50/01-stranglethorn-vale.guide: flow re-order: Scaring Shaky with Stoley\'s Debt on the first Booty Bay stop', { skip }, () => {
+	const list = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
+	const shaky = list[at(list, 'accept 606', is('accept', 606))];
+	const stoley = list[at(list, 'accept 2872', is('accept', 2872))];
+	assert.equal(shaky.s, stoley.s, 'Scaring Shaky on the step that takes Stoley\'s Debt');
+	assert.ok(shaky.s < list[at(list, 'turnin 595', is('turnin', 595))].s, 'before the Bloodsail note');
+});
+
+// Flow review, Horde 40-60 (#1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep, the Ruins
+// of Isildien, Feral Scar Vale, then one Mojache stop for every hand-in. The ruins went with the Grimtotem loop and
+// the hive had a Mojache return of its own; the beacon (any Feralas mob drops it) had a ride to the Forgotten Coast.
+test('forever/horde/40-50/02-feralas.guide: flow re-order: one sweep from the Writhing Deep west, no ride to the Forgotten Coast', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const hive = at(list, 'collect 18961 quest 7730', (g) => g.t === 'collect' && g.item === 18961);
+	const ruins = at(list, 'kill 5236 quest 2980', (g) => g.t === 'kill' && g.quest === 2980);
+	const yetis = at(list, 'collect 8973 quest 2822', (g) => g.t === 'collect' && g.item === 8973);
+	const handIn = at(list, 'turnin 7730', is('turnin', 7730));
+	assert.ok(hive < ruins && ruins < yetis && yetis < handIn, 'the hive, the ruins, the yetis, then Mojache');
+	for (const q of [2980, 2822, 7731]) assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[handIn].s, `${q} on the same Mojache stop`);
+	assert.ok(!list.some(({ goal }) => goal.map === 1444 && goal.x != null && goal.x < 35), 'no ride to the Forgotten Coast');
+});
+
+// Flow review, Horde 40-60 (#1166): the Pool of Tears on the ride east before Misty Reed Post (it went Misty Reed,
+// pool, Misty Reed); Natural Materials' minerals with the logs and the sinew with the fragments; Improved Quality
+// (taken on the previous Feralas visit) done on the ride back from the harpies and handed in on the last Mojache stop.
+test('forever/horde/40-50/03-feralas.guide: flow re-order: the Pool of Tears before Misty Reed, the Rage Scar yetis on the way back', { skip }, () => {
+	const file = 'forever/horde/40-50/03-feralas.guide';
+	const list = goals(file);
+	assert.ok(at(list, 'collect 6175 quest 1424', (g) => g.t === 'collect' && g.item === 6175) < at(list, 'turnin 699', is('turnin', 699)), 'the pool before Misty Reed Post');
+	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
+	assert.equal(step(9589), step(9590), 'minerals and logs on one step');
+	assert.equal(step(9591), step(9592), 'sinew and fragments on one step');
+	const harpies = at(list, 'kill 5366 quest 3063', (g) => g.t === 'kill' && g.quest === 3063);
+	const yetis = at(list, 'collect 18947 quest 7734', (g) => g.t === 'collect' && g.item === 18947);
+	const turnin = at(list, 'turnin 7734', is('turnin', 7734));
+	assert.ok(harpies < yetis && yetis < turnin, 'harpies, Rage Scar yetis, then Mojache');
+	assert.equal(list[turnin].s, list[at(list, 'turnin 3063', is('turnin', 3063))].s, 'with Talo\'s hand-in');
+	assert.ok(goals('forever/horde/40-50/02-feralas.guide').some(({ goal }) => is('accept', 7734)(goal)), 'Improved Quality comes from the previous guide');
+	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7734)(goal)), 'not carried to the Azshara guide');
+});
+
+// Flow review, Horde 40-60 (#1166): Caught! is handed in at the outhouse right after its work (the guide came back to
+// the dig site at the end), and the Smithing Tuyere drops from the same Steamsmiths as the Thorium Plated Daggers.
+test('forever/horde/40-50/04-tanaris.guide: flow re-order: Caught! on the spot, the tuyere with the daggers', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const caught = list[at(list, 'turnin 4449', is('turnin', 4449))];
+	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306)].s, 'handed in on the dig site step');
+	assert.ok(caught.s < list[at(list, 'accept 7728', is('accept', 7728))].s, 'before Thorium Point');
+	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
+	assert.equal(step(18959), step(10551), 'the tuyere on the daggers step');
+});
+
+// Flow review, Horde 40-60 (#1166): Salfa stands where Timbermaw Hold's tunnel comes out; Speak to Salfa was carried
+// to Everlook and back west.
+test('forever/horde/50-60/03-winterspring.guide: flow re-order: Salfa where the tunnel comes out', { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const salfa = at(list, 'turnin 8465', is('turnin', 8465));
+	assert.ok(salfa < at(list, 'accept 3783', is('accept', 3783)), 'before Everlook');
+	assert.equal(list[salfa].s, list[at(list, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+});
+
+// Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first and the ride north ends
+// at Dokimi in the Crossroads; it rode north to the Crossroads and back to Ratchet.
+test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then the crates at the Crossroads', { skip }, () => {
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	const crates = at(list, 'accept 91899', is('accept', 91899));
+	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < crates && at(list, 'turnin 5158', is('turnin', 5158)) < crates, 'Liv and Islen before the crates');
+});
+
+// Flow review, Horde 40-60 (#1166): Corin's Crossing on the ride south from Quel'Lithien Lodge, all three hand-ins to
+// Nathanos in one visit (it rode from the Marris Stead to the crossing and back); The Everlook Report at the Bulwark on
+// the way in (it waited two guides for another Bulwark stop).
+test('forever/horde/50-60/05-eastern-plaguelands.guide: flow re-order: Corin\'s Crossing before Nathanos, The Everlook Report at the Bulwark', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const rot = at(list, 'collect 15447', (g) => g.t === 'collect' && g.item === 15447);
+	const nathanos = at(list, 'turnin 6133', is('turnin', 6133));
+	assert.ok(rot < nathanos, 'Corin\'s Crossing before Nathanos');
+	assert.equal(list[at(list, 'turnin 6022', is('turnin', 6022))].s, list[nathanos].s, 'To Kill With Purpose on the same visit');
+	assert.ok(at(list, 'turnin 6029', is('turnin', 6029)) < at(list, 'turnin 5229', is('turnin', 5229)), 'the Bulwark on the way to Felstone Field');
+	assert.ok(!goals('forever/horde/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 6029)(goal)), 'not carried to the Silithus guide');
+});
+
+// Flow review, Horde 40-60 (#1166): Chromie offers Counting Out Time on A Matter of Time's hand-in and the lockboxes are
+// around her inn; it waited for a return to Chromie later in the guide.
+test('forever/horde/50-60/06-silithus.guide: flow re-order: Counting Out Time on the first Chromie visit', { skip }, () => {
+	const list = goals('forever/horde/50-60/06-silithus.guide');
+	assert.equal(list[at(list, 'accept 4972', is('accept', 4972))].s, list[at(list, 'turnin 4971', is('turnin', 4971))].s, 'taken on A Matter of Time\'s hand-in');
+	assert.ok(at(list, 'collect 12638', (g) => g.t === 'collect' && g.item === 12638) < at(list, 'turnin 5098', is('turnin', 5098)), 'the lockboxes before the Bulwark');
+});

@@ -323,6 +323,7 @@ L["Hostile town: %s"] = "Cidade hostil: %s"
 L["Ride the elevator up"] = "Subir pelo elevador"
 L["Ride the elevator down"] = "Descer pelo elevador"
 L["Ride the elevator"] = "Pegar o elevador"
+-- L["%s Inn"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -988,6 +989,10 @@ L["Group quests"] = "Missões de grupo"
 L["Group quests in leveling guides"] = "Missões de grupo nos guias de evolução"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "Recrutador de missões"
@@ -1073,6 +1078,16 @@ L["%d:%02d left"] = "%d:%02d restantes"
 L["%s and %s"] = "%s e %s"
 L["The object here"] = "O objeto aqui"
 L["Use %s:"] = "Use %s:"
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Local"
@@ -1291,6 +1306,8 @@ L["Click to show or hide the party panel."] = "Clique para mostrar ou ocultar o 
 -- L["Not now (right-click)"] = ""
 -- L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = ""
 -- L["Right-click: not now, for the rest of this zone."] = ""
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Elevador para %s"
@@ -2049,6 +2066,8 @@ L["Did you mean:"] = "Você quis dizer:"
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
 -- L["While you're here sound"] = ""
 -- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"

@@ -5,7 +5,7 @@
 
 use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::tmp::TempDir;
-use forge_addontest::{emitted, is_match, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
 use forge_data::codex::client::{Corpse, InstanceMap};
 use forge_data::codex::journal::{build_journal, emit_journal, Codex, JournalInputs};
 use forge_guide::js::{parse_json, V};
@@ -1199,4 +1199,25 @@ fn the_login_and_hand_in_checks_never_load_the_codex_the_login_one_runs_once_it_
 	));
 	assert_eq!(out[0], json!({ "start": false, "loaded": false, "shown": false }));
 	assert_eq!(out[1], json!({ "loaded": true, "shown": "wailing-caverns", "head": "LEVEL 19 · DUNGEON" }));
+}
+
+// Fitz (2026-11-07): The Hall of Thanes is in Ironforge; Horde can do it, but only through Ironforge. The level 20
+// Tauren's heads-up for it says so in the warning colour and leads with the dungeon's page, the pick-up guide
+// second; Wailing Caverns' card is as before.
+#[test]
+fn a_dungeon_whose_entrance_is_in_the_other_factions_land_says_so_on_the_heads_up_and_leads_with_its_page() {
+	let out = run(&format!(
+		r#"{HEADS_UP}
+		local m = DT.Model({{ key = "the-hall-of-thanes", name = "The Hall of Thanes", level = 15, take = 1, minLevel = 13, maxLevel = 20, zoneName = "Ironforge" }})
+		local w = DT.Model({{ key = "wailing-caverns", name = "Wailing Caverns", level = 20, take = 2, minLevel = 17, maxLevel = 24, zoneName = "The Barrens" }})
+		emit({{ line = m.giver, act = m.act.label, more = m.more.label, wline = w.giver, wact = w.act.label }})"#
+	));
+	let out = &out[0];
+	let line = text(&out["line"]);
+	assert!(line.starts_with("1 quest to pick up  ·  Levels 13–20  ·  Ironforge\n|c"), "the facts, then a coloured line: {line}");
+	assert!(line.ends_with("Entrance in Alliance territory (in Ironforge)|r"), "{line}");
+	assert_eq!(out["act"], "Open in Dungeons");
+	assert_eq!(out["more"], "Pick up the quests");
+	assert_eq!(out["wline"], "2 quests to pick up  ·  Levels 17–24  ·  The Barrens");
+	assert_eq!(out["wact"], "Pick up the quests");
 }
