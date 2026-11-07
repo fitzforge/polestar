@@ -347,6 +347,20 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: no "along the way" lists (Fitz
 	assert.deepEqual(compiled(DUROTAR).steps.filter((step) => step.along && step.goals.some((g) => [789, 4402, 97225, 837].includes(g.quest))).map((step) => step.title), []);
 });
 
+// Flow audit, Orc Durotar: Lar Prowltusk stands 21 yd from Master Gadrin on the first Sen'jin stop and offers
+// Thwarting Kolkar Aggression at level 5 (11 recorded windows), but the guide walked 1,200 yd back to him from
+// Razor Hill after Tiragarde Keep, then north again to the toolboxes east of Razor Hill. He is taken on the
+// first stop, and the coast is walked from Razor Hill south; the egg and tiger fur lists are steps.
+test(`${ORC_DUROTAR}: Lar Prowltusk on the first Sen'jin stop, the coast walked south from Razor Hill`, { skip }, () => {
+	const list = goals(ORC_DUROTAR);
+	const lar = at(list, 'accept 786 (Thwarting Kolkar Aggression)', is('accept', 786));
+	assert.equal(list[lar].s, list[at(list, 'turnin 805 (Report to Sen\'jin Village)', is('turnin', 805))].s, 'Lar with Master Gadrin on the first Sen\'jin stop');
+	const tools = at(list, 'the gnomish toolboxes (825)', (g) => g.quest === 825 && g.t === 'collect');
+	const hand = at(list, 'turnin 784 (Vanquish the Betrayers)', is('turnin', 784));
+	assert.deepEqual(list.slice(hand, tools).filter(located).filter(({ goal }) => yards(goal, list[lar].goal) < 150).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'no Sen\'jin stop between Razor Hill and the coast');
+	assert.deepEqual(compiled(ORC_DUROTAR).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+});
+
 // --- The starting glens: one delivery quest no longer sends you off and back.
 
 test(`${TELDRASSIL}: Dolanaar Delivery is taken from Porthannius after the Shadowglen quests, on the way out to Dolanaar`, { skip }, () => {

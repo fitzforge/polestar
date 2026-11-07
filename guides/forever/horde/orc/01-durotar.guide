@@ -160,6 +160,7 @@ step Sen'jin Village
   accept 826                          -- Master Gadrin
   accept 823
   accept 97223                        -- Xar'Ti
+  accept 786                          -- Lar Prowltusk
   kill 266850 quest 96821.1
   kill 266849 quest 96821.2
 
@@ -211,44 +212,36 @@ step Tiragarde Keep
   collect 275716 quest 96822.2 @57.4,56.4
 
 step Razor Hill
-  turnin 96822                        -- Turroc, inside
-  accept 806
+  tip Back north-west to Razor Hill: Gar'Thok first, then Furl in the watchtower, then Orgnil and Turroc on the way out east to the shore.
   turnin 784                          -- Gar'Thok
   turnin 830 optional
   accept 831
-
-step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
+  accept 806                          -- Orgnil Soulscar
+  turnin 96822                        -- Turroc, inside
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
 
-step Sen'jin Village
-  accept 786                          -- Lar Prowltusk
-
 # ---------------------------------------------------------------- The coast and Sen'jin
-step Taillasher Egg on the way
-  along until q815
-  collect 4890 quest 815.1
 
+# Lar Prowltusk's Kolkar quest is taken on the first Sen'jin stop (he offers
+# it at level 5), so the coast is walked from Razor Hill south: the toolboxes
+# east of town first, then the beaches, the Echo Isles and Sen'jin.
 step Scuttle Coast: kill these as you meet them
-  label q815
   zone Durotar
-  tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
   tip The gnomish toolboxes lie in the wreckage along the shore east and south-east of Razor Hill. Follow the shore south to Sen'jin.
+  tip Makrura and surf crawlers line the beaches north-east of Sen'jin.
+  collect 4863 quest 825.1            -- Underwater
   collect 4888 quest 818.2
   collect 4887 quest 818.1            -- Underwater
   collect 4890 quest 815.1
-  collect 4863 quest 825.1            -- Underwater
-
-step Durotar Tiger Fur on the way
-  along until q817
-  collect 4892 quest 817.1 -- Durotar Tiger Fur along the way to Sen'jin Village
 
 step Echo Isles: kill these as you meet them
   zone Durotar
   tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
   tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
   collect 277128 quest 97223.1
+  collect 4892 quest 817.1            -- Durotar Tiger Fur
 
 step Echo Isles: kill these as you meet them
   zone Durotar
@@ -266,7 +259,6 @@ step Deathskip to Sen'jin Village
   die "Sen'jin Village" @57.2,73.3 map 1411
 
 step Sen'jin Village
-  label q817
   zone Durotar
   turnin 808
   turnin 826
@@ -289,9 +281,6 @@ step Kolkar Crag
 step Sen'jin Village
   turnin 786                          -- Lar Prowltusk
   turnin 99123                        -- Master Vornal
-
-step Echo Isles
-  collect 4890 quest 815.1
 
 step Razor Hill
   accept 99048

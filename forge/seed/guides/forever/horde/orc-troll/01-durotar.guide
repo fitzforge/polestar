@@ -272,6 +272,7 @@ step Sen'jin Village
   turnin 805                          -- Master Gadrin
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
   accept 96821                        -- Vel'rin Fang
+  accept 786                          -- Lar Prowltusk: he offers it at level 5, on this first stop (11 recorded windows)
 
 step Ridgeshade spiders
   tip The spiders lurk in the hills along the road north toward Razor Hill.
@@ -340,7 +341,6 @@ step Sen'jin Village
   accept 826                          -- Master Gadrin
   accept 823
   accept 808
-  accept 786                          -- Lar Prowltusk
   accept 97223                        -- Xar'Ti
 
 step Makrura and crawlers
