@@ -1987,6 +1987,54 @@
 			},
 			{
 				"a": [
+					"accept",
+					2258
+				],
+				"b": [
+					"task",
+					710
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): Lotwil's Study of the Elements is taken as the road west passes his camp, then Kargath (Jarkal's Badlands Reagent Run), then the Lesser Rock Elementals between Kargath and Lotwil, whose Rock Elemental Shards for Jarkal drop in the same round, as the seed has it; the route walked past Lotwil to Kargath, back east to him, west again for the elementals, and came back to the Dustbowl for the shards 52 minutes later."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"task",
+					709
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): with the wings and the flakes collected around Agmond's End and the trogg caves, the road north to the Uldaman chest runs through the Valley of Fangs: Rigglefuzz (Barbecued Buzzard Wings) takes them on the way, instead of after the chest and the walk back south to Theldurin."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"task",
+					709
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): with the wings and the flakes collected around Agmond's End and the trogg caves, the road north to the Uldaman chest runs through the Valley of Fangs: Martek (Indurium) takes them on the way, instead of after the chest and the walk back south to Theldurin."
+			},
+			{
+				"a": [
+					"accept",
+					710
+				],
+				"b": [
+					"accept",
+					2258
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): Lotwil's camp lies on the road west from the Valley of Fangs to Kargath (75 yd off it): his Study of the Elements is taken on the way, as the seed has it, not on a walk back east from Kargath."
+			},
+			{
+				"a": [
 					"turnin",
 					432
 				],
@@ -2855,6 +2903,31 @@
 					0
 				],
 				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. Both are killed together where they stand; the seed now does too."
+			},
+			{
+				"a": [
+					"task",
+					711
+				],
+				"b": [
+					"task",
+					2258,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
+			},
+			{
+				"a": [
+					"task",
+					1108
+				],
+				"b": [
+					"task",
+					703
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Buzzards (npc 2830, 49-63,54-78) for Barbecued Buzzard Wings circle the hills between the Valley of Fangs and Agmond's End, where the Stonevault troggs are worked; the route made the wings a stop of its own at Agmond's End after the chest."
 			},
 			{
 				"a": [
