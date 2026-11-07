@@ -2009,39 +2009,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					1108
+					"accept",
+					709
 				],
 				"b": [
 					"accept",
 					710
 				],
 				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Agmond's End (the skeleton, the ogres, the buzzards, the troggs and Theldurin), the Uldaman chest and Theldurin's hand-in come first, then back through the Valley of Fangs (Martek, Rigglefuzz) to Lotwil's Dustbowl, from where the guide leaves for Loch Modan; the route went Valley of Fangs, Agmond's End, west to Lotwil, back south-east to Agmond's End, the chest, Theldurin, then west again for the Rock Elementals and Lotwil (two walks across the zone of about 1,000 yd each)."
-			},
-			{
-				"a": [
-					"turnin",
-					1108
-				],
-				"b": [
-					"turnin",
-					2500
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Indurium (Martek) is done at Agmond's End and the road north out of the Badlands passes the Valley of Fangs: handed in there, before Ghak Healtouch in Thelsamar, instead of being carried into alliance/40-50/02-badlands hours later (the seed hands it in in 06-badlands too)."
-			},
-			{
-				"a": [
-					"turnin",
-					703
-				],
-				"b": [
-					"turnin",
-					2500
-				],
-				"faction": "Alliance",
-				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Barbecued Buzzard Wings (Rigglefuzz) is done at Agmond's End and the road north out of the Badlands passes the Valley of Fangs: handed in there, before Ghak Healtouch in Thelsamar, instead of being carried into alliance/40-50/02-badlands hours later (the seed hands it in in 06-badlands too)."
+				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): Agmond's End (the skeleton, the ogres, the buzzards, the troggs, Theldurin) is worked in one sweep from the Valley of Fangs, then Lotwil in the Dustbowl; the route went to the skeleton, walked 800 yd west to Lotwil for his quest only, back 700 yd to Agmond's End for the sweep, and west again for the Lesser Rock Elementals."
 			}
 		],
 		"notes": [
@@ -2841,6 +2817,19 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"task",
+					710
+				],
+				"b": [
+					"task",
+					2500,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Badlands, #1106): the Lesser Rock Elementals west of Lotwil drop Ghak's Rock Elemental Shards too: collected in the same step as the Small Stone Shards."
 			}
 		],
 		"after": [

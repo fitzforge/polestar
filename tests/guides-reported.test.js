@@ -1424,18 +1424,20 @@ test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from A
 	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
 });
 
-// --- Flow re-order (2026-11-07, #1106): Alliance Badlands crossed the zone
-// twice between Lotwil's Dustbowl and Agmond's End, then walked west again for
-// the Rock Elementals before leaving north, and carried the Indurium flakes and
-// buzzard wings past Martek and Rigglefuzz into the 40-50 Badlands guide.
-test(`${BADLANDS}: flow re-order: Agmond's End, the chest and Theldurin first, Martek and Rigglefuzz on the way back, then Lotwil's Dustbowl once`, { skip }, () => {
+// --- Flow re-order (2026-11-07, #1106): Alliance Badlands walked from the
+// skeleton at Agmond's End west to Lotwil for his quest alone, back to Agmond's
+// End for the sweep, and west again for the Lesser Rock Elementals; the
+// Indurium flakes were an along list.
+test(`${BADLANDS}: flow re-order: Agmond's End swept before Lotwil, Lotwil's elementals in one go, no along steps`, { skip }, () => {
 	const list = goals(BADLANDS);
 	assert.deepEqual(compiled(BADLANDS).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
-	const theldurin = at(list, 'turnin 709 (Theldurin)', is('turnin', 709));
-	assert.ok(at(list, 'turnin 738 (the battered skeleton)', is('turnin', 738)) < theldurin, 'Agmond\'s End and the chest first');
-	for (const q of [1108, 703]) assert.ok(at(list, `turnin ${q}`, is('turnin', q)) > theldurin, `${q} handed in on the walk back through the Valley of Fangs`);
-	assert.ok(theldurin < at(list, 'accept 710 (Lotwil)', is('accept', 710)), 'Lotwil\'s Dustbowl after Agmond\'s End, once');
-	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => goal.t === 'turnin' && (goal.quest === 1108 || goal.quest === 703)), 'not carried into the 40-50 Badlands guide');
+	const lotwil = at(list, 'accept 710 (Lotwil)', is('accept', 710));
+	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the flakes', (g) => g.t === 'collect' && g.quest === 1108], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
+		assert.ok(at(list, what, pred) < lotwil, `${what} before Lotwil`);
+	}
+	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
+	assert.ok(stones > lotwil, 'the Small Stone Shards after Lotwil\'s accept');
+	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'Ghak\'s Rock Elemental Shards with them');
 });
 
 // The same pattern elsewhere: a quest taken where the route already stands,

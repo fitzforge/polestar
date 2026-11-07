@@ -56,7 +56,7 @@ step Valley of Fangs
   accept 705                          -- The clams lie on Stranglethorn's north-west coast, in the next guide: keep it
 
 step Agmond's End
-  tip Head south-east from the Valley of Fangs to Agmond's End. The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south.
+  tip The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south.
   turnin 738                          -- Battered Dwarven Skeleton
 
 step Agmond's End: kill these as you meet them
@@ -73,23 +73,6 @@ step Agmond's End: kill these as you meet them
   kill 2893 quest 739                 -- Stonevault Bonesnapper
   accept 709                          -- Theldurin the Lost
 
-# ---------------------------------------------------------------- The north
-
-step The Ancient Chest
-  tip Head north to the dwarven ruins in the north of the Badlands; the chest sits among the Shadowforge dwarves. Ambassador Infernus nearby is elite: give him room.
-  collect 4631 quest 709              -- Tablet of Ryun'eh; below ground
-
-step Theldurin the Lost
-  tip Head south to Agmond's End.
-  turnin 709
-  accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
-
-step Valley of Fangs
-  tip Back north from Agmond's End through the Valley of Fangs: Martek and Rigglefuzz take the flakes and the wings on the way west to the Dustbowl.
-  turnin 1108                         -- Martek the Exiled
-  accept 1137                         -- for Fizzle Brassbolts in the Shimmering Flats: the Tanaris guide crosses them at 45, keep it
-  turnin 703                          -- Rigglefuzz
-
 step Lotwil Veriatus
   tip Head west into the Dustbowl; Lotwil works by his machines in the middle of it.
   accept 710
@@ -102,6 +85,20 @@ step Lesser Rock Elementals
 step Lotwil Veriatus
   turnin 710
   accept 711
+
+step Lucien Tosselwrench
+  note Lotwil's next test needs crafted gear: skip it.
+
+# ---------------------------------------------------------------- The north
+
+step The Ancient Chest
+  tip Head north-east to the dwarven ruins in the north of the Badlands; the chest sits among the Shadowforge dwarves. Ambassador Infernus nearby is elite: give him room.
+  collect 4631 quest 709              -- Tablet of Ryun'eh; below ground
+
+step Theldurin the Lost
+  tip Head south to Agmond's End.
+  turnin 709
+  accept 727                          -- for Gerrig Bonegrip in Ironforge: keep it
 
 step Rock Elementals
   tip The Rock Elementals roam south-east of Lotwil; Giant Buzzards and Elder Crag Coyotes share the plain to their west.
@@ -117,7 +114,6 @@ step Lucien Tosselwrench
   zone Badlands
   accept 716 optional                 -- Lucien Tosselwrench, beside Lotwil
   turnin 716 optional                 -- only if you carry Patterned Bronze Bracers (a blacksmith's craft)
-
 step To Stoutlager Inn
   zone Loch Modan
   goto 35.5,48.4 "Stoutlager Inn"
