@@ -776,7 +776,11 @@ fn a_building_mouth_beside_an_inn_s_innkeeper_is_the_inn_s_entrance() {
 		local out = {}
 		for i = ci or 1, legs and #legs or 0 do out[#out + 1] = legs[i].kind .. "|" .. legs[i].label end
 		emit(out)"#);
-	assert_eq!(out, json!(["walk|Walk to the Testshire Inn entrance", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]), "the inn's door says Inn; a building with no innkeeper by it keeps its area's name");
+	assert_eq!(
+		out,
+		json!(["walk|Walk to the Testshire Inn entrance", "walk|Walk to the Westbrook Keep entrance", "walk|Target"]),
+		"the inn's door says Inn; a building with no innkeeper by it keeps its area's name"
+	);
 }
 
 #[test]
