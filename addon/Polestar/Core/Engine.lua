@@ -2993,7 +2993,7 @@ end
 -- on a trip (only on a long haul).
 function Own.hearthCost()
 	local nav = ns.Nav
-	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 300, (nav and nav.HEARTH_MIN_TRIP) or 480
+	return (nav and nav.HEARTH_SECONDS) or 15, (nav and nav.HEARTH_MARGIN) or 120, (nav and nav.HEARTH_MIN_TRIP) or 180
 end
 
 -- How to make a hearth goal's trip now: wait (Own.hearthWait), the inn

@@ -132,9 +132,9 @@ fn crosses_continents_by_boat() {
 	assert_eq!(out["boatSecs"], 90, "wait + ride");
 }
 
-// The Hearthstone's hour-long cooldown is spent only on a long haul (Fitz, 0.3.3: "a 2-minute walk is fine"):
-// a route hearths only when the way without it takes at least 8 minutes (Nav.HEARTH_MIN_TRIP) and hearthing
-// saves at least 5 (Nav.HEARTH_MARGIN), after its cast and loading screen. The boat waits `wait` seconds.
+// The Hearthstone's hour-long cooldown is spent once a trip is long enough for it to clearly pay (Fitz, #1096):
+// a route hearths only when the way without it takes at least 3 minutes (Nav.HEARTH_MIN_TRIP) and hearthing
+// saves at least 2 (Nav.HEARTH_MARGIN), after its cast and loading screen. The boat waits `wait` seconds.
 #[test]
 fn hearths_only_when_the_stone_is_ready_and_it_saves_a_long_haul() {
 	let out = run(r#"
@@ -173,29 +173,62 @@ fn hearths_only_when_the_stone_is_ready_and_it_saves_a_long_haul() {
 	assert_eq!(out["cooldown"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]));
 	let short = out["shortTrip"].as_i64().unwrap();
 	assert!(short < 480 && short > 240, "the short trip takes {short} s");
-	assert_eq!(out["short"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|Innkeeper quest"]), "a 5-minute trip keeps the Hearthstone");
+	assert_eq!(out["short"], json!(["hearth|Hearth to Testshire Inn: saves 4 min", "walk|Innkeeper quest"]), "a 5-minute trip the hearth shortens by 4 takes it (#1096)");
 	assert_eq!(out["near"], json!(["walk|Innkeeper quest"]));
 	assert_eq!(out["noStone"], "boat|Take the boat to Testshire Docks");
 }
 
-// A long trip (8 minutes or more) where the Hearthstone lands far from the target saves under 5 minutes: no hearth.
+// The hearth must save at least 2 minutes (Nav.HEARTH_MARGIN): a 4-minute trip with the target 560 yd (100 s)
+// from the inn, 15 s for the cast, saves 119 s (walk, and the estimate weighs it the same way) or 121 s (hearth).
 #[test]
-fn a_long_trip_the_hearthstone_shortens_by_under_five_minutes_keeps_it() {
+fn a_hearth_that_saves_under_two_minutes_keeps_the_stone_and_one_that_saves_two_takes_it() {
 	let out = run(r#"
 		local function trip(noHearth)
-			local m, x, y = nav.mapPoint(-880, 300)
+			local m, x, y = nav.mapPoint(60, -700)
 			return math.floor(N.EstimateTravel(nil, { map = m, x = x, y = y }, nil, noHearth) + 0.5)
 		end
 		nav.items[6948] = 1
 		nav.bind = "Testshire Inn"
-		nav.useTravelWorld(nil, 300)
-		nav.place(0, 0, 1)
-		target(-880, 300, "By the docks")         -- 300 yd from the docks, 1070 yd from the inn
-		emit({ route = route(), without = trip(true), with = trip(false) })"#);
-	let without = out["without"].as_i64().unwrap();
-	assert!(without >= 480, "the trip takes {without} s");
-	assert_eq!(out["route"], json!(["walk|Walk to the boat", "boat|Take the boat to Testshire Docks", "walk|By the docks"]));
-	assert_eq!(out["with"], out["without"], "the estimate weighs the Hearthstone the same way");
+		known()
+		local r = {}
+		nav.place(60, -700 + 234 * 5.6)           -- 1310.4 yd: 234 s on foot, 119 s more than the hearth's 115
+		target(60, -700, "Past the inn")
+		r.under, r.underTrip, r.underWith = route(), trip(true), trip(false)
+		nav.place(60, -700 + 236 * 5.6)           -- 1321.6 yd: 236 s on foot, 121 s more
+		target(60, -700, "Past the inn")
+		r.over, r.overTrip = route(), trip(true)
+		emit(r)"#);
+	assert_eq!(out["underTrip"], 234);
+	assert_eq!(out["under"], json!(["walk|Past the inn"]), "saves 119 s: keep the Hearthstone");
+	assert_eq!(out["underWith"], out["underTrip"], "the estimate weighs the Hearthstone the same way");
+	assert_eq!(out["overTrip"], 236);
+	assert_eq!(out["over"], json!(["hearth|Hearth to Testshire Inn: saves 2 min", "walk|Past the inn"]), "saves 121 s: hearth");
+}
+
+// The trip must take at least 3 minutes (Nav.HEARTH_MIN_TRIP): the target 10 yd from the inn, a 179 s walk keeps the
+// Hearthstone though the hearth would save over 2 minutes; a 181 s walk takes it.
+#[test]
+fn a_trip_under_three_minutes_keeps_the_stone_and_one_over_three_hearths() {
+	let out = run(r#"
+		local function trip(noHearth)
+			local m, x, y = nav.mapPoint(-500, -690)
+			return math.floor(N.EstimateTravel(nil, { map = m, x = x, y = y }, nil, noHearth) + 0.5)
+		end
+		nav.items[6948] = 1
+		nav.bind = "Testshire Inn"
+		known()
+		local r = {}
+		nav.place(-500 + 179 * 5.6, -690)         -- 1002.4 yd: 179 s on foot
+		target(-500, -690, "By the inn")
+		r.under, r.underTrip = route(), trip(true)
+		nav.place(-500 + 181 * 5.6, -690)         -- 1013.6 yd: 181 s on foot
+		target(-500, -690, "By the inn")
+		r.over, r.overTrip = route(), trip(true)
+		emit(r)"#);
+	assert_eq!(out["underTrip"], 179);
+	assert_eq!(out["under"], json!(["walk|By the inn"]), "a 179 s trip keeps the Hearthstone");
+	assert_eq!(out["overTrip"], 181);
+	assert_eq!(out["over"], json!(["hearth|Hearth to Testshire Inn: saves 2 min", "walk|By the inn"]), "a 181 s trip hearths");
 }
 
 #[test]

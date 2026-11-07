@@ -2676,7 +2676,7 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. It orders by
-a cost (the Hearthstone carries a `HEARTH_MARGIN` of 300 s on top of its
+a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
@@ -2689,11 +2689,12 @@ wait, never stops planning. `Transit.Teleports(now)` lists the castable teleport
 planned like the Hearthstone from the start. While a ride waits, the leg's
 caption gains `Transit.Caption` ("Next boat in 1:20"), refreshed every
 second; a crossing at a lift (`Transit.LiftNear`) the same.
-The Hearthstone's hour-long cooldown is spent only on a long haul (0.3.3,
-Fitz: "a 2-minute walk is fine"): a route `Nav.PlanRoute` chose with a
+The Hearthstone's hour-long cooldown is spent once a trip is long enough for
+it to clearly pay (#1096, Fitz; 0.3.3's 8 and 5 minutes walked where a
+hearth was better): a route `Nav.PlanRoute` chose with a
 hearth leg is planned again without it (`noHearth`) and kept only while the
-way without it takes at least `HEARTH_MIN_TRIP` (480 s) and the hearth saves
-at least `HEARTH_MARGIN` (300 s) after its cast and loading screen
+way without it takes at least `HEARTH_MIN_TRIP` (180 s) and the hearth saves
+at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 (`HEARTH_SECONDS`, 15 s); its label then says what it saves ("Hearth to
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
