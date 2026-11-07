@@ -321,7 +321,7 @@ step Lake Al'Ameth
   turnin 919
 
 step Zenn Foulhoof
-  tip North from the lake to Zenn, on the road back to Dolanaar.
+  tip Zenn sits by the road just east of Dolanaar, between Dolanaar and Starbreeze Village.
   turnin 488                                  -- Zenn Foulhoof
 
 step Dolanaar
