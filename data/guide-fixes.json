@@ -1935,6 +1935,78 @@
 				}
 			],
 			"pr": 1090
+		},
+		{
+			"id": "wetlands-ados-fragment-in-the-dig-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 299,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Uncovering the Past's four fragments lie in Whelgar's dig itself: collected in the dig step of the Wetlands visit (07-thousand-needles), with the keystone and Sarltooth, not in an along list from the wreck of the Third Fleet across the zone (flow audit, 2026-11-07: along lists become steps). The same for objectives 2-4.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Ancient Relics and the Loose Soil (objects 35252, 334, 333, 331) at Whelgar's Excavation Site, about 32.2-32.3, 48.4-50.8"
+				}
+			],
+			"pr": 1101
+		},
+		{
+			"id": "wetlands-modr-fragment-in-the-dig-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 299,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Uncovering the Past: see wetlands-ados-fragment-in-the-dig-step.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Ancient Relics and the Loose Soil (objects 35252, 334, 333, 331) at Whelgar's Excavation Site, about 32.2-32.3, 48.4-50.8"
+				}
+			],
+			"pr": 1101
+		},
+		{
+			"id": "wetlands-golm-fragment-in-the-dig-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 299,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Uncovering the Past: see wetlands-ados-fragment-in-the-dig-step.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Ancient Relics and the Loose Soil (objects 35252, 334, 333, 331) at Whelgar's Excavation Site, about 32.2-32.3, 48.4-50.8"
+				}
+			],
+			"pr": 1101
+		},
+		{
+			"id": "wetlands-neru-fragment-in-the-dig-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 299,
+				"goal": "objective",
+				"objective": 4
+			},
+			"along": false,
+			"note": "Uncovering the Past: see wetlands-ados-fragment-in-the-dig-step.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "Ancient Relics and the Loose Soil (objects 35252, 334, 333, 331) at Whelgar's Excavation Site, about 32.2-32.3, 48.4-50.8"
+				}
+			],
+			"pr": 1101
 		}
 	]
 }

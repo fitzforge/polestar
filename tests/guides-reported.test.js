@@ -3677,3 +3677,32 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	assert.ok(at(ret, 'turnin 57 on the return', is('turnin', 57)) < at(ret, 'accept 58', is('accept', 58)), '57 handed in on the return before 58');
 	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
 });
+
+// --- Flow audit (2026-11-07, Ashenvale, Wetlands, the Duskwood return): Astranaar was visited for two
+// hand-ins between the Ruins of Stardust and Stonetalon, then again for the flight; the Wetlands visit of
+// 07 walked from Whelgar's dig back to Menethil for War Banners, east again to the Angerfang camp for From
+// the Ashes and back to Menethil; the Duskwood return passed the town hall to Viktori and turned back;
+// 30-40/01 split Menethil's last two hand-ins round a grind. Now: Astranaar's hand-ins on the stop before
+// the flight; War Banners on 06's walk east from the dig, handed in at 06's last Menethil stop; 07 fetches
+// the attack plans from the dig and hands From the Ashes in with The Eye of Paleth; Viktori after the town
+// hall; Old Habits and Crocs of the Sky on one stop.
+test('flow audit (Alliance 26-31): Astranaar once after Stonetalon, From the Ashes without a second trip east, Darkshire then Viktori', { skip }, () => {
+	const ASHEN = goals(ASHENVALE);
+	const NEED = goals('forever/alliance/07-thousand-needles.guide');
+	const HILLS = goals(HILLSBRAD_ALLIANCE);
+	const reaper = at(ASHEN, 'turnin 1093', is('turnin', 1093));
+	for (const q of [1034, 1025]) assert.ok(at(ASHEN, `turnin ${q}`, is('turnin', q)) > reaper, `${q} handed in after Stonetalon`);
+	const banners = at(ASHEN, 'the War Banners in 06', (g) => g.t === 'collect' && g.item === 3337);
+	const last = ASHEN[at(ASHEN, 'turnin 286', is('turnin', 286))].s;
+	assert.equal(ASHEN[at(ASHEN, 'turnin 464', is('turnin', 464))].s, last, 'War Banners handed in at the last Menethil stop of 06');
+	assert.equal(ASHEN[at(ASHEN, 'accept 98221', is('accept', 98221))].s, last, 'From the Ashes taken there');
+	assert.ok(banners < at(ASHEN, 'turnin 464', is('turnin', 464)), 'the banners before their hand-in');
+	assert.ok(!NEED.some(({ goal }) => goal.quest === 464), '07 no longer carries War Banners');
+	const plans = at(NEED, 'the attack plans', is('complete', 98221));
+	const eye = at(NEED, 'turnin 292', is('turnin', 292));
+	assert.ok(at(NEED, 'turnin 299', is('turnin', 299)) < plans && plans < eye, 'the plans between Whelgar and Menethil');
+	assert.equal(NEED[at(NEED, 'turnin 98221', is('turnin', 98221))].s, NEED[eye].s, 'From the Ashes handed in with The Eye of Paleth');
+	assert.ok(at(NEED, 'turnin 181', is('turnin', 181)) > at(NEED, 'turnin 252', is('turnin', 252)), 'Viktori after the town hall');
+	assert.deepEqual(compiled('forever/alliance/07-thousand-needles.guide').steps.filter((st) => st.along).map((st) => st.title), [], '07: no along-the-way lists');
+	assert.equal(HILLS[at(HILLS, 'turnin 98072', is('turnin', 98072))].s, HILLS[at(HILLS, 'turnin 98223', is('turnin', 98223))].s, 'Old Habits and Crocs of the Sky on one Menethil stop');
+});
