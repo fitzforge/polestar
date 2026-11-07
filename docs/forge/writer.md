@@ -927,6 +927,14 @@ they matter to the player. They are not the judge's honest rules.
   Cliffspring Falls ("Fine Crab Chunks from Encrusted Tide Crawler and Reef
   Crawler, by this stop"). A list with no stop near its work at all stays a
   list.
+  With the `steps` flow flag (`FORGE_FLOW`, [routes.md](routes.md#flow-flags-experimental);
+  Fitz on #1046: "the 'along the way' quests are doing more harm than good. They should just be
+  steps") no list is written: work whose spawns line the walk on to the turn-in stays at its own
+  stop, every other list's goals become ordinary goals at the stop with the most source spawns
+  near as above, and a list with no stop near its work is not written (its goal is done at its own
+  step). A guide fix's `early` pickup (#798) is a plain step after its anchor, without `along
+  until` or a label. Guides without `along` steps play as before: an `along` step is optional
+  guide syntax (docs/GUIDE_FORMAT.md).
 - **R2 `use <item>`**: a quest done by using an item gets its `use` line, at
   the item's place nearest the route's work. A use that gives no credit itself
   (a bowl filled at a moonwell) is not bound to the objective; one that makes
