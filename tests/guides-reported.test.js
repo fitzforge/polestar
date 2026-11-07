@@ -3302,6 +3302,18 @@ test("Snowiee's report (#912): a class the training stop cannot train trains in 
 // furbolg camp (players' recordings tick it at either place).
 const NE_DARKSHORE = 'forever/alliance/nightelf/02-darkshore.guide';
 const nightElf = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('NightElf'));
+// The bones for Washed Ashore are picked on the Long Wash south of Auberdine at
+// the end of Teldrassil, and the walk back north passes Gwennyth first: she
+// takes them then, not on the next guide's first stop after the Return to
+// Nessa flight.
+test(`${TELDRASSIL}: flow audit: Washed Ashore is handed to Gwennyth on the walk back from the Long Wash`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const bones = at(list, 'the Sea Creature Bones', (g) => g.t === 'collect' && g.item === 12242);
+	const turnin = at(list, 'turnin 3524', is('turnin', 3524));
+	assert.ok(bones < turnin, 'the bones, then Gwennyth');
+	assert.ok(turnin < at(list, 'accept 954', is('accept', 954)), 'Gwennyth first on the way into Auberdine, before Thundris');
+	assert.ok(!goals(NE_DARKSHORE).some(({ goal }) => is('turnin', 3524)(goal)), 'not again in the Night Elf Darkshore');
+});
 test(`${NE_DARKSHORE}: flow audit: Bashal'Aran is finished before the boat, and the sea is crossed once`, { skip }, () => {
 	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'DRUID', 'MAGE', 'PALADIN', 'WARLOCK', 'SHAMAN']) {
 		const list = goals(NE_DARKSHORE).filter(nightElf).filter(forClass(cls));
