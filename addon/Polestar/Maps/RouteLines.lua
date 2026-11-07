@@ -160,15 +160,29 @@ local function playerPosition()
 	return pc, px, py
 end
 
+-- Where the walk being walked is joined from the player: the nearest point to
+-- them, or, beside it in open ground where the arrow aims ahead at a point on
+-- it in sight (Nav/Walk.lua Walk.SightAim, Nav/Follow.lua), that point, so the
+-- line runs on from the player the way the arrow points instead of straight
+-- across to the walk.
+local function joinPoint(pc, px, py)
+	local W = Nav.walk
+	local ac, ax, ay
+	if W and W.SightAim then ac, ax, ay = W.SightAim() end
+	if ac == pc and ax then return ax, ay end
+	return px, py
+end
+
 -- Where the sparkles start on each run: the first, when it is the leg being
--- travelled and the player is on it, at the player.
+-- travelled and the player is on it, at the player (or where the arrow joins it).
 local function sparkleProgress()
 	for i = 1, #runs do runFrom[i] = 0 end
 	local first = runs[1]
 	if not (first and not first.later) then return end
 	local pc, px, py = playerPosition()
 	if not pc then return end
-	local along, off = Sparkle.Nearest(first, pc, px, py)
+	local jx, jy = joinPoint(pc, px, py)
+	local along, off = Sparkle.Nearest(first, pc, jx, jy)
 	if along and off <= LIVE_REACH then runFrom[1] = along end
 end
 
@@ -399,7 +413,8 @@ local function advance(pc, px, py)
 		if live then live = nil; return true end
 		return false
 	end
-	local i = Strokes.Live(first, pc, px, py, live, LIVE_REACH)
+	local jx, jy = joinPoint(pc, px, py)
+	local i = Strokes.Live(first, pc, jx, jy, live, LIVE_REACH)
 	if i then
 		local moved = i ~= live
 		live, liveC, liveX, liveY = i, pc, px, py

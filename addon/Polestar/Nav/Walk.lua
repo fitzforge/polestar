@@ -31,7 +31,8 @@
 -- a race part's Legs.lua) needs no search: for a new goal that the current
 -- step's leg ends at, with the player within STRAY yards of the leg, the
 -- arrow follows the leg from the player's place on it (takeBaked). Straying
--- from it asks for a search as from any path (the re-plan); a goal the leg
+-- from it (more than STRAY yards, with no point ahead on it in sight across
+-- open ground: Nav/Follow.lua) asks for a search as from any path (the re-plan); a goal the leg
 -- does not end at (a walk leg's end before a flight, a hand-set target) is
 -- searched as before.
 --
@@ -119,12 +120,18 @@
 --     aim along the path (the furthest point within 35 yd of the player and
 --     45 yd along it, sliding between points, stopped at a corner, another
 --     floor and path point `stop`, a piece of a split walk's last point
---     before its chokepoint); and the yards left along the path from the
+--     before its chokepoint; outdoors, beside the path in open ground up to
+--     100 yd from it, the furthest point ahead up to 150 yd along it the
+--     player can walk to straight, Path.Sight checking the line); and the
+--     yards left along the path from the
 --     player's place on it plus their way to it; nil = straight at the goal.
---     Allocation-free once the path is in.
+--     Allocation-free once the path is in. Strays more than STRAY yards off
+--     the path ask for a new one, unless the aim is such a point in sight.
 --   Walk.Progress(c, x, y) -> along, off | nil: at the last Aim for that goal,
 --     the yards along the path from its start to the player's place on it,
 --     and the yards between the player and that place
+--   Walk.SightAim() -> c, wx, wy | nil: the last Aim's point when it was in
+--     sight beside the path (the route line's walk starts toward it)
 --   Walk.Left(c, x, y) -> yards left along the path to that goal at the last Aim | nil
 --   Walk.Passed(c, x, y, seg) -> the player is past segment `seg` of that goal's path
 --   Walk.Stops(pc, px, py) -> stops, total: the chokepoints along the path
@@ -688,6 +695,22 @@ local function startZ(pc, px, py)
 	return z, z ~= nil
 end
 
+-- The follower's line check (Nav/Follow.lua `sight`): can the player at (x1, y1)
+-- walk straight to the path point (x2, y2, z2: false where unknown), from the
+-- height and on the continent Walk.Aim set (sightC, sightZ)? Path.Sight on
+-- the walking grid, for the player's faction; false on an error, and while the
+-- line crosses a cluster the router has not decoded (nil: it decodes nothing).
+-- One function for every Aim, so passing it allocates nothing.
+local sightC, sightZ
+local sightAimC, sightAimX, sightAimY -- the arrow's last aim when it was by sight (Walk.SightAim)
+local function sight(x1, y1, x2, y2, z2)
+	local P = Nav.Path
+	local C = ns.Compat
+	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
+	local ok, clear = pcall(P.Sight, sightC, x1, y1, sightZ, x2, y2, z2 or nil, profile)
+	return ok and clear == true
+end
+
 -- While the floor is unknown indoors: the candidate floors (a new list) the player stands on one of, checked within
 -- FRESH seconds and read within NEAR yards; nil otherwise. A search from the player starts only on surfaces near them
 -- (Path.Find's from.floors): in the Undercity its canals and streets, never the roofs or the Ruins over them.
@@ -897,9 +920,17 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	if count == 0 then return nil end
 
 	-- Outdoors, the path's first turn near its start (joining a road) may be cut
-	-- (Nav/Follow.lua `join`); indoors every turn is a wall's.
-	local join = not (IsIndoors and IsIndoors()) and JOIN or nil
-	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join)
+	-- (Nav/Follow.lua `join`); indoors every turn is a wall's. Outdoors, with the
+	-- floor under the player known, the follower may aim ahead by sight beside
+	-- the path (open ground; Path.Sight checks the line).
+	local outdoors = not (IsIndoors and IsIndoors())
+	local join = outdoors and JOIN or nil
+	local look
+	if outdoors and P.Sight then
+		sightZ = startZ(pc, px, py)
+		if sightZ ~= nil then sightC, look = pc, sight end
+	end
+	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look)
 	idx = fstate.idx
 	if not ax then
 		lastLeft = nil
@@ -910,7 +941,9 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	local dx, dy = ix - px, iy - py
 	lastLeft = sqrt(dx * dx + dy * dy) + left[idx <= count and idx or count]
 	-- Re-ask only when the player has strayed from the path: walking beside it,
-	-- or coming at it from the side, is the follower's to handle. (A stale path
+	-- or coming at it from the side, is the follower's to handle, and so is
+	-- running up to Follow.OPEN yards beside it with a point ahead on it in
+	-- sight (fstate.sighted: open ground). (A stale path
 	-- left behind the player cannot hold the arrow back: the follower's
 	-- projection moves on with the player, and past WINDOW yards the player is
 	-- off the path and STRAY asks again.)
@@ -918,7 +951,8 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
 	-- garbage a second). A stray that long after the last ask still asks at once.
 	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
-	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
+	if fstate.sighted then sightAimC, sightAimX, sightAimY = pc, ax, ay end
+	if fstate.off > STRAY and not fstate.sighted and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
 
@@ -937,6 +971,14 @@ end
 function Walk.Progress(c, x, y)
 	if not isGoal(c, x, y) or fstate.off == nil then return nil end
 	return fstate.along, fstate.off
+end
+
+-- The arrow's aim at the last Aim when it was a point ahead on the path in
+-- sight beside it (Nav/Follow.lua, open ground): c, wx, wy; else nil. The
+-- route line's walk starts from the player toward it (Maps/RouteLines.lua).
+function Walk.SightAim()
+	if count == 0 or not fstate.sighted then return nil end
+	return sightAimC, sightAimX, sightAimY
 end
 
 -- Has the player gone past segment `seg` of the path to (c, x, y)?
