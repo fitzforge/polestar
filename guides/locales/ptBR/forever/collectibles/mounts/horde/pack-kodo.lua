@@ -8,12 +8,12 @@
 return {
 	-- Step 1: Durotar Supply and Logistics
 	-- {area:380} Crossroads · {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
-	["The camp stands just outside the west gate of the {area:380} in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp stands just outside the west gate of the {area:380} in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "O acampamento fica logo fora do portão oeste de {area:380}, em {zone:1413}. {npc:256400} só vende {npc:10636} quando você está Exaltado com {faction:2587}, e custa 6.000 de Merchant's Favor. Os caixotes pagam só Favor (cerca de 15 por caixote devolvido); a reputação vem das Escrituras do artífice e de {item:280179}, único, então siga o guia Reputação das Facções de Suprimentos e guarde 6.000 de Favor.",
 	-- {faction:2587} Durotar Supply and Logistics
-	["{faction:2587} camp"] = "",
+	["{faction:2587} camp"] = "Acampamento de {faction:2587}",
 
 	-- Step 2: Pack Kodo
-	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "As rédeas exigem nível 60 e Profissional de Montaria para montar (cliente Forever); dá para comprar antes.",
+	["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "As rédeas exigem nível 60 e Equitação de Profissional para montar (cliente Forever); dá para comprar antes.",
 	["6,000 Merchant's Favor"] = "6.000 de Merchant's Favor",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

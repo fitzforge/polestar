@@ -11,7 +11,7 @@ return {
 	["Dreaming Whelps"] = "Dragonetes Sonhadores",
 	-- {zone:1435} Swamp of Sorrows · {zone:1430} Deadwind Pass
 	-- plural, as words: Dreaming Whelps = {npc:741} Dreaming Whelp
-	["The Dreaming Whelps (levels 35-36) live in western {zone:1435}, near the {zone:1430} border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker."] = "",
+	["The Dreaming Whelps (levels 35-36) live in western {zone:1435}, near the {zone:1430} border. They drop it about once in 1,250 kills, and there are only a handful, back about every five minutes, so expect days of farming; it can be traded, so the Auction House may be quicker."] = "Os Dragonetes Sonhadores (níveis 35-36) vivem no oeste de {zone:1435}, perto da divisa com {zone:1430}. Eles soltam em cerca de uma morte em 1.250, e só há um punhado, voltando cerca de a cada cinco minutos, então conte com dias de farm; pode ser negociado, então a Casa de Leilões pode ser mais rápida.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["The Dreaming Whelps (level 35) in western {zone:1435} drop it about once in 1,250 kills in our data."] = "Os Dragonetes Sonhadores (nível 35) no oeste do {zone:1435} o deixam cair cerca de uma vez em 1.250 abates em nossos dados.",
