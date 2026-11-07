@@ -204,11 +204,6 @@ step Faldir's Cove
   turnin 668                          -- Shakes O'Breen
   accept 669                          -- For Fleet Master Seahorn in Booty Bay: keep it
 
-step Ebenezer Rustlocke
-  zone Arathi Highlands
-  tip Walk back onto the span: Ebenezer lies under its Arathi end.
-  turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
-
 step Witherbark Village
   tip East to the Witherbark trolls in the hills south of Go'Shek Farm; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk.
   collect 4503 quest 691.1            -- Witherbark Tusk
