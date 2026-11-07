@@ -1791,7 +1791,7 @@ test(`${BADLANDS}: flow re-order: Agmond's End swept before Lotwil, Lotwil's ele
 	const list = goals(BADLANDS);
 	assert.deepEqual(compiled(BADLANDS).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
 	const lotwil = at(list, 'accept 710 (Lotwil)', is('accept', 710));
-	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the flakes', (g) => g.t === 'collect' && g.quest === 1108], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
+	for (const [what, pred] of [['Theldurin\'s accept', is('accept', 709)], ['the scrap', (g) => g.t === 'collect' && g.quest === 733]]) {
 		assert.ok(at(list, what, pred) < lotwil, `${what} before Lotwil`);
 	}
 	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
@@ -1854,7 +1854,10 @@ test('forever/horde/30-40/03-arathi-highlands.guide: flow re-order: Jarkal\'s sh
 	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'the Rock Elemental Shards collected with the Small Stone Shards');
 	const wings = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 3404);
 	assert.equal(wings.length, 1, 'the wings listed once');
-	assert.equal(wings[0].s, list[at(list, 'collect 5797 (Stonevault flakes)', (g) => g.t === 'collect' && g.item === 5797)].s, 'the wings with the troggs, on the way to Agmond\'s End');
+	// Indurium's flakes (1108), which the wings were gathered with, are left out with Martek the Exiled (#1214).
+	const theldurin = at(list, 'accept 709 (Theldurin)', is('accept', 709));
+	const rigglefuzz = at(list, 'turnin 703 (Rigglefuzz)', is('turnin', 703));
+	assert.ok(theldurin < at(list, 'the wings', (g) => g.t === 'collect' && g.item === 3404) && wings[0].s < list[rigglefuzz].s, 'the wings between Agmond\'s End and Rigglefuzz');
 });
 
 // --- Flow re-order (2026-11-07, #1109): Horde Stranglethorn 30-40 had six
@@ -5321,13 +5324,14 @@ test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Gleanin
 	assert.ok(mine.length >= 5, 'the four hearts and the hand-in');
 	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 98310 && !p.neg), `${goal.t} 98310 is under when group 98310`);
 });
-// Final route review, 30-40 (2026-11-07): Alliance Badlands 30-40 gathered Indurium's flakes and the buzzard wings, then
-// walked past Martek and Rigglefuzz from the Ancient Chest to Theldurin; both waited for the 40-50 Badlands guide.
-test('forever/alliance/30-40/06-badlands.guide: final review: Martek and Rigglefuzz on the walk from the Ancient Chest to Theldurin', { skip }, () => {
+// Final route review, 30-40 (2026-11-07): Alliance Badlands 30-40 gathered the buzzard wings, then walked past Rigglefuzz
+// from the Ancient Chest to Theldurin; he waited for the 40-50 Badlands guide. (Martek's Indurium is left out with
+// Martek the Exiled, which Fizzle never offers on the route: Hardened Shells is skipped.)
+test('forever/alliance/30-40/06-badlands.guide: final review: Rigglefuzz on the walk from the Ancient Chest to Theldurin', { skip }, () => {
 	const list = goals('forever/alliance/30-40/06-badlands.guide');
 	const chest = at(list, 'collect 4631', (g) => g.t === 'collect' && g.item === 4631);
 	const theldurin = at(list, 'turnin 709', is('turnin', 709));
-	for (const q of [1108, 703]) {
+	for (const q of [703]) {
 		const i = at(list, `turnin ${q}`, is('turnin', q));
 		assert.ok(chest < i && i < theldurin, `turnin ${q} between the chest and Theldurin`);
 	}
