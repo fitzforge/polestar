@@ -2881,6 +2881,17 @@
 					786
 				],
 				"why": "Troll Durotar flow tweak: Lar Prowltusk's Thwarting Kolkar Aggression is taken on the first Sen'jin stop (he stands 14 yd from Xar'Ti); the shipped guide walked back from Razor Hill to Sen'jin for it"
+			},
+			{
+				"a": [
+					"turnin",
+					1505
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "Troll Durotar flow tweak: Warriors hand Conscript of the Horde to Kargal Battlescar (3 yd from Uzzek) on their first Far Watch stop, instead of walking past him to the thunder lizards and coming back"
 			}
 		],
 		"after": [
