@@ -63,8 +63,7 @@ step Lost the Fire Sapta?
   when onquest 94467
   when !has 6636
   tip Only if the Fire Sapta is gone from your bags: Braldir gives you another.
-  accept 94473
-  turnin 94473                                -- Braldir Ashmantle: a new Fire Sapta
+  turnin 94473 direct                         -- Braldir Ashmantle: a new Fire Sapta
 
 step The Shrine of Eternal Flame
   tip Climb on past Braldir to the peak. Drink the Fire Sapta beside the rock statue there to see the Minor Manifestation of Fire (level 12): it waits until you strike, but grows stronger the longer it is left, and it is immune to fire. Open at once with Rockbiter Weapon and Earth Shock. Its Glowing Ember drops every time.

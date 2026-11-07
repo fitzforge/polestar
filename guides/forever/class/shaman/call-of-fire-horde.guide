@@ -125,8 +125,7 @@ step Lost the Fire Sapta?
   when onquest 1526
   when !has 6636
   tip Only if the Fire Sapta is gone from your bags: Telf gives you another.
-  accept 1464
-  turnin 1464                                 -- Telf Joolam: a new Fire Sapta
+  turnin 1464 direct                          -- Telf Joolam: a new Fire Sapta
 
 step The Minor Manifestation of Fire
   only Orc,Troll,Tauren

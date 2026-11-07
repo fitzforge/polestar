@@ -49,8 +49,7 @@ step Lost the Earth Sapta?
   when onquest 94374
   when !has 6635
   tip Only if the Earth Sapta is gone from your bags (drunk away from the stone, or sold): Teo gives you another.
-  accept 94472
-  turnin 94472                                -- Teo Hammerstorm: a new Earth Sapta
+  turnin 94472 direct                         -- Teo Hammerstorm: a new Earth Sapta
 
 step The Spirit Stone
   tip The Spirit Stone stands on a snowy ridge north-west of Anvilmar. The trail is easy to miss: it climbs the hill from the valley floor; at the small camp near the top turn left and the stone comes into view. Stand beside it, drink the Earth Sapta and speak to the Minor Manifestation of Earth before it fades.

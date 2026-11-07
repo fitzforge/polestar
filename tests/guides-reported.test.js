@@ -4291,3 +4291,28 @@ test("Fitz's report (#1149): a goto before a kill or collect in a written guide 
 	}
 	assert.deepEqual(bad, []);
 });
+
+// A Paladin's report on Discord (2026-11-07): the level 12 Redemption chain came up again and again though it was
+// done. Duthorian Rall's The Tome of Divinity (1641; Tiza Battleforge's 1645) is a repeatable quest he takes back
+// straight from the quest window: players' recordings have its hand-in and no accept, and the client never flags it
+// completed, so an `accept` goal for it reopened after every reload. Such quests are `turnin <id> direct` (the
+// Tomes of Valor, the Saptas too).
+test('Repeatable quests handed straight back at their giver are direct turn-ins with no accept (the Tome of Divinity)', { skip }, () => {
+	for (const [guide, quests] of [
+		['forever/class/paladin/tome-of-divinity.guide', [1641, 1645]],
+		['forever/alliance/02-westfall.guide', [1641]],
+		['forever/class/paladin/verigans-fist.guide', [1793, 1794]],
+		['forever/class/shaman/call-of-earth-alliance.guide', [94472]],
+		['forever/class/shaman/call-of-earth-horde.guide', [1462, 1463]],
+		['forever/class/shaman/call-of-fire-alliance.guide', [94473]],
+		['forever/class/shaman/call-of-fire-horde.guide', [1464]],
+		['forever/class/shaman/call-of-water-horde.guide', [972]],
+	]) {
+		const list = goals(guide);
+		for (const q of quests) {
+			assert.ok(!list.some(is('accept', q)), `${guide}: no accept ${q}`);
+			const turnin = list.find(({ goal }) => is('turnin', q)(goal));
+			assert.ok(turnin && turnin.goal.direct === true, `${guide}: turnin ${q} direct`);
+		}
+	}
+});

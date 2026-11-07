@@ -197,8 +197,7 @@ step The Tome of Divinity
   only Human,Paladin
   zone Stormwind City
   tip Duthorian Rall and Gazin Tenorm are in the Cathedral of Light; Stephanie Turner stands in the Trade District and asks for ten Linen Cloth (humanoids drop it; the Auction House sells it).
-  accept 1641 only Human -- Duthorian Rall
-  turnin 1641 only Human
+  turnin 1641 direct only Human -- Duthorian Rall
   accept 1642 only Human -- Right-click the Tome of Divinity he gives you
   turnin 1642 only Human -- Duthorian Rall
   accept 1643 only Human
