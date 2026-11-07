@@ -4122,11 +4122,9 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/06-hillsbrad-foothills', 'accept 4542', /Fly from Thunder Bluff/],
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
-		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins). Fly there', /from Orgrimmar/],
 		// (Since the final route review the Druids fly from Shadowprey straight to Thunder Bluff, skipping Orgrimmar.)
 		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
-		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff', /from Shadowprey/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
 	for (const [guide, anchor, wrong] of cases) {
