@@ -222,11 +222,6 @@ step The Ruins of Stardust
   tip West of Mystral Lake, the stardust bushes grow among the ruins.
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Astranaar
-  turnin 1025                             -- Raene Wolfrunner
-  vendor nearest
-  turnin 1034                             -- Pelturas Whitemoon, inside
-
 step Stonetalon Mountains
   zone Stonetalon Mountains
   goto 71.9,60.0 "Stonetalon Mountains"
@@ -271,7 +266,13 @@ step Webwinder Path
 
 step Ashenvale
   zone Ashenvale
-  goto 34.5,48.0 "Ashenvale"
+  goto 37.4,52.6 "Astranaar"
+
+step Astranaar
+  tip Back in Astranaar before the flight: Pelturas Whitemoon is inside, at the south end of town, Raene Wolfrunner by the inn.
+  turnin 1034                             -- Pelturas Whitemoon, inside
+  turnin 1025                             -- Raene Wolfrunner
+  vendor nearest
 
 step Fly to Auberdine
   zone Ashenvale
@@ -382,6 +383,10 @@ step Ormer Ironbraid
   turnin 295
   accept 296                              -- Ormer Ironbraid
 
+step Dragonmaw Raiders
+  tip The Dragonmaw orcs camp east of the excavation site, along the road to the Green Belt. Raiders and Swamprunners carry the war banners.
+  collect 3337 quest 464                  -- Dragonmaw War Banner
+
 step The Green Belt
   tip Einar Stonegrip camps by the road; Rethiel the Greenwarden stands farther east, by the river.
   turnin 463                              -- Rethiel the Greenwarden
@@ -426,14 +431,15 @@ step The Green Belt: kill these as you meet them
 step Rethiel the Greenwarden
   turnin 275
 
-step Karl Boran
-  turnin 286
-
 step Menethil
+  tip Back west along the road to Menethil. Tarrel Rockweaver and James Halloran stand by the north gate, Captain Stoutfist on the top floor of the keep, Karl Boran on the pier north of the inn, Sida and Caitlin by the inn.
   tip Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.
+  turnin 306                              -- Tarrel Rockweaver
   turnin 484
   accept 471                              -- For the giant crocolisks of the north coast, on your next visit
-  turnin 306                              -- Tarrel Rockweaver
+  turnin 464                              -- Captain Stoutfist, on the top floor
+  accept 98221                            -- From the Ashes: the attack plans wait for your next Wetlands visit, with the dig
+  turnin 286                              -- Karl Boran
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman, inside
   level 28

@@ -92,13 +92,7 @@ step Sven's Camp
   turnin 323                              -- Sven Yorgen
   accept 269                              -- For Bishop Farthing in Stormwind, in the next guide
 
-step Viktori Prism'Antras
-  turnin 181                          -- Inside
-
 step Back to Darkshire
-  turnin 1244                             -- Watcher Backus walks around Darkshire: look inside the circle on the map
-  accept 1245                             -- For Elling Trias in Stormwind, in the next guide
-  turnin 58                               -- Commander Althea Ebonlocke
   turnin 160                              -- Lord Ello Ebonlocke, in the town hall
   accept 251
   turnin 251                              -- Sirra Von'Indi, in the house behind the town hall
@@ -110,6 +104,13 @@ step Back to Darkshire
   turnin 401                              -- Wait a moment, then speak with her again
   accept 252
   turnin 252                              -- Lord Ello Ebonlocke
+  turnin 58                               -- Commander Althea Ebonlocke
+  turnin 1244                             -- Watcher Backus walks around Darkshire: look inside the circle on the map
+  accept 1245                             -- For Elling Trias in Stormwind, in the next guide
+
+step Viktori Prism'Antras
+  tip Viktori's house stands at the east end of town, on the way to the flight master.
+  turnin 181                          -- Inside
 
 step Fly to Stormwind
   zone Duskwood
@@ -159,44 +160,35 @@ step Captain Halyndor
   turnin 290                              -- Intrepid's Locked Strongbox
   accept 292
 
-step On the way
-  along until q299
-  collect 2658 quest 299 -- Ados Fragment along the way to Ormer and Whelgar
-  collect 2659 quest 299 -- Modr Fragment along the way to Ormer and Whelgar
-  collect 2660 quest 299 -- Golm Fragment along the way to Ormer and Whelgar
-  collect 2661 quest 299 -- Neru Fragment along the way to Ormer and Whelgar
-
 step Whelgar's Excavation Site: kill these as you meet them
   zone Wetlands
   tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
-  tip The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners.
+  collect 2658 quest 299                  -- Ados Fragment
+  collect 2659 quest 299                  -- Modr Fragment
+  collect 2660 quest 299                  -- Golm Fragment
+  collect 2661 quest 299                  -- Neru Fragment
   collect 279993 quest 98216.1        -- Titanic Keystone
-  collect 3337 quest 464                  -- Dragonmaw War Banner
   collect 3638 quest 296                  -- Sarltooth's Talon
 
 step Ormer and Whelgar
-  label q299
   turnin 296                              -- Ormer Ironbraid
   turnin 98216                        -- Below ground
   turnin 299                              -- Prospector Whelgar
 
-step Glorin Steelbrow
-  turnin 292                          -- Inside
-  accept 293                              -- For Archbishop Benedictus in Stormwind, in the next guide
-  turnin 464                          -- On the top floor
-  accept 98221                            -- From the Ashes: Nek'rosh's Gambit comes after it on Forever
-
 step Angerfang Encampment
-  tip Head east again to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
+  tip Head east to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
   complete 98221 @53.5,54.5
 
-# ---------------------------------------------------------------- Thousand Needles
-
-step To Theramore
+step Menethil Harbor
+  tip West along the road to Menethil.
+  turnin 292                              -- Glorin Steelbrow, inside
+  accept 293                              -- For Archbishop Benedictus in Stormwind, in the next guide
   turnin 98221                            -- Captain Stoutfist, in Menethil Keep; on the top floor
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of the next guide
   note Take the boat from Menethil's pier to Theramore Isle in Dustwallow Marsh.
+
+# ---------------------------------------------------------------- Thousand Needles
 
 step Boat to Theramore
   zone Wetlands

@@ -2030,6 +2030,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars' second part (175, to Blind Mary) is handed in on the Blind Mary visit the Embalmer chain makes anyway (Ghost Hair Thread), not on a trip of its own up her hill on the Duskwood return. The Insane Ghoul (177, level 26) stays on the return. The seed (re-seeded for this) does it; this pair keeps it before Madame Eva's next part."
+			},
+			{
+				"a": [
+					"turnin",
+					464
+				],
+				"b": [
+					"accept",
+					1179
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Wetlands): War Banners' Dragonmaw Raiders camp beside the road from Whelgar's dig to the Green Belt, which 06-ashenvale walks at 26 (Raiders level 26). Taken there and handed in at the last Menethil stop of 06, From the Ashes (98221) is in the log for the next Wetlands visit, whose dig trip then fetches the attack plans; 07-thousand-needles had walked dig -> Menethil (464 -> 98221) -> the Angerfang camp -> Menethil, about 6,500 yd. The seed (re-seeded for this) has the banners in 06; this pair keeps the hand-in there, before Pilot Longbeard."
 			}
 		],
 		"notes": [
@@ -4948,6 +4960,54 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood): Worgen in the Woods' Nightbane Shadow Weavers are level 27; 05-duskwood (22-25) listed them 'on the way' from Darkshire, and the Duskwood return (07-thousand-needles, 28) kills them in a step of its own and hands the quest in. The kills belong to the return only (level fit, #977)."
+			},
+			{
+				"a": [
+					"task",
+					98221
+				],
+				"b": [
+					"turnin",
+					292
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Wetlands): From the Ashes' attack plans (the Angerfang Encampment) are fetched on the walk east to Whelgar's dig, before the walk back to Menethil, where The Eye of Paleth (292) goes to Glorin and From the Ashes to Captain Stoutfist on one stop; 07-thousand-needles had handed 292 and War Banners in first, walked back east to the camp (2,381 yd) and back to Menethil (2,382 yd)."
+			},
+			{
+				"a": [
+					"turnin",
+					1093
+				],
+				"b": [
+					"turnin",
+					1034
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Ashenvale): The Ruins of Stardust (1034) and An Aggressive Defense (1025) were handed in on a walk north to Astranaar from the Ruins of Stardust, then the guide walked south again past them to the Talondeep Path into Stonetalon (06-ashenvale steps 34-36 on 0.3.4, about 1,600 yd); the route comes back to Astranaar after Stonetalon for its flight to Auberdine anyway. Handed in on that stop (Pelturas and Raene stand between the south road and the flight master)."
+			},
+			{
+				"a": [
+					"turnin",
+					1093
+				],
+				"b": [
+					"turnin",
+					1025
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Ashenvale): An Aggressive Defense (1025) handed in on the Astranaar stop before the flight to Auberdine, with The Ruins of Stardust (see turnin 1093 before turnin 1034)."
+			},
+			{
+				"a": [
+					"turnin",
+					252
+				],
+				"b": [
+					"turnin",
+					181
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood return): coming back from Sven's camp, the walk passed Darkshire's town hall to Viktori's house at the east end for Look to the Stars (181), then turned back west for the town hall's hand-ins (07-thousand-needles steps 15-16 on 0.3.4). Viktori after the town hall, on the way to the flight master at the north-east end."
 			}
 		]
 	}

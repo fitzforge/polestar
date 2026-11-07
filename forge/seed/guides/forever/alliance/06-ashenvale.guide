@@ -320,6 +320,7 @@ step Menethil Harbor
   accept 484                              -- James Halloran, by the north gate
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
   accept 305                              -- Tarrel Rockweaver, by the north gate
+  accept 464                              -- Captain Stoutfist, by the keep
 
 step Spoils of War
   tip Timber and iron piles lie around the keep and along the harbor's walls.
@@ -388,6 +389,11 @@ step Raptor valley
 step Ormer Ironbraid
   turnin 295
 
+# Re-seeded for flow (0.3.5): War Banners on this walk east, not a second trip from Menethil in 07.
+step Dragonmaw Raiders
+  tip The Dragonmaw orcs camp east of the excavation site, along the road to the Green Belt. Raiders and Swamprunners carry the war banners.
+  collect 3337 quest 464                  -- Dragonmaw War Banner
+
 step Thelgen Rock
   tip Cave Stalkers and Leech Stalkers fill Thelgen Rock, the cave south-east of the excavation site.
   collect 280319 quest 98282              -- Unruptured Stalker Gland
@@ -438,6 +444,8 @@ step Hearth to Menethil
   accept 471                              -- For the giant crocolisks of the north coast, on your next visit
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman
+  turnin 464                              -- Captain Stoutfist, on the top floor
+  accept 98221                            -- From the Ashes: the attack plans wait for the next Wetlands visit, with the dig
   vendor nearest
 
 step Dragonmaw camp

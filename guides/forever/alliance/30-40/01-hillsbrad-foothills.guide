@@ -99,6 +99,7 @@ step Prospector Whelgar
 step Menethil Harbor
   tip West along the road to Menethil.
   turnin 98223                        -- On the top floor
+  turnin 98072                        -- James Halloran, by the north gate
 
 step Menethil Harbor
   tip Captain Stoutfist stands on the top floor of Menethil Keep: go up inside, the arrow cannot tell the floors apart.
@@ -111,9 +112,6 @@ step Level 31.23
   tip If you skipped Defeat Nek'rosh, grind here to level 31.23 to stay on the route's plan.
   goto 12.3,64.9 map 1437 "Bluegill Raider"
   level 31.23                          -- grind on Bluegill Raider
-
-step Menethil Harbor
-  turnin 98072                        -- James Halloran
 
 step Boat to Southshore
   zone Wetlands

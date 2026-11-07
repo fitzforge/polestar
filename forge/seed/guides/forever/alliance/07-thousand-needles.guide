@@ -186,7 +186,6 @@ step Menethil Harbor
   turnin 288
   accept 289
   accept 526                              -- Glorin Steelbrow, upstairs in the inn
-  accept 464                              -- Captain Stoutfist, by the keep
 
 step The wreck of the Third Fleet
   tip Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; First Mate Snellig stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.
@@ -235,17 +234,10 @@ step Ormer and Whelgar
   turnin 296                              -- Ormer Ironbraid
   turnin 299                              -- Prospector Whelgar
 
-step Dragonmaw camp
-  tip The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners.
-  collect 3337 quest 464                  -- Dragonmaw War Banner
-
-step Captain Stoutfist
-  tip Head back west along the road to Menethil Harbor.
-  turnin 464
-  accept 98221                            -- From the Ashes: Nek'rosh's Gambit comes after it on Forever
-
+# Re-seeded for flow (0.3.5): War Banners and their hand-in are done in 06-ashenvale; the attack plans
+# are fetched from the dig, not on a second trip east from Menethil.
 step Angerfang Encampment
-  tip Head east again to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
+  tip Head east to the Dragonmaw camp. The four sets of Attack Plans lie in the Angerfang Encampment; Chieftain Nek'rosh, an elite, stands in the camp too.
   complete 98221 @53.5,54.5
 
 # ---------------------------------------------------------------- Thousand Needles
