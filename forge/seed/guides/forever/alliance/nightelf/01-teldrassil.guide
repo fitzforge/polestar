@@ -14,6 +14,11 @@ next forever/alliance/02-westfall
 # Since the Night Elf start got its own Darkshore guide, it told players to
 # take the boat before an hour of Darkshore quests; the boat is that guide's.
 #
+# Hand fix (flow audit, 2026-11-07, #1087): Warriors take Nessa Shadowsong
+# (6344) from Mydrannul on their first walk into Darnassus, on the way to
+# Elanaria; the visit after Vorlus then goes from the gate to Elanaria and on
+# to the Enclave without turning back to the Craftsmen's Terrace.
+#
 # Flow: Shadowglen (Aldrassil, Shadowthread Cave, the moonwell) -> Dolanaar
 # (hearth, every pickup) -> one east loop: Zenn's items, the Starbreeze
 # moonwell, Starbreeze Village, Lake Al'Ameth, Zenn -> Dolanaar -> west loop:
@@ -494,6 +499,7 @@ step Elanaria
   only Warrior
   zone Darnassus
   tip Elanaria stands on the Warrior's Terrace, just inside the city.
+  accept 6344                                 -- Mydrannul, on the Craftsmen's Terrace just inside the city
   turnin 1684                                 -- Elanaria
   accept 1683
 
@@ -507,7 +513,7 @@ step Darnassus
   zone Darnassus
   tip Follow the road west into Darnassus. Mydrannul stands on the Craftsmen's Terrace just inside the city. Arch Druid Fandral Staghelm is in the Cenarion Enclave at the north end of the city, Rellian Greenspyre just south of it; Lariia and Tyrande Whisperwind are in the Temple of the Moon at the south end. Sister Aquinne is in the west of the city, on the way to the pink portal down to Rut'theran.
   turnin 1683 only Warrior                    -- Elanaria, on the Warrior's Terrace: Defensive Stance
-  accept 6344                                 -- Mydrannul
+  accept 6344 only !Warrior                   -- Mydrannul
   turnin 935                                  -- Arch Druid Fandral Staghelm, in the Cenarion Enclave
   turnin 940
   accept 98046

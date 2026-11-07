@@ -2169,18 +2169,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					2459
-				],
-				"b": [
-					"turnin",
-					486
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Teldrassil): with the jewel looted at Ferocitas' camp, Tallonkai takes it on the first Dolanaar stop after the camp, with Athridas' Ursal the Mauler, not on a stop of its own after Lake Al'Ameth."
-			},
-			{
-				"a": [
 					"accept",
 					2258
 				],
@@ -2430,6 +2418,114 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars' second part (175, to Blind Mary) is handed in on the Blind Mary visit the Embalmer chain makes anyway (Ghost Hair Thread), not on a trip of its own up her hill on the Duskwood return. The Insane Ghoul (177, level 26) stays on the return. The seed (re-seeded for this) does it; this pair keeps it before Madame Eva's next part."
+			},
+			{
+				"a": [
+					"turnin",
+					2459
+				],
+				"b": [
+					"turnin",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil): with the jewel looted at Ferocitas' camp, Tallonkai takes it on the way back west through Dolanaar (#1087), before Athridas takes Ursal the Mauler, not on a stop of its own after Lake Al'Ameth."
+			},
+			{
+				"a": [
+					"task",
+					916
+				],
+				"b": [
+					"turnin",
+					457
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the north kills for The Balance of Nature (457) and the Webwood Venom Sacs (916) are one trip from Aldrassil; the route handed 457 in on a stop of its own between them, so the walk went Aldrassil, north, back to Conservator Ilthalaine, north again to the cave and back (nightelf/01-teldrassil steps 5-8 on #1081). The seed hands 457 in after the cave, with the venom sacs, so the bounce back is gone."
+			},
+			{
+				"a": [
+					"turnin",
+					483
+				],
+				"b": [
+					"task",
+					489
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the Fel Cones lie all around Dolanaar and Zenn; the route picked them on a stop of its own east of Dolanaar right after Seek Redemption! was taken, walked back to Dolanaar to train and then west to Fel Rock, and handed them to Zenn after the west loop (steps 28-29 on #1081). They are picked on the road east to Zenn after the west loop, where the step's tip already sends players and the seed has them."
+			},
+			{
+				"a": [
+					"turnin",
+					2459
+				],
+				"b": [
+					"accept",
+					937
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the walk from Ferocitas' camp to the Oracle Glade runs through Dolanaar past the inn (the baked leg of 0.3.4 passes 55.7,58.4 and 54.3,58.4): Tallonkai takes the jewel on the way, as the seed has it, instead of after the Oracle Glade and Ursal."
+			},
+			{
+				"a": [
+					"task",
+					7383
+				],
+				"b": [
+					"task",
+					937
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): Crown of the Earth's Amethyst Phial is filled at the Oracle Glade's moonwell on the first visit, beside Sentinel Arynia, not on the third visit after both harpy rounds (step 44 on #1081). The seed fills it on arrival, where the walk passes the moonwell."
+			},
+			{
+				"a": [
+					"turnin",
+					4161
+				],
+				"b": [
+					"turnin",
+					929
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the walk back from Lake Al'Ameth enters Dolanaar from the south-east: Zarrin first, then Corithras, Kyra and the inn, not Zarrin last after the inn (149 yd back south)."
+			},
+			{
+				"a": [
+					"turnin",
+					928
+				],
+				"b": [
+					"turnin",
+					2159
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the first Dolanaar stop comes from Zarrin in the south: Corithras, then the innkeeper (bind and Dolanaar Delivery together), not the innkeeper, Corithras and the innkeeper again."
+			},
+			{
+				"a": [
+					"turnin",
+					487
+				],
+				"b": [
+					"turnin",
+					932
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): from Gnarlpine Hold the walk enters Dolanaar from the south-west: Moon Priestess Amara on the west road first, then the inn (Tallonkai, Athridas), Kyra and Corithras, and out east to Zenn; the route went Kyra, Corithras, back west to Amara and back to the inn (step 37 on #1081)."
+			},
+			{
+				"a": [
+					"turnin",
+					483
+				],
+				"b": [
+					"turnin",
+					99053
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): Dolanaar after the west loop in walking order: Athridas in the inn before Sentinel Kyra and Corithras, on the way out east to Zenn."
 			}
 		],
 		"notes": [
