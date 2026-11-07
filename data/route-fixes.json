@@ -2053,7 +2053,7 @@
 					457
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the north kills for The Balance of Nature (457) and the Webwood Venom Sacs (916) are one trip from Aldrassil; the route handed 457 in on a stop of its own between them, so the walk went Aldrassil, north, back to Conservator Ilthalaine, north again to the cave and back (nightelf/01-teldrassil steps 5-8 on #1081). The seed hands 457 in after the cave, with the venom sacs, and so does the speedrun benchmark."
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): the north kills for The Balance of Nature (457) and the Webwood Venom Sacs (916) are one trip from Aldrassil; the route handed 457 in on a stop of its own between them, so the walk went Aldrassil, north, back to Conservator Ilthalaine, north again to the cave and back (nightelf/01-teldrassil steps 5-8 on #1081). The seed hands 457 in after the cave, with the venom sacs, so the bounce back is gone."
 			},
 			{
 				"a": [
@@ -2089,7 +2089,7 @@
 					937
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Teldrassil, #1087): Crown of the Earth's Amethyst Phial is filled at the Oracle Glade's moonwell on the first visit, beside Sentinel Arynia, not on the third visit after both harpy rounds (step 44 on #1081). The seed and the speedrun benchmark fill it on arrival."
+				"why": "Flow audit (2026-11-07, Teldrassil, #1087): Crown of the Earth's Amethyst Phial is filled at the Oracle Glade's moonwell on the first visit, beside Sentinel Arynia, not on the third visit after both harpy rounds (step 44 on #1081). The seed fills it on arrival, where the walk passes the moonwell."
 			},
 			{
 				"a": [
