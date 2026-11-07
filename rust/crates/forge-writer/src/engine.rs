@@ -620,6 +620,16 @@ fn ask_group(
 	}
 }
 
+/// Whether R2 writes a use bound to its quest's objective (`use <item> quest Q.N`): a use that gives the
+/// credit itself, or one right before the line that collects for its quest (what it makes, or what the
+/// mobs it lures or summons drop: the Crate of Ghost Magnets before the Ghost-o-plasm, the Gorishi
+/// Queen Lure before the Queen's brain, Orwin's Shovel, #888). A bare use would hold its step until
+/// ticked, after the objective is done. A summoning before anything else stays bare. (The Fire
+/// Sapta's bare use is the guide text's, not R2's: drinking it is not what the Ember counts.)
+fn bind_use(kind: &str, credit: bool, makes_for_q: bool, before_verb: &str, before_quest: Option<u32>, q: u32) -> bool {
+	(kind != "summon-by-item" && credit) || makes_for_q || (before_verb == "collect" && before_quest == Some(q))
+}
+
 /// A group family's tip, in plain words: grouping is encouraged, how hard its elites are (`size` 1: one
 /// most classes solo two levels above it), and that a player alone may skip it (the route's solo
 /// fallback gives the XP back). A family with no mobs placed (its work an event): the quest is named.
@@ -839,10 +849,20 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		let s = step_line as usize - 1;
 		lines[s + 1..].iter().take_while(|l| !crate::jsre::is_step(l) && !(starts_nonspace(l) && !l.is_empty())).find(|l| re!(r"^\s+only\s").is_match(l)).cloned()
 	};
-	// A group or dungeon quest with work (asked for under pack format 5).
+	// Elite quests players' recordings show done alone at about the route's level at their accept are
+	// written for everyone; a recorded one the route reaches lower is asked like a group quest
+	// (forge_core::solo_elite).
+	let solo = if forge_sim::fixes::path().is_some() || forge_sim::fixes::find(&[]).is_some() { forge_core::solo_elite::records(&forge_sim::fixes::get()) } else { Default::default() };
+	let solo_here = |q: u32| solo.get(&q).is_some_and(|r| r.qualifies(None) && r.qualifies(inp.accept_lvl.get(&q).copied()));
+	// A group or dungeon quest with work (asked for under pack format 5); a dungeon's whatever a record says.
 	let group = |q: u32| -> bool {
 		let qv = quest_v(data, q);
-		matches!(num(&qv.get("web").get("type")).map(|t| t as i64), Some(1) | Some(81)) && !qv.get("objectives").is_empty()
+		let asked = match num(&qv.get("web").get("type")).map(|t| t as i64) {
+			Some(81) => true,
+			Some(1) => !solo_here(q),
+			_ => solo.contains_key(&q) && !solo_here(q),
+		};
+		asked && !qv.get("objectives").is_empty()
 	};
 	// A quest the player is asked about (`when group`): R5's, or one of the route's group families.
 	let asked = |q: u32| (opts.format_0_3 && group(q)) || (opts.groups && inp.group_of.contains_key(&q));
@@ -889,10 +909,15 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		}
 		let pos = |i: usize| (seq[i].gi, seq[i].si);
 		let mut along: Vec<AlongStep> = Vec::new();
+		// The `steps` flow flag (forge_core::flow_flags; Fitz on #1046: "the 'along the way' quests
+		// are doing more harm than good imo. They should just be steps"): no list is written. Work
+		// lining a walk stays at its own stop (pattern 2 off); work passed before its stop is an
+		// ordinary goal at the stop nearest it, else stays at its own stop (pattern 1 below).
+		let steps_only = forge_core::flow_flags::on("steps");
 		let mut done_p2: FxHashSet<(u32, u32)> = FxHashSet::default();
 		// Pattern 2: the one stop for an objective whose spawns line the walk on to the turn-in.
 		for (&(q, oi), idx) in &work {
-			if idx.len() != 1 || in_loop(seq[idx[0]].gi, seq[idx[0]].step_line) {
+			if steps_only || idx.len() != 1 || in_loop(seq[idx[0]].gi, seq[idx[0]].step_line) {
 				continue;
 			}
 			let i = idx[0];
@@ -1222,7 +1247,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						near += 1;
 					}
 				}
-				if legs < 2 || near * 2 < legs {
+				if steps_only || legs < 2 || near * 2 < legs {
 					// The stop: most source spawns within ALONG_STOP_YD of its placed goals (the earliest of
 					// equals; pattern 2's own stop is one), a step for the list's own characters (no `only`,
 					// or the list's); without a placed goal in the span, the label's step. With none of the
@@ -1245,6 +1270,10 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						None => a.until_si,
 					};
 					if to.is_none() {
+						if steps_only {
+							rep.add("R1 not listed (steps): no stop near its work, done at its own step", a.work.len());
+							continue;
+						}
 						rep.log.push(format!("R1 along kept, no stop near its work (its legs pass it {near} of {legs}): {} {}", ch.files[gi], a.title));
 					}
 					if let Some(si) = to {
@@ -1444,7 +1473,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 							let g = &seq[before_at.unwrap_or(work[0])];
 							let credit = p.get("credit") != Some(&Value::Bool(false));
 							let makes_for_q = made_at.is_some() && made_at == before_at && g.quest == Some(q);
-							let r = if kind == "summon-by-item" || (!credit && !makes_for_q) { format!("  use {item}{at}") } else { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) };
+							let r = if bind_use(kind, credit, makes_for_q, &g.verb, g.quest, q) { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) } else { format!("  use {item}{at}") };
 							edits[g.gi].before.entry(g.line as usize - 1).or_default().push(r);
 							rep.add("R2 use", 1);
 							written.insert((q, item));
@@ -1923,7 +1952,22 @@ fn ride_goto(text: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-	use super::group_tip;
+	use super::{bind_use, group_tip};
+
+	#[test]
+	fn a_use_right_before_its_quests_collect_is_bound_to_it() {
+		// #888: the Crate of Ghost Magnets (no credit of its own) before `collect 15849 quest 6134`: bound.
+		assert!(bind_use("use-item-at-place", false, false, "collect", Some(6134), 6134));
+		// (Before another quest's collect, or a kill: bare, PR542's bowl.)
+		assert!(!bind_use("use-item-at-place", false, false, "collect", Some(7), 6134));
+		assert!(!bind_use("use-item-at-place", false, false, "kill", Some(6134), 6134));
+		// (A use that is the credit, and one that makes the collect's item: bound, as before.)
+		assert!(bind_use("use-item-at-place", true, false, "kill", Some(6134), 6134));
+		assert!(bind_use("use-item-at-place", false, true, "interact", Some(6134), 6134));
+		// (A summoning: bound before its quest's collect, the Gorishi Queen Lure; bare before a kill.)
+		assert!(bind_use("summon-by-item", true, false, "collect", Some(4507), 4507));
+		assert!(!bind_use("summon-by-item", true, false, "kill", Some(4507), 4507));
+	}
 
 	#[test]
 	fn a_family_whose_work_places_no_mob_names_its_quest() {

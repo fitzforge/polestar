@@ -56,6 +56,8 @@ pub struct GuardData {
 	pub elite_rare: Vec<bool>,
 	/// Per run point: the points within a hub's reach (left-ready, walked-past).
 	pub hub: crate::hubs::HubData,
+	/// Per zone (uiMap of the giver's point): the solo quests with XP given there (zone-left).
+	zone_quests: FxHashMap<u32, Vec<u32>>,
 }
 
 /// Spawn points a giver record contributes (passedby.js spawnPoints cap).
@@ -126,11 +128,15 @@ impl GuardData {
 		// Passed-by givers: the quests' start NPCs' and objects' spawns (passedby.js giverGrid).
 		let proj = Projector::new(&data.frames);
 		let mut grid: FxHashMap<(i64, i64, i64), Vec<(f64, f64, u32)>> = FxHashMap::default();
+		let mut zone_quests: FxHashMap<u32, Vec<u32>> = FxHashMap::default();
 		for q in 0..nq {
 			let id = run.q_id[q];
 			let Some(rec) = data.quests.get(&id) else { continue };
 			if rec.repeatable == Some(true) || !rec.xp.is_some_and(|x| x != 0.0 && !x.is_nan()) || !rules.solo_ok(id) {
 				continue;
+			}
+			if let Some(&z) = run.p_map.get(run.q_giver[q] as usize) {
+				zone_quests.entry(z).or_default().push(q as u32);
 			}
 			for (list, table) in [(&rec.start.npc, &data.npcs), (&rec.start.object, &data.objects)] {
 				for &n in list {
@@ -166,7 +172,21 @@ impl GuardData {
 		});
 		let near_town = (0..run.pt_list.len() as u32).map(|p| run.towns.iter().any(|&t| run.straight(p, t) <= crate::profile::TOWN_TRAIN_YD)).collect();
 		let elite_rare = elite_rare_tasks_of(run, data);
-		GuardData { elite_rare, near_town, area_accept, area_turnin, area_task, item_areas, near, give_areas, pickup, closed_by, grid, hub: crate::hubs::HubData::new(run).with_walks(run, walks) }
+		GuardData {
+			elite_rare,
+			near_town,
+			area_accept,
+			area_turnin,
+			area_task,
+			item_areas,
+			near,
+			give_areas,
+			pickup,
+			closed_by,
+			grid,
+			hub: crate::hubs::HubData::new(run).with_walks(run, walks),
+			zone_quests,
+		}
 	}
 
 	fn step_area(&self, run: &Run, s: &Step) -> i32 {
@@ -230,6 +250,79 @@ pub struct GuardCounts {
 	/// Trips off the continent and back for quests LOW_TRIP_UNDER or more levels under the
 	/// character while an on-level quest is open where the route left (planner rule 2; low_trips).
 	pub low_trips: u32,
+	/// Quests of a zone the route leaves while they are open, or open within ZONE_LEFT_LEVELS, at
+	/// about the character's level, and that no later visit takes (zone_left; counted under the
+	/// `zoneleft` flow flag only, else 0).
+	pub zone_left: u32,
+	/// Per zone (uiMap of the steps' points), under the `zoneguard` flow flag only (else empty): its
+	/// hand-ins, walked yards into its steps, avoidable returns and level after its last step
+	/// (zone_counts; ZoneCount::worse_than).
+	pub zones: Vec<ZoneCount>,
+}
+
+/// One zone's counts for the `zoneguard` flow flag (GuardCounts::zones).
+#[derive(Clone, Debug, Default, PartialEq, Eq, serde::Serialize)]
+pub struct ZoneCount {
+	pub zone: u32,
+	/// Hand-ins at steps in the zone.
+	pub quests: u32,
+	/// Straight yards walked into the zone's steps (from the step before, on its continent; not a
+	/// flight, boat or hearth).
+	pub yards: u32,
+	/// Avoidable returns whose return visit starts in the zone.
+	pub returns: u32,
+	/// The level after the zone's last step, in hundredths.
+	pub end_lvl: u32,
+}
+
+/// Walked yards per hand-in a zone may gain before it counts as worse (rounding).
+pub const ZONE_YD_SLACK: f64 = 1.0;
+/// Levels a zone's end level may move, either way, under `zoneguard` (Main, 2026-11-07).
+pub const ZONE_END_LVL: f64 = 0.3;
+
+impl ZoneCount {
+	fn yd_per_q(&self) -> f64 {
+		f64::from(self.yards) / f64::from(self.quests.max(1))
+	}
+
+	/// Worse than `bound` (the seed's, or the current order's where that is worse already): fewer
+	/// hand-ins, more walked yards per hand-in, more avoidable returns, or its end level moved by more
+	/// than ZONE_END_LVL.
+	pub fn worse_than(&self, bound: &ZoneCount) -> bool {
+		self.quests < bound.quests
+			|| self.yd_per_q() > bound.yd_per_q() + ZONE_YD_SLACK
+			|| self.returns > bound.returns
+			|| (f64::from(self.end_lvl) - f64::from(bound.end_lvl)).abs() > ZONE_END_LVL * 100.0
+	}
+}
+
+impl GuardCounts {
+	/// Under `zoneguard`: no zone of `bound` worse in these counts (a zone missing here has none of
+	/// its hand-ins left: worse).
+	pub fn zones_within(&self, bound: &[ZoneCount]) -> bool {
+		bound.iter().all(|b| match self.zones.iter().find(|z| z.zone == b.zone) {
+			Some(z) => !z.worse_than(b),
+			None => b.quests == 0,
+		})
+	}
+
+	/// The per-zone bound for `zoneguard`: the seed's counts, each relaxed to the current order's
+	/// where the current order is worse already (a move need not mend a zone to be kept, only not
+	/// make it worse; as split work's bound).
+	pub fn zone_bound(seed: &[ZoneCount], now: &[ZoneCount]) -> Vec<ZoneCount> {
+		seed.iter()
+			.map(|s| match now.iter().find(|n| n.zone == s.zone) {
+				Some(n) => ZoneCount {
+					zone: s.zone,
+					quests: s.quests.min(n.quests),
+					yards: if n.yd_per_q() > s.yd_per_q() { (n.yd_per_q() * f64::from(s.quests.min(n.quests).max(1))).ceil() as u32 } else { s.yards },
+					returns: s.returns.max(n.returns),
+					end_lvl: if (f64::from(n.end_lvl) - f64::from(s.end_lvl)).abs() > ZONE_END_LVL * 100.0 { n.end_lvl } else { s.end_lvl },
+				},
+				None => ZoneCount { quests: 0, ..s.clone() },
+			})
+			.collect()
+	}
 }
 
 impl GuardCounts {
@@ -243,6 +336,49 @@ impl GuardCounts {
 /// Seconds of route time a kept move must save for each avoidable return it adds to an area
 /// (policy: a return costs the player more than its travel; GuardCounts::added_returns).
 pub const RETURN_COST_SEC: f64 = 300.0;
+
+/// Seconds the `revisit` flow flag (forge_core::flow_flags) prices each other flow count at: a
+/// return to work the earlier visit could have done (split work), an accept or hand-in left ready
+/// at a hub, a ready hand-in walked past, a hand-in made on a trip back, a giver passed and its
+/// quest taken only after going away (#1046: "ran past the quest giver", "ran past Executor
+/// Zygand", "felt strange that I need to come back here"). Avoidable returns cost RETURN_COST_SEC.
+pub const FLOW_COUNT_SEC: f64 = 120.0;
+/// Seconds of model time a move may cost before its replay under `revisit`: the most flow price
+/// it can win back is a few counts.
+pub const FLOW_HEAD_SEC: f64 = RETURN_COST_SEC;
+
+/// Seconds the `zoneleft` flow flag prices each quest a zone is left with (GuardCounts::zone_left):
+/// its XP is in the cost already, so this is the flow's part, a quest the player stood among and
+/// walked away from (Fitz, 2026-11-07: "leaving a zone while its quests open within 1-2 levels";
+/// a zone's on-level quests are done before the route moves on).
+pub const ZONE_LEFT_SEC: f64 = FLOW_COUNT_SEC;
+/// Levels ahead of the character a quest of the zone counts in (zone-left): one that opens within
+/// them, or is in the accept window at that level.
+pub const ZONE_LEFT_LEVELS: f64 = 2.0;
+
+/// The flow price of an order's guard counts (seconds; 0 without the `revisit` and `zoneleft`
+/// flags): what the search and the passes add to the cost to 60 when they compare orders.
+pub fn flow_pen(c: &GuardCounts) -> f64 {
+	let mut pen = 0.0;
+	if forge_core::flow_flags::on("revisit") {
+		let counts = c.split_work + c.left_ready + c.walked_past + c.finished_near + c.passed_by.saturating_sub(c.passed_by_never);
+		pen += f64::from(c.avoidable_returns) * RETURN_COST_SEC + f64::from(counts) * FLOW_COUNT_SEC;
+	}
+	if forge_core::flow_flags::on("zoneleft") {
+		pen += f64::from(c.zone_left) * ZONE_LEFT_SEC;
+	}
+	pen
+}
+
+/// The headroom a candidate's model time may use under `revisit` or `zoneleft` (FLOW_HEAD_SEC,
+/// else 0).
+pub fn flow_head() -> f64 {
+	if forge_core::flow_flags::on("revisit") || forge_core::flow_flags::on("zoneleft") {
+		FLOW_HEAD_SEC
+	} else {
+		0.0
+	}
+}
 
 /// Yards and levels of the split-work count.
 pub const SPLIT_YD: f64 = 600.0;
@@ -329,9 +465,14 @@ impl Walk<'_> {
 	}
 	/// rules.js acceptableAt: open at the state after step t.
 	pub(crate) fn acceptable(&self, q: u32, t: usize) -> bool {
+		self.acceptable_by(q, t, 0.0)
+	}
+	/// Open at the state after step t to a character `ahead` levels higher (its other conditions
+	/// as they are then).
+	fn acceptable_by(&self, q: u32, t: usize, ahead: f64) -> bool {
 		let r = self.run;
 		let qi = q as usize;
-		if self.accepted_by(q, t) || self.lvl(t) < r.q_min_level[qi] as f64 {
+		if self.accepted_by(q, t) || self.lvl(t) + ahead < r.q_min_level[qi] as f64 {
 			return false;
 		}
 		if r.q_parent[qi] >= 0 && !self.in_log_at(r.q_parent[qi] as u32, t) {
@@ -375,7 +516,9 @@ fn dist(a: (i64, f64, f64), b: (i64, f64, f64)) -> f64 {
 pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64], walked: &[Moved]) -> GuardCounts {
 	let w = walk(run, steps, lv_before);
 	let mut c = GuardCounts::default();
-	returns(g, &w, &mut c);
+	let zoneguard = forge_core::flow_flags::on("zoneguard");
+	let mut zone_returns: FxHashMap<u32, u32> = FxHashMap::default();
+	returns(g, &w, &mut c, zoneguard.then_some(&mut zone_returns));
 	split_work(g, &w, &mut c);
 	training_gaps(g, &w, &mut c);
 	area_visits(g, &w, &mut c);
@@ -383,6 +526,12 @@ pub fn guard_counts(g: &GuardData, run: &Run, steps: &[Step], lv_before: &[f64],
 	c.train_bounces = train_bounces(run, w.steps);
 	c.elite_rare = elite_rare_count(w.steps, &g.elite_rare);
 	c.low_trips = low_trips(&w);
+	if forge_core::flow_flags::on("zoneleft") {
+		c.zone_left = zone_left(g, &w);
+	}
+	if zoneguard {
+		c.zones = zone_counts(&w, walked, &zone_returns);
+	}
 	passed_by(g, &w, walked, &mut c, None);
 	let h = crate::hubs::count(&g.hub, &w, walked, None);
 	(c.left_ready, c.walked_past, c.finished_near) = (h.left_ready, h.walked_past, h.finished_near);
@@ -411,7 +560,7 @@ fn quest_step(s: &Step) -> bool {
 
 /// returns.js: visits per area, and each later visit's quest steps judged at the previous
 /// visit's departure.
-fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts) {
+fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts, mut by_zone: Option<&mut FxHashMap<u32, u32>>) {
 	let steps = w.steps;
 	let n = steps.len();
 	// Steps per area, in order.
@@ -466,6 +615,9 @@ fn returns(g: &GuardData, w: &Walk, c: &mut GuardCounts) {
 			}
 			if avoid > 0 {
 				c.avoidable_returns += 1;
+				if let (Some(m), Some(p)) = (by_zone.as_deref_mut(), w.pt(v2.0)) {
+					*m.entry(w.run.p_map[p as usize]).or_default() += 1;
+				}
 				match c.returns_by_area.last_mut() {
 					Some(x) if x.0 == au as u32 => x.1 += 1,
 					_ => c.returns_by_area.push((au as u32, 1)),
@@ -582,6 +734,60 @@ fn passed_by(g: &GuardData, w: &Walk, walked: &[Moved], c: &mut GuardCounts, mut
 		prev = Some(i);
 	}
 	c.passed_by = found.len() as u32;
+}
+
+/// Per-zone counts (see GuardCounts::zones), zones in first-visit order.
+fn zone_counts(w: &Walk, walked: &[Moved], returns: &FxHashMap<u32, u32>) -> Vec<ZoneCount> {
+	let mut out: Vec<ZoneCount> = Vec::new();
+	let mut prev: Option<(i64, f64, f64)> = None;
+	for i in 0..w.steps.len() {
+		let (Some(p), Some(pos)) = (w.pt(i), w.pos(i)) else { continue };
+		let zone = w.run.p_map[p as usize];
+		let k = match out.iter().position(|z| z.zone == zone) {
+			Some(k) => k,
+			None => {
+				out.push(ZoneCount { zone, returns: returns.get(&zone).copied().unwrap_or(0), ..Default::default() });
+				out.len() - 1
+			}
+		};
+		let z = &mut out[k];
+		if w.steps[i].kind == K_TURNIN {
+			z.quests += 1;
+		}
+		if let Some(a) = prev.filter(|a| a.0 == pos.0 && walked.get(i).is_some_and(|m| m.walked)) {
+			z.yards += (a.1 - pos.1).hypot(a.2 - pos.2).round() as u32;
+		}
+		z.end_lvl = (w.lvl(i) * 100.0).round() as u32;
+		prev = Some(pos);
+	}
+	out
+}
+
+/// Zone-left (see GuardCounts::zone_left): at each departure from a zone (the next located step in
+/// another uiMap), the zone's quests never taken, open then or within ZONE_LEFT_LEVELS, in the accept
+/// window ZONE_LEFT_LEVELS on and not closed by a quest the route takes; each quest once.
+fn zone_left(g: &GuardData, w: &Walk) -> u32 {
+	let mut left: FxHashSet<u32> = FxHashSet::default();
+	let mut prev: Option<(usize, u32)> = None;
+	for i in 0..w.steps.len() {
+		let Some(p) = w.pt(i) else { continue };
+		let z = w.run.p_map[p as usize];
+		if let Some((d, from)) = prev.filter(|&(_, from)| from != z) {
+			let lvl = w.lvl(d);
+			for &q in g.zone_quests.get(&from).into_iter().flatten() {
+				let qi = q as usize;
+				if !left.contains(&q)
+					&& !w.ever(q) && level_ok(w.run.q_level[qi] as f64, lvl + ZONE_LEFT_LEVELS)
+					&& w.acceptable_by(q, d, ZONE_LEFT_LEVELS)
+					&& !g.closed_by[qi].iter().any(|&x| w.ever(x))
+				{
+					left.insert(q);
+				}
+			}
+		}
+		prev = Some((i, z));
+	}
+	left.len() as u32
 }
 
 /// Split work (see GuardCounts::split_work).
@@ -824,6 +1030,27 @@ pub fn elite_rare_tasks_of(run: &Run, data: &GameData) -> Vec<bool> {
 #[cfg(test)]
 mod returns_tests {
 	use super::*;
+
+	#[test]
+	fn a_zone_is_worse_with_fewer_quests_more_walk_per_quest_more_returns_or_a_moved_end_level() {
+		let seed = ZoneCount { zone: 1, quests: 10, yards: 5000, returns: 1, end_lvl: 1210 };
+		let same = seed.clone();
+		assert!(!same.worse_than(&seed));
+		assert!(ZoneCount { quests: 9, ..seed.clone() }.worse_than(&seed), "a quest fewer");
+		assert!(ZoneCount { yards: 5200, ..seed.clone() }.worse_than(&seed), "520 yd a quest, not 500");
+		assert!(!ZoneCount { quests: 11, yards: 5400, ..seed.clone() }.worse_than(&seed), "491 yd a quest with one more");
+		assert!(ZoneCount { returns: 2, ..seed.clone() }.worse_than(&seed), "a return more");
+		assert!(ZoneCount { end_lvl: 1245, ..seed.clone() }.worse_than(&seed) && ZoneCount { end_lvl: 1175, ..seed.clone() }.worse_than(&seed), "0.35 either way");
+		assert!(!ZoneCount { end_lvl: 1235, ..seed.clone() }.worse_than(&seed), "0.25");
+		// (The bound: the seed's, relaxed to the current order's where that is worse already.)
+		let now = ZoneCount { quests: 8, returns: 3, ..seed.clone() };
+		let b = GuardCounts::zone_bound(std::slice::from_ref(&seed), std::slice::from_ref(&now));
+		assert_eq!((b[0].quests, b[0].returns), (8, 3));
+		let gc = |z: ZoneCount| GuardCounts { zones: vec![z], ..Default::default() };
+		assert!(gc(now.clone()).zones_within(&b), "the current order itself is kept");
+		assert!(!gc(ZoneCount { quests: 7, ..now.clone() }).zones_within(&b), "but not made worse");
+		assert!(!GuardCounts::default().zones_within(&b), "a zone left without its hand-ins");
+	}
 
 	#[test]
 	fn a_return_added_to_one_area_is_not_paid_for_by_one_removed_elsewhere() {

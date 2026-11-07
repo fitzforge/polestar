@@ -16,7 +16,8 @@ use serde_json::{json, Value};
 
 /// A character compiled under a profile (towns indexed for `train class`).
 pub fn model_for(world: &World, race: &str, profile: &Profile, base: &Params, walks: &dyn Walks) -> Result<(Model, Rules), String> {
-	let rules = Rules::new(world, race, None, false);
+	// (Elite quests the route fixes record players doing alone are solo quests: forge_core::solo_elite.)
+	let rules = Rules::new(world, race, None, false).with_solo(world, &crate::group::solo_quests());
 	let start = world.starts.iter().find(|(r, _)| r == race).map(|(_, st)| st.pt);
 	let (towns, own_valley) = if profile.train_stops { town_points(world, start) } else { (Vec::new(), Vec::new()) };
 	let rides: &[(u32, u32)] = profile.rides.as_deref().filter(|_| profile.train_stops).map_or(&[], Vec::as_slice);
@@ -604,7 +605,7 @@ pub fn prepare(world: &World, walks: &dyn Walks, base: &Params, race: &str, even
 	// Overrides (route-fixes.json): skips out, includes in; then the plan follows them.
 	let ovr = crate::order::overrides_for(&model0.run, &crate::order::overrides_doc());
 	let v1_seed = seed.clone();
-	seed = crate::order::apply_overrides(&model0.run, &seed, &ovr);
+	seed = crate::order::apply_overrides(&model0.run, &seed, &ovr, Some(&mut model0.evaluator(walks)));
 	// The records v1's order (or another record's repair) breaks: the player-report pairs, the route
 	// fixes' pairs v1's own order keeps, and the `after` and `together` rules, kept by moving steps,
 	// all again until none moves (order::keep_records), so no record is lost to a later one.
@@ -877,6 +878,10 @@ pub fn improve(
 		let revisit_trips = crate::search::passby::camp_revisit(&problem, &mut m, &mut plog);
 		tm.lap(&scope, "pass camp revisit");
 		camp_gather_rows(world, rules, model, &mut edits_doc, &revisit_trips, "camp revisit", "campRevisits");
+		// The sweep flow flag: work on ground the route stands on, its quest open, done then.
+		let there = crate::search::passby::work_while_there(&problem, &mut m, &mut plog);
+		tm.lap(&scope, "pass work while there");
+		camp_gather_rows(world, rules, model, &mut edits_doc, &there, "work while there", "workWhileThere");
 		// The hub batch: a hub return for one hand-in folded into the next visit there.
 		batches = crate::search::passby::hub_batch(&problem, &mut m, &mut plog);
 		tm.lap(&scope, "pass hub batch");

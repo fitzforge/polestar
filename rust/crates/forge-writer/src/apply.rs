@@ -44,6 +44,8 @@ const RIDE_FROM_YD: f64 = 1500.0;
 const ARRIVAL_CAMP_YD: f64 = 300.0;
 // Yards from an inn within which a route event is "at the inn".
 const BIND_AT_YD: f64 = 250.0;
+/// Yards within which a goal stands beside a bind's event, or at its inn: the bind waits for it (#1008).
+const BIND_BESIDE_YD: f64 = 40.0;
 // Yards from a quest's ender within which a spawn is "the camp at the ender".
 const ENDER_CAMP_YD: f64 = 400.0;
 // Mob kinds dropping an item beyond which it is a zone-wide drop.
@@ -123,6 +125,8 @@ pub struct Inputs<'a> {
 	pub walks: Option<&'a dyn forge_sim::walks::Walks>,
 	/// The world's zone crossings: a written walk from one zone into another goes over them.
 	pub borders: Option<&'a crate::borders::Borders>,
+	/// The guide fixes' `level` gates (fixes::level_gates): the level fit counts them where they stand.
+	pub gates: &'a [crate::level_fit::Gate],
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -514,6 +518,22 @@ impl<'a> Ctx<'a> {
 	/// A class's trainer of the faction nearest a point (on its continent first): (name, zone).
 	fn nearest_trainer(&self, pt: Option<u32>, fac: char, cl: &str) -> Option<(String, String)> {
 		self.nearest_trainer_spawn(pt, fac, cl).map(|(_, n, map)| (n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()))
+	}
+
+	/// A goal line done at a friendly NPC: its `npc`, a `kill` (a talk credit) of one, or a `collect`
+	/// of an item only friendly NPCs give (Dillinger's report: `collect 286200 quest 99141.1 npc 1496`).
+	fn at_friendly_npc(&self, line: &str) -> bool {
+		let friendly = |n: u32| self.data.npcs.get(&n).is_some_and(|e| e.faction.as_deref().is_some_and(|f| !f.is_empty()));
+		let code = split_comment(line).0;
+		let Some(m) = re!(r"^\s+(kill|collect)\s+(\d+)\b").captures(code) else { return false };
+		if let Some(n) = re!(r"\bnpc\s+(\d+)\b").captures(code).and_then(|x| x[1].parse::<u32>().ok()) {
+			return friendly(n);
+		}
+		let Ok(id) = m[2].parse::<u32>() else { return false };
+		match &m[1] {
+			"kill" => friendly(id),
+			_ => self.data.items.get(&id).and_then(|i| i.drops.as_ref()).is_some_and(|d| !d.npc.is_empty() && d.object.is_empty() && d.npc.keys().all(|&k| friendly(k))),
+		}
 	}
 
 	/// How many spawns a work line's target has (a camp of mobs; one is a named mob or a single object).
@@ -1301,7 +1321,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		ex.quests.extend(inp.route.groups.iter().filter_map(|g| g.q).chain(inp.route.groups.iter().flat_map(|g| g.quests.iter().copied())));
 		ex.quests.extend(crate::hub::fix_optional(inp.route.faction.as_deref()));
 		ex.quests.extend(crate::hub::fix_kept(inp.route.faction.as_deref()));
-		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex)
+		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex, inp.gates)
 	};
 	log.extend(level_fit.log);
 	let level_left: Vec<u32> = level_fit.left_out;
@@ -1804,6 +1824,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			together[j].items.get_or_insert_with(Vec::new).push(x);
 		}
 	}
+	// A bind waits for the goals right after its event that stand beside it or at the inn (#1008).
+	bind_after_beside(&mut together, world, &|a, b| same_step(Some(a), Some(b)));
 	// v1's crossings: `goto x,y "Boat to Stormwind"` and its zone.
 	let mut v1_piers = Vec::new();
 	for st in &steps {
@@ -3219,29 +3241,41 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				continue;
 			};
 			let p = cx.w(o.pt);
-			// A training stop right after another one, or after a v1 step that trains, adds nothing.
+			// A training stop right after another one, or after a v1 step that trains, adds nothing; but
+			// after a v1 step's `train class` the classes this town cannot train still get their own
+			// trainer's step (Goldshire's Druids to Stormwind, #912: lost when the route's stop came
+			// right after v1's Goldshire step).
+			let mut v1_trained = false;
 			if o.t == OrderT::Train {
 				if let Some(last) = pieces.last() {
-					let skip = match &last.kind {
-						PieceKind::Ins { t, .. } => *t == Some(OrderT::Train),
-						PieceKind::Step { step, keys } => keys.iter().any(|k| re!(r"^\s+train class\b").is_match(&cx.steps[*step].line(k.1).unwrap().text)),
-						PieceKind::Orphan(_) => false,
+					let (skip, v1) = match &last.kind {
+						PieceKind::Ins { t, .. } => (*t == Some(OrderT::Train), false),
+						PieceKind::Step { step, keys } => {
+							let trains = keys.iter().any(|k| re!(r"^\s+train class\b").is_match(&cx.steps[*step].line(k.1).unwrap().text));
+							(trains, trains)
+						}
+						PieceKind::Orphan(_) => (false, false),
 					};
-					if skip {
+					if skip && !(v1 && cx.route_travel) {
 						deferred.entry(oi).or_default().extend(held_pull);
 						oi += 1;
 						continue;
 					}
+					v1_trained = skip;
 				}
 			}
 			let mut x = x;
 			// (Classes kept for their own trainer trip: (title, line).)
 			let mut away_train: Vec<(String, String)> = Vec::new();
-			let (mut pull, dup) = if o.t == OrderT::Train { train_orphans(&order, oi + 1, o.lvl, o.pt, None, &pulled) } else { (Vec::new(), Vec::new()) };
+			let (mut pull, dup) = if o.t == OrderT::Train && !v1_trained { train_orphans(&order, oi + 1, o.lvl, o.pt, None, &pulled) } else { (Vec::new(), Vec::new()) };
 			pulled.extend(dup);
-			for s in held_pull {
-				if !pull.contains(&s) {
-					pull.push(s);
+			if v1_trained {
+				deferred.entry(oi).or_default().extend(held_pull);
+			} else {
+				for s in held_pull {
+					if !pull.contains(&s) {
+						pull.push(s);
+					}
 				}
 			}
 			if !pull.is_empty() {
@@ -3352,13 +3386,15 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					}
 				}
 			}
-			let merged = match pieces.last_mut() {
-				Some(Piece { kind: PieceKind::Ins { pt, title, lines, .. }, .. }) if pull.is_empty() && *pt == o.pt && title.as_deref() == Some(x.title.as_str()) && o.items().is_empty() => {
-					lines.extend(x.lines.iter().cloned());
-					true
-				}
-				_ => false,
-			};
+			// (After v1's training step only the away trainings are written: v1's line trains the rest.)
+			let merged = v1_trained
+				|| match pieces.last_mut() {
+					Some(Piece { kind: PieceKind::Ins { pt, title, lines, .. }, .. }) if pull.is_empty() && *pt == o.pt && title.as_deref() == Some(x.title.as_str()) && o.items().is_empty() => {
+						lines.extend(x.lines.iter().cloned());
+						true
+					}
+					_ => false,
+				};
 			if !merged {
 				pieces.push(Piece {
 					gi: -1,
@@ -3565,6 +3601,22 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				// Paladins' Undercity trainer and the Shamans' Sepulcher brazier at the route's own
 				// Undercity stop, not after the Tarren Mill accepts.) Not v1's way steps, nor travel only.
 				let st = &cx.steps[os];
+				// (A step naming a quest an earlier step of its guide names, that step still waiting for a
+				// later pass or event of the route: it waits with it, right after it, so the chain keeps its
+				// order. Telf's hand-in of Call of Fire and his accept of the next after Kranal Fiss's accept
+				// at the Barrens pass, not at an earlier Durotar stop before it, candidate v1 Orc.)
+				let my_q: FxHashSet<u32> = st.lines.iter().filter_map(|l| quest_of(&l.text)).collect();
+				let shares = |w: usize| w < os && cx.steps[w].file == st.file && cx.steps[w].lines.iter().filter_map(|l| quest_of(&l.text)).any(|q| my_q.contains(&q));
+				if !my_q.is_empty() {
+					if let Some(k) = deferred.iter().filter(|(_, v)| v.iter().any(|&w| shares(w))).map(|(&k, _)| k).max() {
+						deferred.entry(k).or_default().push(os);
+						continue;
+					}
+					if let Some(k) = reorph.iter().filter(|(_, v)| v.iter().any(|&w| shares(w))).map(|(&k, _)| k).max() {
+						reorph.entry(k).or_default().push(os);
+						continue;
+					}
+				}
 				let movable = !st.way && st.lines.iter().any(|l| l.kind == Kind::Goal && !re!(r"^\s+(goto|fly|hearth)\b").is_match(&l.text));
 				// (A step of a class's own run, written right after the run's step before it: it stays with its
 				// run, in v1's order, the Druids' Body and Heart before the boat, N1.)
@@ -8090,6 +8142,53 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
 }
 
+/// A bind the route makes at an event moves past the goals right after it that stand beside that
+/// event (or the one before it, when that is at the same stop), or at the inn, so the walk to the inn
+/// never splits two goals at one NPC or two NPCs that stand together, and the inn's own goals come
+/// before the bind (#1008: Mebok after the Ratchet poster, Mankrik's two quests at the Crossroads,
+/// Maggran's at Sun Rock, Lydon's and the inn's at Tarren Mill). It stops at the first event that is
+/// not a goal there (the route moves on), carries travel or another item, is a `train`, or is written in
+/// another v1 step than the bind's event (`same_step`: v1's steps between, a class's hearth home that
+/// needs the bind, would come before it).
+fn bind_after_beside(order: &mut [Order], world: &World, same_step: &dyn Fn(&Order, &Order) -> bool) {
+	let p_of = |pt: Option<u32>| pt.and_then(|p| world.points.get(p as usize).copied()).filter(|p| p.wx.is_finite());
+	let near = |a: Option<Pt>, b: Option<Pt>| matches!((a, b), (Some(a), Some(b)) if a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= BIND_BESIDE_YD);
+	let goal = |o: &Order| matches!(o.t, OrderT::Accept | OrderT::Turnin | OrderT::Task);
+	let mut i = 0;
+	while i < order.len() {
+		let mut next = i + 1;
+		if !goal(&order[i]) || !order[i].items().iter().any(|x| x.t == ItemT::Bind) {
+			i = next;
+			continue;
+		}
+		let here = p_of(order[i].pt);
+		let before = i.checked_sub(1).map(|k| p_of(order[k].pt)).filter(|&p| near(p, here)).flatten();
+		let binds: Vec<Item> = order[i].items().iter().filter(|x| x.t == ItemT::Bind).cloned().collect();
+		for x in binds {
+			let inn = p_of(x.inn_pt.or(x.pt));
+			let mut j = i;
+			while let Some(n) = order.get(j + 1) {
+				let at = p_of(n.pt);
+				if !goal(n) || !n.items().is_empty() || !same_step(&order[i], n) || !(near(at, here) || near(at, before) || near(at, inn)) {
+					break;
+				}
+				j += 1;
+			}
+			if j == i {
+				continue;
+			}
+			let its = order[i].items.as_mut().expect("the bind's event has items");
+			if let Some(p) = its.iter().position(|y| *y == x) {
+				its.remove(p);
+			}
+			order[j].items.get_or_insert_with(Vec::new).push(x);
+			// (The events it moved past are read once: a moved bind never moves again from its new event.)
+			next = next.max(j + 1);
+		}
+		i = next;
+	}
+}
+
 /// Minutes under which a route top-up is never a step of its own: folded into a farm step, else
 /// dropped (its grind goes to the next top-up; quest XP often covers it).
 const TOPUP_STEP_MIN: f64 = 5.0;
@@ -8392,6 +8491,13 @@ fn area_work_steps(cx: &Ctx, lines: Vec<String>, task_pt: &FxHashMap<(u32, Optio
 			}
 			// (An accept at the camp, the giver among the mobs: in its place among the goals.)
 			if re!(r"^\s+accept\s+\d+(\s+optional)?\s*$").is_match(code) {
+				continue;
+			}
+			// (A goal done at a friendly NPC, a report asked for or an item handed over, is that NPC's
+			// stop, not the field's: Dillinger's report and Kristof's at Linnea's camp stayed steps of
+			// their own in the hand-fixed Tirisfal guide; a merge made them "kill these as you meet them".)
+			if cx.at_friendly_npc(code) {
+				ok = false;
 				continue;
 			}
 			match work_re.captures(code) {
@@ -10334,5 +10440,57 @@ mod tests {
 		assert!(!a.class_in("Rogue") && !a.class_in("Shaman") && a.class_in("Warrior"));
 		assert_eq!(other_classes(&v(&["Rogue"])), "!Rogue");
 		assert!(!Audience::parse("!Rogue").class_in("Rogue"));
+	}
+
+	/// The goals and where the bind is after bind_after_beside, for a town at world points `pts`
+	/// (point 0 the inn; the bind made at event `at`).
+	fn bind_case(pts: &[(f64, f64)], evs: &[(&str, u32, u32)], at: usize) -> Vec<String> {
+		use serde_json::json;
+		let points: Vec<serde_json::Value> = pts.iter().map(|&(x, y)| json!([1, 1, x, y, 1413])).collect();
+		let world: World = serde_json::from_value(json!({ "points": points, "quests": [] })).unwrap();
+		let mut order: Vec<Order> = evs
+			.iter()
+			.enumerate()
+			.map(|(i, &(t, q, pt))| {
+				let items = if i == at { json!([{ "t": "bind", "inn": 0, "pt": 0, "innPt": 0 }]) } else { json!(null) };
+				serde_json::from_value(json!({ "t": t, "q": q, "pt": pt, "items": items })).unwrap()
+			})
+			.collect();
+		bind_after_beside(&mut order, &world, &|_, _| true);
+		let mut out = Vec::new();
+		for o in &order {
+			out.push(format!("{} {}", if o.t == OrderT::Accept { "accept" } else { "turnin" }, o.q.unwrap()));
+			if o.items().iter().any(|x| x.t == ItemT::Bind) {
+				out.push("bind".into());
+			}
+		}
+		out
+	}
+
+	#[test]
+	fn a_bind_waits_for_the_goals_beside_its_event_and_at_the_inn() {
+		// #1008's four towns (world yards from the Horde world): the bind sat between two goals at one
+		// NPC or two NPCs that stand together, a walk to the inn and back.
+		// Ratchet: the WANTED poster (bind), Mebok 24 yd from it, Dizzywig on the dock 114 yd on.
+		let ratchet = [(-1050.1, -3664.8), (-919.1, -3719.5), (-929.2, -3697.2), (-985.3, -3796.6)];
+		assert_eq!(bind_case(&ratchet, &[("accept", 895, 1), ("accept", 865, 2), ("turnin", 1492, 3), ("accept", 896, 3)], 0), ["accept 895", "accept 865", "bind", "turnin 1492", "accept 896"]);
+		// The Crossroads: Mankrik's 4921 (bind) and 899, Tonga Runetotem 39 yd from him, then the road.
+		let xroads = [(-406.9, -2645.4), (-521.1, -2641.4), (-544.8, -2672.8), (-900.0, -2500.0)];
+		assert_eq!(
+			bind_case(&xroads, &[("accept", 4921, 1), ("accept", 899, 1), ("turnin", 870, 2), ("accept", 877, 2), ("accept", 1, 3)], 0),
+			["accept 4921", "accept 899", "turnin 870", "accept 877", "bind", "accept 1"]
+		);
+		// Sun Rock Retreat: Maggran's 86576 (bind) and 5881; Braelyn outside the gate, 66 yd away.
+		let sun_rock = [(893.6, 927.7), (925.1, 940.9), (949.2, 1002.4)];
+		assert_eq!(bind_case(&sun_rock, &[("accept", 86576, 1), ("accept", 5881, 1), ("accept", 1087, 2)], 0), ["accept 86576", "accept 5881", "bind", "accept 1087"]);
+		// Tarren Mill: Lydon's 496 (bind) and 493 (43 yd from the inn), Krusk (38 yd from the inn, 67 from
+		// Lydon) and the Dangerous! poster (15 yd) inside the inn, then out of town.
+		let tarren = [(-6.0, -942.3), (-6.6, -899.4), (-40.7, -957.0), (-19.4, -935.3), (-500.0, -900.0)];
+		assert_eq!(
+			bind_case(&tarren, &[("accept", 496, 1), ("turnin", 493, 1), ("accept", 498, 2), ("accept", 567, 3), ("accept", 2, 4)], 0),
+			["accept 496", "turnin 493", "accept 498", "accept 567", "bind", "accept 2"]
+		);
+		// (A goal 66 yd on and away from the inn waits: the route moves on, so does the bind.)
+		assert_eq!(bind_case(&sun_rock, &[("accept", 5881, 1), ("accept", 1087, 2), ("accept", 6301, 1)], 0), ["accept 5881", "bind", "accept 1087", "accept 6301"]);
 	}
 }

@@ -320,6 +320,14 @@ be compared byte for byte with the old JavaScript writer.
   families, the route fixes' optional quests and the quests they keep or include are left to their
   records; an old route with no levels is not judged. Its records are the rule itself; a route build
   that should plan the levels without the quests gets `overrides.skip` lines too.
+
+  A written `level` gate counts where it stands: a guide fix's `level` (data/guide-fixes.json, before
+  or `after` its anchor goal) raises the level of every event from its anchor on to the gate, and the
+  XP that grind gives stays with the player, less what a top-up of the route's own grinds after it
+  (#1052: the `level 23` top-up at the Blackrock camps, which the rule did not see, so it
+  left out quests that fit at 23). The route's own top-ups and v1's `level` lines are in its `lvl`
+  already. A guide fix's `level` may be a partial level (`23.5`), written as such, as the route's own
+  top-ups are (`level 15.91`).
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within
@@ -339,7 +347,11 @@ be compared byte for byte with the old JavaScript writer.
   walked in the shortest order from where the route comes in to where it goes next, each NPC once
   unless the quests' own order makes a second stop shorter, the pairs kept; a delivery whose item runs
   out within 15 minutes (the Scalding Mornbrew) is handed in first. A bind goes with the visit's event
-  nearest the inn. Events move only earlier and, but for the next rule, only among one v1 guide's
+  nearest the inn, and then past the goals right after it, in the same v1 step, that stand within 40 yd
+  of it (or of the event before it at the same stop) or of the inn, so the walk to the inn never splits two goals at one
+  NPC or two NPCs that stand together, and the inn's own goals come before it (#1008: Mebok after the
+  Ratchet poster, Mankrik's two quests at the Crossroads, Maggran's at Sun Rock, Lydon's and the inn's
+  at Tarren Mill; `bind_after_beside`). Events move only earlier and, but for the next rule, only among one v1 guide's
   events; a line a class's own
   step waits for goes last in its visit, after every stop that does not wait for it, so the class
   step closes the visit (Perrine's Chest after Brill's turn-ins); a hearth or flight stays the
@@ -541,7 +553,10 @@ be compared byte for byte with the old JavaScript writer.
   one's ground, worked there (the eggs on the makrura's beach). A step's zone is
   its zone line, else where its work is. Accepts stay
   in their place among the goals; a step with a hand-in is not merged (the
-  oats stay with Verna's hand-in, #621), but a stop at an NPC on the merged
+  oats stay with Verna's hand-in, #621), and neither is a step with a goal done
+  at a friendly NPC (a report asked for or an item handed over, `collect … npc
+  N` or a talk credit: Dillinger's report and Kristof's at Linnea's camp stay
+  their own steps), but a stop at an NPC on the merged
   ground that hands in none of the group's quests does not break the merge
   (Lakeridge Highway's camps around a Three Corners stop). The first step's label stays, and
   references to the others' go to it. Every goal keeps its own place: no
@@ -753,6 +768,15 @@ portals and hearths. A lift counts as part of the walk.
   after that hand-in; the quests its own hand-in opens follow it, and the
   quest's lines already in that guide before the hand-in go after it too (News
   of Dogran and Ken'zigla's Draught after Gan'rul's hand-in in the next guide).
+- A v1 step the route did not place that names a quest an earlier step of its
+  guide names, that step still waiting for a later pass or event of the
+  route, waits with it, right after it: the chain keeps its order (Telf's
+  hand-in of Call of Fire and his accept of the next after Kranal Fiss's
+  accept at the Barrens pass, not at an earlier Durotar stop).
+- A route training stop right after a v1 step that trains (`train class`)
+  writes nothing of its own, but the classes that town cannot train still get
+  their own trainer's step after it (Goldshire's Druids to Sheldras Moontree
+  in Stormwind, #912).
 - A follow-up from the NPC a step has just handed its prerequisite to is taken
   there, right after that hand-in and the other hand-ins to that NPC with it,
   when the step went on to a goal more than 30 yards off for a character who
@@ -761,6 +785,11 @@ portals and hearths. A lift counts as part of the walk.
   to their trainer is no walk for a Hunter). It stays behind a `level` line, another of
   its prerequisites, a quest it excludes, or a level the hand-ins between bring.
   This runs after the class detours' hand-ins.
+- A profession's training (`train Cooking npc 265944`) goes right before the
+  first goal of its step that works or hands in a quest whose objective is
+  that NPC, after the quest's accept, when a stop's order put it after them
+  (Camping 101: Cooking at William Pickman, #743). This runs after the other
+  passes that order a stop.
 - A v1 step the route did not place with nothing for everyone, only some races'
   lines (and a flight path), is those races' step: no walk there for the rest
   (v1's "To the Undercity" for the Skyborne's Sylvanas).
@@ -927,6 +956,14 @@ they matter to the player. They are not the judge's honest rules.
   Cliffspring Falls ("Fine Crab Chunks from Encrusted Tide Crawler and Reef
   Crawler, by this stop"). A list with no stop near its work at all stays a
   list.
+  With the `steps` flow flag (`FORGE_FLOW`, [routes.md](routes.md#flow-flags-experimental);
+  Fitz on #1046: "the 'along the way' quests are doing more harm than good. They should just be
+  steps") no list is written: work whose spawns line the walk on to the turn-in stays at its own
+  stop, every other list's goals become ordinary goals at the stop with the most source spawns
+  near as above, and a list with no stop near its work is not written (its goal is done at its own
+  step). A guide fix's `early` pickup (#798) is a plain step after its anchor, without `along
+  until` or a label. Guides without `along` steps play as before: an `along` step is optional
+  guide syntax (docs/GUIDE_FORMAT.md).
 - **R2 `use <item>`**: a quest done by using an item gets its `use` line, at
   the item's place nearest the route's work. A use that gives no credit itself
   (a bowl filled at a moonwell) is not bound to the objective; one that makes
@@ -934,6 +971,11 @@ they matter to the player. They are not the judge's honest rules.
   Auberdine moonwell, not at the furbolg camp after the filled bowl, #302).
   One use per quest and item, however often the mechanics list it (A Matter
   of Time's Temporal Displacer, #843).
+  A use right before the line that collects for its quest is bound to that
+  objective (`use <item> quest Q.N`, N 1 when the collect names none): the
+  Crate of Ghost Magnets before the Ghost-o-plasm, the Gorishi Queen Lure,
+  Karang's banner, Orwin's Shovel (#888); a bare use would hold its step
+  after the objective is done. A summoning before anything else stays bare.
 - **R3 guards**: travel steps for quests carried from an earlier guide get
   `when onquest`, except a step that also trains, learns a flight path or
   binds, or holds lines for some races or classes only (the Ironforge training
@@ -1014,7 +1056,10 @@ they matter to the player. They are not the judge's honest rules.
   is under its level). The group player is at that level already, so it does
   nothing for them. On by default (`forge build`);
   `--no-groups` turns it off. Under `--format-0-3`, R5 still asks the other
-  group and dungeon quests.
+  group and dungeon quests. A quest with a route fixes `solo` record (players' recordings show it
+  handed in alone, `forge_core::solo_elite`) is not asked where the route's level at its accept + 2
+  reaches its solo hand-ins: its goals are for everyone, required; where the route gets there lower,
+  R5 asks it. A dungeon's quest is asked whatever a record says.
 
 `--format-0-3` adds the pack format 5 lines (Polestar 0.3.0): R5 `when group`,
 R6 `task` and `cast`, R7 `abandon` when the log would pass 40 (the game's quest log), R8 `skipto` over

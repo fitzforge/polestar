@@ -3,7 +3,7 @@
 //! with it.
 
 mod common;
-use forge_sim::order::{apply_overrides, overrides_for, play_order, Checker, Feas};
+use forge_sim::order::{apply_overrides, earliest_cheap, overrides_for, play_order, Checker, Feas, INCLUDE_SLACK_YD};
 use forge_sim::run::K_ACCEPT;
 use serde_json::json;
 
@@ -30,13 +30,60 @@ fn include_override_puts_a_quest_in() {
 	let feas = Feas { keep: ovr.include.iter().map(|x| x.0).collect(), ..Default::default() };
 	let mut ck = Checker::new(run);
 	assert!(!ck.valid(&seed.steps, &[], &feas), "without the include, v1's order breaks the keep");
-	let with = apply_overrides(run, &seed, &ovr);
+	let with = apply_overrides(run, &seed, &ovr, None);
 	assert!(has(&with, q), "the include puts the quest in");
 	assert!(ck.valid(&with.steps, &[], &feas), "and the order keeps its rules");
 	let mut ev = m.evaluator(&o.walks);
 	let (_, did) = play_order(&mut ev, &with.steps);
 	let acc = with.steps.iter().position(|s| s.kind == K_ACCEPT && s.q == q).unwrap();
 	assert!(did[acc], "its accept is played");
+}
+
+#[test]
+fn an_include_with_no_anchor_goes_where_the_level_meets_its_minimum() {
+	// #1052: A Watchful Eye (minimum 20) has no anchor; its giver stands on the Elwynn road nearest a
+	// stop at level 9, where the gate refused it and the pickup pass, over its allowance, never put it
+	// back. The accept goes to the stop nearest the giver among those at its minimum.
+	let o = common::orc();
+	let m = o.model(&[]);
+	let run = &m.run;
+	let seed = o.seed();
+	let has = |ord: &forge_sim::order::Order, q: u32| ord.steps.iter().any(|s| s.kind == K_ACCEPT && s.q == q);
+	let mut ev = m.evaluator(&o.walks);
+	let under = |ev: &mut forge_sim::Evaluator, ord: &forge_sim::order::Order| forge_sim::gate::under_min(run, &ord.steps, &forge_sim::gate::levels(ev, &ord.steps));
+	// A quest v1 leaves out, with no prerequisite and a minimum v1's order reaches, that the stop
+	// nearest its giver takes under that minimum.
+	let top = forge_sim::gate::levels(&mut ev, &seed.steps).last().copied().unwrap_or(1.0);
+	let (q, ovr) = (0..run.n_quests() as u32)
+		.filter(|&q| {
+			!has(&seed, q)
+				&& run.q_pre[q as usize].is_empty()
+				&& run.q_all[q as usize].is_empty()
+				&& run.q_parent[q as usize] < 0
+				&& run.q_min_level[q as usize] >= 4
+				&& f64::from(run.q_min_level[q as usize]) < top - 1.0
+		})
+		.find_map(|q| {
+			let ovr = overrides_for(run, &json!({ "include": [{ "q": run.q_id[q as usize], "reason": "test" }] }));
+			let plain = apply_overrides(run, &seed, &ovr, None);
+			under(&mut ev, &plain).contains(&run.q_id[q as usize]).then_some((q, ovr))
+		})
+		.expect("a quest the nearest stop takes under its minimum");
+	let with = apply_overrides(run, &seed, &ovr, Some(&mut ev));
+	assert!(has(&with, q), "the include puts the quest in");
+	let acc = with.steps.iter().position(|s| s.kind == K_ACCEPT && s.q == q).unwrap();
+	let lv = forge_sim::gate::levels(&mut ev, &with.steps);
+	assert!(!under(&mut ev, &with).contains(&run.q_id[q as usize]), "at its minimum {}: accept at {acc}, level {:?} of {}", run.q_min_level[q as usize], lv.get(acc), lv.len());
+}
+
+#[test]
+fn an_included_hand_in_beside_the_stop_is_made_there_not_on_a_later_visit() {
+	// #1050: Speak with Sevren, accepted from Coleman in Brill's inn; Magistrate Sevren stands 40 yd off
+	// in the town hall (80 yd there and back), and a Brill visit a guide later passes him (0 yd).
+	assert_eq!(earliest_cheap(&[80.0, 300.0, 0.0], INCLUDE_SLACK_YD), 0);
+	// (A detour well over the cheapest waits for it: a walk across the zone and back.)
+	assert_eq!(earliest_cheap(&[900.0, 300.0, 0.0], INCLUDE_SLACK_YD), 2);
+	assert_eq!(earliest_cheap(&[], INCLUDE_SLACK_YD), 0);
 }
 
 #[test]
@@ -51,7 +98,7 @@ fn skip_override_keeps_a_quest_out() {
 	let feas = Feas { skip: ovr.skip.clone(), ..Default::default() };
 	let mut ck = Checker::new(run);
 	assert!(!ck.valid(&seed.steps, &[], &feas), "v1's order has the quest: the skip rejects it");
-	let without = apply_overrides(run, &seed, &ovr);
+	let without = apply_overrides(run, &seed, &ovr, None);
 	assert!(!without.steps.iter().any(|s| s.q == q && s.kind == K_ACCEPT), "the skip takes it out");
 	assert!(ck.valid(&without.steps, &[], &feas), "and the order keeps its rules");
 }
@@ -297,7 +344,7 @@ fn a_quest_the_overrides_skip_is_named_dropped() {
 	let v1 = o.seed();
 	let q = v1.steps.iter().find(|s| s.kind == K_ACCEPT).unwrap().q;
 	let ovr = forge_sim::order::Overrides { skip: vec![q], ..Default::default() };
-	let seed = apply_overrides(run, &v1, &ovr);
+	let seed = apply_overrides(run, &v1, &ovr, None);
 	let d = forge_sim::order::diff(run, &seed, &seed);
 	assert!(d.dropped.is_empty(), "the seed's own diff does not see it");
 	assert_eq!(forge_sim::route::dropped_from_v1(run, &v1, &seed, &d.dropped), vec![run.q_id[q as usize]]);

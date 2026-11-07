@@ -860,7 +860,10 @@ Errors:
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
-  as `elite`, unless the goal was already reported as elite
+  as `elite`, unless the goal was already reported as elite. Elite work on a quest
+  players' recordings show handed in alone may be required: a `solo` record in the
+  checkout's `data/route-fixes.json` (next to the data folder) with 2 or more solo
+  hand-ins and no more party ones (docs/forge/routes.md, Group quests)
 
 Warnings:
 - a `when` predicate naming a quest or item the data lacks, a zone not in

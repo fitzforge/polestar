@@ -872,6 +872,9 @@ fn shared_tail(
 		let revisit_trips = crate::search::passby::camp_revisit(p, &mut m, &mut plog);
 		tm.lap(&scope, "pass camp revisit");
 		crate::route::camp_gather_rows(world, &prep0.rules, &prep0.model, &mut shared_doc, &revisit_trips, "camp revisit", "campRevisits");
+		let there = crate::search::passby::work_while_there(p, &mut m, &mut plog);
+		tm.lap(&scope, "pass work while there");
+		crate::route::camp_gather_rows(world, &prep0.rules, &prep0.model, &mut shared_doc, &there, "work while there", "workWhileThere");
 		batches = crate::search::passby::hub_batch(p, &mut m, &mut plog);
 		tm.lap(&scope, "pass hub batch");
 		crate::route::hub_sweep_rows(world, &prep0.rules, &prep0.model, &mut shared_doc, &batches, "hubBatches");

@@ -239,26 +239,17 @@ impl Rules {
 			}
 			excl.insert(id, q.excl.iter().copied().filter(|&e| has(&open, e)).collect::<Vec<_>>());
 		}
-		// Group work: elite, and every quest needing one (qGroup's fixed point, in id order).
-		let mut group: FxHashSet<u32> = open.iter().filter(|(_, &i)| world.quests[i].elite).map(|(&id, _)| id).collect();
-		let mut changed = true;
-		while changed {
-			changed = false;
-			for (&id, &i) in &open {
-				if group.contains(&id) {
-					continue;
-				}
-				let g = |p: &i64| u32::try_from(*p).is_ok_and(|p| group.contains(&p));
-				let ps = &pre[&id];
-				let any = !ps.is_empty() && ps.iter().all(g);
-				let all = pre_all[&id].iter().any(g) || world.quests[i].after.iter().flatten().any(|c| open.contains_key(c) && group.contains(c));
-				if any || all {
-					group.insert(id);
-					changed = true;
-				}
-			}
-		}
+		let group = group_set(world, &open, &pre, &pre_all, &FxHashSet::default());
 		Rules { open, pre, pre_all, parent, excl, group }
+	}
+
+	/// These rules with the quests in `solo` taken out of group work: elite quests players' recordings
+	/// show done alone (forge_core::solo_elite), and the quests that needed only them.
+	pub fn with_solo(mut self, world: &World, solo: &FxHashSet<u32>) -> Rules {
+		if !solo.is_empty() {
+			self.group = group_set(world, &self.open, &self.pre, &self.pre_all, solo);
+		}
+		self
 	}
 
 	/// In the character's set and not group work (simRules soloOk).
@@ -284,6 +275,30 @@ impl Rules {
 			}
 		}
 	}
+}
+
+/// Group work (qGroup's fixed point, in id order): the open elite quests not in `solo`, and every
+/// quest needing one.
+fn group_set(world: &World, open: &BTreeMap<u32, usize>, pre: &FxHashMap<u32, Vec<i64>>, pre_all: &FxHashMap<u32, Vec<i64>>, solo: &FxHashSet<u32>) -> FxHashSet<u32> {
+	let mut group: FxHashSet<u32> = open.iter().filter(|(id, &i)| world.quests[i].elite && !solo.contains(*id)).map(|(&id, _)| id).collect();
+	let mut changed = true;
+	while changed {
+		changed = false;
+		for (&id, &i) in open {
+			if group.contains(&id) {
+				continue;
+			}
+			let g = |p: &i64| u32::try_from(*p).is_ok_and(|p| group.contains(&p));
+			let ps = &pre[&id];
+			let any = !ps.is_empty() && ps.iter().all(g);
+			let all = pre_all[&id].iter().any(g) || world.quests[i].after.iter().flatten().any(|c| open.contains_key(c) && group.contains(c));
+			if any || all {
+				group.insert(id);
+				changed = true;
+			}
+		}
+	}
+	group
 }
 
 /// A goal of a walk (judge walk.js): index, type, quest, objective, level before and after.

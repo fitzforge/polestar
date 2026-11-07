@@ -11,6 +11,37 @@ use forge_core::jsnum::js_hypot;
 use rustc_hash::{FxHashMap, FxHashSet};
 use std::collections::BTreeMap;
 
+/// A profession's training (`train Cooking npc 265944`) goes right before the first goal of its step
+/// that works or hands in a quest whose objective is that NPC, when the stop's order put it after
+/// them: the training is the objective (Camping 101: Cooking, learnt from William Pickman before its
+/// `complete` and hand-in, #743; TirisfalFlow's Forge build had it after both). Never ahead of the
+/// quest's accept; `train class` is not a profession's.
+pub fn train_before_its_work(mut lines: Vec<String>, data: &Data) -> Vec<String> {
+	let quest_re = re!(r"^\s+(?:complete|turnin)\s+(\d+)\b|^\s+(?:kill|collect|interact|talk|use)\s+\d+\b.*?\bquest\s+(\d+)");
+	let mut i = 0;
+	while i < lines.len() {
+		let npc = re!(r"^\s+train\s+(\S+)\b.*?\bnpc\s+(\d+)\b").captures(split_comment(&lines[i]).0).filter(|m| &m[1] != "class").and_then(|m| m[2].parse::<u32>().ok());
+		let Some(npc) = npc else {
+			i += 1;
+			continue;
+		};
+		let s0 = (0..i).rev().find(|&k| is_step(&lines[k])).unwrap_or(0);
+		let taught = |q: u32| data.quests.get(&q).is_some_and(|r| r.objectives().any(|o| o.is("kill") && o.id == Some(f64::from(npc))));
+		let first = (s0 + 1..i).find(|&k| {
+			quest_re.captures(split_comment(&lines[k]).0).and_then(|m| m.get(1).or(m.get(2))).and_then(|q| q.as_str().parse::<u32>().ok()).is_some_and(|q| {
+				let accepted = re!(r"^\s+accept\s+(\d+)\b");
+				taught(q) && lines[..k].iter().any(|l| accepted.captures(split_comment(l).0).is_some_and(|a| a[1].parse::<u32>().ok() == Some(q)))
+			})
+		});
+		if let Some(k) = first {
+			let line = lines.remove(i);
+			lines.insert(k, line);
+		}
+		i += 1;
+	}
+	lines
+}
+
 /// Hearth advice is the arrow's (Polestar 0.3.3): a written guide never tells the player to hearth.
 /// Every `hearth` goal goes (the route still plans its hearth legs; the guide leads on to where the
 /// leg lands), and a step left with no goal with it (no_empty_steps, which names a "Hearth to X" step
@@ -1800,9 +1831,15 @@ pub fn hand_ins_before_level_gate(files: &mut [String]) {
 /// some classes' lines is theirs (`only Hunter,Priest,Shaman`); one it leaves with nothing goes.
 pub fn repeat_training(files: &mut [String]) {
 	// (The classes a training line is for: None for everyone; not a training line, or for some
-	// races: no set.)
+	// races: no set. A class sent to its own trainer elsewhere, `-- Sheldras Moontree in Stormwind
+	// City; Goldshire has no druid trainer`, is a trip of its own, never a repeat: the town's
+	// `train class` before it did not train them, #912.)
 	let trained = |l: &str| -> Option<Option<Vec<String>>> {
-		let m = re!(r"^\s+train\s+class(?:\s+only\s+(\S+))?\s*$").captures(split_comment(l).0)?;
+		let (code, note) = split_comment(l);
+		if note.contains(" has no ") && note.contains(" trainer") {
+			return None;
+		}
+		let m = re!(r"^\s+train\s+class(?:\s+only\s+(\S+))?\s*$").captures(code)?;
 		match m.get(1) {
 			None => Some(None),
 			Some(list) => {
@@ -2717,6 +2754,29 @@ mod tests {
 	use super::*;
 
 	#[test]
+	fn a_professions_training_goes_before_the_work_of_the_quest_it_is_for() {
+		// #743, TirisfalFlow's Forge build: the stop's order put `train Cooking` after Camping 101's
+		// complete and hand-in; the training at William Pickman is the objective.
+		let mut data = Data::default();
+		data.quests.insert(96658, serde_json::from_value(serde_json::json!({ "title": "Camping 101: Cooking", "objectives": [{ "type": "kill", "id": 265944 }] })).unwrap());
+		let v = |xs: &[&str]| xs.iter().map(|x| x.to_string()).collect::<Vec<String>>();
+		let text =
+			v(&["step Brill", "  accept 96658", "  accept 398", "  complete 96658 @61.8,51.5", "  turnin 96658", "  turnin 8", "  train Cooking npc 265944    -- William Pickman", "  train class"]);
+		assert_eq!(
+			train_before_its_work(text, &data),
+			v(&["step Brill", "  accept 96658", "  accept 398", "  train Cooking npc 265944    -- William Pickman", "  complete 96658 @61.8,51.5", "  turnin 96658", "  turnin 8", "  train class"])
+		);
+		// (Already before its work, or a training no quest of the step is about: unchanged. Never ahead
+		// of the accept: with no accept before the work, it stays.)
+		let fine = v(&["step Brill", "  accept 96658", "  train Cooking npc 265944", "  complete 96658", "  turnin 96658"]);
+		assert_eq!(train_before_its_work(fine.clone(), &data), fine);
+		let other = v(&["step Brill", "  accept 96658", "  turnin 96658", "  train First Aid npc 2329"]);
+		assert_eq!(train_before_its_work(other.clone(), &data), other);
+		let unaccepted = v(&["step Brill", "  turnin 96658", "  train Cooking npc 265944"]);
+		assert_eq!(train_before_its_work(unaccepted.clone(), &data), unaccepted);
+	}
+
+	#[test]
 	fn no_hearth_goal_is_written() {
 		// (R3's pair: the hearth step goes, the walk there is for everyone; a hearth for some races in
 		// a step of other work goes, the step named for the place; a tip's hearth sentence goes, what it
@@ -2838,6 +2898,20 @@ mod tests {
 		assert_eq!(f[0].matches("train class only Shaman").count(), 2, "{}", f[0]);
 		assert!(!f[0].contains("step Spirit Rise") && f[0].contains("step Turak\n  only Druid\n  zone Thunder Bluff\n  turnin 5926\n"), "{}", f[0]);
 		assert_eq!(f[0].matches("train class only Druid").count(), 1, "{}", f[0]);
+	}
+
+	#[test]
+	fn a_class_sent_to_its_own_trainer_after_the_towns_training_is_no_repeat() {
+		// #912: Goldshire's `train class`, then the Druids' own step to Sheldras Moontree in Stormwind:
+		// the town's line did not train them, so their step stays.
+		let mut f = vec![[
+			"step Goldshire\n  accept 1\n  train class",
+			"step Druid trainer\n  only Druid\n  train class only Druid -- Sheldras Moontree in Stormwind City; Goldshire has no druid trainer",
+			"step Far\n  turnin 1",
+		]
+		.join("\n\n")];
+		repeat_training(&mut f);
+		assert!(f[0].contains("step Druid trainer\n  only Druid\n  train class only Druid -- Sheldras Moontree"), "{}", f[0]);
 	}
 
 	#[test]

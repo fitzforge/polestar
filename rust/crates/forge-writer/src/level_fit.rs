@@ -50,6 +50,29 @@ pub struct Exempt {
 	pub quests: FxHashSet<u32>,
 }
 
+/// The goal a written gate stands at: a quest's accept, its hand-in, or its work (an objective or
+/// its `complete`).
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum GateAt {
+	Accept,
+	Turnin,
+	/// The objective's index (1-based, as guide-fixes write it); None: the quest's work as a whole.
+	Work(Option<u32>),
+}
+
+/// A `level` gate a guide fix writes at a quest's goal (data/guide-fixes.json `level`, fixes.rs):
+/// right before the goal, or right after it (`after`). The player reaches `level` there whatever the
+/// route's model says, so the work after it is judged at that level (plus the route's XP since):
+/// #1052: the `level 23` top-up at the Blackrock camps that the rule did not see, so it
+/// left out quests the gate makes fit.
+#[derive(Clone, Copy, Debug, PartialEq)]
+pub struct Gate {
+	pub quest: u32,
+	pub at: GateAt,
+	pub after: bool,
+	pub level: f64,
+}
+
 /// A spawn of an attackable mob: world place and its levels.
 #[derive(Clone, Copy)]
 struct Mob {
@@ -229,6 +252,12 @@ impl Ctx<'_> {
 		self.data.quests.get(&q).and_then(|r| r.level).map(|l| l as i64)
 	}
 
+	/// The task of quest `q` that holds its objective `oi` (0-based).
+	fn task_of(&self, q: u32, oi: u32) -> Option<u32> {
+		let &wi = self.wq.get(&q)?;
+		self.world.quests[wi].objs.iter().find(|o| o.oi == Some(f64::from(oi))).and_then(|o| o.task)
+	}
+
 	/// Quest `x` can no longer be done without the quests in `gone`: one of its required quests is
 	/// gone, or all of its one-of quests are (the world's `pre`, a negative id one of several; else
 	/// the data's `pre` and `preAny`).
@@ -275,8 +304,9 @@ fn name(data: &Data, q: u32) -> String {
 	data.quests.get(&q).and_then(|r| r.title()).map_or_else(|| q.to_string(), |t| format!("{t} ({q})"))
 }
 
-/// The rule on a route's order.
-pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, exempt: &Exempt) -> Fit {
+/// The rule on a route's order. `gates`: the written `level` gates (guide fixes), counted where they
+/// stand.
+pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, exempt: &Exempt, gates: &[Gate]) -> Fit {
 	let proj = Projector::new(frames);
 	let cx = Ctx { world, data, grid: grid(data, &proj), wq: world.quests.iter().enumerate().map(|(i, q)| (q.id, i)).collect() };
 	let mut o = order;
@@ -285,6 +315,49 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 	let lvl = |e: &Order| e.lvl.unwrap_or(0.0);
 	// (An event with no level, an old route's, is not judged.)
 	let judged = |e: &Order| e.t == OrderT::Task && e.lvl.is_some() && e.q.is_some_and(|q| !exempt.quests.contains(&q));
+	let at_gate = |e: &Order, g: &Gate| {
+		e.q == Some(g.quest)
+			&& match g.at {
+				GateAt::Accept => e.t == OrderT::Accept,
+				GateAt::Turnin => e.t == OrderT::Turnin,
+				GateAt::Work(n) => e.t == OrderT::Task && n.and_then(|n| cx.task_of(g.quest, n.saturating_sub(1))).is_none_or(|t| e.task == Some(t)),
+			}
+	};
+	// The level each event is played at: the route's, raised by the written gates before it (the XP a
+	// gate's grind gives stays with the player, less what the route's own top-ups grind after it).
+	let played = |o: &[Order]| -> Vec<f64> {
+		if gates.is_empty() {
+			return o.iter().map(lvl).collect();
+		}
+		let mut used = vec![false; gates.len()];
+		let mut off = 0.0f64;
+		let mut pending: Vec<f64> = Vec::new();
+		let mut out = Vec::with_capacity(o.len());
+		for (k, e) in o.iter().enumerate() {
+			let raw = total_xp(lvl(e));
+			for (gi, g) in gates.iter().enumerate() {
+				if !used[gi] && at_gate(e, g) {
+					used[gi] = true;
+					if g.after {
+						pending.push(g.level);
+					} else {
+						off = off.max(total_xp(g.level) - raw);
+					}
+				}
+			}
+			out.push(if off > 0.0 && e.lvl.is_some() { level_of(raw + off) } else { lvl(e) });
+			if let Some(nx) = o.get(k + 1) {
+				let next = total_xp(lvl(nx));
+				if e.t == OrderT::Level {
+					off = (off - (next - raw)).max(0.0);
+				}
+				for l in pending.drain(..) {
+					off = off.max(total_xp(l) - next);
+				}
+			}
+		}
+		out
+	};
 	// The planner's grind inside a task (its level step beyond the XP of the kills it counts: the
 	// model grinds to the work's level - 3 first), which the guide never writes.
 	let grind = |o: &[Order], m: usize| -> f64 {
@@ -301,9 +374,10 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 	// Each task's grind once the rule takes the task away from where the route has it: a later level is
 	// read without the grinds inside the work it takes out on the way.
 	let mut grinds: FxHashMap<(u32, Option<u32>), f64> = FxHashMap::default();
+	let mut eff = played(&o);
 	for m in 0..o.len() {
 		let e = &o[m];
-		if judged(e) && cx.need(e.q.unwrap_or(0), e.task, cx.pt(e)).is_some_and(|n| !n.fits(lvl(e))) {
+		if judged(e) && cx.need(e.q.unwrap_or(0), e.task, cx.pt(e)).is_some_and(|n| !n.fits(eff[m])) {
 			grinds.insert((e.q.unwrap_or(0), e.task), grind(&o, m));
 		}
 	}
@@ -316,12 +390,12 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 			continue;
 		}
 		let (q, t, p) = (e.q.unwrap_or(0), e.task, cx.pt(e));
-		let Some(need) = cx.need(q, t, p).filter(|n| !n.fits(lvl(e))) else {
+		let Some(need) = cx.need(q, t, p).filter(|n| !n.fits(eff[i])) else {
 			i += 1;
 			continue;
 		};
 		done.insert((q, t));
-		let here = lvl(e);
+		let here = eff[i];
 		// The route's later visit to the place where the task fits, while the quest still pays full XP.
 		let qlvl = cx.quest_level(q);
 		let mut j = None;
@@ -333,7 +407,7 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 			if k == i || !Ctx::near(cx.pt(x), p, VISIT_YD) {
 				continue;
 			}
-			let at = level_of((total_xp(lvl(x)) - g).max(0.0));
+			let at = level_of((total_xp(eff[k]) - g).max(0.0));
 			if qlvl.is_none_or(|ql| (at.floor() as i64) <= ql + QUEST_OVER) && cx.need(q, t, p).is_some_and(|n| n.fits(at)) {
 				j = Some(k);
 				break;
@@ -388,12 +462,13 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 			left_out.extend(gone_sorted);
 			let removed_before = o[..i].iter().filter(|x| x.q.is_some_and(|x| gone.contains(&x))).count();
 			o.retain(|x| !x.q.is_some_and(|x| gone.contains(&x)));
+			eff = played(&o);
 			i -= removed_before;
 			continue;
 		}
 		let jj = j.unwrap_or(i);
 		let anchor_desc = |x: &Order| format!("{:?} {}", x.t, x.q.map_or_else(String::new, |q| name(data, q))).to_lowercase();
-		let mut line = format!("level fit: {} task {} moved after {} ({gap}; fits there at {:.1})", name(data, q), t.map_or(0, |t| t + 1), anchor_desc(&o[jj]), lvl(&o[jj]));
+		let mut line = format!("level fit: {} task {} moved after {} ({gap}; fits there at {:.1})", name(data, q), t.map_or(0, |t| t + 1), anchor_desc(&o[jj]), eff[jj]);
 		// The accept goes with it when the route stands by its giver again on the way there.
 		let ai = (0..i).find(|&k| o[k].t == OrderT::Accept && o[k].q == Some(q));
 		let mut moving: Vec<usize> = vec![i];
@@ -447,6 +522,7 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 			}
 		}
 		o = out;
+		eff = played(&o);
 		log.push(line);
 		i = next_i.unwrap_or(o.len());
 	}
@@ -455,4 +531,73 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 
 fn o_lvl(keep: &[Option<Order>], k: usize) -> Option<f64> {
 	keep.get(k).and_then(|x| x.as_ref()).and_then(|x| x.lvl)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use serde_json::json;
+
+	/// A camp of six mobs of `lvl` (npc 100) on map 1, a quest (7) to kill eight of them, and the
+	/// route: its accept, the work and the hand-in at the route's level 21.6, with no later visit.
+	fn camp(lvl: u32) -> (World, Data, MapFrames, Vec<Order>) {
+		let frames = MapFrames::default();
+		let proj = Projector::new(&frames);
+		let spots = [(50.0, 50.0), (50.5, 50.0), (50.0, 50.5), (49.5, 50.0), (50.0, 49.5), (50.5, 50.5)];
+		let mut data = Data::default();
+		let npc: Entity = serde_json::from_value(json!({ "name": "Gnoll", "level": lvl, "spawns": { "1": { "pts": spots.iter().map(|&(x, y)| [x, y]).collect::<Vec<_>>() } } })).unwrap();
+		data.npcs.insert(100, npc);
+		let w = |x: f64, y: f64| {
+			let p = proj.point(1, x, y, Some(Frame::Era));
+			json!([p.c, p.c, p.wx, p.wy, 1])
+		};
+		let world: World = serde_json::from_value(json!({
+			"points": [w(10.0, 10.0), w(50.0, 50.0)],
+			"quests": [{ "id": 7, "giver": 0, "ender": 0, "tasks": [{ "work": [["kill", lvl, 8, 0, 0, 100]] }], "objs": [{ "oi": 0, "type": "kill", "id": 100, "task": 0 }] }]
+		}))
+		.unwrap();
+		let order: Vec<Order> = serde_json::from_value(json!([
+			{ "t": "accept", "q": 7, "pt": 0, "lvl": 21.6 },
+			{ "t": "task", "q": 7, "task": 0, "pt": 1, "lvl": 21.6 },
+			{ "t": "turnin", "q": 7, "pt": 0, "lvl": 22.0 }
+		]))
+		.unwrap();
+		(world, data, frames, order)
+	}
+
+	#[test]
+	fn a_written_level_gate_makes_the_work_after_it_fit() {
+		// #1052: the guide fix's `level 23` top-up at the Blackrock camps, which the rule did
+		// not see: at the route's 21.6 the level 24 gnolls are three over, so the quest was left out.
+		let (world, data, frames, order) = camp(24);
+		let none = fit(order.clone(), &world, &data, &frames, &Exempt::default(), &[]);
+		assert_eq!(none.left_out, [7], "{:?}", none.log);
+		let gate = Gate { quest: 7, at: GateAt::Accept, after: false, level: 23.0 };
+		let gated = fit(order.clone(), &world, &data, &frames, &Exempt::default(), &[gate]);
+		assert!(gated.left_out.is_empty() && gated.order.len() == 3, "{:?}", gated.log);
+		// (A gate right after the work counts only from there on: the work itself is still played at 21.6.)
+		let late = Gate { quest: 7, at: GateAt::Work(Some(1)), after: true, level: 23.0 };
+		assert_eq!(fit(order.clone(), &world, &data, &frames, &Exempt::default(), &[late]).left_out, [7]);
+		// (Before the work, at its objective: it fits.)
+		let at_work = Gate { quest: 7, at: GateAt::Work(Some(1)), after: false, level: 22.5 };
+		assert!(fit(order, &world, &data, &frames, &Exempt::default(), &[at_work]).left_out.is_empty());
+	}
+
+	#[test]
+	fn a_routes_own_top_up_after_a_gate_grinds_only_what_the_gate_has_not_given() {
+		// A gate to 22 at 21.6, then the route's own top-up from 21.7 to 22.7: the player, at 22.1 there,
+		// grinds to 22.7 like the route, not 0.4 levels past it, so level 25 mobs are still three over.
+		let (world, data, frames, mut order) = camp(25);
+		let level: Order = serde_json::from_value(json!({ "t": "level", "pt": 1, "lvl": 21.7, "target": 22.7 })).unwrap();
+		order.insert(1, level);
+		for (k, l) in [(1, 21.7), (2, 22.7), (3, 23.0)] {
+			order[k].lvl = Some(l);
+		}
+		let gate = Gate { quest: 7, at: GateAt::Accept, after: false, level: 22.0 };
+		let gated = fit(order.clone(), &world, &data, &frames, &Exempt::default(), &[gate]);
+		assert_eq!(gated.left_out, [7], "{:?}", gated.log);
+		// (A gate to 23 is past the top-up: the work is played at 23.)
+		let high = Gate { quest: 7, at: GateAt::Accept, after: false, level: 23.0 };
+		assert!(fit(order, &world, &data, &frames, &Exempt::default(), &[high]).left_out.is_empty());
+	}
 }

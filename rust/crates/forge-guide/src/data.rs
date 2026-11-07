@@ -112,6 +112,10 @@ pub struct Data {
 	pub faction_by_name: FxHashMap<String, Vec<V>>,
 	pub zone_by_name: FxHashMap<String, Vec<V>>,
 	pub has_xp: bool,
+	/// Elite quests players' recordings show done alone (forge_core::solo_elite), qualified at any
+	/// visit: quest -> its hand-in levels. From the checkout's data/route-fixes.json next to the
+	/// data folder (`deliberate.solo`), like the instance tables from ../sources.
+	pub solo_elite: FxHashMap<u32, forge_core::solo_elite::Runs>,
 	class_trainers: RefCell<Option<V>>,
 	roles: RefCell<FxHashMap<String, Vec<f64>>>,
 	/// Memo slots for ports that cache per data object (JS WeakMap/WeakSet keyed by data).
@@ -162,6 +166,7 @@ impl Data {
 			faction_by_name: FxHashMap::default(),
 			zone_by_name: FxHashMap::default(),
 			has_xp: false,
+			solo_elite: FxHashMap::default(),
 			class_trainers: RefCell::new(None),
 			roles: RefCell::new(FxHashMap::default()),
 			memo: RefCell::new(FxHashMap::default()),
@@ -548,7 +553,11 @@ pub fn load_data(dir: &std::path::Path) -> Result<Data, String> {
 	let sources = dir.join("..").join("sources");
 	let instances = crate::solo::load_instances(&sources);
 	let areas = crate::areas::load_areas(&sources);
-	Data::from_texts(&texts, instances, areas, Some(dir.to_string_lossy().into_owned()))
+	let mut d = Data::from_texts(&texts, instances, areas, Some(dir.to_string_lossy().into_owned()))?;
+	if let Ok(bytes) = std::fs::read(dir.join("..").join("route-fixes.json")) {
+		d.solo_elite = forge_core::solo_elite::qualified_in(&bytes);
+	}
+	Ok(d)
 }
 
 /// Whether dir holds any core file.
