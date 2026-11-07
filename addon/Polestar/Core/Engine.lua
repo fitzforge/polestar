@@ -1770,7 +1770,9 @@ end
 -- 1). With the quest not in the log (looked at ahead), the compiled
 -- objectives (`objs`: the quest data's text and count), at 0, or every one
 -- in once the goal is done; nil with neither (the window keeps "Complete
--- <quest>").
+-- <quest>"). The compiled text is the data's English: a translated client
+-- reads each as the name of what it counts (Own.objectiveName), and keeps
+-- "Complete <quest>" in its own words when one has no name to give.
 function Own.objectiveLines(goal, done)
 	local C, out = Compat(), {}
 	for _, o in ipairs(C.GetQuestObjectives(goal.quest) or NONE) do
@@ -1778,13 +1780,36 @@ function Own.objectiveLines(goal, done)
 		if text ~= "" then out[#out + 1] = { text = text, cur = math.min(o.numFulfilled, o.numRequired), max = o.numRequired } end
 	end
 	if #out > 0 then return out end
+	local translated = ns.Names.Localised()
 	for _, o in ipairs(type(goal.objs) == "table" and goal.objs or NONE) do
 		if type(o.text) == "string" and o.text ~= "" then
+			local text = o.text
+			if translated then
+				text = Own.objectiveName(goal.quest, text)
+				if not text then return nil end
+			end
 			local max = tonumber(o.count) or 1
-			out[#out + 1] = { text = o.text, cur = done and max or 0, max = max }
+			out[#out + 1] = { text = text, cur = done and max or 0, max = max }
 		end
 	end
 	return #out > 0 and out or nil
+end
+
+-- The client's name for objective `text` (the quest data's English) of quest
+-- q: the Codex's objective of q with that text, named by what it counts, its
+-- NPC, item or object (Polestar.Names). Nil for an event ("Sit near the
+-- campfire": no name to give), a name the client lacks, or without the Codex.
+Own.OBJECTIVE_NAMES = { kill = "Npc", item = "Item", object = "Object" }
+function Own.objectiveName(q, text)
+	local X = ns.Codex
+	local rec = X and X.Quest and X.Quest(q)
+	for _, o in ipairs(rec and rec.objectives or NONE) do
+		if o.text == text then
+			local kind = Own.OBJECTIVE_NAMES[o.type]
+			return kind and o.id and ns.Names[kind](o.id) or nil
+		end
+	end
+	return nil
 end
 
 -- The name of the item a `complete` goal's quest hands over (`startItem`,

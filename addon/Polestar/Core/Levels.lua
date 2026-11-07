@@ -327,7 +327,8 @@ end
 -- talk (never hard); with `work`, not its accept either (taking a quest is
 -- not doing it: the pace line points at the step that does). The active
 -- guide asks the Engine what applies (`when`, quests the route leaves out);
--- another, the steps' and goals' `only`. -> quest, level, title | nil
+-- another, the steps' and goals' `only`. -> quest, level, title (the
+-- client's, Polestar.Names, else the guide's) | nil
 local function stepQuest(g, s, p, work)
 	local step = g.steps[s]
 	if not (step and type(step.goals) == "table") then return nil end
@@ -351,7 +352,7 @@ local function stepQuest(g, s, p, work)
 		local l = open and Levels.QuestLevel(q, g)
 		if l and (not lvl or l > lvl) then best, lvl, title = q, l, goal.title end
 	end
-	return best, lvl, title
+	return best, lvl, best and ns.Names and ns.Names.Quest(best) or title
 end
 
 function Levels.StepHint(i, p)
