@@ -321,6 +321,7 @@ L["Hostile town: %s"] = "Ville hostile : %s"
 L["Ride the elevator up"] = "Prendre l'ascenseur pour monter"
 L["Ride the elevator down"] = "Prendre l'ascenseur pour descendre"
 L["Ride the elevator"] = "Prendre l'ascenseur"
+-- L["%s Inn"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1071,6 +1072,16 @@ L["%d:%02d left"] = "Reste %d:%02d"
 L["%s and %s"] = "%s et %s"
 L["The object here"] = "L'objet ici"
 L["Use %s:"] = "Utilisez %s :"
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "Lieu"
@@ -1284,6 +1295,8 @@ L["Click to show or hide the party panel."] = "Cliquez pour afficher ou masquer 
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "Ascenseur vers %s"
@@ -2035,6 +2048,8 @@ L["Did you mean:"] = "Vouliez-vous dire :"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"

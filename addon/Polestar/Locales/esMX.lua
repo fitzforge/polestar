@@ -578,6 +578,7 @@ L["Hostile town: %s"] = "Ciudad hostil: %s"
 -- L["Ride the elevator up"] = ""
 -- L["Ride the elevator down"] = ""
 -- L["Ride the elevator"] = ""
+-- L["%s Inn"] = ""
 
 -- QoL/Buttons.lua
 L["Target"] = "Objetivo"
@@ -1345,6 +1346,8 @@ L["Click to show or hide the party panel."] = "Haz clic para mostrar u ocultar e
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/Lookup.lua
 L["Loading the Codex\226\128\166"] = "Cargando el Codex…"
@@ -1724,6 +1727,8 @@ L["Did you mean:"] = "Tal vez buscabas:"
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -1949,6 +1954,16 @@ L["Druid"] = "Druida"
 -- L["%s and %s"] = ""
 L["The object here"] = "El objeto de aquí"
 L["Use %s:"] = "Usa %s:"
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"

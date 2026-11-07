@@ -320,6 +320,7 @@ L["Hostile town: %s"] = "敵對城鎮：%s"
 L["Ride the elevator up"] = "搭乘升降梯上去"
 L["Ride the elevator down"] = "搭乘升降梯下去"
 L["Ride the elevator"] = "搭乘升降梯"
+-- L["%s Inn"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1070,6 +1071,16 @@ L["Escort: if the NPC is not there, wait for it to respawn"] = "護送：如果 
 -- L["%s and %s"] = ""
 L["The object here"] = "這裡的物件"
 L["Use %s:"] = "使用%s："
+-- L["%s (part %d of %d)"] = ""
+-- L["%s, from %s"] = ""
+-- L["+%d more"] = ""
+-- L["Leads to"] = ""
+-- L["Chain ends with"] = ""
+-- L["%s (part %d)"] = ""
+-- L["Final reward"] = ""
+-- L["%s (%d parts)"] = ""
+-- L["%s and %d more"] = ""
+-- L["Skipping also skips: %s"] = ""
 
 -- UI/GuideFrame.lua
 L["Location"] = "位置"
@@ -1283,6 +1294,8 @@ L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+-- L["Left out because you skipped %s"] = ""
+-- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
 -- UI/JourneyPanel.lua
 L["Lift to %s"] = "前往 %s 的升降梯"
@@ -2034,6 +2047,8 @@ L["Did you mean:"] = "你是不是要找："
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+-- L["Wait for Spoken"] = ""
+-- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
