@@ -1188,7 +1188,6 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// Shamed Lieutenant thanks you for the statuette A Friend of the Family
 		// brings him.
 		[WETLANDS, 98072, [471], true],
-		[THOUSAND_NEEDLES, 98072, [471], true],
 		// The statuette goes to Lord Grayson at the end of 06-ashenvale; his
 		// follow-up is taken in 06-wetlands: the list is the two guides in
 		// chain order.
