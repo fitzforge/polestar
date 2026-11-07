@@ -394,13 +394,17 @@ pub fn fit(order: Vec<Order>, world: &World, data: &Data, frames: &MapFrames, ex
 		let jj = j.unwrap_or(i);
 		let anchor_desc = |x: &Order| format!("{:?} {}", x.t, x.q.map_or_else(String::new, |q| name(data, q))).to_lowercase();
 		let mut line = format!("level fit: {} task {} moved after {} ({gap}; fits there at {:.1})", name(data, q), t.map_or(0, |t| t + 1), anchor_desc(&o[jj]), lvl(&o[jj]));
-		// The accept goes with it when the route stands by its giver again on the way there.
+		// The accept goes with it when the route stands by its giver again on the way there, and no other
+		// work of the quest stays between them (Duskwood's Totem of Infliction: the fingers and the venom
+		// done before the moved fangs keep the accept where it is).
 		let ai = (0..i).find(|&k| o[k].t == OrderT::Accept && o[k].q == Some(q));
 		let mut moving: Vec<usize> = vec![i];
 		let skip: FxHashSet<usize> = ti.filter(|_| kt.is_some()).into_iter().chain(carry.iter().copied()).collect();
 		let acc_anchor = ai.and_then(|a| {
 			let pa = cx.pt(&o[a]);
-			(i + 1..=jj).rev().find(|k| !skip.contains(k) && Ctx::near(cx.pt(&o[*k]), pa, NPC_YD))
+			let k = (i + 1..=jj).rev().find(|k| !skip.contains(k) && Ctx::near(cx.pt(&o[*k]), pa, NPC_YD))?;
+			let stays = |m: usize| m != i && !skip.contains(&m) && o[m].q == Some(q);
+			(!(a + 1..=k).any(stays)).then_some(k)
 		});
 		if let (Some(a), Some(_)) = (ai, acc_anchor) {
 			moving.push(a);

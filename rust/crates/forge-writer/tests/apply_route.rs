@@ -10063,6 +10063,66 @@ fn level_fit_moves_work_to_the_later_visit_where_it_fits() {
 }
 
 #[test]
+fn level_fit_keeps_the_accept_before_work_it_leaves_in_place() {
+	// Duskwood's Totem of Infliction (101): the fingers and the venom fit the first visit, the ghoul fangs
+	// wait for the second. The route stands by the giver again before that visit, but the accept stays
+	// where it is: moving it there left the fingers and the venom collected for a quest not yet taken
+	// (the routes stage's pack check: "`collect` for quest 101 that is never accepted earlier").
+	let a = vec![
+		"guide t/a",
+		"title A",
+		"levels 10-15",
+		"zone Durotar",
+		"",
+		"step Hub",
+		"  accept 1",
+		"  accept 2",
+		"",
+		"step Boars",
+		"  kill 13 quest 1.1",
+		"",
+		"step Gnolls",
+		"  kill 10 quest 1.2",
+		"",
+		"step Hub again",
+		"  turnin 1",
+		"  accept 3",
+		"",
+		"step Wolves",
+		"  kill 12 quest 2.1",
+		"",
+		"step Hub last",
+		"  turnin 2",
+		"  turnin 3",
+		"",
+	];
+	let npcs: serde_json::Map<String, Value> = [camp(10, "Gnoll", 16, 16, 70.0, 50.0, 5), camp(12, "Wolf", 14, 14, 70.0, 51.0, 5), camp(13, "Boar", 11, 11, 40.0, 20.0, 5)].into_iter().collect();
+	let one = json!({ "id": 1, "pre": [], "objs": [{ "oi": 0, "type": "kill", "id": 13, "task": 0 }, { "oi": 1, "type": "kill", "id": 10, "task": 1 }],
+		"tasks": [{ "work": [["kill", 11, 5, 0, 0, 13]] }, { "work": [["kill", 16, 5, 0, 0, 10]] }] });
+	let c = Case {
+		files: vec![("a", a)],
+		route: json!({ "faction": "Horde", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "lvl": 10.0, "from": f("a", 7) }, { "t": "accept", "q": 2, "pt": 0, "lvl": 10.0, "from": f("a", 8) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 2, "lvl": 10.1, "from": f("a", 11) },
+			{ "t": "task", "q": 1, "task": 1, "pt": 1, "lvl": 10.2, "from": f("a", 14) },
+			{ "t": "turnin", "q": 1, "pt": 0, "lvl": 10.5, "from": f("a", 17) }, { "t": "accept", "q": 3, "pt": 0, "lvl": 10.5, "from": f("a", 18) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "lvl": 14.2, "from": f("a", 21) },
+			{ "t": "turnin", "q": 2, "pt": 0, "lvl": 15.0, "from": f("a", 24) }, { "t": "turnin", "q": 3, "pt": 0, "lvl": 15.0, "from": f("a", 25) }
+		] }),
+		world: level_world(json!([one, kill_quest(2, 12, 14, &[]), { "id": 3, "pre": [], "objs": [], "tasks": [] }])),
+		quests: json!({ "1": { "title": "One", "level": 16 }, "2": { "title": "Two", "level": 14 }, "3": { "title": "Three", "level": 12 } }),
+		npcs: Value::Object(npcs),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	let g = pick(&r.read("a"), r"^\s+(accept|turnin|kill)");
+	let at = |s: &str| g.iter().position(|l| l == s).unwrap_or_else(|| panic!("{s}: {:#?}\n{:#?}", r.read("a"), r.out.log));
+	assert!(at("  accept 1") < at("  kill 13 quest 1.1"), "{g:#?}\n{:#?}", r.out.log);
+	assert!(at("  kill 12 quest 2.1") < at("  kill 10 quest 1.2") && at("  kill 10 quest 1.2") < at("  turnin 1"), "{g:#?}");
+	assert!(r.out.log.iter().any(|l| l.starts_with("level fit: One (1) task 2 moved after task two (2)") && !l.contains("its accept with it")), "{:#?}", r.out.log);
+}
+
+#[test]
 fn level_fit_leaves_out_work_no_later_visit_fits() {
 	// Fangore's Galardell Valley (#977): Lieutenant Fangore (26) among gnolls of 22-25 at level 21.4, and the
 	// route never comes back at a level that fits: the quest, its hand-in and its follow-up go, and the

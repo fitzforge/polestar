@@ -107,15 +107,16 @@ step Menethil Harbor
 
 step Prospector Whelgar
   tip Follow the road east to Whelgar's Excavation Site.
-  accept 98216
+  accept 98216 optional
 
 step Goaz Warder
   tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
-  collect 279993 quest 98216.1        -- Titanic Keystone
+  tip Goaz Warder is elite: grouping up is advised.
+  collect 279993 quest 98216.1 optional -- Titanic Keystone
 
 step Prospector Whelgar
-  turnin 98216
-  accept 98310                        -- A new Goaz Stone, for the four titan watchers around the Wetlands
+  turnin 98216 optional
+  accept 98310 optional               -- A new Goaz Stone, for the four titan watchers around the Wetlands
 
 # ---------------------------------------------------------------- The Green Belt
 
@@ -133,18 +134,20 @@ step Angerfang Encampment
 
 step Golm
   tip Golm stands in the south-eastern hills: use the Goaz Stone beside it.
-  collect 280397 quest 98310.3        -- Heart of Golm
+  tip Golm is elite: grouping up is advised.
+  collect 280397 quest 98310.3 optional -- Heart of Golm
 
 step Dragonmaw Gates
   tip North-east to the Dragonmaw Gates: Ados stands at the gates (use the Goaz Stone).
-  collect 280395 quest 98310.1        -- Heart of Ados
+  tip Ados is elite: grouping up is advised.
+  collect 280395 quest 98310.1 optional -- Heart of Ados
 
 step Whelps, raptors and Neru
   tip Red whelps fill the hills west of the gates, Maddened Rotclaws the Green Belt, Razormaws the northern slopes; Neru stands in the north-east (use the Goaz Stone).
-  tip Carnage is elite: grouping up is advised.
+  tip Carnage and Neru are elite: grouping up is advised.
   collect 279385 quest 98072.1        -- Pristine Crimson Scale
   collect 280103 quest 98245.1        -- Razormaw Incisor
-  collect 280398 quest 98310.4        -- Heart of Neru
+  collect 280398 quest 98310.4 optional -- Heart of Neru
   collect 280331 quest 98283.1 optional -- Malignant Rotclaw Flesh
   collect 280330 quest 98283.2 optional -- Carnage's Head
 
@@ -157,7 +160,8 @@ step The Green Belt
 
 step Dun Modr
   tip North along the road to Dun Modr. Modr stands in the ruins (use the Goaz Stone); the Captive Fire Elemental is held on the west side: lead it out to Roggo Harlbarrow.
-  collect 280396 quest 98310.2        -- Heart of Modr
+  tip Modr is elite: grouping up is advised.
+  collect 280396 quest 98310.2 optional -- Heart of Modr
   accept 87491                        -- Captive Fire Elemental
   turnin 87491                        -- Roggo Harlbarrow
 
@@ -168,8 +172,8 @@ step The Villards
 
 step Prospector Whelgar
   tip Back south down the road to the excavation site.
-  turnin 98310
-  accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
+  turnin 98310 optional
+  accept 98313 optional               -- For Historian Karnik in Ironforge, at the end of this guide
 
 step Menethil Harbor
   tip West along the road to Menethil.
@@ -320,7 +324,7 @@ step Deeprun Tram
   tip Take the Deeprun Tram from the Dwarven District to Ironforge.
   turnin 514                          -- Prospector Stormpike, Hall of Explorers
   accept 525
-  turnin 98313                        -- Historian Karnik, Hall of Explorers
+  turnin 98313 optional               -- Historian Karnik, Hall of Explorers
   turnin 98300                        -- King Magni Bronzebeard, the High Seat
   accept 1453                         -- Roetten Stonehammer
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock -- Level 30 and 32 spells
