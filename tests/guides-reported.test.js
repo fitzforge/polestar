@@ -4803,3 +4803,11 @@ test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four reli
 	assert.equal(fragments.size, 1, 'all four fragments in one step');
 	assert.equal(stepOf('turnin 5211', is('turnin', 5211)), stepOf('turnin 5509', is('turnin', 5509)), 'with the Scourgestones');
 });
+
+// Flow review (2026-11-07): Alliance Western Plaguelands fetched the Annals from Andorhal and came back to the same
+// town for the Temporal Parasites on a later loop; Chromie takes both together.
+test('forever/alliance/50-60/04-western-plaguelands.guide: flow re-order: the Temporal Parasites on the Annals visit to Andorhal', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971), stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 'one Andorhal visit');
+});
