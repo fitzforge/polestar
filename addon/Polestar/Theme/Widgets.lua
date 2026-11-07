@@ -1052,6 +1052,7 @@ end
 ---------------------------------------------------------------------------
 
 local SLIDER_W, SLIDER_MIN, VALUE_W = 112, 64, 44
+local EDIT_W, EDIT_GAP = 52, 6 -- opts.edit's number field (valueEdit)
 
 local function roundTo(v, stepSize)
 	return floor(v / stepSize + 0.5) * stepSize
@@ -1073,6 +1074,8 @@ local function sliderPaint(self, value)
 	local frac = hi > lo and (v - lo) / (hi - lo) or 0
 	self.Fill:SetWidth(max(0.01, w * frac))
 	self.Value:SetText(sliderText(self, v))
+	local field = rawget(self, "ValueField")
+	if field and not field:HasFocus() then field:SetText(tostring(self.psEditGet())) end
 end
 
 local function sliderValue(self)
@@ -1107,7 +1110,8 @@ function W.SkinSlider(self)
 	if self.psRow then
 		self:SetHeight(max(W.RowH(), self.psDetails and self.psLaidH or 0))
 		s:SetWidth(self.psTrackW or Theme.Metric("sliderW", SLIDER_W))
-		self.Value:SetWidth(Theme.Metric("valueW", VALUE_W))
+		-- Not under what sliderSpan measured for the widest value ("1080 px  -  100%").
+		self.Value:SetWidth(max(Theme.Metric("valueW", VALUE_W), self.psValueW or 0))
 	end
 	self.Thumb:SetTexCoord(0, 1, 0, 1)
 	-- A row's label ends short of the slider: further in the game's looks,
@@ -1184,12 +1188,48 @@ local function sliderSpan(row, width)
 	v:SetText(shown or "")
 	local valueW = max(VALUE_W, math.ceil(need))
 	v:SetWidth(valueW)
-	local fixed = 12 + valueW + 8 + 10
+	row.psValueW = valueW
+	local fixed = 12 + valueW + 8 + 10 + (rawget(row, "ValueField") and EDIT_W + EDIT_GAP + 2 or 0)
 	local trackW = max(SLIDER_MIN, min(SLIDER_W, width - 12 - fixed - math.ceil(textWidth(row.Label))))
 	row.Slider:SetWidth(trackW)
 	row.psTrackW = trackW
 	sliderPaint(row)
 	return fixed + trackW
+end
+
+-- opts.edit = { get, set }: a number field, always shown, between the track and
+-- the value text (which then carries what follows the number, e.g. "px - 52%").
+-- Enter or leaving the field applies edit.set(n) (which clamps); Escape, an
+-- empty or a non-numeric field keep the old number. Without focus the field
+-- shows edit.get(). A slider without opts.edit has none of this.
+local function valueEdit(row, edit)
+	local e = CreateFrame("EditBox", nil, row)
+	e:SetSize(EDIT_W, 22)
+	e:SetAutoFocus(false)
+	e:SetNumeric(true)
+	e:SetMaxLetters(5)
+	e:SetJustifyH("RIGHT")
+	e:SetTextInsets(6, 6, 0, 0)
+	Theme.Font(e, "label")
+	W.Color(e, "text")
+	Theme.Skin(e, "editbox")
+	e:SetPoint("RIGHT", row.Value, "LEFT", -EDIT_GAP, 0)
+	row.Slider:ClearAllPoints()
+	row.Slider:SetPoint("RIGHT", e, "LEFT", -10, 0)
+	e:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true); self:HighlightText() end)
+	e:SetScript("OnEditFocusLost", function(self)
+		Theme.SetFocused(self, false)
+		self:HighlightText(0, 0)
+		local n, cancelled = tonumber(self:GetText()), self.psCancel
+		self.psCancel = nil
+		if not cancelled and n and W.Enabled(row) then edit.set(n) end
+		self:SetText(tostring(edit.get()))
+		sliderPaint(row)
+	end)
+	e:SetScript("OnEscapePressed", function(self) self.psCancel = true; self:ClearFocus() end)
+	e:SetScript("OnEnterPressed", function(self) self:ClearFocus() end)
+	e:SetText(tostring(edit.get()))
+	row.ValueField, row.psEditGet = e, edit.get
 end
 
 -- opts.release: write the value when the drag ends, not on every step (a
@@ -1214,7 +1254,11 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	s:SetScript("OnValueChanged", function(_, value, userInput)
 		value = roundTo(value, stepSize)
 		sliderPaint(row, value)
-		if userInput and not row.psRefreshing and W.Enabled(row) and sliderValue(row) ~= value then
+		-- Against the stored value rounded to the step: a setting kept finer than
+		-- the step (a height set by dragging) is not rewritten by a click on its thumb.
+		local cur = sliderValue(row)
+		if type(cur) == "number" then cur = roundTo(cur, stepSize) end
+		if userInput and not row.psRefreshing and W.Enabled(row) and cur ~= value then
 			if opts and opts.release then row.psPending = value else sliderWrite(row, value) end
 		end
 	end)
@@ -1238,6 +1282,7 @@ function W.Slider(parent, label, path, lo, hi, stepSize, fmt, desc, depends, opt
 	row:SetScript("OnEnter", rowEnter)
 	row:SetScript("OnLeave", hideTip)
 	row.Refresh = sliderRefresh
+	if opts and opts.edit then valueEdit(row, opts.edit) end
 	return W.Bind(row, path, depends)
 end
 
