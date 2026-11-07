@@ -1988,6 +1988,18 @@
 			{
 				"a": [
 					"turnin",
+					6143
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Desolace, #1097): the route takes Other Fish to Fry in Shadowprey and kills its naga at Sar'theris Strand in horde/30-40/01-desolace, then walked past Drulzegar Skraghook with it done (30 yd, step 28) and carried it into 04-dustwallow-marsh, which killed the naga again and handed it in about nine and a half hours later. Handed in on the Shadowprey stop with Clam Bait, before the guide leaves for Tarren Mill (Novice Thaivand's accept)."
+			},
+			{
+				"a": [
+					"turnin",
 					957
 				],
 				"b": [
@@ -2884,6 +2896,18 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"turnin",
+					1177
+				],
+				"b": [
+					"turnin",
+					1202
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Dustwallow Marsh, #1097): back from the Theramore docks, Mudcrush Durtfeet (Hungry!) and Nazeer Bloodpike (The Theramore Docks, The Severed Head) are one Brackenwall stop; the route made them two stops in a row."
 			},
 			{
 				"a": [

@@ -1539,6 +1539,20 @@ test(`${BADLANDS}: the same pattern as #89: Book of the Ancients is taken from A
 	assert.ok(take < at(list, "turnin 1454 (Karnitol's Chest)", is('turnin', 1454)), 'before the chest');
 });
 
+// --- Flow re-order (2026-11-07): Desolace killed Other Fish to Fry's naga at
+// Sar'theris Strand and walked past Drulzegar Skraghook in Shadowprey with the
+// quest done, carrying it into the Dustwallow guide, whose Desolace visit
+// killed the naga again and handed it in about nine hours later.
+test('forever/horde/30-40/01-desolace.guide: flow re-order: Other Fish to Fry is handed to Drulzegar on the Shadowprey stop after the naga, not in the Dustwallow guide', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-desolace.guide');
+	const kills = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 6143);
+	assert.equal(kills.length, 3, 'the three naga kinds are killed in the Desolace guide');
+	const turnin = at(list, 'turnin 6143 (Other Fish to Fry)', is('turnin', 6143));
+	assert.ok(kills.every(({ s }) => s < list[turnin].s), 'handed in after the naga');
+	assert.equal(list[turnin].s, list[at(list, 'turnin 6142 (Clam Bait)', is('turnin', 6142))].s, 'on the Shadowprey stop that hands Clam Bait to Mai\'Lahii, beside Drulzegar');
+	assert.ok(!goals('forever/horde/30-40/04-dustwallow-marsh.guide').some(({ goal }) => goal.quest === 6143), 'the Dustwallow guide neither kills the naga again nor hands it in');
+});
+
 // The same pattern elsewhere: a quest taken where the route already stands,
 // instead of on a walk back to its giver later.
 const STRANGLETHORN_HORDE = 'forever/horde/30-40/02-stranglethorn-vale.guide';
