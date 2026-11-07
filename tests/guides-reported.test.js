@@ -5233,3 +5233,17 @@ test('forever/horde/50-60/02-felwood.guide: final review: Marlene before Mulgris
 	assert.equal(fp.s, list[at(list, 'accept 6162', is('accept', 6162))].s, 'with the Bloodvenom Post quests');
 	assert.ok(!fp.step.goals.some((g) => g.optional), 'not in an optional step');
 });
+
+// Final route review, Horde 40-60: Morrowgrain Research was accepted, completed and handed in on one Thunder Bluff
+// step, but it wants ten Morrowgrain from an Evergreen Pouch with a ten-minute cooldown and soil the route has
+// spent: optional, as on the Alliance side. The Den Watchers and owlbeasts were "along the way" lists.
+test('forever/horde/50-60/03-winterspring.guide: final review: Morrowgrain optional, no along lists', { skip }, () => {
+	const file = 'forever/horde/50-60/03-winterspring.guide';
+	const list = goals(file);
+	for (const q of [3786, 3804]) {
+		for (const t of ['accept', 'complete']) assert.ok(list[at(list, `${t} ${q}`, is(t, q))].goal.optional, `${t} ${q} is optional`);
+	}
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const bashana = list[at(list, 'turnin 3782', is('turnin', 3782))].step;
+	assert.ok(!/Gorishi/.test(bashana.note || ''), 'no Gorishi warning in Thunder Bluff');
+});
