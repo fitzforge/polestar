@@ -4708,3 +4708,16 @@ test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then t
 	const crates = at(list, 'accept 91899', is('accept', 91899));
 	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < crates && at(list, 'turnin 5158', is('turnin', 5158)) < crates, 'Liv and Islen before the crates');
 });
+
+// Flow review, Horde 40-60 (#1166): Corin's Crossing on the ride south from Quel'Lithien Lodge, all three hand-ins to
+// Nathanos in one visit (it rode from the Marris Stead to the crossing and back); The Everlook Report at the Bulwark on
+// the way in (it waited two guides for another Bulwark stop).
+test('forever/horde/50-60/05-eastern-plaguelands.guide: flow re-order: Corin\'s Crossing before Nathanos, The Everlook Report at the Bulwark', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const rot = at(list, 'collect 15447', (g) => g.t === 'collect' && g.item === 15447);
+	const nathanos = at(list, 'turnin 6133', is('turnin', 6133));
+	assert.ok(rot < nathanos, 'Corin\'s Crossing before Nathanos');
+	assert.equal(list[at(list, 'turnin 6022', is('turnin', 6022))].s, list[nathanos].s, 'To Kill With Purpose on the same visit');
+	assert.ok(at(list, 'turnin 6029', is('turnin', 6029)) < at(list, 'turnin 5229', is('turnin', 5229)), 'the Bulwark on the way to Felstone Field');
+	assert.ok(!goals('forever/horde/50-60/06-silithus.guide').some(({ goal }) => is('turnin', 6029)(goal)), 'not carried to the Silithus guide');
+});
