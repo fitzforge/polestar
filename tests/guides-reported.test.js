@@ -5187,3 +5187,13 @@ test('forever/horde/40-50/04-tanaris.guide: final review: the lair before Tooga,
 	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
 	assert.ok(!compiled(file).steps.some((step) => /Kargath|next guide starts/.test(step.note || '')), 'no tip about Kargath or the next guide');
 });
+
+// Final route review, Horde 40-60: the stalkers and the scalpers were listed "along the way" ahead of the temples
+// step that does them, and the Revantusk stop before the Blasted Lands said the next guide starts there.
+test('forever/horde/40-50/05-the-hinterlands.guide: final review: no along lists, no next-guide tip mid-guide', { skip }, () => {
+	const file = 'forever/horde/40-50/05-the-hinterlands.guide';
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const list = goals(file);
+	assert.equal(list[at(list, 'kill 2926', (g) => g.t === 'kill' && g.npc === 2926)].s, list[at(list, 'kill 4466', (g) => g.t === 'kill' && g.npc === 4466)].s, 'stalkers and scalpers on the temples step');
+	assert.ok(!compiled(file).steps.some((step) => /next guide starts/.test(step.note || '')), 'no next-guide tip');
+});
