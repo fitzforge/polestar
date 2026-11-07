@@ -1432,7 +1432,10 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	// (By the fixes as loaded, which every pass below plans with: the file edited mid-build is not
 	// what the planner reads.)
 	let fixes_text = forge_sim::fixes::get().to_string();
-	let sim_text = format!("{} {}{}", env!("CARGO_PKG_VERSION"), o.search.key(), if o.deathskips { " deathskips" } else { "" });
+	// (The planner's flow flags, forge_core::flow_flags: a build with other flags searches again.)
+	let flow_planner = forge_core::flow_flags::key(&forge_core::flow_flags::PLANNER);
+	let sim_text = format!("{} {}{}{}", env!("CARGO_PKG_VERSION"), o.search.key(), if o.deathskips { " deathskips" } else { "" }, if flow_planner.is_empty() { String::new() } else { format!(" flow {flow_planner}") });
+	let flow_all = forge_core::flow_flags::key(&forge_core::flow_flags::ALL);
 	// The running program itself: a changed planner or writer reruns routes and everything after it
 	// (guides, legs and report key on the routes key) without a hand-bumped stage version. The search
 	// in it has its own key (routes_search_key: the planner's code, not the binary), so a writer
@@ -1555,7 +1558,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			Part::Grid(&l.grid),
 		];
 		// (The written check reads the walks with their extra pairs: the walks stage's key.)
-		let k_routes = routes_stage_key(&search_parts, &o.guides, &[Part::Text(&k_walks), Part::File(&exe), Part::File(&places_file), Part::File(&guide_fixes_file)]);
+		let k_routes = routes_stage_key(&search_parts, &o.guides, &[Part::Text(&k_walks), Part::File(&exe), Part::File(&places_file), Part::File(&guide_fixes_file), Part::Text(&flow_all)]);
 		// The guides stage's key, known before the routes stage runs: the written check's trees carry
 		// it (flow_stamp), so the guides stage takes a start's tree from its last written check when
 		// the route and every writer input are the ones it was written from.
