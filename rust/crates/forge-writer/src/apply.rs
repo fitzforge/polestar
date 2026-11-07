@@ -125,6 +125,8 @@ pub struct Inputs<'a> {
 	pub walks: Option<&'a dyn forge_sim::walks::Walks>,
 	/// The world's zone crossings: a written walk from one zone into another goes over them.
 	pub borders: Option<&'a crate::borders::Borders>,
+	/// The guide fixes' `level` gates (fixes::level_gates): the level fit counts them where they stand.
+	pub gates: &'a [crate::level_fit::Gate],
 }
 
 /// What apply_route wrote: the chain's guides (relative path, text), in chain order.
@@ -1303,7 +1305,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		ex.quests.extend(inp.route.groups.iter().filter_map(|g| g.q).chain(inp.route.groups.iter().flat_map(|g| g.quests.iter().copied())));
 		ex.quests.extend(crate::hub::fix_optional(inp.route.faction.as_deref()));
 		ex.quests.extend(crate::hub::fix_kept(inp.route.faction.as_deref()));
-		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex)
+		crate::level_fit::fit(inp.route.order.clone(), world, data, inp.frames, &ex, inp.gates)
 	};
 	log.extend(level_fit.log);
 	let level_left: Vec<u32> = level_fit.left_out;

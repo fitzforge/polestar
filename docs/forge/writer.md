@@ -320,6 +320,14 @@ be compared byte for byte with the old JavaScript writer.
   families, the route fixes' optional quests and the quests they keep or include are left to their
   records; an old route with no levels is not judged. Its records are the rule itself; a route build
   that should plan the levels without the quests gets `overrides.skip` lines too.
+
+  A written `level` gate counts where it stands: a guide fix's `level` (data/guide-fixes.json, before
+  or `after` its anchor goal) raises the level of every event from its anchor on to the gate, and the
+  XP that grind gives stays with the player, less what a top-up of the route's own grinds after it
+  (#1052: the `level 23` top-up at the Blackrock camps, which the rule did not see, so it
+  left out quests that fit at 23). The route's own top-ups and v1's `level` lines are in its `lvl`
+  already. A guide fix's `level` may be a partial level (`23.5`), written as such, as the route's own
+  top-ups are (`level 15.91`).
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within

@@ -1279,7 +1279,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
-/// plays it at, #977).
+/// plays it at, #977). `level` may be fractional (`23.5`: halfway into 23).
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1357,8 +1357,10 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"tip"
 			}
 			(true, false) => {
-				if !level.as_num().is_some_and(|n| n.fract() == 0.0 && (2.0..=60.0).contains(&n)) {
-					ck.err(format!("{at}.level"), format!("{} must be a level, 2 to 60", show(&level)));
+				// (A fraction is a partial level, written as such: `level 23.5`, which the compiler and
+				// the addon read like the route's own top-ups, `level 15.91`.)
+				if !level.as_num().is_some_and(|n| (2.0..=60.0).contains(&n) && ((n * 100.0).round() - n * 100.0).abs() < 1e-9) {
+					ck.err(format!("{at}.level"), format!("{} must be a level, 2 to 60 (a fraction in hundredths at most: 23.5)", show(&level)));
 				}
 				"level"
 			}
@@ -1601,6 +1603,20 @@ mod tests {
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		assert!(has("warning m quests.10.kinds[0].kind: teleport is not a kind"), "{f:#?}");
 		assert!(has("error m quests.10.steps[0].fact"), "{f:#?}");
+	}
+
+	#[test]
+	fn a_level_gate_may_be_a_partial_level() {
+		// #1052: a top-up to halfway into 23 is a gate the guides write as `level 23.5`.
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "checked""#;
+		let gate = |lv: &str| format!(r#"{{ "fixes": [ {{ "id": "1-l", "at": {{ "quest": 11, "goal": "turnin" }}, "level": {lv}, {src} }} ] }}"#);
+		for ok in ["23", "23.5", "15.91"] {
+			assert_eq!(record_findings(None, Some(&gate(ok))), Vec::<String>::new(), "{ok}");
+		}
+		for bad in ["23.555", "1.5", "60.5"] {
+			let f = record_findings(None, Some(&gate(bad)));
+			assert!(f.iter().any(|x| x.contains("fixes[0].level")), "{bad}: {f:#?}");
+		}
 	}
 
 	#[test]

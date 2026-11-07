@@ -102,6 +102,7 @@ fn run(c: &Case, area_at: Option<&dyn SubzoneOf>) -> Run {
 		solo_fallback: true,
 		walks: None,
 		borders: borders.as_ref(),
+		gates: &[],
 	})
 	.unwrap();
 	Run { out, guides }

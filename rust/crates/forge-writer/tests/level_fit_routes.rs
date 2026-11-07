@@ -51,7 +51,7 @@ fn level_fit_on_a_rounds_routes() {
 		ex.quests.extend(route.groups.iter().filter_map(|g| g.q).chain(route.groups.iter().flat_map(|g| g.quests.iter().copied())));
 		ex.quests.extend(forge_writer::hub::fix_optional(route.faction.as_deref()));
 		ex.quests.extend(forge_writer::hub::fix_kept(route.faction.as_deref()));
-		let fit = forge_writer::level_fit::fit(route.order.clone(), &world, &data, &frames, &ex);
+		let fit = forge_writer::level_fit::fit(route.order.clone(), &world, &data, &frames, &ex, &[]);
 		for l in &fit.log {
 			println!("{start}: {l}");
 		}
