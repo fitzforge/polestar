@@ -1460,6 +1460,120 @@ local function sight(st, P, a, b, water, limit, profile, hb, hostileOK, style, d
 	return k == P.k[b] and node == P.n[b]
 end
 
+-- Path.Sight's clusters: the ones its line has read and their use stamps before (reused, at most SIGHT_CLUSTERS).
+local SIGHT_CLUSTERS = 4
+local sightK, sightU, sightN = {}, {}, 0
+-- May Path.Sight read cluster k of st? true once it is decoded (its stamp kept to be put back); false for a cluster
+-- without data; nil while it is not decoded (Sight decodes nothing) or the line has read SIGHT_CLUSTERS already.
+local function sightCluster(st, k)
+	for i = 1, sightN do
+		if sightK[i] == k then
+			return true
+		end
+	end
+	local c = st.cl[k]
+	if c == nil or sightN >= SIGHT_CLUSTERS then
+		return nil
+	end
+	if not c then
+		return false
+	end
+	sightN = sightN + 1
+	sightK[sightN], sightU[sightN] = k, st.used[k]
+	return true
+end
+
+local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
+
+-- Polestar's arrow beside its path (Nav/Follow.lua `sight`): can a player standing at the world point (x1, y1) at
+-- height z1 on map walk straight to (x2, y2)? Walks every cell the segment between the two cells crosses, following
+-- the surface from the node under the start (the one nearest z1, within ZTOL), as the drawn line's straightening does
+-- (sight): never through a closed step (a wall, a cliff edge, a building's side), from one floor to another or into
+-- water, and on a map with classes never onto indoor or indoor city ground nor into a town hostile to profile ("Horde",
+-- "Alliance"; nil: none is). True when it reaches the end cell on a surface within ZTOL of z2 (any, z2 nil); false
+-- when blocked or the start stands on no surface within ZTOL of z1. Reads decoded clusters only, as Path.SurfacesAt:
+-- nil when the line (or a diagonal step's corner) touches one that is not, touches more than SIGHT_CLUSTERS, or
+-- leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's order and the
+-- reader's slot stay as they were), never yields and allocates nothing.
+---@param map number
+---@param x1 number
+---@param y1 number
+---@param z1 number
+---@param x2 number
+---@param y2 number
+---@param z2? number
+---@param profile? string
+---@return boolean?
+function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
+	local st = states[map]
+	if not (st and x1 and y1 and z1 and x2 and y2) then
+		return nil
+	end
+	local cs, C, ny, GX, GY = st.cs, st.C, st.ny, st.GX, st.GY
+	local gx, gy = floor((x1 - st.x0) / cs), floor((y1 - st.y0) / cs)
+	local tx, ty = floor((x2 - st.x0) / cs), floor((y2 - st.y0) / cs)
+	if gx < 0 or gy < 0 or gx >= GX or gy >= GY or tx < 0 or ty < 0 or tx >= GX or ty >= GY then
+		return nil
+	end
+	sightN = 0
+	local clock0 = useClock
+	local k = floor(gx / C) * ny + floor(gy / C)
+	local clear = sightCluster(st, k)
+	local node
+	if clear then
+		local gap
+		node, gap = surface(st, k, (gx % C) * C + gy % C, -1, z1, st.cl[k])
+		clear = node ~= nil and gap <= ZTOL
+	end
+	local hb = profile == "Horde" and Costs.HUB_ALLIANCE or profile == "Alliance" and Costs.HUB_HORDE or nil
+	local classed = st.classed
+	local dx, dy = tx - gx, ty - gy
+	local sx, sy = dx > 0 and 1 or -1, dy > 0 and 1 or -1
+	local nx, nyy = dx * sx, dy * sy
+	local x, y, ix, iy = gx, gy, 0, 0
+	while clear and (ix < nx or iy < nyy) do
+		local d = (1 + 2 * ix) * nyy - (1 + 2 * iy) * nx
+		local mx, my = 0, 0
+		if d == 0 then
+			mx, my = sx, sy
+		elseif d < 0 then
+			mx = sx
+		else
+			my = sy
+		end
+		-- The step's cells: its target, and a diagonal's two corners (stepOpen and diagonalOpen read them).
+		clear = sightCluster(st, floor((x + mx) / C) * ny + floor((y + my) / C))
+		if clear and mx ~= 0 and my ~= 0 then
+			clear = sightCluster(st, floor((x + mx) / C) * ny + floor(y / C))
+			if clear then
+				clear = sightCluster(st, floor(x / C) * ny + floor((y + my) / C))
+			end
+		end
+		if clear then
+			k, node = neighbour(st, k, node, x, y, mx, my, false)
+			if not k then
+				clear = false
+			elseif classed then
+				local cb = CLS[byte(st.cl[k].kind, node + 1)]
+				local base = cb % 8
+				if base == INDOOR_CLASS or base == CITY_CLASS or (hb and cb % (hb + hb) >= hb) then
+					clear = false
+				end
+			end
+		end
+		x, y = x + mx, y + my
+		ix, iy = ix + mx * sx, iy + my * sy
+	end
+	if clear and z2 then
+		clear = abs(zOf(st.cl[k], node) - z2) <= ZTOL
+	end
+	for i = 1, sightN do
+		st.used[sightK[i]] = sightU[i]
+	end
+	useClock = clock0
+	return clear
+end
+
 -- Collapse a node path to its turns, then pull the string: from each anchor, jump to the furthest point in sight.
 -- Water may only be crossed where the path itself swam. On a map with classes a straight segment replaces the path
 -- between two entries only over ground no costlier for profile in style (times the zone danger of danger, Path.lua's
