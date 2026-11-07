@@ -6921,6 +6921,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (#1159), Mulgore: arriving at the Crossroads from Mulgore, Tonga Runetotem at the south gate is first: The Barrens Oases is handed in and The Forgotten Pools taken from her at once (the order handed in to Sergra, came back to Tonga, then crossed the town twice more), then Sergra, the tower platform, Helbrim, Gazrog and the inn, in walking order"
+			},
+			{
+				"a": [
+					"accept",
+					1819
+				],
+				"b": [
+					"turnin",
+					362
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Tirisfal Glades: Warriors take Ulag the Cleaver from Deathguard Dillinger when they hand him The Mills Overrun on the Brill visit, before going into the inn; the order walked past him and came back for it"
 			}
 		]
 	}
