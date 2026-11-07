@@ -541,6 +541,10 @@ step Fly to Darkshire
   fly "Darkshire"
   zone Duskwood
 
+step Darkshire
+  zone Duskwood
+  turnin 1477                         -- Watchmaster Sorigal, by the flight master
+
 step Swamp of Sorrows
   zone Swamp of Sorrows
   goto 5.5,31.4 "Swamp of Sorrows"

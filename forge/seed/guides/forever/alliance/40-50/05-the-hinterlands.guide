@@ -80,8 +80,7 @@ step Aerie Peak
 step Darkshire
   zone Duskwood
   fly "Darkshire"
-  turnin 1477                         -- Watchmaster Sorigal
-  accept 1395
+  accept 1395                         -- Watchmaster Sorigal: Vital Supplies (1477) is handed in by the guide before
 
 # ---------------------------------------------------------------- The Blasted Lands
 

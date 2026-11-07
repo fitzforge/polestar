@@ -4742,3 +4742,17 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor 
 	assert.ok(turnin < stepOf('turnin 622', is('turnin', 622)), 'handed in on the way to the Rebel Camp');
 	assert.ok(turnin < stepOf('turnin 611', is('turnin', 611)), 'before the last Booty Bay stop');
 });
+
+// Flow review (2026-11-07): Alliance Stranglethorn 40-50 flew in to Darkshire 60 yards from Watchmaster Sorigal with
+// Vital Supplies and carried it to the next guide, whose Darkshire stop then took the Crate of Power Stones about
+// thirty steps before Nethergarde Keep: the crate lasts an hour.
+test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshire on the way into the swamp, the crate taken on the way to Nethergarde', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const s = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.ok(s(stv, 'turnin', 1477) < s(stv, 'accept', 1398), 'handed to Sorigal before Watcher Biggs');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	assert.ok(!hin.some(({ goal }) => is('turnin', 1477)(goal)), 'not carried into the next guide');
+	const accept = s(hin, 'accept', 1395);
+	assert.ok(accept > s(hin, 'turnin', 3763), 'the crate after Darnassus');
+	assert.ok(s(hin, 'turnin', 1395) - accept <= 4, 'the crate straight to Nethergarde Keep');
+});

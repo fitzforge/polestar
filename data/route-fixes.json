@@ -2970,6 +2970,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): Raptor Mastery (196) is handed to Hemet Nesingwary (35.7,10.8) on the ride from the north-west coast to the Rebel Camp, which passes his camp, and Tethis (197) is taken there, instead of a separate trip north from Booty Bay for the hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					1477
+				],
+				"b": [
+					"accept",
+					1398
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Vital Supplies (1477) is handed to Watchmaster Sorigal (75.8,46.2), 60 yards from the Darkshire flight master the guide lands at on the way into the Swamp of Sorrows, instead of being carried to the next guide's Darkshire stop."
 			}
 		],
 		"notes": [
@@ -7168,6 +7180,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (#1159), Zephras Isle: Valreaa's and Aetheen's hand-ins in Thendal Village come after the den and before Hanaa Nightwind, whose camp is on the road south to Shen'dar; the order went to Hanaa first and walked back north to the village"
+			},
+			{
+				"a": [
+					"turnin",
+					3763
+				],
+				"b": [
+					"accept",
+					1395
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Supplies for Nethergarde's Crate of Power Stones lasts an hour (item 6091, duration 3600 s; the quest text says to deliver it before the powerstones expire). The Hinterlands guide took it at Darkshire right after Stormwind, then went to Loch Modan, the Badlands and Darnassus before Nethergarde Keep. It is now taken at Darkshire on the way from Stormwind to the Blasted Lands, after the Darnassus stop, and handed in at the keep first."
 			}
 		]
 	}
