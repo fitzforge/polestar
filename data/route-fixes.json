@@ -2946,6 +2946,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Western Plaguelands 56, #1166): The Everlook Report goes to Argent Officer Garush at the Bulwark, which the ride from the Undercity into the Western Plaguelands passes; the order carried it to a Bulwark stop two guides later"
+			},
+			{
+				"a": [
+					"task",
+					4972
+				],
+				"b": [
+					"turnin",
+					5098
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Western Plaguelands 57-59, #1166): Chromie offers Counting Out Time when A Matter of Time is handed in; the lockboxes are in Andorhal's houses around her inn, so it is done then, instead of on a return to Chromie later in the guide"
 			}
 		],
 		"notes": [
