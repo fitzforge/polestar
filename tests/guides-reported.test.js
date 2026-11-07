@@ -5193,3 +5193,15 @@ test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Gleanin
 	assert.ok(mine.length >= 5, 'the four hearts and the hand-in');
 	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 98310 && !p.neg), `${goal.t} 98310 is under when group 98310`);
 });
+// Final route review, 30-40 (2026-11-07): Alliance Badlands 30-40 gathered Indurium's flakes and the buzzard wings, then
+// walked past Martek and Rigglefuzz from the Ancient Chest to Theldurin; both waited for the 40-50 Badlands guide.
+test('forever/alliance/30-40/06-badlands.guide: final review: Martek and Rigglefuzz on the walk from the Ancient Chest to Theldurin', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06-badlands.guide');
+	const chest = at(list, 'collect 4631', (g) => g.t === 'collect' && g.item === 4631);
+	const theldurin = at(list, 'turnin 709', is('turnin', 709));
+	for (const q of [1108, 703]) {
+		const i = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(chest < i && i < theldurin, `turnin ${q} between the chest and Theldurin`);
+	}
+	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => is('turnin', 1108)(goal) || is('turnin', 703)(goal)), 'not carried to 40-50');
+});

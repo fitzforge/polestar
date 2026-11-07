@@ -95,6 +95,12 @@ step The Ancient Chest
   tip Head north-east to the dwarven ruins in the north of the Badlands; the chest sits among the Shadowforge dwarves. Ambassador Infernus nearby is elite: give him room.
   collect 4631 quest 709              -- Tablet of Ryun'eh; below ground
 
+step Valley of Fangs
+  tip Head south down the road: Martek and Rigglefuzz camp in the Valley of Fangs, on the way to Agmond's End.
+  turnin 1108                         -- Martek the Exiled
+  accept 1137                         -- for Fizzle Brassbolts in the Shimmering Flats: the Tanaris guide crosses them at 45, keep it
+  turnin 703                          -- Rigglefuzz
+
 step Theldurin the Lost
   tip Head south to Agmond's End.
   turnin 709

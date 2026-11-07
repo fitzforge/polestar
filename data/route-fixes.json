@@ -3273,6 +3273,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Wu Shen (80.5,59.7) trains warriors in Old Town beside the Pig and Whistle, where Dashel Stonefist (74.3,59.2) waits; Warriors take The Islander on the Dashel stop, after Elling Trias in the Trade District, instead of walking from the flight master to Old Town, back to the Trade District for Elling and on to Old Town again."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"turnin",
+					709
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Indurium's flakes are gathered at Agmond's End at about 38, and the walk from the Ancient Chest (39.3,18.8) south to Theldurin (51.4,76.9) passes Martek in the Valley of Fangs (42.2,52.7); handed in there (News for Fizzle taken), as the seed has it, instead of at the 40-50 Badlands guide's Valley of Fangs stop about nine hours later."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"turnin",
+					709
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Rigglefuzz (42.4,52.9) stands beside Martek on the same walk; Barbecued Buzzard Wings, done at Agmond's End, is handed in there instead of nine hours later in the 40-50 Badlands guide."
 			}
 		],
 		"notes": [
