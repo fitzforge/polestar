@@ -677,6 +677,12 @@ impl<'a> Member<'a> {
 		self.ctxs.iter().map(|c| c.cur.total).sum()
 	}
 
+	/// The cost the search compares orders by: total() plus the flow price of the current order's
+	/// guard counts (guards::flow_pen; 0 without the `revisit` flow flag).
+	pub fn score(&self) -> f64 {
+		self.total() + crate::guards::flow_pen(&self.guard_now)
+	}
+
 	fn refresh(&mut self) {
 		self.in_order.fill(false);
 		for s in &self.order.steps {
@@ -874,7 +880,10 @@ impl<'a> Member<'a> {
 	/// summed seconds to 60 drop, no character's run gains a step that does nothing, and no
 	/// character's run takes a quest under its minimum level that the order did not (crate::gate).
 	fn replay(&mut self, p: &Problem, cand: &Order, a: usize, b: usize) -> Option<(Vec<Current>, crate::guards::GuardCounts)> {
-		let now = self.total();
+		// (Under the `revisit` flow flag the order is compared by its score, guards::flow_pen: a
+		// candidate may cost up to flow_head() model seconds before its guard counts are read.)
+		let (now_t, now) = (self.total(), self.score());
+		let head = crate::guards::flow_head();
 		// No training put inside a field stretch (order::field_trains).
 		let run = &p.model.run;
 		if crate::order::field_trains(run, &cand.steps) > crate::order::field_trains(run, &self.order.steps) {
@@ -892,7 +901,7 @@ impl<'a> Member<'a> {
 			}
 			pend.push(pd);
 		}
-		let limit = now - MIN_GAIN + self.allow;
+		let limit = now_t - MIN_GAIN + self.allow + head;
 		if sure && est >= limit {
 			return None;
 		}
@@ -934,12 +943,15 @@ impl<'a> Member<'a> {
 			// against the current order, each one added must also be paid for by RETURN_COST_SEC of
 			// the move's gain (one removed elsewhere does not pay for it).
 			let added = gc.added_returns(&self.guard_now);
-			let paid = now - total >= MIN_GAIN + f64::from(added) * crate::guards::RETURN_COST_SEC;
+			let paid = now_t - total >= MIN_GAIN + f64::from(added) * crate::guards::RETURN_COST_SEC;
 			let total_ok = gc.avoidable_returns <= bound.avoidable_returns;
 			if !ok || !total_ok || (added > 0 && !paid && !self.tie) || g.train_shifts(cand, &next[0]) > 0 {
 				self.stats.guard_rejected += 1;
 				return None;
 			}
+		}
+		if head > 0.0 && total + crate::guards::flow_pen(&gc) >= now - MIN_GAIN + self.allow {
+			return None;
 		}
 		Some((next, gc))
 	}
@@ -1541,16 +1553,16 @@ pub fn search(p: &Problem, seed: &Order, opts: &SearchOpts, ck: Option<&Unit>) -
 			(ms, 0)
 		}
 	};
-	let best_of = |ms: &[Member]| (0..ms.len()).min_by(|&a, &b| ms[a].total().total_cmp(&ms[b].total()).then(a.cmp(&b))).unwrap();
+	let best_of = |ms: &[Member]| (0..ms.len()).min_by(|&a, &b| ms[a].score().total_cmp(&ms[b].score()).then(a.cmp(&b))).unwrap();
 	let mut last_save = std::time::Instant::now();
 	for r in r0..rounds {
 		run_round(p, &mut ms, per_round);
 		// Meeting: the laggards continue from the best (ties: the lowest member).
 		let best = best_of(&ms);
-		let (bt, (before, rest)) = (ms[best].total(), ms.split_at_mut(best));
+		let (bt, (before, rest)) = (ms[best].score(), ms.split_at_mut(best));
 		let (b, after) = rest.split_first_mut().unwrap();
 		for m in before.iter_mut().chain(after.iter_mut()) {
-			if m.total() > bt {
+			if m.score() > bt {
 				m.take(b);
 			}
 		}
