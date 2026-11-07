@@ -10,9 +10,9 @@ next forever/alliance/06-ashenvale
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Hand-cut 2026-11-07 (Alliance 12-20 zone order): Darkshore's southern and last loops, after the
-# Eastern Kingdoms loop (03-loch-modan). The Hearthstone, bound in Auberdine on the first
-# Darkshore visit (03-darkshore), brings you back from Lakeshire. The route notes for both
-# Darkshore visits are in 03-darkshore.
+# Eastern Kingdoms loop (03-loch-modan), which ends on the boat from Stormwind (or the Hearthstone,
+# still bound in Auberdine from the first visit). The route notes for both Darkshore visits are in
+# 03-darkshore.
 #
 # Flow: Auberdine (the quests whose work is on these loops) -> Onu at the Grove -> the Master's
 # Glaive, Remtravel's dig, Murkdeep's beach -> the Grove -> Auberdine -> the Tower of Althalaxx,
@@ -23,7 +23,7 @@ next forever/alliance/06-ashenvale
 
 step Auberdine
   zone Darkshore
-  tip Use your Hearthstone: it is bound to the Auberdine inn. Barithras Moonshade and Terenthis stand by the inn, the WANTED poster outside it; Archaeologist Hollee and Sentinel Elissa Starbreeze at the north end of the village, Alanndarian Nightsong by the moonwell.
+  tip Barithras Moonshade and Terenthis stand by the inn, the WANTED poster outside it; Archaeologist Hollee and Sentinel Elissa Starbreeze at the north end of the village, Alanndarian Nightsong by the moonwell.
   accept 948                                  -- Barithras Moonshade
   accept 986                                  -- Terenthis
   accept 4740                                 -- The WANTED poster

@@ -24,8 +24,8 @@ next forever/alliance/03-darkshore-return
 # loop west and south of the lake -> the walk west through Goldshire (Smith Argus) to Sentinel
 # Hill -> Stormwind by gryphon (Shaw, General Marcus) and back -> Moonbrook, the lighthouse,
 # the traitor's escort -> the gryphon to Lakeshire -> the gnoll hills north of the lake ->
-# Lakeshire, then the Hearthstone back to Auberdine (bound there since the first Darkshore
-# visit).
+# Lakeshire, then back to Auberdine: the gryphon to Stormwind and the boat, or the Hearthstone
+# (still bound there since the first Darkshore visit).
 #
 # Left out: Crocolisk Hunting (385): its skins come only from Wetlands crocolisks (21+).
 # A Dark Threat Looms (161) goes on to Ashlan Stonesmirk at Whelgar's dig, three levels later.
@@ -106,7 +106,8 @@ step Ironband's Excavation
 step The dig site
   tip Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a Carved Stone Idol. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start Excavation Tools, then gather six.
   tip Careful: Berserk Troggs (19-20) enrage below 40% health.
-  accept 86613                                -- From the Excavation Tools you pick up
+  collect 278049 x1                           -- Excavation Tools: open a pile at the dig
+  accept 86613                                -- Right-click the Excavation Tools
   collect 2636 quest 297                      -- Carved Stone Idol
   collect 278398 quest 86613                  -- Excavation Tools
 
@@ -251,15 +252,25 @@ step Lakeshire
 
 # ---------------------------------------------------------------- Westfall
 
+step Goldshire
+  zone Elwynn Forest
+  tip West out of Redridge by Three Corners and along the road through Elwynn to Goldshire.
+  goto 42.1,65.9 "Goldshire"
+
 step Smith Argus
   zone Elwynn Forest
-  tip West out of Redridge by Three Corners and along the road through Elwynn to Goldshire: Smith Argus works at the smithy.
+  tip Smith Argus works at the Goldshire smithy.
   turnin 118                                  -- Smith Argus
   accept 119
 
+step Westfall
+  zone Westfall
+  tip West through Westbrook into Westfall.
+  goto 59.9,19.4 "Westfall"
+
 step Sentinel Hill
   zone Westfall
-  tip West through Westbrook into Westfall and down the road to Sentinel Hill. Gryan Stoutmantle stands at the top of the stone tower.
+  tip Down the road to Sentinel Hill. Gryan Stoutmantle stands at the top of the stone tower.
   turnin 132                                  -- Gryan Stoutmantle
   accept 135                                  -- For Master Mathias Shaw in Stormwind
 
@@ -326,7 +337,19 @@ step Redridge Canyons
   collect 1221 quest 122                      -- Underbelly Whelp Scale: Black Dragon Whelps
 
 step Lakeshire
-  tip Back down into town: Verner Osgood by the smithy, Foreman Oslow at the north end of the bridge. Then use your Hearthstone: it takes you back to Auberdine for Darkshore's southern loops.
+  tip Back down into town: Verner Osgood by the smithy, Foreman Oslow at the north end of the bridge.
   turnin 124                                  -- Verner Osgood
   turnin 122
   turnin 89                                   -- Foreman Oslow
+
+# ---------------------------------------------------------------- Back to Darkshore
+
+step Fly to Stormwind
+  zone Redridge Mountains
+  tip Back to Auberdine for Darkshore's southern loops: the gryphon to Stormwind, then the boat from the harbour.
+  goto 25.5,59.4 "Lakeshire flight master"
+  fly "Stormwind"
+
+step Boat to Auberdine
+  zone Stormwind City
+  goto 22.71,56.69 "Boat to Auberdine" live
