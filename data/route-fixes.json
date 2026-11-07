@@ -5978,6 +5978,103 @@
 				"q": 938,
 				"reason": "Quest volume, 2026-11-07: Mist (level 12, from 7, 910 XP) is taken on a visit the route already makes: Mist lies by the Oracle Glade's west wall among the harpies the loop kills; Sentinel Arynia takes her at the moonwell. Recordings: offered to 2 characters, 2 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 414,
+				"after": [
+					"turnin",
+					413
+				],
+				"reason": "Quest volume, 2026-11-07: Stout to Kadrell (level 10, from 8, 630 XP) is taken on a visit the route already makes: Mountaineer Barleybrew gives it when Shimmer Stout is handed in at the South Gate Outpost; Kadrell stands in Thelsamar, where the Loch Modan loop goes. Recordings: offered to 13 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 224,
+				"reason": "Quest volume, 2026-11-07: In Defense of the King's Lands (level 12, from 10, 910 XP) is taken on a visit the route already makes: Mountaineer Cobbleflint at the dwarven post just past the Loch Modan tunnel; the troggs camp north of it. Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 267,
+				"reason": "Quest volume, 2026-11-07: The Trogg Threat (level 12, from 10, 910 XP) is taken on a visit the route already makes: Captain Rugelfuss beside Cobbleflint at the tunnel post; the same troggs drop the teeth. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 416,
+				"after": [
+					"turnin",
+					414
+				],
+				"reason": "Quest volume, 2026-11-07: Rat Catching (level 11, from 10, 880 XP) is taken on a visit the route already makes: Mountaineer Kadrell in Thelsamar; the Tunnel Rat kobolds dig in the west hills on the way to the Algaz Station. Recordings: offered to 14 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 418,
+				"reason": "Quest volume, 2026-11-07: Thelsamar Blood Sausages (level 11, from 7, 880 XP) is taken on a visit the route already makes: Vidra Hearthstove in Thelsamar; the boars, bears and lurkers roam the west hills of the same loop. Recordings: offered to 9 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1339,
+				"after": [
+					"turnin",
+					414
+				],
+				"reason": "Quest volume, 2026-11-07: Mountaineer Stormpike's Task (level 15, from 9, 540 XP) is taken on a visit the route already makes: Mountaineer Kadrell in Thelsamar; Mountaineer Stormpike stands at the Algaz Station at the north end of the loop. Recordings: offered to 15 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 307,
+				"after": [
+					"turnin",
+					1339
+				],
+				"reason": "Quest volume, 2026-11-07: Filthy Paws (level 15, from 9, 1350 XP) is taken on a visit the route already makes: Mountaineer Stormpike at the Algaz Station; the crates are in the Silver Stream Mine beside it. Recordings: offered to 9 characters, 8 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1338,
+				"after": [
+					"turnin",
+					1339
+				],
+				"reason": "Quest volume, 2026-11-07: Stormpike's Order (level 14, from 9, 980 XP) is taken on a visit the route already makes: Mountaineer Stormpike; Furen Longbeard stands in Stormwind's Dwarven District, just outside the tram the route takes. Recordings: offered to 9 characters, 6 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6387,
+				"reason": "Quest volume, 2026-11-07: Honor Students (level 10, from 10, 210 XP) is taken on a visit the route already makes: Brock Stoneseeker in Thelsamar; Thorgrum Borrelson, the gryphon master, is on the same stop. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6391,
+				"after": [
+					"turnin",
+					6387
+				],
+				"reason": "Quest volume, 2026-11-07: Ride to Ironforge (level 10, from 10, 420 XP) is taken on a visit the route already makes: Thorgrum Borrelson in Thelsamar; Golnir Bouldertoe is in Ironforge, where the loop flies to. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6388,
+				"after": [
+					"turnin",
+					6391
+				],
+				"reason": "Quest volume, 2026-11-07: Gryth Thurden (level 10, from 10, 210 XP) is taken on a visit the route already makes: Golnir Bouldertoe in Ironforge; Gryth Thurden is the gryphon master the flight lands at. Recordings: offered to 4 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6661,
+				"reason": "Quest volume, 2026-11-07: Deeprun Rat Roundup (level 12, from 10, 910 XP) is taken on a visit the route already makes: Monty on the Ironforge platform of the Deeprun Tram, which the route rides to Stormwind. Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6662,
+				"after": [
+					"turnin",
+					6661
+				],
+				"reason": "Quest volume, 2026-11-07: Me Brother, Nipsy (level 12, from 10, 90 XP) is taken on a visit the route already makes: Monty; his brother Nipsy waits on the Stormwind platform of the same ride. Recordings: offered to 3 characters, 3 accepts.",
+				"issue": "-"
 			}
 		],
 		"skip": [
