@@ -4499,3 +4499,17 @@ test(`${ZEPHRAS_ALLIANCE}: flow re-order: Aetheen and Valreaa before Hanaa, on t
 	assert.ok(idx('turnin', 92473) < idx('accept', 92544), 'Valreaa before Hanaa');
 	assert.ok(idx('turnin', 92544) < idx('turnin', 92472), 'Hanaa before Shen\'dar');
 });
+
+// Flow re-order (2026-11-07): Alliance Hillsbrad 30-40 took only the Captive Fire Elemental at Dun Modr
+// on the way north and came back to the same camp for Longbraid, Rhag, Roggo and the Heart of Modr,
+// walking past the Villards twice.
+test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards on the way north, Ebenezer on the crossing`, { skip }, () => {
+	const list = goals(HILLSBRAD_ALLIANCE);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const dunModr = stepOf('accept', 87491);
+	for (const [t, q] of [['turnin', 472], ['accept', 631], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr, `${t} ${q} on the Dun Modr stop`);
+	assert.ok(list.some(({ goal, s }) => s === dunModr && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr there');
+	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < stepOf('accept', 647), 'the Villards between Dun Modr and the span');
+	assert.equal(stepOf('turnin', 631), stepOf('accept', 647), 'Ebenezer handed in on the crossing to Foggy MacKreel');
+	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
+});
