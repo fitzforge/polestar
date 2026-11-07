@@ -88,8 +88,8 @@ step Darkshire
   accept 66                               -- Madame Eva, inside
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
   turnin 66                               -- Clerk Daltry, in the town hall
-  accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
   accept 56                               -- Commander Althea Ebonlocke, in the town hall
+  accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
   accept 173                              -- Calor, by the town hall
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
