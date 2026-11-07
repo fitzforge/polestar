@@ -670,8 +670,9 @@ local fit = { fixed = 0, top = 0, outer = 0, room = math.huge, below = {}, rel =
 -- the window never passes `fit.limit`: past it, the body clips its lower
 -- lines at the bars; at least MIN_BODY_H of it stays.
 local MIN_BODY_H = 40
-local function sizeWindow(y)
-	local natural = floor(fit.outer + y + 0.5)
+-- `pad`: room the window keeps past its content (Fixed with the bar under the last goal, fit.follow).
+local function sizeWindow(y, pad)
+	local natural = floor(fit.outer + y + (pad or 0) + 0.5)
 	local height, limit = natural, fit.limit
 	if limit and natural > limit then height = max(floor(limit), floor(fit.outer + MIN_BODY_H + 0.5)) end
 	local cut = height < natural
@@ -761,7 +762,11 @@ do
 		local content = contentHeight()
 		-- Fixed: the view fills the room up to the height, the step short or not.
 		local fixedH = fit.fixedH and fit.room < math.huge
-		local viewH = fixedH and max(CARD.minView, fit.room) or min(content, max(CARD.minView, fit.room))
+		local fill = max(CARD.minView, fit.room)
+		local viewH, pad = min(content, fill), 0
+		if fixedH then
+			if fit.follow then pad = fill - viewH else viewH = fill end
+		end
 		-- Past the cap, the view gives up the part of a row that would not
 		-- fit, so its last scroll stop starts on a row as well. Not at the
 		-- top of the screen (fit.snap off): there the window must end exactly
@@ -790,7 +795,7 @@ do
 			f:SetPoint("TOPRIGHT", body, "TOPRIGHT", 0, at)
 		end
 		y = y + fit.h
-		sizeWindow(y)
+		sizeWindow(y, pad)
 	end
 
 	-- Scroll the goals area to `to` (clamped), gliding there unless `snap`.
@@ -2146,8 +2151,14 @@ local function placeBars(showFoot)
 		nav:SetPoint("BOTTOMRIGHT", strip, "TOPRIGHT", 0, 0)
 		foot:SetPoint("BOTTOMLEFT", nav, "TOPLEFT", 0, 0)
 		foot:SetPoint("BOTTOMRIGHT", nav, "TOPRIGHT", 0, 0)
-		body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
-		body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+		if fit.follow then
+			-- The goals sit on the bar, the free room above them.
+			body:SetPoint("BOTTOMLEFT", foot, "TOPLEFT", 0, 0)
+			body:SetPoint("BOTTOMRIGHT", foot, "TOPRIGHT", 0, 0)
+		else
+			body:SetPoint("TOPLEFT", F, "TOPLEFT", 0, 0)
+			body:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
+		end
 		band:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 1, 1)
 		band:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", -1, 1)
 	else
@@ -2155,10 +2166,22 @@ local function placeBars(showFoot)
 		strip:SetPoint("TOPRIGHT", F, "TOPRIGHT", 0, 0)
 		nav:SetPoint("TOPLEFT", strip, "BOTTOMLEFT", 0, 0)
 		nav:SetPoint("TOPRIGHT", strip, "BOTTOMRIGHT", 0, 0)
-		body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
-		body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
 		foot:SetPoint("BOTTOMLEFT", F, "BOTTOMLEFT", 0, 0)
 		foot:SetPoint("BOTTOMRIGHT", F, "BOTTOMRIGHT", 0, 0)
+		if fit.follow and ns.Get("ui.growUp") then
+			-- The goals sit on the bar at the pinned bottom edge, the free room above them.
+			body:SetPoint("BOTTOMLEFT", foot, "TOPLEFT", 0, 0)
+			body:SetPoint("BOTTOMRIGHT", foot, "TOPRIGHT", 0, 0)
+		else
+			body:SetPoint("TOPLEFT", nav, "BOTTOMLEFT", 0, 0)
+			body:SetPoint("TOPRIGHT", nav, "BOTTOMRIGHT", 0, 0)
+			if fit.follow then
+				-- The bar right under the last goal, the free room below it.
+				foot:ClearAllPoints()
+				foot:SetPoint("TOPLEFT", body, "BOTTOMLEFT", 0, 0)
+				foot:SetPoint("TOPRIGHT", body, "BOTTOMRIGHT", 0, 0)
+			end
+		end
 		band:SetPoint("TOPLEFT", F, "TOPLEFT", 1, -1)
 		band:SetPoint("TOPRIGHT", F, "TOPRIGHT", -1, -1)
 	end
@@ -2255,6 +2278,7 @@ function GF.Layout()
 		GF.xp:Hide()
 	end
 	local showFoot = state == "steps" or state == "complete"
+	fit.follow = showFoot and ns.Get("ui.heightMode") == "fixed" and ns.Get("ui.footAt") ~= "edge" or false
 	foot:SetShown(showFoot)
 	local stripH = showStrip and TAB_H or 0
 	fit.outer = stripH + NAV_H + (showFoot and PROG_H or 0)
@@ -3512,6 +3536,7 @@ local APPLY = {
 	-- Setting a height while Automatic switches to Fixed: the player asked for that height.
 	["ui.maxHeight"] = function() if ns.Get("ui.heightMode") == "auto" then ns.Set("ui.heightMode", "fixed") else GF.Layout() end end,
 	["ui.heightMode"] = function() GF.Layout() end,
+	["ui.footAt"] = function() GF.Layout() end,
 	-- Another way of reading the card: nothing kept from the one before.
 	["ui.wholeStep"] = function() resetModel(); GF.Render() end,
 	["ui.combat"] = function() GF.ApplyVisibility(); GF.ApplyAlpha(false) end,

@@ -8,3 +8,5 @@ section: players
   slider, by typing the pixels in the box beside it, or by dragging the grip
   up or down: it sits on the edge that moves (just over the top right with
   Grow upward), and a line with the pixels shows the height while you drag.
+  With Fixed, the progress bar stays right under the last goal (the free room
+  past it), or on the window's edge if you prefer.

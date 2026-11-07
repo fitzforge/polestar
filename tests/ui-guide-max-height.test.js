@@ -397,3 +397,49 @@ test('a focused field is not overwritten when the setting changes under it', () 
 		emit({ field = field:GetText() })`);
 	assert.equal(c.field, '77');
 });
+
+// Fixed with the progress bar under the last goal (ui.footAt "goals", the default) or on the edge.
+const ANCHORS = `
+local foot, body = GF.parts.foot, GF.parts.body
+local function at(f) local p, rel, rp = f:GetPoint(1); return { p = p, rp = rp, rel = rel == F and "F" or rel == body and "body" or rel == foot and "foot" or "other" } end
+local function snap() return { h = F:GetHeight(), cap = GF.CapHeight() - CT.Reserved(), body = body:GetHeight(), foot = at(foot), bodyAt = at(body) } end
+`;
+
+test('Fixed: on a short step the progress bar sits right under the last goal, the free room below it, the window still the height', () => {
+	const [c] = run(`${ANCHORS}
+		Polestar.Set("ui.heightMode", "fixed")
+		Polestar.Set("ui.maxHeight", 0.8)
+		short()
+		emit(snap())`);
+	assert.deepEqual(c.foot, { p: 'TOPLEFT', rp: 'BOTTOMLEFT', rel: 'body' }, 'the bar hangs from the goals');
+	assert.equal(c.h, c.cap, 'the window keeps its height: ' + JSON.stringify(c));
+	assert.ok(c.body < c.cap - 200, 'the goals keep to their own height: ' + JSON.stringify(c));
+});
+
+test('Fixed with Grow upward: the goals sit on the bar at the pinned bottom edge, the free room above them', () => {
+	const [c] = run(`${ANCHORS}
+		Polestar.Set("ui.heightMode", "fixed")
+		Polestar.Set("ui.maxHeight", 0.8)
+		Polestar.Set("ui.growUp", true)
+		short()
+		emit(snap())`);
+	assert.deepEqual(c.foot, { p: 'BOTTOMLEFT', rp: 'BOTTOMLEFT', rel: 'F' }, 'the bar on the pinned edge');
+	assert.deepEqual(c.bodyAt, { p: 'BOTTOMLEFT', rp: 'TOPLEFT', rel: 'foot' }, 'the goals on the bar');
+	assert.equal(c.h, c.cap);
+});
+
+test('Fixed with the bar on the edge, and Follows the step: the bar on the window edge as before', () => {
+	const [edge, fit] = run(`${ANCHORS}
+		Polestar.Set("ui.heightMode", "fixed")
+		Polestar.Set("ui.maxHeight", 0.8)
+		Polestar.Set("ui.footAt", "edge")
+		short()
+		emit(snap())
+		Polestar.Set("ui.footAt", "goals")
+		Polestar.Set("ui.heightMode", "fit")
+		emit(snap())`);
+	assert.deepEqual(edge.foot, { p: 'BOTTOMLEFT', rp: 'BOTTOMLEFT', rel: 'F' });
+	assert.equal(edge.h, edge.cap);
+	assert.deepEqual(fit.foot, { p: 'BOTTOMLEFT', rp: 'BOTTOMLEFT', rel: 'F' }, 'Follows the step is unchanged');
+	assert.deepEqual(fit.bodyAt.rel, 'other', 'the goals under the step bar, as before');
+});
