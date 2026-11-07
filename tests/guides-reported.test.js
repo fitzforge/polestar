@@ -5266,3 +5266,18 @@ test('forever/horde/40-50/02-feralas.guide: final review: Zukk\'ash Report on th
 	assert.equal(report.s, list[at(list, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru\'s hand-in, in Orgrimmar');
 	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7732)(goal)), 'not carried to the Azshara guide');
 });
+
+// Final route review, Horde 40-60: the snapper claws were an "along the way" list from the Pool of Tears; the
+// snappers share the east coast's strand with the Monstrous Crawlers, so both are the coast step's work. A tip at
+// Misty Reed Post said the next guide starts there, and a note about The Sunken Temple came before its accept.
+test('forever/horde/40-50/03-feralas.guide: final review: the snapper claws on the coast step, no stray next-guide tip or Sunken Temple note', { skip }, () => {
+	const file = 'forever/horde/40-50/03-feralas.guide';
+	const list = goals(file);
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	const claws = list[at(list, 'collect 6168', (g) => g.t === 'collect' && g.item === 6168)];
+	assert.equal(claws.s, list[at(list, 'collect 6184', (g) => g.t === 'collect' && g.item === 6184)].s, 'with the crawler legs');
+	assert.ok(!compiled(file).steps.some((step) => /next guide starts here/.test(step.note || '')), 'no next-guide tip mid-guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Sunken Temple/.test(goal.text || goal.note || '')), 'no Sunken Temple note');
+	const last = list.map((e, i) => i).filter((i) => is('turnin', 3128)(list[i].goal)).pop();
+	assert.ok(at(list, 'turnin 7734', is('turnin', 7734)) < last && list[at(list, 'turnin 7734', is('turnin', 7734))].s === list[last].s, 'Jangdor first on the last Mojache stop, coming in from the north-west');
+});
