@@ -7,8 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Auberdine
-	-- {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "船停靠在村子西边。飞行管理员站在旅店南边的山丘上；任务给予者分布在主街上。{npc:3666}在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
+	-- {npc:3644} Cerellean Whiteclaw · {npc:2913} Archaeologist Hollee · {npc:3649} Thundris Windweaver · {npc:3666} Wizbang Cranktoggle
+	["The boat docks west of the village: {npc:3644} waits where the pier meets the shore. Go up to {npc:2913} and {npc:3649} at the north end of the village first, then down the main street to the inn. The flight master stands on the hill south of the inn. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "船停靠在村子西边：{npc:3644}在码头与岸边相接处等候。先上去找村子北端的{npc:2913}和{npc:3649}，再沿主街下到旅店。飞行管理员站在旅店南边的山丘上。{npc:3666}在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
+	-- {npc:3644} Cerellean Whiteclaw
+	["{npc:3644}, on the pier"] = "{npc:3644}，在码头上",
 	-- {npc:3649} Thundris Windweaver
 	["{npc:3649}, north end of the village"] = "{npc:3649}，在村子北端",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
@@ -17,8 +19,8 @@ return {
 	["The WANTED poster"] = "通缉布告",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}，在旅店楼上",
-	-- {npc:3644} Cerellean Whiteclaw
-	["{npc:3644}, on the pier"] = "{npc:3644}，在码头上",
+	-- {npc:10216} Gubber Blump
+	["{npc:10216}, on the pier"] = "{npc:10216}，在码头上",
 	-- {npc:10216} Gubber Blump · {skill:356} Fishing
 	["{npc:10216}, on the pier: only with {skill:356}"] = "{npc:10216}，在码头上：需要{skill:356}",
 
@@ -111,22 +113,16 @@ return {
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder
 	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}."] = "{npc:2167}和黑木风语者占据着{area:442}东南方的营地。",
 
-	-- Step 20: The southern beaches
-	["The southern beaches"] = "南部海滩",
-	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
-	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
-	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。更西南方的灰雾智者和灰雾潮行者（18-20级）之间还有三具遗骸：指南把它们留到最后一轮，那时你的等级更接近它们。",
-
-	-- Step 21: The Ancient Flame
+	-- Step 20: The Ancient Flame
 	-- {object:16393} Ancient Flame
 	["The {object:16393}"] = "{object:16393}",
 	-- {area:447} Ameth'Aran
 	["The flame burns in the south of {area:447}."] = "火焰在{area:447}南部燃烧。",
 
-	-- Step 22: The red crystal
+	-- Step 21: The red crystal
 	["Back north-east into the mountains to the crystal."] = "向东北回到山里的水晶处。",
 
-	-- Step 23: Cliffspring Falls
+	-- Step 22: Cliffspring Falls
 	-- {area:456} Cliffspring River · {area:443} Ruins of Mathystra · {quest:954} Bashal'Aran
 	["Follow the hills north to the {area:456} and up to the falls. Two more beached remains lie on the north shore: near the {area:443} and north of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有两具搁浅的遗骸：在{area:443}附近和{quest:954}北边。",
 	-- {item:12349} Cliffspring River Sample
@@ -136,17 +132,15 @@ return {
 	-- {item:12237} Fine Crab Chunks · {npc:2233} Encrusted Tide Crawler · {npc:2235} Reef Crawler
 	["{item:12237} from {npc:2233} and {npc:2235}, by this stop"] = "{item:12237}：掉落自此处附近的{npc:2233}和{npc:2235}",
 
-	-- Step 25: Auberdine
+	-- Step 24: Auberdine
 	-- {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell
 	["{item:12347}: fill the {item:12346} at the {object:174795}"] = "{item:12347}：在{object:174795}装满{item:12346}",
-	-- {npc:10216} Gubber Blump
-	["{npc:10216}, on the pier"] = "{npc:10216}，在码头上",
 
-	-- Step 26: Mist's Edge
+	-- Step 25: Mist's Edge
 	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
 	["Thresher Eyes; underwater"] = "",
 
-	-- Step 27: The bay wrecks
+	-- Step 26: The bay wrecks
 	["The bay wrecks"] = "海湾沉船",
 	-- {area:442} Auberdine
 	-- plural, as words: Reef Crawlers = {npc:2235} Reef Crawler · Encrusted Tide Crawlers = {npc:2233} Encrusted Tide Crawler
@@ -156,7 +150,7 @@ return {
 	-- {item:12192} Mist Veil's Lockbox
 	["{item:12192}; underwater"] = "",
 
-	-- Step 29: Darkshore: kill these as you meet them
+	-- Step 28: Darkshore: kill these as you meet them
 	-- {zone:1439} Darkshore
 	["{zone:1439}: kill these as you meet them"] = "",
 	-- {quest:954} Bashal'Aran · {quest:1002} Buzzbox 323
@@ -164,7 +158,7 @@ return {
 	-- plural, as words: Moonstalker Fangs = {item:5413} Moonstalker Fang
 	["Moonstalker Fangs"] = "{item:5413}",
 
-	-- Step 31: The cave and the Den Mother
+	-- Step 30: The cave and the Den Mother
 	-- {npc:6788} Den Mother
 	["The cave and the {npc:6788}"] = "洞穴和{npc:6788}",
 	-- {item:5270} Death Cap · {npc:6788} Den Mother
@@ -175,7 +169,7 @@ return {
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "",
 
-	-- Step 32: The northern Blackwood camp
+	-- Step 31: The northern Blackwood camp
 	["The northern Blackwood camp"] = "北边的黑木营地",
 	-- {area:456} Cliffspring River · {item:12347} Filled Cleansing Bowl · {item:12346} Empty Cleansing Bowl · {object:174795} Auberdine Moonwell · {item:12355} Talisman of Corruption
 	["The furbolg camp south of the {area:456} keeps its Nut, Fruit and Grain Stores by the bonfires. With a sample of each and the {item:12347} in your bags (the {item:12346} is filled at the {object:174795}), use the bowl by the bonfire closest to the river: it summons Xabraxxis, the satyr corruptor, and the {item:12355} lies in his Demon Bag."] = "{area:456}南边的熊怪营地里，坚果、水果和谷物储存在篝火旁。各取一份样本，并备好{item:12347}（在{object:174795}装满{item:12346}），然后在离河流最近的篝火旁使用净化碗，召出腐化熊怪的萨特萨巴克希斯。{item:12355}在他的恶魔之包里。",
@@ -183,23 +177,23 @@ return {
 	-- {item:12355} Talisman of Corruption · {object:177624} Xabraxxis' Demon Bag
 	["{item:12355}, in {object:177624}"] = "{item:12355}，在{object:177624}里",
 
-	-- Step 33: The cave and the Den Mother
+	-- Step 32: The cave and the Den Mother
 	["Careful: If you attack one cub, the other cubs and often the mother join the fight, so expect to take on several at the same time."] = "",
 	-- {npc:6788} Den Mother
 	["{npc:6788}, below ground"] = "",
 
-	-- Step 36: Onu
+	-- Step 35: Onu
 	-- {quest:948} Onu · {npc:270269} Arbal · {npc:11218} Kerlonian Evershade
 	["{quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "",
 
-	-- Step 37: Lunar Fungus and Earthroot
+	-- Step 36: Lunar Fungus and Earthroot
 	-- {item:15851} Lunar Fungus · {item:2449} Earthroot
 	["{item:15851} and {item:2449}"] = "{item:15851}和{item:2449}",
 	-- {area:442} Auberdine · {item:2449} Earthroot · {skill:182} Herbalism · {zone:1439} Darkshore · {zone:1453} Stormwind · {npc:1313} Maria Lumere
 	-- plural, as words: Lunar Fungal Blooms = {object:177750} Lunar Fungal Bloom
 	["The Lunar Fungal Blooms grow in the moonkin caves in the hills just east of {area:442}; the moonkin there are irritable. {item:2449} needs {skill:182}: herbalists pick it all over {zone:1439}, anyone else brings it from {zone:1453} ({npc:1313}) or the Auction House."] = "{object:177750}生长在{area:442}东边山丘上的枭兽洞穴里；那里的枭兽很暴躁。{item:2449}需要{skill:182}：草药师在{zone:1439}各处都能采到，其他人从{zone:1453}（{npc:1313}）或拍卖行带来。",
 
-	-- Step 38: The Grove of the Ancients
+	-- Step 37: The Grove of the Ancients
 	-- {quest:952} Grove of the Ancients
 	["The {quest:952}"] = "",
 	-- {quest:1003} Buzzbox 525
@@ -208,7 +202,7 @@ return {
 	-- plural, as words: Grizzled Scalps = {item:5414} Grizzled Scalp
 	["Grizzled Scalps"] = "{item:5414}",
 
-	-- Step 39: The Master's Glaive
+	-- Step 38: The Master's Glaive
 	-- {object:10076} Scrying Bowl · {object:12666} Twilight Tome · {npc:3584} Therylune
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["Moonstalker Sires prowl the woods around the glaive. The {object:10076} and the {object:12666} sit at the bottom of the crater; {npc:3584} stands on its north side."] = "{npc:2237}在主宰之剑周围的树林里潜行。{object:10076}和{object:12666}在陨坑底部；{npc:3584}站在陨坑北侧。",
@@ -226,22 +220,27 @@ return {
 	-- plural, as words: Twilight Disciples = {npc:2338} Twilight Disciple
 	["{item:279279}: Twilight Disciples and Thugs"] = "{item:279279}：暮光信徒和暮光暴徒",
 
-	-- Step 40: Prospector Remtravel
+	-- Step 39: Prospector Remtravel
 	-- {area:450} Remtravel's Excavation · {npc:10323} Murkdeep
 	["{area:450} lies on the coast south of {npc:10323}'s beach. Protect the prospector while he searches for the fossil.\nCareful: Ambushers appear as he passes certain spots: a scout comes out from under the board ramp, and more scouts come out when he checks the tent."] = "",
 
-	-- Step 41: Level 18.47
+	-- Step 40: Level 18.47
 	["Level 18.47"] = "",
 	-- {quest:952} Grove of the Ancients
 	["Top up here to level 18.47 before the hand-ins at {quest:952}: they take you to level 19."] = "",
 	-- {npc:2339} Twilight Thug
 	["grind on {npc:2339}"] = "",
 
-	-- Step 42: Murkdeep's beach
+	-- Step 41: Murkdeep's beach
 	-- {npc:10323} Murkdeep
 	["{npc:10323}'s beach"] = "{npc:10323}的海滩",
 	-- {npc:10323} Murkdeep · {area:450} Remtravel's Excavation
-	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of {area:450}."] = "{npc:10323}在主宰之剑西边的海滩上扎营：击杀营火旁的鱼人；他会在第三波带着猎犬出现。{area:450}西边和西南边的海滩上还有三具搁浅的遗骸。",
+	["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Four beached remains lie on the beaches west and south-west of {area:450}: take them on the way north to his camp."] = "",
+
+	-- Step 44: The shore west of the Grove
+	["The shore west of the Grove"] = "",
+	-- {area:442} Auberdine · {quest:4728} Beached Sea Creature
+	["On the way north to {area:442}, the last {quest:4728} lies on the shore west of the Grove."] = "",
 
 	-- Step 45: Auberdine
 	["Follow the road north."] = "沿道路向北。",
@@ -347,6 +346,7 @@ return {
 	-- ["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}在{area:2361}；如果还没有那里的飞行路线，就去学习。",
 	-- ["Follow the coast north-east to the {area:443}. {quest:951} lie among the ruins; Stormscale Myrmidons, Sorceresses and Warriors hold them."] = "沿海岸向东北到{area:443}。{quest:951}散落在废墟中；{npc:2181}、雷鳞巫师和雷鳞战士占据着那里。",
 	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。",
+	-- ["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "沿海岸向南经过{area:447}：一只{quest:4728}躺在古树之林西边的岸上，另一只在更南边的{area:450}附近。更西南方的灰雾智者和灰雾潮行者（18-20级）之间还有三具遗骸：指南把它们留到最后一轮，那时你的等级更接近它们。",
 	-- ["Follow the hills north to the {area:456} and up to the falls. Three more beached remains lie on the north shore: near the {area:443}, north of {quest:954} and west of {quest:954}."] = "沿山丘向北到{area:456}，再往上到瀑布。北岸还有三具搁浅的遗骸：在{area:443}附近、{quest:954}北边和{quest:954}西边。",
 	-- ["Follow the road south. {quest:948} is the ancient at the Grove; {npc:270269} and {npc:11218} sleep beside him."] = "沿道路向南。{quest:948}是古树之林的古树；{npc:270269}和{npc:11218}睡在他旁边。",
 	-- ["Hearth to {area:442}"] = "用炉石返回{area:442}",
@@ -355,7 +355,9 @@ return {
 	-- ["Read both tablets"] = "阅读两块石板",
 	-- ["Scaber Stalks"] = "{item:5271}",
 	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "船停靠在村子西边。飞行管理员站在旅店南边的山丘上；任务发布者分布在主街上。",
+	-- ["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "船停靠在村子西边。飞行管理员站在旅店南边的山丘上；任务给予者分布在主街上。{npc:3666}在旅店楼上：从室内楼梯上去，箭头无法区分楼层。",
 	-- ["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls; {object:177624} lies at the satyr camp north of her."] = "洞穴在瀑布南边：整个洞里都长着{item:5271}，{item:5270}在最深处。{npc:6788}的巢穴在瀑布南边的山丘上；{object:177624}在她北边的萨特营地。",
+	-- ["The southern beaches"] = "南部海滩",
 	-- ["The {area:448}"] = "{area:448}",
 	-- ["Thresher Eyes"] = "{item:5412}",
 	-- ["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {quest:4723} lies on the shore just south of the village."] = "{npc:2232}在村子下方的岸边爬行；{quest:983}立在码头南边的海滩上。{npc:2185}在浅水中游动。{quest:4723}躺在村子南边的岸上。",
@@ -364,6 +366,7 @@ return {
 	-- ["{item:12289}, on the beach west of the docks"] = "{item:12289}，在码头西边的海滩上",
 	-- ["{item:15883}: the {object:177790} under the water off the north coast, west of the ruins"] = "{item:15883}：在废墟西边、北部海岸外水下的{object:177790}",
 	-- ["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches south of {area:450}."] = "{npc:10323}在主宰之剑西边的海滩上扎营：击杀营火旁的鱼人；他会在第三波带着猎犬出现。{area:450}南边的海滩上还有三具搁浅的遗骸。",
+	-- ["{npc:10323} camps on the beach west of the glaive: kill the murlocs at the camp fire; he comes in the third wave with his hound. Three beached remains lie on the beaches west and south-west of {area:450}."] = "{npc:10323}在主宰之剑西边的海滩上扎营：击杀营火旁的鱼人；他会在第三波带着猎犬出现。{area:450}西边和西南边的海滩上还有三具搁浅的遗骸。",
 	-- ["{npc:11218}: his escort to {area:413} is done on the {zone:1440} leg"] = "{npc:11218}：护送他到{area:413}的任务在{zone:1440}阶段完成",
 	-- ["{npc:3666}, by the inn"] = "{npc:3666}，在旅店旁",
 	-- ["{npc:6667} hides on the little island off the ruins; Stormscale Beastmistresses walk the shore. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom)."] = "{npc:6667}躲在废墟外的小岛上；雷鳞兽王在岸边巡逻。钥匙碎片掉落自{npc:2323}（上段）、灰雾鱼人（中段）和{npc:2236}（下段）。",

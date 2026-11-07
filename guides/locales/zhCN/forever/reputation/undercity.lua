@@ -28,7 +28,7 @@ return {
 	["{area:152} is the Forsaken camp on the road from Tirisfal into the {zone:1422}. {npc:10837}'s chain sends you against the Scourge cauldrons of the {zone:1422}: about 820 {faction:68} reputation, about 710 at 60 if the level 53 quests pay less. Take a {item:12814} from the box beside him; burn the command tent of the Scarlet camp between {area:200} and {area:199} and plant the {item:12807} beside it."] = "",
 	-- {quest:5096} Scarlet Diversions
 	["{quest:5096}, +100 (level 53)"] = "",
-	-- {object:176088} Scarlet Crusade Forward Camp (no name in this language: may be words)
+	-- {object:176088} Scarlet Crusade Forward Camp
 	["the {object:176088}"] = "",
 
 	-- Step 4: Bulwark: the cauldrons

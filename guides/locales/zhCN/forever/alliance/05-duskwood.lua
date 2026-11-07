@@ -44,9 +44,9 @@ return {
 	["{npc:888} stands south of the road, at the {area:245}."] = "{npc:888}站在道路南边的{area:245}。",
 
 	-- Step 5: Raven Hill
-	-- {area:94} Raven Hill · {object:673515} Memory of Valor (no name in this language: may be words)
+	-- {area:94} Raven Hill · {object:673515} Memory of Valor
 	["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "继续向西到{area:94}。{object:673515}在道路南边的废弃房屋旁发光。",
-	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor (no name in this language: may be words)
+	-- {item:281046} Raven Hill Tome · {object:673515} Memory of Valor
 	["{item:281046}, from the {object:673515}"] = "{item:281046}，来自{object:673515}",
 
 	-- Step 6: Sven's Camp

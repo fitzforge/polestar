@@ -25,8 +25,8 @@ return {
 	["{area:431} is just north up the road."] = "{area:431} – чуть севернее по дороге.",
 
 	-- Step 8: Night Run
-	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {area:431} Splintertree Post
-	["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board.\nNorth up the road to {area:431} and {area:428} beside it."] = "",
+	-- {npc:12696} Senani Thunderheart · {area:428} Night Run
+	["{npc:12696} stands at {area:428}, the Warsong camp just north-east of Splintertree, beside the hunt board."] = "",
 	-- {npc:12696} Senani Thunderheart · {area:331} Ashenvale
 	["{npc:12696}'s hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next {area:331} visit, at 27."] = "",
 
@@ -63,8 +63,8 @@ return {
 	["Fly to {area:431} and head south down the road to the {area:1703}."] = "",
 
 	-- Step 19: Malaka'jin
-	-- {area:380} Crossroads · {area:17} The Barrens · {area:2539} Malaka'jin
-	["Head south to the {area:380}, then west along the road out of the {area:17} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
+	-- {npc:4049} Seereth Stonebreak · {area:2539} Malaka'jin
+	["Follow the road on west from {npc:4049} into Stonetalon. The troll village of {area:2539} sits at the entrance of the canyon."] = "",
 	-- {npc:3995} Witch Doctor Jin'Zil
 	["{npc:3995}, below ground"] = "",
 
@@ -169,22 +169,20 @@ return {
 	-- Step 40: Beren's Peril
 	-- {area:228} Sepulcher · {area:231} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
 	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road past the {area:228} and Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "От башен дирижаблей бегите на юг через Тирисфальские леса в Серебряный бор и дальше по дороге мимо места {area:228} и Деревни Погребальных Костров. Нежить Когтя Ворона бродит по руинам ({area:231}) к востоку от дороги на юго-востоке леса; {npc:1973} роняет {item:271343}, который ведет к предмету {object:645153}.",
+	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
+	["{item:271343}, from a {npc:1973}"] = "{item:271343}, с NPC {npc:1973}",
+	-- {object:645153} Offering Stone · {quest:95883} The Tortured Soul · {item:271343} Note Scrap
+	["the {object:645153} offers {quest:95883} once the {item:271343} is in; below ground"] = "",
+	-- {item:271350} Tortured Soul
+	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
+	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 	["Below ground"] = "",
 
 	-- Step 41: The Offering of Blood
 	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "Используйте {npc:212753} у предмета {object:645153} для добровольной жертвы и убейте отозвавшегося: {npc:212753}. {quest:95883} – элитное: лучше собрать группу.",
 
-	-- Step 42: Beren's Peril
-	-- {item:271350} Tortured Soul
-	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
-	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
-
-	-- Step 44: Beren's Peril
-	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
-	["{item:271343}, from a {npc:1973}"] = "{item:271343}, с NPC {npc:1973}",
-
-	-- Step 46: Southpoint Tower
+	-- Step 43: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "Снова на юг по дороге. Там, где она сворачивает на восток в {area:287}, {npc:2214} ждет здесь: {area:285}.",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

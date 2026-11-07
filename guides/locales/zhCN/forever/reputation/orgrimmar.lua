@@ -63,7 +63,7 @@ return {
 	["{quest:4721}: 300 {faction:76} reputation."] = "",
 
 	-- Step 9: Belgrom Rockmaul: Betrayed
-	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave (no name in this language: may be words) · {quest:3504} Betrayed
+	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {object:173084} Hall of the Brave · {quest:3504} Betrayed
 	["{npc:4485} stands in the {object:172958} outside the {object:173084}. The first two {quest:3504} quests are level 53 and pay a little less at 60 (in Classic 30 and 45); the last two pay in full."] = "",
 
 	-- Step 10: Valormok
@@ -300,7 +300,7 @@ return {
 	-- Step 49: Prowlers, Serena Bloodfeather and Echeyakee
 	-- {npc:3452} Serena Bloodfeather · {quest:881} Echeyakee
 	["Prowlers, {npc:3452} and {quest:881}"] = "",
-	-- {area:380} Crossroads · {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
+	-- {area:380} Crossroads · {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
 	["Savannah Prowlers lie west and north of the {area:380}. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "",
 

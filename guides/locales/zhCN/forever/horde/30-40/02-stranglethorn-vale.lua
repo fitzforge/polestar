@@ -65,8 +65,8 @@ return {
 	["{area:35} flight master"] = "",
 
 	-- Step 11: Grom'gol
-	-- {object:3202} Grom'gol
-	["Follow the road south to {object:3202}."] = "沿道路向南前往{object:3202}。",
+	-- {npc:2497} Nimboya · {object:3202} Grom'gol
+	["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "",
 
 	-- Step 13: The camp by the river
 	["The camp by the river"] = "河边的营地",
@@ -174,6 +174,7 @@ return {
 	-- ["East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}."] = "在食人魔东边，深喉猎豹（37-38级）在攻击前都是隐形的；荆棘谷雌虎在同一片地方游荡，偶尔掉落雌虎的牙齿。钳嘴鳄鱼分布在丛林正西的河边；留着它们的皮交给{npc:2495}。",
 	-- ["Follow the road north to the camp."] = "沿道路向北前往营地。",
 	-- ["Follow the road on south into {area:35}."] = "沿道路继续向南进入{area:35}。",
+	-- ["Follow the road south to {object:3202}."] = "沿道路向南前往{object:3202}。",
 	-- ["Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it."] = "向西经过营地。荆棘谷迅猛龙（33-34级）在林间空地捕猎，血顶巨魔占据着海岸边的废墟：每个血顶巨魔都可能掉落獠牙。他们极少掉落{item:4614}：如果掉了，就阅读它。",
 	-- ["Hearth to {area:35}"] = "用炉石回到{area:35}",
 	-- ["Hearth to {object:3202}"] = "用炉石回到{object:3202}",
