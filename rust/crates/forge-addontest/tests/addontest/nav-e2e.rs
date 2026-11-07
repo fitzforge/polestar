@@ -636,6 +636,9 @@ fn c_walking_the_path_point_by_point_moves_the_aim_forward_along_it_never_asks_t
 	assert_eq!(out["final"], "arrived");
 }
 
+// A stray with nothing ahead on the path in sight (Path.Sight answering false everywhere: walls, a cliff): more than
+// 25 yd off asks again. In open ground with a point ahead in sight, up to 100 yd off asks nothing (Nav/Follow.lua's
+// sight, #1107; nav-spf a8-a13).
 #[test]
 fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path_meanwhile_the_arrow_follows_the_new_path() {
 	skip_unless_ready!();
@@ -644,6 +647,7 @@ fn d_30_yards_off_the_path_asks_once_after_the_2_s_throttle_keeping_the_old_path
 		local r = {}
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		local f = guide()
+		E.Sight = function() return false end -- nothing in sight
 		local a, b = f.points[1], f.points[2]
 		-- Up to 40 yd along the first segment (at most half of it), then 35 yd off it, square to it, on the side
 		-- farther from the rest of the path.
