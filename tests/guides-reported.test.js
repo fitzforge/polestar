@@ -4700,3 +4700,11 @@ test('forever/horde/50-60/03-winterspring.guide: flow re-order: Salfa where the 
 	assert.ok(salfa < at(list, 'accept 3783', is('accept', 3783)), 'before Everlook');
 	assert.equal(list[salfa].s, list[at(list, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
 });
+
+// Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first and the ride north ends
+// at Dokimi in the Crossroads; it rode north to the Crossroads and back to Ratchet.
+test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then the crates at the Crossroads', { skip }, () => {
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	const crates = at(list, 'accept 91899', is('accept', 91899));
+	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < crates && at(list, 'turnin 5158', is('turnin', 5158)) < crates, 'Liv and Islen before the crates');
+});
