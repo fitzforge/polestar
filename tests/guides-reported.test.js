@@ -4729,3 +4729,16 @@ test('forever/horde/50-60/06-silithus.guide: flow re-order: Counting Out Time on
 	assert.equal(list[at(list, 'accept 4972', is('accept', 4972))].s, list[at(list, 'turnin 4971', is('turnin', 4971))].s, 'taken on A Matter of Time\'s hand-in');
 	assert.ok(at(list, 'collect 12638', (g) => g.t === 'collect' && g.item === 12638) < at(list, 'turnin 5098', is('turnin', 5098)), 'the lockboxes before the Bulwark');
 });
+
+// Flow review (2026-11-07): Alliance Stranglethorn 40-50 killed the Jungle Stalkers on a trip of their own after the
+// last Booty Bay stop and walked back north to Nesingwary for Raptor Mastery, though the jungle loop crosses their
+// slopes at the Cold Eye basilisks and the ride to the Rebel Camp passes Nesingwary's camp.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor Mastery with the Cold Eye basilisks, handed in at Nesingwary on the way to the Rebel Camp', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const stalkers = stepOf('the Jungle Stalkers (196)', (g) => g.t === 'kill' && g.quest === 196);
+	assert.equal(stalkers, stepOf('the basilisk haunch (212)', (g) => g.t === 'collect' && g.quest === 212), 'the raptors with the basilisks');
+	const turnin = stepOf('turnin 196', is('turnin', 196));
+	assert.ok(turnin < stepOf('turnin 622', is('turnin', 622)), 'handed in on the way to the Rebel Camp');
+	assert.ok(turnin < stepOf('turnin 611', is('turnin', 611)), 'before the last Booty Bay stop');
+});

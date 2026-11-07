@@ -395,6 +395,7 @@ step Maury and Jon-Jon
 step Cold Eye Basilisks
   tip The Cold Eye Basilisks lie on the rocks west of the mine.
   collect 2476 quest 212              -- Chilled Basilisk Haunch
+  kill 687 quest 196.1 @32.1,43.1 map 1434 -- Jungle Stalker
 
 # ---------------------------------------------------------------- The far north
 
@@ -402,6 +403,13 @@ step The north-west coast
   tip Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
   collect 4611 quest 705              -- Blue Pearl; underwater
   collect 4034 quest 611              -- Stone of the Tides
+
+step Hemet Nesingwary
+  turnin 196
+
+step Hemet Nesingwary
+  when group 197
+  accept 197
 
 step Rebel Camp
   tip Ride north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale. On the way, an Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp: catch one with the Entomology Starter Kit, then tick it off.
@@ -433,20 +441,6 @@ step Booty Bay
   turnin 600                          -- Crank Fizzlebub
   turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
 
-step Raptor Mastery
-  kill 687 quest 196.1 @32.1,43.1 map 1434
-
-step Hemet Nesingwary
-  turnin 196
-
-step Hemet Nesingwary
-  when group 197
-  accept 197
-
-step Hemet Nesingwary
-  when group 193
-  turnin 193
-
 step Level 42.23
   when !group 193
   when level<42.23
@@ -462,6 +456,10 @@ step Raptor Mastery
 step Hemet Nesingwary
   when group 197
   turnin 197
+
+step Hemet Nesingwary
+  when group 193
+  turnin 193
 
 step Hemet Nesingwary
   when group 208
