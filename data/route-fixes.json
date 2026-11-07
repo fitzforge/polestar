@@ -2006,6 +2006,152 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					98512
+				],
+				"b": [
+					"accept",
+					94484
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Al'Aketh Assassins: the road from Shen'dar to Valanaar passes Fendaal Windstone at 12 yd with his assassins just north of him (quest 11, mobs 9-10, the player about 10); the route took it 74 minutes later on the dead cultist's trip and came back for it. Done on the way in, as 3 of 10 recorded Skyborne did at level 9-10; the cultist's trip stays."
+			},
+			{
+				"a": [
+					"turnin",
+					98512
+				],
+				"b": [
+					"turnin",
+					93948
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Al'Aketh Assassins: the road from Shen'dar to Valanaar passes Fendaal Windstone at 29 yd with his assassins just north of him; the route took it 85 minutes later on the turncoat's trip. Done on the way in."
+			},
+			{
+				"a": [
+					"accept",
+					94896
+				],
+				"b": [
+					"turnin",
+					92699
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Ealaane Nimbuswalker stands between Lotheluum and Talaanis on the first walk through Valanaar; the route came back to her for Aid For The Refugees and The Fate of a Loved One on a stop of its own after the farm."
+			},
+			{
+				"a": [
+					"accept",
+					93951
+				],
+				"b": [
+					"task",
+					92553
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): A Little Beauty: Taleen stands 14 yd off the first Shen'dar stop; taken there with the other village quests (9 of 9 recorded Skyborne took it before handing in Restocking the Larders), not on the second stop."
+			},
+			{
+				"a": [
+					"turnin",
+					94006
+				],
+				"b": [
+					"turnin",
+					92880
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Druid: Urs'endris waits by the falls just north of the eastern watchtower; The Great Ursera Spirit is handed to him on the watchtower trip, not on a trip of its own back north-east after Valanaar."
+			},
+			{
+				"a": [
+					"turnin",
+					94896
+				],
+				"b": [
+					"turnin",
+					93089
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): The last Valanaar stop starts where the Portal to Valanaar sets you down, beside Elaadrin (recordings: players appear at 66,80): Elaadrin, Iaadaria, Talaanis, Ealaane, Lotheluum and the trainers, then back to Elaadrin for the skycutter quest, instead of Ealaane, Elaadrin, Talaanis, Elaadrin, Lotheluum and the west gate (1,660 yd of walking in town, now 1,160)."
+			},
+			{
+				"a": [
+					"turnin",
+					94003
+				],
+				"b": [
+					"turnin",
+					93089
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Warrior: Seena (the Bulwark) is visited on the last Valanaar stop before Elaadrin hands out the skycutter quest, so the stop ends at the south end beside the dock tower."
+			},
+			{
+				"a": [
+					"task",
+					96101
+				],
+				"b": [
+					"turnin",
+					92514
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): The Great Outdoors: sit by Raan's campfire when you take it on the first Shen'dar stop, as the seed and the Alliance guide do; the route sent Horde Skyborne back to the campfire from the hippogryph nests 68 minutes later."
+			},
+			{
+				"a": [
+					"turnin",
+					92693
+				],
+				"b": [
+					"task",
+					93317
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windfield Orchard: Aamelia's chain (The Hills Have Eyes, Standing Our Ground) is finished before the walk north-east for the crawler meat and the construct parts; the route went to the gyrozephyrs far north and then 1,330 yd back south to Aamelia before Valanaar."
+			},
+			{
+				"a": [
+					"turnin",
+					92693
+				],
+				"b": [
+					"task",
+					93737,
+					1
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windfield Orchard: Standing Our Ground before the Crystallized Lightning cave, which lies on the way north-east (see the pair for Crab Season)."
+			},
+			{
+				"a": [
+					"turnin",
+					92693
+				],
+				"b": [
+					"task",
+					93737,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windfield Orchard: Standing Our Ground before the Enchanted Gyrozephyrs in the far north, the last stop before Valanaar (see the pair for Crab Season)."
+			},
+			{
+				"a": [
+					"accept",
+					93172
+				],
+				"b": [
+					"task",
+					94896
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windsong Lake: the hermit's quests are taken before the sweep round the lake, so the zephyrseed, the Wind Hollows, the belongings and Resaan's Heirloom are one sweep back to the hermit."
 			}
 		],
 		"notes": [
@@ -2805,6 +2951,30 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"task",
+					92553
+				],
+				"b": [
+					"task",
+					92515
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): the Prideclaw pelts and the Galestriders' eggs and meat share the grasslands south of Shen'dar, as the seed has them: one step, not two with the bounty board between."
+			},
+			{
+				"a": [
+					"task",
+					93160
+				],
+				"b": [
+					"task",
+					93172
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): the Zephyrseed cones grow south of the hermit, on the way to the Wind Hollows: one sweep, as the Alliance guide does."
 			}
 		],
 		"after": [
