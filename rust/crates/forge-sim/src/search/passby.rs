@@ -299,6 +299,20 @@ pub const HUB_PICKUP_ALLOW_SEC: f64 = 180.0;
 /// (edits::JOIN_YD); a pickup the replay finds cheap from 100 yd off is a stop of its own (c14
 /// Human: Rest and Relaxation taken at 1.3 from the Abbey, Falkhaan 140 yd off by the stables).
 pub const HUB_PICKUP_YD: f64 = crate::order::SAME_STOP_YD;
+/// Under the `greedy` flow flag (#1046: Deathguard Simmer 144 yd from Calvin Montague, passed and
+/// taken later): a stop this close to the giver is next to it (the check's hub reach and a bit),
+/// and taking it there may cost GREEDY_ALLOW_SEC.
+pub const GREEDY_PICKUP_YD: f64 = 150.0;
+pub const GREEDY_ALLOW_SEC: f64 = 300.0;
+
+/// The hub pickup pass's reach and allowance (GREEDY_* under the `greedy` flow flag).
+pub fn hub_pickup_reach() -> (f64, f64) {
+	if forge_core::flow_flags::on("greedy") {
+		(GREEDY_PICKUP_YD, GREEDY_ALLOW_SEC)
+	} else {
+		(HUB_PICKUP_YD, HUB_PICKUP_ALLOW_SEC)
+	}
+}
 
 /// One quest the hub pickup pass took on an earlier visit to its giver.
 pub struct HubPickup {
@@ -324,7 +338,8 @@ pub fn hub_pickup(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec
 	// One quest at a time, its candidates against the order as it is now (the latest earlier visit
 	// first), the first kept.
 	loop {
-		let cands: Vec<Mv> = joins_at(p, m, HUB_PICKUP_YD).into_iter().filter(|mv| matches!(mv, Mv::Join { q, .. } if !tried.contains(q))).collect();
+		let (reach, allow) = hub_pickup_reach();
+		let cands: Vec<Mv> = joins_at(p, m, reach).into_iter().filter(|mv| matches!(mv, Mv::Join { q, .. } if !tried.contains(q))).collect();
 		let Some(Mv::Join { q, .. }) = cands.first() else { break };
 		let q = *q;
 		tried.insert(q);
@@ -335,7 +350,7 @@ pub fn hub_pickup(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec
 			if a >= m.live || !m.check.valid(&cand.steps, &p.pairs, &p.feas) || twin_trainings(&cand) > twin_trainings(&m.order) {
 				continue;
 			}
-			m.allow = HUB_PICKUP_ALLOW_SEC;
+			m.allow = allow;
 			let r = m.replay(p, &cand, a, b);
 			m.allow = 0.0;
 			if let Some(r) = r {
@@ -574,6 +589,109 @@ pub fn camp_gather<'a>(p: &Problem<'a>, m: &mut Member<'a>, log: &mut dyn FnMut(
 			}
 		}
 		if !any {
+			break;
+		}
+	}
+	kept
+}
+
+/// Yards from a task's spawn area a stop is on its ground for the `sweep` flow flag (two hunting
+/// grounds' reach: Fields of Grief's pumpkins at Solliden are 224 yd from Calvin Montague, #1046).
+pub const SWEEP_YD: f64 = 250.0;
+/// Yards from the task's area a stop after it must be for the route to have left the ground.
+pub const SWEEP_AWAY_YD: f64 = 400.0;
+/// Seconds the hours to 60 may rise for one task done where the route already stands.
+pub const SWEEP_ALLOW_SEC: f64 = 180.0;
+/// Most moves the sweep pass keeps (a bound on its rounds).
+pub const SWEEP_MAX: usize = 400;
+
+/// The `sweep` flow flag's candidates (#1046 "you've saved the pumpkins for when I do the
+/// Scarlet"; geezki in Duskwood, "I could be picking up 10 quests at once"): a task done on a
+/// return to ground the route stood on earlier while its quest was in the log, moved to right
+/// after the earliest such stop (within SWEEP_YD of its spawn area, the route then going
+/// SWEEP_AWAY_YD from it before the task). The replay prices the level (work over the
+/// character's head grinds first), the checker keeps the order's rules.
+pub fn there_moves(p: &Problem, m: &Member) -> Vec<Mv> {
+	let run = &p.model.run;
+	let o = &m.order;
+	let live = m.live.min(o.len());
+	let locs = super::locs(run, &o.steps);
+	let at = |k: usize| {
+		let pt = locs[k] as usize;
+		[(run.p_c[pt], run.p_x[pt], run.p_y[pt])]
+	};
+	let mut accepted: rustc_hash::FxHashMap<u32, usize> = Default::default();
+	let mut out = Vec::new();
+	for i in 0..live {
+		let s = o.steps[i];
+		if s.kind == K_ACCEPT {
+			accepted.entry(s.q).or_insert(i);
+			continue;
+		}
+		if s.kind != K_TASK || s.task < 0 {
+			continue;
+		}
+		let Some(&a) = accepted.get(&s.q) else { continue };
+		let area = task_area(run, s.task as usize);
+		// The earliest stop on its ground after the accept, the route leaving it before step i.
+		let mut on: Option<usize> = None;
+		for k in a..i {
+			if o.steps[k].kind == K_GRIND {
+				continue;
+			}
+			let d = area_dist(&at(k), &area);
+			match on {
+				None if d <= SWEEP_YD => on = Some(k),
+				Some(j) if d > SWEEP_AWAY_YD => {
+					out.push(Mv::Move { s: i, e: i, to: j + 1, kind: "work while there" });
+					break;
+				}
+				_ => {}
+			}
+		}
+	}
+	out
+}
+
+/// The sweep pass (`sweep` flow flag): each task of there_moves done at the earliest stop on its
+/// ground, the first candidate that keeps the order's rules, puts no objective earlier than the
+/// level rule allows, worsens no guard and adds at most SWEEP_ALLOW_SEC. Rounds until none is kept.
+pub fn work_while_there<'a>(p: &Problem<'a>, m: &mut Member<'a>, log: &mut dyn FnMut(&str)) -> Vec<HubPickup> {
+	if !forge_core::flow_flags::on("sweep") {
+		return Vec::new();
+	}
+	let run = &p.model.run;
+	let mut kept = Vec::new();
+	let mut tried: rustc_hash::FxHashSet<(u32, i32)> = Default::default();
+	loop {
+		let cands: Vec<Mv> = there_moves(p, m).into_iter().filter(|mv| matches!(mv, Mv::Move { s, .. } if !tried.contains(&(m.order.steps[*s].q, m.order.steps[*s].task)))).collect();
+		let Some(Mv::Move { s: first, .. }) = cands.first().cloned() else { break };
+		let st = m.order.steps[first];
+		tried.insert((st.q, st.task));
+		let mv = cands[0].clone();
+		let Some((cand, a, b)) = mv.apply(&m.order) else { continue };
+		if a >= m.live || !m.check.valid(&cand.steps, &p.pairs, &p.feas) || twin_trainings(&cand) > twin_trainings(&m.order) {
+			continue;
+		}
+		let now = m.total();
+		m.allow = SWEEP_ALLOW_SEC;
+		let r = m.replay(p, &cand, a, b);
+		m.allow = 0.0;
+		let Some((next, gc)) = r else { continue };
+		if !m.levels_ok(p, &cand, &next) {
+			continue;
+		}
+		let (before, lv) = (m.order.clone(), m.lv.clone());
+		m.guard_now = gc;
+		for (c, cur) in m.ctxs.iter_mut().zip(next) {
+			c.cur = cur;
+		}
+		m.order = cand;
+		m.refresh();
+		let added = m.total() - now;
+		log(&format!("work while there {}.{} to step {a}: {:+.1} min", run.q_id[st.q as usize], st.task, added / 60.0));
+		kept.push(HubPickup { mv, before, lv, added, hours: m.total() / 3600.0 });
+		if kept.len() >= SWEEP_MAX {
 			break;
 		}
 	}
@@ -944,7 +1062,7 @@ pub fn hub_sweep(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<
 			*t = (t.0 + 1, kept.len());
 			// (A hand-in made on a trip back moves only when the route is no slower for it: else waiting
 			// saves walking, crate::turnin's exception, priced by the replay.)
-			let allow = if matches!(fix, Fix::Near { .. }) { 0.0 } else { HUB_SWEEP_ALLOW_SEC };
+			let allow = if matches!(fix, Fix::Near { .. }) { 0.0 } else { hub_pickup_reach().1.max(HUB_SWEEP_ALLOW_SEC) };
 			for mv in sweep_moves(run, &m.order, fix) {
 				let got = match keep_seq(p, m, h, std::slice::from_ref(&mv), now, allow, 0.0, |n, o| n.sum() < o.sum()) {
 					// Its own quest's next step may need to follow (a hand-in ready once the accept
