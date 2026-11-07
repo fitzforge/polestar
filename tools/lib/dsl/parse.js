@@ -42,7 +42,7 @@ const HEADER_KEYS = ['guide', 'title', 'levels', 'zone', 'faction', 'race', 'cla
 // and interact goals (resolve.js, applyLoop).
 // `skipto <label> when <predicate>`: when the route reaches the step and the
 // predicate holds, it jumps to the labelled step (resolve.js, checkLabels).
-const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'skipto', 'loop'];
+const STEP_KEYS = ['zone', 'only', 'tip', 'image', 'when', 'label', 'along', 'background', 'skipto', 'loop'];
 
 // `group [N]`: the goal needs a group (of N players), shown in the guide window.
 const COMMON = ['text', 'optional', 'only', 'group'];
@@ -330,6 +330,17 @@ function parseGuide(text, file, diag) {
 					continue;
 				}
 				step.alongLine = ln;
+			} else if (kw === 'background') {
+				if (step.background) {
+					err(ln, 'duplicate `background` in step');
+					continue;
+				}
+				if (toks.length !== 1) {
+					err(ln, '`background` takes nothing');
+					continue;
+				}
+				step.background = true;
+				step.backgroundLine = ln;
 			} else if (kw === 'skipto') {
 				const usage = '`skipto` needs a label and a predicate: skipto <label> when <predicate>';
 				if (toks.length < 4 || toks[1].quoted || toks[2].quoted || toks[2].text.toLowerCase() !== 'when') {

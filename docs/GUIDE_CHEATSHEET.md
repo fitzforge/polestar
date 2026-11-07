@@ -46,6 +46,7 @@ Before the first `step`. `guide`, `title`, `levels` and `zone` are required.
 | `only <condition>, ...` | Inside a step: the step is only for matching characters | `only Hunter` |
 | `when <predicate>` | Inside a step: the step is only for characters in that state when the route gets there (see Conditions checked during play) | `when level<6` |
 | `along [until <label>]` | Inside a step: the route never stops there; its goals are done along the way, listed under the next steps until done (or until the labelled step) | `along until camp` |
+| `background` | Inside an `along until` step: its goals are slow, zone-wide collections worked over the whole stay; each needs a finish step before its hand-in (GUIDE_FORMAT, "Background goals") | `background` |
 | `skipto <label> when <predicate>` | Inside a step: if the predicate holds when the route gets there, this step and the ones up to the labelled step are skipped, for good (GUIDE_FORMAT, "Jumps"; needs Polestar 0.3.0) | `skipto camp when turnedin 783` |
 | `label <name>` | Inside a step: names it for an `along until` or `skipto` before it, or a `when done` | `label camp` |
 | `loop` | Inside a step: its `goto` points are the places to search, in order, for the step's kill, collect and interact goals without `@x,y` | `loop` |

@@ -1244,6 +1244,7 @@ pub fn resolve_guide(ast: &V, data: &Data, diag: &mut Diagnostics, pack: Option<
 	}
 	check_labels(&steps, r);
 	check_along_goals(&gsteps.items(), r);
+	check_background(&steps, &gsteps.items(), r);
 	guide
 }
 
@@ -1330,6 +1331,41 @@ fn check_along_goals(steps: &[V], r: &mut R) {
 				format!("{what} in an `along` step never checks off: Polestar checks it only on the step the route is on, so it stays listed{until}"),
 				Some("put it in a step of its own, or track something the game counts (a quest objective, a bag count)"),
 			);
+		}
+	}
+}
+
+/// `background` (#1135) marks an `along until` step of zone-wide, slow goals: each quest objective in it
+/// needs a finish step before the step that hands its quest in (a later step, not an along one, working
+/// the same objective), so a player still short when the route gets there is sent to finish it.
+fn check_background(steps: &[V], gsteps: &[V], r: &mut R) {
+	for (i, s) in steps.iter().enumerate() {
+		if !s.get("background").truthy() {
+			continue;
+		}
+		if s.get("along").as_str().is_none() {
+			r.err(&s.get("backgroundLine"), "`background` goes on an `along until <label>` step", Some("add `along until <label>`, the label on the step that hands the quest in"));
+			continue;
+		}
+		let Some(step) = gsteps.get(i) else { continue };
+		for goal in step.get("goals").items() {
+			let t = goal.get("t").to_js_string();
+			if !["kill", "collect", "interact", "use"].contains(&t.as_str()) || goal.get("quest").is_undef() || goal.get("oi").is_undef() {
+				continue;
+			}
+			let (q, oi) = (goal.get("quest").num(), goal.get("oi").num());
+			let same_quest = |g: &V| !g.get("quest").is_undef() && g.get("quest").num() == q;
+			let Some(hand_in) = (i + 1..gsteps.len()).find(|&k| gsteps[k].get("goals").items().iter().any(|g| g.get("t").as_str() == Some("turnin") && same_quest(g))) else { continue };
+			let finished = (i + 1..hand_in).any(|k| {
+				!gsteps[k].get("along").truthy() && gsteps[k].get("goals").items().iter().any(|g| g.get("t").to_js_string() == t && same_quest(g) && !g.get("oi").is_undef() && g.get("oi").num() == oi)
+			});
+			if !finished {
+				r.err(
+					&goal.hidden("_line"),
+					format!("background goal for quest {}.{} has no finish step before its hand-in (line {})", q, oi, gsteps[hand_in].hidden("_line").to_js_string()),
+					Some("add a step that works it, at the densest spot, right before the step that hands the quest in"),
+				);
+			}
 		}
 	}
 }

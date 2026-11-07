@@ -54,6 +54,7 @@ every goal in it that is not `optional` is; its goals are open together.
 | `only <condition>, ...` | The step is only for matching characters |
 | `when <predicate>` | The step is only for characters in that state when the route gets there; several lines must all hold (see Conditions) |
 | `along [until <label>]` | The route never stops at the step: its goals (quest objectives, bag counts) are done along the way, listed under the next steps until done, or until the step with that label |
+| `background` | On an `along until` step: its goals are slow, zone-wide collections (a low drop rate, the mobs all along the route) worked over the whole stay; each quest objective needs a finish step, a plain step working it, before the step that hands its quest in |
 | `label <name>` | Names the step for an `along until` or `skipto` before it, or a `when done` (letters, digits, `-`, `_`; once per guide) |
 | `skipto <label> when <predicate>` | If the predicate (as for `when`) holds when the route reaches the step, this step and the ones up to the labelled later step are skipped for good; several lines, the first that holds decides |
 | `loop` | The step's `goto` points, in order, are the places to search for its kill, collect and interact goals without `@x,y` (at least two, one map) |

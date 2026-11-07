@@ -1210,8 +1210,12 @@ test(`${BARRENS_12}: Kolkar Leaders is taken, worked and handed in on Regthar's 
 	assert.ok(!goals(BARRENS).some(({ goal }) => goal.quest === 850), 'nothing of Kolkar Leaders is left for the 19-23 guide');
 });
 
-test(`${BARRENS_12}: no "along the way" lists`, { skip }, () => {
-	assert.deepEqual(compiled(BARRENS_12).steps.filter((step) => step.along).map((step) => step.title), []);
+// Background goals (#1135, docs/GUIDE_FORMAT.md "Background goals": the heads and beaks, worked over the stay
+// with a finish step before the hand-in) are along steps by design; every other list stays a step.
+test(`${BARRENS_12}: no "along the way" lists but the background goals`, { skip }, () => {
+	const background = new Set(JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes.filter((r) => r.background).map((r) => `${r.at.quest}.${r.at.objective}`));
+	const lists = compiled(BARRENS_12).steps.filter((step) => step.along && !step.goals.every((g) => background.has(`${g.quest}.${g.oi}`)));
+	assert.deepEqual(lists.map((step) => step.title), []);
 });
 
 test(`${BARRENS}: Raptor Horns is handed to Mebok on the first Ratchet stop when the horns are done`, { skip }, () => {
@@ -2987,7 +2991,10 @@ const BY_LEVEL = [
 test("Bashidian Twotao's report (#385): a quest drop from droppers of several level bands leads to the low ones' camp, not over the whole zone", { skip }, () => {
 	data = data || loadData(DATA);
 	for (const [guide, item, quest] of BY_LEVEL) {
-		const { goal } = goals(guide)[at(goals(guide), `${guide} collect ${item}`, (g) => g.t === 'collect' && g.item === item && g.quest === quest)];
+		// The step that does the work: an along list (the Barrens' beaks, worked on the way, #1135) has
+		// its place on the finish step.
+		const list = working(goals(guide));
+		const { goal } = list[at(list, `${guide} collect ${item}`, (g) => g.t === 'collect' && g.item === item && g.quest === quest)];
 		const qlvl = data.quest(quest).level;
 		const what = `${guide} collect ${item} (quest ${quest}, level ${qlvl})`;
 		assert.ok(located({ goal }) && !goal.spread, `${what} has a point and is no zone-wide search`);
@@ -4349,4 +4356,37 @@ test("Rohkin's report (#1123): Mountain Lion Blood on the walk back from Hillsbr
 	const turnin = at(list, 'turnin 501', is('turnin', 501));
 	assert.ok(farmers < blood && blood < turnin, 'the farmers, then the blood, then Lydon');
 	assert.ok(!list.slice(blood + 1, turnin).some(({ goal }) => goal.quest === 527 && goal.t === 'kill'), 'no trip back to the fields after the blood');
+});
+
+// #1135 (Fitz, Undead Warlock 12): the Raptor Heads and Plainstrider Beaks sat in a step of their own right
+// after the Crossroads accepts, the arrow on the plainstriders, and he spent an hour there. Players'
+// recordings: about one plainstrider in four drops a beak (a median 21 kills for seven, up to 49); the heads
+// drop from three raptors in four, but the raptors are sparse and contested (a median 77 s between raptor
+// kills, 447 s at p90). Both are background goals (docs/GUIDE_FORMAT.md, "Background goals"): listed on the
+// way from the Crossroads until a later stop that hands them in (the beaks after the Razormane camp, the
+// heads after Echeyakee), each with a finish step right before it that only a player still short gets.
+test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked on the way to later hand-ins, each with a finish step before it", { skip }, () => {
+	const file = 'forever/horde/02-the-barrens.guide';
+	const g = compiled(file);
+	const list = goals(file);
+	const crossroads = g.steps.findIndex((s) => s.label === 'crossroads');
+	assert.ok(crossroads >= 0, 'the shared Crossroads step');
+	for (const [quest, item, count, what, after, afterWhat] of [
+		[844, 5087, 7, 'beaks', (goal) => goal.t === 'kill' && goal.quest === 871 && goal.oi === 3, 'the Razormane camp'],
+		[869, 5062, 12, 'heads', (goal) => goal.quest === 881 && goal.oi === 1, 'Echeyakee'],
+	]) {
+		const mine = (goal) => goal.t === 'collect' && goal.item === item && goal.quest === quest && goal.oi === 1;
+		const handIn = at(list, `turnin ${quest}`, is('turnin', quest));
+		const turnStep = list[handIn].step;
+		const along = g.steps.findIndex((s) => s.along && s.goals.some(mine));
+		assert.ok(along > crossroads && along <= crossroads + 2, `the ${what} are listed on the way right after the Crossroads accepts`);
+		assert.equal(g.steps[along].along, turnStep.label, `the ${what}: until the step that hands them in`);
+		const workers = list.filter(({ step, goal }) => mine(goal) && !step.along);
+		assert.equal(workers.length, 1, `one step of the route works the ${what}: the finish step`);
+		const finish = workers[0];
+		assert.equal(g.steps.indexOf(finish.step) + 1, g.steps.indexOf(turnStep), `the ${what}' finish step comes right before the hand-in`);
+		assert.ok(located(finish), `the ${what}' finish step leads to the mobs`);
+		assert.ok(finish.step.when.some((p) => p.k === 'has' && p.neg), `the ${what}' finish step is only for a player still short of ${count}`);
+		assert.ok(at(list, afterWhat, after) < handIn, `the ${what} are handed in after ${afterWhat}`);
+	}
 });
