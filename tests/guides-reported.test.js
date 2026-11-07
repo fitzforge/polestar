@@ -14,7 +14,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { needs } = require('./helpers/data');
-const { compileSources, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
+const { compileSources, compileProject, OFFICIAL_DIR } = require('../tools/lib/dsl/project');
 const { loadData } = require('../tools/lib/dsl/data');
 const { parseGuide } = require('../tools/lib/dsl/parse');
 const { Diagnostics } = require('../tools/lib/dsl/diag');
@@ -5676,6 +5676,20 @@ test('Alliance quest volume: every added quest has its include record in the rou
 	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
 });
 // --- end of Alliance quest volume
+
+// Wetlands report (2026-11-07, Discord; #1184, #1206): on 0.3.4 "pretty much all the quests" the guide asked
+// for at Menethil and the dig were chain quests nobody could take yet. Every leveling path (each start,
+// each `next` option) is played as every race and class, and no accept may come before its blocking
+// prerequisites are handed in on that path (tools/lib/route/prereq-order.js; lint's check counts a hand-in
+// on any branch into the guide).
+test('every leveling path hands in each accept\'s prerequisites before the accept, for every start, race and class', { skip }, () => {
+	const { prereqOrder } = require('../tools/lib/route/prereq-order');
+	const { guides, data: all } = compileProject({ packDir: OFFICIAL_DIR, manifest: { id: 'guides', author: 'Polestar' }, dataDir: DATA });
+	const found = prereqOrder(guides, all).map(
+		(v) => `${path.relative(OFFICIAL_DIR, v.file).split(path.sep).join('/')}:${v.line} accept ${v.quest} (${v.title}) needs ${v.missing.join(v.any ? ' or ' : ' and ')} handed in first (${v.race} ${v.cls || ''}, path from ${v.path[0]}${v.groups === 'do' ? ', group quests on' : ''})`
+	);
+	assert.deepEqual(found, []);
+});
 
 test('Wetlands (#1184, #1206): Whelgar\'s and Rethiel\'s chain quests come after the hand-in that opens them', { skip }, () => {
 	const wet = goals('forever/alliance/06-wetlands.guide');
