@@ -448,16 +448,16 @@ step Ratchet
   turnin 865                          -- Mebok Mizzyrix, beside the WANTED poster
 
 step Ratchet
-  tip Brewmaster Drohn stands in the inn, then back to the flight master for the Crossroads.
+  tip Brewmaster Drohn stands in the inn, then back to the flight master: the Crossroads, or Thunder Bluff for Druids.
   turnin 819                          -- Brewmaster Drohn
-  fly "Crossroads"
+  fly "Crossroads" only !Druid
 
 # ---------------------------------------------------------------- Druids: Thunder Bluff and Moonglade
 
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly from the Crossroads to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
+  tip Fly from Ratchet straight to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
   fly "Thunder Bluff"
   train class
   accept 27 only Tauren               -- Turak Runetotem

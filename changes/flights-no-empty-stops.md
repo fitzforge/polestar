@@ -10,6 +10,7 @@ section: players
   (Thunder Bluff for the Earthen Ring instead of Camp Taurajo), the route
   takes it. The Hinterlands (Horde) flies from Thorium Point straight to
   Tarren Mill, Druids and Paladins in the Eastern Plaguelands fly from
-  Orgrimmar to Thunder Bluff first, and Shamans in Desolace fly from
-  Freewind Post straight to Sun Rock Retreat. (thanks Bennistrov and
+  Orgrimmar to Thunder Bluff first, Shamans in Desolace fly from Freewind
+  Post straight to Sun Rock Retreat, and Druids in the Barrens fly from
+  Ratchet straight to Thunder Bluff for training. (thanks Bennistrov and
   Konky88)
