@@ -2017,7 +2017,7 @@
 					96139
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars (174) is ready the moment the Bronze Tube is bought from Herble Baubbletump, beside Viktori, on the first Darkshire visit, but the route handed it in only on the Duskwood return three guides of play later (07-thousand-needles), walking past Viktori with it on every Darkshire visit between. Both speedrun benchmark orders hand it in and take 175 on that first visit. The seed (re-seeded for this) hands it in there; this pair keeps it before the walk west."
+				"why": "Flow audit (2026-11-07, Duskwood): Look to the Stars (174) is ready the moment the Bronze Tube is bought from Herble Baubbletump, beside Viktori, on the first Darkshire visit, but the route handed it in only on the Duskwood return three guides of play later (07-thousand-needles), walking past Viktori with it on every Darkshire visit between. Handing it in there saves carrying it past Viktori three times. The seed (re-seeded for this) hands it in there; this pair keeps it before the walk west."
 			},
 			{
 				"a": [
@@ -4947,7 +4947,7 @@
 					56
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). Both speedrun benchmark orders hand it in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire."
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). It is handed in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire."
 			},
 			{
 				"a": [
