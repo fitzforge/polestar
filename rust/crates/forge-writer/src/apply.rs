@@ -44,6 +44,8 @@ const RIDE_FROM_YD: f64 = 1500.0;
 const ARRIVAL_CAMP_YD: f64 = 300.0;
 // Yards from an inn within which a route event is "at the inn".
 const BIND_AT_YD: f64 = 250.0;
+/// Yards within which a goal stands beside a bind's event, or at its inn: the bind waits for it (#1008).
+const BIND_BESIDE_YD: f64 = 40.0;
 // Yards from a quest's ender within which a spawn is "the camp at the ender".
 const ENDER_CAMP_YD: f64 = 400.0;
 // Mob kinds dropping an item beyond which it is a zone-wide drop.
@@ -1804,6 +1806,8 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			together[j].items.get_or_insert_with(Vec::new).push(x);
 		}
 	}
+	// A bind waits for the goals right after its event that stand beside it or at the inn (#1008).
+	bind_after_beside(&mut together, world);
 	// v1's crossings: `goto x,y "Boat to Stormwind"` and its zone.
 	let mut v1_piers = Vec::new();
 	for st in &steps {
@@ -8090,6 +8094,51 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 	(Ins { title: format!("Level {n}"), lines, map: spot.as_ref().map(|s| s.map).or_else(|| cx.map_of_pt(pt)) }, pt)
 }
 
+/// A bind the route makes at an event moves past the goals right after it that stand beside that
+/// event (or the one before it, when that is at the same stop), or at the inn, so the walk to the inn
+/// never splits two goals at one NPC or two NPCs that stand together, and the inn's own goals come
+/// before the bind (#1008: Mebok after the Ratchet poster, Mankrik's two quests at the Crossroads,
+/// Maggran's at Sun Rock, Lydon's and the inn's at Tarren Mill). It stops at the first event that is
+/// not a goal there (the route moves on), carries travel or another item, or is a `train`.
+fn bind_after_beside(order: &mut [Order], world: &World) {
+	let p_of = |pt: Option<u32>| pt.and_then(|p| world.points.get(p as usize).copied()).filter(|p| p.wx.is_finite());
+	let near = |a: Option<Pt>, b: Option<Pt>| matches!((a, b), (Some(a), Some(b)) if a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= BIND_BESIDE_YD);
+	let goal = |o: &Order| matches!(o.t, OrderT::Accept | OrderT::Turnin | OrderT::Task);
+	let mut i = 0;
+	while i < order.len() {
+		let mut next = i + 1;
+		if !goal(&order[i]) || !order[i].items().iter().any(|x| x.t == ItemT::Bind) {
+			i = next;
+			continue;
+		}
+		let here = p_of(order[i].pt);
+		let before = i.checked_sub(1).map(|k| p_of(order[k].pt)).filter(|&p| near(p, here)).flatten();
+		let binds: Vec<Item> = order[i].items().iter().filter(|x| x.t == ItemT::Bind).cloned().collect();
+		for x in binds {
+			let inn = p_of(x.inn_pt.or(x.pt));
+			let mut j = i;
+			while let Some(n) = order.get(j + 1) {
+				let at = p_of(n.pt);
+				if !goal(n) || !n.items().is_empty() || !(near(at, here) || near(at, before) || near(at, inn)) {
+					break;
+				}
+				j += 1;
+			}
+			if j == i {
+				continue;
+			}
+			let its = order[i].items.as_mut().expect("the bind's event has items");
+			if let Some(p) = its.iter().position(|y| *y == x) {
+				its.remove(p);
+			}
+			order[j].items.get_or_insert_with(Vec::new).push(x);
+			// (The events it moved past are read once: a moved bind never moves again from its new event.)
+			next = next.max(j + 1);
+		}
+		i = next;
+	}
+}
+
 /// Minutes under which a route top-up is never a step of its own: folded into a farm step, else
 /// dropped (its grind goes to the next top-up; quest XP often covers it).
 const TOPUP_STEP_MIN: f64 = 5.0;
@@ -10334,5 +10383,57 @@ mod tests {
 		assert!(!a.class_in("Rogue") && !a.class_in("Shaman") && a.class_in("Warrior"));
 		assert_eq!(other_classes(&v(&["Rogue"])), "!Rogue");
 		assert!(!Audience::parse("!Rogue").class_in("Rogue"));
+	}
+
+	/// The goals and where the bind is after bind_after_beside, for a town at world points `pts`
+	/// (point 0 the inn; the bind made at event `at`).
+	fn bind_case(pts: &[(f64, f64)], evs: &[(&str, u32, u32)], at: usize) -> Vec<String> {
+		use serde_json::json;
+		let points: Vec<serde_json::Value> = pts.iter().map(|&(x, y)| json!([1, 1, x, y, 1413])).collect();
+		let world: World = serde_json::from_value(json!({ "points": points, "quests": [] })).unwrap();
+		let mut order: Vec<Order> = evs
+			.iter()
+			.enumerate()
+			.map(|(i, &(t, q, pt))| {
+				let items = if i == at { json!([{ "t": "bind", "inn": 0, "pt": 0, "innPt": 0 }]) } else { json!(null) };
+				serde_json::from_value(json!({ "t": t, "q": q, "pt": pt, "items": items })).unwrap()
+			})
+			.collect();
+		bind_after_beside(&mut order, &world);
+		let mut out = Vec::new();
+		for o in &order {
+			out.push(format!("{} {}", if o.t == OrderT::Accept { "accept" } else { "turnin" }, o.q.unwrap()));
+			if o.items().iter().any(|x| x.t == ItemT::Bind) {
+				out.push("bind".into());
+			}
+		}
+		out
+	}
+
+	#[test]
+	fn a_bind_waits_for_the_goals_beside_its_event_and_at_the_inn() {
+		// #1008's four towns (world yards from the Horde world): the bind sat between two goals at one
+		// NPC or two NPCs that stand together, a walk to the inn and back.
+		// Ratchet: the WANTED poster (bind), Mebok 24 yd from it, Dizzywig on the dock 114 yd on.
+		let ratchet = [(-1050.1, -3664.8), (-919.1, -3719.5), (-929.2, -3697.2), (-985.3, -3796.6)];
+		assert_eq!(bind_case(&ratchet, &[("accept", 895, 1), ("accept", 865, 2), ("turnin", 1492, 3), ("accept", 896, 3)], 0), ["accept 895", "accept 865", "bind", "turnin 1492", "accept 896"]);
+		// The Crossroads: Mankrik's 4921 (bind) and 899, Tonga Runetotem 39 yd from him, then the road.
+		let xroads = [(-406.9, -2645.4), (-521.1, -2641.4), (-544.8, -2672.8), (-900.0, -2500.0)];
+		assert_eq!(
+			bind_case(&xroads, &[("accept", 4921, 1), ("accept", 899, 1), ("turnin", 870, 2), ("accept", 877, 2), ("accept", 1, 3)], 0),
+			["accept 4921", "accept 899", "turnin 870", "accept 877", "bind", "accept 1"]
+		);
+		// Sun Rock Retreat: Maggran's 86576 (bind) and 5881; Braelyn outside the gate, 66 yd away.
+		let sun_rock = [(893.6, 927.7), (925.1, 940.9), (949.2, 1002.4)];
+		assert_eq!(bind_case(&sun_rock, &[("accept", 86576, 1), ("accept", 5881, 1), ("accept", 1087, 2)], 0), ["accept 86576", "accept 5881", "bind", "accept 1087"]);
+		// Tarren Mill: Lydon's 496 (bind) and 493 (43 yd from the inn), Krusk (38 yd from the inn, 67 from
+		// Lydon) and the Dangerous! poster (15 yd) inside the inn, then out of town.
+		let tarren = [(-6.0, -942.3), (-6.6, -899.4), (-40.7, -957.0), (-19.4, -935.3), (-500.0, -900.0)];
+		assert_eq!(
+			bind_case(&tarren, &[("accept", 496, 1), ("turnin", 493, 1), ("accept", 498, 2), ("accept", 567, 3), ("accept", 2, 4)], 0),
+			["accept 496", "turnin 493", "accept 498", "accept 567", "bind", "accept 2"]
+		);
+		// (A goal 66 yd on and away from the inn waits: the route moves on, so does the bind.)
+		assert_eq!(bind_case(&sun_rock, &[("accept", 5881, 1), ("accept", 1087, 2), ("accept", 6301, 1)], 0), ["accept 5881", "bind", "accept 1087", "accept 6301"]);
 	}
 }
