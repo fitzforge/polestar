@@ -41,7 +41,14 @@ the upload API, and the public list of what is never collected.
   <version>**, which downloads it, checks its signature, installs it and
   restarts the app (`src-tauri/src/update.rs`); Settings > About has the same
   button. The banner takes no room from the page and goes once the client is
-  the newest.
+  the newest. Each copy downloads the kind of file it was installed from
+  (`release/latest-json.sh`): an AppImage replaces itself, a `.deb` copy
+  installs the new `.deb` with `dpkg -i` after asking for the password
+  (pkexec), the Windows and macOS copies run their installers.
+- **A package upgrade by hand** (Linux, `sudo apt install ./<new>.deb`) puts
+  the new client in place of the old one while the old one keeps running in
+  the tray. Starting the client then quits the old copy and starts the new
+  one, instead of bringing the old window back (`src-tauri/src/relaunch.rs`).
 - **Addons** lists Polestar, Polestar Recorder and LibForeverData: the
   version installed, the newest release on
   [GitHub](https://github.com/fitzforge/polestar/releases) (Polestar and the
