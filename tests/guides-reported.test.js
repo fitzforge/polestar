@@ -1584,10 +1584,11 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 
 // --- Darkshire (Yendi, 0.2.3): part 1 of Look to the Stars needs a Bronze Tube.
 
-const NEEDLES = 'forever/alliance/07-thousand-needles.guide';
+const DUSKWOOD = 'forever/alliance/05-duskwood.guide';
 
-test(`${NEEDLES}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
-	const list = goals(NEEDLES);
+test(`${DUSKWOOD}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
+	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07).
+	const list = goals(DUSKWOOD);
 	const give = at(list, 'turnin 174 (Look to the Stars)', is('turnin', 174));
 	const buy = at(list, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
 	assert.ok(buy < give && list[buy].s === list[give].s, 'bought on the same stop, before the turn-in');
@@ -3642,4 +3643,37 @@ test('Pools of Vision NPCs (#1024): every step at one says they stand down in th
 	}
 	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
 	assert.deepEqual(missing, []);
+});
+
+// --- Flow audit (2026-11-07, Duskwood; geezki on Discord: "back and forth with one quest"): the guide
+// walked back north into Darkshire from the Tranquil Gardens Cemetery for The Night Watch alone before
+// the road west, carried Look to the Stars ready past Viktori until the Duskwood return, sent the
+// player back west from the Yorgen Farmstead for the Totem's spider venom, and had three along lists.
+// Now: The Night Watch is handed in on the big visit after the first loop (its Horrors with the Rot
+// Blossoms, its Fiends on the cemetery walk to Jitters, handed in on the return where 58 starts), Look to
+// the Stars is handed in on the first visit and 175 at Blind Mary on the Embalmer chain's visit, the
+// venom drops from the Hushed Bank's spiders, and the level-27 worgen wait for the return.
+test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, Look to the Stars on the first visit, no along lists`, { skip }, () => {
+	const DUSK = 'forever/alliance/05-duskwood.guide';
+	const list = goals(DUSK);
+	const stepOf = (what, t, q) => list[at(list, what, is(t, q))].s;
+	const first = stepOf('accept 101', 'accept', 101);
+	assert.equal(stepOf('turnin 174', 'turnin', 174), first, 'Look to the Stars handed in on the first Darkshire visit');
+	assert.equal(stepOf('accept 175', 'accept', 175), first, 'and its second part taken there');
+	assert.equal(stepOf('turnin 175', 'turnin', 175), stepOf('turnin 149', 'turnin', 149), '175 handed to Blind Mary with Ghost Hair Thread');
+	const big = stepOf('turnin 101', 'turnin', 101);
+	assert.equal(stepOf('turnin 56', 'turnin', 56), big, 'The Night Watch handed in with the Totem of Infliction');
+	assert.equal(stepOf('accept 57', 'accept', 57), big, 'and 57 taken there');
+	const venom = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1130);
+	const spiders = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 245);
+	assert.equal(venom.s, spiders.s, 'the spider venom with the Pygmy Venom Web Spiders');
+	const horrors = list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 57 && goal.npc === 202);
+	assert.ok(horrors.length >= 1 && horrors[0].s === list.find(({ goal }) => goal.t === 'collect' && goal.item === 1598).s, "57's Horrors with the Rot Blossoms");
+	const fiends = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 57 && goal.npc === 531);
+	assert.ok(fiends.s > stepOf('turnin 133', 'turnin', 133) && fiends.s < stepOf('turnin 453', 'turnin', 453), "57's Fiends between Abercrombie's effigy and Jitters");
+	assert.ok(!list.some(({ goal }) => goal.quest === 173 && goal.t === 'kill'), 'the level-27 Shadow Weavers wait for the Duskwood return');
+	assert.deepEqual(compiled(DUSK).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
+	const ret = goals('forever/alliance/07-thousand-needles.guide');
+	assert.ok(at(ret, 'turnin 57 on the return', is('turnin', 57)) < at(ret, 'accept 58', is('accept', 58)), '57 handed in on the return before 58');
+	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
 });

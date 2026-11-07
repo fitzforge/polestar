@@ -2841,7 +2841,7 @@
 					1
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): the Totem's Vial of Spider Venom (101) drops from the Pygmy Venom Web Spiders Eight-Legged Menaces (245) asks for and from the Venom Web Spiders and Green Recluses beside them at the Hushed Bank (10-15% each in the game's loot data); recorded players filled it there (rec.py quest 101: the venom ticks on kills of npc 539 and 217). The route sent the player back west from the Yorgen Farmstead to the Black Widow Hatchlings for it (05-duskwood 'Brightwood Grove' on 0.3.4, about 1,100 yd of the walk back to Darkshire)."
+				"why": "Flow audit (2026-11-07, Duskwood): the Totem's Vial of Spider Venom (101) drops from the Pygmy Venom Web Spiders Eight-Legged Menaces (245) asks for and from the Venom Web Spiders and Green Recluses beside them at the Hushed Bank (10-15% each in the game's loot data); recorded players filled it there (players' recordings of quest 101: the venom ticks on kills of npc 539 and 217). The route sent the player back west from the Yorgen Farmstead to the Black Widow Hatchlings for it (05-duskwood 'Brightwood Grove' on 0.3.4, about 1,100 yd of the walk back to Darkshire)."
 			}
 		],
 		"after": [
@@ -2975,6 +2975,19 @@
 					2
 				],
 				"why": "Sweep from #957 (PR #970): Badlands Reagent Run's Rock Elemental Shards (2500, objective 3) drop only from rock elementals, and none stand near Hammertoe's Digsite: the nearest are the Lesser Rock Elementals in the Dustbowl round Lotwil Veriatus, whose Study of the Elements: Rock (710) asks for their Small Stone Shards (both items from Lesser Rock Elemental 2735 in the game's loot data). The route collected the shards in the Hammertoe's Digsite step, before Lotwil, then sent the player back to the same elementals for 710 at Agmond's End (30-40/06-badlands); 2500 is handed in at Thelsamar after both. v1 has the shards after accept 710"
+			},
+			{
+				"a": [
+					"turnin",
+					133
+				],
+				"b": [
+					"task",
+					57,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch's Skeletal Fiends (57) walk the southern half of the Raven Hill Cemetery, which the last western loop crosses from Abercrombie to Jitters after Ghoulish Effigy; 57 is then handed in on the Duskwood return's first Darkshire stop, where its third part (58) starts. Taken on the Darkshire visit after the first loop, it has no work on that loop."
 			}
 		],
 		"stay": [
@@ -4922,20 +4935,7 @@
 					56
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). Both speedrun benchmark orders hand it in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire (BENCHORDER, town visits: Darkshire)."
-			},
-			{
-				"a": [
-					"turnin",
-					133
-				],
-				"b": [
-					"task",
-					57,
-					0
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch's Skeletal Fiends (57) walk the southern half of the Raven Hill Cemetery, which the last western loop crosses from Abercrombie to Jitters after Ghoulish Effigy; 57 is then handed in on the Duskwood return's first Darkshire stop, where its third part (58) starts. Taken on the Darkshire visit after the first loop, it has no work on that loop."
+				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). Both speedrun benchmark orders hand it in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire."
 			},
 			{
 				"a": [

@@ -1881,6 +1881,60 @@
 				}
 			],
 			"pr": 1032
+		},
+		{
+			"id": "duskwood-shadow-weavers-not-on-the-way",
+			"faction": "Alliance",
+			"at": {
+				"quest": 173,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Worgen in the Woods: the Nightbane Shadow Weavers (level 27) are killed in their own step on the Duskwood return (07-thousand-needles, 28), where the quest is handed in; an along list from Darkshire's first visit (05-duskwood, 22-25) sent players into level-27 worgen for work the return does anyway (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings in Duskwood (8 runs): none handed Worgen in the Woods in before level 28"
+				}
+			],
+			"pr": 1090
+		},
+		{
+			"id": "duskwood-night-watch-horrors-in-the-rot-blossoms-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Night Watch (57): the Skeletal Horrors are killed in the Rot Blossoms step, from the same Horrors south-east of Darkshire (route-fixes together 156 -> 57.1); an along list from Commander Althea's accept would list them before Blind Mary's visit and split them from the blossoms.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "Rot Blossom (1598) drops from Skeletal Horror (202) and Skeletal Fiend (531)"
+				}
+			],
+			"pr": 1090
+		},
+		{
+			"id": "duskwood-night-watch-fiends-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 57,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on the walk from Abercrombie to Jitters (route-fixes pair turnin 133 -> task 57.0), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "cmangos",
+					"ref": "Skeletal Fiend (531) spawns: Raven Hill Cemetery only (npcs.json)"
+				}
+			],
+			"pr": 1090
 		}
 	]
 }
