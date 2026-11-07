@@ -250,10 +250,15 @@ uploads are answered `503 {"error":"server busy, try later"}` with
 The plausibility checks: clock within the last 30 days and at most 10
 minutes ahead, a chunk spans at most 2 hours, seq within 400 of the
 install's highest, levels 1–60, kill XP within what the level allows, at
-most 40 kills (and 40 `spawn` records), 60 loot windows, 30 `gather` and 30
-`refuse` records a minute, groups of at most 40, ids below 1,000,000, and at most
-100 yards a second between positions on one map (map sizes from the game's
-own map data, never from the upload).
+most 40 of the player's own kills (and their `spawn` records; kills another
+player had tagged don't count) a minute, 60 loot windows, 30 `gather` and 30
+`refuse` records a minute, groups of at most 40, ids below 1,000,000, and no
+movement faster than 100 yards a second between positions on one map twice
+in a row or more than twice in a chunk (one such jump is a teleport the game
+makes: the spirit healer after a release, a portal; map sizes from the game's
+own map data, never from the upload). At startup the server checks the
+suspect chunks it holds again under the current rules; one flagged only for
+speed or kill rate that passes now is stored as plausible and exported.
 
 ## Trust
 
