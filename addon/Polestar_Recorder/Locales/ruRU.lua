@@ -20,14 +20,14 @@ L["trail on: %s (stops by itself after %d min; /psrec trail off to end)"] = "с�
 L["trail off: %s, %d points"] = "след выключен: %s, точек: %d"
 L["no trail running"] = "след не записывается"
 L["usage: /psrec trail on [label] | trail off"] = "использование: /psrec trail on [название] | trail off"
--- L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = ""
--- L["last chunk the uploader confirmed: %d (newest: %d)"] = ""
--- L["the uploader has not confirmed a chunk yet (newest: %d)"] = ""
--- L["install id: %s"] = ""
--- L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = ""
--- L["mark not recorded (not in the world yet)"] = ""
--- L["every recording not yet uploaded was deleted"] = ""
--- L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = ""
+L["%d chunks waiting for the uploader (about %d KiB of %d KiB)"] = "фрагментов ожидают загрузчика: %d (около %d КиБ из %d КиБ)"
+L["last chunk the uploader confirmed: %d (newest: %d)"] = "последний фрагмент, подтверждённый загрузчиком: %d (новейший: %d)"
+L["the uploader has not confirmed a chunk yet (newest: %d)"] = "загрузчик ещё не подтвердил ни одного фрагмента (новейший: %d)"
+L["install id: %s"] = "id установки: %s"
+L["commands: /psrec on | off | ui | mark <text> | trail on [label] | trail off | clear"] = "команды: /psrec on | off | ui | mark <текст> | trail on [название] | trail off | clear"
+L["mark not recorded (not in the world yet)"] = "метка не записана (вы ещё не в игровом мире)"
+L["every recording not yet uploaded was deleted"] = "все ещё не загруженные записи удалены"
+L["this deletes every recording not yet uploaded. Type |cffffd100/psrec clear confirm|r within %d seconds to proceed."] = "будут удалены все ещё не загруженные записи. Чтобы продолжить, введите |cffffd100/psrec clear confirm|r в течение %d с."
 
 -- Trail.lua
 L["trail stopped after %d min: %s, %d points"] = "след остановлен через %d мин: %s, точек: %d"
@@ -63,8 +63,8 @@ L["Recorder: start or stop the position trail"] = "Запись: начать и
 L["Recorder: show or hide the window"] = "Запись: показать или скрыть окно"
 
 -- Recorder.lua
--- L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = ""
--- L["on, because sharing is on in Polestar Client. /psrec off to stop."] = ""
+L["recordings from the previous Recorder (schema 1) were removed; recording now uses schema 2"] = "записи предыдущей версии Recorder (схема 1) удалены; теперь запись идёт по схеме 2"
+L["on, because sharing is on in Polestar Client. /psrec off to stop."] = "вкл., так как в Polestar Client включён обмен данными. /psrec off — остановить."
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["this client exposes no talent tree API"] = "этот клиент не предоставляет API дерева талантов"
