@@ -3166,6 +3166,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-08, Alliance 20-30): War Banners and From the Ashes are taken from Captain Stoutfist together on the first Menethil stop of 06-wetlands (players' recordings: both characters who took From the Ashes took it with War Banners) and handed in together on the last one, with Nek'rosh's Gambit taken there, instead of War Banners in, a walk east to the Angerfang Encampment for the plans and back to Menethil."
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"turnin",
+					279
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Claws from the Deep (279) and Spoils of War (98197) are handed in on 06-ashenvale's last Menethil stop with the other Wetlands hand-ins. The route walked back from Bluegill Marsh to Karl Boran for 279 alone and out east again (about 900 yd more than heading east from the marsh), and walked from the north gate back to Valstag Ironjaw in the keep for 98197 alone. The one recorded player who handed 279 and 98197 in did so on one stop."
+			},
+			{
+				"a": [
+					"turnin",
+					484
+				],
+				"b": [
+					"turnin",
+					98197
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Spoils of War handed to Valstag Ironjaw with the other hand-ins on 06-ashenvale's last Menethil stop (see turnin 484 with turnin 279)."
 			}
 		],
 		"after": [

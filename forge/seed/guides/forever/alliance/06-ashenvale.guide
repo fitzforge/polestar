@@ -244,10 +244,6 @@ step Spoils of War
   collect 279821 quest 98197              -- Khaz Modan Timber
   collect 279822 quest 98197              -- Khaz Modan Iron
 
-step James Halloran
-  tip James Halloran stands by the north gate.
-  turnin 98197                        -- Inside
-
 # ---------------------------------------------------------------- Bluegill Marsh
 
 step Bluegill Marsh
@@ -255,13 +251,10 @@ step Bluegill Marsh
   kill 1024 quest 279                     -- Bluegill Murloc
   collect 3618 quest 279                  -- Gobbler's Head
 
-step Karl Boran
-  turnin 279
-
 # ---------------------------------------------------------------- East Wetlands
 
 step Young crocolisks
-  tip Follow the road east. Young Wetlands Crocolisks lurk in the pools north of the excavation site.
+  tip From the marsh head east across the Wetlands. Young Wetlands Crocolisks lurk in the pools north of the excavation site.
   collect 3397 quest 484                  -- Young Crocolisk Skin
 
 step Whelgar's Excavation Site
@@ -302,11 +295,13 @@ step Ironbeard's Tomb
   collect 3349 quest 470 @44.6,25.6       -- Sida's Bag
 
 step Menethil
-  tip Back west along the road into Menethil: Tarrel Rockweaver by the road in, Sida and Caitlin Grassman at the inn, James Halloran on the west side by the docks.
+  tip Back west along the road into Menethil: Tarrel Rockweaver by the road in, Sida and Caitlin Grassman at the inn, Valstag Ironjaw in the keep, James Halloran on the west side by the docks, Karl Boran on the pier north of the inn.
   turnin 306                              -- Tarrel Rockweaver
   turnin 470                              -- Sida
   turnin 98282                            -- Caitlin Grassman, inside
+  turnin 98197                            -- Valstag Ironjaw, in the keep
   turnin 484                              -- James Halloran
+  turnin 279                              -- Karl Boran, on the pier
   vendor nearest
 
 # ---------------------------------------------------------------- Ironforge
