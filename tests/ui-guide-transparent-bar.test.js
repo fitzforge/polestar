@@ -64,3 +64,28 @@ test('turning it off again hides the bar and the strip in Transparent', () => {
 		emit(state())`);
 	assert.deepEqual(c, { title: 0, strip: 0, grip: 0, shade: false });
 });
+
+test('the dark strip can be turned off: the bar stays shown with no background', () => {
+	const [c] = run(`
+		Polestar.Set("ui.style", "transparent")
+		Polestar.Set("ui.barShown", true)
+		Polestar.Set("ui.barShade", false)
+		emit(state())`);
+	assert.deepEqual(c, { title: 1, strip: 1, grip: 0, shade: false });
+});
+
+test('the bar text in the class colour: the guide name, the step count and Skip; back to the theme colour on default', () => {
+	const [cls, def] = run(`
+		UnitClass = function() return "Warlock", "WARLOCK", 9 end
+		local r, g, b = Polestar.Theme.ClassColor()
+		local function same(fs) local x, y, z = fs:GetTextColor(); return math.abs(x - r) < 1e-6 and math.abs(y - g) < 1e-6 and math.abs(z - b) < 1e-6 end
+		local before = { P.nav.Title:GetTextColor() }
+		Polestar.Set("ui.barText", "class")
+		emit({ title = same(P.nav.Title), count = same(P.nav.Steps.Count), skip = same(P.nav.Skip.Label), hasClass = r ~= nil })
+		Polestar.Set("ui.barText", "default")
+		local after = { P.nav.Title:GetTextColor() }
+		emit({ back = before[1] == after[1] and before[2] == after[2] and before[3] == after[3] })`);
+	assert.equal(cls.hasClass, true, 'the stub player has a class colour');
+	assert.deepEqual([cls.title, cls.count, cls.skip], [true, true, true]);
+	assert.equal(def.back, true, 'default puts the theme colour back');
+});

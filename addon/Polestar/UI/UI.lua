@@ -23,7 +23,9 @@ ns.RegisterDefaults("ui", {
 	barsBottom = false, -- with growUp: tabs and navigator at the bottom, by the pinned edge
 	compact = false,
 	style = "standard", -- "standard" | "transparent"
-	barShown = false, -- transparent: the tabs and the step bar stay shown, on a dark strip, instead of only under the cursor
+	barShown = false, -- transparent: the tabs and the step bar stay shown instead of only under the cursor
+	barShade = true, -- with barShown: a dark strip behind them
+	barText = "default", -- the step bar's words: "default" (the theme's colour) or "class" (the player's class colour)
 	scale = 1,
 	opacity = 1,
 	bgOpacity = 0.94, -- the ground of every Polestar window

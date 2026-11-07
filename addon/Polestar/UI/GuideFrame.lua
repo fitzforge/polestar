@@ -2446,6 +2446,19 @@ function GF.PaintSkip(shown, enabled)
 	local a = enabled and 1 or 0.35
 	W.Color(b.Icon, "textDim", a)
 	W.Color(b.Label, "textDim", a)
+	GF.PaintBarText()
+end
+
+-- ui.barText "class": the step bar's words (the guide's name, the step count,
+-- Skip) in the player's class colour; "default": the theme's.
+function GF.PaintBarText()
+	if not (nav and rawget(nav, "Title") and rawget(nav, "Skip")) then return end
+	local r, g, b
+	if ns.Get("ui.barText") == "class" then r, g, b = Theme.ClassColor() end
+	for _, it in ipairs({ { nav.Title, "textDim" }, { nav.Steps.Count, "text" }, { nav.Skip.Label, "textDim" } }) do
+		local fs = it[1]
+		if r then fs:SetTextColor(r, g, b, fs.psAlpha or 1) else W.Color(fs, it[2], fs.psAlpha) end
+	end
 end
 
 -- Skip sits left of the Nearby services button, or of the bug when that
@@ -3294,7 +3307,7 @@ function GF.ApplyStyle()
 	Theme.Repaint(F)
 	local skin = Theme.SkinKey()
 	band:SetShown(not clear and skin == "polestar")
-	band.Shade:SetShown(clear and ns.Get("ui.barShown") and true or false)
+	band.Shade:SetShown(clear and ns.Get("ui.barShown") and ns.Get("ui.barShade") and true or false)
 	nav.TitleBar:SetShown(not clear and skin == "hearth")
 	-- Blizzard's damage meter header bar under the tabs.
 	Theme.KitStrip(strip, not clear)
@@ -3437,6 +3450,8 @@ local APPLY = {
 	["ui.bgOpacity"] = function() GF.ApplyStyle() end,
 	["ui.style"] = function() GF.ApplyStyle() end,
 	["ui.barShown"] = function() GF.ApplyStyle() end,
+	["ui.barShade"] = function() GF.ApplyStyle() end,
+	["ui.barText"] = function() GF.PaintBarText() end,
 	["ui.locked"] = function() GF.ApplyLock() end,
 	["ui.compact"] = function() GF.ApplyCompact() end,
 	["ui.width"] = function() GF.ApplyWidth() end,
@@ -4025,6 +4040,8 @@ local function build()
 	end)
 	skip:Hide()
 	nav.Skip = skip
+	-- Last of the repaint: the class colour wins over the theme's (ui.barText).
+	W.Painter(nav, function() GF.PaintBarText() end)
 	anchorSkip()
 	nav.Title = T(nav, "small", "textDim")
 	-- The step's own title and the guide's facts, on the step number.
