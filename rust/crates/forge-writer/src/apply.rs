@@ -1298,6 +1298,18 @@ fn way_in_tip(zone: Option<&str>, came_from: Option<&str>, label: &str) -> Optio
 }
 
 pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
+	// Under `steps` (F6) v1's own along lists become plain steps: their `along` line goes and their
+	// goals stay at the step's place (the seed re-cut from the published guides carries next's along
+	// lists, whose labels the route can move before them).
+	let plain_guides;
+	let plain_inp;
+	let inp = if forge_core::flow_flags::on("steps") && inp.guides.values().any(|t| t.lines().any(|l| re!(r"^\s+along\b").is_match(l))) {
+		plain_guides = inp.guides.iter().map(|(k, t)| (k.clone(), t.split('\n').filter(|l| !re!(r"^\s+along\b").is_match(l)).collect::<Vec<_>>().join("\n"))).collect::<BTreeMap<String, String>>();
+		plain_inp = Inputs { guides: &plain_guides, ..*inp };
+		&plain_inp
+	} else {
+		inp
+	};
 	// A shared guide the start plays on both sides of the faction's join (the Night Elves' Darkshore:
 	// its first loop before Westfall, the rest after it in the shared tail): this run writes its own
 	// part only, which becomes the start's own copy; the shared guide's later steps are the canonical
