@@ -5986,6 +5986,54 @@
 				],
 				"faction": "Horde",
 				"why": "Flow audit, Orc Durotar (#1092): Lar Prowltusk stands 21 yd from Master Gadrin and offers Thwarting Kolkar Aggression at level 5 on the first Sen'jin stop (11 recorded windows of his, most at level 5 with Report to Sen'jin Village still in the log). The Orc order took it on a trip of its own from Razor Hill after Tiragarde Keep (1,200 yd south), then walked north again to the toolboxes east of Razor Hill; taken on the first stop, the coast is walked once, from Razor Hill south. The shared seed now has the accept on that stop"
+			},
+			{
+				"a": [
+					"accept",
+					516
+				],
+				"b": [
+					"task",
+					438
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Silverpine (#1095): Shadow Priest Allister offers Beren's Peril from level 16; it is taken with Ambermill Investigations on the Sepulcher stop after the north loop (17 recorded accepts at 16-22, most at 17), so the stop after Fenris Isle is not needed for it"
+			},
+			{
+				"a": [
+					"task",
+					516
+				],
+				"b": [
+					"turnin",
+					443
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Silverpine (#1095): the Rot Hide Ichor waits for the Sepulcher stop after the south loop. The old order walked from Fenris Isle back to the Sepulcher (1,585 yd) for Wild Eyes and the ichor, then out again to Ambermill; now Fenris Isle runs south along the lake shore to Ambermill and Beren's Peril"
+			},
+			{
+				"a": [
+					"task",
+					516
+				],
+				"b": [
+					"turnin",
+					91920
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Silverpine (#1095): Wild Eyes goes to Renferrel with the ichor on the Sepulcher stop after the south loop (Return to Quinn (Again) is only needed on the road north at the end)"
+			},
+			{
+				"a": [
+					"accept",
+					493
+				],
+				"b": [
+					"turnin",
+					91921
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Silverpine (#1095): Journey to Hillsbrad (min level 19) is taken on the Sepulcher stop that hands in the southern loop, after the lake-shore grind on the way south; the old order went from that stop 1,100 yd east to grind on the lake shore and 1,100 yd back to the Sepulcher for this accept alone"
 			}
 		]
 	}
