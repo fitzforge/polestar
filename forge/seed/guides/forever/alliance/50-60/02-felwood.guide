@@ -12,6 +12,8 @@
 #   right after the southern loop, so Further Corruption (4906), Collection of the Corrupt Water (5157) and
 #   Retribution of the Light (5204) are done on the same pass north: the export walks back to Jaedenar and Jadefire
 #   Run after the northern loop. Xavaric then drops his flute (939) on the one visit to Jadefire Run.
+# - Laris's ooze jars (4512) are filled on the southern loop: Cursed Oozes in Jadefire Glen with the satyrs, Tainted
+#   Oozes around Jaedenar with its cultists (re-seeded for flow, 0.3.5: an ooze stop of their own on the way north).
 # - Talonbranch Glade's flight path is added on the way north: it shortens the final ride from the Sanctuary.
 # Carried on: Speak to Salfa (8465) for Winterspring, Felbound Ancients (4441)
 # for Darnassus, Seeking Spiritual Aid (5158) for the Barrens, A Little Slime Goes a Long Way (4512) for Ironforge.
@@ -61,7 +63,9 @@ step The Emerald Sanctuary
 
 step Jadefire Glen
   tip The Jadefire satyrs hold the glen west of the road, with Xavathras at its back.
+  tip Cursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains.
   kill 7109 quest 4421.1              -- Jadefire Felsworn
+  collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
   kill 7110 quest 4421.2              -- Jadefire Shadowstalker
   kill 7106 quest 4421.3              -- Jadefire Rogue
   kill 9454 quest 4421.4              -- Xavathras
@@ -72,6 +76,7 @@ step Jaedenar
   kill 7115 quest 5155.3              -- Jaedenar Adept
   kill 7112 quest 5155.4              -- Jaedenar Cultist
   kill 7113 quest 5155.2              -- Jaedenar Guardian
+  collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
   collect 13140 optional              -- Blood Red Key, a rare drop
   accept 5202 optional
   turnin 5202 optional                -- Captured Arko'narin, in Shadow Hold
@@ -94,11 +99,6 @@ step Jaedenar again
   kill 9518 quest 5204.1 optional     -- Rakaiah
   turnin 5204 optional                -- Remains of Trey Lightforge
   accept 5385 optional
-
-step Oozes
-  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill them and use Laris's Empty Ooze Jars on their remains.
-  collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
-  collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar
 
 step Shatter Scar Vale
   tip Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them.

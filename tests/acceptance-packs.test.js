@@ -190,8 +190,11 @@ test('beside ours: a row with its credits, its own picker entry, credits in the 
 	assert.equal(out.next, WESTFALL);
 });
 
+// The hand-off by itself (behavior.guideEnd "continue"); with "ask", the default since the guide-end window,
+// the window offers it instead (engine-guide-end.rs).
 test('the example guide played to its end hands over to our Westfall guide', { skip }, () => {
 	const [out] = run(`
+		Polestar.Set("behavior.guideEnd", "continue")
 		E.OpenTab("acceptance-good/example"); flush()
 		local start = { guide = E.GetGuide().id, step = E.GetStepIndex() }
 		local w = stub.world

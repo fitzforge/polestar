@@ -116,6 +116,8 @@ step Dalson's Tears cauldron
 step Andorhal
   tip Use the Temporal Displacer by the grain silos to draw out Temporal Parasites. The Annals of Darrowshire is one of the musty tomes in the town hall. Every skeleton in town drops Skeletal Fragments.
   collect 12900 quest 5154.1          -- Annals of Darrowshire
+  use 12627 @45.1,62.3 "Temporal Displacer"
+  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
 
 step Chillwind Camp
   turnin 5220                         -- High Priestess MacDonnell
@@ -137,10 +139,6 @@ step Diseased Grizzlies
 step Mulgris Deepriver
   turnin 4985                         -- Inside
   accept 4986                         -- For the druids of Darnassus: keep it
-
-step Andorhal
-  use 12627 @45.1,62.3 "Temporal Displacer"
-  kill 10717 quest 4971.1 @45.1,62.3  -- Temporal Parasite
 
 step Chillwind Camp
   turnin 5223                         -- High Priestess MacDonnell

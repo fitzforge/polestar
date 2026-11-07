@@ -63,7 +63,9 @@ step Level 52.69
 step Jadefire Glen
   tip The Jadefire satyrs hold the glen west of the road, with Xavathras at its back.
   tip Careful: Jadefire Shadowstalkers (level 51-52) use Sneak and Slowing Poison and are stealthed, so they often join fights uninvited.
+  tip Cursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains.
   kill 7109 quest 4421.1              -- Jadefire Felsworn
+  collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
   level 52.74                          -- grind on Jadefire Felsworn
 
 step Ruins of Constellas
@@ -77,6 +79,7 @@ step Jaedenar
   kill 7113 quest 5155.2              -- Jaedenar Guardian
   kill 7115 quest 5155.3              -- Jaedenar Adept
   kill 7112 quest 5155.4              -- Jaedenar Cultist
+  collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
   collect 13140 optional              -- Blood Red Key, a rare drop
   accept 5202 optional
   turnin 5202 optional                -- Captured Arko'narin, in Shadow Hold; below ground
@@ -165,18 +168,11 @@ step Jaedenar again
   use 12922 quest 5157.1 @35.2,59.8 map 1448
   collect 12907 quest 5157.1
 
-step Oozes
-  tip The Cursed and Tainted Oozes slide about the streams and fel pools around Jaedenar and Bloodvenom Falls: kill them and use Laris's Empty Ooze Jars on their remains.
-  collect 11947 quest 4512.1          -- Filled Cursed Ooze Jar
-
 step Jaedenar again
   tip Trey Lightforge's remains lie beside her.
   kill 9518 quest 5204.1 optional @38.3,50.5 map 1448 -- Rakaiah, below ground
   turnin 5204 optional                -- Remains of Trey Lightforge, below ground
   accept 5385 optional
-
-step Jaedenar
-  collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar
 
 # ---------------------------------------------------------------- Back south
 

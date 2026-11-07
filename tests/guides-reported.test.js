@@ -4363,6 +4363,19 @@ test("Fitz's report (#1149): a goto before a kill or collect in a written guide 
 	assert.deepEqual(bad, []);
 });
 
+// #1149 (Corin's Crossing): the step's goto pointed at Nathanos's camp (26.5,74.7), far west of the town where
+// Living Rot drops. The town's point lives in the seed now, so every Forge build writes it.
+test("Fitz's report (#1149): Eastern Plaguelands' Corin's Crossing step leads to the town, in the guide and its seed", () => {
+	const rel = 'forever/horde/50-60/05-eastern-plaguelands.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const text = fs.readFileSync(file, 'utf8');
+		const step = text.split(/\n(?=step )/).find((s) => s.startsWith("step Corin's Crossing\n"));
+		assert.ok(step, `${file}: a Corin's Crossing step`);
+		assert.match(step, /\n\s+goto 52\.3,58\.2 "Corin's Crossing" live\n/, `${file}: the goto is the town`);
+		assert.doesNotMatch(step, /goto 26\.5,74\.7/, `${file}: not Nathanos's camp`);
+	}
+});
+
 // A Paladin's report on Discord (2026-11-07): the level 12 Redemption chain came up again and again though it was
 // done. Duthorian Rall's The Tome of Divinity (1641; Tiza Battleforge's 1645) is a repeatable quest he takes back
 // straight from the quest window: players' recordings have its hand-in and no accept, and the client never flags it
@@ -4819,4 +4832,94 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	const taurajo = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo');
 	assert.ok(taurajo.step.only && !taurajo.step.only.races.includes('Tauren'), 'the Camp Taurajo flight is for the others');
 	assert.ok(at(list, 'turnin 1150', is('turnin', 1150)) < at(list, 'accept 1151', is('accept', 1151)), 'Test of Strength after Test of Endurance');
+});
+
+// Flow review (2026-11-07): Alliance Stranglethorn 40-50 killed the Jungle Stalkers on a trip of their own after the
+// last Booty Bay stop and walked back north to Nesingwary for Raptor Mastery, though the jungle loop crosses their
+// slopes at the Cold Eye basilisks and the ride to the Rebel Camp passes Nesingwary's camp.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor Mastery with the Cold Eye basilisks, handed in at Nesingwary on the way to the Rebel Camp', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const stalkers = stepOf('the Jungle Stalkers (196)', (g) => g.t === 'kill' && g.quest === 196);
+	assert.equal(stalkers, stepOf('the basilisk haunch (212)', (g) => g.t === 'collect' && g.quest === 212), 'the raptors with the basilisks');
+	const turnin = stepOf('turnin 196', is('turnin', 196));
+	assert.ok(turnin < stepOf('turnin 622', is('turnin', 622)), 'handed in on the way to the Rebel Camp');
+	assert.ok(turnin < stepOf('turnin 611', is('turnin', 611)), 'before the last Booty Bay stop');
+});
+
+// Flow review (2026-11-07): Alliance Stranglethorn 40-50 flew in to Darkshire 60 yards from Watchmaster Sorigal with
+// Vital Supplies and carried it to the next guide, whose Darkshire stop then took the Crate of Power Stones about
+// thirty steps before Nethergarde Keep: the crate lasts an hour.
+test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshire on the way into the swamp, the crate taken on the way to Nethergarde', { skip }, () => {
+	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const s = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.ok(s(stv, 'turnin', 1477) < s(stv, 'accept', 1398), 'handed to Sorigal before Watcher Biggs');
+	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	assert.ok(!hin.some(({ goal }) => is('turnin', 1477)(goal)), 'not carried into the next guide');
+	const accept = s(hin, 'accept', 1395);
+	assert.ok(accept > s(hin, 'turnin', 3763), 'the crate after Darnassus');
+	assert.ok(s(hin, 'turnin', 1395) - accept <= 4, 'the crate straight to Nethergarde Keep');
+});
+
+// Flow review (2026-11-07): Alliance Feralas went back to Feathermoon after the southern mainland loop, then took the
+// boat out again for Lord Shalzaru on the Isle of Dread and back for his hand-in; the Groddoc livers waited for the
+// eastern loop, which walked back to the apes by Feral Scar Vale.
+test('forever/alliance/40-50/03-feralas.guide: flow re-order: Lord Shalzaru closes the southern loop, one Feathermoon visit, Groddoc livers by Feral Scar', { skip }, () => {
+	const list = goals('forever/alliance/40-50/03-feralas.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const relic = stepOf('the Mysterious Relic (2870)', (g) => g.t === 'collect' && g.quest === 2870);
+	assert.ok(relic > stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'after the yetis');
+	assert.ok(relic < stepOf('turnin 4127', is('turnin', 4127)), 'before the Feathermoon hand-ins');
+	assert.equal(stepOf('turnin 2870', is('turnin', 2870)), stepOf('turnin 4127', is('turnin', 4127)), 'one Feathermoon visit');
+	assert.equal(stepOf('the Groddoc livers', (g) => g.t === 'collect' && g.quest === 1452 && g.oi === 3), stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'the livers with the yetis');
+});
+
+// Flow review (2026-11-07): Alliance Un'Goro rode from Torwa to Marshal's Refuge and only came back south-east for the
+// Lar'korwi glands and the wrecked raft, which lie just west of Torwa at the foot of the ramp.
+test("forever/alliance/40-50/07-un-goro-crater.guide: flow re-order: the Lar'korwi glands and the wrecked raft on arrival, before the ride north", { skip }, () => {
+	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const glands = stepOf('the glands (4291)', (g) => g.t === 'collect' && g.quest === 4291);
+	const karna = stepOf('accept 4243', is('accept', 4243));
+	assert.ok(glands < karna, 'the glands before Karna');
+	assert.equal(stepOf('turnin 3844', is('turnin', 3844)), glands, 'the raft with the glands');
+	assert.equal(glands, stepOf('turnin 4290', is('turnin', 4290)) + 1, 'right after Torwa');
+});
+
+// Flow review (2026-11-07): Alliance Felwood filled Laris's ooze jars on stops of their own on the way back south,
+// though the southern loop's satyr and Jaedenar kills stand among the same oozes.
+test('forever/alliance/50-60/02-felwood.guide: flow re-order: the ooze jars filled on the southern loop', { skip }, () => {
+	const list = goals('forever/alliance/50-60/02-felwood.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const obj = (t, q, oi) => (g) => g.t === t && g.quest === q && g.oi === oi;
+	assert.equal(stepOf('the Cursed Ooze jar', obj('collect', 4512, 1)), stepOf('the Felsworn (4421.1)', obj('kill', 4421, 1)), 'Cursed Oozes in Jadefire Glen');
+	assert.equal(stepOf('the Tainted Ooze jar', obj('collect', 4512, 2)), stepOf('the hounds (5155.1)', obj('kill', 5155, 1)), 'Tainted Oozes in Jaedenar');
+	assert.ok(stepOf('the Tainted Ooze jar', obj('collect', 4512, 2)) < stepOf('turnin 5155', is('turnin', 5155)), 'before the first Sanctuary hand-ins');
+});
+
+// Flow review (2026-11-07): Alliance Winterspring picked up one Kel'Theril relic fragment on the first pass by the lake
+// and came back for the other three, and rode back to Light's Hope between Corin's Crossing and the west only to hand
+// in Defenders of Darrowshire, though the guide ends at the chapel.
+test("forever/alliance/50-60/03-winterspring.guide: flow re-order: the four relic fragments on one pass, Defenders of Darrowshire on the last Light's Hope stop", { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const fragments = new Set(list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 5245).map((e) => e.s));
+	assert.equal(fragments.size, 1, 'all four fragments in one step');
+	assert.equal(stepOf('turnin 5211', is('turnin', 5211)), stepOf('turnin 5509', is('turnin', 5509)), 'with the Scourgestones');
+});
+
+// Flow review (2026-11-07): Alliance Western Plaguelands fetched the Annals from Andorhal and came back to the same
+// town for the Temporal Parasites on a later loop; Chromie takes both together.
+test('forever/alliance/50-60/04-western-plaguelands.guide: flow re-order: the Temporal Parasites on the Annals visit to Andorhal', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971), stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 'one Andorhal visit');
+});
+
+// Flow review (2026-11-07): Alliance Silithus handed Noggle's Last Hope to Beetix with Noggle standing beside him and
+// only took Noggle's Lost Satchel on the next Cenarion Hold stop.
+test("forever/alliance/50-60/06-silithus.guide: flow re-order: Noggle's Lost Satchel taken beside Beetix", { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('accept 8282', is('accept', 8282)), stepOf('turnin 8278', is('turnin', 8278)), 'on the same stop');
 });

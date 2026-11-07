@@ -65,7 +65,11 @@ const skip = needs('quests.json')
 // addon's new work on every step (the engine's confirm, kept-item and start rules, the
 // guide window's banner checks for quest-log room and bag space, the party and XP lines),
 // spread over many functions, not one slow path. So 12.5 and 10.5 ms.
-const BUDGET = { burst: 4, tick: 1, setGuide: 12.5, stepChange: 10.5, gatherSeconds: 15 };
+// Nov 7: setGuide 12.9-13.2 ms on a quiet machine (10.4-11.1 at 0.3.4). The step came with
+// the Troll Durotar re-order (#1077), which changed only guides, The Barrens among them: more
+// guide content to open, not slower code. Intended, so 13.5 ms; still under a frame and paid
+// once. stepChange keeps 10.5 (its rise is #1131's code, fixed there).
+const BUDGET = { burst: 4, tick: 1, setGuide: 13.5, stepChange: 10.5, gatherSeconds: 15 };
 const ROUNDS = 5;
 // The reference's fastest timing: 5.3 ms (Intel i7-10700K, 16 threads, Linux,
 // lua5.1 5.1.5; the same with other work on the machine).

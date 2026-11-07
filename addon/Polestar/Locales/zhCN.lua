@@ -137,6 +137,9 @@ L["Only once %s is handed in"] = "仅在交还%s之后"
 L["Skipped for your character: its conditions do not hold"] = "你的角色已跳过：条件不满足"
 L["Skipped for your character: none of its goals apply"] = "你的角色已跳过：没有适用的目标"
 L["For %s: %s"] = "为 %s：%s"
+L["Hand in %s to %s"] = "交付%s给%s"
+L["Hand in %s"] = "交付%s"
+L["%s, %d more"] = "%s，还差 %d"
 
 -- Core/Closes.lua
 L["Taking %s closes %s for good."] = "接受 %s 会永久关闭 %s。"
@@ -986,6 +989,10 @@ L["Group quests"] = "小队任务"
 L["Group quests in leveling guides"] = "升级指南中的小队任务"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "任务给予者"
@@ -1294,6 +1301,11 @@ L["Click to show or hide the party panel."] = "点击显示或隐藏小队面板
 -- L["Behind by %s: step %d grinds to level %s"] = ""
 -- L["Behind by %s for level %s by step %d: grind ~%s before then"] = ""
 -- L["Behind by %s for level %s by step %d, and no grind step ahead"] = ""
+L["While you're here:"] = "顺便完成："
+L["(step %d)"] = "（步骤 %d）"
+L["Not now (right-click)"] = "暂不（右键）"
+L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "步骤 %d 稍后会做这件事；现在完成，到那个步骤时它会更短或直接跳过。"
+L["Right-click: not now, for the rest of this zone."] = "右键：暂不，在这个地区内不再提示。"
 -- L["Left out because you skipped %s"] = ""
 -- L["Ticked by you, but the game still counts its objectives open: finish them first."] = ""
 
@@ -2047,6 +2059,13 @@ L["Did you mean:"] = "你是不是要找："
 -- L["Dungeons and battlegrounds"] = ""
 -- L["In dungeons and battlegrounds"] = ""
 -- L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. /polestar or the key binding opens it there until you leave."] = ""
+L["When an objective of a later step is close by and its quest is in your log, one line under the step says so. Click it to point the arrow there; right-click to dismiss it for this zone."] = "当后面某个步骤的目标就在附近、且其任务已在日志中时，步骤下方会有一行提示。点击它让箭头指向那里；右键可在本地区内不再显示。"
+L["How close"] = "距离范围"
+L["How near its spawn area must be for the line to show. It goes again a little further out."] = "刷新区域要多近才显示这一行。走远一些后它会消失。"
+L["Include nearby hand-ins"] = "包括附近的交任务"
+L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
+L["While you're here sound"] = "顺便完成提示音"
+L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "出现提示行时播放轻柔的提示音，最多每 30 秒一次，使用游戏的音效音量。"
 -- L["Wait for Spoken"] = ""
 -- L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."] = ""
 
@@ -2955,6 +2974,9 @@ L["Finished: %s - %s"] = "已完成：%s - %s"
 -- L["Dungeon heads-ups are off. Turn them back on under Options > Discovery > Dungeons."] = ""
 -- L["No dungeon has opened up for this character."] = ""
 -- L["Show the dungeon heads-up again (the next one due, or a dungeon)"] = ""
+
+-- UI/WhileHere.lua
+L["While you're here"] = "顺便完成"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"

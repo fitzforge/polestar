@@ -3504,3 +3504,49 @@ fn a11_beside_the_path_into_a_building_the_arrow_aims_at_the_door_never_through_
 	let [_, _, ax, ay] = *all.last().unwrap();
 	assert!(ax.hypot(ay + 100.0) <= 2.0, "30 yd beside the door: at the door ({ax:.1}, {ay:.1})");
 }
+
+// The largest step back along the path (yards north: the path runs down -y) between one aim and the next.
+fn back_step(all: &[[f64; 4]]) -> f64 {
+	all.windows(2).map(|w| w[1][3] - w[0][3]).fold(0.0, f64::max)
+}
+
+// The walk out of Goldshire on the real maps (nav-e2e c): on the path within its first 50 yd (the road's join), the
+// walking grid closed the long lines now and then (a lamp post, a fence post), and the arrow swung from the
+// corridor's aim ahead back to a point in sight a few yards on. Here the lines longer than 12 yd are closed on every
+// other 6 yd of the walk: the aim never moves back along the path.
+#[test]
+fn a12_on_the_path_near_its_start_a_short_point_in_sight_never_pulls_the_aim_back_behind_the_corridors() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function(x1, y1, z1, x2, y2) return math.abs(y2 - y1) <= 12 or math.floor(-y1 / 6) % 2 == 0 end
+		straight(0, 0)
+		emit(run(0, 0, -45))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	let back = back_step(&all);
+	assert!(back <= 1e-6, "the aim went {back:.1} yd back along the path");
+	assert_eq!(out["asked"], 0);
+}
+
+// Beside the path, a step the grid closes for a few yards (a fence post between the player and the path) no longer
+// drops the aim from the point in sight to the corridor's, 18 yd ahead instead of 150: the point last seen stays the
+// aim until it is seen again (or SIGHT_HOLD yards on).
+#[test]
+fn a13_beside_the_path_a_line_closed_for_a_few_yards_holds_the_point_last_seen_the_aim_never_swings_back() {
+	let out = run(&[
+		RUN,
+		r#"
+		fake.sight = function(x1, y1) return not (y1 <= -50 and y1 > -55) end
+		straight(30, 0)
+		emit(run(30, 0, -80))"#,
+	]
+	.concat());
+	let all = aims(&out);
+	let back = back_step(&all);
+	assert!(back <= 1e-6, "the aim went {back:.1} yd back along the path");
+	let worst = num(&out["worst"]);
+	assert!(worst <= 45.0, "the arrow turns {worst:.1}° back to the path");
+	assert_eq!(out["asked"], 0, "no new path meanwhile");
+}

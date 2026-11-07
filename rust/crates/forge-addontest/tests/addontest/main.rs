@@ -132,6 +132,8 @@ mod engine_when_knows;
 mod engine_when_skill;
 #[path = "engine-when-upgrade.rs"]
 mod engine_when_upgrade;
+#[path = "engine-while-here.rs"]
+mod engine_while_here;
 mod gamepad;
 #[path = "gamepad-ui.rs"]
 mod gamepad_ui;
@@ -294,6 +296,8 @@ mod ui_quest_unlocks;
 mod ui_route;
 #[path = "ui-welcome.rs"]
 mod ui_welcome;
+#[path = "ui-while-here.rs"]
+mod ui_while_here;
 #[path = "ui-zoneart.rs"]
 mod ui_zoneart;
 #[path = "where.rs"]
