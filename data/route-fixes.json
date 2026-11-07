@@ -3827,6 +3827,19 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood): the Totem's Vial of Spider Venom (101) drops from the Pygmy Venom Web Spiders Eight-Legged Menaces (245) asks for and from the Venom Web Spiders and Green Recluses beside them at the Hushed Bank (10-15% each in the game's loot data); recorded players filled it there (players' recordings of quest 101: the venom ticks on kills of npc 539 and 217). The route sent the player back west from the Yorgen Farmstead to the Black Widow Hatchlings for it (05-duskwood 'Brightwood Grove' on 0.3.4, about 1,100 yd of the walk back to Darkshire)."
+			},
+			{
+				"a": [
+					"task",
+					5561
+				],
+				"b": [
+					"task",
+					1459,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Desolace 30-40, #1157): the Scorpashi Venom for Reagents for Reclaimers Inc. drops from the Scorpashi Lashers (npc 4697) that hunt around the Kodo Graveyard (24 spawns, centred on 57.3,57.2), at 50% in the game's loot data, as from the Snappers and Venomlashers; the route made it a stop of its own at Kormek's Hut after Smeed's turn-in and then went back to the graveyard for the last Aged Kodo Hides. Venom, hides and kodos are now one graveyard stop."
 			}
 		],
 		"after": [
