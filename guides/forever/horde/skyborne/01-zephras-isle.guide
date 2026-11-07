@@ -226,11 +226,11 @@ step The West Pylon Watchtower
   talk 252155 quest 93926.1 @42.34,62.1 -- talk to Peacekeeper Vaaniel
   turnin 93926
   accept 93927
-  collect 254871 quest 93927.1
+  collect 254871 quest 93927
 
 step Skypriest Aanders
   tip Aanders and the fallen guards are just south-west of the tower. Take Raani's feather and the Shadowsong signet from the bodies.
-  kill 256966 quest 93927.2
+  kill 256966 quest 93927
   collect 263415 quest 93927.3
   collect 263418 quest 93927.4
 

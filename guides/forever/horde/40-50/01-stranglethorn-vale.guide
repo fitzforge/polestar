@@ -12,18 +12,16 @@ next forever/horde/40-50/02-feralas
 # Added here: Panther Mastery (193), Raptor Mastery (197), Nothing But The Truth (1372).
 # Left out: The Bloodsail Buccaneers (608).
 
-step To Ratchet
-  zone The Barrens
-  goto 62.0,39.4 "Ratchet"
-
-step Boat to Booty Bay
-  zone The Barrens
-  goto 63.4,38.5 "Boat to Booty Bay"
+step Fly to Booty Bay
+  zone Badlands
+  goto 4.1,44.9 "Kargath flight master"
+  fly "Booty Bay"
+  zone Stranglethorn Vale
 
 step Booty Bay
   zone Stranglethorn Vale
   turnin 577                          -- Drizzlik: the Snapjaw skins gathered earlier; inside
-  tip The boat lands in Booty Bay's harbour. The quest givers stand on the boardwalks around the harbour and in the inn.
+  tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   accept 209                            -- Kebok, upstairs
   turnin 213                          -- Kebok
   accept 348                            -- Fin Fizracket
@@ -46,7 +44,7 @@ step Booty Bay
 # (Swamp of Sorrows 36-40 quests, at 40.0-40.4, before Desolace). Checked by
 # lint, not play-tested on Forever yet. Era + known Forever quests only.
 #
-# Flow: Shadowprey Village -> fly Ratchet -> boat to Booty Bay -> the
+# Flow: Kargath (where forever/horde/30-40/06-badlands ends) -> fly to Booty Bay -> the
 # Bloodsail cove, the Wild Shore and the Bloodsail ships -> Booty Bay ->
 # Mistvale Valley (gorillas, Mokk) -> Zanzil's camps -> the Venture Co. mine
 # -> Grom'gol (bind) -> Nesingwary -> Zul'Kunda -> hearth to Grom'gol ->
@@ -88,7 +86,7 @@ step Booty Bay
 #   stand in the Fallow Sanctuary on the way up to Galen's cage.
 #
 # Turned in here from earlier guides: Sunken Treasure (669, from Shakes
-# O'Breen in forever/horde/30-40/03-arathi-highlands) at Fleet Master Seahorn
+# O'Breen in forever/horde/30-40/05-arathi-highlands) at Fleet Master Seahorn
 # on the first Booty Bay stop; the export hands it in at level 44, on a
 # separate Booty Bay trip that the route drops. Report to Helgrum (1420, from
 # the Badlands). The Troll Witchdoctor (1240, from forever/horde/30-40/04-
@@ -236,6 +234,7 @@ step Grom'gol
   turnin 584                            -- the Bubbling Cauldron, beside Nimboya
   accept 586
   accept 585
+  accept 2932                           -- Nimboya: for the Hinterlands, around level 48
 
 # ---------------------------------------------------------------- South to Booty Bay
 
