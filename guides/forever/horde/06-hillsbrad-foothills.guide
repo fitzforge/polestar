@@ -126,6 +126,11 @@ step The western peak
   tip From Hillsbrad town go north into the foothills of Alterac: the western vial goes on the hilltop just past the border.
   use 279395 quest 98095.1 @38.4,87.2 map 1416 live
 
+step Back to Tarren Mill
+  zone Hillsbrad Foothills
+  tip East along the foothills, then down into Tarren Mill.
+  goto 60.0,21.0 "Tarren Mill"
+
 step Tarren Mill
   turnin 498                          -- Krusk, inside
   turnin 549                          -- High Executor Darthalia
@@ -153,6 +158,7 @@ step Raleigh Andrean
   zone Undercity
   getfp "Undercity"
   turnin 441
+  accept 97891                        -- Alessandro Luca, on the way down to the Apothecarium: Doctor Martin Felben stands beside Faranell
 
 # ---------------------------------------------------------------- To Tarren Mill
 
@@ -172,6 +178,7 @@ step Aelthalyste
 step Master Apothecary Faranell
   zone Undercity
   turnin 513                          -- Master Apothecary Faranell, in the Apothecarium
+  turnin 97891                        -- Doctor Martin Felben, beside Faranell
   accept 515 optional                 -- Keep it: the Hillsbrad coast, later on the route
   train class only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   vendor nearest
