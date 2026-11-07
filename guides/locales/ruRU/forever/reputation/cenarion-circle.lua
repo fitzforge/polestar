@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Cenarion Circle Reputation"] = "Репутация: Круг Кенария",
 	-- {zone:1451} Silithus
-	["Nature resistance enchants and patterns, badge gear and Forever's new {zone:1451} patterns, from {zone:1451}'s camps."] = "",
+	["Nature resistance enchants and patterns, badge gear and Forever's new {zone:1451} patterns, from {zone:1451}'s camps."] = "Чары и выкройки сопротивления силам природы, снаряжение за знаки и новые выкройки Forever для зоны {zone:1451} – из лагерей зоны {zone:1451}.",
 	-- {zone:1451} Silithus
-	["Forever's new {zone:1451} patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored"] = "",
+	["Forever's new {zone:1451} patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored"] = "Новые выкройки Forever для зоны {zone:1451} для портных, кожевников и кузнецов, «Дружелюбие» и «Уважение»",
 
 	-- Step 1: The emissary in Ironforge
 	-- {zone:1455} Ironforge
@@ -64,8 +64,8 @@ return {
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["{zone:1451} quests at {area:3425}"] = "",
-	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants."] = "",
+	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Теперь сдайте одноразовые задания: около 1700 репутации в одиночку, 2400 с групповыми. Они 55–60-го уровня, так что на 60-м дают репутацию полностью. Для задания {quest:8280} сначала нужно выполнить {quest:8275}. {npc:15196} – элитный скорпид с двумя стражами (группа из 2–3 человек). Задание {quest:8307} от NPC {npc:15174} – для кулинаров: его рецепт позволяет приготовить нужный ему предмет {item:20452}. {npc:15189} стоит на верхнем этаже своего здания: поднимитесь внутри, Стрелка не различает этажи.",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
 	["{npc:15191}, after {quest:8275}"] = "",
 	-- {npc:15196} Deathclasp
@@ -82,6 +82,8 @@ return {
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "",
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} стоит на верхнем этаже своего здания: поднимитесь внутри, Стрелка не различает этажи.",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -96,6 +98,8 @@ return {
 	-- Step 12: Noggle Ficklespragg and Proudhorn
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "",
+	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} и {npc:15190} стоят на верхнем этаже своего здания: поднимитесь внутри, Стрелка не различает этажи.",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -130,6 +134,8 @@ return {
 	-- Step 19: Back to Cenarion Hold with news
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "",
+	-- {npc:15190} Noggle Ficklespragg
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} стоит на верхнем этаже своего здания: поднимитесь внутри, Стрелка не различает этажи.",
 	["Natalia, elite: group up"] = "",
 
 	-- Step 20: Rubbings and brains

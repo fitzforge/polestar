@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "",
+	["Ravenholdt reputation and experience at 50; Classic's item choice may be gone on Forever."] = "50级的拉文霍德声望和经验；Forever 可能已移除经典版的物品选择。",
 	["Ravenholdt reputation"] = "拉文霍德声望",
 
 	-- Step 1: A Simple Request (Alliance)

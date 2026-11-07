@@ -10,7 +10,7 @@ return {
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
 	["{quest:5652} and {quest:5642}"] = "{quest:5652}和{quest:5642}",
 	-- {quest:5652} Hex of Weakness · {quest:5642} Shadowguard
-	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "",
+	["The Troll priest spells: {quest:5652} at 10, {quest:5642} at 20. Free, no objectives."] = "巨魔牧师法术：10级{quest:5652}，20级{quest:5642}。免费，无任务目标。",
 
 	-- Step 1: Hex of Weakness: Tai'jin
 	-- {npc:3706} Tai'jin · {area:362} Razor Hill · {area:363} Valley of Trials · {quest:5652} Hex of Weakness · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar

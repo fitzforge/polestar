@@ -52,6 +52,8 @@ return {
 	["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}在路上巡逻，营地在西边的山丘中。",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469}，在小屋里",
+	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
+	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：交给{area:35}的{npc:773}",
 
 	-- Step 15: Bookie Herod
 	["Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth."] = "赫罗德的档案在营地西侧的一间小屋里；他的保险箱在更东边的洞口旁。",
@@ -79,18 +81,14 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716}收集{item:2755}：丛林中几乎所有人型怪都会掉落书页。边走边把书页合成章节。",
 
-	-- Step 21: Shadowmaw Panther on the way
-	-- {npc:684} Shadowmaw Panther
-	["{npc:684} on the way"] = "",
-
-	-- Step 22: Sin'Dall and the Lashtail raptors
+	-- Step 21: Sin'Dall and the Lashtail raptors
 	-- {npc:729} Sin'Dall
 	["{npc:729} and the Lashtail raptors"] = "{npc:729}和鞭尾迅猛龙",
 	-- {npc:729} Sin'Dall · {area:35} Booty Bay
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "大老虎{npc:729}的巢穴在营地西南方的山顶；鞭尾迅猛龙在其南边、通往{area:35}的路上奔跑。",
 
-	-- Step 23: Down to Booty Bay
+	-- Step 22: Down to Booty Bay
 	-- {area:35} Booty Bay
 	["Down to {area:35}"] = "南下{area:35}",
 	-- {object:3202} Grom'gol · {area:35} Booty Bay
@@ -105,6 +103,8 @@ return {
 	["{npc:2832}, in the {object:56910}; upstairs"] = "",
 	-- {npc:773} Krazek
 	["{npc:773}, in the tavern; upstairs"] = "",
+	-- {zone:1417} Arathi Highlands
+	["The ore drops from Drywhisker kobolds in {zone:1417}"] = "矿石由{zone:1417}的枯须狗头人掉落",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "",
 	-- {npc:737} Kebok
@@ -112,66 +112,62 @@ return {
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496}，在旅店楼上",
 
-	-- Step 24: Fly to Sentinel Hill
+	-- Step 23: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 26: The Savage Coast: kill these as you meet them
+	-- Step 25: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.\nThe Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "",
 
-	-- Step 27: River crocolisks
+	-- Step 26: River crocolisks
 	["River crocolisks"] = "淡水鳄",
 	-- {area:99} Rebel Camp
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
 	["River Crocolisks swim the river by the {area:99}."] = "淡水鳄在{area:99}旁的河中游动。",
 
-	-- Step 28: Private Thorsen
+	-- Step 27: Private Thorsen
 	-- {area:99} Rebel Camp
 	["Thorsen patrols the road north of camp, toward the {area:99}."] = "索森在营地北边、通往{area:99}的道路上巡逻。",
 
-	-- Step 29: Nesingwary's Expedition
+	-- Step 28: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
 	["{quest:201}: just look around the hunters' camp"] = "{quest:201}：在猎人营地四处看看即可",
 
-	-- Step 30: Hearth to Booty Bay
-	-- {area:35} Booty Bay
-	["Hearth to {area:35}"] = "",
-
-	-- Step 31: Booty Bay
+	-- Step 29: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
 
-	-- Step 32: Snapjaw Crocolisks
+	-- Step 30: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask on the shore and islands along the coast north of {area:35}."] = "钳嘴鳄鱼趴在{area:35}北边沿海的岸边和岛上。",
 
-	-- Step 34: Fly to Darkshire
+	-- Step 32: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "",
 
-	-- Step 35: Into Stranglethorn Vale
+	-- Step 33: Into Stranglethorn Vale
 	-- {area:33} Stranglethorn Vale
 	["Into {area:33}"] = "",
 
-	-- Step 37: Kurzen's Compound
+	-- Step 35: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
 	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "",
 
-	-- Step 38: The jungle ruins
+	-- Step 36: The jungle ruins
 	["The jungle ruins"] = "丛林废墟",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Tumbled Crystals = {item:4106} Tumbled Crystal
@@ -179,45 +175,39 @@ return {
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "",
 
-	-- Step 39: The haunted island
+	-- Step 37: The haunted island
 	["The haunted island"] = "闹鬼的小岛",
 	["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "沿西海岸向北；闹鬼的小岛在奈辛瓦里营地西边的近海。到达即可。",
 
-	-- Step 40: Stranglethorn Vale: kill these as you meet them
+	-- Step 38: Stranglethorn Vale: kill these as you meet them
 	-- {npc:1096} Venture Co. Geologist
 	["grind on {npc:1096}"] = "",
 
-	-- Step 41: Rebel Camp
-	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：交给{area:35}的{npc:773}",
-
-	-- Step 44: Jungle Stalker on the way
+	-- Step 42: Jungle Stalker on the way
 	-- {npc:687} Jungle Stalker
 	["{npc:687} on the way"] = "",
 
-	-- Step 45: Skullsplitter trolls
+	-- Step 43: Skullsplitter trolls
 	["Skullsplitter trolls"] = "劈颅巨魔",
 	-- {object:3202} Grom'gol
 	["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈颅巨魔占据奈辛瓦里和{object:3202}之间道路东边的废墟。",
 
-	-- Step 48: Booty Bay
+	-- Step 45: Booty Bay
 	-- {object:56910} The Salty Sailor Tavern
 	["{object:56910} is the tall building over the harbour; most of the quest givers are on its floors or the docks below."] = "",
-	-- {zone:1417} Arathi Highlands
-	["The ore drops from Drywhisker kobolds in {zone:1417}"] = "矿石由{zone:1417}的枯须狗头人掉落",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
-	-- Step 50: Into Westfall
+	-- Step 47: Into Westfall
 	-- {area:40} Westfall
 	["Into {area:40}"] = "",
 
-	-- Step 52: Fly to Booty Bay
+	-- Step 49: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "",
 
-	-- Step 53: Baron Revilgaz
+	-- Step 50: Baron Revilgaz
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "交给{zone:1416}的大法师安斯雷姆",
 

@@ -72,8 +72,8 @@ return {
 	["Fly to {area:976}"] = "",
 
 	-- Step 20: Thunder Bluff
-	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {zone:1454} Orgrimmar · {area:484} Freewind Post
-	["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {zone:1454}, then on to {area:484}."] = "你的训练师在{area:1638}：{area:1639}的{npc:3033}（德鲁伊），{npc:246344}（圣骑士）。从{zone:1454}飞过去，然后继续飞往{area:484}。",
+	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {area:976} Gadgetzan
+	["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {area:976}, then back to {area:976}."] = "你的训练师在{area:1638}：{area:1639}的{npc:3033}（德鲁伊），{npc:246344}（圣骑士）。从{area:976}飞过去，然后再飞回{area:976}。",
 
 	-- Step 24: Ratchet for the Felsteed
 	-- {area:392} Ratchet
@@ -150,43 +150,43 @@ return {
 	["Woodpaw battle map"] = "木爪作战地图",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "木爪作战地图在莫沙彻营地南边的木爪营地里。",
 
-	-- Step 46: Ruins of Isildien: kill these as you meet them
-	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
-	-- {area:1105} Feral Scar Vale
-	["Ride south-west to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "向西南骑往{area:1105}下方的食人魔废墟。里面满是戈杜尼萨满祭司、戈杜尼术士和戈杜尼虐待者；南端的戈杜尼大法师携带宝珠。",
-	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
-	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
-
-	-- Step 47: Hearth to Camp Mojache
-	-- {area:1099} Camp Mojache
-	["Hearth to {area:1099}"] = "用炉石回到{area:1099}",
-
-	-- Step 48: Camp Mojache
+	-- Step 46: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "交给{zone:1454}，大约45级时",
 
-	-- Step 49: The Writhing Deep
+	-- Step 47: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "祖卡什异种蝎的巢穴深入营地东南的山丘；{quest:7731}在最深处的洞室里等候。",
 
-	-- Step 50: Camp Mojache
+	-- Step 48: Ruins of Isildien: kill these as you meet them
+	-- {area:2522} Ruins of Isildien
+	["{area:2522}: kill these as you meet them"] = "",
+	-- {area:1105} Feral Scar Vale
+	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "从虫巢向西骑往{area:1105}下方的食人魔废墟。里面满是戈杜尼萨满祭司、戈杜尼术士和戈杜尼虐待者；南端的戈杜尼大法师携带宝珠。",
+	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
+	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
+
+	-- Step 49: Feral Scar Vale yetis
+	-- {area:1105} Feral Scar Vale
+	["{area:1105} yetis"] = "{area:1105}的雪人",
+	-- {area:1105} Feral Scar Vale
+	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在废墟西北，雪人栖息在{area:1105}；那里的每只雪人都可能掉落厚雪人皮。",
+
+	-- Step 50: Homing Robot OOX-22/FE
+	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
+	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "仅当你有定位器时：{area:357}的任何野兽、豺狼人或食人魔都可能掉落它，大约每杀一百只掉一个；使用它开始任务。机器人在{area:1105}北侧的一个小山洞里，就在废墟西北不远。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。\n小心：护送过程中会出现三次伏击，机器人每次都会提前警告你。第一次是3只雪人，就在机器人离开山洞、爬向道路之后。第二次是3只猩猩，在沿悬崖延伸的小路上。第三次是大约4个豺狼人，其中一个是施法者，在路线转向码头的地方。",
+
+	-- Step 51: Camp Mojache
+	-- {area:357} Feralas
+	["the Rage Scar yetis, on the next visit to {area:357}"] = "狂怒疤痕雪人，下次来{area:357}时",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "",
 
-	-- Step 52: The Forgotten Coast
-	-- plural, as words: Coast Crawl Deepseers = {npc:5328} Coast Crawl Deepseer
-	["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "继续向西骑到海岸。海滩上的海滩龙虾人先知和海滩利爪龙虾人大约每杀四十只掉落一个OOX-22/FE定位器：如果掉了，就使用它开始任务。",
-
-	-- Step 54: Homing Robot OOX-22/FE
-	-- {area:1105} Feral Scar Vale · {area:1108} The Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
-
-	-- Step 56: Fly to Orgrimmar
+	-- Step 52: Fly to Orgrimmar
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 57: Orgrimmar
+	-- Step 53: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
 	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "",
 	-- {zone:1425} Hinterlands
@@ -199,10 +199,13 @@ return {
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "飞往{area:484}，然后向西穿过峡谷经过{area:2237}；道路向上进入{zone:1444}的丛林，一直通往{area:1099}。",
 	-- ["Fly to {area:75}"] = "飞往{area:75}",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "疾风陆行鸟：{npc:265756}，在泽风岛的{area:16638}。",
+	-- ["Hearth to {area:1099}"] = "用炉石回到{area:1099}",
+	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "继续向西骑到海岸。海滩上的海滩龙虾人先知和海滩利爪龙虾人大约每杀四十只掉落一个OOX-22/FE定位器：如果掉了，就使用它开始任务。",
 	-- ["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit."] = "仅当你有定位器时：机器人在{area:1105}北侧的一个小山洞里。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。",
 	-- ["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "迅猛龙：祖尼尔，在{area:367}的{npc:7953}旁边。",
 	-- ["Ride back north-west from {area:1978} to {area:75} and fly to {object:3202}."] = "从{area:1978}向西北骑回{area:75}，然后飞往{object:3202}。",
 	-- ["Ride back west to {area:976}."] = "向西骑回{area:976}。",
+	-- ["Ride south-west to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "向西南骑往{area:1105}下方的食人魔废墟。里面满是戈杜尼萨满祭司、戈杜尼术士和戈杜尼虐待者；南端的戈杜尼大法师携带宝珠。",
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "向西骑进{zone:1444}中部。杀死一只{npc:5308}，对它的尸体使用{item:10699}，再杀死升起的灵魂。",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑。在经典版中，每个种族都向本种族的训练师学习：你的训练师是{area:222}的{npc:3690}，旁边是{npc:3685}的科多兽（每匹20金）。Forever 可能允许任何种族向任何骑术训练师学习（未确认）：先试试{zone:1454}{object:172958}的{npc:4752}，因为他最近，如果他能教你就跳过此步骤。",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "骑术需要40级，花费100金；学会后会获得一匹坐骑。在经典版中，每个种族都向本种族的训练师学习：你的训练师是{area:159}的{npc:4773}，旁边是{npc:4731}的骸骨军马（每匹20金）。Forever 可能允许任何种族向任何骑术训练师学习（未确认）：先试试{zone:1454}{object:172958}的{npc:4752}，因为他最近，如果他能教你就跳过此步骤。",
@@ -220,6 +223,7 @@ return {
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "前往{object:3202}的飞艇从{zone:1454}正门东北不远的塔上出发。",
 	-- ["The {zone:1454} zeppelin leaves from the tower beside {object:3202}; it lands just outside {zone:1454}'s main gate."] = "前往{zone:1454}的飞艇从{object:3202}旁的塔上出发；它降落在{zone:1454}正门外。",
 	-- ["Thysta, the flight master, stands just east of the zeppelin tower. Fly to {area:75}: the next guide starts there."] = "飞行管理员塞斯塔站在飞艇塔正东。飞往{area:75}：下一个指南从那里开始。",
+	-- ["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {zone:1454}, then on to {area:484}."] = "你的训练师在{area:1638}：{area:1639}的{npc:3033}（德鲁伊），{npc:246344}（圣骑士）。从{zone:1454}飞过去，然后继续飞往{area:484}。",
 	-- ["Zeppelin to {object:3202}"] = "乘飞艇前往{object:3202}",
 	-- ["Zeppelin tower"] = "飞艇塔",
 	-- ["for {area:35}, around level 50"] = "交给{area:35}，大约50级时",

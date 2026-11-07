@@ -50,8 +50,7 @@ return {
 	["Head west along the main road across {area:331}, past {area:415} (Alliance: keep to the road), to the coast. {area:2897} is on the {area:414} in the north-west. Its other quests are for the next visit, at 27."] = "",
 
 	-- Step 13: Zoram'gar Outpost
-	-- {area:392} Ratchet · {area:2897} Zoram'gar Outpost · {area:331} Ashenvale
-	["Fly from {area:392} to {area:2897} on the {area:331} coast."] = "",
+	["Learn the flight path here while you pick up the outpost's quests."] = "在这里学习飞行路线，同时接取哨站的任务。",
 
 	-- Step 14: Naga heads
 	["Naga heads"] = "纳迦头颅",
@@ -114,15 +113,11 @@ return {
 	-- plural, as words: Antlered Coursers = {npc:4018} Antlered Courser · Sap Beasts = {npc:4020} Sap Beast · Twilight Runners = {npc:4067} Twilight Runner · Fey Dragons = {npc:4016} Fey Dragon
 	["Follow the road north toward {area:467}. Antlered Coursers graze along the way; the Sap Beasts, Twilight Runners and Fey Dragons roam the woods below the Peak, and the Cenarion druids hold the grove there."] = "沿道路向北朝{area:467}前进。巨角鹿沿途吃草；腐蚀兽、夜行虎和灵龙在山峰下方的树林中游荡，塞纳里奥德鲁伊占据那里的树林。",
 
-	-- Step 26: Hearth to Sun Rock Retreat
-	-- {area:460} Sun Rock Retreat
-	["Hearth to {area:460}"] = "",
-
-	-- Step 27: Sun Rock Retreat
+	-- Step 26: Sun Rock Retreat
 	-- {npc:4198} Braelyn Firehand · {area:331} Ashenvale
 	["{npc:4198}'s next quest, Ordanus, is on the Alliance side of {area:331}. Skip it."] = "",
 
-	-- Step 28: The Charred Vale: kill these as you meet them
+	-- Step 27: The Charred Vale: kill these as you meet them
 	-- {area:465} The Charred Vale
 	["{area:465}: kill these as you meet them"] = "",
 	-- {area:465} The Charred Vale · {item:16312} Incendrites
@@ -133,71 +128,63 @@ return {
 	-- plural, as words: Gaea Dirt Mounds = {object:177929} Gaea Dirt Mound
 	["Gaea Dirt Mounds"] = "盖亚土堆",
 
-	-- Step 29: Sun Rock Retreat
+	-- Step 28: Sun Rock Retreat
 	-- {npc:11862} Tsunaman
 	["{npc:11862}, up on the ledge"] = "{npc:11862}，在上方的岩架上",
 	-- {npc:11861} Mor'rogal · {npc:11862} Tsunaman
 	["{npc:11861}, beside {npc:11862}"] = "{npc:11861}，在{npc:11862}旁边",
 
-	-- Step 30: Malaka'jin
+	-- Step 29: Malaka'jin
 	-- {area:1076} Webwinder Path · {area:2539} Malaka'jin
 	["Head back down the {area:1076} to {area:2539}."] = "",
 
-	-- Step 32: Fly to Orgrimmar
+	-- Step 31: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "",
 	-- {area:380} Crossroads
 	["{area:380} flight master"] = "",
 
-	-- Step 33: Paladin trainer
+	-- Step 32: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 34: Druid trainer
+	-- Step 33: Druid trainer
 	["Druid trainer"] = "",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 35: Orgrimmar flight master
-	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
-
-	-- Step 36: Orgrimmar
-	-- {area:1637} Orgrimmar
-	["Fly to {area:1637} to train."] = "",
-
-	-- Step 37: The Binding
+	-- Step 35: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant
 	["{npc:5875} stands in the {object:172960}. Use {item:6626} on the summoning circle there and defeat the succubus to bind her."] = "",
 
-	-- Step 38: Shenthul
+	-- Step 36: Shenthul
 	-- {npc:2391} Serge Hinott · {area:272} Tarren Mill
 	["{npc:2391} in {area:272} teaches Poisons: keep it"] = "",
 
-	-- Step 40: Zeppelin to Undercity
+	-- Step 38: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 42: Beren's Peril
-	-- {area:272} Tarren Mill · {zone:1458} Undercity · {area:228} Sepulcher · {area:231} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
-	["If you already know the {area:272} flight path, fly there and skip to {area:272}. Otherwise fly from the {zone:1458} to the {area:228} and head south down the road past Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "",
+	-- Step 40: Beren's Peril
+	-- {area:228} Sepulcher · {area:231} Beren's Peril · {npc:1973} Ravenclaw Guardian · {item:271343} Note Scrap · {object:645153} Offering Stone
+	["From the zeppelin towers, run south through Tirisfal into Silverpine and down the road past the {area:228} and Pyrewood. The Ravenclaw undead haunt the ruins of {area:231} east of the road in the south-east of the forest; a {npc:1973} drops the {item:271343} that leads to the {object:645153}."] = "从飞艇塔出发，向南跑过提瑞斯法进入银松森林，沿道路向南经过{area:228}和焚木村。鸦爪亡灵在森林东南部、道路东边的{area:231}废墟中游荡；{npc:1973}掉落{item:271343}，指引你找到{object:645153}。",
 	["Below ground"] = "",
 
-	-- Step 43: The Offering of Blood
+	-- Step 41: The Offering of Blood
 	-- {npc:212753} Tortured Soul · {object:645153} Offering Stone · {quest:95883} The Tortured Soul
 	["Use the {npc:212753} at the {object:645153} for a willing sacrifice and kill the {npc:212753} that answers. {quest:95883} is elite: grouping up is advised."] = "在{object:645153}使用{npc:212753}作为自愿的祭品，杀死回应的{npc:212753}。{quest:95883}是精英任务：建议组队。",
 
-	-- Step 44: Beren's Peril
+	-- Step 42: Beren's Peril
 	-- {item:271350} Tortured Soul
 	-- plural, as words: Tortured Souls = {item:271350} Tortured Soul
 	["{item:271350}, from the Tortured Souls among the ruins; below ground"] = "",
 
-	-- Step 46: Beren's Peril
+	-- Step 44: Beren's Peril
 	-- {item:271343} Note Scrap · {npc:1973} Ravenclaw Guardian
 	["{item:271343}, from a {npc:1973}"] = "{item:271343}，来自{npc:1973}",
 
-	-- Step 48: Southpoint Tower
+	-- Step 46: Southpoint Tower
 	-- {area:287} Hillsbrad · {npc:2214} Deathstalker Lesh · {area:285} Southpoint Tower
 	["Back on the road south. Where it turns east into {area:287}, {npc:2214} waits at {area:285}."] = "回到向南的道路。在道路向东转入{area:287}的地方，{npc:2214}在{area:285}等候。",
 	-- {npc:2214} Deathstalker Lesh · {area:272} Tarren Mill

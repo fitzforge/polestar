@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "",
+	["Experience in Un'Goro at 50 and two healing potions; the Classic item choice may be gone in Forever."] = "Опыт в Кратере Ун'Горо на 50-м уровне и два лечебных зелья; в Forever выбора предмета из Classic может не быть.",
 
 	-- Step 1: Loganaar
 	-- {spell:18960} Teleport: Moonglade · {npc:12042} Loganaar · {area:2361} Nighthaven · {npc:3033} Turak Runetotem · {npc:4217} Mathrengyl Bearwalker · {zone:1453} Stormwind

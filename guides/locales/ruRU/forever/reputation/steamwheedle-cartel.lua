@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Steamwheedle Cartel Reputation"] = "",
+	["Steamwheedle Cartel Reputation"] = "Репутация: Картель Хитрая Шестеренка",
 	-- {npc:14637} Zorbin Fandazzle · {npc:14338} Knot Thimblejack
-	["Every goblin town at once: {npc:14637}'s zapped giants and {npc:14338}'s shackles, then five new quartermasters and their hats."] = "",
-	["Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored"] = "",
+	["Every goblin town at once: {npc:14637}'s zapped giants and {npc:14338}'s shackles, then five new quartermasters and their hats."] = "Все гоблинские города сразу: оглушенные великаны для {npc:14637} и кандалы для {npc:14338}, затем пять новых интендантов и их шляпы.",
+	["Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored"] = "Гоблинские интенданты Forever: снаряжение для уровней 20–50 при отношении «Дружелюбие» и «Уважение»",
 
 	-- Step 1: Zorbin Fandazzle
 	-- {faction:470} Ratchet · {faction:21} Booty Bay · {faction:369} Gadgetzan · {faction:577} Everlook · {faction:2827} Powderfuse · {zone:2548} Riverglades · {npc:14637} Zorbin Fandazzle · {npc:4624} Booty Bay Bruiser · {zone:1444} Feralas

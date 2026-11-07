@@ -7,9 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Poisons (Horde)"] = "",
+	["Poisons (Horde)"] = "Яды (Орда)",
 	-- {item:7676} Thistle Tea
-	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "",
+	["Forever teaches Poisons through this chain, not the trainer; the {item:7676} recipe comes with it."] = "В Forever яды изучаются через эту цепочку, а не у учителя; заодно вы получаете рецепт: {item:7676}.",
 
 	-- Step 1: Lockpicking practice
 	["Lockpicking practice"] = "",
@@ -36,7 +36,7 @@ return {
 	-- {item:8066} Fizzule's Whistle · {npc:7287} Foreman Silixiz · {spell:921} Pick Pocket
 	["Keep {item:8066} in your bags and use it on him every time you come near, or he turns hostile. {npc:7287} (level 22) walks by the tower: hug the wall, stealth up behind him and {spell:921} the key. Killing him does not give it; if his pockets are empty, kill him and wait 4 1/2 minutes for him to come back."] = "",
 	-- {item:8072} Silixiz's Tower Key
-	["{item:8072}: Pick Pocket Foreman Silixiz"] = "",
+	["Pick Pocket Foreman Silixiz for {item:8072}"] = "Обшарьте карманы бригадира Силиксиза: {item:8072}",
 
 	-- Step 5: The Venture Co. tower
 	["The Venture Co. tower"] = "",

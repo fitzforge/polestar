@@ -6,13 +6,13 @@
 -- A token marked "no name in this language" would show in English: write that name in Russian words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Ragged Owlbeast on the way
-	-- {npc:7450} Ragged Owlbeast
-	["{npc:7450} on the way"] = "",
-
-	-- Step 2: Into Winterspring
+	-- Step 1: Into Winterspring
 	-- {area:618} Winterspring
 	["Into {area:618}"] = "",
+
+	-- Step 2: Salfa
+	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
+	["{npc:11556} stands right at the {area:618} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} стоит прямо у выхода туннеля ({area:1769}) в край {area:618}, там, где вы выходите.",
 
 	-- Step 3: Raging Owlbeast on the way
 	-- {npc:7451} Raging Owlbeast
@@ -63,15 +63,11 @@ return {
 	-- {quest:3909} The Videre Elixir · {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["{quest:3909} comes from {npc:7775} in {zone:1444}, later in this guide."] = "{quest:3909} выдает {npc:7775} ({zone:1444}), позже в этом руководстве.",
 
-	-- Step 13: Salfa
-	-- {npc:11556} Salfa · {area:618} Winterspring · {area:1769} Timbermaw Hold
-	["{npc:11556} stands by the {area:618} exit of {area:1769}'s tunnel, north of the hot springs."] = "",
-
-	-- Step 14: Winterfall Den Watcher on the way
+	-- Step 13: Winterfall Den Watcher on the way
 	-- {npc:7440} Winterfall Den Watcher
 	["{npc:7440} on the way"] = "",
 
-	-- Step 15: Frostfire Hot Springs: kill these as you meet them
+	-- Step 14: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {item:14047} Runecloth
@@ -82,63 +78,63 @@ return {
 	-- {quest:8471} Winterfall Ritual Totem
 	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, редкая добыча с фурболгов Зимней Спячки",
 
-	-- Step 16: Donova Snowden
+	-- Step 15: Donova Snowden
 	-- {quest:5084} Falling to Corruption · {object:176091} Deadwood Cauldron · {zone:1448} Felwood
 	["{quest:5084} is turned in at the {object:176091} in {zone:1448}, on a later trip."] = "{quest:5084} сдается здесь: {object:176091} ({zone:1448}) – в следующий раз.",
 
-	-- Step 17: Raging Owlbeasts
+	-- Step 16: Raging Owlbeasts
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Raging Owlbeasts"] = "Бешеные совухи",
 	-- {area:2251} Lake Kel'Theril
 	-- plural, as words: Raging Owlbeasts = {npc:7451} Raging Owlbeast
 	["Ride west along the road past {area:2251}; Raging Owlbeasts roam the hills north of it."] = "Езжайте на запад по дороге мимо места {area:2251}; бешеные совухи бродят по холмам к северу.",
 
-	-- Step 18: Winterfall Village
+	-- Step 17: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} in the cave at the back is elite: stay out."] = "Деревня фурболгов занимает долину к северо-востоку от места {area:2255}. Сначала убивайте шаманов: они лечат. {npc:10738} в пещере в глубине – элита: не заходите.",
 
-	-- Step 19: Fly to Camp Mojache
+	-- Step 18: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Летите сюда: {area:1099}",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 21: The Videre Elixir
+	-- Step 20: The Videre Elixir
 	-- {npc:7775} Gregan Brewspewer · {area:1137} Lower Wilds · {area:1099} Camp Mojache
 	["{npc:7775}, a dwarf, camps in the {area:1137} north-west of {area:1099}; he has the elixir."] = "Дворф {npc:7775} стоит лагерем здесь: {area:1137}, к северо-западу от места {area:1099}; эликсир у него.",
 
-	-- Step 23: Fly to Thunder Bluff
+	-- Step 22: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "",
 
-	-- Step 24: Bluff Runner Windstrider
+	-- Step 23: Bluff Runner Windstrider
 	-- {area:1641} Hunter Rise
 	["He stands on {area:1641}. Each donation wants sixty cloth from your bags: take them if you save cloth, and hand in what you carry later in the route."] = "",
 
-	-- Step 25: Elder Rise
+	-- Step 24: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} ({area:1639}); {npc:246344}",
 	-- {quest:1123} Rabine Saturna · {zone:1450} Moonglade
 	["{quest:1123} waits in {zone:1450}: keep it for later."] = "{quest:1123} ждет здесь: {zone:1450} – сохраните на потом.",
 
-	-- Step 26: Bashana Runetotem
+	-- Step 25: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["{npc:9087} buys {item:11040} grown from your {quest:3761}.\nCareful: Gorishi Workers and Stingers cast {spell:8137}, and Hive Guards cast {spell:14120}. When a Worker drops to 45% health, it has a 50% chance to call for help from mobs within 25 yd."] = "",
 
-	-- Step 27: Fly to Orgrimmar
+	-- Step 26: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "",
 
-	-- Step 28: Vehena
+	-- Step 27: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}."] = "Ориентир: {object:172961}.",
 
-	-- Step 29: Rashona Straglash
+	-- Step 28: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "Ориентир: {object:172958}.",
 

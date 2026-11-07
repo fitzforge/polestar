@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Warsong Gulch Reputation"] = "战歌峡谷声望",
-	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "",
-	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "",
+	["Flag captures and Marks of Honor raise it; Exalted gives a Legacy Point and epic bracers and legs."] = "夺旗和荣誉奖章可提升声望；崇拜可获得1点传承点数以及史诗护腕和腿甲。",
+	["Master of Warsong Gulch: a Legacy Point at Exalted"] = "战歌峡谷大师：崇拜时获得1点传承点数",
 
 	-- Step 1: Sentinel Farsong
 	-- {zone:1460} Warsong Gulch · {npc:14733} Sentinel Farsong

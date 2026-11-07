@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Hydraxian Waterlords Reputation"] = "海达希亚水元素声望",
 	-- {item:17333} Aqual Quintessence · {area:2717} Molten Core · {item:22754} Eternal Quintessence
-	["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "",
+	["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "可获得用来熄灭{area:2717}符文的{item:17333}、崇敬时可重复使用的{item:22754}，以及一枚火焰抗性戒指。",
 
 	-- Step 1: Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis · {zone:1447} Azshara · {area:2717} Molten Core

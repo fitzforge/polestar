@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Thorium Brotherhood Reputation"] = "瑟银兄弟会声望",
 	-- {npc:12944} Lokhtos Darkbargainer · {area:2717} Molten Core · {object:147516} Dark Iron
-	["{npc:12944}'s {area:2717} recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "",
+	["{npc:12944}'s {area:2717} recipes: fire resistance gear, {object:147516} armour and the Exalted epic weapon plans."] = "{npc:12944}的{area:2717}配方：火焰抗性装备、{object:147516}护甲以及崇拜级的史诗武器图纸。",
 	-- {npc:12944} Lokhtos Darkbargainer
-	["{npc:12944}'s 29 recipes, from Friendly to Exalted"] = "",
+	["{npc:12944}'s 29 recipes, from Friendly to Exalted"] = "{npc:12944}的29个配方，从友善到崇拜",
 
 	-- Step 1: Thorium Point
 	-- {area:1446} Thorium Point · {zone:1427} Searing Gorge · {npc:14624} Master Smith Burninate · {quest:7722} What the Flux? · {item:18942} Fiery Flux

@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Gnomeregan Exiles Reputation"] = "Репутация: Изгнанники Гномрегана",
 	-- {npc:9616} Laris Geardawdle · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["Cloth, {npc:9616}'s ooze quests and the {zone:1426} hubs, which pay {zone:1455} too: best done while leveling."] = "",
+	["Cloth, {npc:9616}'s ooze quests and the {zone:1426} hubs, which pay {zone:1455} too: best done while leveling."] = "Ткань, задания NPC {npc:9616} на слизней и центры заданий (зона {zone:1426}), которые дают репутацию и с {zone:1455}: лучше всего во время прокачки.",
 	-- {faction:54} Gnomeregan Exiles
-	["Exalted with {faction:54}: in Classic, other races may buy the mechanostriders"] = "",
+	["Exalted with {faction:54}: in Classic, other races may buy the mechanostriders"] = "Превознесение ({faction:54}): в Classic другие расы могут покупать механодолгоногов",
 	-- {area:133} Gnomeregan · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
-	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "",
+	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "400 репутации ({area:133}) за банки со слизью для NPC {npc:9616} и задание {quest:4262} (уровень 52-54)",
 	-- {area:133} Gnomeregan · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "",
+	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "Около 3000 репутации ({area:133}) за задания низкого уровня (зона {zone:1426}), идет и в {zone:1455} (в Classic на 60 уровне — пятая часть)",
 
 	-- Step 1: Bubulo Acerbus, the cloth quartermaster
 	-- {npc:14724} Bubulo Acerbus

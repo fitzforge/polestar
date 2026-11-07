@@ -18,96 +18,92 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 3: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "Ящики: {npc:256386}",
-	-- {npc:256386} Dokimi · {area:380} Crossroads
-	["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} стоит здесь: {area:380}. Открывайте каждый ящик, который она дает, и приносите ей содержимое.",
-
-	-- Step 4: Liv Rizzlefix
+	-- Step 3: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "Мастерская Лив – в северном конце пристани ({area:392}); {object:149036} стоит внутри.",
 	["Inside"] = "",
 
-	-- Step 5: Islen Waterseer
+	-- Step 4: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["{npc:5901} camps on the shore just north of {area:392}."] = "{npc:5901} стоит лагерем на берегу чуть к северу от места {area:392}.",
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "Очищенную воду нужно отнести сюда: {area:2479} ({zone:1448}) – сохраните на потом.",
 
-	-- Step 6: Hearth to Orgrimmar
-	-- {area:1637} Orgrimmar
-	["Hearth to {area:1637}"] = "",
+	-- Step 5: Dokimi's crates
+	-- {npc:256386} Dokimi
+	["{npc:256386}'s crates"] = "Ящики: {npc:256386}",
+	-- {area:380} Crossroads · {npc:256386} Dokimi · {zone:1454} Orgrimmar
+	["Ride north up the road to the {area:380}; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the {area:380}."] = "Езжайте на север по дороге сюда: {area:380}; там стоит {npc:256386}. Открывайте каждый ящик, который она дает, и приносите ей содержимое. Затем летите отсюда ({area:380}) сюда: {zone:1454}.",
 
-	-- Step 7: Vehena
+	-- Step 6: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 8: Rashona Straglash
+	-- Step 7: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "Ориентир: {object:172958}.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
-	-- Step 9: Fly to Valormok
+	-- Step 8: Fly to Valormok
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Летите сюда: {area:1237}",
 
-	-- Step 11: Ruins of Eldarath
+	-- Step 10: Ruins of Eldarath
 	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Езжайте на восток к руинам на побережье. Наполните четыре склянки Карабоса в приливных лужах вдоль берега; между ними патрулируют наги клана Бича Злобы.",
 
-	-- Step 12: Thalassian Base Camp
+	-- Step 11: Thalassian Base Camp
 	-- {area:1227} Bay of Storms
 	["The blood elves camp on the cliffs in the north-east, by the {area:1227}."] = "Эльфы крови стоят лагерем на скалах на северо-востоке, у места {area:1227}.",
 
-	-- Step 13: Magus Rimtori's camp
+	-- Step 12: Magus Rimtori's camp
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "Лагерь: {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
 
-	-- Step 14: Ag'tor Bloodfist
+	-- Step 13: Ag'tor Bloodfist
 	-- {area:1237} Valormok
 	["Ride back west to {area:1237}."] = "Возвращайтесь на запад сюда: {area:1237}.",
 
-	-- Step 15: Fly to Orgrimmar
+	-- Step 14: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "",
 
-	-- Step 16: Paladin trainer
+	-- Step 15: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 17: Orgrimmar
+	-- Step 16: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 18: Belgrom Rockmaul
+	-- Step 17: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
 	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "",
 
-	-- Step 19: Into Durotar
+	-- Step 18: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "",
 
-	-- Step 20: Zeppelin to Undercity
+	-- Step 19: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "",
 
-	-- Step 21: Prompt Potion Runner
+	-- Step 20: Prompt Potion Runner
 	-- {npc:11044} Doctor Martin Felben
 	["{npc:11044}, in the Apothecarium"] = "{npc:11044}, в Районе Фармацевтов",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, рядом с ним",
 
-	-- Step 22: The Undercity
+	-- Step 21: The Undercity
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter
 	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
 
-	-- Step 23: Royal Quarter
+	-- Step 22: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, неподалеку",
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
@@ -126,4 +122,5 @@ return {
 	-- ["The zeppelin tower stands just north-east of {zone:1454}'s main gate; take the {zone:1458} zeppelin."] = "Башня дирижаблей стоит чуть к северо-востоку от главных ворот ({zone:1454}); садитесь на дирижабль ({zone:1458}).",
 	-- ["Zeppelin to the {zone:1458}"] = "Дирижабль: {zone:1458}",
 	-- ["Zeppelin tower"] = "Башня дирижаблей",
+	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386} стоит здесь: {area:380}. Открывайте каждый ящик, который она дает, и приносите ей содержимое.",
 }

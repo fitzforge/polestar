@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:2458} Berserker Stance · {spell:1680} Whirlwind
-	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "",
+	["{spell:2458} at 30 and a {spell:1680} axe, sword or warhammer at 40."] = "30级的{spell:2458}，以及40级的{spell:1680}斧、剑或战锤。",
 
 	-- Step 1: The Islander (Stormwind)
 	-- {npc:5479} Wu Shen · {npc:5480} Ilsa Corbin · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens

@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt Reputation"] = "",
-	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "",
+	["Ravenholdt Reputation"] = "Репутация: Черный Ворон",
+	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "Гильдия убийц: новые задания для разбойников в Forever, затем убийство членов Синдиката и Тяжелые сейфы до уровня «Превознесение».",
 	-- {faction:349} Ravenholdt
-	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "",
+	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "Репутация {faction:349} (в данных Forever нет торговца и наград)",
 
 	-- Step 1: The Manor, Ravenholdt
 	-- {item:17126} Elegant Letter · {area:275} Durnholde Keep · {npc:6707} Fahrad

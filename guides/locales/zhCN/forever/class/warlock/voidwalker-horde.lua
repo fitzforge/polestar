@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Voidwalker (Horde)"] = "",
-	["Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle."] = "",
+	["Voidwalker (Horde)"] = "虚空行者（部落）",
+	["Your tank demon at 10: the voidwalker, after a stolen book and a fight at a summoning circle."] = "10级获得你的坦克恶魔：虚空行者。需先找回一本被盗的书，再在召唤法阵完成一场战斗。",
 
 	-- Step 1: Gan'rul's Summons (Orcs and Trolls)
 	-- {quest:1506} Gan'rul's Summons

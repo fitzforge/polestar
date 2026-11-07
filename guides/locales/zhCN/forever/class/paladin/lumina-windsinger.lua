@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {item:268484} Moonsilver Blade · {item:267369} Wolfsbane
-	["{item:268484} and {item:267369} (Forsaken)"] = "",
+	["{item:268484} and {item:267369} (Forsaken)"] = "{item:268484}和{item:267369}（被遗忘者）",
 	-- {quest:91862} Lumina Windsinger · {quest:95140} Old Fire-Eye
-	["The Forsaken paladin's two-handed sword: rescue {quest:91862}, gather three parts, slay {quest:95140}."] = "",
+	["The Forsaken paladin's two-handed sword: rescue {quest:91862}, gather three parts, slay {quest:95140}."] = "被遗忘者圣骑士的双手剑：营救{quest:91862}，收集三个部件，杀死{quest:95140}。",
 
 	-- Step 1: Danitha Morr
 	-- {npc:246378} Danitha Morr · {area:16602} Bandarion Keep · {area:156} Solliden Farmstead · {area:228} Sepulcher · {zone:1421} Silverpine Forest

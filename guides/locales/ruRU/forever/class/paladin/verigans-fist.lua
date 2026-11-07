@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:5502} Sense Undead
-	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "",
+	["The Alliance paladin's rare two-handed mace for the 20s, with a shield and {spell:5502} on the way."] = "Редкая двуручная булава паладина Альянса для уровней 20-29, а по пути еще и щит и {spell:5502}.",
 
 	-- Step 1: The Tome of Valor (Ironforge)
 	-- {npc:6179} Tiza Battleforge · {object:32386} Hall of Mysteries · {object:32362} Mystic Ward · {item:6776} Tome of Valor · {npc:6171} Duthorian Rall · {zone:1453} Stormwind · {area:2257} Deeprun Tram · {zone:1455} Ironforge

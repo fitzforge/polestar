@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Timbermaw Hold Reputation"] = "Репутация: Древобрюхи",
-	["Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted."] = "",
-	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "",
+	["Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted."] = "Безопасный проход через туннели, чары на ловкость и рецепты фурболгов; аксессуар при превознесении.",
+	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "Рецепты для кожевников, портных, зачарователей и алхимиков от дружелюбия до почтения",
 
 	-- Step 1: Grazle
 	-- {faction:576} Timbermaw Hold · {npc:11554} Grazle · {npc:15395} Nafien · {npc:11556} Salfa · {zone:1448} Felwood · {area:2479} Emerald Sanctuary

@@ -6,15 +6,11 @@
 -- A token marked "no name in this language" would show in English: write that name in Chinese (simplified) words instead.
 -- The comments are rewritten by sync.
 return {
-	-- Step 1: Moontouched Feather on the way
-	-- {item:12383} Moontouched Feather
-	["{item:12383} on the way"] = "",
-
-	-- Step 2: Into Winterspring
+	-- Step 1: Into Winterspring
 	-- {area:618} Winterspring
 	["Into {area:618}"] = "",
 
-	-- Step 4: Everlook
+	-- Step 3: Everlook
 	-- {npc:11118} Innkeeper Vizzie
 	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
@@ -23,33 +19,35 @@ return {
 	["{npc:10431}: keep both for the Plaguelands; inside"] = "",
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
 	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
+	-- {item:12383} Moontouched Feather
+	["{item:12383}, 110 yd north"] = "{item:12383}，往北110码",
 
-	-- Step 6: Ice Thistle Hills: kill these as you meet them
+	-- Step 5: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
 	["{area:2247}: kill these as you meet them"] = "",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
 	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "冰蓟雪人住在{area:2244}以南的山丘，冰风奇美拉在通往{area:2255}的山谷中。",
 
-	-- Step 7: The Ruins of Kel'Theril
+	-- Step 6: The Ruins of Kel'Theril
 	-- {area:2253} Starfall Village
 	-- plural, as words: Moontouched Feathers = {item:12383} Moontouched Feather
 	["The ruins lie around the frozen lake south of {area:2253}. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam."] = "废墟位于{area:2253}以南的冰湖周围。拾取废墟中的四块遗物碎片，以及枭兽游荡处地上的月光羽毛。",
 
-	-- Step 8: Donova Snowden
+	-- Step 7: Donova Snowden
 	-- {npc:9298} Donova Snowden
 	["Follow the road west to {npc:9298}'s camp beside the hot springs."] = "沿道路向西前往温泉旁{npc:9298}的营地。",
 	-- {zone:1444} Feralas
 	["Keep it: Gregan in {zone:1444} brews the elixir later"] = "保留它：之后{zone:1444}的格雷甘·山酒会调制药剂",
 
-	-- Step 9: Salfa
+	-- Step 8: Salfa
 	-- {npc:11556} Salfa · {area:1769} Timbermaw Hold · {npc:9298} Donova Snowden
 	["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556}守在{npc:9298}西北的{area:1769}入口处。",
 
-	-- Step 10: On the way
+	-- Step 9: On the way
 	["On the way"] = "",
 
-	-- Step 11: On the way
+	-- Step 10: On the way
 	-- {npc:7442} Winterfall Pathfinder · {npc:9298} Donova Snowden
 	["{npc:7442} along the way to {npc:9298}"] = "",
 	-- {npc:7440} Winterfall Den Watcher · {npc:9298} Donova Snowden
@@ -57,7 +55,7 @@ return {
 	-- {npc:7441} Winterfall Totemic · {npc:9298} Donova Snowden
 	["{npc:7441} along the way to {npc:9298}"] = "",
 
-	-- Step 12: Frostfire Hot Springs: kill these as you meet them
+	-- Step 11: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
 	["{area:2246}: kill these as you meet them"] = "",
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {quest:6031} Runecloth
@@ -71,88 +69,84 @@ return {
 	-- {area:1769} Timbermaw Hold
 	["For Kernda in {area:1769}: keep it"] = "交给{area:1769}的克尔达：保留它",
 
-	-- Step 13: Donova Snowden
+	-- Step 12: Donova Snowden
 	-- {zone:1448} Felwood
 	["The Deadwood cauldron in {zone:1448}: keep it"] = "{zone:1448}的死木熊怪大锅：保留它",
 
-	-- Step 14: Level 55.05
+	-- Step 13: Level 55.05
 	["Level 55.05"] = "",
 	-- {area:2255} Everlook
 	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56."] = "",
 	-- {npc:11552} Timbermaw Mystic
 	["grind on {npc:11552}"] = "",
 
-	-- Step 15: Hearth to Everlook
-	-- {area:2255} Everlook
-	["Hearth to {area:2255}"] = "",
-
-	-- Step 17: Winterfall Village
+	-- Step 15: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
 	["The Winterfall furbolg village lies east of {area:2255}: Shaman (56-57), Den Watchers (55-56) and Ursa (57-58), all above you. Kill the Shaman first, they heal, and pull from the edge. {npc:10738} in the cave at the back is elite: stay out."] = "冬泉熊怪的村子位于{area:2255}以东：冬泉萨满祭司（56-57）、冬泉巢穴守卫（55-56）和冬泉巨熊怪（57-58），都比你等级高。先杀萨满祭司，它们会治疗，从边缘开始引怪。后方洞穴里的{npc:10738}是精英：别进去。",
 
-	-- Step 18: Optional: Sunken Temple
+	-- Step 16: Optional: Sunken Temple
 	-- {area:1417} Sunken Temple
 	["Optional: {area:1417}"] = "可选：{area:1417}",
 	-- {area:1417} Sunken Temple · {area:2255} Everlook
 	["Short of level 54 after the yetis? Running the {area:1417} (50-54) instead of grinding gets you there faster in a group. Come back to {area:2255} afterwards."] = "打完雪人还不到54级？组队刷{area:1417}（50-54）比练级更快。之后回到{area:2255}。",
 
-	-- Step 19: Pristine Yeti Horn on the way
-	-- {item:12367} Pristine Yeti Horn
-	["{item:12367} on the way"] = "",
-	-- {item:12367} Pristine Yeti Horn · {area:2255} Everlook
-	["{item:12367} along the way to {area:2255}"] = "",
+	-- Step 17: Pristine Yeti Horns
+	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
+	["Pristine Yeti Horns"] = "完美的雪人角",
+	-- plural, as words: Ice Thistle Matriarchs = {npc:7459} Ice Thistle Matriarch
+	["Back to the hills: only the Ice Thistle Matriarchs and Patriarchs carry the horns. Keep killing yetis until level 54: Harlo's wildkin quests are red before that."] = "回到山丘：只有冰蓟雪人女王和冰蓟雪人族长携带角。一直杀雪人到54级：在此之前哈尔罗·巴纳比的枭兽任务是红色的。",
 
-	-- Step 20: Everlook
+	-- Step 18: Everlook
 	-- {npc:10978} Legacki
 	["On {npc:10978}, by the inn"] = "在旅店旁的{npc:10978}处",
 	-- {npc:10978} Legacki · {npc:7583} Sprinkle · {npc:10977} Quixxil
 	["{npc:10978}: {npc:7583} and {npc:10977} come later"] = "{npc:10978}：{npc:7583}和{npc:10977}之后再去",
 
-	-- Step 21: Jaron Stoneshaper's camp
+	-- Step 19: Jaron Stoneshaper's camp
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s camp"] = "{npc:10301}的营地",
 	-- {npc:10301} Jaron Stoneshaper · {area:2245} Mazthoril
 	["Ride south-east down the valley to {npc:10301}'s damaged crate in the snow at {area:2245}, with his wrecked wagon just east of it."] = "向东南沿山谷而下，到{area:2245}雪地里{npc:10301}的破损箱子处，他被毁的马车就在东边。",
 
-	-- Step 22: Jaron Stoneshaper's supplies
+	-- Step 20: Jaron Stoneshaper's supplies
 	-- {npc:10301} Jaron Stoneshaper
 	["{npc:10301}'s supplies"] = "{npc:10301}的补给",
 	-- {npc:10301} Jaron Stoneshaper
 	["Pick up the supplies around the wagon and take {npc:10301}'s amulet back from the owlbeasts nearby."] = "拾取马车周围的补给，并从附近的枭兽身上夺回{npc:10301}的护符。",
 
-	-- Step 24: Starfall Village
+	-- Step 21: Starfall Village
 	["Ride north-west back to the village."] = "向西北骑回村子。",
 
-	-- Step 26: Fly to Theramore
+	-- Step 23: Fly to Theramore
 	["Fly to Theramore"] = "",
 	-- {area:2255} Everlook
 	["{area:2255} flight master"] = "",
 
-	-- Step 27: Boat to Menethil Harbor
+	-- Step 24: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "",
 
-	-- Step 28: Fly to Southshore
+	-- Step 25: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "",
 
-	-- Step 30: Chillwind Camp
-	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {area:442} Auberdine · {area:150} Menethil Harbor · {area:271} Southshore · {area:3197} Chillwind Camp
-	["Walk through {area:1769} to {zone:1448} and fly on to the Eastern Kingdoms ({area:442}, the boat to {area:150}). Fly to {area:271} and ride north up the road through Alterac to {area:3197}."] = "穿过{area:1769}前往{zone:1448}，再飞往东部王国（{area:442}，乘船前往{area:150}）。飞往{area:271}，沿道路向北穿过奥特兰克前往{area:3197}。",
+	-- Step 27: Chillwind Camp
+	-- {area:271} Southshore · {area:3197} Chillwind Camp
+	["From {area:271}, ride north up the road through Alterac to {area:3197}."] = "从{area:271}出发，沿道路向北穿过奥特兰克前往{area:3197}。",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
 	["{npc:11616}: the termites come later, in {area:2627}"] = "",
 
-	-- Step 31: Into Eastern Plaguelands
+	-- Step 28: Into Eastern Plaguelands
 	-- {area:139} Eastern Plaguelands
 	["Into {area:139}"] = "",
 
-	-- Step 33: Pamela Redpath
+	-- Step 30: Pamela Redpath
 	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
 	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "",
 
-	-- Step 34: Pamela Redpath's doll
+	-- Step 31: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "{npc:10926}的娃娃",
 	-- {area:2262} Darrowshire
@@ -162,44 +156,40 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "",
 
-	-- Step 35: Pamela Redpath
+	-- Step 32: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
 	["{quest:5152}, in the {area:28}: keep it"] = "",
 
-	-- Step 36: Light's Hope Chapel
+	-- Step 33: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "沿道路向东穿过该地区前往圣光之愿礼拜堂。",
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
 
-	-- Step 37: Light's Hope Chapel
+	-- Step 34: Light's Hope Chapel
 	-- {npc:11038} Caretaker Alen
 	["{npc:11038}, by the graves south of the chapel"] = "",
 
-	-- Step 38: Corin's Crossing
+	-- Step 35: Corin's Crossing
 	-- {area:2264} Corin's Crossing
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["The Scourge around {area:2264}, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it."] = "{area:2264}周围、礼拜堂西边的天灾军团会掉落两种天灾石；{npc:11064}会从它们身上升起：和每一个交谈以解放它。",
 	-- plural, as words: Darrowshire Spirits = {npc:11064} Darrowshire Spirit
 	["Free Darrowshire Spirits: talk to them"] = "解放{npc:11064}：与它们交谈",
 
-	-- Step 40: The Undercroft
+	-- Step 36: The Undercroft
 	-- {area:2261} The Undercroft
 	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "",
 	-- {item:15785} Zaeldarr's Head
 	["{item:15785}; below ground"] = "",
 
-	-- Step 41: Browman Mill: kill these as you meet them
+	-- Step 37: Browman Mill: kill these as you meet them
 	-- {area:2269} Browman Mill
 	["{area:2269}: kill these as you meet them"] = "",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
 
-	-- Step 42: Hearth to Light's Hope Chapel
-	-- {area:2268} Light's Hope Chapel
-	["Hearth to {area:2268}"] = "",
-
-	-- Step 43: Light's Hope Chapel
+	-- Step 38: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp
 	["The next guide starts here and flies to {area:3197}."] = "下一份指南从这里开始，飞往{area:3197}。",
 
@@ -214,6 +204,7 @@ return {
 	-- ["The Winterfall camp"] = "冬泉熊怪营地",
 	-- ["The western Winterfall furbolgs drop the beads."] = "西边的冬泉熊怪掉落珠子。",
 	-- ["The {area:2247}"] = "{area:2247}",
+	-- ["Walk through {area:1769} to {zone:1448} and fly on to the Eastern Kingdoms ({area:442}, the boat to {area:150}). Fly to {area:271} and ride north up the road through Alterac to {area:3197}."] = "穿过{area:1769}前往{zone:1448}，再飞往东部王国（{area:442}，乘船前往{area:150}）。飞往{area:271}，沿道路向北穿过奥特兰克前往{area:3197}。",
 	-- ["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "流亡者塞达尔是精英：建议组队。他在该地区西南的墓穴{area:2261}底层等候。",
 	-- ["grind on {npc:7460} at the {area:2247}, {zone:1452}"] = "在{zone:1452}的{area:2247}刷{npc:7460}",
 	-- ["{npc:10431}: keep both for the Plaguelands"] = "{npc:10431}：两样都保留，用于瘟疫之地",
