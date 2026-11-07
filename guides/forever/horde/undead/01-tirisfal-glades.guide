@@ -452,6 +452,7 @@ step Brill
   tip Back up the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 369                          -- Apothecary Johaan, inside
   accept 492
+  accept 445                          -- Apothecary Johaan: for Renferrel at the Sepulcher
   turnin 371                          -- Executor Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
@@ -464,9 +465,9 @@ step Leonid Barthalomew the Revered
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
-  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Every class can take both quests once A Righteous Cause is handed in (level 10); take them if they are offered. They send you into the cellar under Shadowvale, the next stop.
-  accept 99152 optional               -- Hilda the Breaker
-  accept 99153 optional               -- Ephram Barbaro
+  tip Hilda the Breaker and Ephram Barbaro camp at the forest's edge just south of Leonid. Every class can take both quests once A Righteous Cause is handed in (level 10). They send you into the cellar under Shadowvale, the next stop.
+  accept 99152                        -- Hilda the Breaker
+  accept 99153                        -- Ephram Barbaro
 
 # Bandarion Keep for Paladins with Leonid's visit:
 # Breton Samuels, Hilda and Ephram stand within 60 yd of Leonid, and the
@@ -503,10 +504,9 @@ step Shadowvale
   collect 286259 quest 99152.1        -- the Shadowvale Lurchers and Mystics drop the bones; below ground
 
 step Hilda and Ephram
-  when onquest 99152,99153
   tip Back up to the forest's edge south of the keep's gate: Hilda and Ephram take the bones and the crystal.
-  turnin 99153 optional               -- Ephram Barbaro
-  turnin 99152 optional               -- Hilda the Breaker
+  turnin 99153                        -- Ephram Barbaro
+  turnin 99152                        -- Hilda the Breaker
 
 step Paladin: Bandarion Keep
   only Paladin
