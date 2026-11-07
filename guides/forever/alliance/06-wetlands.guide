@@ -97,6 +97,10 @@ step Menethil Harbor
   accept 471                              -- James Halloran, by the north gate
   accept 98240                            -- James Halloran
 
+step Menethil Bay
+  tip The Bluegill Raiders hold the shore of Menethil Bay just south of the harbor.
+  collect 2702 quest 526 @12.7,65.3 map 1437 -- Lightforge Ingot
+
 step The Bluegill hovels
   tip Follow the coast north out of Menethil into Bluegill Marsh. Three containers in the murloc hovels, south to north: the Damaged Crate, then the Sealed Barrel, then the Half-buried Barrel at the north end.
   turnin 281 @13.5,41.4                   -- Damaged Crate
@@ -105,10 +109,6 @@ step The Bluegill hovels
   accept 285
   turnin 285 @13.9,34.8                   -- Half-buried Barrel
   accept 286
-
-step Menethil Bay
-  tip Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks.
-  collect 2702 quest 526 @12.7,65.3 map 1437 -- Lightforge Ingot
 
 step The Lost Fleet: kill these as you meet them
   zone Wetlands
