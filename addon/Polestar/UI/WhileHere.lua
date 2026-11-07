@@ -10,7 +10,17 @@
 -- (Engine.AimWhileHere), right-click dismisses it for this zone
 -- (Engine.DismissWhileHere). Under ui.reduceMotion it only fades (Anim).
 --
---   UI.WhileHereToast.Show(view), .Hide(), .frame (once built)
+--
+-- Each new line also plays a soft two-note chime (with behavior.whileHereSound,
+-- at most every SOUND_EVERY seconds, on the game's sound effects channel), as
+-- the minimap's mark pings (Nav/Layers.lua, Pins `ping`), so the player knows
+-- to glance at it. Media/Sounds/while-here.ogg is our own, synthesized:
+--   ffmpeg -f lavfi -i "aevalsrc='0.16*(sin(2*PI*880*t)+0.22*sin(2*PI*1760*t)*exp(-9*t))*exp(-7*t)*min(1\,t/0.006)
+--     +0.16*gte(t\,0.11)*(sin(2*PI*1318.5*(t-0.11))+0.22*sin(2*PI*2637*(t-0.11))*exp(-9*(t-0.11)))*exp(-6*(t-0.11))
+--     *min(1\,max(0\,t-0.11)/0.006)':s=44100:d=0.6" -af "afade=t=out:st=0.45:d=0.15" -ac 1 -c:a libvorbis -q:a 4 while-here.ogg
+-- (A5 then E6, 0.11 s apart, 0.6 s, peak -12 dB).
+--
+--   UI.WhileHereToast.Show(view), .Hide(), .Chime(), .frame (once built)
 
 local ADDON, ns = ...
 local UI, Theme, W, Anim = ns.UI, ns.Theme, ns.Widgets, ns.Anim
@@ -23,6 +33,10 @@ local WIDTH, HEIGHT, PAD = 320, 46, 12
 local TOP_Y = -150
 local SECONDS = 8
 local DIST = { round = 5 }
+
+local SOUND = "Interface\\AddOns\\" .. ADDON .. "\\Media\\Sounds\\while-here.ogg"
+local SOUND_EVERY = 30
+local soundAt = -math.huge
 
 local f
 local shownKey -- "<step>:<goal>" of the line last toasted (or seen in the window)
@@ -118,6 +132,17 @@ function T.Hide()
 	end)
 end
 
+-- The chime for a new line, unless off or one played less than SOUND_EVERY
+-- seconds ago. True when it played.
+function T.Chime()
+	if not (ns.Get("behavior.whileHereSound") and PlaySoundFile) then return false end
+	local now = GetTime()
+	if now - soundAt < SOUND_EVERY then return false end
+	soundAt = now
+	PlaySoundFile(SOUND, "SFX")
+	return true
+end
+
 ns.On("WHILE_HERE_CHANGED", function()
 	local E = ns.Engine
 	local v = E and E.GetWhileHere and E.GetWhileHere()
@@ -133,6 +158,8 @@ ns.On("WHILE_HERE_CHANGED", function()
 		return
 	end
 	shownKey = key
-	if not ns.IsLoggedIn() or windowShows() then return end
+	if not ns.IsLoggedIn() then return end
+	T.Chime()
+	if windowShows() then return end
 	T.Show(v)
 end)

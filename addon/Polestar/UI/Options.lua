@@ -220,6 +220,10 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
 			help = L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."],
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
+		{ kind = "toggle", key = "behavior.whileHereSound", label = L["While you're here sound"],
+			help = L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."],
+			search = "chime, sound, audio, ding, alert",
+			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
 	{ page = GUIDE, tab = L["Window"], section = L["Combat"], controls = {
 		{ kind = "dropdown", key = "ui.combat", label = L["In combat"], help = L["What the window does while you fight."], search = "hide in combat, fade in combat, fighting",

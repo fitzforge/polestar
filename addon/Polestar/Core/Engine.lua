@@ -45,6 +45,7 @@ ns.RegisterDefaults("behavior", {
 	whileHere = true, -- "While you're here": a quick objective of a later step close by, as one line under the step (Own.hereBuild)
 	whileHereRadius = 60, -- yards from its spawn area's edge at which it shows (40-120); it goes past 100/60 of that
 	whileHereTurnins = true, -- also a quest ready to hand in whose NPC stands within Own.HERE_TURNIN yards
+	whileHereSound = true, -- a soft chime when a line appears, at most every 30 s (UI/WhileHere.lua)
 })
 
 -- behavior.autoNextGuide (a toggle, on by default) became behavior.guideEnd
@@ -6125,13 +6126,15 @@ function Own.hereTick(c, px, py)
 		return false
 	end
 	Own.here, Own.hereSince, Own.hereView = best, GetTime(), nil
+	Own.hereSerial = (Own.hereSerial or 0) + 1
 	Own.hereYards = math.floor(bestD / step + 0.5) * step
 	ns.Fire("WHILE_HERE_CHANGED")
 	return false
 end
 
 -- The line shown now, as a goal view (Engine.GetAlong's) of its later step
--- with: `step` (its step), `here` ("work" | "turnin"), `left`, `yards` (to
+-- with: `step` (its step), `here` ("work" | "turnin"), `left`, `appeared` (a
+-- number new for each line that appears: the minimap's ping), `yards` (to
 -- the next HERE_STEP), `hereText` (what to do: "Kill Kobold Vermin, 2 more",
 -- "Hand in X to Y"). Nil without one, or while the window looks at another
 -- step than the live one.
@@ -6142,7 +6145,7 @@ function Engine.GetWhileHere()
 	if not v then
 		local goal, left = cur.goal, cur.left
 		v = goalView(cur.s, cur.g, goal, "current", nil)
-		v.step, v.here, v.left = cur.s, cur.kind, left
+		v.step, v.here, v.left, v.appeared = cur.s, cur.kind, left, Own.hereSerial
 		local text
 		if cur.kind == "turnin" then
 			local _, npc = npcOf(goal)

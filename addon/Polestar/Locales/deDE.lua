@@ -1183,6 +1183,8 @@ L["Did you mean:"] = "Meintest du:"
 -- L["How near its spawn area must be for the line to show. It goes again a little further out."] = ""
 -- L["Include nearby hand-ins"] = ""
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
+-- L["While you're here sound"] = ""
+-- L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
 
 -- UI/Dungeons.lua
 L["Ready to turn in"] = "Bereit zur Abgabe"

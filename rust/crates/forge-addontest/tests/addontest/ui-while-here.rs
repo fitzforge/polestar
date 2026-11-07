@@ -131,8 +131,10 @@ fn with_the_window_hidden_or_compact_one_small_toast_says_it_once() {
 	assert_eq!(hidden, vec![json!("Kill Kobold Vermin, 2 more  \u{b7}  50 yd")]);
 }
 
+// The minimap shows what the line points at: its mark and spawn area in the accent on both surfaces (its own
+// layers), until a click hands it to the arrow's own layers.
 #[test]
-fn the_maps_show_its_spawn_area_like_an_along_goal_in_the_arrow_s_colour_once_clicked() {
+fn the_maps_and_the_minimap_show_its_mark_and_spawn_area_until_the_arrow_takes_it() {
 	let out = run(
 		"",
 		r#"
@@ -140,36 +142,131 @@ fn the_maps_show_its_spawn_area_like_an_along_goal_in_the_arrow_s_colour_once_cl
 		local v = E.GetWhileHere()
 		local P = Polestar.Pins
 		local function n(name) local l = P.GetLayer(name); return l and #l or 0 end
-		emit({ here = v and v.step or false, text = v and v.hereText or false, others = n("nav.goalAreas"), own = n("nav.areas") })
+		local function mm(name) return #P.GetMinimapFrames(name) + #P.GetMinimapHulls(name) + #P.GetMinimapAreas(name) end
+		emit({ here = v and v.step or false, text = v and v.hereText or false, mark = n("nav.here"), areas = n("nav.hereAreas"),
+			mmMark = mm("nav.here"), mmAreas = mm("nav.hereAreas") })
 		H:GetScript("OnClick")(H, "LeftButton"); stub.advance(0.3)
-		emit({ others = n("nav.goalAreas"), own = n("nav.areas") })
+		emit({ mark = n("nav.here"), areas = n("nav.hereAreas"), own = n("nav.areas") })
 	"#,
 	);
 	assert_eq!(out[0]["here"], 3);
 	assert_eq!(out[0]["text"], "Collect Large Candle, 2 more");
-	assert!(out[0]["others"].as_i64().unwrap() > 0, "its spawn area on the world map: {}", out[0]);
+	assert_eq!(out[0]["mark"], 1, "its mark: {}", out[0]);
+	assert!(out[0]["areas"].as_i64().unwrap() > 0, "its spawn area: {}", out[0]);
+	assert_eq!(out[0]["mmMark"], 1, "the mark on the minimap: {}", out[0]);
+	assert!(out[0]["mmAreas"].as_i64().unwrap() > 0, "the area on the minimap: {}", out[0]);
+	assert_eq!(json!([out[1]["mark"], out[1]["areas"]]), json!([0, 0]), "clicked, the arrow's layers draw it: {}", out[1]);
 	assert!(out[1]["own"].as_i64().unwrap() > 0, "clicked, it is the arrow's: {}", out[1]);
 }
 
+const PING: &str = r#"
+local P, A = Polestar.Pins, Polestar.Anim
+local function mm() return P.GetMinimapFrames("nav.here")[1] end
+local function chimes()
+	local n = 0
+	for _, s in ipairs(stub.sounds) do if type(s) == "string" and s:find("while%-here%.ogg$") then n = n + 1 end end
+	return n
+end
+local function rings(f)
+	local n = 0
+	for _, t in ipairs(f and f.pings or {}) do if t:IsShown() then n = n + 1 end end
+	return n
+end
+"#;
+
+// Fitz: a new line chimes once and its minimap mark pings (three rings over about 1.2 s), so the player looks;
+// never again for the same line, at most one chime in 30 s, none with the sound off.
 #[test]
-fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_40_to_120_yards() {
+fn a_new_line_chimes_once_and_its_minimap_mark_pings_then_settles() {
+	let out = run(
+		"",
+		&format!(
+			"{PING}{}",
+			r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(0.6)
+		local f = mm()
+		local early = { chimes = chimes(), pinging = f and f.pinging or false, value = f and A.IsRunning(f, "value") or false }
+		stub.advance(0.3)
+		early.rings = rings(f)
+		emit(early)
+		stub.advance(1.2)
+		emit({ pinging = f.pinging, rings = rings(f), value = A.IsRunning(f, "value"), glow = f.glow and f.glow:IsShown() or false })
+		w.progress(7, 1, 9); stub.advance(0.6)
+		emit({ chimes = chimes(), pinging = mm().pinging })
+		E.DismissWhileHere(); w.moveTo(1429, 52.0, 38.0); stub.advance(0.6)
+		emit({ text = E.GetWhileHere().hereText, chimes = chimes(), pinging = mm().pinging })
+		stub.advance(31); w.setZone("Westfall"); w.setZone("Elwynn Forest")   -- a new zone stay: the vermin may come back
+		w.moveTo(1429, 47.6, 37.6); stub.advance(1.1)
+		emit({ text = E.GetWhileHere().hereText, chimes = chimes() })
+	"#
+		),
+	);
+	assert_eq!(out[0], json!({ "chimes": 1, "pinging": true, "value": true, "rings": 2 }), "rings expand, staggered");
+	assert_eq!(out[1], json!({ "pinging": false, "rings": 0, "value": false, "glow": true }), "it ends and the mark keeps its glow");
+	assert_eq!(out[2], json!({ "chimes": 1, "pinging": false }), "the same line again: no chime, no ping");
+	assert_eq!(out[3], json!({ "text": "Collect Large Candle, 2 more", "chimes": 1, "pinging": true }), "a new line within 30 s pings but does not chime");
+	assert_eq!(out[4], json!({ "text": "Kill Kobold Vermin, 1 more", "chimes": 2 }), "30 s on, the next one chimes");
+	let off = run(r#"Polestar.Set("behavior.whileHereSound", false)"#, &format!("{PING}{}", r#"w.moveTo(1429, 47.6, 37.6); stub.advance(0.6); emit({ chimes(), mm().pinging })"#));
+	assert_eq!(off, vec![json!([0, true])], "the sound off: the ping still plays");
+}
+
+#[test]
+fn reduced_motion_the_minimap_mark_flashes_once_instead_of_rings() {
+	let out = run(
+		r#"Polestar.Set("ui.reduceMotion", true)"#,
+		&format!(
+			"{PING}{}",
+			r#"
+		w.moveTo(1429, 47.6, 37.6); stub.advance(0.6)
+		local f = mm()
+		emit({ rings(f), A.IsRunning(f, "value"), A.IsRunning(f.pings[1], "alpha") })
+		stub.advance(0.6)
+		emit({ rings(f), f.pinging })
+	"#
+		),
+	);
+	assert_eq!(out, vec![json!([1, false, true]), json!([0, false])]);
+}
+
+// Zoomed in, the line's place is past the minimap's rim: its mark sits on the rim with the edge pointer toward it,
+// and the ping plays there.
+#[test]
+fn off_the_minimap_the_mark_pings_at_the_rim_with_its_edge_pointer() {
+	let out = run(
+		r#"stub.minimapZoom = 5; Polestar.Set("behavior.whileHereRadius", 120)"#,
+		&format!(
+			"{PING}{}",
+			r#"
+		w.moveTo(1429, 47.6, 40.1); stub.advance(0.6)
+		local f = mm()
+		emit({ here = E.GetWhileHere() and E.GetWhileHere().yards or false, clamped = f and f.clamped or false, pointer = f and f.edge:IsShown() or false, pinging = f and f.pinging or false })
+	"#
+		),
+	);
+	assert_eq!(out, vec![json!({ "here": 100, "clamped": true, "pointer": true, "pinging": true })]);
+}
+
+#[test]
+fn the_options_sit_in_the_window_tab_on_by_default_the_radius_from_40_to_120_yards_and_the_sound() {
 	let out = run(
 		"",
 		r#"
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
 		local c = O.Controls("guide", "Window")
-		local on, radius, turnins = c["behavior.whileHere"], c["behavior.whileHereRadius"], c["behavior.whileHereTurnins"]
-		local before = { on ~= nil, radius ~= nil, turnins ~= nil, Polestar.Get("behavior.whileHere"), Polestar.Get("behavior.whileHereRadius"), Polestar.Get("behavior.whileHereTurnins") }
+		local on, radius, turnins, sound = c["behavior.whileHere"], c["behavior.whileHereRadius"], c["behavior.whileHereTurnins"], c["behavior.whileHereSound"]
+		local before = { on ~= nil, radius ~= nil, turnins ~= nil, sound ~= nil, Polestar.Get("behavior.whileHere"), Polestar.Get("behavior.whileHereRadius"),
+			Polestar.Get("behavior.whileHereTurnins"), Polestar.Get("behavior.whileHereSound") }
 		stub.RunScript(radius.Slider, "OnValueChanged", 118, true)
 		local wide = Polestar.Get("behavior.whileHereRadius")
 		on:Click()
-		emit({ before = before, wide = wide, off = Polestar.Get("behavior.whileHere"), radiusEnabled = radius:IsEnabled(), turninsEnabled = turnins:IsEnabled() })
+		emit({ before = before, wide = wide, off = Polestar.Get("behavior.whileHere"), radiusEnabled = radius:IsEnabled(), turninsEnabled = turnins:IsEnabled(), soundEnabled = sound:IsEnabled() })
 	"#,
 	);
-	assert_eq!(out[0]["before"], json!([true, true, true, true, 60, true]));
+	assert_eq!(out[0]["before"], json!([true, true, true, true, true, 60, true, true]));
 	assert_eq!(out[0]["wide"], 120, "the slider steps by 5 yards");
 	assert_eq!(out[0]["off"], false);
 	assert_eq!(out[0]["radiusEnabled"], false, "its children grey out with it off");
 	assert_eq!(out[0]["turninsEnabled"], false);
+	assert_eq!(out[0]["soundEnabled"], false);
 }

@@ -1308,8 +1308,13 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `WHILE_HERE_CHANGED` (came, count changed, went) and
   `WHILE_HERE_MOVED(yards)`. The window draws it between the step's goals and
   "Then:" (`fillHere`), the toast says it with the window hidden or compact
-  (UI/WhileHere.lua), Nav/Layers draws its place and spawn area with the
-  Along the way goals', and the quest item button falls back to its item
+  (UI/WhileHere.lua), and a new line plays a soft two-note chime
+  (`behavior.whileHereSound`, `Media/Sounds/while-here.ogg`, our own
+  synthesized file, on the SFX channel, at most every 30 s). Nav/Layers
+  draws its mark and spawn areas in the accent on both surfaces (layers
+  `nav.here`, an edge layer, and `nav.hereAreas`) until the arrow leads
+  there; the mark carries the line's `appeared` as its Pins `ping`, so it
+  pings once on the minimap as the line appears. The quest item button falls back to its item
   (QoL/Buttons `ChooseQuestItem`). Done early, the later step is done or
   shorter when the route gets there, as any objective done ahead.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
@@ -2531,7 +2536,8 @@ Polestar.Pins.SetLayerVisible(layer, visible)
 --         hull = { wx1, wy1, ... } (a convex region in world yards on the pin's continent `c`),
 --         areaOnly (only the area or hull draws, no pin), text (a few characters on the pin, outlined),
 --         map marks only: ring2 = { r, g, b } (dashed ring further out), badge = n | "?" (accent capsule,
---         top right), state = "focus" | "dim", medal = false (the glyph alone), medalSize (px) }
+--         top right), state = "focus" | "dim", medal = false (the glyph alone), medalSize (px),
+--         ping = n (a number new for each event: plays once on the minimap, Pins.StartPing) }
 ```
 
 Map marks (`icon = "map:<name>"`) are the map's own glyph family: white masks
@@ -2548,6 +2554,15 @@ clamped to the minimap's rim keeps medallion and glyph, its medallion at the
 rim, the edge pointer on its side toward the target. A city group of services
 (`Maps/ServiceClusters.lua`) is one 30 px medallion with up to three glyphs at
 0.4 of it and a badge with its count.
+
+A pin with `ping` plays once on the minimap frame that shows it, the first
+time that number is drawn (`Pins.PING.last`): three rings in its colour
+expand to 3.4 times the mark, 0.22 s apart, each over 0.7 s with a strong
+ease-out, fading as they grow (`Pins.PING_SECONDS`, 1.14 s), behind the
+mark; clamped to the rim, they ring the edge pointer there. One `ns.Anim`
+"value" tween drives them, so nothing runs once it ends; a released frame
+stops its ping. Under `ui.reduceMotion` one ring 1.8 times the mark flashes
+and fades over 0.5 s instead (no movement).
 
 A pin's size (`size`, `minimapSize`, times the layer's `scale`) is its own;
 the surfaces draw it smaller as the view widens, so a mark matches the game's
