@@ -29,7 +29,8 @@ Spain's and Latin America's clients use different words for game terms
 
 Each language has one file, `addon/Polestar/Locales/<locale>.lua`, and one
 for the optional Recorder's few chat lines,
-`addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way:
+`addon/Polestar_Recorder/Locales/<locale>.lua`, and one for Mob Markers'
+options, `addon/Polestar_Mob_Markers/Locales/<locale>.lua`, written the same way:
 
 ```lua
 -- German (deDE). ...
@@ -98,10 +99,10 @@ for your language from
   gained to the file, commented out at the end of its file's group, and moves
   translations of texts the code lost to the block at the end. It never
   changes a line that holds a translation. A language named that has no file
-  gets one, loaded from `addon/Polestar/Core/Core.xml` (a new Recorder file
-  goes in `Polestar_Recorder.toc` by hand). Without a locale it updates every
-  existing file. It covers Polestar and the Recorder; `--addon
-  Polestar_Recorder` (or `Polestar`) limits it, and `status`, `keys` and
+  gets one, loaded from `addon/Polestar/Core/Core.xml` (a new Recorder or Mob
+  Markers file goes in its TOC by hand). Without a locale it updates every
+  existing file. It covers Polestar, the Recorder and Mob Markers; `--addon
+  Polestar_Recorder` (or `Polestar`, `Polestar_Mob_Markers`) limits it, and `status`, `keys` and
   `import` to that one (Polestar's by default).
 - `forge i18n check [<locale>...]` lists each language's
   translated and missing counts and fails on a file Lua cannot load, a stale

@@ -21,10 +21,11 @@ pub fn usage_text() -> String {
 		"usage: forge i18n <status|check|sync|keys|import|leaks|audit|guides> [options]
 
 Polestar's interface translations (docs/TRANSLATING.md): one file per
-locale, addon/Polestar/Locales/<locale>.lua, and the same for the Recorder,
-addon/Polestar_Recorder/Locales/<locale>.lua. Locales: {}.
-check and sync read both addons; status, keys and import read Polestar's
-unless --addon names the other. (`i18n fit` still runs on node
+locale, addon/Polestar/Locales/<locale>.lua, and the same for the Recorder
+and Mob Markers, addon/Polestar_Recorder/Locales/<locale>.lua and
+addon/Polestar_Mob_Markers/Locales/<locale>.lua. Locales: {}.
+check and sync read every addon; status, keys and import read Polestar's
+unless --addon names another. (`i18n fit` still runs on node
 tools/polestar.js; the names addons are forge data names.)
 
   i18n status                per locale: its language, status (reviewed or
@@ -124,8 +125,8 @@ options:
   --pack <dir>      guides: the pack (default our guides/)
   --data <dir>      guides: the reference data (default data/forever)
   --markdown        status: a Markdown table
-  --addon <name>    status, check, sync, keys, import: Polestar or
-                    Polestar_Recorder only
+  --addon <name>    status, check, sync, keys, import: Polestar,
+                    Polestar_Recorder or Polestar_Mob_Markers
   --root <dir>      the checkout (default: the one above here, else above the forge binary)",
 		LOCALE_CODES.join(", "),
 		wrap_words(&format!("{}.", scenes.join(", ")), 29)

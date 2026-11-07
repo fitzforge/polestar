@@ -47,6 +47,7 @@ fn check_passes_on_the_shipped_files_and_refuses_an_unknown_locale() {
 	assert_eq!(r.status, 0, "{}", r.stderr);
 	assert!(r.stdout.starts_with("Polestar:\n"), "{}", r.stdout);
 	assert!(r.stdout.contains("\nPolestar_Recorder:\n"));
+	assert!(r.stdout.contains("\nPolestar_Mob_Markers:\n"));
 	let bad = forge(&["check", "xxXX"]);
 	assert_eq!(bad.status, 2);
 	assert!(bad.stderr.starts_with("forge i18n: unknown locale \"xxXX\""), "{}", bad.stderr);

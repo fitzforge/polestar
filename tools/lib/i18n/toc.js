@@ -134,6 +134,20 @@ const TEXT = {
 			zhTW: 'Polestar 任務標記與滑鼠提示所用的任務、NPC、物件與物品資料。按需載入。',
 		},
 	},
+	Polestar_Mob_Markers: {
+		title: { deDE: 'Polestar: Gegnermarkierungen', esES: 'Polestar: marcadores de enemigos', esMX: 'Polestar: marcadores de enemigos', frFR: 'Polestar : marqueurs de monstres', koKR: 'Polestar 몹 표시', ptBR: 'Polestar: marcadores de criaturas', ruRU: 'Polestar: метки мобов', zhCN: 'Polestar 怪物标记', zhTW: 'Polestar 怪物標記' },
+		notes: {
+			deDE: 'Eine Ergänzung zu Polestar: markiert auf Karte und Minikarte jeden Spawnpunkt der Gegner, die deine aktiven Quests brauchen, mit Polestars Totenkopf: eine Farbe pro Quest, ein Ring pro Gegner.',
+			esES: 'Un complemento de Polestar: marca en el mapa y el minimapa cada punto de aparición de los enemigos que necesitan tus misiones activas, con la calavera de Polestar: un color por misión, un anillo por enemigo.',
+			esMX: 'Un complemento de Polestar: marca en el mapa y el minimapa cada punto de aparición de los enemigos que necesitan tus misiones activas, con la calavera de Polestar: un color por misión, un anillo por enemigo.',
+			frFR: 'Un compagnon de Polestar : marque sur la carte et la minicarte chaque point d\'apparition des monstres dont vos quêtes en cours ont besoin, avec le crâne de Polestar : une couleur par quête, un anneau par monstre.',
+			koKR: 'Polestar 동반 애드온: 진행 중인 퀘스트에 필요한 몹의 모든 등장 위치를 지도와 미니맵에 Polestar 해골로 표시합니다. 퀘스트마다 색 하나, 몹마다 고리 하나.',
+			ptBR: 'Um complemento do Polestar: marca no mapa e no minimapa cada ponto onde surgem as criaturas de que suas missões ativas precisam, com a caveira do Polestar: uma cor por missão, um anel por criatura.',
+			ruRU: 'Дополнение к Polestar: отмечает на карте и мини-карте все места появления мобов, нужных вашим текущим заданиям, черепом Polestar: свой цвет для каждого задания, кольцо для каждого моба.',
+			zhCN: 'Polestar 的配套插件：用 Polestar 的骷髅在地图和微缩地图上标出你当前任务所需怪物的每个刷新点：每个任务一种颜色，每种怪物一个圆环。',
+			zhTW: 'Polestar 的配套插件：用 Polestar 的骷髏在地圖和小地圖上標出你目前任務所需怪物的每個重生點：每個任務一種顏色，每種怪物一個圓環。',
+		},
+	},
 	Polestar_Recorder: {
 		title: { deDE: 'Polestar Recorder', esES: 'Polestar Recorder', esMX: 'Polestar Recorder', frFR: 'Polestar : enregistreur', koKR: 'Polestar 기록기', ptBR: 'Polestar: gravador', ruRU: 'Polestar: запись', zhCN: 'Polestar 记录器', zhTW: 'Polestar 記錄器' },
 		notes: {

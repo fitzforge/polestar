@@ -408,7 +408,8 @@ as `L["..."]` in `Talents/Builds.lua`. Data that names a game thing carries
 its id instead, and the display asks `Polestar.Names` (quests, NPCs, objects,
 items, spells, factions, instances, areas, flight points, encounters). The
 optional Recorder has its own `ns.L` and `Locales/<locale>.lua` (listed in
-its TOC); `forge i18n check` and `sync` cover it too.
+its TOC), and so has Mob Markers (`ns.L` made in its Init.lua, Polestar's own
+words read through `Polestar.L` as `PL`); `forge i18n check` and `sync` cover them too.
 
 `Polestar.AI_LOCALES` names the languages whose translation is AI-made
 (`status: "ai"` in locales.rs; the forge-i18n tests keep the two equal). On
