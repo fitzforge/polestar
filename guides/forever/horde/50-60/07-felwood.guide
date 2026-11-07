@@ -115,13 +115,6 @@ step Greta Mosshoof
   turnin 5165
   accept 5242
 
-step Level 59.54
-  zone Winterspring
-  when level<59.54
-  tip Top up here to level 59.54 before the hand-ins at Bloodvenom Post : they take you to level 60.
-  goto 27.9,34.5 map 1452 "Winterfall Totemic"
-  level 59.54                          -- grind on Winterfall Totemic
-
 # ---------------------------------------------------------------- Northern Felwood
 
 step Bloodvenom Post
@@ -144,7 +137,6 @@ step Greta Mosshoof
 step Toxic Horrors
   tip Only if Donova gave you Toxic Horrors: ride north up the Felwood road to Irontree Woods; the Toxic Horrors ooze between the trees.
   collect 12822 quest 5086.1 optional
-  level 59.65                          -- grind on Winterfall Totemic
 
 step Moonglade
   zone Moonglade
