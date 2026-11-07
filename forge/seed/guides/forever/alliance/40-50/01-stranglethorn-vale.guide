@@ -45,6 +45,9 @@
 # - Stormwind: Andromath (1477) right after Angus in the Mage Quarter, before
 #   Mazen and Dellis; Brohann (1448) in the Dwarven District before Milton
 #   in the Keep.
+# - Vital Supplies (1477) is handed to Watchmaster Sorigal at the Darkshire
+#   flight master on the way into the swamp (re-seeded for flow, 0.3.5: it
+#   waited for the next guide's Darkshire stop).
 # Left out: ... and Bugs (1258), Sunken Treasure (670), Cortello's Riddle part
 # 2 (625: west Dustwallow), and the Ironforge breadcrumbs Find Bingles and
 # Speak with Shoni (2039, 2041): never finished on the route or dropped with
@@ -390,10 +393,14 @@ step Warlock: Summon Felsteed
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
+step Darkshire
+  zone Duskwood
+  fly "Darkshire"
+  turnin 1477                         -- Watchmaster Sorigal, by the flight master
+
 step Watcher Biggs
   zone Swamp of Sorrows
   tip Watcher Biggs stands by the road junction in the west of the swamp.
-  fly "Darkshire"
   accept 1398
 
 step A Soggy Scroll

@@ -227,7 +227,9 @@ end
 -- ("dungeon", "trainer", "innkeeper", "flightmaster"; Nav/Handoff.lua), optional.
 -- `z`: the height of the NPC or object there (a guide goal's or candidate's
 -- compiled `z`), optional, so the walk ends on its floor.
-function Nav.SetTarget(map, x, y, label, f, stop, z)
+-- `warning`: a line the arrow shows under the label while this is the target
+-- (a dungeon entrance in the other faction's land), optional.
+function Nav.SetTarget(map, x, y, label, f, stop, z, warning)
 	map, x, y = tonumber(map), tonumber(x), tonumber(y)
 	if not (map and x and y) then return false end
 	local Engine = ns.Engine
@@ -235,6 +237,7 @@ function Nav.SetTarget(map, x, y, label, f, stop, z)
 		map = map, x = x, y = y, f = f,
 		z = type(z) == "number" and z or nil,
 		label = (label and label ~= "") and label or L["Waypoint"],
+		warning = type(warning) == "string" and warning ~= "" and warning or nil,
 		kind = "manual",
 		stop = type(stop) == "string" and stop or nil,
 		r = Nav.DEFAULT_RADIUS,

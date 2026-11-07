@@ -943,3 +943,15 @@ fn groups_the_drop_that_starts_a_family_quest_is_asked_for() {
 	assert_eq!(a[asked + 1], "  when group 91740", "{}", a.join("\n"));
 	assert!(idx(a, "  collect 247817 quest 91733") < head, "{}", a.join("\n"));
 }
+
+#[test]
+fn r11_a_v1_goto_far_from_the_work_after_it_goes() {
+	// #1149: the Barrens' "Zhevra" goto (52.5,27.5) points 400+ yd from the nearest Zhevra Runner;
+	// the step's kill leads to the runners itself. A goto beside the work stays.
+	let far = guide("a", "Tauren", "Horde", "The Barrens", None, &["step The Zhevra", "  goto 52.5,27.5 \"Zhevra\"", "  kill 3242"]);
+	let near = guide("b", "Tauren", "Horde", "The Barrens", None, &["step The Zhevra", "  goto 43.3,27.4 \"Zhevra\"", "  kill 3242"]);
+	let after = run(&[("a", far), ("b", near)], "Tauren", "Horde", &off(), &FxHashMap::default());
+	assert!(!after["a"].iter().any(|l| l.trim_start().starts_with("goto 52.5,27.5")), "{:#?}", after["a"]);
+	assert!(after["a"].iter().any(|l| l.trim_start().starts_with("kill 3242")), "{:#?}", after["a"]);
+	assert!(after["b"].iter().any(|l| l.trim_start().starts_with("goto 43.3,27.4")), "{:#?}", after["b"]);
+}

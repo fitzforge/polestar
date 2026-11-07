@@ -48,20 +48,9 @@ step Brohann Caskbelly
   zone Stormwind City
   turnin 1469
 
-step Duskwood
-  zone Duskwood
-  goto 75.8,46.2 "Duskwood"
-
-# ---------------------------------------------------------------- Darkshire
-
-step Darkshire
-  zone Duskwood
-  turnin 1477                         -- Watchmaster Sorigal
-  accept 1395
-
 step Fly to Lakeshire
-  zone Duskwood
-  goto 77.6,44.4 "Darkshire flight master"
+  zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
   fly "Lakeshire"
   zone Redridge Mountains
 
@@ -192,9 +181,17 @@ step Boat to Stormwind Harbor
   zone Darkshore
   goto 30.7,41.0 "Boat to Stormwind Harbor"
 
-step Stormwind City
+step Fly to Darkshire
   zone Stormwind City
-  goto 66.3,62.7 "Stormwind City"
+  goto 66.3,62.7 "Stormwind flight master"
+  fly "Darkshire"
+  zone Duskwood
+
+# ---------------------------------------------------------------- Darkshire
+
+step Darkshire
+  zone Duskwood
+  accept 1395                         -- Watchmaster Sorigal
 
 step Blasted Lands
   zone Blasted Lands

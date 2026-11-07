@@ -2473,6 +2473,10 @@ L["Group quests"] = "Gruppenquests"
 L["Group quests in leveling guides"] = "Gruppenquests in Leveling-Guides"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Attune.lua
 L["Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths."] = "Lässt dich Lothos Riftwaker im Blackrock zum Geschmolzenen Kern schicken; ohne ihn läufst du durch die Blackrocktiefen hinein."

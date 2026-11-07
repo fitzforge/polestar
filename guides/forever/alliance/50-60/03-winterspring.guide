@@ -51,6 +51,9 @@ step Ice Thistle Hills: kill these as you meet them
 
 step The Ruins of Kel'Theril
   tip The ruins lie around the frozen lake south of Starfall Village. Pick up the four relic fragments lying in the ruins and the Moontouched Feathers on the ground where the wildkin roam.
+  collect 12896 quest 5245.1          -- First Relic Fragment
+  collect 12898 quest 5245.3          -- Third Relic Fragment
+  collect 12899 quest 5245.4          -- Fourth Relic Fragment
   collect 12897 quest 5245.2          -- Second Relic Fragment
   collect 12383 quest 978.1           -- Moontouched Feather
 
@@ -140,11 +143,6 @@ step Jaron's supplies
   tip Pick up the supplies around the wagon and take Jaron's amulet back from the owlbeasts nearby.
   collect 12524 quest 4864.2          -- Blue-feathered Amulet
   collect 12525 quest 4864.1          -- Jaron's Supplies
-
-step The Ruins of Kel'Theril
-  collect 12896 quest 5245.1          -- First Relic Fragment
-  collect 12898 quest 5245.3          -- Third Relic Fragment
-  collect 12899 quest 5245.4          -- Fourth Relic Fragment
 
 # ---------------------------------------------------------------- Back west
 
@@ -239,9 +237,6 @@ step Corin's Crossing
   tip The Scourge around Corin's Crossing, west of the chapel, drop both kinds of Scourgestone; Darrowshire Spirits rise from them: talk to each one to free it.
   kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
 
-step Light's Hope Chapel
-  turnin 5211                         -- Carlin Redpath
-
 # ---------------------------------------------------------------- The west
 
 step The Undercroft
@@ -255,6 +250,7 @@ step Browman Mill: kill these as you meet them
   collect 12841 quest 5509.1          -- Invader's Scourgestone
 
 step Light's Hope Chapel
+  turnin 5211                         -- Carlin Redpath
   turnin 5509                         -- Duke Nicholas Zverenhoff
   turnin 5510
   turnin 6021 optional                -- Caretaker Alen

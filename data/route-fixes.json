@@ -2939,6 +2939,78 @@
 			},
 			{
 				"a": [
+					"turnin",
+					196
+				],
+				"b": [
+					"turnin",
+					622
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): Raptor Mastery (196) is handed to Hemet Nesingwary (35.7,10.8) on the ride from the north-west coast to the Rebel Camp, which passes his camp, and Tethis (197) is taken there, instead of a separate trip north from Booty Bay for the hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					1477
+				],
+				"b": [
+					"accept",
+					1398
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Vital Supplies (1477) is handed to Watchmaster Sorigal (75.8,46.2), 60 yards from the Darkshire flight master the guide lands at on the way into the Swamp of Sorrows, instead of being carried to the next guide's Darkshire stop."
+			},
+			{
+				"a": [
+					"task",
+					2870
+				],
+				"b": [
+					"turnin",
+					4127
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): Lord Shalzaru (2870) closes the southern mainland loop: from the Feral Scar yetis the walk goes on to the Isle of Dread and swims back to Sardor Isle, so Feathermoon takes the loop's hand-ins and Shalzaru's on one visit. It was a Feathermoon visit, then the boat out to the coast, the isle, and the boat back for his hand-in alone. The seed's note that Shalzaru waits for the end of the mainland loop (his level 47) still holds."
+			},
+			{
+				"a": [
+					"task",
+					4291
+				],
+				"b": [
+					"accept",
+					4243
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the Lar'korwi Mates' glands (4291) and the wrecked raft (3844, 3845) lie just west of Torwa at the foot of the ramp (mates 58-71,59-80, raft 63.1,69.1): done on arrival, before the ride north to Karna and Marshal's Refuge, as the seed has it. The written guide had them as a later 'Marshlands' stop that walked back south-east from the refuge."
+			},
+			{
+				"a": [
+					"turnin",
+					3844
+				],
+				"b": [
+					"accept",
+					4243
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Un'Goro Crater 40-50, #1167): the wrecked raft (3844) is opened on arrival with the Lar'korwi glands, west of Torwa, before the ride north."
+			},
+			{
+				"a": [
+					"task",
+					5509
+				],
+				"b": [
+					"turnin",
+					5211
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): Defenders of Darrowshire (5211) is handed to Carlin Redpath on the guide's last Light's Hope stop with the Scourgestones, not on a ride back east to the chapel between Corin's Crossing and the west of the zone."
+			},
+			{
+				"a": [
 					"accept",
 					5676
 				],
@@ -4284,6 +4356,125 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): the Smithing Tuyere drops from the Dark Iron Steamsmiths at the furnaces, the same mobs as Forging the Shaft's Thorium Plated Daggers, so both are one stay; the order came back to the furnaces for the tuyere after the Slag Pit and the lookouts"
+			},
+			{
+				"a": [
+					"task",
+					212
+				],
+				"b": [
+					"task",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks."
+			},
+			{
+				"a": [
+					"task",
+					2821
+				],
+				"b": [
+					"task",
+					1452,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): the Groddoc livers for Rhapsody's Kalimdor Kocktail (1452) drop from Groddoc Apes (17% in the game's loot data, 21 spawns between the Gordunni camp and Feral Scar Vale); the eastern loop came back south to them at 56.9,54.5. Taken with the Feral Scar yeti hides. The Ironfur livers (10-12%, about a dozen bears there) stay with the eastern loop's bear country."
+			},
+			{
+				"a": [
+					"task",
+					4421,
+					0
+				],
+				"b": [
+					"task",
+					4512,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Cursed Ooze jar (4512) is filled in Jadefire Glen, where the Cursed Oozes slide (39-42,66-73) among the Jadefire Felsworn of The Corruption of the Jadefire; it was a stop of its own on the way back south."
+			},
+			{
+				"a": [
+					"task",
+					5155,
+					0
+				],
+				"b": [
+					"task",
+					4512,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Felwood, #1167): Laris's Tainted Ooze jar (4512) is filled at Jaedenar, where the Tainted Oozes slide (34-44,45-60) among the Forces of Jaedenar; it was a stop of its own on the way back south."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					0
+				],
+				"b": [
+					"task",
+					5245,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the four Kel'Theril relic fragments (5245) lie 2-4 map percent apart by the frozen lake (50.9-55.1, 41.5-43.4): all four on the first pass after Starfall Village, as the seed has it, not one then and three on a later pass."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					2
+				],
+				"b": [
+					"task",
+					5245,
+					3
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the third and fourth Kel'Theril relic fragments are picked up together on the first pass by the lake."
+			},
+			{
+				"a": [
+					"task",
+					5245,
+					3
+				],
+				"b": [
+					"task",
+					5245,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the second Kel'Theril relic fragment, the westernmost, is the last of the four on the first pass, on the way west to Donova Snowden."
+			},
+			{
+				"a": [
+					"task",
+					5154
+				],
+				"b": [
+					"task",
+					4971
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Western Plaguelands, #1167): A Matter of Time's Temporal Parasites (4971) are drawn out at Andorhal's grain silos (45.1,62.3) on the visit for the Annals of Darrowshire (5154), as the seed has it; Chromie takes both together. The written guide came back to Andorhal from Mulgris on a later loop."
+			},
+			{
+				"a": [
+					"turnin",
+					8278
+				],
+				"b": [
+					"accept",
+					8282
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Silithus, #1167): Noggle's Lost Satchel (8282) is taken from Noggle Ficklespragg, who stands beside Beetix, right after Noggle's Last Hope (8278) is handed in, as the seed has it, not on the next Cenarion Hold stop."
 			},
 			{
 				"a": [
@@ -7459,6 +7650,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (#1159), Zephras Isle: Valreaa's and Aetheen's hand-ins in Thendal Village come after the den and before Hanaa Nightwind, whose camp is on the road south to Shen'dar; the order went to Hanaa first and walked back north to the village"
+			},
+			{
+				"a": [
+					"turnin",
+					3763
+				],
+				"b": [
+					"accept",
+					1395
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Supplies for Nethergarde's Crate of Power Stones lasts an hour (item 6091, duration 3600 s; the quest text says to deliver it before the powerstones expire). The Hinterlands guide took it at Darkshire right after Stormwind, then went to Loch Modan, the Badlands and Darnassus before Nethergarde Keep. It is now taken at Darkshire on the way from Stormwind to the Blasted Lands, after the Darnassus stop, and handed in at the keep first."
 			},
 			{
 				"a": [

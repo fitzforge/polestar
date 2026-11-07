@@ -983,6 +983,14 @@ they matter to the player. They are not the judge's honest rules.
   when you loot or click, stealthed mobs or adds go on the first step that
   does the quest's work, as one tip `Careful: <the notes>` (at most two, ambushes
   first, server data before players' reports; never a note about a follow-up).
+- **R11 stray gotos** (#1149): a v1 `goto` kept with its step goes when the
+  kill or collect right after it has spawns or spots and the nearest is 200 yd
+  or more away (the Barrens' "Zhevra", Feralas' "Forest walkers"). A goto the
+  compiler gave an area (a cave's or subzone's way in) stays, and so does one
+  with no field goal after it (Corin's Crossing's town point, set in the seed).
+- **Direct turn-ins** (#1153): a repeatable quest whose giver is also its ender,
+  taken and handed in at the same stop, is written `turnin <id> direct` with no
+  accept, keeping the accept's `only` (The Tome of Divinity, 1641).
 - **Groups**: the elite and group quests the route takes (its `groups`, each
   order entry's `group`; [routes.md](routes.md#group-quests)) are asked. Every
   step that is not `along` and holds a line of a family's quest (accept, work,

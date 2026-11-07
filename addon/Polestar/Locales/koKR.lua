@@ -986,6 +986,10 @@ L["Group quests"] = "파티 퀘스트"
 L["Group quests in leveling guides"] = "레벨업 가이드의 파티 퀘스트"
 -- L["Tell me when a dungeon opens up"] = ""
 -- L["When a level-up opens a dungeon's quests to this character, a card on the guide window says so, once per dungeon, with a button that picks up its quests in a new tab."] = ""
+-- L["Entrance in Horde territory (outside the Undercity)"] = ""
+-- L["Entrance in Alliance territory (in Ironforge)"] = ""
+-- L["Entrance in Horde territory (in Orgrimmar)"] = ""
+-- L["Entrance in Alliance territory (in Stormwind)"] = ""
 
 -- Dungeons/Pickup.lua
 L["Quest giver"] = "퀘스트 제공자"
