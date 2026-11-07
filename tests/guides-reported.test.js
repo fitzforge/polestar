@@ -1186,6 +1186,28 @@ test(`${BARRENS}: Rohkin's report (#957): Mankrik's tusks are collected with Tri
 	assert.ok(wife < accept, 'Mankrik\'s wife is found on the walk south, before Camp Taurajo');
 });
 
+// Flow audit, Horde Hillsbrad (#1079): Battle of Hillsbrad was walked out in one visit, Tarren Mill ->
+// Hillsbrad Fields -> Tarren Mill five times, the last two for Magistrate Burnside and Foreman Bonds (both
+// level 30) at 25-27. Parts 4 and 5 (532, 539) and Dangerous!'s clerk and miner come on the Tarren Mill
+// visit at about 32 (30-40/01-desolace): the town hall after the yeti caves, the mine on the way to
+// Dalaran's crater, Infiltration and Helcular's Revenge handed in on the Tarren Mill stop between.
+test('forever/horde/06-hillsbrad-foothills.guide: Battle of Hillsbrad parts 4 and 5 wait for the Tarren Mill visit at 32', { skip }, () => {
+	const early = goals('forever/horde/06-hillsbrad-foothills.guide');
+	assert.deepEqual(early.filter(({ goal }) => [532, 539].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing of parts 4 and 5 at 25-27');
+	assert.deepEqual(early.filter(({ goal }) => goal.quest === 567 && goal.t === 'kill').map(({ goal }) => goal.npc).sort(), [2449, 2451], "only Dangerous!'s Kalaba and Wilkes at 25-27");
+	const list = goals('forever/horde/30-40/01-desolace.guide');
+	const idx = (what, pred) => at(list, what, pred);
+	const accept = idx('accept 532', is('accept', 532));
+	const rod = idx("Helcular's Rod", (g) => g.t === 'collect' && g.quest === 552);
+	const hall = idx('Magistrate Burnside', (g) => g.t === 'kill' && g.quest === 532 && g.npc === 2335);
+	const back = idx('turnin 532', is('turnin', 532));
+	const bonds = idx('Foreman Bonds', (g) => g.t === 'kill' && g.quest === 539 && g.npc === 2305);
+	const dalaran = idx('the first Bloodstone piece', (g) => g.t === 'collect' && g.quest === 544);
+	assert.ok(accept < rod && rod < hall && hall < back && back < bonds && bonds < dalaran, 'Tarren Mill, the yetis, the town hall, Tarren Mill, the mine, Dalaran');
+	for (const q of [533, 552]) assert.equal(list[idx(`turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the Tarren Mill stop between`);
+	for (const q of [539, 567]) assert.ok(idx(`turnin ${q}`, is('turnin', q)) > bonds, `${q} is handed in after the mine`);
+});
+
 // --- Forever chains the quest data has no prerequisite for, so the guide took
 // a follow-up at the same visit as the quest before it and the giver did not
 // offer it: Baine's chain in Mulgore (Kori, #112) and Mull's report (#51),
