@@ -85,6 +85,14 @@ function fakeDiscord() {
 			if (messages.has(channel)) messages.get(channel).push(msg);
 			return msg;
 		},
+		// The bot's own message rewritten; recorded in `edits` as { channel, message, content }.
+		async editMessage(channel, id, content) {
+			const m = (messages.get(channel) || []).find((x) => x.id === id);
+			if (!m) throw httpError(404);
+			m.content = content;
+			edits.push({ channel, message: id, content });
+			return structuredClone(m);
+		},
 		async editThread(id, fields) {
 			edits.push({ id, ...fields });
 			const c = channels.get(id);

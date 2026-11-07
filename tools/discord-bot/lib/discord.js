@@ -56,6 +56,8 @@ function createDiscord({ token, api = API, fetch: fetchImpl = fetch }) {
 		activeThreads: (guild) => request('GET', `/guilds/${guild}/threads/active`),
 		send: (channel, content, users = [], roles = []) =>
 			request('POST', `/channels/${channel}/messages`, { content, allowed_mentions: mentions(users, roles), flags: 4 }),
+		editMessage: (channel, id, content) =>
+			request('PATCH', `/channels/${channel}/messages/${id}`, { content, allowed_mentions: mentions(), flags: 4 }),
 		editThread: (id, fields) => request('PATCH', `/channels/${id}`, fields),
 	};
 }
