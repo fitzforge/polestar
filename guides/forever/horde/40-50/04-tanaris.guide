@@ -107,6 +107,11 @@ step Broken Pillar: kill these as you meet them
   kill 5472 quest 5863.2
   kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
 
+step The Noxious Lair
+  tip West, the Centipaar insects swarm around their hives; any of them drops the parts.
+  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
+  collect 8587 quest 82.1
+
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
   tip West of the compound the cactus creatures fill the valley; only the Dew Collectors carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
@@ -119,12 +124,7 @@ step Thistleshrub Valley: kill these as you meet them
 step Tooga's escort
   tip Tooga waits in the valley. Walk him all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
   accept 1560                           -- Tooga
-  complete 1560
-
-step The Noxious Lair
-  tip West, the Centipaar insects swarm around their hives; any of them drops the parts.
-  tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you.
-  collect 8587 quest 82.1
+  complete 1560 @66.58,25.67 map 1446 era
 
 step Steamwheedle Port
   turnin 1560                           -- Torta, Steamwheedle Port
@@ -187,7 +187,7 @@ step Searing Gorge
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip Take the pass out of Kargath's west side into the Searing Gorge, then ride south-west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2
@@ -209,9 +209,12 @@ step Thorium Point
   accept 7727
   accept 7722                           -- Master Smith Burninate
 
-step Greater Lava Spider on the way
-  along until q7724
-  kill 5858 quest 7724.1
+step The Cauldron's slavers and golems
+  zone Searing Gorge
+  tip Ride south from Thorium Point into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below Kalaran.
+  kill 5846 quest 7729.1
+  kill 5844 quest 7729.2
+  kill 5854 quest 7723.1
 
 step Kalaran Windblade
   tip Kalaran stands alone south of Thorium Point, at the edge of the Cauldron. Listen to his story.
@@ -225,14 +228,7 @@ step Kalaran Windblade
   accept 3442
 
 # ---------------------------------------------------------------- The rest of the gorge
-step On the way
-  along until q7723
-  kill 5854 quest 7723.1 -- Heavy War Golem along the way to Thorium Point
-  kill 5846 quest 7729.1 -- Dark Iron Taskmaster along the way to Thorium Point
-  kill 5844 quest 7729.2 -- Dark Iron Slaver along the way to Thorium Point
-
 step Searing Gorge: kill these as you meet them
-  label q7724
   zone Searing Gorge
   tip Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the Grimesilt Outhouse Key: keep it.
   tip The Greater Lava Spiders roam the plateaus and lava pools in the south-west of the gorge.
@@ -245,8 +241,7 @@ step Searing Gorge: kill these as you meet them
   kill 9318 quest 7727.1              -- Below ground
 
 step Thorium Point
-  label q7723
-  tip Ride back north to Thorium Point. Stay here: the next guide starts with the flight to Stonard.
+  tip Ride back north to Thorium Point.
   turnin 7729
   turnin 7727
   turnin 7724
