@@ -127,6 +127,45 @@ local function giverFor(s, p)
 	return i and s.g[i] or nil
 end
 
+-- How far starter `rec` (a Codex NPC or object) stands from the giver's
+-- point: its nearest spawn on the giver's map, squared; 0 for a giver with no
+-- point. -> distance | nil (no spawn there)
+local function giverDistance(rec, giver)
+	if not giver[2] then return 0 end
+	local best
+	for _, s in ipairs(rec and rec.spawns or {}) do
+		if s.map == giver[2] then
+			local dx, dy = s.x - giver[3], s.y - giver[4]
+			local d = dx * dx + dy * dy
+			if not best or d < best then best = d end
+		end
+	end
+	return best
+end
+
+-- The giver's name in the client's words: the start of quest q (Codex) that
+-- stands nearest its point, named by Polestar.Names; else ClassRewards' own
+-- (the data's English) name.
+local function giverName(q, giver)
+	local N, X = ns.Names, ns.Codex
+	local rec = N and N.Localised() and X and X.Quest and X.Quest(q)
+	local start = rec and rec.start
+	if not start then return giver[1] end
+	local bestId, bestNpc, bestD
+	for _, id in ipairs(start.npc or {}) do
+		local d = giverDistance(X.Npc(id), giver)
+		if d and (not bestD or d < bestD) then bestId, bestNpc, bestD = id, true, d end
+	end
+	for _, id in ipairs(start.object or {}) do
+		local d = giverDistance(X.Object(id), giver)
+		if d and (not bestD or d < bestD) then bestId, bestNpc, bestD = id, false, d end
+	end
+	if not bestId then return giver[1] end
+	local name
+	if bestNpc then name = N.Npc(bestId) else name = N.Object(bestId) end
+	return name or giver[1]
+end
+
 local routeStep -- below, before Model
 
 -- Whether goal `goal` of guide step `step` is of quest q's chain.
@@ -230,9 +269,9 @@ function CT.Model(q)
 	local m = { quest = q, reward = reward, class = p.class, level = s[1] }
 	m.head = format(L["LEVEL %d · %s"], s[1], UI.ClassName(p.class):upper())
 	m.title = name and format(L["%s ready"], CT.ShortName(name)) or UI.ClassName(p.class)
-	local where = giver[2] and UI.MapName(giver[2])
-	m.giver = where and format(L["Get it from %s, %s."], giver[1], where) or format(L["Get it from %s."], giver[1])
-	m.map, m.x, m.y, m.who = giver[2], giver[3], giver[4], giver[1]
+	local where, who = giver[2] and UI.MapName(giver[2]), giverName(q, giver)
+	m.giver = where and format(L["Get it from %s, %s."], who, where) or format(L["Get it from %s."], who)
+	m.map, m.x, m.y, m.who = giver[2], giver[3], giver[4], who
 	local step, title = routeStep(q, C.ChainOf(q), p)
 	if step then
 		m.step = step

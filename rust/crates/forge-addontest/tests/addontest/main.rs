@@ -179,6 +179,8 @@ mod maps_services;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;
+#[path = "names-shown.rs"]
+mod names_shown;
 mod nav;
 #[path = "nav-crossings.rs"]
 mod nav_crossings;
