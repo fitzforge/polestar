@@ -5,8 +5,8 @@
 //! quest database records copied from the shipped data (the Defias Brotherhood chain, Westfall and Redridge).
 
 use forge_addontest::questdb::ADD_RECORDS_LUA;
-use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
-use serde_json::{json, Value};
+use forge_addontest::{Addon, RunAddon, TEST_PACK, TEST_SOURCE, emitted};
+use serde_json::{Value, json};
 
 const WORLD: &str = r#"
 local w = stub.world
@@ -193,17 +193,7 @@ fn more_than_four_follow_ups_list_four_then_how_many_more() {
 		})
 		emit(unlockLines(tip(128)))"#,
 	);
-	assert_eq!(
-		out,
-		json!([
-			"Leads to | Side One, from Scout Riell",
-			" | Side Two, from Scout Riell",
-			" | Side Three",
-			" | Side Four",
-			" | +2 more",
-		]),
-		"the Horde quest is never this character's"
-	);
+	assert_eq!(out, json!(["Leads to | Side One, from Scout Riell", " | Side Two, from Scout Riell", " | Side Three", " | Side Four", " | +2 more",]), "the Horde quest is never this character's");
 }
 
 #[test]
