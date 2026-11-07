@@ -17,8 +17,9 @@ next forever/horde/03-silverpine-forest
 # Crossroads step labelled `crossroads`, where every Horde race starts. Both come in from Far
 # Watch Post: they hand Crossroads Conscription (842) to Sergra and take Meats to Orgrimmar here.
 # Warriors finish Thun'grim Firegaze / Forged Steel (1502, 1503) by the Razormane camp; Shamans
-# finish Call of Fire (1524-1527): the Fire Tar from the Razormane, Telf Joolam's brazier across
-# the river and Kranal Fiss. The former lead-in ids are in guides/retired.json.
+# finish Call of Fire (1525-1527): the Fire Tar from the Razormane, Telf Joolam's brazier across
+# the river and Kranal Fiss (Kranal, Telf and the Reagent Pouch come at 10 in the Durotar guide).
+# The former lead-in ids are in guides/retired.json.
 
 step The Crossroads
   only Orc,Troll
@@ -65,22 +66,6 @@ step
   when onquest 2984
   zone The Barrens
   turnin 2984
-
-step Kranal Fiss
-  only Orc,Troll,Shaman
-  zone The Barrens
-  accept 1524
-
-step Telf Joolam
-  only Orc,Troll,Shaman
-  zone Durotar
-  turnin 1524
-  accept 1525
-
-step Drygulch Ravine
-  only Orc,Troll,Shaman
-  zone Durotar
-  collect 6652 quest 1525.2 only Shaman
 
 step Razormane camp
   only Orc,Troll,Warrior,Shaman
@@ -479,3 +464,40 @@ step The Crossroads
   accept 905
   turnin 880                          -- Tonga Runetotem
   accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide
+
+# ---------------------------------------------------------------- Druids: Thunder Bluff and Moonglade
+
+step Thunder Bluff
+  only Druid
+  zone Thunder Bluff
+  tip Fly from the Crossroads to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
+  fly "Thunder Bluff"
+  train class
+  accept 27 only Tauren               -- Turak Runetotem
+  accept 6126 only Tauren             -- Turak Runetotem: Lessons Anew
+
+step Moonglade
+  only Tauren,Druid
+  zone Moonglade
+  goto 56.3,32.5 "Cast Teleport: Moonglade"
+
+step Trial of the Lake
+  only Tauren,Druid
+  zone Moonglade
+  tip Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
+  turnin 27 only Tauren -- Dendrite Starblaze
+  turnin 6126 only Tauren
+  accept 6127 only Tauren -- The Principal Source: Dreadmist Peak, next guide
+  accept 28 only Tauren
+  collect 15877 x1                    -- Shrine Bauble, from a Bauble Container in the lake
+  use 15877 @36.0,41.4                -- At the Shrine of Remulos
+  complete 28 only Tauren
+  turnin 28 only Tauren -- Tajarri, at the Shrine of Remulos
+  accept 30 only Tauren
+  fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
+
+step Back to the Crossroads
+  only Druid
+  zone The Barrens
+  tip Fly back to the Crossroads: the next guide walks north to Orgrimmar from there.
+  fly "Crossroads"

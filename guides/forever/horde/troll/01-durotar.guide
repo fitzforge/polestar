@@ -306,6 +306,14 @@ step Kranal Fiss
   zone The Barrens
   tip West over the Southfury River bridge, past Far Watch Post and on along the ridge: Kranal Fiss stands alone above the Razormane camp.
   turnin 2983
+  accept 1524
+
+step Telf Joolam
+  only Shaman
+  zone Durotar
+  tip Back over the bridge and south along the Durotar bank of the river to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
+  turnin 1524
+  accept 1525
 
 step Razormane Grounds
   zone Durotar
@@ -330,6 +338,7 @@ step Drygulch Ravine
   kill 3118 quest 835.2
   collect 277661 "Dull Storm Orb" optional
   accept 97281 optional
+  collect 6652 quest 1525.2 only Shaman
 
 step Deathskip to Northern Durotar
   zone Durotar
