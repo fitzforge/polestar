@@ -183,4 +183,12 @@ fn under_steps_a_seed_along_list_is_a_plain_step_even_when_its_label_moves_befor
 	let g = run(&c, None).read("a");
 	assert!(!g.iter().any(|l| l.trim_start().starts_with("along")), "{g:#?}");
 	assert!(g.iter().any(|l| l.starts_with("  turnin 3")), "{g:#?}");
+	// The route's `from` references are line numbers of the input guides: every goal after the along
+	// line is written once, in the route's order (v2 run 2 lost Silverpine's Orgrimmar accepts when the
+	// along lines were removed and every later reference named the line below its own).
+	for l in ["  accept 1", "  accept 3", "  kill 44 quest 1.1", "  kill 99 quest 3.1", "  turnin 1", "  turnin 3"] {
+		assert_eq!(g.iter().filter(|x| x.starts_with(l)).count(), 1, "{l}: {g:#?}");
+	}
+	assert!(idx(&g, "  accept 1") < idx(&g, "  kill 44 quest 1.1") && idx(&g, "  kill 44 quest 1.1") < idx(&g, "  turnin 1"), "{g:#?}");
+	assert!(!g.iter().any(|l| l.contains("forge: along list dropped")), "{g:#?}");
 }

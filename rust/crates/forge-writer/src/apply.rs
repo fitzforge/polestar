@@ -1297,19 +1297,34 @@ fn way_in_tip(zone: Option<&str>, came_from: Option<&str>, label: &str) -> Optio
 	WAYS_IN.iter().find(|(n, _)| *n == z).map(|(_, t)| *t).or_else(|| WAYS_OUT.iter().find(|(from, to, _)| came_from == Some(*from) && *to == z).map(|(_, _, t)| *t))
 }
 
+/// Stands in for a v1 `along` line under `steps` so every `guide:N` reference of the route still names
+/// its own line; taken out of the written guides again.
+const ALONG_DROPPED: &str = "  # forge: along list dropped (steps)";
+
 pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 	// Under `steps` (F6) v1's own along lists become plain steps: their `along` line goes and their
 	// goals stay at the step's place (the seed re-cut from the published guides carries next's along
-	// lists, whose labels the route can move before them).
-	let plain_guides;
-	let plain_inp;
-	let inp = if forge_core::flow_flags::on("steps") && inp.guides.values().any(|t| t.lines().any(|l| re!(r"^\s+along\b").is_match(l))) {
-		plain_guides = inp.guides.iter().map(|(k, t)| (k.clone(), t.split('\n').filter(|l| !re!(r"^\s+along\b").is_match(l)).collect::<Vec<_>>().join("\n"))).collect::<BTreeMap<String, String>>();
-		plain_inp = Inputs { guides: &plain_guides, ..*inp };
-		&plain_inp
-	} else {
-		inp
-	};
+	// lists, whose labels the route can move before them). The line is replaced, not removed: the
+	// route's `from` references are line numbers of the input guides.
+	if !(forge_core::flow_flags::on("steps") && inp.guides.values().any(|t| t.lines().any(|l| re!(r"^\s+along\b").is_match(l)))) {
+		return apply_route_inner(inp);
+	}
+	let plain_guides = inp
+		.guides
+		.iter()
+		.map(|(k, t)| (k.clone(), t.split('\n').map(|l| if re!(r"^\s+along\b").is_match(l) { ALONG_DROPPED } else { l }).collect::<Vec<_>>().join("\n")))
+		.collect::<BTreeMap<String, String>>();
+	let mut out = apply_route_inner(&Inputs { guides: &plain_guides, ..*inp })?;
+	let marker = ALONG_DROPPED.trim();
+	for (_, text) in out.files.iter_mut() {
+		if text.contains(marker) {
+			*text = text.split('\n').filter(|l| l.trim() != marker).collect::<Vec<_>>().join("\n");
+		}
+	}
+	Ok(out)
+}
+
+fn apply_route_inner(inp: &Inputs) -> Result<Output, String> {
 	// A shared guide the start plays on both sides of the faction's join (the Night Elves' Darkshore:
 	// its first loop before Westfall, the rest after it in the shared tail): this run writes its own
 	// part only, which becomes the start's own copy; the shared guide's later steps are the canonical
@@ -1322,6 +1337,30 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 			&split_inp
 		}
 		None => inp,
+	};
+	// An added quest whose item objectives the world has no source for is not written (below,
+	// `unwritable`); its route events go before anything reads them, so the guide's own lines of the
+	// quest stay as v1 has them. (v2, 2026-11-07: today's world reads Test of Strength, 1151, as a talk
+	// quest; the route added it, the writer wrote neither its accept nor v1's optional accept, and
+	// v1's optional collect of Rok'Alim's fragments stayed behind with no accept: the pack check
+	// refused the guide.)
+	let unwritable_added: FxHashSet<u32> = inp
+		.route
+		.diff
+		.as_ref()
+		.map_or(&[][..], |d| &d.added)
+		.iter()
+		.copied()
+		.filter(|&q| inp.data.quests.get(&q).is_some_and(|r| r.objectives().any(|o| o.is("item"))) && inp.world.quests.iter().find(|w| w.id == q).is_none_or(|w| w.objs.is_empty()))
+		.collect();
+	let writable_route;
+	let writable_inp;
+	let inp = if inp.route.order.iter().any(|o| o.q.is_some_and(|q| unwritable_added.contains(&q))) {
+		writable_route = Route { order: inp.route.order.iter().filter(|o| !o.q.is_some_and(|q| unwritable_added.contains(&q))).cloned().collect(), ..inp.route.clone() };
+		writable_inp = Inputs { route: &writable_route, ..*inp };
+		&writable_inp
+	} else {
+		inp
 	};
 	let data = inp.data;
 	let world = inp.world;

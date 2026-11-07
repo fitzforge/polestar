@@ -305,6 +305,35 @@ fn added_quest_spawns_events_and_unwritable() {
 }
 
 #[test]
+fn unwritable_added_quest_keeps_v1s_optional_lines() {
+	// v2 (2026-11-07): today's world reads Test of Strength (1151) as a talk quest with no objectives;
+	// the route added it (accept + turn-in, no task), the writer wrote neither and dropped v1's optional
+	// accept and turn-in, leaving v1's optional collect with no accept (the pack check refused it).
+	let c = Case {
+		files: vec![(
+			"a",
+			vec!["guide t/a", "title A", "levels 25-30", "zone Durotar", "", "step Hub", "  accept 1", "", "step Test", "  accept 7 optional", "", "step Rock", "  collect 99 quest 7 optional", "  turnin 7 optional", "", "step Back", "  turnin 1", ""],
+		)],
+		route: json!({ "diff": { "added": [7] }, "order": [
+            { "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) },
+            { "t": "accept", "q": 7, "pt": 0, "from": "inserted" }, { "t": "turnin", "q": 7, "pt": 0, "from": "inserted" },
+            { "t": "turnin", "q": 1, "pt": 0, "from": f("a", 17) }
+        ] }),
+		world: json!({ "points": [[1, 1, 0, 0, 1411]], "zones": { "1411": "Durotar" }, "quests": [{ "id": 7, "objs": [] }] }),
+		quests: json!({ "7": { "title": "Seven", "start": { "npc": [8] }, "end": { "npc": [8] }, "objectives": [{ "type": "item", "id": 99 }] } }),
+		npcs: json!({ "8": { "name": "Eight", "spawns": { "1411": { "f": "e", "pts": [[50, 50]] } } } }),
+		..Case::default()
+	};
+	let r = run(&c, None);
+	let g = r.read("a");
+	let at = |re: &str| g.iter().position(|l| m(l, re)).map_or(-1, |i| i as i64);
+	assert!(at(r"^\s+accept 7 optional") >= 0, "{g:#?}");
+	assert!(at(r"^\s+accept 7 optional") < at(r"^\s+collect 99 quest 7 optional"), "{g:#?}");
+	assert!(at(r"^\s+turnin 7") > at(r"^\s+collect 99 quest 7"), "{g:#?}");
+	assert_eq!(r.out.unwritable, vec![7]);
+}
+
+#[test]
 fn hearth_before_its_bind_goes() {
 	let a = vec!["guide t/a", "title A", "levels 1-5", "zone Durotar", "", "step Inn", "  sethome \"Razor Hill\"", "  accept 1", "", "step Home", "  hearth \"Razor Hill\"", "  turnin 1", ""];
 	let c =
