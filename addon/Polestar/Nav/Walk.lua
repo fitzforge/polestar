@@ -12,7 +12,8 @@
 -- walk the arrow is on right now (the player to the current walk leg's end,
 -- or to the target) is searched asynchronously with Path.Find on the
 -- player's continent; once the path arrives the arrow aims at its next point.
--- Straying more than STRAY yards from it, or a new goal, asks again (a stale
+-- Straying more than STRAY yards from it (asked again at most every ASK_EVERY
+-- seconds, ASK_FAR_EVERY on a walk of more than ASK_FAR yards), or a new goal, asks again (a stale
 -- search is cancelled); nothing is asked for in combat. Hand-made walks win:
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
@@ -177,6 +178,7 @@ local PACK = "Polestar_Nav"
 local STRAY = 25            -- yards off the path: ask again
 local JOIN = 50             -- yards from a path's start: its first turn there, outdoors, is joining a road (Nav/Follow.lua)
 local ASK_EVERY = 2         -- seconds between asks for the same goal
+local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
 local FAIL_RETRY, FAIL_MOVED = 15, 25 -- a failed search is asked again this late, this far away
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
@@ -912,7 +914,11 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop)
 	-- left behind the player cannot hold the arrow back: the follower's
 	-- projection moves on with the player, and past WINDOW yards the player is
 	-- off the path and STRAY asks again.)
-	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= ASK_EVERY then ask(P, pc, px, py) end
+	-- On a long walk (ASK_FAR yards left) a stray asks again at most every ASK_FAR_EVERY seconds: each ask searches the
+	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
+	-- garbage a second). A stray that long after the last ask still asks at once.
+	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
+	if fstate.off > STRAY and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
 
@@ -954,9 +960,10 @@ end
 --     snapped off the ground): those keep their straight estimate.
 --   The player's measure holds within START_NEAR yards of where it was taken;
 --     farther, the player's walk is measured again with the next plan (once
---     per replan), and until it lands it is that measure less the yards
---     moved, never less than the straight distance (x1.0: a walk is never
---     priced dearer for having come closer).
+--     per replan; alone, a batch of one, when the measure has every other
+--     place: remeasureStart), and until it lands it is that measure less the
+--     yards moved, never less than the straight distance (x1.0: a walk is
+--     never priced dearer for having come closer).
 --   Fixed per target and kept for the last MEASURE_KEEP targets, so plans
 --     never flip-flop on them: a target is measured again only when its plan
 --     has a place the measure lacks (a flight master learned, a new bind, the
@@ -1069,11 +1076,26 @@ function Walk.Measured(c, x, y, water)
 	return e and e.lookup
 end
 
+-- A measure landed: kept (either way: a target whose measure found nothing is
+-- not asked again), and the plan told when it found walks.
+local function measured(mine, found)
+	measuring = nil
+	if found then
+		mine.lookup = function(wc, wx, wy, start) return measuredCost(mine, wc, wx, wy, start) end
+	end
+	storeMeasure(mine)
+	local T = Nav.travel
+	local tc, tx, ty = Nav.GetTargetWorld()
+	if found and tc and T and T.Remeasured and sameTarget(mine, tc, tx, ty, mine.water) then T.Remeasured() end
+	pumpLegs()
+end
+
 -- One FindMany for a measure: from the target (at height z, when it has one) to
 -- its places, reversed. A batch with the height that finds nothing is asked once
 -- more without it.
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
+	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy)
 	local ok, handle = pcall(P.FindMany, mine.c, { x = mine.x, y = mine.y, z = z }, pts, function(costs, _, answer)
 		if measuring ~= mine then return end
 		mine.job = nil
@@ -1084,23 +1106,80 @@ local function batch(P, mine, z)
 			if type(costs[i]) == "number" then found = true end
 		end
 		if not found and z then return batch(P, mine, nil) end
-		measuring, mine.costs = nil, costs
-		-- Kept either way: a target whose measure found nothing is not asked again.
-		if found then
-			mine.lookup = function(wc, wx, wy, start) return measuredCost(mine, wc, wx, wy, start) end
-		end
-		storeMeasure(mine)
-		local T = Nav.travel
-		local tc, tx, ty = Nav.GetTargetWorld()
-		if found and tc and T and T.Remeasured and sameTarget(mine, tc, tx, ty, water) then T.Remeasured() end
-		pumpLegs()
-	end, opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy), true)
+		mine.costs = costs
+		measured(mine, found)
+	end, mine.o, true)
 	if not ok then
 		if z then return batch(P, mine, nil) end
 		measuring = nil
 		return
 	end
 	if measuring == mine then mine.job = handle end
+end
+
+-- Two batches' opts alike (Walk's opts: the danger table compared by its entries).
+local function sameOpts(a, b)
+	if not (a and b) or a.waterWalking ~= b.waterWalking or a.profile ~= b.profile or a.style ~= b.style or a.homeHub ~= b.homeHub then return false end
+	local da, db = a.danger, b.danger
+	if da == db then return true end
+	if type(da) ~= "table" or type(db) ~= "table" then return false end
+	for k, v in pairs(da) do
+		if db[k] ~= v then return false end
+	end
+	for k, v in pairs(db) do
+		if da[k] ~= v then return false end
+	end
+	return true
+end
+
+-- The player alone has walked away from where their walk into e's target was
+-- measured: only their walk is measured again (a batch of one, from the target
+-- at the height and with the opts e's batch found its walks with), the other
+-- places' walks kept: a batch's walks are each the cheapest from its place, so
+-- the player's move changes none of theirs, and the 16-place batch measured
+-- again cost 20-70 MB of garbage per replan near the target. Only when another
+-- place's walk was found (the batch measured again would then find walks at the
+-- same height, not ask once more without it). -> started.
+local function remeasureStart(P, e, c, x, y, water, p)
+	if not (e.lookup and e.costs and e.pts) or e.z ~= targetZ(c, x, y) then return false end
+	local other = false
+	for i = 1, #e.pts do
+		if i ~= e.si and type(e.costs[i]) == "number" then other = true end
+	end
+	if not other then return false end
+	local o = opts(water, c, nil, nil, x, y, p.wx, p.wy)
+	if not sameOpts(o, e.o) then return false end
+	local z = p.z or (startZ(c, p.wx, p.wy)) or nil
+	local pt = { x = p.wx, y = p.wy, z = z, floors = z == nil and startFloors(c, p.wx, p.wy) or nil }
+	local pts, costs, yards = {}, {}, e.yards and {} or nil
+	for i, q in ipairs(e.pts) do
+		pts[i], costs[i] = q, e.costs[i]
+		if yards then yards[i] = e.yards[i] end
+	end
+	local si = e.si or #pts + 1
+	pts[si], costs[si] = pt, nil
+	if yards then yards[si] = nil end
+	local mine = { c = c, x = x, y = y, water = water, pts = pts, si = si, sx = pt.x, sy = pt.y, z = e.z, o = o, costs = costs, yards = yards }
+	measuring = mine
+	local ok, handle = pcall(P.FindMany, c, { x = x, y = y, z = e.z }, { pt }, function(got, _, answer)
+		if measuring ~= mine then return end
+		mine.job = nil
+		local m = type(got) == "table" and got[1]
+		costs[si] = (type(m) == "number" or m == false) and m or false
+		local yd = type(answer) == "table" and type(answer.yards) == "table" and answer.yards[1] or nil
+		if yards then yards[si] = yd == nil and false or yd end
+		local found = false
+		for i = 1, #pts do
+			if type(costs[i]) == "number" then found = true end
+		end
+		measured(mine, found)
+	end, o, true)
+	if not ok then
+		measuring = nil
+		return false
+	end
+	if measuring == mine then mine.job = handle end
+	return true
 end
 
 -- Measure the walks into the target (c, x, y) from the plan's places (Travel's
@@ -1151,18 +1230,19 @@ function Walk.Measure(c, x, y, water, places)
 	if not others then return end
 	local e = findMeasure(c, x, y, water)
 	if e then
-		local missing = false
+		local start, other = nil, false
 		for _, p in ipairs(pick) do
 			if p.start then
 				-- The player was out of reach, or has walked away from where their walk was measured.
 				local dx, dy = p.wx - (e.sx or p.wx), p.wy - (e.sy or p.wy)
-				if not e.si or dx * dx + dy * dy > START_NEAR * START_NEAR then missing = true end
+				if not e.si or dx * dx + dy * dy > START_NEAR * START_NEAR then start = p end
 			elseif not placeIndex(e, p.wx, p.wy) then
-				missing = true
+				other = true
+				break
 			end
-			if missing then break end
 		end
-		if not missing then return end
+		if not (start or other) then return end
+		if start and not other and remeasureStart(P, e, c, x, y, water, start) then return end
 	end
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil

@@ -2767,7 +2767,8 @@ eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`, swinging at most
 turning the camera moves it at once.
 A new goal (more than 1 yd away from the searched one) cancels the search
 in flight and drops the path; more than 25 yd off the path asks again (at
-most every 2 s, the old path kept meanwhile); a failed search (`nodata`,
+most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
+each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
 `outside`, `offmesh`, `unreachable`, `error`, `Path.Available(map)` false,
 or `Find` raising) is asked again only after 15 s and 25 yd. Nothing is
 asked for in combat (the engine's own queue waits out combat as well).
@@ -2952,7 +2953,10 @@ straight estimates, the arrow its own search: a batch is about a second of
 router work, and a guide sets such a waypoint at every turn-in); the
 player's measure holds within 50 yd of where it was taken. Farther, the
 player's walk counts as missing from the measure, so the next plan (at most
-once per replan) measures it again; meanwhile it is that measure less the
+once per replan) measures it again: alone (a batch of one from the target,
+at the height and with the opts the measure found its walks with, the other
+places' walks kept, as a batch prices each place's walk on its own) when
+every other place is in the measure, else in a whole batch; meanwhile it is that measure less the
 yards moved (its cost scaled alike), never less than the straight distance (x1.0), so a walk never
 gets dearer for coming closer. A walk on from a crossing's far end or a
 chain's mouth is no hand-made walk: the arrow and the route lines follow the
@@ -3532,7 +3536,11 @@ decoded clusters, the decoder's scratch and the endpoint trees stay for the
 next search (a walk from nearby reads the same clusters: 0.3.1 decoded them
 again for every search); after `Path.restSeconds` (60) with no search `Idle`
 drops them, except the one `Path.SurfacesAt` reads (the player's floor, until
-`Path.ReleaseSurfaces`). `Path.cacheKB` and `Path.graphKB` cap them
+`Path.ReleaseSurfaces`). The search scratch (the abstract A*'s tables, keyed
+by entrance ids, the heap and the grid trees: a finished search's or
+batch's is the next one's) stays `Path.spareSeconds` (15): until 0.3.4 every
+emptied queue dropped it, so a walk re-asked every few seconds grew those
+tables again every time. `Path.cacheKB` and `Path.graphKB` cap them
 meanwhile, all set in `API.lua`.
 The maps are base64 zlib blocks decoded per cluster with `C_EncodingUtil`.
 `forge nav check` holds the maps to `PACK.json` (grid build, cells, date, sizes,
