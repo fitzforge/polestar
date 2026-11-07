@@ -4907,6 +4907,18 @@
 					844
 				],
 				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
+			},
+			{
+				"a": [
+					"accept",
+					786
+				],
+				"b": [
+					"task",
+					825
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Orc Durotar (#1092): Lar Prowltusk stands 21 yd from Master Gadrin and offers Thwarting Kolkar Aggression at level 5 on the first Sen'jin stop (11 recorded windows of his, most at level 5 with Report to Sen'jin Village still in the log). The Orc order took it on a trip of its own from Razor Hill after Tiragarde Keep (1,200 yd south), then walked north again to the toolboxes east of Razor Hill; taken on the first stop, the coast is walked once, from Razor Hill south. The shared seed now has the accept on that stop"
 			}
 		]
 	}
