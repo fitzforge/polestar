@@ -1914,6 +1914,19 @@ local function stopZone(s, c)
 	return here and C and C.GetMapName and present(C.GetMapName(here)) or nil
 end
 
+-- A building mouth with an inn's innkeeper this many yards from it is the inn's door: the
+-- chokepoint is named after its area, so Brill's Gallows' End Tavern read "Walk to the Brill
+-- entrance", the town's way in, not the inn's (#1046).
+local INN_DOOR = 30
+
+local function innDoor(c, wx, wy)
+	if not (c and wx and wy) then return false end
+	for _, inn in ipairs(inns) do
+		if inn.c == c and inn.wx and inn.wy and yards(c, wx, wy, inn.c, inn.wx, inn.wy) <= INN_DOOR then return true end
+	end
+	return false
+end
+
 -- A stop's caption: never empty, never "Unknown".
 local function stopLabel(s, c)
 	local kind = CHOKE_BARE[s.kind] and s.kind or "pass"
@@ -1921,6 +1934,8 @@ local function stopLabel(s, c)
 	if place then
 		if s.kind == "lift" and (s.side == "top" or s.side == "bottom") then
 			place = format(s.side == "top" and L["%s, Top"] or L["%s, Bottom"], place)
+		elseif s.kind == "building" and innDoor(c, s.wx, s.wy) then
+			place = format(L["%s Inn"], place)
 		end
 		return format(CHOKE_TO[kind], place)
 	end
