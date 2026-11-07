@@ -11,22 +11,6 @@ next forever/horde/04-the-barrens
 # into this file.
 # Added here: Prove Your Worth (421), Raleigh and the Undercity (441), The Spirits of Stonetalon (1061).
 
-step Durotar
-  zone Durotar
-  goto 50.8,13.5 "Durotar"
-
-step Zeppelin to Undercity
-  zone Durotar
-  goto 50.8,13.5 "Zeppelin to Undercity"
-
-step Silverpine Forest
-  zone Silverpine Forest
-  goto 44.0,40.9 "Silverpine Forest"
-
-step Silverpine Forest
-  zone Silverpine Forest
-  goto 44.0,40.9 "Silverpine Forest"
-
 # Built from the simulator's consensus Horde route (Tauren export: Silverpine
 # Forest 16.6-19, Orgrimmar 19-19.2, Westfall 19.2-19.6); not yet play-tested
 # on Forever.
@@ -173,6 +157,24 @@ step Hanashi
   tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a staff carries more spell stats than a one-hander while you level.
   train 2704                          -- Hanashi
 
+step Durotar
+  zone Durotar
+  goto 50.8,13.5 "Durotar"
+
+step Zeppelin to Undercity
+  zone Durotar
+  goto 50.8,13.5 "Zeppelin to Undercity"
+
+step Brill
+  only Paladin
+  zone Tirisfal Glades
+  tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
+  train class
+
+step Silverpine Forest
+  zone Silverpine Forest
+  goto 44.0,40.9 "Silverpine Forest"
+
 # ---------------------------------------------------------------- The Sepulcher
 
 step The Sepulcher
@@ -181,7 +183,6 @@ step The Sepulcher
   getfp "The Sepulcher"
   accept 477                          -- Shadow Priest Allister
   accept 421
-  tip Swim back and follow the road west to the Sepulcher.
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
   sethome "The Sepulcher" npc 6739    -- Innkeeper Bates
@@ -191,78 +192,6 @@ step The Sepulcher
   zone Silverpine Forest
   when onquest 264
   turnin 264 only Skyborne,Tauren
-
-step Tirisfal Glades
-  only Skyborne,Tauren,Druid
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Tirisfal Glades"
-
-step Zeppelin to Orgrimmar
-  only Skyborne,Tauren,Druid
-  zone Tirisfal Glades
-  goto 60.7,58.9 "Zeppelin to Orgrimmar"
-
-step Fly to Thunder Bluff
-  only Skyborne,Tauren,Druid
-  zone Orgrimmar
-  goto 45.3,63.8 "Orgrimmar flight master"
-  getfp "Orgrimmar"
-  fly "Thunder Bluff"
-
-step Thunder Bluff
-  only Druid
-  zone Thunder Bluff
-  tip Fly to Thunder Bluff: Turak Runetotem trains you on Elder Rise. Skyborne: fly back to Orgrimmar for the zeppelin afterwards.
-  fly "Thunder Bluff" only Orc,Troll,Undead
-  train class
-  accept 27 only Tauren               -- Turak Runetotem
-  accept 6126 only Tauren             -- Turak Runetotem: Lessons Anew
-
-step Moonglade
-  only Tauren,Druid
-  zone Moonglade
-  goto 56.3,32.5 "Cast Teleport: Moonglade"
-
-step Trial of the Lake
-  only Tauren,Druid
-  zone Moonglade
-  tip Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
-  turnin 27 only Tauren -- Dendrite Starblaze
-  turnin 6126 only Tauren
-  accept 6127 only Tauren -- The Principal Source: Dreadmist Peak, next guide
-  accept 28 only Tauren
-  collect 15877 x1                    -- Shrine Bauble, from a Bauble Container in the lake
-  use 15877 @36.0,41.4                -- At the Shrine of Remulos
-  complete 28 only Tauren
-  turnin 28 only Tauren -- Tajarri, at the Shrine of Remulos
-  accept 30 only Tauren
-  fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there; then fly on to Orgrimmar for the zeppelin
-
-step Brill
-  only Paladin
-  zone Tirisfal Glades
-  tip Shari Stilwell trains Paladins in Brill, a short walk north up the road from the zeppelin towers. Come back down the same road for Silverpine.
-  train class
-
-step Back to Silverpine Forest
-  only Paladin
-  zone Silverpine Forest
-  goto 49.9,60.3 "Silverpine Forest"
-
-step Fly to Orgrimmar
-  only Skyborne,Tauren,Druid
-  zone Thunder Bluff
-  fly "Orgrimmar"
-
-step Zeppelin to Undercity
-  only Skyborne,Tauren,Druid
-  zone Durotar
-  goto 50.8,13.5 "Zeppelin to Undercity"
-
-step Silverpine Forest
-  only Skyborne,Tauren,Druid
-  zone Silverpine Forest
-  goto 49.9,60.3 "Silverpine Forest"
 
 step Border Crossings
   zone Silverpine Forest
@@ -474,6 +403,14 @@ step Valley of Honor
   collect 277279 quest 97242.2
   turnin 3923                         -- Rilli Greasygob, Valley of Honor
 
+step Sayoc
+  only Paladin
+  zone Orgrimmar
+  when money>=10s
+  when !skill "Two-Handed Axes" 1
+  tip While you're here: learn Two-Handed Axes from Sayoc (Valley of Honor, 10 silver); two-handers level a Paladin fastest.
+  train 11868                         -- Sayoc
+
 step Kor'geld
   turnin 97242
   accept 97275                        -- Yelmak
@@ -505,11 +442,3 @@ step Nazgrel
 
 step Nazgrel
   accept 1061
-
-step Sayoc
-  only Paladin
-  zone Orgrimmar
-  when money>=10s
-  when !skill "Two-Handed Axes" 1
-  tip While you're here: learn Two-Handed Axes from Sayoc (Valley of Honor, 10 silver); two-handers level a Paladin fastest.
-  train 11868                         -- Sayoc
