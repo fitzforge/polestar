@@ -6121,6 +6121,24 @@
 				],
 				"reason": "Quest volume, 2026-11-07: Plea to the Alliance (level 31, from 28, 1250 XP) is taken on a visit the route already makes: Rhag Garmason on the walk back south through Dun Modr; Captain Nials takes it at Refuge Pointe in the Arathi guide.",
 				"issue": "-"
+			},
+			{
+				"q": 1319,
+				"after": [
+					"turnin",
+					1253
+				],
+				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 275 XP) is taken on a visit the route already makes: Captain Garran Vimes gives it when The Black Shield (1253) is handed in on the Theramore stop; Caz Twosprocket is in the same town.",
+				"issue": "-"
+			},
+			{
+				"q": 1320,
+				"after": [
+					"turnin",
+					1319
+				],
+				"reason": "Quest volume, 2026-11-07: The Black Shield (level 35, from 30, 1350 XP) is taken on a visit the route already makes: Caz Twosprocket in Theramore; it goes back to Vimes on the same stop.",
+				"issue": "-"
 			}
 		],
 		"skip": [
