@@ -4934,7 +4934,7 @@
 					"accept",
 					532
 				],
-				"why": "#1079 flow audit, Horde Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) wait for the Tarren Mill visit at about 32 (30-40/01-desolace, after Thaivand's quest): Magistrate Burnside and Foreman Bonds are level 30, and done in the 25-27 guide the chain walked Tarren Mill -> Hillsbrad Fields -> Tarren Mill five times in a row (the benchmark order splits it the same way). Dangerous!'s clerk and miner come with them"
+				"why": "#1079 flow audit, Horde Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) wait for the Tarren Mill visit at about 32 (30-40/01-desolace, after Thaivand's quest): Magistrate Burnside and Foreman Bonds are level 30, and done in the 25-27 guide the chain walked Tarren Mill -> Hillsbrad Fields -> Tarren Mill five times in a row (the bounce this removes). Dangerous!'s clerk and miner come with them"
 			},
 			{
 				"a": [
@@ -4989,7 +4989,7 @@
 					"accept",
 					532
 				],
-				"why": "#1079 flow audit, Horde Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) wait for the Tarren Mill visit at about 32 (30-40/01-desolace, after Thaivand's quest): Magistrate Burnside and Foreman Bonds are level 30, and done in the 25-27 guide the chain walked Tarren Mill -> Hillsbrad Fields -> Tarren Mill five times in a row (the benchmark order splits it the same way). Dangerous!'s clerk and miner come with them"
+				"why": "#1079 flow audit, Horde Hillsbrad: Battle of Hillsbrad parts 4 and 5 (532, 539) wait for the Tarren Mill visit at about 32 (30-40/01-desolace, after Thaivand's quest): Magistrate Burnside and Foreman Bonds are level 30, and done in the 25-27 guide the chain walked Tarren Mill -> Hillsbrad Fields -> Tarren Mill five times in a row (the bounce this removes). Dangerous!'s clerk and miner come with them"
 			},
 			{
 				"a": [
