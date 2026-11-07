@@ -249,15 +249,15 @@ step Northshire Abbey
 # ---------------------------------------------------------------- Goldshire and Crystal Lake
 
 step Goldshire
-  tip Follow the road south out of the valley to Goldshire. Innkeeper Farley is in the Lion's Pride Inn; Marshal Dughan stands outside the smithy across the road, William Pestle at the inn's front and Remy "Two Times" by the road south of it.
-  turnin 2158                                 -- Innkeeper Farley
-  sethome "Goldshire" npc 295
+  tip Follow the road south out of the valley to Goldshire. Marshal Dughan stands outside the smithy on the west side of the road, Remy "Two Times" by the road south of it, and Innkeeper Farley and William Pestle in the Lion's Pride Inn across the road.
   turnin 91772 optional                       -- Marshal Dughan
   turnin 54
   accept 62
   accept 91775 optional
-  accept 60                                   -- William Pestle
   accept 47                                   -- Remy "Two Times"
+  turnin 2158                                 -- Innkeeper Farley
+  sethome "Goldshire" npc 295
+  accept 60                                   -- William Pestle
 
 step The lake shore
   tip Sam Sarsaparilla camps north-east of the inn; Helene Peltskinner, Jason Mathers and Lee Brown stand on the shore of Crystal Lake east of town.
@@ -381,6 +381,11 @@ step Goldshire
 
 # ---------------------------------------------------------------- The east
 
+# Re-seeded for flow (0.3.5): Baited for Success is handed to Jason on the walk east, not on the walk back.
+step Jason Mathers
+  tip Head east out of Goldshire along the lake shore. Jason Mathers stands on the shore north-east of town.
+  turnin 99131
+
 step Crystal Lake and the wolves
   tip The murlocs on the east shore drop the kelp. Skinners: Gray Forest Wolves roam the woods between the lake and the Tower of Azora; Prowlers further east give pelts too.
   collect 1256 quest 112                      -- Crystal Kelp Fronds
@@ -464,9 +469,8 @@ step Guard Thomas
 # ---------------------------------------------------------------- Goldshire, the farms and Westbrook
 
 step Goldshire
-  tip Follow the road west back to Goldshire; Helene and Jason stand on the lake shore before town.
+  tip Follow the road west back to Goldshire; Helene stands on the lake shore before town.
   turnin 91751 optional                       -- Helene Peltskinner
-  turnin 99131                                -- Jason Mathers
   turnin 112                                  -- William Pestle
   turnin 39                                   -- Marshal Dughan, while William brews
   turnin 76
@@ -474,6 +478,8 @@ step Goldshire
   accept 239
   accept 114                                  -- William Pestle
   train class
+  # Re-seeded for flow (0.3.5): Gakin's Summons on this stop, no walk back to Goldshire for it.
+  accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
 
 step Taming the Beast
   only Hunter
@@ -543,7 +549,6 @@ step The Tower of Azora
 
 step Goldshire
   tip Follow the road west back to Goldshire.
-  accept 1685 only Warlock                    -- Remen Marcot: Gakin the Darkbinder in Stormwind takes it
   # Desperate Prayer (5635) is Dwarf-only in Forever (High Priest Rohan): Humans get Divine Grace below
   accept 94774 only Priest
   accept 1860 only Mage                       -- Zaldimar Wefhellt: Jennea Cannon in Stormwind takes it
