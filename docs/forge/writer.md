@@ -968,8 +968,10 @@ they matter to the player. They are not the judge's honest rules.
   stop, every other list's goals become ordinary goals at the stop with the most source spawns
   near as above, and a list with no stop near its work is not written (its goal is done at its own
   step). A guide fix's `early` pickup (#798) is a plain step after its anchor, without `along
-  until` or a label. Guides without `along` steps play as before: an `along` step is optional
-  guide syntax (docs/GUIDE_FORMAT.md).
+  until` or a label. v1's own `along` lines (a seed cut from published guides carries them) go too:
+  their goals stay in their step; the line is blanked, not deleted, while writing, so the route's
+  `guide:N` references still name their own lines. Guides without `along` steps play as before: an
+  `along` step is optional guide syntax (docs/GUIDE_FORMAT.md).
 - **R2 `use <item>`**: a quest done by using an item gets its `use` line, at
   the item's place nearest the route's work. A use that gives no credit itself
   (a bowl filled at a moonwell) is not bound to the objective; one that makes
@@ -1284,7 +1286,13 @@ checkout's own `addon/Polestar_Guides`.
   because v1 was edited after the route was found. Find the route again.
 - **`quests added (… not written: no source for their items)`**: the world has
   no source for an added quest's items. Check that quest's objectives in the
-  game's data or in our own corrections.
+  game's data or in our own corrections. Its route events are taken out before
+  writing, so v1's own lines of the quest (an optional accept, collect and
+  hand-in) stay as v1 wrote them.
+- **A race's own guide** (a `race` header) never keeps a step whose `only` names
+  other races alone: nobody playing the guide sees it (the Barrens' Orc/Troll
+  arrival step written into the Tauren's own copy, with a hand-in of a quest
+  accepted in Durotar). The writer's log names each guide where it left one out.
 - **A new honest R1 on a continent change with no travel line**: often a route
   leg that loops or a long walk the simulator priced as a walk. The writer
   writes the route's way as it is. Fix the route (see [routes.md](routes.md)),
