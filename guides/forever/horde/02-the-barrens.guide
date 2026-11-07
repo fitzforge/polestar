@@ -37,13 +37,7 @@ step The Crossroads
   accept 871
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
 
-step On the way
-  only Orc,Troll
-  along until crossroads
-  kill 3267 quest 871.1
-  kill 3268 quest 871.2
-
-# ---------------------------------------------------------------- Razormane camp and Ratchet
+# ---------------------------------------------------------------- Razormane camp
 
 step Thun'grim Firegaze
   only Orc,Troll,Warrior
@@ -88,19 +82,22 @@ step Drygulch Ravine
   zone Durotar
   collect 6652 quest 1525.2 only Shaman
 
-step Razormane Hunter on the way
-  only Orc,Troll
-  along until crossroads
-  zone The Barrens
-  kill 3265 quest 871.3
-
 step Razormane camp
   only Orc,Troll,Warrior,Shaman
   zone The Barrens
-  tip Water Seekers, Thornweavers and Hunters hold the camp east of the Crossroads. The supply crates sit at its eastern end. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar. Kill Savannah Prowlers you pass for their claws.
+  tip The Razormane camp lies east of the Crossroads. Warriors: the Stolen Iron Chest stands in the camp. Shamans: the quilboar drop the Fire Tar.
   tip Careful: The chest stands next to a broken wagon, guarded by a pair of Razormanes, including hunters that can pull more quilboar into the fight.
   collect 6534 quest 1503.1 only Warrior
   collect 5026 quest 1525.1 only Shaman
+
+step Razormane camp: Thork's quilboar
+  only Orc,Troll,Warrior,Shaman
+  zone The Barrens
+  tip While you are in the camp: Thork's Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.
+  kill 3267 quest 871.1
+  kill 3268 quest 871.2
+  kill 3265 quest 871.3
+  collect 12708 quest 5041.1 @58.8,25.8
 
 step Durotar
   only Orc,Troll,Shaman
@@ -127,22 +124,6 @@ step Thun'grim Firegaze
   zone The Barrens
   turnin 1503
 
-step The Barrens
-  only Orc,Troll
-  zone The Barrens
-  goto 63.1,37.1 "The Barrens"
-
-step Ratchet
-  only Orc,Troll
-  zone The Barrens
-  tip Follow the road south-east to Ratchet on the coast.
-  getfp "Ratchet"
-
-step The Barrens
-  only Orc,Troll
-  zone The Barrens
-  goto 51.6,30.9 "The Barrens"
-
 step The Crossroads
   label crossroads
   zone The Barrens
@@ -156,11 +137,6 @@ step The Crossroads
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 870                          -- Tonga Runetotem
-
-step Razormane Water Seeker on the way
-  along until q871
-  when onquest 871
-  kill 3267 quest 871.1
 
 step The Barrens: kill these as you meet them
   zone The Barrens
@@ -187,7 +163,6 @@ step The Crossroads
 # ---------------------------------------------------------------- East: the Razormane and Far Watch
 
 step Razormane camp
-  label q871
   tip The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
   kill 3267 quest 871.1
   kill 3268 quest 871.2
@@ -340,16 +315,20 @@ step The Crossroads
 step Regthar Deathgate
   tip South to Regthar's watch post on the Kolkar border.
   accept 855
+  accept 850
 
 step The Barrens: kill these as you meet them
   zone The Barrens
-  tip The pools lie just north of Regthar. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers.
+  tip The pools lie just north of Regthar. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. Barak Kodobane stands in the Kolkar camp west of the pools.
   collect 5030 quest 855.1
   complete 870 @45.3,22.8
   collect 5012 quest 848.1
+  collect 5022 quest 850.1
 
 step Regthar Deathgate
   turnin 855
+  turnin 850
+  accept 851                          -- Verog walks with the Kolkar at the Stagnant Oasis: later, in the 19-23 Barrens guide
 
 step The Dry Hills
   tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills.
