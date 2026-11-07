@@ -3632,5 +3632,8 @@ test(`${REDRIDGE}: flow audit: the Sunken Chest on the way from Feldon, Lakeshir
 	const pikes = idx('the Iron Pikes', (g) => g.t === 'collect' && g.item === 2856);
 	assert.ok(feldon < chest && chest < oslow && oslow < martie && martie < pikes, 'Feldon, the chest, Oslow, Martie, then the Brutes');
 	assert.ok(idx('the gnolls', is('kill', 246)) < feldon, 'the gnoll hills before Feldon');
+	const sunfish = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 1467);
+	const fins = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
+	assert.deepEqual(sunfish.map(({ s }) => s), [fins.s], 'the Spotted Sunfish only with the murloc fins, east of the bridge');
 	assert.deepEqual(compiled(REDRIDGE).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
 });

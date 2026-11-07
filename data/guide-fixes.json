@@ -1964,6 +1964,24 @@
 				}
 			],
 			"pr": 1052
+		},
+		{
+			"id": "redridge-sunfish-in-its-steps",
+			"faction": "Alliance",
+			"at": {
+				"quest": 127,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Selling Fish's Spotted Sunfish drop only from Lake Everstill's murlocs, whose camps line the shore east of the bridge (no murloc stands west of it): they are collected in the Lake Everstill step, with the fins. The along list from Lakeshire pointed at the lake before the walk west, and the gnoll hills' step listed them where nothing drops them (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 1467 droppers"
+				}
+			],
+			"pr": 1103
 		}
 	]
 }
