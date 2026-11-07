@@ -5570,7 +5570,6 @@ test('forever/horde/40-50: final review: Cortello\'s Riddle optional, no elite w
 // anyway (data/route-fixes.json, overrides.include, "Flow coverage" / "Quest volume").
 const HORDE_VOLUME = {
 	'forever/horde/undead/01-tirisfal-glades.guide': [445, 99152, 99153], // Delivery to Silverpine Forest; Hilda and Ephram
-	'forever/horde/tauren/01-mulgore.guide': [854], // Journey to the Crossroads
 	'forever/horde/03-silverpine-forest.guide': [422, 6385, 6386], // Arugal's Folly; Doras; Return to the Crossroads
 	'forever/horde/04-the-barrens.guide': [4021], // Counterattack!
 	'forever/horde/05-stonetalon-mountains.guide': [494], // Time To Strike

@@ -449,11 +449,6 @@ step Into The Barrens
   zone The Barrens
   goto 41.9,58.6 "Into The Barrens"
 
-step Camp Taurajo
-  zone The Barrens
-  tip Camp Taurajo is just east of the pass out of Mulgore: Kirge Sternhorn stands at its west gate.
-  accept 854                          -- Kirge Sternhorn: for Thork in the Crossroads
-
 step The Barrens
   zone The Barrens
   goto 52.2,31.0 "The Barrens"
@@ -466,7 +461,6 @@ step The Crossroads
   turnin 860                          -- Sergra Darkthorn
   accept 867                          -- Darsok Swiftdagger: the harpies come later, in the Dry Hills
   accept 5041
-  turnin 854                          -- Thork
   accept 871                          -- Thork
   getfp "Crossroads" npc 3615         -- Devrak, the wind rider master
   accept 1492

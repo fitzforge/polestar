@@ -6011,11 +6011,6 @@
 				]
 			},
 			{
-				"q": 854,
-				"reason": "Flow coverage, 2026-11-07: Journey to the Crossroads (level 12, from 9) is offered by Kirge Sternhorn, whom the 02-the-barrens visit already passes; recorded players take it (4 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
-				"issue": "-"
-			},
-			{
 				"q": 4021,
 				"reason": "Flow coverage, 2026-11-07: Counterattack! (level 20, from 11) is offered by Regthar Deathgate, whom the 04-the-barrens visit already passes; recorded players take it (3 accepts, 3 hand-ins). Solo in Forever's quest data. The route left it out.",
 				"issue": "-",
