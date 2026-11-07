@@ -5286,3 +5286,11 @@ test('forever/horde/50-60/07-felwood.guide: final review: no Winterspring grind 
 	assert.deepEqual(list.slice(0, moonglade).filter(({ goal }) => goal.t === 'level').map(({ step }) => step.title), [], 'no grind before Moonglade');
 	assert.ok(list.slice(moonglade).some(({ goal }) => goal.t === 'level'), 'the top-up waits for Winterspring');
 });
+
+// Final route review, Horde 40-60: Prompt Potion Runner (level 16) waited for the Undercity stop at 56; the Hillsbrad
+// guide takes it on its Undercity visit (#1175).
+test('forever/horde/50-60/04-azshara.guide: final review: no level 16 Prompt Potion Runner at 56', { skip }, () => {
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 97891), 'not in this guide');
+	assert.ok(at(list, 'turnin 3568', is('turnin', 3568)) >= 0, 'the Apothecarium stop stays');
+});

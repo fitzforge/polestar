@@ -135,10 +135,9 @@ step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 
-step Prompt Potion Runner
+step Chemist Cuely
   zone Undercity
-  accept 97891                        -- Alessandro Luca
-  turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
+  tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
   turnin 3568                         -- Chemist Cuely
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him
