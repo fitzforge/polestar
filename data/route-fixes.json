@@ -2958,6 +2958,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Western Plaguelands 57-59, #1166): Chromie offers Counting Out Time when A Matter of Time is handed in; the lockboxes are in Andorhal's houses around her inn, so it is done then, instead of on a return to Chromie later in the guide"
+			},
+			{
+				"a": [
+					"turnin",
+					196
+				],
+				"b": [
+					"turnin",
+					622
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): Raptor Mastery (196) is handed to Hemet Nesingwary (35.7,10.8) on the ride from the north-west coast to the Rebel Camp, which passes his camp, and Tethis (197) is taken there, instead of a separate trip north from Booty Bay for the hand-in."
 			}
 		],
 		"notes": [
@@ -4078,6 +4090,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): the Smithing Tuyere drops from the Dark Iron Steamsmiths at the furnaces, the same mobs as Forging the Shaft's Thorium Plated Daggers, so both are one stay; the order came back to the furnaces for the tuyere after the Slag Pit and the lookouts"
+			},
+			{
+				"a": [
+					"task",
+					212
+				],
+				"b": [
+					"task",
+					196
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks."
 			}
 		],
 		"after": [
