@@ -314,6 +314,12 @@ local function build()
 	f.Icon = f:CreateTexture(nil, "ARTWORK", nil, 2)
 	f.Icon:SetSize(ICON, ICON)
 	f.Icon:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	-- A dark picture's lift: the same picture added over it at its art.lift
+	-- (colour + colour * lift), since a vertex colour can't go above 1.
+	f.Lift = f:CreateTexture(nil, "ARTWORK", nil, 3)
+	f.Lift:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	f.Lift:SetBlendMode("ADD")
+	f.Lift:Hide()
 	-- The round crop: as large as the icon or the picture, never smaller
 	-- than an icon, so a glyph keeps its corners.
 	if f.CreateMaskTexture and f.Icon.AddMaskTexture then
@@ -322,6 +328,7 @@ local function build()
 		f.Mask:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
 		f.Mask:SetSize(ICON, ICON)
 		f.Icon:AddMaskTexture(f.Mask)
+		f.Lift:AddMaskTexture(f.Mask)
 	end
 
 	-- The window's type: the small header, the name in the NPC colour, muted lines.
@@ -525,10 +532,10 @@ end
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
 -- titleColor, iconColor, art, act = { label, run }, more = { label, run },
--- off = { label, run } }. art = { file, l, r, t, b }: a picture cropped to
--- those texture coordinates, filling the ring; without it an icon tinted
--- iconColor is a glyph, drawn small on the disc, and an untinted one a
--- full-colour icon.
+-- off = { label, run } }. art = { file, l, r, t, b, lift }: a picture
+-- cropped to those texture coordinates, filling the ring, lifted by lift
+-- (0-1) when dark; without it an icon tinted iconColor is a glyph, drawn
+-- small on the disc, and an untinted one a full-colour icon.
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -547,6 +554,14 @@ function CT.ShowCard(m)
 		f.Icon:SetTexture(m.icon)
 		f.Icon:SetTexCoord(0, 1, 0, 1)
 	end
+	local lift = art and art.lift
+	if lift then
+		f.Lift:SetTexture(art.file)
+		f.Lift:SetTexCoord(art.l, art.r, art.t, art.b)
+		f.Lift:SetSize(size, size)
+		f.Lift:SetAlpha(lift)
+	end
+	f.Lift:SetShown(lift ~= nil)
 	if m.iconColor and not art then
 		W.Color(f.Icon, m.iconColor)
 	else
