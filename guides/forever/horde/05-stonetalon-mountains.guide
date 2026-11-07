@@ -122,7 +122,6 @@ step Night Run
   turnin 6383
   note Senani's hunt targets (Ursangous, Shadumbra, Sharptalon) are for the next Ashenvale visit, at 27.
   getfp "Splintertree Post"
-  tip North up the road to Splintertree Post and Night Run beside it.
   accept 25
 
 step Warsong Outrider
@@ -180,7 +179,7 @@ step Seereth Stonebreak
 
 step Malaka'jin
   zone Stonetalon Mountains
-  tip Head south to the Crossroads, then west along the road out of the Barrens into Stonetalon. The troll village of Malaka'jin sits at the entrance of the canyon.
+  tip Follow the road on west from Seereth into Stonetalon. The troll village of Malaka'jin sits at the entrance of the canyon.
   accept 1058                         -- Witch Doctor Jin'Zil, below ground
   turnin 1060 only !Warlock
 
@@ -315,27 +314,18 @@ step Silverpine Forest
 step Beren's Peril
   zone Silverpine Forest
   tip From the zeppelin towers, run south through Tirisfal into Silverpine and down the road past the Sepulcher and Pyrewood. The Ravenclaw undead haunt the ruins of Beren's Peril east of the road in the south-east of the forest; a Ravenclaw Guardian drops the Note Scrap that leads to the Offering Stone.
-  accept 95883                        -- Below ground
+  accept 95884 item 271343            -- Note Scrap, from a Ravenclaw Guardian
+  turnin 95884 @58.1,69.8             -- Offering Stone
+  accept 95883                        -- the Offering Stone offers The Tortured Soul once the Note Scrap is in; below ground
+  collect 271350 quest 95883.1 @58.1,69.9 map 1421 -- Tortured Soul, from the Tortured Souls among the ruins; below ground
+  turnin 95883                        -- Below ground
 
 step The Offering of Blood
   tip Use the Tortured Soul at the Offering Stone for a willing sacrifice and kill the Tortured Soul that answers. The Tortured Soul is elite: grouping up is advised.
   goto 58.1,69.8 "Offering Stone"
   accept 95885 optional               -- Below ground
   kill 212753 quest 95885.1 optional
-
-step Beren's Peril
-  zone Silverpine Forest
-  collect 271350 quest 95883.1 @58.1,69.9 map 1421 -- Tortured Soul, from the Tortured Souls among the ruins; below ground
-
-step The Offering of Blood
-  when onquest 95885
   turnin 95885 optional               -- Below ground
-
-step Beren's Peril
-  zone Silverpine Forest
-  turnin 95883                        -- Below ground
-  accept 95884 item 271343 optional -- Note Scrap, from a Ravenclaw Guardian
-  turnin 95884 @58.1,69.8             -- Offering Stone
 
 step Hillsbrad Foothills
   zone Hillsbrad Foothills

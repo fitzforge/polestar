@@ -205,6 +205,16 @@ step Brill
   accept 398                          -- The Wanted poster by the inn
   accept 358                          -- Magistrate Sevren, in the town hall
 
+# Re-seeded for flow in 0.3.5: givers the first Brill pass walks past whose
+# quests need level 7 (Carolai, Coleman, Gretchen) or level 10 (Terrence) get
+# a step gated on that level where the walk passes them; players' recordings
+# show players at 5-7 on the first pass, so the later visit keeps the accept
+# for everyone below it.
+step Carolai Anise
+  when level>=7
+  tip From level 7 Carolai Anise, beside Johaan in the apothecary's house, offers her elixir quest; below 7 it waits for the next Brill visit.
+  accept 95314                        -- Carolai Anise, beside Johaan; inside
+
 step Discipline
   goto 60.6,52.0 "Brill"              -- Use the Executor's Motivator on five idle Deathguards around town
   complete 99134
@@ -221,6 +231,13 @@ step Gallows' End Tavern
   turnin 96658
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
+
+step Coleman Farthing and Gretchen Dedmar
+  when level>=7
+  tip Still in the inn: from level 7 Coleman Farthing on the ground floor and Gretchen Dedmar upstairs offer their quests; below 7 they wait for the next Brill visit.
+  accept 362                          -- Coleman Farthing, in the inn
+  accept 354
+  accept 375                          -- Gretchen Dedmar, upstairs
 
 step Deathguard Linnea's camp
   tip Follow the road south-east from Brill past the zeppelin towers. Linnea, Kristof and Shelene Rhobart camp by the road.
@@ -317,11 +334,23 @@ step Brill
   turnin 375                          -- Gretchen Dedmar, upstairs
   train class
 
+step Deathguard Terrence
+  when level>=10
+  tip From level 10 Deathguard Terrence offers The Argent Emissary: Hadric waits at Linnea's camp, the next stop. Below 10 it waits for the Brill visit after Agamand Mills.
+  accept 96895                        -- Deathguard Terrence
+
 step Deathguard Linnea's camp
   tip Follow the road south-east from Brill past the zeppelin towers.
   turnin 359                          -- Deathguard Linnea
   accept 360
   turnin 97558                        -- Shelene Rhobart
+
+step Hadric Harlson
+  when onquest 96895
+  tip Hadric stands at the camp beside Linnea.
+  turnin 96895                        -- Hadric Harlson
+  accept 96897
+  accept 96898
 
 step Magistrate Sevren
   tip Back up the road to Brill, on the way north-west to Agamand Mills.
@@ -352,7 +381,7 @@ step Brill
   accept 1881 only Mage               -- Cain Firesong: Anastasia Hartwell in the Undercity takes it
   train class
   turnin 355                          -- Magistrate Sevren, in the town hall
-  accept 96895                        -- Deathguard Terrence
+  accept 96895                        -- Deathguard Terrence, if you were below 10 on the last Brill visit
 
 # ---------------------------------------------------------------- Class errands
 
@@ -403,14 +432,14 @@ step Brill
 # ---------------------------------------------------------------- East loop
 
 step Hadric Harlson
-  tip Hadric stands at Deathguard Linnea's camp.
+  tip Hadric stands at Deathguard Linnea's camp, on the road to the cult's farm.
   turnin 96895
   accept 96897
   accept 96898
 
 step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
-  tip The Cult of the Damned holds the farm just south-east of the camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
+  tip Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.
   collect 275851 quest 96898.1 @68.2,64.6
   kill 275437 quest 96897.2 @68.2,64.6
   kill 267006 quest 96897.1 @68.2,64.6

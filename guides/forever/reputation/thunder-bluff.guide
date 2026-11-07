@@ -134,9 +134,9 @@ step The Skywatcher camp: hand in
   when done gloomrise
   tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
   turnin 96259
+  accept 96261                        -- Muln Earthfury: The Broodmother
   turnin 96241
   turnin 96260
-  accept 96261                        -- Muln Earthfury: The Broodmother
 
 step Broodmother Valraxx
   when done gloomrise

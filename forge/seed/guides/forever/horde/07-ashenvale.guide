@@ -208,6 +208,14 @@ step Ashenvale Outrunners
   kill 12856 quest 6503
   turnin 6503
 
+# Re-seeded for flow in 0.3.5: Sharptalon (75,70) lies between Torek's fight
+# and Splintertree, so her claw is taken on the way north, not on a walk back
+# south from the town before the satyrs to its north-west.
+step Sharptalon
+  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest.
+  collect 16305
+  accept 2 item 16305
+
 step Splintertree Post
   tip North up the road to Splintertree Post and Night Run beside it.
   sethome "Splintertree Post"
@@ -221,11 +229,6 @@ step Splintertree Post
   accept 6504 optional                -- Gurda Ragescar: only if you carry the manual pages
   turnin 6504 optional
   vendor nearest
-
-step Sharptalon
-  tip Sharptalon, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest.
-  collect 16305
-  accept 2 item 16305
 
 step Felmusk satyrs
   tip North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns.

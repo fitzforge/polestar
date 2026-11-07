@@ -4012,21 +4012,21 @@ const forRaceOf = (race) => ({ step, goal }) => [step.only, goal.only].every((o)
 
 // The Tauren and Skyborne Druids took the zeppelin to Orgrimmar for their Thunder Bluff training at 16,
 // then walked about 2,400 yards to Ratchet's flight master and back to the zeppelin afterwards, though
-// Doras stands about 480 yards from the zeppelin. They learn Orgrimmar's flight path off the zeppelin,
-// fly from it to Thunder Bluff and back to it.
-test('Flight path sweep (#964): Silverpine Druids learn Orgrimmar off the zeppelin and fly from it, not from Ratchet', { skip }, () => {
+// Doras stands about 480 yards from the zeppelin. Since the final route review (Horde 1-30) they fly from
+// the Crossroads, where the Barrens guide ends, to Thunder Bluff and back, before the walk to Orgrimmar:
+// no zeppelin round trip from the Sepulcher, and never Ratchet.
+test('Flight path sweep (#964): Druids fly to Thunder Bluff from the Crossroads at 16, not by zeppelin or from Ratchet', { skip }, () => {
 	for (const race of ['Tauren', 'Skyborne']) {
-		const list = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
-		const zep = at(list, `${race}: the zeppelin to Orgrimmar`, (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar');
-		// (The guide opens with everyone's Undercity zeppelin from Durotar: the one after the trip.)
-		const back = list.findIndex(({ goal }, i) => i > zep && goal.t === 'goto' && goal.text === 'Zeppelin to Undercity');
-		assert.ok(back > zep, `${race}: the zeppelin back to the Undercity after the trip`);
-		const trip = list.slice(zep, back).map(({ goal }) => goal);
-		const fp = trip.findIndex((g) => g.t === 'getfp' && g.location === 'Orgrimmar');
+		const barrens = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const mura = at(barrens, `${race}: the last Crossroads stop`, is('accept', 3301));
+		const trip = barrens.slice(mura).map(({ goal }) => goal);
 		const out = trip.findIndex((g) => g.t === 'fly' && g.location === 'Thunder Bluff');
-		assert.ok(fp >= 0 && fp < out, `${race}: Orgrimmar's flight path is learned before the flight to Thunder Bluff`);
-		assert.ok(trip.slice(out).some((g) => g.t === 'fly' && g.location === 'Orgrimmar'), `${race}: the way back flies to Orgrimmar for the zeppelin`);
+		assert.ok(out >= 0 && trip.slice(out).some((g) => g.t === 'train'), `${race}: flies to Thunder Bluff and trains`);
+		assert.equal(trip.filter((g) => g.t === 'fly').at(-1).location, 'Crossroads', `${race}: flies back to the Crossroads`);
 		assert.deepEqual(trip.filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
+		const silverpine = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const sepulcher = silverpine.findIndex(({ goal }) => is('accept', 477)(goal));
+		assert.ok(sepulcher > 0 && !silverpine.slice(0, sepulcher + 20).some(({ goal }) => goal.t === 'fly' || (goal.t === 'goto' && goal.text === 'Zeppelin to Orgrimmar')), `${race}: no zeppelin back from the Sepulcher`);
 	}
 });
 
@@ -4741,6 +4741,131 @@ test('forever/horde/50-60/06-silithus.guide: flow re-order: Counting Out Time on
 	const list = goals('forever/horde/50-60/06-silithus.guide');
 	assert.equal(list[at(list, 'accept 4972', is('accept', 4972))].s, list[at(list, 'turnin 4971', is('turnin', 4971))].s, 'taken on A Matter of Time\'s hand-in');
 	assert.ok(at(list, 'collect 12638', (g) => g.t === 'collect' && g.item === 12638) < at(list, 'turnin 5098', is('turnin', 5098)), 'the lockboxes before the Bulwark');
+});
+
+// Final route review, Horde 1-30: Silverpine's Orgrimmar training came after the steps that walk to the zeppelin and
+// into Silverpine; Paladins went from the Sepulcher back north to Brill, and Druids rode the zeppelin back from the
+// Sepulcher to fly to Thunder Bluff. Now: train, zeppelin, Brill on the way, the Druid trip from the Crossroads.
+test('forever/horde/03-silverpine-forest.guide: final route review: train before the zeppelin, Brill on the way in, Druids from the Crossroads', { skip }, () => {
+	const list = goals('forever/horde/03-silverpine-forest.guide');
+	const train = list.findIndex(({ step, goal }) => goal.t === 'train' && goal.class && step.title === 'To Orgrimmar');
+	const zeppelin = list.findIndex(({ goal }) => goal.t === 'goto' && goal.text === 'Zeppelin to Undercity');
+	const brill = list.findIndex(({ step, goal }) => goal.t === 'train' && step.title === 'Brill');
+	const sepulcher = at(list, 'accept 477', is('accept', 477));
+	assert.ok(train >= 0 && train < zeppelin, 'Orgrimmar training before the zeppelin');
+	assert.ok(zeppelin < brill && brill < sepulcher, 'Paladins train in Brill on the way to the Sepulcher');
+	assert.ok(!list.some(({ goal }) => is('accept', 27)(goal) || is('turnin', 28)(goal) || goal.t === 'fly'), 'no flight or Druid trip from Silverpine');
+	assert.ok(!list[sepulcher].step.note || !/swim/i.test(list[sepulcher].step.note), 'no swimming tip at the Sepulcher');
+	const sayoc = list.findIndex(({ step }) => step.title === 'Sayoc');
+	assert.ok(sayoc >= 0 && sayoc < at(list, 'turnin 97242', is('turnin', 97242)), 'Sayoc on the Valley of Honor stop');
+	const barrens = goals('forever/horde/02-the-barrens.guide');
+	const mura = at(barrens, 'accept 3301', is('accept', 3301));
+	const lake = at(barrens, 'turnin 28', is('turnin', 28));
+	const back = barrens.findIndex(({ step, goal }) => goal.t === 'fly' && goal.location === 'Crossroads' && step.only && step.only.classes && step.only.classes.join() === 'DRUID');
+	assert.ok(mura < at(barrens, 'accept 27', is('accept', 27)) && lake > mura && back > lake, 'Druids train and do the Moonglade trial from the Crossroads, then fly back');
+});
+
+// Final route review, Horde 1-30: Orc and Troll Shamans handed Call of Fire to Kranal Fiss at 10 without taking his
+// next part, then walked back from the Crossroads to Kranal, Telf Joolam and northern Durotar for the Reagent Pouch.
+test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route review: Call of Fire to Telf at 10, the pouch in Drygulch Ravine', { skip }, () => {
+	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const list = goals(file);
+		const kranal = at(list, 'turnin 2983', is('turnin', 2983));
+		assert.equal(list[at(list, 'accept 1524', is('accept', 1524))].s, list[kranal].s, `${file}: 1524 taken from Kranal on the same stop`);
+		const telf = at(list, 'accept 1525', is('accept', 1525));
+		const pouch = at(list, 'collect 6652', (g) => g.t === 'collect' && g.item === 6652);
+		assert.ok(kranal < telf && telf < pouch, `${file}: Telf, then the pouch`);
+		assert.equal(list[pouch].s, list[at(list, 'kill 3117 quest 835', (g) => g.t === 'kill' && g.npc === 3117)].s, `${file}: the pouch in the Drygulch Ravine step`);
+	}
+	const barrens = goals('forever/horde/02-the-barrens.guide');
+	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
+	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
+	// Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop (#1159); the last Far Watch step is for
+	// everyone else, or its hand-in is one a Warrior no longer holds.
+	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const warrior = goals(file).filter(forClass('WARRIOR')).filter(({ goal }) => is('turnin', 840)(goal));
+		assert.equal(warrior.length, 1, `${file}: a Warrior hands in 840 once`);
+	}
+});
+
+// Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and
+// back; the Silithid eggs lie on the road south to Gann but were done on a walk back north from Gann, and Sulhasa's
+// Field to Clear (beside Gann) was taken after Blackthorn Ridge, whose plain holds its lizards and stalkers.
+test('forever/horde/04-the-barrens.guide: final route review: Ratchet in walking order, the eggs on the way to Gann, Field to Clear with Blackthorn Ridge', { skip }, () => {
+	const list = goals('forever/horde/04-the-barrens.guide');
+	const thalo = at(list, 'accept 891', is('accept', 891));
+	assert.ok(at(list, 'accept 1483', is('accept', 1483)) < thalo && at(list, 'turnin 819', is('turnin', 819)) < thalo, 'Sputtervalve and Drohn before Thalo\'thas');
+	assert.ok(list.findIndex(({ goal }) => goal.t === 'level' && goal.level === 19) > thalo, 'the grind after the town');
+	const gann = at(list, 'accept 843', is('accept', 843));
+	assert.ok(at(list, 'collect 5058', (g) => g.t === 'collect' && g.item === 5058) < gann, 'the eggs before Gann');
+	assert.equal(list[at(list, 'accept 98093', is('accept', 98093))].s, list[gann].s, 'Sulhasa with Gann\'s first quest');
+	const stalkers = at(list, 'kill 4128', (g) => g.t === 'kill' && g.npc === 4128);
+	const ridge = at(list, 'collect 5093', (g) => g.t === 'collect' && g.item === 5093);
+	const back = at(list, 'turnin 843', is('turnin', 843));
+	assert.ok(ridge < stalkers && stalkers < back, 'the plain on the way back from the ridge');
+	assert.equal(list[at(list, 'turnin 98093', is('turnin', 98093))].s, list[back].s, 'Field to Clear handed in on that Gann stop');
+	// Mebok offers Raptor Horns from level 13; a character who reached Ratchet at 12 takes it on the first stop at 19.
+	assert.ok(at(list, 'accept 865', is('accept', 865)) < at(list, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
+});
+
+// Final route review, Horde 1-30: the Offering Stone offers The Tortured Soul only once the Note Scrap is handed in
+// there (players' recordings: every offer came on that hand-in), and The Offering of Blood after it; the guide asked for
+// The Tortured Soul first. Malaka'jin's tip sent players from Seereth, at the canyon's mouth, back to the Crossroads.
+test('forever/horde/05-stonetalon-mountains.guide: final route review: the Note Scrap first at the Offering Stone, Malaka\'jin from Seereth', { skip }, () => {
+	const list = goals('forever/horde/05-stonetalon-mountains.guide');
+	const scrap = at(list, 'turnin 95884', is('turnin', 95884));
+	const soul = at(list, 'accept 95883', is('accept', 95883));
+	assert.ok(scrap < soul && at(list, 'turnin 95883', is('turnin', 95883)) < at(list, 'accept 95885', is('accept', 95885)), 'Note Scrap, Tortured Soul, then the Offering of Blood');
+	const jinzil = list[at(list, 'accept 1058', is('accept', 1058))].step;
+	assert.ok(!/Crossroads/.test(jinzil.note || ''), 'no walk back to the Crossroads');
+});
+
+// Final route review, Horde 1-30: a second Tarren Mill bind step (from the arrival at the end of the previous guide)
+// stood between Lydon's hand-ins and Hillsbrad Fields, and the Undercity step told Skyborne to fly from the Crossroads.
+test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren Mill bind, the Undercity tip fits the trip', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	assert.equal(list.filter(({ goal }) => goal.t === 'sethome' && goal.location === 'Tarren Mill').length, 1, 'one bind at Tarren Mill');
+	const sylvanas = list[at(list, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
+	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
+	// Alessandro Luca and Doctor Martin Felben (beside Faranell) are both on the Undercity visit: the guide walked past
+	// Luca and left Prompt Potion Runner for a visit thirty levels later.
+	assert.ok(at(list, 'accept 97891', is('accept', 97891)) < at(list, 'turnin 97891', is('turnin', 97891)), 'Prompt Potion Runner taken and handed in');
+	assert.equal(list[at(list, 'turnin 97891', is('turnin', 97891))].s, list[at(list, 'turnin 513', is('turnin', 513))].s, 'handed to Felben on the Faranell stop');
+});
+
+// Final route review, Horde 1-30: Sharptalon prowls between Torek's fight and Splintertree but was hunted on a walk
+// back south from the town; Tauren and Skyborne, who know the Thunder Bluff flight path, flew to Camp Taurajo and rode
+// across Mulgore; and the guide asked for Test of Strength, which Dorn offers only once Test of Endurance is in.
+test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the way in, Thunder Bluff by air, Test of Strength after Test of Endurance', { skip }, () => {
+	const list = goals(ASHENVALE_HORDE);
+	assert.ok(at(list, 'accept 2', is('accept', 2)) < at(list, 'turnin 6544', is('turnin', 6544)), 'Sharptalon before Splintertree');
+	const tb = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff' && !goal.only);
+	assert.ok(tb && tb.step.only && tb.step.only.races.includes('Tauren') && tb.step.only.races.includes('Skyborne'), 'Tauren and Skyborne fly to Thunder Bluff from Zoram\'gar');
+	const taurajo = list.find(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo');
+	assert.ok(taurajo.step.only && !taurajo.step.only.races.includes('Tauren'), 'the Camp Taurajo flight is for the others');
+	assert.ok(at(list, 'turnin 1150', is('turnin', 1150)) < at(list, 'accept 1151', is('accept', 1151)), 'Test of Strength after Test of Endurance');
+	for (const { step, goal } of list.filter(({ goal }) => goal.quest === 96261)) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 96261 && !p.neg), `${goal.t} 96261: Broodmother Valraxx is elite, asked as a group quest`);
+	}
+});
+
+// Final route review, Horde 1-30 (and the release audit): Tirisfal's first Brill pass walks past Carolai, Coleman and
+// Gretchen (level 7) and the pass after the north loop past Terrence (level 10). Players' recordings show players at
+// 5-7 on the first pass, so each gets a step gated on its level where the walk passes, and the later visit keeps the
+// accept for everyone below it; The Argent Emissary goes to Hadric at Linnea's camp right after when taken.
+test('forever/horde/undead/01-tirisfal-glades.guide: final route review: level-gated pickups where the walk passes Carolai, Coleman, Gretchen and Terrence', { skip }, () => {
+	const list = goals('forever/horde/undead/01-tirisfal-glades.guide');
+	const gate = (step) => (step.when || []).find((p) => p.k === 'level' && p.op === '>=' && !p.neg);
+	const accepts = (q) => list.map((e, i) => ({ ...e, i })).filter(({ goal }) => is('accept', q)(goal));
+	const renee = at(list, 'turnin 8', is('turnin', 8));
+	const linnea = at(list, 'turnin 359', is('turnin', 359));
+	for (const [q, n, before] of [[95314, 7, renee], [362, 7, linnea], [354, 7, linnea], [375, 7, linnea], [96895, 10, linnea]]) {
+		const [first, ...later] = accepts(q);
+		assert.ok(first.i < before && gate(first.step) && gate(first.step).n === n, `${q}: taken where the walk passes, from level ${n}`);
+		assert.ok(later.length >= 1 && !gate(later[0].step), `${q}: the later visit keeps the accept for players below ${n}`);
+	}
+	const hadric = list.find(({ goal }) => is('turnin', 96895)(goal));
+	assert.ok(list.indexOf(hadric) > linnea && (hadric.step.when || []).some((p) => p.k === 'onquest'), 'Hadric at Linnea\'s camp when The Argent Emissary is held');
 });
 
 // Flow review (2026-11-07): Alliance Stranglethorn 40-50 killed the Jungle Stalkers on a trip of their own after the

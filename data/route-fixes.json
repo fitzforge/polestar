@@ -3114,6 +3114,93 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Darkshore): the Beached Sea Creature on the shore west of the Grove (36.0,70.9) is taken on the walk north from the Grove to Auberdine after Return to Onu (about 150 yd off the road) and handed in with the other remains, instead of the second loop's walk down the coast and back (about 1,000 yd for 490 XP). Holy Diver still follows all nine. The seed is re-cut for it"
+			},
+			{
+				"a": [
+					"accept",
+					1525
+				],
+				"b": [
+					"task",
+					835,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): Orc and Troll Shamans take Kranal Fiss's Call of Fire (1524) when they hand him 2983 and Telf Joolam's (1525) on the walk back over the river, so the Reagent Pouch drops from the Dustwind Cave cultists on the Drygulch Ravine loop; the order handed Kranal 2983 alone and walked back from the Crossroads to Kranal, Telf and northern Durotar in the Barrens guide (the seed's design)"
+			},
+			{
+				"a": [
+					"accept",
+					1483
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 19, #1175): the flight lands in Ratchet beside Sputtervalve (62.98,37.22); Mebok and Drohn stand on the way south to Captain Thalo'thas (62.29,39.03), and the grind for players who skip Bruuz lies on the way south to Northwatch Hold. The order sent the grind 900 yd south and back between Thalo'thas and Sputtervalve"
+			},
+			{
+				"a": [
+					"turnin",
+					819
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 19, #1175): Brewmaster Drohn (62.26,38.39) stands between Sputtervalve and Captain Thalo'thas in Ratchet, so Chen's Empty Keg goes in before Thalo'thas and the walk south"
+			},
+			{
+				"a": [
+					"task",
+					868,
+					0
+				],
+				"b": [
+					"accept",
+					843
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 22, #1175): the Silithid eggs (45.4,72.4) lie on the road from Camp Taurajo south to Gann Stonespire (45.9,77.0); the order did them on a walk back north from Gann after Blackthorn Ridge (the seed's order takes them on the way)"
+			},
+			{
+				"a": [
+					"accept",
+					98093
+				],
+				"b": [
+					"task",
+					893,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 22, #1175): Sulhasa (47.8,77.6) sits beside Gann, and Field to Clear's Stormhide and Hecklefang Stalkers (44,76.5) roam the plain between Gann and Blackthorn Ridge, so it is taken with Gann's first quest and worked on the way back from the ridge; the order took it after the ridge and walked out to the plain again"
+			},
+			{
+				"a": [
+					"turnin",
+					1150
+				],
+				"b": [
+					"accept",
+					1151
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Thousand Needles 29, #1175): Dorn Plainstalker offers Test of Strength only once Test of Endurance is handed in (players' recordings: the only offer came on that hand-in); the guide asked for it right after Test of Endurance's accept"
+			},
+			{
+				"a": [
+					"accept",
+					2
+				],
+				"b": [
+					"turnin",
+					6544
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
 			}
 		],
 		"notes": [
@@ -4379,6 +4466,68 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance 40-60): Suntara Stones is an escort that starts when Dorius Stonetender gives it; it is taken at the Grimesilt Dig Site right before the escort to Dustfire Valley, as the seed has it. The order took it at the first outhouse stop and left for Thorium Point, which fails the escort."
+			},
+			{
+				"a": [
+					"turnin",
+					2983
+				],
+				"b": [
+					"accept",
+					1524
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): Kranal Fiss offers the next Call of Fire (1524, min level 10) as 2983 is handed in; the order handed in 2983 alone at 10 and came back to him from the Crossroads"
+			},
+			{
+				"a": [
+					"task",
+					835,
+					0
+				],
+				"b": [
+					"task",
+					1525,
+					1
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Durotar 10, #1175): the Reagent Pouch drops from the Burning Blade Cultists at Dustwind Cave, the south end of Drygulch Ravine, where Rezlak's Savages and Storm Witches are killed"
+			},
+			{
+				"a": [
+					"accept",
+					843
+				],
+				"b": [
+					"accept",
+					98093
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Barrens 22, #1175): Sulhasa sits in the tree just east of Gann Stonespire; Field to Clear is taken on Gann's first visit"
+			},
+			{
+				"a": [
+					"turnin",
+					441
+				],
+				"b": [
+					"accept",
+					97891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Hillsbrad 26, #1175): Alessandro Luca (Undercity 58.6,54.7) stands on the way from Raleigh to the Apothecarium, where Doctor Martin Felben (46.6,74.1) stands beside Faranell: Prompt Potion Runner is taken and handed in on this Undercity visit, not on one thirty levels later"
+			},
+			{
+				"a": [
+					"turnin",
+					513
+				],
+				"b": [
+					"turnin",
+					97891
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Hillsbrad 26, #1175): Doctor Martin Felben stands beside Master Apothecary Faranell in the Apothecarium"
 			}
 		],
 		"after": [
