@@ -2059,7 +2059,7 @@ pub use hub::{best_tour, finished_near, finished_near_at, hub_order, hub_visits,
 /// The overlap of two field objectives' spawn areas (rule `merge`), for the writer to agree with it.
 pub use play::OVERLAP_YD;
 
-pub use play::{alongs, arrow_order, merges, ARROW_SLACK_YD};
+pub use play::{along_gaps, along_lists, alongs, arrow_order, merges, ARROW_SLACK_YD};
 
 #[cfg(test)]
 mod tests;

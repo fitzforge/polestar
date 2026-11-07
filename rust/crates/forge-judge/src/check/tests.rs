@@ -752,7 +752,7 @@ fn along_finds_uncovered_legs_and_lines_off_the_way() {
 	let w = in_steps(vec![goal("accept", Some(1), Some(town)), goal("accept", Some(2), Some(camp)), goal("turnin", Some(2), Some(camp)), field("collect", 1, 1, &[den])], &[1, 2, 2, 3]);
 	// Taken at the town, the den passed on the way to the camp, worked only after: uncovered.
 	let w2 = in_steps(vec![w[0].clone(), goal("goto", None, Some(camp)), w[2].clone(), w[3].clone()], &[1, 2, 2, 3]);
-	let v = alongs(&w2);
+	let v = along_gaps(&w2);
 	assert_eq!(lines(&v), vec![("horde/01-durotar.guide".into(), 100, "along".into())]);
 	// An along line until the den's step covers it.
 	let mut al = field("collect", 1, 1, &[den]);
@@ -760,14 +760,32 @@ fn along_finds_uncovered_legs_and_lines_off_the_way() {
 	let mut at_den = field("collect", 1, 1, &[den]);
 	at_den.label = Some("den".into());
 	let w3 = in_steps(vec![w[0].clone(), al.clone(), goal("goto", None, Some(camp)), w[2].clone(), at_den], &[1, 1, 2, 2, 3]);
-	assert!(alongs(&w3).is_empty());
+	assert!(along_gaps(&w3).is_empty());
 	// An along line whose objective (Doom Weed, 800 yd off the road) no leg passes.
 	let mut weed_line = field("collect", 3, 1, &[weed]);
 	weed_line.along = Some(String::new());
 	let w4 = in_steps(vec![goal("accept", Some(3), Some(town)), weed_line, goal("goto", None, Some(camp))], &[1, 1, 2]);
-	let v = alongs(&w4);
+	let v = along_gaps(&w4);
 	assert_eq!(lines(&v), vec![("horde/01-durotar.guide".into(), 101, "along".into())]);
 	assert!(v[0].message.contains("800 yd"), "{}", v[0].message);
+}
+
+#[test]
+fn under_steps_along_warns_on_along_lists_not_on_work_left_to_its_step() {
+	// PlannerFlow's steps round (2026-11-07): the writer lists nothing along the way, so the den passed
+	// on the road and worked at its own step is what steps asks for, and an along list is the slip.
+	let (town, camp, den) = (pt(0.0, 0.0, 1413, 1), pt(200.0, 0.0, 1413, 1), pt(100.0, 4.0, 1413, 1));
+	let walked = in_steps(vec![goal("accept", Some(1), Some(town)), goal("goto", None, Some(camp)), goal("turnin", Some(2), Some(camp)), field("collect", 1, 1, &[den])], &[1, 2, 2, 3]);
+	assert_eq!(along_gaps(&walked).len(), 1);
+	assert!(along_lists(&walked).is_empty());
+	// Two along goals in one step: one warning, at the first.
+	let mut a = field("collect", 1, 1, &[den]);
+	a.along = Some("den".into());
+	let mut b = field("kill", 1, 2, &[den]);
+	b.along = Some("den".into());
+	let listed = in_steps(vec![goal("accept", Some(1), Some(town)), a, b, goal("goto", None, Some(camp))], &[1, 2, 2, 3]);
+	let v = along_lists(&listed);
+	assert_eq!(lines(&v), vec![("horde/01-durotar.guide".into(), 101, "along".into())]);
 }
 
 #[test]
