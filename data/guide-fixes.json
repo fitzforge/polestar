@@ -1915,6 +1915,142 @@
 				}
 			],
 			"pr": 1087
+		},
+		{
+			"id": "mulgore-plainstriders-a-step",
+			"at": {
+				"quest": 747,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Hunt Begins: the plainstriders roam the mesa around Camp Narache; their meat and feathers are a step between Greatmother Hawkwind and Grull, never an along list (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2955 (Plainstrider) spawns around Camp Narache"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-plainstrider-feathers-a-step",
+			"at": {
+				"quest": 747,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Hunt Begins: the feathers come from the same plainstriders, in the same step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2955 (Plainstrider)"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-battleboar-snouts-in-the-ravine-step",
+			"at": {
+				"quest": 780,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Battleboars: the battleboars graze north of the shrine, where the Red Cloud Mesa step works the Bristlebacks; the snouts and flanks are goals of that step, never an along list.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2966 (Battleboar) spawns north of the shrine of An'she and Mu'sha"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-battleboar-flanks-in-the-ravine-step",
+			"at": {
+				"quest": 780,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Battleboars: flanks, same mobs, same step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2966 (Battleboar)"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-swoop-quills-in-poison-water",
+			"at": {
+				"quest": 761,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Swoop Hunting: the swoops glide over the plains the Poison Water step works; the quills are a goal of that step, never an along list.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2969/2970 (Swoop) spawns around Bloodhoof Village"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-wolf-hearts-in-poison-water",
+			"at": {
+				"quest": 766,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Mazzranache: the Prairie Wolves killed for Poison Water's paws drop the hearts; a goal of that step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2958 (Prairie Wolf)"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-swoop-gizzards-in-poison-water",
+			"at": {
+				"quest": 766,
+				"goal": "objective",
+				"objective": 4
+			},
+			"along": false,
+			"note": "Mazzranache: the swoops' gizzards come with Swoop Hunting's quills, in the Poison Water step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 2969/2970 (Swoop)"
+				}
+			],
+			"pr": 1091
+		},
+		{
+			"id": "mulgore-ambercorn-in-poison-water",
+			"at": {
+				"quest": 771,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Rite of Vision: the Ambercorn lies under the trees on the Poison Water loop; a goal of that step, never an along list.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "object Ambercorn spawns north of Bloodhoof Village"
+				}
+			],
+			"pr": 1091
 		}
 	]
 }
