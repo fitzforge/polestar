@@ -553,7 +553,10 @@ be compared byte for byte with the old JavaScript writer.
   one's ground, worked there (the eggs on the makrura's beach). A step's zone is
   its zone line, else where its work is. Accepts stay
   in their place among the goals; a step with a hand-in is not merged (the
-  oats stay with Verna's hand-in, #621), but a stop at an NPC on the merged
+  oats stay with Verna's hand-in, #621), and neither is a step with a goal done
+  at a friendly NPC (a report asked for or an item handed over, `collect … npc
+  N` or a talk credit: Dillinger's report and Kristof's at Linnea's camp stay
+  their own steps), but a stop at an NPC on the merged
   ground that hands in none of the group's quests does not break the merge
   (Lakeridge Highway's camps around a Three Corners stop). The first step's label stays, and
   references to the others' go to it. Every goal keeps its own place: no

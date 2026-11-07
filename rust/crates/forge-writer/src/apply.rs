@@ -520,6 +520,22 @@ impl<'a> Ctx<'a> {
 		self.nearest_trainer_spawn(pt, fac, cl).map(|(_, n, map)| (n.name.clone().unwrap_or_default(), self.zone_name(Some(map)).unwrap_or_default()))
 	}
 
+	/// A goal line done at a friendly NPC: its `npc`, a `kill` (a talk credit) of one, or a `collect`
+	/// of an item only friendly NPCs give (Dillinger's report: `collect 286200 quest 99141.1 npc 1496`).
+	fn at_friendly_npc(&self, line: &str) -> bool {
+		let friendly = |n: u32| self.data.npcs.get(&n).is_some_and(|e| e.faction.as_deref().is_some_and(|f| !f.is_empty()));
+		let code = split_comment(line).0;
+		let Some(m) = re!(r"^\s+(kill|collect)\s+(\d+)\b").captures(code) else { return false };
+		if let Some(n) = re!(r"\bnpc\s+(\d+)\b").captures(code).and_then(|x| x[1].parse::<u32>().ok()) {
+			return friendly(n);
+		}
+		let Ok(id) = m[2].parse::<u32>() else { return false };
+		match &m[1] {
+			"kill" => friendly(id),
+			_ => self.data.items.get(&id).and_then(|i| i.drops.as_ref()).is_some_and(|d| !d.npc.is_empty() && d.object.is_empty() && d.npc.keys().all(|&k| friendly(k))),
+		}
+	}
+
 	/// How many spawns a work line's target has (a camp of mobs; one is a named mob or a single object).
 	fn work_spawns(&self, line: &str) -> usize {
 		let n = |e: Option<&Entity>| e.map_or(0, |e| e.spawns.values().map(|s| s.pts.len()).sum::<usize>());
@@ -8443,6 +8459,13 @@ fn area_work_steps(cx: &Ctx, lines: Vec<String>, task_pt: &FxHashMap<(u32, Optio
 			}
 			// (An accept at the camp, the giver among the mobs: in its place among the goals.)
 			if re!(r"^\s+accept\s+\d+(\s+optional)?\s*$").is_match(code) {
+				continue;
+			}
+			// (A goal done at a friendly NPC, a report asked for or an item handed over, is that NPC's
+			// stop, not the field's: Dillinger's report and Kristof's at Linnea's camp stayed steps of
+			// their own in the hand-fixed Tirisfal guide; a merge made them "kill these as you meet them".)
+			if cx.at_friendly_npc(code) {
+				ok = false;
 				continue;
 			}
 			match work_re.captures(code) {

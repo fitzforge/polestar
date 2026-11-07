@@ -4845,6 +4845,70 @@ fn objectives_whose_mobs_share_the_ground_are_one_step() {
 }
 
 #[test]
+fn a_report_asked_of_a_friendly_npc_stays_its_own_step_beside_a_field() {
+	// TirisfalFlow's Forge build of the hand-fixed Tirisfal order: Deathguard Dillinger's report (an
+	// item he hands over, `collect ... npc 1496`) went into the next "kill these as you meet them"
+	// step with the fields west of Brill. A goal at a friendly NPC is that NPC's stop: it stays a step
+	// of its own, and the fields still merge.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 6-8",
+				"zone The Barrens",
+				"",
+				"step Crossroads",
+				"  accept 1",
+				"  accept 2",
+				"  accept 5",
+				"",
+				"step Deathguard Dillinger",
+				"  collect 70 quest 5.1 npc 50",
+				"",
+				"step Plainstriders",
+				"  kill 44 quest 1.1",
+				"",
+				"step Raptors",
+				"  collect 69 quest 2.1",
+				"",
+				"step Crossroads again",
+				"  turnin 1",
+				"  turnin 2",
+				"  turnin 5",
+				"",
+			],
+		)],
+		world: json!({ "points": [[0, 0, 0, 0, 1413], [0, 0, 100, 0, 1413]], "zones": { "1413": "The Barrens" }, "quests": [] }),
+		frames: json!({ "era": { "1413": { "top": 1000, "bottom": -1000, "left": -1000, "right": 1000, "c": 0 } } }),
+		npcs: json!({
+			"44": { "name": "Plainstrider", "spawns": { "1413": { "f": "e", "pts": [[50, 50], [50, 45], [51, 50], [60, 60], [60, 61]] } } },
+			"50": { "name": "Deathguard Dillinger", "faction": "H", "spawns": { "1413": { "f": "e", "pts": [[50, 49]] } } },
+			"68": { "name": "Raptor", "spawns": { "1413": { "f": "e", "pts": [[50, 47], [50, 50], [51, 49], [60, 60.5]] } } }
+		}),
+		items: json!({ "69": { "name": "Raptor Head", "drops": { "npc": { "68": 50.0 } } }, "70": { "name": "Dillinger's Report", "drops": { "npc": { "50": null } } } }),
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "pt": 0, "from": f("a", 7) }, { "t": "accept", "q": 2, "pt": 0, "from": f("a", 8) }, { "t": "accept", "q": 5, "pt": 0, "from": f("a", 9) },
+			{ "t": "task", "q": 5, "task": 0, "pt": 0, "from": f("a", 12) },
+			{ "t": "task", "q": 1, "task": 0, "pt": 0, "from": f("a", 15) },
+			{ "t": "task", "q": 2, "task": 0, "pt": 1, "from": f("a", 18) },
+			{ "t": "turnin", "q": 1, "pt": 0, "from": f("a", 21) }, { "t": "turnin", "q": 2, "pt": 0, "from": f("a", 22) }, { "t": "turnin", "q": 5, "pt": 0, "from": f("a", 23) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let s = g.iter().position(|l| l.ends_with(": kill these as you meet them")).unwrap_or_else(|| panic!("{g:#?}"));
+	let next = g[s + 1..].iter().position(|l| l.starts_with("step ")).map_or(g.len(), |k| s + 1 + k);
+	let block = &g[s..next];
+	assert!(block.iter().any(|l| l == "  kill 44 quest 1.1") && block.iter().any(|l| l == "  collect 69 quest 2.1"), "{g:#?}");
+	assert!(!block.iter().any(|l| l.contains("collect 70")), "the report stays out of the field step: {g:#?}");
+	let report = g.iter().position(|l| l.contains("collect 70 quest 5.1")).unwrap_or_else(|| panic!("{g:#?}"));
+	assert!(report < s, "{g:#?}");
+}
+
+#[test]
 fn a_class_step_waits_for_the_level_its_quests_need() {
 	// c10 Dwarf/Human Paladins: Tome of Divinity (level 12) accepted at 9.7. The class step goes on
 	// the route's first later pass through its zone at that level.
