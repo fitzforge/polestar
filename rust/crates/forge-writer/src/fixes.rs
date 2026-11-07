@@ -538,10 +538,11 @@ fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> 
 	let mut changed_any = false;
 	// 1. The objective's lines leave the work steps between the accept and the hand-in (not the
 	//    finish step's, nor along steps').
-	loop {
-		let Some((a, t)) = ends(lines.as_slice()) else { break };
-		let hit = (a.1..t.0).find(|&i| objective_line(&lines[i], q, n) && step_of(lines, i).is_some_and(|s| !along_step(lines, s) && lines[s.0].trim_end() != finish_title));
-		let Some(i) = hit else { break };
+	let next_hit = |lines: &[String]| -> Option<usize> {
+		let (a, t) = ends(lines)?;
+		(a.1..t.0).find(|&i| objective_line(&lines[i], q, n) && step_of(lines, i).is_some_and(|s| !along_step(lines, s) && lines[s.0].trim_end() != finish_title))
+	};
+	while let Some(i) = next_hit(lines.as_slice()) {
 		let s = step_of(lines, i).unwrap_or((i, i + 1));
 		lines.remove(i);
 		changed_any = true;
