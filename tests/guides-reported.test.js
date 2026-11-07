@@ -3044,6 +3044,35 @@ test(`${WESTFALL}: Xaden Ryan's report (#621): the oats are gathered in the Jans
 	assert.ok(yards(goal, list[turnin].goal) < 250, `the oats lead into the Jansen Stead's fields (${goal.x},${goal.y})`);
 });
 
+// --- Flow audit (2026-11-07): Westfall's north loop came back to Saldean's
+// in its middle for two hand-ins, then went west for the livers and the
+// vulture meat, north again, and back to Saldean's a second time; Dwarves,
+// Gnomes, Night Elves and Skyborne walked up to the Jansen Stead's well alone
+// before the loop. Now one loop from Sentinel Hill: the Molsen Farm fields
+// (watchers, okra, livers, snouts, vulture meat), the Defias by Jangolode
+// Mine, the north hills and coast, the Jansen Stead (oats and well), then
+// every Saldean's hand-in at once on the way back to the hill.
+test(`${WESTFALL}: flow audit: one north loop, the farm work in its first fields, Saldean's handed in once on the way back`, { skip }, () => {
+	const list = goals(WESTFALL);
+	const collects = (item) => (g) => g.t === 'collect' && g.item === item;
+	const paws = at(list, 'the Gnoll Paws', collects(725));
+	for (const [what, item] of [['the Goretusk Livers', 723], ['the Stringy Vulture Meat', 729], ['the Goretusk Snouts', 731], ['the Okra', 732]]) {
+		const i = at(list, what, collects(item));
+		assert.ok(i < paws, `${what} before the north hills`);
+		assert.ok(list.filter(({ goal }) => collects(item)(goal)).length === 1, `${what} listed once`);
+	}
+	const oats = at(list, 'the oats', collects(1528));
+	const saldean = list[at(list, 'turnin 9', is('turnin', 9))].step;
+	for (const q of [9, 92909, 38, 22]) {
+		const i = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(i > oats, `turnin ${q} after the Jansen Stead`);
+		assert.equal(list[i].step, saldean, `turnin ${q} on the one Saldean's stop after the loop`);
+	}
+	assert.ok(at(list, 'turnin 9', is('turnin', 9)) < at(list, 'turnin 12', is('turnin', 12)), 'then Sentinel Hill');
+	assert.equal(list[at(list, 'the Jansen Stead well', collects(254546))].step, list[oats].step, 'the well vial with the oats');
+	assert.deepEqual(compiled(WESTFALL).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
+});
+
 // --- Thendal Grove (Alx-Ryan, #363): the guide walked you to Rorian, up the
 // watchtower a few steps from Elatrell, then floated you back down to Rorian.
 // The tower comes first now: The Anchors of Zephras and Falling With Style

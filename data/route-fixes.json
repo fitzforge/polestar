@@ -2526,6 +2526,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Teldrassil, #1087): Dolanaar after the west loop in walking order: Athridas in the inn before Sentinel Kyra and Corithras, on the way out east to Zenn."
+			},
+			{
+				"a": [
+					"task",
+					151
+				],
+				"b": [
+					"turnin",
+					9
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Westfall): the north loop came back to Saldean's in its middle for The Killing Fields and Harvesting the Harvesters, then went west for the livers and vulture meat and north again, and came back to Saldean's a second time after the Jansen Stead for the stew and the pie (02-westfall steps 9 and 14 on 0.3.4). The seed and this pair hand all of Saldean's in once, where the walk passes the farm on the way south from the Jansen Stead to Sentinel Hill."
+			},
+			{
+				"a": [
+					"task",
+					151
+				],
+				"b": [
+					"turnin",
+					92909
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Westfall): the north loop came back to Saldean's in its middle for The Killing Fields and Harvesting the Harvesters, then went west for the livers and vulture meat and north again, and came back to Saldean's a second time after the Jansen Stead for the stew and the pie (02-westfall steps 9 and 14 on 0.3.4). The seed and this pair hand all of Saldean's in once, where the walk passes the farm on the way south from the Jansen Stead to Sentinel Hill."
+			},
+			{
+				"a": [
+					"task",
+					22
+				],
+				"b": [
+					"task",
+					102
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
 			}
 		],
 		"notes": [
@@ -3770,6 +3806,19 @@
 					404
 				],
 				"why": "#1046: Dillinger's report (Patience's first objective) is asked at Brill's west end on the way out to the fields for the Putrid Claws"
+			},
+			{
+				"a": [
+					"task",
+					38,
+					0
+				],
+				"b": [
+					"task",
+					102,
+					0
+				],
+				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
 			}
 		],
 		"stay": [
