@@ -480,6 +480,12 @@ add({ page = L["Integrations"], section = "EllesmereUI", controls = {
 		help = L["Follow EllesmereUI's font, live. Choosing another font turns this off."],
 		needs = function() return Theme.IsEllesmere() end },
 } }, true)
+add({ page = L["Integrations"], section = "Spoken", controls = {
+	{ kind = "toggle", key = "behavior.spokenDelay", label = L["Wait for Spoken"],
+		help = L["Waits 200 ms before each automatic quest accept, turn-in and reward pick, so Spoken has time to notice the window and read it."],
+		search = "voice, narration, read aloud, dialogue, delay",
+		needs = function() return ns.Compat.AddOnPresent("Spoken_Quests") end },
+} }, true)
 
 ---------------------------------------------------------------------------
 -- Custom pages: Recorder status and About

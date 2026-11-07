@@ -277,24 +277,25 @@ fn with_expand_step_tips_off_the_tip_is_one_line_until_clicked() {
 }
 
 #[test]
-fn step_tips_start_open_by_default_with_expand_step_tips_off_on_one_line() {
+fn step_tips_start_on_one_line_by_default_with_expand_step_tips_on_in_full() {
 	let out = run(r#"
 		Polestar.Set("ui.width", 300)
 		uistub.setGuide(uistub.elwynn, 3)
 		local tip = GF.parts.tip
 		local byDefault = tip.psOpen
-		Polestar.Set("ui.notesOpen", false)
 		local closedH = tip:GetHeight()
-		local off = tip.psOpen
 		Polestar.Set("ui.notesOpen", true)
 		local now = tip.psOpen
+		Polestar.Set("ui.notesOpen", false)
+		local off = tip.psOpen
+		Polestar.Set("ui.notesOpen", true)
 		tip:Click()
 		local clicked = tip.psOpen
 		uistub.setStep(4)
 		uistub.setStep(3)
 		emit({ byDefault = byDefault, off = off, closedH = closedH, now = now, clicked = clicked, next = tip.psOpen, h = tip:GetHeight() })"#)
 	.remove(0);
-	assert_eq!(out["byDefault"], true, "a new player sees the tip in full");
+	assert_eq!(out["byDefault"], false, "a new player sees the tip on one line, not a wall of text");
 	assert_eq!(out["off"], false, "turning it off folds the tip on screen");
 	assert_eq!(out["now"], true, "turning it on opens the tip on screen");
 	assert_eq!(out["clicked"], false, "a click still folds it");
@@ -312,6 +313,7 @@ fn picture(step: i32, size: Option<(i32, i32)>) -> String {
 fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its_aspect_kept_and_folds_away_with_the_tip() {
 	let script = r#"
 		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.notesOpen", true)
 		uistub.setGuide(uistub.elwynn, 3)
 		local tip, img = GF.parts.tip, GF.parts.tip.Image
 		local plain = { shown = img:IsShown(), h = tip:GetHeight() }
@@ -347,6 +349,7 @@ fn a_step_picture_shows_under_the_opened_tip_as_wide_as_the_text_column_with_its
 fn a_tall_picture_stops_at_160_high_one_with_no_tip_reads_picture_of_this_spot_one_without_a_size_is_drawn_2_1() {
 	let script = r#"
 		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.notesOpen", true)
 		${PICTURE(5, 256, 256)}
 		uistub.setGuide(uistub.elwynn, 5)
 		local tip, img = GF.parts.tip, GF.parts.tip.Image

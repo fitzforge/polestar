@@ -1049,6 +1049,7 @@ Polestar.Engine.ToggleGoal(stepIndex, goalIndex) -> bool   -- tick any goal but 
 Polestar.Engine.SkipGoal(stepIndex, goalIndex) -> bool     -- skip an optional goal, or bring it back
 Polestar.Engine.SkipQuest(questID, on) -> bool               -- skip a quest and what follows from it, in every guide; on = false brings it back
 Polestar.Engine.IsQuestSkipped(questID) -> bool
+Polestar.Engine.SkipLoses(questID?) -> { { id, title }, ... } | nil   -- the open accepts of this guide (other quests, other steps) that skipping questID, or with none the live step, would leave out; tried on the saved state and put back (see "Quests the player skipped")
 Polestar.Engine.LostQuestion() -> questID, title | nil      -- a quest the route had passed that left the log, held for the player's answer (see "Quests that leave the log")
 Polestar.Engine.AnswerLost(questID, "back" | "skip")        -- go back to its giver, or skip it and what follows (SkipQuest)
 Polestar.Engine.AimGoal(stepIndex, goalIndex) -> bool      -- lead the arrow to a goal of the current step (row click)
@@ -1343,6 +1344,15 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   of the step stay. Done anyway, the quest counts as done and its follow-ups
   come back. The window's banner (`PLAYER_SKIPPED_QUEST`), the accept's Undo
   or a right-click on the line bring it back (`SkipQuest(questID, false)`).
+  A follow-up left out because of such a skip carries `skippedWith` in its
+  goal view: the title of the quest the player skipped, directly or down the
+  chain (`Own.skipRoot`: the skipped quest, or a step the player skipped
+  that held its accept or turn-in; a step with a `when` does not count, its
+  failed condition being stored as a skip too). Before any skip,
+  `Engine.SkipLoses` names what it would take with it: it sets the skip in
+  the saved state, lists the open accepts that are no longer open, and puts
+  the state back, with nothing evaluated or fired (the guide window's Skip
+  button and the Skip this quest menu item: "Skipping also skips: …").
 - **Quests that leave the log** after the route has passed their accept
   (abandoned, failed): the live step does not jump back to the giver
   unasked. A quest that left the log this session (`QUEST_REMOVED`, until it
@@ -1394,6 +1404,25 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   and other versions of `q` (the same title). On `QUEST_DETAIL` (not a quest
   the game accepted itself) the setting prints "Taking <quest> closes <quests>
   for good." and Automation leaves that accept to the player.
+- **What a quest unlocks** (`Core/Unlocks.lua`, the guide window's quest
+  tooltips). `Unlocks.For(q)` lists `q`'s follow-ups for this character: the
+  guide accepts whose `pre`/`preAll` names `q`, across every shown guide
+  (indexed once with each quest's accepts and turn-ins, rebuilt on
+  `GUIDES_REGISTERED` and `PACKS_CHANGED`), then, with the quest database
+  loaded, the quests whose `pre`/`preAll` lists `q` (`QuestDB.FollowUps`,
+  read from the follow-up's side, built on the first ask). Left out: quests
+  done or in the log, and ones the character can never take (as in
+  `Closes.For`). Each names its giver when someone other than `q`'s ender
+  gives it. `q`'s chain is walked back while each prerequisite is the only
+  one and carries on to the next quest, and on while the quest carried on to
+  has the last as its only prerequisite; a quest carries on to its only
+  follow-up, or at a branch to the only one with its own title (a series'
+  next part: The Defias Brotherhood part 6 also opens Red Silk Bandanas).
+  Found whole (a first quest needing nothing, a last opening nothing, three
+  quests or more), the next part leads the list, numbered ("part 2 of 7"),
+  and the chain's last quest follows with its reward (a guide's turn-in
+  `rewards`, else the Codex's when Lookup has it loaded; a tooltip never
+  loads it). A branch it cannot follow stops the count.
 - **Not yet available.** A Class guide (`category = "Class"`) the character
   has not played (no step skipped, no goal ticked, none of its quests in the
   log or done) whose opening, the first step for this character with an
@@ -1894,6 +1923,19 @@ list stays. Never in combat, with Shift held, on a progress or reward
 window, or on a gossip window with options of its own (a vendor, trainer or
 innkeeper). A quest the guide still wants at that NPC is taken on the next
 talk.
+
+With `behavior.spokenDelay` on (the default; Options, Integrations, Spoken,
+shown and honoured only while Spoken Quests is installed) each quest or
+gossip window waits 200 ms before automation acts on it, and `QoL/Rewards.lua`'s reward pick waits the same
+(`Automation.Delay`). Spoken Quests records a quest page in its own handler of
+the event that opened the window; it loads after Polestar, so an accept made
+in Polestar's handler leaves it nothing to record and the page is never read.
+Everything is decided when the wait ends, so Shift held then skips the action.
+A newer window replaces the wait, and only a close of its own kind drops it:
+`QUEST_FINISHED` for a quest window, `GOSSIP_CLOSED` for a gossip window, since
+picking a quest in a gossip window ends that window and its `GOSSIP_CLOSED` may
+come after the quest window it opened. The test is the events, not
+`QuestFrame`: DialogueUI and the like keep that frame hidden.
 
 ## Theme — used by UI and Nav
 
@@ -2676,7 +2718,7 @@ Polestar.Nav.GetRouteGeometry() -> { legs = { { kind, pts = { { c, wx, wy }, ...
 The planner is Dijkstra over the player, the target, known flight masters,
 docks, walk-in portals (one way, `portals` in TravelData), the bound inn,
 class teleports, learned path nodes and crossing waypoints. It orders by
-a cost (the Hearthstone carries a `HEARTH_MARGIN` of 300 s on top of its
+a cost (the Hearthstone carries a `HEARTH_MARGIN` of 120 s on top of its
 time, a teleport 10 s) and keeps the real seconds of every leg apart, so
 `seconds`/`rest` (the arrow's ETA) stay honest. Caps: 20000 pops, 40 ms,
 1500 path nodes. With `Nav/Transit.lua` loaded, a ride's wait is the
@@ -2689,11 +2731,12 @@ wait, never stops planning. `Transit.Teleports(now)` lists the castable teleport
 planned like the Hearthstone from the start. While a ride waits, the leg's
 caption gains `Transit.Caption` ("Next boat in 1:20"), refreshed every
 second; a crossing at a lift (`Transit.LiftNear`) the same.
-The Hearthstone's hour-long cooldown is spent only on a long haul (0.3.3,
-Fitz: "a 2-minute walk is fine"): a route `Nav.PlanRoute` chose with a
+The Hearthstone's hour-long cooldown is spent once a trip is long enough for
+it to clearly pay (#1096, Fitz; 0.3.3's 8 and 5 minutes walked where a
+hearth was better): a route `Nav.PlanRoute` chose with a
 hearth leg is planned again without it (`noHearth`) and kept only while the
-way without it takes at least `HEARTH_MIN_TRIP` (480 s) and the hearth saves
-at least `HEARTH_MARGIN` (300 s) after its cast and loading screen
+way without it takes at least `HEARTH_MIN_TRIP` (180 s) and the hearth saves
+at least `HEARTH_MARGIN` (120 s) after its cast and loading screen
 (`HEARTH_SECONDS`, 15 s); its label then says what it saves ("Hearth to
 Sentinel Hill: saves 6 min"). It plans from wherever the Hearthstone is
 bound (`bindInn`), for any target. `Nav.EstimateTravel` and the Engine's
