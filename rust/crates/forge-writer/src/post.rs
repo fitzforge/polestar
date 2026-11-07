@@ -1334,6 +1334,37 @@ pub fn class_only_lines(files: &mut [String], data: &Data) {
 	}
 }
 
+/// A goal line the passes gave two `only` words (one carried from its step, one cutting it to the
+/// guide's races) gets one list: `only !Rogue only Human` -> `only !Rogue,Human` (classes OR, races OR,
+/// the two AND, as two words meant); the compiler refuses a second `only`. Each value once.
+pub fn one_only(files: &mut [String]) {
+	for f in files.iter_mut() {
+		let mut changed = false;
+		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		for l in lines.iter_mut() {
+			let (code, _) = split_comment(l);
+			if !is_goal(l) || re!(r"\sonly\s+\S").find_iter(code).count() < 2 {
+				continue;
+			}
+			let mut vals: Vec<String> = Vec::new();
+			for m in re!(r"\sonly\s+(\S+)").captures_iter(code) {
+				for v in m[1].split(',').filter(|v| !v.is_empty()) {
+					if !vals.iter().any(|x| x == v) {
+						vals.push(v.to_string());
+					}
+				}
+			}
+			let rest = re!(r"\sonly\s+\S+").replace_all(code, "");
+			let tail = re!(r"\s--\s.*$").find(l).map_or(String::new(), |m| m.as_str().to_string());
+			*l = format!("{} only {}{tail}", trim_end(&rest), vals.join(","));
+			changed = true;
+		}
+		if changed {
+			*f = lines.join("\n");
+		}
+	}
+}
+
 /// #1153: a repeatable quest whose giver is also its ender, taken and handed in at one stop, is
 /// `turnin <id> direct` with no accept: the giver takes it straight back from the quest window and the
 /// client never marks it completed, so an accept-then-turnin step reopens after a reload (Westfall's

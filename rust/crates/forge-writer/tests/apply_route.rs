@@ -3466,6 +3466,16 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 }
 
 #[test]
+fn a_goal_with_two_only_words_gets_one_list() {
+	// The 2026-11-07 candidate: Continue to Stormwind's hand-in came out of a step for every class but
+	// Rogues into Osric Strang's step and was cut to Humans as well: `turnin 6281 only !Rogue only Human`,
+	// which the compiler refuses (duplicate `only`). One list ANDs the class and the race the same way.
+	let mut files = vec![["step Osric Strang", "  zone Stormwind City", "  turnin 6281 only !Rogue only Human -- Osric", "  accept 6261 only Human", "  only Human"].join("\n")];
+	forge_writer::post::one_only(&mut files);
+	assert_eq!(files[0].split('\n').collect::<Vec<_>>(), vec!["step Osric Strang", "  zone Stormwind City", "  turnin 6281 only !Rogue,Human -- Osric", "  accept 6261 only Human", "  only Human"]);
+}
+
+#[test]
 fn a_shared_guides_lines_of_a_quest_done_in_the_races_own_guide_are_the_other_races() {
 	// The Barrens (Orc, Troll): Stagnant Oasis is taken and handed in in their own guide; the shared
 	// guide's accept and turn-in of it are the Tauren's and Undead's, not a second hand-in for Orcs.
