@@ -3438,7 +3438,8 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 	let quests: BTreeMap<u32, forge_writer::input::Quest> = serde_json::from_value(json!({
 		"1641": { "title": "The Tome of Divinity", "repeatable": true, "start": { "npc": [6171] }, "end": { "npc": [6171] } },
 		"5": { "title": "Other ender", "repeatable": true, "start": { "npc": [1] }, "end": { "npc": [2] } },
-		"6": { "title": "Two stops", "repeatable": true, "start": { "npc": [3] }, "end": { "npc": [3] } }
+		"6": { "title": "Two stops", "repeatable": true, "start": { "npc": [3] }, "end": { "npc": [3] } },
+		"7": { "title": "Tracked", "repeatable": true, "start": { "npc": [4] }, "end": { "npc": [4] } }
 	}))
 	.unwrap();
 	let data = Data { quests, ..Data::default() };
@@ -3449,6 +3450,9 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 		"  accept 5",
 		"  turnin 5",
 		"  accept 6",
+		"  accept 7",
+		"  complete 7",
+		"  turnin 7",
 		"",
 		"step Later",
 		"  turnin 6",
@@ -3457,7 +3461,7 @@ fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
 	forge_writer::post::repeatable_direct(&mut files, &data);
 	assert_eq!(
 		files[0].split('\n').collect::<Vec<_>>(),
-		vec!["step Duthorian Rall", "  turnin 1641 direct only Human -- Duthorian Rall", "  accept 5", "  turnin 5", "  accept 6", "", "step Later", "  turnin 6"]
+		vec!["step Duthorian Rall", "  turnin 1641 direct only Human -- Duthorian Rall", "  accept 5", "  turnin 5", "  accept 6", "  accept 7", "  complete 7", "  turnin 7", "", "step Later", "  turnin 6"]
 	);
 }
 

@@ -1338,12 +1338,13 @@ pub fn class_only_lines(files: &mut [String], data: &Data) {
 /// `turnin <id> direct` with no accept: the giver takes it straight back from the quest window and the
 /// client never marks it completed, so an accept-then-turnin step reopens after a reload (Westfall's
 /// The Tome of Divinity, 1641). The accept's `only` goes onto the turn-in. A quest another line of the
-/// guide tracks (`quest <id>`, `onquest <id>`) is left as it is.
+/// guide tracks (`quest <id>`, `onquest <id>`, `complete <id>`: Morrowgrain to Thunder Bluff, A Sealed
+/// Crate) is left as it is.
 pub fn repeatable_direct(files: &mut [String], data: &Data) {
 	for f in files.iter_mut() {
 		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
 		let tracked = |q: u32, lines: &[String]| {
-			let r = regex::Regex::new(&format!(r"\b(quest|onquest)\s+{q}\b")).unwrap();
+			let r = regex::Regex::new(&format!(r"\b(quest|onquest)\s+{q}\b|^\s+complete\s+{q}\b")).unwrap();
 			lines.iter().any(|l| r.is_match(split_comment(l).0))
 		};
 		let mut drop: Vec<usize> = Vec::new();
