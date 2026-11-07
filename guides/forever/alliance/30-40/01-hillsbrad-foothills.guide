@@ -272,13 +272,6 @@ step Elling Trias
   zone Stormwind City
   tip The cheese shop in the Trade District.
   turnin 1245
-
-step Druid training
-  only Druid
-  tip Ironforge has no druid trainer: train with Sheldras Moontree in Stormwind before the tram.
-  train class
-
-step Elling Trias
   accept 1246
 
 step Dashel Stonefist
@@ -312,6 +305,11 @@ step Mage Quarter
   turnin 79536 optional
   accept 690                          -- Archmage Malin
   accept 1301                         -- Connor Rivers
+
+step Druid training
+  only Druid
+  tip Ironforge has no druid trainer: Sheldras Moontree stands on the way north-west from the Mage Quarter to the harbour.
+  train class
 
 step Boat to Auberdine
   zone Stormwind City

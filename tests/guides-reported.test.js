@@ -5234,3 +5234,12 @@ test('forever/horde/30-40/01-desolace.guide: final review: training in the citie
 	const note = war.find(({ step }) => /Strong Troll/.test([].concat(step.note || []).join(' ')));
 	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
 });
+// Final route review, 30-40 (2026-11-07): Alliance Wetlands & Hillsbrad put Druid training between Elling Trias's
+// hand-in and accept, though Sheldras stands across the city; it now sits on the walk from the Mage Quarter to the boat.
+test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid training on the walk to the harbour', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide').filter(forClass('DRUID'));
+	const train = list.findIndex(({ goal }) => goal.t === 'train');
+	assert.equal(list[at(list, 'turnin 1245', is('turnin', 1245))].s, list[at(list, 'accept 1246', is('accept', 1246))].s, 'Elling Trias in one stop');
+	assert.ok(train > at(list, 'accept 1301', is('accept', 1301)), 'after the Mage Quarter');
+	assert.ok(train < list.findIndex(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.location || '')), 'before the boat');
+});
