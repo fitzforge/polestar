@@ -2610,6 +2610,30 @@
 				],
 				"faction": "Alliance",
 				"why": "#1114: Calor offers Worgen in the Woods from level 23. The route reaches Darkshire's first visit at 22.1-23.1 and its second (Sirra Von'Indi's hand-in) at 23.15 or more on every branch, and the quest's worgen are hunted on the Duskwood return anyway, so it is taken on the second visit, behind its own level-23 gate (guide-fixes duskwood-worgen-in-the-woods-level-23) that holds back nothing else."
+			},
+			{
+				"a": [
+					"turnin",
+					3904
+				],
+				"b": [
+					"turnin",
+					6
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Milly's Harvest is handed in at Milly in the vineyard right after the grapes and Garrick Padfoot's camp, and Garrick's head goes to Deputy Willem on the Abbey visit that hands in Skirmish at Echo Ridge, not on a walk back to the Abbey steps between Garrick and Milly (human/01-elwynn-forest steps 7-8 on 0.3.4: Garrick, the Abbey, back out to Milly, then the mine and the Abbey again)."
+			},
+			{
+				"a": [
+					"task",
+					21
+				],
+				"b": [
+					"turnin",
+					6
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Willem stands at the Abbey steps beside the door to Marshal McBride; Garrick's head is handed in with Skirmish at Echo Ridge and the Grape Manifest on the one Abbey visit after the mine, as the seed has it."
 			}
 		],
 		"notes": [

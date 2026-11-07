@@ -4453,3 +4453,14 @@ test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked 
 		assert.ok(at(list, afterWhat, after) < handIn, `the ${what} are handed in after ${afterWhat}`);
 	}
 });
+
+// --- Flow re-order (2026-11-07, Alliance starts 1-20): the walks below crossed back over ground for one
+// hand-in. Northshire: Garrick's head went to Willem on a trip back to the Abbey steps between Garrick's camp
+// and Milly in the vineyard; now Milly first, Willem with Skirmish at Echo Ridge on the Abbey visit after the
+// mine.
+test(`${ELWYNN}: flow re-order: Milly's Harvest at Milly, Garrick's head on the Abbey visit after the mine`, { skip }, () => {
+	const list = goals(ELWYNN);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.ok(idx('turnin', 3904) < idx('turnin', 6), "Milly's Harvest before Garrick's head");
+	assert.equal(list[idx('turnin', 6)].s, list[idx('turnin', 21)].s, 'Garrick handed in with Skirmish at Echo Ridge');
+});

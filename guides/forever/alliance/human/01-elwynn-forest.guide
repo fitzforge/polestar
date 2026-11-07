@@ -95,9 +95,6 @@ step The vineyards and Garrick Padfoot
   collect 11119 quest 3904                    -- Milly's Harvest
   collect 182 quest 6                         -- Garrick's Head: Garrick Padfoot
 
-step Northshire Abbey
-  turnin 6                                    -- Deputy Willem
-
 step Milly Osworth
   turnin 3904
   accept 3905
@@ -121,6 +118,7 @@ step Inside Echo Ridge Mine
 
 step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
+  turnin 6                                    -- Deputy Willem, at the Abbey steps
   turnin 21                                   -- Marshal McBride, inside
   accept 54
   accept 96627
