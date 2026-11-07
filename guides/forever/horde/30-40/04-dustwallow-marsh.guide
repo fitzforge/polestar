@@ -144,11 +144,9 @@ step The Theramore Docks
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
 
 step Brackenwall Village
+  tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike in the village.
   turnin 1177                         -- Mudcrush Durtfeet
-
-step Nazeer Bloodpike
-  turnin 1202
-  tip Head back west to Brackenwall with the head.
+  turnin 1202                         -- Nazeer Bloodpike
   turnin 1239                         -- Nazeer Bloodpike
   accept 1240                         -- For Kin'weelay at Grom'gol, in the next guide
 
