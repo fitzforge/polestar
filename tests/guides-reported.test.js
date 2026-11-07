@@ -3702,3 +3702,22 @@ test('Pools of Vision NPCs (#1024): every step at one says they stand down in th
 	assert.ok(seen >= 3, `the steps at them are found (${seen})`);
 	assert.deepEqual(missing, []);
 });
+
+// #1117 (soockee, Tauren Shaman; #383 and #396 before it, Dwarf Paladins): Alonso's Dragonslayer quests
+// at Mystral Lake are for Warriors; other classes find no Alonso there. The lock lived only in
+// data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to
+// him. The record is the class in forever-db/corrections/quests.json.
+test("soockee's report (#1117): only Warriors are sent to Alonso for the Dragonslayer quests", { skip }, () => {
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	const ALONSO = [78132, 78133, 78134];
+	for (const q of ALONSO) assert.equal(corrections[q] && corrections[q].set.classes, 1, `${q}: the Warrior class is a correction the build applies`);
+	let warrior = 0;
+	for (const guide of allGuides().filter((f) => /^forever\/(horde|alliance)\//.test(f))) {
+		const list = goals(guide).filter(({ goal }) => ALONSO.includes(goal.quest));
+		for (const cls of ['PALADIN', 'SHAMAN', 'DRUID', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) {
+			assert.deepEqual(list.filter(forClass(cls)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], `${guide}: no Alonso quest for a ${cls}`);
+		}
+		warrior += list.filter(forClass('WARRIOR')).length;
+	}
+	assert.ok(warrior > 0, 'a Warrior still takes them');
+});
