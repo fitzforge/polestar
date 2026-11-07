@@ -6533,6 +6533,30 @@
 				],
 				"faction": "Horde",
 				"why": "Flow audit, Horde Ashenvale (#1098): from Roguefeather Den the walk passes Freewind Post on its way to Dorn Plainstalker's mesa, so Freewind's hand-ins come first and Dorn on the way out to the Shimmering Flats (the seed's order; 566 yd shorter than Dorn first and back)"
+			},
+			{
+				"a": [
+					"task",
+					871
+				],
+				"b": [
+					"turnin",
+					844
+				],
+				"faction": "Horde",
+				"why": "Fitz's report (#1135): the Plainstrider Beaks are a background goal (data/guide-fixes.json 1135-plainstrider-beaks), worked on the way from the Crossroads accept, so Sergra takes them on the Crossroads stop after the Razormane camp, with Thork's hand-ins, not right after a step of their own. Players' recordings: 266 beaks from 906 plainstrider kills (29% a kill), a median 21 kills for the seven and up to 49; plainstriders spawn in four clusters across the route"
+			},
+			{
+				"a": [
+					"task",
+					881
+				],
+				"b": [
+					"turnin",
+					869
+				],
+				"faction": "Horde",
+				"why": "Fitz's report (#1135): the Raptor Heads are a background goal (data/guide-fixes.json 1135-raptor-heads), worked on the way from the Crossroads accept, so Gazrog takes them on the Crossroads stop after Samophlange and Echeyakee, whose ground holds the most Sunscale Screechers, not right after a step of their own. Players' recordings: the raptors are sparse and contested where the route goes (a median 77 s between raptor kills while on the quest, 447 s at p90; a median 76 minutes from the accept to the twelfth head)"
 			}
 		]
 	}

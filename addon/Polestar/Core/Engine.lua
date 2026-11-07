@@ -2635,17 +2635,22 @@ local function stepGroups(s)
 	end
 	local focus
 	for _, grp in ipairs(groups) do
-		local pending = 0
+		-- `held`: turn-ins waiting on an objective the player ticked by hand
+		-- (Own.tickedOpen): they keep the step, but take no focus.
+		local pending, held = 0, 0
 		for _, g in ipairs(grp.goals) do
 			local goal = goals[g]
-			if stillBlocks(s, g, goal) then pending = pending + 1 end
+			if stillBlocks(s, g, goal) then
+				pending = pending + 1
+				if goal.t == "turnin" and Own.tickedOpen(goal.quest) then held = held + 1 end
+			end
 			if not grp.map and goalApplies(goal) then
 				local map, x, y, f, _, z = posOf(goal)
 				if map and x and y then grp.map, grp.x, grp.y, grp.f, grp.z = map, x, y, f, z end
 			end
 		end
 		grp.pending, grp.done = pending, pending == 0
-		if not focus and pending > 0 then focus = grp.index end
+		if not focus and pending > held then focus = grp.index end
 	end
 	return groups, focus, groupOf
 end
@@ -5977,8 +5982,10 @@ function Own.pinListed(s, g)
 end
 
 -- A step's turn-in of a quest whose objectives are still open, at step `s`
--- (current or ahead): true when the player pinned the quest, "along" when a
--- listed along step holds its work (Own.alongWork, #853); else false.
+-- (current or ahead): true when the player pinned the quest, "ticked" when the
+-- player ticked one of its objectives by hand that the game still counts open
+-- (Own.tickedOpen, #1135), "along" when a listed along step holds its work
+-- (Own.alongWork, #853); else false.
 function Own.pinOpen(s, goal)
 	if goal.t ~= "turnin" or not goal.quest then return false end
 	if not current or s < current then return false end
@@ -5986,7 +5993,31 @@ function Own.pinOpen(s, goal)
 		local C = Compat()
 		return C.IsOnQuest(goal.quest) and not C.IsQuestReadyForTurnIn(goal.quest) or false
 	end
+	if Own.tickedOpen(goal.quest) then return "ticked" end
 	return Own.alongWork(goal.quest)[1] and "along" or false
+end
+
+-- Whether the player ticked by hand an objective of quest q (a kill,
+-- collect, interact or use goal with `quest`) that the game still counts open,
+-- the quest in the log and not ready to hand in (#1135). The tick means "stop
+-- focusing this": the route moves on past it, but never stands for the quest
+-- log, so the quest's turn-in waits (stepGroups gives it no focus; its line
+-- says why, Own.pinOpen).
+Own.OBJECTIVE_VERBS = { kill = true, collect = true, interact = true, use = true }
+function Own.tickedOpen(q)
+	local m = guide and q and ns.CharState().manual[guide.id]
+	if not m then return false end
+	local C = Compat()
+	if not C.IsOnQuest(q) or C.IsQuestReadyForTurnIn(q) then return false end
+	for key, v in pairs(m) do
+		if v == "tick" then
+			local s, g = key:match("^(%d+):(%d+)$")
+			local step = s and guide.steps[tonumber(s)]
+			local goal = step and step.goals[tonumber(g)]
+			if goal and goal.quest == q and Own.OBJECTIVE_VERBS[goal.t] and not objectiveState(goal) then return true end
+		end
+	end
+	return false
 end
 
 function Engine.GetWaypoint() return waypoint or nil end
@@ -6230,7 +6261,9 @@ function Engine.GoalDone(stepIndex, goalIndex)
 end
 
 -- Tick a goal done, or clear its check-off: any goal but a note, quest goals
--- included (the player's word over the quest log). Saved as "tick" in
+-- included (the player's word over the quest log for the route: it moves on).
+-- A ticked quest objective never makes its quest ready to hand in: the turn-in
+-- waits for the game (Own.tickedOpen, #1135). Saved as "tick" in
 -- CharState().manual. False when there is nothing to change (no such goal, a
 -- note, or a goal already done by live state).
 function Engine.ToggleGoal(stepIndex, goalIndex)

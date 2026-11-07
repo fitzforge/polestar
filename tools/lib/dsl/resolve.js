@@ -848,6 +848,7 @@ function resolveGuide(ast, data, diag, opts = {}) {
 	if (guide.steps.some((s) => s.goals.some((goal) => goal.group && !goal.optional))) guide.group = true;
 	checkLabels(ast.steps, err);
 	checkAlongGoals(guide.steps, warn);
+	checkBackground(ast.steps, guide.steps, err);
 	return guide;
 }
 
@@ -901,6 +902,34 @@ function checkAlongGoals(steps, warn) {
 			warn(goal._line, `${what} in an \`along\` step never checks off: Polestar checks it only on the step the route is on, so it stays listed${typeof step.along === 'string' ? ` until the step labelled ${step.along}` : ''}`, 'put it in a step of its own, or track something the game counts (a quest objective, a bag count)');
 		}
 	}
+}
+
+// `background` (#1135) marks an `along until` step of zone-wide, slow goals:
+// each quest objective in it needs a finish step before the step that hands
+// its quest in (a later step, not an along one, working the same objective).
+// Mirrors forge-guide's resolve.rs check_background.
+function checkBackground(steps, compiled, err) {
+	steps.forEach((s, i) => {
+		if (!s.background) return;
+		if (typeof s.along !== 'string') {
+			err(s.backgroundLine, '`background` goes on an `along until <label>` step', 'add `along until <label>`, the label on the step that hands the quest in');
+			return;
+		}
+		const step = compiled[i];
+		if (!step) return;
+		for (const goal of step.goals) {
+			if (!['kill', 'collect', 'interact', 'use'].includes(goal.t) || goal.quest === undefined || goal.oi === undefined) continue;
+			let handIn = -1;
+			for (let k = i + 1; k < compiled.length && handIn < 0; k++) {
+				if (compiled[k].goals.some((g) => g.t === 'turnin' && g.quest === goal.quest)) handIn = k;
+			}
+			if (handIn < 0) continue;
+			const finished = compiled.slice(i + 1, handIn).some((st) => !st.along && st.goals.some((g) => g.t === goal.t && g.quest === goal.quest && g.oi === goal.oi));
+			if (!finished) {
+				err(goal._line, `background goal for quest ${goal.quest}.${goal.oi} has no finish step before its hand-in (line ${compiled[handIn]._line})`, 'add a step that works it, at the densest spot, right before the step that hands the quest in');
+			}
+		}
+	});
 }
 
 // What an accept of quest `id` (record `q`, or null) waits on, for the

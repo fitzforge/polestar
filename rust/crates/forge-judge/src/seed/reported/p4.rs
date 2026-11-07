@@ -348,6 +348,9 @@ const BY_LEVEL: [(&str, f64, f64); 11] = [
 fn drops_by_level(ctx: &Ctx, c: &mut Check) {
 	for (guide, item, quest) in BY_LEVEL {
 		let Some(list) = goals(ctx, c, guide) else { return };
+		// The step that does the work: an along list (the Barrens' beaks, worked on the way, #1135)
+		// has its place on the finish step.
+		let list: Vec<Row> = list.into_iter().filter(|r| !r.step.get("along").truthy()).collect();
 		let Some(i) = at(c, &list, &format!("{guide} collect {item}"), collect(item, Some(Some(quest)))) else { return };
 		let goal = &list[i].goal;
 		let q = ctx.data.quest(&V::Num(quest));

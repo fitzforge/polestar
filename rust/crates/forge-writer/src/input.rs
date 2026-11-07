@@ -466,6 +466,9 @@ pub struct DObj {
 	pub kind: Option<String>,
 	#[serde(default, deserialize_with = "lenient_num")]
 	pub id: Option<f64>,
+	/// How many the objective wants (a background goal's finish step, fixes.rs).
+	#[serde(default, deserialize_with = "lenient_num")]
+	pub count: Option<f64>,
 }
 
 impl DObj {
@@ -524,7 +527,7 @@ impl Quest {
 		self.start.as_ref().map_or(&[], |s| &s.item)
 	}
 	pub fn objectives(&self) -> impl Iterator<Item = &DObj> {
-		static NONE: DObj = DObj { kind: None, id: None };
+		static NONE: DObj = DObj { kind: None, id: None, count: None };
 		self.objectives.iter().flatten().map(|o| o.as_ref().unwrap_or(&NONE))
 	}
 	pub fn objective(&self, i: usize) -> Option<&DObj> {
