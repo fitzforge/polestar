@@ -416,6 +416,7 @@ step Feral Scar Vale yetis
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale, just north-west of the ruins. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
   tip Careful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock.
+  collect 8705 "OOX-22/FE Distress Beacon" optional
   accept 2766 optional
   turnin 2766 optional
   accept 2767 optional
@@ -427,7 +428,7 @@ step Camp Mojache
   vendor nearest
   turnin 2822                           -- Jangdor Swiftstrider, inside
   accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
-  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar, around level 50
+  accept 7732                           -- Hadoken Swiftstrider: for Zilzibin Drumlore in Orgrimmar
   turnin 2980                         -- Rok Orhan walks around Camp Mojache: look inside the circle on the map
   turnin 2979 optional -- Rok Orhan
   accept 3002                           -- for Orgrimmar, around level 45
@@ -450,6 +451,7 @@ step Orgrimmar
   tip Valley of Honor, then the Cleft of Shadow and the Valley of Spirits.
   turnin 3121                           -- Neeru Fireblade, Cleft of Shadow
   accept 3122
+  turnin 7732                           -- Zilzibin Drumlore, Valley of Spirits
 
 step Orgrimmar
   zone Orgrimmar
