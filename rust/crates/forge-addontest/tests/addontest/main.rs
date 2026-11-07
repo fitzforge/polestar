@@ -252,6 +252,8 @@ mod release;
 mod riding;
 #[path = "route-plan.rs"]
 mod route_plan;
+#[path = "settings-string.rs"]
+mod settings_string;
 mod syntax;
 mod talents;
 mod theme;

@@ -326,6 +326,12 @@ your progress, and lists your imported guides with **Delete**. Imported guides
 appear in the guide menu under **Community guides > Imported**, credited to
 their author, and are never suggested on their own.
 
+The same page takes a **settings string**: Options > About > **Export
+settings** gives one line holding the settings you changed (not window
+positions or progress) to share with a friend, who pastes it on the Import
+page, sees each change before **Apply**, and can put their own settings back
+with **Undo the last settings import**.
+
 ### Writing a community addon
 
 Write leveling guides in plain text and publish them as your own addon,

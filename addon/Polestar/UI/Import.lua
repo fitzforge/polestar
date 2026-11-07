@@ -9,6 +9,10 @@
 --     Author · 14 steps · levels 30–40 · Alliance and Horde · CC-BY-4.0",
 --     with Import (Update when an older version is imported) and Cancel, or
 --     why the string is refused. Nothing is saved until Import.
+--   A settings string (Core/SettingsString.lua, #1031) pasted in the same
+--     box: "Polestar settings · 3 changes", each change as "Label: old ->
+--     new", what was skipped, then Apply and Cancel. "Undo the last settings
+--     import" puts back what the last Apply replaced, until the next one.
 --   Your imported guides: title, author, version and licence, Delete on each
 --     (a second click within three seconds confirms).
 --   Want more than one guide?: community addons in three steps, and a link to
@@ -34,6 +38,8 @@ local rows = {}
 local preview, refusal, done
 
 local function Import() return ns.Import end
+local function Settings() return ns.SettingsString end
+local MAX_CHANGES = 12 -- change lines shown before "and N more"
 
 local function mainWidth()
 	local w = hub and (hub:GetWidth() - (hub.psRail or 0) - (hub.psSidebar or SH.sidebar) - 2) or 0
@@ -64,8 +70,13 @@ end
 
 local function count(n, one, many) return n == 1 and one or many:format(n) end
 
--- "Title · by Author · 14 steps · levels 30–40 · Alliance and Horde · CC-BY-4.0"
+-- "Title · by Author · 14 steps · levels 30–40 · Alliance and Horde · CC-BY-4.0";
+-- a settings string's "Polestar settings · 3 changes".
 function IV.PreviewText(info)
+	if info.settings then
+		local n = #info.settings.changes
+		return L["Polestar settings"] .. DOT .. (n == 0 and L["no changes"] or count(n, L["1 change"], L["%d changes"]))
+	end
 	local out = { info.title }
 	if info.author then out[#out + 1] = format(L["by %s"], info.author) end
 	out[#out + 1] = count(info.steps, L["1 step"], L["%d steps"])
@@ -80,6 +91,19 @@ end
 -- What the pasted guide is to the player: new, a newer version of one
 -- imported, the same, or older. -> the line under the preview, or nil
 local function stateNote(info)
+	if info.settings then
+		local changes = info.settings.changes
+		if #changes == 0 then return L["Your settings already match this string."] end
+		local lines = {}
+		for i, ch in ipairs(changes) do
+			if i > MAX_CHANGES then
+				lines[#lines + 1] = format(L["and %d more"], #changes - MAX_CHANGES)
+				break
+			end
+			lines[#lines + 1] = format("%s: %s \226\134\146 %s", ch.label, ch.oldText, ch.newText)
+		end
+		return table.concat(lines, "\n")
+	end
 	if info.state == "update" then
 		local note = format(L["You have version %s of this guide. Update replaces it and keeps your progress where its steps are unchanged."], tostring(info.have))
 		if info.authorChanged then note = note .. " " .. L["The author differs from the stored guide's."] end
@@ -93,14 +117,42 @@ local function stateNote(info)
 	return nil
 end
 
+-- A settings string's skipped keys (text from the string: escaped, cut short).
+local function skippedNote(info)
+	local skipped = info and info.settings and info.settings.skipped
+	if not skipped or #skipped == 0 then return nil end
+	local names = {}
+	for i, key in ipairs(skipped) do
+		if i > 8 then
+			names[#names + 1] = "\226\128\166"
+			break
+		end
+		names[#names + 1] = ns.EscapeText(key:sub(1, 64))
+	end
+	local list = table.concat(names, ", ")
+	if #skipped == 1 then return format(L["Skipped 1 setting this Polestar does not have or cannot take: %s."], list) end
+	return format(L["Skipped %d settings this Polestar does not have or cannot take: %s."], #skipped, list)
+end
+
+-- Whether Apply/Import has something to do.
+local function actionable(info)
+	if not info then return false end
+	if info.settings then return #info.settings.changes > 0 end
+	return info.state == "new" or info.state == "update"
+end
+
 local relayout
 
 function IV.Check(value)
 	done = nil
 	local I = Import()
 	local trimmed = value and value:gsub("%s+", "") or ""
+	local S = Settings()
 	if not I or trimmed == "" then
 		preview, refusal = nil, nil
+	elseif S and S.IsOne(trimmed) then
+		local info, why = S.Read(trimmed)
+		preview, refusal = info and { settings = info } or nil, why
 	else
 		preview, refusal = I.Preview(value)
 	end
@@ -116,8 +168,17 @@ end
 -- Import or Update what the preview shows.
 function IV.Apply()
 	local I = Import()
-	if not (I and preview and (preview.state == "new" or preview.state == "update")) then return end
+	if not (I and actionable(preview)) then return end
 	local info = preview
+	if info.settings then
+		local n = Settings().Apply(info.settings)
+		done = n == 1 and L["Applied 1 setting. Undo the last settings import puts it back."]
+			or format(L["Applied %d settings. Undo the last settings import puts them back."], n)
+		preview, refusal = nil, nil
+		if parts.Box then parts.Box:SetText("") end
+		relayout()
+		return
+	end
 	local ok, why = I.Save(info.entry)
 	if ok then
 		done = format(info.state == "update" and L["Updated %s."] or L["Imported %s. Find it in the guide menu under Community guides, Imported."], info.title)
@@ -126,6 +187,15 @@ function IV.Apply()
 	else
 		preview, refusal = nil, why
 	end
+	relayout()
+end
+
+-- Put back what the last settings import replaced.
+function IV.Undo()
+	local S = Settings()
+	if not (S and S.CanUndo()) then return end
+	local n = S.Undo()
+	done = n == 1 and L["Put back 1 setting."] or format(L["Put back %d settings."], n)
 	relayout()
 end
 
@@ -256,10 +326,12 @@ function IV.Build(parent, shell)
 	parts.Box = pasteBox(content)
 	parts.Preview = text(content, "body", "text")
 	parts.Note = text(content, "note", "textDim")
+	parts.Skipped = text(content, "note", "warning")
 	parts.Refusal = text(content, "note", "warning")
 	parts.Done = text(content, "note", "success")
 	parts.Apply = W.Button(content, L["Import"], function() IV.Apply() end, { primary = true, height = 28 })
 	parts.Cancel = W.Button(content, L["Cancel"], function() IV.Clear() end, { height = 28 })
+	parts.Undo = W.Button(content, L["Undo the last settings import"], function() IV.Undo() end, { ghost = true, height = 28 })
 
 	parts.ListH = W.SectionHeader(content)
 	parts.None = text(content, "note", "textMuted")
@@ -334,12 +406,21 @@ local function layout()
 	local shown = preview and IV.PreviewText(preview) or nil
 	y = block(parts.Preview, shown, width, x, y)
 	y = block(parts.Note, preview and stateNote(preview) or nil, width, x, y)
+	y = block(parts.Skipped, skippedNote(preview), width, x, y)
 	y = block(parts.Refusal, refusal, width, x, y)
 	y = block(parts.Done, done, width, x, y)
-	local actionable = preview and (preview.state == "new" or preview.state == "update")
-	parts.Apply:SetShown(actionable or false)
+	local canApply = actionable(preview)
+	parts.Apply:SetShown(canApply)
 	parts.Cancel:SetShown(preview ~= nil or refusal ~= nil)
-	if actionable then W.SetButtonText(parts.Apply, preview.state == "update" and L["Update"] or L["Import"]) end
+	if canApply then
+		W.SetButtonText(parts.Apply, preview.settings and L["Apply"] or preview.state == "update" and L["Update"] or L["Import"])
+	end
+	local S = Settings()
+	parts.Undo:SetShown(preview == nil and S ~= nil and S.CanUndo())
+	if parts.Undo:IsShown() then
+		place(parts.Undo, x, y)
+		y = y + 28 + 12
+	end
 	if parts.Apply:IsShown() or parts.Cancel:IsShown() then
 		local bx = x
 		if parts.Apply:IsShown() then
@@ -435,6 +516,8 @@ function IV.Shown()
 	return {
 		preview = parts.Preview and parts.Preview:IsShown() and parts.Preview:GetText() or nil,
 		note = parts.Note and parts.Note:IsShown() and parts.Note:GetText() or nil,
+		skipped = parts.Skipped and parts.Skipped:IsShown() and parts.Skipped:GetText() or nil,
+		undo = parts.Undo and parts.Undo:IsShown() or false,
 		refusal = parts.Refusal and parts.Refusal:IsShown() and parts.Refusal:GetText() or nil,
 		done = parts.Done and parts.Done:IsShown() and parts.Done:GetText() or nil,
 		button = parts.Apply and parts.Apply:IsShown() and parts.Apply.Label:GetText() or nil,

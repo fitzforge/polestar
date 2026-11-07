@@ -177,12 +177,14 @@ the nearest 5, `opts.compact` writes yards from 1000 as "1.2k yd"
 (`Rares.YardsText`); metres turn to kilometres from 1000 m. The bug report
 keeps yards for whoever reads it.
 
-`PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
+`PolestarDB = { schema = 1, settings = { [section] = { ... } }, packs = { [packId] = { off = true } }, imports = { [guideId] = { format, license, guide, frames } }, settingsUndo = { [path] = value }, welcomeSeen = 1, gamepad = { chords = { [action] = "PADRSHOULDER+PADDUP" } } }`
 `PolestarCharDB = { schema = 1, guide = id|nil, tabs = { guideId, ... }, activeTab = n, absentAt = { [guideId] = place }, manual = { [guideId] = { ["s:g"] = true|"tick" } }, skipped = { [guideId] = { [stepIndex] = true, ["s:g"] = true } }, pins = { [guideId] = { step, done } }, offers = { [questID] = true }, skippedQuests = { [questID] = true }, shapes = { [guideId] = shape }, stepKeys = { [guideId] = { hash, ... } }, flags = { fp = { [name] = true }, ... }, dungeons = { [mapId] = true }, welcomeSeen = 0|1 }`
 
 `packs[<id>].off` hides a pack's guides account-wide (the Community guides page's
 switch). `imports` holds the guides pasted on the Import page, as decoded
-("The guide registry", imported guides). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
+("The guide registry", imported guides). `settingsUndo` holds the values the
+last settings string replaced, for its Undo (Core/SettingsString.lua; one
+level, cleared by Undo and replaced by the next Apply). `welcomeSeen` (UI/Welcome.lua) is the version of the welcome last
 seen: in `PolestarDB`, the account has had its welcome (later characters skip
 its Set up and Route style pages); in `PolestarCharDB`, this character has (0 while due).
 `dungeons` (per character) holds the dungeons this character runs in leveling
@@ -982,6 +984,30 @@ Polestar.Guides.SuggestSource() -> packId   -- behavior.suggestFrom when it can,
 Polestar.Guides.OfferedBy(id) -> { guide, ... }      -- shown guides whose route choice offers id now (Engine.RouteOffered)
 Polestar.Guides.DropImported(id) -> bool    -- takes an imported guide out (Import.Delete), nothing else
 ```
+
+**Settings strings** (`Core/SettingsString.lua`, #1031): the settings a
+player changed, as one line to share. The envelope is the guide import
+string's under its own prefix, `!PSS1!<adler32>!<base64 of zlib of the
+JSON>` with the payload `{ "format": 1, "settings": { "<path>": value } }`;
+`Import.Unpack` reads both. The game client has decoders but Polestar
+writes the string itself, in plain Lua: a stored (uncompressed) zlib stream
+in base64, which any zlib reader takes. What a string may hold is what the
+Options pages show: a toggle, slider, dropdown or colour among
+`UI.Options.AllControls()` (the built-in pages and every
+`ns.RegisterOptions`) with a settings key, a default and no storage of
+its own (no `set`), except `ui.shown`. An export holds the ones off their
+default, sorted, so positions (`ui.pos`, `nav.arrowPos`), per-character
+state and imported guides never leave. Reading checks each value against
+its control: a toggle's boolean, a slider's `min`–`max` (not snapped: some
+defaults sit between steps), one of a dropdown's `choices`, a colour's 3 or
+4 numbers in 0–1 or `false` (no colour of its own). A key without such a
+control, or a value that does not fit, is skipped and named, never applied;
+a damaged, truncated or too long string (20,000 characters, 32 KB of
+payload, 500 settings) is refused, and a later prefix or `format` asks for
+a newer Polestar. `Apply` keeps the values it replaces in
+`PolestarDB.settingsUndo` and sets each through `ns.Set` (a value equal
+to its default clears the setting), so every `SETTING_CHANGED` listener
+reacts as to a change by hand; `Undo` sets them back the same way.
 
 **Imported guides** (`Core/Import.lua`; the string's format: PACK_FORMAT.md,
 "Import strings"). A guide shared as one line of text and pasted on the
@@ -4977,6 +5003,17 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   author · version · licence", why a stored guide did not register,
   Delete with a second click to confirm), then "Want more than one guide?"
   (community addons in three steps and the GUIDE_PACKS.md link).
+  A settings string (`!PSS1!`, Core/SettingsString.lua, #1031) pasted in
+  the same box previews instead as "Polestar settings · N changes", one
+  line per change ("Label: old → new", the control's own label and the
+  value as its page shows it, 12 at most and "and N more"), the keys it
+  skipped in the warning colour (escaped, 8 at most), and **Apply** and
+  Cancel; one that matches says so and offers nothing to apply. After
+  Apply, "Undo the last settings import" stays under the box while there is
+  something to undo (`SettingsString.CanUndo`). Options > About >
+  Maintenance has **Export settings** (`O.ExportSettings`: the string in the
+  copy window, `UI.ShowCopy`, with how many settings it holds) and
+  **Import settings** (`SHOW_IMPORT`).
 - **Guide menu** (the Guides section): three panes. Left: the categories with
   counts. Middle: Home (continue and suggested), Browse, Current (open tabs),
   Recent tabs over one line per guide,
