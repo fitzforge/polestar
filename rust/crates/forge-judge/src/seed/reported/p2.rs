@@ -29,7 +29,7 @@ const UN_GORO_ALLIANCE: &str = "forever/alliance/40-50/07-un-goro-crater.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const ZEPHRAS_ALLIANCE: &str = "forever/alliance/skyborne/01-zephras-isle.guide";
 const ZEPHRAS_HORDE: &str = "forever/horde/skyborne/01-zephras-isle.guide";
-const NEEDLES: &str = "forever/alliance/07-thousand-needles.guide";
+const DUSKWOOD: &str = "forever/alliance/05-duskwood.guide";
 
 /// `at(...)`, returning from the test when absent (the JS assertion throws).
 macro_rules! at {
@@ -399,7 +399,8 @@ fn escaping_banethil(ctx: &Ctx, c: &mut Check) {
 }
 
 fn bronze_tube(ctx: &Ctx, c: &mut Check) {
-	let list = ctx.goals(NEEDLES);
+	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07).
+	let list = ctx.goals(DUSKWOOD);
 	let give = at!(c, list, "turnin 174 (Look to the Stars)", is("turnin", 174));
 	let buy = at!(c, list, "buy 4371 (Bronze Tube)", item_goal("buy", 4371));
 	c.ok(buy < give && list[buy].s == list[give].s, "bought on the same stop, before the turn-in");
@@ -461,7 +462,7 @@ pub fn tests() -> Vec<SeedTest> {
 		t(format!("{TELDRASSIL}: Pynte's report: Conservator Ilthalaine's quest is taken before Melithar's"), ilthalaine),
 		t(format!("{TELDRASSIL}: Pynte's report: each class's sigil is handed to its trainer at the training stop after Shadowthread Cave"), sigils),
 		t(format!("{TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relics and The Sleeping Druid's chain (#334)"), escaping_banethil),
-		t(format!("{NEEDLES}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step"), bronze_tube),
+		t(format!("{DUSKWOOD}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step"), bronze_tube),
 		t("Bill's report (#1004): a town's bind never sends you back to the giver you just left".into(), bind_after_givers),
 	]
 }
