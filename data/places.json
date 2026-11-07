@@ -871,6 +871,40 @@
 				}
 			],
 			"issue": 1003
+		},
+		{
+			"id": "redridge-98387-1",
+			"quest": 98387,
+			"objective": 1,
+			"at": {
+				"map": 1433,
+				"x": 71.7,
+				"y": 75.7,
+				"frame": "live"
+			},
+			"note": "Blackrock Blockade: the weapon racks and swords stand in the Blackrock camps east of Stonewatch Keep (median of 72 recorded objective ticks, 63.7-74.0, 66.5-86.5); the objects have no spawns in the merged data.",
+			"source": {
+				"kind": "recording",
+				"ref": "98387 objective ticks"
+			},
+			"pr": 1052
+		},
+		{
+			"id": "redridge-98387-2",
+			"quest": 98387,
+			"objective": 2,
+			"at": {
+				"map": 1433,
+				"x": 70.6,
+				"y": 79.7,
+				"frame": "live"
+			},
+			"note": "Blackrock Blockade: the meat haunches, grain sacks and water barrels stand in the Blackrock camps east of Stonewatch Keep (median of 72 recorded objective ticks, 63.7-74.0, 66.5-86.5); the objects have no spawns in the merged data.",
+			"source": {
+				"kind": "recording",
+				"ref": "98387 objective ticks"
+			},
+			"pr": 1052
 		}
 	]
 }

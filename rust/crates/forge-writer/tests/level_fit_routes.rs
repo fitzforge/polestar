@@ -63,6 +63,8 @@ fn level_fit_on_a_rounds_routes() {
 	if let Ok(out) = std::env::var("LEVEL_FIT_OUT") {
 		std::fs::write(out, serde_json::to_string_pretty(&all).unwrap()).unwrap();
 	}
-	// Fyurie's Redridge (#977): Fangore and the Galardell pendants are out of the Alliance route.
-	assert!(redridge.contains(&180) && redridge.contains(&91), "{redridge:?}");
+	// Fyurie's Redridge (#977) left Fangore and the Galardell pendants out of the Alliance route; since the
+	// Redridge level gap (PR #1052) route-fixes includes them (after the camps' top-up, and Fangore on
+	// Duskwood's second pass), and an included quest is exempt from the level fit.
+	assert!(!redridge.contains(&180) && !redridge.contains(&91), "{redridge:?}");
 }

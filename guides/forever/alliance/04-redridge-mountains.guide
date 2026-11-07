@@ -9,8 +9,7 @@ next forever/alliance/05-duskwood
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: A Free Lunch (129).
-# Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): An Unwelcome Guest (34), Solomon's Law (91), WANTED: Lieutenant Fangore (180).
+# Added here: A Free Lunch (129), Blackrock Blockade (98387).
 
 step Boat to Stormwind Harbor
   zone Darkshore
@@ -20,12 +19,13 @@ step Boat to Stormwind Harbor
 # 20.5 to 22.7): the boat from Auberdine to Stormwind, the road east through
 # Elwynn, Redridge, then south to Darkshire.
 #
-# Flow: Stormwind (training) -> Elwynn road -> Three Corners -> Lakeridge
+# Flow: Stormwind (training) -> Elwynn road (Theocritus) -> Three Corners -> Lakeridge
 # Highway (flight path) -> Lakeshire (hearth, every quest giver) -> the
 # sunken chest -> the gnoll hills toward Three Corners -> Deputy
 # Feldon -> Lakeshire -> the lake murlocs, Alther's Mill,
-# the Blackrock camps east of Stonewatch Keep -> hearth -> Render's Valley and Keeshan ->
-# Lakeshire -> Duskwood.
+# the Blackrock camps east of Stonewatch Keep (a top-up to 23) -> north through
+# Galardell Valley, the Old Lion Statue and the watch tower -> Lakeshire ->
+# Bellygrub -> Render's Valley and Keeshan -> Lakeshire -> Duskwood.
 #
 # The Battleworn Axes (20) come from the Blackrock camps at the south end of
 # Galardell Valley, east of Stonewatch Keep (about 66-74, 63-86): some 40
@@ -34,12 +34,13 @@ step Boat to Stormwind Harbor
 # Sentries and Shadowcasters are elite: the camps lie east of them.
 #
 # Deviations from the export:
-# - Galardell Valley is left out (#977): Lieutenant Fangore (180, 26) and its
-#   Shadowhide gnolls (median 24) are 3-5 levels above the player here (about
-#   21), and Bellygrub (34, 24) too; the route never comes back to them at a
-#   level that fits, so An Unwelcome Guest, Solomon's Law and Fangore's
-#   Wanted poster are not taken; nor A Watchful Eye (94) and Looking Further
-#   (248), whose Old Lion Statue stands among the gnolls (median 25).
+# - Galardell Valley comes after a top-up to level 23 at the Blackrock camps
+#   (Duskwood's quests start at 24; Redridge's alone ended at about 21.6,
+#   a player's Discord report): its Shadowhide gnolls (median 24) are then
+#   within two levels, so Solomon's Law (91), A Watchful Eye (94) and Looking
+#   Further (248) are taken on the way back west, and Bellygrub (34, 24) after
+#   Lakeshire. Lieutenant Fangore (180, 26) waits for the second pass, at the
+#   end of 05-duskwood (#977).
 # - Alther's Mill (98386, Forever) is taken from Foreman Oslow when The
 #   Everstill Bridge (89) is handed in, at the second Lakeshire stop: he
 #   offers it only then (two players' reports; the quest data has no
@@ -81,14 +82,15 @@ step Boat to Stormwind Harbor
 # three dungeons and an escort, the Class guide
 # forever/class/paladin/verigans-fist.
 #
-# Not taken: Tharil'zun, Shadow Magic, Wanted: Gath'Ilzogg and Morganth (19,
-# 115, 169, 249: elite targets), Blackrock Blockade (98387) and the
-# Speaking of Fortitude and Theocritus chains (343+, 94, 248): not on the
-# route. Underbelly Scales and Howling in the Hills (122, 126) need The
-# Price of Shoes (118, Goldshire turn-in) and A Baying of Gnolls (124)
-# first: skipped. The Defias Brotherhood (65), from Westfall, is turned in to
-# Wiley the Black in Lakeshire; its follow-up (132) leads back to Westfall:
-# not taken.
+# Not here: Tharil'zun, Shadow Magic, Wanted: Gath'Ilzogg, WANTED:
+# Incinerator Gar'im and Lieutenant Fangore (19, 115, 169, 95999, 180: elite
+# or 26) come on the second Redridge pass at the end of 05-duskwood, at about
+# 25-26. Not taken: Morganth (249), the Speaking of Fortitude and
+# Theocritus' Retrieval chains (343+, 178). Underbelly Scales and Howling in
+# the Hills (122, 126) need The Price of Shoes (118, Goldshire turn-in) and A
+# Baying of Gnolls (124) first: skipped. The Defias Brotherhood (65), from
+# Westfall, is turned in to Wiley the Black in Lakeshire; its follow-up (132)
+# leads back to Westfall: not taken.
 
 # ---------------------------------------------------------------- Stormwind and the road
 
@@ -164,6 +166,9 @@ step Elwynn Forest
   zone Elwynn Forest
   goto 65.2,69.7 "Elwynn Forest"
 
+step Theocritus
+  accept 94                           -- On the top floor
+
 step Guard Thomas
   when onquest 35
   turnin 35 only NightElf
@@ -199,13 +204,16 @@ step Lakeridge Highway
 step Lakeshire
   tip Cross the long bridge north into town. Foreman Oslow and Marshal Marris stand at the north end of the bridge, Bailiff Conacher in the town hall, Dockmaster Baren and Wiley the Black on the docks, Chef Breanna at the inn, Martie Jainrose in her garden at the west end.
   accept 20                                   -- Marshal Marris
+  accept 98387
   accept 125                                  -- Foreman Oslow
+  accept 91                                   -- Bailiff Conacher, in the town hall
   accept 150                                  -- Dockmaster Baren
   accept 127
   turnin 65                                   -- Wiley the Black, by the docks; upstairs
   sethome "Lakeshire"
   accept 129                          -- Inside
   accept 92                                   -- Chef Breanna, inside
+  accept 34                                   -- Martie Jainrose
 
 step Spotted Sunfish on the way
   along until q127
@@ -265,16 +273,42 @@ step Lake Everstill: kill these as you meet them
   kill 505 quest 98386                        -- Greater Tarantula
 
 step Blackrock camps
-  tip South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite.
+  tip South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies. Kill the camps' orcs until level 23: Galardell Valley's gnolls, next, are 22-25, and Duskwood's quests start at 24.
   collect 3014 quest 20 @71,70.5 map 1433 live -- Battleworn Axe
+  collect 280841 quest 98387 @71.7,75.7 map 1433 live -- Stolen Weapon: weapon racks and swords on the ground
+  collect 280839 quest 98387 @70.6,79.7 map 1433 live -- Blackrock Supplies: meat haunches, grain sacks, water barrels
+  level 23
+
+step Galardell Valley
+  zone Redridge Mountains
+  tip North up the valley's east side. Shadowhide gnolls fill it; Lieutenant Fangore (26) and his two guards stand at its north end: keep clear of them. Stay out of Stonewatch Keep to the west: its orcs are elite.
+  collect 1075 quest 91                       -- Shadowhide Pendant: any Shadowhide gnoll
+
+step A Watchful Eye
+  tip The Old Lion Statue stands at the valley's east edge.
+  turnin 94
+  accept 248
+
+step Looking Further
+  tip West to the intact watch tower beside Stonewatch Keep: climb it and leave the Glyph in the empty jar at the top.
+  turnin 248
 
 step Back to Lakeshire
-  turnin 92                                   -- Chef Breanna, inside
+  turnin 20                                   -- Marshal Marris
+  turnin 98387
+  turnin 98386                                -- Foreman Oslow
+  turnin 91                                   -- Bailiff Conacher, in the town hall
   turnin 150                                  -- Dockmaster Baren
   turnin 127
-  turnin 98386                                -- Foreman Oslow
-  turnin 20                                   -- Marshal Marris
+  turnin 92                                   -- Chef Breanna, inside
   vendor nearest
+
+step Bellygrub
+  tip Bellygrub (level 24) roots around the pen just west of Lakeshire. Pull him away from the other boars and fight at full health.
+  collect 3631 quest 34                       -- Bellygrub's Tusk
+
+step Martie Jainrose
+  turnin 34
 
 # ---------------------------------------------------------------- Render's Valley
 

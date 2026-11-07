@@ -320,6 +320,10 @@ be compared byte for byte with the old JavaScript writer.
   families, the route fixes' optional quests and the quests they keep or include are left to their
   records; an old route with no levels is not judged. Its records are the rule itself; a route build
   that should plan the levels without the quests gets `overrides.skip` lines too.
+  The grind the rule takes away does not come back on its own: Redridge without Galardell ended at
+  21.6 while Duskwood starts at 24 (PR #1052). There route-fixes includes Galardell's quests after a
+  written top-up to 23 at the Blackrock camps (guide-fixes `redridge-camps-top-up-23`), and the elites
+  and Fangore on a second Redridge pass at the end of Duskwood.
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within

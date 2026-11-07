@@ -49,17 +49,17 @@ return {
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
 	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "",
 
-	-- Step 7: Skeletal Fiend on the way
-	-- {npc:531} Skeletal Fiend
-	["{npc:531} on the way"] = "",
-
-	-- Step 8: Skeletal Horror on the way
+	-- Step 7: Skeletal Horror on the way
 	-- {npc:202} Skeletal Horror
 	["{npc:202} on the way"] = "",
 
-	-- Step 9: Watcher Dodds
+	-- Step 8: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
 	["{npc:888} stands south of the road, at the {area:245}."] = "{npc:888} está al sur del camino, en {area:245}.",
+
+	-- Step 9: Skeletal Fiend on the way
+	-- {npc:531} Skeletal Fiend
+	["{npc:531} on the way"] = "",
 
 	-- Step 10: Raven Hill
 	-- {area:94} Raven Hill · {object:673515} Memory of Valor
@@ -112,11 +112,7 @@ return {
 	-- Step 22: Abercrombie
 	["Head west along the road once more."] = "",
 
-	-- Step 24: Hearth to Darkshire
-	-- {area:42} Darkshire
-	["Hearth to {area:42}"] = "",
-
-	-- Step 25: Back to Darkshire
+	-- Step 24: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "Vuelta a {area:42}",
 	-- {area:42} Darkshire
@@ -124,38 +120,38 @@ return {
 	-- {npc:273} Tavernkeep Smitts
 	["{npc:273}, in the tavern"] = "{npc:273}, en la taberna",
 
-	-- Step 26: Rot Blossoms
+	-- Step 25: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
 	["Rot Blossoms"] = "Flores podridas ({item:1598})",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Rot Blossoms = {item:1598} Rot Blossom
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "Los horrores esqueléticos ({npc:202}) recorren la ladera entre {area:42} y el {area:121}, al sureste del pueblo; sueltan las flores podridas ({item:1598}).",
 
-	-- Step 28: Abercrombie
+	-- Step 27: Abercrombie
 	["Head west to the hermit once more."] = "",
 
-	-- Step 29: Ghoul Ribs
+	-- Step 28: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Costillas de necrófago",
 	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
 	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "",
 
-	-- Step 31: Jitters
+	-- Step 30: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["{npc:288} hides in the house at the west end of {area:94}."] = "{npc:288} se esconde en la casa del extremo oeste de {area:94}.",
 
-	-- Step 32: Sven's Camp
-	-- {zone:1453} Stormwind · {area:17203} Stormwind Harbor · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "Después: {zone:1453} para entrenar y luego el barco de {area:17203} a {area:442} para ir a {zone:1440}.",
+	-- Step 31: Sven's Camp
+	-- {area:17203} Stormwind Harbor · {area:442} Auberdine · {zone:1440} Ashenvale
+	["Next: training, then Redridge's second pass, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "",
 
-	-- Step 34: Agent Kearnen
+	-- Step 33: Agent Kearnen
 	-- {area:94} Raven Hill · {area:40} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
 	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}, en el cofre",
 
-	-- Step 35: Master Mathias Shaw
+	-- Step 34: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
 	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
@@ -167,39 +163,85 @@ return {
 	-- {item:3372} Leaded Vial · {npc:1313} Maria Lumere
 	["{item:3372}: {npc:1313}, Alchemy Supplies"] = "{item:3372}: {npc:1313}, Suministros de alquimia",
 
-	-- Step 36: Fly to Stormwind
+	-- Step 35: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "",
 
-	-- Step 37: Gazin Tenorm
+	-- Step 36: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
 	["{npc:6173} and {npc:6171} are in the Cathedral of Light."] = "",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "",
 
-	-- Step 39: Tram to Ironforge
+	-- Step 38: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "",
 
-	-- Step 40: Shaman training
+	-- Step 39: Shaman training
 	["Shaman training"] = "Entrenamiento de chamán",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker · {area:442} Auberdine
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the {area:442} boat."] = "{zone:1453} no tiene instructor de chamanes: toma el {area:2257} desde el {object:28027} hasta {zone:1455}, entrena con {npc:258098} y vuelve en el tren para tomar el barco a {area:442}.",
 
-	-- Step 41: Rogue training
+	-- Step 40: Rogue training
 	["Rogue training"] = "",
 	-- {zone:1453} Stormwind
 	["Train here, in {zone:1453}, before you go on."] = "",
 
-	-- Step 43: Class trainer
+	-- Step 42: Class trainer
 	["Class trainer"] = "",
 	["Level 22 and 24 spells"] = "Hechizos de nivel 22 y 24",
+
+	-- Step 43: Fly to Lakeshire
+	-- {area:69} Lakeshire
+	["Fly to {area:69}"] = "",
+	-- {zone:1453} Stormwind
+	["{zone:1453} flight master"] = "",
+
+	-- Step 44: Redridge Mountains
+	-- {area:87} Goldshire · {area:1002} Three Corners · {area:69} Lakeshire
+	["Follow the road east from {area:87} through Elwynn to {area:1002}, then along the lake to {area:69}."] = "",
+
+	-- Step 45: Lakeshire
+	-- {npc:382} Marshal Marris
+	["{npc:382} stands at the north end of the bridge; two Wanted posters hang on the town hall doorway, a third by the inn."] = "",
+	["The Wanted poster on the town hall doorway"] = "",
+	["The Wanted poster beside it"] = "",
+	["The Wanted poster by the inn"] = "",
+
+	-- Step 46: Incinerator Gar'im
+	-- {area:2099} Stonewatch Keep · {item:1261} Midnight Orb
+	["East past the mill, then south-east to the Blackrock camps east of {area:2099}: Gar'im keeps to the cave at their south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a {item:1261} too."] = "",
+
+	-- Step 47: Stonewatch Keep
+	-- {area:2099} Stonewatch Keep · {quest:19} Tharil'zun · {npc:334} Gath'Ilzogg
+	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
+	["North to {area:2099}. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then {quest:19} (elite) in the south-west courtyard with his guards, and {npc:334} (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can."] = "",
+	-- {item:1261} Midnight Orb
+	-- plural, as words: Blackrock Shadowcasters = {npc:436} Blackrock Shadowcaster
+	["{item:1261}: Blackrock Shadowcasters"] = "",
+
+	-- Step 48: Lieutenant Fangore
+	-- {area:1000} Galardell Valley
+	["North-east to the gnolls' eastern camp in {area:1000}. Fangore has two guards linked to him: clear the gnolls around him first and fight at full health."] = "",
+
+	-- Step 49: Back to Lakeshire
+	-- {area:69} Lakeshire
+	["Back to {area:69}"] = "",
+	-- {area:69} Lakeshire
+	["West back to {area:69}."] = "",
+	-- {npc:344} Magistrate Solomon
+	["{npc:344}, in the town hall"] = "",
+
+	-- Step 50: Fly to Stormwind
+	-- {area:69} Lakeshire
+	["{area:69} flight master"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters."] = "Cualquier necrófago de la mitad norte del {area:492} puede soltar una costilla: Comecarnes, Masticahuesos Oseral, Propagadores de la Peste y Comesesos.",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "Sigue el camino al sur desde {area:1002} hasta {zone:1431}; {area:42} está en el lado este del bosque.",
+	-- ["Next: {zone:1453} for training, then the boat from {area:17203} to {area:442} for {zone:1440}."] = "Después: {zone:1453} para entrenar y luego el barco de {area:17203} a {area:442} para ir a {zone:1440}.",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "Los Lobos feroces rabiosos recorren el bosque alrededor del cementerio y de {npc:289}; los Lobos feroces hambrientos, las colinas al noreste de él. Las Telarácnidas pigmeovenenosas merodean al este del cementerio y sueltan el veneno. Cualquier necrófago de la mitad norte del cementerio puede soltar un colmillo.",
 	-- ["Ride back east along the road to the {area:245}."] = "Vuelve al este por el camino hasta {area:245}.",
 	-- ["Ride back east to {area:42}."] = "Vuelve al este hasta {area:42}.",

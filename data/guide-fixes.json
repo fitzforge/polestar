@@ -1912,6 +1912,114 @@
 				}
 			],
 			"issue": 977
+		},
+		{
+			"id": "redridge-camps-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98387,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "South-east from the mill, west of Galardell Valley's gnolls, to the Blackrock camps east of Stonewatch Keep. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies. Kill the camps' orcs until level 23: Galardell Valley's gnolls, next, are 22-25, and Duskwood's quests start at 24.",
+			"note": "The Blackrock camps step: where Blackrock Blockade's objects are, and why the player tops up to 23 there (the level record redridge-camps-top-up-23).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Redridge levels on 0.3.3: 21.7-22.0 at Render's Valley (6 players); 98387 objective ticks at 63.7-74.0, 66.5-86.5 (72 ticks)"
+				}
+			],
+			"pr": 1052
+		},
+		{
+			"id": "redridge-camps-top-up-23",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98387,
+				"goal": "objective",
+				"objective": 2
+			},
+			"level": 23,
+			"after": true,
+			"note": "Redridge's quests alone end at about 21.6 and Duskwood's start at 24 (a player's Discord report; the sim for every class; recordings 21.7-22.0 at Render's Valley on 0.3.3). The quests that fit (Blackrock Blockade here, then Galardell Valley and Bellygrub) cover part of it; the rest is this written top-up at the camps, so Galardell's gnolls (median 24) are within two levels and Duskwood starts at its level.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Redridge levels on 0.3.3: 21.7-22.0 at Render's Valley (6 players); 98387 objective ticks at 63.7-74.0, 66.5-86.5 (72 ticks)"
+				}
+			],
+			"pr": 1052
+		},
+		{
+			"id": "duskwood-worgen-in-the-woods-level-23",
+			"faction": "Alliance",
+			"at": {
+				"quest": 173,
+				"goal": "accept"
+			},
+			"level": 23,
+			"note": "Worgen in the Woods needs level 23 (its minimum level in Forever's quest data); a player behind the route's levels is told before Calor refuses it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 173 minimum level 23"
+				}
+			],
+			"pr": 1052
+		},
+		{
+			"id": "redridge-second-pass-95999-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95999,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "East past the mill, then south-east to the Blackrock camps east of Stonewatch Keep: Gar'im keeps to the cave at their south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a Midnight Orb too.",
+			"note": "Redridge's second pass at the end of 05-duskwood: players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 95999 completes at 21-23"
+				}
+			],
+			"pr": 1052
+		},
+		{
+			"id": "redridge-second-pass-115-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 115,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North to Stonewatch Keep. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then Tharil'zun (elite) in the south-west courtyard with his guards, and Gath'Ilzogg (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can.",
+			"note": "Redridge's second pass at the end of 05-duskwood: players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 115 completes at 21-23"
+				}
+			],
+			"pr": 1052
+		},
+		{
+			"id": "redridge-second-pass-180-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 180,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "North-east to the gnolls' eastern camp in Galardell Valley. Fangore has two guards linked to him: clear the gnolls around him first and fight at full health.",
+			"note": "Redridge's second pass at the end of 05-duskwood: players finished these elites solo at 21-23 in the recordings, so they are normal steps with a group-up tip (Fitz, PR #1052).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 180 completes at 21-23"
+				}
+			],
+			"pr": 1052
 		}
 	]
 }
