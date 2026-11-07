@@ -87,14 +87,12 @@ function Regions.Of(cs, xs, ys, radii, work)
 		rs[i] = max(radii[i] or 0, MIN_RADIUS) + PAD
 		groupOf[i], members[i], span[i] = i, { i }, 2 * rs[i]
 	end
-	local function across(i, j)
-		local dx, dy = xs[i] - xs[j], ys[i] - ys[j]
-		return sqrt(dx * dx + dy * dy) + rs[i] + rs[j]
-	end
 	-- Pairs close enough to join, nearest (smallest gap between discs) first:
-	-- a sweep along wx within each continent (no pair further apart than the
-	-- widest reach), each pair one number (the gap in hundredths of a yard,
-	-- then i, then j), so the sort compares plain numbers.
+	-- a sweep along wx within each continent (no pair further apart along wx
+	-- than LINK plus both radii, the widest of them for the one still to come),
+	-- each pair one number (the gap in hundredths of a yard, then i, then j),
+	-- so the sort compares plain numbers. Distances are compared squared and
+	-- a square root taken only for a pair that joins.
 	local order, maxR = {}, 0
 	for i = 1, n do
 		order[i] = i
@@ -105,19 +103,26 @@ function Regions.Of(cs, xs, ys, radii, work)
 		if xs[a] ~= xs[b] then return xs[a] < xs[b] end
 		return a < b
 	end)
-	local reach, B, bias = 2 * maxR + LINK, n + 1, ceil(2 * maxR * 100) + 1
+	local B, bias = n + 1, ceil(2 * maxR * 100) + 1
 	local near = {}
 	for a = 1, n do
 		local i = order[a]
+		local ci, xi, yi, ri = cs[i], xs[i], ys[i], rs[i]
+		local reach = LINK + ri + maxR
 		for b = a + 1, n do
 			local j = order[b]
-			if cs[j] ~= cs[i] or xs[j] - xs[i] > reach then break end
+			local dx = xs[j] - xi
+			if cs[j] ~= ci or dx > reach then break end
 			done = done + 1
 			if done > limit then return nil end
-			local gap = across(i, j) - 2 * (rs[i] + rs[j])
-			if gap <= LINK then
-				local lo, hi = min(i, j), max(i, j)
-				near[#near + 1] = (floor(gap * 100 + 0.5) + bias) * B * B + lo * B + hi
+			local dy, t = ys[j] - yi, LINK + ri + rs[j]
+			local d2 = dx * dx + dy * dy
+			if d2 <= t * t then
+				local gap = sqrt(d2) - ri - rs[j]
+				if gap <= LINK then
+					local lo, hi = min(i, j), max(i, j)
+					near[#near + 1] = (floor(gap * 100 + 0.5) + bias) * B * B + lo * B + hi
+				end
 			end
 		end
 	end
@@ -132,13 +137,23 @@ function Regions.Of(cs, xs, ys, radii, work)
 	for _, key in ipairs(near) do
 		local a, b = groupOf[floor(key / B) % B], groupOf[key % B]
 		if a ~= b and not (apart[a] and apart[a][b]) then
+			-- The joined group's span: the widest of the two, or a pair across
+			-- them further apart (centre distance plus both radii); a pair whose
+			-- centres are closer than the span so far less its radii cannot be.
 			local s = max(span[a], span[b])
+			local mb = members[b]
 			for _, i in ipairs(members[a]) do
-				for _, j in ipairs(members[b]) do
+				local xi, yi, ri = xs[i], ys[i], rs[i]
+				for k = 1, #mb do
+					local j = mb[k]
 					done = done + 1
 					if done > limit then return nil end
-					local d = across(i, j)
-					if d > s then s = d end
+					local dx, dy, rr = xs[j] - xi, ys[j] - yi, ri + rs[j]
+					local d2, lim = dx * dx + dy * dy, s - rr
+					if lim < 0 or d2 > lim * lim then
+						local d = sqrt(d2) + rr
+						if d > s then s = d end
+					end
 				end
 				if s > MAX_SPAN then break end
 			end

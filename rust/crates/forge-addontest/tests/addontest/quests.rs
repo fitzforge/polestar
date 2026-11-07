@@ -1598,13 +1598,15 @@ emit(look().opts)
 }
 
 #[test]
-fn objective_spot_regions_are_built_once_per_quest_log_change_not_on_a_setting_a_publish_or_a_kill_count() {
+fn objective_spot_regions_group_only_the_objectives_a_quest_log_change_brought_never_on_a_setting_a_step_change_or_a_kill_count() {
 	let db = spots_db();
 	let out = run(
 		&db,
 		r#"
 w.accept(9600, { { text = "Murloc Forager slain: 0/5", type = "monster", required = 5 } })
 stub.advance(0.3)
+local function area() for _, p in ipairs(layer("quests.objectives")) do if p.hull then return p end end end
+local first = area()
 local calls, of = 0, Polestar.Regions.Of
 Polestar.Regions.Of = function(...) calls = calls + 1; return of(...) end
 for _, mode in ipairs({ "icons", "areas", "groups" }) do Polestar.Set("qol.objectiveSpots", mode); stub.advance(0.3) end
@@ -1617,12 +1619,38 @@ emit(calls)
 w.accept(7, { { text = "Kobold Vermin slain: 0/10", type = "monster", required = 10 } })
 stub.advance(0.3)
 emit(calls)
+w.abandon(7); stub.advance(0.3)
+emit({ calls, area() == first })
 "#,
 		"w.complete({ 783 })",
 	);
 	assert_eq!(out[0], 0, "settings and a step change only restyle");
 	assert_eq!(out[1], 0, "a kill count alone");
-	assert_eq!(out[2], 2, "a quest came: one grouping per objective (9600's foragers, 7's kobolds)");
+	assert_eq!(out[2], 1, "a quest came: only its objective is grouped (7's kobolds); 9600's foragers keep theirs");
+	assert_eq!(out[3], json!([1, true]), "a quest left: nothing grouped, the foragers' area is the same pin");
+}
+
+#[test]
+fn with_the_objective_and_turn_in_markers_off_a_quest_log_change_builds_no_marker_and_groups_no_spot() {
+	let db = spots_db();
+	let out = run_saved(
+		&db,
+		r#"
+local calls, of = 0, Polestar.Regions.Of
+Polestar.Regions.Of = function(...) calls = calls + 1; return of(...) end
+local rebuilds = Q.stats.rebuilds
+w.accept(9600, { { text = "Murloc Forager slain: 0/5", type = "monster", required = 5 } })
+stub.advance(0.3)
+Polestar.Fire("STEP_CHANGED", 1); stub.advance(0.3)
+emit({ Q.stats.rebuilds - rebuilds, calls, sq.pins.layers["quests.objectives"] == nil, Q.ObjectivesForNpc(9600) ~= nil })
+Polestar.Set("qol.mapObjectives", true); stub.advance(0.3)
+emit({ Q.stats.rebuilds - rebuilds, calls, #layer("quests.objectives") > 0 })
+"#,
+		"",
+		"PolestarDB = { schema = 1, settings = { qol = { mapObjectives = false, minimapObjectives = false, turnInMarkers = false, questTooltips = true } } }",
+	);
+	assert_eq!(out[0], json!([0, 0, true, true]), "no markers or regions; the tooltip index still knows the forager");
+	assert_eq!(out[1], json!([1, 1, true]), "turned on: built and grouped once");
 }
 
 #[test]
