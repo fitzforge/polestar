@@ -36,16 +36,12 @@ step Sargeron
   collect 6246 quest 1458.1           -- Hatefury Claw
   collect 6247 quest 1458.2           -- Hatefury Horn
 
-step Kreldig Ungor
-  turnin 1458
-  accept 1459
-
-# ---------------------------------------------------------------- Desolace: the west
-
 step Nijel's Point
   zone Desolace
+  turnin 1458                         -- Kreldig Ungor
+  accept 1459
   accept 1454                         -- Kreldig Ungor
-  turnin 1465
+  turnin 1465                         -- Vahlarriel Demonslayer
   accept 1438
 
 # ---------------------------------------------------------------- Thunder Axe Fortress
@@ -71,6 +67,12 @@ step Escort Dalinda
   note Lead Dalinda out of the fortress; she walks off once you are clear of it. Vahlarriel takes the turn-in at Nijel's Point at the end of the guide.
   complete 1440
 
+# ---------------------------------------------------------------- Kormek's Hut and the Kodo Graveyard
+
+step Scorpashi venom
+  tip The Scorpashi scorpids hunt the hills around Kormek's Hut on the road south to Smeed's camp.
+  collect 6248 quest 1459.1           -- Scorpashi Venom
+
 step Smeed Scrabblescrew
   tip Smeed's camp is on the road south of Kolkar Village, by the Kodo Graveyard.
   accept 5561
@@ -83,15 +85,6 @@ step Kodo Graveyard
 
 step Smeed Scrabblescrew
   turnin 5561
-
-# ---------------------------------------------------------------- Kormek's Hut and the caravan
-
-step Scorpashi venom
-  tip The Scorpashi scorpids hunt the hills around Kormek's Hut on the road south.
-  collect 6248 quest 1459.1           -- Scorpashi Venom
-
-step Aged Kodo Hide
-  collect 6249 quest 1459.2           -- Aged Kodo Hide
 
 # ---------------------------------------------------------------- The Kolkar
 
