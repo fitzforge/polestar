@@ -4832,3 +4832,12 @@ test("forever/alliance/50-60/06-silithus.guide: flow re-order: Noggle's Lost Sat
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	assert.equal(stepOf('accept 8282', is('accept', 8282)), stepOf('turnin 8278', is('turnin', 8278)), 'on the same stop');
 });
+
+// Teldrassil: Zenn's Bidding is handed in on the walk east from Dolanaar, before Starbreeze and the lake; the step's tip
+// sent players to Zenn "north from the lake", which comes after.
+test(`${TELDRASSIL}: Zenn's hand-in step does not send players there from Lake Al'Ameth, which comes after it`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const zenn = at(list, 'turnin 488', is('turnin', 488));
+	assert.ok(zenn < at(list, 'turnin 997', is('turnin', 997)), 'Zenn before Denalan at the lake');
+	assert.ok(!/from the lake/i.test(String(list[zenn].step.note || '')), 'the tip matches the walk');
+});
