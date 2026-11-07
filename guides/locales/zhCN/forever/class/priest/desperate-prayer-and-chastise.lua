@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
-	["{quest:5634} and {quest:5641}"] = "",
+	["{quest:5634} and {quest:5641}"] = "{quest:5634}与{quest:5641}",
 	-- {quest:5634} Desperate Prayer · {quest:5641} Chastise
-	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Dwarf priest spells: {quest:5634} at 10, {quest:5641} (new in Forever) at 20. Free, no objectives."] = "矮人牧师的法术：10级的{quest:5634}，20级的{quest:5641}（Forever 新增）。免费，无目标。",
 
 	-- Step 1: Desperate Prayer: Maxan Anvol
 	-- {npc:1226} Maxan Anvol · {area:2102} Thunderbrew Distillery · {area:131} Kharanos · {quest:5634} Desperate Prayer · {npc:11406} High Priest Rohan · {zone:1455} Ironforge

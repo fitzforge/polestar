@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Succubus and Incubus (Horde)"] = "",
-	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
+	["Succubus and Incubus (Horde)"] = "Суккуб и инкуб (Орда)",
+	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "На 20-м уровне: суккуб и инкуб из Forever – ее брат-близнец мужского пола, – каждый с сумкой для осколков душ.",
 
 	-- Step 1: Devourer of Souls (Orgrimmar)
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {npc:5909} Cazul · {npc:5675} Carendin Halgar · {zone:1458} Undercity · {quest:1472} Devourer of Souls · {zone:1454} Orgrimmar

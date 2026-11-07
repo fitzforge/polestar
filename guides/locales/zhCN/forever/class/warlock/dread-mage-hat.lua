@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays warlocks this extra."] = "",
+	["A cloth hat in your late 20s: Zardeth's errand for any Alliance player pays warlocks this extra."] = "28级左右可得的布甲头盔：任何联盟玩家都能接扎尔戴斯的差事，术士会额外获得这件奖励。",
 
 	-- Step 1: Zardeth of the Black Claw
 	-- {npc:1435} Zardeth of the Black Claw · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {zone:1431} Duskwood · {zone:1437} Wetlands

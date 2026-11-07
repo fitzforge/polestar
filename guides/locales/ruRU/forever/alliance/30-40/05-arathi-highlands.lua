@@ -32,8 +32,9 @@ return {
 	["East along the road to the {area:76}. {npc:256028} mobs drop the crystals; Noboru walks the ruins and drops his cudgel."] = "На восток по дороге сюда: {area:76}. Кристаллы падают с противников {npc:256028}; Нобору бродит по руинам и оставляет свою дубину.",
 
 	-- Step 8: The Lost Caravan
+	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	-- plural, as words: Lost Ones = {npc:254797} Lost One
-	["The wrecked caravan lies off the road near Biggs.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "",
+	["The wrecked caravan's chest lies at the north end of the {area:76}, beside {npc:5391}'s cage.\nCareful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly."] = "Сундук разбитого каравана стоит в северной части места {area:76}, рядом с клеткой NPC {npc:5391}.\nОсторожно: лагерь полон Заблудших около 38-го уровня. Они стоят связанными группами по 2-3, многие из них заклинатели, и возрождаются они быстро.",
 
 	-- Step 9: Galen Goodward
 	-- {npc:5391} Galen Goodward
@@ -88,28 +89,20 @@ return {
 	-- {area:287} Hillsbrad · {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["Follow the road east out of {area:287} over {area:1057} to {area:320}."] = "Идите по дороге на восток из места {area:287} через {area:1057} сюда: {area:320}.",
 
-	-- Step 27: Witherbark Medicine Pouch on the way
-	-- {item:4522} Witherbark Medicine Pouch
-	["{item:4522} on the way"] = "",
-
-	-- Step 28: Witherbark Village
-	-- {area:314} Go'Shek Farm
-	["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Тролли из племени Сухокожих живут на холмах к югу от места {area:314}; знахари стоят в деревне, темные охотники охраняют дальний конец долины.",
-
-	-- Step 29: Northfold Manor
+	-- Step 27: Northfold Manor
 	-- {area:320} Refuge Pointe · {npc:217589} Hay Weevil · {npc:217412} Amaryllis Webb
 	["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "",
 	-- {npc:217589} Hay Weevil · {quest:93176} My Little Friends
 	["{npc:217589}: catch it, for {quest:93176}"] = "{npc:217589}: поймайте для задания {quest:93176}",
 
-	-- Step 30: Faldir's Cove
+	-- Step 28: Faldir's Cove
 	["West along the coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "На запад вдоль побережья к бухте гоблинов; Дозорный Лоло следит за ней со скал.",
 
-	-- Step 31: Phizzlethorpe
+	-- Step 29: Phizzlethorpe
 	["Phizzlethorpe"] = "Физзлторп",
 	["Escort the professor to the beach north of the cove and guard him while he works; naga attack in waves.\nCareful: The ambush is two level 40 water elementals, and they are immune to frost. If the fight happens inside the cave, the professor joins in instead of working and further elementals keep appearing; holding the elementals at the cave entrance, away from him, lets him finish with only the first two to deal with."] = "",
 
-	-- Step 33: The Drowned Reef: kill these as you meet them
+	-- Step 31: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "",
 	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Два затонувших корабля лежат в заливе к западу от бухты. Карты и журналы внутри них; самоцветы лежат на морском дне вокруг. Наги из клана Пронзающего Гребня плавают по всему заливу.",
@@ -128,84 +121,82 @@ return {
 	-- {object:2708} Spirit of Silverpine Charts
 	["{object:2708}; underwater"] = "",
 
-	-- Step 34: Faldir's Cove
+	-- Step 32: Faldir's Cove
 	-- {npc:2487} Fleet Master Seahorn · {area:35} Booty Bay
 	["For {npc:2487} in {area:35}: keep it"] = "Для NPC {npc:2487} ({area:35}): сохраните",
 
-	-- Step 35: Ebenezer Rustlocke
+	-- Step 33: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "",
 	["Walk back onto the span: Ebenezer lies under its Arathi end."] = "",
 	-- {object:2652} Ebenezer Rustlocke's Corpse
 	["{object:2652}, inside"] = "",
 
-	-- Step 36: Shadow Hunter Knife
+	-- Step 34: Witherbark Village
+	-- {area:314} Go'Shek Farm
+	["East to the Witherbark trolls in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley. Every troll here can drop a tusk."] = "На восток к троллям из племени Сухокожих на холмах к югу от места {area:314}; знахари стоят в деревне, темные охотники охраняют дальний конец долины. Клык может выпасть с любого тролля здесь.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "",
 
-	-- Step 37: Shards of Myzrael
+	-- Step 35: Shards of Myzrael
 	-- {area:314} Go'Shek Farm · {area:333} Circle of East Binding
 	["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Идите на север мимо места {area:314}; осколки сверкают на холме у места {area:333}.",
 	["Only if Gluggle gave you the pendant in Stranglethorn"] = "Только если Барабуль дал вам подвеску в Тернистой долине",
 
-	-- Step 38: Mote of Myzrael on the way
-	-- {item:4435} Mote of Myzrael
-	["{item:4435} on the way"] = "",
-	-- {item:4435} Mote of Myzrael · {object:2701} Iridescent Shards
-	["{item:4435} along the way to {object:2701}"] = "",
-
-	-- Step 39: Drywhisker Gorge: kill these as you meet them
+	-- Step 36: Drywhisker Gorge: kill these as you meet them
 	-- {area:318} Drywhisker Gorge
 	["{area:318}: kill these as you meet them"] = "",
 	-- {area:321} Hammerfall
 	["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore.\nCareful: Every kobold type runs off for help when low on health (Kobolds at 30%, Surveyors and Diggers at 15%), which can pull more of them."] = "",
+	-- {item:4435} Mote of Myzrael · {npc:2572} Drywhisker Kobold · {npc:2573} Drywhisker Surveyor · {npc:2574} Drywhisker Digger
+	["{item:4435} from {npc:2572}, {npc:2573} and {npc:2574}, by this stop"] = "{item:4435}: с противников {npc:2572}, {npc:2573} и {npc:2574}, рядом с этой точкой",
 
-	-- Step 40: Iridescent Shards
+	-- Step 37: Iridescent Shards
 	-- {area:318} Drywhisker Gorge
 	["The shards lie at the far end of {area:318}."] = "Радужные осколки лежат в дальнем конце места {area:318}.",
 	["Below ground"] = "",
 
-	-- Step 41: Stones of Binding
+	-- Step 38: Stones of Binding
 	-- {area:320} Refuge Pointe · {object:2702} Stone of Inner Binding
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
 	["Each key lies at one of the Highlands' standing-stone circles: east of the shards, near {area:320} and in the west. The {object:2702} stands west of {area:320}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "",
 
-	-- Step 42: Quae
+	-- Step 39: Quae
 	-- {area:320} Refuge Pointe · {npc:2712} Quae · {npc:2713} Kinelory · {area:314} Go'Shek Farm
 	["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "",
 
-	-- Step 43: Forsaken Courier
+	-- Step 40: Forsaken Courier
 	-- {area:314} Go'Shek Farm
 	["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "Курьер идет по дороге к западу от места {area:314} с двумя стражами; выманите их с дороги.",
 
-	-- Step 45: Quae and Kinelory
+	-- Step 42: Quae and Kinelory
 	-- {npc:2712} Quae · {npc:2713} Kinelory
 	["{npc:2712} and {npc:2713}"] = "{npc:2712} и {npc:2713}",
 
-	-- Step 46: Kinelory's errand
+	-- Step 43: Kinelory's errand
 	-- {npc:2713} Kinelory
 	["{npc:2713}'s errand"] = "Поручение: {npc:2713}",
 	-- {npc:2713} Kinelory · {area:314} Go'Shek Farm
 	["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way.\nCareful: Orcs that drop to low health run away. {npc:2713} follows them and can pull more mobs, so kill or slow runners fast."] = "",
 
-	-- Step 47: Quae
+	-- Step 44: Quae
 	-- {npc:2711} Phin Odelic · {area:271} Southshore
 	["For {npc:2711} in {area:271}"] = "Для NPC {npc:2711} ({area:271})",
 
-	-- Step 50: Kor'gresh Coldrage
+	-- Step 47: Kor'gresh Coldrage
 	-- {npc:2793} Kor'gresh Coldrage
 	["{npc:2793}, an ogre mage, holds the cave at the southern end of the Witherbark valley."] = "{npc:2793}, огр-маг, удерживает пещеру в южном конце долины Сухокожих.",
 	-- {item:4525} Trelane's Wand of Invocation
 	["{item:4525}; below ground"] = "",
 
-	-- Step 52: Fly to Southshore
+	-- Step 49: Fly to Southshore
 	-- {area:320} Refuge Pointe
 	["{area:320} flight master"] = "",
 
-	-- Step 54: Gavin's Naze
+	-- Step 51: Gavin's Naze
 	-- {area:271} Southshore · {area:280} Strahnbrad · {npc:2306} Baron Vardus
 	["Follow the road north out of {area:271} into the mountains. Mountain lions roam the slopes; the Syndicate in {area:280} wear the signet rings, and {npc:2306} walks the manor grounds on the north side of town."] = "",
 
-	-- Step 55: Ruins of Alterac: kill these as you meet them
+	-- Step 52: Ruins of Alterac: kill these as you meet them
 	-- {area:281} Ruins of Alterac
 	["{area:281}: kill these as you meet them"] = "",
 	-- {area:280} Strahnbrad
@@ -216,41 +207,41 @@ return {
 	-- {item:3659} Worn Leather Book · {object:1760} Weathered Bookcase
 	["{item:3659}: the {object:1760}; inside"] = "",
 
-	-- Step 56: Ruins of Alterac: kill these as you meet them
+	-- Step 53: Ruins of Alterac: kill these as you meet them
 	-- {npc:2417} Grel'borg the Miser
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 57: Strahnbrad: kill these as you meet them
+	-- Step 54: Strahnbrad: kill these as you meet them
 	-- {area:280} Strahnbrad
 	["{area:280}: kill these as you meet them"] = "",
 	-- {npc:2320} Nagaz
 	["Careful: Syndicate Spies and Assassins can be stealthed. Assassins also poison you.\nCareful: About three stealthed Syndicate mobs are inside {npc:2320}'s house. {npc:2320} does not join when they are pulled, and a ranged attack through the doorway brings him out by himself."] = "",
 
-	-- Step 58: Crushridge ogres
+	-- Step 55: Crushridge ogres
 	["Crushridge ogres"] = "Огры из клана Раздробленного Хребта",
 	-- {area:280} Strahnbrad · {item:3706} Ensorcelled Parchment · {npc:2320} Nagaz · {quest:537} Dark Council
 	["The Crushridge ogres hold the hills north of {area:280}. Farther north, a worn wooden chest holds the {item:3706}; {npc:2320} of the {quest:537} stands right by it."] = "Огры из клана Раздробленного Хребта удерживают холмы к северу от места {area:280}. Дальше на север в потертом деревянном сундуке лежит {item:3706}; {npc:2320} ({quest:537}) стоит прямо рядом.",
 	["Inside"] = "",
 
-	-- Step 60: Dalaran
+	-- Step 57: Dalaran
 	-- {area:279} Dalaran · {area:130} Silverpine Forest · {npc:269127} Image of Archmage Modera
 	["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "",
 	-- {npc:2542} Catelyn the Blade · {area:35} Booty Bay
 	["For {npc:2542} in {area:35}: keep it"] = "Для NPC {npc:2542} ({area:35}): сохраните",
 
-	-- Step 62: Southshore
+	-- Step 59: Southshore
 	-- {item:2321} Fine Thread · {npc:2438} Bartolo Ginsetti · {npc:2381} Micha Yance
 	["{item:2321} for {npc:2438}'s cloak, from {npc:2381}, if you have none"] = "{item:2321} для плаща {npc:2438}, у NPC {npc:2381}, если у вас ее нет",
 	-- {npc:1440} Milton Sheaf · {zone:1453} Stormwind
 	["For {npc:1440} in {zone:1453}: keep it"] = "Для NPC {npc:1440} ({zone:1453}): сохраните",
 
-	-- Step 67: Thelsamar
+	-- Step 64: Thelsamar
 	-- {zone:1455} Ironforge · {zone:1426} Dun Morogh · {area:38} Loch Modan · {area:144} Thelsamar
 	["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "",
 
-	-- Step 68: Prospector Ironband
+	-- Step 65: Prospector Ironband
 	["South-east along the loch to the dig site."] = "На юго-восток вдоль озера к раскопкам.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -271,6 +262,7 @@ return {
 	-- ["Summon Succubus"] = "Призыв суккуба",
 	-- ["The Drywhisker kobolds dig in the gorge east of {area:321} (Horde); skirt the town to the north. They drop both the motes and Krazek's ore."] = "Кобольды из племени Сухоусов копают в ущелье к востоку от места {area:321} (Орда); обойдите город с севера. С них падают и частицы, и руда для Кразека.",
 	-- ["The Syndicate hold the farm north-west of {area:320}. A {npc:217589} crawls about the farm: catch one with {npc:217412}'s Entomology Starter Kit, then tick it off."] = "Синдикат удерживает ферму к северо-западу от места {area:320}. По ферме ползает {npc:217589}: поймайте одного с помощью набора энтомолога от NPC {npc:217412}, затем отметьте его.",
+	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "Тролли из племени Сухокожих живут на холмах к югу от места {area:314}; знахари стоят в деревне, темные охотники охраняют дальний конец долины.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Фолианты лежат в разрушенной крепости к западу от места {area:280}; руины удерживают темные маги Недремлющего Аргуса.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "Разбитый караван лежит в стороне от дороги рядом с Биггсом.",
 	-- ["The wrecks"] = "Обломки кораблей",

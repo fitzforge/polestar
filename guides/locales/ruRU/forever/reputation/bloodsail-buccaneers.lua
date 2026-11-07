@@ -7,9 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Bloodsail Buccaneers Reputation"] = "",
+	["Bloodsail Buccaneers Reputation"] = "Репутация: Пираты Кровавого Паруса",
 	-- {item:10030} Admiral's Hat · {area:35} Booty Bay
-	["The pirate outfit and the {item:10030}, bought with a war against {area:35} and every goblin town."] = "",
+	["The pirate outfit and the {item:10030}, bought with a war against {area:35} and every goblin town."] = "Пиратский наряд и {item:10030} — цена войны с {area:35} и всеми гоблинскими городами.",
 
 	-- Step 1: Before you start
 	["Before you start"] = "",

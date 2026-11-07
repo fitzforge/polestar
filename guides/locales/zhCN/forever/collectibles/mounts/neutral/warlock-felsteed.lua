@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	["Warlock Felsteed"] = "术士地狱战马",
-	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "",
+	["Your own mount at 40, summoned anywhere: no 100g riding training needed."] = "40级时获得你自己的坐骑，随处召唤：无需花100金学习骑术。",
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet

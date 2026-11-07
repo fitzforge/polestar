@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Arathi Basin Reputation"] = "Репутация: Низина Арати",
-	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "",
-	["Master of Arathi Basin: a Legacy Point at Exalted"] = "",
+	["Every 200 resources your team gathers pays it; Exalted gives a Legacy Point, epic shoulders and the tabard."] = "Репутацию дает каждые 200 ресурсов, собранных командой; «Превознесение» дает очко наследия, эпические наплечники и гербовую накидку.",
+	["Master of Arathi Basin: a Legacy Point at Exalted"] = "Мастер Низины Арати: очко наследия при «Превознесении»",
 
 	-- Step 1: Refuge Pointe
 	-- {zone:1461} Arathi Basin

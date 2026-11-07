@@ -112,67 +112,67 @@ return {
 	["The inner circle lies south of the western circle, east of Stromgarde."] = "Внутренний круг – к югу от западного, к востоку от Стромгарда.",
 	["The stone's next task needs Fozruk, a level 42 elite: leave it."] = "Следующее задание камня требует убить Фозрука (элита 42-го уровня): не берите его.",
 
-	-- Step 26: Hearth to Hammerfall
-	-- {area:321} Hammerfall
-	["Hearth to {area:321}"] = "",
-
-	-- Step 27: Back to Hammerfall
+	-- Step 26: Back to Hammerfall
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "Назад: {area:321}",
 
-	-- Step 28: Boulderfist Hall
+	-- Step 27: Boulderfist Hall
 	-- {area:321} Hammerfall
 	-- plural, as words: Boulderfist Brutes = {npc:2566} Boulderfist Brute
 	["The Boulderfist Brutes camp outside the ogres' hall south of {area:321}; the Magus stand among them. Pull them one at a time."] = "Громилы из клана Тяжелого Кулака стоят лагерем у чертога огров к югу от места {area:321}; среди них – волхвы. Выманивайте по одному.",
 
-	-- Step 29: Drum Fel
+	-- Step 28: Drum Fel
 	-- {npc:2771} Drum Fel · {quest:678} Call to Arms
 	["{npc:2771}'s next {quest:678} is against Boulderfist elites: leave it."] = "Следующее задание ({quest:678}, {npc:2771}) – против элитных огров Тяжелого Кулака: не берите его.",
 
-	-- Step 30: Into the Badlands
+	-- Step 29: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "В край {zone:1418}",
 	-- {area:880} Thandol Span · {zone:1437} Wetlands · {area:150} Menethil Harbor · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:1877} Valley of Fangs
 	["Head south-west out of Arathi over {area:880}, south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "",
 
-	-- Step 31: Valley of Fangs
+	-- Step 30: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
 	["{quest:1106}: Fizzle's letter from the {area:439}"] = "{quest:1106}: письмо Пшикса Медноштифа ({area:439})",
 
+	-- Step 31: The Dustbowl
+	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
+	["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "Идите на запад по дороге к месту {area:340}; лагерь {npc:2921} – здесь: {area:1878}, на полпути.",
+
 	-- Step 32: Kargath
-	-- {area:340} Kargath
-	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge."] = "{area:340} – крепость Орды в скалах у западного края зоны.",
+	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
+	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "{area:340} – крепость Орды в скалах у западного края зоны. {npc:5394} стоит на верхнем ярусе ({area:340}), высоко над распорядителем полетов: поднимайтесь по пандусам, стрелка не различает ярусы.",
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "для Хелгрума ({area:75}), примерно на 42-м уровне",
 	-- {npc:6868} Jarkal Mossmeld
 	["{npc:6868}, inside"] = "",
 
-	-- Step 33: The Dustbowl
-	-- {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl · {area:340} Kargath
-	["Head west along the road; {npc:2921}'s camp sits in the {area:1878} halfway to {area:340}."] = "",
-
-	-- Step 34: Lesser Rock Elementals
+	-- Step 33: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "Младшие каменные элементали",
-	-- {npc:2921} Lotwil Veriatus · {npc:6868} Jarkal Mossmeld
+	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The small elementals drift across the flats just west of {npc:2921}'s camp. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards: keep them."] = "Маленькие элементали бродят по равнине чуть к западу от лагеря {npc:2921}. С любого каменного элементаля в зоне могут падать осколки каменного элементаля для {npc:6868}: сохраните их.",
+	["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "Маленькие элементали бродят по равнине между местом {area:340} и лагерем {npc:2921}, по дороге обратно на восток. С любого каменного элементаля в зоне могут падать осколки каменного элементаля для {npc:6868}.",
 
-	-- Step 36: Badlands: kill these as you meet them
+	-- Step 35: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl
-	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; only the buzzards drop wings and gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "",
+	-- {area:1878} The Dustbowl · {npc:6868} Jarkal Mossmeld
+	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "Старые скальные койоты и гигантские канюки бродят по низине к югу от места {area:1878}. С койотов падают и челюсти, и клыки; желудки – с гигантских канюков.\nКаменные элементали покрупнее стоят на склонах к северо-западу от места {area:1878}; с каждого падает плита. С любого каменного элементаля могут падать осколки каменного элементаля для {npc:6868}.",
 
-	-- Step 38: Agmond's End
+	-- Step 37: Agmond's End
 	-- {area:345} Agmond's End · {area:1877} Valley of Fangs
 	["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Тельдарин сидит среди руин дворфов ({area:345}), к югу от места {area:1877}.",
 
-	-- Step 39: Stonevault troggs
+	-- Step 38: Stonevault troggs
 	["Stonevault troggs"] = "",
-	-- {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes."] = "",
+	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Трогги племени Каменного Свода копают у входов в пещеры к югу от места {area:1877}, по пути к месту {area:345}; хлопья падают с костегрызов и шаманов. Канюки, нужные для крыльев ({npc:2817}), кружат над холмами между местами {area:1877} и {area:345}.",
+
+	-- Step 39: Valley of Fangs
+	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
+	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "Дорога на север к месту {area:1517} проходит здесь: {area:1877}. По пути {npc:2817} и {npc:4618} принимают крылья и хлопья.",
 
 	-- Step 40: Ancient Chest
 	-- {area:1517} Uldaman
@@ -182,48 +182,48 @@ return {
 	-- {area:1877} Valley of Fangs
 	["Head back south down the road, past the {area:1877}."] = "",
 
-	-- Step 44: The Dustbowl: kill these as you meet them
+	-- Step 42: The Dustbowl: kill these as you meet them
 	-- {area:1878} The Dustbowl
 	["{area:1878}: kill these as you meet them"] = "",
 	-- {zone:1418} Badlands · {npc:6868} Jarkal Mossmeld · {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Greater Rock Elementals = {npc:2736} Greater Rock Elemental
 	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "",
 
-	-- Step 45: The Dustbowl
+	-- Step 43: The Dustbowl
 	-- {npc:2920} Lucien Tosselwrench · {item:2868} Patterned Bronze Bracers · {skill:164} Blacksmithing
 	["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: только если у вас есть {item:2868} ({skill:164} или аукцион)",
 
-	-- Step 46: Kargath
-	-- {area:340} Kargath
-	["Head north back to {area:340}."] = "",
+	-- Step 44: Kargath
+	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
+	["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "Возвращайтесь на север сюда: {area:340}. {npc:5394} стоит на верхнем ярусе ({area:340}), высоко над распорядителем полетов: поднимайтесь по пандусам, стрелка не различает ярусы.",
 
-	-- Step 47: Fly to Grom'gol
+	-- Step 45: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "Летите сюда: {object:3202}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "",
 
-	-- Step 48: Zeppelin to Orgrimmar
+	-- Step 46: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
-	-- Step 50: Orgrimmar
+	-- Step 48: Orgrimmar
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "",
 
-	-- Step 52: Orgrimmar flight master
+	-- Step 50: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 53: Thunder Bluff
+	-- Step 51: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {zone:1454} Orgrimmar · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {area:380} Crossroads
 	["Your trainer is in {area:1638}, one flight from {zone:1454}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly on to the {area:380} from there."] = "Ваш учитель – в городе {area:1638}, в одном перелете от города {zone:1454}: {npc:3033} (друиды), ориентир: {area:1639}; {npc:246344} (паладины). Оттуда летите дальше сюда: {area:380}.",
 
-	-- Step 54: Fly to Crossroads
+	-- Step 52: Fly to Crossroads
 	-- {area:380} Crossroads
 	["Fly to {area:380}"] = "",
 
-	-- Step 57: Regthar Deathgate
+	-- Step 55: Regthar Deathgate
 	-- {area:380} Crossroads · {area:386} Forgotten Pools · {npc:3389} Regthar Deathgate
 	["Head north up the road from the {area:380} to the {area:386}; {npc:3389} keeps watch on the rise above the water."] = "",
 
@@ -259,6 +259,7 @@ return {
 	-- ["The Witherbark trolls hold the village in the south-eastern hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village."] = "Тролли племени Сухокожих занимают деревню на юго-восточных холмах. Метатели топоров охраняют крайние хижины; знахари и охотники за головами – в центре деревни.",
 	-- ["The bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "Каменные элементали покрупнее стоят на склонах к северо-западу от {area:1878}; с каждого падает плита.",
 	-- ["The next guide heads into {zone:1445}."] = "Следующее руководство ведет в край {zone:1445}.",
+	-- ["The small elementals drift across the flats just west of {npc:2921}'s camp. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards: keep them."] = "Маленькие элементали бродят по равнине чуть к западу от лагеря {npc:2921}. С любого каменного элементаля в зоне могут падать осколки каменного элементаля для {npc:6868}: сохраните их.",
 	-- ["The western circle is near {area:1857}, where you rode in."] = "Западный круг – у места {area:1857}, где вы въехали.",
 	-- ["The zeppelin lands at the towers outside the {zone:1458}: ride down into the city and fly to {area:272}."] = "Дирижабль причаливает к башням у города ({zone:1458}): спуститесь в город и летите сюда: {area:272}.",
 	-- ["The {area:380}"] = "{area:380}",
@@ -266,5 +267,6 @@ return {
 	-- ["Zeppelin to the {zone:1458}"] = "Дирижабль: {zone:1458}",
 	-- ["Zeppelin tower"] = "Башня дирижаблей",
 	-- ["for {npc:5395} in {zone:1443}, in the next guide"] = "для персонажа {npc:5395} ({zone:1443}), в следующем руководстве",
+	-- ["{area:340} is the Horde fortress built into the cliffs at the zone's western edge."] = "{area:340} – крепость Орды в скалах у западного края зоны.",
 	-- ["{item:3713}, for \"Swamp Eye\" Jarl in {zone:1445}"] = "{item:3713}, для Ярла «Болотного Глаза» ({zone:1445})",
 }

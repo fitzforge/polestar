@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A robe or a tunic for Horde mages in their late 20s."] = "",
+	["A robe or a tunic for Horde mages in their late 20s."] = "一件给20多级后期部落法师的长袍或外衣。",
 
 	-- Step 1: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {object:36082} Magic Quarter · {spell:3563} Teleport: Undercity · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades

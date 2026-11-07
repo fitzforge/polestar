@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Teleports and Portals (Horde)"] = "",
-	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "",
+	["Teleports and Portals (Horde)"] = "Телепорты и порталы (Орда)",
+	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "Телепорты в ваши города — на 20-м и 30-м уровнях, групповые порталы — на 40-м и 50-м. Их обучает учитель порталов в каждом городе.",
 
 	-- Step 1: Teleport: Orgrimmar
 	-- {object:173161} Darkbriar Lodge (no name in this language: may be words) · {zone:1454} Orgrimmar · {object:172961} Valley of Spirits · {npc:5958} Thuul · {spell:3567} Teleport: Orgrimmar · {item:17031} Rune of Teleportation
@@ -21,8 +21,8 @@ return {
 	["Take the zeppelin from the tower outside {zone:1454}'s gate to {zone:1420} and walk into the {zone:1458}. {npc:2492}, the portal trainer, stands in the {object:36082} with the mage trainers: {spell:3563}, 20 silver. {npc:4575} beside him sells the runes."] = "",
 
 	-- Step 3: Teleport: Thunder Bluff
-	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1454} Orgrimmar · {area:380} Crossroads · {npc:5957} Birgitte Cranston · {area:1640} Spirit Rise · {spell:3566} Teleport: Thunder Bluff
-	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the {area:380}. {npc:5957}, the portal trainer, stands with the mage trainers on {area:1640} and teaches {spell:3566} for 80 silver."] = "",
+	-- {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1454} Orgrimmar · {area:380} Crossroads · {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {spell:3566} Teleport: Thunder Bluff
+	["At 30. {zone:1456} is in {zone:1412}: fly there from {zone:1454} or the {area:380}. {npc:5957}, the portal trainer, stands with the mage trainers in the {area:2197}, the cave under {area:1640}: go down inside, the arrow cannot tell the floors apart. She teaches {spell:3566} for 80 silver."] = "На 30-м уровне. {zone:1456} находится в зоне {zone:1412}: летите туда из {zone:1454} или с {area:380}. Учитель порталов {npc:5957} стоит рядом с учителями магов в локации {area:2197} — пещере под {area:1640}. Спуститесь внутрь: стрелка не различает этажи. Она обучает заклинанию {spell:3566} за 80 серебра.",
 
 	-- Step 4: Portals to Orgrimmar and the Undercity
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity
@@ -33,6 +33,6 @@ return {
 	["{item:17032}, 20s each"] = "",
 
 	-- Step 5: Portal: Thunder Bluff
-	-- {npc:5957} Birgitte Cranston · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
-	["At 50 {npc:5957} in {zone:1456} teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "",
+	-- {npc:5957} Birgitte Cranston · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {zone:1456} Thunder Bluff · {spell:11420} Portal: Thunder Bluff · {spell:3566} Teleport: Thunder Bluff
+	["At 50 {npc:5957}, down in the {area:2197} under {area:1640} in {zone:1456}, teaches the last one, {spell:11420}, for 3 gold 20 silver. Use your {spell:3566} to get there."] = "На 50-м уровне {npc:5957} (внизу, в локации {area:2197} под {area:1640}, {zone:1456}) обучает последнему заклинанию — {spell:11420} — за 3 золота 20 серебра. Доберитесь туда с помощью {spell:3566}.",
 }

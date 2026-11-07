@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {item:9514} Arcane Staff
-	["Ley or {item:9514} or Orb (Horde)"] = "",
+	["Ley or {item:9514} or Orb (Horde)"] = "魔网、{item:9514}或宝珠（部落）",
 	-- {area:368} Echo Isles
-	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "",
+	["A staff or an off-hand orb at 10: Orcs and Trolls on the {area:368}, the Undead at a Tirisfal farm."] = "10级时的法杖或副手宝珠：兽人和巨魔去{area:368}，亡灵去提瑞斯法的农场。",
 
 	-- Step 1: Un'thuwa
 	["Un'thuwa"] = "安苏瓦",
@@ -19,7 +19,7 @@ return {
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity · {quest:1884} Ju-Ju Heaps · {quest:1883} Speak with Un'thuwa · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {area:368} Echo Isles
-	["At 10 {npc:2128}, the {area:159} mage trainer in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "",
+	["At 10 {npc:2128}, the {area:159} mage trainer upstairs in the {area:2119}, sends you to {npc:4568} in the {zone:1458}. Taking it shuts out {quest:1884}; if {quest:1883} (from {zone:1454} or {zone:1456}) is in your log, abandon it first or {npc:2128} cannot give you this one. (A Troll who took this one in {area:159} follows the Balnir steps; an Undead who took {quest:1884} in Sen'jin, the {area:368} steps.)"] = "10级时，{area:159}{area:2119}楼上的法师训练师{npc:2128}会派你去{zone:1458}找{npc:4568}。接受此任务后将无法接受{quest:1884}；如果你的任务日志中有{quest:1883}（来自{zone:1454}或{zone:1456}），请先放弃，否则{npc:2128}无法给你这个任务。（在{area:159}接受此任务的巨魔按照巴尔尼尔的步骤进行；在森金村接受{quest:1884}的亡灵按照{area:368}的步骤进行。）",
 
 	-- Step 3: The Ju-Ju Heaps
 	-- {quest:1884} Ju-Ju Heaps

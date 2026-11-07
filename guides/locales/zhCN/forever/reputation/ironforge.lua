@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Ironforge Reputation"] = "铁炉堡声望",
 	-- {zone:1428} Burning Steppes · {zone:1426} Dun Morogh · {area:133} Gnomeregan · {zone:1459} Alterac Valley
-	["Cloth, the {zone:1428} quests and the {zone:1426} hubs, which pay {area:133} too; {zone:1459} adds more."] = "",
+	["Cloth, the {zone:1428} quests and the {zone:1426} hubs, which pay {area:133} too; {zone:1459} adds more."] = "布料、{zone:1428}的任务和{zone:1426}的任务点（同时提升{area:133}声望）；{zone:1459}还能提供更多。",
 	-- {faction:47} Ironforge
-	["Exalted with {faction:47}: in Classic, other races may buy the rams"] = "",
+	["Exalted with {faction:47}: in Classic, other races may buy the rams"] = "{faction:47}达到崇拜：在经典版中，其他种族可购买山羊",
 	-- {faction:47} Ironforge · {zone:1428} Burning Steppes · {zone:1452} Winterspring · {zone:1459} Alterac Valley
-	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "",
+	["About 600 {faction:47} reputation from level 52-59 quests in the {zone:1428} and {zone:1452}; {zone:1459}'s quests pay {faction:47} too"] = "{zone:1428}和{zone:1452}的52-59级任务约提供600点{faction:47}声望；{zone:1459}的任务也会提升{faction:47}声望",
 	-- {faction:47} Ironforge · {zone:1426} Dun Morogh · {area:133} Gnomeregan
-	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too (in Classic, a fifth of it at 60)"] = "",
+	["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too (in Classic, a fifth of it at 60)"] = "{zone:1426}的低等级任务约提供2,900点{faction:47}声望，大部分同时提升{area:133}声望（在经典版中，60级时只有五分之一）",
 
 	-- Step 1: Mistina Steelshield, the cloth quartermaster
 	-- {npc:14723} Mistina Steelshield

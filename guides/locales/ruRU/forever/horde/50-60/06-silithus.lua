@@ -21,7 +21,8 @@ return {
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Езжайте на юго-запад к руинам ({area:2738}). {object:179565} для персонажа {npc:11801} – в одном из разрушенных домов.",
 
 	-- Step 5: Cenarion Hold
-	["Ride west to the walled hold in the middle of the desert."] = "Езжайте на запад к обнесенной стеной крепости в центре пустыни.",
+	-- {npc:15189} Beetix Ficklespragg
+	["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Езжайте на запад к обнесенной стеной крепости в центре пустыни. {npc:15189} стоит наверху в своем здании: поднимитесь внутри, Стрелка не различает этажи.",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}, on the west side of the Hold"] = "{npc:15306}, в западной части крепости",
 
@@ -35,13 +36,18 @@ return {
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler
 	["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "",
 
-	-- Step 9: On the way
-	["On the way"] = "",
+	-- Step 8: Cenarion Hold
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} стоит наверху в своем здании: поднимитесь внутри, Стрелка не различает этажи.",
 
-	-- Step 10: Hive in the Tower
+	-- Step 9: Hive in the Tower
 	-- {item:17346} Encrusted Silithid Object
 	-- plural, as words: Hive'Ashi Ambushers = {npc:13301} Hive'Ashi Ambusher
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "Вернитесь в Южный Ветер и поднимитесь на башню. Если потревожить улей наверху, вылезут душители из улья Аши; у одного из них – {item:17346}.",
+
+	-- Step 10: Stonelash Flayer Stinger on the way
+	-- {item:20375} Stonelash Flayer Stinger
+	["{item:20375} on the way"] = "{item:20375} по пути",
 
 	-- Step 11: The Spirits of Southwind
 	["Inside"] = "",
@@ -50,6 +56,8 @@ return {
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Езжайте на юго-восток сюда: {area:3447}, под скалами Ун'Горо.",
 	["Below ground"] = "",
+	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
+	["{item:20377} from {npc:11739}, 130 yd south-west"] = "{item:20377} – с NPC {npc:11739}, в 130 м к юго-западу",
 
 	-- Step 13: Dredge Crushers and Pincers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -87,6 +95,10 @@ return {
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text
 	["{npc:11804} stands in the outpost west of {area:3425}. Top your Encrypted Twilight Texts up to twenty on the cultists here."] = "{npc:11804} стоит на заставе к западу от места {area:3425}. Доберите зашифрованные сумеречные тексты ({item:20404}) до двадцати с культистов здесь.",
 
+	-- Step 21: Cenarion Hold
+	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} и {npc:15190} стоят наверху в своем здании: поднимитесь внутри, Стрелка не различает этажи.",
+
 	-- Step 22: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride north-east to {area:3447}."] = "Езжайте на северо-восток сюда: {area:3447}.",
@@ -100,6 +112,8 @@ return {
 	-- Step 26: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "Назад: {area:3425}",
+	-- {npc:15190} Noggle Ficklespragg
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} стоит наверху в своем здании: поднимитесь внутри, Стрелка не различает этажи.",
 	-- {quest:8304} Dearest Natalia · {area:2744} Hive'Regal
 	["Mar'alith's {quest:8304} needs level 58 and leads into {area:2744} among elites. Skip it."] = "",
 
@@ -220,62 +234,63 @@ return {
 	-- Step 60: Chromie
 	["Upstairs"] = "",
 
-	-- Step 62: The Bulwark
+	-- Step 61: Counting Out Time
+	-- {npc:10667} Chromie
+	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Сундучки стоят в разрушенных домах Андорала вокруг таверны, где находится {npc:10667}. Осторожно: рядом с сундучками обычно стоят вурдалаки и скелеты, они нападают, когда вы подходите. Обжигающие вурдалаки также ранят всех поблизости и выводят из незаметности.",
+
+	-- Step 64: The Bulwark
 	-- {quest:964} Skeletal Fragments · {quest:838} Scholomance
 	["Dithers offers {quest:964} ({quest:838}). Skip it."] = "",
 
-	-- Step 64: Dalson's Tears
+	-- Step 66: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "На восток по дороге: {npc:11077} охраняет котел ({area:200}).",
 
-	-- Step 66: Northridge Lumber Camp
+	-- Step 68: Northridge Lumber Camp
 	["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "На север к лесопилке; поставьте бочку с термитами в центре лесопилки.",
 
-	-- Step 67: Redpath's Shield
+	-- Step 69: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "Щит лежит здесь: {area:201}, к югу от хижины {npc:1855}.",
 
-	-- Step 68: Tirion Fordring
+	-- Step 70: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "Езжайте на восток к хижине {npc:1855} у места {area:2619} и выслушайте его.",
 
-	-- Step 71: Scourge Champions
+	-- Step 73: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "Воители Плети",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "Воители Плети бродят здесь: {area:2270}, к северу от часовни. Проведите предметом {npc:11063} ({item:13156}) над каждым убитым: нужны черепа, которые отзываются.",
 
-	-- Step 73: Hameya's scroll
+	-- Step 75: Hameya's scroll
 	["Hameya's scroll"] = "",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "",
 
-	-- Step 74: Pamela and the Undercroft
+	-- Step 76: Pamela and the Undercroft
 	-- {area:2261} Undercroft
 	["Pamela and the {area:2261}"] = "",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
 	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 
-	-- Step 76: Tirion Fordring
+	-- Step 78: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "Езжайте на северо-запад к хижине {npc:1855}.",
 
-	-- Step 79: Level 59.14
+	-- Step 81: Level 59.14
 	["Level 59.14"] = "",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee...
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan."] = "",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "",
 
-	-- Step 80: Chromie
+	-- Step 82: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "Езжайте на юго-запад к персонажу {npc:10667} в Андорал.",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "Битва за Дарроушир ({npc:10667}) заканчивается боем с элитой. Пропустите.",
-
-	-- Step 81: Counting Out Time
-	["Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
 
 	-- Step 83: The Bulwark
 	-- {area:152} The Bulwark · {zone:1458} Undercity
@@ -311,6 +326,7 @@ return {
 	-- ["Ride east across the plaguelands to the chapel."] = "Езжайте на восток через Чумные земли к часовне.",
 	-- ["Ride east along the road to the {area:152} on the border."] = "Езжайте на восток по дороге к {area:152} на границе.",
 	-- ["Ride to {area:2262} in the south-west; {npc:10926} plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town."] = "Езжайте сюда: {area:2262}, на юго-запад; {npc:10926} играет среди домов. {npc:11886} прячется здесь: {area:2261} – склеп чуть к западу от города.",
+	-- ["Ride west to the walled hold in the middle of the desert."] = "Езжайте на запад к обнесенной стеной крепости в центре пустыни.",
 	-- ["Take the zeppelin from the tower outside {area:1637} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Садитесь на дирижабль с башни у города {area:1637} в край {zone:1420} и езжайте в город {zone:1458}. Леди Сильвана – здесь: {object:36126}.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "Светящиеся осколки табличек лежат вокруг лагеря Сумеречного Молота на дальнем северо-западе; они падают и с пылевихрей и пустынных грохотунов.",
 	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave; {npc:9117} is inside it."] = "Через перевал и на восток вдоль северных скал сюда: {area:541}. {npc:8737} стоит у пещеры; {npc:9117} – внутри.",

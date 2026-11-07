@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:2057} Scholomance · {item:20134} Skyfury Helm
-	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "",
+	["A {area:2057} fight at 60 for Horde reputation; the {item:20134} may be gone in Forever."] = "60级时在{area:2057}的一场战斗，奖励部落声望；Forever可能已移除{item:20134}。",
 	["200 Horde reputation"] = "200点部落声望",
 
 	-- Step 1: Sagorne Creststrider

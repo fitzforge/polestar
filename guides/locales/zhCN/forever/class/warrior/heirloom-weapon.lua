@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {spell:71} Defensive Stance
-	["{spell:71} and a Weapon (Horde)"] = "",
+	["{spell:71} and a Weapon (Horde)"] = "{spell:71}和一把武器（部落）",
 	-- {spell:71} Defensive Stance · {npc:5810} Uzzek · {area:159} Brill
-	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "",
+	["{spell:71} at 10 and a one-hand weapon of your choice: {npc:5810}'s road, {area:159}'s crypt, or the Skybreaker shield."] = "10级时的{spell:71}和一把自选的单手武器：{npc:5810}的路线、{area:159}的墓穴，或破天者之盾。",
 
 	-- Step 1: Seena Skybreaker in Valanaar
 	-- {npc:252377} Seena Skybreaker · {area:16638} Valanaar

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:6063} Taming the Beast
-	["{quest:6063} (Alliance)"] = "",
+	["{quest:6063} (Alliance)"] = "{quest:6063}（联盟）",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
+	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "10级获得自己的宠物：用{item:15908}完成三次驯服练习，学会{spell:1515}，然后学会{spell:5149}。",
 
 	-- Step 1: Elayaa Easewind
 	-- {npc:254084} Elayaa Easewind · {zone:2521} Zephras Isle · {area:16638} Valanaar · {quest:94007} Taming the Beast

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {item:211527} Cozy Sleeping Bag · {item:221498} Old Toolbox
-	["A trail of hidden notes across both continents: the {item:211527} at the end, a 12-slot {item:221498} on the way."] = "",
+	["A trail of hidden notes across both continents: the {item:211527} at the end, a 12-slot {item:221498} on the way."] = "Цепочка спрятанных записок на обоих континентах: в конце — {item:211527}, по пути — {item:221498} на 12 ячеек.",
 
 	-- Step 1: The note in Westfall
 	-- {zone:1436} Westfall

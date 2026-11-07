@@ -34,11 +34,12 @@ return {
 	["Underwater"] = "",
 
 	-- Step 7: Revantusk Village
-	-- {area:47} The Hinterlands
-	["Follow the roads east across the {area:47} to the troll village on the eastern coast."] = "",
+	-- {area:47} The Hinterlands · {npc:14736} Primal Torntusk · {npc:14731} Lard
+	["Follow the roads east across the {area:47} to the troll village on the eastern coast. {npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "Следуйте по дорогам на восток через {area:47} к деревне троллей на восточном побережье. {npc:14736} стоит на крыше таверны, над NPC {npc:14731}: поднимитесь наверх, Стрелка не различает высоту.",
 
-	-- Step 9: On the way
-	["On the way"] = "",
+	-- Step 9: Silvermane Stalker on the way
+	-- {npc:2926} Silvermane Stalker
+	["{npc:2926} on the way"] = "{npc:2926} по пути",
 
 	-- Step 10: The Overlook Cliffs: kill these as you meet them
 	-- {area:307} The Overlook Cliffs
@@ -64,42 +65,45 @@ return {
 	-- {npc:14731} Lard · {npc:14748} Vilebranch Kidnapper
 	["North along the coast, {npc:14731}'s picnic basket is on the small island; a {npc:14748} guards it."] = "К северу вдоль берега на маленьком острове – корзинка для пикника ({npc:14731}); ее охраняет {npc:14748}.",
 
-	-- Step 15: Shaol'watha: kill these as you meet them
+	-- Step 15: On the way
+	["On the way"] = "",
+
+	-- Step 16: Shaol'watha: kill these as you meet them
 	-- {area:1917} Shaol'watha
 	["{area:1917}: kill these as you meet them"] = "",
 	-- {area:1884} Agol'watha · {area:1917} Shaol'watha · {area:351} Skulk Rock · {item:9618} Wildkin Muisek Vessel · {npc:14738} Otho Moji'ko · {spell:7367} Infected Bite · {npc:2925} Silvermane Howler
 	-- plural, as words: Silvermane Stalkers = {npc:2926} Silvermane Stalker · Savage Owlbeasts = {npc:2929} Savage Owlbeast · Razorbeak Skylords = {npc:2659} Razorbeak Skylord · Long Elegant Feathers = {item:4589} Long Elegant Feather
 	["West of the island, the Vilebranch scalpers hold the temples of {area:1884} and {area:1917}. Slagtree's tools lie at one of the temples.\nThe Silvermane Stalkers, Savage Owlbeasts and Razorbeak Skylords share the hills between the temples and {area:351}. Use the {item:9618} on the owlbeasts you kill. The Skylords also drop Long Elegant Feathers: keep ten for {npc:14738}'s second message.\nCareful: Silvermane Stalkers are level 47-48 and stay stealthed while out of combat. Up close they use {spell:7367}. When a {npc:2925} falls to 50% health or lower, it calls for help from anything within 25 yd."] = "",
 
-	-- Step 16: Skulk Rock
+	-- Step 17: Skulk Rock
 	-- {item:8684} Hinterlands Honey Ripple · {area:351} Skulk Rock
 	["The crates of {item:8684} lie around the abandoned Horde camp at {area:351}, among the oozes."] = "Ящики ({item:8684}) лежат у заброшенного лагеря Орды ({area:351}), среди слизней.",
 
-	-- Step 17: Wildkin Muisek
+	-- Step 18: Wildkin Muisek
 	-- {area:1883} Valorwind Lake
 	["Careful: Stealthed wolves and griffons roam the {area:1883} area."] = "",
 
-	-- Step 18: The Altar of Zul: kill these as you meet them
+	-- Step 19: The Altar of Zul: kill these as you meet them
 	-- {area:355} The Altar of Zul
 	["{area:355}: kill these as you meet them"] = "",
 	-- {area:355} The Altar of Zul · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Silvermane Howlers = {npc:2925} Silvermane Howler
 	["On the way back east, the Vilebranch soothsayers hold the {area:355}, the troll temple south of the central hills. Qiaga and {npc:8636} (elite, 50) stand at its top: take the soothsayers on the lower steps.\nSouth-west, the Silvermane Howlers roam the hills east of the Witherbark villages."] = "",
 
-	-- Step 19: OOX-09/HL
+	-- Step 20: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} The Overlook Cliffs · {area:35} Booty Bay
 	["Only with the distress beacon: the robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}; its reward waits with Oglethorpe in {area:35}.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
 
-	-- Step 20: Gilveradin Sunchaser's camp
+	-- Step 21: Gilveradin Sunchaser's camp
 	-- {npc:6986} Dran Droffers · {zone:1454} Orgrimmar
 	["for {npc:6986} in {zone:1454}, around level 50"] = "для персонажа {npc:6986} ({zone:1454}), примерно на 50-м уровне",
 
-	-- Step 21: Highvale
+	-- Step 22: Highvale
 	-- {area:350} Quel'Danil Lodge
 	["Back west to {area:350}; rangers and marksmen stay near the lodge, scouts and outrunners on the slopes south of it."] = "Назад на запад сюда: {area:350}; следопыты и стрелки держатся у поселения, разведчики и гонцы – на склонах к югу.",
 
-	-- Step 22: Jintha'Alor
+	-- Step 23: Jintha'Alor
 	-- {area:354} Jintha'Alor · {npc:14757} Elder Torntusk
 	["Huntsman Malkhor's skull lies on a pile below the Vilebranch ruins, his bones on a pile at the foot of {area:354}. The Vessels of Tainted Blood sit on the lower terraces, and {npc:14757} is held at the top. Keep to the paths: the trolls inside are elite."] = "Череп охотника Малкора лежит на груде под руинами Порочной Ветви, его кости – на груде у подножия места {area:354}. Сосуды с порченой кровью стоят на нижних террасах, а {npc:14757} в плену на вершине. Держитесь троп: тролли внутри – элита.",
 	-- {npc:14757} Elder Torntusk · {area:354} Jintha'Alor
@@ -107,34 +111,32 @@ return {
 	-- {area:355} The Altar of Zul
 	["His next request, going on to the {area:355}, is for a group."] = "Его следующая просьба ({area:355}) – для группы.",
 
-	-- Step 23: Revantusk Village
+	-- Step 24: Revantusk Village
+	-- {npc:14736} Primal Torntusk · {npc:14731} Lard
+	["{npc:14736} stands up on top of the inn, above {npc:14731}: go up, the arrow cannot tell the levels apart."] = "{npc:14736} стоит на крыше таверны, над NPC {npc:14731}: поднимитесь наверх, Стрелка не различает высоту.",
 	-- {npc:14731} Lard
 	["{npc:14731}, inside"] = "",
 
-	-- Step 25: Level 49.02
+	-- Step 26: Level 49.02
 	["Level 49.02"] = "",
 	-- {quest:7816} Gammerita, Mon!
 	["If you skipped {quest:7816}, grind here to level 49.02 to stay on the route's plan."] = "",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "",
 
-	-- Step 26: The Atal'ai Exile
+	-- Step 27: The Atal'ai Exile
 	-- {area:353} Shadra'Alor
 	["South-west again, the exile hides by the ruins of {area:353}."] = "Снова к юго-западу: изгнанник прячется у руин ({area:353}).",
 
-	-- Step 28: Grim Message
+	-- Step 29: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "К югу от поселения тролли племени Сухокожих занимают свои деревни. Череп есть у каждого: собрав двадцать, используйте предмет {item:15002}, чтобы сделать пику с тролльими черепами, затем установите ее в деревне.",
 
-	-- Step 29: Aerie Peak
+	-- Step 30: Aerie Peak
 	-- {area:348} Aerie Peak
 	["Ride all the way west to the Wildhammer town of {area:348} and place the message by the well in its centre. The town is full of Alliance guards: get in, place it and get out."] = "Езжайте на запад до города дворфов Громового Молота ({area:348}) и оставьте послание у колодца в центре. В городе полно стражников Альянса: быстро зайдите, оставьте и уходите.",
 	-- {area:348} Aerie Peak
 	["{area:348} well"] = "Колодец: {area:348}",
-
-	-- Step 30: Hearth to Revantusk Village
-	-- {area:3317} Revantusk Village
-	["Hearth to {area:3317}"] = "",
 
 	-- Step 31: Revantusk Village
 	-- {area:3317} Revantusk Village

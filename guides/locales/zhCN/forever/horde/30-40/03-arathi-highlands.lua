@@ -112,67 +112,67 @@ return {
 	["The inner circle lies south of the western circle, east of Stromgarde."] = "内部法阵在西部法阵南边、激流堡东边。",
 	["The stone's next task needs Fozruk, a level 42 elite: leave it."] = "石头的下一个任务需要击败42级精英弗兹鲁克：放着别管。",
 
-	-- Step 26: Hearth to Hammerfall
-	-- {area:321} Hammerfall
-	["Hearth to {area:321}"] = "",
-
-	-- Step 27: Back to Hammerfall
+	-- Step 26: Back to Hammerfall
 	-- {area:321} Hammerfall
 	["Back to {area:321}"] = "回到{area:321}",
 
-	-- Step 28: Boulderfist Hall
+	-- Step 27: Boulderfist Hall
 	-- {area:321} Hammerfall
 	-- plural, as words: Boulderfist Brutes = {npc:2566} Boulderfist Brute
 	["The Boulderfist Brutes camp outside the ogres' hall south of {area:321}; the Magus stand among them. Pull them one at a time."] = "石拳蛮兵在{area:321}南边食人魔大厅外扎营；石拳法师站在它们中间。一次拉一个。",
 
-	-- Step 29: Drum Fel
+	-- Step 28: Drum Fel
 	-- {npc:2771} Drum Fel · {quest:678} Call to Arms
 	["{npc:2771}'s next {quest:678} is against Boulderfist elites: leave it."] = "{npc:2771}的下一个{quest:678}要对付石拳精英：放着别管。",
 
-	-- Step 30: Into the Badlands
+	-- Step 29: Into the Badlands
 	-- {zone:1418} Badlands
 	["Into the {zone:1418}"] = "进入{zone:1418}",
 	-- {area:880} Thandol Span · {zone:1437} Wetlands · {area:150} Menethil Harbor · {zone:1432} Loch Modan · {zone:1418} Badlands · {area:1877} Valley of Fangs
 	["Head south-west out of Arathi over {area:880}, south through the {zone:1437} (keep clear of {area:150}) and east into {zone:1432}; the road leaves {zone:1432} to the south into the {zone:1418}. Follow it south to the goblin camp in the {area:1877}."] = "",
 
-	-- Step 31: Valley of Fangs
+	-- Step 30: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
 	["{quest:1106}: Fizzle's letter from the {area:439}"] = "{quest:1106}：来自{area:439}的菲兹尔的信",
 
+	-- Step 31: The Dustbowl
+	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
+	["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "沿道路向西前往{area:340}；{npc:2921}的营地在半途的{area:1878}。",
+
 	-- Step 32: Kargath
-	-- {area:340} Kargath
-	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge."] = "{area:340}是建在地区西缘悬崖中的部落要塞。",
+	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
+	["{area:340} is the Horde fortress built into the cliffs at the zone's western edge. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "{area:340}是建在地区西缘悬崖中的部落要塞。{npc:5394}站在{area:340}的上层，远高于飞行管理员：沿坡道上去，箭头无法区分上下层。",
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "交给{area:75}的赫格拉姆，约42级",
 	-- {npc:6868} Jarkal Mossmeld
 	["{npc:6868}, inside"] = "",
 
-	-- Step 33: The Dustbowl
-	-- {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl · {area:340} Kargath
-	["Head west along the road; {npc:2921}'s camp sits in the {area:1878} halfway to {area:340}."] = "",
-
-	-- Step 34: Lesser Rock Elementals
+	-- Step 33: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	["Lesser Rock Elementals"] = "次级石元素",
-	-- {npc:2921} Lotwil Veriatus · {npc:6868} Jarkal Mossmeld
+	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elemental Shards = {item:7848} Rock Elemental Shard
-	["The small elementals drift across the flats just west of {npc:2921}'s camp. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards: keep them."] = "小型元素在{npc:2921}营地正西的平地上飘荡。这个地区的每个石元素都可能掉落{npc:6868}要的石元素的碎片：留着它们。",
+	["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "小型元素在{area:340}和{npc:2921}营地之间的平地上飘荡，就在向东返回的路上。这个地区的每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
 
-	-- Step 36: Badlands: kill these as you meet them
+	-- Step 35: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "",
-	-- {area:1878} The Dustbowl
-	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental
-	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; only the buzzards drop wings and gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "",
+	-- {area:1878} The Dustbowl · {npc:6868} Jarkal Mossmeld
+	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard
+	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards.\nThe bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards."] = "峭壁老山狗和巨型秃鹫在{area:1878}南边的盆地中游荡。山狗掉落颚骨和尖牙；巨型秃鹫掉落胃。\n更大的石元素站在{area:1878}西北方的山坡上；每个都掉落一块石板。每个石元素都可能掉落{npc:6868}要的石元素的碎片。",
 
-	-- Step 38: Agmond's End
+	-- Step 37: Agmond's End
 	-- {area:345} Agmond's End · {area:1877} Valley of Fangs
 	["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "塞尔杜林坐在{area:1877}南边{area:345}的矮人废墟中。",
 
-	-- Step 39: Stonevault troggs
+	-- Step 38: Stonevault troggs
 	["Stonevault troggs"] = "",
-	-- {area:1877} Valley of Fangs · {area:345} Agmond's End
-	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes."] = "",
+	-- {area:1877} Valley of Fangs · {area:345} Agmond's End · {npc:2817} Rigglefuzz
+	["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way to {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "石窟穴居人在{area:1877}南边、通往{area:345}路上的洞口周围挖掘；石窟断骨者和石窟萨满祭司掉落薄片。{npc:2817}要的翅膀来自在{area:1877}和{area:345}之间山丘上盘旋的秃鹫。",
+
+	-- Step 39: Valley of Fangs
+	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
+	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "向北通往{area:1517}的道路穿过{area:1877}：途中把翅膀和薄片交给{npc:2817}和{npc:4618}。",
 
 	-- Step 40: Ancient Chest
 	-- {area:1517} Uldaman
@@ -182,48 +182,48 @@ return {
 	-- {area:1877} Valley of Fangs
 	["Head back south down the road, past the {area:1877}."] = "",
 
-	-- Step 44: The Dustbowl: kill these as you meet them
+	-- Step 42: The Dustbowl: kill these as you meet them
 	-- {area:1878} The Dustbowl
 	["{area:1878}: kill these as you meet them"] = "",
 	-- {zone:1418} Badlands · {npc:6868} Jarkal Mossmeld · {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Greater Rock Elementals = {npc:2736} Greater Rock Elemental
 	["Every rock elemental in the {zone:1418} drops {npc:6868}'s shards: the Lesser Rock Elementals (37) on the flats west of {npc:2921}'s camp are the safe ones, about one kill in five. Only the Greater Rock Elementals (42-44, well above you) in the south-western gulches drop {npc:2921}'s bracers, also about one kill in five: pull one at a time and rest between fights, or leave them. Keep killing coyotes and buzzards you still need on the way."] = "",
 
-	-- Step 45: The Dustbowl
+	-- Step 43: The Dustbowl
 	-- {npc:2920} Lucien Tosselwrench · {item:2868} Patterned Bronze Bracers · {skill:164} Blacksmithing
 	["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}：仅当你携带{item:2868}时（{skill:164}或拍卖行）",
 
-	-- Step 46: Kargath
-	-- {area:340} Kargath
-	["Head north back to {area:340}."] = "",
+	-- Step 44: Kargath
+	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar
+	["Head north back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart."] = "向北返回{area:340}。{npc:5394}站在{area:340}的上层，远高于飞行管理员：沿坡道上去，箭头无法区分上下层。",
 
-	-- Step 47: Fly to Grom'gol
+	-- Step 45: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飞往{object:3202}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "",
 
-	-- Step 48: Zeppelin to Orgrimmar
+	-- Step 46: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "乘飞艇前往{zone:1454}",
 
-	-- Step 50: Orgrimmar
+	-- Step 48: Orgrimmar
 	-- {item:3713} Soothing Spices
 	["{item:3713}, for \"Swamp Eye\" Jarl"] = "",
 
-	-- Step 52: Orgrimmar flight master
+	-- Step 50: Orgrimmar flight master
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "",
 
-	-- Step 53: Thunder Bluff
+	-- Step 51: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {zone:1454} Orgrimmar · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {area:380} Crossroads
 	["Your trainer is in {area:1638}, one flight from {zone:1454}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly on to the {area:380} from there."] = "你的训练师在{area:1638}，从{zone:1454}飞一次即到：{area:1639}的{npc:3033}（德鲁伊），{npc:246344}（圣骑士）。然后从那里飞往{area:380}。",
 
-	-- Step 54: Fly to Crossroads
+	-- Step 52: Fly to Crossroads
 	-- {area:380} Crossroads
 	["Fly to {area:380}"] = "",
 
-	-- Step 57: Regthar Deathgate
+	-- Step 55: Regthar Deathgate
 	-- {area:380} Crossroads · {area:386} Forgotten Pools · {npc:3389} Regthar Deathgate
 	["Head north up the road from the {area:380} to the {area:386}; {npc:3389} keeps watch on the rise above the water."] = "",
 
@@ -259,6 +259,7 @@ return {
 	-- ["The Witherbark trolls hold the village in the south-eastern hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village."] = "枯木巨魔占据东南部山丘中的村庄。枯木掷斧者守卫外围的小屋；枯木巫医和枯木猎头者占据村子中心。",
 	-- ["The bigger Rock Elementals stand on the slopes north-west of the {area:1878}; each one drops a slab."] = "更大的{npc:92}站在{area:1878}西北方的山坡上；每个都掉落一块石板。",
 	-- ["The next guide heads into {zone:1445}."] = "下一份指南前往{zone:1445}。",
+	-- ["The small elementals drift across the flats just west of {npc:2921}'s camp. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards: keep them."] = "小型元素在{npc:2921}营地正西的平地上飘荡。这个地区的每个石元素都可能掉落{npc:6868}要的石元素的碎片：留着它们。",
 	-- ["The western circle is near {area:1857}, where you rode in."] = "西部法阵在你进来时经过的{area:1857}附近。",
 	-- ["The zeppelin lands at the towers outside the {zone:1458}: ride down into the city and fly to {area:272}."] = "飞艇降落在{zone:1458}外的塔楼：骑下去进城，飞往{area:272}。",
 	-- ["The {area:380}"] = "{area:380}",
@@ -266,5 +267,6 @@ return {
 	-- ["Zeppelin to the {zone:1458}"] = "乘飞艇前往{zone:1458}",
 	-- ["Zeppelin tower"] = "飞艇塔",
 	-- ["for {npc:5395} in {zone:1443}, in the next guide"] = "交给{zone:1443}的{npc:5395}，在下一份指南中",
+	-- ["{area:340} is the Horde fortress built into the cliffs at the zone's western edge."] = "{area:340}是建在地区西缘悬崖中的部落要塞。",
 	-- ["{item:3713}, for \"Swamp Eye\" Jarl in {zone:1445}"] = "{item:3713}，交给{zone:1445}的“沼泽之眼”加尔",
 }

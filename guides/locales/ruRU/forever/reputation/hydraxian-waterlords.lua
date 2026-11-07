@@ -9,7 +9,7 @@ return {
 	-- Guide
 	["Hydraxian Waterlords Reputation"] = "Репутация: Гидраксианские Повелители Вод",
 	-- {item:17333} Aqual Quintessence · {area:2717} Molten Core · {item:22754} Eternal Quintessence
-	["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "",
+	["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "{item:17333} – чтобы гасить руны ({area:2717}), многоразовая {item:22754} на уровне «Почтение» и кольцо сопротивления огню.",
 
 	-- Step 1: Duke Hydraxis
 	-- {npc:13278} Duke Hydraxis · {zone:1447} Azshara · {area:2717} Molten Core

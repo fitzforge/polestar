@@ -10,7 +10,7 @@ return {
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
 	["{spell:2652} and {quest:5644}"] = "{spell:2652} и {quest:5644}",
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
-	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "Заклинания жрецов-нежити: {spell:2652} на 10-м уровне, {quest:5644} (новое в Forever) на 20-м. Бесплатно, без задач.",
 
 	-- Step 1: Touch of Weakness: Tai'jin
 	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity

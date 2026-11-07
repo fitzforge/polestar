@@ -21,7 +21,8 @@ return {
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。",
 
 	-- Step 5: Cenarion Hold
-	["Ride west to the walled hold in the middle of the desert."] = "向西骑往沙漠中央有城墙环绕的塞纳里奥要塞。",
+	-- {npc:15189} Beetix Ficklespragg
+	["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "向西骑往沙漠中央有城墙环绕的要塞。{npc:15189}站在他那座建筑的楼上：从里面上楼，箭头分不清楼层。",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}, on the west side of the Hold"] = "{npc:15306}，在要塞西侧",
 
@@ -35,13 +36,18 @@ return {
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler
 	["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "",
 
-	-- Step 9: On the way
-	["On the way"] = "",
+	-- Step 8: Cenarion Hold
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}站在他那座建筑的楼上：从里面上楼，箭头分不清楼层。",
 
-	-- Step 10: Hive in the Tower
+	-- Step 9: Hive in the Tower
 	-- {item:17346} Encrusted Silithid Object
 	-- plural, as words: Hive'Ashi Ambushers = {npc:13301} Hive'Ashi Ambusher
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "回到南风村，爬上塔。搅动塔顶的虫巢会引出亚什伏击者；其中一个携带{item:17346}。",
+
+	-- Step 10: Stonelash Flayer Stinger on the way
+	-- {item:20375} Stonelash Flayer Stinger
+	["{item:20375} on the way"] = "顺路获取{item:20375}",
 
 	-- Step 11: The Spirits of Southwind
 	["Inside"] = "",
@@ -50,6 +56,8 @@ return {
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "向东南骑往安戈洛悬崖下的{area:3447}。",
 	["Below ground"] = "",
+	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
+	["{item:20377} from {npc:11739}, 130 yd south-west"] = "从{npc:11739}身上获取{item:20377}，在西南130码处",
 
 	-- Step 13: Dredge Crushers and Pincers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -87,6 +95,10 @@ return {
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text
 	["{npc:11804} stands in the outpost west of {area:3425}. Top your Encrypted Twilight Texts up to twenty on the cultists here."] = "{npc:11804}站在{area:3425}西边的前哨站里。在这里的信徒身上把暮光密文信补到二十份。",
 
+	-- Step 21: Cenarion Hold
+	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}和{npc:15190}站在他们那座建筑的楼上：从里面上楼，箭头分不清楼层。",
+
 	-- Step 22: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride north-east to {area:3447}."] = "向东北骑往{area:3447}。",
@@ -100,6 +112,8 @@ return {
 	-- Step 26: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "返回{area:3425}",
+	-- {npc:15190} Noggle Ficklespragg
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190}站在他那座建筑的楼上：从里面上楼，箭头分不清楼层。",
 	-- {quest:8304} Dearest Natalia · {area:2744} Hive'Regal
 	["Mar'alith's {quest:8304} needs level 58 and leads into {area:2744} among elites. Skip it."] = "",
 
@@ -220,62 +234,63 @@ return {
 	-- Step 60: Chromie
 	["Upstairs"] = "",
 
-	-- Step 62: The Bulwark
+	-- Step 61: Counting Out Time
+	-- {npc:10667} Chromie
+	["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "锁箱放在{npc:10667}所在旅店周围的安多哈尔废弃房屋里。小心：食尸鬼和骷髅通常站在箱子旁，你靠近时会发动攻击。灼热食尸鬼还会伤害附近所有人，并会打破潜行。",
+
+	-- Step 64: The Bulwark
 	-- {quest:964} Skeletal Fragments · {quest:838} Scholomance
 	["Dithers offers {quest:964} ({quest:838}). Skip it."] = "",
 
-	-- Step 64: Dalson's Tears
+	-- Step 66: Dalson's Tears
 	-- {npc:11077} Cauldron Lord Malvinious · {area:200} Dalson's Tears
 	["East along the road, {npc:11077} guards the cauldron at {area:200}."] = "沿道路向东，{npc:11077}守着{area:200}的瘟疫之锅。",
 
-	-- Step 66: Northridge Lumber Camp
+	-- Step 68: Northridge Lumber Camp
 	["North to the lumber camp; set the termite barrel down in the middle of the mill."] = "向北前往伐木场；把白蚁桶放在锯木厂中央。",
 
-	-- Step 67: Redpath's Shield
+	-- Step 69: Redpath's Shield
 	-- {area:201} Gahrron's Withering · {npc:1855} Tirion Fordring
 	["The shield lies at {area:201}, south of {npc:1855}'s hut."] = "盾牌在{npc:1855}小屋南边的{area:201}。",
 
-	-- Step 68: Tirion Fordring
+	-- Step 70: Tirion Fordring
 	-- {npc:1855} Tirion Fordring · {area:2619} Thondroril River
 	["Ride east to {npc:1855}'s hut by the {area:2619} and hear him out."] = "向东骑往{area:2619}旁{npc:1855}的小屋，听他把话说完。",
 
-	-- Step 71: Scourge Champions
+	-- Step 73: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions"] = "天灾勇士",
 	-- {area:2270} Noxious Glade · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
 	["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "天灾勇士在教堂北边的{area:2270}游荡。在你杀死的每一个身上晃一晃{npc:11063}的{item:13156}：产生共鸣的头骨就是他要的。",
 
-	-- Step 73: Hameya's scroll
+	-- Step 75: Hameya's scroll
 	["Hameya's scroll"] = "",
 	-- {area:2261} Undercroft · {area:2260} Marris Stead
 	["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "",
 
-	-- Step 74: Pamela and the Undercroft
+	-- Step 76: Pamela and the Undercroft
 	-- {area:2261} Undercroft
 	["Pamela and the {area:2261}"] = "",
 	-- {area:2262} Darrowshire · {npc:11886} Mercutio Filthgorger · {area:2261} Undercroft
 	["Ride to {area:2262} in the south-west; Pamela plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
 
-	-- Step 76: Tirion Fordring
+	-- Step 78: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
 	["Ride north-west to {npc:1855}'s hut."] = "向西北骑往{npc:1855}的小屋。",
 
-	-- Step 79: Level 59.14
+	-- Step 81: Level 59.14
 	["Level 59.14"] = "",
 	-- {quest:6135} Duskwing, Oh How I Hate Thee...
 	["If you skipped {quest:6135}, grind here to level 59.14 to stay on the route's plan."] = "",
 	-- {npc:10717} Temporal Parasite
 	["grind on {npc:10717}"] = "",
 
-	-- Step 80: Chromie
+	-- Step 82: Chromie
 	-- {npc:10667} Chromie
 	["Ride south-west to {npc:10667} in Andorhal."] = "向西南骑往安多哈尔的{npc:10667}那里。",
 	-- {npc:10667} Chromie
 	["{npc:10667}'s Battle of Darrowshire ends against elites. Skip it."] = "{npc:10667}的达隆郡之战最后要对付精英。跳过它。",
-
-	-- Step 81: Counting Out Time
-	["Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
 
 	-- Step 83: The Bulwark
 	-- {area:152} The Bulwark · {zone:1458} Undercity
@@ -311,6 +326,7 @@ return {
 	-- ["Ride east across the plaguelands to the chapel."] = "向东骑过瘟疫之地前往教堂。",
 	-- ["Ride east along the road to the {area:152} on the border."] = "沿道路向东骑往边境上的{area:152}。",
 	-- ["Ride to {area:2262} in the south-west; {npc:10926} plays among the houses. {npc:11886} lurks in the {area:2261}, the crypt just west of the town."] = "骑往西南的{area:2262}；{npc:10926}在房子间玩耍。{npc:11886}潜伏在城镇正西的墓穴{area:2261}里。",
+	-- ["Ride west to the walled hold in the middle of the desert."] = "向西骑往沙漠中央有城墙环绕的塞纳里奥要塞。",
 	-- ["Take the zeppelin from the tower outside {area:1637} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "在{area:1637}外的塔上乘飞艇前往{zone:1420}，再骑进{zone:1458}。希尔瓦娜斯·风行者在{object:36126}。",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。",
 	-- ["Through the pass and east along the northern cliffs to {area:541}. {npc:8737} stands by the cave; {npc:9117} is inside it."] = "穿过山口，沿北边的悬崖向东前往{area:541}。{npc:8737}站在洞穴旁；{npc:9117}在洞里。",

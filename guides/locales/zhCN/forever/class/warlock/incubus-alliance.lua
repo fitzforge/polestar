@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Succubus and Incubus (Alliance)"] = "",
-	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "",
+	["Succubus and Incubus (Alliance)"] = "魅魔与夜魔（联盟）",
+	["At 20: the succubus and Forever's incubus, its male twin, each with a soul pouch for your shards."] = "20级时：魅魔，以及Forever服务器特有的夜魔——魅魔的男性孪生恶魔，各附带一个装灵魂碎片的灵魂袋。",
 
 	-- Step 1: Gakin's Summons (Gnomes)
 	-- {quest:1717} Gakin's Summons

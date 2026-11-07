@@ -50,14 +50,17 @@ return {
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
-	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited."] = "",
+	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "Сатиры из племени Нефритового Пламени занимают долину к западу от дороги; {npc:9454} – в ее глубине.\nОсторожно: ночные охотники из племени Нефритового Пламени (51–52-й уровень) используют Крадущийся шаг и {spell:7992} и находятся в незаметности, поэтому часто вмешиваются в бой.\nПроклятые слизнюки ползают по ручьям долины: убивайте их и используйте на останках пустой флакон, полученный у Лариса.",
 	-- {npc:7109} Jadefire Felsworn
 	["grind on {npc:7109}"] = "",
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar · {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold
 	["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} – разрушенный храм к северу от долины. С некоторых его культистов падает {item:13140}, примерно с одного из тридцати: он открывает камеру, где сидит {npc:11018} ({area:1770}, пещера в глубине). Если ключ выпал, расчистите путь к выходу, прежде чем освобождать ее; если нет, пропустите ее задания.",
+	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
+	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
+	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: нечистые слизнюки ползают по озерам скверны ({area:1763})",
 	-- {item:13140} Blood Red Key
 	["{item:13140}, a rare drop"] = "{item:13140}: редкая добыча",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
@@ -121,34 +124,31 @@ return {
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {npc:9518} Rakaiah
 	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}."] = "",
 
-	-- Step 25: Oozes
-	["Oozes"] = "Слизнюки",
-	-- {area:1763} Jaedenar · {area:1765} Bloodvenom Falls
-	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill them and use Laris's Empty Ooze Jars on their remains."] = "Проклятые и нечистые слизнюки ползают по ручьям и озерам скверны вокруг мест {area:1763} и {area:1765}: убивайте их и используйте на останках пустые флаконы, полученные у Лариса.",
-
-	-- Step 26: Jaedenar again
+	-- Step 25: Jaedenar again
 	["Trey Lightforge's remains lie beside her."] = "",
 	-- {npc:9518} Rakaiah
 	["{npc:9518}, below ground"] = "",
 	-- {npc:11020} Remains of Trey Lightforge
 	["{npc:11020}, below ground"] = "",
 
-	-- Step 28: The Emerald Sanctuary
-	-- {area:1998} Talonbranch Glade
-	["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Летите ({area:1998}) к концу дороги у Святилища или езжайте по ней на юг.",
+	-- Step 26: The Emerald Sanctuary
+	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {area:361} Felwood
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {area:361}."] = "Езжайте на юго-восток ({area:1763} → {area:2479}) к лагерю друидов у дороги на юге зоны {area:361}.",
 
-	-- Step 29: The Emerald Sanctuary
+	-- Step 27: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
 	["The vial is filled in {zone:1457}: keep it; inside"] = "",
 	-- {zone:1413} Barrens
 	["Ends in the {zone:1413}: keep it"] = "Завершается здесь: {zone:1413} – сохраните задание",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Летите ({area:1998}) к концу дороги у Святилища или езжайте по ней на юг.",
+	-- ["Oozes"] = "Слизнюки",
 	-- ["Ride east to the night elf camp at {area:1998}."] = "Езжайте на восток к лагерю ночных эльфов: {area:1998}.",
 	-- ["Ride north out of {area:415} into {zone:1448}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "Езжайте на север ({area:415} → {zone:1448}). Фурболг {npc:11554} стоит у дороги чуть южнее места {area:2479}.",
 	-- ["Ride north to {area:1769} (or fly back to {area:1998} first) and through the tunnel into {zone:1452}; follow the road east to the goblin town of {area:2255}."] = "Езжайте на север: {area:1769} (или сначала летите обратно: {area:1998}), и через туннель в зону {zone:1452}; идите по дороге на восток к городу гоблинов: {area:2255}.",
 	-- ["Take the boat from {area:702} to {area:442} and fly to {area:415}."] = "Плывите на корабле: {area:702} → {area:442}, затем летите сюда: {area:415}.",
+	-- ["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill them and use Laris's Empty Ooze Jars on their remains."] = "Проклятые и нечистые слизнюки ползают по ручьям и озерам скверны вокруг мест {area:1763} и {area:1765}: убивайте их и используйте на останках пустые флаконы, полученные у Лариса.",
 	-- ["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}."] = "Фурболги из племени Мертвого Леса ({area:1762}) заполняют холмы к западу от пещеры. С мстителей может упасть {quest:8470}.",
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Сатиры из племени Нефритового Пламени занимают долину к западу от дороги; {npc:9454} – в ее глубине.",
 	-- ["The vial is filled in {zone:1457}: keep it"] = "Склянка наполняется здесь: {zone:1457} – сохраните задание",

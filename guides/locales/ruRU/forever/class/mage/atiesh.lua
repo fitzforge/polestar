@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:2279} Stratholme
-	["The legendary staff of the Guardian: forty splinters from Naxxramas, two raid bosses and a demon in {area:2279}."] = "",
+	["The legendary staff of the Guardian: forty splinters from Naxxramas, two raid bosses and a demon in {area:2279}."] = "Легендарный посох Хранителя: сорок осколков из Наксрамаса, два босса рейдов и демон в локации {area:2279}.",
 
 	-- Step 1: Splinters of Atiesh
 	["Splinters of Atiesh"] = "",

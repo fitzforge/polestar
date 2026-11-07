@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Timbermaw Hold Reputation"] = "木喉要塞声望",
-	["Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted."] = "",
-	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "",
+	["Safe passage through the tunnels, agility enchants and furbolg recipes; the trinket at Exalted."] = "安全穿过隧道，获得敏捷附魔和熊怪配方；崇拜时可获得饰品。",
+	["Recipes for Leatherworkers, Tailors, Enchanters and Alchemists from Friendly to Revered"] = "友善到崇敬期间可获得制皮、裁缝、附魔和炼金术配方",
 
 	-- Step 1: Grazle
 	-- {faction:576} Timbermaw Hold · {npc:11554} Grazle · {npc:15395} Nafien · {npc:11556} Salfa · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
