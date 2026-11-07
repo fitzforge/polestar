@@ -37,6 +37,9 @@ UI.ClassToast = CT
 
 local PAD = 14
 local RING = 40
+-- In the ring: a picture (another heads-up's art) fills it inside a 2px rim,
+-- an icon sits on the disc, a glyph sits small in its middle.
+local ART, ICON, GLYPH = RING - 4, RING - 8, 20
 local STRIPE = 4
 local SLIDE = 0.25
 local LOGIN_LEVELS = 2 -- on login, chains opened within this many levels
@@ -309,12 +312,15 @@ local function build()
 	f.Disc:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
 	W.Color(f.Disc, "panelAlt")
 	f.Icon = f:CreateTexture(nil, "ARTWORK", nil, 2)
-	f.Icon:SetSize(RING - 8, RING - 8)
+	f.Icon:SetSize(ICON, ICON)
 	f.Icon:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+	-- The round crop: as large as the icon or the picture, never smaller
+	-- than an icon, so a glyph keeps its corners.
 	if f.CreateMaskTexture and f.Icon.AddMaskTexture then
 		f.Mask = f:CreateMaskTexture()
 		f.Mask:SetTexture(Theme.Media("circle"), "CLAMPTOBLACKADDITIONAL", "CLAMPTOBLACKADDITIONAL")
-		f.Mask:SetAllPoints(f.Icon)
+		f.Mask:SetPoint("CENTER", f.Ring, "CENTER", 0, 0)
+		f.Mask:SetSize(ICON, ICON)
 		f.Icon:AddMaskTexture(f.Mask)
 	end
 
@@ -518,8 +524,11 @@ end
 -- Paint and place the card for model m: a class quest's (CT.Model) or
 -- another heads-up's, which carries its own action instead of a quest:
 -- { head, title, giver, route, badge, icon, class (nil: the accent),
--- titleColor, iconColor, act = { label, run }, more = { label, run },
--- off = { label, run } }.
+-- titleColor, iconColor, art, act = { label, run }, more = { label, run },
+-- off = { label, run } }. art = { file, l, r, t, b }: a picture cropped to
+-- those texture coordinates, filling the ring; without it an icon tinted
+-- iconColor is a glyph, drawn small on the disc, and an untinted one a
+-- full-colour icon.
 -- -> true when shown
 function CT.ShowCard(m)
 	if not (m and window()) then return false end
@@ -527,8 +536,18 @@ function CT.ShowCard(m)
 	local wasShown = f:IsShown() and CT.current ~= nil
 	CT.current = m
 	paint(m.class)
-	f.Icon:SetTexture(m.icon)
-	if m.iconColor then
+	local art = m.art
+	local size = art and ART or (m.iconColor and GLYPH) or ICON
+	f.Icon:SetSize(size, size)
+	if f.Mask then f.Mask:SetSize(max(size, ICON), max(size, ICON)) end
+	if art then
+		f.Icon:SetTexture(art.file)
+		f.Icon:SetTexCoord(art.l, art.r, art.t, art.b)
+	else
+		f.Icon:SetTexture(m.icon)
+		f.Icon:SetTexCoord(0, 1, 0, 1)
+	end
+	if m.iconColor and not art then
 		W.Color(f.Icon, m.iconColor)
 	else
 		W.Uncolor(f.Icon)
