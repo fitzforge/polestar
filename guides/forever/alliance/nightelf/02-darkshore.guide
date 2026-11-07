@@ -43,8 +43,6 @@ step Auberdine
   tip The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. Wizbang Cranktoggle stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   sethome "Auberdine"
   accept 983                                  -- Wizbang Cranktoggle, upstairs in the inn
-  turnin 3524                                 -- Gwennyth Bly'Leggonde
-  accept 4681
   accept 4811 only NightElf                   -- Sentinel Glynda Nal'Shea
   turnin 1141 optional                        -- Gubber Blump
 
@@ -55,9 +53,8 @@ step The skeletal turtle
 # ---------------------------------------------------------------- First loop: south-east and north-east
 
 step Bears and the Blackwood camp
-  when onquest 984
-  tip Kill Rabid Thistle Bears in the hills east of Auberdine, then walk up to the furbolg camp south-east of them: nothing to kill yet.
-  goto 39.9,53.9
+  tip Rabid Thistle Bears roam the hills south of Auberdine: use Tharnariun's Hope on one to capture it. Then walk up to the furbolg camp just east of them: nothing to kill yet.
+  complete 2118 @38.21,52.59 map 1439 era -- the Rabid Thistle Bears nearest Tharnariun
   complete 984 @39.9,53.9                     # any of four furbolg camps completes it; this is the one by the bears (#560)
 
 step Ameth'Aran
@@ -74,12 +71,6 @@ step The red crystal
   tip Climb the eastern mountains east of Ameth'Aran; the Mysterious Red Crystal sits on a ledge.
   interact 175524 quest 4811.1                -- Mysterious Red Crystal
   complete 4811
-
-step Plagued bears
-  when onquest 2118
-  tip Rabid Thistle Bears roam the hills just east of Auberdine. Use Tharnariun's Hope on one and lead it back to him.
-  goto 47.5,33.8
-  complete 2118 @38.21,52.59 map 1439 era -- the Rabid Thistle Bears nearest Tharnariun
 
 step Bashal'Aran
   tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.
@@ -121,10 +112,18 @@ step The southern beaches
   tip Follow the coast south past Ameth'Aran: one Beached Sea Creature lies on the shore west of the Grove, another further south near Remtravel's Excavation. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level.
   accept 4728                                 -- Beached Sea Creature
 
+step Ameth'Aran
+  tip Back north to Ameth'Aran: the flame burns in the south of the ruins.
+  interact 16393 quest 957.1 @42.4,61.8 map 1439 -- Ancient Flame
+
 step The red crystal
   tip Back north-east into the mountains to the crystal.
   turnin 4812                                 -- Mysterious Red Crystal
   accept 4813
+
+step Bashal'Aran
+  tip North along the hills to Asterion, then west down to Auberdine.
+  turnin 957                                  -- Asterion
 
 step Auberdine
   turnin 985                                  -- Terenthis
@@ -179,36 +178,7 @@ step Shaman trainer
   train class only Shaman -- Teo Hammerstorm in Dun Morogh; Goldshire has no shaman trainer
 
 step Remy "Two Times"
-  zone Darkshore
+  zone Elwynn Forest
   accept 40
   turnin 40
   accept 35
-
-step Darkshore
-  only NightElf
-  zone Darkshore
-  goto 42.4,61.8 "Darkshore"
-
-step Ameth'Aran
-  zone Darkshore
-  tip The flame burns in the south of Ameth'Aran.
-  interact 16393 quest 957.1 @42.4,61.8 map 1439 -- Ancient Flame
-
-step Bashal'Aran
-  zone Darkshore
-  turnin 957                                  -- Asterion
-
-step Auberdine
-  vendor nearest
-
-step Darkshore
-  zone Darkshore
-  goto 36.4,45.6 "Darkshore"
-
-step Boat to Stormwind Harbor
-  zone Darkshore
-  goto 30.76,40.92 "Boat to Stormwind Harbor"
-
-step Into Elwynn Forest
-  zone Elwynn Forest
-  goto 32.3,49.9 "Into Elwynn Forest"

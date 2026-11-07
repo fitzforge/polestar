@@ -4283,15 +4283,35 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   `PLAYER_ENTERING_WORLD` while the option is on (`QoL.WhileOn`),
   `PLAYER_LEVEL_UP` (its level: `UnitLevel` can lag the event), step
   changes (`QoL.OnStep`), the setting, and the theme's accent.
-- **Pace against the route** (`Levels.Pace`, Core/Levels.lua): the guide's
-  next level target (`Engine.LevelTarget`: level N, its step, and the
-  fraction of a `level N.f` goal) against what the steps from the live step
-  up to that one give (`Levels.ForGuide(id, p, live, step)`: their turn-ins'
-  XP from the Codex, their kills and loot at the mobs' levels, from where the
-  character is). The guide window's XP row (`GF.PaceText`) reads "On pace for
-  level 14 by step 32", or "About 6 bars short of level 14 by step 32" (20
-  bars to a level, rounded up). Nothing without the Codex (Lookup) or a
-  target ahead. Re-read with the XP row and on `STEP_CHANGED`.
+- **Pace against the route** (`Levels.Pace`, Core/Levels.lua): where the
+  character stands, from the live step, against the guide's next level
+  target (`Engine.LevelTarget`: level N, its step, and the fraction of a
+  `level N.f` goal; the guide holds you at that step until you have it) or,
+  with no `level` goal ahead in a leveling guide, its own end level (the
+  `levels` top, where the next guide starts, at its last step shown), and
+  what the steps up to there give (`Levels.ForGuide(id, p, live, step)`:
+  their turn-ins' XP from the Codex, their kills and loot at the mobs'
+  levels, from where the character is). It also looks for the first open
+  quest before the target (not a turn-in or a talk) that will be 3 or more
+  levels above the character when the route gets there (`hard`; its level
+  from the guide's `qlvl`, else the Codex, else the client). The guide
+  window's XP row (`GF.PaceText(stats)`) always says one of: "On pace for
+  level 14 by step 32" (on pace or ahead); "Behind by 6 bars: step 32 grinds
+  to level 14 (~12m)" (a `level` goal ahead makes up the gap); in the warning
+  colour, "Behind: Missing In Action (25) at step 20, you'll be 21.0; grind
+  ~1h 10m first" (a hard quest; "you're" on the live step, "reach 23 first"
+  without an XP rate), or "Behind by 2.4 levels for level 24 by step 21:
+  grind ~1h 10m before then" ("and no grind step ahead" without a rate).
+  Under a level the gap reads in the XP bar's bars (20 a level, rounded up),
+  from one level in levels; grinding time is the XP short over the QoL
+  tracker's XP an hour. Nothing without the Codex (Lookup), at 60, or with
+  no target (a guide that is not a leveling one with no `level` goal
+  ahead). Re-read with the XP row and on `STEP_CHANGED`.
+- **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
+  step with an open quest 3 or more levels above the character says so
+  under its header, "Level 25 quest: you're 19.7" (your level and share of
+  it, cut to one place), in the warning colour, red from 5 levels over as in
+  the quest log.
 
 ### Items kept for later — QoL/Keep, asks the Engine
 
