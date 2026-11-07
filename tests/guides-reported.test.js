@@ -4280,3 +4280,17 @@ test("soockee's report (#1117): only Warriors are sent to Alonso for the Dragons
 	}
 	assert.ok(warrior > 0, 'a Warrior still takes them');
 });
+
+// Rohkin's report (#1123): Mountain Lion Blood's few, contested lions were a stop of their own on the way down to
+// Hillsbrad Fields. They stand between the fields and Tarren Mill: the blood comes after the farmers, on the walk
+// back to Tarren Mill, where both are handed in (route-fixes pair task 527 before task 501, Horde).
+test("Rohkin's report (#1123): Mountain Lion Blood on the walk back from Hillsbrad Fields, before Tarren Mill", { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.pairs.some((p) => p.a[0] === 'task' && p.a[1] === 527 && p.b[0] === 'task' && p.b[1] === 501 && p.faction === 'Horde'), 'the order is a record the build keeps');
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const farmers = at(list, 'kill 2266 quest 527.1', (g) => g.t === 'kill' && g.quest === 527);
+	const blood = at(list, 'collect 3496 quest 501.1', (g) => g.t === 'collect' && g.quest === 501);
+	const turnin = at(list, 'turnin 501', is('turnin', 501));
+	assert.ok(farmers < blood && blood < turnin, 'the farmers, then the blood, then Lydon');
+	assert.ok(!list.slice(blood + 1, turnin).some(({ goal }) => goal.quest === 527 && goal.t === 'kill'), 'no trip back to the fields after the blood');
+});
