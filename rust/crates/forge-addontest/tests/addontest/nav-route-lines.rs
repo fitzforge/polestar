@@ -569,6 +569,49 @@ fn review_p3_9_the_world_map_walk_starts_at_the_player_with_the_minimap_line_off
 	assert!(f(&out["moved"]) > 640.0, "then at the player ({})", out["moved"]);
 }
 
+// Beside the walk in open ground the arrow aims ahead at a point on it in sight (Nav/Walk.lua Walk.SightAim,
+// Nav/Follow.lua): the walk's line runs from the player straight to that point, the way the arrow points, not
+// across to the point ahead of the nearest one. The player 50 yd beside a walk with a corner at (0, -200): without
+// a sight aim the line goes through the corner; aiming at the end (0, -400), it passes 33 yd (16 px) from it.
+#[test]
+fn beside_the_walk_with_the_arrow_aiming_ahead_in_sight_the_line_runs_from_the_player_to_that_point() {
+	let out = painted(
+		r#"
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.minimapPins", false)
+		nav.place(50, -100)
+		target(0, -400)
+		local geom = { legs = { { kind = "walk", pts = { { 0, 0, 0 }, { 0, 0, -200 }, { 0, 0, -400 } }, current = true } } }
+		N.GetRouteGeometry = function() return geom end
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		nav.showWorldMap(9000)
+		stub.advance(0.3)
+		local _, fx, fy = nav.mapPoint(0, -200)
+		local cx, cy = fx * 1000, -fy * 1000
+		-- The nearest a stroke comes to the corner, in canvas pixels.
+		local function nearest()
+			local s, best = R.GetStrokes("world"), math.huge
+			for i = 1, s.n do
+				local ax, ay, bx, by = s.x1[i], s.y1[i], s.x2[i], s.y2[i]
+				local dx, dy = bx - ax, by - ay
+				local l2 = dx * dx + dy * dy
+				local t = l2 > 0 and math.max(0, math.min(1, ((cx - ax) * dx + (cy - ay) * dy) / l2)) or 0
+				best = math.min(best, math.sqrt((ax + t * dx - cx) ^ 2 + (ay + t * dy - cy) ^ 2))
+			end
+			return best
+		end
+		local plain = nearest()
+		N.walk.SightAim = function() return 0, 0, -400 end
+		nav.place(50, -101)
+		Polestar.Fire("NAV_ROUTE_GEOMETRY")
+		stub.advance(0.3)
+		emit({ plain = plain, sighted = nearest(), n = R.GetStrokes("world").n })"#,
+	);
+	assert!(f(&out["n"]) > 5.0, "the walk is drawn ({} strokes)", out["n"]);
+	assert!(f(&out["plain"]) < 6.0, "without a sight aim the line runs through the corner ({:.1} px)", f(&out["plain"]));
+	assert!(f(&out["sighted"]) > 12.0, "toward the sight aim it passes the corner by ({:.1} px)", f(&out["sighted"]));
+}
+
 #[test]
 fn review_p3_9_active_counts_only_legs_that_draw_no_one_point_jump_only_or_zero_length_route_stands_in_for_the_trail() {
 	let out = painted(
