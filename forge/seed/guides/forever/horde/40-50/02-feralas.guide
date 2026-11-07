@@ -59,7 +59,7 @@ next forever/horde/40-50/03-feralas
 # Steamwheedle Port, around 46.7), Deliver to MacKinley (2874) in Booty Bay
 # around level 50, A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
-# Hinterlands.
+# Hinterlands, Improved Quality (7734) on the next Feralas visit.
 #
 # Optional: Find OOX-22/FE! (2766) and Rescue OOX-22/FE! (2767): the distress
 # beacon drops about one kill in forty; the reward waits in Booty Bay.
@@ -213,6 +213,7 @@ step Camp Mojache
   accept 2975                           -- Rok Orhan
   accept 2987                           -- Orwin Gizzmick
   accept 3121                           -- Witch Doctor Uzer'i: for Orgrimmar, around level 45
+  accept 2822                           -- Jangdor Swiftstrider
 
 # ---------------------------------------------------------------- The north
 
@@ -286,6 +287,10 @@ step Rogue Vale screechers
   use 10699 "Yeh'kinya's Bramble" @45.0,38.0
   kill 8612 quest 3520.1
 
+step Feral Scar Vale
+  tip The yetis den in Feral Scar Vale, beside the robot's cave; every yeti there can drop a thick hide.
+  collect 8973 quest 2822.1
+
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
   accept 2766 optional
@@ -300,6 +305,8 @@ step Camp Mojache
   turnin 7730                           -- Hadoken Swiftstrider
   turnin 7731
   vendor nearest
+  turnin 2822                           -- Jangdor Swiftstrider
+  accept 7734                           -- the Rage Scar yetis, on the next visit to Feralas
   turnin 2979                           -- Rok Orhan
   turnin 2980
   accept 3002                           -- for Orgrimmar, around level 45

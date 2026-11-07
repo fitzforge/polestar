@@ -931,6 +931,46 @@
 				}
 			],
 			"pr": 1166
+		},
+		{
+			"id": "flow-feralas-materials-minerals",
+			"quest": 3128,
+			"objective": 2,
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 68.0,
+				"y": 47.5,
+				"frame": "era"
+			},
+			"note": "Natural Materials: the Encrusted Minerals come from the sprite darters in the grove just west of Camp Mojache (21 spawns around 68,47.5).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 9589 Encrusted Minerals: Sprite Darter 5278 80%; npcs.json 5278: 21 spawns on map 1444, mean 68.0,47.5"
+				}
+			],
+			"pr": 1166
+		},
+		{
+			"id": "flow-feralas-materials-logs",
+			"quest": 3128,
+			"objective": 1,
+			"faction": "Horde",
+			"at": {
+				"map": 1444,
+				"x": 54.0,
+				"y": 47.2,
+				"frame": "era"
+			},
+			"note": "Natural Materials: the Splintered Logs drop from the Wandering Forest Walkers; the one at 54.0,47.2 stands on the ride west from the darters to the hippogryphs.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "items.json 9590 Splintered Log: Wandering Forest Walker 7584 80%; npcs.json 7584 spawns on map 1444: 44.0,23.0 54.0,47.2 57.4,73.3 73.5,54.6 73.9,38.8"
+				}
+			],
+			"pr": 1166
 		}
 	]
 }

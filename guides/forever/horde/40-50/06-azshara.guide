@@ -271,8 +271,6 @@ step Fly to Camp Mojache
 
 step Camp Mojache
   tip Stay here: the next guide starts with the flight to Gadgetzan.
-  turnin 7734                           -- Jangdor Swiftstrider, inside
-  turnin 7738 optional
   sethome "Camp Mojache"
   turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124
