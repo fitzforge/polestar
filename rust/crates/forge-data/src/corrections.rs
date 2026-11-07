@@ -1279,7 +1279,11 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
-/// plays it at, #977).
+/// plays it at, #977). `background: { title, tip?, mobs: [npc], mention?, finish: { title, tip?, map, x, y } }`
+/// (an objective only, #1135): a zone-wide, slow collection: the writer lists the objective on the way
+/// (an `along until … background` step right after the quest's accept) until the step that hands the
+/// quest in, puts a finish step at `finish` right before it (passed at once when the count is reached),
+/// and gives each step in between whose points lie near a spawn of `mobs` the tip `mention`.
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1291,7 +1295,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	let mut slots: Vec<(String, String)> = Vec::new();
 	for (i, r) in list.items().iter().enumerate() {
 		let at = format!("fixes[{i}]");
-		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "early", "when", "faction", "note", "source", "issue", "pr"]);
+		ck.keys(&at, r, &["id", "at", "tip", "level", "after", "along", "early", "when", "background", "faction", "note", "source", "issue", "pr"]);
 		let after = r.get("after");
 		if !after.is_undef() && (!matches!(after, V::Bool(true)) || r.get("level").is_undef()) {
 			ck.err(format!("{at}.after"), "`after` is true, on a level gate");
@@ -1315,7 +1319,15 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			_ => ck.err(format!("{at}.at.goal"), format!("{}: accept, turnin, complete or objective", show(&a.get("goal")))),
 		}
 		let (tip, level, along, early, when) = (r.get("tip"), r.get("level"), r.get("along"), r.get("early"), r.get("when"));
+		let background = r.get("background");
 		let kind = match (tip.is_undef(), level.is_undef()) {
+			(true, true) if !background.is_undef() && when.is_undef() && early.is_undef() && along.is_undef() => {
+				check_background(ck, &at, &background);
+				if a.get("goal").as_str() != Some("objective") {
+					ck.err(format!("{at}.at.goal"), "a `background` fix is on an objective goal");
+				}
+				"background"
+			}
 			(true, true) if !when.is_undef() && early.is_undef() && along.is_undef() => {
 				if !when.as_str().is_some_and(|w| w.strip_prefix("level>=").is_some_and(|n| n.parse::<u32>().is_ok_and(|n| (2..=60).contains(&n)))) {
 					ck.err(format!("{at}.when"), format!("{}: `level>=N`, N a level from 2 to 60", show(&when)));
@@ -1363,7 +1375,7 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"level"
 			}
 			_ => {
-				ck.err(&at, "a guide fix sets a `tip`, a `level` gate, a `when` or `along: false`");
+				ck.err(&at, "a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`");
 				"?"
 			}
 		};
@@ -1373,6 +1385,47 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 			ck.err(&at, format!("{} of this goal's step is set by {other} too", kind));
 		}
 		slots.push((slot, id));
+	}
+}
+
+/// A guide fix's `background` (check_guide_fixes).
+fn check_background(ck: &mut Ck, at: &str, b: &V) {
+	let line = |ck: &mut Ck, k: &str, v: &V, required: bool| {
+		if (required || !v.is_undef()) && (!has_text(v) || v.as_str().is_some_and(|t| t.contains('\n'))) {
+			ck.err(format!("{at}.background.{k}"), "one line of text");
+		}
+	};
+	ck.keys(&format!("{at}.background"), b, &["title", "tip", "mobs", "mention", "finish"]);
+	line(ck, "title", &b.get("title"), true);
+	line(ck, "tip", &b.get("tip"), false);
+	line(ck, "mention", &b.get("mention"), false);
+	let mobs = b.get("mobs");
+	if !mobs.is_arr() || mobs.items().is_empty() {
+		ck.err(format!("{at}.background.mobs"), "a list of the NPCs that drop the item");
+	}
+	for (j, n) in mobs.items().iter().enumerate() {
+		ck.refers(&format!("{at}.background.mobs[{j}]"), "npcs", n);
+	}
+	let f = b.get("finish");
+	ck.keys(&format!("{at}.background.finish"), &f, &["title", "tip", "map", "x", "y"]);
+	let fl = format!("{at}.background.finish");
+	if !f.is_obj() {
+		ck.err(&fl, "the finish step: { title, tip?, map, x, y }");
+		return;
+	}
+	if !has_text(&f.get("title")) || f.get("title").as_str().is_some_and(|t| t.contains('\n')) {
+		ck.err(format!("{fl}.title"), "one line of text");
+	}
+	if !f.get("tip").is_undef() && (!has_text(&f.get("tip")) || f.get("tip").as_str().is_some_and(|t| t.contains('\n'))) {
+		ck.err(format!("{fl}.tip"), "one line of text");
+	}
+	if !is_id(&f.get("map")) {
+		ck.err(format!("{fl}.map"), "a map id");
+	}
+	for k in ["x", "y"] {
+		if !f.get(k).as_num().is_some_and(|n| (0.0..=100.0).contains(&n)) {
+			ck.err(format!("{fl}.{k}"), "a map percent, 0 to 100");
+		}
 	}
 }
 
@@ -1535,7 +1588,7 @@ mod tests {
 				{{ "id": "1-d", "quest": 10, "objective": 2, "faction": "Horde", "at": {{ "map": 2521, "x": 1, "y": 1, "frame": "live" }}, {src} }} ] }}"#
 		);
 		let g = format!(
-			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }} ] }}"#
+			r#"{{ "fixes": [ {{ "id": "1-t", "at": {{ "quest": 10, "goal": "accept" }}, "tip": "A tip.", {src} }}, {{ "id": "1-l", "at": {{ "quest": 11, "goal": "objective", "objective": 1 }}, "level": 14, {src} }}, {{ "id": "1-w", "at": {{ "quest": 11, "goal": "turnin" }}, "when": "level>=23", {src} }}, {{ "id": "1-b", "at": {{ "quest": 10, "goal": "objective", "objective": 1 }}, "background": {{ "title": "Beaks as you go", "mobs": [20], "mention": "They count here.", "finish": {{ "title": "Finish the beaks", "map": 1413, "x": 50.5, "y": 25 }} }}, {src} }} ] }}"#
 		);
 		assert_eq!(record_findings(Some(&p), Some(&g)), Vec::<String>::new());
 		let bad_p = r#"{ "places": [
@@ -1543,7 +1596,7 @@ mod tests {
 			{ "id": "x", "quest": 10, "objective": 1, "write": true, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "y", "quest": 10, "objective": 1, "at": { "map": 1429, "x": 1, "y": 1 }, "path": { "map": 1429, "points": [] }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" },
 			{ "id": "w", "quest": 10, "objective": 2, "faction": "Both", "at": { "map": 2521, "x": 1, "y": 1, "frame": "era" }, "source": { "kind": "in-game-check", "ref": "r" }, "note": "n" } ] }"#;
-		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" } ] }"#;
+		let bad_g = r#"{ "fixes": [ { "id": "z", "at": { "quest": 10, "goal": "pickup" }, "tip": "two\nlines", "level": 70 }, { "id": "y", "at": { "quest": 10, "goal": "accept" }, "tip": "A tip.", "after": true }, { "id": "v", "at": { "quest": 10, "goal": "turnin" }, "when": "onquest 12" }, { "id": "u", "at": { "quest": 10, "goal": "accept" }, "background": { "title": "", "mobs": [21], "finish": { "title": "F", "map": 1413, "x": 150, "y": 1 } } } ] }"#;
 		let f = record_findings(Some(bad_p), Some(bad_g));
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		for s in [
@@ -1559,9 +1612,13 @@ mod tests {
 			"places[3].faction: \"Both\" is not Alliance or Horde",
 			"places[3].at.frame: map 2521 has no Era bounds",
 			"fixes[0].at.goal",
-			"fixes[0]: a guide fix sets a `tip`, a `level` gate, a `when` or `along: false`",
+			"fixes[0]: a guide fix sets a `tip`, a `level` gate, a `when`, `along: false`, `early` or `background`",
 			"fixes[1].after: `after` is true, on a level gate",
 			"fixes[2].when: \"onquest 12\": `level>=N`",
+			"fixes[3].background.title: one line of text",
+			"fixes[3].background.mobs[0]",
+			"fixes[3].background.finish.x: a map percent",
+			"fixes[3].at.goal: a `background` fix is on an objective goal",
 		] {
 			assert!(has(s), "{s}: {f:#?}");
 		}

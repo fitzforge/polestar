@@ -474,7 +474,10 @@ line of an objective the quest no longer has goes (#859).
   { "id": "674-gordo-tip", "at": { "quest": 5481, "goal": "accept" }, "tip": "Gordo walks the road …", "…": "…" },
   { "id": "698-sleeping-bag", "at": { "quest": 79008, "goal": "accept" }, "level": 14, "…": "…" },
   { "id": "798-gordo-on-the-road-to-brill", "at": { "quest": 5481, "goal": "accept" },
-    "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" } ] }
+    "early": { "after": { "quest": 8, "goal": "accept" }, "title": "Gordo on the road to Brill", "when": "level>=5", "tip": "…" }, "…": "…" },
+  { "id": "1135-plainstrider-beaks", "at": { "quest": 844, "goal": "objective", "objective": 1 },
+    "background": { "title": "Plainstrider Beaks as you go", "tip": "…", "mobs": [3244, 3245, 3246], "mention": "…",
+      "finish": { "title": "Finish the Plainstrider Beaks", "tip": "…", "map": 1413, "x": 53.4, "y": 26.5 } }, "…": "…" } ] }
 ```
 
 `at.goal` is `accept`, `turnin`, `complete` or `objective` (with `at.objective`); `tip` sets the
@@ -482,7 +485,15 @@ step's tip, `level` puts a `level N` gate right before the goal (with `"after": 
 it, so the hand-ins up to it count towards the level). `early` (on an accept) is a take on the way:
 right after the step of `early.after`, an `along until` step (with the record's title, `when` and tip)
 lists the quest's accept and objectives until the quest's own step, which gets a `label` and still
-takes it for everyone else. A place with the same numbers as a goal's
+takes it for everyone else. `background` (on an objective, #1135) makes a slow, zone-wide collection
+a goal of the whole stay (docs/GUIDE_FORMAT.md, "Background goals"): the objective's lines leave the
+work steps between the quest's accept and the step that hands it in; right after the (last) accept's
+step an `along until … background` step with the record's title and tip lists it until that step
+(labelled `q<quest>` when it has none); right before it a finish step with `finish`'s title and tip
+works it at `finish`'s point (for an item, `when !has <item> x<count>`: only a player still short
+gets it); and each step in between with a point within 2 map percent of a spawn
+of `mobs` gets the tip `mention`. Keep it for objectives the recordings show as a slog: a low drop
+rate and the droppers spread along the route. A place with the same numbers as a goal's
 typed point but another map is applied (the map typed too). A place or guide fix with
 `"faction": "Alliance"` (or `"Horde"`) holds for that side's routes only.
 

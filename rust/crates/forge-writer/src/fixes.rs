@@ -14,7 +14,9 @@
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
-//!   `after: true`, right after it: the hand-ins at the anchor count towards the level).
+//!   `after: true`, right after it: the hand-ins at the anchor count towards the level). `background` (on an objective,
+//!   #1135) makes a slow, zone-wide collection a goal of the whole stay: listed on the way from the
+//!   quest's accept to its hand-in, with a finish step before the hand-in (apply_background).
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -482,6 +484,164 @@ fn apply_early(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize
 	changed
 }
 
+/// How near (in map percent) a step's point must lie to a spawn of a background fix's `mobs` for the
+/// step to get its `mention` tip.
+const MENTION_NEAR: f64 = 2.0;
+
+/// The step's header keys a tip goes after (fixes::apply_background's mention).
+fn header_key(line: &str) -> bool {
+	re!(r"^\s+(zone|only|when|label|along|background|tip|image|loop|skipto)\b").is_match(line)
+}
+
+/// A `background` guide fix (#1135): a zone-wide, slow collection, worked on the way instead of in a
+/// step of its own. Between the quest's accept and the step that hands it in (in the same guide), the
+/// objective's lines leave the work steps (a step left with no goal goes, unless it carries a label);
+/// right after the accept's step an `along until <label>` step marked `background`, with the record's
+/// title and tip, lists the objective until that hand-in step (labelled `q<quest>` when it has no
+/// label); right before it a finish step with the finish's title and tip leads to its point for
+/// whoever is still short (the engine passes it at once when the count is reached); and each step in
+/// between with a point within MENTION_NEAR of a spawn of `mobs` on the finish's map gets the tip
+/// `mention`. Points without a typed map count on the finish's map unless the step's `zone` names
+/// another zone than the guide's. -> the changed lines.
+fn apply_background(lines: &mut Vec<String>, r: &Value, data: Option<&Data>) -> Vec<usize> {
+	let b = &r["background"];
+	let (Some(q), Some(n), Some(title)) = (r["at"]["quest"].as_u64(), r["at"]["objective"].as_u64(), b["title"].as_str()) else { return Vec::new() };
+	let (q, n) = (q as u32, n as u32);
+	let f = &b["finish"];
+	let (Some(ftitle), Some(map), Some(fx), Some(fy)) = (f["title"].as_str(), f["map"].as_u64(), f["x"].as_f64(), f["y"].as_f64()) else { return Vec::new() };
+	let qs = q.to_string();
+	let is_accept = |l: &String| re!(r"^\s+accept\s+(\d+)(?:\s|$)").captures(split_comment(l).0).is_some_and(|m| m[1] == *qs);
+	let is_turnin = |l: &String| re!(r"^\s+turnin\s+(\d+)(?:\s|$)").captures(split_comment(l).0).is_some_and(|m| m[1] == *qs);
+	// The step that hands the quest in (the first after its first accept outside an along step), and
+	// the last accept's step before it (a race's own lead-in may take the quest earlier).
+	let ends = |lines: &[String]| -> Option<((usize, usize), (usize, usize))> {
+		let first = (0..lines.len()).filter(|&i| is_accept(&lines[i])).filter_map(|i| step_of(lines, i)).find(|&s| !along_step(lines, s))?;
+		let t = (first.1..lines.len()).find(|&i| is_turnin(&lines[i])).and_then(|i| step_of(lines, i))?;
+		let a = (first.0..t.0).rev().filter(|&i| is_accept(&lines[i])).filter_map(|i| step_of(lines, i)).find(|&s| !along_step(lines, s))?;
+		Some((a, t))
+	};
+	if ends(lines.as_slice()).is_none() {
+		return Vec::new();
+	}
+	let ind = "  ".to_string();
+	// The objective's goal line, from the data (as places' `write`), else from a written line.
+	let verb = |k: Option<&str>| match k {
+		Some("kill") => Some("kill"),
+		Some("object") => Some("interact"),
+		Some("item") => Some("collect"),
+		_ => None,
+	};
+	let from_data = data.and_then(|d| d.quests.get(&q)).and_then(|qd| qd.objective(n as usize - 1)).and_then(|o| Some(format!("{} {} quest {q}.{n}", verb(o.kind.as_deref())?, o.id? as u64)));
+	let from_line = || lines.iter().find(|l| objective_line(l, q, n)).map(|l| trim(&strip_place(split_comment(l).0)).to_string());
+	let Some(goal) = from_data.or_else(from_line) else { return Vec::new() };
+	let finish_title = format!("step {ftitle}");
+	let mut changed_any = false;
+	// 1. The objective's lines leave the work steps between the accept and the hand-in (not the
+	//    finish step's, nor along steps').
+	loop {
+		let Some((a, t)) = ends(lines.as_slice()) else { break };
+		let hit = (a.1..t.0).find(|&i| objective_line(&lines[i], q, n) && step_of(lines, i).is_some_and(|s| !along_step(lines, s) && lines[s.0].trim_end() != finish_title));
+		let Some(i) = hit else { break };
+		let s = step_of(lines, i).unwrap_or((i, i + 1));
+		lines.remove(i);
+		changed_any = true;
+		let body = &lines[s.0 + 1..s.1 - 1];
+		let has_goal = body.iter().any(|l| trim(l).split_whitespace().next().is_some_and(|w| forge_guide::parse::VERBS.contains(&w)));
+		if !has_goal && !body.iter().any(|l| re!(r"^\s+label\s").is_match(l)) {
+			lines.drain(s.0..s.1 - 1);
+		}
+	}
+	let Some((a, t)) = ends(lines.as_slice()) else { return Vec::new() };
+	// 2. The hand-in step's label.
+	let label_line = (t.0 + 1..t.1).find(|&k| re!(r"^\s+label\s+\S").is_match(&lines[k]));
+	let label = label_line.map_or_else(|| format!("q{q}"), |k| lines[k].trim()["label".len()..].trim().to_string());
+	if label_line.is_none() {
+		lines.insert(t.0 + 1, format!("{ind}label {label}"));
+		changed_any = true;
+	}
+	// 3. The background step after the accept's step.
+	let mut block = vec![format!("step {title}"), format!("{ind}along until {label}"), format!("{ind}background")];
+	block.extend(b["tip"].as_str().map(|t| format!("{ind}tip {t}")));
+	block.push(format!("{ind}{goal}"));
+	let has_block = |lines: &[String], block: &[String]| lines.windows(block.len()).any(|w| w.iter().zip(block).all(|(x, y)| x.trim_end() == y));
+	if !has_block(lines.as_slice(), block.as_slice()) {
+		let mut at = a.1;
+		while at > a.0 + 1 && (lines[at - 1].trim().is_empty() || lines[at - 1].trim_start().starts_with('#')) {
+			at -= 1;
+		}
+		lines.splice(at..at, std::iter::once(String::new()).chain(block));
+		changed_any = true;
+	}
+	// 4. The finish step right before the hand-in step.
+	let Some((_, t)) = ends(lines.as_slice()) else { return Vec::new() };
+	let mut fblock = vec![finish_title.clone()];
+	// (An item objective: the step applies only while the bags hold fewer than the count, so a player
+	// who has them never sees it; the condition also keeps the engine's merges off it.)
+	let item_count = data.and_then(|d| d.quests.get(&q)).and_then(|qd| qd.objective(n as usize - 1)).filter(|o| o.kind.as_deref() == Some("item")).and_then(|o| Some((o.id? as u64, o.count? as u64)));
+	fblock.extend(item_count.map(|(id, c)| format!("{ind}when !has {id} x{c}")));
+	fblock.extend(f["tip"].as_str().map(|t| format!("{ind}tip {t}")));
+	fblock.push(format!("{ind}{goal} @{},{} map {map} era", num(fx), num(fy)));
+	if !has_block(lines.as_slice(), fblock.as_slice()) {
+		// Before the blank and comment lines that open the hand-in step.
+		let mut at = t.0;
+		while at > 0 && (lines[at - 1].trim().is_empty() || lines[at - 1].trim_start().starts_with('#')) {
+			at -= 1;
+		}
+		lines.splice(at..at, std::iter::once(String::new()).chain(fblock));
+		changed_any = true;
+	}
+	// 5. The steps in between whose points lie near the droppers get the mention.
+	if let (Some(mention), Some(d)) = (b["mention"].as_str(), data) {
+		let spawns: Vec<(f64, f64)> = b["mobs"]
+			.as_array()
+			.into_iter()
+			.flatten()
+			.filter_map(|m| d.npcs.get(&(m.as_u64()? as u32)))
+			.filter_map(|e| e.spawns.get(&(map as u32)))
+			.flat_map(|s| s.pts.iter().filter_map(|p| Some((p.first().copied().flatten()?, p.get(1).copied().flatten()?))))
+			.collect();
+		let header_zone = lines.iter().find_map(|l| l.strip_prefix("zone ").map(|z| z.trim().to_string()));
+		let tip = format!("{ind}tip {mention}");
+		let bg_start = (0..lines.len()).find(|&i| lines[i].trim_end() == format!("step {title}"));
+		let fin_start = (0..lines.len()).rev().find(|&i| lines[i].trim_end() == finish_title);
+		if let (Some(from), Some(to)) = (bg_start, fin_start) {
+			let mut k = from + 1;
+			let mut to = to;
+			while k < to {
+				if !is_step(&lines[k]) {
+					k += 1;
+					continue;
+				}
+				let Some(s) = step_of(lines, k) else { break };
+				let other_zone = (s.0 + 1..s.1).any(|j| re!(r"^\s+zone\s").is_match(&lines[j]) && header_zone.as_deref().is_none_or(|z| trim(&lines[j])["zone".len()..].trim() != z));
+				let near = (s.0 + 1..s.1).any(|j| {
+					let Some(p) = typed_point(&lines[j]) else { return false };
+					let on = match typed_map(&lines[j]) {
+						Some(m) => m == map,
+						None => !other_zone,
+					};
+					on && spawns.iter().any(|&(x, y)| (x - p.0).hypot(y - p.1) <= MENTION_NEAR)
+				});
+				if near && !along_step(lines, s) && !(s.0 + 1..s.1).any(|j| lines[j].trim_end() == tip) {
+					let mut at = s.0 + 1;
+					while at < s.1 && header_key(&lines[at]) {
+						at += 1;
+					}
+					lines.insert(at, tip.clone());
+					changed_any = true;
+					to += 1;
+				}
+				k = s.1;
+			}
+		}
+	}
+	if !changed_any {
+		return Vec::new();
+	}
+	// The lines the record now stands on: the background, finish and mention lines.
+	(0..lines.len()).filter(|&i| objective_line(&lines[i], q, n) || b["mention"].as_str().is_some_and(|m| lines[i].trim() == format!("tip {m}"))).collect()
+}
+
 /// A line apply_fix drops once every found line is done.
 const GONE: &str = "\u{0}";
 
@@ -587,7 +747,9 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 	}
 	for r in rec.guide_fixes.and_then(|d| d["fixes"].as_array()).into_iter().flatten() {
 		let anchor = fix_anchor(r);
-		let kind = if r.get("early").is_some() {
+		let kind = if r.get("background").is_some() {
+			"background"
+		} else if r.get("early").is_some() {
 			"early"
 		} else if r.get("tip").is_some() {
 			"tip"
@@ -598,8 +760,11 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 		} else {
 			"level"
 		};
-		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}", r["tip"], r["level"], r["along"], r["early"], r["when"]), anchor });
+		recs.push(Rec { file: "guide-fixes", r, slot: format!("{anchor:?} {kind}"), want: format!("{}{}{}{}{}{}", r["tip"], r["level"], r["along"], r["early"], r["when"], r["background"]), anchor });
 	}
+	// Background records last: their mention tips join the tips the other records set (a tip record
+	// replaces every tip of its step).
+	recs.sort_by_key(|x| x.r.get("background").is_some());
 	let mut rows = Vec::new();
 	for (k, x) in recs.iter().enumerate() {
 		let id = x.r["id"].as_str().unwrap_or("").to_string();
@@ -639,6 +804,8 @@ pub fn apply(tree: &mut BTreeMap<String, String>, files: &[String], quests: &Has
 			}
 			let changed = if x.file == "places" {
 				apply_place(&mut lines, &found, x.r, data)
+			} else if x.r.get("background").is_some() {
+				apply_background(&mut lines, x.r, data)
 			} else if x.r.get("early").is_some() {
 				apply_early(&mut lines, &found, x.r)
 			} else {
@@ -931,5 +1098,34 @@ mod tests {
 		assert_eq!(st, vec![("621-oats", "applied"), ("other-side", "not for this start")]);
 		let recs = Records { places: None, guide_fixes: Some(&fixes) };
 		assert_eq!(no_along(&recs, Some("Horde")).into_iter().collect::<Vec<_>>(), vec![(99141, 3)]);
+	}
+
+	#[test]
+	fn a_background_objective_is_listed_on_the_way_to_its_hand_in_with_a_finish_step_before_it() {
+		// #1135: the Plainstrider Beaks (about one in four plainstriders, ~27 kills, plainstriders all over
+		// the Barrens) were a step of their own; they are worked on the way until the hand-in, with a
+		// finish step for whoever is still short and a word in the steps that pass plainstriders.
+		let seed = "guide forever/a\nzone The Barrens\n\nstep The Crossroads\n  accept 844\n  accept 869\n\nstep Raptors\n  tip Raptors.\n  collect 5062 quest 869.1\n  collect 5087 quest 844.1 @53.0,23.7\n\nstep Razormane camp\n  goto 55.0,26.0 \"Razormane camp\"\n  kill 3267 quest 871.1\n\nstep The Crossroads\n  turnin 844\n  accept 845\n";
+		let fixes = json!({ "fixes": [{ "id": "1135-beaks", "at": { "quest": 844, "goal": "objective", "objective": 1 }, "background": {
+			"title": "Plainstrider Beaks as you go", "tip": "Plainstriders roam the whole Barrens.", "mobs": [3244], "mention": "Plainstriders here count for the beaks.",
+			"finish": { "title": "Finish the beaks", "tip": "Plainstriders north of town.", "map": 1413, "x": 53.4, "y": 26.5 }
+		}, "issue": 1135 }] });
+		let quest: crate::input::Quest = serde_json::from_value(json!({ "objectives": [{ "type": "item", "id": 5087, "count": 7 }] })).unwrap();
+		let strider: crate::input::Entity = serde_json::from_value(json!({ "name": "Greater Plainstrider", "spawns": { "1413": { "pts": [[55.2, 26.5], [80.0, 80.0]] } } })).unwrap();
+		let data = Data { quests: BTreeMap::from([(844, quest)]), npcs: BTreeMap::from([(3244, strider)]), ..Default::default() };
+		let go = |text: &str| {
+			let mut tree = BTreeMap::from([("forever/a.guide".to_string(), text.to_string())]);
+			let rows = apply(&mut tree, &["forever/a.guide".into()], &HashSet::new(), Some("Horde"), Records { places: None, guide_fixes: Some(&fixes) }, Some(&data));
+			(tree["forever/a.guide"].clone(), rows)
+		};
+		let (out, rows) = go(seed);
+		assert_eq!(
+			out,
+			"guide forever/a\nzone The Barrens\n\nstep The Crossroads\n  accept 844\n  accept 869\n\nstep Plainstrider Beaks as you go\n  along until q844\n  background\n  tip Plainstriders roam the whole Barrens.\n  collect 5087 quest 844.1\n\nstep Raptors\n  tip Raptors.\n  collect 5062 quest 869.1\n\nstep Razormane camp\n  tip Plainstriders here count for the beaks.\n  goto 55.0,26.0 \"Razormane camp\"\n  kill 3267 quest 871.1\n\nstep Finish the beaks\n  when !has 5087 x7\n  tip Plainstriders north of town.\n  collect 5087 quest 844.1 @53.4,26.5 map 1413 era\n\nstep The Crossroads\n  label q844\n  turnin 844\n  accept 845\n"
+		);
+		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["applied"]);
+		let (again, rows) = go(&out);
+		assert_eq!(again, out, "applied again: nothing left to do");
+		assert_eq!(rows.iter().map(|r| r.state.as_str()).collect::<Vec<_>>(), ["redundant"]);
 	}
 }

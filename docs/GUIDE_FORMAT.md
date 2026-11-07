@@ -111,6 +111,7 @@ Step directives:
 | `only <cond>[,<cond>...]` | The step applies only to matching characters. |
 | `when <predicate>` | The step applies only while the predicate holds when the route reaches it; several `when` lines must all hold. See "Conditions checked during play". |
 | `along [until <label>]` | The route never stops at the step: its goals are done along the way, listed under the steps after it. See "Along the way". |
+| `background` | On an `along until` step: its goals are zone-wide, slow collections worked over the whole stay, each with a finish step before its hand-in. See "Background goals". |
 | `label <name>` | Names the step, for an `along until` or `skipto` before it, or a `when done` anywhere in the guide. |
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
@@ -483,6 +484,56 @@ A label names one step: letters, digits, `-` and `_`, in the case written
 
 A pack with `along` or `label` is written in pack format 4, like `when`.
 
+### Background goals
+
+Some collections are slow and spread over the whole zone: an item one mob
+in four drops, from mobs that roam everywhere the route goes. A step of
+their own sends the player to farm them in one place, while the route passes
+the same mobs all the time anyway. `background` on an `along until` step
+marks such goals: they are listed under the current step from the quest's
+accept until the step that hands it in (the label), with their progress, and
+they never hold the route.
+
+Each quest objective in a `background` step needs a **finish step** before
+its hand-in: a plain step that works the same objective at the densest spot
+nearby. A player who already has the count passes it at once (its goal is
+done; for an item, `when !has <item> x<count>` keeps the step out of the
+route altogether); one who is short is sent there to finish before the
+hand-in.
+
+```
+step The Crossroads
+  accept 844
+
+step Plainstrider Beaks as you go
+  along until q844
+  background
+  tip Plainstriders roam the plains all over the Barrens.
+  collect 5087 quest 844.1
+
+step Razormane camp
+  tip Plainstriders here count toward the beaks.
+  kill 3267 quest 871.1
+
+step Finish the Plainstrider Beaks
+  when !has 5087 x7
+  collect 5087 quest 844.1 @50,21
+
+step The Crossroads
+  label q844
+  turnin 844
+```
+
+Keep `background` for real slogs: the players' recordings show a low drop
+rate (many kills for the count) and the dropping mobs spread along the
+route. Anything one area finishes stays a step of its own. For the
+generated guides, a `background` record in `data/guide-fixes.json` writes
+all of this (docs/FORGE.md, "Fixing a generated guide").
+
+`background` changes nothing in the compiled guide: Polestar reads the step
+as the along step it is, so a pack with it is written in pack format 4, like
+`along`.
+
 ## Jumps
 
 `skipto <label> when <predicate>` lets a guide skip a block of steps that
@@ -827,6 +878,9 @@ Errors:
   label, or a label on its own step or an earlier one; a `when done` naming no
   label of the guide, or `done` on a `next` line
 - a `skipto` line without a label, `when` and one predicate
+- `background` on a step without `along until <label>`, or a quest objective
+  in a `background` step with no finish step (a later step, not an along one,
+  working the same objective) before the step that hands its quest in
 - `era`/`live` on a goal without typed coordinates
 - an `image` path that is absolute, leaves the pack folder (`..`), uses `\`,
   names a file other than `.tga` or `.blp`, or has a character other than

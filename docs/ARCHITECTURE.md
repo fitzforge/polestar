@@ -1257,6 +1257,19 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   open has `pinOpen` (true) in its goal view: its row and its Up next line
   show in the warning colour and say so ("along": the same, without
   "Pinned").
+- **Ticked objectives** (#1135). A quest objective goal (kill, collect,
+  interact or use with `quest`) the player ticked by hand
+  (`Engine.ToggleGoal`, `"tick"` in `CharState().manual`) is done for the
+  route, which moves on, but never for its quest: while the game still
+  counts it open and the quest is in the log not ready (`Own.tickedOpen`),
+  the quest's `turnin` keeps its step (it still blocks) yet takes no focus
+  (`stepGroups` counts it as held), so the arrow does not lead to the
+  ender; its goal view has `pinOpen = "ticked"` and the window says to
+  finish the objectives first.
+- **Background goals** (#1135; GUIDE_FORMAT, "Background goals"). A
+  `background` along step is compiled as the along step it is: the
+  `background` line only drives the lint (a finish step before the
+  hand-in) and the writer.
 - **Jumps.** A step with `skipto` (format 5; GUIDE_FORMAT, "Jumps") is
   checked when `computeCurrent` reaches it as the first open step, once the
   quest log can be read (`logReady`): `Own.jump` takes the first jump whose
