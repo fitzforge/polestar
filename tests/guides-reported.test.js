@@ -5571,6 +5571,7 @@ test('forever/horde/40-50: final review: Cortello\'s Riddle optional, no elite w
 const ALLIANCE_VOLUME = {
 	'forever/alliance/02-westfall.guide': [6281, 6261, 6285, 97894], // Continue to Stormwind; Dungar Longdrink; Return to Lewis; Business in Auberdine
 	'forever/alliance/human/01-elwynn-forest.guide': [1097], // Elmore's Task
+	'forever/alliance/nightelf/01-teldrassil.guide': [490, 923, 2519, 2518, 2520, 98067, 938], // Bounty: Gnarlpine Furbolg; Tumors; The Temple of the Moon; Tears of the Moon; Sathrah's Sacrifice; Eyes of the Sentinels; Mist
 	'forever/alliance/nightelf/02-darkshore.guide': [399, 97220, 97222], // Humble Beginnings; Philmor's Favor; Gatehouse Goods
 	'forever/alliance/skyborne/01-zephras-isle.guide': [399], // Humble Beginnings
 };
