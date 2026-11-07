@@ -60,17 +60,6 @@
 			},
 			{
 				"a": [
-					"turnin",
-					97279
-				],
-				"b": [
-					"accept",
-					4402
-				],
-				"why": "Durotar, Tom: in the Den, Galgar's Cactus Apple Surprise is taken on the way out after Kzan Thornslash at the back of the cave, so the arrow goes to the cave's mouth and in once (the candidate v2 route put it before the trainers inside; tests/guides-reported.test.js, Tom's report)"
-			},
-			{
-				"a": [
 					"task",
 					789
 				],
@@ -2881,6 +2870,17 @@
 					851
 				],
 				"why": "#1078: Verog the Dervish is taken at Kolkar Leaders' hand-in (Regthar offers it then); Verog is worked at the Stagnant Oasis in the 19-23 guide, so its accept needs no trip of its own to Regthar there"
+			},
+			{
+				"a": [
+					"accept",
+					97223
+				],
+				"b": [
+					"accept",
+					786
+				],
+				"why": "Troll Durotar flow tweak: Lar Prowltusk's Thwarting Kolkar Aggression is taken on the first Sen'jin stop (he stands 14 yd from Xar'Ti); the shipped guide walked back from Razor Hill to Sen'jin for it"
 			}
 		],
 		"after": [
@@ -5365,36 +5365,36 @@
 			},
 			{
 				"a": [
-					"turnin",
-					97225
-				],
-				"b": [
-					"accept",
-					99123
-				],
-				"why": "#1077 (candidate v2 read): the Echo Isles hand-ins go in at Sen'jin before Kolkar Crag. The v2 route walked from the isles past Sen'jin to the crag with six finished quests (817, 818, 826, 808, 97223, 97225) and handed them in on the way back; the crag's own work (Pal'juh 99123, the attack plans 786) is what the second Sen'jin stop is for"
-			},
-			{
-				"a": [
-					"turnin",
-					790
+					"task",
+					815
 				],
 				"b": [
 					"task",
-					792
+					97223
 				],
-				"why": "Durotar (candidate v2 read): Sarkoth is handed to Hana'zua on the slope before the Vile Familiars, as the shipped guide does; the v2 route killed the familiars first and walked past Hana'zua with Sarkoth's claw"
+				"why": "Troll Durotar flow tweak: the Taillasher eggs and tiger furs (815, 817) on the Scuttle Coast walk, which ends on their beach south of Sen'jin, before wading to the Matriarch; the shipped guide walked through them and came back on the Echo Isles"
 			},
 			{
 				"a": [
-					"turnin",
-					96822
+					"task",
+					817
 				],
 				"b": [
-					"accept",
-					806
+					"task",
+					97223
 				],
-				"why": "Durotar (candidate v2 read): For Honor goes to Turroc first on the Razor Hill stop after Tiragarde Keep (the way in passes him), as the shipped guide does; the v2 route handed it in last, after training"
+				"why": "Troll Durotar flow tweak: with 815 (see that pair)"
+			},
+			{
+				"a": [
+					"task",
+					784
+				],
+				"b": [
+					"task",
+					791
+				],
+				"why": "Troll Durotar flow tweak: Tiragarde Keep's marines (784) with the keep's other goals, the scrap canvas (791) last; the shipped step crossed the marines for the canvas and came back"
 			}
 		]
 	}
