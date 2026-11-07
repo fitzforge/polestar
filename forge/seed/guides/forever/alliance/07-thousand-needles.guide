@@ -11,7 +11,7 @@ next forever/alliance/30-40/01-hillsbrad-foothills
 # into this file.
 # Added here: Look to the Stars (181), The Weathered Grave (225).
 # Left out for the level (their targets or ground over level + 2 here, and no later visit that fits): Hardened Shells (1105), Load Lightening (1176), A Bump in the Road (1175).
-# Since 2026-11-08 the Wetlands and Ashenvale's 27-32 quests come before this guide (06-wetlands).
+# Since 2026-11-07 the Wetlands and Ashenvale's 27-32 quests come before this guide (06-wetlands).
 
 step Duskwood
   zone Duskwood
@@ -61,7 +61,7 @@ step Darkshire
 
 step Vul'Gol Ogre Mound: kill these as you meet them
   zone Duskwood
-  tip Head east to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it.
+  tip Head south-west from Darkshire to the ogre mound. Abercrombie's Crate sits in the camp at its entrance; Splinter Fist ogres guard it.
   accept 96138 optional                   -- Only if a Lost Watcher dropped Merrick's Bow: right-click it
   kill 212 x8 quest 96138.1 optional      -- Splinter Fist Warrior
   kill 892 x4 quest 96138.2 optional      -- Splinter Fist Taskmaster

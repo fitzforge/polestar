@@ -11,7 +11,7 @@ next forever/alliance/05-duskwood
 # into this file.
 # Added here: A Free Lunch (129), Blackrock Blockade (98387).
 
-# Duskwood and Redridge, first half (about 23 to 25.6). Since 2026-11-08
+# Duskwood and Redridge, first half (about 23 to 25.6). Since 2026-11-07
 # Duskwood and Redridge are played together, so Redridge comes at 23+ where
 # its quests fit (Ashenvale and Stonetalon come first): Duskwood's first loop,
 # then Redridge (this guide, with its elites and Fangore on the same loop),
@@ -39,7 +39,7 @@ next forever/alliance/05-duskwood
 # Sentries and Shadowcasters are elite: the camps lie east of them.
 #
 # Deviations from the export:
-# - Since Duskwood's first loop comes first (2026-11-08), Redridge is entered
+# - Since Duskwood's first loop comes first (2026-11-07), Redridge is entered
 #   at about 24.5: Galardell Valley's Shadowhide gnolls (median 24) are within
 #   two levels, so Solomon's Law (91), A Watchful Eye (94) and Looking Further
 #   (248) are taken on the way back west, Bellygrub (34, 24) with Martie's
@@ -57,7 +57,7 @@ next forever/alliance/05-duskwood
 #   (118, Smith Argus in Goldshire) and Theocritus' Retrieval (178, a pendant
 #   drop for the Tower of Azora).
 # - Refresh (2026): Expanding Horizons (97914, from 03-darkshore) is handed
-#   to Baros Alexston at the Stormwind stop (the end of 06-ashenvale since 2026-11-08: the Cathedral Square, one pass through the city); his reply, Making Do (97926),
+#   to Baros Alexston at the Stormwind stop (the end of 06-ashenvale since 2026-11-07: the Cathedral Square, one pass through the city); his reply, Making Do (97926),
 #   goes back to Auberdine on 06-wetlands' boat trip to Ashenvale. Baros offers Making Do only
 #   after Expanding Horizons (#453), which a player who skipped it in
 #   Darkshore does not have, and the project data lists no prerequisite:
@@ -66,7 +66,7 @@ next forever/alliance/05-duskwood
 #   then Breanna and Martie at the west end, one sweep instead of crossing
 #   town twice.
 #
-# Class quests at the Stormwind stop (about level 23, at the end of 06-ashenvale since 2026-11-08): Rogues take Mathias and
+# Class quests at the Stormwind stop (about level 23, at the end of 06-ashenvale since 2026-11-07): Rogues take Mathias and
 # the Defias (2360, Poisons; finished at the end of 05-duskwood), Warlocks
 # Devourer of Souls (1716, the Succubus; carried to Takar the Seer in
 # 07-thousand-needles), Priests their level 20 spell: Arcane Feedback (5676,

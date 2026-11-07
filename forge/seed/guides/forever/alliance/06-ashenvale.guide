@@ -62,7 +62,7 @@ step Astranaar
   accept 1070                             -- Sentinel Thenysil
   sethome "Astranaar"
   accept 991                              -- Raene Wolfrunner, in the inn
-  turnin 990 optional                     -- Raene Wolfrunner: Trek to Ashenvale, if you took it in Auberdine
+  turnin 990 only Druid                   -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine (others take it on the next Ashenvale visit)
   accept 1054
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033
@@ -201,6 +201,7 @@ step Talen
 
 step Maestra's Post
   turnin 973                              -- Delgren the Purifier
+  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
 
 step Astranaar
   tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside.

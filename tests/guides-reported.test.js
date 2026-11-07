@@ -1988,7 +1988,7 @@ test(`${TELDRASSIL}: Pynte's report: Escaping Ban'ethil is taken after the relic
 
 test(`${REDRIDGE}: Yendi's report: Herble's Bronze Tube is offered before Look to the Stars is handed in, without holding the step`, { skip }, () => {
 	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
-	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-08).
+	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
 	const list = goals(REDRIDGE);
 	const give = at(list, 'turnin 174 (Look to the Stars)', is('turnin', 174));
 	const buy = at(list, 'buy 4371 (Bronze Tube)', (g) => g.t === 'buy' && g.item === 4371);
@@ -3235,7 +3235,7 @@ test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackr
 	const { goal } = list[axes];
 	assert.ok(at(list, "Alther's Mill tarantulas", is('kill', 98386)) < axes, "after Alther's Mill, on the way south-east");
 	// Galardell Valley comes after the camps, on the way back west (Redridge is entered at about 24.5 since
-	// Duskwood's first loop comes first, 2026-11-08); Fangore at the valley's north end on the same loop.
+	// Duskwood's first loop comes first, 2026-11-07); Fangore at the valley's north end on the same loop.
 	assert.ok(!list[axes].step.goals.some((g) => g.t === 'level'), 'no top-up at the camps');
 	assert.ok(list.every(({ goal: g }, i) => g.quest !== 91 || g.t === 'accept' || i > axes), "Solomon's Law's pendants after the camps");
 	assert.ok(list.every(({ goal: g }, i) => g.quest !== 180 || g.t === 'accept' || i > axes), "Fangore's paw after the camps");
@@ -3296,7 +3296,7 @@ test("forever/class/warlock/incubus-horde.guide: Phyz's report (#412): Avelina's
 // player who handed him Expanding Horizons (97914), taken at the end of
 // Darkshore. The project data has no prerequisite for it, and the sources
 // disagree, so the accept and its turn-in in Auberdine (on 06-wetlands' boat
-// trip to Ashenvale since the 2026-11-08 Alliance 20-30 re-order) are
+// trip to Ashenvale since the 2026-11-07 Alliance 20-30 re-order) are
 // optional: a player without Expanding Horizons is not held at Baros or
 // Thundris.
 test(`Nittepitte's report (#453): Making Do is optional in Redridge and on the way back through Auberdine, and taken only after Expanding Horizons is handed in`, { skip }, () => {
@@ -4313,7 +4313,7 @@ test(`${ELWYNN}: flow audit: Goldshire in walking order, Jason and the kelp on t
 // Blossoms, its Fiends on the cemetery walk to Jitters, handed in on the return where 58 starts), Look to
 // the Stars is handed in on the first visit and 175 at Blind Mary on the Embalmer chain's visit, the
 // venom drops from the Hushed Bank's spiders, and the level-27 worgen wait for the return. Since the
-// Alliance 20-30 re-order (2026-11-08) the first loop opens 04-redridge-mountains and the second
+// Alliance 20-30 re-order (2026-11-07) the first loop opens 04-redridge-mountains and the second
 // loop opens 05-duskwood.
 test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, Look to the Stars on the first visit, no along lists`, { skip }, () => {
 	const FIRST = 'forever/alliance/04-redridge-mountains.guide';
@@ -4756,7 +4756,7 @@ test('forever/horde/50-60/06-silithus.guide: flow re-order: Counting Out Time on
 
 // --- A player's Discord report (PR #1052): "on a 20-24 guide, almost at the end, still 3 levels to
 // go". Redridge's quests ended at about 21.6 while Duskwood's start at 24. Since the Alliance 20-30
-// re-order (2026-11-08) Ashenvale, Stonetalon and the first Wetlands visit come first (20-23),
+// re-order (2026-11-07) Ashenvale, Stonetalon and the first Wetlands visit come first (20-23),
 // then Duskwood and Redridge together, so Redridge comes at 23+: Duskwood's first loop,
 // Redridge with its elites and Fangore on the same loop through the Blackrock camps, Galardell Valley and
 // Stonewatch Keep (04-redridge-mountains), then Duskwood's second loop (05-duskwood). Redridge is
@@ -4808,7 +4808,7 @@ test(`${REDRIDGE}: flow audit: the Sunken Chest on the way from Feldon, Lakeshir
 	assert.deepEqual(compiled(REDRIDGE).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
 });
 
-// --- Alliance 20-30 re-order (Fitz, 2026-11-08: "Grinding from 21 to 23 purely sounds ridiculous"). The
+// --- Alliance 20-30 re-order (Fitz, 2026-11-07: "Grinding from 21 to 23 purely sounds ridiculous"). The
 // order the zones' quest levels fit: Ashenvale & Stonetalon 20-23, Wetlands 23, Duskwood & Redridge
 // together 23-27, Wetlands 27-28, Ashenvale 28-29, then the Duskwood return at 29. Ashenvale's 27-32 quests now follow the 27-29 Wetlands visit by boat from Menethil (they were in
 // 30-40/03 at 33-34), Making Do goes to Thundris on that trip, Pilot Longbeard comes after them with no
@@ -4843,7 +4843,7 @@ test('Alliance 20-30 re-order: Wetlands 27-29 then Ashenvale 29-30 in 06-wetland
 	assert.ok(!hills.some(({ goal }) => goal.quest === 98230 || goal.quest === 293), "Howin's quests and Cleansing the Eye are handed in on the 27-29 Wetlands trip");
 });
 
-// Town visits for one quest (2026-11-08, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
+// Town visits for one quest (2026-11-07, Alliance 20-30): Volcor's escort went to Auberdine on a walk north and back
 // south for Kerlonian, Fall of Dun Modr took a walk north to Dun Modr and back, Astranaar had a stop for three hand-ins
 // between two others, Ormer's dig a stop for one hand-in, and Lakeshire a stop for Keeshan after the other hand-ins.
 test('Alliance 20-30: no town stop for one quest where the route comes back anyway', { skip }, () => {

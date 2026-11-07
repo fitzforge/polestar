@@ -12,7 +12,7 @@ next forever/alliance/06-wetlands
 
 # Duskwood and Redridge, second half (about 25 to 26.5).
 #
-# Since 2026-11-08 Duskwood and Redridge are played together, so Redridge
+# Since 2026-11-07 Duskwood and Redridge are played together, so Redridge
 # comes at 23+ where its quests fit (Ashenvale and Stonetalon first): Duskwood's first
 # loop and Redridge (04-redridge-mountains, with Redridge's elites and Fangore
 # at about 25 on the same loop through the Blackrock camps and Galardell
@@ -37,12 +37,10 @@ next forever/alliance/06-wetlands
 #   26) waits for the Duskwood return (07-thousand-needles).
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
-# - Hearthstone: the export hearths twice on the first loop (23.7 and 24.4);
-#   here once from the Yorgen Farmstead and once after the second western loop,
-#   so the cooldown allows both.
-# - The Darkshire flight path and hearth bind belong to the export's Redridge
-#   visit (it arrives here bound); repeated in the first step in case you come
-#   in without them.
+# - Hearthstone: none here. The second loop ends at Sven's camp in the west,
+#   and the walk north through Goldshire (training) to Stormwind's gryphon is
+#   on the way to Menethil; the Darkshire flight path and hearth are taken on
+#   the first loop's visit (04-redridge-mountains).
 # - Dropped Awaiting Word (236): a no-XP breadcrumb to Watcher Callahan at
 #   Manor Mistmantle, a detour north the route never passes otherwise.
 # - Redridge's elites (Tharil'zun 19, Gath'Ilzogg 169, Incinerator Gar'im

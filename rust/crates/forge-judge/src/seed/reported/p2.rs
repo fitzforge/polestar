@@ -398,7 +398,7 @@ fn escaping_banethil(ctx: &Ctx, c: &mut Check) {
 
 fn bronze_tube(ctx: &Ctx, c: &mut Check) {
 	// Look to the Stars is handed in on Duskwood's first Darkshire visit since the flow audit (2026-11-07); that
-	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-08).
+	// visit opens 04-redridge-mountains since the Alliance 20-30 re-order (2026-11-07).
 	let list = ctx.goals(REDRIDGE);
 	let give = at!(c, list, "turnin 174 (Look to the Stars)", is("turnin", 174));
 	let buy = at!(c, list, "buy 4371 (Bronze Tube)", item_goal("buy", 4371));
