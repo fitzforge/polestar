@@ -271,7 +271,122 @@ emit({ short = short, onPace = onPace, none = Lv.Pace(p) == nil })"#,
 	]
 	.join("\n"));
 	// Steps 1 and 2 for an Orc Shaman: quest 1's 1000 XP of the 2000 to level, so level 10.5 by step 3.
-	assert_eq!(out[0]["short"], json!({ "target": 11, "step": 3, "reach": 10.5, "bars": 10 }));
+	let short = &out[0]["short"];
+	assert_eq!(json!([short["target"], short["step"], short["reach"], short["bars"], short["kind"]]), json!([11, 3, 10.5, 10, "goal"]));
+	assert_eq!(short["xp"], 1000, "half of the 2000 to level 11");
 	assert_eq!(out[0]["onPace"]["bars"], 0, "a target of 10.4 is met");
 	assert_eq!(out[0]["none"], true);
+}
+
+// A Redridge-shaped leveling guide (levels 20-24, no `level` goal of its own) for a level 19 character three quarters
+// of the way to 20: two quests at 20 and 21, then a level 25 escort (accept and complete) and its hand-in. The
+// guide's accepts carry their quest levels (`qlvl`); the Codex the XP.
+const RIDGE: &str = r#"
+local guide = { id = "ridge", category = "Leveling", minLevel = 20, maxLevel = 24, steps = {
+	{ goals = { { t = "accept", quest = 11, qlvl = 20 }, { t = "turnin", quest = 11 } } },
+	{ goals = { { t = "accept", quest = 12, qlvl = 21 } } },
+	{ goals = { { t = "turnin", quest = 12 } } },
+	{ goals = { { t = "accept", quest = 25, qlvl = 25, title = "Missing In Action" }, { t = "complete", quest = 25, title = "Missing In Action" } } },
+	{ goals = { { t = "turnin", quest = 25 } } },
+} }
+Polestar.Guides.Get = function(id) return id == "ridge" and guide or nil end
+local CODEX = { [11] = { level = 20, xp = 2000 }, [12] = { level = 21, xp = 2500 }, [25] = { level = 25, xp = 3000 } }
+Polestar.Codex = { IsLoaded = function() return true end, Load = function() return true end, Quest = function(id) return CODEX[id] end }
+local E = Polestar.Engine
+local target, frac
+E.GetGuide = function() return guide end
+E.GetLiveStep = function() return 1 end
+E.LevelTarget = function() if target then return target, 4, frac end end
+E.Applies = function() return true end
+E.StepNumber = function(i) return i, false end
+local done = {}
+Polestar.Compat.IsQuestCompleted = function(id) return done[id] or false end
+local p = { level = 19, xp = 14550, xpMax = 19400, class = "WARRIOR", race = "Human", faction = "Alliance" }
+"#;
+
+/// Levels 19 to `to`, from 19,050 of 19,400 into 19: what is left of 19, then each whole level's XP.
+fn xp_from_19_050(to: usize) -> i64 {
+	(19400 - 19050) + (20..to).map(|l| LEVEL_XP[l] as i64).sum::<i64>()
+}
+
+#[test]
+fn pace_on_target_for_a_level_goal_ahead_nothing_hard_before_it() {
+	// The guide holds you at step 4 until 19.9; steps 1-3's 4,500 XP take 19.75 to 19,050 of 19,400: 19.98.
+	let out = lua(&[RIDGE, "target, frac = 19, 0.9\nemit(Lv.Pace(p))"].join("\n")).remove(0);
+	assert_eq!(out["kind"], "goal");
+	assert_eq!(out["bars"], 0, "on pace");
+	assert_eq!(out["short"], 0);
+	assert_eq!(out["xp"], 0);
+	assert!(out["hard"].is_null(), "quests at 20 and 21 before step 4 are not hard for a level 19");
+	assert!((out["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
+}
+
+#[test]
+fn pace_behind_with_a_level_goal_coming_says_how_far_and_that_its_step_grinds_it() {
+	let out = lua(&[RIDGE, "target = 21\nemit(Lv.Pace(p))"].join("\n")).remove(0);
+	assert_eq!(out["kind"], "goal", "a `level` goal ahead: the guide grinds the gap at its step");
+	assert_eq!(out["target"], 21);
+	assert_eq!(out["step"], 4);
+	assert_eq!(out["live"], 1);
+	assert_eq!(out["bars"], 21, "1.02 levels short: 21 bars, rounded up");
+	assert!((out["short"].as_f64().unwrap() - (21.0 - 19.0 - 19050.0 / 19400.0)).abs() < 1e-9);
+	assert_eq!(out["xp"], xp_from_19_050(21));
+	assert!(out["hard"].is_null());
+}
+
+#[test]
+fn pace_behind_with_no_grind_step_measures_against_the_guide_s_end_level_and_names_the_quest_that_will_be_too_hard() {
+	let out = lua(&[RIDGE, "emit(Lv.Pace(p))"].join("\n")).remove(0);
+	// No `level` goal: the guide's own end, level 24 (its `levels` top) at its last step. All three quests'
+	// 7,500 XP: 14,550 + 7,500 = 22,050, over the 19,400 of 19 into 20 by 2,650 of 23,200.
+	assert_eq!(out["kind"], "end");
+	assert_eq!(out["target"], 24);
+	assert_eq!(out["step"], 5);
+	let reach = 20.0 + 2650.0 / 23200.0;
+	assert!((out["reach"].as_f64().unwrap() - reach).abs() < 1e-9);
+	assert!((out["short"].as_f64().unwrap() - (24.0 - reach)).abs() < 1e-9);
+	assert_eq!(out["xp"], (23200 - 2650) + LEVEL_XP[21] as i64 + LEVEL_XP[22] as i64 + LEVEL_XP[23] as i64);
+	// Step 4's level 25 escort: the route has you at 19.98 there, 6 levels under it; 23 makes it doable.
+	let hard = &out["hard"];
+	assert_eq!(hard["quest"], 25);
+	assert_eq!(hard["title"], "Missing In Action");
+	assert_eq!(hard["level"], 25);
+	assert_eq!(hard["step"], 4);
+	assert_eq!(hard["need"], 23);
+	assert_eq!(hard["xp"], xp_from_19_050(23));
+	assert!((hard["reach"].as_f64().unwrap() - (19.0 + 19050.0 / 19400.0)).abs() < 1e-9);
+	// Taken earlier (an accept alone at step 2): the line still points at step 4, which does it; step 2 hints.
+	let early = lua(&[
+		RIDGE,
+		r#"table.insert(guide.steps[2].goals, { t = "accept", quest = 25, qlvl = 25, title = "Missing In Action" })
+local s = Lv.Pace(p)
+emit({ step = s.hard.step, hint = Lv.StepHint(2, p).level })"#,
+	]
+	.join("\n"))
+	.remove(0);
+	assert_eq!(early, json!({ "step": 4, "hint": 25 }));
+	// Done already: nothing hard is left, the gap to 24 still shows.
+	let left = lua(&[RIDGE, "done[25] = true\nlocal s = Lv.Pace(p)\nemit({ hard = s.hard == nil, kind = s.kind, bars = s.bars })"].join("\n")).remove(0);
+	assert_eq!(left, json!({ "hard": true, "kind": "end", "bars": 81 }), "19.98 to 24: 4.02 levels, 81 bars");
+	// Not a leveling guide, no `level` goal ahead: no target, no line.
+	let other = lua(&[RIDGE, "guide.category = \"Professions\"\nemit(Lv.Pace(p) == nil)"].join("\n")).remove(0);
+	assert_eq!(other, true);
+}
+
+#[test]
+fn a_step_whose_quest_is_three_or_more_levels_over_the_character_says_so() {
+	let out = lua(&[
+		RIDGE,
+		r#"emit({ escort = Lv.StepHint(4, p), two = Lv.StepHint(2, p) == nil, handIn = Lv.StepHint(5, p) == nil })
+done[25] = true
+emit(Lv.StepHint(4, p) == nil)"#,
+	]
+	.join("\n"));
+	assert_eq!(out[0]["escort"]["level"], 25);
+	assert_eq!(out[0]["escort"]["quest"], 25);
+	assert_eq!(out[0]["escort"]["title"], "Missing In Action");
+	assert_eq!(out[0]["escort"]["you"], 19.75);
+	assert_eq!(out[0]["two"], true, "a level 21 quest is 2 over a level 19: no hint");
+	assert_eq!(out[0]["handIn"], true, "handing a quest in is never hard");
+	assert_eq!(out[1], true, "a done quest: no hint");
 }
