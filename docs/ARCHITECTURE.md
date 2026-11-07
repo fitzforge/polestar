@@ -2737,7 +2737,7 @@ with `Path.Find` on the player's continent (from the player's height,
 whenever there is none, the arrow points straight as before. With a path,
 `Nav.Sample` follows it with `Nav/Follow.lua`, which knows nothing of where
 the path came from (the walking engine today, a guide leg's polyline later):
-`Follow.Step(xs, ys, zs, left, n, state, px, py, stop)`. The player's place
+`Follow.Step(xs, ys, zs, left, n, state, px, py, stop, join, sight)`. The player's place
 on the path is their projection onto it: the nearest point on a segment
 from the current one to 60 yd further along, so a point passed to one side
 counts as passed, and coming at the path at an angle or walking beside a
@@ -2759,7 +2759,28 @@ point's neighbours, so a zigzag either side of the road cancels out. It never
 aims onto another floor, past the path's end (the leg's goal: crossings,
 approach chains and guide gotos are legs of their own) or past `stop`. When
 no path ahead lies within 35 yd (the player has wandered off), it points back
-to the path 10 yd ahead of their place on it. The yards it reports are
+to the path 10 yd ahead of their place on it. Beside the path in open ground
+(0.3.5; Fitz, 0.3.4, running parallel to the path up a Tirisfal hillside: the
+arrow pointed 90° back to it while the target lay ahead) the corridor is
+wider: outdoors, with the floor under the player known, `Walk.Aim` passes
+`sight`, and a player more than 15 yd (`BODY`) and at most 100 yd (`OPEN`)
+off the path, or within 50 yd (`join`) of a fresh path's start (a search from
+where they stand runs straight across to a road first), aims at the furthest
+point along it, up to 150 yd past their place on it, that they can walk to in
+a straight line: `Path.Sight` (Routing/PathGrid.lua) walks the grid cells
+of the line as the drawn line's straightening does, following the surface
+from the one under the player, and refuses a closed step (a wall, a cliff
+edge), another floor, water, indoor or indoor city ground and a town hostile
+to the player's faction; it reads decoded clusters only (unknown otherwise),
+decodes nothing, puts back the use stamps it moved and allocates nothing.
+The candidates run from the furthest in, ever closer together, so a look
+costs one line in open ground and about ten at most, and it is made again
+only after the player moves 2 yd. Where nothing ahead is in sight (beside a
+cliff, a river crossed by a bridge, a building's walls) the aim is the
+corridor's above: tight. While the aim is in sight (`state.sighted`) the
+player has not strayed: no new search. The route line's walk then starts
+from the player toward that point (`Walk.SightAim`, Maps/RouteLines.lua), not
+straight across to the nearest one. The yards it reports are
 the yards left along the path (straight to the end of the segment the player
 is on, then along it), never to the aim point; `Travel.Aim` returns those
 yards as a fifth value, and `Walk.Progress(c, x, y)` gives the yards along
@@ -2768,7 +2789,8 @@ eases into each new direction (`Nav/Arrow.lua`'s `DAMPING`, swinging at most
 `MAX_TURN`, about 200 degrees a second), on the target's bearing on the map:
 turning the camera moves it at once.
 A new goal (more than 1 yd away from the searched one) cancels the search
-in flight and drops the path; more than 25 yd off the path asks again (at
+in flight and drops the path; more than 25 yd off the path asks again, unless
+the aim is in sight as above (at
 most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
 `outside`, `offmesh`, `unreachable`, `error`, `Path.Available(map)` false,
@@ -3508,6 +3530,7 @@ Path.HubAt(map, x, y, profile) -> id, name | nil  -- the town hostile to profile
 Path.SurfacesAt(map, x, y, out) -> n | nil  -- the cell's walkable surfaces: out[i] height, out[-i] marks (1 water, 2 indoor); nil: its cluster not decoded (a Prefetch is queued)
 Path.Prefetch(map, x, y) -> job | nil  -- decode that cluster under the frame budget for SurfacesAt (one job at a time)
 Path.ReleaseSurfaces()  -- cancel a pending Prefetch; the cluster SurfacesAt reads may go at rest
+Path.Sight(map, x1, y1, z1, x2, y2, z2, profile) -> bool | nil  -- a straight walk from one point to the other over decoded clusters (no closed step, floor change, water, indoor ground or town hostile to profile); nil: a cluster not decoded or off the data (decodes nothing, allocates nothing)
 Path.Cancel(job) ; Path.Busy() -> bool ; Path.Available(map) -> bool
 -- opts: a boolean is waterWalking (as every caller passed it before profiles), or
 -- { waterWalking = boolean, profile = "Alliance" | "Horde" | nil (Costs.Profile(UnitFactionGroup)),
