@@ -66,6 +66,47 @@
 				}
 			],
 			"note": "An Apple Treat (91738) is offered by Sergeant De Vries (npc 955) only while the player carries the Thunder Applejack (247824) from The Applejack Still (91736); there is no accept window. Source: Players' in-game recordings since launch (4 hand-ins of 91736 at the still, no accept and no quest window; a player who drank the Thunder Applejack was shown only Sergeant De Vries's shop) and the player reports #820 and #823."
+		},
+		"3367": {
+			"kinds": [
+				{
+					"kind": "escort",
+					"confidence": "high"
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "accept",
+					"target": {
+						"type": "npc",
+						"id": 8284
+					},
+					"fact": "Dorius Stonetender at the Grimesilt Dig Site gives the quest, and the escort starts as soon as you take it.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "escort",
+					"target": {
+						"type": "npc",
+						"id": 8284
+					},
+					"fact": "Keep Dorius alive while he walks north-east to Dustfire Valley.",
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "turnin",
+					"target": {
+						"type": "object",
+						"id": 175704
+					},
+					"fact": "When it is over, read the Singed Letter he leaves on the road.",
+					"confidence": "high"
+				}
+			],
+			"note": "Suntara Stones (3367) is an escort: Forever's quest data lists its one objective as the Dorius Escort event, ending at the Singed Letter (object 175704) in Dustfire Valley, and the server data marks it an escort. Taken and left behind, it fails, so the route takes it right before the walk."
 		}
 	}
 }

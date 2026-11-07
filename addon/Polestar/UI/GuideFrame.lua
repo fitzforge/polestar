@@ -4668,9 +4668,17 @@ for _, msg in ipairs({ "PARTY_PROGRESS", "STEP_CHANGED", "STEP_UPDATED", "GUIDE_
 	ns.On(msg, whenReady(function() GF.UpdateParty() end))
 end
 
+-- The tabs changed (a step moved on, a tab opened or closed): their titles
+-- and progress are redrawn. The window is laid out again only when the
+-- strip itself comes or goes; a step change already laid it out (Render).
 ns.On("TABS_CHANGED", whenReady(function()
-	strip.psHasTabs = tabsOf(Engine()) ~= nil
-	GF.Layout()
+	local has = tabsOf(Engine()) ~= nil
+	if has ~= strip.psHasTabs then
+		strip.psHasTabs = has
+		GF.Layout()
+	elseif stripShown() then
+		GF.RenderTabs()
+	end
 end))
 
 -- STEP_SKIPPED(fromStep, toStep, skips): the guide moved past quests the

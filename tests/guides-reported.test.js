@@ -5015,3 +5015,121 @@ test(`${DARKSHORE}: flow re-order: Beached Sea Creatures 4730 and 4728 on the fo
 	assert.equal(list[idx('turnin', 4730)].s, list[idx('accept', 87760)].s, 'handed in on the Holy Diver visit');
 	assert.equal(list[idx('turnin', 4728)].s, list[idx('accept', 87760)].s, 'handed in on the Holy Diver visit');
 });
+
+// Final route review, Alliance 40-60 (2026-11-07): the riding trips go from the city the route already stops in (Night
+// Elves from the first Stormwind stop, not a walk from the Swamp of Sorrows to Stormwind and back; Dwarves and Gnomes
+// on the way out of Ironforge, not back from the Badlands); only Humans, coming from Eastvale, go by Darkshire to Booty
+// Bay (the others came by boat and flew to Darkshire and back); the flight to Stormwind leaves from Booty Bay.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: final review: riding trips from the city stops, no Darkshire round trip', { skip }, () => {
+	const stv = 'forever/alliance/40-50/01-stranglethorn-vale.guide';
+	const list = goals(stv);
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const train = (npc) => (g) => g.t === 'train' && JSON.stringify(g).includes(String(npc));
+	const firstBB = stepOf('turnin 627', is('turnin', 627));
+	const darkshire = list.filter(({ goal, s }) => goal.t === 'fly' && /Darkshire/.test(goal.location || '') && s < firstBB);
+	assert.deepEqual(darkshire, [], 'no flight to Darkshire before the first Booty Bay stop');
+	const toBB = list.filter(({ goal, s }) => goal.t === 'fly' && /Booty Bay/.test(goal.location || '') && s < firstBB);
+	assert.ok(toBB.length > 0 && toBB.every(({ step }) => step.only && JSON.stringify(step.only).includes('Human')), 'the Darkshire flight to Booty Bay is the Humans\' way back from Eastvale');
+	const jartsam = stepOf('Jartsam', train(4753));
+	assert.ok(jartsam < stepOf('turnin 1477', is('turnin', 1477)), 'Night Elves ride from the first Stormwind stop, before Darkshire');
+	assert.ok(jartsam > stepOf('turnin 212', is('turnin', 212)), 'after the Stormwind stop');
+	for (const npc of [4772, 7954]) assert.ok(stepOf(`riding trainer ${npc}`, train(npc)) < stepOf('turnin 733', is('turnin', 733)), `riding ${npc} before the Badlands`);
+	const last = stepOf('turnin 609', is('turnin', 609));
+	const sw = list.find(({ goal, s }) => s > last && goal.t === 'fly' && /Stormwind/.test(goal.location || ''));
+	const gotoBefore = list.filter(({ s, goal }) => s === sw.s && goal.t === 'goto')[0];
+	assert.equal(gotoBefore.goal.map, 1434, 'the Stormwind flight leaves from Booty Bay');
+	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => goal.t === 'fly' && /Thelsamar/.test(goal.location || '')), 'no flight back to Thelsamar in the Badlands guide');
+});
+
+// Final route review, Alliance 40-60: a player under 45 on Sardor Isle was sent to grind in Feral Scar Vale and then back
+// to Feathermoon's dock for the boat to the coast; the boat now comes first.
+test('forever/alliance/40-50/03-feralas.guide: final review: the boat to the coast before the level-45 grind', { skip }, () => {
+	const g = compiled('forever/alliance/40-50/03-feralas.guide');
+	const grind = g.steps.findIndex((s) => s.goals.some((x) => x.t === 'level' && x.level === 45));
+	assert.ok(grind > 0, 'the level-45 grind is in the guide');
+	assert.match(g.steps[grind - 1].title || '', /Boat to The Forgotten Coast/, 'the boat right before the grind');
+});
+
+// Final route review, Alliance 40-60: Loch Modan once each way (Ghak's quest from Thelsamar where the flight lands, the
+// seed's order); the Booty Bay flight after Nethergarde only for The Monogrammed Sash's group.
+test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan once each way, Booty Bay only for the group', { skip }, () => {
+	const list = goals('forever/alliance/40-50/05-the-hinterlands.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.ok(stepOf('accept 17', is('accept', 17)) < stepOf('turnin 739', is('turnin', 739)), 'Ghak before Ironband');
+	assert.ok(stepOf('turnin 704', is('turnin', 704)) < stepOf('turnin 17', is('turnin', 17)), 'Ironband on the way back, then Ghak');
+	const bb = list[at(list, 'fly Booty Bay', (g) => g.t === 'fly' && /Booty Bay/.test(g.location || ''))];
+	assert.ok((bb.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(8552)), 'only for the Sash group');
+});
+
+// Final route review, Alliance 40-60: Suntara Stones is an escort that starts on accept; it was taken at the first
+// outhouse stop and the guide left for Thorium Point. Caught! on the spot (as on the Horde side); no along lists.
+test('forever/alliance/40-50/06-searing-gorge.guide: final review: Dorius taken with his escort, Caught! on the spot, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('accept 3367', is('accept', 3367)), stepOf('complete 3367', is('complete', 3367)), 'accepted on the escort step');
+	assert.ok(stepOf('accept 3367', is('accept', 3367)) > stepOf('turnin 7722', is('turnin', 7722)), 'at the end, after Thorium Point');
+	assert.equal(stepOf('turnin 4449', is('turnin', 4449)), stepOf('kill 5839', (g) => g.t === 'kill' && g.quest === 4449), 'Caught! with its geologists');
+	assert.ok(stepOf('turnin 4449', is('turnin', 4449)) < stepOf('accept 7728', is('accept', 7728)), 'before Thorium Point');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+});
+
+// Final route review, Alliance 40-60: the pylon loop clockwise as the seed has it (the order crossed the crater from
+// the north-east to the south-west and back east); Ironforge round the ring: Tymor before Archesonus.
+test("forever/alliance/40-50/07-un-goro-crater.guide: final review: the pylon loop one way round, Ironforge in walking order", { skip }, () => {
+	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const loop = [
+		stepOf('the crate', (g) => g.t === 'collect' && g.quest === 3881 && g.item === 11113),
+		stepOf('the Eastern Pylon', (g) => g.quest === 4287 && g.t !== 'accept' && g.t !== 'turnin'),
+		stepOf('the hive wall', (g) => g.t === 'collect' && g.quest === 3883),
+		stepOf('the bones', (g) => g.t === 'collect' && g.quest === 3882),
+		stepOf('the Western Pylon', (g) => g.quest === 4288 && g.t !== 'accept' && g.t !== 'turnin'),
+	];
+	assert.deepEqual([...loop].sort((a, b) => a - b), loop, 'east side, south, south-west, west');
+	assert.ok(stepOf('turnin 3448', is('turnin', 3448)) < stepOf('accept 3702', is('accept', 3702)), 'Tymor before Archesonus');
+});
+
+// Final route review, Alliance 40-60: the trip to Mountaineer Pebblebitty only for The Horn of the Beast's group; no
+// along lists.
+test('forever/alliance/50-60/01-burning-steppes.guide: final review: Pebblebitty only for the group, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+	const trip = list.find(({ goal }) => goal.t === 'goto' && goal.map === 1432 && goal.x === 18.2);
+	assert.ok(trip && (trip.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(3181)), 'the Pebblebitty trip is the group\'s');
+});
+
+// Final route review, Alliance 40-60: Salfa where Timbermaw Hold's tunnel comes out (as on the Horde side); the western
+// Winterfall camp a step, not lists.
+test('forever/alliance/50-60/03-winterspring.guide: final review: Salfa where the tunnel comes out, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/50-60/03-winterspring.guide');
+	const salfa = at(list, 'turnin 8465', is('turnin', 8465));
+	assert.ok(salfa < at(list, 'accept 3783', is('accept', 3783)), 'before Everlook');
+	assert.equal(list[salfa].s, list[at(list, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+	const kills = new Set(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 5082).map((e) => e.s));
+	assert.equal(kills.size, 1, 'the western camp in one step');
+});
+
+// Final route review, Alliance 40-60: J.D. Collie stands 40 yd from Linken in Marshal's Refuge; A Gnome's Assistance was
+// carried through Silithus. No along lists.
+test('forever/alliance/50-60/04-western-plaguelands.guide: final review: J.D. Collie on the first refuge stop, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('turnin 3941', is('turnin', 3941)), stepOf('turnin 3914', is('turnin', 3914)), 'beside Linken');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+});
+
+// Final route review, Alliance 40-60: class training sat in a step of its own before Stormwind (a tram ride to Ironforge
+// and back), and the last city visit went Ironforge, Stormwind, Ironforge, Stormwind.
+test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and Ironforge once', { skip }, () => {
+	const five = goals('forever/alliance/50-60/05-silithus.guide');
+	const s5 = (what, pred) => five[at(five, what, pred)].s;
+	assert.equal(s5('class training', (g) => g.t === 'train'), s5('turnin 4512', is('turnin', 4512)), 'training in the Ironforge stop');
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const sw = stepOf('turnin 7793', is('turnin', 7793));
+	assert.equal(stepOf('turnin 7795', is('turnin', 7795)), sw, 'the Runecloth donation on the same stop');
+	assert.equal(stepOf('turnin 7791', is('turnin', 7791)), sw, 'the Wool donation on the same stop');
+	assert.ok(sw < stepOf('turnin 4513', is('turnin', 4513)), 'then Ironforge');
+	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Stormwind/.test(goal.location || '')).length, 1, 'one flight to Stormwind');
+});

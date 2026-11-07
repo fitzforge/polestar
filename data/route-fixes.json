@@ -4600,6 +4600,18 @@
 			},
 			{
 				"a": [
+					"accept",
+					3367
+				],
+				"b": [
+					"task",
+					3367
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Suntara Stones is an escort that starts when Dorius Stonetender gives it; it is taken at the Grimesilt Dig Site right before the escort to Dustfire Valley, as the seed has it. The order took it at the first outhouse stop and left for Thorium Point, which fails the escort."
+			},
+			{
+				"a": [
 					"task",
 					125
 				],
@@ -4925,6 +4937,20 @@
 					0
 				],
 				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
+			},
+			{
+				"a": [
+					"task",
+					3881,
+					0
+				],
+				"b": [
+					"task",
+					4287,
+					0
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's second loop goes clockwise, as the seed has it: from A-Me 01 on Ironstone Plateau south down the east side (the Crate of Foodstuffs, the Eastern Pylon), the Gorishi hive in the south, the south-west bones and equipment, the Western Pylon, then north to the refuge. The order crossed the crater from the north-east to the south-west and back east."
 			}
 		],
 		"stay": [
@@ -7820,6 +7846,138 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Supplies for Nethergarde's Crate of Power Stones lasts an hour (item 6091, duration 3600 s; the quest text says to deliver it before the powerstones expire). The Hinterlands guide took it at Darkshire right after Stormwind, then went to Loch Modan, the Badlands and Darnassus before Nethergarde Keep. It is now taken at Darkshire on the way from Stormwind to the Blasted Lands, after the Darnassus stop, and handed in at the keep first."
+			},
+			{
+				"a": [
+					"accept",
+					17
+				],
+				"b": [
+					"turnin",
+					739
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Ghak Healtouch stands in Thelsamar where the flight from Morgan's Vigil lands, so Uldaman Reagent Run is taken there before the ride east to Prospector Ironband, as the seed has it; the order rode to Ironband, back to Thelsamar for Ghak, and east again after Uldaman."
+			},
+			{
+				"a": [
+					"turnin",
+					704
+				],
+				"b": [
+					"turnin",
+					17
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Agmond's Fate goes to Ironband on the way back from the Uldaman dig and Uldaman Reagent Run to Ghak in Thelsamar beside the flight master, one pass across Loch Modan each way, as the seed has it."
+			},
+			{
+				"a": [
+					"turnin",
+					4449
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point (as on the Horde side)."
+			},
+			{
+				"a": [
+					"turnin",
+					3448
+				],
+				"b": [
+					"accept",
+					3702
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Ironforge in walking order: from the Hall of Explorers along the north ring to Tymor in the Mystic Ward, then Archesonus in the High Seat, then Xiggs in the Military Ward; the order crossed the city to the High Seat and back to the Mystic Ward."
+			},
+			{
+				"a": [
+					"task",
+					4287
+				],
+				"b": [
+					"task",
+					3883
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the Eastern Pylon before the Gorishi hive's wall sample in the south."
+			},
+			{
+				"a": [
+					"task",
+					3883
+				],
+				"b": [
+					"task",
+					3882
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the Gorishi hive before the Dinosaur Bones in the south-west."
+			},
+			{
+				"a": [
+					"task",
+					3882
+				],
+				"b": [
+					"task",
+					4288
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Un'Goro's clockwise second loop: the south-west bones before the Western Pylon, then north to the refuge."
+			},
+			{
+				"a": [
+					"turnin",
+					8465
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride from Donova (as on the Horde side)."
+			},
+			{
+				"a": [
+					"turnin",
+					3941
+				],
+				"b": [
+					"accept",
+					8277
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): J.D. Collie stands in Marshal's Refuge 40 yd from Linken, so A Gnome's Assistance is handed in and Linken's Memory taken on the first refuge stop, as the seed has it; the order carried it through Silithus and Un'Goro's west."
+			},
+			{
+				"a": [
+					"turnin",
+					7795
+				],
+				"b": [
+					"turnin",
+					4513
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop and one Ironforge stop on the way to the Plaguelands, as the seed has it: Clavicus' donations (Runecloth needs the Wool one) in Stormwind, then the tram to Ironforge; the order went Ironforge, Stormwind, Ironforge, Stormwind."
+			},
+			{
+				"a": [
+					"turnin",
+					7791
+				],
+				"b": [
+					"turnin",
+					4513
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance 40-60): One Stormwind stop: the Wool donation with Clavicus' others, before the tram to Ironforge."
 			},
 			{
 				"a": [

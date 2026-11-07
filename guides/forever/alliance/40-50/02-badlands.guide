@@ -11,17 +11,6 @@ next forever/alliance/40-50/03-feralas
 # into this file.
 # Added here: Rhapsody's Kalimdor Kocktail (1452).
 
-step Fly to Thelsamar
-  only Dwarf,Gnome
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
-  fly "Thelsamar"
-
-step Badlands
-  only Dwarf,Gnome
-  zone Badlands
-  goto 49.6,66.3 "Badlands"
-
 step Agmond's End
   zone Badlands
   kill 2945 quest 739                 -- Murdaloc
@@ -60,7 +49,7 @@ step Fly to Southshore
 step Southshore
   when onquest 1052
   zone Hillsbrad Foothills
-  tip Ride north to Thelsamar and fly to Southshore. Raleigh the Devout preaches by the inn.
+  tip Raleigh the Devout preaches by the inn.
   turnin 1052                         -- Raleigh the Devout, upstairs
   note Raleigh's next errand is in the Scarlet Monastery: skip it.
 

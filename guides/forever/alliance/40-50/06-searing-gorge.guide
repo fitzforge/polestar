@@ -28,11 +28,12 @@ step Searing Gorge
 step The Grimesilt outhouse
   tip Ride east across the Cauldron to the Grimesilt Dig Site in the south-east. The prisoner in the wooden outhouse wants 15 Silk Cloth and eight dead Dark Iron Geologists from the dig site around it. The outhouse also opens with the key, if you found one.
   accept 4449
-  tip The dwarf stands by the road at the dig site. When it is over, read the Singed Letter he leaves on the road in Dustfire Valley.
-  accept 3367
 
 step The Grimesilt outhouse
   kill 5839 quest 4449 @63.9,60.4 map 1427 -- Dark Iron Geologist
+  collect 4306 x15 quest 4449 @63.9,60.4 map 1427 -- Silk Cloth
+  turnin 4449
+  note The prisoner's next task, Ledger from Tanaris, sends you to the Swamp of Sorrows and Dustwallow Marsh: skip it.
 
 step Level 48.27
   when level<48.27
@@ -57,10 +58,6 @@ step Thorium Point
   when group 7701
   accept 7701
 
-step Greater Lava Spider on the way
-  along until q7724
-  kill 5858 quest 7724
-
 step Zamael Lunthistle
   tip The night elf stands alone west of Thorium Point. Hear his story.
   accept 3377
@@ -70,6 +67,10 @@ step Prayer to Elune
 
 step Zamael Lunthistle
   turnin 3377
+
+step Greater Lava Spiders
+  tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Kalaran.
+  kill 5858 quest 7724                -- Greater Lava Spider
 
 step Kalaran Windblade
   tip Kalaran stands on the rim of the Cauldron, south of Thorium Point. Listen to his story.
@@ -83,22 +84,16 @@ step Kalaran Windblade
   accept 3442
 
 # ---------------------------------------------------------------- The Cauldron
-step On the way
-  along until q7729
-  kill 5846 quest 7729 -- Dark Iron Taskmaster along the way to Thorium Point
-  kill 5844 quest 7729 -- Dark Iron Slaver along the way to Thorium Point
-
 step Firewatch Ridge: kill these as you meet them
-  label q7724
   zone Searing Gorge
-  tip The spiders roam the plateaus and lava pools in the south-west of the gorge.
   tip Heavy War Golems patrol the floor of the Cauldron below Kalaran; Magma Elementals drift among them. Golems and elementals drop the oil, elementals the hearts.
   tip Taskmasters and Slavers drive the slaves all over the Cauldron, and any of them can carry a Thorium Plated Dagger. The Steamsmiths work at the furnaces in the middle (the Smithing Tuyere), the Lookouts stand on the southern ridges (the Spyglass). Any Dark Iron may drop the Grimesilt Outhouse Key: keep it.
   tip Careful: Dark Iron Slavers (level 45-46) call for help from allies within 15 yd when pulled, cast Net from up to 15 yd, and use Rend in melee.
   collect 10509 quest 3442            -- Heart of Flame
   collect 10511 quest 3442            -- Golem Oil
+  kill 5846 quest 7729                -- Dark Iron Taskmaster
+  kill 5844 quest 7729                -- Dark Iron Slaver
   kill 5854 quest 7723                -- Heavy War Golem
-  kill 5858 quest 7724                -- Greater Lava Spider
   collect 18960 quest 7728            -- Lookout's Spyglass
   collect 11818 x1 optional           -- Grimesilt Outhouse Key
   accept 4451 optional
@@ -108,27 +103,18 @@ step Kalaran Windblade
   turnin 3442
   accept 3443
 
-step Thorium Plated Dagger on the way
-  along until q3443
-  collect 10551 quest 3443
-
 step Thorium Point
-  label q7729
   turnin 7729
   turnin 7728                         -- Taskmaster Scrange
   turnin 7723                         -- Hansel Heavyhands
   turnin 7724
 
-step Incendosaur on the way
-  along until q7727
-  kill 9318 quest 7727 -- Incendosaur along the way to Thorium Point
-
 step Searing Gorge: kill these as you meet them
-  label q3443
   zone Searing Gorge
   tip The Slag Pit opens in the north of the Cauldron. The Secret Plans lie on its upper ledge; Incendosaurs swim in the lava pools further in, so pull them to the edge. Stay clear of Overseer Maltorius and his elite guards deep inside.
   collect 10551 quest 3443
   collect 18922 quest 7722            -- Secret Plans: Fiery Flux; below ground
+  kill 9318 quest 7727                -- Incendosaur
 
 step Searing Gorge: kill these as you meet them
   when group 7701
@@ -147,7 +133,6 @@ step Level 48.66
   level 48.66                          -- grind on Incendosaur
 
 step Thorium Point
-  label q7727
   turnin 7727
   turnin 7722                         -- Master Smith Burninate
 
@@ -183,13 +168,12 @@ step Margol's Horn
   collect 10000 x1 optional @73.5,82.3 map 1427 -- Below ground
   accept 3181 optional
 
-step Camp Cagg
-  collect 4306 x15 quest 4449 @63.9,60.4 map 1427 -- Silk Cloth
+step The Grimesilt outhouse
   turnin 4451 optional
-  turnin 4449
-  note The prisoner's next task, Ledger from Tanaris, sends you to the Swamp of Sorrows and Dustwallow Marsh: skip it.
 
-step Dustfire Valley
+step Dorius Stonetender
+  tip Back at the Grimesilt Dig Site: Dorius stands by the road. Escort him north-east to Dustfire Valley and keep him alive; when it is over, read the Singed Letter he leaves on the road.
+  accept 3367
   complete 3367
   turnin 3367                         -- Singed Letter
   accept 3368                         -- For Curator Thorius in Ironforge, later
