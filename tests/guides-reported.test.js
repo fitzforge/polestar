@@ -4480,3 +4480,12 @@ for (const guide of DUN_MOROGHS) {
 		assert.ok(at(list, 'the Wendigo Manes', (g) => g.t === 'collect' && g.item === 2671) < idx('turnin', 317), 'after the den');
 	});
 }
+
+// Darkshore: Fruit of the Sea's crab chunks come with Cliffspring Falls; the walk passed Gubber Blump with them
+// on the next Auberdine visit and handed them in a loop later.
+test(`${DARKSHORE}: flow re-order: Fruit of the Sea handed in on the Auberdine visit after Cliffspring Falls`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.equal(list[idx('turnin', 1138)].s, list[idx('turnin', 4762)].s, 'with the Cliffspring River sample');
+	assert.ok(idx('turnin', 1138) < idx('turnin', 1001), 'before the north loop');
+});
