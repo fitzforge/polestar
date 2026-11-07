@@ -179,6 +179,8 @@ end)
 
 -- "accept", "decline" or nil (ask). roleCheck: a Dungeon Finder role invite.
 function Social.PartyAnswer(name, guid, roleCheck)
+	-- A layer hop host's invite is QoL/Layer.lua's to take.
+	if QoL.Layer and QoL.Layer.Expects and QoL.Layer.Expects(name) then return nil end
 	if Social.IsFriend(name, guid) then
 		if not QoL.On("acceptPartyFriends") or QoL.Shift() or roleCheck then return nil end
 		if WillAcceptInviteRemoveQueues and WillAcceptInviteRemoveQueues() then return nil end

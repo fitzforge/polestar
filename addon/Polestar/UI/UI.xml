@@ -30,6 +30,7 @@
 	<Script file="Packs.lua"/>
 	<Script file="Import.lua"/>
 	<Script file="Thanks.lua"/>
+	<Script file="LayerHop.lua"/>
 	<Script file="Options.lua"/>
 	<Script file="LineStyle.lua"/>
 	<Script file="QuestieTurnIns.lua"/>

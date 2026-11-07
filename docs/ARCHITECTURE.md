@@ -4684,6 +4684,43 @@ Polestar.QoL.Restock.Run()                           -- the button's press: Buy.
   `W.Slider` and the options registry accept as they do for toggles;
   `/polestar restock [drink|food|ammo|<item>] <amount>` sets any of them.
 
+### Layer hop — QoL/Layer, UI/LayerHop
+
+Opt in: `qol.layerHop` (off); with it off no event is watched, no channel
+joined and no message sent. Its settings, all off but the delay:
+`qol.layerHost` (answer requests with an invite), `qol.layerAutoRefresh`,
+`qol.layerRefreshDelay` (0-60 s, default 5) and `qol.layerLeaveAfter`.
+
+```lua
+Polestar.QoL.Layer.Status() -> { on, map, id, label, transfer, secondsLeft, asked, hopGroup, host, peers }
+Polestar.QoL.Layer.Known(map) -> { { id, n, peers, hosts, mine } }  -- numeric id order; n: "Layer n"
+Polestar.QoL.Layer.Current() -> mapID, id | nil
+Polestar.QoL.Layer.Request(want) / CancelRequest() / LeaveGroup() / RefreshNow() / Ask() -> true | false, why
+Polestar.QoL.Layer.Expects(name) -> bool  -- an invite a waiting request expects; QoL/Social leaves it alone
+```
+
+- **Layer id.** Field `LAYER_FIELD` (5) of a creature or vehicle GUID, the
+  one constant to change should Forever vary another field
+  (`/polestar layer debug` prints them all).
+- **Messages.** Prefix `PolestarLayer`, in the guild and on the hidden
+  custom channel `PolestarLayer`, never party, raid or instance chat, and
+  nothing during a chat lockdown. Version 1: `1H<map>:<layer>:<host>`
+  presence, `1Q<map>` ask for presence, `1R<map>:<layer>:<want>` a hop
+  request (`want` an id or `*`), `1I<name>` a host's claim (other hosts
+  stand down for that name). Own echo, other realms, secret values, other
+  versions, messages over 120 bytes and more than one per sender per 2 s
+  are dropped.
+- **World refresh.** `SHARD_TRANSFER_IMMINENT` offers it;
+  `RefreshNow` calls `C_PlayerInteractionManager.ShardTransferConfirm()`
+  out of combat, with Blizzard's `SHARD_TRANSFER_IMMEDIATE` dialog as the
+  fallback; auto refresh only for a hop the module asked for. Every change
+  fires `LAYER_CHANGED`.
+- **Window** `UI.LayerHop` (`PolestarLayerHop`): `TOGGLE_LAYER_HOP`
+  (`/polestar layer`, the options' button) toggles it, never while the opt
+  in is off; geometry in `PolestarDB.layerHopWindow = { x, y, w, h }`,
+  280x220 to 560x640, kept on screen; `ui.locked` hides the grip and stops
+  dragging.
+
 ## Lookup — Codex, sources, generated guides, mount spotting
 
 `addon/Polestar/Lookup/` (`Lookup.xml`: Codex, Sources, Guide, Spotter,

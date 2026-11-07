@@ -495,6 +495,12 @@ local function expected(name)
 	return false
 end
 
+-- Whether an invite from `name` is one a waiting request expects:
+-- QoL/Social.lua then leaves it to this module.
+function Layer.Expects(name)
+	return enabled and expected(short(name)) or false
+end
+
 -- Any other invite is left to the player and QoL/Social.lua's own rules.
 local function onPartyInvite(_, name)
 	name = short(name)

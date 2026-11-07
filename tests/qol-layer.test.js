@@ -215,6 +215,19 @@ test('layer hop: a request is sent or refused; only the claimed host or a known 
 	assert.deepEqual(peer[0], [0, 1], 'a peer heard on the map is the fallback, and only while a request waits');
 });
 
+test('layer hop: with Decline other party invitations on, the claimed host\'s invite is accepted, not declined; a stranger\'s still is', () => {
+	const out = run(`
+		set("declinePartyStrangers", true)
+		Ly.Request("*")
+		hear("Hostone", "1ITestchar")
+		stub.fire("PARTY_INVITE_REQUEST", "Hostone")
+		local host = { #calls("AcceptGroup"), #calls("DeclineGroup"), Ly.Expects("Hostone"), Ly.Expects("Stranger") }
+		stub.fire("PARTY_INVITE_REQUEST", "Stranger")
+		emit({ host, #calls("AcceptGroup"), #calls("DeclineGroup") })
+	`);
+	assert.deepEqual(out[0], [[1, 0, true, false], 1, 1]);
+});
+
 test('layer hop: the world refresh is offered, confirmed out of combat, auto-confirmed only for an asked hop, with the dialog as fallback', () => {
 	const offer = run(`
 		lay.eviction = 300

@@ -270,3 +270,27 @@ register(QOL, L["Trackers"], L["Experience"], {
 	{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset session"], help = L["Start this session's XP per hour from zero."], search = "xp, experience",
 		onClick = function() if QoL.XP then QoL.XP.ResetSession() end end },
 })
+
+local function layerOff() return not QoL.On("layerHop") end
+
+register(QOL, L["Layers"], L["Layer hop"], {
+	{ kind = "toggle", key = "qol.layerHop", label = L["Layer hop"],
+		help = L["Shows which layer of the zone you are on and asks Polestar players on another layer for a group invite, which moves you to their layer when the game refreshes your world. While on, Polestar joins a hidden chat channel and exchanges addon messages with other Polestar players in your guild and on that channel: your layer, your map and hop requests. Open the window with /polestar layer."],
+		search = "layer, layers, hop, layer hop, shard, phase, world refresh, invite" },
+	{ kind = "button", button = L["Open"], label = L["Layer hop window"], disabled = layerOff,
+		help = L["Your layer, the hop in progress and the layers other Polestar players reported in your zone. Drag it by its top, resize it by its corner."],
+		search = "layer, layers, hop, shard, phase, window", onClick = function() ns.Fire("TOGGLE_LAYER_HOP") end },
+	{ kind = "toggle", key = "qol.layerHost", label = L["Invite players who ask"], disabled = layerOff, child = true,
+		help = L["When a Polestar player on another layer of your zone asks for a hop, sends them a group invite: only out of combat, when you are alone or lead a group with room, and once in 5 minutes per player."],
+		search = "layer, hop, host, invite, shard, phase" },
+	{ kind = "toggle", key = "qol.layerAutoRefresh", label = L["Refresh the world by itself"], disabled = layerOff, child = true,
+		help = L["After a hop you asked for, takes the game's world refresh once the delay below has passed, out of combat. A refresh you did not ask for is only shown."],
+		search = "layer, hop, world refresh, auto refresh, shard, phase" },
+	{ kind = "slider", key = "qol.layerRefreshDelay", label = L["Refresh after"], min = 0, max = 60, step = 1,
+		disabled = function() return layerOff() or not QoL.On("layerAutoRefresh") end,
+		format = function(v) return string.format(L["%d s"], math.floor(v + 0.5)) end,
+		help = L["Seconds before the world refresh is taken by itself."], search = "layer, hop, world refresh, delay" },
+	{ kind = "toggle", key = "qol.layerLeaveAfter", label = L["Leave the group after the hop"], disabled = layerOff, child = true,
+		help = L["Leaves the group joined for a hop once the world has refreshed. Leaving may move you to another layer again."],
+		search = "layer, hop, leave group, leave party, invite" },
+})
