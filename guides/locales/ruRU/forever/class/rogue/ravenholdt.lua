@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:3486} Ravenholdt Manor · {npc:13085} Myrokos Silentform
-	["Opens {area:3486}, the hidden rogue house in the Alterac hills, and {npc:13085}'s jobs against the Syndicate."] = "",
+	["Opens {area:3486}, the hidden rogue house in the Alterac hills, and {npc:13085}'s jobs against the Syndicate."] = "Открывает {area:3486} – тайный дом разбойников в холмах Альтерака – и поручения NPC {npc:13085} против Синдиката.",
 	-- {npc:13936} Ravenholdt
 	["{npc:13936} reputation"] = "Репутация: {npc:13936}",
 
@@ -28,8 +28,8 @@ return {
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
 	-- plural, as words: Syndicate Rogues = {npc:2260} Syndicate Rogue
 	["{npc:266216} is inside {area:275}, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says {npc:13085}. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry {quest:6701} for the guards' repeatable reputation quest."] = "",
-	-- {item:17124} Syndicate Emblem · {spell:921} Pick Pocket
-	["{item:17124}, by {spell:921}"] = "",
+	-- {quest:6701} Syndicate Emblems
+	["Pick Pocket Syndicate members for {quest:6701}"] = "Обчистите карманы членов Синдиката для задания {quest:6701}",
 
 	-- Step 4: Myrokos Silentform
 	-- {npc:6766} Ravenholdt Guard · {quest:6701} Syndicate Emblems
@@ -39,8 +39,8 @@ return {
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
 	["In your mid 30s {npc:13085} has two more jobs; take both. Barton leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "",
-	-- {item:275482} Barton's Scouting Report · {spell:921} Pick Pocket
-	["{item:275482}: {spell:921} on Barton"] = "",
+	-- {item:275482} Barton's Scouting Report
+	["Pick Pocket Barton for {item:275482}"] = "Обчистите карманы Бартона: {item:275482}",
 
 	-- Step 6: Covert Extraction
 	-- {npc:13085} Myrokos Silentform · {area:281} Ruins of Alterac · {zone:1416} Alterac Mountains

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:94373} Call of Earth
-	["{quest:94373} (Alliance)"] = "",
+	["{quest:94373} (Alliance)"] = "{quest:94373}（联盟）",
 	-- {item:5175} Earth Totem · {spell:8071} Stoneskin Totem
-	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "",
+	["Your {item:5175}: without it no earth totem can be cast. {spell:8071} comes with it at level 4."] = "你的{item:5175}：没有它就无法施放任何大地图腾。4级时随之获得{spell:8071}。",
 
 	-- Step 1: Teo Hammerstorm
 	-- {npc:257446} Teo Hammerstorm · {area:77} Anvilmar · {area:132} Coldridge Valley · {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {npc:258113} Ingrid Dunwald · {area:131} Kharanos · {quest:94373} Call of Earth

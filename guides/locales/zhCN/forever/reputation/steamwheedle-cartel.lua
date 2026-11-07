@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Steamwheedle Cartel Reputation"] = "",
+	["Steamwheedle Cartel Reputation"] = "热砂港声望",
 	-- {npc:14637} Zorbin Fandazzle · {npc:14338} Knot Thimblejack
-	["Every goblin town at once: {npc:14637}'s zapped giants and {npc:14338}'s shackles, then five new quartermasters and their hats."] = "",
-	["Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored"] = "",
+	["Every goblin town at once: {npc:14637}'s zapped giants and {npc:14338}'s shackles, then five new quartermasters and their hats."] = "所有地精城镇同时提升：{npc:14637}的电击巨人和{npc:14338}的镣铐，然后是五位新军需官和他们的帽子。",
+	["Forever's goblin quartermasters: gear for levels 20 to 50 at Friendly and Honored"] = "Forever的地精军需官：友善和尊敬声望下的20到50级装备",
 
 	-- Step 1: Zorbin Fandazzle
 	-- {faction:470} Ratchet · {faction:21} Booty Bay · {faction:369} Gadgetzan · {faction:577} Everlook · {faction:2827} Powderfuse · {zone:2548} Riverglades · {npc:14637} Zorbin Fandazzle · {npc:4624} Booty Bay Bruiser · {zone:1444} Feralas

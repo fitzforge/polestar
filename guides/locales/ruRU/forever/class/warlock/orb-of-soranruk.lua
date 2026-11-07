@@ -7,7 +7,7 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["A rare off-hand orb or staff for your 20s, for fragments from two dungeons."] = "",
+	["A rare off-hand orb or staff for your 20s, for fragments from two dungeons."] = "Редкая сфера для левой руки или посох для 20-х уровней за фрагменты из двух подземелий.",
 
 	-- Step 1: Doan Karhan
 	-- {npc:6247} Doan Karhan · {npc:6244} Takar the Seer · {area:378} Camp Taurajo · {zone:1413} Barrens · {area:392} Ratchet · {area:380} Crossroads · {area:2797} Blackfathom Deeps · {area:236} Shadowfang Keep

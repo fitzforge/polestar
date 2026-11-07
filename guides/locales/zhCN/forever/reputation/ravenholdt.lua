@@ -7,10 +7,10 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Ravenholdt Reputation"] = "",
-	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "",
+	["Ravenholdt Reputation"] = "拉文霍德声望",
+	["The assassins' guild: Forever's new rogue quests, then Syndicate kills and Heavy Junkboxes to Exalted."] = "刺客公会：先做Forever新增的潜行者任务，然后击杀辛迪加成员并上交沉重的垃圾箱，直到崇拜。",
 	-- {faction:349} Ravenholdt
-	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "",
+	["{faction:349} reputation (no vendor or reward in Forever's data)"] = "{faction:349}声望（Forever数据中没有商人或奖励）",
 
 	-- Step 1: The Manor, Ravenholdt
 	-- {item:17126} Elegant Letter · {area:275} Durnholde Keep · {npc:6707} Fahrad

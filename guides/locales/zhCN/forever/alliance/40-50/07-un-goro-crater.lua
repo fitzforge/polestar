@@ -18,33 +18,31 @@ return {
 	["Theramore flight master"] = "",
 
 	-- Step 5: Gadgetzan
-	-- {area:392} Ratchet · {area:976} Gadgetzan
-	["From {area:392}, fly to {area:976}."] = "",
+	-- {area:976} Gadgetzan
+	["The flight from Theramore lands in {area:976}."] = "从塞拉摩起飞的航班降落在{area:976}。",
 
-	-- Step 7: Super Sticky Tar on the way
-	-- {item:11834} Super Sticky Tar
-	["{item:11834} on the way"] = "",
-
-	-- Step 9: Torwa Pathfinder
+	-- Step 8: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {area:490} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {area:490}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "",
 
-	-- Step 10: Fresh Threshadon Carcass
+	-- Step 9: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder
 	["The dead Threshadon lies by the water north of {npc:9619}."] = "死去的蛇颈龙躺在{npc:9619}北边的水边。",
 
-	-- Step 12: Lar'korwi Mates and the raft
+	-- Step 11: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "{npc:9683}和木筏",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "拉克维的配偶在{npc:9619}西边的丛林中徘徊。失事的木筏在那里的湖岸上；小背包在它旁边的水里。指南针、地图和钥匙留给{npc:8737}。环形山中任何野兽都可能掉落{item:11116}：右键点击它。",
+	-- {object:161504} A Small Pack
+	["{object:161504}, underwater"] = "",
 
-	-- Step 13: Karna Remtravel
+	-- Step 12: Karna Remtravel
 	-- {npc:9618} Karna Remtravel
 	["{npc:9618} stands just outside the refuge."] = "{npc:9618}站在避难所外面。",
 
-	-- Step 14: Marshal's Refuge
+	-- Step 13: Marshal's Refuge
 	-- {object:157936} Un'Goro Dirt Pile
 	["Ride west back to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every Power Crystal and {object:157936} you pass from here on."] = "",
 	-- {npc:9998} Shizzle
@@ -52,22 +50,14 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "",
 
-	-- Step 15: Webbed Diemetradon Scale on the way
-	-- {item:11830} Webbed Diemetradon Scale
-	["{item:11830} on the way"] = "",
-
-	-- Step 16: Fire Plume Ridge and the eastern jungle
+	-- Step 14: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "",
 	-- {area:537} Fire Plume Ridge · {item:11113} Crate of Foodstuffs
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride south to {area:537} in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around {area:537}: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's {item:11113} sits at an abandoned camp in the eastern jungle."] = "向南骑到陨石坑中央的{area:537}，然后向东进入东部丛林。水晶簇遍布陨石坑，许多在{area:537}周围：每种颜色多拿几个。{npc:6509}和血瓣花猛击者掉落花瓣；远征队的{item:11113}在东部丛林的一处废弃营地里。",
 
-	-- Step 17: The Marshlands
-	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
-
-	-- Step 19: Marshal's Refuge
+	-- Step 16: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "",
 	-- {npc:9298} Donova Snowden · {zone:1452} Winterspring
@@ -75,24 +65,26 @@ return {
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "交给{zone:1444}的{npc:7775}：留着",
 
-	-- Step 20: Northern Pylon
+	-- Step 17: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 	-- {npc:9998} Shizzle
 	["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "",
+	-- {item:11834} Super Sticky Tar · {npc:6518} Tar Lurker · {npc:6519} Tar Lord
+	["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
 
-	-- Step 21: A-Me 01
+	-- Step 18: A-Me 01
 	-- {area:1943} Ironstone Plateau
 	["Ride north to {area:1943}, where the robot stands among the gorillas. Stay out of the deep cave there."] = "向北骑行到{area:1943}，机器人站在猩猩中间。别进那里的深洞。",
 	["Below ground"] = "",
 
-	-- Step 22: Level 49.51
+	-- Step 19: Level 49.51
 	["Level 49.51"] = "",
 	-- {area:541} Marshal's Refuge
 	["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50."] = "",
 	["Pterrordax"] = "",
 	["grind on Pterrordax"] = "",
 
-	-- Step 23: The Gorishi hive
+	-- Step 20: The Gorishi hive
 	["The Gorishi hive"] = "格里什虫巢",
 	-- {npc:9619} Torwa Pathfinder · {quest:3764} Un'Goro Soil · {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
@@ -100,7 +92,7 @@ return {
 	-- {npc:9167} Frenzied Pterrordax
 	["grind on {npc:9167}"] = "",
 
-	-- Step 24: Bones and equipment
+	-- Step 21: Bones and equipment
 	["Bones and equipment"] = "骨头和设备",
 	-- {item:11112} Research Equipment
 	-- plural, as words: Dinosaur Bones = {item:11114} Dinosaur Bone
@@ -108,71 +100,67 @@ return {
 	-- {npc:9164} Elder Diemetradon
 	["grind on {npc:9164}"] = "",
 
-	-- Step 25: Un'Goro Crater: kill these as you meet them
+	-- Step 22: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
 	["{area:490}: kill these as you meet them"] = "",
 	-- {npc:9165} Fledgling Pterrordax · {npc:9998} Shizzle
 	-- plural, as words: Young Diemetradons = {npc:9162} Young Diemetradon
 	["Ride south down the east side. Young Diemetradons graze the eastern jungle and {npc:9165} fly near the eastern cliffs; both drop {npc:9998}'s scales."] = "沿东侧向南骑行。幼双帆龙在东部丛林吃草，{npc:9165}在东部悬崖附近飞行；两者都掉落{npc:9998}要的鳞片。",
 
-	-- Step 26: Western Pylon
+	-- Step 23: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
 	-- {npc:9167} Frenzied Pterrordax
 	["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "水晶塔立在西部悬崖上。{npc:9167}在整个西侧上空飞行。",
 
-	-- Step 28: Eastern Pylon
+	-- Step 25: Eastern Pylon
 	["Eastern Pylon"] = "东部水晶塔",
 	["The pylon stands on the eastern cliffs."] = "水晶塔立在东部悬崖上。",
 
-	-- Step 30: Marshal's Refuge
+	-- Step 27: Marshal's Refuge
 	["Ride north along the western jungle back to the refuge."] = "沿西部丛林向北骑回避难所。",
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the refuge's entrance"] = "{npc:9998}，在避难所入口",
 
-	-- Step 31: Hearth to Stoutlager Inn
-	-- {area:2101} Stoutlager Inn
-	["Hearth to {area:2101}"] = "",
-
-	-- Step 32: To Stoutlager Inn
+	-- Step 28: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
 	["To {area:2101}"] = "",
 
-	-- Step 33: Fly to Ironforge
+	-- Step 29: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:144} Thelsamar
 	["{area:144} flight master"] = "",
 
-	-- Step 34: Hall of Explorers
+	-- Step 30: Hall of Explorers
 	-- {npc:9616} Laris Geardawdle · {zone:1448} Felwood
 	["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：软泥怪在{zone:1448}，留着",
 
-	-- Step 35: Royal Historian Archesonus
+	-- Step 31: Royal Historian Archesonus
 	-- {object:171709} High Seat
 	["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",
 	-- {zone:1428} Burning Steppes
 	["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
 
-	-- Step 36: Mystic Ward
+	-- Step 32: Mystic Ward
 	-- {zone:1447} Azshara
 	["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四个符文拓片：留着",
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 
-	-- Step 37: Bind and train
+	-- Step 33: Bind and train
 	["Bind and train"] = "设置炉石并训练",
 
-	-- Step 38: Xiggs Fuselighter
+	-- Step 34: Xiggs Fuselighter
 	-- {object:32359} Military Ward
 	["Xiggs waits in the {object:32359}."] = "西格斯在{object:32359}等候。",
 
-	-- Step 41: Fly to Astranaar
+	-- Step 37: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "",
 
-	-- Step 42: Level 50.4
+	-- Step 38: Level 50.4
 	["Level 50.4"] = "",
 	-- {area:3137} Talrendis Point
 	["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "",

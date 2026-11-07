@@ -72,8 +72,8 @@ return {
 	["Fly to {area:976}"] = "",
 
 	-- Step 20: Thunder Bluff
-	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {zone:1454} Orgrimmar · {area:484} Freewind Post
-	["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {zone:1454}, then on to {area:484}."] = "Ваш учитель – в городе {area:1638}: {npc:3033} (друиды), ориентир: {area:1639}; {npc:246344} (паладины). Летите туда из города {zone:1454}, затем дальше сюда: {area:484}.",
+	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful · {area:976} Gadgetzan
+	["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {area:976}, then back to {area:976}."] = "Ваш учитель – в городе {area:1638}: {npc:3033} (друиды), ориентир: {area:1639}; {npc:246344} (паладины). Летите туда отсюда: {area:976}, затем обратно сюда: {area:976}.",
 
 	-- Step 24: Ratchet for the Felsteed
 	-- {area:392} Ratchet
@@ -150,43 +150,43 @@ return {
 	["Woodpaw battle map"] = "Тактическая карта Древолапов",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "Тактическая карта лежит в лагере Древолапов к югу от Лагеря Мохаче.",
 
-	-- Step 46: Ruins of Isildien: kill these as you meet them
-	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
-	-- {area:1105} Feral Scar Vale
-	["Ride south-west to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "Езжайте на юго-запад к руинам огров ниже места {area:1105}. Там шаманы, чернокнижники и изверги; сфера – у магов-лордов в южной части.",
-	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
-	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
-
-	-- Step 47: Hearth to Camp Mojache
-	-- {area:1099} Camp Mojache
-	["Hearth to {area:1099}"] = "Камень возвращения: {area:1099}",
-
-	-- Step 48: Camp Mojache
+	-- Step 46: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "для города {zone:1454}, примерно на 45-м уровне",
 
-	-- Step 49: The Writhing Deep
+	-- Step 47: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber."] = "Улей Цуккаш врыт в холмы к юго-востоку от лагеря; {quest:7731} ждет в самой дальней камере.",
 
-	-- Step 50: Camp Mojache
+	-- Step 48: Ruins of Isildien: kill these as you meet them
+	-- {area:2522} Ruins of Isildien
+	["{area:2522}: kill these as you meet them"] = "",
+	-- {area:1105} Feral Scar Vale
+	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "Езжайте на запад от улья к руинам огров ниже места {area:1105}. Там шаманы, чернокнижники и изверги; сфера – у магов-лордов в южной части.",
+	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
+	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
+
+	-- Step 49: Feral Scar Vale yetis
+	-- {area:1105} Feral Scar Vale
+	["{area:1105} yetis"] = "Йети: {area:1105}",
+	-- {area:1105} Feral Scar Vale
+	["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "К северо-западу от руин, в месте {area:1105}, логово йети; толстая шкура может упасть с любого йети там.",
+
+	-- Step 50: Homing Robot OOX-22/FE
+	-- {area:357} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
+	["Only with the distress beacon: any beast, gnoll or ogre in {area:357} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Только с аварийным маяком: он может упасть с любого зверя, гнолла или огра в краю {area:357}, примерно один раз из ста; используйте его, чтобы начать задание. Робот сидит в небольшой пещере в северной части места {area:1105}, чуть к северо-западу от руин. Сопроводите его к причалу в месте {area:1108}; по пути нападут йети и гориллы. Награда ждет здесь: {area:35} – заберете позже.\nОсторожно: во время сопровождения будет три засады, и робот предупреждает перед каждой. Первая – 3 йети, сразу после того, как робот выйдет из пещеры и поднимется к дороге. Вторая – 3 гориллы, на тропе вдоль утеса. Третья – около 4 гноллов, один из них заклинатель, там, где маршрут сворачивает к причалу.",
+
+	-- Step 51: Camp Mojache
+	-- {area:357} Feralas
+	["the Rage Scar yetis, on the next visit to {area:357}"] = "йети Яростного Шрама – при следующем посещении края {area:357}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["{npc:7875}: for {npc:7010} in {zone:1454}, around level 50"] = "",
 
-	-- Step 52: The Forgotten Coast
-	-- plural, as words: Coast Crawl Deepseers = {npc:5328} Coast Crawl Deepseer
-	["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Езжайте дальше на запад к побережью. С береговых глубинников и клешнехватов на пляжах примерно один раз из сорока падает аварийный маяк OOX-22/FE: если выпадет, используйте его, чтобы начать задание.",
-
-	-- Step 54: Homing Robot OOX-22/FE
-	-- {area:1105} Feral Scar Vale · {area:1108} The Forgotten Coast · {area:35} Booty Bay
-	["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
-
-	-- Step 56: Fly to Orgrimmar
+	-- Step 52: Fly to Orgrimmar
 	-- {area:1099} Camp Mojache
 	["{area:1099} flight master"] = "",
 
-	-- Step 57: Orgrimmar
+	-- Step 53: Orgrimmar
 	-- {zone:1454} Orgrimmar · {object:172958} Valley of Honor · {object:172960} Cleft of Shadow · {object:172961} Valley of Spirits
 	["Fly to {zone:1454}. The Droffers brothers run their shop in the Drag.\n{object:172958}, then the {object:172960} and the {object:172961}."] = "",
 	-- {zone:1425} Hinterlands
@@ -199,10 +199,13 @@ return {
 	-- ["Fly to {area:484}, then ride west through the canyons past {area:2237}; the road climbs into the {zone:1444} jungle and on to {area:1099}."] = "Летите сюда: {area:484}, затем езжайте на запад через каньоны мимо места {area:2237}; дорога поднимается в джунгли ({zone:1444}) и ведет сюда: {area:1099}.",
 	-- ["Fly to {area:75}"] = "Летите сюда: {area:75}",
 	-- ["Galestriders: {npc:265756}, in {area:16638} on Zephras Isle."] = "Буреступы: {npc:265756}, ориентир: {area:16638}, остров Зефрис.",
+	-- ["Hearth to {area:1099}"] = "Камень возвращения: {area:1099}",
+	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Езжайте дальше на запад к побережью. С береговых глубинников и клешнехватов на пляжах примерно один раз из сорока падает аварийный маяк OOX-22/FE: если выпадет, используйте его, чтобы начать задание.",
 	-- ["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit."] = "Только с аварийным маяком: робот сидит в небольшой пещере в северной части места {area:1105}. Сопроводите его к причалу в месте {area:1108}; по пути нападут йети и гориллы. Награда ждет здесь: {area:35} – заберете позже.",
 	-- ["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "Ящеры: Зьольнир, рядом с персонажем {npc:7953} ({area:367}).",
 	-- ["Ride back north-west from {area:1978} to {area:75} and fly to {object:3202}."] = "Возвращайтесь на северо-запад от места {area:1978} сюда: {area:75} и летите сюда: {object:3202}.",
 	-- ["Ride back west to {area:976}."] = "Возвращайтесь на запад сюда: {area:976}.",
+	-- ["Ride south-west to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb."] = "Езжайте на юго-запад к руинам огров ниже места {area:1105}. Там шаманы, чернокнижники и изверги; сфера – у магов-лордов в южной части.",
 	-- ["Ride west into the middle of {zone:1444}. Kill a {npc:5308}, use {item:10699} on its body and kill the spirit that rises."] = "Езжайте на запад в центр края {zone:1444}. Убейте монстра {npc:5308}, примените на тело предмет {item:10699} и убейте поднявшийся дух.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете ездовое животное. В Classic каждая раса учится у своего учителя: ваш – {npc:3690} ({area:222}), рядом кодо ({npc:3685}, по 20 золотых). В Forever, возможно, любая раса может учиться у любого учителя (не подтверждено): сначала попробуйте персонажа {npc:4752} ({zone:1454}, {object:172958}) – он ближе всех, и пропустите этот шаг, если он вас обучит.",
 	-- ["Riding needs level 40 and costs 100 gold; learning it gives you a mount. In Classic each race learns it from its own race's trainer: yours is {npc:4773} in {area:159}, with {npc:4731}'s skeletal horses (20 gold each) beside her. Forever may let any race learn from any riding trainer (not confirmed): try {npc:4752} in {zone:1454}'s {object:172958} first, as he is the nearest, and skip this step if he teaches you."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете ездовое животное. В Classic каждая раса учится у своего учителя: ваш – {npc:4773} ({area:159}), рядом кони-скелеты ({npc:4731}, по 20 золотых). В Forever, возможно, любая раса может учиться у любого учителя (не подтверждено): сначала попробуйте персонажа {npc:4752} ({zone:1454}, {object:172958}) – он ближе всех, и пропустите этот шаг, если он вас обучит.",
@@ -220,6 +223,7 @@ return {
 	-- ["The {object:3202} zeppelin leaves from the tower just north-east of {zone:1454}'s main gate."] = "Дирижабль ({object:3202}) отправляется с башни чуть к северо-востоку от главных ворот ({zone:1454}).",
 	-- ["The {zone:1454} zeppelin leaves from the tower beside {object:3202}; it lands just outside {zone:1454}'s main gate."] = "Дирижабль ({zone:1454}) отправляется с башни у лагеря {object:3202}; он причаливает у главных ворот ({zone:1454}).",
 	-- ["Thysta, the flight master, stands just east of the zeppelin tower. Fly to {area:75}: the next guide starts there."] = "Тиста, распорядитель полетов, стоит чуть к востоку от башни дирижаблей. Летите сюда: {area:75} – там начинается следующее руководство.",
+	-- ["Your trainer is in {area:1638}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins). Fly there from {zone:1454}, then on to {area:484}."] = "Ваш учитель – в городе {area:1638}: {npc:3033} (друиды), ориентир: {area:1639}; {npc:246344} (паладины). Летите туда из города {zone:1454}, затем дальше сюда: {area:484}.",
 	-- ["Zeppelin to {object:3202}"] = "Дирижабль: {object:3202}",
 	-- ["Zeppelin tower"] = "Башня дирижаблей",
 	-- ["for {area:35}, around level 50"] = "для места {area:35}, примерно на 50-м уровне",

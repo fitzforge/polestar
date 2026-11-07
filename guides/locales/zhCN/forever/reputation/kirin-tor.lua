@@ -7,11 +7,11 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Kirin Tor Reputation"] = "",
+	["Kirin Tor Reputation"] = "肯瑞托声望",
 	-- {area:279} Dalaran
-	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "",
+	["New in Forever: {area:279}'s mages sell Azure armour recipes at Friendly and their tabard at Exalted."] = "Forever新增：{area:279}的法师在友善时出售蔚蓝护甲配方，在崇拜时出售其战袍。",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
-	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "",
+	["Eight Azure helm and shoulder recipes at Friendly ({skill:164}, {skill:165}, {skill:197})"] = "友善时可购八种蔚蓝头盔和护肩配方（{skill:164}、{skill:165}、{skill:197}）",
 
 	-- Step 1: Skyborne: the recipes now
 	["Skyborne: the recipes now"] = "",

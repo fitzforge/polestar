@@ -20,20 +20,16 @@ return {
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
 	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
 
-	-- Step 5: Aged Kodo Hide on the way
-	-- {item:6249} Aged Kodo Hide
-	["{item:6249} on the way"] = "",
-
-	-- Step 7: Azore Aldamort
+	-- Step 6: Azore Aldamort
 	-- {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
 	["{npc:11863}'s tower stands on the hill west of {area:599}: take his quest first, the sceptre he wants is in the fortress."] = "Башня {npc:11863} стоит на холме к западу (ориентир: {area:599}): сначала возьмите его задание – нужный ему скипетр находится в крепости.",
 
-	-- Step 8: Dalinda Malem
+	-- Step 7: Dalinda Malem
 	-- {npc:5644} Dalinda Malem · {area:608} Nijel's Point
 	["{npc:5644} hides inside the Burning Blade's fortress south-west of {area:608}."] = "{npc:5644} прячется в крепости клана Пылающего Клинка к юго-западу (ориентир: {area:608}).",
 	["Inside"] = "",
 
-	-- Step 9: Tyranis Malem and the Seer
+	-- Step 8: Tyranis Malem and the Seer
 	-- {npc:5643} Tyranis Malem
 	["{npc:5643} and the Seer"] = "{npc:5643} и Провидец",
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer
@@ -43,7 +39,7 @@ return {
 	-- {quest:5741} Sceptre of Light
 	["{quest:5741}; on the top floor"] = "",
 
-	-- Step 10: Escort Dalinda Malem
+	-- Step 9: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem
 	["Escort {npc:5644}"] = "Сопроводите {npc:5644}",
 	-- {npc:5644} Dalinda Malem
@@ -52,39 +48,30 @@ return {
 	-- {npc:5644} Dalinda Malem · {npc:5642} Vahlarriel Demonslayer · {area:608} Nijel's Point
 	["Lead {npc:5644} out of the fortress; she walks off once you are clear of it. {npc:5642} takes the turn-in at {area:608} at the end of the guide."] = "Выведите {npc:5644} из крепости; когда вы выберетесь, она уйдет сама. Задание принимает {npc:5642} ({area:608}) в конце гайда.",
 
-	-- Step 11: Smeed Scrabblescrew
+	-- Step 10: Smeed Scrabblescrew
 	-- {npc:11596} Smeed Scrabblescrew · {area:609} Kolkar Village · {area:596} Kodo Graveyard
 	["{npc:11596}'s camp is on the road south of {area:609}, by the {area:596}."] = "Лагерь {npc:11596} – на дороге к югу (ориентир: {area:609}), у места {area:596}.",
 
-	-- Step 12: Kodo Graveyard
+	-- Step 11: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4700} Aged Kodo
-	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo
-	["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "Используйте {item:13892} {npc:11596} на цели {npc:4700} и приведите прирученного кодо к его лагерю – пять раз; шкуры падают и со старых кодо.",
+	-- plural, as words: Aged Kodos = {npc:4700} Aged Kodo · Scorpashi Lashers = {npc:4697} Scorpashi Lasher
+	["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom."] = "Используйте {item:13892} {npc:11596} на цели {npc:4700} и приведите прирученного кодо к его лагерю – пять раз; шкуры падают и со старых кодо, а яд несут хлестохвосты скорпаши, охотящиеся вокруг кладбища.",
 
-	-- Step 14: Scorpashi venom
-	["Scorpashi venom"] = "Яд скорпаши",
-	-- {area:2407} Kormek's Hut
-	["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "Скорпиды скорпаши охотятся на холмах вокруг места {area:2407} на дороге к югу.",
-
-	-- Step 16: Kolkar Village
+	-- Step 13: Kolkar Village
 	-- {area:609} Kolkar Village · {npc:5752} Corporal Melkins
 	["The Kolkar roam the plains around {area:609}; their ears are for {npc:5752}."] = "Кентавры из племени Колкар бродят по равнинам вокруг места {area:609}; их уши – для NPC {npc:5752}.",
 
-	-- Step 17: Hearth to Nijel's Point
-	-- {area:608} Nijel's Point
-	["Hearth to {area:608}"] = "",
-
-	-- Step 19: Fly to Astranaar
+	-- Step 15: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "",
 	-- {area:608} Nijel's Point
 	["{area:608} flight master"] = "",
 
-	-- Step 20: Delgren the Purifier
+	-- Step 16: Delgren the Purifier
 	-- {area:415} Astranaar · {area:413} Maestra's Post
 	["Follow the road west out of {area:415}; {area:413} lies north of it."] = "",
 
-	-- Step 21: Heartswood
+	-- Step 17: Heartswood
 	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {area:1276} Talondeep Path
 	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
@@ -95,11 +82,14 @@ return {
 	-- ["From {area:415} head south-west to the {area:1276}, a tunnel through the mountains into Stonetalon."] = "От места {area:415} идите на юго-запад. Цель: {area:1276} – туннель сквозь горы в Когтистые горы.",
 	-- ["From {area:415} ride north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then back past {area:415} to the {area:1276}."] = "От места {area:415} езжайте на северо-запад в холмы: {quest:1738} – это светящееся дерево к северу от дороги к месту {area:413}. Если вы взяли задание {quest:65602}, {item:190309} лежит в доме среди деревьев к северу (ориентир: {area:413}) (26.6,22.0). Затем назад мимо места {area:415}. Цель: {area:1276}.",
 	-- ["From {zone:1455}'s {npc:1573}"] = "У NPC {npc:1573} ({zone:1455})",
+	-- ["Scorpashi venom"] = "Яд скорпаши",
 	-- ["Take the boat to {area:442} from Menethil's docks."] = "Сядьте на корабль в порту (Гавань Менетилов). Цель: {area:442}.",
 	-- ["Take the boat to {area:442} from Menethil's docks. {npc:3649} stands in {area:442}, north of the flight master."] = "Сядьте на корабль в порту (Гавань Менетилов). Цель: {area:442}. {npc:3649} стоит там ({area:442}) к северу от распорядителя полетов.",
 	-- ["The Gizelton Caravan waits at {area:2407}."] = "Караван Гизлтона ждет здесь: {area:2407}.",
 	-- ["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}."] = "Сатиры из племени Ярой Ненависти занимают руины ({area:603}) к востоку (ориентир: {area:608}).",
+	-- ["The Scorpashi scorpids hunt the hills around {area:2407} on the road south."] = "Скорпиды скорпаши охотятся на холмах вокруг места {area:2407} на дороге к югу.",
 	-- ["The {area:1276}"] = "{area:1276}",
+	-- ["Use {npc:11596}'s {item:13892} on an {npc:4700} and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides."] = "Используйте {item:13892} {npc:11596} на цели {npc:4700} и приведите прирученного кодо к его лагерю – пять раз; шкуры падают и со старых кодо.",
 	-- ["Walk with the caravan south past {area:609}; Kolkar ambushers jump it on the way. Stay close until it stops at {area:2617}. The ambushers are 34-35 and come in waves: skip it if you are below 33."] = "Идите с караваном на юг мимо места {area:609}; по пути на него нападают душители из племени Колкар. Держитесь рядом, пока он не остановится ({area:2617}). Душители 34-35-го уровня нападают волнами: если ваш уровень ниже 33, пропустите это задание.",
 	-- ["{npc:3649}: {item:279915}, from Sylessa in Menethil"] = "{npc:3649}: {item:279915} от Силессы (Гавань Менетилов)",
 }

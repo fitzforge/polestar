@@ -7,9 +7,9 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Voidwalker (Alliance)"] = "",
+	["Voidwalker (Alliance)"] = "虚空行者（联盟）",
 	-- {npc:6122} Gakin the Darkbinder
-	["Your tank demon at 10: the voidwalker, after a dark sorceress's choker and a fight in {npc:6122}'s crypt."] = "",
+	["Your tank demon at 10: the voidwalker, after a dark sorceress's choker and a fight in {npc:6122}'s crypt."] = "10级的坦克恶魔：虚空行者。先取得一名黑暗女巫的项圈，再到{npc:6122}的墓穴中打一场。",
 
 	-- Step 1: Gakin's Summons (Humans)
 	-- {quest:1685} Gakin's Summons

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
-	["{spell:2652} and {quest:5644}"] = "",
+	["{spell:2652} and {quest:5644}"] = "{spell:2652}与{quest:5644}",
 	-- {spell:2652} Touch of Weakness · {quest:5644} Dark Sacrifice
-	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "",
+	["The Undead priest spells: {spell:2652} at 10, {quest:5644} (new in Forever) at 20. Free, no objectives."] = "亡灵牧师的法术：10级的{spell:2652}，20级的{quest:5644}（Forever新增）。免费，无任务目标。",
 
 	-- Step 1: Touch of Weakness: Tai'jin
 	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity

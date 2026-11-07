@@ -9,13 +9,13 @@ return {
 	-- Guide
 	["Gnomeregan Exiles Reputation"] = "诺莫瑞根流亡者声望",
 	-- {npc:9616} Laris Geardawdle · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["Cloth, {npc:9616}'s ooze quests and the {zone:1426} hubs, which pay {zone:1455} too: best done while leveling."] = "",
+	["Cloth, {npc:9616}'s ooze quests and the {zone:1426} hubs, which pay {zone:1455} too: best done while leveling."] = "布料、{npc:9616}的软泥怪任务以及{zone:1426}的任务点，同时也会提升{zone:1455}声望：最好在升级时完成。",
 	-- {faction:54} Gnomeregan Exiles
-	["Exalted with {faction:54}: in Classic, other races may buy the mechanostriders"] = "",
+	["Exalted with {faction:54}: in Classic, other races may buy the mechanostriders"] = "{faction:54}达到崇拜：在经典版中，其他种族可购买机械陆行鸟",
 	-- {area:133} Gnomeregan · {npc:9616} Laris Geardawdle · {quest:4262} Overmaster Pyron
-	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "",
+	["400 {area:133} reputation from {npc:9616}'s ooze jars and {quest:4262} (level 52-54)"] = "{npc:9616}的软泥罐和{quest:4262}（52-54级）可获得400点{area:133}声望",
 	-- {area:133} Gnomeregan · {zone:1426} Dun Morogh · {zone:1455} Ironforge
-	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "",
+	["About 3,000 {area:133} reputation from low-level quests in {zone:1426}, paid to {zone:1455} too (in Classic, a fifth of it at 60)"] = "{zone:1426}的低等级任务可获得约3,000点{area:133}声望，同时也会提升{zone:1455}声望（在经典版中，60级时只有五分之一）",
 
 	-- Step 1: Bubulo Acerbus, the cloth quartermaster
 	-- {npc:14724} Bubulo Acerbus

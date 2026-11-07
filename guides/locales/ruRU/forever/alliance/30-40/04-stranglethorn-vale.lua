@@ -52,6 +52,8 @@ return {
 	["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "Идите по дороге на север; {npc:738} патрулирует ее, лагерь – в холмах к западу.",
 	-- {npc:469} Lieutenant Doren
 	["{npc:469}, in the hut"] = "{npc:469} – в хижине",
+	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
+	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: для NPC {npc:773} ({area:35})",
 
 	-- Step 15: Bookie Herod
 	["Herod's records lie in a hut on the compound's west side; his strongbox sits farther east, by the cave mouth."] = "Записи Герода лежат в хижине на западной стороне лагеря; его сундук стоит дальше на востоке, у входа в пещеру.",
@@ -79,18 +81,14 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716} собирает страницы ({item:2755}): они падают почти со всех гуманоидов в джунглях. По ходу дела собирайте из страниц главы.",
 
-	-- Step 21: Shadowmaw Panther on the way
-	-- {npc:684} Shadowmaw Panther
-	["{npc:684} on the way"] = "",
-
-	-- Step 22: Sin'Dall and the Lashtail raptors
+	-- Step 21: Sin'Dall and the Lashtail raptors
 	-- {npc:729} Sin'Dall
 	["{npc:729} and the Lashtail raptors"] = "{npc:729} и ящеры-кнутохвосты",
 	-- {npc:729} Sin'Dall · {area:35} Booty Bay
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:729}, the great tiger, lairs on the hilltop south-west of the camp; Lashtail Raptors run south of it, along the way to {area:35}."] = "{npc:729}, огромный тигр, живет на вершине холма к юго-западу от лагеря; ящеры-кнутохвосты бегают к югу от него, по пути в {area:35}.",
 
-	-- Step 23: Down to Booty Bay
+	-- Step 22: Down to Booty Bay
 	-- {area:35} Booty Bay
 	["Down to {area:35}"] = "Вниз: {area:35}",
 	-- {object:3202} Grom'gol · {area:35} Booty Bay
@@ -105,6 +103,8 @@ return {
 	["{npc:2832}, in the {object:56910}; upstairs"] = "",
 	-- {npc:773} Krazek
 	["{npc:773}, in the tavern; upstairs"] = "",
+	-- {zone:1417} Arathi Highlands
+	["The ore drops from Drywhisker kobolds in {zone:1417}"] = "Руда падает с кобольдов из племени Сухоусов (зона {zone:1417})",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "",
 	-- {npc:737} Kebok
@@ -112,66 +112,62 @@ return {
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs in the tavern"] = "{npc:2496} – наверху в таверне",
 
-	-- Step 24: Fly to Sentinel Hill
+	-- Step 23: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
 	["Fly to {area:108}"] = "",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 26: The Savage Coast: kill these as you meet them
+	-- Step 25: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "",
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["Walk back north; the {area:310} lies west of the road in the middle of the jungle. The Crystal Spine Basilisks there drop the shards.\nThe Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "",
 
-	-- Step 27: River crocolisks
+	-- Step 26: River crocolisks
 	["River crocolisks"] = "Речные кроколиски",
 	-- {area:99} Rebel Camp
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
 	["River Crocolisks swim the river by the {area:99}."] = "Речные кроколиски плавают в реке у места {area:99}.",
 
-	-- Step 28: Private Thorsen
+	-- Step 27: Private Thorsen
 	-- {area:99} Rebel Camp
 	["Thorsen patrols the road north of camp, toward the {area:99}."] = "Торсен патрулирует дорогу к северу от лагеря, в сторону места {area:99}.",
 
-	-- Step 29: Nesingwary's Expedition
+	-- Step 28: Nesingwary's Expedition
 	-- {quest:201} Investigate the Camp
 	["{quest:201}: just look around the hunters' camp"] = "{quest:201}: просто осмотритесь в лагере охотников",
 
-	-- Step 30: Hearth to Booty Bay
-	-- {area:35} Booty Bay
-	["Hearth to {area:35}"] = "",
-
-	-- Step 31: Booty Bay
+	-- Step 29: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "",
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "",
 
-	-- Step 32: Snapjaw Crocolisks
+	-- Step 30: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Кроколиски-хрустогрызы",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask on the shore and islands along the coast north of {area:35}."] = "Кроколиски-хрустогрызы греются на берегу и островах вдоль побережья к северу от бухты ({area:35}).",
 
-	-- Step 34: Fly to Darkshire
+	-- Step 32: Fly to Darkshire
 	-- {area:42} Darkshire
 	["Fly to {area:42}"] = "",
 
-	-- Step 35: Into Stranglethorn Vale
+	-- Step 33: Into Stranglethorn Vale
 	-- {area:33} Stranglethorn Vale
 	["Into {area:33}"] = "",
 
-	-- Step 37: Kurzen's Compound
+	-- Step 35: Kurzen's Compound
 	-- {spell:7964} Smoke Bomb
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
 	["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}."] = "",
 	-- {npc:941} Kurzen Headshrinker
 	["{npc:941}, below ground"] = "",
 
-	-- Step 38: The jungle ruins
+	-- Step 36: The jungle ruins
 	["The jungle ruins"] = "Руины в джунглях",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Tumbled Crystals = {item:4106} Tumbled Crystal
@@ -179,45 +175,39 @@ return {
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "",
 
-	-- Step 39: The haunted island
+	-- Step 37: The haunted island
 	["The haunted island"] = "Остров духов",
 	["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "Идите вдоль западного побережья на север; остров духов лежит у берега к западу от лагеря Эрнестуэя. Достаточно добраться до него.",
 
-	-- Step 40: Stranglethorn Vale: kill these as you meet them
+	-- Step 38: Stranglethorn Vale: kill these as you meet them
 	-- {npc:1096} Venture Co. Geologist
 	["grind on {npc:1096}"] = "",
 
-	-- Step 41: Rebel Camp
-	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}: для NPC {npc:773} ({area:35})",
-
-	-- Step 44: Jungle Stalker on the way
+	-- Step 42: Jungle Stalker on the way
 	-- {npc:687} Jungle Stalker
 	["{npc:687} on the way"] = "",
 
-	-- Step 45: Skullsplitter trolls
+	-- Step 43: Skullsplitter trolls
 	["Skullsplitter trolls"] = "Тролли из племени Дробителей Черепов",
 	-- {object:3202} Grom'gol
 	["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "Тролли из племени Дробителей Черепов занимают руины к востоку от дороги между лагерем Эрнестуэя и местом {object:3202}.",
 
-	-- Step 48: Booty Bay
+	-- Step 45: Booty Bay
 	-- {object:56910} The Salty Sailor Tavern
 	["{object:56910} is the tall building over the harbour; most of the quest givers are on its floors or the docks below."] = "",
-	-- {zone:1417} Arathi Highlands
-	["The ore drops from Drywhisker kobolds in {zone:1417}"] = "Руда падает с кобольдов из племени Сухоусов (зона {zone:1417})",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 
-	-- Step 50: Into Westfall
+	-- Step 47: Into Westfall
 	-- {area:40} Westfall
 	["Into {area:40}"] = "",
 
-	-- Step 52: Fly to Booty Bay
+	-- Step 49: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "",
 	-- {area:108} Sentinel Hill
 	["{area:108} flight master"] = "",
 
-	-- Step 53: Baron Revilgaz
+	-- Step 50: Baron Revilgaz
 	-- {zone:1416} Alterac Mountains
 	["For Archmage Ansirem in {zone:1416}"] = "Для верховного мага Ансарема (зона {zone:1416})",
 

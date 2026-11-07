@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	-- {item:9514} Arcane Staff
-	["Ley or {item:9514} or Orb (Alliance)"] = "",
-	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "",
+	["Ley or {item:9514} or Orb (Alliance)"] = "魔网、{item:9514}或宝珠（联盟）",
+	["A staff or an off-hand orb at 10 from your home town's mage trainer; Skyborne add a wand."] = "10级时在主城的法师训练师处获得一根法杖或一个副手宝珠；天行者额外获得一根魔杖。",
 
 	-- Step 1: Anathamaas Aetherwind (Valanaar)
 	-- {npc:252373} Anathamaas Aetherwind · {area:16638} Valanaar · {npc:256507} Belann Windwood

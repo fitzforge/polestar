@@ -101,10 +101,11 @@ return {
 	-- Step 22: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "术士：{quest:3631}",
-	-- {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飞往{area:392}；{npc:6251}在银行旁的房子里授课。之后飞回塞拉摩岛。",
+	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "从塞拉摩岛向北骑进{zone:1413}到{area:392}，如果你有它的飞行路线就直接飞过去。{npc:6251}在银行旁的房子里授课。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "飞往{area:392}；{npc:6251}在银行旁的房子里授课。之后飞回塞拉摩岛。",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "飞往{area:608}，向南骑过{zone:1443}进入{zone:1444}，沿道路到{area:1108}的码头；船会渡海前往{area:1116}，下一份指南从那里开始。",
 	-- ["On to Feathermoon"] = "前往羽月要塞",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "沿道路向东北骑出{area:271}，进入{zone:1425}；{area:348}就在边界后面。弗斯塔德·蛮锤在顶层，{quest:1450}照看狮鹫棚，{npc:7884}站在旅店旁。",

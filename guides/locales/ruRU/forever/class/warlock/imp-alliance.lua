@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Imp (Alliance)"] = "",
-	["Your first demon at level 1-4: the imp, from your start zone's warlock trainer."] = "",
+	["Imp (Alliance)"] = "Бес (Альянс)",
+	["Your first demon at level 1-4: the imp, from your start zone's warlock trainer."] = "Ваш первый демон на 1-4 уровне: бес, у учителя чернокнижников в стартовой зоне.",
 
 	-- Step 1: Drusilla La Salle (Humans)
 	-- {npc:459} Drusilla La Salle

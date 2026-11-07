@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:118} Polymorph
-	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "",
+	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "Новый вид заклинания «{spell:118}»: цель становится свиньей, а не овцой.",
 
 	-- Step 1: Sanath Lim-yo
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath

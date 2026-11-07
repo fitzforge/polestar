@@ -9,8 +9,8 @@ return {
 	-- Guide
 	["Argent Dawn Reputation"] = "Репутация: Серебряный Рассвет",
 	-- {area:2057} Scholomance · {area:2279} Stratholme
-	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "",
-	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "",
+	["Scourgestones, {area:2057} and {area:2279}: the shoulder resistance enchants and a dozen recipes."] = "Камни Плети, {area:2057} и {area:2279}: чары сопротивления для наплечников и десяток рецептов.",
+	["Recipes for Tailors, Leatherworkers, Blacksmiths, Enchanters and Alchemists from Honored and Revered"] = "Рецепты для портных, кожевников, кузнецов, зачарователей и алхимиков на уровнях «Уважение» и «Почтение»",
 
 	-- Step 1: Argent Dawn Commission (Alliance)
 	-- {quest:5401} Argent Dawn Commission

@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "",
+	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "来自旧版{spell:407778}故事的30级稀有披风；目前只有联盟圣骑士能完成。",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Strange Orb",

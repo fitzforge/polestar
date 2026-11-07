@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Orgrimmar Reputation"] = "奥格瑞玛声望",
 	-- {item:14047} Runecloth · {zone:1411} Durotar
-	["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "",
+	["Level 56-60 quests and {item:14047} to Exalted, with the old {zone:1411} quests as a fast extra if they still pay in full."] = "通过56-60级任务和{item:14047}刷到崇拜；如果{zone:1411}的旧任务仍给全额声望，可以顺手快速做掉。",
 	-- {faction:76} Orgrimmar
-	["Exalted with {faction:76}"] = "",
+	["Exalted with {faction:76}"] = "{faction:76}达到崇拜",
 
 	-- Step 1: Orgrimmar: how it works
 	-- {faction:76} Orgrimmar
@@ -156,7 +156,6 @@ return {
 	["The coast and the road"] = "",
 	-- {quest:97223} Bloodtalon Matriarch · {area:362} Razor Hill
 	["Makrura and surf crawlers walk the beaches east and south of Sen'jin. The {quest:97223} is east of the village. The Ridgeshade spiders are along the road south of {area:362} and north-east of the Den."] = "",
-	["Bloodtalon Matriarch Eggs"] = "",
 
 	-- Step 23: Sen'jin Village: hand in
 	-- {area:367} Sen'jin Village

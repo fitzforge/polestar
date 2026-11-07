@@ -9,9 +9,9 @@ return {
 	-- Guide
 	["Cenarion Circle Reputation"] = "塞纳里奥议会声望",
 	-- {zone:1451} Silithus
-	["Nature resistance enchants and patterns, badge gear and Forever's new {zone:1451} patterns, from {zone:1451}'s camps."] = "",
+	["Nature resistance enchants and patterns, badge gear and Forever's new {zone:1451} patterns, from {zone:1451}'s camps."] = "自然抗性附魔和图样、徽章装备以及Forever新增的{zone:1451}图样，来自{zone:1451}的营地。",
 	-- {zone:1451} Silithus
-	["Forever's new {zone:1451} patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored"] = "",
+	["Forever's new {zone:1451} patterns for Tailors, Leatherworkers and Blacksmiths, Friendly and Honored"] = "Forever为裁缝、制皮和锻造新增的{zone:1451}图样，友善和尊敬",
 
 	-- Step 1: The emissary in Ironforge
 	-- {zone:1455} Ironforge
@@ -64,8 +64,8 @@ return {
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["{zone:1451} quests at {area:3425}"] = "",
-	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings
-	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants."] = "",
+	-- {quest:8280} Securing the Supply Lines · {quest:8275} Taking Back Silithus · {npc:15196} Deathclasp · {npc:15174} Calandrath · {quest:8307} Desert Recipe · {item:20452} Smoked Desert Dumplings · {npc:15189} Beetix Ficklespragg
+	["Now cash in the one-time quests: about 1,700 reputation alone, 2,400 with the group quests. They are level 55 to 60, so they pay in full at 60. {quest:8280} needs {quest:8275} first. {npc:15196} is an elite scorpid with two guards (group of 2 or 3). {npc:15174}'s {quest:8307} is for Cooks: its recipe makes the {item:20452} he wants. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "现在去完成一次性任务：单人任务约1,700声望，加上小队任务共2,400。这些任务为55到60级，所以60级时能拿到全额声望。{quest:8280}需要先完成{quest:8275}。{npc:15196}是一只精英蝎子，带两个护卫（需2到3人小队）。{npc:15174}的{quest:8307}是给烹饪者的：其配方可做出他要的{item:20452}。{npc:15189}站在他所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 	-- {npc:15191} Windcaller Proudhorn · {quest:8275} Taking Back Silithus
 	["{npc:15191}, after {quest:8275}"] = "",
 	-- {npc:15196} Deathclasp
@@ -82,6 +82,8 @@ return {
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "",
+	-- {npc:15189} Beetix Ficklespragg
+	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}站在他所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
@@ -96,6 +98,8 @@ return {
 	-- Step 12: Noggle Ficklespragg and Proudhorn
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} and Proudhorn"] = "",
+	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
+	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}和{npc:15190}站在他们所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 
 	-- Step 13: The Ravaged Twilight Camp
 	-- {area:3100} Ravaged Twilight Camp
@@ -130,6 +134,8 @@ return {
 	-- Step 19: Back to Cenarion Hold with news
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425} with news"] = "",
+	-- {npc:15190} Noggle Ficklespragg
+	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190}站在他所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 	["Natalia, elite: group up"] = "",
 
 	-- Step 20: Rubbings and brains

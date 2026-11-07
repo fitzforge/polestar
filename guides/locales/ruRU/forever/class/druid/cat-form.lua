@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}; learn the flight path there if you do not have it."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "Примените {spell:18960}. {npc:11802} стоит наверху в своем доме, здесь: {area:2361}. Поднимитесь внутри: стрелка не различает этажи. Узнайте там маршрут полета, если его у вас нет.",
 
 	-- Step 3: The relics of the Barrow Dens
 	["The relics of the Barrow Dens"] = "Реликвии Келий Малфуриона",
@@ -27,7 +27,7 @@ return {
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Назад к {npc:11802}",
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed."] = "",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11800}'s flight to {area:702}: she stands in the middle of {area:2361} and flies druids there, no flight path needed. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}, чтобы оказаться рядом с {npc:11802} ({area:2361}) – на острове Зефрас задание небеснорожденных никто не принимает. Затем летите с помощью персонажа {npc:11800} сюда: {area:702}. Она стоит в центре локации {area:2361} и доставляет туда друидов, маршрут полета не нужен. {npc:11802} стоит наверху в своем доме: поднимитесь внутри, стрелка не различает этажи.",
 
 	-- Step 5: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave · {spell:768} Cat Form
@@ -39,7 +39,7 @@ return {
 
 	-- Step 7: Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven
-	["Cast {spell:18960}. {npc:11802} is in {area:2361}."] = "",
+	["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}. {npc:11802} стоит наверху в своем доме, здесь: {area:2361}. Поднимитесь внутри: стрелка не различает этажи.",
 
 	-- Step 8: The Stormrage Barrow Dens
 	-- {area:2363} Stormrage Barrow Dens
@@ -49,7 +49,7 @@ return {
 
 	-- Step 9: Back to Dendrite Starblaze
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11798} Bunthen Plainswind · {area:1638} Thunder Bluff
-	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}."] = "",
+	["Cast {spell:18960} to land by {npc:11802} in {area:2361} (nobody on Zephras Isle takes the Skyborne quest), then take {npc:11798}'s flight to {area:1638}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Примените {spell:18960}, чтобы оказаться рядом с {npc:11802} ({area:2361}) – на острове Зефрас задание небеснорожденных никто не принимает. Затем летите с помощью персонажа {npc:11798} сюда: {area:1638}. {npc:11802} стоит наверху в своем доме: поднимитесь внутри, стрелка не различает этажи.",
 
 	-- Step 10: To Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:768} Cat Form

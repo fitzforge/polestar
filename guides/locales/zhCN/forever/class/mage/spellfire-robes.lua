@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
-	["{npc:2128} is the {area:159} mage trainer, in the {area:2119}."] = "",
+	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128}是{area:159}的法师训练师，在{area:2119}楼上：从室内楼梯上去，箭头无法区分楼层。",
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation

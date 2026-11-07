@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {spell:407778} Divine Storm
-	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "",
+	["A rare cloak at 30 from the old {spell:407778} story; for now only Alliance paladins can finish it."] = "Редкий плащ на 30-м уровне из старой истории о заклинании «{spell:407778}»; пока завершить ее могут только паладины Альянса.",
 
 	-- Step 1: The Strange Orb
 	["The Strange Orb"] = "Странная сфера",

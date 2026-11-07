@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["Teleports and Portals (Alliance)"] = "",
-	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "",
+	["Teleports and Portals (Alliance)"] = "传送术与传送门（联盟）",
+	["Your city teleports at 20 and 30 and the group portals at 40 and 50, from each city's portal trainer."] = "20级和30级学习主城传送术，40级和50级学习小队传送门，均可在各主城的传送门训练师处学习。",
 
 	-- Step 1: Teleport: Stormwind
 	-- {zone:1453} Stormwind · {object:2101} Mage Quarter · {npc:2485} Larimaine Purdue · {spell:3561} Teleport: Stormwind · {item:17031} Rune of Teleportation · {npc:1308} Owen Vaughn

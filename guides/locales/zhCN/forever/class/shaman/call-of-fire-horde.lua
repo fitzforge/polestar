@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:1522} Call of Fire
-	["{quest:1522} (Horde)"] = "",
+	["{quest:1522} (Horde)"] = "{quest:1522}（部落）",
 	-- {item:5176} Fire Totem · {spell:3599} Searing Totem · {item:263412} Totem of Charged Flames
-	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "",
+	["Your {item:5176} for every fire totem, {spell:3599} with it, and Forever's {item:263412}."] = "获得用于所有火焰图腾的{item:5176}、借此学会的{spell:3599}，以及Forever的{item:263412}。",
 
 	-- Step 1: Swart
 	-- {npc:3173} Swart · {area:362} Razor Hill · {npc:5907} Kranal Fiss · {zone:1413} Barrens · {npc:5892} Searn Firewarder · {zone:1454} Orgrimmar

@@ -8,9 +8,9 @@
 return {
 	-- Guide
 	-- {quest:6061} Taming the Beast
-	["{quest:6061} (Horde)"] = "",
+	["{quest:6061} (Horde)"] = "{quest:6061} (Орда)",
 	-- {item:15908} Taming Rod · {spell:1515} Tame Beast · {spell:5149} Beast Training
-	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "",
+	["Your own pet at 10: three practice tames with a {item:15908} teach {spell:1515}, then {spell:5149}."] = "Свой питомец на 10-м уровне: три пробных приручения с помощью {item:15908} обучат {spell:1515}, затем {spell:5149}.",
 
 	-- Step 1: Thotar in Razor Hill
 	-- {npc:3171} Thotar · {area:362} Razor Hill

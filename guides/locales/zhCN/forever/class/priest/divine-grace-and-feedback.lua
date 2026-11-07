@@ -10,7 +10,7 @@ return {
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
 	["{quest:94773} and {spell:13896}"] = "{quest:94773}与{spell:13896}",
 	-- {quest:94773} Divine Grace · {spell:13896} Feedback
-	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "",
+	["The Human priest spells: {quest:94773} at 10 (new in Forever), {spell:13896} at 20. Free, no objectives."] = "人类牧师的法术：10级的{quest:94773}（Forever新增），20级的{spell:13896}。免费，无目标。",
 
 	-- Step 1: Divine Grace: Priestess Josetta
 	-- {npc:377} Priestess Josetta · {area:87} Goldshire · {npc:376} High Priestess Laurena · {zone:1453} Stormwind

@@ -16,9 +16,11 @@ return {
 	["The {object:410369} is a chest in a house just outside {area:204} in southern Silverpine, south of {area:236}. Open it and read C's note: the job has to be done alone, out of any group."] = "",
 
 	-- Step 2: Veenix
-	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order
+	-- {npc:4086} Veenix · {area:461} Windshear Crag · {area:460} Sun Rock Retreat · {area:467} Stonetalon Peak · {item:210187} Venture Co. Work Order · {spell:921} Pick Pocket
 	-- plural, as words: Venture Co. Loggers = {npc:3989} Venture Co. Logger
-	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them."] = "",
+	["{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it."] = "{npc:4086}是一个对双方阵营都友好的地精，站在石爪山脉东部{area:461}的风险投资公司人员中间，位于{area:460}东北方不远处。部落飞往{area:460}；联盟飞往{area:467}。他要一份{item:210187}才肯交出炸药：在他周围干活的风险投资公司伐木工（18级）口袋里带着。潜行到其中一个身后，对其使用{spell:921}；杀死他们不会掉落。",
+	-- {spell:921} Pick Pocket · {npc:3989} Venture Co. Logger · {item:210187} Venture Co. Work Order
+	["{spell:921} a {npc:3989} for a {item:210187}"] = "对{npc:3989}使用{spell:921}，取得{item:210187}",
 
 	-- Step 3: Shadowfang Keep
 	-- {item:210186} Breaching Charge · {item:5140} Flash Powder · {item:210213} Sister's Half-Key · {item:210212} Brother's Half-Key

@@ -101,10 +101,11 @@ return {
 	-- Step 22: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Чернокнижник: {quest:3631}",
-	-- {area:392} Ratchet · {npc:6251} Strahad Farsan
-	["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Летите сюда: {area:392}; {npc:6251} обучает в доме у банка. Затем возвращайтесь на остров Терамор.",
+	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
+	["From Theramore, ride north into the {zone:1413} to {area:392}, or fly if you know its flight path. {npc:6251} teaches in the house by the bank."] = "С острова Терамор езжайте на север в зону {zone:1413}. Цель: {area:392}; если знаете этот маршрут полета, летите. {npc:6251} обучает в доме у банка.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Летите сюда: {area:392}; {npc:6251} обучает в доме у банка. Затем возвращайтесь на остров Терамор.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Летите сюда: {area:608}; езжайте на юг через зону {zone:1443} в зону {zone:1444} и по дороге до причала ({area:1108}); корабль переправит вас сюда: {area:1116}. Там начинается следующий гайд.",
 	-- ["On to Feathermoon"] = "В Крепость Оперенной Луны",
 	-- ["Ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border. Falstad holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Из места {area:271} езжайте по дороге на северо-восток в зону {zone:1425}; {area:348} – сразу за границей. Фалстад принимает наверху, у птичника – {quest:1450}, у таверны стоит {npc:7884}.",
