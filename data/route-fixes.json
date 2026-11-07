@@ -2030,6 +2030,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Night Elf Darkshore): the first loop went Ameth'Aran, the red crystal, a Plagued Lands bear 660 yd north of the crystal (east of Bashal'Aran), then a thousand yards back south-west to the bears beside Tharnariun, then 900 yd north again to Bashal'Aran (nightelf/02-darkshore step 9 on 0.3.4). Players' recordings tick the capture where the bear is (7 east of Bashal'Aran, 8 south of Auberdine): the bears south of Auberdine are on the way to the furbolg camp, before Ameth'Aran. The seed and the shared 03-darkshore capture it before Ameth'Aran too."
+			},
+			{
+				"a": [
+					"turnin",
+					286
+				],
+				"b": [
+					"accept",
+					98189
+				],
+				"faction": "Alliance",
+				"why": "#1113 and #1118: Karl Boran offers Return the Statuette (98189) only once the old Return the Statuette (286) is handed in to him (players' recordings: offered 0.0-0.2 s after that hand-in, never before). The guide took it on the first Menethil stop and handed it to Captain Stoutfist there, so neither it nor A Friend of the Family (98190) could be had."
+			},
+			{
+				"a": [
+					"turnin",
+					96259
+				],
+				"b": [
+					"accept",
+					96261
+				],
+				"faction": "Horde",
+				"why": "#1083: Muln Earthfury offers The Broodmother (96261) only once Defending the Dead (96259) is handed in (players' recordings: his list leaves it out while 96259 is in the log, offers it on the hand-in). The guide took both on the first camp visit."
+			},
+			{
+				"a": [
+					"turnin",
+					95350
+				],
+				"b": [
+					"accept",
+					98024
+				],
+				"faction": "Horde",
+				"why": "Offer audit (2026-11-07): Thrall offers Journey to the Crossroads (98024) to a Skyborne only once Welcome to Azeroth (95350) is handed in to him (players' recordings: refused to 5 Skyborne characters with 95350 in the log, offered on its hand-in, nothing else handed in between). 03-silverpine-forest had the accept in the Valley of Wisdom step before the Thrall hand-in."
 			}
 		],
 		"notes": [

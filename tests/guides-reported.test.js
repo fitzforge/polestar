@@ -1208,6 +1208,16 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// soockee (#1002) and jiskim (#984): Va'xug Firefure offers A Void Path
 		// only once Never Coming Back is handed in to him.
 		[STONETALON, 98252, [98251]],
+		// The offer audit of players' recordings (2026-11-07): Karl Boran offers
+		// Return the Statuette (98189) once the old one (286) is handed in
+		// (#1113, #1118); Muln Earthfury offers The Broodmother once Defending the
+		// Dead is handed in (#1083); Thrall offers a Skyborne Journey to the
+		// Crossroads once Welcome to Azeroth is handed in.
+		[ASHENVALE, 98189, [286]],
+		[ASHENVALE_HORDE, 96261, [96259]],
+		['forever/reputation/thunder-bluff.guide', 96261, [96259]],
+		[SILVERPINE, 98024, [95350]],
+		[SILVERPINE, 93739, [95350], true],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -1217,6 +1227,22 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 			assert.ok(at(list, `${guide}: turnin ${pre}`, is('turnin', pre)) < take, `${guide}: ${quest} is taken after ${pre} is handed in`);
 		}
 	}
+});
+
+// The offer audit (#1116): Glorin Steelbrow offers Lightforge Ingots only after
+// The Lost Ingots (324), which the 20-30 route never does, and our data had
+// made it exclusive with 324 instead. Calor (#1114) offers Worgen in the Woods
+// from level 23, a level above where the route reaches Darkshire.
+test('Offer audit (#1116, #1114): Lightforge Ingots only after The Lost Ingots, and a level 23 gate before Worgen in the Woods', { skip }, () => {
+	for (const guide of [ASHENVALE, THOUSAND_NEEDLES]) {
+		const list = goals(guide);
+		const take = list.findIndex(({ goal }) => goal.quest === 526);
+		if (take < 0) continue;
+		assert.ok(at(list, `${guide}: turnin 324`, is('turnin', 324)) < take, `${guide}: Lightforge Ingots comes after The Lost Ingots is handed in`);
+	}
+	const duskwood = goals('forever/alliance/05-duskwood.guide');
+	const worgen = at(duskwood, 'accept 173', is('accept', 173));
+	assert.ok(duskwood.slice(0, worgen).some(({ goal }) => goal.t === 'level' && goal.level >= 23), 'a level 23 gate comes before Worgen in the Woods');
 });
 
 // Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a

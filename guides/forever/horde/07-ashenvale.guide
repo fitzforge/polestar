@@ -195,8 +195,7 @@ step The Earthen Ring
   tip Take a lift down from Thunder Bluff. The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury.
   accept 96260                        -- Yorn Grimtotem
   accept 96241 @32.5,20.6 live        -- Mazu'kon
-  accept 96261
-  accept 96259                        -- Muln Earthfury
+  accept 96259                        -- Muln Earthfury: The Broodmother comes once this is handed in
 
 step Gloomrise: kill these as you meet them
   zone Mulgore
@@ -205,6 +204,17 @@ step Gloomrise: kill these as you meet them
   kill 264083 quest 96259.2
   kill 264079 quest 96259.1
   collect 273001 quest 96241.1        -- Gloomrise Toxin Samples, from the Gnawed Corpses
+
+step The Earthen Ring
+  tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
+  turnin 96260                        -- Yorn Grimtotem
+  turnin 96241                        -- Mazu'kon
+  turnin 96259                        -- Muln Earthfury
+  accept 96261                        -- Muln Earthfury
+
+step Broodmother Valraxx
+  zone Mulgore
+  tip Broodmother Valraxx sits at the north end of Gloomrise; her Bloody Parchment starts A Darker Truth.
   kill 264082 quest 96261.1
 
 step Gloomrise
@@ -213,10 +223,7 @@ step Gloomrise
 
 step The Earthen Ring
   tip Back south to the camp, then up into Thunder Bluff for the flight to Camp Taurajo.
-  turnin 96260                        -- Yorn Grimtotem
-  turnin 96241                        -- Mazu'kon
   turnin 96261
-  turnin 96259                        -- Muln Earthfury
   turnin 96294 optional
 
 step Class trainer

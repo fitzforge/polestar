@@ -92,6 +92,7 @@ step Darkshire
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
+  level 23
   accept 173                              -- Calor, by the town hall
   tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
   accept 174                              -- Viktori Prism'Antras, inside

@@ -130,15 +130,10 @@ step Fly to Menethil Harbor
   fly "Menethil Harbor"
   zone Wetlands
 
-step Menethil Bay
-  tip Follow the coast north-east past the wreck: the Bluegill Raiders hold the marsh beyond the Giant Crocolisks.
-  collect 2702 quest 526 @12.7,65.3 map 1437 -- Lightforge Ingot
-
 step Menethil Harbor
   zone Wetlands
   accept 288                              -- First Mate Fitzsimmons, in the inn
   sethome "Deepwater Tavern"
-  turnin 526                              -- Glorin Steelbrow, inside
   buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
   buy 2594 x1 npc 1464                    -- Flagon of Mead, from Innkeeper Helbrek
   turnin 288

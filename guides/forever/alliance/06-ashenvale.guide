@@ -290,9 +290,7 @@ step To Menethil Harbor
 step Menethil Harbor
   zone Wetlands
   accept 279                              -- Karl Boran, on the pier north of the inn
-  accept 98189 npc 1242                   -- Karl Boran: for Captain Stoutfist in the keep
   vendor nearest
-  accept 526                              -- Glorin Steelbrow, upstairs in the inn
   sethome "Deepwater Tavern" npc 1464     -- Innkeeper Helbrek
   accept 463                              -- First Mate Fitzsimmons, in the inn
   tip Vincent Hyal, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. Caitlin Grassman stands a short walk north-east of the inn.
@@ -301,9 +299,6 @@ step Menethil Harbor
   accept 470                              -- Sida
   accept 472                              -- Harlo Barnaby, by the north gate
   accept 98197                            -- Valstag Ironjaw, by the keep; inside
-  tip Captain Stoutfist stands in Menethil Keep, a short walk from Karl Boran.
-  turnin 98189 npc 2104                   -- Captain Stoutfist, on the top floor
-  accept 98190 npc 2104                   -- For Bolvar Fordragon in Stormwind Keep: keep it
   tip Captain Stoutfist stands in Menethil Keep.
   accept 464                              -- Captain Stoutfist, by the keep
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
@@ -428,9 +423,12 @@ step Rethiel the Greenwarden
 
 step Karl Boran
   turnin 286
+  accept 98189 npc 1242                   -- Karl Boran: offered once Return the Statuette (286) is handed in; for Captain Stoutfist in the keep
 
 step Menethil
   tip Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw orcs at the camps along the road east to Dun Algaz before you go on.
+  turnin 98189 npc 2104                   -- Captain Stoutfist, on the top floor of the keep
+  accept 98190 npc 2104                   -- For Bolvar Fordragon in Stormwind Keep: keep it
   turnin 484
   accept 471                              -- For the giant crocolisks of the north coast, on your next visit
   turnin 306                              -- Tarrel Rockweaver

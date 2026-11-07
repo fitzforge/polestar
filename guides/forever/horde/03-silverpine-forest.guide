@@ -488,15 +488,19 @@ step Valley of Wisdom
   turnin 97249                        -- Migi
   collect 277952 quest 97326.1
   turnin 97326
-  accept 98024 only Skyborne          -- Keep it: Thork at the Crossroads
-  accept 93739 only Skyborne optional -- Thrall: Exploring the Horde, a tour of the Horde's leaders
-  kill 3230 quest 93739.1 "Talk to Nazgrel" only Skyborne optional -- Speak with Nazgrel, in Grommash Hold
-  kill 10540 quest 93739.2 "Talk to Vol'jin" only Skyborne optional -- Speak with Vol'jin, in Grommash Hold
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Valley of Wisdom
   when onquest 95350
   turnin 95350 only Skyborne          -- Thrall, inside Grommash Hold
+
+step Thrall
+  only Skyborne
+  tip Thrall offers Journey to the Crossroads and Exploring the Horde once Welcome to Azeroth is handed in to him.
+  accept 98024 only Skyborne          -- Keep it: Thork at the Crossroads
+  accept 93739 only Skyborne optional -- Thrall: Exploring the Horde, a tour of the Horde's leaders
+  kill 3230 quest 93739.1 "Talk to Nazgrel" only Skyborne optional -- Speak with Nazgrel, in Grommash Hold
+  kill 10540 quest 93739.2 "Talk to Vol'jin" only Skyborne optional -- Speak with Vol'jin, in Grommash Hold
 
 step Nazgrel
   when onquest 831

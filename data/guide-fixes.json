@@ -2017,6 +2017,27 @@
 				}
 			],
 			"pr": 1091
+		},
+		{
+			"id": "duskwood-worgen-in-the-woods-level-23",
+			"faction": "Alliance",
+			"at": {
+				"quest": 173,
+				"goal": "accept"
+			},
+			"level": 23,
+			"note": "Worgen in the Woods needs level 23 (its minimum level in Forever's quest data); the route reaches Darkshire at about 22, so a player there is told before Calor refuses it. Players' recordings: every character offered it was 23 or above.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 173 minimum level 23"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1114"
+				}
+			],
+			"issue": 1114
 		}
 	]
 }
