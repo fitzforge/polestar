@@ -185,12 +185,36 @@ end
 -- The shared look: night panel, hairline (accent on hover), inset icon
 ---------------------------------------------------------------------------
 
+-- A key's short label on a button, the way the game's action bars read: modifiers as one letter
+-- (a, c, s, m), mouse buttons M4, the wheel MwU/MwD; any other key is the client's own (abbreviated)
+-- name. The client spells mouse buttons out ("Mouse Button 4"), which ran across the icon (#1211).
+local MOD_SHORT = { ALT = "a", CTRL = "c", SHIFT = "s", META = "m" }
+function Buttons.KeyText(key)
+	if type(key) ~= "string" or key == "" then return nil end
+	local mods, base = "", key
+	while true do
+		local mod, rest = base:match("^(%u+)%-(.+)$")
+		if not (mod and MOD_SHORT[mod]) then break end
+		mods, base = mods .. MOD_SHORT[mod], rest
+	end
+	local n = base:match("^BUTTON(%d+)$")
+	local text
+	if n then
+		text = "M" .. n
+	elseif base == "MOUSEWHEELUP" then
+		text = "MwU"
+	elseif base == "MOUSEWHEELDOWN" then
+		text = "MwD"
+	else
+		text = GetBindingText and GetBindingText(base, true) or base
+		if type(text) ~= "string" or text == "" then text = base end
+	end
+	return mods .. text
+end
+
 local function bindingText(b)
 	if not GetBindingKey then return nil end
-	local key = GetBindingKey("CLICK " .. b:GetName() .. ":LeftButton")
-	if not key then return nil end
-	if GetBindingText then return GetBindingText(key, true) end
-	return key
+	return Buttons.KeyText(GetBindingKey("CLICK " .. b:GetName() .. ":LeftButton"))
 end
 
 local function refreshHotkey(b)
@@ -272,7 +296,11 @@ local function newButton(name, onEnter)
 	local hotkey = b:CreateFontString(nil, "OVERLAY")
 	font(hotkey, "small")
 	color(hotkey, "textDim")
+	-- One line inside the button: a long key name is cut at the edge, never drawn across the label (#1211).
 	hotkey:SetPoint("TOPLEFT", b, "TOPLEFT", 3, -3)
+	hotkey:SetPoint("TOPRIGHT", b, "TOPRIGHT", -3, -3)
+	hotkey:SetJustifyH("LEFT")
+	hotkey:SetWordWrap(false)
 	b.Hotkey = hotkey
 
 	local label = b:CreateFontString(nil, "OVERLAY")
