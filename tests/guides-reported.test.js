@@ -2930,6 +2930,17 @@ test(`${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas befor
 	assert.ok(located(list[necklace]), 'the arrow leads to Ferocitas for the necklace');
 });
 
+// --- Flow re-order (2026-11-07, #1108): Alliance Arathi 30-40 went from Galen's
+// cage to Watcher Biggs and back north to the Harborage before leaving the swamp
+// by the road past Biggs, and zig-zagged across Southshore on its last stop.
+test(`${ARATHI}: flow re-order: the Harborage before Biggs on the way out of the swamp, the last Southshore stop in walking order`, { skip }, () => {
+	const list = goals(ARATHI);
+	assert.ok(at(list, 'turnin 1389 (Magtoor)', is('turnin', 1389)) < at(list, 'turnin 1421 (Watcher Biggs)', is('turnin', 1421)), 'the Harborage before Biggs');
+	const order = [537, 500, 661, 540, 564, 565].map((q) => at(list, `turnin ${q}`, is('turnin', q)));
+	assert.deepEqual([...order].sort((a, b) => a - b), order, 'Maleb, Redpath, Phin, Dibbs, Darren, Bartolo');
+	assert.ok(at(list, 'buy Fine Thread', (g) => g.t === 'buy' && g.item === 2321) < order[5], 'the thread bought from Micha before Bartolo');
+});
+
 test('#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides', { skip }, () => {
 	for (const guide of [TANARIS_ALLIANCE, 'forever/horde/40-50/02-feralas.guide']) {
 		const list = goals(guide);
