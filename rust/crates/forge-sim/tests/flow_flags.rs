@@ -87,7 +87,14 @@ fn flow_flags_off_change_nothing_and_on_do_work_where_the_route_stands() {
 	let priced = forge_sim::guards::GuardCounts { zone_left: 3, ..Default::default() };
 	assert_eq!(forge_sim::guards::flow_pen(&priced), 3.0 * forge_sim::guards::ZONE_LEFT_SEC);
 	assert!(forge_sim::guards::flow_head() > 0.0, "a candidate may cost model time before its counts are read");
+	// Zoneguard: the per-zone counts are read, the seed's own within its bound; without the flag none.
+	forge_core::flow_flags::set_for_tests(&["zoneguard"]);
+	let zones = runs(&p, &seed)[0].guard_counts(&g, r).zones;
+	assert!(zones.iter().any(|z| z.quests > 0 && z.yards > 0), "v1's Orc order hands in quests in its zones: {zones:?}");
+	let seed_gc = runs(&p, &seed)[0].guard_counts(&g, r);
+	assert!(seed_gc.zones_within(&forge_sim::guards::GuardCounts::zone_bound(&zones, &zones)));
 	forge_core::flow_flags::set_for_tests(&[]);
+	assert!(runs(&p, &seed)[0].guard_counts(&g, r).zones.is_empty());
 	assert_eq!(zone_left(&without(left.unwrap())), 0, "not counted without the flag");
 	assert_eq!(forge_sim::guards::flow_pen(&priced), 0.0);
 }

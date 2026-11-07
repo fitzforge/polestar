@@ -605,7 +605,7 @@ pub fn prepare(world: &World, walks: &dyn Walks, base: &Params, race: &str, even
 	// Overrides (route-fixes.json): skips out, includes in; then the plan follows them.
 	let ovr = crate::order::overrides_for(&model0.run, &crate::order::overrides_doc());
 	let v1_seed = seed.clone();
-	seed = crate::order::apply_overrides(&model0.run, &seed, &ovr);
+	seed = crate::order::apply_overrides(&model0.run, &seed, &ovr, Some(&mut model0.evaluator(walks)));
 	// The records v1's order (or another record's repair) breaks: the player-report pairs, the route
 	// fixes' pairs v1's own order keeps, and the `after` and `together` rules, kept by moving steps,
 	// all again until none moves (order::keep_records), so no record is lost to a later one.

@@ -353,8 +353,8 @@ be compared byte for byte with the old JavaScript writer.
   walked in the shortest order from where the route comes in to where it goes next, each NPC once
   unless the quests' own order makes a second stop shorter, the pairs kept; a delivery whose item runs
   out within 15 minutes (the Scalding Mornbrew) is handed in first. A bind goes with the visit's event
-  nearest the inn, and then past the goals right after it that stand within 40 yd of it (or of the
-  event before it at the same stop) or of the inn, so the walk to the inn never splits two goals at one
+  nearest the inn, and then past the goals right after it, in the same v1 step, that stand within 40 yd
+  of it (or of the event before it at the same stop) or of the inn, so the walk to the inn never splits two goals at one
   NPC or two NPCs that stand together, and the inn's own goals come before it (#1008: Mebok after the
   Ratchet poster, Mankrik's two quests at the Crossroads, Maggran's at Sun Rock, Lydon's and the inn's
   at Tarren Mill; `bind_after_beside`). Events move only earlier and, but for the next rule, only among one v1 guide's
@@ -774,6 +774,15 @@ portals and hearths. A lift counts as part of the walk.
   after that hand-in; the quests its own hand-in opens follow it, and the
   quest's lines already in that guide before the hand-in go after it too (News
   of Dogran and Ken'zigla's Draught after Gan'rul's hand-in in the next guide).
+- A v1 step the route did not place that names a quest an earlier step of its
+  guide names, that step still waiting for a later pass or event of the
+  route, waits with it, right after it: the chain keeps its order (Telf's
+  hand-in of Call of Fire and his accept of the next after Kranal Fiss's
+  accept at the Barrens pass, not at an earlier Durotar stop).
+- A route training stop right after a v1 step that trains (`train class`)
+  writes nothing of its own, but the classes that town cannot train still get
+  their own trainer's step after it (Goldshire's Druids to Sheldras Moontree
+  in Stormwind, #912).
 - A follow-up from the NPC a step has just handed its prerequisite to is taken
   there, right after that hand-in and the other hand-ins to that NPC with it,
   when the step went on to a goal more than 30 yards off for a character who
@@ -968,6 +977,11 @@ they matter to the player. They are not the judge's honest rules.
   Auberdine moonwell, not at the furbolg camp after the filled bowl, #302).
   One use per quest and item, however often the mechanics list it (A Matter
   of Time's Temporal Displacer, #843).
+  A use right before the line that collects for its quest is bound to that
+  objective (`use <item> quest Q.N`, N 1 when the collect names none): the
+  Crate of Ghost Magnets before the Ghost-o-plasm, the Gorishi Queen Lure,
+  Karang's banner, Orwin's Shovel (#888); a bare use would hold its step
+  after the objective is done. A summoning before anything else stays bare.
 - **R3 guards**: travel steps for quests carried from an earlier guide get
   `when onquest`, except a step that also trains, learns a flight path or
   binds, or holds lines for some races or classes only (the Ironforge training

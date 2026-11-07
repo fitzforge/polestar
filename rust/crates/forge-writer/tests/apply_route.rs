@@ -4576,6 +4576,60 @@ fn a_v1_step_the_route_left_waits_for_the_routes_pass_through_its_zone() {
 }
 
 #[test]
+fn a_class_step_of_a_chain_waits_with_the_step_before_it_that_waits_for_a_later_pass() {
+	// Candidate v1, Orc Durotar: Kranal Fiss's accept of Call of Fire (the Barrens) waited for the
+	// route's Barrens pass, while Telf's hand-in of it and his accept of the next (Durotar) went to
+	// an earlier Durotar stop: the accept of 1525 before 1524 was taken, and 1524's hand-in lost.
+	let c = Case {
+		files: vec![(
+			"a",
+			vec![
+				"guide t/a",
+				"title A",
+				"levels 20-24",
+				"zone Durotar",
+				"",
+				"step Hub",
+				"  accept 1",
+				"  accept 2",
+				"",
+				"step Kranal Fiss",
+				"  only Shaman",
+				"  zone The Barrens",
+				"  accept 9",
+				"",
+				"step Telf Joolam",
+				"  only Shaman",
+				"  zone Durotar",
+				"  turnin 9",
+				"  accept 10",
+				"",
+				"step Camp",
+				"  zone Durotar",
+				"  turnin 1",
+				"",
+				"step Barrens camp",
+				"  zone The Barrens",
+				"  turnin 2",
+				"",
+			],
+		)],
+		route: json!({ "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 20.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "accept", "q": 2, "lvl": 20.0, "pt": 0, "from": f("a", 8) },
+			{ "t": "turnin", "q": 1, "lvl": 20.5, "pt": 0, "from": f("a", 23) },
+			{ "t": "turnin", "q": 2, "lvl": 21.0, "pt": 1, "from": f("a", 27) }
+		] }),
+		world: json!({ "points": [[0, 0, 0, 0, 1411], [0, 0, 500, 500, 1413]], "zones": { "1411": "Durotar", "1413": "The Barrens" }, "quests": [] }),
+		frames: json!({ "era": { "1411": { "top": 1000, "bottom": -1000, "left": -1000, "right": 1000, "c": 0 }, "1413": { "top": 1000, "bottom": -1000, "left": -1000, "right": 1000, "c": 0 } } }),
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	assert!(idx(&g, "  accept 9") >= 0 && idx(&g, "  accept 9") < idx(&g, "  turnin 9"), "{g:#?}");
+	assert!(idx(&g, "  turnin 9") < idx(&g, "  accept 10"), "{g:#?}");
+}
+
+#[test]
 fn a_class_steps_hearth_home_is_that_class_s_way_back() {
 	// c10 Orc, Stranglethorn: v1's "Back to Grom'gol" (only Shaman, hearth) after Islen Waterseer in
 	// Ratchet went to the other races, and the Shamans were left in the Barrens.
@@ -4707,6 +4761,37 @@ fn the_routes_bind_where_v1_binds_is_one_line() {
 		f[0],
 		"guide t/a\n\nstep Inn\n  getfp \"Grom'gol\" npc 1387\n  sethome \"Grom'gol Base Camp\" npc 5814 -- Innkeeper Thulbek\n\nstep Other\n  sethome \"Grom'gol Base Camp\" only Troll\n  sethome \"Grom'gol Base Camp\" npc 5814\n"
 	);
+}
+
+#[test]
+fn a_training_stop_after_a_v1_step_that_trains_still_sends_the_away_classes() {
+	// #912, candidate v1 Human Elwynn: the route's training stop came right after v1's Goldshire step
+	// with its `train class`, so the stop wrote nothing, and its "Druid trainer" step (Sheldras
+	// Moontree in Stormwind) was lost with it. v1's line trains the rest; the away class gets its step.
+	// (Mages here: the test data's races play no Human Druid, and the class lists keep only theirs.)
+	let c = Case {
+		files: vec![("a", vec!["guide t/a", "title A", "levels 8-11", "zone Elwynn Forest", "", "step Goldshire", "  accept 1", "  train class", "", "step Far", "  turnin 1", ""])],
+		world: json!({ "points": [[0, 0, 0, 0, 1429], [0, 0, -800, 800, 1429]], "zones": { "1429": "Elwynn Forest", "1453": "Stormwind City" }, "quests": [] }),
+		frames: json!({ "era": {
+			"1429": { "top": 1000, "bottom": -1000, "left": -1000, "right": 1000, "c": 0 },
+			"1453": { "top": 3000, "bottom": 1000, "left": -1000, "right": 1000, "c": 0 }
+		} }),
+		npcs: json!({
+			"911": { "name": "Llane Beshere", "subName": "Warrior Trainer", "faction": "A", "spawns": { "1429": { "f": "e", "pts": [[50, 50]] } } },
+			"5498": { "name": "Elsharin", "subName": "Mage Trainer", "faction": "A", "spawns": { "1453": { "f": "e", "pts": [[50, 50]] } } }
+		}),
+		route: json!({ "faction": "Alliance", "start": "Human", "diff": {}, "order": [
+			{ "t": "accept", "q": 1, "lvl": 10.0, "pt": 0, "from": f("a", 7) },
+			{ "t": "train", "lvl": 10.0, "pt": 0, "from": "train stop" },
+			{ "t": "turnin", "q": 1, "lvl": 10.3, "pt": 1, "from": f("a", 11) }
+		] }),
+		route_travel: true,
+		..Case::default()
+	};
+	let g = run(&c, None).read("a");
+	let away = g.iter().position(|l| l.starts_with("  train class only Mage -- Elsharin")).unwrap_or_else(|| panic!("{g:#?}"));
+	assert!(idx(&g, "  train class") < away as i64, "after v1's training: {g:#?}");
+	assert!(!g.iter().any(|l| l == "step Class trainer"), "v1's line trains the rest: {g:#?}");
 }
 
 #[test]

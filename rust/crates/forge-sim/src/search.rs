@@ -938,7 +938,11 @@ impl<'a> Member<'a> {
 					}
 				}
 			}
-			let ok = if self.allow > 0.0 { gc.within_judge(&bound) } else { gc.within(&bound) };
+			// (Under `zoneguard`, no zone worse than the seed's, or the current order's where that is
+			// worse already; a pass checking its own allowance on the exact replay checks it itself,
+			// passby::keep_seq, so a correctness pass is not held by it.)
+			let zones_ok = self.allow >= crate::search::passby::EXACT_ALLOW || self.zones_ok(p, &gc);
+			let ok = zones_ok && if self.allow > 0.0 { gc.within_judge(&bound) } else { gc.within(&bound) };
 			// Avoidable returns: the total never above the bound's (as before), and area by area
 			// against the current order, each one added must also be paid for by RETURN_COST_SEC of
 			// the move's gain (one removed elsewhere does not pay for it).
@@ -954,6 +958,16 @@ impl<'a> Member<'a> {
 			return None;
 		}
 		Some((next, gc))
+	}
+
+	/// Under the `zoneguard` flow flag: no zone of the order worse than the seed's counts (v1's: the
+	/// shipped guides when the seed is), each relaxed to the current order's where that is worse
+	/// already (guards::ZoneCount::worse_than). True without the flag or the guards.
+	pub fn zones_ok(&self, p: &Problem, gc: &crate::guards::GuardCounts) -> bool {
+		match &p.guard {
+			Some(g) if forge_core::flow_flags::on("zoneguard") => gc.zones_within(&crate::guards::GuardCounts::zone_bound(&g.v1.zones, &self.guard_now.zones)),
+			_ => true,
+		}
 	}
 
 	fn make_move(&mut self, p: &Problem, kind: usize) -> Option<(Order, usize, usize)> {

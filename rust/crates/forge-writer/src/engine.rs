@@ -620,6 +620,16 @@ fn ask_group(
 	}
 }
 
+/// Whether R2 writes a use bound to its quest's objective (`use <item> quest Q.N`): a use that gives the
+/// credit itself, or one right before the line that collects for its quest (what it makes, or what the
+/// mobs it lures or summons drop: the Crate of Ghost Magnets before the Ghost-o-plasm, the Gorishi
+/// Queen Lure before the Queen's brain, Orwin's Shovel, #888). A bare use would hold its step until
+/// ticked, after the objective is done. A summoning before anything else stays bare. (The Fire
+/// Sapta's bare use is the guide text's, not R2's: drinking it is not what the Ember counts.)
+fn bind_use(kind: &str, credit: bool, makes_for_q: bool, before_verb: &str, before_quest: Option<u32>, q: u32) -> bool {
+	(kind != "summon-by-item" && credit) || makes_for_q || (before_verb == "collect" && before_quest == Some(q))
+}
+
 /// A group family's tip, in plain words: grouping is encouraged, how hard its elites are (`size` 1: one
 /// most classes solo two levels above it), and that a player alone may skip it (the route's solo
 /// fallback gives the XP back). A family with no mobs placed (its work an event): the quest is named.
@@ -1463,7 +1473,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 							let g = &seq[before_at.unwrap_or(work[0])];
 							let credit = p.get("credit") != Some(&Value::Bool(false));
 							let makes_for_q = made_at.is_some() && made_at == before_at && g.quest == Some(q);
-							let r = if kind == "summon-by-item" || (!credit && !makes_for_q) { format!("  use {item}{at}") } else { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) };
+							let r = if bind_use(kind, credit, makes_for_q, &g.verb, g.quest, q) { format!("  use {item} quest {q}.{}{at}", g.oi.unwrap_or(1)) } else { format!("  use {item}{at}") };
 							edits[g.gi].before.entry(g.line as usize - 1).or_default().push(r);
 							rep.add("R2 use", 1);
 							written.insert((q, item));
@@ -1942,7 +1952,22 @@ fn ride_goto(text: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-	use super::group_tip;
+	use super::{bind_use, group_tip};
+
+	#[test]
+	fn a_use_right_before_its_quests_collect_is_bound_to_it() {
+		// #888: the Crate of Ghost Magnets (no credit of its own) before `collect 15849 quest 6134`: bound.
+		assert!(bind_use("use-item-at-place", false, false, "collect", Some(6134), 6134));
+		// (Before another quest's collect, or a kill: bare, PR542's bowl.)
+		assert!(!bind_use("use-item-at-place", false, false, "collect", Some(7), 6134));
+		assert!(!bind_use("use-item-at-place", false, false, "kill", Some(6134), 6134));
+		// (A use that is the credit, and one that makes the collect's item: bound, as before.)
+		assert!(bind_use("use-item-at-place", true, false, "kill", Some(6134), 6134));
+		assert!(bind_use("use-item-at-place", false, true, "interact", Some(6134), 6134));
+		// (A summoning: bound before its quest's collect, the Gorishi Queen Lure; bare before a kill.)
+		assert!(bind_use("summon-by-item", true, false, "collect", Some(4507), 4507));
+		assert!(!bind_use("summon-by-item", true, false, "kill", Some(4507), 4507));
+	}
 
 	#[test]
 	fn a_family_whose_work_places_no_mob_names_its_quest() {

@@ -919,8 +919,11 @@ is part of the routes stage's cache key, so changing it rebuilds the routes.
 (The quest ids above are made up.)
 
 - **`include`**: the quest goes into the route and stays. Its accept goes right after the `after` step
-  (kind and quest) when given, else after the stop nearest its giver. Its tasks and turn-in go at
-  their cheapest places within 300 steps after it.
+  (kind and quest) when given, else after the stop nearest its giver among those where the level meets
+  its minimum (A Watchful Eye, minimum 20: not at the level-9 stop nearest Theocritus, where the gate
+  refused it and the pickup pass never brought it back, #1052). Its tasks and turn-in go at the first
+  place within 100 straight yards of detour of their cheapest, within 300 steps after it (Speak with
+  Sevren handed in at the town hall beside Coleman, not on a Brill visit a guide later, #1050).
 - **`skip`**: the quest is never in the route, never inserted and never picked up. An optional `faction`
   (`Alliance` or `Horde`) holds the skip for that side's routes only, as for `pairs`.
 - **`revert`** undoes one edit. Copy the `revert` line from the edit ledger:
@@ -1131,6 +1134,7 @@ rounds can compare them:
 | `coverage` | the pickup pass counts a passed quest worthwhile at half the route's XP rate (a quarter when its detour is under a minute; else the full rate, half on a cheap detour), alone or with the quests it opens, and a pickup may add 5 minutes (else 2): marginal quests on the route are done (the benchmark order hands in about 40 % more quests over the same walk; Duskwood's Raven Hill chain and Jitters' Growling Gut were `low-value` and `judge-refused`) |
 | `grind` | the grind top-ups write every grind of the model's own of 10 minutes or more (before an accept, or before work over the character's head) as a `level` step at the last camp of its zone stay, whatever it costs: the route never relies on grind no guide writes (the Fangore task's 1.55 levels before Duskwood) |
 | `zoneleft` | the search, the descent and the passes add 120 s to the cost for each quest of a zone the route leaves for good while the quest is open there (or opens within 2 levels), in the accept window 2 levels on, solo, with XP, not closed by a quest the route takes, and that no later visit takes (`guards::GuardCounts::zone_left`, each quest once); a move may cost up to 5 model minutes before its counts are read. Its XP is in the time already: the price is the flow's part, a zone's on-level quests done before the route moves on |
+| `zoneguard` | a move (search, descent or pass) is refused when it makes any zone (uiMap) worse than the seed's order: fewer hand-ins there, more walked yards per hand-in (1 yd slack), more avoidable returns starting there, or the level after its last step moved by more than 0.3 either way (`guards::ZoneCount`). The bound per zone is the seed's counts, relaxed to the current order's where that is worse already; a pass kept whatever it costs (the `grind` top-ups) is not held by it. Seeded from the shipped guides, the search can then not trade one zone's regression for another's gain |
 
 The planner flags are part of the search key, `steps` of the routes stage's key: a build with other
 flags never reuses another's finished searches. With no flag set every route is the same as before.

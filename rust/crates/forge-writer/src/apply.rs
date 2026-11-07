@@ -1825,7 +1825,7 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 		}
 	}
 	// A bind waits for the goals right after its event that stand beside it or at the inn (#1008).
-	bind_after_beside(&mut together, world);
+	bind_after_beside(&mut together, world, &|a, b| same_step(Some(a), Some(b)));
 	// v1's crossings: `goto x,y "Boat to Stormwind"` and its zone.
 	let mut v1_piers = Vec::new();
 	for st in &steps {
@@ -3241,29 +3241,41 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				continue;
 			};
 			let p = cx.w(o.pt);
-			// A training stop right after another one, or after a v1 step that trains, adds nothing.
+			// A training stop right after another one, or after a v1 step that trains, adds nothing; but
+			// after a v1 step's `train class` the classes this town cannot train still get their own
+			// trainer's step (Goldshire's Druids to Stormwind, #912: lost when the route's stop came
+			// right after v1's Goldshire step).
+			let mut v1_trained = false;
 			if o.t == OrderT::Train {
 				if let Some(last) = pieces.last() {
-					let skip = match &last.kind {
-						PieceKind::Ins { t, .. } => *t == Some(OrderT::Train),
-						PieceKind::Step { step, keys } => keys.iter().any(|k| re!(r"^\s+train class\b").is_match(&cx.steps[*step].line(k.1).unwrap().text)),
-						PieceKind::Orphan(_) => false,
+					let (skip, v1) = match &last.kind {
+						PieceKind::Ins { t, .. } => (*t == Some(OrderT::Train), false),
+						PieceKind::Step { step, keys } => {
+							let trains = keys.iter().any(|k| re!(r"^\s+train class\b").is_match(&cx.steps[*step].line(k.1).unwrap().text));
+							(trains, trains)
+						}
+						PieceKind::Orphan(_) => (false, false),
 					};
-					if skip {
+					if skip && !(v1 && cx.route_travel) {
 						deferred.entry(oi).or_default().extend(held_pull);
 						oi += 1;
 						continue;
 					}
+					v1_trained = skip;
 				}
 			}
 			let mut x = x;
 			// (Classes kept for their own trainer trip: (title, line).)
 			let mut away_train: Vec<(String, String)> = Vec::new();
-			let (mut pull, dup) = if o.t == OrderT::Train { train_orphans(&order, oi + 1, o.lvl, o.pt, None, &pulled) } else { (Vec::new(), Vec::new()) };
+			let (mut pull, dup) = if o.t == OrderT::Train && !v1_trained { train_orphans(&order, oi + 1, o.lvl, o.pt, None, &pulled) } else { (Vec::new(), Vec::new()) };
 			pulled.extend(dup);
-			for s in held_pull {
-				if !pull.contains(&s) {
-					pull.push(s);
+			if v1_trained {
+				deferred.entry(oi).or_default().extend(held_pull);
+			} else {
+				for s in held_pull {
+					if !pull.contains(&s) {
+						pull.push(s);
+					}
 				}
 			}
 			if !pull.is_empty() {
@@ -3374,13 +3386,15 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 					}
 				}
 			}
-			let merged = match pieces.last_mut() {
-				Some(Piece { kind: PieceKind::Ins { pt, title, lines, .. }, .. }) if pull.is_empty() && *pt == o.pt && title.as_deref() == Some(x.title.as_str()) && o.items().is_empty() => {
-					lines.extend(x.lines.iter().cloned());
-					true
-				}
-				_ => false,
-			};
+			// (After v1's training step only the away trainings are written: v1's line trains the rest.)
+			let merged = v1_trained
+				|| match pieces.last_mut() {
+					Some(Piece { kind: PieceKind::Ins { pt, title, lines, .. }, .. }) if pull.is_empty() && *pt == o.pt && title.as_deref() == Some(x.title.as_str()) && o.items().is_empty() => {
+						lines.extend(x.lines.iter().cloned());
+						true
+					}
+					_ => false,
+				};
 			if !merged {
 				pieces.push(Piece {
 					gi: -1,
@@ -3587,6 +3601,22 @@ pub fn apply_route(inp: &Inputs) -> Result<Output, String> {
 				// Paladins' Undercity trainer and the Shamans' Sepulcher brazier at the route's own
 				// Undercity stop, not after the Tarren Mill accepts.) Not v1's way steps, nor travel only.
 				let st = &cx.steps[os];
+				// (A step naming a quest an earlier step of its guide names, that step still waiting for a
+				// later pass or event of the route: it waits with it, right after it, so the chain keeps its
+				// order. Telf's hand-in of Call of Fire and his accept of the next after Kranal Fiss's accept
+				// at the Barrens pass, not at an earlier Durotar stop before it, candidate v1 Orc.)
+				let my_q: FxHashSet<u32> = st.lines.iter().filter_map(|l| quest_of(&l.text)).collect();
+				let shares = |w: usize| w < os && cx.steps[w].file == st.file && cx.steps[w].lines.iter().filter_map(|l| quest_of(&l.text)).any(|q| my_q.contains(&q));
+				if !my_q.is_empty() {
+					if let Some(k) = deferred.iter().filter(|(_, v)| v.iter().any(|&w| shares(w))).map(|(&k, _)| k).max() {
+						deferred.entry(k).or_default().push(os);
+						continue;
+					}
+					if let Some(k) = reorph.iter().filter(|(_, v)| v.iter().any(|&w| shares(w))).map(|(&k, _)| k).max() {
+						reorph.entry(k).or_default().push(os);
+						continue;
+					}
+				}
 				let movable = !st.way && st.lines.iter().any(|l| l.kind == Kind::Goal && !re!(r"^\s+(goto|fly|hearth)\b").is_match(&l.text));
 				// (A step of a class's own run, written right after the run's step before it: it stays with its
 				// run, in v1's order, the Druids' Body and Heart before the boat, N1.)
@@ -8117,8 +8147,10 @@ fn solo_fallback_ins(cx: &Ctx, order: &[Order], p: usize, root: u32, title: &str
 /// never splits two goals at one NPC or two NPCs that stand together, and the inn's own goals come
 /// before the bind (#1008: Mebok after the Ratchet poster, Mankrik's two quests at the Crossroads,
 /// Maggran's at Sun Rock, Lydon's and the inn's at Tarren Mill). It stops at the first event that is
-/// not a goal there (the route moves on), carries travel or another item, or is a `train`.
-fn bind_after_beside(order: &mut [Order], world: &World) {
+/// not a goal there (the route moves on), carries travel or another item, is a `train`, or is written in
+/// another v1 step than the bind's event (`same_step`: v1's steps between, a class's hearth home that
+/// needs the bind, would come before it).
+fn bind_after_beside(order: &mut [Order], world: &World, same_step: &dyn Fn(&Order, &Order) -> bool) {
 	let p_of = |pt: Option<u32>| pt.and_then(|p| world.points.get(p as usize).copied()).filter(|p| p.wx.is_finite());
 	let near = |a: Option<Pt>, b: Option<Pt>| matches!((a, b), (Some(a), Some(b)) if a.c == b.c && js_hypot(a.wx - b.wx, a.wy - b.wy) <= BIND_BESIDE_YD);
 	let goal = |o: &Order| matches!(o.t, OrderT::Accept | OrderT::Turnin | OrderT::Task);
@@ -8137,7 +8169,7 @@ fn bind_after_beside(order: &mut [Order], world: &World) {
 			let mut j = i;
 			while let Some(n) = order.get(j + 1) {
 				let at = p_of(n.pt);
-				if !goal(n) || !n.items().is_empty() || !(near(at, here) || near(at, before) || near(at, inn)) {
+				if !goal(n) || !n.items().is_empty() || !same_step(&order[i], n) || !(near(at, here) || near(at, before) || near(at, inn)) {
 					break;
 				}
 				j += 1;
@@ -10424,7 +10456,7 @@ mod tests {
 				serde_json::from_value(json!({ "t": t, "q": q, "pt": pt, "items": items })).unwrap()
 			})
 			.collect();
-		bind_after_beside(&mut order, &world);
+		bind_after_beside(&mut order, &world, &|_, _| true);
 		let mut out = Vec::new();
 		for o in &order {
 			out.push(format!("{} {}", if o.t == OrderT::Accept { "accept" } else { "turnin" }, o.q.unwrap()));
