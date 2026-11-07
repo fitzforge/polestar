@@ -776,6 +776,11 @@ portals and hearths. A lift counts as part of the walk.
   to their trainer is no walk for a Hunter). It stays behind a `level` line, another of
   its prerequisites, a quest it excludes, or a level the hand-ins between bring.
   This runs after the class detours' hand-ins.
+- A profession's training (`train Cooking npc 265944`) goes right before the
+  first goal of its step that works or hands in a quest whose objective is
+  that NPC, after the quest's accept, when a stop's order put it after them
+  (Camping 101: Cooking at William Pickman, #743). This runs after the other
+  passes that order a stop.
 - A v1 step the route did not place with nothing for everyone, only some races'
   lines (and a flight path), is those races' step: no walk there for the rest
   (v1's "To the Undercity" for the Skyborne's Sylvanas).

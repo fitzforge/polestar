@@ -295,6 +295,15 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			}
 		}
 	}
+	// (A profession's training before the work of the quest it is for, after the stop orders above.)
+	for rel in &written {
+		if let Some(t) = tree.get(rel) {
+			let t2 = crate::post::train_before_its_work(t.split('\n').map(str::to_string).collect(), inp.data).join("\n");
+			if t2 != *t {
+				tree.insert(rel.clone(), t2);
+			}
+		}
+	}
 	// (No `hearth` goal in a written guide: the arrow gives the hearth advice, 0.3.3. Last, so every
 	// pass before, the travel repair and check included, still sees the route's hearth legs.)
 	for rel in &written {
