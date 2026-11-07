@@ -8,24 +8,24 @@
 return {
 	-- Step 1: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
-	["Fly to {area:378}"] = "Voar para o {area:378}",
+	["Fly to {area:378}"] = "Voe para {area:378}",
 	-- {area:380} Crossroads
-	["{area:380} flight master"] = "",
+	["{area:380} flight master"] = "Mestre de voo de {area:380}",
 
 	-- Step 3: Shady Rest Inn
 	-- {area:378} Camp Taurajo · {area:403} Shady Rest Inn
-	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "",
+	["Head east from {area:378} along the road into the marsh. The burned-out {area:403} stands beside it just past the border; the shield, the badge and the hoofprints are in and beside the ruin."] = "Siga para leste de {area:378} pela estrada que entra no pântano. {area:403}, toda queimada, fica ao lado da estrada logo depois da divisa; o escudo, o distintivo e as pegadas de casco estão dentro e em volta da ruína.",
 
 	-- Step 5: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
-	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "",
+	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "Siga para o sul pela costa de {area:392} até {area:720}. {npc:6236} fica junto à arena: pise na grade para começar a luta; os desafiantes vêm um de cada vez e, por fim, {npc:6238} (33).",
 
 	-- Step 7: Brackenwall Village
 	["Take the road north at the fork to the ogre village of Brackenwall."] = "Pegue a estrada para o norte na bifurcação até a aldeia ogra de Muralha Verde.",
 	-- {npc:4503} Mudcrush Durtfeet
 	["{npc:4503}, at the south edge of the village where the road comes in"] = "{npc:4503}, na borda sul da aldeia, onde chega a estrada",
 	-- {npc:4501} Draz'Zilb
-	["{npc:4501}, below ground"] = "",
+	["{npc:4501}, below ground"] = "{npc:4501}, no subterrâneo",
 
 	-- Step 8: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire
@@ -33,22 +33,22 @@ return {
 
 	-- Step 9: Brackenwall Village flight master
 	-- {area:496} Brackenwall Village
-	["{area:496} flight master"] = "",
+	["{area:496} flight master"] = "Mestre de voo de {area:496}",
 
 	-- Step 10: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:496} Brackenwall Village
-	["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and head west through {zone:1412}), then on to {area:496}."] = "",
+	["Your trainer is in {area:1638}: fly there (no flight path there yet? fly to {area:378} and head west through {zone:1412}), then on to {area:496}."] = "Seu instrutor fica em {area:1638}: voe para lá (ainda sem a rota de voo? voe para {area:378} e siga para oeste por {zone:1412}) e depois siga para {area:496}.",
 
 	-- Step 11: Back to Brackenwall Village
 	-- {area:496} Brackenwall Village
-	["Back to {area:496}"] = "",
+	["Back to {area:496}"] = "De volta a {area:496}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Mestre de voo de {zone:1456}",
 
 	-- Step 12: Stinky Ignatz
 	["Stinky Ignatz"] = "Inácio \"Cascão\"",
 	-- {area:502} Witch Hill
-	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "",
+	["Head north to {area:502}. Stinky stands at the foot of the hill; escort him while he gathers Bogbean Leaves just south of it."] = "Siga para o norte até {area:502}. O Cascão fica no pé do morro; escolte-o enquanto ele colhe as folhas logo ao sul dali.",
 
 	-- Step 13: Mirefin murlocs
 	["Mirefin murlocs"] = "Murlocs Lamapina",
@@ -62,113 +62,113 @@ return {
 	-- {object:20985} Loose Dirt
 	["{object:20985}, beside the manor"] = "{object:20985}, ao lado do solar",
 	-- {quest:1218} Soothing Spices
-	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "",
+	["{quest:1218}, for \"Swamp Eye\" Jarl"] = "{quest:1218}, para Zé \"Olho de Lama\"",
 
 	-- Step 15: Theramore Infiltrator on the way
 	-- {npc:4834} Theramore Infiltrator
-	["{npc:4834} on the way"] = "",
+	["{npc:4834} on the way"] = "{npc:4834} no caminho",
 	-- {npc:4834} Theramore Infiltrator · {area:496} Brackenwall Village
-	["{npc:4834} along the way to {area:496}"] = "",
+	["{npc:4834} along the way to {area:496}"] = "{npc:4834} no caminho até {area:496}",
 
 	-- Step 16: Brackenwall Village: kill these as you meet them
 	-- {area:496} Brackenwall Village
-	["{area:496}: kill these as you meet them"] = "",
+	["{area:496}: kill these as you meet them"] = "{area:496}: vá matando estes pelo caminho",
 	-- plural, as words: Darkfang Venomspitters = {npc:4414} Darkfang Venomspitter · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkfang Lurkers = {npc:4411} Darkfang Lurker · Darkmist Lurkers = {npc:4377} Darkmist Lurker
-	["Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "",
+	["Head west back across the marsh. The Darkfang Venomspitters on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Atravesse o pântano de volta para oeste. As Cospeçonhas Presanegra nas cristas ao norte da Muralha Verde deixam cair as bolsas de veneno. Infiltradores de Theramore (35-36) se esgueiram pela mesma mata: estão furtivos, então olhe com atenção.\nAs aranhas Névoa Negra infestam a entrada da caverna a noroeste da Muralha Verde; todo tipo deixa cair olhos.\nCuidado: as Tocaieiras Presanegra (nível 36-37) ficam furtivas fora de combate e soltam Veneno quando a luta começa.\nCuidado: aranhas furtivas da mesma área atacam assim que veem você.\nCuidado: as Tocaieiras Névoa Negra andam furtivas e usam veneno no combate. As aranhas ficam bem juntas, então é comum vir monstro a mais; puxar um alvo de cada vez pela borda ajuda.",
 
 	-- Step 18: Swamp Eye Jarl
 	-- {area:497} Swamplight Manor
-	["Head east back to the {area:497}."] = "",
+	["Head east back to the {area:497}."] = "Volte para leste até {area:497}.",
 	-- {object:20985} Loose Dirt · {npc:4791} Nazeer Bloodpike
 	["{object:20985}, now that {npc:4791} has read the report"] = "{object:20985}, agora que {npc:4791} leu o relatório",
 	-- {item:3853} Moonsteel Broadsword · {skill:164} Blacksmithing
 	["only if you carry a {item:3853} ({skill:164} or the Auction House)"] = "só se você tiver uma {item:3853} ({skill:164} ou a Casa de Leilões)",
 
 	-- Step 19: The Theramore Docks
-	["Underwater"] = "",
+	["Underwater"] = "Debaixo d'água",
 
 	-- Step 21: Nazeer Bloodpike
-	["Head back west to Brackenwall with the head."] = "",
+	["Head back west to Brackenwall with the head."] = "Volte para oeste até a Muralha Verde com a cabeça.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words)
 	["For {npc:2519} at {object:3202}, in the next guide"] = "Para {npc:2519} em {object:3202}, no próximo guia",
 
 	-- Step 22: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "Voe para {area:392}",
 
 	-- Step 24: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "Voe para {area:2408}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 26: Melizza Brimbuzzle
 	-- {area:607} Valley of Spears · {npc:12277} Melizza Brimbuzzle
-	["Head north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["Head north-east to the {area:607}. {npc:12277} is held in the Maraudine centaur camp; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "Siga para nordeste até {area:607}. {npc:12277} está presa no acampamento dos centauros Maraudinos; liberte-a e escolte-a para fora, a leste do vale.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
 
 	-- Step 27: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
 	["{npc:6019} waits at the goblin camp on the west side of the {area:596}."] = "{npc:6019} espera no acampamento goblin no lado oeste do {area:596}.",
 
 	-- Step 28: Kormek's Hut
-	["Head north up the road to the hut by the road north of the graveyard."] = "",
+	["Head north up the road to the hut by the road north of the graveyard."] = "Suba a estrada para o norte até a cabana na beira da estrada, ao norte do cemitério.",
 
 	-- Step 29: Ghost Walker Post
 	-- {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
-	["{npc:5395} and {npc:5412} stand in the post just west of Smeed's camp."] = "",
+	["{npc:5395} and {npc:5412} stand in the post just west of Smeed's camp."] = "{npc:5395} e {npc:5412} ficam no posto logo a oeste do acampamento do Smid.",
 
 	-- Step 30: Kodo bones
-	["Kodo bones"] = "",
-	["Pick up the kodo bones scattered across the graveyard."] = "",
+	["Kodo bones"] = "Ossos de Kodo",
+	["Pick up the kodo bones scattered across the graveyard."] = "Recolha os ossos de kodo espalhados pelo cemitério.",
 
 	-- Step 32: Burning Blade Seer
 	-- {area:599} Thunder Axe Fortress · {area:2405} Ethel Rethor
-	["The Seer stands on the south side of {area:599}, east of {area:2405}. Clear the cultists around it first."] = "",
-	["On the top floor"] = "",
+	["The Seer stands on the south side of {area:599}, east of {area:2405}. Clear the cultists around it first."] = "O Vidente fica no lado sul de {area:599}, a leste de {area:2405}. Limpe os sectários em volta dele antes.",
+	["On the top floor"] = "No último andar",
 
 	-- Step 33: Thunder Axe Fortress
 	-- {area:2407} Kormek's Hut · {item:14523} Demon Pick · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["The Burning Blade hold the fortress north-west of {area:2407}. Use the {item:14523} on the {npc:11876} in the fortress to get the {item:13542}."] = "Lâmina Ardente ocupa a fortaleza a noroeste de {area:2407}. Use a {item:14523} no {npc:11876} da fortaleza para obter a {item:13542}.",
 
 	-- Step 34: Ethel Rethor
-	["His next errand is not on this route."] = "",
+	["His next errand is not on this route."] = "O próximo serviço dele não faz parte desta rota.",
 
 	-- Step 35: Slitherblade coast
 	["Slitherblade coast"] = "Costa dos Sibilâmina",
 	-- {area:2405} Ethel Rethor · {area:598} Sar'theris Strand · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
 	["The Slitherblade naga hold the coast north of {area:2405}, up to {area:598}. {npc:12369} guards the {quest:6027} at the far northern tip."] = "Os nagas Sibilâmina ocupam a costa ao norte de {area:2405}, até a {area:598}. {npc:12369} guarda o {quest:6027} na ponta norte.",
 	-- {npc:4711} Slitherblade Naga · {area:598} Sar'theris Strand
-	["{npc:4711} walks around {area:598}: look inside the circle on the map"] = "",
+	["{npc:4711} walks around {area:598}: look inside the circle on the map"] = "{npc:4711} anda por {area:598}: procure dentro do círculo no mapa",
 	-- {npc:4714} Slitherblade Myrmidon · {area:598} Sar'theris Strand
-	["{npc:4714} walks around {area:598}: look inside the circle on the map"] = "",
+	["{npc:4714} walks around {area:598}: look inside the circle on the map"] = "{npc:4714} anda por {area:598}: procure dentro do círculo no mapa",
 
 	-- Step 37: Maraudine totems
 	["Maraudine totems"] = "Totens Maraudinos",
 	-- {area:2405} Ethel Rethor · {area:607} Valley of Spears · {quest:93225} Carved Centaur Totems
 	-- plural, as words: Maraudine Scouts = {npc:4654} Maraudine Scout
-	["Head south from {area:2405} into the {area:607}. The Maraudine Scouts, Wranglers, Maulers, Windchasers and Marauders (36-39) drop the {quest:93225}."] = "",
+	["Head south from {area:2405} into the {area:607}. The Maraudine Scouts, Wranglers, Maulers, Windchasers and Marauders (36-39) drop the {quest:93225}."] = "Siga para o sul de {area:2405} até {area:607}. Os Batedores, Cavalgantes, Espancadores, Ventilhãs e Espoliadores Maraudinos (36-39) deixam cair os {quest:93225}.",
 
 	-- Step 38: Shadowprey Village
-	["Head on south-west to Shadowprey."] = "",
+	["Head on south-west to Shadowprey."] = "Siga em frente para sudoeste até Pescassombra.",
 
 	-- Step 39: Portals of the Legion
 	-- {area:602} Mannoroc Coven
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
-	["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "",
+	["Head east to {area:602}. Use the Rod of Banishing by each demon portal to close six of them.\nCareful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "Siga para leste até {area:602}. Use o bastão de banimento junto a cada portal demoníaco para fechar seis deles.\nCuidado: Infernais, Demonarcas e Evocadores da Lâmina Ardente andam perto de vários portais e podem entrar na briga; mate os monstros por perto primeiro ou arraste o guardião para longe, por exemplo rumo ao lago central do conciliábulo.",
 
 	-- Step 40: The Valley of Bones
 	-- {area:2657} Valley of Bones
-	["The {area:2657}"] = "",
+	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre
-	["Head south-east from the coven to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "",
+	["Head south-east from the coven to the bone fields of the {area:2657}, where Undead Ravagers roam. At the far south-east, use the {item:15848} to draw the Magrami Spectres: they drop the ghost-o-plasm."] = "Siga para sudeste, saindo do conciliábulo, até os campos de ossos de {area:2657}, onde andam Assoladores Mortos-vivos. No extremo sudeste, use o {item:15848} para atrair os Espectros Magrami: eles deixam cair o fantasmoplasma.",
 
 	-- Step 41: Ghost Walker Post
 	-- {npc:5412} Gurda Wildmane · {area:597} Ghost Walker Post
-	["Head north to {npc:5412} at {area:597}."] = "",
+	["Head north to {npc:5412} at {area:597}."] = "Siga para o norte até {npc:5412}, em {area:597}.",
 
 	-- Step 43: Shadowprey
-	["Shadowprey"] = "",
+	["Shadowprey"] = "Pescassombra",
 	-- {zone:1434} Stranglethorn Vale
 	["The next guide takes you back to {zone:1434}."] = "O próximo guia leva você de volta à {zone:1434}.",
 

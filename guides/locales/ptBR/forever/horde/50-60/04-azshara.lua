@@ -16,7 +16,7 @@ return {
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "Voe para {area:392}",
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} flight master"] = "",
+	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
 	-- Step 3: Dokimi's crates
 	-- {npc:256386} Dokimi
@@ -27,7 +27,7 @@ return {
 	-- Step 4: Liv Rizzlefix
 	-- {area:392} Ratchet · {object:149036} Marvon's Chest
 	["Liv's workshop is at the north end of {area:392}'s docks; {object:149036} stands inside it."] = "A oficina de Liv fica no extremo norte das docas de {area:392}; {object:149036} está lá dentro.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 
 	-- Step 5: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -37,17 +37,17 @@ return {
 
 	-- Step 6: Hearth to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Hearth to {area:1637}"] = "",
+	["Hearth to {area:1637}"] = "Pedra de Regresso para {area:1637}",
 
 	-- Step 7: Vehena
 	-- {object:172961} Valley of Spirits (no name in this language: may be words)
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "No Vale dos Espíritos. Cada doação leva sessenta Lãs, Sedas ou Magitramas das suas bolsas: entregue o que estiver carregando e pule o resto.",
 
 	-- Step 8: Rashona Straglash
 	-- {object:172958} Valley of Honor (no name in this language: may be words)
 	["In the {object:172958}."] = "No {object:172958}.",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "As duas doações de {item:14047} são entregues mais adiante na rota: guarde sessenta {item:14047} para cada uma, se quiser fazê-las.",
 
 	-- Step 9: Fly to Valormok
 	-- {area:1237} Valormok
@@ -64,7 +64,7 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["{npc:8578}'s camp"] = "O acampamento da {npc:8578}",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there, then kill the Magus.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "O acampamento da Rimtori fica na ponta leste do acampamento-base. Leia o {object:151286} de lá e depois mate a Maga.\nCuidado: qual cristal está ligado à Rimtori é aleatório. Cada um dos outros dois invoca um infernal hostil.",
 
 	-- Step 14: Ag'tor Bloodfist
 	-- {area:1237} Valormok
@@ -74,28 +74,28 @@ return {
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Mestre de voo de {area:1237}",
 
 	-- Step 16: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
 	-- Step 17: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454} and train."] = "",
+	["Fly to {zone:1454} and train."] = "Voe para {zone:1454} e treine.",
 
 	-- Step 18: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor (no name in this language: may be words)
-	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "",
+	["Fly to {zone:1454}; {npc:4485} is in the {object:172958}."] = "Voe para {zone:1454}; {npc:4485} fica no Vale da Honra.",
 
 	-- Step 19: Into Durotar
 	-- {zone:1411} Durotar
-	["Into {zone:1411}"] = "",
+	["Into {zone:1411}"] = "Rumo a {zone:1411}",
 
 	-- Step 20: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
 	-- Step 21: Prompt Potion Runner
 	-- {npc:11044} Doctor Martin Felben
@@ -105,7 +105,7 @@ return {
 
 	-- Step 22: The Undercity
 	-- {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {object:36126} Royal Quarter (no name in this language: may be words)
-	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "",
+	["Take the zeppelin from the tower outside {zone:1454} to {zone:1420} and ride into the {zone:1458}. Lady Sylvanas holds the {object:36126}."] = "Pegue o zepelim na torre do lado de fora de {zone:1454} até {zone:1420} e cavalgue até {zone:1458}. A Grande Dama Sylvana fica no Bairro Real.",
 
 	-- Step 23: Royal Quarter
 	-- {npc:8403} Jeremiah Payson
@@ -114,7 +114,7 @@ return {
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} volta para {npc:10778} nas {zone:1422}: guarde-a.",
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
+	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Só com {quest:79095}, da loja de alquimia de {area:159}, nas bolsas (o guia dos Livros da Biblioteca)",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "As duas doações de {item:14047} são entregues mais adiante na rota: comece a guardar {item:14047}.",

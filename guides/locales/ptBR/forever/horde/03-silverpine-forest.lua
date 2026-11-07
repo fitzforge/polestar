@@ -8,35 +8,35 @@
 return {
 	-- Step 2: Zeppelin to Undercity
 	-- {zone:1458} Undercity
-	["Zeppelin to {zone:1458}"] = "",
+	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
 	-- Step 5: To Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["To {zone:1454}"] = "",
+	["To {zone:1454}"] = "Para {zone:1454}",
 	-- {area:380} Crossroads · {zone:1454} Orgrimmar · {npc:3310} Doras · {object:172982} Valley of Strength (no name in this language: may be words)
-	["From the {area:380}, follow the road north-east to {zone:1454} and walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}."] = "",
+	["From the {area:380}, follow the road north-east to {zone:1454} and walk in by the main gate. {npc:3310}, the wind rider master, stands on the tower in the {object:172982}."] = "De {area:380}, siga a estrada para nordeste até {zone:1454} e entre pelo portão principal. {npc:3310}, o mestre de mantícoras, fica na torre do Vale da Força.",
 
 	-- Step 6: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} (Vale da Honra, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 7: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Cajados com {npc:2704} (Vale da Honra, 10 pratas); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 8: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Já que está aqui: aprenda Cajados com {npc:2704} (Vale da Honra, 10 pratas); enquanto você sobe de nível, um cajado traz mais atributos de feitiço que uma arma de uma mão.",
 
 	-- Step 10: The Sepulcher
 	-- {area:228} The Sepulcher · {npc:2226} Karos Razok
-	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it.\nSwim back and follow the road west to the {area:228}."] = "",
+	["{area:228} is the Forsaken crypt-town in the middle of the forest. Everyone you need stands around the crypt entrance; {npc:2226}, the bat handler, is just east of it.\nSwim back and follow the road west to the {area:228}."] = "{area:228} é a vila-cripta dos Renegados no meio da floresta. Todos de quem você precisa ficam em volta da entrada da cripta; {npc:2226}, o cuidador de morcegos, fica logo a leste dela.\nNade de volta e siga a estrada para oeste até {area:228}.",
 	-- {npc:1952} High Executor Hadrec
-	["{npc:1952}, below ground"] = "",
+	["{npc:1952}, below ground"] = "{npc:1952}, no subterrâneo",
 
 	-- Step 12: Moonrage Whitescalp on the way
 	-- {npc:1769} Moonrage Whitescalp
-	["{npc:1769} on the way"] = "",
+	["{npc:1769} on the way"] = "{npc:1769} no caminho",
 
 	-- Step 14: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -44,22 +44,22 @@ return {
 
 	-- Step 16: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
-	["Fly to {area:1638}"] = "",
+	["Fly to {area:1638}"] = "Voe para {area:1638}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 17: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
-	["Fly to {area:1638}: {npc:3033} trains you on {area:1639}. Skyborne: fly back to {zone:1454} for the zeppelin afterwards."] = "Voe até {area:1638}: {npc:3033} treina você no {area:1639}. Nascido nos Céus: depois, voe de volta a {zone:1454} para o zepelim.",
+	["Fly to {area:1638}: {npc:3033} trains you on {area:1639}. Skyborne: fly back to {zone:1454} for the zeppelin afterwards."] = "Voe até {area:1638}: {npc:3033} treina você no {area:1639}. Celonatos: depois, voe de volta a {zone:1454} para o zepelim.",
 
 	-- Step 18: Moonglade
 	-- {spell:18960} Teleport: Moonglade
-	["Cast {spell:18960}"] = "",
+	["Cast {spell:18960}"] = "Use {spell:18960}",
 
 	-- Step 19: Trial of the Lake
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "",
+	["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "Use {spell:18960}; {npc:11802} está em {area:2361}. Os Adornos de Altar ficam no fundo de {area:656} e somem em poucos minutos: nade com um direto até {area:2362}, na margem noroeste, use-o lá e fale com {npc:11799}.",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, próximo guia",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -77,11 +77,11 @@ return {
 
 	-- Step 21: Back to Silverpine Forest
 	-- {area:130} Silverpine Forest
-	["Back to {area:130}"] = "",
+	["Back to {area:130}"] = "De volta a {area:130}",
 
 	-- Step 22: Fly to Ratchet
 	-- {area:392} Ratchet
-	["Fly to {area:392}"] = "",
+	["Fly to {area:392}"] = "Voe para {area:392}",
 
 	-- Step 25: Border Crossings
 	-- {object:1627} Dalaran Crate
@@ -100,11 +100,11 @@ return {
 	["Follow the road north-east to the Yoricks' house at {area:238}."] = "Siga a estrada para nordeste até a casa dos Yorick no {area:238}.",
 
 	-- Step 29: Level 16.51
-	["Level 16.51"] = "",
+	["Level 16.51"] = "Nível 16.51",
 	-- {area:239} The Ivar Patch
-	["Top up here to level 16.51 before the hand-ins at {area:239}: they take you to level 17."] = "",
+	["Top up here to level 16.51 before the hand-ins at {area:239}: they take you to level 17."] = "Complete aqui até o nível 16.51 antes das entregas em {area:239}: elas levam você ao nível 17.",
 	-- {npc:1983} Nightlash
-	["grind on {npc:1983}"] = "",
+	["grind on {npc:1983}"] = "mate {npc:1983} até subir",
 
 	-- Step 30: Mottled Worgs
 	-- plural, as words: Mottled Worgs = {npc:1766} Mottled Worg
@@ -116,7 +116,7 @@ return {
 	-- {npc:1978} Deathstalker Erland · {npc:1950} Rane Yorick
 	["{npc:1978} waits north-east of the house. Escort him back to {npc:1950}; worgs attack on the way."] = "{npc:1978} espera a nordeste da casa. Escolte-o de volta até {npc:1950}; worgs atacam no caminho.",
 	-- {npc:1978} Deathstalker Erland
-	["{npc:1978}, inside"] = "",
+	["{npc:1978}, inside"] = "{npc:1978}, lá dentro",
 
 	-- Step 34: The Sepulcher
 	-- {area:233} Ambermill
@@ -128,12 +128,12 @@ return {
 
 	-- Step 36: The Sepulcher
 	-- {npc:1499} Magistrate Sevren · {area:159} Brill
-	["{npc:1499} in {area:159}, on the way to the zeppelin at 19"] = "",
+	["{npc:1499} in {area:159}, on the way to the zeppelin at 19"] = "{npc:1499} em {area:159}, no caminho para o zepelim no nível 19",
 
 	-- Step 37: Quinn Yorick
 	["North again to the Yoricks' house."] = "De novo ao norte até a casa dos Yorick.",
 	-- {npc:1951} Quinn Yorick
-	["{npc:1951}, inside"] = "",
+	["{npc:1951}, inside"] = "{npc:1951}, lá dentro",
 
 	-- Step 38: Vile Fin murlocs
 	["Vile Fin murlocs"] = "Murlocs Pinavil",
@@ -149,13 +149,13 @@ return {
 	-- {object:1599} Shallow Grave
 	["{object:1599}, just east of the keep"] = "{object:1599}, logo a leste da fortaleza",
 	-- {object:112888} Dusty Shelf
-	["{object:112888}, inside the keep; upstairs"] = "",
+	["{object:112888}, inside the keep; upstairs"] = "{object:112888}, dentro da fortaleza; no andar de cima",
 	-- {npc:1940} Rot Hide Plague Weaver
-	["grind on {npc:1940}"] = "",
+	["grind on {npc:1940}"] = "mate {npc:1940} até subir",
 
 	-- Step 40: Hearth to The Sepulcher
 	-- {area:228} The Sepulcher
-	["Hearth to {area:228}"] = "",
+	["Hearth to {area:228}"] = "Pedra de Regresso para {area:228}",
 
 	-- Step 41: The Sepulcher
 	-- {npc:1937} Apothecary Renferrel
@@ -165,29 +165,29 @@ return {
 
 	-- Step 42: Dalaran Pendant on the way
 	-- {item:3354} Dalaran Pendant
-	["{item:3354} on the way"] = "",
+	["{item:3354} on the way"] = "{item:3354} no caminho",
 	-- {item:3354} Dalaran Pendant · {area:228} The Sepulcher
-	["{item:3354} along the way to the {area:228}"] = "",
+	["{item:3354} along the way to the {area:228}"] = "{item:3354} no caminho até {area:228}",
 
 	-- Step 43: Ambermill
 	-- {area:233} Ambermill · {npc:2120} Archmage Ataeric
 	["South-east down the road to {area:233}. Protectors guard the outskirts and Mages the town; both drop pendants. Wizards and Watchers patrol the roads around it. Stay out of the middle, where {npc:2120} stands."] = "Para sudeste pela estrada até {area:233}. Protetoras guardam os arredores e Magos a cidade; ambos deixam cair pingentes. Teurgos e Vigias patrulham as estradas em volta. Fique longe do centro, onde {npc:2120} fica.",
 	-- {npc:1914} Dalaran Mage
-	["grind on {npc:1914}"] = "",
+	["grind on {npc:1914}"] = "mate {npc:1914} até subir",
 
 	-- Step 44: Silverpine Forest: kill these as you meet them
 	-- {area:130} Silverpine Forest
-	["{area:130}: kill these as you meet them"] = "",
+	["{area:130}: kill these as you meet them"] = "{area:130}: vá matando estes pelo caminho",
 	-- {quest:516} Beren's Peril
 	-- plural, as words: Ravenclaw Drudgers = {npc:1974} Ravenclaw Drudger
-	["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest.\nCareful: The cave passages are narrow, so it is easy to pull extra mobs. Three mobs guard the entrance, and one of them walks a short patrol away from the other two."] = "",
-	["Below ground"] = "",
+	["South-west of Ambermill, the Ravenclaw Drudgers and Guardians haunt the ruins of {quest:516} in the south-east of the forest.\nCareful: The cave passages are narrow, so it is easy to pull extra mobs. Three mobs guard the entrance, and one of them walks a short patrol away from the other two."] = "A sudoeste de Lenhâmbar, os Mourejantes e Guardiões Corvinalle assombram as ruínas de {quest:516}, no sudeste da floresta.\nCuidado: as passagens da caverna são estreitas, então é fácil puxar monstro a mais. Três monstros guardam a entrada, e um deles faz uma patrulha curta longe dos outros dois.",
+	["Below ground"] = "No subterrâneo",
 	-- {npc:1888} Dalaran Watcher
-	["grind on {npc:1888}"] = "",
+	["grind on {npc:1888}"] = "mate {npc:1888} até subir",
 
 	-- Step 45: the The Sepulcher
 	-- {area:228} The Sepulcher
-	["the {area:228}"] = "",
+	["the {area:228}"] = "{area:228}",
 
 	-- Step 46: Lordamere Lake shore
 	-- {area:1338} Lordamere Lake
@@ -196,7 +196,7 @@ return {
 	-- plural, as words: Vile Fin Lakestalkers = {npc:1909} Vile Fin Lakestalker
 	["The Vile Fin Lakestalkers and Oracles sit on the lake shore south of the {area:237}, east of the {area:228}."] = "Os Espreita-Lagos e Oráculos Pinavil ficam na margem do lago ao sul da {area:237}, a leste do {area:228}.",
 	-- {npc:1909} Vile Fin Lakestalker · {area:1338} Lordamere Lake · {area:130} Silverpine Forest
-	["grind on {npc:1909} at {area:1338}, {area:130}"] = "",
+	["grind on {npc:1909} at {area:1338}, {area:130}"] = "mate {npc:1909} até subir, em {area:1338}, {area:130}",
 
 	-- Step 47: Apothecary Renferrel
 	-- {npc:2216} Apothecary Lydon · {area:272} Tarren Mill
@@ -204,33 +204,33 @@ return {
 
 	-- Step 48: The Ivar Patch
 	-- {area:85} Tirisfal Glades · {area:238} Malden's Orchard · {quest:425} Ivar the Foul
-	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "",
-	["Inside"] = "",
+	["Take the road north toward {area:85}: the Yoricks' house at {area:238} is on the way. {quest:425} lurks a short walk west of it."] = "Pegue a estrada para o norte rumo a {area:85}: a casa dos Yorick em {area:238} fica no caminho. {quest:425} espreita a uma curta caminhada a oeste dela.",
+	["Inside"] = "Lá dentro",
 
 	-- Step 50: Magistrate Sevren
 	-- {area:159} Brill · {npc:1499} Magistrate Sevren
-	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "",
+	["{area:159} is a short walk north up the road from the zeppelin towers; {npc:1499} is in the town hall."] = "{area:159} fica a uma curta caminhada para o norte pela estrada, saindo das torres do zepelim; {npc:1499} está na prefeitura.",
 
 	-- Step 53: Valley of Strength
 	-- {npc:268701} Thatog · {object:172982} Valley of Strength (no name in this language: may be words)
-	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "",
+	["Walk in through the main gate. {npc:268701} stands in the {object:172982}."] = "Entre pelo portão principal. {npc:268701} fica no Vale da Força.",
 
 	-- Step 56: Valley of Strength
 	-- {object:173016} Borstan's Firepit (no name in this language: may be words) · {object:172960} Cleft of Shadow (no name in this language: may be words) · {object:172982} Valley of Strength (no name in this language: may be words) · {quest:829} Neeru Fireblade
-	["{object:173016} is a few steps north.\nThe {object:172960} is the canyon under the {object:172982}; {quest:829} stands at its far end."] = "",
+	["{object:173016} is a few steps north.\nThe {object:172960} is the canyon under the {object:172982}; {quest:829} stands at its far end."] = "O Braseiro do Borsgan fica a poucos passos ao norte.\nA Fenda das Sombras é o cânion embaixo do Vale da Força; {quest:829} fica lá no fundo.",
 
 	-- Step 59: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 
 	-- Step 60: Paladin trainer
-	["Paladin trainer"] = "",
+	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
 	-- Step 61: Druid trainer
-	["Druid trainer"] = "",
+	["Druid trainer"] = "Instrutor de druida",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034} em {zone:1412}; {zone:1454} não tem instrutor de druida",
 
 	-- Step 62: The Drag
 	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
@@ -243,7 +243,7 @@ return {
 	-- Step 65: Valley of Wisdom
 	-- {npc:268684} Thra · {npc:268682} Migi · {object:172957} Valley of Wisdom (no name in this language: may be words) · {npc:3310} Doras · {object:172982} Valley of Strength (no name in this language: may be words)
 	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
-	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "",
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold in the {object:172957}; the Smooth Boulders lie around them. Train while you are in the city (Druids and Paladins have no trainer here). The next guide starts at {npc:3310}, the wind rider master in the {object:172982}."] = "{npc:268684} e {npc:268682} ficam atrás da Fortaleza Grommash, no Vale da Sabedoria; os Pedregulhos Lisos estão em volta deles. Treine enquanto estiver na cidade (Druidas e Paladinos não têm instrutor aqui). O próximo guia começa em {npc:3310}, o mestre de mantícoras do Vale da Força.",
 	-- {area:380} Crossroads
 	["Keep it: Thork at the {area:380}"] = "Guarde-o: Thork na {area:380}",
 	-- {npc:4949} Thrall · {quest:93739} Exploring the Horde
@@ -251,11 +251,11 @@ return {
 	-- {npc:3230} Nazgrel
 	["Speak with {npc:3230}, in Grommash Hold"] = "Fale com {npc:3230}, na Fortaleza Grommash",
 	-- {npc:3230} Nazgrel
-	["Talk to {npc:3230}"] = "",
+	["Talk to {npc:3230}"] = "Fale com {npc:3230}",
 	-- {npc:10540} Vol'jin
 	["Speak with {npc:10540}, in Grommash Hold"] = "Fale com {npc:10540}, na Fortaleza Grommash",
 	-- {npc:10540} Vol'jin
-	["Talk to {npc:10540}"] = "",
+	["Talk to {npc:10540}"] = "Fale com {npc:10540}",
 
 	-- Step 66: Valley of Wisdom
 	-- {npc:4949} Thrall
@@ -263,7 +263,7 @@ return {
 
 	-- Step 69: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor (no name in this language: may be words)
-	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "",
+	["While you're here: learn {spell:197} from {npc:11868} ({object:172958}, 10 silver); two-handers level a Paladin fastest."] = "Já que está aqui: aprenda {spell:197} com {npc:11868} (Vale da Honra, 10 pratas); arma de duas mãos é o jeito mais rápido de upar Paladino.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}; {npc:11802} is in {area:2361}. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}."] = "Lance {spell:18960}; {npc:11802} está em {area:2361}. Os Adornos de Altar ficam no fundo de {area:656} e somem em poucos minutos: nade com um direto até {area:2362} na margem noroeste, use-o lá e fale com {npc:11799}.",
