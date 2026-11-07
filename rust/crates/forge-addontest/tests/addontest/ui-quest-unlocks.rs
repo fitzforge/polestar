@@ -5,8 +5,8 @@
 //! quest database records copied from the shipped data (the Defias Brotherhood chain, Westfall and Redridge).
 
 use forge_addontest::questdb::ADD_RECORDS_LUA;
-use forge_addontest::{Addon, RunAddon, TEST_PACK, TEST_SOURCE, emitted};
-use serde_json::{Value, json};
+use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
+use serde_json::{json, Value};
 
 const WORLD: &str = r#"
 local w = stub.world
