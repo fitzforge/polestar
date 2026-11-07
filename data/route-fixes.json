@@ -3443,6 +3443,102 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Ashenvale 28, #1175): Sharptalon (75.0,70.1) prowls between Torek's fight and Splintertree Post (73.8,61.5), so her claw comes on the way north; the order hunted her on a walk back south from the town before the satyrs to its north-west"
+			},
+			{
+				"a": [
+					"task",
+					578
+				],
+				"b": [
+					"turnin",
+					605
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the haunted island of The Stone of the Tides (20.8,23.2) lies about 300 yd south-west of the Crystalvein Mine (24.2,17.7), where the first jungle loop gathers the Singing Crystal Shards; it is reached then, instead of on the northern loop after the second Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					578
+				],
+				"b": [
+					"task",
+					207
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): The Stone of the Tides is handed to Baron Revilgaz on the Booty Bay return of the first jungle loop, so Water Elementals (601, its follow-up) is done at the same island on the northern loop; it was handed in on the last Booty Bay stop, then the player walked from Booty Bay back to the island for the elementals, on to Westfall and flew to Booty Bay for the hand-in."
+			},
+			{
+				"a": [
+					"task",
+					601
+				],
+				"b": [
+					"turnin",
+					574
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the Lesser Water Elementals (21.5,24.7) rise around the haunted island beside the second troll legend (24.8,22.9) the northern loop passes; done there, before the Rebel Camp, and handed in on the last Booty Bay stop."
+			},
+			{
+				"a": [
+					"turnin",
+					192
+				],
+				"b": [
+					"task",
+					577
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Stranglethorn Vale 30-40, #1173): the Snapjaw Crocolisks (37.9-40.2,23.6-32.6) lie on the river mid-jungle, between Nesingwary's camp and the Skullsplitter ruins the route walks to next; done on that walk and handed to Drizzlik on the last Booty Bay stop, instead of a round trip of about 2,000 yd each way from Booty Bay."
+			},
+			{
+				"a": [
+					"turnin",
+					631
+				],
+				"b": [
+					"turnin",
+					98245
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40 and Arathi, #1173): Ebenezer Rustlocke's corpse (51.3,8.0) lies 30 yd from Essene Villard (51.5,9.0), where every race hands in Hearts of the Lost on the walk north from Dun Modr; The Thandol Span is handed in there by every race, before the walk back south to Howin. Humans, who do not cross to Foggy MacKreel, carried it to the Arathi guide and walked from Faldir's Cove back onto the span for it."
+			},
+			{
+				"a": [
+					"accept",
+					1246
+				],
+				"b": [
+					"accept",
+					1718
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Wu Shen (80.5,59.7) trains warriors in Old Town beside the Pig and Whistle, where Dashel Stonefist (74.3,59.2) waits; Warriors take The Islander on the Dashel stop, after Elling Trias in the Trade District, instead of walking from the flight master to Old Town, back to the Trade District for Elling and on to Old Town again."
+			},
+			{
+				"a": [
+					"turnin",
+					1108
+				],
+				"b": [
+					"turnin",
+					709
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Indurium's flakes are gathered at Agmond's End at about 38, and the walk from the Ancient Chest (39.3,18.8) south to Theldurin (51.4,76.9) passes Martek in the Valley of Fangs (42.2,52.7); handed in there (News for Fizzle taken), as the seed has it, instead of at the 40-50 Badlands guide's Valley of Fangs stop about nine hours later."
+			},
+			{
+				"a": [
+					"turnin",
+					703
+				],
+				"b": [
+					"turnin",
+					709
+				],
+				"faction": "Alliance",
+				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Rigglefuzz (42.4,52.9) stands beside Martek on the same walk; Barbecued Buzzard Wings, done at Agmond's End, is handed in there instead of nine hours later in the 40-50 Badlands guide."
 			}
 		],
 		"notes": [
@@ -5506,6 +5602,11 @@
 				"q": 5056,
 				"size": 2,
 				"why": "Shy-Rotam: the summoned Shy-Rotam (level 60, rank 1 in Forever's creature data) at the quest's level, which reads as soloable; a group quest (Winterspring 58-59)"
+			},
+			{
+				"q": 98310,
+				"size": 2,
+				"why": "Final route review (2026-11-07, Alliance Hillsbrad 30-40, #1173): Gleaning Our Future's four hearts drop only from Golm, Ados, Neru and Modr, level-32 rank-1 creatures in Forever's data that the Goaz Stones call up, at the route's 30-31; no recorded character has done it. An elite at the quest's level is a group quest: a group of 2, like Defeat Nek'rosh, with the route's solo fallback (the top-up for skipped group quests)."
 			}
 		]
 	},

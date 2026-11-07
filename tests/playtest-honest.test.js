@@ -123,3 +123,21 @@ test('chains follow the main route; a catch-up guide behind `when` is its own ch
 	const out = chains([g('a-catchup', 'b'), g('a', 'a-catchup', ['a-catchup', 'b'], { 'a-catchup': [{ k: 'level', op: '<', n: 9 }] }), g('b', null)]);
 	assert.deepEqual(out.map((c) => c.map((x) => x.id)), [['a', 'b'], ['a-catchup']]);
 });
+
+// A `when` line with a single-quest predicate (`complete`, `turnedin`, `available`, `group`: dsl/when.js QUEST_ONE)
+// compiles with one quest id, not a list; the honest play read every predicate as a list and crashed
+// (`qs.every is not a function`).
+test('a step behind `when complete <quest>` or `when turnedin <quest>` plays, holding or not', { skip }, () => {
+	const text = 'step Gornek\n  accept 789\n\nstep Back\n  when complete 789\n  turnin 789\n\nstep Later\n  when turnedin 789\n  accept 790\n';
+	assert.doesNotThrow(() => play(text));
+	assert.doesNotThrow(() => play('step Alone\n  when !turnedin 789\n  accept 789\n'));
+});
+
+// It's a Secret to Everybody (3845): the quest hands over A Small Pack (11107), and the compass, map and key come out
+// of it (items.json `containers`). Each collect opens the held pack; none needs a mob, object or vendor.
+test('R3: an item in a held container comes out of it (A Small Pack\'s compass, map and key)', { skip }, () => {
+	const text = 'step A Wrecked Raft\n  zone Un\'Goro Crater\n  accept 3844 object 161505\n  turnin 3844 object 161504\n  accept 3845 object 161504\n  collect 11104 quest 3845.1\n  collect 11105 quest 3845.2\n  collect 11106 quest 3845.3\n';
+	assert.deepEqual(of(play(text, { persona: HUMAN }), 'R3').map((f) => f.reason), []);
+	const before = 'step The pack\n  zone Un\'Goro Crater\n  collect 11104\n';
+	assert.match(of(play(before, { persona: HUMAN }), 'R3')[0].reason, /Large Compass: the data has no mob, object or vendor/, 'without the pack it is still a finding');
+});

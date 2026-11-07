@@ -4123,7 +4123,8 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins). Fly there', /from Orgrimmar/],
-		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff', /from Shadowprey/],
+		// (Since the final route review the Druids fly from Shadowprey straight to Thunder Bluff, skipping Orgrimmar.)
+		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
 	for (const [guide, anchor, wrong] of cases) {
@@ -4562,9 +4563,9 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards o
 	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	const dunModr = stepOf('accept', 87491);
 	for (const [t, q] of [['turnin', 472], ['accept', 631], ['turnin', 87491]]) assert.equal(stepOf(t, q), dunModr, `${t} ${q} on the Dun Modr stop`);
-	assert.ok(list.some(({ goal, s }) => s === dunModr && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr there');
+	assert.ok(list.some(({ goal, s }) => s === dunModr + 1 && goal.t === 'collect' && goal.item === 280396), 'the Heart of Modr right after it (a group step since the final review)');
 	assert.ok(stepOf('accept', 87318) > dunModr && stepOf('accept', 87318) < stepOf('accept', 647), 'the Villards between Dun Modr and the span');
-	assert.equal(stepOf('turnin', 631), stepOf('accept', 647), 'Ebenezer handed in on the crossing to Foggy MacKreel');
+	assert.equal(stepOf('turnin', 631), stepOf('turnin', 87318), 'Ebenezer handed in beside Essene, before the crossing (final review: every race)');
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
 });
 
@@ -5257,4 +5258,112 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and
 	assert.equal(stepOf('turnin 7791', is('turnin', 7791)), sw, 'the Wool donation on the same stop');
 	assert.ok(sw < stepOf('turnin 4513', is('turnin', 4513)), 'then Ironforge');
 	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Stormwind/.test(goal.location || '')).length, 1, 'one flight to Stormwind');
+});
+// Final route review, 30-40 (2026-11-07): Alliance Stranglethorn walked from Booty Bay to the river crocolisks and back
+// for one hand-in, reached the haunted island only on the northern loop, then walked from Booty Bay back to the island
+// for the water elementals, on to Westfall and flew to Booty Bay; Druids trained in Stormwind by way of Ironforge and the
+// tram and were then sent to Menethil's flight master; Raptor Mastery's level-40 Jungle Stalkers were an along list.
+test('forever/alliance/30-40/04-stranglethorn-vale.guide: final review: the island on the first loop, crocolisks and elementals on the northern one, Druids train in Stormwind', { skip }, () => {
+	const file = 'forever/alliance/30-40/04-stranglethorn-vale.guide';
+	const list = goals(file);
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.ok(at(list, 'complete 578', is('complete', 578)) < at(list, 'turnin 605', is('turnin', 605)), 'the haunted island before the Booty Bay return');
+	assert.equal(stepOf('turnin', 578), stepOf('turnin', 605), 'The Stone of the Tides handed in on that return');
+	const fly = list.findIndex(({ goal }) => goal.t === 'fly' && /Darkshire/.test(goal.dest || goal.to || goal.node || goal.text || ''));
+	const croc = at(list, 'collect 4104', (g) => g.t === 'collect' && g.item === 4104);
+	const elem = at(list, 'collect 3923', (g) => g.t === 'collect' && g.item === 3923);
+	assert.ok(croc > at(list, 'turnin 192', is('turnin', 192)) && elem > at(list, 'turnin 605', is('turnin', 605)), 'the crocolisks and the elementals on the northern loop');
+	assert.ok(fly < 0 || (croc > fly && elem > fly), 'after the flight north');
+	assert.equal(stepOf('turnin', 577), stepOf('turnin', 601), 'both handed in on the last Booty Bay stop');
+	assert.ok(!list.some(({ goal }) => goal.t === 'fly' && /Booty Bay/.test(JSON.stringify(goal))), 'no flight back to Booty Bay from Westfall');
+	assert.deepEqual(compiled(file).steps.filter((st) => st.along).map((st) => st.title), [], 'no along steps');
+	const druid = list.filter(forClass('DRUID'));
+	const train = druid.findIndex(({ step, goal }) => goal.t === 'train' && step.only);
+	const sw = druid.findIndex(({ goal }) => goal.t === 'fly' && /Stormwind/.test(JSON.stringify(goal)));
+	assert.ok(sw >= 0 && train > sw, 'Druids train after the flight to Stormwind');
+	assert.ok(!druid.some(({ goal }) => goal.t === 'goto' && /Ironforge|Tram/.test(JSON.stringify(goal))), 'no Ironforge or tram detour');
+});
+// Final route review, 30-40 (2026-11-07): the step after the flight into Grom'gol told the player to follow the road south to
+// Grom'gol.
+test('forever/horde/30-40/02-stranglethorn-vale.guide: final review: no walk to Grom\'gol after the flight there', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/02-stranglethorn-vale.guide').steps;
+	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 581));
+	assert.ok(s > 0, 'turnin 581 is in the guide');
+	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /road south to Grom'gol/, 'the tip names where the NPC stands, not a walk to the town');
+});
+// Final route review, 30-40 (2026-11-07): Blackmoore's Legacy's hand-in, right after the Tarren Mill hand-ins to Keeper
+// Bel'varil, told the player to head back south to Tarren Mill.
+test('forever/horde/30-40/01-desolace.guide: final review: no walk to Tarren Mill from Tarren Mill', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/01-desolace.guide').steps;
+	const s = steps.findIndex((st) => st.goals.some((g) => g.t === 'turnin' && g.quest === 506));
+	assert.ok(s > 0, 'turnin 506 is in the guide');
+	assert.doesNotMatch([].concat(steps[s].note || []).join(' '), /back south to Tarren Mill/, 'the tip names where the NPC stands, not a walk to the town');
+});
+// Final route review, 30-40 (2026-11-07): Warriors walked from Stormwind's flight master to Wu Shen in Old Town, back to
+// Elling Trias in the Trade District and on to Dashel in Old Town; the Ironforge stop, reached by flight from Southshore,
+// told players to take the tram to Ironforge.
+test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: The Islander on the Dashel stop, the Ironforge tip fits the flight', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const islander = at(list, 'accept 1718', is('accept', 1718));
+	assert.ok(islander > at(list, 'turnin 1447', is('turnin', 1447)) && islander < at(list, 'turnin 563', is('turnin', 563)), 'after Dashel, before the Keep');
+	const hall = list[at(list, 'turnin 514', is('turnin', 514))];
+	assert.doesNotMatch([].concat(hall.step.note || []).join(' '), /Deeprun Tram/, 'no tram in the Ironforge tip');
+});
+
+// Final route review, 30-40 (2026-11-07): Gleaning Our Future's four hearts drop only from level-32 elites the Goaz Stones
+// call up (lint error with Forever's creature data), and the guide sent every player after them alone.
+test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Gleaning Our Future is a group quest', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const mine = list.filter(({ goal }) => goal.quest === 98310);
+	assert.ok(mine.length >= 5, 'the four hearts and the hand-in');
+	for (const { step, goal } of mine) assert.ok((step.when || []).some((p) => p.k === 'group' && p.q === 98310 && !p.neg), `${goal.t} 98310 is under when group 98310`);
+});
+// Final route review, 30-40 (2026-11-07): Alliance Badlands 30-40 gathered Indurium's flakes and the buzzard wings, then
+// walked past Martek and Rigglefuzz from the Ancient Chest to Theldurin; both waited for the 40-50 Badlands guide.
+test('forever/alliance/30-40/06-badlands.guide: final review: Martek and Rigglefuzz on the walk from the Ancient Chest to Theldurin', { skip }, () => {
+	const list = goals('forever/alliance/30-40/06-badlands.guide');
+	const chest = at(list, 'collect 4631', (g) => g.t === 'collect' && g.item === 4631);
+	const theldurin = at(list, 'turnin 709', is('turnin', 709));
+	for (const q of [1108, 703]) {
+		const i = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(chest < i && i < theldurin, `turnin ${q} between the chest and Theldurin`);
+	}
+	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => is('turnin', 1108)(goal) || is('turnin', 703)(goal)), 'not carried to 40-50');
+});
+// Final route review, 30-40 (2026-11-07): Horde Desolace & Hillsbrad sent Undead Paladins to an Orgrimmar step that
+// pointed at Thunder Bluff, then flew them Tarren Mill -> Undercity -> Tarren Mill for Garen Largo; Druids and Paladins
+// skipped their level-30 training; Druids at 32 flew Orgrimmar -> Thunder Bluff -> Orgrimmar; the Undercity shopping
+// note and the Shamans' Sepulcher trip came after the flight to Tarren Mill.
+test('forever/horde/30-40/01-desolace.guide: final review: training in the cities the walk passes', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-desolace.guide');
+	const flies = (l, dest) => l.findIndex(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes(dest));
+	const trains = (l) => l.map((e, i) => (e.goal.t === 'train' ? i : -1)).filter((i) => i >= 0);
+	const tm = (l) => flies(l, 'Tarren Mill');
+	for (const cls of ['PALADIN', 'DRUID']) {
+		const l = list.filter(forClass(cls));
+		const t = trains(l);
+		assert.equal(t.length, 2, `${cls}: trains twice (30 and 32)`);
+		assert.ok(t[0] < flies(l, 'Sun Rock Retreat') && flies(l, 'Thunder Bluff') < t[0], `${cls}: level-30 training in Thunder Bluff before Sun Rock Retreat`);
+		assert.ok(t[1] < tm(l), `${cls}: level-32 training before the flight to Tarren Mill`);
+		assert.equal(l.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, `${cls}: one flight to Tarren Mill`);
+	}
+	const pal = list.filter(forClass('PALADIN'));
+	assert.ok(!pal.some(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('"Undercity"')), 'no Paladin flight back to the Undercity');
+	const dru = list.filter(forClass('DRUID'));
+	const after = dru.slice(at(dru, 'turnin 6143', is('turnin', 6143)));
+	assert.deepEqual(after.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => JSON.stringify(goal).match(/Thunder Bluff|Orgrimmar|Tarren Mill/)?.[0]), ['Thunder Bluff', 'Orgrimmar', 'Tarren Mill'], 'Druids at 32: Shadowprey -> Thunder Bluff -> Orgrimmar -> Tarren Mill');
+	const sham = list.filter(forClass('SHAMAN'));
+	assert.ok(flies(sham, 'The Sepulcher') < tm(sham), 'Shamans: the Sepulcher before Tarren Mill');
+	const war = list.filter(forClass('WARRIOR'));
+	const note = war.find(({ step }) => /Strong Troll/.test([].concat(step.note || []).join(' ')));
+	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
+});
+// Final route review, 30-40 (2026-11-07): Alliance Wetlands & Hillsbrad put Druid training between Elling Trias's
+// hand-in and accept, though Sheldras stands across the city; it now sits on the walk from the Mage Quarter to the boat.
+test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid training on the walk to the harbour', { skip }, () => {
+	const list = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide').filter(forClass('DRUID'));
+	const train = list.findIndex(({ goal }) => goal.t === 'train');
+	assert.equal(list[at(list, 'turnin 1245', is('turnin', 1245))].s, list[at(list, 'accept 1246', is('accept', 1246))].s, 'Elling Trias in one stop');
+	assert.ok(train > at(list, 'accept 1301', is('accept', 1301)), 'after the Mage Quarter');
+	assert.ok(train < list.findIndex(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.location || '')), 'before the boat');
 });
