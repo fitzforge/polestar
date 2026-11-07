@@ -1356,6 +1356,20 @@ test('Forever follow-ups are taken only once the quests before them are handed i
 		// soockee (#1002) and jiskim (#984): Va'xug Firefure offers A Void Path
 		// only once Never Coming Back is handed in to him.
 		[STONETALON, 98252, [98251]],
+		// The offer audit of players' recordings (2026-11-07): Karl Boran offers
+		// Return the Statuette (98189) once the old one (286) is handed in
+		// (#1113, #1118); Muln Earthfury offers The Broodmother once Defending the
+		// Dead is handed in (#1083); Thrall offers a Skyborne Journey to the
+		// Crossroads once Welcome to Azeroth is handed in.
+		[ASHENVALE, 98189, [286]],
+		[ASHENVALE_HORDE, 96261, [96259]],
+		['forever/reputation/thunder-bluff.guide', 96261, [96259]],
+		[SILVERPINE, 98024, [95350]],
+		[SILVERPINE, 93739, [95350], true],
+		// #1134: James Halloran offers Crimson Crate Delivery only after Crocs of
+		// the Sky; the route now leaves it out (data/route-fixes.json skip).
+		[ASHENVALE, 98240, [98072], true],
+		[HILLSBRAD_ALLIANCE, 98240, [98072], true],
 	]) {
 		const list = goals(guide);
 		const take = list.findIndex(({ goal }) => is('accept', quest)(goal));
@@ -1383,6 +1397,55 @@ test(`${SILVERPINE}: one Sepulcher stop after the south loop, with the Fenris ha
 	assert.deepEqual(list.slice(isle, pendants).filter(({ goal }) => goal.t === 'turnin' && !goal.optional).map(({ goal }) => goal.quest), [], 'no Sepulcher stop between Fenris Isle and Ambermill');
 	assert.equal(list[at(list, 'accept 516 (Beren\'s Peril)', is('accept', 516))].s, list[at(list, 'accept 479', is('accept', 479))].s, "Beren's Peril taken with Ambermill Investigations");
 	assert.deepEqual(compiled(SILVERPINE).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+});
+
+// The offer audit (#1116): Glorin Steelbrow offers Lightforge Ingots only after
+// The Lost Ingots (324), which the 20-30 route never does, and our data had
+// made it exclusive with 324 instead. Calor (#1114) offers Worgen in the Woods
+// from level 23, a level above where the route reaches Darkshire.
+test('Offer audit (#1116, #1114): Lightforge Ingots only after The Lost Ingots, and a level 23 gate before Worgen in the Woods', { skip }, () => {
+	for (const guide of [ASHENVALE, THOUSAND_NEEDLES]) {
+		const list = goals(guide);
+		const take = list.findIndex(({ goal }) => goal.quest === 526);
+		if (take < 0) continue;
+		assert.ok(at(list, `${guide}: turnin 324`, is('turnin', 324)) < take, `${guide}: Lightforge Ingots comes after The Lost Ingots is handed in`);
+	}
+	for (const guide of [ASHENVALE, THOUSAND_NEEDLES, HILLSBRAD_ALLIANCE]) {
+		const list = goals(guide);
+		if (list.some(({ goal }) => is('turnin', 98240)(goal))) assert.ok(list.some(({ goal }) => is('accept', 98240)(goal)), `${guide}: Crimson Crate Delivery is handed in only where it is taken`);
+	}
+	const duskwood = goals('forever/alliance/05-duskwood.guide');
+	const worgen = at(duskwood, 'accept 173', is('accept', 173));
+	assert.ok(duskwood.slice(0, worgen).some(({ goal }) => goal.t === 'level' && goal.level >= 23), 'a level 23 gate comes before Worgen in the Woods');
+	// The gate holds back only Calor's accept: it is the goal right before it, in its step, and the
+	// accept comes on the second Darkshire visit (Sirra Von'Indi's hand-in), not the first.
+	assert.ok(duskwood[worgen - 1].goal.t === 'level' && duskwood[worgen - 1].s === duskwood[worgen].s, 'the level 23 gate is the goal right before accept 173, in its step');
+	assert.ok(at(duskwood, 'turnin 96139', is('turnin', 96139)) < worgen, 'Worgen in the Woods is taken on the second Darkshire visit');
+});
+
+// The offer audit: A Warrior's Training (1638) is open to every Alliance
+// warrior, but it shares an exclusive group with Muren Stormpike, Elanaria and
+// the Defensive Stance chains' first quests, and it only leads to Harry
+// Burlguard, who gives Bartleby the Drunk (1639) without it (players'
+// recordings: a Human and a Night Elf took 1639 straight from Harry). So the
+// Dwarf, Gnome and Human warrior steps never hold Bartleby behind it, and tell
+// the player to go straight to Harry if Ilsa Corbin doesn't offer it.
+test('Offer audit: Bartleby the Drunk never waits on A Warrior\'s Training, and the step says to go to Harry if Ilsa doesn\'t offer it', { skip }, () => {
+	for (const guide of [...DUN_MOROGHS, WESTFALL]) {
+		const list = goals(guide);
+		const take = at(list, `${guide}: accept 1638`, is('accept', 1638));
+		const bartleby = at(list, `${guide}: accept 1639`, is('accept', 1639));
+		assert.ok(!(list[bartleby].goal.pre || []).includes(1638), `${guide}: accept 1639 needs nothing before it`);
+		assert.equal(list[bartleby].goal.npc, 6089, `${guide}: Bartleby the Drunk comes from Harry Burlguard`);
+		assert.match(list[take].step.note || '', /If Ilsa doesn't offer A Warrior's Training, go straight to Harry/, `${guide}: the step says what to do if Ilsa doesn't offer it`);
+		assert.match(list[take].step.note || '', guide === WESTFALL ? /walk to Stormwind/i : /the tram from Ironforge arrives in the Dwarven District/, `${guide}: the step keeps its own travel line`);
+	}
+	// A build writes the guide-fixes record's tip over every Alliance warrior's step: it must carry the
+	// Dwarf and Gnome tram line and the Human walk, so a rebuild loses neither hand fix.
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const tips = fixes.filter((r) => r.at && r.at.quest === 1638 && r.at.goal === 'accept' && r.tip).map((r) => r.tip);
+	assert.equal(tips.length, 1, 'one tip record for the Defensive Stance step');
+	for (const want of [/the tram from Ironforge arrives in the Dwarven District/, /walk to Stormwind/i, /go straight to Harry/]) assert.match(tips[0], want);
 });
 
 // Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a

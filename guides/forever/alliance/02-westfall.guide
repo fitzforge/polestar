@@ -166,7 +166,7 @@ step Stormwind City
 step Defensive Stance
   only Human,Warrior
   zone Stormwind City
-  tip Walk to Stormwind. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug.
+  tip From Westfall, walk to Stormwind; the tram from Ironforge arrives in the Dwarven District. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.
   accept 1638 npc 5480 only Human -- Ilsa Corbin
   turnin 1638 only Human -- Harry Burlguard
   accept 1639 only Human

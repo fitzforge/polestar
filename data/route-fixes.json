@@ -2562,6 +2562,54 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
+			},
+			{
+				"a": [
+					"turnin",
+					286
+				],
+				"b": [
+					"accept",
+					98189
+				],
+				"faction": "Alliance",
+				"why": "#1113 and #1118: Karl Boran offers Return the Statuette (98189) only once the old Return the Statuette (286) is handed in to him (players' recordings: offered 0.0-0.2 s after that hand-in, never before). The guide took it on the first Menethil stop and handed it to Captain Stoutfist there, so neither it nor A Friend of the Family (98190) could be had."
+			},
+			{
+				"a": [
+					"turnin",
+					96259
+				],
+				"b": [
+					"accept",
+					96261
+				],
+				"faction": "Horde",
+				"why": "#1083: Muln Earthfury offers The Broodmother (96261) only once Defending the Dead (96259) is handed in (players' recordings: his list leaves it out while 96259 is in the log, offers it on the hand-in). The guide took both on the first camp visit."
+			},
+			{
+				"a": [
+					"turnin",
+					95350
+				],
+				"b": [
+					"accept",
+					98024
+				],
+				"faction": "Horde",
+				"why": "Offer audit (2026-11-07): Thrall offers Journey to the Crossroads (98024) to a Skyborne only once Welcome to Azeroth (95350) is handed in to him (players' recordings: refused to 5 Skyborne characters with 95350 in the log, offered on its hand-in, nothing else handed in between). 03-silverpine-forest had the accept in the Valley of Wisdom step before the Thrall hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					96139
+				],
+				"b": [
+					"accept",
+					173
+				],
+				"faction": "Alliance",
+				"why": "#1114: Calor offers Worgen in the Woods from level 23. The route reaches Darkshire's first visit at 22.1-23.1 and its second (Sirra Von'Indi's hand-in) at 23.15 or more on every branch, and the quest's worgen are hunted on the Duskwood return anyway, so it is taken on the second visit, behind its own level-23 gate (guide-fixes duskwood-worgen-in-the-woods-level-23) that holds back nothing else."
 			}
 		],
 		"notes": [
@@ -4320,6 +4368,12 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 98240,
+				"faction": "Alliance",
+				"reason": "#1134: James Halloran offers Crimson Crate Delivery only once Crocs of the Sky (98072, after Apprentice's Duties 471 and Young Crocolisk Skins 484) is handed in. Players' recordings: refused to 3 characters at 24-28 who had not done 98072, and never offered to anyone. The route hands in 98072 at Menethil on its way to the Southshore boat, after its only visit to Howin Kindfeather (Wetlands, 49,42), who takes the crate, so taking it would cost a walk back east for 1,200 XP. Left out; it was taken on the first Menethil stop, where nobody can be offered it",
+				"issue": 1134
+			},
 			{
 				"q": 5635,
 				"reason": "#844: Desperate Prayer is a Dwarf priest quest in Forever (race mask Dwarf, letters name High Priest Rohan in Ironforge); Priestess Josetta never offered it to Human priests in players' recordings (levels 5-10) or to the reporter at 12. Humans take Divine Grace (94774) from her instead",
