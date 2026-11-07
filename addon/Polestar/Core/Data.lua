@@ -13,15 +13,22 @@
 --     client hides it).
 --   Data.CheckInstall() -> missing, stale, retired
 --     The release zip's folders beside Polestar: names of the required ones
---     (Polestar_Guides, Polestar_Codex) that are not installed, and "name
---     (version)" for any of them whose TOC version differs from Polestar's.
+--     (Polestar_Guides, Polestar_Codex, the player's faction part) that are
+--     not installed, and "name version" for every Polestar_* folder in the
+--     AddOns list, loaded or not, whose TOC version differs from Polestar's
+--     (Polestar_Recorder, released on its own, left out; a folder or a
+--     Polestar without a version is unknown, never a mismatch).
 --     retired: the locale codes whose old folders, Polestar_Guides_<locale>
 --     or Polestar_Names_<locale> (before 0.3.0; the language folder
 --     Polestar_<locale> replaced both), are still installed. Polestar never
 --     loads them.
 --     At login a non-empty result prints one line saying to reinstall: a
---     player who copied only some folders, or one level too deep, finds out;
---     the old folders get a line of their own saying to delete them.
+--     player who copied only some folders, or an old zip over a new one,
+--     finds out; the old folders get a line of their own saying to delete
+--     them.
+--   Data.InstallLine() -> string|nil
+--     A mixed install (stale non-empty) in one English line for the report
+--     (UI/Report.lua).
 
 local ADDON, ns = ...
 
@@ -125,12 +132,22 @@ local function versionOf(name)
 	return type(v) == "string" and v ~= "" and v or nil
 end
 
-local function check(name, mine, missing, stale)
+-- A version Polestar can compare: a TOC without one, or a source checkout's
+-- "dev", is unknown.
+local function known(v)
+	return type(v) == "string" and v ~= "" and v ~= "dev"
+end
+
+-- One folder of ours: not installed (and required) goes to missing; a known
+-- version other than Polestar's to stale as "name version". Each folder once.
+local function check(name, s)
+	if s.seen[name] then return end
+	s.seen[name] = true
 	if not installed(name) then
-		if REQUIRED[name] then missing[#missing + 1] = name end
+		if REQUIRED[name] then s.missing[#s.missing + 1] = name end
 	else
 		local v = versionOf(name)
-		if v and mine and v ~= mine then stale[#stale + 1] = name .. " (" .. v .. ")" end
+		if known(v) and known(s.mine) and v ~= s.mine then s.stale[#s.stale + 1] = name .. " " .. v end
 	end
 end
 
@@ -147,28 +164,70 @@ local function retiredLocales()
 	return out
 end
 
+-- Not ours to compare: the Recorder ships in a zip of its own and is updated
+-- on its own.
+local SEPARATE = { Polestar_Recorder = true }
+
+-- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
+-- for the other races and faction, the other languages, the walking maps'
+-- continents. Community addons are never named Polestar_* (pack.json refuses
+-- the prefix); the old language folders have a line of their own.
+local function listed()
+	local out = {}
+	local A = C_AddOns or {}
+	local count, info = A.GetNumAddOns or GetNumAddOns, A.GetAddOnInfo or GetAddOnInfo
+	if not (count and info) then return out end
+	local ok, n = pcall(count)
+	n = ok and readable(n) or nil
+	if type(n) ~= "number" then return out end
+	local retired = {}
+	for _, l in ipairs(LOCALES) do
+		retired["Polestar_Guides_" .. l], retired["Polestar_Names_" .. l] = true, true
+	end
+	for i = 1, n do
+		local got, name = pcall(info, i)
+		name = got and readable(name) or nil
+		if type(name) == "string" and name:find("^Polestar_") and not SEPARATE[name] and not retired[name] then out[#out + 1] = name end
+	end
+	return out
+end
+
 function Data.CheckInstall()
-	local missing, stale = {}, {}
-	local mine = ns.version
-	for _, name in ipairs(COMPANIONS) do check(name, mine, missing, stale) end
+	local s = { missing = {}, stale = {}, seen = {}, mine = ns.version }
+	for _, name in ipairs(COMPANIONS) do check(name, s) end
 	-- The language folder of the client's language (our guides' texts and
 	-- the game's names, Core/Names.lua and Core/GuideTexts.lua load it): never
 	-- missing either.
 	local language = ns.Names and ns.Names.PackName()
-	if language then check(language, mine, missing, stale) end
+	if language then check(language, s) end
 	-- Our guide pack's race part for the player's race, when the release has
 	-- one (Core/Guides.lua loads it): never missing either.
 	local race = UnitRace and readable((select(2, UnitRace("player")))) or nil
-	if type(race) == "string" and race ~= "" then check("Polestar_Guides_" .. race, mine, missing, stale) end
+	if type(race) == "string" and race ~= "" then check("Polestar_Guides_" .. race, s) end
 	-- Our guide pack's part for the player's faction (format 8; Core/Guides.lua
 	-- loads it): every release has it, and without it the player has no
 	-- leveling guides.
 	local faction = ns.Compat.GetPlayerFaction and ns.Compat.GetPlayerFaction()
 	if faction and installed("Polestar_Guides") then
 		local part = "Polestar_Guides_" .. faction
-		if installed(part) then check(part, mine, missing, stale) else missing[#missing + 1] = part end
+		if installed(part) then
+			check(part, s)
+		else
+			s.seen[part] = true
+			s.missing[#s.missing + 1] = part
+		end
 	end
-	return missing, stale, retiredLocales()
+	for _, name in ipairs(listed()) do check(name, s) end
+	return s.missing, s.stale, retiredLocales()
+end
+
+-- A mixed install in one English line for the report (UI/Report.lua), or nil
+-- when every folder is Polestar's version: "mixed: Polestar 0.3.5,
+-- Polestar_Guides 0.3.4".
+function Data.InstallLine()
+	local _, stale = Data.CheckInstall()
+	if #stale == 0 then return nil end
+	return "mixed: Polestar " .. tostring(ns.version) .. ", " .. table.concat(stale, ", ")
 end
 
 ns.OnLogin(function()
@@ -178,9 +237,9 @@ ns.OnLogin(function()
 			table.concat(retired, ", ")))
 	end
 	if #missing == 0 and #stale == 0 then return end
-	local parts = {}
-	if #missing > 0 then parts[#parts + 1] = string.format(ns.L["%s not installed"], table.concat(missing, ", ")) end
-	if #stale > 0 then parts[#parts + 1] = string.format(ns.L["%s from another version"], table.concat(stale, ", ")) end
-	ns.Print(string.format(ns.L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."],
-		tostring(ns.version), table.concat(parts, "; ")))
+	local list = { "Polestar " .. tostring(ns.version) }
+	for _, v in ipairs(stale) do list[#list + 1] = v end
+	if #missing > 0 then list[#list + 1] = string.format(ns.L["%s not installed"], table.concat(missing, ", ")) end
+	ns.Print(string.format(ns.L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."],
+		table.concat(list, ", ")))
 end)

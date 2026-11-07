@@ -297,7 +297,7 @@ fn the_language_folder_is_optional_never_reported_missing_named_when_it_is_from_
 		script: script.into(),
 		..Default::default()
 	});
-	assert_eq!(stale[0], json!(["", "Polestar_frFR (0.0.1)"]), "named once: the guide texts share the folder");
+	assert_eq!(stale[0], json!(["", "Polestar_frFR 0.0.1"]), "named once: the guide texts share the folder");
 }
 
 #[test]
