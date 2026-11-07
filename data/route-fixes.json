@@ -4269,6 +4269,20 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Silithus, #1167): Noggle's Lost Satchel (8282) is taken from Noggle Ficklespragg, who stands beside Beetix, right after Noggle's Last Hope (8278) is handed in, as the seed has it, not on the next Cenarion Hold stop."
+			},
+			{
+				"a": [
+					"task",
+					95065,
+					0
+				],
+				"b": [
+					"task",
+					95065,
+					1
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Westfall's Stormwind stop): Fishin' Time's Shiny Bauble and Nightcrawlers are both bought from Catherine Leland, so both are one stop; the Nightcrawlers were bought in a stop of their own before Woo Ping and the walk came back to her for the bauble (02-westfall on 0.3.4, two 'buy 6530' lines)"
 			}
 		],
 		"after": [

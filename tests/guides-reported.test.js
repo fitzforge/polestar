@@ -4841,3 +4841,14 @@ test(`${TELDRASSIL}: Zenn's hand-in step does not send players there from Lake A
 	assert.ok(zenn < at(list, 'turnin 997', is('turnin', 997)), 'Zenn before Denalan at the lake');
 	assert.ok(!/from the lake/i.test(String(list[zenn].step.note || '')), 'the tip matches the walk');
 });
+
+// Westfall's Stormwind stop: Fishin' Time's Nightcrawlers are bought with the Shiny Bauble from Catherine Leland in one
+// stop, after Woo Ping; they were bought in a stop of their own before Woo Ping and the walk came back for the bauble.
+test(`${WESTFALL}: flow re-order: the Nightcrawlers bought once, with the Shiny Bauble`, { skip }, () => {
+	const list = goals(WESTFALL);
+	const crawlers = list.filter(({ goal }) => goal.t === 'buy' && goal.item === 6530);
+	assert.equal(crawlers.length, 1, 'one Nightcrawlers purchase');
+	const bauble = at(list, 'buy 6529', (g) => g.t === 'buy' && g.item === 6529);
+	assert.equal(crawlers[0].s, list[bauble].s, 'in the Shiny Bauble\'s stop');
+	assert.ok(list.findLastIndex(({ step }) => step.title === 'Woo Ping') < bauble, 'after Woo Ping');
+});
