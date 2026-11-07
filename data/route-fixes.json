@@ -6094,6 +6094,33 @@
 				"q": 469,
 				"reason": "Quest volume, 2026-11-07: Daily Delivery (level 21, from 18, 830 XP) is taken on a visit the route already makes: Einar Stonegrip stands by the road just north of Howin Kindfeather, whom the Wetlands loop visits; James Halloran is on the Menethil stop that follows. Recordings: offered to 1 characters, 0 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 632,
+				"after": [
+					"turnin",
+					631
+				],
+				"reason": "Quest volume, 2026-11-07: The Thandol Span (level 31, from 26, 2500 XP) is taken on a visit the route already makes: Ebenezer Rustlocke's corpse, where The Thandol Span (631) is handed in; Rhag Garmason stands in Dun Modr on the road back south.",
+				"issue": "-"
+			},
+			{
+				"q": 633,
+				"after": [
+					"turnin",
+					632
+				],
+				"reason": "Quest volume, 2026-11-07: The Thandol Span (level 31, from 26, 2500 XP) is taken on a visit the route already makes: Rhag Garmason in Dun Modr; the cache is at the Arathi end of the span, beside Foggy MacKreel, whom the route visits.",
+				"issue": "-"
+			},
+			{
+				"q": 634,
+				"after": [
+					"turnin",
+					633
+				],
+				"reason": "Quest volume, 2026-11-07: Plea to the Alliance (level 31, from 28, 1250 XP) is taken on a visit the route already makes: Rhag Garmason on the walk back south through Dun Modr; Captain Nials takes it at Refuge Pointe in the Arathi guide.",
+				"issue": "-"
 			}
 		],
 		"skip": [

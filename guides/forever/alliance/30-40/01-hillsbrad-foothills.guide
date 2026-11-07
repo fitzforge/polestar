@@ -9,7 +9,8 @@ next forever/alliance/30-40/02-desolace
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683).
+# Added here: Defeat Nek'rosh (474), MacKreel's Moonshine (647), Sully Balloo's Letter (637), Ironband Wants You! (707), Sara Balloo's Plea (683),
+# The Thandol Span (632, 633) and Plea to the Alliance (634, handed in at Refuge Pointe in 05-arathi-highlands).
 
 step To Deepwater Tavern
   zone Wetlands
@@ -75,19 +76,36 @@ step Modr
 
 step The Villards
   zone Wetlands
-  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her.
+  tip Comar Villard waits on the road north of Dun Modr, towards the Thandol Span; Essene a short walk further north-east, and Ebenezer Rustlocke's corpse lies under the span beside her. Rustlocke's parchment goes back to Rhag.
   accept 87318                        -- Comar Villard
   turnin 87318                        -- Essene Villard
   turnin 631                          -- Ebenezer Rustlocke's Corpse, inside
+  accept 632                          -- the same corpse
+
+step Rhag Garmason
+  zone Wetlands
+  tip Back down the road to Dun Modr: Rhag wants the Dark Iron explosives under the far end of the span destroyed.
+  turnin 632                          -- Rhag Garmason
+  accept 633
+
+step The Cache of Explosives
+  zone Arathi Highlands
+  tip Over the Thandol Span: the Dark Irons' cache of explosives sits by its Arathi end. Foggy MacKreel stands a short walk west of it.
+  interact 2704 quest 633.1           -- Cache of Explosives
 
 step Foggy MacKreel
   zone Arathi Highlands
-  tip Over the Thandol Span: Foggy MacKreel stands a short walk west of its Arathi end.
   accept 647 only Dwarf,Gnome,NightElf,Skyborne
 
 step Waterlogged Envelope
   collect 4433 x1 optional @44.3,92.9 map 1417 -- Underwater
   accept 637 optional only Dwarf,Gnome,NightElf,Skyborne
+
+step Rhag Garmason again
+  zone Wetlands
+  tip Back over the span and down the road through Dun Modr on the way south.
+  turnin 633                          -- Rhag Garmason
+  accept 634                          -- for Captain Nials at Refuge Pointe, in 05-arathi-highlands
 
 step The Green Belt
   turnin 98245                        -- Howin Kindfeather

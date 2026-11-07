@@ -9,7 +9,7 @@ next forever/alliance/30-40/06-badlands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Perenolde Tiara (543).
+# Added here: The Perenolde Tiara (543); Plea to the Alliance (634) handed in at Refuge Pointe.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -154,7 +154,8 @@ step Refuge Pointe
   zone Arathi Highlands
   tip Follow the road east out of Hillsbrad over Thoradin's Wall to Refuge Pointe.
   getfp "Refuge Pointe"
-  accept 681                          -- Captain Nials
+  turnin 634                          -- Captain Nials: Rhag Garmason's plea, from 01-hillsbrad-foothills
+  accept 681
   turnin 690                          -- Skuerto
   accept 691                          -- Apprentice Kryten
 
