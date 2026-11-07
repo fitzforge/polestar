@@ -126,14 +126,7 @@ fn the_line_appears_within_60_yards_holds_to_100_and_clears_past_it() {
 	"#);
 	assert_eq!(
 		out,
-		vec![
-			json!("none"),
-			json!("2:1 Kill Kobold Vermin, 2 more 50"),
-			json!("2:1 Kill Kobold Vermin, 2 more 90"),
-			json!("none"),
-			json!("none"),
-			json!("2:1 Kill Kobold Vermin, 2 more 40")
-		]
+		vec![json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 50"), json!("2:1 Kill Kobold Vermin, 2 more 90"), json!("none"), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 40")]
 	);
 }
 
@@ -163,18 +156,7 @@ fn a_dismissed_or_expired_line_stays_quiet_for_the_zone_stay() {
 		stub.advance(181); emit(here())                                -- three minutes unused: it goes
 		at(47.6, 45.1); at(47.6, 37.6); emit(here())                 -- and stays quiet
 	"#);
-	assert_eq!(
-		out,
-		vec![
-			json!("2:1 Kill Kobold Vermin, 2 more 50"),
-			json!(true),
-			json!("none"),
-			json!("none"),
-			json!("2:1 Kill Kobold Vermin, 2 more 50"),
-			json!("none"),
-			json!("none")
-		]
-	);
+	assert_eq!(out, vec![json!("2:1 Kill Kobold Vermin, 2 more 50"), json!(true), json!("none"), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 50"), json!("none"), json!("none")]);
 }
 
 #[test]
@@ -187,18 +169,7 @@ fn the_line_never_takes_the_arrow_a_click_does_and_the_arrow_comes_back_when_it_
 		at(42.0, 36.1); E.AimWhileHere(); flush(); emit(wp())
 		E.DismissWhileHere(); flush(); emit({ here(), wp() })
 	"#);
-	assert_eq!(
-		out,
-		vec![
-			json!(["2:1 Kill Kobold Vermin, 2 more 50", "1:1"]),
-			json!(true),
-			json!("2:1"),
-			json!(["none", "1:1"]),
-			json!("none"),
-			json!("8:1"),
-			json!(["none", "1:1"])
-		]
-	);
+	assert_eq!(out, vec![json!(["2:1 Kill Kobold Vermin, 2 more 50", "1:1"]), json!(true), json!("2:1"), json!(["none", "1:1"]), json!("none"), json!("8:1"), json!(["none", "1:1"])]);
 }
 
 // Nothing new happens later: objectives done early count as ever, so the vermin step is passed and the candles step
@@ -275,10 +246,7 @@ fn the_options_turn_it_off_and_set_how_close() {
 		Polestar.Set("behavior.whileHereRadius", 120); flush()
 		at(47.6, 40.1); emit(here())    -- 100 yd, within 120 (the vermin stay quiet: the candles are 150 yd off)
 	"#);
-	assert_eq!(
-		out,
-		vec![json!([true, 60, true]), json!(["", "none"]), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 40"), json!("none")]
-	);
+	assert_eq!(out, vec![json!([true, 60, true]), json!(["", "none"]), json!("none"), json!("2:1 Kill Kobold Vermin, 2 more 40"), json!("none")]);
 	let wide = run(r#"Polestar.Set("behavior.whileHereRadius", 120); flush(); at(47.6, 40.1); emit(here())"#);
 	assert_eq!(wide, vec![json!("2:1 Kill Kobold Vermin, 2 more 100")]);
 }
