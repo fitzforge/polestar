@@ -12,15 +12,9 @@ next forever/horde/40-50/06-azshara
 # Added here: Gammerita, Mon! (7816), Return to Fel'Zerul (1444), Venom Bottles (2933).
 # Left out: Assisting Arch Druid Runetotem (3784).
 
-step Fly to Hammerfall
+step Fly to Tarren Mill
   zone Searing Gorge
   goto 34.8,30.6 "Thorium Point flight master"
-  fly "Hammerfall"
-  zone Arathi Highlands
-
-step Fly to Tarren Mill
-  zone Arathi Highlands
-  goto 73.1,32.6 "Hammerfall flight master"
   fly "Tarren Mill"
   zone Hillsbrad Foothills
 
