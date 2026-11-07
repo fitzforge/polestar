@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Astranaar
 	-- {npc:3894} Pelturas Whitemoon
-	["{npc:3894}, inside"] = "",
+	["{npc:3894}, inside"] = "{npc:3894}, lá dentro",
 
 	-- Step 2: Dartol's Rod
 	["Dartol's Rod"] = "Bastão de Transformação de Dartol",
@@ -34,31 +34,31 @@ return {
 
 	-- Step 8: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
-	["{area:432}: kill these as you meet them"] = "",
+	["{area:432}: kill these as you meet them"] = "{area:432}: vá matando estes pelo caminho",
 	-- {area:2358} Forest Song
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
+	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "O acampamento dos Renegados fica na mata ao sul de {area:2358}.\nBaús enferrujados ficam em volta dos acampamentos furbolg Umbrárvore a oeste dos Renegados; abra até achar o do pomo.\nCuidado: Renegados não elite de nível 28-30 guardam o acampamento. Alguns estão furtivos, e os que ficam em volta da mesa costumam vir juntos.",
 
 	-- Step 9: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
-	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "",
+	["The {npc:3931} walks the shore of {quest:1035}, south-west of the chests; the {object:669176} lies north of the lake, on the way.\nCareful: Other mobs, some of them underwater, sit near the island. Clear them first so they don't join the fight when you pull the Oracle."] = "O {npc:3931} anda pela margem do {quest:1035}, a sudoeste dos baús; o {object:669176} está ao norte do lago, no caminho.\nCuidado: outros monstros, alguns debaixo d'água, ficam perto da ilha. Limpe-os antes para não entrarem na briga quando você puxar o Oráculo.",
 	-- {object:669176} Gleaming Crescent Pendant · {npc:3961} Maliynn · {area:415} Astranaar
 	["{object:669176}: for {npc:3961} in {area:415}"] = "{object:669176}: para {npc:3961} em {area:415}",
 
 	-- Step 11: Insane druids
-	["Insane druids"] = "",
+	["Insane druids"] = "Druidas enlouquecidos",
 	-- {area:2358} Forest Song
-	["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "",
+	["The three druids stand together at the Forsaken camp south of {area:2358}.\nCareful: The den has many mobs that respawn quickly, including stealthed undead and patrols, so extra mobs often join a fight."] = "Os três druidas ficam juntos no acampamento dos Renegados ao sul de {area:2358}.\nCuidado: o covil tem muitos monstros que renascem rápido, incluindo mortos-vivos furtivos e patrulhas, então é comum vir monstro a mais.",
 	-- {npc:3940} Taneel Darkwood · {area:432} The Dor'Danil Barrow Den
-	["{npc:3940}, inside {area:432}"] = "",
+	["{npc:3940}, inside {area:432}"] = "{npc:3940}, dentro de {area:432}",
 	-- {npc:3941} Uthil Mooncall · {area:432} The Dor'Danil Barrow Den
-	["{npc:3941}, inside {area:432}"] = "",
+	["{npc:3941}, inside {area:432}"] = "{npc:3941}, dentro de {area:432}",
 	-- {npc:3942} Mavoris Cloudsbreak · {area:432} The Dor'Danil Barrow Den
-	["{npc:3942}, inside {area:432}"] = "",
+	["{npc:3942}, inside {area:432}"] = "{npc:3942}, dentro de {area:432}",
 
 	-- Step 12: Satyrnaar
 	-- {object:19901} Circle of Imprisonment · {area:430} Satyrnaar · {area:428} Night Run
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
-	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "",
+	["The {object:19901} stands in the satyr camp of {area:430}, further east along the road.\nCareful: The Felmusk Rogues in {area:428} often go stealthed, and {area:430} has satyr casters."] = "O {object:19901} fica no acampamento dos sátiros em {area:430}, mais a leste pela estrada.\nCuidado: os Ladinos Malmíscar de {area:428} costumam ficar furtivos, e {area:430} tem sátiros lançadores de feitiço.",
 
 	-- Step 14: Night Run
 	-- {object:19901} Circle of Imprisonment · {area:428} Night Run
@@ -73,11 +73,11 @@ return {
 
 	-- Step 20: Ran Bloodtooth
 	-- {npc:3696} Ran Bloodtooth · {npc:3897} Krolg
-	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "",
+	["{npc:3696} and his guards camp just east of {npc:3897}.\nCareful: Wolves and spiders roam near the camp and can join a fight. Some of the wolves come in pairs."] = "{npc:3696} e os guardas dele acampam logo a leste de {npc:3897}.\nCuidado: lobos e aranhas andam perto do acampamento e podem entrar na briga. Alguns lobos andam em dupla.",
 
 	-- Step 22: Hearth to Astranaar
 	-- {area:415} Astranaar
-	["Hearth to {area:415}"] = "",
+	["Hearth to {area:415}"] = "Pedra de Regresso para {area:415}",
 
 	-- Step 25: Melyria and Illiyana
 	-- {npc:3901} Illiyana
@@ -85,28 +85,28 @@ return {
 
 	-- Step 27: Fly to Auberdine
 	-- {area:442} Auberdine
-	["Fly to {area:442}"] = "",
+	["Fly to {area:442}"] = "Voe para {area:442}",
 	-- {area:415} Astranaar
-	["{area:415} flight master"] = "",
+	["{area:415} flight master"] = "Mestre de voo de {area:415}",
 
 	-- Step 28: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "Navio para {area:150}",
 
 	-- Step 29: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow
-	["{npc:1217} stands on the upper floor of Menethil's keep."] = "",
-	["Inside"] = "",
+	["{npc:1217} stands on the upper floor of Menethil's keep."] = "{npc:1217} fica no andar de cima da fortaleza de Menethil.",
+	["Inside"] = "Lá dentro",
 
 	-- Step 31: Waterlogged Chest
-	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "",
+	["The wreck of the Flying Osprey lies in the shallows south of the keep."] = "Os destroços do Flying Osprey estão na água rasa ao sul da fortaleza.",
 
 	-- Step 32: Lightforge Ingots
 	-- plural, as words: Lightforge Ingots = {item:2702} Lightforge Ingot
 	["Lightforge Ingots"] = "Lingotes da Forja de Luz",
 	["The Bluegill murlocs on the beach south-west of Menethil carry the ingots."] = "Os murlocs Guelrazul na praia a sudoeste de Menethil carregam os lingotes.",
 	-- {item:2702} Lightforge Ingot
-	["{item:2702}; underwater"] = "",
+	["{item:2702}; underwater"] = "{item:2702}; debaixo d'água",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Volte para oeste pela estrada até os acampamentos de sátiros de {area:429}.",

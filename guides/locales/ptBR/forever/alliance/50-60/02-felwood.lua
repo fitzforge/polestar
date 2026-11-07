@@ -8,9 +8,9 @@
 return {
 	-- Step 1: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "Voe para {area:415}",
 	-- {area:702} Rut'theran Village
-	["{area:702} flight master"] = "",
+	["{area:702} flight master"] = "Mestre de voo de {area:702}",
 
 	-- Step 3: The Emerald Sanctuary
 	-- {area:2479} Emerald Sanctuary
@@ -18,11 +18,11 @@ return {
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, nas ruínas logo a leste de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, lá dentro",
 
 	-- Step 4: Grazle
 	-- {area:415} Astranaar · {area:361} Felwood · {npc:11554} Grazle · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {area:361}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "",
+	["Ride north out of {area:415} into {area:361}. {npc:11554} the furbolg stands by the road just south of the {area:2479}."] = "Cavalgue para o norte, saindo de {area:415} rumo a {area:361}. {npc:11554}, o furbolg, fica junto à estrada logo ao sul de {area:2479}.",
 
 	-- Step 5: Deadwood Village
 	-- {npc:11554} Grazle
@@ -30,30 +30,30 @@ return {
 	["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop."] = "Os furbolgs de Lenha Morta vivem na aldeia logo a sudoeste de {npc:11554}; guarde as Penas do Cocar de Lenha Morta que eles deixam cair.",
 
 	-- Step 6: Level 52.58
-	["Level 52.58"] = "",
+	["Level 52.58"] = "Nível 52.58",
 	-- {item:9328} Super Snapper FX
-	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "",
+	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "Se você pulou O chifre da fera ou A {item:9328}, mate monstros aqui até o nível 52.58 para seguir o plano da rota.",
 	-- {npc:7153} Deadwood Warrior
-	["grind on {npc:7153}"] = "",
+	["grind on {npc:7153}"] = "mate {npc:7153} até subir",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {area:361} Felwood
-	["{npc:15395} waits at the north end of {area:361}"] = "",
+	["{npc:15395} waits at the north end of {area:361}"] = "{npc:15395} espera na ponta norte de {area:361}",
 	["Five feathers buy a little Timbermaw reputation"] = "Cinco penas rendem um pouco de reputação com os Presamatos",
 
 	-- Step 8: Level 52.69
-	["Level 52.69"] = "",
+	["Level 52.69"] = "Nível 52.69",
 	-- {area:1763} Jaedenar
-	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "",
+	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "Complete aqui até o nível 52.69 antes das entregas em {area:1763}: elas levam você ao nível 53.",
 	-- {npc:7155} Deadwood Pathfinder
-	["grind on {npc:7155}"] = "",
+	["grind on {npc:7155}"] = "mate {npc:7155} até subir",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
 	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited."] = "",
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited."] = "Os sátiros Flamejade ocupam a clareira a oeste da estrada, com {npc:9454} lá no fundo.\nCuidado: os Assombrantes Flamejade (nível 51-52) ficam furtivos e usam {spell:7992}, então costumam entrar nas brigas sem convite.",
 	-- {npc:7109} Jadefire Felsworn
-	["grind on {npc:7109}"] = "",
+	["grind on {npc:7109}"] = "mate {npc:7109} até subir",
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar · {item:13140} Blood Red Key · {npc:11018} Arko'narin · {area:1770} Shadow Hold
@@ -61,17 +61,17 @@ return {
 	-- {item:13140} Blood Red Key
 	["{item:13140}, a rare drop"] = "{item:13140}, um saque raro",
 	-- {npc:11016} Captured Arko'narin · {area:1770} Shadow Hold
-	["{npc:11016}, in {area:1770}; below ground"] = "",
+	["{npc:11016}, in {area:1770}; below ground"] = "{npc:11016}, em {area:1770}; no subterrâneo",
 	-- {npc:7125} Jaedenar Hound
-	["grind on {npc:7125}"] = "",
+	["grind on {npc:7125}"] = "mate {npc:7125} até subir",
 
 	-- Step 12: Jaedenar
 	["Keep her alive until she is out of the cave"] = "Mantenha-a viva até ela sair da caverna",
 
 	-- Step 13: Level 52.9
-	["Level 52.9"] = "",
+	["Level 52.9"] = "Nível 52.9",
 	-- {area:2479} Emerald Sanctuary
-	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53."] = "",
+	["Top up here to level 52.9 before the hand-ins at {area:2479}: they take you to level 53."] = "Complete aqui até o nível 52.9 antes das entregas em {area:2479}: elas levam você ao nível 53.",
 
 	-- Step 15: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
@@ -83,7 +83,7 @@ return {
 	-- Step 16: Irontree Woods
 	-- {area:1767} Irontree Woods · {area:2618} Jadefire Run · {item:11503} Blood Amber
 	["The Warpwood treants of {area:1767}, east of {area:2618}, carry the {item:11503}."] = "Os arvorosos Lenhatorta de {area:1767}, a leste de {area:2618}, carregam {item:11503}.",
-	["Below ground"] = "",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 17: Nafien
 	-- {area:1769} Timbermaw Hold · {npc:15395} Nafien
@@ -91,7 +91,7 @@ return {
 
 	-- Step 18: Felpaw Village
 	-- {area:1762} Felpaw Village · {quest:8470} Deadwood Ritual Totem
-	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "",
+	["The Deadwood furbolgs of {area:1762} fill the hills west of the cave. The Avengers can drop a {quest:8470}.\nCareful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Os furbolgs de Lenha Morta de {area:1762} lotam as colinas a oeste da caverna. Os Vingadores podem deixar cair um {quest:8470}.\nCuidado: os Vigias do Covil são nível 53-54; chamam aliados num raio de 25 jd quando ficam abaixo de 50% de vida e saem correndo atrás de ajuda abaixo de 15%.",
 
 	-- Step 19: Nafien
 	-- {zone:1452} Winterspring
@@ -105,13 +105,13 @@ return {
 	-- {npc:11558} Kernda · {npc:11557} Meilosh
 	["Step into the cave: {npc:11558} and {npc:11557} stand just inside."] = "Entre na caverna: {npc:11558} e {npc:11557} ficam logo na entrada.",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "",
+	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: os Presamatos só falam com você a partir de Neutro; anda por aqui: procure dentro do círculo no mapa",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57; below ground"] = "",
+	["{npc:11557}: thirty {quest:6031}, handed in when you pass through again at 57; below ground"] = "{npc:11557}: trinta {quest:6031}, entregues quando você passar de novo no nível 57; no subterrâneo",
 
 	-- Step 23: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
-	["{area:2618}: kill these as you meet them"] = "",
+	["{area:2618}: kill these as you meet them"] = "{area:2618}: vá matando estes pelo caminho",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} é o vale dos sátiros no noroeste, com {npc:10648} no fundo. Ele deixa cair {quest:939}; todo sátiro Flamejade pode deixar cair {item:11674}.",
 
@@ -119,7 +119,7 @@ return {
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "{area:1763} de novo",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar · {npc:11018} Arko'narin · {area:1770} Shadow Hold · {npc:9518} Rakaiah
-	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}."] = "",
+	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}."] = "Use o {item:12922} no poço lunar corrompido no meio de {area:1763}. Se você libertou {npc:11018}, volte a {area:1770} atrás da súcubo {npc:9518}.",
 
 	-- Step 25: Oozes
 	["Oozes"] = "Gosmas",
@@ -128,11 +128,11 @@ return {
 	["The Cursed and Tainted Oozes slide about the streams and fel pools around {area:1763} and {area:1765}: kill them and use Laris's Empty Ooze Jars on their remains."] = "As Gosmas Amaldiçoadas e as Gosmas Maculadas deslizam pelos córregos e poças vis ao redor de {area:1763} e {area:1765}: mate-as e use as Jarras de Gosma vazias de Laris Vagarroda nos restos delas.",
 
 	-- Step 26: Jaedenar again
-	["Trey Lightforge's remains lie beside her."] = "",
+	["Trey Lightforge's remains lie beside her."] = "Os restos mortais de Trey Forjaleve estão ao lado dela.",
 	-- {npc:9518} Rakaiah
-	["{npc:9518}, below ground"] = "",
+	["{npc:9518}, below ground"] = "{npc:9518}, no subterrâneo",
 	-- {npc:11020} Remains of Trey Lightforge
-	["{npc:11020}, below ground"] = "",
+	["{npc:11020}, below ground"] = "{npc:11020}, no subterrâneo",
 
 	-- Step 28: The Emerald Sanctuary
 	-- {area:1998} Talonbranch Glade
@@ -140,7 +140,7 @@ return {
 
 	-- Step 29: The Emerald Sanctuary
 	-- {zone:1457} Darnassus
-	["The vial is filled in {zone:1457}: keep it; inside"] = "",
+	["The vial is filled in {zone:1457}: keep it; inside"] = "O frasco se enche em {zone:1457}: guarde; lá dentro",
 	-- {zone:1413} Barrens
 	["Ends in the {zone:1413}: keep it"] = "Termina em {zone:1413}: guarde-a",
 

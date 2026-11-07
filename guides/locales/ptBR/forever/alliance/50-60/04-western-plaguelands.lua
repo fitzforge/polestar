@@ -8,36 +8,36 @@
 return {
 	-- Step 2: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
-	["{area:197}: kill these as you meet them"] = "",
+	["{area:197}: kill these as you meet them"] = "{area:197}: vá matando estes pelo caminho",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "",
+	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Esfoladores Descarnados e Carniçais Salivantes andam pelos campos ao norte do acampamento; todo o Flagelo daqui deixa cair Pedras do Flagelo.\nCuidado: esses mortos-vivos percebem você de longe, e outros por perto entram na briga quando um é puxado.\nCuidado: o {npc:10411} (3 no mapa, renascem em 15 min) fica invisível fora de combate e chama Gárgulas Petrasas quando a luta começa.",
 
 	-- Step 3: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["{npc:10927}'s farmhouse stands on the hill east of the camp; {npc:10936}'s monument is just north of it."] = "A casa de fazenda de {npc:10927} fica na colina a leste do acampamento; o monumento de {npc:10936} fica logo ao norte dela.",
-	["Upstairs"] = "",
+	["Upstairs"] = "No andar de cima",
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "{item:12894}, no monumento",
 
 	-- Step 4: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["{npc:10739} stands by the farm at the {area:202}, north-east of the fields."] = "{npc:10739} fica junto à fazenda em {area:202}, a nordeste dos campos.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 
 	-- Step 5: Dalson's Tears
 	-- {npc:10836} Farmer Dalson
 	["Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and {npc:10836} waits in the outhouse with the cabinet key."] = "Cavalgue para o noroeste até a fazenda dos Dalson. O diário está no celeiro; um esqueleto errante carrega a chave da casinha, e {npc:10836} espera na casinha com a chave do armário.",
 	-- {quest:5058} Mrs. Dalson's Diary
-	["{quest:5058}, inside"] = "",
+	["{quest:5058}, inside"] = "{quest:5058}, lá dentro",
 
 	-- Step 6: Writhing Haunt: kill these as you meet them
 	-- {area:202} Writhing Haunt
-	["{area:202}: kill these as you meet them"] = "",
+	["{area:202}: kill these as you meet them"] = "{area:202}: vá matando estes pelo caminho",
 
 	-- Step 7: Dalson's Tears
 	-- {object:175924} Locked Cabinet
-	["{object:175924}, in the farmhouse; inside"] = "",
+	["{object:175924}, in the farmhouse; inside"] = "{object:175924}, na casa da fazenda; lá dentro",
 
 	-- Step 8: Chillwind Camp
 	["Ride back south to the camp."] = "Cavalgue de volta para o sul até o acampamento.",
@@ -65,7 +65,7 @@ return {
 	-- {npc:10778} Janice Felstone · {area:199} Felstone Field · {area:200} Dalson's Tears
 	["{npc:10778}'s ghost wanders by the farmhouse of {area:199}, west of {area:200}; her parcel lies inside."] = "O fantasma de {npc:10778} vaga junto à casa da fazenda de {area:199}, a oeste de {area:200}; o embrulho dela está lá dentro.",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, inside"] = "",
+	["{object:175894}, inside"] = "{object:175894}, lá dentro",
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "Para {zone:1453}: guarde",
 
@@ -110,7 +110,7 @@ return {
 
 	-- Step 25: Sorrow Hill: kill these as you meet them
 	-- {npc:1852} Araj the Summoner
-	["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
+	["{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.\nSmall lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "{npc:1852} é elite: melhor ir em grupo. Ele guarda a filactéria dele no meio de Andorhal.\nCaixinhas trancadas estão nos escombros por toda Andorhal; cada uma guarda um relógio.\nCuidado: carniçais e esqueletos costumam ficar ao lado das caixas e atacam quando você chega perto. Os Carniçais Ardentes também ferem quem estiver por perto e quebram a furtividade.",
 
 	-- Step 27: More watches
 	["More watches"] = "Mais relógios",
@@ -121,9 +121,9 @@ return {
 
 	-- Step 30: Scarlet Knight on the way
 	-- {npc:1833} Scarlet Knight
-	["{npc:1833} on the way"] = "",
+	["{npc:1833} on the way"] = "{npc:1833} no caminho",
 	-- {npc:1833} Scarlet Knight · {npc:11610} Kirsta Deepshadow
-	["{npc:1833} along the way to {npc:11610}"] = "",
+	["{npc:1833} along the way to {npc:11610}"] = "{npc:1833} no caminho até {npc:11610}",
 
 	-- Step 31: The Scarlet Crusade
 	["The Scarlet Crusade"] = "A Cruzada Escarlate",
@@ -134,13 +134,13 @@ return {
 	-- Step 33: Radley and Durgen
 	["Radley and Durgen"] = "Eiras e Durgen",
 	-- {npc:11613} Huntsman Radley · {npc:11610} Kirsta Deepshadow · {npc:11611} Cavalier Durgen · {area:190} Hearthglen
-	["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "",
+	["{npc:11613} walks the Northridge camp east of {npc:11610}; {npc:11611} guards the tower at {area:190}'s southern approach.\nCareful: Guards stand at the tower's base and one more circles it on patrol. Clear them before you engage Durgen so they don't join the fight."] = "{npc:11613} anda pelo acampamento de Beiranorte, a leste de {npc:11610}; {npc:11611} guarda a torre na entrada sul de {area:190}.\nCuidado: há guardas na base da torre e mais um patrulhando em volta dela. Limpe-os antes de encarar o Durgen, para eles não entrarem na briga.",
 
 	-- Step 35: Hearthglen overlook
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "Mirante de {area:190}",
 	-- {area:190} Hearthglen
-	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
+	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "Suba o morro a oeste de {area:190} para olhar a cidade lá de cima.\nCuidado: as sentinelas do portão detectam jogadores furtivos. Há mais sentinelas dentro da cidade, e um elite faz patrulha ali perto.",
 
 	-- Step 37: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
@@ -148,11 +148,11 @@ return {
 
 	-- Step 38: Slab of Carrion Worm Meat on the way
 	-- {item:13853} Slab of Carrion Worm Meat
-	["{item:13853} on the way"] = "",
+	["{item:13853} on the way"] = "{item:13853} no caminho",
 
 	-- Step 39: Frenzied Plaguehound on the way
 	-- {npc:8598} Frenzied Plaguehound
-	["{npc:8598} on the way"] = "",
+	["{npc:8598} on the way"] = "{npc:8598} no caminho",
 
 	-- Step 40: Gahrron's Withering cauldron
 	-- {area:201} Gahrron's Withering
@@ -167,9 +167,9 @@ return {
 
 	-- Step 42: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Fly to {area:2268}"] = "",
+	["Fly to {area:2268}"] = "Voe para a {area:2268}",
 	-- {area:3197} Chillwind Camp
-	["{area:3197} flight master"] = "",
+	["{area:3197} flight master"] = "Mestre de voo de {area:3197}",
 
 	-- Step 44: Aurora Skycaller
 	-- {area:2276} Quel'Lithien Lodge · {area:2277} Plaguewood
@@ -180,22 +180,22 @@ return {
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound
 	["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "O Crânio de Horgus está em {area:2624} e a espada de Marduque em {area:2623}, ambos onde fantasmas lutam; Cães Pestilentos adultos caçam nas planícies entre eles.",
 	-- {item:12956} Skull of Horgus
-	["{item:12956}; underwater"] = "",
+	["{item:12956}; underwater"] = "{item:12956}; debaixo d'água",
 
 	-- Step 46: Eastern Plaguelands: kill these as you meet them
 	-- {area:139} Eastern Plaguelands
-	["{area:139}: kill these as you meet them"] = "",
+	["{area:139}: kill these as you meet them"] = "{area:139}: vá matando estes pelo caminho",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "Cavalgue para o oeste até {area:2627}. Cães Pestilentos Miúdos, Quirópragos e Vermes Carniceiros vagam pelos bosques; encha a {item:15042} nos grandes cupinzeiros e mate os Cães Pestilentos Frenéticos mais ao norte.",
 
 	-- Step 47: Augustus the Touched
 	-- {area:2627} Terrordale · {npc:12384} Augustus the Touched · {npc:11140} Egan
-	["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby.\n{npc:11140} stands by {npc:12384}' hut in {area:2627}."] = "",
+	["Ride north to {area:2627}. {npc:12384} lives in the ruined hut, and his receipt book lies in the ruined inn nearby.\n{npc:11140} stands by {npc:12384}' hut in {area:2627}."] = "Cavalgue para o norte até {area:2627}. {npc:12384} mora na cabana em ruínas, e o livro de recibos dele está na estalagem em ruínas ali perto.\n{npc:11140} fica junto à cabana de {npc:12384}, em {area:2627}.",
 
 	-- Step 49: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: vá matando estes pelo caminho",
 
 	-- Step 50: Tirion Fordring
 	-- {npc:1855} Tirion Fordring
@@ -210,7 +210,7 @@ return {
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1855} Tirion Fordring
 	["{item:12954} lies in the town hall of {area:190}, west of {npc:1855}: the Scarlet guards stand close together."] = "{item:12954} está na prefeitura de {area:190}, a oeste de {npc:1855}: os guardas escarlates ficam bem juntos.",
 	-- {item:12954} Davil's Libram
-	["{item:12954}; inside"] = "",
+	["{item:12954}; inside"] = "{item:12954}; lá dentro",
 
 	-- Step 54: Redpath's Shield
 	-- {item:12955} Redpath's Shield · {area:201} Gahrron's Withering
@@ -218,31 +218,31 @@ return {
 
 	-- Step 56: The Undercroft
 	-- {area:2261} The Undercroft · {object:177667} Torn Scroll · {npc:12248} Infiltrator Hameya
-	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide."] = "",
+	["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide."] = "Atravesse o rio para leste até {area:2261}, a cripta no sudoeste da zona. O {object:177667} está lá dentro: a chave está com {npc:12248}, no extremo nordeste, o que fica para o próximo guia.",
 	-- {object:177667} Torn Scroll
-	["{object:177667}, below ground"] = "",
+	["{object:177667}, below ground"] = "{object:177667}, no subterrâneo",
 
 	-- Step 58: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "",
+	["Fly to {area:271}"] = "Voe para {area:271}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Mestre de voo de {area:348}",
 
 	-- Step 60: Fly to Rut'theran Village
 	-- {area:702} Rut'theran Village
-	["Fly to {area:702}"] = "",
+	["Fly to {area:702}"] = "Voe para {area:702}",
 	-- {area:442} Auberdine
-	["{area:442} flight master"] = "",
+	["{area:442} flight master"] = "Mestre de voo de {area:442}",
 
 	-- Step 62: The Temple Gardens
 	-- {npc:10878} Herald Moonstalker · {npc:7740} Gracina Spiritmight · {item:11682} Eridan's Vial
-	["{npc:10878} and {npc:7740} stand by the Temple of the Moon; fill {item:11682} at the moonwell inside."] = "{npc:10878} e {npc:7740} ficam junto ao Templo da Lua; encha o {item:11682} no poço lunar lá dentro.",
+	["{npc:10878} and {npc:7740} stand by the Temple of the Moon; fill {item:11682} at the moonwell inside."] = "{npc:10878} e {npc:7740} ficam junto ao Templo da Lua; encha a {item:11682} no poço lunar lá dentro.",
 	-- {npc:7740} Gracina Spiritmight · {area:976} Gadgetzan
 	["{npc:7740}: keep it for {area:976}"] = "{npc:7740}: guarde para {area:976}",
 
 	-- Step 63: Darnassus
 	-- {area:702} Rut'theran Village · {zone:1457} Darnassus
-	["The portal in {area:702} leads up to {zone:1457}."] = "",
+	["The portal in {area:702} leads up to {zone:1457}."] = "O portal de {area:702} sobe para {zone:1457}.",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
 	["{npc:9047}, in the {area:1658}"] = "{npc:9047}, em {area:1658}",
 	-- {zone:1455} Ironforge
@@ -250,25 +250,25 @@ return {
 	-- {item:11040} Morrowgrain · {item:11020} Evergreen Pouch
 	["Ten {item:11040} from the {item:11020}"] = "Dez {item:11040} da {item:11020}",
 	-- {quest:6762} Rabine Saturna · {area:493} Moonglade
-	["{quest:6762} in {area:493}: keep it"] = "",
+	["{quest:6762} in {area:493}: keep it"] = "{quest:6762} em {area:493}: guarde",
 
 	-- Step 64: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
-	["Portal to {zone:1438}"] = "",
+	["Portal to {zone:1438}"] = "Portal para {zone:1438}",
 
 	-- Step 65: Rut'theran Village
 	-- {area:618} Winterspring
-	["Ranshalla in {area:618}: keep it"] = "",
+	["Ranshalla in {area:618}: keep it"] = "Ranshalla em {area:618}: guarde",
 
 	-- Step 66: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "De {area:702}, voe para {area:1116}.",
 	-- {npc:7900} Angelas Moonbreeze · {area:440} Tanaris
-	["{npc:7900}: keep it for {area:440}"] = "",
+	["{npc:7900}: keep it for {area:440}"] = "{npc:7900}: guarde para {area:440}",
 
 	-- Step 68: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco para {area:1108}",
 
 	-- Step 69: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle · {area:1119} Twin Colossals
@@ -276,7 +276,7 @@ return {
 
 	-- Step 70: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- {area:1119} Twin Colossals
 	["The shrunken giants roam the {area:1119}; the sea elementals wade along the coast to the west."] = "Os gigantes encolhidos vagam por {area:1119}; os Elementais do Mar andam pela costa a oeste.",
 
@@ -285,9 +285,9 @@ return {
 	["{npc:7775}'s camp lies north of the {area:1119}. He sells the {item:11243} once he has his bait."] = "O acampamento de {npc:7775} fica ao norte de {area:1119}. Ele vende o {item:11243} quando recebe a isca.",
 
 	-- Step 74: Fly to Theramore
-	["Fly to Theramore"] = "",
+	["Fly to Theramore"] = "Voe para a Ilha Theramore",
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Mestre de voo de {area:489}",
 
 	-- Step 76: Ratchet
 	-- {area:392} Ratchet
@@ -297,188 +297,188 @@ return {
 	-- {zone:1448} Felwood
 	["For {zone:1448}: keep it"] = "Para {zone:1448}: guarde",
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}: keep it for Un'Goro; inside"] = "",
+	["{npc:8496}: keep it for Un'Goro; inside"] = "{npc:8496}: guarde para Un'Goro; lá dentro",
 
 	-- Step 77: Fly to Everlook
 	-- {area:2255} Everlook
-	["Fly to {area:2255}"] = "",
+	["Fly to {area:2255}"] = "Voe para {area:2255}",
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Mestre de voo de {area:392}",
 
 	-- Step 79: Donova Snowden
 	["Ride west along the road to the hot springs."] = "Cavalgue para o oeste pela estrada até as fontes termais.",
 	-- {npc:9299} Gaeriyan · {area:976} Gadgetzan
-	["{npc:9299} in {area:976}: keep it"] = "",
+	["{npc:9299} in {area:976}: keep it"] = "{npc:9299} em {area:976}: guarde",
 
 	-- Step 81: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {area:493} Moonglade · {area:2361} Nighthaven
-	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "",
+	["Walk into {area:1769} and take the {area:493} branch of the tunnel to {area:2361}."] = "Entre em {area:1769} e pegue o ramal do túnel para {area:493} até {area:2361}.",
 	-- {area:1377} Silithus
-	["For {area:1377}: keep it"] = "",
+	["For {area:1377}: keep it"] = "Para {area:1377}: guarde",
 
 	-- Step 82: Hearth to Ratchet
 	-- {area:392} Ratchet
-	["Hearth to {area:392}"] = "",
+	["Hearth to {area:392}"] = "Pedra de Regresso para {area:392}",
 
 	-- Step 83: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
-	["Fly to {area:976}"] = "",
+	["Fly to {area:976}"] = "Voe para {area:976}",
 
 	-- Step 84: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 	-- {npc:7583} Sprinkle
-	["On {npc:7583}"] = "",
+	["On {npc:7583}"] = "Em {npc:7583}",
 	-- {area:3197} Chillwind Camp
-	["For {area:3197}: keep it"] = "",
+	["For {area:3197}: keep it"] = "Para {area:3197}: guarde",
 
 	-- Step 85: Gaeriyan
 	-- {npc:9299} Gaeriyan
-	["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "",
+	["{npc:9299} waits at the graveyard just east of town; the gravestone stands nearby."] = "{npc:9299} espera no cemitério logo a leste da cidade; a lápide fica ali perto.",
 
 	-- Step 86: Broken Pillar
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
-	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "",
+	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Siga para o sudoeste até o acampamento de {npc:7771} em {area:1938}.",
 	-- {quest:3444} The Stone Circle · {area:392} Ratchet
-	["{quest:3444} is in {area:392}"] = "",
+	["{quest:3444} is in {area:392}"] = "{quest:3444} fica em {area:392}",
 
 	-- Step 88: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Voe para {area:541}",
 	-- {area:976} Gadgetzan
-	["{area:976} flight master"] = "",
+	["{area:976} flight master"] = "Mestre de voo de {area:976}",
 
 	-- Step 89: Linken
 	-- {area:976} Gadgetzan · {area:541} Marshal's Refuge · {npc:8737} Linken · {area:538} Lakkari Tar Pits · {npc:9997} Spraggle Frock · {npc:9999} Ringo
-	["Fly from {area:976} to {area:541}. {npc:8737}'s hut stands at the {area:538}, west of the refuge; J.D.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "",
+	["Fly from {area:976} to {area:541}. {npc:8737}'s hut stands at the {area:538}, west of the refuge; J.D.\n{npc:9997}'s friend {npc:9999} has gone missing."] = "Voe de {area:976} para {area:541}. A cabana de {npc:8737} fica em {area:538}, a oeste do refúgio; J.D.\n{npc:9999}, amigo de {npc:9997}, sumiu.",
 	-- {npc:9997} Spraggle Frock
-	["The wooden sign beside {npc:9997}"] = "",
+	["The wooden sign beside {npc:9997}"] = "A placa de madeira ao lado de {npc:9997}",
 
 	-- Step 91: Cenarion Hold
 	-- {area:1377} Silithus · {area:3425} Cenarion Hold
-	["Ride out of the crater's north-western pass into {area:1377} and on to {area:3425}."] = "",
+	["Ride out of the crater's north-western pass into {area:1377} and on to {area:3425}."] = "Saia da cratera pela passagem do noroeste rumo a {area:1377} e siga até {area:3425}.",
 
 	-- Step 92: Silithus: kill these as you meet them
 	-- {area:1377} Silithus
-	["{area:1377}: kill these as you meet them"] = "",
+	["{area:1377}: kill these as you meet them"] = "{area:1377}: vá matando estes pelo caminho",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
-	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "",
+	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around."] = "Dragatacas cavam nas dunas a noroeste do forte; Escorpídeos Petraçoite e Rastejantes da Areia andam por toda a volta.",
 
 	-- Step 93: Level 56.89
-	["Level 56.89"] = "",
+	["Level 56.89"] = "Nível 56.89",
 	-- {item:9328} Super Snapper FX
-	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "",
+	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "Se você pulou A {item:9328}, mate monstros aqui até o nível 56.89 para seguir o plano da rota.",
 	-- {npc:11740} Dredge Striker
-	["grind on {npc:11740}"] = "",
+	["grind on {npc:11740}"] = "mate {npc:11740} até subir",
 
 	-- Step 94: Cenarion Hold
 	-- {area:3425} Cenarion Hold
-	["Follow the road south-west out of the pass to {area:3425}."] = "",
+	["Follow the road south-west out of the pass to {area:3425}."] = "Siga a estrada para sudoeste, saindo da passagem, até {area:3425}.",
 	-- {npc:17082} Rifleman Torrig
-	["{npc:17082}, at the Alliance tents"] = "",
+	["{npc:17082}, at the Alliance tents"] = "{npc:17082}, nas tendas da Aliança",
 
 	-- Step 95: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
-	["Dredge Crushers dig further west; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "",
+	["Dredge Crushers dig further west; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "Dragasmagas cavam mais a oeste; Tenazes e Esfoladores Petraçoite e Espreitadoras de Rocha caçam nas mesmas areias.",
 	-- {npc:11741} Dredge Crusher
-	["{npc:11741} walks around here: look inside the circle on the map"] = "",
+	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741} anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 96: Layo Starstrike
 	-- {npc:13220} Layo Starstrike
-	["Ride east to {npc:13220}."] = "",
+	["Ride east to {npc:13220}."] = "Cavalgue para leste até {npc:13220}.",
 
 	-- Step 97: Southwind Village
 	-- {npc:13220} Layo Starstrike
-	["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "",
+	["The tortured druids and sentinels haunt the ruined village south-west of {npc:13220}."] = "Os druidas e sentinelas torturados assombram a aldeia em ruínas a sudoeste de {npc:13220}.",
 
 	-- Step 99: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
-	["The {area:2742} tower"] = "",
+	["The {area:2742} tower"] = "A torre de {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
-	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "",
+	["Ride east to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Cavalgue para leste até a torre de {area:2742}, em {area:2738}; suba e mate os emboscadores que surgem para pegar o objeto incrustado.",
 
 	-- Step 100: Layo Starstrike
 	-- {area:493} Moonglade
-	["Umber in {area:493}: keep it"] = "",
+	["Umber in {area:493}: keep it"] = "Umbero em {area:493}: guarde",
 
 	-- Step 102: Un'Goro Crater: kill these as you meet them
 	-- {area:490} Un'Goro Crater
-	["{area:490}: kill these as you meet them"] = "",
+	["{area:490}: kill these as you meet them"] = "{area:490}: vá matando estes pelo caminho",
 
 	-- Step 103: Krakle
 	-- {area:541} Marshal's Refuge · {area:543} Golakka Hot Springs · {npc:10302} Krakle
-	["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "",
+	["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Cavalgue para oeste, passando por {area:541}, e desça pelo lado oeste até {area:543}: {npc:10302}, o goblin, fica sentado junto à água.",
 
 	-- Step 104: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer
-	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "",
+	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vents near the top."] = "Cavalgue para leste até {area:537}, suba e use o {npc:10541} nas fendas de lava perto do topo.",
 
 	-- Step 105: Krakle
 	-- {npc:9298} Donova Snowden · {area:618} Winterspring
-	["Ends with {npc:9298} in {area:618}: keep it"] = "",
+	["Ends with {npc:9298} in {area:618}: keep it"] = "Termina com {npc:9298}, em {area:618}: guarde",
 
 	-- Step 106: Super Sticky Tar on the way
 	-- {item:11834} Super Sticky Tar
-	["{item:11834} on the way"] = "",
+	["{item:11834} on the way"] = "{item:11834} no caminho",
 
 	-- Step 107: Northern Pylon
-	["Northern Pylon"] = "",
+	["Northern Pylon"] = "Pilar do Norte",
 
 	-- Step 108: J.D. Collie
-	["Collie is up the hill behind it."] = "",
+	["Collie is up the hill behind it."] = "O Neri fica no morro atrás.",
 	-- {npc:9117} J.D. Collie
-	["{npc:9117}, below ground"] = "",
+	["{npc:9117}, below ground"] = "{npc:9117}, no subterrâneo",
 
 	-- Step 110: The crater
-	["The crater"] = "",
+	["The crater"] = "A cratera",
 	-- {area:538} Lakkari Tar Pits · {area:537} Fire Plume Ridge · {area:540} Slithering Scar · {item:11018} Un'Goro Soil
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Gorishi Workers = {npc:6552} Gorishi Worker
-	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "",
+	["Tar Beasts wallow in the {area:538}; the fire elementals of {area:537} in the middle carry the ash; the Gorishi wasps of the {area:540} in the south carry the gland. Every creature in the crater can drop {item:11018}.\nCareful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd."] = "Monstros de Piche chafurdam em {area:538}; os elementais do fogo de {area:537}, no meio, carregam a cinza; as vespas Gorishi de {area:540}, no sul, carregam a glândula. Qualquer criatura da cratera pode deixar cair {item:11018}.\nCuidado: as Gorishi Trabalhadoras que caem abaixo de 45% de vida têm 50% de chance de chamar ajuda de aliados num raio de 25 jd.",
 
 	-- Step 112: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "",
-	["The pelts come after loop 2, on the gorilla plateau"] = "",
+	["Ride down the ramp into the crater: {npc:9619} camps at its foot."] = "Desça a rampa até a cratera: {npc:9619} acampa no pé dela.",
+	["The pelts come after loop 2, on the gorilla plateau"] = "Os pelegos ficam para depois da volta 2, no platô dos gorilas",
 
 	-- Step 113: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
-	["{area:538}: kill these as you meet them"] = "",
+	["{area:538}: kill these as you meet them"] = "{area:538}: vá matando estes pelo caminho",
 	-- {area:1943} Ironstone Plateau · {area:541} Marshal's Refuge · {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	-- plural, as words: Un'Goro Gorillas = {npc:6514} Un'Goro Gorilla
-	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "",
+	["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55.\nCareful: Un'Goro Gorillas (level 50-51) call for help from allies within 20 yd once they drop to 25% health. There is a cave full of apes in the area, and fighting there brings many adds."] = "Os gorilas vivem em {area:1943}, a leste de {area:541}. Guarde os pelegos para {npc:9619}. Não entre na caverna mais funda: {npc:9622} é nível 55.\nCuidado: os Gorilas de Un'Goro (nível 50-51) chamam ajuda de aliados num raio de 20 jd quando caem para 25% de vida. Tem uma caverna lotada de macacos na área, e lutar lá traz monstro a mais de montão.",
 	-- {item:11478} Un'Goro Gorilla Pelt
-	["{item:11478}; below ground"] = "",
+	["{item:11478}; below ground"] = "{item:11478}; no subterrâneo",
 	-- {item:11479} Un'Goro Stomper Pelt
-	["{item:11479}; below ground"] = "",
+	["{item:11479}; below ground"] = "{item:11479}; no subterrâneo",
 	-- {item:11480} Un'Goro Thunderer Pelt
-	["{item:11480}; below ground"] = "",
+	["{item:11480}; below ground"] = "{item:11480}; no subterrâneo",
 
 	-- Step 115: U'cha
 	-- {npc:9622} U'cha
-	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "",
-	["Below ground"] = "",
+	["Ride north along the east side to the gorilla plateau. {npc:9622}, a level 55 gorilla, sits in its deepest cave: clear the gorillas at the cave mouth first."] = "Cavalgue para o norte pelo lado leste até o platô dos gorilas. {npc:9622}, um gorila de nível 55, fica na caverna mais funda: limpe os gorilas da entrada antes.",
+	["Below ground"] = "No subterrâneo",
 
 	-- Step 116: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder · {item:11568} Torwa's Pouch
-	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "",
+	["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "O covil de {npc:9684} fica na selva ao norte de {npc:9619}, abaixo dos penhascos do leste: use o {item:11568} lá. {npc:9684} é nível 56: comece com a vida cheia.",
 
 	-- Step 117: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
-	["Cross the south of the crater to {npc:9619} by the ramp."] = "",
+	["Cross the south of the crater to {npc:9619} by the ramp."] = "Atravesse o sul da cratera até {npc:9619}, junto à rampa.",
 
 	-- Step 118: The Marshlands: kill these as you meet them
 	-- {area:1942} The Marshlands
-	["{area:1942}: kill these as you meet them"] = "",
+	["{area:1942}: kill these as you meet them"] = "{area:1942}: vá matando estes pelo caminho",
 
 	-- Step 119: Ringo
 	-- {npc:9999} Ringo · {area:537} Fire Plume Ridge
-	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "",
+	["{npc:9999} sits on the south-east slope of {area:537}, in the middle of the crater."] = "{npc:9999} fica sentado na encosta sudeste de {area:537}, no meio da cratera.",
 
 	-- Step 120: Escort Ringo
 	-- {npc:9999} Ringo
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "Escolte {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Leve {npc:9999} para o norte até {area:541}. Quando ele desmaiar, use o {item:11804} nele para acordá-lo.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Andorhal Watches"] = "Relógios de Andorhal",

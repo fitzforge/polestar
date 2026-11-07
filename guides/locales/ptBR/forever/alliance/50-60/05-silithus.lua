@@ -8,79 +8,79 @@
 return {
 	-- Step 1: Ratchet
 	-- {area:3425} Cenarion Hold · {area:392} Ratchet
-	["Ride back to {area:3425} and fly to {area:392}."] = "",
+	["Ride back to {area:3425} and fly to {area:392}."] = "Volte cavalgando até {area:3425} e voe para {area:392}.",
 	-- {npc:8496} Liv Rizzlefix
-	["{npc:8496}, inside"] = "",
+	["{npc:8496}, inside"] = "{npc:8496}, lá dentro",
 
 	-- Step 2: Boat to Booty Bay
 	-- {area:35} Booty Bay
-	["Boat to {area:35}"] = "",
+	["Boat to {area:35}"] = "Barco para {area:35}",
 
 	-- Step 3: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Voe para {zone:1453}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Mestre de voo de {area:35}",
 
 	-- Step 4: Ironforge
 	-- {area:2257} Deeprun Tram · {zone:1455} Ironforge
-	["Take the {area:2257} to {zone:1455}."] = "",
+	["Take the {area:2257} to {zone:1455}."] = "Pegue {area:2257} até {zone:1455}.",
 
 	-- Step 5: Stormwind
 	-- {area:392} Ratchet · {area:35} Booty Bay · {zone:1453} Stormwind
-	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "",
+	["Take the boat from {area:392} to {area:35} and fly to {zone:1453}."] = "Pegue o barco de {area:392} para {area:35} e voe para {zone:1453}.",
 	-- {npc:3520} Ol' Emma
-	["{npc:3520}, who walks the canals"] = "",
+	["{npc:3520}, who walks the canals"] = "{npc:3520}, que anda pelos canais",
 	-- {npc:10778} Janice Felstone
-	["For {npc:10778}: keep it"] = "",
+	["For {npc:10778}: keep it"] = "Para {npc:10778}: guarde",
 
 	-- Step 6: Stormwind Keep
 	-- {npc:332} Master Mathias Shaw
-	["{npc:332}, in SI:7"] = "",
+	["{npc:332}, in SI:7"] = "{npc:332}, na SI:7",
 	-- {quest:6184} Flint Shadowmore · {area:3197} Chillwind Camp
-	["{quest:6184} at {area:3197}: keep it"] = "",
+	["{quest:6184} at {area:3197}: keep it"] = "{quest:6184} em {area:3197}: guarde",
 
 	-- Step 7: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
 
 	-- Step 8: Ironforge
-	["Its jars are filled on the next Un'Goro visit"] = "",
+	["Its jars are filled on the next Un'Goro visit"] = "As jarras se enchem na próxima visita a Un'Goro",
 	-- {npc:14724} Bubulo Acerbus
-	["{npc:14724}, by the tram"] = "",
+	["{npc:14724}, by the tram"] = "{npc:14724}, junto ao metrô",
 
 	-- Step 9: Fly to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Fly to {area:2268}"] = "",
+	["Fly to {area:2268}"] = "Voe para a {area:2268}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
 	-- Step 11: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel
-	["Ride on north to {area:3197} and fly to {area:2268}."] = "",
+	["Ride on north to {area:3197} and fly to {area:2268}."] = "Siga cavalgando para o norte até {area:3197} e voe para {area:2268}.",
 
 	-- Step 12: Scourge Champions
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions"] = "",
+	["Scourge Champions"] = "Campeões do Flagelo",
 	-- {area:2270} Noxious Glade · {area:2268} Light's Hope Chapel · {npc:11063} Carlin Redpath · {item:13156} Mystic Crystal
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "",
+	["Scourge Champions (59) roam the {area:2270}, north of {area:2268}. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants. Pull them one at a time."] = "Campeões do Flagelo (59) andam por {area:2270}, ao norte de {area:2268}. Passe o {item:13156} de {npc:11063} em cada um que matar: os crânios que ressoam são os que ele quer. Puxe um de cada vez.",
 	-- {item:13155} Resonating Skull
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["{item:13155}, from the Scourge Champions"] = "",
+	["{item:13155}, from the Scourge Champions"] = "{item:13155}, dos Campeões do Flagelo",
 
 	-- Step 13: Light's Hope Chapel
-	["Chromie in Andorhal: keep it"] = "",
+	["Chromie in Andorhal: keep it"] = "Crona em Andorhal: guarde",
 
 	-- Step 14: Infiltrator Hameya
 	-- {area:2277} Plaguewood · {area:2273} Zul'Mashar
-	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "",
+	["Ride north to the {area:2277}'s north-eastern edge.\nCareful: The trolls along the path to {area:2273} are level 57-59. They run away at low health and call for help, so they often bring adds with them."] = "Cavalgue para o norte até a borda nordeste de {area:2277}.\nCuidado: os trolls do caminho até {area:2273} são nível 57-59. Fogem com pouca vida e chamam ajuda, então costumam trazer reforço.",
 
 	-- Step 15: The Undercroft
 	-- {area:2261} The Undercroft · {npc:11886} Mercutio Filthgorger
-	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "",
+	["Ride south-west to the {area:2261}. The mound of dirt lies inside. {npc:11886} is elite: grouping up is advised.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Cavalgue para sudoeste até {area:2261}. O monturo de terra fica lá dentro. {npc:11886} é elite: melhor ir em grupo.\nCuidado: uns quatro capangas não elite vêm com o Mercutio. Eles caminham até o túmulo em vez de aparecer ali na hora.",
 	-- {item:14613} Taelan's Hammer · {npc:11886} Mercutio Filthgorger
-	["{item:14613}, from {npc:11886}"] = "",
+	["{item:14613}, from {npc:11886}"] = "{item:14613}, de {npc:11886}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Chromie in Andorhal: keep it"] = "Crona nas Ruínas de Andorhal: guarde-a",

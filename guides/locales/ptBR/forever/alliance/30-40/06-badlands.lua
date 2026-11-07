@@ -8,21 +8,21 @@
 return {
 	-- Step 1: Into Badlands
 	-- {area:3} Badlands
-	["Into {area:3}"] = "",
+	["Into {area:3}"] = "Rumo a {area:3}",
 
 	-- Step 3: Hammertoe's Digsite
 	-- {zone:1432} Loch Modan · {area:3} Badlands · {npc:2910} Prospector Ryedol · {npc:2860} Sigrun Ironhew
-	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "",
+	["Head back west to the road and follow it south out of {zone:1432} through the pass into the {area:3}. {npc:2910} and {npc:2860} camp side by side at the dig."] = "Volte para oeste até a estrada e siga por ela para o sul, saindo de {zone:1432} pela passagem até {area:3}. {npc:2910} e {npc:2860} acampam lado a lado na escavação.",
 
 	-- Step 4: Hammertoe's Digsite: kill these as you meet them
 	-- {area:346} Hammertoe's Digsite
-	["{area:346}: kill these as you meet them"] = "",
+	["{area:346}: kill these as you meet them"] = "{area:346}: vá matando estes pelo caminho",
 	-- plural, as words: Crag Coyotes = {npc:2727} Crag Coyote
 	["The Shadowforge dwarves camp just north of the digsite; the crumpled map lies among their tents. Tunnelers and Darkweavers carry Ryedol's pick. Crag Coyotes roam the slopes around it."] = "Os anões de Umbraforja acampam logo ao norte da escavação; o Mapa Amassado está entre as barracas. Escavadores e Tecetrevas carregam a picareta de Ryedol. Coiotes do Rochedo vagam pelas encostas ao redor.",
 
 	-- Step 5: The excavation crate
 	["The excavation crate"] = "O caixote da escavação",
-	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "",
+	["Head north-east to the abandoned dig; the supply crate lies there among the Dustbelcher ogres."] = "Siga para nordeste até a escavação abandonada; o caixote de suprimentos está lá, no meio dos ogros Arrota-pó.",
 
 	-- Step 6: Hammertoe's Digsite
 	-- {area:1517} Uldaman
@@ -30,32 +30,32 @@ return {
 
 	-- Step 7: Valley of Fangs
 	-- {npc:4618} Martek the Exiled · {npc:2817} Rigglefuzz · {area:1877} Valley of Fangs · {area:3} Badlands
-	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "",
+	["{npc:4618} and {npc:2817} camp together in the {area:1877}, in the middle of the {area:3}."] = "{npc:4618} e {npc:2817} acampam juntos em {area:1877}, no meio de {area:3}.",
 	["The clams lie on Stranglethorn's north-west coast, in the next guide: keep it"] = "Os mariscos ficam no litoral noroeste da Selva do Espinhaço, no próximo guia: guarde-a",
 
 	-- Step 8: Indurium Flake on the way
 	-- {item:5797} Indurium Flake
-	["{item:5797} on the way"] = "",
+	["{item:5797} on the way"] = "{item:5797} no caminho",
 
 	-- Step 9: Agmond's End
-	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "",
+	["The battered skeleton lies just east of the ogres, at the edge of the Stonevault trogg camp; the Bonesnappers and Shamans around it drop the flakes. Theldurin sits by the ruined camp further south."] = "O esqueleto surrado fica logo a leste dos ogros, na beira do acampamento dos troggs da Abóbada de Pedra; os Quebraossos e Xamãs em volta deixam cair as lascas. Theldurin fica sentado junto ao acampamento em ruínas mais ao sul.",
 
 	-- Step 10: Lotwil Veriatus
 	-- {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus
-	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "",
+	["Head west into the {area:1878}; {npc:2921} works by his machines in the middle of it."] = "Siga para oeste até {area:1878}; {npc:2921} trabalha junto às máquinas dele, bem no meio.",
 
 	-- Step 11: Agmond's End: kill these as you meet them
 	-- {area:345} Agmond's End
-	["{area:345}: kill these as you meet them"] = "",
+	["{area:345}: kill these as you meet them"] = "{area:345}: vá matando estes pelo caminho",
 	-- {quest:739} Murdaloc · {area:1878} Dustbowl · {npc:2921} Lotwil Veriatus · {spell:5242} Battle Shout · {spell:1160} Demoralizing Shout · {area:340} Kargath
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental · Dustbelcher Lords = {npc:2719} Dustbelcher Lord
-	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nThe Lesser Rock Elementals wander the {area:1878} west of {npc:2921}.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "",
+	["The Dustbelcher ogres camp just south of the valley; any of them drops scrap. Buzzards circle the plain to the east.\nThe battered skeleton lies at the edge of the Stonevault trogg camp; {quest:739}, Agmond's killer, walks among the Bonesnappers.\nThe Lesser Rock Elementals wander the {area:1878} west of {npc:2921}.\nCareful: Dustbelcher Lords are level 44-45. They use {spell:5242} and {spell:1160}, and below 50% health they call for help from allies within 15 yd. Seven of them stand about 750 yd south of {area:340}."] = "Os ogros Arrota-pó acampam logo ao sul do vale; qualquer um deixa cair sucata. Urubus rondam a planície a leste.\nO esqueleto surrado fica na beira do acampamento dos troggs da Abóbada de Pedra; {quest:739}, o assassino do Agmond, anda no meio dos Quebraossos.\nOs Elementais Inferiores da Rocha perambulam por {area:1878}, a oeste de {npc:2921}.\nCuidado: os Grandes Arrota-pó são nível 44-45. Usam {spell:5242} e {spell:1160} e, abaixo de 50% de vida, chamam ajuda de aliados num raio de 15 jd. Sete deles ficam uns 750 jd ao sul de {area:340}.",
 	-- {quest:739} Murdaloc · {area:3} Badlands
-	["The skeleton's next task, {quest:739}, waits until the later {area:3} guide at 43."] = "",
+	["The skeleton's next task, {quest:739}, waits until the later {area:3} guide at 43."] = "A próxima tarefa do esqueleto, {quest:739}, fica para o guia de {area:3} mais adiante, no nível 43.",
 
 	-- Step 12: Stonevault Bonesnapper on the way
 	-- {npc:2893} Stonevault Bonesnapper
-	["{npc:2893} on the way"] = "",
+	["{npc:2893} on the way"] = "{npc:2893} no caminho",
 
 	-- Step 14: Lucien Tosselwrench
 	-- {npc:2921} Lotwil Veriatus
@@ -65,13 +65,13 @@ return {
 	-- {object:126260} Ancient Chest
 	["The {object:126260}"] = "{object:126260}",
 	-- {area:3} Badlands · {npc:2745} Ambassador Infernus
-	["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "",
+	["Head north-east to the dwarven ruins in the north of the {area:3}; the chest sits among the Shadowforge dwarves. {npc:2745} nearby is elite: give him room."] = "Siga para nordeste até as ruínas anãs no norte de {area:3}; o baú fica no meio dos anões de Umbraforja. {npc:2745}, ali perto, é elite: dê distância.",
 	-- {item:4631} Tablet of Ryun'eh
-	["{item:4631}; below ground"] = "",
+	["{item:4631}; below ground"] = "{item:4631}; no subterrâneo",
 
 	-- Step 16: Theldurin the Lost
 	-- {area:345} Agmond's End
-	["Head south to {area:345}."] = "",
+	["Head south to {area:345}."] = "Siga para o sul até {area:345}.",
 	-- {npc:2786} Gerrig Bonegrip · {zone:1455} Ironforge
 	["for {npc:2786} in {zone:1455}: keep it"] = "para {npc:2786} em {zone:1455}: guarde-a",
 
@@ -90,30 +90,30 @@ return {
 
 	-- Step 20: Hearth to Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["Hearth to {area:2101}"] = "",
+	["Hearth to {area:2101}"] = "Pedra de Regresso para {area:2101}",
 
 	-- Step 21: To Stoutlager Inn
 	-- {area:2101} Stoutlager Inn
-	["To {area:2101}"] = "",
+	["To {area:2101}"] = "Para {area:2101}",
 
 	-- Step 22: Thelsamar
 	-- {npc:1470} Ghak Healtouch
-	["{npc:1470}, in the inn; below ground"] = "",
+	["{npc:1470}, in the inn; below ground"] = "{npc:1470}, na estalagem; no subterrâneo",
 
 	-- Step 23: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Voe para {area:150}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Mestre de voo de {area:144}",
 
 	-- Step 25: Theramore
 	["Theramore"] = "Ilha Theramore",
 	-- {area:514} Foothold Citadel · {npc:5083} Clerk Lendry · {npc:4964} Commander Samaul
-	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "",
+	["The flight master stands by the gate of {area:514}; {npc:5083} and {npc:4964} are inside the citadel."] = "O mestre de voo fica junto ao portão de {area:514}; {npc:5083} e {npc:4964} ficam dentro da cidadela.",
 	-- {npc:5083} Clerk Lendry
-	["{npc:5083}, on the top floor"] = "",
+	["{npc:5083}, on the top floor"] = "{npc:5083}, no último andar",
 	-- {npc:4964} Commander Samaul
-	["{npc:4964}, on the top floor"] = "",
+	["{npc:4964}, on the top floor"] = "{npc:4964}, no último andar",
 	["for the Dustwallow loop in the next guide"] = "para o circuito do Pântano Vadeoso no próximo guia",
 
 	-- Step 27: Bibbly F'utzbuckle
@@ -122,7 +122,7 @@ return {
 
 	-- Step 28: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones · {npc:217590} Flesh Picker
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos. Um {npc:217590} rasteja pelo cemitério: capture um com o Entomology Starter Kit e depois marque o objetivo.",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons. A {npc:217590} crawls about the graveyard: catch one with the Entomology Starter Kit, then tick it off."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos. Um {npc:217590} rasteja pelo cemitério: capture um com o Kit Básico de Entomologia e depois marque o objetivo.",
 	-- {npc:217590} Flesh Picker
 	["{npc:217590}: catch it, for My Little Friends"] = "{npc:217590}: capture-o, para My Little Friends",
 
@@ -133,14 +133,14 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento dos centauros a oeste do cemitério. Liberte-a e mantenha-a viva na saída; ela para junto ao cemitério.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "escolte {npc:12277} de volta ao cemitério",
 
 	-- Step 31: Mannoroc Coven
 	-- {area:602} Mannoroc Coven · {zone:1443} Desolace
 	-- plural, as words: Mana Eaters = {npc:4678} Mana Eater · Ley Hunters = {npc:4685} Ley Hunter · Nether Maidens = {npc:4679} Nether Maiden · Doomwarder Captains = {npc:4680} Doomwarder Captain
-	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "",
+	["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Os demônios se juntam em {area:602}, no sul de {zone:1443}: canisvis (Manávoros, Caça-magos e Caçadores do Meridiano), Donzelas e Irmãs do Éter, e Capitães dos Guardiões da Ruína em volta do fosso.\nCuidado: a maioria dos monstros daqui faz patrulha, então é fácil puxar monstro a mais.",
 
 	-- Step 32: The Valley of Bones
 	-- {area:2657} Valley of Bones
@@ -158,11 +158,11 @@ return {
 	["The wrecked ship's chest lies on the shore just west of {npc:11863}'s tower."] = "O baú do navio naufragado está na praia, logo a oeste da torre de {npc:11863}.",
 
 	-- Step 37: Claim Rackmore's Treasure!
-	["Underwater"] = "",
+	["Underwater"] = "Debaixo d'água",
 
 	-- Step 38: Hearth to Nijel's Point
 	-- {area:608} Nijel's Point
-	["Hearth to {area:608}"] = "",
+	["Hearth to {area:608}"] = "Pedra de Regresso para {area:608}",
 
 	-- Step 39: Nijel's Point
 	-- {area:608} Nijel's Point
@@ -174,13 +174,13 @@ return {
 
 	-- Step 40: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
-	["{area:598}: kill these as you meet them"] = "",
+	["{area:598}: kill these as you meet them"] = "{area:598}: vá matando estes pelo caminho",
 	-- {npc:12369} Lord Kragaru · {npc:11863} Azore Aldamort
 	["{npc:12369}, a centaur chieftain, camps on the north-west coast, north of {npc:11863}'s tower."] = "{npc:12369}, um chefe centauro, acampa no litoral noroeste, ao norte da torre de {npc:11863}.",
 
 	-- Step 45: Fly to Theramore
 	["Fly to Theramore"] = "Voe para a Ilha Theramore",
-	["The next guide starts in Theramore."] = "",
+	["The next guide starts in Theramore."] = "O próximo guia começa em Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}; the wrecked ship's chest lies on the shore just west of them."] = "Siga a estrada para o oeste pelo norte de {zone:1443} até as ruínas de {area:2405}; o baú do navio naufragado está na praia logo a oeste delas.",

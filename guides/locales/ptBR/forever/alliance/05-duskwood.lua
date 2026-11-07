@@ -8,19 +8,19 @@
 return {
 	-- Step 2: Darkshire
 	-- {area:1002} Three Corners · {area:10} Duskwood · {area:42} Darkshire
-	["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest."] = "",
+	["Follow the road south from {area:1002} into {area:10}; {area:42} lies on the east side of the forest."] = "Siga a estrada para o sul de {area:1002} até {area:10}; {area:42} fica no lado leste da floresta.",
 	-- {npc:2409} Felicia Maline
 	["{npc:2409}, at the north end of town"] = "{npc:2409}, no extremo norte da cidade",
 	-- {npc:265} Madame Eva
-	["{npc:265}, in her house by the tavern; inside"] = "",
+	["{npc:265}, in her house by the tavern; inside"] = "{npc:265}, na casa dela junto à taberna; lá dentro",
 
 	-- Step 3: Darkshire
 	-- {item:4371} Bronze Tube · {quest:174} Look to the Stars · {npc:3133} Herble Baubbletump · {npc:276} Viktori Prism'Antras · {npc:1448} Neal Allen · {area:150} Menethil Harbor
-	["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "",
+	["No {item:4371} for {quest:174}? {npc:3133} sells it in the house beside {npc:276}, in limited stock; {npc:1448} in {area:150} sells it too.\n{npc:276}'s house stands at the east end of town. {npc:3133} sells engineering goods in the house beside it."] = "Sem {item:4371} para {quest:174}? {npc:3133} vende na casa ao lado de {npc:276}, com estoque limitado; {npc:1448}, em {area:150}, também vende.\nA casa de {npc:276} fica na ponta leste da cidade. {npc:3133} vende artigos de engenharia na casa ao lado.",
 	-- {npc:265} Madame Eva
-	["{npc:265}, inside"] = "",
+	["{npc:265}, inside"] = "{npc:265}, lá dentro",
 	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump
-	["{item:4371}, from {npc:3133}, if you have none"] = "",
+	["{item:4371}, from {npc:3133}, if you have none"] = "{item:4371}, de {npc:3133}, se não tiver nenhum",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, na prefeitura",
 	-- {npc:268} Sirra Von'Indi
@@ -28,34 +28,34 @@ return {
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}, na prefeitura",
 	-- {npc:633} Elaine Carevin
-	["{npc:633}, at the south end of town; inside"] = "",
+	["{npc:633}, at the south end of town; inside"] = "{npc:633}, na ponta sul da cidade; lá dentro",
 	-- {npc:6790} Innkeeper Trelayne
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, Taberna Corvo Escarlate",
 	-- {npc:663} Calor
-	["{npc:663}, by the town hall"] = "",
+	["{npc:663}, by the town hall"] = "{npc:663}, junto à prefeitura",
 	-- {npc:276} Viktori Prism'Antras
-	["{npc:276}, inside"] = "",
+	["{npc:276}, inside"] = "{npc:276}, lá dentro",
 	-- {item:4371} Bronze Tube · {npc:3133} Herble Baubbletump · {npc:1448} Neal Allen · {area:150} Menethil Harbor
 	["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}, de {npc:3133}: estoque limitado. Esgotado? {npc:1448}, em {area:150}, também vende.",
 
 	-- Step 4: Nightbane Shadow Weaver on the way
 	-- {npc:533} Nightbane Shadow Weaver
-	["{npc:533} on the way"] = "",
+	["{npc:533} on the way"] = "{npc:533} no caminho",
 
 	-- Step 5: Tranquil Gardens Cemetery: kill these as you meet them
 	-- {area:121} Tranquil Gardens Cemetery
-	["{area:121}: kill these as you meet them"] = "",
+	["{area:121}: kill these as you meet them"] = "{area:121}: vá matando estes pelo caminho",
 	-- {area:42} Darkshire · {npc:302} Blind Mary · {area:10} Duskwood · {item:2378} Skeleton Finger
 	-- plural, as words: Skeletal Warriors = {npc:48} Skeletal Warrior · Skeletal Mages = {npc:203} Skeletal Mage
-	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "",
+	["Skeletal Warriors and Skeletal Mages walk among the graves south-east of {area:42}, below {npc:302}'s house on the hill. Every skeleton in {area:10} can drop a {item:2378}.\nCareful: Because the skeletons stand near each other, running straight in tends to pull several at once."] = "Guerreiros e Magos Descarnados andam entre os túmulos a sudeste de {area:42}, abaixo da casa de {npc:302} no morro. Todo esqueleto de {area:10} pode deixar cair um {item:2378}.\nCuidado: como os esqueletos ficam perto uns dos outros, entrar correndo costuma puxar vários de uma vez.",
 
 	-- Step 7: Skeletal Fiend on the way
 	-- {npc:531} Skeletal Fiend
-	["{npc:531} on the way"] = "",
+	["{npc:531} on the way"] = "{npc:531} no caminho",
 
 	-- Step 8: Skeletal Horror on the way
 	-- {npc:202} Skeletal Horror
-	["{npc:202} on the way"] = "",
+	["{npc:202} on the way"] = "{npc:202} no caminho",
 
 	-- Step 9: Watcher Dodds
 	-- {npc:888} Watcher Dodds · {area:245} Yorgen Farmstead
@@ -73,10 +73,10 @@ return {
 
 	-- Step 12: The Hushed Bank: kill these as you meet them
 	-- {area:1097} The Hushed Bank
-	["{area:1097}: kill these as you meet them"] = "",
+	["{area:1097}: kill these as you meet them"] = "{area:1097}: vá matando estes pelo caminho",
 	-- {npc:289} Abercrombie · {area:40} Westfall
 	-- plural, as words: Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider
-	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.\nCareful: Wolves and other spider types share the area along the {area:40} border, so you can easily pull several mobs at once."] = "",
+	["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang.\nCareful: Wolves and other spider types share the area along the {area:40} border, so you can easily pull several mobs at once."] = "Lobos Hediondos Raivosos andam pela mata em volta do cemitério e de {npc:289}; Lobos Hediondos Famintos, pelas colinas a nordeste dele. Veneracnas Pigmeias rastejam a leste do cemitério e deixam cair o veneno. Todo carniçal da metade norte do cemitério pode deixar cair uma presa.\nCuidado: lobos e outros tipos de aranha dividem a área na divisa com {area:40}, então é fácil puxar vários monstros de uma vez.",
 
 	-- Step 13: Abercrombie
 	-- {area:492} Raven Hill Cemetery
@@ -84,45 +84,45 @@ return {
 
 	-- Step 14: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "",
+	["{area:492}: kill these as you meet them"] = "{area:492}: vá matando estes pelo caminho",
 	-- {npc:522} Mor'Ladim
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Skeletal Fiends = {npc:531} Skeletal Fiend
 	["The cemetery lies north of the village. Skeletal Horrors and Skeletal Fiends walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "O cemitério fica ao norte do vilarejo. Horrores Descarnados e Malévolos Descarnados andam pela metade sul. {npc:522}, um elite, vaga entre os túmulos: fique longe dele.",
 
 	-- Step 15: Watcher Dodds
 	-- {area:245} Yorgen Farmstead
-	["Head back east along the road to the {area:245}."] = "",
+	["Head back east along the road to the {area:245}."] = "Volte para leste pela estrada até {area:245}.",
 
 	-- Step 16: Yorgen Farmstead
 	["The mound of loose dirt lies south of the farmhouse, by the old stump."] = "O monte de terra solta fica ao sul da casa da fazenda, junto ao velho toco.",
 
 	-- Step 18: Darkshire
 	-- {npc:268} Sirra Von'Indi
-	["{npc:268}, inside"] = "",
+	["{npc:268}, inside"] = "{npc:268}, lá dentro",
 
 	-- Step 19: Blind Mary
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "A casa dela fica na colina a sudeste de {area:42}, acima de {area:121}.",
-	["Inside"] = "",
+	["Inside"] = "Lá dentro",
 
 	-- Step 20: Tranquil Gardens Cemetery
 	-- {quest:337} An Old History Book · {area:10} Duskwood
-	["{quest:337}: a rare drop from {area:10}'s mobs"] = "",
+	["{quest:337}: a rare drop from {area:10}'s mobs"] = "{quest:337}: cai raramente dos monstros de {area:10}",
 
 	-- Step 22: Abercrombie
-	["Head west along the road once more."] = "",
+	["Head west along the road once more."] = "Siga para oeste pela estrada mais uma vez.",
 
 	-- Step 24: Hearth to Darkshire
 	-- {area:42} Darkshire
-	["Hearth to {area:42}"] = "",
+	["Hearth to {area:42}"] = "Pedra de Regresso para {area:42}",
 
 	-- Step 25: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "De volta a {area:42}",
 	-- {area:42} Darkshire
-	["Head back east to {area:42}."] = "",
+	["Head back east to {area:42}."] = "Volte para leste até {area:42}.",
 	-- {npc:273} Tavernkeep Smitts
-	["{npc:273}, in the tavern"] = "{npc:273}, na taverna",
+	["{npc:273}, in the tavern"] = "{npc:273}, na taberna",
 
 	-- Step 26: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
@@ -132,14 +132,14 @@ return {
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "Horrores Descarnados andam pela encosta entre {area:42} e {area:121}, a sudeste da cidade; eles deixam cair as Flores do Mal.",
 
 	-- Step 28: Abercrombie
-	["Head west to the hermit once more."] = "",
+	["Head west to the hermit once more."] = "Siga para oeste até o ermitão mais uma vez.",
 
 	-- Step 29: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "Costelas de Carniçal",
 	-- {area:492} Raven Hill Cemetery · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "Todo carniçal da metade norte de {area:492} pode deixar cair uma costela: Comedores de Carne, Mastigossos, Vetores da Peste e Devora-Cérebros.\nCuidado: um {npc:948} solta {spell:3428} quando morre, o que traz bicho a mais.",
 
 	-- Step 31: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
@@ -151,13 +151,13 @@ return {
 
 	-- Step 34: Agent Kearnen
 	-- {area:94} Raven Hill · {area:40} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
-	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "",
+	["Head west along the road out of {area:94} into {area:40}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "Siga para oeste pela estrada, saindo de {area:94} rumo a {area:40}. {npc:7024} vigia a torre de {npc:7053} das colinas logo depois da divisa. O {npc:7051} (nível 23) que guarda a torre está com a chave; o diário do Filipe está no baú lá em cima.",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}, no baú",
 
 	-- Step 35: Master Mathias Shaw
 	-- {zone:1453} Stormwind · {object:2100} Old Town
-	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
+	["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "Siga para o norte por Elwynn até {zone:1453}; Mathias Shaw fica na SI:7, em {object:2100}.",
 	-- {npc:332} Master Mathias Shaw · {item:18160} Recipe: Thistle Tea
 	["{npc:332}: Poisons, and {item:18160}"] = "{npc:332}: Venenos e {item:18160}",
 	-- {quest:2607} The Touch of Zanzil · {npc:7207} Doc Mixilpixil
@@ -169,19 +169,19 @@ return {
 
 	-- Step 36: Fly to Stormwind
 	-- {zone:1453} Stormwind
-	["Fly to {zone:1453}"] = "",
+	["Fly to {zone:1453}"] = "Voe para {zone:1453}",
 	-- {area:108} Sentinel Hill
-	["{area:108} flight master"] = "",
+	["{area:108} flight master"] = "Mestre de voo de {area:108}",
 
 	-- Step 37: Gazin Tenorm
 	-- {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
-	["{npc:6173} and {npc:6171} are in the Cathedral of Light."] = "",
+	["{npc:6173} and {npc:6171} are in the Cathedral of Light."] = "{npc:6173} e {npc:6171} ficam na Catedral da Luz.",
 	-- {npc:6171} Duthorian Rall
-	["{npc:6171}: Redemption"] = "",
+	["{npc:6171}: Redemption"] = "{npc:6171}: Redenção",
 
 	-- Step 39: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
 
 	-- Step 40: Shaman training
 	["Shaman training"] = "Treinamento de xamã",
@@ -189,12 +189,12 @@ return {
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the {area:442} boat."] = "{zone:1453} não tem instrutor de xamã: pegue o {area:2257} no {object:28027} até {zone:1455}, treine com {npc:258098} e volte de metrô para pegar o barco de {area:442}.",
 
 	-- Step 41: Rogue training
-	["Rogue training"] = "",
+	["Rogue training"] = "Treino de Ladino",
 	-- {zone:1453} Stormwind
-	["Train here, in {zone:1453}, before you go on."] = "",
+	["Train here, in {zone:1453}, before you go on."] = "Treine aqui, em {zone:1453}, antes de seguir.",
 
 	-- Step 43: Class trainer
-	["Class trainer"] = "",
+	["Class trainer"] = "Instrutor de classe",
 	["Level 22 and 24 spells"] = "Feitiços dos níveis 22 e 24",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
