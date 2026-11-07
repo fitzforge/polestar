@@ -3430,6 +3430,38 @@ fn a_class_quest_line_in_a_step_for_everyone_gets_its_classes() {
 }
 
 #[test]
+fn a_repeatable_its_giver_takes_back_at_the_same_stop_is_a_direct_turnin() {
+	// #1153: Westfall's The Tome of Divinity (1641, repeatable, Duthorian Rall gives and takes it) was
+	// written `accept 1641 only Human` + `turnin 1641`; the client never flags it completed, so after a
+	// reload the step reopened. A repeatable not taken back by its giver, or taken and handed in at
+	// different stops, keeps its accept.
+	let quests: BTreeMap<u32, forge_writer::input::Quest> = serde_json::from_value(json!({
+		"1641": { "title": "The Tome of Divinity", "repeatable": true, "start": { "npc": [6171] }, "end": { "npc": [6171] } },
+		"5": { "title": "Other ender", "repeatable": true, "start": { "npc": [1] }, "end": { "npc": [2] } },
+		"6": { "title": "Two stops", "repeatable": true, "start": { "npc": [3] }, "end": { "npc": [3] } }
+	}))
+	.unwrap();
+	let data = Data { quests, ..Data::default() };
+	let mut files = vec![[
+		"step Duthorian Rall",
+		"  accept 1641 only Human              -- Duthorian Rall",
+		"  turnin 1641                         -- Duthorian Rall",
+		"  accept 5",
+		"  turnin 5",
+		"  accept 6",
+		"",
+		"step Later",
+		"  turnin 6",
+	]
+	.join("\n")];
+	forge_writer::post::repeatable_direct(&mut files, &data);
+	assert_eq!(
+		files[0].split('\n').collect::<Vec<_>>(),
+		vec!["step Duthorian Rall", "  turnin 1641 direct only Human -- Duthorian Rall", "  accept 5", "  turnin 5", "  accept 6", "", "step Later", "  turnin 6"]
+	);
+}
+
+#[test]
 fn a_shared_guides_lines_of_a_quest_done_in_the_races_own_guide_are_the_other_races() {
 	// The Barrens (Orc, Troll): Stagnant Oasis is taken and handed in in their own guide; the shared
 	// guide's accept and turn-in of it are the Tauren's and Undead's, not a second hand-in for Orcs.

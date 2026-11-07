@@ -1334,6 +1334,61 @@ pub fn class_only_lines(files: &mut [String], data: &Data) {
 	}
 }
 
+/// #1153: a repeatable quest whose giver is also its ender, taken and handed in at one stop, is
+/// `turnin <id> direct` with no accept: the giver takes it straight back from the quest window and the
+/// client never marks it completed, so an accept-then-turnin step reopens after a reload (Westfall's
+/// The Tome of Divinity, 1641). The accept's `only` goes onto the turn-in. A quest another line of the
+/// guide tracks (`quest <id>`, `onquest <id>`) is left as it is.
+pub fn repeatable_direct(files: &mut [String], data: &Data) {
+	for f in files.iter_mut() {
+		let mut lines: Vec<String> = f.split('\n').map(str::to_string).collect();
+		let tracked = |q: u32, lines: &[String]| {
+			let r = regex::Regex::new(&format!(r"\b(quest|onquest)\s+{q}\b")).unwrap();
+			lines.iter().any(|l| r.is_match(split_comment(l).0))
+		};
+		let mut drop: Vec<usize> = Vec::new();
+		let mut start = 0;
+		while start < lines.len() {
+			let end = (start + 1..lines.len()).find(|&i| is_step(&lines[i]) || starts_nonspace(&lines[i])).unwrap_or(lines.len());
+			let mut accepts: Vec<(u32, usize)> = Vec::new();
+			for i in start..end {
+				let code = split_comment(&lines[i]).0;
+				if let Some(m) = re!(r"^\s+accept\s+(\d+)\b").captures(code) {
+					accepts.push((m[1].parse().unwrap_or(0), i));
+					continue;
+				}
+				let Some(m) = re!(r"^\s+turnin\s+(\d+)\b").captures(code) else { continue };
+				let q: u32 = m[1].parse().unwrap_or(0);
+				if re!(r"\bdirect\b").is_match(code) {
+					continue;
+				}
+				let Some(&(_, ai)) = accepts.iter().find(|a| a.0 == q) else { continue };
+				let Some(rec) = data.quests.get(&q) else { continue };
+				let (Some(st), Some(en)) = (&rec.start, &rec.end) else { continue };
+				if !rec.repeatable() || !st.npc.iter().any(|n| en.npc.contains(n)) || tracked(q, &lines) {
+					continue;
+				}
+				let acode = split_comment(&lines[ai]).0.to_string();
+				let only = re!(r"\sonly\s+\S+").find(&acode).map(|m| m.as_str().to_string()).filter(|_| !re!(r"\sonly\s+\S").is_match(code));
+				let tail = re!(r"\s--\s.*$").find(&lines[i]).map_or(String::new(), |m| m.as_str().to_string());
+				let head = &code[..m.get(0).unwrap().end()];
+				let rest = trim_end(&code[m.get(0).unwrap().end()..]);
+				lines[i] = format!("{head} direct{rest}{}{tail}", only.unwrap_or_default());
+				drop.push(ai);
+			}
+			start = end;
+		}
+		if !drop.is_empty() {
+			let mut k = 0;
+			lines.retain(|_| {
+				k += 1;
+				!drop.contains(&(k - 1))
+			});
+			*f = lines.join("\n");
+		}
+	}
+}
+
 /// A tip or note carried from a guide played at riding level (40) into one played below it
 /// does not tell you to ride (#404). v1's own lines of the guide are left as they are.
 pub fn no_riding(files: &mut [String], sources: &[&str]) {
