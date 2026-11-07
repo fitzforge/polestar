@@ -2372,6 +2372,18 @@
 		},
 		"note": "Basilisks: Should Petrification be Feared?: ends with Owen Thadd (npc 211022) and Garion Wendell (npc 211033); as its ender the merged data lacked Garion Wendell (npc 211033)."
 	},
+	"78676": {
+		"set": {
+			"minLevel": 30
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issue #1160 (Erá): offered at 30, not at 25, after the horn job; the guide's 2026-10-21 notes: two players got C's invitation at 30 after a city visit"
+			}
+		],
+		"note": "The Eye of Bhossca (C's second job, the Dead Drop near Pyrewood Village) comes with C's letter, which arrives in a capital city's mailbox at level 30 once the horn job is done; only then does the Dead Drop offer it. Forever's quest data lists a minimum of 25, so the Rogue guide and the class-quest heads-up offered it five levels early."
+	},
 	"79192": {
 		"set": {
 			"pre": [

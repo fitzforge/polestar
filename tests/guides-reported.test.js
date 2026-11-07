@@ -4468,3 +4468,18 @@ test("Konky88's report (#1150): Valuable Vantages' three vials come before its h
 		assert.ok(located(list[vial]), `vial ${oi} has a place`);
 	}
 });
+
+// Erá's report (#1160): The Eye of Bhossca, C's second job, comes with C's letter in a capital city's mailbox at
+// level 30 (after the horn job), not at the quest data's 25. The guide, its correction and the class-quest
+// heads-up all wait for 30.
+test("Erá's report (#1160): The Eye of Bhossca waits for level 30", { skip }, () => {
+	const guide = 'forever/class/rogue/the-eye-of-bhossca.guide';
+	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8'), /^levels 30-35$/m);
+	const list = goals(guide);
+	const accept = at(list, 'accept 78676', is('accept', 78676));
+	const gate = list.find(({ step, goal }) => step === list[accept].step && goal.t === 'level');
+	assert.equal(gate && gate.goal.level, 30, 'a level 30 gate before the Dead Drop');
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	assert.equal(corrections[78676].set.minLevel, 30, 'the correction a data build applies');
+	assert.match(fs.readFileSync(path.join(__dirname, '..', 'addon', 'Polestar', 'UI', 'ClassRewards.lua'), 'utf8'), /\[78676\] = \{ 30, /, 'the heads-up starts at 30');
+});
