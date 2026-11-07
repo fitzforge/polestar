@@ -5561,3 +5561,52 @@ test('forever/horde/40-50: final review: Cortello\'s Riddle optional, no elite w
 	const sil = goals('forever/horde/50-60/06-silithus.guide');
 	assert.doesNotMatch(sil[at(sil, 'use 11833', (g) => g.t === 'use' && g.item === 11833)].step.note || '', /elite/);
 });
+
+// --- Alliance quest volume (2026-11-07): quests whose givers, work and enders lie on visits our route
+// already makes (a giver it passes, work on its loops, an ender it reaches later) are in the route
+// (data/route-fixes.json, overrides.include, "Quest volume"). Each is taken in the guide named here and
+// handed in there or in a guide after it in the chain; ALLIANCE_VOLUME_HANDIN lists the hand-ins of quests
+// taken in an earlier guide.
+
+const ALLIANCE_VOLUME = {
+	'forever/alliance/02-westfall.guide': [6281, 6261, 6285, 97894], // Continue to Stormwind; Dungar Longdrink; Return to Lewis; Business in Auberdine
+	'forever/alliance/human/01-elwynn-forest.guide': [1097], // Elmore's Task
+	'forever/alliance/nightelf/02-darkshore.guide': [399, 97220, 97222], // Humble Beginnings; Philmor's Favor; Gatehouse Goods
+	'forever/alliance/skyborne/01-zephras-isle.guide': [399], // Humble Beginnings
+};
+const ALLIANCE_VOLUME_HANDIN = {
+	'forever/alliance/02-westfall.guide': [399, 1097], // Humble Beginnings; Elmore's Task
+	'forever/alliance/03-darkshore.guide': [97894], // Business in Auberdine
+};
+
+// The guide and every guide its `next` leads to, in order.
+function allianceChainFrom(guide) {
+	const out = [];
+	for (let g = guide; g && !out.includes(g); ) {
+		out.push(g);
+		const next = compiled(g).next;
+		g = next ? `${String(Array.isArray(next) ? next[0] : next).replace(/\.guide$/, '')}.guide` : null;
+		if (g && !fs.existsSync(path.join(OFFICIAL_DIR, g))) break;
+	}
+	return out;
+}
+
+for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME)) test(`${guide}: Alliance quest volume: the quests on its visits are taken there and handed in`, { skip }, () => {
+	const here = goals(guide);
+	const later = allianceChainFrom(guide).flatMap((g) => goals(g));
+	for (const q of quests) {
+		assert.ok(here.some(({ goal }) => goal.t === 'accept' && goal.quest === q && !goal.optional), `accept ${q} is in ${guide}`);
+		assert.ok(later.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide} or a guide after it`);
+	}
+});
+
+for (const [guide, quests] of Object.entries(ALLIANCE_VOLUME_HANDIN)) test(`${guide}: Alliance quest volume: the quests taken earlier in the chain are handed in here`, { skip }, () => {
+	const here = goals(guide);
+	for (const q of quests) assert.ok(here.some(({ goal }) => goal.t === 'turnin' && goal.quest === q && !goal.optional), `turnin ${q} is in ${guide}`);
+});
+
+test('Alliance quest volume: every added quest has its include record in the route fixes', () => {
+	const inc = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides.include;
+	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
+});
+// --- end of Alliance quest volume

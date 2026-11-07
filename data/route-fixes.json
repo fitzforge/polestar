@@ -5875,6 +5875,62 @@
 				"issue": "#1052",
 				"q": 115,
 				"reason": "Shadow Magic on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-07 Alliance 20-30 re-order): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+			},
+			{
+				"q": 6281,
+				"after": [
+					"turnin",
+					6181
+				],
+				"reason": "Quest volume, 2026-11-07: Continue to Stormwind (level 10, from 10, 420 XP) is taken on a visit the route already makes: Thor gives it with the flight to Stormwind when A Swift Message is handed in on the first Sentinel Hill stop (Humans). Recordings: offered to 14 characters, 12 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6261,
+				"after": [
+					"turnin",
+					6281
+				],
+				"reason": "Quest volume, 2026-11-07: Dungar Longdrink (level 10, from 10, 210 XP) is taken on a visit the route already makes: Osric Strang in Old Town, on that Stormwind errand (Humans). Recordings: offered to 10 characters, 10 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 6285,
+				"after": [
+					"turnin",
+					6261
+				],
+				"reason": "Quest volume, 2026-11-07: Return to Lewis (level 10, from 10, 1050 XP) is taken on a visit the route already makes: Dungar Longdrink, the Stormwind gryphon master, on the same errand; Quartermaster Lewis is where the flight back lands (Humans). Recordings: offered to 10 characters, 9 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97894,
+				"reason": "Quest volume, 2026-11-07: Business in Auberdine (level 17, from 13, 0 XP) is taken on a visit the route already makes: Borgus Steelhand in the Dwarven District, on the Stormwind visit before the boat; his brother Gorbold stands in Auberdine on the first stop. Recordings: offered to 6 characters, 4 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 1097,
+				"reason": "Quest volume, 2026-11-07: Elmore's Task (level 15, from 9, 105 XP) is taken on a visit the route already makes: Smith Argus in Goldshire, on the last Goldshire stop; Grimand Elmore takes it on the Stormwind visit at the end of Westfall. Recordings: offered to 25 characters, 19 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 399,
+				"reason": "Quest volume, 2026-11-07: Humble Beginnings (level 15, from 10, 1050 XP) is taken on a visit the route already makes: Baros Alexston in Cathedral Square, on the walk from Stormwind Keep to the gate; the compass is at the Alexston Farmstead on Westfall's west loop, the hand-in on the Stormwind visit before the boat. Recordings: offered to 23 characters, 14 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97220,
+				"reason": "Quest volume, 2026-11-07: Philmor's Favor (level 15, from 9, 550 XP) is taken on a visit the route already makes: Manifest Clerk Philmor stands on the harbour where the boat docks; Elaine Trias' cheese shop is beside the flight master the walk goes to next. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
+			},
+			{
+				"q": 97222,
+				"after": [
+					"turnin",
+					97220
+				],
+				"reason": "Quest volume, 2026-11-07: Gatehouse Goods (level 15, from 9, 800 XP) is taken on a visit the route already makes: Elaine Trias gives it on the same stop; the door is up the stairs of her shop. Recordings: offered to 2 characters, 2 accepts.",
+				"issue": "-"
 			}
 		],
 		"skip": [
