@@ -4534,3 +4534,12 @@ test('forever/alliance/30-40/04-stranglethorn-vale.guide: flow re-order: Krazek\
 	assert.equal(stepOf('turnin', 210), stepOf('accept', 201), 'handed to Krazek on the first Booty Bay stop');
 	assert.equal(stepOf('accept', 627), stepOf('turnin', 210), 'Favor for Krazek taken there');
 });
+
+// Flow re-order (2026-11-07): Alliance Arathi took the tusks and pouches from the few Witherbark west of
+// Refuge Pointe and made a second trip to Witherbark Village for the knife.
+test(`${ARATHI}: flow re-order: Worth Its Weight in Gold in one visit to Witherbark Village`, { skip }, () => {
+	const list = goals(ARATHI);
+	const work = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 691);
+	assert.deepEqual(work.map(({ goal }) => goal.item).sort(), [4503, 4522, 5040], 'tusks, pouches and knife listed once each');
+	assert.equal(new Set(work.map(({ s }) => s)).size, 1, 'all three on one step');
+});

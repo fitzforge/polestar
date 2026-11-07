@@ -871,6 +871,46 @@
 				}
 			],
 			"issue": 1003
+		},
+		{
+			"id": "1157-arathi-witherbark-tusks",
+			"quest": 691,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1417,
+				"x": 68.3,
+				"y": 75.2,
+				"frame": "era"
+			},
+			"note": "Worth Its Weight in Gold: the Witherbark Tusks are gathered in Witherbark Village, where the Shadow Hunter Knife drops too, not from the handful of Witherbark west of Refuge Pointe (9 trolls there against 96 in the village).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns of the Witherbark trolls in Arathi Highlands (npc 2552-2557, 2605): 12 west of 50,x, 96 in and around Witherbark Village"
+				}
+			],
+			"pr": 1157
+		},
+		{
+			"id": "1157-arathi-witherbark-pouches",
+			"quest": 691,
+			"objective": 2,
+			"faction": "Alliance",
+			"at": {
+				"map": 1417,
+				"x": 68.3,
+				"y": 75.2,
+				"frame": "era"
+			},
+			"note": "Worth Its Weight in Gold: the Witherbark Medicine Pouches drop only from Witherbark Witch Doctors; 21 stand in Witherbark Village, 3 west of Refuge Pointe.",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json spawns of the Witherbark trolls in Arathi Highlands (npc 2552-2557, 2605): 12 west of 50,x, 96 in and around Witherbark Village"
+				}
+			],
+			"pr": 1157
 		}
 	]
 }
