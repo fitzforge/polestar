@@ -67,7 +67,6 @@ step Grelin Whitebeard
   tip Grelin and Nori Pridedrift camp at the south-west edge of the valley, below the troll cave.
   turnin 234                                  -- Grelin Whitebeard
   accept 182
-  accept 3364                                 -- Nori Pridedrift: timed, five minutes to reach Durnan in Anvilmar
 
 step Frostmane Troll Whelp on the way
   along until q182
@@ -85,6 +84,7 @@ step Grelin Whitebeard
   label q182
   turnin 182
   accept 218
+  accept 3364                                 -- Nori Pridedrift: timed, five minutes to reach Durnan in Anvilmar
 
 step Anvilmar
   tip The Scalding Mornbrew lasts five minutes: go straight north to Durnan Furcutter inside Anvilmar.
@@ -164,17 +164,6 @@ step Steelgrill's Depot
   turnin 400                                  -- Beldin Steelgrill
   accept 5541                                 -- Loslor Rudge, beside him
 
-step Dun Morogh: kill these as you meet them
-  zone Dun Morogh
-  tip Crag Boars and Young Black Bears roam the fields around Kharanos and the depot.
-  collect 6952 quest 317.2                    -- Thick Bear Fur
-  collect 2886 quest 384.1                    -- Crag Boar Rib
-  collect 769 quest 317.1                     -- Chunk of Boar Meat
-
-step Steelgrill's Depot
-  turnin 317                                  -- Pilot Bellowfiz
-  accept 318
-
 # ---------------------------------------------------------------- The Grizzled Den
 
 step Mountaineer Gretchen
@@ -203,6 +192,13 @@ step Rumbleshot's Ammo
   tip Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
   turnin 5541                                 -- Hegnar Rumbleshot
 
+step Dun Morogh: kill these as you meet them
+  zone Dun Morogh
+  tip Crag Boars and Young Black Bears roam the fields from Rumbleshot's camp north-east to Kharanos and the depot: kill them on the walk back.
+  collect 6952 quest 317.2                    -- Thick Bear Fur
+  collect 2886 quest 384.1                    -- Crag Boar Rib
+  collect 769 quest 317.1                     -- Chunk of Boar Meat
+
 step Kharanos
   tip Senir stands by Eric's campfire in front of the Thunderbrew Distillery; Tognus Flintfire is in the cellar west of it.
   turnin 98323                                -- Senir Whitebeard
@@ -219,8 +215,11 @@ step Thunderbrew Distillery
   sethome "Thunderbrew Distillery"    -- Upstairs
 
 step Kharanos and the depot
-  turnin 313                                  -- Pilot Stonegear, at the depot
-  accept 412                                  -- Razzle Sprysprocket, by the depot; below ground
+  tip The pilots stand at the depot; Razzle Sprysprocket is on the road back west, north of Kharanos.
+  turnin 317                                  -- Pilot Bellowfiz
+  accept 318
+  turnin 313                                  -- Pilot Stonegear, beside him
+  accept 412                                  -- Razzle Sprysprocket, on the way back; below ground
 
 # ---------------------------------------------------------------- Brewnall Village
 

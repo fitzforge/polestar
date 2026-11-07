@@ -4464,3 +4464,19 @@ test(`${ELWYNN}: flow re-order: Milly's Harvest at Milly, Garrick's head on the 
 	assert.ok(idx('turnin', 3904) < idx('turnin', 6), "Milly's Harvest before Garrick's head");
 	assert.equal(list[idx('turnin', 6)].s, list[idx('turnin', 21)].s, 'Garrick handed in with Skirmish at Echo Ridge');
 });
+
+// Coldridge and Kharanos: the Dwarf guide took the five-minute Scalding Mornbrew before the troll whelps and
+// Felix's parts, and both starts walked to Steelgrill's Depot for Stocking Jetsteam alone, then came back after
+// the Grizzled Den for The Grizzled Den. Now the Mornbrew is the last thing taken at Grelin's camp before Anvilmar,
+// and both pilots take their quests on one depot stop after the den.
+for (const guide of DUN_MOROGHS) {
+	test(`${guide}: flow re-order: the Mornbrew taken last at Grelin's camp, one depot stop for both pilots`, { skip }, () => {
+		const list = goals(guide);
+		const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+		const brew = idx('accept', 3364);
+		assert.ok(idx('turnin', 182) < brew, 'the whelps are handed in before the Mornbrew is taken');
+		assert.ok(list.slice(brew + 1, idx('turnin', 3364)).every(({ goal }) => !['kill', 'collect'].includes(goal.t)), 'no field work while the Mornbrew cools');
+		assert.equal(list[idx('turnin', 317)].s, list[idx('turnin', 313)].s, 'Stocking Jetsteam and The Grizzled Den on one depot stop');
+		assert.ok(at(list, 'the Wendigo Manes', (g) => g.t === 'collect' && g.item === 2671) < idx('turnin', 317), 'after the den');
+	});
+}

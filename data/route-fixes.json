@@ -2634,6 +2634,42 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Elwynn Forest, Northshire): Willem stands at the Abbey steps beside the door to Marshal McBride; Garrick's head is handed in with Skirmish at Echo Ridge and the Grape Manifest on the one Abbey visit after the mine, as the seed has it."
+			},
+			{
+				"a": [
+					"turnin",
+					182
+				],
+				"b": [
+					"accept",
+					3364
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh, Coldridge Valley): Scalding Mornbrew Delivery must reach Durnan in Anvilmar within five minutes; the Dwarf guide took it from Nori before the Frostmane Troll Whelps and Felix's parts, so the timer ran during the slope work (players' recordings of quest 3364 show abandons and re-accepts at Nori). It is taken from Nori on the return to Grelin with the whelps done, then straight north to Anvilmar, as the seed and the Gnome guide have it."
+			},
+			{
+				"a": [
+					"task",
+					313
+				],
+				"b": [
+					"turnin",
+					317
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh): Stocking Jetsteam (317) and The Grizzled Den (313) are both Steelgrill's Depot hand-ins at the two pilots standing side by side; the route walked to the depot for 317 alone after the boar and bear fields and came back after the den for 313 (dwarf/gnome 01-dun-morogh 'Steelgrill's Depot' after the fields on 0.3.4). The boars and bears are killed on the walk back from Rumbleshot's camp, both pilots take their quests on the one depot stop after the den and the Kharanos hand-ins, Razzle on the walk back west to Brewnall. The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"turnin",
+					5541
+				],
+				"b": [
+					"task",
+					317
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Dun Morogh): the Crag Boars and Young Black Bears for Stocking Jetsteam and Beer Basted Boar Ribs are killed on the walk back north-east from Rumbleshot's camp to Kharanos, after the Grizzled Den, so the pilots' quests are both ready on the one depot stop; killed first, beside the depot, the walk passed Pilot Bellowfiz with Stocking Jetsteam done and came back for it after the den."
 			}
 		],
 		"notes": [
