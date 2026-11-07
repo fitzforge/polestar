@@ -2238,21 +2238,22 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Forever\'s quest data does not place them in');
 });
 
-// --- Ashenvale (Zerkness #383, Ioney #396): two Paladins found no Alonso at
-// Mystral Lake. Whether Forever offers his Dragonslayer quests (78132-78134)
-// to every class waits on an in-game check, so every player is led to him
-// (a plain goto), his accepts are optional and the turn-ins hold only a
-// player who took the quest: one he offers nothing passes the step there.
+// --- Ashenvale (Zerkness #383, Ioney #396, soockee #1117): two Paladins and a
+// Shaman found no Alonso at Mystral Lake; #1117 is the in-game check by a
+// non-Warrior that #383 waited on. His Dragonslayer quests (78132-78134) are
+// for Warriors (corrections, classes 1): only a Warrior is led to him, his
+// accepts stay optional and the turn-ins hold only a player who took the
+// quest, so a Warrior he offers nothing passes the step there.
 
-test('Zerkness\'s and Ioney\'s reports (#383, #396): every player is led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides', { skip }, () => {
+test('Zerkness\'s, Ioney\'s and soockee\'s reports (#383, #396, #1117): only Warriors are led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides', { skip }, () => {
 	const chain = [78132, 78133, 78134];
 	for (const [guide, faction, paladinRace, warriorRace] of [[ASHENVALE, 'Alliance', 'Dwarf', 'Human'], [ASHENVALE_HORDE, 'Horde', 'Scourge', 'Orc']]) {
 		const list = goals(guide);
 		const first = at(list, `${guide}: accept 78132`, is('accept', 78132));
 		const { step } = list[first];
 		assert.equal(step.title, 'Alonso', `${guide}: Alonso has his own step`);
-		assert.ok(!step.only, `${guide}: the Alonso step is for every class`);
-		assert.deepEqual([step.goals[0].t, !!step.goals[0].optional], ['goto', false], `${guide}: a plain goto leads everyone to Alonso`);
+		assert.deepEqual(step.only && step.only.classes, ['WARRIOR'], `${guide}: the Alonso step is for Warriors`);
+		assert.deepEqual([step.goals[0].t, !!step.goals[0].optional], ['goto', false], `${guide}: a plain goto leads the Warrior to Alonso`);
 		for (const q of chain) {
 			assert.equal(list[at(list, `${guide}: accept ${q}`, is('accept', q))].goal.optional, true, `${guide}: accept ${q} is optional`);
 			assert.ok(!list[at(list, `${guide}: turnin ${q}`, is('turnin', q))].goal.optional, `${guide}: turnin ${q} is plain`);
@@ -2296,12 +2297,12 @@ test('Zerkness\'s and Ioney\'s reports (#383, #396): every player is led to Alon
 				local done = {}
 				for _, q in ipairs({ 78132, 78133, 78134 }) do done[#done + 1] = C_QuestLog.IsQuestFlaggedCompleted(q) end
 				emit({ done = done, held = held, reached = reached })`;
-			for (const [cls, race, offered] of [['PALADIN', paladinRace, false], ['WARRIOR', warriorRace, true]]) {
+			for (const [cls, race, offered] of [['PALADIN', paladinRace, false], ['WARRIOR', warriorRace, true], ['WARRIOR', warriorRace, false]]) {
 				const who = `${guide}: a ${race} ${cls}${offered ? '' : ' Alonso offers nothing'}`;
 				const [out, got] = playGuide(pack, g, { race, faction, cls, script: watch(offered) });
 				assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
 				assert.ok(out.done, `${who}: plays to the end`);
-				assert.equal(got.reached, true, `${who}: is led to Alonso`);
+				assert.equal(got.reached, cls === 'WARRIOR', `${who}: ${cls === 'WARRIOR' ? 'is' : 'is not'} led to Alonso`);
 				assert.deepEqual(got.done, chain.map(() => offered), `${who}: the chain is ${offered ? '' : 'not '}handed in`);
 				assert.equal(got.held, offered ? 'Alonso' : false, `${who}: ${offered ? 'held at Alonso until 78132 is handed in' : 'hands nothing in'}`);
 			}
