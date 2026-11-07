@@ -115,3 +115,23 @@ test('under the cap the goals scroll in whole rows: every stop and the last one 
 	for (const s of stops) assert.equal(s.onTop, true, `every wheel stop starts on a row: ${JSON.stringify(stops)}`);
 	assert.ok(stops.some((s, i) => i > 0 && s.s !== stops[i - 1].s), 'the wheel moves');
 });
+
+test('with Grow upward the window still ends exactly at the top of the screen, not on the last whole row (#666)', () => {
+	const out = run(`
+		Polestar.Set("ui.maxHeight", 0.9)
+		Polestar.Set("ui.growUp", true)
+		Polestar.Set("ui.barsBottom", true)
+		Polestar.Set("ui.pos", { 1500, 100 })
+		local full = F:GetHeight()
+		local top = UIParent:GetTop()
+		-- Walk the pin up so the screen's top is what limits the window, at
+		-- every offset a wrapped row could cut it short.
+		local worst = 0
+		for d = 10, 60 do
+			Polestar.Set("ui.pos", { 1500, top - full + d })
+			local _, _, _, _, y = F:GetPoint(1)
+			worst = math.max(worst, math.abs(F:GetHeight() - (top - y)))
+		end
+		emit({ full = full, worst = worst })`)[0];
+	assert.equal(out.worst, 0, `the window ends at the top of the screen: ${JSON.stringify(out)}`);
+});

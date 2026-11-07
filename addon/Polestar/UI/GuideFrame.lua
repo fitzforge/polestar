@@ -761,8 +761,10 @@ do
 		local content = contentHeight()
 		local viewH = min(content, max(CARD.minView, fit.room))
 		-- Past the cap, the view gives up the part of a row that would not
-		-- fit, so its last scroll stop starts on a row as well.
-		if content > viewH + 0.5 then
+		-- fit, so its last scroll stop starts on a row as well. Not at the
+		-- top of the screen (fit.snap off): there the window must end exactly
+		-- on it (#666).
+		if fit.snap and content > viewH + 0.5 then
 			local edge = rowEdge(content - viewH, 1)
 			if edge and content - edge >= CARD.minView then viewH = content - edge end
 		end
@@ -2243,7 +2245,9 @@ function GF.Layout()
 		-- while it shows: window and card together stay within ui.maxHeight.
 		local toast = UI.ClassToast
 		local toastRoom = toast and toast.Reserved and toast.Reserved() or 0
-		fit.room = min(capHeight(), fit.limit or math.huge) - toastRoom - (fit.outer + y - content)
+		local cap = capHeight() - toastRoom
+		fit.snap = cap <= (fit.limit or math.huge)
+		fit.room = min(cap, fit.limit or math.huge) - (fit.outer + y - content)
 		fitGoals()
 	else
 		sizeWindow(y)
