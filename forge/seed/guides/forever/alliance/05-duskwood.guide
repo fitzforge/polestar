@@ -200,16 +200,21 @@ step Master Mathias Shaw
   collect 8431 quest 2609.4 optional @50.6,60.1 live -- Spool of Light Chartreuse Silk Thread
   turnin 2609 optional                        -- Doc Mixilpixil: Eau de Mixilpixil
 
-step Fly to Stormwind
-  only Human,Paladin
-  zone Westfall
-  goto 56.6,52.7 "Sentinel Hill flight master"
-  fly "Stormwind"
+step Elwynn Forest
+  only !Rogue
+  zone Elwynn Forest
+  tip North from Raven Hill through Elwynn: Goldshire is on the road to Stormwind.
+  goto 43.5,65.3 "Elwynn Forest"
+
+step Class trainer
+  only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
+  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
 
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
-  tip Gazin Tenorm and Duthorian Rall are in the Cathedral of Light.
+  tip On into Stormwind: Gazin Tenorm and Duthorian Rall are in the Cathedral of Light, on the way to the gryphon master.
+  goto 50.5,47.5 "Cathedral of Light"
   turnin 1787 only Human -- Gazin Tenorm
   accept 1788 only Human
   turnin 1788 only Human -- Duthorian Rall: Redemption
@@ -235,12 +240,3 @@ step Rogue training
   zone Stormwind City
   tip Train here, in Stormwind City, before you go on.
   train class
-
-step Elwynn Forest
-  only !Rogue
-  zone Elwynn Forest
-  goto 43.5,65.3 "Elwynn Forest"
-
-step Class trainer
-  only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
-  train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells

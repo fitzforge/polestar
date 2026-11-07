@@ -3344,6 +3344,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-07, Alliance 20-30): Coming east from Menethil, the raptor valley for Ormer's Revenge (taken on the last visit) lies just before Whelgar's dig: the raptors first, then one dig stop hands it in and takes Ormer's next quest and Whelgar's, instead of a dig stop for Whelgar alone, the valley and back."
+			},
+			{
+				"a": [
+					"turnin",
+					268
+				],
+				"b": [
+					"turnin",
+					1787
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-07, Alliance 20-30): Human Paladins hand the Defias Script to Gazin Tenorm and learn Redemption in the Cathedral of Light on the walk from Sven's camp through Goldshire (training) to Stormwind's gryphon master, where 06-wetlands starts, instead of walking from Sven's camp to Sentinel Hill, flying to Stormwind and walking back out to Goldshire to train (about 2 x 900 yd)."
 			}
 		],
 		"notes": [
