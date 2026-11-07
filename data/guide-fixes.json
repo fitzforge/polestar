@@ -99,60 +99,6 @@
 			"issue": 416
 		},
 		{
-			"id": "dun-morogh-cogs-in-the-gnomeregan-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 412,
-				"goal": "objective",
-				"objective": 1
-			},
-			"along": false,
-			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
-				}
-			],
-			"pr": 1082
-		},
-		{
-			"id": "dun-morogh-gears-in-the-gnomeregan-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 412,
-				"goal": "objective",
-				"objective": 2
-			},
-			"along": false,
-			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
-				}
-			],
-			"pr": 1082
-		},
-		{
-			"id": "dun-morogh-bonesnappers-in-the-quarry-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 433,
-				"goal": "objective",
-				"objective": 1
-			},
-			"along": false,
-			"note": "The Public Servant's Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers: they are killed in the quarry troggs step, not listed along the way from the first quarry stop (flow audit, 2026-11-07).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npcs.json 1117 and 1115 spawns"
-				}
-			],
-			"pr": 1082
-		},
-		{
 			"id": "345-tirisfal-rattlecages-in-their-step",
 			"at": {
 				"quest": 3901,
@@ -217,108 +163,6 @@
 					"ref": "gameobject 176753 (Doom Weed, loot 13702): all 50 spawns north of Brill, map 54.7-58.8, 33.8-43.3"
 				}
 			]
-		},
-		{
-			"id": "1046-deathknell-paws-in-the-rattlecage-step",
-			"at": {
-				"quest": 376,
-				"goal": "objective",
-				"objective": 1
-			},
-			"along": false,
-			"note": "The Damned: the Scavenger Paws are killed in the Rattlecage step, a field step of its own (route-fixes together 3901 with 376), not an along list: the scavengers roam the same village as the skeletons (Fitz on #1046: the along-the-way lists should just be steps).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npc 1508 (Young Scavenger) spawns 29-35, 56-69 and npc 1509 (Ragged Scavenger) 34-38, 56-66; npc 1890 (Rattlecage Skeleton) 31-35, 59-65"
-				}
-			],
-			"issue": 1046
-		},
-		{
-			"id": "1046-deathknell-wings-in-the-rattlecage-step",
-			"at": {
-				"quest": 376,
-				"goal": "objective",
-				"objective": 2
-			},
-			"along": false,
-			"note": "The Damned: the Duskbat Wings, as the paws: one Deathknell field step with the Rattlecage Skeletons, never an along list (#1046).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npc 1512 (Duskbat) spawns 28-36, 56-72 and npc 1513 (Mangy Duskbat) 34-38, 57-67"
-				}
-			],
-			"issue": 1046
-		},
-		{
-			"id": "1046-balnir-horrors-in-the-balnir-step",
-			"at": {
-				"quest": 356,
-				"goal": "objective",
-				"objective": 1
-			},
-			"along": false,
-			"note": "Rear Guard Patrol: the Bleeding Horrors haunt only the Balnir Farmstead's graves, where the Tomb Weed grows: they are killed in the Balnir step (route-fixes together 356 with 99142), not listed along the way from the cult farm (#1046).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npc 1529 (Bleeding Horror): all 12 spawns at the Balnir Farmstead, map 74-79, 59-63"
-				}
-			],
-			"issue": 1046
-		},
-		{
-			"id": "1046-balnir-spirits-in-the-balnir-step",
-			"at": {
-				"quest": 356,
-				"goal": "objective",
-				"objective": 2
-			},
-			"along": false,
-			"note": "Rear Guard Patrol: the Wandering Spirits, as the Bleeding Horrors: one Balnir step, never an along list (#1046).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npc 1532 (Wandering Spirit): all 12 spawns at the Balnir Farmstead, map 74-78, 58-62"
-				}
-			],
-			"issue": 1046
-		},
-		{
-			"id": "1046-mills-ribs-in-the-mills-step",
-			"at": {
-				"quest": 426,
-				"goal": "objective",
-				"objective": 1
-			},
-			"along": false,
-			"note": "The Mills Overrun: the Notched Ribs drop from the Rattlecage and Cracked Skull Soldiers at Agamand Mills, in the Mills step; a scratch build from the #1046 seed listed them along the way before it (#1046: no along lists).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npc 1520 (Rattlecage Soldier) spawns 44-51, 34-44 and npc 1523 (Cracked Skull Soldier) 43-51, 28-35"
-				}
-			],
-			"issue": 1046
-		},
-		{
-			"id": "1046-mills-skulls-in-the-mills-step",
-			"at": {
-				"quest": 426,
-				"goal": "objective",
-				"objective": 2
-			},
-			"along": false,
-			"note": "The Mills Overrun: the Blackened Skulls drop from the Darkeye Bonecasters at Agamand Mills, in the Mills step, never an along list (#1046).",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "npc 1522 (Darkeye Bonecaster) spawns 42-51, 28-43"
-				}
-			],
-			"issue": 1046
 		},
 		{
 			"id": "tirisfal-graverobbers-not-on-the-way",
@@ -1635,48 +1479,6 @@
 			"pr": 960
 		},
 		{
-			"id": "1046-gallows-end-tavern-in-one-go",
-			"faction": "Horde",
-			"at": {
-				"quest": 8,
-				"goal": "turnin"
-			},
-			"tip": "Everything here is inside the inn, through its door on the south side: Innkeeper Renee at the bar, William Pickman at the north end of the ground floor, the Captured Scarlet Zealot in the cellar under that end, and Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart.",
-			"note": "Brill's first stop does the square first (Johaan, Zygand, the poster, Sevren, Discipline) and the Gallows' End Tavern last, in one go (Fitz on #1046's follow-up: in, out and back in again). Who is inside comes from the walking grid's WMO areas (grid 70532, areas.json 'Gallows' End Tavern', AreaTable 2119) under each spawn at its height: Innkeeper Renee (34.3), Coleman Farthing (33.7), Yvette Farthing (34.3), Austil de Mon (33.7) and William Pickman (34.3, the north end) on the ground floor; Gretchen Dedmar, Cain Firesong, Dark Cleric Beryl, Rupert Boch and Marion Call upstairs (41.2); the Captured Scarlet Zealot and the Captured Mountaineer in the cellar (27.2-27.3), also inside the tavern, not the town hall. Players' recorded walks to Pickman and the captives go in and out by the south door (61.5,53.0). Replaces upstairs-brill-inn-trainers-turnin-383 (the same upstairs sentence on the square stop, from #960/#961).",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "walking grid (nav4 70532) WMO group areas under the spawns: 'Gallows' End Tavern' (2119) for npcs 5688, 1500, 1560, 2131, 265944, 1521, 2128, 2129, 2127, 2130, 1931, 2211; 'Brill Town Hall' (2118) for 1499 only"
-				},
-				{
-					"kind": "tdb",
-					"ref": "creature positions: 265944 2288.0,242.9,34.3; 1931 2292.5,233.1,27.3; 2211 2288.9,234.3,27.2"
-				},
-				{
-					"kind": "recording",
-					"ref": "players' recorded walks around the hand-ins of 407 and 492 and Pickman's window: in and out at 61.4-61.6, 52.9-53.4"
-				}
-			],
-			"issue": 1046
-		},
-		{
-			"id": "upstairs-brill-inn-trainers-turnin-404",
-			"faction": "Horde",
-			"at": {
-				"quest": 404,
-				"goal": "turnin"
-			},
-			"tip": "Back east along the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
-			"note": "The Brill stop after the west loop (A Putrid Task handed in to Deathguard Dillinger at the west end of town, #1046) trains every class: the mage, priest, warlock and rogue trainers stand on the inn's upper floor (spawn height 41.2 against the ground floor's 34.3), as for the other Brill stops.",
-			"source": [
-				{
-					"kind": "tdb",
-					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
-				}
-			],
-			"issue": 1046
-		},
-		{
 			"id": "upstairs-brill-inn-trainers-turnin-5482",
 			"faction": "Horde",
 			"at": {
@@ -2113,6 +1915,255 @@
 				}
 			],
 			"pr": 1077
+		},
+		{
+			"id": "1078-barrens-water-seekers-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Razormane Water Seekers hold the camp east of the Crossroads and are killed in the Razormane camp step (Warriors and Shamans of Orc and Troll on their chest or Fire Tar visit), not an along list from the Crossroads (Fitz: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3267 (Razormane Water Seeker) spawns 53-56, 25-27 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "1078-barrens-thornweavers-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Thornweavers share the Water Seekers' half of the camp and its step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3268 (Razormane Thornweaver) spawns 54-56, 25-27 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "1078-barrens-hunters-in-the-razormane-camp",
+			"at": {
+				"quest": 871,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Disrupt the Attacks: the Razormane Hunters hold the middle of the same camp and are killed in its step.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npc 3265 (Razormane Hunter) spawns 54-59, 24-26 of the Barrens"
+				}
+			],
+			"pr": 1078
+		},
+		{
+			"id": "dun-morogh-cogs-in-the-gnomeregan-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "dun-morogh-gears-in-the-gnomeregan-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "dun-morogh-bonesnappers-in-the-quarry-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 433,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Public Servant's Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers: they are killed in the quarry troggs step, not listed along the way from the first quarry stop (flow audit, 2026-11-07).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1117 and 1115 spawns"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "1046-deathknell-paws-in-the-rattlecage-step",
+			"at": {
+				"quest": 376,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Damned: the Scavenger Paws are killed in the Rattlecage step, a field step of its own (route-fixes together 3901 with 376), not an along list: the scavengers roam the same village as the skeletons (Fitz on #1046: the along-the-way lists should just be steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1508 (Young Scavenger) spawns 29-35, 56-69 and npc 1509 (Ragged Scavenger) 34-38, 56-66; npc 1890 (Rattlecage Skeleton) 31-35, 59-65"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-deathknell-wings-in-the-rattlecage-step",
+			"at": {
+				"quest": 376,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Damned: the Duskbat Wings, as the paws: one Deathknell field step with the Rattlecage Skeletons, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1512 (Duskbat) spawns 28-36, 56-72 and npc 1513 (Mangy Duskbat) 34-38, 57-67"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-balnir-horrors-in-the-balnir-step",
+			"at": {
+				"quest": 356,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Rear Guard Patrol: the Bleeding Horrors haunt only the Balnir Farmstead's graves, where the Tomb Weed grows: they are killed in the Balnir step (route-fixes together 356 with 99142), not listed along the way from the cult farm (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1529 (Bleeding Horror): all 12 spawns at the Balnir Farmstead, map 74-79, 59-63"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-balnir-spirits-in-the-balnir-step",
+			"at": {
+				"quest": 356,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Rear Guard Patrol: the Wandering Spirits, as the Bleeding Horrors: one Balnir step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1532 (Wandering Spirit): all 12 spawns at the Balnir Farmstead, map 74-78, 58-62"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-ribs-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Notched Ribs drop from the Rattlecage and Cracked Skull Soldiers at Agamand Mills, in the Mills step; a scratch build from the #1046 seed listed them along the way before it (#1046: no along lists).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1520 (Rattlecage Soldier) spawns 44-51, 34-44 and npc 1523 (Cracked Skull Soldier) 43-51, 28-35"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-skulls-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Blackened Skulls drop from the Darkeye Bonecasters at Agamand Mills, in the Mills step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1522 (Darkeye Bonecaster) spawns 42-51, 28-43"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-gallows-end-tavern-in-one-go",
+			"faction": "Horde",
+			"at": {
+				"quest": 8,
+				"goal": "turnin"
+			},
+			"tip": "Everything here is inside the inn, through its door on the south side: Innkeeper Renee at the bar, William Pickman at the north end of the ground floor, the Captured Scarlet Zealot in the cellar under that end, and Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Brill's first stop does the square first (Johaan, Zygand, the poster, Sevren, Discipline) and the Gallows' End Tavern last, in one go (Fitz on #1046's follow-up: in, out and back in again). Who is inside comes from the walking grid's WMO areas (grid 70532, areas.json 'Gallows' End Tavern', AreaTable 2119) under each spawn at its height: Innkeeper Renee (34.3), Coleman Farthing (33.7), Yvette Farthing (34.3), Austil de Mon (33.7) and William Pickman (34.3, the north end) on the ground floor; Gretchen Dedmar, Cain Firesong, Dark Cleric Beryl, Rupert Boch and Marion Call upstairs (41.2); the Captured Scarlet Zealot and the Captured Mountaineer in the cellar (27.2-27.3), also inside the tavern, not the town hall. Players' recorded walks to Pickman and the captives go in and out by the south door (61.5,53.0). Replaces upstairs-brill-inn-trainers-turnin-383 (the same upstairs sentence on the square stop, from #960/#961).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "walking grid (nav4 70532) WMO group areas under the spawns: 'Gallows' End Tavern' (2119) for npcs 5688, 1500, 1560, 2131, 265944, 1521, 2128, 2129, 2127, 2130, 1931, 2211; 'Brill Town Hall' (2118) for 1499 only"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature positions: 265944 2288.0,242.9,34.3; 1931 2292.5,233.1,27.3; 2211 2288.9,234.3,27.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recorded walks around the hand-ins of 407 and 492 and Pickman's window: in and out at 61.4-61.6, 52.9-53.4"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "upstairs-brill-inn-trainers-turnin-404",
+			"faction": "Horde",
+			"at": {
+				"quest": 404,
+				"goal": "turnin"
+			},
+			"tip": "Back east along the road to Brill. Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "The Brill stop after the west loop (A Putrid Task handed in to Deathguard Dillinger at the west end of town, #1046) trains every class: the mage, priest, warlock and rogue trainers stand on the inn's upper floor (spawn height 41.2 against the ground floor's 34.3), as for the other Brill stops.",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+				}
+			],
+			"issue": 1046
 		},
 		{
 			"id": "mulgore-plainstriders-a-step",
