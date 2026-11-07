@@ -219,18 +219,24 @@ step The Earthen Ring
   turnin 96260                        -- Yorn Grimtotem
   turnin 96241                        -- Mazu'kon
   turnin 96259                        -- Muln Earthfury
+
+step The Broodmother
+  when group 96261
   accept 96261                        -- Muln Earthfury
 
 step Broodmother Valraxx
   zone Mulgore
-  tip Broodmother Valraxx sits at the north end of Gloomrise; her Bloody Parchment starts A Darker Truth.
+  when group 96261
+  tip Broodmother Valraxx sits at the north end of Gloomrise; her Bloody Parchment starts A Darker Truth. Broodmother Valraxx is elite: grouping up is advised.
   kill 264082 quest 96261.1
 
 step Gloomrise
+  when group 96261
   collect 273658 @33.4,7.6 live optional -- Bloody Parchment, from Broodmother Valraxx
   accept 96294 item 273658 optional
 
 step The Earthen Ring
+  when group 96261
   tip Back south to the camp, then up into Thunder Bluff for the flight to Camp Taurajo.
   turnin 96261
   turnin 96294 optional
