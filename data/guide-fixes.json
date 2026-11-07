@@ -3103,6 +3103,57 @@
 					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
 				}
 			]
+		},
+		{
+			"id": "a4060-wpl-scarlet-knights-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6004,
+				"goal": "objective",
+				"objective": 4
+			},
+			"along": false,
+			"note": "Unfinished Business: the Scarlet Knights patrol the Northridge camp with the Medics, Hunters and Mages, on The Scarlet Crusade step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-wpl-worm-meat-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5544,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Carrion Grubbage: the Carrion Grubs and worms are killed on the Eastern Plaguelands steps (Villains of Darrowshire, Plaguewood); the along list from Tirion duplicated them.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
+		},
+		{
+			"id": "a4060-wpl-sticky-tar-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4504,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Super Sticky: the Tar Beasts of the Lakkari Tar Pits drop the tar, on the Lakkari Tar Pits step; the along list from Krakle duplicated it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps); spawns from npcs.json"
+				}
+			]
 		}
 	]
 }
