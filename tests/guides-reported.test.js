@@ -4775,17 +4775,17 @@ test('Redridge level gap (PR #1052): Duskwood\'s first loop comes before Redridg
 	for (const q of [91, 94, 248, 34, 98387]) assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
 });
 
-test('Redridge level gap (PR #1052): Redridge\'s elites and Fangore on its one loop, Duskwood\'s second loop after it', { skip }, () => {
+test('Redridge level gap (PR #1052): Redridge\'s Gath\'Ilzogg, Gar\'im and Fangore on its one loop, Duskwood\'s second loop after it', { skip }, () => {
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	const camps = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
 	const back = at(list, 'turnin 20 (Back to Lakeshire)', is('turnin', 20));
-	for (const q of [19, 115, 169, 95999, 180]) {
+	for (const q of [169, 95999, 180]) {
 		assert.ok(at(list, `accept ${q}`, is('accept', q)) < camps, `${q} is taken in Lakeshire before the camps`);
 		assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the stop back in Lakeshire`);
 	}
 	const dusk = goals('forever/alliance/05-duskwood.guide');
 	assert.ok(!dusk.some(({ goal }) => goal.quest === 101 || goal.quest === 174), 'the first loop is in 04-redridge-mountains');
-	assert.ok(!dusk.some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'no second Redridge pass');
+	assert.ok(!dusk.some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'no second Redridge pass (19 and 115 are left out)');
 });
 
 // --- Flow audit (2026-11-07, Redridge): after Lakeshire's accepts at the west end of town the guide swam

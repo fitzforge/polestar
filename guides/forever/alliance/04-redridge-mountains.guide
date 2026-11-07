@@ -84,11 +84,13 @@ next forever/alliance/05-duskwood
 # three dungeons and an escort, the Class guide
 # forever/class/paladin/verigans-fist.
 #
-# Tharil'zun, Shadow Magic, Wanted: Gath'Ilzogg and WANTED: Incinerator
-# Gar'im (19, 115, 169, 95999: elites, optional with a tip to group up) are on
-# the loop through the Blackrock camps and Stonewatch Keep at about 25. Not
-# taken: Morganth (249), the Speaking of Fortitude and
-# Theocritus' Retrieval chains (343+, 178). Underbelly Scales and Howling in
+# Wanted: Gath'Ilzogg and WANTED: Incinerator Gar'im (169, 95999: elites,
+# optional with a tip to group up) are on the loop through the Blackrock camps
+# and Stonewatch Keep at about 25. Not taken: Tharil'zun and Shadow Magic (19,
+# 115: Marshal Marris offers them only once Blackrock Menace and Blackrock
+# Blockade, 20 and 98387, are handed in, after the keep), Morganth (249), the
+# Speaking of Fortitude and Theocritus' Retrieval chains (343+, 178). Underbelly
+# Scales and Howling in
 # the Hills (122, 126) need The Price of Shoes (118, Goldshire turn-in) and A
 # Baying of Gnolls (124) first: skipped. The Defias Brotherhood (65), from
 # Westfall, is turned in to Wiley the Black in Lakeshire; its follow-up (132)
@@ -355,14 +357,12 @@ step Redridge Canyons
   collect 1013 quest 89                       -- Iron Rivet
 
 step Lakeshire
-  tip Back east through town from the Brutes: one Wanted poster hangs by the inn, two on the town hall doorway; Foreman Oslow and Marshal Marris stand at the north end of the bridge, on the way east.
+  tip Back east through town from the Brutes: one Wanted poster hangs by the inn, two on the town hall doorway; Foreman Oslow stands at the north end of the bridge, on the way east.
   accept 180                                  -- The Wanted poster by the inn
   accept 169 optional                         -- The Wanted poster on the town hall doorway
   accept 95999 optional                       -- The Wanted poster beside it
   turnin 89                                   -- Foreman Oslow
   accept 98386                                -- Foreman Oslow: after The Everstill Bridge
-  accept 19 optional                          -- Marshal Marris
-  accept 115 optional
 
 # ---------------------------------------------------------------- East of the lake
 
@@ -380,7 +380,7 @@ step Blackrock camps
   collect 280839 quest 98387 @67.4,78.9 map 1433 live -- Blackrock Supplies: meat haunches, grain sacks, water barrels
 
 step Incinerator Gar'im
-  tip Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a Midnight Orb too.
+  tip Gar'im keeps to the cave at the camps' south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast.
   collect 271872 quest 95999 optional         -- Broken Staff of Incinerator Gar'im
 
 step Galardell Valley
@@ -399,9 +399,7 @@ step Looking Further
   turnin 248
 
 step Stonewatch Keep
-  tip The keep stands beside the tower. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then Tharil'zun (elite) in the south-west courtyard with his guards, and Gath'Ilzogg (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can.
-  collect 1261 quest 115 optional             -- Midnight Orb: Blackrock Shadowcasters
-  collect 1260 quest 19 optional              -- Tharil'zun's Head
+  tip The keep stands beside the tower. Gath'Ilzogg (elite) waits in the keep's top room with two guards and a dragon; Blackrock Shadowcasters (elite) and Sentries stand on its west side, so pull one at a time on the way in, and hug the right wall as you enter his room so you don't pull him at once. Elite: group up if you can.
   collect 3633 quest 169 optional             -- Head of Gath'Ilzogg
 
 # ---------------------------------------------------------------- Render's Valley
@@ -426,8 +424,6 @@ step Back to Lakeshire
   turnin 219                                  -- Marshal Marris
   turnin 20
   turnin 98387
-  turnin 19 optional
-  turnin 115 optional
   turnin 98386                                -- Foreman Oslow
   turnin 128                                  -- Guard Howe, by the gryphons south of the bridge
   note Next: the gryphon to Darkshire for Duskwood's second loop (05-duskwood).
