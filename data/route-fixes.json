@@ -2017,7 +2017,7 @@
 					95214
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). The speedrun benchmark's order; the seed now has it."
+				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). One quarry stop instead of six; the seed now has it."
 			},
 			{
 				"a": [
@@ -2029,7 +2029,7 @@
 					96390
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). The speedrun benchmark's order; the seed now has it."
+				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). One quarry stop instead of six; the seed now has it."
 			},
 			{
 				"a": [
@@ -2865,7 +2865,7 @@
 					433,
 					0
 				],
-				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. The speedrun benchmark kills both together; the seed now does too."
+				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. Both are killed together where they stand; the seed now does too."
 			},
 			{
 				"a": [

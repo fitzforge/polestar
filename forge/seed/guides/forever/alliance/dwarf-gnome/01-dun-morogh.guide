@@ -21,8 +21,8 @@ next forever/alliance/02-westfall
 # Hand fix (flow audit, 2026-11-07): at the Gol'Bolar Quarry the Bonesnappers
 # are killed with the Skullthumpers they share the quarry with, and Those
 # Blasted Troggs!, The Public Servant and the powder keg are handed in on the
-# first return, before Helm's Bed Lake's powder and spies (the speedrun
-# benchmark's order); the published guides stopped at the quarry up to six times.
+# first return, before Helm's Bed Lake's powder and spies, where the walk
+# passes; the published guides stopped at the quarry up to six times.
 #
 # Order changes against the export:
 # - Felix's parts and the Mornbrew errand (3361, 3364, 3365) are finished
