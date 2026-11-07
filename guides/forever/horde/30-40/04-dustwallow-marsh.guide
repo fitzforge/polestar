@@ -144,11 +144,9 @@ step The Theramore Docks
   collect 5882 quest 1202.1 @71.5,51.2 map 1445 -- Underwater
 
 step Brackenwall Village
+  tip Head back west to Brackenwall with the head: Mudcrush Durtfeet stands at the south edge of the village where the road comes in, Nazeer Bloodpike in the village.
   turnin 1177                         -- Mudcrush Durtfeet
-
-step Nazeer Bloodpike
-  turnin 1202
-  tip Head back west to Brackenwall with the head.
+  turnin 1202                         -- Nazeer Bloodpike
   turnin 1239                         -- Nazeer Bloodpike
   accept 1240                         -- For Kin'weelay at Grom'gol, in the next guide
 
@@ -216,9 +214,6 @@ step Ethel Rethor
 
 step Slitherblade coast
   tip The Slitherblade naga hold the coast north of Ethel Rethor, up to Sar'theris Strand. Lord Kragaru guards the Book of the Ancients at the far northern tip.
-  kill 4712 quest 6143.3              -- Underwater
-  kill 4711 quest 6143.2              -- Slitherblade Naga walks around Sar'theris Strand: look inside the circle on the map
-  kill 4714 quest 6143.1              -- Slitherblade Myrmidon walks around Sar'theris Strand: look inside the circle on the map
   collect 15803 quest 6027
 
 step Azore Aldamort
@@ -230,7 +225,6 @@ step Maraudine totems
 
 step Shadowprey Village
   tip Head on south-west to Shadowprey.
-  turnin 6143                         -- Drulzegar Skraghook
   turnin 5381                         -- Taiga Wisemane
   accept 5581
 

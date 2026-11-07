@@ -12,6 +12,9 @@
 -- evicts decoded entries while ours may be searching them). Added here:
 --
 --   Path.Available(map) -> true when walking routes can be found on that map
+--   Path.Sight(map, x1, y1, z1, x2, y2, z2, profile) -> can a player walk
+--     straight from one point to the other (Routing/PathGrid.lua; decoded
+--     clusters only, nil otherwise): the arrow beside its path (Nav/Follow.lua)
 --
 -- Memory ceilings (docs/ARCHITECTURE.md, "In-game walking routes"). A
 -- decoded cluster is a few byte strings (Routing/PathGrid.lua): 0.2-0.45 MB
