@@ -79,6 +79,7 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			return Err(format!("the route was cut on another world (dataHash {r}) than the one given ({w}): its points are that world's"));
 		}
 	}
+	let gates = crate::fixes::level_gates(&inp.records, inp.route.faction.as_deref());
 	let ai = Inputs {
 		route: inp.route,
 		guides: inp.guides,
@@ -91,6 +92,7 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		solo_fallback: opts.engine && opts.rules.groups,
 		walks: if opts.engine { inp.walks } else { None },
 		borders: if opts.engine { inp.walk_yards.and_then(|w| w.borders()) } else { None },
+		gates: &gates,
 	};
 	let r = apply_route(&ai)?;
 	log.extend(r.log.iter().cloned());
@@ -290,6 +292,15 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 		for rel in &written {
 			if let Some(t) = tree.get(rel).and_then(|t| crate::post::playable_only(t, &playable)) {
 				tree.insert(rel.clone(), t);
+			}
+		}
+	}
+	// (A profession's training before the work of the quest it is for, after the stop orders above.)
+	for rel in &written {
+		if let Some(t) = tree.get(rel) {
+			let t2 = crate::post::train_before_its_work(t.split('\n').map(str::to_string).collect(), inp.data).join("\n");
+			if t2 != *t {
+				tree.insert(rel.clone(), t2);
 			}
 		}
 	}

@@ -14,7 +14,8 @@
 //! - **guide-fixes**: step content that is neither data nor route, at a goal's step:
 //!   `{ id, at: { quest, goal: "accept" | "turnin" | "complete" | "objective", objective? }, tip }`
 //!   sets the step's `tip`; `level: N` puts a `level N` gate right before the anchor goal (with
-//!   `after: true`, right after it: the hand-ins at the anchor count towards the level).
+//!   `after: true`, right after it: the hand-ins at the anchor count towards the level). N may be a
+//!   partial level (`23.5`); the level fit counts the gate where it stands (level_fit::Gate).
 //!
 //! A record with `faction` ("Alliance" or "Horde") applies only to that faction's routes (a quest both
 //! sides do whose fix holds for one). Every record carries `source` ({ kind, ref }), `issue` and `note`;
@@ -409,8 +410,8 @@ fn apply_fix(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize> 
 				step.1 += 1;
 			}
 		}
-		if let Some(lv) = r["level"].as_u64() {
-			let gate = format!("{ind}level {lv}");
+		if let Some(lv) = r["level"].as_f64() {
+			let gate = format!("{ind}level {}", level_str(lv));
 			if r["after"] == true {
 				// Right after the anchor goal (the hand-ins before it count towards the level).
 				let next = (i + 1..step.1).find(|&k| !trim(&lines[k]).is_empty() && !trim(&lines[k]).starts_with('#'));
@@ -500,6 +501,34 @@ pub fn no_along(rec: &Records, faction: Option<&str>) -> rustc_hash::FxHashSet<(
 		.filter(|r| r["along"] == serde_json::Value::Bool(false))
 		.filter(|r| !r["faction"].as_str().zip(faction).is_some_and(|(a, b)| !a.eq_ignore_ascii_case(b)))
 		.filter_map(|r| Some((r["at"]["quest"].as_u64()? as u32, r["at"]["objective"].as_u64()? as u32)))
+		.collect()
+}
+
+/// A gate's level as the guides write it: `23`, or a partial level `23.5` (hundredths at most).
+fn level_str(lv: f64) -> String {
+	let s = format!("{lv:.2}");
+	s.trim_end_matches('0').trim_end_matches('.').to_string()
+}
+
+/// The `level` gates of the guide fixes for a faction's routes, for the level fit to count where
+/// they stand (level_fit::Gate).
+pub fn level_gates(rec: &Records, faction: Option<&str>) -> Vec<crate::level_fit::Gate> {
+	use crate::level_fit::{Gate, GateAt};
+	rec.guide_fixes
+		.and_then(|d| d["fixes"].as_array())
+		.into_iter()
+		.flatten()
+		.filter(|r| !r["faction"].as_str().zip(faction).is_some_and(|(a, b)| !a.eq_ignore_ascii_case(b)))
+		.filter_map(|r| {
+			let at = match r["at"]["goal"].as_str()? {
+				"accept" => GateAt::Accept,
+				"turnin" => GateAt::Turnin,
+				"objective" => GateAt::Work(r["at"]["objective"].as_u64().map(|n| n as u32)),
+				"complete" => GateAt::Work(None),
+				_ => return None,
+			};
+			Some(Gate { quest: r["at"]["quest"].as_u64()? as u32, at, after: r["after"] == true, level: r["level"].as_f64()? })
+		})
 		.collect()
 }
 

@@ -1,9 +1,10 @@
 //! The flow flags (forge_core::flow_flags, #1046): off, every pass and price is as before; on, the
 //! sweep pass does work where the route already stands, the revisit price counts the flow guards and
-//! the greedy reach widens the hub pickup. One test function: the flags are process-wide.
+//! the greedy reach widens the hub pickup, and the zone-left price counts quests a zone is left with.
+//! One test function: the flags are process-wide.
 
 mod common;
-use forge_sim::run::{K_ACCEPT, K_GRIND, K_TASK};
+use forge_sim::run::{K_ACCEPT, K_GRIND, K_TASK, K_TURNIN};
 use forge_sim::search::edits::Mv;
 use forge_sim::search::passby::{hub_pickup_reach, pickup_bar, work_while_there, GREEDY_ALLOW_SEC, GREEDY_PICKUP_YD, HUB_PICKUP_ALLOW_SEC, HUB_PICKUP_YD, SWEEP_ALLOW_SEC};
 use forge_sim::search::{pool, runs, Member, Problem};
@@ -56,5 +57,37 @@ fn flow_flags_off_change_nothing_and_on_do_work_where_the_route_stands() {
 		assert!(acc < at, "after its accept");
 		assert!(mem.order.steps[..at].iter().rev().any(|x| x.kind != K_GRIND), "after a stop");
 	}
+
+	// Zoneleft: a quest the route leaves its zone without, open and on level there, counts once; the
+	// count is priced at ZONE_LEFT_SEC; without the flag it is neither counted nor priced.
+	let mut data = forge_world::GameData::from_source(&forge_world::data::DirSource::repo(&common::golden().join("world/root"))).unwrap();
+	// (The slice records few rewards: every quest gets one, so the zone's quests count.)
+	for q in data.quests.values_mut() {
+		q.xp.get_or_insert(500.0);
+	}
+	let atlas = forge_world::Atlas::build(&o.world, &data, None);
+	let g = forge_sim::guards::GuardData::new(&o.world, r, &rules, &data, &atlas, &o.walks);
+	let zone_left = |ord: &forge_sim::order::Order| runs(&p, ord)[0].guard_counts(&g, r).zone_left;
+	forge_core::flow_flags::set_for_tests(&["zoneleft"]);
+	let base = zone_left(&seed);
+	let needed = |q: u32| (0..r.n_quests()).any(|x| r.q_pre[x].contains(&q) || r.q_all[x].contains(&q) || r.q_parent[x] == q as i32);
+	let without = |q: u32| {
+		let mut o2 = forge_sim::order::Order { steps: Vec::new(), origin: Vec::new() };
+		for (k, st) in seed.steps.iter().enumerate() {
+			if st.q != q || !matches!(st.kind, K_ACCEPT | K_TASK | K_TURNIN) {
+				o2.steps.push(*st);
+				o2.origin.push(seed.origin[k]);
+			}
+		}
+		o2
+	};
+	let candidates: Vec<u32> = seed.steps.iter().filter(|st| st.kind == K_ACCEPT && !needed(st.q)).map(|st| st.q).take(40).collect();
+	let left = candidates.iter().copied().find(|&q| zone_left(&without(q)) == base + 1);
+	assert!(left.is_some(), "dropping one of v1's quests leaves its zone with it ({base} before)");
+	let priced = forge_sim::guards::GuardCounts { zone_left: 3, ..Default::default() };
+	assert_eq!(forge_sim::guards::flow_pen(&priced), 3.0 * forge_sim::guards::ZONE_LEFT_SEC);
+	assert!(forge_sim::guards::flow_head() > 0.0, "a candidate may cost model time before its counts are read");
 	forge_core::flow_flags::set_for_tests(&[]);
+	assert_eq!(zone_left(&without(left.unwrap())), 0, "not counted without the flag");
+	assert_eq!(forge_sim::guards::flow_pen(&priced), 0.0);
 }

@@ -159,6 +159,16 @@ pub fn records() -> FxHashMap<u32, (u8, String)> {
 		.collect()
 }
 
+/// The elite quests the route fixes record players doing alone (`deliberate.solo`, qualified at any
+/// visit: forge_core::solo_elite): solo quests to the planner, never a family.
+/// (None without a route fixes file: a caller with no checkout.)
+pub fn solo_quests() -> rustc_hash::FxHashSet<u32> {
+	if crate::fixes::path().is_none() && crate::fixes::find(&[]).is_none() {
+		return rustc_hash::FxHashSet::default();
+	}
+	forge_core::solo_elite::qualified(&crate::fixes::get()).into_keys().collect()
+}
+
 /// The elites a world quest kills (its kill work on elite npcs), summed per npc.
 pub fn mobs_of(world_quest: &WQuest, data: &GameData) -> Vec<Mob> {
 	let mut out: Vec<Mob> = Vec::new();

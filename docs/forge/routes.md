@@ -323,6 +323,7 @@ report.
 | `never` | the quest is never added (its giver does not offer it) |
 | `optional` | v1 marks it optional (rare-drop start): not counted on, out of the route |
 | `group` | `{q, size, why}`: the group an elite or group quest wants where Forever's creature data reads it wrong (section 7, Group quests): 1 soloable elite, 2-4 a group of that many, 5 never taken. The quest is a family root even when the world does not mark it elite (Challenge Overlord Mok'Morokk's fight starts from an event) |
+| `solo` | `{q, solo: [levels], group?: [levels], why}`: an elite quest players' recordings show handed in alone (one level per character, alone or in a party): with 2 or more solo hand-ins and no more party ones it is a solo quest to the planner, written for everyone and allowed required by lint (section 7, Group quests). Never on a quest a `group` record sizes |
 
 A pair that v1's own order breaks for a start is left out for that start, named in the route file's
 `feasibility` notes, and listed in the build's fixes ledger as `left out` (`fixes.md`; `forge build
@@ -668,6 +669,18 @@ the group it wants, comes from Forever's creature data for the root's elite kill
 
 A deliberate `group` record (section 5) gives the size instead, with its reason (A Grim Task: an elite at
 the quest's level is a group quest, a group of 3; the data's one level-34 elite reads soloable).
+
+A deliberate `solo` record (section 5) takes an elite quest out of group work altogether: players'
+recordings show it handed in alone, so the planner takes it like any solo quest (no family, no
+solo fallback), the writer writes its goals for everyone and lint lets them be required
+(`forge_core::solo_elite`). It qualifies with 2 or more solo hand-ins (different characters) and no
+more party hand-ins than solo ones; the writer also wants those at the route's level at its accept
++ 2 or lower, and asks it (`when group <q>`) where the route gets there lower. Fitz (2026-11-07):
+a quest players do, the guides do; an elite quest without that evidence stays group work, optional
+or asked, with the "grouping up" tip. Party size is in recordings from recorder 0.3.3 on (`group`
+lines); an older recording reads alone when the elite kill's XP is 80-120% of a solo player's, in a
+party under 60%. As of 2026-11-07 no quest qualifies (Hogger: 2 alone, 3 in a party; Tharil'zun,
+Gath'Ilzogg: one solo hand-in each), so no record is written yet.
 
 A family of size under 5 may be added like any quest (the checks above still hold). Its elites are
 priced at the elite kill time (`eliteTime`, 3.5 kills' time each), the elite-camps guard does not
@@ -1114,9 +1127,10 @@ rounds can compare them:
 | `greedy` | the hub pickup pass counts a stop within 150 yd of a giver as standing next to it (else 40 yd), the hub counts read an NPC within 100 yd of a walked leg as passed (else 50 yd), and both passes may add 5 minutes for a move (else 3) |
 | `revisit` | the search, the descent and the passes compare orders by the cost to 60 plus a flow price of the guard counts: 300 s for each avoidable return, 120 s for each split work, accept or hand-in left ready, hand-in walked past, hand-in made on a trip back and giver passed with its quest taken only after going away (`guards::flow_pen`); a move may cost up to 5 model minutes before its counts are read |
 | `sweep` | the **work while there** pass, after the camp revisit: a task done on a return to ground the route stood on earlier (a stop within 250 yd of its spawn area, its quest in the log, the route then 400 yd away before the task) moves to right after that stop, kept when the order keeps its rules and the level rule, no guard rises and the hours to 60 rise by at most 3 minutes; listed as `work while there` edits, counted in `workWhileThere` |
-| `steps` | the writer writes no `along` list ([writer.md](writer.md)) |
+| `steps` | the writer writes no `along` list ([writer.md](writer.md)); the route check's `along` rule then warns on every step that still lists work along the way, not on work a walk passes that its own step does |
 | `coverage` | the pickup pass counts a passed quest worthwhile at half the route's XP rate (a quarter when its detour is under a minute; else the full rate, half on a cheap detour), alone or with the quests it opens, and a pickup may add 5 minutes (else 2): marginal quests on the route are done (the benchmark order hands in about 40 % more quests over the same walk; Duskwood's Raven Hill chain and Jitters' Growling Gut were `low-value` and `judge-refused`) |
 | `grind` | the grind top-ups write every grind of the model's own of 10 minutes or more (before an accept, or before work over the character's head) as a `level` step at the last camp of its zone stay, whatever it costs: the route never relies on grind no guide writes (the Fangore task's 1.55 levels before Duskwood) |
+| `zoneleft` | the search, the descent and the passes add 120 s to the cost for each quest of a zone the route leaves for good while the quest is open there (or opens within 2 levels), in the accept window 2 levels on, solo, with XP, not closed by a quest the route takes, and that no later visit takes (`guards::GuardCounts::zone_left`, each quest once); a move may cost up to 5 model minutes before its counts are read. Its XP is in the time already: the price is the flow's part, a zone's on-level quests done before the route moves on |
 
 The planner flags are part of the search key, `steps` of the routes stage's key: a build with other
 flags never reuses another's finished searches. With no flag set every route is the same as before.

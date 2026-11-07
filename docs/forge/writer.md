@@ -324,6 +324,14 @@ be compared byte for byte with the old JavaScript writer.
   21.6 while Duskwood starts at 24 (PR #1052). There route-fixes includes Galardell's quests after a
   written top-up to 23 at the Blackrock camps (guide-fixes `redridge-camps-top-up-23`), and the elites
   and Fangore on a second Redridge pass at the end of Duskwood.
+
+  A written `level` gate counts where it stands: a guide fix's `level` (data/guide-fixes.json, before
+  or `after` its anchor goal) raises the level of every event from its anchor on to the gate, and the
+  XP that grind gives stays with the player, less what a top-up of the route's own grinds after it
+  (#1052: the `level 23` top-up at the Blackrock camps, which the rule did not see, so it
+  left out quests that fit at 23). The route's own top-ups and v1's `level` lines are in its `lvl`
+  already. A guide fix's `level` may be a partial level (`23.5`), written as such, as the route's own
+  top-ups are (`level 15.91`).
 - **The hub tour** (with route legs, `src/hub.rs`) first walks each town or camp the way leveling
   guides players trust do (#736, #737, #739, #740). A hub is the route's quest NPCs linked within
   120 yd. On a walk between two events, a giver or ender with a ready accept, hand-in or talk within
@@ -343,7 +351,11 @@ be compared byte for byte with the old JavaScript writer.
   walked in the shortest order from where the route comes in to where it goes next, each NPC once
   unless the quests' own order makes a second stop shorter, the pairs kept; a delivery whose item runs
   out within 15 minutes (the Scalding Mornbrew) is handed in first. A bind goes with the visit's event
-  nearest the inn. Events move only earlier and, but for the next rule, only among one v1 guide's
+  nearest the inn, and then past the goals right after it that stand within 40 yd of it (or of the
+  event before it at the same stop) or of the inn, so the walk to the inn never splits two goals at one
+  NPC or two NPCs that stand together, and the inn's own goals come before it (#1008: Mebok after the
+  Ratchet poster, Mankrik's two quests at the Crossroads, Maggran's at Sun Rock, Lydon's and the inn's
+  at Tarren Mill; `bind_after_beside`). Events move only earlier and, but for the next rule, only among one v1 guide's
   events; a line a class's own
   step waits for goes last in its visit, after every stop that does not wait for it, so the class
   step closes the visit (Perrine's Chest after Brill's turn-ins); a hearth or flight stays the
@@ -545,7 +557,10 @@ be compared byte for byte with the old JavaScript writer.
   one's ground, worked there (the eggs on the makrura's beach). A step's zone is
   its zone line, else where its work is. Accepts stay
   in their place among the goals; a step with a hand-in is not merged (the
-  oats stay with Verna's hand-in, #621), but a stop at an NPC on the merged
+  oats stay with Verna's hand-in, #621), and neither is a step with a goal done
+  at a friendly NPC (a report asked for or an item handed over, `collect … npc
+  N` or a talk credit: Dillinger's report and Kristof's at Linnea's camp stay
+  their own steps), but a stop at an NPC on the merged
   ground that hands in none of the group's quests does not break the merge
   (Lakeridge Highway's camps around a Three Corners stop). The first step's label stays, and
   references to the others' go to it. Every goal keeps its own place: no
@@ -765,6 +780,11 @@ portals and hearths. A lift counts as part of the walk.
   to their trainer is no walk for a Hunter). It stays behind a `level` line, another of
   its prerequisites, a quest it excludes, or a level the hand-ins between bring.
   This runs after the class detours' hand-ins.
+- A profession's training (`train Cooking npc 265944`) goes right before the
+  first goal of its step that works or hands in a quest whose objective is
+  that NPC, after the quest's accept, when a stop's order put it after them
+  (Camping 101: Cooking at William Pickman, #743). This runs after the other
+  passes that order a stop.
 - A v1 step the route did not place with nothing for everyone, only some races'
   lines (and a flight path), is those races' step: no walk there for the rest
   (v1's "To the Undercity" for the Skyborne's Sylvanas).
@@ -1026,7 +1046,10 @@ they matter to the player. They are not the judge's honest rules.
   is under its level). The group player is at that level already, so it does
   nothing for them. On by default (`forge build`);
   `--no-groups` turns it off. Under `--format-0-3`, R5 still asks the other
-  group and dungeon quests.
+  group and dungeon quests. A quest with a route fixes `solo` record (players' recordings show it
+  handed in alone, `forge_core::solo_elite`) is not asked where the route's level at its accept + 2
+  reaches its solo hand-ins: its goals are for everyone, required; where the route gets there lower,
+  R5 asks it. A dungeon's quest is asked whatever a record says.
 
 `--format-0-3` adds the pack format 5 lines (Polestar 0.3.0): R5 `when group`,
 R6 `task` and `cast`, R7 `abandon` when the log would pass 40 (the game's quest log), R8 `skipto` over

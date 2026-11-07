@@ -232,6 +232,11 @@ fn party_work(step: &V, goal: &V, chosen: &FxHashSet<Key>) -> bool {
 	group_step(step) || (!goal.get("quest").is_undef() && chosen.contains(&key(&goal.get("quest"))))
 }
 
+/// An elite quest the route fixes record players doing alone (Data::solo_elite).
+fn solo_recorded(quest: &V, data: &Data) -> bool {
+	quest.as_num().is_some_and(|q| q >= 0.0 && data.solo_elite.contains_key(&(q as u32)))
+}
+
 /// Our house rules: errors in our pack, warnings in every other.
 fn house_rule(diag: &mut Diagnostics, g: &V, file: &str, ln: f64, msg: String) {
 	if g.get("pack").as_str() == Some("guides") {
@@ -952,7 +957,8 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 			let t = t_of(&goal);
 			let q = if !quest.is_undef() { data.quest(&quest) } else { V::Null };
 			let layers = [gl.clone(), step.hidden("_only"), goal.hidden("_only")];
-			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) {
+			// (Elite work players' recordings show done alone may be required: forge_core::solo_elite.)
+			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) && !solo_recorded(&quest, data) {
 				if let Some(elite) = elite_goal(&goal, &applicable(&layers).get("factions"), data) {
 					house_rule(diag, g, &file, ln, elite);
 					elite_mark(&goal);

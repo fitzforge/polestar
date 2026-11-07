@@ -839,10 +839,20 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		let s = step_line as usize - 1;
 		lines[s + 1..].iter().take_while(|l| !crate::jsre::is_step(l) && !(starts_nonspace(l) && !l.is_empty())).find(|l| re!(r"^\s+only\s").is_match(l)).cloned()
 	};
-	// A group or dungeon quest with work (asked for under pack format 5).
+	// Elite quests players' recordings show done alone at about the route's level at their accept are
+	// written for everyone; a recorded one the route reaches lower is asked like a group quest
+	// (forge_core::solo_elite).
+	let solo = if forge_sim::fixes::path().is_some() || forge_sim::fixes::find(&[]).is_some() { forge_core::solo_elite::records(&forge_sim::fixes::get()) } else { Default::default() };
+	let solo_here = |q: u32| solo.get(&q).is_some_and(|r| r.qualifies(None) && r.qualifies(inp.accept_lvl.get(&q).copied()));
+	// A group or dungeon quest with work (asked for under pack format 5); a dungeon's whatever a record says.
 	let group = |q: u32| -> bool {
 		let qv = quest_v(data, q);
-		matches!(num(&qv.get("web").get("type")).map(|t| t as i64), Some(1) | Some(81)) && !qv.get("objectives").is_empty()
+		let asked = match num(&qv.get("web").get("type")).map(|t| t as i64) {
+			Some(81) => true,
+			Some(1) => !solo_here(q),
+			_ => solo.contains_key(&q) && !solo_here(q),
+		};
+		asked && !qv.get("objectives").is_empty()
 	};
 	// A quest the player is asked about (`when group`): R5's, or one of the route's group families.
 	let asked = |q: u32| (opts.format_0_3 && group(q)) || (opts.groups && inp.group_of.contains_key(&q));

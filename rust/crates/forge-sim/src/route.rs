@@ -16,7 +16,8 @@ use serde_json::{json, Value};
 
 /// A character compiled under a profile (towns indexed for `train class`).
 pub fn model_for(world: &World, race: &str, profile: &Profile, base: &Params, walks: &dyn Walks) -> Result<(Model, Rules), String> {
-	let rules = Rules::new(world, race, None, false);
+	// (Elite quests the route fixes record players doing alone are solo quests: forge_core::solo_elite.)
+	let rules = Rules::new(world, race, None, false).with_solo(world, &crate::group::solo_quests());
 	let start = world.starts.iter().find(|(r, _)| r == race).map(|(_, st)| st.pt);
 	let (towns, own_valley) = if profile.train_stops { town_points(world, start) } else { (Vec::new(), Vec::new()) };
 	let rides: &[(u32, u32)] = profile.rides.as_deref().filter(|_| profile.train_stops).map_or(&[], Vec::as_slice);

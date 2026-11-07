@@ -964,7 +964,7 @@ fn check_mechanics_corrections(ck: &mut Ck, c: &V) {
 
 /// v1's deliberate orders: the keys the routes stage reads, and the quests each rule names.
 fn check_deliberate(ck: &mut Ck, d: &V) {
-	ck.keys("", d, &["about", "pairs", "notes", "never", "keep", "southward", "together", "after", "stay", "optional", "group"]);
+	ck.keys("", d, &["about", "pairs", "notes", "never", "keep", "southward", "together", "after", "stay", "optional", "group", "solo"]);
 	for sec in ["pairs", "together", "after"] {
 		for (i, p) in d.get(sec).items().iter().enumerate() {
 			for side in ["a", "b"] {
@@ -999,6 +999,26 @@ fn check_deliberate(ck: &mut Ck, d: &V) {
 		}
 		if !has_text(&e.get("why")) {
 			ck.err(format!("{a}.why"), "why is required: the facts behind the size, with their source");
+		}
+	}
+	// Solo records (forge_core::solo_elite): {q, solo: [levels], group?: [levels], why}; never a
+	// quest a group record sizes too.
+	let sized: Vec<f64> = d.get("group").items().iter().map(|e| e.get("q").num()).collect();
+	for (i, e) in d.get("solo").items().iter().enumerate() {
+		let a = format!("solo[{i}]");
+		ck.keys(&a, e, &["q", "solo", "group", "why"]);
+		ck.refers(&format!("{a}.q"), "quests", &e.get("q"));
+		for k in ["solo", "group"] {
+			let v = e.get(k);
+			if (k == "solo" || !v.is_undef()) && !(v.is_arr() && v.items().iter().all(|l| l.as_num().is_some_and(|n| (1.0..=60.0).contains(&n)))) {
+				ck.err(format!("{a}.{k}"), "a list of levels, one per character that handed the quest in (alone, or in a party)");
+			}
+		}
+		if sized.contains(&e.get("q").num()) {
+			ck.err(format!("{a}.q"), "a group record sizes this quest too: one or the other");
+		}
+		if !has_text(&e.get("why")) {
+			ck.err(format!("{a}.why"), "why is required: the recordings behind the levels (how many runs, how read)");
 		}
 	}
 }
@@ -1279,7 +1299,7 @@ fn check_places(ck: &mut Ck, d: &V) {
 /// accept | turnin }, title, when?, tip? }` (an accept only): an `along until` step right after the step of `after`
 /// lists the quest's accept and objectives on the way to its own step (`when`: a predicate, e.g. `level>=5`).
 /// `when: "level>=N"`: the goal's step shows only from that level (optional work above the level the route
-/// plays it at, #977).
+/// plays it at, #977). `level` may be fractional (`23.5`: halfway into 23).
 fn check_guide_fixes(ck: &mut Ck, d: &V) {
 	ck.keys("", d, &["about", "_about", "fixes"]);
 	let list = d.get("fixes");
@@ -1357,8 +1377,10 @@ fn check_guide_fixes(ck: &mut Ck, d: &V) {
 				"tip"
 			}
 			(true, false) => {
-				if !level.as_num().is_some_and(|n| n.fract() == 0.0 && (2.0..=60.0).contains(&n)) {
-					ck.err(format!("{at}.level"), format!("{} must be a level, 2 to 60", show(&level)));
+				// (A fraction is a partial level, written as such: `level 23.5`, which the compiler and
+				// the addon read like the route's own top-ups, `level 15.91`.)
+				if !level.as_num().is_some_and(|n| (2.0..=60.0).contains(&n) && ((n * 100.0).round() - n * 100.0).abs() < 1e-9) {
+					ck.err(format!("{at}.level"), format!("{} must be a level, 2 to 60 (a fraction in hundredths at most: 23.5)", show(&level)));
 				}
 				"level"
 			}
@@ -1568,6 +1590,20 @@ mod tests {
 	}
 
 	#[test]
+	fn a_level_gate_may_be_a_partial_level() {
+		// #1052: a top-up to halfway into 23 is a gate the guides write as `level 23.5`.
+		let src = r#""source": { "kind": "in-game-check", "ref": "issue 1" }, "note": "checked""#;
+		let gate = |lv: &str| format!(r#"{{ "fixes": [ {{ "id": "1-l", "at": {{ "quest": 11, "goal": "turnin" }}, "level": {lv}, {src} }} ] }}"#);
+		for ok in ["23", "23.5", "15.91"] {
+			assert_eq!(record_findings(None, Some(&gate(ok))), Vec::<String>::new(), "{ok}");
+		}
+		for bad in ["23.555", "1.5", "60.5"] {
+			let f = record_findings(None, Some(&gate(bad)));
+			assert!(f.iter().any(|x| x.contains("fixes[0].level")), "{bad}: {f:#?}");
+		}
+	}
+
+	#[test]
 	fn mistakes_are_named() {
 		let c = r#"{ "quests": {
 			"10": { "set": { "pre": [12], "racez": 1 } },
@@ -1601,6 +1637,20 @@ mod tests {
 		let has = |s: &str| f.iter().any(|x| x.contains(s));
 		assert!(has("warning m quests.10.kinds[0].kind: teleport is not a kind"), "{f:#?}");
 		assert!(has("error m quests.10.steps[0].fact"), "{f:#?}");
+	}
+
+	#[test]
+	fn solo_records_name_their_levels_and_why() {
+		let good = r#"{ "deliberate": { "solo": [{ "q": 10, "solo": [21, 22], "group": [23], "why": "3 runs: 2 alone (group 0), 1 in a party" }] }, "overrides": {} }"#;
+		assert_eq!(findings(None, None, Some(good)), Vec::<String>::new());
+		let bad = r#"{ "deliberate": { "group": [{ "q": 11, "size": 2, "why": "w" }],
+			"solo": [{ "q": 10, "solo": "21", "why": "" }, { "q": 11, "solo": [21, 70], "group": [1], "why": "w" }] }, "overrides": {} }"#;
+		let f = findings(None, None, Some(bad));
+		let has = |s: &str| f.iter().any(|x| x.contains(s));
+		assert!(has("deliberate.solo[0].solo: a list of levels"), "{f:#?}");
+		assert!(has("deliberate.solo[0].why: why is required"), "{f:#?}");
+		assert!(has("deliberate.solo[1].solo: a list of levels"), "{f:#?}");
+		assert!(has("deliberate.solo[1].q: a group record sizes this quest too"), "{f:#?}");
 	}
 
 	#[test]

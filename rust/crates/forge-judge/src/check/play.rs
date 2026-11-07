@@ -194,7 +194,32 @@ fn until_of(goals: &[WalkGoal], i: usize) -> usize {
 /// Rule `along` (warn): (a) a travel leg longer than [`TRIP_YD`] that passes within [`PASSES_YD`] of the
 /// spawns of an objective in the log, worked later (not at the leg's end), with no `along` line covering
 /// the leg; (b) an `along` line whose objective has no spawn within [`ALONG_OFF_YD`] of the legs it covers.
+///
+/// With the `steps` flow flag (forge_core::flow_flags) the writer writes no along lists, so (a) would
+/// count exactly what it asks for (PlannerFlow, 2026-11-07: the steps round's `along` warnings went up):
+/// the rule turns round and warns once per step that still lists work `along` the way.
 pub fn alongs(goals: &[WalkGoal]) -> Vec<Violation> {
+	if forge_core::flow_flags::on("steps") {
+		along_lists(goals)
+	} else {
+		along_gaps(goals)
+	}
+}
+
+/// Rule `along` under `steps`: every step with an `along` line, at its first along goal.
+pub fn along_lists(goals: &[WalkGoal]) -> Vec<Violation> {
+	let mut seen: FxHashSet<(&str, Option<u32>)> = FxHashSet::default();
+	let mut out: Vec<Violation> = goals
+		.iter()
+		.filter(|g| g.along.is_some() && seen.insert(step_key(g)))
+		.map(|g| Violation::at(g, "along", Level::Warn, format!("{} is listed along the way: with steps on, work on the way is a goal of the step at it", title(g))))
+		.collect();
+	out.sort_by_key(|v| (v.file.clone(), v.line));
+	out
+}
+
+/// Rule `along` without `steps`: (a) and (b) above.
+pub fn along_gaps(goals: &[WalkGoal]) -> Vec<Violation> {
 	let (acc, tin) = firsts(goals);
 	let ls = legs(goals);
 	let mut out = Vec::new();
