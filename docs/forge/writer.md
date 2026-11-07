@@ -304,8 +304,10 @@ be compared byte for byte with the old JavaScript writer.
   - to the route's **later visit to the same place** (an event within 250 yd of the work point) where
     it fits and the quest still pays its full XP (the player at most 5 levels over it), right after
     that event, so it joins that visit's step (the area merge below makes the camps one step). Its
-    accept goes with it when the route stands by the giver again on the way there (within 120 yd),
-    else stays where it is and the work waits for that visit. A hand-in the route had before that
+    accept goes with it when the route stands by the giver again on the way there (within 120 yd)
+    and no other work of the quest stays in between, else stays where it is and the work waits for
+    that visit (Duskwood's Totem of Infliction: the Skeleton Fingers and the spider venom done on the
+    first visit keep its accept there when the Ghoul Fangs wait for the second). A hand-in the route had before that
     visit goes to the route's next stop by the ender after it, with the follow-ups taken right after
     the hand-in at the ender; another event of a follow-up before then leaves the quest out;
   - **out of the route** when no later visit fits anywhere in the start's chain: the quest, its

@@ -551,6 +551,20 @@ impl Layout {
 		}
 	}
 
+	/// The grid the walkers route on: through the stage root's data/local/nav4, so they read the roads
+	/// and hubs layers beside it (forge_nav::walker::hubs_file: <grid>/../nav-layers), the ones the
+	/// prepare stage built the walk graphs with. A grid given outside the checkout (`--grid
+	/// <round>/grid`) has no layers beside it: read there, its walkers asked for walk graphs priced
+	/// without roads or hubs, which prepare never builds (the legs stage's "no walk graph").
+	fn walk_grid(&self) -> PathBuf {
+		let g = self.stage_root.join("data/local/nav4");
+		if g.is_dir() {
+			g
+		} else {
+			self.grid.clone()
+		}
+	}
+
 	/// The staging root and sim dir (symbolic links; recreated every run).
 	fn stage(&self, o: &BuildOpts) -> Result<(), String> {
 		let r = &self.stage_root;
@@ -610,6 +624,7 @@ fn stage(cache: &Cache, name: &'static str, key: String, log: &mut dyn FnMut(&st
 	cache.forget(name);
 	log(&format!("{name}: building ({})", &key[..12]));
 	let outputs = f(log)?;
+	release_freed_memory();
 	cache.store(name, &key, &outputs)?;
 	let seconds = t0.elapsed().as_secs_f64();
 	log(&format!("{name}: done in {seconds:.1} s, {} files", outputs.len()));
@@ -621,6 +636,18 @@ fn stage(cache: &Cache, name: &'static str, key: String, log: &mut dyn FnMut(&st
 		std::fs::write(&p, serde_json::to_string_pretty(&rows).map_err(|e| e.to_string())?).map_err(|e| format!("{}: {e}", p.display()))?;
 	}
 	Ok(StageRun { stage: name, key, skipped: false, seconds, outputs })
+}
+
+/// Hands the heap's free pages back to the system once a stage is done. glibc's malloc keeps what a
+/// stage freed in its arenas (one per thread that allocated): after a 3-start routes stage the build
+/// stayed at 7.1 GB resident, under the second walks pass that came on top of it (peak 18.1 GB, over
+/// a 16 GB scope).
+fn release_freed_memory() {
+	// SAFETY: malloc_trim returns only free pages of glibc's own heap; no live allocation is touched.
+	#[cfg(all(target_os = "linux", target_env = "gnu"))]
+	unsafe {
+		libc::malloc_trim(0);
+	}
 }
 
 /// The extra walk pairs file's name in `<out>/walks/` (BuildOpts::walk_pairs).
@@ -1396,12 +1423,11 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 					};
 					let store = if nav == Nav::Leffe { leffe_store.clone() } else { store };
 					let say = |m: &str| eprintln!("forge:   walks {}: {m}", f.name());
-					// (The grid through the stage root's data/local/nav4: the walker reads the hubs layer
-					// beside its grid, so it gets the layers the prepare stage built the graphs with.)
-					let grid_in_root = l.stage_root.join("data/local/nav4");
+					// (Layout::walk_grid: the layers the prepare stage built the graphs with.)
+					let walk_grid = l.walk_grid();
 					let w = forge_nav::stage::walks(&forge_nav::stage::WalksIn {
 						world_json: &world_json,
-						grid: if grid_in_root.is_dir() { &grid_in_root } else { &l.grid },
+						grid: &walk_grid,
 						maps: &maps,
 						area_table: &area_table,
 						zones: &l.data.join("zones.json"),
@@ -1717,9 +1743,10 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 	})?);
 
 	// legs: the walk into every step of the written guides, baked on the hybrid backend (Leffe's
-	// maps first, the grid where his have no way or a detour), one legs.json per start's tree.
+	// maps first, the grid where his have no way or a detour), one legs.json per start's tree. On the
+	// walk graphs the prepare stage built (Layout::walk_grid), so keyed by it too (its roads and hubs).
 	let chokepoints = o.root.join("addon/Polestar_Nav/Nav/Chokepoints.lua");
-	let mut legs_parts = vec![Part::Text(&k_guides), Part::Text(&k_data), Part::Grid(&l.grid), Part::File(&chokepoints)];
+	let mut legs_parts = vec![Part::Text(&k_guides), Part::Text(&k_data), Part::Grid(&l.grid), Part::Text(&k_prepare), Part::File(&chokepoints)];
 	let leffe_for_legs = leffe.as_deref().filter(|_| nav != Nav::Grid);
 	// Leffe's lift layer, when it sits with his maps (forge_nav::f4::lifts::find).
 	let legs_lifts = leffe_for_legs.and_then(|p| forge_nav::f4::lifts::find(&if p.join("Nav.xml").exists() { p.to_path_buf() } else { p.join("Nav") }));
@@ -1736,7 +1763,7 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 		let r = bake::bake_trees(&bake::BakeIn {
 			trees: &trees,
 			data: &l.data,
-			grid: &l.grid,
+			grid: &l.walk_grid(),
 			leffe: leffe_for_legs,
 			area_table: &area_table,
 			zones: &zones_json,
@@ -1871,6 +1898,37 @@ mod tests {
 		symlink(&a, &stage.join("data/forever")).unwrap();
 		symlink(&b, &stage.join("data/forever")).unwrap();
 		assert_eq!(std::fs::read_link(stage.join("data/forever")).unwrap(), b, "a link to another target is replaced");
+		std::fs::remove_dir_all(&dir).ok();
+	}
+
+	#[test]
+	fn walkers_read_the_layers_the_prepare_stage_built_with_on_a_grid_given_outside() {
+		// A round's `--grid <round>/grid` has no nav-layers beside it: walkers reading the hubs and
+		// roads there asked the legs stage for walk graphs prepare never builds. Through the stage
+		// root's data/local/nav4 they read the stage root's nav-layers (Layout::stage links them).
+		let dir = std::env::temp_dir().join(format!("forge-walk-grid-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		let (grid, out) = (dir.join("round/grid"), dir.join("round/out"));
+		std::fs::create_dir_all(&grid).unwrap();
+		let layers = dir.join("checkout/data/local/nav-layers");
+		std::fs::create_dir_all(&layers).unwrap();
+		std::fs::write(layers.join("hubs.json"), b"{}").unwrap();
+		let l = Layout {
+			data: out.join("data/forever"),
+			world: out.join("world"),
+			walks: out.join("walks"),
+			routes: out.join("routes"),
+			guides: out.join("guides"),
+			stage_root: out.join(".forge/root"),
+			sim: out.join(".forge/sim"),
+			grid: grid.clone(),
+			out: out.clone(),
+		};
+		assert_eq!(l.walk_grid(), grid, "no stage root yet: the grid as given");
+		symlink(&grid, &l.stage_root.join("data/local/nav4")).unwrap();
+		symlink(&layers, &l.stage_root.join("data/local/nav-layers")).unwrap();
+		assert!(!forge_nav::walker::hubs_file(&l.grid).exists());
+		assert_eq!(std::fs::read(forge_nav::walker::hubs_file(&l.walk_grid())).unwrap(), b"{}");
 		std::fs::remove_dir_all(&dir).ok();
 	}
 }

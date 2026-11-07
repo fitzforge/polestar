@@ -35,6 +35,10 @@ forge-writer = { path = "../forge-writer" }
 forge-release = { path = "../forge-release" }
 polestar-recording = { path = "../polestar-recording" }
 
+# malloc_trim: the heap a stage freed handed back before the next pass of the walks stage.
+[target.'cfg(all(target_os = "linux", target_env = "gnu"))'.dependencies]
+libc = "0.2"
+
 [[bin]]
 name = "forge"
 path = "src/main.rs"

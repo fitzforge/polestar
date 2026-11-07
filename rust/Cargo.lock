@@ -594,6 +594,7 @@ dependencies = [
  "forge-sim",
  "forge-world",
  "forge-writer",
+ "libc",
  "polestar-recording",
  "rayon",
  "regex",
