@@ -1779,8 +1779,9 @@ pub fn build(o: &BuildOpts, log: &mut dyn FnMut(&str)) -> Result<Vec<StageRun>, 
 			.iter()
 			.map(|s| report::StartInput { route: l.routes.join(format!("{}.json", s.name)), stream: Some(l.routes.join(format!("{}.judge-improved.json", s.name))), guides: l.guides.join(&s.name) })
 			.collect();
-		// Each start (and v1's checks) on its own thread, in a pool of --threads.
-		let pool = rayon::ThreadPoolBuilder::new().num_threads(o.threads.max(1)).build().map_err(|e| e.to_string())?;
+		// Each start (and v1's checks) on its own thread, FLOW_THREADS at most at once: each loads its own
+		// data and knowledge base (ten starts at once took a 16 GB scope over its cap).
+		let pool = rayon::ThreadPoolBuilder::new().num_threads(o.threads.clamp(1, FLOW_THREADS)).build().map_err(|e| e.to_string())?;
 		let r = pool.install(|| {
 			report::run(&report::Inputs {
 				starts,
