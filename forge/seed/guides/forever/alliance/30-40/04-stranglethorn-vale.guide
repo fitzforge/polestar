@@ -20,6 +20,10 @@
 #
 # Optional: Crystal in the Mountains starts from the Pendant of Myzrael, a
 # drop of Gluggle, a rare murloc: take it if he drops it.
+# Krazek's Cookery (210) is taken from Corporal Kaleb on the first Rebel Camp
+# visit and handed to Krazek on the first Booty Bay stop, where Favor for
+# Krazek (627) is taken (re-seeded for flow, 0.3.5: both waited for the
+# second visits).
 # Deviations: none in the quest set. Hemet Nesingwary (5762) is carried from
 # Thousand Needles; characters without it skip the turn-in. Favor for Krazek
 # (627) and Magical Analysis (602) are carried on: the ore drops in Arathi,
@@ -90,6 +94,7 @@ step Rebel Camp
   accept 200
   accept 203                          -- Sergeant Yohwa
   accept 204
+  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
 
 step Kurzen's Compound
   tip The Kurzen rebels hold the camp east of the Rebel Camp; work its outer edge, where Jungle Fighters and Medicine Men stand, and loot the supply crates by the tents.
@@ -145,6 +150,8 @@ step Down to Booty Bay
   accept 605                          -- Crank Fizzlebub
   accept 198                          -- Krazek, in the tavern
   accept 201
+  turnin 210                          -- Krazek
+  accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
   accept 189                          -- Kebok, in the tavern
   vendor nearest
 
@@ -229,7 +236,6 @@ step The jungle ruins
 
 step Rebel Camp
   turnin 574                          -- Lieutenant Doren
-  accept 210                          -- Corporal Kaleb: for Krazek in Booty Bay
   turnin 207                          -- Brother Nimetz
   accept 205
 
@@ -255,8 +261,6 @@ step Booty Bay
   turnin 578                          -- Baron Revilgaz
   accept 601
   turnin 213                          -- Kebok
-  turnin 210                          -- Krazek
-  accept 627                          -- The ore drops from Drywhisker kobolds in Arathi Highlands
 
 step Water Elementals
   collect 3923 quest 601              -- Water Elemental Bracers

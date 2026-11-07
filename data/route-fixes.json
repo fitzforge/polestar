@@ -2778,6 +2778,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Alliance Hillsbrad 30-40, #1157): The Thandol Span is taken from Rhag Garmason on the Dun Modr stop; the races that cross the span to Foggy MacKreel pass Ebenezer Rustlocke's corpse under its Arathi end (45.7,93.1, MacKreel at 43.2,92.6) and hand it in there, instead of carrying it to the Arathi guide."
+			},
+			{
+				"a": [
+					"accept",
+					210
+				],
+				"b": [
+					"turnin",
+					200
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Stranglethorn 30-40, #1157): Corporal Kaleb stands in the Rebel Camp (37.7,3.3) on the first visit; Krazek's Cookery (210, level 37, from 32) was taken only on the second Rebel Camp visit and handed in on the last Booty Bay stop, though the first Booty Bay stop stands next to Krazek. Taken on the first visit, handed to Krazek on the first Booty Bay stop, where Favor for Krazek is taken."
+			},
+			{
+				"a": [
+					"turnin",
+					210
+				],
+				"b": [
+					"turnin",
+					198
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Alliance Stranglethorn 30-40, #1157): Krazek's Cookery is handed to Krazek on the first Booty Bay stop, where Krazek gives his other quests, instead of waiting for the last Booty Bay visit."
 			}
 		],
 		"notes": [

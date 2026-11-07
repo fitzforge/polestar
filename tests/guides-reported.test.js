@@ -4524,3 +4524,13 @@ test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi ven
 	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s, 'the venom on the Kodo Graveyard step');
 	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
 });
+
+// Flow re-order (2026-11-07): Alliance Stranglethorn 30-40 took Krazek's Cookery only on the second Rebel
+// Camp visit and handed it in on the last Booty Bay stop.
+test('forever/alliance/30-40/04-stranglethorn-vale.guide: flow re-order: Krazek\'s Cookery from the first Rebel Camp visit to the first Booty Bay stop', { skip }, () => {
+	const list = goals('forever/alliance/30-40/04-stranglethorn-vale.guide');
+	const stepOf = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.equal(stepOf('accept', 210), stepOf('accept', 204), 'taken from Kaleb with Bad Medicine on the first visit');
+	assert.equal(stepOf('turnin', 210), stepOf('accept', 201), 'handed to Krazek on the first Booty Bay stop');
+	assert.equal(stepOf('accept', 627), stepOf('turnin', 210), 'Favor for Krazek taken there');
+});
