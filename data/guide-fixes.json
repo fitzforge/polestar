@@ -1581,26 +1581,29 @@
 			"pr": 960
 		},
 		{
-			"id": "upstairs-brill-inn-trainers-turnin-383",
+			"id": "1046-gallows-end-tavern-in-one-go",
 			"faction": "Horde",
 			"at": {
-				"quest": 383,
+				"quest": 8,
 				"goal": "turnin"
 			},
-			"tip": "Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.",
-			"note": "Cain Firesong (npc 2128), Dark Cleric Beryl (2129), Rupert Boch (2127) and Marion Call (2130), the mage, priest, warlock and rogue trainers, stand on the upper floor of Brill's inn, the Gallows' End Tavern: spawn height 41.2 for all four, with Gretchen Dedmar (whose hand-in already says upstairs); the inn's ground floor is at 34.3, where Innkeeper Renee stands. This step's train class sends those classes to them. Classic-db's spawn height (spawnz.json) and the Forever server's agree. The arrow has no height, so it counts the floor below as arrived. The tip keeps the step's old tip, the sentence added. Anchored on Vital Intelligence's hand-in to Executor Zygand, the first stop in Brill's square since #1046 (it was on Gordo's Task, now handed in to Holland at the edge of town on the way in).",
+			"tip": "Everything here is inside the inn, through its door on the south side: Innkeeper Renee at the bar, William Pickman at the north end of the ground floor, the Captured Scarlet Zealot in the cellar under that end, and Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart.",
+			"note": "Brill's first stop does the square first (Johaan, Zygand, the poster, Sevren, Discipline) and the Gallows' End Tavern last, in one go (Fitz on #1046's follow-up: in, out and back in again). Who is inside comes from the walking grid's WMO areas (grid 70532, areas.json 'Gallows' End Tavern', AreaTable 2119) under each spawn at its height: Innkeeper Renee (34.3), Coleman Farthing (33.7), Yvette Farthing (34.3), Austil de Mon (33.7) and William Pickman (34.3, the north end) on the ground floor; Gretchen Dedmar, Cain Firesong, Dark Cleric Beryl, Rupert Boch and Marion Call upstairs (41.2); the Captured Scarlet Zealot and the Captured Mountaineer in the cellar (27.2-27.3), also inside the tavern, not the town hall. Players' recorded walks to Pickman and the captives go in and out by the south door (61.5,53.0). Replaces upstairs-brill-inn-trainers-turnin-383 (the same upstairs sentence on the square stop, from #960/#961).",
 			"source": [
 				{
-					"kind": "tdb",
-					"ref": "creature 2128 position_z 41.2; creature 2129 position_z 41.2; creature 2127 position_z 41.2; creature 2130 position_z 41.2"
+					"kind": "client",
+					"ref": "walking grid (nav4 70532) WMO group areas under the spawns: 'Gallows' End Tavern' (2119) for npcs 5688, 1500, 1560, 2131, 265944, 1521, 2128, 2129, 2127, 2130, 1931, 2211; 'Brill Town Hall' (2118) for 1499 only"
 				},
 				{
-					"kind": "client",
-					"ref": "walking grid (nav4) at the spawns: floors at 33.6-35.5 under each spawn's floor at 41.2"
+					"kind": "tdb",
+					"ref": "creature positions: 265944 2288.0,242.9,34.3; 1931 2292.5,233.1,27.3; 2211 2288.9,234.3,27.2"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recorded walks around the hand-ins of 407 and 492 and Pickman's window: in and out at 61.4-61.6, 52.9-53.4"
 				}
 			],
-			"issue": 961,
-			"pr": 960
+			"issue": 1046
 		},
 		{
 			"id": "upstairs-brill-inn-trainers-turnin-404",

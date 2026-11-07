@@ -193,7 +193,7 @@ step Eleanor Shackleton
   turnin 86784
 
 step Brill
-  tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  tip Apothecary Johaan is in the apothecary's house on the west side of the square, Executor Zygand in front of the inn with the Wanted poster beside him, Magistrate Sevren in the town hall on the square's north side. The inn comes last, in one go.
   turnin 365                          -- Apothecary Johaan, inside
   accept 407
   accept 367
@@ -203,14 +203,7 @@ step Brill
   accept 99134
   accept 99141
   accept 398                          -- The Wanted poster by the inn
-  sethome "Gallows' End Tavern" npc 5688 -- Innkeeper Renee
-  turnin 8                            -- Innkeeper Renee
-  train Cooking npc 265944            -- William Pickman, in the inn: Camping 101 asks you to learn it; upstairs
-  complete 96658 @61.8,51.5
-  turnin 96658
-  train class                         -- The Brill trainers are in and around the inn
   accept 358                          -- Magistrate Sevren, in the town hall
-  turnin 407                          -- The Captured Scarlet Zealot, in the town hall basement
 
 step Discipline
   goto 60.6,52.0 "Brill"              -- Use the Executor's Motivator on five idle Deathguards around town
@@ -218,6 +211,16 @@ step Discipline
 
 step Executor Zygand
   turnin 99134
+
+step Gallows' End Tavern
+  tip Everything here is inside the inn, through its door on the south side: Innkeeper Renee at the bar, William Pickman at the north end of the ground floor, the Captured Scarlet Zealot in the cellar under that end, and Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) upstairs: take the stairs inside, the arrow cannot tell the floors apart.
+  sethome "Gallows' End Tavern" npc 5688 -- Innkeeper Renee
+  turnin 8                            -- Innkeeper Renee
+  train Cooking npc 265944            -- William Pickman, at the inn's north end: Camping 101 asks you to learn it
+  complete 96658 @61.8,51.5
+  turnin 96658
+  turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
+  train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
 
 step Deathguard Linnea's camp
   tip Follow the road south-east from Brill past the zeppelin towers. Linnea, Kristof and Shelene Rhobart camp by the road.
@@ -275,11 +278,11 @@ step Brill
   accept 370
   turnin 99141
   accept 374                          -- Deathguard Burgess
+  buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
   accept 362                          -- Coleman Farthing, in the inn
   accept 354
   accept 375                          -- Gretchen Dedmar, upstairs
   train class
-  buy 2320 npc 2118                   -- Coarse Thread from Abigail Shiel, for Gretchen
 
 # ---------------------------------------------------------------- North loop
 
@@ -437,7 +440,7 @@ step Brill
   accept 492
   turnin 371                          -- Executor Zygand
   train class
-  turnin 492                          -- The Captured Mountaineer, in the town hall basement
+  turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
 
 # ---------------------------------------------------------------- Leonid, then on to the Barrens

@@ -5263,6 +5263,66 @@
 				],
 				"why": "#1046: the walk from Linnea's camp west to Leonid passes through Brill, so A New Plague, At War With The Scarlet Crusade and Tomb Weed are handed in there on the way, not carried to Leonid and Shadowvale and back (a scratch build did that)",
 				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					99134
+				],
+				"b": [
+					"turnin",
+					8
+				],
+				"why": "#1046 follow-up (Fitz: hand in outside, into the inn, back outside, back into the inn): the Gallows' End Tavern (Innkeeper Renee, William Pickman, the trainers upstairs and the Captured Scarlet Zealot in its cellar, all inside per the walking grid's WMO areas) is entered once, last on Brill's first stop, after the square's outdoor work: Discipline is done around town and handed to Zygand first, then the inn: the bind and Calvin's letter",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					99134
+				],
+				"b": [
+					"turnin",
+					96658
+				],
+				"why": "#1046 follow-up: as the pair before it, Camping 101 at William Pickman inside the inn after Discipline",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					99134
+				],
+				"b": [
+					"turnin",
+					407
+				],
+				"why": "#1046 follow-up: as the pair before it, the Captured Scarlet Zealot in the inn's cellar (not the town hall's: the grid's area there is the tavern's, 27.3 yd high) after Discipline",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					358
+				],
+				"b": [
+					"turnin",
+					8
+				],
+				"why": "#1046 follow-up: Magistrate Sevren's town hall, on the square's north side, before the inn, so the inn is not left for the town hall and entered again",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					358
+				],
+				"b": [
+					"turnin",
+					407
+				],
+				"why": "#1046 follow-up: as the pair before it, the zealot in the inn's cellar after Sevren's town hall",
+				"source": "#1046"
 			}
 		]
 	}

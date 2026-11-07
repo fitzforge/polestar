@@ -1289,6 +1289,41 @@ test(`${TIRISFAL}: Fitz's report (#1046): Hides for the Forsaken is worked with 
 	assert.deepEqual(compiled(TIRISFAL).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
 });
 
+// --- Brill (Fitz, #1046 follow-up): the guide had him hand in outside, go
+// into the Gallows' End Tavern, back outside, then into the inn again. Who is
+// inside comes from the walking grid's WMO areas: Renee, Coleman, Yvette,
+// Austil de Mon and William Pickman downstairs, Gretchen and the four trainers
+// upstairs, both captives in the cellar (not the town hall's). On every Brill
+// visit the inn is entered once: no goal outside it in Brill between two goals
+// inside it, until the walk leaves town.
+const BRILL_INN = { map: 1420, x: [61.45, 62.05], y: [51.2, 52.9] };
+const BRILL = { map: 1420, x: [56.5, 63.0], y: [47.5, 54.5] };
+const inBox = (g, b) => g.map === b.map && g.x >= b.x[0] && g.x <= b.x[1] && g.y >= b.y[0] && g.y <= b.y[1];
+test(`${TIRISFAL}: Fitz's report (#1046 follow-up): each Brill visit enters the Gallows' End Tavern once`, { skip }, () => {
+	goals(TIRISFAL); // loads the reference data
+	for (const npc of [5688, 1500, 1560, 2131, 265944, 1521, 2128, 2129, 2127, 2130, 1931, 2211]) {
+		const spawn = data.npcs[npc] && data.npcs[npc].spawns[1420];
+		if (spawn) assert.ok(inBox({ map: 1420, x: spawn.pts[0][0], y: spawn.pts[0][1] }, BRILL_INN), `npc ${npc} stands inside the inn's box`);
+	}
+	for (const npc of [1515, 1499, 1518, 2118, 1652, 1738]) {
+		const spawn = data.npcs[npc].spawns[1420];
+		assert.ok(!inBox({ map: 1420, x: spawn.pts[0][0], y: spawn.pts[0][1] }, BRILL_INN), `npc ${npc} stands outside the inn's box`);
+	}
+	for (const cls of TIRISFAL_CLASSES) {
+		let state = 'away';
+		let last = null;
+		for (const { goal, s } of goals(TIRISFAL).filter(forClass(cls)).filter(located)) {
+			const where = inBox(goal, BRILL_INN) ? 'inn' : inBox(goal, BRILL) ? 'town' : 'away';
+			if (where === 'away') state = 'away';
+			else if (where === 'inn') {
+				assert.notEqual(state, 'left-inn', `a ${cls}: step ${s} (${goal.t} ${goal.quest || goal.npc || ''}) goes back into the inn, left at step ${last}`);
+				state = 'inn';
+				last = s;
+			} else if (state === 'inn') state = 'left-inn';
+		}
+	}
+});
+
 // Onrevax (#820) and bob (#823): the Applejack Still (91736) never enters the
 // quest log: clicking it with four Shiny Red Apples hands it in on the spot
 // and gives the Thunder Applejack, which Sergeant De Vries needs for An Apple
