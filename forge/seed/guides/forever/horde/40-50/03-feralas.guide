@@ -238,7 +238,7 @@ step Rage Scar yetis
 
 step Camp Mojache
   tip Stay here: the next guide starts with the flight to Gadgetzan.
-  turnin 3128                           -- Witch Doctor Uzer'i
-  turnin 3063                           -- Talo Thornhoof
   turnin 7734                           -- Jangdor Swiftstrider
   turnin 7738 optional
+  turnin 3128                           -- Witch Doctor Uzer'i
+  turnin 3063                           -- Talo Thornhoof

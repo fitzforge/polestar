@@ -3551,6 +3551,18 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Horde Feralas 43-45): Zukk'ash Report is ready when the guide flies from Camp Mojache to Orgrimmar, and the Orgrimmar stop passes Zilzibin Drumlore in the Valley of Spirits (the flow audit: ender passed at 0 yd); the order carried it to the Azshara guide, about 650 minutes later"
+			},
+			{
+				"a": [
+					"turnin",
+					7734
+				],
+				"b": [
+					"turnin",
+					3128
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Feralas 45-47): the guide rides into Camp Mojache from the Rage Scar yetis in the north-west, past Jangdor Swiftstrider's hut first; the order went to Witch Doctor Uzer'i, across to Talo Thornhoof and back to Jangdor before the flight master (the flow audit: 150 yd over walking order)"
 			}
 		],
 		"notes": [
@@ -5012,6 +5024,20 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Horde Stranglethorn 39-43): the Aged Gorilla Sinew drops from the Elder Mistvale Gorillas, the gorillas whose fangs Witch Doctor Unbagwa wants (349), so the sinew is gathered on the same kills; the order listed it with the Bloodsail work on the Wild Shore, south of Booty Bay, while the gorillas live in Mistvale Valley to the north"
+			},
+			{
+				"a": [
+					"task",
+					699,
+					0
+				],
+				"b": [
+					"task",
+					1430,
+					0
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Swamp of Sorrows 45-47): the Sawtooth Snappers and the Monstrous Crawlers share the strand of the east coast down to Misty Reed Post, so Lack of Surplus and Fresh Meat are one stay; the guide listed the claws along the way from the Pool of Tears instead of on the coast step"
 			}
 		],
 		"after": [
