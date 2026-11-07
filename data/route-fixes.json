@@ -2006,6 +2006,18 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					6143
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Desolace, #1097): the route takes Other Fish to Fry in Shadowprey and kills its naga at Sar'theris Strand in horde/30-40/01-desolace, then walked past Drulzegar Skraghook with it done (30 yd, step 28) and carried it into 04-dustwallow-marsh, which killed the naga again and handed it in about nine and a half hours later. Handed in on the Shadowprey stop with Clam Bait, before the guide leaves for Tarren Mill (Novice Thaivand's accept)."
 			}
 		],
 		"notes": [
