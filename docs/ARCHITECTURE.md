@@ -3851,11 +3851,17 @@ Pins layers: `quests.objectives`, `quests.turnin`, `quests.available`, one pin
 per entity spawn cluster and layer (a mob two objectives need carries both
 under the higher-ranked glyph: kill > interact > collect > vendor). Spread
 objective clusters (kill, loot, object) carry their spawns' spread as `radius`.
-Objective spots (#1085): at each marker rebuild, each objective's spread pins
-are grouped by `Polestar.Regions.Of` (as the guide's spawn regions; up to
-250,000 pair checks, which Salve via Mining's 3,136 ore spots need, about
-198,000; past it the objective keeps its markers), and two objectives on the
-same spots share one region. `qol.objectiveSpots` picks the look:
+Objective spots (#1085): each objective's spread pins are grouped by
+`Polestar.Regions.Of` (as the guide's spawn regions; up to 250,000 pair
+checks, which Salve via Mining's 3,136 ore spots need, about 198,000; past it
+the objective keeps its markers), and two objectives on the same spots share
+one region. A marker rebuild only marks the regions stale: they are gathered
+when the objective layer is next published on a map with areas to draw, so
+with the objective markers off they cost nothing. A grouping is kept per
+objective with the pin keys it was made from, so a quest log change groups
+only the objectives that came; a region's area and centre pin are kept by its
+spots' keys and reused. A step change or a setting only restyles.
+`qol.objectiveSpots` picks the look:
 `groups` (default) draws a region of `Q.GROUP_MIN` (3) or more spots as one
 `hull` pin (`areaOnly`) in the accent at `qol.objectiveAreaAlpha` (0.2–1,
 default 0.6; times the dim 0.6 when its marker is dimmed) and one marker at
