@@ -114,7 +114,7 @@
 					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
 				}
 			],
-			"pr": 0
+			"pr": 1082
 		},
 		{
 			"id": "dun-morogh-gears-in-the-gnomeregan-step",
@@ -132,7 +132,7 @@
 					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
 				}
 			],
-			"pr": 0
+			"pr": 1082
 		},
 		{
 			"id": "dun-morogh-bonesnappers-in-the-quarry-step",
@@ -150,7 +150,7 @@
 					"ref": "npcs.json 1117 and 1115 spawns"
 				}
 			],
-			"pr": 0
+			"pr": 1082
 		},
 		{
 			"id": "345-tirisfal-rattlecages-in-their-step",
