@@ -3291,6 +3291,35 @@ test("Snowiee's report (#912): a class the training stop cannot train trains in 
 	}
 });
 
+// --- Flow audit (2026-11-07): the Night Elf start's own Darkshore took the
+// boat to Stormwind for Goldshire's training and A Fishy Peril, then sent every
+// Night Elf back across the sea for the last part of Bashal'Aran (957: the
+// Ancient Flame at Ameth'Aran, then Asterion) and took the boat out again. 957
+// is open from the first Bashal'Aran visit: the second loop passes Ameth'Aran
+// and ends at Asterion before Auberdine, so the sea is crossed once. The first
+// loop captured a Plagued Lands bear 700 yards north-east and walked a thousand
+// back south for it: the bears south of Auberdine are on the way to the
+// furbolg camp (players' recordings tick it at either place).
+const NE_DARKSHORE = 'forever/alliance/nightelf/02-darkshore.guide';
+const nightElf = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('NightElf'));
+test(`${NE_DARKSHORE}: flow audit: Bashal'Aran is finished before the boat, and the sea is crossed once`, { skip }, () => {
+	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'DRUID', 'MAGE', 'PALADIN', 'WARLOCK', 'SHAMAN']) {
+		const list = goals(NE_DARKSHORE).filter(nightElf).filter(forClass(cls));
+		const boats = list.map((e, i) => (e.goal.t === 'goto' && /^Boat to /.test(e.goal.text || '') ? i : -1)).filter((i) => i >= 0);
+		assert.equal(boats.length, 1, `a ${cls} takes one boat`);
+		const flame = at(list, `the Ancient Flame for a ${cls}`, (g) => g.t === 'interact' && g.quest === 957);
+		const asterion = at(list, `turnin 957 for a ${cls}`, is('turnin', 957));
+		const terenthis = at(list, `turnin 985 for a ${cls}`, is('turnin', 985));
+		assert.ok(at(list, `accept 4728 for a ${cls}`, is('accept', 4728)) < flame, `a ${cls}: the southern beach, then Ameth'Aran's flame`);
+		assert.ok(flame < asterion && asterion < terenthis && terenthis < boats[0], `a ${cls}: the flame, Asterion and Auberdine before the boat`);
+		assert.ok(list.slice(boats[0] + 1).every(({ goal }) => goal.map == null || goal.map !== list[flame].goal.map), `a ${cls}: nothing in Darkshore after the boat`);
+		const bear = at(list, `the Plagued Lands bear for a ${cls}`, (g) => g.t === 'complete' && g.quest === 2118);
+		const camp = at(list, `the furbolg camp for a ${cls}`, (g) => g.t === 'complete' && g.quest === 984);
+		assert.equal(list[bear].step, list[camp].step, `a ${cls}: the bear is captured on the way to the furbolg camp`);
+		assert.ok(camp < at(list, `accept 953 for a ${cls}`, is('accept', 953)), `a ${cls}: before Ameth'Aran`);
+	}
+});
+
 // Erá's report (#948): Arantir offers no Horns of Nez'ra (2358) after Alther's
 // Mill; the quest is not in the game on Forever. The Rogue's Certificate of
 // Thievery ends when Lucius takes the token back.
