@@ -2045,6 +2045,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and both speedrun benchmark orders take them there, before the north hills."
+			},
+			{
+				"a": [
+					"turnin",
+					432
+				],
+				"b": [
+					"task",
+					95214
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). The speedrun benchmark's order; the seed now has it."
+			},
+			{
+				"a": [
+					"turnin",
+					433
+				],
+				"b": [
+					"task",
+					96390
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). The speedrun benchmark's order; the seed now has it."
 			}
 		],
 		"notes": [
@@ -2944,6 +2968,19 @@
 					1
 				],
 				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and the speedrun benchmark's order loot the necklace on the mystics' visit."
+			},
+			{
+				"a": [
+					"task",
+					432,
+					0
+				],
+				"b": [
+					"task",
+					433,
+					0
+				],
+				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. The speedrun benchmark kills both together; the seed now does too."
 			}
 		],
 		"after": [
