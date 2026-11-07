@@ -34,5 +34,3 @@ local L = ns.L
 -- L["How solid the medallion under each skull is."] = ""
 -- L["Skull & ring opacity"] = ""
 -- L["How solid the skull and the mob ring are."] = ""
--- L["Preview: a full quest log"] = ""
--- L["Marks 20 of your faction's quests for whatever zone the world map shows, instead of your quest log. Off again after a reload; also /pmm preview."] = ""

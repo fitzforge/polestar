@@ -925,10 +925,6 @@ if Polestar.RegisterOptions then
 				help = L["How solid the medallion under each skull is."] },
 			{ kind = "slider", key = k("borderAlpha"), label = L["Skull & ring opacity"], min = 0, max = 100, step = 5, format = pct,
 				help = L["How solid the skull and the mob ring are."] },
-			{ kind = "toggle", label = L["Preview: a full quest log"],
-				get = function() return preview end,
-				set = function(on) preview = on and true or false; changed("preview") end,
-				help = L["Marks 20 of your faction's quests for whatever zone the world map shows, instead of your quest log. Off again after a reload; also /pmm preview."] },
 		},
 	})
 	if not ok and geterrorhandler then geterrorhandler()(err) end
