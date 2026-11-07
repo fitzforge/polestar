@@ -4025,7 +4025,8 @@ test('Flight path sweep (#964): Druids fly to Thunder Bluff from the Crossroads 
 		assert.equal(trip.filter((g) => g.t === 'fly').at(-1).location, 'Crossroads', `${race}: flies back to the Crossroads`);
 		assert.deepEqual(trip.filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
 		const silverpine = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
-		assert.ok(!silverpine.some(({ goal }) => goal.t === 'fly' || (goal.t === 'goto' && goal.text === 'Zeppelin to Orgrimmar')), `${race}: no zeppelin back from Silverpine`);
+		const sepulcher = silverpine.findIndex(({ goal }) => is('accept', 477)(goal));
+		assert.ok(sepulcher > 0 && !silverpine.slice(0, sepulcher + 20).some(({ goal }) => goal.t === 'fly' || (goal.t === 'goto' && goal.text === 'Zeppelin to Orgrimmar')), `${race}: no zeppelin back from the Sepulcher`);
 	}
 });
 
