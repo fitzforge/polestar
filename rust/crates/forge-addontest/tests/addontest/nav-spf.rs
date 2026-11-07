@@ -1698,6 +1698,34 @@ fn review_3_the_last_walk_to_a_target_after_a_guide_goto_is_never_searched_drawn
 	assert_eq!(out["last"], json!(["walk", "cost", 2]), "priced by the measure, drawn straight from the mouth");
 }
 
+// #1128 (Fitz, Tirisfal's "The Barrens" step from Orgrimmar): the step before is the zeppelin tower's goto in
+// Tirisfal, reached, so the Barrens goto counted as following a way in and the arrow drew a straight line across
+// Durotar; a hand-set waypoint walked. Only a reached goto on the target's continent within 500 yards is a way in.
+#[test]
+fn a_reached_goto_is_a_way_in_only_on_the_target_s_continent_and_near_it_1128_the_zeppelin_tower_before_the_barrens() {
+	let out = run_many(
+		r#"
+		local m, tx, ty = nav.mapPoint(0, 0)          -- the target
+		local function follows(goto)
+			local guide = { steps = {
+				{ goals = { goto } },
+				{ goals = { { t = "goto", map = m, x = tx, y = ty } } },
+			} }
+			Polestar.Engine.GetGuide = function() return guide end
+			Polestar.Engine.GoalDone = function(s, g) return s == 1 and g == 1 end -- the earlier goto reached
+			return N.walk.FollowsGoto({ map = m, x = tx, y = ty, stepIndex = 2, goalIndex = 1, kind = "goto" })
+		end
+		local _, nx, ny = nav.mapPoint(0, 280)         -- a cave's mouth, 280 yd off
+		local _, fx, fy = nav.mapPoint(0, 900)         -- 900 yd off, same continent
+		emit({
+			near = follows({ t = "goto", map = m, x = nx, y = ny }),
+			far = follows({ t = "goto", map = m, x = fx, y = fy }),
+			other = follows({ t = "goto", map = 9001, x = 50, y = 50 }),
+		})"#,
+	);
+	assert_eq!(out, json!({ "near": true, "far": false, "other": false }));
+}
+
 // A boat from Testshire Docks (-900, 0) to Farland Pier (c1: 400, 0); on Farland,
 // Pier Roost (300, 0) flies to Far Roost (-400, 0); the target (-400, -300).
 const BOAT: &str = r#"
