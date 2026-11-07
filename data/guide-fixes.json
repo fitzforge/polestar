@@ -2900,8 +2900,8 @@
 			"id": "1175-ashenvale-earthen-ring-by-air-or-road",
 			"at": {"quest": 96260, "goal": "accept"},
 			"faction": "Horde",
-			"tip": "The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; riding in from Camp Taurajo, keep north past the bluffs.",
-			"note": "Stronger than Steel: Tauren and Skyborne fly from Zoram'gar to Thunder Bluff, the others ride in from Camp Taurajo; the tip spoke only of the lift (final route review).",
+			"tip": "The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; coming on foot from Camp Taurajo, keep north past the bluffs.",
+			"note": "Stronger than Steel: Tauren and Skyborne fly from Zoram'gar to Thunder Bluff, the others walk in from Camp Taurajo; the tip spoke only of the lift (final route review).",
 			"source": [{"kind": "client", "ref": "Mazu'kon at Mulgore 32.5,20.6, Thunder Bluff's flight master Tal (npc 2995)"}],
 			"pr": 1175
 		},

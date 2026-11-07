@@ -201,7 +201,7 @@ step Mulgore
 
 step The Earthen Ring
   zone Mulgore
-  tip The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; riding in from Camp Taurajo, keep north past the bluffs.
+  tip The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; coming on foot from Camp Taurajo, keep north past the bluffs.
   accept 96260                        -- Yorn Grimtotem
   accept 96241 @32.5,20.6 live        -- Mazu'kon
   accept 96259                        -- Muln Earthfury: The Broodmother comes once this is handed in

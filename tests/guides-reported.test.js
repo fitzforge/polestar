@@ -4012,21 +4012,20 @@ const forRaceOf = (race) => ({ step, goal }) => [step.only, goal.only].every((o)
 
 // The Tauren and Skyborne Druids took the zeppelin to Orgrimmar for their Thunder Bluff training at 16,
 // then walked about 2,400 yards to Ratchet's flight master and back to the zeppelin afterwards, though
-// Doras stands about 480 yards from the zeppelin. They learn Orgrimmar's flight path off the zeppelin,
-// fly from it to Thunder Bluff and back to it.
-test('Flight path sweep (#964): Silverpine Druids learn Orgrimmar off the zeppelin and fly from it, not from Ratchet', { skip }, () => {
+// Doras stands about 480 yards from the zeppelin. Since the final route review (Horde 1-30) they fly from
+// the Crossroads, where the Barrens guide ends, to Thunder Bluff and back, before the walk to Orgrimmar:
+// no zeppelin round trip from the Sepulcher, and never Ratchet.
+test('Flight path sweep (#964): Druids fly to Thunder Bluff from the Crossroads at 16, not by zeppelin or from Ratchet', { skip }, () => {
 	for (const race of ['Tauren', 'Skyborne']) {
-		const list = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
-		const zep = at(list, `${race}: the zeppelin to Orgrimmar`, (g) => g.t === 'goto' && g.text === 'Zeppelin to Orgrimmar');
-		// (The guide opens with everyone's Undercity zeppelin from Durotar: the one after the trip.)
-		const back = list.findIndex(({ goal }, i) => i > zep && goal.t === 'goto' && goal.text === 'Zeppelin to Undercity');
-		assert.ok(back > zep, `${race}: the zeppelin back to the Undercity after the trip`);
-		const trip = list.slice(zep, back).map(({ goal }) => goal);
-		const fp = trip.findIndex((g) => g.t === 'getfp' && g.location === 'Orgrimmar');
+		const barrens = goals('forever/horde/02-the-barrens.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
+		const mura = at(barrens, `${race}: the last Crossroads stop`, is('accept', 3301));
+		const trip = barrens.slice(mura).map(({ goal }) => goal);
 		const out = trip.findIndex((g) => g.t === 'fly' && g.location === 'Thunder Bluff');
-		assert.ok(fp >= 0 && fp < out, `${race}: Orgrimmar's flight path is learned before the flight to Thunder Bluff`);
-		assert.ok(trip.slice(out).some((g) => g.t === 'fly' && g.location === 'Orgrimmar'), `${race}: the way back flies to Orgrimmar for the zeppelin`);
+		assert.ok(out >= 0 && trip.slice(out).some((g) => g.t === 'train'), `${race}: flies to Thunder Bluff and trains`);
+		assert.equal(trip.filter((g) => g.t === 'fly').at(-1).location, 'Crossroads', `${race}: flies back to the Crossroads`);
 		assert.deepEqual(trip.filter((g) => /Ratchet/.test(`${g.location || ''} ${g.text || ''}`)).map((g) => g.t), [], `${race}: no walk to or flight from Ratchet`);
+		const silverpine = goals('forever/horde/03-silverpine-forest.guide').filter(forRaceOf(race)).filter(forClass('DRUID'));
+		assert.ok(!silverpine.some(({ goal }) => goal.t === 'fly' || (goal.t === 'goto' && goal.text === 'Zeppelin to Orgrimmar')), `${race}: no zeppelin back from Silverpine`);
 	}
 });
 
