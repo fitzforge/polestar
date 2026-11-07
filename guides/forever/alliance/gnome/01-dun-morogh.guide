@@ -199,21 +199,15 @@ step Rumbleshot's Ammo
   tip Hegnar Rumbleshot camps south-west of it, by the road to Coldridge.
   turnin 5541                                 -- Hegnar Rumbleshot
 
-step Kharanos and the depot
-  turnin 98323                                -- Senir Whitebeard
-
 step Kharanos
-  buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm; upstairs
-
-step Kharanos and the depot
+  tip Senir stands by Eric's campfire in front of the Thunderbrew Distillery; Tognus Flintfire is in the cellar west of it.
+  turnin 98323                                -- Senir Whitebeard
   accept 287                                  -- Senir Whitebeard
   turnin 98321                                -- Tognus Flintfire, below ground
 
 step Thunderbrew Distillery
-  buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm; upstairs
-
-step Kharanos
   tip Kill the Crag Boars on the way: their ribs drop before you have Ragnar's quest and count toward it. Back in the distillery: Gremlock Pilsnor teaches Cooking, then the ribs go to Ragnar.
+  buy 2894 x1 npc 1247                        -- Rhapsody Malt, from Innkeeper Belm; upstairs
   train Cooking npc 1699                      -- Gremlock Pilsnor: Camping 101 asks you to learn it; below ground
   complete 96629 @47.7,52.3
   turnin 96629                                -- Gremlock Pilsnor
@@ -224,15 +218,9 @@ step Kharanos and the depot
   turnin 313                                  -- Pilot Stonegear, at the depot
   accept 412                                  -- Razzle Sprysprocket, by the depot; below ground
 
-step On the way
-  along until q412
-  collect 3083 quest 412.1
-  collect 3084 quest 412.2
-
 # ---------------------------------------------------------------- Brewnall Village
 
 step Brewnall Village
-  label q412
   tip Brewnall Village sits on the lake west of Kharanos. Gretta Ganter's dock is the first stop; Rejold and Marleth Barleybrew are in the village beyond it.
   accept 98326                                -- Gretta Ganter, on the dock
   accept 310                                  -- Marleth Barleybrew
@@ -240,10 +228,8 @@ step Brewnall Village
   accept 315
   accept 319
   kill 1196 quest 319 optional                -- Ice Claw Bear, on the way to the Hold
-  kill 1127 quest 319                         -- Elder Crag Boar
-  kill 1201 quest 319                         -- Snow Leopard
-  collect 3083 quest 412.1
-  collect 3084 quest 412.2
+  kill 1127 quest 319 optional                -- Elder Crag Boar, on the way
+  kill 1201 quest 319 optional                -- Snow Leopard, on the way
   goto 25.1,50.94 live "Frostmane Hold"
 
 step Frostmane Hold
@@ -255,9 +241,11 @@ step Frostmane Hold
 step Gnomeregan: kill these as you meet them
   zone Dun Morogh
   tip Leper Gnomes around Brewnall and the Gnomeregan road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake.
-  kill 1196 quest 319                         -- Ice Claw Bear
   collect 3083 quest 412.1                    -- Restabilization Cog: Leper Gnomes
   collect 3084 quest 412.2                    -- Gyromechanic Gear: Leper Gnomes
+  kill 1196 quest 319                         -- Ice Claw Bear
+  kill 1127 quest 319                         -- Elder Crag Boar
+  kill 1201 quest 319                         -- Snow Leopard
 
 step Rejold Barleybrew
   turnin 319
@@ -391,31 +379,24 @@ step Gol'Bolar Quarry
   accept 432                                  -- Foreman Stonebrow
 
 step The quarry troggs
-  tip Rockjaw Skullthumpers fill the quarry; Rockjaw Ambushers by Helm's Bed Lake drop the Empty Powder Keg.
+  tip Rockjaw Skullthumpers, Bonesnappers and Ambushers share the quarry and the slopes north of it; the Ambushers drop the Empty Powder Keg.
   kill 1115 quest 432                         -- Rockjaw Skullthumper
+  kill 1117 quest 433                         -- Rockjaw Bonesnapper
+  collect 268548 optional                     -- Empty Powder Keg
+  accept 95213 optional
 
 step Gol'Bolar Quarry
   turnin 432                                  -- Foreman Stonebrow
-
-step The quarry troggs
-  collect 268548 optional -- Empty Powder Keg
-  accept 95213 optional
-
-step Quarrymaster Thesten
-  turnin 95213 optional -- Quarrymaster Thesten
+  turnin 433                                  -- Senator Mehr Stonehallow
+  turnin 95213 optional                       -- Quarrymaster Thesten
   accept 95214 optional
 
 step Helm's Bed Lake
-  tip Rockjaw Ambushers by Helm's Bed Lake, north of the quarry, and Rockjaw Backbreakers further east drop the Stolen Blasting Powder. Rockjaw Bonesnappers prowl the quarry and the lake; Dark Iron Spies sneak around the lake shore. One spy drops the Dark Iron Map.
+  tip Rockjaw Ambushers by Helm's Bed Lake, north of the quarry, and Rockjaw Backbreakers further east drop the Stolen Blasting Powder. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the Dark Iron Map.
   collect 267415 quest 95214.1                -- Stolen Blasting Powder
-
-step Gol'Bolar Quarry
-  when onquest 95214
-  turnin 95214                                -- Quarrymaster Thesten
-
-step Rockjaw Bonesnapper on the way
-  along until q433
-  kill 1117 quest 433 -- Rockjaw Bonesnapper along the way to Gol'Bolar Quarry
+  kill 6123 quest 96390                       -- Dark Iron Spy
+  collect 274268 optional                     -- Dark Iron Map
+  accept 96391 optional
 
 step Dun Morogh: kill these as you meet them
   zone Dun Morogh
@@ -424,17 +405,12 @@ step Dun Morogh: kill these as you meet them
   collect 267416 quest 95217.2 optional       -- Toughened Boar Hide
 
 step Gol'Bolar Quarry
-  when onquest 95217
-  turnin 95217 optional                       -- Frast Dokner
-
-step Helm's Bed Lake
-  kill 6123 quest 96390                       -- Dark Iron Spy
-  collect 274268 optional -- Dark Iron Map
-  accept 96391 optional
+  when onquest 95214
+  turnin 95214                                -- Quarrymaster Thesten
 
 step Gol'Bolar Quarry
-  label q433
-  turnin 433                                  -- Senator Mehr Stonehallow
+  when onquest 95217
+  turnin 95217 optional                       -- Frast Dokner
 
 step Protecting the Herd
   when group 314

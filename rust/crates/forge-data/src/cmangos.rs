@@ -278,17 +278,30 @@ fn extract_spawn_heights(lines: impl Iterator<Item = String>, respawn: bool) -> 
 /// pacing at its camp): the compiler's walkers walk 20 yards or more (forge-guide walks.rs).
 pub const MOVE_MIN_YD: f64 = 20.0;
 
+/// A creature's walking speed in yards per second, to time a waypoint round.
+pub const WALK_YD_S: f64 = 2.5;
+
+/// Waypoints within this many yards of the spawn count as standing at it.
+const AT_SPAWN_YD: f64 = 5.0;
+
 /// Lines -> { npc: { id: [[map, x, y, cx, cy, r]...] } } on maps 0 and 1: every creature spawn that
 /// walks (random movement within its `spawndist`, or a waypoint path: `creature_movement` by spawn,
 /// else `creature_movement_template` path 0 by creature), with its spawn point, then the centre and
-/// radius in yards of the ground the walk covers; walks under MOVE_MIN_YD left out. The columns are
-/// found by name.
+/// radius in yards of the ground the walk covers; walks under MOVE_MIN_YD left out. A waypoint walker
+/// that waits at its spawn at least as long as the rest of its round takes (the walk at WALK_YD_S
+/// plus its other waits) is met at its spawn most of the time and is left out too: Deathguard
+/// Bartholomew waits five minutes beside Dillinger in Brill, then walks about three minutes to the
+/// graveyard and back, and the walk's circle sent the arrow to its centre, where he never stands
+/// (#1046). The columns are found by name.
 fn extract_moves(lines: impl Iterator<Item = String>) -> V {
 	let mut c = Columns::default();
 	// (entry, guid, map, x, y, spawndist, movement type)
 	let mut spawns: Vec<(i64, i64, f64, f64, f64, f64, f64)> = Vec::new();
-	let mut by_guid: rustc_hash::FxHashMap<i64, Vec<(f64, f64)>> = Default::default();
-	let mut by_entry: rustc_hash::FxHashMap<i64, Vec<(f64, f64)>> = Default::default();
+	// Waypoints (x, y, wait in ms).
+	let mut by_guid: rustc_hash::FxHashMap<i64, Vec<(f64, f64, f64)>> = Default::default();
+	let mut by_entry: rustc_hash::FxHashMap<i64, Vec<(f64, f64, f64)>> = Default::default();
+	// A wait the dump has no column for, or no value in, is none.
+	let wait = |s: &str| Some(num(s)).filter(|w| w.is_finite() && *w > 0.0).unwrap_or(0.0);
 	for line in lines {
 		if c.see(&line) {
 			continue;
@@ -304,16 +317,16 @@ fn extract_moves(lines: impl Iterator<Item = String>) -> V {
 				spawns.push((entry as i64, num(get(&r, ig)) as i64, map, num(get(&r, ix)), num(get(&r, ix + 1)), num(get(&r, idist)), mt));
 			}
 		} else if line.starts_with("INSERT INTO `creature_movement` VALUES") {
-			let (ii, ix) = (c.at("creature_movement", "Id", 0), c.at("creature_movement", "PositionX", 2));
+			let (ii, ix, iw) = (c.at("creature_movement", "Id", 0), c.at("creature_movement", "PositionX", 2), c.at("creature_movement", "WaitTime", -1));
 			for r in tuples(&line) {
-				by_guid.entry(num(get(&r, ii)) as i64).or_default().push((num(get(&r, ix)), num(get(&r, ix + 1))));
+				by_guid.entry(num(get(&r, ii)) as i64).or_default().push((num(get(&r, ix)), num(get(&r, ix + 1)), wait(get(&r, iw))));
 			}
 		} else if line.starts_with("INSERT INTO `creature_movement_template` VALUES") {
 			let t = "creature_movement_template";
-			let (ie, ip, ix) = (c.at(t, "Entry", 0), c.at(t, "PathId", 1), c.at(t, "PositionX", 3));
+			let (ie, ip, ix, iw) = (c.at(t, "Entry", 0), c.at(t, "PathId", 1), c.at(t, "PositionX", 3), c.at(t, "WaitTime", -1));
 			for r in tuples(&line) {
 				if num(get(&r, ip)) == 0.0 {
-					by_entry.entry(num(get(&r, ie)) as i64).or_default().push((num(get(&r, ix)), num(get(&r, ix + 1))));
+					by_entry.entry(num(get(&r, ie)) as i64).or_default().push((num(get(&r, ix)), num(get(&r, ix + 1)), wait(get(&r, iw))));
 				}
 			}
 		}
@@ -332,7 +345,15 @@ fn extract_moves(lines: impl Iterator<Item = String>) -> V {
 			(x, y, dist)
 		} else {
 			let Some(path) = by_guid.get(&guid).or_else(|| by_entry.get(&entry)) else { continue };
-			let pts: Vec<(f64, f64)> = path.iter().copied().chain(std::iter::once((x, y))).collect();
+			// Seconds waited at the spawn against the rest of the round (the path closes on its first point).
+			let at_spawn = |p: &(f64, f64, f64)| (p.0 - x).hypot(p.1 - y) <= AT_SPAWN_YD;
+			let lap: f64 = path.iter().zip(path.iter().cycle().skip(1)).map(|(a, b)| (a.0 - b.0).hypot(a.1 - b.1)).sum();
+			let stand: f64 = path.iter().filter(|p| at_spawn(p)).map(|p| p.2).sum::<f64>() / 1000.0;
+			let round_s = lap / WALK_YD_S + path.iter().filter(|p| !at_spawn(p)).map(|p| p.2).sum::<f64>() / 1000.0;
+			if stand > 0.0 && stand >= round_s {
+				continue;
+			}
+			let pts: Vec<(f64, f64)> = path.iter().map(|p| (p.0, p.1)).chain(std::iter::once((x, y))).collect();
 			let (x0, x1) = pts.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), p| (a.min(p.0), b.max(p.0)));
 			let (y0, y1) = pts.iter().fold((f64::INFINITY, f64::NEG_INFINITY), |(a, b), p| (a.min(p.1), b.max(p.1)));
 			let (cx, cy) = ((x0 + x1) / 2.0, (y0 + y1) / 2.0);
@@ -866,9 +887,10 @@ pub fn add_tdb_heights(h: &mut Heights, tdb: &V) -> usize {
 	added
 }
 
-/// Creature walks: moves.json's text (see extract_moves).
+/// Creature walks: moves.json's text (see extract_moves). The extract is cached as moves.2.json since
+/// it leaves out walkers that mostly wait at their spawn (#1046), so an older cache is not read.
 pub fn load_moves(sources: &Path) -> Result<String, String> {
-	Ok(serialize_moves(&cached_extract(sources, "moves.json", &|lines| Ok(serialize_moves(&extract_moves(lines))))?))
+	Ok(serialize_moves(&cached_extract(sources, "moves.2.json", &|lines| Ok(serialize_moves(&extract_moves(lines))))?))
 }
 
 pub fn load_quest_counts(sources: &Path) -> Result<V, String> {
@@ -963,7 +985,7 @@ pub fn extract_text(sources: &Path, name: &str) -> Result<String, String> {
 		"escort_paths.json" => format!("{}\n", stringify(&extract_escort_paths(lines)?, None)),
 		"quest_facts.json" => format!("{}\n", stringify(&extract_quest_facts(lines)?, None)),
 		"creature_template.json" => format!("{}\n", stringify(&extract_creature_templates(lines)?, None)),
-		"moves.json" => serialize_moves(&extract_moves(lines)),
+		"moves.2.json" => serialize_moves(&extract_moves(lines)),
 		_ => return Err(format!("no CMaNGOS extract named {name}")),
 	})
 }
@@ -980,7 +1002,7 @@ pub fn extract_all(sources: &Path, dir: &Path) -> Result<(), String> {
 	w("graveyards.json", format!("{}\n", stringify(&extract_graveyards(dump_lines(&dump)?)?, None)))?;
 	w("escort_paths.json", format!("{}\n", stringify(&extract_escort_paths(dump_lines(&dump)?)?, None)))?;
 	w("quest_facts.json", format!("{}\n", stringify(&extract_quest_facts(dump_lines(&dump)?)?, None)))?;
-	w("moves.json", serialize_moves(&extract_moves(dump_lines(&dump)?)))?;
+	w("moves.2.json", serialize_moves(&extract_moves(dump_lines(&dump)?)))?;
 	Ok(())
 }
 
@@ -1043,5 +1065,44 @@ mod tests {
 		];
 		let m = extract_moves(lines.iter().map(|l| l.to_string()));
 		assert_eq!(serialize_moves(&m), "{\"npc\":{\n\"100\":[[1,10,20,10,20,25]],\n\"1742\":[[0,2289.3,391.4,2319.3,361.4,42.5]]\n}}\n");
+	}
+
+	// #1046: Deathguard Bartholomew waits five minutes at his spawn beside Dillinger, then walks a
+	// round of about a minute and a half here (three in the game): met at his spawn, not on the walk.
+	#[test]
+	fn a_waypoint_walker_waiting_at_its_spawn_longer_than_its_round_is_left_out() {
+		let lines = [
+			"CREATE TABLE `creature` (",
+			"  `guid` int unsigned NOT NULL AUTO_INCREMENT,",
+			"  `id` mediumint unsigned NOT NULL DEFAULT '0',",
+			"  `map` smallint unsigned NOT NULL DEFAULT '0',",
+			"  `spawnMask` tinyint unsigned NOT NULL DEFAULT '1',",
+			"  `position_x` float NOT NULL DEFAULT '0',",
+			"  `position_y` float NOT NULL DEFAULT '0',",
+			"  `position_z` float NOT NULL DEFAULT '0',",
+			"  `orientation` float NOT NULL DEFAULT '0',",
+			"  `spawntimesecsmin` int unsigned NOT NULL DEFAULT '120',",
+			"  `spawntimesecsmax` int unsigned NOT NULL DEFAULT '120',",
+			"  `spawndist` float NOT NULL DEFAULT '5',",
+			"  `MovementType` tinyint unsigned NOT NULL DEFAULT '0',",
+			"  PRIMARY KEY (`guid`)",
+			") ENGINE=MyISAM;",
+			// Bartholomew (300 s at the spawn, a 194 yd round), one pausing 10 s at its spawn, one waiting 300 s far from it.
+			"INSERT INTO `creature` VALUES (34111,1742,0,1,2289.3,391.421,34.2,3.6,300,300,0,2),(9,104,0,1,100,100,0,0,300,300,0,2),(10,105,0,1,500,500,0,0,300,300,0,2);",
+			"CREATE TABLE `creature_movement_template` (",
+			"  `Entry` mediumint unsigned NOT NULL,",
+			"  `PathId` int unsigned NOT NULL DEFAULT '0',",
+			"  `Point` mediumint unsigned NOT NULL DEFAULT '0',",
+			"  `PositionX` float NOT NULL DEFAULT '0',",
+			"  `PositionY` float NOT NULL DEFAULT '0',",
+			"  `PositionZ` float NOT NULL DEFAULT '0',",
+			"  `Orientation` float NOT NULL DEFAULT '0',",
+			"  `WaitTime` int unsigned NOT NULL DEFAULT '0',",
+			"  PRIMARY KEY (`Entry`,`PathId`,`Point`)",
+			") ENGINE=MyISAM;",
+			"INSERT INTO `creature_movement_template` VALUES (1742,0,1,2289.3,391.4,34.1,3.6,300000),(1742,0,2,2349.3,391.4,34,0,0),(1742,0,3,2319.3,331.4,37,0,0),(104,0,1,100,100,0,0,10000),(104,0,2,160,100,0,0,0),(104,0,3,130,40,0,0,0),(105,0,1,500,500,0,0,0),(105,0,2,560,500,0,0,300000),(105,0,3,530,440,0,0,0);",
+		];
+		let m = extract_moves(lines.iter().map(|l| l.to_string()));
+		assert_eq!(serialize_moves(&m), "{\"npc\":{\n\"104\":[[0,100,100,130,70,42.5]],\n\"105\":[[0,500,500,530,470,42.5]]\n}}\n");
 	}
 }
