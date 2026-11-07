@@ -5672,3 +5672,20 @@ test('Alliance quest volume: every added quest has its include record in the rou
 	for (const q of new Set(Object.values(ALLIANCE_VOLUME).flat())) assert.ok(inc.some((e) => e.q === q && /Quest volume/.test(e.reason)), `include ${q} is recorded`);
 });
 // --- end of Alliance quest volume
+
+test('Wetlands (#1184, #1206): Whelgar\'s and Rethiel\'s chain quests come after the hand-in that opens them', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const hb = goals('forever/alliance/30-40/01-hillsbrad-foothills.guide');
+	const idx = (list, t, q) => at(list, `${t} ${q}`, (g) => g.t === t && g.quest === q);
+	assert.ok(idx(wet, 'turnin', 299) < idx(wet, 'accept', 98216), 'Understanding Our Present after Uncovering the Past (#1206)');
+	for (const t of ['collect', 'turnin']) {
+		const g = wet.find(({ goal }) => goal.t === t && goal.quest === 98216);
+		assert.ok((g.step.when || []).some((p) => p.k === 'onquest' && [].concat(p.q).includes(98216)), `the keystone's ${t} only with 98216 in the log`);
+	}
+	assert.ok(idx(wet, 'turnin', 98216) < idx(wet, 'accept', 98310), 'Gleaning Our Future after Understanding Our Present');
+	assert.ok(wet[idx(wet, 'accept', 98310)].step.when.some((p) => p.k === 'turnedin' && [].concat(p.q).includes(98216)), 'Gleaning Our Future only once 98216 is handed in (98216 is optional)');
+	assert.ok(idx(wet, 'turnin', 275) < idx(wet, 'accept', 98283), 'Carnage after Fen Creeper');
+	assert.ok(!wet.some(({ goal }) => goal.t === 'accept' && goal.quest === 98313), 'For Further Study is not taken on the first dig visit');
+	assert.ok(idx(hb, 'turnin', 98310) < idx(hb, 'accept', 98313), 'For Further Study after Gleaning Our Future');
+	assert.ok(idx(hb, 'turnin', 637) < idx(hb, 'accept', 683), "Sara Balloo's Plea after Sully Balloo's Letter");
+});

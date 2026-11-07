@@ -6485,6 +6485,12 @@
 				"faction": "Alliance",
 				"reason": "Flow (2026-11-07, Alliance 20-30): Speaking of Fortitude (195 XP) sent the player from the Cathedral Square into Stormwind Keep's Royal Library and back out for one hand-in on the Stormwind stop at the end of 06-ashenvale; left out.",
 				"issue": "-"
+			},
+			{
+				"q": 79536,
+				"faction": "Alliance",
+				"reason": "Prerequisite order (2026-11-07, Wetlands report): Garion Wendell offers Greater Friend of the Library only once Friend of the Library (78150) is handed in, which only the Library Books guide (miscellaneous/library-books) does; the leveling route offered it to everyone. Left to that guide.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -8879,6 +8885,66 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood return): coming back from Sven's camp, the walk passed Darkshire's town hall to Viktori's house at the east end for Look to the Stars (181), then turned back west for the town hall's hand-ins (07-thousand-needles steps 15-16 on 0.3.4). Viktori after the town hall, on the way to the flight master at the north-east end."
+			},
+			{
+				"a": [
+					"turnin",
+					637
+				],
+				"b": [
+					"accept",
+					683
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Sara Balloo offers Sara Balloo's Plea only once Sully Balloo's Letter (637) is handed in to her (the data's pre, TDB PrevQuestID 637). The route asked for it before that hand-in."
+			},
+			{
+				"a": [
+					"turnin",
+					275
+				],
+				"b": [
+					"accept",
+					98283
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (2026-11-07, Wetlands report): Rethiel the Greenwarden offers Carnage only once Fen Creeper (275) is handed in (corrections: 98283)."
+			},
+			{
+				"a": [
+					"turnin",
+					299
+				],
+				"b": [
+					"accept",
+					98216
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1206): Prospector Whelgar offers Understanding Our Present only once Uncovering the Past (299) is handed in (corrections: 98216)."
+			},
+			{
+				"a": [
+					"turnin",
+					98216
+				],
+				"b": [
+					"accept",
+					98310
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1184, #1206): Prospector Whelgar offers Gleaning Our Future only once Understanding Our Present (98216) is handed in (corrections: 98310)."
+			},
+			{
+				"a": [
+					"turnin",
+					98310
+				],
+				"b": [
+					"accept",
+					98313
+				],
+				"faction": "Alliance",
+				"why": "Prerequisite order (#1184): Prospector Whelgar offers For Further Study only once Gleaning Our Future (98310) is handed in (corrections: 98313)."
 			}
 		]
 	}
