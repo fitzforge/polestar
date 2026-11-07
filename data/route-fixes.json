@@ -2854,6 +2854,32 @@
 					1
 				],
 				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and the speedrun benchmark's order loot the necklace on the mystics' visit."
+			},
+			{
+				"a": [
+					"task",
+					748,
+					1
+				],
+				"b": [
+					"task",
+					766,
+					2
+				],
+				"why": "Flow audit, Mulgore (#1091): the Adult Plainstriders killed for Poison Water's talons drop Mazzranache's scales; one loop, not a second sweep at the Thunderhorn well"
+			},
+			{
+				"a": [
+					"task",
+					756,
+					1
+				],
+				"b": [
+					"task",
+					766,
+					1
+				],
+				"why": "Flow audit, Mulgore (#1091): the Flatland Cougars killed for Thunderhorn Totem's claws drop Mazzranache's femurs; one loop"
 			}
 		],
 		"after": [
@@ -4923,6 +4949,94 @@
 				"faction": "Horde",
 				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
 				"source": "#970"
+			},
+			{
+				"a": [
+					"turnin",
+					761
+				],
+				"b": [
+					"task",
+					754
+				],
+				"why": "Flow audit, Mulgore (#1091): Swoop Hunting is finished on the Poison Water loop and handed to Harken Windtotem on the Poison Water hand-in, before the walk to the Winterhoof well. The old order passed Harken ready on three Bloodhoof visits and handed it in 30 minutes later"
+			},
+			{
+				"a": [
+					"turnin",
+					771
+				],
+				"b": [
+					"task",
+					754
+				],
+				"why": "Flow audit, Mulgore (#1091): Rite of Vision's Ambercorn and Well Stones are picked on the Poison Water loop, so Zarlman Two-Moons takes it on the Poison Water hand-in (Rite of Vision 772 then). The old order passed him ready, walked to the Thunderhorn well for stones already in the bags, and handed it in two visits later"
+			},
+			{
+				"a": [
+					"accept",
+					749
+				],
+				"b": [
+					"turnin",
+					754
+				],
+				"why": "Flow audit, Mulgore (#1091): Morin Cloudstalker camps 75 yd from the Winterhoof Water Well, where the totem is used: The Ravaged Caravan is taken there (5 of 8 recorded Tauren took it before handing in Winterhoof Cleansing, at level 6-8). The old order walked back out to him 20 minutes later for this one accept"
+			},
+			{
+				"a": [
+					"turnin",
+					99079
+				],
+				"b": [
+					"turnin",
+					754
+				],
+				"why": "Flow audit, Mulgore (#1091): Longwalker Malah stands on the Rolling Plains 150 yd east of the Winterhoof well; her letter is handed in, and Grim Tidings taken, on the totem trip instead of a second walk out with Morin's caravan"
+			},
+			{
+				"a": [
+					"turnin",
+					99081
+				],
+				"b": [
+					"task",
+					756
+				],
+				"why": "Flow audit, Mulgore (#1091): Grim Tidings goes back to Brave Wildrunner, and Our Ancient Enemy to Baine, on the Winterhoof Cleansing hand-in, the Bloodhoof visit right after Malah; Drive Them Out is taken there too (min level 4). The old order carried the news through three Bloodhoof visits"
+			},
+			{
+				"a": [
+					"accept",
+					99080
+				],
+				"b": [
+					"task",
+					756
+				],
+				"why": "Flow audit, Mulgore (#1091): Drive Them Out is taken from Baine when Our Ancient Enemy is handed to him, on the Winterhoof Cleansing hand-in"
+			},
+			{
+				"a": [
+					"turnin",
+					766
+				],
+				"b": [
+					"task",
+					758
+				],
+				"why": "Flow audit, Mulgore (#1091): every Mazzranache part comes from the Poison Water loop (wolf hearts, swoop gizzards, plainstrider scales) and the claws loop (cougar femurs), so Maur Raincaller takes it on the Thunderhorn Totem hand-in (6 of 7 recorded Tauren handed it in before Thunderhorn Cleansing). The old order passed Maur ready twice"
+			},
+			{
+				"a": [
+					"accept",
+					744
+				],
+				"b": [
+					"task",
+					97485
+				],
+				"why": "Flow audit, Mulgore (#1091): Eyahn Eagletalon stands 26 yd from Eylah Sunhorn in Thunder Bluff: Preparation for Ceremony is taken with Traditions of the Bluff, not after the shopping round and the flight path (a 186-yd walk back)"
 			}
 		]
 	}
