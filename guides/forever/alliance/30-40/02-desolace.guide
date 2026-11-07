@@ -76,22 +76,14 @@ step Smeed Scrabblescrew
   accept 5561
 
 step Kodo Graveyard
-  tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides.
+  tip Use Smeed's Kodo Kombobulator on an Aged Kodo and walk the tamed kodo back to his camp, five times; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom.
   goto 51.7,56.7
   kill 4700 quest 5561.1
   collect 6249 quest 1459.2
+  collect 6248 quest 1459.1           -- Scorpashi Venom
 
 step Smeed Scrabblescrew
   turnin 5561
-
-# ---------------------------------------------------------------- Kormek's Hut and the caravan
-
-step Scorpashi venom
-  tip The Scorpashi scorpids hunt the hills around Kormek's Hut on the road south.
-  collect 6248 quest 1459.1           -- Scorpashi Venom
-
-step Aged Kodo Hide
-  collect 6249 quest 1459.2           -- Aged Kodo Hide
 
 # ---------------------------------------------------------------- The Kolkar
 

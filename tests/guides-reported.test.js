@@ -4513,3 +4513,14 @@ test(`${HILLSBRAD_ALLIANCE}: flow re-order: Dun Modr in one stop, the Villards o
 	assert.equal(stepOf('turnin', 631), stepOf('accept', 647), 'Ebenezer handed in on the crossing to Foggy MacKreel');
 	assert.equal(list.filter(({ goal }) => goal.t === 'turnin' && goal.quest === 472).length, 1, 'one Longbraid turn-in');
 });
+
+// Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut
+// after the Kodo Graveyard, then walked back to the graveyard for the last hides.
+test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, no Kormek\'s Hut stop', { skip }, () => {
+	const list = goals('forever/alliance/30-40/02-desolace.guide');
+	const kodos = list.find(({ goal }) => goal.t === 'kill' && goal.quest === 5561);
+	const venom = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6248);
+	const hides = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6249);
+	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s, 'the venom on the Kodo Graveyard step');
+	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
+});
