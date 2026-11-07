@@ -5243,3 +5243,16 @@ test('forever/alliance/30-40/01-hillsbrad-foothills.guide: final review: Druid t
 	assert.ok(train > at(list, 'accept 1301', is('accept', 1301)), 'after the Mage Quarter');
 	assert.ok(train < list.findIndex(({ goal }) => goal.t === 'goto' && /Boat to Auberdine/.test(goal.text || goal.location || '')), 'before the boat');
 });
+
+// Release lint (2026-11-07): Understanding Our Present (98216) asks for the Titanic Keystone, which drops only from
+// the elite Goaz Warders, and no recorded player has killed one. Its accept, keystone and hand-in are a group
+// quest (`when group 98216`) with the grouping-up tip, as for any elite-only drop in a leveling guide.
+test('Understanding Our Present: the Titanic Keystone, from elites only, is a group quest from accept to hand-in', { skip }, () => {
+	const all = [...goals(ASHENVALE), ...goals('forever/alliance/07-thousand-needles.guide')].filter(({ goal }) => goal.quest === 98216);
+	assert.deepEqual(all.map(({ goal }) => goal.t).sort(), ['accept', 'collect', 'turnin']);
+	for (const { step, goal } of all) {
+		assert.ok((step.when || []).some((p) => p.k === 'group' && [].concat(p.q).includes(98216) && !p.neg), `${goal.t} 98216 sits in a step behind \`when group 98216\``);
+	}
+	const keystone = all.find(({ goal }) => goal.t === 'collect');
+	assert.match([].concat(keystone.step.note || []).join(' '), /Goaz Warder is elite: grouping up is advised/);
+});

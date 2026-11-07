@@ -350,9 +350,12 @@ step Whelgar's Excavation Site
   accept 98310                        -- A new Goaz Stone, for the four titan watchers around the Wetlands; below ground
   accept 98313                        -- For Historian Karnik in Ironforge, at the end of this guide
   accept 299                              -- Prospector Whelgar
-  accept 98216
   accept 306
   accept 294                              -- Ormer Ironbraid
+
+step Prospector Whelgar
+  when group 98216
+  accept 98216                        -- Prospector Whelgar: the Titanic Keystone, from the elite Goaz Warders
 
 # ---------------------------------------------------------------- East Wetlands
 

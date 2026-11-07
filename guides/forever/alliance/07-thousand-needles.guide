@@ -166,15 +166,23 @@ step Whelgar's Excavation Site: kill these as you meet them
   tip The Goaz Warders stand just west of Whelgar's camp: use the Goaz Stone he gave you beside one.
   tip The relics lie in the dig itself. Sarltooth, a big Razormaw, prowls the raptor valley just west of it.
   tip The Dragonmaw orcs camp east of the excavation site. Raiders and Swamprunners carry the war banners.
-  collect 279993 quest 98216.1        -- Titanic Keystone
   collect 3337 quest 464                  -- Dragonmaw War Banner
   collect 3638 quest 296                  -- Sarltooth's Talon
+
+step Goaz Warders
+  zone Wetlands
+  when group 98216
+  tip The Goaz Warders stand just west of Whelgar's camp. Goaz Warder is elite: grouping up is advised.
+  collect 279993 quest 98216.1        -- Titanic Keystone
 
 step Ormer and Whelgar
   label q299
   turnin 296                              -- Ormer Ironbraid
-  turnin 98216                        -- Below ground
   turnin 299                              -- Prospector Whelgar
+
+step Prospector Whelgar
+  when group 98216
+  turnin 98216                        -- Below ground
 
 step Glorin Steelbrow
   turnin 292                          -- Inside
