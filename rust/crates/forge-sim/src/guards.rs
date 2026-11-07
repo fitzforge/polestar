@@ -244,6 +244,35 @@ impl GuardCounts {
 /// (policy: a return costs the player more than its travel; GuardCounts::added_returns).
 pub const RETURN_COST_SEC: f64 = 300.0;
 
+/// Seconds the `revisit` flow flag (forge_core::flow_flags) prices each other flow count at: a
+/// return to work the earlier visit could have done (split work), an accept or hand-in left ready
+/// at a hub, a ready hand-in walked past, a hand-in made on a trip back, a giver passed and its
+/// quest taken only after going away (#1046: "ran past the quest giver", "ran past Executor
+/// Zygand", "felt strange that I need to come back here"). Avoidable returns cost RETURN_COST_SEC.
+pub const FLOW_COUNT_SEC: f64 = 120.0;
+/// Seconds of model time a move may cost before its replay under `revisit`: the most flow price
+/// it can win back is a few counts.
+pub const FLOW_HEAD_SEC: f64 = RETURN_COST_SEC;
+
+/// The flow price of an order's guard counts (seconds; 0 without the `revisit` flag): what the
+/// search and the passes add to the cost to 60 when they compare orders.
+pub fn flow_pen(c: &GuardCounts) -> f64 {
+	if !forge_core::flow_flags::on("revisit") {
+		return 0.0;
+	}
+	let counts = c.split_work + c.left_ready + c.walked_past + c.finished_near + c.passed_by.saturating_sub(c.passed_by_never);
+	f64::from(c.avoidable_returns) * RETURN_COST_SEC + f64::from(counts) * FLOW_COUNT_SEC
+}
+
+/// The headroom a candidate's model time may use under `revisit` (FLOW_HEAD_SEC, else 0).
+pub fn flow_head() -> f64 {
+	if forge_core::flow_flags::on("revisit") {
+		FLOW_HEAD_SEC
+	} else {
+		0.0
+	}
+}
+
 /// Yards and levels of the split-work count.
 pub const SPLIT_YD: f64 = 600.0;
 pub const SPLIT_AWAY: f64 = 600.0;

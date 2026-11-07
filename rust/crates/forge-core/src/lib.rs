@@ -1,6 +1,7 @@
 //! Shared types: ids, positions, map frames, race/class masks, content keys, JS-compatible number formatting.
 
 pub mod cells;
+pub mod flow_flags;
 pub mod frames;
 pub mod jsnum;
 pub mod key;

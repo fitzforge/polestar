@@ -877,6 +877,10 @@ pub fn improve(
 		let revisit_trips = crate::search::passby::camp_revisit(&problem, &mut m, &mut plog);
 		tm.lap(&scope, "pass camp revisit");
 		camp_gather_rows(world, rules, model, &mut edits_doc, &revisit_trips, "camp revisit", "campRevisits");
+		// The sweep flow flag: work on ground the route stands on, its quest open, done then.
+		let there = crate::search::passby::work_while_there(&problem, &mut m, &mut plog);
+		tm.lap(&scope, "pass work while there");
+		camp_gather_rows(world, rules, model, &mut edits_doc, &there, "work while there", "workWhileThere");
 		// The hub batch: a hub return for one hand-in folded into the next visit there.
 		batches = crate::search::passby::hub_batch(&problem, &mut m, &mut plog);
 		tm.lap(&scope, "pass hub batch");

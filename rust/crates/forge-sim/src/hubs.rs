@@ -29,6 +29,19 @@ pub const LEAVE_YD: f64 = 200.0;
 /// reports, c12w Tirisfal: Deathguard Simmer 42 yd off Calvin Montague -> Gordo, #737; Deathguard
 /// Dillinger 49 yd off Holland -> Zygand, #740).
 pub const PAST_YD: f64 = 50.0;
+/// PAST_YD under the `greedy` flow flag: an NPC this close to the leg is passed (#1046: Simmer
+/// 58 yd off the leg from Calvin Montague to Brill).
+pub const GREEDY_PAST_YD: f64 = 100.0;
+
+/// The on-the-way reach the hub counts read (PAST_YD, GREEDY_PAST_YD under `greedy`).
+pub fn past_yd() -> f64 {
+	if forge_core::flow_flags::on("greedy") {
+		GREEDY_PAST_YD
+	} else {
+		PAST_YD
+	}
+}
+
 /// Levels under a quest's level the character may be for its accept to be ready (the model's
 /// dangerGap: further under, it grinds first).
 pub const READY_UNDER: f64 = 5.0;
@@ -424,7 +437,7 @@ pub(crate) fn count(h: &HubData, w: &Walk, walked: &[Moved], mut fixes: Option<&
 			if a == NONE || a < r {
 				break;
 			}
-			if !far || walked.get(i).is_none_or(|&m| walked_dist(run, s.pt, steps[a].pt, steps[i].pt, m) > PAST_YD) {
+			if !far || walked.get(i).is_none_or(|&m| walked_dist(run, s.pt, steps[a].pt, steps[i].pt, m) > past_yd()) {
 				continue;
 			}
 			if !ready(a) {

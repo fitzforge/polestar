@@ -176,7 +176,8 @@ pub fn classify(p: &Problem, m: &Member, ins: Option<&Insertable>, g: &GuardData
 					let work: f64 = x.work.iter().filter(|(tk, _)| (run.q_task0[qi]..run.q_task1[qi]).contains(tk)).map(|w| w.1).sum();
 					v.detour_sec = (v.cost_sec - work - 2.0 * p.model.tables.p.talk_sec).max(0.0);
 					v.rate = if v.cost_sec <= 1.0 { f64::INFINITY } else { v.xp / (v.cost_sec / 60.0) };
-					v.worthwhile = v.xp > 0.0 && (v.rate >= local || (v.detour_sec < DETOUR_CHEAP_SEC && v.rate >= 0.5 * local));
+					let (full, cheap) = pickup_bar();
+					v.worthwhile = v.xp > 0.0 && (v.rate >= full * local || (v.detour_sec < DETOUR_CHEAP_SEC && v.rate >= cheap * local));
 					if !v.worthwhile {
 						// Value a chain, not a quest (planner rule 1): the quest with the quests it
 						// opens, their XP over their added time.
@@ -185,7 +186,7 @@ pub fn classify(p: &Problem, m: &Member, ins: Option<&Insertable>, g: &GuardData
 							let y = tally(&mut ev, &cc.steps);
 							let (xp, cost) = (y.xp - base.xp, y.busy - base.busy);
 							let rate = if cost <= 1.0 { f64::INFINITY } else { xp / (cost / 60.0) };
-							if y.noops <= base.noops && check.valid(&cc.steps, p_pairs, p_feas) && xp > 0.0 && rate >= local {
+							if y.noops <= base.noops && check.valid(&cc.steps, p_pairs, p_feas) && xp > 0.0 && rate >= full * local {
 								(v.xp, v.cost_sec, v.rate, v.worthwhile) = (xp, cost, rate, true);
 								v.chain = chain_quests(&cm).into_iter().map(|x| run.q_id[x as usize]).collect();
 							}
@@ -206,6 +207,21 @@ pub fn classify(p: &Problem, m: &Member, ins: Option<&Insertable>, g: &GuardData
 		out.push(v);
 	}
 	out
+}
+
+/// The `coverage` flow flag (#1046 follow-up: the benchmark order hands in ~40 % more quests over the
+/// same walk; Duskwood's Raven Hill chain and Jitters' Growling Gut skipped as low-value or over
+/// the 2-minute allowance): a passed quest is worthwhile at half the route's XP rate (a quarter
+/// when its detour is under DETOUR_CHEAP_SEC), and a pickup may add COVERAGE_ALLOW_SEC.
+pub const COVERAGE_ALLOW_SEC: f64 = 300.0;
+
+/// The share of the route's own XP rate a passed quest must reach: (any detour, a cheap detour).
+pub fn pickup_bar() -> (f64, f64) {
+	if forge_core::flow_flags::on("coverage") {
+		(0.5, 0.25)
+	} else {
+		(1.0, 0.5)
+	}
 }
 
 /// One pickup the pass kept.
@@ -254,7 +270,7 @@ pub fn pickup(p: &Problem, m: &mut Member, ins: Option<&Insertable>, g: &GuardDa
 				if a >= m.live || !m.check.valid(&cand.steps, &p.pairs, &p.feas) || twin_trainings(&cand) > twin_trainings(&m.order) {
 					continue;
 				}
-				m.allow = PICKUP_ALLOW_SEC;
+				m.allow = if forge_core::flow_flags::on("coverage") { COVERAGE_ALLOW_SEC } else { PICKUP_ALLOW_SEC };
 				let r = m.replay(p, &cand, a, b);
 				m.allow = 0.0;
 				if let Some(r) = r {
@@ -299,6 +315,20 @@ pub const HUB_PICKUP_ALLOW_SEC: f64 = 180.0;
 /// (edits::JOIN_YD); a pickup the replay finds cheap from 100 yd off is a stop of its own (c14
 /// Human: Rest and Relaxation taken at 1.3 from the Abbey, Falkhaan 140 yd off by the stables).
 pub const HUB_PICKUP_YD: f64 = crate::order::SAME_STOP_YD;
+/// Under the `greedy` flow flag (#1046: Deathguard Simmer 144 yd from Calvin Montague, passed and
+/// taken later): a stop this close to the giver is next to it (the check's hub reach and a bit),
+/// and taking it there may cost GREEDY_ALLOW_SEC.
+pub const GREEDY_PICKUP_YD: f64 = 150.0;
+pub const GREEDY_ALLOW_SEC: f64 = 300.0;
+
+/// The hub pickup pass's reach and allowance (GREEDY_* under the `greedy` flow flag).
+pub fn hub_pickup_reach() -> (f64, f64) {
+	if forge_core::flow_flags::on("greedy") {
+		(GREEDY_PICKUP_YD, GREEDY_ALLOW_SEC)
+	} else {
+		(HUB_PICKUP_YD, HUB_PICKUP_ALLOW_SEC)
+	}
+}
 
 /// One quest the hub pickup pass took on an earlier visit to its giver.
 pub struct HubPickup {
@@ -324,7 +354,8 @@ pub fn hub_pickup(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec
 	// One quest at a time, its candidates against the order as it is now (the latest earlier visit
 	// first), the first kept.
 	loop {
-		let cands: Vec<Mv> = joins_at(p, m, HUB_PICKUP_YD).into_iter().filter(|mv| matches!(mv, Mv::Join { q, .. } if !tried.contains(q))).collect();
+		let (reach, allow) = hub_pickup_reach();
+		let cands: Vec<Mv> = joins_at(p, m, reach).into_iter().filter(|mv| matches!(mv, Mv::Join { q, .. } if !tried.contains(q))).collect();
 		let Some(Mv::Join { q, .. }) = cands.first() else { break };
 		let q = *q;
 		tried.insert(q);
@@ -335,7 +366,7 @@ pub fn hub_pickup(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec
 			if a >= m.live || !m.check.valid(&cand.steps, &p.pairs, &p.feas) || twin_trainings(&cand) > twin_trainings(&m.order) {
 				continue;
 			}
-			m.allow = HUB_PICKUP_ALLOW_SEC;
+			m.allow = allow;
 			let r = m.replay(p, &cand, a, b);
 			m.allow = 0.0;
 			if let Some(r) = r {
@@ -574,6 +605,109 @@ pub fn camp_gather<'a>(p: &Problem<'a>, m: &mut Member<'a>, log: &mut dyn FnMut(
 			}
 		}
 		if !any {
+			break;
+		}
+	}
+	kept
+}
+
+/// Yards from a task's spawn area a stop is on its ground for the `sweep` flow flag (two hunting
+/// grounds' reach: Fields of Grief's pumpkins at Solliden are 224 yd from Calvin Montague, #1046).
+pub const SWEEP_YD: f64 = 250.0;
+/// Yards from the task's area a stop after it must be for the route to have left the ground.
+pub const SWEEP_AWAY_YD: f64 = 400.0;
+/// Seconds the hours to 60 may rise for one task done where the route already stands.
+pub const SWEEP_ALLOW_SEC: f64 = 180.0;
+/// Most moves the sweep pass keeps (a bound on its rounds).
+pub const SWEEP_MAX: usize = 400;
+
+/// The `sweep` flow flag's candidates (#1046 "you've saved the pumpkins for when I do the
+/// Scarlet"; geezki in Duskwood, "I could be picking up 10 quests at once"): a task done on a
+/// return to ground the route stood on earlier while its quest was in the log, moved to right
+/// after the earliest such stop (within SWEEP_YD of its spawn area, the route then going
+/// SWEEP_AWAY_YD from it before the task). The replay prices the level (work over the
+/// character's head grinds first), the checker keeps the order's rules.
+pub fn there_moves(p: &Problem, m: &Member) -> Vec<Mv> {
+	let run = &p.model.run;
+	let o = &m.order;
+	let live = m.live.min(o.len());
+	let locs = super::locs(run, &o.steps);
+	let at = |k: usize| {
+		let pt = locs[k] as usize;
+		[(run.p_c[pt], run.p_x[pt], run.p_y[pt])]
+	};
+	let mut accepted: rustc_hash::FxHashMap<u32, usize> = Default::default();
+	let mut out = Vec::new();
+	for i in 0..live {
+		let s = o.steps[i];
+		if s.kind == K_ACCEPT {
+			accepted.entry(s.q).or_insert(i);
+			continue;
+		}
+		if s.kind != K_TASK || s.task < 0 {
+			continue;
+		}
+		let Some(&a) = accepted.get(&s.q) else { continue };
+		let area = task_area(run, s.task as usize);
+		// The earliest stop on its ground after the accept, the route leaving it before step i.
+		let mut on: Option<usize> = None;
+		for k in a..i {
+			if o.steps[k].kind == K_GRIND {
+				continue;
+			}
+			let d = area_dist(&at(k), &area);
+			match on {
+				None if d <= SWEEP_YD => on = Some(k),
+				Some(j) if d > SWEEP_AWAY_YD => {
+					out.push(Mv::Move { s: i, e: i, to: j + 1, kind: "work while there" });
+					break;
+				}
+				_ => {}
+			}
+		}
+	}
+	out
+}
+
+/// The sweep pass (`sweep` flow flag): each task of there_moves done at the earliest stop on its
+/// ground, the first candidate that keeps the order's rules, puts no objective earlier than the
+/// level rule allows, worsens no guard and adds at most SWEEP_ALLOW_SEC. Rounds until none is kept.
+pub fn work_while_there<'a>(p: &Problem<'a>, m: &mut Member<'a>, log: &mut dyn FnMut(&str)) -> Vec<HubPickup> {
+	if !forge_core::flow_flags::on("sweep") {
+		return Vec::new();
+	}
+	let run = &p.model.run;
+	let mut kept = Vec::new();
+	let mut tried: rustc_hash::FxHashSet<(u32, i32)> = Default::default();
+	loop {
+		let cands: Vec<Mv> = there_moves(p, m).into_iter().filter(|mv| matches!(mv, Mv::Move { s, .. } if !tried.contains(&(m.order.steps[*s].q, m.order.steps[*s].task)))).collect();
+		let Some(Mv::Move { s: first, .. }) = cands.first().cloned() else { break };
+		let st = m.order.steps[first];
+		tried.insert((st.q, st.task));
+		let mv = cands[0].clone();
+		let Some((cand, a, b)) = mv.apply(&m.order) else { continue };
+		if a >= m.live || !m.check.valid(&cand.steps, &p.pairs, &p.feas) || twin_trainings(&cand) > twin_trainings(&m.order) {
+			continue;
+		}
+		let now = m.total();
+		m.allow = SWEEP_ALLOW_SEC;
+		let r = m.replay(p, &cand, a, b);
+		m.allow = 0.0;
+		let Some((next, gc)) = r else { continue };
+		if !m.levels_ok(p, &cand, &next) {
+			continue;
+		}
+		let (before, lv) = (m.order.clone(), m.lv.clone());
+		m.guard_now = gc;
+		for (c, cur) in m.ctxs.iter_mut().zip(next) {
+			c.cur = cur;
+		}
+		m.order = cand;
+		m.refresh();
+		let added = m.total() - now;
+		log(&format!("work while there {}.{} to step {a}: {:+.1} min", run.q_id[st.q as usize], st.task, added / 60.0));
+		kept.push(HubPickup { mv, before, lv, added, hours: m.total() / 3600.0 });
+		if kept.len() >= SWEEP_MAX {
 			break;
 		}
 	}
@@ -944,7 +1078,7 @@ pub fn hub_sweep(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> Vec<
 			*t = (t.0 + 1, kept.len());
 			// (A hand-in made on a trip back moves only when the route is no slower for it: else waiting
 			// saves walking, crate::turnin's exception, priced by the replay.)
-			let allow = if matches!(fix, Fix::Near { .. }) { 0.0 } else { HUB_SWEEP_ALLOW_SEC };
+			let allow = if matches!(fix, Fix::Near { .. }) { 0.0 } else { hub_pickup_reach().1.max(HUB_SWEEP_ALLOW_SEC) };
 			for mv in sweep_moves(run, &m.order, fix) {
 				let got = match keep_seq(p, m, h, std::slice::from_ref(&mv), now, allow, 0.0, |n, o| n.sum() < o.sum()) {
 					// Its own quest's next step may need to follow (a hand-in ready once the accept
@@ -1598,6 +1732,9 @@ pub fn defer_hard_work(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -
 	kept
 }
 
+/// Minutes of the model's own (unwritten) grind the `grind` flow flag always writes as a top-up.
+pub const GRIND_WRITE_MIN: f64 = 10.0;
+
 /// The planner's grind rule: whatever grind the route keeps is explicit and in pieces. The model's own
 /// grind before an accept or work under its level (TOPUP_IMPLICIT_MIN or more) becomes a checkpoint
 /// at the last camp of the zone stay before it (its last objective step there), else right before
@@ -1723,6 +1860,10 @@ pub fn grind_topups(p: &Problem, m: &mut Member, log: &mut dyn FnMut(&str)) -> V
 		let (now, _) = hub_scan(p, h, m);
 		// A split may cost what it removes of the grind over TOPUP_MIN, up to TOPUP_SPLIT_ALLOW_SEC.
 		let allow = if g.explicit { (grind_excess(&gs) - grind_excess(&after)).clamp(TOPUP_ALLOW_SEC, TOPUP_SPLIT_ALLOW_SEC) } else { TOPUP_ALLOW_SEC };
+		// The `grind` flow flag (RedridgeXP: the route reached Duskwood at 23.82 by 1.55 levels of grind
+		// inside the Fangore task that no guide writes): a grind of the model's own of GRIND_WRITE_MIN
+		// or more is written whatever it costs (a player must see it to do it).
+		let allow = if !g.explicit && g.min >= GRIND_WRITE_MIN && forge_core::flow_flags::on("grind") { EXACT_ALLOW } else { allow };
 		if let Tried::Kept(pks) = keep_seq(p, m, h, &[mv], now, allow, 0.0, |n, o| n.within(o)) {
 			for pk in pks {
 				log(&format!("grind top-up at step {}: {:+.1} min", g.i, pk.added / 60.0));

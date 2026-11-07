@@ -1361,21 +1361,24 @@ pub fn descend(p: &Problem, seed: &Order, max_edits: usize, workers: usize, no_w
 			let slack = if matches!(cands[i].kind(), STAY_LATER | STAY_SPLIT) { f64::INFINITY } else { PATH_SLACK_YD };
 			m.est_gain(p, &o, a, b, slack)
 		});
-		let mut ranked: Vec<(usize, f64)> = ests.iter().enumerate().filter_map(|(i, e)| e.filter(|&g| g > MIN_GAIN).map(|g| (i, g))).collect();
+		// (Under the `revisit` flow flag an edit may cost model time that its flow price wins back:
+		// guards::flow_head; gains are in score, Member::score.)
+		let head = crate::guards::flow_head();
+		let mut ranked: Vec<(usize, f64)> = ests.iter().enumerate().filter_map(|(i, e)| e.filter(|&g| g > MIN_GAIN - head).map(|g| (i, g))).collect();
 		ranked.sort_by(|x, y| y.1.total_cmp(&x.1).then(x.0.cmp(&y.0)));
 		ranked.truncate(EXACT_MAX);
-		let now = ms[0].total();
+		let now = ms[0].score();
 		// Exact replays a batch at a time down the estimates, until a batch holds a kept edit.
 		let mut found = None;
 		for lo in (0..ranked.len()).step_by(EXACT_PER_ROUND) {
 			let batch = &ranked[lo..(lo + EXACT_PER_ROUND).min(ranked.len())];
 			let exact: Vec<Option<f64>> = par_each(&mut ms, batch.len(), |m, k| {
 				let (o, a, b) = cands[batch[k].0].apply(&m.order)?;
-				let (next, _) = m.replay(p, &o, a, b)?;
+				let (next, gc) = m.replay(p, &o, a, b)?;
 				if no_worse && next.iter().zip(&m.ctxs).any(|(n, c)| n.total > c.cur.total + 1e-6) {
 					return None;
 				}
-				Some(now - next.iter().map(|c| c.total).sum::<f64>())
+				Some(now - next.iter().map(|c| c.total).sum::<f64>() - crate::guards::flow_pen(&gc))
 			});
 			if let Some((k, g)) = exact.iter().enumerate().filter_map(|(k, g)| g.filter(|&g| g >= EDIT_MIN_GAIN).map(|g| (k, g))).max_by(|x, y| x.1.total_cmp(&y.1).then(y.0.cmp(&x.0))) {
 				found = Some((batch[k].0, g));

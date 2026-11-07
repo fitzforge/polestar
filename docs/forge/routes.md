@@ -1099,6 +1099,28 @@ per start, v1's own hours, v1's prefix plus the canonical tail, the knee and the
 `kept` is the hours with the edits the cut kept). Each
 edit in its output has `byStart`: every start's hours and minutes saved.
 
+### Flow flags (experimental)
+
+Players read a route by how it flows, and the model above prices only time: an accept taken early
+gains nothing in it, and doing an objective together with a later sweep of the same ground saves
+walking, so the search keeps work for one big sweep and takes quests on the visit that needs them
+(#1046, Tirisfal: Fields of Grief's giver passed on the way out of Deathknell, its pumpkins left
+for the Scarlet farm sweep; Executor Zygand passed with a hand-in ready). `FORGE_FLOW` (a
+comma-separated list, read by `forge build` and `forge sim`) turns on rules for it, one by one, so
+rounds can compare them:
+
+| Flag | What it does |
+|---|---|
+| `greedy` | the hub pickup pass counts a stop within 150 yd of a giver as standing next to it (else 40 yd), the hub counts read an NPC within 100 yd of a walked leg as passed (else 50 yd), and both passes may add 5 minutes for a move (else 3) |
+| `revisit` | the search, the descent and the passes compare orders by the cost to 60 plus a flow price of the guard counts: 300 s for each avoidable return, 120 s for each split work, accept or hand-in left ready, hand-in walked past, hand-in made on a trip back and giver passed with its quest taken only after going away (`guards::flow_pen`); a move may cost up to 5 model minutes before its counts are read |
+| `sweep` | the **work while there** pass, after the camp revisit: a task done on a return to ground the route stood on earlier (a stop within 250 yd of its spawn area, its quest in the log, the route then 400 yd away before the task) moves to right after that stop, kept when the order keeps its rules and the level rule, no guard rises and the hours to 60 rise by at most 3 minutes; listed as `work while there` edits, counted in `workWhileThere` |
+| `steps` | the writer writes no `along` list ([writer.md](writer.md)) |
+| `coverage` | the pickup pass counts a passed quest worthwhile at half the route's XP rate (a quarter when its detour is under a minute; else the full rate, half on a cheap detour), alone or with the quests it opens, and a pickup may add 5 minutes (else 2): marginal quests on the route are done (the benchmark order hands in about 40 % more quests over the same walk; Duskwood's Raven Hill chain and Jitters' Growling Gut were `low-value` and `judge-refused`) |
+| `grind` | the grind top-ups write every grind of the model's own of 10 minutes or more (before an accept, or before work over the character's head) as a `level` step at the last camp of its zone stay, whatever it costs: the route never relies on grind no guide writes (the Fangore task's 1.55 levels before Duskwood) |
+
+The planner flags are part of the search key, `steps` of the routes stage's key: a build with other
+flags never reuses another's finished searches. With no flag set every route is the same as before.
+
 ## 14. When it goes wrong
 
 | Symptom | Likely cause | What to do |

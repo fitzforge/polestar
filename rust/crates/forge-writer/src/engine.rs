@@ -892,10 +892,15 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 		}
 		let pos = |i: usize| (seq[i].gi, seq[i].si);
 		let mut along: Vec<AlongStep> = Vec::new();
+		// The `steps` flow flag (forge_core::flow_flags; Fitz on #1046: "the 'along the way' quests
+		// are doing more harm than good imo. They should just be steps"): no list is written. Work
+		// lining a walk stays at its own stop (pattern 2 off); work passed before its stop is an
+		// ordinary goal at the stop nearest it, else stays at its own stop (pattern 1 below).
+		let steps_only = forge_core::flow_flags::on("steps");
 		let mut done_p2: FxHashSet<(u32, u32)> = FxHashSet::default();
 		// Pattern 2: the one stop for an objective whose spawns line the walk on to the turn-in.
 		for (&(q, oi), idx) in &work {
-			if idx.len() != 1 || in_loop(seq[idx[0]].gi, seq[idx[0]].step_line) {
+			if steps_only || idx.len() != 1 || in_loop(seq[idx[0]].gi, seq[idx[0]].step_line) {
 				continue;
 			}
 			let i = idx[0];
@@ -1225,7 +1230,7 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						near += 1;
 					}
 				}
-				if legs < 2 || near * 2 < legs {
+				if steps_only || legs < 2 || near * 2 < legs {
 					// The stop: most source spawns within ALONG_STOP_YD of its placed goals (the earliest of
 					// equals; pattern 2's own stop is one), a step for the list's own characters (no `only`,
 					// or the list's); without a placed goal in the span, the label's step. With none of the
@@ -1248,6 +1253,10 @@ pub fn engine_pass(tree: &mut BTreeMap<String, String>, t: &Travel, inp: &Inputs
 						None => a.until_si,
 					};
 					if to.is_none() {
+						if steps_only {
+							rep.add("R1 not listed (steps): no stop near its work, done at its own step", a.work.len());
+							continue;
+						}
 						rep.log.push(format!("R1 along kept, no stop near its work (its legs pass it {near} of {legs}): {} {}", ch.files[gi], a.title));
 					}
 					if let Some(si) = to {

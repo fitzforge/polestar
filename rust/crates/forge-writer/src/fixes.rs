@@ -458,7 +458,12 @@ fn apply_early(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize
 		.collect();
 	let label_line = (step.0 + 1..step.1).find(|&k| re!(r"^\s+label\s+\S").is_match(&lines[k]));
 	let label = label_line.map_or_else(|| format!("q{q}"), |k| lines[k].trim()["label".len()..].trim().to_string());
-	let mut block = vec![format!("step {title}"), format!("{ind}along until {label}")];
+	// (The `steps` flow flag, forge_core::flow_flags: a plain step there, no along list, no label.)
+	let steps_only = forge_core::flow_flags::on("steps");
+	let mut block = vec![format!("step {title}")];
+	if !steps_only {
+		block.push(format!("{ind}along until {label}"));
+	}
 	block.extend(e["when"].as_str().map(|w| format!("{ind}when {w}")));
 	block.extend(e["tip"].as_str().map(|t| format!("{ind}tip {t}")));
 	block.extend(goals);
@@ -467,7 +472,7 @@ fn apply_early(lines: &mut Vec<String>, found: &[usize], r: &Value) -> Vec<usize
 		return Vec::new();
 	}
 	let mut changed = Vec::new();
-	if label_line.is_none() {
+	if label_line.is_none() && !steps_only {
 		lines.insert(step.0 + 1, format!("{ind}label {label}"));
 		changed.push(step.0 + 1);
 	}
