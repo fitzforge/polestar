@@ -2544,7 +2544,7 @@ local function computeCurrent()
 		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
 			if Own.jump(s) then
 				sk = skippedFor(guide.id)
-			elseif s == computed or not Own.flightJudged(s) then
+			elseif not Own.flightJudged(s) then
 				return s
 			end
 		end
@@ -5833,14 +5833,11 @@ end
 -- The route reached flight step s (computeCurrent): judge it once against
 -- the planner (see above). True when it passes, with the walks after it.
 function Own.flightJudged(s)
-	if Own.flyVerdict(s) or Compat().IsOnTaxi() or not Own.plannerFlies() or Own.transitKind(s) ~= "fly" then return false end
+	-- Not before the quest log can be read (work would read done), nor on a taxi.
+	if not logReady or placing or Own.flyVerdict(s) or Compat().IsOnTaxi() or not Own.plannerFlies() or Own.transitKind(s) ~= "fly" then return false end
 	local nav = ns.Nav
 	local landing = Own.knownLanding((Own.flyGoal(s)))
 	local n, kind = Own.travelOnto(s)
-	local all = Own.flyVerdicts[guide] or {}
-	Own.flyVerdicts[guide] = all
-	local known = Own.knownCount()
-	all[s] = { passed = false, known = known }
 	if not (landing and n and kind == nil and nav.EstimateTravel) then return false end
 	local to
 	for g, goal in ipairs(guide.steps[n].goals) do
@@ -5857,10 +5854,13 @@ function Own.flightJudged(s)
 	local there = nav.EstimateTravel(nil, landing)
 	local on = nav.EstimateTravel(landing, to)
 	if not (direct and there and on) then return false end
+	local all = Own.flyVerdicts[guide] or {}
+	Own.flyVerdicts[guide] = all
+	local known = Own.knownCount()
 	local via = there + on
-	if direct + math.max(Own.FLY_MARGIN, via * Own.FLY_SHARE) >= via then return false end
-	for k = s, n - 1 do all[k] = { passed = true, known = known } end
-	return true
+	local passed = direct + math.max(Own.FLY_MARGIN, via * Own.FLY_SHARE) < via
+	for k = s, passed and n - 1 or s do all[k] = { passed = passed, known = known } end
+	return passed
 end
 
 -- Flight step s's flight the arrow leads to the end of (see above): its goal,
