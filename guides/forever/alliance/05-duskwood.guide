@@ -27,9 +27,11 @@ step Duskwood
 # back east: Watcher Dodds, the Yorgen Farmstead -> hearth to Darkshire, Blind
 # Mary -> west: Abercrombie, Sven -> Darkshire -> the
 # Skeletal Horrors south-east of town (Rot Blossoms) -> Darkshire -> west: Abercrombie, the
-# ghouls, Jitters, Sven (the end: ride north through Elwynn to Stormwind for
-# training, Shamans in Ironforge by the Deeprun Tram, and the Auberdine boat
-# from Stormwind Harbor, where the next guide starts).
+# ghouls, Jitters, Sven -> north through Elwynn for training (Shamans in
+# Ironforge by the Deeprun Tram, Rogues in Stormwind) -> east along the road
+# to Redridge's second pass at about 25-26 (Rogues fly there from Stormwind):
+# Lakeshire, Gar'im's cave, Stonewatch Keep, Fangore's camp, Lakeshire -> fly
+# to Stormwind for the Auberdine boat, where the next guide starts.
 #
 # Deviations from the export:
 # - Look To The Stars (174): the export finds the Bronze Tube on Venture Co.
@@ -46,6 +48,16 @@ step Duskwood
 #   in without them.
 # - Dropped Awaiting Word (236): a no-XP breadcrumb to Watcher Callahan at
 #   Manor Mistmantle, a detour north the route never passes otherwise.
+# - Redridge's second pass (the elites Tharil'zun 19, Gath'Ilzogg 169,
+#   Incinerator Gar'im 95999, Shadow Magic's Blackrock Shadowcasters 115, and
+#   Lieutenant Fangore 180, 26) comes at the end, at about 25-26, where those
+#   quests fit: players finished them solo at 21-23 in the recordings, so they
+#   are in the route's steps with a tip to group up if you can; the four elite
+#   quests' goals are optional (the leveling rule for elite-only drops),
+#   Fangore's (not elite) is not. One loop: Lakeshire,
+#   south-east to Gar'im, north through Stonewatch Keep, north-east to
+#   Fangore, west to Lakeshire and its flight to Stormwind.
+# - Worgen in the Woods (173) needs level 23: the step before it says so.
 #
 # Class quests: Rogues finish Mathias and the Defias with Klaven's Tower
 # (2360, 2359, Poisons) at the end: Agent Kearnen and the tower stand just
@@ -92,6 +104,7 @@ step Darkshire
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   sethome "Darkshire" npc 6790            -- Innkeeper Trelayne, Scarlet Raven Tavern
+  level 23
   accept 173                              -- Calor, by the town hall
   tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
   accept 174                              -- Viktori Prism'Antras, inside
@@ -256,7 +269,7 @@ step Jitters
 
 step Sven's Camp
   turnin 268                              -- Sven Yorgen
-  note Next: Stormwind for training, then the boat from Stormwind Harbor to Auberdine for Ashenvale.
+  note Next: training, then Redridge's second pass, then the boat from Stormwind Harbor to Auberdine for Ashenvale.
   accept 323                              -- Sven Yorgen
 
 step Westfall
@@ -336,3 +349,53 @@ step Elwynn Forest
 step Class trainer
   only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid
   train class only Warrior,Paladin,Hunter,Priest,Mage,Warlock,Druid -- Level 22 and 24 spells
+
+# ---------------------------------------------------------------- Redridge, second pass
+
+step Fly to Lakeshire
+  only Rogue
+  zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
+  fly "Lakeshire"
+
+step Redridge Mountains
+  only !Rogue
+  zone Redridge Mountains
+  tip Follow the road east from Goldshire through Elwynn to Three Corners, then along the lake to Lakeshire.
+  goto 15.3,71.5 "Redridge Mountains"
+
+step Lakeshire
+  zone Redridge Mountains
+  tip Marshal Marris stands at the north end of the bridge; two Wanted posters hang on the town hall doorway, a third by the inn.
+  accept 19 optional                      -- Marshal Marris
+  accept 115 optional
+  accept 169 optional                     -- The Wanted poster on the town hall doorway
+  accept 95999 optional                   -- The Wanted poster beside it
+  accept 180                              -- The Wanted poster by the inn
+
+step Incinerator Gar'im
+  tip East past the mill, then south-east to the Blackrock camps east of Stonewatch Keep: Gar'im keeps to the cave at their south end with his imp and two orcs. Elite: group up if you can; solo, pull the orcs at the mouth first and interrupt his fire cast. He drops a Midnight Orb too.
+  collect 271872 quest 95999 optional     -- Broken Staff of Incinerator Gar'im
+
+step Stonewatch Keep
+  tip North to Stonewatch Keep. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then Tharil'zun (elite) in the south-west courtyard with his guards, and Gath'Ilzogg (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can.
+  collect 1261 quest 115 optional         -- Midnight Orb: Blackrock Shadowcasters
+  collect 1260 quest 19 optional          -- Tharil'zun's Head
+  collect 3633 quest 169 optional         -- Head of Gath'Ilzogg
+
+step Lieutenant Fangore
+  tip North-east to the gnolls' eastern camp in Galardell Valley. Fangore has two guards linked to him: clear the gnolls around him first and fight at full health.
+  collect 3632 quest 180                  -- Fangore's Paw
+
+step Back to Lakeshire
+  tip West back to Lakeshire.
+  turnin 19 optional                      -- Marshal Marris
+  turnin 115 optional
+  turnin 180                              -- Magistrate Solomon, in the town hall
+  turnin 169 optional
+  turnin 95999 optional
+
+step Fly to Stormwind
+  zone Redridge Mountains
+  goto 25.5,59.4 "Lakeshire flight master"
+  fly "Stormwind"

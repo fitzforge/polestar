@@ -2730,8 +2730,11 @@ test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackr
 	const axes = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
 	const { goal } = list[axes];
 	assert.ok(at(list, "Alther's Mill tarantulas", is('kill', 98386)) < axes, "after Alther's Mill, on the way south-east");
-	assert.ok(!list.some(({ goal: g }) => [91, 180].includes(g.quest)), 'Galardell Valley (Solomon\'s Law, Fangore) is out of the route');
-	assert.match(fs.readFileSync(path.join(OFFICIAL_DIR, REDRIDGE), 'utf8'), /^# Left out for the level \(.*\): .*Solomon's Law \(91\).*Lieutenant Fangore \(180\)/m, 'the header says why');
+	// Galardell Valley comes only after the camps' top-up to 23 (PR #1052); Fangore on Duskwood's second pass.
+	const top = at(list, 'level 23 at the camps', (g) => g.t === 'level' && g.level === 23);
+	assert.ok(axes < top, 'the axes before the top-up');
+	assert.ok(list.every(({ goal: g }, i) => g.quest !== 91 || g.t === 'accept' || i > top), "Solomon's Law's pendants after the top-up");
+	assert.ok(!list.some(({ goal: g }) => g.quest === 180), 'Fangore is not in the first pass');
 	const here = point(goal.map, goal.x, goal.y, goal.f || 'l');
 	const near = { normal: 0, elite: 0 };
 	for (const id of Object.keys(data.item(3014).drops.npc)) {
@@ -3494,7 +3497,9 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 // never comes back to it at a level that fits; the statue's quests are route-fixes skips.
 const LEVEL_FIT = [
 	// [guide, quests left out, npcs no goal may send the player to]
-	['forever/alliance/04-redridge-mountains.guide', [34, 91, 180, 94, 248], [345, 703, 429, 431, 432, 433, 434, 568, 579]],
+	// Galardell Valley and Bellygrub came back after a written top-up to 23 (PR #1052, below); Fangore
+	// waits for the second pass at the end of Duskwood.
+	['forever/alliance/04-redridge-mountains.guide', [180], [703]],
 	['forever/alliance/07-thousand-needles.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
 	['forever/horde/07-ashenvale.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
 	['forever/alliance/40-50/03-feralas.guide', [2844, 2845], [7774]],
@@ -3507,9 +3512,6 @@ for (const [guide, gone, mobs] of LEVEL_FIT) {
 			assert.ok(!mobs.includes(goal.npc), `${guide}: "${step.title}" ${goal.t} targets npc ${goal.npc}`);
 			const from = goal.fromNpcs || [];
 			assert.ok(!(from.length && from.every((n) => mobs.includes(n.npc))), `${guide}: "${step.title}" ${goal.t} ${goal.item} drops only from ${from.map((n) => n.npcName).join(', ')}`);
-		}
-		if (guide.includes('redridge')) {
-			assert.ok(!goals(guide).some(({ goal }) => goal.object === 31), 'no goal at the Old Lion Statue in Galardell Valley');
 		}
 	});
 }
@@ -3582,4 +3584,35 @@ test("Bill's report (#1004): a town's bind never sends you back to the giver you
 		const back = inStep.filter(([, i]) => i > bind).map(([{ goal }]) => goal).filter((g) => g.npc && npcsBefore.has(g.npc));
 		assert.deepEqual(back.map((g) => `${g.t} ${g.quest} (${g.npcName})`), [], `${guide}: back to an NPC of the step after binding at ${place}`);
 	}
+});
+
+// --- A player's Discord report (PR #1052): "on a 20-24 guide, almost at the end, still 3 levels to
+// go". Redridge's quests ended at about 21.6 (the sim, every class; recordings 21.7-22.0 at Render's
+// Valley on 0.3.3) while Duskwood's start at 24: #979 left Galardell Valley out without the grind the
+// route had planned inside it. Redridge now takes Blackrock Blockade at the Blackrock camps, tops up to
+// 23 there, then Galardell Valley (Solomon's Law, the Old Lion Statue) and Bellygrub; the elites and
+// Fangore come on a second Redridge pass at the end of Duskwood, as the benchmark order does them.
+test('Redridge level gap (PR #1052): Galardell Valley and Bellygrub come after the written top-up to 23', { skip }, () => {
+	const list = goals('forever/alliance/04-redridge-mountains.guide');
+	const top = at(list, 'level 23', (g) => g.t === 'level' && g.level === 23);
+	assert.ok(list[top].step.goals.some((g) => g.quest === 98387), 'the top-up is at the Blackrock camps, with Blackrock Blockade');
+	const high = [429, 431, 432, 433, 434, 568, 579, 345];
+	for (const [i, { step, goal }] of list.entries()) {
+		const from = goal.fromNpcs || [];
+		const galardell = high.includes(goal.npc) || goal.object === 31 || (from.length > 0 && from.every((n) => high.includes(n.npc)));
+		if (galardell || [91, 34, 248].includes(goal.quest) && goal.t !== 'accept') assert.ok(i > top, `"${step.title}" ${goal.t} ${goal.quest || goal.npc} comes before the top-up to 23`);
+	}
+	for (const q of [91, 94, 248, 34, 98387]) assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
+});
+
+test('Redridge level gap (PR #1052): Duskwood asks for 23 before Worgen in the Woods and ends with the second Redridge pass', { skip }, () => {
+	const list = goals('forever/alliance/05-duskwood.guide');
+	const worgen = at(list, 'accept 173', is('accept', 173));
+	assert.ok(list.slice(0, worgen).some(({ goal }) => goal.t === 'level' && goal.level >= 23), 'a level 23 gate comes before Worgen in the Woods');
+	const sven = at(list, 'accept 323', is('accept', 323));
+	for (const q of [19, 115, 169, 95999, 180]) {
+		assert.ok(at(list, `accept ${q}`, is('accept', q)) > sven, `${q} is taken on the second pass, after Sven's camp`);
+		assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
+	}
+	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'the elites are not in the first pass');
 });

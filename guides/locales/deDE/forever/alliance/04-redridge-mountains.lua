@@ -68,7 +68,10 @@ return {
 	-- {area:12} Elwynn Forest
 	["Back to {area:12}"] = "",
 
-	-- Step 13: Henze Faulk
+	-- Step 12: Theocritus
+	["On the top floor"] = "",
+
+	-- Step 14: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
@@ -78,36 +81,38 @@ return {
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "",
 
-	-- Step 15: Three Corners
+	-- Step 16: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker · {zone:1431} Duskwood
 	["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "Die Straße aus dem Wald von Elwynn erreicht das Rotkammgebirge bei {area:1002}. {npc:464} steht dort, wo sich die Straßen ins Rotkammgebirge und nach {zone:1431} treffen.",
 	-- {npc:464} Guard Parker · {area:1002} Three Corners
 	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "",
 
-	-- Step 16: Lakeridge Highway
+	-- Step 17: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon · {npc:903} Guard Howe
 	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "Folge der Straße am Südufer von {area:68} zur Greifenmeisterin. {npc:1070} und {npc:903} stehen neben ihr an der Straße.",
 
-	-- Step 17: Lakeshire
+	-- Step 18: Lakeshire
 	-- {npc:341} Foreman Oslow · {npc:382} Marshal Marris · {npc:900} Bailiff Conacher · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:343} Chef Breanna · {npc:342} Martie Jainrose
 	["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Überquere die lange Brücke nach Norden in den Ort. {npc:341} und {npc:382} stehen am Nordende der Brücke, {npc:900} im Rathaus, {npc:381} und {npc:266} an den Docks, {npc:343} im Gasthaus, {npc:342} in ihrem Garten am Westende.",
+	-- {npc:900} Bailiff Conacher
+	["{npc:900}, in the town hall"] = "",
 	-- {npc:266} Wiley the Black
 	["{npc:266}, by the docks; upstairs"] = "",
 	["Inside"] = "",
 	-- {npc:343} Chef Breanna
 	["{npc:343}, inside"] = "",
 
-	-- Step 18: Spotted Sunfish on the way
+	-- Step 19: Spotted Sunfish on the way
 	-- {item:1467} Spotted Sunfish
 	["{item:1467} on the way"] = "",
 
-	-- Step 19: Sunken Chest
+	-- Step 20: Sunken Chest
 	-- {area:68} Lake Everstill
 	["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Schwimm von der Brücke nach Osten in {area:68}; die Truhe liegt auf dem Seegrund.",
 	-- {item:1309} Oslow's Toolbox
 	["{item:1309}; underwater"] = "",
 
-	-- Step 21: Lakeridge Highway: kill these as you meet them
+	-- Step 22: Lakeridge Highway: kill these as you meet them
 	-- {area:1001} Lakeridge Highway
 	["{area:1001}: kill these as you meet them"] = "",
 	-- {area:1002} Three Corners
@@ -117,40 +122,62 @@ return {
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: Hauer der Rotkammgnolle",
 
-	-- Step 26: Lakeshire
+	-- Step 27: Lakeshire
 	-- {npc:341} Foreman Oslow · {quest:89} The Everstill Bridge
 	["{npc:341}: after {quest:89}"] = "{npc:341}: nach {quest:89}",
 
-	-- Step 27: Lake Everstill: kill these as you meet them
+	-- Step 28: Lake Everstill: kill these as you meet them
 	-- {area:68} Lake Everstill
 	["{area:68}: kill these as you meet them"] = "",
 	-- {item:1467} Spotted Sunfish
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Greater Tarantulas = {npc:505} Greater Tarantula
 	["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin.\nGreater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
 
-	-- Step 28: Blackrock camps
+	-- Step 29: Blackrock camps
 	["Blackrock camps"] = "Blackrock-Lager",
-	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
-	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "",
+	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep · {zone:1431} Duskwood
+	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite. Weapon racks and swords lie about the camps; meat haunches, grain sacks and water barrels hold the supplies. Kill the camps' orcs until level 23: {area:1000}'s gnolls, next, are 22-25, and {zone:1431}'s quests start at 24."] = "",
+	-- {item:280841} Stolen Weapon
+	["{item:280841}: weapon racks and swords on the ground"] = "",
+	-- {item:280839} Blackrock Supplies
+	["{item:280839}: meat haunches, grain sacks, water barrels"] = "",
 
-	-- Step 29: Back to Lakeshire
+	-- Step 30: Galardell Valley
+	-- {npc:703} Lieutenant Fangore · {area:2099} Stonewatch Keep
+	["North up the valley's east side. Shadowhide gnolls fill it; {npc:703} (26) and his two guards stand at its north end: keep clear of them. Stay out of {area:2099} to the west: its orcs are elite."] = "",
+	-- {item:1075} Shadowhide Pendant
+	["{item:1075}: any Shadowhide gnoll"] = "",
+
+	-- Step 31: A Watchful Eye
+	-- {object:31} Old Lion Statue
+	["The {object:31} stands at the valley's east edge."] = "",
+
+	-- Step 32: Looking Further
+	-- {area:2099} Stonewatch Keep
+	["West to the intact watch tower beside {area:2099}: climb it and leave the Glyph in the empty jar at the top."] = "",
+
+	-- Step 33: Back to Lakeshire
 	-- {area:69} Lakeshire
 	["Back to {area:69}"] = "Zurück nach {area:69}",
 
-	-- Step 30: Render's Valley
+	-- Step 34: Bellygrub
+	-- {npc:345} Bellygrub · {area:69} Lakeshire
+	["{npc:345} (level 24) roots around the pen just west of {area:69}. Pull him away from the other boars and fight at full health."] = "",
+
+	-- Step 36: Render's Valley
 	-- {area:69} Lakeshire · {area:95} Redridge Canyons · {area:997} Render's Valley
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Geh von {area:69} nach Norden die {area:95} hinauf ins {area:997}. Helden der Blackrock lagern im Tal.",
 	-- {npc:435} Blackrock Champion
 	["{npc:435}, below ground"] = "",
 
-	-- Step 31: Corporal Keeshan
+	-- Step 37: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan versteckt sich ganz am Nordende des Tals, an der Grenze zu {zone:1428}. Eskortiere ihn hinunter nach {area:69}; Orcs der Blackrock lauern dir unterwegs auf.",
 	-- {npc:349} Corporal Keeshan
 	["{npc:349}, below ground"] = "",
 
-	-- Step 32: Lakeshire
+	-- Step 38: Lakeshire
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, bei den Greifen südlich der Brücke",
 	-- {zone:1431} Duskwood · {area:1002} Three Corners · {area:42} Darkshire

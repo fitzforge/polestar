@@ -3427,6 +3427,72 @@
 				"q": 8304,
 				"reason": "RevH2 c13 35-60 read: Dearest Natalia (6600 XP, Commander Mar'alith in Cenarion Hold, minimum level 58) is refused by the pickup pass (judge-refused: 1491 XP/min against the route's 1429) while c13 ends with a 195-minute grind to 60; Rutgar and Frankal stand in southern Silithus during the 57.5-58.5 stay. At 59 it is on level and the Silithus stay passes both. Its two objectives are conversations with Rutgar and Frankal, no fight (the game's data still tags it a group quest: verify in game)",
 				"issue": ""
+			},
+			{
+				"q": 98387,
+				"reason": "Blackrock Blockade (Forever, Marshal Marris, 1,650 XP): its weapons and supplies lie in the Blackrock camps east of Stonewatch Keep, the same camps as Blackrock Menace's Battleworn Axes; a Human Priest finished it in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"after": [
+					"task",
+					20
+				],
+				"issue": "#1052"
+			},
+			{
+				"q": 91,
+				"reason": "Solomon's Law in Galardell Valley after the written top-up to 23 at the Blackrock camps (guide-fixes redridge-camps-top-up-23): the gnolls (median 24) are then within two levels (#977's rule). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"after": [
+					"task",
+					98387
+				],
+				"issue": "#1052"
+			},
+			{
+				"q": 94,
+				"reason": "A Watchful Eye (Theocritus, on the Elwynn road the route walks): handed in at the Old Lion Statue in Galardell Valley after the top-up to 23. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"issue": "#1052"
+			},
+			{
+				"q": 248,
+				"reason": "Looking Further: the statue's follow-up, handed in at the watch tower beside Stonewatch Keep on the way back west from Galardell. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"after": [
+					"turnin",
+					94
+				],
+				"issue": "#1052"
+			},
+			{
+				"q": 34,
+				"reason": "An Unwelcome Guest: Bellygrub (24) after the top-up to 23, on the way west from Lakeshire to Render's Valley. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"after": [
+					"turnin",
+					20
+				],
+				"issue": "#1052"
+			},
+			{
+				"q": 19,
+				"reason": "Tharil'zun on Redridge's second pass at the end of 05-duskwood (about 25-26), as the benchmark order does Redridge's elites at 24-27; finished solo-or-grouped at 23 in the recordings (a Shaman, a Rogue). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"issue": "#1052"
+			},
+			{
+				"q": 115,
+				"reason": "Shadow Magic on Redridge's second pass (05-duskwood's end, about 25-26): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"issue": "#1052"
+			},
+			{
+				"q": 169,
+				"reason": "Wanted: Gath'Ilzogg on Redridge's second pass (05-duskwood's end, about 25-26): Gath'Ilzogg is a 26 elite; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"issue": "#1052"
+			},
+			{
+				"q": 95999,
+				"reason": "WANTED: Incinerator Gar'im (Forever) on Redridge's second pass (05-duskwood's end): a 23 elite in the cave south of the Blackrock camps; finished at 21-23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"issue": "#1052"
+			},
+			{
+				"q": 180,
+				"reason": "WANTED: Lieutenant Fangore on Redridge's second pass (05-duskwood's end, about 25-26), where Fangore (26) and Galardell's gnolls fit (#977 left it out of the first pass at 21.5); finished at 21-23 by four players in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24",
+				"issue": "#1052"
 			}
 		],
 		"skip": [
@@ -3561,36 +3627,6 @@
 				"faction": "Alliance",
 				"reason": "ZoneFix c18 read (Alliance 50-60): the Super Egg-O-Matic's Hippogryph Egg is in southern Feralas, which the Alliance reach only at Feathermoon by boat or at Thalanaar, and v1 drops it for that (06-silithus header: 'Feralas (The Super Egg-O-Matic 2741 ...'). c18 inserted it: a flight to Thalanaar for the egg and a hearth back at 58 (Human 50-60/06-silithus:209-225; Human.json order[2215-2216])",
 				"issue": ""
-			},
-			{
-				"q": 180,
-				"faction": "Alliance",
-				"reason": "Level fit (#977, Fyurie): WANTED: Lieutenant Fangore. Fangore is 26 and Galardell Valley's Shadowhide gnolls a median 24 where the route takes it at 21.5 (c19r Human order[418]; the model grinds 1.55 levels inside that task, which no guide writes); the route never comes back to Galardell at a level that fits. 2,650 XP, about 0.1 level at 23: no later task stops fitting without it. The writer's level fit leaves it out on its own; this lets the route search plan the levels without it",
-				"issue": 977
-			},
-			{
-				"q": 91,
-				"faction": "Alliance",
-				"reason": "Level fit (#977, Fyurie): Solomon's Law's Shadowhide Pendants drop in Galardell Valley, whose gnolls are a median 24 (22-26) at the route's 21.3 (c19r Human order[415]); no later visit fits. 1,850 XP",
-				"issue": 977
-			},
-			{
-				"q": 34,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): An Unwelcome Guest's Bellygrub is 24 at the route's 20.3 (c19r Human order[402]); the route is never back by his pen and Martie Jainrose at a level that fits. 1,950 XP",
-				"issue": 977
-			},
-			{
-				"q": 94,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): A Watchful Eye is handed in at the Old Lion Statue, which stands among Galardell Valley's Shadowhide gnolls (median 25 within 100 yd) at the route's 21.4 (c19r Human order[416]). The writer's level fit judges quest work, not hand-ins, so this record holds it out. 1,250 XP",
-				"issue": 977
-			},
-			{
-				"q": 248,
-				"faction": "Alliance",
-				"reason": "Level fit (#977): Looking Further is taken at the Old Lion Statue in Galardell Valley (gnolls a median 25 at 21.4) after A Watchful Eye (94), which this file skips. 1,300 XP",
-				"issue": 977
 			},
 			{
 				"q": 1175,
@@ -4874,6 +4910,110 @@
 				"faction": "Horde",
 				"why": "Sweep from #957 (PR #970): Kin'weelay's Bloody Bone Necklaces (596, 25 at 17% in the game's loot data) drop from every Bloodscalp troll. The route made the player collect all 25 in the Nesingwary's Expedition step, then killed the same Bloodscalps of the coast ruins again for Bloodscalp Ears (189, from Booty Bay) and Headhunting (582, from Nimboya after Hunt for Yenniku), and the Ruins of Zul'Kunda step lists the necklaces again (30-40/02-stranglethorn-vale). 596 is handed in at Grom'gol after that step, so the necklaces are finished there. v1 has them after accept 582",
 				"source": "#970"
+			},
+			{
+				"a": [
+					"task",
+					98387
+				],
+				"b": [
+					"task",
+					91
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Galardell Valley comes after the Blackrock camps and their top-up to 23",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"task",
+					98387
+				],
+				"b": [
+					"turnin",
+					94
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): the Old Lion Statue stands among Galardell's gnolls: after the top-up to 23",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"turnin",
+					20
+				],
+				"b": [
+					"task",
+					34
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Bellygrub (24) after the Blackrock camps and their top-up to 23",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"accept",
+					323
+				],
+				"b": [
+					"accept",
+					19
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"accept",
+					323
+				],
+				"b": [
+					"accept",
+					115
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"accept",
+					323
+				],
+				"b": [
+					"accept",
+					169
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"accept",
+					323
+				],
+				"b": [
+					"accept",
+					95999
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26",
+				"source": "PR #1052"
+			},
+			{
+				"a": [
+					"accept",
+					323
+				],
+				"b": [
+					"accept",
+					180
+				],
+				"faction": "Alliance",
+				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26",
+				"source": "PR #1052"
 			}
 		]
 	}
