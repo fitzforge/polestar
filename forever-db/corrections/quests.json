@@ -4260,6 +4260,21 @@
 		},
 		"note": "Scout Support (Hillsbrad, High Executor Darthalia, for Deathstalker Masoj) is offered only after Battle of Hillsbrad part II 528: in game Darthalia did not offer it with 527 turned in and 528 open (issue #148). QuestieDB has no prerequisite."
 	},
+	"98095": {
+		"set": {
+			"pre": [
+				98094
+			],
+			"preAny": [
+				98094
+			]
+		},
+		"source": {
+			"kind": "in-game-check",
+			"ref": "issue #1051"
+		},
+		"note": "Valuable Vantages (Hillsbrad, Deathstalker Masoj) is offered only after Scout Support 98094 is handed in to him (issue #1051). QuestieDB has no prerequisite."
+	},
 	"98319": {
 		"set": {
 			"objectives": [

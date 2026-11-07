@@ -4369,6 +4369,11 @@
 		],
 		"skip": [
 			{
+				"q": 98095,
+				"reason": "#1051: Valuable Vantages is an unplaced quest whose three vantage spots have no coordinates in the DB; the generated route accepted and turned it in immediately at Deathstalker Masoj without completing its objectives (0/3)",
+				"issue": 1051
+			},
+			{
 				"q": 98240,
 				"faction": "Alliance",
 				"reason": "#1134: James Halloran offers Crimson Crate Delivery only once Crocs of the Sky (98072, after Apprentice's Duties 471 and Young Crocolisk Skins 484) is handed in. Players' recordings: refused to 3 characters at 24-28 who had not done 98072, and never offered to anyone. The route hands in 98072 at Menethil on its way to the Southshore boat, after its only visit to Howin Kindfeather (Wetlands, 49,42), who takes the crate, so taking it would cost a walk back east for 1,200 XP. Left out; it was taken on the first Menethil stop, where nobody can be offered it",

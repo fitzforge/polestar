@@ -4453,3 +4453,14 @@ test("Fitz's report (#1135): the Raptor Heads and Plainstrider Beaks are worked 
 		assert.ok(at(list, afterWhat, after) < handIn, `the ${what} are handed in after ${afterWhat}`);
 	}
 });
+
+// soockee's report (#1051): Valuable Vantages (98095) is Masoj's follow-up to Scout Support (98094).
+// Its three vantage spot objectives have no spawn coordinates in the DB, so the generated route
+// accepted and turned it in at Masoj in the same step without completing objectives (0/3).
+// Skipped under overrides.skip in data/route-fixes.json until its vantage spots are placed.
+test("soockee's report (#1051): Valuable Vantages is skipped until its vantage spots are placed", () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.skip.some((s) => s.q === 98095), '98095 is skipped in route-fixes');
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	assert.deepEqual(corrections['98095'] && corrections['98095'].set.pre, [98094], '98095 requires Scout Support (98094)');
+});
