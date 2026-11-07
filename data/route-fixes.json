@@ -2006,6 +2006,30 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					127
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Selling Fish (127) and Murloc Poachers (150) are finished at the murlocs round the Sunken Chest and handed to Dockmaster Baren on the docks on the walk west through Lakeshire from Foreman Oslow to Martie Jainrose; the route carried them past Baren to the end of the zone's loop (#1052's 'Back to Lakeshire'). The seed (re-seeded for this) has that order; this pair and the next keep it."
+			},
+			{
+				"a": [
+					"turnin",
+					150
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): Murloc Poachers handed to Dockmaster Baren before Martie Jainrose (see turnin 127 before turnin 130)."
 			}
 		],
 		"notes": [
@@ -2817,6 +2841,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Redridge): Selling Fish's Spotted Sunfish (127) drop only from Lake Everstill's murlocs, the same murlocs Murloc Poachers' fins (150) come from, all east of the bridge; the guide listed the sunfish in the gnoll hills' step west of the lake, where nothing drops them, and in an along list from Lakeshire."
+			},
+			{
+				"a": [
+					"task",
+					125
+				],
+				"b": [
+					"task",
+					150
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Redridge): the Sunken Chest (125) lies in the lake among the south shore's Murloc Flesheaters and Tidecallers, which carry Murloc Poachers' fins (150) and Selling Fish's sunfish: fought there, with the chest, not on a second walk to the same shore after the Brutes."
 			}
 		],
 		"after": [

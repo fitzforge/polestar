@@ -22,8 +22,8 @@ step Boat to Stormwind Harbor
 # Flow: Stormwind (training) -> Elwynn road (Theocritus) -> Three Corners -> Lakeridge
 # Highway (flight path) -> Lakeshire (hearth, every quest giver) -> Guard
 # Parker and the gnoll hills toward Three Corners -> Deputy Feldon -> the
-# sunken chest -> Oslow, Martie -> the Redridge Canyons' Brutes -> Lakeshire
-# -> the lake murlocs, Alther's Mill,
+# sunken chest and the murlocs around it -> Oslow, Baren, Martie -> the
+# Redridge Canyons' Brutes -> Lakeshire -> Alther's Mill,
 # the Blackrock camps east of Stonewatch Keep (a top-up to 23) -> north through
 # Galardell Valley, the Old Lion Statue and the watch tower -> Lakeshire ->
 # Bellygrub -> Render's Valley and Keeshan -> Lakeshire -> Duskwood.
@@ -235,14 +235,23 @@ step Deputy Feldon
   turnin 246
   turnin 98407
 
-step Sunken Chest
+step Sunken Chest: kill these as you meet them
+  zone Redridge Mountains
   tip Swim east from the bridge into Lake Everstill; the chest lies on the lake bed.
+  tip Murloc Flesheaters and Tidecallers line the south shore around it. Any of them can carry a Spotted Sunfish or a fin.
   collect 1309 quest 125                      -- Oslow's Toolbox; underwater
+  collect 1467 quest 127                      -- Spotted Sunfish
+  collect 1468 quest 150                      -- Murloc Fin
 
 step Foreman Oslow
   tip Foreman Oslow stands at the north end of the bridge.
   turnin 125
   accept 89
+
+step Dockmaster Baren
+  tip Dockmaster Baren stands on the docks, on the way west through town.
+  turnin 150
+  turnin 127
 
 step Martie Jainrose
   tip West through town to Martie's garden.
@@ -263,10 +272,7 @@ step Lakeshire
 
 step Lake Everstill: kill these as you meet them
   zone Redridge Mountains
-  tip Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a Spotted Sunfish or a fin.
   tip Greater Tarantulas crawl on the slopes around the mill north-east of the lake.
-  collect 1467 quest 127                      -- Spotted Sunfish
-  collect 1468 quest 150                      -- Murloc Fin
   collect 1080 quest 92                       -- Tough Condor Meat
   collect 1081 quest 92                       -- Crisp Spider Meat
   kill 505 quest 98386                        -- Greater Tarantula
@@ -297,8 +303,6 @@ step Back to Lakeshire
   turnin 98387
   turnin 98386                                -- Foreman Oslow
   turnin 91                                   -- Bailiff Conacher, in the town hall
-  turnin 150                                  -- Dockmaster Baren
-  turnin 127
   turnin 92                                   -- Chef Breanna, inside
   vendor nearest
 

@@ -3635,5 +3635,8 @@ test(`${REDRIDGE}: flow audit: the Sunken Chest on the way from Feldon, Lakeshir
 	const sunfish = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 1467);
 	const fins = list.find(({ goal }) => goal.t === 'collect' && goal.item === 1468);
 	assert.deepEqual(sunfish.map(({ s }) => s), [fins.s], 'the Spotted Sunfish only with the murloc fins, east of the bridge');
+	assert.equal(fins.s, list[chest].s, 'the murlocs with the Sunken Chest');
+	const baren = idx('turnin 127', is('turnin', 127));
+	assert.ok(oslow < baren && baren < martie, 'Selling Fish handed to Baren between Oslow and Martie');
 	assert.deepEqual(compiled(REDRIDGE).steps.filter((st) => st.along).map((st) => st.title), [], 'no along-the-way lists');
 });
