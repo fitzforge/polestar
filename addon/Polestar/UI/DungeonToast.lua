@@ -120,12 +120,18 @@ function DT.Model(c)
 	if range then where[#where + 1] = format(L["Levels %s"], range) end
 	if c.zoneName then where[#where + 1] = c.zoneName end
 	m.giver = table.concat(where, "  \194\183  ")
+	-- A way in through the other faction's land (Dungeons.EnemyEntrance): it
+	-- says so in the warning colour and leads with the dungeon's page, where the
+	-- player decides; the pick-up guide is the second button.
+	local enemy = Dg.EnemyEntrance and Dg.EnemyEntrance(c.key)
+	if enemy then m.giver = m.giver .. "\n|c" .. Theme.Hex("warning") .. enemy .. "|r" end
 	-- What its quests are worth, as on the dungeon's page (Dungeons.QuestXP).
 	local LT = UI.LevelTip
 	local xs = Dg.QuestXP and Dg.QuestXP(c.key)
 	if xs and not xs.maxed and (xs.levels or 0) > 0 and LT and LT.Text then m.badge = LT.Text(xs.levels):upper() end
-	m.act = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
-	m.more = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
+	local pick = { label = L["Pick up the quests"], run = function() return DT.PickUp(c.key) end }
+	local page = { label = L["Open in Dungeons"], run = function() return DT.SeePage(c.key) end }
+	if enemy then m.act, m.more = page, pick else m.act, m.more = pick, page end
 	m.off = { label = L["Turn these off"], run = DT.TurnOff }
 	return m
 end
