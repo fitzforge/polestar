@@ -90,6 +90,12 @@ for _, name in ipairs({ "DecodeBase64", "DecompressString" }) do
 	end
 end
 function FULL() collectgarbage("collect") collectgarbage("collect") return collectgarbage("count") end
+-- Lua's string table doubles its bucket array when the strings interned pass a power of two: a one-off 64 KiB (or
+-- more) that lands inside "allocated" or outside it depending on how many strings were interned before, so ten more
+-- names anywhere in the loaded code flip allocated between 65,055 and 65,119 KiB with no search allocating more
+-- (Eastern Kingdoms, a fixed clock). Grown once here, before BASE, it never doubles mid-figure.
+PRESIZED = {}
+for i = 1, 131072 do PRESIZED[i] = "presize " .. i end
 BASE = FULL()
 EXCLUDED = 0
 collectgarbage("stop")"#;
