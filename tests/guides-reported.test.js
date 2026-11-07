@@ -4779,6 +4779,12 @@ test('forever/horde/orc/01-durotar.guide, troll/01-durotar.guide: final route re
 	const barrens = goals('forever/horde/02-the-barrens.guide');
 	const orcTroll = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('Orc'));
 	assert.ok(!barrens.filter(orcTroll).some(({ goal }) => is('accept', 1524)(goal) || is('accept', 1525)(goal) || (goal.t === 'collect' && goal.item === 6652)), 'no walk back to Kranal, Telf and Drygulch for Orcs and Trolls');
+	// Warriors hand Conscript of the Horde to Kargal on their first Far Watch stop (#1159); the last Far Watch step is for
+	// everyone else, or its hand-in is one a Warrior no longer holds.
+	for (const file of ['forever/horde/orc/01-durotar.guide', 'forever/horde/troll/01-durotar.guide']) {
+		const warrior = goals(file).filter(forClass('WARRIOR')).filter(({ goal }) => is('turnin', 840)(goal));
+		assert.equal(warrior.length, 1, `${file}: a Warrior hands in 840 once`);
+	}
 });
 
 // Final route review, Horde 1-30: the flight lands in Ratchet beside Sputtervalve, who came after the grind south and
@@ -4797,6 +4803,8 @@ test('forever/horde/04-the-barrens.guide: final route review: Ratchet in walking
 	const back = at(list, 'turnin 843', is('turnin', 843));
 	assert.ok(ridge < stalkers && stalkers < back, 'the plain on the way back from the ridge');
 	assert.equal(list[at(list, 'turnin 98093', is('turnin', 98093))].s, list[back].s, 'Field to Clear handed in on that Gann stop');
+	// Mebok offers Raptor Horns from level 13; a character who reached Ratchet at 12 takes it on the first stop at 19.
+	assert.ok(at(list, 'accept 865', is('accept', 865)) < at(list, 'collect 5055', (g) => g.t === 'collect' && g.item === 5055), 'Raptor Horns taken before its horns');
 });
 
 // Final route review, Horde 1-30: the Offering Stone offers The Tortured Soul only once the Note Scrap is handed in
@@ -4818,6 +4826,10 @@ test('forever/horde/06-hillsbrad-foothills.guide: final route review: one Tarren
 	assert.equal(list.filter(({ goal }) => goal.t === 'sethome' && goal.location === 'Tarren Mill').length, 1, 'one bind at Tarren Mill');
 	const sylvanas = list[at(list, 'Sylvanas', (g) => g.t === 'kill' && g.npc === 10181)].step;
 	assert.ok(!/Crossroads/.test(sylvanas.note || ''), 'no Crossroads in the Undercity tip');
+	// Alessandro Luca and Doctor Martin Felben (beside Faranell) are both on the Undercity visit: the guide walked past
+	// Luca and left Prompt Potion Runner for a visit thirty levels later.
+	assert.ok(at(list, 'accept 97891', is('accept', 97891)) < at(list, 'turnin 97891', is('turnin', 97891)), 'Prompt Potion Runner taken and handed in');
+	assert.equal(list[at(list, 'turnin 97891', is('turnin', 97891))].s, list[at(list, 'turnin 513', is('turnin', 513))].s, 'handed to Felben on the Faranell stop');
 });
 
 // Final route review, Horde 1-30: Sharptalon prowls between Torek's fight and Splintertree but was hunted on a walk
@@ -4836,17 +4848,23 @@ test('forever/horde/07-ashenvale.guide: final route review: Sharptalon on the wa
 	}
 });
 
-// Final route review, Horde 1-30 (and the release audit): Tirisfal's first tavern stop passed Coleman Farthing, whose
-// two quests were taken on the next Brill visit with a second walk into the tavern; The Argent Emissary was passed on
-// the Brill stop after the north loop (level 10), taken on the next one and handed to Hadric on a stop of its own.
-test('forever/horde/undead/01-tirisfal-glades.guide: final route review: Coleman on the first tavern stop, The Argent Emissary on the way to Linnea\'s camp', { skip }, () => {
+// Final route review, Horde 1-30 (and the release audit): Tirisfal's first Brill pass walks past Carolai, Coleman and
+// Gretchen (level 7) and the pass after the north loop past Terrence (level 10). Players' recordings show players at
+// 5-7 on the first pass, so each gets a step gated on its level where the walk passes, and the later visit keeps the
+// accept for everyone below it; The Argent Emissary goes to Hadric at Linnea's camp right after when taken.
+test('forever/horde/undead/01-tirisfal-glades.guide: final route review: level-gated pickups where the walk passes Carolai, Coleman, Gretchen and Terrence', { skip }, () => {
 	const list = goals('forever/horde/undead/01-tirisfal-glades.guide');
-	const renee = list[at(list, 'turnin 8', is('turnin', 8))].s;
-	assert.equal(list[at(list, 'accept 362', is('accept', 362))].s, renee, 'The Haunted Mills on the first tavern stop');
-	assert.equal(list[at(list, 'accept 354', is('accept', 354))].s, renee, 'Deaths in the Family on the first tavern stop');
-	const emissary = at(list, 'accept 96895', is('accept', 96895));
-	assert.ok(emissary < at(list, 'turnin 359', is('turnin', 359)), 'taken before the Linnea\'s camp stop');
-	assert.equal(list[at(list, 'turnin 96895', is('turnin', 96895))].s, list[at(list, 'turnin 359', is('turnin', 359))].s, 'handed to Hadric on that stop');
+	const gate = (step) => (step.when || []).find((p) => p.k === 'level' && p.op === '>=' && !p.neg);
+	const accepts = (q) => list.map((e, i) => ({ ...e, i })).filter(({ goal }) => is('accept', q)(goal));
+	const renee = at(list, 'turnin 8', is('turnin', 8));
+	const linnea = at(list, 'turnin 359', is('turnin', 359));
+	for (const [q, n, before] of [[95314, 7, renee], [362, 7, linnea], [354, 7, linnea], [375, 7, linnea], [96895, 10, linnea]]) {
+		const [first, ...later] = accepts(q);
+		assert.ok(first.i < before && gate(first.step) && gate(first.step).n === n, `${q}: taken where the walk passes, from level ${n}`);
+		assert.ok(later.length >= 1 && !gate(later[0].step), `${q}: the later visit keeps the accept for players below ${n}`);
+	}
+	const hadric = list.find(({ goal }) => is('turnin', 96895)(goal));
+	assert.ok(list.indexOf(hadric) > linnea && (hadric.step.when || []).some((p) => p.k === 'onquest'), 'Hadric at Linnea\'s camp when The Argent Emissary is held');
 });
 
 // Flow review (2026-11-07): Alliance Stranglethorn 40-50 killed the Jungle Stalkers on a trip of their own after the
