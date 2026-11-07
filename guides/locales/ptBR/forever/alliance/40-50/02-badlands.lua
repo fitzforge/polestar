@@ -8,13 +8,13 @@
 return {
 	-- Step 1: Fly to Thelsamar
 	-- {area:144} Thelsamar
-	["Fly to {area:144}"] = "",
+	["Fly to {area:144}"] = "Voe para {area:144}",
 	-- {zone:1455} Ironforge
-	["{zone:1455} flight master"] = "",
+	["{zone:1455} flight master"] = "Mestre de voo de {zone:1455}",
 
 	-- Step 4: Valley of Fangs
 	-- {npc:4454} Fizzle Brassbolts · {area:439} Shimmering Flats · {zone:1446} Tanaris
-	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "",
+	["for {npc:4454} in the {area:439}: the {zone:1446} guide crosses them at 45, keep it"] = "para {npc:4454} em {area:439}: o guia de {zone:1446} passa por lá no nível 45, guarde",
 	-- plural, as words: Blue Pearls = {item:4611} Blue Pearl
 	["Blue Pearls from Stranglethorn"] = "Pérolas Azuis da Selva do Espinhaço",
 	-- {npc:2817} Rigglefuzz
@@ -22,7 +22,7 @@ return {
 
 	-- Step 5: Boss Tho'grun
 	-- {area:3} Badlands · {area:342} Camp Boff · {npc:2944} Boss Tho'grun
-	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "",
+	["Ride west across the {area:3} to the Dustbelcher camp at {area:342}. {npc:2944} stands in its middle with Wyrmhunters and Maulers around him."] = "Cavalgue para oeste atravessando {area:3} até o acampamento Arrota-pó em {area:342}. {npc:2944} fica no meio, com Caçadores de Serpes e Espancadores em volta.",
 
 	-- Step 6: Garek
 	-- {area:1898} Dustwind Gulch
@@ -37,27 +37,27 @@ return {
 
 	-- Step 9: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "",
+	["Fly to {area:271}"] = "Voe para {area:271}",
 	-- {area:144} Thelsamar
-	["{area:144} flight master"] = "",
+	["{area:144} flight master"] = "Mestre de voo de {area:144}",
 
 	-- Step 10: Southshore
 	-- {area:144} Thelsamar · {area:271} Southshore · {npc:3980} Raleigh the Devout
 	["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Cavalgue para o norte até {area:144} e voe para {area:271}. {npc:3980} prega junto à estalagem.",
 	-- {npc:3980} Raleigh the Devout
-	["{npc:3980}, upstairs"] = "",
+	["{npc:3980}, upstairs"] = "{npc:3980}, no andar de cima",
 	-- {area:796} Scarlet Monastery
 	["Raleigh's next errand is in the {area:796}: skip it."] = "A próxima tarefa de Raul é em {area:796}: pule.",
 
 	-- Step 12: Aerie Peak
 	-- {area:271} Southshore · {area:47} The Hinterlands · {area:348} Aerie Peak · {npc:5635} Falstad Wildhammer · {quest:1450} Gryphon Master Talonaxe · {npc:7884} Fraggar Thundermantle
-	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "",
+	["Ride north-east out of {area:271} on the road into the {area:47}; {area:348} sits just past the border. {npc:5635} holds court at the top, {quest:1450} tends the aviary and {npc:7884} stands by the inn."] = "Cavalgue para nordeste, saindo de {area:271} pela estrada rumo a {area:47}; {area:348} fica logo depois da divisa. {npc:5635} dá audiência lá no topo, {quest:1450} cuida do aviário e {npc:7884} fica junto à estalagem.",
 	-- {quest:1450} Gryphon Master Talonaxe
-	["{quest:1450}, inside"] = "",
+	["{quest:1450}, inside"] = "{quest:1450}, lá dentro",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}, lá dentro",
 	-- {npc:7744} Innkeeper Thulfram
-	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "",
+	["{npc:7744}: the last guide binds here, so this usually ticks at once; below ground"] = "{npc:7744}: o guia anterior vincula a Pedra de Regresso aqui, então isso costuma marcar na hora; no subterrâneo",
 
 	-- Step 13: Rhapsody Shindigger
 	-- {npc:5634} Rhapsody Shindigger · {area:348} Aerie Peak
@@ -72,31 +72,31 @@ return {
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884} keeps paying for necklaces: hand in any extras"] = "{npc:7884} continua pagando pelos colares: entregue os que sobrarem",
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master at the top; inside"] = "",
+	["{npc:5636}, beside the flight master at the top; inside"] = "{npc:5636}, ao lado do mestre de voo, lá no topo; lá dentro",
 	-- {area:47} The Hinterlands
-	["Talonaxe's next task waits for a later {area:47} guide."] = "",
+	["Talonaxe's next task waits for a later {area:47} guide."] = "A próxima tarefa do Garra-de-acha fica para um guia de {area:47} mais adiante.",
 
 	-- Step 16: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Fly to {area:150}"] = "",
+	["Fly to {area:150}"] = "Voe para {area:150}",
 	-- {area:348} Aerie Peak
-	["{area:348} flight master"] = "",
+	["{area:348} flight master"] = "Mestre de voo de {area:348}",
 
 	-- Step 18: Theramore
 	["Theramore"] = "Ilha Theramore",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616} fica nas docas onde o barco atraca.",
 	-- {npc:4944} Captain Garran Vimes
-	["{npc:4944}, on the top floor"] = "",
+	["{npc:4944}, on the top floor"] = "{npc:4944}, no último andar",
 	-- {npc:4968} Lady Jaina Proudmoore
-	["{npc:4968}, on the top floor"] = "",
+	["{npc:4968}, on the top floor"] = "{npc:4968}, no último andar",
 
 	-- Step 19: Cortello's Riddle
 	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "",
+	["Inside {area:498}"] = "Dentro de {area:498}",
 
 	-- Step 20: Theramore flight master
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "Mestre de voo de Theramore",
 
 	-- Step 22: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed

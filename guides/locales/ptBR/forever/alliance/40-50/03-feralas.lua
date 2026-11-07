@@ -8,19 +8,19 @@
 return {
 	-- Step 1: Into The Barrens
 	-- {area:17} The Barrens
-	["Into {area:17}"] = "",
+	["Into {area:17}"] = "Rumo a {area:17}",
 
 	-- Step 3: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "Mestre de voo de {area:489}",
 
 	-- Step 4: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "Barco para {area:1116}",
 
 	-- Step 5: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116} fica em {area:1120}, ao largo de {area:1108}: o barco do cais da costa faz a travessia. {npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}, ao lado dele",
 	-- {npc:7877} Latronicus Moonspear
@@ -42,7 +42,7 @@ return {
 
 	-- Step 10: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "Barco para {area:1108}",
 
 	-- Step 12: The courier's boat
 	["The courier's boat"] = "O barco do mensageiro",
@@ -59,27 +59,27 @@ return {
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}, no andar de cima",
 
 	-- Step 18: Isle of Dread
 	-- {area:1121} Isle of Dread · {area:1120} Sardor Isle · {npc:8136} Lord Shalzaru
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
-	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "",
+	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121} é a ilha logo ao sul de {area:1120}: vá nadando. Serpentes Guarda e Feiticeiras Cristafúria ocupam a ilha; {npc:8136} (nível 47) espera na caverna da ponta sul. Puxe os guardas dele primeiro.",
 	-- {item:9248} Mysterious Relic
-	["{item:9248}; below ground"] = "",
+	["{item:9248}; below ground"] = "{item:9248}; no subterrâneo",
 
 	-- Step 21: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Fly to {area:489}"] = "Voe para {area:489}",
+	["Feathermoon flight master"] = "Mestre de voo de Plumaluna",
 
 	-- Step 23: Grimtotem camp
 	["Grimtotem camp"] = "Acampamento Temível Totem",
 	-- {area:1108} Forgotten Coast · {area:357} Feralas · {npc:7956} Kindal Moonweaver
 	-- plural, as words: Sprite Darters = {npc:5278} Sprite Darter
-	["Boat to the {area:1108} and ride east across {area:357} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "",
+	["Boat to the {area:1108} and ride east across {area:357} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Barco até {area:1108} e cavalgue para leste atravessando {area:357} até o acampamento Temível Totem ao norte da estrada. {npc:7956} espera do lado de fora; solte os Dardejantes do cercado no meio e mantenha {npc:7956} e pelo menos seis deles vivos.",
 
 	-- Step 24: Grimtotem tauren
 	["Grimtotem tauren"] = "Taurens Temível Totem",
@@ -94,11 +94,11 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}, das mochilas",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}, lá dentro",
 
 	-- Step 27: High Wilderness: kill these as you meet them
 	-- {area:1136} High Wilderness
-	["{area:1136}: kill these as you meet them"] = "",
+	["{area:1136}: kill these as you meet them"] = "{area:1136}: vá matando estes pelo caminho",
 	-- {quest:7735} Pristine Yeti Hide · {npc:7852} Pratt McGrubben
 	["Ride back west along the road, then north into the Rage Scar hills. Every yeti here can drop a hide; one may drop a {quest:7735}, which {npc:7852} pays for too."] = "Volte para oeste pela estrada e depois para o norte até as colinas dos Yetis Cortifúria. Todo yeti daqui pode deixar cair um couro; um pode deixar cair um {quest:7735}, que {npc:7852} também paga.",
 
@@ -111,7 +111,7 @@ return {
 	-- {area:1108} Forgotten Coast · {area:1105} Feral Scar Vale · {npc:14637} Zorbin Fandazzle
 	["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "Barco para {area:1108} e cavalgue para leste até {area:1105}. As missões de {npc:14637} na costa exigem nível 45.",
 	-- {npc:5292} Feral Scar Yeti · {area:1105} Feral Scar Vale · {area:357} Feralas
-	["grind on {npc:5292} at {area:1105}, {area:357}"] = "",
+	["grind on {npc:5292} at {area:1105}, {area:357}"] = "mate {npc:5292} até subir, em {area:1105}, {area:357}",
 
 	-- Step 33: Zorbin Fandazzle
 	-- {area:1108} Forgotten Coast
@@ -119,7 +119,7 @@ return {
 
 	-- Step 34: Forgotten Coast: kill these as you meet them
 	-- {area:1108} Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Shore Striders = {npc:5359} Shore Strider · Deep Striders = {npc:5360} Deep Strider · Wave Striders = {npc:5361} Wave Strider · Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
 	["Shore Striders, Deep Striders and Wave Striders (elite giants) wade along the coast north of the dock: zap one with {item:18904} and kill the shrunken giant. Sea Elementals and Sea Sprays drift in the same surf."] = "Costívagos, Fundívagos e Ondarilhos (gigantes elite) andam pela costa ao norte da doca: atinja um com {item:18904} e mate o gigante encolhido. Elementais do Mar e Borrifos do Mar flutuam na mesma rebentação.",
@@ -134,7 +134,7 @@ return {
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Cavalgue para nordeste até o posto avançado dos elfos noturnos na fronteira de {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
-	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
+	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "{npc:4048} anda por {area:489}: procure dentro do círculo no mapa",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east across {zone:1444} to the Grimtotem camp north of the road. {npc:7956} waits outside it; free the Sprite Darters from the pen in the middle and keep {npc:7956} and at least six of them alive."] = "Barco para {area:1108} e cavalgue para leste por {zone:1444} até o acampamento Temível Totem ao norte da estrada. {npc:7956} espera do lado de fora; liberte os Dardejantes do cercado no meio e mantenha {npc:7956} e pelo menos seis deles vivos.",

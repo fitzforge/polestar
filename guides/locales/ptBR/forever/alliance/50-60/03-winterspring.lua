@@ -8,25 +8,25 @@
 return {
 	-- Step 1: Moontouched Feather on the way
 	-- {item:12383} Moontouched Feather
-	["{item:12383} on the way"] = "",
+	["{item:12383} on the way"] = "{item:12383} no caminho",
 
 	-- Step 2: Into Winterspring
 	-- {area:618} Winterspring
-	["Into {area:618}"] = "",
+	["Into {area:618}"] = "Rumo a {area:618}",
 
 	-- Step 4: Everlook
 	-- {npc:11118} Innkeeper Vizzie
 	["{npc:11118}: the last guide binds here, so this usually ticks at once"] = "{npc:11118}: o guia anterior vincula você aqui, então isto costuma ser marcado na hora",
 	-- {npc:11629} Jessica Redpath · {area:2262} Darrowshire
-	["{npc:11629}: keep it for {area:2262}; inside"] = "",
+	["{npc:11629}: keep it for {area:2262}; inside"] = "{npc:11629}: guarde para {area:2262}; lá dentro",
 	-- {npc:10431} Gregor Greystone
-	["{npc:10431}: keep both for the Plaguelands; inside"] = "",
+	["{npc:10431}: keep both for the Plaguelands; inside"] = "{npc:10431}: guarde as duas para as Terras Pestilentas; lá dentro",
 	-- {npc:11754} Meggi Peppinrocker · {area:2255} Everlook
-	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "",
+	["{npc:11754} walks around {area:2255}: look inside the circle on the map"] = "{npc:11754} anda por {area:2255}: procure dentro do círculo no mapa",
 
 	-- Step 6: Ice Thistle Hills: kill these as you meet them
 	-- {area:2247} Ice Thistle Hills
-	["{area:2247}: kill these as you meet them"] = "",
+	["{area:2247}: kill these as you meet them"] = "{area:2247}: vá matando estes pelo caminho",
 	-- {area:2244} Winterfall Village · {area:2255} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
 	["Ice Thistle yetis live in the hills south of {area:2244}, Chillwind Chimaeras in the valley toward {area:2255}."] = "Yetis Cardo de Gelo vivem nas colinas ao sul da {area:2244}, Quimeras Ventogelantes no vale rumo a {area:2255}.",
@@ -47,19 +47,19 @@ return {
 	["{npc:11556} guards the mouth of {area:1769}, north-west of {npc:9298}."] = "{npc:11556} guarda a entrada de {area:1769}, a noroeste de {npc:9298}.",
 
 	-- Step 10: On the way
-	["On the way"] = "",
+	["On the way"] = "No caminho",
 
 	-- Step 11: On the way
 	-- {npc:7442} Winterfall Pathfinder · {npc:9298} Donova Snowden
-	["{npc:7442} along the way to {npc:9298}"] = "",
+	["{npc:7442} along the way to {npc:9298}"] = "{npc:7442} no caminho até {npc:9298}",
 	-- {npc:7440} Winterfall Den Watcher · {npc:9298} Donova Snowden
-	["{npc:7440} along the way to {npc:9298}"] = "",
+	["{npc:7440} along the way to {npc:9298}"] = "{npc:7440} no caminho até {npc:9298}",
 	-- {npc:7441} Winterfall Totemic · {npc:9298} Donova Snowden
-	["{npc:7441} along the way to {npc:9298}"] = "",
+	["{npc:7441} along the way to {npc:9298}"] = "{npc:7441} no caminho até {npc:9298}",
 
 	-- Step 12: Frostfire Hot Springs: kill these as you meet them
 	-- {area:2246} Frostfire Hot Springs
-	["{area:2246}: kill these as you meet them"] = "",
+	["{area:2246}: kill these as you meet them"] = "{area:2246}: vá matando estes pelo caminho",
 	-- {npc:11556} Salfa · {npc:9298} Donova Snowden · {item:12771} Empty Firewater Flask · {quest:8471} Winterfall Ritual Totem · {quest:6031} Runecloth
 	["The western Winterfall camp sits in the hills between {npc:11556} and {npc:9298}. Any furbolg here can drop an {item:12771} (about one in ten) and, rarely, a {quest:8471}: right-click whichever drops. Keep the {quest:6031} the furbolgs drop for Meilosh."] = "O acampamento oeste dos Invernosos fica nas colinas entre {npc:11556} e {npc:9298}. Qualquer furbolg daqui pode deixar cair um {item:12771} (cerca de um em dez) e, raramente, um {quest:8471}: clique com o botão direito no que cair. Guarde o {quest:6031} que os furbolgs deixam cair para Meilosh.",
 	-- {item:12771} Empty Firewater Flask
@@ -76,15 +76,15 @@ return {
 	["The Deadwood cauldron in {zone:1448}: keep it"] = "O caldeirão Lenha Morta em {zone:1448}: guarde-o",
 
 	-- Step 14: Level 55.05
-	["Level 55.05"] = "",
+	["Level 55.05"] = "Nível 55.05",
 	-- {area:2255} Everlook
-	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56."] = "",
+	["Top up here to level 55.05 before the hand-ins at {area:2255}: they take you to level 56."] = "Complete aqui até o nível 55.05 antes das entregas em {area:2255}: elas levam você ao nível 56.",
 	-- {npc:11552} Timbermaw Mystic
-	["grind on {npc:11552}"] = "",
+	["grind on {npc:11552}"] = "mate {npc:11552} até subir",
 
 	-- Step 15: Hearth to Everlook
 	-- {area:2255} Everlook
-	["Hearth to {area:2255}"] = "",
+	["Hearth to {area:2255}"] = "Pedra de Regresso para {area:2255}",
 
 	-- Step 17: Winterfall Village
 	-- {area:2255} Everlook · {npc:10738} High Chief Winterfall
@@ -98,9 +98,9 @@ return {
 
 	-- Step 19: Pristine Yeti Horn on the way
 	-- {item:12367} Pristine Yeti Horn
-	["{item:12367} on the way"] = "",
+	["{item:12367} on the way"] = "{item:12367} no caminho",
 	-- {item:12367} Pristine Yeti Horn · {area:2255} Everlook
-	["{item:12367} along the way to {area:2255}"] = "",
+	["{item:12367} along the way to {area:2255}"] = "{item:12367} no caminho até {area:2255}",
 
 	-- Step 20: Everlook
 	-- {npc:10978} Legacki
@@ -124,33 +124,33 @@ return {
 	["Ride north-west back to the village."] = "Cavalgue para noroeste de volta à aldeia.",
 
 	-- Step 26: Fly to Theramore
-	["Fly to Theramore"] = "",
+	["Fly to Theramore"] = "Voe para a Ilha Theramore",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Mestre de voo de {area:2255}",
 
 	-- Step 27: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "",
+	["Boat to {area:150}"] = "Navio para {area:150}",
 
 	-- Step 28: Fly to Southshore
 	-- {area:271} Southshore
-	["Fly to {area:271}"] = "",
+	["Fly to {area:271}"] = "Voe para {area:271}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "Mestre de voo de {area:150}",
 
 	-- Step 30: Chillwind Camp
 	-- {area:1769} Timbermaw Hold · {zone:1448} Felwood · {area:442} Auberdine · {area:150} Menethil Harbor · {area:271} Southshore · {area:3197} Chillwind Camp
 	["Walk through {area:1769} to {zone:1448} and fly on to the Eastern Kingdoms ({area:442}, the boat to {area:150}). Fly to {area:271} and ride north up the road through Alterac to {area:3197}."] = "Atravesse {area:1769} até {zone:1448} e voe para os Reinos do Leste ({area:442}, o navio para {area:150}). Voe até {area:271} e cavalgue para o norte pela estrada através de Alterac até o {area:3197}.",
 	-- {npc:11616} Nathaniel Dumah · {area:2627} Terrordale
-	["{npc:11616}: the termites come later, in {area:2627}"] = "",
+	["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: os cupins ficam para depois, em {area:2627}",
 
 	-- Step 31: Into Eastern Plaguelands
 	-- {area:139} Eastern Plaguelands
-	["Into {area:139}"] = "",
+	["Into {area:139}"] = "Rumo a {area:139}",
 
 	-- Step 33: Pamela Redpath
 	-- {area:139} Eastern Plaguelands · {area:2262} Darrowshire · {npc:10926} Pamela Redpath
-	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "",
+	["Follow the southern road east into the {area:139}; the ruins of {area:2262} lie south of it. {npc:10926}'s ghost plays by the ruined house at the south end."] = "Siga a estrada do sul para leste até {area:139}; as ruínas de {area:2262} ficam ao sul dela. O fantasma de {npc:10926} brinca junto à casa em ruínas na ponta sul.",
 
 	-- Step 34: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
@@ -158,22 +158,22 @@ return {
 	-- {area:2262} Darrowshire
 	["The three pieces of the doll lie in the ruined houses of {area:2262}; picking one up can call out ghosts. Combine them into the doll."] = "As três partes da boneca estão nas casas em ruínas de {area:2262}; pegar uma pode chamar fantasmas. Junte-as na boneca.",
 	-- {item:12886} Pamela's Doll's Head
-	["{item:12886}; inside"] = "",
+	["{item:12886}; inside"] = "{item:12886}; lá dentro",
 	-- {item:12888} Pamela's Doll's Right Side
-	["{item:12888}; inside"] = "",
+	["{item:12888}; inside"] = "{item:12888}; lá dentro",
 
 	-- Step 35: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {area:28} Western Plaguelands
-	["{quest:5152}, in the {area:28}: keep it"] = "",
+	["{quest:5152}, in the {area:28}: keep it"] = "{quest:5152}, em {area:28}: guarde",
 
 	-- Step 36: Light's Hope Chapel
 	["Follow the road east across the zone to the chapel."] = "Siga a estrada para leste atravessando a zona até a capela.",
 	-- {npc:11038} Caretaker Alen
-	["{npc:11038}: Zaeldarr is a level 54 elite"] = "",
+	["{npc:11038}: Zaeldarr is a level 54 elite"] = "{npc:11038}: Zaeldarr é elite de nível 54",
 
 	-- Step 37: Light's Hope Chapel
 	-- {npc:11038} Caretaker Alen
-	["{npc:11038}, by the graves south of the chapel"] = "",
+	["{npc:11038}, by the graves south of the chapel"] = "{npc:11038}, junto aos túmulos ao sul da capela",
 
 	-- Step 38: Corin's Crossing
 	-- {area:2264} Corin's Crossing
@@ -184,20 +184,20 @@ return {
 
 	-- Step 40: The Undercroft
 	-- {area:2261} The Undercroft
-	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "",
+	["Zaeldarr is elite: grouping up is advised. He waits at the bottom of the {area:2261}, the crypt in the south-west of the zone."] = "Zaeldarr é elite: melhor ir em grupo. Ele espera no fundo de {area:2261}, a cripta no sudoeste da zona.",
 	-- {item:15785} Zaeldarr's Head
-	["{item:15785}; below ground"] = "",
+	["{item:15785}; below ground"] = "{item:15785}; no subterrâneo",
 
 	-- Step 41: Browman Mill: kill these as you meet them
 	-- {area:2269} Browman Mill
-	["{area:2269}: kill these as you meet them"] = "",
+	["{area:2269}: kill these as you meet them"] = "{area:2269}: vá matando estes pelo caminho",
 	-- {npc:10411} Eye of Naxxramas
 	-- plural, as words: Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
-	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "",
+	["Careful: {npc:10411} goes invisible when out of combat and calls Rockwing Gargoyles once a fight starts. Only 3 exist and they respawn every 15 min."] = "Cuidado: o {npc:10411} fica invisível fora de combate e chama Gárgulas Petrasas quando a luta começa. Só existem 3, e elas renascem a cada 15 min.",
 
 	-- Step 42: Hearth to Light's Hope Chapel
 	-- {area:2268} Light's Hope Chapel
-	["Hearth to {area:2268}"] = "",
+	["Hearth to {area:2268}"] = "Pedra de Regresso para {area:2268}",
 
 	-- Step 43: Light's Hope Chapel
 	-- {area:3197} Chillwind Camp

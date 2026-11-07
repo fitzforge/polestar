@@ -8,24 +8,24 @@
 return {
 	-- Step 1: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
-	["Boat to {area:17203}"] = "",
+	["Boat to {area:17203}"] = "Barco para {area:17203}",
 
 	-- Step 2: Stormwind
 	-- {area:442} Auberdine · {area:17203} Stormwind Harbor · {npc:1646} Baros Alexston · {area:12} Elwynn Forest
-	["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {area:12}."] = "",
+	["The {area:442} boat docks at {area:17203}. Walk up into the city for training and {npc:1646}, then leave by the main gate and follow the road east through {area:12}."] = "O barco de {area:442} atraca em {area:17203}. Suba até a cidade para treinar e falar com {npc:1646}, depois saia pelo portão principal e siga a estrada para leste por {area:12}.",
 	["Level 18 and 20 spells"] = "Feitiços de nível 18 e 20",
 	-- {npc:1646} Baros Alexston · {area:442} Auberdine
 	["{npc:1646}: Thundris' letter from {area:442}"] = "{npc:1646}: a carta de Trovejius de {area:442}",
 	-- {quest:97914} Expanding Horizons · {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "",
+	["Only once {quest:97914} is handed in: for {npc:3649}, back in {area:442} (06-ashenvale)"] = "Só depois de entregar {quest:97914}: para {npc:3649}, de volta em {area:442} (06-ashenvale)",
 
 	-- Step 3: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); two-handers level a Warrior fastest."] = "",
+	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); two-handers level a Warrior fastest."] = "Já que está aqui: aprenda Armas de Haste com {npc:11867} ({object:2096}, 1 ouro); arma de duas mãos é o jeito mais rápido de upar Guerreiro.",
 
 	-- Step 4: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
-	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Polearms from {npc:11867} ({object:2096}, 1 gold); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Já que está aqui: aprenda Armas de Haste com {npc:11867} ({object:2096}, 1 ouro); a arma corpo a corpo do Caçador vale pelos atributos, e as de duas mãos são as que mais trazem.",
 
 	-- Step 5: Stormwind class quests
 	-- {zone:1453} Stormwind
@@ -45,7 +45,7 @@ return {
 
 	-- Step 6: Tram to Ironforge
 	-- {zone:1455} Ironforge
-	["Tram to {zone:1455}"] = "",
+	["Tram to {zone:1455}"] = "Metrô para {zone:1455}",
 
 	-- Step 7: Shaman training
 	["Shaman training"] = "Treino de xamã",
@@ -54,65 +54,65 @@ return {
 
 	-- Step 8: Fly to Sentinel Hill
 	-- {area:108} Sentinel Hill
-	["Fly to {area:108}"] = "",
+	["Fly to {area:108}"] = "Voe para {area:108}",
 	-- {zone:1453} Stormwind
-	["{zone:1453} flight master"] = "",
+	["{zone:1453} flight master"] = "Mestre de voo de {zone:1453}",
 
 	-- Step 9: Half Pendant of Aquatic Endurance
 	-- {area:108} Sentinel Hill · {object:177790} Strange Lockbox
-	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge."] = "",
+	["Fly to {area:108} and head north-west to the coast: the {object:177790} lies on the sea floor off the shore. Then head east along the road through Elwynn to Redridge."] = "Voe para {area:108} e siga para noroeste até a costa: o {object:177790} está no fundo do mar, perto da praia. Depois siga para leste pela estrada, atravessando Elwynn até Cristarrubra.",
 	-- {item:15882} Half Pendant of Aquatic Endurance · {object:177790} Strange Lockbox
 	["{item:15882}: the {object:177790}"] = "{item:15882}: o {object:177790}",
 
 	-- Step 10: Back to Elwynn Forest
 	-- {area:12} Elwynn Forest
-	["Back to {area:12}"] = "",
+	["Back to {area:12}"] = "De volta a {area:12}",
 
 	-- Step 13: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "",
+	["On the road east, past the {area:91}, head north from the bridge to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Na estrada para leste, depois de {area:91}, saia da ponte para o norte até {area:86}. {npc:6172} está caído ao sul do lago: use o {item:6866} nele. Os Teurgos Proscritos Défias em volta dele carregam a {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
-	["Use the {item:6866} on {npc:6172}"] = "",
+	["Use the {item:6866} on {npc:6172}"] = "Use o {item:6866} em {npc:6172}",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{item:6846}: Defias Rogue Wizards"] = "",
+	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Teurgos Proscritos Défias",
 
 	-- Step 15: Three Corners
 	-- {area:1002} Three Corners · {npc:464} Guard Parker · {zone:1431} Duskwood
 	["The road from Elwynn enters Redridge at {area:1002}. {npc:464} stands where the roads to Redridge and {zone:1431} meet."] = "A estrada de Elwynn entra em Cristarrubra em {area:1002}. {npc:464} fica onde se encontram as estradas para Cristarrubra e {zone:1431}.",
 	-- {npc:464} Guard Parker · {area:1002} Three Corners
-	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "",
+	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "{npc:464} anda por {area:1002}: procure dentro do círculo no mapa",
 
 	-- Step 16: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon · {npc:903} Guard Howe
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "Siga a estrada pela margem sul do {area:68} até a mestre de grifos. {npc:1070} e {npc:903} ficam na estrada ao lado dela.",
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} and {npc:903} stand by the road next to her."] = "Siga a estrada pela margem sul do {area:68} até a mestra de grifos. {npc:1070} e {npc:903} ficam na estrada ao lado dela.",
 
 	-- Step 17: Lakeshire
 	-- {npc:341} Foreman Oslow · {npc:382} Marshal Marris · {npc:900} Bailiff Conacher · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:343} Chef Breanna · {npc:342} Martie Jainrose
 	["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Atravesse a ponte comprida para o norte até a vila. {npc:341} e {npc:382} ficam na ponta norte da ponte, {npc:900} na prefeitura, {npc:381} e {npc:266} nas docas, {npc:343} na estalagem, {npc:342} na horta dela, no extremo oeste.",
 	-- {npc:266} Wiley the Black
-	["{npc:266}, by the docks; upstairs"] = "",
-	["Inside"] = "",
+	["{npc:266}, by the docks; upstairs"] = "{npc:266}, junto ao cais; no andar de cima",
+	["Inside"] = "Lá dentro",
 	-- {npc:343} Chef Breanna
-	["{npc:343}, inside"] = "",
+	["{npc:343}, inside"] = "{npc:343}, lá dentro",
 
 	-- Step 18: Spotted Sunfish on the way
 	-- {item:1467} Spotted Sunfish
-	["{item:1467} on the way"] = "",
+	["{item:1467} on the way"] = "{item:1467} no caminho",
 
 	-- Step 19: Sunken Chest
 	-- {area:68} Lake Everstill
 	["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Nade a leste da ponte para dentro do {area:68}; o baú está no fundo do lago.",
 	-- {item:1309} Oslow's Toolbox
-	["{item:1309}; underwater"] = "",
+	["{item:1309}; underwater"] = "{item:1309}; debaixo d'água",
 
 	-- Step 21: Lakeridge Highway: kill these as you meet them
 	-- {area:1001} Lakeridge Highway
-	["{area:1001}: kill these as you meet them"] = "",
+	["{area:1001}: kill these as you meet them"] = "{area:1001}: vá matando estes pelo caminho",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Redridge Thrashers = {npc:712} Redridge Thrasher · Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Dire Condors = {npc:428} Dire Condor · Great Goretusks = {npc:547} Great Goretusk
-	["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "",
+	["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Redridge Brutes, for the Iron Pikes and Rivets, hold the hills further north; Dire Condors and Great Goretusks roam the hills east of them."] = "Mestiços de Cristarrubra e outros gnolls ocupam as colinas a leste de {area:1002}, ao norte da estrada; Espancadores de Cristarrubra rondam no meio deles, e os Caçadores Ilegais acampam ao sul da estrada. Os Brutamontes de Cristarrubra, pelos Piques Férreos e Rebites, ocupam as colinas mais ao norte; Condores Hediondos e Grandes Goretuscos andam pelas colinas a leste deles.",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: Espancadores de Cristarrubra",
@@ -123,15 +123,15 @@ return {
 
 	-- Step 27: Lake Everstill: kill these as you meet them
 	-- {area:68} Lake Everstill
-	["{area:68}: kill these as you meet them"] = "",
+	["{area:68}: kill these as you meet them"] = "{area:68}: vá matando estes pelo caminho",
 	-- {item:1467} Spotted Sunfish
 	-- plural, as words: Murloc Flesheaters = {npc:422} Murloc Flesheater · Greater Tarantulas = {npc:505} Greater Tarantula
-	["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin.\nGreater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "",
+	["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin.\nGreater Tarantulas crawl on the slopes around the mill north-east of the lake."] = "Carniceiros e Chamarés Murloc ocupam a margem sul a leste da ponte. Qualquer um pode carregar um {item:1467} ou uma barbatana.\nGrandes Tarântulas rastejam pelas encostas em volta do moinho a nordeste do lago.",
 
 	-- Step 28: Blackrock camps
-	["Blackrock camps"] = "",
+	["Blackrock camps"] = "Acampamentos Rocha Negra",
 	-- {area:1000} Galardell Valley · {area:2099} Stonewatch Keep
-	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "",
+	["South-east from the mill, west of {area:1000}'s gnolls, to the Blackrock camps east of {area:2099}. Renegades, Grunts and Outrunners fill them; keep east of the keep, whose orcs are elite."] = "Do moinho para sudeste, a oeste dos gnolls de {area:1000}, até os acampamentos Rocha Negra a leste de {area:2099}. Renegados, Brutos e Vanguardeiros lotam os acampamentos; fique a leste da fortaleza, cujos orcs são elite.",
 
 	-- Step 29: Back to Lakeshire
 	-- {area:69} Lakeshire
@@ -142,13 +142,13 @@ return {
 	-- plural, as words: Blackrock Champions = {npc:435} Blackrock Champion
 	["Head north out of {area:69} up the {area:95} to {area:997}. Blackrock Champions camp in the valley."] = "Saia de {area:69} rumo ao norte, subindo os {area:95} até o {area:997}. Campeões Rocha Negra acampam no vale.",
 	-- {npc:435} Blackrock Champion
-	["{npc:435}, below ground"] = "",
+	["{npc:435}, below ground"] = "{npc:435}, no subterrâneo",
 
 	-- Step 31: Corporal Keeshan
 	-- {zone:1428} Burning Steppes · {area:69} Lakeshire
 	["Keeshan hides at the very north end of the valley, by the {zone:1428} border. Escort him down to {area:69}; Blackrock orcs ambush you on the way."] = "Keeshan se esconde no extremo norte do vale, na divisa com {zone:1428}. Escolte-o até {area:69}; orcs Rocha Negra emboscam vocês no caminho.",
 	-- {npc:349} Corporal Keeshan
-	["{npc:349}, below ground"] = "",
+	["{npc:349}, below ground"] = "{npc:349}, no subterrâneo",
 
 	-- Step 32: Lakeshire
 	-- {npc:903} Guard Howe
