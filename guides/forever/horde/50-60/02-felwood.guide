@@ -22,23 +22,22 @@ step Western Plaguelands
   goto 43.0,83.5 "Western Plaguelands"
 
 step Sorrow Hill
-  tip Ride south past the Writhing Haunt to Sorrow Hill. Kill the Diseased Wolves you meet in the fields on the way.
+  tip Argent Officer Pureheart stands at the south end of the Sorrow Hill graveyard, where the road from Tarren Mill comes in.
   accept 5402 optional                -- Argent Officer Pureheart, at the graveyard's south end
   accept 5403 optional
 
-step Mulgris Deepriver
-  tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
-  accept 4984                         -- Inside
-
 step Sorrow Hill
   tip Marlene's house stands by the road, and Joseph Redpath's monument is in the graveyard behind it.
-  kill 1817 quest 4984 optional
   turnin 5152                         -- Marlene Redpath, upstairs
   accept 5153
   collect 12894 quest 5153 @49.7,76.8
   turnin 5403 optional
   note Keep Little Pamela: Pamela is in Darrowshire, visited again later.
   turnin 5402 optional
+
+step Mulgris Deepriver
+  tip He camps by the Writhing Haunt, south-east of Dalson's Tears.
+  accept 4984                         -- Inside
 
 step Chromie
   tip Ride north-west into Andorhal. Chromie waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges.
@@ -74,14 +73,7 @@ step Kirsta Deepshadow
   tip Ride west to the Northridge Lumber Camp; Kirsta hides on the hill north-east of it.
   accept 6004
 
-step On the way
-  along until q6004
-  kill 10605 quest 6004.1
-  kill 1831 quest 6004.2
-  kill 1833 quest 6004.4
-
 step Diseased Wolves
-  label q6004
   tip The wolves roam the fields between Andorhal, Dalson's Tears and the Writhing Haunt. Finish them on the ride back east.
   kill 1817 quest 4984
   kill 10605 quest 6004.1
@@ -223,7 +215,6 @@ step Southern Jaedenar
 
 step A Strange Red Key
   tip Only if a Blood Red Key dropped: use it to start the quest, then free Arko'narin in her cage in Shadow Hold, the cave at the north end of Jaedenar, and escort her out.
-  getfp "Bloodvenom Post"
   accept 5202 optional
   turnin 5202 optional                -- Captured Arko'narin, below ground
   accept 5203 optional
@@ -260,6 +251,7 @@ step Rakaiah
 
 step Bloodvenom Post
   tip The Horde camp just north of Jaedenar.
+  getfp "Bloodvenom Post"
   accept 6162                         -- Dreka'Sur
   accept 4521                         -- Trull Failbane: the owlbeasts are in Winterspring
   accept 4505                         -- Winna Hazzard
