@@ -5544,6 +5544,17 @@
 					539
 				],
 				"why": "#1079: Helcular's Revenge is handed to Thaivand on the same Tarren Mill stop, the rod from the yetis just before"
+			},
+			{
+				"a": [
+					"turnin",
+					842
+				],
+				"b": [
+					"accept",
+					844
+				],
+				"why": "#1077: Orcs and Trolls hand Crossroads Conscription to Sergra before taking Plainstrider Menace from her, on the one Crossroads arrival stop. The v2 write (Candidate2's fixes ledger) took 844 first and handed 842 in on a separate later step, splitting the arrival stop in two"
 			}
 		]
 	}
