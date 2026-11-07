@@ -176,7 +176,8 @@ pub fn classify(p: &Problem, m: &Member, ins: Option<&Insertable>, g: &GuardData
 					let work: f64 = x.work.iter().filter(|(tk, _)| (run.q_task0[qi]..run.q_task1[qi]).contains(tk)).map(|w| w.1).sum();
 					v.detour_sec = (v.cost_sec - work - 2.0 * p.model.tables.p.talk_sec).max(0.0);
 					v.rate = if v.cost_sec <= 1.0 { f64::INFINITY } else { v.xp / (v.cost_sec / 60.0) };
-					v.worthwhile = v.xp > 0.0 && (v.rate >= local || (v.detour_sec < DETOUR_CHEAP_SEC && v.rate >= 0.5 * local));
+					let (full, cheap) = pickup_bar();
+					v.worthwhile = v.xp > 0.0 && (v.rate >= full * local || (v.detour_sec < DETOUR_CHEAP_SEC && v.rate >= cheap * local));
 					if !v.worthwhile {
 						// Value a chain, not a quest (planner rule 1): the quest with the quests it
 						// opens, their XP over their added time.
@@ -185,7 +186,7 @@ pub fn classify(p: &Problem, m: &Member, ins: Option<&Insertable>, g: &GuardData
 							let y = tally(&mut ev, &cc.steps);
 							let (xp, cost) = (y.xp - base.xp, y.busy - base.busy);
 							let rate = if cost <= 1.0 { f64::INFINITY } else { xp / (cost / 60.0) };
-							if y.noops <= base.noops && check.valid(&cc.steps, p_pairs, p_feas) && xp > 0.0 && rate >= local {
+							if y.noops <= base.noops && check.valid(&cc.steps, p_pairs, p_feas) && xp > 0.0 && rate >= full * local {
 								(v.xp, v.cost_sec, v.rate, v.worthwhile) = (xp, cost, rate, true);
 								v.chain = chain_quests(&cm).into_iter().map(|x| run.q_id[x as usize]).collect();
 							}
@@ -206,6 +207,21 @@ pub fn classify(p: &Problem, m: &Member, ins: Option<&Insertable>, g: &GuardData
 		out.push(v);
 	}
 	out
+}
+
+/// The `coverage` flow flag (#1046 follow-up: the benchmark order hands in ~40 % more quests over the
+/// same walk; Duskwood's Raven Hill chain and Jitters' Growling Gut skipped as low-value or over
+/// the 2-minute allowance): a passed quest is worthwhile at half the route's XP rate (a quarter
+/// when its detour is under DETOUR_CHEAP_SEC), and a pickup may add COVERAGE_ALLOW_SEC.
+pub const COVERAGE_ALLOW_SEC: f64 = 300.0;
+
+/// The share of the route's own XP rate a passed quest must reach: (any detour, a cheap detour).
+pub fn pickup_bar() -> (f64, f64) {
+	if forge_core::flow_flags::on("coverage") {
+		(0.5, 0.25)
+	} else {
+		(1.0, 0.5)
+	}
 }
 
 /// One pickup the pass kept.
@@ -254,7 +270,7 @@ pub fn pickup(p: &Problem, m: &mut Member, ins: Option<&Insertable>, g: &GuardDa
 				if a >= m.live || !m.check.valid(&cand.steps, &p.pairs, &p.feas) || twin_trainings(&cand) > twin_trainings(&m.order) {
 					continue;
 				}
-				m.allow = PICKUP_ALLOW_SEC;
+				m.allow = if forge_core::flow_flags::on("coverage") { COVERAGE_ALLOW_SEC } else { PICKUP_ALLOW_SEC };
 				let r = m.replay(p, &cand, a, b);
 				m.allow = 0.0;
 				if let Some(r) = r {

@@ -10,7 +10,9 @@
 //! - `sweep`: work whose ground the route stands on while its quest is open and on level is done
 //!   then, not kept for a later sweep that brings the player back;
 //! - `steps`: the writer writes no `along` lists; their work is an ordinary goal at the stop nearest
-//!   it (or stays at its own stop).
+//!   it (or stays at its own stop);
+//! - `coverage`: the pickup pass takes passed quests at half the route's XP rate (a quarter on a
+//!   cheap detour) and lets each add 5 minutes, so marginal quests on the route are done.
 //!
 //! The planner flags are part of the routes stage's search key, `steps` of its stage key
 //! (forge/src/lib.rs), so a build with other flags never reuses another's finished searches.
@@ -19,9 +21,9 @@ use std::sync::atomic::{AtomicU16, Ordering};
 use std::sync::LazyLock;
 
 /// Every flag, in key order.
-pub const ALL: [&str; 4] = ["greedy", "revisit", "sweep", "steps"];
+pub const ALL: [&str; 5] = ["greedy", "revisit", "sweep", "steps", "coverage"];
 /// The flags that change the planner (the search key); the rest change only the writer.
-pub const PLANNER: [&str; 3] = ["greedy", "revisit", "sweep"];
+pub const PLANNER: [&str; 4] = ["greedy", "revisit", "sweep", "coverage"];
 
 fn parse(s: &str) -> u8 {
 	let mut bits = 0u8;

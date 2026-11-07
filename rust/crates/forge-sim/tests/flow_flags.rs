@@ -5,7 +5,7 @@
 mod common;
 use forge_sim::run::{K_ACCEPT, K_GRIND, K_TASK};
 use forge_sim::search::edits::Mv;
-use forge_sim::search::passby::{hub_pickup_reach, work_while_there, GREEDY_ALLOW_SEC, GREEDY_PICKUP_YD, HUB_PICKUP_ALLOW_SEC, HUB_PICKUP_YD, SWEEP_ALLOW_SEC};
+use forge_sim::search::passby::{hub_pickup_reach, pickup_bar, work_while_there, GREEDY_ALLOW_SEC, GREEDY_PICKUP_YD, HUB_PICKUP_ALLOW_SEC, HUB_PICKUP_YD, SWEEP_ALLOW_SEC};
 use forge_sim::search::{pool, runs, Member, Problem};
 
 #[test]
@@ -24,10 +24,15 @@ fn flow_flags_off_change_nothing_and_on_do_work_where_the_route_stands() {
 	assert!(work_while_there(&p, &mut mem, &mut |_| {}).is_empty(), "no sweep without the flag");
 	assert_eq!(forge_sim::guards::flow_pen(&counts), 0.0, "no flow price without the flag");
 	assert_eq!(hub_pickup_reach(), (HUB_PICKUP_YD, HUB_PICKUP_ALLOW_SEC));
+	assert_eq!(pickup_bar(), (1.0, 0.5), "the route's rate, half on a cheap detour");
 
 	// Greedy: the wider reach.
 	forge_core::flow_flags::set_for_tests(&["greedy"]);
 	assert_eq!(hub_pickup_reach(), (GREEDY_PICKUP_YD, GREEDY_ALLOW_SEC));
+
+	// Coverage: marginal pickups at half the rate.
+	forge_core::flow_flags::set_for_tests(&["coverage"]);
+	assert_eq!(pickup_bar(), (0.5, 0.25));
 
 	// Revisit: the flow counts priced (2 returns, 3 split works, 1 giver passed and taken later).
 	forge_core::flow_flags::set_for_tests(&["revisit"]);
