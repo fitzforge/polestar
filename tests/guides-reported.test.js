@@ -4769,3 +4769,15 @@ test('forever/alliance/40-50/03-feralas.guide: flow re-order: Lord Shalzaru clos
 	assert.equal(stepOf('turnin 2870', is('turnin', 2870)), stepOf('turnin 4127', is('turnin', 4127)), 'one Feathermoon visit');
 	assert.equal(stepOf('the Groddoc livers', (g) => g.t === 'collect' && g.quest === 1452 && g.oi === 3), stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'the livers with the yetis');
 });
+
+// Flow review (2026-11-07): Alliance Un'Goro rode from Torwa to Marshal's Refuge and only came back south-east for the
+// Lar'korwi glands and the wrecked raft, which lie just west of Torwa at the foot of the ramp.
+test("forever/alliance/40-50/07-un-goro-crater.guide: flow re-order: the Lar'korwi glands and the wrecked raft on arrival, before the ride north", { skip }, () => {
+	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const glands = stepOf('the glands (4291)', (g) => g.t === 'collect' && g.quest === 4291);
+	const karna = stepOf('accept 4243', is('accept', 4243));
+	assert.ok(glands < karna, 'the glands before Karna');
+	assert.equal(stepOf('turnin 3844', is('turnin', 3844)), glands, 'the raft with the glands');
+	assert.equal(glands, stepOf('turnin 4290', is('turnin', 4290)) + 1, 'right after Torwa');
+});

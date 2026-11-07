@@ -62,6 +62,13 @@ step Torwa Pathfinder
 
 step Lar'korwi Mates and the raft
   tip The Lar'korwi Mates prowl the jungle west of Torwa. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for Linken. Any beast in the crater may drop A Mangled Journal: right-click it.
+  collect 11509 quest 4291            -- Ravasaur Pheromone Gland
+  accept 3844                         -- A Wrecked Raft
+  turnin 3844                         -- A Small Pack, underwater
+  accept 3845
+  collect 11104 quest 3845 @63.1,69.1
+  collect 11105 quest 3845 @63.1,69.1
+  collect 11106 quest 3845 @63.1,69.1
   collect 11116 x1 optional           -- A Mangled Journal
   accept 3884 optional
 
@@ -87,15 +94,6 @@ step Fire Plume Ridge and the eastern jungle
   tip Ride south to Fire Plume Ridge in the middle of the crater, then east into the eastern jungle. Crystal clusters stand all over the crater, many of them around Fire Plume Ridge: take a few extra of each colour. Bloodpetal Lashers and Threshers drop the petals; the expedition's Crate of Foodstuffs sits at an abandoned camp in the eastern jungle.
   collect 11316 quest 4141            -- Bloodpetal
   collect 11830 quest 4503
-
-step The Marshlands
-  collect 11509 quest 4291            -- Ravasaur Pheromone Gland
-  accept 3844                         -- A Wrecked Raft
-  turnin 3844                         -- A Small Pack, underwater
-  accept 3845
-  collect 11104 quest 3845 @63.1,69.1
-  collect 11105 quest 3845 @63.1,69.1
-  collect 11106 quest 3845 @63.1,69.1
 
 step Lakkari Tar Pits
   collect 11184 quest 4284            -- Blue Power Crystal
