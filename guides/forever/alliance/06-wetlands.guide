@@ -222,6 +222,12 @@ step Menethil Harbor
   turnin 98221                            -- Captain Stoutfist, in Menethil Keep; on the top floor
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
+step Level 28
+  when level<28
+  tip Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw Raiders and Swamprunners at the camp east of Menethil before you fly on.
+  goto 45.7,44.8 map 1437 "Dragonmaw camp"
+  level 28                          -- grind on Dragonmaw Raider
+
 # ---------------------------------------------------------------- Ironforge
 
 step Fly to Ironforge
