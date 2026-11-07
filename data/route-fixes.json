@@ -2670,6 +2670,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Dun Morogh): the Crag Boars and Young Black Bears for Stocking Jetsteam and Beer Basted Boar Ribs are killed on the walk back north-east from Rumbleshot's camp to Kharanos, after the Grizzled Den, so the pilots' quests are both ready on the one depot stop; killed first, beside the depot, the walk passed Pilot Bellowfiz with Stocking Jetsteam done and came back for it after the den."
+			},
+			{
+				"a": [
+					"turnin",
+					1138
+				],
+				"b": [
+					"turnin",
+					1001
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Darkshore): Fruit of the Sea's six Fine Crab Chunks come from the crawlers by Cliffspring Falls on the second loop; the route then walked past Gubber Blump on the pier with them on the Auberdine visit after Bashal'Aran (45 yd) and handed them in a whole loop later, after the Den Mother (03-darkshore 'Auberdine' after Bashal'Aran on 0.3.4, about 30 minutes). Handed in on the first Auberdine visit with them in the bag. The seed is re-cut for it."
 			}
 		],
 		"notes": [

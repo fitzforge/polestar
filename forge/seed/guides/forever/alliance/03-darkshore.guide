@@ -97,6 +97,7 @@ step Auberdine
   accept 98025                                -- The WANTED poster outside the inn
   accept 3524                                 -- Gwennyth Bly'Leggonde
   accept 963                                  -- Cerellean Whiteclaw, on the pier
+  accept 1138                                 -- Gubber Blump, on the pier
   accept 1141 optional                        -- Gubber Blump, on the pier: only with Fishing
   accept 2118                                 -- Tharnariun Treetender
   accept 984                                  -- Terenthis
@@ -246,6 +247,7 @@ step Cliffspring Falls
   collect 15845 quest 6122.1 only NightElf,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
   accept 4727                                 -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle
+  collect 12237 quest 1138                    -- Fine Crab Chunks from Encrusted Tide Crawler and Reef Crawler, by this stop
 
 step Bashal'Aran
   turnin 957                                  -- Asterion
@@ -260,7 +262,7 @@ step Auberdine
   turnin 4727
   turnin 4725
 
-  accept 1138                                 -- Gubber Blump
+  turnin 1138                                 -- Gubber Blump, on the pier
   accept 4740                                 -- The WANTED poster
   accept 947                                  -- Barithras Moonshade
   turnin 4813                                 -- Sentinel Glynda Nal'Shea
@@ -278,7 +280,6 @@ step The bay wrecks
   tip Two wrecks lie on the sea floor in the bay north of Auberdine; each holds a lockbox. Reef Crawlers and Encrusted Tide Crawlers line this shore.
   collect 12191 quest 982                     -- Silver Dawning's Lockbox
   collect 12192 quest 982                     -- Mist Veil's Lockbox
-  collect 12237 quest 1138                    -- Fine Crab Chunks
 
 step The Ruins of Mathystra
   tip Gelkak Gyromast hides on the little island off the ruins. The key pieces drop from Giant Foreststriders (top), Greymist murlocs (middle) and Raging Reef Crawlers (bottom).
@@ -319,7 +320,6 @@ step Hearth to Auberdine
   accept 948
   turnin 982                                  -- Gorbold Steelhand
   turnin 4763                                 -- Thundris Windweaver
-  turnin 1138                                 -- Gubber Blump
   vendor nearest
 
 step Lunar Fungus and Earthroot
