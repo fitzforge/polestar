@@ -386,11 +386,11 @@ function Client.ItemIcon(itemID)
 	return nil
 end
 
--- true / false, or nil when range does not apply (no target, no range).
+-- true / false, or nil when range does not apply (no target, no range, in combat).
 function Client.ItemInRange(itemID)
 	if not (C_Item and C_Item.IsItemInRange and UnitExists and UnitExists("target")) then return nil end
-	-- The client blocks range checks on non-friendly units in combat.
-	if inLockdown() and not (UnitIsFriend and UnitIsFriend("player", "target")) then return nil end
+	-- The client blocks addons' range checks in combat, on friendly targets too (#871, #1198).
+	if inLockdown() then return nil end
 	return readable(C_Item.IsItemInRange(itemID, "target"))
 end
 

@@ -273,9 +273,9 @@ function C_Item.GetItemCount(id)
 	return n
 end
 function C_Item.GetItemIconByID(id) return (q.items[id] and q.items[id].icon) or 134400 end
-function C_Item.IsItemInRange(_, unit)
-	local t = targetOf(unit)
-	if stub.inCombat and not (t and t.friend) then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
+-- The game blocks it in combat whatever the target (#871 on an enemy, #1198 on a friend).
+function C_Item.IsItemInRange()
+	if stub.inCombat then error("ADDON_ACTION_BLOCKED: IsItemInRange", 2) end
 	return q.inRange
 end
 function C_Item.IsUsableItem(id) return true end
