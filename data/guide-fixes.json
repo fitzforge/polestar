@@ -1,5 +1,5 @@
 {
-	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), or a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
+	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), or a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs). at: { quest, goal: accept | turnin | complete | objective, objective? }. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
 			"id": "dun-morogh-shimmerweed-on-shimmer-ridge",
@@ -2745,6 +2745,44 @@
 				}
 			],
 			"pr": 1080
+		},
+		{
+			"id": "1135-plainstrider-beaks",
+			"at": {
+				"quest": 844,
+				"goal": "objective",
+				"objective": 1
+			},
+			"background": {
+				"title": "Plainstrider Beaks as you go",
+				"tip": "Plainstriders roam the plains all over the Barrens, and about one in four drops a beak: kill the ones you pass on the way.",
+				"mobs": [
+					3244,
+					3245,
+					3246
+				],
+				"mention": "Plainstriders here count toward the beaks.",
+				"finish": {
+					"title": "Finish the Plainstrider Beaks",
+					"tip": "Still short of seven? The plains north-west of the Crossroads hold the most plainstriders.",
+					"map": 1413,
+					"x": 50,
+					"y": 21
+				}
+			},
+			"faction": "Horde",
+			"note": "Plainstrider Menace: a slow, zone-wide collection, worked over the stay instead of in a step of its own (Fitz on #1135). Players' recordings: 266 beaks ticked from 906 kills of Greater, Fleeting and Ornery Plainstriders while the quest was open (26%, 26% and 18% a kill), a median 21 kills for the seven, up to 49; 16% of those kills already came in other steps. The plainstriders spawn in four clusters across the Barrens. The finish point is the densest plainstrider ground near the Crossroads (40 spawn points within 250 yd). The Raptor Heads of the same report (about three in four Sunscale raptors, a median 13 kills) stay a step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings since launch: 39 runs of 844 (38 finished), the kill and progress lines of Plainstrider Beak"
+				},
+				{
+					"kind": "tdb",
+					"ref": "creature: the spawns of 3244, 3245 and 3246 in the Barrens"
+				}
+			],
+			"issue": 1135
 		}
 	]
 }

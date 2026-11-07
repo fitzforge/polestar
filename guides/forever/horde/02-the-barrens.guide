@@ -138,18 +138,44 @@ step The Crossroads
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
   accept 870                          -- Tonga Runetotem
 
+step Plainstrider Beaks as you go
+  along until q844
+  background
+  tip Plainstriders roam the plains all over the Barrens, and about one in four drops a beak: kill the ones you pass on the way.
+  collect 5087 quest 844.1
+
 step The Barrens: kill these as you meet them
   zone The Barrens
   tip Plainstriders and Sunscale raptors roam the plains all around the Crossroads, thickest to the north.
   tip Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health, so dense packs can pull extra raptors.
   collect 5062 quest 869.1
-  collect 5087 quest 844.1 @53.0,23.7
 
 step The Crossroads
-  turnin 844                          -- Sergra Darkthorn
-  accept 845
   turnin 869                          -- Gazrog
   accept 3281                         -- Gazrog
+
+# ---------------------------------------------------------------- East: the Razormane and Far Watch
+
+step Razormane camp
+  tip In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
+  tip Plainstriders here count toward the beaks.
+  kill 3267 quest 871.1
+  kill 3268 quest 871.2
+  collect 12708 quest 5041.1 @58.8,25.8
+  kill 3265 quest 871.3
+
+step Finish the Plainstrider Beaks
+  when !has 5087 x7
+  tip Still short of seven? The plains north-west of the Crossroads hold the most plainstriders.
+  collect 5087 quest 844.1 @50,21 map 1413 era
+
+step The Crossroads
+  label q844
+  turnin 844                          -- Sergra Darkthorn
+  accept 845
+  turnin 871                          -- Thork
+  turnin 5041
+  accept 872
 
 step The Zhevra
   tip Zhevra Runners graze north and east of town.
@@ -160,15 +186,9 @@ step The Crossroads
   turnin 845                          -- Sergra Darkthorn
   accept 903
 
-# ---------------------------------------------------------------- East: the Razormane and Far Watch
-
-step Razormane camp
-  tip The Savannah Prowlers hunt the plains between town and the Razormane camp to the east. In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.
-  kill 3267 quest 871.1
-  kill 3268 quest 871.2
-  collect 12708 quest 5041.1 @58.8,25.8
-  kill 3265 quest 871.3
-  goto 55.0,26.0 "Razormane camp"
+step Savannah Prowlers
+  tip The Savannah Prowlers hunt the plains between town and the Razormane camp to the east.
+  goto 55.0,26.0 "Prowlers"
   collect 5096 quest 903.1
 
 # Turn in a carried alternative here before starting the shared ritual;
@@ -308,9 +328,6 @@ step Fly to Crossroads
 step The Crossroads
   turnin 903                          -- Sergra Darkthorn
   accept 881
-  turnin 871                          -- Thork
-  turnin 5041
-  accept 872
 
 step Regthar Deathgate
   tip South to Regthar's watch post on the Kolkar border.
