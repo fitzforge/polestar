@@ -121,25 +121,29 @@ step Leaving Thendal Village
 # ---------------------------------------------------------------- Shen'dar Village
 
 step Shen'dar Village
-  tip Follow the road south to Shen'dar Village, in the middle of the isle.
-  turnin 96638                        -- Raan Wildwind
-  accept 96101                        -- Raan Wildwind
+  tip Follow the road south to Shen'dar Village, in the middle of the isle. Constable Aonda stands on its east side, Illaya Amberwind in the middle, Coriella just north-west of her, Raan Wildwind by the campfire on the west side.
   turnin 92472                        -- Constable Aonda
   accept 92514                        -- Constable Aonda
   accept 92595                        -- Illaya Amberwind
   talk 251902 quest 92595.1 @43.53,44.78 -- talk to Illaya Amberwind
   turnin 92595
   accept 94411
-
-step Welcome to Shen'dar Village
-  talk 254089 quest 92514.2 @43.05,43.3
   talk 251902 quest 92514.1 @43.5,44.8 map 2521 live
+  talk 254089 quest 92514.2 @43.05,43.3
+  turnin 96638                        -- Raan Wildwind
+  accept 96101                        -- Raan Wildwind
+  complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
+  turnin 96101                        -- Raan Wildwind
+  accept 96646
   turnin 92514                        -- Constable Aonda
   accept 92517
-  accept 93951                        -- Taleen Shimmerthread
-  accept 92515                        -- Indari Sunseam
-  accept 93319
   accept 92516                        -- Teeri Wellwind
+  accept 93319
+  accept 92515                        -- Indari Sunseam
+  accept 93951                        -- Taleen Shimmerthread
+  train Cooking npc 251905            -- Zerril Softbreeze: Camping 101 asks you to learn it
+  complete 96646 @43.85,43.9
+  turnin 96646                        -- Zerril Softbreeze
   accept 92553                        -- Zerril Softbreeze
 
 step Shen'dar Village: kill these as you meet them
@@ -233,15 +237,6 @@ step Shen'dar Highlands: kill these as you meet them
   collect 263493 quest 93951.1
   kill 251261 quest 92516.3
 
-step Raan's campfire
-  tip Sit by Raan's campfire (type /sit) until you get the Boosted Rest buff, then learn Cooking from Zerril Softbreeze at the cook fire.
-  complete 96101 @41.73,44.78         -- /sit by Raan's campfire until you get Boosted Rest
-  turnin 96101                        -- Raan Wildwind
-  accept 96646
-  train Cooking npc 251905            -- Zerril Softbreeze: Camping 101 asks you to learn it
-  complete 96646 @43.85,43.9
-  turnin 96646                        -- Zerril Softbreeze
-
 step Shen'dar Village hand-ins
   turnin 92516                        -- Teeri Wellwind
   turnin 93951                        -- Taleen Shimmerthread
@@ -250,6 +245,12 @@ step Shen'dar Village hand-ins
   turnin 93927
   accept 92579
   accept 93948
+
+step Fendaal Windstone
+  tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  accept 98512                        -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  turnin 98512                        -- Fendaal Windstone
 
 step Valanaar
   turnin 93948                        -- Talaanis Shadowsong, upstairs
@@ -303,13 +304,10 @@ step Windfield Orchard
   accept 92683
   accept 92684
 
-step On the way
-  along until q92682
-  collect 253591 quest 92682.1 -- Ripe Stormapple along the way to Aamelia Windfield
-  kill 252802 quest 92682.2 -- Hungry Bandit along the way to Aamelia Windfield
-
 step The orchard
   tip Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge.
+  collect 253591 quest 92682.1        -- Ripe Stormapples
+  kill 252802 quest 92682.2           -- Hungry Bandits
   collect 253597 quest 92684.1
   collect 253595 quest 92683.1
   accept 92698                        -- Malfunctioning Cyclone Construct
@@ -317,7 +315,6 @@ step The orchard
   accept 97244 only Shaman
 
 step Aamelia Windfield
-  label q92682
   turnin 92682
   turnin 92684
   turnin 92683
@@ -330,6 +327,14 @@ step Gustberry Lowlands: kill these as you meet them
   collect 253596 quest 92685.1
   collect 260880 quest 93737.4
 
+step Standing Our Ground
+  turnin 92685                        -- Aamelia Windfield
+  accept 92693
+  talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
+  kill 252863 quest 92693.2
+  turnin 92693
+  accept 92703
+
 step Shen'dar Highlands: kill these as you meet them
   zone Zephras Isle
   tip The Crystallized Lightning lies in a cave in the hills north-west of Riaani.
@@ -340,14 +345,6 @@ step Shen'dar Highlands: kill these as you meet them
 step Enchanted Gyrozephyr
   tip The Enchanted Gyrozephyrs lie under water far to the north, east of Shen'dar Village and south-west of Windsong Lake.
   collect 260883 quest 93737.3        -- Underwater
-
-step Standing Our Ground
-  turnin 92685                        -- Aamelia Windfield
-  accept 92693
-  talk 252800 quest 92693.1 "Tell Aamelia Windfield you're ready"
-  kill 252863 quest 92693.2
-  turnin 92693
-  accept 92703
 
 step Alvarion and Riaani
   turnin 92703                        -- Alvarion Windfield
@@ -424,13 +421,10 @@ step Back to Valanaar
 # ---------------------------------------------------------------- The turncoat
 
 step The turncoat
-  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar. Fendaal Windstone waits nearby; his assassins lurk around the house.
-  accept 98512                        -- Fendaal Windstone
+  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar, just north of Fendaal Windstone.
   complete 92643 @56.0,58.8           -- search the dead cultist in the house
-  kill 254626 quest 98512.1
   turnin 92643                        -- Dead Cultist, inside
   accept 92644
-  turnin 98512                        -- Fendaal Windstone
 
 step Ur'endra
   only Druid
@@ -538,28 +532,22 @@ step Elegael Thornpaw, last time
   accept 94491 optional
 
 step The Strange Hermit
-  tip The hermit lives at Windsong Lake's west shore. Zephyrseed cones grow south of him; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for Endaria's Unwelcome Spirits.
+  tip The hermit lives at Windsong Lake's west shore.
   accept 93159                        -- Strange Hermit
   talk 251684 quest 93159.1 @53.96,38.9 -- talk to Strange Hermit
   turnin 93159
   accept 93160
   accept 93172
-  collect 262357 quest 93736.1
-  kill 251676 quest 93172.1 @56.7,35.3 map 2521 live
-
-step Zephyrseed on the way
-  along until q93160
-  collect 257128 quest 93160.1
 
 step Windsong Lake
-  label q93160
-  tip The refugees' belongings lie along the north shore of Windsong Lake; Resaan Nimbuswalker is at its north-west end.
-  collect 266433 quest 94896.1
+  tip Zephyrseed cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for Endaria's Unwelcome Spirits. The refugees' belongings lie along the north shore of Windsong Lake; Resaan Nimbuswalker is at its north-west end.
   collect 257128 quest 93160.1
+  kill 251676 quest 93172.1 @56.7,35.3 map 2521 live
+  collect 262357 quest 93736.1
+  collect 266433 quest 94896.1
   collect 266434 quest 94897.1
 
 step The Strange Hermit
-  collect 257128 quest 93160.1
   turnin 93160
   turnin 93172
 

@@ -1987,6 +1987,200 @@
 			},
 			{
 				"a": [
+					"turnin",
+					98512
+				],
+				"b": [
+					"accept",
+					94484
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Al'Aketh Assassins: the road from Shen'dar to Valanaar passes Fendaal Windstone at 12 yd with his assassins just north of him (quest 11, mobs 9-10, the player about 10); the route took it 74 minutes later on the dead cultist's trip and came back for it. Done on the way in, as 3 of 10 recorded Skyborne did at level 9-10; the cultist's trip stays."
+			},
+			{
+				"a": [
+					"turnin",
+					98512
+				],
+				"b": [
+					"turnin",
+					93948
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Al'Aketh Assassins: the road from Shen'dar to Valanaar passes Fendaal Windstone at 29 yd with his assassins just north of him; the route took it 85 minutes later on the turncoat's trip. Done on the way in."
+			},
+			{
+				"a": [
+					"accept",
+					94896
+				],
+				"b": [
+					"turnin",
+					92699
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Ealaane Nimbuswalker stands between Lotheluum and Talaanis on the first walk through Valanaar; the route came back to her for Aid For The Refugees and The Fate of a Loved One on a stop of its own after the farm."
+			},
+			{
+				"a": [
+					"accept",
+					93951
+				],
+				"b": [
+					"task",
+					92553
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): A Little Beauty: Taleen stands 14 yd off the first Shen'dar stop; taken there with the other village quests (9 of 9 recorded Skyborne took it before handing in Restocking the Larders), not on the second stop."
+			},
+			{
+				"a": [
+					"turnin",
+					94006
+				],
+				"b": [
+					"turnin",
+					92880
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Druid: Urs'endris waits by the falls just north of the eastern watchtower; The Great Ursera Spirit is handed to him on the watchtower trip, not on a trip of its own back north-east after Valanaar."
+			},
+			{
+				"a": [
+					"turnin",
+					94896
+				],
+				"b": [
+					"turnin",
+					93089
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): The last Valanaar stop starts where the Portal to Valanaar sets you down, beside Elaadrin (recordings: players appear at 66,80): Elaadrin, Iaadaria, Talaanis, Ealaane, Lotheluum and the trainers, then back to Elaadrin for the skycutter quest, instead of Ealaane, Elaadrin, Talaanis, Elaadrin, Lotheluum and the west gate (1,660 yd of walking in town, now 1,160)."
+			},
+			{
+				"a": [
+					"turnin",
+					94003
+				],
+				"b": [
+					"turnin",
+					93089
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Warrior: Seena (the Bulwark) is visited on the last Valanaar stop before Elaadrin hands out the skycutter quest, so the stop ends at the south end beside the dock tower."
+			},
+			{
+				"a": [
+					"task",
+					96101
+				],
+				"b": [
+					"turnin",
+					92514
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): The Great Outdoors: sit by Raan's campfire when you take it on the first Shen'dar stop, as the seed and the Alliance guide do; the route sent Horde Skyborne back to the campfire from the hippogryph nests 68 minutes later."
+			},
+			{
+				"a": [
+					"turnin",
+					92693
+				],
+				"b": [
+					"task",
+					93317
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windfield Orchard: Aamelia's chain (The Hills Have Eyes, Standing Our Ground) is finished before the walk north-east for the crawler meat and the construct parts; the route went to the gyrozephyrs far north and then 1,330 yd back south to Aamelia before Valanaar."
+			},
+			{
+				"a": [
+					"turnin",
+					92693
+				],
+				"b": [
+					"task",
+					93737,
+					1
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windfield Orchard: Standing Our Ground before the Crystallized Lightning cave, which lies on the way north-east (see the pair for Crab Season)."
+			},
+			{
+				"a": [
+					"turnin",
+					92693
+				],
+				"b": [
+					"task",
+					93737,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windfield Orchard: Standing Our Ground before the Enchanted Gyrozephyrs in the far north, the last stop before Valanaar (see the pair for Crab Season)."
+			},
+			{
+				"a": [
+					"accept",
+					93172
+				],
+				"b": [
+					"task",
+					94896
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): Windsong Lake: the hermit's quests are taken before the sweep round the lake, so the zephyrseed, the Wind Hollows, the belongings and Resaan's Heirloom are one sweep back to the hermit."
+			},
+			{
+				"a": [
+					"turnin",
+					957
+				],
+				"b": [
+					"turnin",
+					985
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Night Elf Darkshore): Bashal'Aran's last part (957, the Ancient Flame at Ameth'Aran, then Asterion) is open from the first Bashal'Aran visit. The route took the boat to Stormwind for Goldshire's training and A Fishy Peril, then sent every Night Elf back across the sea for it and out again (nightelf/02-darkshore steps 17-31 on 0.3.4). The seed's second loop passes the flame and ends at Asterion before Terenthis takes How Big a Threat? (985) back in Auberdine, so the sea is crossed once; the shared 03-darkshore keeps the same order."
+			},
+			{
+				"a": [
+					"task",
+					2118
+				],
+				"b": [
+					"accept",
+					953
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Night Elf Darkshore): the first loop went Ameth'Aran, the red crystal, a Plagued Lands bear 660 yd north of the crystal (east of Bashal'Aran), then a thousand yards back south-west to the bears beside Tharnariun, then 900 yd north again to Bashal'Aran (nightelf/02-darkshore step 9 on 0.3.4). Players' recordings tick the capture where the bear is (7 east of Bashal'Aran, 8 south of Auberdine): the bears south of Auberdine are on the way to the furbolg camp, before Ameth'Aran. The seed and the shared 03-darkshore capture it before Ameth'Aran too."
+			},
+			{
+				"a": [
+					"turnin",
+					6143
+				],
+				"b": [
+					"accept",
+					552
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Desolace, #1097): the route takes Other Fish to Fry in Shadowprey and kills its naga at Sar'theris Strand in horde/30-40/01-desolace, then walked past Drulzegar Skraghook with it done (30 yd, step 28) and carried it into 04-dustwallow-marsh, which killed the naga again and handed it in about nine and a half hours later. Handed in on the Shadowprey stop with Clam Bait, before the guide leaves for Tarren Mill (Novice Thaivand's accept)."
+			},
+			{
+				"a": [
+					"turnin",
+					2459
+				],
+				"b": [
+					"turnin",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil): with the jewel looted at Ferocitas' camp, Tallonkai takes it on the first Dolanaar stop after the camp, with Athridas' Ursal the Mauler, not on a stop of its own after Lake Al'Ameth."
+			},
+			{
+				"a": [
 					"accept",
 					2258
 				],
@@ -2056,54 +2250,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Dun Morogh): Those Blasted Troggs! and The Public Servant are handed in on the first return to the quarry, with the powder keg at Thesten, before Helm's Bed Lake's powder and spies, instead of one quarry stop for each hand-in (dwarf/gnome 01-dun-morogh on 0.3.4: up to six quarry stops). One quarry stop instead of six; the seed now has it."
-			},
-			{
-				"a": [
-					"turnin",
-					957
-				],
-				"b": [
-					"turnin",
-					985
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Night Elf Darkshore): Bashal'Aran's last part (957, the Ancient Flame at Ameth'Aran, then Asterion) is open from the first Bashal'Aran visit. The route took the boat to Stormwind for Goldshire's training and A Fishy Peril, then sent every Night Elf back across the sea for it and out again (nightelf/02-darkshore steps 17-31 on 0.3.4). The seed's second loop passes the flame and ends at Asterion before Terenthis takes How Big a Threat? (985) back in Auberdine, so the sea is crossed once; the shared 03-darkshore keeps the same order."
-			},
-			{
-				"a": [
-					"task",
-					2118
-				],
-				"b": [
-					"accept",
-					953
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Night Elf Darkshore): the first loop went Ameth'Aran, the red crystal, a Plagued Lands bear 660 yd north of the crystal (east of Bashal'Aran), then a thousand yards back south-west to the bears beside Tharnariun, then 900 yd north again to Bashal'Aran (nightelf/02-darkshore step 9 on 0.3.4). Players' recordings tick the capture where the bear is (7 east of Bashal'Aran, 8 south of Auberdine): the bears south of Auberdine are on the way to the furbolg camp, before Ameth'Aran. The seed and the shared 03-darkshore capture it before Ameth'Aran too."
-			},
-			{
-				"a": [
-					"turnin",
-					6143
-				],
-				"b": [
-					"accept",
-					552
-				],
-				"faction": "Horde",
-				"why": "Flow re-order (2026-11-07, Desolace, #1097): the route takes Other Fish to Fry in Shadowprey and kills its naga at Sar'theris Strand in horde/30-40/01-desolace, then walked past Drulzegar Skraghook with it done (30 yd, step 28) and carried it into 04-dustwallow-marsh, which killed the naga again and handed it in about nine and a half hours later. Handed in on the Shadowprey stop with Clam Bait, before the guide leaves for Tarren Mill (Novice Thaivand's accept)."
-			},
-			{
-				"a": [
-					"turnin",
-					2459
-				],
-				"b": [
-					"turnin",
-					486
-				],
-				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Teldrassil): with the jewel looted at Ferocitas' camp, Tallonkai takes it on the first Dolanaar stop after the camp, with Athridas' Ursal the Mauler, not on a stop of its own after Lake Al'Ameth."
 			}
 		],
 		"notes": [
@@ -2916,40 +3062,26 @@
 			{
 				"a": [
 					"task",
-					432,
-					0
+					92553
 				],
 				"b": [
 					"task",
-					433,
-					0
+					92515
 				],
-				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. Both are killed together where they stand; the seed now does too."
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): the Prideclaw pelts and the Galestriders' eggs and meat share the grasslands south of Shen'dar, as the seed has them: one step, not two with the bounty board between."
 			},
 			{
 				"a": [
 					"task",
-					711
+					93160
 				],
 				"b": [
 					"task",
-					2258,
-					2
+					93172
 				],
 				"faction": "Horde",
-				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
-			},
-			{
-				"a": [
-					"task",
-					1108
-				],
-				"b": [
-					"task",
-					703
-				],
-				"faction": "Horde",
-				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Buzzards (npc 2830, 49-63,54-78) for Barbecued Buzzard Wings circle the hills between the Valley of Fangs and Agmond's End, where the Stonevault troggs are worked; the route made the wings a stop of its own at Agmond's End after the chest."
+				"why": "Flow re-order (2026-11-07, Zephras Isle, #1093): the Zephyrseed cones grow south of the hermit, on the way to the Wind Hollows: one sweep, as the Alliance guide does."
 			},
 			{
 				"a": [
@@ -3079,6 +3211,44 @@
 					1
 				],
 				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and this pair loot the necklace on the mystics' visit, so the walk back is gone."
+			},
+			{
+				"a": [
+					"task",
+					432,
+					0
+				],
+				"b": [
+					"task",
+					433,
+					0
+				],
+				"why": "Flow audit (2026-11-07, Dun Morogh): Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers (both spawn at 70-73,50-57 in the game's creature data); the route listed them along the way from the quarry's first visit and handed The Public Servant in on a sixth quarry stop. Both are killed together where they stand; the seed now does too."
+			},
+			{
+				"a": [
+					"task",
+					711
+				],
+				"b": [
+					"task",
+					2258,
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the bigger Rock Elementals for Lotwil's slabs drop Jarkal's shards too: collected in the same sweep."
+			},
+			{
+				"a": [
+					"task",
+					1108
+				],
+				"b": [
+					"task",
+					703
+				],
+				"faction": "Horde",
+				"why": "Flow re-order (2026-11-07, Horde Arathi & Badlands, #1104): the Buzzards (npc 2830, 49-63,54-78) for Barbecued Buzzard Wings circle the hills between the Valley of Fangs and Agmond's End, where the Stonevault troggs are worked; the route made the wings a stop of its own at Agmond's End after the chest."
 			}
 		],
 		"after": [

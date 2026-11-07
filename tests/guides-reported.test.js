@@ -1920,10 +1920,39 @@ test(`${ZEPHRAS_HORDE}: Sato's report: Welcome to Shen'dar Village follows its o
 	assert.deepEqual(list.filter(({ s, goal }) => s === step && goal.t === 'talk' && !goal.quest).map(({ goal }) => goal.npc), [], 'no bare talk goal that only counts during the step');
 	const objectives = (illaya, coriella) => stepView(ZEPHRAS_HORDE, SKYBORNE_HORDE, step, `w.complete({ 92595 })
 		w.onQuest(92514, { { required = 1, fulfilled = ${illaya} }, { required = 1, fulfilled = ${coriella} } })`)
-		.goals.filter((g) => g.quest === 92514 && g.t !== 'turnin').sort((a, b) => a.oi - b.oi).map((g) => g.status);
+		.goals.filter((g) => g.quest === 92514 && g.t !== 'turnin' && g.t !== 'accept').sort((a, b) => a.oi - b.oi).map((g) => g.status);
 	// Objective 1 is Illaya, 2 Coriella, whichever line the step lists first.
 	assert.deepEqual(objectives(1, 0).map((st) => st === 'done'), [true, false], 'Illaya done earlier, Coriella still to do');
 	assert.ok(objectives(1, 1).every((st) => st === 'done'), 'both done: only the turn-in is left');
+});
+
+// --- Flow re-order (2026-11-07, #1093): Zephras Isle sent players back
+// across the isle. Both factions walked past Fendaal Windstone and his
+// assassins on the road to Valanaar and came back for them on the turncoat's
+// trip; Horde Skyborne walked back to Raan's campfire from the hippogryph
+// nests and from the far-north gyrozephyrs back to Aamelia's farm; the
+// Alliance's last Valanaar stop went Elaadrin -> Talaanis -> Elaadrin -> the
+// west gate; four along lists.
+test('Zephras Isle, both factions: flow re-order: Fendaal on the road in, no along steps, no trip back to the campfire or the farm', { skip }, () => {
+	for (const guide of [ZEPHRAS_ALLIANCE, ZEPHRAS_HORDE]) {
+		const list = goals(guide);
+		const { steps } = compiled(guide);
+		assert.deepEqual(steps.filter((st) => st.along).map((st) => st.title), [], `${guide}: no along steps`);
+		const fendaal = at(list, `${guide}: turnin 98512`, is('turnin', 98512));
+		const valanaar = list.findIndex(({ goal }) => goal.t === 'turnin' && (goal.quest === 93948 || goal.quest === 92701));
+		assert.ok(fendaal < valanaar, `${guide}: Al'Aketh Assassins done before the first Valanaar stop`);
+		assert.ok(fendaal < at(list, `${guide}: accept 92643 (The Turncoat)`, is('accept', 92643)), `${guide}: not on the turncoat's trip`);
+	}
+	const horde = goals(ZEPHRAS_HORDE);
+	const campfire = at(horde, 'complete 96101 (The Great Outdoors)', is('complete', 96101));
+	assert.equal(horde[campfire].s, horde[at(horde, 'turnin 92472 (Aonda)', is('turnin', 92472))].s, 'Horde: the campfire on the first Shen\'dar stop');
+	assert.ok(at(horde, 'turnin 92693 (Standing Our Ground)', is('turnin', 92693)) < at(horde, 'collect 260883 (Enchanted Gyrozephyr)', (g) => g.t === 'collect' && g.item === 260883), 'Horde: Aamelia\'s chain finished before the gyrozephyrs');
+	const alliance = goals(ZEPHRAS_ALLIANCE);
+	assert.ok(at(alliance, 'accept 93951 (Taleen)', is('accept', 93951)) < at(alliance, 'collect 6889 (Small Egg)', (g) => g.t === 'collect' && g.quest === 92553), 'Alliance: Taleen on the first Shen\'dar stop');
+	assert.ok(at(alliance, 'accept 94896 (Ealaane)', is('accept', 94896)) < at(alliance, 'turnin 92699 (Elaadrin)', is('turnin', 92699)), 'Alliance: Ealaane on the first walk through Valanaar');
+	const last = at(alliance, 'turnin 93835 (Confront Lorthuna)', is('turnin', 93835));
+	const firstHalf = alliance.slice(last).findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 93089);
+	assert.ok(alliance.slice(last, last + firstHalf).some(({ goal }) => goal.t === 'turnin' && goal.quest === 94896), 'Alliance: Ealaane before the last visit to Elaadrin');
 });
 
 // Aggressive Encroachment: the Scrawny Ursera are on the slope west of

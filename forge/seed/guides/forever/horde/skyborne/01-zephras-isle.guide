@@ -7,6 +7,11 @@ zone Zephras Isle
 coords live
 next forever/horde/02-the-barrens
 
+# Hand fix (flow re-order, 2026-11-07): Al'Aketh Assassins (98512) is taken
+# and done where the road to Valanaar passes Fendaal Windstone, not on the
+# turncoat's trip.
+#
+
 # Route: the simulator's consensus route for Horde Skyborne
 # (data/sim/export/consensus-horde-skyborne, visit 1, levels 1-14.6).
 # Checked against the 2026-10-14 export: same isle quests. Its order differs
@@ -361,6 +366,12 @@ step Shen'dar Village hand-ins
 
 # ---------------------------------------------------------------- Valanaar
 
+step Fendaal Windstone
+  tip On the road south-east to Valanaar, Fendaal Windstone watches the Al'Aketh Assassins just north of him.
+  accept 98512                        -- Fendaal Windstone
+  kill 254626 quest 98512.1
+  turnin 98512                        -- Fendaal Windstone
+
 step Nyalah and Alvarion
   tip Nyalah Brightfire waits inside a house on Valanaar's western edge; Alvarion Windfield is close by.
   accept 93317                        -- Nyalah Brightfire
@@ -519,13 +530,10 @@ step Back to Valanaar
 # ---------------------------------------------------------------- The turncoat
 
 step The turncoat
-  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar. Fendaal Windstone waits nearby; his assassins lurk around the house.
-  accept 98512                        -- Fendaal Windstone
-  kill 254626 quest 98512.1
+  tip The turncoat's house is in the Gustberry Lowlands north-west of Valanaar, just north of Fendaal Windstone.
   complete 92643 @56.0,58.8           -- search the dead cultist in the house
   turnin 92643                        -- Dead Cultist
   accept 92644
-  turnin 98512                        -- Fendaal Windstone
 
 step Ur'endra
   only Druid
