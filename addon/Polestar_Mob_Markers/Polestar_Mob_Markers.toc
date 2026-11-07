@@ -10,8 +10,5 @@
 ## IconTexture: Interface\AddOns\Polestar\Media\Map\icon-kill
 ## SavedVariables: PolestarMobMarkersDB
 ## SavedVariablesPerCharacter: PolestarMobMarkersCharDB
-## AddonCompartmentFunc: PolestarMobMarkers_OnAddonCompartmentClick
-## AddonCompartmentFuncOnEnter: PolestarMobMarkers_OnAddonCompartmentEnter
-## AddonCompartmentFuncOnLeave: PolestarMobMarkers_OnAddonCompartmentLeave
 
 MobMarkers.lua

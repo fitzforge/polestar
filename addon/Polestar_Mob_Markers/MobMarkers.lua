@@ -34,17 +34,16 @@ local PALETTES = {
 local PALETTE_ORDER = { "polestar", "rings", "vivid", "muted", "safe", "mono" }
 
 local HOLE = 1 / 1.3 -- the ring textures' hole is this fraction of their size (tools: the ring generator)
--- Options panel values (sizes in px on screen, opacity in percent), saved in PolestarMobMarkersDB.
+-- Polestar's settings mobMarkers.* (sizes in px on screen, opacity in percent), on its Map page.
 local DEFAULTS = { worldSize = 10, minimapSize = 9, fillAlpha = 50, borderAlpha = 75, showWorld = true, showMinimap = true,
-	minimapButton = true, minimapButtonAngle = 200, showLegend = true, preview = false, stepOnly = true, -- 200: Polestar's own button is at 225
-	questPalette = "polestar", mobPalette = "polestar" }
+	showLegend = true, stepOnly = true, questPalette = "polestar", mobPalette = "polestar" }
+Polestar.RegisterDefaults("mobMarkers", DEFAULTS)
+local preview = false -- a debug view, never saved: each session starts on the real quest log
 local function opt(k)
-	local v = PolestarMobMarkersDB and PolestarMobMarkersDB[k]
-	if v == nil then return DEFAULTS[k] end
-	return v
+	if k == "preview" then return preview end
+	return Polestar.Get("mobMarkers." .. k)
 end
 local WHITE = "Interface\\Buttons\\WHITE8X8"
-local MASK = "Interface\\CHARACTERFRAME\\TempPortraitAlphaMask"
 local RING = "Interface\\AddOns\\Polestar_Mob_Markers\\ring%d.tga" -- 16, 32 and 64 px
 local LEVEL = "PIN_FRAME_LEVEL_SUPER_TRACKED_QUEST"
 
@@ -843,7 +842,33 @@ local function queue()
 	C_Timer.After(0.2, rebuild)
 end
 
-local setupOptions, refreshButton -- options section, below
+-- A mobMarkers setting changed (from Polestar's options, or the old settings moving over).
+local function changed(key)
+	lastMap, mmDirty = nil, true -- both maps redraw on their next frame
+	styleVer = styleVer + 1 -- and every marker repaints
+	if key == "preview" then previewMap = nil end -- filled on the next world map draw
+	if key == "questPalette" or key == "mobPalette" or key == "preview" or key == "stepOnly" then rebuild(true) end -- colours are given out in build()
+end
+Polestar.On("SETTING_CHANGED", function(path)
+	local key = type(path) == "string" and path:match("^mobMarkers%.(.+)")
+	if key then changed(key) end
+end)
+
+local function login()
+	PolestarMobMarkersDB = PolestarMobMarkersDB or {}
+	-- Before Polestar carried them, the settings were the addon's own: move them over once.
+	for k in pairs(DEFAULTS) do
+		if PolestarMobMarkersDB[k] ~= nil then
+			Polestar.Set("mobMarkers." .. k, PolestarMobMarkersDB[k])
+			PolestarMobMarkersDB[k] = nil
+		end
+	end
+	PolestarMobMarkersDB.preview, PolestarMobMarkersDB.minimapButton, PolestarMobMarkersDB.minimapButtonAngle = nil, nil, nil
+	-- The hidden list was account-wide: each character starts from a copy of it, then prunes its own.
+	PolestarMobMarkersCharDB = PolestarMobMarkersCharDB or {}
+	PolestarMobMarkersCharDB.hidden = PolestarMobMarkersCharDB.hidden or CopyTable(PolestarMobMarkersDB.hidden or {})
+	pruneHidden()
+end
 
 local events = CreateFrame("Frame")
 events:RegisterEvent("PLAYER_LOGIN")
@@ -851,7 +876,7 @@ events:RegisterEvent("ADDON_LOADED")
 events:RegisterEvent("QUEST_LOG_UPDATE")
 events:RegisterEvent("QUEST_TURNED_IN")
 events:SetScript("OnEvent", function(_, event, name)
-	if event == "PLAYER_LOGIN" then setupOptions(); refreshButton(); pruneHidden() end
+	if event == "PLAYER_LOGIN" then login() end
 	if event == "QUEST_TURNED_IN" then pruneHidden(name) end -- name: the questID here
 	if event == "ADDON_LOADED" and name ~= "Blizzard_WorldMap" then return end
 	install()
@@ -861,174 +886,68 @@ end)
 for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do Polestar.On(msg, queue) end
 
 ---------------------------------------------------------------------------
--- Options panel (Options > AddOns > Polestar: Mob Markers): changes apply live.
+-- Options: Polestar's options window, Map > Guide & quests > Mob spawns, beside its quest markers.
 ---------------------------------------------------------------------------
 
-local category
-function setupOptions()
-	PolestarMobMarkersDB = PolestarMobMarkersDB or {}
-	PolestarMobMarkersDB.preview = nil -- a debug view: each session starts on the real quest log
-	-- The hidden list was account-wide: each character starts from a copy of it, then prunes its own.
-	PolestarMobMarkersCharDB = PolestarMobMarkersCharDB or {}
-	PolestarMobMarkersCharDB.hidden = PolestarMobMarkersCharDB.hidden or CopyTable(PolestarMobMarkersDB.hidden or {})
-	if category or not (Settings and Settings.RegisterVerticalLayoutCategory and Settings.RegisterProxySetting) then return end
-	category = Settings.RegisterVerticalLayoutCategory("Polestar: Mob Markers")
-	local function setting(key, varType, label)
-		return Settings.RegisterProxySetting(category, "PolestarMobMarkers_" .. key, varType, label, DEFAULTS[key],
-			function() return opt(key) end,
-			function(v)
-				PolestarMobMarkersDB[key] = v
-				lastMap, mmDirty = nil, true -- both maps redraw on their next frame
-				styleVer = styleVer + 1 -- and every marker repaints
-				if key == "minimapButton" then refreshButton() end
-				if key == "preview" then previewMap = nil end -- filled on the next world map draw
-				if key == "questPalette" or key == "mobPalette" or key == "preview" or key == "stepOnly" then rebuild(true) end -- colours are given out in build()
-			end)
-	end
-	local function checkbox(key, label, tip)
-		Settings.CreateCheckbox(category, setting(key, Settings.VarType.Boolean, label), tip)
-	end
-	local function slider(key, label, lo, hi, step, unit, tip)
-		local o = Settings.CreateSliderOptions(lo, hi, step)
-		o:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(v) return ("%d%s"):format(v, unit) end)
-		Settings.CreateSlider(category, setting(key, Settings.VarType.Number, label), o, tip)
-	end
-	checkbox("showWorld", "Show on the world map", "Spawn markers on the world map.")
-	checkbox("showMinimap", "Show on the minimap", "Spawn markers on the minimap.")
-	checkbox("stepOnly", "Only Polestar's current step", "Marks only the quests Polestar's current guide step works on, not your whole quest log. With no guide running, the whole log shows.")
-	checkbox("preview", "Preview: full quest log (debug)", "Shows " .. PREVIEW_MAX .. " of your faction's quests for whatever zone the world map shows, as at peak use, instead of your quest log. Follows the map as you change zones; off again after a reload. Also /mobmarkers preview.")
-	checkbox("showLegend", "Legend on the world map", "Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on.")
-	local function dropdown(key, label, choices, tip)
-		Settings.CreateDropdown(category, setting(key, Settings.VarType.String, label), function()
-			local c = Settings.CreateControlTextContainer()
-			for _, ch in ipairs(choices) do c:Add(ch[1], ch[2]) end
-			return c:GetData()
-		end, tip)
-	end
-	local palettes = {}
-	for _, k in ipairs(PALETTE_ORDER) do palettes[#palettes + 1] = { k, PALETTES[k].label } end
-	dropdown("questPalette", "Quest colours", palettes,
-		"The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours.")
-	dropdown("mobPalette", "Mob colours", palettes,
-		"The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring.")
-	slider("worldSize", "World map marker size", 4, 24, 1, " px", "How big each marker is on the world map (the medallion is drawn 1.6 times this).")
-	slider("minimapSize", "Minimap marker size", 4, 20, 1, " px", "How big each marker is on the minimap (the medallion is drawn 1.6 times this).")
-	slider("fillAlpha", "Medallion opacity", 0, 100, 5, "%", "How solid the medallion under each skull is.")
-	slider("borderAlpha", "Skull & ring opacity", 0, 100, 5, "%", "How solid the skull and the mob ring are.")
-	checkbox("minimapButton", "Minimap button", "A button on the minimap's edge: click for these options, right-click to hide or show all markers.")
-	Settings.RegisterAddOnCategory(category)
+local L = Polestar.L
+local function k(name) return "mobMarkers." .. name end
+local function px(v) return ("%d px"):format(v) end
+local function pct(v) return ("%d%%"):format(v) end
+local function noWorld() return not opt("showWorld") end
+local function palettes()
+	local out = {}
+	for i, p in ipairs(PALETTE_ORDER) do out[i] = { value = p, label = PALETTES[p].label } end
+	return out
+end
+if Polestar.RegisterOptions then
+	local ok, err = Polestar.RegisterOptions({
+		page = L["Map"], tab = L["Guide & quests"], section = L["Mob spawns"],
+		controls = {
+			{ kind = "toggle", key = k("showWorld"), label = L["Mob spawns on the world map"], search = "mob markers, spawn points, kill, skull, map pins",
+				help = L["Every spawn point of the mobs your quests need, one skull colour per quest and a ring per mob."] },
+			{ kind = "toggle", key = k("showLegend"), label = L["Legend"], disabled = noWorld, child = true,
+				help = L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] },
+			{ kind = "toggle", key = k("showMinimap"), label = L["Mob spawns on the minimap"], search = "mob markers, minimap pins",
+				help = L["The same spawn markers on the minimap."] },
+			{ kind = "toggle", key = k("stepOnly"), label = L["Only the current step's mobs"],
+				help = L["Marks only the quests Polestar's current guide step works on, not your whole quest log. With no guide running, the whole log shows."] },
+			{ kind = "dropdown", key = k("questPalette"), label = L["Quest colours"], choices = palettes, search = "colour blind, palette",
+				help = L["The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours."] },
+			{ kind = "dropdown", key = k("mobPalette"), label = L["Mob colours"], choices = palettes, search = "colour blind, palette, rings",
+				help = L["The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring."] },
+			{ kind = "slider", key = k("worldSize"), label = L["World map marker size"], min = 4, max = 24, step = 1, format = px,
+				help = L["The medallion is drawn 1.6 times this."] },
+			{ kind = "slider", key = k("minimapSize"), label = L["Minimap marker size"], min = 4, max = 20, step = 1, format = px,
+				help = L["The medallion is drawn 1.6 times this."] },
+			{ kind = "slider", key = k("fillAlpha"), label = L["Medallion opacity"], min = 0, max = 100, step = 5, format = pct,
+				help = L["How solid the medallion under each skull is."] },
+			{ kind = "slider", key = k("borderAlpha"), label = L["Skull & ring opacity"], min = 0, max = 100, step = 5, format = pct,
+				help = L["How solid the skull and the mob ring are."] },
+			{ kind = "toggle", label = L["Preview: a full quest log"],
+				get = function() return preview end,
+				set = function(on) preview = on and true or false; changed("preview") end,
+				help = L["Marks 20 of your faction's quests for whatever zone the world map shows, instead of your quest log. Off again after a reload; also /pmm preview."] },
+		},
+	})
+	if not ok and geterrorhandler then geterrorhandler()(err) end
 end
 
 local function openOptions()
-	if category then Settings.OpenToCategory(category:GetID()) end
+	local UI = Polestar.UI
+	if not (UI and UI.ShowOptions) then return end
+	UI.ShowOptions("map")
+	UI.Options.Select("map", L["Guide & quests"])
 end
 
-local function toggleMarkers()
-	local on = not (opt("showWorld") or opt("showMinimap"))
-	PolestarMobMarkersDB.showWorld, PolestarMobMarkersDB.showMinimap = on, on
-	lastMap, mmDirty = nil, true
-	print("Polestar: Mob Markers - markers " .. (on and "shown." or "hidden."))
-end
-
-local function showTip(owner)
-	GameTooltip:SetOwner(owner, "ANCHOR_LEFT")
-	GameTooltip:AddLine("Polestar: Mob Markers", 1, 0.84, 0.45)
-	GameTooltip:AddLine("Click: options", 0.97, 0.97, 0.99)
-	GameTooltip:AddLine("Right-click: hide or show markers", 0.97, 0.97, 0.99)
-	if owner.isMobMarkersButton then GameTooltip:AddLine("Drag: move around the minimap", 0.77, 0.79, 0.87) end
-	GameTooltip:Show()
-end
-
--- Minimap button, as Polestar's (Maps/MinimapButton.lua): rides the minimap's edge at a saved angle.
-local BUTTON, EDGE = 28, 5
-local button
-local function placeButton(a)
-	-- Leave it alone once a minimap-button collector (FlareUI's bag) has taken it off the minimap.
-	if button:GetParent() ~= Minimap then return end
-	local x, y = math.cos(math.rad(a)), math.sin(math.rad(a))
-	if GetMinimapShape and GetMinimapShape() == "SQUARE" then
-		local m = math.max(math.abs(x), math.abs(y))
-		x, y = x / m, y / m
-	end
-	button:ClearAllPoints()
-	button:SetPoint("CENTER", Minimap, "CENTER", x * (Minimap:GetWidth() / 2 + EDGE), y * (Minimap:GetHeight() / 2 + EDGE))
-end
-local function cursorAngle()
-	local mx, my = Minimap:GetCenter()
-	local s = Minimap:GetEffectiveScale()
-	local cx, cy = GetCursorPosition()
-	return math.floor(math.deg(math.atan2(cy / s - my, cx / s - mx)) + 0.5) % 360
-end
-function refreshButton()
-	if not opt("minimapButton") then
-		if button then button:Hide() end
-		return
-	end
-	if not button then
-		-- Named so button collectors (FlareUI) recognise it, and match it to the compartment entry.
-		button = CreateFrame("Button", "PolestarMobMarkersMinimapButton")
-		button:SetParent(Minimap)
-		button.isMobMarkersButton = true
-		button.dataObject = { label = "Polestar: Mob Markers" } -- the label collectors show
-		button:SetSize(BUTTON, BUTTON)
-		button:SetFrameStrata("MEDIUM")
-		button:SetFrameLevel(Minimap:GetFrameLevel() + 8)
-		button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-		button:RegisterForDrag("LeftButton")
-		-- The button is a marker: Polestar's skull on its medallion, in the accent gold.
-		local medal = button:CreateTexture(nil, "ARTWORK", nil, 1)
-		medal:SetTexture(MEDAL)
-		medal:SetAllPoints()
-		local icon = button:CreateTexture(nil, "ARTWORK", nil, 2)
-		icon:SetTexture(SKULL)
-		icon:SetSize(BUTTON * SKULL_SCALE, BUTTON * SKULL_SCALE)
-		icon:SetPoint("CENTER")
-		icon:SetVertexColor(0.9, 0.73, 0.4)
-		button.icon = icon -- collectors (FlareUI) read the button's art from .icon
-		local hover = button:CreateTexture(nil, "HIGHLIGHT")
-		hover:SetTexture(WHITE)
-		hover:SetMask(MASK)
-		hover:SetVertexColor(0.9, 0.73, 0.4, 0.25) -- accent gold
-		hover:SetAllPoints()
-		button:SetScript("OnClick", function(_, which)
-			GameTooltip:Hide()
-			if which == "RightButton" then toggleMarkers() else openOptions() end
-		end)
-		button:SetScript("OnEnter", showTip)
-		button:SetScript("OnLeave", function() GameTooltip:Hide() end)
-		button:SetScript("OnDragStart", function(self)
-			GameTooltip:Hide()
-			if self:GetParent() ~= Minimap then return end
-			self:SetScript("OnUpdate", function() placeButton(cursorAngle()) end)
-		end)
-		button:SetScript("OnDragStop", function(self)
-			if self:GetParent() ~= Minimap then return end
-			self:SetScript("OnUpdate", nil)
-			PolestarMobMarkersDB.minimapButtonAngle = cursorAngle()
-		end)
-		Minimap:HookScript("OnSizeChanged", function() if button:IsShown() then placeButton(opt("minimapButtonAngle")) end end)
-	end
-	placeButton(opt("minimapButtonAngle"))
-	button:Show()
-end
-
--- The game's addon compartment (the .toc names these globals), on clients that have one.
-function PolestarMobMarkers_OnAddonCompartmentClick(_, which)
-	if which == "RightButton" then toggleMarkers() else openOptions() end
-end
-function PolestarMobMarkers_OnAddonCompartmentEnter(_, row) if row then showTip(row) end end
-function PolestarMobMarkers_OnAddonCompartmentLeave() GameTooltip:Hide() end
-
--- /mobmarkers: what the addon sees, for when nothing shows. /mobmarkers config: the options panel.
+-- /mobmarkers: what the addon sees, for when nothing shows. /mobmarkers config: its options.
 SLASH_POLESTARMOBMARKERS1 = "/mobmarkers"
 SLASH_POLESTARMOBMARKERS2 = "/pmm"
 SlashCmdList.POLESTARMOBMARKERS = function(msg)
 	if msg and msg:lower():match("^%s*config") then return openOptions() end
 	if msg and msg:lower():match("^%s*preview") then
-		PolestarMobMarkersDB.preview = not opt("preview") or nil
-		previewMap = nil
-		rebuild(true)
-		print("Polestar: Mob Markers - preview " .. (opt("preview") and "on: open the world map on a zone." or "off: your quest log again."))
+		preview = not preview
+		changed("preview")
+		print("Polestar: Mob Markers - preview " .. (preview and "on: open the world map on a zone." or "off: your quest log again."))
 		return
 	end
 	rebuild(true)

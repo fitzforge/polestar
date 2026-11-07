@@ -14,16 +14,16 @@ A companion to Polestar: marks every spawn point of the mobs your active quests 
 
 ## Usage
 
-- **Minimap button**: left-click for the options, right-click to hide or show all markers, drag to move it around the minimap. It is also in the addon compartment.
 - `/mobmarkers` or `/pmm`: rebuild the markers and print what was found on the current map.
-- `/pmm config`: open the options.
+- `/pmm config`: open its options in Polestar's (Map, Guide & quests, Mob spawns).
 - `/pmm preview`: mark every quest's mobs, not just your quest log's (for testing).
 
 ## Options
+
+In Polestar's options window: Map, Guide & quests, Mob spawns.
 
 - Show on the world map and/or the minimap, and the world map legend.
 - Only Polestar's current step (on by default): mark just the quests the guide step you're on works on, instead of your whole quest log.
 - Colour palettes for quests and for mobs, including a colour-blind safe one.
 - Marker sizes for the world map and the minimap.
 - Medallion opacity, and skull & ring opacity.
-- The minimap button.
