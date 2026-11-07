@@ -347,8 +347,8 @@ be compared byte for byte with the old JavaScript writer.
   walked in the shortest order from where the route comes in to where it goes next, each NPC once
   unless the quests' own order makes a second stop shorter, the pairs kept; a delivery whose item runs
   out within 15 minutes (the Scalding Mornbrew) is handed in first. A bind goes with the visit's event
-  nearest the inn, and then past the goals right after it that stand within 40 yd of it (or of the
-  event before it at the same stop) or of the inn, so the walk to the inn never splits two goals at one
+  nearest the inn, and then past the goals right after it, in the same v1 step, that stand within 40 yd
+  of it (or of the event before it at the same stop) or of the inn, so the walk to the inn never splits two goals at one
   NPC or two NPCs that stand together, and the inn's own goals come before it (#1008: Mebok after the
   Ratchet poster, Mankrik's two quests at the Crossroads, Maggran's at Sun Rock, Lydon's and the inn's
   at Tarren Mill; `bind_after_beside`). Events move only earlier and, but for the next rule, only among one v1 guide's
