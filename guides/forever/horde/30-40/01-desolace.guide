@@ -123,9 +123,10 @@ step Fly to Orgrimmar
 #   forever/horde/30-40/03-arathi-highlands: Big Will is level 33.
 #
 # Class training: Orgrimmar at 30 and 32 for everyone but Druids and
-# Paladins. Druids fly to Thunder Bluff at 30 (from Orgrimmar) and at 32
-# (from Shadowprey Village); Paladins train in Thunder Bluff at 30 and with
-# Garen Largo in the Undercity at 32.
+# Paladins. Druids and Paladins fly from Orgrimmar to Thunder Bluff at 30 and
+# on to Sun Rock Retreat from there; at 32 Druids fly from Shadowprey Village
+# to Thunder Bluff and on to Orgrimmar, and Paladins train with Garen Largo in
+# the Undercity on the way through to Tarren Mill.
 #
 # Carried on: Hunting in Stranglethorn (5763) for Hemet Nesingwary in the
 # next guide; The Hammer May Fall (676) for Hammerfall and Regthar Deathgate
@@ -146,7 +147,7 @@ step Alliance Relations
   turnin 93739 optional only Skyborne -- Thrall, Grommash Hold, if you carry it
 
 step Orgrimmar class quests
-  zone Thunder Bluff
+  zone Orgrimmar
   only Shaman
   tip Searn Firewarder stands in the Valley of Wisdom.
   accept 1531                         -- Searn Firewarder
@@ -156,6 +157,20 @@ step Train
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   tip Train your new spells.
   train class
+
+step Thunder Bluff
+  only Druid,Paladin
+  zone Thunder Bluff
+  tip Orgrimmar has no trainer of yours: fly to Thunder Bluff. Turak Runetotem (Druids) trains on Elder Rise, Alodan the Hopeful (Paladins) on Spirit Rise. Fly on to Sun Rock Retreat from there.
+  fly "Thunder Bluff"
+  train class
+
+step Fly to Sun Rock Retreat
+  only Druid,Paladin
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Sun Rock Retreat"
+  zone Stonetalon Mountains
 
 step Ratchet
   only Shaman
@@ -180,6 +195,7 @@ step Back to Orgrimmar
   fly "Orgrimmar"
 
 step Fly to Sun Rock Retreat
+  only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
   goto 45.3,63.7 "Orgrimmar flight master"
   fly "Sun Rock Retreat"
@@ -306,33 +322,25 @@ step Shadowprey Village
   turnin 6143                         -- Drulzegar Skraghook
 
 step Fly to Orgrimmar
+  only Warrior,Hunter,Rogue,Priest,Paladin,Shaman,Mage,Warlock
   zone Desolace
   goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Orgrimmar"
   zone Orgrimmar
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
-
-step Orgrimmar flight master
-  only Druid
-  zone Orgrimmar
-  goto 45.3,63.7 "Orgrimmar flight master"
 
 # ---------------------------------------------------------------- To Tarren Mill
 
 step Thunder Bluff
   only Druid
   zone Thunder Bluff
-  tip Fly from Orgrimmar to Thunder Bluff and train with Turak Runetotem on Elder Rise, then fly back to Orgrimmar.
+  tip Fly from Shadowprey Village to Thunder Bluff and train with Turak Runetotem on Elder Rise, then fly on to Orgrimmar.
   fly "Thunder Bluff"
   train class
 
-step Fly to Orgrimmar
+step Train
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   zone Orgrimmar
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+  train class
 
 step Back to Orgrimmar
   only Druid
@@ -348,7 +356,37 @@ step Zeppelin to Undercity
   zone Durotar
   goto 50.8,13.5 "Zeppelin to Undercity"
 
+step Garen Largo
+  only Paladin
+  zone Undercity
+  tip Garen Largo trains Paladins in the Undercity: train with him before the flight to Tarren Mill.
+  train class
+
+step Undercity
+  zone Undercity
+  tip Elixir of Agony needs a Strong Troll's Blood Potion, an Alchemy item: buy one at the auction house here if you can (or ask an alchemist). No potion: skip the Elixir steps in Hillsbrad.
+  note Strong Troll's Blood Potion: auction house or an alchemist, for Elixir of Agony.
+
+step Brazier of Everfount
+  only Shaman
+  zone Silverpine Forest
+  tip Fly from the Undercity to the Sepulcher. The Brazier of Everfount stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the Minor Manifestation of Water and keep the Shard of Water for Islen. Fly on to Tarren Mill from the Sepulcher.
+  fly "The Sepulcher"
+  collect 7812 quest 63.1
+  turnin 63                           -- Brazier of Everfount
+  accept 100
+  turnin 100                          -- Minor Manifestation of Water
+  accept 96                           -- for Islen Waterseer: from Stranglethorn, next guide
+
 step Fly to Tarren Mill
+  only Shaman
+  zone Silverpine Forest
+  goto 45.6,42.4 "The Sepulcher flight master"
+  fly "Tarren Mill"
+  zone Hillsbrad Foothills
+
+step Fly to Tarren Mill
+  only Warrior,Hunter,Rogue,Priest,Paladin,Mage,Warlock,Druid
   zone Undercity
   goto 63.1,48.3 "Undercity flight master"
   fly "Tarren Mill"
@@ -365,47 +403,6 @@ step Tarren Mill
   accept 544                          -- Magus Wordeen Voidglare, inside
   accept 556                          -- Keeper Bel'varil, inside
   accept 676                          -- Tallow: for Hammerfall in Arathi, later on the route
-
-step Fly to Undercity
-  only Paladin
-  zone Hillsbrad Foothills
-  goto 60.2,18.8 "Tarren Mill flight master"
-  fly "Undercity"
-  zone Undercity
-
-step Garen Largo
-  only Paladin
-  zone Undercity
-  tip Garen Largo trains Paladins in the Undercity.
-  train class
-
-step Undercity
-  zone Undercity
-  tip Elixir of Agony needs a Strong Troll's Blood Potion, an Alchemy item: buy one at the auction house here if you can (or ask an alchemist). No potion: skip the Elixir steps in Hillsbrad.
-  note Strong Troll's Blood Potion: auction house or an alchemist, for Elixir of Agony.
-
-step Brazier of Everfount
-  only Shaman
-  zone Silverpine Forest
-  tip Do your shopping in the Undercity first, then fly to the Sepulcher. The Brazier of Everfount stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the Minor Manifestation of Water and keep the Shard of Water for Islen. Fly on to Tarren Mill from the Sepulcher.
-  fly "The Sepulcher"
-  collect 7812 quest 63.1
-  turnin 63                           -- Brazier of Everfount
-  accept 100
-  turnin 100                          -- Minor Manifestation of Water
-  accept 96                           -- for Islen Waterseer: from Stranglethorn, next guide
-
-step Back to Tarren Mill
-  only Shaman
-  zone Silverpine Forest
-  goto 45.6,42.4 "The Sepulcher flight master"
-  fly "Tarren Mill"
-
-step Back to Tarren Mill
-  only Paladin
-  zone Undercity
-  goto 63.1,48.3 "Undercity flight master"
-  fly "Tarren Mill"
 
 step Tarren Mill
   zone Hillsbrad Foothills
