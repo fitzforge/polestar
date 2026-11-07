@@ -513,6 +513,41 @@
 			]
 		},
 		{
+			"id": "617-wetlands-grind-to-28",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98221,
+				"goal": "turnin"
+			},
+			"level": 28,
+			"after": true,
+			"note": "Pilot Longbeard's The Brassbolts Brothers (1179) needs level 28; a player behind the plan hit 'Requires level 28' in Ironforge (#617). Since the 2026-11-07 Ashenvale split 1179 is taken in 06-wetlands, so the gate comes after the last Wetlands hand-in there (From the Ashes), right before the flight to Ironforge, never in the 20-24 guide.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#617"
+				}
+			],
+			"issue": 617
+		},
+		{
+			"id": "617-wetlands-grind-to-28-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 98221,
+				"goal": "turnin"
+			},
+			"tip": "Pilot Longbeard's quest in Ironforge needs level 28. If you are short of it after these hand-ins, grind the Dragonmaw Raiders and Swamprunners at the camp east of Menethil before you fly on.",
+			"note": "The level-28 gate after the last Wetlands hand-in (617-wetlands-grind-to-28) says where to grind: the Dragonmaw Raiders, Swamprunners and Bonewarders (levels 26-28) camp east of Menethil, beside the route's Angerfang trip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#617"
+				}
+			],
+			"issue": 617
+		},
+		{
 			"id": "365-teldrassil-byancie-water",
 			"faction": "Alliance",
 			"at": {
