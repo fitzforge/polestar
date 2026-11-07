@@ -2334,6 +2334,96 @@
 				}
 			],
 			"pr": 1092
+		},
+		{
+			"id": "1093-zephras-novice-seers-on-the-western-sweep",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94413,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "A Magical Affront: the Windshaper Novice Seers practise in the clearing west of Shen'dar, on the way back from the hippogryph nests; an along list from Rathiril's accept kept them on screen through the Prideclaws, the bandits and Falaath.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-highland-bandits-in-their-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 92517,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Criminal Element: the Highlands Bandits are killed in the bandit camp step with Badwind Bennic and the stolen windstones, not in an along list from the village.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-stormapples-in-the-orchard-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 92682,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Make Yourself Useful: the Ripe Stormapples are picked in the orchard step with the flutterfly dust and the Galestriders.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-hungry-bandits-in-the-orchard-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 92682,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Make Yourself Useful: the Hungry Bandits raid the orchard and are killed in the orchard step.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
+		},
+		{
+			"id": "1093-zephras-zephyrseed-in-the-lake-sweep",
+			"faction": "Horde",
+			"at": {
+				"quest": 93160,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Forest's Bounty: the Zephyrseed cones grow just south of the hermit and are picked in the Windsong Lake sweep; an along list listed them three times.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "flow audit 2026-11-07 (FLOW-PRINCIPLES F6: along lists become steps)"
+				}
+			],
+			"pr": 1093
 		}
 	]
 }
