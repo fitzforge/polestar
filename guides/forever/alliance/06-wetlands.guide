@@ -9,7 +9,7 @@ next forever/alliance/07-thousand-needles
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Velinde Starsong (1037). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
+# Added here: Velinde Starsong (1037), Daily Delivery (469: Einar Stonegrip by Howin to James Halloran). Left out: Crimson Crate Delivery (98240), which James Halloran offers only after Crocs of the Sky (98072, handed in at the end of 30-40/01's Wetlands loop).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole) from the old 25-29 06-ashenvale and the
 # Wetlands visit of 07-thousand-needles: the Wetlands are one visit at 27-29, after Duskwood.
 # Since 2026-11-07 Ashenvale's 27-32 quests follow on the same trip (the order their quest
@@ -198,6 +198,8 @@ step Howin Kindfeather
   accept 98300 optional                   -- For King Magni in Ironforge, at the end of 30-40/01-hillsbrad-foothills
 
 step Rethiel the Greenwarden
+  tip East from Howin to Rethiel: Einar Stonegrip stands beside the road on the way.
+  accept 469                              -- Einar Stonegrip: for James Halloran in Menethil
   turnin 277
   accept 275
 
@@ -217,6 +219,7 @@ step Captain Stoutfist
   tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep.
   turnin 464                              -- On the top floor
   turnin 98221
+  turnin 469                              -- James Halloran, by the docks
   accept 465                              -- For the Dragonmaw catapult, on the Wetlands loop of 30-40/01-hillsbrad-foothills
 
 # ---------------------------------------------------------------- Ashenvale

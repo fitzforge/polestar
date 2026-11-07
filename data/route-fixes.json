@@ -6089,6 +6089,11 @@
 				],
 				"reason": "Quest volume, 2026-11-07: Jitters' Growling Gut (level 20, from 17, 390 XP) is taken on a visit the route already makes: Jitters at Raven Hill; Chef Grual is in Darkshire's tavern, where the loop comes back. Recordings: offered to 5 characters, 2 accepts.",
 				"issue": "-"
+			},
+			{
+				"q": 469,
+				"reason": "Quest volume, 2026-11-07: Daily Delivery (level 21, from 18, 830 XP) is taken on a visit the route already makes: Einar Stonegrip stands by the road just north of Howin Kindfeather, whom the Wetlands loop visits; James Halloran is on the Menethil stop that follows. Recordings: offered to 1 characters, 0 accepts.",
+				"issue": "-"
 			}
 		],
 		"skip": [
