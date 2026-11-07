@@ -99,6 +99,24 @@
 			"issue": 416
 		},
 		{
+			"id": "westfall-snouts-in-the-molsen-farm-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 38,
+				"goal": "objective",
+				"objective": 3
+			},
+			"along": false,
+			"note": "Westfall Stew's Goretusk Snouts come off the Young Goretusks and Goretusks of the Molsen Farm fields, with the livers and the vulture meat of the same loop; the along list from Saldean's to Sentinel Hill listed them a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 454 and 157 spawns; items.json 731 drops"
+				}
+			],
+			"pr": 0
+		},
+		{
 			"id": "345-tirisfal-rattlecages-in-their-step",
 			"at": {
 				"quest": 3901,
