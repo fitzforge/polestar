@@ -5,6 +5,8 @@ mod alts;
 mod automation;
 #[path = "automation-close-skipped.rs"]
 mod automation_close_skipped;
+#[path = "automation-spoken.rs"]
+mod automation_spoken;
 #[path = "class-quests.rs"]
 mod class_quests;
 mod closes;
