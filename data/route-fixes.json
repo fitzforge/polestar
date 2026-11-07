@@ -5772,6 +5772,19 @@
 			},
 			{
 				"a": [
+					"task",
+					527
+				],
+				"b": [
+					"task",
+					501
+				],
+				"faction": "Horde",
+				"why": "#1123 (Rohkin): Mountain Lion Blood (501, 10 from the Starving Mountain Lions, few and contested) was its own stop on the way down to Hillsbrad Fields; the lions stand between the fields and Tarren Mill, so the blood is collected after the farmers of Battle of Hillsbrad (527), on the walk back to Tarren Mill where both are handed in. 06-hillsbrad-foothills 'Mountain Lion Blood' after 'Hillsbrad Fields'",
+				"source": "#1123"
+			},
+			{
+				"a": [
 					"accept",
 					878
 				],

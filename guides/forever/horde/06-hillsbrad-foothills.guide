@@ -56,10 +56,6 @@ step Tarren Mill
   tip Follow the road east along the river, then north-east up into the hills to Tarren Mill.
   sethome "Tarren Mill"
 
-step Mountain Lion Blood
-  tip Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight.
-  collect 3496 quest 501.1 @54.3,39.6
-
 step Hillsbrad Fields
   tip The farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere. Farmer Kalaba tends the field south of the farms.
   kill 2451 quest 567.4               -- Farmer Kalaba walks around Hillsbrad Fields: look inside the circle on the map
@@ -67,6 +63,10 @@ step Hillsbrad Fields
   kill 2360 quest 527.2
   kill 232 quest 527.3
   kill 2403 quest 527.4
+
+step Mountain Lion Blood
+  tip Careful: When one lion is attacked, nearby lions come to its aid, and the Vicious Black Bears sharing those fields can also join the fight.
+  collect 3496 quest 501.1 @54.3,39.6
 
 step Tarren Mill
   turnin 527                          -- High Executor Darthalia

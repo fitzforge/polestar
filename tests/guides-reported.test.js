@@ -2645,21 +2645,22 @@ test('#246: no NPC or object goal is on a neighbouring zone\'s map where the two
 	assert.deepEqual([...new Set(offenders)], [], 'goals on the map of a zone Forever\'s quest data does not place them in');
 });
 
-// --- Ashenvale (Zerkness #383, Ioney #396): two Paladins found no Alonso at
-// Mystral Lake. Whether Forever offers his Dragonslayer quests (78132-78134)
-// to every class waits on an in-game check, so every player is led to him
-// (a plain goto), his accepts are optional and the turn-ins hold only a
-// player who took the quest: one he offers nothing passes the step there.
+// --- Ashenvale (Zerkness #383, Ioney #396, soockee #1117): two Paladins and a
+// Shaman found no Alonso at Mystral Lake; #1117 is the in-game check by a
+// non-Warrior that #383 waited on. His Dragonslayer quests (78132-78134) are
+// for Warriors (corrections, classes 1): only a Warrior is led to him, his
+// accepts stay optional and the turn-ins hold only a player who took the
+// quest, so a Warrior he offers nothing passes the step there.
 
-test('Zerkness\'s and Ioney\'s reports (#383, #396): every player is led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides', { skip }, () => {
+test('Zerkness\'s, Ioney\'s and soockee\'s reports (#383, #396, #1117): only Warriors are led to Alonso, and his quests hold only one who takes them, in both Ashenvale guides', { skip }, () => {
 	const chain = [78132, 78133, 78134];
 	for (const [guide, faction, paladinRace, warriorRace] of [[ASHENVALE, 'Alliance', 'Dwarf', 'Human'], [ASHENVALE_HORDE, 'Horde', 'Scourge', 'Orc']]) {
 		const list = goals(guide);
 		const first = at(list, `${guide}: accept 78132`, is('accept', 78132));
 		const { step } = list[first];
 		assert.equal(step.title, 'Alonso', `${guide}: Alonso has his own step`);
-		assert.ok(!step.only, `${guide}: the Alonso step is for every class`);
-		assert.deepEqual([step.goals[0].t, !!step.goals[0].optional], ['goto', false], `${guide}: a plain goto leads everyone to Alonso`);
+		assert.deepEqual(step.only && step.only.classes, ['WARRIOR'], `${guide}: the Alonso step is for Warriors`);
+		assert.deepEqual([step.goals[0].t, !!step.goals[0].optional], ['goto', false], `${guide}: a plain goto leads the Warrior to Alonso`);
 		for (const q of chain) {
 			assert.equal(list[at(list, `${guide}: accept ${q}`, is('accept', q))].goal.optional, true, `${guide}: accept ${q} is optional`);
 			assert.ok(!list[at(list, `${guide}: turnin ${q}`, is('turnin', q))].goal.optional, `${guide}: turnin ${q} is plain`);
@@ -2703,12 +2704,12 @@ test('Zerkness\'s and Ioney\'s reports (#383, #396): every player is led to Alon
 				local done = {}
 				for _, q in ipairs({ 78132, 78133, 78134 }) do done[#done + 1] = C_QuestLog.IsQuestFlaggedCompleted(q) end
 				emit({ done = done, held = held, reached = reached })`;
-			for (const [cls, race, offered] of [['PALADIN', paladinRace, false], ['WARRIOR', warriorRace, true]]) {
+			for (const [cls, race, offered] of [['PALADIN', paladinRace, false], ['WARRIOR', warriorRace, true], ['WARRIOR', warriorRace, false]]) {
 				const who = `${guide}: a ${race} ${cls}${offered ? '' : ' Alonso offers nothing'}`;
 				const [out, got] = playGuide(pack, g, { race, faction, cls, script: watch(offered) });
 				assert.equal(out.stuck, undefined, `${who}: not stuck: ${JSON.stringify(out.stuck)}`);
 				assert.ok(out.done, `${who}: plays to the end`);
-				assert.equal(got.reached, true, `${who}: is led to Alonso`);
+				assert.equal(got.reached, cls === 'WARRIOR', `${who}: ${cls === 'WARRIOR' ? 'is' : 'is not'} led to Alonso`);
 				assert.deepEqual(got.done, chain.map(() => offered), `${who}: the chain is ${offered ? '' : 'not '}handed in`);
 				assert.equal(got.held, offered ? 'Alonso' : false, `${who}: ${offered ? 'held at Alonso until 78132 is handed in' : 'hands nothing in'}`);
 			}
@@ -4322,4 +4323,37 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	const ret = goals('forever/alliance/07-thousand-needles.guide');
 	assert.ok(at(ret, 'turnin 57 on the return', is('turnin', 57)) < at(ret, 'accept 58', is('accept', 58)), '57 handed in on the return before 58');
 	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
+});
+
+// #1117 (soockee, Tauren Shaman; #383 and #396 before it, Dwarf Paladins): Alonso's Dragonslayer quests
+// at Mystral Lake are for Warriors; other classes find no Alonso there. The lock lived only in
+// data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to
+// him. The record is the class in forever-db/corrections/quests.json.
+test("soockee's report (#1117): only Warriors are sent to Alonso for the Dragonslayer quests", { skip }, () => {
+	const corrections = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'forever-db', 'corrections', 'quests.json'), 'utf8'));
+	const ALONSO = [78132, 78133, 78134];
+	for (const q of ALONSO) assert.equal(corrections[q] && corrections[q].set.classes, 1, `${q}: the Warrior class is a correction the build applies`);
+	let warrior = 0;
+	for (const guide of allGuides().filter((f) => /^forever\/(horde|alliance)\//.test(f))) {
+		const list = goals(guide).filter(({ goal }) => ALONSO.includes(goal.quest));
+		for (const cls of ['PALADIN', 'SHAMAN', 'DRUID', 'HUNTER', 'ROGUE', 'PRIEST', 'MAGE', 'WARLOCK']) {
+			assert.deepEqual(list.filter(forClass(cls)).map(({ goal }) => `${goal.t} ${goal.quest}`), [], `${guide}: no Alonso quest for a ${cls}`);
+		}
+		warrior += list.filter(forClass('WARRIOR')).length;
+	}
+	assert.ok(warrior > 0, 'a Warrior still takes them');
+});
+
+// Rohkin's report (#1123): Mountain Lion Blood's few, contested lions were a stop of their own on the way down to
+// Hillsbrad Fields. They stand between the fields and Tarren Mill: the blood comes after the farmers, on the walk
+// back to Tarren Mill, where both are handed in (route-fixes pair task 527 before task 501, Horde).
+test("Rohkin's report (#1123): Mountain Lion Blood on the walk back from Hillsbrad Fields, before Tarren Mill", { skip }, () => {
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
+	assert.ok(fixes.overrides.pairs.some((p) => p.a[0] === 'task' && p.a[1] === 527 && p.b[0] === 'task' && p.b[1] === 501 && p.faction === 'Horde'), 'the order is a record the build keeps');
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const farmers = at(list, 'kill 2266 quest 527.1', (g) => g.t === 'kill' && g.quest === 527);
+	const blood = at(list, 'collect 3496 quest 501.1', (g) => g.t === 'collect' && g.quest === 501);
+	const turnin = at(list, 'turnin 501', is('turnin', 501));
+	assert.ok(farmers < blood && blood < turnin, 'the farmers, then the blood, then Lydon');
+	assert.ok(!list.slice(blood + 1, turnin).some(({ goal }) => goal.quest === 527 && goal.t === 'kill'), 'no trip back to the fields after the blood');
 });

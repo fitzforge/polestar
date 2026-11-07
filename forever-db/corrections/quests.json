@@ -2195,6 +2195,54 @@
 		],
 		"note": "Hearts of the Lovers (Horde Warlock incubus, Godrick Farsan) needs both hearts, Avelina's Heart first, then Isaac's Heart: in game, with Avelina's heart in the bags the guide passed the Isaac Pearson step, so the log's first line is Avelina's (issue #412). QuestieDB lists only Isaac's Heart."
 	},
+	"78132": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20a, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Helm (Alonso, Mystral Lake in Ashenvale) is a Warrior quest: Paladins and a Shaman found no Alonso there. Forever's quest data lists no class, and the class lock lived only in data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to him (#1117)."
+	},
+	"78133": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20b, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Shield, Alonso's second quest, is a Warrior quest like Dragonslayer's Helm (78132)."
+	},
+	"78134": {
+		"set": {
+			"classes": 1
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "issues #383, #396 (Dwarf Paladins) and #1117 (Tauren Shaman): Alonso is not there for them at Mystral Lake"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "maintainer decision 2026-10-19 (data/rules.json H20c, PR #388): Warrior-only, both factions"
+			}
+		],
+		"note": "Dragonslayer's Lance, Alonso's third quest, is a Warrior quest like Dragonslayer's Helm (78132)."
+	},
 	"78261": {
 		"set": {
 			"classes": 8

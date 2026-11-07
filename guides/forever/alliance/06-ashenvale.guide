@@ -211,6 +211,7 @@ step Mystral Lake
   turnin 1016
 
 step Alonso
+  only Warrior
   goto 42.4,70 "Alonso"
   accept 78132 optional                   -- Alonso may not offer these to every class; if he doesn't, carry on.; walks around The Talondeep Path: the map marks where to look
   turnin 78132
