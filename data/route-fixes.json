@@ -2682,6 +2682,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow re-order (2026-11-07, Darkshore): Fruit of the Sea's six Fine Crab Chunks come from the crawlers by Cliffspring Falls on the second loop; the route then walked past Gubber Blump on the pier with them on the Auberdine visit after Bashal'Aran (45 yd) and handed them in a whole loop later, after the Den Mother (03-darkshore 'Auberdine' after Bashal'Aran on 0.3.4, about 30 minutes). Handed in on the first Auberdine visit with them in the bag. The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"turnin",
+					92470
+				],
+				"b": [
+					"accept",
+					92544
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): from the Ursera den the walk goes back east to Aetheen and Valreaa at Thendal Grove, then south-west to Hanaa Nightwind and on south to Shen'dar; the route took Hanaa's camp first and walked back north to the grove before heading south past her again (skyborne/01-zephras-isle 'Hanaa Nightwind' before 'Aetheen of the Gales' on 0.3.4: Valreaa's ready hand-in passed, about 470 yd back). The seed is re-cut for it."
+			},
+			{
+				"a": [
+					"task",
+					92470
+				],
+				"b": [
+					"task",
+					92473
+				],
+				"faction": "Alliance",
+				"why": "Flow re-order (2026-11-07, Zephras Isle, Alliance): Urs'anah's den lies west of Thendal Grove and the Scrawny Ursera prowl the woods between; the den is cleared first and the Scrawny Ursera on the walk back east, so the walk doesn't pass Valreaa Valewind with Aggressive Encroachment done on the way out to the den."
 			}
 		],
 		"notes": [
