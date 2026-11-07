@@ -5550,8 +5550,9 @@ test('forever/horde/40-50: final review: riding at 40 and class trips where the 
 });
 
 // Final route review, Horde 40-60: Cortello's Riddle's scroll lies on the Bloodsail ships (crews 42-45) at level 41:
-// optional, its later parts only with the part before; the Gorishi Hive Queen may be elite.
-test('forever/horde/40-50: final review: Cortello\'s Riddle optional, the Hive Queen warning', { skip }, () => {
+// optional, its later parts only with the part before. The Gorishi Hive Queen is not elite in Forever (Fitz, in game):
+// no elite warning on Pawn Captures Queen.
+test('forever/horde/40-50: final review: Cortello\'s Riddle optional, no elite warning for the Hive Queen', { skip }, () => {
 	const stv = goals('forever/horde/40-50/01-stranglethorn-vale.guide');
 	assert.ok(stv[at(stv, 'accept 624', is('accept', 624))].goal.optional, '624 optional');
 	const fer = goals('forever/horde/40-50/03-feralas.guide');
@@ -5560,5 +5561,5 @@ test('forever/horde/40-50: final review: Cortello\'s Riddle optional, the Hive Q
 		assert.ok(a.goal.optional && a.step.when.some((p) => p.k === 'onquest' && p.q.includes(pre)), `${q} only with ${pre}`);
 	}
 	const sil = goals('forever/horde/50-60/06-silithus.guide');
-	assert.match(sil[at(sil, 'use 11833', (g) => g.t === 'use' && g.item === 11833)].step.note || '', /elite/);
+	assert.doesNotMatch(sil[at(sil, 'use 11833', (g) => g.t === 'use' && g.item === 11833)].step.note || '', /elite/);
 });

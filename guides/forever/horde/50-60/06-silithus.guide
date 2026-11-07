@@ -194,7 +194,7 @@ step Krakle
   note Krakle sends you to Donova Snowden in Winterspring: keep it.
 
 step Pawn Captures Queen
-  tip Use the Gorishi Queen Lure where the arrow points, inside the Gorishi hive of the Slithering Scar, to call the Gorishi Hive Queen (level 56). Forever's data lists her as a normal creature, the older game as an elite: if she hits like one, leave and come back with a friend.
+  tip Use the Gorishi Queen Lure where the arrow points, inside the Gorishi hive of the Slithering Scar, to call the Gorishi Hive Queen (level 56).
   use 11833 quest 4507.1 @43.5,81.0 map 1449
   collect 11835 quest 4507.1 @43.9,81.4 map 1449
 
