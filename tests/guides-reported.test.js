@@ -4598,3 +4598,12 @@ test(`${TIRISFAL}: flow review: Ulag the Cleaver is taken with The Mills Overrun
 	const list = goals(TIRISFAL).filter(forClass('WARRIOR'));
 	assert.equal(at(list, 'accept 1819', is('accept', 1819)), at(list, 'turnin 426', is('turnin', 426)) + 1);
 });
+
+// Flow review, Zephras Isle (Horde): Hanaa's camp lies on the road south to Shen'dar; the guide went there
+// from the den and walked back north to the village for Valreaa and Aetheen.
+test('forever/horde/skyborne/01-zephras-isle.guide: flow review: the village hand-ins before Hanaa Nightwind', { skip }, () => {
+	const list = goals('forever/horde/skyborne/01-zephras-isle.guide');
+	const hanaa = at(list, 'accept 92544', is('accept', 92544));
+	assert.ok(at(list, 'turnin 92470', is('turnin', 92470)) < hanaa && at(list, 'turnin 92473', is('turnin', 92473)) < hanaa);
+	assert.ok(at(list, 'turnin 92470', is('turnin', 92470)) > at(list, "Urs'anah", (g) => g.t === 'kill' && g.quest === 92470), 'after the den');
+});

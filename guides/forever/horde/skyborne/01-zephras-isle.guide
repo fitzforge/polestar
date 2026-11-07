@@ -96,6 +96,14 @@ step Thendal Grove: kill these as you meet them
   kill 250937 quest 92470.1           -- Below ground
   collect 252665 quest 92470.2        -- Below ground
 
+step Back to Thendal Village
+  tip Back up from the den to Valreaa and Aetheen in the village before heading south-west to Hanaa: the road from her camp leads on south to Shen'dar.
+  turnin 92473                        -- Valreaa Valewind
+  turnin 92470                        -- Aetheen of the Gales
+  accept 92472
+  accept 96638
+  train class
+
 step Hanaa Nightwind
   tip Hanaa waits in Thendal Grove, south-west of the village. The Al'Aketh camp is just beyond her; Malduko Cloudcrush leads it.
   tip Careful: Malduko Cloudcrush casts shocks; drag him clear of the other cultists before fighting so they don't join in.
@@ -106,12 +114,9 @@ step Hanaa Nightwind
   kill 256935 quest 92544.3 @36.0,33.5 map 2521 live
   turnin 92544
 
-step Leaving Thendal Village
-  turnin 92473                        -- Valreaa Valewind
-  turnin 92470                        -- Aetheen of the Gales
-  accept 92472
-  accept 96638
-  train class
+step Windshaper Boro
+  only Shaman
+  tip Back to Boro in Thendal Village with the Signet.
   turnin 92466 only Shaman            -- Windshaper Boro
   accept 92467 only Shaman
   turnin 92467 only Shaman            -- drink the Earth Sapta at the Rise of Spirits, just east of the village, to see the Minor Manifestation of Earth
