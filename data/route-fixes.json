@@ -6460,6 +6460,66 @@
 					539
 				],
 				"why": "#1079: Helcular's Revenge is handed to Thaivand on the same Tarren Mill stop, the rod from the yetis just before"
+			},
+			{
+				"a": [
+					"task",
+					25
+				],
+				"b": [
+					"task",
+					6621
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Horde Ashenvale (#1098): Stonetalon Standstill (carried from the Stonetalon visit) is done at Mystral Lake while the walk hunts Tideress there, before the Foulweald. The old order crossed the lake with the quest in the log and came back to it after Shadumbra (1,475 yd from Splintertree, 23 min later). The seed now has the lake step after Tideress"
+			},
+			{
+				"a": [
+					"turnin",
+					25
+				],
+				"b": [
+					"task",
+					2
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Horde Ashenvale (#1098): Stonetalon Standstill is handed to Mastok on the first Splintertree stop, with The Befouled Element, now that it is done on the way east"
+			},
+			{
+				"a": [
+					"task",
+					1534
+				],
+				"b": [
+					"accept",
+					23
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Horde Ashenvale (#1098): Shamans fill Brine's waterskin at the Ruins of Stardust fountain, in the ruins Ursangous roams, before his paw. The written order walked Shamans from Alonso back to the Zoram'gar flight master (2,666 yd) and on to the fountain (2,496 yd)"
+			},
+			{
+				"a": [
+					"turnin",
+					1534
+				],
+				"b": [
+					"accept",
+					4767
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Horde Ashenvale (#1098): Brine's hut stands on the road from Camp Taurajo to the Great Lift that the walk to Thousand Needles takes, so Call of Water is handed in there, before Freewind Post (the seed's order). The search had moved it onto a flight from Freewind Post to Camp Taurajo and back after Darkcloud Pinnacle, passing Cliffwatcher with two finished quests"
+			},
+			{
+				"a": [
+					"turnin",
+					4767
+				],
+				"b": [
+					"turnin",
+					1150
+				],
+				"faction": "Horde",
+				"why": "Flow audit, Horde Ashenvale (#1098): from Roguefeather Den the walk passes Freewind Post on its way to Dorn Plainstalker's mesa, so Freewind's hand-ins come first and Dorn on the way out to the Shimmering Flats (the seed's order; 566 yd shorter than Dorn first and back)"
 			}
 		]
 	}
