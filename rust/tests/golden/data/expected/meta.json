@@ -125,6 +125,6 @@
 		"pfQuest: <input>/pfQuest is not a git checkout; revision unknown",
 		"uiMap 947: spans 2 continents (0, 1); no single Era frame",
 		"forever uiMap 947: spans 2 continents (0, 1); no single Era frame",
-		"CMaNGOS classic-db creature walks unavailable (--offline: missing cached <input>/sources/cmangos/22b51464f162/moves.json); moves.json not written, so walking NPCs get no walk area"
+		"CMaNGOS classic-db creature walks unavailable (--offline: missing cached <input>/sources/cmangos/22b51464f162/moves.2.json); moves.json not written, so walking NPCs get no walk area"
 	]
 }
