@@ -99,6 +99,60 @@
 			"issue": 416
 		},
 		{
+			"id": "dun-morogh-cogs-in-the-gnomeregan-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "dun-morogh-gears-in-the-gnomeregan-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 412,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "Operation Recombobulation's cogs and gears come from the Leper Gnomes by Brewnall and the Gnomeregan road: they are collected in that field step, with Rejold's animals; the along list from Razzle listed them on the whole walk west and the Brewnall step a second time (flow audit, 2026-11-07: along lists become steps).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1211 spawns; items.json 3083, 3084 drops"
+				}
+			],
+			"pr": 1082
+		},
+		{
+			"id": "dun-morogh-bonesnappers-in-the-quarry-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 433,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Public Servant's Rockjaw Bonesnappers share the Gol'Bolar Quarry with the Skullthumpers: they are killed in the quarry troggs step, not listed along the way from the first quarry stop (flow audit, 2026-11-07).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npcs.json 1117 and 1115 spawns"
+				}
+			],
+			"pr": 1082
+		},
+		{
 			"id": "345-tirisfal-rattlecages-in-their-step",
 			"at": {
 				"quest": 3901,
