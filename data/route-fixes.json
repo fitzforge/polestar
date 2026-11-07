@@ -2017,7 +2017,7 @@
 					9
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Westfall): the north loop came back to Saldean's in its middle for The Killing Fields and Harvesting the Harvesters, then went west for the livers and vulture meat and north again, and came back to Saldean's a second time after the Jansen Stead for the stew and the pie (02-westfall steps 9 and 14 on 0.3.4). The seed and both speedrun benchmark orders hand all of Saldean's in once, on the way south from the Jansen Stead to Sentinel Hill."
+				"why": "Flow audit (2026-11-07, Westfall): the north loop came back to Saldean's in its middle for The Killing Fields and Harvesting the Harvesters, then went west for the livers and vulture meat and north again, and came back to Saldean's a second time after the Jansen Stead for the stew and the pie (02-westfall steps 9 and 14 on 0.3.4). The seed and this pair hand all of Saldean's in once, where the walk passes the farm on the way south from the Jansen Stead to Sentinel Hill."
 			},
 			{
 				"a": [
@@ -2029,7 +2029,7 @@
 					92909
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Westfall): the north loop came back to Saldean's in its middle for The Killing Fields and Harvesting the Harvesters, then went west for the livers and vulture meat and north again, and came back to Saldean's a second time after the Jansen Stead for the stew and the pie (02-westfall steps 9 and 14 on 0.3.4). The seed and both speedrun benchmark orders hand all of Saldean's in once, on the way south from the Jansen Stead to Sentinel Hill."
+				"why": "Flow audit (2026-11-07, Westfall): the north loop came back to Saldean's in its middle for The Killing Fields and Harvesting the Harvesters, then went west for the livers and vulture meat and north again, and came back to Saldean's a second time after the Jansen Stead for the stew and the pie (02-westfall steps 9 and 14 on 0.3.4). The seed and this pair hand all of Saldean's in once, where the walk passes the farm on the way south from the Jansen Stead to Sentinel Hill."
 			},
 			{
 				"a": [
@@ -2041,7 +2041,7 @@
 					102
 				],
 				"faction": "Alliance",
-				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and both speedrun benchmark orders take them there, before the north hills."
+				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
 			},
 			{
 				"a": [
@@ -3036,7 +3036,7 @@
 					102,
 					0
 				],
-				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and both speedrun benchmark orders take them there, before the north hills."
+				"why": "Flow audit (2026-11-07, Westfall): the Goretusk livers and Fleshripper meat were left until after the Saldean's detour and a walk back west (02-westfall step 11 on 0.3.4, 40-44 min after the walk crossed their fields); Young Goretusks and Fleshrippers roam the Molsen Farm fields the loop starts in. The seed and this pair take them there, where the walk crosses their fields, before the north hills."
 			}
 		],
 		"stay": [
