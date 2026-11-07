@@ -1,8 +1,8 @@
 ---
 section: players
 ---
-- Tirisfal Glades: Coleman Farthing's two quests are taken on the first stop
-  in Gallows' End Tavern instead of a second walk into the tavern later, and
-  The Argent Emissary is taken on the Brill stop after the north loop and
-  handed to Hadric at Deathguard Linnea's camp right after, instead of a stop
-  of its own.
+- Tirisfal Glades: characters already level 7 on the first pass through Brill take
+  Carolai Anise's, Coleman Farthing's and Gretchen Dedmar's quests there, and at
+  level 10 The Argent Emissary on the Brill stop after the north loop, handed to
+  Hadric at Deathguard Linnea's camp right after; anyone below the level takes them
+  on the next visit as before.
