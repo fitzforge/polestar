@@ -237,7 +237,6 @@ step Rage Scar yetis
   accept 7738 optional
 
 step Camp Mojache
-  tip Stay here: the next guide starts with the flight to Gadgetzan.
   turnin 7734                           -- Jangdor Swiftstrider
   turnin 7738 optional
   turnin 3128                           -- Witch Doctor Uzer'i
