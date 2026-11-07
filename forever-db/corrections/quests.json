@@ -4349,7 +4349,15 @@
 	},
 	"98341": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"pre": [
+				98340,
+				98393
+			],
+			"preAny": [
+				98340,
+				98393
+			]
 		},
 		"source": [
 			{
@@ -4359,9 +4367,17 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98340 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98340, 98393]"
 			}
 		],
-		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "The Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, first quest) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. Dendrite Starblaze offers it once the opening The Great Cat Spirit is handed in: the Horde one from Turak Runetotem (98340) or the Alliance one from Mathrengyl Bearwalker (98393). The server's quest records name 98340 as its previous quest and Forever's quest data lists both openers; the merged data had no prerequisite (20-60 data-fill pass)."
 	},
 	"98404": {
 		"set": {
@@ -4381,7 +4397,13 @@
 	},
 	"98738": {
 		"set": {
-			"classes": 1024
+			"classes": 1024,
+			"pre": [
+				98404
+			],
+			"preAny": [
+				98404
+			]
 		},
 		"source": [
 			{
@@ -4391,9 +4413,82 @@
 			{
 				"kind": "factoruide",
 				"ref": "Factoruide row: class mask 1024 (Druid)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98404 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98404]"
 			}
 		],
-		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it."
+		"note": "Blessings of the Great Windborne Cat Spirit (the Skyborne Druids' Cat Form chain, after the relics) is a Druid quest on Forever: the server's quest data limits it to Druids (class mask 1024). The merged data had no class, so the class-quest card knew it only from the Druid guide that takes it. The Avatar of Saeyleenan offers it once the relics quest (98404) is handed in: the server's quest records name 98404 as its previous quest and Forever's quest data puts it next in the chain; the merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98342": {
+		"set": {
+			"pre": [
+				98405
+			],
+			"preAny": [
+				98405
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98405 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98405]"
+			}
+		],
+		"note": "The Great Cat Spirit (the Tauren Druids' Cat Form chain, the trial at the Great Cat Spirit in Moonglade) is offered by the Great Cat Spirit once The Great Cat Spirit from Dendrite Starblaze (98405) is handed in to it: the server's quest records name 98405 as its previous quest and Forever's quest data puts it next in the chain. The merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98739": {
+		"set": {
+			"pre": [
+				98342
+			],
+			"preAny": [
+				98342
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98342 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_all [98342]"
+			}
+		],
+		"note": "Blessings of the Great Cat Spirit (the Tauren Druids' Cat Form chain) is offered by the Great Cat Spirit once its trial (98342) is handed in: the server's quest records name 98342 as its previous quest and Forever's quest data puts it next in the chain. The merged data had no prerequisite (20-60 data-fill pass)."
+	},
+	"98362": {
+		"set": {
+			"pre": [
+				98739,
+				98738
+			],
+			"preAny": [
+				98739,
+				98738
+			]
+		},
+		"source": [
+			{
+				"kind": "tdb",
+				"ref": "quest_template_addon PrevQuestID 98739 (sniffed Forever row, build 70124)"
+			},
+			{
+				"kind": "factoruide",
+				"ref": "pre_any [98739, 98738]"
+			}
+		],
+		"note": "To Thunder Bluff (the Horde Druids' Cat Form chain, back to Turak Runetotem) is offered by Dendrite Starblaze once the chain's blessing is handed in to him: Blessings of the Great Cat Spirit (98739, Tauren) or Blessings of the Great Windborne Cat Spirit (98738, Skyborne). The server's quest records name 98739 as its previous quest and Forever's quest data lists both blessings; the merged data had no prerequisite (20-60 data-fill pass)."
 	},
 	"98601": {
 		"set": {
