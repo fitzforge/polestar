@@ -1218,6 +1218,23 @@ fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is() {
 }
 
 #[test]
+fn a_plain_pin_set_before_waypoint_ui_s_api_is_ready_is_cleared_when_the_quest_is_tracked_instead() {
+	let out = run(&format!(
+		r#"{WAYPOINT_UI}
+		local api = WaypointUIAPI.Navigation
+		WaypointUIAPI.Navigation = nil
+		Polestar.Set("nav.blizzardWaypoint", true)
+		log[376] = true
+		nav.setWaypoint(wp(-100, 0, "Turn in The Damned", {{ kind = "turnin", quest = 376 }}))
+		WaypointUIAPI.Navigation = api
+		stub.advance(2.1)
+		emit({{ calls = calls, native = nav.userWaypoints }})"#
+	));
+	assert_eq!(out["calls"], json!([["quest", 376]]));
+	assert_eq!(out["native"], json!([["set", 9000, 0.5, 0.55], ["track", true], ["clear"]]), "our plain pin goes once the quest is tracked");
+}
+
+#[test]
 fn with_waypoint_ui_a_re_announced_target_is_not_sent_again_a_moved_spot_is() {
 	let out = run(&format!(
 		r#"{WAYPOINT_UI}
