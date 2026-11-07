@@ -2805,6 +2805,28 @@
 					5242
 				],
 				"why": "ZoneFix c18 read (both sides, Felwood): Greta Mosshoof at the Emerald Sanctuary is a short ride south of Shadow Hold in Jaedenar, and v1 hands A Final Blow in right after the fight. c18 carried it north and hands it in at the very end: the Horde flew back from Everlook to Bloodvenom Post and rode south for it (Orc 50-60/07-felwood:69-74 -> :186-188; Orc.json order[1998] -> [2023]), the Alliance rode Irontree Woods, Timbermaw and Winterspring first (Human.json order[2195] -> [2209])"
+			},
+			{
+				"a": [
+					"turnin",
+					855
+				],
+				"b": [
+					"turnin",
+					850
+				],
+				"why": "#1078: Kolkar Leaders is handed to Regthar with Centaur Bracers, one stop"
+			},
+			{
+				"a": [
+					"turnin",
+					850
+				],
+				"b": [
+					"accept",
+					851
+				],
+				"why": "#1078: Verog the Dervish is taken at Kolkar Leaders' hand-in (Regthar offers it then); Verog is worked at the Stagnant Oasis in the 19-23 guide, so its accept needs no trip of its own to Regthar there"
 			}
 		],
 		"after": [
@@ -4896,6 +4918,39 @@
 					840
 				],
 				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
+			},
+			{
+				"a": [
+					"turnin",
+					850
+				],
+				"b": [
+					"turnin",
+					870
+				],
+				"why": "#1078 flow audit, Barrens 12-16: Kolkar Leaders is taken with Centaur Bracers at Regthar and Barak Kodobane killed on that loop (his camp lies between the Forgotten Pools and the Dry Hills, which the loop walks through), handed in with the bracers before Tonga's Forgotten Pools. The route took it 326 minutes later in the 19-23 guide, a trip of its own from Regthar; 17 of 31 recorded players took it at 13-15. Barak and the quest are level 16"
+			},
+			{
+				"a": [
+					"turnin",
+					865
+				],
+				"b": [
+					"accept",
+					891
+				],
+				"why": "#1078 flow audit (F2), Barrens 19-23: Raptor Horns is handed to Mebok Mizzyrix on the first Ratchet stop (he stands by the WANTED poster, 12 yd off the walk) when the horns from the 12-16 guide are done, not on the second Ratchet pass 149 minutes later"
+			},
+			{
+				"a": [
+					"turnin",
+					868
+				],
+				"b": [
+					"turnin",
+					1825
+				],
+				"why": "#1078: Warriors hand Speak with Thun'grim to Thun'grim, east of the Crossroads, on the last Crossroads loop; the guide put the hand-in in the Camp Taurajo step, a 2,300 yd walk there and back before Tatternack's hand-in"
 			}
 		]
 	}
