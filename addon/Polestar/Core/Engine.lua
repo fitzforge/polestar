@@ -5714,7 +5714,7 @@ Own.flyVerdicts = setmetatable({}, { __mode = "k" }) -- guide -> { [step] = { pa
 
 function Own.plannerFlies()
 	local nav = ns.Nav
-	if not (nav and nav.GetKnownTaxiNodes and nav.GetTravelData and ns.Get("nav.travel")) then return false end
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel")) then return false end
 	return not (nav.HandedOff and nav.HandedOff())
 end
 
@@ -5750,7 +5750,7 @@ end
 -- character knows it; else nil.
 function Own.knownLanding(goal)
 	local nav = ns.Nav
-	local node = goal and goal.node and nav.GetTravelData().taxiById[goal.node]
+	local node = goal and nav.GetTaxiNode(goal.node)
 	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
 end
 
@@ -5762,7 +5762,7 @@ function Own.transitContinent(s, last)
 		if blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
 			local here
 			if goal.t == "fly" then
-				local node = goal.node and ns.Nav.GetTravelData().taxiById[goal.node]
+				local node = ns.Nav.GetTaxiNode(goal.node)
 				here = node and node.c
 			elseif goal.t == "goto" and goal.map and goal.x and goal.y then
 				here = Compat().MapToWorld(goal.map, goal.x, goal.y, goal.f)
