@@ -2898,6 +2898,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point; the order carried it and came back to the dig site at the end of the guide (the optional Key to Freedom keeps its own step)"
+			},
+			{
+				"a": [
+					"turnin",
+					8465
+				],
+				"b": [
+					"accept",
+					3783
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Winterspring 55-56, #1166): Salfa stands at the Winterspring end of Timbermaw Hold's tunnel (27.7,34.5), where the route comes out; Speak to Salfa is handed in and Winterfall Activity taken there, instead of on a later ride back west from Everlook"
 			}
 		],
 		"notes": [

@@ -354,8 +354,12 @@ step Felpaw Village
   level 54 -- grind on Deadwood Avengers at Felpaw Village, Felwood
   turnin 8470 optional                -- Kernda, at the tunnel mouth
 
+# Re-seeded for flow in 0.3.5: Speak to Salfa is handed in where the tunnel
+# comes out, instead of on a later ride back west from Everlook.
 step Through Timbermaw Hold
   zone Winterspring
-  tip Walk into the Timbermaw Hold tunnel beside Nafien and never attack the Timbermaw furbolgs inside. The tunnel opens into Winterspring; follow the road east to Everlook, the goblin town where the next guide starts.
+  tip Walk into the Timbermaw Hold tunnel beside Nafien and never attack the Timbermaw furbolgs inside. Salfa stands at the tunnel's Winterspring exit; then follow the road east to Everlook, the goblin town where the next guide starts.
+  turnin 8465                           -- Salfa
+  accept 8464
   getfp "Everlook"
   sethome "Everlook"

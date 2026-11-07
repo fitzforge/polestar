@@ -4691,3 +4691,12 @@ test('forever/horde/40-50/04-tanaris.guide: flow re-order: Caught! on the spot, 
 	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
 	assert.equal(step(18959), step(10551), 'the tuyere on the daggers step');
 });
+
+// Flow review, Horde 40-60 (#1166): Salfa stands where Timbermaw Hold's tunnel comes out; Speak to Salfa was carried
+// to Everlook and back west.
+test('forever/horde/50-60/03-winterspring.guide: flow re-order: Salfa where the tunnel comes out', { skip }, () => {
+	const list = goals('forever/horde/50-60/03-winterspring.guide');
+	const salfa = at(list, 'turnin 8465', is('turnin', 8465));
+	assert.ok(salfa < at(list, 'accept 3783', is('accept', 3783)), 'before Everlook');
+	assert.equal(list[salfa].s, list[at(list, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+});

@@ -15,6 +15,11 @@ step Into Winterspring
   zone Winterspring
   goto 28.0,34.6 "Into Winterspring"
 
+step Salfa
+  tip Salfa stands right at the Winterspring exit of Timbermaw Hold's tunnel, where you come out.
+  turnin 8465
+  accept 8464
+
 step Raging Owlbeast on the way
   along until q4521
   when onquest 4521
@@ -123,11 +128,6 @@ step Donova Snowden
   accept 3909
   accept 5082
   note The Videre Elixir comes from Gregan Brewspewer in Feralas, later in this guide.
-
-step Salfa
-  tip Salfa stands by the Winterspring exit of Timbermaw Hold's tunnel, north of the hot springs.
-  turnin 8465
-  accept 8464
 
 step Winterfall Den Watcher on the way
   along until q4521-2
