@@ -1558,7 +1558,8 @@ theirs: it keeps its number and says why it does not apply now
 A travel step holds, for the character, nothing open but gotos and a `fly`
 (a flight step: the walk to a flight master and the flight) or gotos alone
 (a walk): it is a way to the work after it (#1191, #1212; `Own.transitKind`).
-With the travel planner on (`nav.travel`, not handed off) and the flight's end
+With the travel planner leading on Polestar's own arrow (`nav.travel` and
+`nav.arrow` on, not TomTom's arrow, not handed off; `Own.plannerFlies`) and the flight's end
 a node the character knows (`Nav.GetTaxiNode`, `Nav.GetKnownTaxiNodes`):
 
 - a flight step's arrow leads to the flight's end (`Own.flyAim`) and the

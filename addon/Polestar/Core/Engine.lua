@@ -5689,7 +5689,8 @@ end
 -- for the character, nothing open but gotos and a `fly` (a flight step: the
 -- walk to a flight master and the flight) or gotos alone (a walk): it is a
 -- way to the work after it, not work of its own. With the travel planner on
--- (nav.travel, not handed off to another addon):
+-- and leading on Polestar's own arrow (nav.travel and nav.arrow on, neither
+-- TomTom's arrow nor a hand-off to another addon; Own.plannerFlies):
 --   * a flight step's arrow leads to the flight's end, a node the character
 --     knows, so the route flies there from whichever flight master reaches
 --     it soonest, in one flight, instead of walking or flying to the flight
@@ -5712,9 +5713,13 @@ end
 Own.FLY_MARGIN, Own.FLY_SHARE = 60, 0.1 -- seconds, and share of the trip via the flight's end
 Own.flyVerdicts = setmetatable({}, { __mode = "k" }) -- guide -> { [step] = { passed, known } }
 
+-- The travel route leads, on Polestar's own arrow: the route's legs ("Walk to
+-- the flight master", "Fly to ...") show only there. TomTom's arrow and the
+-- hand-off to Shortest Path Forever get the target alone.
 function Own.plannerFlies()
 	local nav = ns.Nav
-	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel")) then return false end
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTaxiNode and ns.Get("nav.travel") and ns.Get("nav.arrow") ~= false) then return false end
+	if nav.UsingTomTomArrow and nav.UsingTomTomArrow() then return false end
 	return not (nav.HandedOff and nav.HandedOff())
 end
 
