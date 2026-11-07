@@ -60,6 +60,17 @@
 			},
 			{
 				"a": [
+					"turnin",
+					97279
+				],
+				"b": [
+					"accept",
+					4402
+				],
+				"why": "Durotar, Tom: in the Den, Galgar's Cactus Apple Surprise is taken on the way out after Kzan Thornslash at the back of the cave, so the arrow goes to the cave's mouth and in once (the candidate v2 route put it before the trainers inside; tests/guides-reported.test.js, Tom's report)"
+			},
+			{
+				"a": [
 					"task",
 					789
 				],

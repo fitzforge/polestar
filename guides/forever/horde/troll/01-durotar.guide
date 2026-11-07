@@ -15,8 +15,8 @@ next forever/horde/02-the-barrens
 # ---------------------------------------------------------------- Valley of Trials
 
 step Kaltunk
-  accept 4641                         -- Kaltunk, where you start
   tip Gornek waits inside the Den, the building just west of Kaltunk.
+  accept 4641                         -- Kaltunk, where you start
   turnin 4641                         -- Inside
   accept 788
   accept 97279
@@ -74,13 +74,15 @@ step Valley of Trials: kill these as you meet them
   collect 4862 quest 789.1
   collect 11583 quest 4402.1
   collect 4905 quest 790.1
-  turnin 790
-  accept 804
   kill 3101 quest 792.1 only !Warlock
   collect 6487 quest 1485.1 only Warlock
+  turnin 790
+  accept 804
 
 step Back to the Den
   turnin 4402                         -- Galgar
+  turnin 804                          -- Gornek, inside
+  turnin 789                          -- Gornek
 
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -95,8 +97,6 @@ step Druid trainer
   train class only Druid -- Sheal Runetotem in Mulgore; Valley of Trials has no druid trainer
 
 step Back to the Den
-  turnin 804                          -- Gornek, inside
-  turnin 789                          -- Gornek
   turnin 1485 only Warlock            -- Ruzan
   accept 1516 only Shaman -- Canaga Earthcaller
   turnin 792 only !Warlock            -- Zureetha Fargaze
@@ -151,23 +151,23 @@ step Ukor
   tip Ukor stands on the road at the valley's eastern exit.
   accept 2161
 
-# ---------------------------------------------------------------- Sen'jin and Razor Hill
-
 step Sen'jin Village
-  tip Follow the road east out of the valley to Sen'jin Village on the coast.
-  accept 96821                        -- Vel'rin Fang
-  accept 96873 optional               -- Pa'zula: enchanters only, the residue is disenchanted from Hexed Pendants
-  accept 817                          -- Vel'rin Fang
-  accept 818                          -- Master Vornal
+  accept 786                          -- Lar Prowltusk
+  accept 97223                        -- Xar'Ti
+  accept 823
+  accept 826                          -- Master Gadrin
+  accept 808
   turnin 805                          -- Master Gadrin
   accept 97225
   train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
-  accept 808
-  accept 826                          -- Master Gadrin
-  accept 823
-  accept 97223                        -- Xar'Ti
+  accept 818                          -- Master Vornal
+  accept 817                          -- Vel'rin Fang
+  accept 96821                        -- Vel'rin Fang
+  accept 96873 optional               -- Pa'zula: enchanters only, the residue is disenchanted from Hexed Pendants
   kill 266850 quest 96821.1
   kill 266849 quest 96821.2
+
+# ---------------------------------------------------------------- Sen'jin and Razor Hill
 
 step Brakk's campfire
   tip Brakk camps just south of Razor Hill. Sit by his campfire (/sit) until the Boosted Rest buff appears.
@@ -183,10 +183,6 @@ step Razor Hill
   accept 784
   turnin 96821                        -- Gar'Thok
   accept 815
-
-# ---------------------------------------------------------------- Razor Hill and the north
-
-step Razor Hill
   accept 96825
   train Cooking npc 3191              -- Cook Torka: Camping 101 asks you to learn it
   complete 96655 @51.1,42.5
@@ -194,6 +190,8 @@ step Razor Hill
   turnin 2161                         -- Innkeeper Grosk, inside
   sethome "Razor Hill"
   accept 791                          -- Furl Scornbrow, in the watchtower
+
+# ---------------------------------------------------------------- Razor Hill and the north
 
 step Prickly pears
   tip The prickly pears grow among the quilboar huts just west of town.
@@ -205,7 +203,6 @@ step Cook Torka
 step Tiragarde Keep
   tip The keep stands on the coast south-east of Razor Hill. The raiders' axe, bow and shield lie on its outskirts. Sailors and marines drop the Canvas Scraps. Lieutenant Benedict waits at the top of the keep; his key opens the chest beside him, which holds the Aged Envelope.
   collect 275717 quest 96822.3 @56.6,53.0
-  collect 4870 quest 791.1
   kill 3128 quest 784.1
   kill 3129 quest 784.2
   kill 3192 quest 784.3               -- Upstairs
@@ -213,21 +210,17 @@ step Tiragarde Keep
   accept 830
   collect 275713 quest 96822.1 @59.4,56.4
   collect 275716 quest 96822.2 @57.4,56.4
+  collect 4870 quest 791.1
 
 step Razor Hill
-  turnin 96822                        -- Turroc, inside
   accept 806
   turnin 784                          -- Gar'Thok
   turnin 830 optional
   accept 831
-
-step Razor Hill
   accept 825
   turnin 791                          -- Furl Scornbrow
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-
-step Sen'jin Village
-  accept 786                          -- Lar Prowltusk
+  turnin 96822                        -- Turroc, inside
 
 # ---------------------------------------------------------------- The coast and Sen'jin
 step Scuttle Coast: kill these as you meet them
@@ -238,32 +231,20 @@ step Scuttle Coast: kill these as you meet them
   collect 4887 quest 818.1            -- Underwater
   collect 4863 quest 825.1            -- Underwater
 
-step Bloodtalon Matriarch
-  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
-  collect 277128 quest 97223.1
-
 step Echo Isles: kill these as you meet them
   zone Durotar
-  tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
   tip Wade back west to the shore south of Sen'jin. Durotar Tigers roam it and the Taillasher eggs sit in nests along the beach.
-  complete 96873 optional
-  kill 3206 quest 826.2
-  kill 3207 quest 826.1
+  tip Wade across to the northern Echo Isle. The Matriarch prowls among the raptors there.
+  tip Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. Zalazane and Minshina's cage are on the southernmost isle.
   collect 4890 quest 815.1
   collect 4892 quest 817.1
+  collect 277128 quest 97223.1
+  kill 3207 quest 826.1
+  complete 96873 optional
+  kill 3206 quest 826.2
   collect 277135 quest 97225.1
   collect 4866 quest 826.3
   collect 4864 quest 808.1 @67.4,87.8
-
-step Sen'jin Village
-  turnin 96873 optional               -- Pa'zula
-  turnin 817                          -- Vel'rin Fang
-  turnin 818                          -- Master Vornal
-  turnin 826
-  turnin 808
-  turnin 97225                        -- Master Gadrin
-  turnin 97223                        -- Xar'Ti
-  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
 
 step Kolkar Crag
   tip Kolkar Crag lies west of Sen'jin. The three attack plans sit on the ground among the centaur tents. Pal'juh is held at the crag as well.
@@ -275,13 +256,21 @@ step Kolkar Crag
   interact 3189 quest 786.1 @49.8,81.3
 
 step Sen'jin Village
-  turnin 786                          -- Lar Prowltusk
+  turnin 96873 optional               -- Pa'zula
+  turnin 817                          -- Vel'rin Fang
+  turnin 818                          -- Master Vornal
   turnin 99123                        -- Master Vornal
+  turnin 826
+  turnin 808
+  turnin 97225                        -- Master Gadrin
+  turnin 97223                        -- Xar'Ti
+  train class only Mage               -- Un'Thuwa, the mage trainer in Sen'jin
+  turnin 786                          -- Lar Prowltusk
 
 step Razor Hill
   accept 99048
-  accept 837                          -- Gar'Thok
   turnin 825                          -- Gar'Thok
+  accept 837                          -- Gar'Thok
   turnin 815                          -- Cook Torka
 
 step Level 10
@@ -310,13 +299,32 @@ step Kranal Fiss
   tip West over the Southfury River bridge, past Far Watch Post and on along the ridge: Kranal Fiss stands alone above the Razormane camp.
   turnin 2983
 
-step Razormane Grounds
+step Back to Durotar
+  only Shaman
+  zone Durotar
+  goto 50.1,49.0 "Durotar"
+
+step Misha Tor'kren
+  zone Durotar
+  tip Misha's hut stands south of the lizards. The crocolisks along the Southfury River to the west carry Kron's Amulet.
+  accept 816                          -- Inside
+
+step Razormane Grounds: kill these as you meet them
   zone Durotar
   tip Quilboars and scouts hold the huts west of town; dustrunners and battleguards hold the camps farther west.
-  kill 3111 quest 837.1
-  kill 3112 quest 837.2
+  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, just west and south-west of Rezlak.
+  tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
+  tip Careful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.
   kill 3113 quest 837.3
   kill 3114 quest 837.4
+  kill 3111 quest 837.1
+  kill 3112 quest 837.2
+  kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
+  collect 4869 quest 806.1
+
+step Southfury River
+  collect 4891 quest 816.1
+  turnin 816                          -- Inside
 
 # ---------------------------------------------------------------- Thunder Ridge
 
@@ -347,20 +355,10 @@ step Rezlak
 
 step Thunder Ridge: kill these as you meet them
   zone Durotar
-  tip Thunder Lizards and Lightning Hides graze on Thunder Ridge, just west and south-west of Rezlak.
-  tip Fizzle holds the Burning Blade camp on Thunder Ridge, north-west of Razor Hill. Hunters: tame a Dire Mottled Boar with the Taming Rod on the way.
-  tip Careful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.
   collect 277665 quest 97282.1
-  kill 3099 quest 6062.1 "Tame Dire Mottled Boar" only Hunter -- Tame it with the Taming Rod
-  collect 4869 quest 806.1
-
-step Misha Tor'kren
-  tip Misha's hut stands south of the lizards. The crocolisks along the Southfury River to the west carry Kron's Amulet.
-  accept 816                          -- Inside
-  collect 4891 quest 816.1
-  turnin 816
 
 step Rezlak
+  when onquest 97282
   turnin 97282
 
 step Heglan Shadeeye
@@ -371,37 +369,24 @@ step Heglan Shadeeye
   collect 286010 quest 99049.3 @60.1,44.8
   collect 286011 quest 99049.2 @60.1,42.4
 
-step Class trainer
-  only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-  train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-
 step Paladin trainer
   only Paladin
   train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Razor Hill has no paladin trainer
-
-step Mage trainer
-  only Mage
-  train class only Mage -- Mai'ah in Durotar; Razor Hill has no mage trainer
 
 step Druid trainer
   only Druid
   train class only Druid -- Sheal Runetotem in Mulgore; Razor Hill has no druid trainer
 
 step Razor Hill
+  tip Back south to Razor Hill.
   turnin 837                          -- Gar'Thok
   turnin 6062 only Hunter             -- Thotar
   accept 6083 only Hunter
   turnin 806                          -- Orgnil Soulscar
   accept 828
-  tip Back south to Razor Hill.
   turnin 99049                        -- Orgnil Soulscar
   accept 99051
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
-
-step Spitelash naga
-  tip Back east to the shore north of Heglan. Spitelash Scouts and Attendants hold the beach below Drygulch Ravine. Hunters: tame a Surf Crawler on the beach.
-  collect 286008 quest 99051.1
-  kill 3107 quest 6083.1 "Tame Surf Crawler" only Hunter -- Tame it with the Taming Rod
 
 step Margoz
   tip Margoz camps on the hill west of the naga beach, south of Skull Rock.
@@ -419,6 +404,14 @@ step Gan'rul Bloodeye
   tip Orgrimmar's main gate is just west of Skull Rock. Gan'rul stands in the Cleft of Shadow, the canyon under the Valley of Strength.
   turnin 1506                         -- Gan'rul Bloodeye
   accept 1501
+
+step Hanashi
+  only Warlock
+  zone Orgrimmar
+  when money>=10s
+  when !skill "Staves" 1
+  tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a staff carries more spell stats than a one-hander while you level.
+  train 2704                          -- Hanashi
 
 step Hanashi
   only Warlock
@@ -480,11 +473,32 @@ step Margoz
   turnin 827
   accept 829
 
+step Spitelash naga
+  tip Back east to the shore north of Heglan. Spitelash Scouts and Attendants hold the beach below Drygulch Ravine. Hunters: tame a Surf Crawler on the beach.
+  collect 286008 quest 99051.1
+  kill 3107 quest 6083.1 "Tame Surf Crawler" only Hunter -- Tame it with the Taming Rod
+
 step Razor Hill
   tip Back to Razor Hill.
   turnin 99051                        -- Orgnil Soulscar
   turnin 6083 only Hunter             -- Thotar
   accept 6082 only Hunter
+
+step Class trainer
+  only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Warlock
+
+step Paladin trainer
+  only Paladin
+  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Razor Hill has no paladin trainer
+
+step Mage trainer
+  only Mage
+  train class only Mage -- Mai'ah in Durotar; Razor Hill has no mage trainer
+
+step Druid trainer
+  only Druid
+  train class only Druid -- Sheal Runetotem in Mulgore; Razor Hill has no druid trainer
 
 step Razor Hill
   when group 99052
@@ -513,6 +527,14 @@ step Ormak Grimshot
   zone Orgrimmar
   tip Follow the road north from Razor Hill to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
+
+step Hanashi
+  only Hunter
+  zone Orgrimmar
+  when money>=10s
+  when !skill "Staves" 1
+  tip While you're here: learn Staves from Hanashi (Valley of Honor, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most.
+  train 2704                          -- Hanashi
 
 step Hanashi
   only Hunter
