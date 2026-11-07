@@ -5171,3 +5171,19 @@ test('forever/horde/40-50/03-feralas.guide: final review: the snapper claws on t
 	const last = list.map((e, i) => i).filter((i) => is('turnin', 3128)(list[i].goal)).pop();
 	assert.ok(at(list, 'turnin 7734', is('turnin', 7734)) < last && list[at(list, 'turnin 7734', is('turnin', 7734))].s === list[last].s, 'Jangdor first on the last Mojache stop, coming in from the north-west');
 });
+
+// Final route review, Horde 40-60: Tooga's escort ends at Steamwheedle Port, but the Noxious Lair sat between the
+// escort and its hand-in (a ride from the port back west and east again); the gorge had two "along the way" lists
+// (the taskmasters, slavers and golems are now killed on the ride from Thorium Point to Kalaran, where it crosses them); two tips spoke of Kargath and of the next guide.
+test('forever/horde/40-50/04-tanaris.guide: final review: the lair before Tooga, the Cauldron\'s Dark Irons on the way to Kalaran, no along lists', { skip }, () => {
+	const file = 'forever/horde/40-50/04-tanaris.guide';
+	const list = goals(file);
+	const escort = at(list, 'accept 1560', is('accept', 1560));
+	assert.ok(at(list, 'collect 8587', (g) => g.t === 'collect' && g.item === 8587) < escort, 'the insect parts before the escort');
+	const done = list[at(list, 'complete 1560', is('complete', 1560))].goal;
+	assert.deepEqual([done.map, Math.round(done.x), Math.round(done.y)], [1446, 67, 26], 'the escort points at Torta in the port');
+	const kalaran = at(list, 'accept 3441', is('accept', 3441));
+	for (const npc of [5846, 5844, 5854]) assert.ok(at(list, `kill ${npc}`, (g) => g.t === 'kill' && g.npc === npc) < kalaran, `${npc} on the ride from Thorium Point to Kalaran`);
+	assert.deepEqual(compiled(file).steps.filter((step) => step.along).map((step) => step.title), [], 'no "along the way" lists');
+	assert.ok(!compiled(file).steps.some((step) => /Kargath|next guide starts/.test(step.note || '')), 'no tip about Kargath or the next guide');
+});

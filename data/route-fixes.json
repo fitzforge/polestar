@@ -3225,6 +3225,19 @@
 				],
 				"faction": "Horde",
 				"why": "Final route review (2026-11-07, Horde Feralas 45-47): the guide rides into Camp Mojache from the Rage Scar yetis in the north-west, past Jangdor Swiftstrider's hut first; the order went to Witch Doctor Uzer'i, across to Talo Thornhoof and back to Jangdor before the flight master (the flow audit: 150 yd over walking order)"
+			},
+			{
+				"a": [
+					"task",
+					82,
+					0
+				],
+				"b": [
+					"accept",
+					1560
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Tanaris 47-48): Tooga's escort ends with Torta in Steamwheedle Port, but the order put the Noxious Lair's insect parts between the escort and its hand-in, so a player rode from the port back west to the lair (33,44) and east again (about 3,000 yd each way). The seed has the lair before the Dunemaul Compound; the escort's end had no point, so the route search placed it at Tooga's spawn (the place record 1560 fixes that)"
 			}
 		],
 		"notes": [
