@@ -210,7 +210,6 @@ step Back to Grom'gol
 
 step Orgrimmar
   zone Orgrimmar
-  tip Take the zeppelin back to Orgrimmar.
   turnin 81                           -- Dran Droffers, the Drag
   turnin 32                           -- Zilzibin Drumlore, Valley of Spirits
   accept 4494

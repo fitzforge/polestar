@@ -5431,3 +5431,12 @@ test('forever/horde/40-50/05-the-hinterlands.guide: final review: no along lists
 	assert.equal(list[at(list, 'kill 2926', (g) => g.t === 'kill' && g.npc === 2926)].s, list[at(list, 'kill 4466', (g) => g.t === 'kill' && g.npc === 4466)].s, 'stalkers and scalpers on the temples step');
 	assert.ok(!compiled(file).steps.some((step) => /next guide starts/.test(step.note || '')), 'no next-guide tip');
 });
+
+// Final route review, Horde 40-60: the Orgrimmar stop comes off the flight from Valormok but told you to take the
+// zeppelin back, and the Camp Mojache stop before the muisek chain said the next guide starts there.
+test('forever/horde/40-50/06-azshara.guide: final review: tips that match the way in', { skip }, () => {
+	const file = 'forever/horde/40-50/06-azshara.guide';
+	const steps = compiled(file).steps;
+	assert.ok(!steps.some((step) => /zeppelin back to Orgrimmar/.test(step.note || '')), 'no zeppelin tip after the Valormok flight');
+	assert.ok(!steps.some((step) => /next guide starts with the flight to Gadgetzan/.test(step.note || '')), 'no next-guide tip at Camp Mojache');
+});
