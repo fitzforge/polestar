@@ -312,17 +312,6 @@ pub fn run(inp: &RunInputs, opts: &RunOpts) -> Result<RunOutput, String> {
 			}
 		}
 	}
-	// (One `only` list on a goal that came out of the passes with two.)
-	for rel in &written {
-		if let Some(t) = tree.get(rel) {
-			let mut one = [t.clone()];
-			crate::post::one_only(&mut one);
-			if one[0] != *t {
-				let [t2] = one;
-				tree.insert(rel.clone(), t2);
-			}
-		}
-	}
 	let changed: Vec<String> = tree.iter().filter(|(k, v)| inp.guides.get(*k) != Some(*v)).map(|(k, _)| k.clone()).collect();
 	let unwritable =
 		if r.unwritable.is_empty() { String::new() } else { format!(" ({} not written: no source for their items)", r.unwritable.iter().map(u32::to_string).collect::<Vec<_>>().join(", ")) };
