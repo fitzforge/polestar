@@ -1,7 +1,7 @@
 {
   "about": "Guides written by forge build (`forge guide publish`), each with its SHA-256. Never edit them, or this file: CI fails a pull request that does (tests/generated-guides.test.js). docs/FORGE.md, \"Fixing a generated guide\", says where a fix goes.",
   "files": {
-    "forever/alliance/02-westfall.guide": "038e800406717c8fc38be569ede0ebb4be92f2ff6c9ac8747fdd0b998e0a011a",
+    "forever/alliance/02-westfall.guide": "c920cd798fac2ab8db4af3606293ca98c0b170aa06512f8d47ec3b6d2655cffb",
     "forever/alliance/03-darkshore.guide": "d37e7dfe6ec404a2ad9089103137bfc5ac67f9fb44ae47bf08e99cbc42a34dcb",
     "forever/alliance/04-redridge-mountains.guide": "db00b6b02ecee0004ac1cb9a0899910202f19eefc18c3621c86a85a2b5b9169a",
     "forever/alliance/05-duskwood.guide": "48783c5265f773d93148f562c21220d8b51342625e79311204b30f1090120d0d",
@@ -26,8 +26,8 @@
     "forever/alliance/50-60/04-western-plaguelands.guide": "4c4389173f808d249e6fd79b818e568a38f2dfdb67a57c2abbcf5f4c74b34287",
     "forever/alliance/50-60/05-silithus.guide": "e76988fcd0ada2d0072102cc6581273e4822bcff8563e8b090c77bf6a5fcb6ed",
     "forever/alliance/50-60/06-silithus.guide": "8c4432046640b9ece794f2905b9f39e1ab356de2f745c1a34afa7a04af23bc27",
-    "forever/alliance/dwarf/01-dun-morogh.guide": "0c5e38bb5b6ff406558e974159b6941d710785df4d3bd5bfcb487ed4e349b403",
-    "forever/alliance/gnome/01-dun-morogh.guide": "f96e1b757fa7270688171e20492cdc87fff2f0f0fa06f77c8ab7d3ddcecd76b6",
+    "forever/alliance/dwarf/01-dun-morogh.guide": "ba8aad57f1f3ef8f0d5dd1b4aa48e1c7632e957036381f802523f990c3e294a5",
+    "forever/alliance/gnome/01-dun-morogh.guide": "6e9475c77b0fc8d45b8b0c5dbf1d603d5f99d2afd955f1f47f8fc580a5397af0",
     "forever/alliance/human/01-elwynn-forest.guide": "7b01429bf7f358d2e1e837bad150abaa16b08e127a0f1f242c5fb9cf84cd94a1",
     "forever/alliance/nightelf/01-teldrassil.guide": "bb47502918502a1477572f6d1391ee6fab05dc4c84cc575cfd3b4cbdfbcbf7e7",
     "forever/alliance/nightelf/02-darkshore.guide": "473ccf26e7af870297216883e5946cf2fcb45ccafd7d7327bf2785c9c0f30579",

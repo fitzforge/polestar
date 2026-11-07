@@ -1268,7 +1268,14 @@ test('Offer audit: Bartleby the Drunk never waits on A Warrior\'s Training, and 
 		assert.ok(!(list[bartleby].goal.pre || []).includes(1638), `${guide}: accept 1639 needs nothing before it`);
 		assert.equal(list[bartleby].goal.npc, 6089, `${guide}: Bartleby the Drunk comes from Harry Burlguard`);
 		assert.match(list[take].step.note || '', /If Ilsa doesn't offer A Warrior's Training, go straight to Harry/, `${guide}: the step says what to do if Ilsa doesn't offer it`);
+		assert.match(list[take].step.note || '', guide === WESTFALL ? /walk to Stormwind/i : /the tram from Ironforge arrives in the Dwarven District/, `${guide}: the step keeps its own travel line`);
 	}
+	// A build writes the guide-fixes record's tip over every Alliance warrior's step: it must carry the
+	// Dwarf and Gnome tram line and the Human walk, so a rebuild loses neither hand fix.
+	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
+	const tips = fixes.filter((r) => r.at && r.at.quest === 1638 && r.at.goal === 'accept' && r.tip).map((r) => r.tip);
+	assert.equal(tips.length, 1, 'one tip record for the Defensive Stance step');
+	for (const want of [/the tram from Ironforge arrives in the Dwarven District/, /walk to Stormwind/i, /go straight to Harry/]) assert.match(tips[0], want);
 });
 
 // Rohkin (#807): Stormy Potential follows A Simmering Storm, which only a
