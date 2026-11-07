@@ -52,10 +52,6 @@ step Tarren Mill
   accept 499
   turnin 499                          -- Umpi, next to Lydon; inside
 
-step Tarren Mill
-  tip Follow the road east along the river, then north-east up into the hills to Tarren Mill.
-  sethome "Tarren Mill"
-
 step Hillsbrad Fields
   tip The farms east of Hillsbrad town. Farmer Ray works the field by the northern farmhouse, Farmer Getz the one further south-east; Farmhands and Farmers are everywhere. Farmer Kalaba tends the field south of the farms.
   kill 2451 quest 567.4               -- Farmer Kalaba walks around Hillsbrad Fields: look inside the circle on the map
@@ -163,7 +159,7 @@ step Raleigh Andrean
 step To the Undercity
   only Skyborne
   zone Undercity
-  tip Head east to the Crossroads and fly to Orgrimmar. Take the zeppelin from the towers outside Orgrimmar to Tirisfal Glades; the Undercity lies below the Ruins of Lordaeron. The bat handler is in the Trade Quarter.
+  tip The Undercity lies under the Ruins of Lordaeron; Lady Sylvanas Windrunner holds court in the Royal Quarter.
   kill 10181 quest 93739.4 "Talk to Lady Sylvanas Windrunner" only Skyborne optional -- Speak with Lady Sylvanas Windrunner, in the Royal Quarter: Exploring the Horde
 
 step Aelthalyste
