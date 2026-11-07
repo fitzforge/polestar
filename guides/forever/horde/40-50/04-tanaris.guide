@@ -191,6 +191,7 @@ step The Grimesilt Dig Site
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2
+  turnin 4449 object 173265
 
 step Searing Gorge
   zone Searing Gorge
@@ -258,6 +259,7 @@ step Kalaran Windblade
 step The Steamsmiths' furnaces
   tip The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a Thorium Plated Dagger, one in ten the Smithing Tuyere. Slaves, Slavers and Taskmasters carry daggers too.
   collect 10551 quest 3443.1
+  collect 18959 quest 7728.1
 
 step Kalaran Windblade
   turnin 3443
@@ -269,13 +271,6 @@ step The Slag Pit
 step Dark Iron Lookouts
   tip The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the Lookout's Spyglass.
   collect 18960 quest 7728.2
-
-step The Steamsmiths' furnaces
-  collect 18959 quest 7728.1
-
-step The Grimesilt Dig Site
-  zone Searing Gorge
-  turnin 4449 object 173265
 
 step The Key to Freedom
   tip Only with the Grimesilt Outhouse Key: back east to the Wooden Outhouse at the dig site.

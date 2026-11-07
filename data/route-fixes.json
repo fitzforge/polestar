@@ -2886,6 +2886,18 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): one Camp Mojache stop after the north-west sweep: Natural Materials, Vengeance on the Northspring and Improved Quality together"
+			},
+			{
+				"a": [
+					"turnin",
+					4449
+				],
+				"b": [
+					"accept",
+					7728
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): Caught! is handed in at the Wooden Outhouse right after its geologists and cloth, before riding to Thorium Point; the order carried it and came back to the dig site at the end of the guide (the optional Key to Freedom keeps its own step)"
 			}
 		],
 		"notes": [
@@ -3992,6 +4004,20 @@
 				],
 				"faction": "Horde",
 				"why": "Flow review (2026-11-07, Horde Feralas 45-47, #1166): the Resilient Sinew and the Metallic Fragments both drop from the Frayfeather hippogryphs and stagwings (80% each in the loot data), so they are one stay. Supersedes Rev15H2's 'sinew with the Feral Scar yetis': The Mark of Quality's yetis are now done in the previous guide"
+			},
+			{
+				"a": [
+					"task",
+					3443,
+					0
+				],
+				"b": [
+					"task",
+					7728,
+					0
+				],
+				"faction": "Horde",
+				"why": "Flow review (2026-11-07, Horde Searing Gorge 47-48, #1166): the Smithing Tuyere drops from the Dark Iron Steamsmiths at the furnaces, the same mobs as Forging the Shaft's Thorium Plated Daggers, so both are one stay; the order came back to the furnaces for the tuyere after the Slag Pit and the lookouts"
 			}
 		],
 		"after": [
