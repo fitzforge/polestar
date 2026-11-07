@@ -110,6 +110,13 @@ step Fly to Brackenwall Village
   fly "Brackenwall Village"
   zone Dustwallow Marsh
 
+step Brackenwall Village
+  zone Dustwallow Marsh
+  tip Overlord Mok'Morokk, Tharg and Draz'Zilb (below ground) are in the village; their quests are for the Wyrmbog on this trip.
+  accept 1166                         -- Overlord Mok'Morokk
+  accept 1168                         -- Tharg
+  accept 1169                         -- Draz'Zilb, below ground
+
 step Dustwallow Marsh
   zone Dustwallow Marsh
   goto 31.1,66.1 "Dustwallow Marsh"
