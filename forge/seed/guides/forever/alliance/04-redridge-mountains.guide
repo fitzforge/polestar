@@ -291,6 +291,7 @@ step Lakeshire
   accept 91                                   -- Bailiff Conacher, in the town hall
   accept 150                                  -- Dockmaster Baren
   sethome "Lakeshire"
+  accept 180                                  -- The Wanted poster by the inn
   accept 34                                   -- Martie Jainrose
 
 # ---------------------------------------------------------------- The lake
@@ -313,8 +314,7 @@ step Martie Jainrose
   turnin 34
 
 step Lakeshire
-  tip Back east through town from Martie's garden: one Wanted poster hangs by the inn, two on the town hall doorway; Marshal Marris stands at the north end of the bridge, on the way east.
-  accept 180                                  -- The Wanted poster by the inn
+  tip Back east through town from Martie's garden: two Wanted posters hang on the town hall doorway; Marshal Marris stands at the north end of the bridge, on the way east.
   accept 169 optional                         -- The Wanted poster on the town hall doorway
   accept 95999 optional                       -- The Wanted poster beside it
   accept 19 optional                          -- Marshal Marris
