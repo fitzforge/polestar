@@ -4,24 +4,66 @@ Everything the Polestar project on CurseForge needs, in one folder:
 
 | File | What it is |
 |---|---|
-| [description.md](description.md) | The project description, ready to paste whole into CurseForge's description editor in Markdown mode |
+| [description.html](description.html) | The project description for CurseForge's WYSIWYG editor: paste it whole into its HTML source view. An evergreen overview of the whole addon (no version numbers or "new in"; what changed lives in CHANGELOG.md and the Files tab). Every image has its width and height, so each shows near its natural size |
+| [description.md](description.md) | The same text for the Markdown editor, if the HTML one is ever unusable (images then run at the column's full width) |
+| [preview.html](preview.html) | A local preview: description.html at CurseForge's description width (836 px) with CurseForge's own description styles; open it in a browser |
+| `media/*.gif` | The description's animations, recorded from the real addon (below); `.mp4` and `.webm` copies of each for anywhere that takes video |
+| `media/*.jpg`, `media/*.png` | The description's still pictures |
+| `gallery/*.jpg` | The gallery: ten 1920x1080 pictures, uploaded by hand (titles below) |
 | `images/logo-1024.png`, `images/logo-400.png` | The project avatar: the gold emblem on a night tile, no text |
 | `images/banner.png` | The banner at the top of the description (the README's dark banner at 2x) |
-| `images/starts.png` | The route chart at 2x, shown in the description |
+| `images/starts.png` | The route chart at 2x (not in the description: it compares two versions) |
 
 The description's images and links point at `main` on GitHub
 (`https://raw.githubusercontent.com/fitzforge/polestar/main/...` and
 `https://github.com/fitzforge/polestar/blob/main/...`): CurseForge does not
-show SVG reliably, strips most HTML and cannot follow relative links. The
-images load only while the repository is public. The screenshots are the
-README's own, `docs/assets/screenshots/*.png`. CurseForge does not allow
-links to downloads hosted elsewhere, so the description links to the source
-and the docs on GitHub, never to the releases page.
+show SVG reliably and cannot follow relative links. Its sanitizer keeps
+headings, paragraphs, lists, links, `code`, `hr` and `img` with `width` and
+`height`; it drops classes and most styles, and gives tables striped row
+backgrounds, so two pictures side by side are two `img` in one paragraph, not
+a table. The images load only while the repository is public. CurseForge does
+not allow links to downloads hosted elsewhere, so the description links to
+the source and the docs on GitHub, never to the releases page.
 
-The images are drawn in code: `node tools/polestar.js readme brand` writes
-`docs/assets/avatar.svg` and, with `rsvg-convert` (librsvg) installed, every
-PNG here; `readme charts` re-exports the chart when it redraws it
-(tools/README.md, "Generated files").
+Display sizes: the column is 836 px wide, and each picture is shown at the
+size of the addon's own windows (the guide window at about 390 px), never
+wider; a window wider than the column (the guide menu, Options) is shown
+whole, a little smaller, never cropped. The files hold 1.5x to 2x those pixels, so they stay sharp on
+high-density screens.
+
+| File | Pixels | Shown at | Size |
+|---|---|---|---|
+| `images/banner.png` | 2560x640 | 836x209 | 293 KB |
+| `media/leveling.jpg` | 1672x970 | 836x485 | 158 KB |
+| `media/arrow-walk.gif` | 1254x982, 7.5 s | 600x470 | 747 KB |
+| `media/journey.png` | 776x1122 | 388x561 | 333 KB |
+| `media/nearby.gif` | 978x789, 7.9 s | 652x526 | 379 KB |
+| `media/guide-fold.gif` | 792x890, 7.8 s | 396x445 | 359 KB |
+| `media/transparent.png` | 776x762 | 388x381 | 356 KB |
+| `media/picker.gif` | 1672x965, 7.2 s | 836x483 | 497 KB |
+| `media/lookup.jpg` | 1672x965 | 836x483 | 138 KB |
+| `media/dungeons.jpg` | 1672x965 | 836x483 | 160 KB |
+| `media/worldmap.jpg` | 2084x1476 | 836x592 | 399 KB |
+| `media/quality-of-life.jpg` | 1672x1105 | 836x553 | 171 KB |
+| `media/questlog.png` | 856x944 | 428x472 | 330 KB |
+| `docs/assets/screenshots/client.webp` | 1375x950 | 760x525 | 59 KB |
+
+The banner and avatar are drawn in code: `node tools/polestar.js readme
+brand` writes `docs/assets/avatar.svg` and, with `rsvg-convert` (librsvg)
+installed, those PNGs; `readme charts` re-exports the chart (tools/README.md,
+"Generated files").
+
+The animations, stills and the gallery's windows are the real addon, run in
+`polestar play` (the playground: the addon's Lua against the simulated world)
+with client map art, a level 12-18 Human Warrior on the Elwynn Forest and
+Darkshore guides. Each frame is the playground's own render, cropped and
+scaled with `rsvg-convert`, set on a blurred game scene from polestar.guide's
+press art, and joined with ffmpeg (a palette per GIF, MP4 and WebM beside
+it). Walking in `arrow-walk` is sped up; the route is the one the addon
+walks. The version line in the guide menu and options is blanked before each
+capture, so no picture dates itself. The gallery adds a title and one line in
+polestar.guide's type over press art (© Blizzard Entertainment, credited in
+each picture).
 
 ## Summary
 
@@ -37,7 +79,7 @@ Free, open-source guides for World of Warcraft: Forever: leveling routes for eve
 - [ ] **Name:** Polestar Guides (live at https://www.curseforge.com/wow/addons/polestar)
 - [ ] **Slug:** `polestar`
 - [ ] **Summary:** the text above
-- [ ] **Description:** [description.md](description.md), pasted whole, editor in Markdown mode
+- [ ] **Description:** [description.html](description.html), pasted whole into the WYSIWYG editor's HTML source view (see "For a new release")
 - [ ] **Avatar:** `images/logo-400.png` (CurseForge asks for 400x400 pixels; `images/logo-1024.png` is the large copy)
 - [ ] **Categories:** Quests & Leveling (primary); Map & Minimap, Professions, Tooltip
 - [ ] **Game flavour and version:** Forever, 1.60.1
@@ -67,8 +109,8 @@ indicator.
 - **Display name:** `Polestar <version>`
 - **Release type:** Release. CurseForge lists a project in its app only once
   it has a Release file, and offers Beta files only to players who opt in;
-  the version number (0.x) and the description's "Beta" section say it is a
-  beta. The GitHub release is a full release too, marked Latest.
+  the version number (0.x) says it is a beta. The GitHub release is a full
+  release too, marked Latest.
 - **Game version:** Forever 1.60.1
 - **Changelog:** the version's "For players" section of CHANGELOG.md, in
   Markdown, each list item joined onto one line
@@ -77,32 +119,40 @@ indicator.
 
 ### The gallery
 
-The in-game screenshots, from `docs/assets/screenshots/`, each with its title
-(the description's captions, shortened):
+The files in `gallery/`, 1920x1080, in this order, each with its title and
+description (CurseForge's gallery shows them large, so each holds one idea
+with the window at a readable size). They replace every earlier gallery
+image. Like the description they show no version, so they stay true.
 
 | File | Title | Description |
 |---|---|---|
-| `hub-guides.png` | The hub | Guides, Lookup, Dungeons and Rares on one rail; here the Horde leveling guides by level band |
-| `guide-window.png` | The guide window | The step's goals with their counters, who comes next, XP per hour and the time to level |
-| `guide-transparent.png` | Transparent mode | Outlined text straight on the world; the controls appear under the cursor |
-| `arrow.png` | The arrow | Distance and the goal it leads to |
-| `lookup.png` | Lookup | One search over guides, mounts, items, recipes, quests, NPCs and rares |
-| `dungeons.png` | Dungeons | Every dungeon by level, its quests counted for your faction |
-| `dungeon-quests.png` | A dungeon's page | Who starts and ends each quest and its chain |
-| `dungeon-rewards.png` | Objectives and rewards | The items to choose from, the experience and the money |
-| `rares.png` | Rares | Every rare and treasure, its drops, where it spawns and how far |
-| `options-appearance.png` | Options | Every setting as one row, applied as you change it |
+| `01-hero.jpg` | Routes that make sense | Free leveling guides for World of Warcraft: Forever, with an arrow that walks real paths |
+| `02-person.jpg` | One person at a time | Who to talk to now, in full; everyone after them waits on one line |
+| `03-fold.jpg` | Done goals fold away | Finished people collapse to one line, so the next person is always on top |
+| `04-arrow.jpg` | The arrow walks real paths | Around cliffs, through gates, into caves and onto boats, with the distance and time to go |
+| `05-journey.jpg` | Boats, flights and your hearth | Each leg of the trip timed, waits included |
+| `06-nearby.jpg` | Nearby services | The nearest vendor, repair, inn, flight master or trainer, one click from the guide window |
+| `07-hub.jpg` | Every guide in one place | Leveling for every start, class quests, professions, reputations, mounts and pets |
+| `08-lookup.jpg` | Lookup | Items, mounts, recipes, quests, NPCs and rares, and the way to each |
+| `09-dungeons.jpg` | Dungeons | Every dungeon's quests with who starts and ends them, their chains and rewards |
+| `10-questlog.jpg` | A tidy quest log | Quests the route no longer needs, and grey ones, in one list |
 
 ## For a new release
 
 1. Upload the new zip as above, with its changelog.
-2. Read [description.md](description.md) against the release: the guide
-   counts in "What it is" (README.md, "What it is"), the numbers in "How the
-   routes are made" (README.md, "What changed in 0.3.0" or its successor;
-   always as model estimates), the "Beta" section, and any feature the release adds or
-   changes. Keep each paragraph and list item on one line, as now.
+2. The description is evergreen: it says what Polestar is and does, never
+   which version did what, so a release usually needs no change to it. Only
+   when a release adds a whole feature or removes one, or a section no longer
+   says what the addon does, edit [description.html](description.html), make
+   the same change in [description.md](description.md), and paste the new
+   description.html between the markers in [preview.html](preview.html) with
+   the `https://raw.githubusercontent.com/fitzforge/polestar/main/docs/curseforge/`
+   prefix taken off (and `…/main/docs/` made `../`).
 3. If the chart was redrawn (`readme charts`) or the brand art changed
-   (`readme brand`), commit the new PNGs too.
+   (`readme brand`), commit the new PNGs too. A picture that no longer shows
+   the addon as it is gets recorded again the same way (above).
 4. Push to `main` first: the description's images load from there.
-5. Paste description.md whole over the old description (Markdown mode) and
-   check the page.
+5. On CurseForge, open the description in the WYSIWYG editor, switch it to
+   its HTML source view, replace everything with description.html, save, and
+   check that each picture shows at its size (the GIFs move, two pictures
+   sit side by side under "A guide window that keeps up with you").
