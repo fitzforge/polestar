@@ -5263,6 +5263,28 @@
 				],
 				"why": "#1046: the walk from Linnea's camp west to Leonid passes through Brill, so A New Plague, At War With The Scarlet Crusade and Tomb Weed are handed in there on the way, not carried to Leonid and Shadowvale and back (a scratch build did that)",
 				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					99051
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Threat from Below is handed to Orgnil in Razor Hill on the walk from Margoz to Far Watch Post, as in Orc's guide. The Troll cut handed in Conscript of the Horde first, took the Crossroads stop (Meats to Orgrimmar, Crossroads Conscription, the flight path), walked 2,490 yd back to Razor Hill, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the player had stood next to"
+			},
+			{
+				"a": [
+					"turnin",
+					6081
+				],
+				"b": [
+					"turnin",
+					840
+				],
+				"why": "#1077 flow audit, Troll Durotar: Hunters hand Training the Beast to Ormak in Orgrimmar before Far Watch Post, after the scorpid by Razor Hill, as in Orc's guide. The Troll cut walked Hunters to Ormak's spot before they had the quest (nothing to do there), then from the Crossroads back to Razor Hill and Orgrimmar"
 			}
 		]
 	}
