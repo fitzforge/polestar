@@ -97,7 +97,7 @@ step Menethil Harbor
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor
   accept 98221                            -- Captain Stoutfist: From the Ashes, the Attack Plans in the Angerfang Encampment
   accept 98230                            -- Captain Stoutfist: for Howin Kindfeather in the Green Belt
-  accept 472                              -- Harlo Barnaby, by the north gate
+  accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it on 30-40/01-hillsbrad-foothills' Dun Modr stop
   accept 471                              -- James Halloran, by the north gate
 
 step The Bluegill hovels
@@ -212,10 +212,6 @@ step The Green Belt: kill these as you meet them
 step Rethiel the Greenwarden
   turnin 275
 
-step Dun Modr
-  tip Follow the road north to Dun Modr, at the foot of the Thandol Span. Longbraid the Grim stands in the dwarves' camp.
-  turnin 472                              -- Longbraid the Grim
-
 step Captain Stoutfist
   tip Back west along the road to Menethil Harbor: Captain Stoutfist stands on the top floor of Menethil Keep.
   turnin 464                              -- On the top floor
@@ -229,11 +225,12 @@ step Boat to Auberdine
   tip The boat to Auberdine leaves from the far end of Menethil's western pier.
   goto 4.5,56.7 "Boat to Auberdine"
 
-step Thundris Windweaver
-  when onquest 97926
+step Auberdine
   zone Darkshore
-  tip Thundris Windweaver stands at the north end of Auberdine, a short walk from the dock and the flight master.
+  tip Thundris Windweaver stands at the north end of Auberdine, Terenthis and Sentinel Selarin by the flight master.
   turnin 97926 optional                   -- Thundris Windweaver: Alexston's reply, if you took it in Stormwind
+  turnin 994                              -- Terenthis: Volcor's escort from the end of Darkshore
+  accept 990                              -- Sentinel Selarin: for Raene Wolfrunner in Astranaar
 
 step Fly to Astranaar
   zone Darkshore
@@ -249,6 +246,7 @@ step Shindrell Swiftfire
 
 step Astranaar
   sethome "Astranaar"
+  turnin 990                              -- Raene Wolfrunner, in the inn
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Melyria and Illiyana
@@ -350,8 +348,6 @@ step Shael'dryn
 step Astranaar
   turnin 1029                         -- Raene Wolfrunner
   accept 1030
-  turnin 98027                        -- Maliynn
-  turnin 1035                         -- Pelturas Whitemoon, inside
 
 # ---------------------------------------------------------------- Krolg
 
@@ -371,22 +367,23 @@ step Krolg
   accept 1046
   complete 1046
 
-step Raene Wolfrunner
-  turnin 1046
-
-# ---------------------------------------------------------------- The western posts
-
-step Delgren the Purifier
-  turnin 1140
+# ---------------------------------------------------------------- The western posts, then Astranaar
 
 step Melyria and Illiyana
+  tip West from Krolg along the southern hills to the Shrine of Aessina: Melyria and Illiyana stand together by it.
   turnin 1022                         -- Sentinel Melyria Frostshadow
   accept 1037
   turnin 1031                         -- Illiyana
 
-step Ashenvale
-  zone Ashenvale
-  goto 34.5,48.0 "Ashenvale"
+step Delgren the Purifier
+  tip North to Maestra's Post.
+  turnin 1140
+
+step Astranaar
+  tip South-east along the road to Astranaar: Raene Wolfrunner in the inn, Maliynn and Pelturas Whitemoon inside, the flight master at the west end.
+  turnin 1046                         -- Raene Wolfrunner
+  turnin 98027                        -- Maliynn
+  turnin 1035                         -- Pelturas Whitemoon, inside
 
 step Fly to Auberdine
   zone Ashenvale

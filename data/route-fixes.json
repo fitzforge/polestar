@@ -2943,11 +2943,11 @@
 					5676
 				],
 				"b": [
-					"turnin",
-					343
+					"accept",
+					1078
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-08, Alliance 20-30): High Priestess Laurena's level 20 priest quests (5676, 5645, 94819, 5673) are taken in the Cathedral on the Cathedral Square stop, before the Keep, instead of a walk back to the Cathedral from the Trade District at the start of 04-redridge-mountains."
+				"why": "Flow (2026-11-08, Alliance 20-30): High Priestess Laurena's level 20 priest quests (5676, 5645, 94819, 5673) are taken in the Cathedral on the Cathedral Square stop, on the way to the Mage Quarter, instead of a walk back to the Cathedral from the Trade District at the start of 04-redridge-mountains."
 			},
 			{
 				"a": [
@@ -3087,11 +3087,11 @@
 					97914
 				],
 				"b": [
-					"turnin",
-					343
+					"accept",
+					1078
 				],
 				"faction": "Alliance",
-				"why": "Flow (2026-11-08, Alliance 20-30): Baros Alexston stands at the east side of the Cathedral Square, where 06-ashenvale's Stormwind stop takes Speaking of Fortitude from Brother Kristoff; Expanding Horizons and Making Do were taken in 04-redridge-mountains' first step, a walk back from the Trade District to the square after the Keep and the Mage Quarter."
+				"why": "Flow (2026-11-08, Alliance 20-30): Baros Alexston stands at the east side of the Cathedral Square, where 06-ashenvale's Stormwind stop is on the way from the tram to the Mage Quarter; Expanding Horizons and Making Do were taken in 04-redridge-mountains' first step, a walk back from the Trade District to the square after the Keep and the Mage Quarter."
 			},
 			{
 				"a": [
@@ -3104,6 +3104,66 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-08, Alliance 20-30): From the Ashes' Attack Plans lie in the Angerfang Encampment, south-east of Whelgar's dig, where the Dragonmaw Raiders also carry War Banners; they are fetched on the walk east from the dig to Rethiel the Greenwarden, not on a trip back east from Menethil."
+			},
+			{
+				"a": [
+					"task",
+					34
+				],
+				"b": [
+					"turnin",
+					130
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Bellygrub's pen lies just west of Lakeshire beside Martie Jainrose's garden: he is killed on the way to her first visit and An Unwelcome Guest handed in with Visit the Herbalist, instead of a second walk west from the town after the Blackrock camps."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"turnin",
+					994
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Volcor's escort (994) goes to Terenthis on 06-wetlands' Auberdine stop (the boat trip from Menethil to Ashenvale), so Darkshore ends at the Master's Glaive and walks north to the Grove for Kerlonian, instead of walking from Volcor north to Auberdine (about 1,900 yd), on to the Elder Darkshore Threshers for the top-up and all the way back south. Druids, who fly from Auberdine for Cat Form, hand it in there."
+			},
+			{
+				"a": [
+					"turnin",
+					98221
+				],
+				"b": [
+					"turnin",
+					472
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Fall of Dun Modr goes to Longbraid the Grim on 30-40/01-hillsbrad-foothills' Dun Modr stop, which the route makes anyway; 06-wetlands walked north to Dun Modr for that one hand-in and back."
+			},
+			{
+				"a": [
+					"turnin",
+					1031
+				],
+				"b": [
+					"turnin",
+					1046
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): From Krolg the route goes west to Melyria, Illiyana and Delgren, then hands Raene's Cleansing (1046), the Gleaming Crescent Pendant and Fallen Sky Lake in on one Astranaar stop before the flight, instead of Raene alone, the west posts and back to Astranaar's flight master."
+			},
+			{
+				"a": [
+					"task",
+					1008
+				],
+				"b": [
+					"turnin",
+					1034
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): 06-ashenvale's Astranaar hand-ins (The Ruins of Stardust, An Aggressive Defense, Culling the Threat) wait for the Astranaar stop after the Zoram Strand, with The Zoram Strand, instead of a stop of their own between Dal Bloodclaw and Ilkrud."
 			}
 		],
 		"notes": [
@@ -4284,6 +4344,30 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow (2026-11-08, Alliance 20-30): Spoils of War handed to Valstag Ironjaw with the other hand-ins on 06-ashenvale's last Menethil stop (see turnin 484 with turnin 279)."
+			},
+			{
+				"a": [
+					"turnin",
+					994
+				],
+				"b": [
+					"accept",
+					990
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): Sentinel Selarin's Trek to Ashenvale is offered once Volcor's escort is handed in to Terenthis beside her, on 06-wetlands' Auberdine stop; Raene takes it on the Astranaar stop that follows."
+			},
+			{
+				"a": [
+					"turnin",
+					1046
+				],
+				"b": [
+					"turnin",
+					1035
+				],
+				"faction": "Alliance",
+				"why": "Flow (2026-11-08, Alliance 20-30): One Astranaar stop at the end of the Ashenvale trip: Raene, Maliynn and Pelturas (see turnin 1031 before turnin 1046)."
 			}
 		],
 		"after": [
@@ -4987,21 +5071,17 @@
 			{
 				"issue": "#1052",
 				"q": 180,
-				"reason": "WANTED: Lieutenant Fangore on Redridge's second pass (05-duskwood's end, about 25-26), where Fangore (26) and Galardell's gnolls fit (#977 left it out of the first pass at 21.5); finished at 21-23 by four players in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+				"reason": "WANTED: Lieutenant Fangore on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-08 Alliance 20-30 re-order); finished at 21-23 by four players in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			},
 			{
 				"issue": "#1052",
 				"q": 95999,
-				"reason": "WANTED: Incinerator Gar'im (Forever) on Redridge's second pass (05-duskwood's end): a 23 elite in the cave south of the Blackrock camps; finished at 21-23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+				"reason": "WANTED: Incinerator Gar'im (Forever) on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-08 Alliance 20-30 re-order): a 23 elite in the cave south of the Blackrock camps; finished at 21-23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			},
 			{
-				"after": [
-					"turnin",
-					20
-				],
 				"issue": "#1052",
 				"q": 34,
-				"reason": "An Unwelcome Guest: Bellygrub (24) after the Blackrock camps, on the way west from Lakeshire to Render's Valley. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+				"reason": "An Unwelcome Guest: Bellygrub (24) in his pen beside Martie Jainrose's garden, killed on the way to her first visit (Redridge is entered at about 24.5 since the 2026-11-08 Alliance 20-30 re-order), and handed in there. Redridge level gap (Discord report, PR #1052)."
 			},
 			{
 				"after": [
@@ -5015,7 +5095,7 @@
 			{
 				"issue": "#1052",
 				"q": 19,
-				"reason": "Tharil'zun on Redridge's second pass at the end of 05-duskwood (about 25-26), where Redridge's elites fit; finished solo-or-grouped at 23 in the recordings (a Shaman, a Rogue). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+				"reason": "Tharil'zun on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-08 Alliance 20-30 re-order); finished solo-or-grouped at 23 in the recordings (a Shaman, a Rogue). Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			},
 			{
 				"issue": "#1052",
@@ -5025,7 +5105,7 @@
 			{
 				"issue": "#1052",
 				"q": 169,
-				"reason": "Wanted: Gath'Ilzogg on Redridge's second pass (05-duskwood's end, about 25-26): Gath'Ilzogg is a 26 elite; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+				"reason": "Wanted: Gath'Ilzogg on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-08 Alliance 20-30 re-order): Gath'Ilzogg is a 26 elite; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			},
 			{
 				"after": [
@@ -5048,7 +5128,7 @@
 			{
 				"issue": "#1052",
 				"q": 115,
-				"reason": "Shadow Magic on Redridge's second pass (05-duskwood's end, about 25-26): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
+				"reason": "Shadow Magic on Redridge's loop through the Blackrock camps, Galardell Valley and Stonewatch Keep (04-redridge-mountains, about 25, since the 2026-11-08 Alliance 20-30 re-order): the Shadowcasters are 22-23 elites; finished at 23 in the recordings. Redridge level gap (Discord report, PR #1052): Redridge's quests alone ended at about 21.6 (sim, every class; recordings 21.7-22.0 on 0.3.3) while Duskwood's start at 24"
 			}
 		],
 		"skip": [
@@ -5222,6 +5302,12 @@
 				"faction": "Horde",
 				"reason": "Level fit (#977): Invader's Scourgestones (optional) drop from Eastern Plaguelands Scourge of 57 (ground a median 58) at the route's 52.4 (c19r Orc order, 50-60/01-un-goro-crater); no later visit fits while it pays full XP. The writer's level fit leaves it out on its own",
 				"issue": 977
+			},
+			{
+				"q": 343,
+				"faction": "Alliance",
+				"reason": "Flow (2026-11-08, Alliance 20-30): Speaking of Fortitude (195 XP) sent the player from the Cathedral Square into Stormwind Keep's Royal Library and back out for one hand-in on the Stormwind stop at the end of 06-ashenvale; left out.",
+				"issue": "-"
 			}
 		],
 		"revert": [
@@ -7376,19 +7462,6 @@
 			},
 			{
 				"a": [
-					"accept",
-					323
-				],
-				"b": [
-					"accept",
-					115
-				],
-				"faction": "Alliance",
-				"source": "PR #1052",
-				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26"
-			},
-			{
-				"a": [
 					"task",
 					101
 				],
@@ -7398,19 +7471,6 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow audit (2026-11-07, Duskwood): The Night Watch (56) was handed in on a stop of its own, a walk back north into Darkshire from the Tranquil Gardens Cemetery before the road west (05-duskwood step 6 on 0.3.4, about 500 yd). It is handed in on the big Darkshire visit after the first loop, with the Totem of Infliction, the Valor Family and Supplies from Darkshire."
-			},
-			{
-				"a": [
-					"accept",
-					323
-				],
-				"b": [
-					"accept",
-					180
-				],
-				"faction": "Alliance",
-				"source": "PR #1052",
-				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26"
 			},
 			{
 				"a": [
@@ -7424,32 +7484,6 @@
 				"faction": "Alliance",
 				"source": "PR #1052",
 				"why": "Redridge level gap (PR #1052): the Old Lion Statue stands among Galardell's gnolls: after the Blackrock camps"
-			},
-			{
-				"a": [
-					"accept",
-					323
-				],
-				"b": [
-					"accept",
-					169
-				],
-				"faction": "Alliance",
-				"source": "PR #1052",
-				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26"
-			},
-			{
-				"a": [
-					"turnin",
-					20
-				],
-				"b": [
-					"task",
-					34
-				],
-				"faction": "Alliance",
-				"source": "PR #1052",
-				"why": "Redridge level gap (PR #1052): Bellygrub (24) after the Blackrock camps "
 			},
 			{
 				"a": [
@@ -7512,32 +7546,6 @@
 				"faction": "Alliance",
 				"source": "#920",
 				"why": "#920 (Fyurie): The Sleeper Has Awakened (5321) was taken from Kerlonian Evershade (11218) at the Grove of the Ancients on the Darkshore visit (03-darkshore Onu step, about 19), but his escort to Liladris Moonriver at Maestra's Post is walked on the way into Ashenvale (06-ashenvale, about 26); the Horn of Awakening from his chest lasts 25 minutes (item 13536, duration 1500 s), so the player carried the quest for hours and the guide never tried the escort in time. Making Do's hand-in to Thundris Windweaver in Auberdine (97926, kept since #453) is the last quest stop before the walk south to the Grove on that leg (Human, Dwarf, Gnome and Night Elf routes: 97926 turnin, then 967 at Maestra's Post): the accept and the chest move right after it, beside the escort. Since the 2026-11-07 Ashenvale split, Ashenvale follows Darkshore at once and Making Do is handed in later (the end of 30-40/01-hillsbrad-foothills): the anchor is Expanding Horizons (97914), taken from Thundris at 03-darkshore's last Auberdine stop, right before the walk south to the Grove."
-			},
-			{
-				"a": [
-					"accept",
-					323
-				],
-				"b": [
-					"accept",
-					19
-				],
-				"faction": "Alliance",
-				"source": "PR #1052",
-				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26"
-			},
-			{
-				"a": [
-					"accept",
-					323
-				],
-				"b": [
-					"accept",
-					95999
-				],
-				"faction": "Alliance",
-				"source": "PR #1052",
-				"why": "Redridge level gap (PR #1052): Redridge's second pass comes at the end of the Duskwood visit (after Sven's Proving Your Worth), at about 25-26"
 			},
 			{
 				"a": [

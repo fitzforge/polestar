@@ -3235,10 +3235,10 @@ test(`${REDRIDGE}: Tazul's report (#340): the Battleworn Axes lead to the Blackr
 	const { goal } = list[axes];
 	assert.ok(at(list, "Alther's Mill tarantulas", is('kill', 98386)) < axes, "after Alther's Mill, on the way south-east");
 	// Galardell Valley comes after the camps, on the way back west (Redridge is entered at about 24.5 since
-	// Duskwood's first loop comes first, 2026-11-08); Fangore on Redridge's second pass.
+	// Duskwood's first loop comes first, 2026-11-08); Fangore at the valley's north end on the same loop.
 	assert.ok(!list[axes].step.goals.some((g) => g.t === 'level'), 'no top-up at the camps');
 	assert.ok(list.every(({ goal: g }, i) => g.quest !== 91 || g.t === 'accept' || i > axes), "Solomon's Law's pendants after the camps");
-	assert.ok(!list.some(({ goal: g }) => g.quest === 180), 'Fangore is not in the first pass');
+	assert.ok(list.every(({ goal: g }, i) => g.quest !== 180 || g.t === 'accept' || i > axes), "Fangore's paw after the camps");
 	const here = point(goal.map, goal.x, goal.y, goal.f || 'l');
 	const near = { normal: 0, elite: 0 };
 	for (const id of Object.keys(data.item(3014).drops.npc)) {
@@ -4146,9 +4146,6 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 // never comes back to it at a level that fits; the statue's quests are route-fixes skips.
 const LEVEL_FIT = [
 	// [guide, quests left out, npcs no goal may send the player to]
-	// Galardell Valley and Bellygrub fit since Redridge comes after Duskwood's first loop (2026-11-08); Fangore
-	// waits for the second pass at the end of Duskwood.
-	['forever/alliance/04-redridge-mountains.guide', [180], [703]],
 	['forever/alliance/07-thousand-needles.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
 	['forever/horde/07-ashenvale.guide', [1105, 1175, 1176], [4147, 4150, 4151]],
 	['forever/alliance/40-50/03-feralas.guide', [2844, 2845], [7774]],
@@ -4748,9 +4745,9 @@ test('forever/horde/50-60/06-silithus.guide: flow re-order: Counting Out Time on
 // go". Redridge's quests ended at about 21.6 while Duskwood's start at 24. Since the Alliance 20-30
 // re-order (2026-11-08) Ashenvale, Stonetalon and the first Wetlands visit come first (20-23),
 // then Duskwood and Redridge together, so Redridge comes at 23+: Duskwood's first loop,
-// Redridge's first pass (04-redridge-mountains), Duskwood's second loop, Redridge's second pass
-// (05-duskwood). Redridge is entered at about 24.5, so Galardell Valley and Bellygrub need no written
-// top-up; the elites and Fangore stay on the second pass.
+// Redridge with its elites and Fangore on the same loop through the Blackrock camps, Galardell Valley and
+// Stonewatch Keep (04-redridge-mountains), then Duskwood's second loop (05-duskwood). Redridge is
+// entered at about 24.5, so Galardell Valley, Fangore and Bellygrub need no written top-up.
 test('Redridge level gap (PR #1052): Duskwood\'s first loop comes before Redridge\'s first pass, and Galardell Valley and Bellygrub need no top-up', { skip }, () => {
 	const list = goals('forever/alliance/04-redridge-mountains.guide');
 	const loop = at(list, 'turnin 148 (Darkshire, end of the first loop)', is('turnin', 148));
@@ -4761,15 +4758,17 @@ test('Redridge level gap (PR #1052): Duskwood\'s first loop comes before Redridg
 	for (const q of [91, 94, 248, 34, 98387]) assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
 });
 
-test('Redridge level gap (PR #1052): Duskwood\'s second loop follows Redridge\'s first pass and ends with the second Redridge pass', { skip }, () => {
-	const list = goals('forever/alliance/05-duskwood.guide');
-	assert.ok(!list.some(({ goal }) => goal.quest === 101 || goal.quest === 174), 'the first loop is in 04-redridge-mountains');
-	const sven = at(list, 'accept 323', is('accept', 323));
+test('Redridge level gap (PR #1052): Redridge\'s elites and Fangore on its one loop, Duskwood\'s second loop after it', { skip }, () => {
+	const list = goals('forever/alliance/04-redridge-mountains.guide');
+	const camps = at(list, 'Battleworn Axe', (g) => g.t === 'collect' && g.item === 3014);
+	const back = at(list, 'turnin 20 (Back to Lakeshire)', is('turnin', 20));
 	for (const q of [19, 115, 169, 95999, 180]) {
-		assert.ok(at(list, `accept ${q}`, is('accept', q)) > sven, `${q} is taken on the second pass, after Sven's camp`);
-		assert.ok(list.some(({ goal }) => goal.t === 'turnin' && goal.quest === q), `${q} is handed in`);
+		assert.ok(at(list, `accept ${q}`, is('accept', q)) < camps, `${q} is taken in Lakeshire before the camps`);
+		assert.equal(list[at(list, `turnin ${q}`, is('turnin', q))].s, list[back].s, `${q} is handed in on the stop back in Lakeshire`);
 	}
-	assert.ok(!goals('forever/alliance/04-redridge-mountains.guide').some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'the elites are not in the first pass');
+	const dusk = goals('forever/alliance/05-duskwood.guide');
+	assert.ok(!dusk.some(({ goal }) => goal.quest === 101 || goal.quest === 174), 'the first loop is in 04-redridge-mountains');
+	assert.ok(!dusk.some(({ goal }) => [19, 115, 169, 95999, 180].includes(goal.quest)), 'no second Redridge pass');
 });
 
 // --- Flow audit (2026-11-07, Redridge): after Lakeshire's accepts at the west end of town the guide swam

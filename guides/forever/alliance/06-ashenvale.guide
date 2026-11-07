@@ -20,7 +20,7 @@ next forever/alliance/04-redridge-mountains
 
 step Kerlonian Evershade
   zone Darkshore
-  tip From Auberdine follow the road south. Kerlonian sleeps at the Grove of the Ancients in southern Darkshore. Use the Horn of Awakening to wake him and lead him south along the road into Ashenvale to Liladris Moonriver at Maestra's Post; blow the horn again whenever he falls asleep.
+  tip Back north from the glaive (Druids: south along the road from Auberdine) to the Grove of the Ancients, where Kerlonian sleeps beside Arbal. Take his quest, open his chest for the Horn of Awakening, use it to wake him and lead him south along the road into Ashenvale to Liladris Moonriver at Maestra's Post; blow the horn again whenever he falls asleep.
   tip Careful: Scripted ambushes of three mobs each attack along the road: furbolgs on the Darkshore stretch and undead nearer Maestra's Post.
   goto 44.4,76.4 "Grove of the Ancients"
   accept 5321                                 -- Kerlonian Evershade
@@ -56,13 +56,14 @@ step Maestra's Post
 # ---------------------------------------------------------------- Astranaar
 
 step Astranaar
+  tip The road from Maestra's Post comes in by the flight master: Shindrell Swiftfire and Sentinel Thenysil stand there, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
   getfp "Astranaar"
-  accept 1070                             -- Sentinel Thenysil
-  accept 991
-  sethome "Astranaar"
-  turnin 990                              -- Raene Wolfrunner, in the inn
-  accept 1054
   accept 1008                         -- Shindrell Swiftfire
+  accept 1070                             -- Sentinel Thenysil
+  sethome "Astranaar"
+  accept 991                              -- Raene Wolfrunner, in the inn
+  turnin 990 optional                     -- Raene Wolfrunner: Trek to Ashenvale, if you took it in Auberdine
+  accept 1054
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033
 
@@ -174,16 +175,10 @@ step Dal Bloodclaw
   tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
   collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
 
-step Astranaar
-  turnin 1034                             -- Pelturas Whitemoon, inside
-  turnin 1025                             -- Raene Wolfrunner
-  turnin 1054                             -- Raene Wolfrunner
-  vendor nearest
-
 # ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
 
 step Ilkrud Magthrull
-  tip Ilkrud and his voidwalkers hold the Ruins of Ordil'Aran south of the shrine. Pull his guards first.
+  tip From Dal Bloodclaw's camp head south-west past Astranaar (its hand-ins wait for the way back) to the Ruins of Ordil'Aran south of the shrine: Ilkrud and his voidwalkers hold them. Pull his guards first.
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
 
 step The Zoram Strand
@@ -208,8 +203,12 @@ step Maestra's Post
   turnin 973                              -- Delgren the Purifier
 
 step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar.
+  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside.
   turnin 1008                         -- Shindrell Swiftfire
+  turnin 1025                             -- Raene Wolfrunner
+  turnin 1054                             -- Raene Wolfrunner
+  turnin 1034                             -- Pelturas Whitemoon, inside
+  vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
 
@@ -228,17 +227,17 @@ step To Menethil Harbor
 
 step Menethil Harbor
   zone Wetlands
+  tip Off the boat, walk up the pier: Karl Boran on the pier, James Halloran by the docks to the north, Valstag Ironjaw in the keep, the inn (First Mate Fitzsimmons) east of it with Caitlin Grassman and Sida beside it, Tarrel Rockweaver by the north gate on the way out east.
   accept 279                              -- Karl Boran, on the pier north of the inn
-  vendor nearest
+  accept 484                              -- James Halloran
+  accept 98197                            -- Valstag Ironjaw, by the keep; inside
   sethome "Deepwater Tavern" npc 1464     -- Innkeeper Helbrek
+  vendor nearest
   accept 463                              -- First Mate Fitzsimmons, in the inn
-  tip Vincent Hyal, Mikhail and Tapoke Jahn are all at Menethil's inn; Tapoke fights you when you talk to Mikhail, but gives up once beaten. Caitlin Grassman stands a short walk north-east of the inn.
   accept 98282                            -- Caitlin Grassman
   accept 470                              -- Sida
-  accept 98197                            -- Valstag Ironjaw, by the keep; inside
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
   accept 305                              -- Tarrel Rockweaver, by the north gate
-  accept 484                              -- James Halloran, by the north gate
 
 step Spoils of War
   tip Timber and iron piles lie around the keep and along the harbor's walls.
@@ -364,8 +363,7 @@ step Tram to Stormwind
 
 step Cathedral Square
   zone Stormwind City
-  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. Brother Kristoff stands in the square, Baros Alexston at its east side, High Priestess Laurena in the Cathedral of Light.
-  accept 343                              -- Brother Kristoff, in the Cathedral Square
+  tip The tram comes in at the Dwarven District; walk west to the Cathedral Square. Baros Alexston stands at its east side, High Priestess Laurena in the Cathedral of Light.
   turnin 97914                            -- Baros Alexston: Thundris' letter from Auberdine
   accept 97926 optional                   -- Only once Expanding Horizons is handed in: for Thundris Windweaver, back in Auberdine (06-wetlands)
   accept 5676 only Human,Priest           -- High Priestess Laurena
@@ -373,9 +371,6 @@ step Cathedral Square
   accept 5645 only Dwarf,Priest           -- High Priestess Laurena: High Priest Rohan in Ironforge takes it, later
   accept 94819 npc 376 only Gnome,Priest  -- High Priestess Laurena: High Priestess Mims in Ironforge takes it, later
   accept 5673 only NightElf,Priest        -- High Priestess Laurena: Priestess Alathea in Darnassus takes it, later
-
-step Stormwind Keep
-  turnin 343                              -- Milton Sheaf, in the Royal Library
 
 step Master Mathias Shaw
   only Rogue
