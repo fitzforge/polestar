@@ -5032,7 +5032,8 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   (`Dungeons.Art(key)`, `Dungeons/Art.lua`: the instance's loading screen
   from the client's Map and LoadingScreens tables, by Map id, a square crop
   as texture coordinates; the model's `art`, filling the ring inside a 2px
-  rim of the accent), or for a dungeon without one the dungeon glyph small
+  rim of the accent; a dark one's `lift` adds the picture over itself at
+  that alpha, `ADD` blend, so it reads at 36 px), or for a dungeon without one the dungeon glyph small
   on the ring's disc (an `icon` tinted `iconColor` is a glyph), "LEVEL
   20 · DUNGEON", "<name> is open to you", "<n> quests to pick up · Levels
   17–24 · <zone>", what they are worth in the accent chip (`LevelTip.Text`
