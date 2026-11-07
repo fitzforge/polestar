@@ -10,7 +10,13 @@ next forever/alliance/02-westfall
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: Protecting the Herd (314).
+# Added here: Protecting the Herd (314); a Loch Modan loop before Ironforge, where the walk to the
+# tunnel already ends: In Defense of the King's Lands (224), The Trogg Threat (267), Stout to Kadrell
+# (414), Rat Catching (416), Thelsamar Blood Sausages (418), Mountaineer Stormpike's Task (1339),
+# Filthy Paws (307), Stormpike's Order (1338), Honor Students (6387, 6391, 6388) for every class, and
+# on the tram Deeprun Rat Roundup (6661) and Me Brother, Nipsy (6662); Humble Beginnings (399) from
+# Baros Alexston in Stormwind (02-westfall hands it in). They replace the grind to
+# level 11.6 at the snow leopards.
 
 # ---------------------------------------------------------------- Coldridge Valley
 
@@ -447,18 +453,12 @@ step Amberstill Ranch
   when group 314
   turnin 314
 
-step Level 11.6
-  when !group 314
-  when level<11.6
-  tip If you skipped Protecting the Herd, grind here to level 11.6 to stay on the route's plan.
-  goto 70.9,53.3 map 1426 "Elder Snow Leopard"
-  level 11.6                          -- grind on Elder Snow Leopard
-
 # ---------------------------------------------------------------- South Gate Outpost
 
 step South Gate Outpost
   tip Follow the road all the way east to the South Gate Outpost at the Loch Modan tunnel.
   turnin 413                                  -- Mountaineer Barleybrew
+  accept 414
 
 step Bruegs Kindleborn
   only Shaman
@@ -513,23 +513,66 @@ step North Gate Outpost
   collect 3183 quest 417.1                    -- Mangy Claw: Mangeclaw
   turnin 417                                  -- Pilot Hammerfoot
 
-step Dun Morogh
-  only Paladin
-  zone Dun Morogh
-  goto 78.3,58.1 "Dun Morogh"
+# ---------------------------------------------------------------- Loch Modan: the tunnel post, Thelsamar and the west hills
 
-step Honor Students
-  only Paladin
+step The tunnel post
   zone Loch Modan
-  tip Instead of walking back up to Ironforge, go east through the South Gate tunnel into Loch Modan and follow the road north to Thelsamar. Brock Stoneseeker stands on the east side of town, past the Stoutlager Inn; his errand pays for a flight back to Ironforge.
+  tip East through the South Gate tunnel into Loch Modan. Mountaineer Cobbleflint and Captain Rugelfuss stand at the dwarven post just past it.
+  accept 224                                  -- Mountaineer Cobbleflint
+  accept 267                                  -- Captain Rugelfuss
+
+step Stonesplinter troggs
+  zone Loch Modan
+  tip North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.
+  kill 1161 x10 quest 224.1                   -- Stonesplinter Trogg
+  kill 1162 x10 quest 224.2                   -- Stonesplinter Scout
+  collect 2536 quest 267.1                    -- Trogg Stone Tooth
+
+step Back to the tunnel post
+  zone Loch Modan
+  turnin 224                                  -- Mountaineer Cobbleflint
+  turnin 267                                  -- Captain Rugelfuss
+
+step Thelsamar
+  zone Loch Modan
+  tip North up the road to Thelsamar. Mountaineer Kadrell walks the road through town, Vidra Hearthstove stands outside the Stoutlager Inn, Brock Stoneseeker on the east side of town; Thorgrum Borrelson keeps the gryphons.
+  turnin 414                                  -- Mountaineer Kadrell
+  accept 416
+  accept 1339
+  accept 418                                  -- Vidra Hearthstove
   accept 6387                                 -- Brock Stoneseeker
   turnin 6387                                 -- Thorgrum Borrelson, the gryphon master
-  accept 6391
-  getfp "Thelsamar"
+  accept 6391                                 -- Thorgrum: for Golnir Bouldertoe in Ironforge
+  getfp "Thelsamar" npc 1572
+
+step The west hills and the Algaz Station
+  zone Loch Modan
+  tip North through the hills west of the road to Mountaineer Stormpike at the Algaz Station. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground.
+  collect 3110 quest 416.1                    -- Tunnel Rat Ear: Tunnel Rat kobolds
+  collect 3172 quest 418.1                    -- Boar Intestines: Mountain Boars
+  collect 3173 quest 418.2                    -- Bear Meat: Elder Black Bears
+  collect 3174 quest 418.3                    -- Spider Ichor: Forest Lurkers
+  turnin 1339                                 -- Mountaineer Stormpike
+  accept 307
+  accept 1338                                 -- Furen Longbeard in Stormwind takes it
+
+step Silver Stream Mine
+  zone Loch Modan
+  tip East along the hills to the mine at the north end of the loch: the Miners' League crates sit in its tunnels, among more Tunnel Rats.
+  collect 2640 quest 307.1                    -- Miners' Gear, from the crates
+
+step Back to the Algaz Station
+  zone Loch Modan
+  turnin 307                                  -- Mountaineer Stormpike
+
+step Thelsamar
+  zone Loch Modan
+  tip South down the road to Thelsamar, finishing the ears, meat and ichor on the way.
+  turnin 416                                  -- Mountaineer Kadrell
+  turnin 418                                  -- Vidra Hearthstove
   fly "Ironforge"
 
 step Golnir Bouldertoe
-  only Paladin
   zone Ironforge
   turnin 6391                                 -- Golnir Bouldertoe, in the Great Forge
   accept 6388
@@ -639,7 +682,22 @@ step The Deeprun Tram
 
 step Tram to Stormwind
   zone Ironforge
-  goto 78.0,51.4 "Tram to Stormwind"
+  tip On the Ironforge platform of the Deeprun Tram, Monty asks for help with the rats: use his Rat Catcher's Flute on the Deeprun Rats around the platform, hand them in, then take his letter to his brother Nipsy at the Stormwind end.
+  accept 6661 @78.0,51.4                      -- Monty, on the Ironforge platform
+  kill 13016 x5 quest 6661.1 @78.0,51.4       -- Deeprun Rat: use the Rat Catcher's Flute
+  turnin 6661 @78.0,51.4                      -- Monty
+  accept 6662 @78.0,51.4
+
+step Nipsy
+  zone Stormwind City
+  tip Ride the tram to Stormwind: Nipsy waits on the Stormwind platform. Furen Longbeard stands in the Dwarven District, just outside the tram.
+  turnin 6662 @64.5,7.5                       -- Nipsy, on the Stormwind platform
+  turnin 1338                                 -- Furen Longbeard
+
+step Baros Alexston
+  zone Stormwind City
+  tip From the Dwarven District south-west to Cathedral Square: Baros Alexston's compass is in his old house in Westfall, on the way. The flight master and the Trade District are south of the square.
+  accept 399
 
 step Stormwind flight master
   zone Stormwind City
