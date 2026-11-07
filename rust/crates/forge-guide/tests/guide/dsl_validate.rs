@@ -745,6 +745,21 @@ fn elite_work_in_a_leveling_guide_collecting_an_item_only_elites_drop_is_an_erro
 	assert!(only(&compile_with(&reputation, &data).errors, "elite").is_empty());
 }
 
+#[test]
+fn elite_work_on_a_quest_players_record_doing_alone_may_be_required() {
+	// Fitz (2026-11-07): a quest players do, the guides do. A quest whose recordings show two solo
+	// hand-ins (route fixes `deliberate.solo`, forge_core::solo_elite) is written for everyone; one
+	// hand-in is not enough, and other quests' elite work is still group work.
+	let mut data = elite_data();
+	let src = guide_text(&["step S", "  accept 9380", "  collect 95100 x3 quest 9380.1", "  turnin 9380"]);
+	assert_eq!(only(&compile_with(&src, &data).errors, "elite").len(), 1);
+	let doc = json!({ "deliberate": { "solo": [{ "q": 9380, "solo": [20, 21], "why": "two solo hand-ins" }, { "q": 7, "solo": [20], "why": "one" }] }, "overrides": {} });
+	data.solo_elite = forge_core::solo_elite::qualified(&doc);
+	assert!(only(&compile_with(&src, &data).errors, "elite").is_empty());
+	let kill = guide_text(&["step S", "  accept 7", "  kill 95003 quest 7.1", "  turnin 7"]);
+	assert_eq!(only(&compile_with(&kill, &data).errors, "elite").len(), 1, "one solo hand-in of 7 recorded");
+}
+
 /// validate_solo_policy's `{ <Faction>: { <quest id>: entry } }` from (faction, entries).
 fn excluded(faction: &str, entries: Value) -> V {
 	let m = serde_json::Map::from_iter(entries.as_array().unwrap().iter().map(|e| (e["id"].to_string(), e.clone())));

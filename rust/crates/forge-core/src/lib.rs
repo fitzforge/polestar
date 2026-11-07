@@ -7,6 +7,7 @@ pub mod jsnum;
 pub mod key;
 pub mod luachunks;
 pub mod races;
+pub mod solo_elite;
 pub mod timing;
 
 pub use cells::{cell_key, cell_xy, ZONE_CELL};

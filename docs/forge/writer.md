@@ -1034,7 +1034,10 @@ they matter to the player. They are not the judge's honest rules.
   is under its level). The group player is at that level already, so it does
   nothing for them. On by default (`forge build`);
   `--no-groups` turns it off. Under `--format-0-3`, R5 still asks the other
-  group and dungeon quests.
+  group and dungeon quests. A quest with a route fixes `solo` record (players' recordings show it
+  handed in alone, `forge_core::solo_elite`) is not asked where the route's level at its accept + 2
+  reaches its solo hand-ins: its goals are for everyone, required; where the route gets there lower,
+  R5 asks it. A dungeon's quest is asked whatever a record says.
 
 `--format-0-3` adds the pack format 5 lines (Polestar 0.3.0): R5 `when group`,
 R6 `task` and `cast`, R7 `abandon` when the log would pass 40 (the game's quest log), R8 `skipto` over

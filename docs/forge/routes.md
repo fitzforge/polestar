@@ -323,6 +323,7 @@ report.
 | `never` | the quest is never added (its giver does not offer it) |
 | `optional` | v1 marks it optional (rare-drop start): not counted on, out of the route |
 | `group` | `{q, size, why}`: the group an elite or group quest wants where Forever's creature data reads it wrong (section 7, Group quests): 1 soloable elite, 2-4 a group of that many, 5 never taken. The quest is a family root even when the world does not mark it elite (Challenge Overlord Mok'Morokk's fight starts from an event) |
+| `solo` | `{q, solo: [levels], group?: [levels], why}`: an elite quest players' recordings show handed in alone (one level per character, alone or in a party): with 2 or more solo hand-ins and no more party ones it is a solo quest to the planner, written for everyone and allowed required by lint (section 7, Group quests). Never on a quest a `group` record sizes |
 
 A pair that v1's own order breaks for a start is left out for that start, named in the route file's
 `feasibility` notes, and listed in the build's fixes ledger as `left out` (`fixes.md`; `forge build
@@ -668,6 +669,18 @@ the group it wants, comes from Forever's creature data for the root's elite kill
 
 A deliberate `group` record (section 5) gives the size instead, with its reason (A Grim Task: an elite at
 the quest's level is a group quest, a group of 3; the data's one level-34 elite reads soloable).
+
+A deliberate `solo` record (section 5) takes an elite quest out of group work altogether: players'
+recordings show it handed in alone, so the planner takes it like any solo quest (no family, no
+solo fallback), the writer writes its goals for everyone and lint lets them be required
+(`forge_core::solo_elite`). It qualifies with 2 or more solo hand-ins (different characters) and no
+more party hand-ins than solo ones; the writer also wants those at the route's level at its accept
++ 2 or lower, and asks it (`when group <q>`) where the route gets there lower. Fitz (2026-11-07):
+a quest players do, the guides do; an elite quest without that evidence stays group work, optional
+or asked, with the "grouping up" tip. Party size is in recordings from recorder 0.3.3 on (`group`
+lines); an older recording reads alone when the elite kill's XP is 80-120% of a solo player's, in a
+party under 60%. As of 2026-11-07 no quest qualifies (Hogger: 2 alone, 3 in a party; Tharil'zun,
+Gath'Ilzogg: one solo hand-in each), so no record is written yet.
 
 A family of size under 5 may be added like any quest (the checks above still hold). Its elites are
 priced at the elite kill time (`eliteTime`, 3.5 kills' time each), the elite-camps guard does not
