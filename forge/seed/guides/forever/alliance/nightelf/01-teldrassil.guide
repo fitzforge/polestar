@@ -10,6 +10,10 @@ next forever/alliance/02-westfall
 # (Teldrassil, level 1 to about 11). The route goes on to Darkshore's first
 # loop (to about 14), then Westfall.
 #
+# Hand fix (flow audit, 2026-11-07): the last step's boat to Stormwind goes.
+# Since the Night Elf start got its own Darkshore guide, it told players to
+# take the boat before an hour of Darkshore quests; the boat is that guide's.
+#
 # Flow: Shadowglen (Aldrassil, Shadowthread Cave, the moonwell) -> Dolanaar
 # (hearth, every pickup) -> one east loop: Zenn's items, the Starbreeze
 # moonwell, Starbreeze Village, Lake Al'Ameth, Zenn -> Dolanaar -> west loop:
@@ -537,7 +541,7 @@ step Auberdine
 step Return to Nessa
   only !Druid
   zone Teldrassil
-  tip Fly back to Rut'theran Village from Caylais Moonfeather, hand Laird's Response to Nessa on the dock, then fly back to Auberdine for the boat.
+  tip Fly back to Rut'theran Village from Caylais Moonfeather, hand Laird's Response to Nessa on the dock, then fly back to Auberdine.
   fly "Rut'theran Village"
   turnin 6343                                 -- Nessa Shadowsong
   fly "Auberdine"
@@ -574,13 +578,7 @@ step The Moonkin Stone
 step Body and Heart
   only Druid
   zone Darnassus
-  tip Fly to Rut'theran Village once more and take the portal up to Mathrengyl, then fly back to Auberdine for the boat.
+  tip Fly to Rut'theran Village once more and take the portal up to Mathrengyl, then fly back to Auberdine.
   fly "Rut'theran Village"
   turnin 6001                                 -- Mathrengyl Bearwalker: Bear Form
   fly "Auberdine"
-
-step Boat to Stormwind
-  zone Darkshore
-  tip Take the boat to Stormwind from Auberdine's docks.
-  goto 30.76,40.92 "Boat to Stormwind"
-  note From Stormwind Harbor, head through the city gates into Elwynn Forest and follow the road west to Westfall.
