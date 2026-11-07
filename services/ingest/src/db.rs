@@ -724,11 +724,9 @@ impl Db {
 		let tx = self.conn.transaction()?;
 		type Row = (String, String, i64, i64, Option<i64>, Option<String>, String, Value, i64, Option<i64>);
 		let row: Option<Row> = tx
-			.query_row(
-				"SELECT contributor, install, seq, received, build, locale, uploader, text, flagged, epoch FROM chunks WHERE id = ?1 AND suspect = 1",
-				[id],
-				|r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?, r.get(6)?, r.get(7)?, r.get(8)?, r.get(9)?)),
-			)
+			.query_row("SELECT contributor, install, seq, received, build, locale, uploader, text, flagged, epoch FROM chunks WHERE id = ?1 AND suspect = 1", [id], |r| {
+				Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?, r.get(4)?, r.get(5)?, r.get(6)?, r.get(7)?, r.get(8)?, r.get(9)?))
+			})
 			.optional()?;
 		let Some((contributor, install, seq, received, build, locale, uploader, text, flagged, epoch)) = row else { return Ok(false) };
 		tx.execute("DELETE FROM chunks WHERE id = ?1", [id])?;
