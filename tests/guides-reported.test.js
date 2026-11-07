@@ -4332,6 +4332,62 @@ test(`05-duskwood: flow audit: no walk back into Darkshire for The Night Watch, 
 	assert.ok(!ret.some(({ goal }) => goal.quest === 174 || goal.quest === 175), 'the return no longer carries 174/175');
 });
 
+// Fitz's report (#1149): The Barrens' "The Zhevra" step sent the arrow to `goto 52.5,27.5 "Zhevra"` by the
+// Crossroads, then 432 yards on to the nearest Zhevra Runner: a goto from the hand-written v1 route with nothing to
+// do at it. In a written guide a goto right before a kill or collect leads to that work: its nearest spot is within
+// 200 yards, or the goto is a way in (a cave or subzone, with its area). The others (the Razormane camp's prowler
+// claws, Feralas' forest walkers, Corin's Crossing pointing at Nathanos) went with it.
+test("Fitz's report (#1149): a goto before a kill or collect in a written guide leads to that work", { skip }, () => {
+	data = data || loadData(DATA);
+	const { point } = makeProjector(data.mapFrames);
+	const at2 = (map, x, y, f) => point(map, x, y, f === 'e' ? 'e' : 'l');
+	const bad = [];
+	for (const guide of allGuides()) {
+		if (!fs.readFileSync(path.join(OFFICIAL_DIR, guide), 'utf8').startsWith('# Generated')) continue;
+		for (const step of compiled(guide).steps) {
+			const gs = step.goals;
+			for (let i = 0; i + 1 < gs.length; i++) {
+				const a = gs[i], b = gs[i + 1];
+				if (a.t !== 'goto' || a.map == null || a.area || !['kill', 'collect'].includes(b.t)) continue;
+				const spots = b.spots && b.spots.length ? b.spots.map((p) => ({ map: p.map || b.map, ...p })) : b.map != null ? [b] : [];
+				const from = at2(a.map, a.x, a.y, a.f);
+				let best = Infinity;
+				for (const p of spots) {
+					const to = at2(p.map || b.map, p.x, p.y, p.f || b.f);
+					if (to.c === from.c) best = Math.min(best, dist(from, to));
+				}
+				if (best > 200 && best < Infinity) bad.push(`${guide}: step "${step.title}": goto ${a.x},${a.y} is ${Math.round(best)} yd from ${b.t} ${b.quest || ''} ${b.item || b.npc || ''}`);
+			}
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
+// A Paladin's report on Discord (2026-11-07): the level 12 Redemption chain came up again and again though it was
+// done. Duthorian Rall's The Tome of Divinity (1641; Tiza Battleforge's 1645) is a repeatable quest he takes back
+// straight from the quest window: players' recordings have its hand-in and no accept, and the client never flags it
+// completed, so an `accept` goal for it reopened after every reload. Such quests are `turnin <id> direct` (the
+// Tomes of Valor, the Saptas too).
+test('Repeatable quests handed straight back at their giver are direct turn-ins with no accept (the Tome of Divinity)', { skip }, () => {
+	for (const [guide, quests] of [
+		['forever/class/paladin/tome-of-divinity.guide', [1641, 1645]],
+		['forever/alliance/02-westfall.guide', [1641]],
+		['forever/class/paladin/verigans-fist.guide', [1793, 1794]],
+		['forever/class/shaman/call-of-earth-alliance.guide', [94472]],
+		['forever/class/shaman/call-of-earth-horde.guide', [1462, 1463]],
+		['forever/class/shaman/call-of-fire-alliance.guide', [94473]],
+		['forever/class/shaman/call-of-fire-horde.guide', [1464]],
+		['forever/class/shaman/call-of-water-horde.guide', [972]],
+	]) {
+		const list = goals(guide);
+		for (const q of quests) {
+			assert.ok(!list.some(is('accept', q)), `${guide}: no accept ${q}`);
+			const turnin = list.find(({ goal }) => is('turnin', q)(goal));
+			assert.ok(turnin && turnin.goal.direct === true, `${guide}: turnin ${q} direct`);
+		}
+	}
+});
+
 // #1117 (soockee, Tauren Shaman; #383 and #396 before it, Dwarf Paladins): Alonso's Dragonslayer quests
 // at Mystral Lake are for Warriors; other classes find no Alonso there. The lock lived only in
 // data/rules.json, which Forge does not read, so the generated Horde Ashenvale guide sent every class to

@@ -120,8 +120,7 @@ step Lost the Water Sapta?
   when onquest 63
   when !has 6637
   tip Only if the Water Sapta is gone from your bags: Islen gives you another.
-  accept 972
-  turnin 972                                  -- Islen Waterseer: a new Water Sapta
+  turnin 972 direct                           -- Islen Waterseer: a new Water Sapta
 
 step The Brazier of Everfount
   zone Silverpine Forest

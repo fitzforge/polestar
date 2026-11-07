@@ -1897,6 +1897,22 @@ function Own.lostHeld(q, s)
 	return upTo ~= nil and s < upTo
 end
 
+-- Whether a later, non-optional quest goal of step s (after goal g) that
+-- applies to the character is done: the work a goal led to is behind the
+-- player. (On Own: the main chunk is at 200 locals.)
+function Own.laterQuestDone(s, g)
+	local goals = guide.steps[s].goals
+	for j = g + 1, #goals do
+		local later = goals[j]
+		local lt = later.t
+		-- A quest goal (isQuestGoal, declared further down).
+		local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
+			or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
+		if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
+	end
+	return false
+end
+
 -- done, cur, max[, label, kind] for goal g of step s. Notes are never done
 -- (and never block). A stored check-off (the player's tick, or a result the
 -- Engine latched) is done whatever the live state says, as is a goal the
@@ -1914,10 +1930,14 @@ goalDone = function(s, g, goal)
 	if t == "accept" then
 		return C.IsOnQuest(goal.quest) or questDone(goal.quest) or Own.abandonedByGuide(goal.quest, s) or Own.lostHeld(goal.quest, s)
 	elseif t == "turnin" then
-		-- `direct`: only its latched QUEST_TURNED_IN (checked above) or the
-		-- completed flag. The session's turn-ins would close every later goal
-		-- of a repeatable at the first hand-in; one hand-in closes one goal.
-		if goal.direct then return C.IsQuestCompleted(goal.quest) and true or false end
+		-- `direct`: only its latched QUEST_TURNED_IN (checked above), the
+		-- completed flag, or a later quest goal of its step done (the Tome of
+		-- Divinity handed back before the book's own quest: a hand-in from
+		-- before the goal was `direct` is never flagged, so a Paladin who had
+		-- done the chain was sent back to it). The session's turn-ins would
+		-- close every later goal of a repeatable at the first hand-in; one
+		-- hand-in closes one goal.
+		if goal.direct then return (C.IsQuestCompleted(goal.quest) or Own.laterQuestDone(s, g)) and true or false end
 		return questDone(goal.quest) and true or false
 	elseif t == "complete" then
 		if questDone(goal.quest) or C.IsQuestReadyForTurnIn(goal.quest) then return true end
@@ -1928,16 +1948,7 @@ goalDone = function(s, g, goal)
 		-- One with no quest (the Runes of Summoning before the voidwalker,
 		-- #1120): done once a later quest goal of the step is, so the work it
 		-- led to, done or handed in, never leaves it holding the step.
-		local goals = guide.steps[s].goals
-		for j = g + 1, #goals do
-			local later = goals[j]
-			local lt = later.t
-			-- A quest goal (isQuestGoal, declared further down).
-			local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
-				or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
-			if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
-		end
-		return false
+		return Own.laterQuestDone(s, g)
 	elseif t == "collect" then
 		if goal.quest then
 			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then return objectiveState(goal) end
