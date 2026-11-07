@@ -4756,3 +4756,16 @@ test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshi
 	assert.ok(accept > s(hin, 'turnin', 3763), 'the crate after Darnassus');
 	assert.ok(s(hin, 'turnin', 1395) - accept <= 4, 'the crate straight to Nethergarde Keep');
 });
+
+// Flow review (2026-11-07): Alliance Feralas went back to Feathermoon after the southern mainland loop, then took the
+// boat out again for Lord Shalzaru on the Isle of Dread and back for his hand-in; the Groddoc livers waited for the
+// eastern loop, which walked back to the apes by Feral Scar Vale.
+test('forever/alliance/40-50/03-feralas.guide: flow re-order: Lord Shalzaru closes the southern loop, one Feathermoon visit, Groddoc livers by Feral Scar', { skip }, () => {
+	const list = goals('forever/alliance/40-50/03-feralas.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const relic = stepOf('the Mysterious Relic (2870)', (g) => g.t === 'collect' && g.quest === 2870);
+	assert.ok(relic > stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'after the yetis');
+	assert.ok(relic < stepOf('turnin 4127', is('turnin', 4127)), 'before the Feathermoon hand-ins');
+	assert.equal(stepOf('turnin 2870', is('turnin', 2870)), stepOf('turnin 4127', is('turnin', 4127)), 'one Feathermoon visit');
+	assert.equal(stepOf('the Groddoc livers', (g) => g.t === 'collect' && g.quest === 1452 && g.oi === 3), stepOf('the yeti hides (2821)', (g) => g.t === 'collect' && g.quest === 2821), 'the livers with the yetis');
+});

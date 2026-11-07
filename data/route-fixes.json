@@ -2982,6 +2982,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale and Hinterlands 40-50, #1167): Vital Supplies (1477) is handed to Watchmaster Sorigal (75.8,46.2), 60 yards from the Darkshire flight master the guide lands at on the way into the Swamp of Sorrows, instead of being carried to the next guide's Darkshire stop."
+			},
+			{
+				"a": [
+					"task",
+					2870
+				],
+				"b": [
+					"turnin",
+					4127
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): Lord Shalzaru (2870) closes the southern mainland loop: from the Feral Scar yetis the walk goes on to the Isle of Dread and swims back to Sardor Isle, so Feathermoon takes the loop's hand-ins and Shalzaru's on one visit. It was a Feathermoon visit, then the boat out to the coast, the isle, and the boat back for his hand-in alone. The seed's note that Shalzaru waits for the end of the mainland loop (his level 47) still holds."
 			}
 		],
 		"notes": [
@@ -4114,6 +4126,19 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Stranglethorn Vale 40-50, #1167): the Jungle Stalkers Raptor Mastery asks for (196) roam the slopes west of the Crystalvein Mine (23-35,37-52) where the Cold Eye Basilisks for A Meal Served Cold lie (27-28,40-43); they were killed on a trip of their own after the last Booty Bay stop, then a walk north to Nesingwary and back. Killed there with the basilisks."
+			},
+			{
+				"a": [
+					"task",
+					2821
+				],
+				"b": [
+					"task",
+					1452,
+					2
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Feralas, #1167): the Groddoc livers for Rhapsody's Kalimdor Kocktail (1452) drop from Groddoc Apes (17% in the game's loot data, 21 spawns between the Gordunni camp and Feral Scar Vale); the eastern loop came back south to them at 56.9,54.5. Taken with the Feral Scar yeti hides. The Ironfur livers (10-12%, about a dozen bears there) stay with the eastern loop's bear country."
 			}
 		],
 		"after": [
