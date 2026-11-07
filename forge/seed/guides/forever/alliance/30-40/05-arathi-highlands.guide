@@ -95,7 +95,7 @@ step Watcher Biggs
   accept 1421
 
 step The Lost Caravan
-  tip The wrecked caravan lies off the road near Biggs.
+  tip The wrecked caravan's chest lies at the north end of the Fallow Sanctuary, beside Galen Goodward's cage.
   collect 6170 quest 1421             -- Wizards' Reagents
 
 step Watcher Biggs

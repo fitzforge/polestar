@@ -26,12 +26,22 @@ function fakeDiscord() {
 	const edits = [];
 	const requests = []; // raw REST calls: slash command registration and interaction replies
 	let nextId = 5000;
+	// The server: @everyone (the guild's id) with no staff bits, a Moderator
+	// role (Manage Messages) and an Admin role (Administrator). `members`: user id -> role ids.
+	const guild = { id: GUILD, owner_id: 'owner', roles: [{ id: GUILD, permissions: '1024' }, { id: 'r-mod', permissions: String(1 << 13) }, { id: 'r-admin', permissions: '8' }] };
+	const members = new Map();
 	return {
 		channels,
 		messages,
 		sent,
 		edits,
 		requests,
+		guild,
+		members,
+		async getGuild(id) {
+			if (id !== GUILD) throw httpError(404);
+			return structuredClone(guild);
+		},
 		async request(method, path, body) {
 			requests.push({ method, path, body });
 			return null;
@@ -43,8 +53,10 @@ function fakeDiscord() {
 			messages.set(id, [msg]);
 			return msg;
 		},
+		// A message as the gateway gives it: with the author's member roles when they are in `members`.
 		say(thread, { author = 'u1', content = '', attachments = [], bot = false } = {}) {
 			const msg = { id: String(nextId++), channel_id: thread, content, attachments, mentions: [], author: { id: author, username: 'someone', bot } };
+			if (members.has(author)) msg.member = { roles: [...members.get(author)] };
 			messages.get(thread).push(msg);
 			return msg;
 		},
@@ -60,8 +72,9 @@ function fakeDiscord() {
 		async getMessages(channel) {
 			return structuredClone([...(messages.get(channel) || [])].reverse());
 		},
-		async getMember() {
-			throw httpError(404);
+		async getMember(guildId, user) {
+			if (guildId !== GUILD || !members.has(user)) throw httpError(404);
+			return { roles: [...members.get(user)] };
 		},
 		async activeThreads() {
 			return { threads: [...channels.values()].filter((c) => c.parent_id) };

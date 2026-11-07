@@ -316,6 +316,37 @@ for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Gruko's report (#240): Thazz'r
 	}
 });
 
+// Flow audit, Troll Durotar (#1077): the Troll guide went on to the Crossroads (Meats to Orgrimmar,
+// Crossroads Conscription, the flight path), then walked 2,490 yd back to Razor Hill to hand Threat from
+// Below to Orgnil, and the Barrens guide walked 2,197 yd back to the Crossroads for the five quests the
+// player had stood next to. Razor Hill comes on the walk from Margoz to Far Watch Post, as in Orc's guide;
+// both races hand Crossroads Conscription to Sergra on the Barrens guide's first stop, with the five quests.
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: Threat from Below is handed in at Razor Hill on the way to Far Watch Post, and the Crossroads waits for the Barrens guide`, { skip }, () => {
+	const list = goals(DUROTAR);
+	const threat = at(list, 'the Threat from Below turn-in', is('turnin', 99051));
+	const kargal = at(list, 'the Conscript of the Horde turn-in', is('turnin', 840));
+	assert.ok(threat < kargal, 'Orgnil in Razor Hill before Kargal at Far Watch Post');
+	const orgnil = list[threat].goal.npc;
+	assert.deepEqual(list.slice(kargal).filter(({ goal }) => goal.npc === orgnil && !goal.optional).map(({ goal }) => `${goal.t} ${goal.quest}`), [], 'nothing sends you back to Orgnil after Far Watch Post');
+	assert.deepEqual(list.filter(({ goal }) => goal.quest === 6365 || is('turnin', 842)(goal) || goal.t === 'getfp').map(({ goal }) => `${goal.t} ${goal.quest || goal.location}`), [], 'the Crossroads stop is the Barrens guide\'s');
+});
+
+test(`forever/horde/02-the-barrens.guide: Orcs and Trolls take the Crossroads quests on the stop they arrive at from Far Watch Post`, { skip }, () => {
+	for (const race of ['Orc', 'Troll']) {
+		const forRace = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes(race));
+		const list = goals('forever/horde/02-the-barrens.guide').filter(forRace);
+		const first = list[0].step;
+		for (const [t, q] of [['accept', 6365], ['turnin', 842], ['accept', 844], ['accept', 869], ['accept', 1492], ['accept', 848], ['turnin', 6365], ['accept', 5041], ['accept', 871], ['accept', 867]]) {
+			assert.ok(list.some(({ step, goal }) => step === first && is(t, q)(goal)), `${race}: ${t} ${q} on the first Crossroads stop`);
+		}
+		assert.ok(list.some(({ step, goal }) => step === first && goal.t === 'getfp' && goal.location === 'Crossroads'), `${race}: the Crossroads flight path on that stop`);
+	}
+});
+
+for (const DUROTAR of DUROTARS) test(`${DUROTAR}: no "along the way" lists (Fitz: "They should just be steps")`, { skip }, () => {
+	assert.deepEqual(compiled(DUROTAR).steps.filter((step) => step.along && step.goals.some((g) => [789, 4402, 97225, 837].includes(g.quest))).map((step) => step.title), []);
+});
+
 // --- The starting glens: one delivery quest no longer sends you off and back.
 
 test(`${TELDRASSIL}: Dolanaar Delivery is taken from Porthannius after the Shadowglen quests, on the way out to Dolanaar`, { skip }, () => {
@@ -593,6 +624,33 @@ for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: thmastin's report: Ca
 	assert.ok(lesson < camping, 'Gremlock teaches Cooking before taking the quest');
 	assert.ok(at(list, 'Crag Boar Rib', (g) => g.t === 'collect' && g.item === 2886) < lesson, 'on the return with the ribs, not on arrival');
 	assert.equal(list[camping].step, list[at(list, 'turnin 384 (Beer Basted Boar Ribs)', is('turnin', 384))].step, 'on the same visit as the ribs');
+});
+
+// --- Flow audit (2026-11-07): Dun Morogh's quarry was stopped at up to six
+// times (each of Those Blasted Troggs!, the powder keg, the powder, the smith's
+// hides and The Public Servant handed in on a stop of its own), with the
+// Bonesnappers listed along the way though they share the quarry with the
+// Skullthumpers; Kharanos was entered four times in a row for Senir, the malt,
+// Tognus, the malt again and the cooking lesson; Razzle's cogs were listed along
+// the whole walk west and twice more. Now the quarry troggs are one step,
+// Foreman Stonebrow, Senator Mehr and Thesten take their quests on the first
+// return before Helm's Bed Lake, Kharanos is one stop with one malt, and the
+// cogs are collected with the Leper Gnomes.
+for (const DUN_MOROGH of DUN_MOROGHS) test(`${DUN_MOROGH}: flow audit: the quarry troggs in one step and handed in on the first return, Kharanos once, no along lists for the cogs or the Bonesnappers`, { skip }, () => {
+	const list = goals(DUN_MOROGH);
+	const skull = at(list, 'kill 1115 (Skullthumpers)', (g) => g.t === 'kill' && g.quest === 432);
+	const bone = at(list, 'kill 1117 (Bonesnappers)', (g) => g.t === 'kill' && g.quest === 433);
+	assert.equal(list[bone].step, list[skull].step, 'the Bonesnappers with the Skullthumpers');
+	const t432 = at(list, 'turnin 432', is('turnin', 432));
+	assert.equal(list[at(list, 'turnin 433', is('turnin', 433))].step, list[t432].step, 'Stonebrow and Mehr on one stop');
+	assert.ok(t432 < at(list, 'the Stolen Blasting Powder', (g) => g.t === 'collect' && g.item === 267415), 'before the powder');
+	assert.ok(t432 < at(list, 'kill 6123 (Dark Iron Spies)', (g) => g.t === 'kill' && g.quest === 96390), 'before the spies');
+	assert.equal(list.filter(({ goal }) => goal.t === 'buy' && goal.item === 2894).length, 1, 'one Rhapsody Malt');
+	const senir = at(list, 'turnin 98323', is('turnin', 98323));
+	assert.equal(list[senir].step, list[at(list, 'accept 287', is('accept', 287))].step, 'Senir once: Secure the Mountain in, Frostmane Hold out');
+	const { steps } = compiled(DUN_MOROGH);
+	assert.deepEqual(steps.filter((st) => st.along && st.goals.some((g) => [412, 433].includes(g.quest))).map((st) => st.title), [], 'no along list for the cogs or the Bonesnappers');
+	assert.equal(list.filter(({ goal }) => goal.t === 'collect' && goal.item === 3083).length, 1, 'the cogs listed once');
 });
 
 test(`EpicTibbles's report (#532): an objective that is talking to someone reads "Talk to", not "Kill": the Skyborne visits to the Horde leaders`, { skip }, () => {
@@ -1616,6 +1674,21 @@ test('Sweep from #957: a drop is collected with the later quest that kills the s
 		assert.ok(work.length > 0, `${guide}: the ${what} have a goal`);
 		for (const [{ step }, i] of work) assert.ok(i > accept, `${guide}: ${what}, not in "${step.title}"`);
 	}
+});
+
+// --- Flow re-order (2026-11-07, #1104): Horde Badlands ground the Lesser
+// Rock Elementals before Kargath, where Jarkal gives Badlands Reagent Run, and
+// came back to the Dustbowl for his Rock Elemental Shards after Agmond's End;
+// the buzzard wings were a stop of their own at Agmond's End.
+test('forever/horde/30-40/03-arathi-highlands.guide: flow re-order: Jarkal\'s shards with the Dustbowl elementals, the wings on the way to Agmond\'s End', { skip }, () => {
+	const list = goals('forever/horde/30-40/03-arathi-highlands.guide');
+	const jarkal = at(list, 'accept 2258 (Badlands Reagent Run)', is('accept', 2258));
+	const stones = at(list, 'collect 4626 (Small Stone Shard)', (g) => g.t === 'collect' && g.item === 4626);
+	assert.ok(jarkal < stones, 'Badlands Reagent Run taken before the Lesser Rock Elementals');
+	assert.ok(list.some(({ goal, s }) => s === list[stones].s && goal.t === 'collect' && goal.item === 7848), 'the Rock Elemental Shards collected with the Small Stone Shards');
+	const wings = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 3404);
+	assert.equal(wings.length, 1, 'the wings listed once');
+	assert.equal(wings[0].s, list[at(list, 'collect 5797 (Stonevault flakes)', (g) => g.t === 'collect' && g.item === 5797)].s, 'the wings with the troggs, on the way to Agmond\'s End');
 });
 
 // Every leveling guide with a profession quest still plays to the end for a
@@ -3079,6 +3152,22 @@ test(`${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas befor
 	assert.ok(necklace < jewel, 'the necklace comes before the jewel');
 	assert.equal(list[necklace].s, list[jewel].s, 'on the Ferocitas step');
 	assert.ok(located(list[necklace]), 'the arrow leads to Ferocitas for the necklace');
+});
+
+// The Lost Caravan's tip sent players to Watcher Biggs on the swamp's west road;
+// the Caravan Chest (object 28024) that holds the Wizards' Reagents stands at the
+// north end of the Fallow Sanctuary, beside Galen Goodward's cage, where the
+// step's arrow already leads.
+test(`${ARATHI}: The Lost Caravan's tip and arrow both lead to the Caravan Chest by Galen's cage, not to Watcher Biggs`, { skip }, () => {
+	const list = goals(ARATHI);
+	const reagents = list[at(list, "collect 6170 (Wizards' Reagents)", (g) => g.t === 'collect' && g.item === 6170)];
+	const tips = [].concat(reagents.step.note || []).join(' ');
+	assert.ok(!/near Biggs/.test(tips), `the tip no longer says the caravan is near Biggs: ${tips}`);
+	assert.ok(/Galen/.test(tips), 'the tip names Galen\'s cage');
+	const chest = data.spawns('object', 28024).find((sp) => sp.map === reagents.goal.map);
+	assert.ok(chest, 'the Caravan Chest has a spawn on the goal\'s map');
+	const [x, y] = chest.pts[0];
+	assert.ok(yards(reagents.goal, { map: chest.map, x, y }) < 60, `the arrow leads to the chest (${reagents.goal.x},${reagents.goal.y} vs ${x},${y})`);
 });
 
 // --- Flow audit (2026-11-07): Teldrassil killed Ferocitas' mystics, went on
