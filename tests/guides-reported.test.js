@@ -4680,3 +4680,14 @@ test('forever/horde/40-50/03-feralas.guide: flow re-order: the Pool of Tears bef
 	assert.ok(goals('forever/horde/40-50/02-feralas.guide').some(({ goal }) => is('accept', 7734)(goal)), 'Improved Quality comes from the previous guide');
 	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7734)(goal)), 'not carried to the Azshara guide');
 });
+
+// Flow review, Horde 40-60 (#1166): Caught! is handed in at the outhouse right after its work (the guide came back to
+// the dig site at the end), and the Smithing Tuyere drops from the same Steamsmiths as the Thorium Plated Daggers.
+test('forever/horde/40-50/04-tanaris.guide: flow re-order: Caught! on the spot, the tuyere with the daggers', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const caught = list[at(list, 'turnin 4449', is('turnin', 4449))];
+	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306)].s, 'handed in on the dig site step');
+	assert.ok(caught.s < list[at(list, 'accept 7728', is('accept', 7728))].s, 'before Thorium Point');
+	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
+	assert.equal(step(18959), step(10551), 'the tuyere on the daggers step');
+});
