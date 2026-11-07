@@ -1,79 +1,4 @@
-# Stranglethorn Vale, Dustwallow Marsh and the Swamp of Sorrows, Alliance ~40.5
-# to ~43 (consensus visits 29 and 33-42). Flow: Theramore > one Dustwallow loop
-# (Sentry Point, Swamplight Manor, North Point Tower, the Darkmist spiders,
-# Mudcrush and the Shady Rest, back through Theramore, then the murlocs,
-# Jarl, Mudcrush and Balos Jacken) > hearth to Theramore > ride to Ratchet
-# (flight path),
-# boat to Booty Bay > Stranglethorn from Booty Bay (the Bloodsail, the
-# gorillas, Zanzil's village, the Crystalvein Mine and the Skullsplitters,
-# then the north-west coast and the Rebel Camp, hearth to Booty Bay) >
-# fly to Stormwind > Swamp of Sorrows > hearth to Stormwind > Ironforge,
-# where the player flies to Thelsamar for the next guide.
-#
-# Deviations from the export:
-# - Dustwallow Marsh's two visits (29 and 33) are merged into one loop: the
-#   same hubs, walked once. Theramore's flight path and the first two
-#   Missing Diplomat turn-ins come from the previous guide.
-# - Stranglethorn: the far north is one loop after the jungle: The Curse of
-#   the Tides (611) and Pearl Diving (705, carried from 30-40/06-badlands) on
-#   the north-west coast, then Return to Corporal Kaleb (622) at the Rebel
-#   Camp, closed by the hearth to Booty Bay. Raptor Mastery (196) is left
-#   out: Nesingwary's camp would need a second visit for its turn-in, which
-#   costs as much time as the quest saves. Goblin Sponsorship 1180-1182 is
-#   left out (it starts at the Shimmering Flats). "Pretty Boy" Duncan (610)
-#   is done near Booty Bay. Voodoo Dues is done on one jungle loop: Shaky is
-#   visited between the gorillas and the jungle.
-# - The Shimmering Flats stop (visit 36) is dropped: a long trip from
-#   Stormwind. Keeping Pace and Rizzle's Schematics (1190, 1194) are done in
-#   40-50/04-tanaris, which rides across the Flats; Goblin Sponsorship 1183
-#   and Parts for Kravel 1112 are left out.
-# - The Teldrassil trip (visit 38, Favored of Elune? 3661, a single accept)
-#   and the Searing Gorge stop (visit 42, Caught! 4449) are dropped; Caught!
-#   is taken by a later guide that goes to its outhouse anyway.
-# - Southshore (visit 39): the previous guide already handed in its quests;
-#   Down the Scarlet Path (1052) is handed in when the next guide passes
-#   Southshore. Return to Milton (542, from the previous guide) is handed in
-#   to Milton Sheaf on the first Stormwind stop.
-# - Stormwind's two visits keep their order around the Swamp; A Meal Served
-#   Cold (212) and Feast at the Blue Recluse (1271) move to the first one,
-#   and Ironforge comes after the second, on the way to the Badlands.
-# - Jarl Needs a Blade (1203) wants a Moonsteel Broadsword, a blacksmith's
-#   craft: optional.
-# - Added: Suspicious Hoofprints (1284), by the Shady Rest badge, handed in to
-#   Vimes on the Theramore stop the loop already makes (James Hyal, turned
-#   in the guide before, opens it).
-# - Stormwind: Andromath (1477) right after Angus in the Mage Quarter, before
-#   Mazen and Dellis; Brohann (1448) in the Dwarven District before Milton
-#   in the Keep.
-# Left out: ... and Bugs (1258), Sunken Treasure (670), Cortello's Riddle part
-# 2 (625: west Dustwallow), and the Ironforge breadcrumbs Find Bingles and
-# Speak with Shoni (2039, 2041): never finished on the route or dropped with
-# their detour. Into The Temple of Atal'Hakkar (1475: tablets inside the
-# Sunken Temple, and its opener 1469 is not on the route) and Reclaimed
-# Treasures (1360: Krom's chest is inside Uldaman) are dungeon work: left out.
-# Class quests: Paladins take and hand in The Tome of Nobility (1661) from
-# Duthorian Rall in Stormwind; Warlocks take Summon Felsteed (4488) from
-# Demisette Cloyce and hand it in at Ratchet at the end of the next guide.
-# Warriors finish The Islander and The Affray (1718, 1719, Berserker Stance)
-# on Fray Island on the ride to Ratchet; Klannoc's follow-up, The Windwatcher
-# (1791) and the Whirlwind weapon chain with its elite, is left to the Class
-# guide forever/class/warrior/whirlwind-weapon (a note at The Affray says so).
-# Class training: Stormwind; Shamans at the Ironforge stop at the end.
-# Riding: the Stormwind stop at about 42 is the first city after 40. Each race
-# is pointed to its own riding trainer and mount vendor: Humans to Randal
-# Hunter and Katie Hunter in Elwynn, Night Elves to Jartsam and Lelanai in
-# Darnassus, Skyborne to Randal Hunter (their own trainer, Genn Fairweather,
-# stablemaster and riding trainer, is in Valanaar on Zephras Isle), all from the
-# Stormwind stop; Dwarves to Ultham Ironhorn and Veron Amberstill and Gnomes
-# to Binjy and Milli Featherwhistle from the Ironforge stop. Forever may let
-# any race learn from any riding trainer (unconfirmed). Every goal is
-# optional (100g).
-# The Bloodsail captains (608) are optional: 45-48 on decks of 42-45 pirates.
-# Added: My Little Friends (93176, Forever, from 30-40/05-arathi-highlands):
-# the Arbor Tarantula (data spawn 43-44,17-19) is caught on the ride to the
-# Rebel Camp and the quest is handed to Amaryllis Webb on the Swamp stop, as
-# the consensus does (42.9); based on data, not play (Forever above 30 is
-# unchecked until 4 November).
+# Generated by forge build from forge/seed and the checkout's fixes. Do not edit: see docs/FORGE.md, "Fixing a generated guide".
 guide forever/alliance/40-50/01-stranglethorn-vale
 title Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows
 faction Alliance
@@ -81,13 +6,19 @@ levels 40-43
 zone Stranglethorn Vale
 next forever/alliance/40-50/02-badlands
 
+# Forge's route search orders the quests of this guide and its guide writer writes the steps.
+# Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
+# into this file.
+# Added here: The Black Shield (1253), Cortello's Riddle (625), The Brassbolts Brothers (2769).
+# Left out: The Bloodsail Buccaneers (608).
+
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
   zone Dustwallow Marsh
   tip Morgan Stern stands near the inn; Helenia Olden, a trade supplier a few steps south, sells the spices Jarl wants.
   sethome "Theramore Isle"
-  turnin 1260                         -- Morgan Stern
+  turnin 1260                         -- Morgan Stern, inside
   accept 1204
   buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
 
@@ -98,22 +29,26 @@ step Sentry Point
 
 step Archmage Tervosh
   tip Back in Theramore: Tervosh waits with Lady Jaina in the tower of Foothold Citadel.
-  turnin 1265
-  accept 1266
+  turnin 1265                         -- Upstairs
+
+step Theramore Isle
+  buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
+
+step Archmage Tervosh
+  accept 1266                         -- Upstairs
+
+step Theramore
+  turnin 1204                         -- Morgan Stern, inside
 
 # ---------------------------------------------------------------- The north
 
 step Swamplight Manor
   tip Take the road north to the ruined manor; Jarl lives in the shack beside it and the loose dirt is at the corner of the house.
+  accept 1219                         -- Loose Dirt
   accept 1218                         -- "Swamp Eye" Jarl
   buy 3713 x3 npc 4897                -- Soothing Spices, for "Swamp Eye" Jarl
   turnin 1218                         -- with the spices from Theramore
   accept 1206
-  accept 1219                         -- Loose Dirt
-
-step Mudrock tortoises
-  tip The Mudrock Tortoises and Spikeshells sun themselves on the shore north-east of the manor.
-  collect 5883 quest 1204             -- Forked Mudrock Tongue
 
 step "Stinky" Ignatz
   tip Stinky waits west of the manor, in the marsh below North Point Tower. Lead him to his Bogbean leaves and keep the swamp creatures off him.
@@ -122,12 +57,14 @@ step "Stinky" Ignatz
 
 step North Point Tower
   tip Private Hendel holds the tower with a few deserters. He turns on you: beat him until he yields.
+  tip Careful: Hendel has two guards who join the fight when he turns hostile. The guards flee once he surrenders.
   turnin 1266                         -- Private Hendel
   accept 1324
   complete 1324
 
 step Darkmist Cavern
   tip The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.
+  tip Careful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them.
   collect 5884 quest 1206             -- Unpopped Darkmist Eye
 
 step Mudcrush Durtfeet
@@ -136,34 +73,35 @@ step Mudcrush Durtfeet
 
 step The Shady Rest Inn
   tip The burned inn stands on the road west, toward the Barrens; the guard's badge lies in the ashes and the hoofprints are in the mud beside the inn.
-  accept 1252 @29.8,48.2              -- Theramore Guard Badge
   accept 1284 @29.7,47.6              -- Hoofprints
+  accept 1253
+  accept 1252 @29.8,48.2              -- Theramore Guard Badge
 
 # ---------------------------------------------------------------- Theramore
 
 step Theramore
   tip Follow the road east back to Theramore. Tervosh, Lady Jaina and the officers are in the tower and Foothold Citadel.
-  turnin 1324                         -- Archmage Tervosh
-  accept 1267                         -- Lady Jaina Proudmoore
-  turnin 1267
   turnin 1219                         -- Theramore Lieutenant
   accept 1220
-  turnin 1220                         -- Captain Garran Vimes
-  turnin 1252
-  turnin 1284
+  turnin 1324                         -- Archmage Tervosh, upstairs
+  accept 1267                         -- Lady Jaina Proudmoore, on the top floor
+  turnin 1267
+  turnin 1252                         -- On the top floor
   accept 1259
-  turnin 1259                         -- Adjutant Tesoran
+  turnin 1259                         -- Adjutant Tesoran, on the top floor
+  turnin 1284
+  turnin 1253
   accept 1285
   turnin 1285                         -- Captain Garran Vimes
+  turnin 1220                         -- Captain Garran Vimes
   accept 1286
-  turnin 1222                         -- Morgan Stern
+  turnin 1222                         -- Morgan Stern, inside
 
 # ---------------------------------------------------------------- The north again and the west
 
 step Mirefin murlocs
   tip The Mirefin murlocs crowd the north coast past Swamplight Manor; finish the tongues on the tortoises beside them.
   collect 5847 quest 1177             -- Mirefin Head
-  collect 5883 quest 1204             -- Forked Mudrock Tongue
 
 step Swamplight Manor
   turnin 1206                         -- "Swamp Eye" Jarl
@@ -178,12 +116,10 @@ step Balos Jacken
   turnin 1286
   accept 1287
 
-step Theramore
-  hearth "Theramore Isle"
-  turnin 1287                         -- Captain Garran Vimes
-  accept 1288
-  turnin 1288                         -- Lady Jaina Proudmoore
-  turnin 1204                         -- Morgan Stern
+step The Barrens
+  only Warrior
+  zone The Barrens
+  goto 68.6,49.2 "The Barrens"
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -197,31 +133,180 @@ step The Affray
   turnin 1719                             -- Klannoc Macleod: Berserker Stance
   note Klannoc offers The Windwatcher next (1791): the Whirlwind weapon chain, with an elite at the end, is in the Warrior class guide Whirlwind Weapon.
 
-step Ratchet
+step Dustwallow Marsh
+  only Human
+  zone Dustwallow Marsh
+  when level>=40
+  goto 67.5,51.2 "Dustwallow Marsh"
+
+step Boat to Menethil Harbor
+  only Human
+  zone Dustwallow Marsh
+  when level>=40
+  goto 71.6,56.4 "Boat to Menethil Harbor"
+
+step Fly to Stormwind
+  only Human
+  zone Wetlands
+  when level>=40
+  goto 9.5,59.7 "Menethil Harbor flight master"
+  fly "Stormwind"
+  zone Stormwind City
+
+step Elwynn Forest
+  only Human
+  zone Elwynn Forest
+  when level>=40
+  goto 84.6,64.5 "Elwynn Forest"
+
+step Riding at 40
+  only Human
+  zone Elwynn Forest
+  when level>=40
+  tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Randal Hunter teaches Humans at Eastvale Logging Camp in eastern Elwynn Forest, beside Katie Hunter's horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour.
+  train 4732 optional                 -- Randal Hunter
+  vendor 384 optional                 -- Katie Hunter: other colours, 20g
+
+step Riding at 40
+  only Skyborne
+  zone Elwynn Forest
+  when level>=40
+  tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from Genn Fairweather, the stablemaster and riding trainer at the Fairweather Stables in Valanaar on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of Dalaran about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders.
+  note "Riding and Galestriders: Genn Fairweather, at the Fairweather Stables in Valanaar on Zephras Isle."
+  note "Skyboat to Zephras Isle: the north side of Dalaran, about every five minutes."
+
+step Boat to Booty Bay
+  only Dwarf
   zone The Barrens
-  tip Ride from Theramore west along the Dustwallow road into the Barrens and north to Ratchet on the coast. Learn the flight path from Bragok, then take the boat to Booty Bay from the dock.
-  getfp "Ratchet" npc 16227           -- Bragok
+  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Mage,Warlock,Druid
+
+step The Barrens
+  only Dwarf,Paladin
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Dwarf,Paladin
+  zone The Barrens
   goto 63.4,38.5 "Boat to Booty Bay"
+
+step The Barrens
+  only Dwarf,NightElf,Skyborne,Hunter
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Dwarf,NightElf,Skyborne,Hunter
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step The Barrens
+  only Dwarf,Gnome,NightElf,Skyborne,Rogue
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Dwarf,Gnome,NightElf,Skyborne,Rogue
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step The Barrens
+  only Dwarf,Gnome,NightElf,Priest
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Dwarf,Gnome,NightElf,Priest
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step The Barrens
+  only Dwarf,Shaman
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Dwarf,Shaman
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step Boat to Booty Bay
+  only Gnome
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Hunter,Shaman,Druid
+
+step The Barrens
+  only Gnome,Skyborne,Mage
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Gnome,Skyborne,Mage
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step The Barrens
+  only Gnome,Warlock
+  zone The Barrens
+  getfp "Ratchet"
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only Gnome,Warlock
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step Boat to Booty Bay
+  only NightElf
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Shaman,Mage,Warlock
+
+step The Barrens
+  only NightElf,Skyborne,Druid
+  zone The Barrens
+  goto 63.4,38.5 "The Barrens"
+
+step Boat to Booty Bay
+  only NightElf,Skyborne,Druid
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay"
+
+step Boat to Booty Bay
+  only Skyborne
+  zone The Barrens
+  goto 63.4,38.5 "Boat to Booty Bay" only Warrior,Paladin,Priest,Shaman,Warlock
+
+step Fly to Darkshire
+  only Dwarf,Gnome,NightElf,Skyborne
+  zone Stranglethorn Vale
+  goto 27.5,77.7 "Booty Bay flight master"
+  fly "Darkshire"
+
+step Duskwood
+  zone Duskwood
+  goto 77.6,44.4 "Duskwood"
+
+step Fly to Booty Bay
+  zone Duskwood
+  goto 77.6,44.4 "Darkshire flight master"
+  fly "Booty Bay"
+  zone Stranglethorn Vale
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip The Salty Sailor Tavern is the tall building over the harbour; most of the quest givers are on its floors or the docks below.
-  sethome "Booty Bay"
-  accept 348                          -- Fin Fizracket
-  accept 595                          -- First Mate Crazz
-  accept 606                          -- "Sea Wolf" MacKinley
-  accept 2872                         -- for Stoley in Tanaris: keep it
-  accept 600                          -- Crank Fizzlebub
-  accept 621
-  accept 209                          -- Kebok
-  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
-  turnin 627                          -- Krazek
+  turnin 627                          -- Krazek, upstairs
   accept 622                          -- for Corporal Kaleb at the Rebel Camp, on the northern loop
+  accept 2864                         -- Krazek: for Tran'rek in Tanaris, keep it
   accept 617                          -- Privateer Bloads
   turnin 669                          -- Fleet Master Seahorn, top floor
+  accept 621                          -- Inside
   note Seahorn's next errand goes back to Arathi: skip it.
-  turnin 603                          -- Catelyn the Blade
+  turnin 603                          -- Catelyn the Blade, upstairs
   accept 610
+  accept 2872                         -- for Stoley in Tanaris: keep it; on the top floor
+  sethome "Booty Bay"                 -- Upstairs
+  accept 348                          -- Fin Fizracket
+  accept 595                          -- First Mate Crazz
 
 # ---------------------------------------------------------------- The Bloodsail
 
@@ -234,37 +319,45 @@ step Bloodsail camp
 step Booty Bay
   turnin 597                          -- First Mate Crazz
   accept 599
+  accept 576                          -- Dizzy One-Eye
   turnin 599                          -- Fleet Master Seahorn
   accept 604
-  accept 576                          -- Dizzy One-Eye
-  accept 587                          -- Deeg
-  turnin 610                          -- Catelyn the Blade
+  accept 587                          -- Deeg, on the top floor
+  turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
 
-step Bloodsail pirates
+step Wild Shore: kill these as you meet them
+  zone Stranglethorn Vale
   tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the Wild Shore, south of Booty Bay.
-  kill 1563 quest 604                 -- Bloodsail Swashbuckler
+  collect 3920 quest 604              -- Bloodsail Charts
   collect 3910 quest 587              -- Snuff
   collect 3897 quest 576              -- Dizzy's Eye
-  collect 3920 quest 604              -- Bloodsail Charts
   collect 3921 quest 604              -- Bloodsail Orders
+  kill 1563 quest 604                 -- Bloodsail Swashbuckler
+
+step Mistvale Giblets on the way
+  along until q606
+  when onquest 606
+  collect 3919 quest 606
 
 step Booty Bay
+  turnin 587                          -- Deeg, on the top floor
   turnin 604                          -- Fleet Master Seahorn
-  accept 608
-  turnin 587                          -- Deeg
   turnin 576                          -- Dizzy One-Eye
 
-step The Bloodsail captains
-  tip The captains stand on the ships anchored off the Wild Shore, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, Fleet Master Firallon (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore.
-  kill 2550 quest 608 optional        -- Captain Stillwater
-  kill 2548 quest 608 optional        -- Captain Keelhaul
-  kill 2546 quest 608 optional        -- Fleet Master Firallon
-  collect 4056                        -- Cortello's Riddle
-  accept 624                          -- for the Swamp of Sorrows later
+step Gorilla hills
+  tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; Witch Doctor Unbagwa sits among them.
+  accept 349                          -- Witch Doctor Unbagwa, inside Spirit Den
+  collect 2799 quest 349              -- Gorilla Fang
 
-step Booty Bay
-  turnin 608 optional                 -- Fleet Master Seahorn
+step Unbagwa's ritual
+  tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last. Fight at full health.
+  turnin 349                          -- Witch Doctor Unbagwa, inside Spirit Den
+  collect 2797 quest 348              -- Heart of Mokk
+
+step Gorilla hills
+  label q606
+  collect 3919 quest 606              -- Mistvale Giblets
 
 # ---------------------------------------------------------------- North of the bay
 
@@ -272,46 +365,32 @@ step Naga Explorers
   tip The naga comb the beaches north of the Bloodsail camp; they drop the reeds.
   collect 4029 quest 617              -- Akiris Reed
 
-step Gorilla hills
-  tip Ride inland to the Mistvale gorilla hills. Elder Mistvale Gorillas drop the giblets; Witch Doctor Unbagwa sits among them.
-  collect 3919 quest 606              -- Mistvale Giblets
-  accept 349                          -- Witch Doctor Unbagwa
-  collect 2799 quest 349              -- Gorilla Fang
-
-step Unbagwa's ritual
-  tip Hand in the fangs and stay: three waves of gorillas come, Mokk the Savage last. Fight at full health.
-  turnin 349                          -- Witch Doctor Unbagwa
-  collect 2797 quest 348              -- Heart of Mokk
-
 step Booty Bay
   tip Ride back down to town; Shaky stands at the tunnel mouth.
   turnin 606                          -- "Shaky" Phillipe
   accept 607
-  turnin 607                          -- "Sea Wolf" MacKinley
-  accept 609
-  turnin 348                          -- Fin Fizracket
   turnin 617                          -- Privateer Bloads
   accept 623                          -- for Privateer Groy in Theramore: keep it
+  turnin 348                          -- Fin Fizracket
+  turnin 607                          -- "Sea Wolf" MacKinley, on the top floor
+  accept 609
+
+step The Bloodsail captains
+  tip The captains stand on the ships anchored off the Wild Shore, each with a crew of 42-45 pirates: Stillwater (45) and Keelhaul (46) on the nearer decks, Fleet Master Firallon (48) on the flagship. At 42 this is a fight for a group or for the end of the guide; clear each deck first if you go. Cortello's scroll lies on the wreck by the shore.
+  collect 4056                        -- Cortello's Riddle
+  accept 624                          -- for the Swamp of Sorrows later
+
+step Zanzil's village
+  tip Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
+  collect 4016 quest 621              -- Zanzil's Mixture
+  collect 3926 quest 609              -- Chucky's Huge Ring
+  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass
 
 # ---------------------------------------------------------------- The jungle
 
 step Maury and Jon-Jon
   tip Ride north to the hills west of the road. Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
-  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass
-
-step Zanzil's village
-  tip Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
-  collect 4016 quest 621              -- Zanzil's Mixture
-  collect 3926 quest 609              -- Chucky's Huge Ring
-
-step Crystalvein Mine
-  tip Follow the road north-east to the Venture Co. camp at the Crystalvein Mine; the miners, surveyors and foremen drop the crystals.
-  collect 3917 quest 600              -- Singing Blue Crystal
-
-step Skullsplitter ruins
-  tip The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.
-  collect 1524 quest 209              -- Skullsplitter Tusk
 
 step Cold Eye Basilisks
   tip The Cold Eye Basilisks lie on the rocks west of the mine.
@@ -321,7 +400,7 @@ step Cold Eye Basilisks
 
 step The north-west coast
   tip Ride north-west from the mine to the bay on the north-west coast. The Giant Clams lie on its floor and hold the pearls; Gazban swims among them and drops the Stone of the Tides.
-  collect 4611 quest 705              -- Blue Pearl
+  collect 4611 quest 705              -- Blue Pearl; underwater
   collect 4034 quest 611              -- Stone of the Tides
 
 step Rebel Camp
@@ -329,22 +408,99 @@ step Rebel Camp
   kill 217588                         -- Arbor Tarantula: catch it, for My Little Friends
   turnin 622                          -- Corporal Kaleb
 
+step Brother Nimetz
+  turnin 205
+
+step Panther Mastery
+  when group 193
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Bhag'thera is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  collect 3876 quest 193.1 @49.4,24.0 map 1434
+
+step Ruins of Zul'Mamwe: kill these as you meet them
+  zone Stranglethorn Vale
+  tip The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.
+  tip Follow the road north-east to the Venture Co. camp at the Crystalvein Mine; the miners, surveyors and foremen drop the crystals.
+  tip Careful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp.
+  collect 1524 quest 209              -- Skullsplitter Tusk
+  collect 3917 quest 600              -- Singing Blue Crystal
+
 step Booty Bay
-  hearth "Booty Bay"
   turnin 611                          -- Baron Revilgaz
-  turnin 609                          -- "Sea Wolf" MacKinley
+  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
+  turnin 209                          -- Kebok, upstairs
+  turnin 621                          -- Inside
   note MacKinley's next task sends you after elite ogres: skip it.
   turnin 600                          -- Crank Fizzlebub
-  turnin 621
-  note Crank's next Zanzil errand starts in Thousand Needles: skip it.
-  turnin 209                          -- Kebok
+  turnin 609                          -- "Sea Wolf" MacKinley, on the top floor
+
+step Raptor Mastery
+  kill 687 quest 196.1 @32.1,43.1 map 1434
+
+step Hemet Nesingwary
+  turnin 196
+
+step Hemet Nesingwary
+  when group 197
+  accept 197
+
+step Hemet Nesingwary
+  when group 193
+  turnin 193
+
+step Level 42.23
+  when !group 193
+  when level<42.23
+  tip If you skipped Panther Mastery, grind here to level 42.23 to stay on the route's plan.
+  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
+  level 42.23                          -- grind on Cold Eye Basilisk
+
+step Raptor Mastery
+  when group 197
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Tethis is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  collect 3877 quest 197.1 @31.5,41.2 map 1434
+
+step Hemet Nesingwary
+  when group 197
+  turnin 197
+
+step Hemet Nesingwary
+  when group 208
+  accept 208
+
+step Level 42.27
+  when !group 197
+  when level<42.27
+  tip If you skipped Raptor Mastery, grind here to level 42.27 to stay on the route's plan.
+  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
+  level 42.27                          -- grind on Cold Eye Basilisk
+
+step Big Game Hunter
+  when group 208
+  tip These are elite mobs: grouping up is encouraged, look for people to do it with. King Bangalash is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone: the route has you grind the XP back.
+  tip Careful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, King Bangalash calls for help from creatures within 20 yd.
+  collect 3880 quest 208.1 @38.2,35.6 map 1434
+
+step Hemet Nesingwary
+  when group 208
+  turnin 208
+
+step Level 42.33
+  when !group 208
+  when level<42.33
+  tip If you skipped Big Game Hunter, grind here to level 42.33 to stay on the route's plan.
+  goto 36.3,42.3 map 1434 "Cold Eye Basilisk"
+  level 42.33                          -- grind on Cold Eye Basilisk
 
 # ---------------------------------------------------------------- Stormwind
+
+step Fly to Stormwind
+  zone Westfall
+  goto 56.6,52.7 "Sentinel Hill flight master"
+  fly "Stormwind"
 
 step Stormwind
   zone Stormwind City
   tip Angus Stern cooks in the Blue Recluse; Brohann Caskbelly is in the Dwarven District.
-  fly "Stormwind"
   sethome "Stormwind City"
   turnin 212                          -- Angus Stern
   accept 1271
@@ -353,58 +509,169 @@ step Stormwind
   accept 1363                         -- Mazen Mac'Nadir
   turnin 1363                         -- Acolyte Dellis
   accept 1364
-  accept 1448                         -- Brohann Caskbelly
-  turnin 542                          -- Milton Sheaf, the Royal Library in Stormwind Keep
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  accept 1448                         -- Brohann Caskbelly
 
-step Riding at 40
-  only Human
-  zone Elwynn Forest
-  tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Randal Hunter teaches Humans at Eastvale Logging Camp in eastern Elwynn Forest, beside Katie Hunter's horses. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour.
-  train 4732 optional                 -- Randal Hunter
-  vendor 384 optional                 -- Katie Hunter: other colours, 20g
+step Stormwind
+  zone Stormwind City
+  when onquest 542
+  turnin 542                          -- Milton Sheaf, the Royal Library in Stormwind Keep
 
-step Riding at 40
-  only Skyborne
-  zone Elwynn Forest
-  tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Skyborne learn it from Genn Fairweather, the stablemaster and riding trainer at the Fairweather Stables in Valanaar on Zephras Isle, who also sells the Galestriders: the skyboat to the isle leaves the north side of Dalaran about every five minutes. Collectibles, Mounts · Level 40 lists the Galestriders.
-  note "Riding and Galestriders: Genn Fairweather, at the Fairweather Stables in Valanaar on Zephras Isle."
-  note "Skyboat to Zephras Isle: the north side of Dalaran, about every five minutes."
-
-step Riding at 40
-  only NightElf
-  zone Darnassus
-  tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Jartsam teaches Night Elves in Darnassus, beside Lelanai's sabers: the boat from Stormwind Harbor to Auberdine, then the flight to Rut'theran Village. Forever may let any race learn from any riding trainer (unconfirmed), such as Randal Hunter at Eastvale Logging Camp in Elwynn Forest. Collectibles, Mounts · Level 40 lists every colour.
-  train 4753 optional                 -- Jartsam
-  vendor 4730 optional                -- Lelanai: other colours, 20g
+step Count Remington Ridgewell
+  when group 543
+  turnin 543
 
 step Paladin: The Tome of Nobility
   only Paladin
   zone Stormwind City
-  accept 1661                         -- Duthorian Rall, in the Cathedral of Light
-  turnin 1661
+  accept 1661 only Dwarf,Human -- Duthorian Rall, in the Cathedral of Light
+  turnin 1661 only Dwarf,Human
+
+step Stormwind City
+  only Warlock
+  zone Stormwind City
+  goto 25.3,78.2 "Stormwind City"
 
 step Warlock: Summon Felsteed
+  zone Stormwind City
   only Warlock
   accept 4488                         -- Demisette Cloyce, in the Slaughtered Lamb: Strahad Farsan in Ratchet takes it at the end of the next guide
+
+step Fly to Darkshire
+  zone Stormwind City
+  goto 66.3,62.7 "Stormwind flight master"
+  fly "Darkshire"
+  zone Duskwood
+
+step Swamp of Sorrows
+  zone Swamp of Sorrows
+  goto 5.5,31.4 "Swamp of Sorrows"
+
+step Misty Valley
+  tip The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays.
+  note The riddle's next scroll lies in western Dustwallow: skip it.
+  collect 6065 quest 1364 @5.5,31.4 map 1435 -- Khadgar's Essays on Dimensional Convergence
+
+step Misty Valley
+  when onquest 624
+  turnin 624
+
+step Level 42.46
+  when !group 543
+  when level<42.46
+  tip If you skipped The Perenolde Tiara, grind here to level 42.46 to stay on the route's plan.
+  goto 5.5,31.4 map 1435 "Tangled Horror"
+  level 42.46                          -- grind on Tangled Horror
+
+step Cortello's Riddle
+  accept 625
+  turnin 93176                        -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
 step Watcher Biggs
   zone Swamp of Sorrows
   tip Watcher Biggs stands by the road junction in the west of the swamp.
-  fly "Darkshire"
   accept 1398
 
-step A Soggy Scroll
-  tip The scroll lies in the marsh north of Biggs. The Swampwalkers north of it can drop Khadgar's essays.
-  turnin 624
-  note The riddle's next scroll lies in western Dustwallow: skip it.
-  collect 6065 quest 1364             -- Khadgar's Essays on Dimensional Convergence
+step Into Deadwind Pass
+  only NightElf
+  zone Deadwind Pass
+  when level>=40
+  goto 58.3,41.4 "Into Deadwind Pass"
+
+step Into Duskwood
+  only NightElf
+  zone Duskwood
+  when level>=40
+  goto 89.9,41.3 "Into Duskwood"
+
+step Into Stormwind City
+  only NightElf
+  zone Stormwind City
+  when level>=40
+  goto 73.3,90.7 "Into Stormwind City"
+
+step Stormwind City
+  only NightElf
+  zone Stormwind City
+  when level>=40
+  goto 21.8,56.9 "Stormwind City" live
+
+step Boat to Auberdine
+  only NightElf
+  zone Stormwind City
+  when level>=40
+  goto 21.8,56.9 "Boat to Auberdine" live
+
+step Fly to Rut'theran Village
+  only NightElf
+  zone Darkshore
+  when level>=40
+  goto 36.4,45.6 "Auberdine flight master"
+  fly "Rut'theran Village"
+
+step Darnassus
+  only NightElf
+  zone Darnassus
+  when level>=40
+  goto 38.7,15.8 "Darnassus"
+
+step Riding at 40
+  only NightElf
+  zone Darnassus
+  when level>=40
+  tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Jartsam teaches Night Elves in Darnassus, beside Lelanai's sabers: the boat from Stormwind Harbor to Auberdine, then the flight to Rut'theran Village. Forever may let any race learn from any riding trainer (unconfirmed), such as Randal Hunter at Eastvale Logging Camp in Elwynn Forest. Collectibles, Mounts · Level 40 lists every colour.
+  train 4753 optional                 -- Jartsam
+  vendor 4730 optional                -- Lelanai: other colours, 20g
+
+step Teldrassil
+  only NightElf
+  zone Teldrassil
+  when level>=40
+  goto 58.4,93.9 "Teldrassil"
+
+step Fly to Auberdine
+  only NightElf
+  zone Teldrassil
+  when level>=40
+  goto 58.4,93.9 "Rut'theran Village flight master"
+  fly "Auberdine"
+
+step Boat to Stormwind Harbor
+  only NightElf
+  zone Darkshore
+  when level>=40
+  goto 30.5,40.9 "Boat to Stormwind Harbor"
+
+step Into Elwynn Forest
+  only NightElf
+  zone Elwynn Forest
+  when level>=40
+  goto 32.3,49.9 "Into Elwynn Forest"
+
+step Into Deadwind Pass
+  only NightElf
+  zone Deadwind Pass
+  when level>=40
+  goto 33.1,36.0 "Into Deadwind Pass"
+
+step Into Swamp of Sorrows
+  only NightElf
+  zone Swamp of Sorrows
+  when level>=40
+  goto 5.8,60.8 "Into Swamp of Sorrows"
+
+step Swamp of Sorrows
+  only NightElf
+  zone Swamp of Sorrows
+  when level>=40
+  goto 70.2,45.2 "Swamp of Sorrows"
 
 step The sunken temple
+  zone Swamp of Sorrows
   tip Ride east; the Tangled Horrors along the way also drop the essays. Search the edge of the Pool of Tears, where the temple's ruins break the water.
-  collect 6065 quest 1364             -- Khadgar's Essays on Dimensional Convergence
+  goto 70.2,45.2
   complete 1448 @70.2,45.2
 
 step Misty Reed Strand
@@ -412,37 +679,92 @@ step Misty Reed Strand
   collect 6146 quest 1398             -- Sundried Driftwood
 
 step Watcher Biggs
-  tip Ride back west along the road; Amaryllis Webb stands a short way north of Biggs.
   turnin 1398
   accept 1425                         -- for Nethergarde Keep: keep it
-  turnin 93176                        -- Amaryllis Webb: My Little Friends, from 30-40/05-arathi-highlands
+
+step Duskwood
+  zone Duskwood
+  goto 77.6,44.4 "Duskwood"
+
+step Fly to Stormwind
+  zone Duskwood
+  goto 77.6,44.4 "Darkshire flight master"
+  fly "Stormwind"
+  zone Stormwind City
 
 # ---------------------------------------------------------------- Stormwind and Ironforge
 
 step Stormwind
   zone Stormwind City
-  hearth "Stormwind City"
   turnin 1448                         -- Brohann Caskbelly
   accept 1449                         -- for Falstad Wildhammer at Aerie Peak: keep it
+
+step Tram to Ironforge
+  zone Stormwind City
+  goto 64.5,7.5 "Tram to Ironforge"
+
+step Klockmort Spannerspan
+  zone Ironforge
+  accept 2769
+
+step Roetten Stonehammer
+  turnin 1457
 
 step Ironforge
   zone Ironforge
   tip Take the Deeprun Tram from the Dwarven District. Roetten is in the Reclaimers' hall by the Hall of Explorers, Prospector Stormpike in the hall itself, Gerrig Bonegrip in the Forlorn Cavern. The next guide flies on to Thelsamar.
   turnin 1467                         -- Roetten Stonehammer
-  accept 707                          -- Prospector Stormpike: for Prospector Ironband in Loch Modan, keep it
   turnin 727                          -- Gerrig Bonegrip
   train class only Shaman             -- Stormwind has no shaman trainer
+
+step Fly to Thelsamar
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Thelsamar"
+  zone Loch Modan
+
+step Badlands
+  zone Badlands
+  goto 53.8,43.3 "Badlands"
+
+step Hammertoe's Digsite
+  turnin 733                          -- Sigrun Ironhew
+# ---------------------------------------------------------------- The Badlands
+
+step Hammertoe's Digsite
+  zone Badlands
+  tip Ride south out of Loch Modan through the pass into the Badlands; Sigrun Ironhew camps at the dig.
+  accept 706                          -- Sigrun Ironhew
+
+step Garek
+  tip Garek camps by himself in Dustwind Gulch, south-east of the digsite.
+  accept 732
+
+step Dun Morogh
+  only Dwarf
+  zone Dun Morogh
+  when level>=40
+  goto 63.8,50.1 "Dun Morogh"
 
 step Riding at 40
   only Dwarf
   zone Dun Morogh
+  when level>=40
   tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Ultham Ironhorn teaches Dwarves at Amberstill Ranch, east of Kharanos on the road to Loch Modan, beside Veron Amberstill's rams. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour.
   train 4772 optional                 -- Ultham Ironhorn
   vendor 1261 optional                -- Veron Amberstill: other colours, 20g
 
+step Fly to Ironforge
+  only Gnome
+  zone Loch Modan
+  when level>=40
+  goto 33.9,50.8 "Thelsamar flight master"
+  fly "Ironforge"
+
 step Riding at 40
   only Gnome
   zone Dun Morogh
+  when level>=40
   tip At 40 with 100 gold you can learn to ride, and learning it gives you a mount. Binjy Featherwhistle teaches Gnomes at Steelgrill's Depot, just east of Kharanos, beside Milli Featherwhistle's mechanostriders. Forever may let any race learn from any riding trainer (unconfirmed). Collectibles, Mounts · Level 40 lists every colour.
   train 7954 optional                 -- Binjy Featherwhistle
   vendor 7955 optional                -- Milli Featherwhistle: other colours, 20g
