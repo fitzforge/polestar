@@ -4994,3 +4994,18 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: final review: J.D. Co
 	assert.equal(stepOf('turnin 3941', is('turnin', 3941)), stepOf('turnin 3914', is('turnin', 3914)), 'beside Linken');
 	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
 });
+
+// Final route review, Alliance 40-60: class training sat in a step of its own before Stormwind (a tram ride to Ironforge
+// and back), and the last city visit went Ironforge, Stormwind, Ironforge, Stormwind.
+test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and Ironforge once', { skip }, () => {
+	const five = goals('forever/alliance/50-60/05-silithus.guide');
+	const s5 = (what, pred) => five[at(five, what, pred)].s;
+	assert.equal(s5('class training', (g) => g.t === 'train'), s5('turnin 4512', is('turnin', 4512)), 'training in the Ironforge stop');
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	const sw = stepOf('turnin 7793', is('turnin', 7793));
+	assert.equal(stepOf('turnin 7795', is('turnin', 7795)), sw, 'the Runecloth donation on the same stop');
+	assert.equal(stepOf('turnin 7791', is('turnin', 7791)), sw, 'the Wool donation on the same stop');
+	assert.ok(sw < stepOf('turnin 4513', is('turnin', 4513)), 'then Ironforge');
+	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Stormwind/.test(goal.location || '')).length, 1, 'one flight to Stormwind');
+});
