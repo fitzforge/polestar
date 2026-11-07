@@ -2149,11 +2149,12 @@ function Own.goalsDone(s)
 end
 
 local function stepDone(s)
-	-- The route passes over an along step (Own.alongListed) and a hearth-only
-	-- one (Own.hearthOnly: the arrow's route hearths when it pays).
+	-- The route passes over an along step (Own.alongListed), a hearth-only
+	-- one (Own.hearthOnly: the arrow's route hearths when it pays) and a
+	-- travel step the route flies past (Own.flightPassed).
 	if guide.steps[s].along or Own.hearthOnly(guide.steps[s]) then return true end
 	if Own.groupPending(guide.steps[s]) then return false end -- waits for the player's answer
-	return Own.goalsDone(s)
+	return Own.goalsDone(s) or Own.flightPassed(s)
 end
 
 -- `when done <label>` (format 5): the step so labelled applies and its goals
@@ -2532,7 +2533,8 @@ end
 -- First applicable, not skipped, not done step, after placing the tab when
 -- it was just loaded (place). During play soft steps hold as usual, so a
 -- quest taken out of order never jumps a training stop. A step the route
--- reaches may jump ahead (Own.jump).
+-- reaches may jump ahead (Own.jump), and a flight step it reaches may pass
+-- to the travel route (Own.flightJudged).
 local function computeCurrent()
 	if placing then place() end
 	local steps = guide.steps
@@ -2540,8 +2542,11 @@ local function computeCurrent()
 	for s = 1, #steps do
 		-- The live step stays while the group waits on it (Own.partyHold).
 		if stepApplies(steps[s]) and not (sk and sk[s]) and (not stepDone(s) or (s == computed and Own.partyHold(s))) then
-			if not Own.jump(s) then return s end
-			sk = skippedFor(guide.id)
+			if Own.jump(s) then
+				sk = skippedFor(guide.id)
+			elseif s == computed or not Own.flightJudged(s) then
+				return s
+			end
 		end
 	end
 	return nil
@@ -3231,11 +3236,19 @@ end
 -- first blocking goal is a field goal (kill, collect, interact with a place)
 -- and the group has two or more such goals open, the nearest of them to the
 -- player takes its place (Own.nearestField: sticky, never switched in a
--- fight). Returns its index (or nil) and the open header's index (or nil).
+-- fight). A flight step the arrow leads to the flight's end (Own.flyAim)
+-- marks its flight, not the walk to the flight master it names. Returns its
+-- index (or nil) and the open header's index (or nil).
 function Own.currentGoal(s, groups, focus)
 	local grp = focus and groups[focus]
 	if not grp then return nil end
 	local step = guide.steps[s]
+	local _, flown = Own.flyAimed(s)
+	if flown then
+		for _, g in ipairs(grp.goals) do
+			if g == flown then return g, nil end
+		end
+	end
 	local header, optional, first, fields
 	for _, g in ipairs(grp.goals) do
 		local goal = step.goals[g]
@@ -3315,7 +3328,8 @@ end
 -- chose (Engine.AimAlong) leads while it is listed and open; so does, before
 -- a turn-in that is not ready, its quest's work in along steps (Own.alongAim);
 -- so does the "While you're here" line the player clicked (Engine.AimWhileHere),
--- while it shows.
+-- while it shows. A flight step leads to the flight's end while the travel
+-- planner flies there (Own.flyAim), past the flight master it names.
 local function findWaypoint()
 	if not current or (current == computed and (Own.startGate(guide) or Own.awayStart(guide))) then return nil end
 	local goals = guide.steps[current].goals
@@ -3337,6 +3351,8 @@ local function findWaypoint()
 		local wp = Own.partyAim(current)
 		if wp then return wp end
 	end
+	local fly = Own.flyAim(current)
+	if fly then return fly end
 	local groups, focus = stepGroups(current)
 	local grp = focus and groups[focus]
 	if not grp then return nil end
@@ -5666,6 +5682,202 @@ function Own.hearthOnly(step)
 		end
 	end
 	return any
+end
+
+---------------------------------------------------------------------------
+-- Flights the travel route takes better (#1191, #1212). A travel step holds,
+-- for the character, nothing open but gotos and a `fly` (a flight step: the
+-- walk to a flight master and the flight) or gotos alone (a walk): it is a
+-- way to the work after it, not work of its own. With the travel planner on
+-- (nav.travel, not handed off to another addon):
+--   * a flight step's arrow leads to the flight's end, a node the character
+--     knows, so the route flies there from whichever flight master reaches
+--     it soonest, in one flight, instead of walking or flying to the flight
+--     master the guide names first (Own.flyAim);
+--   * a travel step passes when the next open step after it, past walks on
+--     the same continent, is another flight step: the stop in between holds
+--     nothing left to do for this character (its work done, skipped, given
+--     up or for other characters), so the route flies on directly
+--     (Own.flightOn);
+--   * a flight step whose next open step is work passes, with the walks
+--     between, when the planner gets to that work at least FLY_MARGIN
+--     sooner without landing at the flight's end first: a nearer flight
+--     master the character knows (Thunder Bluff for the Earthen Ring, not
+--     Camp Taurajo), or a stop whose own work is behind the player. Judged
+--     once when the route reaches the step (Own.flightJudged), until the
+--     character learns a flight path.
+-- With the planner off the guide's steps hold as written.
+---------------------------------------------------------------------------
+
+Own.FLY_MARGIN, Own.FLY_SHARE = 60, 0.1 -- seconds, and share of the trip via the flight's end
+Own.flyVerdicts = setmetatable({}, { __mode = "k" }) -- guide -> { [step] = { passed, known } }
+
+function Own.plannerFlies()
+	local nav = ns.Nav
+	if not (nav and nav.GetKnownTaxiNodes and nav.GetTravelData and ns.Get("nav.travel")) then return false end
+	return not (nav.HandedOff and nav.HandedOff())
+end
+
+-- "fly", "walk" or nil: step s's open goals for the character are travel
+-- only, with a flight among them ("fly") or gotos alone ("walk"); nil with
+-- other work open, or nothing open.
+function Own.transitKind(s)
+	local kind
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not Own.goalSkipped(s, g) and not goalDone(s, g, goal) then
+			local t = goal.t
+			if t == "fly" then
+				kind = "fly"
+			elseif t == "goto" then
+				kind = kind or "walk"
+			else
+				return nil
+			end
+		end
+	end
+	return kind
+end
+
+-- The flight step s's open `fly` goal and its index.
+function Own.flyGoal(s)
+	for g, goal in ipairs(guide.steps[s].goals) do
+		if goal.t == "fly" and goalApplies(goal) and not goalDone(s, g, goal) then return goal, g end
+	end
+	return nil
+end
+
+-- The taxi node a `fly` goal lands at (Nav/Travel.lua's data), while the
+-- character knows it; else nil.
+function Own.knownLanding(goal)
+	local nav = ns.Nav
+	local node = goal and goal.node and nav.GetTravelData().taxiById[goal.node]
+	return node and nav.GetKnownTaxiNodes()[goal.node] and node or nil
+end
+
+-- The continent travel step s starts on (its first open goal) or, with
+-- `last`, ends on (its last: a flight's end, a walk's last goto).
+function Own.transitContinent(s, last)
+	local goals, c = guide.steps[s].goals, nil
+	for g, goal in ipairs(goals) do
+		if blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
+			local here
+			if goal.t == "fly" then
+				local node = goal.node and ns.Nav.GetTravelData().taxiById[goal.node]
+				here = node and node.c
+			elseif goal.t == "goto" and goal.map and goal.x and goal.y then
+				here = Compat().MapToWorld(goal.map, goal.x, goal.y, goal.f)
+			end
+			if here then
+				if not last then return here end
+				c = here
+			end
+		end
+	end
+	return c
+end
+
+-- The next open step after s past the walks on its continent, and its
+-- transit kind (nil: work).
+function Own.travelOnto(s)
+	local steps = guide.steps
+	local c = Own.transitContinent(s, true)
+	for n = s + 1, #steps do
+		local step = steps[n]
+		if stepApplies(step) and not isSkipped(n) and not step.along then
+			local kind = Own.transitKind(n)
+			if kind == "fly" or (kind == "walk" and Own.transitContinent(n, false) ~= c) then return n, kind end
+			if kind == "walk" then
+				c = Own.transitContinent(n, true)
+			elseif not stepDone(n) then
+				return n, nil
+			end
+		end
+	end
+	return nil
+end
+
+-- Travel step s passes: another flight follows with nothing open between.
+function Own.flightOn(s)
+	local n, kind = Own.travelOnto(s)
+	if kind ~= "fly" or Own.transitContinent(n, false) ~= Own.transitContinent(s, true) then return false end
+	return Own.knownLanding((Own.flyGoal(n))) ~= nil
+end
+
+-- How many flight paths the character knows (a verdict holds until it changes).
+function Own.knownCount()
+	local n = 0
+	for _ in pairs(ns.Nav.GetKnownTaxiNodes()) do n = n + 1 end
+	return n
+end
+
+-- Step s's verdict, while it holds (see above), or nil.
+function Own.flyVerdict(s)
+	local v = Own.flyVerdicts[guide]
+	v = v and v[s]
+	return v and v.known == Own.knownCount() and v or nil
+end
+
+-- Whether travel step s passes (stepDone).
+function Own.flightPassed(s)
+	if not (guide and Own.plannerFlies() and Own.transitKind(s)) then return false end
+	if Own.flightOn(s) then return true end
+	local v = Own.flyVerdict(s)
+	return v ~= nil and v.passed
+end
+
+-- The route reached flight step s (computeCurrent): judge it once against
+-- the planner (see above). True when it passes, with the walks after it.
+function Own.flightJudged(s)
+	if Own.flyVerdict(s) or Compat().IsOnTaxi() or not Own.plannerFlies() or Own.transitKind(s) ~= "fly" then return false end
+	local nav = ns.Nav
+	local landing = Own.knownLanding((Own.flyGoal(s)))
+	local n, kind = Own.travelOnto(s)
+	local all = Own.flyVerdicts[guide] or {}
+	Own.flyVerdicts[guide] = all
+	local known = Own.knownCount()
+	all[s] = { passed = false, known = known }
+	if not (landing and n and kind == nil and nav.EstimateTravel) then return false end
+	local to
+	for g, goal in ipairs(guide.steps[n].goals) do
+		if blocks(goal) and goalApplies(goal) and not unavailableFor(goal) and not goalDone(n, g, goal) then
+			local map, x, y, f = posOf(goal)
+			if map and x and y then
+				to = { map = map, x = x, y = y, f = f }
+				break
+			end
+		end
+	end
+	if not to then return false end
+	local direct = nav.EstimateTravel(nil, to)
+	local there = nav.EstimateTravel(nil, landing)
+	local on = nav.EstimateTravel(landing, to)
+	if not (direct and there and on) then return false end
+	local via = there + on
+	if direct + math.max(Own.FLY_MARGIN, via * Own.FLY_SHARE) >= via then return false end
+	for k = s, n - 1 do all[k] = { passed = true, known = known } end
+	return true
+end
+
+-- Flight step s's flight the arrow leads to the end of (see above): its goal,
+-- index and landing node; nil to lead as written.
+function Own.flyAimed(s)
+	if not (Own.plannerFlies() and Own.transitKind(s) == "fly") then return nil end
+	local goal, g = Own.flyGoal(s)
+	local node = Own.knownLanding(goal)
+	if not (node and node.map and node.x and node.y) then return nil end
+	return goal, g, node
+end
+
+-- The arrow's waypoint for flight step s (Own.flyAimed), or nil.
+function Own.flyAim(s)
+	local goal, g, node = Own.flyAimed(s)
+	if not goal then return nil end
+	local verb, subject, _, detail = describe(goal)
+	return {
+		map = node.map, x = node.x, y = node.y, f = node.f,
+		label = goalText(goal, verb, subject, detail),
+		stepIndex = s, goalIndex = g, kind = goal.t, r = DEFAULT_RADIUS,
+	}
 end
 
 -- A step that is not a step of its own for this character (#942, Fitz): an
