@@ -138,6 +138,7 @@ step Cenarion Hold
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   turnin 8281
   turnin 8278
+  accept 8282                         -- Noggle Ficklespragg, upstairs beside Beetix
 
 step Hive'Ashi: kill these as you meet them
   zone Silithus
@@ -164,9 +165,7 @@ step Cenarion Hold
 
 step Cenarion Hold
   zone Silithus
-  tip Noggle Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   sethome "Cenarion Hold"
-  accept 8282                         -- Noggle Ficklespragg
 
 step Southwind Village
   tip Ride east to the ruins of Southwind Village. The Dusty Reliquary lies among the ruined buildings, watched by Tortured Sentinels.

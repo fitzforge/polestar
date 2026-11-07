@@ -4811,3 +4811,11 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: flow re-order: the Te
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	assert.equal(stepOf('the parasites (4971)', (g) => g.t === 'kill' && g.quest === 4971), stepOf('the Annals (5154)', (g) => g.t === 'collect' && g.quest === 5154), 'one Andorhal visit');
 });
+
+// Flow review (2026-11-07): Alliance Silithus handed Noggle's Last Hope to Beetix with Noggle standing beside him and
+// only took Noggle's Lost Satchel on the next Cenarion Hold stop.
+test("forever/alliance/50-60/06-silithus.guide: flow re-order: Noggle's Lost Satchel taken beside Beetix", { skip }, () => {
+	const list = goals('forever/alliance/50-60/06-silithus.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('accept 8282', is('accept', 8282)), stepOf('turnin 8278', is('turnin', 8278)), 'on the same stop');
+});

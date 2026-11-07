@@ -4257,6 +4257,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Western Plaguelands, #1167): A Matter of Time's Temporal Parasites (4971) are drawn out at Andorhal's grain silos (45.1,62.3) on the visit for the Annals of Darrowshire (5154), as the seed has it; Chromie takes both together. The written guide came back to Andorhal from Mulgris on a later loop."
+			},
+			{
+				"a": [
+					"turnin",
+					8278
+				],
+				"b": [
+					"accept",
+					8282
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Silithus, #1167): Noggle's Lost Satchel (8282) is taken from Noggle Ficklespragg, who stands beside Beetix, right after Noggle's Last Hope (8278) is handed in, as the seed has it, not on the next Cenarion Hold stop."
 			}
 		],
 		"after": [
