@@ -174,16 +174,8 @@ step The Crossroads
   accept 872
 
 step The Zhevra
-  tip Zhevra Runners graze north and east of town.
-  collect 5086 quest 845.1
-
-step The Crossroads
-  turnin 845                          -- Sergra Darkthorn
-  accept 903
-
-step Savannah Prowlers
-  tip The Savannah Prowlers hunt the plains between town and the Razormane camp to the east.
-  collect 5096 quest 903.1
+  tip Zhevra Runners graze along the road east toward Ratchet: take their hooves on the way out.
+  collect 5086 quest 845.1 @56.3,32.6
 
 # Turn in a carried alternative here before starting the shared ritual;
 # do not add a trip to a different trainer for an uncarried breadcrumb.
@@ -321,8 +313,8 @@ step Fly to Crossroads
   fly "Crossroads"
 
 step The Crossroads
-  turnin 903                          -- Sergra Darkthorn
-  accept 881
+  turnin 845                          -- Sergra Darkthorn
+  accept 903
 
 step Regthar Deathgate
   tip South to Regthar's watch post on the Kolkar border.
@@ -343,8 +335,9 @@ step Regthar Deathgate
   accept 851                          -- Verog walks with the Kolkar at the Stagnant Oasis: later, in the 19-23 Barrens guide
 
 step The Dry Hills
-  tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills.
+  tip West to the Dry Hills. The Witchwing harpies nest all over them; any of them can drop a talon. Chen's Empty Keg lies in their hills. Savannah Prowlers hunt the plains between Regthar and the hills: take their claws on the way.
   tip Careful: There are 2 Witchwing Ambushers (level 17-18). They stay stealthed with Sneak while out of combat.
+  collect 5096 quest 903.1
   collect 5064 quest 867.1
 
 step Samophlange
@@ -360,14 +353,6 @@ step Samophlange
   collect 5089 quest 901.1 @52.8,10.4 map 1413 -- Inside
   turnin 901
   accept 902                          -- Sputtervalve in Ratchet: later, on the way
-
-step Echeyakee
-  zone The Barrens
-  tip Echeyakee, a white lion, prowls the plains north of the Razormane camp.
-  tip Careful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside Echeyakee, so clear them out before you blow the horn.
-  tip Sunscale raptors here count toward the heads.
-  use 10327 quest 881.1 @55.8,17.1 map 1413
-  collect 5100 quest 881.1
 
 step Ratchet
   tip East to Ratchet, on the coast.
@@ -409,22 +394,14 @@ step Kranal Fiss
   zone The Barrens
   turnin 1527 reward 5176 263412 only Tauren -- Kranal Fiss: Searing Totem, your Fire Totem and the Totem of Charged Flames
 
-step Finish the Raptor Heads
-  when !has 5062 x12
-  tip Still short of twelve? The Sunscale Screechers are thickest on the plains around Echeyakee's lair, north of the Razormane camp.
-  collect 5062 quest 869.1 @56,15 map 1413 era
-
 step The Crossroads
-  label q869
   zone The Barrens
   turnin 848                          -- Apothecary Helbrim
-  turnin 869                          -- Gazrog
-  accept 3281                         -- Gazrog
   turnin 872                          -- Thork
   turnin 867                          -- Darsok Swiftdagger
   accept 875
-  turnin 881                          -- Sergra Darkthorn
-  accept 905
+  turnin 903                          -- Sergra Darkthorn
+  accept 881
   accept 4921
   accept 899                          -- Mankrik
   sethome "The Crossroads" npc 3934   -- Innkeeper Boorand Plainswind
@@ -442,8 +419,27 @@ step The Crossroads
   turnin 877                          -- Tonga Runetotem
   accept 880
 
+# ---------------------------------------------------------------- One loop: south-west, the Dry Hills, north, back south
+
+step Lushwater Oasis
+  tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
+  collect 5098 quest 880.1
+
+step Harpy Lieutenants
+  tip North-west to the Dry Hills: the Witchwing Slayers hold their western end; they wear the rings.
+  tip Careful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there.
+  collect 5065 quest 875.1
+
+step The Dry Hills
+  collect 4926 @37.9,16.2
+  accept 819
+
+step Raptor Horns
+  tip On the way north-east to Wenikee: Sunscale Scytheclaws prowl the plains east of the Dry Hills; any of them can drop an Intact Raptor Horn for Mebok in Ratchet.
+  collect 5055 quest 865.1 @44.1,14.4
+
 step Wenikee Boltbucket
-  tip East to the Mor'shan Rampart; Wenikee stands at the camp just south of it.
+  tip North-east to the Mor'shan Rampart; Wenikee stands at the camp just south of it.
   turnin 3921
   accept 3922
 
@@ -454,32 +450,32 @@ step Nugget Slugs
 step Ignition
   tip East to the Sludge Fen. Wizzlecrank's Shredder stands inside the Venture Co. camp; Supervisor Lugwizzle carries the key.
   accept 858
-  collect 5055 quest 865.1                    -- Intact Raptor Horn from Sunscale Scytheclaw, 100 yd north-east
-
-# ---------------------------------------------------------------- The Sludge Fen
 
 step Wenikee Boltbucket
   turnin 3922
   accept 3923                         -- Keep it: Rilli Greasygob is in Orgrimmar's Valley of Honor, on the next guide's Orgrimmar visit
 
-# ---------------------------------------------------------------- North
+step Echeyakee
+  zone The Barrens
+  tip South-east on the way back to the Crossroads: Echeyakee, a white lion, prowls the plains north of the Razormane camp.
+  tip Careful: Savannah Huntresses roam around the lair. They respawn quickly and often join the fight alongside Echeyakee, so clear them out before you blow the horn.
+  tip Sunscale raptors here count toward the heads.
+  use 10327 quest 881.1 @55.8,17.1 map 1413
+  collect 5100 quest 881.1
 
-step Harpy Lieutenants
-  tip The Witchwing Slayers hold the western Dry Hills; they wear the rings.
-  tip Careful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there.
-  collect 5065 quest 875.1
-
-step The Dry Hills
-  collect 4926 @37.9,16.2
-  accept 819
-
-step Lushwater Oasis
-  tip Oasis Snapjaws crawl around Lushwater Oasis, south-west of the Crossroads, and around the Stagnant Oasis.
-  collect 5098 quest 880.1
+step Finish the Raptor Heads
+  when !has 5062 x12
+  tip Still short of twelve? The Sunscale Screechers are thickest on the plains around Echeyakee's lair, north of the Razormane camp.
+  collect 5062 quest 869.1 @56,15 map 1413 era
 
 step The Crossroads
-  turnin 880                          -- Tonga Runetotem
-  accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide
-  tip The next guide starts here and takes you to Orgrimmar and the zeppelin to Tirisfal Glades.
+  label q869
+  tip In from the north gate: Gazrog, Darsok on the tower platform, Sergra by the inn, then Tonga and Mura at the south gate. The next guide starts here and takes you to Orgrimmar and the zeppelin to Tirisfal Glades.
+  turnin 869                          -- Gazrog
+  accept 3281                         -- Gazrog
   turnin 875                          -- Darsok Swiftdagger
   accept 876                          -- Darsok Swiftdagger
+  turnin 881                          -- Sergra Darkthorn
+  accept 905
+  turnin 880                          -- Tonga Runetotem
+  accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide

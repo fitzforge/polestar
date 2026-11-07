@@ -4245,13 +4245,6 @@
 			},
 			{
 				"s": [
-					"task",
-					903
-				],
-				"why": "r7b read (Orc): Prowler Claws on v1's road past the prowlers"
-			},
-			{
-				"s": [
 					"turnin",
 					7836
 				],
@@ -6857,6 +6850,66 @@
 				],
 				"faction": "Horde",
 				"why": "Fitz's report (#1135): the Raptor Heads are a background goal (data/guide-fixes.json 1135-raptor-heads), worked on the way from the Crossroads accept, so Gazrog takes them on the Crossroads stop after Samophlange and Echeyakee, whose ground holds the most Sunscale Screechers, not right after a step of their own. Players' recordings: the raptors are sparse and contested where the route goes (a median 77 s between raptor kills while on the quest, 447 s at p90; a median 76 minutes from the accept to the twelfth head)"
+			},
+			{
+				"a": [
+					"task",
+					888
+				],
+				"b": [
+					"turnin",
+					845
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the Zhevra Runners graze along the road east to Ratchet, so the hooves are gathered on the way out and The Zhevra is handed in on the return from Ratchet, with Prowlers of the Barrens taken then. The order went out north of town for the hooves and back to Sergra, then east to the Razormane camp for the prowlers: two walks out of town and a visit for one quest"
+			},
+			{
+				"a": [
+					"accept",
+					855
+				],
+				"b": [
+					"task",
+					903
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: Savannah Prowlers roam the plains between Regthar Deathgate and the Dry Hills (the game's spawn data: 40.4,20.2 and 40.9,26.3), the west loop the route walks anyway; the claws are taken there. This replaces the r7b read that kept them on the road east past the Razormane camp, a walk the order no longer makes"
+			},
+			{
+				"a": [
+					"task",
+					880
+				],
+				"b": [
+					"task",
+					875
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the last loop goes round once: south-west to Lushwater Oasis, north-west to the Witchwing Slayers in the Dry Hills, north-east to Wenikee and the Sludge Fen, then south past Echeyakee's lair back to the Crossroads, where everything is handed in. Echeyakee now opens on the big Crossroads visit (Prowlers of the Barrens' hand-in), so the loop runs this way round to end at his lair on the way home"
+			},
+			{
+				"a": [
+					"turnin",
+					3922
+				],
+				"b": [
+					"task",
+					881
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: Echeyakee's lair (55.9,17.2) lies on the walk back south from Wenikee to the Crossroads; the hunt and the last raptor heads (#1135, after Echeyakee) come there, both handed in on the final Crossroads visit"
+			},
+			{
+				"a": [
+					"task",
+					865
+				],
+				"b": [
+					"turnin",
+					3921
+				],
+				"faction": "Horde",
+				"why": "Flow review (#1159), Barrens 12-16: the Sunscale Scytheclaws for Raptor Horns prowl the plains east of the Dry Hills (44.1,14.4), which the last loop crosses on its way north-east to Wenikee; the horn is taken there, not past the Sludge Fen after the walk has crossed them"
 			}
 		]
 	}
