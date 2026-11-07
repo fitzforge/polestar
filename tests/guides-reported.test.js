@@ -5510,3 +5510,13 @@ test('forever/horde/50-60/06-silithus.guide: final review: no along list, whole 
 	assert.ok(!steps.some((step) => /J\.D\.$|^Collie/.test(step.note || '')), 'no tip cut at J.D.');
 	assert.ok(!steps.some((step) => /next guide starts/.test(step.note || '')), 'no next-guide tip');
 });
+
+// Final route review, Horde 40-60: two level top-ups in the Felwood part sent players to the Winterfall Totemics in
+// Winterspring (through Timbermaw Hold and back) before Bloodvenom Post; the Winterspring top-up later does it.
+test('forever/horde/50-60/07-felwood.guide: final review: no Winterspring grind while in Felwood', { skip }, () => {
+	const list = goals('forever/horde/50-60/07-felwood.guide');
+	const moonglade = list.findIndex(({ goal }) => goal.map === 1450);
+	assert.ok(moonglade > 0, 'the guide reaches Moonglade');
+	assert.deepEqual(list.slice(0, moonglade).filter(({ goal }) => goal.t === 'level').map(({ step }) => step.title), [], 'no grind before Moonglade');
+	assert.ok(list.slice(moonglade).some(({ goal }) => goal.t === 'level'), 'the top-up waits for Winterspring');
+});
