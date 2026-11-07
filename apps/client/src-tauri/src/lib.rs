@@ -14,6 +14,8 @@ mod launch;
 mod manager;
 mod packs;
 mod register;
+#[cfg(target_os = "linux")]
+mod relaunch;
 pub mod render;
 mod smoke;
 mod store;
@@ -105,10 +107,19 @@ pub fn run() {
 	let hidden = std::env::args().any(|a| a == HIDDEN_ARG);
 	// Before anything else, so the page can ask for its window the moment it loads.
 	let mut builder = tauri::Builder::default().manage(launch::Launch::new(hidden));
+	#[cfg(target_os = "linux")]
+	{
+		builder = builder.manage(relaunch::Relaunch::default());
+	}
 	// The launch test starts beside a client that is already open instead of handing over to it
 	// (and exiting as if it had passed).
 	if !smoke::active() {
 		builder = builder.plugin(SingleInstance(tauri_plugin_single_instance::init(|app, args, _cwd| {
+			// A client an upgrade replaced on disk gives way to the new one (relaunch.rs).
+			#[cfg(target_os = "linux")]
+			if relaunch::take_over(app, &args) {
+				return;
+			}
 			launch::open(app);
 			open_links(app, &args);
 		})));
@@ -207,6 +218,13 @@ pub fn run() {
 			commands::client_log,
 			commands::smoke_fault,
 		])
-		.run(tauri::generate_context!())
-		.expect("Polestar Client could not start");
+		.build(tauri::generate_context!())
+		.expect("Polestar Client could not start")
+		.run(|_app, event| {
+			if let RunEvent::Exit = event {
+				// A client an upgrade replaced starts the new one as it goes (relaunch.rs).
+				#[cfg(target_os = "linux")]
+				relaunch::on_exit(_app);
+			}
+		});
 }
