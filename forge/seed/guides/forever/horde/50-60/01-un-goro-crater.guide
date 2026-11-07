@@ -121,7 +121,7 @@ step Research Equipment
 # ---------------------------------------------------------------- Loop 1: south and south-east
 
 step The Gorishi hive
-  tip The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber.
+  tip The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber.
   collect 11837 quest 4496.1
   collect 11131 quest 3883 @48.7,85.3
   kill 9166 quest 4501.1
