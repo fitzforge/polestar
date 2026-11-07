@@ -2883,6 +2883,22 @@
 					"ref": "final route review 2026-11-07: Badlands guide step 'Fly to Southshore' before 'Southshore'"
 				}
 			]
+		},
+		{
+			"id": "a4060-feralas-grimtotem-from-thalanaar",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2969,
+				"goal": "accept"
+			},
+			"tip": "From Thalanaar ride west along the road to the Grimtotem camp north of it. Kindal Moonweaver waits outside it; free the Sprite Darters from the pen in the middle and keep Kindal and at least six of them alive.",
+			"note": "The eastern loop starts with the flight from Feathermoon to Thalanaar, so the way to the Grimtotem camp is west from Thalanaar; the tip still said to take the boat to the Forgotten Coast and ride east.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "final route review 2026-11-07: Feralas guide steps 'Fly to Thalanaar' and 'Feralas' (goto 65.9,45.7) before the Grimtotem camp"
+				}
+			]
 		}
 	]
 }
