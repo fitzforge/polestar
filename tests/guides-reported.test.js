@@ -4936,3 +4936,15 @@ test('forever/alliance/40-50/05-the-hinterlands.guide: final review: Loch Modan 
 	const bb = list[at(list, 'fly Booty Bay', (g) => g.t === 'fly' && /Booty Bay/.test(g.location || ''))];
 	assert.ok((bb.step.when || []).some((w) => w.k === 'group' && [w.q].flat().includes(8552)), 'only for the Sash group');
 });
+
+// Final route review, Alliance 40-60: Suntara Stones is an escort that starts on accept; it was taken at the first
+// outhouse stop and the guide left for Thorium Point. Caught! on the spot (as on the Horde side); no along lists.
+test('forever/alliance/40-50/06-searing-gorge.guide: final review: Dorius taken with his escort, Caught! on the spot, no along lists', { skip }, () => {
+	const list = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const stepOf = (what, pred) => list[at(list, what, pred)].s;
+	assert.equal(stepOf('accept 3367', is('accept', 3367)), stepOf('complete 3367', is('complete', 3367)), 'accepted on the escort step');
+	assert.ok(stepOf('accept 3367', is('accept', 3367)) > stepOf('turnin 7722', is('turnin', 7722)), 'at the end, after Thorium Point');
+	assert.equal(stepOf('turnin 4449', is('turnin', 4449)), stepOf('kill 5839', (g) => g.t === 'kill' && g.quest === 4449), 'Caught! with its geologists');
+	assert.ok(stepOf('turnin 4449', is('turnin', 4449)) < stepOf('accept 7728', is('accept', 7728)), 'before Thorium Point');
+	assert.ok(!list.some(({ step }) => step.along), 'no along lists');
+});
