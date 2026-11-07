@@ -5647,6 +5647,18 @@
 			{
 				"q": 3804,
 				"why": "Final route review (2026-11-07, Horde Winterspring 55-56): Morrowgrain to Thunder Bluff, the repeatable ten-Morrowgrain hand-in after Morrowgrain Research (3786); optional with it, as on the Alliance side (3803)"
+			},
+			{
+				"q": 624,
+				"why": "Final route review (2026-11-07, Horde Stranglethorn 39-43): Cortello's Riddle starts from a scroll on the Bloodsail ships off the Wild Shore, crewed by pirates of 42-45, at the route's level 41; optional with a warning, and its later parts (625, 626) only for players who have it"
+			},
+			{
+				"q": 625,
+				"why": "Final route review (2026-11-07, Horde 40-50): Cortello's Riddle part 625, after the optional first part (624, from the Bloodsail ships): optional with it, its steps gated on having the part before"
+			},
+			{
+				"q": 626,
+				"why": "Final route review (2026-11-07, Horde 40-50): Cortello's Riddle part 626, after the optional first part (624, from the Bloodsail ships): optional with it, its steps gated on having the part before"
 			}
 		],
 		"group": [
