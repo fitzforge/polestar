@@ -3297,6 +3297,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Final route review (2026-11-07, Alliance Badlands 30-40, #1173): Rigglefuzz (42.4,52.9) stands beside Martek on the same walk; Barbecued Buzzard Wings, done at Agmond's End, is handed in there instead of nine hours later in the 40-50 Badlands guide."
+			},
+			{
+				"a": [
+					"turnin",
+					7732
+				],
+				"b": [
+					"accept",
+					3123
+				],
+				"faction": "Horde",
+				"why": "Final route review (2026-11-07, Horde Feralas 43-45): Zukk'ash Report is ready when the guide flies from Camp Mojache to Orgrimmar, and the Orgrimmar stop passes Zilzibin Drumlore in the Valley of Spirits (the flow audit: ender passed at 0 yd); the order carried it to the Azshara guide, about 650 minutes later"
 			}
 		],
 		"notes": [

@@ -5257,3 +5257,12 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: final review: the sinew w
 	assert.ok(!list.slice(0, boat).some(({ goal }) => goal.t === 'vendor'), 'no vendor before the boat');
 	assert.ok(!list.some(({ goal }) => goal.t === 'note' && /Tarren Mill/.test(goal.text || goal.note || '')), 'no note about the next guide flying to Tarren Mill');
 });
+
+// Final route review, Horde 40-60: Zukk'ash Report is ready on the Orgrimmar stop that ends the Feralas guide, which
+// passes Zilzibin Drumlore; it was carried to the Azshara guide's Orgrimmar stop.
+test('forever/horde/40-50/02-feralas.guide: final review: Zukk\'ash Report on the Orgrimmar stop that ends the guide', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const report = list[at(list, 'turnin 7732', is('turnin', 7732))];
+	assert.equal(report.s, list[at(list, 'turnin 3121', is('turnin', 3121))].s, 'with Neeru\'s hand-in, in Orgrimmar');
+	assert.ok(!goals('forever/horde/40-50/06-azshara.guide').some(({ goal }) => is('turnin', 7732)(goal)), 'not carried to the Azshara guide');
+});
