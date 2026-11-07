@@ -187,6 +187,9 @@ local function goalTooltip(row)
 	end
 	local rewards = UI.GoalRewards(goal)
 	if rewards then lines[#lines + 1] = { left = L["Reward"], right = rewards } end
+	-- What the quest opens up: what skipping it gives up (UI.UnlockLines).
+	if goal.quest and not (goal.t == "turnin" and goal.status == "done") then UI.UnlockLines(goal.quest, lines) end
+	if goal.skippedWith then lines[#lines + 1] = L["Left out because you skipped %s"]:format(goal.skippedWith) end
 	local p = goal.progress
 	if type(p) == "table" and p.kind == "skill" and p.max then
 		lines[#lines + 1] = { left = L["Skill"], right = string.format("%s%d/%d", p.label and (p.label .. "  ") or "", p.cur or 0, p.max) }
@@ -271,7 +274,11 @@ local function rowMenu(row)
 	if goal.tickable and goal.status ~= "done" or goal.ticked then
 		items[#items + 1] = { text = goal.ticked and L["Untick"] or L["Tick it done"], icon = "check", onClick = function() toggleGoal(row) end }
 	end
-	items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."],
+	-- What this guide leaves out with it (Engine.SkipLoses), named in the tip.
+	local tip = L["This quest and the ones that follow from it are skipped, in every guide. Right-click it again to bring it back."]
+	local loses = E.SkipLoses and UI.SkipLosesText(E.SkipLoses(goal.quest))
+	if loses then tip = tip .. " " .. loses end
+	items[#items + 1] = { text = L["Skip this quest"], icon = "skip", tip = tip,
 		onClick = function() E.SkipQuest(goal.quest, true) end }
 	W.ShowMenu(row, items)
 	return true
@@ -3971,7 +3978,12 @@ local function build()
 			W.Color(self.Icon, "text")
 			W.Color(self.Label, "text")
 		end
-		W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], { L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] })
+		local lines = { L["The guide moves on and remembers it. Undo in the banner, or go back to the step to unskip it."] }
+		-- The later quests this guide leaves out with the step (Engine.SkipLoses).
+		local E = Engine()
+		local loses = self:IsEnabled() and E and E.SkipLoses and UI.SkipLosesText(E.SkipLoses())
+		if loses then lines[#lines + 1] = { loses, Theme.Color("text") } end
+		W.Tooltip(self, "ANCHOR_BOTTOM", L["Skip this step"], lines)
 		GF.HoverIn()
 	end)
 	skip:SetScript("OnLeave", function(self)
