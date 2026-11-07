@@ -334,4 +334,4 @@ step Hillsbrad Foothills
 step Southpoint Tower
   zone Hillsbrad Foothills
   tip Back on the road south. Where it turns east into Hillsbrad, Deathstalker Lesh waits at Southpoint Tower.
-  accept 494 optional                 -- Deathstalker Lesh: Darthalia in Tarren Mill
+  accept 494                          -- Deathstalker Lesh: Darthalia in Tarren Mill
