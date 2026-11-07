@@ -300,7 +300,7 @@ step Menethil Harbor
   accept 470                              -- Sida
   accept 472                              -- Harlo Barnaby, by the north gate
   accept 98197                            -- Valstag Ironjaw, by the keep; inside
-  tip Captain Stoutfist stands in Menethil Keep.
+  tip Captain Stoutfist stands on the top floor of Menethil Keep.
   accept 464                              -- Captain Stoutfist, by the keep
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
   accept 305                              -- Tarrel Rockweaver, by the north gate
