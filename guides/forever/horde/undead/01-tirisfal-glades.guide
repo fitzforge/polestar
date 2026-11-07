@@ -334,6 +334,7 @@ step Agamand Mills
 step Brill
   tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 426                          -- Deathguard Dillinger
+  accept 1819 only Warrior            -- Deathguard Dillinger
   turnin 362                          -- Coleman Farthing, in the inn
   turnin 354
   accept 355
@@ -345,10 +346,9 @@ step Brill
 
 # ---------------------------------------------------------------- Class errands
 
-step Deathguard Dillinger
+step Ulag the Cleaver
   only Warrior
-  tip Deathguard Dillinger stands in Brill. Ulag waits in the mausoleum on the hill just north of town: open the gate and fight him.
-  accept 1819                         -- Deathguard Dillinger
+  tip Ulag waits in the mausoleum on the hill just north of town: open the gate and fight him.
   kill 6390 quest 1819.1
   turnin 1819                         -- Deathguard Dillinger: Defensive Stance
 

@@ -4621,3 +4621,10 @@ test(`${MULGORE}: flow review: the Crossroads arrival starts with both of Tonga'
 	assert.equal(at(list, 'accept 870', is('accept', 870)), tonga + 1, 'The Forgotten Pools right after The Barrens Oases');
 	assert.ok(tonga < at(list, 'turnin 860', is('turnin', 860)), 'before Sergra');
 });
+
+// Flow review, Tirisfal Glades: Warriors walked past Deathguard Dillinger with The Mills Overrun and came
+// back for Ulag the Cleaver.
+test(`${TIRISFAL}: flow review: Ulag the Cleaver is taken with The Mills Overrun's hand-in`, { skip }, () => {
+	const list = goals(TIRISFAL).filter(forClass('WARRIOR'));
+	assert.equal(at(list, 'accept 1819', is('accept', 1819)), at(list, 'turnin 426', is('turnin', 426)) + 1);
+});
