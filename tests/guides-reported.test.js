@@ -4852,3 +4852,42 @@ test(`${WESTFALL}: flow re-order: the Nightcrawlers bought once, with the Shiny 
 	assert.equal(crawlers[0].s, list[bauble].s, 'in the Shiny Bauble\'s stop');
 	assert.ok(list.findLastIndex(({ step }) => step.title === 'Woo Ping') < bauble, 'after Woo Ping');
 });
+
+// Final route review, Alliance 1-20 (2026-11-07): Auberdine's first visit starts at the pier the boat lands on
+// (Cerellean), goes up to Hollee and Thundris at the north end and down the main street to the inn, Gwennyth and
+// Gubber, by the beach the next step starts on; it crossed to Thundris first and came back from the pier to Hollee.
+test(`${DARKSHORE}: flow re-order: Auberdine's first visit from the pier, Hollee with Thundris, Gubber last`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	const visit = list[idx('accept', 963)].s;
+	for (const q of [729, 954, 983, 3524, 1138]) assert.equal(list[idx('accept', q)].s, visit, `accept ${q} on the same visit`);
+	assert.ok(idx('accept', 963) < idx('accept', 729) && idx('accept', 729) < idx('accept', 954), 'Cerellean, then Hollee beside Thundris');
+	assert.ok(idx('accept', 954) < idx('accept', 984) && idx('accept', 984) < idx('accept', 983), 'the north end, then down the main street to the inn');
+	assert.ok(idx('accept', 3524) < idx('accept', 1138), 'Gubber Blump last, by the beach');
+	assert.ok(list.every(({ goal, s }, i) => s !== visit || goal.t !== 'accept' || i <= idx('accept', 1141)), 'nothing taken after Gubber');
+});
+
+// The Auberdine visit after Bashal'Aran: Terenthis by the road in, Thundris and the moonwell, Glynda, Gwennyth, and
+// Gubber on the pier on the way out to Mist's Edge; it went Gwennyth, Glynda, up to Thundris, back to the moonwell.
+test(`${DARKSHORE}: flow re-order: the Auberdine visit after Bashal'Aran in walking order, Gubber last`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	const order = [['turnin', 985], ['turnin', 4762], ['turnin', 4813], ['turnin', 4727], ['turnin', 1138]].map(([t, q]) => idx(t, q));
+	for (const i of order) assert.equal(list[i].s, list[order[0]].s, `${list[i].goal.t} ${list[i].goal.quest} on the same visit`);
+	order.slice(1).forEach((i, k) => assert.ok(order[k] < i, `${list[order[k]].goal.quest} before ${list[i].goal.quest}`));
+	const bowl = at(list, 'the Filled Cleansing Bowl', (g) => g.t === 'collect' && g.item === 12347);
+	assert.ok(idx('turnin', 4762) < bowl && bowl < idx('turnin', 4813), 'the moonwell between Thundris and Glynda');
+});
+
+// The Beached Sea Creatures at 32.7,80.8 and 36.0,70.9 are taken on the fourth loop, with the remains past Remtravel's
+// Excavation and on the walk north from the Grove; the second loop walked down the coast to them and back north.
+test(`${DARKSHORE}: flow re-order: Beached Sea Creatures 4730 and 4728 on the fourth loop, no second-loop walk down the coast`, { skip }, () => {
+	const list = goals(DARKSHORE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.equal(list[idx('accept', 4730)].s, list[idx('accept', 4731)].s, '4730 with the remains past Remtravel\'s Excavation');
+	assert.ok(idx('accept', 4730) < at(list, 'Murkdeep', (g) => g.t === 'kill' && g.quest === 4740), 'on the way to Murkdeep\'s camp');
+	assert.ok(idx('accept', 98013) < idx('accept', 4728) && idx('accept', 4728) < idx('turnin', 4731), '4728 on the walk north from the Grove');
+	assert.ok(idx('turnin', 1138) < idx('accept', 4730) && idx('turnin', 1138) < idx('accept', 4728), 'neither before the third loop');
+	assert.equal(list[idx('turnin', 4730)].s, list[idx('accept', 87760)].s, 'handed in on the Holy Diver visit');
+	assert.equal(list[idx('turnin', 4728)].s, list[idx('accept', 87760)].s, 'handed in on the Holy Diver visit');
+});
