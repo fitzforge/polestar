@@ -50,7 +50,7 @@ step Fallow Sanctuary
   collect 6071 quest 1389             -- Draenethyst Crystal
 
 step The Lost Caravan
-  tip The wrecked caravan lies off the road near Biggs.
+  tip The wrecked caravan lies at the north end of the Fallow Sanctuary, beside Galen's cage.
   tip Careful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly.
   collect 6170 quest 1421             -- Wizards' Reagents
 
@@ -60,12 +60,12 @@ step Galen Goodward
   complete 1393
   turnin 1393                         -- Galen's Strongbox
 
-step Watcher Biggs
-  turnin 1421
-
 step The Harborage
   turnin 1392 optional -- Magtoor
   turnin 1389
+
+step Watcher Biggs
+  turnin 1421
 
 step Duskwood
   zone Duskwood
@@ -355,17 +355,17 @@ step Hillsbrad Foothills
 step Southshore
   zone Hillsbrad Foothills
   turnin 537                          -- Magistrate Henry Maleb, inside
-  buy 2321 x1 npc 2381 optional       -- Fine Thread for Bartolo's cloak, from Micha Yance, if you have none
   turnin 512
   turnin 523 optional
   turnin 500                          -- Marshal Redpath
   turnin 661                          -- Phin Odelic
-  turnin 565                          -- Bartolo Ginsetti
   turnin 540 optional -- Loremaster Dibbs
   accept 542 optional -- For Milton Sheaf in Stormwind: keep it
   turnin 551 optional
   accept 554
   turnin 564                          -- Darren Malvew
+  buy 2321 x1 npc 2381 optional       -- Fine Thread for Bartolo's cloak, from Micha Yance, if you have none
+  turnin 565                          -- Bartolo Ginsetti
 
 # ---------------------------------------------------------------- Loch Modan
 
