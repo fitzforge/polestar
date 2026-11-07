@@ -1761,12 +1761,20 @@
 				"quest": 1638,
 				"goal": "accept"
 			},
-			"tip": "Walk to Stormwind. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug.",
-			"note": "Human Warriors (The Shieldsmith) come to Stormwind from Westfall on foot: Humans learn Stormwind's flight path only later in this guide (`getfp \"Stormwind\"`, line 261), so the seed tip's \"Fly or walk to Stormwind\" offered a flight they cannot take.",
+			"tip": "From Westfall, walk to Stormwind; the tram from Ironforge arrives in the Dwarven District. Ilsa Corbin trains warriors in Old Town; Harry Burlguard and Bartleby stand together by the Pig and Whistle Tavern there. Bartleby fights you for his mug. If Ilsa doesn't offer A Warrior's Training, go straight to Harry: he gives Bartleby the Drunk without it.",
+			"note": "Every Alliance warrior's Defensive Stance step (Westfall's Humans, and the Dwarf and Gnome Dun Morogh guides) has the accept of A Warrior's Training, so this one record sets all their tips (records are scoped by faction only), and it carries each guide's travel line: Humans walk in from Westfall (their Stormwind flight path comes later, `getfp \"Stormwind\"`, so the seed's \"Fly or walk to Stormwind\" offered a flight they cannot take, #972), Dwarves and Gnomes arrive by the tram (their hand-written tip since 0.3.1, kept so a build never drops it). The offer audit (#1132) added the last sentence: A Warrior's Training (1638) is open to every Alliance warrior from 10 (Forever's quest data and the world database: all races; Ilsa Corbin and Lyria Du Lac start it), but it shares an exclusive group with Muren Stormpike (1679) and Elanaria (1684), and the Defensive Stance chains' first quests close it too, so a warrior who has done any of them is not offered it. It is only a lead: Harry Burlguard gives Bartleby the Drunk (1639) with nothing before it. No Dwarf or Gnome warrior of 10+ has opened Ilsa's window in the recordings yet.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "flight master nodes and paths (data/forever/travel.json, from the client); the guide's own fly and getfp lines"
+				},
+				{
+					"kind": "tdb",
+					"ref": "quest_template AllowableRaces -1 for 1638; quest_template_addon ExclusiveGroup 1638 for 1638, 1679, 1684; creature_queststarter 5480 and 913 for 1638, 6089 for 1639"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-07: Harry Burlguard (6089) offered and gave 1639 to a Human warrior (48ad08dd58b6409a, level 10) and a Night Elf warrior (4c82236cc9ec1275, level 14) who never had 1638; Night Elf refusals of 1638 at Ilsa Corbin and Lyria Du Lac all came after 1684, 1683 or 1639 was done"
 				}
 			],
 			"pr": 972
@@ -2745,6 +2753,27 @@
 				}
 			],
 			"pr": 1080
+		},
+		{
+			"id": "duskwood-worgen-in-the-woods-level-23",
+			"faction": "Alliance",
+			"at": {
+				"quest": 173,
+				"goal": "accept"
+			},
+			"level": 23,
+			"note": "Worgen in the Woods needs level 23 (its minimum level in Forever's quest data). It is taken on Darkshire's second visit, where the route is at 23.15 or more on every branch (route-fixes pair 96139 -> 173), as that step's last goal, so the gate holds back only Calor's accept: a player behind the route's levels is told before Calor refuses it. Players' recordings: every character offered it was 23 or above.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 173 minimum level 23"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#1114"
+				}
+			],
+			"issue": 1114
 		},
 		{
 			"id": "1135-plainstrider-beaks",

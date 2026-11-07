@@ -90,7 +90,6 @@ step Darkshire
   turnin 66                               -- Clerk Daltry, in the town hall
   accept 56                               -- Commander Althea Ebonlocke, in the town hall
   accept 96139                            -- Sirra Von'Indi, in the house behind the town hall
-  accept 173                              -- Calor, by the town hall
   accept 164                              -- Elaine Carevin, at the south end of town; inside
   accept 165
   tip Viktori's house stands at the east end of town. Herble Baubbletump sells engineering goods in the house beside it.
@@ -164,6 +163,8 @@ step Darkshire
   turnin 148
   accept 149
   vendor nearest
+  level 23
+  accept 173                              -- Calor, by the town hall: from level 23; the Duskwood return hunts the worgen
 
 step Blind Mary
   tip Her house stands on the hill south-east of Darkshire, above the Tranquil Gardens Cemetery.
