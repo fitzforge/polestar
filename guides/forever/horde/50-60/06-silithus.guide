@@ -71,10 +71,6 @@ step Hive in the Tower
   tip Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the Encrusted Silithid Object.
   collect 17346 quest 1126.1
 
-step Stonelash Flayer Stinger on the way
-  along until q8278
-  collect 20375 quest 8278.1
-
 step The Spirits of Southwind
   collect 22201 quest 5527.1          -- Inside
 
@@ -87,7 +83,6 @@ step Hermit Ortell
   collect 20377 quest 8278.3                  -- Rock Stalker Fang from Rock Stalker, 130 yd south-west
 
 step Dredge Crushers and Pincers
-  label q8278
   tip Head north along the western dunes; Dredge Crushers and Stonelash Pincers range from here back toward the hold.
   kill 11741 quest 8281.1             -- Dredge Crusher walks around Southwind Village: look inside the circle on the map
   collect 20375 quest 8278.1
@@ -175,7 +170,7 @@ step Un'Goro Crater
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave; J.D.
+  tip Through the pass and east along the northern cliffs to Marshal's Refuge. Linken stands by the cave.
   turnin 3914                         -- Linken
   accept 3941
   accept 4501                         -- The wooden sign beside Spraggle
@@ -221,7 +216,7 @@ step Un'Goro Crater: kill these as you meet them
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip Collie is inside it.
+  tip J.D. Collie is inside the cave.
   turnin 3941                         -- J.D. Collie, below ground
   accept 3942
   note Keep Linken's Memory: Eridan Bluewind is at the Emerald Sanctuary, on the next guide's way through Felwood.
@@ -447,7 +442,7 @@ step Chromie
 
 step The Bulwark
   zone Tirisfal Glades
-  tip West to the Bulwark. The next guide starts in the Undercity, a short ride west.
+  tip West to the Bulwark.
   turnin 6390                         -- Mickey Levine
   turnin 5232
   accept 5233
