@@ -4489,3 +4489,13 @@ test(`${DARKSHORE}: flow re-order: Fruit of the Sea handed in on the Auberdine v
 	assert.equal(list[idx('turnin', 1138)].s, list[idx('turnin', 4762)].s, 'with the Cliffspring River sample');
 	assert.ok(idx('turnin', 1138) < idx('turnin', 1001), 'before the north loop');
 });
+
+// Zephras Isle (Alliance): from the Ursera den the guide went to Hanaa first and walked back north to the
+// grove; now the grove's hand-ins, then Hanaa on the way south to Shen'dar.
+test(`${ZEPHRAS_ALLIANCE}: flow re-order: Aetheen and Valreaa before Hanaa, on the way south`, { skip }, () => {
+	const list = goals(ZEPHRAS_ALLIANCE);
+	const idx = (t, q) => at(list, `${t} ${q}`, is(t, q));
+	assert.ok(idx('turnin', 92470) < idx('accept', 92544), 'Aetheen before Hanaa');
+	assert.ok(idx('turnin', 92473) < idx('accept', 92544), 'Valreaa before Hanaa');
+	assert.ok(idx('turnin', 92544) < idx('turnin', 92472), 'Hanaa before Shen\'dar');
+});
