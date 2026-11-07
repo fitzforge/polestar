@@ -84,6 +84,9 @@ Polestar's own code and guides are GPL-3.0 (see LICENSE). What a release
   DungeonJournal (no licence) feed only `forge data codex --local-extras`, a
   comparison build for the developer's machine whose meta says so; `pack`
   refuses it, and any Codex whose sources name them.
+- The "While you're here" chime (`addon/Polestar/Media/Sounds/while-here.ogg`):
+  made for Polestar, synthesized, no third-party source; Polestar's own under
+  GPL-3.0. `tools/sounds/while-here-chime.py` regenerates it.
 - Carbonite's zone crossings: always, in `TravelData.lua`, under GPL-3.0.
   They are data of a GPL program, not Polestar's reference data: the
   guide-pack exception does not cover them and the compiler never puts them

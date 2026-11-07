@@ -1308,9 +1308,9 @@ Polestar.Engine.StepNumberOf(guide, i) -> number, hidden; Polestar.Engine.StepTo
   `WHILE_HERE_CHANGED` (came, count changed, went) and
   `WHILE_HERE_MOVED(yards)`. The window draws it between the step's goals and
   "Then:" (`fillHere`), the toast says it with the window hidden or compact
-  (UI/WhileHere.lua), and a new line plays a soft two-note chime
+  (UI/WhileHere.lua), and a new line plays a soft chime, "star twinkle"
   (`behavior.whileHereSound`, `Media/Sounds/while-here.ogg`, our own
-  synthesized file, on the SFX channel, at most every 30 s). Nav/Layers
+  synthesized file, `tools/sounds/while-here-chime.py`, on the SFX channel, at most every 30 s). Nav/Layers
   draws its mark and spawn areas in the accent on both surfaces (layers
   `nav.here`, an edge layer, and `nav.hereAreas`) until the arrow leads
   there; the mark carries the line's `appeared` as its Pins `ping`, so it

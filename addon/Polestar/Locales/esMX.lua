@@ -1738,7 +1738,7 @@ L["Did you mean:"] = "Tal vez buscabas:"
 -- L["Include nearby hand-ins"] = ""
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
 -- L["While you're here sound"] = ""
--- L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
+-- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"

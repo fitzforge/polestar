@@ -2048,7 +2048,7 @@ L["Did you mean:"] = "你是不是要找："
 -- L["Include nearby hand-ins"] = ""
 -- L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = ""
 -- L["While you're here sound"] = ""
--- L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
+-- L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"

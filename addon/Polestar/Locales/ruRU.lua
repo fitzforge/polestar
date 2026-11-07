@@ -2048,7 +2048,7 @@ L["How near its spawn area must be for the line to show. It goes again a little 
 L["Include nearby hand-ins"] = "Включая сдачу заданий рядом"
 L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "Также задание, готовое к сдаче, если NPC для сдачи стоит прямо здесь, а гайд сдаёт его позже."
 L["While you're here sound"] = "Звук «Пока вы здесь»"
-L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий двухнотный сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
+L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "Тихий сигнал, когда появляется строка, не чаще раза в 30 секунд, с громкостью звуковых эффектов игры."
 
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"

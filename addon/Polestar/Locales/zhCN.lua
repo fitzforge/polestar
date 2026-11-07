@@ -2048,7 +2048,7 @@ L["How near its spawn area must be for the line to show. It goes again a little 
 L["Include nearby hand-ins"] = "包括附近的交任务"
 L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."] = "也包括可交付的任务：交任务的 NPC 就在旁边，而指南稍后才交。"
 L["While you're here sound"] = "顺便完成提示音"
-L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "出现提示行时播放轻柔的双音提示音，最多每 30 秒一次，使用游戏的音效音量。"
+L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."] = "出现提示行时播放轻柔的提示音，最多每 30 秒一次，使用游戏的音效音量。"
 
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"

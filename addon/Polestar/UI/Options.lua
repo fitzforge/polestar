@@ -221,7 +221,7 @@ local BUILTIN = {
 			help = L["Also a quest ready to hand in whose NPC stands right here, when the guide hands it in later."],
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["While you're here sound"],
-			help = L["A soft two-note chime when a line appears, at most every 30 seconds, at the game's sound effects volume."],
+			help = L["A soft chime when a line appears, at most every 30 seconds, at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
 			child = true, disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
