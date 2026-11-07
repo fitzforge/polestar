@@ -4113,7 +4113,8 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'goto 32.2,27.7 "Grom\'gol Base Camp"', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins). Fly there', /from Orgrimmar/],
-		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff', /from Shadowprey/],
+		// (Since the final route review the Druids fly from Shadowprey straight to Thunder Bluff, skipping Orgrimmar.)
+		['horde/30-40/01-desolace', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
 	for (const [guide, anchor, wrong] of cases) {
@@ -5204,4 +5205,32 @@ test('forever/alliance/30-40/06-badlands.guide: final review: Martek and Rigglef
 		assert.ok(chest < i && i < theldurin, `turnin ${q} between the chest and Theldurin`);
 	}
 	assert.ok(!goals('forever/alliance/40-50/02-badlands.guide').some(({ goal }) => is('turnin', 1108)(goal) || is('turnin', 703)(goal)), 'not carried to 40-50');
+});
+// Final route review, 30-40 (2026-11-07): Horde Desolace & Hillsbrad sent Undead Paladins to an Orgrimmar step that
+// pointed at Thunder Bluff, then flew them Tarren Mill -> Undercity -> Tarren Mill for Garen Largo; Druids and Paladins
+// skipped their level-30 training; Druids at 32 flew Orgrimmar -> Thunder Bluff -> Orgrimmar; the Undercity shopping
+// note and the Shamans' Sepulcher trip came after the flight to Tarren Mill.
+test('forever/horde/30-40/01-desolace.guide: final review: training in the cities the walk passes', { skip }, () => {
+	const list = goals('forever/horde/30-40/01-desolace.guide');
+	const flies = (l, dest) => l.findIndex(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes(dest));
+	const trains = (l) => l.map((e, i) => (e.goal.t === 'train' ? i : -1)).filter((i) => i >= 0);
+	const tm = (l) => flies(l, 'Tarren Mill');
+	for (const cls of ['PALADIN', 'DRUID']) {
+		const l = list.filter(forClass(cls));
+		const t = trains(l);
+		assert.equal(t.length, 2, `${cls}: trains twice (30 and 32)`);
+		assert.ok(t[0] < flies(l, 'Sun Rock Retreat') && flies(l, 'Thunder Bluff') < t[0], `${cls}: level-30 training in Thunder Bluff before Sun Rock Retreat`);
+		assert.ok(t[1] < tm(l), `${cls}: level-32 training before the flight to Tarren Mill`);
+		assert.equal(l.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, `${cls}: one flight to Tarren Mill`);
+	}
+	const pal = list.filter(forClass('PALADIN'));
+	assert.ok(!pal.some(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('"Undercity"')), 'no Paladin flight back to the Undercity');
+	const dru = list.filter(forClass('DRUID'));
+	const after = dru.slice(at(dru, 'turnin 6143', is('turnin', 6143)));
+	assert.deepEqual(after.filter(({ goal }) => goal.t === 'fly').map(({ goal }) => JSON.stringify(goal).match(/Thunder Bluff|Orgrimmar|Tarren Mill/)?.[0]), ['Thunder Bluff', 'Orgrimmar', 'Tarren Mill'], 'Druids at 32: Shadowprey -> Thunder Bluff -> Orgrimmar -> Tarren Mill');
+	const sham = list.filter(forClass('SHAMAN'));
+	assert.ok(flies(sham, 'The Sepulcher') < tm(sham), 'Shamans: the Sepulcher before Tarren Mill');
+	const war = list.filter(forClass('WARRIOR'));
+	const note = war.find(({ step }) => /Strong Troll/.test([].concat(step.note || []).join(' ')));
+	assert.ok(note && note.s < war[tm(war)].s, 'the potion tip in the Undercity, before the flight to Tarren Mill');
 });
