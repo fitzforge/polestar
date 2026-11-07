@@ -7,28 +7,30 @@
 -- provider, no AcquirePin, no OnMouseDown/Up scripts. Frames are created
 -- parentless and then SetParent under the canvas; the map is only read.
 
+local _, ns = ...
 local DB = LibForeverData
+local L = ns.L
 
 -- Colour palettes, picked in the options: one for quests (the skull), one for mobs (the ring). "polestar" is Polestar Theme's SHARED subject colours, soft pastels
 -- that read on night grounds; "rings" its accent, status and ground colours.
 local PALETTES = {
-	polestar = { label = "Polestar pastels",
+	polestar = { label = L["Polestar pastels"],
 		{ 1, 0.84, 0.45 }, { 0.58, 0.79, 1 }, { 0.78, 0.68, 1 }, { 0.42, 0.85, 0.6 },
 		{ 0.97, 0.6, 0.79 }, { 0.47, 0.86, 0.93 }, { 1, 0.5, 0.32 }, { 0.96, 0.68, 0.52 } },
-	rings = { label = "Polestar rings",
+	rings = { label = L["Polestar rings"],
 		{ 0.97, 0.97, 0.99 }, { 0.02, 0.03, 0.06 }, { 0.9, 0.73, 0.4 }, { 0.96, 0.45, 0.45 },
 		{ 0.6, 0.88, 0.46 }, { 0.64, 0.52, 1 } },
-	vivid = { label = "Vivid",
+	vivid = { label = L["Vivid"],
 		{ 1, 0.82, 0.2 }, { 0.25, 0.6, 1 }, { 0.7, 0.4, 1 }, { 0.2, 0.85, 0.4 },
 		{ 1, 0.35, 0.65 }, { 0.15, 0.85, 0.95 }, { 1, 0.45, 0.15 }, { 0.95, 0.25, 0.25 } },
-	muted = { label = "Muted",
+	muted = { label = L["Muted"],
 		{ 0.85, 0.75, 0.5 }, { 0.55, 0.65, 0.8 }, { 0.65, 0.58, 0.78 }, { 0.55, 0.72, 0.58 },
 		{ 0.8, 0.58, 0.65 }, { 0.55, 0.75, 0.78 }, { 0.82, 0.55, 0.42 }, { 0.75, 0.68, 0.55 } },
 	-- Okabe-Ito: told apart with the common colour-vision deficiencies.
-	safe = { label = "Colour-blind safe",
+	safe = { label = L["Colour-blind safe"],
 		{ 0.9, 0.62, 0 }, { 0.34, 0.71, 0.91 }, { 0, 0.62, 0.45 }, { 0.94, 0.89, 0.26 },
 		{ 0, 0.45, 0.7 }, { 0.84, 0.37, 0 }, { 0.8, 0.47, 0.65 }, { 0.6, 0.6, 0.6 } },
-	mono = { label = "Light & night",
+	mono = { label = L["Light & night"],
 		{ 0.97, 0.97, 0.99 }, { 0.02, 0.03, 0.06 }, { 0.6, 0.64, 0.73 }, { 0.9, 0.73, 0.4 } },
 }
 local PALETTE_ORDER = { "polestar", "rings", "vivid", "muted", "safe", "mono" }
@@ -889,7 +891,7 @@ for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do Pol
 -- Options: Polestar's options window, Map > Guide & quests > Mob spawns, beside its quest markers.
 ---------------------------------------------------------------------------
 
-local L = Polestar.L
+local PL = Polestar.L -- Polestar's own words, translated in its locale files
 local function k(name) return "mobMarkers." .. name end
 local function px(v) return ("%d px"):format(v) end
 local function pct(v) return ("%d%%"):format(v) end
@@ -901,7 +903,7 @@ local function palettes()
 end
 if Polestar.RegisterOptions then
 	local ok, err = Polestar.RegisterOptions({
-		page = L["Map"], tab = L["Guide & quests"], section = L["Mob spawns"],
+		page = PL["Map"], tab = PL["Guide & quests"], section = L["Mob spawns"],
 		controls = {
 			{ kind = "toggle", key = k("showWorld"), label = L["Mob spawns on the world map"], search = "mob markers, spawn points, kill, skull, map pins",
 				help = L["Every spawn point of the mobs your quests need, one skull colour per quest and a ring per mob."] },
@@ -936,7 +938,7 @@ local function openOptions()
 	local UI = Polestar.UI
 	if not (UI and UI.ShowOptions) then return end
 	UI.ShowOptions("map")
-	UI.Options.Select("map", L["Guide & quests"])
+	UI.Options.Select("map", PL["Guide & quests"])
 end
 
 -- /mobmarkers: what the addon sees, for when nothing shows. /mobmarkers config: its options.

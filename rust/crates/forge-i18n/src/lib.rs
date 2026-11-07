@@ -20,13 +20,13 @@ pub mod project;
 pub const DATA_DIR: &str = "data/i18n";
 
 /// An addon with interface translations, each with Locales/<locale>.lua: Polestar's own (loaded by
-/// Core/Core.xml) and the Recorder's (its TOC).
+/// Core/Core.xml), the Recorder's and Mob Markers' (their TOCs).
 pub struct Addon {
 	pub name: &'static str,
 	pub title: &'static str,
 }
 
-pub const ADDONS: [Addon; 2] = [Addon { name: "Polestar", title: "Polestar's interface strings" }, Addon { name: "Polestar_Recorder", title: "Polestar Recorder's interface strings" }];
+pub const ADDONS: [Addon; 3] = [Addon { name: "Polestar", title: "Polestar's interface strings" }, Addon { name: "Polestar_Recorder", title: "Polestar Recorder's interface strings" }, Addon { name: "Polestar_Mob_Markers", title: "Polestar: Mob Markers' interface strings" }];
 
 /// `n word` or `n words`.
 pub fn plural(n: usize, word: &str) -> String {

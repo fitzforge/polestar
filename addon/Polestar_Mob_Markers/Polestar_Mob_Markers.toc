@@ -11,4 +11,14 @@
 ## SavedVariables: PolestarMobMarkersDB
 ## SavedVariablesPerCharacter: PolestarMobMarkersCharDB
 
+Init.lua
+Locales\deDE.lua
+Locales\esES.lua
+Locales\esMX.lua
+Locales\frFR.lua
+Locales\koKR.lua
+Locales\ptBR.lua
+Locales\ruRU.lua
+Locales\zhCN.lua
+Locales\zhTW.lua
 MobMarkers.lua
