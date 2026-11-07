@@ -21,7 +21,8 @@ why The Pyrewood Signet Ring, C's payment for a solo job inside Shadowfang Keep.
 # only the ring.
 # Sources: quests.json and objects.json (the Dead Drop, object 410369, starts
 # and ends both Horn quests; Forever's quest chain data agrees), npcs.json
-# for Veenix, items.json for the Venture Co. Work Order (Venture Co. Loggers);
+# for Veenix, items.json for the Venture Co. Work Order (Venture Co. Loggers;
+# picked from their pockets, not a drop: Erá's in-game check, #1130);
 # Forever's item data (item 210186) for the Breaching Charge, Goblin
 # Lockpicks' reward; the quest texts in Forever's quest data for Veenix's request and the solo rule; the Shadowfang
 # Keep entrance from data/forever/dungeons.json (Silverpine Forest
@@ -46,10 +47,10 @@ step C's dead drop
 
 step Veenix
   zone Stonetalon Mountains
-  tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon, a short way north-east of Sun Rock Retreat. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them.
+  tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon, a short way north-east of Sun Rock Retreat. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and Pick Pocket it; killing them does not give it.
   talk 4086                                   -- Veenix
   accept 78270
-  collect 210187 x1                           -- Venture Co. Work Order: Venture Co. Logger
+  collect 210187 x1 "Pick Pocket a Venture Co. Logger for a Venture Co. Work Order"
   turnin 78270 reward 210186 "Breaching Charge"
 
 step Shadowfang Keep
