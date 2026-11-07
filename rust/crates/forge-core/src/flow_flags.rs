@@ -14,7 +14,10 @@
 //! - `coverage`: the pickup pass takes passed quests at half the route's XP rate (a quarter on a
 //!   cheap detour) and lets each add 5 minutes, so marginal quests on the route are done;
 //! - `grind`: every grind of the model's own of 10 minutes or more is written as a top-up step at
-//!   a camp, whatever it costs (no hidden grind inside a task).
+//!   a camp, whatever it costs (no hidden grind inside a task);
+//! - `zoneleft`: the search and the passes price each quest of a zone the route leaves for good
+//!   while the quest is open (or opens within 2 levels) at about the character's level and no later
+//!   visit takes it (forge_sim::guards::GuardCounts::zone_left).
 //!
 //! The planner flags are part of the routes stage's search key, `steps` of its stage key
 //! (forge/src/lib.rs), so a build with other flags never reuses another's finished searches.
@@ -23,9 +26,9 @@ use std::sync::atomic::{AtomicU16, Ordering};
 use std::sync::LazyLock;
 
 /// Every flag, in key order.
-pub const ALL: [&str; 6] = ["greedy", "revisit", "sweep", "steps", "coverage", "grind"];
+pub const ALL: [&str; 7] = ["greedy", "revisit", "sweep", "steps", "coverage", "grind", "zoneleft"];
 /// The flags that change the planner (the search key); the rest change only the writer.
-pub const PLANNER: [&str; 5] = ["greedy", "revisit", "sweep", "coverage", "grind"];
+pub const PLANNER: [&str; 6] = ["greedy", "revisit", "sweep", "coverage", "grind", "zoneleft"];
 
 fn parse(s: &str) -> u8 {
 	let mut bits = 0u8;
