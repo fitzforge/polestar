@@ -233,6 +233,40 @@
 			"issue": 1046
 		},
 		{
+			"id": "1046-mills-ribs-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 1
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Notched Ribs drop from the Rattlecage and Cracked Skull Soldiers at Agamand Mills, in the Mills step; a scratch build from the #1046 seed listed them along the way before it (#1046: no along lists).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1520 (Rattlecage Soldier) spawns 44-51, 34-44 and npc 1523 (Cracked Skull Soldier) 43-51, 28-35"
+				}
+			],
+			"issue": 1046
+		},
+		{
+			"id": "1046-mills-skulls-in-the-mills-step",
+			"at": {
+				"quest": 426,
+				"goal": "objective",
+				"objective": 2
+			},
+			"along": false,
+			"note": "The Mills Overrun: the Blackened Skulls drop from the Darkeye Bonecasters at Agamand Mills, in the Mills step, never an along list (#1046).",
+			"source": [
+				{
+					"kind": "questie",
+					"ref": "npc 1522 (Darkeye Bonecaster) spawns 42-51, 28-43"
+				}
+			],
+			"issue": 1046
+		},
+		{
 			"id": "tirisfal-graverobbers-not-on-the-way",
 			"at": {
 				"quest": 358,

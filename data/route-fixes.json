@@ -2859,6 +2859,31 @@
 				],
 				"b": [
 					"task",
+					99141,
+					0
+				],
+				"why": "#1046 (one direction): Linnea's camp south-east of Brill first, then Dillinger's report at Brill's west end on the way out to the west loop; a scratch build asked Dillinger first, walked to Linnea's camp and came back west through Brill"
+			},
+			{
+				"a": [
+					"turnin",
+					99134
+				],
+				"b": [
+					"task",
+					99141,
+					1
+				],
+				"why": "#1046: Linnea's camp (Kristof's report) once the first Brill stop is done, Discipline handed in, so the walk out south-east does not leave Zygand's quest open behind it"
+			},
+			{
+				"a": [
+					"task",
+					99141,
+					1
+				],
+				"b": [
+					"task",
 					404
 				],
 				"why": "#1046 (the benchmark guides' order): after the first Brill stop, Deathguard Linnea's camp down the road south-east for Kristof's report (Patience's second objective), Hides for the Forsaken and Rear Guard Patrol, then the west loop; Patience is handed in with all three reports when the west loop comes back to Brill"
@@ -5069,6 +5094,174 @@
 					398
 				],
 				"why": "#801 and #1046: WANTED: Maggot Eye needs level 6. With the pumpkins done on the road in, Fields of Grief (630 XP) is handed to Johaan at the start of the first Brill stop, then Vital Intelligence to Zygand beside the poster (the #801 pair): the three recorded runs that played this order were level 6 at Johaan and read the poster on that stop. This replaces the #801 follow-up pair (the poster on the second stop, after A Putrid Task), made when the first stop came at 5.94 in 2 of 6 runs with nothing before Vital Intelligence",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					86784
+				],
+				"b": [
+					"turnin",
+					365
+				],
+				"why": "#1046 (Fitz: order a hub along the walk): Brill is entered from the west, so Eleanor's camp at the south-west edge comes before the square; a scratch build from the #1046 seed did the square first, walked back out to Eleanor and came in again for Vital Intelligence",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					86784
+				],
+				"b": [
+					"turnin",
+					8
+				],
+				"why": "#1046: as the pair before it, the inn (Calvin's letter to Innkeeper Renee, the bind) after Eleanor's camp",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					99134
+				],
+				"why": "#1046 (Fitz: 'ran past Executor Zygand who has a quest to turn in'): at Zygand, Vital Intelligence is handed in before his new quests are taken, so it is never carried past him",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					426
+				],
+				"b": [
+					"accept",
+					96895
+				],
+				"why": "#1046: The Argent Emissary needs level 10; in the recordings players reach 10 at The Mills Overrun's hand-in (16 of 19), so Deathguard Terrence's quest is taken on the Brill stop after the Mills, not before (a scratch build took it before the Mills on the model's level)",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					99141
+				],
+				"why": "#1046: at Zygand, Vital Intelligence is handed in before Patience is taken (as Discipline), so it is never carried past him",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					383
+				],
+				"b": [
+					"accept",
+					358
+				],
+				"why": "#1046 (Fitz: 'why is Graverobbers the first quest out of Deathknell?'): Magistrate Sevren's Graverobbers in the town hall is taken after the square's hand-ins, at the far side of the first Brill stop; a scratch build from the #1046 seed still took it first",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"accept",
+					404
+				],
+				"b": [
+					"accept",
+					99141
+				],
+				"why": "#1046: Dillinger and Bartholomew at Brill's west end come before the square (a scratch build took Patience from Zygand on the way in, across the square, before Dillinger)",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					95314
+				],
+				"why": "#1046: That Shadowvale Green Elixir needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					375
+				],
+				"why": "#1046: The Chill of Death needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					362
+				],
+				"why": "#1046: The Haunted Mills needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					404
+				],
+				"b": [
+					"accept",
+					354
+				],
+				"why": "#1046: Deaths in the Family needs level 7; the recorded runs that played the #1046 order were level 6 at the end of the first Brill stop (the model has them at 7), so it is taken on the second stop, after A Putrid Task's hand-in (18 of 20 recorded runs were 7 there in the old order, which had done less by then) and the stop's other hand-ins",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					362
+				],
+				"b": [
+					"task",
+					370
+				],
+				"why": "#1046 (hand in at every ender you pass): back from Agamand Mills, The Haunted Mills is handed to Coleman Farthing on that Brill stop, before the Scarlet camp; a scratch build carried it (and Deaths in the Family) past the inn to the stop after the camp",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					354
+				],
+				"b": [
+					"task",
+					370
+				],
+				"why": "#1046: as the pair before it, Deaths in the Family (and Speak with Sevren, which it opens) before the Scarlet camp",
+				"source": "#1046"
+			},
+			{
+				"a": [
+					"turnin",
+					371
+				],
+				"b": [
+					"turnin",
+					96899
+				],
+				"why": "#1046: the walk from Linnea's camp west to Leonid passes through Brill, so A New Plague, At War With The Scarlet Crusade and Tomb Weed are handed in there on the way, not carried to Leonid and Shadowvale and back (a scratch build did that)",
 				"source": "#1046"
 			}
 		]
