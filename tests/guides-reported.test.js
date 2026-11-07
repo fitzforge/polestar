@@ -3102,6 +3102,26 @@ test(`${TELDRASSIL}: #619: the Gnarlpine Necklace is looted from Ferocitas befor
 	assert.ok(located(list[necklace]), 'the arrow leads to Ferocitas for the necklace');
 });
 
+// --- Flow audit (2026-11-07): Teldrassil killed Ferocitas' mystics, went on
+// to the Oracle Glade, Ursal and Lake Al'Ameth, then walked back east to the
+// same camp for Ferocitas' necklace and the jewel, and back to Dolanaar for
+// Tallonkai alone. The necklace and the jewel come with the mystics, Tallonkai
+// takes the jewel on the next Dolanaar stop with Ursal the Mauler. The guide's
+// last step told Night Elves to take the boat to Stormwind before their own
+// Darkshore guide: it goes, the boat is that guide's.
+test(`${TELDRASSIL}: flow audit: Ferocitas' camp once, Tallonkai's jewel on the next Dolanaar stop, no boat before Darkshore`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const mystics = at(list, 'kill 7235 (Gnarlpine Mystics)', (g) => g.t === 'kill' && g.quest === 2459);
+	const jewel = at(list, 'collect 8050 (Tallonkai\'s Jewel)', (g) => g.t === 'collect' && g.item === 8050);
+	assert.equal(list[jewel].s, list[mystics].s, 'the jewel on the mystics\' step');
+	const tallonkai = at(list, 'turnin 2459', is('turnin', 2459));
+	assert.equal(list[tallonkai].s, list[at(list, 'turnin 486', is('turnin', 486))].s, 'Tallonkai on the Dolanaar stop that hands in Ursal the Mauler');
+	assert.ok(tallonkai < at(list, 'collect 286017 (Dewy Lasher Frond)', (g) => g.t === 'collect' && g.item === 286017), 'before Lake Al\'Ameth');
+	const { steps } = compiled(TELDRASSIL);
+	assert.ok(!steps.some((st) => /boat/i.test(st.title || '')), 'no boat step in Teldrassil');
+	assert.ok(steps.at(-1).goals.length > 0, 'the last step has something to do');
+});
+
 test('#327: Pirate Hats Ahoy! names every pirate that drops the hat, not the Southsea Kidnapper alone, in both guides', { skip }, () => {
 	for (const guide of [TANARIS_ALLIANCE, 'forever/horde/40-50/02-feralas.guide']) {
 		const list = goals(guide);
@@ -3460,6 +3480,47 @@ test("Snowiee's report (#912): a class the training stop cannot train trains in 
 		const train = mine.findIndex(({ goal }, i) => i > into && goal.t === 'train' && goal.class);
 		assert.ok(train >= 0, `${guide}: the ${cls}s train after the way reaches the town`);
 		assert.ok(train < at(mine, `${guide}: the way out of town`, before), `${guide}: the ${cls}s train before the way leaves the town`);
+	}
+});
+
+// --- Flow audit (2026-11-07): the Night Elf start's own Darkshore took the
+// boat to Stormwind for Goldshire's training and A Fishy Peril, then sent every
+// Night Elf back across the sea for the last part of Bashal'Aran (957: the
+// Ancient Flame at Ameth'Aran, then Asterion) and took the boat out again. 957
+// is open from the first Bashal'Aran visit: the second loop passes Ameth'Aran
+// and ends at Asterion before Auberdine, so the sea is crossed once. The first
+// loop captured a Plagued Lands bear 700 yards north-east and walked a thousand
+// back south for it: the bears south of Auberdine are on the way to the
+// furbolg camp (players' recordings tick it at either place).
+const NE_DARKSHORE = 'forever/alliance/nightelf/02-darkshore.guide';
+const nightElf = ({ step, goal }) => [step.only, goal.only].every((o) => !o || !o.races || o.races.includes('NightElf'));
+// The bones for Washed Ashore are picked on the Long Wash south of Auberdine at
+// the end of Teldrassil, and the walk back north passes Gwennyth first: she
+// takes them then, not on the next guide's first stop after the Return to
+// Nessa flight.
+test(`${TELDRASSIL}: flow audit: Washed Ashore is handed to Gwennyth on the walk back from the Long Wash`, { skip }, () => {
+	const list = goals(TELDRASSIL);
+	const bones = at(list, 'the Sea Creature Bones', (g) => g.t === 'collect' && g.item === 12242);
+	const turnin = at(list, 'turnin 3524', is('turnin', 3524));
+	assert.ok(bones < turnin, 'the bones, then Gwennyth');
+	assert.ok(turnin < at(list, 'accept 954', is('accept', 954)), 'Gwennyth first on the way into Auberdine, before Thundris');
+	assert.ok(!goals(NE_DARKSHORE).some(({ goal }) => is('turnin', 3524)(goal)), 'not again in the Night Elf Darkshore');
+});
+test(`${NE_DARKSHORE}: flow audit: Bashal'Aran is finished before the boat, and the sea is crossed once`, { skip }, () => {
+	for (const cls of ['WARRIOR', 'HUNTER', 'ROGUE', 'PRIEST', 'DRUID', 'MAGE', 'PALADIN', 'WARLOCK', 'SHAMAN']) {
+		const list = goals(NE_DARKSHORE).filter(nightElf).filter(forClass(cls));
+		const boats = list.map((e, i) => (e.goal.t === 'goto' && /^Boat to /.test(e.goal.text || '') ? i : -1)).filter((i) => i >= 0);
+		assert.equal(boats.length, 1, `a ${cls} takes one boat`);
+		const flame = at(list, `the Ancient Flame for a ${cls}`, (g) => g.t === 'interact' && g.quest === 957);
+		const asterion = at(list, `turnin 957 for a ${cls}`, is('turnin', 957));
+		const terenthis = at(list, `turnin 985 for a ${cls}`, is('turnin', 985));
+		assert.ok(at(list, `accept 4728 for a ${cls}`, is('accept', 4728)) < flame, `a ${cls}: the southern beach, then Ameth'Aran's flame`);
+		assert.ok(flame < asterion && asterion < terenthis && terenthis < boats[0], `a ${cls}: the flame, Asterion and Auberdine before the boat`);
+		assert.ok(list.slice(boats[0] + 1).every(({ goal }) => goal.map == null || goal.map !== list[flame].goal.map), `a ${cls}: nothing in Darkshore after the boat`);
+		const bear = at(list, `the Plagued Lands bear for a ${cls}`, (g) => g.t === 'complete' && g.quest === 2118);
+		const camp = at(list, `the furbolg camp for a ${cls}`, (g) => g.t === 'complete' && g.quest === 984);
+		assert.equal(list[bear].step, list[camp].step, `a ${cls}: the bear is captured on the way to the furbolg camp`);
+		assert.ok(camp < at(list, `accept 953 for a ${cls}`, is('accept', 953)), `a ${cls}: before Ameth'Aran`);
 	}
 });
 

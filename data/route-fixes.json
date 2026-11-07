@@ -1984,6 +1984,42 @@
 					92482
 				],
 				"why": "Start-zone sweep (0.3.3): on the Horde Zephras Isle start the Warrior, Rogue and Hunter letters (The Warrior's Path 92532 to Blademaster Ren and At Home in the Shadows 92483 to Akeri Duskblade, in the watchtower; The Way of the Hunter 92482 to Tai'ree Farsight, beside Rorian) were handed in at level 2 with nothing to learn, and those classes trained later at the Thendal Village turn-ins. The seed hands Ren's and Akeri's letters in on that visit; with Rorian's Harmony hand-in (turnin 92469) first, all three go to their trainers on the visit where the class trains."
+			},
+			{
+				"a": [
+					"turnin",
+					957
+				],
+				"b": [
+					"turnin",
+					985
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Night Elf Darkshore): Bashal'Aran's last part (957, the Ancient Flame at Ameth'Aran, then Asterion) is open from the first Bashal'Aran visit. The route took the boat to Stormwind for Goldshire's training and A Fishy Peril, then sent every Night Elf back across the sea for it and out again (nightelf/02-darkshore steps 17-31 on 0.3.4). The seed's second loop passes the flame and ends at Asterion before Terenthis takes How Big a Threat? (985) back in Auberdine, so the sea is crossed once; the shared 03-darkshore keeps the same order."
+			},
+			{
+				"a": [
+					"task",
+					2118
+				],
+				"b": [
+					"accept",
+					953
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Night Elf Darkshore): the first loop went Ameth'Aran, the red crystal, a Plagued Lands bear 660 yd north of the crystal (east of Bashal'Aran), then a thousand yards back south-west to the bears beside Tharnariun, then 900 yd north again to Bashal'Aran (nightelf/02-darkshore step 9 on 0.3.4). Players' recordings tick the capture where the bear is (7 east of Bashal'Aran, 8 south of Auberdine): the bears south of Auberdine are on the way to the furbolg camp, before Ameth'Aran. The seed and the shared 03-darkshore capture it before Ameth'Aran too."
+			},
+			{
+				"a": [
+					"turnin",
+					2459
+				],
+				"b": [
+					"turnin",
+					486
+				],
+				"faction": "Alliance",
+				"why": "Flow audit (2026-11-07, Teldrassil): with the jewel looted at Ferocitas' camp, Tallonkai takes it on the first Dolanaar stop after the camp, with Athridas' Ursal the Mauler, not on a stop of its own after Lake Al'Ameth."
 			}
 		],
 		"notes": [
@@ -2870,6 +2906,19 @@
 					851
 				],
 				"why": "#1078: Verog the Dervish is taken at Kolkar Leaders' hand-in (Regthar offers it then); Verog is worked at the Stagnant Oasis in the 19-23 guide, so its accept needs no trip of its own to Regthar there"
+			},
+			{
+				"a": [
+					"task",
+					2459,
+					0
+				],
+				"b": [
+					"task",
+					2459,
+					1
+				],
+				"why": "Flow audit (2026-11-07, Teldrassil): Ferocitas camps with the Gnarlpine Mystics; the route killed the mystics, went on to the Oracle Glade, Ursal and Lake Al'Ameth, then walked 770 yd back east to the same camp for Ferocitas' necklace and Tallonkai's Jewel and 710 yd back to Dolanaar (nightelf/01-teldrassil step 50 on 0.3.4). The seed and the speedrun benchmark's order loot the necklace on the mystics' visit."
 			}
 		],
 		"after": [

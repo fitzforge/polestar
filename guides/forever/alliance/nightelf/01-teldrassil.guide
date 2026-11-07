@@ -283,6 +283,8 @@ step Ferocitas the Dream Eater
   tip Gnarlpine Mystics and Ferocitas camp north-east of Starbreeze Village. Ferocitas drops the Gnarlpine Necklace: open it for the jewel.
   tip Careful: Ferocitas waits near the camp fire with mystics around him, so pulling him without adds is hard.
   kill 7235 quest 2459.1
+  collect 8049                                -- Gnarlpine Necklace, from Ferocitas
+  collect 8050 quest 2459.2 @69.4,53.4
 
 step The Oracle Glade
   tip The moonwell is in the middle of the glade. The Strange Fronded Plant grows at its north end.
@@ -330,6 +332,7 @@ step Dolanaar
   accept 99050
   buy 3371 x1 npc 3614                        -- Empty Vial from Narret Shadowgrove, beside Byancie
   accept 5629 only Priest                     -- Laurna Morninglight: Priestess Alathea in Darnassus takes it
+  turnin 2459                                 -- Tallonkai Swiftroot, upstairs
   turnin 486                                  -- Athridas Bearmantle
   train class
   buy 159 x1 npc 6736                         -- Refreshing Spring Water from Innkeeper Keldamyr, for Byancie
@@ -346,15 +349,6 @@ step Lake Al'Ameth
   accept 2399                                 -- Sprouted Frond, beside him
   turnin 2399
   collect 286017 quest 99050.1                -- Dewy Lasher Frond
-
-step Dolanaar again
-  buy 3371 x1 npc 3614                        -- Empty Vial from Narret Shadowgrove, beside Byancie
-  buy 159 x1 npc 6736                         -- Refreshing Spring Water from Innkeeper Keldamyr, for Byancie
-
-step Dolanaar
-  collect 8049                                -- Gnarlpine Necklace, from Ferocitas
-  collect 8050 quest 2459.2 @69.4,53.4
-  turnin 2459                                 -- Tallonkai Swiftroot, back in Dolanaar; upstairs
 
 step Dolanaar again
   tip Byancie takes a Refreshing Spring Water with the fronds and the vial: if you drank yours, buy another from Innkeeper Keldamyr in this inn before you hand in.
@@ -474,7 +468,7 @@ step Auberdine
 step Return to Nessa
   only !Druid
   zone Teldrassil
-  tip Fly back to Rut'theran Village from Caylais Moonfeather, hand Laird's Response to Nessa on the dock, then fly back to Auberdine for the boat.
+  tip Fly back to Rut'theran Village from Caylais Moonfeather, hand Laird's Response to Nessa on the dock, then fly back to Auberdine.
   fly "Rut'theran Village"
   turnin 6343                                 -- Nessa Shadowsong
   fly "Auberdine"
@@ -488,6 +482,8 @@ step The Long Wash
 
 step Auberdine
   zone Darkshore
+  turnin 3524                                 -- Gwennyth Bly'Leggonde
+  accept 4681
   accept 954                                  -- Thundris Windweaver, north end of the village
   accept 958
   accept 984                                  -- Terenthis
@@ -526,12 +522,7 @@ step The Moonkin Stone
 step Body and Heart
   only Druid
   zone Darnassus
-  tip Fly to Rut'theran Village once more and take the portal up to Mathrengyl, then fly back to Auberdine for the boat.
+  tip Fly to Rut'theran Village once more and take the portal up to Mathrengyl, then fly back to Auberdine.
   fly "Rut'theran Village"
   turnin 6001                                 -- Mathrengyl Bearwalker: Bear Form
   fly "Auberdine"
-
-step Boat to Stormwind
-  zone Darkshore
-  tip Take the boat to Stormwind from Auberdine's docks.
-  note From Stormwind Harbor, head through the city gates into Elwynn Forest and follow the road west to Westfall.
