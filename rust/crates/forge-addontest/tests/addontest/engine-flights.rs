@@ -30,7 +30,7 @@ KNOWN = { [26] = true, [28] = true, [33] = true }
 EST = function() return nil end
 ESTIMATES = 0
 Polestar.Nav = {
-	GetTravelData = function() return { taxiById = NODES } end,
+	GetTaxiNode = function(id) return id and NODES[id] end,
 	GetKnownTaxiNodes = function() return KNOWN end,
 	EstimateTravel = function(from, to) ESTIMATES = ESTIMATES + 1; return EST(from, to) end,
 	HandedOff = function() return false end,

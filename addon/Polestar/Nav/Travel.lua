@@ -348,6 +348,12 @@ function Nav.GetTravelData()
 	return { taxi = taxiList, taxiById = taxi, flights = flights, transports = transports, inns = inns, portals = portals, build = Travel.build }
 end
 
+-- One taxi node of the loaded network by id (read-only), or nil; for callers
+-- on hot paths (the Engine's flight steps), with no table built.
+function Nav.GetTaxiNode(id)
+	return id and taxi[id] or nil
+end
+
 ---------------------------------------------------------------------------
 -- Planner (pure: everything it needs comes in `p`)
 --
