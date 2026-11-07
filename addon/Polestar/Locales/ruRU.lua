@@ -17,9 +17,8 @@ L["Unknown command '%s'."] = "Неизвестная команда «%s»."
 
 -- Core/Data.lua
 L["%s not installed"] = "%s не установлен"
-L["%s from another version"] = "%s из другой версии"
-L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s установлен не полностью: %s. Закройте игру, удалите все папки Polestar в Interface/AddOns и распакуйте туда свежий zip Polestar (CurseForge или GitHub Releases, не \"Source code\")."
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar больше не использует старые папки Polestar_Guides_<язык> и Polestar_Names_<язык> (%s): теперь их содержимое хранится в Polestar_<язык>. Закройте игру и удалите их из Interface/AddOns."
+L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "Установка смешанная или неполная (%s). Закройте игру, удалите все папки Polestar в Interface/AddOns и установите Polestar заново: через Polestar Client, приложение CurseForge или свежий zip с GitHub Releases (не \"Source code\")."
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Нужен Polestar %s или новее."
@@ -1699,6 +1698,7 @@ L["Have a GitHub account? Open the issue there with everything filled in."] = "�
 -- L["Settings: %s"] = ""
 -- L["Log:"] = ""
 L["Step %d of %d (guide step %d): %s"] = "Шаг %d из %d (шаг гайда %d): %s"
+L["Install: %s"] = "Установка: %s"
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "отключен в списке модификаций"
@@ -2970,3 +2970,5 @@ L["Finished: %s - %s"] = "Выполнено: %s - %s"
 -- L["Each Polestar member's level, step and what they still need of yours; click a name to point the arrow at them. /polestar party shows or hides it."] = "Уровень и шаг каждого участника с Polestar и что ему ещё нужно из вашего шага; щелчок по имени наводит на него стрелку. /polestar party показывает или скрывает панель."
 -- L["In dungeons"] = "В подземельях"
 -- L["What the window does in dungeons and raids. /polestar or the key binding opens it there until you leave."] = "Поведение окна в подземельях и рейдах. Команда /polestar или назначенная клавиша откроет его до выхода из подземелья."
+-- L["%s from another version"] = "%s из другой версии"
+-- L["Polestar %s is installed incompletely: %s. Close the game, delete every Polestar folder in Interface/AddOns and unzip the latest Polestar zip there (CurseForge or GitHub Releases, not \"Source code\")."] = "Polestar %s установлен не полностью: %s. Закройте игру, удалите все папки Polestar в Interface/AddOns и распакуйте туда свежий zip Polestar (CurseForge или GitHub Releases, не \"Source code\")."

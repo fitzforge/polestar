@@ -742,6 +742,8 @@ each file's header lists its full API.
 ```lua
 Polestar.Data.Pack(name) -> loaded, reason|nil   -- C_AddOns.LoadAddOn once per session; never in combat ("combat", retried later)
 Polestar.Data.Info(name) -> { loaded, reason, memoryKB }
+Polestar.Data.CheckInstall() -> missing, stale, retired   -- stale: "name version" of every Polestar_* folder (loaded or not, Polestar_Recorder aside) whose known version differs from Polestar's
+Polestar.Data.InstallLine() -> string|nil   -- a mixed install in one English line for the report ("mixed: Polestar 0.3.5, Polestar_Guides 0.3.4")
 
 Polestar.Hooks.ItemLines(owner, fn(tooltip, link, itemID))       -- GameTooltip, ItemRefTooltip
 Polestar.Hooks.UnitLines(owner, fn(tooltip, unit))               -- GameTooltip

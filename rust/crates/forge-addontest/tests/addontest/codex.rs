@@ -412,7 +412,7 @@ fn login_with(addons: &[(&str, Option<&str>)]) -> Value {
 		script: r#"
 local missing, stale = Polestar.Data.CheckInstall()
 local said = {}
-for _, m in ipairs(stub.messages) do if m:find("installed incompletely", 1, true) then said[#said + 1] = m end end
+for _, m in ipairs(stub.messages) do if m:find("Your install is mixed or incomplete", 1, true) then said[#said + 1] = m end end
 emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), said = said })"#
 			.into(),
 		..Default::default()
@@ -432,10 +432,10 @@ fn a_complete_install_of_one_version_says_nothing_at_login_the_optional_data_pac
 fn a_missing_codex_and_a_guides_folder_from_an_old_zip_are_named_once_in_chat_with_how_to_reinstall() {
 	let out = login_with(&[("Polestar", None), ("Polestar_Guides", Some("0.2.1")), ("Polestar_QuestDB", None)]);
 	assert_eq!(out["missing"], "Polestar_Codex");
-	assert_eq!(out["stale"], "Polestar_Guides (0.2.1)");
+	assert_eq!(out["stale"], "Polestar_Guides 0.2.1");
 	assert_eq!(out["said"].as_array().unwrap().len(), 1);
 	let said = out["said"][0].as_str().unwrap();
-	assert!(is_match(said, r"Polestar_Codex not installed; Polestar_Guides \(0\.2\.1\) from another version"));
+	assert!(is_match(said, r"\(Polestar 0\.1\.0-test, Polestar_Guides 0\.2\.1, Polestar_Codex not installed\)"));
 	assert!(is_match(said, r#"delete every Polestar folder.*not "Source code""#));
 }
 

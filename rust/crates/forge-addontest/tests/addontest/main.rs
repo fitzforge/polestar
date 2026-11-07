@@ -154,6 +154,7 @@ mod hide_with_guide;
 mod import;
 #[path = "import-safety.rs"]
 mod import_safety;
+mod install;
 mod levels;
 mod lookup;
 #[path = "lookup-codex.rs"]
