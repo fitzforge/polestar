@@ -50,7 +50,7 @@ step Fallow Sanctuary
   collect 6071 quest 1389             -- Draenethyst Crystal
 
 step The Lost Caravan
-  tip The wrecked caravan lies off the road near Biggs.
+  tip The wrecked caravan's chest lies at the north end of the Fallow Sanctuary, beside Galen Goodward's cage.
   tip Careful: The camp is full of Lost Ones around level 38. They stand in linked groups of 2-3, many are casters, and they respawn quickly.
   collect 6170 quest 1421             -- Wizards' Reagents
 
