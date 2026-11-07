@@ -4245,6 +4245,18 @@
 				],
 				"faction": "Alliance",
 				"why": "Flow review (2026-11-07, Alliance Winterspring, #1167): the second Kel'Theril relic fragment, the westernmost, is the last of the four on the first pass, on the way west to Donova Snowden."
+			},
+			{
+				"a": [
+					"task",
+					5154
+				],
+				"b": [
+					"task",
+					4971
+				],
+				"faction": "Alliance",
+				"why": "Flow review (2026-11-07, Alliance Western Plaguelands, #1167): A Matter of Time's Temporal Parasites (4971) are drawn out at Andorhal's grain silos (45.1,62.3) on the visit for the Annals of Darrowshire (5154), as the seed has it; Chromie takes both together. The written guide came back to Andorhal from Mulgris on a later loop."
 			}
 		],
 		"after": [
