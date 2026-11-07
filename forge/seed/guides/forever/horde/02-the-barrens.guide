@@ -337,3 +337,44 @@ step The Crossroads
   accept 3281                         -- Gazrog
   turnin 880                          -- Tonga Runetotem
   accept 3301                         -- Mura Runetotem: the Sepulcher in Silverpine Forest, next guide
+
+# ---------------------------------------------------------------- Druids: Thunder Bluff and Moonglade
+
+# Re-seeded for flow in 0.3.5: Druids fly to Thunder Bluff from the
+# Crossroads to train (and Tauren to Moonglade for Aquatic Form), then back,
+# before the walk north to Orgrimmar; forever/horde/03-silverpine-forest sent
+# them from the Sepulcher back to Orgrimmar by zeppelin and out again.
+step Thunder Bluff
+  only Druid
+  zone Thunder Bluff
+  tip Fly from the Crossroads to Thunder Bluff: Turak Runetotem trains you on Elder Rise.
+  fly "Thunder Bluff"
+  train class
+  accept 27 only Tauren               -- Turak Runetotem
+  accept 6126 only Tauren             -- Turak Runetotem: Lessons Anew
+
+step Moonglade
+  only Tauren,Druid
+  zone Moonglade
+  goto 56.3,32.5 "Cast Teleport: Moonglade"
+
+step Trial of the Lake
+  only Tauren,Druid
+  zone Moonglade
+  tip Cast Teleport: Moonglade; Dendrite Starblaze stands upstairs in his building in Nighthaven: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of Lake Elune'ara and fade within minutes: swim one straight to the Shrine of Remulos on the north-west shore, use it there and speak to Tajarri.
+  turnin 27 only Tauren -- Dendrite Starblaze
+  turnin 6126 only Tauren
+  accept 6127 only Tauren -- The Principal Source: Dreadmist Peak, next guide
+  accept 28 only Tauren
+  collect 15877 x1                    -- Shrine Bauble, from a Bauble Container in the lake
+  use 15877 @36.0,41.4                -- At the Shrine of Remulos
+  complete 28 only Tauren
+  turnin 28 only Tauren -- Tajarri, at the Shrine of Remulos
+  accept 30 only Tauren
+  fly "Thunder Bluff"                 -- Bunthen Plainswind in Nighthaven flies druids there
+
+step Back to the Crossroads
+  only Druid
+  zone The Barrens
+  tip Fly back to the Crossroads: the next guide walks north to Orgrimmar from there.
+  fly "Crossroads"

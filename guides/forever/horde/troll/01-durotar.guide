@@ -301,11 +301,40 @@ step The Barrens
   zone The Barrens
   goto 56.0,19.9 "The Barrens"
 
+# Turn in a carried alternative here before starting the shared ritual;
+# do not add a trip to a different trainer for an uncarried breadcrumb.
+
+step
+  only Shaman
+  when onquest 1522
+  zone The Barrens
+  turnin 1522
+
+step
+  only Shaman
+  when onquest 1523
+  zone The Barrens
+  turnin 1523
+
+step
+  only Shaman
+  when onquest 2984
+  zone The Barrens
+  turnin 2984
+
 step Kranal Fiss
   only Shaman
   zone The Barrens
   tip West over the Southfury River bridge, past Far Watch Post and on along the ridge: Kranal Fiss stands alone above the Razormane camp.
   turnin 2983
+  accept 1524
+
+step Telf Joolam
+  only Shaman
+  zone Durotar
+  tip Back over the bridge and south along the Durotar bank of the river to where a narrow trail climbs the mountain: Telf keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail.
+  turnin 1524
+  accept 1525
 
 step Razormane Grounds
   zone Durotar
@@ -330,6 +359,7 @@ step Drygulch Ravine
   kill 3118 quest 835.2
   collect 277661 "Dull Storm Orb" optional
   accept 97281 optional
+  collect 6652 quest 1525.2 only Shaman
 
 step Deathskip to Northern Durotar
   zone Durotar
@@ -552,6 +582,7 @@ step The Barrens
   goto 62.3,19.4 "The Barrens"
 
 step Far Watch Post
+  only !Warrior
   zone The Barrens
   tip Follow the road west from Razor Hill over the Southfury River bridge; Far Watch Post sits just above it on the Barrens side.
   turnin 840                          -- Kargal Battlescar

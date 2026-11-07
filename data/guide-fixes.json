@@ -3209,6 +3209,147 @@
 				}
 			],
 			"tip": "North to Stonewatch Keep. Blackrock Shadowcasters (elite) stand with Sentries on its west side: pull one at a time. Then Tharil'zun (elite) in the south-west courtyard with his guards, and Gath'Ilzogg (elite) in the keep's top room with two guards and a dragon: hug the right wall as you enter so you don't pull him at once. Elite: group up if you can."
+		},
+		{
+			"id": "1175-barrens-silithid-eggs-on-the-road-to-gann",
+			"at": {
+				"quest": 868,
+				"goal": "objective",
+				"objective": 1
+			},
+			"faction": "Horde",
+			"tip": "South of Camp Taurajo, on the road to Gann, the Silithid Mounds dot the Field of Giants; the eggs lie in them, and Silithid Swarmers come out to defend them. Silithid Harvesters are rare: if you see one, kill it for its head.",
+			"note": "Egg Hunt: the eggs (45.4,72.4) lie on the road from Camp Taurajo to Gann Stonespire (45.9,77.0), where the route now takes them on the way south (final route review).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "gameobject: the 14 Silithid Mound spawns (3685) at 42.6-48.5,69.4-72.4 on map 1413; Gann Stonespire (npc 3341) at 45.9,77.0"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-barrens-gann-and-sulhasa",
+			"at": {
+				"quest": 843,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"tip": "Gann waits in a small camp further south, on the road toward Bael Modan; Sulhasa sits up in the tree just east of him.",
+			"note": "Gann's Reclamation: Sulhasa (Field to Clear) sits 130 yd east of Gann, and both are taken on the first visit (final route review).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Gann Stonespire (npc 3341) at 45.9,77.0, Sulhasa at 47.8,77.6 on map 1413"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-barrens-field-to-clear-on-the-plain",
+			"at": {
+				"quest": 98093,
+				"goal": "objective",
+				"objective": 1
+			},
+			"faction": "Horde",
+			"tip": "On the way back east to Gann: Hecklefang Stalkers and Stormhide lizards roam the plain between the ridge and his camp.",
+			"note": "Field to Clear: its Hecklefang Stalkers (44,76.5) and Stormhide (44.2,76.5) are on the plain between Blackthorn Ridge and Gann, worked on the walk back from the ridge (final route review).",
+			"source": [
+				{
+					"kind": "tdb",
+					"ref": "creature: the spawns of 4128 and 3238 between Blackthorn Ridge and Gann's camp"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-stonetalon-malakajin-from-seereth",
+			"at": {
+				"quest": 1058,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"tip": "Follow the road on west from Seereth into Stonetalon. The troll village of Malaka'jin sits at the entrance of the canyon.",
+			"note": "Jin'Zil's Forest Magic: the route reaches Malaka'jin from Seereth Stonebreak (Barrens 35.3,27.9) at the canyon's mouth; the seed's tip sent players south to the Crossroads first (final route review).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Seereth Stonebreak (npc 4049) at Barrens 35.3,27.9; Witch Doctor Jin'Zil at Stonetalon 74.5,97.9"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-hillsbrad-sylvanas-in-the-royal-quarter",
+			"at": {
+				"quest": 93739,
+				"goal": "objective",
+				"objective": 4
+			},
+			"faction": "Horde",
+			"tip": "The Undercity lies under the Ruins of Lordaeron; Lady Sylvanas Windrunner holds court in the Royal Quarter.",
+			"note": "Exploring the Horde: Skyborne meet Sylvanas on the Undercity stop after Hillsbrad; the tip told them to fly from the Crossroads, the way an earlier guide reached the Undercity (final route review).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Lady Sylvanas Windrunner (npc 10181) in the Royal Quarter, map 1458"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-ashenvale-earthen-ring-by-air-or-road",
+			"at": {
+				"quest": 96260,
+				"goal": "accept"
+			},
+			"faction": "Horde",
+			"tip": "The Earthen Ring camp stands north of the bluffs: Mazu'kon, Yorn Grimtotem and Muln Earthfury. From Thunder Bluff, take a lift down; coming on foot from Camp Taurajo, keep north past the bluffs.",
+			"note": "Stronger than Steel: Tauren and Skyborne fly from Zoram'gar to Thunder Bluff, the others walk in from Camp Taurajo; the tip spoke only of the lift (final route review).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Mazu'kon at Mulgore 32.5,20.6, Thunder Bluff's flight master Tal (npc 2995)"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-needles-rokalim-back-west",
+			"at": {
+				"quest": 1151,
+				"goal": "objective",
+				"objective": 1
+			},
+			"faction": "Horde",
+			"tip": "Rok'Alim, a hard-hitting rock elemental, walks the cliffs of Highperch, back west past Whitereach Post. Rok'Alim the Pounder is elite: grouping up is advised.",
+			"note": "Test of Strength is offered once Test of Endurance is in, on the last Dorn visit before the Shimmering Flats; Rok'Alim walks Highperch, back west (final route review).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings to 2026-11-07 (offer audit): Dorn Plainstalker's only offer of 1151 came on 1150's hand-in"
+				}
+			],
+			"pr": 1175
+		},
+		{
+			"id": "1175-tirisfal-cult-farm-past-linneas-camp",
+			"at": {
+				"quest": 96898,
+				"goal": "objective",
+				"objective": 1
+			},
+			"faction": "Horde",
+			"tip": "Follow the road south-east past Deathguard Linnea's camp: the Cult of the Damned holds the farm just south-east of it. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.",
+			"note": "Necrotic Crystals: the east loop leaves from Brill past Linnea's camp, where Hadric stands; the tip names the camp the farm lies beside (final route review).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "Deathguard Linnea's camp at Tirisfal 65.2,60.3; the cult farm's fragments at 68.2,64.6"
+				}
+			],
+			"pr": 1175
 		}
 	]
 }
