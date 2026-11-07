@@ -341,6 +341,8 @@ pub fn run_paths(pin: &PathInputs, opts: &RunOpts, cache: &SharedCache) -> Resul
 	for rel in &written {
 		let mut one = [ro.tree[rel].clone()];
 		crate::post::riding_at_level(&mut one, &data);
+		// (One `only` list on a goal the passes, the shared route's adopt among them, gave two.)
+		crate::post::one_only(&mut one);
 		let [text] = one;
 		ro.tree.insert(rel.clone(), text);
 	}

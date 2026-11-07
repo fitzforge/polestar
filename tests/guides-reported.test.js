@@ -4363,6 +4363,19 @@ test("Fitz's report (#1149): a goto before a kill or collect in a written guide 
 	assert.deepEqual(bad, []);
 });
 
+// #1149 (Corin's Crossing): the step's goto pointed at Nathanos's camp (26.5,74.7), far west of the town where
+// Living Rot drops. The town's point lives in the seed now, so every Forge build writes it.
+test("Fitz's report (#1149): Eastern Plaguelands' Corin's Crossing step leads to the town, in the guide and its seed", () => {
+	const rel = 'forever/horde/50-60/05-eastern-plaguelands.guide';
+	for (const file of [path.join(OFFICIAL_DIR, rel), path.join(__dirname, '..', 'forge', 'seed', 'guides', rel)]) {
+		const text = fs.readFileSync(file, 'utf8');
+		const step = text.split(/\n(?=step )/).find((s) => s.startsWith("step Corin's Crossing\n"));
+		assert.ok(step, `${file}: a Corin's Crossing step`);
+		assert.match(step, /\n\s+goto 52\.3,58\.2 "Corin's Crossing" live\n/, `${file}: the goto is the town`);
+		assert.doesNotMatch(step, /goto 26\.5,74\.7/, `${file}: not Nathanos's camp`);
+	}
+});
+
 // A Paladin's report on Discord (2026-11-07): the level 12 Redemption chain came up again and again though it was
 // done. Duthorian Rall's The Tome of Divinity (1641; Tiza Battleforge's 1645) is a repeatable quest he takes back
 // straight from the quest window: players' recordings have its hand-in and no accept, and the client never flags it

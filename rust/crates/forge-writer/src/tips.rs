@@ -254,6 +254,38 @@ fn goal_where(inp: &Inputs, floors: &dyn Floors, g: &G) -> Option<Where> {
 	(n as f64 >= SHARE * spawns.len() as f64).then_some(w)
 }
 
+/// A goto this far or more from the nearest spawn or spot of the field goal right after it, with nothing
+/// to do at it, leads nowhere useful (R11).
+pub const STRAY_GOTO_YD: f64 = 200.0;
+
+/// R11 (#1149): a v1 `goto` the writer kept with its step leads to the field goal right after it in the
+/// same step; when that goal's nearest spawn or spot is STRAY_GOTO_YD or more from it, the goto points the
+/// arrow at an empty spot (the Barrens' "Zhevra" goto 432-480 yd from the nearest Zhevra Runner; the
+/// Razormane camp goto left before the prowler claws, 664 yd off): it goes. A goto the compiler gave an
+/// area (a cave's or subzone's way in), or one with no field goal after it, stays.
+pub(crate) fn stray_gotos(ch: &Chain, texts: &[Vec<String>], edits: &mut [Edits], rep: &mut Report) {
+	for (k, g) in ch.seq.iter().enumerate() {
+		if g.verb != "goto" || g.area {
+			continue;
+		}
+		let Some(w) = g.w else { continue };
+		let li = (g.line as usize).wrapping_sub(1);
+		if texts[g.gi].get(li).is_none() || edits[g.gi].removed.contains(&li) {
+			continue;
+		}
+		let Some(next) = ch.seq.get(k + 1).filter(|n| n.gi == g.gi && n.si == g.si) else { continue };
+		if !matches!(next.verb.as_str(), "kill" | "collect") || next.spots.is_empty() {
+			continue;
+		}
+		let d = |p: forge_judge::honest::Wpt| if p.c == w.c { js_hypot(p.wx - w.wx, p.wy - w.wy) } else { f64::INFINITY };
+		let nearest = next.spawns.iter().map(|&p| d(p)).chain(next.spots.iter().map(|s| (d(s.w) - s.r).max(0.0))).fold(f64::INFINITY, f64::min);
+		if nearest >= STRAY_GOTO_YD {
+			edits[g.gi].removed.insert(li);
+			rep.add("R11 stray goto", 1);
+		}
+	}
+}
+
 /// R9: where-notes and walk notes on the chain's goal lines, on a step's first goal at each NPC or object.
 pub(crate) fn place_notes(ch: &Chain, texts: &[Vec<String>], edits: &mut [Edits], inp: &Inputs, rep: &mut Report) {
 	let data = inp.data;
