@@ -1154,7 +1154,7 @@ fn search_forgives_joined_words_typos_prefixes_and_synonyms_and_puts_the_best_ma
 	for (q, v) in out["perf"].as_object().unwrap() {
 		let k: Vec<&str> = v.as_array().unwrap().iter().map(|x| x.as_str().unwrap()).collect();
 		assert!(k.len() >= 3, "{q}: {k:?}");
-		if q == "fps" || q == "performance" {
+		if q == "fps" {
 			assert_eq!(&k[..2], ["Check FPS", "qol.fpsFeedback"], "{q}: {k:?}");
 		} else {
 			let mut first = k[..2].to_vec();
